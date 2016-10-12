@@ -148,9 +148,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\core\engine.h" />
+    <ClInclude Include="..\collection\linkedlist.hpp" />
+    <ClInclude Include="..\core\engine.hpp" />
     <ClInclude Include="..\core\targetver.h" />
     <ClInclude Include="..\core\stdafx.h" />
+    <ClInclude Include="..\memory\allocation.hpp" />
+    <ClInclude Include="..\memory\reference.hpp" />
+    <ClInclude Include="..\parallel\parallel.hpp" />
+    <ClInclude Include="..\resource\resource.hpp" />
+    <ClInclude Include="..\resource\resource_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\core\engine.cpp" />

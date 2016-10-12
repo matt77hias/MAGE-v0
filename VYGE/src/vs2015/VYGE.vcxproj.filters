@@ -19,16 +19,52 @@
     <Filter Include="Source Files\core">
       <UniqueIdentifier>{d6c229ab-ecab-4540-9656-b550419eb073}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\collection">
+      <UniqueIdentifier>{d1fab1bf-b32f-437a-8215-f9f7e824a61e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\collection">
+      <UniqueIdentifier>{f3307e97-6d70-48a6-9237-8f80373be84e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resource">
+      <UniqueIdentifier>{427e1973-185c-4785-9390-9367c18ac5e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resource">
+      <UniqueIdentifier>{6798cc47-76f5-4ea3-8b92-9759765f740c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\memory">
+      <UniqueIdentifier>{8bec4ee9-f2b2-4274-9df3-55889f19e576}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\parallel">
+      <UniqueIdentifier>{c3f6e447-8f3d-4c2e-bc4b-aab080a50a2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\core\engine.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\core\targetver.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
     <ClInclude Include="..\core\stdafx.h">
       <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\engine.hpp">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\collection\linkedlist.hpp">
+      <Filter>Header Files\collection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\resource\resource.hpp">
+      <Filter>Header Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\resource\resource_manager.hpp">
+      <Filter>Header Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\memory\reference.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\parallel\parallel.hpp">
+      <Filter>Header Files\parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\memory\allocation.hpp">
+      <Filter>Header Files\memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

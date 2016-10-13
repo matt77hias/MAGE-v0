@@ -43,8 +43,8 @@ extern GeneralConfiguration general_configuration;
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "collection/collection.hpp"
 #include "math/math.hpp"
+#include "collection/collection.hpp"
 #include "parallel/parallel.hpp"
 #include "log/log.hpp"
 #include "memory/memory.hpp"

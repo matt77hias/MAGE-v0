@@ -1,6 +1,8 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Includes
+// System Includes
 //-----------------------------------------------------------------------------
-#include "atomic.hpp"
+#include <algorithm>
+using std::min;
+using std::max;

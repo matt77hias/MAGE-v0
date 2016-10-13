@@ -148,12 +148,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\collection\collection.hpp" />
     <ClInclude Include="..\collection\linkedlist.hpp" />
     <ClInclude Include="..\core\engine.hpp" />
     <ClInclude Include="..\core\targetver.h" />
     <ClInclude Include="..\core\stdafx.h" />
+    <ClInclude Include="..\math\math.hpp" />
     <ClInclude Include="..\memory\allocation.hpp" />
+    <ClInclude Include="..\memory\arena.hpp" />
+    <ClInclude Include="..\memory\memory.hpp" />
     <ClInclude Include="..\memory\reference.hpp" />
+    <ClInclude Include="..\parallel\atomic.hpp" />
     <ClInclude Include="..\parallel\parallel.hpp" />
     <ClInclude Include="..\resource\resource.hpp" />
     <ClInclude Include="..\resource\resource_manager.hpp" />

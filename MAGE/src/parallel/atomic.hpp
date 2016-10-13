@@ -11,14 +11,14 @@
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
-#ifndef HAS_64_BIT_ATOMICS
-#if (POINTER_SIZE == 8)
-#define HAS_64_BIT_ATOMICS
+#ifndef MAGE_HAS_64_BIT_ATOMICS
+#if (MAGE_POINTER_SIZE == 8)
+#define MAGE_HAS_64_BIT_ATOMICS
 #endif
 #endif
 
 typedef volatile LONG AtomicInt32;
-#ifdef HAS_64_BIT_ATOMICS
+#ifdef MAGE_HAS_64_BIT_ATOMICS
 typedef volatile LONGLONG AtomicInt64;
 #endif
 
@@ -26,7 +26,7 @@ typedef volatile LONGLONG AtomicInt64;
 // 32 Bit Integers
 //-------------------------------------------------------------------------
 inline int32_t AtomicAdd(AtomicInt32 *v, int32_t delta) {
-#if (POINTER_SIZE == 8)
+#if (MAGE_POINTER_SIZE == 8)
 	return InterlockedAdd(v, delta);
 #else
 	int32_t result;
@@ -54,7 +54,7 @@ inline T *AtomicCompareAndSwapPointer(T **v, T *new_value, T *old_value) {
 //-------------------------------------------------------------------------
 // 64 Bit Integers
 //-------------------------------------------------------------------------
-#ifdef HAS_64_BIT_ATOMICS
+#ifdef MAGE_HAS_64_BIT_ATOMICS
 inline int64_t AtomicAdd(AtomicInt64 *v, int64_t delta) {
 	return InterlockedAdd64(v, delta);
 }

@@ -1,6 +1,12 @@
 #pragma once
 
+inline int NumberOfSystemCores() {
+	SYSTEM_INFO sysinfo;
+	GetSystemInfo(&sysinfo);
+	return sysinfo.dwNumberOfProcessors;
+}
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "atomic.hpp"
+#include "parallel/atomic.hpp"

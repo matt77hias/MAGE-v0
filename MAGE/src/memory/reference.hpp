@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../parallel/atomic.hpp"
+#include "parallel/atomic.hpp"
 
 //-------------------------------------------------------------------------
 // ReferenceCounted

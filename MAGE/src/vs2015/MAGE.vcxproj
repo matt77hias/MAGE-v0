@@ -21,8 +21,9 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>VYGE</RootNamespace>
+    <RootNamespace>MAGE</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>MAGE</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -76,6 +77,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\tmp\$(ProjectName)\</IntDir>
+    <IncludePath>../;../core/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -84,6 +86,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\tmp\$(ProjectName)\</IntDir>
+    <IncludePath>../;../core/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -153,6 +156,9 @@
     <ClInclude Include="..\core\engine.hpp" />
     <ClInclude Include="..\core\targetver.h" />
     <ClInclude Include="..\core\stdafx.h" />
+    <ClInclude Include="..\log\debug.hpp" />
+    <ClInclude Include="..\log\error.hpp" />
+    <ClInclude Include="..\log\log.hpp" />
     <ClInclude Include="..\math\math.hpp" />
     <ClInclude Include="..\memory\allocation.hpp" />
     <ClInclude Include="..\memory\arena.hpp" />
@@ -160,6 +166,7 @@
     <ClInclude Include="..\memory\reference.hpp" />
     <ClInclude Include="..\parallel\atomic.hpp" />
     <ClInclude Include="..\parallel\parallel.hpp" />
+    <ClInclude Include="..\parallel\task.hpp" />
     <ClInclude Include="..\resource\resource.hpp" />
     <ClInclude Include="..\resource\resource_manager.hpp" />
   </ItemGroup>
@@ -171,6 +178,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\log\error.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

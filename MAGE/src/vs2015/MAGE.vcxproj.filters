@@ -49,6 +49,12 @@
     <Filter Include="Source Files\parallel">
       <UniqueIdentifier>{23b667d5-379d-444b-8454-b21d92f99a67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\log">
+      <UniqueIdentifier>{c7374162-a25a-4c28-8475-0b93646cf99c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\log">
+      <UniqueIdentifier>{dbb452e9-4d9e-4ce3-9101-98b8782a0759}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\core\targetver.h">
@@ -93,6 +99,18 @@
     <ClInclude Include="..\math\math.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
+    <ClInclude Include="..\parallel\task.hpp">
+      <Filter>Header Files\parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\log\debug.hpp">
+      <Filter>Header Files\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\log\error.hpp">
+      <Filter>Header Files\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\log\log.hpp">
+      <Filter>Header Files\log</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\core\engine.cpp">
@@ -100,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="..\core\stdafx.cpp">
       <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\log\error.cpp">
+      <Filter>Source Files\log</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

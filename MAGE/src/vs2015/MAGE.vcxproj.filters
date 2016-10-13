@@ -111,6 +111,15 @@
     <ClInclude Include="..\log\log.hpp">
       <Filter>Header Files\log</Filter>
     </ClInclude>
+    <ClInclude Include="..\log\progressreporter.hpp">
+      <Filter>Header Files\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\log\timer.hpp">
+      <Filter>Header Files\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\parallel\lock.hpp">
+      <Filter>Header Files\parallel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\core\engine.cpp">
@@ -121,6 +130,18 @@
     </ClCompile>
     <ClCompile Include="..\log\error.cpp">
       <Filter>Source Files\log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\log\progressreporter.cpp">
+      <Filter>Source Files\log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\log\timer.cpp">
+      <Filter>Source Files\log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\parallel\lock.cpp">
+      <Filter>Source Files\parallel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\parallel\task.cpp">
+      <Filter>Source Files\parallel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

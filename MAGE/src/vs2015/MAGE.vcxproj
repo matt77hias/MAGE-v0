@@ -159,12 +159,15 @@
     <ClInclude Include="..\log\debug.hpp" />
     <ClInclude Include="..\log\error.hpp" />
     <ClInclude Include="..\log\log.hpp" />
+    <ClInclude Include="..\log\progressreporter.hpp" />
+    <ClInclude Include="..\log\timer.hpp" />
     <ClInclude Include="..\math\math.hpp" />
     <ClInclude Include="..\memory\allocation.hpp" />
     <ClInclude Include="..\memory\arena.hpp" />
     <ClInclude Include="..\memory\memory.hpp" />
     <ClInclude Include="..\memory\reference.hpp" />
     <ClInclude Include="..\parallel\atomic.hpp" />
+    <ClInclude Include="..\parallel\lock.hpp" />
     <ClInclude Include="..\parallel\parallel.hpp" />
     <ClInclude Include="..\parallel\task.hpp" />
     <ClInclude Include="..\resource\resource.hpp" />
@@ -179,6 +182,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\log\error.cpp" />
+    <ClCompile Include="..\log\progressreporter.cpp" />
+    <ClCompile Include="..\log\timer.cpp" />
+    <ClCompile Include="..\parallel\lock.cpp" />
+    <ClCompile Include="..\parallel\task.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

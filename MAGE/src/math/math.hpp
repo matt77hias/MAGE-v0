@@ -6,3 +6,10 @@
 #include <algorithm>
 using std::min;
 using std::max;
+
+//-----------------------------------------------------------------------------
+// Declarations and Definitions
+//-----------------------------------------------------------------------------
+inline int Round2Int(float val) {
+	return int(val + 0.5f);
+}

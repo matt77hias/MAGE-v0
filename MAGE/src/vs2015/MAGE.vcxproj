@@ -186,6 +186,7 @@
     <ClCompile Include="..\log\timer.cpp" />
     <ClCompile Include="..\parallel\lock.cpp" />
     <ClCompile Include="..\parallel\task.cpp" />
+    <ClCompile Include="..\resource\resource_manager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

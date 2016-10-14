@@ -143,5 +143,8 @@
     <ClCompile Include="..\parallel\task.cpp">
       <Filter>Source Files\parallel</Filter>
     </ClCompile>
+    <ClCompile Include="..\resource\resource_manager.cpp">
+      <Filter>Source Files\resource</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

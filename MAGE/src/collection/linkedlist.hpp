@@ -14,6 +14,7 @@ public:
 	struct LinkedListElement {
 
 	public:
+
 		LinkedListElement(T *data) : data(data), next(NULL), prev(NULL) {}
 
 		virtual ~LinkedListElement() {
@@ -41,8 +42,38 @@ public:
 	};
 	//-------------------------------------------------------------------------
 
-	LinkedList() : m_first(NULL), m_last(NULL),
-		m_iterate(NULL), m_size(0) {}
+	//-------------------------------------------------------------------------
+	// Linked list iterator
+	//-------------------------------------------------------------------------
+	struct LinkedListIterator {
+
+	public:
+
+		LinkedListIterator(const LinkedList< T > &list) : m_next(list.GetFirst()) {}
+		virtual ~LinkedListIterator() {}
+
+		// Returns if there is a next element in this linked list.
+		bool HasNext() const {
+			return (m_next != NULL);
+		}
+		// Returns the data of the next element in this linked list.
+		T *Next() {
+			if (!HasNext()) {
+				return NULL;
+			}
+			T *result = m_next->data;
+			m_next = m_next->next;
+			return result;
+		}
+		
+	private:
+
+		// Pointer to the next element in the linked list
+		LinkedListElement *m_next;
+	};
+	//-------------------------------------------------------------------------
+
+	LinkedList() : m_first(NULL), m_last(NULL), m_size(0) {}
 
 	virtual ~LinkedList() {
 		Empty< false >();
@@ -154,7 +185,7 @@ public:
 			}
 			delete temp;
 		}
-		m_first = m_last = m_iterate = NULL;
+		m_first = m_last = NULL;
 		m_size = 0;
 	}
 
@@ -218,15 +249,9 @@ public:
 			return GetAt(index);
 		}
 	}
-	// Returns the data of the current element in this linked list.
-	T *GetCurrent() const {
-		return (m_iterate) ? m_iterate->data : NULL;
-	}
-	// Iterates through the elements in this linked list
-	// and returns the data of the current element in this linked list.
-	T *Iterate(bool restart = false) const {
-		m_iterate = (restart || m_iterate == NULL) ? m_first : m_iterate->next
-			return (m_iterate) ? m_iterate->data : NULL;
+	// Returns an iterator for this linked list
+	LinkedListIterator GetIterator() const {
+		return LinkedListIterator< T >(*this);
 	}
 
 	// Returns the (complete) element in this linked list
@@ -252,9 +277,6 @@ private:
 	LinkedListElement *m_first;
 	// Pointer to last element in this linked list
 	LinkedListElement *m_last;
-	// Pointer used for iterating this linked list
-	mutable LinkedListElement *m_iterate;
-
 	// Total number of elements in this linked list
 	uint64_t m_size;
 };

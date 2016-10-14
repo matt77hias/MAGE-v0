@@ -96,9 +96,6 @@
     <ClInclude Include="..\collection\collection.hpp">
       <Filter>Header Files\collection</Filter>
     </ClInclude>
-    <ClInclude Include="..\math\math.hpp">
-      <Filter>Header Files\math</Filter>
-    </ClInclude>
     <ClInclude Include="..\parallel\task.hpp">
       <Filter>Header Files\parallel</Filter>
     </ClInclude>
@@ -119,6 +116,12 @@
     </ClInclude>
     <ClInclude Include="..\parallel\lock.hpp">
       <Filter>Header Files\parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\math\geometry.hpp">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\math\math.hpp">
+      <Filter>Header Files\math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

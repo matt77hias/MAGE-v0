@@ -76,7 +76,7 @@ void ReadWriteMutex::AcquireRead() {
 		}
 	}
 
-	Assert(HIWORD(activeWriterReaders) == 0);
+	Assert(HIWORD(m_active_writer_readers) == 0);
 	LeaveCriticalSection(&m_critical_section);
 
 	if (notify_readers) {
@@ -144,10 +144,10 @@ void ReadWriteMutex::ReleaseWrite() {
 	EnterCriticalSection(&m_critical_section);
 
 	// Assert that the lock is owned by a writer.
-	Assert(HIWORD(activeWriterReaders) == 1);
+	Assert(HIWORD(m_active_writer_readers) == 1);
 
 	// Assert that the lock isn't owned by one or more readers
-	Assert(LOWORD(activeWriterReaders) == 0);
+	Assert(LOWORD(m_active_writer_readers) == 0);
 
 	if (m_nb_writers_waiting != 0) {
 		// Writers waiting, decrement the number of

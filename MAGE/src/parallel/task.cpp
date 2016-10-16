@@ -106,17 +106,3 @@ void WaitForAllTasks() {
 	}
 	tasks_running_condition->Unlock();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

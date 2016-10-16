@@ -8,6 +8,7 @@
 //-----------------------------------------------------------------------------
 // Declarations and Definitions
 //-----------------------------------------------------------------------------
+
 void *AllocAligned(size_t size) {
 	return _aligned_malloc(size, MAGE_L1_CACHE_LINE_SIZE);
 }

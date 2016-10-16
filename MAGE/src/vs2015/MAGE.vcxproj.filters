@@ -55,6 +55,9 @@
     <Filter Include="Source Files\log">
       <UniqueIdentifier>{dbb452e9-4d9e-4ce3-9101-98b8782a0759}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ui">
+      <UniqueIdentifier>{2a0b5ae7-b166-489a-833f-d777c57e9f13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\core\targetver.h">

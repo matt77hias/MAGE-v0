@@ -11,6 +11,9 @@
 
 #include <string>
 using std::string;
+using std::wstring;
+
+#include <windows.h>
 
 //-----------------------------------------------------------------------------
 // Defines
@@ -38,6 +41,7 @@ struct GeneralConfiguration {
 
 	bool m_quiet, m_verbose;
 };
+
 extern GeneralConfiguration general_configuration;
 
 //-----------------------------------------------------------------------------
@@ -49,3 +53,52 @@ extern GeneralConfiguration general_configuration;
 #include "log/log.hpp"
 #include "memory/memory.hpp"
 #include "resource/resource.hpp"
+
+//-----------------------------------------------------------------------------
+// EngineSetup
+//-----------------------------------------------------------------------------
+struct EngineSetup {
+	
+public:
+
+	EngineSetup(const wstring &name = L"Application") : m_instance(NULL), m_name(name) {}
+	EngineSetup(const EngineSetup &setup) : m_instance(setup.m_instance), m_name(setup.m_name) {}
+
+	// Application instance handle
+	HINSTANCE m_instance;
+	// Name of the application
+	wstring m_name;
+};
+
+//-----------------------------------------------------------------------------
+// Engine
+//-----------------------------------------------------------------------------
+class Engine {
+
+public:
+
+	Engine(const EngineSetup *setup = NULL);
+	virtual ~Engine();
+	
+	void Run();
+
+	HWND GetWindow() const {
+		return m_window;
+	}
+	void SetDeactiveFlag(bool deactive) {
+		m_deactive = deactive;
+	}
+
+private:
+
+	// Indicates if the engine is loaded
+	bool m_loaded;
+	// Main window handle
+	HWND m_window;
+	// Indicates if the application is active or not
+	bool m_deactive;
+	// Copy of the engine setup structure
+	EngineSetup m_setup;
+};
+
+extern Engine *g_engine;

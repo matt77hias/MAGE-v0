@@ -1,15 +1,13 @@
 //-----------------------------------------------------------------------------
-// Includes
+// Precompiled Header Include
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
 namespace mage {
 
-	//-----------------------------------------------------------------------------
-	// ResourceManager
-	//-----------------------------------------------------------------------------
-
-	// Adds a new resource to this resource manager.
 	template < typename T >
 	T *ResourceManager< T >::Add(const string &name, const string &path) {
 		T *resource;
@@ -17,7 +15,7 @@ namespace mage {
 		// If the element already exists, then return a pointer to it.
 		resource = GetResource(name, path);
 		if (resource) {
-			resource->IncrementResourceCount();
+			resource->IncrementResourceReferenceCount();
 			return resource;
 		}
 
@@ -34,17 +32,17 @@ namespace mage {
 		return m_resources->Add(resource);
 	}
 
-	// Removes the given resource from this resource manager.
+	
 	template < typename T >
 	void ResourceManager< T >::Remove(T **resource) {
 		Assert(*resource);
 
 		// If the resource is no long being used then destroy it.
-		if (*resource->DecrementReferenceCount() == 0)
+		if (*resource->DecrementResourceReferenceCount() == 0) {
 			m_resources->Remove(resource);
+		}
 	}
 
-	// Returns a resource of this resource manager by its filename (given name and path).
 	template < typename T >
 	T *ResourceManager< T >::GetResource(const string &name, const string &path) const {
 		// Iterate the resources looking for the specified resource.

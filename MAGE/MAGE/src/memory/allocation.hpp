@@ -3,16 +3,19 @@
 //-----------------------------------------------------------------------------
 // System Includes
 //-----------------------------------------------------------------------------
+#pragma region
+
 #include <malloc.h>
 
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
 namespace mage {
 
-	//-----------------------------------------------------------------------------
-	// Declarations and Definitions
-	//-----------------------------------------------------------------------------
-
 	/**
-	 Allocates memory on an alignment boundary of 64 bytes.
+	 Allocates memory on an alignment boundary of 64 bytes of the given size.
 	 
 	 @param[in]		size	The requested size in bytes to allocate in memory.
 	 @return				@c NULL if the allocation failed.

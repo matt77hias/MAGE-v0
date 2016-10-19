@@ -18,6 +18,45 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MAGE\src\collection\collection.hpp" />
+    <ClInclude Include="MAGE\src\collection\linkedlist.hpp" />
+    <ClInclude Include="MAGE\src\core\engine.hpp" />
+    <ClInclude Include="MAGE\src\core\stdafx.h" />
+    <ClInclude Include="MAGE\src\core\targetver.h" />
+    <ClInclude Include="MAGE\src\log\debug.hpp" />
+    <ClInclude Include="MAGE\src\log\error.hpp" />
+    <ClInclude Include="MAGE\src\log\log.hpp" />
+    <ClInclude Include="MAGE\src\log\progressreporter.hpp" />
+    <ClInclude Include="MAGE\src\log\timer.hpp" />
+    <ClInclude Include="MAGE\src\math\geometry.hpp" />
+    <ClInclude Include="MAGE\src\math\math.hpp" />
+    <ClInclude Include="MAGE\src\memory\allocation.hpp" />
+    <ClInclude Include="MAGE\src\memory\arena.hpp" />
+    <ClInclude Include="MAGE\src\memory\memory.hpp" />
+    <ClInclude Include="MAGE\src\memory\reference.hpp" />
+    <ClInclude Include="MAGE\src\parallel\atomic.hpp" />
+    <ClInclude Include="MAGE\src\parallel\lock.hpp" />
+    <ClInclude Include="MAGE\src\parallel\parallel.hpp" />
+    <ClInclude Include="MAGE\src\parallel\task.hpp" />
+    <ClInclude Include="MAGE\src\resource\resource.hpp" />
+    <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MAGE\src\core\engine.cpp" />
+    <ClCompile Include="MAGE\src\core\stdafx.cpp">
+		<PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+		<PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+		<PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+		<PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+	</ClCompile>
+    <ClCompile Include="MAGE\src\log\error.cpp" />
+    <ClCompile Include="MAGE\src\log\progressreporter.cpp" />
+    <ClCompile Include="MAGE\src\log\timer.cpp" />
+    <ClCompile Include="MAGE\src\parallel\lock.cpp" />
+    <ClCompile Include="MAGE\src\parallel\task.cpp" />
+    <ClCompile Include="MAGE\src\resource\resource_manager.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -72,26 +111,30 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>../;../core/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\core\;$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;</LibraryPath>
+    <OutDir>$(ProjectName)\bin\x86\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectName)\tmp\x86\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\..\tmp\$(ProjectName)\</IntDir>
-    <IncludePath>../;../core/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(ProjectName)\bin\x64\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectName)\tmp\x64\$(Configuration)\</IntDir>
+    <IncludePath>$(ProjectName)\src\;$(ProjectName)\src\core\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>../;../core/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\core\;$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;</LibraryPath>
+    <OutDir>$(ProjectName)\bin\x86\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectName)\tmp\x86\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\..\tmp\$(ProjectName)\</IntDir>
-    <IncludePath>../;../core/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(ProjectName)\bin\x64\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectName)\tmp\x64\$(Configuration)\</IntDir>
+    <IncludePath>$(ProjectName)\src\;$(ProjectName)\src\core\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -101,14 +144,17 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
-      <XMLDocumentationFileName>../../doc/</XMLDocumentationFileName>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Xdcmake>
+      <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
+    </Xdcmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -117,14 +163,17 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
-      <XMLDocumentationFileName>../../doc/</XMLDocumentationFileName>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Xdcmake>
+      <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
+    </Xdcmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -135,8 +184,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
-      <XMLDocumentationFileName>../../doc/</XMLDocumentationFileName>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -145,6 +194,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Xdcmake>
+      <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
+    </Xdcmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -157,8 +209,8 @@
       <SDLCheck>true</SDLCheck>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
-      <XMLDocumentationFileName>../../doc/</XMLDocumentationFileName>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -167,46 +219,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Xdcmake>
+      <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
+    </Xdcmake>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="..\collection\collection.hpp" />
-    <ClInclude Include="..\collection\linkedlist.hpp" />
-    <ClInclude Include="..\core\engine.hpp" />
-    <ClInclude Include="..\core\targetver.h" />
-    <ClInclude Include="..\core\stdafx.h" />
-    <ClInclude Include="..\log\debug.hpp" />
-    <ClInclude Include="..\log\error.hpp" />
-    <ClInclude Include="..\log\log.hpp" />
-    <ClInclude Include="..\log\progressreporter.hpp" />
-    <ClInclude Include="..\log\timer.hpp" />
-    <ClInclude Include="..\math\geometry.hpp" />
-    <ClInclude Include="..\math\math.hpp" />
-    <ClInclude Include="..\memory\allocation.hpp" />
-    <ClInclude Include="..\memory\arena.hpp" />
-    <ClInclude Include="..\memory\memory.hpp" />
-    <ClInclude Include="..\memory\reference.hpp" />
-    <ClInclude Include="..\parallel\atomic.hpp" />
-    <ClInclude Include="..\parallel\lock.hpp" />
-    <ClInclude Include="..\parallel\parallel.hpp" />
-    <ClInclude Include="..\parallel\task.hpp" />
-    <ClInclude Include="..\resource\resource.hpp" />
-    <ClInclude Include="..\resource\resource_manager.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\core\engine.cpp" />
-    <ClCompile Include="..\core\stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\log\error.cpp" />
-    <ClCompile Include="..\log\progressreporter.cpp" />
-    <ClCompile Include="..\log\timer.cpp" />
-    <ClCompile Include="..\parallel\lock.cpp" />
-    <ClCompile Include="..\parallel\task.cpp" />
-    <ClCompile Include="..\resource\resource_manager.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

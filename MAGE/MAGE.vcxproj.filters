@@ -55,101 +55,98 @@
     <Filter Include="Source Files\log">
       <UniqueIdentifier>{dbb452e9-4d9e-4ce3-9101-98b8782a0759}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ui">
-      <UniqueIdentifier>{2a0b5ae7-b166-489a-833f-d777c57e9f13}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\core\targetver.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\core\stdafx.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\core\engine.hpp">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\collection\linkedlist.hpp">
+    <ClInclude Include="MAGE\src\collection\collection.hpp">
       <Filter>Header Files\collection</Filter>
     </ClInclude>
-    <ClInclude Include="..\resource\resource.hpp">
-      <Filter>Header Files\resource</Filter>
-    </ClInclude>
-    <ClInclude Include="..\resource\resource_manager.hpp">
-      <Filter>Header Files\resource</Filter>
-    </ClInclude>
-    <ClInclude Include="..\memory\reference.hpp">
-      <Filter>Header Files\memory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\memory\allocation.hpp">
-      <Filter>Header Files\memory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\memory\arena.hpp">
-      <Filter>Header Files\memory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\parallel\atomic.hpp">
-      <Filter>Header Files\parallel</Filter>
-    </ClInclude>
-    <ClInclude Include="..\memory\memory.hpp">
-      <Filter>Header Files\memory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\parallel\parallel.hpp">
-      <Filter>Header Files\parallel</Filter>
-    </ClInclude>
-    <ClInclude Include="..\collection\collection.hpp">
+    <ClInclude Include="MAGE\src\collection\linkedlist.hpp">
       <Filter>Header Files\collection</Filter>
     </ClInclude>
-    <ClInclude Include="..\parallel\task.hpp">
-      <Filter>Header Files\parallel</Filter>
+    <ClInclude Include="MAGE\src\core\stdafx.h">
+      <Filter>Header Files\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\log\debug.hpp">
+    <ClInclude Include="MAGE\src\core\targetver.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\core\engine.hpp">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\log\debug.hpp">
       <Filter>Header Files\log</Filter>
     </ClInclude>
-    <ClInclude Include="..\log\error.hpp">
+    <ClInclude Include="MAGE\src\log\error.hpp">
       <Filter>Header Files\log</Filter>
     </ClInclude>
-    <ClInclude Include="..\log\log.hpp">
+    <ClInclude Include="MAGE\src\log\log.hpp">
       <Filter>Header Files\log</Filter>
     </ClInclude>
-    <ClInclude Include="..\log\progressreporter.hpp">
+    <ClInclude Include="MAGE\src\log\progressreporter.hpp">
       <Filter>Header Files\log</Filter>
     </ClInclude>
-    <ClInclude Include="..\log\timer.hpp">
+    <ClInclude Include="MAGE\src\log\timer.hpp">
       <Filter>Header Files\log</Filter>
     </ClInclude>
-    <ClInclude Include="..\parallel\lock.hpp">
-      <Filter>Header Files\parallel</Filter>
-    </ClInclude>
-    <ClInclude Include="..\math\geometry.hpp">
+    <ClInclude Include="MAGE\src\math\geometry.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
-    <ClInclude Include="..\math\math.hpp">
+    <ClInclude Include="MAGE\src\math\math.hpp">
       <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\memory\allocation.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\memory\arena.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\memory\memory.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\memory\reference.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\parallel\task.hpp">
+      <Filter>Header Files\parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\parallel\atomic.hpp">
+      <Filter>Header Files\parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\parallel\lock.hpp">
+      <Filter>Header Files\parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\parallel\parallel.hpp">
+      <Filter>Header Files\parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\resource\resource.hpp">
+      <Filter>Header Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\resource\resource_manager.hpp">
+      <Filter>Header Files\resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\core\engine.cpp">
+    <ClCompile Include="MAGE\src\core\engine.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\core\stdafx.cpp">
+    <ClCompile Include="MAGE\src\core\stdafx.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\log\error.cpp">
+    <ClCompile Include="MAGE\src\log\error.cpp">
       <Filter>Source Files\log</Filter>
     </ClCompile>
-    <ClCompile Include="..\log\progressreporter.cpp">
+    <ClCompile Include="MAGE\src\log\progressreporter.cpp">
       <Filter>Source Files\log</Filter>
     </ClCompile>
-    <ClCompile Include="..\log\timer.cpp">
+    <ClCompile Include="MAGE\src\log\timer.cpp">
       <Filter>Source Files\log</Filter>
     </ClCompile>
-    <ClCompile Include="..\parallel\lock.cpp">
+    <ClCompile Include="MAGE\src\parallel\lock.cpp">
       <Filter>Source Files\parallel</Filter>
     </ClCompile>
-    <ClCompile Include="..\parallel\task.cpp">
+    <ClCompile Include="MAGE\src\parallel\task.cpp">
       <Filter>Source Files\parallel</Filter>
     </ClCompile>
-    <ClCompile Include="..\resource\resource_manager.cpp">
+    <ClCompile Include="MAGE\src\resource\resource_manager.cpp">
       <Filter>Source Files\resource</Filter>
     </ClCompile>
   </ItemGroup>

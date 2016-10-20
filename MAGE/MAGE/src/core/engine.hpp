@@ -13,6 +13,9 @@
 #include <string>
 using std::string;
 using std::wstring;
+#include <iostream>
+using std::cin;
+using std::cout;
 
 #include <windows.h>
 

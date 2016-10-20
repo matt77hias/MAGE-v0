@@ -65,6 +65,42 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Engine
 	//-------------------------------------------------------------------------
+	
+	/**
+	 Allocates a console to the engine for basic io and 
+	 redirects stdin, stdout and stderr to the allocated console.
+
+	 @return		@c true if a console is successfully attached.
+					@c false otherwise.
+	 */
+	static bool AttachConsole() {
+		// Allocate a console for basic io
+		if (!AllocConsole()) {
+			return false;
+		}
+		
+		FILE *stream_in, *stream_out, *stream_err;
+		// Redirect stdin, stdout and stderr to the allocated console
+		// Reuse stdin to open the file "CONIN$"
+		freopen_s(&stream_in, "CONIN$", "r", stdin);
+		// Reuse stdout to open the file "CONOUT$"
+		freopen_s(&stream_out, "CONOUT$", "w", stdout);
+		// Reuse stderr to open the file "CONIN$
+		freopen_s(&stream_err, "CONOUT$", "w", stderr);
+
+		return true;
+	}
+
+	/**
+	 Prints the header of the engine to the console.
+	 */
+	static void PrintConsoleHeader() {
+		printf("MAGE version %s of %s at %s [Detected %d core(s)]\n",
+			MAGE_VERSION_STRING, __DATE__, __TIME__, NumberOfSystemCores());
+		printf("Copyright (c) 2016 Matthias Moulin.\n");
+		fflush(stdout);
+	}
+	
 	Engine::Engine(const EngineSetup *setup) {
 		// Indicate that the engine is not yet loaded.
 		m_loaded = false;
@@ -124,6 +160,10 @@ namespace mage {
 		// Creates the window and retrieve a handle to it.
 		// Note: Later the window will be created using a windowed/fullscreen flag.
 		m_window = CreateWindow(L"WindowClass", m_setup.m_name.c_str(), WS_OVERLAPPED, 0, 0, 800, 600, NULL, NULL, m_setup.m_instance, NULL);
+
+		// Attach a console
+		AttachConsole();
+		PrintConsoleHeader();
 
 		// Seed the random number generator with the current time.
 		srand(timeGetTime());
@@ -197,8 +237,6 @@ namespace mage {
 				Controls how the window is to be shown.
  */
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int) {
-	
-	//std::cout << "version: " << MAGE_VERSION_STRING << std::endl;
 	
 	// Create the engine setup structure.
 	mage::EngineSetup setup;

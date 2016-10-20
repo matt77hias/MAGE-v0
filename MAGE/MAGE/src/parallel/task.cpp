@@ -52,7 +52,10 @@ namespace mage {
 					the @c lpParameter parameter of CreateThread.
 	 @return		A value indicating success or failure.
 	 */
-	static DWORD WINAPI task_entry(LPVOID) {
+	static DWORD WINAPI task_entry(LPVOID lpParameter) {
+		// Supresses C4100: unreferenced formal parameter
+		(void)lpParameter;
+
 		while (true) {
 			// Wait if no workers needed anymore.
 			worker_semaphore->Wait();

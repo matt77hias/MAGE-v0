@@ -123,6 +123,9 @@
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp">
       <Filter>Header Files\resource</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\core\version.hpp">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

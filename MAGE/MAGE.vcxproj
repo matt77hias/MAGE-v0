@@ -24,6 +24,7 @@
     <ClInclude Include="MAGE\src\core\engine.hpp" />
     <ClInclude Include="MAGE\src\core\stdafx.h" />
     <ClInclude Include="MAGE\src\core\targetver.h" />
+    <ClInclude Include="MAGE\src\core\version.hpp" />
     <ClInclude Include="MAGE\src\log\debug.hpp" />
     <ClInclude Include="MAGE\src\log\error.hpp" />
     <ClInclude Include="MAGE\src\log\log.hpp" />

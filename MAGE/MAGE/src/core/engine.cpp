@@ -17,16 +17,44 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// WindowProc for handling Windows messages.
 	//-------------------------------------------------------------------------
-	LRESULT CALLBACK WindowProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam) {
+	
+	/**
+	 The application-defined function that processes messages sent to the engine window. 
+	 The WindowProc type defines a pointer to this callback function.
+
+	 @param[in]		hwnd		A handle to the window.
+	 @param[in]		msg			The message.
+	 @param[in]		wparam		Additional message information.
+								The contents of this parameter depend on the value of @a msg.
+	 @param[in]		lparam		Additional message information.
+								The contents of this parameter depend on the value of @a msg.
+	 @return					The return value is the result of the message processing 
+								and depends on the message sent.
+	 */
+	LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
 		switch (msg) {
 		case WM_ACTIVATEAPP:
+			// Sent when a window belonging to a different application 
+			// than the active window is about to be activated. 
+			// The message is sent to the application whose window is being activated 
+			// and to the application whose window is being deactivated.
+
 			g_engine->SetDeactiveFlag(!wparam);
 			return 0;
 		case WM_DESTROY:
+			// Sent when a window is being destroyed. 
+			// It is sent to the window procedure of the window 
+			// being destroyed after the window is removed from the screen.
+
+			// Indicate to the system that the window thread requests
+			// to terminate (quit) with exit code 0.
 			PostQuitMessage(0);
 			return 0;
 		default:
-			return DefWindowProc(wnd, msg, wparam, lparam);
+			// Calls the default window procedure to provide default processing 
+			// for any window messages that an application does not process.
+			// This function ensures that every message is processed.
+			return DefWindowProc(hwnd, msg, wparam, lparam);
 		}
 	}
 
@@ -137,8 +165,7 @@ namespace mage {
 				}
 				else if (!m_deactive) {
 					const double elapsed = timer.Time();
-					timer.Reset();
-					timer.Start();
+					timer.Restart();
 				}
 			}
 		}
@@ -151,10 +178,20 @@ namespace mage {
 //-----------------------------------------------------------------------------
 // Entry point for the application.
 //-----------------------------------------------------------------------------
-int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev, LPSTR cmdLine, int cmdShow) {
+
+/**
+ The user-provided entry point for MAGE.
+
+ @param[in]		hinstance			A handle to the current instance of the application.
+ @param[in]		hPrevInstance		A handle to the previous instance of the application.
+									This parameter is always NULL.
+ @param[in]		lpCmdLine			The command line for the application, excluding the program name.
+ @param[in]		nCmdShow			Controls how the window is to be shown.
+ */
+int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int) {
 	// Create the engine setup structure.
 	mage::EngineSetup setup;
-	setup.m_instance = instance;
+	setup.m_instance = hinstance;
 	setup.m_name = L"Framework Test";
 
 	// Create the engine, then run it.

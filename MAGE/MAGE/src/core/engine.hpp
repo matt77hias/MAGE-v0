@@ -51,8 +51,8 @@ namespace mage {
 		/**
 		 Checks whether the logging of the engine processing is quiet.
 
-		 @return				@c true if the logging of the engine processing is quiet.
-								@c false otherwise.
+		 @return		@c true if the logging of the engine processing is quiet.
+						@c false otherwise.
 		 */
 		bool IsQuiet() const {
 			return m_quiet;
@@ -61,8 +61,8 @@ namespace mage {
 		/**
 		 Checks wheter the logging of the engine processing is verbose.
 
-		 @return				@c true if the logging of the engine processing is verbose.
-								@c false otherwise.
+		 @return		@c true if the logging of the engine processing is verbose.
+						@c false otherwise.
 		 */
 		bool IsVerbose() const {
 			return m_verbose;
@@ -119,14 +119,16 @@ namespace mage {
 		/**
 		 Constructs an engine setup with the given application name.
 
-		 @param[in]		name	A reference to the name of the application.
+		 @param[in]		name
+						A reference to the name of the application.
 		 */
 		EngineSetup(const wstring &name = L"Application") : m_instance(NULL), m_name(name) {}
 		
 		/**
 		 Constructs an engine setup from the given engine setup.
 
-		 @param[in]		setup	A reference to the engine setup.
+		 @param[in]		setup
+						A reference to the engine setup.
 		*/
 		EngineSetup(const EngineSetup &setup) : m_instance(setup.m_instance), m_name(setup.m_name) {}
 
@@ -150,7 +152,8 @@ namespace mage {
 		/**
 		 Constructs an engine from the given engine setup.
 
-		 @param[in]		setup	A pointer to an engine setup.
+		 @param[in]		setup
+						A pointer to an engine setup.
 		 */
 		Engine(const EngineSetup *setup = NULL);
 
@@ -174,7 +177,8 @@ namespace mage {
 		/**
 		 Sets the deactive flag of this engine to the given value.
 
-		 @param[in]		deactive	The new value for the deactive flag.	
+		 @param[in]		deactive
+						The new value for the deactive flag.	
 		 */
 		void SetDeactiveFlag(bool deactive) {
 			m_deactive = deactive;

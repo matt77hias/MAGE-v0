@@ -8,7 +8,7 @@ namespace mage {
 	/**
 	 Returns the number of system cores (i.e. logical processors).
 
-	 @return				The number of system cores (i.e. logical processors).
+	 @return		The number of system cores (i.e. logical processors).
 	 */
 	inline int NumberOfSystemCores() {
 		// Structure containing information about the current computer system. 

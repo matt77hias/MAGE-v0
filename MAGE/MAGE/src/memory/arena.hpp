@@ -15,7 +15,8 @@ namespace mage {
 		/**
 		 Constructs a memory arena with given block size.
 
-		 @param[in]		block_size		The block size in bytes.
+		 @param[in]		block_size
+						The block size in bytes.
 		 */
 		MemoryArena(uint32_t block_size = 32768) : m_block_size(block_size), m_current_block_pos(0) {
 			m_current_block = AllocAligned<char>(m_block_size);
@@ -51,9 +52,10 @@ namespace mage {
 		/**
 		 Allocates a block of memory of the given size.
 
-		 @param[in]		size	The requested size in bytes to allocate in memory.
-		 @return				@c NULL if the allocation failed.
-		 @return				A pointer to the memory block that was allocated.
+		 @param[in]		size
+						The requested size in bytes to allocate in memory.
+		 @return		@c NULL if the allocation failed.
+		 @return		A pointer to the memory block that was allocated.
 		 */
 		void *Alloc(uint32_t size) {
 			// Round up size to minimum machine alignment
@@ -86,11 +88,13 @@ namespace mage {
 		/**
 		 Allocates a block of memory.
 
-		 @tparam		T		The type of objects to allocate in memory.
-		 @param[in]		count	The number of objects of type @c T to allocate in memory.
-		 @return				@c NULL if the allocation failed.
-		 @return				A pointer to the memory block that was allocated.
-		 @note					The objects will be constructed with their default empty constructor.
+		 @tparam		T
+						The type of objects to allocate in memory.
+		 @param[in]		count
+						The number of objects of type @c T to allocate in memory.
+		 @return		@c NULL if the allocation failed.
+		 @return		A pointer to the memory block that was allocated.
+		 @note			The objects will be constructed with their default empty constructor.
 		 */
 		template<typename T>
 		T *Alloc(uint32_t count = 1) {

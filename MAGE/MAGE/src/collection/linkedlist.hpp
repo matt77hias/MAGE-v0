@@ -8,7 +8,8 @@ namespace mage {
 	/**
 	 A class of (doubly) linked lists.
 
-	 @tparam	T		The type of data stored in the linked list.
+	 @tparam	T
+				The type of data stored in the linked list.
 	 */
 	template< typename T >
 	class LinkedList {
@@ -25,7 +26,8 @@ namespace mage {
 			/**
 			 Constructs a linked list element associated with the given data.
 
-			 @param[in]		data	The data to associate with.
+			 @param[in]		data
+							The data to associate with.
 			*/
 			LinkedListElement(T *data) : data(data), next(NULL), prev(NULL) {}
 
@@ -74,7 +76,8 @@ namespace mage {
 			/**
 			 Constructs a linked list iterator for the given linked list.
 
-			 @param[in]		list	A reference to a linked list.
+			 @param[in]		list
+							A reference to a linked list.
 			 */
 			LinkedListIterator(const LinkedList< T > &list) : m_next(list.GetFirst()) {}
 			
@@ -87,8 +90,9 @@ namespace mage {
 			 Checks whether there is a next element in the linked list 
 			 of this linked list iterator.
 
-			 @return				@c true if there is a next element in the linked list 
-									of this linked list iterator. @false otherwise.
+			 @return		@c true if there is a next element in the linked list 
+							of this linked list iterator. 
+							@c false otherwise.
 			 */
 			bool HasNext() const {
 				return (m_next != NULL);
@@ -97,8 +101,8 @@ namespace mage {
 			 Returns a pointer to the data of the next element in the linked list
 			 of this linked list iterator.
 
-			 @return				A pointer to the data of the next element in the linked list
-									of this linked list iterator.
+			 @return		A pointer to the data of the next element in the linked list
+							of this linked list iterator.
 			 */
 			T *Next() {
 				if (!HasNext()) {
@@ -119,16 +123,14 @@ namespace mage {
 
 		/**
 		 Constructs an empty linked list.
-
-		 @param[in]		data	A pointer to the data.
 		 */
 		LinkedList() : m_first(NULL), m_last(NULL), m_size(0) {}
 
 		/**
 		 Destructs this linked list.
 
-		 @note					The data associated with the elements in this
-								linked list will be destructed as well.
+		 @note			The data associated with the elements in this
+						linked list will be destructed as well.
 		 */
 		virtual ~LinkedList() {
 			Empty< false >();
@@ -137,8 +139,9 @@ namespace mage {
 		/**
 		 Adds the given data to the end of this linked list.
 
-		 @param[in]		data	A pointer to the data.
-		 @return				A pointer to the data.
+		 @param[in]		data
+						A pointer to the data.
+		 @return		A pointer to the data.
 		 */
 		T *Add(T *data) {
 			if (data == NULL) {
@@ -164,10 +167,11 @@ namespace mage {
 		 Inserts the given data into this linked list just before 
 		 the given element in this linked list.
 
-		 @param[in]		data	A pointer to the data.
+		 @param[in]		data
+						A pointer to the data.
 		 @param[in]		next_element		
-								A pointer to the next element in this linked list.
-		 @return				A pointer to the data.
+						A pointer to the next element in this linked list.
+		 @return		A pointer to the data.
 		 */
 		T *InsertBefore(T *data, LinkedListElement *next_element) {
 			LinkedListElement *temp = next_element->prev;
@@ -193,10 +197,11 @@ namespace mage {
 		 Inserts the given data into this linked list just after
 		 the given element in this linked list.
 
-		 @param[in]		data	A pointer to the data.
+		 @param[in]		data
+						A pointer to the data.
 		 @param[in]		prev_element
-								A pointer to the previous element in this linked list.
-		 @return				A pointer to the data.
+						A pointer to the previous element in this linked list.
+		 @return		A pointer to the data.
 		 */
 		T *InsertAfter(T *data, LinkedListElement *prev_element) {
 			LinkedListElement *temp = prev_element->next;
@@ -221,9 +226,9 @@ namespace mage {
 		/**
 		 Removes the given data from this linked list.
 
-		 @param[in, out]	data	
-								A pointer to a pointer to the data
-								which will point to @c NULL after removal. 
+		 @param[in, out]	data
+						A pointer to a pointer to the data
+						which will point to @c NULL after removal. 
 		*/
 		template < typename bool no_data_destruction >
 		void Remove(T **data) {
@@ -261,11 +266,11 @@ namespace mage {
 		/**
 		 Destroys all the elements in this linked list.
 
-		 @tparam	no_data_destruction		
-								if @c true the data associated with the
-								elements in this linkedlist will not be destructed.
-								if @c false the data associated with the
-								elements in this linkedlist will be destructed.
+		 @tparam		no_data_destruction
+						if @c true the data associated with the
+						elements in this linkedlist will not be destructed.
+						if @c false the data associated with the
+						elements in this linkedlist will be destructed.
 		 */
 		template < typename bool no_data_destruction >
 		void Empty() {
@@ -285,9 +290,9 @@ namespace mage {
 		/**
 		 Returns a pointer to the data of the first element in this linked list.
 
-		 @return				@c NULL if this linked list contains no elements.
-		 @return				A pointer to the data of the first element in this
-								linked list.
+		 @return		@c NULL if this linked list contains no elements.
+		 @return		A pointer to the data of the first element in this
+						linked list.
 		 */
 		T *GetFirst() const {
 			return (m_first) ? m_first->data : NULL;
@@ -296,9 +301,9 @@ namespace mage {
 		/**
 		 Returns a pointer to the data of the last element in this linked list.
 
-		 @return				@c NULL if this linked list contains no elements.
-		 @return				A pointer to the data of the last element in this
-								linked list.
+		 @return		@c NULL if this linked list contains no elements.
+		 @return		A pointer to the data of the last element in this
+						linked list.
 		 */
 		T *GetLast() const {
 			return (m_last) ? m_last->data : NULL;
@@ -308,11 +313,12 @@ namespace mage {
 		 Returns a pointer to the data of the previous element in this linked list
 		 from the element corresponding to the given data.
 
-		 @param[in]		data	A pointer to the data.
-		 @return				@c NULL if @data is associated with the last element
-								in this linked list.
-		 @return				A pointer to the data of the previous element in this
-								linked list from the element corresponding to @a data.
+		 @param[in]		data
+						A pointer to the data.
+		 @return		@c NULL if @a data is associated with the last element
+						in this linked list.
+		 @return		A pointer to the data of the previous element in this
+						linked list from the element corresponding to @a data.
 		 */
 		T *GetPrevious(T *data) const {
 			LinkedListElement *temp = m_last;
@@ -331,11 +337,12 @@ namespace mage {
 		 Returns a pointer to the data of the next element in this linked list
 		 from the element corresponding to the given data.
 
-		 @param[in]		data	A pointer to the data.
-		 @return				@c NULL if @data is associated with the first element
-								in this linked list.
-		 @return				A pointer to the data of the next element in this 
-								linked list from the element corresponding to @a data.
+		 @param[in]		data
+						A pointer to the data.
+		 @return		@c NULL if @a data is associated with the first element
+						in this linked list.
+		 @return		A pointer to the data of the next element in this 
+						linked list from the element corresponding to @a data.
 		 */
 		T *GetNext(T *data) const {
 			LinkedListElement *temp = m_first;
@@ -353,9 +360,10 @@ namespace mage {
 		/**
 		 Returns a pointer to the data of the element in this linked list at the given index.
 
-		 @param[in]		index	The index of the element.
-		 @return				@c NULL if the index is out of bounds.
-		 @return				A pointer to the data of the element in this linked list at index @a index.
+		 @param[in]		index
+						The index of the element.
+		 @return		@c NULL if the index is out of bounds.
+		 @return		A pointer to the data of the element in this linked list at index @a index.
 		 */
 		T *GetAt(uint64_t index) const {
 			if (index >= m_size) {
@@ -371,7 +379,7 @@ namespace mage {
 		/**
 		 Returns a pointer to the data of a random element in this linked list.
 
-		 @return				A pointer to the data of a random element in this linked list.
+		 @return		A pointer to the data of a random element in this linked list.
 		 */
 		T *GetRandom() const {
 			switch (m_size) {
@@ -388,7 +396,7 @@ namespace mage {
 		/**
 		 Returns a forward iterator for this linked list.
 
-		 @return				An iterator for this linked list.			
+		 @return		An iterator for this linked list.			
 		 */
 		LinkedListIterator GetIterator() const {
 			return LinkedListIterator(*this);
@@ -397,11 +405,12 @@ namespace mage {
 		/**
 		 Returns the (complete) element in this linked list associated with the given data.
 
-		 @param[in]		data	A pointer to the data.
-		 @return				@c NULL if no element in this linkedlist
-								is associated with the given data.
-		 @return				The (complete) element in this linked list 
-								associated with @a data.	
+		 @param[in]		data
+						A pointer to the data.
+		 @return		@c NULL if no element in this linkedlist
+						is associated with the given data.
+		 @return		The (complete) element in this linked list 
+						associated with @a data.	
 		 */
 		LinkedListElement *GetCompleteLinkedListElement(T *data) const {
 			LinkedListElement *temp = m_first;
@@ -417,7 +426,7 @@ namespace mage {
 		/**
 		 Returns the size of this linked list.
 
-		 @return				The size of this linked list.
+		 @return		The size of this linked list.
 		 */
 		uint64_t GetSize() const {
 			return m_size;

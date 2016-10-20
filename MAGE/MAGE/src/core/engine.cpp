@@ -22,14 +22,18 @@ namespace mage {
 	 The application-defined function that processes messages sent to the engine window. 
 	 The WindowProc type defines a pointer to this callback function.
 
-	 @param[in]		hwnd		A handle to the window.
-	 @param[in]		msg			The message.
-	 @param[in]		wparam		Additional message information.
-								The contents of this parameter depend on the value of @a msg.
-	 @param[in]		lparam		Additional message information.
-								The contents of this parameter depend on the value of @a msg.
-	 @return					The return value is the result of the message processing 
-								and depends on the message sent.
+	 @param[in]		hwnd
+					A handle to the window.
+	 @param[in]		msg
+					The message.
+	 @param[in]		wparam
+					Additional message information.
+					The contents of this parameter depend on the value of @a msg.
+	 @param[in]		lparam
+					Additional message information.
+					The contents of this parameter depend on the value of @a msg.
+	 @return		The return value is the result of the message processing 
+					and depends on the message sent.
 	 */
 	LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
 		switch (msg) {
@@ -182,11 +186,15 @@ namespace mage {
 /**
  The user-provided entry point for MAGE.
 
- @param[in]		hinstance			A handle to the current instance of the application.
- @param[in]		hPrevInstance		A handle to the previous instance of the application.
-									This parameter is always NULL.
- @param[in]		lpCmdLine			The command line for the application, excluding the program name.
- @param[in]		nCmdShow			Controls how the window is to be shown.
+ @param[in]		hinstance
+				A handle to the current instance of the application.
+ @param[in]		hPrevInstance		
+				A handle to the previous instance of the application.
+				This parameter is always NULL.
+ @param[in]		lpCmdLine
+				The command line for the application, excluding the program name.
+ @param[in]		nCmdShow
+				Controls how the window is to be shown.
  */
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int) {
 	

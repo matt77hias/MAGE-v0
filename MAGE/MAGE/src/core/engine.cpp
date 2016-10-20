@@ -189,6 +189,9 @@ namespace mage {
  @param[in]		nCmdShow			Controls how the window is to be shown.
  */
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int) {
+	
+	//std::cout << "version: " << MAGE_VERSION_STRING << std::endl;
+	
 	// Create the engine setup structure.
 	mage::EngineSetup setup;
 	setup.m_instance = hinstance;

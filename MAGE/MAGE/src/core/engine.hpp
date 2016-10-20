@@ -90,6 +90,7 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "version.hpp"
 #include "collection/collection.hpp"
 #include "math/math.hpp"
 #include "parallel/parallel.hpp"

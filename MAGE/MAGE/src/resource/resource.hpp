@@ -102,6 +102,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource/resource_manager.hpp"
+#include "resource\resource_manager.hpp"
 
 #pragma endregion

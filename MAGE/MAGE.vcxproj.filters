@@ -63,9 +63,6 @@
     <ClInclude Include="MAGE\src\collection\linkedlist.hpp">
       <Filter>Header Files\collection</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\core\stdafx.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\core\targetver.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
@@ -129,9 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
-      <Filter>Source Files\core</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\core\stdafx.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\log\error.cpp">

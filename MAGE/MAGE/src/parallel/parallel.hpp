@@ -26,8 +26,8 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "parallel/atomic.hpp"
-#include "parallel/lock.hpp"
-#include "parallel/task.hpp"
+#include "parallel\atomic.hpp"
+#include "parallel\lock.hpp"
+#include "parallel\task.hpp"
 
 #pragma endregion

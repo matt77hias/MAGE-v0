@@ -18,8 +18,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory/allocation.hpp"
-#include "memory/arena.hpp"
-#include "memory/reference.hpp"
+#include "memory\allocation.hpp"
+#include "memory\arena.hpp"
+#include "memory\reference.hpp"
 
 #pragma endregion

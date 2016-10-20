@@ -1,7 +1,11 @@
 //-----------------------------------------------------------------------------
-// Includes
+// Engine Includes
 //-----------------------------------------------------------------------------
-#include "stdafx.h"
+#pragma region
+
+#include "engine.hpp"
+
+#pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
@@ -166,7 +170,7 @@ namespace mage {
 		PrintConsoleHeader();
 
 		// Seed the random number generator with the current time.
-		srand(timeGetTime());
+		//srand(timeGetTime());
 
 		// The engine is fully loaded and ready to go.
 		m_loaded = true;
@@ -217,35 +221,4 @@ namespace mage {
 		// Destroy the engine.
 		delete g_engine;
 	}
-}
-
-//-----------------------------------------------------------------------------
-// Entry point for the application.
-//-----------------------------------------------------------------------------
-
-/**
- The user-provided entry point for MAGE.
-
- @param[in]		hinstance
-				A handle to the current instance of the application.
- @param[in]		hPrevInstance		
-				A handle to the previous instance of the application.
-				This parameter is always NULL.
- @param[in]		lpCmdLine
-				The command line for the application, excluding the program name.
- @param[in]		nCmdShow
-				Controls how the window is to be shown.
- */
-int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int) {
-	
-	// Create the engine setup structure.
-	mage::EngineSetup setup;
-	setup.m_instance = hinstance;
-	setup.m_name = L"Framework Test";
-
-	// Create the engine, then run it.
-	new mage::Engine(&setup);
-	mage::g_engine->Run();
-
-	return true;
 }

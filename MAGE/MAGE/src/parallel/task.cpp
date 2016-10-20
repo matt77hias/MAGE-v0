@@ -1,7 +1,11 @@
 //-----------------------------------------------------------------------------
-// Includes
+// Engine Includes
 //-----------------------------------------------------------------------------
-#include "stdafx.h"
+#pragma region
+
+#include "engine.hpp"
+
+#pragma endregion
 
 namespace mage {
 

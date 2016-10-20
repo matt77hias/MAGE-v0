@@ -1,7 +1,11 @@
 //-----------------------------------------------------------------------------
-// Precompiled Header Include
+// Engine Includes
 //-----------------------------------------------------------------------------
-#include "stdafx.h"
+#pragma region
+
+#include "engine.hpp"
+
+#pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions

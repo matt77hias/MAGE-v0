@@ -94,12 +94,12 @@ namespace mage {
 #pragma region
 
 #include "version.hpp"
-#include "collection/collection.hpp"
-#include "math/math.hpp"
-#include "parallel/parallel.hpp"
-#include "log/log.hpp"
-#include "memory/memory.hpp"
-#include "resource/resource.hpp"
+#include "collection\collection.hpp"
+#include "math\math.hpp"
+#include "parallel\parallel.hpp"
+#include "log\log.hpp"
+#include "memory\memory.hpp"
+#include "resource\resource.hpp"
 
 #pragma endregion
 

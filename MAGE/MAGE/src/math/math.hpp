@@ -16,6 +16,6 @@ using std::max;
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math/geometry.hpp"
+#include "math\geometry.hpp"
 
 #pragma endregion

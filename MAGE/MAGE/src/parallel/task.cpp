@@ -39,7 +39,7 @@ namespace mage {
 
 	/**
 	 The running condition variable for exclusive
-	 access to the number of number of unfinished tasks
+	 access to the number of unfinished tasks
 	 and for signaling on updates. 
 	 */
 	static ConditionVariable *tasks_running_condition;
@@ -174,8 +174,8 @@ namespace mage {
 
 		// Wait for completion.
 		tasks_running_condition->Lock();
+		// Wait for all tasks to finish.
 		while (nb_unfinished_tasks > 0) {
-			// Wait for all tasks to finish.
 			tasks_running_condition->Wait();
 		}
 		tasks_running_condition->Unlock();

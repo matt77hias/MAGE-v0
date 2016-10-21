@@ -12,7 +12,7 @@ namespace mage {
 	/**
 	 A class of mutexes.
 	 */
-	class Mutex {
+	class Mutex final {
 
 	public:
 
@@ -45,14 +45,6 @@ namespace mage {
 		}
 
 		/**
-		 Destructs this mutex.
-		 */
-		~Mutex() {
-			// Release all resources used by an unowned critical section object. 
-			DeleteCriticalSection(&m_critical_section);
-		}
-		
-		/**
 		 Constructs a mutex from the given mutex.
 
 		 @param[in]		mutex
@@ -60,6 +52,14 @@ namespace mage {
 		 */
 		Mutex(Mutex &mutex);
 
+		/**
+		 Destructs this mutex.
+		 */
+		~Mutex() {
+			// Release all resources used by an unowned critical section object. 
+			DeleteCriticalSection(&m_critical_section);
+		}
+		
 		/**
 		 Copies the given mutex to this mutex.
 
@@ -78,7 +78,7 @@ namespace mage {
 	/**
 	 A struct of mutex locks.
 	 */
-	struct MutexLock {
+	struct MutexLock final {
 
 		/**
 		 Constructs a mutex lock for the given mutex.
@@ -105,7 +105,7 @@ namespace mage {
 		/**
 		 Constructs a mutex lock from the given mutex lock.
 
-		 @param[in]		mutex lock
+		 @param[in]		mutex_lock
 						A reference to a mutex lock.
 		 */
 		MutexLock(const MutexLock &mutex_lock);
@@ -115,7 +115,7 @@ namespace mage {
 
 		 @param[in]		mutex_lock
 						A reference to a mutex lock.
-		 @return		A reference to the copy of @a mutex lock.
+		 @return		A reference to the copy of @a mutex_lock.
 		 */
 		MutexLock &operator=(const MutexLock &mutex_lock);
 
@@ -125,70 +125,199 @@ namespace mage {
 		Mutex &m_mutex;
 	};
 
-	//-----------------------------------------------------------------------------
-	// ReadWriteMutex
-	//-----------------------------------------------------------------------------
-	class ReadWriteMutex {
+	/**
+	 A class of read write mutexes.
+	 */
+	class ReadWriteMutex final {
 
 	public:
+
+		/**
+		 Creates a mutex.
+		 */
 		static ReadWriteMutex *Create() {
 			return new ReadWriteMutex();
 		}
+
+		/**
+		 Destroys a given read write mutex.
+
+		 @param[in]		mutex
+						The read write mutex to destroy.
+		 */
 		static void Destroy(ReadWriteMutex *mutex) {
 			delete mutex;
 		}
 
 	private:
+
 		friend struct ReadWriteMutexLock;
 
+		/**
+		 Constructs a read write mutex.
+		 */
 		ReadWriteMutex();
-		~ReadWriteMutex();
+
+		/**
+		 Constructs a read write mutex from the given read write mutex.
+
+		 @param[in]		mutex
+						The read write mutex.
+		 */
 		ReadWriteMutex(ReadWriteMutex &mutex);
+
+		/**
+		 Destructs this read write mutex.
+		 */
+		~ReadWriteMutex();
+		
+		/**
+		 Copies the given read write mutex to this read write mutex.
+
+		 @param[in]		mutex
+						A reference to a read write mutex.
+		 @return		A reference to the copy of @a mutex.
+		 */
 		ReadWriteMutex &operator=(const ReadWriteMutex &mutex);
 
+		/**
+		 Acquires a read.
+		 */
 		void AcquireRead();
+
+		/**
+		 Release a read.
+		 */
 		void ReleaseRead();
+
+		/**
+		 Acquires a write.
+		 */
 		void AcquireWrite();
+
+		/**
+		 Release a write.
+		 */
 		void ReleaseWrite();
 
+		/**
+		 The number of writers waiting for this read write mutex lock.
+		 */
 		LONG m_nb_writers_waiting;
+
+		/**
+		 The number of readers waiting for this read write mutex lock.
+		 */
 		LONG m_nb_readers_waiting;
 
-		// HIWORD is writer active flag;
-		// LOWORD is readers active count;
+		/**
+		 The active group of this read write mutex lock.
+
+		 HIWORD is the flag indicating a writer is active.
+		 LOWORD is the number of active readers.
+		 */
 		DWORD m_active_writer_readers;
 
+		/**
+		 The handle of this read write mutex lock if ready for reading.
+		 */
 		HANDLE m_ready_to_read_handle;
+
+		/**
+		 The handle of this read write mutex lock if ready for writing.
+		 */
 		HANDLE m_ready_to_write_handle;
+
+		/**
+		 The critical section object of this read write mutex.
+		 */
 		CRITICAL_SECTION m_critical_section;
 	};
 
-	//-----------------------------------------------------------------------------
-	// ReadWriteMutexLock
-	//-----------------------------------------------------------------------------
+	/**
+	 Type of read write mutex locks.
+	 */
 	enum ReadWriteMutexLockType { READ, WRITE };
 
-	struct ReadWriteMutexLock {
+	/**
+	 A struct of read write mutex locks.
+	 */
+	struct ReadWriteMutexLock final {
 
-		ReadWriteMutexLock(ReadWriteMutex &mutex, ReadWriteMutexLockType mutex_type);
-		~ReadWriteMutexLock();
+		/**
+		 Constructs a read write mutex lock for the given read write mutex and lock type.
 
+		 @param[in]		mutex
+						A reference to a read write mutex.
+		 @param[in]		lock_type
+						The lock type.
+		 */
+		ReadWriteMutexLock(ReadWriteMutex &mutex, ReadWriteMutexLockType lock_type) 
+			: m_type(lock_type), m_mutex(mutex) {
+			if (m_type == READ) {
+				m_mutex.AcquireRead();
+			}
+			else {
+				m_mutex.AcquireWrite();
+			}
+		}
+
+		/**
+		 Destructs this read write mutex lock.
+		 */
+		~ReadWriteMutexLock() {
+			if (m_type == READ) {
+				m_mutex.ReleaseRead();
+			}
+			else {
+				m_mutex.ReleaseWrite();
+			}
+		}
+
+		/**
+		 Upgrades this read write lock to write.
+		 */
 		void UpgradeToWrite();
+
+		/**
+		 Downgrades this read write lock to read.
+		 */
 		void DowngradeToRead();
 
 	private:
 
-		ReadWriteMutexLock(const ReadWriteMutexLock &mutex);
-		ReadWriteMutexLock &operator=(const ReadWriteMutexLock &mutex);
+		/**
+		 Constructs a read write mutex lock from the given read write mutex lock.
 
+		 @param[in]		mutex_lock
+						A reference to a read write mutex lock.
+		 */
+		ReadWriteMutexLock(const ReadWriteMutexLock &mutex_lock);
+
+		/**
+		 Copies the given read write mutex lock to this read write mutex lock.
+
+		 @param[in]		mutex_lock
+						A reference to a read write mutex lock.
+		 @return		A reference to the copy of @a mutex_lock.
+		 */
+		ReadWriteMutexLock &operator=(const ReadWriteMutexLock &mutex_lock);
+
+		/**
+		 The lock type of this read write mutex lock. 
+		 */
 		ReadWriteMutexLockType m_type;
+
+		/**
+		 The read write mutex of this read write mutex lock. 
+		 */
 		ReadWriteMutex &m_mutex;
 	};
 
 	/**
 	 A class of semaphores.
 	 */
-	class Semaphore {
+	class Semaphore final {
 
 	public:
 
@@ -200,7 +329,10 @@ namespace mage {
 		/**
 		 Destructs this semaphore.
 		 */
-		~Semaphore();
+		~Semaphore() {
+			// Closes an open object handle.
+			CloseHandle(m_handle);
+		}
 
 		/**
 		 Increments the value of this semaphore variable by the given value.
@@ -241,29 +373,62 @@ namespace mage {
 	/**
 	 A class of condition variables.
 	 */
-	class ConditionVariable {
+	class ConditionVariable final {
 
 	public:
 
 		/**
 		 Constructs a condition variable.
 		 */
-		ConditionVariable();
+		ConditionVariable() : m_nb_waiters(0) {
+			// Initialize the critical section objects
+			// for the number of waiters and condition.
+			InitializeCriticalSection(&m_nb_waiters_mutex);
+			InitializeCriticalSection(&m_condition_mutex);
+
+			// Creates or opens a named or unnamed event object.
+			// On success, a handle to the event object is returned.
+			m_events[SIGNAL] = CreateEvent(
+									NULL,  // no security
+									FALSE, // auto-reset event object
+									FALSE, // non-signaled initial state
+									NULL); // unnamed event object
+			m_events[BROADCAST] = CreateEvent(
+									NULL,  // no security
+									TRUE,  // manual-reset event object
+									FALSE, // non-signaled initial state
+									NULL); // unnamed event object
+		}
 
 		/**
 		 Destructs this condition variable.
 		 */
-		~ConditionVariable();
+		~ConditionVariable() {
+			// Release all resources used by an unowned critical section object. 
+			DeleteCriticalSection(&m_nb_waiters_mutex);
+			DeleteCriticalSection(&m_condition_mutex);
+
+			// Close the open event handles.
+			CloseHandle(m_events[SIGNAL]);
+			CloseHandle(m_events[BROADCAST]);
+		}
 
 		/**
 		 Locks this condition variable.
 		 */
-		void Lock();
+		void Lock() {
+			// Wait for ownership of the specified critical section object. 
+			// The function returns when the calling thread is granted ownership.
+			EnterCriticalSection(&m_condition_mutex);
+		}
 
 		/**
 		 Unlocks this condition variable.
 		 */
-		void Unlock();
+		void Unlock() {
+			// Release ownership of the specified critical section object.
+			LeaveCriticalSection(&m_condition_mutex);
+		}
 
 		/**
 		 Wait for a signal indicating a condition change.

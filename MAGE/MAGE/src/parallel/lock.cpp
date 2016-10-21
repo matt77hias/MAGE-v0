@@ -195,25 +195,6 @@ namespace mage {
 	//-----------------------------------------------------------------------------
 	// ReadWriteMutexLock
 	//-----------------------------------------------------------------------------
-	ReadWriteMutexLock::ReadWriteMutexLock(ReadWriteMutex &mutex, ReadWriteMutexLockType mutex_type)
-		: m_type(mutex_type), m_mutex(mutex) {
-		if (m_type == READ) {
-			m_mutex.AcquireRead();
-		}
-		else {
-			m_mutex.AcquireWrite();
-		}
-	}
-
-	ReadWriteMutexLock::~ReadWriteMutexLock() {
-		if (m_type == READ) {
-			m_mutex.ReleaseRead();
-		}
-		else {
-			m_mutex.ReleaseWrite();
-		}
-	}
-
 	void ReadWriteMutexLock::UpgradeToWrite() {
 		Assert(m_type == READ);
 		m_mutex.ReleaseRead();
@@ -232,96 +213,91 @@ namespace mage {
 	// Semaphore
 	//-----------------------------------------------------------------------------
 	Semaphore::Semaphore() {
+		// Creates or opens a named or unnamed semaphore object.
+		// 1. The returned handle cannot be inherited by child processes.
+		// 2. The initial count for the semaphore object. 
+		// 3. The maximum count for the semaphore object.
+		// 4. The semaphore object is created without a name.
 		m_handle = CreateSemaphore(NULL, 0, LONG_MAX, NULL);
 		if (!m_handle) {
 			Severe("Error from CreateSemaphore: %d", GetLastError());
 		}
 	}
 
-	Semaphore::~Semaphore() {
-		CloseHandle(m_handle);
-	}
-
 	void Semaphore::Post(uint32_t count) {
+		// Increases the count of the specified semaphore object.
+		// 1. A handle to the semaphore object.
+		// 2. The amount by which the semaphore object's current count is to be increased.
+		// 3. A pointer to a variable to receive the previous count for the semaphore.
 		if (!ReleaseSemaphore(m_handle, count, NULL)) {
 			Severe("Error from ReleaseSemaphore: %d", GetLastError());
 		}
 	}
 
 	void Semaphore::Wait() {
+		// Waits until the specified object is in the signaled state or the time-out interval elapses.
+		// 1. The object handle.
+		// 2. The function will return only when the specified object is signaled.
 		if (WaitForSingleObject(m_handle, INFINITE) == WAIT_FAILED) {
 			Severe("Error from WaitForSingleObject: %d", GetLastError());
 		}
 	}
 
 	bool Semaphore::TryWait() {
+		// Waits until the specified object is in the signaled state or the time-out interval elapses.
+		// 1. The object handle.
+		// 2. The function does not enter a wait state if the object is not signaled.
+		// it always returns immediately.
 		return (WaitForSingleObject(m_handle, 0L) == WAIT_OBJECT_0);
 	}
 
 	//-----------------------------------------------------------------------------
 	// ConditionVariable
 	//-----------------------------------------------------------------------------
-	ConditionVariable::ConditionVariable() : m_nb_waiters(0) {
-		InitializeCriticalSection(&m_nb_waiters_mutex);
-		InitializeCriticalSection(&m_condition_mutex);
-
-		m_events[SIGNAL] = CreateEvent(NULL,  // no security
-			FALSE, // auto-reset event
-			FALSE, // non-signaled initially
-			NULL); // unnamed
-		m_events[BROADCAST] = CreateEvent(NULL,  // no security
-			TRUE,  // manual-reset
-			FALSE, // non-signaled initially
-			NULL); // unnamed
-	}
-
-	ConditionVariable::~ConditionVariable() {
-		CloseHandle(m_events[SIGNAL]);
-		CloseHandle(m_events[BROADCAST]);
-	}
-
-	void ConditionVariable::Lock() {
-		EnterCriticalSection(&m_condition_mutex);
-	}
-
-	void ConditionVariable::Unlock() {
-		LeaveCriticalSection(&m_condition_mutex);
-	}
 
 	void ConditionVariable::Wait() {
-		// Avoid race conditions.
+		// Increase the number of waiters.
 		EnterCriticalSection(&m_nb_waiters_mutex);
 		++m_nb_waiters;
 		LeaveCriticalSection(&m_nb_waiters_mutex);
 
-		// It's ok to release the <external_mutex> here since Win32
-		// manual-reset events maintain state when used with
-		// <SetEvent>.  This avoids the "lost wakeup" bug...
+		// It is ok to release the <external_mutex> here since Win32
+		// manual-reset events maintain state when used with <SetEvent>.  
+		// This avoids the "lost wakeup" bug...
 		LeaveCriticalSection(&m_condition_mutex);
 
-		// Wait for either event to become signaled due to <pthread_cond_signal>
-		// being called or <pthread_cond_broadcast> being called.
+		// Wait until one or all of the specified objects are 
+		// in the signaled state (available for use) or the time-out interval elapses.
+		// 1. The number of object handles.
+		// 2. An array of object handles.
+		// 3. The function returns when the state of any one object is signaled.
+		// 4. The function will return only when the specified objects are signaled.
 		const int result = WaitForMultipleObjects(2, m_events, FALSE, INFINITE);
 
+		// Decrease the number of waiters.
 		EnterCriticalSection(&m_nb_waiters_mutex);
 		--m_nb_waiters;
+		// WAIT_OBJECT_0: The state of the specified object is signaled.
 		const int last_waiter = (result == WAIT_OBJECT_0 + BROADCAST) && (m_nb_waiters == 0);
 		LeaveCriticalSection(&m_nb_waiters_mutex);
 
-		if (last_waiter)
-			// We're the last waiter to be notified or to stop waiting, so
-			// reset the manual event.
+		if (last_waiter) {
+			// We are the last waiter to be notified or to stop waiting, so reset the manual event.
+			// Sets the specified event object to the nonsignaled state.
 			ResetEvent(m_events[BROADCAST]);
+		}
 
 		EnterCriticalSection(&m_condition_mutex);
 	}
 
 	void ConditionVariable::Signal() {
+		// Retrieve if there are waiters.
 		EnterCriticalSection(&m_nb_waiters_mutex);
-		const int has_waiters = (m_nb_waiters > 0);
+		const bool has_waiters = (m_nb_waiters > 0);
 		LeaveCriticalSection(&m_nb_waiters_mutex);
 
 		if (has_waiters) {
+			// Sets the SIGNAL event object to the signaled state.
 			SetEvent(m_events[SIGNAL]);
 		}
 	}

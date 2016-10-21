@@ -358,7 +358,7 @@ namespace mage {
 		 Checks whether waiting for this semaphore would be necessary.
 
 		 @return		@c true if waiting for this semaphore would be necessary.
-						@f otherwise.
+						@c false otherwise.
 		 */
 		bool TryWait();
 

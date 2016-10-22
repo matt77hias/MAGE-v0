@@ -18,49 +18,61 @@ namespace mage {
 	ReadWriteMutex::ReadWriteMutex() : m_nb_writers_waiting(0), m_nb_readers_waiting(0),
 		m_active_writer_readers(0) {
 
+		// Initialize a critical section object.
 		InitializeCriticalSection(&m_critical_section);
 
+		// Creates or opens an unnamed event object.
+		// On success, a handle to the event object is returned.
+		// 1. no security
+		// 2. manual-reset event object
+		// 3. non-signaled initial state
+		// 4. unnamed event object
 		m_ready_to_read_handle = CreateEvent(NULL, TRUE, FALSE, NULL);
 		if (m_ready_to_read_handle == NULL) {
 			Severe("Error creating event for ReadWriteMutex: %d", GetLastError());
 		}
 
+		// Creates or opens an unnamed semaphore object.
+		// 1. The returned handle cannot be inherited by child processes.
+		// 2. The initial count for the semaphore object. 
+		// 3. The maximum count for the semaphore object.
+		// 4. The semaphore object is created without a name.
 		m_ready_to_write_handle = CreateSemaphore(NULL, 0, 1, NULL);
 		if (m_ready_to_write_handle == NULL) {
-			DWORD lastError = GetLastError();
+			const DWORD lastError = GetLastError();
+			// Close the open event handle.
 			CloseHandle(m_ready_to_read_handle);
 			Severe("Error creating semaphore for ReadWriteMutex: %d", lastError);
 		}
 	}
 
-	ReadWriteMutex::~ReadWriteMutex() {
-		if (m_ready_to_read_handle) {
-			CloseHandle(m_ready_to_read_handle);
-		}
-		if (m_ready_to_write_handle) {
-			CloseHandle(m_ready_to_write_handle);
-		}
-
-		DeleteCriticalSection(&m_critical_section);
-	}
-
 	void ReadWriteMutex::AcquireRead() {
 		bool notify_readers = false;
 
+		// Wait for ownership of the specified critical section object. 
+		// The function returns when the calling thread is granted ownership.
 		EnterCriticalSection(&m_critical_section);
-
+		
 		if ((m_nb_writers_waiting > 0) || (HIWORD(m_active_writer_readers) > 0)) {
 			++m_nb_readers_waiting;
 
 			while (true) {
+				// Sets the specified event object to the nonsignaled state.
 				ResetEvent(m_ready_to_read_handle);
+
 				LeaveCriticalSection(&m_critical_section);
+
+				// Waits until the specified object is in the signaled state or the time-out interval elapses.
+				// 1. The object handle.
+				// 2. The function will return only when the specified object is signaled.
 				WaitForSingleObject(m_ready_to_read_handle, INFINITE);
+				
+				// Wait for ownership of the specified critical section object. 
+				// The function returns when the calling thread is granted ownership.
 				EnterCriticalSection(&m_critical_section);
 
-				// The reader is only allowed to read if there aren't
-				// any writers waiting and if a writer doesn't own the
-				// lock.
+				// The reader is only allowed to read if there are not any writers waiting 
+				// and if a writer does not own the lock.
 				if ((m_nb_writers_waiting == 0) && (HIWORD(m_active_writer_readers) == 0)) {
 					break;
 				}
@@ -75,25 +87,27 @@ namespace mage {
 		else {
 			// Reader can read.
 			if ((++m_active_writer_readers == 1) && (m_nb_readers_waiting != 0)) {
-				// Set flag to notify other waiting readers
-				// outside of the critical section
-				// so that they don't when the threads
-				// are dispatched by the scheduler they
-				// don't immediately block on the critical
-				// section that this thread is holding.
+				// Set flag to notify other waiting readers outside of the critical section
+				// so that they do not immediately block on the critical section that this thread is holding 
+				// when the threads are dispatched by the scheduler.
 				notify_readers = true;
 			}
 		}
 
 		Assert(HIWORD(m_active_writer_readers) == 0);
+
 		LeaveCriticalSection(&m_critical_section);
 
 		if (notify_readers) {
+			// Sets the event object to the signaled state.
 			SetEvent(m_ready_to_read_handle);
 		}
 	}
 
 	void ReadWriteMutex::AcquireWrite() {
+
+		// Wait for ownership of the specified critical section object. 
+		// The function returns when the calling thread is granted ownership.
 		EnterCriticalSection(&m_critical_section);
 
 		// Are there active readers?
@@ -101,17 +115,20 @@ namespace mage {
 			++m_nb_writers_waiting;
 
 			LeaveCriticalSection(&m_critical_section);
+			
+			// Waits until the specified object is in the signaled state or the time-out interval elapses.
+			// 1. The object handle.
+			// 2. The function will return only when the specified object is signaled.
 			WaitForSingleObject(m_ready_to_write_handle, INFINITE);
 
-			// Upon wakeup theirs no need for the writer
-			// to acquire the critical section.  It
-			// already has been transfered ownership of the
-			// lock by the signaler.
+			// Upon wakeup theirs no need for the writer to acquire the critical section. 
+			// It already has been transfered ownership of the lock by the signaler.
 		}
 		else {
 			Assert(m_active_writer_readers == 0);
 
 			// Set that the writer owns the lock.
+			// Concatenates a LOW and HIGH WORD.
 			m_active_writer_readers = MAKELONG(0, 1);
 
 			LeaveCriticalSection(&m_critical_section);
@@ -119,27 +136,37 @@ namespace mage {
 	}
 
 	void ReadWriteMutex::ReleaseRead() {
+
+		// Wait for ownership of the specified critical section object. 
+		// The function returns when the calling thread is granted ownership.
 		EnterCriticalSection(&m_critical_section);
 
-		// Assert that the lock isn't held by a writer.
+		// Assert that the lock is not held by a writer.
 		Assert(HIWORD(m_active_writer_readers) == 0);
 
 		// Assert that the lock is held by readers.
 		Assert(LOWORD(m_active_writer_readers > 0));
 
 		// Decrement the number of active readers.
-		if (--m_active_writer_readers == 0) {
+		--m_active_writer_readers;
+		if (m_active_writer_readers == 0) {
+			// Sets the specified event object to the nonsignaled state.
 			ResetEvent(m_ready_to_read_handle);
 		}
 
-		// if writers are waiting and this is the last reader
-		// hand owneership over to a writer.
+		// If writers are waiting and this is the last reader hand owneership over to a writer.
 		if ((m_nb_writers_waiting != 0) && (m_active_writer_readers == 0)) {
 			// Decrement the number of waiting writers
 			--m_nb_writers_waiting;
 
 			// Pass ownership to a writer thread.
+			// Concatenates a LOW and HIGH WORD.
 			m_active_writer_readers = MAKELONG(0, 1);
+
+			// Increases the count of the specified semaphore object.
+			// 1. A handle to the semaphore object.
+			// 2. The amount by which the semaphore object's current count is to be increased.
+			// 3. A pointer to a variable to receive the previous count for the semaphore.
 			ReleaseSemaphore(m_ready_to_write_handle, 1, NULL);
 		}
 
@@ -150,34 +177,30 @@ namespace mage {
 		bool notify_writer = false;
 		bool notify_readers = false;
 
+		// Wait for ownership of the specified critical section object. 
+		// The function returns when the calling thread is granted ownership.
 		EnterCriticalSection(&m_critical_section);
 
 		// Assert that the lock is owned by a writer.
 		Assert(HIWORD(m_active_writer_readers) == 1);
 
-		// Assert that the lock isn't owned by one or more readers
+		// Assert that the lock is not owned by one or more readers
 		Assert(LOWORD(m_active_writer_readers) == 0);
 
 		if (m_nb_writers_waiting != 0) {
-			// Writers waiting, decrement the number of
-			// waiting writers and release the semaphore
-			// which means ownership is passed to the thread
-			// that has been released.
+			// Writers waiting, decrement the number of waiting writers and
+			// release the semaphore which means ownership is passed to the thread that has been released.
 			--m_nb_writers_waiting;
 			notify_writer = true;
 		}
 		else {
-			// There aren't any writers waiting
+			// There are not any writers waiting.
 			// Release the exclusive hold on the lock.
 			m_active_writer_readers = 0;
 
-			// if readers are waiting set the flag
-			// that will cause the readers to be notified
-			// once the critical section is released.  This
-			// is done so that an awakened reader won't immediately
-			// block on the critical section which is still being
-			// held by this thread.
 			if (m_nb_readers_waiting != 0) {
+				// Readers waiting, set the flag that will cause the readers to be notified once the critical section is released.  
+				// This is done so that an awakened reader won't immediately block on the critical section which is still being held by this thread.
 				notify_readers = true;
 			}
 		}
@@ -185,9 +208,14 @@ namespace mage {
 		LeaveCriticalSection(&m_critical_section);
 
 		if (notify_writer) {
+			// Increases the count of the specified semaphore object.
+			// 1. A handle to the semaphore object.
+			// 2. The amount by which the semaphore object's current count is to be increased.
+			// 3. A pointer to a variable to receive the previous count for the semaphore.
 			ReleaseSemaphore(m_ready_to_write_handle, 1, NULL);
 		}
 		else if (notify_readers) {
+			// Sets the event object to the signaled state.
 			SetEvent(m_ready_to_read_handle);
 		}
 	}
@@ -213,7 +241,7 @@ namespace mage {
 	// Semaphore
 	//-----------------------------------------------------------------------------
 	Semaphore::Semaphore() {
-		// Creates or opens a named or unnamed semaphore object.
+		// Creates or opens an unnamed semaphore object.
 		// 1. The returned handle cannot be inherited by child processes.
 		// 2. The initial count for the semaphore object. 
 		// 3. The maximum count for the semaphore object.
@@ -301,5 +329,4 @@ namespace mage {
 			SetEvent(m_events[SIGNAL]);
 		}
 	}
-
 }

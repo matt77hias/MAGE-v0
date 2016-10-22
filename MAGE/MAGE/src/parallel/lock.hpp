@@ -169,7 +169,19 @@ namespace mage {
 		/**
 		 Destructs this read write mutex.
 		 */
-		~ReadWriteMutex();
+		~ReadWriteMutex() {
+			if (m_ready_to_read_handle) {
+				// Close the open event handle.
+				CloseHandle(m_ready_to_read_handle);
+			}
+			if (m_ready_to_write_handle) {
+				// Close the open event handle.
+				CloseHandle(m_ready_to_write_handle);
+			}
+
+			// Release all resources used by an unowned critical section object. 
+			DeleteCriticalSection(&m_critical_section);
+		}
 		
 		/**
 		 Copies the given read write mutex to this read write mutex.

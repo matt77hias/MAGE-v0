@@ -187,6 +187,9 @@ namespace mage {
 
 		// Unregister the window class.
 		UnregisterClass(L"WindowClass", m_setup.m_instance);
+
+		// Clean up the tasks support.
+		TasksCleanup();
 	}
 
 	void Engine::Run() {

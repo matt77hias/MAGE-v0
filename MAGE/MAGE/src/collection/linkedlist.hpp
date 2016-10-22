@@ -153,7 +153,7 @@ namespace mage {
 				m_last = m_first;
 			}
 			else {
-				m_last->next = new LinkedListElement(element);
+				m_last->next = new LinkedListElement(data);
 				m_last->next->prev = m_last;
 				m_last = m_last->next;
 			}

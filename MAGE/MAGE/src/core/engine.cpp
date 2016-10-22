@@ -136,7 +136,7 @@ namespace mage {
 		// The number of extra bytes to allocate following the window instance.
 		wcex.cbWndExtra = 0;
 		//A handle to the instance that contains the window procedure for the class.
-		wcex.hInstance = m_setup.m_instance;
+		wcex.hInstance = m_setup.m_hinstance;
 		// A handle to the class icon. This member must be a handle to an icon resource.
 		wcex.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 		// A handle to the class cursor. This member must be a handle to a cursor resource.
@@ -163,7 +163,7 @@ namespace mage {
 
 		// Creates the window and retrieve a handle to it.
 		// Note: Later the window will be created using a windowed/fullscreen flag.
-		m_window = CreateWindow(L"WindowClass", m_setup.m_name.c_str(), WS_OVERLAPPED, 0, 0, 800, 600, NULL, NULL, m_setup.m_instance, NULL);
+		m_hwindow = CreateWindow(L"WindowClass", m_setup.m_name.c_str(), WS_OVERLAPPED, 0, 0, 800, 600, NULL, NULL, m_setup.m_hinstance, NULL);
 
 		// Attach a console
 		AttachConsole();
@@ -186,7 +186,7 @@ namespace mage {
 		CoUninitialize();
 
 		// Unregister the window class.
-		UnregisterClass(L"WindowClass", m_setup.m_instance);
+		UnregisterClass(L"WindowClass", m_setup.m_hinstance);
 
 		// Clean up the tasks support.
 		TasksCleanup();
@@ -196,7 +196,7 @@ namespace mage {
 		// Ensure the engine is loaded.
 		if (m_loaded) {
 			// Activates the window and displays it in its current size and position.
-			ShowWindow(m_window, SW_NORMAL);
+			ShowWindow(m_hwindow, SW_NORMAL);
 
 			Timer timer;
 			timer.Start();

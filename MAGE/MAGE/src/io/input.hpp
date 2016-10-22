@@ -15,7 +15,7 @@
 namespace mage {
 
 	/**
-	 A class of inputs.
+	 A class of input objects.
 	 */
 	class Input {
 
@@ -30,7 +30,7 @@ namespace mage {
 		Input(HWND hwindow);
 
 		/**
-		 Destructs this input.
+		 Destructs this input object.
 		 */
 		virtual ~Input() {
 			m_di->Release();
@@ -39,7 +39,7 @@ namespace mage {
 		}
 
 		/**
-		 Updates the state of both the keyboard and mouse device of this input.
+		 Updates the state of both the keyboard and mouse device of this input object.
 		 */
 		void Update();
 

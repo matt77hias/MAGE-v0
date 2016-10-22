@@ -39,6 +39,10 @@ using std::cout;
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
+
+/**
+ The namespace for all the MAGE functionality.
+ */
 namespace mage {
 
 	/**
@@ -110,9 +114,6 @@ namespace mage {
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 
-/**
- The namespace for all the MAGE functionality.
- */
 namespace mage {
 
 	/**
@@ -128,7 +129,7 @@ namespace mage {
 		 @param[in]		name
 						A reference to the name of the application.
 		 */
-		EngineSetup(const wstring &name = L"Application") : m_instance(NULL), m_name(name) {}
+		EngineSetup(const wstring &name = L"Application") : m_hinstance(NULL), m_name(name), StateSetup(NULL) {}
 		
 		/**
 		 Constructs an engine setup from the given engine setup.
@@ -136,16 +137,21 @@ namespace mage {
 		 @param[in]		setup
 						A reference to the engine setup.
 		*/
-		EngineSetup(const EngineSetup &setup) : m_instance(setup.m_instance), m_name(setup.m_name) {}
+		EngineSetup(const EngineSetup &setup) : m_hinstance(setup.m_hinstance), m_name(setup.m_name), StateSetup(setup.StateSetup) {}
 
 		/**
 		 Application instance handle.
 		 */
-		HINSTANCE m_instance;
+		HINSTANCE m_hinstance;
 		/**
 		 Name of the application.
 		 */
 		wstring m_name;
+
+		/**
+		 The state setup function.
+		 */
+		void(*StateSetup)();
 	};
 
 	/**
@@ -173,11 +179,13 @@ namespace mage {
 		 */
 		void Run();
 
+		// WINDOW SYSTEM
+
 		/**
 		 Returns a handle to the window of this engine.
 		 */
 		HWND GetWindow() const {
-			return m_window;
+			return m_hwindow;
 		}
 		
 		/**
@@ -190,6 +198,66 @@ namespace mage {
 			m_deactive = deactive;
 		}
 
+		// STATE SYSTEM
+
+		/**
+		 Adds the given state from the states of this engine.
+
+		 @param[in]		state
+						A pointer to the state.
+		 @param[in]		change
+						Flag indicating whether the current state
+						of this engine need to be changed to @a state.
+		*/
+		void AddState(State *state, bool change = true) {
+			m_states->Add(state);
+
+			if (change == false) {
+				return;
+			}
+
+			if (m_current_state != NULL) {
+				// State postprocessing
+				m_current_state->Close();
+			}
+
+			m_current_state = m_states->GetLast();
+			// State preprocessing
+			m_current_state->Load();
+		}
+		
+		/**
+		 Removes the given state from the states of this engine.
+
+		 @param[in]		state
+						A pointer to the state.
+		 */
+		void RemoveState(State *state) {
+			m_states->Remove<false>(&state);
+		}
+		
+		void ChangeState(uint64_t id);
+
+		/**
+		 Returns the current state of this engine.
+
+		 @return		A pointer to the current state of this engine.
+		 */
+		State *GetCurrentState() const {
+			return m_current_state;
+		}
+
+		// INPUT SYSTEM
+
+		/**
+		 Returns the input object of this engine.
+
+		 @return		A pointer to the input object of this engine
+		 */
+		Input *GetInput() const {
+			return m_input;
+		}
+
 	private:
 
 		/**
@@ -197,10 +265,12 @@ namespace mage {
 		 */
 		bool m_loaded;
 		
+		// WINDOW SYSTEM
+
 		/**
 		 Main window handle of this engine.
 		 */
-		HWND m_window;
+		HWND m_hwindow;
 		
 		/** 
 		 Flag indicating whether the application is active or not.
@@ -211,6 +281,30 @@ namespace mage {
 		 Copy of the engine setup structure.
 		 */
 		EngineSetup m_setup;
+
+		// STATE SYSTEM
+
+		/**
+		 The states of this engine.
+		 */
+		LinkedList< State > *m_states;
+
+		/**
+		 A pointer to the current state of this engine.
+		 */
+		State *m_current_state;
+
+		/**
+		 Flag indicating if the state changed in the current frame.
+		 */
+		bool m_state_changed;
+
+		// INPUT SYSTEM
+
+		/**
+		 A pointer to the input object of this engine.
+		 */
+		Input *m_input;
 	};
 
 	/**

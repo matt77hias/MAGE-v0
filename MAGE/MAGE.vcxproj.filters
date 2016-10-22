@@ -55,6 +55,9 @@
     <Filter Include="Source Files\log">
       <UniqueIdentifier>{dbb452e9-4d9e-4ce3-9101-98b8782a0759}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\state">
+      <UniqueIdentifier>{8463f1af-bd9e-4155-89f6-bb804a124c73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -122,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\core\version.hpp">
       <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\state\state.hpp">
+      <Filter>Header Files\state</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

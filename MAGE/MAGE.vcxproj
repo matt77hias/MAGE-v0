@@ -41,6 +41,7 @@
     <ClInclude Include="MAGE\src\parallel\task.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
+    <ClInclude Include="MAGE\src\state\state.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />

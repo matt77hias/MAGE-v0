@@ -100,6 +100,7 @@ namespace mage {
 #include "log\log.hpp"
 #include "memory\memory.hpp"
 #include "resource\resource.hpp"
+#include "state\state.hpp"
 
 #pragma endregion
 

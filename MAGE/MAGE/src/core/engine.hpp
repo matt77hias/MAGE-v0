@@ -102,6 +102,8 @@ namespace mage {
 #include "resource\resource.hpp"
 #include "state\state.hpp"
 
+#include "io\io.hpp"
+
 #pragma endregion
 
 //-----------------------------------------------------------------------------

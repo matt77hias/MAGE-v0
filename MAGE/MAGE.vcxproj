@@ -24,6 +24,8 @@
     <ClInclude Include="MAGE\src\core\engine.hpp" />
     <ClInclude Include="MAGE\src\core\targetver.h" />
     <ClInclude Include="MAGE\src\core\version.hpp" />
+    <ClInclude Include="MAGE\src\io\input.hpp" />
+    <ClInclude Include="MAGE\src\io\io.hpp" />
     <ClInclude Include="MAGE\src\log\debug.hpp" />
     <ClInclude Include="MAGE\src\log\error.hpp" />
     <ClInclude Include="MAGE\src\log\log.hpp" />
@@ -45,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />
+    <ClCompile Include="MAGE\src\io\input.cpp" />
     <ClCompile Include="MAGE\src\log\error.cpp" />
     <ClCompile Include="MAGE\src\log\progressreporter.cpp" />
     <ClCompile Include="MAGE\src\log\timer.cpp" />

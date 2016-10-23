@@ -559,9 +559,86 @@ namespace mage {
 			return true;
 		}
 
+		/**
+		 Checks whether this sphere collides with a given sphere.
+
+		 @param[in]		sphere
+						The sphere.
+		 @param[in]		velocity_sum
+						The sum of the velocities of both spheres.
+		 @param[out]	collision_distance
+						The collision distance (in case of collision).
+		 @return		@c true if this sphere collides with @a sphere.
+						@c false otherwise.
+		*/
 		bool Collides(const Sphere &sphere, const XMFLOAT3 velocity_sum, float *collision_distance) {
-			//TODO
-			return false;
+			const XMVECTOR p1_v = XMLoadFloat3(&p);
+			const XMVECTOR p2_v = XMLoadFloat3(&sphere.p);
+
+			// Calculate the direction vector from the second sphere to the first sphere.
+			const XMVECTOR direction_v = p1_v - p2_v;
+			
+			// Calculate the distance between the two spheres.
+			const XMVECTOR dist_v = XMVector3Length(direction_v);
+			float dist;
+			XMStoreFloat(&dist, dist_v);
+			const float radii_sum = r + sphere.r;
+			const float dist_between = dist - radii_sum;
+				
+			// Calculate the length of the sum of the velocity vectors of the two spheres.
+			const XMVECTOR velocity_sum_v = XMLoadFloat3(&velocity_sum);
+			const XMVECTOR velocity_sum_length_v = XMVector3Length(velocity_sum_length_v);
+			float velocity_sum_length;
+			XMStoreFloat(&velocity_sum_length, velocity_sum_length_v);
+
+			// If the spheres are not touching each other and the velocity sum length is
+			// less than the distance between them, then they cannot collide.
+			if (0.0f < dist_between && velocity_sum_length < dist_between) {
+				return false;
+			}
+
+			// Calculate the normalized sum of the velocity vectors of the two spheres.
+			const XMVECTOR velocity_sum_normalized_v = XMVector3Normalize(velocity_sum_v);
+
+			// Calculate the angle between the normalized sum of the velocity vectors and direction vectors.
+			const XMVECTOR angle_between_v = XMVector3Dot(velocity_sum_normalized_v, direction_v);
+			float angle_between;
+			XMStoreFloat(&angle_between, angle_between_v);
+
+			// Check whether the spheres are moving away from one another.
+			if (angle_between <= 0.0f) {
+				// Check whether the spheres are touching (or inside) each other. 
+				// If not then they cannot collide since they are moving away from one another.
+				if (dist_between < 0.0f) {
+					// If the velocity sum length is greater than the distance between the
+					// spheres then they are moving away from each other fast enough that 
+					// they will not be touching when they complete their move.
+					if (velocity_sum_length > -dist_between) {
+						return false;
+					}
+				}
+				else {
+					return false;
+				}
+			}
+
+			// The vector between the two spheres and the velocity sum vector produce two sides of a triangle. 
+			// Now use Pythagorean Theorem to find the length of the third side of the triangle (i.e. the hypotenuse).
+			const float hypotenuse = (dist * dist) - (angle_between * angle_between);
+
+			// Ensure that the spheres come closer than the sum of their radii.
+			const float squared_radii_sum = radii_sum * radii_sum;
+			if (hypotenuse >= squared_radii_sum) {
+				return false;
+			}
+
+			// Calculate the distance along the velocity vector that the spheres collide.
+			// Then use this distance to calculate the distance to the collision.
+			const float d = squared_radii_sum - hypotenuse;
+			*collision_distance = angle_between - (float)sqrt(d);
+
+			// Ensure that the sphere will not travel more than the velocity allows.
+			return (velocity_sum_length >= *collision_distance);
 		}
 
 		/**
@@ -574,7 +651,4 @@ namespace mage {
 		 */
 		float r;
 	};
-
-
-
 }

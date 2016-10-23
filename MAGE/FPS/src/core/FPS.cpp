@@ -45,6 +45,6 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int) {
 	new Engine(&setup);
 	g_engine->Run();
 
-	return true;
+	return 0;
 }
 

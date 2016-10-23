@@ -319,14 +319,24 @@ namespace mage {
 		AABB() : p_min(XMFLOAT3(-INFINITY, -INFINITY, -INFINITY)), p_max(XMFLOAT3(INFINITY, INFINITY, INFINITY)) {}
 
 		/**
-		 Checks whether the given AABB is contained inside this AABB.
+		 Constructs an AABB.
+
+		 @param[in]		p_min
+						The minimum extents.
+		 @param[in]		p_max
+						The maximum extents.
+		 */
+		AABB(XMFLOAT3 p_min, XMFLOAT3 p_max) : p_min(p_min), p_max(p_max) {}
+
+		/**
+		 Checks whether this AABB completely encloses the given AABB.
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @return		@c true if @a aabb is contained inside this AABB.
+		 @return		@c true if this AABB completely encloses @a aabb.
 						@c false otherwise.
 		 */
-		bool Inside(AABB &aabb) const {
+		bool Encloses(const AABB &aabb) const {
 			if (aabb.p_min.x > p_max.x) {
 				return false;
 			}
@@ -350,16 +360,16 @@ namespace mage {
 		}
 		
 		/**
-		 Checks whether the given face is contained inside this AABB.
+		 Checks whether this AABB completely encloses the given face.
 
 		 @param[in]		face
 						A reference to the face.
-		 @return		@c true if @a facse is contained inside this AABB.
+		 @return		@c true if this AABB completely encloses @a face.
 						@c false otherwise.
 		 */
-		bool Inside(Face &face) const {
+		bool Encloses(const Face &face) const {
 			// Find the minimum and maximum points of the face along the x axis. 
-			// Then check if these two points are within this AABB's x axis extent.
+			// Then check if these two points are within this AABB's x axis extents.
 			const float min_x = min(face.v0->p.x, min(face.v1->p.x, face.v2->p.x));
 			const float max_x = max(face.v0->p.x, max(face.v1->p.x, face.v2->p.x));
 			if (max_x < p_min.x) {
@@ -370,7 +380,7 @@ namespace mage {
 			}
 
 			// Find the minimum and maximum points of the face along the y axis. 
-			// Then check if these two points are within this AABB's y axis extent.
+			// Then check if these two points are within this AABB's y axis extents.
 			const float min_y = min(face.v0->p.y, min(face.v1->p.y, face.v2->p.y));
 			const float max_y = max(face.v0->p.y, max(face.v1->p.y, face.v2->p.y));
 			if (max_y < p_min.y) {
@@ -381,7 +391,7 @@ namespace mage {
 			}
 
 			// Find the minimum and maximum points of the face along the z axis. 
-			// Then check if these two points are within this AABB's z axis extent.
+			// Then check if these two points are within this AABB's z axis extents.
 			const float min_z = min(face.v0->p.z, min(face.v1->p.z, face.v2->p.z));
 			const float max_z = max(face.v0->p.z, max(face.v1->p.z, face.v2->p.z));
 			if (max_z < p_min.z) {
@@ -394,48 +404,103 @@ namespace mage {
 			return true;
 		}
 
-		/*bool EnclosedBy(LinkedList< XMFLOAT4 > *planes) const {
-			LinkedList<XMFLOAT4>::LinkedListIterator it = planes->GetIterator();
-			while (it.HasNext()) {
-				const XMVECTOR next = DirectX::XMLoadFloat4(it.Next());
-				float a;
+		/**
+		 Checks whether this AABB is completely enclosed by the given (closed) volume.
 
-				DirectX::XMStoreFloat(&a, DirectX::XMPlaneDotCoord(next, DirectX::XMLoadFloat3(&XMFLOAT3(p_min.x, p_min.y, p_min.z))));
-				if (a < 0.0f) {
+		 @param[in]		planes
+						A reference to a linked list containing the planes of the volume
+						(each plane's coefficients are represented as a @c XMFLOAT4).
+		 @return		@c true if this AABB is completely enclosed by @a planes.
+						@c false otherwise.
+		 */
+		bool EnclosedBy(const LinkedList< XMFLOAT4 > &planes) const {
+			LinkedList<XMFLOAT4>::LinkedListIterator it = planes.GetIterator();
+			while (it.HasNext()) {
+				const XMVECTOR point = XMLoadFloat4(it.Next());
+
+				// 000
+				const XMFLOAT3 corner_000_f3(p_min.x, p_min.y, p_min.z);
+				const XMVECTOR corner_000_v = XMLoadFloat3(&corner_000_f3);
+				const XMVECTOR result_000_v = XMPlaneDotCoord(point, corner_000_v);
+				float result_000;
+				XMStoreFloat(&result_000, result_000_v);
+				if (result_000 < 0.0f) {
 					return false;
 				}
-				DirectX::XMStoreFloat(&a, DirectX::XMPlaneDotCoord(next, DirectX::XMLoadFloat3(&XMFLOAT3(p_max.x, p_min.y, p_min.z))));
-				if (a < 0.0f) {
+
+				// 001
+				const XMFLOAT3 corner_001_f3(p_min.x, p_min.y, p_max.z);
+				const XMVECTOR corner_001_v = XMLoadFloat3(&corner_001_f3);
+				const XMVECTOR result_001_v = XMPlaneDotCoord(point, corner_001_v);
+				float result_001;
+				XMStoreFloat(&result_001, result_001_v);
+				if (result_001 < 0.0f) {
 					return false;
 				}
-				DirectX::XMStoreFloat(&a, DirectX::XMPlaneDotCoord(next, DirectX::XMLoadFloat3(&XMFLOAT3(p_min.x, p_max.y, p_min.z))));
-				if (a < 0.0f) {
+
+				// 010
+				const XMFLOAT3 corner_010_f3(p_min.x, p_max.y, p_min.z);
+				const XMVECTOR corner_010_v = XMLoadFloat3(&corner_010_f3);
+				const XMVECTOR result_010_v = XMPlaneDotCoord(point, corner_010_v);
+				float result_010;
+				XMStoreFloat(&result_010, result_010_v);
+				if (result_010 < 0.0f) {
 					return false;
 				}
-				DirectX::XMStoreFloat(&a, DirectX::XMPlaneDotCoord(next, DirectX::XMLoadFloat3(&XMFLOAT3(p_max.x, p_max.y, p_min.z))));
-				if (a < 0.0f) {
+
+				// 011
+				const XMFLOAT3 corner_011_f3(p_min.x, p_max.y, p_max.z);
+				const XMVECTOR corner_011_v = XMLoadFloat3(&corner_011_f3);
+				const XMVECTOR result_011_v = XMPlaneDotCoord(point, corner_011_v);
+				float result_011;
+				XMStoreFloat(&result_011, result_011_v);
+				if (result_011 < 0.0f) {
 					return false;
 				}
-				DirectX::XMStoreFloat(&a, DirectX::XMPlaneDotCoord(next, DirectX::XMLoadFloat3(&XMFLOAT3(p_min.x, p_min.y, p_max.z))));
-				if (a < 0.0f) {
+
+				// 100
+				const XMFLOAT3 corner_100_f3(p_max.x, p_min.y, p_min.z);
+				const XMVECTOR corner_100_v = XMLoadFloat3(&corner_100_f3);
+				const XMVECTOR result_100_v = XMPlaneDotCoord(point, corner_100_v);
+				float result_100;
+				XMStoreFloat(&result_100, result_100_v);
+				if (result_100 < 0.0f) {
 					return false;
 				}
-				DirectX::XMStoreFloat(&a, DirectX::XMPlaneDotCoord(next, DirectX::XMLoadFloat3(&XMFLOAT3(p_max.x, p_min.y, p_max.z))));
-				if (a < 0.0f) {
+
+				// 101
+				const XMFLOAT3 corner_101_f3(p_max.x, p_min.y, p_max.z);
+				const XMVECTOR corner_101_v = XMLoadFloat3(&corner_101_f3);
+				const XMVECTOR result_101_v = XMPlaneDotCoord(point, corner_101_v);
+				float result_101;
+				XMStoreFloat(&result_101, result_101_v);
+				if (result_101 < 0.0f) {
 					return false;
 				}
-				DirectX::XMStoreFloat(&a, DirectX::XMPlaneDotCoord(next, DirectX::XMLoadFloat3(&XMFLOAT3(p_min.x, p_max.y, p_max.z))));
-				if (a < 0.0f) {
+
+				// 110
+				const XMFLOAT3 corner_110_f3(p_max.x, p_max.y, p_min.z);
+				const XMVECTOR corner_110_v = XMLoadFloat3(&corner_110_f3);
+				const XMVECTOR result_110_v = XMPlaneDotCoord(point, corner_110_v);
+				float result_110;
+				XMStoreFloat(&result_110, result_110_v);
+				if (result_110 < 0.0f) {
 					return false;
 				}
-				DirectX::XMStoreFloat(&a, DirectX::XMPlaneDotCoord(next, DirectX::XMLoadFloat3(&XMFLOAT3(p_max.x, p_max.y, p_max.z))));
-				if (a < 0.0f) {
+
+				// 111
+				const XMFLOAT3 corner_111_f3(p_max.x, p_max.y, p_max.z);
+				const XMVECTOR corner_111_v = XMLoadFloat3(&corner_111_f3);
+				const XMVECTOR result_111_v = XMPlaneDotCoord(point, corner_111_v);
+				float result_111;
+				XMStoreFloat(&result_111, result_111_v);
+				if (result_111 < 0.0f) {
 					return false;
 				}
 			}
 
 			return true;
-		}*/
+		}
 
 		/**
 		 The minimum extents of this AABB.
@@ -447,4 +512,69 @@ namespace mage {
 		 */
 		XMFLOAT3 p_max;
 	};
+
+	/**
+	 A struct of spheres.
+	 */
+	struct Sphere {
+
+		/**
+		 Constructs a sphere.
+		 */
+		Sphere() : p(XMFLOAT3(0.0f, 0.0f, 0.0f)), r(1.0f) {}
+
+		/**
+		 Constructs a sphere.
+
+		 @param[in]		p
+						The position
+		 @param[in]		r
+						The radius.
+		 */
+		Sphere(XMFLOAT3 p, float r) : p(p), r(r) {}
+
+		/**
+		 Checks whether this sphere completely encloses the given (closed) volume.
+
+		 @param[in]		planes
+						A reference to a linked list containing the planes of the volume
+						(each plane's coefficients are represented as a @c XMFLOAT4).
+		 @return		@c true if this sphere completely encloses @a planes.
+						@c false otherwise.
+		*/
+		bool Encloses(const LinkedList< XMFLOAT4 > &planes) {
+			LinkedList<XMFLOAT4>::LinkedListIterator it = planes.GetIterator();
+			while (it.HasNext()) {
+				const XMVECTOR point = XMLoadFloat4(it.Next());
+
+				const XMVECTOR p_v = XMLoadFloat3(&p);
+				const XMVECTOR result_v = XMPlaneDotCoord(point, p_v);
+				float result;
+				XMStoreFloat(&result, result_v);
+				if (result < -r) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		bool Collides(const Sphere &sphere, const XMFLOAT3 velocity_sum, float *collision_distance) {
+			//TODO
+			return false;
+		}
+
+		/**
+		 The position of this sphere.
+		 */
+		XMFLOAT3 p;
+
+		/**
+		 The radius of this sphere.
+		 */
+		float r;
+	};
+
+
+
 }

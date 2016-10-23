@@ -51,10 +51,7 @@ namespace mage {
 			Severe("Error IDirectInputDevice8::SetCooperativeLevel: %d", result_keyboard_cooperative);
 		}
 		// Obtain access to the input device. 
-		const HRESULT result_keyboard_acquire = m_keyboard->Acquire();
-		if (FAILED(result_keyboard_acquire)) {
-			Severe("Error IDirectInputDevice8::Acquire: %d", result_keyboard_acquire);
-		}
+		m_keyboard->Acquire();
 
 		// MOUSE
 
@@ -80,10 +77,7 @@ namespace mage {
 			Severe("Error IDirectInputDevice8::SetCooperativeLevel: %d", result_mouse_cooperative);
 		}
 		// Obtain access to the input device. 
-		const HRESULT result_mouse_acquire = m_mouse->Acquire();
-		if (FAILED(result_mouse_acquire)) {
-			Severe("Error IDirectInputDevice8::Acquire: %d", result_mouse_acquire);
-		}
+		m_mouse->Acquire();
 	}
 
 	void Input::Update() {

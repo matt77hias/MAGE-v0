@@ -113,7 +113,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-
 namespace mage {
 
 	/**
@@ -134,10 +133,11 @@ namespace mage {
 		/**
 		 Constructs an engine setup from the given engine setup.
 
+		 @pre			setup does not point to @c NULL.
 		 @param[in]		setup
-						A reference to the engine setup.
+						A pointer to the engine setup.
 		*/
-		EngineSetup(const EngineSetup &setup) : m_hinstance(setup.m_hinstance), m_name(setup.m_name), StateSetup(setup.StateSetup) {}
+		EngineSetup(const EngineSetup *setup) : m_hinstance(setup->m_hinstance), m_name(setup->m_name), StateSetup(setup->StateSetup) {}
 
 		/**
 		 Application instance handle.
@@ -201,52 +201,14 @@ namespace mage {
 		// STATE SYSTEM
 
 		/**
-		 Adds the given state from the states of this engine.
+		 Returns the state manager of this engine.
 
-		 @param[in]		state
-						A pointer to the state.
-		 @param[in]		change
-						Flag indicating whether the current state
-						of this engine need to be changed to @a state.
+		 @return		A pointer to the state manager of this engine
 		*/
-		void AddState(State *state, bool change = true) {
-			m_states->Add(state);
-
-			if (change == false) {
-				return;
-			}
-
-			if (m_current_state != NULL) {
-				// State postprocessing
-				m_current_state->Close();
-			}
-
-			m_current_state = m_states->GetLast();
-			// State preprocessing
-			m_current_state->Load();
+		StateManager *GetStateManager() const {
+			return m_state_manager;
 		}
 		
-		/**
-		 Removes the given state from the states of this engine.
-
-		 @param[in]		state
-						A pointer to the state.
-		 */
-		void RemoveState(State *state) {
-			m_states->Remove<false>(&state);
-		}
-		
-		void ChangeState(uint64_t id);
-
-		/**
-		 Returns the current state of this engine.
-
-		 @return		A pointer to the current state of this engine.
-		 */
-		State *GetCurrentState() const {
-			return m_current_state;
-		}
-
 		// INPUT SYSTEM
 
 		/**
@@ -259,6 +221,11 @@ namespace mage {
 		}
 
 	private:
+
+		/**
+		 Pointer to a copy of the engine setup structure.
+		 */
+		EngineSetup *m_setup;
 
 		/**
 		 Flag indicating whether this engine is loaded.
@@ -277,27 +244,12 @@ namespace mage {
 		*/
 		bool m_deactive;
 
-		/** 
-		 Copy of the engine setup structure.
-		 */
-		EngineSetup m_setup;
-
 		// STATE SYSTEM
 
 		/**
-		 The states of this engine.
+		 A pointer to the state manager of this engine.
 		 */
-		LinkedList< State > *m_states;
-
-		/**
-		 A pointer to the current state of this engine.
-		 */
-		State *m_current_state;
-
-		/**
-		 Flag indicating if the state changed in the current frame.
-		 */
-		bool m_state_changed;
+		StateManager *m_state_manager;
 
 		// INPUT SYSTEM
 

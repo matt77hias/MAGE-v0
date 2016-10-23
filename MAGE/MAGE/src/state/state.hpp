@@ -71,7 +71,7 @@ namespace mage {
 		 @param[in]		elapsed_time
 						The elapsed time since the previous update.
 		 */
-		virtual void Update(float elapsed_time) {
+		virtual void Update(double elapsed_time) {
 			// Supresses C4100: unreferenced formal parameter
 			(void)elapsed_time;
 		}
@@ -99,3 +99,12 @@ namespace mage {
 		const uint64_t m_id;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "state/state_manager.hpp"
+
+#pragma endregion

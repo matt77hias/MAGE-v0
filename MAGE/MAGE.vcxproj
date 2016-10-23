@@ -44,6 +44,7 @@
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
     <ClInclude Include="MAGE\src\state\state.hpp" />
+    <ClInclude Include="MAGE\src\state\state_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />
@@ -54,6 +55,7 @@
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\task.cpp" />
     <ClCompile Include="MAGE\src\resource\resource_manager.cpp" />
+    <ClCompile Include="MAGE\src\state\state_manager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>
@@ -142,7 +144,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
     </ClCompile>
     <Link>
@@ -153,6 +155,9 @@
     <Xdcmake>
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
+    <Lib>
+      <AdditionalDependencies>dxguid.lib;dinput8.lib;</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -161,7 +166,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
     </ClCompile>
     <Link>
@@ -172,6 +177,9 @@
     <Xdcmake>
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
+    <Lib>
+      <AdditionalDependencies>dxguid.lib;dinput8.lib;</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -195,6 +203,9 @@
     <Xdcmake>
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
+    <Lib>
+      <AdditionalDependencies>dxguid.lib;dinput8.lib;</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -220,6 +231,9 @@
     <Xdcmake>
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
+    <Lib>
+      <AdditionalDependencies>dxguid.lib;dinput8.lib;</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

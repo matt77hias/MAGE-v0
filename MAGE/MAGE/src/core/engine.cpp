@@ -109,9 +109,9 @@ namespace mage {
 		// Indicate that the engine is not yet loaded.
 		m_loaded = false;
 
-		// If no setup structure was passed in, then create a default one.
+		// If no setup structure was passed in, create a default one.
 		// Otehrwise, make a copy of the passed in structure.
-		m_setup = (setup) ? *setup : EngineSetup();
+		m_setup = (setup) ? new EngineSetup(setup) : new EngineSetup();
 
 		// Store a pointer to the engine in a global variable for easy access.
 		g_engine = this;
@@ -136,7 +136,7 @@ namespace mage {
 		// The number of extra bytes to allocate following the window instance.
 		wcex.cbWndExtra = 0;
 		//A handle to the instance that contains the window procedure for the class.
-		wcex.hInstance = m_setup.m_hinstance;
+		wcex.hInstance = m_setup->m_hinstance;
 		// A handle to the class icon. This member must be a handle to an icon resource.
 		wcex.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 		// A handle to the class cursor. This member must be a handle to a cursor resource.
@@ -163,11 +163,20 @@ namespace mage {
 
 		// Creates the window and retrieve a handle to it.
 		// Note: Later the window will be created using a windowed/fullscreen flag.
-		m_hwindow = CreateWindow(L"WindowClass", m_setup.m_name.c_str(), WS_OVERLAPPED, 0, 0, 800, 600, NULL, NULL, m_setup.m_hinstance, NULL);
+		m_hwindow = CreateWindow(L"WindowClass", m_setup->m_name.c_str(), WS_OVERLAPPED, 0, 0, 800, 600, NULL, NULL, m_setup->m_hinstance, NULL);
 
 		// Attach a console
 		AttachConsole();
 		PrintConsoleHeader();
+
+		// Create different engine systems
+		m_state_manager = new StateManager();
+		m_input = new Input(m_hwindow);
+
+		if (m_setup->StateSetup) {
+			// Sets up the states
+			m_setup->StateSetup();
+		}
 
 		// Seed the random number generator with the current time.
 		//srand(timeGetTime());
@@ -179,17 +188,20 @@ namespace mage {
 	Engine::~Engine() {
 		// Ensure the engine is loaded.
 		if (m_loaded) {
-
+			delete m_state_manager;
+			delete m_input;
 		}
 
 		// Uninitialise the COM.
 		CoUninitialize();
 
 		// Unregister the window class.
-		UnregisterClass(L"WindowClass", m_setup.m_hinstance);
+		UnregisterClass(L"WindowClass", m_setup->m_hinstance);
 
 		// Clean up the tasks support.
 		TasksCleanup();
+
+		delete m_setup;
 	}
 
 	void Engine::Run() {
@@ -197,6 +209,9 @@ namespace mage {
 		if (m_loaded) {
 			// Activates the window and displays it in its current size and position.
 			ShowWindow(m_hwindow, SW_NORMAL);
+
+			// Used to retrieve details about the viewer from the application.
+			ViewerSetup viewer;
 
 			Timer timer;
 			timer.Start();
@@ -215,8 +230,24 @@ namespace mage {
 					DispatchMessage(&msg);
 				}
 				else if (!m_deactive) {
-					const double elapsed = timer.Time();
+					// Calculate the elapsed time.
+					const double elapsed_time = timer.Time();
 					timer.Restart();
+
+					// Update the input object, reading the keyboard and mouse.
+					m_input->Update();
+					// Check whether the user wants to make a forced exit.
+					if (m_input->GetKeyPress(DIK_F1)) {
+						PostQuitMessage(0);
+					}
+
+					// Request the viewer from the current state (if there is one).
+					if (m_state_manager->GetCurrentState()) {
+						m_state_manager->GetCurrentState()->RequestViewer(&viewer);
+					}
+					if (m_state_manager->Update(elapsed_time)) {
+						continue;
+					}
 				}
 			}
 		}

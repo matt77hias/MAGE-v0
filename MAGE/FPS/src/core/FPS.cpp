@@ -3,6 +3,20 @@
 
 #include "core\engine.hpp"
 
+using namespace mage;
+
+class TestState : public State {
+	virtual void Update(double elapsed_time) {
+		if (g_engine->GetInput()->GetKeyPress(DIK_Q)) {
+			PostQuitMessage(0);
+		}
+	};
+};
+
+void StateSetup() {
+	g_engine->GetStateManager()->AddState(new TestState(), true);
+}
+
 /**
 The user-provided entry point for MAGE.
 
@@ -22,13 +36,14 @@ The user-provided entry point for MAGE.
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int) {
 
 	// Create the engine setup structure.
-	mage::EngineSetup setup;
-	setup.m_instance = hinstance;
-	setup.m_name = L"Framework Test";
+	EngineSetup setup;
+	setup.m_hinstance = hinstance;
+	setup.m_name = L"Engine Control Test";
+	setup.StateSetup = StateSetup;
 
 	// Create the engine, then run it.
-	new mage::Engine(&setup);
-	mage::g_engine->Run();
+	new Engine(&setup);
+	g_engine->Run();
 
 	return true;
 }

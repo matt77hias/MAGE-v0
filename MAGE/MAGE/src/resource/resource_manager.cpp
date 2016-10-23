@@ -50,7 +50,7 @@ namespace mage {
 	template < typename T >
 	T *ResourceManager< T >::GetResource(const string &name, const string &path) const {
 		// Iterate the resources looking for the specified resource.
-		const LinkedList< T >::LinkedListIterator it = m_resources->GetIterator();
+		LinkedList< T >::LinkedListIterator it = m_resources->GetIterator();
 		while (it.HasNext()) {
 			const T *next = it.Next();
 			if (next->GetName() == name && next->getPath() == path) {

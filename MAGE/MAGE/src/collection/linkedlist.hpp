@@ -74,12 +74,12 @@ namespace mage {
 		public:
 
 			/**
-			 Constructs a linked list iterator for the given linked list.
+			 Constructs a linked list iterator starting from the given first element of a linked list.
 
-			 @param[in]		list
-							A reference to a linked list.
+			 @param[in]		first
+							A pointer to the first element of a linked list.
 			 */
-			LinkedListIterator(const LinkedList< T > &list) : m_next(list.GetFirst()) {}
+			LinkedListIterator(LinkedListElement *first) : m_next(first) {}
 			
 			/**
 			 Destructs this linked list iterator.
@@ -133,7 +133,7 @@ namespace mage {
 						linked list will be destructed as well.
 		 */
 		virtual ~LinkedList() {
-			Empty< false >();
+			Empty();
 		}
 
 		/**
@@ -228,10 +228,12 @@ namespace mage {
 
 		 @param[in, out]	data
 						A pointer to a pointer to the data
-						which will point to @c NULL after removal. 
+						which will point to @c NULL after removal.
+		 @param[in]		data_destruction
+						if @c true the data will be destructed.
+						if @c false the data will not be destructed.
 		*/
-		template < typename bool no_data_destruction >
-		void Remove(T **data) {
+		void Remove(T **data, bool data_destruction = true) {
 			LinkedListElement *temp = m_first;
 			while (temp != NULL) {
 				if (temp->data == *data) {
@@ -246,7 +248,7 @@ namespace mage {
 							m_last->next = NULL;
 					}
 
-					if (no_data_destruction) {
+					if (!data_destruction) {
 						temp->data = NULL;
 						delete temp;
 					}
@@ -266,19 +268,18 @@ namespace mage {
 		/**
 		 Destroys all the elements in this linked list.
 
-		 @tparam		no_data_destruction
+		 @param[in]		data_destruction
 						if @c true the data associated with the
-						elements in this linkedlist will not be destructed.
-						if @c false the data associated with the
 						elements in this linkedlist will be destructed.
+						if @c false the data associated with the
+						elements in this linkedlist will not be destructed.
 		 */
-		template < typename bool no_data_destruction >
-		void Empty() {
+		void Empty(bool data_destruction = true) {
 			while (m_last != NULL) {
 				LinkedListElement *temp = m_last;
 				m_last = m_last->prev;
 
-				if (no_data_destruction) {
+				if (!data_destruction) {
 					temp->data = NULL;
 				}
 				delete temp;
@@ -399,7 +400,7 @@ namespace mage {
 		 @return		An iterator for this linked list.			
 		 */
 		LinkedListIterator GetIterator() const {
-			return LinkedListIterator(*this);
+			return LinkedListIterator(m_first);
 		}
 
 		/**

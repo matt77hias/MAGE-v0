@@ -64,6 +64,9 @@
     <Filter Include="Source Files\io">
       <UniqueIdentifier>{69116e59-6b9a-45ff-a6eb-6e13ba704792}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\state">
+      <UniqueIdentifier>{ab57d5b4-8579-496c-99fb-5dce1fd22c5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -141,6 +144,9 @@
     <ClInclude Include="MAGE\src\io\input.hpp">
       <Filter>Header Files\io</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\state\state_manager.hpp">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -166,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\io\input.cpp">
       <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\state\state_manager.cpp">
+      <Filter>Source Files\state</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

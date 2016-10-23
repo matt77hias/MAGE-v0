@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define DIRECTINPUT_VERSION 0x0800
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // System Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -46,20 +55,20 @@ namespace mage {
 		/**
 		 Checks whether the given key is pressed.
 
-		 @tparam		include_press_stamp
-						Consistent presses will return false when including the press stamp.
 		 @param[in]		key
 						The key.
+		 @param[in]		ignore_press_stamp
+						Flag indicating whether press stamps should be ignored.
+						Consistent presses will return false when using the press stamp.
 		 @return		@c true if the given key is pressed.
 						@c false otherwise.
 		 */
-		template < bool include_press_stamp >
-		bool GetKeyPress(char key) {
+		bool GetKeyPress(char key, bool ignore_press_stamp = false) {
 			if ((m_key_state[key] & 0x80) == false) {
 				return false;
 			}
 
-			const bool pressed = (include_press_stamp && (m_key_press_stamp[key] == m_press_stamp - 1 || m_key_press_stamp[key] == m_press_stamp)) ? false : true;
+			const bool pressed = (!ignore_press_stamp && (m_key_press_stamp[key] == m_press_stamp - 1 || m_key_press_stamp[key] == m_press_stamp)) ? false : true;
 
 			m_key_press_stamp[key] = m_press_stamp;
 
@@ -69,20 +78,20 @@ namespace mage {
 		/**
 		 Checks whether the given mouse button is pressed.
 
-		 @tparam		include_press_stamp
-						Consistent presses will return false when including the press stamp.
 		 @param[in]		mouse_button
 						The mouse button.
+		 @param[in]		ignore_press_stamp
+						Flag indicating whether press stamps should be ignored.
+						Consistent presses will return false when using the press stamp.
 		 @return		@c true if the given mouse button is pressed.
 						@c false otherwise.
 		 */
-		template < bool include_press_stamp >
-		bool GetMouseButtonPress(char mouse_button) {
+		bool GetMouseButtonPress(char mouse_button, bool ignore_press_stamp = false) {
 			if ((m_mouse_state.rgbButtons[mouse_button] & 0x80) == false) {
 				return false;
 			}
 
-			const bool pressed = (include_press_stamp && (m_mouse_button_press_stamp[mouse_button] == m_press_stamp - 1 || m_mouse_button_press_stamp[mouse_button] == m_press_stamp)) ? false : true;
+			const bool pressed = (!ignore_press_stamp && (m_mouse_button_press_stamp[mouse_button] == m_press_stamp - 1 || m_mouse_button_press_stamp[mouse_button] == m_press_stamp)) ? false : true;
 
 			m_mouse_button_press_stamp[mouse_button] = m_press_stamp;
 

@@ -43,6 +43,9 @@
     <ClInclude Include="MAGE\src\parallel\task.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
+    <ClInclude Include="MAGE\src\scripting\script.hpp" />
+    <ClInclude Include="MAGE\src\scripting\scripting.hpp" />
+    <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\state\state.hpp" />
     <ClInclude Include="MAGE\src\state\state_manager.hpp" />
   </ItemGroup>
@@ -55,6 +58,7 @@
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\task.cpp" />
     <ClCompile Include="MAGE\src\resource\resource_manager.cpp" />
+    <ClCompile Include="MAGE\src\scripting\script.cpp" />
     <ClCompile Include="MAGE\src\state\state_manager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

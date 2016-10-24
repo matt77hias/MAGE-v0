@@ -107,6 +107,7 @@ namespace mage {
 #include "state\state.hpp"
 
 #include "io\io.hpp"
+#include "scripting\scripting.hpp"
 
 #pragma endregion
 
@@ -204,11 +205,22 @@ namespace mage {
 		 Returns the state manager of this engine.
 
 		 @return		A pointer to the state manager of this engine
-		*/
+		 */
 		StateManager *GetStateManager() const {
 			return m_state_manager;
 		}
 		
+		// SCRIPTING SYSTEM
+
+		/**
+		 Returns the script manager of this engine.
+
+		 @return		A pointer to the script manager of this engine
+		*/
+		ResourceManager< Script > *GetScriptManager() const {
+			return m_script_manager;
+		}
+
 		// INPUT SYSTEM
 
 		/**
@@ -250,6 +262,13 @@ namespace mage {
 		 A pointer to the state manager of this engine.
 		 */
 		StateManager *m_state_manager;
+
+		// SCRIPTING SYSTEM
+
+		/**
+		 A pointer the script manager of this engine
+		 */
+		ResourceManager< Script > *m_script_manager;
 
 		// INPUT SYSTEM
 

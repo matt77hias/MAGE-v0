@@ -67,6 +67,12 @@
     <Filter Include="Source Files\state">
       <UniqueIdentifier>{ab57d5b4-8579-496c-99fb-5dce1fd22c5d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\scripting">
+      <UniqueIdentifier>{68931a48-3a4b-48e3-a677-68dcc03f1e88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scripting">
+      <UniqueIdentifier>{69b1cee0-5512-4d9b-ab9a-f0dbb346243b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -147,6 +153,15 @@
     <ClInclude Include="MAGE\src\state\state_manager.hpp">
       <Filter>Header Files\state</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\script.hpp">
+      <Filter>Header Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\scripting.hpp">
+      <Filter>Header Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\variable.hpp">
+      <Filter>Header Files\scripting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -175,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\state\state_manager.cpp">
       <Filter>Source Files\state</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\scripting\script.cpp">
+      <Filter>Source Files\scripting</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

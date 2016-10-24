@@ -171,6 +171,7 @@ namespace mage {
 
 		// Create different engine systems
 		m_state_manager = new StateManager();
+		m_script_manager = new ResourceManager< Script >();
 		m_input = new Input(m_hwindow);
 
 		if (m_setup->StateSetup) {
@@ -189,6 +190,7 @@ namespace mage {
 		// Ensure the engine is loaded.
 		if (m_loaded) {
 			delete m_state_manager;
+			delete m_script_manager;
 			delete m_input;
 		}
 

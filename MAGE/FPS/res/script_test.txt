@@ -1,0 +1,14 @@
+
+#begin
+
+a_true_bool	bool true
+a_false_bool	bool false
+
+an_integer	int 5
+a_float		float 5.001
+a_float3	float3 1.01 2.02 3.03
+a_float4	float4 4.01 5.02 6.03 7.04
+a_colour	colour 8.01 9.02 10.03 11.04
+a_string	string "test"
+
+#end

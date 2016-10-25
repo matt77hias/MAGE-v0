@@ -1,13 +1,4 @@
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <typeinfo>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -82,9 +73,9 @@ namespace mage {
 			const Variable *next = it.Next();
 			const char *name = next->GetName().c_str();
 			const void *raw_value = next->GetValue();
-			const char *type_name = typeid(raw_value).name();
 
-			if (strcmp(type_name, "Pb") == 0) {
+			switch (next->GetType()) {
+			case BoolType: {
 				const bool *value = (bool *)raw_value;
 				if (*value) {
 					sprintf_s(output, sizeof(output), "%s bool true", name);
@@ -92,52 +83,76 @@ namespace mage {
 				else {
 					sprintf_s(output, sizeof(output), "%s bool false", name);
 				}
+				fputs(output, file);
+				fputs("\n", file);
+				break;
 			}
-			else if (strcmp(type_name, "Pi") == 0) {
+			case IntType: {
 				const int *value = (int *)raw_value;
 				sprintf_s(output, sizeof(output), "%s int %d", name, *value);
+				fputs(output, file);
+				fputs("\n", file);
+				break;
 			}
-			else if (strcmp(type_name, "Ff") == 0) {
+			case FloatType: {
 				const float *value = (float *)raw_value;
 				sprintf_s(output, sizeof(output), "%s float %f", name, *value);
+				fputs(output, file);
+				fputs("\n", file);
+				break;
 			}
-			else if (strcmp(type_name, typeid(float3 *).name()) == 0) {
+			case Float3Type: {
 				const float3 *value = (float3 *)raw_value;
 				sprintf_s(output, sizeof(output), "%s float3 %f %f %f", name, value->x, value->y, value->z);
+				fputs(output, file);
+				fputs("\n", file);
+				break;
 			}
-			else if (strcmp(type_name, typeid(float4 *).name()) == 0) {
+			case Float4Type: {
 				const float4 *value = (float4 *)raw_value;
 				sprintf_s(output, sizeof(output), "%s float4 %f %f %f %f", name, value->x, value->y, value->z, value->w);
+				fputs(output, file);
+				fputs("\n", file);
+				break;
 			}
-			else if (strcmp(type_name, typeid(colour *).name()) == 0) {
+			case ColourType: {
 				const colour *value = (colour *)raw_value;
 				sprintf_s(output, sizeof(output), "%s colour %f %f %f %f", name, value->x, value->y, value->z, value->w);
+				fputs(output, file);
+				fputs("\n", file);
+				break;
 			}
-			else if (strcmp(type_name, "PSs") == 0) {
+			case StringType: {
 				const string *value = (string *)raw_value;
-				sprintf_s(output, sizeof(output), "%s string %s", name, value->c_str());
+				sprintf_s(output, sizeof(output), "%s string \"%s\"", name, value->c_str());
+				fputs(output, file);
+				fputs("\n", file);
+				break;
 			}
-			else if (strcmp(type_name, "Pv") == 0) {
+			case UnknownType: {
 				const char *value = (char *)raw_value;
 				sprintf_s(output, sizeof(output), "%s unknown %s", name, value);
+				fputs(output, file);
+				fputs("\n", file);
+				break;
 			}
-			else {
+			default: {
 				Warning("Could not export variable: %s", name);
-				continue;
 			}
-
-			fputs(output, file);
-			fputs("\n", file);
+			}
 		}
 
 		// Write the #end statement to the file.
 		fputs("#end", file);
+
+		// Close the script file.
+		fclose(file);
 	}
 
-	void Script::ImportVariable(const string &variable_name, FILE *file) {
+	void Script::ImportVariable(const string &name, FILE *file) {
 		// Ensure the file pointer is valid.
 		if (file == NULL) {
-			Warning("Could not import variable: %s", variable_name);
+			Warning("Could not import variable: %s", name);
 			return;
 		}
 
@@ -151,21 +166,21 @@ namespace mage {
 			bool *value = new bool;
 			fscanf_s(file, "%s", buffer, (unsigned int)sizeof(buffer));
 			*value = (strcmp(buffer, "true") == 0) ? true : false;
-			AddVariable(variable_name, value);
+			AddVariable(name, BoolType, value);
 		}
 		else if (strcmp(buffer, "int") == 0) {
 			// The variable is an int.
 			int *value = new int;
 			fscanf_s(file, "%s", buffer, (unsigned int)sizeof(buffer));
 			*value = atoi(buffer);
-			AddVariable(variable_name, value);
+			AddVariable(name, IntType, value);
 		}
 		else if (strcmp(buffer, "float") == 0) {
 			// The variable is a float.
 			float *value = new float;
 			fscanf_s(file, "%s", buffer, (unsigned int)sizeof(buffer));
 			*value = (float)atof(buffer);
-			AddVariable(variable_name, value);
+			AddVariable(name, FloatType, value);
 		}
 		else if (strcmp(buffer, "float3") == 0) {
 			// The variable is a float3.
@@ -176,7 +191,7 @@ namespace mage {
 			value->y = (float)atof(buffer);
 			fscanf_s(file, "%s", buffer, (unsigned int)sizeof(buffer));
 			value->z = (float)atof(buffer);
-			AddVariable(variable_name, value);
+			AddVariable(name, Float3Type, value);
 		}
 		else if (strcmp(buffer, "float4") == 0) {
 			// The variable is a float4.
@@ -189,7 +204,7 @@ namespace mage {
 			value->z = (float)atof(buffer);
 			fscanf_s(file, "%s", buffer, (unsigned int)sizeof(buffer));
 			value->w = (float)atof(buffer);
-			AddVariable(variable_name, value);
+			AddVariable(name, Float4Type, value);
 		}
 		else if (strcmp(buffer, "colour") == 0) {
 			// The variable is a colour.
@@ -202,7 +217,7 @@ namespace mage {
 			value->z = (float)atof(buffer);
 			fscanf_s(file, "%s", buffer, (unsigned int)sizeof(buffer));
 			value->w = (float)atof(buffer);
-			AddVariable(variable_name, value);
+			AddVariable(name, ColourType, value);
 		}
 		else if (strcmp(buffer, "string") == 0) {
 			// The variable is a string.
@@ -261,25 +276,25 @@ namespace mage {
 			} while (commas_found == true);
 
 			const string *value = new string(complete_string);
-			AddVariable(variable_name, value);
+			AddVariable(name, StringType, value);
 		}
 		else {
 			// The variable has an unknown type.
 			char *value = new char[strlen(buffer) + 1];
 			fscanf_s(file, "%s", buffer, (unsigned int)sizeof(buffer));
 			strcpy_s(value, sizeof(value), buffer);
-			AddVariable(variable_name, (void *)value);
+			AddVariable(name, UnknownType, (void *)value);
 		}
 	}
 
-	bool Script::RemoveVariable(const string &variable_name) {
+	bool Script::RemoveVariable(const string &name) {
 		Variable *target = NULL;
 
 		// Iterate the states looking for the specified variable.
 		LinkedList< Variable >::LinkedListIterator it = m_variables->GetIterator();
 		while (it.HasNext()) {
 			Variable *next = it.Next();
-			if (next->GetName() == variable_name) {
+			if (next->GetName() == name) {
 				target = next;
 				break;
 			}
@@ -295,12 +310,12 @@ namespace mage {
 	}
 
 	template < typename T >
-	const T *Script::GetValueOfVariable(const string &variable_name) const {
+	const T *Script::GetValueOfVariable(const string &name) const {
 		// Iterate the states looking for the specified variable.
 		LinkedList< Variable >::LinkedListIterator it = m_variables->GetIterator();
 		while (it.HasNext()) {
 			const Variable *next = it.Next();
-			if (next->GetName() == variable_name) {
+			if (next->GetName() == name) {
 				return (T *)next->GetValue();
 			}
 		}
@@ -309,10 +324,28 @@ namespace mage {
 	}
 
 	template < typename T >
-	void Script::SetValueOfVariable(const string &variable_name, const T *value) {
-		if (RemoveVariable(variable_name)) {
-			// Readd the variable with a new value.
-			AddVariable(variable_name, value);
+	void Script::SetValueOfVariable(const string &name, const T *value) {
+		Variable *target = NULL;
+
+		// Iterate the states looking for the specified variable.
+		LinkedList< Variable >::LinkedListIterator it = m_variables->GetIterator();
+		while (it.HasNext()) {
+			Variable *next = it.Next();
+			if (next->GetName() == name) {
+				target = next;
+				break;
+			}
 		}
+
+		if (target == NULL) {
+			return;
+		}
+
+		// Get type.
+		const VariableType type = target->GetType();
+		// Remove the variable
+		m_variables->Remove(&target);
+		// Readd the variable with a new value.
+		AddVariable(name, type, value);
 	}
 }

@@ -40,70 +40,72 @@ namespace mage {
 		/**
 		 Import the given variable from the given file to this script .
 
-		 @pre			No variable with the name @a variable_name
+		 @pre			No variable with the name @a name
 						exists in this script.
-		 @param[in]		variable_name
+		 @param[in]		name
 						The name of the variable.
 		 @param[in, out]	file
 						A pointer to a file containing the value of the variable.
 		 */
-		void ImportVariable(const string &variable_name, FILE *file);
+		void ImportVariable(const string &name, FILE *file);
 
 		/**
 		 Adds the given variable to this script.
 
-		 @pre			No variable with the name @a variable_name
+		 @pre			No variable with the name @a name
 						exists in this script.
 		 @tparam		T
 						The type of the value.
-		 @param[in]		variable_name
+		 @param[in]		name
 						The name of the variable.
+		 @param[in]		type
+						The type of the variable.
 		 @param[in]		value
 						A pointer to the value of the variable.
 		 */
 		template < typename T >
-		void AddVariable(const string &variable_name, const T *value) {
-			m_variables->Add(new Variable(variable_name, value));
+		void AddVariable(const string &name, VariableType type, const T *value) {
+			m_variables->Add(new Variable(name, type, (void *)value));
 		}
 
 		/**
 		 Removes the given variable from this script.
 
-		 @param[in]		variable_name
+		 @param[in]		name
 						The name of the variable.
-		 @return		@c true if a variable with the name @a variable_name
+		 @return		@c true if a variable with the name @a name
 						exists in this script prior to removal.
 		 */
-		bool RemoveVariable(const string &variable_name);
+		bool RemoveVariable(const string &name);
 
 		/**
 		 Returns the value of the given variable in this script.
 
 		 @tparam		T
 						The type of the value.
-		 @param[in]		variable_name
+		 @param[in]		name
 						The name of the variable.
-		 @return		@c NULL if no variable with the name @a variable_name
+		 @return		@c NULL if no variable with the name @a name
 						exists in this script.
 		 @return		A pointer to the value of the variable.
 		*/
 		template < typename T >
-		const T *GetValueOfVariable(const string &variable_name) const;
+		const T *GetValueOfVariable(const string &name) const;
 
 		/**
 		 Sets the value of the given variable in this script.
 
 		 @tparam		T
 						The type of the value.
-		 @param[in]		variable_name
+		 @param[in]		name
 						The name of the variable.
 		 @param[in]		value
 						A pointer to the value of the variable.
-		 @note			Nothing happens if no variable with the name @a variable_name
+		 @note			Nothing happens if no variable with the name @a name
 						exists in this script.
 		 */
 		template < typename T >
-		void SetValueOfVariable(const string &variable_name, const T *value);
+		void SetValueOfVariable(const string &name, const T *value);
 
 	private:
 

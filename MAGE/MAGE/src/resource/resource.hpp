@@ -53,7 +53,7 @@ namespace mage {
 		@return			The filename of this resource.
 		*/
 		const string GetFilename() const {
-			return m_name + m_path;
+			return m_path + m_name;
 		}
 
 	private:

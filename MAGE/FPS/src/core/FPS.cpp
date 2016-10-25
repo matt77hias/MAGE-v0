@@ -8,7 +8,11 @@ using namespace mage;
 class TestState : public State {
 	virtual void Update(double elapsed_time) {
 		if (g_engine->GetInput()->GetKeyPress(DIK_Q)) {
-			PostQuitMessage(0);
+			//PostQuitMessage(0);
+
+			Script s("script_test.txt", "C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/res/");
+			s.SaveScript("C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/res/output.txt");
+				
 		}
 	};
 };

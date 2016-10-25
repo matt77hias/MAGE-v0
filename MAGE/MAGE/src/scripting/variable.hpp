@@ -17,6 +17,21 @@ typedef XMFLOAT4 colour;
 namespace mage {
 
 	/**
+	 Enumeration of variable types.
+	 */
+	enum VariableType {
+		BoolType,
+		IntType,
+		FloatType,
+		Float3Type,
+		Float4Type,
+		ColourType,
+		StringType,
+		UnknownType
+	};
+
+
+	/**
 	 A struct of variables.
 	 */
 	struct Variable final {
@@ -24,15 +39,14 @@ namespace mage {
 		/**
 		 Constructs a variable.
 
-		 @tparam		T
-						The type of the value.
 		 @param[in]		name
 						The name.
+		 @param[in]		type
+						The (scripting) type of the value.
 		 @param[in]		value
 						A pointer to the value.
 		 */
-		template< typename T >
-		Variable(const string &name, const T *value) : m_name(name), m_value(new Value< T >(value)) {}
+		Variable(const string &name, VariableType type, const void *value) : m_name(name), m_type(type), m_value(value) {}
 
 		/**
 		 Destructs this variable.
@@ -51,12 +65,21 @@ namespace mage {
 		}
 
 		/**
+		 Returns the type of this value.
+
+		 @return		The type of this value.
+		 */
+		const VariableType &GetType() const {
+			return m_type;
+		}
+
+		/**
 		 Returns the value of this variable.
 
 		 @return		A pointer to the value of this variable.
 		 */
 		const void *GetValue() const {
-			return m_value->GetValue();
+			return m_value;
 		}
 
 	private:
@@ -67,73 +90,17 @@ namespace mage {
 		const string m_name;
 
 		/**
-		 A struct of abstract values.
+		 The type of this value.
 
-		 @note			This is an example of the Type Erasure pattern for templates.
+		 @note			It is not possible to use typeid(T).name() since this assumes
+						a bijection between the scripting types and the storage types,
+						which is not the case. Thus the type needs to be stored explicitly.
 		 */
-		struct AbstractValue {
-
-		public:
-
-			/**
-			 Destructs this value.
-			 */
-			virtual ~AbstractValue() {}
-
-			/**
-			 Returns the value of this value.
-
-			 @return		A pointer to the value of this value.
-			 */
-			virtual const void *GetValue() const = 0;
-		};
-
-		/**
-		 A struct of values.
-
-		 @tparam		T
-						The type of the value.
-		 */
-		template < typename T >
-		struct Value : AbstractValue {
-
-		public:
-
-			/**
-			 Constructs a value.
-
-			 @param[in]		value
-							A pointer to the value.
-			 */
-			Value(const T *value) : m_value(value) {}
-
-			/**
-			 Destructs this value.
-			 */
-			virtual ~Value() {
-				delete m_value;
-			}
-
-			/**
-			 Returns the value of this value.
-
-			 @return		A pointer to the value of this value.
-			 */
-			virtual const void *GetValue() const {
-				return m_value ;
-			}
-
-		private:
-
-			/**
-			 A pointer to the value of this value.
-			 */
-			const T *m_value;
-		};
+		const VariableType m_type;
 
 		/**
 		 A pointer to the value of this variable.
 		 */
-		const AbstractValue *m_value;
+		const void *m_value;
 	};
 }

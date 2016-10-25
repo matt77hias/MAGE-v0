@@ -42,7 +42,9 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int) {
 	setup.StateSetup = StateSetup;
 
 	// Create the engine, then run it.
+	ProgressReporter reporter(1, "Engine setup");
 	new Engine(&setup);
+	reporter.Done();
 	g_engine->Run();
 
 	return 0;

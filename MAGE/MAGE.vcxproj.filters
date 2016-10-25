@@ -49,12 +49,6 @@
     <Filter Include="Source Files\parallel">
       <UniqueIdentifier>{23b667d5-379d-444b-8454-b21d92f99a67}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\log">
-      <UniqueIdentifier>{c7374162-a25a-4c28-8475-0b93646cf99c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\log">
-      <UniqueIdentifier>{dbb452e9-4d9e-4ce3-9101-98b8782a0759}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\state">
       <UniqueIdentifier>{8463f1af-bd9e-4155-89f6-bb804a124c73}</UniqueIdentifier>
     </Filter>
@@ -73,6 +67,12 @@
     <Filter Include="Source Files\scripting">
       <UniqueIdentifier>{69b1cee0-5512-4d9b-ab9a-f0dbb346243b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\logging">
+      <UniqueIdentifier>{dbb452e9-4d9e-4ce3-9101-98b8782a0759}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\logging">
+      <UniqueIdentifier>{c7374162-a25a-4c28-8475-0b93646cf99c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -86,21 +86,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\core\engine.hpp">
       <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\log\debug.hpp">
-      <Filter>Header Files\log</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\log\error.hpp">
-      <Filter>Header Files\log</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\log\log.hpp">
-      <Filter>Header Files\log</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\log\progressreporter.hpp">
-      <Filter>Header Files\log</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\log\timer.hpp">
-      <Filter>Header Files\log</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\math\geometry.hpp">
       <Filter>Header Files\math</Filter>
@@ -162,19 +147,25 @@
     <ClInclude Include="MAGE\src\scripting\variable.hpp">
       <Filter>Header Files\scripting</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\logging\debug.hpp">
+      <Filter>Header Files\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\logging\error.hpp">
+      <Filter>Header Files\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\logging\logging.hpp">
+      <Filter>Header Files\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\logging\progressreporter.hpp">
+      <Filter>Header Files\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\logging\timer.hpp">
+      <Filter>Header Files\logging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
       <Filter>Source Files\core</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\log\error.cpp">
-      <Filter>Source Files\log</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\log\progressreporter.cpp">
-      <Filter>Source Files\log</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\log\timer.cpp">
-      <Filter>Source Files\log</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\parallel\lock.cpp">
       <Filter>Source Files\parallel</Filter>
@@ -193,6 +184,15 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\scripting\script.cpp">
       <Filter>Source Files\scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\logging\error.cpp">
+      <Filter>Source Files\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\logging\progressreporter.cpp">
+      <Filter>Source Files\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\logging\timer.cpp">
+      <Filter>Source Files\logging</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -101,7 +101,7 @@ namespace mage {
 #include "collection\collection.hpp"
 #include "math\math.hpp"
 #include "parallel\parallel.hpp"
-#include "log\log.hpp"
+#include "logging\logging.hpp"
 #include "memory\memory.hpp"
 #include "resource\resource.hpp"
 #include "state\state.hpp"

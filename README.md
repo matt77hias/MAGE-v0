@@ -16,6 +16,7 @@
 Based on:
 * [pbrt-v2](https://github.com/mmp/pbrt-v2): low level, non-pbrt functionality
 * Vaughan Young: basic engine
+
 ## TODO
 MAGE (v1) is currently aimed at modifying VYGE while supporting DirectX 11.
 MAGE (v2) will make larger changes to the initial architecture:

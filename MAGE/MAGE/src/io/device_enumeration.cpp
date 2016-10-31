@@ -137,6 +137,8 @@ namespace mage {
 	INT_PTR DeviceEnumeration::SettingsDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		(void)lParam;
 
+		// Window mode affects colour depth (format) affects resolution affects refresh rate.
+
 		switch (uMsg) {
 		case WM_INITDIALOG: {
 			// Sent to the dialog box procedure immediately before a dialog box is displayed.
@@ -200,7 +202,7 @@ namespace mage {
 					// Text buffer.
 					wchar_t buffer[16];
 
-					// Fill in the resolutions combo box.
+					// Fill in the resolutions combo box associated with the current format.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
 					for (list< DisplayMode>::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
@@ -214,7 +216,7 @@ namespace mage {
 					const int resolution = *m_settings_script->GetValueOfVariable< int >("resolution");
 					ComboBoxSelect(hwndDlg, IDC_RESOLUTION, resolution);
 
-					// Fill in the refresh rates combo box.
+					// Fill in the refresh rates combo box associated with the current resolution.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
 					for (list< DisplayMode>::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {

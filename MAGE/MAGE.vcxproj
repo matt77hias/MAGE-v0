@@ -43,7 +43,6 @@
     <ClInclude Include="MAGE\src\memory\allocation.hpp" />
     <ClInclude Include="MAGE\src\memory\arena.hpp" />
     <ClInclude Include="MAGE\src\memory\memory.hpp" />
-    <ClInclude Include="MAGE\src\memory\reference.hpp" />
     <ClInclude Include="MAGE\src\parallel\atomic.hpp" />
     <ClInclude Include="MAGE\src\parallel\lock.hpp" />
     <ClInclude Include="MAGE\src\parallel\parallel.hpp" />

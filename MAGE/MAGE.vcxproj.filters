@@ -105,9 +105,6 @@
     <ClInclude Include="MAGE\src\memory\memory.hpp">
       <Filter>Header Files\memory</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\memory\reference.hpp">
-      <Filter>Header Files\memory</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\parallel\task.hpp">
       <Filter>Header Files\parallel</Filter>
     </ClInclude>

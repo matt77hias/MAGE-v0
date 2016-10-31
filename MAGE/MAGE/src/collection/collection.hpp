@@ -15,12 +15,3 @@ using std::set;
 using std::list;
 
 #pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-//#include "collection\linkedlist.hpp"
-
-#pragma endregion

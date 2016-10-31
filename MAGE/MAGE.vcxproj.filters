@@ -84,9 +84,6 @@
     <ClInclude Include="MAGE\src\collection\collection.hpp">
       <Filter>Header Files\collection</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\collection\linkedlist.hpp">
-      <Filter>Header Files\collection</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\core\targetver.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>

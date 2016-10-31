@@ -20,5 +20,5 @@ Based on:
 ## TODO
 MAGE (v1) is currently aimed at modifying VYGE while supporting DirectX 11.
 MAGE (v2) will make larger changes to the initial architecture:
-* std::list or other iterator supporting list variant instead of our own LinkList
 * full C++ scripting via inheritance
+* ...

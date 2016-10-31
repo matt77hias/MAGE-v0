@@ -78,7 +78,7 @@ namespace mage {
 			// Iterate the variables looking for the specified variable.
 			for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
 				if ((*it)->GetName() == name) {
-					m_variables.remove(*(it++));
+					m_variables.remove(*it);
 					return;
 				}
 			}
@@ -125,7 +125,7 @@ namespace mage {
 			for (list< Variable * >::iterator it = m_variables.begin(); it != m_variables.end(); ++it) {
 				if ((*it)->GetName() == name) {
 					const VariableType type = (*it)->GetType();
-					m_variables.remove(*(it++));
+					m_variables.remove(*it);
 					AddVariable(name, type, value);
 					return;
 				}

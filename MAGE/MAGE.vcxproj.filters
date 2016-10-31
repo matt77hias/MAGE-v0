@@ -224,5 +224,8 @@
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp">
       <Filter>Source Files\scripting</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\io\font.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

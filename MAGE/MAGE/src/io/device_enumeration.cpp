@@ -42,34 +42,66 @@ namespace mage {
 	// DeviceEnumeration
 	//-------------------------------------------------------------------------
 
-	INT_PTR DeviceEnumeration::Enumerate(IDXGIDevice3 *dxgi_device) {
+	INT_PTR DeviceEnumeration::Enumerate() {
 		
+		m_adapter = NULL;
+
 		// Create the display modes linked list.
 		m_display_modes = list< DisplayMode >();
 
 		// Load the settings script.
 		m_settings_script = new VariableScript("DisplaySettings.mage");
 
-		// Get the IDXGIAdapter.
-		// The IDXGIAdapter represents a display subsystem (including one or more GPUs, DACs and video memory).
-		IDXGIAdapter *adapter;
-		const HRESULT result_adapter = dxgi_device->GetAdapter(&adapter);
-		if (result_adapter) {
-			Severe("IDXGIAdapter::GetAdapter: %d", result_adapter);
-		}
-		IDXGIAdapter2 *adapter2;
-		const HRESULT result_adapter2 = adapter->QueryInterface(__uuidof(IDXGIAdapter2), (void **)&adapter2);
-		if (result_adapter2) {
-			Severe("IDXGIAdapter2::QueryInterface: %d", result_adapter2);
+		// Get the IDXGIFactory.
+		IDXGIFactory3 *factory;
+		const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)&factory);
+		if (result_factory) {
+			Severe("CreateDXGIFactory1: %d", result_factory);
 		}
 
-		// Set the adapter descriptor.
-		adapter2->GetDesc2(&m_adapter_desc);
+		// Get the IDXGIAdapter.
+		// The IDXGIAdapter represents a display subsystem (including one or more GPUs, DACs and video memory).
+		IDXGIAdapter1 *adapter1;
+		SIZE_T max_vram = 0;
+		for (UINT i = 0; factory->EnumAdapters1(i, &adapter1) != DXGI_ERROR_NOT_FOUND; ++i) {
+			IDXGIAdapter2 *adapter2;
+			const HRESULT result_adapter2 = adapter1->QueryInterface(__uuidof(IDXGIAdapter2), (void **)&adapter2);
+			if (result_adapter2) {
+				Severe("IDXGIAdapter1::QueryInterface: %d", result_adapter2);
+			}
+			
+			DXGI_ADAPTER_DESC2 desc;
+			adapter2->GetDesc2(&desc);
+			const SIZE_T vram = desc.DedicatedVideoMemory;
+
+			if (vram >= max_vram) {
+				
+				if (m_adapter) {
+					// Release the IDXGIAdapter2.
+					m_adapter->Release();
+				}
+
+				max_vram = vram;
+				m_adapter = adapter2;
+
+				break;
+			}
+			else {
+				// Release the IDXGIAdapter2.
+				adapter2->Release();
+			}
+
+			// Release the IDXGIAdapter1.
+			adapter1->Release();
+		}
+
+		// Release the IDXGIFactory.
+		factory->Release();
 
 		// Get the primary IDXGIOutput.
 		// The IDXGIOutput represents an adapter output (such as a monitor).
 		IDXGIOutput *output;
-		const HRESULT result_output = adapter2->EnumOutputs(0, &output);
+		const HRESULT result_output = m_adapter->EnumOutputs(0, &output);
 		if (result_output) {
 			Severe("IDXGIAdapter2::EnumOutputs: %d", result_output);
 		}
@@ -126,6 +158,11 @@ namespace mage {
 			delete[] dxgi_mode_descs;
 		}
 
+		// Release the IDXGIOutput.
+		output->Release();
+		// Release the IDXGIOutput2.
+		output2->Release();
+
 		// Creates a modal dialog box from a dialog box template resource.
 		// 1. A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
 		// 2. The dialog box template.
@@ -147,8 +184,10 @@ namespace mage {
 
 			// Display the adapter details and its driver version.
 			wchar_t version_buffer[16];
-			swprintf_s(version_buffer, _countof(version_buffer), L"%d", LOWORD(m_adapter_desc.AdapterLuid.LowPart));
-			Edit_SetText(GetDlgItem(hwndDlg, IDC_DISPLAY_ADAPTER), m_adapter_desc.Description);
+			DXGI_ADAPTER_DESC2 desc;
+			m_adapter->GetDesc2(&desc);
+			swprintf_s(version_buffer, _countof(version_buffer), L"%d", LOWORD(desc.AdapterLuid.LowPart));
+			Edit_SetText(GetDlgItem(hwndDlg, IDC_DISPLAY_ADAPTER), desc.Description);
 			Edit_SetText(GetDlgItem(hwndDlg, IDC_DRIVER_VERSION), version_buffer);
 
 			// Check if the content of the settings script.
@@ -205,7 +244,7 @@ namespace mage {
 					// Fill in the resolutions combo box associated with the current format.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
-					for (list< DisplayMode>::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+					for (list< DisplayMode>::const_iterator it = m_display_modes.cend(); it != m_display_modes.cbegin(); --it) {
 						if (it->mode.Format == (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_COLOUR_DEPTH))) {
 							swprintf_s(buffer, _countof(buffer), L"%d x %d", it->mode.Width, it->mode.Height);
 							if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
@@ -297,7 +336,7 @@ namespace mage {
 					// Update the resolution combo box.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
-					for (list< DisplayMode>::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+					for (list< DisplayMode>::const_iterator it = m_display_modes.cend(); it != m_display_modes.cbegin(); --it) {
 						if (it->mode.Format == (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_COLOUR_DEPTH))) {
 							swprintf_s(buffer, _countof(buffer), L"%d x %d", it->mode.Width, it->mode.Height);
 							if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {

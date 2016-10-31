@@ -58,6 +58,7 @@
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />
     <ClCompile Include="MAGE\src\io\device_enumeration.cpp" />
+    <ClCompile Include="MAGE\src\io\font.cpp" />
     <ClCompile Include="MAGE\src\io\graphics_manager.cpp" />
     <ClCompile Include="MAGE\src\io\input.cpp" />
     <ClCompile Include="MAGE\src\io\window.cpp" />
@@ -168,7 +169,7 @@
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
     <Lib>
-      <AdditionalDependencies>d3d11.lib;dinput8.lib;dxguid.lib;</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;dinput8.lib;dxguid.lib;</AdditionalDependencies>
       <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
@@ -191,7 +192,7 @@
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
     <Lib>
-      <AdditionalDependencies>d3d11.lib;dinput8.lib;dxguid.lib;</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;dinput8.lib;dxguid.lib;</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

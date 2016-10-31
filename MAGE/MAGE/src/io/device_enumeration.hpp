@@ -59,13 +59,10 @@ namespace mage {
 		virtual ~DeviceEnumeration() {}
 
 		/**
-		 Enumerates the available display modes on the default adapter output of
-		 the physical adapter associated with the given device.
-
-		 @param[in]		device
-						A pointer to the device.
+		 Enumerates the available display modes on the adapter output of
+		 the physical adapter with the most dedicated video memory.
 		 */
-		INT_PTR Enumerate(IDXGIDevice3 *device);
+		INT_PTR Enumerate();
 
 		/**
 		 Engine-defined callback function used with the CreateDialog
@@ -114,9 +111,9 @@ namespace mage {
 	private:
 		
 		/**
-		 The description of the adapter (or video card).
+		 A poinbter to the adapter (or video card).
 		 */
-		DXGI_ADAPTER_DESC2 m_adapter_desc;
+		IDXGIAdapter2 *m_adapter;
 
 		/**
 		 A pointer to the script which stores the device configuration.

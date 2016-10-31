@@ -27,7 +27,7 @@ namespace mage {
 	 @param[in]		desc
 					The description of the item to add.
 	 */
-	void ComboBoxAdd(HWND dialog, int id, void *data, wchar_t *desc);
+	void ComboBoxAdd(HWND dialog, int id, const void *data, const wchar_t *desc);
 
 	/**
 	 Selects the item at the given index in a combo box.
@@ -51,7 +51,7 @@ namespace mage {
 	 @param[in]		data
 					A pointer to the data of the item.
 	 */
-	void ComboBoxSelect(HWND dialog, int id, void *data);
+	void ComboBoxSelect(HWND dialog, int id, const void *data);
 
 	/**
 	 Returns the data associated with the selected item in a combo box.
@@ -63,7 +63,7 @@ namespace mage {
 	 @return		@c NULL if the combo box has no items.
 	 @return		A pointer to the data associated with the selected item in the combo box.
 	 */
-	void *ComboBoxSelected(HWND dialog, int id);
+	const void *ComboBoxSelected(HWND dialog, int id);
 
 	/**
 	 Checks whether a valid item is selected in a combo box.
@@ -100,5 +100,5 @@ namespace mage {
 	 @return		@c true if the given description is contained in the combo box.
 					@c false otherwise.
 	 */
-	bool ComboBoxContains(HWND dialog, int id, wchar_t *desc);
+	bool ComboBoxContains(HWND dialog, int id, const wchar_t *desc);
 }

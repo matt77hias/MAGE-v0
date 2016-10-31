@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void ComboBoxAdd(HWND dialog, int id, void *data, wchar_t *desc) {
+	void ComboBoxAdd(HWND dialog, int id, const void *data, const wchar_t *desc) {
 		// Retrieve a handle to a control in the specified dialog box.
 		HWND control = GetDlgItem(dialog, id);
 		// Add a string to a list in a combo box and
@@ -36,7 +36,7 @@ namespace mage {
 		PostMessage(dialog, WM_COMMAND, MAKEWPARAM(id, CBN_SELCHANGE), (LPARAM)control);
 	}
 
-	void ComboBoxSelect(HWND dialog, int id, void *data) {
+	void ComboBoxSelect(HWND dialog, int id, const void *data) {
 		// Retrieve a handle to a control in the specified dialog box.
 		HWND control = GetDlgItem(dialog, id);
 		for (int i = 0; i < ComboBoxCount(dialog, id); ++i) {
@@ -56,7 +56,7 @@ namespace mage {
 		}
 	}
 
-	void *ComboBoxSelected(HWND dialog, int id) {
+	const void *ComboBoxSelected(HWND dialog, int id) {
 		// Retrieve a handle to a control in the specified dialog box.
 		HWND control = GetDlgItem(dialog, id);
 		// Get the currently selected item in a combo box.
@@ -83,7 +83,7 @@ namespace mage {
 		return ComboBox_GetCount(control);
 	}
 
-	bool ComboBoxContains(HWND dialog, int id, wchar_t *desc) {
+	bool ComboBoxContains(HWND dialog, int id, const wchar_t *desc) {
 		// Retrieve a handle to a control in the specified dialog box.
 		HWND control = GetDlgItem(dialog, id);
 		wchar_t item[MAX_PATH];

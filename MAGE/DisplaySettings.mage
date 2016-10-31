@@ -1,6 +1,6 @@
 #begin
 windowed bool false
-vsync bool false
+vsync bool true
 bpp int 0
 resolution int 0
 refresh int 0

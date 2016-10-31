@@ -22,17 +22,13 @@ namespace mage {
 		 @param[in]		CreateResourceFunction
 						The application specific resource creation function.
 		 */
-		ResourceManager(void(*CreateResourceFunction)(T **resource, const string &name, const string &path) = NULL) {
-			m_resources = new LinkedList< T >;
-
-			CreateResource = CreateResourceFunction;
-		}
+		ResourceManager(void(*CreateResourceFunction)(T **resource, const string &name, const string &path) = NULL) : m_resources(list< T * >()), CreateResource(CreateResourceFunction) {}
 
 		/**
 		 Destructs this resource manager.
 		 */
 		virtual ~ResourceManager() {
-			delete m_resources;
+			m_resources.clear();
 		}
 
 		/**
@@ -44,7 +40,7 @@ namespace mage {
 						A reference to the path of the new resource.
 		 @return		A pointer to the resource.
 		 */
-		T *Add(const string &name, const string &path = "./") {
+		T *AddResource(const string &name, const string &path = "./") {
 			T *resource;
 
 			// If the element already exists, then return a pointer to it.
@@ -63,32 +59,36 @@ namespace mage {
 				resource = new T(name, path);
 			}
 
-			// Add the new resource to this resource manager and return a pointer to it.
-			return m_resources->Add(resource);
+			// Add the new resource to this resource manager.
+			m_resources.push_back(resource);
+			// Return a pointer to the added resource.
+			return resource;
 		}
 		
 		/**
 		 Removes the given resource from this resource manager.
 
 		 @param[in,out]		resource
-						A pointer to a pointer of the resource.
+						A pointer to the resource.
 		 */
-		void Remove(T **resource) {
+		void RemoveResource(T *resource) {
 			if (*resource) {
 				return;
 			}
 
 			// If the resource is no long being used then destroy it.
-			if (*resource->DecrementResourceReferenceCount() == 0) {
-				m_resources->Remove(resource);
+			if (resource->DecrementResourceReferenceCount() == 0) {
+				m_resources.remove(resource);
+				delete resource;
 			}
 		}
 
 		/**
-		 Destroys all the resources of this resource manager.
+		 Removes and destructs all the resources from this resource manager, 
+		 and leaving the resource manager with no resources.
 		 */
-		void EmptyDestroy() {
-			m_resources->Empty<false>();
+		void ClearResources() {
+			m_resources.clear();
 		}
 
 		/**
@@ -103,11 +103,9 @@ namespace mage {
 		 */
 		T *GetResource(const string &name, const string &path = "./") const {
 			// Iterate the resources looking for the specified resource.
-			LinkedList< T >::LinkedListIterator it = m_resources->GetIterator();
-			while (it.HasNext()) {
-				const T *next = it.Next();
-				if (next->GetName() == name && next->getPath() == path) {
-					return next;
+			for (list< Resource * >::iterator it = m_resources.begin(); it != m_resources.end(); ++it) {
+				if ((*it)->GetName() == name && (*it)->getPath() == path) {
+					return *it;
 				}
 			}
 			// Return NULL if the resource was not found.
@@ -119,7 +117,7 @@ namespace mage {
 		/**
 		 The linked list containing the resources of this resource manager.
 		 */
-		LinkedList< T > *m_resources;
+		list< T * > m_resources;
 
 		/** 
 		 The application specific resource creation function for the resources

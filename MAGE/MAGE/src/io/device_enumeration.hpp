@@ -124,9 +124,9 @@ namespace mage {
 		VariableScript *m_settings_script;
 		
 		/**
-		 A pointer to the linked list of enumerated display modes.
+		 The linked list of enumerated display modes.
 		 */
-		LinkedList< DisplayMode > *m_display_modes;
+		list< DisplayMode > m_display_modes;
 		
 		/**
 		 The selected display mode by the user.

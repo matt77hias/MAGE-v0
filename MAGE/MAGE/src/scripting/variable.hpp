@@ -30,15 +30,16 @@ namespace mage {
 		UnknownType
 	};
 
-
 	/**
-	 A struct of variables.
+	 A struct of (immutable) variables.
 	 */
 	struct Variable final {
 
 		/**
 		 Constructs a variable.
 
+		 @tparam		T
+						The (storage) type of the value.
 		 @param[in]		name
 						The name.
 		 @param[in]		type
@@ -46,7 +47,8 @@ namespace mage {
 		 @param[in]		value
 						A pointer to the value.
 		 */
-		Variable(const string &name, VariableType type, const void *value) : m_name(name), m_type(type), m_value(value) {}
+		template< typename T >
+		Variable(const string &name, VariableType type, const T *value) : m_name(name), m_type(type), m_value(new Value< T >(value)) {}
 
 		/**
 		 Destructs this variable.
@@ -55,6 +57,32 @@ namespace mage {
 			delete m_value;
 		}
 		
+		/**
+		 Checks whether the given variable is equal to this variable.
+
+		 @param[in]		variable
+						A reference to the variable to compare with.
+		 @return		@c true if and only if this variable and @a variable
+						have the same name.
+						@c false otherwise.
+		 */
+		bool operator==(const Variable &variable) const {
+			return m_name == variable.m_name;
+		}
+
+		/**
+		 Checks whether the given variable is not equal to this variable.
+
+		 @param[in]		variable
+						A reference to the variable to compare with.
+		 @return		@c true if and only if this variable and @a variable
+						have not the same name.
+						@c false otherwise.
+		 */
+		bool operator!=(const Variable &variable) const {
+			return m_name != variable.m_name;
+		}
+
 		/**
 		 Returns the name of this variable.
 
@@ -79,7 +107,7 @@ namespace mage {
 		 @return		A pointer to the value of this variable.
 		 */
 		const void *GetValue() const {
-			return m_value;
+			return m_value->GetValue();
 		}
 
 	private:
@@ -99,8 +127,74 @@ namespace mage {
 		const VariableType m_type;
 
 		/**
-		 A pointer to the value of this variable.
+		 A struct of abstract values.
+
+		 @note			This is an example of the Type Erasure pattern for templates.
+						We need to keep the original type to ensure the right destructor
+						can be called in case of non-primitive types.
 		 */
-		const void *m_value;
+		struct AbstractValue {
+
+		public:
+
+			/**
+			 Destructs this value.
+			 */
+			virtual ~AbstractValue() {}
+
+			/**
+			 Returns the value of this value.
+
+			 @return		A pointer to the value of this value.
+			 */
+			virtual const void *GetValue() const = 0;
+		};
+
+		/**
+		 A struct of values.
+		 @tparam		T
+						The type of the value.
+		 */
+		template < typename T >
+		struct Value : AbstractValue {
+
+		public:
+
+			/**
+			 Constructs a value.
+
+			 @param[in]		value
+							A pointer to the value.
+			 */
+			Value(const T *value) : m_value(value) {}
+
+			/**
+			 Destructs this value.
+			 */
+			virtual ~Value() {
+				delete m_value;
+			}
+
+			/**
+			 Returns the value of this value.
+
+			 @return		A pointer to the value of this value.
+			 */
+			virtual const void *GetValue() const {
+				return (void *)m_value;
+			}
+
+		private:
+
+			/**
+			 A pointer to the value of this value.
+			 */
+			const T *m_value;
+		};
+
+		/**
+		A pointer to the value of this variable.
+		*/
+		const AbstractValue *m_value;
 	};
 }

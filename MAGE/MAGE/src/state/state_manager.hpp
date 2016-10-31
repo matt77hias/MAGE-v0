@@ -15,7 +15,7 @@ namespace mage {
 		/**
 		 Constructs a state manager.
 		 */
-		StateManager() : m_current_state(NULL), m_states(new LinkedList< State >()) {}
+		StateManager() : m_current_state(NULL), m_states(list< State * >()) {}
 
 		/**
 		 Destructs this state manager.
@@ -26,7 +26,7 @@ namespace mage {
 				m_current_state->Close();
 			}
 
-			delete m_states;
+			m_states.clear();
 		}
 
 		/**
@@ -39,13 +39,13 @@ namespace mage {
 						of this engine need to be changed to @a state.
 		 */
 		void AddState(State *state, bool change = true) {
-			m_states->Add(state);
+			m_states.push_back(state);
 
 			if (change == false) {
 				return;
 			}
 
-			ChangeState(m_states->GetLast());
+			ChangeState(m_states.back());
 		}
 
 		/**
@@ -55,7 +55,8 @@ namespace mage {
 		 A pointer to the state.
 		 */
 		void RemoveState(State *state) {
-			m_states->Remove(&state);
+			m_states.remove(state);
+			delete state;
 		}
 
 		/**
@@ -127,7 +128,7 @@ namespace mage {
 		/**
 		 The states of this state manager.
 		 */
-		LinkedList< State > *m_states;
+		list< State * > m_states;
 
 		/**
 		 A pointer to the current state of this state manager.

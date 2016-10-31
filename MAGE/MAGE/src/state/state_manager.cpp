@@ -14,11 +14,9 @@ namespace mage {
 	
 	void StateManager::ChangeState(uint64_t id) {
 		// Iterate the states looking for the specified state.
-		LinkedList< State >::LinkedListIterator it = m_states->GetIterator();
-		while (it.HasNext()) {
-			State *next = it.Next();
-			if (next->GetId() == id) {
-				ChangeState(next);
+		for (list< State * >::iterator it = m_states.begin(); it != m_states.end(); ++it) {
+			if ((*it)->GetId() == id) {
+				ChangeState(*it);
 				break;
 			}
 		}

@@ -26,7 +26,7 @@ namespace mage {
 		 Destruct this variable script.
 		 */
 		virtual ~VariableScript() {
-			delete m_variables;
+			m_variables.clear();
 		}
 
 		/**
@@ -65,7 +65,7 @@ namespace mage {
 		 */
 		template < typename T >
 		void AddVariable(const string &name, VariableType type, const T *value) {
-			m_variables->Add(new Variable(name, type, (void *)value));
+			m_variables.push_back(new Variable(name, type, value));
 		}
 
 		/**
@@ -73,10 +73,16 @@ namespace mage {
 
 		 @param[in]		name
 						The name of the variable.
-		 @return		@c true if a variable with the name @a name
-						exists in this variable script prior to removal.
 		 */
-		bool RemoveVariable(const string &name);
+		void RemoveVariable(const string &name) {
+			// Iterate the variables looking for the specified variable.
+			for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
+				if ((*it)->GetName() == name) {
+					m_variables.remove(*(it++));
+					return;
+				}
+			}
+		}
 
 		/**
 		 Returns the value of the given variable in this variable script.
@@ -92,11 +98,9 @@ namespace mage {
 		template < typename T >
 		const T *GetValueOfVariable(const string &name) const {
 			// Iterate the states looking for the specified variable.
-			LinkedList< Variable >::LinkedListIterator it = m_variables->GetIterator();
-			while (it.HasNext()) {
-				const Variable *next = it.Next();
-				if (next->GetName() == name) {
-					return (T *)next->GetValue();
+			for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
+				if ((*it)->GetName() == name) {
+					return (T *)((*it)->GetValue());
 				}
 			}
 
@@ -117,28 +121,15 @@ namespace mage {
 		 */
 		template < typename T >
 		void SetValueOfVariable(const string &name, const T *value) {
-			Variable *target = NULL;
-
-			// Iterate the states looking for the specified variable.
-			LinkedList< Variable >::LinkedListIterator it = m_variables->GetIterator();
-			while (it.HasNext()) {
-				Variable *next = it.Next();
-				if (next->GetName() == name) {
-					target = next;
-					break;
+			// Iterate the variables looking for the specified variable.
+			for (list< Variable * >::iterator it = m_variables.begin(); it != m_variables.end(); ++it) {
+				if ((*it)->GetName() == name) {
+					const VariableType type = (*it)->GetType();
+					m_variables.remove(*(it++));
+					AddVariable(name, type, value);
+					return;
 				}
 			}
-
-			if (target == NULL) {
-				return;
-			}
-
-			// Get type.
-			const VariableType type = target->GetType();
-			// Remove the variable
-			m_variables->Remove(&target);
-			// Readd the variable with a new value.
-			AddVariable(name, type, value);
 		}
 
 	private:
@@ -146,6 +137,6 @@ namespace mage {
 		/**
 		 Linked list containing the variables in this variable script.
 		 */
-		LinkedList< Variable > *m_variables;
+		list< Variable * > m_variables;
 	};
 }

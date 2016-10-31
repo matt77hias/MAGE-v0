@@ -402,10 +402,9 @@ namespace mage {
 		 @return		@c true if this AABB is completely enclosed by @a planes.
 						@c false otherwise.
 		 */
-		bool EnclosedBy(const LinkedList< XMFLOAT4 > &planes) const {
-			LinkedList<XMFLOAT4>::LinkedListIterator it = planes.GetIterator();
-			while (it.HasNext()) {
-				const XMVECTOR point = XMLoadFloat4(it.Next());
+		bool EnclosedBy(const list< XMFLOAT4 > &planes) const {
+			for (list< XMFLOAT4 >::const_iterator it = planes.cbegin(); it != planes.cend(); ++it) {
+				const XMVECTOR point = XMLoadFloat4(&(*it));
 
 				// 000
 				const XMFLOAT3 corner_000_f3(p_min.x, p_min.y, p_min.z);
@@ -531,10 +530,9 @@ namespace mage {
 		 @return		@c true if this sphere completely encloses @a planes.
 						@c false otherwise.
 		*/
-		bool Encloses(const LinkedList< XMFLOAT4 > &planes) {
-			LinkedList<XMFLOAT4>::LinkedListIterator it = planes.GetIterator();
-			while (it.HasNext()) {
-				const XMVECTOR point = XMLoadFloat4(it.Next());
+		bool Encloses(const list< XMFLOAT4 > &planes) {
+			for (list< XMFLOAT4 >::const_iterator it = planes.cbegin(); it != planes.cend(); ++it) {
+				const XMVECTOR point = XMLoadFloat4(&(*it));
 
 				const XMVECTOR p_v = XMLoadFloat3(&p);
 				const XMVECTOR result_v = XMPlaneDotCoord(point, p_v);

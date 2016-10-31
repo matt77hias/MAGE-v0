@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VariableScript::VariableScript(const string &name, const string &path) : Resource(name, path), m_variables(new LinkedList< Variable >()) {
+	VariableScript::VariableScript(const string &name, const string &path) : Resource(name, path), m_variables(list< Variable * >()) {
 		// Open the file whose name is specified by the given filename and
 		// associate it with a returned stream.
 		FILE *file;
@@ -68,13 +68,11 @@ namespace mage {
 		char output[MAX_PATH];
 
 		// Iterate the states looking for the specified variable.
-		LinkedList< Variable >::LinkedListIterator it = m_variables->GetIterator();
-		while (it.HasNext()) {
-			const Variable *next = it.Next();
-			const char *name = next->GetName().c_str();
-			const void *raw_value = next->GetValue();
+		for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
+			const char *name = (*it)->GetName().c_str();
+			const void *raw_value = (*it)->GetValue();
 
-			switch (next->GetType()) {
+			switch ((*it)->GetType()) {
 			case BoolType: {
 				const bool *value = (bool *)raw_value;
 				if (*value) {
@@ -163,21 +161,21 @@ namespace mage {
 
 		if (strcmp(buffer, "bool") == 0) {
 			// The variable is a bool.
-			bool *value = new bool;
+			bool *value = new bool();
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
 			*value = (strcmp(buffer, "true") == 0) ? true : false;
 			AddVariable(name, BoolType, value);
 		}
 		else if (strcmp(buffer, "int") == 0) {
 			// The variable is an int.
-			int *value = new int;
+			int *value = new int();
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
 			*value = atoi(buffer);
 			AddVariable(name, IntType, value);
 		}
 		else if (strcmp(buffer, "float") == 0) {
 			// The variable is a float.
-			float *value = new float;
+			float *value = new float();
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
 			*value = (float)atof(buffer);
 			AddVariable(name, FloatType, value);
@@ -285,27 +283,5 @@ namespace mage {
 			strcpy_s(value, strlen(buffer) + 1, buffer);
 			AddVariable(name, UnknownType, (void *)value);
 		}
-	}
-
-	bool VariableScript::RemoveVariable(const string &name) {
-		Variable *target = NULL;
-
-		// Iterate the states looking for the specified variable.
-		LinkedList< Variable >::LinkedListIterator it = m_variables->GetIterator();
-		while (it.HasNext()) {
-			Variable *next = it.Next();
-			if (next->GetName() == name) {
-				target = next;
-				break;
-			}
-		}
-
-		if (target == NULL) {
-			return false;
-		}
-
-		// Remove the variable
-		m_variables->Remove(&target);
-		return true;
 	}
 }

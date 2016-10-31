@@ -47,7 +47,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int) {
 
 	// Create the engine, then run it.
 	ProgressReporter reporter(1, "Engine setup");
-	new Engine(&setup);
+	g_engine = new Engine(&setup);
 	reporter.Done();
 	g_engine->Run();
 

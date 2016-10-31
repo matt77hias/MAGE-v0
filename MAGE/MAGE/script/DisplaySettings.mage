@@ -1,0 +1,7 @@
+#begin
+windowed 	bool true
+vsync 		bool false
+bpp 		int -1
+resolution 	int -1
+refresh 	int -1
+#end

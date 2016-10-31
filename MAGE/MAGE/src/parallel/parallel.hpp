@@ -10,7 +10,7 @@ namespace mage {
 
 	 @return		The number of system cores (i.e. logical processors).
 	 */
-	inline int NumberOfSystemCores() {
+	inline uint32_t NumberOfSystemCores() {
 		// Structure containing information about the current computer system. 
 		SYSTEM_INFO system_info;
 		// Retrieve information about the current system.

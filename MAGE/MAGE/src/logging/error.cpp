@@ -65,7 +65,7 @@ namespace mage {
 
 		char error_buffer[2048];
 		// Write formatted output using a pointer to a list of arguments.
-		vsnprintf_s(error_buffer, sizeof(error_buffer), _TRUNCATE, format, args);
+		vsnprintf_s(error_buffer, _countof(error_buffer), _TRUNCATE, format, args);
 
 		const char *msg_pos = error_buffer;
 		while (true) {

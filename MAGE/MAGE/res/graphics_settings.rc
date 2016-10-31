@@ -1,0 +1,100 @@
+#include "io\graphics_settings.hpp"
+
+#define APSTUDIO_READONLY_SYMBOLS
+#include "afxres.h"
+#undef APSTUDIO_READONLY_SYMBOLS
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_GRAPHICS_SETTINGS DIALOG DISCARDABLE  0, 0, 290, 185
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Graphics Settings"
+FONT 8, "MS Shell Dlg"
+BEGIN
+GROUPBOX        "Adapter Details", IDC_STATIC, 7, 7, 276, 48
+LTEXT           "Display Adapter:", IDC_STATIC, 16, 20, 98, 8, SS_CENTERIMAGE
+LTEXT           "Driver Version:", IDC_STATIC, 16, 38, 98, 8, SS_CENTERIMAGE
+GROUPBOX        "Display Settings", IDC_STATIC, 7, 57, 276, 100
+CONTROL         "Windowed", IDC_WINDOWED, "Button", BS_AUTORADIOBUTTON |
+				WS_GROUP | WS_TABSTOP, 16, 73, 98, 8
+CONTROL         "Fullscreen", IDC_FULLSCREEN, "Button", BS_AUTORADIOBUTTON,
+				16, 89, 98, 8
+LTEXT           "Colour Depth:", IDC_STATIC, 16, 106, 98, 8
+COMBOBOX        IDC_COLOUR_DEPTH, 115, 103, 159, 204, CBS_DROPDOWNLIST |
+				WS_DISABLED | WS_VSCROLL | WS_GROUP | WS_TABSTOP
+LTEXT           "Resolution:", IDC_STATIC, 16, 124, 98, 8
+COMBOBOX        IDC_RESOLUTION, 115, 121, 159, 204, CBS_DROPDOWNLIST |
+				WS_DISABLED | WS_VSCROLL | WS_GROUP | WS_TABSTOP
+LTEXT           "Refresh Rate:", IDC_STATIC, 16, 140, 98, 8
+COMBOBOX        IDC_REFRESH_RATE, 115, 137, 159, 204, CBS_DROPDOWNLIST |
+				WS_DISABLED | WS_VSCROLL | WS_GROUP | WS_TABSTOP
+DEFPUSHBUTTON   "OK", IDOK, 65, 164, 50, 14
+PUSHBUTTON      "Cancel", IDCANCEL, 175, 164, 50, 14
+EDITTEXT        IDC_DISPLAY_ADAPTER, 115, 17, 159, 12, ES_READONLY | NOT
+				WS_TABSTOP
+EDITTEXT        IDC_DRIVER_VERSION, 115, 34, 159, 12, ES_READONLY | NOT
+				WS_TABSTOP
+CONTROL         "V-Sync", IDC_VSYNC, "Button", BS_AUTOCHECKBOX |
+				WS_DISABLED | WS_TABSTOP, 115, 89, 60, 8
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE
+BEGIN
+IDD_GRAPHICS_SETTINGS, DIALOG
+BEGIN
+LEFTMARGIN, 7
+RIGHTMARGIN, 283
+VERTGUIDE, 16
+VERTGUIDE, 115
+VERTGUIDE, 175
+VERTGUIDE, 274
+TOPMARGIN, 7
+BOTTOMMARGIN, 178
+END
+END
+#endif
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE
+BEGIN
+"io\graphics_settings.hpp\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE
+BEGIN
+"#include ""afxres.h""\r\n"
+"\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE
+BEGIN
+"\r\n"
+"\0"
+END
+
+#endif
+
+#endif
+
+#ifndef APSTUDIO_INVOKED
+
+#endif
+

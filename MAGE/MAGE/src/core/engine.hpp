@@ -18,6 +18,7 @@ using std::cin;
 using std::cout;
 
 #include <windows.h>
+#include <d3d11_2.h>
 
 #pragma endregion
 
@@ -106,8 +107,9 @@ namespace mage {
 #include "resource\resource.hpp"
 #include "state\state.hpp"
 
-#include "io\io.hpp"
 #include "scripting\scripting.hpp"
+#include "io\io.hpp"
+#include "audio\audio.hpp"
 
 #pragma endregion
 
@@ -199,6 +201,17 @@ namespace mage {
 			m_deactive = deactive;
 		}
 
+		// GRAPHICS SYSTEM
+
+		/**
+		 Returns the graphics manager of this engine.
+
+		 @return		A pointer to the graphics manager of this engine
+		 */
+		GraphicsManager *GetGraphicsManager() const {
+			return m_graphics_manager;
+		}
+
 		// STATE SYSTEM
 
 		/**
@@ -217,7 +230,7 @@ namespace mage {
 
 		 @return		A pointer to the script manager of this engine
 		*/
-		ResourceManager< Script > *GetScriptManager() const {
+		ResourceManager< VariableScript > *GetScriptManager() const {
 			return m_script_manager;
 		}
 
@@ -256,6 +269,13 @@ namespace mage {
 		*/
 		bool m_deactive;
 
+		// GRAPHICS SYSTEM
+
+		/**
+		 A pointer to the graphics manager of this engine.
+		 */
+		GraphicsManager *m_graphics_manager;
+
 		// STATE SYSTEM
 
 		/**
@@ -268,7 +288,7 @@ namespace mage {
 		/**
 		 A pointer the script manager of this engine
 		 */
-		ResourceManager< Script > *m_script_manager;
+		ResourceManager< VariableScript > *m_script_manager;
 
 		// INPUT SYSTEM
 

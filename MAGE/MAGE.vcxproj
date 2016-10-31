@@ -19,13 +19,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MAGE\src\audio\audio.hpp" />
+    <ClInclude Include="MAGE\src\audio\sound.hpp" />
+    <ClInclude Include="MAGE\src\audio\sound_system.hpp" />
     <ClInclude Include="MAGE\src\collection\collection.hpp" />
     <ClInclude Include="MAGE\src\collection\linkedlist.hpp" />
     <ClInclude Include="MAGE\src\core\engine.hpp" />
     <ClInclude Include="MAGE\src\core\targetver.h" />
     <ClInclude Include="MAGE\src\core\version.hpp" />
+    <ClInclude Include="MAGE\src\io\device_enumeration.hpp" />
+    <ClInclude Include="MAGE\src\io\font.hpp" />
+    <ClInclude Include="MAGE\src\io\graphics_manager.hpp" />
+    <ClInclude Include="MAGE\src\io\graphics_settings.hpp" />
     <ClInclude Include="MAGE\src\io\input.hpp" />
     <ClInclude Include="MAGE\src\io\io.hpp" />
+    <ClInclude Include="MAGE\src\io\window.hpp" />
     <ClInclude Include="MAGE\src\logging\debug.hpp" />
     <ClInclude Include="MAGE\src\logging\error.hpp" />
     <ClInclude Include="MAGE\src\logging\logging.hpp" />
@@ -43,7 +51,7 @@
     <ClInclude Include="MAGE\src\parallel\task.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
-    <ClInclude Include="MAGE\src\scripting\script.hpp" />
+    <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\scripting.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\state\state.hpp" />
@@ -51,14 +59,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />
+    <ClCompile Include="MAGE\src\io\device_enumeration.cpp" />
+    <ClCompile Include="MAGE\src\io\graphics_manager.cpp" />
     <ClCompile Include="MAGE\src\io\input.cpp" />
+    <ClCompile Include="MAGE\src\io\window.cpp" />
     <ClCompile Include="MAGE\src\logging\error.cpp" />
     <ClCompile Include="MAGE\src\logging\progressreporter.cpp" />
     <ClCompile Include="MAGE\src\logging\timer.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\task.cpp" />
-    <ClCompile Include="MAGE\src\resource\resource_manager.cpp" />
-    <ClCompile Include="MAGE\src\scripting\script.cpp" />
+    <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
     <ClCompile Include="MAGE\src\state\state_manager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -160,7 +170,8 @@
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
     <Lib>
-      <AdditionalDependencies>dxguid.lib;dinput8.lib;</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dinput8.lib;dxguid.lib;</AdditionalDependencies>
+      <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -182,7 +193,7 @@
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
     <Lib>
-      <AdditionalDependencies>dxguid.lib;dinput8.lib;</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dinput8.lib;dxguid.lib;</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -208,7 +219,8 @@
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
     <Lib>
-      <AdditionalDependencies>dxguid.lib;dinput8.lib;</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dinput8.lib;dxguid.lib;</AdditionalDependencies>
+      <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -236,7 +248,7 @@
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
     <Lib>
-      <AdditionalDependencies>dxguid.lib;dinput8.lib;</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dinput8.lib;dxguid.lib;</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

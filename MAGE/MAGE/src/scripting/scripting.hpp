@@ -6,6 +6,6 @@
 #pragma region
 
 #include "scripting\variable.hpp"
-#include "scripting\script.hpp"
+#include "scripting\variable_script.hpp"
 
 #pragma endregion

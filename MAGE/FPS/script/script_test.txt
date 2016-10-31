@@ -10,5 +10,6 @@ a_float3	float3 1.01 2.02 3.03
 a_float4	float4 4.01 5.02 6.03 7.04
 a_colour	colour 8.01 9.02 10.03 11.04
 a_string	string "test"
+an_unknown	unknown abc123
 
 #end

@@ -9,6 +9,9 @@
 using std::min;
 using std::max;
 
+#include <DirectXMath.h>
+using namespace DirectX;
+
 #pragma endregion
 
 //-----------------------------------------------------------------------------

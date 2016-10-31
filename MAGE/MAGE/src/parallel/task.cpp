@@ -89,7 +89,7 @@ namespace mage {
 	}
 
 	void TasksInit() {
-		static const int nb_threads = NumberOfSystemCores();
+		static const uint32_t nb_threads = NumberOfSystemCores();
 		worker_semaphore = new Semaphore();
 		tasks_running_condition = new ConditionVariable();
 
@@ -119,7 +119,7 @@ namespace mage {
 			Assert(task_queue.size() == 0);
 		}
 
-		static const int nb_threads = NumberOfSystemCores();
+		static const uint32_t nb_threads = NumberOfSystemCores();
 		if (worker_semaphore != NULL) {
 			// Request workers.
 			worker_semaphore->Post(nb_threads);

@@ -24,7 +24,7 @@ namespace mage {
 		// 5. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or NULL if the interface is not aggregated.
 		const HRESULT result_di_create = DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (void **)&m_di, NULL);
 		if (FAILED(result_di_create)) {
-			Severe("Error DirectInput8Create: %d", result_di_create);
+			Severe("DirectInput8Create: %d", result_di_create);
 		}
 
 		// KEYBOARD
@@ -36,19 +36,19 @@ namespace mage {
 		// 3. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or NULL if the interface is not aggregated.
 		const HRESULT result_keyboard_create = m_di->CreateDevice(GUID_SysKeyboard, &m_keyboard, NULL);
 		if (FAILED(result_keyboard_create)) {
-			Severe("Error IDirectInput8::CreateDevice: %d", result_keyboard_create);
+			Severe("IDirectInput8::CreateDevice: %d", result_keyboard_create);
 		}
 		// Set the data format for the DirectInput device. 
 		const HRESULT result_keyboard_format = m_keyboard->SetDataFormat(&c_dfDIKeyboard);
 		if (FAILED(result_keyboard_format)) {
-			Severe("Error IDirectInputDevice8::SetDataFormat: %d", result_keyboard_format);
+			Severe("IDirectInputDevice8::SetDataFormat: %d", result_keyboard_format);
 		}
 		// Establish the cooperative level for this instance of the device. 
 		// The cooperative level determines how this instance of the device interacts 
 		// with other instances of the device and the rest of the system. 
 		const HRESULT result_keyboard_cooperative = m_keyboard->SetCooperativeLevel(m_hwindow, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 		if (FAILED(result_keyboard_cooperative)) {
-			Severe("Error IDirectInputDevice8::SetCooperativeLevel: %d", result_keyboard_cooperative);
+			Severe("IDirectInputDevice8::SetCooperativeLevel: %d", result_keyboard_cooperative);
 		}
 		// Obtain access to the input device. 
 		m_keyboard->Acquire();
@@ -62,19 +62,19 @@ namespace mage {
 		// 3. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or NULL if the interface is not aggregated.
 		const HRESULT result_mouse_create = m_di->CreateDevice(GUID_SysMouse, &m_mouse, NULL);
 		if (FAILED(result_mouse_create)) {
-			Severe("Error IDirectInput8::CreateDevice: %d", result_mouse_create);
+			Severe("IDirectInput8::CreateDevice: %d", result_mouse_create);
 		}
 		// Set the data format for the DirectInput device. 
 		const HRESULT result_mouse_format = m_mouse->SetDataFormat(&c_dfDIMouse);
 		if (FAILED(result_mouse_format)) {
-			Severe("Error IDirectInputDevice8::SetDataFormat: %d", result_mouse_format);
+			Severe("IDirectInputDevice8::SetDataFormat: %d", result_mouse_format);
 		}
 		// Establish the cooperative level for this instance of the device. 
 		// The cooperative level determines how this instance of the device interacts 
 		// with other instances of the device and the rest of the system. 
 		const HRESULT result_mouse_cooperative = m_mouse->SetCooperativeLevel(m_hwindow, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 		if (FAILED(result_mouse_cooperative)) {
-			Severe("Error IDirectInputDevice8::SetCooperativeLevel: %d", result_mouse_cooperative);
+			Severe("IDirectInputDevice8::SetCooperativeLevel: %d", result_mouse_cooperative);
 		}
 		// Obtain access to the input device. 
 		m_mouse->Acquire();

@@ -170,8 +170,9 @@ namespace mage {
 		PrintConsoleHeader();
 
 		// Create different engine systems
+		m_graphics_manager = new GraphicsManager();
 		m_state_manager = new StateManager();
-		m_script_manager = new ResourceManager< Script >();
+		m_script_manager = new ResourceManager< VariableScript >();
 		m_input = new Input(m_hwindow);
 
 		if (m_setup->StateSetup) {
@@ -189,6 +190,7 @@ namespace mage {
 	Engine::~Engine() {
 		// Ensure the engine is loaded.
 		if (m_loaded) {
+			delete m_graphics_manager;
 			delete m_state_manager;
 			delete m_script_manager;
 			delete m_input;

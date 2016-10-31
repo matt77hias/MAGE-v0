@@ -16,7 +16,7 @@ namespace mage {
 	// Globals
 	//-------------------------------------------------------------------------
 	DeviceEnumeration *g_device_enumeration = NULL;
-	
+
 	//-------------------------------------------------------------------------
 	// WindowProc for handling Windows messages.
 	//-------------------------------------------------------------------------
@@ -244,7 +244,7 @@ namespace mage {
 					// Fill in the resolutions combo box associated with the current format.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
-					for (list< DisplayMode>::const_iterator it = m_display_modes.cend(); it != m_display_modes.cbegin(); --it) {
+					for (list< DisplayMode>::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 						if (it->mode.Format == (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_COLOUR_DEPTH))) {
 							swprintf_s(buffer, _countof(buffer), L"%d x %d", it->mode.Width, it->mode.Height);
 							if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
@@ -336,7 +336,7 @@ namespace mage {
 					// Update the resolution combo box.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
-					for (list< DisplayMode>::const_iterator it = m_display_modes.cend(); it != m_display_modes.cbegin(); --it) {
+					for (list< DisplayMode>::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 						if (it->mode.Format == (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_COLOUR_DEPTH))) {
 							swprintf_s(buffer, _countof(buffer), L"%d x %d", it->mode.Width, it->mode.Height);
 							if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {

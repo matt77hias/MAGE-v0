@@ -109,12 +109,15 @@ namespace mage {
 		// Indicate that the engine is not yet loaded.
 		m_loaded = false;
 
+		// Store a pointer to the engine in a global variable for easy access.
+		if (g_engine) {
+			delete g_engine;
+		}
+		g_engine = this;
+
 		// If no setup structure was passed in, create a default one.
 		// Otehrwise, make a copy of the passed in structure.
 		m_setup = (setup) ? new EngineSetup(setup) : new EngineSetup();
-
-		// Store a pointer to the engine in a global variable for easy access.
-		g_engine = this;
 
 		// Prepare and register the window class.
 		//-----------------------------------------------------------------------------
@@ -171,6 +174,10 @@ namespace mage {
 
 		// Create different engine systems
 		m_graphics_manager = new GraphicsManager();
+		if (m_graphics_manager->StartEnumerate() == false) {
+			return;
+		}
+
 		m_state_manager = new StateManager();
 		m_script_manager = new ResourceManager< VariableScript >();
 		m_input = new Input(m_hwindow);
@@ -180,17 +187,16 @@ namespace mage {
 			m_setup->StateSetup();
 		}
 
-		// Seed the random number generator with the current time.
-		//srand(timeGetTime());
-
 		// The engine is fully loaded and ready to go.
 		m_loaded = true;
 	}
 
 	Engine::~Engine() {
+
+		delete m_graphics_manager;
+
 		// Ensure the engine is loaded.
 		if (m_loaded) {
-			delete m_graphics_manager;
 			delete m_state_manager;
 			delete m_script_manager;
 			delete m_input;

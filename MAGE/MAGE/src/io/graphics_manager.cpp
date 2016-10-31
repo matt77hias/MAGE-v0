@@ -12,7 +12,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	GraphicsManager::GraphicsManager() {
 		//const D3D_FEATURE_LEVEL feature_levels[] = {
 		//	D3D_FEATURE_LEVEL_11_1,
 		//	D3D_FEATURE_LEVEL_11_0,
@@ -52,11 +51,4 @@ namespace mage {
 		//if (result_device2) {
 		//	Severe("Error ID3D11Device2::QueryInterface: %d", result_dxgi_device);
 		//}
-
-		g_device_enumeration = new DeviceEnumeration();
-		const INT_PTR result_enumeration = g_device_enumeration->Enumerate();
-		if (result_enumeration != IDOK) {
-			return; //TODO return value
-		}
-	}
 }

@@ -2,6 +2,6 @@
 windowed bool false
 vsync bool true
 bpp int 0
-resolution int 0
+resolution int 16
 refresh int 1
 #end

@@ -6,9 +6,18 @@ namespace mage {
 
 	public:
 
-		GraphicsManager();
+		GraphicsManager() {
+			if (g_device_enumeration) {
+				delete g_device_enumeration;
+			}
+			g_device_enumeration = new DeviceEnumeration();
+		}
 
 		virtual ~GraphicsManager() {}
+
+		bool StartEnumerate() {
+			return (g_device_enumeration->Enumerate() == IDOK);
+		}
 
 		IDXGIDevice3 *GetDevice() const {
 			return m_device;

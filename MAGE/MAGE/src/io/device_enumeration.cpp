@@ -8,6 +8,29 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Integrated + Dedicated GPU on notebooks  
+//-----------------------------------------------------------------------------
+#pragma region
+
+/**
+ NVIDIA Optimus enablement
+
+ @pre NVIDIA Control Panel > Preferred graphics processor > "Auto-select"
+ */
+extern "C" {
+	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+}
+
+/** 
+ AMD "Optimus" enablement
+ */
+extern "C" {
+	__declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
+}
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -36,6 +59,153 @@ namespace mage {
 	 */
 	INT_PTR CALLBACK SettingsDialogProcDelegate(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		return g_device_enumeration->SettingsDialogProc(hwndDlg, uMsg, wParam, lParam);
+	}
+
+	//-------------------------------------------------------------------------
+	// Bits Per Pixel.
+	//-------------------------------------------------------------------------
+	size_t BitsPerPixel(DXGI_FORMAT format) {
+		switch (format) {
+		case DXGI_FORMAT_R32G32B32A32_TYPELESS:
+		case DXGI_FORMAT_R32G32B32A32_FLOAT:
+		case DXGI_FORMAT_R32G32B32A32_UINT:
+		case DXGI_FORMAT_R32G32B32A32_SINT:
+			return 128;
+
+		case DXGI_FORMAT_R32G32B32_TYPELESS:
+		case DXGI_FORMAT_R32G32B32_FLOAT:
+		case DXGI_FORMAT_R32G32B32_UINT:
+		case DXGI_FORMAT_R32G32B32_SINT:
+			return 96;
+
+		case DXGI_FORMAT_R16G16B16A16_TYPELESS:
+		case DXGI_FORMAT_R16G16B16A16_FLOAT:
+		case DXGI_FORMAT_R16G16B16A16_UNORM:
+		case DXGI_FORMAT_R16G16B16A16_UINT:
+		case DXGI_FORMAT_R16G16B16A16_SNORM:
+		case DXGI_FORMAT_R16G16B16A16_SINT:
+		case DXGI_FORMAT_R32G32_TYPELESS:
+		case DXGI_FORMAT_R32G32_FLOAT:
+		case DXGI_FORMAT_R32G32_UINT:
+		case DXGI_FORMAT_R32G32_SINT:
+		case DXGI_FORMAT_R32G8X24_TYPELESS:
+		case DXGI_FORMAT_D32_FLOAT_S8X24_UINT:
+		case DXGI_FORMAT_R32_FLOAT_X8X24_TYPELESS:
+		case DXGI_FORMAT_X32_TYPELESS_G8X24_UINT:
+		case DXGI_FORMAT_Y416:
+		case DXGI_FORMAT_Y210:
+		case DXGI_FORMAT_Y216:
+			return 64;
+
+		case DXGI_FORMAT_R10G10B10A2_TYPELESS:
+		case DXGI_FORMAT_R10G10B10A2_UNORM:
+		case DXGI_FORMAT_R10G10B10A2_UINT:
+		case DXGI_FORMAT_R11G11B10_FLOAT:
+		case DXGI_FORMAT_R8G8B8A8_TYPELESS:
+		case DXGI_FORMAT_R8G8B8A8_UNORM:
+		case DXGI_FORMAT_R8G8B8A8_UNORM_SRGB:
+		case DXGI_FORMAT_R8G8B8A8_UINT:
+		case DXGI_FORMAT_R8G8B8A8_SNORM:
+		case DXGI_FORMAT_R8G8B8A8_SINT:
+		case DXGI_FORMAT_R16G16_TYPELESS:
+		case DXGI_FORMAT_R16G16_FLOAT:
+		case DXGI_FORMAT_R16G16_UNORM:
+		case DXGI_FORMAT_R16G16_UINT:
+		case DXGI_FORMAT_R16G16_SNORM:
+		case DXGI_FORMAT_R16G16_SINT:
+		case DXGI_FORMAT_R32_TYPELESS:
+		case DXGI_FORMAT_D32_FLOAT:
+		case DXGI_FORMAT_R32_FLOAT:
+		case DXGI_FORMAT_R32_UINT:
+		case DXGI_FORMAT_R32_SINT:
+		case DXGI_FORMAT_R24G8_TYPELESS:
+		case DXGI_FORMAT_D24_UNORM_S8_UINT:
+		case DXGI_FORMAT_R24_UNORM_X8_TYPELESS:
+		case DXGI_FORMAT_X24_TYPELESS_G8_UINT:
+		case DXGI_FORMAT_R9G9B9E5_SHAREDEXP:
+		case DXGI_FORMAT_R8G8_B8G8_UNORM:
+		case DXGI_FORMAT_G8R8_G8B8_UNORM:
+		case DXGI_FORMAT_B8G8R8A8_UNORM:
+		case DXGI_FORMAT_B8G8R8X8_UNORM:
+		case DXGI_FORMAT_R10G10B10_XR_BIAS_A2_UNORM:
+		case DXGI_FORMAT_B8G8R8A8_TYPELESS:
+		case DXGI_FORMAT_B8G8R8A8_UNORM_SRGB:
+		case DXGI_FORMAT_B8G8R8X8_TYPELESS:
+		case DXGI_FORMAT_B8G8R8X8_UNORM_SRGB:
+		case DXGI_FORMAT_AYUV:
+		case DXGI_FORMAT_Y410:
+		case DXGI_FORMAT_YUY2:
+			return 32;
+
+		case DXGI_FORMAT_P010:
+		case DXGI_FORMAT_P016:
+			return 24;
+
+		case DXGI_FORMAT_R8G8_TYPELESS:
+		case DXGI_FORMAT_R8G8_UNORM:
+		case DXGI_FORMAT_R8G8_UINT:
+		case DXGI_FORMAT_R8G8_SNORM:
+		case DXGI_FORMAT_R8G8_SINT:
+		case DXGI_FORMAT_R16_TYPELESS:
+		case DXGI_FORMAT_R16_FLOAT:
+		case DXGI_FORMAT_D16_UNORM:
+		case DXGI_FORMAT_R16_UNORM:
+		case DXGI_FORMAT_R16_UINT:
+		case DXGI_FORMAT_R16_SNORM:
+		case DXGI_FORMAT_R16_SINT:
+		case DXGI_FORMAT_B5G6R5_UNORM:
+		case DXGI_FORMAT_B5G5R5A1_UNORM:
+		case DXGI_FORMAT_A8P8:
+		case DXGI_FORMAT_B4G4R4A4_UNORM:
+			return 16;
+
+		case DXGI_FORMAT_NV12:
+		case DXGI_FORMAT_420_OPAQUE:
+		case DXGI_FORMAT_NV11:
+			return 12;
+
+		case DXGI_FORMAT_R8_TYPELESS:
+		case DXGI_FORMAT_R8_UNORM:
+		case DXGI_FORMAT_R8_UINT:
+		case DXGI_FORMAT_R8_SNORM:
+		case DXGI_FORMAT_R8_SINT:
+		case DXGI_FORMAT_A8_UNORM:
+		case DXGI_FORMAT_AI44:
+		case DXGI_FORMAT_IA44:
+		case DXGI_FORMAT_P8:
+			return 8;
+
+		case DXGI_FORMAT_R1_UNORM:
+			return 1;
+
+		case DXGI_FORMAT_BC1_TYPELESS:
+		case DXGI_FORMAT_BC1_UNORM:
+		case DXGI_FORMAT_BC1_UNORM_SRGB:
+		case DXGI_FORMAT_BC4_TYPELESS:
+		case DXGI_FORMAT_BC4_UNORM:
+		case DXGI_FORMAT_BC4_SNORM:
+			return 4;
+
+		case DXGI_FORMAT_BC2_TYPELESS:
+		case DXGI_FORMAT_BC2_UNORM:
+		case DXGI_FORMAT_BC2_UNORM_SRGB:
+		case DXGI_FORMAT_BC3_TYPELESS:
+		case DXGI_FORMAT_BC3_UNORM:
+		case DXGI_FORMAT_BC3_UNORM_SRGB:
+		case DXGI_FORMAT_BC5_TYPELESS:
+		case DXGI_FORMAT_BC5_UNORM:
+		case DXGI_FORMAT_BC5_SNORM:
+		case DXGI_FORMAT_BC6H_TYPELESS:
+		case DXGI_FORMAT_BC6H_UF16:
+		case DXGI_FORMAT_BC6H_SF16:
+		case DXGI_FORMAT_BC7_TYPELESS:
+		case DXGI_FORMAT_BC7_UNORM:
+		case DXGI_FORMAT_BC7_UNORM_SRGB:
+			return 8;
+
+		default:
+			return 0;
+		}
 	}
 
 	//-------------------------------------------------------------------------
@@ -83,8 +253,6 @@ namespace mage {
 
 				max_vram = vram;
 				m_adapter = adapter2;
-
-				break;
 			}
 			else {
 				// Release the IDXGIAdapter2.
@@ -111,15 +279,6 @@ namespace mage {
 			Severe("IDXGIOutput::QueryInterface: %d", result_output2);
 		}
 			
-		// Build a list of the allowable pixel formats.
-		const DXGI_FORMAT allowed_pixel_formats[] = {
-			DXGI_FORMAT_B5G5R5A1_UNORM,	   // A four-component,  16-bit unsigned-normalized-integer format that supports 5  bits for each color channel and 1-bit alpha.
-			DXGI_FORMAT_B5G6R5_UNORM,	   // A three-component, 16-bit unsigned-normalized-integer format that supports 5  bits for blue, 6 bits for green, and 5 bits for red.
-			DXGI_FORMAT_B8G8R8X8_UNORM,	   // A four-component,  32-bit unsigned-normalized-integer format that supports 8  bits for each color channel and 8 bits unused.
-			DXGI_FORMAT_B8G8R8A8_UNORM,    // A four-component,  32-bit unsigned-normalized-integer format that supports 8  bits for each color channel and 8-bit alpha.
-			DXGI_FORMAT_R10G10B10A2_UNORM, // A four-component,  32-bit unsigned-normalized-integer format that supports 10 bits for each color and 2 bits for alpha.
-		};
-
 		for (size_t i = 0; i < _countof(allowed_pixel_formats); ++i) {
 			
 			// Get the DXGI_MODE_DESCs.
@@ -143,12 +302,7 @@ namespace mage {
 				// Create the new display mode.
 				DisplayMode display_mode;
 				display_mode.mode = dxgi_mode_descs[mode];
-				if (i < 2) {
-					wcscpy_s(display_mode.bpp, MAGE_DISPLAYMODE_BPP_COUNT, L"16 bbp");
-				}
-				else {
-					wcscpy_s(display_mode.bpp, MAGE_DISPLAYMODE_BPP_COUNT, L"32 bbp");
-				}
+				swprintf_s(display_mode.bpp, MAGE_DISPLAYMODE_BPP_COUNT, L"%d bbp", BitsPerPixel(allowed_pixel_formats[i]));
 
 				// Add the display mode to the list.
 				m_display_modes.push_back(display_mode);
@@ -311,9 +465,11 @@ namespace mage {
 
 				// Save all the settings out to the settings script.
 				m_settings_script->SaveScript();
-
 				// Destroy the settings script.
 				delete m_settings_script;
+
+				// Release the IDXGIAdapter2.
+				m_adapter->Release();
 
 				// Close the hwndDlg.
 				EndDialog(hwndDlg, IDOK);
@@ -323,6 +479,9 @@ namespace mage {
 			case IDCANCEL: {
 				// Destroy the settings script.
 				delete m_settings_script;
+
+				// Release the IDXGIAdapter2.
+				m_adapter->Release();
 
 				EndDialog(hwndDlg, IDCANCEL);
 

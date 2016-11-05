@@ -178,7 +178,7 @@ namespace mage {
 		virtual ~Engine();
 
 		/**
-		 Runs the engine setup.
+		 Runs this engine.
 		 */
 		void Run();
 
@@ -186,6 +186,8 @@ namespace mage {
 
 		/**
 		 Returns a handle to the window of this engine.
+		 
+		 @return		A handle to the window of this engine.
 		 */
 		HWND GetWindow() const {
 			return m_hwindow;
@@ -206,7 +208,7 @@ namespace mage {
 		/**
 		 Returns the graphics manager of this engine.
 
-		 @return		A pointer to the graphics manager of this engine
+		 @return		A pointer to the graphics manager of this engine.
 		 */
 		GraphicsManager *GetGraphicsManager() const {
 			return m_graphics_manager;
@@ -217,7 +219,7 @@ namespace mage {
 		/**
 		 Returns the state manager of this engine.
 
-		 @return		A pointer to the state manager of this engine
+		 @return		A pointer to the state manager of this engine.
 		 */
 		StateManager *GetStateManager() const {
 			return m_state_manager;
@@ -228,7 +230,7 @@ namespace mage {
 		/**
 		 Returns the script manager of this engine.
 
-		 @return		A pointer to the script manager of this engine
+		 @return		A pointer to the script manager of this engine.
 		*/
 		ResourceManager< VariableScript > *GetScriptManager() const {
 			return m_script_manager;
@@ -239,7 +241,7 @@ namespace mage {
 		/**
 		 Returns the input object of this engine.
 
-		 @return		A pointer to the input object of this engine
+		 @return		A pointer to the input object of this engine.
 		 */
 		Input *GetInput() const {
 			return m_input;

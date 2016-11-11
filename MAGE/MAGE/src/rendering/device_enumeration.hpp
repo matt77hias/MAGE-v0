@@ -27,34 +27,20 @@ namespace mage {
 	 A device enumeration.
 	 */
 	class DeviceEnumeration {
+
+	friend class Renderer;
+	friend INT_PTR CALLBACK SettingsDialogProcDelegate(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	
 	public:
 
 		/**
-		 Constructs a device enumeration.
-		 */
-		DeviceEnumeration() {}
+		 Returns the adapter.
 
-		/**
-		 Enumerates the available display modes on the adapter output of
-		 the physical adapter with the most dedicated video memory.
+		 @return		A pointer to the adapter.
 		 */
-		INT_PTR Enumerate();
-
-		/**
-		 Engine-defined callback function used with the CreateDialog
-		 for device enumeration.
-
-		 @param[in]		hwndDlg
-						A handle to the dialog box.
-		 @param[in]		uMsg
-						The message.
-		 @param[in]		wParam
-						Additional message-specific information.
-		 @param[in]		lParam
-						Additional message-specific information.
-		 */
-		INT_PTR SettingsDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+		IDXGIAdapter2 *GetAdapter() const {
+			return m_adapter;
+		}
 
 		/**
 		 Returns the selected display mode by the user.
@@ -86,6 +72,32 @@ namespace mage {
 		}
 
 	protected:
+
+		/**
+		 Constructs a device enumeration.
+		 */
+		DeviceEnumeration() {}
+
+		/**
+		 Enumerates the available display modes on the adapter output of
+		 the physical adapter with the most dedicated video memory.
+		 */
+		INT_PTR Enumerate();
+
+		/**
+		 Engine-defined callback function used with the CreateDialog
+		 for device enumeration.
+
+		 @param[in]		hwndDlg
+						A handle to the dialog box.
+		 @param[in]		uMsg
+						The message.
+		 @param[in]		wParam
+						Additional message-specific information.
+		 @param[in]		lParam
+						Additional message-specific information.
+		 */
+		INT_PTR SettingsDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		
 		/**
 		 A poinbter to the adapter (or video card).

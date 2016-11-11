@@ -5,14 +5,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	// Forward declarations
-	struct MutexLock;
-	struct ReadWriteMutexLock;
-
 	/**
 	 A class of mutexes.
 	 */
 	class Mutex final {
+
+	friend struct MutexLock;
 
 	public:
 
@@ -34,7 +32,6 @@ namespace mage {
 		}
 
 	private:
-		friend struct MutexLock;
 
 		/**
 		 Constructs a mutex.
@@ -130,6 +127,8 @@ namespace mage {
 	 */
 	class ReadWriteMutex final {
 
+	friend struct ReadWriteMutexLock;
+
 	public:
 
 		/**
@@ -150,8 +149,6 @@ namespace mage {
 		}
 
 	private:
-
-		friend struct ReadWriteMutexLock;
 
 		/**
 		 Constructs a read write mutex.

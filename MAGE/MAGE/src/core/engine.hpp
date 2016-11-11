@@ -50,11 +50,6 @@ using namespace DirectX;
 //-----------------------------------------------------------------------------
 #pragma region
 
-// Forward declaration
-namespace mage {
-	class Engine;
-}
-
 #include "version.hpp"
 #include "collection\collection.hpp"
 #include "math\math.hpp"

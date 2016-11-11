@@ -23,15 +23,12 @@ namespace mage {
 		uint64_t m_view_clear_flags;
 	};
 
-	// Forward declaration.
-	class StateManager;
-
 	/**
 	 A class of states
 	 */
 	class State {
 
-	friend StateManager;
+	friend class StateManager;
 
 	public:
 

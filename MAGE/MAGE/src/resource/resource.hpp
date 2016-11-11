@@ -5,10 +5,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	// Forward declaration
-	template< typename T >
-	class ResourceManager;
-
 	/**
 	 A class of resources.
 	 */

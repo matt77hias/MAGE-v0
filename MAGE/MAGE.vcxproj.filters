@@ -40,12 +40,6 @@
     <Filter Include="Header Files\state">
       <UniqueIdentifier>{8463f1af-bd9e-4155-89f6-bb804a124c73}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\io">
-      <UniqueIdentifier>{1b2b46df-06c6-4e3b-8350-fc302748c1ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\io">
-      <UniqueIdentifier>{69116e59-6b9a-45ff-a6eb-6e13ba704792}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\scripting">
       <UniqueIdentifier>{68931a48-3a4b-48e3-a677-68dcc03f1e88}</UniqueIdentifier>
     </Filter>
@@ -57,6 +51,18 @@
     </Filter>
     <Filter Include="Header Files\logging">
       <UniqueIdentifier>{c7374162-a25a-4c28-8475-0b93646cf99c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rendering">
+      <UniqueIdentifier>{3f617a84-2fd4-45a3-9bea-c3e24f4d948b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rendering">
+      <UniqueIdentifier>{59b18b55-fb31-4414-83d5-f08141f8f36f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\input">
+      <UniqueIdentifier>{69116e59-6b9a-45ff-a6eb-6e13ba704792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\input">
+      <UniqueIdentifier>{1b2b46df-06c6-4e3b-8350-fc302748c1ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -108,12 +114,6 @@
     <ClInclude Include="MAGE\src\state\state.hpp">
       <Filter>Header Files\state</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\io\io.hpp">
-      <Filter>Header Files\io</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\io\input.hpp">
-      <Filter>Header Files\io</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\state\state_manager.hpp">
       <Filter>Header Files\state</Filter>
     </ClInclude>
@@ -138,23 +138,29 @@
     <ClInclude Include="MAGE\src\logging\timer.hpp">
       <Filter>Header Files\logging</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\io\device_enumeration.hpp">
-      <Filter>Header Files\io</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\io\window.hpp">
-      <Filter>Header Files\io</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\io\font.hpp">
-      <Filter>Header Files\io</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\io\graphics_manager.hpp">
-      <Filter>Header Files\io</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\io\graphics_settings.hpp">
-      <Filter>Header Files\io</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp">
       <Filter>Header Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\device_enumeration.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\font.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\graphics_settings.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\renderer.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\window.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\input\input.hpp">
+      <Filter>Header Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\rendering.hpp">
+      <Filter>Header Files\rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -167,9 +173,6 @@
     <ClCompile Include="MAGE\src\parallel\task.cpp">
       <Filter>Source Files\parallel</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\io\input.cpp">
-      <Filter>Source Files\io</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\logging\error.cpp">
       <Filter>Source Files\logging</Filter>
     </ClCompile>
@@ -179,20 +182,23 @@
     <ClCompile Include="MAGE\src\logging\timer.cpp">
       <Filter>Source Files\logging</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\io\device_enumeration.cpp">
-      <Filter>Source Files\io</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\io\window.cpp">
-      <Filter>Source Files\io</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\io\graphics_manager.cpp">
-      <Filter>Source Files\io</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp">
       <Filter>Source Files\scripting</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\io\font.cpp">
-      <Filter>Source Files\io</Filter>
+    <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\font.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\renderer.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\window.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\input\input.cpp">
+      <Filter>Source Files\input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

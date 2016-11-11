@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "io/graphics_settings.hpp"
+#include "rendering/graphics_settings.hpp"
 
 #pragma endregion
 
@@ -23,12 +23,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	/**
-	 Returns the number of bits per pixel of the given format.
-
-	 @return		The number of bits per pixel of the given format.
-	 */
-	size_t BitsPerPixel(DXGI_FORMAT format);
+	
 
 	/** 
 	 The allowable pixel formats. 

@@ -239,7 +239,7 @@ namespace mage {
 
 	HRESULT Engine::InitializeSystems() {
 		// Create different engine systems
-		m_renderer			= new GraphicsManager();
+		m_renderer			= new Renderer();
 		if (m_renderer->StartEnumerate() == false) {
 			return E_FAIL;
 		}

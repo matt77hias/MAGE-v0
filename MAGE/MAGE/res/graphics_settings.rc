@@ -1,4 +1,4 @@
-#include "io\graphics_settings.hpp"
+#include "rendering\graphics_settings.hpp"
 
 #define APSTUDIO_READONLY_SYMBOLS
 #include "afxres.h"
@@ -75,7 +75,7 @@ END
 
 1 TEXTINCLUDE DISCARDABLE
 BEGIN
-"io\graphics_settings.hpp\0"
+"rendering\graphics_settings.hpp\0"
 END
 
 2 TEXTINCLUDE DISCARDABLE

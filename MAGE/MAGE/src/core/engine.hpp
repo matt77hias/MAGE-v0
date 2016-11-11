@@ -61,11 +61,12 @@ namespace mage {
 #include "parallel\parallel.hpp"
 #include "logging\logging.hpp"
 #include "memory\memory.hpp"
+
 #include "resource\resource.hpp"
 #include "state\state.hpp"
-
 #include "scripting\scripting.hpp"
-#include "io\io.hpp"
+#include "input\input.hpp"
+#include "rendering\rendering.hpp"
 
 #pragma endregion
 
@@ -169,7 +170,7 @@ namespace mage {
 
 		 @return		A pointer to the renderer of this engine.
 		 */
-		GraphicsManager *GetRenderer() const {
+		Renderer *GetRenderer() const {
 			return m_renderer;
 		}
 
@@ -271,7 +272,7 @@ namespace mage {
 		/**
 		 A pointer to the renderer of this engine.
 		 */
-		GraphicsManager *m_renderer;
+		Renderer *m_renderer;
 
 		// STATE SYSTEM
 

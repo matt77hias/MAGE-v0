@@ -165,7 +165,7 @@ namespace mage {
 			wchar_t version_buffer[16];
 			DXGI_ADAPTER_DESC2 desc;
 			m_adapter->GetDesc2(&desc);
-			swprintf_s(version_buffer, _countof(version_buffer), L"%d", LOWORD(desc.AdapterLuid.LowPart));
+			swprintf_s(version_buffer, _countof(version_buffer), L"%d", LOWORD(desc.AdapterLuid.LowPart)); //@TODO: this is not the driver version
 			Edit_SetText(GetDlgItem(hwndDlg, IDC_DISPLAY_ADAPTER), desc.Description);
 			Edit_SetText(GetDlgItem(hwndDlg, IDC_DRIVER_VERSION), version_buffer);
 

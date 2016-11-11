@@ -137,6 +137,16 @@ namespace mage {
 		 */
 		void Run(int nCmdShow = SW_NORMAL);
 
+		/**
+		 Checks whether this engine is loaded.
+
+		 @return		@c true if this engine is loaded.
+						@c false otherwise.
+		 */
+		bool IsLoaded() const {
+			return m_loaded;
+		}
+
 		// WINDOW SYSTEM
 
 		/**

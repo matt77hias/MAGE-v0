@@ -249,7 +249,7 @@ namespace mage {
 
 	HRESULT Engine::InitializeSystems() {
 		// Create different engine systems
-		m_renderer			= new Renderer();
+		m_renderer			= new Renderer(m_hwindow);
 		m_state_manager		= new StateManager();
 		m_script_manager	= new ResourceManager< VariableScript >();
 		m_input				= new Input(m_hwindow);

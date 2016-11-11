@@ -12,4 +12,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	Renderer::Renderer(HWND hwindow) : m_hwindow(hwindow) {
+
+	}
+
+	Renderer::~Renderer() {
+
+	}
 }

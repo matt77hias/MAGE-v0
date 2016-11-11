@@ -23,28 +23,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	
-
-	
-
-	/**
-	 A display mode.
-	 */
-	struct DisplayMode {
-
-		/**
-		 The display mode descriptor of this display mode.
-		 */
-		DXGI_MODE_DESC1 mode;
-		
-#define MAGE_DISPLAYMODE_BPP_COUNT 8
-
-		/**
-		 The colour depth expressed as a character string for the display mode.
-		 */
-		wchar_t bpp[MAGE_DISPLAYMODE_BPP_COUNT];
-	};
-
 	/**
 	 A device enumeration.
 	 */
@@ -56,11 +34,6 @@ namespace mage {
 		 Constructs a device enumeration.
 		 */
 		DeviceEnumeration() {}
-
-		/**
-		 Destructs this device enumeration.
-		 */
-		virtual ~DeviceEnumeration() {}
 
 		/**
 		 Enumerates the available display modes on the adapter output of
@@ -112,7 +85,7 @@ namespace mage {
 			return m_vsync;
 		}
 
-	private:
+	protected:
 		
 		/**
 		 A poinbter to the adapter (or video card).
@@ -127,7 +100,7 @@ namespace mage {
 		/**
 		 The linked list of enumerated display modes.
 		 */
-		list< DisplayMode > m_display_modes;
+		list< DXGI_MODE_DESC1 > m_display_modes;
 		
 		/**
 		 The selected display mode by the user.

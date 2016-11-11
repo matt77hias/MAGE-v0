@@ -47,7 +47,7 @@ namespace mage {
 		m_adapter = NULL;
 
 		// Create the display modes linked list.
-		m_display_modes = list< DisplayMode >();
+		m_display_modes = list< DXGI_MODE_DESC1 >();
 
 		// Load the settings script.
 		m_settings_script = new VariableScript("DisplaySettings.mage");
@@ -129,13 +129,8 @@ namespace mage {
 					continue;
 				}
 
-				// Create the new display mode.
-				DisplayMode display_mode;
-				display_mode.mode = dxgi_mode_descs[mode];
-				swprintf_s(display_mode.bpp, MAGE_DISPLAYMODE_BPP_COUNT, L"%d bbp", BitsPerPixel(g_pixel_formats[i]));
-
 				// Add the display mode to the list.
-				m_display_modes.push_back(display_mode);
+				m_display_modes.push_back(dxgi_mode_descs[mode]);
 			}
 
 			// Delete the DXGI_MODE_DESCs.
@@ -214,9 +209,11 @@ namespace mage {
 					// Fill in the display formats combo box.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_DISPLAY_FORMAT));
-					for (list< DisplayMode>::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-						if (!ComboBoxContains(hwndDlg, IDC_DISPLAY_FORMAT, it->bpp)) {
-							ComboBoxAdd(hwndDlg, IDC_DISPLAY_FORMAT, (void*)it->mode.Format, it->bpp);
+					for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+						wchar_t bpp_buffer[8];
+						swprintf_s(bpp_buffer, _countof(bpp_buffer), L"%d bbp", BitsPerPixel(it->Format));
+						if (!ComboBoxContains(hwndDlg, IDC_DISPLAY_FORMAT, bpp_buffer)) {
+							ComboBoxAdd(hwndDlg, IDC_DISPLAY_FORMAT, (void*)it->Format, bpp_buffer);
 						}
 					}
 					const int bpp = *m_settings_script->GetValueOfVariable< int >("bpp");
@@ -228,11 +225,11 @@ namespace mage {
 					// Fill in the resolutions combo box associated with the current format.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
-					for (list< DisplayMode>::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-						if (it->mode.Format == (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_COLOUR_DEPTH))) {
-							swprintf_s(buffer, _countof(buffer), L"%d x %d", it->mode.Width, it->mode.Height);
+					for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+						if (it->Format == (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_COLOUR_DEPTH))) {
+							swprintf_s(buffer, _countof(buffer), L"%d x %d", it->Width, it->Height);
 							if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
-								ComboBoxAdd(hwndDlg, IDC_RESOLUTION, (void*)((size_t)MAKELONG(it->mode.Width, it->mode.Height)), buffer);
+								ComboBoxAdd(hwndDlg, IDC_RESOLUTION, (void*)((size_t)MAKELONG(it->Width, it->Height)), buffer);
 							}
 						}
 					}
@@ -242,12 +239,12 @@ namespace mage {
 					// Fill in the refresh rates combo box associated with the current resolution.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
-					for (list< DisplayMode>::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-						if ((DWORD)MAKELONG(it->mode.Width, it->mode.Height) == (DWORD)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION))) {
-							const UINT refresh_rate = (UINT)round(it->mode.RefreshRate.Numerator / (float)it->mode.RefreshRate.Denominator);
+					for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+						if ((DWORD)MAKELONG(it->Width, it->Height) == (DWORD)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION))) {
+							const UINT refresh_rate = (UINT)round(it->RefreshRate.Numerator / (float)it->RefreshRate.Denominator);
 							swprintf_s(buffer, _countof(buffer), L"%d Hz", refresh_rate);
 							if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
-								ComboBoxAdd(hwndDlg, IDC_REFRESH_RATE, (void*)((size_t)MAKELONG(it->mode.RefreshRate.Numerator, it->mode.RefreshRate.Denominator)), buffer);
+								ComboBoxAdd(hwndDlg, IDC_REFRESH_RATE, (void*)((size_t)MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator)), buffer);
 							}
 						}
 					}
@@ -325,12 +322,12 @@ namespace mage {
 					// Update the resolution combo box.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
-					for (list< DisplayMode>::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-						if (it->mode.Format == (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_COLOUR_DEPTH))) {
-							swprintf_s(buffer, _countof(buffer), L"%d x %d", it->mode.Width, it->mode.Height);
+					for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+						if (it->Format == (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_COLOUR_DEPTH))) {
+							swprintf_s(buffer, _countof(buffer), L"%d x %d", it->Width, it->Height);
 							if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
-								ComboBoxAdd(hwndDlg, IDC_RESOLUTION, (void*)((size_t)MAKELONG(it->mode.Width, it->mode.Height)), buffer);
-								if (selected_resolution == (DWORD)MAKELONG(it->mode.Width, it->mode.Height)) {
+								ComboBoxAdd(hwndDlg, IDC_RESOLUTION, (void*)((size_t)MAKELONG(it->Width, it->Height)), buffer);
+								if (selected_resolution == (DWORD)MAKELONG(it->Width, it->Height)) {
 									ComboBoxSelect(hwndDlg, IDC_RESOLUTION, (void*)((size_t)selected_resolution));
 								}
 							}
@@ -350,13 +347,13 @@ namespace mage {
 					// Update the refresh rate combo box.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
-					for (list< DisplayMode>::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-						if ((DWORD)MAKELONG(it->mode.Width, it->mode.Height) == (DWORD)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION))) {
-							const UINT refresh_rate = (UINT)round(it->mode.RefreshRate.Numerator / (float)it->mode.RefreshRate.Denominator);
+					for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+						if ((DWORD)MAKELONG(it->Width, it->Height) == (DWORD)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION))) {
+							const UINT refresh_rate = (UINT)round(it->RefreshRate.Numerator / (float)it->RefreshRate.Denominator);
 							swprintf_s(buffer, _countof(buffer), L"%d Hz", refresh_rate);
 							if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
-								ComboBoxAdd(hwndDlg, IDC_REFRESH_RATE, (void*)((size_t)MAKELONG(it->mode.RefreshRate.Numerator, it->mode.RefreshRate.Denominator)), buffer);
-								if (selected_refresh_rate == (DWORD)MAKELONG(it->mode.RefreshRate.Numerator, it->mode.RefreshRate.Denominator)) {
+								ComboBoxAdd(hwndDlg, IDC_REFRESH_RATE, (void*)((size_t)MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator)), buffer);
+								if (selected_refresh_rate == (DWORD)MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator)) {
 									ComboBoxSelect(hwndDlg, IDC_REFRESH_RATE, (void*)((size_t)selected_refresh_rate));
 								}
 							}
@@ -397,9 +394,11 @@ namespace mage {
 					// Fill in the display formats combo box.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_DISPLAY_FORMAT));
-					for (list< DisplayMode>::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-						if (!ComboBoxContains(hwndDlg, IDC_DISPLAY_FORMAT, it->bpp)) {
-							ComboBoxAdd(hwndDlg, IDC_DISPLAY_FORMAT, (void*)it->mode.Format, it->bpp);
+					for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+						wchar_t bpp_buffer[8];
+						swprintf_s(bpp_buffer, _countof(bpp_buffer), L"%d bbp", BitsPerPixel(it->Format));
+						if (!ComboBoxContains(hwndDlg, IDC_DISPLAY_FORMAT, bpp_buffer)) {
+							ComboBoxAdd(hwndDlg, IDC_DISPLAY_FORMAT, (void*)it->Format, bpp_buffer);
 						}
 					}
 					ComboBoxSelect(hwndDlg, IDC_DISPLAY_FORMAT, 0);

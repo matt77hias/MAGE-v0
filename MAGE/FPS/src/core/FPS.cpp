@@ -52,6 +52,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int) {
 	g_engine = new Engine(&setup);
 	reporter.Done();
 	g_engine->Run();
+	delete g_engine;
 
 	return 0;
 }

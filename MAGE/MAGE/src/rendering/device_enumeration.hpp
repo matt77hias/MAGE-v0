@@ -28,7 +28,7 @@ namespace mage {
 	 */
 	class DeviceEnumeration {
 
-	friend class Renderer;
+	friend class Engine;
 	friend INT_PTR CALLBACK SettingsDialogProcDelegate(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	
 	public:

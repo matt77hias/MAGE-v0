@@ -104,13 +104,13 @@ namespace mage {
 		//Initialize a window.
 		const HRESULT result_window = InitializeWindow();
 		if (FAILED(result_window)) {
-			Severe("Failed to initialize a window.");
+			return;
 		}
 
 		// Attach a console.
 		const HRESULT result_console = AttachConsole();
 		if (FAILED(result_console)) {
-			Severe("Failed to attach a console.");
+			return;
 		}
 		PrintConsoleHeader();
 
@@ -121,7 +121,7 @@ namespace mage {
 		// Initialize the different engine systems.
 		const HRESULT result_system = InitializeSystems();
 		if (FAILED(result_system)) {
-			return;
+			Severe("Failed to initialize systems.");
 		}
 
 		// The engine is fully loaded and ready to go.
@@ -130,10 +130,12 @@ namespace mage {
 
 	Engine::~Engine() {
 
-		// Unitialize the different systems.
-		UninitializeSystems();
-		// Uninitialise the COM.
-		CoUninitialize();
+		if (m_loaded) {
+			// Unitialize the different systems.
+			UninitializeSystems();
+			// Uninitialise the COM.
+			CoUninitialize();
+		}
 		// Unintialize the window.
 		UninitializeWindow();
 
@@ -215,13 +217,21 @@ namespace mage {
 		// 3. Flag indicating whether the window has a menu.
 		AdjustWindowRect(&rectangle, WS_OVERLAPPEDWINDOW, FALSE);
 
+		if (g_device_enumeration) {
+			delete g_device_enumeration;
+		}
+		g_device_enumeration = new DeviceEnumeration();
+		if (g_device_enumeration->Enumerate() != IDOK) {
+			return E_FAIL;
+		}
+
 		// Creates the window and retrieve a handle to it.
 		// WS_OVERLAPPED:	The window is an overlapped window. An overlapped window has a title bar and a border.
 		// WS_CAPTION:		The window has a title bar(includes the WS_BORDER style).
 		// WS_BORDER:		The window has a thin-line border.
 		// WS_SYSMENU:		The window has a window menu on its title bar.
 		// WS_MINIMIZEBOX:	The window has a minimize button.
-		m_hwindow = CreateWindow(L"WindowClass", m_setup->m_name.c_str(), WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
+		m_hwindow = CreateWindow(L"WindowClass", m_setup->m_name.c_str(), g_device_enumeration->IsWindowed() ? WS_OVERLAPPED : WS_POPUP,
 			CW_USEDEFAULT, CW_USEDEFAULT, rectangle.right - rectangle.left, rectangle.bottom - rectangle.top, NULL, NULL, m_setup->m_hinstance, NULL);
 
 		if (!m_hwindow) {
@@ -240,9 +250,6 @@ namespace mage {
 	HRESULT Engine::InitializeSystems() {
 		// Create different engine systems
 		m_renderer			= new Renderer();
-		if (m_renderer->StartEnumerate() == false) {
-			return E_FAIL;
-		}
 		m_state_manager		= new StateManager();
 		m_script_manager	= new ResourceManager< VariableScript >();
 		m_input				= new Input(m_hwindow);

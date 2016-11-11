@@ -5,198 +5,159 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	// No use of d3dx
-	// @src		https://blogs.msdn.microsoft.com/chuckw/2013/08/20/living-without-d3dx/
-
-	// D3D11_INPUT_ELEMENT_DESC
-	// @src		https://msdn.microsoft.com/en-us/library/windows/desktop/ff476180(v=vs.85).aspx
-	// 1. The HLSL semantic associated with this element in a shader input-signature.
-	// 2. The semantic index for the element. 
-	//	  A semantic index modifies a semantic, with an integer index number. 
-	//	  A semantic index is only needed in a case where there is more than one element with the same semantic.
-	// 3. Format:
-	//	  DXGI_FORMAT_R32G32B32_FLOAT: A three component, 96 bit floating point format that supports 32 bits per color channel.
-	//	  DXGI_FORMAT_R32G32_FLOAT: A two component, 64 bit floating point format that supports 32 bits for the red channel and 32 bits for the green channel.
-	//	  DXGI_FORMAT_R32G32B32A32_FLOAT: A four component, 128 bit floating point format that supports 32 bits per channel including alpha.
-	// 4. An integer value that identifies the input assembler.Valid values are between 0 and 15.
-	// 5. Offset (in bytes) between each element.
-	// 6. Identifies the input data class for a single input slot.
-	//	  D3D11_INPUT_PER_VERTEX_DATA: Input data is per vertex data.
-	// 7. The number of instances to draw using the same per instance data before advancing in the buffer by one element.
-	//	  This value must be 0 for an element that contains per vertex data.
-
 	/**
 	 A struct of vertices.
 	 */
-	struct Vertex {
+	struct Vertex final {
 
 	public:
 
 		/**
 		 Constructs a vertex.
 		 */
-		Vertex() : p(XMFLOAT3(0.0f, 0.0f, 0.0f)), n(XMFLOAT3(0.0f, 0.0f, 0.0f)), tu(0.0f), tv(0.0f) {}
+		Vertex() : p(XMFLOAT3(0.0f, 0.0f, 0.0f)), n(XMFLOAT3(1.0f, 0.0f, 0.0f)), tex(XMFLOAT2(0.0f, 0.0f)) {}
 
 		/**
 		 Constructs a vertex.
 
+		 @pre			The length (L2-norm) of the normal must be equal to one
+						(i.e. the normal vector is normalized).
 		 @param[in]		p
-						Position of the vertex (in world space).
+						The position of the vertex (in object space).
 		 @param[in]		n
-						Normal of the vertex.
-		 @param[in]		tu
-						Texture u coordinate of the vertex.
-		 @param[in]		tv
-						Texture v coordinate of the vertex.
+						The normal of the vertex.
+		 @param[in]		tex
+						The texture coordinates of the vertex.
 		 */
-		Vertex(XMFLOAT3 p, XMFLOAT3 n, float tu, float tv) : p(p), n(n), tu(tu), tv(tv) {}
+		Vertex(XMFLOAT3 p, XMFLOAT3 n, XMFLOAT2 tex) : p(p), n(n), tex(tex) {}
 
 		/**
-		 Position of this vertex (in world space).
+		 The position of this vertex (in object space).
 		 */
 		XMFLOAT3 p;
 
 		/**
-		 Normal of this vertex.
+		 The normal of this vertex.
 		 */
 		XMFLOAT3 n;
 
 		/**
-		 Texture u coordinate of this vertex.
+		 The texture coordinates of this vertex.
 		 */
-		float tu;
-
-		/**
-		 Texture v coordinate of this vertex.
-		 */
-		float tv;
+		XMFLOAT2 tex;
 	};
 
 	/**
-	 Input element descriptor for a Vertex.
+	 The input element descriptor for a Vertex.
 	 */
 	const D3D11_INPUT_ELEMENT_DESC vertex_input_element_desc[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, UINT(offsetof(Vertex, p)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, UINT(offsetof(Vertex, n)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "UV", 0, DXGI_FORMAT_R32G32_FLOAT, 0, UINT(offsetof(Vertex, tu)), D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, UINT(offsetof(Vertex, p)),   D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL",	  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, UINT(offsetof(Vertex, n)),   D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, UINT(offsetof(Vertex, tex)), D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
 	/**
 	 A struct of lit vertices.
 	 */
-	struct LVertex {
+	struct LVertex final {
 
 	public:
 
 		/**
 		 Constructs a lit vertex.
 		 */
-		LVertex() : p(XMFLOAT3(0.0f, 0.0f, 0.0f)), diffuse(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f)), tu(0.0f), tv(0.0f) {}
+		LVertex() : p(XMFLOAT3(0.0f, 0.0f, 0.0f)), diffuse(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f)), tex(XMFLOAT2(0.0f, 0.0f)) {}
 
 		/**
 		 Constructs a lit vertex.
 
 		 @param[in]		p
-						Position of the lit vertex (in world space).
+						The position of the lit vertex (in object space).
 		 @param[in]		diffuse
-						Diffuse colour of the lit vertex.
-		 @param[in]		tu
-						Texture u coordinate of the lit vertex.
-		 @param[in]		tv
-						Texture v coordinate of the lit vertex.
+						The diffuse colour of the lit vertex.
+		 @param[in]		tex
+						The texture coordinate of the lit vertex.
 		 */
-		LVertex(XMFLOAT3 p, XMFLOAT4 diffuse, float tu, float tv) : p(p), diffuse(diffuse), tu(tu), tv(tv) {}
+		LVertex(XMFLOAT3 p, XMFLOAT4 diffuse, XMFLOAT2 tex) : p(p), diffuse(diffuse), tex(tex) {}
 
 		/**
-		 Position of this lit vertex (in world space).
+		 The position of this lit vertex (in object space).
 		 */
 		XMFLOAT3 p;
 
 		/**
-		 Diffuse colour of this lit vertex.
+		 The diffuse colour of this lit vertex.
 		 */
 		XMFLOAT4 diffuse;
 
 		/**
-		 Texture u coordinate of this lit vertex.
+		 The texture coordinates of this lit vertex.
 		 */
-		float tu;
-
-		/**
-		 Texture v coordinate of this lit vertex.
-		 */
-		float tv;
+		XMFLOAT2 tex;
 	};
 
 	/**
-	 Input element descriptor for a LVertex.
+	 The input element descriptor for a LVertex.
 	 */
 	const D3D11_INPUT_ELEMENT_DESC lvertex_input_element_desc[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, UINT(offsetof(LVertex, p)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "DIFFUSE", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(LVertex, diffuse)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "UV", 0, DXGI_FORMAT_R32G32_FLOAT, 0, UINT(offsetof(LVertex, tu)), D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, UINT(offsetof(LVertex, p)),       D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "DIFFUSE",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(LVertex, diffuse)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,       0, UINT(offsetof(LVertex, tex)),     D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
 	/**
 	 A struct of transformed and lit vertices.
 	 */
-	struct TLVertex {
+	struct TLVertex final {
 
 	public:
 
 		/**
 		 Constructs a transformed and lit vertex.
 		 */
-		TLVertex() : p(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f)), diffuse(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f)), tu(0.0f), tv(0.0f) {}
+		TLVertex() : p(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f)), diffuse(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f)), tex(XMFLOAT2(0.0f, 0.0f)) {}
 		
 		/**
 		 Constructs a transformed and lit vertex.
 
 		 @param[in]		p
-						Position of the transformed and lit vertex (in screen space).
+						The position of the transformed and lit vertex (in projection space).
 		 @param[in]		diffuse
-						Diffuse colour of the transformed and lit vertex.
+						The diffuse colour of the transformed and lit vertex.
 		 @param[in]		tu
-						Texture u coordinate of the transformed and lit vertex.
-		 @param[in]		tv
-						Texture v coordinate of the transformed and lit vertex.
+						The texture coordinates of the transformed and lit vertex.
 		 */
-		TLVertex(XMFLOAT4 p, XMFLOAT4 diffuse, float tu, float tv) : p(p), diffuse(diffuse), tu(tu), tv(tv) {}
+		TLVertex(XMFLOAT4 p, XMFLOAT4 diffuse, XMFLOAT2 tex) : p(p), diffuse(diffuse), tex(tex) {}
 
 		/**
-		 Position of this transformed and lit vertex (in screen space).
+		 The position of this transformed and lit vertex (in projection space).
 		 */
 		XMFLOAT4 p;
 
 		/**
-		 Diffuse colour of this transformed and lit vertex.
+		 The diffuse colour of this transformed and lit vertex.
 		 */
 		XMFLOAT4 diffuse;
 
 		/**
-		 Texture u coordinate of this transformed and lit vertex.
+		 The texture coordinates of this transformed and lit vertex.
 		 */
-		float tu;
-
-		/**
-		 Texture v coordinate of this transformed and lit vertex.
-		 */
-		float tv;
+		XMFLOAT2 tex;
 	};
 
 	/** 
-	 Input element descriptor for a TLVertex
+	 The input element descriptor for a TLVertex
 	 */
 	const D3D11_INPUT_ELEMENT_DESC tlvertex_input_element_desc[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(TLVertex, p)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "DIFFUSE", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(TLVertex, diffuse)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "UV", 0, DXGI_FORMAT_R32G32_FLOAT, 0, UINT(offsetof(TLVertex, tu)), D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(TLVertex, p)),       D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "DIFFUSE",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(TLVertex, diffuse)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,       0, UINT(offsetof(TLVertex, tex)),     D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
 	/**
 	 A struct of edges.
 	 */
-	struct Edge {
+	struct Edge final {
 
 	public:
 
@@ -224,25 +185,25 @@ namespace mage {
 	/**
 	 A struct of indexed edges.
 	 */
-	struct IndexedEdge {
+	struct IndexedEdge final {
 
 	public:
 
 		/**
 		 The index of the edge's first vertex.
 		 */
-		uint16_t iv0;
+		uint32_t iv0;
 
 		/**
 		 The index of the edge's second vertex.
 		 */
-		uint16_t iv1;
+		uint32_t iv1;
 	};
 
 	/**
 	 A struct of faces.
 	 */
-	struct Face {
+	struct Face final {
 
 	public:
 
@@ -277,30 +238,30 @@ namespace mage {
 	/**
 	 A struct of indexed faces.
 	 */
-	struct IndexedFace {
+	struct IndexedFace final {
 
 	public:
 
 		/**
 		 Index of the face's first vertex.
 		 */
-		uint16_t iv0;
+		uint32_t iv0;
 
 		/**
 		 Index of the face's second vertex.
 		 */
-		uint16_t iv1;
+		uint32_t iv1;
 
 		/**
 		 Index of the face's third vertex.
 		 */
-		uint16_t iv2;
+		uint32_t iv2;
 	};
 
 	/**
 	 A struct of Axis-Aligned Bounding Boxes (AABBs).
 	 */
-	struct AABB {
+	struct AABB final {
 
 		/**
 		 Constructs an AABB.
@@ -504,7 +465,7 @@ namespace mage {
 	/**
 	 A struct of spheres.
 	 */
-	struct Sphere {
+	struct Sphere final {
 
 		/**
 		 Constructs a sphere.

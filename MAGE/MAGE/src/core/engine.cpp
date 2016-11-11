@@ -121,7 +121,7 @@ namespace mage {
 		// Initialize the different engine systems.
 		const HRESULT result_system = InitializeSystems();
 		if (FAILED(result_system)) {
-			Severe("Failed to initialize systems.");
+			return;
 		}
 
 		// The engine is fully loaded and ready to go.

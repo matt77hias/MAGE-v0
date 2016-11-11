@@ -19,9 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MAGE\src\audio\audio.hpp" />
-    <ClInclude Include="MAGE\src\audio\sound.hpp" />
-    <ClInclude Include="MAGE\src\audio\sound_system.hpp" />
     <ClInclude Include="MAGE\src\collection\collection.hpp" />
     <ClInclude Include="MAGE\src\core\engine.hpp" />
     <ClInclude Include="MAGE\src\core\targetver.h" />

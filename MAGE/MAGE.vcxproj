@@ -63,6 +63,7 @@
     <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp" />
     <ClCompile Include="MAGE\src\rendering\font.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
+    <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
     <ClCompile Include="MAGE\src\rendering\window.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
   </ItemGroup>

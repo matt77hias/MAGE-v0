@@ -200,5 +200,8 @@
     <ClCompile Include="MAGE\src\input\input.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\rendering.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

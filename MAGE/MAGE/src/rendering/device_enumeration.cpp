@@ -8,29 +8,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Integrated + Dedicated GPU on notebooks  
-//-----------------------------------------------------------------------------
-#pragma region
-
-/**
- NVIDIA Optimus enablement
-
- @pre NVIDIA Control Panel > Preferred graphics processor > "Auto-select"
- */
-extern "C" {
-	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-}
-
-/** 
- AMD "Optimus" enablement
- */
-extern "C" {
-	__declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
-}
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -132,17 +109,17 @@ namespace mage {
 			Severe("IDXGIOutput::QueryInterface: %d", result_output2);
 		}
 			
-		for (size_t i = 0; i < _countof(allowed_pixel_formats); ++i) {
+		for (size_t i = 0; i < _countof(g_pixel_formats); ++i) {
 			
 			// Get the DXGI_MODE_DESCs.
 			// The DXGI_MODE_DESC describes a display mode and whether the display mode supports stereo.
 			const UINT flags = DXGI_ENUM_MODES_INTERLACED;
 			UINT nb_display_modes;
 			// Get the number of display modes that match the requested format and other input options.
-			output2->GetDisplayModeList1(allowed_pixel_formats[i], flags, &nb_display_modes, NULL);
+			output2->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, NULL);
 			DXGI_MODE_DESC1 *dxgi_mode_descs = new DXGI_MODE_DESC1[nb_display_modes];
 			// Get the display modes that match the requested format and other input options.
-			output2->GetDisplayModeList1(allowed_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs);
+			output2->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs);
 
 			// Enumerate the DXGI_MODE_DESCs.
 			for (UINT mode = 0; mode < nb_display_modes; ++mode) {
@@ -155,7 +132,7 @@ namespace mage {
 				// Create the new display mode.
 				DisplayMode display_mode;
 				display_mode.mode = dxgi_mode_descs[mode];
-				swprintf_s(display_mode.bpp, MAGE_DISPLAYMODE_BPP_COUNT, L"%d bbp", BitsPerPixel(allowed_pixel_formats[i]));
+				swprintf_s(display_mode.bpp, MAGE_DISPLAYMODE_BPP_COUNT, L"%d bbp", BitsPerPixel(g_pixel_formats[i]));
 
 				// Add the display mode to the list.
 				m_display_modes.push_back(display_mode);

@@ -50,6 +50,11 @@ using namespace DirectX;
 //-----------------------------------------------------------------------------
 #pragma region
 
+// Forward declaration
+namespace mage {
+	class Engine;
+}
+
 #include "version.hpp"
 #include "collection\collection.hpp"
 #include "math\math.hpp"
@@ -90,7 +95,7 @@ namespace mage {
 		 @pre			setup does not point to @c NULL.
 		 @param[in]		setup
 						A pointer to the engine setup.
-		*/
+		 */
 		EngineSetup(const EngineSetup *setup) : m_hinstance(setup->m_hinstance), m_name(setup->m_name), StateSetup(setup->StateSetup) {}
 
 		/**
@@ -130,8 +135,11 @@ namespace mage {
 
 		/**
 		 Runs this engine.
+
+		 @param[in]		nCmdShow
+						Controls how the engine window is to be shown.
 		 */
-		void Run();
+		void Run(int nCmdShow = SW_NORMAL);
 
 		// WINDOW SYSTEM
 
@@ -154,15 +162,15 @@ namespace mage {
 			m_deactive = deactive;
 		}
 
-		// GRAPHICS SYSTEM
+		// RENDERER SYSTEM
 
 		/**
-		 Returns the graphics manager of this engine.
+		 Returns the renderer of this engine.
 
-		 @return		A pointer to the graphics manager of this engine.
+		 @return		A pointer to the renderer of this engine.
 		 */
-		GraphicsManager *GetGraphicsManager() const {
-			return m_graphics_manager;
+		GraphicsManager *GetRenderer() const {
+			return m_renderer;
 		}
 
 		// STATE SYSTEM
@@ -194,11 +202,47 @@ namespace mage {
 
 		 @return		A pointer to the input object of this engine.
 		 */
-		Input *GetInput() const {
+		const Input *GetInput() const {
 			return m_input;
 		}
 
-	private:
+	protected:
+
+		/**
+		 Initializes the engine window of this engine.
+
+		 @return		A success/error value.
+		 */
+		HRESULT InitializeWindow();
+
+		/**
+		 Unitializes the engine window of this engine.
+
+		 @return		A success/error value.
+		 */
+		HRESULT UninitializeWindow();
+
+		/**
+		 Allocates a console to this engine for basic io and
+		 redirects stdin, stdout and stderr to the allocated console.
+
+		 @return		A success/error value.
+		 */
+		HRESULT AttachConsole();
+
+		/**
+		 Initializes the different systems of this engine.
+
+		 @return		A success/error value.
+		 */
+		HRESULT InitializeSystems();
+
+		/**
+		 Unitialize the different systems of this engine.
+
+		 @return		A success/error value.
+		 */
+		HRESULT UninitializeSystems();
 
 		/**
 		 Pointer to a copy of the engine setup structure.
@@ -222,12 +266,12 @@ namespace mage {
 		*/
 		bool m_deactive;
 
-		// GRAPHICS SYSTEM
+		// RENDERER SYSTEM
 
 		/**
-		 A pointer to the graphics manager of this engine.
+		 A pointer to the renderer of this engine.
 		 */
-		GraphicsManager *m_graphics_manager;
+		GraphicsManager *m_renderer;
 
 		// STATE SYSTEM
 

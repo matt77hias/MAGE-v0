@@ -52,7 +52,7 @@ namespace mage {
 		 */
 		double Time();
 
-	private:
+	protected:
 
 		/**
 		 Returns the time of this timer.

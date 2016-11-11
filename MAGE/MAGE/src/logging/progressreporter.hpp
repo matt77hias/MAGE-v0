@@ -44,7 +44,7 @@ namespace mage {
 		 */
 		void Done();
 
-	private:
+	protected:
 
 		/**
 		 The number of parts of the total work.

@@ -133,7 +133,7 @@ namespace mage {
 			}
 		}
 
-	private:
+	protected:
 
 		/**
 		 Imports this variable script from its associated file.

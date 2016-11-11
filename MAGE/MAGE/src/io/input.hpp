@@ -28,29 +28,9 @@ namespace mage {
 	 */
 	class Input {
 
+	friend class Engine;
+
 	public:
-
-		/**
-		 Constructs an input for the given window handle.
-
-		 @param[in]		hwindow
-						The handle of the parent window.
-		 */
-		Input(HWND hwindow);
-
-		/**
-		 Destructs this input object.
-		 */
-		virtual ~Input() {
-			SAFE_RELEASE(m_keyboard);
-			SAFE_RELEASE(m_mouse);
-			SAFE_RELEASE(m_di);
-		}
-
-		/**
-		 Updates the state of both the keyboard and mouse device of this input object.
-		 */
-		void Update();
 
 		/**
 		 Checks whether the given key is pressed.
@@ -63,7 +43,7 @@ namespace mage {
 		 @return		@c true if the given key is pressed.
 						@c false otherwise.
 		 */
-		bool GetKeyPress(char key, bool ignore_press_stamp = false) {
+		bool GetKeyPress(char key, bool ignore_press_stamp = false) const {
 			if ((m_key_state[key] & 0x80) == false) {
 				return false;
 			}
@@ -86,7 +66,7 @@ namespace mage {
 		 @return		@c true if the given mouse button is pressed.
 						@c false otherwise.
 		 */
-		bool GetMouseButtonPress(char mouse_button, bool ignore_press_stamp = false) {
+		bool GetMouseButtonPress(char mouse_button, bool ignore_press_stamp = false) const {
 			if ((m_mouse_state.rgbButtons[mouse_button] & 0x80) == false) {
 				return false;
 			}
@@ -143,7 +123,29 @@ namespace mage {
 			return m_mouse_state.lZ;
 		}
 
-	private:
+	protected:
+
+		/**
+		 Constructs an input for the given window handle.
+
+		 @param[in]		hwindow
+						The handle of the parent window.
+		 */
+		Input(HWND hwindow);
+
+		/**
+		 Destructs this input object.
+		 */
+		virtual ~Input() {
+			SAFE_RELEASE(m_keyboard);
+			SAFE_RELEASE(m_mouse);
+			SAFE_RELEASE(m_di);
+		}
+
+		/**
+		 Updates the state of both the keyboard and mouse device of this input object.
+		 */
+		void Update();
 
 		/**
 		 The handle of the parent window.
@@ -182,7 +184,7 @@ namespace mage {
 		/**
 		 Stamps the keys pressed in the last frame.
 		 */
-		uint64_t m_key_press_stamp[256];
+		mutable uint64_t m_key_press_stamp[256];
 
 		// MOUSE
 
@@ -206,7 +208,7 @@ namespace mage {
 		/**
 		 Stamps the mouse buttons pressed in the last frame.
 		 */
-		uint64_t m_mouse_button_press_stamp[3];
+		mutable uint64_t m_mouse_button_press_stamp[3];
 
 		/**
 		 The position of the mouse cursor on the screen.

@@ -31,6 +31,8 @@ namespace mage {
 	 */
 	class State {
 
+	friend StateManager;
+
 	public:
 
 		/**
@@ -62,8 +64,6 @@ namespace mage {
 		}
 
 	protected:
-
-		friend StateManager;
 
 		/**
 		 Loads this state.

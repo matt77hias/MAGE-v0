@@ -10,24 +10,9 @@ namespace mage {
 	 */
 	class StateManager {
 
+	friend class Engine;
+
 	public:
-
-		/**
-		 Constructs a state manager.
-		 */
-		StateManager() : m_current_state(NULL), m_states(list< State * >()) {}
-
-		/**
-		 Destructs this state manager.
-		 */
-		virtual ~StateManager() {
-			if (m_current_state) {
-				// State post-processing
-				m_current_state->Close();
-			}
-
-			m_states.clear();
-		}
 
 		/**
 		 Adds the given state from the states of this state manager.
@@ -94,6 +79,25 @@ namespace mage {
 			return m_state_changed;
 		}
 
+	protected:
+
+		/**
+		 Constructs a state manager.
+		 */
+		 StateManager() : m_current_state(NULL), m_states(list< State * >()) {}
+
+		 /**
+		  Destructs this state manager.
+		  */
+		 virtual ~StateManager() {
+			if (m_current_state) {
+				// State post-processing
+				m_current_state->Close();
+			}
+
+			m_states.clear();
+		 }
+
 		/**
 		 Updates this state manager and its current state.
 
@@ -108,11 +112,9 @@ namespace mage {
 			if (m_current_state) {
 				m_current_state->Update(elapsed_time);
 			}
-			
+
 			return m_state_changed;
 		}
-
-	private:
 
 		/**
 		 Changes the state of this state manager to the given state.

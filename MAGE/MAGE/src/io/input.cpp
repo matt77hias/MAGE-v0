@@ -81,6 +81,9 @@ namespace mage {
 	}
 
 	void Input::Update() {
+		
+		// KEYBOARD
+		
 		// Poll the keyboard until it succeeds or returns an unknown error.
 		while (true) {
 			// Retrieves data from polled objects on a DirectInput device.
@@ -101,6 +104,8 @@ namespace mage {
 				return;
 			}
 		}
+
+		// MOUSE
 
 		// Poll the mouse until it succeeds or returns an unknown error.
 		while (true) {

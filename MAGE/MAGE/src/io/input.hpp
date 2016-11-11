@@ -42,9 +42,9 @@ namespace mage {
 		 Destructs this input object.
 		 */
 		virtual ~Input() {
-			m_di->Release();
-			m_keyboard->Release();
-			m_mouse->Release();
+			SAFE_RELEASE(m_keyboard);
+			SAFE_RELEASE(m_mouse);
+			SAFE_RELEASE(m_di);
 		}
 
 		/**
@@ -163,6 +163,8 @@ namespace mage {
 		 */
 		uint64_t m_press_stamp;
 
+		// KEYBOARD
+
 		/**
 		 The DirectInput keyboard device.
 
@@ -181,6 +183,8 @@ namespace mage {
 		 Stamps the keys pressed in the last frame.
 		 */
 		uint64_t m_key_press_stamp[256];
+
+		// MOUSE
 
 		/**
 		 DirectInput mouse device.

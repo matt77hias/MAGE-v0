@@ -114,15 +114,15 @@ namespace mage {
 		}
 		PrintConsoleHeader();
 
-		// Initializes the COM library for use by the calling thread 
-		// and sets the thread's concurrency model to multithreaded concurrency.
-		CoInitializeEx(NULL, COINIT_MULTITHREADED);
-
 		// Initialize the different engine systems.
 		const HRESULT result_system = InitializeSystems();
 		if (FAILED(result_system)) {
-			Severe("Failed to initialize systems.");
+			return;
 		}
+
+		// Initializes the COM library for use by the calling thread 
+		// and sets the thread's concurrency model to multithreaded concurrency.
+		CoInitializeEx(NULL, COINIT_MULTITHREADED);
 
 		// The engine is fully loaded and ready to go.
 		m_loaded = true;
@@ -131,11 +131,11 @@ namespace mage {
 	Engine::~Engine() {
 
 		if (m_loaded) {
-			// Unitialize the different systems.
-			UninitializeSystems();
 			// Uninitialise the COM.
 			CoUninitialize();
 		}
+		// Unitialize the different systems.
+		UninitializeSystems();
 		// Unintialize the window.
 		UninitializeWindow();
 
@@ -208,7 +208,17 @@ namespace mage {
 		}
 		//-----------------------------------------------------------------------------
 
-		RECT rectangle = { 0, 0, 800, 600 };
+		if (g_device_enumeration) {
+			delete g_device_enumeration;
+		}
+		g_device_enumeration = new DeviceEnumeration();
+		if (g_device_enumeration->Enumerate() != IDOK) {
+			return E_FAIL;
+		}
+		const UINT width  = g_device_enumeration->GetDisplayMode()->Width;
+		const UINT height = g_device_enumeration->GetDisplayMode()->Height;
+		
+		RECT rectangle = { 0, 0, width, height };
 		// Calculate the required size of the window rectangle, based on the desired client-rectangle size.
 		// A client rectangle is the smallest rectangle that completely encloses a client area. 
 		// A window rectangle is the smallest rectangle that completely encloses the window, which includes the client area and the nonclient area.
@@ -217,21 +227,8 @@ namespace mage {
 		// 3. Flag indicating whether the window has a menu.
 		AdjustWindowRect(&rectangle, WS_OVERLAPPEDWINDOW, FALSE);
 
-		if (g_device_enumeration) {
-			delete g_device_enumeration;
-		}
-		g_device_enumeration = new DeviceEnumeration();
-		if (g_device_enumeration->Enumerate() != IDOK) {
-			return E_FAIL;
-		}
-
 		// Creates the window and retrieve a handle to it.
-		// WS_OVERLAPPED:	The window is an overlapped window. An overlapped window has a title bar and a border.
-		// WS_CAPTION:		The window has a title bar(includes the WS_BORDER style).
-		// WS_BORDER:		The window has a thin-line border.
-		// WS_SYSMENU:		The window has a window menu on its title bar.
-		// WS_MINIMIZEBOX:	The window has a minimize button.
-		m_hwindow = CreateWindow(L"WindowClass", m_setup->m_name.c_str(), g_device_enumeration->IsWindowed() ? WS_OVERLAPPED : WS_POPUP,
+		m_hwindow = CreateWindow(L"WindowClass", m_setup->m_name.c_str(), WS_POPUP,
 			CW_USEDEFAULT, CW_USEDEFAULT, rectangle.right - rectangle.left, rectangle.bottom - rectangle.top, NULL, NULL, m_setup->m_hinstance, NULL);
 
 		if (!m_hwindow) {
@@ -250,6 +247,9 @@ namespace mage {
 	HRESULT Engine::InitializeSystems() {
 		// Create different engine systems
 		m_renderer			= new Renderer(m_hwindow);
+		if (!m_renderer->IsLoaded()) {
+			return E_FAIL;
+		}
 		m_state_manager		= new StateManager();
 		m_script_manager	= new ResourceManager< VariableScript >();
 		m_input				= new Input(m_hwindow);
@@ -317,6 +317,8 @@ namespace mage {
 				if (m_state_manager->Update(elapsed_time)) {
 					continue;
 				}
+
+				m_renderer->Render(elapsed_time);
 			}
 		}
 	}

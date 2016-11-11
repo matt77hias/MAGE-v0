@@ -47,7 +47,7 @@ namespace mage {
 
 		 @return		A pointer to the selected display mode.
 		 */
-		const DXGI_MODE_DESC1 *GetSelectedDisplayMode() const {
+		const DXGI_MODE_DESC1 *GetDisplayMode() const {
 			return &m_selected_diplay_mode;
 		}
 		
@@ -79,6 +79,13 @@ namespace mage {
 		DeviceEnumeration() {}
 
 		/**
+		 Destructs this device enumeration.
+		 */
+		~DeviceEnumeration() {
+			SAFE_RELEASE(m_adapter);
+		}
+
+		/**
 		 Enumerates the available display modes on the adapter output of
 		 the physical adapter with the most dedicated video memory.
 		 */
@@ -100,7 +107,7 @@ namespace mage {
 		INT_PTR SettingsDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		
 		/**
-		 A poinbter to the adapter (or video card).
+		 A pointer to the adapter (or video card).
 		 */
 		IDXGIAdapter2 *m_adapter;
 

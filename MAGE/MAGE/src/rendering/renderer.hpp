@@ -43,6 +43,14 @@ namespace mage {
 		HRESULT InitDevice();
 
 		/**
+		 Renders the current frame.
+
+		 @param[in]		elapsed_time
+						The elapsed time since the previous frame.
+		 */
+		void Render(double elapsed_time);
+
+		/**
 		 Main window handle of this renderer.
 		 */
 		HWND m_hwindow;

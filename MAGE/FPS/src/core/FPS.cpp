@@ -13,7 +13,7 @@ class TestState : public State {
 			//PostQuitMessage(0);
 
 			VariableScript s("script_test.mage", "C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/");
-			s.SaveScript("C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/output.mage");
+			s.ExportScript("C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/output.mage");
 				
 		}
 	};

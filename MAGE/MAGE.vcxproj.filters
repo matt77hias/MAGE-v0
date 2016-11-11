@@ -22,14 +22,8 @@
     <Filter Include="Header Files\collection">
       <UniqueIdentifier>{d1fab1bf-b32f-437a-8215-f9f7e824a61e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\collection">
-      <UniqueIdentifier>{f3307e97-6d70-48a6-9237-8f80373be84e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\resource">
       <UniqueIdentifier>{427e1973-185c-4785-9390-9367c18ac5e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\resource">
-      <UniqueIdentifier>{6798cc47-76f5-4ea3-8b92-9759765f740c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\memory">
       <UniqueIdentifier>{8bec4ee9-f2b2-4274-9df3-55889f19e576}</UniqueIdentifier>
@@ -39,12 +33,6 @@
     </Filter>
     <Filter Include="Header Files\math">
       <UniqueIdentifier>{b866cf2d-cb32-483b-991a-692ac79b84fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\memory">
-      <UniqueIdentifier>{23e776ee-55d6-4f1d-94eb-a7b7aa31f69a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\math">
-      <UniqueIdentifier>{aa14e768-76c8-40dc-a2b9-7ad8cb9db478}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\parallel">
       <UniqueIdentifier>{23b667d5-379d-444b-8454-b21d92f99a67}</UniqueIdentifier>
@@ -57,9 +45,6 @@
     </Filter>
     <Filter Include="Source Files\io">
       <UniqueIdentifier>{69116e59-6b9a-45ff-a6eb-6e13ba704792}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\state">
-      <UniqueIdentifier>{ab57d5b4-8579-496c-99fb-5dce1fd22c5d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\scripting">
       <UniqueIdentifier>{68931a48-3a4b-48e3-a677-68dcc03f1e88}</UniqueIdentifier>
@@ -184,9 +169,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\io\input.cpp">
       <Filter>Source Files\io</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\state\state_manager.cpp">
-      <Filter>Source Files\state</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\logging\error.cpp">
       <Filter>Source Files\logging</Filter>

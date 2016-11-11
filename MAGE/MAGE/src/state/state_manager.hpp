@@ -22,7 +22,7 @@ namespace mage {
 		 */
 		virtual ~StateManager() {
 			if (m_current_state) {
-				// State postprocessing
+				// State post-processing
 				m_current_state->Close();
 			}
 
@@ -49,10 +49,10 @@ namespace mage {
 		}
 
 		/**
-		 Removes the given state from the states of this state manager.
+		 Removes (and destructs) the given state from the states of this state manager.
 
 		 @param[in]		state
-		 A pointer to the state.
+						A pointer to the state.
 		 */
 		void RemoveState(State *state) {
 			m_states.remove(state);
@@ -63,9 +63,17 @@ namespace mage {
 		 Changes the state of this state manager to the state with the given id.
 
 		 @param[in]		id
-						The id.
+						The id of the state to change to.
 		 */
-		void ChangeState(uint64_t id);
+		void ChangeState(uint64_t id) {
+			// Iterate the states looking for the specified state.
+			for (list< State * >::iterator it = m_states.begin(); it != m_states.end(); ++it) {
+				if ((*it)->GetId() == id) {
+					ChangeState(*it);
+					break;
+				}
+			}
+		}
 
 		/**
 		 Returns the current state of this state manager.
@@ -90,7 +98,7 @@ namespace mage {
 		 Updates this state manager and its current state.
 
 		 @param[in]		elapsed_time
-						The elapsed time since the previous update.
+						The elapsed time since the previous frame.
 		 @return		@c true if the state is changed in the current frame.
 						@c false otherwise.
 		 */
@@ -109,17 +117,18 @@ namespace mage {
 		/**
 		 Changes the state of this state manager to the given state.
 
-		 @param[in]		new_state
+		 @pre			@a state is not @c NULL.
+		 @param[in]		state
 						A pointer to the new state.
 		 */
-		void ChangeState(State *new_state) {
+		void ChangeState(State *state) {
 			if (m_current_state) {
-				// State postprocessing
+				// State post-processing
 				m_current_state->Close();
 			}
 
-			m_current_state = new_state;
-			// State preprocessing
+			m_current_state = state;
+			// State pre-processing
 			m_current_state->Load();
 
 			m_state_changed = true;

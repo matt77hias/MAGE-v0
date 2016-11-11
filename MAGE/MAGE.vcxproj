@@ -65,7 +65,6 @@
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\task.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
-    <ClCompile Include="MAGE\src\state\state_manager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>

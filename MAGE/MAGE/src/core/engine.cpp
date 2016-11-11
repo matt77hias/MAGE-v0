@@ -253,7 +253,7 @@ namespace mage {
 
 					// Request the viewer from the current state (if there is one).
 					if (m_state_manager->GetCurrentState()) {
-						m_state_manager->GetCurrentState()->RequestViewer(&viewer);
+						m_state_manager->GetCurrentState()->RequestViewSetup(&viewer);
 					}
 					if (m_state_manager->Update(elapsed_time)) {
 						continue;

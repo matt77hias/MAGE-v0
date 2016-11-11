@@ -26,6 +26,10 @@ namespace mage {
 		 */
 		Resource(const string &name, const string &path = "./")
 			: m_name(name), m_path(path), m_resource_reference_count(1) {}
+
+		/**
+		Destructs this resource.
+		*/
 		virtual ~Resource() {}
 
 		/**
@@ -48,10 +52,10 @@ namespace mage {
 		
 		
 		/**
-		Returns the filename of this resource.
+		 Returns the filename of this resource.
 
-		@return			The filename of this resource.
-		*/
+		 @return		The filename of this resource.
+		 */
 		const string GetFilename() const {
 			return m_path + m_name;
 		}
@@ -80,6 +84,11 @@ namespace mage {
 		}
 
 		/**
+		 The resource reference count of this resource.
+		 */
+		AtomicInt32 m_resource_reference_count;
+
+		/**
 		 The name of this resource.
 		 */
 		const string m_name;
@@ -88,13 +97,7 @@ namespace mage {
 		 The path of this resource.
 		 */
 		const string m_path;
-
-		/**
-		 The resource reference count of this resource.
-		 */
-		AtomicInt32 m_resource_reference_count;
 	};
-
 }
 
 //-----------------------------------------------------------------------------

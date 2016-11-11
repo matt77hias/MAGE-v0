@@ -1,6 +1,16 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_SCRIPT_BEGIN_TOKEN "#begin"
+#define MAGE_SCRIPT_END_TOKEN "#end"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -20,7 +30,10 @@ namespace mage {
 		 @param[in]		path
 						A reference to the path of the variable script.
 		*/
-		VariableScript(const string &name, const string &path = "./");
+		VariableScript(const string &name, const string &path = "./")
+			: Resource(name, path), m_variables(list< const Variable * >()) {
+			ImportScript();
+		}
 
 		/**
 		 Destruct this variable script.
@@ -30,24 +43,12 @@ namespace mage {
 		}
 
 		/**
-		 Saves this variable script with the given filename.
+		 Exports this variable script to the file with the given filename.
 
 		 @param[in]		filename
 						A reference to the filename.
 		 */
-		void SaveScript(const string &filename = "");
-
-		/**
-		 Import the given variable from the given file to this variable script .
-
-		 @pre			No variable with the name @a name
-						exists in this variable script.
-		 @param[in]		name
-						The name of the variable.
-		 @param[in, out]	file
-						A pointer to a file containing the value of the variable.
-		 */
-		void ImportVariable(const string &name, FILE *file);
+		void ExportScript(const string &filename = "");
 
 		/**
 		 Adds the given variable to this variable script.
@@ -76,7 +77,7 @@ namespace mage {
 		 */
 		void RemoveVariable(const string &name) {
 			// Iterate the variables looking for the specified variable.
-			for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
+			for (list< const Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
 				if ((*it)->GetName() == name) {
 					m_variables.remove(*it);
 					return;
@@ -98,7 +99,7 @@ namespace mage {
 		template < typename T >
 		const T *GetValueOfVariable(const string &name) const {
 			// Iterate the states looking for the specified variable.
-			for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
+			for (list< const Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
 				if ((*it)->GetName() == name) {
 					return (T *)((*it)->GetValue());
 				}
@@ -122,7 +123,7 @@ namespace mage {
 		template < typename T >
 		void SetValueOfVariable(const string &name, const T *value) {
 			// Iterate the variables looking for the specified variable.
-			for (list< Variable * >::iterator it = m_variables.begin(); it != m_variables.end(); ++it) {
+			for (list< const Variable * >::iterator it = m_variables.begin(); it != m_variables.end(); ++it) {
 				if ((*it)->GetName() == name) {
 					const VariableType type = (*it)->GetType();
 					m_variables.remove(*it);
@@ -135,8 +136,35 @@ namespace mage {
 	private:
 
 		/**
+		 Imports this variable script from its associated file.
+		 */
+		void ImportScript();
+
+		/**
+		 Import the given variable from the given file to this variable script.
+
+		 @pre			No variable with the name @a name
+						exists in this variable script.
+		 @param[in]		name
+						The name of the variable.
+		 @param[in]		file
+						A pointer to a file used for importing.
+		 */
+		void ImportVariable(const string &name, FILE *file);
+
+		/**
+		 Export the given variable from this variable script to the given file.
+
+		 @param[in]		variable
+						A pointer to the variable variable.
+		 @param[in]		file
+						A pointer to a file used for exporting.
+		*/
+		void ExportVariable(const Variable *variable, FILE *file);
+
+		/**
 		 Linked list containing the variables in this variable script.
 		 */
-		list< Variable * > m_variables;
+		list< const Variable * > m_variables;
 	};
 }

@@ -12,11 +12,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VariableScript::VariableScript(const string &name, const string &path) : Resource(name, path), m_variables(list< Variable * >()) {
-		// Open the file whose name is specified by the given filename and
-		// associate it with a returned stream.
-		FILE *file;
-		const errno_t result_fopen_s = fopen_s(&file, GetFilename().c_str(), "r");
+	void VariableScript::ImportScript() {
+		// Open the script file.
+		FILE *file = NULL;
+		const string &fname = GetFilename();
+		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
 		if (result_fopen_s) {
 			Severe("Could not construct script: %s", GetFilename());
 		}
@@ -35,14 +35,14 @@ namespace mage {
 			// statement. If so then read the data into the variable linked list.
 			if (read) {
 				// Stop reading data if an #end statement has been reached.
-				if (strcmp(buffer, "#end") == 0) {
+				if (strcmp(buffer, MAGE_SCRIPT_END_TOKEN) == 0) {
 					read = false;
 				}
 				else {
 					ImportVariable(buffer, file);
 				}
 			}
-			else if (strcmp(buffer, "#begin") == 0) {
+			else if (strcmp(buffer, MAGE_SCRIPT_BEGIN_TOKEN) == 0) {
 				read = true;
 			}
 
@@ -50,11 +50,12 @@ namespace mage {
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
 		}
 
-		// Close the file associated with the stream and disassociates it.
+		// Close the script file.
 		fclose(file);
 	}
 
-	void VariableScript::SaveScript(const string &filename) {
+	void VariableScript::ExportScript(const string &filename) {
+		// Open the script file.
 		FILE *file = NULL;
 		const string &fname = (filename != "") ? filename : GetFilename();
 		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "w");
@@ -63,85 +64,16 @@ namespace mage {
 		}
 
 		// Write the #begin statement to the file.
-		fputs("#begin\n", file);
-
-		char output[MAX_PATH];
+		fputs(MAGE_SCRIPT_BEGIN_TOKEN, file);
+		fputs("\n", file);
 
 		// Iterate the states looking for the specified variable.
-		for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
-			const char *name = (*it)->GetName().c_str();
-			const void *raw_value = (*it)->GetValue();
-
-			switch ((*it)->GetType()) {
-			case BoolType: {
-				const bool *value = (bool *)raw_value;
-				if (*value) {
-					sprintf_s(output, (unsigned int)_countof(output), "%s bool true", name);
-				}
-				else {
-					sprintf_s(output, (unsigned int)_countof(output), "%s bool false", name);
-				}
-				fputs(output, file);
-				fputs("\n", file);
-				break;
-			}
-			case IntType: {
-				const int *value = (int *)raw_value;
-				sprintf_s(output, (unsigned int)_countof(output), "%s int %d", name, *value);
-				fputs(output, file);
-				fputs("\n", file);
-				break;
-			}
-			case FloatType: {
-				const float *value = (float *)raw_value;
-				sprintf_s(output, (unsigned int)_countof(output), "%s float %f", name, *value);
-				fputs(output, file);
-				fputs("\n", file);
-				break;
-			}
-			case Float3Type: {
-				const float3 *value = (float3 *)raw_value;
-				sprintf_s(output, (unsigned int)_countof(output), "%s float3 %f %f %f", name, value->x, value->y, value->z);
-				fputs(output, file);
-				fputs("\n", file);
-				break;
-			}
-			case Float4Type: {
-				const float4 *value = (float4 *)raw_value;
-				sprintf_s(output, (unsigned int)_countof(output), "%s float4 %f %f %f %f", name, value->x, value->y, value->z, value->w);
-				fputs(output, file);
-				fputs("\n", file);
-				break;
-			}
-			case ColourType: {
-				const colour *value = (colour *)raw_value;
-				sprintf_s(output, (unsigned int)_countof(output), "%s colour %f %f %f %f", name, value->x, value->y, value->z, value->w);
-				fputs(output, file);
-				fputs("\n", file);
-				break;
-			}
-			case StringType: {
-				const string *value = (string *)raw_value;
-				sprintf_s(output, (unsigned int)_countof(output), "%s string \"%s\"", name, value->c_str());
-				fputs(output, file);
-				fputs("\n", file);
-				break;
-			}
-			case UnknownType: {
-				const char *value = (char *)raw_value;
-				sprintf_s(output, (unsigned int)_countof(output), "%s unknown %s", name, value);
-				fputs(output, file);
-				fputs("\n", file);
-				break;
-			}
-			default: {
-				Warning("Could not export variable: %s", name);
-			}
-			}
+		for (list< const Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
+			ExportVariable(*it, file);
 		}
 
 		// Write the #end statement to the file.
-		fputs("#end", file);
+		fputs(MAGE_SCRIPT_END_TOKEN, file);
 
 		// Close the script file.
 		fclose(file);
@@ -283,5 +215,67 @@ namespace mage {
 			strcpy_s(value, strlen(buffer) + 1, buffer);
 			AddVariable(name, UnknownType, (void *)value);
 		}
+	}
+
+	void VariableScript::ExportVariable(const Variable *variable, FILE *file) {
+		char output[MAX_PATH];
+		
+		const char *name = variable->GetName().c_str();
+		const void *raw_value = variable->GetValue();
+
+		switch (variable->GetType()) {
+		case BoolType: {
+			const bool *value = (bool *)raw_value;
+			if (*value) {
+				sprintf_s(output, (unsigned int)_countof(output), "%s bool true", name);
+			}
+			else {
+				sprintf_s(output, (unsigned int)_countof(output), "%s bool false", name);
+			}
+			break;
+		}
+		case IntType: {
+			const int *value = (int *)raw_value;
+			sprintf_s(output, (unsigned int)_countof(output), "%s int %d", name, *value);
+			break;
+		}
+		case FloatType: {
+			const float *value = (float *)raw_value;
+			sprintf_s(output, (unsigned int)_countof(output), "%s float %f", name, *value);
+			break;
+		}
+		case Float3Type: {
+			const float3 *value = (float3 *)raw_value;
+			sprintf_s(output, (unsigned int)_countof(output), "%s float3 %f %f %f", name, value->x, value->y, value->z);
+			break;
+		}
+		case Float4Type: {
+			const float4 *value = (float4 *)raw_value;
+			sprintf_s(output, (unsigned int)_countof(output), "%s float4 %f %f %f %f", name, value->x, value->y, value->z, value->w);
+			break;
+		}
+		case ColourType: {
+			const colour *value = (colour *)raw_value;
+			sprintf_s(output, (unsigned int)_countof(output), "%s colour %f %f %f %f", name, value->x, value->y, value->z, value->w);
+			break;
+		}
+		case StringType: {
+			const string *value = (string *)raw_value;
+			sprintf_s(output, (unsigned int)_countof(output), "%s string \"%s\"", name, value->c_str());
+			break;
+		}
+		case UnknownType: {
+			const char *value = (char *)raw_value;
+			sprintf_s(output, (unsigned int)_countof(output), "%s unknown %s", name, value);
+			break;
+		}
+		default: {
+			Warning("Could not export variable: %s", name);
+			return;
+		}
+		}
+
+		fputs(output, file);
+		fputs("\n", file);
 	}
 }

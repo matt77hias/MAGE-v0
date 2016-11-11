@@ -23,6 +23,9 @@ namespace mage {
 		uint64_t m_view_clear_flags;
 	};
 
+	// Forward declaration.
+	class StateManager;
+
 	/**
 	 A class of states
 	 */
@@ -39,9 +42,28 @@ namespace mage {
 		State(uint64_t id = 0) : m_id(id) {}
 
 		/**
-		 Destructs this state.
+		 Returns the id of this state.
+
+		 @return		The id of this state.
 		 */
-		virtual ~State() {}
+		uint64_t GetId() const {
+			return m_id;
+		}
+
+		/**
+		Requests the view setup details for the given frame.
+
+		@pre			@a viewer_setup is not @c NULL.
+		@param[in, out]		viewer_setup
+						A pointer to a viewer setup.
+		*/
+		virtual void RequestViewSetup(ViewerSetup *viewer_setup) {
+			viewer_setup->m_view_clear_flags = 0;
+		}
+
+	protected:
+
+		friend StateManager;
 
 		/**
 		 Loads this state.
@@ -54,16 +76,6 @@ namespace mage {
 		 Allows this state to preform any post-processing destruction.
 		 */
 		virtual void Close() {}
-
-		/**
-		 Requests the view setup details for the given frame.
-
-		 @param[in]		viewer_setup
-						A pointer to a viewer setup.
-		 */
-		virtual void RequestViewer(ViewerSetup *viewer_setup) {
-			viewer_setup->m_view_clear_flags = 0;
-		}
 
 		/**
 		 Updates this state.
@@ -80,15 +92,6 @@ namespace mage {
 		 Render this state.
 		 */
 		virtual void Render() {}
-
-		/**
-		 Returns the id of this state.
-
-		 @return		The id of this state.
-		 */
-		uint64_t GetId() const {
-			return m_id;
-		}
 
 	private:
 

@@ -464,7 +464,7 @@ namespace mage {
 				}
 
 				// Save all the settings out to the settings script.
-				m_settings_script->SaveScript();
+				m_settings_script->ExportScript();
 				// Destroy the settings script.
 				delete m_settings_script;
 

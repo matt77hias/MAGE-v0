@@ -18,7 +18,10 @@ using std::cin;
 using std::cout;
 
 #include <windows.h>
+
 #include <d3d11_2.h>
+#include <directxmath.h>
+using namespace DirectX;
 
 #pragma endregion
 
@@ -34,6 +37,8 @@ using std::cout;
 #define MAGE_POINTER_SIZE 4
 #endif
 #endif
+
+
 
 #pragma endregion
 

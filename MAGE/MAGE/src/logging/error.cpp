@@ -102,7 +102,7 @@ namespace mage {
 	}
 
 	void Info(const char *format, ...) {
-		if (!general_configuration.IsVerbose() || general_configuration.IsQuiet()) {
+		if (!g_logging_configuration.IsVerbose() || g_logging_configuration.IsQuiet()) {
 			// Do not process info in non-verbose mode.
 			// Do not process info in quiet mode.
 			return;
@@ -116,7 +116,7 @@ namespace mage {
 	}
 
 	void Warning(const char *format, ...) {
-		if (general_configuration.IsQuiet()) {
+		if (g_logging_configuration.IsQuiet()) {
 			// Do not process warning in quiet mode.
 			return;
 		}

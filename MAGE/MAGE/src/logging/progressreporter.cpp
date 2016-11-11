@@ -48,7 +48,7 @@ namespace mage {
 		*s++ = ' ';
 		*s++ = '\0';
 		
-		if (general_configuration.IsQuiet()) {
+		if (g_logging_configuration.IsQuiet()) {
 			// Do not output the progression in quiet mode.
 			return;
 		}
@@ -71,7 +71,7 @@ namespace mage {
 	}
 
 	void ProgressReporter::Update(uint32_t nb_work) {
-		if (nb_work == 0 || general_configuration.IsQuiet()) {
+		if (nb_work == 0 || g_logging_configuration.IsQuiet()) {
 			// Do not output the progression in quiet mode.
 			return;
 		}
@@ -112,7 +112,7 @@ namespace mage {
 	}
 
 	void ProgressReporter::Done() {
-		if (general_configuration.IsQuiet()) {
+		if (g_logging_configuration.IsQuiet()) {
 			// Do not output the progression in quiet mode.
 			return;
 		}

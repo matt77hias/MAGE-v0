@@ -15,7 +15,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Globals
 	//-------------------------------------------------------------------------
-	GeneralConfiguration general_configuration;
+	LoggingConfiguration g_logging_configuration;
 	Engine *g_engine = NULL;
 
 	//-------------------------------------------------------------------------

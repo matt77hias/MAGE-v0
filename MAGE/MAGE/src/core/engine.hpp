@@ -38,67 +38,12 @@ using namespace DirectX;
 #endif
 #endif
 
+// Memory management macros
 #define SAFE_DELETE(p)       { if(p) { delete (p);     (p) = NULL; } }
 #define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p) = NULL; } }
 #define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p) = NULL; } }
 
 #pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
-//-----------------------------------------------------------------------------
-
-/**
- The namespace for all the MAGE functionality.
- */
-namespace mage {
-
-	/**
-	 A struct of general configurations (of the logging) of the engine processing.
-	 */
-	struct GeneralConfiguration {
-
-		/**
-		 Constructs a new general configuration.
-		 */
-		GeneralConfiguration() : m_quiet(false), m_verbose(false) {}
-
-		/**
-		 Checks whether the logging of the engine processing is quiet.
-
-		 @return		@c true if the logging of the engine processing is quiet.
-						@c false otherwise.
-		 */
-		bool IsQuiet() const {
-			return m_quiet;
-		}
-
-		/**
-		 Checks wheter the logging of the engine processing is verbose.
-
-		 @return		@c true if the logging of the engine processing is verbose.
-						@c false otherwise.
-		 */
-		bool IsVerbose() const {
-			return m_verbose;
-		}
-
-		/**
-		 Flag indicating the logging of the engine processing is quiet.
-		 */
-		bool m_quiet;
-
-		/**
-		 Flag indicating the logging of the engine processing is verbose.
-		 */
-		bool m_verbose;
-	};
-
-	/**
-	 The general configuration defined by the user and used by the engine.
-	 */
-	extern GeneralConfiguration general_configuration;
-}
 
 //-----------------------------------------------------------------------------
 // Engine Includes

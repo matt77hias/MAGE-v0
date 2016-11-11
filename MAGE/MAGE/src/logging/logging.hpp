@@ -6,6 +6,56 @@
 namespace mage {
 
 	/**
+	 A struct of logging configurations of the engine processing.
+	 */
+	struct LoggingConfiguration {
+
+	public:
+
+		/**
+		 Constructs a new logging configuration.
+		 */
+		LoggingConfiguration() : m_quiet(false), m_verbose(false) {}
+
+		/**
+		 Checks whether the logging of the engine processing is quiet.
+
+		 @return		@c true if the logging of the engine processing is quiet.
+						@c false otherwise.
+		 */
+		bool IsQuiet() const {
+			return m_quiet;
+		}
+
+		/**
+		 Checks wheter the logging of the engine processing is verbose.
+
+		 @return		@c true if the logging of the engine processing is verbose.
+						@c false otherwise.
+		 */
+		bool IsVerbose() const {
+			return m_verbose;
+		}
+
+	private:
+
+		/**
+		 Flag indicating the logging of the engine processing is quiet.
+		 */
+		bool m_quiet;
+
+		/**
+		 Flag indicating the logging of the engine processing is verbose.
+		 */
+		bool m_verbose;
+	};
+
+	/**
+	 The logging configuration defined by the user and used by the engine.
+	 */
+	extern LoggingConfiguration g_logging_configuration;
+
+	/**
 	 Returns the fixed terminal width.
 
 	 @return		The fixed terminal width.

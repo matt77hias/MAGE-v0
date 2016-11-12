@@ -225,7 +225,7 @@ namespace mage {
 
 		 @return		A success/error value.
 		 */
-		HRESULT AttachConsole();
+		HRESULT InitializeConsole();
 
 		/**
 		 Initializes the different systems of this engine.

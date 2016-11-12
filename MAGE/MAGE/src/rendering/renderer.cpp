@@ -16,8 +16,9 @@ namespace mage {
 		Loadable(), m_hwindow(hwindow), 
 		m_render_target_view(NULL), m_swap_chain2(NULL), m_device_context2(NULL), m_device2(NULL) {
 
-		const HRESULT result_device = InitDevice();
+		const HRESULT result_device = InitializeDevice();
 		if (FAILED(result_device)) {
+			Warning("Device intialization failed: %l.", result_device);
 			return;
 		}
 
@@ -26,26 +27,14 @@ namespace mage {
 
 	Renderer::~Renderer() {
 
-		// Switch to windowed mode.
-		if (m_swap_chain2) {
-			m_swap_chain2->SetFullscreenState(FALSE, NULL);
+		const HRESULT result_device = UnitializeDevice();
+		if (FAILED(result_device)) {
+			Warning("Device unintialization failed: %l.", result_device);
 		}
-
-		// Reset any device context to the default settings. 
-		if (m_device_context2) {
-			m_device_context2->ClearState();
-		}
-
-		// Release D3D11 components.
-		SAFE_RELEASE(m_depth_stencil);
-		SAFE_RELEASE(m_depth_stencil_view);
-		SAFE_RELEASE(m_render_target_view);
-		SAFE_RELEASE(m_swap_chain2);
-		SAFE_RELEASE(m_device_context2);
-		SAFE_RELEASE(m_device2);
+		
 	}
 
-	HRESULT Renderer::InitDevice() {
+	HRESULT Renderer::InitializeDevice() {
 
 		const UINT width  = g_device_enumeration->GetDisplayMode()->Width;
 		const UINT height = g_device_enumeration->GetDisplayMode()->Height;
@@ -232,6 +221,28 @@ namespace mage {
 			// 2. An array of D3D11_VIEWPORT structures to bind to the device.
 			m_device_context2->RSSetViewports(1, &viewport);
 		}
+
+		return S_OK;
+	}
+
+	HRESULT Renderer::UnitializeDevice() {
+		// Switch to windowed mode.
+		if (m_swap_chain2) {
+			m_swap_chain2->SetFullscreenState(FALSE, NULL);
+		}
+
+		// Reset any device context to the default settings. 
+		if (m_device_context2) {
+			m_device_context2->ClearState();
+		}
+
+		// Release D3D11 components.
+		SAFE_RELEASE(m_depth_stencil);
+		SAFE_RELEASE(m_depth_stencil_view);
+		SAFE_RELEASE(m_render_target_view);
+		SAFE_RELEASE(m_swap_chain2);
+		SAFE_RELEASE(m_device_context2);
+		SAFE_RELEASE(m_device2);
 
 		return S_OK;
 	}

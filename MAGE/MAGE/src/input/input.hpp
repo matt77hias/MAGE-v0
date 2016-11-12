@@ -26,7 +26,7 @@ namespace mage {
 	/**
 	 A class of input objects.
 	 */
-	class Input {
+	class Input : Loadable {
 
 	friend class Engine;
 
@@ -136,10 +136,57 @@ namespace mage {
 		/**
 		 Destructs this input object.
 		 */
-		virtual ~Input() {
-			SAFE_RELEASE(m_keyboard);
-			SAFE_RELEASE(m_mouse);
+		virtual ~Input();
+
+		/**
+		 Initializes the DirectInput object of this input.
+
+		 @return		A success/error value.
+		 */
+		HRESULT InitializeDI();
+
+		/**
+		 Uninitializes the DirectInput object of this input.
+
+		 @return		A success/error value.
+		 */
+		HRESULT UninitializeDI() {
 			SAFE_RELEASE(m_di);
+			return S_OK;
+		}
+
+		/**
+		 Initializes the keyboard of this input.
+
+		 @return		A success/error value.
+		 */
+		HRESULT InitializeKeyboard();
+
+		/**
+		 Uninitializes the keyboard of this input.
+
+		 @return		A success/error value.
+		 */
+		HRESULT UninitializeKeyboard() {
+			SAFE_RELEASE(m_keyboard);
+			return S_OK;
+		}
+
+		/**
+		 Initializes the mouse of this input.
+
+		 @return		A success/error value.
+		 */
+		HRESULT InitializeMouse();
+
+		/**
+		 Uninitializes the mouse of this input.
+
+		 @return		A success/error value.
+		 */
+		HRESULT UninitializeMouse() {
+			SAFE_RELEASE(m_keyboard);
+			return S_OK;
 		}
 
 		/**

@@ -11,9 +11,14 @@ namespace mage {
 	class Renderer : Loadable {
 
 	friend class Engine;
-	friend LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 	public:
+
+		/**
+		 Switches the mode of this renderer.
+		 Windowed mode is switched to full screen mode and vice versa.
+		 */
+		void SwitchMode();
 
 		/**
 		 Check whether this renderer renders in windowed mode.
@@ -54,7 +59,14 @@ namespace mage {
 
 		 @return		A success/error value.
 		 */
-		HRESULT InitDevice();
+		HRESULT InitializeDevice();
+
+		/**
+		 Uninitializes the D3D11 device of this renderer.
+
+		 @return		A success/error value.
+		 */
+		HRESULT UnitializeDevice();
 
 		/**
 		 Renders the current frame.
@@ -63,12 +75,6 @@ namespace mage {
 						The elapsed time since the previous frame.
 		 */
 		void Render(double elapsed_time);
-
-		/**
-		 Switches the mode of this renderer. 
-		 Windowed mode is switched to full screen mode and vice versa.
-		 */
-		void SwitchMode();
 
 		/**
 		 Main window handle of this renderer.

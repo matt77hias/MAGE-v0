@@ -107,9 +107,7 @@ namespace mage {
 		m_renderer(NULL), m_state_manager(NULL), m_script_manager(NULL), m_input(NULL) {
 
 		// Store a pointer to the engine in a global variable for easy access.
-		if (g_engine) {
-			delete g_engine;
-		}
+		SAFE_DELETE(g_engine);
 		g_engine = this;
 
 		// If no setup structure was passed in, create a default one.
@@ -119,12 +117,14 @@ namespace mage {
 		//Initialize a window.
 		const HRESULT result_window = InitializeWindow();
 		if (FAILED(result_window)) {
+			Warning("Window initialization failed: %l.", result_window);
 			return;
 		}
 
 		// Attach a console.
-		const HRESULT result_console = AttachConsole();
+		const HRESULT result_console = InitializeConsole();
 		if (FAILED(result_console)) {
+			Warning("Console initialization failed: %l.", result_console);
 			return;
 		}
 		PrintConsoleHeader();
@@ -132,6 +132,7 @@ namespace mage {
 		// Initialize the different engine systems.
 		const HRESULT result_system = InitializeSystems();
 		if (FAILED(result_system)) {
+			Warning("Systems initialization failed: %l.", result_system);
 			return;
 		}
 
@@ -150,32 +151,20 @@ namespace mage {
 			CoUninitialize();
 		}
 		// Unitialize the different systems.
-		UninitializeSystems();
+		const HRESULT result_system = UninitializeSystems();
+		if (FAILED(result_system)) {
+			Warning("Systems uninitialization failed: %l.", result_system);
+		}
 		// Unintialize the window.
-		UninitializeWindow();
+		const HRESULT result_window = UninitializeWindow();
+		if (FAILED(result_window)) {
+			Warning("Window uninitialization failed: %l.", result_window);
+		}
 
 		// Clean up the tasks support.
 		TasksCleanup();
 
 		SAFE_DELETE(m_setup);
-	}
-
-	HRESULT Engine::AttachConsole() {
-		// Allocate a console for basic io
-		if (!AllocConsole()) {
-			return E_FAIL;
-		}
-
-		FILE *stream_in, *stream_out, *stream_err;
-		// Redirect stdin, stdout and stderr to the allocated console
-		// Reuse stdin to open the file "CONIN$"
-		freopen_s(&stream_in, "CONIN$", "r", stdin);
-		// Reuse stdout to open the file "CONOUT$"
-		freopen_s(&stream_out, "CONOUT$", "w", stdout);
-		// Reuse stderr to open the file "CONIN$
-		freopen_s(&stream_err, "CONOUT$", "w", stderr);
-
-		return S_OK;
 	}
 
 	HRESULT Engine::InitializeWindow() {
@@ -219,6 +208,7 @@ namespace mage {
 		wcex.lpszClassName = L"WindowClass";
 		// Register a window class
 		if (!RegisterClassEx(&wcex)) {
+			Warning("Registering windows class failed.");
 			return E_FAIL;
 		}
 		//-----------------------------------------------------------------------------
@@ -247,6 +237,7 @@ namespace mage {
 			CW_USEDEFAULT, CW_USEDEFAULT, rectangle.right - rectangle.left, rectangle.bottom - rectangle.top, NULL, NULL, m_setup->m_hinstance, NULL);
 
 		if (!m_hwindow) {
+			Warning("Window creation failed.");
 			return E_FAIL;
 		}
 
@@ -259,15 +250,51 @@ namespace mage {
 		return S_OK;
 	}
 
+	HRESULT Engine::InitializeConsole() {
+		// Allocate a console for basic io
+		if (!AllocConsole()) {
+			Warning("Console allocation failed.");
+			return E_FAIL;
+		}
+
+		FILE *stream_in, *stream_out, *stream_err;
+		// Redirect stdin, stdout and stderr to the allocated console
+		// Reuse stdin to open the file "CONIN$"
+		const errno_t result_in  = freopen_s(&stream_in,  "CONIN$",  "r", stdin);
+		if (result_in) {
+			Warning("stdin redirection failed: %d.", result_in);
+			return E_FAIL;
+		}
+		// Reuse stdout to open the file "CONOUT$"
+		const errno_t result_out = freopen_s(&stream_out, "CONOUT$", "w", stdout);
+		if (result_out) {
+			Warning("stdout redirection failed: %d.", result_out);
+			return E_FAIL;
+		}
+		// Reuse stderr to open the file "CONIN$
+		const errno_t result_err = freopen_s(&stream_err, "CONOUT$", "w", stderr);
+		if (result_err) {
+			Warning("stderr redirection failed: %d.", result_err);
+			return E_FAIL;
+		}
+
+		return S_OK;
+	}
+
 	HRESULT Engine::InitializeSystems() {
 		// Create different engine systems
 		m_renderer			= new Renderer(m_hwindow);
 		if (!m_renderer->IsLoaded()) {
+			Warning("Renderer creation failed.");
 			return E_FAIL;
 		}
 		m_state_manager		= new StateManager();
 		m_script_manager	= new ResourceManager< VariableScript >();
 		m_input				= new Input(m_hwindow);
+		if (!m_input->IsLoaded()) {
+			Warning("Input creation failed.");
+			return E_FAIL;
+		}
 
 		if (m_setup->StateSetup) {
 			// Sets up the states
@@ -288,6 +315,7 @@ namespace mage {
 	void Engine::Run(int nCmdShow) {
 		// Ensure the engine is loaded.
 		if (!IsLoaded()) {
+			Warning("Game loop can not be started because the engine is not loaded.");
 			return;
 		}
 

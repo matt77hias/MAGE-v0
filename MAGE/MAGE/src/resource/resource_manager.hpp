@@ -112,7 +112,7 @@ namespace mage {
 			return NULL;
 		}
 
-	private:
+	protected:
 
 		/**
 		 The linked list containing the resources of this resource manager.

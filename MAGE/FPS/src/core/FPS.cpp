@@ -39,7 +39,7 @@ The user-provided entry point for MAGE.
 				it returns the exit value contained in that message's @c wParam parameter. 
 				If the function terminates before entering the message loop, it returns 0.
  */
-int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int) {
+int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 
 	// Create the engine setup structure.
 	EngineSetup setup;
@@ -48,10 +48,8 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int) {
 	setup.StateSetup = StateSetup;
 
 	// Create the engine, then run it.
-	ProgressReporter reporter(1, "Engine setup");
 	g_engine = new Engine(&setup);
-	reporter.Done();
-	g_engine->Run();
+	g_engine->Run(nCmdShow);
 	delete g_engine;
 
 	return 0;

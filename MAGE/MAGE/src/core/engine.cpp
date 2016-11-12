@@ -69,7 +69,11 @@ namespace mage {
 			if (wParam == VK_RETURN) {
 				g_engine->GetRenderer()->SwitchMode();
 			}
-			break;
+			
+			// Calls the default window procedure to provide default processing 
+			// for any window messages that an application does not process.
+			// This function ensures that every message is processed.
+			return DefWindowProc(hWnd, msg, wParam, lParam);
 		}
 		case WM_PAINT: {
 			// Sent when the system or another application makes a request 

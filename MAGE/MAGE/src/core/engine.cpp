@@ -4,6 +4,7 @@
 #pragma region
 
 #include "engine.hpp"
+#include "engine_settings.hpp"
 
 #pragma endregion
 
@@ -187,7 +188,9 @@ namespace mage {
 		//A handle to the instance that contains the window procedure for the class.
 		wcex.hInstance = m_setup->m_hinstance;
 		// A handle to the class icon. This member must be a handle to an icon resource.
-		wcex.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+		wcex.hIcon   = (HICON)LoadImage(m_setup->m_hinstance, MAKEINTRESOURCE(IDI_APPLICATION_ICON), IMAGE_ICON, LR_DEFAULTSIZE, LR_DEFAULTSIZE, 0);
+		// A handle to a small icon that is associated with the window class.
+		wcex.hIconSm = (HICON)LoadImage(m_setup->m_hinstance, MAKEINTRESOURCE(IDI_APPLICATION_ICON), IMAGE_ICON, LR_DEFAULTSIZE, LR_DEFAULTSIZE, 0);
 		// A handle to the class cursor. This member must be a handle to a cursor resource.
 		wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
 		// A handle to the class background brush. This member can be a handle to
@@ -200,8 +203,6 @@ namespace mage {
 		// A pointer to a null-terminated string or is an atom.
 		// If lpszClassName is a string, it specifies the window class name.
 		wcex.lpszClassName = L"WindowClass";
-		// A handle to a small icon that is associated with the window class.
-		wcex.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
 		// Register a window class
 		if (!RegisterClassEx(&wcex)) {
 			return E_FAIL;
@@ -215,9 +216,9 @@ namespace mage {
 		if (g_device_enumeration->Enumerate() != IDOK) {
 			return E_FAIL;
 		}
-		const UINT width  = g_device_enumeration->GetDisplayMode()->Width;
-		const UINT height = g_device_enumeration->GetDisplayMode()->Height;
 		
+		const LONG width  = (LONG)g_device_enumeration->GetDisplayMode()->Width;
+		const LONG height = (LONG)g_device_enumeration->GetDisplayMode()->Height;
 		RECT rectangle = { 0, 0, width, height };
 		// Calculate the required size of the window rectangle, based on the desired client-rectangle size.
 		// A client rectangle is the smallest rectangle that completely encloses a client area. 
@@ -228,7 +229,7 @@ namespace mage {
 		AdjustWindowRect(&rectangle, WS_OVERLAPPEDWINDOW, FALSE);
 
 		// Creates the window and retrieve a handle to it.
-		m_hwindow = CreateWindow(L"WindowClass", m_setup->m_name.c_str(), WS_POPUP,
+		m_hwindow = CreateWindow(L"WindowClass", m_setup->m_name.c_str(), WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
 			CW_USEDEFAULT, CW_USEDEFAULT, rectangle.right - rectangle.left, rectangle.bottom - rectangle.top, NULL, NULL, m_setup->m_hinstance, NULL);
 
 		if (!m_hwindow) {

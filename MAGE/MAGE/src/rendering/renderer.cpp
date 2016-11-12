@@ -126,6 +126,9 @@ namespace mage {
 				return result_dxgi_factory3;
 			}
 
+			// Block the ALT+ENTER shortcut is blocked
+			dxgi_factory3->MakeWindowAssociation(m_hwindow, DXGI_MWA_NO_ALT_ENTER);
+
 			// Create a DXGI_SWAP_CHAIN_DESC1.
 			DXGI_SWAP_CHAIN_DESC1 swap_chain_desc;
 			ZeroMemory(&swap_chain_desc, sizeof(swap_chain_desc));
@@ -136,7 +139,9 @@ namespace mage {
 			swap_chain_desc.SampleDesc.Quality	= 0;										// The image quality level. (lowest)
 			swap_chain_desc.BufferUsage			= DXGI_USAGE_RENDER_TARGET_OUTPUT;			// Use the surface or resource as an output render target.
 			swap_chain_desc.BufferCount			= 1;										// The number of buffers in the swap chain.
-			swap_chain_desc.Flags				= DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;	// Allow full-screen switching.
+			swap_chain_desc.Flags				= DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+
+			dxgi_factory3->MakeWindowAssociation(m_hwindow, DXGI_MWA_NO_WINDOW_CHANGES);
 
 			// Get the IDXGISwapChain1.
 			IDXGISwapChain1 *swap_chain1;
@@ -167,6 +172,8 @@ namespace mage {
 			if (FAILED(result_render_target_view)) {
 				return result_render_target_view;
 			}
+		
+			m_swap_chain2->SetFullscreenState(!g_device_enumeration->IsWindowed(), NULL);
 		}
 
 		// Setup the ID3D11Texture2D and ID3D11DepthStencilView.

@@ -33,6 +33,8 @@ namespace mage {
 					Additional message-specific information.
 	 @param[in]		lParam
 					Additional message-specific information.
+	 @return		@c true if @a uMsg is processed.
+					@c false otherwise.
 	 */
 	INT_PTR CALLBACK SettingsDialogProcDelegate(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		return g_device_enumeration->SettingsDialogProc(hwndDlg, uMsg, wParam, lParam);
@@ -42,7 +44,7 @@ namespace mage {
 	// DeviceEnumeration
 	//-------------------------------------------------------------------------
 
-	INT_PTR DeviceEnumeration::Enumerate() {
+	HRESULT DeviceEnumeration::Enumerate() {
 		SAFE_RELEASE(m_adapter); // In case of multiple of calls to Enumerate.
 		
 		// Create the display modes linked list.
@@ -53,15 +55,16 @@ namespace mage {
 		// Get the IDXGIAdapter2.
 		{
 			// Get the IDXGIFactory3.
-			IDXGIFactory3 *factory;
+			IDXGIFactory3 *factory = NULL;
 			const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)&factory);
 			if (result_factory) {
-				Severe("CreateDXGIFactory1: %d", result_factory);
+				Warning("IDXGIFactory3 creation failed: %ld", result_factory);
+				return E_FAIL;
 			}
 
 			// Get the IDXGIAdapter1.
 			// The IDXGIAdapter represents a display subsystem (including one or more GPUs, DACs and video memory).
-			IDXGIAdapter1 *adapter1;
+			IDXGIAdapter1 *adapter1 = NULL;
 			SIZE_T max_vram = 0;
 			for (UINT i = 0; factory->EnumAdapters1(i, &adapter1) != DXGI_ERROR_NOT_FOUND; ++i) {
 				// Get the IDXGIAdapter2.
@@ -70,20 +73,18 @@ namespace mage {
 				// Release the IDXGIAdapter1.
 				adapter1->Release();
 				if (FAILED(result_adapter2)) {
-					Severe("IDXGIAdapter1::QueryInterface: %d", result_adapter2);
+					factory->Release();
+					Warning("IDXGIAdapter2 creation failed: %ld", result_adapter2);
+					return E_FAIL;
 				}
 
 				DXGI_ADAPTER_DESC2 desc;
 				adapter2->GetDesc2(&desc);
 				const SIZE_T vram = desc.DedicatedVideoMemory;
 				if (vram >= max_vram) {
-					if (m_adapter) {
-						// Release the IDXGIAdapter2.
-						m_adapter->Release();
-					}
-
-					max_vram = vram;
+					SAFE_RELEASE(m_adapter);
 					m_adapter = adapter2;
+					max_vram = vram;
 				}
 				else {
 					// Release the IDXGIAdapter2.
@@ -97,15 +98,19 @@ namespace mage {
 
 		// Get the primary IDXGIOutput.
 		// The IDXGIOutput represents an adapter output (such as a monitor).
-		IDXGIOutput *output;
+		IDXGIOutput *output = NULL;
 		const HRESULT result_output = m_adapter->EnumOutputs(0, &output);
-		if (result_output) {
-			Severe("IDXGIAdapter2::EnumOutputs: %d", result_output);
+		if (FAILED(result_output)) {
+			Warning("IDXGIOutput creation failed: %ld", result_output);
+			return E_FAIL;
 		}
-		IDXGIOutput2 *output2;
+		IDXGIOutput2 *output2 = NULL;
 		const HRESULT result_output2 = output->QueryInterface(__uuidof(IDXGIOutput2), (void **)&output2);
-		if (result_output2) {
-			Severe("IDXGIOutput::QueryInterface: %d", result_output2);
+		// Release the IDXGIOutput.
+		output->Release();
+		if (FAILED(result_output2)) {
+			Warning("IDXGIOutput2 creation failed: %ld", result_output2);
+			return E_FAIL;
 		}
 			
 		for (size_t i = 0; i < _countof(g_pixel_formats); ++i) {
@@ -135,8 +140,6 @@ namespace mage {
 			delete[] dxgi_mode_descs;
 		}
 
-		// Release the IDXGIOutput.
-		output->Release();
 		// Release the IDXGIOutput2.
 		output2->Release();
 
@@ -145,7 +148,8 @@ namespace mage {
 		// 2. The dialog box template.
 		// 3. A handle to the window that owns the dialog box.
 		// 4. A pointer to the dialog box procedure.
-		return DialogBox(NULL, MAKEINTRESOURCE(IDD_GRAPHICS_SETTINGS), NULL, SettingsDialogProcDelegate);
+		const INT_PTR result_dialog = DialogBox(NULL, MAKEINTRESOURCE(IDD_GRAPHICS_SETTINGS), NULL, SettingsDialogProcDelegate);
+		return (result_dialog) ? S_OK : E_FAIL;
 	}
 
 	INT_PTR DeviceEnumeration::SettingsDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {

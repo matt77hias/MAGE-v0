@@ -244,11 +244,11 @@ namespace mage {
 		}
 		//-----------------------------------------------------------------------------
 
-		if (g_device_enumeration) {
-			delete g_device_enumeration;
-		}
+		SAFE_DELETE(g_device_enumeration);
 		g_device_enumeration = new DeviceEnumeration();
-		if (g_device_enumeration->Enumerate() != IDOK) {
+		const HRESULT result_enumerate = g_device_enumeration->Enumerate();
+		if (FAILED(result_enumerate)) {
+			Warning("Device enumeration setup failed: %ld", result_enumerate);
 			return E_FAIL;
 		}
 		

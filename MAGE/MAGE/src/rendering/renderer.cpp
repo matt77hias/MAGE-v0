@@ -70,6 +70,7 @@ namespace mage {
 				}
 			}
 			if (FAILED(result_device)) {
+				Warning("ID3D11Device creation failed: %ld.", result_device);
 				return result_device;
 			}
 
@@ -78,6 +79,7 @@ namespace mage {
 			// Release the ID3D11Device.
 			device->Release();
 			if (FAILED(result_device2)) {
+				Warning("ID3D11Device2 creation failed: %ld.", result_device2);
 				return result_device2;
 			}
 			// Get the ID3D11DeviceContext2.
@@ -85,6 +87,7 @@ namespace mage {
 			// Release the ID3D11DeviceContext.
 			device_context->Release();
 			if (FAILED(result_device_context2)) {
+				Warning("ID3D11DeviceContext2 creation failed: %ld.", result_device_context2);
 				return result_device_context2;
 			}
 		}
@@ -95,15 +98,16 @@ namespace mage {
 			IDXGIDevice3 *dxgi_device3 = NULL;
 			const HRESULT result_dxgi_device3 = m_device2->QueryInterface(__uuidof(IDXGIDevice3), (void **)&dxgi_device3);
 			if (FAILED(result_dxgi_device3)) {
+				Warning("IDXGIDevice3 creation failed: %ld.", result_dxgi_device3);
 				return result_dxgi_device3;
 			}
 			// Get the IDXGIAdapter.
 			IDXGIAdapter *dxgi_adapter = NULL;
 			const HRESULT result_dxgi_adapter = dxgi_device3->GetAdapter(&dxgi_adapter);
-
 			// Release the IDXGIDevice3.
 			dxgi_device3->Release();
 			if (FAILED(result_dxgi_adapter)) {
+				Warning("IDXGIAdapter creation failed: %ld.", result_dxgi_adapter);
 				return result_dxgi_adapter;
 			}
 			// Get the IDXGIFactory3.
@@ -112,6 +116,7 @@ namespace mage {
 			// Release the IDXGIAdapter.
 			dxgi_adapter->Release();
 			if (FAILED(result_dxgi_factory3)) {
+				Warning("IDXGIFactory3 creation failed: %ld.", result_dxgi_factory3);
 				return result_dxgi_factory3;
 			}
 
@@ -138,6 +143,7 @@ namespace mage {
 			// Release the IDXGIFactory3.
 			dxgi_factory3->Release();
 			if (FAILED(result_swap_chain1)) {
+				Warning("IDXGISwapChain1 creation failed: %ld.", result_swap_chain1);
 				return result_swap_chain1;
 			}
 			// Get the IDXGISwapChain2.
@@ -145,6 +151,7 @@ namespace mage {
 			// Release the IDXGISwapChain1.
 			swap_chain1->Release();
 			if (FAILED(result_swap_chain2)) {
+				Warning("IDXGISwapChain2 creation failed: %ld.", result_swap_chain2);
 				return result_swap_chain2;
 			}
 
@@ -152,6 +159,7 @@ namespace mage {
 			ID3D11Texture2D *back_buffer = NULL;
 			const HRESULT result_back_buffer = m_swap_chain2->GetBuffer(0, __uuidof(ID3D11Texture2D), (void **)&back_buffer);
 			if (FAILED(result_back_buffer)) {
+				Warning("Back buffer texture creation failed: %ld.", result_back_buffer);
 				return result_back_buffer;
 			}
 			// Create a ID3D11RenderTargetView.
@@ -159,6 +167,7 @@ namespace mage {
 			// Release the back buffer.
 			back_buffer->Release();
 			if (FAILED(result_render_target_view)) {
+				Warning("ID3D11RenderTargetView creation failed: %ld.", result_render_target_view);
 				return result_render_target_view;
 			}
 		
@@ -183,6 +192,7 @@ namespace mage {
 			depth_stencil_desc.MiscFlags				= 0;							// Flags that identify other, less common resource options.
 			const HRESULT result_depth_stencil = m_device2->CreateTexture2D(&depth_stencil_desc, NULL, &m_depth_stencil);
 			if (FAILED(result_depth_stencil)) {
+				Warning("Depth-stencil texture creation failed: %ld.", result_depth_stencil);
 				return result_depth_stencil;
 			}
 
@@ -194,6 +204,7 @@ namespace mage {
 			depth_stencil_view_desc.Texture2D.MipSlice	= 0;
 			const HRESULT result_depth_stencil_view = m_device2->CreateDepthStencilView(m_depth_stencil, &depth_stencil_view_desc, &m_depth_stencil_view);
 			if (FAILED(result_depth_stencil_view)) {
+				Warning("Depth-stencil view creation failed: %ld.", result_depth_stencil_view);
 				return result_depth_stencil_view;
 			}
 		}

@@ -98,8 +98,10 @@ namespace mage {
 		/**
 		 Enumerates the available display modes on the adapter output of
 		 the physical adapter with the most dedicated video memory.
+
+		 @return		A success/error value.
 		 */
-		INT_PTR Enumerate();
+		HRESULT Enumerate();
 
 		/**
 		 Engine-defined callback function used with the CreateDialog
@@ -113,6 +115,8 @@ namespace mage {
 						Additional message-specific information.
 		 @param[in]		lParam
 						Additional message-specific information.
+		 @return		@c true if @a uMsg is processed.
+						@c false otherwise.
 		 */
 		INT_PTR SettingsDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		

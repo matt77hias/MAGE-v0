@@ -18,7 +18,7 @@ namespace mage {
 
 		const HRESULT result_device = InitializeDevice();
 		if (FAILED(result_device)) {
-			Warning("Device intialization failed: %l.", result_device);
+			Warning("Device intialization failed: %ld.", result_device);
 			return;
 		}
 
@@ -29,7 +29,7 @@ namespace mage {
 
 		const HRESULT result_device = UnitializeDevice();
 		if (FAILED(result_device)) {
-			Warning("Device unintialization failed: %l.", result_device);
+			Warning("Device unintialization failed: %ld.", result_device);
 		}
 		
 	}

@@ -114,25 +114,25 @@ namespace mage {
 		// Otehrwise, make a copy of the passed in structure.
 		m_setup = (setup) ? new EngineSetup(setup) : new EngineSetup();
 
-		//Initialize a window.
-		const HRESULT result_window = InitializeWindow();
-		if (FAILED(result_window)) {
-			Warning("Window initialization failed: %l.", result_window);
-			return;
-		}
-
 		// Attach a console.
 		const HRESULT result_console = InitializeConsole();
 		if (FAILED(result_console)) {
-			Warning("Console initialization failed: %l.", result_console);
+			Warning("Console initialization failed: %ld.", result_console);
 			return;
 		}
 		PrintConsoleHeader();
 
+		//Initialize a window.
+		const HRESULT result_window = InitializeWindow();
+		if (FAILED(result_window)) {
+			Warning("Window initialization failed: %ld.", result_window);
+			return;
+		}
+
 		// Initialize the different engine systems.
 		const HRESULT result_system = InitializeSystems();
 		if (FAILED(result_system)) {
-			Warning("Systems initialization failed: %l.", result_system);
+			Warning("Systems initialization failed: %ld.", result_system);
 			return;
 		}
 
@@ -153,18 +153,49 @@ namespace mage {
 		// Unitialize the different systems.
 		const HRESULT result_system = UninitializeSystems();
 		if (FAILED(result_system)) {
-			Warning("Systems uninitialization failed: %l.", result_system);
+			Warning("Systems uninitialization failed: %ld.", result_system);
 		}
 		// Unintialize the window.
 		const HRESULT result_window = UninitializeWindow();
 		if (FAILED(result_window)) {
-			Warning("Window uninitialization failed: %l.", result_window);
+			Warning("Window uninitialization failed: %ld.", result_window);
 		}
 
 		// Clean up the tasks support.
 		TasksCleanup();
 
 		SAFE_DELETE(m_setup);
+	}
+
+	HRESULT Engine::InitializeConsole() {
+		// Allocate a console for basic io
+		if (!AllocConsole()) {
+			Warning("Console allocation failed.");
+			return E_FAIL;
+		}
+
+		FILE *stream_in, *stream_out, *stream_err;
+		// Redirect stdin, stdout and stderr to the allocated console
+		// Reuse stdin to open the file "CONIN$"
+		const errno_t result_in = freopen_s(&stream_in, "CONIN$", "r", stdin);
+		if (result_in) {
+			Warning("stdin redirection failed: %d.", result_in);
+			return E_FAIL;
+		}
+		// Reuse stdout to open the file "CONOUT$"
+		const errno_t result_out = freopen_s(&stream_out, "CONOUT$", "w", stdout);
+		if (result_out) {
+			Warning("stdout redirection failed: %d.", result_out);
+			return E_FAIL;
+		}
+		// Reuse stderr to open the file "CONIN$
+		const errno_t result_err = freopen_s(&stream_err, "CONOUT$", "w", stderr);
+		if (result_err) {
+			Warning("stderr redirection failed: %d.", result_err);
+			return E_FAIL;
+		}
+
+		return S_OK;
 	}
 
 	HRESULT Engine::InitializeWindow() {
@@ -247,37 +278,6 @@ namespace mage {
 	HRESULT Engine::UninitializeWindow() {
 		// Unregister the window class.
 		UnregisterClass(L"WindowClass", m_setup->m_hinstance);
-		return S_OK;
-	}
-
-	HRESULT Engine::InitializeConsole() {
-		// Allocate a console for basic io
-		if (!AllocConsole()) {
-			Warning("Console allocation failed.");
-			return E_FAIL;
-		}
-
-		FILE *stream_in, *stream_out, *stream_err;
-		// Redirect stdin, stdout and stderr to the allocated console
-		// Reuse stdin to open the file "CONIN$"
-		const errno_t result_in  = freopen_s(&stream_in,  "CONIN$",  "r", stdin);
-		if (result_in) {
-			Warning("stdin redirection failed: %d.", result_in);
-			return E_FAIL;
-		}
-		// Reuse stdout to open the file "CONOUT$"
-		const errno_t result_out = freopen_s(&stream_out, "CONOUT$", "w", stdout);
-		if (result_out) {
-			Warning("stdout redirection failed: %d.", result_out);
-			return E_FAIL;
-		}
-		// Reuse stderr to open the file "CONIN$
-		const errno_t result_err = freopen_s(&stream_err, "CONOUT$", "w", stderr);
-		if (result_err) {
-			Warning("stderr redirection failed: %d.", result_err);
-			return E_FAIL;
-		}
-
 		return S_OK;
 	}
 

@@ -17,17 +17,17 @@ namespace mage {
 
 		const HRESULT result_di = InitializeDI();
 		if (FAILED(result_di)) {
-			Warning("DirectInput initialization failed: %l", result_di);
+			Warning("DirectInput initialization failed: %ld", result_di);
 			return;
 		}
 		const HRESULT result_keyboard = InitializeKeyboard();
 		if (FAILED(result_keyboard)) {
-			Warning("Keyboard initialization failed: %l", result_keyboard);
+			Warning("Keyboard initialization failed: %ld", result_keyboard);
 			return;
 		}
 		const HRESULT result_mouse = InitializeMouse();
 		if (FAILED(result_mouse)) {
-			Warning("Mouse initialization failed: %l", result_mouse);
+			Warning("Mouse initialization failed: %ld", result_mouse);
 			return;
 		}
 
@@ -37,15 +37,15 @@ namespace mage {
 	Input::~Input() {
 		const HRESULT result_di = UninitializeKeyboard();
 		if (FAILED(result_di)) {
-			Warning("DirectInput uninitialization failed: %l.", result_di);
+			Warning("DirectInput uninitialization failed: %ld.", result_di);
 		}
 		const HRESULT result_keyboard = UninitializeMouse();
 		if (FAILED(result_keyboard)) {
-			Warning("Keyboard uninitialization failed: %l.", result_keyboard);
+			Warning("Keyboard uninitialization failed: %ld.", result_keyboard);
 		}
 		const HRESULT result_mouse = UninitializeDI();
 		if (FAILED(result_mouse)) {
-			Warning("Mouse uninitialization failed: %l.", result_mouse);
+			Warning("Mouse uninitialization failed: %ld.", result_mouse);
 		}
 	}
 
@@ -67,13 +67,13 @@ namespace mage {
 		// 3. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or NULL if the interface is not aggregated.
 		const HRESULT result_keyboard_create = m_di->CreateDevice(GUID_SysKeyboard, &m_keyboard, NULL);
 		if (FAILED(result_keyboard_create)) {
-			Warning("Keyboard device creation failed: %l.", result_keyboard_create);
+			Warning("Keyboard device creation failed: %ld.", result_keyboard_create);
 			return result_keyboard_create;
 		}
 		// Set the data format for the DirectInput device. 
 		const HRESULT result_keyboard_format = m_keyboard->SetDataFormat(&c_dfDIKeyboard);
 		if (FAILED(result_keyboard_format)) {
-			Warning("Setting data format for keyboard device failed: %l.", result_keyboard_format);
+			Warning("Setting data format for keyboard device failed: %ld.", result_keyboard_format);
 			return result_keyboard_format;
 		}
 		// Establish the cooperative level for this instance of the device. 
@@ -81,7 +81,7 @@ namespace mage {
 		// with other instances of the device and the rest of the system. 
 		const HRESULT result_keyboard_cooperative = m_keyboard->SetCooperativeLevel(m_hwindow, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 		if (FAILED(result_keyboard_cooperative)) {
-			Warning("Setting cooperation level for keyboard device failed: %l.", result_keyboard_cooperative);
+			Warning("Setting cooperation level for keyboard device failed: %ld.", result_keyboard_cooperative);
 			return result_keyboard_cooperative;
 		}
 		// Obtain access to the input device. 
@@ -98,13 +98,13 @@ namespace mage {
 		// 3. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or NULL if the interface is not aggregated.
 		const HRESULT result_mouse_create = m_di->CreateDevice(GUID_SysMouse, &m_mouse, NULL);
 		if (FAILED(result_mouse_create)) {
-			Warning("Mouse device creation failed: %l.", result_mouse_create);
+			Warning("Mouse device creation failed: %ld.", result_mouse_create);
 			return result_mouse_create;
 		}
 		// Set the data format for the DirectInput device. 
 		const HRESULT result_mouse_format = m_mouse->SetDataFormat(&c_dfDIMouse);
 		if (FAILED(result_mouse_format)) {
-			Warning("Setting data format for mouse device failed: %l.", result_mouse_format);
+			Warning("Setting data format for mouse device failed: %ld.", result_mouse_format);
 			return result_mouse_format;
 		}
 		// Establish the cooperative level for this instance of the device. 
@@ -112,7 +112,7 @@ namespace mage {
 		// with other instances of the device and the rest of the system. 
 		const HRESULT result_mouse_cooperative = m_mouse->SetCooperativeLevel(m_hwindow, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 		if (FAILED(result_mouse_cooperative)) {
-			Warning("Setting cooperation level for mouse device failed: %l.", result_mouse_cooperative);
+			Warning("Setting cooperation level for mouse device failed: %ld.", result_mouse_cooperative);
 			return result_mouse_cooperative;
 		}
 		// Obtain access to the input device. 

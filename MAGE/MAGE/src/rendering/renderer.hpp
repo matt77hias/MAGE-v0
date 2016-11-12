@@ -8,6 +8,7 @@ namespace mage {
 	class Renderer {
 
 	friend class Engine;
+	friend LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 	public:
 		
@@ -19,6 +20,26 @@ namespace mage {
 		 */
 		bool IsLoaded() const {
 			return m_loaded;
+		}
+
+		/**
+		 Check whether this renderer renders in windowed mode.
+
+		 @return		@c true if this renderer renders in windowed mode.
+						@c false otherwise.
+		*/
+		bool IsWindowed() const {
+			return m_windowed;
+		}
+
+		/**
+		 Check whether this renderer renders in full screen mode.
+
+		 @return		@c true if this renderer renders in full screen mode.
+						@c false otherwise.
+		 */
+		bool IsFullScreen() const {
+			return !m_windowed;
 		}
 
 	protected:
@@ -51,6 +72,12 @@ namespace mage {
 		void Render(double elapsed_time);
 
 		/**
+		 Switches the mode of this renderer. 
+		 Windowed mode is switched to full screen mode and vice versa.
+		 */
+		void SwitchMode();
+
+		/**
 		 Main window handle of this renderer.
 		 */
 		HWND m_hwindow;
@@ -59,6 +86,11 @@ namespace mage {
 		 Flag indicating wether this renderer is loaded.
 		 */
 		bool m_loaded;
+
+		/**
+		 Flag indicating wether this renderer uses full screen (@c false) or windowed mode (c true).
+		 */
+		bool m_windowed;
 
 		D3D_DRIVER_TYPE           m_driver_type;
 		D3D_FEATURE_LEVEL		  m_feature_level;

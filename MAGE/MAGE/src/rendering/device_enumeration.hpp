@@ -62,6 +62,16 @@ namespace mage {
 		}
 
 		/**
+		 Check whether the application should run in full screen mode.
+
+		 @return		@c true if the application should run in full screen mode.
+						@c false otherwise.
+		 */
+		bool IsFullScreen() const {
+			return !m_windowed;
+		}
+
+		/**
 		 Check whether v-sync should be enabled.
 
 		 @return		@c true if v-sync should be enabled.

@@ -248,4 +248,8 @@ namespace mage {
 		// Present the back buffer to the front buffer.
 		m_swap_chain2->Present(0, 0);
 	}
+
+	void Renderer::SwitchMode() {
+		m_windowed = !m_windowed;
+	}
 }

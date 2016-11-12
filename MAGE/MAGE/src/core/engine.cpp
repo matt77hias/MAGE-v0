@@ -61,6 +61,16 @@ namespace mage {
 			PostQuitMessage(0);
 			break;
 		}
+		case WM_SYSKEYDOWN: {
+			// Sent to the window with the keyboard focus when the user presses the F10 key 
+			// (which activates the menu bar) or holds down the ALT key and then presses another key.
+
+			// Check whether the user wants to switch between windowed and full screen mode.
+			if (wParam == VK_RETURN) {
+				g_engine->GetRenderer()->SwitchMode();
+			}
+			break;
+		}
 		case WM_PAINT: {
 			// Sent when the system or another application makes a request 
 			// to paint a portion of an application's window.
@@ -310,7 +320,7 @@ namespace mage {
 				if (m_input->GetKeyPress(DIK_F1)) {
 					PostQuitMessage(0);
 				}
-
+				
 				// Request the viewer from the current state (if there is one).
 				if (m_state_manager->GetCurrentState()) {
 					m_state_manager->GetCurrentState()->RequestViewSetup(&viewer);

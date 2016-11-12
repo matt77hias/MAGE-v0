@@ -22,6 +22,7 @@
     <ClInclude Include="MAGE\src\collection\collection.hpp" />
     <ClInclude Include="MAGE\src\core\engine.hpp" />
     <ClInclude Include="MAGE\src\core\engine_settings.hpp" />
+    <ClInclude Include="MAGE\src\core\loadable.hpp" />
     <ClInclude Include="MAGE\src\core\targetver.h" />
     <ClInclude Include="MAGE\src\core\version.hpp" />
     <ClInclude Include="MAGE\src\input\input.hpp" />

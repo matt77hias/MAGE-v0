@@ -1,26 +1,19 @@
 #pragma once
 
-/**
- A class of renderers.
- */
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
 namespace mage {
 
-	class Renderer {
+	/**
+	 A class of renderers.
+	 */
+	class Renderer : Loadable {
 
 	friend class Engine;
 	friend LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 	public:
-		
-		/**
-		 Checks whether this renderer is loaded.
-
-		 @return		@c true if this renderer is loaded.
-						@c false otherwise.
-		 */
-		bool IsLoaded() const {
-			return m_loaded;
-		}
 
 		/**
 		 Check whether this renderer renders in windowed mode.
@@ -83,11 +76,6 @@ namespace mage {
 		HWND m_hwindow;
 
 		/**
-		 Flag indicating wether this renderer is loaded.
-		 */
-		bool m_loaded;
-
-		/**
 		 Flag indicating wether this renderer uses full screen (@c false) or windowed mode (c true).
 		 */
 		bool m_windowed;
@@ -101,5 +89,4 @@ namespace mage {
 		ID3D11Texture2D          *m_depth_stencil;
 		ID3D11DepthStencilView   *m_depth_stencil_view;
 	};
-
 }

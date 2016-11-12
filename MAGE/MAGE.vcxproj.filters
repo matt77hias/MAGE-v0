@@ -165,6 +165,9 @@
     <ClInclude Include="MAGE\src\core\engine_settings.hpp">
       <Filter>Header Files\core</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\core\loadable.hpp">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

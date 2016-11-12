@@ -13,7 +13,7 @@
 namespace mage {
 
 	Renderer::Renderer(HWND hwindow) : 
-		m_loaded(false), m_hwindow(hwindow), 
+		Loadable(), m_hwindow(hwindow), 
 		m_render_target_view(NULL), m_swap_chain2(NULL), m_device_context2(NULL), m_device2(NULL) {
 
 		const HRESULT result_device = InitDevice();
@@ -21,7 +21,7 @@ namespace mage {
 			return;
 		}
 
-		m_loaded = true;
+		SetLoaded();
 	}
 
 	Renderer::~Renderer() {

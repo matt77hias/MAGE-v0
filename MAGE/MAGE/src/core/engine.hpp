@@ -51,6 +51,7 @@ using namespace DirectX;
 #pragma region
 
 #include "version.hpp"
+#include "loadable.hpp"
 #include "collection\collection.hpp"
 #include "math\math.hpp"
 #include "parallel\parallel.hpp"
@@ -112,7 +113,7 @@ namespace mage {
 	/**
 	 A class of engines.
 	 */
-	class Engine {
+	class Engine : private Loadable {
 
 	public:
 
@@ -136,16 +137,6 @@ namespace mage {
 						Controls how the engine window is to be shown.
 		 */
 		void Run(int nCmdShow = SW_NORMAL);
-
-		/**
-		 Checks whether this engine is loaded.
-
-		 @return		@c true if this engine is loaded.
-						@c false otherwise.
-		 */
-		bool IsLoaded() const {
-			return m_loaded;
-		}
 
 		// WINDOW SYSTEM
 
@@ -255,11 +246,6 @@ namespace mage {
 		 */
 		EngineSetup *m_setup;
 
-		/**
-		 Flag indicating whether this engine is loaded.
-		 */
-		bool m_loaded;
-		
 		// WINDOW SYSTEM
 
 		/**

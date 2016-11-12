@@ -103,7 +103,7 @@ namespace mage {
 	// Engine
 	//-------------------------------------------------------------------------
 	
-	Engine::Engine(const EngineSetup *setup) : m_loaded(false), 
+	Engine::Engine(const EngineSetup *setup) : Loadable(), 
 		m_renderer(NULL), m_state_manager(NULL), m_script_manager(NULL), m_input(NULL) {
 
 		// Store a pointer to the engine in a global variable for easy access.
@@ -140,12 +140,12 @@ namespace mage {
 		CoInitializeEx(NULL, COINIT_MULTITHREADED);
 
 		// The engine is fully loaded and ready to go.
-		m_loaded = true;
+		SetLoaded();
 	}
 
 	Engine::~Engine() {
 
-		if (m_loaded) {
+		if (IsLoaded()) {
 			// Uninitialise the COM.
 			CoUninitialize();
 		}
@@ -287,7 +287,7 @@ namespace mage {
 
 	void Engine::Run(int nCmdShow) {
 		// Ensure the engine is loaded.
-		if (!m_loaded) {
+		if (!IsLoaded()) {
 			return;
 		}
 

@@ -16,6 +16,7 @@ using std::max;
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\geometry.hpp"
+#include "math\vertex.hpp"
+#include "math\bounding_volume.hpp"
 
 #pragma endregion

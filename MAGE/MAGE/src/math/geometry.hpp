@@ -463,14 +463,14 @@ namespace mage {
 	};
 
 	/**
-	 A struct of spheres.
+	 A struct of Bounding Spheres (BS).
 	 */
-	struct Sphere final {
+	struct BS final {
 
 		/**
 		 Constructs a sphere.
 		 */
-		Sphere() : p(XMFLOAT3(0.0f, 0.0f, 0.0f)), r(1.0f) {}
+		BS() : p(XMFLOAT3(0.0f, 0.0f, 0.0f)), r(1.0f) {}
 
 		/**
 		 Constructs a sphere.
@@ -480,7 +480,7 @@ namespace mage {
 		 @param[in]		r
 						The radius.
 		 */
-		Sphere(XMFLOAT3 p, float r) : p(p), r(r) {}
+		BS(XMFLOAT3 p, float r) : p(p), r(r) {}
 
 		/**
 		 Checks whether this sphere completely encloses the given (closed) volume.
@@ -519,7 +519,7 @@ namespace mage {
 		 @return		@c true if this sphere collides with @a sphere.
 						@c false otherwise.
 		*/
-		bool Collides(const Sphere &sphere, const XMFLOAT3 velocity_sum, float *collision_distance) {
+		bool Collides(const BS &sphere, const XMFLOAT3 velocity_sum, float *collision_distance) {
 			const XMVECTOR p1_v = XMLoadFloat3(&p);
 			const XMVECTOR p2_v = XMLoadFloat3(&sphere.p);
 

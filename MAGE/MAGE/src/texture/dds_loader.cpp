@@ -9,8 +9,6 @@
 
 #include "engine.hpp"
 
-#include <assert.h>
-#include <algorithm>
 #include <memory>
 
 #if !defined(NO_D3D11_DEBUG_NAME) && ( defined(_DEBUG) || defined(PROFILE) )

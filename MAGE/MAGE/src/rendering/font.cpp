@@ -15,19 +15,19 @@ namespace mage {
 	Font::Font(const wstring &name, uint16_t size, uint32_t bold, bool italic) {
 
 		// A handle to a bitmap.
-		HBITMAP bitmap = NULL;
+		HBITMAP bitmap = nullptr;
 		// A handle to a GDI object.
 		// The Microsoft Windows graphics device interface (GDI) enables applications 
 		// to use graphics and formatted text on both the video display and the printer.
-		HGDIOBJ old_bitmap = NULL;
+		HGDIOBJ old_bitmap = nullptr;
 		// A handle to a font.
-		HFONT old_font = NULL;
+		HFONT old_font = nullptr;
 
-		BYTE *dst_row = NULL;
+		BYTE *dst_row = nullptr;
 		uint32_t x, y;
 
 		// Create a memory device context (DC) compatible with the application's current screen.
-		HDC hDC = CreateCompatibleDC(NULL);
+		HDC hDC = CreateCompatibleDC(nullptr);
 		// Set the mapping mode of the specified device context.
 		// MM_TEXT: Each logical unit is mapped to one device pixel.
 		//			Positive x is to the right; positive y is down.
@@ -54,7 +54,7 @@ namespace mage {
 		// 13. The pitch and family of the font.
 		// 14. The typeface name of the font
 		HFONT font = CreateFont(height, 0, 0, 0, bold, italic, false, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, name.c_str());
-		if (font == NULL)
+		if (font == nullptr)
 			goto End;
 
 		// Select an object into the specified device context (DC). 
@@ -69,7 +69,7 @@ namespace mage {
 		}
 
 		// Create a new texture for the font
-	//	if (FAILED(g_engine->GetDevice()->CreateTexture(m_textureWidth, m_textureHeight, 1, 0, D3DFMT_A4R4G4B4, D3DPOOL_MANAGED, &m_texture, NULL)))
+	//	if (FAILED(g_engine->GetDevice()->CreateTexture(m_textureWidth, m_textureHeight, 1, 0, D3DFMT_A4R4G4B4, D3DPOOL_MANAGED, &m_texture, nullptr)))
 	//		goto End;
 
 	//	// Prepare the bitmap.
@@ -84,7 +84,7 @@ namespace mage {
 	//	bmi.bmiHeader.biBitCount = 32;
 
 	//	// Create a bitmap for the font.
-	//	bitmap = CreateDIBSection(hDC, &bmi, DIB_RGB_COLORS, (void**)&bitmapBits, NULL, 0);
+	//	bitmap = CreateDIBSection(hDC, &bmi, DIB_RGB_COLORS, (void**)&bitmapBits, nullptr, 0);
 
 	//	oldBitmap = SelectObject(hDC, bitmap);
 
@@ -119,7 +119,7 @@ namespace mage {
 	//	}
 
 	//	// Create the vertex buffer for the characters.
-	//	g_engine->GetDevice()->CreateVertexBuffer(1020 * sizeof(TLVertex), D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC, 0, D3DPOOL_DEFAULT, &m_vb, NULL);
+	//	g_engine->GetDevice()->CreateVertexBuffer(1020 * sizeof(TLVertex), D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC, 0, D3DPOOL_DEFAULT, &m_vb, nullptr);
 
 	//	// Prepare the alpha testing for rendering the characters.
 	//	g_engine->GetDevice()->SetRenderState(D3DRS_ALPHAREF, 0x08);
@@ -195,7 +195,7 @@ namespace mage {
 				// 6. A pointer to a string that specifies the text to be drawn.
 				// 7. The length of the string.
 				// 8. A pointer to an optional array of values that indicate the distance between origins of adjacent character cells.
-				if (ExtTextOut(hDC, x, y, ETO_OPAQUE, NULL, buffer, 1, NULL) == 0) {
+				if (ExtTextOut(hDC, x, y, ETO_OPAQUE, nullptr, buffer, 1, nullptr) == 0) {
 					// On failure.
 					return false;
 				}

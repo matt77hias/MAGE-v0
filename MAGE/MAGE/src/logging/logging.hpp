@@ -63,7 +63,7 @@ namespace mage {
 	inline int TerminalWidth() {
 		// Retrieve a handle to the standard output device.
 		const HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
-		if (h == INVALID_HANDLE_VALUE || h == NULL) {
+		if (h == INVALID_HANDLE_VALUE || h == nullptr) {
 			// Print error message if the handle is invalid.
 			fprintf(stderr, "GetStdHandle() call failed");
 			return 80;

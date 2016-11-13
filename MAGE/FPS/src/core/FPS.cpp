@@ -30,7 +30,7 @@ The user-provided entry point for MAGE.
 				A handle to the current instance of the application.
  @param[in]		hPrevInstance
 				A handle to the previous instance of the application.
-				This parameter is always @c NULL.
+				This parameter is always @c nullptr.
  @param[in]		lpCmdLine
 				The command line for the application, excluding the program name.
  @param[in]		nCmdShow

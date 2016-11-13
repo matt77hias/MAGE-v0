@@ -398,15 +398,15 @@ namespace mage {
 			// Creates or opens a named or unnamed event object.
 			// On success, a handle to the event object is returned.
 			m_events[SIGNAL] = CreateEvent(
-									NULL,  // no security
+									nullptr,  // no security
 									FALSE, // auto-reset event object
 									FALSE, // non-signaled initial state
-									NULL); // unnamed event object
+									nullptr); // unnamed event object
 			m_events[BROADCAST] = CreateEvent(
-									NULL,  // no security
+									nullptr,  // no security
 									TRUE,  // manual-reset event object
 									FALSE, // non-signaled initial state
-									NULL); // unnamed event object
+									nullptr); // unnamed event object
 		}
 
 		/**

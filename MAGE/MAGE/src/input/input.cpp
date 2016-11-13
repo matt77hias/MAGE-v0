@@ -13,7 +13,7 @@
 namespace mage {
 
 	Input::Input(HWND hwindow) : Loadable(), 
-		m_hwindow(hwindow), m_press_stamp(0), m_di(NULL), m_keyboard(NULL), m_mouse(NULL) {
+		m_hwindow(hwindow), m_press_stamp(0), m_di(nullptr), m_keyboard(nullptr), m_mouse(nullptr) {
 
 		const HRESULT result_di = InitializeDI();
 		if (FAILED(result_di)) {
@@ -55,8 +55,8 @@ namespace mage {
 		// 2. Version number of DirectInput for which the application is designed.
 		// 3. Unique identifier of the desired interface. Passing IID_IDirectInput8 selects the ANSI or Unicode version of the interface.
 		// 4. Address of a pointer to a variable to receive the IDirectInput8 interface pointer if successful.
-		// 5. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or NULL if the interface is not aggregated.
-		return DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (void **)&m_di, NULL);
+		// 5. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or nullptr if the interface is not aggregated.
+		return DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8, (void **)&m_di, nullptr);
 	}
 
 	HRESULT Input::InitializeKeyboard() {
@@ -64,8 +64,8 @@ namespace mage {
 		// and obtain an IDirectInputDevice8 Interface interface. 
 		// 1. Reference to the GUID for the desired input device.
 		// 2. Address of a variable to receive the IDirectInputDevice8 Interface interface pointer if successful.
-		// 3. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or NULL if the interface is not aggregated.
-		const HRESULT result_keyboard_create = m_di->CreateDevice(GUID_SysKeyboard, &m_keyboard, NULL);
+		// 3. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or nullptr if the interface is not aggregated.
+		const HRESULT result_keyboard_create = m_di->CreateDevice(GUID_SysKeyboard, &m_keyboard, nullptr);
 		if (FAILED(result_keyboard_create)) {
 			Warning("Keyboard device creation failed: %ld.", result_keyboard_create);
 			return result_keyboard_create;
@@ -95,8 +95,8 @@ namespace mage {
 		// and obtain an IDirectInputDevice8 Interface interface. 
 		// 1. Reference to the GUID for the desired input device.
 		// 2. Address of a variable to receive the IDirectInputDevice8 Interface interface pointer if successful.
-		// 3. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or NULL if the interface is not aggregated.
-		const HRESULT result_mouse_create = m_di->CreateDevice(GUID_SysMouse, &m_mouse, NULL);
+		// 3. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or nullptr if the interface is not aggregated.
+		const HRESULT result_mouse_create = m_di->CreateDevice(GUID_SysMouse, &m_mouse, nullptr);
 		if (FAILED(result_mouse_create)) {
 			Warning("Mouse device creation failed: %ld.", result_mouse_create);
 			return result_mouse_create;

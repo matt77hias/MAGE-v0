@@ -84,7 +84,7 @@ namespace mage {
 		/**
 		 Constructs a state manager.
 		 */
-		 StateManager() : m_current_state(NULL), m_states(list< State * >()) {}
+		 StateManager() : m_current_state(nullptr), m_states(list< State * >()) {}
 
 		 /**
 		  Destructs this state manager.
@@ -119,7 +119,7 @@ namespace mage {
 		/**
 		 Changes the state of this state manager to the given state.
 
-		 @pre			@a state is not @c NULL.
+		 @pre			@a state is not @c nullptr.
 		 @param[in]		state
 						A pointer to the new state.
 		 */

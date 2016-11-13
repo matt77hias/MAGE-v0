@@ -52,7 +52,7 @@ namespace mage {
 		/**
 		Requests the view setup details for the given frame.
 
-		@pre			@a viewer_setup is not @c NULL.
+		@pre			@a viewer_setup is not @c nullptr.
 		@param[in, out]		viewer_setup
 						A pointer to a viewer setup.
 		*/

@@ -14,7 +14,7 @@ namespace mage {
 
 	Renderer::Renderer(HWND hwindow) : 
 		Loadable(), m_hwindow(hwindow), 
-		m_render_target_view(NULL), m_swap_chain2(NULL), m_device_context2(NULL), m_device2(NULL) {
+		m_render_target_view(nullptr), m_swap_chain2(nullptr), m_device_context2(nullptr), m_device2(nullptr) {
 
 		const HRESULT result_device = InitializeDevice();
 		if (FAILED(result_device)) {
@@ -48,15 +48,15 @@ namespace mage {
 #endif
 
 			// Get the ID3D11Device and ID3D11DeviceContext.
-			ID3D11Device *device = NULL;
-			ID3D11DeviceContext *device_context = NULL;
+			ID3D11Device *device = nullptr;
+			ID3D11DeviceContext *device_context = nullptr;
 			HRESULT result_device = S_OK;
 			for (UINT i = 0; i < _countof(g_driver_types); ++i) {
 				m_driver_type = g_driver_types[i];
 				result_device = D3D11CreateDevice(
-					NULL,								// Adapter.
+					nullptr,								// Adapter.
 					m_driver_type,						// Driver type.
-					NULL,								// A handle to a DLL that implements a software rasterizer.
+					nullptr,								// A handle to a DLL that implements a software rasterizer.
 					create_device_flags,				// The runtime layers to enable.
 					g_feature_levels,					// The order of feature levels to attempt to create.
 					_countof(g_feature_levels),			// The number of feature levels.
@@ -95,14 +95,14 @@ namespace mage {
 		// Setup the IDXGISwapChain2 and ID3D11RenderTargetView.
 		{
 			// Get the IDXGIDevice3.
-			IDXGIDevice3 *dxgi_device3 = NULL;
+			IDXGIDevice3 *dxgi_device3 = nullptr;
 			const HRESULT result_dxgi_device3 = m_device2->QueryInterface(__uuidof(IDXGIDevice3), (void **)&dxgi_device3);
 			if (FAILED(result_dxgi_device3)) {
 				Warning("IDXGIDevice3 creation failed: %ld.", result_dxgi_device3);
 				return result_dxgi_device3;
 			}
 			// Get the IDXGIAdapter.
-			IDXGIAdapter *dxgi_adapter = NULL;
+			IDXGIAdapter *dxgi_adapter = nullptr;
 			const HRESULT result_dxgi_adapter = dxgi_device3->GetAdapter(&dxgi_adapter);
 			// Release the IDXGIDevice3.
 			dxgi_device3->Release();
@@ -111,7 +111,7 @@ namespace mage {
 				return result_dxgi_adapter;
 			}
 			// Get the IDXGIFactory3.
-			IDXGIFactory3* dxgi_factory3 = NULL;
+			IDXGIFactory3* dxgi_factory3 = nullptr;
 			const HRESULT result_dxgi_factory3 = dxgi_adapter->GetParent(__uuidof(IDXGIFactory3), (void **)&dxgi_factory3);
 			// Release the IDXGIAdapter.
 			dxgi_adapter->Release();
@@ -139,7 +139,7 @@ namespace mage {
 
 			// Get the IDXGISwapChain1.
 			IDXGISwapChain1 *swap_chain1;
-			const HRESULT result_swap_chain1 = dxgi_factory3->CreateSwapChainForHwnd(m_device2, m_hwindow, &swap_chain_desc, NULL, NULL, &swap_chain1);
+			const HRESULT result_swap_chain1 = dxgi_factory3->CreateSwapChainForHwnd(m_device2, m_hwindow, &swap_chain_desc, nullptr, nullptr, &swap_chain1);
 			// Release the IDXGIFactory3.
 			dxgi_factory3->Release();
 			if (FAILED(result_swap_chain1)) {
@@ -156,14 +156,14 @@ namespace mage {
 			}
 
 			// Access the only back buffer of the swap-chain.
-			ID3D11Texture2D *back_buffer = NULL;
+			ID3D11Texture2D *back_buffer = nullptr;
 			const HRESULT result_back_buffer = m_swap_chain2->GetBuffer(0, __uuidof(ID3D11Texture2D), (void **)&back_buffer);
 			if (FAILED(result_back_buffer)) {
 				Warning("Back buffer texture creation failed: %ld.", result_back_buffer);
 				return result_back_buffer;
 			}
 			// Create a ID3D11RenderTargetView.
-			const HRESULT result_render_target_view = m_device2->CreateRenderTargetView(back_buffer, NULL, &m_render_target_view);
+			const HRESULT result_render_target_view = m_device2->CreateRenderTargetView(back_buffer, nullptr, &m_render_target_view);
 			// Release the back buffer.
 			back_buffer->Release();
 			if (FAILED(result_render_target_view)) {
@@ -171,7 +171,7 @@ namespace mage {
 				return result_render_target_view;
 			}
 		
-			m_swap_chain2->SetFullscreenState(!g_device_enumeration->IsWindowed(), NULL);
+			m_swap_chain2->SetFullscreenState(!g_device_enumeration->IsWindowed(), nullptr);
 		}
 
 		// Setup the ID3D11Texture2D and ID3D11DepthStencilView.
@@ -190,7 +190,7 @@ namespace mage {
 			depth_stencil_desc.BindFlags				= D3D11_BIND_DEPTH_STENCIL;		// Flags for binding to pipeline stages. 
 			depth_stencil_desc.CPUAccessFlags			= 0;							// No CPU access is necessary.
 			depth_stencil_desc.MiscFlags				= 0;							// Flags that identify other, less common resource options.
-			const HRESULT result_depth_stencil = m_device2->CreateTexture2D(&depth_stencil_desc, NULL, &m_depth_stencil);
+			const HRESULT result_depth_stencil = m_device2->CreateTexture2D(&depth_stencil_desc, nullptr, &m_depth_stencil);
 			if (FAILED(result_depth_stencil)) {
 				Warning("Depth-stencil texture creation failed: %ld.", result_depth_stencil);
 				return result_depth_stencil;
@@ -239,7 +239,7 @@ namespace mage {
 	HRESULT Renderer::UnitializeDevice() {
 		// Switch to windowed mode.
 		if (m_swap_chain2) {
-			m_swap_chain2->SetFullscreenState(FALSE, NULL);
+			m_swap_chain2->SetFullscreenState(FALSE, nullptr);
 		}
 
 		// Reset any device context to the default settings. 

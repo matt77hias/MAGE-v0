@@ -55,6 +55,8 @@
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\state\state.hpp" />
     <ClInclude Include="MAGE\src\state\state_manager.hpp" />
+    <ClInclude Include="MAGE\src\texture\dds_loader.hpp" />
+    <ClInclude Include="MAGE\src\texture\texture.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />
@@ -70,6 +72,7 @@
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
     <ClCompile Include="MAGE\src\rendering\window.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
+    <ClCompile Include="MAGE\src\texture\dds_loader.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>

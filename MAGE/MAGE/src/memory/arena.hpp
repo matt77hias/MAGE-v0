@@ -54,7 +54,7 @@ namespace mage {
 
 		 @param[in]		size
 						The requested size in bytes to allocate in memory.
-		 @return		@c NULL if the allocation failed.
+		 @return		@c nullptr if the allocation failed.
 		 @return		A pointer to the memory block that was allocated.
 		 */
 		void *Alloc(uint32_t size) {
@@ -70,9 +70,9 @@ namespace mage {
 				else {
 					char *ptr = AllocAligned<char>(max(size, m_block_size));
 					
-					if (ptr == NULL) {
+					if (ptr == nullptr) {
 						// The allocation failed.
-						return NULL;
+						return nullptr;
 					}
 
 					m_used_blocks.push_back(m_current_block);
@@ -92,7 +92,7 @@ namespace mage {
 						The type of objects to allocate in memory.
 		 @param[in]		count
 						The number of objects of type @c T to allocate in memory.
-		 @return		@c NULL if the allocation failed.
+		 @return		@c nullptr if the allocation failed.
 		 @return		A pointer to the memory block that was allocated.
 		 @note			The objects will be constructed with their default empty constructor.
 		 */
@@ -101,9 +101,9 @@ namespace mage {
 			// Allocation
 			T *ptr = (T *)Alloc(count * sizeof(T));
 
-			if (ptr == NULL) {
+			if (ptr == nullptr) {
 				// The allocation failed.
-				return NULL;
+				return nullptr;
 			}
 
 			// Initialization

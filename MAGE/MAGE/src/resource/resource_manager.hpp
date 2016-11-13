@@ -22,7 +22,7 @@ namespace mage {
 		 @param[in]		CreateResourceFunction
 						The application specific resource creation function.
 		 */
-		ResourceManager(void(*CreateResourceFunction)(T **resource, const string &name, const string &path) = NULL) : m_resources(list< T * >()), CreateResource(CreateResourceFunction) {}
+		ResourceManager(void(*CreateResourceFunction)(T **resource, const string &name, const string &path) = nullptr) : m_resources(list< T * >()), CreateResource(CreateResourceFunction) {}
 
 		/**
 		 Destructs this resource manager.
@@ -52,7 +52,7 @@ namespace mage {
 
 			// Create the resource, preferably through the application specific
 			// function if it is available.
-			if (CreateResource != NULL) {
+			if (CreateResource != nullptr) {
 				CreateResource(&resource, name, path);
 			}
 			else {
@@ -98,7 +98,7 @@ namespace mage {
 						A reference to the name of the new resource.
 		 @param[in]		path
 						A reference to the path of the new resource.
-		 @return		@c NULL if the resource is not present.
+		 @return		@c nullptr if the resource is not present.
 		 @return		A pointer to the resource.
 		 */
 		T *GetResource(const string &name, const string &path = "./") const {
@@ -108,8 +108,8 @@ namespace mage {
 					return *it;
 				}
 			}
-			// Return NULL if the resource was not found.
-			return NULL;
+			// Return nullptr if the resource was not found.
+			return nullptr;
 		}
 
 	protected:

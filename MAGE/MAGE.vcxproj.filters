@@ -64,6 +64,12 @@
     <Filter Include="Header Files\input">
       <UniqueIdentifier>{1b2b46df-06c6-4e3b-8350-fc302748c1ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\texture">
+      <UniqueIdentifier>{c02232af-e240-43db-9320-86021e99b290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\texture">
+      <UniqueIdentifier>{204a640f-99a9-48ae-91f8-f3a784014c52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -174,6 +180,12 @@
     <ClInclude Include="MAGE\src\math\transform.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\texture\dds_loader.hpp">
+      <Filter>Header Files\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\texture\texture.hpp">
+      <Filter>Header Files\texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -214,6 +226,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering.cpp">
       <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\texture\dds_loader.cpp">
+      <Filter>Source Files\texture</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

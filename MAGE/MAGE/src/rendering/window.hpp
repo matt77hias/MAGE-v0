@@ -60,7 +60,7 @@ namespace mage {
 					A handle to the dialog box that contains the control.
 	 @param[in]		id
 					The identifier of the control to be retrieved.
-	 @return		@c NULL if the combo box has no items.
+	 @return		@c nullptr if the combo box has no items.
 	 @return		A pointer to the data associated with the selected item in the combo box.
 	 */
 	const void *ComboBoxSelected(HWND dialog, int id);

@@ -62,7 +62,7 @@ namespace mage {
 		// Get the currently selected item in a combo box.
 		const int index = ComboBox_GetCurSel(control);
 		if (index < 0) {
-			return NULL;
+			return nullptr;
 		}
 		// Get the application-defined value associated with the specified list item in a combo box. 
 		return (void*)ComboBox_GetItemData(control, index);

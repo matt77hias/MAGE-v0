@@ -61,7 +61,7 @@ namespace mage {
 			worker_semaphore->Wait();
 			
 			// Try to get a task from the task queue.
-			Task *task = NULL;
+			Task *task = nullptr;
 			{
 				MutexLock lock(*task_queue_mutex);
 				if (task_queue.size() == 0) {
@@ -101,8 +101,8 @@ namespace mage {
 			// 4. A pointer to a variable to be passed to the thread (thread number).
 			// 5. Flag specifying that the thread runs immediately after creation.
 			// 6. The thread identifier will not be returned.
-			threads[i] = CreateThread(NULL, 0, task_entry, reinterpret_cast<void *>(i), 0, NULL);
-			if (threads[i] == NULL) {
+			threads[i] = CreateThread(nullptr, 0, task_entry, reinterpret_cast<void *>(i), 0, nullptr);
+			if (threads[i] == nullptr) {
 				Severe("Error from CreateThread");
 			}
 		}
@@ -120,12 +120,12 @@ namespace mage {
 		}
 
 		static const uint32_t nb_threads = NumberOfSystemCores();
-		if (worker_semaphore != NULL) {
+		if (worker_semaphore != nullptr) {
 			// Request workers.
 			worker_semaphore->Post(nb_threads);
 		}
 
-		if (threads != NULL) {
+		if (threads != nullptr) {
 			// Wait until one or all of the specified objects are 
 			// in the signaled state (available for use) or the time-out interval elapses.
 			// 1. The number of object handles.
@@ -139,7 +139,7 @@ namespace mage {
 				CloseHandle(threads[i]);
 			}
 			delete[] threads;
-			threads = NULL;
+			threads = nullptr;
 		}
 	}
 

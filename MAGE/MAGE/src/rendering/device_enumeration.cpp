@@ -15,7 +15,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Globals
 	//-------------------------------------------------------------------------
-	DeviceEnumeration *g_device_enumeration = NULL;
+	DeviceEnumeration *g_device_enumeration = nullptr;
 
 	//-------------------------------------------------------------------------
 	// WindowProc for handling Windows messages.
@@ -55,7 +55,7 @@ namespace mage {
 		// Get the IDXGIAdapter2.
 		{
 			// Get the IDXGIFactory3.
-			IDXGIFactory3 *factory = NULL;
+			IDXGIFactory3 *factory = nullptr;
 			const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)&factory);
 			if (result_factory) {
 				Warning("IDXGIFactory3 creation failed: %ld", result_factory);
@@ -64,7 +64,7 @@ namespace mage {
 
 			// Get the IDXGIAdapter1.
 			// The IDXGIAdapter represents a display subsystem (including one or more GPUs, DACs and video memory).
-			IDXGIAdapter1 *adapter1 = NULL;
+			IDXGIAdapter1 *adapter1 = nullptr;
 			SIZE_T max_vram = 0;
 			for (UINT i = 0; factory->EnumAdapters1(i, &adapter1) != DXGI_ERROR_NOT_FOUND; ++i) {
 				// Get the IDXGIAdapter2.
@@ -98,13 +98,13 @@ namespace mage {
 
 		// Get the primary IDXGIOutput.
 		// The IDXGIOutput represents an adapter output (such as a monitor).
-		IDXGIOutput *output = NULL;
+		IDXGIOutput *output = nullptr;
 		const HRESULT result_output = m_adapter->EnumOutputs(0, &output);
 		if (FAILED(result_output)) {
 			Warning("IDXGIOutput creation failed: %ld", result_output);
 			return E_FAIL;
 		}
-		IDXGIOutput2 *output2 = NULL;
+		IDXGIOutput2 *output2 = nullptr;
 		const HRESULT result_output2 = output->QueryInterface(__uuidof(IDXGIOutput2), (void **)&output2);
 		// Release the IDXGIOutput.
 		output->Release();
@@ -120,7 +120,7 @@ namespace mage {
 			const UINT flags = DXGI_ENUM_MODES_INTERLACED;
 			UINT nb_display_modes;
 			// Get the number of display modes that match the requested format and other input options.
-			output2->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, NULL);
+			output2->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, nullptr);
 			DXGI_MODE_DESC1 *dxgi_mode_descs = new DXGI_MODE_DESC1[nb_display_modes];
 			// Get the display modes that match the requested format and other input options.
 			output2->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs);
@@ -144,11 +144,11 @@ namespace mage {
 		output2->Release();
 
 		// Creates a modal dialog box from a dialog box template resource.
-		// 1. A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
+		// 1. A handle to the module which contains the dialog box template. If this parameter is nullptr, then the current executable is used.
 		// 2. The dialog box template.
 		// 3. A handle to the window that owns the dialog box.
 		// 4. A pointer to the dialog box procedure.
-		const INT_PTR result_dialog = DialogBox(NULL, MAKEINTRESOURCE(IDD_GRAPHICS_SETTINGS), NULL, SettingsDialogProcDelegate);
+		const INT_PTR result_dialog = DialogBox(nullptr, MAKEINTRESOURCE(IDD_GRAPHICS_SETTINGS), nullptr, SettingsDialogProcDelegate);
 		return (result_dialog) ? S_OK : E_FAIL;
 	}
 
@@ -303,7 +303,7 @@ namespace mage {
 							}
 						}
 					}
-					if (ComboBoxSelected(hwndDlg, IDC_RESOLUTION) == NULL) {
+					if (ComboBoxSelected(hwndDlg, IDC_RESOLUTION) == nullptr) {
 						ComboBoxSelect(hwndDlg, IDC_RESOLUTION, 0);
 					}
 				}
@@ -329,7 +329,7 @@ namespace mage {
 							}
 						}
 					}
-					if (ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE) == NULL) {
+					if (ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE) == nullptr) {
 						ComboBoxSelect(hwndDlg, IDC_REFRESH_RATE, 0);
 					}
 				}

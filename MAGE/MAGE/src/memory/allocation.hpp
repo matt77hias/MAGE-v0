@@ -19,7 +19,7 @@ namespace mage {
 	 
 	 @param[in]		size
 					The requested size in bytes to allocate in memory.
-	 @return		@c NULL if the allocation failed.
+	 @return		@c nullptr if the allocation failed.
 	 @return		A pointer to the memory block that was allocated.
 	 				The pointer is a multiple of the alignment of 64 bytes.
 	 */
@@ -33,7 +33,7 @@ namespace mage {
 	 @tparam		T
 					The type of objects to allocate in memory.
 	 @param[in]		count	The number of objects of type @c T to allocate in memory.
-	 @return		@c NULL if the allocation failed.
+	 @return		@c nullptr if the allocation failed.
 	 @return		A pointer to the memory block that was allocated.
 	 				The pointer is a multiple of the alignment of 64 bytes.
 	*/

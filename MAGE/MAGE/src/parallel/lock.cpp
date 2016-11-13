@@ -27,8 +27,8 @@ namespace mage {
 		// 2. manual-reset event object
 		// 3. non-signaled initial state
 		// 4. unnamed event object
-		m_ready_to_read_handle = CreateEvent(NULL, TRUE, FALSE, NULL);
-		if (m_ready_to_read_handle == NULL) {
+		m_ready_to_read_handle = CreateEvent(nullptr, TRUE, FALSE, nullptr);
+		if (m_ready_to_read_handle == nullptr) {
 			Severe("Error creating event for ReadWriteMutex: %d", GetLastError());
 		}
 
@@ -37,8 +37,8 @@ namespace mage {
 		// 2. The initial count for the semaphore object. 
 		// 3. The maximum count for the semaphore object.
 		// 4. The semaphore object is created without a name.
-		m_ready_to_write_handle = CreateSemaphore(NULL, 0, 1, NULL);
-		if (m_ready_to_write_handle == NULL) {
+		m_ready_to_write_handle = CreateSemaphore(nullptr, 0, 1, nullptr);
+		if (m_ready_to_write_handle == nullptr) {
 			const DWORD lastError = GetLastError();
 			// Close the open event handle.
 			CloseHandle(m_ready_to_read_handle);
@@ -167,7 +167,7 @@ namespace mage {
 			// 1. A handle to the semaphore object.
 			// 2. The amount by which the semaphore object's current count is to be increased.
 			// 3. A pointer to a variable to receive the previous count for the semaphore.
-			ReleaseSemaphore(m_ready_to_write_handle, 1, NULL);
+			ReleaseSemaphore(m_ready_to_write_handle, 1, nullptr);
 		}
 
 		LeaveCriticalSection(&m_critical_section);
@@ -212,7 +212,7 @@ namespace mage {
 			// 1. A handle to the semaphore object.
 			// 2. The amount by which the semaphore object's current count is to be increased.
 			// 3. A pointer to a variable to receive the previous count for the semaphore.
-			ReleaseSemaphore(m_ready_to_write_handle, 1, NULL);
+			ReleaseSemaphore(m_ready_to_write_handle, 1, nullptr);
 		}
 		else if (notify_readers) {
 			// Sets the event object to the signaled state.
@@ -246,7 +246,7 @@ namespace mage {
 		// 2. The initial count for the semaphore object. 
 		// 3. The maximum count for the semaphore object.
 		// 4. The semaphore object is created without a name.
-		m_handle = CreateSemaphore(NULL, 0, LONG_MAX, NULL);
+		m_handle = CreateSemaphore(nullptr, 0, LONG_MAX, nullptr);
 		if (!m_handle) {
 			Severe("Error from CreateSemaphore: %d", GetLastError());
 		}
@@ -257,7 +257,7 @@ namespace mage {
 		// 1. A handle to the semaphore object.
 		// 2. The amount by which the semaphore object's current count is to be increased.
 		// 3. A pointer to a variable to receive the previous count for the semaphore.
-		if (!ReleaseSemaphore(m_handle, count, NULL)) {
+		if (!ReleaseSemaphore(m_handle, count, nullptr)) {
 			Severe("Error from ReleaseSemaphore: %d", GetLastError());
 		}
 	}

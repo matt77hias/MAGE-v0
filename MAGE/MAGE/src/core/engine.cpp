@@ -17,7 +17,7 @@ namespace mage {
 	// Globals
 	//-------------------------------------------------------------------------
 	LoggingConfiguration g_logging_configuration;
-	Engine *g_engine = NULL;
+	Engine *g_engine = nullptr;
 
 	//-------------------------------------------------------------------------
 	// WindowProc for handling Windows messages.
@@ -104,7 +104,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	
 	Engine::Engine(const EngineSetup *setup) : Loadable(), 
-		m_renderer(NULL), m_state_manager(NULL), m_script_manager(NULL), m_input(NULL) {
+		m_renderer(nullptr), m_state_manager(nullptr), m_script_manager(nullptr), m_input(nullptr) {
 
 		// Store a pointer to the engine in a global variable for easy access.
 		SAFE_DELETE(g_engine);
@@ -138,7 +138,7 @@ namespace mage {
 
 		// Initializes the COM library for use by the calling thread 
 		// and sets the thread's concurrency model to multithreaded concurrency.
-		CoInitializeEx(NULL, COINIT_MULTITHREADED);
+		CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 
 		// The engine is fully loaded and ready to go.
 		SetLoaded();
@@ -226,14 +226,14 @@ namespace mage {
 		// A handle to a small icon that is associated with the window class.
 		wcex.hIconSm = (HICON)LoadImage(m_setup->m_hinstance, MAKEINTRESOURCE(IDI_APPLICATION_ICON), IMAGE_ICON, LR_DEFAULTSIZE, LR_DEFAULTSIZE, 0);
 		// A handle to the class cursor. This member must be a handle to a cursor resource.
-		wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+		wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 		// A handle to the class background brush. This member can be a handle to
 		// the brush to be used for painting the background, or it can be a color value.
 		wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 		// Pointer to a null-terminated character string that specifies the resource name 
 		// of the class menu, as the name appears in the resource file. 
-		// If this member is NULL, windows belonging to this class have no default menu.
-		wcex.lpszMenuName = NULL;
+		// If this member is nullptr, windows belonging to this class have no default menu.
+		wcex.lpszMenuName = nullptr;
 		// A pointer to a null-terminated string or is an atom.
 		// If lpszClassName is a string, it specifies the window class name.
 		wcex.lpszClassName = L"WindowClass";
@@ -265,7 +265,7 @@ namespace mage {
 
 		// Creates the window and retrieve a handle to it.
 		m_hwindow = CreateWindow(L"WindowClass", m_setup->m_name.c_str(), WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
-			CW_USEDEFAULT, CW_USEDEFAULT, rectangle.right - rectangle.left, rectangle.bottom - rectangle.top, NULL, NULL, m_setup->m_hinstance, NULL);
+			CW_USEDEFAULT, CW_USEDEFAULT, rectangle.right - rectangle.left, rectangle.bottom - rectangle.top, nullptr, nullptr, m_setup->m_hinstance, nullptr);
 
 		if (!m_hwindow) {
 			Warning("Window creation failed.");
@@ -335,7 +335,7 @@ namespace mage {
 			// Retrieves messages for any window that belongs to the current thread
 			// without performing range filtering. Furthermore messages are removed
 			// after processing.
-			if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+			if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
 				// Translates virtual-key messages into character messages.
 				TranslateMessage(&msg);
 				// Dispatches a message to a window procedure.

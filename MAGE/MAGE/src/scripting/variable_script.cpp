@@ -14,7 +14,7 @@ namespace mage {
 
 	void VariableScript::ImportScript() {
 		// Open the script file.
-		FILE *file = NULL;
+		FILE *file = nullptr;
 		const string &fname = GetFilename();
 		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
 		if (result_fopen_s) {
@@ -56,7 +56,7 @@ namespace mage {
 
 	void VariableScript::ExportScript(const string &filename) {
 		// Open the script file.
-		FILE *file = NULL;
+		FILE *file = nullptr;
 		const string &fname = (filename != "") ? filename : GetFilename();
 		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "w");
 		if (result_fopen_s) {
@@ -81,7 +81,7 @@ namespace mage {
 
 	void VariableScript::ImportVariable(const string &name, FILE *file) {
 		// Ensure the file pointer is valid.
-		if (file == NULL) {
+		if (file == nullptr) {
 			Warning("Could not import variable: %s", name);
 			return;
 		}

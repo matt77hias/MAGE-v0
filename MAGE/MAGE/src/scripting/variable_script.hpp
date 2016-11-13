@@ -92,7 +92,7 @@ namespace mage {
 						The type of the value.
 		 @param[in]		name
 						The name of the variable.
-		 @return		@c NULL if no variable with the name @a name
+		 @return		@c nullptr if no variable with the name @a name
 						exists in this variable script.
 		 @return		A pointer to the value of the variable.
 		*/
@@ -105,7 +105,7 @@ namespace mage {
 				}
 			}
 
-			return NULL;
+			return nullptr;
 		}
 
 		/**

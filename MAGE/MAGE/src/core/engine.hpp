@@ -41,9 +41,9 @@ namespace mage {
 #endif
 
 // Memory management macros
-#define SAFE_DELETE(p)       { if(p) { delete (p);     (p) = NULL; } }
-#define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p) = NULL; } }
-#define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p) = NULL; } }
+#define SAFE_DELETE(p)       { if(p) { delete (p);     (p) = nullptr; } }
+#define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p) = nullptr; } }
+#define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p) = nullptr; } }
 
 #pragma endregion
 
@@ -55,16 +55,17 @@ namespace mage {
 #include "version.hpp"
 #include "loadable.hpp"
 #include "collection\collection.hpp"
-#include "math\math.hpp"
 #include "parallel\parallel.hpp"
 #include "logging\logging.hpp"
 #include "memory\memory.hpp"
 
+#include "math\math.hpp"
 #include "resource\resource.hpp"
-#include "state\state.hpp"
 #include "scripting\scripting.hpp"
-#include "input\input.hpp"
 #include "rendering\rendering.hpp"
+#include "texture\texture.hpp"
+#include "input\input.hpp"
+#include "state\state.hpp"
 
 #pragma endregion
 
@@ -86,12 +87,12 @@ namespace mage {
 		 @param[in]		name
 						A reference to the name of the application.
 		 */
-		EngineSetup(const wstring &name = L"Application") : m_hinstance(NULL), m_name(name), StateSetup(NULL) {}
+		EngineSetup(const wstring &name = L"Application") : m_hinstance(nullptr), m_name(name), StateSetup(nullptr) {}
 		
 		/**
 		 Constructs an engine setup from the given engine setup.
 
-		 @pre			setup does not point to @c NULL.
+		 @pre			setup does not point to @c nullptr.
 		 @param[in]		setup
 						A pointer to the engine setup.
 		 */
@@ -125,7 +126,7 @@ namespace mage {
 		 @param[in]		setup
 						A pointer to an engine setup.
 		 */
-		Engine(const EngineSetup *setup = NULL);
+		Engine(const EngineSetup *setup = nullptr);
 
 		/**
 		 Destructs this engine.

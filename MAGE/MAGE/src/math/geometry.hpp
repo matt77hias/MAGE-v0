@@ -124,7 +124,7 @@ namespace mage {
 						The position of the transformed and lit vertex (in projection space).
 		 @param[in]		diffuse
 						The diffuse colour of the transformed and lit vertex.
-		 @param[in]		tu
+		 @param[in]		tex
 						The texture coordinates of the transformed and lit vertex.
 		 */
 		TLVertex(XMFLOAT4 p, XMFLOAT4 diffuse, XMFLOAT2 tex) : p(p), diffuse(diffuse), tex(tex) {}

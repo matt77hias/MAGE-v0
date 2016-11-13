@@ -45,7 +45,8 @@ namespace mage {
 		/**
 		 Constructs a renderer.
 
-		 @param[in]		The main window handle.
+		 @param[in]		hwindow
+						The main window handle.
 		 */
 		Renderer(HWND hwindow);
 

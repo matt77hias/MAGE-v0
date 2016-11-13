@@ -21,7 +21,9 @@ using std::cout;
 
 #include <d3d11_2.h>
 #include <directxmath.h>
-using namespace DirectX;
+namespace mage {
+	using namespace DirectX;
+}
 
 #pragma endregion
 

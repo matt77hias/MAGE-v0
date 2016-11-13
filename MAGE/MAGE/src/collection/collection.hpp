@@ -6,12 +6,18 @@
 #pragma region
 
 #include <vector>
-using std::vector;
+namespace mage {
+	using std::vector;
+}
 
 #include <set>
-using std::set;
+namespace mage {
+	using std::set;
+}
 
 #include <list>
-using std::list;
+namespace mage {
+	using std::list;
+}
 
 #pragma endregion

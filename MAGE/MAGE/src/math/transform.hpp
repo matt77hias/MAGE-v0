@@ -136,7 +136,7 @@ namespace mage {
 			return m_translation;
 		}
 
-	private:
+	protected:
 
 		/**
 		 The rotation component (in radians) of this transform.

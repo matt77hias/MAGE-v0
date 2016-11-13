@@ -5,9 +5,13 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-typedef XMFLOAT3 float3;
-typedef XMFLOAT4 float4;
-typedef XMFLOAT4 colour;
+namespace mage {
+
+	typedef XMFLOAT3 float3;
+	typedef XMFLOAT4 float4;
+	typedef XMFLOAT4 colour;
+
+}
 
 #pragma endregion
 

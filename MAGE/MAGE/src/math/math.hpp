@@ -18,5 +18,6 @@ using std::max;
 
 #include "math\vertex.hpp"
 #include "math\bounding_volume.hpp"
+#include "math\transform.hpp"
 
 #pragma endregion

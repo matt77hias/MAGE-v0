@@ -11,10 +11,6 @@
 
 #include <memory>
 
-#if !defined(NO_D3D11_DEBUG_NAME) && ( defined(_DEBUG) || defined(PROFILE) )
-#pragma comment(lib,"dxguid.lib")
-#endif
-
 //--------------------------------------------------------------------------------------
 // Macros
 //--------------------------------------------------------------------------------------
@@ -24,11 +20,6 @@
                 ((uint32_t)(uint8_t)(ch2) << 16) | ((uint32_t)(uint8_t)(ch3) << 24 ))
 #endif /* defined(MAKEFOURCC) */
 
-//--------------------------------------------------------------------------------------
-// DDS file structure definitions
-//
-// See DDS.h in the 'Texconv' sample and the 'DirectXTex' library
-//--------------------------------------------------------------------------------------
 #pragma pack(push,1)
 
 namespace mage {
@@ -102,16 +93,24 @@ namespace mage {
 #pragma pack(pop)
 
 //--------------------------------------------------------------------------------------
-namespace
-{
+namespace {
 
-    struct handle_closer { void operator()(HANDLE h) { if (h) CloseHandle(h); } };
+    struct handle_closer {
+
+        void operator()(HANDLE h) {
+            if (h) {
+                CloseHandle(h);
+            }
+        }
+    };
 
     typedef public std::unique_ptr<void, handle_closer> ScopedHandle;
 
-    inline HANDLE safe_handle(HANDLE h) { return (h == INVALID_HANDLE_VALUE) ? 0 : h; }
+    inline HANDLE safe_handle(HANDLE h) { 
+        return (h == INVALID_HANDLE_VALUE) ? 0 : h;
+    }
 
-    template<UINT TNameLength>
+    template< UINT TNameLength >
     inline void SetDebugObjectName(_In_ ID3D11DeviceChild* resource, _In_ const char(&name)[TNameLength]) {
 #if defined(_DEBUG) || defined(PROFILE)
         resource->SetPrivateData(WKPDID_D3DDebugObjectName, TNameLength - 1, name);
@@ -120,7 +119,6 @@ namespace
         UNREFERENCED_PARAMETER(name);
 #endif
     }
-
 };
 
 namespace mage {
@@ -133,30 +131,18 @@ static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *fileName,
     size_t *bitSize
 )
 {
-    if (!header || !bitData || !bitSize)
-    {
+    if (!header || !bitData || !bitSize) {
         return E_POINTER;
     }
 
     // open the file
 #if (_WIN32_WINNT >= _WIN32_WINNT_WIN8)
-    ScopedHandle hFile(safe_handle(CreateFile2(fileName,
-        GENERIC_READ,
-        FILE_SHARE_READ,
-        OPEN_EXISTING,
-        nullptr)));
+    ScopedHandle hFile(safe_handle(CreateFile2(fileName, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr)));
 #else
-    ScopedHandle hFile(safe_handle(CreateFileW(fileName,
-        GENERIC_READ,
-        FILE_SHARE_READ,
-        nullptr,
-        OPEN_EXISTING,
-        FILE_ATTRIBUTE_NORMAL,
-        nullptr)));
+    ScopedHandle hFile(safe_handle(CreateFileW(fileName, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr)));
 #endif
 
-    if (!hFile)
-    {
+    if (!hFile) {
         return HRESULT_FROM_WIN32(GetLastError());
     }
 
@@ -165,8 +151,7 @@ static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *fileName,
 
 #if (_WIN32_WINNT >= _WIN32_WINNT_VISTA)
     FILE_STANDARD_INFO fileInfo;
-    if (!GetFileInformationByHandleEx(hFile.get(), FileStandardInfo, &fileInfo, sizeof(fileInfo)))
-    {
+    if (!GetFileInformationByHandleEx(hFile.get(), FileStandardInfo, &fileInfo, sizeof(fileInfo))) {
         return HRESULT_FROM_WIN32(GetLastError());
     }
     FileSize = fileInfo.EndOfFile;
@@ -175,65 +160,49 @@ static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *fileName,
 #endif
 
     // File is too big for 32-bit allocation, so reject read
-    if (FileSize.HighPart > 0)
-    {
+    if (FileSize.HighPart > 0) {
         return E_FAIL;
     }
 
     // Need at least enough data to fill the header and magic number to be a valid DDS
-    if (FileSize.LowPart < (sizeof(DDS_HEADER) + sizeof(uint32_t)))
-    {
+    if (FileSize.LowPart < (sizeof(DDS_HEADER) + sizeof(uint32_t))) {
         return E_FAIL;
     }
 
     // create enough space for the file data
     ddsData.reset(new (std::nothrow) uint8_t[FileSize.LowPart]);
-    if (!ddsData)
-    {
+    if (!ddsData) {
         return E_OUTOFMEMORY;
     }
 
     // read the data in
     DWORD BytesRead = 0;
-    if (!ReadFile(hFile.get(),
-        ddsData.get(),
-        FileSize.LowPart,
-        &BytesRead,
-        nullptr
-    ))
-    {
+    if (!ReadFile(hFile.get(), ddsData.get(), FileSize.LowPart, &BytesRead, nullptr)) {
         return HRESULT_FROM_WIN32(GetLastError());
     }
 
-    if (BytesRead < FileSize.LowPart)
-    {
+    if (BytesRead < FileSize.LowPart) {
         return E_FAIL;
     }
 
     // DDS files always start with the same magic number ("DDS ")
     uint32_t dwMagicNumber = *(const uint32_t*)(ddsData.get());
-    if (dwMagicNumber != DDS_MAGIC)
-    {
+    if (dwMagicNumber != DDS_MAGIC) {
         return E_FAIL;
     }
 
     auto hdr = reinterpret_cast<DDS_HEADER*>(ddsData.get() + sizeof(uint32_t));
 
     // Verify header to validate DDS file
-    if (hdr->size != sizeof(DDS_HEADER) ||
-        hdr->ddspf.size != sizeof(DDS_PIXELFORMAT))
-    {
+    if (hdr->size != sizeof(DDS_HEADER) || hdr->ddspf.size != sizeof(DDS_PIXELFORMAT)) {
         return E_FAIL;
     }
 
     // Check for DX10 extension
     bool bDXT10Header = false;
-    if ((hdr->ddspf.flags & DDS_FOURCC) &&
-        (MAKEFOURCC('D', 'X', '1', '0') == hdr->ddspf.fourCC))
-    {
+    if ((hdr->ddspf.flags & DDS_FOURCC) && (MAKEFOURCC('D', 'X', '1', '0') == hdr->ddspf.fourCC)) {
         // Must be long enough for both headers and magic value
-        if (FileSize.LowPart < (sizeof(DDS_HEADER) + sizeof(uint32_t) + sizeof(DDS_HEADER_DXT10)))
-        {
+        if (FileSize.LowPart < (sizeof(DDS_HEADER) + sizeof(uint32_t) + sizeof(DDS_HEADER_DXT10))) {
             return E_FAIL;
         }
 
@@ -242,8 +211,7 @@ static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *fileName,
 
     // setup the pointers in the process request
     *header = hdr;
-    ptrdiff_t offset = sizeof(uint32_t) + sizeof(DDS_HEADER)
-        + (bDXT10Header ? sizeof(DDS_HEADER_DXT10) : 0);
+    ptrdiff_t offset = sizeof(uint32_t) + sizeof(DDS_HEADER) + (bDXT10Header ? sizeof(DDS_HEADER_DXT10) : 0);
     *bitData = ddsData.get() + offset;
     *bitSize = FileSize.LowPart - offset;
 

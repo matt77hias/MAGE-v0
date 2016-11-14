@@ -164,12 +164,9 @@ namespace mage {
 			// carry out any other initialization tasks that affect the appearance of the dialog box.
 
 			// Display the adapter details and its driver version.
-			wchar_t version_buffer[16];
 			DXGI_ADAPTER_DESC2 desc;
 			m_adapter->GetDesc2(&desc);
-			swprintf_s(version_buffer, _countof(version_buffer), L"%d", LOWORD(desc.AdapterLuid.LowPart)); // TODO: this is not the driver version
 			Edit_SetText(GetDlgItem(hwndDlg, IDC_DISPLAY_ADAPTER), desc.Description);
-			Edit_SetText(GetDlgItem(hwndDlg, IDC_DRIVER_VERSION), version_buffer);
 
 			// Load the windowed state.
 			m_windowed = *m_settings_script->GetValueOfVariable< bool >("windowed");

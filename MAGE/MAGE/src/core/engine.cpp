@@ -222,9 +222,9 @@ namespace mage {
 		//A handle to the instance that contains the window procedure for the class.
 		wcex.hInstance = m_setup->m_hinstance;
 		// A handle to the class icon. This member must be a handle to an icon resource.
-		wcex.hIcon   = (HICON)LoadImage(m_setup->m_hinstance, MAKEINTRESOURCE(IDI_APPLICATION_ICON), IMAGE_ICON, LR_DEFAULTSIZE, LR_DEFAULTSIZE, 0);
+		wcex.hIcon   = (HICON)LoadImage(m_setup->m_hinstance, MAKEINTRESOURCE(IDI_APPLICATION_ICON), IMAGE_ICON, GetSystemMetrics(SM_CXICON), GetSystemMetrics(SM_CYICON), 0);
 		// A handle to a small icon that is associated with the window class.
-		wcex.hIconSm = (HICON)LoadImage(m_setup->m_hinstance, MAKEINTRESOURCE(IDI_APPLICATION_ICON), IMAGE_ICON, LR_DEFAULTSIZE, LR_DEFAULTSIZE, 0);
+		wcex.hIconSm = (HICON)LoadImage(m_setup->m_hinstance, MAKEINTRESOURCE(IDI_APPLICATION_ICON), IMAGE_ICON, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), 0);
 		// A handle to the class cursor. This member must be a handle to a cursor resource.
 		wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 		// A handle to the class background brush. This member can be a handle to

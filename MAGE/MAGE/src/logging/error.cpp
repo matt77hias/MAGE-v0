@@ -111,7 +111,7 @@ namespace mage {
 		va_list args;
 		// Retrieve the additional arguments after format
 		va_start(args, format);
-		ProcessError(format, args, "Notice", MAGE_ERROR_CONTINUE);
+		ProcessError(format, args, "Debug Info", MAGE_ERROR_CONTINUE);
 		// End using variable argument list
 		va_end(args);	
 #endif
@@ -128,7 +128,7 @@ namespace mage {
 		va_list args;
 		// Retrieve the additional arguments after format
 		va_start(args, format);
-		ProcessError(format, args, "Notice", MAGE_ERROR_CONTINUE);
+		ProcessError(format, args, "Info", MAGE_ERROR_CONTINUE);
 		// End using variable argument list
 		va_end(args);
 	}

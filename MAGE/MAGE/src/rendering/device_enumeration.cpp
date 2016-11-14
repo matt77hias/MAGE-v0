@@ -58,7 +58,7 @@ namespace mage {
 			IDXGIFactory3 *factory = nullptr;
 			const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)&factory);
 			if (result_factory) {
-				Warning("IDXGIFactory3 creation failed: %ld", result_factory);
+				Error("IDXGIFactory3 creation failed: %ld", result_factory);
 				return E_FAIL;
 			}
 
@@ -74,7 +74,7 @@ namespace mage {
 				adapter1->Release();
 				if (FAILED(result_adapter2)) {
 					factory->Release();
-					Warning("IDXGIAdapter2 creation failed: %ld", result_adapter2);
+					Error("IDXGIAdapter2 creation failed: %ld", result_adapter2);
 					return E_FAIL;
 				}
 
@@ -101,7 +101,7 @@ namespace mage {
 		IDXGIOutput *output = nullptr;
 		const HRESULT result_output = m_adapter->EnumOutputs(0, &output);
 		if (FAILED(result_output)) {
-			Warning("IDXGIOutput creation failed: %ld", result_output);
+			Error("IDXGIOutput creation failed: %ld", result_output);
 			return E_FAIL;
 		}
 		IDXGIOutput2 *output2 = nullptr;
@@ -109,7 +109,7 @@ namespace mage {
 		// Release the IDXGIOutput.
 		output->Release();
 		if (FAILED(result_output2)) {
-			Warning("IDXGIOutput2 creation failed: %ld", result_output2);
+			Error("IDXGIOutput2 creation failed: %ld", result_output2);
 			return E_FAIL;
 		}
 			

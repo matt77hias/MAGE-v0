@@ -82,7 +82,7 @@ namespace mage {
 	void VariableScript::ImportVariable(const string &name, FILE *file) {
 		// Ensure the file pointer is valid.
 		if (file == nullptr) {
-			Warning("Could not import variable: %s", name);
+			Error("Could not import variable: %s", name);
 			return;
 		}
 
@@ -270,7 +270,7 @@ namespace mage {
 			break;
 		}
 		default: {
-			Warning("Could not export variable: %s", name);
+			Error("Could not export variable: %s", name);
 			return;
 		}
 		}

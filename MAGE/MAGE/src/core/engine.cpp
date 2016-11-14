@@ -117,7 +117,7 @@ namespace mage {
 		// Attach a console.
 		const HRESULT result_console = InitializeConsole();
 		if (FAILED(result_console)) {
-			Warning("Console initialization failed: %ld.", result_console);
+			Error("Console initialization failed: %ld.", result_console);
 			return;
 		}
 		PrintConsoleHeader();
@@ -125,14 +125,14 @@ namespace mage {
 		//Initialize a window.
 		const HRESULT result_window = InitializeWindow();
 		if (FAILED(result_window)) {
-			Warning("Window initialization failed: %ld.", result_window);
+			Error("Window initialization failed: %ld.", result_window);
 			return;
 		}
 
 		// Initialize the different engine systems.
 		const HRESULT result_system = InitializeSystems();
 		if (FAILED(result_system)) {
-			Warning("Systems initialization failed: %ld.", result_system);
+			Error("Systems initialization failed: %ld.", result_system);
 			return;
 		}
 
@@ -153,12 +153,12 @@ namespace mage {
 		// Unitialize the different systems.
 		const HRESULT result_system = UninitializeSystems();
 		if (FAILED(result_system)) {
-			Warning("Systems uninitialization failed: %ld.", result_system);
+			Error("Systems uninitialization failed: %ld.", result_system);
 		}
 		// Unintialize the window.
 		const HRESULT result_window = UninitializeWindow();
 		if (FAILED(result_window)) {
-			Warning("Window uninitialization failed: %ld.", result_window);
+			Error("Window uninitialization failed: %ld.", result_window);
 		}
 
 		// Clean up the tasks support.
@@ -170,7 +170,7 @@ namespace mage {
 	HRESULT Engine::InitializeConsole() {
 		// Allocate a console for basic io
 		if (!AllocConsole()) {
-			Warning("Console allocation failed.");
+			Error("Console allocation failed.");
 			return E_FAIL;
 		}
 
@@ -179,19 +179,19 @@ namespace mage {
 		// Reuse stdin to open the file "CONIN$"
 		const errno_t result_in = freopen_s(&stream_in, "CONIN$", "r", stdin);
 		if (result_in) {
-			Warning("stdin redirection failed: %d.", result_in);
+			Error("stdin redirection failed: %d.", result_in);
 			return E_FAIL;
 		}
 		// Reuse stdout to open the file "CONOUT$"
 		const errno_t result_out = freopen_s(&stream_out, "CONOUT$", "w", stdout);
 		if (result_out) {
-			Warning("stdout redirection failed: %d.", result_out);
+			Error("stdout redirection failed: %d.", result_out);
 			return E_FAIL;
 		}
 		// Reuse stderr to open the file "CONIN$
 		const errno_t result_err = freopen_s(&stream_err, "CONOUT$", "w", stderr);
 		if (result_err) {
-			Warning("stderr redirection failed: %d.", result_err);
+			Error("stderr redirection failed: %d.", result_err);
 			return E_FAIL;
 		}
 
@@ -239,7 +239,7 @@ namespace mage {
 		wcex.lpszClassName = L"WindowClass";
 		// Register a window class
 		if (!RegisterClassEx(&wcex)) {
-			Warning("Registering windows class failed.");
+			Error("Registering windows class failed.");
 			return E_FAIL;
 		}
 		//-----------------------------------------------------------------------------
@@ -248,7 +248,7 @@ namespace mage {
 		g_device_enumeration = new DeviceEnumeration();
 		const HRESULT result_enumerate = g_device_enumeration->Enumerate();
 		if (FAILED(result_enumerate)) {
-			Warning("Device enumeration setup failed: %ld", result_enumerate);
+			Error("Device enumeration setup failed: %ld", result_enumerate);
 			return E_FAIL;
 		}
 		
@@ -268,7 +268,7 @@ namespace mage {
 			CW_USEDEFAULT, CW_USEDEFAULT, rectangle.right - rectangle.left, rectangle.bottom - rectangle.top, nullptr, nullptr, m_setup->m_hinstance, nullptr);
 
 		if (!m_hwindow) {
-			Warning("Window creation failed.");
+			Error("Window creation failed.");
 			return E_FAIL;
 		}
 
@@ -285,14 +285,14 @@ namespace mage {
 		// Create different engine systems
 		m_renderer			= new Renderer(m_hwindow);
 		if (!m_renderer->IsLoaded()) {
-			Warning("Renderer creation failed.");
+			Error("Renderer creation failed.");
 			return E_FAIL;
 		}
 		m_state_manager		= new StateManager();
 		m_script_manager	= new ResourceManager< VariableScript >();
 		m_input				= new Input(m_hwindow);
 		if (!m_input->IsLoaded()) {
-			Warning("Input creation failed.");
+			Error("Input creation failed.");
 			return E_FAIL;
 		}
 
@@ -315,7 +315,7 @@ namespace mage {
 	void Engine::Run(int nCmdShow) {
 		// Ensure the engine is loaded.
 		if (!IsLoaded()) {
-			Warning("Game loop can not be started because the engine is not loaded.");
+			Error("Game loop can not be started because the engine is not loaded.");
 			return;
 		}
 

@@ -29,55 +29,55 @@ namespace mage {
 
 	// Standard version
 	HRESULT CreateDDSTextureFromMemory(_In_ ID3D11Device *d3dDevice,
-		_In_reads_bytes_(ddsDataSize) const uint8_t *ddsData,
-		_In_ size_t ddsDataSize,
+		_In_reads_bytes_(dds_dataSize) const uint8_t *dds_data,
+		_In_ size_t dds_dataSize,
 		_Outptr_opt_ ID3D11Resource **texture,
-		_Outptr_opt_ ID3D11ShaderResourceView **textureView,
+		_Outptr_opt_ ID3D11ShaderResourceView **texture_view,
 		_In_ size_t maxsize = 0,
-		_Out_opt_ DDS_ALPHA_MODE *alphaMode = nullptr
+		_Out_opt_ DDS_ALPHA_MODE *alpha_mode = nullptr
 	);
 
 	HRESULT CreateDDSTextureFromFile(_In_ ID3D11Device *d3dDevice,
 		_In_z_ const wchar_t *szFileName,
 		_Outptr_opt_ ID3D11Resource **texture,
-		_Outptr_opt_ ID3D11ShaderResourceView **textureView,
+		_Outptr_opt_ ID3D11ShaderResourceView **texture_view,
 		_In_ size_t maxsize = 0,
-		_Out_opt_ DDS_ALPHA_MODE *alphaMode = nullptr
+		_Out_opt_ DDS_ALPHA_MODE *alpha_mode = nullptr
 	);
 
 	// Standard version with optional auto-gen mipmap support
 	HRESULT CreateDDSTextureFromMemory(_In_ ID3D11Device *d3dDevice,
 		_In_opt_ ID3D11DeviceContext *d3dContext,
-		_In_reads_bytes_(ddsDataSize) const uint8_t *ddsData,
-		_In_ size_t ddsDataSize,
+		_In_reads_bytes_(dds_dataSize) const uint8_t *dds_data,
+		_In_ size_t dds_dataSize,
 		_Outptr_opt_ ID3D11Resource **texture,
-		_Outptr_opt_ ID3D11ShaderResourceView **textureView,
+		_Outptr_opt_ ID3D11ShaderResourceView **texture_view,
 		_In_ size_t maxsize = 0,
-		_Out_opt_ DDS_ALPHA_MODE *alphaMode = nullptr
+		_Out_opt_ DDS_ALPHA_MODE *alpha_mode = nullptr
 	);
 
 	HRESULT CreateDDSTextureFromFile(_In_ ID3D11Device *d3dDevice,
 		_In_opt_ ID3D11DeviceContext *d3dContext,
 		_In_z_ const wchar_t *szFileName,
 		_Outptr_opt_ ID3D11Resource **texture,
-		_Outptr_opt_ ID3D11ShaderResourceView **textureView,
+		_Outptr_opt_ ID3D11ShaderResourceView **texture_view,
 		_In_ size_t maxsize = 0,
-		_Out_opt_ DDS_ALPHA_MODE *alphaMode = nullptr
+		_Out_opt_ DDS_ALPHA_MODE *alpha_mode = nullptr
 	);
 
 	// Extended version
 	HRESULT CreateDDSTextureFromMemoryEx(_In_ ID3D11Device *d3dDevice,
-		_In_reads_bytes_(ddsDataSize) const uint8_t *ddsData,
-		_In_ size_t ddsDataSize,
+		_In_reads_bytes_(dds_dataSize) const uint8_t *dds_data,
+		_In_ size_t dds_dataSize,
 		_In_ size_t maxsize,
 		_In_ D3D11_USAGE usage,
 		_In_ uint32_t bindFlags,
-		_In_ uint32_t cpuAccessFlags,
-		_In_ uint32_t miscFlags,
+		_In_ uint32_t cpu_access_flags,
+		_In_ uint32_t misc_flags,
 		_In_ bool forceSRGB,
 		_Outptr_opt_ ID3D11Resource **texture,
-		_Outptr_opt_ ID3D11ShaderResourceView **textureView,
-		_Out_opt_ DDS_ALPHA_MODE* alphaMode = nullptr
+		_Outptr_opt_ ID3D11ShaderResourceView **texture_view,
+		_Out_opt_ DDS_ALPHA_MODE* alpha_mode = nullptr
 	);
 
 	HRESULT CreateDDSTextureFromFileEx(_In_ ID3D11Device *d3dDevice,
@@ -85,28 +85,28 @@ namespace mage {
 		_In_ size_t maxsize,
 		_In_ D3D11_USAGE usage,
 		_In_ uint32_t bindFlags,
-		_In_ uint32_t cpuAccessFlags,
-		_In_ uint32_t miscFlags,
+		_In_ uint32_t cpu_access_flags,
+		_In_ uint32_t misc_flags,
 		_In_ bool forceSRGB,
 		_Outptr_opt_ ID3D11Resource **texture,
-		_Outptr_opt_ ID3D11ShaderResourceView **textureView,
-		_Out_opt_ DDS_ALPHA_MODE *alphaMode = nullptr
+		_Outptr_opt_ ID3D11ShaderResourceView **texture_view,
+		_Out_opt_ DDS_ALPHA_MODE *alpha_mode = nullptr
 	);
 
 	// Extended version with optional auto-gen mipmap support
 	HRESULT CreateDDSTextureFromMemoryEx(_In_ ID3D11Device *d3dDevice,
 		_In_opt_ ID3D11DeviceContext* d3dContext,
-		_In_reads_bytes_(ddsDataSize) const uint8_t *ddsData,
-		_In_ size_t ddsDataSize,
+		_In_reads_bytes_(dds_dataSize) const uint8_t *dds_data,
+		_In_ size_t dds_dataSize,
 		_In_ size_t maxsize,
 		_In_ D3D11_USAGE usage,
 		_In_ uint32_t bindFlags,
-		_In_ uint32_t cpuAccessFlags,
-		_In_ uint32_t miscFlags,
+		_In_ uint32_t cpu_access_flags,
+		_In_ uint32_t misc_flags,
 		_In_ bool forceSRGB,
 		_Outptr_opt_ ID3D11Resource **texture,
-		_Outptr_opt_ ID3D11ShaderResourceView **textureView,
-		_Out_opt_ DDS_ALPHA_MODE* alphaMode = nullptr
+		_Outptr_opt_ ID3D11ShaderResourceView **texture_view,
+		_Out_opt_ DDS_ALPHA_MODE* alpha_mode = nullptr
 	);
 
 	HRESULT CreateDDSTextureFromFileEx(_In_ ID3D11Device *d3dDevice,
@@ -115,11 +115,11 @@ namespace mage {
 		_In_ size_t maxsize,
 		_In_ D3D11_USAGE usage,
 		_In_ uint32_t bindFlags,
-		_In_ uint32_t cpuAccessFlags,
-		_In_ uint32_t miscFlags,
+		_In_ uint32_t cpu_access_flags,
+		_In_ uint32_t misc_flags,
 		_In_ bool forceSRGB,
 		_Outptr_opt_ ID3D11Resource **texture,
-		_Outptr_opt_ ID3D11ShaderResourceView **textureView,
-		_Out_opt_ DDS_ALPHA_MODE *alphaMode = nullptr
+		_Outptr_opt_ ID3D11ShaderResourceView **texture_view,
+		_Out_opt_ DDS_ALPHA_MODE *alpha_mode = nullptr
 	);
 }

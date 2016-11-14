@@ -8,7 +8,6 @@
 #define IDC_COLOUR_DEPTH                1003
 #define IDC_RESOLUTION                  1004
 #define IDC_REFRESH_RATE                1006
-//#define IDC_DRIVER_VERSION              1012
 #define IDC_VSYNC                       1013
 #define IDC_WINDOWED                    1016
 #define IDC_FULLSCREEN                  1018

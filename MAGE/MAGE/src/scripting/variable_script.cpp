@@ -18,7 +18,7 @@ namespace mage {
 		const string &fname = GetFilename();
 		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
 		if (result_fopen_s) {
-			Severe("Could not construct script: %s", GetFilename());
+			Warning("Could not construct script: %s", GetFilename());
 		}
 
 		// format: s
@@ -60,7 +60,7 @@ namespace mage {
 		const string &fname = (filename != "") ? filename : GetFilename();
 		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "w");
 		if (result_fopen_s) {
-			Severe("Could not save script: %s", fname);
+			Warning("Could not save script: %s", fname);
 		}
 
 		// Write the #begin statement to the file.
@@ -82,7 +82,7 @@ namespace mage {
 	void VariableScript::ImportVariable(const string &name, FILE *file) {
 		// Ensure the file pointer is valid.
 		if (file == nullptr) {
-			Error("Could not import variable: %s", name);
+			Warning("Could not import variable: %s", name);
 			return;
 		}
 
@@ -270,7 +270,7 @@ namespace mage {
 			break;
 		}
 		default: {
-			Error("Could not export variable: %s", name);
+			Warning("Could not export variable: %s", name);
 			return;
 		}
 		}

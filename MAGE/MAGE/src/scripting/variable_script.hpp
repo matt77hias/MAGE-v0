@@ -51,6 +51,25 @@ namespace mage {
 		void ExportScript(const string &filename = "");
 
 		/**
+		 Checks wether this variable script is empty.
+
+		 @return		@c true if this variable script is empty.
+						@c false otherwise.
+		 */
+		bool IsEmpty() const {
+			return GetNbOfVariables() == 0;
+		}
+
+		/**
+		 Returns the number of variables in this variable script.
+
+		 @return		The number of variables in this variable script.
+		 */
+		size_t GetNbOfVariables() const {
+			return m_variables.size();
+		}
+
+		/**
 		 Adds the given variable to this variable script.
 
 		 @pre			No variable with the name @a name
@@ -80,6 +99,7 @@ namespace mage {
 			for (list< const Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
 				if ((*it)->GetName() == name) {
 					m_variables.remove(*it);
+					delete *it;
 					return;
 				}
 			}
@@ -127,6 +147,7 @@ namespace mage {
 				if ((*it)->GetName() == name) {
 					const VariableType type = (*it)->GetType();
 					m_variables.remove(*it);
+					delete *it;
 					AddVariable(name, type, value);
 					return;
 				}

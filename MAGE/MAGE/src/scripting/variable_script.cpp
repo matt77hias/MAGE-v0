@@ -19,6 +19,7 @@ namespace mage {
 		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
 		if (result_fopen_s) {
 			Warning("Could not construct script: %s", GetFilename());
+			return;
 		}
 
 		// format: s
@@ -61,6 +62,7 @@ namespace mage {
 		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "w");
 		if (result_fopen_s) {
 			Warning("Could not save script: %s", fname);
+			return;
 		}
 
 		// Write the #begin statement to the file.

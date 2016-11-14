@@ -43,6 +43,14 @@ namespace mage {
 		}
 
 		/**
+		 Imports this variable script from its associated file.
+
+		 @param[in]		filename
+						A reference to the filename.
+		 */
+		void ImportScript(const string &filename = "");
+
+		/**
 		 Exports this variable script to the file with the given filename.
 
 		 @param[in]		filename
@@ -147,7 +155,7 @@ namespace mage {
 				if ((*it)->GetName() == name) {
 					const VariableType type = (*it)->GetType();
 					m_variables.remove(*it);
-					delete *it;
+					//delete *it;
 					AddVariable(name, type, value);
 					return;
 				}
@@ -155,11 +163,6 @@ namespace mage {
 		}
 
 	protected:
-
-		/**
-		 Imports this variable script from its associated file.
-		 */
-		void ImportScript();
 
 		/**
 		 Import the given variable from the given file to this variable script.

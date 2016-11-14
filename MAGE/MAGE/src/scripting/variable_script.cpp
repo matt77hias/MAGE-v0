@@ -12,13 +12,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void VariableScript::ImportScript() {
+	void VariableScript::ImportScript(const string &filename) {
 		// Open the script file.
 		FILE *file = nullptr;
-		const string &fname = GetFilename();
+		const string &fname = (filename != "") ? filename : GetFilename();
 		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
 		if (result_fopen_s) {
-			Warning("Could not construct script: %s", GetFilename());
+			Warning("Could not import script: %s", fname.c_str());
 			return;
 		}
 
@@ -61,7 +61,7 @@ namespace mage {
 		const string &fname = (filename != "") ? filename : GetFilename();
 		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "w");
 		if (result_fopen_s) {
-			Warning("Could not save script: %s", fname);
+			Warning("Could not export script: %s", fname.c_str());
 			return;
 		}
 

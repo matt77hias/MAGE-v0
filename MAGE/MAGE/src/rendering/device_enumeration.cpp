@@ -168,6 +168,14 @@ namespace mage {
 			m_adapter->GetDesc2(&desc);
 			Edit_SetText(GetDlgItem(hwndDlg, IDC_DISPLAY_ADAPTER), desc.Description);
 
+			if (m_settings_script->IsEmpty()) {
+				m_settings_script->AddVariable("windowed",   BoolType, new bool(true));
+				m_settings_script->AddVariable("vsync",      BoolType, new bool(false));
+				m_settings_script->AddVariable("bpp",        IntType,  new int(0));
+				m_settings_script->AddVariable("resolution", IntType,  new int(0));
+				m_settings_script->AddVariable("refresh",	 IntType,  new int(0));
+			}
+
 			// Load the windowed state.
 			m_windowed = *m_settings_script->GetValueOfVariable< bool >("windowed");
 			
@@ -257,20 +265,11 @@ namespace mage {
 				const int refresh_rate	= ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
 
 				// Set all the settings in the script.
-				if (m_settings_script->IsEmpty()) {
-					m_settings_script->AddVariable("windowed",	 BoolType, new bool(m_windowed));
-					m_settings_script->AddVariable("vsync",		 BoolType, new bool(m_vsync));
-					m_settings_script->AddVariable("bpp",		 IntType,  new int(bpp));
-					m_settings_script->AddVariable("resolution", IntType,  new int(resolution));
-					m_settings_script->AddVariable("refresh",	 IntType,  new int(refresh_rate));
-				}
-				else {
-					m_settings_script->SetValueOfVariable("windowed",	new bool(m_windowed));
-					m_settings_script->SetValueOfVariable("vsync",		new bool(m_vsync));
-					m_settings_script->SetValueOfVariable("bpp",		new int(bpp));
-					m_settings_script->SetValueOfVariable("resolution", new int(resolution));
-					m_settings_script->SetValueOfVariable("refresh",	new int(refresh_rate));
-				}
+				m_settings_script->SetValueOfVariable("windowed",	new bool(m_windowed));
+				m_settings_script->SetValueOfVariable("vsync",		new bool(m_vsync));
+				m_settings_script->SetValueOfVariable("bpp",		new int(bpp));
+				m_settings_script->SetValueOfVariable("resolution", new int(resolution));
+				m_settings_script->SetValueOfVariable("refresh",	new int(refresh_rate));
 				// Save all the settings out to the settings script.
 				m_settings_script->ExportScript();
 				// Destroy the settings script.

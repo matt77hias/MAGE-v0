@@ -29,7 +29,7 @@ namespace mage {
 		// 4. unnamed event object
 		m_ready_to_read_handle = CreateEvent(nullptr, TRUE, FALSE, nullptr);
 		if (m_ready_to_read_handle == nullptr) {
-			Severe("Error creating event for ReadWriteMutex: %d", GetLastError());
+			Fatal("Error creating event for ReadWriteMutex: %d", GetLastError());
 		}
 
 		// Creates or opens an unnamed semaphore object.
@@ -42,7 +42,7 @@ namespace mage {
 			const DWORD lastError = GetLastError();
 			// Close the open event handle.
 			CloseHandle(m_ready_to_read_handle);
-			Severe("Error creating semaphore for ReadWriteMutex: %d", lastError);
+			Fatal("Error creating semaphore for ReadWriteMutex: %d", lastError);
 		}
 	}
 
@@ -248,7 +248,7 @@ namespace mage {
 		// 4. The semaphore object is created without a name.
 		m_handle = CreateSemaphore(nullptr, 0, LONG_MAX, nullptr);
 		if (!m_handle) {
-			Severe("Error from CreateSemaphore: %d", GetLastError());
+			Fatal("Error from CreateSemaphore: %d", GetLastError());
 		}
 	}
 
@@ -258,7 +258,7 @@ namespace mage {
 		// 2. The amount by which the semaphore object's current count is to be increased.
 		// 3. A pointer to a variable to receive the previous count for the semaphore.
 		if (!ReleaseSemaphore(m_handle, count, nullptr)) {
-			Severe("Error from ReleaseSemaphore: %d", GetLastError());
+			Fatal("Error from ReleaseSemaphore: %d", GetLastError());
 		}
 	}
 
@@ -267,7 +267,7 @@ namespace mage {
 		// 1. The object handle.
 		// 2. The function will return only when the specified object is signaled.
 		if (WaitForSingleObject(m_handle, INFINITE) == WAIT_FAILED) {
-			Severe("Error from WaitForSingleObject: %d", GetLastError());
+			Fatal("Error from WaitForSingleObject: %d", GetLastError());
 		}
 	}
 

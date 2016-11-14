@@ -30,7 +30,7 @@ namespace mage {
 					This means the pointer points to a space
 					or null-terminating character.
 	 */
-	const char *FindWordEnd(const char *buffer) {
+	static const char *FindWordEnd(const char *buffer) {
 		while (*buffer != '\0' && !isspace(*buffer)) {
 			++buffer;
 		}
@@ -49,7 +49,7 @@ namespace mage {
 	 @param[in]		error_disposition
 					Disposition of the error.
 	 */
-	void ProcessError(const char *format, const va_list args,
+	static void ProcessError(const char *format, const va_list args,
 		const string &error_type, int error_disposition) {
 
 		if (error_disposition == MAGE_ERROR_IGNORE) {
@@ -101,6 +101,22 @@ namespace mage {
 		}
 	}
 
+	void Debug(const char *format, ...) {
+#ifdef _DEBUG
+		if (!g_logging_configuration.IsVerbose() || g_logging_configuration.IsQuiet()) {
+			// Do not process info in non-verbose mode.
+			// Do not process info in quiet mode.
+			return;
+		}
+		va_list args;
+		// Retrieve the additional arguments after format
+		va_start(args, format);
+		ProcessError(format, args, "Notice", MAGE_ERROR_CONTINUE);
+		// End using variable argument list
+		va_end(args);	
+#endif
+	}
+
 	void Info(const char *format, ...) {
 		if (!g_logging_configuration.IsVerbose() || g_logging_configuration.IsQuiet()) {
 			// Do not process info in non-verbose mode.
@@ -137,7 +153,7 @@ namespace mage {
 		va_end(args);
 	}
 
-	void Severe(const char *format, ...) {
+	void Fatal(const char *format, ...) {
 		va_list args;
 		// Retrieve the additional arguments after format
 		va_start(args, format);

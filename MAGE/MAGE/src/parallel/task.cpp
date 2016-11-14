@@ -103,7 +103,7 @@ namespace mage {
 			// 6. The thread identifier will not be returned.
 			threads[i] = CreateThread(nullptr, 0, task_entry, reinterpret_cast<void *>(i), 0, nullptr);
 			if (threads[i] == nullptr) {
-				Severe("Error from CreateThread");
+				Fatal("Error from CreateThread");
 			}
 		}
 	}

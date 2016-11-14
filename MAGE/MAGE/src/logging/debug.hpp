@@ -17,7 +17,7 @@
 #ifdef NDEBUG
 #define Assert(expr) (__noop)
 #else
-#define Assert(expr) ((expr) ? __noop : Severe("Assertion \"%s\" failed in %s, line %d", \
+#define Assert(expr) ((expr) ? __noop : Fatal("Assertion \"%s\" failed in %s, line %d", \
                #expr, __FILE__, __LINE__))
 #endif
 

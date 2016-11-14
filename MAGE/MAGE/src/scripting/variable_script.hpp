@@ -155,7 +155,7 @@ namespace mage {
 				if ((*it)->GetName() == name) {
 					const VariableType type = (*it)->GetType();
 					m_variables.remove(*it);
-					//delete *it;
+					delete *it;
 					AddVariable(name, type, value);
 					return;
 				}

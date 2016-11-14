@@ -149,7 +149,7 @@ namespace mage {
 		// 3. A handle to the window that owns the dialog box.
 		// 4. A pointer to the dialog box procedure.
 		const INT_PTR result_dialog = DialogBox(nullptr, MAKEINTRESOURCE(IDD_GRAPHICS_SETTINGS), nullptr, SettingsDialogProcDelegate);
-		return (result_dialog) ? S_OK : E_FAIL;
+		return (result_dialog == IDOK) ? S_OK : E_FAIL;
 	}
 
 	INT_PTR DeviceEnumeration::SettingsDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {

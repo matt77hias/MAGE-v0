@@ -115,6 +115,8 @@ namespace mage {
 		// End using variable argument list
 		va_end(args);	
 #endif
+		// Supresses C4100: unreferenced formal parameter
+		(void)format;
 	}
 
 	void Info(const char *format, ...) {

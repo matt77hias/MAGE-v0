@@ -77,13 +77,14 @@ namespace mage {
 		/**
 		 Constructs a device enumeration.
 		 */
-		DeviceEnumeration() {}
+		DeviceEnumeration() : m_adapter(nullptr), m_output(nullptr) {}
 
 		/**
 		 Destructs this device enumeration.
 		 */
 		~DeviceEnumeration() {
 			SAFE_RELEASE(m_adapter);
+			SAFE_RELEASE(m_output);
 		}
 
 		/**
@@ -115,6 +116,11 @@ namespace mage {
 		 A pointer to the adapter (or video card).
 		 */
 		IDXGIAdapter2 *m_adapter;
+
+		/**
+		 A pointer to the output.
+		 */
+		IDXGIOutput2 *m_output;
 
 		/**
 		 A pointer to the script which stores the device configuration.

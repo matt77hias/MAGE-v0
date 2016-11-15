@@ -45,14 +45,16 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	HRESULT DeviceEnumeration::Enumerate() {
-		SAFE_RELEASE(m_adapter); // In case of multiple of calls to Enumerate.
+		// In case of multiple of calls to Enumerate.
+		SAFE_RELEASE(m_adapter);
+		SAFE_RELEASE(m_output);
 		
 		// Create the display modes linked list.
 		m_display_modes = list< DXGI_MODE_DESC1 >();
 		// Load the settings script.
 		m_settings_script = new VariableScript("DisplaySettings.mage");
 
-		// Get the IDXGIAdapter2.
+		// Get the IDXGIAdapter2 and its primary IDXGIOutput2.
 		{
 			// Get the IDXGIFactory3.
 			IDXGIFactory3 *factory = nullptr;
@@ -62,13 +64,16 @@ namespace mage {
 				return E_FAIL;
 			}
 
-			// Get the IDXGIAdapter1.
+			// Get the IDXGIAdapter1 and its primary IDXGIOutput.
 			// The IDXGIAdapter represents a display subsystem (including one or more GPUs, DACs and video memory).
+			// The IDXGIOutput represents an adapter output (such as a monitor).
 			IDXGIAdapter1 *adapter1 = nullptr;
+			IDXGIOutput   *output   = nullptr;
 			SIZE_T max_vram = 0;
 			for (UINT i = 0; factory->EnumAdapters1(i, &adapter1) != DXGI_ERROR_NOT_FOUND; ++i) {
+				
 				// Get the IDXGIAdapter2.
-				IDXGIAdapter2 *adapter2;
+				IDXGIAdapter2 *adapter2 = nullptr;
 				const HRESULT result_adapter2 = adapter1->QueryInterface(__uuidof(IDXGIAdapter2), (void **)&adapter2);
 				// Release the IDXGIAdapter1.
 				adapter1->Release();
@@ -78,41 +83,43 @@ namespace mage {
 					return E_FAIL;
 				}
 
+				// Get the primary IDXGIOutput.
+				const HRESULT result_output = adapter2->EnumOutputs(0, &output);
+				if (FAILED(result_output)) {
+					adapter2->Release();
+					continue;
+				}
+				// Get the IDXGIOutput2.
+				IDXGIOutput2 *output2 = nullptr;
+				const HRESULT result_output2 = output->QueryInterface(__uuidof(IDXGIOutput2), (void **)&output2);
+				// Release the IDXGIOutput;
+				output->Release();
+				if (FAILED(result_output2)) {
+					Error("IDXGIOutput2 creation failed: %ld", result_output2);
+					return E_FAIL;
+				}
+
 				DXGI_ADAPTER_DESC2 desc;
 				adapter2->GetDesc2(&desc);
 				const SIZE_T vram = desc.DedicatedVideoMemory;
-				if (vram >= max_vram) {
-					SAFE_RELEASE(m_adapter);
-					m_adapter = adapter2;
-					max_vram = vram;
-				}
-				else {
-					// Release the IDXGIAdapter2.
+				if (vram <= max_vram) {
+					output2->Release();
 					adapter2->Release();
+					continue;
 				}
+
+				SAFE_RELEASE(m_adapter);
+				SAFE_RELEASE(m_output);
+				m_adapter = adapter2;
+				m_output = output2;
+				max_vram = vram;
 			}
 
 			// Release the IDXGIFactory3.
 			factory->Release();
 		}
-
-		// Get the primary IDXGIOutput.
-		// The IDXGIOutput represents an adapter output (such as a monitor).
-		IDXGIOutput *output = nullptr;
-		const HRESULT result_output = m_adapter->EnumOutputs(0, &output);
-		if (FAILED(result_output)) {
-			Error("IDXGIOutput creation failed: %ld", result_output);
-			return E_FAIL;
-		}
-		IDXGIOutput2 *output2 = nullptr;
-		const HRESULT result_output2 = output->QueryInterface(__uuidof(IDXGIOutput2), (void **)&output2);
-		// Release the IDXGIOutput.
-		output->Release();
-		if (FAILED(result_output2)) {
-			Error("IDXGIOutput2 creation failed: %ld", result_output2);
-			return E_FAIL;
-		}
-			
+	
+		// Get the display modes.
 		for (size_t i = 0; i < _countof(g_pixel_formats); ++i) {
 			
 			// Get the DXGI_MODE_DESCs.
@@ -120,10 +127,10 @@ namespace mage {
 			const UINT flags = DXGI_ENUM_MODES_INTERLACED;
 			UINT nb_display_modes;
 			// Get the number of display modes that match the requested format and other input options.
-			output2->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, nullptr);
+			m_output->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, nullptr);
 			DXGI_MODE_DESC1 *dxgi_mode_descs = new DXGI_MODE_DESC1[nb_display_modes];
 			// Get the display modes that match the requested format and other input options.
-			output2->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs);
+			m_output->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs);
 
 			// Enumerate the DXGI_MODE_DESCs.
 			for (UINT mode = 0; mode < nb_display_modes; ++mode) {
@@ -139,9 +146,6 @@ namespace mage {
 			// Delete the DXGI_MODE_DESCs.
 			delete[] dxgi_mode_descs;
 		}
-
-		// Release the IDXGIOutput2.
-		output2->Release();
 
 		// Creates a modal dialog box from a dialog box template resource.
 		// 1. A handle to the module which contains the dialog box template. If this parameter is nullptr, then the current executable is used.

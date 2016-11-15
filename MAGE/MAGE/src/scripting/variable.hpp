@@ -97,7 +97,7 @@ namespace mage {
 		}
 
 		/**
-		 Returns the type of this value.
+		 Returns the scripting type of this value.
 
 		 @return		The type of this value.
 		 */
@@ -112,6 +112,20 @@ namespace mage {
 		 */
 		const void *GetValue() const {
 			return m_value->GetValue();
+		}
+
+		/**
+		 Sets the value of this variable.
+	
+		 @tparam		T
+						The (storage) type of the value.
+		 @param[in]		value
+						A pointer to the value.
+		 */
+		template< typename T >
+		void SetValue(const T *value) {
+			delete m_value;
+			m_value = new Value< T >(value);
 		}
 
 	private:
@@ -131,7 +145,7 @@ namespace mage {
 		const VariableType m_type;
 
 		/**
-		 A struct of abstract values.
+		 A struct of immutable abstract values.
 
 		 @note			This is an example of the Type Erasure pattern for templates.
 						We need to keep the original type to ensure the right destructor
@@ -155,7 +169,7 @@ namespace mage {
 		};
 
 		/**
-		 A struct of values.
+		 A struct of immutable values.
 		 @tparam		T
 						The type of the value.
 		 */

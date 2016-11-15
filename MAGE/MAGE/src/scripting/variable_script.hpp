@@ -31,7 +31,7 @@ namespace mage {
 						A reference to the path of the variable script.
 		*/
 		VariableScript(const string &name, const string &path = "./")
-			: Resource(name, path), m_variables(list< const Variable * >()) {
+			: Resource(name, path), m_variables(list< Variable * >()) {
 			ImportScript();
 		}
 
@@ -104,7 +104,7 @@ namespace mage {
 		 */
 		void RemoveVariable(const string &name) {
 			// Iterate the variables looking for the specified variable.
-			for (list< const Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
+			for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
 				if ((*it)->GetName() == name) {
 					m_variables.remove(*it);
 					delete *it;
@@ -127,7 +127,7 @@ namespace mage {
 		template < typename T >
 		const T *GetValueOfVariable(const string &name) const {
 			// Iterate the states looking for the specified variable.
-			for (list< const Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
+			for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
 				if ((*it)->GetName() == name) {
 					return (T *)((*it)->GetValue());
 				}
@@ -151,15 +151,13 @@ namespace mage {
 		template < typename T >
 		void SetValueOfVariable(const string &name, const T *value) {
 			// Iterate the variables looking for the specified variable.
-			for (list< const Variable * >::iterator it = m_variables.begin(); it != m_variables.end(); ++it) {
+			for (list< Variable * >::iterator it = m_variables.begin(); it != m_variables.end(); ++it) {
 				if ((*it)->GetName() == name) {
-					const VariableType type = (*it)->GetType();
-					m_variables.remove(*it);
-					delete *it;
-					AddVariable(name, type, value);
+					(*it)->SetValue(value);
 					return;
 				}
 			}
+			Warning("Variable %s not found.", name.c_str());
 		}
 
 	protected:
@@ -189,6 +187,6 @@ namespace mage {
 		/**
 		 Linked list containing the variables in this variable script.
 		 */
-		list< const Variable * > m_variables;
+		list< Variable * > m_variables;
 	};
 }

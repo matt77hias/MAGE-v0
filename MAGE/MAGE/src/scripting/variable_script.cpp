@@ -70,7 +70,7 @@ namespace mage {
 		fputs("\n", file);
 
 		// Iterate the states looking for the specified variable.
-		for (list< const Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
+		for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
 			ExportVariable(*it, file);
 		}
 

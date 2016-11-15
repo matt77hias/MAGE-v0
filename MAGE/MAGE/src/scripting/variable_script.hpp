@@ -104,13 +104,14 @@ namespace mage {
 		 */
 		void RemoveVariable(const string &name) {
 			// Iterate the variables looking for the specified variable.
+			Variable *target = nullptr;
 			for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
 				if ((*it)->GetName() == name) {
-					m_variables.remove(*it);
-					delete *it;
-					return;
+					target = *it;
+					break;
 				}
 			}
+			SAFE_DELETE(target);
 		}
 
 		/**

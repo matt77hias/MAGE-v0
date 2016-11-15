@@ -54,9 +54,9 @@ namespace mage {
 			for (UINT i = 0; i < _countof(g_driver_types); ++i) {
 				m_driver_type = g_driver_types[i];
 				result_device = D3D11CreateDevice(
-					nullptr,								// Adapter.
+					nullptr,							// Adapter.
 					m_driver_type,						// Driver type.
-					nullptr,								// A handle to a DLL that implements a software rasterizer.
+					nullptr,							// A handle to a DLL that implements a software rasterizer.
 					create_device_flags,				// The runtime layers to enable.
 					g_feature_levels,					// The order of feature levels to attempt to create.
 					_countof(g_feature_levels),			// The number of feature levels.

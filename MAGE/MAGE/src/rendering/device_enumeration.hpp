@@ -34,6 +34,15 @@ namespace mage {
 		}
 
 		/**
+		 Returns the output.
+
+		 @return		A pointer to the output.
+		 */
+		IDXGIOutput2 *GetOutput() const {
+			return m_output;
+		}
+
+		/**
 		 Returns the selected display mode by the user.
 
 		 @return		A pointer to the selected display mode.

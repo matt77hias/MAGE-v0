@@ -156,6 +156,8 @@ namespace mage {
 			Error("ID3D11DeviceContext2 creation failed: %ld.", result_device_context2);
 			return result_device_context2;
 		}
+	
+		return S_OK;
 	}
 
 	HRESULT Renderer::SetupSwapChain() {

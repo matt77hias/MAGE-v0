@@ -57,12 +57,12 @@ namespace mage {
 
 	HRESULT InputManager::InitializeInputSystems() {
 		m_keyboard = new Keyboard(m_hwindow, m_di);
-		if (!m_keyboard.IsLoaded()) {
+		if (!m_keyboard->IsLoaded()) {
 			Error("Keyboard creation failed.");
 			return E_FAIL;
 		}
 		m_mouse = new Mouse(m_hwindow, m_di);
-		if (!m_mouse.IsLoaded()) {
+		if (!m_mouse->IsLoaded()) {
 			Error("Mouse creation failed.");
 			return E_FAIL;
 		}

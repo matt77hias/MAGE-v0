@@ -182,6 +182,16 @@ namespace mage {
 			return m_renderer;
 		}
 
+		/**
+		 Sets the mode switch flag of this engine to the given value.
+
+		 @param[in]		mode_switch
+						The new value for the mode switch flag.
+		 */
+		void SetModeSwitchFlag(bool mode_switch) {
+			m_mode_switch = mode_switch;
+		}
+
 		// STATE SYSTEM
 
 		/**
@@ -267,7 +277,7 @@ namespace mage {
 		
 		/** 
 		 Flag indicating whether the application is active or not.
-		*/
+		 */
 		bool m_deactive;
 
 		// RENDERER SYSTEM
@@ -276,6 +286,12 @@ namespace mage {
 		 A pointer to the renderer of this engine.
 		 */
 		Renderer *m_renderer;
+
+		/**
+		 Flag indicating whether the application should switch between
+		 full screen and windowed mode.
+		 */
+		bool m_mode_switch;
 
 		// STATE SYSTEM
 

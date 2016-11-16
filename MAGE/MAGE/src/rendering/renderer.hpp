@@ -15,29 +15,45 @@ namespace mage {
 	public:
 
 		/**
-		 Switches the mode of this renderer.
+		 Recreates the swap chain buffers and switches the mode of this renderer.
 		 Windowed mode is switched to full screen mode and vice versa.
+
+		 @return		toggle
+						If @c true only the swap chain buffers will be recreated
+						and no mode switch will occurs.
+						If @c false both the swap chain buffers will be replaced
+						and a mode switch will occur.
 		 */
-		void SwitchMode();
+		void SwitchMode(bool toggle);
 
 		/**
-		 Check whether this renderer renders in windowed mode.
+		 Checks whether this renderer renders in windowed mode.
 
 		 @return		@c true if this renderer renders in windowed mode.
 						@c false otherwise.
 		*/
 		bool IsWindowed() const {
-			return m_windowed;
+			return !IsFullScreen();
 		}
 
 		/**
-		 Check whether this renderer renders in full screen mode.
+		 Checks whether this renderer renders in full screen mode.
 
 		 @return		@c true if this renderer renders in full screen mode.
 						@c false otherwise.
 		 */
 		bool IsFullScreen() const {
-			return !m_windowed;
+			BOOL current = false;
+			m_swap_chain2->GetFullscreenState(&current, nullptr);
+			return current != 0;
+		}
+
+		/**
+		 Checks whether this renderer lost its full screen mode 
+		 (due to for example ALT + TAB).
+		 */
+		bool LostFullScreen() const {
+			return !m_fullscreen && IsFullScreen();
 		}
 
 	protected:
@@ -56,18 +72,54 @@ namespace mage {
 		virtual ~Renderer();
 
 		/**
-		 Initializes the D3D11 device of this renderer.
+		 Initializes this renderer.
 
 		 @return		A success/error value.
 		 */
-		HRESULT InitializeDevice();
+		HRESULT InitializeRenderer();
 
 		/**
-		 Uninitializes the D3D11 device of this renderer.
+		 Uninitializes this renderer.
 
 		 @return		A success/error value.
 		 */
-		HRESULT UnitializeDevice();
+		HRESULT UnitializeRenderer();
+
+		/**
+		 Setup the D3D11 device and context of this renderer.
+
+		 @return		A success/error value.
+		 */
+		HRESULT SetupDevice();
+
+		/**
+		 Sets up the swap chain of this renderer.
+
+		 @return		A success/error value.
+		 */
+		HRESULT SetupSwapChain();
+
+		/**
+		 Sets up the render target view of this renderer.
+
+		 @return		A success/error value.
+		 */
+		HRESULT SetupRenderTargetView();
+
+		/**
+		 Sets up the depth stencil view of this renderer.
+
+		 @return		A success/error value.
+		 */
+		HRESULT SetupDepthStencilView();
+
+		/**
+		 Sets up and binds the viewport of this renderer
+		 to the graphics pipeline.
+
+		 @return		A success/error value.
+		 */
+		HRESULT SetupViewPort();
 
 		/**
 		 Renders the current frame.
@@ -83,9 +135,10 @@ namespace mage {
 		HWND m_hwindow;
 
 		/**
-		 Flag indicating wether this renderer uses full screen (@c false) or windowed mode (c true).
+		 A flag indicating whether this renderer uses a full screen mode
+		 (if @c true) or a windowed mode (if @c false).
 		 */
-		bool m_windowed;
+		bool m_fullscreen;
 
 		D3D_DRIVER_TYPE           m_driver_type;
 		D3D_FEATURE_LEVEL		  m_feature_level;

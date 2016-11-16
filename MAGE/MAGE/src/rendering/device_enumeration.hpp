@@ -52,7 +52,7 @@ namespace mage {
 		}
 		
 		/**
-		 Check whether the application should run in windowed mode.
+		 Checks whether the application should run in windowed mode.
 
 		 @return		@c true if the application should run in windowed mode.
 						@c false otherwise.
@@ -62,7 +62,7 @@ namespace mage {
 		}
 
 		/**
-		 Check whether the application should run in full screen mode.
+		 Checks whether the application should run in full screen mode.
 
 		 @return		@c true if the application should run in full screen mode.
 						@c false otherwise.
@@ -72,7 +72,7 @@ namespace mage {
 		}
 
 		/**
-		 Check whether v-sync should be enabled.
+		 Checks whether v-sync should be enabled.
 
 		 @return		@c true if v-sync should be enabled.
 						@c false otherwise.

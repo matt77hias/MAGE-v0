@@ -61,19 +61,12 @@ namespace mage {
 			PostQuitMessage(0);
 			break;
 		}
-		case WM_SYSKEYDOWN: {
-			// Sent to the window with the keyboard focus when the user presses the F10 key 
-			// (which activates the menu bar) or holds down the ALT key and then presses another key.
-
-			// Check whether the user wants to switch between windowed and full screen mode.
-			if (wParam == VK_RETURN) {
-				g_engine->GetRenderer()->SwitchMode();
-			}
+		case WM_MENUCHAR: {
+			// Sent when a menu is active and the user presses a key 
+			// that does not correspond to any mnemonic or accelerator key. 
 			
-			// Calls the default window procedure to provide default processing 
-			// for any window messages that an application does not process.
-			// This function ensures that every message is processed.
-			return DefWindowProc(hWnd, msg, wParam, lParam);
+			// Prevent the window to beep on ALT + ENTER for switching from fullscreen to windowed mode.
+			return MNC_CLOSE << 16; // high-order word of return value.
 		}
 		case WM_PAINT: {
 			// Sent when the system or another application makes a request 
@@ -87,6 +80,21 @@ namespace mage {
 			// Mark the end of painting in the specified window.
 			EndPaint(hWnd, &ps);
 			break;
+		}
+		case WM_SYSKEYDOWN: {
+			// Sent to the window with the keyboard focus when the user presses the F10 key 
+			// (which activates the menu bar) or holds down the ALT key and then presses another key.
+
+			// Check whether the user wants to switch between windowed and full screen mode.
+			if (wParam == VK_RETURN) {
+				g_engine->SetModeSwitchFlag(true);
+				return 0;
+			}
+			
+			// Calls the default window procedure to provide default processing 
+			// for any window messages that an application does not process.
+			// This function ensures that every message is processed.
+			return DefWindowProc(hWnd, msg, wParam, lParam);
 		}
 		default: {
 			// Calls the default window procedure to provide default processing 
@@ -103,8 +111,8 @@ namespace mage {
 	// Engine
 	//-------------------------------------------------------------------------
 	
-	Engine::Engine(const EngineSetup *setup) : Loadable(), 
-		m_renderer(nullptr), m_state_manager(nullptr), m_script_manager(nullptr), m_input(nullptr) {
+	Engine::Engine(const EngineSetup *setup) : Loadable(), m_deactive(false),
+		m_renderer(nullptr), m_mode_switch(false), m_state_manager(nullptr), m_script_manager(nullptr), m_input(nullptr) {
 
 		// Store a pointer to the engine in a global variable for easy access.
 		SAFE_DELETE(g_engine);
@@ -352,7 +360,14 @@ namespace mage {
 				if (m_input->GetKeyPress(DIK_F1)) {
 					PostQuitMessage(0);
 				}
-				
+
+				// Handle switch between full screen and windowed mode.
+				const bool lost_full_screen = m_renderer->LostFullScreen();
+				if (m_mode_switch || lost_full_screen) {
+					m_renderer->SwitchMode(!lost_full_screen);
+					m_mode_switch = false;
+				}
+
 				// Request the viewer from the current state (if there is one).
 				if (m_state_manager->GetCurrentState()) {
 					m_state_manager->GetCurrentState()->RequestViewSetup(&viewer);

@@ -53,7 +53,7 @@ namespace mage {
 		 (due to for example ALT + TAB).
 		 */
 		bool LostFullScreen() const {
-			return !m_fullscreen && IsFullScreen();
+			return m_fullscreen == IsWindowed();
 		}
 
 	protected:

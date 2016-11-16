@@ -13,7 +13,7 @@
 namespace mage {
 
 	Renderer::Renderer(HWND hwindow) : 
-		Loadable(), m_hwindow(hwindow), m_fullscreen(g_device_enumeration->IsFullScreen()),
+		Loadable(), m_hwindow(hwindow),
 		m_render_target_view(nullptr), m_swap_chain2(nullptr), m_device_context2(nullptr), m_device2(nullptr) {
 
 		const HRESULT result_renderer = InitializeRenderer();
@@ -47,10 +47,10 @@ namespace mage {
 			Error("Swap chain setup failed: %ld.", result_swapchain);
 			return result_swapchain;
 		}
-		
-		// Set mode.
-		const HRESULT result = m_swap_chain2->SetFullscreenState(m_fullscreen, nullptr);
-		BOOL current;
+
+		// Set mode (full screen or windowed).
+		BOOL current = g_device_enumeration->IsFullScreen();
+		m_swap_chain2->SetFullscreenState(current, nullptr);
 		m_swap_chain2->GetFullscreenState(&current, nullptr);
 		m_fullscreen = (current != 0);
 
@@ -306,8 +306,8 @@ namespace mage {
 	}
 
 	void Renderer::SwitchMode(bool toggle) {
-
 		// Release the swap chain buffers.
+		m_device_context2->ClearState();
 		m_render_target_view->Release();
 
 		BOOL current = false;

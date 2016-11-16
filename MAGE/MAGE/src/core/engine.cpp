@@ -112,7 +112,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	
 	Engine::Engine(const EngineSetup *setup) : Loadable(), m_deactive(false),
-		m_renderer(nullptr), m_mode_switch(false), m_state_manager(nullptr), m_script_manager(nullptr), m_input(nullptr) {
+		m_renderer(nullptr), m_mode_switch(false), m_state_manager(nullptr), m_script_manager(nullptr), m_input_manager(nullptr) {
 
 		// Store a pointer to the engine in a global variable for easy access.
 		SAFE_DELETE(g_engine);
@@ -296,14 +296,14 @@ namespace mage {
 			Error("Renderer creation failed.");
 			return E_FAIL;
 		}
-		m_state_manager		= new StateManager();
-		m_script_manager	= new ResourceManager< VariableScript >();
-		m_input				= new Input(m_hwindow);
-		if (!m_input->IsLoaded()) {
-			Error("Input creation failed.");
+		m_input_manager     = new InputManager(m_hwindow);
+		if (!m_input_manager->IsLoaded()) {
+			Error("Input manager creation failed.");
 			return E_FAIL;
 		}
-
+		m_script_manager    = new ResourceManager< VariableScript >();
+		m_state_manager		= new StateManager();
+		
 		if (m_setup->StateSetup) {
 			// Sets up the states
 			m_setup->StateSetup();
@@ -313,10 +313,10 @@ namespace mage {
 	}
 
 	HRESULT Engine::UninitializeSystems() {
-		SAFE_DELETE(m_renderer);
 		SAFE_DELETE(m_state_manager);
 		SAFE_DELETE(m_script_manager);
-		SAFE_DELETE(m_input);
+		SAFE_DELETE(m_input_manager);
+		SAFE_DELETE(m_renderer);
 		return S_OK;
 	}
 
@@ -355,9 +355,9 @@ namespace mage {
 				timer.Restart();
 
 				// Update the input object, reading the keyboard and mouse.
-				m_input->Update();
+				m_input_manager->Update();
 				// Check whether the user wants to make a forced exit.
-				if (m_input->GetKeyPress(DIK_F1)) {
+				if (m_input_manager->GetKeyboard()->GetKeyPress(DIK_F1)) {
 					PostQuitMessage(0);
 				}
 

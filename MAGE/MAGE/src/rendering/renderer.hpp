@@ -8,7 +8,7 @@ namespace mage {
 	/**
 	 A class of renderers.
 	 */
-	class Renderer : Loadable {
+	class Renderer : private Loadable {
 
 	friend class Engine;
 

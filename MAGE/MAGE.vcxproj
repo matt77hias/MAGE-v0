@@ -26,6 +26,9 @@
     <ClInclude Include="MAGE\src\core\targetver.h" />
     <ClInclude Include="MAGE\src\core\version.hpp" />
     <ClInclude Include="MAGE\src\input\input.hpp" />
+    <ClInclude Include="MAGE\src\input\input_manager.hpp" />
+    <ClInclude Include="MAGE\src\input\keyboard.hpp" />
+    <ClInclude Include="MAGE\src\input\mouse.hpp" />
     <ClInclude Include="MAGE\src\logging\debug.hpp" />
     <ClInclude Include="MAGE\src\logging\error.hpp" />
     <ClInclude Include="MAGE\src\logging\logging.hpp" />
@@ -60,7 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />
-    <ClCompile Include="MAGE\src\input\input.cpp" />
+    <ClCompile Include="MAGE\src\input\input_manager.cpp" />
+    <ClCompile Include="MAGE\src\input\keyboard.cpp" />
+    <ClCompile Include="MAGE\src\input\mouse.cpp" />
     <ClCompile Include="MAGE\src\logging\error.cpp" />
     <ClCompile Include="MAGE\src\logging\progressreporter.cpp" />
     <ClCompile Include="MAGE\src\logging\timer.cpp" />

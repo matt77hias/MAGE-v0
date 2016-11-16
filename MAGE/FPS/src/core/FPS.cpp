@@ -9,7 +9,7 @@ class TestState : public State {
 	virtual void Update(double elapsed_time) {
 		(void) elapsed_time;
 
-		if (g_engine->GetInput()->GetKeyPress(DIK_Q)) {
+		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_Q)) {
 			//PostQuitMessage(0);
 
 			VariableScript s("script_test.mage", "C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/");

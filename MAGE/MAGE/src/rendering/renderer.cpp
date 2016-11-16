@@ -26,12 +26,10 @@ namespace mage {
 	}
 
 	Renderer::~Renderer() {
-
 		const HRESULT result_renderer = UnitializeRenderer();
 		if (FAILED(result_renderer)) {
 			Error("Renderer unintialization failed: %ld.", result_renderer);
 		}
-		
 	}
 
 	HRESULT Renderer::InitializeRenderer() {

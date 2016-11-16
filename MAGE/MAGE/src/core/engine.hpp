@@ -217,12 +217,12 @@ namespace mage {
 		// INPUT SYSTEM
 
 		/**
-		 Returns the input object of this engine.
+		 Returns the input manager of this engine.
 
-		 @return		A pointer to the input object of this engine.
+		 @return		A pointer to the input manager of this engine.
 		 */
-		const Input *GetInput() const {
-			return m_input;
+		const InputManager *GetInputManager() const {
+			return m_input_manager;
 		}
 
 	protected:
@@ -310,9 +310,9 @@ namespace mage {
 		// INPUT SYSTEM
 
 		/**
-		 A pointer to the input object of this engine.
+		 A pointer to the input manager of this engine.
 		 */
-		Input *m_input;
+		InputManager *m_input_manager;
 	};
 
 	/**

@@ -36,7 +36,8 @@ namespace mage {
 	 The supported feature levels.
 	 */
 	const D3D_FEATURE_LEVEL g_feature_levels[] = {
-		D3D_FEATURE_LEVEL_11_1
+		D3D_FEATURE_LEVEL_11_1,
+		D3D_FEATURE_LEVEL_11_0
 	};
 
 	/**

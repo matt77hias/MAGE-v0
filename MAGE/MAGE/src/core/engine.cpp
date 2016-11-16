@@ -362,9 +362,9 @@ namespace mage {
 				}
 
 				// Handle switch between full screen and windowed mode.
-				const bool lost_full_screen = m_renderer->LostFullScreen();
-				if (m_mode_switch || lost_full_screen) {
-					m_renderer->SwitchMode(!lost_full_screen);
+				//const bool lost_full_screen = m_renderer->LostFullScreen();
+				if (m_mode_switch) {
+					m_renderer->SwitchMode(true);
 					m_mode_switch = false;
 				}
 

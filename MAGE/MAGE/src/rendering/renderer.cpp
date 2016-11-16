@@ -49,7 +49,7 @@ namespace mage {
 		}
 		
 		// Set mode.
-		m_swap_chain2->SetFullscreenState(m_fullscreen, nullptr);
+		const HRESULT result = m_swap_chain2->SetFullscreenState(m_fullscreen, nullptr);
 		BOOL current;
 		m_swap_chain2->GetFullscreenState(&current, nullptr);
 		m_fullscreen = (current != 0);
@@ -120,8 +120,8 @@ namespace mage {
 		for (UINT i = 0; i < _countof(g_driver_types); ++i) {
 			m_driver_type = g_driver_types[i];
 			result_device = D3D11CreateDevice(
-				nullptr,							// Adapter.
-				m_driver_type,						// Driver type.
+				g_device_enumeration->GetAdapter(), // Adapter.
+				D3D_DRIVER_TYPE_UNKNOWN,			// Driver type.
 				nullptr,							// A handle to a DLL that implements a software rasterizer.
 				create_device_flags,				// The runtime layers to enable.
 				g_feature_levels,					// The order of feature levels to attempt to create.

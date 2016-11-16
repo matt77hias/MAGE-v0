@@ -24,15 +24,6 @@
 namespace mage {
 
 	/**
-	 The supported driver types.
-	 */
-	const D3D_DRIVER_TYPE g_driver_types[] = {
-		D3D_DRIVER_TYPE_HARDWARE,
-		D3D_DRIVER_TYPE_WARP,
-		D3D_DRIVER_TYPE_REFERENCE
-	};
-
-	/**
 	 The supported feature levels.
 	 */
 	const D3D_FEATURE_LEVEL g_feature_levels[] = {

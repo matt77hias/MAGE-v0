@@ -140,7 +140,6 @@ namespace mage {
 		 */
 		bool m_fullscreen;
 
-		D3D_DRIVER_TYPE           m_driver_type;
 		D3D_FEATURE_LEVEL		  m_feature_level;
 		ID3D11Device2            *m_device2;
 		ID3D11DeviceContext2     *m_device_context2;

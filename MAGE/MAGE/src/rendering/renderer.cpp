@@ -116,25 +116,18 @@ namespace mage {
 		// Get the ID3D11Device and ID3D11DeviceContext.
 		ID3D11Device *device = nullptr;
 		ID3D11DeviceContext *device_context = nullptr;
-		HRESULT result_device = S_OK;
-		for (UINT i = 0; i < _countof(g_driver_types); ++i) {
-			m_driver_type = g_driver_types[i];
-			result_device = D3D11CreateDevice(
-				g_device_enumeration->GetAdapter(), // Adapter.
-				D3D_DRIVER_TYPE_UNKNOWN,			// Driver type.
-				nullptr,							// A handle to a DLL that implements a software rasterizer.
-				create_device_flags,				// The runtime layers to enable.
-				g_feature_levels,					// The order of feature levels to attempt to create.
-				_countof(g_feature_levels),			// The number of feature levels.
-				D3D11_SDK_VERSION,					// The SDK version.
-				&device,							// The address of a pointer to the ID3D11Device that represents the device created.
-				&m_feature_level,					// The address of a pointer to the supported feature level.
-				&device_context						// The address of a pointer to the ID3D11DeviceContext.
-			);
-			if (SUCCEEDED(result_device)) {
-				break;
-			}
-		}
+		HRESULT result_device = D3D11CreateDevice(
+			g_device_enumeration->GetAdapter(), // Adapter.
+			D3D_DRIVER_TYPE_UNKNOWN,			// Driver type.
+			nullptr,							// A handle to a DLL that implements a software rasterizer.
+			create_device_flags,				// The runtime layers to enable.
+			g_feature_levels,					// The order of feature levels to attempt to create.
+			_countof(g_feature_levels),			// The number of feature levels.
+			D3D11_SDK_VERSION,					// The SDK version.
+			&device,							// The address of a pointer to the ID3D11Device that represents the device created.
+			&m_feature_level,					// The address of a pointer to the supported feature level.
+			&device_context						// The address of a pointer to the ID3D11DeviceContext.
+		);
 		if (FAILED(result_device)) {
 			Error("ID3D11Device creation failed: %ld.", result_device);
 			return result_device;

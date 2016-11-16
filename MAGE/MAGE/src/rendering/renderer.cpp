@@ -48,7 +48,7 @@ namespace mage {
 			return result_swapchain;
 		}
 		
-		m_swap_chain2->SetFullscreenState(!g_device_enumeration->IsWindowed(), nullptr);
+		m_swap_chain2->SetFullscreenState(m_fullscreen, nullptr);
 
 		// Setup the ID3D11RenderTargetView
 		const HRESULT result_render_target_view = SetupRenderTargetView();

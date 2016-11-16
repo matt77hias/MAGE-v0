@@ -48,7 +48,11 @@ namespace mage {
 			return result_swapchain;
 		}
 		
+		// Set mode.
 		m_swap_chain2->SetFullscreenState(m_fullscreen, nullptr);
+		BOOL current;
+		m_swap_chain2->GetFullscreenState(&current, nullptr);
+		m_fullscreen = (current != 0);
 
 		// Setup the ID3D11RenderTargetView
 		const HRESULT result_render_target_view = SetupRenderTargetView();

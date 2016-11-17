@@ -48,7 +48,7 @@ namespace mage {
 		 @return		A pointer to the selected display mode.
 		 */
 		const DXGI_MODE_DESC1 *GetDisplayMode() const {
-			return &m_selected_diplay_mode;
+			return m_selected_diplay_mode;
 		}
 		
 		/**
@@ -142,9 +142,9 @@ namespace mage {
 		list< DXGI_MODE_DESC1 > m_display_modes;
 		
 		/**
-		 The selected display mode by the user.
+		 A pointer to the selected display mode by the user.
 		 */										
-		DXGI_MODE_DESC1 m_selected_diplay_mode;
+		const DXGI_MODE_DESC1 *m_selected_diplay_mode;
 		
 		/**
 		 Flag indicating whether the application should run in windowed mode.

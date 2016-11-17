@@ -44,6 +44,18 @@ namespace mage {
 	// DeviceEnumeration
 	//-------------------------------------------------------------------------
 
+	/**
+	 Checks whether the given display mode needs to be rejected for the engine.
+
+	 @param[in]		display_mode_desc
+					A pointer to a display mode descriptor.
+	 @return		@c true if the given display mode needs to be rejected  for the engine.
+					@c false otherwise.
+	 */
+	inline bool RejectDisplayMode(const DXGI_MODE_DESC1 *display_mode_desc) {
+		return display_mode_desc->Height < 480;
+	}
+
 	HRESULT DeviceEnumeration::Enumerate() {
 		// In case of multiple of calls to Enumerate.
 		SAFE_RELEASE(m_adapter);
@@ -51,6 +63,7 @@ namespace mage {
 		
 		// Create the display modes linked list.
 		m_display_modes = list< DXGI_MODE_DESC1 >();
+		m_selected_diplay_mode = nullptr;
 		// Load the settings script.
 		m_settings_script = new VariableScript("DisplaySettings.mage");
 
@@ -135,7 +148,7 @@ namespace mage {
 			// Enumerate the DXGI_MODE_DESCs.
 			for (UINT mode = 0; mode < nb_display_modes; ++mode) {
 				// Reject small display modes.
-				if (dxgi_mode_descs[mode].Height < 480) {
+				if (RejectDisplayMode(&dxgi_mode_descs[mode])) {
 					continue;
 				}
 
@@ -237,7 +250,7 @@ namespace mage {
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
 			for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-				if ((DWORD)MAKELONG(it->Width, it->Height) == (DWORD)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION))) {
+				if ((size_t)MAKELONG(it->Width, it->Height) == (size_t)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION))) {
 					const UINT refresh_rate = (UINT)round(it->RefreshRate.Numerator / (float)it->RefreshRate.Denominator);
 					swprintf_s(buffer, _countof(buffer), L"%d Hz", refresh_rate);
 					if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
@@ -255,26 +268,47 @@ namespace mage {
 			switch (LOWORD(wParam)) {
 			case IDOK: {
 				// Store the details of the selected display mode.
-				ZeroMemory(&m_selected_diplay_mode, sizeof(m_selected_diplay_mode));
-				m_selected_diplay_mode.Width					= LOWORD(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION)));
-				m_selected_diplay_mode.Height					= HIWORD(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION)));
-				m_selected_diplay_mode.RefreshRate.Numerator	= LOWORD(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE)));
-				m_selected_diplay_mode.RefreshRate.Denominator	= HIWORD(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE)));
-				m_selected_diplay_mode.Format					= (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_DISPLAY_FORMAT));
-				m_windowed										= IsDlgButtonChecked(hwndDlg, IDC_WINDOWED) ? true : false;
-				m_vsync											= IsDlgButtonChecked(hwndDlg, IDC_VSYNC) ? true : false;
+				const size_t resolution   = (size_t)(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION)));
+				const size_t refresh_rate = (size_t)(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE)));
+				const DXGI_FORMAT format = (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_DISPLAY_FORMAT));
+				for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+					if ((size_t)MAKELONG(it->Width, it->Height) != resolution) {
+						continue;
+					}
+					if ((size_t)MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator) != refresh_rate) {
+						continue;
+					}
+					if (it->Format != format) {
+						continue;
+					}
+					m_selected_diplay_mode = &(*it);
+					break;
+				}
+				if (!m_selected_diplay_mode) {
+					Error("Selected display mode retrieval failed.");
+					
+					// Destroy the settings script.
+					delete m_settings_script;
+
+					// Close the hwndDlg.
+					EndDialog(hwndDlg, IDCANCEL);
+
+					return true;
+				}
+				m_windowed = IsDlgButtonChecked(hwndDlg, IDC_WINDOWED) ? true : false;
+				m_vsync	   = IsDlgButtonChecked(hwndDlg, IDC_VSYNC)    ? true : false;
 
 				// Get the selected index from each combo box.
-				const int bpp			= ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_DISPLAY_FORMAT));
-				const int resolution	= ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_RESOLUTION));
-				const int refresh_rate	= ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
+				const int bpp_index			 = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_DISPLAY_FORMAT));
+				const int resolution_index	 = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_RESOLUTION));
+				const int refresh_rate_index = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
 
 				// Set all the settings in the script.
 				m_settings_script->SetValueOfVariable("windowed",	new bool(m_windowed));
 				m_settings_script->SetValueOfVariable("vsync",		new bool(m_vsync));
-				m_settings_script->SetValueOfVariable("bpp",		new int(bpp));
-				m_settings_script->SetValueOfVariable("resolution", new int(resolution));
-				m_settings_script->SetValueOfVariable("refresh",	new int(refresh_rate));
+				m_settings_script->SetValueOfVariable("bpp",		new int(bpp_index));
+				m_settings_script->SetValueOfVariable("resolution", new int(resolution_index));
+				m_settings_script->SetValueOfVariable("refresh",	new int(refresh_rate_index));
 				// Save all the settings out to the settings script.
 				m_settings_script->ExportScript();
 				// Destroy the settings script.
@@ -297,7 +331,7 @@ namespace mage {
 			case IDC_COLOUR_DEPTH: {
 				if (CBN_SELCHANGE == HIWORD(wParam)) {
 					wchar_t buffer[16];
-					const DWORD selected_resolution = (DWORD)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION));
+					const size_t selected_resolution = (size_t)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION));
 
 					// Update the resolution combo box.
 					// Remove all items from the list box and edit control of a combo box.
@@ -307,7 +341,7 @@ namespace mage {
 							swprintf_s(buffer, _countof(buffer), L"%d x %d", it->Width, it->Height);
 							if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
 								ComboBoxAdd(hwndDlg, IDC_RESOLUTION, (void*)((size_t)MAKELONG(it->Width, it->Height)), buffer);
-								if (selected_resolution == (DWORD)MAKELONG(it->Width, it->Height)) {
+								if (selected_resolution == (size_t)MAKELONG(it->Width, it->Height)) {
 									ComboBoxSelect(hwndDlg, IDC_RESOLUTION, (void*)((size_t)selected_resolution));
 								}
 							}
@@ -322,18 +356,18 @@ namespace mage {
 			case IDC_RESOLUTION: {
 				if (CBN_SELCHANGE == HIWORD(wParam)) {
 					wchar_t buffer[16];
-					DWORD selected_refresh_rate = (DWORD)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE));
+					const size_t selected_refresh_rate = (size_t)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE));
 
 					// Update the refresh rate combo box.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
 					for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-						if ((DWORD)MAKELONG(it->Width, it->Height) == (DWORD)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION))) {
+						if ((size_t)MAKELONG(it->Width, it->Height) == (size_t)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION))) {
 							const UINT refresh_rate = (UINT)round(it->RefreshRate.Numerator / (float)it->RefreshRate.Denominator);
 							swprintf_s(buffer, _countof(buffer), L"%d Hz", refresh_rate);
 							if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
 								ComboBoxAdd(hwndDlg, IDC_REFRESH_RATE, (void*)((size_t)MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator)), buffer);
-								if (selected_refresh_rate == (DWORD)MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator)) {
+								if (selected_refresh_rate == (size_t)MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator)) {
 									ComboBoxSelect(hwndDlg, IDC_REFRESH_RATE, (void*)((size_t)selected_refresh_rate));
 								}
 							}

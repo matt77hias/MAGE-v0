@@ -88,7 +88,7 @@ namespace mage {
 			// Check whether the user wants to switch between windowed and full screen mode.
 			if (wParam == VK_RETURN) {
 				g_engine->SetModeSwitchFlag(true);
-				return 0;
+				break;
 			}
 			
 			// Calls the default window procedure to provide default processing 

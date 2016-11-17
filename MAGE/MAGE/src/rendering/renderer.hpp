@@ -56,6 +56,9 @@ namespace mage {
 			return m_fullscreen == IsWindowed();
 		}
 
+		HRESULT CreateTexture2D(const D3D11_TEXTURE2D_DESC *desc, const D3D11_SUBRESOURCE_DATA *init_data, ID3D11Texture2D **texture);
+		HRESULT CreateBuffer(const D3D11_BUFFER_DESC *buffer_desc, const D3D11_SUBRESOURCE_DATA *init_data, ID3D11Buffer **texture);
+
 	protected:
 
 		/**

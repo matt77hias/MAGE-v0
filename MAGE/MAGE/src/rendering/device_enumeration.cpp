@@ -255,6 +255,7 @@ namespace mage {
 			switch (LOWORD(wParam)) {
 			case IDOK: {
 				// Store the details of the selected display mode.
+				ZeroMemory(&m_selected_diplay_mode, sizeof(m_selected_diplay_mode));
 				m_selected_diplay_mode.Width					= LOWORD(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION)));
 				m_selected_diplay_mode.Height					= HIWORD(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION)));
 				m_selected_diplay_mode.RefreshRate.Numerator	= LOWORD(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE)));

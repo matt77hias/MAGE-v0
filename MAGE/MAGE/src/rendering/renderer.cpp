@@ -300,13 +300,14 @@ namespace mage {
 		m_device_context2->ClearDepthStencilView(m_depth_stencil_view, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 		// Present the back buffer to the front buffer.
-		m_swap_chain2->Present(0, 0);
+		const HRESULT hr = m_swap_chain2->Present(0, 0);
 	}
 
 	void Renderer::SwitchMode(bool toggle) {
 		// Release the swap chain buffers.
-		m_device_context2->ClearState();
 		m_render_target_view->Release();
+		m_depth_stencil->Release();
+		m_depth_stencil_view->Release();
 
 		BOOL current = false;
 		if (toggle) {
@@ -317,9 +318,20 @@ namespace mage {
 
 		// Recreate the swap chain buffers.
 		m_swap_chain2->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+		
 		SetupRenderTargetView();
-
+		SetupDepthStencilView();
+		m_device_context2->OMSetRenderTargets(1, &m_render_target_view, m_depth_stencil_view);
+	
 		m_swap_chain2->GetFullscreenState(&current, nullptr);
 		m_fullscreen = (current != 0);
+	}
+
+	HRESULT Renderer::CreateTexture2D(const D3D11_TEXTURE2D_DESC *texture_desc, const D3D11_SUBRESOURCE_DATA *init_data, ID3D11Texture2D **texture) {
+		return m_device2->CreateTexture2D(texture_desc, init_data, texture);
+	}
+
+	HRESULT Renderer::CreateBuffer(const D3D11_BUFFER_DESC *buffer_desc, const D3D11_SUBRESOURCE_DATA *init_data, ID3D11Buffer **texture) {
+		return m_device2->CreateBuffer(buffer_desc, init_data, texture);
 	}
 }

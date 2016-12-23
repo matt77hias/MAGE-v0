@@ -38,7 +38,7 @@ namespace mage {
 	 				The pointer is a multiple of the alignment of 64 bytes.
 	*/
 	template <typename T>
-	inline T *AllocAligned(uint32_t count) {
+	inline T *AllocAligned(size_t count) {
 		return (T *)AllocAligned(count * sizeof(T));
 	}
 

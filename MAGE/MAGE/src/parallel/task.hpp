@@ -1,48 +1,25 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	/**
-	 A class of tasks.
-	 */
-	class Task {
+class Task {
 
 	public:
 
-		/**
-		 Destructs this task.
-		 */
 		virtual ~Task() {}
 
-		/*
-		 Runs this task.
-		 */
 		virtual void Run() = 0;
 	};
 
-	/**
-	 Initialize the tasks.
-	 */
-	void TasksInit();
+void TasksInit();
 
-	/**
-	 Clean the tasks.
-	 */
-	void TasksCleanup();
+void TasksCleanup();
 
-	/**
-	 Enqueues the given tasks.
+void EnqueueTasks(const vector< Task * > &tasks);
 
-	 @param[in]		tasks
-					The tasks.
-	 */
-	void EnqueueTasks(const vector<Task *> &tasks);
+void WaitForAllTasks();
 
-	/**
-	 Waits for all the tasks to finish.
-	 */
-	void WaitForAllTasks();
 }

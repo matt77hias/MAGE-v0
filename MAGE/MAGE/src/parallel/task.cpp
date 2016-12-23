@@ -25,7 +25,7 @@ namespace mage {
 	/**
 	 The task queue.
 	 */
-	static vector<Task *> task_queue;
+	static vector< Task * > task_queue;
 	
 	/**
 	 The worker semaphore for being able to work.
@@ -143,7 +143,7 @@ namespace mage {
 		}
 	}
 
-	void EnqueueTasks(const vector<Task *> &tasks) {
+	void EnqueueTasks(const vector< Task * > &tasks) {
 		if (!threads) {
 			// Initialize tasks.
 			TasksInit();

@@ -20,4 +20,14 @@ namespace mage {
 	using std::list;
 }
 
+#include <map>
+namespace mage {
+	using std::map;
+}
+
+#include <utility>
+namespace mage {
+	using std::pair;
+}
+
 #pragma endregion

@@ -77,15 +77,36 @@ namespace mage {
 		/**
 		 Constructs a device enumeration.
 		 */
-		DeviceEnumeration() : m_adapter(nullptr), m_output(nullptr) {}
+		DeviceEnumeration() : m_adapter(nullptr), m_output(nullptr),
+			m_settings_script(nullptr), m_selected_diplay_mode(nullptr) {}
 
 		/**
 		 Destructs this device enumeration.
 		 */
 		~DeviceEnumeration() {
-			SAFE_RELEASE(m_adapter);
-			SAFE_RELEASE(m_output);
+			UninitializeAdapterAndOutput();
 		}
+
+		/**
+		 Initializes the adapter and the output of this device enumeration.
+
+		 @return		A success/error value.
+		 */
+		HRESULT InitializeAdapterAndOutput();
+
+		/**
+		 Uninitializes the adapter and the output of this device enumeration.
+
+		 @return		A success/error value.
+		 */
+		HRESULT UninitializeAdapterAndOutput();
+
+		/**
+		 Initializes the display modes of this device enumeration.
+
+		 @return		A success/error value.
+		 */
+		HRESULT InitializeDisplayModes();
 
 		/**
 		 Enumerates the available display modes on the adapter output of

@@ -57,86 +57,90 @@ namespace mage {
 		return display_mode_desc->Height < 480;
 	}
 
-	HRESULT DeviceEnumeration::Enumerate() {
-		// In case of multiple of calls to Enumerate.
-		SAFE_RELEASE(m_adapter);
-		SAFE_RELEASE(m_output);
-		
-		// Create the display modes linked list.
-		m_display_modes = list< DXGI_MODE_DESC1 >();
-		m_selected_diplay_mode = nullptr;
-		// Load the settings script.
-		m_settings_script = new VariableScript("DisplaySettings.mage");
+	HRESULT DeviceEnumeration::InitializeAdapterAndOutput() {
+		// Get the IDXGIFactory3.
+		IDXGIFactory3 *factory = nullptr;
+		const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)&factory);
+		if (FAILED(result_factory)) {
+			return E_FAIL;
+		}
 
-		// Get the IDXGIAdapter2 and its primary IDXGIOutput2.
-		{
-			// Get the IDXGIFactory3.
-			IDXGIFactory3 *factory = nullptr;
-			const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)&factory);
-			if (result_factory) {
-				Error("IDXGIFactory3 creation failed: %ld", result_factory);
+		// Get the IDXGIAdapter1 and its primary IDXGIOutput.
+		// The IDXGIAdapter represents a display subsystem (including one or more GPUs, DACs and video memory).
+		// The IDXGIOutput represents an adapter output (such as a monitor).
+		IDXGIAdapter1 *adapter1 = nullptr;
+		IDXGIOutput *output = nullptr;
+		SIZE_T max_vram = 0;
+		for (UINT i = 0; factory->EnumAdapters1(i, &adapter1) != DXGI_ERROR_NOT_FOUND; ++i) {
+
+			// Get the IDXGIAdapter2.
+			IDXGIAdapter2 *adapter2 = nullptr;
+			const HRESULT result_adapter2 = adapter1->QueryInterface(__uuidof(IDXGIAdapter2), (void **)&adapter2);
+			// Release the IDXGIAdapter1.
+			adapter1->Release();
+			if (FAILED(result_adapter2)) {
+				factory->Release();
 				return E_FAIL;
 			}
 
-			// Get the IDXGIAdapter1 and its primary IDXGIOutput.
-			// The IDXGIAdapter represents a display subsystem (including one or more GPUs, DACs and video memory).
-			// The IDXGIOutput represents an adapter output (such as a monitor).
-			IDXGIAdapter1 *adapter1 = nullptr;
-			IDXGIOutput   *output   = nullptr;
-			SIZE_T max_vram = 0;
-			for (UINT i = 0; factory->EnumAdapters1(i, &adapter1) != DXGI_ERROR_NOT_FOUND; ++i) {
-				
-				// Get the IDXGIAdapter2.
-				IDXGIAdapter2 *adapter2 = nullptr;
-				const HRESULT result_adapter2 = adapter1->QueryInterface(__uuidof(IDXGIAdapter2), (void **)&adapter2);
-				// Release the IDXGIAdapter1.
-				adapter1->Release();
-				if (FAILED(result_adapter2)) {
-					factory->Release();
-					Error("IDXGIAdapter2 creation failed: %ld", result_adapter2);
-					return E_FAIL;
-				}
-
-				// Get the primary IDXGIOutput.
-				const HRESULT result_output = adapter2->EnumOutputs(0, &output);
-				if (FAILED(result_output)) {
-					adapter2->Release();
-					continue;
-				}
-				// Get the IDXGIOutput2.
-				IDXGIOutput2 *output2 = nullptr;
-				const HRESULT result_output2 = output->QueryInterface(__uuidof(IDXGIOutput2), (void **)&output2);
-				// Release the IDXGIOutput;
-				output->Release();
-				if (FAILED(result_output2)) {
-					Error("IDXGIOutput2 creation failed: %ld", result_output2);
-					return E_FAIL;
-				}
-
-				DXGI_ADAPTER_DESC2 desc;
-				adapter2->GetDesc2(&desc);
-				const SIZE_T vram = desc.DedicatedVideoMemory;
-				if (vram <= max_vram) {
-					output2->Release();
-					adapter2->Release();
-					continue;
-				}
-
-				SAFE_RELEASE(m_adapter);
-				SAFE_RELEASE(m_output);
-				m_adapter = adapter2;
-				m_output = output2;
-				max_vram = vram;
+			// Get the primary IDXGIOutput.
+			const HRESULT result_output = adapter2->EnumOutputs(0, &output);
+			if (FAILED(result_output)) {
+				adapter2->Release();
+				continue;
+			}
+			// Get the IDXGIOutput2.
+			IDXGIOutput2 *output2 = nullptr;
+			const HRESULT result_output2 = output->QueryInterface(__uuidof(IDXGIOutput2), (void **)&output2);
+			// Release the IDXGIOutput.
+			output->Release();
+			if (FAILED(result_output2)) {
+				adapter2->Release();
+				factory->Release();
+				return E_FAIL;
 			}
 
-			// Release the IDXGIFactory3.
-			factory->Release();
+			// Get the DXGI_ADAPTER_DESC2.
+			DXGI_ADAPTER_DESC2 desc;
+			const HRESULT result_adapter_desc = adapter2->GetDesc2(&desc);
+			if (FAILED(result_adapter_desc)) {
+				output2->Release();
+				adapter2->Release();
+				factory->Release();
+				return E_FAIL;
+			}
+
+			const SIZE_T vram = desc.DedicatedVideoMemory;
+			if (vram <= max_vram) {
+				output2->Release();
+				adapter2->Release();
+				continue;
+			}
+
+			SAFE_RELEASE(m_adapter);
+			SAFE_RELEASE(m_output);
+			m_adapter = adapter2;
+			m_output = output2;
+			max_vram = vram;
 		}
+
+		// Release the IDXGIFactory3.
+		factory->Release();
+	}
+
+	HRESULT DeviceEnumeration::UninitializeAdapterAndOutput() {
+		SAFE_RELEASE(m_output);
+		SAFE_RELEASE(m_adapter);
+	}
 	
-		// Get the display modes.
+	HRESULT DeviceEnumeration::InitializeDisplayModes() {
+		// Create the display modes linked list.
+		m_display_modes = list< DXGI_MODE_DESC1 >();
+		m_selected_diplay_mode = nullptr;
+		
+		// Get the DXGI_MODE_DESCs. 
 		for (size_t i = 0; i < _countof(g_pixel_formats); ++i) {
-			
-			// Get the DXGI_MODE_DESCs.
+
 			// The DXGI_MODE_DESC describes a display mode and whether the display mode supports stereo.
 			const UINT flags = DXGI_ENUM_MODES_INTERLACED;
 			UINT nb_display_modes;
@@ -157,9 +161,19 @@ namespace mage {
 				m_display_modes.push_back(dxgi_mode_descs[mode]);
 			}
 
-			// Delete the DXGI_MODE_DESCs.
 			delete[] dxgi_mode_descs;
 		}
+	}
+
+	HRESULT DeviceEnumeration::Enumerate() {
+		// In case of multiple of calls to Enumerate.
+		UninitializeAdapterAndOutput();
+
+		// Load the settings script.
+		m_settings_script = new VariableScript("DisplaySettings.mage");
+
+		InitializeAdapterAndOutput();
+		InitializeDisplayModes();
 
 		// Creates a modal dialog box from a dialog box template resource.
 		// 1. A handle to the module which contains the dialog box template. If this parameter is nullptr, then the current executable is used.

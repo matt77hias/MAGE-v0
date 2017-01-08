@@ -10,7 +10,7 @@ namespace mage {
 
 	 @return		The number of system cores (i.e. logical processors).
 	 */
-	inline uint32_t NumberOfSystemCores() {
+	inline size_t NumberOfSystemCores() {
 		// Structure containing information about the current computer system. 
 		SYSTEM_INFO system_info;
 		// Retrieve information about the current system.
@@ -29,5 +29,6 @@ namespace mage {
 #include "parallel\atomic.hpp"
 #include "parallel\lock.hpp"
 #include "parallel\task.hpp"
+#include "parallel\parallel_for.hpp"
 
 #pragma endregion

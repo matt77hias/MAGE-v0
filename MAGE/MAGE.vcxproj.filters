@@ -195,6 +195,9 @@
     <ClInclude Include="MAGE\src\input\input_manager.hpp">
       <Filter>Header Files\input</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\parallel\parallel_for.hpp">
+      <Filter>Header Files\parallel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -244,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\input\input_manager.cpp">
       <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\parallel\parallel_for.cpp">
+      <Filter>Source Files\parallel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

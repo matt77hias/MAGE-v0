@@ -44,6 +44,7 @@
     <ClInclude Include="MAGE\src\parallel\atomic.hpp" />
     <ClInclude Include="MAGE\src\parallel\lock.hpp" />
     <ClInclude Include="MAGE\src\parallel\parallel.hpp" />
+    <ClInclude Include="MAGE\src\parallel\parallel_for.hpp" />
     <ClInclude Include="MAGE\src\parallel\task.hpp" />
     <ClInclude Include="MAGE\src\rendering\device_enumeration.hpp" />
     <ClInclude Include="MAGE\src\rendering\font.hpp" />
@@ -70,6 +71,7 @@
     <ClCompile Include="MAGE\src\logging\progressreporter.cpp" />
     <ClCompile Include="MAGE\src\logging\timer.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
+    <ClCompile Include="MAGE\src\parallel\parallel_for.cpp" />
     <ClCompile Include="MAGE\src\parallel\task.cpp" />
     <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp" />
     <ClCompile Include="MAGE\src\rendering\font.cpp" />

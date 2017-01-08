@@ -15,18 +15,6 @@ namespace mage {
 	public:
 
 		/**
-		 Recreates the swap chain buffers and switches the mode of this renderer.
-		 Windowed mode is switched to full screen mode and vice versa.
-
-		 @return		toggle
-						If @c true only the swap chain buffers will be recreated
-						and no mode switch will occurs.
-						If @c false both the swap chain buffers will be replaced
-						and a mode switch will occur.
-		 */
-		void SwitchMode(bool toggle);
-
-		/**
 		 Checks whether this renderer renders in windowed mode.
 
 		 @return		@c true if this renderer renders in windowed mode.
@@ -49,15 +37,24 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this renderer lost its full screen mode 
-		 (due to for example ALT + TAB).
+		 Checks whether this renderer lost its mode, i.e. the current mode of this renderer
+		 differs from the cyrrent mode of its swap chain (due to for example ALT + TAB).
 		 */
-		bool LostFullScreen() const {
+		bool LostMode() const {
 			return m_fullscreen == IsWindowed();
 		}
 
-		HRESULT CreateTexture2D(const D3D11_TEXTURE2D_DESC *desc, const D3D11_SUBRESOURCE_DATA *init_data, ID3D11Texture2D **texture);
-		HRESULT CreateBuffer(const D3D11_BUFFER_DESC *buffer_desc, const D3D11_SUBRESOURCE_DATA *init_data, ID3D11Buffer **texture);
+		/**
+		 Recreates the swap chain buffers and switches the mode of this renderer.
+		 Windowed mode is switched to full screen mode and vice versa.
+
+		 @return		toggle
+						If @c true only the swap chain buffers will be recreated
+						to match the current mode of the swap chain and no mode switch will occurs.
+						If @c false both the swap chain buffers will be replaced
+						and a mode switch will occur.
+		 */
+		void SwitchMode(bool toggle);
 
 	protected:
 

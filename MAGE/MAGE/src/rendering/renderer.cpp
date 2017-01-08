@@ -13,7 +13,7 @@
 namespace mage {
 
 	Renderer::Renderer(HWND hwindow) : 
-		Loadable(), m_hwindow(hwindow),
+		Loadable(), m_hwindow(hwindow), m_fullscreen(false),
 		m_render_target_view(nullptr), m_swap_chain2(nullptr), m_device_context2(nullptr), m_device2(nullptr) {
 
 		const HRESULT result_renderer = InitializeRenderer();
@@ -45,12 +45,6 @@ namespace mage {
 			Error("Swap chain setup failed: %ld.", result_swapchain);
 			return result_swapchain;
 		}
-
-		// Set mode (full screen or windowed).
-		BOOL current = g_device_enumeration->IsFullScreen();
-		m_swap_chain2->SetFullscreenState(current, nullptr);
-		m_swap_chain2->GetFullscreenState(&current, nullptr);
-		m_fullscreen = (current != 0);
 
 		// Setup the ID3D11RenderTargetView
 		const HRESULT result_render_target_view = SetupRenderTargetView();
@@ -195,9 +189,14 @@ namespace mage {
 		swap_chain_desc.BufferCount        = 1;												// The number of buffers in the swap chain.
 		swap_chain_desc.Flags              = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
+		// Create a DXGI_SWAP_CHAIN_FULLSCREEN_DESC.
+		DXGI_SWAP_CHAIN_FULLSCREEN_DESC swap_chain_fullscreen_desc;
+		ZeroMemory(&swap_chain_fullscreen_desc, sizeof(swap_chain_fullscreen_desc));
+		swap_chain_fullscreen_desc.Windowed = TRUE;
+
 		// Get the IDXGISwapChain1.
 		IDXGISwapChain1 *swap_chain1;
-		const HRESULT result_swap_chain1 = dxgi_factory3->CreateSwapChainForHwnd(m_device2, m_hwindow, &swap_chain_desc, nullptr, nullptr, &swap_chain1);
+		const HRESULT result_swap_chain1 = dxgi_factory3->CreateSwapChainForHwnd(m_device2, m_hwindow, &swap_chain_desc, &swap_chain_fullscreen_desc, nullptr, &swap_chain1);
 		// Release the IDXGIFactory3.
 		dxgi_factory3->Release();
 		if (FAILED(result_swap_chain1)) {
@@ -212,6 +211,9 @@ namespace mage {
 			Error("IDXGISwapChain2 creation failed: %ld.", result_swap_chain2);
 			return result_swap_chain2;
 		}
+
+		// Set to windowed mode.
+		m_swap_chain2->SetFullscreenState(FALSE, nullptr);
 
 		return S_OK;
 	}
@@ -305,9 +307,9 @@ namespace mage {
 
 	void Renderer::SwitchMode(bool toggle) {
 		// Release the swap chain buffers.
-		m_render_target_view->Release();
-		m_depth_stencil->Release();
-		m_depth_stencil_view->Release();
+		SAFE_RELEASE(m_render_target_view);
+		SAFE_RELEASE(m_depth_stencil);
+		SAFE_RELEASE(m_depth_stencil_view);
 
 		BOOL current = false;
 		if (toggle) {
@@ -318,20 +320,11 @@ namespace mage {
 
 		// Recreate the swap chain buffers.
 		m_swap_chain2->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
-		
 		SetupRenderTargetView();
 		SetupDepthStencilView();
 		m_device_context2->OMSetRenderTargets(1, &m_render_target_view, m_depth_stencil_view);
 	
 		m_swap_chain2->GetFullscreenState(&current, nullptr);
 		m_fullscreen = (current != 0);
-	}
-
-	HRESULT Renderer::CreateTexture2D(const D3D11_TEXTURE2D_DESC *texture_desc, const D3D11_SUBRESOURCE_DATA *init_data, ID3D11Texture2D **texture) {
-		return m_device2->CreateTexture2D(texture_desc, init_data, texture);
-	}
-
-	HRESULT Renderer::CreateBuffer(const D3D11_BUFFER_DESC *buffer_desc, const D3D11_SUBRESOURCE_DATA *init_data, ID3D11Buffer **texture) {
-		return m_device2->CreateBuffer(buffer_desc, init_data, texture);
 	}
 }

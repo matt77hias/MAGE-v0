@@ -68,51 +68,51 @@ namespace mage {
 			m_texture_height *= 2;
 		}
 
-		// Create the texture descriptor.
-		D3D11_TEXTURE2D_DESC texture_desc;
-		ZeroMemory(&texture_desc, sizeof(texture_desc));
-		texture_desc.Width	            = m_texture_width;				// Texture width (in texels).
-		texture_desc.Height	            = m_texture_height;				// Texture height (in texels).
-		texture_desc.MipLevels          = 1;							// The maximum number of mipmap levels in the texture.
-		texture_desc.ArraySize          = 1;							// Number of textures in the texture array.
-		texture_desc.Format             = DXGI_FORMAT_B4G4R4A4_UNORM;	// Texture format.
-		texture_desc.SampleDesc.Count   = 1;							// The number of multisamples per pixel.
-		texture_desc.SampleDesc.Quality = 0;							// The image quality level. (lowest)
-		texture_desc.Usage              = D3D11_USAGE_DEFAULT;			// Value that identifies how the texture is to be read from and written to.
-		texture_desc.BindFlags          = D3D11_BIND_CONSTANT_BUFFER;	// Flags for binding to pipeline stages. 
-		texture_desc.CPUAccessFlags     = 0;							// No CPU access is necessary.
-		texture_desc.MiscFlags          = 0;							// Flags that identify other, less common resource options.
-		// Create the texture.
-		const HRESULT result_texture = g_engine->GetRenderer()->CreateTexture2D(&texture_desc, nullptr, &m_texture);
-		if (FAILED(result_texture)) {
-			goto End;
-		}
+		//// Create the texture descriptor.
+		//D3D11_TEXTURE2D_DESC texture_desc;
+		//ZeroMemory(&texture_desc, sizeof(texture_desc));
+		//texture_desc.Width	            = m_texture_width;				// Texture width (in texels).
+		//texture_desc.Height	            = m_texture_height;				// Texture height (in texels).
+		//texture_desc.MipLevels          = 1;							// The maximum number of mipmap levels in the texture.
+		//texture_desc.ArraySize          = 1;							// Number of textures in the texture array.
+		//texture_desc.Format             = DXGI_FORMAT_B4G4R4A4_UNORM;	// Texture format.
+		//texture_desc.SampleDesc.Count   = 1;							// The number of multisamples per pixel.
+		//texture_desc.SampleDesc.Quality = 0;							// The image quality level. (lowest)
+		//texture_desc.Usage              = D3D11_USAGE_DEFAULT;			// Value that identifies how the texture is to be read from and written to.
+		//texture_desc.BindFlags          = D3D11_BIND_CONSTANT_BUFFER;	// Flags for binding to pipeline stages. 
+		//texture_desc.CPUAccessFlags     = 0;							// No CPU access is necessary.
+		//texture_desc.MiscFlags          = 0;							// Flags that identify other, less common resource options.
+		//// Create the texture.
+		//const HRESULT result_texture = g_engine->GetRenderer()->CreateTexture2D(&texture_desc, nullptr, &m_texture);
+		//if (FAILED(result_texture)) {
+		//	goto End;
+		//}
 
-		// Prepare the bitmap.
-		unsigned long *bitmap_bits;
-		BITMAPINFO bitmap_info;
-		ZeroMemory(&bitmap_info.bmiHeader, sizeof(BITMAPINFOHEADER));
-		bitmap_info.bmiHeader.biSize        = sizeof(BITMAPINFOHEADER);
-		bitmap_info.bmiHeader.biWidth       =  (int)m_texture_width;
-		bitmap_info.bmiHeader.biHeight      = -(int)m_texture_height;
-		bitmap_info.bmiHeader.biPlanes      = 1;
-		bitmap_info.bmiHeader.biCompression = BI_RGB;
-		bitmap_info.bmiHeader.biBitCount    = 32;
+		//// Prepare the bitmap.
+		//unsigned long *bitmap_bits;
+		//BITMAPINFO bitmap_info;
+		//ZeroMemory(&bitmap_info.bmiHeader, sizeof(BITMAPINFOHEADER));
+		//bitmap_info.bmiHeader.biSize        = sizeof(BITMAPINFOHEADER);
+		//bitmap_info.bmiHeader.biWidth       =  (int)m_texture_width;
+		//bitmap_info.bmiHeader.biHeight      = -(int)m_texture_height;
+		//bitmap_info.bmiHeader.biPlanes      = 1;
+		//bitmap_info.bmiHeader.biCompression = BI_RGB;
+		//bitmap_info.bmiHeader.biBitCount    = 32;
 
-		// Create a bitmap for the font.
-		bitmap = CreateDIBSection(hDC, &bitmap_info, DIB_RGB_COLORS, (void**)&bitmap_bits, nullptr, 0);
+		//// Create a bitmap for the font.
+		//bitmap = CreateDIBSection(hDC, &bitmap_info, DIB_RGB_COLORS, (void**)&bitmap_bits, nullptr, 0);
 
-		old_bitmap = SelectObject(hDC, bitmap);
+		//old_bitmap = SelectObject(hDC, bitmap);
 
-		// Set the text properties.
-		SetTextColor(hDC, RGB(255, 255, 255));
-		SetBkColor(hDC, 0x00000000);
-		SetTextAlign(hDC, TA_TOP);
+		//// Set the text properties.
+		//SetTextColor(hDC, RGB(255, 255, 255));
+		//SetBkColor(hDC, 0x00000000);
+		//SetTextAlign(hDC, TA_TOP);
 
-		// Prepare the font by drawing the characters onto the bitmap.
-		if (!PrepareFont(hDC)) {
-			goto End;
-		}
+		//// Prepare the font by drawing the characters onto the bitmap.
+		//if (!PrepareFont(hDC)) {
+		//	goto End;
+		//}
 
 		// Lock the surface and write the alpha values for the set pixels.
 		/*D3DLOCKED_RECT d3dlr;
@@ -134,18 +134,18 @@ namespace mage {
 			dst_row += d3dlr.Pitch;
 		}*/
 
-		// Describe the buffer resource.
-		D3D11_BUFFER_DESC buffer_desc;
-		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
-		buffer_desc.ByteWidth      = 1020 * sizeof(TLVertex);  // Size of the buffer in bytes.
-		buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;	   // How the buffer is expected to be read from and written to.
-		buffer_desc.BindFlags      = D3D11_BIND_VERTEX_BUFFER; // How the buffer will be bound to the pipeline.
-		buffer_desc.CPUAccessFlags = 0;				           // No CPU access is necessary.
-		// Create the vertex buffer.
-		const HRESULT result_vertex_buffer = g_engine->GetRenderer()->CreateBuffer(&buffer_desc, nullptr, &m_vertex_buffer);
-		if (FAILED(result_vertex_buffer)) {
-			goto End;
-		}
+		//// Describe the buffer resource.
+		//D3D11_BUFFER_DESC buffer_desc;
+		//ZeroMemory(&buffer_desc, sizeof(buffer_desc));
+		//buffer_desc.ByteWidth      = 1020 * sizeof(TLVertex);  // Size of the buffer in bytes.
+		//buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;	   // How the buffer is expected to be read from and written to.
+		//buffer_desc.BindFlags      = D3D11_BIND_VERTEX_BUFFER; // How the buffer will be bound to the pipeline.
+		//buffer_desc.CPUAccessFlags = 0;				           // No CPU access is necessary.
+		//// Create the vertex buffer.
+		//const HRESULT result_vertex_buffer = g_engine->GetRenderer()->CreateBuffer(&buffer_desc, nullptr, &m_vertex_buffer);
+		//if (FAILED(result_vertex_buffer)) {
+		//	goto End;
+		//}
 
 
 

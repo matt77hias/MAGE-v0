@@ -158,11 +158,13 @@ namespace mage {
 			// Uninitialise the COM.
 			CoUninitialize();
 		}
+		
 		// Unitialize the different systems.
 		const HRESULT result_system = UninitializeSystems();
 		if (FAILED(result_system)) {
 			Error("Systems uninitialization failed: %ld.", result_system);
 		}
+		
 		// Unintialize the window.
 		const HRESULT result_window = UninitializeWindow();
 		if (FAILED(result_window)) {
@@ -212,6 +214,7 @@ namespace mage {
 		//-----------------------------------------------------------------------------
 		// Structure ontaining window class information. 
 		WNDCLASSEX wcex;
+		ZeroMemory(&wcex, sizeof(wcex));
 		// The size, in bytes, of this structure.
 		wcex.cbSize = sizeof(WNDCLASSEX);
 		// The class style(s)
@@ -245,6 +248,7 @@ namespace mage {
 		// A pointer to a null-terminated string or is an atom.
 		// If lpszClassName is a string, it specifies the window class name.
 		wcex.lpszClassName = L"WindowClass";
+		
 		// Register a window class
 		if (!RegisterClassEx(&wcex)) {
 			Error("Registering windows class failed.");
@@ -272,8 +276,8 @@ namespace mage {
 		AdjustWindowRect(&rectangle, WS_OVERLAPPEDWINDOW, FALSE);
 
 		// Creates the window and retrieve a handle to it.
-		m_hwindow = CreateWindow(L"WindowClass", m_setup->m_name.c_str(), WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
-			CW_USEDEFAULT, CW_USEDEFAULT, rectangle.right - rectangle.left, rectangle.bottom - rectangle.top, nullptr, nullptr, m_setup->m_hinstance, nullptr);
+		m_hwindow = CreateWindow(L"WindowClass", m_setup->m_name.c_str(), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 
+			rectangle.right - rectangle.left, rectangle.bottom - rectangle.top, nullptr, nullptr, m_setup->m_hinstance, nullptr);
 
 		if (!m_hwindow) {
 			Error("Window creation failed.");
@@ -317,6 +321,7 @@ namespace mage {
 		SAFE_DELETE(m_script_manager);
 		SAFE_DELETE(m_input_manager);
 		SAFE_DELETE(m_renderer);
+		
 		return S_OK;
 	}
 
@@ -329,6 +334,10 @@ namespace mage {
 
 		// Set the specified window's show state.
 		ShowWindow(m_hwindow, nCmdShow);
+
+		if (g_device_enumeration->IsFullScreen()) {
+			m_renderer->SwitchMode(true);
+		}
 
 		// Used to retrieve details about the viewer from the application.
 		ViewerSetup viewer;
@@ -359,13 +368,15 @@ namespace mage {
 				// Check whether the user wants to make a forced exit.
 				if (m_input_manager->GetKeyboard()->GetKeyPress(DIK_F1)) {
 					PostQuitMessage(0);
+					continue;
 				}
 
 				// Handle switch between full screen and windowed mode.
-				const bool lost_full_screen = m_renderer->LostFullScreen();
-				if (m_mode_switch || lost_full_screen) {
-					m_renderer->SwitchMode(!lost_full_screen);
+				const bool lost_mode = m_renderer->LostMode();
+				if (m_mode_switch || lost_mode) {
+					m_renderer->SwitchMode(!lost_mode);
 					m_mode_switch = false;
+					continue;
 				}
 
 				// Request the viewer from the current state (if there is one).

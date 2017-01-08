@@ -273,10 +273,11 @@ namespace mage {
 		// 1. A pointer to a RECT structure.
 		// 2. The window style of the window.
 		// 3. Flag indicating whether the window has a menu.
-		AdjustWindowRect(&rectangle, WS_OVERLAPPEDWINDOW, FALSE);
+		const DWORD style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
+		AdjustWindowRect(&rectangle, style, FALSE);
 
 		// Creates the window and retrieve a handle to it.
-		m_hwindow = CreateWindow(L"WindowClass", m_setup->m_name.c_str(), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 
+		m_hwindow = CreateWindow(L"WindowClass", m_setup->m_name.c_str(), style, CW_USEDEFAULT, CW_USEDEFAULT, 
 			rectangle.right - rectangle.left, rectangle.bottom - rectangle.top, nullptr, nullptr, m_setup->m_hinstance, nullptr);
 
 		if (!m_hwindow) {

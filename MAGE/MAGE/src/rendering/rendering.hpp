@@ -55,7 +55,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering/window.hpp"
 #include "rendering/device_enumeration.hpp"
 #include "rendering/renderer.hpp"
 #include "rendering/font.hpp"

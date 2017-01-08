@@ -70,6 +70,12 @@
     <Filter Include="Header Files\texture">
       <UniqueIdentifier>{204a640f-99a9-48ae-91f8-f3a784014c52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ui">
+      <UniqueIdentifier>{5469f624-a722-4aa7-bd80-2223b4c458ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ui">
+      <UniqueIdentifier>{21c54364-7327-49d5-9a74-6e1f6a66edf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -156,9 +162,6 @@
     <ClInclude Include="MAGE\src\rendering\renderer.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\window.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\input\input.hpp">
       <Filter>Header Files\input</Filter>
     </ClInclude>
@@ -198,6 +201,12 @@
     <ClInclude Include="MAGE\src\parallel\parallel_for.hpp">
       <Filter>Header Files\parallel</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\ui\combo_box.hpp">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\ui\ui.hpp">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -230,9 +239,6 @@
     <ClCompile Include="MAGE\src\rendering\renderer.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\window.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
@@ -250,6 +256,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\parallel\parallel_for.cpp">
       <Filter>Source Files\parallel</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\ui\combo_box.cpp">
+      <Filter>Source Files\ui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

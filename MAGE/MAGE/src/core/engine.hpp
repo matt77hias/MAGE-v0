@@ -67,6 +67,7 @@ namespace mage {
 #include "parallel\parallel.hpp"
 #include "logging\logging.hpp"
 #include "memory\memory.hpp"
+#include "ui\ui.hpp"
 
 #include "math\math.hpp"
 #include "resource\resource.hpp"

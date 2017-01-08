@@ -51,7 +51,6 @@
     <ClInclude Include="MAGE\src\rendering\graphics_settings.hpp" />
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
-    <ClInclude Include="MAGE\src\rendering\window.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
@@ -61,6 +60,8 @@
     <ClInclude Include="MAGE\src\state\state_manager.hpp" />
     <ClInclude Include="MAGE\src\texture\dds_loader.hpp" />
     <ClInclude Include="MAGE\src\texture\texture.hpp" />
+    <ClInclude Include="MAGE\src\ui\combo_box.hpp" />
+    <ClInclude Include="MAGE\src\ui\ui.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />
@@ -77,9 +78,9 @@
     <ClCompile Include="MAGE\src\rendering\font.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
-    <ClCompile Include="MAGE\src\rendering\window.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
     <ClCompile Include="MAGE\src\texture\dds_loader.cpp" />
+    <ClCompile Include="MAGE\src\ui\combo_box.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>

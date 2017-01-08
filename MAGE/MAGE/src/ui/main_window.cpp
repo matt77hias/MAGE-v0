@@ -132,6 +132,7 @@ namespace mage{
 		const HRESULT result_window = UninitializeWindow();
 		if (FAILED(result_window)) {
 			Error("Window uninitialization failed: %ld.", result_window);
+			return;
 		}
 	}
 

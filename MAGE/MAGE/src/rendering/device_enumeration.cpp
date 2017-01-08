@@ -57,11 +57,23 @@ namespace mage {
 		return display_mode_desc->Height < 480;
 	}
 
+	DeviceEnumeration::DeviceEnumeration() : m_adapter(nullptr), m_output(nullptr),
+		m_settings_script(nullptr), m_selected_diplay_mode(nullptr) {}
+
+	DeviceEnumeration::~DeviceEnumeration() {
+		const HRESULT result_uninit_adapter_and_output = UninitializeAdapterAndOutput();
+		if (FAILED(result_uninit_adapter_and_output)) {
+			Error("Adapter and Output uninitialization failed: %ld.", result_uninit_adapter_and_output);
+			return;
+		}
+	}
+
 	HRESULT DeviceEnumeration::InitializeAdapterAndOutput() {
 		// Get the IDXGIFactory3.
 		IDXGIFactory3 *factory = nullptr;
 		const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)&factory);
 		if (FAILED(result_factory)) {
+			Error("IDXGIFactory3 creation failed: %ld.", result_factory);
 			return E_FAIL;
 		}
 
@@ -80,6 +92,7 @@ namespace mage {
 			adapter1->Release();
 			if (FAILED(result_adapter2)) {
 				factory->Release();
+				Error("IDXGIAdapter2 creation failed: %ld.", result_adapter2);
 				return E_FAIL;
 			}
 
@@ -97,6 +110,7 @@ namespace mage {
 			if (FAILED(result_output2)) {
 				adapter2->Release();
 				factory->Release();
+				Error("IDXGIOutput2 creation failed: %ld.", result_output2);
 				return E_FAIL;
 			}
 
@@ -107,6 +121,7 @@ namespace mage {
 				output2->Release();
 				adapter2->Release();
 				factory->Release();
+				Error("DXGI_ADAPTER_DESC2 retrieval failed: %ld.", result_adapter_desc);
 				return E_FAIL;
 			}
 
@@ -126,11 +141,15 @@ namespace mage {
 
 		// Release the IDXGIFactory3.
 		factory->Release();
+
+		return S_OK;
 	}
 
 	HRESULT DeviceEnumeration::UninitializeAdapterAndOutput() {
 		SAFE_RELEASE(m_output);
 		SAFE_RELEASE(m_adapter);
+
+		return S_OK;
 	}
 	
 	HRESULT DeviceEnumeration::InitializeDisplayModes() {
@@ -163,17 +182,34 @@ namespace mage {
 
 			delete[] dxgi_mode_descs;
 		}
+
+		return S_OK;
 	}
 
 	HRESULT DeviceEnumeration::Enumerate() {
-		// In case of multiple of calls to Enumerate.
-		UninitializeAdapterAndOutput();
+		// In case of multiple of calls to Enumerate:
+		// Unitialize the adapter and output.
+		const HRESULT result_uninit_adapter_and_output = UninitializeAdapterAndOutput();
+		if (FAILED(result_uninit_adapter_and_output)) {
+			Error("Adapter and Output uninitialization failed: %ld.", result_uninit_adapter_and_output);
+			return E_FAIL;
+		}
 
 		// Load the settings script.
 		m_settings_script = new VariableScript("DisplaySettings.mage");
 
-		InitializeAdapterAndOutput();
-		InitializeDisplayModes();
+		// Initialize the adapter and output.
+		const HRESULT result_init_adapter_and_output = InitializeAdapterAndOutput();
+		if (FAILED(result_init_adapter_and_output)) {
+			Error("Adapter and Output initialization failed: %ld.", result_init_adapter_and_output);
+			return E_FAIL;
+		}
+		// Initialize the display modes.
+		const HRESULT result_init_display_modes = InitializeDisplayModes();
+		if (FAILED(result_init_display_modes)) {
+			Error("Display modes list initialization failed: %ld.", result_init_display_modes);
+			return E_FAIL;
+		}
 
 		// Creates a modal dialog box from a dialog box template resource.
 		// 1. A handle to the module which contains the dialog box template. If this parameter is nullptr, then the current executable is used.

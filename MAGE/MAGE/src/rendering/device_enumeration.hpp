@@ -77,15 +77,12 @@ namespace mage {
 		/**
 		 Constructs a device enumeration.
 		 */
-		DeviceEnumeration() : m_adapter(nullptr), m_output(nullptr),
-			m_settings_script(nullptr), m_selected_diplay_mode(nullptr) {}
+		DeviceEnumeration();
 
 		/**
 		 Destructs this device enumeration.
 		 */
-		~DeviceEnumeration() {
-			UninitializeAdapterAndOutput();
-		}
+		~DeviceEnumeration();
 
 		/**
 		 Initializes the adapter and the output of this device enumeration.

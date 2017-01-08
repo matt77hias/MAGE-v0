@@ -75,6 +75,14 @@ namespace mage {
 		//			screen buffer in character columns and rows.
 		return buffer_info.dwSize.X;
 	}
+
+	/**
+	 Allocates a console to this engine for basic io and
+	 redirects stdin, stdout and stderr to the allocated console.
+
+	 @return		A success/error value.
+	 */
+	HRESULT InitializeConsole();
 }
 
 //-----------------------------------------------------------------------------

@@ -168,9 +168,6 @@
     <ClInclude Include="MAGE\src\rendering\rendering.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\core\engine_settings.hpp">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\core\loadable.hpp">
       <Filter>Header Files\core</Filter>
     </ClInclude>
@@ -205,6 +202,12 @@
       <Filter>Header Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\ui\ui.hpp">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\ui\main_window.hpp">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\ui\main_window_settings.hpp">
       <Filter>Header Files\ui</Filter>
     </ClInclude>
   </ItemGroup>
@@ -259,6 +262,12 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\ui\combo_box.cpp">
       <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\ui\main_window.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\logging\logging.cpp">
+      <Filter>Source Files\logging</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

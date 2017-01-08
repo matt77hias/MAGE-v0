@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp" />
     <ClInclude Include="MAGE\src\core\engine.hpp" />
-    <ClInclude Include="MAGE\src\core\engine_settings.hpp" />
     <ClInclude Include="MAGE\src\core\loadable.hpp" />
     <ClInclude Include="MAGE\src\core\targetver.h" />
     <ClInclude Include="MAGE\src\core\version.hpp" />
@@ -61,6 +60,8 @@
     <ClInclude Include="MAGE\src\texture\dds_loader.hpp" />
     <ClInclude Include="MAGE\src\texture\texture.hpp" />
     <ClInclude Include="MAGE\src\ui\combo_box.hpp" />
+    <ClInclude Include="MAGE\src\ui\main_window.hpp" />
+    <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
     <ClInclude Include="MAGE\src\ui\ui.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +70,7 @@
     <ClCompile Include="MAGE\src\input\keyboard.cpp" />
     <ClCompile Include="MAGE\src\input\mouse.cpp" />
     <ClCompile Include="MAGE\src\logging\error.cpp" />
+    <ClCompile Include="MAGE\src\logging\logging.cpp" />
     <ClCompile Include="MAGE\src\logging\progressreporter.cpp" />
     <ClCompile Include="MAGE\src\logging\timer.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
@@ -81,6 +83,7 @@
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
     <ClCompile Include="MAGE\src\texture\dds_loader.cpp" />
     <ClCompile Include="MAGE\src\ui\combo_box.cpp" />
+    <ClCompile Include="MAGE\src\ui\main_window.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>

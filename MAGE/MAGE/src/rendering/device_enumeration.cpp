@@ -4,6 +4,7 @@
 #pragma region
 
 #include "engine.hpp"
+#include "rendering/graphics_settings.hpp"
 
 #pragma endregion
 

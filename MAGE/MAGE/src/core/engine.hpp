@@ -154,12 +154,12 @@ namespace mage {
 		// WINDOW SYSTEM
 
 		/**
-		 Returns a handle to the window of this engine.
+		 Returns the main window of this engine.
 		 
-		 @return		A handle to the window of this engine.
+		 @return		The main window of this engine.
 		 */
-		HWND GetWindow() const {
-			return m_hwindow;
+		const MainWindow *GetMainWindow() const {
+			return m_main_window;
 		}
 		
 		/**
@@ -229,33 +229,13 @@ namespace mage {
 	protected:
 
 		/**
-		 Initializes the engine window of this engine.
-
-		 @return		A success/error value.
-		 */
-		HRESULT InitializeWindow();
-
-		/**
-		 Unitializes the engine window of this engine.
-
-		 @return		A success/error value.
-		 */
-		HRESULT UninitializeWindow();
-
-		/**
-		 Allocates a console to this engine for basic io and
-		 redirects stdin, stdout and stderr to the allocated console.
-
-		 @return		A success/error value.
-		 */
-		HRESULT InitializeConsole();
-
-		/**
 		 Initializes the different systems of this engine.
 
+		 @param[in]		setup
+						A pointer to an engine setup.
 		 @return		A success/error value.
 		 */
-		HRESULT InitializeSystems();
+		HRESULT InitializeSystems(const EngineSetup *setup);
 
 		/**
 		 Unitialize the different systems of this engine.
@@ -264,17 +244,12 @@ namespace mage {
 		 */
 		HRESULT UninitializeSystems();
 
-		/**
-		 Pointer to a copy of the engine setup structure.
-		 */
-		EngineSetup *m_setup;
-
 		// WINDOW SYSTEM
 
 		/**
-		 Main window handle of this engine.
+		 A pointer to the main window of this engine. 
 		 */
-		HWND m_hwindow;
+		MainWindow *m_main_window;
 		
 		/** 
 		 Flag indicating whether the application is active or not.

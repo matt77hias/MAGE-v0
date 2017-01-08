@@ -4,7 +4,6 @@
 #pragma region
 
 #include "engine.hpp"
-#include "engine_settings.hpp"
 
 #pragma endregion
 
@@ -20,107 +19,17 @@ namespace mage {
 	Engine *g_engine = nullptr;
 
 	//-------------------------------------------------------------------------
-	// WindowProc for handling Windows messages.
-	//-------------------------------------------------------------------------
-	
-	/**
-	 The application-defined function that processes messages sent to the engine window. 
-	 The WindowProc type defines a pointer to this callback function.
-
-	 @param[in]		hWnd
-					A handle to the window.
-	 @param[in]		msg
-					The message.
-	 @param[in]		wParam
-					Additional message information.
-					The contents of this parameter depend on the value of @a msg.
-	 @param[in]		lParam
-					Additional message information.
-					The contents of this parameter depend on the value of @a msg.
-	 @return		The return value is the result of the message processing
-					and depends on the message sent.
-	 */
-	LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-		switch (msg) {
-		case WM_ACTIVATEAPP: {
-			// Sent when a window belonging to a different application 
-			// than the active window is about to be activated. 
-			// The message is sent to the application whose window is being activated 
-			// and to the application whose window is being deactivated.
-
-			g_engine->SetDeactiveFlag(!wParam);
-			break;
-		}
-		case WM_DESTROY: {
-			// Sent when a window is being destroyed. 
-			// It is sent to the window procedure of the window 
-			// being destroyed after the window is removed from the screen.
-
-			// Indicate to the system that the window thread requests
-			// to terminate (quit) with exit code 0.
-			PostQuitMessage(0);
-			break;
-		}
-		case WM_MENUCHAR: {
-			// Sent when a menu is active and the user presses a key 
-			// that does not correspond to any mnemonic or accelerator key. 
-			
-			// Prevent the window to beep on ALT + ENTER for switching from fullscreen to windowed mode.
-			return MNC_CLOSE << 16; // high-order word of return value.
-		}
-		case WM_PAINT: {
-			// Sent when the system or another application makes a request 
-			// to paint a portion of an application's window.
-
-			// Prepare the specified window for painting and 
-			// fill a PAINTSTRUCT with information about the painting and
-			// return a handle to to a display device context for the specified window.
-			PAINTSTRUCT ps;
-			BeginPaint(hWnd, &ps);
-			// Mark the end of painting in the specified window.
-			EndPaint(hWnd, &ps);
-			break;
-		}
-		case WM_SYSKEYDOWN: {
-			// Sent to the window with the keyboard focus when the user presses the F10 key 
-			// (which activates the menu bar) or holds down the ALT key and then presses another key.
-
-			// Check whether the user wants to switch between windowed and full screen mode.
-			if (wParam == VK_RETURN) {
-				g_engine->SetModeSwitchFlag(true);
-				break;
-			}
-			
-			// Calls the default window procedure to provide default processing 
-			// for any window messages that an application does not process.
-			// This function ensures that every message is processed.
-			return DefWindowProc(hWnd, msg, wParam, lParam);
-		}
-		default: {
-			// Calls the default window procedure to provide default processing 
-			// for any window messages that an application does not process.
-			// This function ensures that every message is processed.
-			return DefWindowProc(hWnd, msg, wParam, lParam);
-		}
-		}
-
-		return 0;
-	}
-
-	//-------------------------------------------------------------------------
 	// Engine
 	//-------------------------------------------------------------------------
 	
-	Engine::Engine(const EngineSetup *setup) : Loadable(), m_deactive(false),
-		m_renderer(nullptr), m_mode_switch(false), m_state_manager(nullptr), m_script_manager(nullptr), m_input_manager(nullptr) {
+	Engine::Engine(const EngineSetup *setup) 
+		: Loadable(), m_deactive(false), m_mode_switch(false),
+		m_main_window(nullptr), m_renderer(nullptr), 
+		m_input_manager(nullptr), m_script_manager(nullptr), m_state_manager(nullptr) {
 
 		// Store a pointer to the engine in a global variable for easy access.
 		SAFE_DELETE(g_engine);
 		g_engine = this;
-
-		// If no setup structure was passed in, create a default one.
-		// Otehrwise, make a copy of the passed in structure.
-		m_setup = (setup) ? new EngineSetup(setup) : new EngineSetup();
 
 		// Attach a console.
 		const HRESULT result_console = InitializeConsole();
@@ -130,15 +39,11 @@ namespace mage {
 		}
 		PrintConsoleHeader();
 
-		//Initialize a window.
-		const HRESULT result_window = InitializeWindow();
-		if (FAILED(result_window)) {
-			Error("Window initialization failed: %ld.", result_window);
-			return;
-		}
-
 		// Initialize the different engine systems.
-		const HRESULT result_system = InitializeSystems();
+		if (!setup) {
+			setup = new EngineSetup();
+		}
+		const HRESULT result_system = InitializeSystems(setup);
 		if (FAILED(result_system)) {
 			Error("Systems initialization failed: %ld.", result_system);
 			return;
@@ -154,8 +59,8 @@ namespace mage {
 
 	Engine::~Engine() {
 
+		// Uninitialize the COM.
 		if (IsLoaded()) {
-			// Uninitialise the COM.
 			CoUninitialize();
 		}
 		
@@ -165,97 +70,12 @@ namespace mage {
 			Error("Systems uninitialization failed: %ld.", result_system);
 		}
 		
-		// Unintialize the window.
-		const HRESULT result_window = UninitializeWindow();
-		if (FAILED(result_window)) {
-			Error("Window uninitialization failed: %ld.", result_window);
-		}
-
 		// Clean up the tasks support.
 		TasksCleanup();
-
-		SAFE_DELETE(m_setup);
 	}
 
-	HRESULT Engine::InitializeConsole() {
-		// Allocate a console for basic io
-		if (!AllocConsole()) {
-			Error("Console allocation failed.");
-			return E_FAIL;
-		}
-
-		FILE *stream_in, *stream_out, *stream_err;
-		// Redirect stdin, stdout and stderr to the allocated console
-		// Reuse stdin to open the file "CONIN$"
-		const errno_t result_in = freopen_s(&stream_in, "CONIN$", "r", stdin);
-		if (result_in) {
-			Error("stdin redirection failed: %d.", result_in);
-			return E_FAIL;
-		}
-		// Reuse stdout to open the file "CONOUT$"
-		const errno_t result_out = freopen_s(&stream_out, "CONOUT$", "w", stdout);
-		if (result_out) {
-			Error("stdout redirection failed: %d.", result_out);
-			return E_FAIL;
-		}
-		// Reuse stderr to open the file "CONIN$
-		const errno_t result_err = freopen_s(&stream_err, "CONOUT$", "w", stderr);
-		if (result_err) {
-			Error("stderr redirection failed: %d.", result_err);
-			return E_FAIL;
-		}
-
-		return S_OK;
-	}
-
-	HRESULT Engine::InitializeWindow() {
-
-		// Prepare and register the window class.
-		//-----------------------------------------------------------------------------
-		// Structure ontaining window class information. 
-		WNDCLASSEX wcex;
-		ZeroMemory(&wcex, sizeof(wcex));
-		// The size, in bytes, of this structure.
-		wcex.cbSize = sizeof(WNDCLASSEX);
-		// The class style(s)
-		// CS_CLASSDC:	Allocates one device context to be shared by all windows in the class. 
-		//				Because window classes are process specific, it is possible for multiple 
-		//				threads of an application to create a window of the same class. 
-		//				It is also possible for the threads to attempt to use the device context simultaneously. 
-		//				When this happens, the system allows only one thread to successfully finish its drawing operation.
-		wcex.style = CS_CLASSDC;
-		// A pointer to the window procedure.
-		wcex.lpfnWndProc = WindowProc;
-		// The number of extra bytes to allocate following the window-class structure.
-		wcex.cbClsExtra = 0;
-		// The number of extra bytes to allocate following the window instance.
-		wcex.cbWndExtra = 0;
-		//A handle to the instance that contains the window procedure for the class.
-		wcex.hInstance = m_setup->m_hinstance;
-		// A handle to the class icon. This member must be a handle to an icon resource.
-		wcex.hIcon   = (HICON)LoadImage(m_setup->m_hinstance, MAKEINTRESOURCE(IDI_APPLICATION_ICON), IMAGE_ICON, GetSystemMetrics(SM_CXICON), GetSystemMetrics(SM_CYICON), 0);
-		// A handle to a small icon that is associated with the window class.
-		wcex.hIconSm = (HICON)LoadImage(m_setup->m_hinstance, MAKEINTRESOURCE(IDI_APPLICATION_ICON), IMAGE_ICON, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), 0);
-		// A handle to the class cursor. This member must be a handle to a cursor resource.
-		wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
-		// A handle to the class background brush. This member can be a handle to
-		// the brush to be used for painting the background, or it can be a color value.
-		wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-		// Pointer to a null-terminated character string that specifies the resource name 
-		// of the class menu, as the name appears in the resource file. 
-		// If this member is nullptr, windows belonging to this class have no default menu.
-		wcex.lpszMenuName = nullptr;
-		// A pointer to a null-terminated string or is an atom.
-		// If lpszClassName is a string, it specifies the window class name.
-		wcex.lpszClassName = L"WindowClass";
-		
-		// Register a window class
-		if (!RegisterClassEx(&wcex)) {
-			Error("Registering windows class failed.");
-			return E_FAIL;
-		}
-		//-----------------------------------------------------------------------------
-
+	HRESULT Engine::InitializeSystems(const EngineSetup *setup) {
+		// Enumerate the devices.
 		SAFE_DELETE(g_device_enumeration);
 		g_device_enumeration = new DeviceEnumeration();
 		const HRESULT result_enumerate = g_device_enumeration->Enumerate();
@@ -263,55 +83,39 @@ namespace mage {
 			Error("Device enumeration setup failed: %ld", result_enumerate);
 			return E_FAIL;
 		}
-		
+
 		const LONG width  = (LONG)g_device_enumeration->GetDisplayMode()->Width;
 		const LONG height = (LONG)g_device_enumeration->GetDisplayMode()->Height;
-		RECT rectangle = { 0, 0, width, height };
-		// Calculate the required size of the window rectangle, based on the desired client-rectangle size.
-		// A client rectangle is the smallest rectangle that completely encloses a client area. 
-		// A window rectangle is the smallest rectangle that completely encloses the window, which includes the client area and the nonclient area.
-		// 1. A pointer to a RECT structure.
-		// 2. The window style of the window.
-		// 3. Flag indicating whether the window has a menu.
-		const DWORD style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
-		AdjustWindowRect(&rectangle, style, FALSE);
-
-		// Creates the window and retrieve a handle to it.
-		m_hwindow = CreateWindow(L"WindowClass", m_setup->m_name.c_str(), style, CW_USEDEFAULT, CW_USEDEFAULT, 
-			rectangle.right - rectangle.left, rectangle.bottom - rectangle.top, nullptr, nullptr, m_setup->m_hinstance, nullptr);
-
-		if (!m_hwindow) {
+		
+		// Initialize the window System.
+		m_main_window = new MainWindow(setup->m_hinstance, setup->m_name, width, height);
+		if (!m_main_window->IsLoaded()) {
 			Error("Window creation failed.");
 			return E_FAIL;
 		}
 
-		return S_OK;
-	}
-
-	HRESULT Engine::UninitializeWindow() {
-		// Unregister the window class.
-		UnregisterClass(L"WindowClass", m_setup->m_hinstance);
-		return S_OK;
-	}
-
-	HRESULT Engine::InitializeSystems() {
-		// Create different engine systems
-		m_renderer			= new Renderer(m_hwindow);
+		// Initialize the rendering system.
+		m_renderer = new Renderer(m_main_window->GetHandle());
 		if (!m_renderer->IsLoaded()) {
 			Error("Renderer creation failed.");
 			return E_FAIL;
 		}
-		m_input_manager     = new InputManager(m_hwindow);
+		
+		// Initialize the input manager.
+		m_input_manager = new InputManager(m_main_window->GetHandle());
 		if (!m_input_manager->IsLoaded()) {
 			Error("Input manager creation failed.");
 			return E_FAIL;
 		}
-		m_script_manager    = new ResourceManager< VariableScript >();
-		m_state_manager		= new StateManager();
 		
-		if (m_setup->StateSetup) {
-			// Sets up the states
-			m_setup->StateSetup();
+		// Initialize the script manager.
+		m_script_manager = new ResourceManager< VariableScript >();
+
+		// Initialize the state manager.
+		m_state_manager	= new StateManager();
+		// Sets up the states.
+		if (setup->StateSetup) {
+			setup->StateSetup();
 		}
 
 		return S_OK;
@@ -322,6 +126,7 @@ namespace mage {
 		SAFE_DELETE(m_script_manager);
 		SAFE_DELETE(m_input_manager);
 		SAFE_DELETE(m_renderer);
+		SAFE_DELETE(m_main_window);
 		
 		return S_OK;
 	}
@@ -333,9 +138,9 @@ namespace mage {
 			return;
 		}
 
-		// Set the specified window's show state.
-		ShowWindow(m_hwindow, nCmdShow);
+		m_main_window->Show(nCmdShow);
 
+		// Handle startup in fullscreen mode.
 		if (g_device_enumeration->IsFullScreen()) {
 			m_renderer->SwitchMode(true);
 		}
@@ -364,9 +169,9 @@ namespace mage {
 				const double elapsed_time = timer.Time();
 				timer.Restart();
 
-				// Update the input object, reading the keyboard and mouse.
+				// Update the input manager.
 				m_input_manager->Update();
-				// Check whether the user wants to make a forced exit.
+				// Handle forced exit.
 				if (m_input_manager->GetKeyboard()->GetKeyPress(DIK_F1)) {
 					PostQuitMessage(0);
 					continue;

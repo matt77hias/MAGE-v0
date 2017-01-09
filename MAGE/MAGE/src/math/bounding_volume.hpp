@@ -518,7 +518,7 @@ namespace mage {
 					A reference to the first AABB.
 	 @param[in]		aabb2
 					A reference to the second AABB.
-	 @return		The union AABB of @a aabb1 and @aabb2.
+	 @return		The union AABB of @a aabb1 and @a aabb2.
 	 */
 	inline AABB Union(const AABB &aabb1, const AABB &aabb2) {
 		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.p_min);
@@ -541,7 +541,7 @@ namespace mage {
 	 @param[in]		aabb2
 					A reference to the second AABB.
 	 @return		The identity AABB in case of no overlap.
-	 @return		The overlap AABB of @a aabb1 and @aabb2.
+	 @return		The overlap AABB of @a aabb1 and @a aabb2.
 	 */
 	inline AABB Overlap(const AABB &aabb1, const AABB &aabb2) {
 		if (!aabb1.Overlaps(aabb2)) {
@@ -567,7 +567,7 @@ namespace mage {
 	 @param[in]		aabb2
 					A reference to the second AABB.
 	 @return		The identity AABB in case of no strict overlap.
-	 @return		The strict overlap AABB of @a aabb1 and @aabb2.
+	 @return		The strict overlap AABB of @a aabb1 and @a aabb2.
 	 */
 	inline AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2) {
 		if (!aabb1.OverlapsStrict(aabb2)) {

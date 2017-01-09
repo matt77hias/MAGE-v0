@@ -32,7 +32,8 @@ namespace mage {
 
 	 @tparam		T
 					The type of objects to allocate in memory.
-	 @param[in]		count	The number of objects of type @c T to allocate in memory.
+	 @param[in]		count
+					The number of objects of type @c T to allocate in memory.
 	 @return		@c nullptr if the allocation failed.
 	 @return		A pointer to the memory block that was allocated.
 	 				The pointer is a multiple of the alignment of 64 bytes.
@@ -43,7 +44,7 @@ namespace mage {
 	}
 
 	/**
-	 Frees a block of memory that was allocated with {@link mage::AllocAligned(size_t)} or {@link mage::AllocAligned<T>(uint32_t)}.
+	 Frees a block of memory that was allocated with {@link mage::AllocAligned(size_t)} or {@link mage::AllocAligned<T>(size_t)}.
 	
 	 @param[in]		ptr
 					A pointer to the memory block that was allocated.

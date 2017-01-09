@@ -51,7 +51,7 @@ namespace mage {
 		/**
 		 Destructs this main window.
 		 */
-		~MainWindow();
+		virtual ~MainWindow();
 
 		/**
 		 Initializes the engine window of this main window.

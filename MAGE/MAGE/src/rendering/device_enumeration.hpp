@@ -82,7 +82,7 @@ namespace mage {
 		/**
 		 Destructs this device enumeration.
 		 */
-		~DeviceEnumeration();
+		virtual ~DeviceEnumeration();
 
 		/**
 		 Initializes the adapter and the output of this device enumeration.

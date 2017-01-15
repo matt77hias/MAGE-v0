@@ -76,6 +76,12 @@
     <Filter Include="Header Files\ui">
       <UniqueIdentifier>{21c54364-7327-49d5-9a74-6e1f6a66edf4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\model">
+      <UniqueIdentifier>{18ba5fb2-7642-4f61-bc2d-998b16bcde6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\model">
+      <UniqueIdentifier>{0cfe8304-7c60-4a6d-a66f-a2456db4e063}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">

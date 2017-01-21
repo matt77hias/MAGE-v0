@@ -13,9 +13,16 @@ namespace mage {
 		Transform(const XMFLOAT3 &translation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &rotation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &scale = { 1.0f, 1.0f, 1.0f })
 			: m_translation(translation), m_rotation(rotation), m_scale(scale) {}
 		Transform(const Transform &transform)
-			: m_translation(transform.GetTranslation()), m_rotation(transform.GetRotation()), m_scale(transform.GetTranslation()) {}
+			: m_translation(transform.GetTranslation()), m_rotation(transform.GetRotation()), m_scale(transform.GetScale()) {}
 		~Transform() {}
 		
+		Transform &operator=(const Transform &transform) {
+			m_translation = transform.GetTranslation();
+			m_rotation    = transform.GetRotation();
+			m_scale       = transform.GetScale();
+			return (*this);
+		}
+
 		void SetTranslationX(float x) {
 			m_translation.x = x;
 		}

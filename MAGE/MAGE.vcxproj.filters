@@ -82,6 +82,9 @@
     <Filter Include="Source Files\model">
       <UniqueIdentifier>{0cfe8304-7c60-4a6d-a66f-a2456db4e063}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\camera">
+      <UniqueIdentifier>{a9fff7be-6c9a-43ad-9537-04834a43f9a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -215,6 +218,15 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp">
       <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\camera\camera.hpp">
+      <Filter>Header Files\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\camera\orthographic_camera.hpp">
+      <Filter>Header Files\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\camera\perspective_camera.hpp">
+      <Filter>Header Files\camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

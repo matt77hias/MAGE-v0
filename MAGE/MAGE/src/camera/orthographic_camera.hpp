@@ -9,7 +9,7 @@ namespace mage {
 
 		OrthographicCamera(float width, float height,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z,
-			const CameraTransform &transform = CameraTransform())
+			const Transform &transform = Transform())
 			: Camera(XMMatrixOrthographicLH(width, height, near_z, far_z), width, height, near_z, far_z, transform) {}
 		OrthographicCamera(const OrthographicCamera &camera)
 			: Camera(camera.GetViewToProjectionMatrix(), camera.GetWidth(), camera.GetHeight(), camera.GetNearZ(), camera.GetFarZ(), camera.GetTransform()) {}

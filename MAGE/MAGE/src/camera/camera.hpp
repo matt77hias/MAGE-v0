@@ -20,10 +20,10 @@ namespace mage {
 
 	public:
 
-		CameraTransform &GetTransform() {
+		Transform &GetTransform() {
 			return m_transform;
 		}
-		const CameraTransform &GetTransform() const {
+		const Transform &GetTransform() const {
 			return m_transform;
 		}
 		
@@ -75,7 +75,7 @@ namespace mage {
 
 		Camera(const XMMATRIX &view_to_projection, 
 			float width, float height, float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z,
-			const CameraTransform &transform = CameraTransform())
+			const Transform &transform = Transform())
 			: m_view_to_projection(view_to_projection), 
 			m_width(width), m_height(height), m_near_z(near_z), m_far_z(far_z),
 			m_transform(transform) {}
@@ -83,7 +83,7 @@ namespace mage {
 
 		virtual void UpdateViewToProjectionMatrix() = 0;
 
-		CameraTransform m_transform;
+		Transform m_transform;
 
 		float m_width;
 		float m_height;

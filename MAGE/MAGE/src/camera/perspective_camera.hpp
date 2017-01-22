@@ -11,7 +11,7 @@ namespace mage {
 
 		PerspectiveCamera(float width, float height, float fov_y = MAGE_DEFAULT_CAMERA_FOV_Y,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z,
-			const CameraTransform &transform = CameraTransform())
+			const Transform &transform = Transform())
 			: Camera(XMMatrixOrthographicLH(width, height, near_z, far_z), width, height, near_z, far_z, transform), 
 			m_fov_y(fov_y) {}
 		PerspectiveCamera(const PerspectiveCamera &camera)

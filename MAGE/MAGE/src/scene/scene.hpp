@@ -5,6 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene_graph.hpp"
+#include "scene\scene_node.hpp"
 
 #pragma endregion

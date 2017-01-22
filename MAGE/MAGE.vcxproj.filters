@@ -237,7 +237,7 @@
     <ClInclude Include="MAGE\src\scene\scene.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\scene\scene_graph.hpp">
+    <ClInclude Include="MAGE\src\scene\scene_node.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
   </ItemGroup>

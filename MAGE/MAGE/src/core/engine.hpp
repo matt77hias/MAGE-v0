@@ -128,7 +128,7 @@ namespace mage {
 	/**
 	 A class of engines.
 	 */
-	class Engine : private Loadable {
+	class Engine : public Loadable {
 
 	public:
 

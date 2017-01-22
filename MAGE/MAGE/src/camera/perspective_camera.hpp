@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class PerspectiveCamera : private Camera {
+	class PerspectiveCamera : public Camera {
 
 	public:
 

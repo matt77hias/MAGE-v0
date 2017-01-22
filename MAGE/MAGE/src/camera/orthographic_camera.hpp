@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class OrthographicCamera : private Camera {
+	class OrthographicCamera : public Camera {
 
 		OrthographicCamera(float width, float height,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z,

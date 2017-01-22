@@ -8,7 +8,7 @@ namespace mage {
 	/**
 	 A class of keyboards.
 	 */
-	class Keyboard : private Loadable {
+	class Keyboard : public Loadable {
 
 	friend class InputManager;
 

@@ -8,7 +8,7 @@ namespace mage {
 	/**
 	 A class of input managers.
 	 */
-	class InputManager : private Loadable {
+	class InputManager : public Loadable {
 
 	friend class Engine;
 

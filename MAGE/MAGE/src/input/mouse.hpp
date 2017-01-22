@@ -8,7 +8,7 @@ namespace mage {
 	/**
 	 A class of mouses.
 	 */
-	class Mouse : private Loadable {
+	class Mouse : public Loadable {
 
 	friend class InputManager;
 

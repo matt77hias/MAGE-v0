@@ -174,7 +174,7 @@ namespace mage {
 						The type of the value.
 		 */
 		template < typename T >
-		struct Value : AbstractValue {
+		struct Value : public AbstractValue {
 
 		public:
 

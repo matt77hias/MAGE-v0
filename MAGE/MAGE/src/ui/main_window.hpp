@@ -8,7 +8,7 @@ namespace mage {
 	/**
 	 A class of main windows.
 	 */
-	class MainWindow : private Loadable {
+	class MainWindow : public Loadable {
 
 	friend class Engine;
 

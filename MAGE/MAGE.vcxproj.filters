@@ -76,17 +76,17 @@
     <Filter Include="Header Files\ui">
       <UniqueIdentifier>{21c54364-7327-49d5-9a74-6e1f6a66edf4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\model">
-      <UniqueIdentifier>{18ba5fb2-7642-4f61-bc2d-998b16bcde6f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\model">
       <UniqueIdentifier>{0cfe8304-7c60-4a6d-a66f-a2456db4e063}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\camera">
-      <UniqueIdentifier>{a9fff7be-6c9a-43ad-9537-04834a43f9a1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\scene">
       <UniqueIdentifier>{7db88752-544d-4175-b31a-2f1b575a29bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\model">
+      <UniqueIdentifier>{18ba5fb2-7642-4f61-bc2d-998b16bcde6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\camera">
+      <UniqueIdentifier>{a9fff7be-6c9a-43ad-9537-04834a43f9a1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +222,9 @@
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp">
       <Filter>Header Files\ui</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\math\coordinate_system.hpp">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
     <ClInclude Include="MAGE\src\camera\camera.hpp">
       <Filter>Header Files\camera</Filter>
     </ClInclude>
@@ -230,9 +233,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\camera\perspective_camera.hpp">
       <Filter>Header Files\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\math\coordinate_system.hpp">
-      <Filter>Header Files\math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

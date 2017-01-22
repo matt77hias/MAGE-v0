@@ -10,6 +10,21 @@ namespace mage {
 	 */
 	struct Transform final {
 
+		Transform(const CartesianAxesSystem &axes)
+			: Transform(CartesianCoordinateSystem(axes)) {}
+		Transform(const CartesianCoordinateSystem &coordinate_system)
+			: m_scale(XMFLOAT3(1.0f, 1.0f, 1.0f)) {
+			
+			// Calculate translation components.
+			const XMVECTOR translation_v = coordinate_system.GetOrigin();
+			XMStoreFloat3(&m_translation, translation_v);
+
+			// Calculate rotation components.
+			const float rotation_x = acos(XMVectorGetByIndex(coordinate_system.GetAxisX(), 0));
+			const float rotation_y = acos(XMVectorGetByIndex(coordinate_system.GetAxisY(), 1));
+			const float rotation_z = acos(XMVectorGetByIndex(coordinate_system.GetAxisZ(), 2));
+			m_rotation = XMFLOAT3(rotation_x, rotation_y, rotation_z);
+		}
 		Transform(const XMFLOAT3 &translation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &rotation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &scale = { 1.0f, 1.0f, 1.0f })
 			: m_translation(translation), m_rotation(rotation), m_scale(scale) {}
 		Transform(const Transform &transform)

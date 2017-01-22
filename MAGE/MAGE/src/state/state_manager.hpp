@@ -41,7 +41,6 @@ namespace mage {
 		 */
 		void RemoveState(State *state) {
 			m_states.remove(state);
-			delete state;
 		}
 
 		/**
@@ -84,7 +83,8 @@ namespace mage {
 		/**
 		 Constructs a state manager.
 		 */
-		 StateManager() : m_current_state(nullptr), m_states(list< State * >()) {}
+		 StateManager() 
+			 : m_current_state(nullptr), m_states(list< State * >()) {}
 
 		 /**
 		  Destructs this state manager.

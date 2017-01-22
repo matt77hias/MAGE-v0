@@ -97,21 +97,23 @@ namespace mage {
 		}
 
 		/**
-		 Removes the given variable from this variable script.
+		 Removes (and destructs) the given variable from this variable script.
 
 		 @param[in]		name
 						The name of the variable.
 		 */
 		void RemoveVariable(const string &name) {
 			// Iterate the variables looking for the specified variable.
-			Variable *target = nullptr;
-			for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
+			list< Variable * >::const_iterator it = m_variables.cbegin();
+			while (it != m_variables.cend()) {
 				if ((*it)->GetName() == name) {
-					target = *it;
+					m_variables.erase(it++);
 					break;
 				}
+				else {
+					++it;
+				}
 			}
-			SAFE_DELETE(target);
 		}
 
 		/**

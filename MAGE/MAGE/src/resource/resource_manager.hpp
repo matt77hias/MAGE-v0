@@ -22,7 +22,8 @@ namespace mage {
 		 @param[in]		CreateResourceFunction
 						The application specific resource creation function.
 		 */
-		ResourceManager(void(*CreateResourceFunction)(T **resource, const string &name, const string &path) = nullptr) : m_resources(list< T * >()), CreateResource(CreateResourceFunction) {}
+		ResourceManager(void(*CreateResourceFunction)(T **resource, const string &name, const string &path) = nullptr) 
+			: m_resources(list< T * >()), CreateResource(CreateResourceFunction) {}
 
 		/**
 		 Destructs this resource manager.
@@ -79,7 +80,6 @@ namespace mage {
 			// If the resource is no long being used then destroy it.
 			if (resource->DecrementResourceReferenceCount() == 0) {
 				m_resources.remove(resource);
-				delete resource;
 			}
 		}
 

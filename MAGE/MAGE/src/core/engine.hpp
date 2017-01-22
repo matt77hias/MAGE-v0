@@ -77,6 +77,7 @@ namespace mage {
 #include "texture\texture.hpp"
 #include "input\input.hpp"
 #include "state\state.hpp"
+#include "scene\scene.hpp"
 
 #pragma endregion
 

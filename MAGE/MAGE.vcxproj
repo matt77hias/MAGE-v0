@@ -56,6 +56,8 @@
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
+    <ClInclude Include="MAGE\src\scene\scene.hpp" />
+    <ClInclude Include="MAGE\src\scene\scene_graph.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\scripting.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />

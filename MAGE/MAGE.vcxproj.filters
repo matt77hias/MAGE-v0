@@ -234,6 +234,12 @@
     <ClInclude Include="MAGE\src\camera\perspective_camera.hpp">
       <Filter>Header Files\camera</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\scene\scene.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scene\scene_graph.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

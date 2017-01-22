@@ -37,6 +37,7 @@
     <ClInclude Include="MAGE\src\logging\progressreporter.hpp" />
     <ClInclude Include="MAGE\src\logging\timer.hpp" />
     <ClInclude Include="MAGE\src\math\bounding_volume.hpp" />
+    <ClInclude Include="MAGE\src\math\coordinate_system.hpp" />
     <ClInclude Include="MAGE\src\math\transform.hpp" />
     <ClInclude Include="MAGE\src\math\vertex.hpp" />
     <ClInclude Include="MAGE\src\math\math.hpp" />

@@ -228,6 +228,9 @@
     <ClInclude Include="MAGE\src\camera\perspective_camera.hpp">
       <Filter>Header Files\camera</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\math\coordinate_system.hpp">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

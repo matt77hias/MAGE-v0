@@ -18,6 +18,7 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "math\coordinate_system.hpp"
 #include "math\vertex.hpp"
 #include "math\bounding_volume.hpp"
 #include "math\transform.hpp"

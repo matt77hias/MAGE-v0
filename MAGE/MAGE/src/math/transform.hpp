@@ -223,7 +223,7 @@ namespace mage {
 
 	private:
 
-		XMVECTOR TransformDirection(XMVECTOR direction) const {
+		XMVECTOR TransformDirection(const XMVECTOR &direction) const {
 			const XMMATRIX rotation = GetRotationMatrix();
 			return XMVector4Transform(direction, rotation);
 		}
@@ -432,7 +432,7 @@ namespace mage {
 
 	private:
 
-		XMVECTOR TransformDirection(XMVECTOR direction) const {
+		XMVECTOR TransformDirection(const XMVECTOR &direction) const {
 			const XMMATRIX rotation = GetRotationMatrix();
 			return XMVector4Transform(direction, rotation);
 		}

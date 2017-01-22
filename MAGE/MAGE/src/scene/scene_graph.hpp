@@ -1,10 +1,15 @@
 #pragma once
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
 namespace mage {
 
 	class SceneNode {
 
 	public:
+
+		virtual ~SceneNode() {}
 
 		bool ContainsChild(SceneNode *child) const {
 			return m_childs.find(child) != m_childs.cend();
@@ -41,9 +46,12 @@ namespace mage {
 			return m_childs.size();
 		}
 
+		virtual Transform &GetTransform() = 0;
+		virtual const Transform &GetTransform() const = 0;
+
 	protected:
 
-		SceneNode();
+		SceneNode() : m_parent(nullptr), m_childs(set< SceneNode * >()) {}
 
 	private:
 
@@ -55,4 +63,3 @@ namespace mage {
 		set< SceneNode * > m_childs;
 	};
 }
-

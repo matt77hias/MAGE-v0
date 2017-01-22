@@ -15,18 +15,6 @@ namespace mage {
 	public:
 
 		/**
-		 Destructs this state manager.
-		 */
-		virtual ~StateManager() {
-			if (m_current_state) {
-				// State post-processing
-				m_current_state->Close();
-			}
-
-			m_states.clear();
-		}
-
-		/**
 		 Adds the given state from the states of this state manager.
 
 		 @param[in]		state
@@ -97,6 +85,18 @@ namespace mage {
 		 */
 		 StateManager() 
 			 : m_current_state(nullptr), m_states(list< State * >()) {}
+
+		 /**
+		  Destructs this state manager.
+		  */
+		 virtual ~StateManager() {
+			 if (m_current_state) {
+				 // State post-processing
+				 m_current_state->Close();
+			 }
+
+			 m_states.clear();
+		 }
 
 		/**
 		 Updates this state manager and its current state.

@@ -96,6 +96,19 @@ namespace mage {
 			m_rotation.y = rotation.y;
 			m_rotation.z = rotation.z;
 		}
+		void SetRotationAroundDirection(const XMVECTOR &normal, float angle) {
+			const XMMATRIX rotation_m = XMMatrixRotationNormal(normal, angle);
+			XMFLOAT4X4 rotation;
+			XMStoreFloat4x4(&rotation, rotation_m);
+
+			// cosf function instead of sinf in case the angles are greater than [-1,1]
+			m_rotation.y = -asinf(rotation._32);
+			const float cp = cosf(m_rotation.y);
+			const float cr = rotation._22 / cp;
+			m_rotation.z = acosf(cr);
+			const float cy = rotation._33 / cp;
+			m_rotation.x = acosf(cy);
+		}
 		void AddRotationX(float x) {
 			m_rotation.x += x;
 		}
@@ -185,11 +198,35 @@ namespace mage {
 			return XMMatrixScalingFromVector(XMLoadFloat3(&m_scale));
 		}
 
+		XMVECTOR GetLocalAxisX() const {
+			return XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
+		}
+		XMVECTOR GetLocalAxisY() const {
+			return XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+		}
+		XMVECTOR GetLocalAxisZ() const {
+			return XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
+		}
+		XMVECTOR GetAxisX() const {
+			return TransformDirection(XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f));
+		}
+		XMVECTOR GetAxisY() const {
+			return TransformDirection(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
+		}
+		XMVECTOR GetAxisZ() const {
+			return TransformDirection(XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
+		}
+
 		XMMATRIX GetTransformMatrix() const {
 			return GetTranslationMatrix() * GetRotationMatrix() * GetScaleMatrix();
 		}
 
 	private:
+
+		XMVECTOR TransformDirection(XMVECTOR direction) const {
+			const XMMATRIX rotation = GetRotationMatrix();
+			return XMVector4Transform(direction, rotation);
+		}
 
 		/**
 		 The translation component of this transform.
@@ -297,6 +334,19 @@ namespace mage {
 			m_rotation.y = rotation.y;
 			m_rotation.z = rotation.z;
 		}
+		void SetRotationAroundDirection(const XMVECTOR &normal, float angle) {
+			const XMMATRIX rotation_m = XMMatrixRotationNormal(normal, angle);
+			XMFLOAT4X4 rotation;
+			XMStoreFloat4x4(&rotation, rotation_m);
+
+			// cosf function instead of sinf in case the angles are greater than [-1,1]
+			m_rotation.y = -asinf(rotation._32);
+			const float cp = cosf(m_rotation.y);
+			const float cr = rotation._22 / cp;
+			m_rotation.z = acosf(cr);
+			const float cy = rotation._33 / cp;
+			m_rotation.x = acosf(cy);
+		}
 		void AddRotationX(float x) {
 			m_rotation.x += x;
 		}
@@ -332,24 +382,42 @@ namespace mage {
 			return XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&m_rotation));
 		}
 
-		XMFLOAT3 GetLocalLeft() const {
-			return XMFLOAT3(1.0f, 0.0f, 0.0f);
+		XMVECTOR GetLocalAxisX() const {
+			return XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
 		}
-		XMFLOAT3 GetLocalUp() const {
-			return XMFLOAT3(0.0f, 1.0f, 0.0f);
+		XMVECTOR GetLocalAxisY() const {
+			return XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 		}
-		XMFLOAT3 GetLocalFocus() const {
-			return XMFLOAT3(0.0f, 0.0f, 1.0f);
+		XMVECTOR GetLocalAxisZ() const {
+			return XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
 		}
-		
-		XMFLOAT3 GetLeft() const {
+		XMVECTOR GetAxisX() const {
 			return TransformDirection(XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f));
 		}
-		XMFLOAT3 GetUp() const {
+		XMVECTOR GetAxisY() const {
 			return TransformDirection(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
 		}
-		XMFLOAT3 GetFocus() const {
+		XMVECTOR GetAxisZ() const {
 			return TransformDirection(XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
+		}
+
+		XMVECTOR GetLocalLeft() const {
+			return GetLocalAxisX();
+		}
+		XMVECTOR GetLocalUp() const {
+			return GetLocalAxisY();
+		}
+		XMVECTOR GetLocalFocus() const {
+			return GetLocalAxisZ();
+		}
+		XMVECTOR GetLeft() const {
+			return GetAxisX();
+		}
+		XMVECTOR GetUp() const {
+			return GetAxisY();
+		}
+		XMVECTOR GetFocus() const {
+			return GetAxisZ();
 		}
 
 		XMMATRIX GetWorldToViewMatrix() const {
@@ -364,13 +432,9 @@ namespace mage {
 
 	private:
 
-		XMFLOAT3 TransformDirection(XMVECTOR direction) const {
+		XMVECTOR TransformDirection(XMVECTOR direction) const {
 			const XMMATRIX rotation = GetRotationMatrix();
-			// World Coordinate System
-			const XMVECTOR t_direction_v = XMVector4Transform(direction, rotation);
-			XMFLOAT3 t_direction;
-			XMStoreFloat3(&t_direction, t_direction_v);
-			return t_direction;
+			return XMVector4Transform(direction, rotation);
 		}
 
 		/**

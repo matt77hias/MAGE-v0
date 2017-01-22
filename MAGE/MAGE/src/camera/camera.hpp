@@ -20,6 +20,8 @@ namespace mage {
 
 	public:
 
+		virtual ~Camera() {}
+
 		Transform &GetTransform() {
 			return m_transform;
 		}
@@ -79,7 +81,6 @@ namespace mage {
 			: m_view_to_projection(view_to_projection), 
 			m_width(width), m_height(height), m_near_z(near_z), m_far_z(far_z),
 			m_transform(transform) {}
-		virtual ~Camera() {}
 
 		virtual void UpdateViewToProjectionMatrix() = 0;
 

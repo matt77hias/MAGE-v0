@@ -15,6 +15,11 @@ namespace mage {
 	public:
 
 		/**
+		 Destructs this main window.
+		 */
+		virtual ~MainWindow();
+
+		/**
 		 Returns the window handle of this main window.
 
 		 @return		The window handle of this main window.
@@ -47,11 +52,6 @@ namespace mage {
 						The height of the window.
 		 */
 		MainWindow(HINSTANCE hinstance, wstring name, LONG width, LONG height);
-
-		/**
-		 Destructs this main window.
-		 */
-		virtual ~MainWindow();
 
 		/**
 		 Initializes the engine window of this main window.

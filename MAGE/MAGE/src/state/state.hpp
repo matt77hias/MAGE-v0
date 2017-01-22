@@ -41,6 +41,14 @@ namespace mage {
 		State(uint64_t id = 0) : m_id(id) {}
 
 		/**
+		 Destructs this state.
+		 
+		 (This destructor is not allowed to be called manually:
+		  Real destruction must take place in State::Close())
+		 */
+		~State() {}
+
+		/**
 		 Returns the id of this state.
 
 		 @return		The id of this state.

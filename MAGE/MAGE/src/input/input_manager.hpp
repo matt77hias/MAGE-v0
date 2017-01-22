@@ -32,7 +32,7 @@ namespace mage {
 			return m_mouse;
 		}
 
-	private:
+	protected:
 
 		/**
 		 Constructs an input manager for the given window handle.

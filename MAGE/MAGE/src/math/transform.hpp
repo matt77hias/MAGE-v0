@@ -207,14 +207,28 @@ namespace mage {
 		XMVECTOR GetLocalAxisZ() const {
 			return XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
 		}
-		XMVECTOR GetAxisX() const {
+		CartesianAxesSystem GetLocalAxes() const {
+			return CartesianAxesSystem(GetLocalAxisX(), GetLocalAxisY(), GetLocalAxisZ());
+		}
+		CartesianCoordinateSystem GetLocalCoordinateSystem() const {
+			return CartesianCoordinateSystem(GetLocalAxes());
+		}
+
+		XMVECTOR GetWorldAxisX() const {
 			return TransformDirection(XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f));
 		}
-		XMVECTOR GetAxisY() const {
+		XMVECTOR GetWorldAxisY() const {
 			return TransformDirection(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
 		}
-		XMVECTOR GetAxisZ() const {
+		XMVECTOR GetWorldAxisZ() const {
 			return TransformDirection(XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
+		}
+		CartesianAxesSystem GetWorldAxes() const {
+			return CartesianAxesSystem(GetWorldAxisX(), GetWorldAxisY(), GetWorldAxisZ());
+		}
+		CartesianCoordinateSystem GetWorldCoordinateSystem() const {
+			const XMVECTOR origin = XMLoadFloat3(&GetTranslation());
+			return CartesianCoordinateSystem(origin, GetWorldAxes());
 		}
 
 		XMMATRIX GetTransformMatrix() const {
@@ -391,14 +405,28 @@ namespace mage {
 		XMVECTOR GetLocalAxisZ() const {
 			return XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
 		}
-		XMVECTOR GetAxisX() const {
+		CartesianAxesSystem GetLocalAxes() const {
+			return CartesianAxesSystem(GetLocalAxisX(), GetLocalAxisY(), GetLocalAxisZ());
+		}
+		CartesianCoordinateSystem GetLocalCoordinateSystem() const {
+			return CartesianCoordinateSystem(GetLocalAxes());
+		}
+
+		XMVECTOR GetWorldAxisX() const {
 			return TransformDirection(XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f));
 		}
-		XMVECTOR GetAxisY() const {
+		XMVECTOR GetWorldAxisY() const {
 			return TransformDirection(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
 		}
-		XMVECTOR GetAxisZ() const {
+		XMVECTOR GetWorldAxisZ() const {
 			return TransformDirection(XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
+		}
+		CartesianAxesSystem GetWorldAxes() const {
+			return CartesianAxesSystem(GetWorldAxisX(), GetWorldAxisY(), GetWorldAxisZ());
+		}
+		CartesianCoordinateSystem GetWorldCoordinateSystem() const {
+			const XMVECTOR origin = XMLoadFloat3(&GetTranslation());
+			return CartesianCoordinateSystem(origin, GetWorldAxes());
 		}
 
 		XMVECTOR GetLocalLeft() const {
@@ -410,14 +438,14 @@ namespace mage {
 		XMVECTOR GetLocalFocus() const {
 			return GetLocalAxisZ();
 		}
-		XMVECTOR GetLeft() const {
-			return GetAxisX();
+		XMVECTOR GetWorldLeft() const {
+			return GetWorldAxisX();
 		}
-		XMVECTOR GetUp() const {
-			return GetAxisY();
+		XMVECTOR GetWorldUp() const {
+			return GetWorldAxisY();
 		}
-		XMVECTOR GetFocus() const {
-			return GetAxisZ();
+		XMVECTOR GetWorldFocus() const {
+			return GetWorldAxisZ();
 		}
 
 		XMMATRIX GetWorldToViewMatrix() const {

@@ -9,7 +9,21 @@ namespace mage {
 
 	public:
 
-		virtual ~SceneNode() {}
+		virtual ~SceneNode() {
+			
+			// Detach this node in both directions.
+			if (m_parent) {
+				m_parent->RemoveChild(this);
+			}
+
+			// Detach the childs in one direction.
+			for (set< SceneNode * >::iterator it = m_childs.begin(); it != m_childs.end(); ++it) {
+				(*it)->SetParent(nullptr);
+			}
+
+			// Destructs the childs.
+			m_childs.clear();
+		}
 
 		bool ContainsChild(SceneNode *child) const {
 			return m_childs.find(child) != m_childs.cend();
@@ -20,6 +34,11 @@ namespace mage {
 				return;
 			}
 
+			// Make sure the child is detached.
+			if (child->m_parent) {
+				child->m_parent->RemoveChild(child);
+			}
+
 			// Add the child to this parent.
 			m_childs.insert(child);
 			// Add this parent to the child.
@@ -27,8 +46,8 @@ namespace mage {
 		}
 
 		void RemoveChild(SceneNode *child) {
-			set< SceneNode * >::const_iterator it = m_childs.cbegin();
-			while (it != m_childs.cend()) {
+			set< SceneNode * >::iterator it = m_childs.begin();
+			while (it != m_childs.end()) {
 				if ((*it) == child) {
 					// Remove this parent from the child.
 					child->SetParent(nullptr);
@@ -55,11 +74,20 @@ namespace mage {
 
 	private:
 
-		void SetParent(const SceneNode *parent) const {
+		void SetParent(SceneNode *parent) {
 			m_parent = parent;
 		}
 		
-		mutable const SceneNode *m_parent;
+		SceneNode *m_parent;
 		set< SceneNode * > m_childs;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "scene\camera_node.hpp"
+
+#pragma endregion

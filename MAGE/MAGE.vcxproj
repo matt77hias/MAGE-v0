@@ -59,6 +59,7 @@
     <ClInclude Include="MAGE\src\scene\camera_node.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
     <ClInclude Include="MAGE\src\scene\scene_node.hpp" />
+    <ClInclude Include="MAGE\src\scene\scene_node_visitor.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\scripting.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />

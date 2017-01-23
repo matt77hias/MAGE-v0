@@ -243,6 +243,9 @@
     <ClInclude Include="MAGE\src\scene\camera_node.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\scene\scene_node_visitor.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

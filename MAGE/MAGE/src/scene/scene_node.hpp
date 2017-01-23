@@ -28,7 +28,6 @@ namespace mage {
 		bool ContainsChild(SceneNode *child) const {
 			return m_childs.find(child) != m_childs.cend();
 		}
-
 		void AddChild(SceneNode *child) {
 			if (!child) {
 				return;
@@ -44,7 +43,6 @@ namespace mage {
 			// Add this parent to the child.
 			child->SetParent(this);
 		}
-
 		void RemoveChild(SceneNode *child) {
 			set< SceneNode * >::iterator it = m_childs.begin();
 			while (it != m_childs.end()) {
@@ -60,17 +58,48 @@ namespace mage {
 				}
 			}
 		}
-	
 		size_t GetNbOfChilds() const {
 			return m_childs.size();
 		}
 
 		virtual Transform &GetTransform() = 0;
 		virtual const Transform &GetTransform() const = 0;
+		XMMATRIX GetWorldToObjectMatrix() const {
+			XMMATRIX transformation = GetTransform().GetWorldToObjectMatrix();
+			const SceneNode *current_node = m_parent;
+			while (current_node) {
+				transformation = transformation * current_node->GetTransform().GetWorldToObjectMatrix();
+				current_node = current_node->m_parent;
+			}
+			return transformation;
+		}
+		XMMATRIX GetObjectToWorldMatrix() const {
+			XMMATRIX transformation = GetTransform().GetObjectToWorldMatrix();
+			const SceneNode *current_node = m_parent;
+			while (current_node) {
+				transformation = current_node->GetTransform().GetObjectToWorldMatrix() * transformation;
+				current_node = current_node->m_parent;
+			}
+			return transformation;
+		}
+
+		virtual void Accept(const SceneNodeVisitor &vistor) = 0;
+		virtual void Accept(const SceneNodeVisitor &vistor) const = 0;
 
 	protected:
 
 		SceneNode() : m_parent(nullptr), m_childs(set< SceneNode * >()) {}
+
+		void PassToChilds(const SceneNodeVisitor &vistor) {
+			for (set< SceneNode * >::iterator it = m_childs.begin(); it != m_childs.end(); ++it) {
+				(*it)->Accept(vistor);
+			}
+		}
+		void PassToChilds(const SceneNodeVisitor &vistor) const {
+			for (set< SceneNode * >::const_iterator it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
+				(*it)->Accept(vistor);
+			}
+		}
 
 	private:
 
@@ -82,12 +111,3 @@ namespace mage {
 		set< SceneNode * > m_childs;
 	};
 }
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "scene\camera_node.hpp"
-
-#pragma endregion

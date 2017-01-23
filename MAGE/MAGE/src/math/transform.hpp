@@ -11,19 +11,19 @@ namespace mage {
 	struct Transform final {
 
 		/**
-		 Constructs a transform from the given Cartesian axes system.
+		 Constructs a transform from the given local Cartesian axes system.
 
 		 @param[in]		axes
-						The Cartesian axes system.
+						The local Cartesian axes system.
 		 */
 		Transform(const CartesianAxesSystem &axes)
 			: Transform(CartesianCoordinateSystem(axes)) {}
 
 		/**
-		 Constructs a transform from the given Cartesian coordinate system.
+		 Constructs a transform from the given local Cartesian coordinate system.
 
 		 @param[in]		coordinate_system
-						The Cartesian coordinate system.
+						The local Cartesian coordinate system.
 		 */
 		Transform(const CartesianCoordinateSystem &coordinate_system)
 			: m_scale(XMFLOAT3(1.0f, 1.0f, 1.0f)) {
@@ -586,90 +586,90 @@ namespace mage {
 		}
 
 		/**
-		 Returns the direction of the x-axis of this transform expressed in local space coordinates.
+		 Returns the direction of the local x-axis of this transform expressed in local space coordinates.
 
-		 @return		The direction of the x-axis of this transform expressed in local space coordinates.
+		 @return		The direction of the local x-axis of this transform expressed in local space coordinates.
 		 */
 		XMVECTOR GetLocalAxisX() const {
 			return XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
 		}
 		
 		/**
-		 Returns the direction of the y-axis of this transform expressed in local space coordinates.
+		 Returns the direction of the local y-axis of this transform expressed in local space coordinates.
 
-		 @return		The direction of the y-axis of this transform expressed in local space coordinates.
+		 @return		The direction of the local y-axis of this transform expressed in local space coordinates.
 		 */
 		XMVECTOR GetLocalAxisY() const {
 			return XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 		}
 		
 		/**
-		 Returns the direction of the z-axis of this transform expressed in local space coordinates.
+		 Returns the direction of the local z-axis of this transform expressed in local space coordinates.
 
-		 @return		The direction of the z-axis of this transform expressed in local space coordinates.
+		 @return		The direction of the local z-axis of this transform expressed in local space coordinates.
 		 */
 		XMVECTOR GetLocalAxisZ() const {
 			return XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
 		}
 		
 		/**
-		 Returns the Cartesian axes system of this transform in local space coordinates.
+		 Returns the local Cartesian axes system of this transform in local space coordinates.
 
-		 @return		The Cartesian axes system of this transform expressed in local space coordinates.
+		 @return		The local Cartesian axes system of this transform expressed in local space coordinates.
 		 */
 		CartesianAxesSystem GetLocalAxes() const {
 			return CartesianAxesSystem(GetLocalAxisX(), GetLocalAxisY(), GetLocalAxisZ());
 		}
 		
 		/**
-		 Returns the Cartesian coordinate system of this transform in local space coordinates.
+		 Returns the local Cartesian coordinate system of this transform in local space coordinates.
 
-		 @return		The Cartesian coordinate system of this transform expressed in local space coordinates.
+		 @return		The local Cartesian coordinate system of this transform expressed in local space coordinates.
 		 */
 		CartesianCoordinateSystem GetLocalCoordinateSystem() const {
 			return CartesianCoordinateSystem(GetLocalAxes());
 		}
 		
 		/**
-		 Returns the direction of the x-axis of this transform expressed in world space coordinates.
+		 Returns the direction of the local x-axis of this transform expressed in world space coordinates.
 
-		 @return		The direction of the x-axis of this transform expressed in world space coordinates.
+		 @return		The direction of the local x-axis of this transform expressed in world space coordinates.
 		 */
 		XMVECTOR GetWorldAxisX() const {
-			return TransformDirection(XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f));
+			return TransformObjectToWorldDirection(XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f));
 		}
 		
 		/**
-		 Returns the direction of the y-axis of this transform expressed in world space coordinates.
+		 Returns the direction of the local y-axis of this transform expressed in world space coordinates.
 
-		 @return		The direction of the y-axis of this transform expressed in world space coordinates.
+		 @return		The direction of the local y-axis of this transform expressed in world space coordinates.
 		 */
 		XMVECTOR GetWorldAxisY() const {
-			return TransformDirection(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
+			return TransformObjectToWorldDirection(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
 		}
 		
 		/**
-		 Returns the direction of the z-axis of this transform expressed in world space coordinates.
+		 Returns the direction of the local z-axis of this transform expressed in world space coordinates.
 
-		 @return		The direction of the z-axis of this transform expressed in world space coordinates.
+		 @return		The direction of the local z-axis of this transform expressed in world space coordinates.
 		 */
 		XMVECTOR GetWorldAxisZ() const {
-			return TransformDirection(XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
+			return TransformObjectToWorldDirection(XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
 		}
 		
 		/**
-		 Returns the Cartesian axes system of this transform expressed in world space coordinates.
+		 Returns the local Cartesian axes system of this transform expressed in world space coordinates.
 
-		 @return		The Cartesian axes system of this transform expressed in world space coordinates.
+		 @return		The local Cartesian axes system of this transform expressed in world space coordinates.
 		 */
 		CartesianAxesSystem GetWorldAxes() const {
 			return CartesianAxesSystem(GetWorldAxisX(), GetWorldAxisY(), GetWorldAxisZ());
 		}
 		
 		/**
-		 Returns the Cartesian coordinate system of this transform in world space coordinates.
+		 Returns the local Cartesian coordinate system of this transform in world space coordinates.
 
-		 @return		The Cartesian coordinate system of this transform expressed in world space coordinates.
+		 @return		The local Cartesian coordinate system of this transform expressed in world space coordinates.
 		 */
 		CartesianCoordinateSystem GetWorldCoordinateSystem() const {
 			const XMVECTOR origin = XMLoadFloat3(&m_translation);
@@ -677,54 +677,54 @@ namespace mage {
 		}
 
 		/**
-		 Returns the left direction of this transform expressed in local space coordinates.
+		 Returns the local left direction of this transform expressed in local space coordinates.
 
-		 @return		The left direction of this transform expressed in local space coordinates.
+		 @return		The local left direction of this transform expressed in local space coordinates.
 		 */
 		XMVECTOR GetLocalLeft() const {
 			return GetLocalAxisX();
 		}
 		
 		/**
-		 Returns the up direction of this transform expressed in local space coordinates.
+		 Returns the local up direction of this transform expressed in local space coordinates.
 
-		 @return		The up direction of this transform expressed in local space coordinates.
+		 @return		The local up direction of this transform expressed in local space coordinates.
 		 */
 		XMVECTOR GetLocalUp() const {
 			return GetLocalAxisY();
 		}
 		
 		/**
-		 Returns the forward direction of this transform expressed in local space coordinates.
+		 Returns the local forward direction of this transform expressed in local space coordinates.
 
-		 @return		The forward direction of this transform expressed in local space coordinates.
+		 @return		The local forward direction of this transform expressed in local space coordinates.
 		 */
 		XMVECTOR GetLocalForward() const {
 			return GetLocalAxisZ();
 		}
 		
 		/**
-		 Returns the left direction of this transform expressed in world space coordinates.
+		 Returns the local left direction of this transform expressed in world space coordinates.
 
-		 @return		The left direction of this transform expressed in world space coordinates.
+		 @return		The local left direction of this transform expressed in world space coordinates.
 		 */
 		XMVECTOR GetWorldLeft() const {
 			return GetWorldAxisX();
 		}
 		
 		/**
-		 Returns the up direction of this transform expressed in world space coordinates.
+		 Returns the local up direction of this transform expressed in world space coordinates.
 
-		 @return		The up direction of this transform expressed in world space coordinates.
+		 @return		The local up direction of this transform expressed in world space coordinates.
 		 */
 		XMVECTOR GetWorldUp() const {
 			return GetWorldAxisY();
 		}
 		
 		/**
-		 Returns the forward direction of this transform expressed in world space coordinates.
+		 Returns the local forward direction of this transform expressed in world space coordinates.
 
-		 @return		The forward direction of this transform expressed in world space coordinates.
+		 @return		The local forward direction of this transform expressed in world space coordinates.
 		 */
 		XMVECTOR GetWorldForward() const {
 			return GetWorldAxisZ();
@@ -740,6 +740,15 @@ namespace mage {
 		}
 		
 		/**
+		 Returns the object-to-world matrix of this transform.
+
+		 @return		The object-to-world matrix of this transform.
+		 */
+		XMMATRIX GetObjectToWorldMatrix() const {
+			return GetInverseScaleMatrix() * GetInverseRotationMatrix() * GetInverseTranslationMatrix();
+		}
+
+		/**
 		 Returns the world-to-view matrix of this transform.
 
 		 @return		The world-to-view matrix of this transform.
@@ -751,17 +760,44 @@ namespace mage {
 	private:
 
 		/**
+		 Returns the inverse translation matrix of this transform.
+
+		 @return		The inverse translation matrix of this transform.
+		 */
+		XMMATRIX GetInverseTranslationMatrix() const {
+			return XMMatrixTranslationFromVector(XMVectorSet(-m_translation.x, -m_translation.y,-m_translation.z, 0.0f));
+		}
+
+		/**
+		 Returns the inverse rotation matrix of this transform.
+
+		 @return		The inverse rotation matrix of this transform.
+		 */
+		XMMATRIX GetInverseRotationMatrix() const {
+			return XMMatrixRotationRollPitchYawFromVector(XMVectorSet(-m_rotation.x, -m_rotation.y, -m_rotation.z, 0.0f));
+		}
+
+		/**
+		 Returns the inverse scale matrix of this transform.
+
+		 @return		The inverse scale matrix of this transform.
+		 */
+		XMMATRIX GetInverseScaleMatrix() const {
+			return XMMatrixScalingFromVector(XMVectorSet(1.0f / m_scale.x, 1.0f / m_scale.y, 1.0f / m_scale.z, 0.0f));
+		}
+
+		/**
 		 Transforms the given direction expressed in the local coordinate space
 		 of this transform to world coordinate space.
 
 		 @param[in]		direction
 						A reference to the direction expressed in the local coordinate space
 						of this transform.
-		 @return		The transformed direction expressed in world coordinate space.
+		 @return		The transformed (normalized) direction expressed in world coordinate space.
 		 */
-		XMVECTOR TransformDirection(const XMVECTOR &direction) const {
-			const XMMATRIX rotation = GetRotationMatrix();
-			return XMVector4Transform(direction, rotation);
+		XMVECTOR TransformObjectToWorldDirection(const XMVECTOR &direction) const {
+			const XMMATRIX transformation = GetInverseScaleMatrix() * GetInverseRotationMatrix();
+			return XMVector3Normalize(XMVector4Transform(direction, transformation));
 		}
 
 		/**

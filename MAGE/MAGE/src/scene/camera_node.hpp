@@ -26,11 +26,11 @@ namespace mage {
 			return m_camera->GetTransform();
 		}
 
-		virtual void Accept(const SceneNodeVisitor &visitor) {
+		virtual void Accept(SceneNodeVisitor &visitor) {
 			visitor.VisitCameraNode(*this);
 			PassToChilds(visitor);
 		}
-		virtual void Accept(const SceneNodeVisitor &visitor) const {
+		virtual void Accept(SceneNodeVisitor &visitor) const {
 			visitor.VisitCameraNode(*this);
 			PassToChilds(visitor);
 		}

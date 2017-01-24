@@ -93,12 +93,12 @@ namespace mage {
 
 		SceneNode() : m_parent(nullptr), m_childs(set< SceneNode * >()) {}
 
-		void PassToChilds(const SceneNodeVisitor &vistor) {
+		void PassToChilds(SceneNodeVisitor &vistor) {
 			for (set< SceneNode * >::iterator it = m_childs.begin(); it != m_childs.end(); ++it) {
 				(*it)->Accept(vistor);
 			}
 		}
-		void PassToChilds(const SceneNodeVisitor &vistor) const {
+		void PassToChilds(SceneNodeVisitor &vistor) const {
 			for (set< SceneNode * >::const_iterator it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
 				(*it)->Accept(vistor);
 			}

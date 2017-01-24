@@ -68,6 +68,7 @@ namespace mage {
 #include "loadable.hpp"
 #include "collection\collection.hpp"
 #include "parallel\parallel.hpp"
+#include "string\string_utils.hpp"
 #include "logging\logging.hpp"
 #include "memory\memory.hpp"
 #include "ui\ui.hpp"
@@ -80,6 +81,7 @@ namespace mage {
 #include "texture\texture.hpp"
 #include "input\input.hpp"
 #include "state\state.hpp"
+#include "model\model.hpp"
 #include "scene\scene.hpp"
 
 #pragma endregion

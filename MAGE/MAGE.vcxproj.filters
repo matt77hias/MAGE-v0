@@ -88,6 +88,9 @@
     <Filter Include="Header Files\view">
       <UniqueIdentifier>{a9fff7be-6c9a-43ad-9537-04834a43f9a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\string">
+      <UniqueIdentifier>{305f9f54-617c-4132-96aa-9a28c1f1f11d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -249,6 +252,15 @@
     <ClInclude Include="MAGE\src\view\camera.hpp">
       <Filter>Header Files\view</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\model\model.hpp">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\model\obj_loader.hpp">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\string\string_utils.hpp">
+      <Filter>Header Files\string</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -307,6 +319,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\logging\logging.cpp">
       <Filter>Source Files\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\model\obj_loader.cpp">
+      <Filter>Source Files\model</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

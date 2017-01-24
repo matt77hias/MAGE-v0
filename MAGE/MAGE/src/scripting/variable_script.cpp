@@ -36,14 +36,14 @@ namespace mage {
 			// statement. If so then read the data into the variable linked list.
 			if (read) {
 				// Stop reading data if an #end statement has been reached.
-				if (strcmp(buffer, MAGE_SCRIPT_END_TOKEN) == 0) {
+				if (str_equals(buffer, MAGE_SCRIPT_END_TOKEN)) {
 					read = false;
 				}
 				else {
 					ImportVariable(buffer, file);
 				}
 			}
-			else if (strcmp(buffer, MAGE_SCRIPT_BEGIN_TOKEN) == 0) {
+			else if (str_equals(buffer, MAGE_SCRIPT_BEGIN_TOKEN)) {
 				read = true;
 			}
 
@@ -93,65 +93,65 @@ namespace mage {
 		// Read the first word containing the type.
 		fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
 
-		if (strcmp(buffer, "bool") == 0) {
+		if (str_equals(buffer, "bool")) {
 			// The variable is a bool.
 			bool *value = new bool();
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
-			*value = (strcmp(buffer, "true") == 0) ? true : false;
+			*value = (str_equals(buffer, "true")) ? true : false;
 			AddVariable(name, BoolType, value);
 		}
-		else if (strcmp(buffer, "int") == 0) {
+		else if (str_equals(buffer, "int")) {
 			// The variable is an int.
 			int *value = new int();
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
 			*value = atoi(buffer);
 			AddVariable(name, IntType, value);
 		}
-		else if (strcmp(buffer, "float") == 0) {
+		else if (str_equals(buffer, "float")) {
 			// The variable is a float.
 			float *value = new float();
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
-			*value = (float)atof(buffer);
+			*value = strtof(buffer, nullptr);
 			AddVariable(name, FloatType, value);
 		}
-		else if (strcmp(buffer, "float3") == 0) {
+		else if (str_equals(buffer, "float3")) {
 			// The variable is a float3.
 			float3 *value = new float3();
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
-			value->x = (float)atof(buffer);
+			value->x = strtof(buffer, nullptr);
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
-			value->y = (float)atof(buffer);
+			value->y = strtof(buffer, nullptr);
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
-			value->z = (float)atof(buffer);
+			value->z = strtof(buffer, nullptr);
 			AddVariable(name, Float3Type, value);
 		}
-		else if (strcmp(buffer, "float4") == 0) {
+		else if (str_equals(buffer, "float4")) {
 			// The variable is a float4.
 			float4 *value = new float4();
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
-			value->x = (float)atof(buffer);
+			value->x = strtof(buffer, nullptr);
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
-			value->y = (float)atof(buffer);
+			value->y = strtof(buffer, nullptr);
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
-			value->z = (float)atof(buffer);
+			value->z = strtof(buffer, nullptr);
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
-			value->w = (float)atof(buffer);
+			value->w = strtof(buffer, nullptr);
 			AddVariable(name, Float4Type, value);
 		}
-		else if (strcmp(buffer, "colour") == 0) {
+		else if (str_equals(buffer, "colour")) {
 			// The variable is a colour.
 			colour *value = new colour();
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
-			value->x = (float)atof(buffer);
+			value->x = strtof(buffer, nullptr);
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
-			value->y = (float)atof(buffer);
+			value->y = strtof(buffer, nullptr);
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
-			value->z = (float)atof(buffer);
+			value->z = strtof(buffer, nullptr);
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
-			value->w = (float)atof(buffer);
+			value->w = strtof(buffer, nullptr);
 			AddVariable(name, ColourType, value);
 		}
-		else if (strcmp(buffer, "string") == 0) {
+		else if (str_equals(buffer, "string")) {
 			// The variable is a string.
 			
 			// format: c
@@ -162,12 +162,12 @@ namespace mage {
 			bool commas_found = false;
 			fscanf_s(file, "%c", buffer, (unsigned int)_countof(buffer));
 			while (true) {
-				if (strcmp(buffer, "\"") == 0) {
+				if (str_equals(buffer, "\"")) {
 					commas_found = true;
 					break;
 				}
 
-				if (strcmp(buffer, " ") != 0) {
+				if (!str_equals(buffer, " ")) {
 					// Used to specify a position within a file.
 					fpos_t pos;
 					// Retrieves the current position in the stream.
@@ -187,7 +187,7 @@ namespace mage {
 			do {
 				fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
 
-				if (strcmp(&buffer[strlen(buffer) - 1], "\"") == 0) {
+				if (str_equals(&buffer[strlen(buffer) - 1], "\"")) {
 					buffer[strlen(buffer) - 1] = 0;
 					commas_found = false;
 				}

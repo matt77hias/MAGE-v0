@@ -41,6 +41,8 @@
     <ClInclude Include="MAGE\src\memory\allocation.hpp" />
     <ClInclude Include="MAGE\src\memory\arena.hpp" />
     <ClInclude Include="MAGE\src\memory\memory.hpp" />
+    <ClInclude Include="MAGE\src\model\model.hpp" />
+    <ClInclude Include="MAGE\src\model\obj_loader.hpp" />
     <ClInclude Include="MAGE\src\parallel\atomic.hpp" />
     <ClInclude Include="MAGE\src\parallel\lock.hpp" />
     <ClInclude Include="MAGE\src\parallel\parallel.hpp" />
@@ -62,6 +64,7 @@
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\state\state.hpp" />
     <ClInclude Include="MAGE\src\state\state_manager.hpp" />
+    <ClInclude Include="MAGE\src\string\string_utils.hpp" />
     <ClInclude Include="MAGE\src\texture\dds_loader.hpp" />
     <ClInclude Include="MAGE\src\texture\texture.hpp" />
     <ClInclude Include="MAGE\src\ui\combo_box.hpp" />
@@ -82,6 +85,7 @@
     <ClCompile Include="MAGE\src\logging\logging.cpp" />
     <ClCompile Include="MAGE\src\logging\progressreporter.cpp" />
     <ClCompile Include="MAGE\src\logging\timer.cpp" />
+    <ClCompile Include="MAGE\src\model\obj_loader.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\parallel_for.cpp" />
     <ClCompile Include="MAGE\src\parallel\task.cpp" />

@@ -48,8 +48,8 @@ namespace mage {
 		 @return		@c true if this scene node contains the given scene node as a child scene node.
 						@c false otherwise.
 		 */
-		bool ContainsChild(SceneNode *child) const {
-			return m_childs.find(child) != m_childs.cend();
+		bool ContainsChild(const SceneNode *child) const {
+			return m_childs.find(const_cast< SceneNode * >(child)) != m_childs.cend();
 		}
 
 		/**

@@ -5,38 +5,68 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 A class of camera nodes.
+	 */
 	class CameraNode : public SceneNode {
 
 	public:
 
-		CameraNode(Camera *camera) 
-			: SceneNode(), m_camera(camera) {}
+		/**
+		 Constructs a camera node with given camera and transform.
+
+		 @pre			@a camera may not point to @c nullptr.
+		 @param[in]		camera
+						A pointer to the camera.
+		 @param[in]		transform
+						A reference to the transform.
+		 */
+		CameraNode(Camera *camera, const Transform &transform = Transform())
+			: SceneNode(transform), m_camera(camera) {}
+		
+		/**
+		 Destructs this camera node.
+		 */
 		virtual ~CameraNode() {
 			SAFE_DELETE(m_camera);
 		}
 
+		/**
+		 Returns the camera of this camera node.
+
+		 @return		A pointer to the camera of this camera node.
+		 */
 		Camera *GetCamera() const {
 			return m_camera;
 		}
 
-		virtual Transform &GetTransform() {
-			return m_camera->GetTransform();
-		}
-		virtual const Transform &GetTransform() const {
-			return m_camera->GetTransform();
-		}
+		/**
+		 Accepts the given visitor.
 
-		virtual void Accept(SceneNodeVisitor &visitor) {
+		 @param[in]		visitor
+						A reference to the visitor.
+		 */
+		virtual void Accept(SceneNodeVisitor &visitor) override {
 			visitor.VisitCameraNode(*this);
 			PassToChilds(visitor);
 		}
-		virtual void Accept(SceneNodeVisitor &visitor) const {
+		
+		/**
+		 Accepts the given visitor.
+
+		 @param[in]		visitor
+						A reference to the visitor.
+		 */
+		virtual void Accept(SceneNodeVisitor &visitor) const override {
 			visitor.VisitCameraNode(*this);
 			PassToChilds(visitor);
 		}
 
 	protected:
 
+		/**
+		 A pointer to the camera of this camera node.
+		 */
 		Camera *m_camera;
 	};
 }

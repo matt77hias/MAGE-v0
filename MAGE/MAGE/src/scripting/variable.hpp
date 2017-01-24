@@ -198,7 +198,7 @@ namespace mage {
 
 			 @return		A pointer to the value of this value.
 			 */
-			virtual const void *GetValue() const {
+			virtual const void *GetValue() const override {
 				return (void *)m_value;
 			}
 

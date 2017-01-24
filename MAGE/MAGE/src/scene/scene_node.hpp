@@ -5,10 +5,16 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 A class of scene nodes.
+	 */
 	class SceneNode {
 
 	public:
 
+		/**
+		 Destructs this scene node.
+		 */
 		virtual ~SceneNode() {
 			
 			// Detach this node in both directions.
@@ -25,12 +31,35 @@ namespace mage {
 			m_childs.clear();
 		}
 
+		/**
+		 Returns the parent scene node of this scene node.
+
+		 @return		@c nullptr if this scene node has no parent scene node
+						(i.e. this scene node is a root node).
+		 @return		A pointer to the parent scene node of this scene node.
+		 */
 		SceneNode *GetParent() const {
 			return m_parent;
 		}
+		
+		/**
+		 Checks whether this scene node contains the given scene node as a child scene node.
+
+		 @return		@c true if this scene node contains the given scene node as a child scene node.
+						@c false otherwise.
+		 */
 		bool ContainsChild(SceneNode *child) const {
 			return m_childs.find(child) != m_childs.cend();
 		}
+
+		/**
+		 Adds the given child scene node to the child scene nodes of this scene node.
+		 If the given child scene node has already a parent scene node, it is removed
+		 from that node since scene nodes may only have at most one parent scene node.
+
+		 @param[in]		child
+						A pointer to the child scene node.
+		 */
 		void AddChild(SceneNode *child) {
 			if (!child) {
 				return;
@@ -46,7 +75,18 @@ namespace mage {
 			// Add this parent to the child.
 			child->SetParent(this);
 		}
+		
+		/**
+		 Removes the given child scene node from the child scene nodes of this scene node.
+
+		 @param[in]		child
+						A pointer to the child scene node.
+		 */
 		void RemoveChild(SceneNode *child) {
+			if (!child) {
+				return;
+			}
+
 			set< SceneNode * >::iterator it = m_childs.begin();
 			while (it != m_childs.end()) {
 				if ((*it) == child) {
@@ -61,43 +101,127 @@ namespace mage {
 				}
 			}
 		}
+		
+		/**
+		 Returns the total number of child scene nodes of this scene node.
+
+		 @return		The total number of child scene nodes of this scene node.
+		 */
 		size_t GetNbOfChilds() const {
 			return m_childs.size();
 		}
 
-		virtual Transform &GetTransform() = 0;
-		virtual const Transform &GetTransform() const = 0;
+		/**
+		 Returns the transform of this scene node.
+
+		 @return		The transform of this scene node.
+		 */
+		Transform &GetTransform() {
+			return m_transform;
+		}
+
+		/**
+		 Returns the transform of this scene node.
+
+		 @return		The transform of this scene node.
+		 */
+		const Transform &GetTransform() const {
+			return m_transform;
+		}
+		
+		/**
+		 Returns the parent-to-object matrix of this scene node.
+
+		 @return		The parent-to-object matrix of this scene node.
+		 */
+		XMMATRIX GetParentToObjectMatrix() const {
+			return GetTransform().GetWorldToObjectMatrix();
+		}
+
+		/**
+		 Returns the object-to-parent matrix of this scene node.
+
+		 @return		The object-to-parent matrix of this scene node.
+		 */
+		XMMATRIX GetParentToWorldMatrix() const {
+			return GetTransform().GetObjectToWorldMatrix();
+		}
+
+		/**
+		 Returns the world-to-object matrix of this scene node.
+
+		 @return		The world-to-object matrix of this scene node.
+		 */
 		XMMATRIX GetWorldToObjectMatrix() const {
-			XMMATRIX transformation = GetTransform().GetWorldToObjectMatrix();
+			XMMATRIX transformation = GetParentToObjectMatrix();
 			const SceneNode *current_node = m_parent;
 			while (current_node) {
-				transformation = transformation * current_node->GetTransform().GetWorldToObjectMatrix();
+				transformation = transformation * current_node->GetParentToObjectMatrix();
 				current_node = current_node->m_parent;
 			}
 			return transformation;
 		}
+		
+		/**
+		 Returns the object-to-world matrix of this scene node.
+
+		 @return		The object-to-world matrix of this scene node.
+		 */
 		XMMATRIX GetObjectToWorldMatrix() const {
-			XMMATRIX transformation = GetTransform().GetObjectToWorldMatrix();
+			XMMATRIX transformation = GetParentToWorldMatrix();
 			const SceneNode *current_node = m_parent;
 			while (current_node) {
-				transformation = current_node->GetTransform().GetObjectToWorldMatrix() * transformation;
+				transformation = current_node->GetParentToWorldMatrix() * transformation;
 				current_node = current_node->m_parent;
 			}
 			return transformation;
 		}
 
-		virtual void Accept(const SceneNodeVisitor &vistor) = 0;
-		virtual void Accept(const SceneNodeVisitor &vistor) const = 0;
+		/**
+		 Accepts the given visitor.
+
+		 @param[in]		visitor
+						A reference to the visitor.
+		 */
+		virtual void Accept(SceneNodeVisitor &vistor) = 0;
+		
+		/**
+		 Accepts the given visitor.
+
+		 @param[in]		visitor
+						A reference to the visitor.
+		 */
+		virtual void Accept(SceneNodeVisitor &vistor) const = 0;
 
 	protected:
 
-		SceneNode() : m_parent(nullptr), m_childs(set< SceneNode * >()) {}
+		/**
+		 Constructs a scene node with the given transform.
 
+		 @param[in]		transform
+						A reference to the transform.
+		 */
+		SceneNode(const Transform &transform = Transform()) 
+			: m_transform(transform), m_parent(nullptr), m_childs(set< SceneNode * >()) {}
+
+		/**
+		 Pass the given visitor to the childs of this scene node.
+
+		 @param[in]		visitor
+						A reference to the visitor.
+		 */
 		void PassToChilds(SceneNodeVisitor &vistor) {
 			for (set< SceneNode * >::iterator it = m_childs.begin(); it != m_childs.end(); ++it) {
 				(*it)->Accept(vistor);
 			}
 		}
+		
+		/**
+		 Pass the given visitor to the childs of this scene node.
+
+		 @param[in]		visitor
+						A reference to the visitor.
+		 */
 		void PassToChilds(SceneNodeVisitor &vistor) const {
 			for (set< SceneNode * >::const_iterator it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
 				(*it)->Accept(vistor);
@@ -106,11 +230,29 @@ namespace mage {
 
 	private:
 
+		/**
+		 Sets the parent scene node of this scene node to the given scene node.
+
+		 @param[in]		parent
+						A pointer to the parent scene node.
+		 */
 		void SetParent(SceneNode *parent) {
 			m_parent = parent;
 		}
 		
+		/**
+		 The transform of this scene node.
+		 */
+		Transform m_transform;
+
+		/**
+		 A pointer to the parent scene node of this scene node.
+		 */
 		SceneNode *m_parent;
+
+		/**
+		 A set containing the child scene nodes of this scene node.
+		 */
 		set< SceneNode * > m_childs;
 	};
 }

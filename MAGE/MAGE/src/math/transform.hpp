@@ -85,9 +85,11 @@ namespace mage {
 
 		 @param[in]		x
 						The x-value of the translation component.
+		 @return		A reference to this transform.
 		 */
-		void SetTranslationX(float x) {
+		Transform &SetTranslationX(float x) {
 			m_translation.x = x;
+			return (*this);
 		}
 		
 		/**
@@ -95,9 +97,11 @@ namespace mage {
 
 		 @param[in]		y
 						The y-value of the translation component.
+		 @return		A reference to this transform.
 		 */
-		void SetTranslationY(float y) {
+		Transform &SetTranslationY(float y) {
 			m_translation.y = y;
+			return (*this);
 		}
 		
 		/**
@@ -105,9 +109,11 @@ namespace mage {
 
 		 @param[in]		z
 						The z-value of the translation component.
+		 @return		A reference to this transform.
 		 */
-		void SetTranslationZ(float z) {
+		Transform &SetTranslationZ(float z) {
 			m_translation.z = z;
+			return (*this);
 		}
 		
 		/**
@@ -119,11 +125,13 @@ namespace mage {
 						The y-value of the translation component.
 		 @param[in]		z
 						The z-value of the translation component.
+		 @return		A reference to this transform.
 		 */
-		void SetTranslation(float x, float y, float z) {
+		Transform &SetTranslation(float x, float y, float z) {
 			m_translation.x = x;
 			m_translation.y = y;
 			m_translation.z = z;
+			return (*this);
 		}
 		
 		/**
@@ -131,11 +139,13 @@ namespace mage {
 
 		 @param[in]		translation
 						A reference to the translation component.
+		 @return		A reference to this transform.
 		 */
-		void SetTranslation(const XMFLOAT3 &translation) {
+		Transform &SetTranslation(const XMFLOAT3 &translation) {
 			m_translation.x = translation.x;
 			m_translation.y = translation.y;
 			m_translation.z = translation.z;
+			return (*this);
 		}
 		
 		/**
@@ -246,9 +256,11 @@ namespace mage {
 
 		 @param[in]		x
 						The x-value of the rotation component.
+		 @return		A reference to this transform.
 		 */
-		void SetRotationX(float x) {
+		Transform &SetRotationX(float x) {
 			m_rotation.x = x;
+			return (*this);
 		}
 		
 		/**
@@ -256,9 +268,11 @@ namespace mage {
 
 		 @param[in]		y
 						The y-value of the rotation component.
+		 @return		A reference to this transform.
 		 */
-		void SetRotationY(float y) {
+		Transform &SetRotationY(float y) {
 			m_rotation.y = y;
+			return (*this);
 		}
 		
 		/**
@@ -266,9 +280,11 @@ namespace mage {
 
 		 @param[in]		z
 						The z-value of the rotation component.
+		 @return		A reference to this transform.
 		 */
-		void SetRotationZ(float z) {
+		Transform &SetRotationZ(float z) {
 			m_rotation.z = z;
+			return (*this);
 		}
 		
 		/**
@@ -280,11 +296,13 @@ namespace mage {
 						 The y-value of the rotation component.
 		 @param[in]		z
 						The z-value of the rotation component.
+		 @return		A reference to this transform.
 		 */
-		void SetRotation(float x, float y, float z) {
+		Transform &SetRotation(float x, float y, float z) {
 			m_rotation.x = x;
 			m_rotation.y = y;
 			m_rotation.z = z;
+			return (*this);
 		}
 		
 		/**
@@ -292,11 +310,13 @@ namespace mage {
 
 		 @param[in]		rotation
 						A reference to the rotation component.
+		 @return		A reference to this transform.
 		 */
-		void SetRotation(const XMFLOAT3 &rotation) {
+		Transform &SetRotation(const XMFLOAT3 &rotation) {
 			m_rotation.x = rotation.x;
 			m_rotation.y = rotation.y;
 			m_rotation.z = rotation.z;
+			return (*this);
 		}
 		
 		/**
@@ -306,8 +326,9 @@ namespace mage {
 						A reference to the normal.
 		 @param[in]		angle
 						The angle.
+		 @return		A reference to this transform.
 		 */
-		void SetRotationAroundDirection(const XMVECTOR &normal, float angle) {
+		Transform &SetRotationAroundDirection(const XMVECTOR &normal, float angle) {
 			const XMMATRIX rotation_m = XMMatrixRotationNormal(normal, angle);
 			XMFLOAT4X4 rotation;
 			XMStoreFloat4x4(&rotation, rotation_m);
@@ -319,6 +340,8 @@ namespace mage {
 			m_rotation.z = acosf(cr);
 			const float cy = rotation._33 / cp;
 			m_rotation.x = acosf(cy);
+
+			return (*this);
 		}
 		
 		/**
@@ -429,9 +452,11 @@ namespace mage {
 
 		 @param[in]		x
 						The x-value of the scale component.
+		 @return		A reference to this transform.
 		 */
-		void SetScaleX(float x) {
+		Transform &SetScaleX(float x) {
 			m_scale.x = x;
+			return (*this);
 		}
 		
 		/**
@@ -439,9 +464,11 @@ namespace mage {
 
 		 @param[in]		y
 						The y-value of the scale component.
+		 @return		A reference to this transform.
 		 */
-		void SetScaleY(float y) {
+		Transform &SetScaleY(float y) {
 			m_scale.y = y;
+			return (*this);
 		}
 		
 		/**
@@ -449,9 +476,11 @@ namespace mage {
 
 		 @param[in]		z
 						The z-value of the scale component.
+		 @return		A reference to this transform.
 		 */
-		void SetScaleZ(float z) {
+		Transform &SetScaleZ(float z) {
 			m_scale.z = z;
+			return (*this);
 		}
 		
 		/**
@@ -463,11 +492,13 @@ namespace mage {
 						The y-value of the scale component.
 		 @param[in]		z
 						The z-value of the scale component.
+		 @return		A reference to this transform.
 		 */
-		void SetScale(float x, float y, float z) {
+		Transform &SetScale(float x, float y, float z) {
 			m_scale.x = x;
 			m_scale.y = y;
 			m_scale.z = z;
+			return (*this);
 		}
 		
 		/**
@@ -475,11 +506,13 @@ namespace mage {
 
 		 @param[in]		scale
 						A reference to the scale component.
+		 @return		A reference to this transform.
 		 */
-		void SetScale(const XMFLOAT3 &scale) {
+		Transform &SetScale(const XMFLOAT3 &scale) {
 			m_scale.x = scale.x;
 			m_scale.y = scale.y;
 			m_scale.z = scale.z;
+			return (*this);
 		}
 		
 		/**

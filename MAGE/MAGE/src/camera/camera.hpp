@@ -16,82 +16,175 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 A class of camera.
+	 */
 	class Camera {
 
 	public:
 
+		/**
+		 Destructs this camera.
+		 */
 		virtual ~Camera() {}
 
-		Transform &GetTransform() {
-			return m_transform;
-		}
-		const Transform &GetTransform() const {
-			return m_transform;
-		}
-		
+		/**
+		 Returns the width of this camera.
+
+		 @return		The width of this camera.
+		 */
 		float GetWidth() const {
 			return m_width;
 		}
-		void SetWidth(float width) {
+		
+		/**
+		 Sets the width of this camera to the given value.
+
+		 @param[in]		width
+						The width.
+		 @return		A reference to this camera.
+		 */
+		Camera &SetWidth(float width) {
 			m_width = width;
-			UpdateViewToProjectionMatrix();
+			return (*this);
 		}
+		
+		/**
+		 Returns the height of this camera.
+
+		 @return		The height of this camera.
+		 */
 		float GetHeight() const {
 			return m_height;
 		}
-		void SetHeight(float height) {
+		
+		/**
+		 Sets the height of this camera to the given value.
+
+		 @param[in]		height
+						The height.
+		 @return		A reference to this camera.
+		 */
+		Camera &SetHeight(float height) {
 			m_height = height;
-			UpdateViewToProjectionMatrix();
+			return (*this);
 		}
-		void SetWidthAndHeight(float width, float height) {
+		
+		/**
+		 Sets the width and height of this camera to the given values.
+
+		 @param[in]		width
+						The width.
+		 @param[in]		height
+						The height.
+		 @return		A reference to this camera.
+		 */
+		Camera &SetWidthAndHeight(float width, float height) {
 			m_width = width;
 			m_height = height;
-			UpdateViewToProjectionMatrix();
+			return (*this);
 		}
 
+		/**
+		 Returns the position of the near z-plane of this camera.
+
+		 @return		The position of the near z-plane of this camera.
+		 */
 		float GetNearZ() const {
 			return m_near_z;
 		}
-		void SetNearZ(float near_z) {
+		
+		/**
+		 Sets the position of the near z-plane of this camera to the given value.
+
+		 @param[in]		near_z
+						The position of the near z-plane.
+		 @return		A reference to this camera.
+		 */
+		Camera &SetNearZ(float near_z) {
 			m_near_z = near_z;
-			UpdateViewToProjectionMatrix();
+			return (*this);
 		}
+		
+		/**
+		 Returns the position of the far z-plane of this camera.
+
+		 @return		The position of the far z-plane of this camera.
+		 */
 		float GetFarZ() const {
 			return m_far_z;
 		}
-		void SetFarZ(float far_z) {
+		
+		/**
+		 Sets the position of the far z-plane of this camera to the given value.
+
+		 @param[in]		near_z
+						The position of the near z-plane.
+		 @return		A reference to this camera.
+		 */
+		Camera &SetFarZ(float far_z) {
 			m_far_z = far_z;
-			UpdateViewToProjectionMatrix();
+			return (*this);
 		}
-		void SetNearAndFarZ(float near_z, float far_z) {
+		
+		/**
+		 Sets the position of the near and far z-plane of this camera to the given values.
+
+		 @param[in]		near_z
+						The position of the near z-plane.
+		 @param[in]		far_z
+						The position of the far z-plane.
+		 @return		A reference to this camera.
+		 */
+		Camera &SetNearAndFarZ(float near_z, float far_z) {
 			m_near_z = near_z;
 			m_far_z = far_z;
-			UpdateViewToProjectionMatrix();
+			return (*this);
 		}
 
-		XMMATRIX GetViewToProjectionMatrix() const {
-			return m_view_to_projection;
-		}
+		/**
+		 Returns the view-to-projection matrix of this camera.
+
+		 @return		The view-to-projection matrix of this camera.
+		 */
+		virtual XMMATRIX GetViewToProjectionMatrix() const = 0;
 			
 	protected:
 
-		Camera(const XMMATRIX &view_to_projection, 
-			float width, float height, float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z,
-			const Transform &transform = Transform())
-			: m_view_to_projection(view_to_projection), 
-			m_width(width), m_height(height), m_near_z(near_z), m_far_z(far_z),
-			m_transform(transform) {}
+		/**
+		 Constructs a camera.
 
-		virtual void UpdateViewToProjectionMatrix() = 0;
+		 @param[in]		width
+						The width.
+		 @param[in]		height
+						The height.
+		 @param[in]		near_z
+						The position of the near z-plane.
+		 @param[in]		far_z
+						The position of the far z-plane.
+		 */
+		Camera(float width, float height, float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z)
+			: m_width(width), m_height(height), m_near_z(near_z), m_far_z(far_z) {}
 
-		Transform m_transform;
-
+		/**
+		 The width of this camera.
+		 */
 		float m_width;
-		float m_height;
-		float m_near_z;
-		float m_far_z;
 
-		XMMATRIX m_view_to_projection;
+		/**
+		 The height of this camera.
+		 */
+		float m_height;
+
+		/**
+		 The position of the near z-plane. 
+		 */
+		float m_near_z;
+
+		/**
+		 The position of the far z-plane.
+		 */
+		float m_far_z;
 	};
 }
 

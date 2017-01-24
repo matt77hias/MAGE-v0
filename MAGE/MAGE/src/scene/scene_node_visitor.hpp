@@ -11,10 +11,10 @@ namespace mage {
 
 		virtual ~SceneNodeVisitor() {}
 
-		virtual void VisitCameraNode(CameraNode &camera_node) const {
+		virtual void VisitCameraNode(CameraNode &camera_node) {
 			UNUSED(camera_node);
 		}
-		virtual void VisitCameraNode(const CameraNode &camera_node) const {
+		virtual void VisitCameraNode(const CameraNode &camera_node) {
 			UNUSED(camera_node);
 		}
 

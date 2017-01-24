@@ -16,7 +16,7 @@ namespace mage {
 					@c false otherwise.
 	 */
 	inline bool str_equals(const char *str1, const char *str2) {
-		return (strcmp(str1, str2) == 0) ? true : false;
+		return strcmp(str1, str2) ? false : true;
 	}
 
 	/**
@@ -30,6 +30,6 @@ namespace mage {
 					@c false otherwise.
 	 */
 	inline bool str_contains(const char *str1, const char *str2) {
-		return (strstr(str1, str2) == nullptr) ? true : false;
+		return strstr(str1, str2) ? true : false;
 	}
 }

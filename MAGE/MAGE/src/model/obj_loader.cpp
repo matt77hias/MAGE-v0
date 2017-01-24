@@ -26,26 +26,27 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	inline XMFLOAT2 ParseOBJFloat2(const char *token) {
+	static XMFLOAT2 ParseOBJFloat2(const char *token) {
 		char *end = nullptr;
 		const float vector3_x = strtof(token, &end);
-		const float vector3_y = strtof(token, &end);
+		const float vector3_y = strtof(end, nullptr);
 		return XMFLOAT2(vector3_x, vector3_y);
 	}
 
-	inline XMFLOAT3 ParseOBJFloat3(const char *token) {
-		char *end = nullptr;
-		const float vector3_x = strtof(token, &end);
-		const float vector3_y = strtof(token, &end);
-		const float vector3_z = strtof(token, &end);
+	static XMFLOAT3 ParseOBJFloat3(const char *token) {
+		char *end1 = nullptr;
+		char *end2 = nullptr;
+		const float vector3_x = strtof(token, &end1);
+		const float vector3_y = strtof(end1, &end2);
+		const float vector3_z = strtof(end2, nullptr);
 		return XMFLOAT3(vector3_x, vector3_y, vector3_z);
 	}
 
-	inline XMFLOAT3 ParseOBJVertexCoordinates(const char *token) {
+	static XMFLOAT3 ParseOBJVertexCoordinates(const char *token) {
 		return ParseOBJFloat3(token);
 	}
 
-	inline XMFLOAT3 ParseOBJVertexNormalCoordinates(const char *token) {
+	static XMFLOAT3 ParseOBJVertexNormalCoordinates(const char *token) {
 		const XMFLOAT3 vector3 = ParseOBJFloat3(token);
 		const XMVECTOR vector3_v = XMLoadFloat3(&vector3);
 		const XMVECTOR normal3_v = XMVector3Normalize(vector3_v);
@@ -54,11 +55,11 @@ namespace mage {
 		return normal3;
 	}
 
-	inline XMFLOAT2 ParseOBJVertexTextureCoordinates(const char *token) {
+	static XMFLOAT2 ParseOBJVertexTextureCoordinates(const char *token) {
 		return ParseOBJFloat2(token);
 	}
 
-	inline XMINT3 ParseOBJVertexIndices(const char *token) {
+	static XMINT3 ParseOBJVertexIndices(const char *token) {
 		const int32_t vertex_index = atoi(token);
 		int32_t texture_index = -1;
 		int32_t normal_index = -1;

@@ -49,7 +49,7 @@ namespace mage {
 						@c false otherwise.
 		 */
 		bool ContainsChild(const SceneNode *child) const {
-			return m_childs.find(const_cast< SceneNode * >(child)) != m_childs.cend();
+			return m_childs.find(child) != m_childs.cend();
 		}
 
 		/**
@@ -202,7 +202,7 @@ namespace mage {
 						A reference to the transform.
 		 */
 		SceneNode(const Transform &transform = Transform()) 
-			: m_transform(transform), m_parent(nullptr), m_childs(set< SceneNode * >()) {}
+			: m_transform(transform), m_parent(nullptr) {}
 
 		/**
 		 Pass the given visitor to the childs of this scene node.
@@ -253,6 +253,6 @@ namespace mage {
 		/**
 		 A set containing the child scene nodes of this scene node.
 		 */
-		set< SceneNode * > m_childs;
+		set< SceneNode *, std::less<> > m_childs;
 	};
 }

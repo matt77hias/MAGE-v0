@@ -183,7 +183,7 @@ namespace mage {
 		 @param[in]		visitor
 						A reference to the visitor.
 		 */
-		virtual void Accept(SceneNodeVisitor &vistor) = 0;
+		virtual void Accept(SceneNodeVisitor &visitor) = 0;
 		
 		/**
 		 Accepts the given visitor.
@@ -191,7 +191,7 @@ namespace mage {
 		 @param[in]		visitor
 						A reference to the visitor.
 		 */
-		virtual void Accept(SceneNodeVisitor &vistor) const = 0;
+		virtual void Accept(SceneNodeVisitor &visitor) const = 0;
 
 	protected:
 
@@ -210,9 +210,9 @@ namespace mage {
 		 @param[in]		visitor
 						A reference to the visitor.
 		 */
-		void PassToChilds(SceneNodeVisitor &vistor) {
+		void PassToChilds(SceneNodeVisitor &visitor) {
 			for (set< SceneNode * >::iterator it = m_childs.begin(); it != m_childs.end(); ++it) {
-				(*it)->Accept(vistor);
+				(*it)->Accept(visitor);
 			}
 		}
 		
@@ -222,9 +222,9 @@ namespace mage {
 		 @param[in]		visitor
 						A reference to the visitor.
 		 */
-		void PassToChilds(SceneNodeVisitor &vistor) const {
+		void PassToChilds(SceneNodeVisitor &visitor) const {
 			for (set< SceneNode * >::const_iterator it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
-				(*it)->Accept(vistor);
+				(*it)->Accept(visitor);
 			}
 		}
 

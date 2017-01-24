@@ -118,8 +118,8 @@ namespace mage {
 		/**
 		 Sets the position of the far z-plane of this camera to the given value.
 
-		 @param[in]		near_z
-						The position of the near z-plane.
+		 @param[in]		far_z
+						The position of the far z-plane.
 		 @return		A reference to this camera.
 		 */
 		Camera &SetFarZ(float far_z) {

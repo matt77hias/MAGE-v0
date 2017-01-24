@@ -225,9 +225,6 @@
     <ClInclude Include="MAGE\src\math\coordinate_system.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\camera\camera.hpp">
-      <Filter>Header Files\view</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\scene\scene.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
@@ -247,6 +244,9 @@
       <Filter>Header Files\view</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\view\view.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\view\camera.hpp">
       <Filter>Header Files\view</Filter>
     </ClInclude>
   </ItemGroup>

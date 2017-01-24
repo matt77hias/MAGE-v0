@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MAGE\src\camera\camera.hpp" />
     <ClInclude Include="MAGE\src\collection\collection.hpp" />
     <ClInclude Include="MAGE\src\core\engine.hpp" />
     <ClInclude Include="MAGE\src\core\loadable.hpp" />
@@ -69,6 +68,7 @@
     <ClInclude Include="MAGE\src\ui\main_window.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
     <ClInclude Include="MAGE\src\ui\ui.hpp" />
+    <ClInclude Include="MAGE\src\view\camera.hpp" />
     <ClInclude Include="MAGE\src\view\orthographic_camera.hpp" />
     <ClInclude Include="MAGE\src\view\perspective_camera.hpp" />
     <ClInclude Include="MAGE\src\view\view.hpp" />

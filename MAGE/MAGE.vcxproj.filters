@@ -85,7 +85,7 @@
     <Filter Include="Header Files\model">
       <UniqueIdentifier>{18ba5fb2-7642-4f61-bc2d-998b16bcde6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\camera">
+    <Filter Include="Header Files\view">
       <UniqueIdentifier>{a9fff7be-6c9a-43ad-9537-04834a43f9a1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -226,13 +226,7 @@
       <Filter>Header Files\math</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\camera\camera.hpp">
-      <Filter>Header Files\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\camera\orthographic_camera.hpp">
-      <Filter>Header Files\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\camera\perspective_camera.hpp">
-      <Filter>Header Files\camera</Filter>
+      <Filter>Header Files\view</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\scene\scene.hpp">
       <Filter>Header Files\scene</Filter>
@@ -245,6 +239,15 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\scene\scene_node_visitor.hpp">
       <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\view\orthographic_camera.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\view\perspective_camera.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\view\view.hpp">
+      <Filter>Header Files\view</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

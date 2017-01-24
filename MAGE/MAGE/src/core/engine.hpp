@@ -73,7 +73,7 @@ namespace mage {
 #include "ui\ui.hpp"
 
 #include "math\math.hpp"
-#include "camera\camera.hpp"
+#include "view\view.hpp"
 #include "resource\resource.hpp"
 #include "scripting\scripting.hpp"
 #include "rendering\rendering.hpp"

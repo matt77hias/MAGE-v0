@@ -187,13 +187,3 @@ namespace mage {
 		float m_far_z;
 	};
 }
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "camera\orthographic_camera.hpp"
-#include "camera\perspective_camera.hpp"
-
-#pragma endregion

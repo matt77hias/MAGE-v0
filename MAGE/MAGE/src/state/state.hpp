@@ -89,8 +89,7 @@ namespace mage {
 						The elapsed time since the previous update.
 		 */
 		virtual void Update(double elapsed_time) {
-			// Supresses C4100: unreferenced formal parameter
-			(void)elapsed_time;
+			UNUSED(elapsed_time);
 		}
 
 		/**

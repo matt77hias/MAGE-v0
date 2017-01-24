@@ -7,7 +7,7 @@ using namespace mage;
 
 class TestState : public State {
 	virtual void Update(double elapsed_time) {
-		(void) elapsed_time;
+		UNUSED(elapsed_time);
 
 		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_Q)) {
 			//PostQuitMessage(0);

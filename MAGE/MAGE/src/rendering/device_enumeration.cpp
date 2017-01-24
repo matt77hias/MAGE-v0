@@ -221,7 +221,7 @@ namespace mage {
 	}
 
 	INT_PTR DeviceEnumeration::SettingsDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-		(void)lParam;
+		UNUSED(lParam);
 
 		// Window mode affects colour depth (format) affects resolution affects refresh rate.
 

@@ -25,6 +25,9 @@ namespace mage {
 			m_childs.clear();
 		}
 
+		SceneNode *GetParent() const {
+			return m_parent;
+		}
 		bool ContainsChild(SceneNode *child) const {
 			return m_childs.find(child) != m_childs.cend();
 		}

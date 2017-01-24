@@ -53,8 +53,7 @@ namespace mage {
 	 @return		A value indicating success or failure.
 	 */
 	static DWORD WINAPI task_entry(LPVOID lpParameter) {
-		// Supresses C4100: unreferenced formal parameter
-		(void)lpParameter;
+		UNUSED(lpParameter);
 
 		while (true) {
 			// Wait if no workers needed anymore.

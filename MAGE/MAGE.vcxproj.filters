@@ -94,6 +94,9 @@
     <Filter Include="Source Files\scene">
       <UniqueIdentifier>{b1bfd0af-2ca4-4268-98f3-545a2fc9099d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\string">
+      <UniqueIdentifier>{84047f47-c4e4-4aa7-9137-0dd833cb5411}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -328,6 +331,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\scene\scene_node.cpp">
       <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\string\string_utils.cpp">
+      <Filter>Source Files\string</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

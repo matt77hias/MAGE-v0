@@ -26,6 +26,28 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 A struct of @c XMUINT3 comparators for OBJ vertex indices.
+	 */
+	struct OBJComparatorXMUINT3 {
+
+	public:
+
+		/**
+		 Compares the two given @c XMUINT3 vectors against each other.
+
+		 @param[in]		a
+						A reference to the first vector.
+		 @param[in]		b
+						A reference to the second vector.
+		 @return		@c true if the @a a is smaller than @a b.
+						@c false otherwise.
+		 */
+		bool operator()(const XMUINT3& a, const XMUINT3& b) const {
+			return (a.x < b.x) ? true : ((a.y < b.y) ? true : (a.z < b.z));
+		}
+	};
+
 	static XMFLOAT2 ParseOBJFloat2(const char *token) {
 		char *end = nullptr;
 		const float vector3_x = strtof(token, &end);
@@ -82,8 +104,100 @@ namespace mage {
 		return XMUINT3(vertex_index, texture_index, normal_index);
 	}
 
+	static void ParseOBJVertex(char **next_token, 
+		vector< XMFLOAT3 > &vertex_coordinates) {
+		
+		const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
+		const XMFLOAT3 vertex = ParseOBJVertexCoordinates(current_token);
+		vertex_coordinates.push_back(vertex);
+	}
+
+	static void ParseOBJVertexTexture(char **next_token, 
+		vector< XMFLOAT2 > &vertex_texture_coordinates) {
+		
+		const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
+		const XMFLOAT2 texture = ParseOBJVertexTextureCoordinates(current_token);
+		vertex_texture_coordinates.push_back(texture);
+	}
+	
+	static void ParseOBJVertexNormal(char **next_token, 
+		vector< XMFLOAT3 > &vertex_normal_coordinates) {
+		
+		const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
+		const XMFLOAT3 normal = ParseOBJVertexNormalCoordinates(current_token);
+		vertex_normal_coordinates.push_back(normal);
+	}
+
+	static void ParseOBJTriangleFace(char **next_token, 
+		vector< XMFLOAT3 > &vertex_coordinates, 
+		vector< XMFLOAT2 > &vertex_texture_coordinates,
+		vector< XMFLOAT3 > &vertex_normal_coordinates,
+		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > &mapping,
+		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
+		
+		for (size_t i = 0; i < 3; ++i) {
+			const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
+			const XMUINT3 vertex_indices = ParseOBJVertexIndices(current_token);
+			const map< XMUINT3, uint32_t >::const_iterator it = mapping.find(vertex_indices);
+			if (it != mapping.end()) {
+				index_buffer.push_back(it->second);
+			}
+			else {
+				const uint32_t index = (uint32_t)vertex_buffer.size();
+				index_buffer.push_back(index);
+				Vertex vertex;
+				vertex.p   = vertex_coordinates[vertex_indices.x - 1];
+				vertex.tex = (vertex_indices.y) ? vertex_texture_coordinates[vertex_indices.y - 1] : XMFLOAT2(0.0f, 0.0f);
+				vertex.n   = (vertex_indices.z) ? vertex_normal_coordinates[vertex_indices.z - 1] : XMFLOAT3(0.0f, 0.0f, 0.0f);
+				vertex_buffer.push_back(vertex);
+				mapping[vertex_indices] = index;
+			}
+		}
+	}
+
+	static void ParseOBJLine(char *current_line, uint32_t line_number,
+		vector< XMFLOAT3 > &vertex_coordinates,
+		vector< XMFLOAT2 > &vertex_texture_coordinates,
+		vector< XMFLOAT3 > &vertex_normal_coordinates,
+		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > &mapping,
+		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
+
+		char *next_token = nullptr;
+		const char *current_token = strtok_s(current_line, MAGE_OBJ_DELIMITER, &next_token);
+		
+		if (!current_token || current_token[0] == MAGE_OBJ_COMMENT_CHAR) {
+			return;
+		}
+
+		if (str_equals(current_token, MAGE_OBJ_VERTEX_TOKEN)) {
+			ParseOBJVertex(&next_token, vertex_coordinates);
+		}
+		else if (str_equals(current_token, MAGE_OBJ_TEXTURE_TOKEN)) {
+			ParseOBJVertexTexture(&next_token, vertex_texture_coordinates);
+		}
+		if (str_equals(current_token, MAGE_OBJ_NORMAL_TOKEN)) {
+			ParseOBJVertexNormal(&next_token, vertex_normal_coordinates);
+		}
+		else if (str_equals(current_token, MAGE_OBJ_FACE_TOKEN)) {
+			ParseOBJTriangleFace(&next_token, vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates,
+				mapping, vertex_buffer, index_buffer);
+		}
+		else {
+			Warning("Unknown command '%s' in scene code at line %u: \"%s\".", current_token, line_number, current_line);
+		}
+	}
+
 	void LoadOBJModelFromFile(const string &fname, 
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
+
+		if (!vertex_buffer.empty()) {
+			Warning("Could not import .obj file: %s due to non-empty vertex buffer", fname.c_str());
+			return;
+		}
+		if (!index_buffer.empty()) {
+			Warning("Could not import .obj file: %s due to non-empty index buffer", fname.c_str());
+			return;
+		}
 
 		// Open the .obj file.
 		FILE *file = nullptr;
@@ -97,64 +211,53 @@ namespace mage {
 		vector< XMFLOAT3 > vertex_coordinates;
 		vector< XMFLOAT2 > vertex_texture_coordinates;
 		vector< XMFLOAT3 > vertex_normal_coordinates;
-		map< XMUINT3, uint32_t > mapping;
+		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > mapping;
 		
 		// Parse the .obj file while populating the buffers.
-		char *current_token = nullptr;
-		char *next_token = nullptr;
 		char current_line[MAX_PATH];
 		uint32_t line_number = 0;
 		// Continue reading from the file until the eof is reached.
 		while (fgets(current_line, _countof(current_line), file)) {
-			current_token = strtok_s(current_line, MAGE_OBJ_DELIMITER, &next_token);
-
-			if (!current_token || current_token[0] == MAGE_OBJ_COMMENT_CHAR) {
-				continue;
-			}
-
-			if (str_equals(current_token, MAGE_OBJ_VERTEX_TOKEN)) {
-				current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, &next_token);
-				const XMFLOAT3 vertex = ParseOBJVertexCoordinates(current_token);
-				vertex_coordinates.push_back(vertex);
-			}
-			else if (str_equals(current_token, MAGE_OBJ_TEXTURE_TOKEN)) {
-				current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, &next_token);
-				const XMFLOAT2 texture = ParseOBJVertexTextureCoordinates(current_token);
-				vertex_texture_coordinates.push_back(texture);
-			}
-			if (str_equals(current_token, MAGE_OBJ_NORMAL_TOKEN)) {
-				current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, &next_token);
-				const XMFLOAT3 normal = ParseOBJVertexNormalCoordinates(current_token);
-				vertex_normal_coordinates.push_back(normal);
-			}
-			else if (str_equals(current_token, MAGE_OBJ_FACE_TOKEN)) {
-				for (size_t i = 0; i < 3; ++i) {
-					current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, &next_token);
-					const XMUINT3 vertex_indices = ParseOBJVertexIndices(current_token);
-					const map< XMUINT3, uint32_t >::const_iterator it = mapping.find(vertex_indices);
-					if (it != mapping.end()) {
-						index_buffer.push_back(it->second);
-					}
-					else {
-						const uint32_t index = vertex_buffer.size();
-						index_buffer.push_back(index);
-						Vertex vertex;
-						vertex.p   = vertex_coordinates[vertex_indices.x - 1];
-						vertex.tex = (vertex_indices.y) ? vertex_texture_coordinates[vertex_indices.y - 1] : XMFLOAT2(0.0f, 0.0f);
-						vertex.n   = (vertex_indices.z) ? vertex_normal_coordinates[ vertex_indices.z - 1] : XMFLOAT3(0.0f, 0.0f, 0.0f);
-						vertex_buffer.push_back(vertex);
-						mapping[vertex_indices] = index;
-					}
-				}
-			}
-			else {
-				Warning("Unknown command '%s' in scene code at line %u: \"%s\".", current_token, line_number, current_line);
-			}
+			
+			ParseOBJLine(current_line, line_number,
+				vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates,
+				mapping, vertex_buffer, index_buffer);
 
 			++line_number;
 		}
 
 		// Close the script file.
 		fclose(file);
+	}
+
+	void LoadOBJModelFromMemory(const char *input,
+		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
+
+		if (!vertex_buffer.empty()) {
+			Warning("Could not import .obj string due to non-empty vertex buffer");
+			return;
+		}
+		if (!index_buffer.empty()) {
+			Warning("Could not import .obj string due to non-empty index buffer");
+			return;
+		}
+
+		// Buffers
+		vector< XMFLOAT3 > vertex_coordinates;
+		vector< XMFLOAT2 > vertex_texture_coordinates;
+		vector< XMFLOAT3 > vertex_normal_coordinates;
+		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > mapping;
+
+		// Parse the .obj string while populating the buffers.
+		char current_line[MAX_PATH];
+		uint32_t line_number = 0;
+		// Continue reading from the file until the eof is reached.
+		while (sgets(current_line, _countof(current_line), &input)) {
+			ParseOBJLine(current_line, line_number,
+				vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates,
+				mapping, vertex_buffer, index_buffer);
+
+			++line_number;
+		}
 	}
 }

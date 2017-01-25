@@ -24,6 +24,10 @@ namespace mage {
 namespace mage {
 	using std::map;
 }
+#include <unordered_map>
+namespace mage {
+	using std::unordered_map;
+}
 
 #include <utility>
 namespace mage {

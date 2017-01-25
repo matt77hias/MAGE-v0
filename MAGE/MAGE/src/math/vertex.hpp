@@ -15,13 +15,14 @@ namespace mage {
 		/**
 		 Constructs a vertex.
 		 */
-		Vertex() : p(XMFLOAT3(0.0f, 0.0f, 0.0f)), n(XMFLOAT3(1.0f, 0.0f, 0.0f)), tex(XMFLOAT2(0.0f, 0.0f)) {}
+		Vertex() : p(XMFLOAT3(0.0f, 0.0f, 0.0f)), n(XMFLOAT3(0.0f, 0.0f, 0.0f)), tex(XMFLOAT2(0.0f, 0.0f)) {}
 
 		/**
 		 Constructs a vertex.
 
 		 @pre			The length (L2-norm) of the normal must be equal to one
-						(i.e. the normal vector is normalized).
+						(i.e. the normal vector is normalized) 
+						or zero if no normal is specified.
 		 @param[in]		p
 						The position of the vertex (in object space).
 		 @param[in]		n

@@ -59,10 +59,10 @@ namespace mage {
 		return ParseOBJFloat2(token);
 	}
 
-	static XMINT3 ParseOBJVertexIndices(const char *token) {
-		const int32_t vertex_index = atoi(token);
-		int32_t texture_index = -1;
-		int32_t normal_index = -1;
+	static XMUINT3 ParseOBJVertexIndices(const char *token) {
+		const uint32_t vertex_index = atoi(token);
+		uint32_t texture_index = 0;
+		uint32_t normal_index = 0;
 
 		if (str_contains(token, "//")) {
 			//... v1//vn1 ...
@@ -79,10 +79,12 @@ namespace mage {
 				normal_index = atoi(normal_part);
 			}
 		}
-		return XMINT3(vertex_index, texture_index, normal_index);
+		return XMUINT3(vertex_index, texture_index, normal_index);
 	}
 
-	void LoadOBJModelFromFile(const string &fname) {
+	void LoadOBJModelFromFile(const string &fname, 
+		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
+
 		// Open the .obj file.
 		FILE *file = nullptr;
 		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
@@ -91,11 +93,13 @@ namespace mage {
 			return;
 		}
 
+		// Buffers
 		vector< XMFLOAT3 > vertex_coordinates;
 		vector< XMFLOAT2 > vertex_texture_coordinates;
 		vector< XMFLOAT3 > vertex_normal_coordinates;
-		vector< XMINT3 > face_indices;
-
+		map< XMUINT3, uint32_t > mapping;
+		
+		// Parse the .obj file while populating the buffers.
 		char *current_token = nullptr;
 		char *next_token = nullptr;
 		char current_line[MAX_PATH];
@@ -126,8 +130,21 @@ namespace mage {
 			else if (str_equals(current_token, MAGE_OBJ_FACE_TOKEN)) {
 				for (size_t i = 0; i < 3; ++i) {
 					current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, &next_token);
-					const XMINT3 index = ParseOBJVertexIndices(current_token);
-					face_indices.push_back(index);
+					const XMUINT3 vertex_indices = ParseOBJVertexIndices(current_token);
+					const map< XMUINT3, uint32_t >::const_iterator it = mapping.find(vertex_indices);
+					if (it != mapping.end()) {
+						index_buffer.push_back(it->second);
+					}
+					else {
+						const uint32_t index = vertex_buffer.size();
+						index_buffer.push_back(index);
+						Vertex vertex;
+						vertex.p   = vertex_coordinates[vertex_indices.x - 1];
+						vertex.tex = (vertex_indices.y) ? vertex_texture_coordinates[vertex_indices.y - 1] : XMFLOAT2(0.0f, 0.0f);
+						vertex.n   = (vertex_indices.z) ? vertex_normal_coordinates[ vertex_indices.z - 1] : XMFLOAT3(0.0f, 0.0f, 0.0f);
+						vertex_buffer.push_back(vertex);
+						mapping[vertex_indices] = index;
+					}
 				}
 			}
 			else {

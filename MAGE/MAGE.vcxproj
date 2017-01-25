@@ -53,6 +53,7 @@
     <ClInclude Include="MAGE\src\rendering\graphics_settings.hpp" />
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
+    <ClInclude Include="MAGE\src\rendering\shader_utils.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
     <ClInclude Include="MAGE\src\scene\camera_node.hpp" />
@@ -93,6 +94,7 @@
     <ClCompile Include="MAGE\src\rendering\font.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
+    <ClCompile Include="MAGE\src\rendering\shader_utils.cpp" />
     <ClCompile Include="MAGE\src\scene\scene_node.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
     <ClCompile Include="MAGE\src\string\string_utils.cpp" />

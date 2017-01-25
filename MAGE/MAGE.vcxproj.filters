@@ -267,6 +267,9 @@
     <ClInclude Include="MAGE\src\string\string_utils.hpp">
       <Filter>Header Files\string</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\shader_utils.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -334,6 +337,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\string\string_utils.cpp">
       <Filter>Source Files\string</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\shader_utils.cpp">
+      <Filter>Source Files\rendering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

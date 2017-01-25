@@ -57,14 +57,16 @@ namespace mage {
 		/**
 		 Terminates the visit of this visitor. 
 		 */
-		void TerminateVisit() const {
+		void TerminateVisit() {
 			m_terminated = true;
 		}
+
+	private:
 
 		/**
 		 Flag indicating whether the visit of this visitor should be terminated.
 		 This allows for early termination (i.e. search operation).
 		 */
-		mutable bool m_terminated;
+		bool m_terminated;
 	};
 }

@@ -57,6 +57,5 @@ namespace mage {
 
 #include "rendering/device_enumeration.hpp"
 #include "rendering/renderer.hpp"
-#include "rendering/font.hpp"
 
 #pragma endregion

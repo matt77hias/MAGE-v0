@@ -25,6 +25,7 @@
     <ClInclude Include="MAGE\src\core\targetver.h" />
     <ClInclude Include="MAGE\src\core\version.hpp" />
     <ClInclude Include="MAGE\src\file\file_utils.hpp" />
+    <ClInclude Include="MAGE\src\font\font.hpp" />
     <ClInclude Include="MAGE\src\input\input.hpp" />
     <ClInclude Include="MAGE\src\input\input_manager.hpp" />
     <ClInclude Include="MAGE\src\input\keyboard.hpp" />
@@ -55,7 +56,6 @@
     <ClInclude Include="MAGE\src\rendering\graphics_settings.hpp" />
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
-    <ClInclude Include="MAGE\src\rendering\shader_utils.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
     <ClInclude Include="MAGE\src\scene\camera_node.hpp" />
@@ -65,6 +65,8 @@
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\scripting.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
+    <ClInclude Include="MAGE\src\shader\shader.hpp" />
+    <ClInclude Include="MAGE\src\shader\shader_utils.hpp" />
     <ClInclude Include="MAGE\src\state\state.hpp" />
     <ClInclude Include="MAGE\src\state\state_manager.hpp" />
     <ClInclude Include="MAGE\src\string\string_utils.hpp" />
@@ -81,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />
+    <ClCompile Include="MAGE\src\font\font.cpp" />
     <ClCompile Include="MAGE\src\input\input_manager.cpp" />
     <ClCompile Include="MAGE\src\input\keyboard.cpp" />
     <ClCompile Include="MAGE\src\input\mouse.cpp" />
@@ -95,12 +98,11 @@
     <ClCompile Include="MAGE\src\parallel\parallel_for.cpp" />
     <ClCompile Include="MAGE\src\parallel\task.cpp" />
     <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp" />
-    <ClCompile Include="MAGE\src\rendering\font.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
-    <ClCompile Include="MAGE\src\rendering\shader_utils.cpp" />
     <ClCompile Include="MAGE\src\scene\scene_node.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
+    <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
     <ClCompile Include="MAGE\src\string\string_utils.cpp" />
     <ClCompile Include="MAGE\src\texture\dds_loader.cpp" />
     <ClCompile Include="MAGE\src\ui\combo_box.cpp" />

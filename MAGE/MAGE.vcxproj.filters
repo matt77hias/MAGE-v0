@@ -100,6 +100,18 @@
     <Filter Include="Header Files\file">
       <UniqueIdentifier>{7818cb0b-777a-4ef2-9736-3df4ff0d3be1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\shader">
+      <UniqueIdentifier>{3ccd36e8-21b7-4ef1-9d07-09f0edb8d26b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shader">
+      <UniqueIdentifier>{bf5285b6-f30c-44ef-b945-a5cbfe9b4dc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\font">
+      <UniqueIdentifier>{660c971a-3e19-4793-b5e5-7d829ee704ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\font">
+      <UniqueIdentifier>{ecca1a1e-1f3d-45c9-acda-12dbbc9fab70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -270,14 +282,20 @@
     <ClInclude Include="MAGE\src\string\string_utils.hpp">
       <Filter>Header Files\string</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\shader_utils.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\model\model_loader.hpp">
       <Filter>Header Files\model</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\file\file_utils.hpp">
       <Filter>Header Files\file</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\shader.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\shader_utils.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\font\font.hpp">
+      <Filter>Header Files\font</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -303,9 +321,6 @@
       <Filter>Source Files\scripting</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\font.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\renderer.cpp">
@@ -347,14 +362,17 @@
     <ClCompile Include="MAGE\src\string\string_utils.cpp">
       <Filter>Source Files\string</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\shader_utils.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\model\model_loader.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\model\model.cpp">
       <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\shader_utils.cpp">
+      <Filter>Source Files\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\font\font.cpp">
+      <Filter>Source Files\font</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

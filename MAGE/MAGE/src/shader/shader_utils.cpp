@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\shader_utils.hpp"
+#include "shader\shader_utils.hpp"
 
 #pragma endregion
 

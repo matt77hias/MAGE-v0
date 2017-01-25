@@ -277,12 +277,12 @@ namespace mage {
 	HRESULT Renderer::SetupViewPort() {
 		// Setup the (default) viewport
 		D3D11_VIEWPORT viewport;
-		viewport.TopLeftX = 0;			// x position of the left hand side of the viewport.
-		viewport.TopLeftY = 0;			// y position of the top of the viewport.
-		viewport.Width    = (FLOAT)g_device_enumeration->GetDisplayMode()->Width; // Width of the viewport.
-		viewport.Height   = (FLOAT)g_device_enumeration->GetDisplayMode()->Height;// Height of the viewport.
-		viewport.MinDepth = 0.0f;		// Minimum depth of the viewport.
-		viewport.MaxDepth = 1.0f;		// Maximum depth of the viewport.
+		viewport.TopLeftX = 0;
+		viewport.TopLeftY = 0;
+		viewport.Width    = (FLOAT)g_device_enumeration->GetDisplayMode()->Width;
+		viewport.Height   = (FLOAT)g_device_enumeration->GetDisplayMode()->Height;
+		viewport.MinDepth = 0.0f;
+		viewport.MaxDepth = 1.0f;
 
 		// Bind an array of viewports to the rasterizer stage of the pipeline.
 		// 1. Number of viewports to bind.

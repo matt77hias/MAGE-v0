@@ -24,8 +24,8 @@ namespace mage {
 			: m_name(name), m_path(path), m_resource_reference_count(1) {}
 
 		/**
-		Destructs this resource.
-		*/
+		 Destructs this resource.
+		 */
 		virtual ~Resource() {}
 
 		/**

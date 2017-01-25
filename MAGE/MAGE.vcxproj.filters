@@ -97,6 +97,9 @@
     <Filter Include="Source Files\string">
       <UniqueIdentifier>{84047f47-c4e4-4aa7-9137-0dd833cb5411}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\file">
+      <UniqueIdentifier>{7818cb0b-777a-4ef2-9736-3df4ff0d3be1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -270,6 +273,12 @@
     <ClInclude Include="MAGE\src\rendering\shader_utils.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\model\model_loader.hpp">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\file\file_utils.hpp">
+      <Filter>Header Files\file</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -340,6 +349,12 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\shader_utils.cpp">
       <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\model\model_loader.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\model\model.cpp">
+      <Filter>Source Files\model</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

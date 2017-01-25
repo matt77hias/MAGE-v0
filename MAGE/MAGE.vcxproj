@@ -24,6 +24,7 @@
     <ClInclude Include="MAGE\src\core\loadable.hpp" />
     <ClInclude Include="MAGE\src\core\targetver.h" />
     <ClInclude Include="MAGE\src\core\version.hpp" />
+    <ClInclude Include="MAGE\src\file\file_utils.hpp" />
     <ClInclude Include="MAGE\src\input\input.hpp" />
     <ClInclude Include="MAGE\src\input\input_manager.hpp" />
     <ClInclude Include="MAGE\src\input\keyboard.hpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="MAGE\src\memory\arena.hpp" />
     <ClInclude Include="MAGE\src\memory\memory.hpp" />
     <ClInclude Include="MAGE\src\model\model.hpp" />
+    <ClInclude Include="MAGE\src\model\model_loader.hpp" />
     <ClInclude Include="MAGE\src\model\obj_loader.hpp" />
     <ClInclude Include="MAGE\src\parallel\atomic.hpp" />
     <ClInclude Include="MAGE\src\parallel\lock.hpp" />
@@ -86,6 +88,8 @@
     <ClCompile Include="MAGE\src\logging\logging.cpp" />
     <ClCompile Include="MAGE\src\logging\progressreporter.cpp" />
     <ClCompile Include="MAGE\src\logging\timer.cpp" />
+    <ClCompile Include="MAGE\src\model\model.cpp" />
+    <ClCompile Include="MAGE\src\model\model_loader.cpp" />
     <ClCompile Include="MAGE\src\model\obj_loader.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\parallel_for.cpp" />

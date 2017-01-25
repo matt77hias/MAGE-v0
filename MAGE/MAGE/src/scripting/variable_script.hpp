@@ -65,7 +65,7 @@ namespace mage {
 						@c false otherwise.
 		 */
 		bool IsEmpty() const {
-			return GetNbOfVariables() == 0;
+			return m_variables.empty();
 		}
 
 		/**

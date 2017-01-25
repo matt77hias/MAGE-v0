@@ -134,12 +134,6 @@ namespace mage {
 		 */
 		HWND m_hwindow;
 
-		/**
-		 A flag indicating whether this renderer uses a full screen mode
-		 (if @c true) or a windowed mode (if @c false).
-		 */
-		bool m_fullscreen;
-
 		D3D_FEATURE_LEVEL		  m_feature_level;
 		ID3D11Device2            *m_device2;
 		ID3D11DeviceContext2     *m_device_context2;
@@ -147,5 +141,13 @@ namespace mage {
 		ID3D11RenderTargetView   *m_render_target_view;
 		ID3D11Texture2D          *m_depth_stencil;
 		ID3D11DepthStencilView   *m_depth_stencil_view;
+
+	private:
+
+		/**
+		 A flag indicating whether this renderer uses a full screen mode
+		 (if @c true) or a windowed mode (if @c false).
+		 */
+		bool m_fullscreen;
 	};
 }

@@ -4,6 +4,7 @@
 #pragma region
 
 #include "engine.hpp"
+#include "model\obj_loader.hpp"
 
 #pragma endregion
 
@@ -104,31 +105,38 @@ namespace mage {
 		return XMUINT3(vertex_index, texture_index, normal_index);
 	}
 
-	static void ParseOBJVertex(char **next_token, 
+	static HRESULT ParseOBJVertex(char **next_token,
 		vector< XMFLOAT3 > &vertex_coordinates) {
 		
 		const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
 		const XMFLOAT3 vertex = ParseOBJVertexCoordinates(current_token);
 		vertex_coordinates.push_back(vertex);
+		return S_OK;
 	}
 
-	static void ParseOBJVertexTexture(char **next_token, 
+	static HRESULT ParseOBJVertexTexture(char **next_token,
 		vector< XMFLOAT2 > &vertex_texture_coordinates) {
 		
 		const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
 		const XMFLOAT2 texture = ParseOBJVertexTextureCoordinates(current_token);
 		vertex_texture_coordinates.push_back(texture);
+		return S_OK;
 	}
 	
-	static void ParseOBJVertexNormal(char **next_token, 
+	static HRESULT ParseOBJVertexNormal(char **next_token,
 		vector< XMFLOAT3 > &vertex_normal_coordinates) {
 		
 		const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
 		const XMFLOAT3 normal = ParseOBJVertexNormalCoordinates(current_token);
 		vertex_normal_coordinates.push_back(normal);
+		return S_OK;
 	}
 
-	static void ParseOBJTriangleFace(char **next_token, 
+	//-------------------------------------------------------------------------
+	// Vertex buffer + Index buffer
+	//-------------------------------------------------------------------------
+
+	static HRESULT ParseOBJTriangleFace(char **next_token,
 		vector< XMFLOAT3 > &vertex_coordinates, 
 		vector< XMFLOAT2 > &vertex_texture_coordinates,
 		vector< XMFLOAT3 > &vertex_normal_coordinates,
@@ -153,9 +161,11 @@ namespace mage {
 				mapping[vertex_indices] = index;
 			}
 		}
+
+		return S_OK;
 	}
 
-	static void ParseOBJLine(char *current_line, uint32_t line_number,
+	static HRESULT ParseOBJLine(char *current_line, uint32_t line_number,
 		vector< XMFLOAT3 > &vertex_coordinates,
 		vector< XMFLOAT2 > &vertex_texture_coordinates,
 		vector< XMFLOAT3 > &vertex_normal_coordinates,
@@ -166,37 +176,38 @@ namespace mage {
 		const char *current_token = strtok_s(current_line, MAGE_OBJ_DELIMITER, &next_token);
 		
 		if (!current_token || current_token[0] == MAGE_OBJ_COMMENT_CHAR) {
-			return;
+			return S_OK;;
 		}
 
 		if (str_equals(current_token, MAGE_OBJ_VERTEX_TOKEN)) {
-			ParseOBJVertex(&next_token, vertex_coordinates);
+			return ParseOBJVertex(&next_token, vertex_coordinates);
 		}
 		else if (str_equals(current_token, MAGE_OBJ_TEXTURE_TOKEN)) {
-			ParseOBJVertexTexture(&next_token, vertex_texture_coordinates);
+			return ParseOBJVertexTexture(&next_token, vertex_texture_coordinates);
 		}
 		if (str_equals(current_token, MAGE_OBJ_NORMAL_TOKEN)) {
-			ParseOBJVertexNormal(&next_token, vertex_normal_coordinates);
+			return ParseOBJVertexNormal(&next_token, vertex_normal_coordinates);
 		}
 		else if (str_equals(current_token, MAGE_OBJ_FACE_TOKEN)) {
-			ParseOBJTriangleFace(&next_token, vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates,
+			return ParseOBJTriangleFace(&next_token, vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates,
 				mapping, vertex_buffer, index_buffer);
 		}
 		else {
 			Warning("Unknown command '%s' in scene code at line %u: \"%s\".", current_token, line_number, current_line);
+			return E_FAIL;
 		}
 	}
 
-	void LoadOBJModelFromFile(const string &fname, 
+	HRESULT LoadOBJModelFromFile(const string &fname,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
 
 		if (!vertex_buffer.empty()) {
 			Warning("Could not import .obj file: %s due to non-empty vertex buffer", fname.c_str());
-			return;
+			return E_FAIL;
 		}
 		if (!index_buffer.empty()) {
 			Warning("Could not import .obj file: %s due to non-empty index buffer", fname.c_str());
-			return;
+			return E_FAIL;
 		}
 
 		// Open the .obj file.
@@ -204,7 +215,7 @@ namespace mage {
 		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
 		if (result_fopen_s) {
 			Warning("Could not import .obj file: %s", fname.c_str());
-			return;
+			return E_FAIL;
 		}
 
 		// Buffers
@@ -228,18 +239,20 @@ namespace mage {
 
 		// Close the script file.
 		fclose(file);
+
+		return S_OK;
 	}
 
-	void LoadOBJModelFromMemory(const char *input,
+	HRESULT LoadOBJModelFromMemory(const char *input,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
 
 		if (!vertex_buffer.empty()) {
 			Warning("Could not import .obj string due to non-empty vertex buffer");
-			return;
+			return E_FAIL;
 		}
 		if (!index_buffer.empty()) {
 			Warning("Could not import .obj string due to non-empty index buffer");
-			return;
+			return E_FAIL;
 		}
 
 		// Buffers
@@ -259,5 +272,130 @@ namespace mage {
 
 			++line_number;
 		}
+
+		return S_OK;
+	}
+
+	//-------------------------------------------------------------------------
+	// Vertex buffer
+	//-------------------------------------------------------------------------
+
+	static HRESULT ParseOBJTriangleFace(char **next_token,
+		vector< XMFLOAT3 > &vertex_coordinates,
+		vector< XMFLOAT2 > &vertex_texture_coordinates,
+		vector< XMFLOAT3 > &vertex_normal_coordinates,
+		vector< Vertex > &vertex_buffer) {
+
+		for (size_t i = 0; i < 3; ++i) {
+			const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
+			const XMUINT3 vertex_indices = ParseOBJVertexIndices(current_token);
+			
+			Vertex vertex;
+			vertex.p   = vertex_coordinates[vertex_indices.x - 1];
+			vertex.tex = (vertex_indices.y) ? vertex_texture_coordinates[vertex_indices.y - 1] : XMFLOAT2(0.0f, 0.0f);
+			vertex.n   = (vertex_indices.z) ? vertex_normal_coordinates[vertex_indices.z - 1] : XMFLOAT3(0.0f, 0.0f, 0.0f);
+			vertex_buffer.push_back(vertex);
+		}
+
+		return S_OK;
+	}
+
+	static HRESULT ParseOBJLine(char *current_line, uint32_t line_number,
+		vector< XMFLOAT3 > &vertex_coordinates,
+		vector< XMFLOAT2 > &vertex_texture_coordinates,
+		vector< XMFLOAT3 > &vertex_normal_coordinates,
+		vector< Vertex > &vertex_buffer) {
+
+		char *next_token = nullptr;
+		const char *current_token = strtok_s(current_line, MAGE_OBJ_DELIMITER, &next_token);
+
+		if (!current_token || current_token[0] == MAGE_OBJ_COMMENT_CHAR) {
+			return S_OK;
+		}
+
+		if (str_equals(current_token, MAGE_OBJ_VERTEX_TOKEN)) {
+			return ParseOBJVertex(&next_token, vertex_coordinates);
+		}
+		else if (str_equals(current_token, MAGE_OBJ_TEXTURE_TOKEN)) {
+			return ParseOBJVertexTexture(&next_token, vertex_texture_coordinates);
+		}
+		if (str_equals(current_token, MAGE_OBJ_NORMAL_TOKEN)) {
+			return ParseOBJVertexNormal(&next_token, vertex_normal_coordinates);
+		}
+		else if (str_equals(current_token, MAGE_OBJ_FACE_TOKEN)) {
+			return ParseOBJTriangleFace(&next_token, vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates, vertex_buffer);
+		}
+		else {
+			Warning("Unknown command '%s' in scene code at line %u: \"%s\".", current_token, line_number, current_line);
+			return E_FAIL;
+		}
+	}
+
+	HRESULT LoadOBJModelFromFile(const string &fname,
+		vector< Vertex > &vertex_buffer) {
+
+		if (!vertex_buffer.empty()) {
+			Warning("Could not import .obj file: %s due to non-empty vertex buffer", fname.c_str());
+			return E_FAIL;
+		}
+
+		// Open the .obj file.
+		FILE *file = nullptr;
+		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
+		if (result_fopen_s) {
+			Warning("Could not import .obj file: %s", fname.c_str());
+			return E_FAIL;
+		}
+
+		// Buffers
+		vector< XMFLOAT3 > vertex_coordinates;
+		vector< XMFLOAT2 > vertex_texture_coordinates;
+		vector< XMFLOAT3 > vertex_normal_coordinates;
+
+		// Parse the .obj file while populating the buffers.
+		char current_line[MAX_PATH];
+		uint32_t line_number = 0;
+		// Continue reading from the file until the eof is reached.
+		while (fgets(current_line, _countof(current_line), file)) {
+
+			ParseOBJLine(current_line, line_number,
+				vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates, 
+				vertex_buffer);
+
+			++line_number;
+		}
+
+		// Close the script file.
+		fclose(file);
+
+		return S_OK;
+	}
+
+	HRESULT LoadOBJModelFromMemory(const char *input,
+		vector< Vertex > &vertex_buffer) {
+
+		if (!vertex_buffer.empty()) {
+			Warning("Could not import .obj string due to non-empty vertex buffer");
+			return E_FAIL;
+		}
+
+		// Buffers
+		vector< XMFLOAT3 > vertex_coordinates;
+		vector< XMFLOAT2 > vertex_texture_coordinates;
+		vector< XMFLOAT3 > vertex_normal_coordinates;
+
+		// Parse the .obj string while populating the buffers.
+		char current_line[MAX_PATH];
+		uint32_t line_number = 0;
+		// Continue reading from the file until the eof is reached.
+		while (sgets(current_line, _countof(current_line), &input)) {
+			ParseOBJLine(current_line, line_number,
+				vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates,
+				vertex_buffer);
+
+			++line_number;
+		}
+
+		return S_OK;
 	}
 }

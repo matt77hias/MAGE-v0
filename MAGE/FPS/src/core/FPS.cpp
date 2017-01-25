@@ -48,6 +48,11 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 
 	// Create the engine, then run it.
 	g_engine = new Engine(&setup);
+
+	//Renderer *renderer = g_engine->GetRenderer();
+	//Model model(renderer->GetDevice(), "cube.obj", "C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/");
+	//model.BindBuffers(renderer->GetDeviceContext());
+
 	g_engine->Run(nCmdShow);
 	delete g_engine;
 

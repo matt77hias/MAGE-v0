@@ -26,6 +26,8 @@ namespace mage {
 		 */
 		virtual ~Model();
 
+		HRESULT BindBuffers(ID3D11DeviceContext2 *device_context);
+
 	protected:
 
 		HRESULT InitializeBuffers(ID3D11Device2 *device);
@@ -35,8 +37,6 @@ namespace mage {
 		HRESULT SetupVertexBuffer(ID3D11Device2 *device, const Vertex *vertices, size_t nb_vertices);
 
 		HRESULT SetupIndexBuffer(ID3D11Device2 *device, const uint32_t *indices, size_t nb_indices);
-
-		HRESULT BindBuffers(ID3D11DeviceContext2 *device_context);
 
 		ID3D11Buffer *m_vertex_buffer;
 		ID3D11Buffer *m_index_buffer;

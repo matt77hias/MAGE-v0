@@ -45,7 +45,7 @@ namespace mage {
 						@c false otherwise.
 		 */
 		bool operator()(const XMUINT3& a, const XMUINT3& b) const {
-			return (a.x < b.x) ? true : ((a.y < b.y) ? true : (a.z < b.z));
+			return (a.x == b.x) ? (a.x < b.x) : ((a.y == b.y) ? (a.y < b.y) : (a.z < b.z));
 		}
 	};
 

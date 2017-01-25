@@ -30,6 +30,17 @@ namespace mage {
 		m_childs.clear();
 	}
 
+	SceneNode *SceneNode::DeepClone() const {
+		SceneNode *clone = Clone();
+
+		for (set< SceneNode * >::const_iterator it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
+			SceneNode *cloned_child = (*it)->DeepClone();
+			clone->AddChild(cloned_child);
+		}
+
+		return clone;
+	}
+
 	void SceneNode::AddChild(SceneNode *child) {
 		if (!child) {
 			return;

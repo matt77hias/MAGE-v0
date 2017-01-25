@@ -18,6 +18,20 @@ namespace mage {
 		virtual ~SceneNode();
 
 		/**
+		 Clones this scene node (non-deep clone).
+
+		 @return		A pointer to a non-deep clone of this scene node.
+		 */
+		virtual SceneNode *Clone() const = 0;
+		
+		/**
+		 Clones this scene node (deep clone).
+
+		 @return		A pointer to a deep clone of this scene node.
+		 */
+		SceneNode *DeepClone() const;
+
+		/**
 		 Check whether this scene node is enabled.
 
 		 @return		@c true if this scene node is enabled.
@@ -155,7 +169,6 @@ namespace mage {
 		 */
 		virtual void Accept(SceneNodeVisitor &visitor) const = 0;
 
-
 		/**
 		 Accepts the given visitor recursively.
 
@@ -185,11 +198,32 @@ namespace mage {
 		SceneNode(const Transform &transform = Transform(), bool enabled = true) 
 			: m_enabled(enabled), m_transform(transform), m_parent(nullptr) {}
 
+		/**
+		 Constructs a scene node from the given scene node (non-deep clone).
+
+		 @param[in]		scene_node
+						The scene node.
+		 */
+		SceneNode(const SceneNode &scene_node)
+			: m_enabled(scene_node.m_enabled), m_transform(scene_node.m_transform), m_parent(nullptr) {
+			scene_node.GetParent()->AddChild(this);
+		}
+
 	private:
+
+		/**
+		 Copies the given scene node to this scene node.
+
+		 @param[in]		scene_node
+		 				The scene node.
+		 */
+		SceneNode &operator=(const SceneNode &scene_node);
 
 		/**
 		 Sets the parent scene node of this scene node to the given scene node.
 
+		 @pre			The given parent must already contain this scene node
+						as one of its child nodes.
 		 @param[in]		parent
 						A pointer to the parent scene node.
 		 */

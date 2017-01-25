@@ -37,12 +37,21 @@ namespace mage {
 						A reference to the perspective camera.
 		 */
 		PerspectiveCamera(const PerspectiveCamera &camera)
-			: Camera(camera.GetWidth(), camera.GetHeight(), camera.GetNearZ(), camera.GetFarZ()), m_fov_y(camera.m_fov_y) {}
+			: Camera(camera), m_fov_y(camera.m_fov_y) {}
 		
 		/**
 		 Destructs this perspective camera.
 		 */
 		virtual ~PerspectiveCamera() {}
+
+		/**
+		 Clones this perspective camera.
+
+		 @return		A pointer to the clone of this perspective camera.
+		 */
+		virtual Camera *Clone() const {
+			return new PerspectiveCamera(*this);
+		}
 
 		/**
 		 Returns the vertical field-of-view of this perspective camera.
@@ -64,6 +73,15 @@ namespace mage {
 			m_fov_y = fov_y;
 			return (*this);
 		}
+
+		/**
+		 Returns the aspect ratio of this perspective camera.
+
+		 @return		The aspect ratio of this perspective camera.
+		 */
+		float GetAspectRatio() const {
+			return GetWidth() / GetHeight();
+		}
 	
 		/**
 		 Returns the view-to-projection matrix of this perspective camera.
@@ -71,7 +89,7 @@ namespace mage {
 		 @return		The view-to-projection matrix of this perspective camera.
 		 */
 		virtual XMMATRIX GetViewToProjectionMatrix() const override {
-			return XMMatrixPerspectiveFovLH(m_fov_y, m_width / m_height, m_near_z, m_far_z);
+			return XMMatrixPerspectiveFovLH(GetFOVY(), GetAspectRatio(), GetNearZ(), GetFarZ());
 		}
 
 		/**
@@ -91,11 +109,9 @@ namespace mage {
 		void SetViewToProjectionMatrix(float width, float height, float fov_y = MAGE_DEFAULT_CAMERA_FOV_Y,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z) {
 			
-			m_width  = width;
-			m_height = height;
-			m_fov_y  = fov_y;
-			m_near_z = near_z;
-			m_far_z  = far_z;
+			SetWidthAndHeight(width, height);
+			SetFOVY(fov_y);
+			SetNearAndFarZ(near_z, far_z);
 		}
 
 	protected:

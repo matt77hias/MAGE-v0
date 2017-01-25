@@ -33,7 +33,7 @@ namespace mage {
 						A reference to the orthographic camera.
 		 */
 		OrthographicCamera(const OrthographicCamera &camera)
-			: Camera(camera.GetWidth(), camera.GetHeight(), camera.GetNearZ(), camera.GetFarZ()) {}
+			: Camera(camera) {}
 
 		/**
 		 Destructs this orthographic camera.
@@ -41,12 +41,21 @@ namespace mage {
 		virtual ~OrthographicCamera() {}
 		
 		/**
+		 Clones this orthographic camera.
+
+		 @return		A pointer to the clone of this orthographic camera.
+		 */
+		virtual Camera *Clone() const {
+			return new OrthographicCamera(*this);
+		}
+
+		/**
 		 Returns the view-to-projection matrix of this orthographic camera.
 
 		 @return		The view-to-projection matrix of this orthographic camera.
 		 */
 		virtual XMMATRIX GetViewToProjectionMatrix() const override {
-			return XMMatrixOrthographicLH(m_width, m_height, m_near_z, m_far_z);
+			return XMMatrixOrthographicLH(GetWidth(), GetHeight(), GetNearZ(), GetFarZ());
 		}
 
 		/**
@@ -64,10 +73,8 @@ namespace mage {
 		void SetViewToProjectionMatrix(float width, float height,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z) {
 			
-			m_width  = width;
-			m_height = height;
-			m_near_z = near_z;
-			m_far_z  = far_z;
+			SetWidthAndHeight(width, height);
+			SetNearAndFarZ(near_z, far_z);
 		}
 	};
 }

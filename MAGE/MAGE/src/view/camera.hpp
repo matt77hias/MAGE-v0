@@ -29,6 +29,13 @@ namespace mage {
 		virtual ~Camera() {}
 
 		/**
+		 Clones this camera.
+
+		 @return		A pointer to the clone of this camera.
+		 */
+		virtual Camera *Clone() const = 0;
+
+		/**
 		 Returns the width of this camera.
 
 		 @return		The width of this camera.
@@ -165,6 +172,25 @@ namespace mage {
 		 */
 		Camera(float width, float height, float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z)
 			: m_width(width), m_height(height), m_near_z(near_z), m_far_z(far_z) {}
+
+		/**
+		 Constructs a camera from the given camera.
+
+		 @param[in]		camera
+						The camera.
+		 */
+		Camera(const Camera &camera) 
+			: m_width(camera.m_width), m_height(camera.m_height), m_near_z(camera.m_near_z), m_far_z(camera.m_far_z) {}
+
+	private:
+
+		/**
+		 Copies the given camera to this camera.
+
+		 @param[in]		camera
+						The camera.
+		 */
+		Camera &operator=(const Camera &camera);
 
 		/**
 		 The width of this camera.

@@ -25,10 +25,28 @@ namespace mage {
 			: SceneNode(transform), m_camera(camera) {}
 		
 		/**
+		 Constructs a camera node from the given camera node.
+
+		 @param[in]		camera_node
+						The camera node.
+		 */
+		CameraNode(const CameraNode &camera_node) 
+			: SceneNode(camera_node), m_camera(camera_node.m_camera->Clone()) {}
+
+		/**
 		 Destructs this camera node.
 		 */
 		virtual ~CameraNode() {
 			SAFE_DELETE(m_camera);
+		}
+
+		/**
+		 Clones this camera node (non-deep clone).
+
+		 @return		A pointer to a non-deep clone of this camera node.
+		 */
+		virtual SceneNode *Clone() const {
+			return new CameraNode(*this);
 		}
 
 		/**

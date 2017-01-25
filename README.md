@@ -22,3 +22,4 @@ Based on:
 * Model loaders
 * Font rendering
 * Thread system
+* Add some private copy constructor/assignment operators to avoid the defaults.

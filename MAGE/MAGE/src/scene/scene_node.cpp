@@ -93,7 +93,7 @@ namespace mage {
 			if (visitor.IsVisitTerminated()) {
 				return;
 			}
-			(*it)->Accept(visitor);
+			(*it)->AcceptRecursive(visitor);
 		}
 	}
 
@@ -104,7 +104,7 @@ namespace mage {
 			if (visitor.IsVisitTerminated()) {
 				return;
 			}
-			(*it)->Accept(visitor);
+			(*it)->AcceptRecursive(visitor);
 		}
 	}
 }

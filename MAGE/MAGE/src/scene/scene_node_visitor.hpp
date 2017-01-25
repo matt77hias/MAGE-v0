@@ -24,7 +24,7 @@ namespace mage {
 						@c false otherwise.
 		 */
 		bool IsVisitTerminated() const {
-			return m_terminate;
+			return m_terminated;
 		}
 
 		/**
@@ -52,19 +52,19 @@ namespace mage {
 		/**
 		 Constructs a scene node visitor.
 		 */
-		SceneNodeVisitor() : m_terminate(false) {}
+		SceneNodeVisitor() : m_terminated(false) {}
 
 		/**
 		 Terminates the visit of this visitor. 
 		 */
 		void TerminateVisit() const {
-			m_terminate = true;
+			m_terminated = true;
 		}
 
 		/**
 		 Flag indicating whether the visit of this visitor should be terminated.
 		 This allows for early termination (i.e. search operation).
 		 */
-		mutable bool m_terminate;
+		mutable bool m_terminated;
 	};
 }

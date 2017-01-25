@@ -18,6 +18,30 @@ namespace mage {
 		virtual ~SceneNode();
 
 		/**
+		 Check whether this scene node is enabled.
+
+		 @return		@c true if this scene node is enabled.
+						@c false otherwise.
+		 */
+		bool IsEnabled() const {
+			return m_enabled;
+		}
+		
+		/**
+		 Enables this scene node.
+		 */
+		void Enable() {
+			m_enabled = true;
+		}
+
+		/**
+		 Disables this scene node.
+		 */
+		void Disable() {
+			m_enabled = false;
+		}
+
+		/**
 		 Returns the parent scene node of this scene node.
 
 		 @return		@c nullptr if this scene node has no parent scene node
@@ -155,9 +179,11 @@ namespace mage {
 
 		 @param[in]		transform
 						A reference to the transform.
+		 @param[in]		enabled
+						Flag indicating whether the scene node is enabled. 
 		 */
-		SceneNode(const Transform &transform = Transform()) 
-			: m_transform(transform), m_parent(nullptr) {}
+		SceneNode(const Transform &transform = Transform(), bool enabled = true) 
+			: m_enabled(enabled), m_transform(transform), m_parent(nullptr) {}
 
 	private:
 
@@ -170,6 +196,11 @@ namespace mage {
 		void SetParent(SceneNode *parent) {
 			m_parent = parent;
 		}
+
+		/**
+		 Flag indicating whether this scene node is enabled.
+		 */
+		bool m_enabled;
 
 		/**
 		 The transform of this scene node.

@@ -93,6 +93,7 @@
     <ClCompile Include="MAGE\src\rendering\font.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
+    <ClCompile Include="MAGE\src\scene\scene_node.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
     <ClCompile Include="MAGE\src\texture\dds_loader.cpp" />
     <ClCompile Include="MAGE\src\ui\combo_box.cpp" />

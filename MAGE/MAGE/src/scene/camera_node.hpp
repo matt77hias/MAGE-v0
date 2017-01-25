@@ -48,7 +48,6 @@ namespace mage {
 		 */
 		virtual void Accept(SceneNodeVisitor &visitor) override {
 			visitor.VisitCameraNode(*this);
-			PassToChilds(visitor);
 		}
 		
 		/**
@@ -59,7 +58,6 @@ namespace mage {
 		 */
 		virtual void Accept(SceneNodeVisitor &visitor) const override {
 			visitor.VisitCameraNode(*this);
-			PassToChilds(visitor);
 		}
 
 	protected:

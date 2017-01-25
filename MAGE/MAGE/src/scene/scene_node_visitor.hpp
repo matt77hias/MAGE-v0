@@ -18,6 +18,16 @@ namespace mage {
 		virtual ~SceneNodeVisitor() {}
 
 		/**
+		 Check whether the visit of this visitor should be terminated.
+
+		 @return		@c true if the visit of this visitor should be terminated.
+						@c false otherwise.
+		 */
+		bool IsVisitTerminated() const {
+			return m_terminate;
+		}
+
+		/**
 		 Visits the given camera node.
 
 		 @param[in]		camera_node
@@ -42,6 +52,19 @@ namespace mage {
 		/**
 		 Constructs a scene node visitor.
 		 */
-		SceneNodeVisitor() {}
+		SceneNodeVisitor() : m_terminate(false) {}
+
+		/**
+		 Terminates the visit of this visitor. 
+		 */
+		void TerminateVisit() const {
+			m_terminate = true;
+		}
+
+		/**
+		 Flag indicating whether the visit of this visitor should be terminated.
+		 This allows for early termination (i.e. search operation).
+		 */
+		mutable bool m_terminate;
 	};
 }

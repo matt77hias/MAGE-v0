@@ -139,7 +139,7 @@ namespace mage {
 		 Copies the given engine setup to this engine setup.
 
 		 @param[in]		setup
-						A reference to the engine setup.
+						A reference to the engine setup to copy from.
 		 @return		A reference to the copy of the given engine setup 
 						(i.e. this engine setup).
 		 */
@@ -302,7 +302,7 @@ namespace mage {
 		 Copies the given engine to this engine.
 
 		 @param[in]		engine
-						A reference to the engine.
+						A reference to the engine to copy from.
 		 @return		A reference to the copy of the given engine (i.e. this engine).
 		 */
 		Engine &operator=(const Engine &engine);

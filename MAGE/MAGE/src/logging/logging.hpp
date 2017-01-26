@@ -8,7 +8,7 @@ namespace mage {
 	/**
 	 A struct of logging configurations of the engine processing.
 	 */
-	struct LoggingConfiguration {
+	struct LoggingConfiguration final {
 
 	public:
 
@@ -16,6 +16,11 @@ namespace mage {
 		 Constructs a new logging configuration.
 		 */
 		LoggingConfiguration() : m_quiet(false), m_verbose(false) {}
+
+		/**
+		 Destructs this logging configuration.
+		 */
+		~LoggingConfiguration() {}
 
 		/**
 		 Checks whether the logging of the engine processing is quiet.

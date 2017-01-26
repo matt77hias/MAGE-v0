@@ -118,7 +118,7 @@ namespace mage {
 		 Copies the given keyboard to this keyboard.
 
 		 @param[in]		keyboard
-						A reference to the keyboard.
+						A reference to the keyboard to copy from.
 		 @return		A reference to the copy of the given keyboard (i.e. this keyboard).
 		 */
 		Keyboard &operator=(const Keyboard &keyboard);

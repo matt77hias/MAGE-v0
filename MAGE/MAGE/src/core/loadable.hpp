@@ -51,7 +51,7 @@ namespace mage {
 		 Copies the given loadable to this loadable.
 
 		 @param[in]		loadable
-						A reference to the loadable.
+						A reference to the loadable to copy from.
 		 @return		A reference to the copy of the given loadable (i.e. this loadable).
 		 */
 		Loadable &operator=(const Loadable &loadable) {

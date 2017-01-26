@@ -113,7 +113,7 @@ namespace mage {
 		 Copies the given input manager to this input manager.
 
 		 @param[in]		input_manager
-						A reference to the input manager.
+						A reference to the input manager to copy from.
 		 @return		A reference to the copy of the given input manager (i.e. this input manager).
 		 */
 		InputManager &operator=(const InputManager &input_manager);

@@ -171,7 +171,7 @@ namespace mage {
 		 Copies the given mouse to this mouse.
 
 		 @param[in]		mouse
-						A reference to the mouse.
+						A reference to the mouse to copy from.
 		 @return		A reference to the copy of the given mouse (i.e. this mouse).
 		 */
 		Mouse &operator=(const Mouse &mouse);

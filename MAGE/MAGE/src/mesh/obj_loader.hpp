@@ -6,7 +6,7 @@
 namespace mage {
 
 	/**
-	 Loads an OBJ model from file.
+	 Loads an OBJ mesh from file.
 
 	 @param[in]		fname
 					A reference to the file name.
@@ -16,11 +16,11 @@ namespace mage {
 					A reference to the empty index buffer.
 	 @return		A success/error value.
 	 */
-	HRESULT LoadOBJModelFromFile(const string &fname,
+	HRESULT LoadOBJMeshFromFile(const string &fname,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer);
 
 	/**
-	 Loads an OBJ model from memory.
+	 Loads an OBJ mesh from memory.
 
 	 @param[in]		input
 					A pointer to an array of chars that represents
@@ -31,11 +31,11 @@ namespace mage {
 					A reference to the empty index buffer.
 	 @return		A success/error value.
 	 */
-	HRESULT LoadOBJModelFromMemory(const char *input,
+	HRESULT LoadOBJMeshFromMemory(const char *input,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer);
 
 	/**
-	 Loads an OBJ model from file.
+	 Loads an OBJ mesh from file.
 
 	 @param[in]		fname
 					A reference to the file name.
@@ -43,11 +43,11 @@ namespace mage {
 					A reference to the empty vertex buffer.
 	 @return		A success/error value.
 	 */
-	HRESULT LoadOBJModelFromFile(const string &fname,
+	HRESULT LoadOBJMeshFromFile(const string &fname,
 		vector< Vertex > &vertex_buffer);
 
 	/**
-	 Loads an OBJ model from memory.
+	 Loads an OBJ mesh from memory.
 
 	 @param[in]		input
 					A pointer to an array of chars that represents
@@ -56,6 +56,6 @@ namespace mage {
 					A reference to the empty vertex buffer.
 	 @return		A success/error value.
 	 */
-	HRESULT LoadOBJModelFromMemory(const char *input,
+	HRESULT LoadOBJMeshFromMemory(const char *input,
 		vector< Vertex > &vertex_buffer);
 }

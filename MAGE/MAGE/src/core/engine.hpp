@@ -81,7 +81,7 @@ namespace mage {
 #include "texture\texture.hpp"
 #include "input\input.hpp"
 #include "state\state.hpp"
-#include "model\model.hpp"
+#include "mesh\mesh.hpp"
 #include "scene\scene.hpp"
 
 #pragma endregion

@@ -5,28 +5,31 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class Model : public Resource {
+	/**
+	A class of indexed meshes.
+	*/
+	class IndexedMesh : Mesh {
 
 	public:
 
 		/**
-		 Constructs a variable script.
+		 Constructs an indexed mesh.
 
 		 @param[in]		device
 						A pointer to an D3D11 device.
 		 @param[in]		name
-						A reference to the name of the model.
+						A reference to the name of the mesh.
 		 @param[in]		path
-						A reference to the path of the model.
-		*/
-		Model(ID3D11Device2 *device, const string &name, const string &path = "./");
+						A reference to the path of the mesh.
+		 */
+		IndexedMesh(ID3D11Device2 *device, const string &name, const string &path = "./");
 
 		/**
-		 Destructs this model.
-		 */
-		virtual ~Model();
+		Destructs this indexed mesh.
+		*/
+		virtual ~IndexedMesh();
 
-		HRESULT BindBuffers(ID3D11DeviceContext2 *device_context);
+		virtual HRESULT BindBuffers(ID3D11DeviceContext2 *device_context) override;
 
 	protected:
 

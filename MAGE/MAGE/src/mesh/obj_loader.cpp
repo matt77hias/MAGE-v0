@@ -4,7 +4,7 @@
 #pragma region
 
 #include "engine.hpp"
-#include "model\obj_loader.hpp"
+#include "mesh\obj_loader.hpp"
 
 #pragma endregion
 
@@ -198,7 +198,7 @@ namespace mage {
 		}
 	}
 
-	HRESULT LoadOBJModelFromFile(const string &fname,
+	HRESULT LoadOBJMeshFromFile(const string &fname,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
 
 		if (!vertex_buffer.empty()) {
@@ -243,7 +243,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT LoadOBJModelFromMemory(const char *input,
+	HRESULT LoadOBJMeshFromMemory(const char *input,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
 
 		if (!vertex_buffer.empty()) {
@@ -331,7 +331,7 @@ namespace mage {
 		}
 	}
 
-	HRESULT LoadOBJModelFromFile(const string &fname,
+	HRESULT LoadOBJMeshFromFile(const string &fname,
 		vector< Vertex > &vertex_buffer) {
 
 		if (!vertex_buffer.empty()) {
@@ -371,7 +371,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT LoadOBJModelFromMemory(const char *input,
+	HRESULT LoadOBJMeshFromMemory(const char *input,
 		vector< Vertex > &vertex_buffer) {
 
 		if (!vertex_buffer.empty()) {

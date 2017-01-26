@@ -112,6 +112,12 @@
     <Filter Include="Source Files\font">
       <UniqueIdentifier>{ecca1a1e-1f3d-45c9-acda-12dbbc9fab70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\mesh">
+      <UniqueIdentifier>{782ee454-4d9a-4d6e-9daa-32a156758e2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\mesh">
+      <UniqueIdentifier>{a44ec8b5-e9d2-45a7-b3bd-68ab2226bc22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -273,17 +279,8 @@
     <ClInclude Include="MAGE\src\view\camera.hpp">
       <Filter>Header Files\view</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\model\model.hpp">
-      <Filter>Header Files\model</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\model\obj_loader.hpp">
-      <Filter>Header Files\model</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\string\string_utils.hpp">
       <Filter>Header Files\string</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\model\model_loader.hpp">
-      <Filter>Header Files\model</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\file\file_utils.hpp">
       <Filter>Header Files\file</Filter>
@@ -296,6 +293,21 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\font\font.hpp">
       <Filter>Header Files\font</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\obj_loader.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\mesh_loader.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\mesh.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\indexed_mesh.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\flat_mesh.hpp">
+      <Filter>Header Files\mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -353,26 +365,29 @@
     <ClCompile Include="MAGE\src\logging\logging.cpp">
       <Filter>Source Files\logging</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\model\obj_loader.cpp">
-      <Filter>Source Files\model</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\scene\scene_node.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\string\string_utils.cpp">
       <Filter>Source Files\string</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\model\model_loader.cpp">
-      <Filter>Source Files\model</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\model\model.cpp">
-      <Filter>Source Files\model</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\font\font.cpp">
       <Filter>Source Files\font</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\obj_loader.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\mesh_loader.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\indexed_mesh.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\flat_mesh.cpp">
+      <Filter>Source Files\mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

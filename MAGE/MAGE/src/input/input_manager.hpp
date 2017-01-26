@@ -98,5 +98,24 @@ namespace mage {
 		 A pointer to the mouse of this input manager.
 		 */
 		Mouse *m_mouse;
+
+	private:
+
+		/**
+		 Constructs an input manager from the given input manager.
+
+		 @param[in]		input_manager
+						A reference to the input manager.
+		 */
+		InputManager(const InputManager &input_manager);
+
+		/**
+		 Copies the given input manager to this input manager.
+
+		 @param[in]		input_manager
+						A reference to the input manager.
+		 @return		A reference to the copy of the given input manager (i.e. this input manager).
+		 */
+		InputManager &operator=(const InputManager &input_manager);
 	};
 }

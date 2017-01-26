@@ -109,11 +109,15 @@ namespace mage {
 		/**
 		 Constructs an engine setup from the given engine setup.
 
-		 @pre			setup does not point to @c nullptr.
 		 @param[in]		setup
-						A pointer to the engine setup.
+						A reference to the engine setup.
 		 */
-		EngineSetup(const EngineSetup *setup) : m_hinstance(setup->m_hinstance), m_name(setup->m_name), StateSetup(setup->StateSetup) {}
+		EngineSetup(const EngineSetup &setup) : m_hinstance(setup.m_hinstance), m_name(setup.m_name), StateSetup(setup.StateSetup) {}
+
+		/**
+		 Destructs this engine setup.
+		 */
+		virtual ~EngineSetup() {}
 
 		/**
 		 Application instance handle.
@@ -128,6 +132,19 @@ namespace mage {
 		 The state setup function.
 		 */
 		void(*StateSetup)();
+
+	private:
+
+		/**
+		 Copies the given engine setup to this engine setup.
+
+		 @param[in]		setup
+						A reference to the engine setup.
+		 @return		A reference to the copy of the given engine setup 
+						(i.e. this engine setup).
+		 */
+		EngineSetup &operator=(const EngineSetup &setup);
+
 	};
 
 	/**
@@ -250,6 +267,46 @@ namespace mage {
 		 @return		A success/error value.
 		 */
 		HRESULT UninitializeSystems();
+
+		/**
+		 Checks whether this engine is deactive.
+
+		 @return		@c true if this engine is deactive.
+						@c false otherwise.
+		 */
+		bool IsDeactive() const {
+			return m_deactive;
+		}
+
+		/**
+		 Checks whether this engine should switch modes.
+
+		 @return		@c true if this engine should switch modes.
+						@c false otherwise.
+		 */
+		bool ModeSwitch() const {
+			return m_mode_switch;
+		}
+
+	private:
+
+		/**
+		 Constructs an engine from the given engine.
+
+		 @param[in]		engine
+						A reference to the engine.
+		 */
+		Engine(const Engine &engine);
+
+		/**
+		 Copies the given engine to this engine.
+
+		 @param[in]		engine
+						A reference to the engine.
+		 @return		A reference to the copy of the given engine (i.e. this engine).
+		 */
+		Engine &operator=(const Engine &engine);
+
 
 		// WINDOW SYSTEM
 

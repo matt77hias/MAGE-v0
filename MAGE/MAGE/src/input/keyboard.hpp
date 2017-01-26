@@ -103,5 +103,24 @@ namespace mage {
 		 Stamps the keys pressed in the last frame of this keyboard.
 		 */
 		mutable uint64_t m_key_press_stamp[256];
+
+	private:
+
+		/**
+		 Constructs a keyboard from the given keyboard.
+
+		 @param[in]		keyboard
+						A reference to the keyboard.
+		 */
+		Keyboard(const Keyboard &keyboard);
+
+		/**
+		 Copies the given keyboard to this keyboard.
+
+		 @param[in]		keyboard
+						A reference to the keyboard.
+		 @return		A reference to the copy of the given keyboard (i.e. this keyboard).
+		 */
+		Keyboard &operator=(const Keyboard &keyboard);
 	};
 }

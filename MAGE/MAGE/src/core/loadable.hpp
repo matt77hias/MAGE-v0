@@ -30,12 +30,34 @@ namespace mage {
 		 @param[in]		loaded
 						Flag indicating wether the loadable is loaded.
 		 */
-		Loadable(bool loaded = false) : m_loaded(loaded) {}
+		Loadable(bool loaded = false) 
+			: m_loaded(loaded) {}
+
+		/**
+		 Constructs a loadable from the given loadable.
+
+		 @param[in]		loadable
+						A reference to the loadable.
+		 */
+		Loadable(const Loadable &loadable) 
+			: m_loaded(loadable.m_loaded) {}
 
 		/**
 		 Destructs this loadable.
 		 */
 		virtual ~Loadable() {}
+
+		/**
+		 Copies the given loadable to this loadable.
+
+		 @param[in]		loadable
+						A reference to the loadable.
+		 @return		A reference to the copy of the given loadable (i.e. this loadable).
+		 */
+		Loadable &operator=(const Loadable &loadable) {
+			SetLoaded(loadable.m_loaded);
+			return (*this);
+		}
 
 		/**
 		 Set the state of this loadable to the given value.

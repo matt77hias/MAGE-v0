@@ -156,5 +156,24 @@ namespace mage {
 		 The position of the mouse cursor on the screen of this mouse.
 		 */
 		POINT m_mouse_position;
+
+	private:
+
+		/**
+		 Constructs a mouse from the given mouse.
+
+		 @param[in]		mouse
+						A reference to the mouse.
+		 */
+		Mouse(const Mouse &mouse);
+
+		/**
+		 Copies the given mouse to this mouse.
+
+		 @param[in]		mouse
+						A reference to the mouse.
+		 @return		A reference to the copy of the given mouse (i.e. this mouse).
+		 */
+		Mouse &operator=(const Mouse &mouse);
 	};
 }

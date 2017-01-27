@@ -4,6 +4,10 @@
 #pragma region
 
 #include "engine.hpp"
+#include "version.hpp"
+#include "logging\error.hpp"
+#include "logging\logging.hpp"
+#include "logging\timer.hpp"
 
 #pragma endregion
 
@@ -71,7 +75,7 @@ namespace mage {
 		}
 		
 		// Clean up the tasks support.
-		TasksCleanup();
+		//TasksCleanup();
 	}
 
 	HRESULT Engine::InitializeSystems(const EngineSetup *setup) {

@@ -3,7 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "engine.hpp"
+#include "rendering\rendering.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 

@@ -1,11 +1,11 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Includes
+// Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <d3dcompiler.h>
+#include "support.hpp"
 
 #pragma endregion
 

@@ -8,6 +8,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <d3dcompiler.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -44,10 +53,8 @@ namespace mage {
 			}
 			return result_compile;
 		}
-		// Release the error blob if existing.
-		if (error_blob) {
-			error_blob->Release();
-		}
+
+		SAFE_RELEASE(error_blob);
 
 		return S_OK;
 	}

@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "support.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Defines
 //-----------------------------------------------------------------------------
 #pragma region
@@ -190,7 +199,7 @@ namespace mage {
 		 @param[in]		camera
 						The camera.
 		 */
-		Camera &operator=(const Camera &camera);
+		Camera &operator=(const Camera &camera) = delete;
 
 		/**
 		 The width of this camera.

@@ -9,6 +9,19 @@
 
 #pragma endregion
 
+//-------------------------------------------------------------------------
+// Engine Defines
+//-------------------------------------------------------------------------
+#pragma region
+
+#define alloca _alloca
+
+#ifndef MAGE_L1_CACHE_LINE_SIZE
+#define MAGE_L1_CACHE_LINE_SIZE 64
+#endif
+
+#pragma endregion
+
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------

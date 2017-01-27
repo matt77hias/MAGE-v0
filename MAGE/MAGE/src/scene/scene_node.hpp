@@ -1,9 +1,22 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "math\transform.hpp"
+#include "collection\collection.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	// Forward declarations
+	class SceneNodeVisitor;
 
 	/**
 	 A class of scene nodes.

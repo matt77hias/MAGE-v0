@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "mesh\mesh.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions and Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -29,7 +38,13 @@ namespace mage {
 		 */
 		virtual ~FlatMesh();
 
-		virtual HRESULT BindBuffers(ID3D11DeviceContext2 *device_context) override;
+		size_t GetNbVertices() const {
+			return m_nb_vertices;
+		}
+
+		virtual HRESULT BindBuffers(ID3D11DeviceContext2 *device_context) const override;
+
+		virtual HRESULT Draw(ID3D11DeviceContext2 *device_context) const override;
 
 	protected:
 
@@ -38,6 +53,8 @@ namespace mage {
 		HRESULT UninitializeBuffers();
 
 		HRESULT SetupVertexBuffer(ID3D11Device2 *device, const Vertex *vertices, size_t nb_vertices);
+
+		size_t m_nb_vertices;
 
 		ID3D11Buffer *m_vertex_buffer;
 	};

@@ -3,31 +3,6 @@
 #include "targetver.h"
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdint.h>
-#include <stdio.h>
-#include <tchar.h>
-#include <string>
-using std::string;
-using std::wstring;
-#include <iostream>
-using std::cin;
-using std::cout;
-
-#include <windows.h>
-
-#include <d3d11_2.h>
-#include <directxmath.h>
-namespace mage {
-	using namespace DirectX;
-}
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Linker Directives
 //-----------------------------------------------------------------------------
 #pragma region
@@ -37,52 +12,17 @@ namespace mage {
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#ifndef MAGE_POINTER_SIZE
-#if defined(__amd64__) || defined(_M_X64)
-#define MAGE_POINTER_SIZE 8
-#elif defined(__i386__) || defined(_M_IX86)
-#define MAGE_POINTER_SIZE 4
-#endif
-#endif
-
-// Memory management macros
-#define SAFE_DELETE(p)       { if(p) { delete (p);     (p) = nullptr; } }
-#define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p) = nullptr; } }
-#define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p) = nullptr; } }
-
-// Supresses C4100: unreferenced formal parameter
-#define UNUSED(param) (void)(param)
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "version.hpp"
-#include "loadable.hpp"
-#include "collection\collection.hpp"
-#include "parallel\parallel.hpp"
-#include "string\string_utils.hpp"
-#include "logging\logging.hpp"
-#include "memory\memory.hpp"
-#include "ui\ui.hpp"
-
-#include "math\math.hpp"
-#include "view\view.hpp"
-#include "resource\resource.hpp"
-#include "scripting\scripting.hpp"
 #include "rendering\rendering.hpp"
-#include "texture\texture.hpp"
 #include "input\input.hpp"
-#include "state\state.hpp"
-#include "mesh\mesh.hpp"
-#include "scene\scene.hpp"
+#include "ui\main_window.hpp"
+#include "scripting\variable_script.hpp"
+#include "state\state_manager.hpp"
+#include "resource\resource_manager.hpp"
+#include "loadable.hpp"
 
 #pragma endregion
 
@@ -296,7 +236,7 @@ namespace mage {
 		 @param[in]		engine
 						A reference to the engine.
 		 */
-		Engine(const Engine &engine);
+		Engine(const Engine &engine) = delete;
 
 		/**
 		 Copies the given engine to this engine.
@@ -305,7 +245,7 @@ namespace mage {
 						A reference to the engine to copy from.
 		 @return		A reference to the copy of the given engine (i.e. this engine).
 		 */
-		Engine &operator=(const Engine &engine);
+		Engine &operator=(const Engine &engine) = delete;
 
 
 		// WINDOW SYSTEM

@@ -1,13 +1,22 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "mesh\mesh.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions and Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 
 	/**
-	A class of indexed meshes.
-	*/
+	 A class of indexed meshes.
+	 */
 	class IndexedMesh : Mesh {
 
 	public:
@@ -29,7 +38,13 @@ namespace mage {
 		*/
 		virtual ~IndexedMesh();
 
-		virtual HRESULT BindBuffers(ID3D11DeviceContext2 *device_context) override;
+		size_t GetNbVertices() const {
+			return m_nb_vertices;
+		}
+
+		virtual HRESULT BindBuffers(ID3D11DeviceContext2 *device_context) const override;
+
+		virtual HRESULT Draw(ID3D11DeviceContext2 *device_context) const override;
 
 	protected:
 
@@ -40,6 +55,8 @@ namespace mage {
 		HRESULT SetupVertexBuffer(ID3D11Device2 *device, const Vertex *vertices, size_t nb_vertices);
 
 		HRESULT SetupIndexBuffer(ID3D11Device2 *device, const uint32_t *indices, size_t nb_indices);
+
+		size_t m_nb_vertices;
 
 		ID3D11Buffer *m_vertex_buffer;
 		ID3D11Buffer *m_index_buffer;

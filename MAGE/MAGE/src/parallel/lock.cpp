@@ -3,7 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "engine.hpp"
+#include "parallel\lock.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 

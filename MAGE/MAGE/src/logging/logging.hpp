@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "support.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -89,15 +98,3 @@ namespace mage {
 	 */
 	HRESULT InitializeConsole();
 }
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "logging\timer.hpp"
-#include "logging\progressreporter.hpp"
-#include "logging\error.hpp"
-#include "logging\debug.hpp"
-
-#pragma endregion

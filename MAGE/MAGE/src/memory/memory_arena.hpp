@@ -1,6 +1,17 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "support.hpp"
+#include "memory\allocation.hpp"
+#include "collection\collection.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -18,7 +29,7 @@ namespace mage {
 		 @param[in]		block_size
 						The maximum block size in bytes.
 		 */
-		MemoryArena(uint32_t block_size = 32768) : 
+		MemoryArena(size_t block_size = 32768) : 
 			m_block_size(block_size), m_current_block_pos(0),
 			m_current_block(pair< size_t, char * >(0, nullptr)) {
 		}
@@ -26,7 +37,7 @@ namespace mage {
 		/**
 		 Destructs the given memory arena.
 		 */
-		~MemoryArena() {
+		virtual ~MemoryArena() {
 			FreeAligned(GetCurrentBlockPtr());
 			for (const pair< size_t, char * > &block : m_used_blocks) {
 				FreeAligned(block.second);
@@ -163,7 +174,7 @@ namespace mage {
 			return ptr;
 		}
 
-	private:
+	protected:
 
 		/**
 		 Constructs a memory arena from the given memory arena.

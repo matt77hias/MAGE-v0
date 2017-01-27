@@ -1,11 +1,10 @@
-#pragma once
-
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "engine.hpp"
+#include "scene\scene_node.hpp"
+#include "scene\scene_node_visitor.hpp"
 
 #pragma endregion
 

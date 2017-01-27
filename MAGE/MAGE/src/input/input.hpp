@@ -33,8 +33,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "input\keyboard.hpp"
-#include "input\mouse.hpp"
+#include "support.hpp"
 #include "input\input_manager.hpp"
 
 #pragma endregion

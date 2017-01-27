@@ -11,6 +11,18 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "collection\collection.hpp" 
+#include "resource\resource.hpp" 
+#include "scripting\variable.hpp"
+#include "logging\error.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {

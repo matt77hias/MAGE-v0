@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "support.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -64,7 +73,7 @@ namespace mage {
 						A reference to a mutex.
 		 @return		A reference to the copy of @a mutex.
 		 */
-		Mutex &operator=(const Mutex &mutex);
+		Mutex &operator=(const Mutex &mutex) = delete;
 
 		/**
 		 The critical section object of this mutex.
@@ -114,7 +123,7 @@ namespace mage {
 						A reference to a mutex lock.
 		 @return		A reference to the copy of @a mutex_lock.
 		 */
-		MutexLock &operator=(const MutexLock &mutex_lock);
+		MutexLock &operator=(const MutexLock &mutex_lock) = delete;
 
 		/**
 		 The mutex of this mutex lock.
@@ -187,7 +196,7 @@ namespace mage {
 						A reference to a read write mutex.
 		 @return		A reference to the copy of @a mutex.
 		 */
-		ReadWriteMutex &operator=(const ReadWriteMutex &mutex);
+		ReadWriteMutex &operator=(const ReadWriteMutex &mutex) = delete;
 
 		/**
 		 Acquires a read.
@@ -310,7 +319,7 @@ namespace mage {
 						A reference to a read write mutex lock.
 		 @return		A reference to the copy of @a mutex_lock.
 		 */
-		ReadWriteMutexLock &operator=(const ReadWriteMutexLock &mutex_lock);
+		ReadWriteMutexLock &operator=(const ReadWriteMutexLock &mutex_lock) = delete;
 
 		/**
 		 The lock type of this read write mutex lock. 

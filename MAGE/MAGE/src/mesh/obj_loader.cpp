@@ -3,8 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "engine.hpp"
 #include "mesh\obj_loader.hpp"
+#include "logging\error.hpp"
+#include "string\string_utils.hpp"
 
 #pragma endregion
 

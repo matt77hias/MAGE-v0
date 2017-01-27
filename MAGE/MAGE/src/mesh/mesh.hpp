@@ -1,6 +1,17 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "resource\resource.hpp"
+#include "math\vertex.hpp"
+#include "collection\collection.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions and Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -28,16 +39,13 @@ namespace mage {
 		 */
 		virtual ~Mesh() {}
 
-		virtual HRESULT BindBuffers(ID3D11DeviceContext2 *device_context) = 0;
+		virtual HRESULT BindBuffers(ID3D11DeviceContext2 *device_context) const = 0;
+
+		virtual HRESULT Draw(ID3D11DeviceContext2 *device_context) const = 0;
+
+	private:
+
+		Mesh(const Mesh &mesh) = delete;
+		Mesh &operator=(const Mesh &mesh) = delete;
 	};
 }
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "mesh\flat_mesh.hpp"
-#include "mesh\indexed_mesh.hpp"
-
-#pragma endregion

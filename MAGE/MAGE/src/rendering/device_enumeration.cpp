@@ -3,8 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "engine.hpp"
-#include "rendering/graphics_settings.hpp"
+#include "rendering\rendering.hpp"
+#include "rendering\graphics_settings.hpp"
+#include "ui\combo_box.hpp"
 
 #pragma endregion
 

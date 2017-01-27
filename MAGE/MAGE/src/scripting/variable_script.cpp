@@ -3,7 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "engine.hpp"
+#include "scripting\variable_script.hpp"
+#include "string\string_utils.hpp"
 
 #pragma endregion
 

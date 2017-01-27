@@ -14,8 +14,23 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	inline string GetFileExtension(const string &fname) {
-		const size_t pos = fname.find_last_of(".");
-		return fname.substr(pos + 1);
-	}
+	class VertexShader {
+
+	public:
+
+		VertexShader(ID3D11Device2 *device, const wstring &fname);
+		virtual ~VertexShader();
+
+	protected:
+
+		HRESULT InitializeShader(ID3D11Device2 *device, const wstring &fname);
+		HRESULT UninitializeShader();
+
+		ID3D11VertexShader *m_vertex_shader;
+
+	private:
+
+		VertexShader(const VertexShader &vertex_shader) = delete;
+		VertexShader &operator=(const VertexShader &vertex_shader) = delete;
+	};
 }

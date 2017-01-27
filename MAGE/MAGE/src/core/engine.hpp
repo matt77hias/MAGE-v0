@@ -83,7 +83,7 @@ namespace mage {
 		 @return		A reference to the copy of the given engine setup 
 						(i.e. this engine setup).
 		 */
-		EngineSetup &operator=(const EngineSetup &setup);
+		EngineSetup &operator=(const EngineSetup &setup) = delete;
 
 	};
 

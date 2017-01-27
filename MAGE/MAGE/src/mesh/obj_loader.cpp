@@ -203,11 +203,11 @@ namespace mage {
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
 
 		if (!vertex_buffer.empty()) {
-			Warning("Could not import .obj file: %s due to non-empty vertex buffer", fname.c_str());
+			Error("Could not import .obj file: %s due to non-empty vertex buffer", fname.c_str());
 			return E_FAIL;
 		}
 		if (!index_buffer.empty()) {
-			Warning("Could not import .obj file: %s due to non-empty index buffer", fname.c_str());
+			Error("Could not import .obj file: %s due to non-empty index buffer", fname.c_str());
 			return E_FAIL;
 		}
 
@@ -215,7 +215,7 @@ namespace mage {
 		FILE *file = nullptr;
 		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
 		if (result_fopen_s) {
-			Warning("Could not import .obj file: %s", fname.c_str());
+			Error("Could not import .obj file: %s", fname.c_str());
 			return E_FAIL;
 		}
 
@@ -248,11 +248,11 @@ namespace mage {
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
 
 		if (!vertex_buffer.empty()) {
-			Warning("Could not import .obj string due to non-empty vertex buffer");
+			Error("Could not import .obj string due to non-empty vertex buffer");
 			return E_FAIL;
 		}
 		if (!index_buffer.empty()) {
-			Warning("Could not import .obj string due to non-empty index buffer");
+			Error("Could not import .obj string due to non-empty index buffer");
 			return E_FAIL;
 		}
 
@@ -336,7 +336,7 @@ namespace mage {
 		vector< Vertex > &vertex_buffer) {
 
 		if (!vertex_buffer.empty()) {
-			Warning("Could not import .obj file: %s due to non-empty vertex buffer", fname.c_str());
+			Error("Could not import .obj file: %s due to non-empty vertex buffer", fname.c_str());
 			return E_FAIL;
 		}
 
@@ -344,7 +344,7 @@ namespace mage {
 		FILE *file = nullptr;
 		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
 		if (result_fopen_s) {
-			Warning("Could not import .obj file: %s", fname.c_str());
+			Error("Could not import .obj file: %s", fname.c_str());
 			return E_FAIL;
 		}
 
@@ -376,7 +376,7 @@ namespace mage {
 		vector< Vertex > &vertex_buffer) {
 
 		if (!vertex_buffer.empty()) {
-			Warning("Could not import .obj string due to non-empty vertex buffer");
+			Error("Could not import .obj string due to non-empty vertex buffer");
 			return E_FAIL;
 		}
 

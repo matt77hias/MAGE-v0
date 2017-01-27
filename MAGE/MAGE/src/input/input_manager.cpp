@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "input\input.hpp"
+#include "input\input_manager.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

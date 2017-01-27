@@ -42,9 +42,9 @@ namespace mage {
 			XMStoreFloat3(&m_translation, translation_v);
 
 			// Calculate rotation components.
-			const float rotation_x = acos(XMVectorGetByIndex(coordinate_system.GetAxisX(), 0));
-			const float rotation_y = acos(XMVectorGetByIndex(coordinate_system.GetAxisY(), 1));
-			const float rotation_z = acos(XMVectorGetByIndex(coordinate_system.GetAxisZ(), 2));
+			const float rotation_x = acosf(XMVectorGetByIndex(coordinate_system.GetAxisX(), 0));
+			const float rotation_y = acosf(XMVectorGetByIndex(coordinate_system.GetAxisY(), 1));
+			const float rotation_z = acosf(XMVectorGetByIndex(coordinate_system.GetAxisZ(), 2));
 			m_rotation = XMFLOAT3(rotation_x, rotation_y, rotation_z);
 		}
 		

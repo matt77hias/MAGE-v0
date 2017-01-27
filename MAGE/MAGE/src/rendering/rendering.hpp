@@ -1,19 +1,11 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "support.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // System Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include <d3d11_2.h>
 #include <DXGI1_3.h>
 
 #pragma endregion
@@ -23,6 +15,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#pragma comment (lib, "d3d11.lib")
 #pragma comment (lib, "dxgi.lib")
 
 #pragma endregion
@@ -58,13 +51,3 @@ namespace mage {
 	 */
 	size_t BitsPerPixel(DXGI_FORMAT format);
 }
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "rendering/device_enumeration.hpp"
-#include "rendering/renderer.hpp"
-
-#pragma endregion

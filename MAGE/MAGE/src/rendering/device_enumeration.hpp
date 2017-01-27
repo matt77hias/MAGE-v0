@@ -5,6 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "support.hpp"
+#include "rendering\rendering.hpp"
 #include "scripting\variable_script.hpp"
 
 #pragma endregion

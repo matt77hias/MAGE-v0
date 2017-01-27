@@ -1,11 +1,14 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Includes
+// System Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "support.hpp"
+#include <directxmath.h>
+namespace mage {
+	using namespace DirectX;
+}
 
 #pragma endregion
 
@@ -38,7 +41,7 @@ namespace mage {
 			: m_x(x) {
 			XMFLOAT3 w;
 			XMStoreFloat3(&w, m_x);
-			const XMVECTOR u = (abs(w.x) > 0.1f) ? XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f) : XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
+			const XMVECTOR u = (fabs(w.x) > 0.1f) ? XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f) : XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
 			m_y = XMVector3Cross(m_x, u);
 			m_z = XMVector3Cross(m_x, m_y);
 		}

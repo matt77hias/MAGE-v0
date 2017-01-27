@@ -1,11 +1,12 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Includes
+// System Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "support.hpp"
+#include <stdint.h>
+#include <windows.h>
 
 #pragma endregion
 

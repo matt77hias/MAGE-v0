@@ -1,11 +1,19 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <windows.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "support.hpp"
 #include "memory\allocation.hpp"
 #include "collection\collection.hpp"
 

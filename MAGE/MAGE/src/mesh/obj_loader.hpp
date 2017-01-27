@@ -1,6 +1,25 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <string>
+namespace mage {
+	using std::string;
+}
+
+#include <windows.h>
+
+#include <directxmath.h>
+namespace mage {
+	using namespace DirectX;
+}
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region

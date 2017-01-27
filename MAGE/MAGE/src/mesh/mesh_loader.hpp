@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\vertex.hpp"
-#include "collection\collection.hpp"
+#include "mesh\obj_loader.hpp"
 
 #pragma endregion
 

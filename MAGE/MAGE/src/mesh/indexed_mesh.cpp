@@ -142,7 +142,7 @@ namespace mage {
 	}
 
 	HRESULT IndexedMesh::Draw(ID3D11DeviceContext2 *device_context) const {
-		device_context->DrawIndexed(36, 0, 0);
+		device_context->DrawIndexed((UINT)m_nb_vertices, 0, 0);
 		return S_OK;
 	}
 }

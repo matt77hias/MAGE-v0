@@ -1,11 +1,16 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Includes
+// System Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "support.hpp"
+#include <d3d11_2.h>
+
+#include <directxmath.h>
+namespace mage {
+	using namespace DirectX;
+}
 
 #pragma endregion
 

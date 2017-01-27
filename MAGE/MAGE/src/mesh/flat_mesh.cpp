@@ -101,7 +101,7 @@ namespace mage {
 	}
 
 	HRESULT FlatMesh::Draw(ID3D11DeviceContext2 *device_context) const {
-		device_context->Draw(m_nb_vertices, 0);
+		device_context->Draw((UINT)m_nb_vertices, 0);
 		return S_OK;
 	}
 }

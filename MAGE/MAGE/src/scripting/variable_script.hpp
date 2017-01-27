@@ -1,16 +1,6 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_SCRIPT_BEGIN_TOKEN "#begin"
-#define MAGE_SCRIPT_END_TOKEN "#end"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -19,6 +9,16 @@
 #include "resource\resource.hpp" 
 #include "scripting\variable.hpp"
 #include "logging\error.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_SCRIPT_BEGIN_TOKEN "#begin"
+#define MAGE_SCRIPT_END_TOKEN "#end"
 
 #pragma endregion
 

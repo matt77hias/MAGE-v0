@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering.hpp"
+#include "rendering\device_enumeration.hpp"
 #include "rendering\graphics_settings.hpp"
 #include "ui\combo_box.hpp"
 

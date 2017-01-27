@@ -3,7 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering.hpp"
+#include "rendering\renderer.hpp"
+#include "rendering\device_enumeration.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

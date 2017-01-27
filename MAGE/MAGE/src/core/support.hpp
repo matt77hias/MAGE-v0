@@ -1,39 +1,6 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdint.h>
-#include <stdio.h>
-#include <tchar.h>
-#include <string>
-using std::string;
-using std::wstring;
-#include <iostream>
-using std::cin;
-using std::cout;
-#include <stdarg.h>
-
-#include <algorithm>
-namespace mage {
-	using std::min;
-	using std::max;
-}
-
-#include <windows.h>
-
-#include <d3d11_2.h>
-
-#include <directxmath.h>
-namespace mage {
-	using namespace DirectX;
-}
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Defines
 //-----------------------------------------------------------------------------
 #pragma region

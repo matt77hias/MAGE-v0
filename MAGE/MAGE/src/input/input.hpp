@@ -27,13 +27,3 @@
 #pragma comment (lib, "dxguid.lib")
 
 #pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "support.hpp"
-#include "input\input_manager.hpp"
-
-#pragma endregion

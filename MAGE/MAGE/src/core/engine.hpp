@@ -3,26 +3,17 @@
 #include "targetver.h"
 
 //-----------------------------------------------------------------------------
-// Linker Directives
-//-----------------------------------------------------------------------------
-#pragma region
-
-#pragma comment (lib, "d3d11.lib")
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering.hpp"
-#include "input\input.hpp"
+#include "rendering\device_enumeration.hpp"
+#include "rendering\renderer.hpp"
+#include "input\input_manager.hpp"
 #include "ui\main_window.hpp"
 #include "scripting\variable_script.hpp"
 #include "state\state_manager.hpp"
 #include "resource\resource_manager.hpp"
-#include "loadable.hpp"
 
 #pragma endregion
 

@@ -5,8 +5,8 @@
 //-------------------------------------------------------------------------
 #pragma region
 
+#include <stdint.h>
 #include <windows.h>
-
 #include <intrin.h> // _ReadWriteBarrier
 
 // _ReadWriteBarrier effectively blocks an optimization of reads and writes 

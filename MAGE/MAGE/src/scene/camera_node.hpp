@@ -6,6 +6,7 @@
 #pragma region
 
 #include "scene\scene_node.hpp"
+#include "scene\scene_node_visitor.hpp"
 #include "camera\camera.hpp"
 
 #pragma endregion

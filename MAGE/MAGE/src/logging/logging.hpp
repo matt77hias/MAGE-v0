@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include <stdio.h>
 #include <windows.h>
 
 #pragma endregion

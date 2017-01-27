@@ -6,6 +6,7 @@
 #pragma region
 
 #include "state\state.hpp"
+#include "collection\collection.hpp"
 
 #pragma endregion
 

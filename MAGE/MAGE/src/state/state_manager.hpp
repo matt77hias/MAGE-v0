@@ -33,25 +33,16 @@ namespace mage {
 						Flag indicating whether the current state
 						of this engine need to be changed to @a state.
 		 */
-		void AddState(State *state, bool change = true) {
-			m_states.push_back(state);
-
-			if (change == false) {
-				return;
-			}
-
-			ChangeState(m_states.back());
-		}
+		void AddState(State *state, bool change = true);
 
 		/**
 		 Removes (and destructs) the given state from the states of this state manager.
+		 It is not possible to remove the current state of this state manager.
 
 		 @param[in]		state
 						A pointer to the state.
 		 */
-		void RemoveState(State *state) {
-			m_states.remove(state);
-		}
+		void RemoveState(State *state);
 
 		/**
 		 Changes the state of this state manager to the state with the given id.
@@ -59,15 +50,7 @@ namespace mage {
 		 @param[in]		id
 						The id of the state to change to.
 		 */
-		void ChangeState(uint64_t id) {
-			// Iterate the states looking for the specified state.
-			for (list< State * >::iterator it = m_states.begin(); it != m_states.end(); ++it) {
-				if ((*it)->GetId() == id) {
-					ChangeState(*it);
-					break;
-				}
-			}
-		}
+		void ChangeState(uint64_t id);
 
 		/**
 		 Returns the current state of this state manager.
@@ -99,14 +82,7 @@ namespace mage {
 		 /**
 		  Destructs this state manager.
 		  */
-		 virtual ~StateManager() {
-			 if (m_current_state) {
-				 // State post-processing
-				 m_current_state->Close();
-			 }
-
-			 m_states.clear();
-		 }
+		 virtual ~StateManager();
 
 		/**
 		 Updates this state manager and its current state.
@@ -116,15 +92,7 @@ namespace mage {
 		 @return		@c true if the state is changed in the current frame.
 						@c false otherwise.
 		 */
-		bool Update(double elapsed_time) {
-			m_state_changed = false;
-
-			if (m_current_state) {
-				m_current_state->Update(elapsed_time);
-			}
-
-			return m_state_changed;
-		}
+		 bool Update(double elapsed_time);
 
 		/**
 		 Changes the state of this state manager to the given state.
@@ -133,18 +101,27 @@ namespace mage {
 		 @param[in]		state
 						A pointer to the new state.
 		 */
-		void ChangeState(State *state) {
-			if (m_current_state) {
-				// State post-processing
-				m_current_state->Close();
-			}
+		 void ChangeState(State *state);
 
-			m_current_state = state;
-			// State pre-processing
-			m_current_state->Load();
+	private:
 
-			m_state_changed = true;
-		}
+		/**
+		 Constructs a state manager from the given state manager.
+
+		 @param[in]		state_manager
+						A reference to the state manager.
+		 */
+		StateManager(const StateManager &state_manager) = delete;
+
+		/**
+		 Copies the given state manager to this state manager.
+
+		 @param[in]		state_manager
+						A reference to the state manager to copy from.
+		 @return		A reference to the copy of the given state manager
+						(i.e. this state manager).
+		 */
+		StateManager &operator=(const StateManager &state_manager) = delete;
 
 		/**
 		 The states of this state manager.

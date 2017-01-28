@@ -24,9 +24,9 @@
     <ClInclude Include="MAGE\src\camera\perspective_camera.hpp" />
     <ClInclude Include="MAGE\src\collection\collection.hpp" />
     <ClInclude Include="MAGE\src\core\engine.hpp" />
+    <ClInclude Include="MAGE\src\core\engine_setup.hpp" />
     <ClInclude Include="MAGE\src\core\loadable.hpp" />
-    <ClInclude Include="MAGE\src\core\support.hpp" />
-    <ClInclude Include="MAGE\src\core\targetver.h" />
+    <ClInclude Include="MAGE\src\core\targetver.hpp" />
     <ClInclude Include="MAGE\src\core\version.hpp" />
     <ClInclude Include="MAGE\src\file\file_utils.hpp" />
     <ClInclude Include="MAGE\src\input\input.hpp" />
@@ -37,11 +37,13 @@
     <ClInclude Include="MAGE\src\logging\logging.hpp" />
     <ClInclude Include="MAGE\src\logging\progress_reporter.hpp" />
     <ClInclude Include="MAGE\src\logging\timer.hpp" />
+    <ClInclude Include="MAGE\src\material\material.hpp" />
     <ClInclude Include="MAGE\src\math\bounding_volume.hpp" />
     <ClInclude Include="MAGE\src\math\coordinate_system.hpp" />
     <ClInclude Include="MAGE\src\math\transform.hpp" />
     <ClInclude Include="MAGE\src\math\vertex.hpp" />
     <ClInclude Include="MAGE\src\memory\allocation.hpp" />
+    <ClInclude Include="MAGE\src\memory\memory.hpp" />
     <ClInclude Include="MAGE\src\memory\memory_arena.hpp" />
     <ClInclude Include="MAGE\src\mesh\flat_mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\indexed_mesh.hpp" />
@@ -73,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />
+    <ClCompile Include="MAGE\src\core\version.cpp" />
     <ClCompile Include="MAGE\src\input\input_manager.cpp" />
     <ClCompile Include="MAGE\src\input\keyboard.cpp" />
     <ClCompile Include="MAGE\src\input\mouse.cpp" />
@@ -80,6 +83,7 @@
     <ClCompile Include="MAGE\src\logging\logging.cpp" />
     <ClCompile Include="MAGE\src\logging\progress_reporter.cpp" />
     <ClCompile Include="MAGE\src\logging\timer.cpp" />
+    <ClCompile Include="MAGE\src\memory\memory_arena.cpp" />
     <ClCompile Include="MAGE\src\mesh\flat_mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\indexed_mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\mesh_loader.cpp" />
@@ -93,6 +97,7 @@
     <ClCompile Include="MAGE\src\shader\pixel_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
     <ClCompile Include="MAGE\src\shader\vertex_shader.cpp" />
+    <ClCompile Include="MAGE\src\state\state_manager.cpp" />
     <ClCompile Include="MAGE\src\string\string_utils.cpp" />
     <ClCompile Include="MAGE\src\ui\combo_box.cpp" />
     <ClCompile Include="MAGE\src\ui\main_window.cpp" />

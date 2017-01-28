@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "support.hpp"
+#include "memory\memory.hpp"
 
 #pragma endregion
 
@@ -33,7 +33,35 @@ namespace mage {
 		/**
 		 Constructs a viewer setup.
 		 */
-		ViewerSetup() : m_view_clear_flags(0) {};
+		ViewerSetup() 
+			: m_view_clear_flags(0) {}
+
+		/**
+		 Constructs a viewer setup from the given viewer setup.
+
+		 @param[in]		viewer_setup
+						A reference to the viewer setup.
+		 */
+		ViewerSetup(const ViewerSetup &viewer_setup)
+			: m_view_clear_flags(viewer_setup.m_view_clear_flags) {}
+
+		/**
+		 Destructs this viewer setup.
+		 */
+		~ViewerSetup() {};
+
+		/**
+		 Copies the given viewer setup to this viewer setup.
+
+		 @param[in]		viewer_setup
+						A reference to the viewer setup to copy from.
+		 @return		A reference to the copy of the given viewer setup
+						(i.e. this viewer setup).
+		 */
+		ViewerSetup &operator=(const ViewerSetup &viewer_setup) {
+			m_view_clear_flags = viewer_setup.m_view_clear_flags;
+			return (*this);
+		}
 
 		/**
 		 Flags used for clearing the view.
@@ -59,14 +87,6 @@ namespace mage {
 		State(uint64_t id = 0) : m_id(id) {}
 
 		/**
-		 Destructs this state.
-		 
-		 (This destructor is not allowed to be called manually:
-		  Real destruction must take place in State::Close())
-		 */
-		~State() {}
-
-		/**
 		 Returns the id of this state.
 
 		 @return		The id of this state.
@@ -78,15 +98,22 @@ namespace mage {
 		/**
 		Requests the view setup details for the given frame.
 
-		@pre			@a viewer_setup is not @c nullptr.
-		@param[in, out]		viewer_setup
-						A pointer to a viewer setup.
+		@param[in, out]	viewer_setup
+						A reference to a viewer setup.
 		*/
-		virtual void RequestViewSetup(ViewerSetup *viewer_setup) {
-			viewer_setup->m_view_clear_flags = 0;
+		virtual void RequestViewSetup(ViewerSetup &viewer_setup) {
+			viewer_setup.m_view_clear_flags = 0;
 		}
 
 	protected:
+
+		/**
+		 Destructs this state.
+
+		 (This destructor is not allowed to be called manually:
+		 Real destruction must take place in State::Close())
+		 */
+		~State() {}
 
 		/**
 		 Loads this state.
@@ -116,6 +143,24 @@ namespace mage {
 		virtual void Render() {}
 
 	private:
+
+		/**
+		 Constructs a state from the given state.
+
+		 @param[in]		state
+						A reference to the state.
+		 */
+		State(const State &state) = delete;
+
+		/**
+		 Copies the given state to this state.
+
+		 @param[in]		state
+						A reference to the state to copy from.
+		 @return		A reference to the copy of the given state
+						(i.e. this state).
+		 */
+		State &operator=(const State &state) = delete;
 
 		/**
 		 Application defined identifier (must be unique for state switching)

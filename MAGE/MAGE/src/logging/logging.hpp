@@ -6,6 +6,7 @@
 #pragma region
 
 #include <stdio.h>
+#include <stdint.h>
 #include <windows.h>
 
 #pragma endregion
@@ -25,12 +26,36 @@ namespace mage {
 		/**
 		 Constructs a new logging configuration.
 		 */
-		LoggingConfiguration() : m_quiet(false), m_verbose(false) {}
+		LoggingConfiguration() 
+			: m_quiet(false), m_verbose(false) {}
+
+		/**
+		 Constructs a logging configuration from the given logging configuration.
+		 
+		 @param[in]		logging_configuration
+						A reference to the logging configuration.
+		 */
+		LoggingConfiguration(const LoggingConfiguration &logging_configuration) 
+			: m_quiet(logging_configuration.m_quiet), m_verbose(logging_configuration.m_verbose) {}
 
 		/**
 		 Destructs this logging configuration.
 		 */
 		~LoggingConfiguration() {}
+
+		/**
+		 Copies the given logging configuration to this logging configuration.
+
+		 @param[in]		logging_configuration
+						A reference to the logging configuration to copy from.
+		 @return		A reference to the copy of the given logging configuration
+						(i.e. this logging configuration).
+		 */
+		LoggingConfiguration &operator=(const LoggingConfiguration &logging_configuration) {
+			m_quiet   = logging_configuration.m_quiet;
+			m_verbose = logging_configuration.m_verbose;
+			return (*this);
+		}
 
 		/**
 		 Checks whether the logging of the engine processing is quiet.
@@ -71,25 +96,11 @@ namespace mage {
 	extern LoggingConfiguration g_logging_configuration;
 
 	/**
-	 Returns the fixed terminal width.
+	 Returns the fixed console width.
 
-	 @return		The fixed terminal width.
+	 @return		The fixed console width.
 	 */
-	inline int TerminalWidth() {
-		// Retrieve a handle to the standard output device.
-		const HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
-		if (h == INVALID_HANDLE_VALUE || h == nullptr) {
-			// Print error message if the handle is invalid.
-			fprintf(stderr, "GetStdHandle() call failed");
-			return 80;
-		}
-		// Structure containing information about a console screen buffer.
-		CONSOLE_SCREEN_BUFFER_INFO buffer_info = { 0 };
-		GetConsoleScreenBufferInfo(h, &buffer_info);
-		// dwSize:	a COORD structure that contains the size of the console
-		//			screen buffer in character columns and rows.
-		return buffer_info.dwSize.X;
-	}
+	uint16_t ConsoleWidth();
 
 	/**
 	 Allocates a console to this engine for basic io and

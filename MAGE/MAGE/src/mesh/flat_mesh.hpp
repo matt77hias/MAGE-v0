@@ -57,5 +57,10 @@ namespace mage {
 		size_t m_nb_vertices;
 
 		ID3D11Buffer *m_vertex_buffer;
+
+	private:
+
+		FlatMesh(const FlatMesh &flat_mesh) = delete;
+		FlatMesh &operator=(const FlatMesh &flat_mesh) = delete;
 	};
 }

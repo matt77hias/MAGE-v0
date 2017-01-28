@@ -123,10 +123,18 @@ namespace mage {
 			SetNearAndFarZ(near_z, far_z);
 		}
 
-	protected:
+	private:
 
 		/**
-		 The vertical field-of-view of this perspective camera. 
+		 Copies the given perspective camera to this perspective camera.
+
+		 @param[in]		perspective_camera
+						The perspective camera.
+		 */
+		PerspectiveCamera &operator=(const PerspectiveCamera &perspective_camera) = delete;
+
+		/**
+		 The vertical field-of-view of this perspective camera.
 		 */
 		float m_fov_y;
 	};

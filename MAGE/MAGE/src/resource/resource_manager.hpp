@@ -122,14 +122,32 @@ namespace mage {
 			return nullptr;
 		}
 
-	protected:
+	private:
+
+		/**
+		 Constructs a resource manager from the given resource manager.
+
+		 @param[in]		resource_manager
+						A reference to the resource manager.
+		 */
+		ResourceManager(const ResourceManager &resource_manager) = delete;
+
+		/**
+		 Copies the given resource manager to this resource manager.
+
+		 @param[in]		resource_manager
+						A reference to the resource manager to copy from.
+		 @return		A reference to the copy of the given resource manager
+						(i.e. this resource manager).
+		 */
+		ResourceManager &operator=(const ResourceManager &resource_manager) = delete;
 
 		/**
 		 The linked list containing the resources of this resource manager.
 		 */
 		list< T * > m_resources;
 
-		/** 
+		/**
 		 The application specific resource creation function for the resources
 		 of this resource manager.
 		 */

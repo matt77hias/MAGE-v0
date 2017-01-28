@@ -85,5 +85,15 @@ namespace mage {
 			SetWidthAndHeight(width, height);
 			SetNearAndFarZ(near_z, far_z);
 		}
+
+	private:
+
+		/**
+		 Copies the given orthographic camera to this orthographic camera.
+
+		 @param[in]		orthographic_camera
+						The orthographic camera.
+		 */
+		OrthographicCamera &operator=(const OrthographicCamera &orthographic_camera) = delete;
 	};
 }

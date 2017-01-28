@@ -64,7 +64,8 @@ namespace mage {
 
 		 @param[in]		loadable
 						A reference to the loadable to copy from.
-		 @return		A reference to the copy of the given loadable (i.e. this loadable).
+		 @return		A reference to the copy of the given loadable
+						(i.e. this loadable).
 		 */
 		Loadable &operator=(const Loadable &loadable) = delete;
 

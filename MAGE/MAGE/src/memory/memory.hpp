@@ -1,6 +1,21 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <memory>
+template < typename T >
+using SharedPtr = std::shared_ptr< T >;
+
+#include <wrl.h>
+template < typename T >
+using ComPtr = Microsoft::WRL::ComPtr< T >;
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Defines
 //-----------------------------------------------------------------------------
 #pragma region

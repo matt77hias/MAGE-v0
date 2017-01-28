@@ -14,7 +14,7 @@
 namespace mage {
 
 	InputManager::InputManager(HWND hwindow) : Loadable(),
-		m_hwindow(hwindow), m_di(nullptr), m_keyboard(nullptr), m_mouse(nullptr) {
+		m_hwindow(hwindow), m_keyboard(nullptr), m_mouse(nullptr) {
 
 		const HRESULT result_di = InitializeDI();
 		if (FAILED(result_di)) {
@@ -35,10 +35,6 @@ namespace mage {
 		if (FAILED(result_input_systems)) {
 			Error("Input systems uninitialization failed: %ld.", result_input_systems);
 		}
-		const HRESULT result_di = UninitializeDI();
-		if (FAILED(result_di)) {
-			Error("Device uninitialization failed: %ld.", result_di);
-		}
 	}
 
 	HRESULT InputManager::InitializeDI() {
@@ -48,12 +44,7 @@ namespace mage {
 		// 3. Unique identifier of the desired interface. Passing IID_IDirectInput8 selects the ANSI or Unicode version of the interface.
 		// 4. Address of a pointer to a variable to receive the IDirectInput8 interface pointer if successful.
 		// 5. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or nullptr if the interface is not aggregated.
-		return DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8, (void **)&m_di, nullptr);
-	}
-
-	HRESULT InputManager::UninitializeDI() {
-		SAFE_RELEASE(m_di);
-		return S_OK;
+		return DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8, (void **)m_di.ReleaseAndGetAddressOf(), nullptr);
 	}
 
 	HRESULT InputManager::InitializeInputSystems() {

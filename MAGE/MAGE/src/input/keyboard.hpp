@@ -14,9 +14,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "support.hpp"
 #include "loadable.hpp"
 #include "input\input.hpp"
+#include "memory\memory.hpp"
 
 #pragma endregion
 
@@ -45,17 +45,7 @@ namespace mage {
 		 @return		@c true if the given key of this keyboard is pressed.
 						@c false otherwise.
 		 */
-		bool GetKeyPress(char key, bool ignore_press_stamp = false) const {
-			if ((m_key_state[key] & 0x80) == false) {
-				return false;
-			}
-
-			const bool pressed = (!ignore_press_stamp && (m_key_press_stamp[key] == m_press_stamp - 1 || m_key_press_stamp[key] == m_press_stamp)) ? false : true;
-
-			m_key_press_stamp[key] = m_press_stamp;
-
-			return pressed;
-		}
+		bool GetKeyPress(char key, bool ignore_press_stamp = false) const;
 
 	protected:
 
@@ -67,12 +57,12 @@ namespace mage {
 		 @param[in]		di
 						A pointer to a direct input object.
 		 */
-		Keyboard(HWND hwindow, IDirectInput8 *di);
+		Keyboard(HWND hwindow, ComPtr< IDirectInput8 > di);
 
 		/**
 		 Destructs this keyboard.
 		 */
-		virtual ~Keyboard();
+		virtual ~Keyboard() {}
 
 		/**
 		 Initializes the keyboard device of this keyboard.
@@ -81,14 +71,7 @@ namespace mage {
 						A pointer to a direct input object.
 		 @return		A success/error value.
 		 */
-		HRESULT InitializeKeyboard(IDirectInput8 *di);
-
-		/**
-		 Uninitializes the keyboard device of this keyboard.
-
-		 @return		A success/error value.
-		 */
-		HRESULT UninitializeKeyboard();
+		HRESULT InitializeKeyboard(ComPtr< IDirectInput8 > di);
 
 		/**
 		 Updates the state of this keyboard.
@@ -112,7 +95,7 @@ namespace mage {
 		 to Microsoft DirectInput devices, manage device properties and information, set behavior,
 		 perform initialization, create and play force-feedback effects, and invoke a device's control panel.
 		 */
-		IDirectInputDevice8 *m_keyboard;
+		ComPtr< IDirectInputDevice8 > m_keyboard;
 
 		/**
 		 State of the keys of this keyboard.
@@ -132,15 +115,16 @@ namespace mage {
 		 @param[in]		keyboard
 						A reference to the keyboard.
 		 */
-		Keyboard(const Keyboard &keyboard);
+		Keyboard(const Keyboard &keyboard) = delete;
 
 		/**
 		 Copies the given keyboard to this keyboard.
 
 		 @param[in]		keyboard
 						A reference to the keyboard to copy from.
-		 @return		A reference to the copy of the given keyboard (i.e. this keyboard).
+		 @return		A reference to the copy of the given keyboard
+						(i.e. this keyboard).
 		 */
-		Keyboard &operator=(const Keyboard &keyboard);
+		Keyboard &operator=(const Keyboard &keyboard) = delete;
 	};
 }

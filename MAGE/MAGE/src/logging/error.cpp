@@ -1,22 +1,22 @@
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <string>
-namespace mage {
-	using std::string;
-}
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
 #include "logging\error.hpp"
 #include "logging\logging.hpp"
+#include "string\string_utils.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_ERROR_IGNORE 0
+#define MAGE_ERROR_CONTINUE 1
+#define MAGE_ERROR_ABORT 2
 
 #pragma endregion
 
@@ -24,22 +24,6 @@ namespace mage {
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	/**
-	 Finds the end of a word.
-
-	 @param[in]		buffer
-					Pointer to the first character.
-	 @return		Pointer to the end of the word.
-					This means the pointer points to a space
-					or null-terminating character.
-	 */
-	static const char *FindWordEnd(const char *buffer) {
-		while (*buffer != '\0' && !isspace(*buffer)) {
-			++buffer;
-		}
-		return buffer;
-	}
 
 	/**
 	 Process the given error.
@@ -63,7 +47,7 @@ namespace mage {
 
 		// MAGE_ERROR_CONTINUE and MAGE_ERROR_ABORT
 		// Print formatted error message
-		const int width = max(20, TerminalWidth() - 2);
+		const int width = max(20, ConsoleWidth() - 2);
 		string error_string = error_type + ": ";
 		size_t error_pos = error_string.size();
 

@@ -56,6 +56,8 @@ namespace mage {
 	 */
 	struct Variable final {
 
+	public:
+
 		/**
 		 Constructs a variable.
 
@@ -148,6 +150,24 @@ namespace mage {
 	private:
 
 		/**
+		 Constructs a variable from the given variable.
+
+		 @param[in]		variable
+						A reference to the variable.
+		 */
+		Variable(const Variable &variable) = delete;
+
+		/**
+		 Copies the given variable to this variable.
+
+		 @param[in]		variable
+						A reference to the variable to copy from.
+		 @return		A reference to the copy of the given variable
+						(i.e. this variable).
+		 */
+		Variable &operator=(const Variable &variable) = delete;
+
+		/**
 		 The name of this variable.
 		 */
 		const string m_name;
@@ -183,6 +203,33 @@ namespace mage {
 			 @return		A pointer to the value of this value.
 			 */
 			virtual const void *GetValue() const = 0;
+
+		protected:
+
+			/**
+			 Constructs an abstract value.
+			 */
+			AbstractValue() {}
+
+			/**
+			 Constructs an abstract value from the given abstract value.
+
+			 @param[in]		abstract_value
+							A reference to the abstract value.
+			 */
+			AbstractValue(const AbstractValue &abstract_value) {}
+
+		private:
+
+			/**
+			 Copies the given abstract value to this abstract value.
+
+			 @param[in]		abstract_value
+							A reference to the abstract value to copy from.
+			 @return		A reference to the copy of the given abstract value
+							(i.e. this abstract value).
+			 */
+			AbstractValue &operator=(const AbstractValue &abstract_value) = delete;
 		};
 
 		/**
@@ -201,7 +248,8 @@ namespace mage {
 			 @param[in]		value
 							A pointer to the value.
 			 */
-			Value(const T *value) : m_value(value) {}
+			Value(const T *value)
+				: AbstractValue(), m_value(value) {}
 
 			/**
 			 Destructs this value.
@@ -220,6 +268,25 @@ namespace mage {
 			}
 
 		private:
+
+			/**
+			 Constructs a value from the given value.
+
+			 @param[in]		value
+							A reference to the value.
+			 */
+			Value(const Value &value)
+				: AbstractValue(value), m_value(value.m_value) {}
+
+			/**
+			 Copies the given value to this value.
+
+			 @param[in]		value
+							A reference to the value to copy from.
+			 @return		A reference to the copy of the given value
+							(i.e. this value).
+			 */
+			Value &operator=(const Value &value) = delete;
 
 			/**
 			 A pointer to the value of this value.

@@ -22,7 +22,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VertexShader::VertexShader(ID3D11Device2 *device, const wstring &fname) {
+	VertexShader::VertexShader(ComPtr< ID3D11Device2 > device, const wstring &fname) {
 
 		const HRESULT result_shader = InitializeShader(device, fname);
 		if (FAILED(result_shader)) {
@@ -30,18 +30,11 @@ namespace mage {
 		}
 	}
 
-	VertexShader::~VertexShader() {
-		const HRESULT result_shader = UninitializeShader();
-		if (FAILED(result_shader)) {
-			Error("Shader uninitialization failed: %ld.", result_shader);
-		}
-	}
-
-	HRESULT VertexShader::InitializeShader(ID3D11Device2 *device, const wstring &fname) {
+	HRESULT VertexShader::InitializeShader(ComPtr< ID3D11Device2 > device, const wstring &fname) {
 
 		// Compile the vertex shader.
-		ID3DBlob *vertex_shader_blob = nullptr;
-		const HRESULT result_vertex_shader_blob = D3DReadFileToBlob(fname.c_str(), &vertex_shader_blob);
+		ComPtr< ID3DBlob > vertex_shader_blob;
+		const HRESULT result_vertex_shader_blob = D3DReadFileToBlob(fname.c_str(), vertex_shader_blob.GetAddressOf());
 		if (FAILED(result_vertex_shader_blob)) {
 			Error("D3DReadFileToBlob failed: %ld.", result_vertex_shader_blob);
 			return result_vertex_shader_blob;
@@ -52,19 +45,12 @@ namespace mage {
 		// 2. The size of the compiled vertex shader.
 		// 3. A pointer to a class linkage interface.
 		// 4. Address of a pointer to a vertex shader.
-		const HRESULT result_vertex_shader = device->CreateVertexShader(vertex_shader_blob->GetBufferPointer(), vertex_shader_blob->GetBufferSize(), nullptr, &m_vertex_shader);
-		// Release the ID3DBlob.
-		vertex_shader_blob->Release();
+		const HRESULT result_vertex_shader = device->CreateVertexShader(vertex_shader_blob->GetBufferPointer(), vertex_shader_blob->GetBufferSize(), nullptr, m_vertex_shader.ReleaseAndGetAddressOf());
 		if (FAILED(result_vertex_shader)) {
 			Error("VertexShader creation failed: %ld.", result_vertex_shader);
 			return result_vertex_shader;
 		}
 
-		return S_OK;
-	}
-
-	HRESULT VertexShader::UninitializeShader() {
-		SAFE_RELEASE(m_vertex_shader);
 		return S_OK;
 	}
 }

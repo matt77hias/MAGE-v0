@@ -18,9 +18,25 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	uint16_t ConsoleWidth() {
+		// Retrieve a handle to the standard output device.
+		const HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+		if (h == INVALID_HANDLE_VALUE || h == nullptr) {
+			Error("GetStdHandle() failed.");
+			return 80;
+		}
+		// Structure containing information about a console screen buffer.
+		CONSOLE_SCREEN_BUFFER_INFO buffer_info;
+		ZeroMemory(&buffer_info, sizeof(buffer_info));
+		GetConsoleScreenBufferInfo(h, &buffer_info);
+		// dwSize:	a COORD structure that contains the size of the console
+		//			screen buffer in character columns and rows.
+		return (uint16_t)buffer_info.dwSize.X;
+	}
 
 	HRESULT InitializeConsole() {
 		// Allocate a console for basic io

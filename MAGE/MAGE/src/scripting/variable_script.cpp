@@ -13,6 +13,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	VariableScript::VariableScript(const string &name, const string &path)
+		: Resource(name, path), m_variables(list< Variable * >()) {
+		ImportScript();
+	}
+
+	VariableScript::~VariableScript() {
+		m_variables.clear();
+	}
+
 	void VariableScript::ImportScript(const string &filename) {
 		// Open the script file.
 		FILE *file = nullptr;
@@ -280,5 +289,19 @@ namespace mage {
 
 		fputs(output, file);
 		fputs("\n", file);
+	}
+
+	void VariableScript::RemoveVariable(const string &name) {
+		// Iterate the variables looking for the specified variable.
+		list< Variable * >::const_iterator it = m_variables.cbegin();
+		while (it != m_variables.cend()) {
+			if ((*it)->GetName() == name) {
+				m_variables.erase(it++);
+				break;
+			}
+			else {
+				++it;
+			}
+		}
 	}
 }

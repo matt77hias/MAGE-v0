@@ -14,23 +14,12 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "support.hpp"
+#include "memory\memory.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_ERROR_IGNORE 0
-#define MAGE_ERROR_CONTINUE 1
-#define MAGE_ERROR_ABORT 2
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 

@@ -14,9 +14,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "support.hpp"
 #include "loadable.hpp"
 #include "input\input.hpp"
+#include "memory\memory.hpp"
 
 #pragma endregion
 
@@ -45,17 +45,7 @@ namespace mage {
 		 @return		@c true if the given mouse button is pressed.
 						@c false otherwise.
 		 */
-		bool GetMouseButtonPress(char mouse_button, bool ignore_press_stamp = false) const {
-			if ((m_mouse_state.rgbButtons[mouse_button] & 0x80) == false) {
-				return false;
-			}
-
-			const bool pressed = (!ignore_press_stamp && (m_mouse_button_press_stamp[mouse_button] == m_press_stamp - 1 || m_mouse_button_press_stamp[mouse_button] == m_press_stamp)) ? false : true;
-
-			m_mouse_button_press_stamp[mouse_button] = m_press_stamp;
-
-			return pressed;
-		}
+		bool GetMouseButtonPress(char mouse_button, bool ignore_press_stamp = false) const;
 
 		/**
 		 Returns the horizontal position of this mouse.
@@ -112,12 +102,12 @@ namespace mage {
 		 @param[in]		di
 						A pointer to a direct input object.
 		 */
-		Mouse(HWND hwindow, IDirectInput8 *di);
+		Mouse(HWND hwindow, ComPtr< IDirectInput8 > di);
 
 		/**
 		 Destructs this mouse.
 		 */
-		virtual ~Mouse();
+		virtual ~Mouse() {}
 
 		/**
 		 Initializes the mouse device of this mouse.
@@ -126,14 +116,7 @@ namespace mage {
 						A pointer to a direct input object.
 		 @return		A success/error value.
 		 */
-		HRESULT InitializeMouse(IDirectInput8 *di);
-
-		/**
-		 Uninitializes the mouse device of this mouse.
-
-		 @return		A success/error value.
-		 */
-		HRESULT UninitializeMouse();
+		HRESULT InitializeMouse(ComPtr< IDirectInput8 > di);
 
 		/**
 		 Updates the state of this mouse.
@@ -157,7 +140,7 @@ namespace mage {
 		 to Microsoft DirectInput devices, manage device properties and information, set behavior,
 		 perform initialization, create and play force-feedback effects, and invoke a device's control panel.
 		 */
-		IDirectInputDevice8 *m_mouse;
+		ComPtr< IDirectInputDevice8 > m_mouse;
 
 		/**
 		 State of the mouse buttons of this mouse.
@@ -185,15 +168,16 @@ namespace mage {
 		 @param[in]		mouse
 						A reference to the mouse.
 		 */
-		Mouse(const Mouse &mouse);
+		Mouse(const Mouse &mouse) = delete;
 
 		/**
 		 Copies the given mouse to this mouse.
 
 		 @param[in]		mouse
 						A reference to the mouse to copy from.
-		 @return		A reference to the copy of the given mouse (i.e. this mouse).
+		 @return		A reference to the copy of the given mouse
+						(i.e. this mouse).
 		 */
-		Mouse &operator=(const Mouse &mouse);
+		Mouse &operator=(const Mouse &mouse) = delete;
 	};
 }

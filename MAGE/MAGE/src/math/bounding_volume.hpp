@@ -25,7 +25,8 @@ namespace mage {
 		/**
 		 Constructs an (identity) AABB.
 		 */
-		AABB() : p_min(XMFLOAT3(-INFINITY, -INFINITY, -INFINITY)), p_max(XMFLOAT3(INFINITY, INFINITY, INFINITY)) {}
+		AABB() 
+			: p_min(XMFLOAT3(-INFINITY, -INFINITY, -INFINITY)), p_max(XMFLOAT3(INFINITY, INFINITY, INFINITY)) {}
 
 		/**
 		 Constructs an AABB.
@@ -35,7 +36,8 @@ namespace mage {
 		 @param[in]		p_max
 						The maximum extents.
 		 */
-		AABB(const XMFLOAT3 &p_min, const XMFLOAT3 &p_max) : p_min(p_min), p_max(p_max) {}
+		AABB(const XMFLOAT3 &p_min, const XMFLOAT3 &p_max) 
+			: p_min(p_min), p_max(p_max) {}
 
 		/**
 		 Checks whether this AABB completely encloses the given AABB.
@@ -492,12 +494,12 @@ namespace mage {
 		/**
 		 The minimum extents of this AABB.
 		 */
-		const XMFLOAT3 p_min;
+		XMFLOAT3 p_min;
 
 		/**
 		 The maximum extents of this AABB.
 		 */
-		const XMFLOAT3 p_max;
+		XMFLOAT3 p_max;
 	};
 
 	/**
@@ -615,7 +617,8 @@ namespace mage {
 		 @param[in]		r
 						The radius.
 		 */
-		BS(const XMFLOAT3 &p, float r) : p(p), r(r) {}
+		BS(const XMFLOAT3 &p, float r) 
+			: p(p), r(r) {}
 
 		/**
 		 Checks whether this sphere completely encloses the given (closed) volume.
@@ -626,7 +629,7 @@ namespace mage {
 		 @return		@c true if this sphere completely encloses @a planes.
 						@c false otherwise.
 		*/
-		bool Encloses(const list< XMFLOAT4 > &planes) {
+		bool Encloses(const list< XMFLOAT4 > &planes) const {
 			for (list< XMFLOAT4 >::const_iterator it = planes.cbegin(); it != planes.cend(); ++it) {
 				const XMVECTOR point = XMLoadFloat4(&(*it));
 
@@ -651,7 +654,7 @@ namespace mage {
 		 @return		@c true if this sphere completely encloses @a planes.
 						@c false otherwise.
 		 */
-		bool EnclosesStrict(const list< XMFLOAT4 > &planes) {
+		bool EnclosesStrict(const list< XMFLOAT4 > &planes) const {
 			for (list< XMFLOAT4 >::const_iterator it = planes.cbegin(); it != planes.cend(); ++it) {
 				const XMVECTOR point = XMLoadFloat4(&(*it));
 
@@ -679,7 +682,7 @@ namespace mage {
 		 @return		@c true if this sphere collides with @a sphere.
 						@c false otherwise.
 		 */
-		bool Collides(const BS &sphere, const XMFLOAT3 velocity_sum, float *collision_distance) {
+		bool Collides(const BS &sphere, const XMFLOAT3 velocity_sum, float *collision_distance) const {
 			const XMVECTOR p1_v = XMLoadFloat3(&p);
 			const XMVECTOR p2_v = XMLoadFloat3(&sphere.p);
 

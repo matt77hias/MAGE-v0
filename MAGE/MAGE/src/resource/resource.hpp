@@ -83,6 +83,24 @@ namespace mage {
 		friend class ResourceManager;
 
 		/**
+		 Constructs a resource from the given resource.
+
+		 @param[in]		resource
+						A reference to the resource.
+		 */
+		Resource(const Resource &resource) = delete;
+
+		/**
+		 Copies the given resource to this resource.
+
+		 @param[in]		resource
+						A reference to the resource to copy from.
+		 @return		A reference to the copy of the given resource
+						(i.e. this resource).
+		 */
+		Resource &operator=(const Resource &resource) = delete;
+
+		/**
 		 Increments the resource reference count of this reference counted object.
 
 		 @return		The final resource reference count of this reference counted object.

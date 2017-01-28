@@ -8,6 +8,7 @@
 #include <string>
 namespace mage {
 	using std::string;
+	using std::wstring;
 }
 
 #pragma endregion
@@ -66,4 +67,19 @@ namespace mage {
 	 @note			The @c sgets function is the string variant of @c fgets.
 	 */
 	char *sgets(char *str, int num, const char **input);
+
+	/**
+	 Finds the end of a word.
+
+	 @param[in]		buffer
+					Pointer to the first character.
+	 @return		Pointer to the end of the word.
+					(i.e. pointer to a space or null-terminating character)
+	 */
+	inline const char *FindWordEnd(const char *buffer) {
+		while (*buffer != '\0' && !isspace(*buffer)) {
+			++buffer;
+		}
+		return buffer;
+	}
 }

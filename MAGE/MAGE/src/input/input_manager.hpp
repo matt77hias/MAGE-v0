@@ -65,13 +65,6 @@ namespace mage {
 		HRESULT InitializeDI();
 
 		/**
-		 Uninitializes the DirectInput object of this input manager.
-
-		 @return		A success/error value.
-		 */
-		HRESULT UninitializeDI();
-
-		/**
 		 Initializes the different input systems of this input manager.
 		 */
 		HRESULT InitializeInputSystems();
@@ -97,7 +90,7 @@ namespace mage {
 		 The methods of the IDirectInput8 interface are used to enumerate,
 		 create, and retrieve the status of Microsoft DirectInput device.
 		 */
-		IDirectInput8 *m_di;
+		ComPtr< IDirectInput8 > m_di;
 
 		/**
 		 A pointer to the keyboard of this input manager.
@@ -124,7 +117,8 @@ namespace mage {
 
 		 @param[in]		input_manager
 						A reference to the input manager to copy from.
-		 @return		A reference to the copy of the given input manager (i.e. this input manager).
+		 @return		A reference to the copy of the given input manager
+						(i.e. this input manager).
 		 */
 		InputManager &operator=(const InputManager &input_manager) = delete;
 	};

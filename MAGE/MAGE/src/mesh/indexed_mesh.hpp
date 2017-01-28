@@ -60,5 +60,10 @@ namespace mage {
 
 		ID3D11Buffer *m_vertex_buffer;
 		ID3D11Buffer *m_index_buffer;
+
+	private:
+
+		IndexedMesh(const IndexedMesh &indexed_mesh) = delete;
+		IndexedMesh &operator=(const IndexedMesh &indexed_mesh) = delete;
 	};
 }

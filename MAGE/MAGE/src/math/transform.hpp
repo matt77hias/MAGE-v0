@@ -80,7 +80,8 @@ namespace mage {
 
 		 @param[in]		transform
 						The transform to copy from.
-		 @return		A reference to the copy of the given transform (i.e. this transform).
+		 @return		A reference to the copy of the given transform
+						(i.e. this transform).
 		 */
 		Transform &operator=(const Transform &transform) {
 			m_translation = transform.GetTranslation();

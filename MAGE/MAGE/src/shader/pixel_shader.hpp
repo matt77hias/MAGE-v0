@@ -19,7 +19,7 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "support.hpp"
+#include "memory\memory.hpp"
 
 #pragma endregion
 
@@ -32,15 +32,14 @@ namespace mage {
 
 	public:
 
-		PixelShader(ID3D11Device2 *device, const wstring &fname);
-		virtual ~PixelShader();
+		PixelShader(ComPtr< ID3D11Device2 > device, const wstring &fname);
+		virtual ~PixelShader() {}
 
 	protected:
 
-		HRESULT InitializeShader(ID3D11Device2 *device, const wstring &fname);
-		HRESULT UninitializeShader();
+		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device, const wstring &fname);
 
-		ID3D11PixelShader *m_pixel_shader;
+		ComPtr< ID3D11PixelShader > m_pixel_shader;
 
 	private:
 

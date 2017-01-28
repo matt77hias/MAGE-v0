@@ -91,7 +91,8 @@ namespace mage {
 
 		 @param[in]		axes
 						The Cartesian axes system to copy from.
-		 @return		A reference to the copy of the given Cartesian axes system (i.e. this Cartesian axes system).
+		 @return		A reference to the copy of the given Cartesian axes system
+						(i.e. this Cartesian axes system).
 		 */
 		CartesianAxesSystem &operator=(const CartesianAxesSystem &axes) {
 			m_x = axes.m_x;
@@ -191,7 +192,8 @@ namespace mage {
 
 		 @param[in]		coordinate_system
 						The Cartesian coordinate system to copy from.
-		 @return		A reference to the copy of the given Cartesian coordinate system (i.e. this Cartesian coordinate system).
+		 @return		A reference to the copy of the given Cartesian coordinate system
+						(i.e. this Cartesian coordinate system).
 		 */
 		CartesianCoordinateSystem &operator=(const CartesianCoordinateSystem &coordinate_system) {
 			m_o    = coordinate_system.m_o;

@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Keyboard::Keyboard(HWND hwindow, IDirectInput8 *di) : Loadable(), 
+	Keyboard::Keyboard(HWND hwindow, ComPtr< IDirectInput8 > di) : Loadable(),
 		m_press_stamp(0), m_hwindow(hwindow) {
 
 		const HRESULT result_keyboard = InitializeKeyboard(di);
@@ -25,14 +25,7 @@ namespace mage {
 		SetLoaded();
 	}
 
-	Keyboard::~Keyboard() {
-		const HRESULT result_keyboard = UninitializeKeyboard();
-		if (FAILED(result_keyboard)) {
-			Error("Keyboard uninitialization failed: %ld.", result_keyboard);
-		}
-	}
-
-	HRESULT Keyboard::InitializeKeyboard(IDirectInput8 *di) {
+	HRESULT Keyboard::InitializeKeyboard(ComPtr< IDirectInput8 > di) {
 		// Create and initialize an instance of a device based on a given globally unique identifier (GUID), 
 		// and obtain an IDirectInputDevice8 Interface interface. 
 		// 1. Reference to the GUID for the desired input device.
@@ -63,9 +56,16 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT Keyboard::UninitializeKeyboard() {
-		SAFE_RELEASE(m_keyboard);
-		return S_OK;
+	bool Keyboard::GetKeyPress(char key, bool ignore_press_stamp = false) const {
+		if ((m_key_state[key] & 0x80) == false) {
+			return false;
+		}
+
+		const bool pressed = (!ignore_press_stamp && (m_key_press_stamp[key] == m_press_stamp - 1 || m_key_press_stamp[key] == m_press_stamp)) ? false : true;
+
+		m_key_press_stamp[key] = m_press_stamp;
+
+		return pressed;
 	}
 
 	void Keyboard::Update() {

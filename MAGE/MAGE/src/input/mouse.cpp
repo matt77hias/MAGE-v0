@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Mouse::Mouse(HWND hwindow, IDirectInput8 *di) : Loadable(),
+	Mouse::Mouse(HWND hwindow, ComPtr< IDirectInput8 > di) : Loadable(),
 		m_press_stamp(0), m_hwindow(hwindow) {
 
 		const HRESULT result_mouse = InitializeMouse(di);
@@ -25,14 +25,7 @@ namespace mage {
 		SetLoaded();
 	}
 
-	Mouse::~Mouse() {
-		const HRESULT result_mouse = UninitializeMouse();
-		if (FAILED(result_mouse)) {
-			Error("Mouse uninitialization failed: %ld.", result_mouse);
-		}
-	}
-
-	HRESULT Mouse::InitializeMouse(IDirectInput8 *di) {
+	HRESULT Mouse::InitializeMouse(ComPtr< IDirectInput8 > di) {
 		// Create and initialize an instance of a device based on a given globally unique identifier (GUID), 
 		// and obtain an IDirectInputDevice8 Interface interface. 
 		// 1. Reference to the GUID for the desired input device.
@@ -63,9 +56,16 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT Mouse::UninitializeMouse() {
-		SAFE_RELEASE(m_mouse);
-		return S_OK;
+	bool Mouse::GetMouseButtonPress(char mouse_button, bool ignore_press_stamp = false) const {
+		if ((m_mouse_state.rgbButtons[mouse_button] & 0x80) == false) {
+			return false;
+		}
+
+		const bool pressed = (!ignore_press_stamp && (m_mouse_button_press_stamp[mouse_button] == m_press_stamp - 1 || m_mouse_button_press_stamp[mouse_button] == m_press_stamp)) ? false : true;
+
+		m_mouse_button_press_stamp[mouse_button] = m_press_stamp;
+
+		return pressed;
 	}
 
 	void Mouse::Update() {

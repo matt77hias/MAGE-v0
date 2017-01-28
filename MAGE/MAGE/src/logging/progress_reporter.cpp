@@ -13,11 +13,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ProgressReporter::ProgressReporter(uint32_t nb_work, const string &title, uint32_t bar_length)
-		: m_nb_work_total(nb_work), m_nb_work_done(0), m_nb_plusses_printed(0) {
+	ProgressReporter::ProgressReporter(const string &title, uint32_t nb_work, char plus_char, uint32_t bar_length)
+		: m_nb_work_total(nb_work), m_nb_work_done(0), m_nb_plusses_printed(0), m_plus_char(plus_char) {
 		
 		if (bar_length == 0) {
-			bar_length = TerminalWidth() - 28;
+			bar_length = ConsoleWidth() - 28;
 		}
 		
 		m_mutex = Mutex::Create();
@@ -86,7 +86,7 @@ namespace mage {
 			plusses_needed = m_nb_plusses_total;
 		}
 		while (m_nb_plusses_printed < plusses_needed) {
-			*m_current_pos++ = '+';
+			*m_current_pos++ = m_plus_char;
 			++m_nb_plusses_printed;
 		}
 
@@ -121,7 +121,7 @@ namespace mage {
 		MutexLock lock(*m_mutex);
 		
 		while (m_nb_plusses_printed < m_nb_plusses_total) {
-			*m_current_pos++ = '+';
+			*m_current_pos++ = m_plus_char;
 			++m_nb_plusses_printed;
 		}
 

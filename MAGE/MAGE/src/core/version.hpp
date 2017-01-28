@@ -1,15 +1,6 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdio.h>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Defines
 //-----------------------------------------------------------------------------
 #pragma region
@@ -32,9 +23,5 @@ namespace mage {
 	/**
 	 Prints the header of the engine to the console.
 	 */
-	inline void PrintConsoleHeader() {
-		printf("Engine version %s of %s at %s\n", MAGE_VERSION_STRING, __DATE__, __TIME__);
-		printf("Copyright (c) 2016 Matthias Moulin.\n");
-		fflush(stdout);
-	}
+	void PrintConsoleHeader();
 }

@@ -27,9 +27,27 @@ namespace mage {
 		Timer();
 
 		/**
+		 Constructs a timer from the given timer.
+		
+		 @param[in]		timer
+						A reference to the timer.
+		 */
+		Timer(const Timer &timer);
+
+		/**
 		 Destructs this timer.
 		 */
 		virtual ~Timer() {}
+
+		/**
+		 Copies the given timer to this timer.
+		
+		 @param[in]		timer
+						A reference to the timer to copy from.
+		 @return		A reference to the copy of the given timer
+						(i.e. this timer).
+		 */
+		Timer &operator=(const Timer &timer);
 
 		/**
 		 Starts this timer.
@@ -67,8 +85,7 @@ namespace mage {
 		 Returns the time of this timer.
 
 		 @return		The time of this timer.
-		 @note			This member method encapsulates the performance
-						of the underlying counter/frequency processing.
+		 @note			This member method encapsulates the counter/frequency processing.
 		*/
 		double time();
 

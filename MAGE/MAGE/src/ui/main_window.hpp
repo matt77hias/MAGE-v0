@@ -106,10 +106,10 @@ namespace mage {
 
 		 @param[in]		nCmdShow
 						Controls how this window is to be shown.
-		 @return		If the window was previously visible, the return value is nonzero.
-						If the window was previously hidden, the return value is zero.
+		 @return		@c true if the window was previously visible.
+						@c false otherwise.
 		 */
-		BOOL Show(int nCmdShow);
+		bool Show(int nCmdShow);
 
 		/**
 		 Application instance handle.
@@ -125,5 +125,25 @@ namespace mage {
 		 The name of this main window.
 		 */
 		wstring m_name;
+
+	private:
+
+		/**
+		 Constructs a main window from the given main window.
+
+		 @param[in]		main_window
+						A reference to the main window.
+		 */
+		MainWindow(const MainWindow &main_window) = delete;
+
+		/**
+		 Copies the given main window to this main window.
+
+		 @param[in]		main_window
+						A reference to the main window to copy from.
+		 @return		A reference to the copy of the given main window
+						(i.e. this main window).
+		 */
+		MainWindow &operator=(const MainWindow &main_window) = delete;
 	};
 }

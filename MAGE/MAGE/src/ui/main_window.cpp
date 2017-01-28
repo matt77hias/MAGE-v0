@@ -18,7 +18,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage{
 	
@@ -217,7 +217,7 @@ namespace mage{
 		return S_OK;
 	}
 
-	BOOL MainWindow::Show(int nCmdShow) {
-		return ShowWindow(GetHandle(), nCmdShow);
+	bool MainWindow::Show(int nCmdShow) {
+		return ShowWindow(GetHandle(), nCmdShow) != 0;
 	}
 }

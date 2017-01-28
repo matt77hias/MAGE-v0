@@ -42,17 +42,12 @@ namespace mage {
 		 @param[in]		path
 						A reference to the path of the variable script.
 		*/
-		VariableScript(const string &name, const string &path = "./")
-			: Resource(name, path), m_variables(list< Variable * >()) {
-			ImportScript();
-		}
+		VariableScript(const string &name, const string &path = "./");
 
 		/**
 		 Destruct this variable script.
 		 */
-		virtual ~VariableScript() {
-			m_variables.clear();
-		}
+		virtual ~VariableScript();
 
 		/**
 		 Imports this variable script from its associated file.
@@ -114,19 +109,7 @@ namespace mage {
 		 @param[in]		name
 						The name of the variable.
 		 */
-		void RemoveVariable(const string &name) {
-			// Iterate the variables looking for the specified variable.
-			list< Variable * >::const_iterator it = m_variables.cbegin();
-			while (it != m_variables.cend()) {
-				if ((*it)->GetName() == name) {
-					m_variables.erase(it++);
-					break;
-				}
-				else {
-					++it;
-				}
-			}
-		}
+		void RemoveVariable(const string &name);
 
 		/**
 		 Returns the value of the given variable in this variable script.
@@ -198,6 +181,26 @@ namespace mage {
 						A pointer to a file used for exporting.
 		*/
 		void ExportVariable(const Variable *variable, FILE *file);
+
+	private:
+
+		/**
+		 Constructs a variable script from the given variable script.
+
+		 @param[in]		variable_script
+						A reference to the variable script.
+		 */
+		VariableScript(const VariableScript &variable_script) = delete;
+
+		/**
+		Copies the given variable script to this variable script.
+
+		 @param[in]		variable_script
+						A reference to the variable script to copy from.
+		 @return		A reference to the copy of the given variable script
+						(i.e. this variable script).
+		 */
+		VariableScript &operator=(const VariableScript &variable_script) = delete;
 
 		/**
 		 Linked list containing the variables in this variable script.

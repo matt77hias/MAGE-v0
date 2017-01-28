@@ -1,16 +1,9 @@
-#pragma once
-
 //-----------------------------------------------------------------------------
 // System Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <string>
-namespace mage {
-	using std::wstring;
-}
-
-#include <d3d11_2.h>
+#include <stdio.h>
 
 #pragma endregion
 
@@ -19,31 +12,18 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
+#include "version.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class VertexShader {
-
-	public:
-
-		VertexShader(ComPtr< ID3D11Device2 >, const wstring &fname);
-		virtual ~VertexShader() {}
-
-	protected:
-
-		HRESULT InitializeShader(ComPtr< ID3D11Device2 >, const wstring &fname);
-
-		ComPtr< ID3D11VertexShader > m_vertex_shader;
-
-	private:
-
-		VertexShader(const VertexShader &vertex_shader) = delete;
-		VertexShader &operator=(const VertexShader &vertex_shader) = delete;
-	};
+	void PrintConsoleHeader() {
+		printf("Engine version %s of %s at %s\n", MAGE_VERSION_STRING, __DATE__, __TIME__);
+		printf("Copyright (c) 2016 Matthias Moulin.\n");
+		fflush(stdout);
+	}
 }

@@ -23,7 +23,7 @@ namespace mage {
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -37,15 +37,18 @@ namespace mage {
 		/**
 		 Constructs a progress reporter.
 
-		 @param[in]		nb_work
-						The number of parts of the total work.
 		 @param[in]		title
 						A reference to the title.
+		 @param[in]		nb_work
+						The total number of work units.
+		 @param[in]		plus_char
+						The character representing a work unit 
+						that is already done.
 		 @param[in]		bar_length
 						The length of the progress bar.
 						If 0 the default length will be chosen.
 		 */
-		ProgressReporter(uint32_t nb_work, const string &title, uint32_t bar_length = 0);
+		ProgressReporter(const string &title, uint32_t nb_work, char plus_char = '+', uint32_t bar_length = 0);
 
 		/**
 		 Destructs this progress reporter.
@@ -56,8 +59,7 @@ namespace mage {
 		 Updates this progress reporter.
 
 		 @param[in]		nb_work
-						The number of parts of the total work
-						that are done.
+						The number of work units that are done.
 		 */
 		void Update(uint32_t nb_work = 1);
 		
@@ -69,17 +71,17 @@ namespace mage {
 	protected:
 
 		/**
-		 The number of parts of the total work.
+		 The total number of work units that need to be done.
 		 */
 		const uint32_t m_nb_work_total;
 		
 		/**
-		 The number of parts of the total work that are already done.
+		 The number of work units that are already done.
 		 */
 		uint32_t m_nb_work_done;
 
 		/**
-		 The total number of plusses to output.
+		 The total number of plusses that need to be outputted.
 		 */
 		uint32_t m_nb_plusses_total;
 
@@ -97,6 +99,11 @@ namespace mage {
 		 The output file stream of this progress reporter.
 		 */
 		FILE *m_fout;
+
+		/**
+		 The character representing a work unit that is already done.
+		 */
+		const char m_plus_char;
 		
 		/**
 		 The output buffer of this progress reporter.
@@ -112,5 +119,25 @@ namespace mage {
 		 The mutex needed for updating this progress reporter.
 		 */
 		Mutex *m_mutex;
+
+	private:
+
+		/**
+		 Constructs a progress reporter from the given progress reporter.
+		
+		 @param[in]		progress_reporter
+						A reference to the progress reporter.
+		 */
+		ProgressReporter(const ProgressReporter &progress_reporter) = delete;
+
+		/**
+		 Copies the given progress reporter to this progress reporter.
+		
+		 @param[in]		progress_reporter
+						A reference to the progress reporter to copy from.
+		 @return		A reference to the copy of the given progress reporter
+						(i.e. this progress reporter).
+		 */
+		ProgressReporter &operator=(const ProgressReporter &progress_reporter) = delete;
 	};
 }

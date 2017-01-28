@@ -43,18 +43,15 @@ namespace mage {
 		// 7. A combination of effect compile options.
 		// 8. A pointer to a variable that receives a pointer to the ID3DBlob interface that you can use to access the compiled code.
 		// 9. An optional pointer to a variable that receives a pointer to the ID3DBlob interface that you can use to access compiler error messages.
-		ID3DBlob *error_blob = nullptr;
-		const HRESULT result_compile = D3DCompileFromFile(fname, nullptr, nullptr, entry_point, shader_target, shader_flags, 0, output_blob, &error_blob);
+		ComPtr< ID3DBlob > error_blob;
+		const HRESULT result_compile = D3DCompileFromFile(fname, nullptr, nullptr, entry_point, shader_target, shader_flags, 0, output_blob, error_blob.GetAddressOf());
 		if (FAILED(result_compile)) {
 			if (error_blob) {
 				// Sends a string to the debugger for display.
 				OutputDebugStringA(reinterpret_cast<const char *>(error_blob->GetBufferPointer()));
-				error_blob->Release();
 			}
 			return result_compile;
 		}
-
-		SAFE_RELEASE(error_blob);
 
 		return S_OK;
 	}

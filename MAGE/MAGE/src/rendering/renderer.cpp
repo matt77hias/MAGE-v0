@@ -279,6 +279,7 @@ namespace mage {
 	HRESULT Renderer::SetupViewPort() {
 		// Setup the (default) viewport
 		D3D11_VIEWPORT viewport;
+		ZeroMemory(&viewport, sizeof(viewport));
 		viewport.TopLeftX = 0;
 		viewport.TopLeftY = 0;
 		viewport.Width    = (FLOAT)g_device_enumeration->GetDisplayMode()->Width;

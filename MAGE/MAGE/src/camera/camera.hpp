@@ -194,15 +194,21 @@ namespace mage {
 		Camera(const Camera &camera) 
 			: m_width(camera.m_width), m_height(camera.m_height), m_near_z(camera.m_near_z), m_far_z(camera.m_far_z) {}
 
-	private:
-
 		/**
 		 Copies the given camera to this camera.
 
 		 @param[in]		camera
 						The camera.
 		 */
-		Camera &operator=(const Camera &camera) = delete;
+		Camera &operator=(const Camera &camera) {
+			m_width  = camera.m_width;
+			m_height = camera.m_height;
+			m_near_z = camera.m_near_z;
+			m_far_z  = camera.m_far_z;
+			return (*this);
+		}
+
+	private:
 
 		/**
 		 The width of this camera.

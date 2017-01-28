@@ -288,6 +288,9 @@
     <ClInclude Include="MAGE\src\core\engine_setup.hpp">
       <Filter>Header Files\core</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\parallel\parallel.hpp">
+      <Filter>Header Files\parallel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -370,6 +373,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\state\state_manager.cpp">
       <Filter>Source Files\state</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\parallel\parallel.cpp">
+      <Filter>Source Files\parallel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

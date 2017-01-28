@@ -42,9 +42,9 @@ namespace mage {
 			return m_nb_vertices;
 		}
 
-		virtual HRESULT BindBuffers(ID3D11DeviceContext2 *device_context) const override;
+		virtual HRESULT BindBuffers(ComPtr< ID3D11DeviceContext2 > device_context) const override;
 
-		virtual HRESULT Draw(ID3D11DeviceContext2 *device_context) const override;
+		virtual HRESULT Draw(ComPtr< ID3D11DeviceContext2 > device_context) const override;
 
 	protected:
 

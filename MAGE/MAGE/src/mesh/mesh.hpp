@@ -39,13 +39,28 @@ namespace mage {
 		 */
 		virtual ~Mesh() {}
 
-		virtual HRESULT BindBuffers(ID3D11DeviceContext2 *device_context) const = 0;
+		virtual HRESULT BindBuffers(ComPtr< ID3D11DeviceContext2 > device_context) const = 0;
 
-		virtual HRESULT Draw(ID3D11DeviceContext2 *device_context) const = 0;
+		virtual HRESULT Draw(ComPtr< ID3D11DeviceContext2 > device_context) const = 0;
 
 	private:
 
+		/**
+		 Constructs a mesh from the given mesh.
+
+		 @param[in]		mesh
+						A reference to the mesh.
+		 */
 		Mesh(const Mesh &mesh) = delete;
+
+		/**
+		 Copies the given mesh to this mesh.
+
+		 @param[in]		mesh
+						A reference to the mesh to copy from.
+		 @return		A reference to the copy of the given mesh
+						(i.e. this mesh).
+		 */
 		Mesh &operator=(const Mesh &mesh) = delete;
 	};
 }

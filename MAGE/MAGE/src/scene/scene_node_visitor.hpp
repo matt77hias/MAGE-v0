@@ -64,7 +64,28 @@ namespace mage {
 		/**
 		 Constructs a scene node visitor.
 		 */
-		SceneNodeVisitor() : m_terminated(false) {}
+		SceneNodeVisitor() 
+			: m_terminated(false) {}
+
+		/**
+		 Constructs a scene node visitor from the given scene node visitor.
+
+		 @param[in]		visitor
+						A reference to the scene node visitor.
+		 */
+		SceneNodeVisitor(const SceneNodeVisitor &visitor) 
+			: m_terminated(visitor.m_terminated) {}
+
+
+		/**
+		 Copies the given scene node visitor to this scene node visitor.
+
+		 @param[in]		visitor
+						A reference to the scene node visitor to copy from.
+		 @return		A reference to the copy of the given scene node visitor
+						(i.e. this scene node visitor).
+		 */
+		SceneNodeVisitor &operator=(const SceneNodeVisitor &visitor) = delete;
 
 		/**
 		 Terminates the visit of this visitor. 

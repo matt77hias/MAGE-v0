@@ -1,7 +1,7 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -10,25 +10,5 @@ namespace mage {
 
 	 @return		The number of system cores (i.e. logical processors).
 	 */
-	inline size_t NumberOfSystemCores() {
-		// Structure containing information about the current computer system. 
-		SYSTEM_INFO system_info;
-		// Retrieve information about the current system.
-		GetSystemInfo(&system_info);
-		// dwNumberOfProcessors:	The number of logical processors in the current group.
-		return system_info.dwNumberOfProcessors;
-	}
-
+	size_t NumberOfSystemCores();
 }
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "parallel\atomic.hpp"
-#include "parallel\lock.hpp"
-#include "parallel\task.hpp"
-#include "parallel\parallel_for.hpp"
-
-#pragma endregion

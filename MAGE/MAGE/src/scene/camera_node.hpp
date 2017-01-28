@@ -95,5 +95,17 @@ namespace mage {
 		 A pointer to the camera of this camera node.
 		 */
 		Camera *m_camera;
+
+	private:
+
+		/**
+		 Copies the given camera node to this camera node.
+
+		 @param[in]		camera_node
+						A reference to the camera node to copy from.
+		 @return		A reference to the copy of the given camera node
+						(i.e. this camera node).
+		 */
+		CameraNode &operator=(const CameraNode &camera_node) = delete;
 	};
 }

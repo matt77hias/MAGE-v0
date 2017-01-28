@@ -230,7 +230,7 @@ namespace mage {
 		 @param[in]		scene_node
 		 				The scene node.
 		 */
-		SceneNode &operator=(const SceneNode &scene_node);
+		SceneNode &operator=(const SceneNode &scene_node) = delete;
 
 		/**
 		 Sets the parent scene node of this scene node to the given scene node.

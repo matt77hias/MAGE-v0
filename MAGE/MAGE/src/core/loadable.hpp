@@ -48,6 +48,19 @@ namespace mage {
 		virtual ~Loadable() {}
 
 		/**
+		 Copies the given loadable to this loadable.
+
+		 @param[in]		loadable
+						A reference to the loadable to copy from.
+		 @return		A reference to the copy of the given loadable
+						(i.e. this loadable).
+		 */
+		Loadable &operator=(const Loadable &loadable) {
+			m_loaded = loadable.m_loaded;
+			return (*this);
+		}
+
+		/**
 		 Set the state of this loadable to the given value.
 
 		 @param[in]		loaded
@@ -58,16 +71,6 @@ namespace mage {
 		}
 
 	private:
-
-		/**
-		 Copies the given loadable to this loadable.
-
-		 @param[in]		loadable
-						A reference to the loadable to copy from.
-		 @return		A reference to the copy of the given loadable
-						(i.e. this loadable).
-		 */
-		Loadable &operator=(const Loadable &loadable) = delete;
 
 		/**
 		 Flag indicating wether this loadable is loaded.

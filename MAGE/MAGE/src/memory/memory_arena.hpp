@@ -121,7 +121,7 @@ namespace mage {
 			return ptr;
 		}
 
-	protected:
+	private:
 
 		/**
 		 Constructs a memory arena from the given memory arena.

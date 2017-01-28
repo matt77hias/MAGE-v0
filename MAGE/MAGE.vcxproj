@@ -52,6 +52,7 @@
     <ClInclude Include="MAGE\src\mesh\obj_loader.hpp" />
     <ClInclude Include="MAGE\src\parallel\atomic.hpp" />
     <ClInclude Include="MAGE\src\parallel\lock.hpp" />
+    <ClInclude Include="MAGE\src\parallel\parallel.hpp" />
     <ClInclude Include="MAGE\src\rendering\device_enumeration.hpp" />
     <ClInclude Include="MAGE\src\rendering\graphics_settings.hpp" />
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
@@ -89,6 +90,7 @@
     <ClCompile Include="MAGE\src\mesh\mesh_loader.cpp" />
     <ClCompile Include="MAGE\src\mesh\obj_loader.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
+    <ClCompile Include="MAGE\src\parallel\parallel.cpp" />
     <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />

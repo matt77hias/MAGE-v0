@@ -56,7 +56,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	bool Mouse::GetMouseButtonPress(char mouse_button, bool ignore_press_stamp = false) const {
+	bool Mouse::GetMouseButtonPress(char mouse_button, bool ignore_press_stamp) const {
 		if ((m_mouse_state.rgbButtons[mouse_button] & 0x80) == false) {
 			return false;
 		}

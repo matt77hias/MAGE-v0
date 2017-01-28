@@ -21,7 +21,7 @@ namespace mage {
 		m_states.clear();
 	}
 
-	void StateManager::AddState(State *state, bool change = true) {
+	void StateManager::AddState(State *state, bool change) {
 		m_states.push_back(state);
 
 		if (change == false) {

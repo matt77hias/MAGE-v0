@@ -56,7 +56,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	bool Keyboard::GetKeyPress(char key, bool ignore_press_stamp = false) const {
+	bool Keyboard::GetKeyPress(char key, bool ignore_press_stamp) const {
 		if ((m_key_state[key] & 0x80) == false) {
 			return false;
 		}

@@ -9,7 +9,7 @@ class TestState : public State {
 	virtual void Update(double elapsed_time) {
 		UNUSED(elapsed_time);
 
-		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_Q)) {
+		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_Q)) {
 			//PostQuitMessage(0);
 
 			VariableScript s(L"script_test.mage", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/");
@@ -19,7 +19,7 @@ class TestState : public State {
 };
 
 void StateSetup() {
-	g_engine->GetStateManager()->AddState(new TestState(), true);
+	g_engine->GetStateManager().AddState(new TestState(), true);
 }
 
 /**
@@ -41,13 +41,10 @@ The user-provided entry point for MAGE.
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 
 	// Create the engine setup structure.
-	EngineSetup setup;
-	setup.m_hinstance = hinstance;
-	setup.m_name = L"Engine Control Test";
-	setup.StateSetup = StateSetup;
+	EngineSetup setup(hinstance, L"Engine Control Test", StateSetup);
 
 	// Create the engine, then run it.
-	g_engine = new Engine(&setup);
+	g_engine = new Engine(setup);
 
 	//Renderer *renderer = g_engine->GetRenderer();
 	//Model model(renderer->GetDevice(), "cube.obj", "C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/");

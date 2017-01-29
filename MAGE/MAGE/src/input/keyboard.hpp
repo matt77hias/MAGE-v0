@@ -30,24 +30,7 @@ namespace mage {
 	 */
 	class Keyboard : public Loadable {
 
-	friend class InputManager;
-
 	public:
-
-		/**
-		 Checks whether the given key of this keyboard is pressed.
-
-		 @param[in]		key
-						The key.
-		 @param[in]		ignore_press_stamp
-						Flag indicating whether press stamps should be ignored.
-						Consistent presses will return false when using the press stamp.
-		 @return		@c true if the given key of this keyboard is pressed.
-						@c false otherwise.
-		 */
-		bool GetKeyPress(char key, bool ignore_press_stamp = false) const;
-
-	protected:
 
 		/**
 		 Constructs a keyboard.
@@ -65,6 +48,35 @@ namespace mage {
 		virtual ~Keyboard() {}
 
 		/**
+		 Updates the state of this keyboard.
+		 */
+		void Update();
+
+		/**
+		 Returns the window handle of this keyboard.
+
+		 @return		The window handle of this keyboard.
+		 */
+		HWND GetHandle() const {
+			return m_hwindow;
+		}
+
+		/**
+		 Checks whether the given key of this keyboard is pressed.
+
+		 @param[in]		key
+						The key.
+		 @param[in]		ignore_press_stamp
+						Flag indicating whether press stamps should be ignored.
+						Consistent presses will return false when using the press stamp.
+		 @return		@c true if the given key of this keyboard is pressed.
+						@c false otherwise.
+		 */
+		bool GetKeyPress(char key, bool ignore_press_stamp = false) const;
+
+	protected:
+
+		/**
 		 Initializes the keyboard device of this keyboard.
 
 		 @param[in]		di
@@ -72,16 +84,6 @@ namespace mage {
 		 @return		A success/error value.
 		 */
 		HRESULT InitializeKeyboard(ComPtr< IDirectInput8 > di);
-
-		/**
-		 Updates the state of this keyboard.
-		 */
-		void Update();
-
-		/**
-		 The handle of the parent window.
-		 */
-		HWND m_hwindow;
 
 		/**
 		 The current press stamp (incremented every frame).
@@ -126,5 +128,10 @@ namespace mage {
 						(i.e. this keyboard).
 		 */
 		Keyboard &operator=(const Keyboard &keyboard) = delete;
+
+		/**
+		 The handle of the parent window.
+		 */
+		HWND m_hwindow;
 	};
 }

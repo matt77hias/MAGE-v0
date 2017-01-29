@@ -19,11 +19,31 @@ namespace mage {
 	/**
 	 A class of renderers.
 	 */
-	class Renderer : private Loadable {
-
-	friend class Engine;
+	class Renderer : public Loadable {
 
 	public:
+
+		/**
+		 Constructs a renderer.
+
+		 @param[in]		hwindow
+						The main window handle.
+		 */
+		Renderer(HWND hwindow);
+
+		/**
+		 Destructs this renderer.
+		 */
+		virtual ~Renderer();
+
+		/**
+		 Returns the window handle of this renderer.
+
+		 @return		The window handle of this renderer.
+		 */
+		HWND GetHandle() const {
+			return m_hwindow;
+		}
 
 		/**
 		 Returns the device of this renderer.
@@ -85,20 +105,15 @@ namespace mage {
 		 */
 		void SwitchMode(bool toggle);
 
+		/**
+		 Renders the current frame.
+
+		 @param[in]		elapsed_time
+						The elapsed time since the previous frame.
+		 */
+		void Render(double elapsed_time);
+
 	protected:
-
-		/**
-		 Constructs a renderer.
-
-		 @param[in]		hwindow
-						The main window handle.
-		 */
-		Renderer(HWND hwindow);
-
-		/**
-		 Destructs this renderer.
-		 */
-		virtual ~Renderer();
 
 		/**
 		 Initializes this renderer.
@@ -150,19 +165,6 @@ namespace mage {
 		 */
 		HRESULT SetupViewPort();
 
-		/**
-		 Renders the current frame.
-
-		 @param[in]		elapsed_time
-						The elapsed time since the previous frame.
-		 */
-		void Render(double elapsed_time);
-
-		/**
-		 Main window handle of this renderer.
-		 */
-		HWND m_hwindow;
-
 		D3D_FEATURE_LEVEL		         m_feature_level;
 		ComPtr< ID3D11Device2 >	         m_device2;
 		ComPtr< ID3D11DeviceContext2 >   m_device_context2;
@@ -172,6 +174,11 @@ namespace mage {
 		ComPtr< ID3D11DepthStencilView > m_depth_stencil_view;
 
 	private:
+
+		/**
+		 The handle of the parent window.
+		 */
+		HWND m_hwindow;
 
 		/**
 		 A flag indicating whether this renderer uses a full screen mode

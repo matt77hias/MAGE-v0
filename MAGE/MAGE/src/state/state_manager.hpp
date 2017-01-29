@@ -20,9 +20,28 @@ namespace mage {
 	 */
 	class StateManager {
 
-	friend class Engine;
-
 	public:
+
+		/**
+		 Constructs a state manager.
+		 */
+		StateManager()
+			: m_current_state(nullptr), m_states(list< State * >()) {}
+
+		/**
+		 Destructs this state manager.
+		 */
+		virtual ~StateManager();
+
+		/**
+		 Updates this state manager and its current state.
+
+		 @param[in]		elapsed_time
+						The elapsed time since the previous frame.
+		 @return		@c true if the state is changed in the current frame.
+						@c false otherwise.
+		 */
+		bool Update(double elapsed_time);
 
 		/**
 		 Adds the given state from the states of this state manager.
@@ -81,27 +100,6 @@ namespace mage {
 		}
 
 	protected:
-
-		/**
-		 Constructs a state manager.
-		 */
-		 StateManager() 
-			 : m_current_state(nullptr), m_states(list< State * >()) {}
-
-		 /**
-		  Destructs this state manager.
-		  */
-		 virtual ~StateManager();
-
-		/**
-		 Updates this state manager and its current state.
-
-		 @param[in]		elapsed_time
-						The elapsed time since the previous frame.
-		 @return		@c true if the state is changed in the current frame.
-						@c false otherwise.
-		 */
-		 bool Update(double elapsed_time);
 
 		/**
 		 Changes the state of this state manager to the given state.

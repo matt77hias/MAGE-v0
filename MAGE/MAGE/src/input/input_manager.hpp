@@ -20,29 +20,7 @@ namespace mage {
 	 */
 	class InputManager : public Loadable {
 
-	friend class Engine;
-
 	public:
-
-		/**
-		 Returns the keyboard of this input manager.
-
-		 @return		A pointer to the keyboard of this input manager.
-		 */
-		const Keyboard *GetKeyboard() const {
-			return m_keyboard;
-		}
-
-		/**
-		 Returns the mouse of this input manager.
-
-		 @return		A pointer to the mouse of this input manager.
-		 */
-		const Mouse *GetMouse() const {
-			return m_mouse;
-		}
-
-	protected:
 
 		/**
 		 Constructs an input manager for the given window handle.
@@ -55,7 +33,41 @@ namespace mage {
 		/**
 		 Destructs this input manager.
 		 */
-		virtual ~InputManager();
+		virtual ~InputManager() {}
+
+		/**
+		 Updates the state of the input systems of this input manager.
+		 */
+		void Update();
+
+		/**
+		 Returns the window handle of this input manager.
+
+		 @return		The window handle of this input manager.
+		 */
+		HWND GetHandle() const {
+			return m_hwindow;
+		}
+
+		/**
+		 Returns the keyboard of this input manager.
+
+		 @return		A reference to the keyboard of this input manager.
+		 */
+		const Keyboard &GetKeyboard() const {
+			return *m_keyboard;
+		}
+
+		/**
+		 Returns the mouse of this input manager.
+
+		 @return		A reference to the mouse of this input manager.
+		 */
+		const Mouse &GetMouse() const {
+			return *m_mouse;
+		}
+
+	protected:
 
 		/**
 		 Initializes the DirectInput object of this input manager.
@@ -70,37 +82,12 @@ namespace mage {
 		HRESULT InitializeInputSystems();
 
 		/**
-		 Initializes the different input systems of this manager.
-		 */
-		HRESULT UninitializeInputSystems();
-
-		/**
-		 Updates the state of the input systems of this input manager.
-		 */
-		void Update();
-
-		/**
-		 The handle of the parent window.
-		 */
-		HWND m_hwindow;
-
-		/**
 		 The DirectInput object of this input manager.
 
 		 The methods of the IDirectInput8 interface are used to enumerate,
 		 create, and retrieve the status of Microsoft DirectInput device.
 		 */
 		ComPtr< IDirectInput8 > m_di;
-
-		/**
-		 A pointer to the keyboard of this input manager.
-		 */
-		Keyboard *m_keyboard;
-
-		/**
-		 A pointer to the mouse of this input manager.
-		 */
-		Mouse *m_mouse;
 
 	private:
 
@@ -121,5 +108,20 @@ namespace mage {
 						(i.e. this input manager).
 		 */
 		InputManager &operator=(const InputManager &input_manager) = delete;
+
+		/**
+		 The handle of the parent window.
+		 */
+		HWND m_hwindow;
+
+		/**
+		 A pointer to the keyboard of this input manager.
+		 */
+		UniquePtr< Keyboard > m_keyboard;
+
+		/**
+		 A pointer to the mouse of this input manager.
+		 */
+		UniquePtr< Mouse > m_mouse;
 	};
 }

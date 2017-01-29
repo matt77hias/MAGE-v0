@@ -31,9 +31,45 @@ namespace mage {
 	 */
 	class MainWindow : public Loadable {
 
-	friend class Engine;
-
 	public:
+
+		/**
+		 Constructs a main window.
+
+		 @param[in]		hinstance
+						The application instance handle.
+		 @param[in]		name
+						A reference to the name of the application.
+		 @param[in]		width
+						The width of the window.
+		 @param[in]		height
+						The height of the window.
+		 */
+		MainWindow(HINSTANCE hinstance, const wstring &name, LONG width, LONG height);
+
+		/**
+		 Destructs this main window.
+		 */
+		virtual ~MainWindow();
+
+		/**
+		 Sets the specified window's show state of this main window.
+
+		 @param[in]		nCmdShow
+						Controls how this window is to be shown.
+		 @return		@c true if the window was previously visible.
+						@c false otherwise.
+		 */
+		bool Show(int nCmdShow);
+
+		/**
+		 Returns the application instance handle of this main window.
+		 
+		 @return		The application instance handle of this main window.
+		 */
+		HINSTANCE GetHinstance() const {
+			return m_hinstance;
+		}
 
 		/**
 		 Returns the window handle of this main window.
@@ -54,25 +90,6 @@ namespace mage {
 		}
 
 	protected:
-
-		/**
-		 Constructs a main window.
-
-		 @param[in]		hinstance
-						The application instance handle.
-		 @param[in]		name
-						The application name.
-		 @param[in]		width
-						The width of the window.
-		 @param[in]		height
-						The height of the window.
-		 */
-		MainWindow(HINSTANCE hinstance, wstring name, LONG width, LONG height);
-
-		/**
-		 Destructs this main window.
-		 */
-		virtual ~MainWindow();
 
 		/**
 		 Initializes the engine window of this main window.
@@ -101,31 +118,6 @@ namespace mage {
 		 */
 		HRESULT UninitializeWindow();
 
-		/**
-		 Sets the specified window's show state of this main window.
-
-		 @param[in]		nCmdShow
-						Controls how this window is to be shown.
-		 @return		@c true if the window was previously visible.
-						@c false otherwise.
-		 */
-		bool Show(int nCmdShow);
-
-		/**
-		 Application instance handle.
-		 */
-		HINSTANCE m_hinstance;
-
-		/**
-		 Window handle of this main window.
-		 */
-		HWND m_hwindow;
-
-		/**
-		 The name of this main window.
-		 */
-		wstring m_name;
-
 	private:
 
 		/**
@@ -145,5 +137,20 @@ namespace mage {
 						(i.e. this main window).
 		 */
 		MainWindow &operator=(const MainWindow &main_window) = delete;
+
+		/**
+		 Application instance handle.
+		 */
+		HINSTANCE m_hinstance;
+
+		/**
+		 The handle of the parent window.
+		 */
+		HWND m_hwindow;
+
+		/**
+		 The name of this main window.
+		 */
+		const wstring m_name;
 	};
 }

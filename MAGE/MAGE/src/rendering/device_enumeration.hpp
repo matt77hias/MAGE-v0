@@ -153,12 +153,12 @@ namespace mage {
 		 The linked list of enumerated display modes.
 		 */
 		list< DXGI_MODE_DESC1 > m_display_modes;
-		
+
 		/**
 		 A pointer to the selected display mode by the user.
 		 */										
 		const DXGI_MODE_DESC1 *m_selected_diplay_mode;
-		
+
 		/**
 		 Flag indicating whether the application should run in windowed mode.
 		 */

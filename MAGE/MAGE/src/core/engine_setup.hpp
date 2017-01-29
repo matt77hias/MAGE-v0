@@ -15,6 +15,15 @@ namespace mage {
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_DEFAULT_APPLICATION_NAME L"Application"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -27,13 +36,17 @@ namespace mage {
 	public:
 
 		/**
-		 Constructs an engine setup with the given application name.
+		 Constructs an engine setup.
 
+		 @param[in]		hinstance
+						The application instance handle of the application. 
 		 @param[in]		name
 						A reference to the name of the application.
+		 @param[in]		StateSetupFunction
+						A pointer to a function to set up the states of the application.
 		 */
-		EngineSetup(const wstring &name = L"Application")
-			: m_hinstance(nullptr), m_name(name), StateSetup(nullptr) {}
+		EngineSetup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME, void(*StateSetupFunction)() = nullptr)
+			: m_hinstance(hinstance), m_name(name), StateSetup(StateSetupFunction) {}
 
 		/**
 		 Constructs an engine setup from the given engine setup.
@@ -50,19 +63,31 @@ namespace mage {
 		virtual ~EngineSetup() {}
 
 		/**
-		 Application instance handle.
+		 Returns the name of the application.
+
+		 @return		A reference to the name of the application.
 		 */
-		HINSTANCE m_hinstance;
+		const wstring &GetApplicationName() const {
+			return m_name;
+		}
 
 		/**
-		 Name of the application.
-		 */
-		 wstring m_name;
+		 Returns the application instance handle of the application.
 
-		/**
-		 The state setup function.
+		 @return		The application instance handle of the application.
 		 */
-		void(*StateSetup)();
+		HINSTANCE GetApplicationHinstance() const {
+			return m_hinstance;
+		}
+	
+		/**
+		 Sets up the states of the application.
+		 */
+		void SetupApplicationStates() const {
+			if (StateSetup) {
+				StateSetup();
+			}
+		}
 
 	private:
 
@@ -75,5 +100,20 @@ namespace mage {
 						(i.e. this engine setup).
 		 */
 		EngineSetup &operator=(const EngineSetup &setup) = delete;
+
+		/**
+		 Application instance handle.
+		 */
+		HINSTANCE m_hinstance;
+
+		/**
+		 Name of the application.
+		 */
+		const wstring m_name;
+
+		/**
+		 The state setup function.
+		 */
+		void(*StateSetup)();
 	};
 }

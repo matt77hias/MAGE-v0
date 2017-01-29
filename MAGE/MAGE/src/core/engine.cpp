@@ -26,10 +26,8 @@ namespace mage {
 	// Engine
 	//-------------------------------------------------------------------------
 	
-	Engine::Engine(const EngineSetup *setup) 
-		: Loadable(), m_deactive(false), m_mode_switch(false),
-		m_main_window(nullptr), m_renderer(nullptr), 
-		m_input_manager(nullptr), m_script_manager(nullptr), m_state_manager(nullptr) {
+	Engine::Engine(const EngineSetup &setup) 
+		: Loadable(), m_deactive(false), m_mode_switch(false) {
 
 		// Store a pointer to the engine in a global variable for easy access.
 		SAFE_DELETE(g_engine);
@@ -44,9 +42,6 @@ namespace mage {
 		PrintConsoleHeader();
 
 		// Initialize the different engine systems.
-		if (!setup) {
-			setup = new EngineSetup();
-		}
 		const HRESULT result_system = InitializeSystems(setup);
 		if (FAILED(result_system)) {
 			Error("Systems initialization failed: %ld.", result_system);
@@ -67,15 +62,9 @@ namespace mage {
 		if (IsLoaded()) {
 			CoUninitialize();
 		}
-		
-		// Unitialize the different systems.
-		const HRESULT result_system = UninitializeSystems();
-		if (FAILED(result_system)) {
-			Error("Systems uninitialization failed: %ld.", result_system);
-		}
 	}
 
-	HRESULT Engine::InitializeSystems(const EngineSetup *setup) {
+	HRESULT Engine::InitializeSystems(const EngineSetup &setup) {
 		// Enumerate the devices.
 		SAFE_DELETE(g_device_enumeration);
 		g_device_enumeration = new DeviceEnumeration();
@@ -89,46 +78,34 @@ namespace mage {
 		const LONG height = (LONG)g_device_enumeration->GetDisplayMode()->Height;
 		
 		// Initialize the window System.
-		m_main_window = new MainWindow(setup->m_hinstance, setup->m_name, width, height);
+		m_main_window = make_unique< MainWindow >(setup.GetApplicationHinstance(), setup.GetApplicationName(), width, height);
 		if (!m_main_window->IsLoaded()) {
 			Error("Window creation failed.");
 			return E_FAIL;
 		}
 
 		// Initialize the rendering system.
-		m_renderer = new Renderer(m_main_window->GetHandle());
+		m_renderer = make_unique< Renderer >(m_main_window->GetHandle());
 		if (!m_renderer->IsLoaded()) {
 			Error("Renderer creation failed.");
 			return E_FAIL;
 		}
 		
 		// Initialize the input manager.
-		m_input_manager = new InputManager(m_main_window->GetHandle());
+		m_input_manager = make_unique< InputManager >(m_main_window->GetHandle());
 		if (!m_input_manager->IsLoaded()) {
 			Error("Input manager creation failed.");
 			return E_FAIL;
 		}
 		
 		// Initialize the script manager.
-		m_script_manager = new ResourceManager< VariableScript >();
+		m_script_manager = make_unique< ResourceManager< VariableScript > >();
 
 		// Initialize the state manager.
-		m_state_manager	= new StateManager();
+		m_state_manager	= make_unique< StateManager >();
 		// Sets up the states.
-		if (setup->StateSetup) {
-			setup->StateSetup();
-		}
+		setup.SetupApplicationStates();
 
-		return S_OK;
-	}
-
-	HRESULT Engine::UninitializeSystems() {
-		SAFE_DELETE(m_state_manager);
-		SAFE_DELETE(m_script_manager);
-		SAFE_DELETE(m_input_manager);
-		SAFE_DELETE(m_renderer);
-		SAFE_DELETE(m_main_window);
-		
 		return S_OK;
 	}
 
@@ -173,7 +150,7 @@ namespace mage {
 				// Update the input manager.
 				m_input_manager->Update();
 				// Handle forced exit.
-				if (m_input_manager->GetKeyboard()->GetKeyPress(DIK_F1)) {
+				if (m_input_manager->GetKeyboard().GetKeyPress(DIK_F1)) {
 					PostQuitMessage(0);
 					continue;
 				}

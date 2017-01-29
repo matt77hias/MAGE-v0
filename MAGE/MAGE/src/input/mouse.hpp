@@ -30,9 +30,36 @@ namespace mage {
 	 */
 	class Mouse : public Loadable {
 
-	friend class InputManager;
-
 	public:
+
+		/**
+		 Constructs a mouse.
+
+		 @param[in]		hwindow
+						The handle of the parent window.
+		 @param[in]		di
+						A pointer to a direct input object.
+		 */
+		Mouse(HWND hwindow, ComPtr< IDirectInput8 > di);
+
+		/**
+		Destructs this mouse.
+		*/
+		virtual ~Mouse() {}
+
+		/**
+		 Updates the state of this mouse.
+		 */
+		void Update();
+
+		/**
+		 Returns the window handle of this mouse.
+
+		 @return		The window handle of this mouse.
+		 */
+		HWND GetHandle() const {
+			return m_hwindow;
+		}
 
 		/**
 		 Checks whether the given mouse button of this mouse is pressed.
@@ -95,21 +122,6 @@ namespace mage {
 	protected:
 
 		/**
-		 Constructs a mouse.
-
-		 @param[in]		hwindow
-						The handle of the parent window.
-		 @param[in]		di
-						A pointer to a direct input object.
-		 */
-		Mouse(HWND hwindow, ComPtr< IDirectInput8 > di);
-
-		/**
-		 Destructs this mouse.
-		 */
-		virtual ~Mouse() {}
-
-		/**
 		 Initializes the mouse device of this mouse.
 
 		 @param[in]		di
@@ -117,16 +129,6 @@ namespace mage {
 		 @return		A success/error value.
 		 */
 		HRESULT InitializeMouse(ComPtr< IDirectInput8 > di);
-
-		/**
-		 Updates the state of this mouse.
-		 */
-		void Update();
-
-		/**
-		 The handle of the parent window.
-		 */
-		HWND m_hwindow;
 
 		/**
 		 The current press stamp (incremented every frame).
@@ -179,5 +181,10 @@ namespace mage {
 						(i.e. this mouse).
 		 */
 		Mouse &operator=(const Mouse &mouse) = delete;
+
+		/**
+		 The handle of the parent window.
+		 */
+		HWND m_hwindow;
 	};
 }

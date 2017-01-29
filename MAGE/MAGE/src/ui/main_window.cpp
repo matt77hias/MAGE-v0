@@ -114,7 +114,7 @@ namespace mage{
 	// MainWindow
 	//-------------------------------------------------------------------------
 
-	MainWindow::MainWindow(HINSTANCE hinstance, wstring name, LONG width, LONG height) 
+	MainWindow::MainWindow(HINSTANCE hinstance, const wstring &name, LONG width, LONG height) 
 		: Loadable(), m_hinstance(hinstance), m_hwindow(nullptr), m_name(name) {
 
 		//Initialize a window.

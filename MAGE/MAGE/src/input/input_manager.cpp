@@ -13,8 +13,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	InputManager::InputManager(HWND hwindow) : Loadable(),
-		m_hwindow(hwindow), m_keyboard(nullptr), m_mouse(nullptr) {
+	InputManager::InputManager(HWND hwindow) 
+		: Loadable(), m_hwindow(hwindow) {
 
 		const HRESULT result_di = InitializeDI();
 		if (FAILED(result_di)) {
@@ -30,13 +30,6 @@ namespace mage {
 		SetLoaded();
 	}
 
-	InputManager::~InputManager() {
-		const HRESULT result_input_systems = UninitializeInputSystems();
-		if (FAILED(result_input_systems)) {
-			Error("Input systems uninitialization failed: %ld.", result_input_systems);
-		}
-	}
-
 	HRESULT InputManager::InitializeDI() {
 		// Create a DirectInput interface.
 		// 1. Instance handle to the application that is creating the DirectInput object.
@@ -48,23 +41,17 @@ namespace mage {
 	}
 
 	HRESULT InputManager::InitializeInputSystems() {
-		m_keyboard = new Keyboard(m_hwindow, m_di);
+		m_keyboard = make_unique< Keyboard >(m_hwindow, m_di);
 		if (!m_keyboard->IsLoaded()) {
 			Error("Keyboard creation failed.");
 			return E_FAIL;
 		}
-		m_mouse = new Mouse(m_hwindow, m_di);
+		m_mouse = make_unique< Mouse >(m_hwindow, m_di);
 		if (!m_mouse->IsLoaded()) {
 			Error("Mouse creation failed.");
 			return E_FAIL;
 		}
 		
-		return S_OK;
-	}
-
-	HRESULT InputManager::UninitializeInputSystems() {
-		SAFE_DELETE(m_keyboard);
-		SAFE_DELETE(m_mouse);
 		return S_OK;
 	}
 

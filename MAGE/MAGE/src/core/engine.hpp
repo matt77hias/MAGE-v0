@@ -35,9 +35,9 @@ namespace mage {
 		 Constructs an engine from the given engine setup.
 
 		 @param[in]		setup
-						A pointer to an engine setup.
+						A reference to an engine setup.
 		 */
-		Engine(const EngineSetup *setup = nullptr);
+		Engine(const EngineSetup &setup = EngineSetup());
 
 		/**
 		 Destructs this engine.
@@ -57,10 +57,10 @@ namespace mage {
 		/**
 		 Returns the main window of this engine.
 		 
-		 @return		The main window of this engine.
+		 @return		A reference to the main window of this engine.
 		 */
-		const MainWindow *GetMainWindow() const {
-			return m_main_window;
+		const MainWindow &GetMainWindow() const {
+			return *m_main_window;
 		}
 		
 		/**
@@ -78,10 +78,10 @@ namespace mage {
 		/**
 		 Returns the renderer of this engine.
 
-		 @return		A pointer to the renderer of this engine.
+		 @return		A reference to the renderer of this engine.
 		 */
-		Renderer *GetRenderer() const {
-			return m_renderer;
+		Renderer &GetRenderer() const {
+			return *m_renderer;
 		}
 
 		/**
@@ -99,10 +99,10 @@ namespace mage {
 		/**
 		 Returns the state manager of this engine.
 
-		 @return		A pointer to the state manager of this engine.
+		 @return		A reference to the state manager of this engine.
 		 */
-		StateManager *GetStateManager() const {
-			return m_state_manager;
+		StateManager &GetStateManager() const {
+			return *m_state_manager;
 		}
 		
 		// SCRIPTING SYSTEM
@@ -110,10 +110,10 @@ namespace mage {
 		/**
 		 Returns the script manager of this engine.
 
-		 @return		A pointer to the script manager of this engine.
+		 @return		A reference to the script manager of this engine.
 		*/
-		ResourceManager< VariableScript > *GetScriptManager() const {
-			return m_script_manager;
+		ResourceManager< VariableScript > &GetScriptManager() const {
+			return *m_script_manager;
 		}
 
 		// INPUT SYSTEM
@@ -121,10 +121,10 @@ namespace mage {
 		/**
 		 Returns the input manager of this engine.
 
-		 @return		A pointer to the input manager of this engine.
+		 @return		A reference to the input manager of this engine.
 		 */
-		const InputManager *GetInputManager() const {
-			return m_input_manager;
+		const InputManager &GetInputManager() const {
+			return *m_input_manager;
 		}
 
 	protected:
@@ -133,17 +133,10 @@ namespace mage {
 		 Initializes the different systems of this engine.
 
 		 @param[in]		setup
-						A pointer to an engine setup.
+						A reference to an engine setup.
 		 @return		A success/error value.
 		 */
-		HRESULT InitializeSystems(const EngineSetup *setup);
-
-		/**
-		 Unitialize the different systems of this engine.
-
-		 @return		A success/error value.
-		 */
-		HRESULT UninitializeSystems();
+		HRESULT InitializeSystems(const EngineSetup &setup);
 
 		/**
 		 Checks whether this engine is deactive.
@@ -190,7 +183,7 @@ namespace mage {
 		/**
 		 A pointer to the main window of this engine. 
 		 */
-		MainWindow *m_main_window;
+		UniquePtr< MainWindow > m_main_window;
 		
 		/** 
 		 Flag indicating whether the application is active or not.
@@ -202,7 +195,7 @@ namespace mage {
 		/**
 		 A pointer to the renderer of this engine.
 		 */
-		Renderer *m_renderer;
+		UniquePtr< Renderer > m_renderer;
 
 		/**
 		 Flag indicating whether the application should switch between
@@ -215,21 +208,21 @@ namespace mage {
 		/**
 		 A pointer to the state manager of this engine.
 		 */
-		StateManager *m_state_manager;
+		UniquePtr< StateManager > m_state_manager;
 
 		// SCRIPTING SYSTEM
 
 		/**
 		 A pointer the script manager of this engine
 		 */
-		ResourceManager< VariableScript > *m_script_manager;
+		UniquePtr< ResourceManager< VariableScript > > m_script_manager;
 
 		// INPUT SYSTEM
 
 		/**
 		 A pointer to the input manager of this engine.
 		 */
-		InputManager *m_input_manager;
+		UniquePtr< InputManager > m_input_manager;
 	};
 
 	/**

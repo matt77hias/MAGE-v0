@@ -6,12 +6,22 @@
 #pragma region
 
 #include <memory>
-template < typename T >
-using SharedPtr = std::shared_ptr< T >;
+namespace mage {
+
+	template < typename T >
+	using UniquePtr = std::unique_ptr< T >;
+
+	template < typename T >
+	using SharedPtr = std::shared_ptr< T >;
+}
 
 #include <wrl.h>
-template < typename T >
-using ComPtr = Microsoft::WRL::ComPtr< T >;
+namespace mage {
+
+	template < typename T >
+	using ComPtr = Microsoft::WRL::ComPtr< T >;
+
+}
 
 #pragma endregion
 

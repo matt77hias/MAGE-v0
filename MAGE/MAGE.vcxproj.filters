@@ -255,12 +255,6 @@
     <ClInclude Include="MAGE\src\mesh\obj_loader.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\flat_mesh.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\indexed_mesh.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\mesh\mesh.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
@@ -290,6 +284,12 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\parallel\parallel.hpp">
       <Filter>Header Files\parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\flat_mesh.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\indexed_mesh.hpp">
+      <Filter>Header Files\mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -350,12 +350,6 @@
     <ClCompile Include="MAGE\src\shader\vertex_shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\flat_mesh.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\indexed_mesh.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\mesh\mesh_loader.cpp">
       <Filter>Source Files\mesh</Filter>
     </ClCompile>
@@ -376,6 +370,12 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\parallel\parallel.cpp">
       <Filter>Source Files\parallel</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\flat_mesh.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\indexed_mesh.cpp">
+      <Filter>Source Files\mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

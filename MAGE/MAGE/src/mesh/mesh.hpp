@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\memory.hpp"
 #include "resource\resource.hpp"
 #include "math\vertex.hpp"
 #include "collection\collection.hpp"

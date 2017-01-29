@@ -47,9 +47,7 @@ namespace mage {
 		/**
 		 Destructs this camera node.
 		 */
-		virtual ~CameraNode() {
-			SAFE_DELETE(m_camera);
-		}
+		virtual ~CameraNode() {}
 
 		/**
 		 Clones this camera node (non-deep clone).
@@ -63,10 +61,10 @@ namespace mage {
 		/**
 		 Returns the camera of this camera node.
 
-		 @return		A pointer to the camera of this camera node.
+		 @return		A reference to the camera of this camera node.
 		 */
-		Camera *GetCamera() const {
-			return m_camera;
+		Camera &GetCamera() const {
+			return *m_camera;
 		}
 
 		/**
@@ -94,7 +92,7 @@ namespace mage {
 		/**
 		 A pointer to the camera of this camera node.
 		 */
-		Camera *m_camera;
+		UniquePtr< Camera > m_camera;
 
 	private:
 

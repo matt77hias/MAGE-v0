@@ -15,8 +15,7 @@
 namespace mage {
 
 	Renderer::Renderer(HWND hwindow) : 
-		Loadable(), m_hwindow(hwindow), m_fullscreen(false),
-		m_render_target_view(nullptr), m_swap_chain2(nullptr), m_device_context2(nullptr), m_device2(nullptr) {
+		Loadable(), m_hwindow(hwindow), m_fullscreen(false) {
 
 		const HRESULT result_renderer = InitializeRenderer();
 		if (FAILED(result_renderer)) {
@@ -65,7 +64,7 @@ namespace mage {
 		// 1. Number of render targets to bind.
 		// 2. Pointer to an array of ID3D11RenderTargetViews
 		// 3. The depth-stencil state.
-		m_device_context2->OMSetRenderTargets(1, &m_render_target_view, m_depth_stencil_view);
+		m_device_context2->OMSetRenderTargets(1, m_render_target_view.GetAddressOf(), m_depth_stencil_view.Get());
 
 		// Setup the D3D11_VIEWPORT.
 		const HRESULT result_view_port = SetupViewPort();
@@ -89,14 +88,6 @@ namespace mage {
 			m_device_context2->ClearState();
 		}
 
-		// Release D3D11 components.
-		SAFE_RELEASE(m_depth_stencil);
-		SAFE_RELEASE(m_depth_stencil_view);
-		SAFE_RELEASE(m_render_target_view);
-		SAFE_RELEASE(m_swap_chain2);
-		SAFE_RELEASE(m_device_context2);
-		SAFE_RELEASE(m_device2);
-
 		return S_OK;
 	}
 
@@ -108,19 +99,19 @@ namespace mage {
 #endif
 
 		// Get the ID3D11Device and ID3D11DeviceContext.
-		ID3D11Device *device = nullptr;
-		ID3D11DeviceContext *device_context = nullptr;
+		ComPtr< ID3D11Device > device;
+		ComPtr< ID3D11DeviceContext > device_context;
 		HRESULT result_device = D3D11CreateDevice(
-			g_device_enumeration->GetAdapter(), // Adapter.
-			D3D_DRIVER_TYPE_UNKNOWN,			// Driver type.
-			nullptr,							// A handle to a DLL that implements a software rasterizer.
-			create_device_flags,				// The runtime layers to enable.
-			g_feature_levels,					// The order of feature levels to attempt to create.
-			_countof(g_feature_levels),			// The number of feature levels.
-			D3D11_SDK_VERSION,					// The SDK version.
-			&device,							// The address of a pointer to the ID3D11Device that represents the device created.
-			&m_feature_level,					// The address of a pointer to the supported feature level.
-			&device_context						// The address of a pointer to the ID3D11DeviceContext.
+			g_device_enumeration->GetAdapter().Get(),	// Adapter.
+			D3D_DRIVER_TYPE_UNKNOWN,					// Driver type.
+			nullptr,									// A handle to a DLL that implements a software rasterizer.
+			create_device_flags,						// The runtime layers to enable.
+			g_feature_levels,							// The order of feature levels to attempt to create.
+			_countof(g_feature_levels),					// The number of feature levels.
+			D3D11_SDK_VERSION,							// The SDK version.
+			device.GetAddressOf(),						// The address of a pointer to the ID3D11Device that represents the device created.
+			&m_feature_level,							// The address of a pointer to the supported feature level.
+			device_context.GetAddressOf()				// The address of a pointer to the ID3D11DeviceContext.
 		);
 		if (FAILED(result_device)) {
 			Error("ID3D11Device creation failed: %ld.", result_device);
@@ -128,17 +119,13 @@ namespace mage {
 		}
 
 		// Get the ID3D11Device2.
-		const HRESULT result_device2 = device->QueryInterface(__uuidof(ID3D11Device2), (void **)&m_device2);
-		// Release the ID3D11Device.
-		device->Release();
+		const HRESULT result_device2 = device.As(&m_device2);
 		if (FAILED(result_device2)) {
 			Error("ID3D11Device2 creation failed: %ld.", result_device2);
 			return result_device2;
 		}
 		// Get the ID3D11DeviceContext2.
-		const HRESULT result_device_context2 = device_context->QueryInterface(__uuidof(ID3D11DeviceContext2), (void **)&m_device_context2);
-		// Release the ID3D11DeviceContext.
-		device_context->Release();
+		const HRESULT result_device_context2 = device_context.As(&m_device_context2);
 		if (FAILED(result_device_context2)) {
 			Error("ID3D11DeviceContext2 creation failed: %ld.", result_device_context2);
 			return result_device_context2;
@@ -148,27 +135,11 @@ namespace mage {
 	}
 
 	HRESULT Renderer::SetupSwapChain() {
-		// Get the IDXGIDevice3.
-		IDXGIDevice3 *dxgi_device3 = nullptr;
-		const HRESULT result_dxgi_device3 = m_device2->QueryInterface(__uuidof(IDXGIDevice3), (void **)&dxgi_device3);
-		if (FAILED(result_dxgi_device3)) {
-			Error("IDXGIDevice3 creation failed: %ld.", result_dxgi_device3);
-			return result_dxgi_device3;
-		}
-		// Get the IDXGIAdapter.
-		IDXGIAdapter *dxgi_adapter = nullptr;
-		const HRESULT result_dxgi_adapter = dxgi_device3->GetAdapter(&dxgi_adapter);
-		// Release the IDXGIDevice3.
-		dxgi_device3->Release();
-		if (FAILED(result_dxgi_adapter)) {
-			Error("IDXGIAdapter creation failed: %ld.", result_dxgi_adapter);
-			return result_dxgi_adapter;
-		}
+		// Get the IDXGIAdapter2.
+		ComPtr< IDXGIAdapter2 > dxgi_adapter2 = g_device_enumeration->GetAdapter();
 		// Get the IDXGIFactory3.
-		IDXGIFactory3* dxgi_factory3 = nullptr;
-		const HRESULT result_dxgi_factory3 = dxgi_adapter->GetParent(__uuidof(IDXGIFactory3), (void **)&dxgi_factory3);
-		// Release the IDXGIAdapter.
-		dxgi_adapter->Release();
+		ComPtr< IDXGIFactory3 > dxgi_factory3;
+		const HRESULT result_dxgi_factory3 = dxgi_adapter2->GetParent(__uuidof(IDXGIFactory3), (void **)dxgi_factory3.GetAddressOf());
 		if (FAILED(result_dxgi_factory3)) {
 			Error("IDXGIFactory3 creation failed: %ld.", result_dxgi_factory3);
 			return result_dxgi_factory3;
@@ -197,18 +168,14 @@ namespace mage {
 		swap_chain_fullscreen_desc.Windowed = TRUE;
 
 		// Get the IDXGISwapChain1.
-		IDXGISwapChain1 *swap_chain1;
-		const HRESULT result_swap_chain1 = dxgi_factory3->CreateSwapChainForHwnd(m_device2, m_hwindow, &swap_chain_desc, &swap_chain_fullscreen_desc, nullptr, &swap_chain1);
-		// Release the IDXGIFactory3.
-		dxgi_factory3->Release();
+		ComPtr< IDXGISwapChain1 > swap_chain1;
+		const HRESULT result_swap_chain1 = dxgi_factory3->CreateSwapChainForHwnd(m_device2.Get(), m_hwindow, &swap_chain_desc, &swap_chain_fullscreen_desc, nullptr, swap_chain1.ReleaseAndGetAddressOf());
 		if (FAILED(result_swap_chain1)) {
 			Error("IDXGISwapChain1 creation failed: %ld.", result_swap_chain1);
 			return result_swap_chain1;
 		}
 		// Get the IDXGISwapChain2.
-		const HRESULT result_swap_chain2 = swap_chain1->QueryInterface(__uuidof(IDXGISwapChain2), (void **)&m_swap_chain2);
-		// Release the IDXGISwapChain1.
-		swap_chain1->Release();
+		const HRESULT result_swap_chain2 = swap_chain1.As(&m_swap_chain2);
 		if (FAILED(result_swap_chain2)) {
 			Error("IDXGISwapChain2 creation failed: %ld.", result_swap_chain2);
 			return result_swap_chain2;
@@ -222,16 +189,15 @@ namespace mage {
 
 	HRESULT Renderer::SetupRenderTargetView() {
 		// Access the only back buffer of the swap-chain.
-		ID3D11Texture2D *back_buffer = nullptr;
-		const HRESULT result_back_buffer = m_swap_chain2->GetBuffer(0, __uuidof(ID3D11Texture2D), (void **)&back_buffer);
+		ComPtr< ID3D11Texture2D > back_buffer;
+		const HRESULT result_back_buffer = m_swap_chain2->GetBuffer(0, __uuidof(ID3D11Texture2D), (void **)back_buffer.GetAddressOf());
 		if (FAILED(result_back_buffer)) {
 			Error("Back buffer texture creation failed: %ld.", result_back_buffer);
 			return result_back_buffer;
 		}
+		
 		// Create a ID3D11RenderTargetView.
-		const HRESULT result_render_target_view = m_device2->CreateRenderTargetView(back_buffer, nullptr, &m_render_target_view);
-		// Release the back buffer.
-		back_buffer->Release();
+		const HRESULT result_render_target_view = m_device2->CreateRenderTargetView(back_buffer.Get(), nullptr, m_render_target_view.ReleaseAndGetAddressOf());
 		if (FAILED(result_render_target_view)) {
 			Error("ID3D11RenderTargetView creation failed: %ld.", result_render_target_view);
 			return result_render_target_view;
@@ -255,7 +221,7 @@ namespace mage {
 		depth_stencil_desc.BindFlags          = D3D11_BIND_DEPTH_STENCIL;		                // Flags for binding to pipeline stages. 
 		depth_stencil_desc.CPUAccessFlags     = 0;							                    // No CPU access is necessary.
 		depth_stencil_desc.MiscFlags          = 0;							                    // Flags that identify other, less common resource options.
-		const HRESULT result_depth_stencil    = m_device2->CreateTexture2D(&depth_stencil_desc, nullptr, &m_depth_stencil);
+		const HRESULT result_depth_stencil    = m_device2->CreateTexture2D(&depth_stencil_desc, nullptr, m_depth_stencil.ReleaseAndGetAddressOf());
 		if (FAILED(result_depth_stencil)) {
 			Error("Depth-stencil texture creation failed: %ld.", result_depth_stencil);
 			return result_depth_stencil;
@@ -267,7 +233,7 @@ namespace mage {
 		depth_stencil_view_desc.Format             = depth_stencil_desc.Format;
 		depth_stencil_view_desc.ViewDimension      = D3D11_DSV_DIMENSION_TEXTURE2D;
 		depth_stencil_view_desc.Texture2D.MipSlice = 0;
-		const HRESULT result_depth_stencil_view    = m_device2->CreateDepthStencilView(m_depth_stencil, &depth_stencil_view_desc, &m_depth_stencil_view);
+		const HRESULT result_depth_stencil_view    = m_device2->CreateDepthStencilView(m_depth_stencil.Get(), &depth_stencil_view_desc, m_depth_stencil_view.ReleaseAndGetAddressOf());
 		if (FAILED(result_depth_stencil_view)) {
 			Error("Depth-stencil view creation failed: %ld.", result_depth_stencil_view);
 			return result_depth_stencil_view;
@@ -300,9 +266,9 @@ namespace mage {
 		const XMVECTORF32 background_color = { 0.0f, 0.117647058f, 0.149019608f, 1.000000000f };
 
 		// Clear the back buffer.
-		m_device_context2->ClearRenderTargetView(m_render_target_view, background_color);
+		m_device_context2->ClearRenderTargetView(m_render_target_view.Get(), background_color);
 		// Clear the depth buffer to 1.0 (i.e. max depth).
-		m_device_context2->ClearDepthStencilView(m_depth_stencil_view, D3D11_CLEAR_DEPTH, 1.0f, 0);
+		m_device_context2->ClearDepthStencilView(m_depth_stencil_view.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 		// Present the back buffer to the front buffer.
 		const HRESULT hr = m_swap_chain2->Present(0, 0);
@@ -310,9 +276,9 @@ namespace mage {
 
 	void Renderer::SwitchMode(bool toggle) {
 		// Release the swap chain buffers.
-		SAFE_RELEASE(m_render_target_view);
-		SAFE_RELEASE(m_depth_stencil);
-		SAFE_RELEASE(m_depth_stencil_view);
+		m_render_target_view.Reset();
+		m_depth_stencil.Reset();
+		m_depth_stencil_view.Reset();
 
 		BOOL current = false;
 		if (toggle) {
@@ -325,7 +291,7 @@ namespace mage {
 		m_swap_chain2->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
 		SetupRenderTargetView();
 		SetupDepthStencilView();
-		m_device_context2->OMSetRenderTargets(1, &m_render_target_view, m_depth_stencil_view);
+		m_device_context2->OMSetRenderTargets(1, m_render_target_view.GetAddressOf(), m_depth_stencil_view.Get());
 	
 		m_swap_chain2->GetFullscreenState(&current, nullptr);
 		m_fullscreen = (current != 0);

@@ -28,7 +28,7 @@ namespace mage {
 		const wstring &filename = (fname != L"") ? fname : GetFilename();
 		const errno_t result_fopen_s = _wfopen_s(&file, filename.c_str(), L"r");
 		if (result_fopen_s) {
-			Error("Could not import script: %ls", filename.c_str());
+			Warning("Could not import script: %ls", filename.c_str());
 			return E_FAIL;
 		}
 

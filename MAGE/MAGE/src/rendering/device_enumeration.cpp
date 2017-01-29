@@ -67,21 +67,13 @@ namespace mage {
 		return display_mode_desc->Height < 480;
 	}
 
-	DeviceEnumeration::DeviceEnumeration() : m_adapter(nullptr), m_output(nullptr),
-		m_settings_script(nullptr), m_selected_diplay_mode(nullptr) {}
-
-	DeviceEnumeration::~DeviceEnumeration() {
-		const HRESULT result_uninit_adapter_and_output = UninitializeAdapterAndOutput();
-		if (FAILED(result_uninit_adapter_and_output)) {
-			Error("Adapter and Output uninitialization failed: %ld.", result_uninit_adapter_and_output);
-			return;
-		}
-	}
+	DeviceEnumeration::DeviceEnumeration() 
+		: m_selected_diplay_mode(nullptr) {}
 
 	HRESULT DeviceEnumeration::InitializeAdapterAndOutput() {
 		// Get the IDXGIFactory3.
-		IDXGIFactory3 *factory = nullptr;
-		const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)&factory);
+		ComPtr< IDXGIFactory3 > factory;
+		const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)factory.GetAddressOf());
 		if (FAILED(result_factory)) {
 			Error("IDXGIFactory3 creation failed: %ld.", result_factory);
 			return E_FAIL;
@@ -90,36 +82,28 @@ namespace mage {
 		// Get the IDXGIAdapter1 and its primary IDXGIOutput.
 		// The IDXGIAdapter represents a display subsystem (including one or more GPUs, DACs and video memory).
 		// The IDXGIOutput represents an adapter output (such as a monitor).
-		IDXGIAdapter1 *adapter1 = nullptr;
-		IDXGIOutput *output = nullptr;
+		ComPtr< IDXGIAdapter1 > adapter1;
+		ComPtr< IDXGIOutput > output;
 		SIZE_T max_vram = 0;
-		for (UINT i = 0; factory->EnumAdapters1(i, &adapter1) != DXGI_ERROR_NOT_FOUND; ++i) {
+		for (UINT i = 0; factory->EnumAdapters1(i, adapter1.GetAddressOf()) != DXGI_ERROR_NOT_FOUND; ++i) {
 
 			// Get the IDXGIAdapter2.
-			IDXGIAdapter2 *adapter2 = nullptr;
-			const HRESULT result_adapter2 = adapter1->QueryInterface(__uuidof(IDXGIAdapter2), (void **)&adapter2);
-			// Release the IDXGIAdapter1.
-			adapter1->Release();
+			ComPtr< IDXGIAdapter2 > adapter2;
+			const HRESULT result_adapter2 = adapter1.As(&adapter2);
 			if (FAILED(result_adapter2)) {
-				factory->Release();
 				Error("IDXGIAdapter2 creation failed: %ld.", result_adapter2);
 				return E_FAIL;
 			}
 
 			// Get the primary IDXGIOutput.
-			const HRESULT result_output = adapter2->EnumOutputs(0, &output);
+			const HRESULT result_output = adapter2->EnumOutputs(0, output.GetAddressOf());
 			if (FAILED(result_output)) {
-				adapter2->Release();
 				continue;
 			}
 			// Get the IDXGIOutput2.
-			IDXGIOutput2 *output2 = nullptr;
-			const HRESULT result_output2 = output->QueryInterface(__uuidof(IDXGIOutput2), (void **)&output2);
-			// Release the IDXGIOutput.
-			output->Release();
+			ComPtr< IDXGIOutput2 > output2;
+			const HRESULT result_output2 = output.As(&output2);
 			if (FAILED(result_output2)) {
-				adapter2->Release();
-				factory->Release();
 				Error("IDXGIOutput2 creation failed: %ld.", result_output2);
 				return E_FAIL;
 			}
@@ -128,40 +112,23 @@ namespace mage {
 			DXGI_ADAPTER_DESC2 desc;
 			const HRESULT result_adapter_desc = adapter2->GetDesc2(&desc);
 			if (FAILED(result_adapter_desc)) {
-				output2->Release();
-				adapter2->Release();
-				factory->Release();
 				Error("DXGI_ADAPTER_DESC2 retrieval failed: %ld.", result_adapter_desc);
 				return E_FAIL;
 			}
 
 			const SIZE_T vram = desc.DedicatedVideoMemory;
 			if (vram <= max_vram) {
-				output2->Release();
-				adapter2->Release();
 				continue;
 			}
 
-			SAFE_RELEASE(m_adapter);
-			SAFE_RELEASE(m_output);
 			m_adapter = adapter2;
 			m_output = output2;
 			max_vram = vram;
 		}
 
-		// Release the IDXGIFactory3.
-		factory->Release();
-
 		return S_OK;
 	}
 
-	HRESULT DeviceEnumeration::UninitializeAdapterAndOutput() {
-		SAFE_RELEASE(m_output);
-		SAFE_RELEASE(m_adapter);
-
-		return S_OK;
-	}
-	
 	HRESULT DeviceEnumeration::InitializeDisplayModes() {
 		// Create the display modes linked list.
 		m_display_modes = list< DXGI_MODE_DESC1 >();
@@ -197,16 +164,8 @@ namespace mage {
 	}
 
 	HRESULT DeviceEnumeration::Enumerate() {
-		// In case of multiple of calls to Enumerate:
-		// Unitialize the adapter and output.
-		const HRESULT result_uninit_adapter_and_output = UninitializeAdapterAndOutput();
-		if (FAILED(result_uninit_adapter_and_output)) {
-			Error("Adapter and Output uninitialization failed: %ld.", result_uninit_adapter_and_output);
-			return E_FAIL;
-		}
-
 		// Load the settings script.
-		m_settings_script = new VariableScript(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
+		m_settings_script = make_unique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
 
 		// Initialize the adapter and output.
 		const HRESULT result_init_adapter_and_output = InitializeAdapterAndOutput();
@@ -331,7 +290,7 @@ namespace mage {
 				// Store the details of the selected display mode.
 				const size_t resolution   = (size_t)(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION)));
 				const size_t refresh_rate = (size_t)(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE)));
-				const DXGI_FORMAT format = (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_DISPLAY_FORMAT));
+				const DXGI_FORMAT format  = (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_DISPLAY_FORMAT));
 				for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 					if ((size_t)MAKELONG(it->Width, it->Height) != resolution) {
 						continue;
@@ -347,9 +306,6 @@ namespace mage {
 				}
 				if (!m_selected_diplay_mode) {
 					Error("Selected display mode retrieval failed.");
-					
-					// Destroy the settings script.
-					delete m_settings_script;
 
 					// Close the hwndDlg.
 					EndDialog(hwndDlg, IDCANCEL);
@@ -372,8 +328,6 @@ namespace mage {
 				m_settings_script->SetValueOfVariable("refresh",	new int(refresh_rate_index));
 				// Save all the settings out to the settings script.
 				m_settings_script->ExportScript();
-				// Destroy the settings script.
-				delete m_settings_script;
 
 				// Close the hwndDlg.
 				EndDialog(hwndDlg, IDOK);
@@ -381,9 +335,6 @@ namespace mage {
 				return true;
 			}
 			case IDCANCEL: {
-				// Destroy the settings script.
-				delete m_settings_script;
-
 				// Close the hwndDlg.
 				EndDialog(hwndDlg, IDCANCEL);
 

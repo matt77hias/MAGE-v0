@@ -30,7 +30,7 @@ namespace mage {
 
 		 @return		A pointer to the device of this renderer.
 		 */
-		ID3D11Device2 *GetDevice() {
+		ComPtr< ID3D11Device2 > GetDevice() {
 			return m_device2;
 		}
 
@@ -39,7 +39,7 @@ namespace mage {
 
 		 @return		A pointer to the device context of this renderer.
 		 */
-		ID3D11DeviceContext2 *GetDeviceContext() {
+		ComPtr< ID3D11DeviceContext2 > GetDeviceContext() {
 			return m_device_context2;
 		}
 
@@ -163,13 +163,13 @@ namespace mage {
 		 */
 		HWND m_hwindow;
 
-		D3D_FEATURE_LEVEL		  m_feature_level;
-		ID3D11Device2            *m_device2;
-		ID3D11DeviceContext2     *m_device_context2;
-		IDXGISwapChain2          *m_swap_chain2;
-		ID3D11RenderTargetView   *m_render_target_view;
-		ID3D11Texture2D          *m_depth_stencil;
-		ID3D11DepthStencilView   *m_depth_stencil_view;
+		D3D_FEATURE_LEVEL		         m_feature_level;
+		ComPtr< ID3D11Device2 >	         m_device2;
+		ComPtr< ID3D11DeviceContext2 >   m_device_context2;
+		ComPtr< IDXGISwapChain2 >        m_swap_chain2;
+		ComPtr< ID3D11RenderTargetView > m_render_target_view;
+		ComPtr< ID3D11Texture2D >        m_depth_stencil;
+		ComPtr< ID3D11DepthStencilView > m_depth_stencil_view;
 
 	private:
 

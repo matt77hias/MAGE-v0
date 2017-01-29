@@ -31,7 +31,7 @@ namespace mage {
 
 		 @return		A pointer to the adapter.
 		 */
-		IDXGIAdapter2 *GetAdapter() const {
+		ComPtr< IDXGIAdapter2 > GetAdapter() const {
 			return m_adapter;
 		}
 
@@ -40,7 +40,7 @@ namespace mage {
 
 		 @return		A pointer to the output.
 		 */
-		IDXGIOutput2 *GetOutput() const {
+		ComPtr< IDXGIOutput2 > GetOutput() const {
 			return m_output;
 		}
 
@@ -93,7 +93,7 @@ namespace mage {
 		/**
 		 Destructs this device enumeration.
 		 */
-		virtual ~DeviceEnumeration();
+		virtual ~DeviceEnumeration() {}
 
 		/**
 		 Initializes the adapter and the output of this device enumeration.
@@ -101,13 +101,6 @@ namespace mage {
 		 @return		A success/error value.
 		 */
 		HRESULT InitializeAdapterAndOutput();
-
-		/**
-		 Uninitializes the adapter and the output of this device enumeration.
-
-		 @return		A success/error value.
-		 */
-		HRESULT UninitializeAdapterAndOutput();
 
 		/**
 		 Initializes the display modes of this device enumeration.
@@ -144,17 +137,17 @@ namespace mage {
 		/**
 		 A pointer to the adapter (or video card).
 		 */
-		IDXGIAdapter2 *m_adapter;
+		ComPtr< IDXGIAdapter2 > m_adapter;
 
 		/**
 		 A pointer to the output.
 		 */
-		IDXGIOutput2 *m_output;
+		ComPtr< IDXGIOutput2 > m_output;
 
 		/**
 		 A pointer to the script which stores the device configuration.
 		 */
-		VariableScript *m_settings_script;
+		UniquePtr< VariableScript > m_settings_script;
 		
 		/**
 		 The linked list of enumerated display modes.

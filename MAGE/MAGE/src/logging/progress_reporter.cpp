@@ -24,7 +24,7 @@ namespace mage {
 		
 		m_nb_plusses_total = max(2, bar_length - (uint32_t)title.size());
 	
-		m_timer = new Timer();
+		m_timer = make_unique< Timer >();
 		m_timer->Start();
 		
 		m_fout = stdout;
@@ -67,7 +67,6 @@ namespace mage {
 
 	ProgressReporter::~ProgressReporter() {
 		delete[] m_buffer;
-		delete m_timer;
 		Mutex::Destroy(m_mutex);
 	}
 

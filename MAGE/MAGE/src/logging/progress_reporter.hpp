@@ -17,6 +17,7 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\memory.hpp"
 #include "logging\timer.hpp"
 #include "parallel\lock.hpp"
 
@@ -93,7 +94,7 @@ namespace mage {
 		/**
 		 The timer of this progress reporter.
 		 */
-		Timer *m_timer;
+		UniquePtr< Timer >m_timer;
 		
 		/**
 		 The output file stream of this progress reporter.

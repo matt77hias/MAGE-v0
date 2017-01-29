@@ -73,9 +73,6 @@ namespace mage {
 		if (FAILED(result_system)) {
 			Error("Systems uninitialization failed: %ld.", result_system);
 		}
-		
-		// Clean up the tasks support.
-		//TasksCleanup();
 	}
 
 	HRESULT Engine::InitializeSystems(const EngineSetup *setup) {

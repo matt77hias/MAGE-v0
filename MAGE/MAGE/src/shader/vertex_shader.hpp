@@ -20,6 +20,7 @@ namespace mage {
 #pragma region
 
 #include "memory\memory.hpp"
+#include "resource\resource.hpp"
 
 #pragma endregion
 
@@ -28,16 +29,16 @@ namespace mage {
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class VertexShader {
+	class VertexShader : Resource {
 
 	public:
 
-		VertexShader(ComPtr< ID3D11Device2 >, const wstring &fname);
+		VertexShader(ComPtr< ID3D11Device2 >, const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH);
 		virtual ~VertexShader() {}
 
 	protected:
 
-		HRESULT InitializeShader(ComPtr< ID3D11Device2 >, const wstring &fname);
+		HRESULT InitializeShader(ComPtr< ID3D11Device2 >);
 
 		ComPtr< ID3D11VertexShader > m_vertex_shader;
 

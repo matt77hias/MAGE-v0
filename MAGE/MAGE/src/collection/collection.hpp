@@ -35,3 +35,52 @@ namespace mage {
 }
 
 #pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Declarations and Definitions
+//-----------------------------------------------------------------------------
+namespace mage {
+
+	/**
+	 Removes from the given container all the elements that compare equal to the given predicate. 
+	 This reduces the container size by the number of elements removed.
+
+	 @tparam		ContainerT
+					The type of container.
+	 @tparam		PredicateT
+					The type of predicate.
+	 @param[in]		container
+					A reference to the container.
+	 @param[in]		predicate
+					A reference to the predicate.
+	 */
+	template< typename ContainerT, typename PredicateT >
+	inline void RemoveIf(ContainerT &container, const PredicateT &predicate) {
+		auto it = container.begin();
+		while (it != container.end()) {
+			if (predicate(*it)) { 
+				it = container.erase(it);
+			}
+			else {
+				++it;
+			}
+		}
+	}
+
+	/**
+	 Removes and destructs all the elements from the given container.
+
+	 @tparam		ContainerT
+					The type of container.
+	 @param[in]		container
+					A reference to the container.
+	 */
+	template< typename ContainerT >
+	inline void RemoveAndDestructAllElements(ContainerT &container) {
+		auto it = container.begin();
+		while (it != container.end()) {
+			delete (*it);
+			it = container.erase(it);
+		}
+	}
+}

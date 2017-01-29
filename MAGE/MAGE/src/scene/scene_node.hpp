@@ -106,6 +106,11 @@ namespace mage {
 						A pointer to the child scene node.
 		 */
 		void RemoveChild(SceneNode *child);
+
+		/**
+		 Removes and destructs all childs of this scene node.
+		 */
+		void RemoveAllChilds();
 		
 		/**
 		 Returns the total number of child scene nodes of this scene node.

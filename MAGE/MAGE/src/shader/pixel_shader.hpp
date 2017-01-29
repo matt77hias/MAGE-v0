@@ -20,6 +20,7 @@ namespace mage {
 #pragma region
 
 #include "memory\memory.hpp"
+#include "resource\resource.hpp"
 
 #pragma endregion
 
@@ -28,16 +29,16 @@ namespace mage {
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class PixelShader {
+	class PixelShader : Resource {
 
 	public:
 
-		PixelShader(ComPtr< ID3D11Device2 > device, const wstring &fname);
+		PixelShader(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH);
 		virtual ~PixelShader() {}
 
 	protected:
 
-		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device, const wstring &fname);
+		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device);
 
 		ComPtr< ID3D11PixelShader > m_pixel_shader;
 

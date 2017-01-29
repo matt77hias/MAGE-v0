@@ -14,8 +14,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	IndexedMesh::IndexedMesh(ID3D11Device2 *device, const string &name, const string &path)
-		: Mesh(name, path), m_nb_vertices(0), m_vertex_buffer(nullptr), m_index_buffer(nullptr) {
+	IndexedMesh::IndexedMesh(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path)
+		: Mesh(name, path), m_nb_vertices(0) {
 		
 		const HRESULT result_buffers = InitializeBuffers(device);
 		if (FAILED(result_buffers)) {
@@ -23,19 +23,11 @@ namespace mage {
 		}
 	}
 
-	IndexedMesh::~IndexedMesh() {
-		const HRESULT result_buffers = UninitializeBuffers();
-		if (FAILED(result_buffers)) {
-			Error("Buffers uninitialization failed: %ld.", result_buffers);
-		}
-	}
+	HRESULT IndexedMesh::InitializeBuffers(ComPtr< ID3D11Device2 > device) {
 
-	HRESULT IndexedMesh::InitializeBuffers(ID3D11Device2 *device) {
-
-		const string &fname = GetFilename();
 		vector< Vertex > vertices;
 		vector< uint32_t > indices;
-		const HRESULT result_load = LoadMeshFromFile(fname, vertices, indices);
+		const HRESULT result_load = LoadMeshFromFile(GetFilename(), vertices, indices);
 		if (FAILED(result_load)) {
 			Error("IndexedMesh loading failed: %ld.", result_load);
 			return result_load;
@@ -58,13 +50,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT IndexedMesh::UninitializeBuffers() {
-		SAFE_RELEASE(m_vertex_buffer);
-		SAFE_RELEASE(m_index_buffer);
-		return S_OK;
-	}
-
-	HRESULT IndexedMesh::SetupVertexBuffer(ID3D11Device2 *device, const Vertex *vertices, size_t nb_vertices) {
+	HRESULT IndexedMesh::SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -82,7 +68,7 @@ namespace mage {
 		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
 		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
 		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
-		const HRESULT result_vertex_buffer = device->CreateBuffer(&buffer_desc, &init_data, &m_vertex_buffer);
+		const HRESULT result_vertex_buffer = device->CreateBuffer(&buffer_desc, &init_data, m_vertex_buffer.ReleaseAndGetAddressOf());
 		if (FAILED(result_vertex_buffer)) {
 			Error("CreateBuffer failed: %ld.", result_vertex_buffer);
 			return result_vertex_buffer;
@@ -91,7 +77,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT IndexedMesh::SetupIndexBuffer(ID3D11Device2 *device, const uint32_t *indices, size_t nb_indices) {
+	HRESULT IndexedMesh::SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -109,7 +95,7 @@ namespace mage {
 		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
 		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
 		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
-		const HRESULT result_index_buffer = device->CreateBuffer(&buffer_desc, &init_data, &m_index_buffer);
+		const HRESULT result_index_buffer = device->CreateBuffer(&buffer_desc, &init_data, m_index_buffer.ReleaseAndGetAddressOf());
 		if (FAILED(result_index_buffer)) {
 			Error("CreateBuffer failed: %ld.", result_index_buffer);
 			return result_index_buffer;
@@ -118,7 +104,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT IndexedMesh::BindBuffers(ID3D11DeviceContext2 *device_context) const {
+	HRESULT IndexedMesh::BindBuffers(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		// Set the vertex buffer.
 		UINT stride = sizeof(Vertex);	// The size (in bytes) of the elements that are to be used from a vertex buffer.
 		UINT offset = 0;				// The number of bytes between the first element of a vertex buffer and the first element that will be used.
@@ -127,13 +113,13 @@ namespace mage {
 		// 3. A pointer to an array of vertex buffers.
 		// 4. A pointer to an array of stride values.
 		// 5. A pointer to an array of offset values.
-		device_context->IASetVertexBuffers(0, 1, &m_vertex_buffer, &stride, &offset);
+		device_context->IASetVertexBuffers(0, 1, m_vertex_buffer.GetAddressOf(), &stride, &offset);
 
 		// Set the index buffer.
 		// 1. A pointer to an ID3D11Buffer object.
 		// 2. The format of the data in the index buffer.
 		// 3. Offset (in bytes) from the start of the index buffer to the first index to use.
-		device_context->IASetIndexBuffer(m_index_buffer, DXGI_FORMAT_R32_UINT, 0);
+		device_context->IASetIndexBuffer(m_index_buffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 
 		// Bind information about the primitive type, and data order that describes input data for the input assembler stage.
 		device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -141,7 +127,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT IndexedMesh::Draw(ID3D11DeviceContext2 *device_context) const {
+	HRESULT IndexedMesh::Draw(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		device_context->DrawIndexed((UINT)m_nb_vertices, 0, 0);
 		return S_OK;
 	}

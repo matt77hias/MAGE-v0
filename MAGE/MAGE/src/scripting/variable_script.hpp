@@ -42,7 +42,7 @@ namespace mage {
 		 @param[in]		path
 						A reference to the path of the variable script.
 		*/
-		VariableScript(const string &name, const string &path = "./");
+		VariableScript(const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH);
 
 		/**
 		 Destruct this variable script.
@@ -52,18 +52,20 @@ namespace mage {
 		/**
 		 Imports this variable script from its associated file.
 
-		 @param[in]		filename
+		 @param[in]		fname
 						A reference to the filename.
+		 @return		A success/error value.
 		 */
-		void ImportScript(const string &filename = "");
+		HRESULT ImportScript(const wstring &fname = L"");
 
 		/**
 		 Exports this variable script to the file with the given filename.
 
-		 @param[in]		filename
+		 @param[in]		fname
 						A reference to the filename.
+		 @return		A success/error value.
 		 */
-		void ExportScript(const string &filename = "");
+		HRESULT ExportScript(const wstring &fname = L"");
 
 		/**
 		 Checks wether this variable script is empty.
@@ -104,12 +106,17 @@ namespace mage {
 		}
 
 		/**
-		 Removes (and destructs) the given variable from this variable script.
+		 Removes and destructs the given variable from this variable script.
 
 		 @param[in]		name
 						The name of the variable.
 		 */
 		void RemoveVariable(const string &name);
+
+		/**
+		 Removes and destructs all variables from this variable script.
+		 */
+		void RemoveAllVariables();
 
 		/**
 		 Returns the value of the given variable in this variable script.
@@ -169,8 +176,9 @@ namespace mage {
 						The name of the variable.
 		 @param[in]		file
 						A pointer to a file used for importing.
+		 @return		A success/error value.
 		 */
-		void ImportVariable(const string &name, FILE *file);
+		HRESULT ImportVariable(const string &name, FILE *file);
 
 		/**
 		 Export the given variable from this variable script to the given file.
@@ -179,8 +187,9 @@ namespace mage {
 						A pointer to the variable variable.
 		 @param[in]		file
 						A pointer to a file used for exporting.
+		 @return		A success/error value.
 		*/
-		void ExportVariable(const Variable *variable, FILE *file);
+		HRESULT ExportVariable(const Variable *variable, FILE *file);
 
 	private:
 

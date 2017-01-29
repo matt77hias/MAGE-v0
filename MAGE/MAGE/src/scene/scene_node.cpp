@@ -20,13 +20,7 @@ namespace mage {
 			m_parent->RemoveChild(this);
 		}
 
-		// Detach the childs in one direction.
-		for (set< SceneNode * >::iterator it = m_childs.begin(); it != m_childs.end(); ++it) {
-			(*it)->SetParent(nullptr);
-		}
-
-		// Destructs the childs.
-		m_childs.clear();
+		RemoveAllChilds();
 	}
 
 	SceneNode *SceneNode::DeepClone() const {
@@ -66,13 +60,27 @@ namespace mage {
 			if ((*it) == child) {
 				// Remove this parent from the child.
 				child->SetParent(nullptr);
+				
 				// Remove the child from this parent.
-				m_childs.erase(it++);
-				break;
+				it = m_childs.erase(it);
 			}
 			else {
 				++it;
 			}
+		}
+	}
+
+	void SceneNode::RemoveAllChilds() {
+		set< SceneNode * >::iterator it = m_childs.begin();
+		while (it != m_childs.end()) {
+			// Remove this parent from the child.
+			(*it)->SetParent(nullptr);
+			
+			// Destruct the child.
+			delete (*it);
+
+			// Remove this child from the parent.
+			it = m_childs.erase(it);
 		}
 	}
 

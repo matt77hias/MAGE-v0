@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\memory.hpp"
 #include "resource\resource.hpp"
 #include "collection\collection.hpp"
 
@@ -32,15 +33,13 @@ namespace mage {
 		 @param[in]		CreateResourceFunction
 						The application specific resource creation function.
 		 */
-		ResourceManager(void(*CreateResourceFunction)(T **resource, const string &name, const string &path) = nullptr) 
-			: m_resources(list< T * >()), CreateResource(CreateResourceFunction) {}
+		ResourceManager(void(*CreateResourceFunction)(T **resource, const wstring &name, const wstring &path) = nullptr) 
+			: CreateResource(CreateResourceFunction) {}
 
 		/**
 		 Destructs this resource manager.
 		 */
-		virtual ~ResourceManager() {
-			m_resources.clear();
-		}
+		virtual ~ResourceManager() {}
 
 		/**
 		 Adds a new resource to this resource manager.
@@ -51,19 +50,16 @@ namespace mage {
 						A reference to the path of the new resource.
 		 @return		A pointer to the resource.
 		 */
-		T *AddResource(const string &name, const string &path = "./") {
-			T *resource;
-
+		SharedPtr< T > AddResource(const wstring &name, const wstring &path = "./") {
 			// If the element already exists, then return a pointer to it.
-			resource = GetResource(name, path);
+			SharedPtr< T > resource = GetResource(name, path);
 			if (resource) {
-				resource->IncrementResourceReferenceCount();
 				return resource;
 			}
 
 			// Create the resource, preferably through the application specific
 			// function if it is available.
-			if (CreateResource != nullptr) {
+			if (CreateResource) {
 				CreateResource(&resource, name, path);
 			}
 			else {
@@ -72,6 +68,7 @@ namespace mage {
 
 			// Add the new resource to this resource manager.
 			m_resources.push_back(resource);
+
 			// Return a pointer to the added resource.
 			return resource;
 		}
@@ -79,26 +76,11 @@ namespace mage {
 		/**
 		 Removes the given resource from this resource manager.
 
-		 @param[in,out]		resource
+		 @param[in]		resource
 						A pointer to the resource.
 		 */
-		void RemoveResource(T *resource) {
-			if (*resource) {
-				return;
-			}
-
-			// If the resource is no long being used then destroy it.
-			if (resource->DecrementResourceReferenceCount() == 0) {
-				m_resources.remove(resource);
-			}
-		}
-
-		/**
-		 Removes and destructs all the resources from this resource manager, 
-		 and leaving the resource manager with no resources.
-		 */
-		void ClearResources() {
-			m_resources.clear();
+		void RemoveResource(SharedPtr< T > resource) {
+			m_resources.remove(resource);
 		}
 
 		/**
@@ -111,9 +93,9 @@ namespace mage {
 		 @return		@c nullptr if the resource is not present.
 		 @return		A pointer to the resource.
 		 */
-		T *GetResource(const string &name, const string &path = "./") const {
+		SharedPtr< T > GetResource(const wstring &name, const wstring &path = "./") const {
 			// Iterate the resources looking for the specified resource.
-			for (list< Resource * >::iterator it = m_resources.begin(); it != m_resources.end(); ++it) {
+			for (list< SharedPtr< T > >::iterator it = m_resources.begin(); it != m_resources.end(); ++it) {
 				if ((*it)->GetName() == name && (*it)->getPath() == path) {
 					return *it;
 				}
@@ -145,12 +127,12 @@ namespace mage {
 		/**
 		 The linked list containing the resources of this resource manager.
 		 */
-		list< T * > m_resources;
+		list< SharedPtr< T > > m_resources;
 
 		/**
 		 The application specific resource creation function for the resources
 		 of this resource manager.
 		 */
-		void(*CreateResource)(T **resource, const string &name, const string &path);
+		void(*CreateResource)(T **resource, const wstring &name, const wstring &path);
 	};
 }

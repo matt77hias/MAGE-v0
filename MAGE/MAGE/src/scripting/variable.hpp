@@ -18,6 +18,15 @@ namespace mage {
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "memory\memory.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Type Definitions
 //-----------------------------------------------------------------------------
 #pragma region
@@ -217,7 +226,9 @@ namespace mage {
 			 @param[in]		abstract_value
 							A reference to the abstract value.
 			 */
-			AbstractValue(const AbstractValue &abstract_value) {}
+			AbstractValue(const AbstractValue &abstract_value) {
+				UNUSED(abstract_value);
+			}
 
 		private:
 

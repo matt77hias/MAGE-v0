@@ -48,6 +48,17 @@ namespace mage {
 		 Destructs this orthographic camera.
 		 */
 		virtual ~OrthographicCamera() {}
+
+		/**
+		 Copies the given orthographic camera to this orthographic camera.
+
+		 @param[in]		orthographic_camera
+						The orthographic camera.
+		 */
+		OrthographicCamera &operator=(const OrthographicCamera &orthographic_camera) {
+			Camera::operator=(orthographic_camera);
+			return (*this);
+		}
 		
 		/**
 		 Clones this orthographic camera.
@@ -85,15 +96,5 @@ namespace mage {
 			SetWidthAndHeight(width, height);
 			SetNearAndFarZ(near_z, far_z);
 		}
-
-	private:
-
-		/**
-		 Copies the given orthographic camera to this orthographic camera.
-
-		 @param[in]		orthographic_camera
-						The orthographic camera.
-		 */
-		OrthographicCamera &operator=(const OrthographicCamera &orthographic_camera) = delete;
 	};
 }

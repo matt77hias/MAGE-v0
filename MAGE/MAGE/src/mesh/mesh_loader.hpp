@@ -25,7 +25,7 @@ namespace mage {
 					A reference to the empty index buffer.
 	 @return		A success/error value.
 	 */
-	HRESULT LoadMeshFromFile(const string &fname,
+	HRESULT LoadMeshFromFile(const wstring &fname,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer);
 
 	/**
@@ -37,6 +37,6 @@ namespace mage {
 					A reference to the empty vertex buffer.
 	 @return		A success/error value.
 	 */
-	HRESULT LoadMeshFromFile(const string &fname,
+	HRESULT LoadMeshFromFile(const wstring &fname,
 		vector< Vertex > &vertex_buffer);
 }

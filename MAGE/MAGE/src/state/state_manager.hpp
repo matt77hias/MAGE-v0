@@ -36,13 +36,22 @@ namespace mage {
 		void AddState(State *state, bool change = true);
 
 		/**
-		 Removes (and destructs) the given state from the states of this state manager.
-		 It is not possible to remove the current state of this state manager.
+		 Removes and destructs the given state from the states of this state manager.
+		 
+		 If the current state of this state manager is removed, 
+		 the current state of this state manager is set to @c nullptr.
 
 		 @param[in]		state
 						A pointer to the state.
 		 */
 		void RemoveState(State *state);
+
+		/**
+		 Removes and destructs all states of this state manager.
+
+		 The current state of this state manager is set to @c nullptr.
+		 */
+		void RemoveAllStates();
 
 		/**
 		 Changes the state of this state manager to the state with the given id.

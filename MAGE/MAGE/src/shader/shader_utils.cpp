@@ -21,7 +21,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT CompileShaderFromFile(LPCWSTR fname, LPCSTR entry_point, LPCSTR shader_target, ID3DBlob **output_blob) {
+	HRESULT CompileShaderFromFile(const wstring &fname, const string &entry_point, const string &shader_target, ID3DBlob **output_blob) {
 
 		DWORD shader_flags = D3DCOMPILE_ENABLE_STRICTNESS;
 #ifdef _DEBUG
@@ -44,7 +44,8 @@ namespace mage {
 		// 8. A pointer to a variable that receives a pointer to the ID3DBlob interface that you can use to access the compiled code.
 		// 9. An optional pointer to a variable that receives a pointer to the ID3DBlob interface that you can use to access compiler error messages.
 		ComPtr< ID3DBlob > error_blob;
-		const HRESULT result_compile = D3DCompileFromFile(fname, nullptr, nullptr, entry_point, shader_target, shader_flags, 0, output_blob, error_blob.GetAddressOf());
+		const HRESULT result_compile = D3DCompileFromFile(fname.c_str(), nullptr, nullptr, entry_point.c_str(), shader_target.c_str(), 
+															shader_flags, 0, output_blob, error_blob.GetAddressOf());
 		if (FAILED(result_compile)) {
 			if (error_blob) {
 				// Sends a string to the debugger for display.

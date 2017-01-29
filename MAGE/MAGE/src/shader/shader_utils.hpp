@@ -5,6 +5,12 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include <string>
+namespace mage {
+	using std::string;
+	using std::wstring;
+}
+
 #include <d3d11_2.h>
 
 #pragma endregion
@@ -35,5 +41,5 @@ namespace mage {
 	 @param[out]	output_blob
 					A pointer to a variable that receives a pointer to the ID3DBlob interface that you can use to access the compiled code.
 	 */
-	HRESULT CompileShaderFromFile(LPCWSTR fname, LPCSTR entry_point, LPCSTR shader_target, ID3DBlob **output_blob);
+	HRESULT CompileShaderFromFile(const wstring &fname, const string &entry_point, const string &shader_target, ID3DBlob **output_blob);
 }

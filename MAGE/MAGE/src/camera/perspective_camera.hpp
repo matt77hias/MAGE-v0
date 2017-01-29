@@ -54,6 +54,17 @@ namespace mage {
 		virtual ~PerspectiveCamera() {}
 
 		/**
+		 Copies the given perspective camera to this perspective camera.
+
+		 @param[in]		perspective_camera
+						The perspective camera.
+		 */
+		PerspectiveCamera &operator=(const PerspectiveCamera &perspective_camera) {
+			Camera::operator=(perspective_camera);
+			return (*this);
+		}
+
+		/**
 		 Clones this perspective camera.
 
 		 @return		A pointer to the clone of this perspective camera.
@@ -124,14 +135,6 @@ namespace mage {
 		}
 
 	private:
-
-		/**
-		 Copies the given perspective camera to this perspective camera.
-
-		 @param[in]		perspective_camera
-						The perspective camera.
-		 */
-		PerspectiveCamera &operator=(const PerspectiveCamera &perspective_camera) = delete;
 
 		/**
 		 The vertical field-of-view of this perspective camera.

@@ -13,23 +13,23 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VariableScript::VariableScript(const string &name, const string &path)
+	VariableScript::VariableScript(const wstring &name, const wstring &path)
 		: Resource(name, path), m_variables(list< Variable * >()) {
 		ImportScript();
 	}
 
 	VariableScript::~VariableScript() {
-		m_variables.clear();
+		RemoveAllVariables();
 	}
 
-	void VariableScript::ImportScript(const string &filename) {
+	HRESULT VariableScript::ImportScript(const wstring &fname) {
 		// Open the script file.
 		FILE *file = nullptr;
-		const string &fname = (filename != "") ? filename : GetFilename();
-		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
+		const wstring &filename = (fname != L"") ? fname : GetFilename();
+		const errno_t result_fopen_s = _wfopen_s(&file, filename.c_str(), L"r");
 		if (result_fopen_s) {
-			Error("Could not import script: %s", fname.c_str());
-			return;
+			Error("Could not import script: %ls", filename.c_str());
+			return E_FAIL;
 		}
 
 		// format: s
@@ -63,16 +63,18 @@ namespace mage {
 
 		// Close the script file.
 		fclose(file);
+
+		return S_OK;
 	}
 
-	void VariableScript::ExportScript(const string &filename) {
+	HRESULT VariableScript::ExportScript(const wstring &fname) {
 		// Open the script file.
 		FILE *file = nullptr;
-		const string &fname = (filename != "") ? filename : GetFilename();
-		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "w");
+		const wstring &filename = (fname != L"") ? fname : GetFilename();
+		const errno_t result_fopen_s = _wfopen_s(&file, filename.c_str(), L"w");
 		if (result_fopen_s) {
-			Error("Could not export script: %s", fname.c_str());
-			return;
+			Error("Could not export script: %ls", filename.c_str());
+			return E_FAIL;
 		}
 
 		// Write the #begin statement to the file.
@@ -89,13 +91,15 @@ namespace mage {
 
 		// Close the script file.
 		fclose(file);
+
+		return S_OK;
 	}
 
-	void VariableScript::ImportVariable(const string &name, FILE *file) {
+	HRESULT VariableScript::ImportVariable(const string &name, FILE *file) {
 		// Ensure the file pointer is valid.
 		if (file == nullptr) {
 			Error("Could not import variable: %s", name);
-			return;
+			return E_FAIL;
 		}
 
 		// Read the variable's type.
@@ -227,9 +231,11 @@ namespace mage {
 			strcpy_s(value, strlen(buffer) + 1, buffer);
 			AddVariable(name, UnknownType, (void *)value);
 		}
+
+		return S_OK;
 	}
 
-	void VariableScript::ExportVariable(const Variable *variable, FILE *file) {
+	HRESULT VariableScript::ExportVariable(const Variable *variable, FILE *file) {
 		char output[MAX_PATH];
 		
 		const char *name = variable->GetName().c_str();
@@ -283,25 +289,61 @@ namespace mage {
 		}
 		default: {
 			Error("Could not export variable: %s", name);
-			return;
+			return E_FAIL;
 		}
 		}
 
 		fputs(output, file);
 		fputs("\n", file);
+
+		return S_OK;
 	}
 
-	void VariableScript::RemoveVariable(const string &name) {
-		// Iterate the variables looking for the specified variable.
-		list< Variable * >::const_iterator it = m_variables.cbegin();
-		while (it != m_variables.cend()) {
-			if ((*it)->GetName() == name) {
-				m_variables.erase(it++);
-				break;
+	/**
+	 A struct of predicates matching variables based on their name.
+	 In case of a match, the variable is destructed.
+	 */
+	struct DestructVariablePredicate {
+
+	public:
+
+		/**
+		 Constructs a predicate with the given variable name to look for.
+
+		 @param[in]		variable_name
+						A reference to the variable name to look for.
+		 */
+		DestructVariablePredicate(const string &variable_name) 
+			: m_variable_name(variable_name) {}
+
+		/**
+		 Checks if the given variable has the same name as the name stored in this predicate. 
+		 If this is the case, the variable is destructed.
+
+		 @param[in]		variable
+						A pointer to the variable.
+		 @return		@c true if the given variable has the same name as the name stored in this predicate.
+						@c false otherwise.
+		 */
+		bool operator()(const Variable *variable) const {
+			if (variable->GetName() == m_variable_name) {
+				delete variable;
+				return true;
 			}
-			else {
-				++it;
-			}
+			return false;
 		}
+
+		/**
+		 The variable name of this predicate.
+		 */
+		const string &m_variable_name;
+	};
+
+	void VariableScript::RemoveVariable(const string &name) {
+		RemoveIf(m_variables, DestructVariablePredicate(name));
+	}
+
+	void VariableScript::RemoveAllVariables() {
+		RemoveAndDestructAllElements(m_variables);
 	}
 }

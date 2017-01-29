@@ -13,30 +13,36 @@
 namespace mage {
 
 	StateManager::~StateManager() {
-		if (m_current_state) {
-			// State post-processing
-			m_current_state->Close();
-		}
-
-		m_states.clear();
+		RemoveAllStates();
 	}
 
 	void StateManager::AddState(State *state, bool change) {
-		m_states.push_back(state);
-
-		if (change == false) {
-			return;
+		if (!state) {
+			m_states.push_back(state);
 		}
 
-		ChangeState(m_states.back());
+		if (change == true) {
+			ChangeState(state);
+		}
 	}
 
 	void StateManager::RemoveState(State *state) {
-		if (state == m_current_state) {
+		if (!state) {
 			return;
 		}
 
+		if (state == m_current_state) {
+			ChangeState(nullptr);
+		}
+
 		m_states.remove(state);
+		delete state;
+	}
+
+	void StateManager::RemoveAllStates() {
+		ChangeState(nullptr);
+
+		RemoveAndDestructAllElements(m_states);
 	}
 
 	void StateManager::ChangeState(uint64_t id) {
@@ -66,8 +72,11 @@ namespace mage {
 		}
 
 		m_current_state = state;
-		// State pre-processing
-		m_current_state->Load();
+
+		if (m_current_state) {
+			// State pre-processing
+			m_current_state->Load();
+		}
 
 		m_state_changed = true;
 	}

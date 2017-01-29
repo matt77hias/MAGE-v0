@@ -14,8 +14,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	FlatMesh::FlatMesh(ID3D11Device2 *device, const string &name, const string &path)
-		: Mesh(name, path), m_nb_vertices(0), m_vertex_buffer(nullptr) {
+	FlatMesh::FlatMesh(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path)
+		: Mesh(name, path), m_nb_vertices(0) {
 		
 		const HRESULT result_buffers = InitializeBuffers(device);
 		if (FAILED(result_buffers)) {
@@ -23,18 +23,10 @@ namespace mage {
 		}
 	}
 
-	FlatMesh::~FlatMesh() {
-		const HRESULT result_buffers = UninitializeBuffers();
-		if (FAILED(result_buffers)) {
-			Error("Buffers uninitialization failed: %ld.", result_buffers);
-		}
-	}
+	HRESULT FlatMesh::InitializeBuffers(ComPtr< ID3D11Device2 > device) {
 
-	HRESULT FlatMesh::InitializeBuffers(ID3D11Device2 *device) {
-
-		const string &fname = GetFilename();
 		vector< Vertex > vertices;
-		const HRESULT result_load = LoadMeshFromFile(fname, vertices);
+		const HRESULT result_load = LoadMeshFromFile(GetFilename(), vertices);
 		if (FAILED(result_load)) {
 			Error("FlatMesh loading failed: %ld.", result_load);
 			return result_load;
@@ -51,12 +43,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT FlatMesh::UninitializeBuffers() {
-		SAFE_RELEASE(m_vertex_buffer);
-		return S_OK;
-	}
-
-	HRESULT FlatMesh::SetupVertexBuffer(ID3D11Device2 *device, const Vertex *vertices, size_t nb_vertices) {
+	HRESULT FlatMesh::SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -74,7 +61,7 @@ namespace mage {
 		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
 		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
 		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
-		const HRESULT result_vertex_buffer = device->CreateBuffer(&buffer_desc, &init_data, &m_vertex_buffer);
+		const HRESULT result_vertex_buffer = device->CreateBuffer(&buffer_desc, &init_data, m_vertex_buffer.ReleaseAndGetAddressOf());
 		if (FAILED(result_vertex_buffer)) {
 			Error("CreateBuffer failed: %ld.", result_vertex_buffer);
 			return result_vertex_buffer;
@@ -83,7 +70,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT FlatMesh::BindBuffers(ID3D11DeviceContext2 *device_context) const {
+	HRESULT FlatMesh::BindBuffers(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		// Set the vertex buffer.
 		UINT stride = sizeof(Vertex);	// The size (in bytes) of the elements that are to be used from a vertex buffer.
 		UINT offset = 0;				// The number of bytes between the first element of a vertex buffer and the first element that will be used.
@@ -92,7 +79,7 @@ namespace mage {
 										// 3. A pointer to an array of vertex buffers.
 										// 4. A pointer to an array of stride values.
 										// 5. A pointer to an array of offset values.
-		device_context->IASetVertexBuffers(0, 1, &m_vertex_buffer, &stride, &offset);
+		device_context->IASetVertexBuffers(0, 1, m_vertex_buffer.GetAddressOf(), &stride, &offset);
 
 		// Bind information about the primitive type, and data order that describes input data for the input assembler stage.
 		device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -100,7 +87,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT FlatMesh::Draw(ID3D11DeviceContext2 *device_context) const {
+	HRESULT FlatMesh::Draw(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		device_context->Draw((UINT)m_nb_vertices, 0);
 		return S_OK;
 	}

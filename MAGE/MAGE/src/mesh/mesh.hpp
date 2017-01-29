@@ -31,7 +31,7 @@ namespace mage {
 		 @param[in]		path
 						A reference to the path of the mesh.
 		*/
-		Mesh(const string &name, const string &path = "./")
+		Mesh(const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH)
 			: Resource(name, path) {}
 
 		/**

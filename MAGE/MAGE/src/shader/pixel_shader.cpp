@@ -22,19 +22,20 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	PixelShader::PixelShader(ComPtr< ID3D11Device2 > device, const wstring &fname) {
+	PixelShader::PixelShader(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path) 
+		: Resource(name, path) {
 
-		const HRESULT result_shader = InitializeShader(device, fname);
+		const HRESULT result_shader = InitializeShader(device);
 		if (FAILED(result_shader)) {
 			Error("Shader initialization failed: %ld.", result_shader);
 		}
 	}
 	
-	HRESULT PixelShader::InitializeShader(ComPtr< ID3D11Device2 > device, const wstring &fname) {
+	HRESULT PixelShader::InitializeShader(ComPtr< ID3D11Device2 > device) {
 
 		// Compile the pixel shader.
 		ComPtr< ID3DBlob > pixel_shader_blob;
-		const HRESULT result_pixel_shader_blob = D3DReadFileToBlob(fname.c_str(), pixel_shader_blob.GetAddressOf());
+		const HRESULT result_pixel_shader_blob = D3DReadFileToBlob(GetFilename().c_str(), pixel_shader_blob.GetAddressOf());
 		if (FAILED(result_pixel_shader_blob)) {
 			Error("D3DReadFileToBlob failed: %ld.", result_pixel_shader_blob);
 			return result_pixel_shader_blob;

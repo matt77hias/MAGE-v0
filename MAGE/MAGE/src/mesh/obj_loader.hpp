@@ -8,6 +8,7 @@
 #include <string>
 namespace mage {
 	using std::string;
+	using std::wstring;
 }
 
 #include <windows.h>
@@ -45,7 +46,7 @@ namespace mage {
 					A reference to the empty index buffer.
 	 @return		A success/error value.
 	 */
-	HRESULT LoadOBJMeshFromFile(const string &fname,
+	HRESULT LoadOBJMeshFromFile(const wstring &fname,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer);
 
 	/**
@@ -72,7 +73,7 @@ namespace mage {
 					A reference to the empty vertex buffer.
 	 @return		A success/error value.
 	 */
-	HRESULT LoadOBJMeshFromFile(const string &fname,
+	HRESULT LoadOBJMeshFromFile(const wstring &fname,
 		vector< Vertex > &vertex_buffer);
 
 	/**

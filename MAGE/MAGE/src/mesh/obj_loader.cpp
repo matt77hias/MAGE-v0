@@ -199,23 +199,23 @@ namespace mage {
 		}
 	}
 
-	HRESULT LoadOBJMeshFromFile(const string &fname,
+	HRESULT LoadOBJMeshFromFile(const wstring &fname,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
 
 		if (!vertex_buffer.empty()) {
-			Error("Could not import .obj file: %s due to non-empty vertex buffer", fname.c_str());
+			Error("Could not import .obj file: %ls due to non-empty vertex buffer", fname.c_str());
 			return E_FAIL;
 		}
 		if (!index_buffer.empty()) {
-			Error("Could not import .obj file: %s due to non-empty index buffer", fname.c_str());
+			Error("Could not import .obj file: %ls due to non-empty index buffer", fname.c_str());
 			return E_FAIL;
 		}
 
 		// Open the .obj file.
 		FILE *file = nullptr;
-		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
+		const errno_t result_fopen_s = _wfopen_s(&file, fname.c_str(), L"r");
 		if (result_fopen_s) {
-			Error("Could not import .obj file: %s", fname.c_str());
+			Error("Could not import .obj file: %ls", fname.c_str());
 			return E_FAIL;
 		}
 
@@ -266,7 +266,7 @@ namespace mage {
 		char current_line[MAX_PATH];
 		uint32_t line_number = 0;
 		// Continue reading from the file until the eof is reached.
-		while (sgets(current_line, _countof(current_line), &input)) {
+		while (str_gets(current_line, _countof(current_line), &input)) {
 			ParseOBJLine(current_line, line_number,
 				vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates,
 				mapping, vertex_buffer, index_buffer);
@@ -332,19 +332,19 @@ namespace mage {
 		}
 	}
 
-	HRESULT LoadOBJMeshFromFile(const string &fname,
+	HRESULT LoadOBJMeshFromFile(const wstring &fname,
 		vector< Vertex > &vertex_buffer) {
 
 		if (!vertex_buffer.empty()) {
-			Error("Could not import .obj file: %s due to non-empty vertex buffer", fname.c_str());
+			Error("Could not import .obj file: %ls due to non-empty vertex buffer", fname.c_str());
 			return E_FAIL;
 		}
 
 		// Open the .obj file.
 		FILE *file = nullptr;
-		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
+		const errno_t result_fopen_s = _wfopen_s(&file, fname.c_str(), L"r");
 		if (result_fopen_s) {
-			Error("Could not import .obj file: %s", fname.c_str());
+			Error("Could not import .obj file: %ls", fname.c_str());
 			return E_FAIL;
 		}
 
@@ -389,7 +389,7 @@ namespace mage {
 		char current_line[MAX_PATH];
 		uint32_t line_number = 0;
 		// Continue reading from the file until the eof is reached.
-		while (sgets(current_line, _countof(current_line), &input)) {
+		while (str_gets(current_line, _countof(current_line), &input)) {
 			ParseOBJLine(current_line, line_number,
 				vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates,
 				vertex_buffer);

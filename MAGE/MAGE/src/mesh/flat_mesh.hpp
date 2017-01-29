@@ -31,36 +31,49 @@ namespace mage {
 		 @param[in]		path
 						A reference to the path of the mesh.
 		 */
-		FlatMesh(ID3D11Device2 *device, const string &name, const string &path = "./");
+		FlatMesh(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH);
 
 		/**
 		 Destructs this flat mesh.
 		 */
-		virtual ~FlatMesh();
+		virtual ~FlatMesh() {}
 
 		size_t GetNbVertices() const {
 			return m_nb_vertices;
 		}
 
-		virtual HRESULT BindBuffers(ID3D11DeviceContext2 *device_context) const override;
+		virtual HRESULT BindBuffers(ComPtr< ID3D11DeviceContext2 > device_context) const override;
 
-		virtual HRESULT Draw(ID3D11DeviceContext2 *device_context) const override;
+		virtual HRESULT Draw(ComPtr< ID3D11DeviceContext2 > device_context) const override;
 
 	protected:
 
-		HRESULT InitializeBuffers(ID3D11Device2 *device);
+		HRESULT InitializeBuffers(ComPtr< ID3D11Device2 > device);
 
-		HRESULT UninitializeBuffers();
-
-		HRESULT SetupVertexBuffer(ID3D11Device2 *device, const Vertex *vertices, size_t nb_vertices);
+		HRESULT SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices);
 
 		size_t m_nb_vertices;
 
-		ID3D11Buffer *m_vertex_buffer;
+		ComPtr< ID3D11Buffer > m_vertex_buffer;
 
 	private:
 
+		/**
+		 Constructs a flat mesh from the given flat mesh.
+
+		 @param[in]		flat_mesh
+						A reference to the flat mesh.
+		 */
 		FlatMesh(const FlatMesh &flat_mesh) = delete;
+
+		/**
+		 Copies the given flat mesh to this flat mesh.
+
+		 @param[in]		flat_mesh
+						A reference to the flat mesh to copy from.
+		 @return		A reference to the copy of the given flat mesh
+						(i.e. this flat mesh).
+		 */
 		FlatMesh &operator=(const FlatMesh &flat_mesh) = delete;
 	};
 }

@@ -85,7 +85,10 @@ namespace mage {
 		 @return		A reference to the copy of the given scene node visitor
 						(i.e. this scene node visitor).
 		 */
-		SceneNodeVisitor &operator=(const SceneNodeVisitor &visitor) = delete;
+		SceneNodeVisitor &operator=(const SceneNodeVisitor &visitor) {
+			m_terminated = visitor.m_terminated;
+			return (*this);
+		}
 
 		/**
 		 Terminates the visit of this visitor. 

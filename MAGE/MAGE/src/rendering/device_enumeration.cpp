@@ -10,6 +10,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_DEFAULT_DISPLAY_SETTINGS_FILE L"DisplaySettings.mage"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -197,7 +206,7 @@ namespace mage {
 		}
 
 		// Load the settings script.
-		m_settings_script = new VariableScript("DisplaySettings.mage");
+		m_settings_script = new VariableScript(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
 
 		// Initialize the adapter and output.
 		const HRESULT result_init_adapter_and_output = InitializeAdapterAndOutput();

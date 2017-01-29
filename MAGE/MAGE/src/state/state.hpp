@@ -84,7 +84,13 @@ namespace mage {
 		 @param[in]		id
 						The id.
 		 */
-		State(uint64_t id = 0) : m_id(id) {}
+		State(uint64_t id = 0) 
+			: m_id(id) {}
+
+		/**
+		 Destructs this state.
+		 */
+		~State() {}
 
 		/**
 		 Returns the id of this state.
@@ -106,14 +112,6 @@ namespace mage {
 		}
 
 	protected:
-
-		/**
-		 Destructs this state.
-
-		 (This destructor is not allowed to be called manually:
-		 Real destruction must take place in State::Close())
-		 */
-		~State() {}
 
 		/**
 		 Loads this state.

@@ -41,6 +41,20 @@ namespace mage {
 		virtual ~Camera() {}
 
 		/**
+		 Copies the given camera to this camera.
+
+		 @param[in]		camera
+						The camera.
+		 */
+		Camera &operator=(const Camera &camera) {
+			m_width = camera.m_width;
+			m_height = camera.m_height;
+			m_near_z = camera.m_near_z;
+			m_far_z = camera.m_far_z;
+			return (*this);
+		}
+
+		/**
 		 Clones this camera.
 
 		 @return		A pointer to the clone of this camera.
@@ -193,20 +207,6 @@ namespace mage {
 		 */
 		Camera(const Camera &camera) 
 			: m_width(camera.m_width), m_height(camera.m_height), m_near_z(camera.m_near_z), m_far_z(camera.m_far_z) {}
-
-		/**
-		 Copies the given camera to this camera.
-
-		 @param[in]		camera
-						The camera.
-		 */
-		Camera &operator=(const Camera &camera) {
-			m_width  = camera.m_width;
-			m_height = camera.m_height;
-			m_near_z = camera.m_near_z;
-			m_far_z  = camera.m_far_z;
-			return (*this);
-		}
 
 	private:
 

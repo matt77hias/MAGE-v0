@@ -1,7 +1,0 @@
-#begin
-windowed bool false
-vsync bool false
-bpp int 0
-resolution int 14
-refresh int 0
-#end

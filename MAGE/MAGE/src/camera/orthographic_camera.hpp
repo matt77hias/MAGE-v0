@@ -56,7 +56,7 @@ namespace mage {
 						The orthographic camera.
 		 */
 		OrthographicCamera &operator=(const OrthographicCamera &orthographic_camera) {
-			Camera::operator=(orthographic_camera);
+			Camera::operator=(static_cast< const Camera & >(orthographic_camera));
 			return (*this);
 		}
 		

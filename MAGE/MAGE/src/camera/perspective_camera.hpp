@@ -60,7 +60,7 @@ namespace mage {
 						The perspective camera.
 		 */
 		PerspectiveCamera &operator=(const PerspectiveCamera &perspective_camera) {
-			Camera::operator=(perspective_camera);
+			Camera::operator=(static_cast< const Camera & >(perspective_camera));
 			return (*this);
 		}
 

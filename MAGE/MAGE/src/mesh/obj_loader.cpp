@@ -66,17 +66,17 @@ namespace mage {
 		return XMFLOAT3(vector3_x, vector3_y, vector3_z);
 	}
 
-	static XMFLOAT3 ParseOBJVertexCoordinates(const char *token) {
-		return ParseOBJFloat3(token);
+	static Point3 ParseOBJVertexCoordinates(const char *token) {
+		return (Point3)ParseOBJFloat3(token);
 	}
 
-	static XMFLOAT3 ParseOBJVertexNormalCoordinates(const char *token) {
+	static Normal3 ParseOBJVertexNormalCoordinates(const char *token) {
 		const XMFLOAT3 vector3 = ParseOBJFloat3(token);
 		const XMVECTOR vector3_v = XMLoadFloat3(&vector3);
 		const XMVECTOR normal3_v = XMVector3Normalize(vector3_v);
 		XMFLOAT3 normal3;
 		XMLoadFloat3(&normal3);
-		return normal3;
+		return (Normal3)normal3;
 	}
 
 	static XMFLOAT2 ParseOBJVertexTextureCoordinates(const char *token) {
@@ -107,10 +107,10 @@ namespace mage {
 	}
 
 	static HRESULT ParseOBJVertex(char **next_token,
-		vector< XMFLOAT3 > &vertex_coordinates) {
+		vector< Point3 > &vertex_coordinates) {
 		
 		const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
-		const XMFLOAT3 vertex = ParseOBJVertexCoordinates(current_token);
+		const Point3 vertex = ParseOBJVertexCoordinates(current_token);
 		vertex_coordinates.push_back(vertex);
 		return S_OK;
 	}
@@ -125,10 +125,10 @@ namespace mage {
 	}
 	
 	static HRESULT ParseOBJVertexNormal(char **next_token,
-		vector< XMFLOAT3 > &vertex_normal_coordinates) {
+		vector< Normal3 > &vertex_normal_coordinates) {
 		
 		const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
-		const XMFLOAT3 normal = ParseOBJVertexNormalCoordinates(current_token);
+		const Normal3 normal = ParseOBJVertexNormalCoordinates(current_token);
 		vertex_normal_coordinates.push_back(normal);
 		return S_OK;
 	}
@@ -138,9 +138,9 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	static HRESULT ParseOBJTriangleFace(char **next_token,
-		vector< XMFLOAT3 > &vertex_coordinates, 
+		vector< Point3 > &vertex_coordinates,
 		vector< XMFLOAT2 > &vertex_texture_coordinates,
-		vector< XMFLOAT3 > &vertex_normal_coordinates,
+		vector< Normal3 > &vertex_normal_coordinates,
 		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > &mapping,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
 		
@@ -157,7 +157,7 @@ namespace mage {
 				Vertex vertex;
 				vertex.p   = vertex_coordinates[vertex_indices.x - 1];
 				vertex.tex = (vertex_indices.y) ? vertex_texture_coordinates[vertex_indices.y - 1] : XMFLOAT2(0.0f, 0.0f);
-				vertex.n   = (vertex_indices.z) ? vertex_normal_coordinates[vertex_indices.z - 1] : XMFLOAT3(0.0f, 0.0f, 0.0f);
+				vertex.n   = (vertex_indices.z) ? vertex_normal_coordinates[vertex_indices.z - 1] : Normal3(0.0f, 0.0f, 0.0f);
 				vertex_buffer.push_back(vertex);
 				mapping[vertex_indices] = index;
 			}
@@ -167,9 +167,9 @@ namespace mage {
 	}
 
 	static HRESULT ParseOBJLine(char *current_line, uint32_t line_number,
-		vector< XMFLOAT3 > &vertex_coordinates,
+		vector< Point3 > &vertex_coordinates,
 		vector< XMFLOAT2 > &vertex_texture_coordinates,
-		vector< XMFLOAT3 > &vertex_normal_coordinates,
+		vector< Normal3 > &vertex_normal_coordinates,
 		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > &mapping,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
 
@@ -220,9 +220,9 @@ namespace mage {
 		}
 
 		// Buffers
-		vector< XMFLOAT3 > vertex_coordinates;
+		vector< Point3 > vertex_coordinates;
 		vector< XMFLOAT2 > vertex_texture_coordinates;
-		vector< XMFLOAT3 > vertex_normal_coordinates;
+		vector< Normal3 > vertex_normal_coordinates;
 		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > mapping;
 		
 		// Parse the .obj file while populating the buffers.
@@ -257,9 +257,9 @@ namespace mage {
 		}
 
 		// Buffers
-		vector< XMFLOAT3 > vertex_coordinates;
+		vector< Point3 > vertex_coordinates;
 		vector< XMFLOAT2 > vertex_texture_coordinates;
-		vector< XMFLOAT3 > vertex_normal_coordinates;
+		vector< Normal3 > vertex_normal_coordinates;
 		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > mapping;
 
 		// Parse the .obj string while populating the buffers.
@@ -282,9 +282,9 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	static HRESULT ParseOBJTriangleFace(char **next_token,
-		vector< XMFLOAT3 > &vertex_coordinates,
+		vector< Point3 > &vertex_coordinates,
 		vector< XMFLOAT2 > &vertex_texture_coordinates,
-		vector< XMFLOAT3 > &vertex_normal_coordinates,
+		vector< Normal3 > &vertex_normal_coordinates,
 		vector< Vertex > &vertex_buffer) {
 
 		for (size_t i = 0; i < 3; ++i) {
@@ -294,7 +294,7 @@ namespace mage {
 			Vertex vertex;
 			vertex.p   = vertex_coordinates[vertex_indices.x - 1];
 			vertex.tex = (vertex_indices.y) ? vertex_texture_coordinates[vertex_indices.y - 1] : XMFLOAT2(0.0f, 0.0f);
-			vertex.n   = (vertex_indices.z) ? vertex_normal_coordinates[vertex_indices.z - 1] : XMFLOAT3(0.0f, 0.0f, 0.0f);
+			vertex.n   = (vertex_indices.z) ? vertex_normal_coordinates[vertex_indices.z - 1] : Normal3(0.0f, 0.0f, 0.0f);
 			vertex_buffer.push_back(vertex);
 		}
 
@@ -302,9 +302,9 @@ namespace mage {
 	}
 
 	static HRESULT ParseOBJLine(char *current_line, uint32_t line_number,
-		vector< XMFLOAT3 > &vertex_coordinates,
+		vector< Point3 > &vertex_coordinates,
 		vector< XMFLOAT2 > &vertex_texture_coordinates,
-		vector< XMFLOAT3 > &vertex_normal_coordinates,
+		vector< Normal3 > &vertex_normal_coordinates,
 		vector< Vertex > &vertex_buffer) {
 
 		char *next_token = nullptr;
@@ -349,9 +349,9 @@ namespace mage {
 		}
 
 		// Buffers
-		vector< XMFLOAT3 > vertex_coordinates;
+		vector< Point3 > vertex_coordinates;
 		vector< XMFLOAT2 > vertex_texture_coordinates;
-		vector< XMFLOAT3 > vertex_normal_coordinates;
+		vector< Normal3 > vertex_normal_coordinates;
 
 		// Parse the .obj file while populating the buffers.
 		char current_line[MAX_PATH];
@@ -381,9 +381,9 @@ namespace mage {
 		}
 
 		// Buffers
-		vector< XMFLOAT3 > vertex_coordinates;
+		vector< Point3 > vertex_coordinates;
 		vector< XMFLOAT2 > vertex_texture_coordinates;
-		vector< XMFLOAT3 > vertex_normal_coordinates;
+		vector< Normal3 > vertex_normal_coordinates;
 
 		// Parse the .obj string while populating the buffers.
 		char current_line[MAX_PATH];

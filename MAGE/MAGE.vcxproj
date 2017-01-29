@@ -40,6 +40,7 @@
     <ClInclude Include="MAGE\src\material\material.hpp" />
     <ClInclude Include="MAGE\src\math\bounding_volume.hpp" />
     <ClInclude Include="MAGE\src\math\coordinate_system.hpp" />
+    <ClInclude Include="MAGE\src\math\math.hpp" />
     <ClInclude Include="MAGE\src\math\transform.hpp" />
     <ClInclude Include="MAGE\src\math\vertex.hpp" />
     <ClInclude Include="MAGE\src\memory\allocation.hpp" />

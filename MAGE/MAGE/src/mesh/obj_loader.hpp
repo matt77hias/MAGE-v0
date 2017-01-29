@@ -13,11 +13,6 @@ namespace mage {
 
 #include <windows.h>
 
-#include <directxmath.h>
-namespace mage {
-	using namespace DirectX;
-}
-
 #pragma endregion
 
 //-----------------------------------------------------------------------------

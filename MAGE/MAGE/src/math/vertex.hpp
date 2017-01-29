@@ -7,10 +7,14 @@
 
 #include <d3d11_2.h>
 
-#include <directxmath.h>
-namespace mage {
-	using namespace DirectX;
-}
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "math\math.hpp"
 
 #pragma endregion
 
@@ -29,7 +33,7 @@ namespace mage {
 		/**
 		 Constructs a vertex.
 		 */
-		Vertex() : p(XMFLOAT3(0.0f, 0.0f, 0.0f)), n(XMFLOAT3(0.0f, 0.0f, 0.0f)), tex(XMFLOAT2(0.0f, 0.0f)) {}
+		Vertex() : p(Point3(0.0f, 0.0f, 0.0f)), n(Normal3(0.0f, 0.0f, 0.0f)), tex(XMFLOAT2(0.0f, 0.0f)) {}
 
 		/**
 		 Constructs a vertex.
@@ -44,17 +48,17 @@ namespace mage {
 		 @param[in]		tex
 						The texture coordinates of the vertex.
 		 */
-		Vertex(XMFLOAT3 p, XMFLOAT3 n, XMFLOAT2 tex) : p(p), n(n), tex(tex) {}
+		Vertex(Point3 p, Normal3 n, XMFLOAT2 tex) : p(p), n(n), tex(tex) {}
 
 		/**
 		 The position of this vertex (in object space).
 		 */
-		XMFLOAT3 p;
+		Point3 p;
 
 		/**
 		 The normal of this vertex.
 		 */
-		XMFLOAT3 n;
+		Normal3 n;
 
 		/**
 		 The texture coordinates of this vertex.
@@ -81,7 +85,7 @@ namespace mage {
 		/**
 		 Constructs a lit vertex.
 		 */
-		LVertex() : p(XMFLOAT3(0.0f, 0.0f, 0.0f)), diffuse(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f)), tex(XMFLOAT2(0.0f, 0.0f)) {}
+		LVertex() : p(Point3(0.0f, 0.0f, 0.0f)), diffuse(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f)), tex(XMFLOAT2(0.0f, 0.0f)) {}
 
 		/**
 		 Constructs a lit vertex.
@@ -93,12 +97,12 @@ namespace mage {
 		 @param[in]		tex
 						The texture coordinate of the lit vertex.
 		 */
-		LVertex(XMFLOAT3 p, XMFLOAT4 diffuse, XMFLOAT2 tex) : p(p), diffuse(diffuse), tex(tex) {}
+		LVertex(Point3 p, XMFLOAT4 diffuse, XMFLOAT2 tex) : p(p), diffuse(diffuse), tex(tex) {}
 
 		/**
 		 The position of this lit vertex (in object space).
 		 */
-		XMFLOAT3 p;
+		Point3 p;
 
 		/**
 		 The diffuse colour of this lit vertex.

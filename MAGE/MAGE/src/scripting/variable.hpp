@@ -10,11 +10,6 @@ namespace mage {
 	using std::string;
 }
 
-#include <directxmath.h>
-namespace mage {
-	using namespace DirectX;
-}
-
 #pragma endregion
 
 //-----------------------------------------------------------------------------
@@ -23,6 +18,7 @@ namespace mage {
 #pragma region
 
 #include "memory\memory.hpp"
+#include "math\math.hpp"
 
 #pragma endregion
 

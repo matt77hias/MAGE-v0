@@ -10,6 +10,11 @@ namespace mage {
 	using namespace DirectX;
 }
 
+#include <iostream>
+namespace mage {
+	using std::ostream;
+}
+
 #pragma endregion
 
 //-----------------------------------------------------------------------------
@@ -25,6 +30,8 @@ namespace mage {
 
 	public:
 
+		Point3()
+			: XMFLOAT3() {}
 		Point3(float x, float y, float z) 
 			: XMFLOAT3(x, y, z) {}
 		Point3(const Point3 &point)
@@ -46,6 +53,8 @@ namespace mage {
 
 	public:
 
+		Direction3()
+			: XMFLOAT3() {}
 		Direction3(float x, float y, float z)
 			: XMFLOAT3(x, y, z) {}
 		Direction3(const Direction3 &direction)
@@ -68,6 +77,8 @@ namespace mage {
 
 	public:
 
+		Normal3()
+			: XMFLOAT3() {}
 		Normal3(float x, float y, float z)
 			: XMFLOAT3(x, y, z) {}
 		Normal3(const Normal3 &normal)
@@ -95,4 +106,14 @@ namespace mage {
 	
 	inline Direction3::Direction3(const Normal3 &normal)
 		: XMFLOAT3(static_cast< const XMFLOAT3 & >(normal)) {}
+
+	inline ostream &operator<<(ostream& os, const XMFLOAT3 &v) {
+		os << '[' << v.x << ' ' << v.y << ' ' << v.z << ']';
+		return os;
+	}
+
+	inline ostream &operator<<(ostream& os, const XMFLOAT4 &v) {
+		os << '[' << v.x << ' ' << v.y << ' ' << v.z << ' ' << v.w << ']';
+		return os;
+	}
 }

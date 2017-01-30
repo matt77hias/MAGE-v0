@@ -52,6 +52,7 @@
     <ClInclude Include="MAGE\src\mesh\mesh_loader.hpp" />
     <ClInclude Include="MAGE\src\mesh\obj_loader.hpp" />
     <ClInclude Include="MAGE\src\parallel\atomic.hpp" />
+    <ClInclude Include="MAGE\src\parallel\id_generator.hpp" />
     <ClInclude Include="MAGE\src\parallel\lock.hpp" />
     <ClInclude Include="MAGE\src\parallel\parallel.hpp" />
     <ClInclude Include="MAGE\src\rendering\device_enumeration.hpp" />
@@ -85,6 +86,7 @@
     <ClCompile Include="MAGE\src\logging\logging.cpp" />
     <ClCompile Include="MAGE\src\logging\progress_reporter.cpp" />
     <ClCompile Include="MAGE\src\logging\timer.cpp" />
+    <ClCompile Include="MAGE\src\math\bounding_volume.cpp" />
     <ClCompile Include="MAGE\src\memory\memory_arena.cpp" />
     <ClCompile Include="MAGE\src\mesh\flat_mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\indexed_mesh.cpp" />

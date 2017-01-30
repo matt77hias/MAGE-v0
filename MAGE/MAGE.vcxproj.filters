@@ -130,6 +130,9 @@
     <Filter Include="Source Files\math">
       <UniqueIdentifier>{bbd248c9-b157-44c4-a8ef-94435c108be9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader Files">
+      <UniqueIdentifier>{edf15e17-27ed-4e39-a6ba-25499d2f4a45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -389,5 +392,16 @@
     <ClCompile Include="MAGE\src\math\bounding_volume.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="MAGE\shaders\effect.fx">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\effect_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\effect_VS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

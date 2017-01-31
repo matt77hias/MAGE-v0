@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\indexed_mesh.hpp"
+#include "mesh\mesh.hpp"
 #include "mesh\mesh_loader.hpp"
 #include "logging\error.hpp"
 
@@ -14,8 +14,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	IndexedMesh::IndexedMesh(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path)
-		: Mesh(name, path), m_nb_vertices(0) {
+	Mesh::Mesh(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path)
+		: Resource(name, path), m_nb_vertices(0) {
 		
 		const HRESULT result_buffers = InitializeBuffers(device);
 		if (FAILED(result_buffers)) {
@@ -23,7 +23,7 @@ namespace mage {
 		}
 	}
 
-	HRESULT IndexedMesh::InitializeBuffers(ComPtr< ID3D11Device2 > device) {
+	HRESULT Mesh::InitializeBuffers(ComPtr< ID3D11Device2 > device) {
 
 		vector< Vertex > vertices;
 		vector< uint32_t > indices;
@@ -50,7 +50,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT IndexedMesh::SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices) {
+	HRESULT Mesh::SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -77,7 +77,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT IndexedMesh::SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices) {
+	HRESULT Mesh::SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -104,7 +104,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT IndexedMesh::BindBuffers(ComPtr< ID3D11DeviceContext2 > device_context) const {
+	HRESULT Mesh::BindBuffers(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		// Set the vertex buffer.
 		UINT stride = sizeof(Vertex);	// The size (in bytes) of the elements that are to be used from a vertex buffer.
 		UINT offset = 0;				// The number of bytes between the first element of a vertex buffer and the first element that will be used.
@@ -127,7 +127,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT IndexedMesh::Draw(ComPtr< ID3D11DeviceContext2 > device_context) const {
+	HRESULT Mesh::Draw(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		device_context->DrawIndexed((UINT)m_nb_vertices, 0, 0);
 		return S_OK;
 	}

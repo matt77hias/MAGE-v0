@@ -261,12 +261,6 @@
     <ClInclude Include="MAGE\src\mesh\obj_loader.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\mesh.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\mesh_loader.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\material\material.hpp">
       <Filter>Header Files\material</Filter>
     </ClInclude>
@@ -282,17 +276,20 @@
     <ClInclude Include="MAGE\src\parallel\parallel.hpp">
       <Filter>Header Files\parallel</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\flat_mesh.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\indexed_mesh.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\math\math.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\parallel\id_generator.hpp">
       <Filter>Header Files\parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\mesh_loader.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\mesh.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\model\model.hpp">
+      <Filter>Header Files\model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -371,17 +368,14 @@
     <ClCompile Include="MAGE\src\parallel\parallel.cpp">
       <Filter>Source Files\parallel</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\flat_mesh.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\indexed_mesh.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\math\bounding_volume.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\math\transform.cpp">
       <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\mesh.cpp">
+      <Filter>Source Files\mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

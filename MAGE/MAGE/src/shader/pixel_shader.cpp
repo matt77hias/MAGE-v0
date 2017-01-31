@@ -1,19 +1,19 @@
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <d3dcompiler.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
 #include "shader\pixel_shader.hpp"
 #include "logging\error.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <d3dcompiler.h>
 
 #pragma endregion
 
@@ -53,5 +53,9 @@ namespace mage {
 		}
 
 		return S_OK;
+	}
+
+	void PixelShader::Update(ComPtr< ID3D11DeviceContext2 > device_context) {
+		device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 	}
 }

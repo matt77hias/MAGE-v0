@@ -1,4 +1,13 @@
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <d3dcompiler.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -9,29 +18,23 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <d3dcompiler.h>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VertexShader::VertexShader(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path)
+	VertexShader::VertexShader(ComPtr< ID3D11Device2 > device, 
+		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, size_t nb_input_elements,
+		const wstring &name, const wstring &path)
 		: Resource(name, path) {
 
-		const HRESULT result_shader = InitializeShader(device);
+		const HRESULT result_shader = InitializeShader(device, input_element_desc, nb_input_elements);
 		if (FAILED(result_shader)) {
 			Error("Shader initialization failed: %ld.", result_shader);
 		}
 	}
 
-	HRESULT VertexShader::InitializeShader(ComPtr< ID3D11Device2 > device) {
+	HRESULT VertexShader::InitializeShader(ComPtr< ID3D11Device2 > device, 
+		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, size_t nb_input_elements) {
 
 		// Compile the vertex shader.
 		ComPtr< ID3DBlob > vertex_shader_blob;
@@ -52,6 +55,61 @@ namespace mage {
 			return result_vertex_shader;
 		}
 
+		// Create the ID3D11InputLayout.
+		// 1. An array of the input-assembler stage input data types; each type is described by an element description.
+		// 2. The number of input-data types in the array of input-elements.
+		// 3. A pointer to the compiled shader.
+		// 4. The size of the compiled shader.
+		// 5. A pointer to the input-layout object created
+		const HRESULT result_vertex_layout = device->CreateInputLayout(input_element_desc, nb_input_elements, vertex_shader_blob->GetBufferPointer(), vertex_shader_blob->GetBufferSize(), m_vertex_layout.ReleaseAndGetAddressOf());
+		if (FAILED(result_vertex_layout)) {
+			Error("InputLayout creation failed: %ld.", result_vertex_shader);
+			return result_vertex_layout;
+		}
+
 		return S_OK;
+	}
+
+	HRESULT VertexShader::SetupBuffers(ComPtr< ID3D11Device2 > device) {
+		// Describe the buffer resource.
+		D3D11_BUFFER_DESC buffer_desc;
+		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
+		buffer_desc.Usage          = D3D11_USAGE_DEFAULT;	         // How the buffer is expected to be read from and written to.
+		buffer_desc.BindFlags      = D3D11_BIND_CONSTANT_BUFFER;     // How the buffer will be bound to the pipeline.
+		buffer_desc.CPUAccessFlags = 0;						         // No CPU access is necessary.
+
+		buffer_desc.ByteWidth      = sizeof(CameraTransformBuffer);	 // Size of the buffer in bytes.
+		
+																	 // Create the index buffer.
+		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
+		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
+		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
+		const HRESULT result_cb_camera = device->CreateBuffer(&buffer_desc, nullptr, m_cb_camera.ReleaseAndGetAddressOf());
+		if (FAILED(result_cb_camera)) {
+			return result_cb_camera;
+		}
+
+		buffer_desc.ByteWidth       = sizeof(CameraTransformBuffer);// Size of the buffer in bytes.
+		
+		// Create the index buffer.
+		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
+		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
+		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
+		const HRESULT result_cb_model = device->CreateBuffer(&buffer_desc, nullptr, m_cb_model.ReleaseAndGetAddressOf());
+		if (FAILED(result_cb_model)) {
+			return result_cb_model;
+		}
+
+		return S_OK;
+	}
+
+	void VertexShader::Update(ComPtr< ID3D11DeviceContext2 > device_context, 
+		CameraTransformBuffer camera, ModelTransformBuffer model) {
+		device_context->IASetInputLayout(m_vertex_layout.Get());
+		device_context->UpdateSubresource(m_cb_camera.Get(), 0, nullptr, &camera, 0, 0);
+		device_context->UpdateSubresource(m_cb_model.Get(), 0, nullptr, &model, 0, 0);
+		device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
+		device_context->VSSetConstantBuffers(0, 1, &m_cb_camera);
+		device_context->VSSetConstantBuffers(1, 1, &m_cb_model);
 	}
 }

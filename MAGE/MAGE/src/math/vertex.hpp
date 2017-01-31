@@ -64,12 +64,14 @@ namespace mage {
 		 The texture coordinates of this vertex.
 		 */
 		XMFLOAT2 tex;
+
+		/**
+		 The input element descriptor for a vertex.
+		 */
+		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[];
 	};
 
-	/**
-	 The input element descriptor for a Vertex.
-	 */
-	const D3D11_INPUT_ELEMENT_DESC vertex_input_element_desc[] = {
+	const D3D11_INPUT_ELEMENT_DESC Vertex::input_element_desc[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, UINT(offsetof(Vertex, p)),   D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "NORMAL",	  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, UINT(offsetof(Vertex, n)),   D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, UINT(offsetof(Vertex, tex)), D3D11_INPUT_PER_VERTEX_DATA, 0 }
@@ -113,12 +115,14 @@ namespace mage {
 		 The texture coordinates of this lit vertex.
 		 */
 		XMFLOAT2 tex;
+
+		/**
+		 The input element descriptor for a lit vertex.
+		 */
+		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[];
 	};
 
-	/**
-	 The input element descriptor for a LVertex.
-	 */
-	const D3D11_INPUT_ELEMENT_DESC lvertex_input_element_desc[] = {
+	const D3D11_INPUT_ELEMENT_DESC LVertex::input_element_desc[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, UINT(offsetof(LVertex, p)),       D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "DIFFUSE",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(LVertex, diffuse)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,       0, UINT(offsetof(LVertex, tex)),     D3D11_INPUT_PER_VERTEX_DATA, 0 }
@@ -162,12 +166,17 @@ namespace mage {
 		 The texture coordinates of this transformed and lit vertex.
 		 */
 		XMFLOAT2 tex;
+
+		/**
+		 The input element descriptor for a transformed and lit vertex.
+		 */
+		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[];
 	};
 
-	/** 
-	 The input element descriptor for a TLVertex
+	/**
+	 The input element descriptor for a transformed and lit vertex.
 	 */
-	const D3D11_INPUT_ELEMENT_DESC tlvertex_input_element_desc[] = {
+	const D3D11_INPUT_ELEMENT_DESC TLVertex::input_element_desc[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(TLVertex, p)),       D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "DIFFUSE",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(TLVertex, diffuse)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,       0, UINT(offsetof(TLVertex, tex)),     D3D11_INPUT_PER_VERTEX_DATA, 0 }

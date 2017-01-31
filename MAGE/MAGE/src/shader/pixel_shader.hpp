@@ -35,6 +35,8 @@ namespace mage {
 
 		PixelShader(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH);
 		virtual ~PixelShader() {}
+		
+		void Update(ComPtr< ID3D11DeviceContext2 > device_context);
 
 	protected:
 

@@ -1,8 +1,8 @@
 //--------------------------------------------------------------------------------------
 // Constant buffers
 //--------------------------------------------------------------------------------------
-Texture2D diffuse_texture : register(t0);
-SamplerState linear_sample : register(s0);
+//Texture2D diffuse_texture : register(t0);
+//SamplerState linear_sample : register(s0);
 
 cbuffer cb_camera : register(b0) {
 	matrix world_to_view;
@@ -43,5 +43,6 @@ PS_INPUT VS(VS_INPUT input) {
 // Pixel Shader
 //-----------------------------------------------------------------------------
 float4 PS(PS_INPUT input) : SV_Target{
-	return diffuse_texture.Sample(linear_sample, input.tex);
+	//return diffuse_texture.Sample(linear_sample, input.tex);
+	return float4(1.0f, 1.0f, 0.0f, 1.0f);
 }

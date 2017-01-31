@@ -5,7 +5,7 @@ an_integer int 5
 a_float float 5.001000
 a_float3 float3 1.010000 2.020000 3.030000
 a_float4 float4 4.010000 5.020000 6.030000 7.040000
-a_colour colour 8.010000 9.020000 10.030000 11.040000
+a_color color 8.010000 9.020000 10.030000 11.040000
 a_string string "test"
 an_unknown unknown abc123
 #end

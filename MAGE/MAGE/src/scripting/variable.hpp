@@ -31,7 +31,7 @@ namespace mage {
 
 	typedef XMFLOAT3 float3;
 	typedef XMFLOAT4 float4;
-	typedef XMFLOAT4 colour;
+	typedef XMFLOAT4 color;
 
 }
 
@@ -51,7 +51,7 @@ namespace mage {
 		FloatType,
 		Float3Type,
 		Float4Type,
-		ColourType,
+		ColorType,
 		StringType,
 		UnknownType
 	};

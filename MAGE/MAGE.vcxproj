@@ -61,9 +61,6 @@
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
-    <ClInclude Include="MAGE\src\scene\camera_node.hpp" />
-    <ClInclude Include="MAGE\src\scene\scene_node.hpp" />
-    <ClInclude Include="MAGE\src\scene\scene_node_visitor.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
     <ClInclude Include="MAGE\src\shader\pixel_shader.hpp" />
@@ -87,6 +84,7 @@
     <ClCompile Include="MAGE\src\logging\progress_reporter.cpp" />
     <ClCompile Include="MAGE\src\logging\timer.cpp" />
     <ClCompile Include="MAGE\src\math\bounding_volume.cpp" />
+    <ClCompile Include="MAGE\src\math\transform.cpp" />
     <ClCompile Include="MAGE\src\memory\memory_arena.cpp" />
     <ClCompile Include="MAGE\src\mesh\flat_mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\indexed_mesh.cpp" />
@@ -97,7 +95,6 @@
     <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
-    <ClCompile Include="MAGE\src\scene\scene_node.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
     <ClCompile Include="MAGE\src\shader\pixel_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />

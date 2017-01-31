@@ -152,9 +152,9 @@ namespace mage {
 			value->w = strtof(buffer, nullptr);
 			AddVariable(name, Float4Type, value);
 		}
-		else if (str_equals(buffer, "colour")) {
-			// The variable is a colour.
-			colour *value = new colour();
+		else if (str_equals(buffer, "color")) {
+			// The variable is a color.
+			color *value = new color();
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
 			value->x = strtof(buffer, nullptr);
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
@@ -163,7 +163,7 @@ namespace mage {
 			value->z = strtof(buffer, nullptr);
 			fscanf_s(file, "%s", buffer, (unsigned int)_countof(buffer));
 			value->w = strtof(buffer, nullptr);
-			AddVariable(name, ColourType, value);
+			AddVariable(name, ColorType, value);
 		}
 		else if (str_equals(buffer, "string")) {
 			// The variable is a string.
@@ -272,9 +272,9 @@ namespace mage {
 			sprintf_s(output, (unsigned int)_countof(output), "%s float4 %f %f %f %f", name, value->x, value->y, value->z, value->w);
 			break;
 		}
-		case ColourType: {
-			const colour *value = (colour *)raw_value;
-			sprintf_s(output, (unsigned int)_countof(output), "%s colour %f %f %f %f", name, value->x, value->y, value->z, value->w);
+		case ColorType: {
+			const color *value = (color *)raw_value;
+			sprintf_s(output, (unsigned int)_countof(output), "%s color %f %f %f %f", name, value->x, value->y, value->z, value->w);
 			break;
 		}
 		case StringType: {

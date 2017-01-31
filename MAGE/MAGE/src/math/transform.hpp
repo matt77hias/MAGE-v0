@@ -6,6 +6,7 @@
 #pragma region
 
 #include "math\coordinate_system.hpp"
+#include "collection\collection.hpp"
 
 #pragma endregion
 
@@ -34,19 +35,7 @@ namespace mage {
 		 @param[in]		coordinate_system
 						The local Cartesian coordinate system.
 		 */
-		Transform(const CartesianCoordinateSystem &coordinate_system)
-			: m_scale(XMFLOAT3(1.0f, 1.0f, 1.0f)) {
-			
-			// Calculate translation components.
-			const XMVECTOR translation_v = coordinate_system.GetOrigin();
-			XMStoreFloat3(&m_translation, translation_v);
-
-			// Calculate rotation components.
-			const float rotation_x = acosf(XMVectorGetByIndex(coordinate_system.GetAxisX(), 0));
-			const float rotation_y = acosf(XMVectorGetByIndex(coordinate_system.GetAxisY(), 1));
-			const float rotation_z = acosf(XMVectorGetByIndex(coordinate_system.GetAxisZ(), 2));
-			m_rotation = XMFLOAT3(rotation_x, rotation_y, rotation_z);
-		}
+		Transform(const CartesianCoordinateSystem &coordinate_system);
 		
 		/**
 		 Constructs a transform from the given translation, rotation and scale component.
@@ -59,47 +48,56 @@ namespace mage {
 						The scale component.
 		 */
 		Transform(const XMFLOAT3 &translation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &rotation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &scale = { 1.0f, 1.0f, 1.0f })
-			: m_translation(translation), m_rotation(rotation), m_scale(scale) {}
+			: m_translation(translation), m_rotation(rotation), m_scale(scale), m_parent(nullptr) {
+			Update();
+		}
 		
 		/**
-		 Constructs a transform from the given transform.
+		 Constructs a transform from the given transform (non-deep copy).
 
 		 @param[in]		transform
 						The transform.
 		 */
-		Transform(const Transform &transform)
-			: m_translation(transform.m_translation), m_rotation(transform.m_rotation), m_scale(transform.m_scale) {}
+		Transform(const Transform &transform);
 
 		/**
 		 Destructs this transform.
 		 */
-		~Transform() {}
+		~Transform();
 		
 		/**
-		 Copies the given transform to this transform.
+		 Copies (non-deep copy) the given transform to this transform.
 
 		 @param[in]		transform
 						The transform to copy from.
 		 @return		A reference to the copy of the given transform
 						(i.e. this transform).
 		 */
-		Transform &operator=(const Transform &transform) {
-			m_translation = transform.GetTranslation();
-			m_rotation    = transform.GetRotation();
-			m_scale       = transform.GetScale();
-			return (*this);
-		}
+		Transform &operator=(const Transform &transform);
+
+		/**
+		 Returns a non-deep clone of this transform.
+
+		 @return		A pointer to a non-deep clone of this transform.
+		 */
+		Transform *Transform::Clone() const;
+
+		/**
+		 Returns a deep clone of this transform.
+
+		 @return		A pointer to a deep clone of this transform.
+		 */
+		Transform *Transform::DeepClone() const;
 
 		/**
 		 Sets the x-value of the translation component of this transform to the given value.
 
 		 @param[in]		x
 						The x-value of the translation component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetTranslationX(float x) {
+		void SetTranslationX(float x) {
 			m_translation.x = x;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -107,11 +105,10 @@ namespace mage {
 
 		 @param[in]		y
 						The y-value of the translation component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetTranslationY(float y) {
+		void SetTranslationY(float y) {
 			m_translation.y = y;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -119,11 +116,10 @@ namespace mage {
 
 		 @param[in]		z
 						The z-value of the translation component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetTranslationZ(float z) {
+		void SetTranslationZ(float z) {
 			m_translation.z = z;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -135,13 +131,12 @@ namespace mage {
 						The y-value of the translation component.
 		 @param[in]		z
 						The z-value of the translation component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetTranslation(float x, float y, float z) {
+		void SetTranslation(float x, float y, float z) {
 			m_translation.x = x;
 			m_translation.y = y;
 			m_translation.z = z;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -149,13 +144,12 @@ namespace mage {
 
 		 @param[in]		translation
 						A reference to the translation component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetTranslation(const XMFLOAT3 &translation) {
+		void SetTranslation(const XMFLOAT3 &translation) {
 			m_translation.x = translation.x;
 			m_translation.y = translation.y;
 			m_translation.z = translation.z;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -166,6 +160,7 @@ namespace mage {
 		 */
 		void AddTranslationX(float x) {
 			m_translation.x += x;
+			Update();
 		}
 		
 		/**
@@ -176,6 +171,7 @@ namespace mage {
 		 */
 		void AddTranslationY(float y) {
 			m_translation.y += y;
+			Update();
 		}
 		
 		/**
@@ -186,6 +182,7 @@ namespace mage {
 		 */
 		void AddTranslationZ(float z) {
 			m_translation.z += z;
+			Update();
 		}
 		
 		/**
@@ -202,6 +199,7 @@ namespace mage {
 			m_translation.x += x;
 			m_translation.y += y;
 			m_translation.z += z;
+			Update();
 		}
 		
 		/**
@@ -214,6 +212,7 @@ namespace mage {
 			m_translation.x += translation.x;
 			m_translation.y += translation.y;
 			m_translation.z += translation.z;
+			Update();
 		}
 		
 		/**
@@ -266,11 +265,10 @@ namespace mage {
 
 		 @param[in]		x
 						The x-value of the rotation component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetRotationX(float x) {
+		void SetRotationX(float x) {
 			m_rotation.x = x;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -278,11 +276,10 @@ namespace mage {
 
 		 @param[in]		y
 						The y-value of the rotation component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetRotationY(float y) {
+		void SetRotationY(float y) {
 			m_rotation.y = y;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -290,11 +287,10 @@ namespace mage {
 
 		 @param[in]		z
 						The z-value of the rotation component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetRotationZ(float z) {
+		void SetRotationZ(float z) {
 			m_rotation.z = z;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -306,13 +302,12 @@ namespace mage {
 						 The y-value of the rotation component.
 		 @param[in]		z
 						The z-value of the rotation component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetRotation(float x, float y, float z) {
+		void SetRotation(float x, float y, float z) {
 			m_rotation.x = x;
 			m_rotation.y = y;
 			m_rotation.z = z;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -320,13 +315,12 @@ namespace mage {
 
 		 @param[in]		rotation
 						A reference to the rotation component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetRotation(const XMFLOAT3 &rotation) {
+		void SetRotation(const XMFLOAT3 &rotation) {
 			m_rotation.x = rotation.x;
 			m_rotation.y = rotation.y;
 			m_rotation.z = rotation.z;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -336,9 +330,8 @@ namespace mage {
 						A reference to the normal.
 		 @param[in]		angle
 						The angle.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetRotationAroundDirection(const XMVECTOR &normal, float angle) {
+		void SetRotationAroundDirection(const XMVECTOR &normal, float angle) {
 			const XMMATRIX rotation_m = XMMatrixRotationNormal(normal, angle);
 			XMFLOAT4X4 rotation;
 			XMStoreFloat4x4(&rotation, rotation_m);
@@ -351,7 +344,7 @@ namespace mage {
 			const float cy = rotation._33 / cp;
 			m_rotation.x = acosf(cy);
 
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -362,6 +355,7 @@ namespace mage {
 		 */
 		void AddRotationX(float x) {
 			m_rotation.x += x;
+			Update();
 		}
 		
 		/**
@@ -372,6 +366,7 @@ namespace mage {
 		 */
 		void AddRotationY(float y) {
 			m_rotation.y += y;
+			Update();
 		}
 		
 		/**
@@ -382,6 +377,7 @@ namespace mage {
 		 */
 		void AddRotationZ(float z) {
 			m_rotation.z += z;
+			Update();
 		}
 		
 		/**
@@ -398,6 +394,7 @@ namespace mage {
 			m_rotation.x += x;
 			m_rotation.y += y;
 			m_rotation.z += z;
+			Update();
 		}
 		
 		/**
@@ -410,6 +407,7 @@ namespace mage {
 			m_rotation.x += rotation.x;
 			m_rotation.y += rotation.y;
 			m_rotation.z += rotation.z;
+			Update();
 		}
 		
 		/**
@@ -462,11 +460,10 @@ namespace mage {
 
 		 @param[in]		x
 						The x-value of the scale component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetScaleX(float x) {
+		void SetScaleX(float x) {
 			m_scale.x = x;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -474,11 +471,10 @@ namespace mage {
 
 		 @param[in]		y
 						The y-value of the scale component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetScaleY(float y) {
+		void SetScaleY(float y) {
 			m_scale.y = y;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -486,11 +482,10 @@ namespace mage {
 
 		 @param[in]		z
 						The z-value of the scale component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetScaleZ(float z) {
+		void SetScaleZ(float z) {
 			m_scale.z = z;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -502,13 +497,12 @@ namespace mage {
 						The y-value of the scale component.
 		 @param[in]		z
 						The z-value of the scale component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetScale(float x, float y, float z) {
+		void SetScale(float x, float y, float z) {
 			m_scale.x = x;
 			m_scale.y = y;
 			m_scale.z = z;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -516,13 +510,12 @@ namespace mage {
 
 		 @param[in]		scale
 						A reference to the scale component.
-		 @return		A reference to this transform.
 		 */
-		Transform &SetScale(const XMFLOAT3 &scale) {
+		void SetScale(const XMFLOAT3 &scale) {
 			m_scale.x = scale.x;
 			m_scale.y = scale.y;
 			m_scale.z = scale.z;
-			return (*this);
+			Update();
 		}
 		
 		/**
@@ -533,6 +526,7 @@ namespace mage {
 		 */
 		void AddScaleX(float x) {
 			m_scale.x += x;
+			Update();
 		}
 		
 		/**
@@ -543,6 +537,7 @@ namespace mage {
 		 */
 		void AddScaleY(float y) {
 			m_scale.y += y;
+			Update();
 		}
 		
 		/**
@@ -553,6 +548,7 @@ namespace mage {
 		 */
 		void AddScaleZ(float z) {
 			m_scale.z += z;
+			Update();
 		}
 		
 		/**
@@ -569,6 +565,7 @@ namespace mage {
 			m_scale.x += x;
 			m_scale.y += y;
 			m_scale.z += z;
+			Update();
 		}
 		
 		/**
@@ -581,6 +578,7 @@ namespace mage {
 			m_scale.x += scale.x;
 			m_scale.y += scale.y;
 			m_scale.z += scale.z;
+			Update();
 		}
 		
 		/**
@@ -629,77 +627,149 @@ namespace mage {
 		}
 
 		/**
-		 Returns the direction of the local x-axis of this transform expressed in local space coordinates.
+		 Returns the position of the local origin of this transform expressed in object space coordinates.
 
-		 @return		The direction of the local x-axis of this transform expressed in local space coordinates.
+		 @return		The position of the local origin of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetLocalAxisX() const {
+		XMVECTOR GetObjectOrigin() const {
+			return XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
+		}
+
+		/**
+		 Returns the direction of the local x-axis of this transform expressed in object space coordinates.
+
+		 @return		The direction of the local x-axis of this transform expressed in object space coordinates.
+		 */
+		XMVECTOR GetObjectAxisX() const {
 			return XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
 		}
 		
 		/**
-		 Returns the direction of the local y-axis of this transform expressed in local space coordinates.
+		 Returns the direction of the local y-axis of this transform expressed in object space coordinates.
 
-		 @return		The direction of the local y-axis of this transform expressed in local space coordinates.
+		 @return		The direction of the local y-axis of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetLocalAxisY() const {
+		XMVECTOR GetObjectAxisY() const {
 			return XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 		}
 		
 		/**
-		 Returns the direction of the local z-axis of this transform expressed in local space coordinates.
+		 Returns the direction of the local z-axis of this transform expressed in object space coordinates.
 
-		 @return		The direction of the local z-axis of this transform expressed in local space coordinates.
+		 @return		The direction of the local z-axis of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetLocalAxisZ() const {
+		XMVECTOR GetObjectAxisZ() const {
 			return XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
 		}
 		
 		/**
-		 Returns the local Cartesian axes system of this transform in local space coordinates.
+		 Returns the local Cartesian axes system of this transform in object space coordinates.
 
-		 @return		The local Cartesian axes system of this transform expressed in local space coordinates.
+		 @return		The local Cartesian axes system of this transform expressed in object space coordinates.
 		 */
-		CartesianAxesSystem GetLocalAxes() const {
-			return CartesianAxesSystem(GetLocalAxisX(), GetLocalAxisY(), GetLocalAxisZ());
+		CartesianAxesSystem GetObjectAxes() const {
+			return CartesianAxesSystem(GetObjectAxisX(), GetObjectAxisY(), GetObjectAxisZ());
 		}
 		
 		/**
-		 Returns the local Cartesian coordinate system of this transform in local space coordinates.
+		 Returns the local Cartesian coordinate system of this transform in object space coordinates.
 
-		 @return		The local Cartesian coordinate system of this transform expressed in local space coordinates.
+		 @return		The local Cartesian coordinate system of this transform expressed in object space coordinates.
 		 */
-		CartesianCoordinateSystem GetLocalCoordinateSystem() const {
-			return CartesianCoordinateSystem(GetLocalAxes());
+		CartesianCoordinateSystem GetObjectCoordinateSystem() const {
+			return CartesianCoordinateSystem(GetObjectOrigin(), GetObjectAxes());
 		}
 		
+		/**
+		 Returns the position of the local origin of this transform expressed in parent space coordinates.
+
+		 @return		The position of the local origin of this transform expressed in parent space coordinates.
+		 */
+		XMVECTOR GetParentOrigin() const {
+			return XMLoadFloat3(&m_translation);
+		}
+
+		/**
+		 Returns the direction of the local x-axis of this transform expressed in parent space coordinates.
+
+		 @return		The direction of the local x-axis of this transform expressed in parent space coordinates.
+		 */
+		XMVECTOR GetParentAxisX() const {
+			return TransformObjectToParentDirection(GetObjectAxisX());
+		}
+		
+		/**
+		 Returns the direction of the local y-axis of this transform expressed in parent space coordinates.
+
+		 @return		The direction of the local y-axis of this transform expressed in parent space coordinates.
+		 */
+		XMVECTOR GetParentAxisY() const {
+			return TransformObjectToParentDirection(GetObjectAxisY());
+		}
+		
+		/**
+		 Returns the direction of the local z-axis of this transform expressed in parent space coordinates.
+
+		 @return		The direction of the local z-axis of this transform expressed in parent space coordinates.
+		 */
+		XMVECTOR GetParentAxisZ() const {
+			return TransformObjectToParentDirection(GetObjectAxisZ());
+		}
+		
+		/**
+		 Returns the local Cartesian axes system of this transform expressed in parent space coordinates.
+
+		 @return		The local Cartesian axes system of this transform expressed in parent space coordinates.
+		 */
+		CartesianAxesSystem GetParentAxes() const {
+			return CartesianAxesSystem(GetParentAxisX(), GetParentAxisY(), GetParentAxisZ());
+		}
+		
+		/**
+		 Returns the local Cartesian coordinate system of this transform in parent space coordinates.
+
+		 @return		The local Cartesian coordinate system of this transform expressed in parent space coordinates.
+		 */
+		CartesianCoordinateSystem GetParentCoordinateSystem() const {
+			return CartesianCoordinateSystem(GetParentOrigin(), GetParentAxes());
+		}
+
+		/**
+		 Returns the position of the local origin of this transform expressed in world space coordinates.
+
+		 @return		The position of the local origin of this transform expressed in world space coordinates.
+		 */
+		XMVECTOR GetWorldOrigin() const {
+			return TransformObjectToWorld(GetObjectOrigin());
+		}
+
 		/**
 		 Returns the direction of the local x-axis of this transform expressed in world space coordinates.
 
 		 @return		The direction of the local x-axis of this transform expressed in world space coordinates.
 		 */
 		XMVECTOR GetWorldAxisX() const {
-			return TransformObjectToWorldDirection(XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f));
+			return TransformObjectToWorld(GetObjectAxisX());
 		}
-		
+
 		/**
 		 Returns the direction of the local y-axis of this transform expressed in world space coordinates.
 
 		 @return		The direction of the local y-axis of this transform expressed in world space coordinates.
 		 */
 		XMVECTOR GetWorldAxisY() const {
-			return TransformObjectToWorldDirection(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
+			return TransformObjectToWorld(GetObjectAxisY());
 		}
-		
+
 		/**
 		 Returns the direction of the local z-axis of this transform expressed in world space coordinates.
 
 		 @return		The direction of the local z-axis of this transform expressed in world space coordinates.
 		 */
 		XMVECTOR GetWorldAxisZ() const {
-			return TransformObjectToWorldDirection(XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
+			return TransformObjectToWorld(GetObjectAxisZ());
 		}
-		
+
 		/**
 		 Returns the local Cartesian axes system of this transform expressed in world space coordinates.
 
@@ -708,44 +778,61 @@ namespace mage {
 		CartesianAxesSystem GetWorldAxes() const {
 			return CartesianAxesSystem(GetWorldAxisX(), GetWorldAxisY(), GetWorldAxisZ());
 		}
-		
+
 		/**
 		 Returns the local Cartesian coordinate system of this transform in world space coordinates.
 
 		 @return		The local Cartesian coordinate system of this transform expressed in world space coordinates.
 		 */
 		CartesianCoordinateSystem GetWorldCoordinateSystem() const {
-			const XMVECTOR origin = XMLoadFloat3(&m_translation);
-			return CartesianCoordinateSystem(origin, GetWorldAxes());
+			return CartesianCoordinateSystem(GetWorldOrigin(), GetWorldAxes());
 		}
 
 		/**
-		 Returns the local left direction of this transform expressed in local space coordinates.
+		 Returns the local eye position of this transform expressed in object space coordinates.
 
-		 @return		The local left direction of this transform expressed in local space coordinates.
+		 @return		The local eye position of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetLocalLeft() const {
-			return GetLocalAxisX();
+		XMVECTOR GetObjectEye() const {
+			return GetObjectOrigin();
+		}
+
+		/**
+		 Returns the local left direction of this transform expressed in object space coordinates.
+
+		 @return		The local left direction of this transform expressed in object space coordinates.
+		 */
+		XMVECTOR GetObjectLeft() const {
+			return GetObjectAxisX();
 		}
 		
 		/**
-		 Returns the local up direction of this transform expressed in local space coordinates.
+		 Returns the local up direction of this transform expressed in object space coordinates.
 
-		 @return		The local up direction of this transform expressed in local space coordinates.
+		 @return		The local up direction of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetLocalUp() const {
-			return GetLocalAxisY();
+		XMVECTOR GetObjectUp() const {
+			return GetObjectAxisY();
 		}
 		
 		/**
-		 Returns the local forward direction of this transform expressed in local space coordinates.
+		 Returns the local forward direction of this transform expressed in object space coordinates.
 
-		 @return		The local forward direction of this transform expressed in local space coordinates.
+		 @return		The local forward direction of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetLocalForward() const {
-			return GetLocalAxisZ();
+		XMVECTOR GetObjectForward() const {
+			return GetObjectAxisZ();
 		}
 		
+		/**
+		 Returns the local eye position of this transform expressed in world space coordinates.
+
+		 @return		The local eye position of this transform expressed in world space coordinates.
+		 */
+		XMVECTOR GetWorldEye() const {
+			return GetWorldOrigin();
+		}
+
 		/**
 		 Returns the local left direction of this transform expressed in world space coordinates.
 
@@ -774,30 +861,102 @@ namespace mage {
 		}
 		
 		/**
+		 Returns the parent-to-object matrix of this transform.
+
+		 @return		The parent-to-object matrix of this transform.
+		 */
+		XMMATRIX GetParentToObjectMatrix() const {
+			return GetTranslationMatrix() * GetRotationMatrix() * GetScaleMatrix();
+		}
+		
+		/**
+		 Returns the object-to-parent matrix of this transform.
+
+		 @return		The object-to-parent matrix of this transform.
+		 */
+		XMMATRIX GetObjectToParentMatrix() const {
+			return GetInverseScaleMatrix() * GetInverseRotationMatrix() * GetInverseTranslationMatrix();
+		}
+
+		/**
 		 Returns the world-to-object matrix of this transform.
 
 		 @return		The world-to-object matrix of this transform.
 		 */
 		XMMATRIX GetWorldToObjectMatrix() const {
-			return GetTranslationMatrix() * GetRotationMatrix() * GetScaleMatrix();
+			return m_world_to_object;
 		}
-		
+
 		/**
 		 Returns the object-to-world matrix of this transform.
 
 		 @return		The object-to-world matrix of this transform.
 		 */
 		XMMATRIX GetObjectToWorldMatrix() const {
-			return GetInverseScaleMatrix() * GetInverseRotationMatrix() * GetInverseTranslationMatrix();
+			return m_object_to_world;
+		}
+		
+		/**
+		 Returns the parent-to-view matrix of this transform.
+
+		 @return		The parent-to-view matrix of this transform.
+		 @note			Transforms for cameras should not contain scaling components.
+		 */
+		XMMATRIX GetWorldToViewMatrix() const {
+			return m_world_to_object;
 		}
 
 		/**
-		 Returns the world-to-view matrix of this transform.
+		 Returns the parent transform of this transform.
 
-		 @return		The world-to-view matrix of this transform.
+		 @return		@c nullptr if this transform has no parent transform
+						(i.e. this transform is a root transform).
+		 @return		A pointer to the parent transform of this transform.
 		 */
-		XMMATRIX GetWorldToViewMatrix() const {
-			return GetTranslationMatrix() * GetRotationMatrix();
+		Transform *GetParent() const {
+			return m_parent;
+		}
+
+		/**
+		 Checks whether this transform contains the given transform as a child transform.
+
+		 @return		@c true if this transform contains the given transform as a child transform.
+						@c false otherwise.
+		 */
+		bool ContainsChild(const Transform *child) const {
+			return m_childs.find(child) != m_childs.cend();
+		}
+
+		/**
+		 Adds the given child transform to the child transforms of this transform.
+		 If the given child transform has already a parent transform, it is removed
+		 from that transform since transforms may only have at most one parent transform.
+
+		 @param[in]		child
+						A pointer to the child transform.
+		 */
+		void AddChild(Transform *child);
+
+		/**
+		 Removes the given child transform from the child transforms of this transform.
+
+		 @param[in]		child
+						A pointer to the child transform.
+		 */
+		void RemoveChild(Transform *child);
+
+		/**
+		 Removes and destructs all child transforms of this transform.
+		 */
+		void RemoveAllChilds();
+
+		/**
+		 Returns the total number of child transforms of this transform.
+
+		 @return		The total number of child transforms of this transform.
+		 */
+		size_t GetNbOfChilds() const {
+			return m_childs.size();
 		}
 
 	private:
@@ -830,18 +989,44 @@ namespace mage {
 		}
 
 		/**
-		 Transforms the given direction expressed in the local coordinate space
-		 of this transform to world coordinate space.
+		 Transforms the given direction expressed in object space coordinates to parent space coordinates.
 
 		 @param[in]		direction
-						A reference to the direction expressed in the local coordinate space
-						of this transform.
-		 @return		The transformed (normalized) direction expressed in world coordinate space.
+						A reference to the direction expressed in object space coordinates.
+		 @return		The transformed (normalized) direction expressed in parent space coordinates.
 		 */
-		XMVECTOR TransformObjectToWorldDirection(const XMVECTOR &direction) const {
+		XMVECTOR TransformObjectToParentDirection(const XMVECTOR &direction) const {
 			const XMMATRIX transformation = GetInverseScaleMatrix() * GetInverseRotationMatrix();
 			return XMVector3Normalize(XMVector4Transform(direction, transformation));
 		}
+
+		/**
+		 Transforms the given vector expressed in object space coordinates to world space coordinates.
+
+		 @param[in]		vector
+						A reference to the vector expressed in object space coordinates.
+		 @return		The transformed vector expressed in world space coordinates.
+		 */
+		XMVECTOR TransformObjectToWorld(const XMVECTOR &vector) const {
+			return XMVector4Transform(vector, GetObjectToWorldMatrix());
+		}
+
+		/**
+		 Sets the parent transform of this transform to the given transform.
+
+		 @pre			If @a parent is not equal to @c nullptr, the given transform 
+						must already contain this transform as one of its child transforms.
+		 @param[in]		parent
+						A pointer to the parent transform.
+		 */
+		void SetParent(Transform *parent) {
+			m_parent = parent;
+		}
+
+		/**
+		 Updates the world-to-object and object-to-world of this transform.
+		 */
+		void Update();
 
 		/**
 		 The translation component of this transform.
@@ -857,5 +1042,25 @@ namespace mage {
 		 The scale component of this transform.
 		 */
 		XMFLOAT3 m_scale;
+
+		/**
+		 The world-to-object matrix of this transform.
+		 */
+		XMMATRIX m_world_to_object;
+
+		/**
+		 The object-to-world matrix of this transform.
+		 */
+		XMMATRIX m_object_to_world;
+
+		/**
+		 A pointer to the parent transform of this transform.
+		 */
+		Transform *m_parent;
+
+		/**
+		 A set containing the child transforms of this transform.
+		 */
+		set< Transform *, std::less<> > m_childs;
 	};
 }

@@ -93,7 +93,7 @@ namespace mage {
 		 @param[in]		p
 						The position of the lit vertex (in object space).
 		 @param[in]		diffuse
-						The diffuse colour of the lit vertex.
+						The diffuse color of the lit vertex.
 		 @param[in]		tex
 						The texture coordinate of the lit vertex.
 		 */
@@ -105,7 +105,7 @@ namespace mage {
 		Point3 p;
 
 		/**
-		 The diffuse colour of this lit vertex.
+		 The diffuse color of this lit vertex.
 		 */
 		XMFLOAT4 diffuse;
 
@@ -142,7 +142,7 @@ namespace mage {
 		 @param[in]		p
 						The position of the transformed and lit vertex (in projection space).
 		 @param[in]		diffuse
-						The diffuse colour of the transformed and lit vertex.
+						The diffuse color of the transformed and lit vertex.
 		 @param[in]		tex
 						The texture coordinates of the transformed and lit vertex.
 		 */
@@ -154,7 +154,7 @@ namespace mage {
 		XMFLOAT4 p;
 
 		/**
-		 The diffuse colour of this transformed and lit vertex.
+		 The diffuse color of this transformed and lit vertex.
 		 */
 		XMFLOAT4 diffuse;
 

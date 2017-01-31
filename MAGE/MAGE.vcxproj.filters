@@ -267,15 +267,6 @@
     <ClInclude Include="MAGE\src\mesh\mesh_loader.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\scene\camera_node.hpp">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\scene\scene_node.hpp">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\scene\scene_node_visitor.hpp">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\material\material.hpp">
       <Filter>Header Files\material</Filter>
     </ClInclude>
@@ -368,9 +359,6 @@
     <ClCompile Include="MAGE\src\mesh\obj_loader.cpp">
       <Filter>Source Files\mesh</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\scene\scene_node.cpp">
-      <Filter>Source Files\scene</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\core\version.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
@@ -390,6 +378,9 @@
       <Filter>Source Files\mesh</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\math\bounding_volume.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\math\transform.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
   </ItemGroup>

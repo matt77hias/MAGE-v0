@@ -46,7 +46,7 @@ namespace mage {
 		}
 
 		HRESULT BindBuffers(ComPtr< ID3D11DeviceContext2 > device_context) const;
-		HRESULT Draw(ComPtr< ID3D11DeviceContext2 > device_context) const;
+		void Update(ComPtr< ID3D11DeviceContext2 > device_context) const;
 
 	protected:
 

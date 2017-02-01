@@ -50,28 +50,30 @@ namespace mage {
 		}
 	};
 
-	static XMFLOAT2 ParseOBJFloat2(const char *token) {
-		char *end = nullptr;
-		const float vector3_x = strtof(token, &end);
-		const float vector3_y = strtof(end, nullptr);
+	static XMFLOAT2 ParseOBJFloat2(char **context, char *str = nullptr) {
+		const char *token_x   = strtok_s(str, MAGE_OBJ_DELIMITER, context);
+		const float vector3_x = strtof(token_x, nullptr);
+		const char *token_y   = strtok_s(nullptr, MAGE_OBJ_DELIMITER, context);
+		const float vector3_y = strtof(token_y, nullptr);
 		return XMFLOAT2(vector3_x, vector3_y);
 	}
 
-	static XMFLOAT3 ParseOBJFloat3(const char *token) {
-		char *end1 = nullptr;
-		char *end2 = nullptr;
-		const float vector3_x = strtof(token, &end1);
-		const float vector3_y = strtof(end1, &end2);
-		const float vector3_z = strtof(end2, nullptr);
+	static XMFLOAT3 ParseOBJFloat3(char **context, char *str = nullptr) {
+		const char *token_x   = strtok_s(str, MAGE_OBJ_DELIMITER, context);
+		const float vector3_x = strtof(token_x, nullptr);
+		const char *token_y   = strtok_s(nullptr, MAGE_OBJ_DELIMITER, context);
+		const float vector3_y = strtof(token_y, nullptr);
+		const char *token_z   = strtok_s(nullptr, MAGE_OBJ_DELIMITER, context);
+		const float vector3_z = strtof(token_z, nullptr);
 		return XMFLOAT3(vector3_x, vector3_y, vector3_z);
 	}
 
-	static Point3 ParseOBJVertexCoordinates(const char *token) {
-		return (Point3)ParseOBJFloat3(token);
+	static Point3 ParseOBJVertexCoordinates(char **context, char *str = nullptr) {
+		return (Point3)ParseOBJFloat3(context, str);
 	}
 
-	static Normal3 ParseOBJVertexNormalCoordinates(const char *token) {
-		const XMFLOAT3 vector3 = ParseOBJFloat3(token);
+	static Normal3 ParseOBJVertexNormalCoordinates(char **context, char *str = nullptr) {
+		const XMFLOAT3 vector3   = ParseOBJFloat3(context, str);
 		const XMVECTOR vector3_v = XMLoadFloat3(&vector3);
 		const XMVECTOR normal3_v = XMVector3Normalize(vector3_v);
 		XMFLOAT3 normal3;
@@ -79,11 +81,12 @@ namespace mage {
 		return (Normal3)normal3;
 	}
 
-	static XMFLOAT2 ParseOBJVertexTextureCoordinates(const char *token) {
-		return ParseOBJFloat2(token);
+	static XMFLOAT2 ParseOBJVertexTextureCoordinates(char **context, char *str = nullptr) {
+		return ParseOBJFloat2(context, str);
 	}
 
-	static XMUINT3 ParseOBJVertexIndices(const char *token) {
+	static XMUINT3 ParseOBJVertexIndices(char **context, char *str = nullptr) {
+		const char *token = strtok_s(str, MAGE_OBJ_DELIMITER, context);
 		const uint32_t vertex_index = atoi(token);
 		uint32_t texture_index = 0;
 		uint32_t normal_index = 0;
@@ -106,29 +109,23 @@ namespace mage {
 		return XMUINT3(vertex_index, texture_index, normal_index);
 	}
 
-	static HRESULT ParseOBJVertex(char **next_token,
+	static HRESULT ParseOBJVertex(char **context,
 		vector< Point3 > &vertex_coordinates) {
-		
-		const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
-		const Point3 vertex = ParseOBJVertexCoordinates(current_token);
+		const Point3 vertex = ParseOBJVertexCoordinates(context);
 		vertex_coordinates.push_back(vertex);
 		return S_OK;
 	}
 
-	static HRESULT ParseOBJVertexTexture(char **next_token,
+	static HRESULT ParseOBJVertexTexture(char **context,
 		vector< XMFLOAT2 > &vertex_texture_coordinates) {
-		
-		const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
-		const XMFLOAT2 texture = ParseOBJVertexTextureCoordinates(current_token);
+		const XMFLOAT2 texture = ParseOBJVertexTextureCoordinates(context);
 		vertex_texture_coordinates.push_back(texture);
 		return S_OK;
 	}
 	
-	static HRESULT ParseOBJVertexNormal(char **next_token,
+	static HRESULT ParseOBJVertexNormal(char **context,
 		vector< Normal3 > &vertex_normal_coordinates) {
-		
-		const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
-		const Normal3 normal = ParseOBJVertexNormalCoordinates(current_token);
+		const Normal3 normal = ParseOBJVertexNormalCoordinates(context);
 		vertex_normal_coordinates.push_back(normal);
 		return S_OK;
 	}
@@ -137,70 +134,65 @@ namespace mage {
 	// Vertex buffer + Index buffer
 	//-------------------------------------------------------------------------
 
-	static HRESULT ParseOBJTriangleFace(char **next_token,
+	static HRESULT ParseOBJTriangleFace(char **context,
 		vector< Point3 > &vertex_coordinates,
 		vector< XMFLOAT2 > &vertex_texture_coordinates,
 		vector< Normal3 > &vertex_normal_coordinates,
 		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > &mapping,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
 		
-		uint32_t triangle_indices[3];
+		// OBJ uses a counter-clockwise vertex order in a RHS world coordinate system
+		// = D3D uses a clockwise vertex order in a LHS world coordinate system
 		for (size_t i = 0; i < 3; ++i) {
-			const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
-			const XMUINT3 vertex_indices = ParseOBJVertexIndices(current_token);
+			const XMUINT3 vertex_indices = ParseOBJVertexIndices(context);
 			const map< XMUINT3, uint32_t >::const_iterator it = mapping.find(vertex_indices);
 			if (it != mapping.end()) {
-				triangle_indices[i] = it->second;
+				index_buffer.push_back(it->second);
 			}
 			else {
-				triangle_indices[i] = (uint32_t)vertex_buffer.size();
+				const uint32_t index = (uint32_t)vertex_buffer.size();
+				index_buffer.push_back(index);
 				Vertex vertex;
 				vertex.p   = vertex_coordinates[vertex_indices.x - 1];
 				vertex.tex = (vertex_indices.y) ? vertex_texture_coordinates[vertex_indices.y - 1] : XMFLOAT2(0.0f, 0.0f);
 				vertex.n   = (vertex_indices.z) ? vertex_normal_coordinates[vertex_indices.z - 1] : Normal3(0.0f, 0.0f, 0.0f);
 				vertex_buffer.push_back(vertex);
-				mapping[vertex_indices] = triangle_indices[i];
+				mapping[vertex_indices] = index;
 			}
 		}
-
-		// OBJ uses a counter-clockwise vertex order by default
-		// D3D uses a clockwise vertex order by default
-		index_buffer.push_back(triangle_indices[2]);
-		index_buffer.push_back(triangle_indices[1]);
-		index_buffer.push_back(triangle_indices[0]);
 
 		return S_OK;
 	}
 
-	static HRESULT ParseOBJLine(char *current_line, uint32_t line_number,
+	static HRESULT ParseOBJLine(char *line, uint32_t line_number,
 		vector< Point3 > &vertex_coordinates,
 		vector< XMFLOAT2 > &vertex_texture_coordinates,
 		vector< Normal3 > &vertex_normal_coordinates,
 		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > &mapping,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
 
-		char *next_token = nullptr;
-		const char *current_token = strtok_s(current_line, MAGE_OBJ_DELIMITER, &next_token);
+		char *context = nullptr;
+		const char *token = strtok_s(line, MAGE_OBJ_DELIMITER, &context);
 		
-		if (!current_token || current_token[0] == MAGE_OBJ_COMMENT_CHAR) {
+		if (!token || token[0] == MAGE_OBJ_COMMENT_CHAR) {
 			return S_OK;;
 		}
 
-		if (str_equals(current_token, MAGE_OBJ_VERTEX_TOKEN)) {
-			return ParseOBJVertex(&next_token, vertex_coordinates);
+		if (str_equals(token, MAGE_OBJ_VERTEX_TOKEN)) {
+			return ParseOBJVertex(&context, vertex_coordinates);
 		}
-		else if (str_equals(current_token, MAGE_OBJ_TEXTURE_TOKEN)) {
-			return ParseOBJVertexTexture(&next_token, vertex_texture_coordinates);
+		else if (str_equals(token, MAGE_OBJ_TEXTURE_TOKEN)) {
+			return ParseOBJVertexTexture(&context, vertex_texture_coordinates);
 		}
-		if (str_equals(current_token, MAGE_OBJ_NORMAL_TOKEN)) {
-			return ParseOBJVertexNormal(&next_token, vertex_normal_coordinates);
+		if (str_equals(token, MAGE_OBJ_NORMAL_TOKEN)) {
+			return ParseOBJVertexNormal(&context, vertex_normal_coordinates);
 		}
-		else if (str_equals(current_token, MAGE_OBJ_FACE_TOKEN)) {
-			return ParseOBJTriangleFace(&next_token, vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates,
+		else if (str_equals(token, MAGE_OBJ_FACE_TOKEN)) {
+			return ParseOBJTriangleFace(&context, vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates,
 				mapping, vertex_buffer, index_buffer);
 		}
 		else {
-			Warning("Unknown command '%s' in scene code at line %u: \"%s\".", current_token, line_number, current_line);
+			Warning("Unknown command '%s' in scene code at line %u: \"%s\".", token, line_number, line);
 			return E_FAIL;
 		}
 	}
@@ -287,60 +279,54 @@ namespace mage {
 	// Vertex buffer
 	//-------------------------------------------------------------------------
 
-	static HRESULT ParseOBJTriangleFace(char **next_token,
+	static HRESULT ParseOBJTriangleFace(char **context,
 		vector< Point3 > &vertex_coordinates,
 		vector< XMFLOAT2 > &vertex_texture_coordinates,
 		vector< Normal3 > &vertex_normal_coordinates,
 		vector< Vertex > &vertex_buffer) {
 
-		Vertex triangle_vertices[3];
+		// OBJ uses a counter-clockwise vertex order in a RHS world coordinate system
+		// = D3D uses a clockwise vertex order in a LHS world coordinate system
 		for (size_t i = 0; i < 3; ++i) {
-			const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
-			const XMUINT3 vertex_indices = ParseOBJVertexIndices(current_token);
+			const XMUINT3 vertex_indices = ParseOBJVertexIndices(context);
 			
 			Vertex vertex;
 			vertex.p   = vertex_coordinates[vertex_indices.x - 1];
 			vertex.tex = (vertex_indices.y) ? vertex_texture_coordinates[vertex_indices.y - 1] : XMFLOAT2(0.0f, 0.0f);
 			vertex.n   = (vertex_indices.z) ? vertex_normal_coordinates[vertex_indices.z - 1] : Normal3(0.0f, 0.0f, 0.0f);
-			triangle_vertices[i] = vertex;
+			vertex_buffer.push_back(vertex);
 		}
-
-		// OBJ uses a counter-clockwise vertex order by default
-		// D3D uses a clockwise vertex order by default
-		vertex_buffer.push_back(triangle_vertices[2]);
-		vertex_buffer.push_back(triangle_vertices[1]);
-		vertex_buffer.push_back(triangle_vertices[0]);
 
 		return S_OK;
 	}
 
-	static HRESULT ParseOBJLine(char *current_line, uint32_t line_number,
+	static HRESULT ParseOBJLine(char *line, uint32_t line_number,
 		vector< Point3 > &vertex_coordinates,
 		vector< XMFLOAT2 > &vertex_texture_coordinates,
 		vector< Normal3 > &vertex_normal_coordinates,
 		vector< Vertex > &vertex_buffer) {
 
-		char *next_token = nullptr;
-		const char *current_token = strtok_s(current_line, MAGE_OBJ_DELIMITER, &next_token);
+		char *context = nullptr;
+		const char *token = strtok_s(line, MAGE_OBJ_DELIMITER, &context);
 
-		if (!current_token || current_token[0] == MAGE_OBJ_COMMENT_CHAR) {
+		if (!token || token[0] == MAGE_OBJ_COMMENT_CHAR) {
 			return S_OK;
 		}
 
-		if (str_equals(current_token, MAGE_OBJ_VERTEX_TOKEN)) {
-			return ParseOBJVertex(&next_token, vertex_coordinates);
+		if (str_equals(token, MAGE_OBJ_VERTEX_TOKEN)) {
+			return ParseOBJVertex(&context, vertex_coordinates);
 		}
-		else if (str_equals(current_token, MAGE_OBJ_TEXTURE_TOKEN)) {
-			return ParseOBJVertexTexture(&next_token, vertex_texture_coordinates);
+		else if (str_equals(token, MAGE_OBJ_TEXTURE_TOKEN)) {
+			return ParseOBJVertexTexture(&context, vertex_texture_coordinates);
 		}
-		if (str_equals(current_token, MAGE_OBJ_NORMAL_TOKEN)) {
-			return ParseOBJVertexNormal(&next_token, vertex_normal_coordinates);
+		if (str_equals(token, MAGE_OBJ_NORMAL_TOKEN)) {
+			return ParseOBJVertexNormal(&context, vertex_normal_coordinates);
 		}
-		else if (str_equals(current_token, MAGE_OBJ_FACE_TOKEN)) {
-			return ParseOBJTriangleFace(&next_token, vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates, vertex_buffer);
+		else if (str_equals(token, MAGE_OBJ_FACE_TOKEN)) {
+			return ParseOBJTriangleFace(&context, vertex_coordinates, vertex_texture_coordinates, vertex_normal_coordinates, vertex_buffer);
 		}
 		else {
-			Warning("Unknown command '%s' in scene code at line %u: \"%s\".", current_token, line_number, current_line);
+			Warning("Unknown command '%s' in scene code at line %u: \"%s\".", token, line_number, line);
 			return E_FAIL;
 		}
 	}

@@ -35,7 +35,7 @@ namespace mage {
 
 		m_nb_vertices = vertices.size();
 
-		const HRESULT result_vertex_buffer = SetupVertexBuffer(device, &vertices[0], m_nb_vertices);
+		const HRESULT result_vertex_buffer = SetupVertexBuffer(device, &vertices[0], vertices.size());
 		if (FAILED(result_vertex_buffer)) {
 			Error("Vertex buffer initialization failed: %ld.", result_vertex_buffer);
 			return result_vertex_buffer;
@@ -127,8 +127,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT Mesh::Draw(ComPtr< ID3D11DeviceContext2 > device_context) const {
+	void Mesh::Update(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		device_context->DrawIndexed((UINT)m_nb_vertices, 0, 0);
-		return S_OK;
 	}
 }

@@ -30,12 +30,12 @@ namespace mage {
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	static struct CameraTransformBuffer final {
+	struct CameraTransformBuffer final {
 		XMMATRIX world_to_view;
 		XMMATRIX view_to_projection;
 	};
 
-	static struct ModelTransformBuffer final {
+	struct ModelTransformBuffer final {
 		XMMATRIX model_to_world;
 	};
 
@@ -49,7 +49,7 @@ namespace mage {
 		virtual ~VertexShader() {}
 
 		void Update(ComPtr< ID3D11DeviceContext2 > device_context, 
-			CameraTransformBuffer camera, ModelTransformBuffer model);
+			const CameraTransformBuffer &camera, const ModelTransformBuffer &model);
 
 	protected:
 

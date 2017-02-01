@@ -46,7 +46,7 @@ namespace mage {
 						@c false otherwise.
 		 */
 		bool operator()(const XMUINT3& a, const XMUINT3& b) const {
-			return (a.x == b.x) ? (a.x < b.x) : ((a.y == b.y) ? (a.y < b.y) : (a.z < b.z));
+			return (a.x == b.x) ? ((a.y == b.y) ? (a.z < b.z) : (a.y < b.y)) : (a.x < b.x);
 		}
 	};
 
@@ -144,24 +144,30 @@ namespace mage {
 		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > &mapping,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer) {
 		
+		uint32_t triangle_indices[3];
 		for (size_t i = 0; i < 3; ++i) {
 			const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
 			const XMUINT3 vertex_indices = ParseOBJVertexIndices(current_token);
 			const map< XMUINT3, uint32_t >::const_iterator it = mapping.find(vertex_indices);
 			if (it != mapping.end()) {
-				index_buffer.push_back(it->second);
+				triangle_indices[i] = it->second;
 			}
 			else {
-				const uint32_t index = (uint32_t)vertex_buffer.size();
-				index_buffer.push_back(index);
+				triangle_indices[i] = (uint32_t)vertex_buffer.size();
 				Vertex vertex;
 				vertex.p   = vertex_coordinates[vertex_indices.x - 1];
 				vertex.tex = (vertex_indices.y) ? vertex_texture_coordinates[vertex_indices.y - 1] : XMFLOAT2(0.0f, 0.0f);
 				vertex.n   = (vertex_indices.z) ? vertex_normal_coordinates[vertex_indices.z - 1] : Normal3(0.0f, 0.0f, 0.0f);
 				vertex_buffer.push_back(vertex);
-				mapping[vertex_indices] = index;
+				mapping[vertex_indices] = triangle_indices[i];
 			}
 		}
+
+		// OBJ uses a counter-clockwise vertex order by default
+		// D3D uses a clockwise vertex order by default
+		index_buffer.push_back(triangle_indices[2]);
+		index_buffer.push_back(triangle_indices[1]);
+		index_buffer.push_back(triangle_indices[0]);
 
 		return S_OK;
 	}
@@ -287,6 +293,7 @@ namespace mage {
 		vector< Normal3 > &vertex_normal_coordinates,
 		vector< Vertex > &vertex_buffer) {
 
+		Vertex triangle_vertices[3];
 		for (size_t i = 0; i < 3; ++i) {
 			const char *current_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, next_token);
 			const XMUINT3 vertex_indices = ParseOBJVertexIndices(current_token);
@@ -295,8 +302,14 @@ namespace mage {
 			vertex.p   = vertex_coordinates[vertex_indices.x - 1];
 			vertex.tex = (vertex_indices.y) ? vertex_texture_coordinates[vertex_indices.y - 1] : XMFLOAT2(0.0f, 0.0f);
 			vertex.n   = (vertex_indices.z) ? vertex_normal_coordinates[vertex_indices.z - 1] : Normal3(0.0f, 0.0f, 0.0f);
-			vertex_buffer.push_back(vertex);
+			triangle_vertices[i] = vertex;
 		}
+
+		// OBJ uses a counter-clockwise vertex order by default
+		// D3D uses a clockwise vertex order by default
+		vertex_buffer.push_back(triangle_vertices[2]);
+		vertex_buffer.push_back(triangle_vertices[1]);
+		vertex_buffer.push_back(triangle_vertices[0]);
 
 		return S_OK;
 	}

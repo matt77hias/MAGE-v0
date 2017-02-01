@@ -30,6 +30,13 @@ namespace mage {
 		const HRESULT result_shader = InitializeShader(device, input_element_desc, nb_input_elements);
 		if (FAILED(result_shader)) {
 			Error("Shader initialization failed: %ld.", result_shader);
+			return;
+		}
+
+		const HRESULT result_buffers = SetupBuffers(device);
+		if (FAILED(result_buffers)) {
+			Error("Buffer setup failed: %ld.", result_buffers);
+			return;
 		}
 	}
 
@@ -61,7 +68,7 @@ namespace mage {
 		// 3. A pointer to the compiled shader.
 		// 4. The size of the compiled shader.
 		// 5. A pointer to the input-layout object created
-		const HRESULT result_vertex_layout = device->CreateInputLayout(input_element_desc, nb_input_elements, vertex_shader_blob->GetBufferPointer(), vertex_shader_blob->GetBufferSize(), m_vertex_layout.ReleaseAndGetAddressOf());
+		const HRESULT result_vertex_layout = device->CreateInputLayout(input_element_desc, (UINT)nb_input_elements, vertex_shader_blob->GetBufferPointer(), vertex_shader_blob->GetBufferSize(), m_vertex_layout.ReleaseAndGetAddressOf());
 		if (FAILED(result_vertex_layout)) {
 			Error("InputLayout creation failed: %ld.", result_vertex_shader);
 			return result_vertex_layout;
@@ -89,7 +96,7 @@ namespace mage {
 			return result_cb_camera;
 		}
 
-		buffer_desc.ByteWidth       = sizeof(CameraTransformBuffer);// Size of the buffer in bytes.
+		buffer_desc.ByteWidth       = sizeof(ModelTransformBuffer);// Size of the buffer in bytes.
 		
 		// Create the index buffer.
 		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
@@ -104,12 +111,12 @@ namespace mage {
 	}
 
 	void VertexShader::Update(ComPtr< ID3D11DeviceContext2 > device_context, 
-		CameraTransformBuffer camera, ModelTransformBuffer model) {
+		const CameraTransformBuffer &camera, const ModelTransformBuffer &model) {
 		device_context->IASetInputLayout(m_vertex_layout.Get());
 		device_context->UpdateSubresource(m_cb_camera.Get(), 0, nullptr, &camera, 0, 0);
 		device_context->UpdateSubresource(m_cb_model.Get(), 0, nullptr, &model, 0, 0);
 		device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
-		device_context->VSSetConstantBuffers(0, 1, &m_cb_camera);
-		device_context->VSSetConstantBuffers(1, 1, &m_cb_model);
+		device_context->VSSetConstantBuffers(0, 1, m_cb_camera.GetAddressOf());
+		device_context->VSSetConstantBuffers(1, 1, m_cb_model.GetAddressOf());
 	}
 }

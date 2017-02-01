@@ -167,9 +167,9 @@ namespace mage {
 				if (m_state_manager->GetCurrentState()) {
 					m_state_manager->GetCurrentState()->RequestViewSetup(viewer);
 				}
-				if (m_state_manager->Update(elapsed_time)) {
-					continue;
-				}
+				//if (m_state_manager->Update(elapsed_time)) {
+				//	continue;
+				//}
 
 				m_renderer->Render(elapsed_time);
 			}

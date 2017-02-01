@@ -26,7 +26,7 @@ namespace mage {
 	struct Direction3;
 	struct Normal3;
 
-	struct Point3 : public XMFLOAT3 {
+	struct Point3 final : public XMFLOAT3 {
 
 	public:
 
@@ -41,15 +41,13 @@ namespace mage {
 		explicit Point3(const XMFLOAT3 &vector)
 			: XMFLOAT3(vector) {}
 
-		virtual ~Point3() {}
-
 		Point3 &operator=(const Point3 &point) {
 			XMFLOAT3::operator=(point);
 			return (*this);
 		}
 	};
 
-	struct Direction3 : public XMFLOAT3 {
+	struct Direction3 final : public XMFLOAT3 {
 
 	public:
 
@@ -64,8 +62,6 @@ namespace mage {
 		Direction3(const Normal3 &normal);
 		explicit Direction3(const XMFLOAT3 &vector)
 			: XMFLOAT3(vector) {}
-		
-		virtual ~Direction3() {}
 
 		Direction3 &operator=(const Direction3 &direction) {
 			XMFLOAT3::operator=(direction);
@@ -73,7 +69,7 @@ namespace mage {
 		}
 	};
 
-	struct Normal3 : public XMFLOAT3 {
+	struct Normal3 final : public XMFLOAT3 {
 
 	public:
 
@@ -89,8 +85,6 @@ namespace mage {
 			: XMFLOAT3(static_cast< const XMFLOAT3 & >(direction)) {}
 		explicit Normal3(const XMFLOAT3 &vector)
 			: XMFLOAT3(vector) {}
-
-		virtual ~Normal3() {}
 
 		Normal3 &operator=(const Normal3 &normal) {
 			XMFLOAT3::operator=(normal);

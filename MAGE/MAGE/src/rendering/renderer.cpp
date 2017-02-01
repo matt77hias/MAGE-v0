@@ -9,6 +9,8 @@
 
 #pragma endregion
 
+#include "engine.hpp"
+
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
@@ -269,6 +271,8 @@ namespace mage {
 		m_device_context2->ClearRenderTargetView(m_render_target_view.Get(), background_color);
 		// Clear the depth buffer to 1.0 (i.e. max depth).
 		m_device_context2->ClearDepthStencilView(m_depth_stencil_view.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+		g_engine->GetStateManager().Update(elapsed_time);
 
 		// Present the back buffer to the front buffer.
 		const HRESULT hr = m_swap_chain2->Present(0, 0);

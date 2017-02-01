@@ -32,11 +32,6 @@ namespace mage {
 
 		/**
 		 Constructs a vertex.
-		 */
-		Vertex() : p(Point3(0.0f, 0.0f, 0.0f)), n(Normal3(0.0f, 0.0f, 0.0f)), tex(XMFLOAT2(0.0f, 0.0f)) {}
-
-		/**
-		 Constructs a vertex.
 
 		 @pre			The length (L2-norm) of the normal must be equal to one
 						(i.e. the normal vector is normalized) 
@@ -48,7 +43,19 @@ namespace mage {
 		 @param[in]		tex
 						The texture coordinates of the vertex.
 		 */
-		Vertex(Point3 p, Normal3 n, XMFLOAT2 tex) : p(p), n(n), tex(tex) {}
+		Vertex(Point3 p = Point3(0.0f, 0.0f, 0.0f), Normal3 n = Normal3(0.0f, 0.0f, 0.0f), XMFLOAT2 tex = XMFLOAT2(0.0f, 0.0f)) 
+			: p(p), n(n), tex(tex) {}
+
+		/**
+		 Constructs a vertex.
+
+		 @param[in]		p
+						The position of the vertex (in object space).
+		 @param[in]		tex
+						The texture coordinates of the vertex.
+		 */
+		Vertex(Point3 p, XMFLOAT2 tex) 
+			: p(p), n(Normal3(0.0f, 0.0f, 0.0f)), tex(tex) {}
 
 		/**
 		 The position of this vertex (in object space).
@@ -64,17 +71,12 @@ namespace mage {
 		 The texture coordinates of this vertex.
 		 */
 		XMFLOAT2 tex;
-
-		/**
-		 The input element descriptor for a vertex.
-		 */
-		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[];
 	};
 
-	const D3D11_INPUT_ELEMENT_DESC Vertex::input_element_desc[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, UINT(offsetof(Vertex, p)),   D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL",	  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, UINT(offsetof(Vertex, n)),   D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, UINT(offsetof(Vertex, tex)), D3D11_INPUT_PER_VERTEX_DATA, 0 }
+	const D3D11_INPUT_ELEMENT_DESC vertex_input_element_desc[] = {
+		{ "POSITION",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, UINT(offsetof(Vertex, p)),   D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL",	   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, UINT(offsetof(Vertex, n)),   D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD",  0, DXGI_FORMAT_R32G32_FLOAT,    0, UINT(offsetof(Vertex, tex)), D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
 	/**
@@ -86,11 +88,6 @@ namespace mage {
 
 		/**
 		 Constructs a lit vertex.
-		 */
-		LVertex() : p(Point3(0.0f, 0.0f, 0.0f)), diffuse(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f)), tex(XMFLOAT2(0.0f, 0.0f)) {}
-
-		/**
-		 Constructs a lit vertex.
 
 		 @param[in]		p
 						The position of the lit vertex (in object space).
@@ -99,7 +96,8 @@ namespace mage {
 		 @param[in]		tex
 						The texture coordinate of the lit vertex.
 		 */
-		LVertex(Point3 p, XMFLOAT4 diffuse, XMFLOAT2 tex) : p(p), diffuse(diffuse), tex(tex) {}
+		LVertex(Point3 p = Point3(0.0f, 0.0f, 0.0f), XMFLOAT4 diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2 tex = XMFLOAT2(0.0f, 0.0f)) 
+			: p(p), diffuse(diffuse), tex(tex) {}
 
 		/**
 		 The position of this lit vertex (in object space).
@@ -115,14 +113,9 @@ namespace mage {
 		 The texture coordinates of this lit vertex.
 		 */
 		XMFLOAT2 tex;
-
-		/**
-		 The input element descriptor for a lit vertex.
-		 */
-		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[];
 	};
 
-	const D3D11_INPUT_ELEMENT_DESC LVertex::input_element_desc[] = {
+	const D3D11_INPUT_ELEMENT_DESC lvertex_input_element_desc[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, UINT(offsetof(LVertex, p)),       D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "DIFFUSE",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(LVertex, diffuse)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,       0, UINT(offsetof(LVertex, tex)),     D3D11_INPUT_PER_VERTEX_DATA, 0 }
@@ -137,11 +130,6 @@ namespace mage {
 
 		/**
 		 Constructs a transformed and lit vertex.
-		 */
-		TLVertex() : p(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f)), diffuse(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f)), tex(XMFLOAT2(0.0f, 0.0f)) {}
-		
-		/**
-		 Constructs a transformed and lit vertex.
 
 		 @param[in]		p
 						The position of the transformed and lit vertex (in projection space).
@@ -150,7 +138,8 @@ namespace mage {
 		 @param[in]		tex
 						The texture coordinates of the transformed and lit vertex.
 		 */
-		TLVertex(XMFLOAT4 p, XMFLOAT4 diffuse, XMFLOAT2 tex) : p(p), diffuse(diffuse), tex(tex) {}
+		TLVertex(XMFLOAT4 p = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f), XMFLOAT4 diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2 tex = XMFLOAT2(0.0f, 0.0f)) 
+			: p(p), diffuse(diffuse), tex(tex) {}
 
 		/**
 		 The position of this transformed and lit vertex (in projection space).
@@ -166,17 +155,12 @@ namespace mage {
 		 The texture coordinates of this transformed and lit vertex.
 		 */
 		XMFLOAT2 tex;
-
-		/**
-		 The input element descriptor for a transformed and lit vertex.
-		 */
-		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[];
 	};
 
 	/**
 	 The input element descriptor for a transformed and lit vertex.
 	 */
-	const D3D11_INPUT_ELEMENT_DESC TLVertex::input_element_desc[] = {
+	const D3D11_INPUT_ELEMENT_DESC tlvertex_input_element_desc[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(TLVertex, p)),       D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "DIFFUSE",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(TLVertex, diffuse)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,       0, UINT(offsetof(TLVertex, tex)),     D3D11_INPUT_PER_VERTEX_DATA, 0 }

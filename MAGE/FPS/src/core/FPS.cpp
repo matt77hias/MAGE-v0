@@ -32,7 +32,7 @@ class TestState : public State {
 
 		m_vs = make_unique< VertexShader >(device, vertex_input_element_desc, _countof(vertex_input_element_desc), L"effect_VS.cso", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/");
 		m_ps = make_unique< PixelShader >(device, L"effect_PS.cso", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/");
-		m_mesh = make_unique< Mesh >(device, L"cube.obj", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/", false, false);
+		m_mesh = make_unique< Mesh >(device, L"cube.obj", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/", true, true);
 		m_mesh->BindBuffers(device_context);
 	}
 

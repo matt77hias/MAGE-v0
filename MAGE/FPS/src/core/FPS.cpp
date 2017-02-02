@@ -25,14 +25,14 @@ class TestState : public State {
 
 		const float width  = (float)g_device_enumeration->GetDisplayMode()->Width;
 		const float height = (float)g_device_enumeration->GetDisplayMode()->Height;
-		m_camera = make_unique< PerspectiveCamera >(width, height, XM_PIDIV4);
+		m_camera = make_unique< PerspectiveCamera >(width, height);
 
 		ComPtr< ID3D11Device2 > device = g_engine->GetRenderer().GetDevice();
 		ComPtr< ID3D11DeviceContext2 > device_context = g_engine->GetRenderer().GetDeviceContext();
 
 		m_vs = make_unique< VertexShader >(device, vertex_input_element_desc, _countof(vertex_input_element_desc), L"effect_VS.cso", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/");
 		m_ps = make_unique< PixelShader >(device, L"effect_PS.cso", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/");
-		m_mesh = make_unique< Mesh >(device, L"cube.obj", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/");
+		m_mesh = make_unique< Mesh >(device, L"cube.obj", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/", false, false);
 		m_mesh->BindBuffers(device_context);
 	}
 

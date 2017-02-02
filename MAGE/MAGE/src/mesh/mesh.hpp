@@ -33,8 +33,15 @@ namespace mage {
 						A reference to the name of the mesh.
 		 @param[in]		path
 						A reference to the path of the mesh.
+		 @param[in]		invert_handedness
+						Flag indicating whether the handness of the 
+						coordinate system of the mesh should be inverted.
+		 @param[in]		clockwise_order
+						Flag indicating whether the vertices of triangles
+						should be in clockwise order.
 		 */
-		Mesh(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH);
+		Mesh(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH,
+			bool invert_handedness = false, bool clockwise_order = true);
 
 		/**
 		 Destructs this mesh.
@@ -50,7 +57,7 @@ namespace mage {
 
 	protected:
 
-		HRESULT InitializeBuffers(ComPtr< ID3D11Device2 > device);
+		HRESULT InitializeBuffers(ComPtr< ID3D11Device2 > device, bool invert_handedness, bool clockwise_order);
 		HRESULT SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices);
 		HRESULT SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices);
 

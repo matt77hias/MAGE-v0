@@ -16,7 +16,7 @@ namespace mage {
 
 	Mesh::Mesh(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path,
 		bool invert_handedness, bool clockwise_order)
-		: Resource(name, path), m_nb_vertices(0) {
+		: Resource(name, path), m_nb_indices(0) {
 		
 		const HRESULT result_buffers = InitializeBuffers(device, invert_handedness, clockwise_order);
 		if (FAILED(result_buffers)) {
@@ -35,7 +35,7 @@ namespace mage {
 			return result_load;
 		}
 
-		m_nb_vertices = vertices.size();
+		m_nb_indices = indices.size();
 
 		const HRESULT result_vertex_buffer = SetupVertexBuffer(device, &vertices[0], vertices.size());
 		if (FAILED(result_vertex_buffer)) {
@@ -52,22 +52,11 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT Mesh::SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *_vertices, size_t nb_vertices) {
-		const Vertex vertices[] = {
-			{ Point3(-1.0f,  1.0f, -1.0f)},
-			{ Point3(1.0f,  1.0f, -1.0f)},
-			{ Point3(1.0f,  1.0f,  1.0f)},
-			{ Point3(-1.0f,  1.0f,  1.0f)},
-			{ Point3(-1.0f, -1.0f, -1.0f)},
-			{ Point3(1.0f, -1.0f, -1.0f)},
-			{ Point3(1.0f, -1.0f,  1.0f)},
-			{ Point3(-1.0f, -1.0f,  1.0f)}
-		};
-		
+	HRESULT Mesh::SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
-		buffer_desc.ByteWidth      = sizeof(vertices);
+		buffer_desc.ByteWidth      = (UINT)(nb_vertices * sizeof(Vertex));
 		buffer_desc.Usage          = D3D11_USAGE_DEFAULT;
 		buffer_desc.BindFlags      = D3D11_BIND_VERTEX_BUFFER;
 		buffer_desc.CPUAccessFlags = 0;
@@ -90,26 +79,11 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT Mesh::SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *_indices, size_t nb_indices) {
-		const WORD indices[] = {
-			3, 1, 0,
-			2, 1, 3,
-			0, 5, 4,
-			1, 5, 0,
-			3, 4, 7,
-			0, 4, 3,
-			1, 6, 5,
-			2, 6, 1,
-			2, 7, 6,
-			3, 7, 2,
-			6, 4, 5,
-			7, 4, 6,
-		};
-		
+	HRESULT Mesh::SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
-		buffer_desc.ByteWidth      = sizeof(indices);
+		buffer_desc.ByteWidth      = (UINT)(nb_indices * sizeof(uint32_t));
 		buffer_desc.Usage          = D3D11_USAGE_DEFAULT;
 		buffer_desc.BindFlags      = D3D11_BIND_INDEX_BUFFER;
 		buffer_desc.CPUAccessFlags = 0;
@@ -156,6 +130,6 @@ namespace mage {
 	}
 
 	void Mesh::Update(ComPtr< ID3D11DeviceContext2 > device_context) const {
-		device_context->DrawIndexed((UINT)m_nb_vertices, 0, 0);
+		device_context->DrawIndexed((UINT)m_nb_indices, 0, 0);
 	}
 }

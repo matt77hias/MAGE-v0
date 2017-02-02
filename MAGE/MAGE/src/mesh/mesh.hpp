@@ -48,10 +48,6 @@ namespace mage {
 		 */
 		virtual ~Mesh() {}
 
-		size_t GetNbVertices() const {
-			return m_nb_vertices;
-		}
-
 		HRESULT BindBuffers(ComPtr< ID3D11DeviceContext2 > device_context) const;
 		void Update(ComPtr< ID3D11DeviceContext2 > device_context) const;
 
@@ -61,7 +57,7 @@ namespace mage {
 		HRESULT SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices);
 		HRESULT SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices);
 
-		size_t m_nb_vertices;
+		size_t m_nb_indices;
 
 		ComPtr< ID3D11Buffer > m_vertex_buffer;
 		ComPtr< ID3D11Buffer > m_index_buffer;

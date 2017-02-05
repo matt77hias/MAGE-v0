@@ -160,11 +160,9 @@ namespace mage {
 					continue;
 				}
 
-				//if (m_state_manager->Update(elapsed_time)) {
-				//	continue;
-				//}
-
-				m_renderer->Render(elapsed_time);
+				m_renderer->StartFrame();
+				m_state_manager->Update(elapsed_time);
+				m_renderer->EndFrame();
 			}
 		}
 	}

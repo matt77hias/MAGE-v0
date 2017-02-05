@@ -106,12 +106,14 @@ namespace mage {
 		void SwitchMode(bool toggle);
 
 		/**
-		 Renders the current frame.
-
-		 @param[in]		elapsed_time
-						The elapsed time since the previous frame.
+		 Starts the rendering of the current frame.
 		 */
-		void Render(double elapsed_time);
+		void StartFrame() const;
+
+		/**
+		 Ends the rendering of the current frame.
+		 */
+		void EndFrame() const;
 
 	protected:
 
@@ -163,7 +165,7 @@ namespace mage {
 
 		 @return		A success/error value.
 		 */
-		HRESULT SetupViewPort();
+		HRESULT SetupViewPort() const;
 
 		D3D_FEATURE_LEVEL		         m_feature_level;
 		ComPtr< ID3D11Device2 >	         m_device2;

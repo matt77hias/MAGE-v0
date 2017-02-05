@@ -9,8 +9,6 @@
 
 #pragma endregion
 
-#include "engine.hpp"
-
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
@@ -244,7 +242,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT Renderer::SetupViewPort() {
+	HRESULT Renderer::SetupViewPort() const {
 		// Setup the (default) viewport
 		D3D11_VIEWPORT viewport;
 		ZeroMemory(&viewport, sizeof(viewport));
@@ -263,17 +261,16 @@ namespace mage {
 		return S_OK;
 	}
 
-	void Renderer::Render(double elapsed_time) {
-		// A solarized dark background color (some basic colors can be found in <directxcolors.h>)
+	void Renderer::StartFrame() const {
 		const XMVECTORF32 background_color = { 0.0f, 0.117647058f, 0.149019608f, 1.000000000f };
 
 		// Clear the back buffer.
 		m_device_context2->ClearRenderTargetView(m_render_target_view.Get(), background_color);
 		// Clear the depth buffer to 1.0 (i.e. max depth).
 		m_device_context2->ClearDepthStencilView(m_depth_stencil_view.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+	}
 
-		g_engine->GetStateManager().Update(elapsed_time);
-
+	void Renderer::EndFrame() const {
 		// Present the back buffer to the front buffer.
 		const HRESULT hr = m_swap_chain2->Present(0, 0);
 	}

@@ -24,52 +24,6 @@
 namespace mage {
 
 	/**
-	 A struct of viewer setups.
-	 */
-	struct ViewerSetup {
-
-	public:
-
-		/**
-		 Constructs a viewer setup.
-		 */
-		ViewerSetup() 
-			: m_view_clear_flags(0) {}
-
-		/**
-		 Constructs a viewer setup from the given viewer setup.
-
-		 @param[in]		viewer_setup
-						A reference to the viewer setup.
-		 */
-		ViewerSetup(const ViewerSetup &viewer_setup)
-			: m_view_clear_flags(viewer_setup.m_view_clear_flags) {}
-
-		/**
-		 Destructs this viewer setup.
-		 */
-		~ViewerSetup() {};
-
-		/**
-		 Copies the given viewer setup to this viewer setup.
-
-		 @param[in]		viewer_setup
-						A reference to the viewer setup to copy from.
-		 @return		A reference to the copy of the given viewer setup
-						(i.e. this viewer setup).
-		 */
-		ViewerSetup &operator=(const ViewerSetup &viewer_setup) {
-			m_view_clear_flags = viewer_setup.m_view_clear_flags;
-			return (*this);
-		}
-
-		/**
-		 Flags used for clearing the view.
-		 */
-		uint64_t m_view_clear_flags;
-	};
-
-	/**
 	 A class of states
 	 */
 	class State {
@@ -99,16 +53,6 @@ namespace mage {
 		 */
 		uint64_t GetId() const {
 			return m_id;
-		}
-
-		/**
-		Requests the view setup details for the given frame.
-
-		@param[in, out]	viewer_setup
-						A reference to a viewer setup.
-		*/
-		virtual void RequestViewSetup(ViewerSetup &viewer_setup) {
-			viewer_setup.m_view_clear_flags = 0;
 		}
 
 	protected:

@@ -79,11 +79,6 @@ namespace mage {
 			UNUSED(elapsed_time);
 		}
 
-		/**
-		 Render this state.
-		 */
-		virtual void Render() {}
-
 	private:
 
 		/**

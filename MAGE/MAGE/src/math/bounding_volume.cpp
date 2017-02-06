@@ -1,4 +1,13 @@
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <algorithm>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -107,8 +116,8 @@ namespace mage {
 	bool AABB::Encloses(const Face &face) const {
 		// Find the minimum and maximum points of the face along the x axis. 
 		// Then check if these two points are within this AABB's x axis extents.
-		const float min_x = min(face.v0->p.x, min(face.v1->p.x, face.v2->p.x));
-		const float max_x = max(face.v0->p.x, max(face.v1->p.x, face.v2->p.x));
+		const float min_x = std::min(face.v0->p.x, std::min(face.v1->p.x, face.v2->p.x));
+		const float max_x = std::max(face.v0->p.x, std::max(face.v1->p.x, face.v2->p.x));
 		if (max_x < p_min.x) {
 			return false;
 		}
@@ -118,8 +127,8 @@ namespace mage {
 
 		// Find the minimum and maximum points of the face along the y axis. 
 		// Then check if these two points are within this AABB's y axis extents.
-		const float min_y = min(face.v0->p.y, min(face.v1->p.y, face.v2->p.y));
-		const float max_y = max(face.v0->p.y, max(face.v1->p.y, face.v2->p.y));
+		const float min_y = std::min(face.v0->p.y, std::min(face.v1->p.y, face.v2->p.y));
+		const float max_y = std::max(face.v0->p.y, std::max(face.v1->p.y, face.v2->p.y));
 		if (max_y < p_min.y) {
 			return false;
 		}
@@ -129,8 +138,8 @@ namespace mage {
 
 		// Find the minimum and maximum points of the face along the z axis. 
 		// Then check if these two points are within this AABB's z axis extents.
-		const float min_z = min(face.v0->p.z, min(face.v1->p.z, face.v2->p.z));
-		const float max_z = max(face.v0->p.z, max(face.v1->p.z, face.v2->p.z));
+		const float min_z = std::min(face.v0->p.z, std::min(face.v1->p.z, face.v2->p.z));
+		const float max_z = std::max(face.v0->p.z, std::max(face.v1->p.z, face.v2->p.z));
 		if (max_z < p_min.z) {
 			return false;
 		}
@@ -144,8 +153,8 @@ namespace mage {
 	bool AABB::EnclosesStrict(const Face &face) const {
 		// Find the minimum and maximum points of the face along the x axis. 
 		// Then check if these two points are within this AABB's x axis extents.
-		const float min_x = min(face.v0->p.x, min(face.v1->p.x, face.v2->p.x));
-		const float max_x = max(face.v0->p.x, max(face.v1->p.x, face.v2->p.x));
+		const float min_x = std::min(face.v0->p.x, std::min(face.v1->p.x, face.v2->p.x));
+		const float max_x = std::max(face.v0->p.x, std::max(face.v1->p.x, face.v2->p.x));
 		if (max_x <= p_min.x) {
 			return false;
 		}
@@ -155,8 +164,8 @@ namespace mage {
 
 		// Find the minimum and maximum points of the face along the y axis. 
 		// Then check if these two points are within this AABB's y axis extents.
-		const float min_y = min(face.v0->p.y, min(face.v1->p.y, face.v2->p.y));
-		const float max_y = max(face.v0->p.y, max(face.v1->p.y, face.v2->p.y));
+		const float min_y = std::min(face.v0->p.y, std::min(face.v1->p.y, face.v2->p.y));
+		const float max_y = std::max(face.v0->p.y, std::max(face.v1->p.y, face.v2->p.y));
 		if (max_y <= p_min.y) {
 			return false;
 		}
@@ -166,8 +175,8 @@ namespace mage {
 
 		// Find the minimum and maximum points of the face along the z axis. 
 		// Then check if these two points are within this AABB's z axis extents.
-		const float min_z = min(face.v0->p.z, min(face.v1->p.z, face.v2->p.z));
-		const float max_z = max(face.v0->p.z, max(face.v1->p.z, face.v2->p.z));
+		const float min_z = std::min(face.v0->p.z, std::min(face.v1->p.z, face.v2->p.z));
+		const float max_z = std::max(face.v0->p.z, std::max(face.v1->p.z, face.v2->p.z));
 		if (max_z <= p_min.z) {
 			return false;
 		}

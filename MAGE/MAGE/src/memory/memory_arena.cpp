@@ -1,8 +1,19 @@
 //-----------------------------------------------------------------------------
+// System Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // System Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include <algorithm>
 #include <windows.h>
 
 #pragma endregion
@@ -69,7 +80,7 @@ namespace mage {
 
 			if (!GetCurrentBlockPtr()) {
 				// Allocate new block.
-				const size_t alloc_size = max(size, GetBlockSize());
+				const size_t alloc_size = std::max(size, GetBlockSize());
 				char *alloc_ptr = AllocAligned< char >(alloc_size);
 				m_current_block = pair< size_t, char * >(alloc_size, alloc_ptr);
 			}

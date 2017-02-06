@@ -1,4 +1,13 @@
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <algorithm>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -47,7 +56,7 @@ namespace mage {
 
 		// MAGE_ERROR_CONTINUE and MAGE_ERROR_ABORT
 		// Print formatted error message
-		const int width = max(20, ConsoleWidth() - 2);
+		const int width = std::max(20, ConsoleWidth() - 2);
 		string error_string = error_type + ": ";
 		size_t error_pos = error_string.size();
 

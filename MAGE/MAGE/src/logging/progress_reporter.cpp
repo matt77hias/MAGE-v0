@@ -1,4 +1,13 @@
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <algorithm>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -22,7 +31,7 @@ namespace mage {
 		
 		m_mutex = Mutex::Create();
 		
-		m_nb_plusses_total = max(2, bar_length - (uint32_t)title.size());
+		m_nb_plusses_total = std::max((uint32_t)2, bar_length - (uint32_t)title.size());
 	
 		m_timer = make_unique< Timer >();
 		m_timer->Start();
@@ -100,7 +109,7 @@ namespace mage {
 		}
 		else {
 			// Writes the string format to the output file stream.
-			fprintf(m_fout, " (%.1fs|%.1fs)  ", seconds, max(0.0f, estimation_remaining));
+			fprintf(m_fout, " (%.1fs|%.1fs)  ", seconds, std::max(0.0f, estimation_remaining));
 		}
 
 		// If the given stream was open for writing

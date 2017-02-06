@@ -1,6 +1,16 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// System Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -22,7 +32,6 @@ namespace mage {
 
 	template < typename T >
 	using ComPtr = Microsoft::WRL::ComPtr< T >;
-
 }
 
 #pragma endregion

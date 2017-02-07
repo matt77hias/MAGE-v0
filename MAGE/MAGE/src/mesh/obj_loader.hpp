@@ -150,14 +150,14 @@ namespace mage {
 		for (size_t i = 0; i < 3; ++i) {
 			const XMUINT3 vertex_indices = ParseSpecificOBJVertexIndices< Vertex >(context);
 			const map< XMUINT3, uint32_t >::const_iterator it = buffer.mapping.find(vertex_indices);
-			if (it != mapping.end()) {
+			if (it != buffer.mapping.end()) {
 				indices[i] = it->second;
 			}
 			else {
 				const uint32_t index = (uint32_t)vertex_buffer.size();
 				indices[i] = index;
 				vertex_buffer.push_back(ConstructVertex< Vertex >(vertex_indices, buffer));
-				mapping[vertex_indices] = index;
+				buffer.mapping[vertex_indices] = index;
 			}
 		}
 

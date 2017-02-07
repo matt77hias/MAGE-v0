@@ -41,7 +41,7 @@ namespace mage {
 		const wstring extension = GetFileExtension(fname);
 
 		if (extension == L"obj" || extension == L"OBJ") {
-			return LoadOBJMeshFromFile< Vertex >(fname, vertex_buffer, invert_handedness, clockwise_order);
+			return LoadOBJMeshFromFile< Vertex >(fname, vertex_buffer, index_buffer, invert_handedness, clockwise_order);
 		}
 
 		Warning("Unknown model file extension: %ls", fname.c_str());
@@ -73,7 +73,7 @@ namespace mage {
 		const wstring extension = GetFileExtension(fname);
 
 		if (extension == L"obj" || extension == L"OBJ") {
-			return LoadOBJMeshFromFile< Vertex >(fname, vertex_buffer, index_buffer, invert_handedness, clockwise_order);
+			return LoadOBJMeshFromFile< Vertex >(fname, vertex_buffer, invert_handedness, clockwise_order);
 		}
 
 		Warning("Unknown model file extension: %ls", fname.c_str());

@@ -44,7 +44,7 @@ namespace mage {
 		/**
 		 Destructs this resource.
 		 */
-		virtual ~Resource() {}
+		virtual ~Resource() = default;
 
 		/**
 		 Returns the path of this resource.

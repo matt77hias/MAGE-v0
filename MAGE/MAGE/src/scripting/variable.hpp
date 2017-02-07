@@ -200,7 +200,7 @@ namespace mage {
 			/**
 			 Destructs this value.
 			 */
-			virtual ~AbstractValue() {}
+			virtual ~AbstractValue() = default;
 
 			/**
 			 Returns the value of this value.
@@ -214,7 +214,7 @@ namespace mage {
 			/**
 			 Constructs an abstract value.
 			 */
-			AbstractValue() {}
+			AbstractValue() = default;
 
 			/**
 			 Constructs an abstract value from the given abstract value.
@@ -222,9 +222,7 @@ namespace mage {
 			 @param[in]		abstract_value
 							A reference to the abstract value.
 			 */
-			AbstractValue(const AbstractValue &abstract_value) {
-				UNUSED(abstract_value);
-			}
+			AbstractValue(const AbstractValue &abstract_value) = default;
 
 		private:
 

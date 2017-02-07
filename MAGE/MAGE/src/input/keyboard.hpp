@@ -45,7 +45,7 @@ namespace mage {
 		/**
 		 Destructs this keyboard.
 		 */
-		virtual ~Keyboard() {}
+		virtual ~Keyboard() = default;
 
 		/**
 		 Updates the state of this keyboard.

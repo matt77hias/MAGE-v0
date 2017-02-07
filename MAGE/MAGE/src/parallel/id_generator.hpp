@@ -33,7 +33,7 @@ namespace mage {
 		/**
 		 Destructs this id generator.
 		 */
-		virtual ~IdGenerator() {}
+		virtual ~IdGenerator() = default;
 
 		/**
 		 Returns the next id of this id generator.

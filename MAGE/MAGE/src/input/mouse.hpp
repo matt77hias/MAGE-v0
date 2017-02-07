@@ -45,7 +45,7 @@ namespace mage {
 		/**
 		Destructs this mouse.
 		*/
-		virtual ~Mouse() {}
+		virtual ~Mouse() = default;
 
 		/**
 		 Updates the state of this mouse.

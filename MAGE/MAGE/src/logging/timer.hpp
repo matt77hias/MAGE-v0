@@ -42,12 +42,12 @@ namespace mage {
 		 @param[in]		timer
 						A reference to the timer.
 		 */
-		Timer(const Timer &timer);
+		Timer(const Timer &timer) = default;
 
 		/**
 		 Destructs this timer.
 		 */
-		virtual ~Timer() {}
+		virtual ~Timer() = default;
 
 		/**
 		 Copies the given timer to this timer.
@@ -57,7 +57,7 @@ namespace mage {
 		 @return		A reference to the copy of the given timer
 						(i.e. this timer).
 		 */
-		Timer &operator=(const Timer &timer);
+		Timer &operator=(const Timer &timer) = default;
 
 		/**
 		 Starts this timer.

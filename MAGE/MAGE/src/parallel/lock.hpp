@@ -56,10 +56,7 @@ namespace mage {
 		/**
 		 Constructs a mutex.
 		 */
-		Mutex() {
-			// Initialize a critical section object.
-			InitializeCriticalSection(&m_critical_section);
-		}
+		Mutex();
 
 		/**
 		 Constructs a mutex from the given mutex.
@@ -67,22 +64,20 @@ namespace mage {
 		 @param[in]		mutex
 						A reference to a mutex.
 		 */
-		Mutex(Mutex &mutex);
+		Mutex(const Mutex &mutex) = delete;
 
 		/**
 		 Destructs this mutex.
 		 */
-		~Mutex() {
-			// Release all resources used by an unowned critical section object. 
-			DeleteCriticalSection(&m_critical_section);
-		}
+		~Mutex();
 		
 		/**
 		 Copies the given mutex to this mutex.
 
 		 @param[in]		mutex
 						A reference to a mutex.
-		 @return		A reference to the copy of @a mutex.
+		 @return		A reference to the copy of the given mutex 
+						(i.e. this mutex).
 		 */
 		Mutex &operator=(const Mutex &mutex) = delete;
 
@@ -103,19 +98,12 @@ namespace mage {
 		 @param[in]		mutex
 						A reference to a mutex.
 		 */
-		MutexLock(Mutex &mutex) : m_mutex(mutex) {
-			// Wait for ownership of the specified critical section object. 
-			// The function returns when the calling thread is granted ownership.
-			EnterCriticalSection(&m_mutex.m_critical_section);
-		}
+		MutexLock(Mutex &mutex);
 
 		/**
 		 Destructs this mutex lock.
 		 */
-		~MutexLock() {
-			// Release ownership of the specified critical section object.
-			LeaveCriticalSection(&m_mutex.m_critical_section);
-		}
+		~MutexLock();
 
 	private:
 
@@ -125,14 +113,15 @@ namespace mage {
 		 @param[in]		mutex_lock
 						A reference to a mutex lock.
 		 */
-		MutexLock(const MutexLock &mutex_lock);
+		MutexLock(const MutexLock &mutex_lock) = delete;
 
 		/**
 		 Copies the given mutex lock to this mutex lock.
 
 		 @param[in]		mutex_lock
 						A reference to a mutex lock.
-		 @return		A reference to the copy of @a mutex_lock.
+		 @return		A reference to the copy of the given mutex lock 
+						(i.e. this mutex lock)
 		 */
 		MutexLock &operator=(const MutexLock &mutex_lock) = delete;
 
@@ -181,24 +170,12 @@ namespace mage {
 		 @param[in]		mutex
 						The read write mutex.
 		 */
-		ReadWriteMutex(ReadWriteMutex &mutex);
+		ReadWriteMutex(const ReadWriteMutex &mutex) = delete;
 
 		/**
 		 Destructs this read write mutex.
 		 */
-		~ReadWriteMutex() {
-			if (m_ready_to_read_handle) {
-				// Close the open event handle.
-				CloseHandle(m_ready_to_read_handle);
-			}
-			if (m_ready_to_write_handle) {
-				// Close the open event handle.
-				CloseHandle(m_ready_to_write_handle);
-			}
-
-			// Release all resources used by an unowned critical section object. 
-			DeleteCriticalSection(&m_critical_section);
-		}
+		~ReadWriteMutex();
 		
 		/**
 		 Copies the given read write mutex to this read write mutex.
@@ -281,27 +258,12 @@ namespace mage {
 		 @param[in]		lock_type
 						The lock type.
 		 */
-		ReadWriteMutexLock(ReadWriteMutex &mutex, ReadWriteMutexLockType lock_type) 
-			: m_type(lock_type), m_mutex(mutex) {
-			if (m_type == READ) {
-				m_mutex.AcquireRead();
-			}
-			else {
-				m_mutex.AcquireWrite();
-			}
-		}
+		ReadWriteMutexLock(ReadWriteMutex &mutex, ReadWriteMutexLockType lock_type);
 
 		/**
 		 Destructs this read write mutex lock.
 		 */
-		~ReadWriteMutexLock() {
-			if (m_type == READ) {
-				m_mutex.ReleaseRead();
-			}
-			else {
-				m_mutex.ReleaseWrite();
-			}
-		}
+		~ReadWriteMutexLock();
 
 		/**
 		 Upgrades this read write lock to write.
@@ -321,14 +283,15 @@ namespace mage {
 		 @param[in]		mutex_lock
 						A reference to a read write mutex lock.
 		 */
-		ReadWriteMutexLock(const ReadWriteMutexLock &mutex_lock);
+		ReadWriteMutexLock(const ReadWriteMutexLock &mutex_lock) = delete;
 
 		/**
 		 Copies the given read write mutex lock to this read write mutex lock.
 
 		 @param[in]		mutex_lock
 						A reference to a read write mutex lock.
-		 @return		A reference to the copy of @a mutex_lock.
+		 @return		A reference to the copy of the given mutex lock
+						(i.e. this mutex lock).
 		 */
 		ReadWriteMutexLock &operator=(const ReadWriteMutexLock &mutex_lock) = delete;
 
@@ -358,10 +321,7 @@ namespace mage {
 		/**
 		 Destructs this semaphore.
 		 */
-		~Semaphore() {
-			// Closes an open object handle.
-			CloseHandle(m_handle);
-		}
+		~Semaphore();
 
 		/**
 		 Increments the value of this semaphore variable by the given value.
@@ -394,6 +354,24 @@ namespace mage {
 	private:
 
 		/**
+		 Constructs a semaphore from the given semaphore.
+
+		 @param[in]		semaphore
+						A reference to a semaphore.
+		 */
+		Semaphore(const Semaphore &semaphore) = delete;
+
+		/**
+		 Copies the given semaphore to this semaphore.
+
+		 @param[in]		semaphore
+						A reference to a semaphore.
+		 @return		A reference to the copy of the given semaphore
+						(i.e. this semaphore)
+		 */
+		Semaphore &operator=(const Semaphore &semaphore) = delete;
+
+		/**
 		 The handle of this semaphore.
 		 */
 		HANDLE m_handle;
@@ -409,55 +387,22 @@ namespace mage {
 		/**
 		 Constructs a condition variable.
 		 */
-		ConditionVariable() : m_nb_waiters(0) {
-			// Initialize the critical section objects
-			// for the number of waiters and condition.
-			InitializeCriticalSection(&m_nb_waiters_mutex);
-			InitializeCriticalSection(&m_condition_mutex);
-
-			// Creates or opens a named or unnamed event object.
-			// On success, a handle to the event object is returned.
-			m_events[SIGNAL] = CreateEvent(
-									nullptr,  // no security
-									FALSE, // auto-reset event object
-									FALSE, // non-signaled initial state
-									nullptr); // unnamed event object
-			m_events[BROADCAST] = CreateEvent(
-									nullptr,  // no security
-									TRUE,  // manual-reset event object
-									FALSE, // non-signaled initial state
-									nullptr); // unnamed event object
-		}
+		ConditionVariable();
 
 		/**
 		 Destructs this condition variable.
 		 */
-		~ConditionVariable() {
-			// Release all resources used by an unowned critical section object. 
-			DeleteCriticalSection(&m_nb_waiters_mutex);
-			DeleteCriticalSection(&m_condition_mutex);
-
-			// Close the open event handles.
-			CloseHandle(m_events[SIGNAL]);
-			CloseHandle(m_events[BROADCAST]);
-		}
+		~ConditionVariable();
 
 		/**
 		 Locks this condition variable.
 		 */
-		void Lock() {
-			// Wait for ownership of the specified critical section object. 
-			// The function returns when the calling thread is granted ownership.
-			EnterCriticalSection(&m_condition_mutex);
-		}
+		void Lock();
 
 		/**
 		 Unlocks this condition variable.
 		 */
-		void Unlock() {
-			// Release ownership of the specified critical section object.
-			LeaveCriticalSection(&m_condition_mutex);
-		}
+		void Unlock();
 
 		/**
 		 Wait for a signal indicating a condition change.
@@ -470,6 +415,24 @@ namespace mage {
 		void Signal();
 
 	private:
+
+		/**
+		 Constructs a condition variable from the given condition variable.
+
+		 @param[in]		condition_variable
+						A reference to a condition variable.
+		 */
+		ConditionVariable(const ConditionVariable &condition_variable) = delete;
+
+		/**
+		 Copies the given condition variable to this condition variable.
+
+		 @param[in]		condition_variable
+						A reference to a condition variable.
+		 @return		A reference to the copy of the given condition variable
+						(i.e. this condition variable)
+		 */
+		ConditionVariable &operator=(const ConditionVariable &condition_variable) = delete;
 
 		/** 
 		 The number of waiters of this condition variable.

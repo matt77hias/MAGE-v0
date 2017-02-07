@@ -33,7 +33,7 @@ namespace mage {
 		/**
 		 Destructs this input manager.
 		 */
-		virtual ~InputManager() {}
+		virtual ~InputManager() = default;
 
 		/**
 		 Updates the state of the input systems of this input manager.

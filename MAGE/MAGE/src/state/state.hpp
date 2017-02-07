@@ -44,7 +44,7 @@ namespace mage {
 		/**
 		 Destructs this state.
 		 */
-		~State() {}
+		~State() = default;
 
 		/**
 		 Returns the id of this state.

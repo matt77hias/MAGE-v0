@@ -14,6 +14,34 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
+	// Mutex
+	//-------------------------------------------------------------------------
+	Mutex::Mutex() {
+		// Initialize a critical section object.
+		InitializeCriticalSection(&m_critical_section);
+	}
+
+	Mutex::~Mutex() {
+		// Release all resources used by an unowned critical section object. 
+		DeleteCriticalSection(&m_critical_section);
+	}
+
+	//-------------------------------------------------------------------------
+	// MutexLock
+	//-------------------------------------------------------------------------
+	MutexLock::MutexLock(Mutex &mutex)
+		: m_mutex(mutex) {
+		// Wait for ownership of the specified critical section object. 
+		// The function returns when the calling thread is granted ownership.
+		EnterCriticalSection(&m_mutex.m_critical_section);
+	}
+
+	MutexLock::~MutexLock() {
+		// Release ownership of the specified critical section object.
+		LeaveCriticalSection(&m_mutex.m_critical_section);
+	}
+
+	//-------------------------------------------------------------------------
 	// ReadWriteMutex
 	//-------------------------------------------------------------------------
 	ReadWriteMutex::ReadWriteMutex() : m_nb_writers_waiting(0), m_nb_readers_waiting(0),
@@ -45,6 +73,20 @@ namespace mage {
 			CloseHandle(m_ready_to_read_handle);
 			Fatal("Error creating semaphore for ReadWriteMutex: %d", lastError);
 		}
+	}
+
+	ReadWriteMutex::~ReadWriteMutex() {
+		if (m_ready_to_read_handle) {
+			// Close the open event handle.
+			CloseHandle(m_ready_to_read_handle);
+		}
+		if (m_ready_to_write_handle) {
+			// Close the open event handle.
+			CloseHandle(m_ready_to_write_handle);
+		}
+
+		// Release all resources used by an unowned critical section object. 
+		DeleteCriticalSection(&m_critical_section);
 	}
 
 	void ReadWriteMutex::AcquireRead() {
@@ -224,6 +266,25 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// ReadWriteMutexLock
 	//-------------------------------------------------------------------------
+	ReadWriteMutexLock::ReadWriteMutexLock(ReadWriteMutex &mutex, ReadWriteMutexLockType lock_type)
+		: m_type(lock_type), m_mutex(mutex) {
+		if (m_type == READ) {
+			m_mutex.AcquireRead();
+		}
+		else {
+			m_mutex.AcquireWrite();
+		}
+	}
+
+	ReadWriteMutexLock::~ReadWriteMutexLock() {
+		if (m_type == READ) {
+			m_mutex.ReleaseRead();
+		}
+		else {
+			m_mutex.ReleaseWrite();
+		}
+	}
+	
 	void ReadWriteMutexLock::UpgradeToWrite() {
 		Assert(m_type == READ);
 		m_mutex.ReleaseRead();
@@ -251,6 +312,11 @@ namespace mage {
 		if (!m_handle) {
 			Fatal("Error from CreateSemaphore: %d", GetLastError());
 		}
+	}
+
+	Semaphore::~Semaphore() {
+		// Closes an open object handle.
+		CloseHandle(m_handle);
 	}
 
 	void Semaphore::Post(uint32_t count) {
@@ -283,6 +349,49 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// ConditionVariable
 	//-------------------------------------------------------------------------
+	ConditionVariable::ConditionVariable()
+		: m_nb_waiters(0) {
+
+		// Initialize the critical section objects
+		// for the number of waiters and condition.
+		InitializeCriticalSection(&m_nb_waiters_mutex);
+		InitializeCriticalSection(&m_condition_mutex);
+
+		// Creates or opens a named or unnamed event object.
+		// On success, a handle to the event object is returned.
+		m_events[SIGNAL] = CreateEvent(
+			nullptr,  // no security
+			FALSE, // auto-reset event object
+			FALSE, // non-signaled initial state
+			nullptr); // unnamed event object
+		m_events[BROADCAST] = CreateEvent(
+			nullptr,  // no security
+			TRUE,  // manual-reset event object
+			FALSE, // non-signaled initial state
+			nullptr); // unnamed event object
+	}
+	
+	ConditionVariable::~ConditionVariable() {
+		// Release all resources used by an unowned critical section object. 
+		DeleteCriticalSection(&m_nb_waiters_mutex);
+		DeleteCriticalSection(&m_condition_mutex);
+
+		// Close the open event handles.
+		CloseHandle(m_events[SIGNAL]);
+		CloseHandle(m_events[BROADCAST]);
+	}
+
+	void ConditionVariable::Lock() {
+		// Wait for ownership of the specified critical section object. 
+		// The function returns when the calling thread is granted ownership.
+		EnterCriticalSection(&m_condition_mutex);
+	}
+
+	void ConditionVariable::Unlock() {
+		// Release ownership of the specified critical section object.
+		LeaveCriticalSection(&m_condition_mutex);
+	}
+
 	void ConditionVariable::Wait() {
 		// Increase the number of waiters.
 		EnterCriticalSection(&m_nb_waiters_mutex);

@@ -51,7 +51,7 @@ namespace mage {
 		/**
 		 Destructs this perspective camera.
 		 */
-		virtual ~PerspectiveCamera() {}
+		virtual ~PerspectiveCamera() = default;
 
 		/**
 		 Copies the given perspective camera to this perspective camera.

@@ -47,7 +47,7 @@ namespace mage {
 		/**
 		 Destructs this orthographic camera.
 		 */
-		virtual ~OrthographicCamera() {}
+		virtual ~OrthographicCamera() = default;
 
 		/**
 		 Copies the given orthographic camera to this orthographic camera.

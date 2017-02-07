@@ -75,13 +75,12 @@ namespace mage {
 		 @param[in]		axes
 						The Cartesian axes system.
 		 */
-		CartesianAxesSystem(const CartesianAxesSystem &axes) 
-			: m_x(axes.m_x), m_y(axes.m_y), m_z(axes.m_z) {}
+		CartesianAxesSystem(const CartesianAxesSystem &axes) = default;
 
 		/**
 		 Destructs this Cartesian axes system.
 		 */
-		~CartesianAxesSystem() {}
+		~CartesianAxesSystem() = default;
 
 		/**
 		 Copies the given Cartesian axes system to this Cartesian axes system.
@@ -91,12 +90,7 @@ namespace mage {
 		 @return		A reference to the copy of the given Cartesian axes system
 						(i.e. this Cartesian axes system).
 		 */
-		CartesianAxesSystem &operator=(const CartesianAxesSystem &axes) {
-			m_x = axes.m_x;
-			m_y = axes.m_y;
-			m_z = axes.m_z;
-			return (*this);
-		}
+		CartesianAxesSystem &operator=(const CartesianAxesSystem &axes) = default;
 
 		/**
 		 Returns the x-axis of this Cartesian axes system.
@@ -176,13 +170,12 @@ namespace mage {
 		 @param[in]		coordinate_system
 						The Cartesian coordinate system.
 		 */
-		CartesianCoordinateSystem(const CartesianCoordinateSystem &coordinate_system)
-			: m_o(coordinate_system.m_o), m_axes(coordinate_system.m_axes) {}
+		CartesianCoordinateSystem(const CartesianCoordinateSystem &coordinate_system) = default;
 
 		/**
 		 Destructs this Cartesian coordinate system.
 		 */
-		~CartesianCoordinateSystem() {}
+		~CartesianCoordinateSystem() = default;
 
 		/**
 		 Copies the given Cartesian coordinate system to this Cartesian coordinate system.
@@ -192,11 +185,7 @@ namespace mage {
 		 @return		A reference to the copy of the given Cartesian coordinate system
 						(i.e. this Cartesian coordinate system).
 		 */
-		CartesianCoordinateSystem &operator=(const CartesianCoordinateSystem &coordinate_system) {
-			m_o    = coordinate_system.m_o;
-			m_axes = coordinate_system.m_axes;
-			return (*this);
-		}
+		CartesianCoordinateSystem &operator=(const CartesianCoordinateSystem &coordinate_system) = default;
 
 		/**
 		 Returns the origin of this Cartesian coordinate system.

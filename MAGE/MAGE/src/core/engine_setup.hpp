@@ -41,7 +41,7 @@ namespace mage {
 	/**
 	 A struct of engine setups.
 	 */
-	struct EngineSetup {
+	struct EngineSetup final {
 
 	public:
 
@@ -64,13 +64,12 @@ namespace mage {
 		 @param[in]		setup
 						A reference to the engine setup.
 		 */
-		EngineSetup(const EngineSetup &setup)
-			: m_hinstance(setup.m_hinstance), m_name(setup.m_name), StateSetup(setup.StateSetup) {}
+		EngineSetup(const EngineSetup &setup) = default;
 
 		/**
 		 Destructs this engine setup.
 		 */
-		virtual ~EngineSetup() {}
+		~EngineSetup() = default;
 
 		/**
 		 Returns the name of the application.

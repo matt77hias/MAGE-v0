@@ -35,7 +35,7 @@ namespace mage {
 		/**
 		 Destructs this camera.
 		 */
-		virtual ~Camera() {}
+		virtual ~Camera() = default;
 
 		/**
 		 Copies the given camera to this camera.
@@ -43,13 +43,7 @@ namespace mage {
 		 @param[in]		camera
 						The camera.
 		 */
-		Camera &operator=(const Camera &camera) {
-			m_width = camera.m_width;
-			m_height = camera.m_height;
-			m_near_z = camera.m_near_z;
-			m_far_z = camera.m_far_z;
-			return (*this);
-		}
+		Camera &operator=(const Camera &camera) = default;
 
 		/**
 		 Clones this camera.
@@ -202,8 +196,7 @@ namespace mage {
 		 @param[in]		camera
 						The camera.
 		 */
-		Camera(const Camera &camera) 
-			: m_width(camera.m_width), m_height(camera.m_height), m_near_z(camera.m_near_z), m_far_z(camera.m_far_z) {}
+		Camera(const Camera &camera) = default;
 
 	private:
 

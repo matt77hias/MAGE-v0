@@ -39,6 +39,8 @@ namespace mage {
 		explicit UV(const XMFLOAT2 &vector)
 			: XMFLOAT2(vector) {}
 
+		~UV() = default;
+
 		UV &operator=(const UV &uv) {
 			XMFLOAT2::operator=(uv);
 			return (*this);
@@ -75,6 +77,8 @@ namespace mage {
 		explicit Point3(const XMFLOAT3 &vector)
 			: XMFLOAT3(vector) {}
 
+		~Point3() = default;
+
 		Point3 &operator=(const Point3 &point) {
 			XMFLOAT3::operator=(point);
 			return (*this);
@@ -96,6 +100,8 @@ namespace mage {
 		Direction3(const Normal3 &normal);
 		explicit Direction3(const XMFLOAT3 &vector)
 			: XMFLOAT3(vector) {}
+
+		~Direction3() = default;
 
 		Direction3 &operator=(const Direction3 &direction) {
 			XMFLOAT3::operator=(direction);
@@ -119,6 +125,8 @@ namespace mage {
 			: XMFLOAT3(static_cast< const XMFLOAT3 & >(direction)) {}
 		explicit Normal3(const XMFLOAT3 &vector)
 			: XMFLOAT3(vector) {}
+
+		~Normal3() = default;
 
 		Normal3 &operator=(const Normal3 &normal) {
 			XMFLOAT3::operator=(normal);
@@ -161,6 +169,8 @@ namespace mage {
 		explicit Color(const XMFLOAT4 &vector)
 			: XMFLOAT4(vector) {}
 		
+		~Color() = default;
+
 		Color &operator=(const Color &color) {
 			XMFLOAT4::operator=(color);
 			return (*this);

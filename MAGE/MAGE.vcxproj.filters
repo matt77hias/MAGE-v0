@@ -396,11 +396,11 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MAGE\src\scripting\variable_script.tpp">
-      <Filter>Header Files\scripting</Filter>
-    </None>
     <None Include="MAGE\src\memory\memory_arena.tpp">
       <Filter>Header Files\memory</Filter>
+    </None>
+    <None Include="MAGE\src\scripting\variable_script.tpp">
+      <Filter>Header Files\scripting</Filter>
     </None>
   </ItemGroup>
 </Project>

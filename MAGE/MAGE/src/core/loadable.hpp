@@ -39,13 +39,12 @@ namespace mage {
 		 @param[in]		loadable
 						A reference to the loadable.
 		 */
-		Loadable(const Loadable &loadable) 
-			: m_loaded(loadable.m_loaded) {}
+		Loadable(const Loadable &loadable) = default;
 
 		/**
 		 Destructs this loadable.
 		 */
-		virtual ~Loadable() {}
+		virtual ~Loadable() = default;
 
 		/**
 		 Copies the given loadable to this loadable.
@@ -55,10 +54,7 @@ namespace mage {
 		 @return		A reference to the copy of the given loadable
 						(i.e. this loadable).
 		 */
-		Loadable &operator=(const Loadable &loadable) {
-			m_loaded = loadable.m_loaded;
-			return (*this);
-		}
+		Loadable &operator=(const Loadable &loadable) = default;
 
 		/**
 		 Set the state of this loadable to the given value.

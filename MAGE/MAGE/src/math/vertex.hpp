@@ -72,6 +72,11 @@ namespace mage {
 		VertexPosition(const VertexPosition &vertex) = default;
 
 		/**
+		 Destructs this vertex.
+		 */
+		~VertexPosition() = default;
+
+		/**
 		Copies the given vertex to this vertex.
 
 		 @param[in]		vertex
@@ -123,6 +128,11 @@ namespace mage {
 						A reference to a vertex.
 		*/
 		VertexPositionNormal(const VertexPositionNormal &vertex) = default;
+
+		/**
+		 Destructs this vertex.
+		 */
+		~VertexPositionNormal() = default;
 
 		/**
 		 Copies the given vertex to this vertex.
@@ -183,6 +193,11 @@ namespace mage {
 		VertexPositionColor(const VertexPositionColor &vertex) = default;
 
 		/**
+		 Destructs this vertex.
+		 */
+		~VertexPositionColor() = default;
+
+		/**
 		 Copies the given vertex to this vertex.
 
 		 @param[in]		vertex
@@ -239,6 +254,11 @@ namespace mage {
 						A reference to a vertex.
 		 */
 		VertexPositionTexture(const VertexPositionTexture &vertex) = default;
+
+		/**
+		 Destructs this vertex.
+		 */
+		~VertexPositionTexture() = default;
 
 		/**
 		 Copies the given vertex to this vertex.
@@ -299,6 +319,11 @@ namespace mage {
 						A reference to a vertex.
 		 */
 		VertexPositionNormalColor(const VertexPositionNormalColor &vertex) = default;
+
+		/**
+		 Destructs this vertex.
+		 */
+		~VertexPositionNormalColor() = default;
 
 		/**
 		 Copies the given vertex to this vertex.
@@ -366,6 +391,11 @@ namespace mage {
 		VertexPositionNormalTexture(const VertexPositionNormalTexture &vertex) = default;
 
 		/**
+		 Destructs this vertex.
+		 */
+		~VertexPositionNormalTexture() = default;
+
+		/**
 		 Copies the given vertex to this vertex.
 
 		 @param[in]		vertex
@@ -429,6 +459,11 @@ namespace mage {
 						A reference to a vertex.
 		 */
 		VertexPositionColorTexture(const VertexPositionColorTexture &vertex) = default;
+
+		/**
+		 Destructs this vertex.
+		 */
+		~VertexPositionColorTexture() = default;
 
 		/**
 		 Copies the given vertex to this vertex.
@@ -496,6 +531,11 @@ namespace mage {
 						A reference to a vertex.
 		 */
 		VertexPositionNormalColorTexture(const VertexPositionNormalColorTexture &vertex) = default;
+
+		/**
+		 Destructs this vertex.
+		 */
+		~VertexPositionNormalColorTexture() = default;
 
 		/**
 		 Copies the given vertex to this vertex.
@@ -567,6 +607,11 @@ namespace mage {
 		 */
 		VertexPositionTextureTexture(const VertexPositionTextureTexture &vertex) = default;
 		
+		/**
+		 Destructs this vertex.
+		 */
+		~VertexPositionTextureTexture() = default;
+
 		/**
 		 Copies the given vertex to this vertex.
 

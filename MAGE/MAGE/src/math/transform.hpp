@@ -80,14 +80,14 @@ namespace mage {
 
 		 @return		A pointer to a non-deep clone of this transform.
 		 */
-		Transform *Transform::Clone() const;
+		Transform *Clone() const;
 
 		/**
 		 Returns a deep clone of this transform.
 
 		 @return		A pointer to a deep clone of this transform.
 		 */
-		Transform *Transform::DeepClone() const;
+		Transform *DeepClone() const;
 
 		/**
 		 Sets the x-value of the translation component of this transform to the given value.

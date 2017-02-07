@@ -8,7 +8,6 @@
 #include "collection\collection.hpp" 
 #include "resource\resource.hpp" 
 #include "scripting\variable.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -101,9 +100,7 @@ namespace mage {
 						A pointer to the value of the variable.
 		 */
 		template < typename T >
-		void AddVariable(const string &name, VariableType type, const T *value) {
-			m_variables.push_back(new Variable(name, type, value));
-		}
+		void AddVariable(const string &name, VariableType type, const T *value);
 
 		/**
 		 Removes and destructs the given variable from this variable script.
@@ -130,16 +127,7 @@ namespace mage {
 		 @return		A pointer to the value of the variable.
 		*/
 		template < typename T >
-		const T *GetValueOfVariable(const string &name) const {
-			// Iterate the states looking for the specified variable.
-			for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
-				if ((*it)->GetName() == name) {
-					return (T *)((*it)->GetValue());
-				}
-			}
-
-			return nullptr;
-		}
+		const T *GetValueOfVariable(const string &name) const;
 
 		/**
 		 Sets the value of the given variable in this variable script.
@@ -154,16 +142,7 @@ namespace mage {
 						exists in this variable script.
 		 */
 		template < typename T >
-		void SetValueOfVariable(const string &name, const T *value) {
-			// Iterate the variables looking for the specified variable.
-			for (list< Variable * >::iterator it = m_variables.begin(); it != m_variables.end(); ++it) {
-				if ((*it)->GetName() == name) {
-					(*it)->SetValue(value);
-					return;
-				}
-			}
-			Warning("Variable %s not found.", name.c_str());
-		}
+		void SetValueOfVariable(const string &name, const T *value);
 
 	protected:
 
@@ -217,3 +196,12 @@ namespace mage {
 		list< Variable * > m_variables;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "scripting\variable_script.tpp"
+
+#pragma endregion

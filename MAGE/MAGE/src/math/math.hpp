@@ -45,6 +45,8 @@ namespace mage {
 		}
 	};
 
+	static_assert(sizeof(UV) == sizeof(XMFLOAT2), "UV/XMFLOAT2 mismatch");
+
 	inline ostream &operator<<(ostream& os, const XMFLOAT2 &v) {
 		os << '[' << v.x << ' ' << v.y << ']';
 		return os;
@@ -133,6 +135,10 @@ namespace mage {
 	inline Direction3::Direction3(const Normal3 &normal)
 		: XMFLOAT3(static_cast< const XMFLOAT3 & >(normal)) {}
 
+	static_assert(sizeof(Point3) == sizeof(XMFLOAT3), "Point3/XMFLOAT3 mismatch");
+	static_assert(sizeof(Direction3) == sizeof(XMFLOAT3), "Direction3/XMFLOAT3 mismatch");
+	static_assert(sizeof(Normal3) == sizeof(XMFLOAT3), "Normal3/XMFLOAT3 mismatch");
+
 	inline ostream &operator<<(ostream& os, const XMFLOAT3 &v) {
 		os << '[' << v.x << ' ' << v.y << ' ' << v.z << ']';
 		return os;
@@ -160,6 +166,8 @@ namespace mage {
 			return (*this);
 		}
 	};
+
+	static_assert(sizeof(Color) == sizeof(XMFLOAT4), "Color/XMFLOAT4 mismatch");
 
 	inline ostream &operator<<(ostream& os, const XMFLOAT4 &v) {
 		os << '[' << v.x << ' ' << v.y << ' ' << v.z << ' ' << v.w << ']';

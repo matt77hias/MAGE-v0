@@ -22,6 +22,7 @@
     <ClInclude Include="MAGE\src\camera\camera.hpp" />
     <ClInclude Include="MAGE\src\camera\orthographic_camera.hpp" />
     <ClInclude Include="MAGE\src\camera\perspective_camera.hpp" />
+    <ClInclude Include="MAGE\src\collection\collection.tpp" />
     <ClInclude Include="MAGE\src\collection\collection.hpp" />
     <ClInclude Include="MAGE\src\core\engine.hpp" />
     <ClInclude Include="MAGE\src\core\engine_setup.hpp" />
@@ -59,6 +60,7 @@
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
+    <ClInclude Include="MAGE\src\resource\resource_manager.tpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
@@ -129,6 +131,10 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MAGE\src\memory\memory_arena.tpp" />
+    <None Include="MAGE\src\scripting\variable_script.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>

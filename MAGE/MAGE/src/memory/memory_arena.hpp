@@ -102,24 +102,7 @@ namespace mage {
 		 @note			The objects will be constructed with their default empty constructor.
 		 */
 		template< typename T >
-		T *Alloc(size_t count = 1, bool initialization = true) {
-			// Allocation
-			T *ptr = (T *)Alloc(count * sizeof(T));
-
-			if (ptr == nullptr) {
-				// The allocation failed.
-				return nullptr;
-			}
-
-			// Initialization
-			if (initialization) {
-				for (size_t i = 0; i < count; ++i) {
-					new (&ptr[i]) T();
-				}
-			}
-			
-			return ptr;
-		}
+		T *Alloc(size_t count = 1, bool initialization = true);
 
 	private:
 
@@ -165,3 +148,12 @@ namespace mage {
 		list< pair< size_t, char * > > m_available_blocks;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "memory\memory_arena.tpp"
+
+#pragma endregion

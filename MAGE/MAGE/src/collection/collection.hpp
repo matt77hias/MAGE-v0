@@ -37,7 +37,7 @@ namespace mage {
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// System Declarations and Definitions
+// System Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -55,17 +55,7 @@ namespace mage {
 					A reference to the predicate.
 	 */
 	template< typename ContainerT, typename PredicateT >
-	inline void RemoveIf(ContainerT &container, const PredicateT &predicate) {
-		auto it = container.begin();
-		while (it != container.end()) {
-			if (predicate(*it)) { 
-				it = container.erase(it);
-			}
-			else {
-				++it;
-			}
-		}
-	}
+	void RemoveIf(ContainerT &container, const PredicateT &predicate);
 
 	/**
 	 Removes and destructs all the elements from the given container.
@@ -76,11 +66,14 @@ namespace mage {
 					A reference to the container.
 	 */
 	template< typename ContainerT >
-	inline void RemoveAndDestructAllElements(ContainerT &container) {
-		auto it = container.begin();
-		while (it != container.end()) {
-			delete (*it);
-			it = container.erase(it);
-		}
-	}
+	void RemoveAndDestructAllElements(ContainerT &container);
 }
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "collection\collection.tpp"
+
+#pragma endregion

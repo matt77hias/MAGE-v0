@@ -291,6 +291,12 @@
     <ClInclude Include="MAGE\src\mesh\obj_loader.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\resource\resource_manager.tpp">
+      <Filter>Header Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\collection\collection.tpp">
+      <Filter>Header Files\collection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -388,5 +394,13 @@
     <FxCompile Include="MAGE\shaders\effect_VS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MAGE\src\scripting\variable_script.tpp">
+      <Filter>Header Files\scripting</Filter>
+    </None>
+    <None Include="MAGE\src\memory\memory_arena.tpp">
+      <Filter>Header Files\memory</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -134,6 +134,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\memory\memory_arena.tpp" />
+    <None Include="MAGE\src\mesh\mesh_loader.tpp" />
+    <None Include="MAGE\src\mesh\obj_loader.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

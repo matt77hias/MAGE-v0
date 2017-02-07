@@ -1,5 +1,7 @@
 #pragma once
 
+#include "file\file_utils.hpp"
+
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
@@ -23,7 +25,7 @@ namespace mage {
 		}
 
 		// Add the new resource to this resource manager.
-		m_resources.push_back(resource);
+		m_resources[resource.GetFilename()] = resource;
 
 		// Return a pointer to the added resource.
 		return resource;
@@ -31,17 +33,27 @@ namespace mage {
 
 	template< typename T >
 	void ResourceManager< T >::RemoveResource(SharedPtr< T > resource) {
-		m_resources.remove(resource);
+		RemoveResource(resource.GetName(), resource.GetPath());
+	}
+
+	template< typename T >
+	void ResourceManager< T >::RemoveResource(const wstring &name, const wstring &path) {
+		const wstring fname = GetFilename(name, path);
+		const map< wstring, SharedPtr< T > >::const_iterator it = m_resources.find(fname);
+		if (it != m_resources.cend()) {
+			delete *it;
+			m_resources.erase(it);
+		}
 	}
 
 	template< typename T >
 	SharedPtr< T > ResourceManager< T >::GetResource(const wstring &name, const wstring &path) const {
-		// Iterate the resources looking for the specified resource.
-		for (list< SharedPtr< T > >::iterator it = m_resources.begin(); it != m_resources.end(); ++it) {
-			if ((*it)->GetName() == name && (*it)->getPath() == path) {
-				return *it;
-			}
+		const wstring fname = GetFilename(name, path);
+		const map< wstring, SharedPtr< T > >::iterator it = m_resources.find(fname);
+		if (it != m_resources.end()) {
+			return *it;
 		}
+
 		// Return nullptr if the resource was not found.
 		return nullptr;
 	}

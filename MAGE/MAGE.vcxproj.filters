@@ -402,5 +402,11 @@
     <None Include="MAGE\src\scripting\variable_script.tpp">
       <Filter>Header Files\scripting</Filter>
     </None>
+    <None Include="MAGE\src\mesh\mesh_loader.tpp">
+      <Filter>Header Files\mesh</Filter>
+    </None>
+    <None Include="MAGE\src\mesh\obj_loader.tpp">
+      <Filter>Header Files\mesh</Filter>
+    </None>
   </ItemGroup>
 </Project>

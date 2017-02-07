@@ -39,7 +39,30 @@ namespace mage {
 		/**
 		 Destructs this resource manager.
 		 */
-		virtual ~ResourceManager() {}
+		virtual ~ResourceManager() = default;
+
+		/**
+		 Checks whether this resource manager contains the given resource.
+
+		 @param[in]		name
+						A reference to the name of the resource.
+		 @param[in]		path
+						A reference to the path of the resource.
+		 @return		@c true if this resource manager contains the given resource.
+						@c false otherwise.
+		 */
+		bool ContainsResource(const wstring &name, const wstring &path = "./") const {
+			return (GetResource(name, path) != nullptr);
+		}
+
+		/**
+		 Returns the number of resources of this resource manager.
+
+		 @return		The number of resources of this resource manager.
+		 */
+		size_t GetNumberbOfResources() const {
+			return m_resources.size();
+		}
 
 		/**
 		 Adds a new resource to this resource manager.
@@ -61,12 +84,22 @@ namespace mage {
 		void RemoveResource(SharedPtr< T > resource);
 
 		/**
+		 Removes the given resource from this resource manager.
+
+		 @param[in]		name
+						A reference to the name of the resource.
+		 @param[in]		path
+						A reference to the path of the resource.
+		 */
+		void RemoveResource(const wstring &name, const wstring &path = "./");
+
+		/**
 		 Returns a resource of this resource manager by its filename (given name and path).
 
 		 @param[in]		name
-						A reference to the name of the new resource.
+						A reference to the name of the resource.
 		 @param[in]		path
-						A reference to the path of the new resource.
+						A reference to the path of the resource.
 		 @return		@c nullptr if the resource is not present.
 		 @return		A pointer to the resource.
 		 */
@@ -93,9 +126,10 @@ namespace mage {
 		ResourceManager &operator=(const ResourceManager &resource_manager) = delete;
 
 		/**
-		 The linked list containing the resources of this resource manager.
+		 The map containing the resources of this resource manager as value
+		 and their file names as key.
 		 */
-		list< SharedPtr< T > > m_resources;
+		map< wstring, SharedPtr< T > > m_resources;
 
 		/**
 		 The application specific resource creation function for the resources

@@ -20,7 +20,7 @@ namespace mage {
 	/**
 	 A class of indexed meshes.
 	 */
-	class Mesh : Resource {
+	class Mesh: Resource {
 
 	public:
 
@@ -54,7 +54,7 @@ namespace mage {
 	protected:
 
 		HRESULT InitializeBuffers(ComPtr< ID3D11Device2 > device, bool invert_handedness, bool clockwise_order);
-		HRESULT SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices);
+		HRESULT SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const VertexPositionNormalTexture *vertices, size_t nb_vertices);
 		HRESULT SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices);
 
 		size_t m_nb_indices;

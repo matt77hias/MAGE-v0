@@ -26,9 +26,9 @@ namespace mage {
 
 	HRESULT Mesh::InitializeBuffers(ComPtr< ID3D11Device2 > device, bool invert_handedness, bool clockwise_order) {
 
-		vector< Vertex > vertices;
+		vector< VertexPositionNormalTexture > vertices;
 		vector< uint32_t > indices;
-		const HRESULT result_load = LoadMeshFromFile(GetFilename(), vertices, indices,
+		const HRESULT result_load = LoadMeshFromFile< VertexPositionNormalTexture >(GetFilename(), vertices, indices,
 													invert_handedness, clockwise_order);
 		if (FAILED(result_load)) {
 			Error("IndexedMesh loading failed: %ld.", result_load);
@@ -52,11 +52,11 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT Mesh::SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices) {
+	HRESULT Mesh::SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const VertexPositionNormalTexture *vertices, size_t nb_vertices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
-		buffer_desc.ByteWidth      = (UINT)(nb_vertices * sizeof(Vertex));
+		buffer_desc.ByteWidth      = (UINT)(nb_vertices * sizeof(VertexPositionNormalTexture));
 		buffer_desc.Usage          = D3D11_USAGE_DEFAULT;
 		buffer_desc.BindFlags      = D3D11_BIND_VERTEX_BUFFER;
 		buffer_desc.CPUAccessFlags = 0;
@@ -108,8 +108,8 @@ namespace mage {
 
 	HRESULT Mesh::BindBuffers(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		// Set the vertex buffer.
-		UINT stride = sizeof(Vertex);	// The size (in bytes) of the elements that are to be used from a vertex buffer.
-		UINT offset = 0;				// The number of bytes between the first element of a vertex buffer and the first element that will be used.
+		UINT stride = sizeof(VertexPositionNormalTexture);	// The size (in bytes) of the elements that are to be used from a vertex buffer.
+		UINT offset = 0;									// The number of bytes between the first element of a vertex buffer and the first element that will be used.
 		// 1. The first input slot for binding.
 		// 2. The number of vertex buffers in the array.
 		// 3. A pointer to an array of vertex buffers.

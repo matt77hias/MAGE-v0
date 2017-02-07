@@ -84,9 +84,9 @@
     <ClCompile Include="MAGE\src\logging\timer.cpp" />
     <ClCompile Include="MAGE\src\math\bounding_volume.cpp" />
     <ClCompile Include="MAGE\src\math\transform.cpp" />
+    <ClCompile Include="MAGE\src\math\vertex.cpp" />
     <ClCompile Include="MAGE\src\memory\memory_arena.cpp" />
     <ClCompile Include="MAGE\src\mesh\mesh.cpp" />
-    <ClCompile Include="MAGE\src\mesh\mesh_loader.cpp" />
     <ClCompile Include="MAGE\src\mesh\obj_loader.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\parallel.cpp" />

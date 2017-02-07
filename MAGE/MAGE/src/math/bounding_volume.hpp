@@ -79,25 +79,25 @@ namespace mage {
 		 */
 		bool EnclosesStrict(const Point3 &point) const;
 
-		/**
-		 Checks whether this AABB completely encloses the given face.
+		///**
+		// Checks whether this AABB completely encloses the given face.
 
-		 @param[in]		face
-						A reference to the face.
-		 @return		@c true if this AABB completely encloses @a face.
-						@c false otherwise.
-		 */
-		bool Encloses(const Face &face) const;
+		// @param[in]		face
+		//				A reference to the face.
+		// @return		@c true if this AABB completely encloses @a face.
+		//				@c false otherwise.
+		// */
+		//bool Encloses(const Face &face) const;
 
-		/**
-		 Checks whether this AABB completely, strictly encloses the given face.
+		///**
+		// Checks whether this AABB completely, strictly encloses the given face.
 
-		 @param[in]		face
-						A reference to the face.
-		 @return		@c true if this AABB completely, strictly encloses @a face.
-						@c false otherwise.
-		 */
-		bool EnclosesStrict(const Face &face) const;
+		// @param[in]		face
+		//				A reference to the face.
+		// @return		@c true if this AABB completely, strictly encloses @a face.
+		//				@c false otherwise.
+		// */
+		//bool EnclosesStrict(const Face &face) const;
 
 		/**
 		 Checks whether this AABB is completely enclosed by the given (closed) volume.

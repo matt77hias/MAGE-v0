@@ -22,6 +22,38 @@ namespace mage {
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// XMFLOAT2
+	//-------------------------------------------------------------------------
+
+	struct UV final : public XMFLOAT2 {
+
+	public:
+
+		UV()
+			: XMFLOAT2() {}
+		UV(float x, float y)
+			: XMFLOAT2(x, y) {}
+		UV(const UV &uv)
+			: XMFLOAT2(static_cast< const XMFLOAT2 & >(uv)) {}
+		explicit UV(const XMFLOAT2 &vector)
+			: XMFLOAT2(vector) {}
+
+		UV &operator=(const UV &uv) {
+			XMFLOAT2::operator=(uv);
+			return (*this);
+		}
+	};
+
+	inline ostream &operator<<(ostream& os, const XMFLOAT2 &v) {
+		os << '[' << v.x << ' ' << v.y << ']';
+		return os;
+	}
+
+	//-------------------------------------------------------------------------
+	// XMFLOAT3
+	//-------------------------------------------------------------------------
+
 	// Forward declarations
 	struct Direction3;
 	struct Normal3;
@@ -105,6 +137,29 @@ namespace mage {
 		os << '[' << v.x << ' ' << v.y << ' ' << v.z << ']';
 		return os;
 	}
+
+	//-------------------------------------------------------------------------
+	// XMFLOAT4
+	//-------------------------------------------------------------------------
+
+	struct Color final : public XMFLOAT4 {
+
+	public:
+
+		Color()
+			: XMFLOAT4() {}
+		Color(float x, float y, float z, float w)
+			: XMFLOAT4(x, y, z, w) {}
+		Color(const Color &color)
+			: XMFLOAT4(static_cast< const XMFLOAT4 & >(color)) {}
+		explicit Color(const XMFLOAT4 &vector)
+			: XMFLOAT4(vector) {}
+		
+		Color &operator=(const Color &color) {
+			XMFLOAT4::operator=(color);
+			return (*this);
+		}
+	};
 
 	inline ostream &operator<<(ostream& os, const XMFLOAT4 &v) {
 		os << '[' << v.x << ' ' << v.y << ' ' << v.z << ' ' << v.w << ']';

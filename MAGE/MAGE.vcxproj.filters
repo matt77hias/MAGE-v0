@@ -258,9 +258,6 @@
     <ClInclude Include="MAGE\src\shader\vertex_shader.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\obj_loader.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\material\material.hpp">
       <Filter>Header Files\material</Filter>
     </ClInclude>
@@ -290,6 +287,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\model\model.hpp">
       <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\obj_loader.hpp">
+      <Filter>Header Files\mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -350,12 +350,6 @@
     <ClCompile Include="MAGE\src\shader\vertex_shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\mesh_loader.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\obj_loader.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\core\version.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
@@ -375,6 +369,12 @@
       <Filter>Source Files\math</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\mesh\mesh.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\math\vertex.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\obj_loader.cpp">
       <Filter>Source Files\mesh</Filter>
     </ClCompile>
   </ItemGroup>

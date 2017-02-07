@@ -29,46 +29,353 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_VERTEX_SEMANTIC_NAME_POSITION "SV_Position"
+#define MAGE_VERTEX_SEMANTIC_NAME_NORMAL "NORMAL"
+#define MAGE_VERTEX_SEMANTIC_NAME_COLOR "COLOR"
+#define MAGE_VERTEX_SEMANTIC_NAME_TEXTURE "TEXCOORD"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	/**
-	 A struct of vertices.
-	 */
-	struct Vertex final {
+	struct VertexPosition final {
 
 	public:
 
 		/**
 		 Constructs a vertex.
-
-		 @pre			The length (L2-norm) of the normal must be equal to one
-						(i.e. the normal vector is normalized) 
-						or zero if no normal is specified.
-		 @param[in]		p
-						The position of the vertex (in object space).
-		 @param[in]		n
-						The normal of the vertex.
-		 @param[in]		tex
-						The texture coordinates of the vertex.
 		 */
-		Vertex(Point3 p = Point3(0.0f, 0.0f, 0.0f), Normal3 n = Normal3(0.0f, 0.0f, 0.0f), XMFLOAT2 tex = XMFLOAT2(0.0f, 0.0f)) 
-			: p(p), n(n), tex(tex) {}
+		VertexPosition() = default;
 
 		/**
 		 Constructs a vertex.
 
 		 @param[in]		p
-						The position of the vertex (in object space).
-		 @param[in]		tex
-						The texture coordinates of the vertex.
+						A reference to the position of the vertex.
 		 */
-		Vertex(Point3 p, XMFLOAT2 tex) 
-			: p(p), n(Normal3(0.0f, 0.0f, 0.0f)), tex(tex) {}
+		VertexPosition(const Point3 &p)
+			: p(p) {}
 
 		/**
-		 The position of this vertex (in object space).
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPosition(const VertexPosition &vertex) = default;
+
+		/**
+		Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPosition &operator=(const VertexPosition &vertex) = default;
+
+		/**
+		 The position of this vertex.
+		 */
+		Point3 p;
+
+		/**
+		 The number of elements in the input element descriptor of a vertex.
+		 */
+		static const uint32_t nb_input_elements = 1;
+
+		/**
+		 The input element descriptor of a vertex.
+		 */
+		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+	};
+
+	struct VertexPositionNormal final {
+
+	public:
+
+		/**
+		 Constructs a vertex.
+		 */
+		VertexPositionNormal() = default;
+
+		/**
+		 Constructs a vertex.
+
+		 @param[in]		p
+						A reference to the position of the vertex.
+		 @param[in]		n
+						A reference to the normal of the vertex.
+		 */
+		VertexPositionNormal(const Point3 &p, const Normal3 &n)
+			: p(p), n(n) {}
+
+		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		*/
+		VertexPositionNormal(const VertexPositionNormal &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionNormal &operator=(const VertexPositionNormal &vertex) = default;
+
+		/**
+		 The position of this vertex.
+		 */
+		Point3 p;
+
+		/**
+		 The normal of this vertex.
+		 */
+		Normal3 n;
+
+		/**
+		 The number of elements in the input element descriptor of a vertex.
+		 */
+		static const uint32_t nb_input_elements = 2;
+
+		/**
+		 The input element descriptor of a vertex.
+		 */
+		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+	};
+
+	struct VertexPositionColor final {
+
+	public:
+
+		/**
+		 Constructs a vertex.
+		 */
+		VertexPositionColor() = default;
+
+		/**
+		 Constructs a vertex.
+
+		 @param[in]		p
+						A reference to the position of the vertex.
+		 @param[in]		c
+						A reference to the color of the vertex.
+		 */
+		VertexPositionColor(const Point3 &p, const Color &c)
+			: p(p), c(c) {}
+
+		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPositionColor(const VertexPositionColor &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionColor &operator=(const VertexPositionColor &vertex) = default;
+
+		/**
+		 The position of this vertex.
+		 */
+		Point3 p;
+
+		/**
+		 The color of this vertex.
+		 */
+		Color c;
+
+		/**
+		 The number of elements in the input element descriptor of a vertex.
+		 */
+		static const uint32_t nb_input_elements = 2;
+
+		/**
+		 The input element descriptor of a vertex.
+		 */
+		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+	};
+
+	struct VertexPositionTexture final {
+
+	public:
+
+		/**
+		 Constructs a vertex.
+		 */
+		VertexPositionTexture() = default;
+
+		/**
+		 Constructs a vertex.
+
+		 @param[in]		p
+						A reference to the position of the vertex.
+		 @param[in]		tex
+						A reference to the texture coordinates of the vertex.
+		 */
+		VertexPositionTexture(const Point3 &p, const UV &tex)
+			: p(p), tex(tex) {}
+
+		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPositionTexture(const VertexPositionTexture &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionTexture &operator=(const VertexPositionTexture &vertex) = default;
+
+		/**
+		 The position of this vertex.
+		 */
+		Point3 p;
+
+		/**
+		 The texture coordinates of this vertex.
+		 */
+		UV tex;
+
+		/**
+		 The number of elements in the input element descriptor of a vertex.
+		 */
+		static const uint32_t nb_input_elements = 2;
+
+		/**
+		 The input element descriptor of a vertex.
+		 */
+		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+	};
+
+	struct VertexPositionNormalColor final {
+
+	public:
+
+		/**
+		 Constructs a vertex.
+		 */
+		VertexPositionNormalColor() = default;
+
+		/**
+		 Constructs a vertex.
+
+		 @param[in]		p
+						A reference to the position of the vertex.
+		 @param[in]		n
+						A reference to the normal of the vertex.
+		 @param[in]		c
+						A reference to the color of the vertex.
+		 */
+		VertexPositionNormalColor(const Point3 &p, const Normal3 &n, const Color &c)
+			: p(p), n(n), c(c) {}
+
+		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPositionNormalColor(const VertexPositionNormalColor &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionNormalColor &operator=(const VertexPositionNormalColor &vertex) = default;
+
+		/**
+		 The position of this vertex.
+		 */
+		Point3 p;
+
+		/**
+		 The normal of this vertex.
+		 */
+		Normal3 n;
+
+		/**
+		 The color of this vertex.
+		 */
+		Color c;
+
+		/**
+		 The number of elements in the input element descriptor of a vertex.
+		 */
+		static const uint32_t nb_input_elements = 3;
+
+		/**
+		 The input element descriptor of a vertex.
+		 */
+		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+	};
+
+	struct VertexPositionNormalTexture final {
+
+	public:
+
+		/**
+		 Constructs a vertex.
+		 */
+		VertexPositionNormalTexture() = default;
+
+		/**
+		 Constructs a vertex.
+
+		 @param[in]		p
+						A reference to the position of the vertex.
+		 @param[in]		n
+						A reference to the normal of the vertex.
+		 @param[in]		tex
+						A reference to the texture coordinates of the vertex.
+		 */
+		VertexPositionNormalTexture(const Point3 &p, const Normal3 &n, const UV &tex)
+			: p(p), n(n), tex(tex) {}
+
+		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPositionNormalTexture(const VertexPositionNormalTexture &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionNormalTexture &operator=(const VertexPositionNormalTexture &vertex) = default;
+
+		/**
+		 The position of this vertex.
 		 */
 		Point3 p;
 
@@ -80,203 +387,218 @@ namespace mage {
 		/**
 		 The texture coordinates of this vertex.
 		 */
-		XMFLOAT2 tex;
+		UV tex;
+
+		/**
+		 The number of elements in the input element descriptor of a vertex.
+		 */
+		static const uint32_t nb_input_elements = 3;
+
+		/**
+		 The input element descriptor of a vertex.
+		 */
+		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
 	};
 
-	const D3D11_INPUT_ELEMENT_DESC vertex_input_element_desc[] = {
-		{ "POSITION",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, UINT(offsetof(Vertex, p)),   D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL",	   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, UINT(offsetof(Vertex, n)),   D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD",  0, DXGI_FORMAT_R32G32_FLOAT,    0, UINT(offsetof(Vertex, tex)), D3D11_INPUT_PER_VERTEX_DATA, 0 }
-	};
-
-	/**
-	 A struct of lit vertices.
-	 */
-	struct LVertex final {
+	struct VertexPositionColorTexture final {
 
 	public:
 
 		/**
-		 Constructs a lit vertex.
-
-		 @param[in]		p
-						The position of the lit vertex (in object space).
-		 @param[in]		diffuse
-						The diffuse color of the lit vertex.
-		 @param[in]		tex
-						The texture coordinate of the lit vertex.
+		 Constructs a vertex.
 		 */
-		LVertex(Point3 p = Point3(0.0f, 0.0f, 0.0f), XMFLOAT4 diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2 tex = XMFLOAT2(0.0f, 0.0f)) 
-			: p(p), diffuse(diffuse), tex(tex) {}
+		VertexPositionColorTexture() = default;
 
 		/**
-		 The position of this lit vertex (in object space).
+		 Constructs a vertex.
+
+		 @param[in]		p
+						A reference to the position of the vertex.
+		 @param[in]		c
+						A reference to the color of the vertex.
+		 @param[in]		tex
+						A reference to the texture coordinates of the vertex.
+		 */
+		VertexPositionColorTexture(const Point3 &p, const Color &c, const UV &tex)
+			: p(p), c(c), tex(tex) {}
+
+		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPositionColorTexture(const VertexPositionColorTexture &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionColorTexture &operator=(const VertexPositionColorTexture &vertex) = default;
+
+		/**
+		 The position of this vertex.
 		 */
 		Point3 p;
 
 		/**
-		 The diffuse color of this lit vertex.
+		 The color of this vertex.
 		 */
-		XMFLOAT4 diffuse;
+		Color c;
 
 		/**
-		 The texture coordinates of this lit vertex.
+		 The texture coordinates of this vertex.
 		 */
-		XMFLOAT2 tex;
+		UV tex;
+
+		/**
+		 The number of elements in the input element descriptor of a vertex.
+		 */
+		static const uint32_t nb_input_elements = 3;
+
+		/**
+		 The input element descriptor of a vertex.
+		 */
+		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
 	};
 
-	const D3D11_INPUT_ELEMENT_DESC lvertex_input_element_desc[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, UINT(offsetof(LVertex, p)),       D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "DIFFUSE",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(LVertex, diffuse)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,       0, UINT(offsetof(LVertex, tex)),     D3D11_INPUT_PER_VERTEX_DATA, 0 }
-	};
-
-	/**
-	 A struct of transformed and lit vertices.
-	 */
-	struct TLVertex final {
+	struct VertexPositionNormalColorTexture final {
 
 	public:
 
 		/**
-		 Constructs a transformed and lit vertex.
+		 Constructs a vertex.
+		 */
+		VertexPositionNormalColorTexture() = default;
+
+		/**
+		 Constructs a vertex.
 
 		 @param[in]		p
-						The position of the transformed and lit vertex (in projection space).
-		 @param[in]		diffuse
-						The diffuse color of the transformed and lit vertex.
+						A reference to the position of the vertex.
+		 @param[in]		n
+						A reference to the normal of the vertex.
+		 @param[in]		c
+						A reference to the color of the vertex.
 		 @param[in]		tex
-						The texture coordinates of the transformed and lit vertex.
+						A reference to the texture coordinates of the vertex.
 		 */
-		TLVertex(XMFLOAT4 p = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f), XMFLOAT4 diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2 tex = XMFLOAT2(0.0f, 0.0f)) 
-			: p(p), diffuse(diffuse), tex(tex) {}
+		VertexPositionNormalColorTexture(const Point3 &p, const Normal3 &n, const Color &c, const UV &tex)
+			: p(p), n(n), c(c), tex(tex) {}
 
 		/**
-		 The position of this transformed and lit vertex (in projection space).
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
 		 */
-		XMFLOAT4 p;
+		VertexPositionNormalColorTexture(const VertexPositionNormalColorTexture &vertex) = default;
 
 		/**
-		 The diffuse color of this transformed and lit vertex.
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
 		 */
-		XMFLOAT4 diffuse;
+		VertexPositionNormalColorTexture &operator=(const VertexPositionNormalColorTexture &vertex) = default;
 
 		/**
-		 The texture coordinates of this transformed and lit vertex.
+		 The position of this vertex.
 		 */
-		XMFLOAT2 tex;
+		Point3 p;
+
+		/**
+		 The normal of this vertex.
+		 */
+		Normal3 n;
+
+		/**
+		 The color of this vertex.
+		 */
+		Color c;
+
+		/**
+		 The texture coordinates of this vertex.
+		 */
+		UV tex;
+
+		/**
+		 The number of elements in the input element descriptor of a vertex.
+		 */
+		static const int nb_input_elements = 4;
+
+		/**
+		 The input element descriptor of a vertex.
+		 */
+		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
 	};
 
-	/**
-	 The input element descriptor for a transformed and lit vertex.
-	 */
-	const D3D11_INPUT_ELEMENT_DESC tlvertex_input_element_desc[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(TLVertex, p)),       D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "DIFFUSE",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, UINT(offsetof(TLVertex, diffuse)), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,       0, UINT(offsetof(TLVertex, tex)),     D3D11_INPUT_PER_VERTEX_DATA, 0 }
-	};
-
-	/**
-	 A struct of edges.
-	 */
-	struct Edge final {
+	struct VertexPositionTextureTexture final {
 
 	public:
 
 		/**
-		 Constructs an edge between the two given vertices.
-
-		 @param[in]		v0
-						A pointer to the first vertex.
-		 @param[in]		v1
-						A pointer to the second vertex.
+		 Constructs a vertex.
 		 */
-		Edge(Vertex *v0, Vertex *v1) : v0(v0), v1(v1) {}
+		VertexPositionTextureTexture() = default;
 
 		/**
-		 The first vertex of this edge.
+		 Constructs a vertex.
+
+		 @param[in]		p
+						A reference to the position of the vertex.
+		 @param[in]		tex1
+						A reference to the first texture coordinates of the vertex.
+		 @param[in]		tex2
+						A reference to the second texture coordinates of the vertex.
 		 */
-		Vertex *v0;
+		VertexPositionTextureTexture(const Point3 &p, const UV &tex1, const UV &tex2)
+			: p(p), tex1(tex1), tex2(tex2) {}
 
 		/**
-		 The second vertex of this edge.
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
 		 */
-		Vertex *v1;
-	};
+		VertexPositionTextureTexture(const VertexPositionTextureTexture &vertex) = default;
+		
+		/**
+		 Copies the given vertex to this vertex.
 
-	/**
-	 A struct of indexed edges.
-	 */
-	struct IndexedEdge final {
-
-	public:
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionTextureTexture &operator=(const VertexPositionTextureTexture &vertex) = default;
 
 		/**
-		 The index of the edge's first vertex.
+		 The position of this vertex.
 		 */
-		uint32_t iv0;
+		Point3 p;
 
 		/**
-		 The index of the edge's second vertex.
+		 The first texture coordinates of this vertex.
 		 */
-		uint32_t iv1;
-	};
-
-	/**
-	 A struct of faces.
-	 */
-	struct Face final {
-
-	public:
+		UV tex1;
 
 		/**
-		 Constructs a face for the three given vertices.
-
-		 @param[in]		v0
-						A pointer to the first vertex.
-		 @param[in]		v1
-						A pointer to the second vertex.
-		 @param[in]		v2
-						A pointer to the third vertex.
-		*/
-		Face(Vertex *v0, Vertex *v1, Vertex *v2) : v0(v0), v1(v1), v2(v2) {}
+		 The second texture coordinates of this vertex.
+		 */
+		UV tex2;
 
 		/**
-		 The first vertex of this face.
+		 The number of elements in the input element descriptor of a vertex.
 		 */
-		Vertex *v0;
+		static const int nb_input_elements = 3;
 
 		/**
-		 The second vertex of this face.
+		 The input element descriptor of a vertex.
 		 */
-		Vertex *v1;
-
-		/**
-		 The third vertex of this face.
-		 */
-		Vertex *v2;
-	};
-
-	/**
-	 A struct of indexed faces.
-	 */
-	struct IndexedFace final {
-
-	public:
-
-		/**
-		 Index of the face's first vertex.
-		 */
-		uint32_t iv0;
-
-		/**
-		 Index of the face's second vertex.
-		 */
-		uint32_t iv1;
-
-		/**
-		 Index of the face's third vertex.
-		 */
-		uint32_t iv2;
+		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
 	};
 }

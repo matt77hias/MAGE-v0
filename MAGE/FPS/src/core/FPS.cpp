@@ -30,7 +30,7 @@ class TestState : public State {
 		ComPtr< ID3D11Device2 > device = g_engine->GetRenderer().GetDevice();
 		ComPtr< ID3D11DeviceContext2 > device_context = g_engine->GetRenderer().GetDeviceContext();
 
-		m_vs = make_unique< VertexShader >(device, vertex_input_element_desc, _countof(vertex_input_element_desc), L"effect_VS.cso", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/");
+		m_vs = make_unique< VertexShader >(device, VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements, L"effect_VS.cso", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/");
 		m_ps = make_unique< PixelShader >(device, L"effect_PS.cso", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/");
 		m_mesh = make_unique< Mesh >(device, L"cube.obj", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/", true, true);
 		m_mesh->BindBuffers(device_context);

@@ -74,33 +74,6 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template < typename Vertex >
-	static XMUINT3 ParseSpecificOBJVertexIndices(char **context, char *str = nullptr) {
-		return ParseOBJVertexIndices(context, str);
-	}
-
-	template <>
-	static XMUINT3 ParseSpecificOBJVertexIndices< VertexPosition >(char **context, char *str) {
-		XMUINT3 vertex_indices = ParseOBJVertexIndices(context, str);
-		vertex_indices.y = 0;
-		vertex_indices.z = 0;
-		return vertex_indices;
-	}
-
-	template <>
-	static XMUINT3 ParseSpecificOBJVertexIndices< VertexPositionNormal >(char **context, char *str) {
-		XMUINT3 vertex_indices = ParseOBJVertexIndices(context, str);
-		vertex_indices.y = 0;
-		return vertex_indices;
-	}
-
-	template <>
-	static XMUINT3 ParseSpecificOBJVertexIndices< VertexPositionTexture >(char **context, char *str) {
-		XMUINT3 vertex_indices = ParseOBJVertexIndices(context, str);
-		vertex_indices.z = 0;
-		return vertex_indices;
-	}
-
-	template < typename Vertex >
 	static Vertex ConstructVertex(const XMUINT3 &vertex_indices, OBJBuffer &buffer) {
 		Vertex vertex;
 		if (vertex_indices.x) {
@@ -111,6 +84,39 @@ namespace mage {
 		}
 		if (vertex_indices.z) {
 			vertex.n = buffer.vertex_normal_coordinates[vertex_indices.z - 1];
+		}
+		return vertex;
+	}
+
+	template <>
+	static VertexPosition ConstructVertex< VertexPosition >(const XMUINT3 &vertex_indices, OBJBuffer &buffer) {
+		VertexPosition vertex;
+		if (vertex_indices.x) {
+			vertex.p = buffer.vertex_coordinates[vertex_indices.x - 1];
+		}
+		return vertex;
+	}
+
+	template <>
+	static VertexPositionNormal ConstructVertex< VertexPositionNormal >(const XMUINT3 &vertex_indices, OBJBuffer &buffer) {
+		VertexPositionNormal vertex;
+		if (vertex_indices.x) {
+			vertex.p = buffer.vertex_coordinates[vertex_indices.x - 1];
+		}
+		if (vertex_indices.z) {
+			vertex.n = buffer.vertex_normal_coordinates[vertex_indices.z - 1];
+		}
+		return vertex;
+	}
+
+	template <>
+	static VertexPositionTexture ConstructVertex< VertexPositionTexture >(const XMUINT3 &vertex_indices, OBJBuffer &buffer) {
+		VertexPositionTexture vertex;
+		if (vertex_indices.x) {
+			vertex.p = buffer.vertex_coordinates[vertex_indices.x - 1];
+		}
+		if (vertex_indices.y) {
+			vertex.tex = buffer.vertex_texture_coordinates[vertex_indices.y - 1];
 		}
 		return vertex;
 	}
@@ -126,7 +132,7 @@ namespace mage {
 
 		uint32_t indices[3];
 		for (size_t i = 0; i < 3; ++i) {
-			const XMUINT3 vertex_indices = ParseSpecificOBJVertexIndices< Vertex >(context);
+			const XMUINT3 vertex_indices = ParseOBJVertexIndices(context);
 			const map< XMUINT3, uint32_t >::const_iterator it = buffer.mapping.find(vertex_indices);
 			if (it != buffer.mapping.cend()) {
 				indices[i] = it->second;
@@ -233,7 +239,7 @@ namespace mage {
 		bool invert_handedness, bool clockwise_order) {
 
 		if (!vertex_buffer.empty()) {
-			Error("Could not import .obj string due to non-empty vertex buffer");
+			Error("Could not import .obj due to non-empty vertex buffer");
 			return E_FAIL;
 		}
 		if (!index_buffer.empty()) {
@@ -270,7 +276,7 @@ namespace mage {
 
 		Vertex vertices[3];
 		for (size_t i = 0; i < 3; ++i) {
-			const XMUINT3 vertex_indices = ParseSpecificOBJVertexIndices< Vertex >(context);
+			const XMUINT3 vertex_indices = ParseOBJVertexIndices(context);
 			vertices[i] = ConstructVertex< Vertex >(vertex_indices, buffer);
 		}
 

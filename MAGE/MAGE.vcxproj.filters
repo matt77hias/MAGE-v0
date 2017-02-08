@@ -374,9 +374,6 @@
     <ClCompile Include="MAGE\src\math\transform.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\mesh.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\math\vertex.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
@@ -406,6 +403,9 @@
       <Filter>Header Files\mesh</Filter>
     </None>
     <None Include="MAGE\src\mesh\obj_loader.tpp">
+      <Filter>Header Files\mesh</Filter>
+    </None>
+    <None Include="MAGE\src\mesh\mesh.tpp">
       <Filter>Header Files\mesh</Filter>
     </None>
   </ItemGroup>

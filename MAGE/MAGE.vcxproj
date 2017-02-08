@@ -88,7 +88,6 @@
     <ClCompile Include="MAGE\src\math\transform.cpp" />
     <ClCompile Include="MAGE\src\math\vertex.cpp" />
     <ClCompile Include="MAGE\src\memory\memory_arena.cpp" />
-    <ClCompile Include="MAGE\src\mesh\mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\obj_loader.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\parallel.cpp" />
@@ -134,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\memory\memory_arena.tpp" />
+    <None Include="MAGE\src\mesh\mesh.tpp" />
     <None Include="MAGE\src\mesh\mesh_loader.tpp" />
     <None Include="MAGE\src\mesh\obj_loader.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />

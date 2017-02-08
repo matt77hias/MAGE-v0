@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\mesh.hpp"
 #include "mesh\mesh_loader.hpp"
 #include "logging\error.hpp"
 
@@ -14,7 +13,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Mesh::Mesh(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path,
+	template < typename Vertex >
+	Mesh< Vertex >::Mesh(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path,
 		bool invert_handedness, bool clockwise_order)
 		: Resource(name, path), m_nb_indices(0) {
 		
@@ -24,12 +24,12 @@ namespace mage {
 		}
 	}
 
-	HRESULT Mesh::InitializeBuffers(ComPtr< ID3D11Device2 > device, bool invert_handedness, bool clockwise_order) {
+	template < typename Vertex >
+	HRESULT Mesh< Vertex >::InitializeBuffers(ComPtr< ID3D11Device2 > device, bool invert_handedness, bool clockwise_order) {
 
-		vector< VertexPositionNormalTexture > vertices;
+		vector< Vertex > vertices;
 		vector< uint32_t > indices;
-		const HRESULT result_load = LoadMeshFromFile< VertexPositionNormalTexture >(GetFilename(), vertices, indices,
-													invert_handedness, clockwise_order);
+		const HRESULT result_load = LoadMeshFromFile< Vertex >(GetFilename(), vertices, indices, invert_handedness, clockwise_order);
 		if (FAILED(result_load)) {
 			Error("IndexedMesh loading failed: %ld.", result_load);
 			return result_load;
@@ -52,11 +52,12 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT Mesh::SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const VertexPositionNormalTexture *vertices, size_t nb_vertices) {
+	template < typename Vertex >
+	HRESULT Mesh< Vertex >::SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
-		buffer_desc.ByteWidth      = (UINT)(nb_vertices * sizeof(VertexPositionNormalTexture));
+		buffer_desc.ByteWidth      = (UINT)(nb_vertices * sizeof(Vertex));
 		buffer_desc.Usage          = D3D11_USAGE_DEFAULT;
 		buffer_desc.BindFlags      = D3D11_BIND_VERTEX_BUFFER;
 		buffer_desc.CPUAccessFlags = 0;
@@ -79,7 +80,8 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT Mesh::SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices) {
+	template < typename Vertex >
+	HRESULT Mesh< Vertex >::SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -106,10 +108,11 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT Mesh::BindBuffers(ComPtr< ID3D11DeviceContext2 > device_context) const {
+	template < typename Vertex >
+	void Mesh< Vertex >::Update(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		// Set the vertex buffer.
-		UINT stride = sizeof(VertexPositionNormalTexture);	// The size (in bytes) of the elements that are to be used from a vertex buffer.
-		UINT offset = 0;									// The number of bytes between the first element of a vertex buffer and the first element that will be used.
+		UINT stride = sizeof(Vertex); // The size (in bytes) of the elements that are to be used from a vertex buffer.
+		UINT offset = 0;			  // The number of bytes between the first element of a vertex buffer and the first element that will be used.
 		// 1. The first input slot for binding.
 		// 2. The number of vertex buffers in the array.
 		// 3. A pointer to an array of vertex buffers.
@@ -126,10 +129,6 @@ namespace mage {
 		// Bind information about the primitive type, and data order that describes input data for the input assembler stage.
 		device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-		return S_OK;
-	}
-
-	void Mesh::Update(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		device_context->DrawIndexed((UINT)m_nb_indices, 0, 0);
 	}
 }

@@ -43,7 +43,9 @@ namespace mage {
 	 Compiles Microsoft High Level Shader Language (HLSL) code into bytecode for a given shader target.
 
 	 @param[in]		fname
-					A pointer to a constant null-terminated string that contains the name of the file that contains the shader code.
+					A pointer to a constant null-terminated
+					
+					that contains the name of the file that contains the shader code.
 	 @param[in]		entry_point
 					A pointer to a constant null-terminated string that contains the name of the shader entry point function where shader execution begins.
 	 @param[in]		shader_target

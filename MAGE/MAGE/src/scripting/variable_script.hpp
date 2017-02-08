@@ -193,7 +193,7 @@ namespace mage {
 		/**
 		 Linked list containing the variables in this variable script.
 		 */
-		list< Variable * > m_variables;
+		map< string, Variable * > m_variables;
 	};
 }
 

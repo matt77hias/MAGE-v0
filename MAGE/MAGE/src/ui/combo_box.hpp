@@ -107,7 +107,8 @@ namespace mage {
 	 @param[in]		id
 					The identifier of the control to be retrieved.
 	 @param[in]		desc
-					The string description to check.
+					The
+					description to check.
 	 @return		@c true if the given description is contained in the combo box.
 					@c false otherwise.
 	 */

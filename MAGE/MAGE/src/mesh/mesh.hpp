@@ -19,8 +19,12 @@ namespace mage {
 
 	/**
 	 A class of indexed meshes.
+	 
+	 @tparam		T
+					The vertex type.
 	 */
-	class Mesh: Resource {
+	template < typename Vertex >
+	class Mesh : Resource {
 
 	public:
 
@@ -46,21 +50,24 @@ namespace mage {
 		/**
 		 Destructs this mesh.
 		 */
-		virtual ~Mesh() {}
+		virtual ~Mesh() = default;
 
-		HRESULT BindBuffers(ComPtr< ID3D11DeviceContext2 > device_context) const;
 		void Update(ComPtr< ID3D11DeviceContext2 > device_context) const;
+
+		/**
+		 Returns the number of indices of this mesh.
+
+		 @return		The number of indices of this mesh.
+		 */
+		size_t GetNumberOfIndices() const {
+			return m_nb_indices;
+		}
 
 	protected:
 
 		HRESULT InitializeBuffers(ComPtr< ID3D11Device2 > device, bool invert_handedness, bool clockwise_order);
-		HRESULT SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const VertexPositionNormalTexture *vertices, size_t nb_vertices);
+		HRESULT SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices);
 		HRESULT SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices);
-
-		size_t m_nb_indices;
-
-		ComPtr< ID3D11Buffer > m_vertex_buffer;
-		ComPtr< ID3D11Buffer > m_index_buffer;
 
 	private:
 
@@ -81,5 +88,29 @@ namespace mage {
 						(i.e. this mesh).
 		 */
 		Mesh &operator=(const Mesh &mesh) = delete;
+
+		/**
+		 The number of indices of this mesh.
+		 */
+		size_t m_nb_indices;
+
+		/**
+		 A pointer to the vertex buffer of this mesh.
+		 */
+		ComPtr< ID3D11Buffer > m_vertex_buffer;
+
+		/**
+		 A pointer to the index buffer of this mesh.
+		 */
+		ComPtr< ID3D11Buffer > m_index_buffer;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "mesh\mesh.tpp"
+
+#pragma endregion

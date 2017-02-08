@@ -14,7 +14,7 @@
 namespace mage {
 
 	VariableScript::VariableScript(const wstring &name, const wstring &path)
-		: Resource(name, path), m_variables(list< Variable * >()) {
+		: Resource(name, path) {
 		ImportScript();
 	}
 
@@ -82,8 +82,8 @@ namespace mage {
 		fputs("\n", file);
 
 		// Iterate the states looking for the specified variable.
-		for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
-			ExportVariable(*it, file);
+		for (map< string, Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
+			ExportVariable(it->second, file);
 		}
 
 		// Write the #end statement to the file.
@@ -299,51 +299,15 @@ namespace mage {
 		return S_OK;
 	}
 
-	/**
-	 A struct of predicates matching variables based on their name.
-	 In case of a match, the variable is destructed.
-	 */
-	struct DestructVariablePredicate {
-
-	public:
-
-		/**
-		 Constructs a predicate with the given variable name to look for.
-
-		 @param[in]		variable_name
-						A reference to the variable name to look for.
-		 */
-		DestructVariablePredicate(const string &variable_name) 
-			: m_variable_name(variable_name) {}
-
-		/**
-		 Checks if the given variable has the same name as the name stored in this predicate. 
-		 If this is the case, the variable is destructed.
-
-		 @param[in]		variable
-						A pointer to the variable.
-		 @return		@c true if the given variable has the same name as the name stored in this predicate.
-						@c false otherwise.
-		 */
-		bool operator()(const Variable *variable) const {
-			if (variable->GetName() == m_variable_name) {
-				delete variable;
-				return true;
-			}
-			return false;
-		}
-
-		/**
-		 The variable name of this predicate.
-		 */
-		const string &m_variable_name;
-	};
-
 	void VariableScript::RemoveVariable(const string &name) {
-		RemoveIf(m_variables, DestructVariablePredicate(name));
+		const map< string, Variable * >::iterator it = m_variables.find(name);
+		if (it != m_variables.end()) {
+			delete it->second;
+			m_variables.erase(it);
+		}
 	}
 
 	void VariableScript::RemoveAllVariables() {
-		RemoveAndDestructAllElements(m_variables);
+		RemoveAndDestructAllSecondElements(m_variables);
 	}
 }

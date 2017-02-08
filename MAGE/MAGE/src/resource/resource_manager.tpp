@@ -1,6 +1,13 @@
 #pragma once
 
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
 #include "file\file_utils.hpp"
+
+#pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Definitions
@@ -41,9 +48,13 @@ namespace mage {
 		const wstring fname = GetFilename(name, path);
 		const map< wstring, SharedPtr< T > >::const_iterator it = m_resources.find(fname);
 		if (it != m_resources.cend()) {
-			delete *it;
 			m_resources.erase(it);
 		}
+	}
+
+	template< typename T >
+	void ResourceManager< T >::RemoveAllResources() {
+		m.resources.clear();
 	}
 
 	template< typename T >
@@ -51,7 +62,7 @@ namespace mage {
 		const wstring fname = GetFilename(name, path);
 		const map< wstring, SharedPtr< T > >::iterator it = m_resources.find(fname);
 		if (it != m_resources.end()) {
-			return *it;
+			return it->second;
 		}
 
 		// Return nullptr if the resource was not found.

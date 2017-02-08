@@ -19,7 +19,8 @@ namespace mage {
 namespace mage {
 
 	/**
-	 Checks whether the given string are equal.
+	 Checks whether the given
+	 are equal.
 
 	 @param[in]		str1
 					A pointer to the string to be scanned.

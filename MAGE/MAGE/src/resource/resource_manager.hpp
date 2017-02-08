@@ -21,7 +21,7 @@ namespace mage {
 
 	 @tparam		T
 					The type of resources.
-	*/
+	 */
 	template< typename T >
 	class ResourceManager {
 
@@ -51,7 +51,7 @@ namespace mage {
 		 @return		@c true if this resource manager contains the given resource.
 						@c false otherwise.
 		 */
-		bool ContainsResource(const wstring &name, const wstring &path = "./") const {
+		bool ContainsResource(const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH) const {
 			return (GetResource(name, path) != nullptr);
 		}
 
@@ -73,7 +73,7 @@ namespace mage {
 						A reference to the path of the new resource.
 		 @return		A pointer to the resource.
 		 */
-		SharedPtr< T > AddResource(const wstring &name, const wstring &path = "./");
+		SharedPtr< T > AddResource(const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH);
 		
 		/**
 		 Removes the given resource from this resource manager.
@@ -91,7 +91,12 @@ namespace mage {
 		 @param[in]		path
 						A reference to the path of the resource.
 		 */
-		void RemoveResource(const wstring &name, const wstring &path = "./");
+		void RemoveResource(const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH);
+
+		/**
+		 Removes all resources from this resource manager.
+		 */
+		void RemoveAllResources();
 
 		/**
 		 Returns a resource of this resource manager by its filename (given name and path).
@@ -103,7 +108,7 @@ namespace mage {
 		 @return		@c nullptr if the resource is not present.
 		 @return		A pointer to the resource.
 		 */
-		SharedPtr< T > GetResource(const wstring &name, const wstring &path = "./") const;
+		SharedPtr< T > GetResource(const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH) const;
 
 	private:
 

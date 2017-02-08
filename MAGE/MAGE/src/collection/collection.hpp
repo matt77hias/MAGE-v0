@@ -67,6 +67,17 @@ namespace mage {
 	 */
 	template< typename ContainerT >
 	void RemoveAndDestructAllElements(ContainerT &container);
+
+	/**
+	 Removes and destructs all the second elements from the given container.
+
+	 @tparam		ContainerT
+					The type of container.
+	 @param[in]		container
+					A reference to the container.
+	 */
+	template< typename ContainerT >
+	void RemoveAndDestructAllSecondElements(ContainerT &container);
 }
 
 //-----------------------------------------------------------------------------

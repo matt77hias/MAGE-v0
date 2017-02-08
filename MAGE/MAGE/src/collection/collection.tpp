@@ -26,4 +26,13 @@ namespace mage {
 			it = container.erase(it);
 		}
 	}
+
+	template< typename ContainerT >
+	void RemoveAndDestructAllSecondElements(ContainerT &container) {
+		auto it = container.begin();
+		while (it != container.end()) {
+			delete it->second;
+			it = container.erase(it);
+		}
+	}
 }

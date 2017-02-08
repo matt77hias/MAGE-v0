@@ -16,31 +16,28 @@ namespace mage {
 	
 	template < typename T >
 	void VariableScript::AddVariable(const string &name, VariableType type, const T *value) {
-		m_variables.push_back(new Variable(name, type, value));
+		m_variables[name] = new Variable(name, type, value);
 	}
 
 	template < typename T >
 	const T *VariableScript::GetValueOfVariable(const string &name) const {
-		// Iterate the states looking for the specified variable.
-		for (list< Variable * >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
-			if ((*it)->GetName() == name) {
-				return (T *)((*it)->GetValue());
-			}
+		const map< string, Variable * >::const_iterator it = m_variables.find(name);
+		if (it != m_variables.end()) {
+			return (T *)(it->second->GetValue());
 		}
 
+		// Return nullptr if the variable was not found.
 		return nullptr;
 	}
 
 	template < typename T >
 	void VariableScript::SetValueOfVariable(const string &name, const T *value) {
-		// Iterate the variables looking for the specified variable.
-		for (list< Variable * >::iterator it = m_variables.begin(); it != m_variables.end(); ++it) {
-			if ((*it)->GetName() == name) {
-				(*it)->SetValue(value);
-				return;
-			}
+		const map< string, Variable * >::iterator it = m_variables.find(name);
+		if (it != m_variables.end()) {
+			it->second->SetValue(value);
+			return;
 		}
-		
+
 		Warning("Variable %s not found.", name.c_str());
 	}
 }

@@ -38,9 +38,7 @@ namespace mage {
 	 Process the given error.
 
 	 @param[in]		format
-					The format of the error
-					
-					.
+					The format of the error string.
 	 @param[in]		args
 					The arguments of the format string.
 	 @param[in]		error_type

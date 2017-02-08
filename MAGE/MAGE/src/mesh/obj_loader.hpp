@@ -66,8 +66,7 @@ namespace mage {
 					The vertex type.
 	 @param[in]		input
 					A pointer to an array of chars that represents
-					the input
-					.
+					the input string.
 	 @param[out]	vertex_buffer
 					A reference to the empty vertex buffer.
 	 @param[out]	index_buffer

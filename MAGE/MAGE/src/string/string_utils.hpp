@@ -19,8 +19,7 @@ namespace mage {
 namespace mage {
 
 	/**
-	 Checks whether the given
-	 are equal.
+	 Checks whether the given strings are equal.
 
 	 @param[in]		str1
 					A pointer to the string to be scanned.
@@ -34,7 +33,7 @@ namespace mage {
 	}
 
 	/**
-	 Checks whether the given string are equal.
+	 Checks whether the given strings are equal.
 
 	 @param[in]		str1
 					A pointer to the string to be scanned.
@@ -91,7 +90,7 @@ namespace mage {
 					Maximum number of characters to be copied into str 
 					(including the terminating null-character).
 	 @param[in]		input
-					A pointer to to a pointer to an array of chars that represents
+					A pointer to a pointer to an array of chars that represents
 					the input string.
 	 @note			The @c sgets function is the string variant of @c fgets.
 	 */
@@ -113,7 +112,7 @@ namespace mage {
 					Maximum number of characters to be copied into str
 					(including the terminating null-character).
 	 @param[in]		input
-					A pointer to to a pointer to an array of chars that represents
+					A pointer to a pointer to an array of chars that represents
 					the input string.
 	 @note			The @c sgets function is the string variant of @c fgets.
 	 */

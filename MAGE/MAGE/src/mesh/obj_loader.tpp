@@ -65,9 +65,9 @@ namespace mage {
 	};
 
 	XMUINT3 ParseOBJVertexIndices(char **context, char *str = nullptr);
-	HRESULT ParseOBJVertex(char **context, OBJBuffer &buffer, bool invert_handedness = false);
-	HRESULT ParseOBJVertexTexture(char **context, OBJBuffer &buffer, bool invert_handedness = false);
-	HRESULT ParseOBJVertexNormal(char **context, OBJBuffer &buffer, bool invert_handedness = false);
+	void ParseOBJVertex(char **context, OBJBuffer &buffer, bool invert_handedness = false);
+	void ParseOBJVertexTexture(char **context, OBJBuffer &buffer, bool invert_handedness = false);
+	void ParseOBJVertexNormal(char **context, OBJBuffer &buffer, bool invert_handedness = false);
 
 	//-------------------------------------------------------------------------
 	// Vertex Specific Utilities
@@ -126,7 +126,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template < typename Vertex >
-	static HRESULT ParseOBJTriangleFace(char **context, OBJBuffer &buffer,
+	static void ParseOBJTriangleFace(char **context, OBJBuffer &buffer,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer,
 		bool clockwise_order = true) {
 
@@ -155,12 +155,10 @@ namespace mage {
 			index_buffer.push_back(indices[1]);
 			index_buffer.push_back(indices[2]);
 		}
-
-		return S_OK;
 	}
 
 	template < typename Vertex >
-	static HRESULT ParseOBJLine(char *line, uint32_t line_number, OBJBuffer &buffer,
+	static void ParseOBJLine(char *line, uint32_t line_number, OBJBuffer &buffer,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer,
 		bool invert_handedness = false, bool clockwise_order = true) {
 
@@ -168,24 +166,23 @@ namespace mage {
 		const char *token = strtok_s(line, MAGE_OBJ_DELIMITER, &context);
 
 		if (!token || token[0] == MAGE_OBJ_COMMENT_CHAR) {
-			return S_OK;;
+			return;
 		}
 
 		if (str_equals(token, MAGE_OBJ_VERTEX_TOKEN)) {
-			return ParseOBJVertex(&context, buffer, invert_handedness);
+			ParseOBJVertex(&context, buffer, invert_handedness);
 		}
 		else if (str_equals(token, MAGE_OBJ_TEXTURE_TOKEN)) {
-			return ParseOBJVertexTexture(&context, buffer, invert_handedness);
+			ParseOBJVertexTexture(&context, buffer, invert_handedness);
 		}
-		if (str_equals(token, MAGE_OBJ_NORMAL_TOKEN)) {
-			return ParseOBJVertexNormal(&context, buffer, invert_handedness);
+		else if (str_equals(token, MAGE_OBJ_NORMAL_TOKEN)) {
+			ParseOBJVertexNormal(&context, buffer, invert_handedness);
 		}
 		else if (str_equals(token, MAGE_OBJ_FACE_TOKEN)) {
-			return ParseOBJTriangleFace< Vertex >(&context, buffer, vertex_buffer, index_buffer, clockwise_order);
+			ParseOBJTriangleFace< Vertex >(&context, buffer, vertex_buffer, index_buffer, clockwise_order);
 		}
 		else {
 			Warning("Unknown command '%s' in scene code at line %u: \"%s\".", token, line_number, line);
-			return E_FAIL;
 		}
 	}
 
@@ -270,7 +267,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template < typename Vertex >
-	static HRESULT ParseOBJTriangleFace(char **context,
+	static void ParseOBJTriangleFace(char **context,
 		OBJBuffer &buffer, vector< Vertex > &vertex_buffer,
 		bool clockwise_order = true) {
 
@@ -290,12 +287,10 @@ namespace mage {
 			vertex_buffer.push_back(vertices[1]);
 			vertex_buffer.push_back(vertices[2]);
 		}
-
-		return S_OK;
 	}
 
 	template < typename Vertex >
-	static HRESULT ParseOBJLine(char *line, uint32_t line_number,
+	static void ParseOBJLine(char *line, uint32_t line_number,
 		OBJBuffer &buffer, vector< Vertex > &vertex_buffer,
 		bool invert_handedness, bool clockwise_order) {
 
@@ -303,24 +298,23 @@ namespace mage {
 		const char *token = strtok_s(line, MAGE_OBJ_DELIMITER, &context);
 
 		if (!token || token[0] == MAGE_OBJ_COMMENT_CHAR) {
-			return S_OK;
+			return;
 		}
 
 		if (str_equals(token, MAGE_OBJ_VERTEX_TOKEN)) {
-			return ParseOBJVertex(&context, buffer, invert_handedness);
+			ParseOBJVertex(&context, buffer, invert_handedness);
 		}
 		else if (str_equals(token, MAGE_OBJ_TEXTURE_TOKEN)) {
-			return ParseOBJVertexTexture(&context, buffer, invert_handedness);
+			ParseOBJVertexTexture(&context, buffer, invert_handedness);
 		}
-		if (str_equals(token, MAGE_OBJ_NORMAL_TOKEN)) {
-			return ParseOBJVertexNormal(&context, buffer, invert_handedness);
+		else if (str_equals(token, MAGE_OBJ_NORMAL_TOKEN)) {
+			ParseOBJVertexNormal(&context, buffer, invert_handedness);
 		}
 		else if (str_equals(token, MAGE_OBJ_FACE_TOKEN)) {
-			return ParseOBJTriangleFace< Vertex >(&context, buffer, vertex_buffer, clockwise_order);
+			ParseOBJTriangleFace< Vertex >(&context, buffer, vertex_buffer, clockwise_order);
 		}
 		else {
 			Warning("Unknown command '%s' in scene code at line %u: \"%s\".", token, line_number, line);
-			return E_FAIL;
 		}
 	}
 

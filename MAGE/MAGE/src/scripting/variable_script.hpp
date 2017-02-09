@@ -12,16 +12,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_SCRIPT_BEGIN_TOKEN "#begin"
-#define MAGE_SCRIPT_END_TOKEN "#end"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -49,7 +39,8 @@ namespace mage {
 		virtual ~VariableScript();
 
 		/**
-		 Imports this variable script from its associated file.
+		 Imports this variable script from the file with the given filename.
+		 If the filename is not specified the associated filename of this variable script is used.
 
 		 @param[in]		fname
 						A reference to the filename.
@@ -59,6 +50,7 @@ namespace mage {
 
 		/**
 		 Exports this variable script to the file with the given filename.
+		 If the filename is not specified the associated filename of this variable script is used.
 
 		 @param[in]		fname
 						A reference to the filename.
@@ -144,31 +136,23 @@ namespace mage {
 		template < typename T >
 		void SetValueOfVariable(const string &name, const T *value);
 
-	protected:
-
 		/**
-		 Import the given variable from the given file to this variable script.
+		 Returns a constant iterator to the beginning of this variable script.
 
-		 @pre			No variable with the name @a name
-						exists in this variable script.
-		 @param[in]		name
-						The name of the variable.
-		 @param[in]		file
-						A pointer to a file used for importing.
-		 @return		A success/error value.
+		 @return		A constant iterator to the beginning of this variable script.
 		 */
-		HRESULT ImportVariable(const string &name, FILE *file);
+		map< string, Variable * >::const_iterator cbegin() const {
+			return m_variables.cbegin();
+		}
 
 		/**
-		 Export the given variable from this variable script to the given file.
+		 returns a constant iterator to the end of this variable script.
 
-		 @param[in]		variable
-						A pointer to the variable variable.
-		 @param[in]		file
-						A pointer to a file used for exporting.
-		 @return		A success/error value.
-		*/
-		HRESULT ExportVariable(const Variable *variable, FILE *file);
+		 @return		A constant iterator to the end of this variable script.
+		 */
+		map< string, Variable * >::const_iterator cend() const {
+			return m_variables.cend();
+		}
 
 	private:
 

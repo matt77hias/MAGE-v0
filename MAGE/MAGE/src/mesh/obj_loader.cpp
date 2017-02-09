@@ -86,21 +86,18 @@ namespace mage {
 		return XMUINT3(vertex_index, texture_index, normal_index);
 	}
 
-	HRESULT ParseOBJVertex(char **context, OBJBuffer &buffer, bool invert_handedness) {
+	void ParseOBJVertex(char **context, OBJBuffer &buffer, bool invert_handedness) {
 		const Point3 vertex = ParseOBJVertexCoordinates(context, nullptr, invert_handedness);
 		buffer.vertex_coordinates.push_back(vertex);
-		return S_OK;
 	}
 
-	HRESULT ParseOBJVertexTexture(char **context, OBJBuffer &buffer, bool invert_handedness) {
+	void ParseOBJVertexTexture(char **context, OBJBuffer &buffer, bool invert_handedness) {
 		const UV texture = ParseOBJVertexTextureCoordinates(context, nullptr, invert_handedness);
 		buffer.vertex_texture_coordinates.push_back(texture);
-		return S_OK;
 	}
 	
-	HRESULT ParseOBJVertexNormal(char **context, OBJBuffer &buffer, bool invert_handedness) {
+	void ParseOBJVertexNormal(char **context, OBJBuffer &buffer, bool invert_handedness) {
 		const Normal3 normal = ParseOBJVertexNormalCoordinates(context, nullptr, invert_handedness);
 		buffer.vertex_normal_coordinates.push_back(normal);
-		return S_OK;
 	}
 }

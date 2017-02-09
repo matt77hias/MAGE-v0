@@ -133,6 +133,9 @@
     <Filter Include="Shader Files">
       <UniqueIdentifier>{edf15e17-27ed-4e39-a6ba-25499d2f4a45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\material">
+      <UniqueIdentifier>{04ea3622-d17f-443d-825c-966e53b30806}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -297,6 +300,12 @@
     <ClInclude Include="MAGE\src\collection\collection.tpp">
       <Filter>Header Files\collection</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\material\mtl_loader.hpp">
+      <Filter>Header Files\material</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\variable_script_loader.hpp">
+      <Filter>Header Files\scripting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -379,6 +388,12 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\mesh\obj_loader.cpp">
       <Filter>Source Files\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\material\mtl_loader.cpp">
+      <Filter>Source Files\material</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\scripting\variable_script_loader.cpp">
+      <Filter>Source Files\scripting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

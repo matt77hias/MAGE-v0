@@ -7,7 +7,6 @@
 #include "mesh\mesh.hpp"
 #include "shader\pixel_shader.hpp"
 #include "shader\vertex_shader.hpp"
-#include <d3dcompiler.h>
 
 using namespace mage;
 
@@ -89,11 +88,6 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 
 	// Create the engine, then run it.
 	g_engine = new Engine(setup);
-
-	//Renderer *renderer = g_engine->GetRenderer();
-	//Model model(renderer->GetDevice(), "cube.obj", "C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/");
-	//model.BindBuffers(renderer->GetDeviceContext());
-
 	g_engine->Run(nCmdShow);
 	delete g_engine;
 

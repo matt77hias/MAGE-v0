@@ -64,17 +64,17 @@ namespace mage {
 		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > mapping;
 	};
 
-	XMUINT3 ParseOBJVertexIndices(char **context, char *str = nullptr);
-	void ParseOBJVertex(char **context, OBJBuffer &buffer, bool invert_handedness = false);
-	void ParseOBJVertexTexture(char **context, OBJBuffer &buffer, bool invert_handedness = false);
-	void ParseOBJVertexNormal(char **context, OBJBuffer &buffer, bool invert_handedness = false);
+	XMUINT3 ParseOBJVertexIndices(uint32_t line_number, char **context, char *str = nullptr);
+	void ParseOBJVertex(uint32_t line_number, char **context, OBJBuffer &buffer, bool invert_handedness = false);
+	void ParseOBJVertexTexture(uint32_t line_number, char **context, OBJBuffer &buffer, bool invert_handedness = false);
+	void ParseOBJVertexNormal(uint32_t line_number, char **context, OBJBuffer &buffer, bool invert_handedness = false);
 
 	//-------------------------------------------------------------------------
 	// Vertex Specific Utilities
 	//-------------------------------------------------------------------------
 
 	template < typename Vertex >
-	static Vertex ConstructVertex(const XMUINT3 &vertex_indices, OBJBuffer &buffer) {
+	inline Vertex ConstructVertex(const XMUINT3 &vertex_indices, OBJBuffer &buffer) {
 		Vertex vertex;
 		if (vertex_indices.x) {
 			vertex.p = buffer.vertex_coordinates[vertex_indices.x - 1];
@@ -89,7 +89,7 @@ namespace mage {
 	}
 
 	template <>
-	static VertexPosition ConstructVertex< VertexPosition >(const XMUINT3 &vertex_indices, OBJBuffer &buffer) {
+	inline VertexPosition ConstructVertex< VertexPosition >(const XMUINT3 &vertex_indices, OBJBuffer &buffer) {
 		VertexPosition vertex;
 		if (vertex_indices.x) {
 			vertex.p = buffer.vertex_coordinates[vertex_indices.x - 1];
@@ -98,7 +98,7 @@ namespace mage {
 	}
 
 	template <>
-	static VertexPositionNormal ConstructVertex< VertexPositionNormal >(const XMUINT3 &vertex_indices, OBJBuffer &buffer) {
+	inline VertexPositionNormal ConstructVertex< VertexPositionNormal >(const XMUINT3 &vertex_indices, OBJBuffer &buffer) {
 		VertexPositionNormal vertex;
 		if (vertex_indices.x) {
 			vertex.p = buffer.vertex_coordinates[vertex_indices.x - 1];
@@ -110,7 +110,7 @@ namespace mage {
 	}
 
 	template <>
-	static VertexPositionTexture ConstructVertex< VertexPositionTexture >(const XMUINT3 &vertex_indices, OBJBuffer &buffer) {
+	inline VertexPositionTexture ConstructVertex< VertexPositionTexture >(const XMUINT3 &vertex_indices, OBJBuffer &buffer) {
 		VertexPositionTexture vertex;
 		if (vertex_indices.x) {
 			vertex.p = buffer.vertex_coordinates[vertex_indices.x - 1];
@@ -126,13 +126,13 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template < typename Vertex >
-	static void ParseOBJTriangleFace(char **context, OBJBuffer &buffer,
+	static void ParseOBJTriangleFace(uint32_t line_number, char **context, OBJBuffer &buffer,
 		vector< Vertex > &vertex_buffer, vector< uint32_t > &index_buffer,
 		bool clockwise_order = true) {
 
 		uint32_t indices[3];
 		for (size_t i = 0; i < 3; ++i) {
-			const XMUINT3 vertex_indices = ParseOBJVertexIndices(context);
+			const XMUINT3 vertex_indices = ParseOBJVertexIndices(line_number, context);
 			const map< XMUINT3, uint32_t >::const_iterator it = buffer.mapping.find(vertex_indices);
 			if (it != buffer.mapping.cend()) {
 				indices[i] = it->second;
@@ -170,19 +170,25 @@ namespace mage {
 		}
 
 		if (str_equals(token, MAGE_OBJ_VERTEX_TOKEN)) {
-			ParseOBJVertex(&context, buffer, invert_handedness);
+			ParseOBJVertex(line_number, &context, buffer, invert_handedness);
 		}
 		else if (str_equals(token, MAGE_OBJ_TEXTURE_TOKEN)) {
-			ParseOBJVertexTexture(&context, buffer, invert_handedness);
+			ParseOBJVertexTexture(line_number, &context, buffer, invert_handedness);
 		}
 		else if (str_equals(token, MAGE_OBJ_NORMAL_TOKEN)) {
-			ParseOBJVertexNormal(&context, buffer, invert_handedness);
+			ParseOBJVertexNormal(line_number, &context, buffer, invert_handedness);
 		}
 		else if (str_equals(token, MAGE_OBJ_FACE_TOKEN)) {
-			ParseOBJTriangleFace< Vertex >(&context, buffer, vertex_buffer, index_buffer, clockwise_order);
+			ParseOBJTriangleFace< Vertex >(line_number, &context, buffer, vertex_buffer, index_buffer, clockwise_order);
 		}
 		else {
-			Warning("Unknown command '%s' in scene code at line %u: \"%s\".", token, line_number, line);
+			Warning("Unsupported keyword in OBJ specification at line %u: %s.", line_number, token);
+		}
+
+		char *next_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, &context);
+		while (next_token) {
+			Warning("Unused token in OBJ specification at line %u: %s.", line_number, next_token);
+			next_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, &context);
 		}
 	}
 
@@ -213,7 +219,7 @@ namespace mage {
 
 		// Parse the .obj file while populating the buffers.
 		char current_line[MAX_PATH];
-		uint32_t line_number = 0;
+		uint32_t line_number = 1;
 		// Continue reading from the file until the eof is reached.
 		while (fgets(current_line, _countof(current_line), file)) {
 
@@ -249,9 +255,10 @@ namespace mage {
 
 		// Parse the .obj string while populating the buffers.
 		char current_line[MAX_PATH];
-		uint32_t line_number = 0;
-		// Continue reading from the file until the eof is reached.
+		uint32_t line_number = 1;
+		// Continue reading from the string until the eof is reached.
 		while (str_gets(current_line, _countof(current_line), &input)) {
+			
 			ParseOBJLine< Vertex >(current_line, line_number,
 				buffer, vertex_buffer, index_buffer,
 				invert_handedness, clockwise_order);
@@ -267,7 +274,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template < typename Vertex >
-	static void ParseOBJTriangleFace(char **context,
+	static void ParseOBJTriangleFace(uint32_t line_number, char **context,
 		OBJBuffer &buffer, vector< Vertex > &vertex_buffer,
 		bool clockwise_order = true) {
 
@@ -302,19 +309,25 @@ namespace mage {
 		}
 
 		if (str_equals(token, MAGE_OBJ_VERTEX_TOKEN)) {
-			ParseOBJVertex(&context, buffer, invert_handedness);
+			ParseOBJVertex(line_number, &context, buffer, invert_handedness);
 		}
 		else if (str_equals(token, MAGE_OBJ_TEXTURE_TOKEN)) {
-			ParseOBJVertexTexture(&context, buffer, invert_handedness);
+			ParseOBJVertexTexture(line_number, &context, buffer, invert_handedness);
 		}
 		else if (str_equals(token, MAGE_OBJ_NORMAL_TOKEN)) {
-			ParseOBJVertexNormal(&context, buffer, invert_handedness);
+			ParseOBJVertexNormal(line_number, &context, buffer, invert_handedness);
 		}
 		else if (str_equals(token, MAGE_OBJ_FACE_TOKEN)) {
-			ParseOBJTriangleFace< Vertex >(&context, buffer, vertex_buffer, clockwise_order);
+			ParseOBJTriangleFace< Vertex >(line_number, &context, buffer, vertex_buffer, clockwise_order);
 		}
 		else {
-			Warning("Unknown command '%s' in scene code at line %u: \"%s\".", token, line_number, line);
+			Warning("Unsupported keyword in OBJ specification at line %u: %s.", line_number, token);
+		}
+
+		char *next_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, &context);
+		while (next_token) {
+			Warning("Unused token in OBJ specification at line %u: %s.", line_number, next_token);
+			next_token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, &context);
 		}
 	}
 
@@ -341,7 +354,7 @@ namespace mage {
 
 		// Parse the .obj file while populating the buffers.
 		char current_line[MAX_PATH];
-		uint32_t line_number = 0;
+		uint32_t line_number = 1;
 		// Continue reading from the file until the eof is reached.
 		while (fgets(current_line, _countof(current_line), file)) {
 
@@ -373,9 +386,10 @@ namespace mage {
 
 		// Parse the .obj string while populating the buffers.
 		char current_line[MAX_PATH];
-		uint32_t line_number = 0;
-		// Continue reading from the file until the eof is reached.
+		uint32_t line_number = 1;
+		// Continue reading from the string until the eof is reached.
 		while (str_gets(current_line, _countof(current_line), &input)) {
+			
 			ParseOBJLine< Vertex >(current_line, line_number,
 				buffer, vertex_buffer,
 				invert_handedness, clockwise_order);

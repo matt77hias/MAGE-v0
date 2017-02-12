@@ -306,6 +306,9 @@
     <ClInclude Include="MAGE\src\scripting\variable_script_loader.hpp">
       <Filter>Header Files\scripting</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\material\spectrum.hpp">
+      <Filter>Header Files\material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -394,6 +397,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\scripting\variable_script_loader.cpp">
       <Filter>Source Files\scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\material\spectrum.cpp">
+      <Filter>Source Files\material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

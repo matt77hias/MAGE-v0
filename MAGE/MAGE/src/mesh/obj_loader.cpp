@@ -16,88 +16,123 @@ namespace mage {
 	// Utilities
 	//-------------------------------------------------------------------------
 
-	static XMFLOAT2 ParseOBJFloat2(char **context, char *str = nullptr) {
-		const char *token_x   = strtok_s(str, MAGE_OBJ_DELIMITER, context);
-		const float vector3_x = strtof(token_x, nullptr);
-		const char *token_y   = strtok_s(nullptr, MAGE_OBJ_DELIMITER, context);
-		const float vector3_y = strtof(token_y, nullptr);
+	static float ParseOBJFloat(uint32_t line_number, char **context, char *str = nullptr) {
+		const char *token = strtok_s(str, MAGE_OBJ_DELIMITER, context);
+		if (!token) {
+			Error("No floating point value found in OBJ specification at line %u.", line_number);
+			return 0.0f;
+		}
+
+		char *float_context = nullptr;
+		const float result = strtof(token, &float_context);
+		if (float_context == token) {
+			Error("No floating point value found in OBJ specification at line %u: %s.", line_number, token);
+			return 0.0f;
+		}
+
+		return result;
+	}
+
+	static XMFLOAT2 ParseOBJFloat2(uint32_t line_number, char **context, char *str = nullptr) {
+		const float vector3_x = ParseOBJFloat(line_number, context, str);
+		const float vector3_y = ParseOBJFloat(line_number, context);
 		return XMFLOAT2(vector3_x, vector3_y);
 	}
 
-	static XMFLOAT3 ParseOBJFloat3(char **context, char *str = nullptr) {
-		const char *token_x   = strtok_s(str, MAGE_OBJ_DELIMITER, context);
-		const float vector3_x = strtof(token_x, nullptr);
-		const char *token_y   = strtok_s(nullptr, MAGE_OBJ_DELIMITER, context);
-		const float vector3_y = strtof(token_y, nullptr);
-		const char *token_z   = strtok_s(nullptr, MAGE_OBJ_DELIMITER, context);
-		const float vector3_z = strtof(token_z, nullptr);
+	static XMFLOAT3 ParseOBJFloat3(uint32_t line_number, char **context, char *str = nullptr) {
+		const float vector3_x = ParseOBJFloat(line_number, context, str);
+		const float vector3_y = ParseOBJFloat(line_number, context);
+		const float vector3_z = ParseOBJFloat(line_number, context);
 		return XMFLOAT3(vector3_x, vector3_y, vector3_z);
 	}
 
-	static Point3 ParseOBJVertexCoordinates(char **context, char *str = nullptr, bool invert_handedness = false) {
-		XMFLOAT3 result = ParseOBJFloat3(context, str);
-		if (invert_handedness) {
-			result.z = -result.z;
-		}
-		return (Point3)result;
+	static Point3 ParseOBJVertexCoordinates(uint32_t line_number, char **context, char *str = nullptr) {
+		return (Point3)ParseOBJFloat3(line_number, context, str);
 	}
 
-	static Normal3 ParseOBJVertexNormalCoordinates(char **context, char *str = nullptr, bool invert_handedness = false) {
-		XMFLOAT3 result = ParseOBJFloat3(context, str);
-		if (invert_handedness) {
-			result.z = -result.z;
-		}
-		const XMVECTOR result_v = XMLoadFloat3(&result);
-		const XMVECTOR normal_v = XMVector3Normalize(result_v);
-		Normal3 normal;
-		XMLoadFloat3(&normal);
-		return normal;
+	static Normal3 ParseOBJVertexNormalCoordinates(uint32_t line_number, char **context, char *str = nullptr) {
+		return (Normal3)ParseOBJFloat3(line_number, context, str);
 	}
 
-	static UV ParseOBJVertexTextureCoordinates(char **context, char *str = nullptr, bool invert_handedness = false) {
-		XMFLOAT2 result = ParseOBJFloat2(context, str);
-		if (invert_handedness) {
-			result.y = 1.0f - result.y;
-		}
-		return (UV)result;
+	static UV ParseOBJVertexTextureCoordinates(uint32_t line_number, char **context, char *str = nullptr) {
+		return (UV)ParseOBJFloat2(line_number, context, str);
 	}
 
-	XMUINT3 ParseOBJVertexIndices(char **context, char *str) {
+	XMUINT3 ParseOBJVertexIndices(uint32_t line_number, char **context, char *str) {
 		const char *token = strtok_s(str, MAGE_OBJ_DELIMITER, context);
-		const uint32_t vertex_index = atoi(token);
+		if (!token) {
+			Error("No vertex index value found in OBJ specification at line %u.", line_number);
+			return XMUINT3();
+		}
+
+		char *int_context = nullptr;
+		const uint32_t vertex_index = (uint32_t)strtol(token, &int_context, 10);
+		if (int_context == token) {
+			Error("No integer index value found in OBJ specification at line %u: %s.", line_number, token);
+			return XMUINT3();
+		}
+		
 		uint32_t texture_index = 0;
 		uint32_t normal_index = 0;
 
 		if (str_contains(token, "//")) {
 			//... v1//vn1 ...
 			const char *normal_part = strchr(token, '/') + 2;
-			normal_index = atoi(normal_part);
+			normal_index = (uint32_t)strtol(normal_part, &int_context, 10);
+			if (int_context == normal_part) {
+				Error("No normal index value found in OBJ specification at line %u: %s.", line_number, normal_part);
+				return XMUINT3();
+			}
 		}
 		else if (str_contains(token, "/")) {
 			//... v1/vt1 ...
 			const char *texture_part = strchr(token, '/') + 1;
-			texture_index = atoi(strchr(token, '/') + 1);
+			texture_index = (uint32_t)strtol(texture_part, &int_context, 10);
+			if (int_context == texture_part) {
+				Error("No texture index value found in OBJ specification at line %u: %s.", line_number, texture_part);
+				return XMUINT3();
+			}
 			if (str_contains(texture_part, "/")) {
 				//... v1/vt1/vn1 ...
 				const char *normal_part = strchr(texture_part, '/') + 1;
-				normal_index = atoi(normal_part);
+				normal_index = (uint32_t)strtol(normal_part, &int_context, 10);
+				if (int_context == normal_part) {
+					Error("No normal index value found in OBJ specification at line %u: %s.", line_number, normal_part);
+					return XMUINT3();
+				}
 			}
 		}
+
 		return XMUINT3(vertex_index, texture_index, normal_index);
 	}
 
-	void ParseOBJVertex(char **context, OBJBuffer &buffer, bool invert_handedness) {
-		const Point3 vertex = ParseOBJVertexCoordinates(context, nullptr, invert_handedness);
+	void ParseOBJVertex(uint32_t line_number, char **context, OBJBuffer &buffer, bool invert_handedness) {
+		Point3 vertex = ParseOBJVertexCoordinates(line_number, context);
+		if (invert_handedness) {
+			vertex.z = -vertex.z;
+		}
+
 		buffer.vertex_coordinates.push_back(vertex);
 	}
 
-	void ParseOBJVertexTexture(char **context, OBJBuffer &buffer, bool invert_handedness) {
-		const UV texture = ParseOBJVertexTextureCoordinates(context, nullptr, invert_handedness);
+	void ParseOBJVertexTexture(uint32_t line_number, char **context, OBJBuffer &buffer, bool invert_handedness) {
+		UV texture = ParseOBJVertexTextureCoordinates(line_number, context);
+		if (invert_handedness) {
+			texture.y = 1.0f - texture.y;
+		}
+		
 		buffer.vertex_texture_coordinates.push_back(texture);
 	}
 	
-	void ParseOBJVertexNormal(char **context, OBJBuffer &buffer, bool invert_handedness) {
-		const Normal3 normal = ParseOBJVertexNormalCoordinates(context, nullptr, invert_handedness);
+	void ParseOBJVertexNormal(uint32_t line_number, char **context, OBJBuffer &buffer, bool invert_handedness) {
+		Normal3 normal = ParseOBJVertexNormalCoordinates(line_number, context);
+		if (invert_handedness) {
+			normal.z = -normal.z;
+		}
+		const XMVECTOR v = XMLoadFloat3(&normal);
+		const XMVECTOR normal_v = XMVector3Normalize(v);
+		XMLoadFloat3(&normal);
+
 		buffer.vertex_normal_coordinates.push_back(normal);
 	}
 }

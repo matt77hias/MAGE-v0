@@ -107,8 +107,11 @@ namespace mage {
 
 		/**
 		 Starts the rendering of the current frame.
+
+		 @param[in]		background_color
+						A reference to the background color for the current frame.
 		 */
-		void StartFrame() const;
+		void StartFrame(const XMVECTORF32 &background_color = { 0.0f, 0.117647058f, 0.149019608f, 1.000000000f }) const;
 
 		/**
 		 Ends the rendering of the current frame.

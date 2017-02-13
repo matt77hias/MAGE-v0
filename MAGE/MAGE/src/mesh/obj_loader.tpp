@@ -126,7 +126,7 @@ namespace mage {
 				indices[i] = it->second;
 			}
 			else {
-				const uint32_t index = (uint32_t)model_output.GetNumberOfIndices();
+				const uint32_t index = (uint32_t)model_output.GetNumberOfVertices();
 				indices[i] = index;
 				model_output.AddVertex(ConstructVertex< Vertex >(vertex_indices, buffer));
 				buffer.mapping[vertex_indices] = index;

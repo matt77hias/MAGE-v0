@@ -35,7 +35,7 @@
 namespace mage {
 
 	/**
-	 Loads a mesh from file.
+	 Loads an OBJ mesh from file.
 
 	 @tparam		Vertex
 					The vertex type.
@@ -51,7 +51,7 @@ namespace mage {
 	HRESULT LoadOBJMeshFromFile(const wstring &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor());
 
 	/**
-	 Loads a mesh from file.
+	 Loads an OBJ mesh from file.
 
 	 @tparam		Vertex
 					The vertex type.

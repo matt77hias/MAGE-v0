@@ -282,9 +282,6 @@
     <ClInclude Include="MAGE\src\parallel\id_generator.hpp">
       <Filter>Header Files\parallel</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\mesh_loader.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\mesh\mesh.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
@@ -308,6 +305,18 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\material\spectrum.hpp">
       <Filter>Header Files\material</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\mesh_object.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\mesh_descriptor.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\model\model_loader.hpp">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\model\model_output.hpp">
+      <Filter>Header Files\model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -420,14 +429,17 @@
     <None Include="MAGE\src\scripting\variable_script.tpp">
       <Filter>Header Files\scripting</Filter>
     </None>
-    <None Include="MAGE\src\mesh\mesh_loader.tpp">
-      <Filter>Header Files\mesh</Filter>
-    </None>
     <None Include="MAGE\src\mesh\obj_loader.tpp">
       <Filter>Header Files\mesh</Filter>
     </None>
     <None Include="MAGE\src\mesh\mesh.tpp">
       <Filter>Header Files\mesh</Filter>
+    </None>
+    <None Include="MAGE\src\model\model.tpp">
+      <Filter>Header Files\model</Filter>
+    </None>
+    <None Include="MAGE\src\model\model_loader.tpp">
+      <Filter>Header Files\model</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -54,8 +54,7 @@ namespace mage {
 	public:
 
 		VertexShader(ComPtr< ID3D11Device2 >, 
-			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, size_t nb_input_elements,
-			const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH);
+			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, size_t nb_input_elements, const wstring &fname);
 		virtual ~VertexShader() {}
 
 		void Update(ComPtr< ID3D11DeviceContext2 > device_context, 

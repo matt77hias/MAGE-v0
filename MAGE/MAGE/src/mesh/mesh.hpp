@@ -6,9 +6,8 @@
 #pragma region
 
 #include "memory\memory.hpp"
-#include "resource\resource.hpp"
-#include "math\vertex.hpp"
 #include "collection\collection.hpp"
+#include "math\vertex.hpp"
 
 #pragma endregion
 
@@ -24,28 +23,42 @@ namespace mage {
 					The vertex type.
 	 */
 	template < typename Vertex >
-	class Mesh : Resource {
+	class Mesh {
 
 	public:
 
 		/**
 		 Constructs a mesh.
 
+		 @pre			@a vertices may not be equal to @c nullptr
+		 @pre			@a indices may not be equal to @c nullptr
 		 @param[in]		device
 						A pointer to an D3D11 device.
-		 @param[in]		name
-						A reference to the name of the mesh.
-		 @param[in]		path
-						A reference to the path of the mesh.
-		 @param[in]		invert_handedness
-						Flag indicating whether the handness of the 
-						coordinate system of the mesh should be inverted.
-		 @param[in]		clockwise_order
-						Flag indicating whether the vertices of triangles
-						should be in clockwise order.
+		 @param[in]		vertices
+						A pointer to an array of vertices.
+		 @param[in]		nb_vertices
+						The number of vertices.
+		 @param[in]		indices
+						A pointer to an array of indices.
+		 @param[in]		nb_indices
+						The number of indices.
 		 */
-		Mesh(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH,
-			bool invert_handedness = false, bool clockwise_order = true);
+		Mesh(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices);
+
+		/**
+		 Constructs a mesh.
+
+		 @pre			The number of vertices must be greater than zero.
+		 @pre			The number of indices must be greater than zero.
+		 @param[in]		device
+						A pointer to an D3D11 device.
+		 @param[in]		vertices
+						A reference to a vector of vertices.
+		 @param[in]		indices
+						A reference to a vector of indices.
+		 */
+		Mesh(ComPtr< ID3D11Device2 > device, const vector< Vertex > &vertices, const vector< uint32_t > &indices)
+			: Mesh(device, &vertices[0], vertices.size(), &indices[0], indices.size()) {}
 
 		/**
 		 Destructs this mesh.
@@ -53,6 +66,15 @@ namespace mage {
 		virtual ~Mesh() = default;
 
 		void Update(ComPtr< ID3D11DeviceContext2 > device_context) const;
+
+		/**
+		 Returns the number of vertices of this mesh.
+
+		 @return		The number of vertices of this mesh.
+		 */
+		size_t GetNumberOfVertices() const {
+			return m_nb_vertices;
+		}
 
 		/**
 		 Returns the number of indices of this mesh.
@@ -65,7 +87,6 @@ namespace mage {
 
 	protected:
 
-		HRESULT InitializeBuffers(ComPtr< ID3D11Device2 > device, bool invert_handedness, bool clockwise_order);
 		HRESULT SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices);
 		HRESULT SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices);
 
@@ -88,6 +109,11 @@ namespace mage {
 						(i.e. this mesh).
 		 */
 		Mesh &operator=(const Mesh &mesh) = delete;
+
+		/**
+		 The number of vertices of this mesh.
+		 */
+		size_t m_nb_vertices;
 
 		/**
 		 The number of indices of this mesh.

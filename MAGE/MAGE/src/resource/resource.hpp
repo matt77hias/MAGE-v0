@@ -10,15 +10,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_RESOURCE_PATH L"./"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -31,15 +22,13 @@ namespace mage {
 	public:
 
 		/**
-		 Constructs a resource with a given name and path.
+		 Constructs a resource with a given file name.
 
-		 @param[in]		name
-						A reference to the name.
-		 @param[in]		path
-						A reference to the path.
+		 @param[in]		fname
+						A reference to the file name.
 		 */
-		Resource(const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH)
-			: m_name(name), m_path(path) {}
+		Resource(const wstring &fname)
+			: m_fname(fname) {}
 
 		/**
 		 Destructs this resource.
@@ -47,30 +36,31 @@ namespace mage {
 		virtual ~Resource() = default;
 
 		/**
-		 Returns the path of this resource.
-
-		 @return		A reference to the path of this resource.
-		 */
-		const wstring &GetPath() const {
-			return m_path;
-		}
-
-		/**
-		 Returns the name of this resource.
-
-		 @return		A reference to the name of this resource.
-		 */
-		const wstring &GetName() const {
-			return m_name;
-		}
-		
-		/**
 		 Returns the filename of this resource.
 
 		 @return		The filename of this resource.
 		 */
 		const wstring GetFilename() const {
-			return mage::GetFilename(GetPath(), GetName());
+			return m_fname;
+		}
+
+		/**
+		 Returns the name of this resource.
+
+		 @return		The name of this resource.
+		 */
+		const wstring GetName() const {
+			return GetFileName(m_fname);
+		}
+
+
+		/**
+		 Returns the path of this resource.
+
+		 @return		The path of this resource.
+		 */
+		const wstring GetPath() const {
+			return GetPathName(m_fname);
 		}
 
 	private:
@@ -96,11 +86,6 @@ namespace mage {
 		/**
 		 The name of this resource.
 		 */
-		const wstring m_name;
-
-		/**
-		 The path of this resource.
-		 */
-		const wstring m_path;
+		const wstring m_fname;
 	};
 }

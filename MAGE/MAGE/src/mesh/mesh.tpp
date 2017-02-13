@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\mesh_loader.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -14,42 +13,20 @@
 namespace mage {
 
 	template < typename Vertex >
-	Mesh< Vertex >::Mesh(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path,
-		bool invert_handedness, bool clockwise_order)
-		: Resource(name, path), m_nb_indices(0) {
+	Mesh< Vertex >::Mesh(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices)
+		: m_nb_vertices(nb_vertices), m_nb_indices(nb_indices) {
 		
-		const HRESULT result_buffers = InitializeBuffers(device, invert_handedness, clockwise_order);
-		if (FAILED(result_buffers)) {
-			Error("Buffers initialization failed: %ld.", result_buffers);
-		}
-	}
-
-	template < typename Vertex >
-	HRESULT Mesh< Vertex >::InitializeBuffers(ComPtr< ID3D11Device2 > device, bool invert_handedness, bool clockwise_order) {
-
-		vector< Vertex > vertices;
-		vector< uint32_t > indices;
-		const HRESULT result_load = LoadMeshFromFile< Vertex >(GetFilename(), vertices, indices, invert_handedness, clockwise_order);
-		if (FAILED(result_load)) {
-			Error("IndexedMesh loading failed: %ld.", result_load);
-			return result_load;
-		}
-
-		m_nb_indices = indices.size();
-
-		const HRESULT result_vertex_buffer = SetupVertexBuffer(device, &vertices[0], vertices.size());
+		const HRESULT result_vertex_buffer = SetupVertexBuffer(device, vertices, nb_vertices);
 		if (FAILED(result_vertex_buffer)) {
 			Error("Vertex buffer initialization failed: %ld.", result_vertex_buffer);
-			return result_vertex_buffer;
+			return;
 		}
 
-		const HRESULT result_index_buffer = SetupIndexBuffer(device, &indices[0], indices.size());
+		const HRESULT result_index_buffer = SetupIndexBuffer(device, indices, nb_indices);
 		if (FAILED(result_index_buffer)) {
 			Error("Index buffer initialization failed: %ld.", result_index_buffer);
-			return result_index_buffer;
+			return;
 		}
-
-		return S_OK;
 	}
 
 	template < typename Vertex >
@@ -128,7 +105,5 @@ namespace mage {
 
 		// Bind information about the primitive type, and data order that describes input data for the input assembler stage.
 		device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-		device_context->DrawIndexed((UINT)m_nb_indices, 0, 0);
 	}
 }

@@ -261,7 +261,9 @@ namespace mage {
 		return S_OK;
 	}
 
-	void Renderer::StartFrame(const XMVECTORF32 &background_color) const {
+	void Renderer::StartFrame() const {
+		const XMVECTORF32 background_color = { 0.0f, 0.117647058f, 0.149019608f, 1.000000000f };
+
 		// Clear the back buffer.
 		m_device_context2->ClearRenderTargetView(m_render_target_view.Get(), background_color);
 		// Clear the depth buffer to 1.0 (i.e. max depth).

@@ -22,8 +22,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	PixelShader::PixelShader(ComPtr< ID3D11Device2 > device, const wstring &name, const wstring &path) 
-		: Resource(name, path) {
+	PixelShader::PixelShader(ComPtr< ID3D11Device2 > device, const wstring &fname) 
+		: Resource(fname) {
 
 		const HRESULT result_shader = InitializeShader(device);
 		if (FAILED(result_shader)) {

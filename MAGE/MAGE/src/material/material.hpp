@@ -1,6 +1,19 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <string>
+namespace mage {
+	using std::string;
+	using std::wstring;
+}
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -16,6 +29,8 @@ namespace mage {
 
 	struct Material {
 
+	public:
+
 		Material(float specular_exponent = 0.0f, float dissolve = 1.0f, float index_of_refraction = 1.0f, const string &name = "")
 			: m_specular_exponent(specular_exponent), 
 			m_dissolve(dissolve), 
@@ -26,8 +41,6 @@ namespace mage {
 		~Material() = default;
 
 		Material &operator=(const Material &material) = default;
-
-	public:
 
 		/**
 		 The name of this material.

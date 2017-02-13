@@ -23,9 +23,8 @@
 namespace mage {
 
 	VertexShader::VertexShader(ComPtr< ID3D11Device2 > device, 
-		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, size_t nb_input_elements,
-		const wstring &name, const wstring &path)
-		: Resource(name, path) {
+		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, size_t nb_input_elements, const wstring &fname)
+		: Resource(fname) {
 
 		const HRESULT result_shader = InitializeShader(device, input_element_desc, nb_input_elements);
 		if (FAILED(result_shader)) {

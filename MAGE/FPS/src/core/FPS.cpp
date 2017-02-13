@@ -2,26 +2,20 @@
 #include <windows.h>
 
 #include "core\engine.hpp"
-#include "math\transform.hpp"
 #include "camera\perspective_camera.hpp"
-#include "mesh\mesh.hpp"
+#include "model\model.hpp"
 #include "shader\pixel_shader.hpp"
 #include "shader\vertex_shader.hpp"
 
 using namespace mage;
 
 class TestState : public State {
-
-	UniquePtr< Transform > m_transform;
 	UniquePtr< Camera > m_camera;
-	UniquePtr< Mesh < VertexPosition > > m_mesh;
+	UniquePtr< Model < VertexPosition > > m_model;
 	UniquePtr< VertexShader > m_vs;
 	UniquePtr< PixelShader > m_ps;
 
 	virtual void Load() override {
-
-		m_transform = UniquePtr< Transform >(new Transform());
-
 		const float width  = (float)g_device_enumeration->GetDisplayMode()->Width;
 		const float height = (float)g_device_enumeration->GetDisplayMode()->Height;
 		m_camera = make_unique< PerspectiveCamera >(width, height);
@@ -29,13 +23,15 @@ class TestState : public State {
 		ComPtr< ID3D11Device2 > device = g_engine->GetRenderer().GetDevice();
 		ComPtr< ID3D11DeviceContext2 > device_context = g_engine->GetRenderer().GetDeviceContext();
 
-		m_vs = make_unique< VertexShader >(device, VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements, L"effect_VS.cso", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/");
-		m_ps = make_unique< PixelShader >(device, L"effect_PS.cso", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/");
-		m_mesh = make_unique< Mesh < VertexPosition > >(device, L"cube.obj", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/", true, true);
+		m_vs = make_unique< VertexShader >(device, VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_VS.cso");
+		m_ps = make_unique< PixelShader >(device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_PS.cso");
+		
+		MeshDescriptor desc(true, true);
+		m_model = make_unique< Model < VertexPosition > >("Cube", device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/cube.obj", desc);
 	}
 
 	virtual void Update(double elapsed_time) override {
-		m_transform->AddRotationY((float)elapsed_time);
+		m_model->GetTransform().AddRotationY((float)elapsed_time);
 		
 		ComPtr< ID3D11DeviceContext2 > device_context = g_engine->GetRenderer().GetDeviceContext();
 
@@ -46,16 +42,16 @@ class TestState : public State {
 		const XMVECTOR d_up    = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 		ct.world_to_view       = XMMatrixTranspose(XMMatrixLookAtLH(p_eye, p_focus, d_up));
 		ct.view_to_projection  = XMMatrixTranspose(m_camera->GetViewToProjectionMatrix());
-		mt.model_to_world      = XMMatrixTranspose(m_transform->GetObjectToWorldMatrix());
+		mt.model_to_world      = XMMatrixTranspose(m_model->GetTransform().GetObjectToWorldMatrix());
 
 		m_vs->Update(device_context, ct, mt);
 		m_ps->Update(device_context);
-		m_mesh->Update(device_context);
+		m_model->Update(device_context);
 
 		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_Q)) {
 			//PostQuitMessage(0);
 
-			VariableScript s(L"script_test.mage", L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/");
+			VariableScript s(L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/script_test.mage");
 			s.ExportScript(L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/output.mage");
 		}
 	}

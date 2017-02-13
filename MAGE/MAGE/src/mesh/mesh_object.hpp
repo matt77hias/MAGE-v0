@@ -15,12 +15,13 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include <d3d11_2.h>
+
 #include <string>
 namespace mage {
+	using std::string;
 	using std::wstring;
 }
-
-#include <d3d11_2.h>
 
 #pragma endregion
 
@@ -30,7 +31,7 @@ namespace mage {
 #pragma region
 
 #include "memory\memory.hpp"
-#include "resource\resource.hpp"
+#include "math\transform.hpp"
 
 #pragma endregion
 
@@ -38,25 +39,46 @@ namespace mage {
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+	class MeshObject {
 
-	class PixelShader : Resource {
+		MeshObject(const string &name, size_t start_index)
+			: m_name(name), m_transform(UniquePtr< Transform >(new Transform())),
+			m_start_index(start_index), m_nb_indices(0) {}
 
-	public:
+		virtual ~MeshObject() = default;
 
-		PixelShader(ComPtr< ID3D11Device2 > device, const wstring &fname);
-		virtual ~PixelShader() {}
-		
-		void Update(ComPtr< ID3D11DeviceContext2 > device_context);
+		const string &GetName() const {
+			return m_name;
+		}
 
-	protected:
+		void SetName(const string &name) {
+			m_name = name;
+		}
 
-		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device);
+		Transform &GetTransform() const {
+			return *m_transform.get();
+		}
 
-		ComPtr< ID3D11PixelShader > m_pixel_shader;
+		void SetNumberOfIndices(size_t nb_indices) {
+			m_nb_indices = nb_indices;
+		}
+
+		void Update(ComPtr< ID3D11DeviceContext2 > device_context) const {
+			device_context->DrawIndexed((UINT)m_nb_indices, (UINT)m_start_index, 0);
+		}
 
 	private:
 
-		PixelShader(const PixelShader &pixel_shader) = delete;
-		PixelShader &operator=(const PixelShader &pixel_shader) = delete;
+		MeshObject(const MeshObject &mesh_object) = delete;
+		MeshObject &operator=(const MeshObject &mesh_object) = delete;
+
+
+		string m_name;
+
+		UniquePtr< Transform > m_transform;
+
+		size_t m_nb_indices;
+
+		size_t m_start_index;
 	};
 }

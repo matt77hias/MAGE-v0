@@ -106,27 +106,27 @@ namespace mage {
 		return XMUINT3(vertex_index, texture_index, normal_index);
 	}
 
-	void ParseOBJVertex(uint32_t line_number, char **context, OBJBuffer &buffer, bool invert_handedness) {
+	void ParseOBJVertex(uint32_t line_number, char **context, OBJBuffer &buffer, const MeshDescriptor &mesh_desc) {
 		Point3 vertex = ParseOBJVertexCoordinates(line_number, context);
-		if (invert_handedness) {
+		if (mesh_desc.InvertHandness()) {
 			vertex.z = -vertex.z;
 		}
 
 		buffer.vertex_coordinates.push_back(vertex);
 	}
 
-	void ParseOBJVertexTexture(uint32_t line_number, char **context, OBJBuffer &buffer, bool invert_handedness) {
+	void ParseOBJVertexTexture(uint32_t line_number, char **context, OBJBuffer &buffer, const MeshDescriptor &mesh_desc) {
 		UV texture = ParseOBJVertexTextureCoordinates(line_number, context);
-		if (invert_handedness) {
+		if (mesh_desc.InvertHandness()) {
 			texture.y = 1.0f - texture.y;
 		}
 		
 		buffer.vertex_texture_coordinates.push_back(texture);
 	}
 	
-	void ParseOBJVertexNormal(uint32_t line_number, char **context, OBJBuffer &buffer, bool invert_handedness) {
+	void ParseOBJVertexNormal(uint32_t line_number, char **context, OBJBuffer &buffer, const MeshDescriptor &mesh_desc) {
 		Normal3 normal = ParseOBJVertexNormalCoordinates(line_number, context);
-		if (invert_handedness) {
+		if (mesh_desc.InvertHandness()) {
 			normal.z = -normal.z;
 		}
 		const XMVECTOR v = XMLoadFloat3(&normal);

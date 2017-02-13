@@ -26,12 +26,10 @@ namespace mage {
 		/**
 		 Constructs a variable script.
 
-		 @param[in]		name
-						A reference to the name of the variable script.
-		 @param[in]		path
-						A reference to the path of the variable script.
+		 @param[in]		fname
+						A reference to the file name of the variable script.
 		*/
-		VariableScript(const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH);
+		VariableScript(const wstring &fname);
 
 		/**
 		 Destruct this variable script.

@@ -50,9 +50,12 @@
     <ClInclude Include="MAGE\src\memory\memory.hpp" />
     <ClInclude Include="MAGE\src\memory\memory_arena.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh.hpp" />
-    <ClInclude Include="MAGE\src\mesh\mesh_loader.hpp" />
+    <ClInclude Include="MAGE\src\mesh\mesh_descriptor.hpp" />
+    <ClInclude Include="MAGE\src\mesh\mesh_object.hpp" />
     <ClInclude Include="MAGE\src\mesh\obj_loader.hpp" />
     <ClInclude Include="MAGE\src\model\model.hpp" />
+    <ClInclude Include="MAGE\src\model\model_loader.hpp" />
+    <ClInclude Include="MAGE\src\model\model_output.hpp" />
     <ClInclude Include="MAGE\src\parallel\atomic.hpp" />
     <ClInclude Include="MAGE\src\parallel\id_generator.hpp" />
     <ClInclude Include="MAGE\src\parallel\lock.hpp" />
@@ -140,8 +143,9 @@
   <ItemGroup>
     <None Include="MAGE\src\memory\memory_arena.tpp" />
     <None Include="MAGE\src\mesh\mesh.tpp" />
-    <None Include="MAGE\src\mesh\mesh_loader.tpp" />
     <None Include="MAGE\src\mesh\obj_loader.tpp" />
+    <None Include="MAGE\src\model\model.tpp" />
+    <None Include="MAGE\src\model\model_loader.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

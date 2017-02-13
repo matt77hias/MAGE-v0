@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_DEFAULT_DISPLAY_SETTINGS_FILE L"DisplaySettings.mage"
+#define MAGE_DEFAULT_DISPLAY_SETTINGS_FILE L"./DisplaySettings.mage"
 
 #pragma endregion
 

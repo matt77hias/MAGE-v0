@@ -16,6 +16,27 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	struct ModelPart final {
+
+	public:
+
+		ModelPart(const string &child = "default", const string &parent = "root",
+			uint32_t start_index = 0, uint32_t nb_indices = 0, 
+			const string &material = "none")
+			: child(child), parent(parent), 
+			start_index(start_index), nb_indices(nb_indices), material(material) {}
+		ModelPart(const ModelPart &model_part) = default;
+		~ModelPart() = default;
+
+		ModelPart &operator=(ModelPart &model_part) = default;
+
+		string child;
+		string parent;
+		string material;
+		uint32_t start_index;
+		uint32_t nb_indices;
+	};
+
 	template < typename Vertex >
 	struct ModelOutput final {
 
@@ -24,47 +45,29 @@ namespace mage {
 		ModelOutput() = default;
 		~ModelOutput() = default;
 
-		size_t GetNumberOfVertices() const {
-			return m_vertex_buffer.size();
-		}
-		size_t GetNumberOfIndices() const {
-			return m_index_buffer.size();
-		}
-		size_t GetNumberOfMaterials() const {
-			return m_material_buffer.size();
-		}
+		vector< Vertex > vertex_buffer;
+		vector< uint32_t > index_buffer;
+		vector< Material > material_buffer;
+		vector< ModelPart > model_parts;
 
-		const vector< Vertex > &GetVertexBuffer() const {
-			return m_vertex_buffer;
+		void StartModelPart(const string &child = "default", const string &parent = "root") {
+			const uint32_t start = (uint32_t)index_buffer.size();
+			model_parts.push_back(ModelPart(child, parent, start));
 		}
-		const vector< uint32_t > &GetIndexBuffer() const {
-			return m_index_buffer;
+		void SetMaterial(const string &material) {
+			ModelPart &current = model_parts.back();
+			current.material = material;
 		}
-		const vector< Material > &GetMaterialBuffer() const {
-			return m_material_buffer;
-		}
-
-		void AddVertex(const Vertex &vertex) {
-			m_vertex_buffer.push_back(vertex);
-		}
-		void AddIndex(const uint32_t index) {
-			m_index_buffer.push_back(index);
-		}
-		void AddMaterial(const Material &material) {
-			m_material_buffer.push_back(material);
-		}
-
-		void AddMeshObject(size_t m_start_index, size_t m_nb_indices, const string &object_name, const string &material_name, const string &parent_name = L"") {
-			//
+		void EndModelPart() {
+			ModelPart &current = model_parts.back();
+			const uint32_t start = current.start_index;
+			const uint32_t end = (uint32_t)index_buffer.size();
+			current.nb_indices = end - start;
 		}
 
 	private:
 
 		ModelOutput(const ModelOutput< Vertex > &output) = delete;
 		ModelOutput< Vertex > &operator=(ModelOutput< Vertex > &output) = delete;
-
-		vector< Vertex > m_vertex_buffer;
-		vector< uint32_t > m_index_buffer;
-		vector< Material > m_material_buffer;
 	};
 }

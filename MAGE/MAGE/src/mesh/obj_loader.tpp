@@ -6,7 +6,8 @@
 #pragma region
 
 #include "logging\error.hpp"
-#include "string\string_utils.hpp"
+#include "file\file_utils.hpp"
+#include "material\mtl_loader.hpp"
 
 #pragma endregion
 
@@ -21,6 +22,9 @@
 #define MAGE_OBJ_TEXTURE_TOKEN "vt"
 #define MAGE_OBJ_NORMAL_TOKEN "vn"
 #define MAGE_OBJ_FACE_TOKEN "f"
+#define MAGE_OBJ_MATERIAL_LIBRARY_TOKEN "mtllib"
+#define MAGE_OBJ_MATERIAL_USE_TOKEN "usemtl"
+#define MAGE_OBJ_GROUP_TOKEN "g"
 
 #pragma endregion
 
@@ -61,7 +65,9 @@ namespace mage {
 		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > mapping;
 	};
 
+	string ParseOBJString(uint32_t line_number, char **context, char *str = nullptr);
 	XMUINT3 ParseOBJVertexIndices(uint32_t line_number, char **context, char *str = nullptr);
+
 	void ParseOBJVertex(uint32_t line_number, char **context, OBJBuffer &buffer, const MeshDescriptor &mesh_desc);
 	void ParseOBJVertexTexture(uint32_t line_number, char **context, OBJBuffer &buffer, const MeshDescriptor &mesh_desc);
 	void ParseOBJVertexNormal(uint32_t line_number, char **context, OBJBuffer &buffer, const MeshDescriptor &mesh_desc);
@@ -126,28 +132,60 @@ namespace mage {
 				indices[i] = it->second;
 			}
 			else {
-				const uint32_t index = (uint32_t)model_output.GetNumberOfVertices();
+				const uint32_t index = (uint32_t)model_output.vertex_buffer.size();
 				indices[i] = index;
-				model_output.AddVertex(ConstructVertex< Vertex >(vertex_indices, buffer));
+				model_output.vertex_buffer.push_back(ConstructVertex< Vertex >(vertex_indices, buffer));
 				buffer.mapping[vertex_indices] = index;
 			}
 		}
 
 		if (mesh_desc.ClockwiseOrder()) {
-			model_output.AddIndex(indices[2]);
-			model_output.AddIndex(indices[1]);
-			model_output.AddIndex(indices[0]);
+			model_output.index_buffer.push_back(indices[2]);
+			model_output.index_buffer.push_back(indices[1]);
+			model_output.index_buffer.push_back(indices[0]);
 		}
 		else {
-			model_output.AddIndex(indices[0]);
-			model_output.AddIndex(indices[1]);
-			model_output.AddIndex(indices[2]);
+			model_output.index_buffer.push_back(indices[0]);
+			model_output.index_buffer.push_back(indices[1]);
+			model_output.index_buffer.push_back(indices[2]);
 		}
 	}
 
 	template < typename Vertex >
-	static void ParseOBJLine(char *line, uint32_t line_number, OBJBuffer &buffer, 
-		ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc) {
+	void ParseOBJMaterialLibrary(const string &fname, uint32_t line_number, char **context, ModelOutput< Vertex > &model_output) {
+		const string mtl_path = GetPathName(fname);
+		const string mtl_name = ParseOBJString(line_number, context);
+		const string mtl_fname = GetFilename(mtl_path, mtl_name);
+
+		const HRESULT result = LoadMTLMaterialFromFile(mtl_fname, model_output.material_buffer);
+		if (FAILED(result)) {
+			Error("Could not import .mtl file: %s.", fname.c_str());
+		}
+	}
+
+	template < typename Vertex >
+	void ParseOBJMaterialUse(uint32_t line_number, char **context, ModelOutput< Vertex > &model_output) {
+		const string mtl_name = ParseOBJString(line_number, context);
+		model_output.SetMaterial(mtl_name);
+	}
+
+	template < typename Vertex >
+	void ParseOBJGroup(uint32_t line_number, char **context, ModelOutput< Vertex > &model_output) {
+		const string child = ParseOBJString(line_number, context);
+
+		const char *token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, context);
+		if (!token) {
+			model_output.StartModelPart(child);
+			return;
+		}
+		
+		const string parent = string(token);
+		model_output.StartModelPart(child, parent);
+	}
+
+	template < typename Vertex >
+	static void ParseOBJLine(const string &fname, char *line, uint32_t line_number, 
+		OBJBuffer &buffer, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc) {
 
 		char *context = nullptr;
 		const char *token = strtok_s(line, MAGE_OBJ_DELIMITER, &context);
@@ -156,7 +194,19 @@ namespace mage {
 			return;
 		}
 
-		if (str_equals(token, MAGE_OBJ_VERTEX_TOKEN)) {
+		if (str_equals(token, MAGE_OBJ_MATERIAL_LIBRARY_TOKEN)) {
+			ParseOBJMaterialLibrary(fname, line_number, &context, model_output);
+		}
+		else if (str_equals(token, MAGE_OBJ_MATERIAL_USE_TOKEN)) {
+			ParseOBJMaterialUse(line_number, &context, model_output);
+		}
+		else if (str_equals(token, MAGE_OBJ_GROUP_TOKEN)) {
+			// End current group.
+			model_output.EndModelPart();
+			// Begin current group.
+			ParseOBJGroup(line_number, &context, model_output);
+		}
+		else if (str_equals(token, MAGE_OBJ_VERTEX_TOKEN)) {
 			ParseOBJVertex(line_number, &context, buffer, mesh_desc);
 		}
 		else if (str_equals(token, MAGE_OBJ_TEXTURE_TOKEN)) {
@@ -180,27 +230,30 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	HRESULT LoadOBJMeshFromFile(const wstring &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc) {
+	HRESULT LoadOBJMeshFromFile(const string &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc) {
 
-		if (!model_output.GetVertexBuffer().empty()) {
-			Error("Could not import .obj file: %ls due to non-empty vertex buffer.", fname.c_str());
+		if (!model_output.vertex_buffer.empty()) {
+			Error("Could not import .obj file: %s due to non-empty vertex buffer.", fname.c_str());
 			return E_FAIL;
 		}
-		if (!model_output.GetIndexBuffer().empty()) {
-			Error("Could not import .obj file: %ls due to non-empty index buffer.", fname.c_str());
+		if (!model_output.index_buffer.empty()) {
+			Error("Could not import .obj file: %s due to non-empty index buffer.", fname.c_str());
 			return E_FAIL;
 		}
 
 		// Open the .obj file.
 		FILE *file = nullptr;
-		const errno_t result_fopen_s = _wfopen_s(&file, fname.c_str(), L"r");
+		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
 		if (result_fopen_s) {
-			Error("Could not import .obj file: %ls.", fname.c_str());
+			Error("Could not import .obj file: %s.", fname.c_str());
 			return E_FAIL;
 		}
 
 		// Buffer
 		OBJBuffer buffer;
+
+		// Begin current group.
+		model_output.StartModelPart();
 
 		// Parse the .obj file while populating the buffers.
 		char current_line[MAX_PATH];
@@ -208,42 +261,16 @@ namespace mage {
 		// Continue reading from the file until the eof is reached.
 		while (fgets(current_line, _countof(current_line), file)) {
 
-			ParseOBJLine< Vertex >(current_line, line_number, buffer, model_output, mesh_desc);
+			ParseOBJLine< Vertex >(fname, current_line, line_number, buffer, model_output, mesh_desc);
 
 			++line_number;
 		}
+
+		// End current group.
+		model_output.EndModelPart();
 
 		// Close the script file.
 		fclose(file);
-
-		return S_OK;
-	}
-
-	template < typename Vertex >
-	HRESULT LoadOBJMeshFromMemory(const char *input, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc) {
-
-		if (!model_output.GetVertexBuffer().empty()) {
-			Error("Could not import .obj due to non-empty vertex buffer.");
-			return E_FAIL;
-		}
-		if (!model_output.GetIndexBuffer().empty()) {
-			Error("Could not import .obj string due to non-empty index buffer.");
-			return E_FAIL;
-		}
-
-		// Buffer
-		OBJBuffer buffer;
-
-		// Parse the .obj string while populating the buffers.
-		char current_line[MAX_PATH];
-		uint32_t line_number = 1;
-		// Continue reading from the string until the eof is reached.
-		while (str_gets(current_line, _countof(current_line), &input)) {
-			
-			ParseOBJLine< Vertex >(current_line, line_number, buffer, model_output, mesh_desc);
-
-			++line_number;
-		}
 
 		return S_OK;
 	}

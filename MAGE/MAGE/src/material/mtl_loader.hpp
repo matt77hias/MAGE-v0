@@ -44,17 +44,5 @@ namespace mage {
 					A reference to the empty material buffer.
 	 @return		A success/error value.
 	 */
-	HRESULT LoadMTLMaterialFromFile(const wstring &fname, vector< Material > &material_buffer);
-
-	/**
-	 Loads a MTL material from memory.
-
-	 @param[in]		input
-					A pointer to an array of chars that represents
-					the input string.
-	 @param[out]	material_buffer
-					A reference to the empty material buffer.
-	 @return		A success/error value.
-	 */
-	HRESULT LoadMTLMaterialFromMemory(const char *input, vector< Material > &material_buffer);
+	HRESULT LoadMTLMaterialFromFile(const string &fname, vector< Material > &material_buffer);
 }

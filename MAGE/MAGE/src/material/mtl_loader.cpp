@@ -174,7 +174,7 @@ namespace mage {
 		const char *token = strtok_s(str, MAGE_MTL_DELIMITER, context);
 		if (!token) {
 			Error("No string value found in MTL specification at line %u.", line_number);
-			return "";
+			return "none";
 		}
 		return string(token);
 	}
@@ -220,7 +220,10 @@ namespace mage {
 		}
 	}
 
-	static void ParseMTLLine(char *line, uint32_t line_number, vector < Material > &material_buffer) {
+	static void ParseMTLLine(const string &fname, char *line, uint32_t line_number, 
+		vector < Material > &material_buffer) {
+
+		UNUSED(fname);
 
 		char *context = nullptr;
 		const char *token = strtok_s(line, MAGE_MTL_DELIMITER, &context);
@@ -265,12 +268,12 @@ namespace mage {
 		}
 	}
 
-	HRESULT LoadMTLMaterialFromFile(const wstring &fname, vector< Material > &material_buffer) {
+	HRESULT LoadMTLMaterialFromFile(const string &fname, vector< Material > &material_buffer) {
 		// Open the .mtl file.
 		FILE *file = nullptr;
-		const errno_t result_fopen_s = _wfopen_s(&file, fname.c_str(), L"r");
+		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
 		if (result_fopen_s) {
-			Error("Could not import .mtl file: %ls", fname.c_str());
+			Error("Could not import .mtl file: %s.", fname.c_str());
 			return E_FAIL;
 		}
 
@@ -280,28 +283,13 @@ namespace mage {
 		// Continue reading from the file until the eof is reached.
 		while (fgets(current_line, _countof(current_line), file)) {
 
-			ParseMTLLine(current_line, line_number, material_buffer);
+			ParseMTLLine(fname, current_line, line_number, material_buffer);
 
 			++line_number;
 		}
 
 		// Close the script file.
 		fclose(file);
-
-		return S_OK;
-	}
-
-	HRESULT LoadMTLMaterialFromMemory(const char *input, vector< Material > &material_buffer) {
-		// Parse the .mtl string while populating the material buffer.
-		char current_line[MAX_PATH];
-		uint32_t line_number = 1;
-		// Continue reading from the string until the eof is reached.
-		while (str_gets(current_line, _countof(current_line), &input)) {
-			
-			ParseMTLLine(current_line, line_number, material_buffer);
-
-			++line_number;
-		}
 
 		return S_OK;
 	}

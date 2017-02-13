@@ -48,23 +48,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template < typename Vertex >
-	HRESULT LoadOBJMeshFromFile(const wstring &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor());
-
-	/**
-	 Loads an OBJ mesh from file.
-
-	 @tparam		Vertex
-					The vertex type.
-	 @param[in]		input
-					A pointer to an array of chars that represents the input string.
-	 @param[in,out]	model_output
-					A reference to the model output.
-	 @param[in]		mesh_desc
-					A reference to the mesh descriptor.
-	 @return		A success/error value.
-	 */
-	template < typename Vertex >
-	HRESULT LoadOBJMeshFromFile(const char *input, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor());
+	HRESULT LoadOBJMeshFromFile(const string &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor());
 }
 
 //-----------------------------------------------------------------------------

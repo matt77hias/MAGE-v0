@@ -171,15 +171,21 @@ namespace mage {
 
 	template < typename Vertex >
 	void ParseOBJGroup(uint32_t line_number, char **context, ModelOutput< Vertex > &model_output) {
-		const string child = ParseOBJString(line_number, context);
+		const char *token_child = strtok_s(nullptr, MAGE_OBJ_DELIMITER, context);
+		if (!token_child) {
+			Error("No child name found in grouping in OBJ specification at line %u.", line_number);
+			model_output.StartModelPart();
+			return;
+		}
+		const string child = string(token_child);
 
-		const char *token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, context);
-		if (!token) {
+		const char *token_parent = strtok_s(nullptr, MAGE_OBJ_DELIMITER, context);
+		if (!token_parent) {
 			model_output.StartModelPart(child);
 			return;
 		}
+		const string parent = string(token_parent);
 		
-		const string parent = string(token);
 		model_output.StartModelPart(child, parent);
 	}
 

@@ -17,11 +17,11 @@
 namespace mage {
 
 	template < typename Vertex >
-	HRESULT LoadModelFromFile(const string &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc) {
+	HRESULT LoadModelFromFile(const wstring &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc) {
 
-		const string extension = GetFileExtension(fname);
+		const wstring extension = GetFileExtension(fname);
 
-		if (extension == "obj" || extension == "OBJ") {
+		if (extension == L"obj" || extension == L"OBJ") {
 			return LoadOBJMeshFromFile< Vertex >(fname, model_output, mesh_desc);
 		}
 

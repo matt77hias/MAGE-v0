@@ -44,5 +44,5 @@ namespace mage {
 					A reference to the empty material buffer.
 	 @return		A success/error value.
 	 */
-	HRESULT LoadMTLMaterialFromFile(const string &fname, vector< Material > &material_buffer);
+	HRESULT LoadMTLMaterialFromFile(const wstring &fname, vector< Material > &material_buffer);
 }

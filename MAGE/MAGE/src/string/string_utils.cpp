@@ -1,4 +1,14 @@
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <AtlBase.h>
+#include <atlconv.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -60,5 +70,21 @@ namespace mage {
 		*str = L'\0';
 		*input = next;
 		return str;
+	}
+
+	wchar_t *str_convert(const char *str) {
+		return CA2W(str);
+	}
+
+	char *str_convert(const wchar_t *str) {
+		return CW2A(str);
+	}
+
+	wstring str_convert(const string &str) {
+		return wstring(CA2W(str.c_str()));
+	}
+
+	string str_convert(const wstring &str) {
+		return string(CW2A(str.c_str()));
 	}
 }

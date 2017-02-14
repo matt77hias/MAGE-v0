@@ -152,14 +152,14 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	void ParseOBJMaterialLibrary(const string &fname, uint32_t line_number, char **context, ModelOutput< Vertex > &model_output) {
-		const string mtl_path = GetPathName(fname);
-		const string mtl_name = ParseOBJString(line_number, context);
-		const string mtl_fname = GetFilename(mtl_path, mtl_name);
+	void ParseOBJMaterialLibrary(const wstring &fname, uint32_t line_number, char **context, ModelOutput< Vertex > &model_output) {
+		const wstring mtl_path = GetPathName(fname);
+		const wstring mtl_name = str_convert(ParseOBJString(line_number, context));
+		const wstring mtl_fname = GetFilename(mtl_path, mtl_name);
 
 		const HRESULT result = LoadMTLMaterialFromFile(mtl_fname, model_output.material_buffer);
 		if (FAILED(result)) {
-			Error("Could not import .mtl file: %s.", fname.c_str());
+			Error("Could not import .mtl file: %ls.", mtl_fname.c_str());
 		}
 	}
 
@@ -190,7 +190,7 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	static void ParseOBJLine(const string &fname, char *line, uint32_t line_number, 
+	static void ParseOBJLine(const wstring &fname, char *line, uint32_t line_number, 
 		OBJBuffer &buffer, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc) {
 
 		char *context = nullptr;
@@ -236,22 +236,22 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	HRESULT LoadOBJMeshFromFile(const string &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc) {
+	HRESULT LoadOBJMeshFromFile(const wstring &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc) {
 
 		if (!model_output.vertex_buffer.empty()) {
-			Error("Could not import .obj file: %s due to non-empty vertex buffer.", fname.c_str());
+			Error("Could not import .obj file: %ls due to non-empty vertex buffer.", fname.c_str());
 			return E_FAIL;
 		}
 		if (!model_output.index_buffer.empty()) {
-			Error("Could not import .obj file: %s due to non-empty index buffer.", fname.c_str());
+			Error("Could not import .obj file: %ls due to non-empty index buffer.", fname.c_str());
 			return E_FAIL;
 		}
 
 		// Open the .obj file.
 		FILE *file = nullptr;
-		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
+		const errno_t result_fopen_s = _wfopen_s(&file, fname.c_str(), L"r");
 		if (result_fopen_s) {
-			Error("Could not import .obj file: %s.", fname.c_str());
+			Error("Could not import .obj file: %ls.", fname.c_str());
 			return E_FAIL;
 		}
 

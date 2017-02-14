@@ -48,7 +48,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template < typename Vertex >
-	HRESULT LoadModelFromFile(const string &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor());
+	HRESULT LoadModelFromFile(const wstring &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor());
 }
 
 //-----------------------------------------------------------------------------

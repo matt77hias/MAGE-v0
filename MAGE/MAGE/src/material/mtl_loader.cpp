@@ -220,7 +220,7 @@ namespace mage {
 		}
 	}
 
-	static void ParseMTLLine(const string &fname, char *line, uint32_t line_number, 
+	static void ParseMTLLine(const wstring &fname, char *line, uint32_t line_number, 
 		vector < Material > &material_buffer) {
 
 		UNUSED(fname);
@@ -268,12 +268,12 @@ namespace mage {
 		}
 	}
 
-	HRESULT LoadMTLMaterialFromFile(const string &fname, vector< Material > &material_buffer) {
+	HRESULT LoadMTLMaterialFromFile(const wstring &fname, vector< Material > &material_buffer) {
 		// Open the .mtl file.
 		FILE *file = nullptr;
-		const errno_t result_fopen_s = fopen_s(&file, fname.c_str(), "r");
+		const errno_t result_fopen_s = _wfopen_s(&file, fname.c_str(), L"r");
 		if (result_fopen_s) {
-			Error("Could not import .mtl file: %s.", fname.c_str());
+			Error("Could not import .mtl file: %ls.", fname.c_str());
 			return E_FAIL;
 		}
 

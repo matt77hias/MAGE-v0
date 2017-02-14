@@ -27,7 +27,7 @@ class TestState : public State {
 		m_ps = make_unique< PixelShader >(device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_PS.cso");
 		
 		MeshDescriptor desc(true, true);
-		m_model = make_unique< Model < VertexPosition > >("Cube", device, "C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/cube.obj", desc);
+		m_model = make_unique< Model < VertexPosition > >("Cube", device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/cube.obj", desc);
 	}
 
 	virtual void Update(double elapsed_time) override {

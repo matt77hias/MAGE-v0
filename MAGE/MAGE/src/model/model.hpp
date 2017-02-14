@@ -24,7 +24,7 @@ namespace mage {
 
 	public:
 
-		Model(const string &name, ComPtr< ID3D11Device2 > device, const string &fname, const MeshDescriptor &desc);
+		Model(const string &name, ComPtr< ID3D11Device2 > device, const wstring &fname, const MeshDescriptor &desc);
 		Model(const Model< Vertex > &model);
 		virtual ~Model() = default;
 
@@ -36,7 +36,7 @@ namespace mage {
 
 	protected:
 
-		HRESULT InitializeModel(ComPtr< ID3D11Device2 > device, const string &fname, const MeshDescriptor &desc);
+		HRESULT InitializeModel(ComPtr< ID3D11Device2 > device, const wstring &fname, const MeshDescriptor &desc);
 
 	private:
 

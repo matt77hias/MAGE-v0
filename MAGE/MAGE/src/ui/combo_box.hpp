@@ -1,12 +1,11 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Defines
+// Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
+#include "platform\windows.hpp"
 
 #pragma endregion
 
@@ -15,7 +14,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <windows.h>
 #include <windowsx.h>
 
 #pragma endregion

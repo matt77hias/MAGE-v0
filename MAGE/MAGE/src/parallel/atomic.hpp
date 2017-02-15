@@ -1,22 +1,11 @@
 #pragma once
 
-//-----------------------------------------------------------------------------
-// System Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-
-#pragma endregion
-
 //-------------------------------------------------------------------------
 // System Includes
 //-------------------------------------------------------------------------
 #pragma region
 
 #include <stdint.h>
-#include <windows.h>
 #include <intrin.h> // _ReadWriteBarrier
 
 // _ReadWriteBarrier effectively blocks an optimization of reads and writes 

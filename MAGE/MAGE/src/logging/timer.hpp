@@ -1,21 +1,11 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <windows.h>
+#include "platform\windows.hpp"
 
 #pragma endregion
 

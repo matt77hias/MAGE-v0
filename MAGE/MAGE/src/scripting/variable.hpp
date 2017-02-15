@@ -1,23 +1,12 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <string>
-namespace mage {
-	using std::string;
-}
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
 #include "memory\memory.hpp"
+#include "string\string.hpp"
 #include "math\math.hpp"
 
 #pragma endregion
@@ -32,7 +21,6 @@ namespace mage {
 	typedef XMFLOAT3 float3;
 	typedef XMFLOAT4 float4;
 	typedef XMFLOAT4 color;
-
 }
 
 #pragma endregion

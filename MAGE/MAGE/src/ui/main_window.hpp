@@ -1,23 +1,12 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <string>
-namespace mage {
-	using std::wstring;
-}
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
 #include "loadable.hpp"
+#include "string\string.hpp"
 
 #pragma endregion
 

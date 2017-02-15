@@ -1,31 +1,11 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <windows.h>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "model\model_output.hpp"
-#include "mesh\mesh_descriptor.hpp"
+#include "mesh\obj_parser.hpp"
 
 #pragma endregion
 
@@ -48,14 +28,8 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template < typename Vertex >
-	HRESULT LoadOBJMeshFromFile(const wstring &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor());
+	HRESULT LoadOBJMeshFromFile(const wstring &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor()) {
+		OBJParser< Vertex > parser(model_output, mesh_desc);
+		return parser.ParseFromFile(fname);
+	}
 }
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "mesh\obj_loader.tpp"
-
-#pragma endregion

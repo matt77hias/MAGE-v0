@@ -136,6 +136,9 @@
     <Filter Include="Source Files\material">
       <UniqueIdentifier>{04ea3622-d17f-443d-825c-966e53b30806}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\platform">
+      <UniqueIdentifier>{bec5c2ef-ac6b-42ae-9f4b-11e39982cf03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -318,6 +321,24 @@
     <ClInclude Include="MAGE\src\model\model_output.hpp">
       <Filter>Header Files\model</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\string\parsing.hpp">
+      <Filter>Header Files\string</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\string\string.hpp">
+      <Filter>Header Files\string</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\platform\windows.hpp">
+      <Filter>Header Files\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\shading.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\obj_parser.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\obj_parser.tpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -398,9 +419,6 @@
     <ClCompile Include="MAGE\src\math\vertex.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\obj_loader.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\material\mtl_loader.cpp">
       <Filter>Source Files\material</Filter>
     </ClCompile>
@@ -409,6 +427,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\material\spectrum.cpp">
       <Filter>Source Files\material</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\string\parsing.cpp">
+      <Filter>Source Files\string</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -428,9 +449,6 @@
     </None>
     <None Include="MAGE\src\scripting\variable_script.tpp">
       <Filter>Header Files\scripting</Filter>
-    </None>
-    <None Include="MAGE\src\mesh\obj_loader.tpp">
-      <Filter>Header Files\mesh</Filter>
     </None>
     <None Include="MAGE\src\mesh\mesh.tpp">
       <Filter>Header Files\mesh</Filter>

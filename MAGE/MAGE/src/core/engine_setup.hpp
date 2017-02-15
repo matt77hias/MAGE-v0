@@ -1,26 +1,12 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Defines
+// Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <string>
-namespace mage {
-	using std::wstring;
-}
-
-#include <windows.h>
+#include "platform\windows.hpp"
+#include "string\string.hpp"
 
 #pragma endregion
 

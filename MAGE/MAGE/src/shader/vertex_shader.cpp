@@ -1,17 +1,9 @@
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <d3dcompiler.h>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "shader\shading.hpp"
 #include "shader\vertex_shader.hpp"
 #include "logging\error.hpp"
 

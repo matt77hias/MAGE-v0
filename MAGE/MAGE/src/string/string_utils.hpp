@@ -1,15 +1,11 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Includes
+// Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <string>
-namespace mage {
-	using std::string;
-	using std::wstring;
-}
+#include "string\string.hpp"
 
 #pragma endregion
 
@@ -115,36 +111,6 @@ namespace mage {
 	 @note			The @c sgets function is the string variant of @c fgets.
 	 */
 	wchar_t *str_gets(wchar_t *str, int num, const wchar_t **input);
-
-	/**
-	 Finds the end of a word.
-
-	 @param[in]		buffer
-					A pointer to the first character.
-	 @return		A pointer to the end of the word.
-					(i.e. pointer to a space or null-terminating character)
-	 */
-	inline const char *FindWordEnd(const char *buffer) {
-		while (*buffer != '\0' && !isspace(*buffer)) {
-			++buffer;
-		}
-		return buffer;
-	}
-
-	/**
-	 Finds the end of a word.
-
-	 @param[in]		buffer
-					A pointer to the first character.
-	 @return		A pointer to the end of the word.
-					(i.e. pointer to a space or null-terminating character)
-	*/
-	inline const wchar_t *FindWordEnd(const wchar_t *buffer) {
-		while (*buffer != L'\0' && !iswspace(*buffer)) {
-			++buffer;
-		}
-		return buffer;
-	}
 
 	/**
 	 Converts the given ANSI string to a Wide string.

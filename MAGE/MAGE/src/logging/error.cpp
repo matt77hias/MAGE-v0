@@ -14,7 +14,7 @@
 
 #include "logging\error.hpp"
 #include "logging\logging.hpp"
-#include "string\string_utils.hpp"
+#include "string\string.hpp"
 
 #pragma endregion
 
@@ -33,6 +33,21 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	/**
+	 Finds the end of a word.
+
+	 @param[in]		buffer
+					A pointer to the first character.
+	 @return		A pointer to the end of the word.
+					(i.e. pointer to a space or null-terminating character)
+	 */
+	static const char *FindWordEnd(const char *buffer) {
+		while (*buffer != '\0' && !isspace(*buffer)) {
+			++buffer;
+		}
+		return buffer;
+	}
 
 	/**
 	 Process the given error.

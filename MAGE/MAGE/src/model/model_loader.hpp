@@ -1,29 +1,11 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <windows.h>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "platform\windows.hpp"
 #include "model\model_output.hpp"
 #include "mesh\mesh_descriptor.hpp"
 

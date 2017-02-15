@@ -1,23 +1,12 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <string>
-namespace mage {
-	using std::string;
-}
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
 #include "memory\memory.hpp"
+#include "string\string.hpp"
 #include "logging\timer.hpp"
 #include "parallel\lock.hpp"
 

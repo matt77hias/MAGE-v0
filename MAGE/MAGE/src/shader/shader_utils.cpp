@@ -3,16 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "shader\shading.hpp"
 #include "shader\shader_utils.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <d3dcompiler.h>
 
 #pragma endregion
 

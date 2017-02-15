@@ -6,6 +6,7 @@
 #pragma region
 
 #include "logging\error.hpp"
+#include "string\string_utils.hpp"
 #include "file\file_utils.hpp"
 #include "material\mtl_loader.hpp"
 
@@ -16,7 +17,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_OBJ_DELIMITER " \t\n\r"
 #define MAGE_OBJ_COMMENT_CHAR '#'
 #define MAGE_OBJ_VERTEX_TOKEN "v"
 #define MAGE_OBJ_TEXTURE_TOKEN "vt"
@@ -61,7 +61,7 @@ namespace mage {
 	template < typename Vertex >
 	HRESULT OBJParser< Vertex >::ParseLine(char *line) {
 		m_context = nullptr;
-		const char *token = strtok_s(line, MAGE_OBJ_DELIMITER, &m_context);
+		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || token[0] == MAGE_OBJ_COMMENT_CHAR) {
 			return S_OK;
@@ -120,8 +120,8 @@ namespace mage {
 
 	template < typename Vertex >
 	void OBJParser< Vertex >::ParseOBJGroup() {
-		const string child = ParseString("default");
-		const string parent = ParseString("root", false);
+		const string child = ParseString();
+		const string parent = ParseOptionalString("root");
 		m_model_output.StartModelPart(child, parent);
 	}
 
@@ -204,46 +204,41 @@ namespace mage {
 
 	template < typename Vertex >
 	XMUINT3 OBJParser< Vertex >::ParseOBJVertexIndices() {
-		const char *token = strtok_s(nullptr, MAGE_OBJ_DELIMITER, &m_context);
+		const char *token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
 		if (!token) {
 			Error("%ls: line %u: no vertex index value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return XMUINT3();
 		}
 
-		char *int_context = nullptr;
-		const uint32_t vertex_index = (uint32_t)strtol(token, &int_context, 10);
-		if (int_context == token) {
+		uint32_t vertex_index = 0;
+		if (StringToUnsignedInt(token, vertex_index) == invalid_token) {
 			Error("%ls: line %u: no integer index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 			return XMUINT3();
 		}
 
 		uint32_t texture_index = 0;
 		uint32_t normal_index = 0;
-
 		if (str_contains(token, "//")) {
 			//... v1//vn1 ...
 			const char *normal_part = strchr(token, '/') + 2;
-			normal_index = (uint32_t)strtol(normal_part, &int_context, 10);
-			if (int_context == normal_part) {
+			if (StringToUnsignedInt(normal_part, normal_index) == invalid_token) {
 				Error("%ls: line %u: no normal index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), normal_part);
-				return XMUINT3();
+				return XMUINT3(vertex_index, 0, 0);
 			}
 		}
 		else if (str_contains(token, "/")) {
 			//... v1/vt1 ...
 			const char *texture_part = strchr(token, '/') + 1;
-			texture_index = (uint32_t)strtol(texture_part, &int_context, 10);
-			if (int_context == texture_part) {
+			if (StringToUnsignedInt(texture_part, texture_index) == invalid_token) {
 				Error("%ls: line %u: no texture index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), texture_part);
-				return XMUINT3();
+				return XMUINT3(vertex_index, 0, 0);
 			}
 			if (str_contains(texture_part, "/")) {
 				//... v1/vt1/vn1 ...
 				const char *normal_part = strchr(texture_part, '/') + 1;
-				normal_index = (uint32_t)strtol(normal_part, &int_context, 10);
-				if (int_context == normal_part) {
+				if (StringToUnsignedInt(normal_part, normal_index) == invalid_token) {
 					Error("%ls: line %u: no normal index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), normal_part);
-					return XMUINT3();
+					return XMUINT3(vertex_index, texture_index, 0);
 				}
 			}
 		}

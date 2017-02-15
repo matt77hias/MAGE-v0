@@ -15,10 +15,74 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
+	// Conversion Utilities
+	//-------------------------------------------------------------------------
+
+	ParseResult StringToInt(const char *str, int &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = (unsigned int)strtoul(str, &inner_context, 10);
+		return (inner_context != str) ? valid_token : invalid_token;
+	}
+
+	ParseResult StringToUnsignedInt(const char *str, unsigned int &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = (int)strtol(str, &inner_context, 10);
+		return (inner_context != str) ? valid_token : invalid_token;
+	}
+
+	ParseResult StringToLong(const char *str, long &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = strtol(str, &inner_context, 10);
+		return (inner_context != str) ? valid_token : invalid_token;
+	}
+
+	ParseResult StringToUnsignedLong(const char *str, unsigned long &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = strtoul(str, &inner_context, 10);
+		return (inner_context != str) ? valid_token : invalid_token;
+	}
+
+	ParseResult StringToFloat(const char *str, float &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = (float)strtof(str, &inner_context);
+		return (inner_context != str) ? valid_token : invalid_token;
+	}
+
+	ParseResult StringToDouble(const char *str, double &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = strtof(str, &inner_context);
+		return (inner_context != str) ? valid_token : invalid_token;
+	}
+
+	//-------------------------------------------------------------------------
 	// Parsing Utilities
 	//-------------------------------------------------------------------------
 
-	ParseResult ParseChars(char **result, char **context, char *str, const char *delimiters) {
+	ParseResult ParseChars(char *str, char **context, char **result, const char *delimiters) {
 		*result = strtok_s(str, delimiters, context);
 		if (!result) {
 			return no_token;
@@ -27,7 +91,7 @@ namespace mage {
 		return valid_token;
 	}
 
-	ParseResult ParseString(string &result, char **context, char *str, const char *delimiters) {
+	ParseResult ParseString(char *str, char **context, string &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
 		if (!token) {
 			return no_token;
@@ -38,99 +102,39 @@ namespace mage {
 		return valid_token;
 	}
 
-	ParseResult ParseUnsignedInt(unsigned int &result, char **context, char *str, const char *delimiters) {
+	ParseResult ParseInt(char *str, char **context, int &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
-		if (!token) {
-			return no_token;
-		}
-
-		char *inner_context = nullptr;
-		result = (unsigned int)strtoul(token, &inner_context, 10);
-		if (inner_context == token) {
-			return invalid_token;
-		}
-
-		return valid_token;
+		return StringToInt(token, result);
 	}
 
-	ParseResult ParseInt(int &result, char **context, char *str, const char *delimiters) {
+	ParseResult ParseUnsignedInt(char *str, char **context, unsigned int &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
-		if (!token) {
-			return no_token;
-		}
-
-		char *inner_context = nullptr;
-		result = (int)strtol(token, &inner_context, 10);
-		if (inner_context == token) {
-			return invalid_token;
-		}
-
-		return valid_token;
+		return StringToUnsignedInt(token, result);
 	}
 
-	ParseResult ParseLong(long &result, char **context, char *str, const char *delimiters) {
+	ParseResult ParseLong(char *str, char **context, long &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
-		if (!token) {
-			return no_token;
-		}
-
-		char *inner_context = nullptr;
-		result = strtol(token, &inner_context, 10);
-		if (inner_context == token) {
-			return invalid_token;
-		}
-
-		return valid_token;
+		return StringToLong(token, result);
 	}
 
-	ParseResult ParseUnsignedLong(unsigned long &result, char **context, char *str, const char *delimiters) {
+	ParseResult ParseUnsignedLong(char *str, char **context, unsigned long &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
-		if (!token) {
-			return no_token;
-		}
-
-		char *inner_context = nullptr;
-		result = strtoul(token, &inner_context, 10);
-		if (inner_context == token) {
-			return invalid_token;
-		}
-
-		return valid_token;
+		return StringToUnsignedLong(token, result);
 	}
 
-	ParseResult ParseFloat(float &result, char **context, char *str, const char *delimiters) {
+	ParseResult ParseFloat(char *str, char **context, float &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
-		if (!token) {
-			return no_token;
-		}
-
-		char *inner_context = nullptr;
-		result = strtof(token, &inner_context);
-		if (inner_context == token) {
-			return invalid_token;
-		}
-
-		return valid_token;
+		return StringToFloat(token, result);
 	}
 
-	ParseResult ParseDouble(double &result, char **context, char *str, const char *delimiters) {
+	ParseResult ParseDouble(char *str, char **context, double &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
-		if (!token) {
-			return no_token;
-		}
-
-		char *inner_context = nullptr;
-		result = strtod(token, &inner_context);
-		if (inner_context == token) {
-			return invalid_token;
-		}
-
-		return valid_token;
+		return StringToDouble(token, result);
 	}
 
-	ParseResult ParseFloat2(XMFLOAT2 &result, char **context, char *str, const char *delimiters) {
-		const ParseResult parse_result_x = ParseFloat(result.x, context, str, delimiters);
-		const ParseResult parse_result_y = ParseFloat(result.y, context, str, delimiters);
+	ParseResult ParseFloat2(char *str, char **context, XMFLOAT2 &result, const char *delimiters) {
+		const ParseResult parse_result_x = ParseFloat(str, context, result.x, delimiters);
+		const ParseResult parse_result_y = ParseFloat(str, context, result.y, delimiters);
 
 		if (parse_result_x == invalid_token 
 			|| parse_result_y == invalid_token) {
@@ -143,10 +147,10 @@ namespace mage {
 		return valid_token;
 	}
 
-	ParseResult ParseFloat3(XMFLOAT3 &result, char **context, char *str, const char *delimiters) {
-		const ParseResult parse_result_x = ParseFloat(result.x, context, str, delimiters);
-		const ParseResult parse_result_y = ParseFloat(result.y, context, str, delimiters);
-		const ParseResult parse_result_z = ParseFloat(result.z, context, str, delimiters);
+	ParseResult ParseFloat3(char *str, char **context, XMFLOAT3 &result, const char *delimiters) {
+		const ParseResult parse_result_x = ParseFloat(str, context, result.x, delimiters);
+		const ParseResult parse_result_y = ParseFloat(str, context, result.y, delimiters);
+		const ParseResult parse_result_z = ParseFloat(str, context, result.z, delimiters);
 
 		if (parse_result_x == invalid_token 
 			|| parse_result_y == invalid_token 
@@ -161,11 +165,11 @@ namespace mage {
 		return valid_token;
 	}
 
-	ParseResult ParseFloat4(XMFLOAT4 &result, char **context, char *str, const char *delimiters) {
-		const ParseResult parse_result_x = ParseFloat(result.x, context, str, delimiters);
-		const ParseResult parse_result_y = ParseFloat(result.y, context, str, delimiters);
-		const ParseResult parse_result_z = ParseFloat(result.z, context, str, delimiters);
-		const ParseResult parse_result_w = ParseFloat(result.w, context, str, delimiters);
+	ParseResult ParseFloat4(char *str, char **context, XMFLOAT4 &result, const char *delimiters) {
+		const ParseResult parse_result_x = ParseFloat(str, context, result.x, delimiters);
+		const ParseResult parse_result_y = ParseFloat(str, context, result.y, delimiters);
+		const ParseResult parse_result_z = ParseFloat(str, context, result.z, delimiters);
+		const ParseResult parse_result_w = ParseFloat(str, context, result.w, delimiters);
 
 		if (parse_result_x == invalid_token 
 			|| parse_result_y == invalid_token 
@@ -275,262 +279,452 @@ namespace mage {
 		return S_OK;
 	}
 
+	HRESULT LineParser::Preprocess() {
+		return S_OK;
+	}
+
+	HRESULT LineParser::Postprocess() {
+		return S_OK;
+	}
+
 	void LineParser::ParseLineRemaining() {
-		char *next_token = strtok_s(nullptr, m_delimiters.c_str(), &m_context);
+		char *next_token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
 		while (next_token) {
 			Warning("%ls: line %u: unused token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), next_token);
-			next_token = strtok_s(nullptr, m_delimiters.c_str(), &m_context);
+			next_token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
 		}
 	}
 
-	char *LineParser::ParseChars(bool report_error) {
+	char *LineParser::ParseChars() {
 		char *result;
-		const ParseResult parse_result = mage::ParseChars(&result, &m_context, nullptr, m_delimiters.c_str());
+		const ParseResult parse_result = mage::ParseChars(nullptr, &m_context, &result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
 			return result;
 		}
-		case no_token: {
-			if (report_error) {
-				Error("%ls: line %u: no char string value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return "";
-		}
 		default: {
-			if (report_error) {
-				Error("%ls: line %u: invalid char string value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
+			Error("%ls: line %u: no char string value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return "";
 		}
 		}
 	}
 
-	string LineParser::ParseString(const string &default_value, bool report_error) {
+	string LineParser::ParseString() {
 		string result;
-		const ParseResult parse_result = mage::ParseString(result, &m_context, nullptr, m_delimiters.c_str());
+		const ParseResult parse_result = mage::ParseString(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
 			return result;
 		}
-		case no_token: {
-			if (report_error) {
-				Error("%ls: line %u: no string value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
-		}
 		default: {
-			if (report_error) {
-				Error("%ls: line %u: invalid string value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: no string value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return "";
 		}
 		}
 	}
 
-	unsigned int LineParser::ParseUnsignedInt(unsigned int default_value, bool report_error) {
-		unsigned int result;
-		const ParseResult parse_result = mage::ParseUnsignedInt(result, &m_context, nullptr, m_delimiters.c_str());
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		case no_token: {
-			if (report_error) {
-				Error("%ls: line %u: no unsigned int value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
-		}
-		default: {
-			if (report_error) {
-				Error("%ls: line %u: invalid unsigned int value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
-		}
-		}
-	}
-
-	int LineParser::ParseInt(int default_value, bool report_error) {
+	int LineParser::ParseInt() {
 		int result;
-		const ParseResult parse_result = mage::ParseInt(result, &m_context, nullptr, m_delimiters.c_str());
+		const ParseResult parse_result = mage::ParseInt(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
 			return result;
 		}
 		case no_token: {
-			if (report_error) {
-				Error("%ls: line %u: no int value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: no int value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
 		}
 		default: {
-			if (report_error) {
-				Error("%ls: line %u: invalid int value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: invalid int value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
 		}
 		}
 	}
 
-	unsigned long LineParser::ParseUnsignedLong(unsigned long default_value, bool report_error) {
-		unsigned long result;
-		const ParseResult parse_result = mage::ParseUnsignedLong(result, &m_context, nullptr, m_delimiters.c_str());
+	unsigned int LineParser::ParseUnsignedInt() {
+		unsigned int result;
+		const ParseResult parse_result = mage::ParseUnsignedInt(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
 			return result;
 		}
 		case no_token: {
-			if (report_error) {
-				Error("%ls: line %u: no unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: no unsigned int value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
 		}
 		default: {
-			if (report_error) {
-				Error("%ls: line %u: invalid unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: invalid unsigned int value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
 		}
 		}
 	}
 
-	long LineParser::ParseLong(long default_value, bool report_error) {
+	long LineParser::ParseLong() {
 		long result;
-		const ParseResult parse_result = mage::ParseLong(result, &m_context, nullptr, m_delimiters.c_str());
+		const ParseResult parse_result = mage::ParseLong(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
 			return result;
 		}
 		case no_token: {
-			if (report_error) {
-				Error("%ls: line %u: no long value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: no long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
 		}
 		default: {
-			if (report_error) {
-				Error("%ls: line %u: invalid long value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: invalid long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
 		}
 		}
 	}
 
-	float LineParser::ParseFloat(float default_value, bool report_error) {
+	unsigned long LineParser::ParseUnsignedLong() {
+		unsigned long result;
+		const ParseResult parse_result = mage::ParseUnsignedLong(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			Error("%ls: line %u: no unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
+		}
+		default: {
+			Error("%ls: line %u: invalid unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
+		}
+		}
+	}
+
+	float LineParser::ParseFloat() {
 		float result;
-		const ParseResult parse_result = mage::ParseFloat(result, &m_context, nullptr, m_delimiters.c_str());
+		const ParseResult parse_result = mage::ParseFloat(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
 			return result;
 		}
 		case no_token: {
-			if (report_error) {
-				Error("%ls: line %u: no float value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: no float value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0.0f;
 		}
 		default: {
-			if (report_error) {
-				Error("%ls: line %u: invalid float value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: invalid float value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0.0f;
 		}
 		}
 	}
 
-	double LineParser::ParseDouble(double default_value, bool report_error) {
+	double LineParser::ParseDouble() {
 		double result;
-		const ParseResult parse_result = mage::ParseDouble(result, &m_context, nullptr, m_delimiters.c_str());
+		const ParseResult parse_result = mage::ParseDouble(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
 			return result;
 		}
 		case no_token: {
-			if (report_error) {
-				Error("%ls: line %u: no double value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: no double value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0.0;
 		}
 		default: {
-			if (report_error) {
-				Error("%ls: line %u: invalid double value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: invalid double value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0.0;
 		}
 		}
 	}
 
-	XMFLOAT2 LineParser::ParseFloat2(XMFLOAT2 default_value, bool report_error) {
+	XMFLOAT2 LineParser::ParseFloat2() {
 		XMFLOAT2 result;
-		const ParseResult parse_result = mage::ParseFloat2(result, &m_context, nullptr, m_delimiters.c_str());
+		const ParseResult parse_result = mage::ParseFloat2(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
 			return result;
 		}
 		case no_token: {
-			if (report_error) {
-				Error("%ls: line %u: no float2 value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: no float2 value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return XMFLOAT2();
 		}
 		default: {
-			if (report_error) {
-				Error("%ls: line %u: invalid float2 value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: invalid float2 value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return XMFLOAT2();
 		}
 		}
 	}
 
-	XMFLOAT3 LineParser::ParseFloat3(XMFLOAT3 default_value, bool report_error) {
+	XMFLOAT3 LineParser::ParseFloat3() {
 		XMFLOAT3 result;
-		const ParseResult parse_result = mage::ParseFloat3(result, &m_context, nullptr, m_delimiters.c_str());
+		const ParseResult parse_result = mage::ParseFloat3(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
 			return result;
 		}
 		case no_token: {
-			if (report_error) {
-				Error("%ls: line %u: no float3 value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
-			return default_value;
+			Error("%ls: line %u: no float3 value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return XMFLOAT3();
 		}
 		default: {
-			if (report_error) {
-				Error("%ls: line %u: invalid float3 value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
+			Error("%ls: line %u: invalid float3 value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return XMFLOAT3();
+		}
+		}
+	}
+
+	XMFLOAT4 LineParser::ParseFloat4() {
+		XMFLOAT4 result;
+		const ParseResult parse_result = mage::ParseFloat4(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			Error("%ls: line %u: no float4 value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return XMFLOAT4();
+		}
+		default: {
+			Error("%ls: line %u: invalid float4 value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return XMFLOAT4();
+		}
+		}
+	}
+
+	char *LineParser::ParseOptionalChars(ParseResult *pr) {
+		char *result;
+		const ParseResult parse_result = mage::ParseChars(nullptr, &m_context, &result, GetDelimiters().c_str());
+
+		if (pr) {
+			*pr = parse_result;
+		}
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		default: {
+			return "";
+		}
+		}
+	}
+
+	string LineParser::ParseOptionalString(const string &default_value, ParseResult *pr) {
+		string result;
+		const ParseResult parse_result = mage::ParseString(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		if (pr) {
+			*pr = parse_result;
+		}
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		default: {
 			return default_value;
 		}
 		}
 	}
 
-	XMFLOAT4 LineParser::ParseFloat4(XMFLOAT4 default_value, bool report_error) {
-		XMFLOAT4 result;
-		const ParseResult parse_result = mage::ParseFloat4(result, &m_context, nullptr, m_delimiters.c_str());
+	int LineParser::ParseOptionalInt(int default_value, ParseResult *pr) {
+		int result;
+		const ParseResult parse_result = mage::ParseInt(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		if (pr) {
+			*pr = parse_result;
+		}
 
 		switch (parse_result) {
 		case valid_token: {
 			return result;
 		}
 		case no_token: {
-			if (report_error) {
-				Error("%ls: line %u: no float4 value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
 			return default_value;
 		}
 		default: {
-			if (report_error) {
-				Error("%ls: line %u: invalid float4 value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			}
+			Error("%ls: line %u: invalid int value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return default_value;
+		}
+		}
+	}
+
+	unsigned int LineParser::ParseOptionalUnsignedInt(unsigned int default_value, ParseResult *pr) {
+		unsigned int result;
+		const ParseResult parse_result = mage::ParseUnsignedInt(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		if (pr) {
+			*pr = parse_result;
+		}
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			return default_value;
+		}
+		default: {
+			Error("%ls: line %u: invalid unsigned int value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return default_value;
+		}
+		}
+	}
+
+	long LineParser::ParseOptionalLong(long default_value, ParseResult *pr) {
+		long result;
+		const ParseResult parse_result = mage::ParseLong(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		if (pr) {
+			*pr = parse_result;
+		}
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			return default_value;
+		}
+		default: {
+			Error("%ls: line %u: invalid long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return default_value;
+		}
+		}
+	}
+
+	unsigned long LineParser::ParseOptionalUnsignedLong(unsigned long default_value, ParseResult *pr) {
+		unsigned long result;
+		const ParseResult parse_result = mage::ParseUnsignedLong(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		if (pr) {
+			*pr = parse_result;
+		}
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			return default_value;
+		}
+		default: {
+			Error("%ls: line %u: invalid unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return default_value;
+		}
+		}
+	}
+
+	float LineParser::ParseOptionalFloat(float default_value, ParseResult *pr) {
+		float result;
+		const ParseResult parse_result = mage::ParseFloat(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		if (pr) {
+			*pr = parse_result;
+		}
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			return default_value;
+		}
+		default: {
+			Error("%ls: line %u: invalid float value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return default_value;
+		}
+		}
+	}
+
+	double LineParser::ParseOptionalDouble(double default_value, ParseResult *pr) {
+		double result;
+		const ParseResult parse_result = mage::ParseDouble(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		if (pr) {
+			*pr = parse_result;
+		}
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			return default_value;
+		}
+		default: {
+			Error("%ls: line %u: invalid double value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return default_value;
+		}
+		}
+	}
+
+	XMFLOAT2 LineParser::ParseOptionalFloat2(XMFLOAT2 default_value, ParseResult *pr) {
+		XMFLOAT2 result;
+		const ParseResult parse_result = mage::ParseFloat2(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		if (pr) {
+			*pr = parse_result;
+		}
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			return default_value;
+		}
+		default: {
+			Error("%ls: line %u: invalid float2 value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return default_value;
+		}
+		}
+	}
+
+	XMFLOAT3 LineParser::ParseOptionalFloat3(XMFLOAT3 default_value, ParseResult *pr) {
+		XMFLOAT3 result;
+		const ParseResult parse_result = mage::ParseFloat3(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		if (pr) {
+			*pr = parse_result;
+		}
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			return default_value;
+		}
+		default: {
+			Error("%ls: line %u: invalid float3 value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return default_value;
+		}
+		}
+	}
+
+	XMFLOAT4 LineParser::ParseOptionalFloat4(XMFLOAT4 default_value, ParseResult *pr) {
+		XMFLOAT4 result;
+		const ParseResult parse_result = mage::ParseFloat4(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		if (pr) {
+			*pr = parse_result;
+		}
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			return default_value;
+		}
+		default: {
+			Error("%ls: line %u: invalid float4 value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return default_value;
 		}
 		}

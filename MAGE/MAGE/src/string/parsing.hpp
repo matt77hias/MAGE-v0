@@ -34,27 +34,38 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	//-------------------------------------------------------------------------
-	// Parsing Utilities
-	//-------------------------------------------------------------------------
-
 	enum ParseResult {
 		valid_token,
 		no_token,
 		invalid_token
 	};
 
-	ParseResult ParseChars(char **result, char **context, char *str = nullptr, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	ParseResult ParseString(string &result, char **context, char *str = nullptr, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	ParseResult ParseUnsignedInt(unsigned int &result, char **context, char *str = nullptr, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	ParseResult ParseInt(int &result, char **context, char *str = nullptr, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	ParseResult ParseLong(long &result, char **context, char *str = nullptr, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	ParseResult ParseUnsignedLong(unsigned long &result, char **context, char *str = nullptr, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	ParseResult ParseFloat(float &result, char **context, char *str = nullptr, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	ParseResult ParseDouble(double &result, char **context, char *str = nullptr, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	ParseResult ParseFloat2(XMFLOAT2 &result, char **context, char *str = nullptr, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	ParseResult ParseFloat3(XMFLOAT3 &result, char **context, char *str = nullptr, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	ParseResult ParseFloat4(XMFLOAT4 &result, char **context, char *str = nullptr, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	//-------------------------------------------------------------------------
+	// Conversion Utilities
+	//-------------------------------------------------------------------------
+
+	ParseResult StringToInt(const char *str, int &result);
+	ParseResult StringToUnsignedInt(const char *str, unsigned int &result);
+	ParseResult StringToLong(const char *str, long &result);
+	ParseResult StringToUnsignedLong(const char *str, unsigned long &result);
+	ParseResult StringToFloat(const char *str, float &result);
+	ParseResult StringToDouble(const char *str, double &result);
+
+	//-------------------------------------------------------------------------
+	// Parsing Utilities
+	//-------------------------------------------------------------------------
+
+	ParseResult ParseChars(char *str, char **context, char **result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	ParseResult ParseString(char *str, char **context, string &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	ParseResult ParseInt(char *str, char **context, int &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	ParseResult ParseUnsignedInt(char *str, char **context, unsigned int &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	ParseResult ParseLong(char *str, char **context, long &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	ParseResult ParseUnsignedLong(char *str, char **context, unsigned long &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	ParseResult ParseFloat(char *str, char **context, float &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	ParseResult ParseDouble(char *str, char **context, double &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	ParseResult ParseFloat2(char *str, char **context, XMFLOAT2 &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	ParseResult ParseFloat3(char *str, char **context, XMFLOAT3 &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	ParseResult ParseFloat4(char *str, char **context, XMFLOAT4 &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 
 	//-------------------------------------------------------------------------
 	// LineParser
@@ -73,6 +84,9 @@ namespace mage {
 		const wstring &GetFilename() const {
 			return m_fname;
 		}
+		const string &GetDelimiters() const {
+			return m_delimiters;
+		}
 
 	protected:
 
@@ -80,22 +94,34 @@ namespace mage {
 			return m_line_number;
 		}
 
-		virtual HRESULT Preprocess() = 0;
+		virtual HRESULT Preprocess();
 		virtual HRESULT ParseLine(char *line) = 0;
-		virtual HRESULT Postprocess() = 0;
+		virtual HRESULT Postprocess();
 		void ParseLineRemaining();
 
-		char *ParseChars(bool report_error = true);
-		string ParseString(const string &default_value = "", bool report_error = true);
-		unsigned int ParseUnsignedInt(unsigned int default_value = 0, bool report_error = true);
-		int ParseInt(int default_value = 0, bool report_error = true);
-		unsigned long ParseUnsignedLong(unsigned long default_value = 0, bool report_error = true);
-		long ParseLong(long default_value = 0, bool report_error = true);
-		float ParseFloat(float default_value = 0.0f, bool report_error = true);
-		double ParseDouble(double default_value = 0.0, bool report_error = true);
-		XMFLOAT2 ParseFloat2(XMFLOAT2 default_value = XMFLOAT2(), bool report_error = true);
-		XMFLOAT3 ParseFloat3(XMFLOAT3 default_value = XMFLOAT3(), bool report_error = true);
-		XMFLOAT4 ParseFloat4(XMFLOAT4 default_value = XMFLOAT4(), bool report_error = true);
+		char *ParseChars();
+		string ParseString();
+		int ParseInt();
+		unsigned int ParseUnsignedInt();
+		long ParseLong();
+		unsigned long ParseUnsignedLong();
+		float ParseFloat();
+		double ParseDouble();
+		XMFLOAT2 ParseFloat2();
+		XMFLOAT3 ParseFloat3();
+		XMFLOAT4 ParseFloat4();
+
+		char *ParseOptionalChars(ParseResult *pr = nullptr);
+		string ParseOptionalString(const string &default_value = "", ParseResult *pr = nullptr);
+		int ParseOptionalInt(int default_value = 0, ParseResult *pr = nullptr);
+		unsigned int ParseOptionalUnsignedInt(unsigned int default_value = 0, ParseResult *pr = nullptr);
+		long ParseOptionalLong(long default_value = 0, ParseResult *pr = nullptr);
+		unsigned long ParseOptionalUnsignedLong(unsigned long default_value = 0, ParseResult *pr = nullptr);
+		float ParseOptionalFloat(float default_value = 0.0f, ParseResult *pr = nullptr);
+		double ParseOptionalDouble(double default_value = 0.0, ParseResult *pr = nullptr);
+		XMFLOAT2 ParseOptionalFloat2(XMFLOAT2 default_value = XMFLOAT2(), ParseResult *pr = nullptr);
+		XMFLOAT3 ParseOptionalFloat3(XMFLOAT3 default_value = XMFLOAT3(), ParseResult *pr = nullptr);
+		XMFLOAT4 ParseOptionalFloat4(XMFLOAT4 default_value = XMFLOAT4(), ParseResult *pr = nullptr);
 
 		char *m_context;
 

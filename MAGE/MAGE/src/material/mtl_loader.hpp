@@ -7,13 +7,12 @@
 
 #include "platform\windows.hpp"
 #include "collection\collection.hpp"
-#include "string\string_utils.hpp"
 #include "material\material.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 

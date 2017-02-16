@@ -3,8 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "material\mtl_loader.hpp"
-#include "material\mtl_reader.hpp"
+#include "scripting\variable_script_writer.hpp"
 
 #pragma endregion
 
@@ -13,8 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT ImportMTLMaterialFromFile(const wstring &fname, vector< Material > &material_buffer) {
-		MTLReader parser(material_buffer);
-		return parser.ReadFromFile(fname);
+	HRESULT VSWriter::Write() const {
+		return S_OK;
 	}
 }

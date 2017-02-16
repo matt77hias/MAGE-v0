@@ -22,7 +22,7 @@ namespace mage {
 		const wstring extension = GetFileExtension(fname);
 
 		if (extension == L"obj" || extension == L"OBJ") {
-			return LoadOBJMeshFromFile< Vertex >(fname, model_output, mesh_desc);
+			return ImportOBJMeshFromFile< Vertex >(fname, model_output, mesh_desc);
 		}
 
 		Warning("Unknown model file extension: %ls", fname.c_str());

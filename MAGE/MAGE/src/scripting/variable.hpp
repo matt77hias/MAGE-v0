@@ -18,6 +18,9 @@
 
 namespace mage {
 
+	typedef XMINT2 int2;
+	typedef XMINT3 int3;
+	typedef XMFLOAT2 float2;
 	typedef XMFLOAT3 float3;
 	typedef XMFLOAT4 float4;
 	typedef XMFLOAT4 color;
@@ -36,7 +39,10 @@ namespace mage {
 	enum VariableType {
 		BoolType,
 		IntType,
+		Int2Type,
+		Int3Type,
 		FloatType,
+		Float2Type,
 		Float3Type,
 		Float4Type,
 		ColorType,
@@ -56,15 +62,16 @@ namespace mage {
 
 		 @tparam		T
 						The (storage) type of the value.
-		 @param[in]		name
-						The name.
 		 @param[in]		type
 						The (scripting) type of the value.
+		 @param[in]		name
+						The name.
 		 @param[in]		value
 						A pointer to the value.
 		 */
 		template< typename T >
-		Variable(const string &name, VariableType type, const T *value) : m_name(name), m_type(type), m_value(new Value< T >(value)) {}
+		Variable(VariableType type, const string &name, const T *value) 
+			: m_type(type), m_name(name), m_value(new Value< T >(value)) {}
 
 		/**
 		 Destructs this variable.

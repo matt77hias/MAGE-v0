@@ -3,7 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "material\mtl_parser.hpp"
+#include "material\mtl_reader.hpp"
+#include "material\mtl_tokens.hpp"
 #include "string\string_utils.hpp"
 #include "logging\error.hpp"
 
@@ -14,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT MTLParser::ParseLine(char *line) {
+	HRESULT MTLReader::ParseLine(char *line) {
 		m_context = nullptr;
 		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);
 
@@ -56,35 +57,35 @@ namespace mage {
 		return S_OK;
 	}
 
-	void MTLParser::ParseMTLMaterialName() {
+	void MTLReader::ParseMTLMaterialName() {
 		m_material_buffer.back().m_name = ParseString();
 	}
 
-	void MTLParser::ParseMTLAmbientReflectivity() {
+	void MTLReader::ParseMTLAmbientReflectivity() {
 		m_material_buffer.back().m_ambient_reflectivity = ParseMTLSpectrum();
 	}
 
-	void MTLParser::ParseMTLDiffuseReflectivity() {
+	void MTLReader::ParseMTLDiffuseReflectivity() {
 		m_material_buffer.back().m_diffuse_reflectivity = ParseMTLSpectrum();
 	}
 
-	void MTLParser::ParseMTLSpecularReflectivity() {
+	void MTLReader::ParseMTLSpecularReflectivity() {
 		m_material_buffer.back().m_specular_reflectivity = ParseMTLSpectrum();
 	}
 
-	void MTLParser::ParseMTLTransmissionFilter() {
+	void MTLReader::ParseMTLTransmissionFilter() {
 		m_material_buffer.back().m_transmission_filter = ParseMTLSpectrum();
 	}
 
-	void MTLParser::ParseMTLSpecularExponent() {
+	void MTLReader::ParseMTLSpecularExponent() {
 		m_material_buffer.back().m_specular_exponent = ParseFloat();
 	}
 
-	void MTLParser::ParseMTLOpticalDensity() {
+	void MTLReader::ParseMTLOpticalDensity() {
 		m_material_buffer.back().m_index_of_refraction = ParseFloat();
 	}
 
-	void MTLParser::ParseMTLDissolve() {
+	void MTLReader::ParseMTLDissolve() {
 		float dissolve;
 
 		const char *token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
@@ -104,7 +105,7 @@ namespace mage {
 		m_material_buffer.back().m_dissolve = dissolve;
 	}
 
-	RGBSpectrum MTLParser::ParseMTLSpectrum() {
+	RGBSpectrum MTLReader::ParseMTLSpectrum() {
 		const char *token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
 
 		// No spectrum

@@ -333,14 +333,35 @@
     <ClInclude Include="MAGE\src\shader\shading.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\obj_parser.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\obj_parser.tpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\material\mtl_parser.hpp">
+    <ClInclude Include="MAGE\src\material\mtl_tokens.hpp">
       <Filter>Header Files\material</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\obj_tokens.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\variable_script_tokens.hpp">
+      <Filter>Header Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\variable_script_writer.hpp">
+      <Filter>Header Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\material\mtl_reader.hpp">
+      <Filter>Header Files\material</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\obj_reader.tpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\obj_reader.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\variable_script_reader.hpp">
+      <Filter>Header Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\string\line_reader.hpp">
+      <Filter>Header Files\string</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\string\writer.hpp">
+      <Filter>Header Files\string</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -431,11 +452,23 @@
     <ClCompile Include="MAGE\src\string\parsing.cpp">
       <Filter>Source Files\string</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\material\mtl_parser.cpp">
-      <Filter>Source Files\material</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\material\mtl_loader.cpp">
       <Filter>Source Files\material</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\material\mtl_reader.cpp">
+      <Filter>Source Files\material</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\scripting\variable_script_reader.cpp">
+      <Filter>Source Files\scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\string\line_reader.cpp">
+      <Filter>Source Files\string</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\string\writer.cpp">
+      <Filter>Source Files\string</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\scripting\variable_script_writer.cpp">
+      <Filter>Source Files\scripting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

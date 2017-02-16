@@ -1,27 +1,29 @@
+#pragma once
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\parsing.hpp"
+#include "string\line_reader.hpp"
 #include "model\model_output.hpp"
 #include "mesh\mesh_descriptor.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
 	template < typename Vertex >
-	class OBJParser : public LineParser {
+	class OBJReader : public LineReader {
 
 	public:
 
-		OBJParser(ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc)
-			: LineParser(), m_model_output(model_output), m_mesh_desc(mesh_desc) {}
-		virtual ~OBJParser() = default;
+		OBJReader(ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc)
+			: LineReader(), m_model_output(model_output), m_mesh_desc(mesh_desc) {}
+		virtual ~OBJReader() = default;
 
 	protected:
 
@@ -78,8 +80,8 @@ namespace mage {
 			map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > mapping;
 		};
 
-		OBJParser(const OBJParser &parser) = delete;
-		OBJParser &operator=(const OBJParser &parser) = delete;
+		OBJReader(const OBJReader &reader) = delete;
+		OBJReader &operator=(const OBJReader &reader) = delete;
 
 		OBJBuffer m_buffer;
 		ModelOutput< Vertex > &m_model_output;
@@ -92,6 +94,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\obj_parser.tpp"
+#include "mesh\obj_reader.tpp"
 
 #pragma endregion

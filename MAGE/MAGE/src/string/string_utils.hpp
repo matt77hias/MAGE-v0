@@ -71,6 +71,34 @@ namespace mage {
 	}
 
 	/**
+	 Checks whether the first given string contains the given character.
+
+	 @param[in]		str
+					A pointer to the string to be scanned.
+	 @param[in]		c
+					The character to match.
+	 @return		@c true if @a str contains a @a c.
+					@c false otherwise.
+	 */
+	inline bool str_contains(const char *str, char c) {
+		return strchr(str, (int)c) ? true : false;
+	}
+
+	/**
+	 Checks whether the first given string contains the given character.
+
+	 @param[in]		str
+					A pointer to the string to be scanned.
+	 @param[in]		c
+					The character to match.
+	 @return		@c true if @a str contains a @a c.
+					@c false otherwise.
+	 */
+	inline bool str_contains(const wchar_t *str, wchar_t c) {
+		return wcschr(str, c) ? true : false;
+	}
+
+	/**
 	 Reads characters from the given input string and stores them as a C string into @a str 
 	 until (num-1) characters have been read or either a newline or the end-of-file is reached, 
 	 whichever happens first.

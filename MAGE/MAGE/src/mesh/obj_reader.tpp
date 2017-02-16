@@ -5,26 +5,12 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "logging\error.hpp"
+#include "mesh\obj_tokens.hpp"
 #include "string\string_utils.hpp"
+#include "logging\error.hpp"
 #include "file\file_utils.hpp"
+#include "math\vertex.hpp"
 #include "material\mtl_loader.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_OBJ_COMMENT_CHAR '#'
-#define MAGE_OBJ_VERTEX_TOKEN "v"
-#define MAGE_OBJ_TEXTURE_TOKEN "vt"
-#define MAGE_OBJ_NORMAL_TOKEN "vn"
-#define MAGE_OBJ_FACE_TOKEN "f"
-#define MAGE_OBJ_MATERIAL_LIBRARY_TOKEN "mtllib"
-#define MAGE_OBJ_MATERIAL_USE_TOKEN "usemtl"
-#define MAGE_OBJ_GROUP_TOKEN "g"
 
 #pragma endregion
 
@@ -34,7 +20,7 @@
 namespace mage {
 
 	template < typename Vertex >
-	HRESULT OBJParser< Vertex >::Preprocess() {
+	HRESULT OBJReader< Vertex >::Preprocess() {
 		if (!m_model_output.vertex_buffer.empty()) {
 			Error("%ls: vertex buffer must be empty.", GetFilename().c_str());
 			return E_FAIL;
@@ -51,7 +37,7 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	HRESULT OBJParser< Vertex >::Postprocess() {
+	HRESULT OBJReader< Vertex >::Postprocess() {
 		// End current group.
 		m_model_output.EndModelPart();
 
@@ -59,7 +45,7 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	HRESULT OBJParser< Vertex >::ParseLine(char *line) {
+	HRESULT OBJReader< Vertex >::ParseLine(char *line) {
 		m_context = nullptr;
 		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);
 
@@ -101,32 +87,32 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	void OBJParser< Vertex >::ParseOBJMaterialLibrary() {
+	void OBJReader< Vertex >::ParseOBJMaterialLibrary() {
 		const wstring mtl_path = GetPathName(GetFilename());
 		const wstring mtl_name = str_convert(ParseString());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
-		const HRESULT result = LoadMTLMaterialFromFile(mtl_fname, m_model_output.material_buffer);
+		const HRESULT result = ImportMTLMaterialFromFile(mtl_fname, m_model_output.material_buffer);
 		if (FAILED(result)) {
 			Error("%ls: line %u: %ls could not be loaded.", GetFilename().c_str(), GetCurrentLineNumber(), mtl_fname.c_str());
 		}
 	}
 
 	template < typename Vertex >
-	void OBJParser< Vertex >::ParseOBJMaterialUse() {
+	void OBJReader< Vertex >::ParseOBJMaterialUse() {
 		const string mtl_name = ParseString();
 		m_model_output.SetMaterial(mtl_name);
 	}
 
 	template < typename Vertex >
-	void OBJParser< Vertex >::ParseOBJGroup() {
+	void OBJReader< Vertex >::ParseOBJGroup() {
 		const string child = ParseString();
 		const string parent = ParseOptionalString("root");
 		m_model_output.StartModelPart(child, parent);
 	}
 
 	template < typename Vertex >
-	void OBJParser< Vertex >::ParseOBJVertex() {
+	void OBJReader< Vertex >::ParseOBJVertex() {
 		Point3 vertex = ParseOBJVertexCoordinates();
 		if (m_mesh_desc.InvertHandness()) {
 			vertex.z = -vertex.z;
@@ -136,7 +122,7 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	void OBJParser< Vertex >::ParseOBJVertexTexture() {
+	void OBJReader< Vertex >::ParseOBJVertexTexture() {
 		UV texture = ParseOBJVertexTextureCoordinates();
 		if (m_mesh_desc.InvertHandness()) {
 			texture.y = 1.0f - texture.y;
@@ -146,7 +132,7 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	void OBJParser< Vertex >::ParseOBJVertexNormal() {
+	void OBJReader< Vertex >::ParseOBJVertexNormal() {
 		Normal3 normal = ParseOBJVertexNormalCoordinates();
 		if (m_mesh_desc.InvertHandness()) {
 			normal.z = -normal.z;
@@ -159,7 +145,7 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	void OBJParser< Vertex >::ParseOBJTriangleFace() {
+	void OBJReader< Vertex >::ParseOBJTriangleFace() {
 		uint32_t indices[3];
 		for (size_t i = 0; i < 3; ++i) {
 			const XMUINT3 vertex_indices = ParseOBJVertexIndices();
@@ -188,22 +174,22 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	Point3 OBJParser< Vertex >::ParseOBJVertexCoordinates() {
+	Point3 OBJReader< Vertex >::ParseOBJVertexCoordinates() {
 		return (Point3)ParseFloat3();
 	}
 
 	template < typename Vertex >
-	Normal3 OBJParser< Vertex >::ParseOBJVertexNormalCoordinates() {
+	Normal3 OBJReader< Vertex >::ParseOBJVertexNormalCoordinates() {
 		return (Normal3)ParseFloat3();
 	}
 
 	template < typename Vertex >
-	UV OBJParser< Vertex >::ParseOBJVertexTextureCoordinates() {
+	UV OBJReader< Vertex >::ParseOBJVertexTextureCoordinates() {
 		return (UV)ParseFloat2();
 	}
 
 	template < typename Vertex >
-	XMUINT3 OBJParser< Vertex >::ParseOBJVertexIndices() {
+	XMUINT3 OBJReader< Vertex >::ParseOBJVertexIndices() {
 		const char *token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
 		if (!token) {
 			Error("%ls: line %u: no vertex index value found.", GetFilename().c_str(), GetCurrentLineNumber());
@@ -211,8 +197,8 @@ namespace mage {
 		}
 
 		uint32_t vertex_index = 0;
-		if (StringToUnsignedInt(token, vertex_index) == invalid_token) {
-			Error("%ls: line %u: no integer index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+		if (StringPrefixToUnsignedInt(token, vertex_index) == invalid_token) {
+			Error("%ls: line %u: invalid vertex index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 			return XMUINT3();
 		}
 
@@ -221,23 +207,23 @@ namespace mage {
 		if (str_contains(token, "//")) {
 			//... v1//vn1 ...
 			const char *normal_part = strchr(token, '/') + 2;
-			if (StringToUnsignedInt(normal_part, normal_index) == invalid_token) {
-				Error("%ls: line %u: no normal index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), normal_part);
+			if (StringPrefixToUnsignedInt(normal_part, normal_index) == invalid_token) {
+				Error("%ls: line %u: invalid normal index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), normal_part);
 				return XMUINT3(vertex_index, 0, 0);
 			}
 		}
-		else if (str_contains(token, "/")) {
+		else if (str_contains(token, '/')) {
 			//... v1/vt1 ...
 			const char *texture_part = strchr(token, '/') + 1;
-			if (StringToUnsignedInt(texture_part, texture_index) == invalid_token) {
-				Error("%ls: line %u: no texture index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), texture_part);
+			if (StringPrefixToUnsignedInt(texture_part, texture_index) == invalid_token) {
+				Error("%ls: line %u: invalid texture index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), texture_part);
 				return XMUINT3(vertex_index, 0, 0);
 			}
-			if (str_contains(texture_part, "/")) {
+			if (str_contains(texture_part, '/')) {
 				//... v1/vt1/vn1 ...
 				const char *normal_part = strchr(texture_part, '/') + 1;
-				if (StringToUnsignedInt(normal_part, normal_index) == invalid_token) {
-					Error("%ls: line %u: no normal index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), normal_part);
+				if (StringPrefixToUnsignedInt(normal_part, normal_index) == invalid_token) {
+					Error("%ls: line %u: invalid normal index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), normal_part);
 					return XMUINT3(vertex_index, texture_index, 0);
 				}
 			}
@@ -247,7 +233,7 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	Vertex OBJParser< Vertex >::ConstructVertex(const XMUINT3 &vertex_indices) {
+	Vertex OBJReader< Vertex >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		Vertex vertex;
 		if (vertex_indices.x) {
 			vertex.p = m_buffer.vertex_coordinates[vertex_indices.x - 1];
@@ -262,7 +248,7 @@ namespace mage {
 	}
 
 	template <>
-	VertexPosition OBJParser< VertexPosition >::ConstructVertex(const XMUINT3 &vertex_indices) {
+	VertexPosition OBJReader< VertexPosition >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexPosition vertex;
 		if (vertex_indices.x) {
 			vertex.p = m_buffer.vertex_coordinates[vertex_indices.x - 1];
@@ -271,7 +257,7 @@ namespace mage {
 	}
 
 	template <>
-	VertexPositionNormal OBJParser< VertexPositionNormal >::ConstructVertex(const XMUINT3 &vertex_indices) {
+	VertexPositionNormal OBJReader< VertexPositionNormal >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexPositionNormal vertex;
 		if (vertex_indices.x) {
 			vertex.p = m_buffer.vertex_coordinates[vertex_indices.x - 1];
@@ -283,7 +269,7 @@ namespace mage {
 	}
 
 	template <>
-	VertexPositionTexture OBJParser< VertexPositionTexture >::ConstructVertex(const XMUINT3 &vertex_indices) {
+	VertexPositionTexture OBJReader< VertexPositionTexture >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexPositionTexture vertex;
 		if (vertex_indices.x) {
 			vertex.p = m_buffer.vertex_coordinates[vertex_indices.x - 1];

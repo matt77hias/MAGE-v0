@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\obj_parser.hpp"
+#include "mesh\obj_reader.hpp"
 
 #pragma endregion
 
@@ -28,8 +28,8 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template < typename Vertex >
-	HRESULT LoadOBJMeshFromFile(const wstring &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor()) {
-		OBJParser< Vertex > parser(model_output, mesh_desc);
-		return parser.ParseFromFile(fname);
+	HRESULT ImportOBJMeshFromFile(const wstring &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor()) {
+		OBJReader< Vertex > parser(model_output, mesh_desc);
+		return parser.ReadFromFile(fname);
 	}
 }

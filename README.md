@@ -5,8 +5,14 @@
 
 ## Development
 * **Platform**: (minimum) Windows 8.1 32 Bit and 64 Bit (Windows API + Direct3D 11)
-* **Engine Programming Language**: C++14 standard
-* **Scripting Language**: unmanaged C++14 (will probably change to .NET languages)
+* **Engine Programming Language**: C++14 (will change to C++17)
+* **Scripting Language**: C++14
+* **Dependencies**:
+  * d3d11.lib
+  * dxgi.lib
+  * dinput8.lib
+  * dxguid.lib
+  * d3dcompiler.lib
 * **Compiler**: MSVC++ 14.0
 * **IDE**: Visual Studio 2015
 * **Documentation style**: [JavaDoc style](http://www.stack.nl/~dimitri/doxygen/manual/docblocks.html) extended with [Doxygen keywords](https://www.stack.nl/~dimitri/doxygen/manual/commands.html)

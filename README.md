@@ -21,7 +21,10 @@
 ## Codebase
 Based on:
 * [pbrt-v2](https://github.com/mmp/pbrt-v2): low level, non-pbrt functionality
-* Vaughan Young: basic engine
+* [pbrt-v3](https://github.com/mmp/pbrt-v3): low level, non-pbrt functionality
+* [VYGE](https://github.com/matt77hias/VYGE)
+* [DirectXTK](https://github.com/Microsoft/DirectXTK)
+* [directx-sdk-samples](https://github.com/walbourn/directx-sdk-samples)
 
 ## Further iterations
 * Animation

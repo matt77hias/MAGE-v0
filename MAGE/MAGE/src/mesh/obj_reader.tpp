@@ -65,6 +65,9 @@ namespace mage {
 			// Begin current group.
 			ReadOBJGroup();
 		}
+		else if (str_equals(token, MAGE_OBJ_OBJECT_TOKEN)) {
+			ReadOBJObject();
+		}
 		else if (str_equals(token, MAGE_OBJ_VERTEX_TOKEN)) {
 			ReadOBJVertex();
 		}
@@ -110,6 +113,9 @@ namespace mage {
 		const string parent = ReadOptionalString("root");
 		m_model_output.StartModelPart(child, parent);
 	}
+
+	template < typename Vertex >
+	void OBJReader< Vertex >::ReadOBJObject() {}
 
 	template < typename Vertex >
 	void OBJReader< Vertex >::ReadOBJVertex() {

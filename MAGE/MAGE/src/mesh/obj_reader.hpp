@@ -34,6 +34,7 @@ namespace mage {
 		void ReadOBJMaterialLibrary();
 		void ReadOBJMaterialUse();
 		void ReadOBJGroup();
+		void ReadOBJObject();
 		void ReadOBJVertex();
 		void ReadOBJVertexTexture();
 		void ReadOBJVertexNormal();
@@ -50,7 +51,7 @@ namespace mage {
 
 		/**
 		 A struct of @c XMUINT3 comparators for OBJ vertex indices.
-		*/
+		 */
 		struct OBJComparatorXMUINT3 {
 
 		public:

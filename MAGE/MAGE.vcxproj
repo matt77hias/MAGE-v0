@@ -86,7 +86,7 @@
     <ClInclude Include="MAGE\src\state\state.hpp" />
     <ClInclude Include="MAGE\src\state\state_manager.hpp" />
     <ClInclude Include="MAGE\src\string\line_reader.hpp" />
-    <ClInclude Include="MAGE\src\string\parsing.hpp" />
+    <ClInclude Include="MAGE\src\string\token.hpp" />
     <ClInclude Include="MAGE\src\string\string.hpp" />
     <ClInclude Include="MAGE\src\string\string_utils.hpp" />
     <ClInclude Include="MAGE\src\string\writer.hpp" />
@@ -125,7 +125,7 @@
     <ClCompile Include="MAGE\src\shader\vertex_shader.cpp" />
     <ClCompile Include="MAGE\src\state\state_manager.cpp" />
     <ClCompile Include="MAGE\src\string\line_reader.cpp" />
-    <ClCompile Include="MAGE\src\string\parsing.cpp" />
+    <ClCompile Include="MAGE\src\string\token.cpp" />
     <ClCompile Include="MAGE\src\string\string_utils.cpp" />
     <ClCompile Include="MAGE\src\string\writer.cpp" />
     <ClCompile Include="MAGE\src\ui\combo_box.cpp" />

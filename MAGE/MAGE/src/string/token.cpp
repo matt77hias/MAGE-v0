@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\parsing.hpp"
+#include "string\token.hpp"
 #include "string\string_utils.hpp"
 
 #pragma endregion

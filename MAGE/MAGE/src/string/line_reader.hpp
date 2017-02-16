@@ -15,7 +15,7 @@
 #pragma region
 
 #include "platform\windows.hpp"
-#include "string\parsing.hpp"
+#include "string\token.hpp"
 
 #pragma endregion
 

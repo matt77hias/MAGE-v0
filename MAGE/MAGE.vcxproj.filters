@@ -321,9 +321,6 @@
     <ClInclude Include="MAGE\src\model\model_output.hpp">
       <Filter>Header Files\model</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\string\parsing.hpp">
-      <Filter>Header Files\string</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\string\string.hpp">
       <Filter>Header Files\string</Filter>
     </ClInclude>
@@ -361,6 +358,9 @@
       <Filter>Header Files\string</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\string\line_reader.hpp">
+      <Filter>Header Files\string</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\string\token.hpp">
       <Filter>Header Files\string</Filter>
     </ClInclude>
   </ItemGroup>
@@ -449,9 +449,6 @@
     <ClCompile Include="MAGE\src\material\spectrum.cpp">
       <Filter>Source Files\material</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\string\parsing.cpp">
-      <Filter>Source Files\string</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\material\mtl_loader.cpp">
       <Filter>Source Files\material</Filter>
     </ClCompile>
@@ -468,6 +465,9 @@
       <Filter>Source Files\string</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\string\writer.cpp">
+      <Filter>Source Files\string</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\string\token.cpp">
       <Filter>Source Files\string</Filter>
     </ClCompile>
   </ItemGroup>

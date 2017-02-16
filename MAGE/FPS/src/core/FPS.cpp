@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include <windows.h>
 
 #include "core\engine.hpp"
 #include "camera\perspective_camera.hpp"
@@ -44,9 +43,9 @@ class TestState : public State {
 		ct.view_to_projection  = XMMatrixTranspose(m_camera->GetViewToProjectionMatrix());
 		mt.model_to_world      = XMMatrixTranspose(m_model->GetTransform().GetObjectToWorldMatrix());
 
-		//m_vs->Update(device_context, ct, mt);
-		//m_ps->Update(device_context);
-		//m_model->Update(device_context);
+		m_vs->Update(device_context, ct, mt);
+		m_ps->Update(device_context);
+		m_model->Update(device_context);
 
 		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_F2)) {
 			//PostQuitMessage(0);

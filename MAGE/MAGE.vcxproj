@@ -122,7 +122,6 @@
     <ClCompile Include="MAGE\src\scripting\variable_script_writer.cpp" />
     <ClCompile Include="MAGE\src\shader\pixel_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
-    <ClCompile Include="MAGE\src\shader\vertex_shader.tpp" />
     <ClCompile Include="MAGE\src\state\state_manager.cpp" />
     <ClCompile Include="MAGE\src\string\line_reader.cpp" />
     <ClCompile Include="MAGE\src\string\token.cpp" />
@@ -165,6 +164,7 @@
     <None Include="MAGE\src\model\model.tpp" />
     <None Include="MAGE\src\model\model_loader.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
+    <None Include="MAGE\src\shader\vertex_shader.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>

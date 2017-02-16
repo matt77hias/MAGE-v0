@@ -10,8 +10,8 @@ using namespace mage;
 
 class TestState : public State {
 	UniquePtr< Camera > m_camera;
-	UniquePtr< Model< VertexPosition > > m_model;
-	UniquePtr< VertexShader< VertexPosition > > m_vs;
+	UniquePtr< Model< VertexPositionNormalTexture > > m_model;
+	UniquePtr< VertexShader< VertexPositionNormalTexture > > m_vs;
 	UniquePtr< PixelShader > m_ps;
 
 	virtual void Load() override {
@@ -22,11 +22,11 @@ class TestState : public State {
 		ComPtr< ID3D11Device2 > device = g_engine->GetRenderer().GetDevice();
 		ComPtr< ID3D11DeviceContext2 > device_context = g_engine->GetRenderer().GetDeviceContext();
 
-		m_vs = make_unique< VertexShader< VertexPosition > >(device, VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_VS.cso");
+		m_vs = make_unique< VertexShader< VertexPositionNormalTexture > >(device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_VS.cso");
 		m_ps = make_unique< PixelShader >(device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_PS.cso");
 		
 		MeshDescriptor desc(true, true);
-		m_model = make_unique< Model < VertexPosition > >("Cube", device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/teapot.obj", desc);
+		m_model = make_unique< Model < VertexPositionNormalTexture > >("Teapot", device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/teapot.obj", desc);
 	}
 
 	virtual void Update(double elapsed_time) override {

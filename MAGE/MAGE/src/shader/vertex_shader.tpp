@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "shader\shading.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -88,7 +89,7 @@ namespace mage {
 			return result_cb_camera;
 		}
 
-		buffer_desc.ByteWidth       = sizeof(ModelTransformBuffer);// Size of the buffer in bytes.
+		buffer_desc.ByteWidth       = sizeof(ModelTransformBuffer);  // Size of the buffer in bytes.
 		
 		// Create the index buffer.
 		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.

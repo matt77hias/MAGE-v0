@@ -467,9 +467,6 @@
     <ClCompile Include="MAGE\src\string\token.cpp">
       <Filter>Source Files\string</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\shader\vertex_shader.tpp">
-      <Filter>Header Files\shader</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\effect.fx">
@@ -497,6 +494,9 @@
     </None>
     <None Include="MAGE\src\model\model_loader.tpp">
       <Filter>Header Files\model</Filter>
+    </None>
+    <None Include="MAGE\src\shader\vertex_shader.tpp">
+      <Filter>Header Files\shader</Filter>
     </None>
   </ItemGroup>
 </Project>

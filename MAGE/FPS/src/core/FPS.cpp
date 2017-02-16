@@ -44,13 +44,12 @@ class TestState : public State {
 		ct.view_to_projection  = XMMatrixTranspose(m_camera->GetViewToProjectionMatrix());
 		mt.model_to_world      = XMMatrixTranspose(m_model->GetTransform().GetObjectToWorldMatrix());
 
-		m_vs->Update(device_context, ct, mt);
-		m_ps->Update(device_context);
-		m_model->Update(device_context);
+		//m_vs->Update(device_context, ct, mt);
+		//m_ps->Update(device_context);
+		//m_model->Update(device_context);
 
-		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_A)) {
+		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_F2)) {
 			//PostQuitMessage(0);
-
 			VariableScript s(L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/script_test.mage");
 			s.ExportScript(L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/output.mage");
 		}

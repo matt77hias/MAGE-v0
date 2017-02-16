@@ -11,7 +11,6 @@
 #include "rendering\renderer.hpp"
 #include "input\input_manager.hpp"
 #include "ui\main_window.hpp"
-#include "scripting\variable_script.hpp"
 #include "state\state_manager.hpp"
 #include "resource\resource_manager.hpp"
 

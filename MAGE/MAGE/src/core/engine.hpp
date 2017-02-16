@@ -105,17 +105,6 @@ namespace mage {
 			return *m_state_manager;
 		}
 		
-		// SCRIPTING SYSTEM
-
-		/**
-		 Returns the script manager of this engine.
-
-		 @return		A reference to the script manager of this engine.
-		*/
-		ResourceManager< VariableScript > &GetScriptManager() const {
-			return *m_script_manager;
-		}
-
 		// INPUT SYSTEM
 
 		/**
@@ -209,13 +198,6 @@ namespace mage {
 		 A pointer to the state manager of this engine.
 		 */
 		UniquePtr< StateManager > m_state_manager;
-
-		// SCRIPTING SYSTEM
-
-		/**
-		 A pointer the script manager of this engine
-		 */
-		UniquePtr< ResourceManager< VariableScript > > m_script_manager;
 
 		// INPUT SYSTEM
 

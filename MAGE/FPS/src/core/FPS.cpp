@@ -48,7 +48,7 @@ class TestState : public State {
 		m_ps->Update(device_context);
 		m_model->Update(device_context);
 
-		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_Q)) {
+		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_A)) {
 			//PostQuitMessage(0);
 
 			VariableScript s(L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/script_test.mage");

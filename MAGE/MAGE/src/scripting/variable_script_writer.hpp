@@ -16,11 +16,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class VSWriter : Writer {
+	class VSWriter : public Writer {
 
 	public:
 
-		VSWriter(vector< Variable * > &variable_buffer)
+		VSWriter(const vector< Variable * > &variable_buffer)
 			: Writer(), m_variable_buffer(variable_buffer) {}
 		virtual ~VSWriter() = default;
 
@@ -33,6 +33,6 @@ namespace mage {
 		VSWriter(const VSWriter &reader) = delete;
 		VSWriter &operator=(const VSWriter &reader) = delete;
 
-		vector< Variable * > &m_variable_buffer;
+		const vector< Variable * > &m_variable_buffer;
 	};
 }

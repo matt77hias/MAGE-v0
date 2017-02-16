@@ -98,9 +98,6 @@ namespace mage {
 			return E_FAIL;
 		}
 		
-		// Initialize the script manager.
-		m_script_manager = make_unique< ResourceManager< VariableScript > >();
-
 		// Initialize the state manager.
 		m_state_manager	= make_unique< StateManager >();
 		// Sets up the states.

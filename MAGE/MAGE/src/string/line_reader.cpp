@@ -162,11 +162,10 @@ namespace mage {
 			return "";
 		}
 
+		*last_quote = '\0';
 		m_context = last_quote + 1;
-		*m_context = '\0';
-		++m_context;
 
-		return first_quote;
+		return first_quote + 1;
 	}
 
 	bool LineReader::ParseBool() {
@@ -413,11 +412,10 @@ namespace mage {
 			*pr = valid_token;
 		}
 
+		*last_quote = '\0';
 		m_context = last_quote + 1;
-		*m_context = '\0';
-		++m_context;
 
-		return first_quote;
+		return first_quote + 1;
 	}
 
 	bool LineReader::ParseOptionalBool(bool default_value, ParseResult *pr) {

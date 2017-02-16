@@ -29,7 +29,7 @@ namespace mage {
 	 */
 	template < typename Vertex >
 	HRESULT ImportOBJMeshFromFile(const wstring &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor()) {
-		OBJReader< Vertex > parser(model_output, mesh_desc);
-		return parser.ReadFromFile(fname);
+		OBJReader< Vertex > reader(model_output, mesh_desc);
+		return reader.ReadFromFile(fname);
 	}
 }

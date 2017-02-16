@@ -134,24 +134,6 @@ namespace mage {
 		template < typename T >
 		void SetValueOfVariable(const string &name, const T *value);
 
-		/**
-		 Returns a constant iterator to the beginning of this variable script.
-
-		 @return		A constant iterator to the beginning of this variable script.
-		 */
-		map< string, Variable * >::const_iterator cbegin() const {
-			return m_variables.cbegin();
-		}
-
-		/**
-		 returns a constant iterator to the end of this variable script.
-
-		 @return		A constant iterator to the end of this variable script.
-		 */
-		map< string, Variable * >::const_iterator cend() const {
-			return m_variables.cend();
-		}
-
 	private:
 
 		/**

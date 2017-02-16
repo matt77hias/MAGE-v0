@@ -1,10 +1,10 @@
+#pragma once
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "shader\shading.hpp"
-#include "shader\vertex_shader.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -14,11 +14,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VertexShader::VertexShader(ComPtr< ID3D11Device2 > device, 
-		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, size_t nb_input_elements, const wstring &fname)
+	template < typename Vertex >
+	VertexShader< Vertex >::VertexShader(ComPtr< ID3D11Device2 > device, const wstring &fname)
 		: Resource(fname) {
 
-		const HRESULT result_shader = InitializeShader(device, input_element_desc, nb_input_elements);
+		const HRESULT result_shader = InitializeShader(device);
 		if (FAILED(result_shader)) {
 			Error("Shader initialization failed: %ld.", result_shader);
 			return;
@@ -31,8 +31,8 @@ namespace mage {
 		}
 	}
 
-	HRESULT VertexShader::InitializeShader(ComPtr< ID3D11Device2 > device, 
-		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, size_t nb_input_elements) {
+	template < typename Vertex >
+	HRESULT VertexShader< Vertex >::InitializeShader(ComPtr< ID3D11Device2 > device) {
 
 		// Compile the vertex shader.
 		ComPtr< ID3DBlob > vertex_shader_blob;
@@ -59,7 +59,7 @@ namespace mage {
 		// 3. A pointer to the compiled shader.
 		// 4. The size of the compiled shader.
 		// 5. A pointer to the input-layout object created
-		const HRESULT result_vertex_layout = device->CreateInputLayout(input_element_desc, (UINT)nb_input_elements, vertex_shader_blob->GetBufferPointer(), vertex_shader_blob->GetBufferSize(), m_vertex_layout.ReleaseAndGetAddressOf());
+		const HRESULT result_vertex_layout = device->CreateInputLayout(Vertex::input_element_desc, (UINT)Vertex::nb_input_elements, vertex_shader_blob->GetBufferPointer(), vertex_shader_blob->GetBufferSize(), m_vertex_layout.ReleaseAndGetAddressOf());
 		if (FAILED(result_vertex_layout)) {
 			Error("InputLayout creation failed: %ld.", result_vertex_shader);
 			return result_vertex_layout;
@@ -68,7 +68,8 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT VertexShader::SetupBuffers(ComPtr< ID3D11Device2 > device) {
+	template < typename Vertex >
+	HRESULT VertexShader< Vertex >::SetupBuffers(ComPtr< ID3D11Device2 > device) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -101,7 +102,8 @@ namespace mage {
 		return S_OK;
 	}
 
-	void VertexShader::Update(ComPtr< ID3D11DeviceContext2 > device_context, 
+	template < typename Vertex >
+	void VertexShader< Vertex >::Update(ComPtr< ID3D11DeviceContext2 > device_context,
 		const CameraTransformBuffer &camera, const ModelTransformBuffer &model) {
 		device_context->IASetInputLayout(m_vertex_layout.Get());
 		device_context->UpdateSubresource(m_cb_camera.Get(), 0, nullptr, &camera, 0, 0);

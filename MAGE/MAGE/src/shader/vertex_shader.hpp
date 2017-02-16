@@ -26,12 +26,12 @@ namespace mage {
 		XMMATRIX model_to_world;
 	};
 
-	class VertexShader : Resource {
+	template < typename Vertex >
+	class VertexShader : public Resource {
 
 	public:
 
-		VertexShader(ComPtr< ID3D11Device2 >, 
-			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, size_t nb_input_elements, const wstring &fname);
+		VertexShader(ComPtr< ID3D11Device2 >, const wstring &fname);
 		virtual ~VertexShader() {}
 
 		void Update(ComPtr< ID3D11DeviceContext2 > device_context, 
@@ -39,8 +39,7 @@ namespace mage {
 
 	protected:
 
-		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device, 
-			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, size_t nb_input_elements);
+		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device);
 		HRESULT SetupBuffers(ComPtr< ID3D11Device2 > device);
 
 		ComPtr< ID3D11VertexShader > m_vertex_shader;
@@ -54,3 +53,12 @@ namespace mage {
 		VertexShader &operator=(const VertexShader &vertex_shader) = delete;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "shader\vertex_shader.tpp"
+
+#pragma endregion

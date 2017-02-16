@@ -419,9 +419,6 @@
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\shader\vertex_shader.cpp">
-      <Filter>Source Files\shader</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\core\version.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
@@ -469,6 +466,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\string\token.cpp">
       <Filter>Source Files\string</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\vertex_shader.tpp">
+      <Filter>Header Files\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -16,7 +16,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class PixelShader : Resource {
+	class PixelShader : public Resource {
 
 	public:
 

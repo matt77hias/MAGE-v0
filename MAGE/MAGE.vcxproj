@@ -122,7 +122,7 @@
     <ClCompile Include="MAGE\src\scripting\variable_script_writer.cpp" />
     <ClCompile Include="MAGE\src\shader\pixel_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
-    <ClCompile Include="MAGE\src\shader\vertex_shader.cpp" />
+    <ClCompile Include="MAGE\src\shader\vertex_shader.tpp" />
     <ClCompile Include="MAGE\src\state\state_manager.cpp" />
     <ClCompile Include="MAGE\src\string\line_reader.cpp" />
     <ClCompile Include="MAGE\src\string\token.cpp" />

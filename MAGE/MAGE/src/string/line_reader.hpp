@@ -48,37 +48,37 @@ namespace mage {
 		}
 
 		virtual HRESULT Preprocess();
-		virtual HRESULT ParseLine(char *line) = 0;
+		virtual HRESULT ReadLine(char *line) = 0;
 		virtual HRESULT Postprocess();
-		void ParseLineRemaining();
+		void ReadLineRemaining();
 
-		char *ParseChars();
-		string ParseString();
-		string ParseQuotedString();
-		bool ParseBool();
-		int ParseInt();
-		unsigned int ParseUnsignedInt();
-		long ParseLong();
-		unsigned long ParseUnsignedLong();
-		float ParseFloat();
-		double ParseDouble();
-		XMFLOAT2 ParseFloat2();
-		XMFLOAT3 ParseFloat3();
-		XMFLOAT4 ParseFloat4();
+		char *ReadChars();
+		string ReadString();
+		string ReadQuotedString();
+		bool ReadBool();
+		int ReadInt();
+		unsigned int ReadUnsignedInt();
+		long ReadLong();
+		unsigned long ReadUnsignedLong();
+		float ReadFloat();
+		double ReadDouble();
+		XMFLOAT2 ReadFloat2();
+		XMFLOAT3 ReadFloat3();
+		XMFLOAT4 ReadFloat4();
 
-		char *ParseOptionalChars(ParseResult *pr = nullptr);
-		string ParseOptionalString(const string &default_value = "", ParseResult *pr = nullptr);
-		string ParseOptionalQuotedString(const string &default_value = "", ParseResult *pr = nullptr);
-		bool ParseOptionalBool(bool default_value = false, ParseResult *pr = nullptr);
-		int ParseOptionalInt(int default_value = 0, ParseResult *pr = nullptr);
-		unsigned int ParseOptionalUnsignedInt(unsigned int default_value = 0, ParseResult *pr = nullptr);
-		long ParseOptionalLong(long default_value = 0, ParseResult *pr = nullptr);
-		unsigned long ParseOptionalUnsignedLong(unsigned long default_value = 0, ParseResult *pr = nullptr);
-		float ParseOptionalFloat(float default_value = 0.0f, ParseResult *pr = nullptr);
-		double ParseOptionalDouble(double default_value = 0.0, ParseResult *pr = nullptr);
-		XMFLOAT2 ParseOptionalFloat2(XMFLOAT2 default_value = XMFLOAT2(), ParseResult *pr = nullptr);
-		XMFLOAT3 ParseOptionalFloat3(XMFLOAT3 default_value = XMFLOAT3(), ParseResult *pr = nullptr);
-		XMFLOAT4 ParseOptionalFloat4(XMFLOAT4 default_value = XMFLOAT4(), ParseResult *pr = nullptr);
+		char *ReadOptionalChars(TokenResult *pr = nullptr);
+		string ReadOptionalString(const string &default_value = "", TokenResult *pr = nullptr);
+		string ReadOptionalQuotedString(const string &default_value = "", TokenResult *pr = nullptr);
+		bool ReadOptionalBool(bool default_value = false, TokenResult *pr = nullptr);
+		int ReadOptionalInt(int default_value = 0, TokenResult *pr = nullptr);
+		unsigned int ReadOptionalUnsignedInt(unsigned int default_value = 0, TokenResult *pr = nullptr);
+		long ReadOptionalLong(long default_value = 0, TokenResult *pr = nullptr);
+		unsigned long ReadOptionalUnsignedLong(unsigned long default_value = 0, TokenResult *pr = nullptr);
+		float ReadOptionalFloat(float default_value = 0.0f, TokenResult *pr = nullptr);
+		double ReadOptionalDouble(double default_value = 0.0, TokenResult *pr = nullptr);
+		XMFLOAT2 ReadOptionalFloat2(XMFLOAT2 default_value = XMFLOAT2(), TokenResult *pr = nullptr);
+		XMFLOAT3 ReadOptionalFloat3(XMFLOAT3 default_value = XMFLOAT3(), TokenResult *pr = nullptr);
+		XMFLOAT4 ReadOptionalFloat4(XMFLOAT4 default_value = XMFLOAT4(), TokenResult *pr = nullptr);
 
 		char *m_context;
 

@@ -41,7 +41,7 @@ namespace mage {
 		// Continue reading from the file until the eof is reached.
 		while (fgets(current_line, _countof(current_line), file)) {
 
-			const HRESULT result_line = ParseLine(current_line);
+			const HRESULT result_line = ReadLine(current_line);
 			if (FAILED(result_line)) {
 				Error("%ls: line %u: parsing failed.", GetFilename().c_str(), GetCurrentLineNumber());
 
@@ -87,7 +87,7 @@ namespace mage {
 		// Continue reading from the file until the eof is reached.
 		while (str_gets(current_line, _countof(current_line), &input)) {
 
-			const HRESULT result_line = ParseLine(current_line);
+			const HRESULT result_line = ReadLine(current_line);
 			if (FAILED(result_line)) {
 				Error("%ls: line %u: parsing failed.", GetFilename().c_str(), GetCurrentLineNumber());
 				return result_line;
@@ -115,7 +115,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	void LineReader::ParseLineRemaining() {
+	void LineReader::ReadLineRemaining() {
 		char *next_token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
 		while (next_token) {
 			Warning("%ls: line %u: unused token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), next_token);
@@ -123,9 +123,9 @@ namespace mage {
 		}
 	}
 
-	char *LineReader::ParseChars() {
+	char *LineReader::ReadChars() {
 		char *result;
-		const ParseResult parse_result = mage::ParseChars(nullptr, &m_context, &result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadChars(nullptr, &m_context, &result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
@@ -138,9 +138,9 @@ namespace mage {
 		}
 	}
 
-	string LineReader::ParseString() {
+	string LineReader::ReadString() {
 		string result;
-		const ParseResult parse_result = mage::ParseString(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadString(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
@@ -153,7 +153,7 @@ namespace mage {
 		}
 	}
 
-	string LineReader::ParseQuotedString() {
+	string LineReader::ReadQuotedString() {
 		const char *first_quote = strchr(m_context, '"');
 		char *last_quote = strrchr(m_context + 1, '"');
 
@@ -168,9 +168,9 @@ namespace mage {
 		return first_quote + 1;
 	}
 
-	bool LineReader::ParseBool() {
+	bool LineReader::ReadBool() {
 		bool result;
-		const ParseResult parse_result = mage::ParseBool(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadBool(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
@@ -187,9 +187,9 @@ namespace mage {
 		}
 	}
 
-	int LineReader::ParseInt() {
+	int LineReader::ReadInt() {
 		int result;
-		const ParseResult parse_result = mage::ParseInt(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadInt(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
@@ -206,9 +206,9 @@ namespace mage {
 		}
 	}
 
-	unsigned int LineReader::ParseUnsignedInt() {
+	unsigned int LineReader::ReadUnsignedInt() {
 		unsigned int result;
-		const ParseResult parse_result = mage::ParseUnsignedInt(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadUnsignedInt(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
@@ -225,9 +225,9 @@ namespace mage {
 		}
 	}
 
-	long LineReader::ParseLong() {
+	long LineReader::ReadLong() {
 		long result;
-		const ParseResult parse_result = mage::ParseLong(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadLong(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
@@ -244,9 +244,9 @@ namespace mage {
 		}
 	}
 
-	unsigned long LineReader::ParseUnsignedLong() {
+	unsigned long LineReader::ReadUnsignedLong() {
 		unsigned long result;
-		const ParseResult parse_result = mage::ParseUnsignedLong(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadUnsignedLong(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
@@ -263,9 +263,9 @@ namespace mage {
 		}
 	}
 
-	float LineReader::ParseFloat() {
+	float LineReader::ReadFloat() {
 		float result;
-		const ParseResult parse_result = mage::ParseFloat(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadFloat(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
@@ -282,9 +282,9 @@ namespace mage {
 		}
 	}
 
-	double LineReader::ParseDouble() {
+	double LineReader::ReadDouble() {
 		double result;
-		const ParseResult parse_result = mage::ParseDouble(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadDouble(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
@@ -301,9 +301,9 @@ namespace mage {
 		}
 	}
 
-	XMFLOAT2 LineReader::ParseFloat2() {
+	XMFLOAT2 LineReader::ReadFloat2() {
 		XMFLOAT2 result;
-		const ParseResult parse_result = mage::ParseFloat2(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadFloat2(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
@@ -320,9 +320,9 @@ namespace mage {
 		}
 	}
 
-	XMFLOAT3 LineReader::ParseFloat3() {
+	XMFLOAT3 LineReader::ReadFloat3() {
 		XMFLOAT3 result;
-		const ParseResult parse_result = mage::ParseFloat3(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadFloat3(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
@@ -339,9 +339,9 @@ namespace mage {
 		}
 	}
 
-	XMFLOAT4 LineReader::ParseFloat4() {
+	XMFLOAT4 LineReader::ReadFloat4() {
 		XMFLOAT4 result;
-		const ParseResult parse_result = mage::ParseFloat4(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadFloat4(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (parse_result) {
 		case valid_token: {
@@ -358,9 +358,9 @@ namespace mage {
 		}
 	}
 
-	char *LineReader::ParseOptionalChars(ParseResult *pr) {
+	char *LineReader::ReadOptionalChars(TokenResult *pr) {
 		char *result;
-		const ParseResult parse_result = mage::ParseChars(nullptr, &m_context, &result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadChars(nullptr, &m_context, &result, GetDelimiters().c_str());
 
 		if (pr) {
 			*pr = parse_result;
@@ -376,9 +376,9 @@ namespace mage {
 		}
 	}
 
-	string LineReader::ParseOptionalString(const string &default_value, ParseResult *pr) {
+	string LineReader::ReadOptionalString(const string &default_value, TokenResult *pr) {
 		string result;
-		const ParseResult parse_result = mage::ParseString(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadString(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		if (pr) {
 			*pr = parse_result;
@@ -394,7 +394,7 @@ namespace mage {
 		}
 	}
 
-	string LineReader::ParseOptionalQuotedString(const string &default_value, ParseResult *pr) {
+	string LineReader::ReadOptionalQuotedString(const string &default_value, TokenResult *pr) {
 		const char *first_quote = strchr(m_context, '"');
 		char *last_quote = strrchr(m_context + 1, '"');
 
@@ -418,9 +418,9 @@ namespace mage {
 		return first_quote + 1;
 	}
 
-	bool LineReader::ParseOptionalBool(bool default_value, ParseResult *pr) {
+	bool LineReader::ReadOptionalBool(bool default_value, TokenResult *pr) {
 		bool result;
-		const ParseResult parse_result = mage::ParseBool(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadBool(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		if (pr) {
 			*pr = parse_result;
@@ -440,9 +440,9 @@ namespace mage {
 		}
 	}
 
-	int LineReader::ParseOptionalInt(int default_value, ParseResult *pr) {
+	int LineReader::ReadOptionalInt(int default_value, TokenResult *pr) {
 		int result;
-		const ParseResult parse_result = mage::ParseInt(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadInt(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		if (pr) {
 			*pr = parse_result;
@@ -462,9 +462,9 @@ namespace mage {
 		}
 	}
 
-	unsigned int LineReader::ParseOptionalUnsignedInt(unsigned int default_value, ParseResult *pr) {
+	unsigned int LineReader::ReadOptionalUnsignedInt(unsigned int default_value, TokenResult *pr) {
 		unsigned int result;
-		const ParseResult parse_result = mage::ParseUnsignedInt(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadUnsignedInt(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		if (pr) {
 			*pr = parse_result;
@@ -484,9 +484,9 @@ namespace mage {
 		}
 	}
 
-	long LineReader::ParseOptionalLong(long default_value, ParseResult *pr) {
+	long LineReader::ReadOptionalLong(long default_value, TokenResult *pr) {
 		long result;
-		const ParseResult parse_result = mage::ParseLong(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadLong(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		if (pr) {
 			*pr = parse_result;
@@ -506,9 +506,9 @@ namespace mage {
 		}
 	}
 
-	unsigned long LineReader::ParseOptionalUnsignedLong(unsigned long default_value, ParseResult *pr) {
+	unsigned long LineReader::ReadOptionalUnsignedLong(unsigned long default_value, TokenResult *pr) {
 		unsigned long result;
-		const ParseResult parse_result = mage::ParseUnsignedLong(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadUnsignedLong(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		if (pr) {
 			*pr = parse_result;
@@ -528,9 +528,9 @@ namespace mage {
 		}
 	}
 
-	float LineReader::ParseOptionalFloat(float default_value, ParseResult *pr) {
+	float LineReader::ReadOptionalFloat(float default_value, TokenResult *pr) {
 		float result;
-		const ParseResult parse_result = mage::ParseFloat(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadFloat(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		if (pr) {
 			*pr = parse_result;
@@ -550,9 +550,9 @@ namespace mage {
 		}
 	}
 
-	double LineReader::ParseOptionalDouble(double default_value, ParseResult *pr) {
+	double LineReader::ReadOptionalDouble(double default_value, TokenResult *pr) {
 		double result;
-		const ParseResult parse_result = mage::ParseDouble(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadDouble(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		if (pr) {
 			*pr = parse_result;
@@ -572,9 +572,9 @@ namespace mage {
 		}
 	}
 
-	XMFLOAT2 LineReader::ParseOptionalFloat2(XMFLOAT2 default_value, ParseResult *pr) {
+	XMFLOAT2 LineReader::ReadOptionalFloat2(XMFLOAT2 default_value, TokenResult *pr) {
 		XMFLOAT2 result;
-		const ParseResult parse_result = mage::ParseFloat2(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadFloat2(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		if (pr) {
 			*pr = parse_result;
@@ -594,9 +594,9 @@ namespace mage {
 		}
 	}
 
-	XMFLOAT3 LineReader::ParseOptionalFloat3(XMFLOAT3 default_value, ParseResult *pr) {
+	XMFLOAT3 LineReader::ReadOptionalFloat3(XMFLOAT3 default_value, TokenResult *pr) {
 		XMFLOAT3 result;
-		const ParseResult parse_result = mage::ParseFloat3(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadFloat3(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		if (pr) {
 			*pr = parse_result;
@@ -616,9 +616,9 @@ namespace mage {
 		}
 	}
 
-	XMFLOAT4 LineReader::ParseOptionalFloat4(XMFLOAT4 default_value, ParseResult *pr) {
+	XMFLOAT4 LineReader::ReadOptionalFloat4(XMFLOAT4 default_value, TokenResult *pr) {
 		XMFLOAT4 result;
-		const ParseResult parse_result = mage::ParseFloat4(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult parse_result = mage::ReadFloat4(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		if (pr) {
 			*pr = parse_result;

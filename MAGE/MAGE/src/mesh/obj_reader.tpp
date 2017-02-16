@@ -45,7 +45,7 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	HRESULT OBJReader< Vertex >::ParseLine(char *line) {
+	HRESULT OBJReader< Vertex >::ReadLine(char *line) {
 		m_context = nullptr;
 		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);
 
@@ -54,42 +54,42 @@ namespace mage {
 		}
 
 		if (str_equals(token, MAGE_OBJ_MATERIAL_LIBRARY_TOKEN)) {
-			ParseOBJMaterialLibrary();
+			ReadOBJMaterialLibrary();
 		}
 		else if (str_equals(token, MAGE_OBJ_MATERIAL_USE_TOKEN)) {
-			ParseOBJMaterialUse();
+			ReadOBJMaterialUse();
 		}
 		else if (str_equals(token, MAGE_OBJ_GROUP_TOKEN)) {
 			// End current group.
 			m_model_output.EndModelPart();
 			// Begin current group.
-			ParseOBJGroup();
+			ReadOBJGroup();
 		}
 		else if (str_equals(token, MAGE_OBJ_VERTEX_TOKEN)) {
-			ParseOBJVertex();
+			ReadOBJVertex();
 		}
 		else if (str_equals(token, MAGE_OBJ_TEXTURE_TOKEN)) {
-			ParseOBJVertexTexture();
+			ReadOBJVertexTexture();
 		}
 		else if (str_equals(token, MAGE_OBJ_NORMAL_TOKEN)) {
-			ParseOBJVertexNormal();
+			ReadOBJVertexNormal();
 		}
 		else if (str_equals(token, MAGE_OBJ_FACE_TOKEN)) {
-			ParseOBJTriangleFace();
+			ReadOBJTriangleFace();
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 		}
 
-		ParseLineRemaining();
+		ReadLineRemaining();
 
 		return S_OK;
 	}
 
 	template < typename Vertex >
-	void OBJReader< Vertex >::ParseOBJMaterialLibrary() {
+	void OBJReader< Vertex >::ReadOBJMaterialLibrary() {
 		const wstring mtl_path = GetPathName(GetFilename());
-		const wstring mtl_name = str_convert(ParseString());
+		const wstring mtl_name = str_convert(ReadString());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
 		const HRESULT result = ImportMTLMaterialFromFile(mtl_fname, m_model_output.material_buffer);
@@ -99,21 +99,21 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	void OBJReader< Vertex >::ParseOBJMaterialUse() {
-		const string mtl_name = ParseString();
+	void OBJReader< Vertex >::ReadOBJMaterialUse() {
+		const string mtl_name = ReadString();
 		m_model_output.SetMaterial(mtl_name);
 	}
 
 	template < typename Vertex >
-	void OBJReader< Vertex >::ParseOBJGroup() {
-		const string child = ParseString();
-		const string parent = ParseOptionalString("root");
+	void OBJReader< Vertex >::ReadOBJGroup() {
+		const string child = ReadString();
+		const string parent = ReadOptionalString("root");
 		m_model_output.StartModelPart(child, parent);
 	}
 
 	template < typename Vertex >
-	void OBJReader< Vertex >::ParseOBJVertex() {
-		Point3 vertex = ParseOBJVertexCoordinates();
+	void OBJReader< Vertex >::ReadOBJVertex() {
+		Point3 vertex = ReadOBJVertexCoordinates();
 		if (m_mesh_desc.InvertHandness()) {
 			vertex.z = -vertex.z;
 		}
@@ -122,8 +122,8 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	void OBJReader< Vertex >::ParseOBJVertexTexture() {
-		UV texture = ParseOBJVertexTextureCoordinates();
+	void OBJReader< Vertex >::ReadOBJVertexTexture() {
+		UV texture = ReadOBJVertexTextureCoordinates();
 		if (m_mesh_desc.InvertHandness()) {
 			texture.y = 1.0f - texture.y;
 		}
@@ -132,8 +132,8 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	void OBJReader< Vertex >::ParseOBJVertexNormal() {
-		Normal3 normal = ParseOBJVertexNormalCoordinates();
+	void OBJReader< Vertex >::ReadOBJVertexNormal() {
+		Normal3 normal = ReadOBJVertexNormalCoordinates();
 		if (m_mesh_desc.InvertHandness()) {
 			normal.z = -normal.z;
 		}
@@ -145,10 +145,10 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	void OBJReader< Vertex >::ParseOBJTriangleFace() {
+	void OBJReader< Vertex >::ReadOBJTriangleFace() {
 		uint32_t indices[3];
 		for (size_t i = 0; i < 3; ++i) {
-			const XMUINT3 vertex_indices = ParseOBJVertexIndices();
+			const XMUINT3 vertex_indices = ReadOBJVertexIndices();
 			const map< XMUINT3, uint32_t >::const_iterator it = m_buffer.mapping.find(vertex_indices);
 			if (it != m_buffer.mapping.cend()) {
 				indices[i] = it->second;
@@ -174,22 +174,22 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	Point3 OBJReader< Vertex >::ParseOBJVertexCoordinates() {
-		return (Point3)ParseFloat3();
+	Point3 OBJReader< Vertex >::ReadOBJVertexCoordinates() {
+		return (Point3)ReadFloat3();
 	}
 
 	template < typename Vertex >
-	Normal3 OBJReader< Vertex >::ParseOBJVertexNormalCoordinates() {
-		return (Normal3)ParseFloat3();
+	Normal3 OBJReader< Vertex >::ReadOBJVertexNormalCoordinates() {
+		return (Normal3)ReadFloat3();
 	}
 
 	template < typename Vertex >
-	UV OBJReader< Vertex >::ParseOBJVertexTextureCoordinates() {
-		return (UV)ParseFloat2();
+	UV OBJReader< Vertex >::ReadOBJVertexTextureCoordinates() {
+		return (UV)ReadFloat2();
 	}
 
 	template < typename Vertex >
-	XMUINT3 OBJReader< Vertex >::ParseOBJVertexIndices() {
+	XMUINT3 OBJReader< Vertex >::ReadOBJVertexIndices() {
 		const char *token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
 		if (!token) {
 			Error("%ls: line %u: no vertex index value found.", GetFilename().c_str(), GetCurrentLineNumber());

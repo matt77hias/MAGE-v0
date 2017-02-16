@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT MTLReader::ParseLine(char *line) {
+	HRESULT MTLReader::ReadLine(char *line) {
 		m_context = nullptr;
 		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);
 
@@ -25,67 +25,67 @@ namespace mage {
 
 		if (str_equals(token, MAGE_MTL_TOKEN_MATERIAL_DECLARATION)) {
 			m_material_buffer.push_back(Material());
-			ParseMTLMaterialName();
+			ReadMTLMaterialName();
 		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_AMBIENT_REFLECTIVITY)) {
-			ParseMTLAmbientReflectivity();
+			ReadMTLAmbientReflectivity();
 		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_DIFFUSE_REFLECTIVITY)) {
-			ParseMTLDiffuseReflectivity();
+			ReadMTLDiffuseReflectivity();
 		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_SPECULAR_REFLECTIVITY)) {
-			ParseMTLSpecularReflectivity();
+			ReadMTLSpecularReflectivity();
 		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_TRANSMISSION_FILTER)) {
-			ParseMTLTransmissionFilter();
+			ReadMTLTransmissionFilter();
 		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_SPECULAR_EXPONENT)) {
-			ParseMTLSpecularExponent();
+			ReadMTLSpecularExponent();
 		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_OPTICAL_DENSITY)) {
-			ParseMTLOpticalDensity();
+			ReadMTLOpticalDensity();
 		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_DISSOLVE)) {
-			ParseMTLDissolve();
+			ReadMTLDissolve();
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 		}
 
-		ParseLineRemaining();
+		ReadLineRemaining();
 
 		return S_OK;
 	}
 
-	void MTLReader::ParseMTLMaterialName() {
-		m_material_buffer.back().m_name = ParseString();
+	void MTLReader::ReadMTLMaterialName() {
+		m_material_buffer.back().m_name = ReadString();
 	}
 
-	void MTLReader::ParseMTLAmbientReflectivity() {
-		m_material_buffer.back().m_ambient_reflectivity = ParseMTLSpectrum();
+	void MTLReader::ReadMTLAmbientReflectivity() {
+		m_material_buffer.back().m_ambient_reflectivity = ReadMTLSpectrum();
 	}
 
-	void MTLReader::ParseMTLDiffuseReflectivity() {
-		m_material_buffer.back().m_diffuse_reflectivity = ParseMTLSpectrum();
+	void MTLReader::ReadMTLDiffuseReflectivity() {
+		m_material_buffer.back().m_diffuse_reflectivity = ReadMTLSpectrum();
 	}
 
-	void MTLReader::ParseMTLSpecularReflectivity() {
-		m_material_buffer.back().m_specular_reflectivity = ParseMTLSpectrum();
+	void MTLReader::ReadMTLSpecularReflectivity() {
+		m_material_buffer.back().m_specular_reflectivity = ReadMTLSpectrum();
 	}
 
-	void MTLReader::ParseMTLTransmissionFilter() {
-		m_material_buffer.back().m_transmission_filter = ParseMTLSpectrum();
+	void MTLReader::ReadMTLTransmissionFilter() {
+		m_material_buffer.back().m_transmission_filter = ReadMTLSpectrum();
 	}
 
-	void MTLReader::ParseMTLSpecularExponent() {
-		m_material_buffer.back().m_specular_exponent = ParseFloat();
+	void MTLReader::ReadMTLSpecularExponent() {
+		m_material_buffer.back().m_specular_exponent = ReadFloat();
 	}
 
-	void MTLReader::ParseMTLOpticalDensity() {
-		m_material_buffer.back().m_index_of_refraction = ParseFloat();
+	void MTLReader::ReadMTLOpticalDensity() {
+		m_material_buffer.back().m_index_of_refraction = ReadFloat();
 	}
 
-	void MTLReader::ParseMTLDissolve() {
+	void MTLReader::ReadMTLDissolve() {
 		float dissolve;
 
 		const char *token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
@@ -95,7 +95,7 @@ namespace mage {
 		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_DISSOLVE_HALO)) {
 			Warning("%ls: line %u: unsupported halo effect.", GetFilename().c_str(), GetCurrentLineNumber());
-			dissolve = ParseFloat();
+			dissolve = ReadFloat();
 		}
 		else if (StringToFloat(token, dissolve) == invalid_token) {
 			Error("%ls: line %u: invalid float value found.", GetFilename().c_str(), GetCurrentLineNumber());
@@ -105,7 +105,7 @@ namespace mage {
 		m_material_buffer.back().m_dissolve = dissolve;
 	}
 
-	RGBSpectrum MTLReader::ParseMTLSpectrum() {
+	RGBSpectrum MTLReader::ReadMTLSpectrum() {
 		const char *token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
 
 		// No spectrum
@@ -116,10 +116,10 @@ namespace mage {
 
 		// XYZ spectrum
 		if (str_equals(token, MAGE_MTL_TOKEN_XYZ)) {
-			const float x = ParseFloat();
-			ParseResult pr;
-			const float y = ParseOptionalFloat(x, &pr);
-			const float z = (pr != valid_token) ? x : ParseFloat();
+			const float x = ReadFloat();
+			TokenResult pr;
+			const float y = ReadOptionalFloat(x, &pr);
+			const float z = (pr != valid_token) ? x : ReadFloat();
 			return RGBSpectrum(XYZSpectrum(x, y, z));
 		}
 
@@ -135,9 +135,9 @@ namespace mage {
 			Error("%ls: line %u: invalid float value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			x = 0.0f;
 		}
-		ParseResult pr;
-		const float y = ParseOptionalFloat(x, &pr);
-		const float z = (pr != valid_token) ? x : ParseFloat();
+		TokenResult pr;
+		const float y = ReadOptionalFloat(x, &pr);
+		const float z = (pr != valid_token) ? x : ReadFloat();
 		return RGBSpectrum(x, y, z);
 	}
 }

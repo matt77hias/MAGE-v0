@@ -357,10 +357,10 @@
     <ClInclude Include="MAGE\src\scripting\variable_script_reader.hpp">
       <Filter>Header Files\scripting</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\string\line_reader.hpp">
+    <ClInclude Include="MAGE\src\string\writer.hpp">
       <Filter>Header Files\string</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\string\writer.hpp">
+    <ClInclude Include="MAGE\src\string\line_reader.hpp">
       <Filter>Header Files\string</Filter>
     </ClInclude>
   </ItemGroup>
@@ -461,14 +461,14 @@
     <ClCompile Include="MAGE\src\scripting\variable_script_reader.cpp">
       <Filter>Source Files\scripting</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\scripting\variable_script_writer.cpp">
+      <Filter>Source Files\scripting</Filter>
+    </ClCompile>
     <ClCompile Include="MAGE\src\string\line_reader.cpp">
       <Filter>Source Files\string</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\string\writer.cpp">
       <Filter>Source Files\string</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\scripting\variable_script_writer.cpp">
-      <Filter>Source Files\scripting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -26,19 +26,19 @@ namespace mage {
 
 	protected:
 
-		virtual HRESULT ParseLine(char *line) override;
+		virtual HRESULT ReadLine(char *line) override;
 
-		void ParseVSBool();
-		void ParseVSInt();
-		void ParseVSInt2();
-		void ParseVSInt3();
-		void ParseVSFloat();
-		void ParseVSFloat2();
-		void ParseVSFloat3();
-		void ParseVSFloat4();
-		void ParseVSColor();
-		void ParseVSString();
-		void ParseVSUnknown();
+		void ReadVSBool();
+		void ReadVSInt();
+		void ReadVSInt2();
+		void ReadVSInt3();
+		void ReadVSFloat();
+		void ReadVSFloat2();
+		void ReadVSFloat3();
+		void ReadVSFloat4();
+		void ReadVSColor();
+		void ReadVSString();
+		void ReadVSUnknown();
 
 	private:
 

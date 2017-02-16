@@ -26,18 +26,18 @@ namespace mage {
 
 	protected:
 
-		virtual HRESULT ParseLine(char *line) override;
+		virtual HRESULT ReadLine(char *line) override;
 
-		void ParseMTLMaterialName();
-		void ParseMTLAmbientReflectivity();
-		void ParseMTLDiffuseReflectivity();
-		void ParseMTLSpecularReflectivity();
-		void ParseMTLTransmissionFilter();
-		void ParseMTLSpecularExponent();
-		void ParseMTLOpticalDensity();
-		void ParseMTLDissolve();
+		void ReadMTLMaterialName();
+		void ReadMTLAmbientReflectivity();
+		void ReadMTLDiffuseReflectivity();
+		void ReadMTLSpecularReflectivity();
+		void ReadMTLTransmissionFilter();
+		void ReadMTLSpecularExponent();
+		void ReadMTLOpticalDensity();
+		void ReadMTLDissolve();
 
-		RGBSpectrum ParseMTLSpectrum();
+		RGBSpectrum ReadMTLSpectrum();
 
 	private:
 

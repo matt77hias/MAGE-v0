@@ -28,21 +28,21 @@ namespace mage {
 	protected:
 
 		virtual HRESULT Preprocess() override;
-		virtual HRESULT ParseLine(char *line) override;
+		virtual HRESULT ReadLine(char *line) override;
 		virtual HRESULT Postprocess() override;
 
-		void ParseOBJMaterialLibrary();
-		void ParseOBJMaterialUse();
-		void ParseOBJGroup();
-		void ParseOBJVertex();
-		void ParseOBJVertexTexture();
-		void ParseOBJVertexNormal();
-		void ParseOBJTriangleFace();
+		void ReadOBJMaterialLibrary();
+		void ReadOBJMaterialUse();
+		void ReadOBJGroup();
+		void ReadOBJVertex();
+		void ReadOBJVertexTexture();
+		void ReadOBJVertexNormal();
+		void ReadOBJTriangleFace();
 
-		Point3 ParseOBJVertexCoordinates();
-		Normal3 ParseOBJVertexNormalCoordinates();
-		UV ParseOBJVertexTextureCoordinates();
-		XMUINT3 ParseOBJVertexIndices();
+		Point3 ReadOBJVertexCoordinates();
+		Normal3 ReadOBJVertexNormalCoordinates();
+		UV ReadOBJVertexTextureCoordinates();
+		XMUINT3 ReadOBJVertexIndices();
 		
 		Vertex ConstructVertex(const XMUINT3 &vertex_indices);
 

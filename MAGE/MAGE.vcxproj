@@ -265,7 +265,8 @@
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
     <Lib>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;dinput8.lib;dxguid.lib;d3dcompiler.lib;</AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
       <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
@@ -288,7 +289,8 @@
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
     <Lib>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;dinput8.lib;dxguid.lib;d3dcompiler.lib;</AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -314,7 +316,8 @@
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
     <Lib>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;dinput8.lib;dxguid.lib;d3dcompiler.lib;</AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
       <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
@@ -343,7 +346,8 @@
       <OutputFile>$(ProjectName)\doc\$(TargetName).xml</OutputFile>
     </Xdcmake>
     <Lib>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;dinput8.lib;dxguid.lib;d3dcompiler.lib;</AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

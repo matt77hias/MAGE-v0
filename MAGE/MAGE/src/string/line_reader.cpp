@@ -155,9 +155,9 @@ namespace mage {
 
 	string LineReader::ReadQuotedString() {
 		const char *first_quote = strchr(m_context, '"');
-		char *last_quote = strrchr(m_context + 1, '"');
+		char *last_quote = strrchr(m_context, '"');
 
-		if (!first_quote || !last_quote) {
+		if (first_quote == last_quote || str_contains(GetDelimiters().c_str(), *(last_quote + 1))) {
 			Error("%ls: line %u: no quoted string value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return "";
 		}
@@ -396,9 +396,9 @@ namespace mage {
 
 	string LineReader::ReadOptionalQuotedString(const string &default_value, TokenResult *pr) {
 		const char *first_quote = strchr(m_context, '"');
-		char *last_quote = strrchr(m_context + 1, '"');
+		char *last_quote = strrchr(m_context, '"');
 
-		if (!first_quote || !last_quote) {
+		if (first_quote == last_quote || str_contains(GetDelimiters().c_str(), *(last_quote + 1))) {
 
 			if (pr) {
 				*pr = invalid_token;

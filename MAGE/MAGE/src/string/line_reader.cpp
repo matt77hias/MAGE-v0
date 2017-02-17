@@ -152,18 +152,22 @@ namespace mage {
 		}
 	}
 	string LineReader::ReadQuotedString() {
-		const char *first_quote = strchr(m_context, '"');
-		char *last_quote = strrchr(m_context, '"');
+		string result;
+		const TokenResult token_result = mage::ReadQuotedString(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		if (first_quote == last_quote || !str_contains(GetDelimiters().c_str(), *(last_quote + 1))) {
+		switch (token_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
 			Error("%ls: line %u: no quoted string value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return "";
 		}
-
-		*last_quote = '\0';
-		m_context = last_quote + 1;
-
-		return first_quote + 1;
+		default: {
+			Error("%ls: line %u: invalid quoted string value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return "";
+		}
+		}
 	}
 	bool LineReader::ReadBool() {
 		bool result;
@@ -389,7 +393,7 @@ namespace mage {
 		return mage::HasString(m_context, GetDelimiters().c_str()) == valid_token;
 	}
 	bool LineReader::HasQuotedString() const {
-		return false;
+		return mage::HasQuotedString(m_context, GetDelimiters().c_str()) == valid_token;
 	}
 	bool LineReader::HasBool() const {
 		return mage::HasBool(m_context, GetDelimiters().c_str()) == valid_token;

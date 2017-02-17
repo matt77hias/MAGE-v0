@@ -69,6 +69,7 @@ namespace mage {
 
 	TokenResult ReadChars(char *str, char **context, char **result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult ReadString(char *str, char **context, string &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult ReadQuotedString(char *str, char **context, string &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult ReadBool(char *str, char **context, bool &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult ReadInt(char *str, char **context, int &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult ReadUnsignedInt(char *str, char **context, unsigned int &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
@@ -84,6 +85,7 @@ namespace mage {
 
 	TokenResult HasChars(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult HasString(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult HasQuotedString(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult HasBool(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult HasInt(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult HasUnsignedInt(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);

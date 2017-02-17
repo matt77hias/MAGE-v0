@@ -306,6 +306,30 @@ namespace mage {
 
 		return valid_token;
 	}
+	TokenResult ReadQuotedString(char *str, char **context, string &result, const char *delimiters) {
+		char *start = (str) ? SkipDelimiters(str, delimiters) : SkipDelimiters(*context, delimiters);
+		if (!start) {
+			return no_token;
+		}
+
+		char *first_quote = strchr(start, '"');
+		if (!first_quote) {
+			return invalid_token;
+		}
+		char *last_quote = strchr(first_quote + 1, '"');
+		if (!last_quote) {
+			return invalid_token;
+		}
+
+		if (!str_contains(delimiters, *(last_quote + 1))) {
+			return invalid_token;
+		}
+
+		*last_quote = '\0';
+		result = first_quote + 1;
+		*context = last_quote + 1;
+		return valid_token;
+	}
 	TokenResult ReadBool(char *str, char **context, bool &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToBool(token, result);
@@ -403,6 +427,23 @@ namespace mage {
 	}
 	TokenResult HasString(const char *str, const char *delimiters) {
 		return HasChars(str, delimiters);
+	}
+	TokenResult HasQuotedString(const char *str, const char *delimiters) {
+		const char *start = SkipDelimiters(str, delimiters);
+		if (!start) {
+			return no_token;
+		}
+		
+		const char *first_quote = strchr(start, '"');
+		if (!first_quote) {
+			return invalid_token;
+		}
+		const char *last_quote = strchr(first_quote + 1, '"');
+		if (!last_quote) {
+			return invalid_token;
+		}
+		
+		return str_contains(delimiters, *(last_quote + 1)) ? valid_token : invalid_token;
 	}
 	TokenResult HasBool(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);

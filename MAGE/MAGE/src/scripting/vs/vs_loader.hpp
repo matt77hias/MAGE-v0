@@ -16,24 +16,24 @@
 namespace mage {
 
 	/**
-	 Imports the variables from the file with the given filename.
+	 Imports the variables from the given VS file.
 
 	 @param[in]		fname
-					A reference to the filename.
+					A reference to the VS filename.
 	 @param[in,out]	variable_buffer
 					A reference to a vector containing the variables.
 	 @return		A success/error value.
 	 */
-	HRESULT ImportVariableScriptFromFile(const wstring &fname, vector< Variable * > &variable_buffer);
+	HRESULT ImportVSFromFile(const wstring &fname, vector< Variable * > &variable_buffer);
 
 	/**
-	 Exports the given variables to the file with the given filename.
+	 Exports the given variables to the given VS file.
 
 	 @param[in]		fname
-					A reference to the filename.
+					A reference to the VS filename.
 	 @param[in]		variable_buffer
 					A reference to a vector containing the variables.
 	 @return		A success/error value.
 	 */
-	HRESULT ExportVariableScriptToFile(const wstring &fname, const vector< Variable * > &variable_buffer);
+	HRESULT ExportVSToFile(const wstring &fname, const vector< Variable * > &variable_buffer);
 }

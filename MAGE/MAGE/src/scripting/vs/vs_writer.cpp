@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\vs\variable_script_writer.hpp"
-#include "scripting\vs\variable_script_tokens.hpp"
+#include "scripting\vs\vs_writer.hpp"
+#include "scripting\vs\vs_tokens.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

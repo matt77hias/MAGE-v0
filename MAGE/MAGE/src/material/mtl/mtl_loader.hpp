@@ -17,10 +17,10 @@
 namespace mage {
 
 	/**
-	 Loads an MTL material from file.
+	 Imports the materials from the given MTL file.
 
 	 @param[in]		fname
-					A reference to the file name.
+					A reference to the MTL file name.
 	 @param[out]	material_buffer
 					A reference to the empty material buffer.
 	 @return		A success/error value.

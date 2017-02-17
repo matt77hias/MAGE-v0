@@ -351,17 +351,20 @@
     <ClInclude Include="MAGE\src\mesh\obj\obj_loader.hpp">
       <Filter>Header Files\mesh\obj</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\scripting\vs\variable_script_loader.hpp">
+    <ClInclude Include="MAGE\src\scripting\vs\vs_loader.hpp">
       <Filter>Header Files\scripting\vs</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\scripting\vs\variable_script_reader.hpp">
+    <ClInclude Include="MAGE\src\scripting\vs\vs_reader.hpp">
       <Filter>Header Files\scripting\vs</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\scripting\vs\variable_script_tokens.hpp">
+    <ClInclude Include="MAGE\src\scripting\vs\vs_tokens.hpp">
       <Filter>Header Files\scripting\vs</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\scripting\vs\variable_script_writer.hpp">
+    <ClInclude Include="MAGE\src\scripting\vs\vs_writer.hpp">
       <Filter>Header Files\scripting\vs</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\variable_script_loader.hpp">
+      <Filter>Header Files\scripting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -458,14 +461,17 @@
     <ClCompile Include="MAGE\src\material\mtl\mtl_reader.cpp">
       <Filter>Source Files\material\mtl</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\scripting\vs\variable_script_loader.cpp">
+    <ClCompile Include="MAGE\src\scripting\vs\vs_loader.cpp">
       <Filter>Source Files\scripting\vs</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\scripting\vs\variable_script_reader.cpp">
+    <ClCompile Include="MAGE\src\scripting\vs\vs_reader.cpp">
       <Filter>Source Files\scripting\vs</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\scripting\vs\variable_script_writer.cpp">
+    <ClCompile Include="MAGE\src\scripting\vs\vs_writer.cpp">
       <Filter>Source Files\scripting\vs</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\scripting\variable_script_loader.cpp">
+      <Filter>Source Files\scripting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

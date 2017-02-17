@@ -74,10 +74,10 @@
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
-    <ClInclude Include="MAGE\src\scripting\variable_script_loader.hpp" />
-    <ClInclude Include="MAGE\src\scripting\variable_script_reader.hpp" />
-    <ClInclude Include="MAGE\src\scripting\variable_script_tokens.hpp" />
-    <ClInclude Include="MAGE\src\scripting\variable_script_writer.hpp" />
+    <ClInclude Include="MAGE\src\scripting\vs\variable_script_loader.hpp" />
+    <ClInclude Include="MAGE\src\scripting\vs\variable_script_reader.hpp" />
+    <ClInclude Include="MAGE\src\scripting\vs\variable_script_tokens.hpp" />
+    <ClInclude Include="MAGE\src\scripting\vs\variable_script_writer.hpp" />
     <ClInclude Include="MAGE\src\shader\pixel_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\shaded_material.hpp" />
     <ClInclude Include="MAGE\src\shader\shader_utils.hpp" />
@@ -117,9 +117,9 @@
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
-    <ClCompile Include="MAGE\src\scripting\variable_script_loader.cpp" />
-    <ClCompile Include="MAGE\src\scripting\variable_script_reader.cpp" />
-    <ClCompile Include="MAGE\src\scripting\variable_script_writer.cpp" />
+    <ClCompile Include="MAGE\src\scripting\vs\variable_script_loader.cpp" />
+    <ClCompile Include="MAGE\src\scripting\vs\variable_script_reader.cpp" />
+    <ClCompile Include="MAGE\src\scripting\vs\variable_script_writer.cpp" />
     <ClCompile Include="MAGE\src\shader\pixel_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
     <ClCompile Include="MAGE\src\state\state_manager.cpp" />

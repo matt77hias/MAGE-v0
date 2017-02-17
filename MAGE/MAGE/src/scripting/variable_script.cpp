@@ -4,7 +4,7 @@
 #pragma region
 
 #include "scripting\variable_script.hpp"
-#include "scripting\variable_script_loader.hpp"
+#include "scripting\vs\variable_script_loader.hpp"
 
 #pragma endregion
 

@@ -133,6 +133,12 @@
     <Filter Include="Header Files\mesh\obj">
       <UniqueIdentifier>{a6a4e748-0f93-4b11-b60d-46fc7f4c62d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\scripting\vs">
+      <UniqueIdentifier>{f1792f92-66ea-449b-9af4-2ec22c03fbce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scripting\vs">
+      <UniqueIdentifier>{a76c43d3-6a84-4cb7-81b7-55b7b0f6254d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -288,9 +294,6 @@
     <ClInclude Include="MAGE\src\collection\collection.tpp">
       <Filter>Header Files\collection</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\scripting\variable_script_loader.hpp">
-      <Filter>Header Files\scripting</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\material\spectrum.hpp">
       <Filter>Header Files\material</Filter>
     </ClInclude>
@@ -314,15 +317,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\shading.hpp">
       <Filter>Header Files\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\scripting\variable_script_tokens.hpp">
-      <Filter>Header Files\scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\scripting\variable_script_writer.hpp">
-      <Filter>Header Files\scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\scripting\variable_script_reader.hpp">
-      <Filter>Header Files\scripting</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\string\writer.hpp">
       <Filter>Header Files\string</Filter>
@@ -356,6 +350,18 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\mesh\obj\obj_loader.hpp">
       <Filter>Header Files\mesh\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\vs\variable_script_loader.hpp">
+      <Filter>Header Files\scripting\vs</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\vs\variable_script_reader.hpp">
+      <Filter>Header Files\scripting\vs</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\vs\variable_script_tokens.hpp">
+      <Filter>Header Files\scripting\vs</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\vs\variable_script_writer.hpp">
+      <Filter>Header Files\scripting\vs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -431,17 +437,8 @@
     <ClCompile Include="MAGE\src\math\transform.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\scripting\variable_script_loader.cpp">
-      <Filter>Source Files\scripting</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\material\spectrum.cpp">
       <Filter>Source Files\material</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\scripting\variable_script_reader.cpp">
-      <Filter>Source Files\scripting</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\scripting\variable_script_writer.cpp">
-      <Filter>Source Files\scripting</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\string\line_reader.cpp">
       <Filter>Source Files\string</Filter>
@@ -460,6 +457,15 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\material\mtl\mtl_reader.cpp">
       <Filter>Source Files\material\mtl</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\scripting\vs\variable_script_loader.cpp">
+      <Filter>Source Files\scripting\vs</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\scripting\vs\variable_script_reader.cpp">
+      <Filter>Source Files\scripting\vs</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\scripting\vs\variable_script_writer.cpp">
+      <Filter>Source Files\scripting\vs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

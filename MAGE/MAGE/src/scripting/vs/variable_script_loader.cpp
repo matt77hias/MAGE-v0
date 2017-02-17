@@ -3,9 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\variable_script_loader.hpp"
-#include "scripting\variable_script_reader.hpp"
-#include "scripting\variable_script_writer.hpp"
+#include "scripting\vs\variable_script_loader.hpp"
+#include "scripting\vs\variable_script_reader.hpp"
+#include "scripting\vs\variable_script_writer.hpp"
 
 #pragma endregion
 

@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\vertex.hpp"
+#include "mesh\vertex.hpp"
 
 #pragma endregion
 

@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\vertex.hpp"
+#include "math\math.hpp"
 #include "collection\collection.hpp"
 
 #pragma endregion

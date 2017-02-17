@@ -7,7 +7,6 @@
 
 #include "memory\memory.hpp"
 #include "collection\collection.hpp"
-#include "math\vertex.hpp"
 
 #pragma endregion
 

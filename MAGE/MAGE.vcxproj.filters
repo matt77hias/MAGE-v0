@@ -243,9 +243,6 @@
     <ClInclude Include="MAGE\src\math\transform.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\math\vertex.hpp">
-      <Filter>Header Files\math</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\camera\camera.hpp">
       <Filter>Header Files\camera</Filter>
     </ClInclude>
@@ -363,6 +360,12 @@
     <ClInclude Include="MAGE\src\string\token.hpp">
       <Filter>Header Files\string</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\shaded_material.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\vertex.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -437,9 +440,6 @@
     <ClCompile Include="MAGE\src\math\transform.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\math\vertex.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\scripting\variable_script_loader.cpp">
       <Filter>Source Files\scripting</Filter>
     </ClCompile>
@@ -466,6 +466,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\string\token.cpp">
       <Filter>Source Files\string</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\vertex.cpp">
+      <Filter>Source Files\math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

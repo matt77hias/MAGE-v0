@@ -9,7 +9,7 @@
 #include "string\string_utils.hpp"
 #include "logging\error.hpp"
 #include "file\file_utils.hpp"
-#include "math\vertex.hpp"
+#include "mesh\vertex.hpp"
 #include "material\mtl_loader.hpp"
 
 #pragma endregion

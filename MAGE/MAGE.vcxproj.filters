@@ -64,9 +64,6 @@
     <Filter Include="Header Files\input">
       <UniqueIdentifier>{1b2b46df-06c6-4e3b-8350-fc302748c1ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\texture">
-      <UniqueIdentifier>{c02232af-e240-43db-9320-86021e99b290}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\texture">
       <UniqueIdentifier>{204a640f-99a9-48ae-91f8-f3a784014c52}</UniqueIdentifier>
     </Filter>
@@ -76,9 +73,6 @@
     <Filter Include="Header Files\ui">
       <UniqueIdentifier>{21c54364-7327-49d5-9a74-6e1f6a66edf4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\model">
-      <UniqueIdentifier>{0cfe8304-7c60-4a6d-a66f-a2456db4e063}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\scene">
       <UniqueIdentifier>{7db88752-544d-4175-b31a-2f1b575a29bf}</UniqueIdentifier>
     </Filter>
@@ -87,9 +81,6 @@
     </Filter>
     <Filter Include="Header Files\string">
       <UniqueIdentifier>{305f9f54-617c-4132-96aa-9a28c1f1f11d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\scene">
-      <UniqueIdentifier>{b1bfd0af-2ca4-4268-98f3-545a2fc9099d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\string">
       <UniqueIdentifier>{84047f47-c4e4-4aa7-9137-0dd833cb5411}</UniqueIdentifier>
@@ -106,14 +97,8 @@
     <Filter Include="Header Files\font">
       <UniqueIdentifier>{660c971a-3e19-4793-b5e5-7d829ee704ed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\font">
-      <UniqueIdentifier>{ecca1a1e-1f3d-45c9-acda-12dbbc9fab70}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\mesh">
       <UniqueIdentifier>{782ee454-4d9a-4d6e-9daa-32a156758e2f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\mesh">
-      <UniqueIdentifier>{a44ec8b5-e9d2-45a7-b3bd-68ab2226bc22}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\camera">
       <UniqueIdentifier>{a9fff7be-6c9a-43ad-9537-04834a43f9a1}</UniqueIdentifier>

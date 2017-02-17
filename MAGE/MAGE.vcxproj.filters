@@ -130,6 +130,9 @@
     <Filter Include="Source Files\material\mtl">
       <UniqueIdentifier>{765b83e1-3ee9-4bf0-9d8c-e29733e4d91b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\mesh\obj">
+      <UniqueIdentifier>{a6a4e748-0f93-4b11-b60d-46fc7f4c62d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -279,9 +282,6 @@
     <ClInclude Include="MAGE\src\model\model.hpp">
       <Filter>Header Files\model</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\obj_loader.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\resource\resource_manager.tpp">
       <Filter>Header Files\resource</Filter>
     </ClInclude>
@@ -315,20 +315,11 @@
     <ClInclude Include="MAGE\src\shader\shading.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\obj_tokens.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\scripting\variable_script_tokens.hpp">
       <Filter>Header Files\scripting</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\scripting\variable_script_writer.hpp">
       <Filter>Header Files\scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\obj_reader.tpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\obj_reader.hpp">
-      <Filter>Header Files\mesh</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\scripting\variable_script_reader.hpp">
       <Filter>Header Files\scripting</Filter>
@@ -356,6 +347,15 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\material\mtl\mtl_tokens.hpp">
       <Filter>Header Files\material\mtl</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\obj\obj_reader.hpp">
+      <Filter>Header Files\mesh\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\obj\obj_tokens.hpp">
+      <Filter>Header Files\mesh\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\obj\obj_loader.hpp">
+      <Filter>Header Files\mesh\obj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -491,6 +491,9 @@
     </None>
     <None Include="MAGE\src\shader\vertex_shader.tpp">
       <Filter>Header Files\shader</Filter>
+    </None>
+    <None Include="MAGE\src\mesh\obj\obj_reader.tpp">
+      <Filter>Header Files\mesh\obj</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -53,10 +53,9 @@
     <ClInclude Include="MAGE\src\mesh\mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh_descriptor.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh_object.hpp" />
-    <ClInclude Include="MAGE\src\mesh\obj_loader.hpp" />
-    <ClInclude Include="MAGE\src\mesh\obj_reader.tpp" />
-    <ClInclude Include="MAGE\src\mesh\obj_reader.hpp" />
-    <ClInclude Include="MAGE\src\mesh\obj_tokens.hpp" />
+    <ClInclude Include="MAGE\src\mesh\obj\obj_loader.hpp" />
+    <ClInclude Include="MAGE\src\mesh\obj\obj_reader.hpp" />
+    <ClInclude Include="MAGE\src\mesh\obj\obj_tokens.hpp" />
     <ClInclude Include="MAGE\src\mesh\vertex.hpp" />
     <ClInclude Include="MAGE\src\model\model.hpp" />
     <ClInclude Include="MAGE\src\model\model_loader.hpp" />
@@ -162,6 +161,7 @@
   <ItemGroup>
     <None Include="MAGE\src\memory\memory_arena.tpp" />
     <None Include="MAGE\src\mesh\mesh.tpp" />
+    <None Include="MAGE\src\mesh\obj\obj_reader.tpp" />
     <None Include="MAGE\src\model\model.tpp" />
     <None Include="MAGE\src\model\model_loader.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />

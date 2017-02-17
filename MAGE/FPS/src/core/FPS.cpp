@@ -49,8 +49,8 @@ class TestState : public State {
 
 		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_F2)) {
 			//PostQuitMessage(0);
-			VariableScript s(L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/script_test.mage");
-			s.ExportScript(L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/output.mage");
+			VariableScript s(L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/script_test.vs");
+			s.ExportScript(L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/output.vs");
 		}
 	}
 };

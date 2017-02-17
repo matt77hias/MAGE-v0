@@ -3,6 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "scripting\variable_script_loader.hpp"
 #include "scripting\vs\vs_loader.hpp"
 #include "logging\error.hpp"
 #include "file\file_utils.hpp"

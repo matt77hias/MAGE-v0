@@ -39,6 +39,7 @@
     <ClInclude Include="MAGE\src\logging\progress_reporter.hpp" />
     <ClInclude Include="MAGE\src\logging\timer.hpp" />
     <ClInclude Include="MAGE\src\material\material.hpp" />
+    <ClInclude Include="MAGE\src\material\material_loader.hpp" />
     <ClInclude Include="MAGE\src\material\mtl\mtl_loader.hpp" />
     <ClInclude Include="MAGE\src\material\mtl\mtl_reader.hpp" />
     <ClInclude Include="MAGE\src\material\mtl\mtl_tokens.hpp" />
@@ -105,6 +106,7 @@
     <ClCompile Include="MAGE\src\logging\logging.cpp" />
     <ClCompile Include="MAGE\src\logging\progress_reporter.cpp" />
     <ClCompile Include="MAGE\src\logging\timer.cpp" />
+    <ClCompile Include="MAGE\src\material\material_loader.cpp" />
     <ClCompile Include="MAGE\src\material\mtl\mtl_loader.cpp" />
     <ClCompile Include="MAGE\src\material\mtl\mtl_reader.cpp" />
     <ClCompile Include="MAGE\src\material\spectrum.cpp" />

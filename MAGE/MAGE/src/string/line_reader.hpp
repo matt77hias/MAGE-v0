@@ -68,21 +68,18 @@ namespace mage {
 		XMFLOAT3 ReadFloat3();
 		XMFLOAT4 ReadFloat4();
 
-		char *ReadOptionalChars(TokenResult *pr = nullptr);
-		string ReadOptionalString(const string &default_value = "", TokenResult *pr = nullptr);
-		string ReadOptionalQuotedString(const string &default_value = "", TokenResult *pr = nullptr);
-		bool ReadOptionalBool(bool default_value = false, TokenResult *pr = nullptr);
-		int ReadOptionalInt(int default_value = 0, TokenResult *pr = nullptr);
-		unsigned int ReadOptionalUnsignedInt(unsigned int default_value = 0, TokenResult *pr = nullptr);
-		long ReadOptionalLong(long default_value = 0, TokenResult *pr = nullptr);
-		unsigned long ReadOptionalUnsignedLong(unsigned long default_value = 0, TokenResult *pr = nullptr);
-		long long ReadOptionalLongLong(long long default_value = 0, TokenResult *pr = nullptr);
-		unsigned long long ReadOptionalUnsignedLongLong(unsigned long long default_value = 0, TokenResult *pr = nullptr);
-		float ReadOptionalFloat(float default_value = 0.0f, TokenResult *pr = nullptr);
-		double ReadOptionalDouble(double default_value = 0.0, TokenResult *pr = nullptr);
-		XMFLOAT2 ReadOptionalFloat2(XMFLOAT2 default_value = XMFLOAT2(), TokenResult *pr = nullptr);
-		XMFLOAT3 ReadOptionalFloat3(XMFLOAT3 default_value = XMFLOAT3(), TokenResult *pr = nullptr);
-		XMFLOAT4 ReadOptionalFloat4(XMFLOAT4 default_value = XMFLOAT4(), TokenResult *pr = nullptr);
+		bool HasChars() const;
+		bool HasString() const;
+		bool HasQuotedString() const;
+		bool HasBool() const;
+		bool HasInt() const;
+		bool HasUnsignedInt() const;
+		bool HasLong() const;
+		bool HasUnsignedLong() const;
+		bool HasLongLong() const;
+		bool HasUnsignedLongLong() const;
+		bool HasFloat() const;
+		bool HasDouble() const;
 
 		char *m_context;
 

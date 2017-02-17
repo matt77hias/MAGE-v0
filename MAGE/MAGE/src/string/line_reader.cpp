@@ -122,12 +122,12 @@ namespace mage {
 			next_token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
 		}
 	}
-
+	
 	char *LineReader::ReadChars() {
 		char *result;
-		const TokenResult parse_result = mage::ReadChars(nullptr, &m_context, &result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadChars(nullptr, &m_context, &result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -137,12 +137,11 @@ namespace mage {
 		}
 		}
 	}
-
 	string LineReader::ReadString() {
 		string result;
-		const TokenResult parse_result = mage::ReadString(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadString(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -152,7 +151,6 @@ namespace mage {
 		}
 		}
 	}
-
 	string LineReader::ReadQuotedString() {
 		const char *first_quote = strchr(m_context, '"');
 		char *last_quote = strrchr(m_context, '"');
@@ -167,12 +165,11 @@ namespace mage {
 
 		return first_quote + 1;
 	}
-
 	bool LineReader::ReadBool() {
 		bool result;
-		const TokenResult parse_result = mage::ReadBool(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadBool(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -186,12 +183,11 @@ namespace mage {
 		}
 		}
 	}
-
 	int LineReader::ReadInt() {
 		int result;
-		const TokenResult parse_result = mage::ReadInt(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadInt(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -205,12 +201,11 @@ namespace mage {
 		}
 		}
 	}
-
 	unsigned int LineReader::ReadUnsignedInt() {
 		unsigned int result;
-		const TokenResult parse_result = mage::ReadUnsignedInt(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadUnsignedInt(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -224,12 +219,11 @@ namespace mage {
 		}
 		}
 	}
-
 	long LineReader::ReadLong() {
 		long result;
-		const TokenResult parse_result = mage::ReadLong(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadLong(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -243,12 +237,11 @@ namespace mage {
 		}
 		}
 	}
-
 	unsigned long LineReader::ReadUnsignedLong() {
 		unsigned long result;
-		const TokenResult parse_result = mage::ReadUnsignedLong(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadUnsignedLong(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -262,12 +255,11 @@ namespace mage {
 		}
 		}
 	}
-
 	long long LineReader::ReadLongLong() {
 		long long result;
-		const TokenResult parse_result = mage::ReadLongLong(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadLongLong(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -281,12 +273,11 @@ namespace mage {
 		}
 		}
 	}
-
 	unsigned long long LineReader::ReadUnsignedLongLong() {
 		unsigned long long result;
-		const TokenResult parse_result = mage::ReadUnsignedLongLong(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadUnsignedLongLong(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -300,12 +291,11 @@ namespace mage {
 		}
 		}
 	}
-
 	float LineReader::ReadFloat() {
 		float result;
-		const TokenResult parse_result = mage::ReadFloat(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadFloat(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -319,12 +309,11 @@ namespace mage {
 		}
 		}
 	}
-
 	double LineReader::ReadDouble() {
 		double result;
-		const TokenResult parse_result = mage::ReadDouble(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadDouble(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -338,12 +327,11 @@ namespace mage {
 		}
 		}
 	}
-
 	XMFLOAT2 LineReader::ReadFloat2() {
 		XMFLOAT2 result;
-		const TokenResult parse_result = mage::ReadFloat2(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadFloat2(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -357,12 +345,11 @@ namespace mage {
 		}
 		}
 	}
-
 	XMFLOAT3 LineReader::ReadFloat3() {
 		XMFLOAT3 result;
-		const TokenResult parse_result = mage::ReadFloat3(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadFloat3(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -376,12 +363,11 @@ namespace mage {
 		}
 		}
 	}
-
 	XMFLOAT4 LineReader::ReadFloat4() {
 		XMFLOAT4 result;
-		const TokenResult parse_result = mage::ReadFloat4(nullptr, &m_context, result, GetDelimiters().c_str());
+		const TokenResult token_result = mage::ReadFloat4(nullptr, &m_context, result, GetDelimiters().c_str());
 
-		switch (parse_result) {
+		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
@@ -396,327 +382,40 @@ namespace mage {
 		}
 	}
 
-	char *LineReader::ReadOptionalChars(TokenResult *pr) {
-		char *result;
-		const TokenResult parse_result = mage::ReadChars(nullptr, &m_context, &result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		default: {
-			return "";
-		}
-		}
+	bool LineReader::HasChars() const {
+		return mage::HasChars(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-
-	string LineReader::ReadOptionalString(const string &default_value, TokenResult *pr) {
-		string result;
-		const TokenResult parse_result = mage::ReadString(nullptr, &m_context, result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		default: {
-			return default_value;
-		}
-		}
+	bool LineReader::HasString() const {
+		return mage::HasString(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-
-	string LineReader::ReadOptionalQuotedString(const string &default_value, TokenResult *pr) {
-		const char *first_quote = strchr(m_context, '"');
-		char *last_quote = strrchr(m_context, '"');
-
-		if (first_quote == last_quote || !str_contains(GetDelimiters().c_str(), *(last_quote + 1))) {
-
-			if (pr) {
-				*pr = invalid_token;
-			}
-
-			Error("%ls: line %u: no quoted string value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return default_value;
-		}
-
-		if (pr) {
-			*pr = valid_token;
-		}
-
-		*last_quote = '\0';
-		m_context = last_quote + 1;
-
-		return first_quote + 1;
+	bool LineReader::HasQuotedString() const {
+		return false;
 	}
-
-	bool LineReader::ReadOptionalBool(bool default_value, TokenResult *pr) {
-		bool result;
-		const TokenResult parse_result = mage::ReadBool(nullptr, &m_context, result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		case no_token: {
-			return default_value;
-		}
-		default: {
-			Error("%ls: line %u: invalid bool value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return default_value;
-		}
-		}
+	bool LineReader::HasBool() const {
+		return mage::HasBool(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-
-	int LineReader::ReadOptionalInt(int default_value, TokenResult *pr) {
-		int result;
-		const TokenResult parse_result = mage::ReadInt(nullptr, &m_context, result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		case no_token: {
-			return default_value;
-		}
-		default: {
-			Error("%ls: line %u: invalid int value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return default_value;
-		}
-		}
+	bool LineReader::HasInt() const {
+		return mage::HasInt(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-
-	unsigned int LineReader::ReadOptionalUnsignedInt(unsigned int default_value, TokenResult *pr) {
-		unsigned int result;
-		const TokenResult parse_result = mage::ReadUnsignedInt(nullptr, &m_context, result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		case no_token: {
-			return default_value;
-		}
-		default: {
-			Error("%ls: line %u: invalid unsigned int value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return default_value;
-		}
-		}
+	bool LineReader::HasUnsignedInt() const {
+		return mage::HasUnsignedInt(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-
-	long LineReader::ReadOptionalLong(long default_value, TokenResult *pr) {
-		long result;
-		const TokenResult parse_result = mage::ReadLong(nullptr, &m_context, result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		case no_token: {
-			return default_value;
-		}
-		default: {
-			Error("%ls: line %u: invalid long value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return default_value;
-		}
-		}
+	bool LineReader::HasLong() const {
+		return mage::HasLong(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-
-	unsigned long LineReader::ReadOptionalUnsignedLong(unsigned long default_value, TokenResult *pr) {
-		unsigned long result;
-		const TokenResult parse_result = mage::ReadUnsignedLong(nullptr, &m_context, result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		case no_token: {
-			return default_value;
-		}
-		default: {
-			Error("%ls: line %u: invalid unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return default_value;
-		}
-		}
+	bool LineReader::HasUnsignedLong() const {
+		return mage::HasUnsignedLong(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-
-	long long LineReader::ReadOptionalLongLong(long long default_value, TokenResult *pr) {
-		long long result;
-		const TokenResult parse_result = mage::ReadLongLong(nullptr, &m_context, result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		case no_token: {
-			return default_value;
-		}
-		default: {
-			Error("%ls: line %u: invalid long value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return default_value;
-		}
-		}
+	bool LineReader::HasLongLong() const {
+		return mage::HasLongLong(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-
-	unsigned long long LineReader::ReadOptionalUnsignedLongLong(unsigned long long default_value, TokenResult *pr) {
-		unsigned long long result;
-		const TokenResult parse_result = mage::ReadUnsignedLongLong(nullptr, &m_context, result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		case no_token: {
-			return default_value;
-		}
-		default: {
-			Error("%ls: line %u: invalid unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return default_value;
-		}
-		}
+	bool LineReader::HasUnsignedLongLong() const {
+		return mage::HasUnsignedLongLong(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-
-	float LineReader::ReadOptionalFloat(float default_value, TokenResult *pr) {
-		float result;
-		const TokenResult parse_result = mage::ReadFloat(nullptr, &m_context, result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		case no_token: {
-			return default_value;
-		}
-		default: {
-			Error("%ls: line %u: invalid float value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return default_value;
-		}
-		}
+	bool LineReader::HasFloat() const {
+		return mage::HasFloat(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-
-	double LineReader::ReadOptionalDouble(double default_value, TokenResult *pr) {
-		double result;
-		const TokenResult parse_result = mage::ReadDouble(nullptr, &m_context, result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		case no_token: {
-			return default_value;
-		}
-		default: {
-			Error("%ls: line %u: invalid double value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return default_value;
-		}
-		}
-	}
-
-	XMFLOAT2 LineReader::ReadOptionalFloat2(XMFLOAT2 default_value, TokenResult *pr) {
-		XMFLOAT2 result;
-		const TokenResult parse_result = mage::ReadFloat2(nullptr, &m_context, result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		case no_token: {
-			return default_value;
-		}
-		default: {
-			Error("%ls: line %u: invalid float2 value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return default_value;
-		}
-		}
-	}
-
-	XMFLOAT3 LineReader::ReadOptionalFloat3(XMFLOAT3 default_value, TokenResult *pr) {
-		XMFLOAT3 result;
-		const TokenResult parse_result = mage::ReadFloat3(nullptr, &m_context, result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		case no_token: {
-			return default_value;
-		}
-		default: {
-			Error("%ls: line %u: invalid float3 value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return default_value;
-		}
-		}
-	}
-
-	XMFLOAT4 LineReader::ReadOptionalFloat4(XMFLOAT4 default_value, TokenResult *pr) {
-		XMFLOAT4 result;
-		const TokenResult parse_result = mage::ReadFloat4(nullptr, &m_context, result, GetDelimiters().c_str());
-
-		if (pr) {
-			*pr = parse_result;
-		}
-
-		switch (parse_result) {
-		case valid_token: {
-			return result;
-		}
-		case no_token: {
-			return default_value;
-		}
-		default: {
-			Error("%ls: line %u: invalid float4 value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return default_value;
-		}
-		}
+	bool LineReader::HasDouble() const {
+		return mage::HasDouble(m_context, GetDelimiters().c_str()) == valid_token;
 	}
 }

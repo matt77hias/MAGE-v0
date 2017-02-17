@@ -86,58 +86,48 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLDissolve() {
-		float dissolve;
-
-		const char *token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
-		if (!token) {
-			Error("%ls: line %u: no float value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			dissolve = 0.0f;
-		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_DISSOLVE_HALO)) {
-			Warning("%ls: line %u: unsupported halo effect.", GetFilename().c_str(), GetCurrentLineNumber());
-			dissolve = ReadFloat();
-		}
-		else if (StringToFloat(token, dissolve) == invalid_token) {
-			Error("%ls: line %u: invalid float value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			dissolve = 0.0f;
+		if (HasChars()) {
+			const char *token = ReadChars();
+			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 		}
 
-		m_material_buffer.back().m_dissolve = dissolve;
+		m_material_buffer.back().m_dissolve = ReadFloat();
 	}
 
 	RGBSpectrum MTLReader::ReadMTLSpectrum() {
-		const char *token = strtok_s(nullptr, GetDelimiters().c_str(), &m_context);
+		if (HasChars()) {
+			const char *str = ReadChars();
 
-		// No spectrum
-		if (!token) {
-			Error("%ls: line %u: no spectrum found.", GetFilename().c_str(), GetCurrentLineNumber());
-			return RGBSpectrum();
-		}
+			// XYZ spectrum
+			if (str_equals(str, MAGE_MTL_TOKEN_XYZ)) {
+				const float x = ReadFloat();
+				float y = x;
+				float z = x;
+				if (HasFloat()) {
+					y = ReadFloat();
+					z = ReadFloat();
+				}
+				return XYZSpectrum(RGBSpectrum(x, y, z));
+			}
+			
+			// Custom spectrum
+			if (str_equals(str, MAGE_MTL_TOKEN_SPECTRAL)) {
+				Warning("%ls: line %u: unsupported custom spectrum.", GetFilename().c_str(), GetCurrentLineNumber());
+				return RGBSpectrum();
+			}
 
-		// XYZ spectrum
-		if (str_equals(token, MAGE_MTL_TOKEN_XYZ)) {
-			const float x = ReadFloat();
-			TokenResult pr;
-			const float y = ReadOptionalFloat(x, &pr);
-			const float z = (pr != valid_token) ? x : ReadFloat();
-			return RGBSpectrum(XYZSpectrum(x, y, z));
-		}
-
-		// Custom spectrum
-		if (str_equals(token, MAGE_MTL_TOKEN_SPECTRAL)) {
-			Warning("%ls: line %u: unsupported custom spectrum.", GetFilename().c_str(), GetCurrentLineNumber());
+			Warning("%ls: line %u: unsupported spectrum: %s.", GetFilename().c_str(), GetCurrentLineNumber(), str);
 			return RGBSpectrum();
 		}
 
 		// RGB spectrum
-		float x;
-		if (StringToFloat(token, x) != valid_token) {
-			Error("%ls: line %u: invalid float value found.", GetFilename().c_str(), GetCurrentLineNumber());
-			x = 0.0f;
+		const float x = ReadFloat();
+		float y = x;
+		float z = x;
+		if (HasFloat()) {
+			y = ReadFloat();
+			z = ReadFloat();
 		}
-		TokenResult pr;
-		const float y = ReadOptionalFloat(x, &pr);
-		const float z = (pr != valid_token) ? x : ReadFloat();
 		return RGBSpectrum(x, y, z);
 	}
 }

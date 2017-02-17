@@ -44,6 +44,16 @@ namespace mage {
 	TokenResult StringToFloat(const char *str, float &result);
 	TokenResult StringToDouble(const char *str, double &result);
 
+	TokenResult StringToBool(const char *begin, const char *end, bool &result);
+	TokenResult StringToInt(const char *begin, const char *end, int &result);
+	TokenResult StringToUnsignedInt(const char *begin, const char *end, unsigned int &result);
+	TokenResult StringToLong(const char *begin, const char *end, long &result);
+	TokenResult StringToUnsignedLong(const char *begin, const char *end, unsigned long &result);
+	TokenResult StringToLongLong(const char *begin, const char *end, long long &result);
+	TokenResult StringToUnsignedLongLong(const char *begin, const char *end, unsigned long long &result);
+	TokenResult StringToFloat(const char *begin, const char *end, float &result);
+	TokenResult StringToDouble(const char *begin, const char *end, double &result);
+
 	TokenResult StringPrefixToInt(const char *str, int &result);
 	TokenResult StringPrefixToUnsignedInt(const char *str, unsigned int &result);
 	TokenResult StringPrefixToLong(const char *str, long &result);
@@ -71,4 +81,21 @@ namespace mage {
 	TokenResult ReadFloat2(char *str, char **context, XMFLOAT2 &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult ReadFloat3(char *str, char **context, XMFLOAT3 &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult ReadFloat4(char *str, char **context, XMFLOAT4 &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+
+	TokenResult HasChars(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult HasString(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult HasBool(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult HasInt(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult HasUnsignedInt(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult HasLong(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult HasUnsignedLong(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult HasLongLong(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult HasUnsignedLongLong(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult HasFloat(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult HasDouble(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+
+	char *SkipDelimiters(char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	const char *SkipDelimiters(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	char *GotoDelimiters(char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	const char *GotoDelimiters(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 }

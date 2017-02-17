@@ -16,6 +16,5 @@
 #define MAGE_MTL_TOKEN_SPECULAR_EXPONENT "Ns"
 #define MAGE_MTL_TOKEN_OPTICAL_DENSITY "Ni"
 #define MAGE_MTL_TOKEN_DISSOLVE "d"
-#define MAGE_MTL_TOKEN_DISSOLVE_HALO "-halo"
 
 #pragma endregion

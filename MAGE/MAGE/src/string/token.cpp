@@ -312,11 +312,11 @@ namespace mage {
 			return no_token;
 		}
 
-		char *first_quote = strchr(start, '"');
+		char *first_quote = str_escape_first(start, '"');
 		if (!first_quote) {
 			return invalid_token;
 		}
-		char *last_quote = strchr(first_quote + 1, '"');
+		char *last_quote = str_escape_first(first_quote + 1, '"');
 		if (!last_quote) {
 			return invalid_token;
 		}
@@ -434,11 +434,11 @@ namespace mage {
 			return no_token;
 		}
 		
-		const char *first_quote = strchr(start, '"');
+		const char *first_quote = str_escape_first(start, '"');
 		if (!first_quote) {
 			return invalid_token;
 		}
-		const char *last_quote = strchr(first_quote + 1, '"');
+		const char *last_quote = str_escape_first(first_quote + 1, '"');
 		if (!last_quote) {
 			return invalid_token;
 		}

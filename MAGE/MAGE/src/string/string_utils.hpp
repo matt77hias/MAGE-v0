@@ -99,6 +99,62 @@ namespace mage {
 	}
 
 	/**
+	 Finds the first occurrence of the given character in the given string
+	 neglecting the usage of the given character in a custom escape sequence. 
+	 
+	 @param[in]		str
+					A pointer to the string to be scanned.
+	 @param[in]		c
+					The character to match.
+	 @return		@c nullptr if @a str does not contain @a c.
+	 @return		A pointer to the first occurrence of @a c in @a str.
+
+	 */
+	const char *str_escape_first(const char *str, char c);
+
+	/**
+	 Finds the first occurrence of the given character in the given string
+	 neglecting the usage of the given character in a custom escape sequence.
+
+	 @param[in]		str
+					A pointer to the string to be scanned.
+	 @param[in]		c
+					The character to match.
+	 @return		@c nullptr if @a str does not contain @a c.
+	 @return		A pointer to the first occurrence of @a c in @a str.
+
+	 */
+	char *str_escape_first(char *str, char c);
+
+	/**
+	 Finds the first occurrence of the given character in the given string
+	 neglecting the usage of the given character in a custom escape sequence.
+
+	 @param[in]		str
+					A pointer to the string to be scanned.
+	 @param[in]		c
+					The character to match.
+	 @return		@c nullptr if @a str does not contain @a c.
+	 @return		A pointer to the first occurrence of @a c in @a str.
+
+	 */
+	const wchar_t *str_escape_first(const wchar_t *str, wchar_t c);
+
+	/**
+	 Finds the first occurrence of the given character in the given string
+	 neglecting the usage of the given character in a custom escape sequence.
+
+	 @param[in]		str
+					A pointer to the string to be scanned.
+	 @param[in]		c
+					The character to match.
+	 @return		@c nullptr if @a str does not contain @a c.
+	 @return		A pointer to the first occurrence of @a c in @a str.
+
+	 */
+	wchar_t *str_escape_first(wchar_t *str, wchar_t c);
+
+	/**
 	 Reads characters from the given input string and stores them as a C string into @a str 
 	 until (num-1) characters have been read or either a newline or the end-of-file is reached, 
 	 whichever happens first.

@@ -60,7 +60,7 @@ void StateSetup() {
 }
 
 /**
-The user-provided entry point for MAGE.
+ The user-provided entry point for MAGE.
 
  @param[in]		hinstance
 				A handle to the current instance of the application.

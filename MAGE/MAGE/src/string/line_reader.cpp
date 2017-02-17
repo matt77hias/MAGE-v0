@@ -157,7 +157,7 @@ namespace mage {
 		const char *first_quote = strchr(m_context, '"');
 		char *last_quote = strrchr(m_context, '"');
 
-		if (first_quote == last_quote || str_contains(GetDelimiters().c_str(), *(last_quote + 1))) {
+		if (first_quote == last_quote || !str_contains(GetDelimiters().c_str(), *(last_quote + 1))) {
 			Error("%ls: line %u: no quoted string value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return "";
 		}
@@ -398,7 +398,7 @@ namespace mage {
 		const char *first_quote = strchr(m_context, '"');
 		char *last_quote = strrchr(m_context, '"');
 
-		if (first_quote == last_quote || str_contains(GetDelimiters().c_str(), *(last_quote + 1))) {
+		if (first_quote == last_quote || !str_contains(GetDelimiters().c_str(), *(last_quote + 1))) {
 
 			if (pr) {
 				*pr = invalid_token;

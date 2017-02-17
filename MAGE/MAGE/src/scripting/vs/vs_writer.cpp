@@ -80,7 +80,7 @@ namespace mage {
 			}
 			case UnknownType: {
 				const char *value = (char *)raw_value;
-				sprintf_s(output, (unsigned int)_countof(output), "%s %s %s", MAGE_VS_TOKEN_UNKNOWN, value);
+				sprintf_s(output, (unsigned int)_countof(output), "%s %s %s", MAGE_VS_TOKEN_UNKNOWN, name, value);
 				break;
 			}
 			default: {

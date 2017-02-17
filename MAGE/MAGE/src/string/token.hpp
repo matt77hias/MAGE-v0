@@ -51,7 +51,7 @@ namespace mage {
 	TokenResult StringToInt32(const char *str, int32_t &result);
 	TokenResult StringToUInt32(const char *str, uint32_t &result);
 	TokenResult StringToInt64(const char *str, int64_t &result);
-	TokenResult StringToUInit64(const char *str, uint64_t &result);
+	TokenResult StringToUInt64(const char *str, uint64_t &result);
 	TokenResult StringToFloat(const char *str, float &result);
 	TokenResult StringToDouble(const char *str, double &result);
 

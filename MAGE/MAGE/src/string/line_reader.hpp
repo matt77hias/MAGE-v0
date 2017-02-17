@@ -1,15 +1,6 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdint.h>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -56,12 +47,14 @@ namespace mage {
 		string ReadString();
 		string ReadQuotedString();
 		bool ReadBool();
-		int ReadInt();
-		unsigned int ReadUnsignedInt();
-		long ReadLong();
-		unsigned long ReadUnsignedLong();
-		long long ReadLongLong();
-		unsigned long long ReadUnsignedLongLong();
+		int8_t ReadInt8();
+		uint8_t ReadUInt8();
+		int16_t ReadInt16();
+		uint16_t ReadUInt16();
+		int32_t ReadInt32();
+		uint32_t ReadUInt32();
+		int64_t ReadInt64();
+		uint64_t ReadUInt64();
 		float ReadFloat();
 		double ReadDouble();
 		XMFLOAT2 ReadFloat2();
@@ -72,12 +65,14 @@ namespace mage {
 		bool HasString() const;
 		bool HasQuotedString() const;
 		bool HasBool() const;
-		bool HasInt() const;
-		bool HasUnsignedInt() const;
-		bool HasLong() const;
-		bool HasUnsignedLong() const;
-		bool HasLongLong() const;
-		bool HasUnsignedLongLong() const;
+		bool HasInt8() const;
+		bool HasUInt8() const;
+		bool HasInt16() const;
+		bool HasUInt16() const;
+		bool HasInt32() const;
+		bool HasUInt32() const;
+		bool HasInt64() const;
+		bool HasUInt64() const;
 		bool HasFloat() const;
 		bool HasDouble() const;
 

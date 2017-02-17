@@ -187,9 +187,9 @@ namespace mage {
 		}
 		}
 	}
-	int LineReader::ReadInt() {
-		int result;
-		const TokenResult token_result = mage::ReadInt(nullptr, &m_context, result, GetDelimiters().c_str());
+	int8_t LineReader::ReadInt8() {
+		int8_t result;
+		const TokenResult token_result = mage::ReadInt8(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case valid_token: {
@@ -205,9 +205,9 @@ namespace mage {
 		}
 		}
 	}
-	unsigned int LineReader::ReadUnsignedInt() {
-		unsigned int result;
-		const TokenResult token_result = mage::ReadUnsignedInt(nullptr, &m_context, result, GetDelimiters().c_str());
+	uint8_t LineReader::ReadUInt8() {
+		uint8_t result;
+		const TokenResult token_result = mage::ReadUInt8(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case valid_token: {
@@ -223,74 +223,110 @@ namespace mage {
 		}
 		}
 	}
-	long LineReader::ReadLong() {
-		long result;
-		const TokenResult token_result = mage::ReadLong(nullptr, &m_context, result, GetDelimiters().c_str());
+	int16_t LineReader::ReadInt16() {
+		int16_t result;
+		const TokenResult token_result = mage::ReadInt16(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
 		case no_token: {
-			Error("%ls: line %u: no long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			Error("%ls: line %u: no int value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return 0;
 		}
 		default: {
-			Error("%ls: line %u: invalid long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			Error("%ls: line %u: invalid int value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return 0;
 		}
 		}
 	}
-	unsigned long LineReader::ReadUnsignedLong() {
-		unsigned long result;
-		const TokenResult token_result = mage::ReadUnsignedLong(nullptr, &m_context, result, GetDelimiters().c_str());
+	uint16_t LineReader::ReadUInt16() {
+		uint16_t result;
+		const TokenResult token_result = mage::ReadUInt16(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
 		case no_token: {
-			Error("%ls: line %u: no unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			Error("%ls: line %u: no unsigned int value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return 0;
 		}
 		default: {
-			Error("%ls: line %u: invalid unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			Error("%ls: line %u: invalid unsigned int value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return 0;
 		}
 		}
 	}
-	long long LineReader::ReadLongLong() {
-		long long result;
-		const TokenResult token_result = mage::ReadLongLong(nullptr, &m_context, result, GetDelimiters().c_str());
+	int32_t LineReader::ReadInt32() {
+		int32_t result;
+		const TokenResult token_result = mage::ReadInt32(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
 		case no_token: {
-			Error("%ls: line %u: no long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			Error("%ls: line %u: no int value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return 0;
 		}
 		default: {
-			Error("%ls: line %u: invalid long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			Error("%ls: line %u: invalid int value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return 0;
 		}
 		}
 	}
-	unsigned long long LineReader::ReadUnsignedLongLong() {
-		unsigned long long result;
-		const TokenResult token_result = mage::ReadUnsignedLongLong(nullptr, &m_context, result, GetDelimiters().c_str());
+	uint32_t LineReader::ReadUInt32() {
+		uint32_t result;
+		const TokenResult token_result = mage::ReadUInt32(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case valid_token: {
 			return result;
 		}
 		case no_token: {
-			Error("%ls: line %u: no unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			Error("%ls: line %u: no unsigned int value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return 0;
 		}
 		default: {
-			Error("%ls: line %u: invalid unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			Error("%ls: line %u: invalid unsigned int value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
+		}
+		}
+	}
+	int64_t LineReader::ReadInt64() {
+		int64_t result;
+		const TokenResult token_result = mage::ReadInt64(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		switch (token_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			Error("%ls: line %u: no int value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
+		}
+		default: {
+			Error("%ls: line %u: invalid int value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
+		}
+		}
+	}
+	uint64_t LineReader::ReadUInt64() {
+		uint64_t result;
+		const TokenResult token_result = mage::ReadUInt64(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		switch (token_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			Error("%ls: line %u: no unsigned int value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
+		}
+		default: {
+			Error("%ls: line %u: invalid unsigned int value found.", GetFilename().c_str(), GetCurrentLineNumber());
 			return 0;
 		}
 		}
@@ -398,23 +434,29 @@ namespace mage {
 	bool LineReader::HasBool() const {
 		return mage::HasBool(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-	bool LineReader::HasInt() const {
-		return mage::HasInt(m_context, GetDelimiters().c_str()) == valid_token;
+	bool LineReader::HasInt8() const {
+		return mage::HasInt8(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-	bool LineReader::HasUnsignedInt() const {
-		return mage::HasUnsignedInt(m_context, GetDelimiters().c_str()) == valid_token;
+	bool LineReader::HasUInt8() const {
+		return mage::HasUInt8(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-	bool LineReader::HasLong() const {
-		return mage::HasLong(m_context, GetDelimiters().c_str()) == valid_token;
+	bool LineReader::HasInt16() const {
+		return mage::HasInt16(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-	bool LineReader::HasUnsignedLong() const {
-		return mage::HasUnsignedLong(m_context, GetDelimiters().c_str()) == valid_token;
+	bool LineReader::HasUInt16() const {
+		return mage::HasUInt16(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-	bool LineReader::HasLongLong() const {
-		return mage::HasLongLong(m_context, GetDelimiters().c_str()) == valid_token;
+	bool LineReader::HasInt32() const {
+		return mage::HasInt32(m_context, GetDelimiters().c_str()) == valid_token;
 	}
-	bool LineReader::HasUnsignedLongLong() const {
-		return mage::HasUnsignedLongLong(m_context, GetDelimiters().c_str()) == valid_token;
+	bool LineReader::HasUInt32() const {
+		return mage::HasUInt32(m_context, GetDelimiters().c_str()) == valid_token;
+	}
+	bool LineReader::HasInt64() const {
+		return mage::HasInt64(m_context, GetDelimiters().c_str()) == valid_token;
+	}
+	bool LineReader::HasUInt64() const {
+		return mage::HasUInt64(m_context, GetDelimiters().c_str()) == valid_token;
 	}
 	bool LineReader::HasFloat() const {
 		return mage::HasFloat(m_context, GetDelimiters().c_str()) == valid_token;

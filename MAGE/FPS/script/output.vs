@@ -7,6 +7,6 @@ float4 a_float4 7.070000 8.080000 9.090000 10.100000
 int a_int 1
 int2 a_int2 2 3
 int3 a_int3 4 5 6
-string a_string "The quick brown fox jumps over the lazy dog."
+string a_string "\"The quick brown fox jumps over the lazy dog\"."
 bool a_true_bool true
 unknown a_unknown abc123

@@ -30,58 +30,76 @@ namespace mage {
 		result = false;
 		return (str_equals(str, "false")) ? valid_token : invalid_token;
 	}
-	TokenResult StringToInt(const char *str, int &result) {
+	TokenResult StringToInt8(const char *str, int8_t &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = (int)strtol(str, &inner_context, 10);
+		result = (int8_t)strtol(str, &inner_context, 10);
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
-	TokenResult StringToUnsignedInt(const char *str, unsigned int &result) {
+	TokenResult StringToUInt8(const char *str, uint8_t &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = (unsigned int)strtoul(str, &inner_context, 10);
+		result = (uint8_t)strtoul(str, &inner_context, 10);
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
-	TokenResult StringToLong(const char *str, long &result) {
+	TokenResult StringToInt16(const char *str, int16_t &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = strtol(str, &inner_context, 10);
+		result = (int16_t)strtol(str, &inner_context, 10);
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
-	TokenResult StringToUnsignedLong(const char *str, unsigned long &result) {
+	TokenResult StringToUInt16(const char *str, uint16_t &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = strtoul(str, &inner_context, 10);
+		result = (uint16_t)strtoul(str, &inner_context, 10);
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
-	TokenResult StringToLongLong(const char *str, long long &result) {
+	TokenResult StringToInt32(const char *str, int32_t &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = strtoll(str, &inner_context, 10);
+		result = (int32_t)strtol(str, &inner_context, 10);
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
-	TokenResult StringToUnsignedLongLong(const char *str, unsigned long long &result) {
+	TokenResult StringToUInt32(const char *str, uint32_t &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = strtoull(str, &inner_context, 10);
+		result = (uint32_t)strtoul(str, &inner_context, 10);
+		return (*inner_context == '\0') ? valid_token : invalid_token;
+	}
+	TokenResult StringToInt64(const char *str, int64_t &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = (int64_t)strtoll(str, &inner_context, 10);
+		return (*inner_context == '\0') ? valid_token : invalid_token;
+	}
+	TokenResult StringToUInt64(const char *str, uint64_t &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = (uint64_t)strtoull(str, &inner_context, 10);
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
 	TokenResult StringToFloat(const char *str, float &result) {
@@ -138,58 +156,76 @@ namespace mage {
 		result = false;
 		return invalid_token;
 	}
-	TokenResult StringToInt(const char *begin, const char *end, int &result) {
+	TokenResult StringToInt8(const char *begin, const char *end, int8_t &result) {
 		if (!begin) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = (int)strtol(begin, &inner_context, 10);
+		result = (int8_t)strtol(begin, &inner_context, 10);
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
-	TokenResult StringToUnsignedInt(const char *begin, const char *end, unsigned int &result) {
+	TokenResult StringToUInt8(const char *begin, const char *end, uint8_t &result) {
 		if (!begin) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = (unsigned int)strtoul(begin, &inner_context, 10);
+		result = (uint8_t)strtoul(begin, &inner_context, 10);
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
-	TokenResult StringToLong(const char *begin, const char *end, long &result) {
+	TokenResult StringToInt16(const char *begin, const char *end, int16_t &result) {
 		if (!begin) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = strtol(begin, &inner_context, 10);
+		result = (int16_t)strtol(begin, &inner_context, 10);
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
-	TokenResult StringToUnsignedLong(const char *begin, const char *end, unsigned long &result) {
+	TokenResult StringToUInt16(const char *begin, const char *end, uint16_t &result) {
 		if (!begin) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = strtoul(begin, &inner_context, 10);
+		result = (uint16_t)strtoul(begin, &inner_context, 10);
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
-	TokenResult StringToLongLong(const char *begin, const char *end, long long &result) {
+	TokenResult StringToInt32(const char *begin, const char *end, int32_t &result) {
 		if (!begin) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = strtoll(begin, &inner_context, 10);
+		result = (int32_t)strtol(begin, &inner_context, 10);
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
-	TokenResult StringToUnsignedLongLong(const char *begin, const char *end, unsigned long long &result) {
+	TokenResult StringToUInt32(const char *begin, const char *end, uint32_t &result) {
 		if (!begin) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = strtoull(begin, &inner_context, 10);
+		result = (uint32_t)strtoul(begin, &inner_context, 10);
+		return (inner_context == end) ? valid_token : invalid_token;
+	}
+	TokenResult StringToInt64(const char *begin, const char *end, int64_t &result) {
+		if (!begin) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = (int64_t)strtoll(begin, &inner_context, 10);
+		return (inner_context == end) ? valid_token : invalid_token;
+	}
+	TokenResult StringToUInt64(const char *begin, const char *end, uint64_t &result) {
+		if (!begin) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = (uint64_t)strtoull(begin, &inner_context, 10);
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
 	TokenResult StringToFloat(const char *begin, const char *end, float &result) {
@@ -211,58 +247,76 @@ namespace mage {
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
 
-	TokenResult StringPrefixToInt(const char *str, int &result) {
+	TokenResult StringPrefixToInt8(const char *str, int8_t &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = (int)strtol(str, &inner_context, 10);
+		result = (int8_t)strtol(str, &inner_context, 10);
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
-	TokenResult StringPrefixToUnsignedInt(const char *str, unsigned int &result) {
+	TokenResult StringPrefixToUInt8(const char *str, uint8_t &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = (unsigned int)strtoul(str, &inner_context, 10);
+		result = (uint8_t)strtoul(str, &inner_context, 10);
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
-	TokenResult StringPrefixToLong(const char *str, long &result) {
+	TokenResult StringPrefixToInt16(const char *str, int16_t &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = strtol(str, &inner_context, 10);
+		result = (int16_t)strtol(str, &inner_context, 10);
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
-	TokenResult StringPrefixToUnsignedLong(const char *str, unsigned long &result) {
+	TokenResult StringPrefixToUInt16(const char *str, uint16_t &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = strtoul(str, &inner_context, 10);
+		result = (uint16_t)strtoul(str, &inner_context, 10);
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
-	TokenResult StringPrefixToLongLong(const char *str, long long &result) {
+	TokenResult StringPrefixToInt32(const char *str, int32_t &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = strtoll(str, &inner_context, 10);
+		result = (int32_t)strtol(str, &inner_context, 10);
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
-	TokenResult StringPrefixToUnsignedLongLong(const char *str, unsigned long long &result) {
+	TokenResult StringPrefixToUInt32(const char *str, uint32_t &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = strtoull(str, &inner_context, 10);
+		result = (uint32_t)strtoul(str, &inner_context, 10);
+		return (inner_context != str) ? valid_token : invalid_token;
+	}
+	TokenResult StringPrefixToInt64(const char *str, int64_t &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = (int64_t)strtoll(str, &inner_context, 10);
+		return (inner_context != str) ? valid_token : invalid_token;
+	}
+	TokenResult StringPrefixToUInt64(const char *str, uint64_t &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = (uint64_t)strtoull(str, &inner_context, 10);
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
 	TokenResult StringPrefixToFloat(const char *str, float &result) {
@@ -334,29 +388,37 @@ namespace mage {
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToBool(token, result);
 	}
-	TokenResult ReadInt(char *str, char **context, int &result, const char *delimiters) {
+	TokenResult ReadInt8(char *str, char **context, int8_t &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
-		return StringToInt(token, result);
+		return StringToInt8(token, result);
 	}
-	TokenResult ReadUnsignedInt(char *str, char **context, unsigned int &result, const char *delimiters) {
+	TokenResult ReadUInt8(char *str, char **context, uint8_t &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
-		return StringToUnsignedInt(token, result);
+		return StringToUInt8(token, result);
 	}
-	TokenResult ReadLong(char *str, char **context, long &result, const char *delimiters) {
+	TokenResult ReadInt16(char *str, char **context, int16_t &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
-		return StringToLong(token, result);
+		return StringToInt16(token, result);
 	}
-	TokenResult ReadUnsignedLong(char *str, char **context, unsigned long &result, const char *delimiters) {
+	TokenResult ReadUInt16(char *str, char **context, uint16_t &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
-		return StringToUnsignedLong(token, result);
+		return StringToUInt16(token, result);
 	}
-	TokenResult ReadLongLong(char *str, char **context, long long &result, const char *delimiters) {
+	TokenResult ReadInt32(char *str, char **context, int32_t &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
-		return StringToLongLong(token, result);
+		return StringToInt32(token, result);
 	}
-	TokenResult ReadUnsignedLongLong(char *str, char **context, unsigned long long &result, const char *delimiters) {
+	TokenResult ReadUInt32(char *str, char **context, uint32_t &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
-		return StringToUnsignedLongLong(token, result);
+		return StringToUInt32(token, result);
+	}
+	TokenResult ReadInt64(char *str, char **context, int64_t &result, const char *delimiters) {
+		const char *token = strtok_s(str, delimiters, context);
+		return StringToInt64(token, result);
+	}
+	TokenResult ReadUInt64(char *str, char **context, uint64_t &result, const char *delimiters) {
+		const char *token = strtok_s(str, delimiters, context);
+		return StringToUInt64(token, result);
 	}
 	TokenResult ReadFloat(char *str, char **context, float &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
@@ -455,65 +517,85 @@ namespace mage {
 		bool result;
 		return StringToBool(start, end, result);
 	}
-	TokenResult HasInt(const char *str, const char *delimiters) {
+	TokenResult HasInt8(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return no_token;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
-		int result;
-		return StringToInt(start, end, result);
+		int8_t result;
+		return StringToInt8(start, end, result);
 	}
-	TokenResult HasUnsignedInt(const char *str, const char *delimiters) {
+	TokenResult HasUInt8(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return no_token;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
-		unsigned int result;
-		return StringToUnsignedInt(start, end, result);
+		uint8_t result;
+		return StringToUInt8(start, end, result);
 	}
-	TokenResult HasLong(const char *str, const char *delimiters) {
+	TokenResult HasInt16(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return no_token;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
-		long result;
-		return StringToLong(start, end, result);
+		int16_t result;
+		return StringToInt16(start, end, result);
 	}
-	TokenResult HasUnsignedLong(const char *str, const char *delimiters) {
+	TokenResult HasUInt16(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return no_token;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
-		unsigned long result;
-		return StringToUnsignedLong(start, end, result);
+		uint16_t result;
+		return StringToUInt16(start, end, result);
 	}
-	TokenResult HasLongLong(const char *str, const char *delimiters) {
+	TokenResult HasInt32(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return no_token;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
-		long long result;
-		return StringToLongLong(start, end, result);
+		int32_t result;
+		return StringToInt32(start, end, result);
 	}
-	TokenResult HasUnsignedLongLong(const char *str, const char *delimiters) {
+	TokenResult HasUInt32(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return no_token;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
-		unsigned long long result;
-		return StringToUnsignedLongLong(start, end, result);
+		uint32_t result;
+		return StringToUInt32(start, end, result);
+	}
+	TokenResult HasInt64(const char *str, const char *delimiters) {
+		const char *start = SkipDelimiters(str, delimiters);
+		if (!start) {
+			return no_token;
+		}
+		const char *end = GotoDelimiters(start, delimiters);
+
+		int64_t result;
+		return StringToInt64(start, end, result);
+	}
+	TokenResult HasUInt64(const char *str, const char *delimiters) {
+		const char *start = SkipDelimiters(str, delimiters);
+		if (!start) {
+			return no_token;
+		}
+		const char *end = GotoDelimiters(start, delimiters);
+
+		uint64_t result;
+		return StringToUInt64(start, end, result);
 	}
 	TokenResult HasFloat(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);

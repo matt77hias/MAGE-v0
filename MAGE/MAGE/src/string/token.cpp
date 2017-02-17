@@ -71,13 +71,33 @@ namespace mage {
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
 
+	TokenResult StringToLongLong(const char *str, long long &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = strtoll(str, &inner_context, 10);
+		return (*inner_context == '\0') ? valid_token : invalid_token;
+	}
+
+	TokenResult StringToUnsignedLongLong(const char *str, unsigned long long &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = strtoull(str, &inner_context, 10);
+		return (*inner_context == '\0') ? valid_token : invalid_token;
+	}
+
 	TokenResult StringToFloat(const char *str, float &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = (float)strtof(str, &inner_context);
+		result = strtof(str, &inner_context);
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
 
@@ -87,7 +107,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = strtof(str, &inner_context);
+		result = strtod(str, &inner_context);
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
 
@@ -131,13 +151,33 @@ namespace mage {
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
 
+	TokenResult StringPrefixToLongLong(const char *str, long long &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = strtoll(str, &inner_context, 10);
+		return (inner_context != str) ? valid_token : invalid_token;
+	}
+
+	TokenResult StringPrefixToUnsignedLongLong(const char *str, unsigned long long &result) {
+		if (!str) {
+			return no_token;
+		}
+
+		char *inner_context = nullptr;
+		result = strtoull(str, &inner_context, 10);
+		return (inner_context != str) ? valid_token : invalid_token;
+	}
+
 	TokenResult StringPrefixToFloat(const char *str, float &result) {
 		if (!str) {
 			return no_token;
 		}
 
 		char *inner_context = nullptr;
-		result = (float)strtof(str, &inner_context);
+		result = strtof(str, &inner_context);
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
 
@@ -147,7 +187,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = strtof(str, &inner_context);
+		result = strtod(str, &inner_context);
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
 
@@ -198,6 +238,16 @@ namespace mage {
 	TokenResult ReadUnsignedLong(char *str, char **context, unsigned long &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToUnsignedLong(token, result);
+	}
+
+	TokenResult ReadLongLong(char *str, char **context, long long &result, const char *delimiters) {
+		const char *token = strtok_s(str, delimiters, context);
+		return StringToLongLong(token, result);
+	}
+
+	TokenResult ReadUnsignedLongLong(char *str, char **context, unsigned long long &result, const char *delimiters) {
+		const char *token = strtok_s(str, delimiters, context);
+		return StringToUnsignedLongLong(token, result);
 	}
 
 	TokenResult ReadFloat(char *str, char **context, float &result, const char *delimiters) {

@@ -39,6 +39,8 @@ namespace mage {
 	TokenResult StringToUnsignedInt(const char *str, unsigned int &result);
 	TokenResult StringToLong(const char *str, long &result);
 	TokenResult StringToUnsignedLong(const char *str, unsigned long &result);
+	TokenResult StringToLongLong(const char *str, long long &result);
+	TokenResult StringToUnsignedLongLong(const char *str, unsigned long long &result);
 	TokenResult StringToFloat(const char *str, float &result);
 	TokenResult StringToDouble(const char *str, double &result);
 
@@ -46,6 +48,8 @@ namespace mage {
 	TokenResult StringPrefixToUnsignedInt(const char *str, unsigned int &result);
 	TokenResult StringPrefixToLong(const char *str, long &result);
 	TokenResult StringPrefixToUnsignedLong(const char *str, unsigned long &result);
+	TokenResult StringPrefixToLongLong(const char *str, long long &result);
+	TokenResult StringPrefixToUnsignedLongLong(const char *str, unsigned long long &result);
 	TokenResult StringPrefixToFloat(const char *str, float &result);
 	TokenResult StringPrefixToDouble(const char *str, double &result);
 
@@ -60,6 +64,8 @@ namespace mage {
 	TokenResult ReadUnsignedInt(char *str, char **context, unsigned int &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult ReadLong(char *str, char **context, long &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult ReadUnsignedLong(char *str, char **context, unsigned long &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult ReadLongLong(char *str, char **context, long long &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult ReadUnsignedLongLong(char *str, char **context, unsigned long long &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult ReadFloat(char *str, char **context, float &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult ReadDouble(char *str, char **context, double &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
 	TokenResult ReadFloat2(char *str, char **context, XMFLOAT2 &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);

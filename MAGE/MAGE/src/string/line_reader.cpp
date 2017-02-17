@@ -263,6 +263,44 @@ namespace mage {
 		}
 	}
 
+	long long LineReader::ReadLongLong() {
+		long long result;
+		const TokenResult parse_result = mage::ReadLongLong(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			Error("%ls: line %u: no long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
+		}
+		default: {
+			Error("%ls: line %u: invalid long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
+		}
+		}
+	}
+
+	unsigned long long LineReader::ReadUnsignedLongLong() {
+		unsigned long long result;
+		const TokenResult parse_result = mage::ReadUnsignedLongLong(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			Error("%ls: line %u: no unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
+		}
+		default: {
+			Error("%ls: line %u: invalid unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return 0;
+		}
+		}
+	}
+
 	float LineReader::ReadFloat() {
 		float result;
 		const TokenResult parse_result = mage::ReadFloat(nullptr, &m_context, result, GetDelimiters().c_str());
@@ -509,6 +547,50 @@ namespace mage {
 	unsigned long LineReader::ReadOptionalUnsignedLong(unsigned long default_value, TokenResult *pr) {
 		unsigned long result;
 		const TokenResult parse_result = mage::ReadUnsignedLong(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		if (pr) {
+			*pr = parse_result;
+		}
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			return default_value;
+		}
+		default: {
+			Error("%ls: line %u: invalid unsigned long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return default_value;
+		}
+		}
+	}
+
+	long long LineReader::ReadOptionalLongLong(long long default_value, TokenResult *pr) {
+		long long result;
+		const TokenResult parse_result = mage::ReadLongLong(nullptr, &m_context, result, GetDelimiters().c_str());
+
+		if (pr) {
+			*pr = parse_result;
+		}
+
+		switch (parse_result) {
+		case valid_token: {
+			return result;
+		}
+		case no_token: {
+			return default_value;
+		}
+		default: {
+			Error("%ls: line %u: invalid long value found.", GetFilename().c_str(), GetCurrentLineNumber());
+			return default_value;
+		}
+		}
+	}
+
+	unsigned long long LineReader::ReadOptionalUnsignedLongLong(unsigned long long default_value, TokenResult *pr) {
+		unsigned long long result;
+		const TokenResult parse_result = mage::ReadUnsignedLongLong(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		if (pr) {
 			*pr = parse_result;

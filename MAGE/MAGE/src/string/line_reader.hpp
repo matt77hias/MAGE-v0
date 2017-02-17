@@ -60,6 +60,8 @@ namespace mage {
 		unsigned int ReadUnsignedInt();
 		long ReadLong();
 		unsigned long ReadUnsignedLong();
+		long long ReadLongLong();
+		unsigned long long ReadUnsignedLongLong();
 		float ReadFloat();
 		double ReadDouble();
 		XMFLOAT2 ReadFloat2();
@@ -74,6 +76,8 @@ namespace mage {
 		unsigned int ReadOptionalUnsignedInt(unsigned int default_value = 0, TokenResult *pr = nullptr);
 		long ReadOptionalLong(long default_value = 0, TokenResult *pr = nullptr);
 		unsigned long ReadOptionalUnsignedLong(unsigned long default_value = 0, TokenResult *pr = nullptr);
+		long long ReadOptionalLongLong(long long default_value = 0, TokenResult *pr = nullptr);
+		unsigned long long ReadOptionalUnsignedLongLong(unsigned long long default_value = 0, TokenResult *pr = nullptr);
 		float ReadOptionalFloat(float default_value = 0.0f, TokenResult *pr = nullptr);
 		double ReadOptionalDouble(double default_value = 0.0, TokenResult *pr = nullptr);
 		XMFLOAT2 ReadOptionalFloat2(XMFLOAT2 default_value = XMFLOAT2(), TokenResult *pr = nullptr);

@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "material\mtl_loader.hpp"
-#include "material\mtl_reader.hpp"
+#include "material\mtl\mtl_loader.hpp"
+#include "material\mtl\mtl_reader.hpp"
 
 #pragma endregion
 

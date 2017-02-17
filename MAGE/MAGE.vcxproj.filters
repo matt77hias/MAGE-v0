@@ -139,6 +139,12 @@
     <Filter Include="Header Files\platform">
       <UniqueIdentifier>{bec5c2ef-ac6b-42ae-9f4b-11e39982cf03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\material\mtl">
+      <UniqueIdentifier>{b706baf7-5f36-4415-8d34-787ff3aedb85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\material\mtl">
+      <UniqueIdentifier>{765b83e1-3ee9-4bf0-9d8c-e29733e4d91b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -297,9 +303,6 @@
     <ClInclude Include="MAGE\src\collection\collection.tpp">
       <Filter>Header Files\collection</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\material\mtl_loader.hpp">
-      <Filter>Header Files\material</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\scripting\variable_script_loader.hpp">
       <Filter>Header Files\scripting</Filter>
     </ClInclude>
@@ -327,9 +330,6 @@
     <ClInclude Include="MAGE\src\shader\shading.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\material\mtl_tokens.hpp">
-      <Filter>Header Files\material</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\mesh\obj_tokens.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
@@ -338,9 +338,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\scripting\variable_script_writer.hpp">
       <Filter>Header Files\scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\material\mtl_reader.hpp">
-      <Filter>Header Files\material</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\mesh\obj_reader.tpp">
       <Filter>Header Files\mesh</Filter>
@@ -365,6 +362,15 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\mesh\vertex.hpp">
       <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\material\mtl\mtl_loader.hpp">
+      <Filter>Header Files\material\mtl</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\material\mtl\mtl_reader.hpp">
+      <Filter>Header Files\material\mtl</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\material\mtl\mtl_tokens.hpp">
+      <Filter>Header Files\material\mtl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -446,12 +452,6 @@
     <ClCompile Include="MAGE\src\material\spectrum.cpp">
       <Filter>Source Files\material</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\material\mtl_loader.cpp">
-      <Filter>Source Files\material</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\material\mtl_reader.cpp">
-      <Filter>Source Files\material</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\scripting\variable_script_reader.cpp">
       <Filter>Source Files\scripting</Filter>
     </ClCompile>
@@ -469,6 +469,12 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\mesh\vertex.cpp">
       <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\material\mtl\mtl_loader.cpp">
+      <Filter>Source Files\material\mtl</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\material\mtl\mtl_reader.cpp">
+      <Filter>Source Files\material\mtl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

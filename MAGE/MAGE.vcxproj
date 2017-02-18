@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MAGE\src\binary\binary_utils.hpp" />
     <ClInclude Include="MAGE\src\camera\camera.hpp" />
     <ClInclude Include="MAGE\src\camera\orthographic_camera.hpp" />
     <ClInclude Include="MAGE\src\camera\perspective_camera.hpp" />
@@ -97,6 +98,7 @@
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MAGE\src\binary\binary_utils.cpp" />
     <ClCompile Include="MAGE\src\core\engine.cpp" />
     <ClCompile Include="MAGE\src\core\version.cpp" />
     <ClCompile Include="MAGE\src\input\input_manager.cpp" />

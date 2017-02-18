@@ -139,6 +139,12 @@
     <Filter Include="Source Files\scripting\vs">
       <UniqueIdentifier>{a76c43d3-6a84-4cb7-81b7-55b7b0f6254d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\binary">
+      <UniqueIdentifier>{f9037ed9-2f94-4e69-9655-84338a6f6894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\binary">
+      <UniqueIdentifier>{73ccf237-7a3b-48fd-a910-7d3c722ce952}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -369,6 +375,9 @@
     <ClInclude Include="MAGE\src\material\material_loader.hpp">
       <Filter>Header Files\material</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\binary\binary_utils.hpp">
+      <Filter>Header Files\binary</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -478,6 +487,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\material\material_loader.cpp">
       <Filter>Source Files\material</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\binary\binary_utils.cpp">
+      <Filter>Source Files\binary</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -11,6 +11,17 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_MODEL_PART_DEFAULT_CHILD "default"
+#define MAGE_MODEL_PART_DEFAULT_PARENT "root"
+#define MAGE_MODEL_PART_DEFAULT_MATERIAL "none"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -19,11 +30,11 @@ namespace mage {
 
 	public:
 
-		ModelPart(const string &child = "default", const string &parent = "root",
+		ModelPart(const string &child = MAGE_MODEL_PART_DEFAULT_CHILD, 
+			const string &parent = MAGE_MODEL_PART_DEFAULT_PARENT,
 			uint32_t start_index = 0, uint32_t nb_indices = 0, 
-			const string &material = "none")
-			: child(child), parent(parent), 
-			start_index(start_index), nb_indices(nb_indices), material(material) {}
+			const string &material = MAGE_MODEL_PART_DEFAULT_MATERIAL)
+			: child(child), parent(parent), start_index(start_index), nb_indices(nb_indices), material(material) {}
 		ModelPart(const ModelPart &model_part) = default;
 		~ModelPart() = default;
 
@@ -49,7 +60,8 @@ namespace mage {
 		vector< Material > material_buffer;
 		vector< ModelPart > model_parts;
 
-		void StartModelPart(const string &child = "default", const string &parent = "root") {
+		void StartModelPart(const string &child = MAGE_MODEL_PART_DEFAULT_CHILD, 
+			const string &parent = MAGE_MODEL_PART_DEFAULT_PARENT) {
 			const uint32_t start = (uint32_t)index_buffer.size();
 			model_parts.push_back(ModelPart(child, parent, start));
 		}

@@ -40,7 +40,7 @@ namespace mage {
 	};
 
 	//-------------------------------------------------------------------------
-	// Conversion Utilities
+	// String Conversion Utilities
 	//-------------------------------------------------------------------------
 
 	TokenResult StringToBool(const char *str, bool &result);

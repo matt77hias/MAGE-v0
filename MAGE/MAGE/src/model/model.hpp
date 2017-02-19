@@ -35,7 +35,7 @@ namespace mage {
 
 	public:
 
-		Model(const string &name, ComPtr< ID3D11Device2 > device, const wstring &fname, const MeshDescriptor &desc);
+		Model(const string &name, const wstring &fname, const MeshDescriptor &desc, ComPtr< ID3D11Device2 > device);
 		virtual ~Model() {
 			RemoveAllChilds();
 		}

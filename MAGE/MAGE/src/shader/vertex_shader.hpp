@@ -31,7 +31,7 @@ namespace mage {
 
 	public:
 
-		VertexShader(ComPtr< ID3D11Device2 > device, const wstring &fname);
+		VertexShader(const wstring &fname, ComPtr< ID3D11Device2 > device);
 		virtual ~VertexShader() {}
 
 		void Update(ComPtr< ID3D11DeviceContext2 > device_context, 

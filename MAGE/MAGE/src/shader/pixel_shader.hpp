@@ -20,7 +20,7 @@ namespace mage {
 
 	public:
 
-		PixelShader(ComPtr< ID3D11Device2 > device, const wstring &fname);
+		PixelShader(const wstring &fname, ComPtr< ID3D11Device2 > device);
 		virtual ~PixelShader() {}
 		
 		void Update(ComPtr< ID3D11DeviceContext2 > device_context);

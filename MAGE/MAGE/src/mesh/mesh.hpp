@@ -7,6 +7,7 @@
 
 #include "memory\memory.hpp"
 #include "collection\collection.hpp"
+#include "resource\resource.hpp"
 
 #pragma endregion
 
@@ -22,7 +23,7 @@ namespace mage {
 					The vertex type.
 	 */
 	template < typename Vertex >
-	class Mesh {
+	class Mesh : public Resource {
 
 	public:
 
@@ -31,8 +32,8 @@ namespace mage {
 
 		 @pre			@a vertices may not be equal to @c nullptr
 		 @pre			@a indices may not be equal to @c nullptr
-		 @param[in]		device
-						A pointer to an D3D11 device.
+		 @param[in]		fname
+						A reference to the file name of the mesh.
 		 @param[in]		vertices
 						A pointer to an array of vertices.
 		 @param[in]		nb_vertices
@@ -41,23 +42,27 @@ namespace mage {
 						A pointer to an array of indices.
 		 @param[in]		nb_indices
 						The number of indices.
+		 @param[in]		device
+						A pointer to an D3D11 device.
 		 */
-		Mesh(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices);
+		Mesh(const wstring &fname, const Vertex *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices, ComPtr< ID3D11Device2 > device);
 
 		/**
 		 Constructs a mesh.
 
 		 @pre			The number of vertices must be greater than zero.
 		 @pre			The number of indices must be greater than zero.
-		 @param[in]		device
-						A pointer to an D3D11 device.
+		 @param[in]		fname
+						A reference to the file name of the mesh.
 		 @param[in]		vertices
 						A reference to a vector of vertices.
 		 @param[in]		indices
 						A reference to a vector of indices.
+		 @param[in]		device
+						A pointer to an D3D11 device.
 		 */
-		Mesh(ComPtr< ID3D11Device2 > device, const vector< Vertex > &vertices, const vector< uint32_t > &indices)
-			: Mesh(device, &vertices[0], vertices.size(), &indices[0], indices.size()) {}
+		Mesh(const wstring &fname, const vector< Vertex > &vertices, const vector< uint32_t > &indices, ComPtr< ID3D11Device2 > device)
+			: Mesh(fname, &vertices[0], vertices.size(), &indices[0], indices.size(), device) {}
 
 		/**
 		 Destructs this mesh.

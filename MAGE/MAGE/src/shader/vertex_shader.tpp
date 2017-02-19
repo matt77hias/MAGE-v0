@@ -16,7 +16,7 @@
 namespace mage {
 
 	template < typename Vertex >
-	VertexShader< Vertex >::VertexShader(ComPtr< ID3D11Device2 > device, const wstring &fname)
+	VertexShader< Vertex >::VertexShader(const wstring &fname, ComPtr< ID3D11Device2 > device)
 		: Resource(fname) {
 
 		const HRESULT result_shader = InitializeShader(device);

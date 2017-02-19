@@ -31,9 +31,27 @@ namespace mage {
 			: m_fname(fname) {}
 
 		/**
+		 Constructs a resource from the given resource.
+
+		 @param[in]		resource
+						A reference to the resource.
+		 */
+		Resource(const Resource &resource) = default;
+
+		/**
 		 Destructs this resource.
 		 */
 		virtual ~Resource() = default;
+
+		/**
+		 Copies the given resource to this resource.
+
+		 @param[in]		resource
+						A reference to the resource to copy from.
+		 @return		A reference to the copy of the given resource
+						(i.e. this resource).
+		 */
+		Resource &operator=(const Resource &resource) = default;
 
 		/**
 		 Returns the filename of this resource.
@@ -64,24 +82,6 @@ namespace mage {
 		}
 
 	private:
-
-		/**
-		 Constructs a resource from the given resource.
-
-		 @param[in]		resource
-						A reference to the resource.
-		 */
-		Resource(const Resource &resource) = delete;
-
-		/**
-		 Copies the given resource to this resource.
-
-		 @param[in]		resource
-						A reference to the resource to copy from.
-		 @return		A reference to the copy of the given resource
-						(i.e. this resource).
-		 */
-		Resource &operator=(const Resource &resource) = delete;
 
 		/**
 		 The name of this resource.

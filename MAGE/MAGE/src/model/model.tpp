@@ -19,7 +19,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template < typename Vertex >
-	Model< Vertex >::Model(const string &name, ComPtr< ID3D11Device2 > device, const wstring &fname, const MeshDescriptor &desc)
+	Model< Vertex >::Model(const string &name, const wstring &fname, const MeshDescriptor &desc, ComPtr< ID3D11Device2 > device)
 		: m_name(name), m_transform(new Transform()) {
 	
 		const HRESULT result_initialization = InitializeModel(device, fname, desc);
@@ -72,7 +72,7 @@ namespace mage {
 			return result_load;
 		}
 
-		m_mesh = SharedPtr< Mesh< Vertex > >(new Mesh< Vertex >(device, output.vertex_buffer, output.index_buffer));
+		m_mesh = SharedPtr< Mesh< Vertex > >(new Mesh< Vertex >(fname, output.vertex_buffer, output.index_buffer, device));
 
 		map< string, pair< SubModel< Vertex > *, string > > mapping;
 		for (vector< ModelPart >::const_iterator it = output.model_parts.cbegin(); it != output.model_parts.cend(); ++it) {

@@ -1,3 +1,5 @@
+#pragma once
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
@@ -13,7 +15,7 @@
 namespace mage {
 
 	template < typename Vertex >
-	Mesh< Vertex >::Mesh(const wstring &fname, const Vertex *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices, ComPtr< ID3D11Device2 > device)
+	Mesh< Vertex >::Mesh(ComPtr< ID3D11Device2 > device, const wstring &fname, const Vertex *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices)
 		: Resource(fname), m_nb_vertices(nb_vertices), m_nb_indices(nb_indices) {
 		
 		const HRESULT result_vertex_buffer = SetupVertexBuffer(device, vertices, nb_vertices);

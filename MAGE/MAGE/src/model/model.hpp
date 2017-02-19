@@ -1,3 +1,5 @@
+#pragma once
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
@@ -17,7 +19,6 @@
 namespace mage {
 
 	// Forward declaration
-	template < typename Vertex >
 	class SubModel;
 
 	//-------------------------------------------------------------------------
@@ -35,7 +36,7 @@ namespace mage {
 
 	public:
 
-		Model(const string &name, const wstring &fname, const MeshDescriptor &desc, ComPtr< ID3D11Device2 > device);
+		Model(ComPtr< ID3D11Device2 > device, const wstring &fname, const MeshDescriptor &desc, const string &name = "model");
 		virtual ~Model() {
 			RemoveAllChilds();
 		}
@@ -69,13 +70,13 @@ namespace mage {
 
 		Model< Vertex > &operator=(const Model< Vertex > &model) = delete;
 
-		void AddChild(SubModel< Vertex > *child);
+		void AddChild(SubModel *child);
 		void RemoveAllChilds();
 
 		string m_name;
 		SharedPtr< Mesh< Vertex > > m_mesh;
 		SharedPtr< Transform > m_transform;
-		set< SubModel< Vertex > *, std::less<> > m_childs;
+		set< SubModel *, std::less<> > m_childs;
 	};
 
 	//-------------------------------------------------------------------------
@@ -84,11 +85,7 @@ namespace mage {
 
 	/**
 	 A class of submodels.
-
-	 @tparam		T
-					The vertex type.
 	 */
-	template < typename Vertex >
 	class SubModel final {
 
 	public:
@@ -111,19 +108,20 @@ namespace mage {
 
 	private:
 
-		friend class Model< Vertex >;
+		template < typename Vertex >
+		friend class Model;
 
 		SubModel(const string &name, size_t start_index, size_t nb_indices)
 			: m_name(name), m_start_index(start_index), m_nb_indices(nb_indices),
 			m_transform(new Transform()) {}
-		SubModel(const SubModel< Vertex > &submodel);
+		SubModel(const SubModel &submodel);
 		~SubModel() {
 			RemoveAllChilds();
 		}
 
-		SubModel< Vertex > &operator=(const SubModel< Vertex > &submodel) = delete;
+		SubModel &operator=(const SubModel &submodel) = delete;
 
-		void AddChild(SubModel< Vertex > *child);
+		void AddChild(SubModel *child);
 		void RemoveAllChilds();
 
 		void Update(ComPtr< ID3D11DeviceContext2 > device_context) const;
@@ -132,7 +130,7 @@ namespace mage {
 		SharedPtr< Transform > m_transform;
 		const size_t m_start_index;
 		const size_t m_nb_indices;
-		set< SubModel< Vertex > *, std::less<> > m_childs;
+		set< SubModel *, std::less<> > m_childs;
 	};
 }
 

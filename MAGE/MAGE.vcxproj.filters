@@ -145,6 +145,9 @@
     <Filter Include="Header Files\binary">
       <UniqueIdentifier>{73ccf237-7a3b-48fd-a910-7d3c722ce952}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\model">
+      <UniqueIdentifier>{9d930ad1-49f6-4837-90c2-fc1ddc98d0ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -488,6 +491,12 @@
     <ClCompile Include="MAGE\src\binary\binary_utils.cpp">
       <Filter>Source Files\binary</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\model\model.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\vertex_shader.cpp">
+      <Filter>Source Files\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\effect.fx">
@@ -515,9 +524,6 @@
     </None>
     <None Include="MAGE\src\model\model_loader.tpp">
       <Filter>Header Files\model</Filter>
-    </None>
-    <None Include="MAGE\src\shader\vertex_shader.tpp">
-      <Filter>Header Files\shader</Filter>
     </None>
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp">
       <Filter>Header Files\mesh\obj</Filter>

@@ -11,22 +11,22 @@ using namespace mage;
 class TestState : public State {
 	UniquePtr< Camera > m_camera;
 	UniquePtr< Model< VertexPositionNormalTexture > > m_model;
-	UniquePtr< VertexShader< VertexPositionNormalTexture > > m_vs;
+	UniquePtr< VertexShader > m_vs;
 	UniquePtr< PixelShader > m_ps;
 
 	virtual void Load() override {
+		// @TODO: put the display mode in the renderer
 		const float width  = (float)g_device_enumeration->GetDisplayMode()->Width;
 		const float height = (float)g_device_enumeration->GetDisplayMode()->Height;
 		m_camera = make_unique< PerspectiveCamera >(width, height);
 
 		ComPtr< ID3D11Device2 > device = g_engine->GetRenderer().GetDevice();
-		ComPtr< ID3D11DeviceContext2 > device_context = g_engine->GetRenderer().GetDeviceContext();
 
-		m_vs = make_unique< VertexShader< VertexPositionNormalTexture > >(L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_VS.cso", device);
-		m_ps = make_unique< PixelShader >(L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_PS.cso", device);
+		m_vs = make_unique< VertexShader >(device, L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_VS.cso", VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements);
+		m_ps = make_unique< PixelShader >(device, L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_PS.cso");
 		
 		MeshDescriptor desc(true, true);
-		m_model = make_unique< Model < VertexPositionNormalTexture > >("Model", L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/cube2.obj", desc, device);
+		m_model = make_unique< Model< VertexPositionNormalTexture > >(device, L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/cube2.obj", desc);
 	}
 
 	virtual void Update(double elapsed_time) override {

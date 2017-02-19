@@ -267,7 +267,7 @@ namespace mage {
 	}
 
 	template <>
-	VertexPosition OBJReader< VertexPosition >::ConstructVertex(const XMUINT3 &vertex_indices) {
+	inline VertexPosition OBJReader< VertexPosition >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexPosition vertex;
 		if (vertex_indices.x) {
 			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
@@ -276,7 +276,7 @@ namespace mage {
 	}
 
 	template <>
-	VertexPositionNormal OBJReader< VertexPositionNormal >::ConstructVertex(const XMUINT3 &vertex_indices) {
+	inline VertexPositionNormal OBJReader< VertexPositionNormal >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexPositionNormal vertex;
 		if (vertex_indices.x) {
 			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
@@ -288,7 +288,7 @@ namespace mage {
 	}
 
 	template <>
-	VertexPositionTexture OBJReader< VertexPositionTexture >::ConstructVertex(const XMUINT3 &vertex_indices) {
+	inline VertexPositionTexture OBJReader< VertexPositionTexture >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexPositionTexture vertex;
 		if (vertex_indices.x) {
 			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];

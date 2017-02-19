@@ -6,12 +6,11 @@
 
 namespace mage {
 
-	template < typename Vertex >
 	class ShadedMaterial {
 
 	public:
 
-		ShadedMaterial(SharedPtr< VertexShader< Vertex > > vertex_shader, SharedPtr< PixelShader > pixel_shader, const Material &material)
+		ShadedMaterial(SharedPtr< VertexShader > vertex_shader, SharedPtr< PixelShader > pixel_shader, const Material &material)
 			: m_vertex_shader(vertex_shader), m_pixel_shader(pixel_shader), m_material(material) {}
 		ShadedMaterial(const ShadedMaterial &shaded_material) = default;
 		virtual ~ShadedMaterial() = default;
@@ -29,7 +28,7 @@ namespace mage {
 
 	private:
 
-		SharedPtr< VertexShader< Vertex > > m_vertex_shader;
+		SharedPtr< VertexShader > m_vertex_shader;
 		SharedPtr< PixelShader > m_pixel_shader;
 		Material m_material;
 	};

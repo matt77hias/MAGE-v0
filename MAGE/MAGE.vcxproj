@@ -115,6 +115,7 @@
     <ClCompile Include="MAGE\src\math\transform.cpp" />
     <ClCompile Include="MAGE\src\memory\memory_arena.cpp" />
     <ClCompile Include="MAGE\src\mesh\vertex.cpp" />
+    <ClCompile Include="MAGE\src\model\model.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\parallel.cpp" />
     <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp" />
@@ -127,6 +128,7 @@
     <ClCompile Include="MAGE\src\scripting\vs\vs_writer.cpp" />
     <ClCompile Include="MAGE\src\shader\pixel_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
+    <ClCompile Include="MAGE\src\shader\vertex_shader.cpp" />
     <ClCompile Include="MAGE\src\state\state_manager.cpp" />
     <ClCompile Include="MAGE\src\string\line_reader.cpp" />
     <ClCompile Include="MAGE\src\string\token.cpp" />
@@ -170,7 +172,6 @@
     <None Include="MAGE\src\model\model.tpp" />
     <None Include="MAGE\src\model\model_loader.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
-    <None Include="MAGE\src\shader\vertex_shader.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>

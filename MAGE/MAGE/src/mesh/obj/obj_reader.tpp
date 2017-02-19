@@ -31,7 +31,7 @@ namespace mage {
 		}
 
 		// Begin current group.
-		m_model_output.StartModelPart();
+		m_model_output.StartModelPart(MAGE_MODEL_PART_DEFAULT_CHILD);
 
 		return S_OK;
 	}
@@ -60,9 +60,6 @@ namespace mage {
 			ReadOBJMaterialUse();
 		}
 		else if (str_equals(token, MAGE_OBJ_GROUP_TOKEN)) {
-			// End current group.
-			m_model_output.EndModelPart();
-			// Begin current group.
 			ReadOBJGroup();
 		}
 		else if (str_equals(token, MAGE_OBJ_OBJECT_TOKEN)) {
@@ -110,7 +107,20 @@ namespace mage {
 	template < typename Vertex >
 	void OBJReader< Vertex >::ReadOBJGroup() {
 		const string child = ReadString();
+		if (child == MAGE_MODEL_PART_DEFAULT_CHILD) {
+			if (!m_model_output.index_buffer.empty()) {
+				Error("%ls: line %u: default child name can only be explicitly defined before all face definitions.", GetFilename().c_str(), GetCurrentLineNumber());
+			}
+			return;
+		}
+		if (m_model_output.HasModelPart(child)) {
+			Error("%ls: line %u: child name redefinition: %s.", GetFilename().c_str(), GetCurrentLineNumber(), child.c_str());
+			return;
+		}
+		
 		const string parent = HasString() ? ReadString() : MAGE_MODEL_PART_DEFAULT_PARENT;
+		
+		m_model_output.EndModelPart();
 		m_model_output.StartModelPart(child, parent);
 	}
 

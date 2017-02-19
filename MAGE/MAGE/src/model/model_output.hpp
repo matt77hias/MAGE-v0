@@ -54,13 +54,15 @@ namespace mage {
 		ModelOutput() = default;
 		~ModelOutput() = default;
 
-		vector< Vertex > vertex_buffer;
-		vector< uint32_t > index_buffer;
-		vector< Material > material_buffer;
-		vector< ModelPart > model_parts;
-
-		void StartModelPart(const string &child = MAGE_MODEL_PART_DEFAULT_CHILD, 
-			const string &parent = MAGE_MODEL_PART_DEFAULT_PARENT) {
+		bool HasModelPart(const string &child) {
+			for (vector< ModelPart >::const_iterator it = model_parts.cbegin(); it != model_parts.cend(); ++it) {
+				if (it->child == child) {
+					return true;
+				}
+			}
+			return false;
+		}
+		void StartModelPart(const string &child, const string &parent = MAGE_MODEL_PART_DEFAULT_PARENT) {
 			const uint32_t start = (uint32_t)index_buffer.size();
 			model_parts.push_back(ModelPart(child, parent, start));
 		}
@@ -74,6 +76,11 @@ namespace mage {
 			const uint32_t end = (uint32_t)index_buffer.size();
 			current.nb_indices = end - start;
 		}
+
+		vector< Vertex > vertex_buffer;
+		vector< uint32_t > index_buffer;
+		vector< Material > material_buffer;
+		vector< ModelPart > model_parts;
 
 	private:
 

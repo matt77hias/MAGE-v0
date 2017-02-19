@@ -74,11 +74,25 @@ namespace mage {
 
 		m_mesh = SharedPtr< Mesh< Vertex > >(new Mesh< Vertex >(device, output.vertex_buffer, output.index_buffer));
 
+		map< string, pair< SubModel< Vertex > *, string > > mapping;
 		for (vector< ModelPart >::const_iterator it = output.model_parts.cbegin(); it != output.model_parts.cend(); ++it) {
+			if (it->child == MAGE_MODEL_PART_DEFAULT_CHILD && it->nb_indices == 0) {
+				continue;
+			}
 			SubModel< Vertex > *submodel = new SubModel< Vertex >(it->child, it->start_index, it->nb_indices);
-			AddChild(submodel);
+			mapping[it->child] = pair< SubModel< Vertex > *, string >(submodel, it->parent);
 		}
-
+		for (map< string, pair< SubModel< Vertex > *, string > >::const_iterator it = mapping.cbegin(); it != mapping.cend(); ++it) {
+			const pair< SubModel< Vertex > *, string > &element = it->second;
+			const string &parent = element.second;
+			if (parent == MAGE_MODEL_PART_DEFAULT_PARENT) {
+				AddChild(element.first);
+			}
+			else {
+				mapping[parent].first->AddChild(element.first);
+			}
+		}
+			
 		return S_OK;
 	}
 

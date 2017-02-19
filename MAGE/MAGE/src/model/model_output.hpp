@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\mesh_object.hpp"
 #include "material\material.hpp"
 
 #pragma endregion

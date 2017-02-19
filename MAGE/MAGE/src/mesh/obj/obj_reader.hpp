@@ -71,20 +71,14 @@ namespace mage {
 			}
 		};
 
-		struct OBJBuffer {
-
-		public:
-
-			vector< Point3 >  vertex_coordinates;
-			vector< UV >      vertex_texture_coordinates;
-			vector< Normal3 > vertex_normal_coordinates;
-			map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > mapping;
-		};
-
 		OBJReader(const OBJReader &reader) = delete;
 		OBJReader &operator=(const OBJReader &reader) = delete;
 
-		OBJBuffer m_buffer;
+		vector< Point3 >  m_vertex_coordinates;
+		vector< UV > m_vertex_texture_coordinates;
+		vector< Normal3 > m_vertex_normal_coordinates;
+		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > m_mapping;
+		
 		ModelOutput< Vertex > &m_model_output;
 		const MeshDescriptor &m_mesh_desc;
 	};

@@ -183,4 +183,21 @@ namespace mage {
 		os << '[' << v.x << ' ' << v.y << ' ' << v.z << ' ' << v.w << ']';
 		return os;
 	}
+
+	//-------------------------------------------------------------------------
+	// Utilities
+	//-------------------------------------------------------------------------
+
+	inline UV InvertHandness(const UV &uv) {
+		return UV(uv.x, 1.0f - uv.y);
+	}
+	inline Point3 InvertHandness(const Point3 &point) {
+		return Point3(point.x, point.y, -point.z);
+	}
+	inline Direction3 InvertHandness(const Direction3 &direction) {
+		return Direction3(direction.x, direction.y, -direction.z);
+	}
+	inline Normal3 InvertHandness(const Normal3 &normal) {
+		return Normal3(normal.x, normal.y, -normal.z);
+	}
 }

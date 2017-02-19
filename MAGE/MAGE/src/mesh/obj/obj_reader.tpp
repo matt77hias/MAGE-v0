@@ -110,7 +110,7 @@ namespace mage {
 	template < typename Vertex >
 	void OBJReader< Vertex >::ReadOBJGroup() {
 		const string child = ReadString();
-		const string parent = HasString() ? ReadString() : "root";
+		const string parent = HasString() ? ReadString() : MAGE_MODEL_PART_DEFAULT_PARENT;
 		m_model_output.StartModelPart(child, parent);
 	}
 
@@ -119,35 +119,32 @@ namespace mage {
 
 	template < typename Vertex >
 	void OBJReader< Vertex >::ReadOBJVertex() {
-		Point3 vertex = ReadOBJVertexCoordinates();
-		if (m_mesh_desc.InvertHandness()) {
-			vertex.z = -vertex.z;
-		}
+		const Point3 vertex = m_mesh_desc.InvertHandness() ?
+			InvertHandness(ReadOBJVertexCoordinates()) :
+			ReadOBJVertexCoordinates();
 
-		m_buffer.vertex_coordinates.push_back(vertex);
+		m_vertex_coordinates.push_back(vertex);
 	}
 
 	template < typename Vertex >
 	void OBJReader< Vertex >::ReadOBJVertexTexture() {
-		UV texture = ReadOBJVertexTextureCoordinates();
-		if (m_mesh_desc.InvertHandness()) {
-			texture.y = 1.0f - texture.y;
-		}
+		const UV texture = m_mesh_desc.InvertHandness() ?
+			InvertHandness(ReadOBJVertexTextureCoordinates()) :
+			ReadOBJVertexTextureCoordinates();
 
-		m_buffer.vertex_texture_coordinates.push_back(texture);
+		m_vertex_texture_coordinates.push_back(texture);
 	}
 
 	template < typename Vertex >
 	void OBJReader< Vertex >::ReadOBJVertexNormal() {
-		Normal3 normal = ReadOBJVertexNormalCoordinates();
-		if (m_mesh_desc.InvertHandness()) {
-			normal.z = -normal.z;
-		}
+		const Normal3 normal = m_mesh_desc.InvertHandness() ?
+			InvertHandness(ReadOBJVertexNormalCoordinates()) :
+			ReadOBJVertexNormalCoordinates();
 		const XMVECTOR v = XMLoadFloat3(&normal);
 		const XMVECTOR normal_v = XMVector3Normalize(v);
 		XMLoadFloat3(&normal);
 
-		m_buffer.vertex_normal_coordinates.push_back(normal);
+		m_vertex_normal_coordinates.push_back(normal);
 	}
 
 	template < typename Vertex >
@@ -156,15 +153,15 @@ namespace mage {
 		while (indices.size() < 3 || HasString()) {
 			const XMUINT3 vertex_indices = ReadOBJVertexIndices();
 
-			const map< XMUINT3, uint32_t >::const_iterator it = m_buffer.mapping.find(vertex_indices);
-			if (it != m_buffer.mapping.cend()) {
+			const map< XMUINT3, uint32_t >::const_iterator it = m_mapping.find(vertex_indices);
+			if (it != m_mapping.cend()) {
 				indices.push_back(it->second);
 			}
 			else {
 				const uint32_t index = (uint32_t)m_model_output.vertex_buffer.size();
 				indices.push_back(index);
 				m_model_output.vertex_buffer.push_back(ConstructVertex(vertex_indices));
-				m_buffer.mapping[vertex_indices] = index;
+				m_mapping[vertex_indices] = index;
 			}
 		}
 
@@ -248,13 +245,13 @@ namespace mage {
 	Vertex OBJReader< Vertex >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		Vertex vertex;
 		if (vertex_indices.x) {
-			vertex.p = m_buffer.vertex_coordinates[vertex_indices.x - 1];
+			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
 		}
 		if (vertex_indices.y) {
-			vertex.tex = m_buffer.vertex_texture_coordinates[vertex_indices.y - 1];
+			vertex.tex = m_vertex_texture_coordinates[vertex_indices.y - 1];
 		}
 		if (vertex_indices.z) {
-			vertex.n = m_buffer.vertex_normal_coordinates[vertex_indices.z - 1];
+			vertex.n = m_vertex_normal_coordinates[vertex_indices.z - 1];
 		}
 		return vertex;
 	}
@@ -263,7 +260,7 @@ namespace mage {
 	VertexPosition OBJReader< VertexPosition >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexPosition vertex;
 		if (vertex_indices.x) {
-			vertex.p = m_buffer.vertex_coordinates[vertex_indices.x - 1];
+			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
 		}
 		return vertex;
 	}
@@ -272,10 +269,10 @@ namespace mage {
 	VertexPositionNormal OBJReader< VertexPositionNormal >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexPositionNormal vertex;
 		if (vertex_indices.x) {
-			vertex.p = m_buffer.vertex_coordinates[vertex_indices.x - 1];
+			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
 		}
 		if (vertex_indices.z) {
-			vertex.n = m_buffer.vertex_normal_coordinates[vertex_indices.z - 1];
+			vertex.n = m_vertex_normal_coordinates[vertex_indices.z - 1];
 		}
 		return vertex;
 	}
@@ -284,10 +281,10 @@ namespace mage {
 	VertexPositionTexture OBJReader< VertexPositionTexture >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexPositionTexture vertex;
 		if (vertex_indices.x) {
-			vertex.p = m_buffer.vertex_coordinates[vertex_indices.x - 1];
+			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
 		}
 		if (vertex_indices.y) {
-			vertex.tex = m_buffer.vertex_texture_coordinates[vertex_indices.y - 1];
+			vertex.tex = m_vertex_texture_coordinates[vertex_indices.y - 1];
 		}
 		return vertex;
 	}

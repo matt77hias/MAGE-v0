@@ -54,7 +54,6 @@
     <ClInclude Include="MAGE\src\memory\memory_arena.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh_descriptor.hpp" />
-    <ClInclude Include="MAGE\src\mesh\mesh_object.hpp" />
     <ClInclude Include="MAGE\src\mesh\obj\obj_loader.hpp" />
     <ClInclude Include="MAGE\src\mesh\obj\obj_reader.hpp" />
     <ClInclude Include="MAGE\src\mesh\obj\obj_tokens.hpp" />

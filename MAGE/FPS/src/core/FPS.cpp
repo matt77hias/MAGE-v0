@@ -22,11 +22,11 @@ class TestState : public State {
 		ComPtr< ID3D11Device2 > device = g_engine->GetRenderer().GetDevice();
 		ComPtr< ID3D11DeviceContext2 > device_context = g_engine->GetRenderer().GetDeviceContext();
 
-		m_vs = make_unique< VertexShader< VertexPositionNormalTexture > >(device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_VS.cso");
-		m_ps = make_unique< PixelShader >(device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_PS.cso");
+		m_vs = make_unique< VertexShader< VertexPositionNormalTexture > >(device, L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_VS.cso");
+		m_ps = make_unique< PixelShader >(device, L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_PS.cso");
 		
 		MeshDescriptor desc(true, true);
-		m_model = make_unique< Model < VertexPositionNormalTexture > >("Model", device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/cube2.obj", desc);
+		m_model = make_unique< Model < VertexPositionNormalTexture > >("Model", device, L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/cube2.obj", desc);
 	}
 
 	virtual void Update(double elapsed_time) override {

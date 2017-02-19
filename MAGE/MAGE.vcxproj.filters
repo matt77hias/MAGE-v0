@@ -303,9 +303,6 @@
     <ClInclude Include="MAGE\src\material\spectrum.hpp">
       <Filter>Header Files\material</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\mesh_object.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\mesh\mesh_descriptor.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>

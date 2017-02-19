@@ -71,7 +71,7 @@ namespace mage {
 
 		 @return		The number of variables in this variable script.
 		 */
-		size_t GetNbOfVariables() const {
+		size_t GetNumberOfVariables() const {
 			return m_variables.size();
 		}
 

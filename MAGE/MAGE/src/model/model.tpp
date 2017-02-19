@@ -13,10 +13,14 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+	
+	//-------------------------------------------------------------------------
+	// Model
+	//-------------------------------------------------------------------------
 
 	template < typename Vertex >
 	Model< Vertex >::Model(const string &name, ComPtr< ID3D11Device2 > device, const wstring &fname, const MeshDescriptor &desc)
-		: m_name(name), m_transform(UniquePtr< Transform >(new Transform())) {
+		: m_name(name), m_transform(new Transform()) {
 	
 		const HRESULT result_initialization = InitializeModel(device, fname, desc);
 		if (FAILED(result_initialization)) {
@@ -26,17 +30,37 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	Model< Vertex >::Model(const Model< Vertex > &model) 
-		: m_name(model.m_name) {
-		
-		//@TODO: transform
+	Model< Vertex >::Model(const Model< Vertex > &model)
+		: m_name(model.m_name), m_mesh(model.m_mesh), m_transform(new Transform(*model.m_transform)) {
+	
+		for (set< SubModel< Vertex > * >::const_iterator it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
+			AddChild(new SubModel< Vertex >(**it));
+		}
+	}
+
+	template < typename Vertex >
+	void Model< Vertex >::AddChild(SubModel< Vertex > *child) {
+		Assert(child);
+		m_transform->AddChild(child->m_transform);
+		m_childs.insert(child);
+	}
+
+	template < typename Vertex >
+	void Model< Vertex >::RemoveAllChilds() {
+		set< SubModel< Vertex > * >::iterator it = m_childs.begin();
+		while (it != m_childs.end()) {
+			delete (*it);
+			it = m_childs.erase(it);
+		}
 	}
 
 	template < typename Vertex >
 	void Model< Vertex >::Update(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		m_mesh->Update(device_context);
 
-		device_context->DrawIndexed((UINT)m_mesh->GetNumberOfIndices(), 0, 0);
+		for (set< SubModel< Vertex > * >::const_iterator it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
+			(*it)->Update(device_context);
+		}
 	}
 
 	template < typename Vertex >
@@ -48,10 +72,53 @@ namespace mage {
 			return result_load;
 		}
 
-		m_mesh = make_unique< Mesh< Vertex > >(device, output.vertex_buffer, output.index_buffer);
+		m_mesh = SharedPtr< Mesh< Vertex > >(new Mesh< Vertex >(device, output.vertex_buffer, output.index_buffer));
 
-		//@TODO: transform
+		for (vector< ModelPart >::const_iterator it = output.model_parts.cbegin(); it != output.model_parts.cend(); ++it) {
+			SubModel< Vertex > *submodel = new SubModel< Vertex >(it->child, it->start_index, it->nb_indices);
+			AddChild(submodel);
+		}
+
 		return S_OK;
 	}
 
+	//-------------------------------------------------------------------------
+	// SubModel
+	//-------------------------------------------------------------------------
+
+	template < typename Vertex >
+	SubModel< Vertex >::SubModel(const SubModel< Vertex > &submodel)
+		: m_name(submodel.m_name), m_start_index(submodel.m_start_index), m_nb_indices(submodel.m_nb_indices),
+		m_transform(new Transform(*submodel.m_transform)) {
+
+		for (set< SubModel< Vertex > * >::const_iterator it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
+			AddChild(new SubModel< Vertex >(**it));
+		}
+	}
+
+	template < typename Vertex >
+	void SubModel< Vertex >::AddChild(SubModel< Vertex > *child) {
+		Assert(child);
+		Assert(child != this);
+		m_transform->AddChild(child->m_transform);
+		m_childs.insert(child);
+	}
+
+	template < typename Vertex >
+	void SubModel< Vertex >::RemoveAllChilds() {
+		set< SubModel< Vertex > * >::iterator it = m_childs.begin();
+		while (it != m_childs.end()) {
+			delete (*it);
+			it = m_childs.erase(it);
+		}
+	}
+
+	template < typename Vertex >
+	void SubModel< Vertex >::Update(ComPtr< ID3D11DeviceContext2 > device_context) const {
+		device_context->DrawIndexed((UINT)GetNumberOfIndices(), (UINT)GetStartIndex(), 0);
+
+		for (set< SubModel< Vertex > * >::const_iterator it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
+			(*it)->Update(device_context);
+		}
+	}
 }

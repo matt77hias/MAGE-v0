@@ -4,6 +4,7 @@
 #pragma region
 
 #include "math\transform.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -13,7 +14,7 @@
 namespace mage {
 
 	Transform::Transform(const CartesianCoordinateSystem &coordinate_system)
-		: m_scale(XMFLOAT3(1.0f, 1.0f, 1.0f)), m_parent(nullptr) {
+		: m_scale(XMFLOAT3(1.0f, 1.0f, 1.0f)) {
 
 		// Calculate translation components.
 		const XMVECTOR translation_v = coordinate_system.GetOrigin();
@@ -23,116 +24,39 @@ namespace mage {
 		const float rotation_x = acosf(XMVectorGetByIndex(coordinate_system.GetAxisX(), 0));
 		const float rotation_y = acosf(XMVectorGetByIndex(coordinate_system.GetAxisY(), 1));
 		const float rotation_z = acosf(XMVectorGetByIndex(coordinate_system.GetAxisZ(), 2));
-		SetRotation(rotation_x, rotation_y, rotation_z);
+		m_rotation = XMFLOAT3(rotation_x, rotation_y, rotation_z);
+
+		const XMMATRIX &identity = XMMatrixIdentity();
+		Update(identity, identity);
 	}
 
-	Transform::Transform(const Transform &transform)
-		: Transform(transform.m_translation, transform.m_rotation, transform.m_scale) {
-
-		transform.GetParent()->AddChild(this);
-	}
-
-	Transform::~Transform() {
-		// Detach this node in both directions.
-		if (GetParent()) {
-			GetParent()->RemoveChild(this);
-		}
-
-		RemoveAllChilds();
-	}
-
-	Transform &Transform::operator=(const Transform &transform) {
-		m_translation = transform.GetTranslation();
-		m_rotation    = transform.GetRotation();
-		m_scale       = transform.GetScale();
-		Update();
-		
-		transform.GetParent()->AddChild(this);
-		return (*this);
-	}
-
-	Transform *Transform::Clone() const {
-		return new Transform(*this);
-	}
-
-	Transform *Transform::DeepClone() const {
-		Transform *clone = Clone();
-
-		for (set< Transform * >::const_iterator it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
-			Transform *cloned_child = (*it)->DeepClone();
-			clone->AddChild(cloned_child);
-		}
-
-		return clone;
-	}
-
-	void Transform::AddChild(Transform *child) {
-		if (!child || child->GetParent() == this) {
-			return;
-		}
-
-		// Make sure the child is detached.
-		if (child->GetParent()) {
-			child->GetParent()->RemoveChild(child);
-		}
-
-		// Add the child to this parent.
+	void Transform::AddChild(SharedPtr< Transform > child) {
+		Assert(child);
 		m_childs.insert(child);
-		// Add this parent to the child.
-		child->SetParent(this);
-
-		child->Update();
+		child->Update(m_world_to_object, m_object_to_world);
 	}
 
-	void Transform::RemoveChild(Transform *child) {
-		if (!child || child->GetParent() != this) {
-			return;
-		}
-
-		// Remove this parent from the child.
-		child->SetParent(nullptr);
-
-		set< Transform * >::iterator it = m_childs.begin();
-		while (it != m_childs.end()) {
+	void Transform::RemoveChild(SharedPtr< Transform > child) {
+		set< SharedPtr< Transform > >::const_iterator it = m_childs.begin();
+		while (it != m_childs.cend()) {
 			if ((*it) == child) {
-				// Remove the child from this parent.
 				it = m_childs.erase(it);
+				const XMMATRIX &identity = XMMatrixIdentity();
+				child->Update(identity, identity);
 				break;
 			}
 			else {
 				++it;
 			}
 		}
-
-		child->Update();
-	}
-
-	void Transform::RemoveAllChilds() {
-		set< Transform * >::iterator it = m_childs.begin();
-		while (it != m_childs.end()) {
-			// Remove this parent from the child.
-			(*it)->SetParent(nullptr);
-
-			// Destruct the child.
-			delete (*it);
-
-			// Remove this child from the parent.
-			it = m_childs.erase(it);
-		}
 	}
 
 	void Transform::Update() {
-		if (GetParent()) {
-			m_world_to_object = GetParentToObjectMatrix() * GetParent()->GetWorldToObjectMatrix();
-			m_object_to_world = GetParent()->GetObjectToWorldMatrix() * GetObjectToParentMatrix();
-		}
-		else {
-			m_world_to_object = GetParentToObjectMatrix();
-			m_object_to_world = GetObjectToParentMatrix();
-		}
-
-		for (set< Transform * >::iterator it = m_childs.begin(); it != m_childs.end(); ++it) {
-			(*it)->Update();
+		m_world_to_object = GetParentToObjectMatrix() * m_world_to_parent;
+		m_object_to_world = m_parent_to_world * GetObjectToParentMatrix();
+		
+		for (set< SharedPtr< Transform > >::iterator it = m_childs.begin(); it != m_childs.end(); ++it) {
+			(*it)->Update(m_world_to_object, m_object_to_world);
 		}
 	}
 }

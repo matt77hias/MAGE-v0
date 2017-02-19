@@ -6,6 +6,7 @@
 #pragma region
 
 #include "math\coordinate_system.hpp"
+#include "memory\memory.hpp"
 #include "collection\collection.hpp"
 
 #pragma endregion
@@ -19,6 +20,10 @@ namespace mage {
 	 A struct of transforms.
 	 */
 	struct Transform final {
+
+		//-------------------------------------------------------------------------
+		// Construction
+		//-------------------------------------------------------------------------
 
 		/**
 		 Constructs a transform from the given local Cartesian axes system.
@@ -48,46 +53,84 @@ namespace mage {
 						The scale component.
 		 */
 		Transform(const XMFLOAT3 &translation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &rotation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &scale = { 1.0f, 1.0f, 1.0f })
-			: m_translation(translation), m_rotation(rotation), m_scale(scale), m_parent(nullptr) {
-			Update();
+			: m_translation(translation), m_rotation(rotation), m_scale(scale) {
+			const XMMATRIX &identity = XMMatrixIdentity();
+			Update(identity, identity);
 		}
 		
 		/**
-		 Constructs a transform from the given transform (non-deep copy).
+		 Constructs a transform from the components of the given transform.
 
 		 @param[in]		transform
 						The transform.
 		 */
-		Transform(const Transform &transform);
+		Transform(const Transform &transform)
+			: Transform(transform.m_translation, transform.m_rotation, transform.m_scale) {}
+
+		//-------------------------------------------------------------------------
+		// Destruction
+		//-------------------------------------------------------------------------
 
 		/**
 		 Destructs this transform.
 		 */
-		~Transform();
+		~Transform() {
+			RemoveAllChilds();
+		}
 		
+		//-------------------------------------------------------------------------
+		// Copying
+		//-------------------------------------------------------------------------
+
 		/**
-		 Copies (non-deep copy) the given transform to this transform.
+		 Copies the components of the given transform to this transform.
 
 		 @param[in]		transform
 						The transform to copy from.
 		 @return		A reference to the copy of the given transform
 						(i.e. this transform).
 		 */
-		Transform &operator=(const Transform &transform);
+		Transform &operator=(const Transform &transform) {
+			SetComponents(transform);
+			return (*this);
+		}
+
+		//-------------------------------------------------------------------------
+		// Tranbslation + Rotation + Scale
+		//-------------------------------------------------------------------------
 
 		/**
-		 Returns a non-deep clone of this transform.
+		 Sets the translation, rotation, scale component of this transform 
+		 to the given components.
 
-		 @return		A pointer to a non-deep clone of this transform.
+		 @param[in]		translation
+						A reference to the translation component.
+		 @param[in]		rotation
+						A reference to the rotation component.
+		 @param[in]		scale
+						A reference to the scale component.
 		 */
-		Transform *Clone() const;
+		void SetComponents(const XMFLOAT3 &translation, const XMFLOAT3 &rotation, const XMFLOAT3 &scale) {
+			m_translation = translation;
+			m_rotation    = rotation;
+			m_scale       = scale;
+			Update();
+		}
 
 		/**
-		 Returns a deep clone of this transform.
+		 Sets the translation, rotation, scale component of this transform
+		 to the components of the given transform..
 
-		 @return		A pointer to a deep clone of this transform.
+		 @param[in]		transform
+						A reference to the transform.
 		 */
-		Transform *DeepClone() const;
+		void SetComponents(const Transform &transform) {
+			SetComponents(transform.m_translation, transform.m_rotation, transform.m_scale);
+		}
+
+		//-------------------------------------------------------------------------
+		// Translation
+		//-------------------------------------------------------------------------
 
 		/**
 		 Sets the x-value of the translation component of this transform to the given value.
@@ -146,9 +189,7 @@ namespace mage {
 						A reference to the translation component.
 		 */
 		void SetTranslation(const XMFLOAT3 &translation) {
-			m_translation.x = translation.x;
-			m_translation.y = translation.y;
-			m_translation.z = translation.z;
+			m_translation = translation;
 			Update();
 		}
 		
@@ -209,10 +250,7 @@ namespace mage {
 						A reference to the translation component to add.
 		 */
 		void AddTranslation(const XMFLOAT3 &translation) {
-			m_translation.x += translation.x;
-			m_translation.y += translation.y;
-			m_translation.z += translation.z;
-			Update();
+			AddTranslation(translation.x, translation.y, translation.z);
 		}
 		
 		/**
@@ -259,6 +297,10 @@ namespace mage {
 		XMMATRIX GetTranslationMatrix() const {
 			return XMMatrixTranslationFromVector(XMLoadFloat3(&m_translation));
 		}
+
+		//-------------------------------------------------------------------------
+		// Rotation
+		//-------------------------------------------------------------------------
 
 		/**
 		 Sets the x-value of the rotation component of this transform to the given value.
@@ -317,9 +359,7 @@ namespace mage {
 						A reference to the rotation component.
 		 */
 		void SetRotation(const XMFLOAT3 &rotation) {
-			m_rotation.x = rotation.x;
-			m_rotation.y = rotation.y;
-			m_rotation.z = rotation.z;
+			m_rotation = rotation;
 			Update();
 		}
 		
@@ -404,10 +444,7 @@ namespace mage {
 						A reference to the rotation component to add.
 		 */
 		void AddRotation(const XMFLOAT3 &rotation) {
-			m_rotation.x += rotation.x;
-			m_rotation.y += rotation.y;
-			m_rotation.z += rotation.z;
-			Update();
+			AddRotation(rotation.x, rotation.y, rotation.z);
 		}
 		
 		/**
@@ -454,6 +491,10 @@ namespace mage {
 		XMMATRIX GetRotationMatrix() const {
 			return XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&m_rotation));
 		}
+
+		//-------------------------------------------------------------------------
+		// Scale
+		//-------------------------------------------------------------------------
 
 		/**
 		 Sets the x-value of the scale component of this transform to the given value.
@@ -512,9 +553,7 @@ namespace mage {
 						A reference to the scale component.
 		 */
 		void SetScale(const XMFLOAT3 &scale) {
-			m_scale.x = scale.x;
-			m_scale.y = scale.y;
-			m_scale.z = scale.z;
+			m_scale = scale;
 			Update();
 		}
 		
@@ -575,10 +614,7 @@ namespace mage {
 						A reference to the scale component to add.
 		 */
 		void AddScale(const XMFLOAT3 &scale) {
-			m_scale.x += scale.x;
-			m_scale.y += scale.y;
-			m_scale.z += scale.z;
-			Update();
+			AddScale(scale.x, scale.y, scale.z);
 		}
 		
 		/**
@@ -625,6 +661,10 @@ namespace mage {
 		XMMATRIX GetScaleMatrix() const {
 			return XMMatrixScalingFromVector(XMLoadFloat3(&m_scale));
 		}
+
+		//-------------------------------------------------------------------------
+		// Object Space
+		//-------------------------------------------------------------------------
 
 		/**
 		 Returns the position of the local origin of this transform expressed in object space coordinates.
@@ -680,6 +720,10 @@ namespace mage {
 			return CartesianCoordinateSystem(GetObjectOrigin(), GetObjectAxes());
 		}
 		
+		//-------------------------------------------------------------------------
+		// Parent Space
+		//-------------------------------------------------------------------------
+
 		/**
 		 Returns the position of the local origin of this transform expressed in parent space coordinates.
 
@@ -733,6 +777,10 @@ namespace mage {
 		CartesianCoordinateSystem GetParentCoordinateSystem() const {
 			return CartesianCoordinateSystem(GetParentOrigin(), GetParentAxes());
 		}
+
+		//-------------------------------------------------------------------------
+		// World Space
+		//-------------------------------------------------------------------------
 
 		/**
 		 Returns the position of the local origin of this transform expressed in world space coordinates.
@@ -788,6 +836,10 @@ namespace mage {
 			return CartesianCoordinateSystem(GetWorldOrigin(), GetWorldAxes());
 		}
 
+		//-------------------------------------------------------------------------
+		// Camera Object Space
+		//-------------------------------------------------------------------------
+
 		/**
 		 Returns the local eye position of this transform expressed in object space coordinates.
 
@@ -824,6 +876,10 @@ namespace mage {
 			return GetObjectAxisZ();
 		}
 		
+		//-------------------------------------------------------------------------
+		// Camera World Space
+		//-------------------------------------------------------------------------
+
 		/**
 		 Returns the local eye position of this transform expressed in world space coordinates.
 
@@ -860,6 +916,10 @@ namespace mage {
 			return GetWorldAxisZ();
 		}
 		
+		//-------------------------------------------------------------------------
+		// Transformation
+		//-------------------------------------------------------------------------
+
 		/**
 		 Returns the parent-to-object matrix of this transform.
 
@@ -907,15 +967,52 @@ namespace mage {
 		}
 
 		/**
-		 Returns the parent transform of this transform.
+		 Transforms the given vector expressed in parent space coordinates to object space coordinates.
 
-		 @return		@c nullptr if this transform has no parent transform
-						(i.e. this transform is a root transform).
-		 @return		A pointer to the parent transform of this transform.
+		 @param[in]		vector
+						A reference to the vector expressed in parent space coordinates.
+		 @return		The transformed vector expressed in object space coordinates.
 		 */
-		Transform *GetParent() const {
-			return m_parent;
+		XMVECTOR TransformParentToObject(const XMVECTOR &vector) const {
+			return XMVector4Transform(vector, GetParentToObjectMatrix());
 		}
+
+		/**
+		 Transforms the given vector expressed in object space coordinates to parent space coordinates.
+
+		 @param[in]		vector
+						A reference to the vector expressed in object space coordinates.
+		 @return		The transformed vector expressed in parent space coordinates.
+		 */
+		XMVECTOR TransformObjectToParent(const XMVECTOR &vector) const {
+			return XMVector4Transform(vector, GetObjectToParentMatrix());
+		}
+
+		/**
+		 Transforms the given vector expressed in world space coordinates to object space coordinates.
+
+		 @param[in]		vector
+						A reference to the vector expressed in world space coordinates.
+		 @return		The transformed vector expressed in object space coordinates.
+		 */
+		XMVECTOR TransformWorldToObject(const XMVECTOR &vector) const {
+			return XMVector4Transform(vector, GetWorldToObjectMatrix());
+		}
+
+		/**
+		 Transforms the given vector expressed in object space coordinates to world space coordinates.
+
+		 @param[in]		vector
+						A reference to the vector expressed in object space coordinates.
+		 @return		The transformed vector expressed in world space coordinates.
+		 */
+		XMVECTOR TransformObjectToWorld(const XMVECTOR &vector) const {
+			return XMVector4Transform(vector, GetObjectToWorldMatrix());
+		}
+
+		//-------------------------------------------------------------------------
+		// Childs
+		//-------------------------------------------------------------------------
 
 		/**
 		 Checks whether this transform contains the given transform as a child transform.
@@ -923,19 +1020,19 @@ namespace mage {
 		 @return		@c true if this transform contains the given transform as a child transform.
 						@c false otherwise.
 		 */
-		bool ContainsChild(const Transform *child) const {
+		bool ContainsChild(const SharedPtr< Transform > child) const {
 			return m_childs.find(child) != m_childs.cend();
 		}
 
 		/**
 		 Adds the given child transform to the child transforms of this transform.
-		 If the given child transform has already a parent transform, it is removed
-		 from that transform since transforms may only have at most one parent transform.
 
+		 @pre			@a child may not refer to @c nullptr.
+		 @pre			@a child may not refer to @c this.		
 		 @param[in]		child
 						A pointer to the child transform.
 		 */
-		void AddChild(Transform *child);
+		void AddChild(SharedPtr< Transform > child);
 
 		/**
 		 Removes the given child transform from the child transforms of this transform.
@@ -943,20 +1040,58 @@ namespace mage {
 		 @param[in]		child
 						A pointer to the child transform.
 		 */
-		void RemoveChild(Transform *child);
+		void RemoveChild(SharedPtr< Transform > child);
 
 		/**
 		 Removes and destructs all child transforms of this transform.
 		 */
-		void RemoveAllChilds();
+		void RemoveAllChilds() {
+			m_childs.clear();
+		}
 
 		/**
 		 Returns the total number of child transforms of this transform.
 
 		 @return		The total number of child transforms of this transform.
 		 */
-		size_t GetNbOfChilds() const {
+		size_t GetNumberOfChilds() const {
 			return m_childs.size();
+		}
+
+		/**
+		 Returns an iterator to the beginning of the childs of this transform.
+
+		 @return		An iterator to the beginning of the childs of this transform.
+		 */
+		set< SharedPtr< Transform > >::iterator begin() {
+			return m_childs.begin();
+		}
+
+		/**
+		 Returns an iterator to the end of the childs of this transform.
+
+		 @return		An iterator to the end of the childs of this transform.
+		 */
+		set< SharedPtr< Transform > >::iterator end() {
+			return m_childs.end();
+		}
+
+		/**
+		 Returns a constant iterator to the beginning of the childs of this transform.
+
+		 @return		A constant iterator to the beginning of the childs of this transform.
+		 */
+		set< SharedPtr< Transform > >::const_iterator cbegin() const {
+			return m_childs.cbegin();
+		}
+
+		/**
+		 Returns a constant iterator to the end of the childs of this transform.
+
+		 @return		A constant iterator to the end of the childs of this transform.
+		 */
+		set< SharedPtr< Transform > >::const_iterator cend() const {
+			return m_childs.cend();
 		}
 
 	private:
@@ -967,7 +1102,7 @@ namespace mage {
 		 @return		The inverse translation matrix of this transform.
 		 */
 		XMMATRIX GetInverseTranslationMatrix() const {
-			return XMMatrixTranslationFromVector(XMVectorSet(-m_translation.x, -m_translation.y,-m_translation.z, 0.0f));
+			return XMMatrixTranslationFromVector(XMVectorSet(-m_translation.x, -m_translation.y, -m_translation.z, 0.0f));
 		}
 
 		/**
@@ -1001,32 +1136,26 @@ namespace mage {
 		}
 
 		/**
-		 Transforms the given vector expressed in object space coordinates to world space coordinates.
-
-		 @param[in]		vector
-						A reference to the vector expressed in object space coordinates.
-		 @return		The transformed vector expressed in world space coordinates.
-		 */
-		XMVECTOR TransformObjectToWorld(const XMVECTOR &vector) const {
-			return XMVector4Transform(vector, GetObjectToWorldMatrix());
-		}
-
-		/**
-		 Sets the parent transform of this transform to the given transform.
-
-		 @pre			If @a parent is not equal to @c nullptr, the given transform 
-						must already contain this transform as one of its child transforms.
-		 @param[in]		parent
-						A pointer to the parent transform.
-		 */
-		void SetParent(Transform *parent) {
-			m_parent = parent;
-		}
-
-		/**
-		 Updates the world-to-object and object-to-world of this transform.
+		 Updates the world-to-object and object-to-world matrices, and 
+		 updates all the childs of this transform.
 		 */
 		void Update();
+
+		/**
+		 Updates the world-to-object and object-to-world matrices, and
+		 updates the world-to-parent and parent-to-world matrices of this transform
+		 based on the given world-to-parent and parent-to-world matrices of this transform.
+
+		 @param[in]		world_to_parent
+						A reference to the world-to-parent matrix.
+		 @param[in]		parent_to_world
+						A reference to the parent-to-world matrix.	
+		 */
+		void Update(const XMMATRIX &world_to_parent, const XMMATRIX &parent_to_world) {
+			m_world_to_parent = world_to_parent;
+			m_parent_to_world = parent_to_world;
+			Update();
+		}
 
 		/**
 		 The translation component of this transform.
@@ -1054,13 +1183,18 @@ namespace mage {
 		XMMATRIX m_object_to_world;
 
 		/**
-		 A pointer to the parent transform of this transform.
+		 The world-to-parent matrix of this transform.
 		 */
-		Transform *m_parent;
+		XMMATRIX m_world_to_parent;
+
+		/**
+		 The parent-to-world matrix of this transform.
+		 */
+		XMMATRIX m_parent_to_world;
 
 		/**
 		 A set containing the child transforms of this transform.
 		 */
-		set< Transform *, std::less<> > m_childs;
+		set< SharedPtr< Transform >, std::less<> > m_childs;
 	};
 }

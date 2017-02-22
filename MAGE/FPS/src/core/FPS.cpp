@@ -50,7 +50,8 @@ public:
 		const float height = (float)g_device_enumeration->GetDisplayMode()->Height;
 		SharedPtr< Camera > camera(new PerspectiveCamera(width, height));
 		SetCamera(camera);
-		camera->GetTransform().SetTranslationZ(-6.0f);
+		camera->GetTransform().SetRotationX(1.10714872f);
+		camera->GetTransform().SetTranslation(0.0f, 0.11f, -4.1126f);
 		
 		ComPtr< ID3D11Device2 > device = g_engine->GetRenderer().GetDevice();
 		

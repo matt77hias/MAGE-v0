@@ -5,9 +5,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\coordinate_system.hpp"
 #include "memory\memory.hpp"
 #include "collection\collection.hpp"
+#include "math\coordinate_system.hpp"
 
 #pragma endregion
 
@@ -25,23 +25,6 @@ namespace mage {
 		// Construction
 		//-------------------------------------------------------------------------
 
-		/**
-		 Constructs a transform from the given local Cartesian axes system.
-
-		 @param[in]		axes
-						The local Cartesian axes system.
-		 */
-		Transform(const CartesianAxesSystem &axes)
-			: Transform(CartesianCoordinateSystem(axes)) {}
-
-		/**
-		 Constructs a transform from the given local Cartesian coordinate system.
-
-		 @param[in]		coordinate_system
-						The local Cartesian coordinate system.
-		 */
-		Transform(const CartesianCoordinateSystem &coordinate_system);
-		
 		/**
 		 Constructs a transform from the given translation, rotation and scale component.
 

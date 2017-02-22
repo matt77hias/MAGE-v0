@@ -105,14 +105,8 @@ namespace mage {
 	}
 	void Scene::Render(ComPtr< ID3D11DeviceContext2 > device_context) {
 		TransformBuffer transform_buffer;
-		transform_buffer.world_to_view      = XMMatrixTranspose(GetCamera().GetTransform().GetWorldToObjectMatrix());
+		transform_buffer.world_to_view      = XMMatrixTranspose(GetCamera().GetTransform().GetObjectToWorldMatrix());
 		transform_buffer.view_to_projection = XMMatrixTranspose(GetCamera().GetViewToProjectionMatrix());
-
-		//@TODO
-		const XMVECTOR p_eye = XMVectorSet(0.0f, 3.0f, -6.0f, 1.0f);
-		const XMVECTOR p_focus = XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
-		const XMVECTOR d_up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-		transform_buffer.world_to_view = XMMatrixTranspose(XMMatrixLookAtLH(p_eye, p_focus, d_up));
 
 		m_world->Render(device_context, transform_buffer);
 	}

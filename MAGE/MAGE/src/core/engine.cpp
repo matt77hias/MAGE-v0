@@ -52,6 +52,9 @@ namespace mage {
 		// and sets the thread's concurrency model to multithreaded concurrency.
 		CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 
+		// Sets the first scene.
+		SetScene(setup.CreateScene());
+
 		// The engine is fully loaded and ready to go.
 		SetLoaded();
 	}
@@ -62,6 +65,8 @@ namespace mage {
 		if (IsLoaded()) {
 			CoUninitialize();
 		}
+
+		delete g_device_enumeration;
 	}
 
 	HRESULT Engine::InitializeSystems(const EngineSetup &setup) {
@@ -104,7 +109,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	void Engine::SetScene(Scene *scene) {
+	void Engine::SetScene(SharedPtr< Scene > scene) {
 		if (m_scene) {
 			m_scene->Close();
 		}

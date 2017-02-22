@@ -76,8 +76,8 @@ struct TestSetup : public EngineSetup {
 		: EngineSetup(hinstance, name) {}
 	virtual ~TestSetup() = default;
 
-	virtual Scene *CreateScene() const override {
-		return new TestScene();
+	virtual SharedPtr< Scene > CreateScene() const override {
+		return SharedPtr< Scene >(new TestScene());
 	}
 };
 

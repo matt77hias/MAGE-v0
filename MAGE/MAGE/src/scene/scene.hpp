@@ -23,8 +23,6 @@ namespace mage {
 
 	public:
 
-		Scene(const string &name) 
-			: m_name(name), m_world(new World()) {}
 		~Scene() = default;
 
 		const string &GetName() const {
@@ -103,6 +101,11 @@ namespace mage {
 		 Allows this scene to preform any post-processing destruction.
 		 */
 		virtual void Close();
+
+	protected:
+
+		Scene(const string &name)
+			: m_name(name), m_world(new World()) {}
 
 	private:
 

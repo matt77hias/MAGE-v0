@@ -19,7 +19,7 @@ namespace mage {
 	/**
 	 A device enumeration.
 	 */
-	class DeviceEnumeration {
+	class DeviceEnumeration final {
 
 	friend class Engine;
 	friend INT_PTR CALLBACK SettingsDialogProcDelegate(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);

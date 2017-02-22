@@ -31,25 +31,6 @@ namespace mage {
 	public:
 
 		/**
-		 Constructs an engine setup.
-
-		 @param[in]		hinstance
-						The application instance handle of the application. 
-		 @param[in]		name
-						A reference to the name of the application.
-		 */
-		EngineSetup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
-			: m_hinstance(hinstance), m_name(name) {}
-
-		/**
-		 Constructs an engine setup from the given engine setup.
-
-		 @param[in]		setup
-						A reference to the engine setup.
-		 */
-		EngineSetup(const EngineSetup &setup) = default;
-
-		/**
 		 Destructs this engine setup.
 		 */
 		virtual ~EngineSetup() = default;
@@ -77,7 +58,28 @@ namespace mage {
 
 		 @return		A pointer to the first scene of the application.
 		 */
-		virtual Scene *CreateScene() const = 0;
+		virtual SharedPtr< Scene > CreateScene() const = 0;
+
+	protected:
+
+		/**
+		 Constructs an engine setup.
+
+		 @param[in]		hinstance
+						The application instance handle of the application.
+		 @param[in]		name
+						A reference to the name of the application.
+		 */
+		EngineSetup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
+			: m_hinstance(hinstance), m_name(name) {}
+
+		/**
+		 Constructs an engine setup from the given engine setup.
+
+		 @param[in]		setup
+						A reference to the engine setup.
+		 */
+		EngineSetup(const EngineSetup &setup) = default;
 
 	private:
 

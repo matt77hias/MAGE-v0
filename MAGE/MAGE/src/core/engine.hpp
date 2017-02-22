@@ -109,7 +109,7 @@ namespace mage {
 
 		 @return		A pointer to the scene to set.
 		 */
-		void SetScene(Scene *scene);
+		void SetScene(SharedPtr< Scene > scene);
 
 	protected:
 
@@ -199,7 +199,7 @@ namespace mage {
 		/**
 		 The current scene of this engine.
 		 */
-		Scene *m_scene;
+		SharedPtr< Scene > m_scene;
 	};
 
 	/**

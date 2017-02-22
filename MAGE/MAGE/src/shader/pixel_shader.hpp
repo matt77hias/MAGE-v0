@@ -5,9 +5,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
-#include "rendering\rendering.hpp"
 #include "resource\resource.hpp"
+#include "scene\world.hpp"
+#include "material\material.hpp"
 
 #pragma endregion
 
@@ -21,13 +21,15 @@ namespace mage {
 	public:
 
 		PixelShader(ComPtr< ID3D11Device2 > device, const wstring &fname);
-		virtual ~PixelShader() {}
+		virtual ~PixelShader() = default;
 		
-		void Update(ComPtr< ID3D11DeviceContext2 > device_context);
+		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world) {
+			UNUSED(material);
+			UNUSED(world);
+			device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
+		}
 
 	protected:
-
-		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device);
 
 		ComPtr< ID3D11PixelShader > m_pixel_shader;
 
@@ -35,5 +37,7 @@ namespace mage {
 
 		PixelShader(const PixelShader &pixel_shader) = delete;
 		PixelShader &operator=(const PixelShader &pixel_shader) = delete;
+		
+		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device);
 	};
 }

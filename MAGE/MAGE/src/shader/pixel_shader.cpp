@@ -20,6 +20,7 @@ namespace mage {
 		const HRESULT result_shader = InitializeShader(device);
 		if (FAILED(result_shader)) {
 			Error("Shader initialization failed: %ld.", result_shader);
+			return;
 		}
 	}
 	
@@ -45,9 +46,5 @@ namespace mage {
 		}
 
 		return S_OK;
-	}
-
-	void PixelShader::Update(ComPtr< ID3D11DeviceContext2 > device_context) {
-		device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 	}
 }

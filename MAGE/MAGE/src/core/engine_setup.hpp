@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "platform\windows.hpp"
-#include "string\string.hpp"
+#include "scene\scene.hpp"
 
 #pragma endregion
 
@@ -27,7 +26,7 @@ namespace mage {
 	/**
 	 A struct of engine setups.
 	 */
-	struct EngineSetup final {
+	struct EngineSetup {
 
 	public:
 
@@ -38,11 +37,9 @@ namespace mage {
 						The application instance handle of the application. 
 		 @param[in]		name
 						A reference to the name of the application.
-		 @param[in]		StateSetupFunction
-						A pointer to a function to set up the states of the application.
 		 */
-		EngineSetup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME, void(*StateSetupFunction)() = nullptr)
-			: m_hinstance(hinstance), m_name(name), StateSetup(StateSetupFunction) {}
+		EngineSetup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
+			: m_hinstance(hinstance), m_name(name) {}
 
 		/**
 		 Constructs an engine setup from the given engine setup.
@@ -55,7 +52,7 @@ namespace mage {
 		/**
 		 Destructs this engine setup.
 		 */
-		~EngineSetup() = default;
+		virtual ~EngineSetup() = default;
 
 		/**
 		 Returns the name of the application.
@@ -76,13 +73,11 @@ namespace mage {
 		}
 	
 		/**
-		 Sets up the states of the application.
+		 Creates the first scene of the application.
+
+		 @return		A pointer to the first scene of the application.
 		 */
-		void SetupApplicationStates() const {
-			if (StateSetup) {
-				StateSetup();
-			}
-		}
+		virtual Scene *CreateScene() const = 0;
 
 	private:
 
@@ -105,10 +100,5 @@ namespace mage {
 		 Name of the application.
 		 */
 		const wstring m_name;
-
-		/**
-		 The state setup function.
-		 */
-		void(*StateSetup)();
 	};
 }

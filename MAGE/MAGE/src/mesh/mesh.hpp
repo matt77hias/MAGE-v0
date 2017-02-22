@@ -6,8 +6,8 @@
 #pragma region
 
 #include "memory\memory.hpp"
+#include "rendering\rendering.hpp"
 #include "collection\collection.hpp"
-#include "resource\resource.hpp"
 
 #pragma endregion
 
@@ -23,7 +23,7 @@ namespace mage {
 					The vertex type.
 	 */
 	template < typename Vertex >
-	class Mesh : public Resource {
+	class Mesh {
 
 	public:
 
@@ -34,8 +34,6 @@ namespace mage {
 		 @pre			@a indices may not be equal to @c nullptr
 		 @param[in]		device
 						A pointer to an D3D11 device.
-		 @param[in]		fname
-						A reference to the file name of the mesh.
 		 @param[in]		vertices
 						A pointer to an array of vertices.
 		 @param[in]		nb_vertices
@@ -45,7 +43,7 @@ namespace mage {
 		 @param[in]		nb_indices
 						The number of indices.
 		 */
-		Mesh(ComPtr< ID3D11Device2 > device, const wstring &fname, const Vertex *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices);
+		Mesh(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices);
 
 		/**
 		 Constructs a mesh.
@@ -54,8 +52,6 @@ namespace mage {
 		 @pre			The number of indices must be greater than zero.
 		 @param[in]		device
 						A pointer to an D3D11 device.
-		 @param[in]		fname
-						A reference to the file name of the mesh.
 		 @param[in]		vertices
 						A reference to a vector of vertices.
 		 @param[in]		indices
@@ -63,15 +59,13 @@ namespace mage {
 		 @param[in]		device
 						A pointer to an D3D11 device.
 		 */
-		Mesh(ComPtr< ID3D11Device2 > device, const wstring &fname, const vector< Vertex > &vertices, const vector< uint32_t > &indices)
-			: Mesh(device, fname, &vertices[0], vertices.size(), &indices[0], indices.size()) {}
+		Mesh(ComPtr< ID3D11Device2 > device, const vector< Vertex > &vertices, const vector< uint32_t > &indices)
+			: Mesh(device, &vertices[0], vertices.size(), &indices[0], indices.size()) {}
 
 		/**
 		 Destructs this mesh.
 		 */
 		virtual ~Mesh() = default;
-
-		void Update(ComPtr< ID3D11DeviceContext2 > device_context) const;
 
 		/**
 		 Returns the number of vertices of this mesh.
@@ -91,10 +85,7 @@ namespace mage {
 			return m_nb_indices;
 		}
 
-	protected:
-
-		HRESULT SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices);
-		HRESULT SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices);
+		void Render(ComPtr< ID3D11DeviceContext2 > device_context) const;
 
 	private:
 
@@ -115,6 +106,9 @@ namespace mage {
 						(i.e. this mesh).
 		 */
 		Mesh &operator=(const Mesh &mesh) = delete;
+
+		HRESULT SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices);
+		HRESULT SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices);
 
 		/**
 		 The number of vertices of this mesh.

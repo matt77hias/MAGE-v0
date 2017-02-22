@@ -5,11 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\string.hpp"
-#include "rendering\rendering.hpp"
 #include "math\transform.hpp"
-#include "model\model_loader.hpp"
-#include "mesh\mesh.hpp"
+#include "shader\shaded_material.hpp"
 
 #pragma endregion
 
@@ -24,59 +21,73 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Model
 	//-------------------------------------------------------------------------
-
+	
 	/**
 	 A class of models.
-
-	 @tparam		T
-					The vertex type.
 	 */
-	template < typename Vertex >
 	class Model {
 
 	public:
 
-		Model(ComPtr< ID3D11Device2 > device, const wstring &fname, const MeshDescriptor &desc, const string &name = "model");
 		virtual ~Model() {
-			RemoveAllChilds();
+			RemoveAndDestructAllElements(m_submodels);
 		}
 
-		virtual Model< Vertex > *Clone() const {
-			return new Model< Vertex >(*this);
-		}
+		virtual Model *Clone() const = 0;
 
+		void Render(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const {
+			RenderModel(device_context, world, transform_buffer);
+			RenderSubModels(device_context, world, transform_buffer);
+		}
+		
 		const string &GetName() const {
 			return m_name;
 		}
 		void SetName(const string &name) {
 			m_name = name;
 		}
-		size_t GetNumberOfIndices() const {
-			return m_mesh->GetNumberOfIndices();
-		}
 		Transform &GetTransform() const {
 			return *m_transform;
 		}
 
-		void Update(ComPtr< ID3D11DeviceContext2 > device_context) const;
+		set< SubModel * >::iterator SubModelsBegin() {
+			return m_submodels.begin();
+		}
+		set< SubModel * >::iterator SubModelsEnd() {
+			return m_submodels.end();
+		}
+		set< SubModel * >::const_iterator SubModelsBegin() const {
+			return m_submodels.cbegin();
+		}
+		set< SubModel * >::const_iterator SubModelsEnd() const {
+			return m_submodels.cend();
+		}
+		size_t GetNumberOfSubModels() const {
+			return m_submodels.size();
+		}
+		SubModel *GetSubModel(const string &name) const;
+		bool HasSubModel(const string &name) const {
+			return GetSubModel(name) != nullptr;
+		}
+		void AddSubModel(SubModel *submodel);
 
 	protected:
 
-		Model(const Model< Vertex > &model);
+		Model(const string &name)
+			: m_name(name), m_transform(new Transform()) {}
+		Model(const Model &model);
 
-		HRESULT InitializeModel(ComPtr< ID3D11Device2 > device, const wstring &fname, const MeshDescriptor &desc);
-
+		virtual void RenderModel(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const = 0;
+		
 	private:
 
-		Model< Vertex > &operator=(const Model< Vertex > &model) = delete;
+		Model &operator=(const Model &model) = delete;
 
-		void AddChild(SubModel *child);
-		void RemoveAllChilds();
+		void RenderSubModels(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const;
 
 		string m_name;
-		SharedPtr< Mesh< Vertex > > m_mesh;
 		SharedPtr< Transform > m_transform;
-		set< SubModel *, std::less<> > m_childs;
+		set< SubModel *, std::less<> > m_submodels;
 	};
 
 	//-------------------------------------------------------------------------
@@ -86,59 +97,47 @@ namespace mage {
 	/**
 	 A class of submodels.
 	 */
-	class SubModel final {
+	class SubModel : public Model {
 
 	public:
 
-		const string &GetName() const {
-			return m_name;
-		}
-		void SetName(const string &name) {
-			m_name = name;
-		}
-		size_t GetStartIndex() const {
-			return m_start_index;
-		}
-		size_t GetNumberOfIndices() const {
-			return m_nb_indices;
-		}
-		Transform &GetTransform() const {
-			return *m_transform;
+		virtual ~SubModel() {
+			delete m_material;
 		}
 
-	private:
+		virtual SubModel *Clone() const = 0;
 
-		template < typename Vertex >
-		friend class Model;
+		Material &GetMaterial() const {
+			m_material->GetMaterial();
+		}
 
-		SubModel(const string &name, size_t start_index, size_t nb_indices)
-			: m_name(name), m_start_index(start_index), m_nb_indices(nb_indices),
-			m_transform(new Transform()) {}
+	protected:
+
+		SubModel(const string &name, const ShadedMaterial &material)
+			: Model(name), m_material(new ShadedMaterial(material)) {}
 		SubModel(const SubModel &submodel);
-		~SubModel() {
-			RemoveAllChilds();
+
+		void RenderModel(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const override {
+			RenderMaterial(device_context, world, transform_buffer);
+			RenderGeometry(device_context);
 		}
+		virtual void RenderGeometry(ComPtr< ID3D11DeviceContext2 > device_context) const = 0;
+		
+	private:
 
 		SubModel &operator=(const SubModel &submodel) = delete;
 
-		void AddChild(SubModel *child);
-		void RemoveAllChilds();
+		void RenderMaterial(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const {
+			transform_buffer.model_to_world = XMMatrixTranspose(GetTransform().GetObjectToWorldMatrix());
+			m_material->Render(device_context, world, transform_buffer);
+		}
 
-		void Update(ComPtr< ID3D11DeviceContext2 > device_context) const;
-
-		string m_name;
-		SharedPtr< Transform > m_transform;
-		const size_t m_start_index;
-		const size_t m_nb_indices;
-		set< SubModel *, std::less<> > m_childs;
+		ShadedMaterial *m_material;
 	};
+
+	inline void Model::RenderSubModels(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const {
+		for (set< SubModel * >::const_iterator it = m_submodels.cbegin(); it != m_submodels.cend(); ++it) {
+			(*it)->Render(device_context, world, transform_buffer);
+		}
+	}
 }
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "model\model.tpp"
-
-#pragma endregion

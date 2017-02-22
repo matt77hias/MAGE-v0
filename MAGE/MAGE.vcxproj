@@ -35,6 +35,7 @@
     <ClInclude Include="MAGE\src\input\input_manager.hpp" />
     <ClInclude Include="MAGE\src\input\keyboard.hpp" />
     <ClInclude Include="MAGE\src\input\mouse.hpp" />
+    <ClInclude Include="MAGE\src\light\point_light.hpp" />
     <ClInclude Include="MAGE\src\logging\error.hpp" />
     <ClInclude Include="MAGE\src\logging\logging.hpp" />
     <ClInclude Include="MAGE\src\logging\progress_reporter.hpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="MAGE\src\mesh\obj\obj_reader.hpp" />
     <ClInclude Include="MAGE\src\mesh\obj\obj_tokens.hpp" />
     <ClInclude Include="MAGE\src\mesh\vertex.hpp" />
+    <ClInclude Include="MAGE\src\model\meshmodel.hpp" />
     <ClInclude Include="MAGE\src\model\model.hpp" />
     <ClInclude Include="MAGE\src\model\model_loader.hpp" />
     <ClInclude Include="MAGE\src\model\model_output.hpp" />
@@ -73,6 +75,9 @@
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.tpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
+    <ClInclude Include="MAGE\src\scene\scene.hpp" />
+    <ClInclude Include="MAGE\src\scene\world.hpp" />
+    <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script_loader.hpp" />
@@ -80,13 +85,13 @@
     <ClInclude Include="MAGE\src\scripting\vs\vs_reader.hpp" />
     <ClInclude Include="MAGE\src\scripting\vs\vs_tokens.hpp" />
     <ClInclude Include="MAGE\src\scripting\vs\vs_writer.hpp" />
+    <ClInclude Include="MAGE\src\shader\lambertian_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\pixel_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\shaded_material.hpp" />
+    <ClInclude Include="MAGE\src\shader\combined_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\shader_utils.hpp" />
     <ClInclude Include="MAGE\src\shader\shading.hpp" />
     <ClInclude Include="MAGE\src\shader\vertex_shader.hpp" />
-    <ClInclude Include="MAGE\src\state\state.hpp" />
-    <ClInclude Include="MAGE\src\state\state_manager.hpp" />
     <ClInclude Include="MAGE\src\string\line_reader.hpp" />
     <ClInclude Include="MAGE\src\string\token.hpp" />
     <ClInclude Include="MAGE\src\string\string.hpp" />
@@ -121,15 +126,17 @@
     <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
+    <ClCompile Include="MAGE\src\scene\scene.cpp" />
+    <ClCompile Include="MAGE\src\scene\world.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script_loader.cpp" />
     <ClCompile Include="MAGE\src\scripting\vs\vs_loader.cpp" />
     <ClCompile Include="MAGE\src\scripting\vs\vs_reader.cpp" />
     <ClCompile Include="MAGE\src\scripting\vs\vs_writer.cpp" />
+    <ClCompile Include="MAGE\src\shader\lambertian_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\pixel_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
     <ClCompile Include="MAGE\src\shader\vertex_shader.cpp" />
-    <ClCompile Include="MAGE\src\state\state_manager.cpp" />
     <ClCompile Include="MAGE\src\string\line_reader.cpp" />
     <ClCompile Include="MAGE\src\string\token.cpp" />
     <ClCompile Include="MAGE\src\string\string_utils.cpp" />
@@ -169,7 +176,7 @@
     <None Include="MAGE\src\memory\memory_arena.tpp" />
     <None Include="MAGE\src\mesh\mesh.tpp" />
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp" />
-    <None Include="MAGE\src\model\model.tpp" />
+    <None Include="MAGE\src\model\meshmodel.tpp" />
     <None Include="MAGE\src\model\model_loader.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
   </ItemGroup>

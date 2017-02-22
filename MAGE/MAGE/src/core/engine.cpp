@@ -98,12 +98,22 @@ namespace mage {
 			return E_FAIL;
 		}
 		
-		// Initialize the state manager.
-		m_state_manager	= make_unique< StateManager >();
-		// Sets up the states.
-		setup.SetupApplicationStates();
+		// Initialize the first scene.
+		SetScene(setup.CreateScene());
 
 		return S_OK;
+	}
+
+	void Engine::SetScene(Scene *scene) {
+		if (m_scene) {
+			m_scene->Close();
+		}
+
+		m_scene = scene;
+		
+		if (m_scene) {
+			m_scene->Load();
+		}
 	}
 
 	void Engine::Run(int nCmdShow) {
@@ -136,7 +146,7 @@ namespace mage {
 				// Dispatches a message to a window procedure.
 				DispatchMessage(&msg);
 			}
-			else if (!m_deactive) {
+			else if (!m_deactive && m_scene) {
 				// Calculate the elapsed time.
 				const double elapsed_time = timer.Time();
 				timer.Restart();
@@ -157,9 +167,20 @@ namespace mage {
 					continue;
 				}
 
+				// Update the current scene.
+				m_scene->Update(elapsed_time);
+				if (!m_scene) {
+					PostQuitMessage(0);
+					continue;
+				}
+				
+				// Render the current scene.
 				m_renderer->StartFrame();
-				m_state_manager->Update(elapsed_time);
+				m_scene->Render(m_renderer->GetDeviceContext());
 				m_renderer->EndFrame();
+			}
+			else {
+				timer.Stop();
 			}
 		}
 	}

@@ -4,13 +4,10 @@
 //Texture2D diffuse_texture : register(t0);
 //SamplerState linear_sample : register(s0);
 
-cbuffer cb_camera : register(b0) {
+cbuffer cb_transform : register(b0) {
+	matrix model_to_world;
 	matrix world_to_view;
 	matrix view_to_projection;
-};
-
-cbuffer cb_model : register(b1) {
-	matrix model_to_world;
 }
 
 //-----------------------------------------------------------------------------

@@ -15,8 +15,8 @@
 namespace mage {
 
 	template < typename Vertex >
-	Mesh< Vertex >::Mesh(ComPtr< ID3D11Device2 > device, const wstring &fname, const Vertex *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices)
-		: Resource(fname), m_nb_vertices(nb_vertices), m_nb_indices(nb_indices) {
+	Mesh< Vertex >::Mesh(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices)
+		: m_nb_vertices(nb_vertices), m_nb_indices(nb_indices) {
 		
 		const HRESULT result_vertex_buffer = SetupVertexBuffer(device, vertices, nb_vertices);
 		if (FAILED(result_vertex_buffer)) {
@@ -88,7 +88,7 @@ namespace mage {
 	}
 
 	template < typename Vertex >
-	void Mesh< Vertex >::Update(ComPtr< ID3D11DeviceContext2 > device_context) const {
+	void Mesh< Vertex >::Render(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		// Set the vertex buffer.
 		UINT stride = sizeof(Vertex); // The size (in bytes) of the elements that are to be used from a vertex buffer.
 		UINT offset = 0;			  // The number of bytes between the first element of a vertex buffer and the first element that will be used.

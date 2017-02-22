@@ -37,9 +37,6 @@
     <Filter Include="Source Files\parallel">
       <UniqueIdentifier>{23b667d5-379d-444b-8454-b21d92f99a67}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\state">
-      <UniqueIdentifier>{8463f1af-bd9e-4155-89f6-bb804a124c73}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\scripting">
       <UniqueIdentifier>{68931a48-3a4b-48e3-a677-68dcc03f1e88}</UniqueIdentifier>
     </Filter>
@@ -109,9 +106,6 @@
     <Filter Include="Source Files\memory">
       <UniqueIdentifier>{92f8507f-6b00-4ff5-8dcb-f4c436e3613f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\state">
-      <UniqueIdentifier>{481c6908-37c2-4b51-add5-81471c2a577e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\math">
       <UniqueIdentifier>{bbd248c9-b157-44c4-a8ef-94435c108be9}</UniqueIdentifier>
     </Filter>
@@ -147,6 +141,12 @@
     </Filter>
     <Filter Include="Source Files\model">
       <UniqueIdentifier>{9d930ad1-49f6-4837-90c2-fc1ddc98d0ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\light">
+      <UniqueIdentifier>{c6187753-2837-414e-8508-c7fb6a51854a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene">
+      <UniqueIdentifier>{54fdaa2c-28f4-4f6e-b935-ca874be81e8b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -200,12 +200,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp">
       <Filter>Header Files\scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\state\state.hpp">
-      <Filter>Header Files\state</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\state\state_manager.hpp">
-      <Filter>Header Files\state</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\string\string_utils.hpp">
       <Filter>Header Files\string</Filter>
@@ -378,6 +372,27 @@
     <ClInclude Include="MAGE\src\binary\binary_utils.hpp">
       <Filter>Header Files\binary</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\scripting\behavior_script.hpp">
+      <Filter>Header Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scene\scene.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\combined_shader.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\light\point_light.hpp">
+      <Filter>Header Files\light</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scene\world.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\model\meshmodel.hpp">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\lambertian_shader.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -440,9 +455,6 @@
     <ClCompile Include="MAGE\src\memory\memory_arena.cpp">
       <Filter>Source Files\memory</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\state\state_manager.cpp">
-      <Filter>Source Files\state</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\parallel\parallel.cpp">
       <Filter>Source Files\parallel</Filter>
     </ClCompile>
@@ -497,6 +509,15 @@
     <ClCompile Include="MAGE\src\shader\vertex_shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\scene\scene.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\scene\world.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\lambertian_shader.cpp">
+      <Filter>Source Files\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\effect.fx">
@@ -519,14 +540,14 @@
     <None Include="MAGE\src\mesh\mesh.tpp">
       <Filter>Header Files\mesh</Filter>
     </None>
-    <None Include="MAGE\src\model\model.tpp">
-      <Filter>Header Files\model</Filter>
-    </None>
     <None Include="MAGE\src\model\model_loader.tpp">
       <Filter>Header Files\model</Filter>
     </None>
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp">
       <Filter>Header Files\mesh\obj</Filter>
+    </None>
+    <None Include="MAGE\src\model\meshmodel.tpp">
+      <Filter>Header Files\model</Filter>
     </None>
   </ItemGroup>
 </Project>

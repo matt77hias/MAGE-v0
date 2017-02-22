@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\math.hpp"
+#include "math\transform.hpp"
 
 #pragma endregion
 
@@ -43,7 +43,14 @@ namespace mage {
 		 @param[in]		camera
 						The camera.
 		 */
-		Camera &operator=(const Camera &camera) = default;
+		Camera &operator=(const Camera &camera) {
+			m_width     = camera.m_width;
+			m_height    = camera.m_height;
+			m_near_z    = camera.m_near_z;
+			m_far_z     = camera.m_far_z;
+			m_transform = SharedPtr< Transform >(new Transform(*camera.m_transform));
+			return (*this);
+		}
 
 		/**
 		 Clones this camera.
@@ -173,6 +180,15 @@ namespace mage {
 		 */
 		virtual XMMATRIX GetViewToProjectionMatrix() const = 0;
 			
+		/**
+		 Returns the transform of this camera.
+
+		 @return		A reference to the transform of this camera.
+		 */
+		Transform &GetTransform() const {
+			return *m_transform;
+		}
+
 	protected:
 
 		/**
@@ -188,7 +204,9 @@ namespace mage {
 						The position of the far z-plane.
 		 */
 		Camera(float width, float height, float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: m_width(width), m_height(height), m_near_z(near_z), m_far_z(far_z) {}
+			: m_width(width), m_height(height), 
+			m_near_z(near_z), m_far_z(far_z), 
+			m_transform(new Transform()) {}
 
 		/**
 		 Constructs a camera from the given camera.
@@ -196,7 +214,10 @@ namespace mage {
 		 @param[in]		camera
 						The camera.
 		 */
-		Camera(const Camera &camera) = default;
+		Camera(const Camera &camera) 
+			: m_width(camera.m_width), m_height(camera.m_height), 
+			m_near_z(camera.m_near_z), m_far_z(camera.m_far_z), 
+			m_transform(new Transform(*camera.m_transform)) {}
 
 	private:
 
@@ -219,5 +240,10 @@ namespace mage {
 		 The position of the far z-plane.
 		 */
 		float m_far_z;
+
+		/**
+		 The transform of this camera.
+		 */
+		SharedPtr< Transform > m_transform;
 	};
 }

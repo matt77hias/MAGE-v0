@@ -24,6 +24,8 @@ namespace mage {
 
 	template < typename T >
 	using SharedPtr = std::shared_ptr< T >;
+
+	using std::make_shared;
 }
 
 #include <wrl.h>

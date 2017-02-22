@@ -11,8 +11,6 @@
 #include "rendering\renderer.hpp"
 #include "input\input_manager.hpp"
 #include "ui\main_window.hpp"
-#include "state\state_manager.hpp"
-#include "resource\resource_manager.hpp"
 
 #include "engine_setup.hpp"
 
@@ -36,7 +34,7 @@ namespace mage {
 		 @param[in]		setup
 						A reference to an engine setup.
 		 */
-		Engine(const EngineSetup &setup = EngineSetup());
+		Engine(const EngineSetup &setup);
 
 		/**
 		 Destructs this engine.
@@ -93,17 +91,6 @@ namespace mage {
 			m_mode_switch = mode_switch;
 		}
 
-		// STATE SYSTEM
-
-		/**
-		 Returns the state manager of this engine.
-
-		 @return		A reference to the state manager of this engine.
-		 */
-		StateManager &GetStateManager() const {
-			return *m_state_manager;
-		}
-		
 		// INPUT SYSTEM
 
 		/**
@@ -114,6 +101,15 @@ namespace mage {
 		const InputManager &GetInputManager() const {
 			return *m_input_manager;
 		}
+
+		// SCENE
+
+		/**
+		 Sets the scene of this engine to the given scene.
+
+		 @return		A pointer to the scene to set.
+		 */
+		void SetScene(Scene *scene);
 
 	protected:
 
@@ -191,19 +187,19 @@ namespace mage {
 		 */
 		bool m_mode_switch;
 
-		// STATE SYSTEM
-
-		/**
-		 A pointer to the state manager of this engine.
-		 */
-		UniquePtr< StateManager > m_state_manager;
-
 		// INPUT SYSTEM
 
 		/**
 		 A pointer to the input manager of this engine.
 		 */
 		UniquePtr< InputManager > m_input_manager;
+
+		// SCENE
+
+		/**
+		 The current scene of this engine.
+		 */
+		Scene *m_scene;
 	};
 
 	/**

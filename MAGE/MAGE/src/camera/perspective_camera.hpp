@@ -69,7 +69,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this perspective camera.
 		 */
-		virtual Camera *Clone() const {
+		virtual PerspectiveCamera *Clone() const {
 			return new PerspectiveCamera(*this);
 		}
 

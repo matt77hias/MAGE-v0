@@ -2,62 +2,84 @@
 
 #include "core\engine.hpp"
 #include "camera\perspective_camera.hpp"
-#include "model\model.hpp"
-#include "shader\pixel_shader.hpp"
-#include "shader\vertex_shader.hpp"
+#include "model\meshmodel.hpp"
+#include "shader\lambertian_shader.hpp"
+#include "scripting\behavior_script.hpp"
 
 using namespace mage;
 
-class TestState : public State {
-	UniquePtr< Camera > m_camera;
-	UniquePtr< Model< VertexPositionNormalTexture > > m_model;
-	UniquePtr< VertexShader > m_vs;
-	UniquePtr< PixelShader > m_ps;
+class TestScript : public BehaviorScript {
 
-	virtual void Load() override {
-		// @TODO: put the display mode in the renderer
-		const float width  = (float)g_device_enumeration->GetDisplayMode()->Width;
-		const float height = (float)g_device_enumeration->GetDisplayMode()->Height;
-		m_camera = make_unique< PerspectiveCamera >(width, height);
+public:
 
-		ComPtr< ID3D11Device2 > device = g_engine->GetRenderer().GetDevice();
+	TestScript(SharedPtr< Model > model)
+		: BehaviorScript(), m_model(model) {}
+	~TestScript() = default;
 
-		m_vs = make_unique< VertexShader >(device, L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_VS.cso", VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements);
-		m_ps = make_unique< PixelShader >(device, L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/effect_PS.cso");
-		
-		MeshDescriptor desc(true, true);
-		m_model = make_unique< Model< VertexPositionNormalTexture > >(device, L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/cube2.obj", desc);
-	}
-
-	virtual void Update(double elapsed_time) override {
+	virtual void Update(double elapsed_time, const Scene &scene) override {
+		UNUSED(scene);
 		m_model->GetTransform().AddRotationY((float)elapsed_time);
 		
-		ComPtr< ID3D11DeviceContext2 > device_context = g_engine->GetRenderer().GetDeviceContext();
-
-		CameraTransformBuffer ct;
-		ModelTransformBuffer mt;
-		const XMVECTOR p_eye   = XMVectorSet(0.0f, 3.0f, -6.0f, 1.0f);
-		const XMVECTOR p_focus = XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
-		const XMVECTOR d_up    = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-		ct.world_to_view       = XMMatrixTranspose(XMMatrixLookAtLH(p_eye, p_focus, d_up));
-		ct.view_to_projection  = XMMatrixTranspose(m_camera->GetViewToProjectionMatrix());
-		mt.model_to_world      = XMMatrixTranspose(m_model->GetTransform().GetObjectToWorldMatrix());
-
-		m_vs->Update(device_context, ct, mt);
-		m_ps->Update(device_context);
-		m_model->Update(device_context);
-
 		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_F2)) {
 			//PostQuitMessage(0);
 			VariableScript s(L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/script_test.vs");
 			s.ExportScript(L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/output.vs");
 		}
 	}
+
+private:
+	
+	TestScript(const TestScript &script) = delete;
+	TestScript &operator=(const TestScript &script) = delete;
+
+	SharedPtr< Model > m_model;
 };
 
-void StateSetup() {
-	g_engine->GetStateManager().AddState(new TestState(), true);
-}
+class TestScene : public Scene {
+
+public:
+
+	TestScene()
+		: Scene("testscene") {}
+	~TestScene() = default;
+
+	virtual void Load() override {
+
+		// @TODO: put the display mode in the renderer
+		const float width  = (float)g_device_enumeration->GetDisplayMode()->Width;
+		const float height = (float)g_device_enumeration->GetDisplayMode()->Height;
+		SharedPtr< Camera > camera(new PerspectiveCamera(width, height));
+		SetCamera(camera);
+		camera->GetTransform().SetTranslationZ(-6.0f);
+		
+		ComPtr< ID3D11Device2 > device = g_engine->GetRenderer().GetDevice();
+		
+		CombinedShader shader = CreateLambertianShader(device);
+
+		MeshDescriptor desc(true, true);
+		SharedPtr< Model > test_model(new MeshModel< VertexPositionNormalTexture >("model", device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/cube2.obj", desc, shader));
+		GetWorld().AddModel(test_model);
+
+		SharedPtr< BehaviorScript > test_script(new TestScript(test_model));
+		AddScript(test_script);
+	}
+
+private:
+
+	TestScene(const TestScene &scene) = delete;
+	TestScene &operator=(const TestScene &scene) = delete;
+};
+
+struct TestSetup : public EngineSetup {
+
+	TestSetup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
+		: EngineSetup(hinstance, name) {}
+	virtual ~TestSetup() = default;
+
+	virtual Scene *CreateScene() const override {
+		return new TestScene();
+	}
+};
 
 /**
  The user-provided entry point for MAGE.
@@ -78,7 +100,7 @@ void StateSetup() {
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 
 	// Create the engine setup structure.
-	EngineSetup setup(hinstance, L"Engine Control Test", StateSetup);
+	TestSetup setup(hinstance, L"Engine Control Test");
 
 	// Create the engine, then run it.
 	g_engine = new Engine(setup);

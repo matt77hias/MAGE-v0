@@ -65,7 +65,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this orthographic camera.
 		 */
-		virtual Camera *Clone() const {
+		virtual OrthographicCamera *Clone() const {
 			return new OrthographicCamera(*this);
 		}
 

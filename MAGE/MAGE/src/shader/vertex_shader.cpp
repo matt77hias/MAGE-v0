@@ -22,12 +22,6 @@ namespace mage {
 			Error("Shader initialization failed: %ld.", result_shader);
 			return;
 		}
-
-		const HRESULT result_buffers = SetupBuffers(device);
-		if (FAILED(result_buffers)) {
-			Error("Buffer setup failed: %ld.", result_buffers);
-			return;
-		}
 	}
 
 	HRESULT VertexShader::InitializeShader(ComPtr< ID3D11Device2 > device, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements) {
@@ -64,48 +58,5 @@ namespace mage {
 		}
 
 		return S_OK;
-	}
-
-	HRESULT VertexShader::SetupBuffers(ComPtr< ID3D11Device2 > device) {
-		// Describe the buffer resource.
-		D3D11_BUFFER_DESC buffer_desc;
-		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
-		buffer_desc.Usage = D3D11_USAGE_DEFAULT;	         // How the buffer is expected to be read from and written to.
-		buffer_desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;     // How the buffer will be bound to the pipeline.
-		buffer_desc.CPUAccessFlags = 0;						         // No CPU access is necessary.
-
-		buffer_desc.ByteWidth = sizeof(CameraTransformBuffer);	 // Size of the buffer in bytes.
-
-																 // Create the index buffer.
-																 // 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
-																 // 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
-																 // 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
-		const HRESULT result_cb_camera = device->CreateBuffer(&buffer_desc, nullptr, m_cb_camera.ReleaseAndGetAddressOf());
-		if (FAILED(result_cb_camera)) {
-			return result_cb_camera;
-		}
-
-		buffer_desc.ByteWidth = sizeof(ModelTransformBuffer);  // Size of the buffer in bytes.
-
-															   // Create the index buffer.
-															   // 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
-															   // 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
-															   // 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
-		const HRESULT result_cb_model = device->CreateBuffer(&buffer_desc, nullptr, m_cb_model.ReleaseAndGetAddressOf());
-		if (FAILED(result_cb_model)) {
-			return result_cb_model;
-		}
-
-		return S_OK;
-	}
-
-	void VertexShader::Update(ComPtr< ID3D11DeviceContext2 > device_context,
-		const CameraTransformBuffer &camera, const ModelTransformBuffer &model) {
-		device_context->IASetInputLayout(m_vertex_layout.Get());
-		device_context->UpdateSubresource(m_cb_camera.Get(), 0, nullptr, &camera, 0, 0);
-		device_context->UpdateSubresource(m_cb_model.Get(), 0, nullptr, &model, 0, 0);
-		device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
-		device_context->VSSetConstantBuffers(0, 1, m_cb_camera.GetAddressOf());
-		device_context->VSSetConstantBuffers(1, 1, m_cb_model.GetAddressOf());
 	}
 }

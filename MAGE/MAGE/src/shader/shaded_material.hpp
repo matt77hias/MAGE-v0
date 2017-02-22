@@ -1,23 +1,33 @@
 #pragma once
 
-#include "shader\vertex_shader.hpp"
-#include "shader\pixel_shader.hpp"
-#include "material\material.hpp"
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
 
+#include "shader\combined_shader.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
 namespace mage {
 
-	class ShadedMaterial {
+	struct ShadedMaterial final {
 
 	public:
 
-		ShadedMaterial(SharedPtr< VertexShader > vertex_shader, SharedPtr< PixelShader > pixel_shader, const Material &material)
-			: m_vertex_shader(vertex_shader), m_pixel_shader(pixel_shader), m_material(material) {}
+		ShadedMaterial(const CombinedShader &shader, const Material &material)
+			: m_shader(shader), m_material(material) {}
 		ShadedMaterial(const ShadedMaterial &shaded_material) = default;
-		virtual ~ShadedMaterial() = default;
+		~ShadedMaterial() = default;
 
 		ShadedMaterial &operator=(const ShadedMaterial &shaded_material) = default;
 
-		void Update();
+		void Render(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) {
+			m_shader.Render(device_context, m_material, world, transform_buffer);
+		}
 
 		Material &GetMaterial() {
 			return m_material;
@@ -26,10 +36,16 @@ namespace mage {
 			return m_material;
 		}
 
+		CombinedShader &GetShader() {
+			return m_shader;
+		}
+		const CombinedShader &GetShader() const {
+			return m_shader;
+		}
+
 	private:
 
-		SharedPtr< VertexShader > m_vertex_shader;
-		SharedPtr< PixelShader > m_pixel_shader;
+		CombinedShader m_shader;
 		Material m_material;
 	};
 }

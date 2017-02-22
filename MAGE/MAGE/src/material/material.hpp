@@ -25,7 +25,6 @@ namespace mage {
 			m_index_of_refraction(index_of_refraction),
 			m_name(name) {}
 		Material(const Material &material) = default;
-
 		~Material() = default;
 
 		Material &operator=(const Material &material) = default;

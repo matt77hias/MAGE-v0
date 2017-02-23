@@ -5,7 +5,8 @@
 
 ## Development
 * **Platform**: (minimum) Windows 8.1 32 Bit and 64 Bit (Windows API + Direct3D 11)
-* **Engine Programming Language**: C++14 (will change to C++17)
+* **Engine Programming Language**: C++14 (will and must change to C++17 since I need `if-constexpr`)
+* **Shading Model**: Shader Model 4.0
 * **Scripting Language**: C++14
 * **Dependencies**:
   * d3d11.lib

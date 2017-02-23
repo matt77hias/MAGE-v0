@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <stdint.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -46,11 +55,29 @@ namespace mage {
 		}
 
 		/**
+		 Returns the width in pixels of the display of this renderer.
+
+		 @return		The width in pixels of the display of this renderer.
+		 */
+		uint32_t GetWidth() const {
+			return (uint32_t)m_display_mode.Width;
+		}
+
+		/**
+		 Returns the height in pixels of the display of this renderer.
+
+		 @return		The height in pixels of the display of this renderer.
+		 */
+		uint32_t GetHeight() const {
+			return (uint32_t)m_display_mode.Height;
+		}
+
+		/**
 		 Returns the device of this renderer.
 
 		 @return		A pointer to the device of this renderer.
 		 */
-		ComPtr< ID3D11Device2 > GetDevice() {
+		ComPtr< ID3D11Device2 > GetDevice() const {
 			return m_device2;
 		}
 
@@ -59,7 +86,7 @@ namespace mage {
 
 		 @return		A pointer to the device context of this renderer.
 		 */
-		ComPtr< ID3D11DeviceContext2 > GetDeviceContext() {
+		ComPtr< ID3D11DeviceContext2 > GetDeviceContext() const {
 			return m_device_context2;
 		}
 
@@ -117,6 +144,35 @@ namespace mage {
 
 	protected:
 
+		DXGI_MODE_DESC1					 m_display_mode;
+		D3D_FEATURE_LEVEL		         m_feature_level;
+		ComPtr< ID3D11Device2 >	         m_device2;
+		ComPtr< ID3D11DeviceContext2 >   m_device_context2;
+		ComPtr< IDXGISwapChain2 >        m_swap_chain2;
+		ComPtr< ID3D11RenderTargetView > m_render_target_view;
+		ComPtr< ID3D11Texture2D >        m_depth_stencil;
+		ComPtr< ID3D11DepthStencilView > m_depth_stencil_view;
+
+	private:
+
+		/**
+		 Constructs a renderer from the given renderer.
+
+		 @param[in]		renderer
+						A reference to a renderer.
+		 */
+		Renderer(const Renderer &renderer) = delete;
+
+		/**
+		 Copies the given renderer to this renderer.
+
+		 @param[in]		renderer
+						A reference to a renderer.
+		 @return		A reference to the copy of the given renderer
+						(i.e. this renderer).
+		 */
+		Renderer &operator=(const Renderer &renderer) = delete;
+
 		/**
 		 Initializes this renderer.
 
@@ -166,16 +222,6 @@ namespace mage {
 		 @return		A success/error value.
 		 */
 		HRESULT SetupViewPort() const;
-
-		D3D_FEATURE_LEVEL		         m_feature_level;
-		ComPtr< ID3D11Device2 >	         m_device2;
-		ComPtr< ID3D11DeviceContext2 >   m_device_context2;
-		ComPtr< IDXGISwapChain2 >        m_swap_chain2;
-		ComPtr< ID3D11RenderTargetView > m_render_target_view;
-		ComPtr< ID3D11Texture2D >        m_depth_stencil;
-		ComPtr< ID3D11DepthStencilView > m_depth_stencil_view;
-
-	private:
 
 		/**
 		 The handle of the parent window.

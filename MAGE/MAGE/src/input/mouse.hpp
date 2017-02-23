@@ -119,49 +119,6 @@ namespace mage {
 			return m_mouse_state.lZ;
 		}
 
-	protected:
-
-		/**
-		 Initializes the mouse device of this mouse.
-
-		 @param[in]		di
-						A pointer to a direct input object.
-		 @return		A success/error value.
-		 */
-		HRESULT InitializeMouse(ComPtr< IDirectInput8 > di);
-
-		/**
-		 The current press stamp (incremented every frame).
-		 */
-		uint64_t m_press_stamp;
-
-		/**
-		 DirectInput mouse device of this mouse.
-
-		 The methods of the IDirectInputDevice8 interface are used to gain and release access
-		 to Microsoft DirectInput devices, manage device properties and information, set behavior,
-		 perform initialization, create and play force-feedback effects, and invoke a device's control panel.
-		 */
-		ComPtr< IDirectInputDevice8 > m_mouse;
-
-		/**
-		 State of the mouse buttons of this mouse.
-
-		 Describes the state of a mouse device that has up to four buttons,
-		 or another device that is being accessed as if it were a mouse device.
-		 */
-		DIMOUSESTATE m_mouse_state;
-
-		/**
-		 Stamps the mouse buttons pressed in the last frame of this mouse.
-		 */
-		mutable uint64_t m_mouse_button_press_stamp[3];
-
-		/**
-		 The position of the mouse cursor on the screen of this mouse.
-		 */
-		POINT m_mouse_position;
-
 	private:
 
 		/**
@@ -183,8 +140,49 @@ namespace mage {
 		Mouse &operator=(const Mouse &mouse) = delete;
 
 		/**
+		 Initializes the mouse device of this mouse.
+
+		 @param[in]		di
+						A pointer to a direct input object.
+		 @return		A success/error value.
+		 */
+		HRESULT InitializeMouse(ComPtr< IDirectInput8 > di);
+
+		/**
 		 The handle of the parent window.
 		 */
 		HWND m_hwindow;
+
+		/**
+		 DirectInput mouse device of this mouse.
+
+		 The methods of the IDirectInputDevice8 interface are used to gain and release access
+		 to Microsoft DirectInput devices, manage device properties and information, set behavior,
+		 perform initialization, create and play force-feedback effects, and invoke a device's control panel.
+		 */
+		ComPtr< IDirectInputDevice8 > m_mouse;
+
+		/**
+		The current press stamp (incremented every frame).
+		*/
+		uint64_t m_press_stamp;
+
+		/**
+		 State of the mouse buttons of this mouse.
+
+		 Describes the state of a mouse device that has up to four buttons,
+		 or another device that is being accessed as if it were a mouse device.
+		 */
+		DIMOUSESTATE m_mouse_state;
+
+		/**
+		 Stamps the mouse buttons pressed in the last frame of this mouse.
+		 */
+		mutable uint64_t m_mouse_button_press_stamp[3];
+
+		/**
+		 The position of the mouse cursor on the screen of this mouse.
+		 */
+		POINT m_mouse_position;
 	};
 }

@@ -111,7 +111,25 @@ namespace mage {
 		 */
 		void SetScene(SharedPtr< Scene > scene);
 
-	protected:
+	private:
+
+		/**
+		 Constructs an engine from the given engine.
+
+		 @param[in]		engine
+						A reference to the engine.
+		 */
+		Engine(const Engine &engine) = delete;
+
+		/**
+		 Copies the given engine to this engine.
+
+		 @param[in]		engine
+						A reference to the engine to copy from.
+		 @return		A reference to the copy of the given engine
+						(i.e. this engine).
+		 */
+		Engine &operator=(const Engine &engine) = delete;
 
 		/**
 		 Initializes the different systems of this engine.
@@ -119,7 +137,7 @@ namespace mage {
 		 @param[in]		setup
 						A reference to an engine setup.
 		 @return		A success/error value.
-		 */
+		*/
 		HRESULT InitializeSystems(const EngineSetup &setup);
 
 		/**
@@ -141,26 +159,6 @@ namespace mage {
 		bool ModeSwitch() const {
 			return m_mode_switch;
 		}
-
-	private:
-
-		/**
-		 Constructs an engine from the given engine.
-
-		 @param[in]		engine
-						A reference to the engine.
-		 */
-		Engine(const Engine &engine) = delete;
-
-		/**
-		 Copies the given engine to this engine.
-
-		 @param[in]		engine
-						A reference to the engine to copy from.
-		 @return		A reference to the copy of the given engine
-						(i.e. this engine).
-		 */
-		Engine &operator=(const Engine &engine) = delete;
 
 		// WINDOW SYSTEM
 

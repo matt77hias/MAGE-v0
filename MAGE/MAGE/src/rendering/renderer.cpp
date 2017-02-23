@@ -15,7 +15,8 @@
 namespace mage {
 
 	Renderer::Renderer(HWND hwindow) : 
-		Loadable(), m_hwindow(hwindow), m_fullscreen(false) {
+		Loadable(), m_hwindow(hwindow), m_fullscreen(false),
+		m_display_mode(*g_device_enumeration->GetDisplayMode()) {
 
 		const HRESULT result_renderer = InitializeRenderer();
 		if (FAILED(result_renderer)) {
@@ -153,13 +154,13 @@ namespace mage {
 		// Create a DXGI_SWAP_CHAIN_DESC1.
 		DXGI_SWAP_CHAIN_DESC1 swap_chain_desc;
 		ZeroMemory(&swap_chain_desc, sizeof(swap_chain_desc));
-		swap_chain_desc.Width              = g_device_enumeration->GetDisplayMode()->Width;	// The resolution width.
-		swap_chain_desc.Height             = g_device_enumeration->GetDisplayMode()->Height;// The resolution height.
-		swap_chain_desc.Format             = g_device_enumeration->GetDisplayMode()->Format;// The display format.
-		swap_chain_desc.SampleDesc.Count   = 1;												// The number of multisamples per pixel.
-		swap_chain_desc.SampleDesc.Quality = 0;												// The image quality level. (lowest)
-		swap_chain_desc.BufferUsage        = DXGI_USAGE_RENDER_TARGET_OUTPUT;				// Use the surface or resource as an output render target.
-		swap_chain_desc.BufferCount        = 1;												// The number of buffers in the swap chain.
+		swap_chain_desc.Width              = m_display_mode.Width;	                 // The resolution width.
+		swap_chain_desc.Height             = m_display_mode.Height;                  // The resolution height.
+		swap_chain_desc.Format             = m_display_mode.Format;                  // The display format.
+		swap_chain_desc.SampleDesc.Count   = 1;										 // The number of multisamples per pixel.
+		swap_chain_desc.SampleDesc.Quality = 0;										 // The image quality level. (lowest)
+		swap_chain_desc.BufferUsage        = DXGI_USAGE_RENDER_TARGET_OUTPUT;		 // Use the surface or resource as an output render target.
+		swap_chain_desc.BufferCount        = 1;										 // The number of buffers in the swap chain.
 		swap_chain_desc.Flags              = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
 		// Create a DXGI_SWAP_CHAIN_FULLSCREEN_DESC.
@@ -210,17 +211,17 @@ namespace mage {
 		// Create the depth stencil texture.
 		D3D11_TEXTURE2D_DESC depth_stencil_desc;
 		ZeroMemory(&depth_stencil_desc, sizeof(depth_stencil_desc));
-		depth_stencil_desc.Width              = g_device_enumeration->GetDisplayMode()->Width;	// Texture width (in texels).
-		depth_stencil_desc.Height             = g_device_enumeration->GetDisplayMode()->Height;	// Texture height (in texels).
-		depth_stencil_desc.MipLevels          = 1;                                              // The maximum number of mipmap levels in the texture.
-		depth_stencil_desc.ArraySize          = 1;							                    // Number of textures in the texture array.
-		depth_stencil_desc.Format             = DXGI_FORMAT_D24_UNORM_S8_UINT;                  // Texture format.
-		depth_stencil_desc.SampleDesc.Count   = 1;							                    // The number of multisamples per pixel.
-		depth_stencil_desc.SampleDesc.Quality = 0;							                    // The image quality level. (lowest)
-		depth_stencil_desc.Usage              = D3D11_USAGE_DEFAULT;			                // Value that identifies how the texture is to be read from and written to.
-		depth_stencil_desc.BindFlags          = D3D11_BIND_DEPTH_STENCIL;		                // Flags for binding to pipeline stages. 
-		depth_stencil_desc.CPUAccessFlags     = 0;							                    // No CPU access is necessary.
-		depth_stencil_desc.MiscFlags          = 0;							                    // Flags that identify other, less common resource options.
+		depth_stencil_desc.Width              = m_display_mode.Width;	       // Texture width (in texels).
+		depth_stencil_desc.Height             = m_display_mode.Height;	       // Texture height (in texels).
+		depth_stencil_desc.MipLevels          = 1;                             // The maximum number of mipmap levels in the texture.
+		depth_stencil_desc.ArraySize          = 1;							   // Number of textures in the texture array.
+		depth_stencil_desc.Format             = DXGI_FORMAT_D24_UNORM_S8_UINT; // Texture format.
+		depth_stencil_desc.SampleDesc.Count   = 1;							   // The number of multisamples per pixel.
+		depth_stencil_desc.SampleDesc.Quality = 0;							   // The image quality level. (lowest)
+		depth_stencil_desc.Usage              = D3D11_USAGE_DEFAULT;		   // Value that identifies how the texture is to be read from and written to.
+		depth_stencil_desc.BindFlags          = D3D11_BIND_DEPTH_STENCIL;	   // Flags for binding to pipeline stages. 
+		depth_stencil_desc.CPUAccessFlags     = 0;							   // No CPU access is necessary.
+		depth_stencil_desc.MiscFlags          = 0;							   // Flags that identify other, less common resource options.
 		const HRESULT result_depth_stencil    = m_device2->CreateTexture2D(&depth_stencil_desc, nullptr, m_depth_stencil.ReleaseAndGetAddressOf());
 		if (FAILED(result_depth_stencil)) {
 			Error("Depth-stencil texture creation failed: %ld.", result_depth_stencil);
@@ -248,8 +249,8 @@ namespace mage {
 		ZeroMemory(&viewport, sizeof(viewport));
 		viewport.TopLeftX = 0;
 		viewport.TopLeftY = 0;
-		viewport.Width    = (FLOAT)g_device_enumeration->GetDisplayMode()->Width;
-		viewport.Height   = (FLOAT)g_device_enumeration->GetDisplayMode()->Height;
+		viewport.Width    = (FLOAT)m_display_mode.Width;
+		viewport.Height   = (FLOAT)m_display_mode.Height;
 		viewport.MinDepth = 0.0f;
 		viewport.MaxDepth = 1.0f;
 
@@ -272,7 +273,7 @@ namespace mage {
 
 	void Renderer::EndFrame() const {
 		// Present the back buffer to the front buffer.
-		const HRESULT hr = m_swap_chain2->Present(0, 0);
+		m_swap_chain2->Present(0, 0);
 	}
 
 	void Renderer::SwitchMode(bool toggle) {

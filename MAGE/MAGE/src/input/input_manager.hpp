@@ -67,28 +67,6 @@ namespace mage {
 			return *m_mouse;
 		}
 
-	protected:
-
-		/**
-		 Initializes the DirectInput object of this input manager.
-
-		 @return		A success/error value.
-		 */
-		HRESULT InitializeDI();
-
-		/**
-		 Initializes the different input systems of this input manager.
-		 */
-		HRESULT InitializeInputSystems();
-
-		/**
-		 The DirectInput object of this input manager.
-
-		 The methods of the IDirectInput8 interface are used to enumerate,
-		 create, and retrieve the status of Microsoft DirectInput device.
-		 */
-		ComPtr< IDirectInput8 > m_di;
-
 	private:
 
 		/**
@@ -110,9 +88,29 @@ namespace mage {
 		InputManager &operator=(const InputManager &input_manager) = delete;
 
 		/**
+		 Initializes the DirectInput object of this input manager.
+
+		 @return		A success/error value.
+		 */
+		HRESULT InitializeDI();
+
+		/**
+		 Initializes the different input systems of this input manager.
+		 */
+		HRESULT InitializeInputSystems();
+
+		/**
 		 The handle of the parent window.
 		 */
 		HWND m_hwindow;
+
+		/**
+		 The DirectInput object of this input manager.
+
+		 The methods of the IDirectInput8 interface are used to enumerate,
+		 create, and retrieve the status of Microsoft DirectInput device.
+		 */
+		ComPtr< IDirectInput8 > m_di;
 
 		/**
 		 A pointer to the keyboard of this input manager.

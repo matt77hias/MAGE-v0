@@ -46,19 +46,20 @@ public:
 	virtual void Load() override {
 
 		// @TODO: put the display mode in the renderer
-		const float width  = (float)g_device_enumeration->GetDisplayMode()->Width;
-		const float height = (float)g_device_enumeration->GetDisplayMode()->Height;
+		const float width  = (float)g_engine->GetRenderer().GetWidth();
+		const float height = (float)g_engine->GetRenderer().GetHeight();
 		SharedPtr< Camera > camera(new PerspectiveCamera(width, height));
 		SetCamera(camera);
-		camera->GetTransform().SetRotationX(1.10714872f);
-		camera->GetTransform().SetTranslation(0.0f, 0.11f, -4.1126f);
+		//camera->GetTransform().SetRotationX(1.10714872f);
+		//camera->GetTransform().SetTranslation(0.0f, 0.11f, -4.1126f);
+		camera->GetTransform().SetTranslation(0.0f, 2.0f, -6.0f);
 		
 		ComPtr< ID3D11Device2 > device = g_engine->GetRenderer().GetDevice();
 		
 		CombinedShader shader = CreateLambertianShader(device);
 
 		MeshDescriptor desc(true, true);
-		SharedPtr< Model > test_model(new MeshModel< VertexPositionNormalTexture >("model", device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/cube2.obj", desc, shader));
+		SharedPtr< Model > test_model(new MeshModel< VertexPositionNormalTexture >("model", device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/teapot.obj", desc, shader));
 		GetWorld().AddModel(test_model);
 
 		SharedPtr< BehaviorScript > test_script(new TestScript(test_model));

@@ -74,41 +74,6 @@ namespace mage {
 		 */
 		bool GetKeyPress(char key, bool ignore_press_stamp = false) const;
 
-	protected:
-
-		/**
-		 Initializes the keyboard device of this keyboard.
-
-		 @param[in]		di
-						A pointer to a direct input object.
-		 @return		A success/error value.
-		 */
-		HRESULT InitializeKeyboard(ComPtr< IDirectInput8 > di);
-
-		/**
-		 The current press stamp (incremented every frame).
-		 */
-		uint64_t m_press_stamp;
-
-		/**
-		 The DirectInput keyboard device of this keyboard.
-
-		 The methods of the IDirectInputDevice8 interface are used to gain and release access
-		 to Microsoft DirectInput devices, manage device properties and information, set behavior,
-		 perform initialization, create and play force-feedback effects, and invoke a device's control panel.
-		 */
-		ComPtr< IDirectInputDevice8 > m_keyboard;
-
-		/**
-		 State of the keys of this keyboard.
-		 */
-		char m_key_state[256];
-
-		/**
-		 Stamps the keys pressed in the last frame of this keyboard.
-		 */
-		mutable uint64_t m_key_press_stamp[256];
-
 	private:
 
 		/**
@@ -130,8 +95,41 @@ namespace mage {
 		Keyboard &operator=(const Keyboard &keyboard) = delete;
 
 		/**
+		 Initializes the keyboard device of this keyboard.
+
+		 @param[in]		di
+						A pointer to a direct input object.
+		 @return		A success/error value.
+		 */
+		HRESULT InitializeKeyboard(ComPtr< IDirectInput8 > di);
+
+		/**
 		 The handle of the parent window.
 		 */
 		HWND m_hwindow;
+
+		/**
+		 The DirectInput keyboard device of this keyboard.
+
+		 The methods of the IDirectInputDevice8 interface are used to gain and release access
+		 to Microsoft DirectInput devices, manage device properties and information, set behavior,
+		 perform initialization, create and play force-feedback effects, and invoke a device's control panel.
+		 */
+		ComPtr< IDirectInputDevice8 > m_keyboard;
+
+		/**
+		 The current press stamp (incremented every frame).
+		 */
+		uint64_t m_press_stamp;
+
+		/**
+		 State of the keys of this keyboard.
+		 */
+		char m_key_state[256];
+
+		/**
+		 Stamps the keys pressed in the last frame of this keyboard.
+		 */
+		mutable uint64_t m_key_press_stamp[256];
 	};
 }

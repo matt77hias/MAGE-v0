@@ -133,9 +133,6 @@
     <Filter Include="Source Files\scripting\vs">
       <UniqueIdentifier>{a76c43d3-6a84-4cb7-81b7-55b7b0f6254d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\binary">
-      <UniqueIdentifier>{f9037ed9-2f94-4e69-9655-84338a6f6894}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\binary">
       <UniqueIdentifier>{73ccf237-7a3b-48fd-a910-7d3c722ce952}</UniqueIdentifier>
     </Filter>
@@ -255,13 +252,7 @@
     <ClInclude Include="MAGE\src\camera\perspective_camera.hpp">
       <Filter>Header Files\camera</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\pixel_shader.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\shader_utils.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\vertex_shader.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\material\material.hpp">
@@ -378,9 +369,6 @@
     <ClInclude Include="MAGE\src\scene\scene.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\combined_shader.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\light\point_light.hpp">
       <Filter>Header Files\light</Filter>
     </ClInclude>
@@ -391,6 +379,12 @@
       <Filter>Header Files\model</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\lambertian_shader.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\shader.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\empty_shader.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
   </ItemGroup>
@@ -442,9 +436,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\logging\progress_reporter.cpp">
       <Filter>Source Files\logging</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\shader\pixel_shader.cpp">
-      <Filter>Source Files\shader</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp">
       <Filter>Source Files\shader</Filter>
@@ -500,14 +491,8 @@
     <ClCompile Include="MAGE\src\material\material_loader.cpp">
       <Filter>Source Files\material</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\binary\binary_utils.cpp">
-      <Filter>Source Files\binary</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\model\model.cpp">
       <Filter>Source Files\model</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\shader\vertex_shader.cpp">
-      <Filter>Source Files\shader</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\scene\scene.cpp">
       <Filter>Source Files\scene</Filter>
@@ -516,6 +501,9 @@
       <Filter>Source Files\scene</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\shader\lambertian_shader.cpp">
+      <Filter>Source Files\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
   </ItemGroup>

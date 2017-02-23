@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "shader\combined_shader.hpp"
+#include "shader\empty_shader.hpp"
 
 #pragma endregion
 
@@ -31,7 +31,7 @@ namespace mage {
 		LambertianVertexShader(ComPtr< ID3D11Device2 > device);
 		virtual ~LambertianVertexShader() = default;
 
-		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world, const TransformBuffer &transform_buffer) override {
+		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world, const TransformBuffer &transform_buffer) const override {
 			UNUSED(world);
 			UNUSED(material);
 			device_context->IASetInputLayout(m_vertex_layout.Get());
@@ -52,7 +52,7 @@ namespace mage {
 
 	inline CombinedShader CreateLambertianShader(ComPtr< ID3D11Device2 > device) {
 		SharedPtr< VertexShader > vs(new LambertianVertexShader(device));
-		SharedPtr< PixelShader > ps(new PixelShader(device, MAGE_FNAME_LAMBERTIAN_PS));
+		SharedPtr< PixelShader > ps(new EmptyPixelShader(device, MAGE_FNAME_LAMBERTIAN_PS));
 		return CombinedShader(vs, ps);
 	}
 }

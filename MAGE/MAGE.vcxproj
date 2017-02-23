@@ -86,12 +86,11 @@
     <ClInclude Include="MAGE\src\scripting\vs\vs_tokens.hpp" />
     <ClInclude Include="MAGE\src\scripting\vs\vs_writer.hpp" />
     <ClInclude Include="MAGE\src\shader\lambertian_shader.hpp" />
-    <ClInclude Include="MAGE\src\shader\pixel_shader.hpp" />
+    <ClInclude Include="MAGE\src\shader\empty_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\shaded_material.hpp" />
-    <ClInclude Include="MAGE\src\shader\combined_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\shader_utils.hpp" />
     <ClInclude Include="MAGE\src\shader\shading.hpp" />
-    <ClInclude Include="MAGE\src\shader\vertex_shader.hpp" />
+    <ClInclude Include="MAGE\src\shader\shader.hpp" />
     <ClInclude Include="MAGE\src\string\line_reader.hpp" />
     <ClInclude Include="MAGE\src\string\token.hpp" />
     <ClInclude Include="MAGE\src\string\string.hpp" />
@@ -102,7 +101,6 @@
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MAGE\src\binary\binary_utils.cpp" />
     <ClCompile Include="MAGE\src\core\engine.cpp" />
     <ClCompile Include="MAGE\src\core\version.cpp" />
     <ClCompile Include="MAGE\src\input\input_manager.cpp" />
@@ -134,9 +132,8 @@
     <ClCompile Include="MAGE\src\scripting\vs\vs_reader.cpp" />
     <ClCompile Include="MAGE\src\scripting\vs\vs_writer.cpp" />
     <ClCompile Include="MAGE\src\shader\lambertian_shader.cpp" />
-    <ClCompile Include="MAGE\src\shader\pixel_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
-    <ClCompile Include="MAGE\src\shader\vertex_shader.cpp" />
+    <ClCompile Include="MAGE\src\shader\shader.cpp" />
     <ClCompile Include="MAGE\src\string\line_reader.cpp" />
     <ClCompile Include="MAGE\src\string\token.cpp" />
     <ClCompile Include="MAGE\src\string\string_utils.cpp" />

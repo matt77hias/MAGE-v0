@@ -83,7 +83,7 @@ namespace mage {
 			return m_vsync;
 		}
 
-	protected:
+	private:
 
 		/**
 		 Constructs a device enumeration.
@@ -93,7 +93,25 @@ namespace mage {
 		/**
 		 Destructs this device enumeration.
 		 */
-		virtual ~DeviceEnumeration() {}
+		~DeviceEnumeration() = default;
+
+		/**
+		 Constructs a device enumeration from the given device enumeration.
+
+		 @param[in]		device_enumeration
+						A reference to a device enumeration.
+		 */
+		DeviceEnumeration(const DeviceEnumeration &device_enumeration) = delete;
+
+		/**
+		 Copies the given device enumeration to this device enumeration.
+
+		 @param[in]		device_enumeration
+						A reference to a device enumeration.
+		 @return		A reference to the copy of the given device enumeration
+						(i.e. this device enumeration).
+		 */
+		DeviceEnumeration &operator=(const DeviceEnumeration &device_enumeration) = delete;
 
 		/**
 		 Initializes the adapter and the output of this device enumeration.

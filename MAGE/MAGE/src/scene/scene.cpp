@@ -5,6 +5,7 @@
 
 #include "scene\scene.hpp"
 #include "scripting\behavior_script.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -104,10 +105,7 @@ namespace mage {
 		}
 	}
 	void Scene::Render(ComPtr< ID3D11DeviceContext2 > device_context) {
-		TransformBuffer transform_buffer;
-		transform_buffer.world_to_view      = XMMatrixTranspose(GetCamera().GetTransform().GetObjectToWorldMatrix());
-		transform_buffer.view_to_projection = XMMatrixTranspose(GetCamera().GetViewToProjectionMatrix());
-
+		TransformBuffer transform_buffer(GetCamera());
 		m_world->Render(device_context, transform_buffer);
 	}
 	void Scene::Close() {

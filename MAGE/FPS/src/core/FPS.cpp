@@ -22,8 +22,8 @@ public:
 		
 		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_F2)) {
 			//PostQuitMessage(0);
-			VariableScript s(L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/script_test.vs");
-			s.ExportScript(L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/script/output.vs");
+			VariableScript s(L"assets/scripts/script_test.vs");
+			s.ExportScript(L"assets/scripts/output.vs");
 		}
 	}
 
@@ -48,7 +48,7 @@ public:
 		// @TODO: put the display mode in the renderer
 		const float width  = (float)g_engine->GetRenderer().GetWidth();
 		const float height = (float)g_engine->GetRenderer().GetHeight();
-		SharedPtr< Camera > camera(new PerspectiveCamera(width, height));
+		SharedPtr< Camera > camera(new PerspectiveCamera("camera", width, height));
 		SetCamera(camera);
 		//camera->GetTransform().SetRotationX(1.10714872f);
 		//camera->GetTransform().SetTranslation(0.0f, 0.11f, -4.1126f);
@@ -59,7 +59,7 @@ public:
 		CombinedShader shader = CreateLambertianShader(device);
 
 		MeshDescriptor desc(true, true);
-		SharedPtr< Model > test_model(new MeshModel< VertexPositionNormalTexture >("model", device, L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/FPS/model/teapot.obj", desc, shader));
+		SharedPtr< Model > test_model(new MeshModel< VertexPositionNormalTexture >("model", device, L"assets/models/teapot.obj", desc, shader));
 		GetWorld().AddModel(test_model);
 
 		SharedPtr< BehaviorScript > test_script(new TestScript(test_model));

@@ -387,6 +387,12 @@
     <ClInclude Include="MAGE\src\shader\empty_shader.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\scene\world_object.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scene\transform_buffer.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -506,15 +512,18 @@
     <ClCompile Include="MAGE\src\shader\shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\scene\transform_buffer.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="MAGE\shaders\effect.fx">
+    <FxCompile Include="MAGE\shaders\lambertian.fx">
       <Filter>Shader Files</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\effect_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\lambertian_PS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\effect_VS.hlsl">
+    <FxCompile Include="MAGE\shaders\lambertian_VS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
   </ItemGroup>

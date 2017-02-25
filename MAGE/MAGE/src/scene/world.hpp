@@ -8,6 +8,7 @@
 #include "memory\memory.hpp"
 #include "rendering\rendering.hpp"
 #include "collection\collection.hpp"
+#include "scene\transform_buffer.hpp"
 #include "light\point_light.hpp"
 
 #pragma endregion
@@ -16,12 +17,6 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	struct TransformBuffer final {
-		mutable XMMATRIX model_to_world;
-		XMMATRIX world_to_view;
-		XMMATRIX view_to_projection;
-	};
 
 	// Forward declaration
 	class Model;

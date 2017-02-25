@@ -22,6 +22,8 @@ namespace mage {
 		/**
 		 Constructs an orthographic camera.
 
+		 @param[in]		name
+						A reference to the name of the orthographic camera.
 		 @param[in]		width
 						The width.
 		 @param[in]		height
@@ -31,9 +33,9 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane.
 		 */
-		OrthographicCamera(float width, float height,
+		OrthographicCamera(const string &name, float width, float height, 
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: Camera(width, height, near_z, far_z) {}
+			: Camera(name, width, height, near_z, far_z) {}
 		
 		/**
 		 Constructs an orthographic camera from the given orthographic camera.
@@ -65,7 +67,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this orthographic camera.
 		 */
-		virtual OrthographicCamera *Clone() const {
+		virtual OrthographicCamera *Clone() const override {
 			return new OrthographicCamera(*this);
 		}
 

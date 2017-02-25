@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\transform.hpp"
+#include "scene\world_object.hpp"
 
 #pragma endregion
 
@@ -28,7 +28,7 @@ namespace mage {
 	/**
 	 A class of camera.
 	 */
-	class Camera {
+	class Camera : public WorldObject {
 
 	public:
 
@@ -44,11 +44,11 @@ namespace mage {
 						The camera.
 		 */
 		Camera &operator=(const Camera &camera) {
+			WorldObject::operator=(static_cast< const WorldObject & >(camera));
 			m_width     = camera.m_width;
 			m_height    = camera.m_height;
 			m_near_z    = camera.m_near_z;
 			m_far_z     = camera.m_far_z;
-			m_transform = SharedPtr< Transform >(new Transform(*camera.m_transform));
 			return (*this);
 		}
 
@@ -180,20 +180,13 @@ namespace mage {
 		 */
 		virtual XMMATRIX GetViewToProjectionMatrix() const = 0;
 			
-		/**
-		 Returns the transform of this camera.
-
-		 @return		A reference to the transform of this camera.
-		 */
-		Transform &GetTransform() const {
-			return *m_transform;
-		}
-
 	protected:
 
 		/**
 		 Constructs a camera.
 
+		 @param[in]		name
+						A reference to the name of the camera.
 		 @param[in]		width
 						The width.
 		 @param[in]		height
@@ -203,10 +196,10 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane.
 		 */
-		Camera(float width, float height, float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: m_width(width), m_height(height), 
-			m_near_z(near_z), m_far_z(far_z), 
-			m_transform(new Transform()) {}
+		Camera(const string &name, float width, float height, 
+			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z)
+			: WorldObject(name), m_width(width), m_height(height), 
+			m_near_z(near_z), m_far_z(far_z) {}
 
 		/**
 		 Constructs a camera from the given camera.
@@ -214,10 +207,9 @@ namespace mage {
 		 @param[in]		camera
 						The camera.
 		 */
-		Camera(const Camera &camera) 
-			: m_width(camera.m_width), m_height(camera.m_height), 
-			m_near_z(camera.m_near_z), m_far_z(camera.m_far_z), 
-			m_transform(new Transform(*camera.m_transform)) {}
+		Camera(const Camera &camera)
+			: WorldObject(camera), m_width(camera.m_width), m_height(camera.m_height),
+			m_near_z(camera.m_near_z), m_far_z(camera.m_far_z) {}
 
 	private:
 

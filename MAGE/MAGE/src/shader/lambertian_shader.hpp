@@ -46,6 +46,8 @@ namespace mage {
 		LambertianVertexShader &operator=(const LambertianVertexShader &vertex_shader) = delete;
 
 		ComPtr< ID3D11Buffer > m_cb_transform;
+		ComPtr< ID3D11Buffer > m_cb_material;
+		ComPtr< ID3D11Buffer > m_cb_transform;
 	};
 
 	inline CombinedShader CreateLambertianShader(const RenderingDevice &device) {

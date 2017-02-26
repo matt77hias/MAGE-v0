@@ -45,7 +45,7 @@ public:
 
 	virtual void Load() override {
 
-		// @TODO: put the display mode in the renderer
+		// @TODO: cameras straight from renderer?
 		const float width  = (float)g_engine->GetRenderer().GetWidth();
 		const float height = (float)g_engine->GetRenderer().GetHeight();
 		SharedPtr< Camera > camera(new PerspectiveCamera("camera", width, height));
@@ -61,6 +61,9 @@ public:
 		MeshDescriptor desc(true, true);
 		SharedPtr< Model > test_model(new MeshModel< VertexPositionNormalTexture >("model", device, L"assets/models/teapot.obj", desc, shader));
 		GetWorld().AddModel(test_model);
+
+		SharedPtr< PointLight > light(new PointLight("light", 100.0f, RGBSpectrum(0.5f, 0.5f, 0.0f)));
+		GetWorld().AddLight(light);
 
 		SharedPtr< BehaviorScript > test_script(new TestScript(test_model));
 		AddScript(test_script);

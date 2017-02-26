@@ -18,12 +18,12 @@ namespace mage {
 	// MeshModel
 	//-------------------------------------------------------------------------
 
-	template < typename Vertex >
-	MeshModel< Vertex >::MeshModel(const string &name, ComPtr< ID3D11Device2 > device, const wstring &fname, const MeshDescriptor &desc, const CombinedShader &shader)
+	template < typename VertexT >
+	MeshModel< VertexT >::MeshModel(const string &name, const RenderingDevice &device, const wstring &fname, const MeshDescriptor &desc, const CombinedShader &shader)
 		: Model(name) {
 
-		ModelOutput< Vertex > buffer;
-		const HRESULT result_load = LoadModelFromFile< Vertex >(fname, buffer, desc);
+		ModelOutput< VertexT > buffer;
+		const HRESULT result_load = LoadModelFromFile< VertexT >(fname, buffer, desc);
 		if (FAILED(result_load)) {
 			Error("Model loading failed: %ld.", result_load);
 			return;
@@ -36,8 +36,8 @@ namespace mage {
 		}
 	}
 
-	template < typename Vertex >
-	MeshModel< Vertex >::MeshModel(const string &name, ComPtr< ID3D11Device2 > device, ModelOutput< Vertex > &buffer, const CombinedShader &shader)
+	template < typename VertexT >
+	MeshModel< VertexT >::MeshModel(const string &name, const RenderingDevice &device, ModelOutput< VertexT > &buffer, const CombinedShader &shader)
 		: Model(name) {
 	
 		const HRESULT result_initialization = InitializeModel(device, buffer, shader);
@@ -47,9 +47,9 @@ namespace mage {
 		}
 	}
 
-	template < typename Vertex >
-	HRESULT MeshModel< Vertex >::InitializeModel(ComPtr< ID3D11Device2 > device, ModelOutput< Vertex > &buffer, const CombinedShader &shader) {
-		m_mesh = SharedPtr< Mesh< Vertex > >(new Mesh< Vertex >(device, buffer.vertex_buffer, buffer.index_buffer));
+	template < typename VertexT >
+	HRESULT MeshModel< VertexT >::InitializeModel(const RenderingDevice &device, ModelOutput< VertexT > &buffer, const CombinedShader &shader) {
+		m_mesh = SharedPtr< Mesh< VertexT > >(new Mesh< VertexT >(device, buffer.vertex_buffer, buffer.index_buffer));
 
 		map< string, pair< SubModel *, string > > mapping;
 		for (vector< ModelPart >::const_iterator it = buffer.model_parts.cbegin(); it != buffer.model_parts.cend(); ++it) {

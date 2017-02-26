@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\world_object.hpp"
+#include "world\world_object.hpp"
 #include "shader\shaded_material.hpp"
 
 #pragma endregion

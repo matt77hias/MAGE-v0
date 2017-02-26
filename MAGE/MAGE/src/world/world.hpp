@@ -8,7 +8,7 @@
 #include "memory\memory.hpp"
 #include "rendering\rendering.hpp"
 #include "collection\collection.hpp"
-#include "scene\transform_buffer.hpp"
+#include "world\transform_buffer.hpp"
 #include "light\point_light.hpp"
 
 #pragma endregion

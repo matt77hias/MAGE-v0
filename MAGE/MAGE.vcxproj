@@ -72,13 +72,11 @@
     <ClInclude Include="MAGE\src\rendering\graphics_settings.hpp" />
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
+    <ClInclude Include="MAGE\src\rendering\rendering_device.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.tpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
-    <ClInclude Include="MAGE\src\scene\transform_buffer.hpp" />
-    <ClInclude Include="MAGE\src\scene\world_object.hpp" />
-    <ClInclude Include="MAGE\src\scene\world.hpp" />
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
@@ -127,8 +125,6 @@
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
-    <ClCompile Include="MAGE\src\scene\transform_buffer.cpp" />
-    <ClCompile Include="MAGE\src\scene\world.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script_loader.cpp" />
     <ClCompile Include="MAGE\src\scripting\vs\vs_loader.cpp" />
@@ -143,6 +139,8 @@
     <ClCompile Include="MAGE\src\string\writer.cpp" />
     <ClCompile Include="MAGE\src\ui\combo_box.cpp" />
     <ClCompile Include="MAGE\src\ui\main_window.cpp" />
+    <ClCompile Include="MAGE\src\world\transform_buffer.cpp" />
+    <ClCompile Include="MAGE\src\world\world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">
@@ -178,6 +176,7 @@
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp" />
     <None Include="MAGE\src\model\meshmodel.tpp" />
     <None Include="MAGE\src\model\model_loader.tpp" />
+    <None Include="MAGE\src\rendering\rendering_device.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

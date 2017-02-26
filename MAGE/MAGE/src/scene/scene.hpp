@@ -5,9 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\world.hpp"
-#include "string\string.hpp"
-#include "camera\camera.hpp"
+#include "world\world.hpp"
 
 #pragma endregion
 

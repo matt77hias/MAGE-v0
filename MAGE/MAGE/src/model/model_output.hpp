@@ -46,7 +46,7 @@ namespace mage {
 		uint32_t nb_indices;
 	};
 
-	template < typename Vertex >
+	template < typename VertexT >
 	struct ModelOutput final {
 
 	public:
@@ -77,14 +77,14 @@ namespace mage {
 			current.nb_indices = end - start;
 		}
 
-		vector< Vertex > vertex_buffer;
+		vector< VertexT > vertex_buffer;
 		vector< uint32_t > index_buffer;
 		vector< Material > material_buffer;
 		vector< ModelPart > model_parts;
 
 	private:
 
-		ModelOutput(const ModelOutput< Vertex > &output) = delete;
-		ModelOutput< Vertex > &operator=(ModelOutput< Vertex > &output) = delete;
+		ModelOutput(const ModelOutput< VertexT > &output) = delete;
+		ModelOutput< VertexT > &operator=(ModelOutput< VertexT > &output) = delete;
 	};
 }

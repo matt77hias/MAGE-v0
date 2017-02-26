@@ -41,7 +41,7 @@ struct PS_INPUT {
 };
 
 //-----------------------------------------------------------------------------
-// Vertex Shader
+// VertexT Shader
 //-----------------------------------------------------------------------------
 PS_INPUT VS(VS_INPUT input) {
 	PS_INPUT output = (PS_INPUT)0;
@@ -58,6 +58,7 @@ PS_INPUT VS(VS_INPUT input) {
 //-----------------------------------------------------------------------------
 float4 PS(PS_INPUT input) : SV_Target{
 	//return diffuse_texture.Sample(linear_sample, input.tex);
-	const float3 l_view = normalize(light_p_view - input.p_view);
-	return ca + cd * saturate(dot(input.n_view, l_view));
+	//const float3 l_view = normalize(light_p_view - input.p_view);
+	//return ca + cd * saturate(dot(input.n_view, l_view));
+	return float4(1.0f, 1.0f, 0.0f, 1.0f);
 }

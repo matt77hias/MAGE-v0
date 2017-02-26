@@ -54,7 +54,7 @@ public:
 		//camera->GetTransform().SetTranslation(0.0f, 0.11f, -4.1126f);
 		camera->GetTransform().SetTranslation(0.0f, 2.0f, -6.0f);
 		
-		ComPtr< ID3D11Device2 > device = g_engine->GetRenderer().GetDevice();
+		const RenderingDevice &device = g_engine->GetRenderer().GetDevice();
 		
 		CombinedShader shader = CreateLambertianShader(device);
 

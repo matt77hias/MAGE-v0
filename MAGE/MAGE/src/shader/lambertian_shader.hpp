@@ -28,7 +28,7 @@ namespace mage {
 
 	public:
 
-		LambertianVertexShader(ComPtr< ID3D11Device2 > device);
+		LambertianVertexShader(const RenderingDevice &device);
 		virtual ~LambertianVertexShader() = default;
 
 		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world, const TransformBuffer &transform_buffer) const override {
@@ -45,12 +45,10 @@ namespace mage {
 		LambertianVertexShader(const LambertianVertexShader &vertex_shader) = delete;
 		LambertianVertexShader &operator=(const LambertianVertexShader &vertex_shader) = delete;
 
-		HRESULT SetupBuffers(ComPtr< ID3D11Device2 > device);
-
 		ComPtr< ID3D11Buffer > m_cb_transform;
 	};
 
-	inline CombinedShader CreateLambertianShader(ComPtr< ID3D11Device2 > device) {
+	inline CombinedShader CreateLambertianShader(const RenderingDevice &device) {
 		SharedPtr< VertexShader > vs(new LambertianVertexShader(device));
 		SharedPtr< PixelShader > ps(new EmptyPixelShader(device, MAGE_FNAME_LAMBERTIAN_PS));
 		return CombinedShader(vs, ps);

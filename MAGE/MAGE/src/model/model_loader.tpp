@@ -16,13 +16,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template < typename Vertex >
-	HRESULT LoadModelFromFile(const wstring &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc) {
+	template < typename VertexT >
+	HRESULT LoadModelFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, const MeshDescriptor &mesh_desc) {
 
 		const wstring extension = GetFileExtension(fname);
 
 		if (extension == L"obj" || extension == L"OBJ") {
-			return ImportOBJMeshFromFile< Vertex >(fname, model_output, mesh_desc);
+			return ImportOBJMeshFromFile< VertexT >(fname, model_output, mesh_desc);
 		}
 
 		Warning("Unknown model file extension: %ls", fname.c_str());

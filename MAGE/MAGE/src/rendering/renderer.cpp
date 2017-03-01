@@ -70,7 +70,7 @@ namespace mage {
 		// Setup the ID3D11RasterizerState.
 		const HRESULT result_rasterizer_state = SetupRasterizerStates();
 		if (FAILED(result_rasterizer_state)) {
-			Error("Rasterizer state setup failed: %ld.", result_rasterizer_state);
+			Error("Rasterizer states setup failed: %ld.", result_rasterizer_state);
 			return result_rasterizer_state;
 		}
 

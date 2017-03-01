@@ -72,7 +72,7 @@ namespace mage {
 		 @return		@c true if the given key of this keyboard is pressed.
 						@c false otherwise.
 		 */
-		bool GetKeyPress(char key, bool ignore_press_stamp = false) const;
+		bool GetKeyPress(unsigned char key, bool ignore_press_stamp = false) const;
 
 	private:
 
@@ -125,7 +125,7 @@ namespace mage {
 		/**
 		 State of the keys of this keyboard.
 		 */
-		char m_key_state[256];
+		unsigned char m_key_state[256];
 
 		/**
 		 Stamps the keys pressed in the last frame of this keyboard.

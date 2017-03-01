@@ -14,8 +14,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_FNAME_LAMBERTIAN_VS L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/lambertian_VS.cso"
-#define MAGE_FNAME_LAMBERTIAN_PS L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/lambertian_PS.cso"
+#define MAGE_FNAME_LAMBERTIAN_VS L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/lambertian_VS.cso"
+#define MAGE_FNAME_LAMBERTIAN_PS L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/lambertian_PS.cso"
 
 #pragma endregion
 
@@ -47,7 +47,6 @@ namespace mage {
 
 		ComPtr< ID3D11Buffer > m_cb_transform;
 		ComPtr< ID3D11Buffer > m_cb_material;
-		ComPtr< ID3D11Buffer > m_cb_transform;
 	};
 
 	inline CombinedShader CreateLambertianShader(const RenderingDevice &device) {

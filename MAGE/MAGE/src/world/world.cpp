@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\world.hpp"
+#include "world\world.hpp"
 #include "model\model.hpp"
 
 #pragma endregion

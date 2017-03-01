@@ -23,25 +23,25 @@ namespace mage {
 	/*
 	 A class of models.
 
-	 @tparam		T
+	 @tparam		VertexT
 					The vertex type.
 	 */
-	template < typename Vertex >
+	template < typename VertexT >
 	class MeshModel : public Model {
 
 	public:
 
-		MeshModel(const string &name, ComPtr< ID3D11Device2 > device, const wstring &fname, const MeshDescriptor &desc, const CombinedShader &shader);
-		MeshModel(const string &name, ComPtr< ID3D11Device2 > device, ModelOutput< Vertex > &buffer, const CombinedShader &shader);
-		MeshModel(const MeshModel< Vertex > &model)
+		MeshModel(const string &name, const RenderingDevice &device, const wstring &fname, const MeshDescriptor &desc, const CombinedShader &shader);
+		MeshModel(const string &name, const RenderingDevice &device, ModelOutput< VertexT > &buffer, const CombinedShader &shader);
+		MeshModel(const MeshModel< VertexT > &model)
 			: Model(model), m_mesh(model.m_mesh) {}
 		virtual ~MeshModel() = default;
 
-		virtual MeshModel< Vertex > *Clone() const override {
-			return new MeshModel< Vertex >(*this);
+		virtual MeshModel< VertexT > *Clone() const override {
+			return new MeshModel< VertexT >(*this);
 		}
 
-		const SharedPtr< Mesh< Vertex > > GetMesh() const {
+		const SharedPtr< Mesh< VertexT > > GetMesh() const {
 			return m_mesh;
 		}
 
@@ -55,11 +55,11 @@ namespace mage {
 
 	private:
 
-		MeshModel< Vertex > &operator=(const MeshModel< Vertex > &model) = delete;
+		MeshModel< VertexT > &operator=(const MeshModel< VertexT > &model) = delete;
 
-		HRESULT InitializeModel(ComPtr< ID3D11Device2 > device, ModelOutput< Vertex > &buffer, const CombinedShader &shader);
+		HRESULT InitializeModel(const RenderingDevice &device, ModelOutput< VertexT > &buffer, const CombinedShader &shader);
 
-		SharedPtr< Mesh< Vertex > > m_mesh;
+		SharedPtr< Mesh< VertexT > > m_mesh;
 	};
 
 	//-------------------------------------------------------------------------

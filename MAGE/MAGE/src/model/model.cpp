@@ -18,7 +18,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	Model::Model(const Model &model)
-		: m_name(model.m_name), m_transform(new Transform(model.GetTransform())) {
+		: WorldObject(model) {
 
 		for (set< SubModel * >::const_iterator it = m_submodels.cbegin(); it != m_submodels.cend(); ++it) {
 			AddSubModel((*it)->Clone());
@@ -27,7 +27,7 @@ namespace mage {
 
 	void Model::AddSubModel(SubModel *submodel) {
 		Assert(submodel);
-		GetTransform().AddChild(submodel->m_transform);
+		AddChildTransform(*submodel);
 		m_submodels.insert(submodel);
 	}
 

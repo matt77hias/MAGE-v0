@@ -145,6 +145,9 @@
     <Filter Include="Source Files\scene">
       <UniqueIdentifier>{54fdaa2c-28f4-4f6e-b935-ca874be81e8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\world">
+      <UniqueIdentifier>{213e5108-0ecd-4093-a278-c0c869e2e667}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -372,9 +375,6 @@
     <ClInclude Include="MAGE\src\light\point_light.hpp">
       <Filter>Header Files\light</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\scene\world.hpp">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\model\meshmodel.hpp">
       <Filter>Header Files\model</Filter>
     </ClInclude>
@@ -386,6 +386,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\empty_shader.hpp">
       <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\rendering_device.hpp">
+      <Filter>Header Files\rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -497,24 +500,27 @@
     <ClCompile Include="MAGE\src\scene\scene.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\scene\world.cpp">
-      <Filter>Source Files\scene</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\shader\lambertian_shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\shader\shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\world\world.cpp">
+      <Filter>Source Files\world</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\world\transform_buffer.cpp">
+      <Filter>Source Files\world</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="MAGE\shaders\effect.fx">
+    <FxCompile Include="MAGE\shaders\lambertian.fx">
       <Filter>Shader Files</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\effect_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\lambertian_PS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\effect_VS.hlsl">
+    <FxCompile Include="MAGE\shaders\lambertian_VS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
   </ItemGroup>
@@ -536,6 +542,9 @@
     </None>
     <None Include="MAGE\src\model\meshmodel.tpp">
       <Filter>Header Files\model</Filter>
+    </None>
+    <None Include="MAGE\src\rendering\rendering_device.tpp">
+      <Filter>Header Files\rendering</Filter>
     </None>
   </ItemGroup>
 </Project>

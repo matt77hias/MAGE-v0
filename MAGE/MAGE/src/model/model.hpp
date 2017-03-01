@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\transform.hpp"
+#include "world\world_object.hpp"
 #include "shader\shaded_material.hpp"
 
 #pragma endregion
@@ -25,7 +25,7 @@ namespace mage {
 	/**
 	 A class of models.
 	 */
-	class Model {
+	class Model : public WorldObject {
 
 	public:
 
@@ -40,16 +40,6 @@ namespace mage {
 			RenderSubModels(device_context, world, transform_buffer);
 		}
 		
-		const string &GetName() const {
-			return m_name;
-		}
-		void SetName(const string &name) {
-			m_name = name;
-		}
-		Transform &GetTransform() const {
-			return *m_transform;
-		}
-
 		set< SubModel * >::iterator SubModelsBegin() {
 			return m_submodels.begin();
 		}
@@ -74,7 +64,7 @@ namespace mage {
 	protected:
 
 		Model(const string &name)
-			: m_name(name), m_transform(new Transform()) {}
+			: WorldObject(name) {}
 		Model(const Model &model);
 
 		virtual void RenderModel(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const = 0;
@@ -85,8 +75,6 @@ namespace mage {
 
 		void RenderSubModels(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const;
 
-		string m_name;
-		SharedPtr< Transform > m_transform;
 		set< SubModel *, std::less<> > m_submodels;
 	};
 
@@ -128,7 +116,7 @@ namespace mage {
 		SubModel &operator=(const SubModel &submodel) = delete;
 
 		void RenderMaterial(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const {
-			transform_buffer.model_to_world = XMMatrixTranspose(GetTransform().GetObjectToWorldMatrix());
+			transform_buffer.SetModelToWorld(GetTransform().GetObjectToWorldMatrix());
 			m_material->Render(device_context, world, transform_buffer);
 		}
 

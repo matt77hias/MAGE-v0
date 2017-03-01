@@ -14,83 +14,27 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template < typename Vertex >
-	Mesh< Vertex >::Mesh(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices)
+	template < typename VertexT >
+	Mesh< VertexT >::Mesh(const RenderingDevice &device, const VertexT *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices)
 		: m_nb_vertices(nb_vertices), m_nb_indices(nb_indices) {
 		
-		const HRESULT result_vertex_buffer = SetupVertexBuffer(device, vertices, nb_vertices);
+		const HRESULT result_vertex_buffer = device.CreateVertexBuffer< VertexT >(m_vertex_buffer.ReleaseAndGetAddressOf(), vertices, nb_vertices);
 		if (FAILED(result_vertex_buffer)) {
-			Error("Vertex buffer initialization failed: %ld.", result_vertex_buffer);
+			Error("Vertex buffer creation failed: %ld.", result_vertex_buffer);
 			return;
 		}
 
-		const HRESULT result_index_buffer = SetupIndexBuffer(device, indices, nb_indices);
+		const HRESULT result_index_buffer = device.CreateIndexBuffer< uint32_t >(m_index_buffer.ReleaseAndGetAddressOf(), indices, nb_indices);
 		if (FAILED(result_index_buffer)) {
-			Error("Index buffer initialization failed: %ld.", result_index_buffer);
+			Error("Index buffer creation failed: %ld.", result_index_buffer);
 			return;
 		}
 	}
 
-	template < typename Vertex >
-	HRESULT Mesh< Vertex >::SetupVertexBuffer(ComPtr< ID3D11Device2 > device, const Vertex *vertices, size_t nb_vertices) {
-		// Describe the buffer resource.
-		D3D11_BUFFER_DESC buffer_desc;
-		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
-		buffer_desc.ByteWidth      = (UINT)(nb_vertices * sizeof(Vertex));
-		buffer_desc.Usage          = D3D11_USAGE_DEFAULT;
-		buffer_desc.BindFlags      = D3D11_BIND_VERTEX_BUFFER;
-		buffer_desc.CPUAccessFlags = 0;
-
-		// Specify data for initializing a subresource.
-		D3D11_SUBRESOURCE_DATA init_data;
-		ZeroMemory(&init_data, sizeof(init_data));
-		init_data.pSysMem          = vertices;
-
-		// Create the vertex buffer.
-		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
-		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
-		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
-		const HRESULT result_vertex_buffer = device->CreateBuffer(&buffer_desc, &init_data, m_vertex_buffer.ReleaseAndGetAddressOf());
-		if (FAILED(result_vertex_buffer)) {
-			Error("CreateBuffer failed: %ld.", result_vertex_buffer);
-			return result_vertex_buffer;
-		}
-
-		return S_OK;
-	}
-
-	template < typename Vertex >
-	HRESULT Mesh< Vertex >::SetupIndexBuffer(ComPtr< ID3D11Device2 > device, const uint32_t *indices, size_t nb_indices) {
-		// Describe the buffer resource.
-		D3D11_BUFFER_DESC buffer_desc;
-		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
-		buffer_desc.ByteWidth      = (UINT)(nb_indices * sizeof(uint32_t));
-		buffer_desc.Usage          = D3D11_USAGE_DEFAULT;
-		buffer_desc.BindFlags      = D3D11_BIND_INDEX_BUFFER;
-		buffer_desc.CPUAccessFlags = 0;
-
-		// Specify data for initializing a subresource.
-		D3D11_SUBRESOURCE_DATA init_data;
-		ZeroMemory(&init_data, sizeof(init_data));
-		init_data.pSysMem         = indices;
-
-		// Create the index buffer.
-		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
-		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
-		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
-		const HRESULT result_index_buffer = device->CreateBuffer(&buffer_desc, &init_data, m_index_buffer.ReleaseAndGetAddressOf());
-		if (FAILED(result_index_buffer)) {
-			Error("CreateBuffer failed: %ld.", result_index_buffer);
-			return result_index_buffer;
-		}
-
-		return S_OK;
-	}
-
-	template < typename Vertex >
-	void Mesh< Vertex >::Render(ComPtr< ID3D11DeviceContext2 > device_context) const {
+	template < typename VertexT >
+	void Mesh< VertexT >::Render(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		// Set the vertex buffer.
-		UINT stride = sizeof(Vertex); // The size (in bytes) of the elements that are to be used from a vertex buffer.
+		UINT stride = sizeof(VertexT); // The size (in bytes) of the elements that are to be used from a vertex buffer.
 		UINT offset = 0;			  // The number of bytes between the first element of a vertex buffer and the first element that will be used.
 		// 1. The first input slot for binding.
 		// 2. The number of vertex buffers in the array.

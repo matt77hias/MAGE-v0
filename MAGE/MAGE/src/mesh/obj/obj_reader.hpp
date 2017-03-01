@@ -16,12 +16,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template < typename Vertex >
+	template < typename VertexT >
 	class OBJReader : public LineReader {
 
 	public:
 
-		OBJReader(ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc)
+		OBJReader(ModelOutput< VertexT > &model_output, const MeshDescriptor &mesh_desc)
 			: LineReader(), m_model_output(model_output), m_mesh_desc(mesh_desc) {}
 		virtual ~OBJReader() = default;
 
@@ -45,7 +45,7 @@ namespace mage {
 		UV ReadOBJVertexTextureCoordinates();
 		XMUINT3 ReadOBJVertexIndices();
 		
-		Vertex ConstructVertex(const XMUINT3 &vertex_indices);
+		VertexT ConstructVertex(const XMUINT3 &vertex_indices);
 
 	private:
 
@@ -79,7 +79,7 @@ namespace mage {
 		vector< Normal3 > m_vertex_normal_coordinates;
 		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > m_mapping;
 		
-		ModelOutput< Vertex > &m_model_output;
+		ModelOutput< VertexT > &m_model_output;
 		const MeshDescriptor &m_mesh_desc;
 	};
 }

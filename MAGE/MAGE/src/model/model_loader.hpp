@@ -19,7 +19,7 @@ namespace mage {
 	/**
 	 Loads a mesh from file.
 
-	 @tparam		Vertex
+	 @tparam		VertexT
 					The vertex type.
 	 @param[in]		fname
 					A reference to the file name.
@@ -29,8 +29,8 @@ namespace mage {
 					A reference to the mesh descriptor.
 	 @return		A success/error value.
 	 */
-	template < typename Vertex >
-	HRESULT LoadModelFromFile(const wstring &fname, ModelOutput< Vertex > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor());
+	template < typename VertexT >
+	HRESULT LoadModelFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor());
 }
 
 //-----------------------------------------------------------------------------

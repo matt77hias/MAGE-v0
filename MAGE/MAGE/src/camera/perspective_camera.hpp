@@ -24,6 +24,8 @@ namespace mage {
 		/**
 		 Constructs a perspective camera.
 
+		 @param[in]		name
+						A reference to the name of the perspective camera.
 		 @param[in]		width
 						The width.
 		 @param[in]		height
@@ -35,9 +37,9 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane.
 		 */
-		PerspectiveCamera(float width, float height, float fov_y = MAGE_DEFAULT_CAMERA_FOV_Y,
+		PerspectiveCamera(const string &name, float width, float height, float fov_y = MAGE_DEFAULT_CAMERA_FOV_Y,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: Camera(width, height, near_z, far_z), m_fov_y(fov_y) {}
+			: Camera(name, width, height, near_z, far_z), m_fov_y(fov_y) {}
 
 		/**
 		 Constructs a perspective camera from the given perpsective camera.
@@ -69,7 +71,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this perspective camera.
 		 */
-		virtual PerspectiveCamera *Clone() const {
+		virtual PerspectiveCamera *Clone() const override {
 			return new PerspectiveCamera(*this);
 		}
 

@@ -6,7 +6,8 @@
 #pragma region
 
 #include "resource\resource.hpp"
-#include "scene\world.hpp"
+#include "world\world.hpp"
+#include "rendering\rendering_device.hpp"
 #include "material\material.hpp"
 
 #pragma endregion
@@ -20,7 +21,7 @@ namespace mage {
 
 	public:
 
-		VertexShader(ComPtr< ID3D11Device2 > device, const wstring &fname, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
+		VertexShader(const RenderingDevice &device, const wstring &fname, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 		virtual ~VertexShader() = default;
 
 		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world, const TransformBuffer &transform_buffer) const = 0;
@@ -35,14 +36,14 @@ namespace mage {
 		VertexShader(const VertexShader &vertex_shader) = delete;
 		VertexShader &operator=(const VertexShader &vertex_shader) = delete;
 
-		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
+		HRESULT InitializeShader(const RenderingDevice &device, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 	};
 
 	class PixelShader : public Resource {
 
 	public:
 
-		PixelShader(ComPtr< ID3D11Device2 > device, const wstring &fname);
+		PixelShader(const RenderingDevice &device, const wstring &fname);
 		virtual ~PixelShader() = default;
 
 		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world) const = 0;
@@ -56,7 +57,7 @@ namespace mage {
 		PixelShader(const PixelShader &pixel_shader) = delete;
 		PixelShader &operator=(const PixelShader &pixel_shader) = delete;
 
-		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device);
+		HRESULT InitializeShader(const RenderingDevice &device);
 	};
 
 	struct CombinedShader final {

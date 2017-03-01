@@ -19,8 +19,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template < typename Vertex >
-	HRESULT OBJReader< Vertex >::Preprocess() {
+	template < typename VertexT >
+	HRESULT OBJReader< VertexT >::Preprocess() {
 		if (!m_model_output.vertex_buffer.empty()) {
 			Error("%ls: vertex buffer must be empty.", GetFilename().c_str());
 			return E_FAIL;
@@ -36,16 +36,16 @@ namespace mage {
 		return S_OK;
 	}
 
-	template < typename Vertex >
-	HRESULT OBJReader< Vertex >::Postprocess() {
+	template < typename VertexT >
+	HRESULT OBJReader< VertexT >::Postprocess() {
 		// End current group.
 		m_model_output.EndModelPart();
 
 		return S_OK;
 	}
 
-	template < typename Vertex >
-	HRESULT OBJReader< Vertex >::ReadLine(char *line) {
+	template < typename VertexT >
+	HRESULT OBJReader< VertexT >::ReadLine(char *line) {
 		m_context = nullptr;
 		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);
 
@@ -86,8 +86,8 @@ namespace mage {
 		return S_OK;
 	}
 
-	template < typename Vertex >
-	void OBJReader< Vertex >::ReadOBJMaterialLibrary() {
+	template < typename VertexT >
+	void OBJReader< VertexT >::ReadOBJMaterialLibrary() {
 		const wstring mtl_path = GetPathName(GetFilename());
 		const wstring mtl_name = str_convert(ReadString());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
@@ -98,14 +98,14 @@ namespace mage {
 		}
 	}
 
-	template < typename Vertex >
-	void OBJReader< Vertex >::ReadOBJMaterialUse() {
+	template < typename VertexT >
+	void OBJReader< VertexT >::ReadOBJMaterialUse() {
 		const string mtl_name = ReadString();
 		m_model_output.SetMaterial(mtl_name);
 	}
 
-	template < typename Vertex >
-	void OBJReader< Vertex >::ReadOBJGroup() {
+	template < typename VertexT >
+	void OBJReader< VertexT >::ReadOBJGroup() {
 		const string child = ReadString();
 		if (child == MAGE_MODEL_PART_DEFAULT_CHILD) {
 			if (!m_model_output.index_buffer.empty()) {
@@ -124,11 +124,11 @@ namespace mage {
 		m_model_output.StartModelPart(child, parent);
 	}
 
-	template < typename Vertex >
-	void OBJReader< Vertex >::ReadOBJObject() {}
+	template < typename VertexT >
+	void OBJReader< VertexT >::ReadOBJObject() {}
 
-	template < typename Vertex >
-	void OBJReader< Vertex >::ReadOBJVertex() {
+	template < typename VertexT >
+	void OBJReader< VertexT >::ReadOBJVertex() {
 		const Point3 vertex = m_mesh_desc.InvertHandness() ?
 			InvertHandness(ReadOBJVertexCoordinates()) :
 			ReadOBJVertexCoordinates();
@@ -136,8 +136,8 @@ namespace mage {
 		m_vertex_coordinates.push_back(vertex);
 	}
 
-	template < typename Vertex >
-	void OBJReader< Vertex >::ReadOBJVertexTexture() {
+	template < typename VertexT >
+	void OBJReader< VertexT >::ReadOBJVertexTexture() {
 		const UV texture = m_mesh_desc.InvertHandness() ?
 			InvertHandness(ReadOBJVertexTextureCoordinates()) :
 			ReadOBJVertexTextureCoordinates();
@@ -145,8 +145,8 @@ namespace mage {
 		m_vertex_texture_coordinates.push_back(texture);
 	}
 
-	template < typename Vertex >
-	void OBJReader< Vertex >::ReadOBJVertexNormal() {
+	template < typename VertexT >
+	void OBJReader< VertexT >::ReadOBJVertexNormal() {
 		const Normal3 normal = m_mesh_desc.InvertHandness() ?
 			InvertHandness(ReadOBJVertexNormalCoordinates()) :
 			ReadOBJVertexNormalCoordinates();
@@ -157,8 +157,8 @@ namespace mage {
 		m_vertex_normal_coordinates.push_back(normal);
 	}
 
-	template < typename Vertex >
-	void OBJReader< Vertex >::ReadOBJTriangleFace() {
+	template < typename VertexT >
+	void OBJReader< VertexT >::ReadOBJTriangleFace() {
 		vector< uint32_t > indices;
 		while (indices.size() < 3 || HasString()) {
 			const XMUINT3 vertex_indices = ReadOBJVertexIndices();
@@ -191,23 +191,23 @@ namespace mage {
 		}
 	}
 
-	template < typename Vertex >
-	Point3 OBJReader< Vertex >::ReadOBJVertexCoordinates() {
+	template < typename VertexT >
+	Point3 OBJReader< VertexT >::ReadOBJVertexCoordinates() {
 		return (Point3)ReadFloat3();
 	}
 
-	template < typename Vertex >
-	Normal3 OBJReader< Vertex >::ReadOBJVertexNormalCoordinates() {
+	template < typename VertexT >
+	Normal3 OBJReader< VertexT >::ReadOBJVertexNormalCoordinates() {
 		return (Normal3)ReadFloat3();
 	}
 
-	template < typename Vertex >
-	UV OBJReader< Vertex >::ReadOBJVertexTextureCoordinates() {
+	template < typename VertexT >
+	UV OBJReader< VertexT >::ReadOBJVertexTextureCoordinates() {
 		return (UV)ReadFloat2();
 	}
 
-	template < typename Vertex >
-	XMUINT3 OBJReader< Vertex >::ReadOBJVertexIndices() {
+	template < typename VertexT >
+	XMUINT3 OBJReader< VertexT >::ReadOBJVertexIndices() {
 		const char *token = ReadChars();
 
 		uint32_t vertex_index = 0;
@@ -251,9 +251,9 @@ namespace mage {
 		return XMUINT3(vertex_index, texture_index, normal_index);
 	}
 
-	template < typename Vertex >
-	Vertex OBJReader< Vertex >::ConstructVertex(const XMUINT3 &vertex_indices) {
-		Vertex vertex;
+	template < typename VertexT >
+	VertexT OBJReader< VertexT >::ConstructVertex(const XMUINT3 &vertex_indices) {
+		VertexT vertex;
 		if (vertex_indices.x) {
 			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
 		}

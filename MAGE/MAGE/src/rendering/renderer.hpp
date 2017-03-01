@@ -132,6 +132,16 @@ namespace mage {
 		void SwitchMode(bool toggle);
 
 		/**
+		 Start the solid rasterizer of this renderer.
+		 */
+		void StartSolidRasterizer();
+
+		/**
+		 Start the wireframe rasterizer of this renderer.
+		 */
+		void StartWireframeRasterizer();
+
+		/**
 		 Starts the rendering of the current frame.
 		 */
 		void StartFrame() const;
@@ -151,6 +161,8 @@ namespace mage {
 		ComPtr< ID3D11RenderTargetView > m_render_target_view;
 		ComPtr< ID3D11Texture2D >        m_depth_stencil;
 		ComPtr< ID3D11DepthStencilView > m_depth_stencil_view;
+		ComPtr< ID3D11RasterizerState1 > m_solid_rasterizer_state;
+		ComPtr< ID3D11RasterizerState1 > m_wireframe_rasterizer_state;
 
 	private:
 
@@ -213,6 +225,13 @@ namespace mage {
 		 @return		A success/error value.
 		 */
 		HRESULT SetupDepthStencilView();
+
+		/**
+		 Sets up the rasterizer states of this renderer.
+
+		 @return		A success/error value.
+		 */
+		HRESULT SetupRasterizerStates();
 
 		/**
 		 Sets up and binds the viewport of this renderer

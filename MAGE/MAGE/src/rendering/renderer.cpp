@@ -67,6 +67,13 @@ namespace mage {
 		// 3. The depth-stencil state.
 		m_device_context2->OMSetRenderTargets(1, m_render_target_view.GetAddressOf(), m_depth_stencil_view.Get());
 
+		// Setup the ID3D11RasterizerState.
+		const HRESULT result_rasterizer_state = SetupRasterizerStates();
+		if (FAILED(result_rasterizer_state)) {
+			Error("Rasterizer state setup failed: %ld.", result_rasterizer_state);
+			return result_rasterizer_state;
+		}
+
 		// Setup the D3D11_VIEWPORT.
 		const HRESULT result_view_port = SetupViewPort();
 		if (FAILED(result_view_port)) {
@@ -243,8 +250,43 @@ namespace mage {
 		return S_OK;
 	}
 
+	HRESULT Renderer::SetupRasterizerStates() {
+		// Setup the (default) rasterizer state.
+		D3D11_RASTERIZER_DESC1 rasterizer_desc;
+		ZeroMemory(&rasterizer_desc, sizeof(rasterizer_desc));
+		rasterizer_desc.FillMode              = D3D11_FILL_SOLID;
+		rasterizer_desc.CullMode              = D3D11_CULL_BACK;
+		rasterizer_desc.FrontCounterClockwise = false;
+		rasterizer_desc.DepthBias             = 0;
+		rasterizer_desc.DepthBiasClamp        = 0.0f;
+		rasterizer_desc.SlopeScaledDepthBias  = 0.0f;
+		rasterizer_desc.DepthClipEnable       = true;
+		rasterizer_desc.ScissorEnable         = false;
+		rasterizer_desc.MultisampleEnable     = false;
+		rasterizer_desc.AntialiasedLineEnable = false;
+
+		// Create the rasterizer state from the rasterizer description.
+		const HRESULT result_solid_rasterizer_state = m_device2->CreateRasterizerState1(&rasterizer_desc, m_solid_rasterizer_state.ReleaseAndGetAddressOf());
+		if (FAILED(result_solid_rasterizer_state)) {
+			return result_solid_rasterizer_state;
+		}
+
+		rasterizer_desc.FillMode               = D3D11_FILL_WIREFRAME;
+		rasterizer_desc.CullMode               = D3D11_CULL_NONE;
+
+		// Create the rasterizer state from the rasterizer description.
+		const HRESULT result_wireframe_rasterizer_state = m_device2->CreateRasterizerState1(&rasterizer_desc, m_wireframe_rasterizer_state.ReleaseAndGetAddressOf());
+		if (FAILED(result_wireframe_rasterizer_state)) {
+			return result_wireframe_rasterizer_state;
+		}
+
+		StartSolidRasterizer();
+
+		return S_OK;
+	}
+
 	HRESULT Renderer::SetupViewPort() const {
-		// Setup the (default) viewport
+		// Setup the (default) viewport.
 		D3D11_VIEWPORT viewport;
 		ZeroMemory(&viewport, sizeof(viewport));
 		viewport.TopLeftX = 0;
@@ -297,5 +339,13 @@ namespace mage {
 	
 		m_swap_chain2->GetFullscreenState(&current, nullptr);
 		m_fullscreen = (current != 0);
+	}
+
+	void Renderer::StartSolidRasterizer() {
+		m_device_context2->RSSetState(m_solid_rasterizer_state.Get());
+	}
+
+	void Renderer::StartWireframeRasterizer() {
+		m_device_context2->RSSetState(m_wireframe_rasterizer_state.Get());
 	}
 }

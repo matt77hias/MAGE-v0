@@ -13,12 +13,22 @@ class TestScript : public BehaviorScript {
 public:
 
 	TestScript(SharedPtr< Model > model)
-		: BehaviorScript(), m_model(model) {}
+		: BehaviorScript(), m_model(model), solid(true) {}
 	~TestScript() = default;
 
 	virtual void Update(double elapsed_time, const Scene &scene) override {
 		UNUSED(scene);
 		m_model->GetTransform().AddRotationY((float)elapsed_time);
+
+		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_UP)) {
+			solid = !solid;
+			if (solid) {
+				g_engine->GetRenderer().StartSolidRasterizer();
+			}
+			else {
+				g_engine->GetRenderer().StartWireframeRasterizer();
+			}
+		}
 		
 		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_F2)) {
 			//PostQuitMessage(0);
@@ -33,6 +43,7 @@ private:
 	TestScript &operator=(const TestScript &script) = delete;
 
 	SharedPtr< Model > m_model;
+	bool solid;
 };
 
 class TestScene : public Scene {

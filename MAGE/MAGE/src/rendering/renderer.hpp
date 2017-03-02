@@ -151,19 +151,6 @@ namespace mage {
 		 */
 		void EndFrame() const;
 
-	protected:
-
-		DXGI_MODE_DESC1					 m_display_mode;
-		D3D_FEATURE_LEVEL		         m_feature_level;
-		ComPtr< ID3D11Device2 >	         m_device2;
-		ComPtr< ID3D11DeviceContext2 >   m_device_context2;
-		ComPtr< IDXGISwapChain2 >        m_swap_chain2;
-		ComPtr< ID3D11RenderTargetView > m_render_target_view;
-		ComPtr< ID3D11Texture2D >        m_depth_stencil;
-		ComPtr< ID3D11DepthStencilView > m_depth_stencil_view;
-		ComPtr< ID3D11RasterizerState1 > m_solid_rasterizer_state;
-		ComPtr< ID3D11RasterizerState1 > m_wireframe_rasterizer_state;
-
 	private:
 
 		/**
@@ -251,5 +238,16 @@ namespace mage {
 		 (if @c true) or a windowed mode (if @c false).
 		 */
 		bool m_fullscreen;
+
+		DXGI_MODE_DESC1					 m_display_mode;
+		D3D_FEATURE_LEVEL		         m_feature_level;
+		ComPtr< ID3D11Device2 >	         m_device2;
+		ComPtr< ID3D11DeviceContext2 >   m_device_context2;
+		ComPtr< IDXGISwapChain2 >        m_swap_chain2;
+		ComPtr< ID3D11RenderTargetView > m_render_target_view;
+		ComPtr< ID3D11Texture2D >        m_depth_stencil;
+		ComPtr< ID3D11DepthStencilView > m_depth_stencil_view;
+		ComPtr< ID3D11RasterizerState1 > m_solid_rasterizer_state;
+		ComPtr< ID3D11RasterizerState1 > m_wireframe_rasterizer_state;
 	};
 }

@@ -63,7 +63,7 @@ public:
 		SetCamera(camera);
 		//camera->GetTransform().SetRotationX(1.10714872f);
 		//camera->GetTransform().SetTranslation(0.0f, 0.11f, -4.1126f);
-		camera->GetTransform().SetTranslation(0.0f, 2.0f, -6.0f);
+		camera->GetTransform().SetTranslation(0.0f, 1.0f, -4.0f);
 		
 		const RenderingDevice &device = g_engine->GetRenderer().GetDevice();
 		

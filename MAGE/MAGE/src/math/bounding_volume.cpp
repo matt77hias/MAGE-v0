@@ -21,51 +21,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	bool AABB::Encloses(const AABB &aabb) const {
-		if (aabb.p_min.x > p_max.x) {
-			return false;
-		}
-		if (aabb.p_min.y > p_max.y) {
-			return false;
-		}
-		if (aabb.p_min.z > p_max.z) {
-			return false;
-		}
-		if (aabb.p_max.x < p_min.x) {
-			return false;
-		}
-		if (aabb.p_max.y < p_min.y) {
-			return false;
-		}
-		if (aabb.p_max.z < p_min.z) {
-			return false;
-		}
+	//-------------------------------------------------------------------------
+	// Axis-Aligned Bounding Box
+	//-------------------------------------------------------------------------
 
-		return true;
-	}
-
-	bool AABB::EnclosesStrict(const AABB &aabb) const {
-		if (aabb.p_min.x >= p_max.x) {
-			return false;
-		}
-		if (aabb.p_min.y >= p_max.y) {
-			return false;
-		}
-		if (aabb.p_min.z >= p_max.z) {
-			return false;
-		}
-		if (aabb.p_max.x <= p_min.x) {
-			return false;
-		}
-		if (aabb.p_max.y <= p_min.y) {
-			return false;
-		}
-		if (aabb.p_max.z <= p_min.z) {
-			return false;
-		}
-
-		return true;
-	}
+	AABB::AABB(const BS &bs)
+		: p_min(Point3(bs.p.x - bs.r, bs.p.y - bs.r, bs.p.z - bs.r)),
+		p_max(Point3(bs.p.x + bs.r, bs.p.y + bs.r, bs.p.z + bs.r)) {}
 
 	bool AABB::Encloses(const Point3 &point) const {
 		if (point.x > p_max.x) {
@@ -113,88 +75,53 @@ namespace mage {
 		return true;
 	}
 
-	//bool AABB::Encloses(const Face &face) const {
-	//	// Find the minimum and maximum points of the face along the x axis. 
-	//	// Then check if these two points are within this AABB's x axis extents.
-	//	const float min_x = std::min(face.v0->p.x, std::min(face.v1->p.x, face.v2->p.x));
-	//	const float max_x = std::max(face.v0->p.x, std::max(face.v1->p.x, face.v2->p.x));
-	//	if (max_x < p_min.x) {
-	//		return false;
-	//	}
-	//	if (min_x > p_max.x) {
-	//		return false;
-	//	}
+	bool AABB::Encloses(const AABB &aabb) const {
+		if (!Encloses(aabb.p_min)) {
+			return false;
+		}
+		if (!Encloses(aabb.p_max)) {
+			return false;
+		}
 
-	//	// Find the minimum and maximum points of the face along the y axis. 
-	//	// Then check if these two points are within this AABB's y axis extents.
-	//	const float min_y = std::min(face.v0->p.y, std::min(face.v1->p.y, face.v2->p.y));
-	//	const float max_y = std::max(face.v0->p.y, std::max(face.v1->p.y, face.v2->p.y));
-	//	if (max_y < p_min.y) {
-	//		return false;
-	//	}
-	//	if (min_y > p_max.y) {
-	//		return false;
-	//	}
+		return true;
+	}
 
-	//	// Find the minimum and maximum points of the face along the z axis. 
-	//	// Then check if these two points are within this AABB's z axis extents.
-	//	const float min_z = std::min(face.v0->p.z, std::min(face.v1->p.z, face.v2->p.z));
-	//	const float max_z = std::max(face.v0->p.z, std::max(face.v1->p.z, face.v2->p.z));
-	//	if (max_z < p_min.z) {
-	//		return false;
-	//	}
-	//	if (min_z > p_max.z) {
-	//		return false;
-	//	}
+	bool AABB::EnclosesStrict(const AABB &aabb) const {
+		if (!EnclosesStrict(aabb.p_min)) {
+			return false;
+		}
+		if (!EnclosesStrict(aabb.p_max)) {
+			return false;
+		}
 
-	//	return true;
-	//}
+		return true;
+	}
 
-	//bool AABB::EnclosesStrict(const Face &face) const {
-	//	// Find the minimum and maximum points of the face along the x axis. 
-	//	// Then check if these two points are within this AABB's x axis extents.
-	//	const float min_x = std::min(face.v0->p.x, std::min(face.v1->p.x, face.v2->p.x));
-	//	const float max_x = std::max(face.v0->p.x, std::max(face.v1->p.x, face.v2->p.x));
-	//	if (max_x <= p_min.x) {
-	//		return false;
-	//	}
-	//	if (min_x >= p_max.x) {
-	//		return false;
-	//	}
+	bool AABB::Encloses(const BS &bs) const {
+		const AABB aabb(bs);
+		return Encloses(aabb);
+	}
 
-	//	// Find the minimum and maximum points of the face along the y axis. 
-	//	// Then check if these two points are within this AABB's y axis extents.
-	//	const float min_y = std::min(face.v0->p.y, std::min(face.v1->p.y, face.v2->p.y));
-	//	const float max_y = std::max(face.v0->p.y, std::max(face.v1->p.y, face.v2->p.y));
-	//	if (max_y <= p_min.y) {
-	//		return false;
-	//	}
-	//	if (min_y >= p_max.y) {
-	//		return false;
-	//	}
+	bool AABB::EnclosesStrict(const BS &bs) const {
+		const AABB aabb(bs);
+		return EnclosesStrict(aabb);
+	}
 
-	//	// Find the minimum and maximum points of the face along the z axis. 
-	//	// Then check if these two points are within this AABB's z axis extents.
-	//	const float min_z = std::min(face.v0->p.z, std::min(face.v1->p.z, face.v2->p.z));
-	//	const float max_z = std::max(face.v0->p.z, std::max(face.v1->p.z, face.v2->p.z));
-	//	if (max_z <= p_min.z) {
-	//		return false;
-	//	}
-	//	if (min_z >= p_max.z) {
-	//		return false;
-	//	}
-
-	//	return true;
-	//}
-
-	bool AABB::EnclosedBy(const list< XMFLOAT4 > &planes) const {
-		for (list< XMFLOAT4 >::const_iterator it = planes.cbegin(); it != planes.cend(); ++it) {
-			const XMVECTOR point = XMLoadFloat4(&(*it));
+	bool AABB::EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const {
+		const XMVECTOR corner_000_v = XMVectorSet(p_min.x, p_min.y, p_min.z, 1.0f);
+		const XMVECTOR corner_001_v = XMVectorSet(p_min.x, p_min.y, p_max.z, 1.0f);
+		const XMVECTOR corner_010_v = XMVectorSet(p_min.x, p_max.y, p_min.z, 1.0f);
+		const XMVECTOR corner_011_v = XMVectorSet(p_min.x, p_max.y, p_max.z, 1.0f);
+		const XMVECTOR corner_100_v = XMVectorSet(p_max.x, p_min.y, p_min.z, 1.0f);
+		const XMVECTOR corner_101_v = XMVectorSet(p_max.x, p_min.y, p_max.z, 1.0f);
+		const XMVECTOR corner_110_v = XMVectorSet(p_max.x, p_max.y, p_min.z, 1.0f);
+		const XMVECTOR corner_111_v = XMVectorSet(p_max.x, p_max.y, p_max.z, 1.0f);
+		
+		for (size_t i  = 0; i < nb_planes; ++i) {
+			const XMVECTOR plane_v = XMLoadFloat4(&planes[i]);
 
 			// 000
-			const XMFLOAT3 corner_000_f3(p_min.x, p_min.y, p_min.z);
-			const XMVECTOR corner_000_v = XMLoadFloat3(&corner_000_f3);
-			const XMVECTOR result_000_v = XMPlaneDotCoord(point, corner_000_v);
+			const XMVECTOR result_000_v = XMPlaneDotCoord(plane_v, corner_000_v);
 			float result_000;
 			XMStoreFloat(&result_000, result_000_v);
 			if (result_000 < 0.0f) {
@@ -202,9 +129,7 @@ namespace mage {
 			}
 
 			// 001
-			const XMFLOAT3 corner_001_f3(p_min.x, p_min.y, p_max.z);
-			const XMVECTOR corner_001_v = XMLoadFloat3(&corner_001_f3);
-			const XMVECTOR result_001_v = XMPlaneDotCoord(point, corner_001_v);
+			const XMVECTOR result_001_v = XMPlaneDotCoord(plane_v, corner_001_v);
 			float result_001;
 			XMStoreFloat(&result_001, result_001_v);
 			if (result_001 < 0.0f) {
@@ -212,9 +137,7 @@ namespace mage {
 			}
 
 			// 010
-			const XMFLOAT3 corner_010_f3(p_min.x, p_max.y, p_min.z);
-			const XMVECTOR corner_010_v = XMLoadFloat3(&corner_010_f3);
-			const XMVECTOR result_010_v = XMPlaneDotCoord(point, corner_010_v);
+			const XMVECTOR result_010_v = XMPlaneDotCoord(plane_v, corner_010_v);
 			float result_010;
 			XMStoreFloat(&result_010, result_010_v);
 			if (result_010 < 0.0f) {
@@ -222,9 +145,7 @@ namespace mage {
 			}
 
 			// 011
-			const XMFLOAT3 corner_011_f3(p_min.x, p_max.y, p_max.z);
-			const XMVECTOR corner_011_v = XMLoadFloat3(&corner_011_f3);
-			const XMVECTOR result_011_v = XMPlaneDotCoord(point, corner_011_v);
+			const XMVECTOR result_011_v = XMPlaneDotCoord(plane_v, corner_011_v);
 			float result_011;
 			XMStoreFloat(&result_011, result_011_v);
 			if (result_011 < 0.0f) {
@@ -232,9 +153,7 @@ namespace mage {
 			}
 
 			// 100
-			const XMFLOAT3 corner_100_f3(p_max.x, p_min.y, p_min.z);
-			const XMVECTOR corner_100_v = XMLoadFloat3(&corner_100_f3);
-			const XMVECTOR result_100_v = XMPlaneDotCoord(point, corner_100_v);
+			const XMVECTOR result_100_v = XMPlaneDotCoord(plane_v, corner_100_v);
 			float result_100;
 			XMStoreFloat(&result_100, result_100_v);
 			if (result_100 < 0.0f) {
@@ -242,9 +161,7 @@ namespace mage {
 			}
 
 			// 101
-			const XMFLOAT3 corner_101_f3(p_max.x, p_min.y, p_max.z);
-			const XMVECTOR corner_101_v = XMLoadFloat3(&corner_101_f3);
-			const XMVECTOR result_101_v = XMPlaneDotCoord(point, corner_101_v);
+			const XMVECTOR result_101_v = XMPlaneDotCoord(plane_v, corner_101_v);
 			float result_101;
 			XMStoreFloat(&result_101, result_101_v);
 			if (result_101 < 0.0f) {
@@ -252,9 +169,7 @@ namespace mage {
 			}
 
 			// 110
-			const XMFLOAT3 corner_110_f3(p_max.x, p_max.y, p_min.z);
-			const XMVECTOR corner_110_v = XMLoadFloat3(&corner_110_f3);
-			const XMVECTOR result_110_v = XMPlaneDotCoord(point, corner_110_v);
+			const XMVECTOR result_110_v = XMPlaneDotCoord(plane_v, corner_110_v);
 			float result_110;
 			XMStoreFloat(&result_110, result_110_v);
 			if (result_110 < 0.0f) {
@@ -262,9 +177,7 @@ namespace mage {
 			}
 
 			// 111
-			const XMFLOAT3 corner_111_f3(p_max.x, p_max.y, p_max.z);
-			const XMVECTOR corner_111_v = XMLoadFloat3(&corner_111_f3);
-			const XMVECTOR result_111_v = XMPlaneDotCoord(point, corner_111_v);
+			const XMVECTOR result_111_v = XMPlaneDotCoord(plane_v, corner_111_v);
 			float result_111;
 			XMStoreFloat(&result_111, result_111_v);
 			if (result_111 < 0.0f) {
@@ -275,14 +188,21 @@ namespace mage {
 		return true;
 	}
 
-	bool AABB::EnclosedStrictBy(const list< XMFLOAT4 > &planes) const {
-		for (list< XMFLOAT4 >::const_iterator it = planes.cbegin(); it != planes.cend(); ++it) {
-			const XMVECTOR point = XMLoadFloat4(&(*it));
+	bool AABB::EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const {
+		const XMVECTOR corner_000_v = XMVectorSet(p_min.x, p_min.y, p_min.z, 1.0f);
+		const XMVECTOR corner_001_v = XMVectorSet(p_min.x, p_min.y, p_max.z, 1.0f);
+		const XMVECTOR corner_010_v = XMVectorSet(p_min.x, p_max.y, p_min.z, 1.0f);
+		const XMVECTOR corner_011_v = XMVectorSet(p_min.x, p_max.y, p_max.z, 1.0f);
+		const XMVECTOR corner_100_v = XMVectorSet(p_max.x, p_min.y, p_min.z, 1.0f);
+		const XMVECTOR corner_101_v = XMVectorSet(p_max.x, p_min.y, p_max.z, 1.0f);
+		const XMVECTOR corner_110_v = XMVectorSet(p_max.x, p_max.y, p_min.z, 1.0f);
+		const XMVECTOR corner_111_v = XMVectorSet(p_max.x, p_max.y, p_max.z, 1.0f);
+		
+		for (size_t i = 0; i < nb_planes; ++i) {
+			const XMVECTOR plane_v = XMLoadFloat4(&planes[i]);
 
 			// 000
-			const XMFLOAT3 corner_000_f3(p_min.x, p_min.y, p_min.z);
-			const XMVECTOR corner_000_v = XMLoadFloat3(&corner_000_f3);
-			const XMVECTOR result_000_v = XMPlaneDotCoord(point, corner_000_v);
+			const XMVECTOR result_000_v = XMPlaneDotCoord(plane_v, corner_000_v);
 			float result_000;
 			XMStoreFloat(&result_000, result_000_v);
 			if (result_000 <= 0.0f) {
@@ -290,9 +210,7 @@ namespace mage {
 			}
 
 			// 001
-			const XMFLOAT3 corner_001_f3(p_min.x, p_min.y, p_max.z);
-			const XMVECTOR corner_001_v = XMLoadFloat3(&corner_001_f3);
-			const XMVECTOR result_001_v = XMPlaneDotCoord(point, corner_001_v);
+			const XMVECTOR result_001_v = XMPlaneDotCoord(plane_v, corner_001_v);
 			float result_001;
 			XMStoreFloat(&result_001, result_001_v);
 			if (result_001 <= 0.0f) {
@@ -300,9 +218,7 @@ namespace mage {
 			}
 
 			// 010
-			const XMFLOAT3 corner_010_f3(p_min.x, p_max.y, p_min.z);
-			const XMVECTOR corner_010_v = XMLoadFloat3(&corner_010_f3);
-			const XMVECTOR result_010_v = XMPlaneDotCoord(point, corner_010_v);
+			const XMVECTOR result_010_v = XMPlaneDotCoord(plane_v, corner_010_v);
 			float result_010;
 			XMStoreFloat(&result_010, result_010_v);
 			if (result_010 <= 0.0f) {
@@ -310,9 +226,7 @@ namespace mage {
 			}
 
 			// 011
-			const XMFLOAT3 corner_011_f3(p_min.x, p_max.y, p_max.z);
-			const XMVECTOR corner_011_v = XMLoadFloat3(&corner_011_f3);
-			const XMVECTOR result_011_v = XMPlaneDotCoord(point, corner_011_v);
+			const XMVECTOR result_011_v = XMPlaneDotCoord(plane_v, corner_011_v);
 			float result_011;
 			XMStoreFloat(&result_011, result_011_v);
 			if (result_011 <= 0.0f) {
@@ -320,9 +234,7 @@ namespace mage {
 			}
 
 			// 100
-			const XMFLOAT3 corner_100_f3(p_max.x, p_min.y, p_min.z);
-			const XMVECTOR corner_100_v = XMLoadFloat3(&corner_100_f3);
-			const XMVECTOR result_100_v = XMPlaneDotCoord(point, corner_100_v);
+			const XMVECTOR result_100_v = XMPlaneDotCoord(plane_v, corner_100_v);
 			float result_100;
 			XMStoreFloat(&result_100, result_100_v);
 			if (result_100 <= 0.0f) {
@@ -330,9 +242,7 @@ namespace mage {
 			}
 
 			// 101
-			const XMFLOAT3 corner_101_f3(p_max.x, p_min.y, p_max.z);
-			const XMVECTOR corner_101_v = XMLoadFloat3(&corner_101_f3);
-			const XMVECTOR result_101_v = XMPlaneDotCoord(point, corner_101_v);
+			const XMVECTOR result_101_v = XMPlaneDotCoord(plane_v, corner_101_v);
 			float result_101;
 			XMStoreFloat(&result_101, result_101_v);
 			if (result_101 <= 0.0f) {
@@ -340,9 +250,7 @@ namespace mage {
 			}
 
 			// 110
-			const XMFLOAT3 corner_110_f3(p_max.x, p_max.y, p_min.z);
-			const XMVECTOR corner_110_v = XMLoadFloat3(&corner_110_f3);
-			const XMVECTOR result_110_v = XMPlaneDotCoord(point, corner_110_v);
+			const XMVECTOR result_110_v = XMPlaneDotCoord(plane_v, corner_110_v);
 			float result_110;
 			XMStoreFloat(&result_110, result_110_v);
 			if (result_110 <= 0.0f) {
@@ -350,9 +258,7 @@ namespace mage {
 			}
 
 			// 111
-			const XMFLOAT3 corner_111_f3(p_max.x, p_max.y, p_max.z);
-			const XMVECTOR corner_111_v = XMLoadFloat3(&corner_111_f3);
-			const XMVECTOR result_111_v = XMPlaneDotCoord(point, corner_111_v);
+			const XMVECTOR result_111_v = XMPlaneDotCoord(plane_v, corner_111_v);
 			float result_111;
 			XMStoreFloat(&result_111, result_111_v);
 			if (result_111 <= 0.0f) {
@@ -364,17 +270,58 @@ namespace mage {
 	}
 
 	bool AABB::Overlaps(const AABB &aabb) const {
-		const bool x = (p_max.x >= aabb.p_min.x) && (p_min.x <= aabb.p_max.x);
-		const bool y = (p_max.y >= aabb.p_min.y) && (p_min.y <= aabb.p_max.y);
-		const bool z = (p_max.z >= aabb.p_min.z) && (p_min.z <= aabb.p_max.z);
-		return (x && y && z);
+		if (aabb.p_min.x > p_max.x) {
+			return false;
+		}
+		if (aabb.p_min.y > p_max.y) {
+			return false;
+		}
+		if (aabb.p_min.z > p_max.z) {
+			return false;
+		}
+		if (aabb.p_max.x < p_min.x) {
+			return false;
+		}
+		if (aabb.p_max.y < p_min.y) {
+			return false;
+		}
+		if (aabb.p_max.z < p_min.z) {
+			return false;
+		}
+
+		return true;
 	}
 
 	bool AABB::OverlapsStrict(const AABB &aabb) const {
-		const bool x = (p_max.x > aabb.p_min.x) && (p_min.x < aabb.p_max.x);
-		const bool y = (p_max.y > aabb.p_min.y) && (p_min.y < aabb.p_max.y);
-		const bool z = (p_max.z > aabb.p_min.z) && (p_min.z < aabb.p_max.z);
-		return (x && y && z);
+		if (aabb.p_min.x >= p_max.x) {
+			return false;
+		}
+		if (aabb.p_min.y >= p_max.y) {
+			return false;
+		}
+		if (aabb.p_min.z >= p_max.z) {
+			return false;
+		}
+		if (aabb.p_max.x <= p_min.x) {
+			return false;
+		}
+		if (aabb.p_max.y <= p_min.y) {
+			return false;
+		}
+		if (aabb.p_max.z <= p_min.z) {
+			return false;
+		}
+
+		return true;
+	}
+
+	Point3 AABB::Centroid() const {
+		const XMVECTOR p_min_v = XMLoadFloat3(&p_min);
+		const XMVECTOR p_max_v = XMLoadFloat3(&p_max);
+		const XMVECTOR centroid_v = 0.5f * (p_min_v + p_max_v);
+		Point3 centroid;
+		XMStoreFloat3(&centroid, centroid_v);
+		return centroid;
 	}
 
 	Direction3 AABB::Diagonal() const {
@@ -443,12 +390,150 @@ namespace mage {
 		return AABB(p_min, p_max);
 	}
 
-	bool BS::Encloses(const list< XMFLOAT4 > &planes) const {
-		for (list< XMFLOAT4 >::const_iterator it = planes.cbegin(); it != planes.cend(); ++it) {
-			const XMVECTOR point = XMLoadFloat4(&(*it));
+	//-------------------------------------------------------------------------
+	// Bounding Sphere
+	//-------------------------------------------------------------------------
 
-			const XMVECTOR p_v = XMLoadFloat3(&p);
-			const XMVECTOR result_v = XMPlaneDotCoord(point, p_v);
+	BS::BS(const AABB &aabb) {
+		const XMVECTOR p_min_v = XMLoadFloat3(&aabb.p_min);
+		const XMVECTOR p_max_v = XMLoadFloat3(&aabb.p_max);
+		const XMVECTOR centroid_v = 0.5f * (p_min_v + p_max_v);
+		const XMVECTOR radius_v = 0.5f * (p_max_v - p_min_v);
+		XMStoreFloat3(&p, centroid_v);
+		Direction3 radius;
+		XMStoreFloat3(&radius, radius_v);
+		r = std::max(radius.x, std::max(radius.y, radius.z));
+	}
+
+	bool BS::Encloses(const Point3 &point) const {
+		const XMVECTOR p_v = XMLoadFloat3(&p);
+		const XMVECTOR point_v = XMLoadFloat3(&point);
+		const XMVECTOR length_v = XMVector3Length(point_v - p_v);
+		float length;
+		XMStoreFloat(&length, length_v);
+		return length <= r;
+	}
+		
+	bool BS::EnclosesStrict(const Point3 &point) const {
+		const XMVECTOR p_v = XMLoadFloat3(&p);
+		const XMVECTOR point_v = XMLoadFloat3(&point);
+		const XMVECTOR length_v = XMVector3Length(point_v - p_v);
+		float length;
+		XMStoreFloat(&length, length_v);
+		return length < r;
+	}
+		
+	bool BS::Encloses(const AABB &aabb) const {
+		if (!Encloses(Point3(aabb.p_min.x, aabb.p_min.y, aabb.p_min.z))) {
+			return false;
+		}
+		if (!Encloses(Point3(aabb.p_min.x, aabb.p_min.y, aabb.p_max.z))) {
+			return false;
+		}
+		if (!Encloses(Point3(aabb.p_min.x, aabb.p_max.y, aabb.p_min.z))) {
+			return false;
+		}
+		if (!Encloses(Point3(aabb.p_min.x, aabb.p_max.y, aabb.p_max.z))) {
+			return false;
+		}
+		if (!Encloses(Point3(aabb.p_max.x, aabb.p_min.y, aabb.p_min.z))) {
+			return false;
+		}
+		if (!Encloses(Point3(aabb.p_max.x, aabb.p_min.y, aabb.p_max.z))) {
+			return false;
+		}
+		if (!Encloses(Point3(aabb.p_max.x, aabb.p_max.y, aabb.p_min.z))) {
+			return false;
+		}
+		if (!Encloses(Point3(aabb.p_max.x, aabb.p_max.y, aabb.p_max.z))) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	bool BS::EnclosesStrict(const AABB &aabb) const {
+		if (!EnclosesStrict(Point3(aabb.p_min.x, aabb.p_min.y, aabb.p_min.z))) {
+			return false;
+		}
+		if (!EnclosesStrict(Point3(aabb.p_min.x, aabb.p_min.y, aabb.p_max.z))) {
+			return false;
+		}
+		if (!EnclosesStrict(Point3(aabb.p_min.x, aabb.p_max.y, aabb.p_min.z))) {
+			return false;
+		}
+		if (!EnclosesStrict(Point3(aabb.p_min.x, aabb.p_max.y, aabb.p_max.z))) {
+			return false;
+		}
+		if (!EnclosesStrict(Point3(aabb.p_max.x, aabb.p_min.y, aabb.p_min.z))) {
+			return false;
+		}
+		if (!EnclosesStrict(Point3(aabb.p_max.x, aabb.p_min.y, aabb.p_max.z))) {
+			return false;
+		}
+		if (!EnclosesStrict(Point3(aabb.p_max.x, aabb.p_max.y, aabb.p_min.z))) {
+			return false;
+		}
+		if (!EnclosesStrict(Point3(aabb.p_max.x, aabb.p_max.y, aabb.p_max.z))) {
+			return false;
+		}
+
+		return true;
+	}
+
+	bool BS::Encloses(const BS &bs) const {
+		if (!Encloses(Point3(bs.p.x - bs.r, bs.p.y, bs.p.z))) {
+			return false;
+		}
+		if (!Encloses(Point3(bs.p.x + bs.r, bs.p.y, bs.p.z))) {
+			return false;
+		}
+		if (!Encloses(Point3(bs.p.x, bs.p.y - bs.r, bs.p.z))) {
+			return false;
+		}
+		if (!Encloses(Point3(bs.p.x, bs.p.y + bs.r, bs.p.z))) {
+			return false;
+		}
+		if (!Encloses(Point3(bs.p.x, bs.p.y, bs.p.z - bs.r))) {
+			return false;
+		}
+		if (!Encloses(Point3(bs.p.x, bs.p.y, bs.p.z + bs.r))) {
+			return false;
+		}
+
+		return true;
+	}
+
+	bool BS::EnclosesStrict(const BS &bs) const {
+		if (!EnclosesStrict(Point3(bs.p.x - bs.r, bs.p.y, bs.p.z))) {
+			return false;
+		}
+		if (!EnclosesStrict(Point3(bs.p.x + bs.r, bs.p.y, bs.p.z))) {
+			return false;
+		}
+		if (!EnclosesStrict(Point3(bs.p.x, bs.p.y - bs.r, bs.p.z))) {
+			return false;
+		}
+		if (!EnclosesStrict(Point3(bs.p.x, bs.p.y + bs.r, bs.p.z))) {
+			return false;
+		}
+		if (!EnclosesStrict(Point3(bs.p.x, bs.p.y, bs.p.z - bs.r))) {
+			return false;
+		}
+		if (!EnclosesStrict(Point3(bs.p.x, bs.p.y, bs.p.z + bs.r))) {
+			return false;
+		}
+
+		return true;
+	}
+
+	bool BS::EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const {
+		const XMVECTOR p_v = XMLoadFloat3(&p);
+		
+		for (size_t i = 0; i < nb_planes; ++i) {
+			const XMVECTOR plane_v = XMLoadFloat4(&planes[i]);
+
+			const XMVECTOR result_v = XMPlaneDotCoord(plane_v, p_v);
 			float result;
 			XMStoreFloat(&result, result_v);
 			if (result < -r) {
@@ -459,12 +544,14 @@ namespace mage {
 		return true;
 	}
 
-	bool BS::EnclosesStrict(const list< XMFLOAT4 > &planes) const {
-		for (list< XMFLOAT4 >::const_iterator it = planes.cbegin(); it != planes.cend(); ++it) {
-			const XMVECTOR point = XMLoadFloat4(&(*it));
+	bool BS::EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const {
+		const XMVECTOR p_v = XMLoadFloat3(&p);
+		
+		
+		for (size_t i = 0; i < nb_planes; ++i) {
+			const XMVECTOR plane_v = XMLoadFloat4(&planes[i]);
 
-			const XMVECTOR p_v = XMLoadFloat3(&p);
-			const XMVECTOR result_v = XMPlaneDotCoord(point, p_v);
+			const XMVECTOR result_v = XMPlaneDotCoord(plane_v, p_v);
 			float result;
 			XMStoreFloat(&result, result_v);
 			if (result <= -r) {
@@ -473,75 +560,5 @@ namespace mage {
 		}
 
 		return true;
-	}
-
-	bool BS::Collides(const BS &sphere, const XMFLOAT3 velocity_sum, float *collision_distance) const {
-		const XMVECTOR p1_v = XMLoadFloat3(&p);
-		const XMVECTOR p2_v = XMLoadFloat3(&sphere.p);
-
-		// Calculate the direction vector from the second sphere to the first sphere.
-		const XMVECTOR direction_v = p1_v - p2_v;
-
-		// Calculate the distance between the two spheres.
-		const XMVECTOR dist_v = XMVector3Length(direction_v);
-		float dist;
-		XMStoreFloat(&dist, dist_v);
-		const float radii_sum = r + sphere.r;
-		const float dist_between = dist - radii_sum;
-
-		// Calculate the length of the sum of the velocity vectors of the two spheres.
-		const XMVECTOR velocity_sum_v = XMLoadFloat3(&velocity_sum);
-		const XMVECTOR velocity_sum_length_v = XMVector3Length(velocity_sum_v);
-		float velocity_sum_length;
-		XMStoreFloat(&velocity_sum_length, velocity_sum_length_v);
-
-		// If the spheres are not touching each other and the velocity sum length is
-		// less than the distance between them, then they cannot collide.
-		if (0.0f < dist_between && velocity_sum_length < dist_between) {
-			return false;
-		}
-
-		// Calculate the normalized sum of the velocity vectors of the two spheres.
-		const XMVECTOR velocity_sum_normalized_v = XMVector3Normalize(velocity_sum_v);
-
-		// Calculate the angle between the normalized sum of the velocity vectors and direction vectors.
-		const XMVECTOR angle_between_v = XMVector3Dot(velocity_sum_normalized_v, direction_v);
-		float angle_between;
-		XMStoreFloat(&angle_between, angle_between_v);
-
-		// Check whether the spheres are moving away from one another.
-		if (angle_between <= 0.0f) {
-			// Check whether the spheres are touching (or inside) each other. 
-			// If not then they cannot collide since they are moving away from one another.
-			if (dist_between < 0.0f) {
-				// If the velocity sum length is greater than the distance between the
-				// spheres then they are moving away from each other fast enough that 
-				// they will not be touching when they complete their move.
-				if (velocity_sum_length > -dist_between) {
-					return false;
-				}
-			}
-			else {
-				return false;
-			}
-		}
-
-		// The vector between the two spheres and the velocity sum vector produce two sides of a triangle. 
-		// Now use Pythagorean Theorem to find the length of the third side of the triangle (i.e. the hypotenuse).
-		const float hypotenuse = (dist * dist) - (angle_between * angle_between);
-
-		// Ensure that the spheres come closer than the sum of their radii.
-		const float squared_radii_sum = radii_sum * radii_sum;
-		if (hypotenuse >= squared_radii_sum) {
-			return false;
-		}
-
-		// Calculate the distance along the velocity vector that the spheres collide.
-		// Then use this distance to calculate the distance to the collision.
-		const float d = squared_radii_sum - hypotenuse;
-		*collision_distance = angle_between - (float)sqrt(d);
-
-		// Ensure that the sphere will not travel more than the velocity allows.
-		return (velocity_sum_length >= *collision_distance);
 	}
 }

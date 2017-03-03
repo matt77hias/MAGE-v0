@@ -15,6 +15,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	// Forward declaration
+	struct BS;
+
+	//-------------------------------------------------------------------------
+	// Axis-Aligned Bounding Box
+	//-------------------------------------------------------------------------
+
 	/**
 	 A struct of Axis-Aligned Bounding Boxes (AABBs).
 	 */
@@ -29,15 +36,75 @@ namespace mage {
 			: p_min(Point3(-INFINITY, -INFINITY, -INFINITY)), p_max(Point3(INFINITY, INFINITY, INFINITY)) {}
 
 		/**
-		 Constructs an AABB.
+		 Constructs an AABB of the given point.
 
+		 @param[in]		p
+						A reference to the point.
+		 */
+		explicit AABB(const Point3 &p)
+			: p_min(p), p_max(p) {}
+
+		/**
+		 Constructs an AABB of the given extents.
+
+		 @pre			@a p_min is entrywise smaller or equal to @a p_max.
 		 @param[in]		p_min
-						The minimum extents.
+						A reference to the minimum extents.
 		 @param[in]		p_max
-						The maximum extents.
+						A reference to the maximum extents.
 		 */
 		AABB(const Point3 &p_min, const Point3 &p_max) 
 			: p_min(p_min), p_max(p_max) {}
+
+		/**
+		 Constructs an AABB from the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 */
+		AABB(const AABB &aabb) = default;
+
+		/**
+		 Constructs an AABB of the given BS.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 */
+		explicit AABB(const BS &bs);
+
+		/**
+		 Destructs this AABB.
+		 */
+		~AABB() = default;
+
+		/**
+		 Copies the given AABB to this AABB.
+
+		 @param[in]		A reference to the AABB to copy from.
+		 @return		A reference to the copy of the given AABB
+						(i.e. this AABB).
+		 */
+		AABB &operator=(const AABB &aabb) = default;
+
+		/**
+		 Checks whether this AABB completely encloses the given point.
+
+		 @param[in]		point
+						A reference to the point.
+		 @return		@c true if this AABB completely encloses @a point.
+						@c false otherwise.
+		 */
+		bool Encloses(const Point3 &point) const;
+
+		/**
+		 Checks whether this AABB completely, strictly encloses the given point.
+
+		 @param[in]		point
+						A reference to the point.
+		 @return		@c true if this AABB completely, strictly encloses @a point.
+						@c false otherwise.
+		 */
+		bool EnclosesStrict(const Point3 &point) const;
 
 		/**
 		 Checks whether this AABB completely encloses the given AABB.
@@ -60,66 +127,50 @@ namespace mage {
 		bool EnclosesStrict(const AABB &aabb) const;
 
 		/**
-		 Checks whether this AABB completely encloses the given point.
+		 Checks whether this AABB completely encloses the given BS.
 
-		 @param[in]		point
-						A reference to the point.
-		 @return		@c true if this AABB completely encloses @a point.
+		 @param[in]		bs
+						A reference to the BS.
+		 @return		@c true if this AABB completely encloses @a bs.
 						@c false otherwise.
 		 */
-		bool Encloses(const Point3 &point) const;
+		bool Encloses(const BS &bs) const;
 
 		/**
-		 Checks whether this AABB completely, strictly encloses the given point.
+		 Checks whether this AABB completely, strictly encloses the given BS.
 
-		 @param[in]		point
-						A reference to the point.
-		 @return		@c true if this AABB completely, strictly encloses @a point.
+		 @param[in]		bs
+						A reference to the BS.
+		 @return		@c true if this AABB completely, strictly encloses @a bs.
 						@c false otherwise.
 		 */
-		bool EnclosesStrict(const Point3 &point) const;
-
-		///**
-		// Checks whether this AABB completely encloses the given face.
-
-		// @param[in]		face
-		//				A reference to the face.
-		// @return		@c true if this AABB completely encloses @a face.
-		//				@c false otherwise.
-		// */
-		//bool Encloses(const Face &face) const;
-
-		///**
-		// Checks whether this AABB completely, strictly encloses the given face.
-
-		// @param[in]		face
-		//				A reference to the face.
-		// @return		@c true if this AABB completely, strictly encloses @a face.
-		//				@c false otherwise.
-		// */
-		//bool EnclosesStrict(const Face &face) const;
+		bool EnclosesStrict(const BS &bs) const;
 
 		/**
 		 Checks whether this AABB is completely enclosed by the given (closed) volume.
 
 		 @param[in]		planes
-						A reference to a linked list containing the planes of the volume
-						(each plane's coefficients are represented as a @c XMFLOAT4).
+						A pointer to the planes of the volume.
+						(each plane's coefficients are represented as a @c XMFLOAT4)
+		 @param[in]		nb_planes
+						The number of planes.
 		 @return		@c true if this AABB is completely enclosed by @a planes.
 						@c false otherwise.
 		 */
-		bool EnclosedBy(const list< XMFLOAT4 > &planes) const;
+		bool EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const;
 
 		/**
 		 Checks whether this AABB is completely, strictly enclosed by the given (closed) volume.
 
 		 @param[in]		planes
-						A reference to a linked list containing the planes of the volume
-						(each plane's coefficients are represented as a @c XMFLOAT4).
+						A pointer to the planes of the volume.
+						(each plane's coefficients are represented as a @c XMFLOAT4)
+		 @param[in]		nb_planes
+						The number of planes.
 		 @return		@c true if this AABB is completely, stricly enclosed by @a planes.
 						@c false otherwise.
 		 */
-		bool EnclosedStrictBy(const list< XMFLOAT4 > &planes) const;
+		bool EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const;
 
 		/**
 		 Checks whether this AABB overlaps the given AABB.
@@ -140,6 +191,13 @@ namespace mage {
 						@c false otherwise.
 		 */
 		bool OverlapsStrict(const AABB &aabb) const;
+
+		/**
+		 Returns the centroid of this AABB.
+
+		 @return		The centroid of this AABB.
+		 */
+		Point3 Centroid() const;
 
 		/**
 		 Returns the diagonal of this AABB.
@@ -205,6 +263,10 @@ namespace mage {
 	 */
 	AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2);
 
+	//-------------------------------------------------------------------------
+	// Bounding Sphere
+	//-------------------------------------------------------------------------
+
 	/**
 	 A struct of Bounding Spheres (BS).
 	 */
@@ -213,16 +275,25 @@ namespace mage {
 	public:
 
 		/**
-		 Constructs a sphere.
+		 Constructs a BS.
 		 */
 		BS() 
-			: p(Point3(0.0f, 0.0f, 0.0f)), r(1.0f) {}
+			: p(Point3(0.0f, 0.0f, 0.0f)), r(0.0f) {}
 
 		/**
-		 Constructs a sphere.
+		 Constructs a BS of the given point.
 
 		 @param[in]		p
-						The position
+						A reference to the point.
+		 */
+		explicit BS(const Point3 &p)
+			: p(p), r(0.0f) {}
+
+		/**
+		 Constructs a BS.
+
+		 @param[in]		p
+						A reference to the position.
 		 @param[in]		r
 						The radius.
 		 */
@@ -230,48 +301,137 @@ namespace mage {
 			: p(p), r(r) {}
 
 		/**
-		 Checks whether this sphere completely encloses the given (closed) volume.
+		 Constructs a BS from the given AABB.
 
-		 @param[in]		planes
-						A reference to a linked list containing the planes of the volume
-						(each plane's coefficients are represented as a @c XMFLOAT4).
-		 @return		@c true if this sphere completely encloses @a planes.
-						@c false otherwise.
-		*/
-		bool Encloses(const list< XMFLOAT4 > &planes) const;
+		 @param[in]		aabb
+						A reference to the aabb.
+		 */
+		explicit BS(const AABB &aabb);
 
 		/**
-		 Checks whether this sphere completely, strictly encloses the given (closed) volume.
+		 Constructs a BS from the given BS.
 
-		 @param[in]		planes
-						A reference to a linked list containing the planes of the volume
-						(each plane's coefficients are represented as a @c XMFLOAT4).
-		 @return		@c true if this sphere completely encloses @a planes.
+		 @param[in]		bs
+						A reference to the bs.
+		 */
+		BS(const BS &bs) = default;
+
+		/**
+		 Destructs this BS.
+		 */
+		~BS() = default;
+
+		/**
+		 Copies the given BS to this BS.
+
+		 @param[in]		A reference to the BS to copy from.
+		 @return		A reference to the copy of the given BS
+						(i.e. this BS).
+		 */
+		BS &operator=(const BS &bs) = default;
+
+		/**
+		 Checks whether this BS completely encloses the given point.
+
+		 @param[in]		point
+						A reference to the point.
+		 @return		@c true if this BS completely encloses @a point.
 						@c false otherwise.
 		 */
-		bool EnclosesStrict(const list< XMFLOAT4 > &planes) const;
+		bool Encloses(const Point3 &point) const;
 
 		/**
-		 Checks whether this sphere collides with a given sphere.
+		 Checks whether this BS completely, strictly encloses the given point.
 
-		 @param[in]		sphere
-						The sphere.
-		 @param[in]		velocity_sum
-						The sum of the velocities of both spheres.
-		 @param[out]	collision_distance
-						The collision distance (in case of collision).
-		 @return		@c true if this sphere collides with @a sphere.
+		 @param[in]		point
+						A reference to the point.
+		 @return		@c true if this BS completely, strictly encloses @a point.
 						@c false otherwise.
 		 */
-		bool Collides(const BS &sphere, const XMFLOAT3 velocity_sum, float *collision_distance) const;
+		bool EnclosesStrict(const Point3 &point) const;
 
 		/**
-		 The position of this sphere.
+		 Checks whether this BS completely encloses the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if this BS completely encloses @a aabb.
+						@c false otherwise.
+		 */
+		bool Encloses(const AABB &aabb) const;
+
+		/**
+		 Checks whether this BS completely, strictly encloses the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if this BS completely, strictly encloses @a aabb.
+						@c false otherwise.
+		 */
+		bool EnclosesStrict(const AABB &aabb) const;
+
+		/**
+		 Checks whether this BS completely encloses the given BS.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @return		@c true if this BS completely encloses @a bs.
+						@c false otherwise.
+		 */
+		bool Encloses(const BS &bs) const;
+
+		/**
+		 Checks whether this BS completely, strictly encloses the given BS.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @return		@c true if this BS completely, strictly encloses @a bs.
+						@c false otherwise.
+		 */
+		bool EnclosesStrict(const BS &bs) const;
+
+		/**
+		 Checks whether this BS completely encloses the given (closed) volume.
+
+		 @param[in]		planes
+						A pointer to the planes of the volume.
+						(each plane's coefficients are represented as a @c XMFLOAT4)
+		 @param[in]		nb_planes
+						The number of planes.
+		 @return		@c true if this BS completely encloses @a planes.
+						@c false otherwise.
+		 */
+		bool EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const;
+
+		/**
+		 Checks whether this BS completely, strictly encloses the given (closed) volume.
+
+		 @param[in]		planes
+						A pointer to the planes of the volume.
+						(each plane's coefficients are represented as a @c XMFLOAT4)
+		 @param[in]		nb_planes
+						The number of planes.
+		 @return		@c true if this BS completely, stricly encloses @a planes.
+						@c false otherwise.
+		 */
+		bool EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const;
+
+		/**
+		 Returns the centroid of this AABB.
+
+		 @return		The centroid of this AABB.
+		 */
+		Point3 Centroid() const {
+			return p;
+		}
+
+		/**
+		 The position of this BS.
 		 */
 		Point3 p;
 
 		/**
-		 The radius of this sphere.
+		 The radius of this BS.
 		 */
 		float r;
 	};

@@ -5,6 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "rendering\rendering.hpp"
+#include "memory\memory.hpp"
 #include "string\string.hpp"
 #include "material\spectrum.hpp"
 
@@ -35,29 +37,6 @@ namespace mage {
 		string m_name;
 
 		/**
-		 The ambient reflectivity of this material.
-		 */
-		RGBSpectrum m_ambient_reflectivity;
-
-		/**
-		 The diffuse reflectivity of this material.
-		 */
-		RGBSpectrum m_diffuse_reflectivity;
-
-		/**
-		 The specular reflectivity of this material.
-		 */
-		RGBSpectrum m_specular_reflectivity;
-
-		/**
-		 The specular exponent (surface roughness) of this material.
-
-		 A high exponent results in a tight, concentrated highlight. 
-		 Values normally range from 0 to 1000.
-		 */
-		float m_specular_exponent;
-		
-		/**
 		 The transmission filter of this material.
 		 
 		 Any light passing through the material is filtered by the transmission 
@@ -66,25 +45,82 @@ namespace mage {
 		RGBSpectrum m_transmission_filter;
 
 		/**
-		 The amount this material dissolves into the background.  
-		 
-		 A factor of 1.0 is fully opaque.  
+		 The ambient reflectivity of this material.
+		 */
+		RGBSpectrum m_ambient_reflectivity;
+
+		/**
+		 The ambient reflectivity map of this material.
+		 */
+		ComPtr< ID3D11ShaderResourceView > m_ambient_reflectivity_map;
+
+		/**
+		 The diffuse reflectivity of this material.
+		 */
+		RGBSpectrum m_diffuse_reflectivity;
+
+		/**
+		 The diffuse reflectivity map of this material.
+		 */
+		ComPtr< ID3D11ShaderResourceView > m_diffuse_reflectivity_map;
+
+		/**
+		 The specular reflectivity of this material.
+		 */
+		RGBSpectrum m_specular_reflectivity;
+
+		/**
+		 The specular reflectivity map of this material.
+		 */
+		ComPtr< ID3D11ShaderResourceView > m_specular_reflectivity_map;
+
+		/**
+		 The specular exponent (surface roughness) of this material.
+
+		 A high exponent results in a tight, concentrated highlight.
+		 Values normally range from 0 to 1000.
+		 */
+		float m_specular_exponent;
+
+		/**
+		 The specular exponent map of this material.
+		 */
+		ComPtr< ID3D11ShaderResourceView > m_specular_exponent_map;
+
+		/**
+		 The amount this material dissolves into the background.
+
+		 A factor of 1.0 is fully opaque.
 		 A factor of 0.0 is fully dissolved (completely transparent).
- 
-		 Unlike a real transparent material, the dissolve does not depend upon 
+
+		 Unlike a real transparent material, the dissolve does not depend upon
 		 material thickness nor does it have any spectral character.
 		 */
 		float m_dissolve;
+
+		/**
+		 The dissolve map of this material.
+		 */
+		ComPtr< ID3D11ShaderResourceView > m_dissolve_map;
 
 		/**
 		 The index of refraction (optical density) of this material.
 		 */
 		float m_index_of_refraction;
 
-		//const string m_ambient_reflectivity_map;
-		//const string m_diffuse_reflectivity_map;
-		//const string m_specular_reflectivity_map;
-		//const string m_specular_exponent_map;
-		//const string m_dissolve_map;
+		/**
+		 The decal map of this material.
+		 */
+		ComPtr< ID3D11ShaderResourceView > m_decal_map;
+
+		/**
+		 The displacement map of this material.
+		 */
+		ComPtr< ID3D11ShaderResourceView > m_displacement_map;
+
+		/**
+		 The bump map of this material.
+		 */
+		ComPtr< ID3D11ShaderResourceView > m_bump_map;
 	};
 }

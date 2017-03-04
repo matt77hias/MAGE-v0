@@ -29,15 +29,25 @@ namespace mage {
 		virtual HRESULT ReadLine(char *line) override;
 
 		void ReadMTLMaterialName();
+		void ReadMTLTransmissionFilter();
 		void ReadMTLAmbientReflectivity();
 		void ReadMTLDiffuseReflectivity();
 		void ReadMTLSpecularReflectivity();
-		void ReadMTLTransmissionFilter();
 		void ReadMTLSpecularExponent();
-		void ReadMTLOpticalDensity();
 		void ReadMTLDissolve();
+		void ReadMTLOpticalDensity();
+
+		void ReadMTLAmbientReflectivityMap();
+		void ReadMTLDiffuseReflectivityMap();
+		void ReadMTLSpecularReflectivityMap();
+		void ReadMTLSpecularExponentMap();
+		void ReadMTLDissolveMap();
+		void ReadMTLDecalMap();
+		void ReadMTLDisplacementMap();
+		void ReadMTLBumpMap();
 
 		RGBSpectrum ReadMTLSpectrum();
+		ComPtr< ID3D11ShaderResourceView > ReadMTLMap();
 
 	private:
 

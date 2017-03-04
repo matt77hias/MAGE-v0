@@ -88,7 +88,7 @@ namespace mage {
 
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJMaterialLibrary() {
-		const wstring mtl_path = GetPathName(GetFilename());
+		const wstring mtl_path = mage::GetPathName(GetFilename());
 		const wstring mtl_name = str_convert(ReadString());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 

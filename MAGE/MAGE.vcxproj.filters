@@ -148,6 +148,9 @@
     <Filter Include="Source Files\world">
       <UniqueIdentifier>{213e5108-0ecd-4093-a278-c0c869e2e667}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\texture">
+      <UniqueIdentifier>{b664c90b-5549-4bbd-b8e2-59575770e9bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -393,6 +396,9 @@
     <ClInclude Include="MAGE\src\math\view_frustum.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\texture\dds_loader.hpp">
+      <Filter>Header Files\texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -517,6 +523,15 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\math\view_frustum.cpp">
       <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\texture\dds_loader.cpp">
+      <Filter>Source Files\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\rendering_device.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\empty_shader.cpp">
+      <Filter>Source Files\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

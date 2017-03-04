@@ -26,6 +26,16 @@ namespace mage {
 
 		RenderingDevice &operator=(const RenderingDevice &device) = default;
 
+		D3D_FEATURE_LEVEL GetFeatureLevel() const {
+			return m_device->GetFeatureLevel();
+		}
+		HRESULT CheckFormatSupport(DXGI_FORMAT format, UINT *format_support) const {
+			return m_device->CheckFormatSupport(format, format_support);
+		}
+
+		HRESULT CreateBuffer(const D3D11_BUFFER_DESC *desc, const D3D11_SUBRESOURCE_DATA *init_data, ID3D11Buffer **buffer) const {
+			return m_device->CreateBuffer(desc, init_data, buffer);
+		}
 		template < typename VertexT >
 		HRESULT CreateVertexBuffer(ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) const;
 		template < typename IndexT >
@@ -33,10 +43,34 @@ namespace mage {
 		template < typename BufferT >
 		HRESULT CreateConstantBuffer(ID3D11Buffer **buffer) const;
 
-		HRESULT RenderingDevice::CreateVertexShader(ID3D11VertexShader **shader, ComPtr< ID3DBlob > shader_blob) const;
-		HRESULT RenderingDevice::CreatePixelShader(ID3D11PixelShader **shader, ComPtr< ID3DBlob > shader_blob) const;
-		HRESULT RenderingDevice::CreateVertexInputLayout(ID3D11InputLayout **input_layout, ComPtr< ID3DBlob > shader_blob,
-			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements) const;
+		HRESULT CreateTexture1D(const D3D11_TEXTURE1D_DESC *desc, const D3D11_SUBRESOURCE_DATA *init_data, ID3D11Texture1D **texture) const {
+			return m_device->CreateTexture1D(desc, init_data, texture);
+		}
+		HRESULT CreateTexture2D(const D3D11_TEXTURE2D_DESC *desc, const D3D11_SUBRESOURCE_DATA *init_data, ID3D11Texture2D **texture) const {
+			return m_device->CreateTexture2D(desc, init_data, texture);
+		}
+		HRESULT CreateTexture3D(const D3D11_TEXTURE3D_DESC *desc, const D3D11_SUBRESOURCE_DATA *init_data, ID3D11Texture3D **texture) const {
+			return m_device->CreateTexture3D(desc, init_data, texture);
+		}
+		HRESULT CreateShaderResourceView(ID3D11Resource *resource, const D3D11_SHADER_RESOURCE_VIEW_DESC *desc, ID3D11ShaderResourceView **shader_resource_view) const {
+			return m_device->CreateShaderResourceView(resource, desc, shader_resource_view);
+		}
+
+		HRESULT CreateVertexShader(ID3D11VertexShader **shader, ComPtr< ID3DBlob > shader_blob) const {
+			return m_device->CreateVertexShader(shader_blob->GetBufferPointer(), shader_blob->GetBufferSize(), nullptr, shader);
+		}
+		HRESULT CreatePixelShader(ID3D11PixelShader **shader, ComPtr< ID3DBlob > shader_blob) const {
+			return m_device->CreatePixelShader(shader_blob->GetBufferPointer(), shader_blob->GetBufferSize(), nullptr, shader);
+		}
+		HRESULT CreateVertexInputLayout(ID3D11InputLayout **input_layout, ComPtr< ID3DBlob > shader_blob,
+			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements) const {
+			return m_device->CreateInputLayout(input_element_desc, (UINT)nb_input_elements, shader_blob->GetBufferPointer(), shader_blob->GetBufferSize(), input_layout);
+		}
+		
+		HRESULT CreateSamplerState(const D3D11_SAMPLER_DESC *desc, ID3D11SamplerState **sampler_state) const {
+			return m_device->CreateSamplerState(desc, sampler_state);
+		}
+		HRESULT CreateLinearSamplerState(ID3D11SamplerState **sampler_state) const;
 
 	private:
 

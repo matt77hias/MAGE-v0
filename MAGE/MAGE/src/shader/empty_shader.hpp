@@ -22,13 +22,7 @@ namespace mage {
 			: VertexShader(device, fname, input_element_desc, nb_input_elements) {}
 		virtual ~EmptyVertexShader() = default;
 
-		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world, const TransformBuffer &transform_buffer) const override {
-			UNUSED(material);
-			UNUSED(world);
-			UNUSED(transform_buffer);
-			device_context->IASetInputLayout(m_vertex_layout.Get());
-			device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
-		}
+		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world, const TransformBuffer &transform_buffer) const override;
 
 	private:
 
@@ -44,11 +38,7 @@ namespace mage {
 			: PixelShader(device, fname) {}
 		virtual ~EmptyPixelShader() = default;
 
-		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world) const override {
-			UNUSED(material);
-			UNUSED(world);
-			device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
-		}
+		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world) const override;
 
 	private:
 

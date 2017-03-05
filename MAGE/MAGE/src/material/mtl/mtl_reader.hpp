@@ -37,17 +37,17 @@ namespace mage {
 		void ReadMTLDissolve();
 		void ReadMTLOpticalDensity();
 
-		void ReadMTLAmbientReflectivityMap();
-		void ReadMTLDiffuseReflectivityMap();
-		void ReadMTLSpecularReflectivityMap();
-		void ReadMTLSpecularExponentMap();
-		void ReadMTLDissolveMap();
-		void ReadMTLDecalMap();
-		void ReadMTLDisplacementMap();
-		void ReadMTLBumpMap();
+		void ReadMTLAmbientReflectivityTexture();
+		void ReadMTLDiffuseReflectivityTexture();
+		void ReadMTLSpecularReflectivityTexture();
+		void ReadMTLSpecularExponentTexture();
+		void ReadMTLDissolveTexture();
+		void ReadMTLDecalTexture();
+		void ReadMTLDisplacementTexture();
+		void ReadMTLBumpTexture();
 
 		RGBSpectrum ReadMTLSpectrum();
-		ComPtr< ID3D11ShaderResourceView > ReadMTLMap();
+		SharedPtr< Texture > ReadMTLTexture();
 
 	private:
 

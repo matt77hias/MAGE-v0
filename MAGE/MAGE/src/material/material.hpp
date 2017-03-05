@@ -5,10 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering.hpp"
-#include "memory\memory.hpp"
-#include "string\string.hpp"
 #include "material\spectrum.hpp"
+#include "texture\texture.hpp"
 
 #pragma endregion
 
@@ -21,11 +19,11 @@ namespace mage {
 
 	public:
 
-		Material(float specular_exponent = 0.0f, float dissolve = 1.0f, float index_of_refraction = 1.0f, const string &name = "")
-			: m_specular_exponent(specular_exponent), 
+		Material(const string &name, float specular_exponent = 0.0f, float dissolve = 1.0f, float index_of_refraction = 1.0f)
+			: m_name(name),
+			m_specular_exponent(specular_exponent), 
 			m_dissolve(dissolve), 
-			m_index_of_refraction(index_of_refraction),
-			m_name(name) {}
+			m_index_of_refraction(index_of_refraction) {}
 		Material(const Material &material) = default;
 		~Material() = default;
 
@@ -50,9 +48,9 @@ namespace mage {
 		RGBSpectrum m_ambient_reflectivity;
 
 		/**
-		 The ambient reflectivity map of this material.
+		 The ambient reflectivity texture of this material.
 		 */
-		ComPtr< ID3D11ShaderResourceView > m_ambient_reflectivity_map;
+		SharedPtr< Texture > m_ambient_reflectivity_texture;
 
 		/**
 		 The diffuse reflectivity of this material.
@@ -60,9 +58,9 @@ namespace mage {
 		RGBSpectrum m_diffuse_reflectivity;
 
 		/**
-		 The diffuse reflectivity map of this material.
+		 The diffuse reflectivity texture of this material.
 		 */
-		ComPtr< ID3D11ShaderResourceView > m_diffuse_reflectivity_map;
+		SharedPtr< Texture > m_diffuse_reflectivity_texture;
 
 		/**
 		 The specular reflectivity of this material.
@@ -70,9 +68,9 @@ namespace mage {
 		RGBSpectrum m_specular_reflectivity;
 
 		/**
-		 The specular reflectivity map of this material.
+		 The specular reflectivity texture of this material.
 		 */
-		ComPtr< ID3D11ShaderResourceView > m_specular_reflectivity_map;
+		SharedPtr< Texture > m_specular_reflectivity_texture;
 
 		/**
 		 The specular exponent (surface roughness) of this material.
@@ -83,9 +81,9 @@ namespace mage {
 		float m_specular_exponent;
 
 		/**
-		 The specular exponent map of this material.
+		 The specular exponent texture of this material.
 		 */
-		ComPtr< ID3D11ShaderResourceView > m_specular_exponent_map;
+		SharedPtr< Texture > m_specular_exponent_texture;
 
 		/**
 		 The amount this material dissolves into the background.
@@ -99,9 +97,9 @@ namespace mage {
 		float m_dissolve;
 
 		/**
-		 The dissolve map of this material.
+		 The dissolve texture of this material.
 		 */
-		ComPtr< ID3D11ShaderResourceView > m_dissolve_map;
+		SharedPtr< Texture > m_dissolve_texture;
 
 		/**
 		 The index of refraction (optical density) of this material.
@@ -109,18 +107,18 @@ namespace mage {
 		float m_index_of_refraction;
 
 		/**
-		 The decal map of this material.
+		 The decal texture of this material.
 		 */
-		ComPtr< ID3D11ShaderResourceView > m_decal_map;
+		SharedPtr< Texture > m_decal_texture;
 
 		/**
-		 The displacement map of this material.
+		 The displacement texture of this material.
 		 */
-		ComPtr< ID3D11ShaderResourceView > m_displacement_map;
+		SharedPtr< Texture > m_displacement_texture;
 
 		/**
-		 The bump map of this material.
+		 The bump texture of this material.
 		 */
-		ComPtr< ID3D11ShaderResourceView > m_bump_map;
+		SharedPtr< Texture > m_bump_texture;
 	};
 }

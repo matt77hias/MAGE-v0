@@ -57,7 +57,7 @@ namespace mage {
 				continue;
 			}
 			
-			Material material;
+			Material material("default");
 			if (it->material != MAGE_MODEL_PART_DEFAULT_MATERIAL) {
 				for (vector< Material >::const_iterator mit = buffer.material_buffer.cbegin(); mit != buffer.material_buffer.cend(); ++mit) {
 					if (mit->m_name == it->child) {

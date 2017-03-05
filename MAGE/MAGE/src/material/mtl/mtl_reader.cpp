@@ -25,7 +25,6 @@ namespace mage {
 		}
 
 		if (str_equals(token, MAGE_MTL_TOKEN_MATERIAL_DECLARATION)) {
-			m_material_buffer.push_back(Material());
 			ReadMTLMaterialName();
 		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_AMBIENT_REFLECTIVITY)) {
@@ -59,7 +58,8 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLMaterialName() {
-		m_material_buffer.back().m_name = ReadString();
+		const string material_name = ReadString();
+		m_material_buffer.push_back(Material(material_name));
 	}
 
 	void MTLReader::ReadMTLTransmissionFilter() {
@@ -95,36 +95,36 @@ namespace mage {
 		m_material_buffer.back().m_index_of_refraction = ReadFloat();
 	}
 
-	void MTLReader::ReadMTLAmbientReflectivityMap() {
-		m_material_buffer.back().m_ambient_reflectivity_map = ReadMTLMap();
+	void MTLReader::ReadMTLAmbientReflectivityTexture() {
+		m_material_buffer.back().m_ambient_reflectivity_texture = ReadMTLTexture();
 	}
 
-	void MTLReader::ReadMTLDiffuseReflectivityMap() {
-		m_material_buffer.back().m_diffuse_reflectivity_map = ReadMTLMap();
+	void MTLReader::ReadMTLDiffuseReflectivityTexture() {
+		m_material_buffer.back().m_diffuse_reflectivity_texture = ReadMTLTexture();
 	}
 
-	void MTLReader::ReadMTLSpecularReflectivityMap() {
-		m_material_buffer.back().m_specular_reflectivity_map = ReadMTLMap();
+	void MTLReader::ReadMTLSpecularReflectivityTexture() {
+		m_material_buffer.back().m_specular_reflectivity_texture = ReadMTLTexture();
 	}
 
-	void MTLReader::ReadMTLSpecularExponentMap() {
-		m_material_buffer.back().m_specular_exponent_map = ReadMTLMap();
+	void MTLReader::ReadMTLSpecularExponentTexture() {
+		m_material_buffer.back().m_specular_exponent_texture = ReadMTLTexture();
 	}
 
-	void MTLReader::ReadMTLDissolveMap() {
-		m_material_buffer.back().m_dissolve_map = ReadMTLMap();
+	void MTLReader::ReadMTLDissolveTexture() {
+		m_material_buffer.back().m_dissolve_texture = ReadMTLTexture();
 	}
 
-	void MTLReader::ReadMTLDecalMap() {
-		m_material_buffer.back().m_decal_map = ReadMTLMap();
+	void MTLReader::ReadMTLDecalTexture() {
+		m_material_buffer.back().m_decal_texture = ReadMTLTexture();
 	}
 
-	void MTLReader::ReadMTLDisplacementMap() {
-		m_material_buffer.back().m_displacement_map = ReadMTLMap();
+	void MTLReader::ReadMTLDisplacementTexture() {
+		m_material_buffer.back().m_displacement_texture = ReadMTLTexture();
 	}
 
-	void MTLReader::ReadMTLBumpMap() {
-		m_material_buffer.back().m_bump_map = ReadMTLMap();
+	void MTLReader::ReadMTLBumpTexture() {
+		m_material_buffer.back().m_bump_texture = ReadMTLTexture();
 	}
 
 	RGBSpectrum MTLReader::ReadMTLSpectrum() {
@@ -164,15 +164,15 @@ namespace mage {
 		return RGBSpectrum(x, y, z);
 	}
 
-	ComPtr< ID3D11ShaderResourceView > MTLReader::ReadMTLMap() {
+	SharedPtr< Texture > MTLReader::ReadMTLTexture() {
 		const wstring texture_path = mage::GetPathName(GetFilename());
 		const wstring texture_name = str_convert(ReadString());
 		const wstring texture_fname = mage::GetFilename(texture_path, texture_name);
 
-		ComPtr< ID3D11ShaderResourceView > shader_resource_view;
+		SharedPtr< Texture > texture;
 		//CreateDDSTextureFromFile(g_engine->GetRenderer().GetDevice(), L"seafloor.dds", nullptr, shader_resource_view.ReleaseAndGetAddressOf());
 
 		// "-options args" are not supported and are not allowed.
-		return shader_resource_view;
+		return texture;
 	}
 }

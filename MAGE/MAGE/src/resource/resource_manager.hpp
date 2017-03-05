@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
 #include "resource\resource.hpp"
+#include "memory\memory.hpp"
 #include "collection\collection.hpp"
 
 #pragma endregion

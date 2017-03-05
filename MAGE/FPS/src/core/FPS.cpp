@@ -67,7 +67,7 @@ public:
 		
 		const RenderingDevice &device = g_engine->GetRenderer().GetDevice();
 		
-		CombinedShader shader = CreateLambertianShader(device);
+		CombinedShader shader = CreateLambertianShader();
 
 		MeshDescriptor desc(true, true);
 		SharedPtr< Model > test_model(new MeshModel< VertexPositionNormalTexture >("model", device, L"assets/models/teapot.obj", desc, shader));

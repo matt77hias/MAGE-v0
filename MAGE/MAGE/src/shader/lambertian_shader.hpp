@@ -51,10 +51,4 @@ namespace mage {
 		ComPtr< ID3D11Buffer > m_cb_material;
 		ComPtr< ID3D11SamplerState >m_sampler;
 	};
-
-	inline CombinedShader CreateLambertianShader(const RenderingDevice &device) {
-		SharedPtr< VertexShader > vs(new LambertianVertexShader(device));
-		SharedPtr< PixelShader > ps(new LambertianPixelShader(device));
-		return CombinedShader(vs, ps);
-	}
 }

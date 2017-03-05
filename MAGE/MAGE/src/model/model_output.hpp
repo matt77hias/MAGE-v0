@@ -63,7 +63,7 @@ namespace mage {
 			return false;
 		}
 		void StartModelPart(const string &child, const string &parent = MAGE_MODEL_PART_DEFAULT_PARENT) {
-			const uint32_t start = (uint32_t)index_buffer.size();
+			const uint32_t start = static_cast< uint32_t >(index_buffer.size());
 			model_parts.push_back(ModelPart(child, parent, start));
 		}
 		void SetMaterial(const string &material) {
@@ -73,7 +73,7 @@ namespace mage {
 		void EndModelPart() {
 			ModelPart &current = model_parts.back();
 			const uint32_t start = current.start_index;
-			const uint32_t end = (uint32_t)index_buffer.size();
+			const uint32_t end = static_cast< uint32_t >(index_buffer.size());
 			current.nb_indices = end - start;
 		}
 

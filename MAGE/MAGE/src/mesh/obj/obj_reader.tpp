@@ -168,7 +168,7 @@ namespace mage {
 				indices.push_back(it->second);
 			}
 			else {
-				const uint32_t index = (uint32_t)m_model_output.vertex_buffer.size();
+				const uint32_t index = static_cast< uint32_t >(m_model_output.vertex_buffer.size());
 				indices.push_back(index);
 				m_model_output.vertex_buffer.push_back(ConstructVertex(vertex_indices));
 				m_mapping[vertex_indices] = index;

@@ -19,7 +19,7 @@ namespace mage {
 		// and is consistent across all processors.
 		QueryPerformanceFrequency(&m_performance_frequency);
 		// Calculate the period of the performance counter.
-		m_performance_period = 1.0 / ((double)m_performance_frequency.QuadPart);
+		m_performance_period = 1.0 / (static_cast< double >(m_performance_frequency.QuadPart));
 	}
 
 	double Timer::time() {
@@ -27,7 +27,7 @@ namespace mage {
 		// which is a high resolution (< 1 µs) time stamp 
 		// that can be used for time-interval measurements.
 		QueryPerformanceCounter(&m_performance_counter);
-		return (double)m_performance_counter.QuadPart * m_performance_period;
+		return static_cast< double >(m_performance_counter.QuadPart * m_performance_period);
 	}
 
 	void Timer::Start() {

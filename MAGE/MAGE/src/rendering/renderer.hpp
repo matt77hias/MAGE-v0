@@ -59,7 +59,7 @@ namespace mage {
 		 @return		The width in pixels of the display of this renderer.
 		 */
 		uint32_t GetWidth() const {
-			return (uint32_t)m_display_mode.Width;
+			return static_cast< uint32_t >(m_display_mode.Width);
 		}
 
 		/**
@@ -68,7 +68,7 @@ namespace mage {
 		 @return		The height in pixels of the display of this renderer.
 		 */
 		uint32_t GetHeight() const {
-			return (uint32_t)m_display_mode.Height;
+			return static_cast< uint32_t >(m_display_mode.Height);
 		}
 
 		/**

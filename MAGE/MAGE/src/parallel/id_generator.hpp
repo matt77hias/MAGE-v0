@@ -41,7 +41,7 @@ namespace mage {
 		 @return		The next id of this id generator.
 		 */
 		inline uint32_t GetNextId() {
-			return (uint32_t)AtomicAdd(&m_current_id, 1);
+			return static_cast< uint32_t >(AtomicAdd(&m_current_id, 1));
 		}
 
 	private:

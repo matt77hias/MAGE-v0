@@ -31,7 +31,7 @@ namespace mage {
 		
 		m_mutex = Mutex::Create();
 		
-		m_nb_plusses_total = std::max((uint32_t)2, bar_length - (uint32_t)title.size());
+		m_nb_plusses_total = std::max(2u, bar_length - static_cast< uint32_t >(title.size()));
 	
 		m_timer = make_unique< Timer >();
 		m_timer->Start();
@@ -88,8 +88,8 @@ namespace mage {
 		MutexLock lock(*m_mutex);
 		
 		m_nb_work_done += nb_work;
-		const float percent_done = float(m_nb_work_done) / float(m_nb_work_total);
-		uint32_t plusses_needed = (uint32_t)round(percent_done * m_nb_plusses_total);
+		const float percent_done = static_cast< float >(m_nb_work_done) / static_cast< float >(m_nb_work_total);
+		uint32_t plusses_needed = static_cast< uint32_t >(round(percent_done * m_nb_plusses_total));
 		if (plusses_needed > m_nb_plusses_total) {
 			plusses_needed = m_nb_plusses_total;
 		}
@@ -101,7 +101,7 @@ namespace mage {
 		// Write the buffer to the output file stream.
 		fputs(m_buffer, m_fout);
 		// Update elapsed time and estimated time to completion
-		const float seconds = (float)m_timer->Time();
+		const float seconds = static_cast< float >(m_timer->Time());
 		const float estimation_remaining = seconds / percent_done - seconds;
 		if (percent_done == 1.0f) {
 			// Writes the string format to the output file stream.
@@ -136,7 +136,7 @@ namespace mage {
 		// Write the buffer to the output file stream.
 		fputs(m_buffer, m_fout);
 		// Update elapsed time
-		const float seconds = (float)m_timer->Time();
+		const float seconds = static_cast< float >(m_timer->Time());
 		// Writes the string format to the output file stream.
 		fprintf(m_fout, " (%.1fs)       \n", seconds);
 		

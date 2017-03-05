@@ -36,7 +36,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (int8_t)strtol(str, &inner_context, 10);
+		result = static_cast< int8_t >(strtol(str, &inner_context, 10));
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
 	TokenResult StringToUInt8(const char *str, uint8_t &result) {
@@ -45,7 +45,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (uint8_t)strtoul(str, &inner_context, 10);
+		result = static_cast< uint8_t >(strtoul(str, &inner_context, 10));
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
 	TokenResult StringToInt16(const char *str, int16_t &result) {
@@ -54,7 +54,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (int16_t)strtol(str, &inner_context, 10);
+		result = static_cast< int16_t >(strtol(str, &inner_context, 10));
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
 	TokenResult StringToUInt16(const char *str, uint16_t &result) {
@@ -63,7 +63,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (uint16_t)strtoul(str, &inner_context, 10);
+		result = static_cast< uint16_t >(strtoul(str, &inner_context, 10));
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
 	TokenResult StringToInt32(const char *str, int32_t &result) {
@@ -72,7 +72,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (int32_t)strtol(str, &inner_context, 10);
+		result = static_cast< int32_t >(strtol(str, &inner_context, 10));
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
 	TokenResult StringToUInt32(const char *str, uint32_t &result) {
@@ -81,7 +81,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (uint32_t)strtoul(str, &inner_context, 10);
+		result = static_cast< uint32_t >(strtoul(str, &inner_context, 10));
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
 	TokenResult StringToInt64(const char *str, int64_t &result) {
@@ -90,7 +90,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (int64_t)strtoll(str, &inner_context, 10);
+		result = static_cast< int64_t >(strtoll(str, &inner_context, 10));
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
 	TokenResult StringToUInt64(const char *str, uint64_t &result) {
@@ -99,7 +99,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (uint64_t)strtoull(str, &inner_context, 10);
+		result = static_cast< uint64_t >(strtoull(str, &inner_context, 10));
 		return (*inner_context == '\0') ? valid_token : invalid_token;
 	}
 	TokenResult StringToFloat(const char *str, float &result) {
@@ -162,7 +162,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (int8_t)strtol(begin, &inner_context, 10);
+		result = static_cast< int8_t >(strtol(begin, &inner_context, 10));
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
 	TokenResult StringToUInt8(const char *begin, const char *end, uint8_t &result) {
@@ -171,7 +171,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (uint8_t)strtoul(begin, &inner_context, 10);
+		result = static_cast< uint8_t >(strtoul(begin, &inner_context, 10));
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
 	TokenResult StringToInt16(const char *begin, const char *end, int16_t &result) {
@@ -180,7 +180,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (int16_t)strtol(begin, &inner_context, 10);
+		result = static_cast< int16_t >(strtol(begin, &inner_context, 10));
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
 	TokenResult StringToUInt16(const char *begin, const char *end, uint16_t &result) {
@@ -189,7 +189,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (uint16_t)strtoul(begin, &inner_context, 10);
+		result = static_cast< uint16_t >(strtoul(begin, &inner_context, 10));
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
 	TokenResult StringToInt32(const char *begin, const char *end, int32_t &result) {
@@ -198,7 +198,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (int32_t)strtol(begin, &inner_context, 10);
+		result = static_cast< int32_t >(strtol(begin, &inner_context, 10));
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
 	TokenResult StringToUInt32(const char *begin, const char *end, uint32_t &result) {
@@ -207,7 +207,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (uint32_t)strtoul(begin, &inner_context, 10);
+		result = static_cast< uint32_t >(strtoul(begin, &inner_context, 10));
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
 	TokenResult StringToInt64(const char *begin, const char *end, int64_t &result) {
@@ -216,7 +216,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (int64_t)strtoll(begin, &inner_context, 10);
+		result = static_cast< int64_t >(strtoll(begin, &inner_context, 10));
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
 	TokenResult StringToUInt64(const char *begin, const char *end, uint64_t &result) {
@@ -225,7 +225,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (uint64_t)strtoull(begin, &inner_context, 10);
+		result = static_cast< uint64_t >(strtoull(begin, &inner_context, 10));
 		return (inner_context == end) ? valid_token : invalid_token;
 	}
 	TokenResult StringToFloat(const char *begin, const char *end, float &result) {
@@ -253,7 +253,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (int8_t)strtol(str, &inner_context, 10);
+		result = static_cast< int8_t >(strtol(str, &inner_context, 10));
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
 	TokenResult StringPrefixToUInt8(const char *str, uint8_t &result) {
@@ -262,7 +262,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (uint8_t)strtoul(str, &inner_context, 10);
+		result = static_cast< uint8_t >(strtoul(str, &inner_context, 10));
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
 	TokenResult StringPrefixToInt16(const char *str, int16_t &result) {
@@ -271,7 +271,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (int16_t)strtol(str, &inner_context, 10);
+		result = static_cast< int16_t >(strtol(str, &inner_context, 10));
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
 	TokenResult StringPrefixToUInt16(const char *str, uint16_t &result) {
@@ -280,7 +280,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (uint16_t)strtoul(str, &inner_context, 10);
+		result = static_cast< uint16_t >(strtoul(str, &inner_context, 10));
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
 	TokenResult StringPrefixToInt32(const char *str, int32_t &result) {
@@ -289,7 +289,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (int32_t)strtol(str, &inner_context, 10);
+		result = static_cast< int32_t >(strtol(str, &inner_context, 10));
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
 	TokenResult StringPrefixToUInt32(const char *str, uint32_t &result) {
@@ -298,7 +298,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (uint32_t)strtoul(str, &inner_context, 10);
+		result = static_cast< uint32_t>(strtoul(str, &inner_context, 10));
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
 	TokenResult StringPrefixToInt64(const char *str, int64_t &result) {
@@ -307,7 +307,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (int64_t)strtoll(str, &inner_context, 10);
+		result = static_cast< int64_t >(strtoll(str, &inner_context, 10));
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
 	TokenResult StringPrefixToUInt64(const char *str, uint64_t &result) {
@@ -316,7 +316,7 @@ namespace mage {
 		}
 
 		char *inner_context = nullptr;
-		result = (uint64_t)strtoull(str, &inner_context, 10);
+		result = static_cast< uint64_t >(strtoull(str, &inner_context, 10));
 		return (inner_context != str) ? valid_token : invalid_token;
 	}
 	TokenResult StringPrefixToFloat(const char *str, float &result) {

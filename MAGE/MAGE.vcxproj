@@ -64,6 +64,7 @@
     <ClInclude Include="MAGE\src\model\model.hpp" />
     <ClInclude Include="MAGE\src\model\model_loader.hpp" />
     <ClInclude Include="MAGE\src\model\model_output.hpp" />
+    <ClInclude Include="MAGE\src\model\model_descriptor.hpp" />
     <ClInclude Include="MAGE\src\parallel\atomic.hpp" />
     <ClInclude Include="MAGE\src\parallel\id_generator.hpp" />
     <ClInclude Include="MAGE\src\parallel\lock.hpp" />
@@ -104,6 +105,9 @@
     <ClInclude Include="MAGE\src\ui\combo_box.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
+    <ClInclude Include="MAGE\src\world\transform_buffer.hpp" />
+    <ClInclude Include="MAGE\src\world\world.hpp" />
+    <ClInclude Include="MAGE\src\world\world_object.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />
@@ -124,7 +128,9 @@
     <ClCompile Include="MAGE\src\math\view_frustum.cpp" />
     <ClCompile Include="MAGE\src\memory\memory_arena.cpp" />
     <ClCompile Include="MAGE\src\mesh\vertex.cpp" />
+    <ClCompile Include="MAGE\src\model\meshmodel.cpp" />
     <ClCompile Include="MAGE\src\model\model.cpp" />
+    <ClCompile Include="MAGE\src\model\model_descriptor.tpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\parallel.cpp" />
     <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp" />
@@ -186,7 +192,6 @@
     <None Include="MAGE\src\memory\memory_arena.tpp" />
     <None Include="MAGE\src\mesh\mesh.tpp" />
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp" />
-    <None Include="MAGE\src\model\meshmodel.tpp" />
     <None Include="MAGE\src\model\model_loader.tpp" />
     <None Include="MAGE\src\rendering\rendering_device.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />

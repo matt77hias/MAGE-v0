@@ -30,7 +30,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template < typename VertexT >
-	HRESULT LoadModelFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor());
+	HRESULT LoadModelFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, const MeshDescriptor< VertexT > &mesh_desc = MeshDescriptor< VertexT >());
 }
 
 //-----------------------------------------------------------------------------

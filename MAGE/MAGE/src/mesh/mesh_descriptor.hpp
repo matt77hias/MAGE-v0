@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	template < typename Vertex >
 	struct MeshDescriptor final {
 
 	public:

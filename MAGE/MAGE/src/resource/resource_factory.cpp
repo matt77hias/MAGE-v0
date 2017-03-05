@@ -18,6 +18,13 @@ namespace mage {
 	// Resource Creation
 	//-------------------------------------------------------------------------
 	
+	template < typename VertexT >
+	SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, const MeshDescriptor< VertexT > &desc) {
+		const RenderingDevice &device = g_engine->GetRenderer().GetDevice();
+		ResourceFactory &factory = g_engine->GetResourceFactory();
+		return factory.CreateModelDescriptor(fname, device, desc);
+	}
+
 	CombinedShader CreateLambertianShader() {
 		const RenderingDevice &device = g_engine->GetRenderer().GetDevice();
 		ResourceFactory &factory = g_engine->GetResourceFactory();
@@ -42,10 +49,23 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	
 	ResourceFactory::ResourceFactory()
-		: m_vertex_shader_resource_manager(new ResourceManager< VertexShader >()), 
+		: m_model_descriptor_resource_manager(new ResourceManager< ModelDescriptor >()),
+		m_vertex_shader_resource_manager(new ResourceManager< VertexShader >()), 
 		m_pixel_shader_resource_manager(new ResourceManager< PixelShader >()), 
 		m_texture_resource_manager(new ResourceManager< Texture >()), 
 		m_variable_script_resource_manager(new ResourceManager< VariableScript >()) {}
+
+	template < typename VertexT >
+	SharedPtr< ModelDescriptor > ResourceFactory::CreateModelDescriptor(const wstring &fname, const RenderingDevice &device, const MeshDescriptor< VertexT > &desc) {
+		SharedPtr< ModelDescriptor > resource = m_model_descriptor_resource_manager->GetResource(fname);
+		if (!resource) {
+			// Create a new resource.
+			resource = SharedPtr< ModelDescriptor >(new ModelDescriptor(device, fname, desc));
+			// Store the new resource.
+			m_model_descriptor_resource_manager->AddResource(resource);
+		}
+		return resource;
+	}
 
 	SharedPtr< VertexShader > ResourceFactory::CreateLambertianVertexShader(const RenderingDevice &device) {
 		SharedPtr< VertexShader > resource = m_vertex_shader_resource_manager->GetResource(MAGE_FNAME_LAMBERTIAN_PS);

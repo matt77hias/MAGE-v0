@@ -61,16 +61,13 @@ public:
 		const float height = (float)g_engine->GetRenderer().GetHeight();
 		SharedPtr< Camera > camera(new PerspectiveCamera("camera", width, height));
 		SetCamera(camera);
-		//camera->GetTransform().SetRotationX(1.10714872f);
-		//camera->GetTransform().SetTranslation(0.0f, 0.11f, -4.1126f);
 		camera->GetTransform().SetTranslation(0.0f, 1.0f, -4.0f);
-		
-		const RenderingDevice &device = g_engine->GetRenderer().GetDevice();
 		
 		CombinedShader shader = CreateLambertianShader();
 
-		MeshDescriptor desc(true, true);
-		SharedPtr< Model > test_model(new MeshModel< VertexPositionNormalTexture >("model", device, L"assets/models/teapot.obj", desc, shader));
+		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
+		SharedPtr< ModelDescriptor > model_desc, CreateModelDescriptor(L"assets/models/teapot.obj", mesh_desc);
+		SharedPtr< Model > test_model(new MeshModel("model", *model_desc, shader));
 		GetWorld().AddModel(test_model);
 
 		SharedPtr< PointLight > light(new PointLight("light", 100.0f, RGBSpectrum(0.5f, 0.5f, 0.0f)));

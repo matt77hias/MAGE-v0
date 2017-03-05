@@ -63,8 +63,7 @@ namespace mage {
 
 	protected:
 
-		Model(const string &name)
-			: WorldObject(name) {}
+		Model(const string &name);
 		Model(const Model &model);
 
 		virtual void RenderModel(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const = 0;
@@ -89,37 +88,42 @@ namespace mage {
 
 	public:
 
+		SubModel(const string &name, size_t start_index, size_t nb_indices, const ShadedMaterial &material);
+		SubModel(const SubModel &submodel);
 		virtual ~SubModel() {
 			delete m_material;
 		}
 
-		virtual SubModel *Clone() const = 0;
+		virtual SubModel *Clone() const {
+			return new SubModel(*this);
+		}
 
+		size_t GetStartIndex() const {
+			return m_start_index;
+		}
+		size_t GetNumberOfIndices() const {
+			return m_nb_indices;
+		}
 		Material &GetMaterial() const {
 			m_material->GetMaterial();
 		}
 
 	protected:
 
-		SubModel(const string &name, const ShadedMaterial &material)
-			: Model(name), m_material(new ShadedMaterial(material)) {}
-		SubModel(const SubModel &submodel);
-
-		void RenderModel(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const override {
-			RenderMaterial(device_context, world, transform_buffer);
-			RenderGeometry(device_context);
+		virtual void RenderModel(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const override {
+			// Appearance
+			transform_buffer.SetModelToWorld(GetTransform().GetObjectToWorldMatrix());
+			m_material->Render(device_context, world, transform_buffer);
+			// Geometry
+			device_context->DrawIndexed(static_cast< UINT >(m_nb_indices), static_cast< UINT >(m_start_index), 0);
 		}
-		virtual void RenderGeometry(ComPtr< ID3D11DeviceContext2 > device_context) const = 0;
 		
 	private:
 
 		SubModel &operator=(const SubModel &submodel) = delete;
 
-		void RenderMaterial(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const {
-			transform_buffer.SetModelToWorld(GetTransform().GetObjectToWorldMatrix());
-			m_material->Render(device_context, world, transform_buffer);
-		}
-
+		const size_t m_start_index;
+		const size_t m_nb_indices;
 		ShadedMaterial *m_material;
 	};
 

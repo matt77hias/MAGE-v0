@@ -28,7 +28,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	template < typename VertexT >
-	HRESULT ImportOBJMeshFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, const MeshDescriptor &mesh_desc = MeshDescriptor()) {
+	HRESULT ImportOBJMeshFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, const MeshDescriptor< VertexT > &mesh_desc = MeshDescriptor< VertexT >()) {
 		OBJReader< VertexT > reader(model_output, mesh_desc);
 		return reader.ReadFromFile(fname);
 	}

@@ -15,8 +15,8 @@
 namespace mage {
 
 	template < typename VertexT >
-	Mesh< VertexT >::Mesh(const RenderingDevice &device, const VertexT *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices)
-		: m_nb_vertices(nb_vertices), m_nb_indices(nb_indices) {
+	Mesh::Mesh(const RenderingDevice &device, const VertexT *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices)
+		: m_nb_vertices(nb_vertices), m_nb_indices(nb_indices), m_vertex_size(sizeof(VertexT)) {
 		
 		const HRESULT result_vertex_buffer = device.CreateVertexBuffer< VertexT >(m_vertex_buffer.ReleaseAndGetAddressOf(), vertices, nb_vertices);
 		if (FAILED(result_vertex_buffer)) {
@@ -31,11 +31,10 @@ namespace mage {
 		}
 	}
 
-	template < typename VertexT >
-	void Mesh< VertexT >::Render(ComPtr< ID3D11DeviceContext2 > device_context) const {
+	void Mesh::Render(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		// Set the vertex buffer.
-		UINT stride = sizeof(VertexT); // The size (in bytes) of the elements that are to be used from a vertex buffer.
-		UINT offset = 0;			  // The number of bytes between the first element of a vertex buffer and the first element that will be used.
+		UINT stride = static_cast<UINT>(m_vertex_size); // The size (in bytes) of the elements that are to be used from a vertex buffer.
+		UINT offset = 0;			// The number of bytes between the first element of a vertex buffer and the first element that will be used.
 		// 1. The first input slot for binding.
 		// 2. The number of vertex buffers in the array.
 		// 3. A pointer to an array of vertex buffers.

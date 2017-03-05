@@ -21,7 +21,7 @@ namespace mage {
 
 	public:
 
-		OBJReader(ModelOutput< VertexT > &model_output, const MeshDescriptor &mesh_desc)
+		OBJReader(ModelOutput< VertexT > &model_output, const MeshDescriptor< VertexT > &mesh_desc)
 			: LineReader(), m_model_output(model_output), m_mesh_desc(mesh_desc) {}
 		virtual ~OBJReader() = default;
 
@@ -80,7 +80,7 @@ namespace mage {
 		map< XMUINT3, uint32_t, OBJComparatorXMUINT3 > m_mapping;
 		
 		ModelOutput< VertexT > &m_model_output;
-		const MeshDescriptor &m_mesh_desc;
+		const MeshDescriptor< VertexT > &m_mesh_desc;
 	};
 }
 

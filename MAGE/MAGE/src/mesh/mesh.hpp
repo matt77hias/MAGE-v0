@@ -17,11 +17,7 @@ namespace mage {
 
 	/**
 	 A class of indexed meshes.
-	 
-	 @tparam		VertexT
-					The vertex type.
 	 */
-	template < typename VertexT >
 	class Mesh {
 
 	public:
@@ -31,6 +27,8 @@ namespace mage {
 
 		 @pre			@a vertices may not be equal to @c nullptr
 		 @pre			@a indices may not be equal to @c nullptr
+		 @tparam		VertexT
+						The vertex type.
 		 @param[in]		device
 						A reference to the rendering device.
 		 @param[in]		vertices
@@ -42,6 +40,7 @@ namespace mage {
 		 @param[in]		nb_indices
 						The number of indices.
 		 */
+		template < typename VertexT >
 		Mesh(const RenderingDevice &device, const VertexT *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices);
 
 		/**
@@ -49,6 +48,8 @@ namespace mage {
 
 		 @pre			The number of vertices must be greater than zero.
 		 @pre			The number of indices must be greater than zero.
+		 @tparam		VertexT
+						The vertex type.
 		 @param[in]		device
 						A reference to the rendering device.
 		 @param[in]		vertices
@@ -58,6 +59,7 @@ namespace mage {
 		 @param[in]		device
 						A pointer to an D3D11 device.
 		 */
+		template < typename VertexT >
 		Mesh(const RenderingDevice &device, const vector< VertexT > &vertices, const vector< uint32_t > &indices)
 			: Mesh(device, &vertices[0], vertices.size(), &indices[0], indices.size()) {}
 
@@ -106,6 +108,11 @@ namespace mage {
 						(i.e. this mesh).
 		 */
 		Mesh &operator=(const Mesh &mesh) = delete;
+
+		/**
+		 The size of the vertices of this mesh.
+		 */
+		size_t m_vertex_size;
 
 		/**
 		 The number of vertices of this mesh.

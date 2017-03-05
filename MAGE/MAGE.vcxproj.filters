@@ -160,6 +160,9 @@
     <Filter Include="Source Files\resource">
       <UniqueIdentifier>{0b3d584a-6f9a-4b10-ad87-8cd5f1354171}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\world">
+      <UniqueIdentifier>{061bf1e1-1117-445f-8078-90ad4d54fdbf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -417,6 +420,18 @@
     <ClInclude Include="MAGE\src\resource\resource_factory.hpp">
       <Filter>Header Files\resource</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\model\model_descriptor.hpp">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\world\transform_buffer.hpp">
+      <Filter>Header Files\world</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\world\world.hpp">
+      <Filter>Header Files\world</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\world\world_object.hpp">
+      <Filter>Header Files\world</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -560,6 +575,12 @@
     <ClCompile Include="MAGE\src\resource\resource_factory.cpp">
       <Filter>Source Files\resource</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\model\meshmodel.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\model\model_descriptor.tpp">
+      <Filter>Header Files\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">
@@ -587,9 +608,6 @@
     </None>
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp">
       <Filter>Header Files\mesh\obj</Filter>
-    </None>
-    <None Include="MAGE\src\model\meshmodel.tpp">
-      <Filter>Header Files\model</Filter>
     </None>
     <None Include="MAGE\src\rendering\rendering_device.tpp">
       <Filter>Header Files\rendering</Filter>

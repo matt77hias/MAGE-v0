@@ -17,7 +17,7 @@
 namespace mage {
 
 	template < typename VertexT >
-	HRESULT LoadModelFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, const MeshDescriptor &mesh_desc) {
+	HRESULT LoadModelFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, const MeshDescriptor< VertexT > &mesh_desc) {
 
 		const wstring extension = GetFileExtension(fname);
 

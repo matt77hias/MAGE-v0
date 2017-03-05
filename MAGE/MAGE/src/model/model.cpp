@@ -17,6 +17,9 @@ namespace mage {
 	// Model
 	//-------------------------------------------------------------------------
 
+	Model::Model(const string &name)
+		: WorldObject(name) {}
+
 	Model::Model(const Model &model)
 		: WorldObject(model) {
 
@@ -44,6 +47,11 @@ namespace mage {
 	// SubModel
 	//-------------------------------------------------------------------------
 
-	SubModel::SubModel(const SubModel &submodel)
-		: Model(submodel), m_material(new ShadedMaterial(*submodel.m_material)) {}
+	SubModel::SubModel(const string &name, size_t start_index, size_t nb_indices, const ShadedMaterial &material)
+		: Model(name), m_start_index(start_index), m_nb_indices(m_nb_indices),
+		m_material(new ShadedMaterial(material)) {}
+	
+	SubModel::SubModel(const SubModel &submodel) 
+		: Model(submodel), m_start_index(submodel.m_start_index), m_nb_indices(submodel.m_nb_indices),
+		m_material(new ShadedMaterial(*submodel.m_material)) {}
 }

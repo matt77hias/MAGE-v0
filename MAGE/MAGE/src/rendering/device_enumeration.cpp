@@ -259,7 +259,7 @@ namespace mage {
 				if (it->Format == (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_COLOUR_DEPTH))) {
 					swprintf_s(buffer, _countof(buffer), L"%d x %d", it->Width, it->Height);
 					if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
-						ComboBoxAdd(hwndDlg, IDC_RESOLUTION, (void*)((size_t)MAKELONG(it->Width, it->Height)), buffer);
+						ComboBoxAdd(hwndDlg, IDC_RESOLUTION, (void*)(static_cast< size_t >(MAKELONG(it->Width, it->Height))), buffer);
 					}
 				}
 			}
@@ -270,11 +270,11 @@ namespace mage {
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
 			for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-				if ((size_t)MAKELONG(it->Width, it->Height) == (size_t)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION))) {
-					const UINT refresh_rate = (UINT)round(it->RefreshRate.Numerator / (float)it->RefreshRate.Denominator);
+				if (static_cast< size_t >(MAKELONG(it->Width, it->Height)) == static_cast< size_t >(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION)))) {
+					const UINT refresh_rate = static_cast< UINT >(round(it->RefreshRate.Numerator / static_cast< float >(it->RefreshRate.Denominator)));
 					swprintf_s(buffer, _countof(buffer), L"%d Hz", refresh_rate);
 					if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
-						ComboBoxAdd(hwndDlg, IDC_REFRESH_RATE, (void*)((size_t)MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator)), buffer);
+						ComboBoxAdd(hwndDlg, IDC_REFRESH_RATE, (void*)(static_cast< size_t >(MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator))), buffer);
 					}
 				}
 			}
@@ -288,14 +288,14 @@ namespace mage {
 			switch (LOWORD(wParam)) {
 			case IDOK: {
 				// Store the details of the selected display mode.
-				const size_t resolution   = (size_t)(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION)));
-				const size_t refresh_rate = (size_t)(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE)));
+				const size_t resolution   = static_cast< size_t >(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION)));
+				const size_t refresh_rate = static_cast< size_t >(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE)));
 				const DXGI_FORMAT format  = (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_DISPLAY_FORMAT));
 				for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-					if ((size_t)MAKELONG(it->Width, it->Height) != resolution) {
+					if (static_cast< size_t >(MAKELONG(it->Width, it->Height)) != resolution) {
 						continue;
 					}
-					if ((size_t)MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator) != refresh_rate) {
+					if (static_cast< size_t >(MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator)) != refresh_rate) {
 						continue;
 					}
 					if (it->Format != format) {
@@ -343,7 +343,7 @@ namespace mage {
 			case IDC_COLOUR_DEPTH: {
 				if (CBN_SELCHANGE == HIWORD(wParam)) {
 					wchar_t buffer[16];
-					const size_t selected_resolution = (size_t)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION));
+					const size_t selected_resolution = static_cast< size_t >(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION)));
 
 					// Update the resolution combo box.
 					// Remove all items from the list box and edit control of a combo box.
@@ -352,9 +352,9 @@ namespace mage {
 						if (it->Format == (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_COLOUR_DEPTH))) {
 							swprintf_s(buffer, _countof(buffer), L"%d x %d", it->Width, it->Height);
 							if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
-								ComboBoxAdd(hwndDlg, IDC_RESOLUTION, (void*)((size_t)MAKELONG(it->Width, it->Height)), buffer);
-								if (selected_resolution == (size_t)MAKELONG(it->Width, it->Height)) {
-									ComboBoxSelect(hwndDlg, IDC_RESOLUTION, (void*)((size_t)selected_resolution));
+								ComboBoxAdd(hwndDlg, IDC_RESOLUTION, (void*)(static_cast< size_t >(MAKELONG(it->Width, it->Height))), buffer);
+								if (selected_resolution == static_cast< size_t >(MAKELONG(it->Width, it->Height))) {
+									ComboBoxSelect(hwndDlg, IDC_RESOLUTION, (void*)(static_cast< size_t >(selected_resolution)));
 								}
 							}
 						}
@@ -368,19 +368,19 @@ namespace mage {
 			case IDC_RESOLUTION: {
 				if (CBN_SELCHANGE == HIWORD(wParam)) {
 					wchar_t buffer[16];
-					const size_t selected_refresh_rate = (size_t)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE));
+					const size_t selected_refresh_rate = static_cast< size_t >(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_REFRESH_RATE)));
 
 					// Update the refresh rate combo box.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
 					for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-						if ((size_t)MAKELONG(it->Width, it->Height) == (size_t)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION))) {
-							const UINT refresh_rate = (UINT)round(it->RefreshRate.Numerator / (float)it->RefreshRate.Denominator);
+						if ((size_t)MAKELONG(it->Width, it->Height) == static_cast< size_t >(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION)))) {
+							const UINT refresh_rate = static_cast< UINT >(round(it->RefreshRate.Numerator / static_cast< float >(it->RefreshRate.Denominator)));
 							swprintf_s(buffer, _countof(buffer), L"%d Hz", refresh_rate);
 							if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
-								ComboBoxAdd(hwndDlg, IDC_REFRESH_RATE, (void*)((size_t)MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator)), buffer);
-								if (selected_refresh_rate == (size_t)MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator)) {
-									ComboBoxSelect(hwndDlg, IDC_REFRESH_RATE, (void*)((size_t)selected_refresh_rate));
+								ComboBoxAdd(hwndDlg, IDC_REFRESH_RATE, (void*)(static_cast< size_t >(MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator))), buffer);
+								if (selected_refresh_rate == static_cast< size_t >(MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator))) {
+									ComboBoxSelect(hwndDlg, IDC_REFRESH_RATE, (void*)(static_cast< size_t >(selected_refresh_rate)));
 								}
 							}
 						}

@@ -42,7 +42,7 @@ namespace mage {
 		}
 
 		// Create the vertex input layout.
-		const HRESULT result_vertex_input_layout = device.CreateVertexInputLayout(m_vertex_layout.ReleaseAndGetAddressOf(), vertex_shader_blob, input_element_desc, (UINT)nb_input_elements);
+		const HRESULT result_vertex_input_layout = device.CreateVertexInputLayout(m_vertex_layout.ReleaseAndGetAddressOf(), vertex_shader_blob, input_element_desc, static_cast< UINT >(nb_input_elements));
 		if (FAILED(result_vertex_input_layout)) {
 			Error("Vertex input layout creation failed: %ld.", result_vertex_input_layout);
 			return result_vertex_input_layout;

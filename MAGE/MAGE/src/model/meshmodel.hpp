@@ -92,7 +92,7 @@ namespace mage {
 	protected:
 
 		virtual void RenderGeometry(ComPtr< ID3D11DeviceContext2 > device_context) const override {
-			device_context->DrawIndexed((UINT)m_nb_indices, (UINT)m_start_index, 0);
+			device_context->DrawIndexed(static_cast< UINT >(m_nb_indices), static_cast< UINT >(m_start_index), 0);
 		}
 
 	private:

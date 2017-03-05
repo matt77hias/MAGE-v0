@@ -399,6 +399,9 @@
     <ClInclude Include="MAGE\src\texture\dds_loader.hpp">
       <Filter>Header Files\texture</Filter>
     </ClInclude>
+    <ClInclude Include="texture.hpp">
+      <Filter>Header Files\texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

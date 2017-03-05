@@ -291,8 +291,8 @@ namespace mage {
 		ZeroMemory(&viewport, sizeof(viewport));
 		viewport.TopLeftX = 0;
 		viewport.TopLeftY = 0;
-		viewport.Width    = (FLOAT)m_display_mode.Width;
-		viewport.Height   = (FLOAT)m_display_mode.Height;
+		viewport.Width    = static_cast< FLOAT >(m_display_mode.Width);
+		viewport.Height   = static_cast< FLOAT >(m_display_mode.Height);
 		viewport.MinDepth = 0.0f;
 		viewport.MaxDepth = 1.0f;
 

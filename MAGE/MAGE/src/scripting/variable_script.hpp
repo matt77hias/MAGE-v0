@@ -27,7 +27,7 @@ namespace mage {
 		 Constructs a variable script.
 
 		 @param[in]		fname
-						A reference to the file name of the variable script.
+						A reference to the filename of the variable script.
 		*/
 		VariableScript(const wstring &fname);
 

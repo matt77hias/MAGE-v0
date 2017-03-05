@@ -20,7 +20,7 @@ namespace mage {
 	 Imports the materials from the given MTL file.
 
 	 @param[in]		fname
-					A reference to the MTL file name.
+					A reference to the MTL filename.
 	 @param[out]	material_buffer
 					A reference to the empty material buffer.
 	 @return		A success/error value.

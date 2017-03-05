@@ -22,7 +22,7 @@ namespace mage {
 	 @tparam		VertexT
 					The vertex type.
 	 @param[in]		fname
-					A reference to the file name.
+					A reference to the filename.
 	 @param[in,out]	model_output
 					A reference to the model output.
 	 @param[in]		mesh_desc

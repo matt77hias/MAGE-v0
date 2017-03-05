@@ -20,7 +20,7 @@ namespace mage {
 	 Imports the texture from the given file.
 
 	 @param[in]		fname
-					A reference to the file name.
+					A reference to the filename.
 	 @param[in]		device
 					A reference to the rendering device.
 	 @param[out]	material_buffer

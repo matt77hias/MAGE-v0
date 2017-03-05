@@ -22,10 +22,10 @@ namespace mage {
 	public:
 
 		/**
-		 Constructs a resource with a given file name.
+		 Constructs a resource with a given filename.
 
 		 @param[in]		fname
-						A reference to the file name.
+						A reference to the filename.
 		 */
 		Resource(const wstring &fname)
 			: m_fname(fname) {}

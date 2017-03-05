@@ -29,12 +29,8 @@ namespace mage {
 
 		/**
 		 Constructs a resource manager.
-
-		 @param[in]		CreateResourceFunction
-						The application specific resource creation function.
 		 */
-		ResourceManager(void(*CreateResourceFunction)(T **resource, const wstring &name, const wstring &path) = nullptr) 
-			: CreateResource(CreateResourceFunction) {}
+		ResourceManager() = default;
 
 		/**
 		 Destructs this resource manager.
@@ -44,15 +40,13 @@ namespace mage {
 		/**
 		 Checks whether this resource manager contains the given resource.
 
-		 @param[in]		name
-						A reference to the name of the resource.
-		 @param[in]		path
-						A reference to the path of the resource.
+		 @param[in]		fname
+						A reference to the filename of the resource.
 		 @return		@c true if this resource manager contains the given resource.
 						@c false otherwise.
 		 */
-		bool ContainsResource(const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH) const {
-			return (GetResource(name, path) != nullptr);
+		bool ContainsResource(const wstring &fname) const {
+			return (GetResource(fname) != nullptr);
 		}
 
 		/**
@@ -65,16 +59,21 @@ namespace mage {
 		}
 
 		/**
-		 Adds a new resource to this resource manager.
+		 Adds the given resource to this resource manager.
 
-		 @param[in]		name
-						A reference to the name of the new resource.
-		 @param[in]		path
-						A reference to the path of the new resource.
-		 @return		A pointer to the resource.
+		 @param[in]		resource
+						A pointer to the resource.
 		 */
-		SharedPtr< T > AddResource(const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH);
+		void AddResource(SharedPtr< T > resource);
 		
+		/**
+		 Removes the given resource from this resource manager.
+
+		 @param[in]		fname
+						A reference to the filename of the resource.
+		 */
+		void RemoveResource(const wstring &fname);
+
 		/**
 		 Removes the given resource from this resource manager.
 
@@ -84,31 +83,19 @@ namespace mage {
 		void RemoveResource(SharedPtr< T > resource);
 
 		/**
-		 Removes the given resource from this resource manager.
-
-		 @param[in]		name
-						A reference to the name of the resource.
-		 @param[in]		path
-						A reference to the path of the resource.
-		 */
-		void RemoveResource(const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH);
-
-		/**
 		 Removes all resources from this resource manager.
 		 */
 		void RemoveAllResources();
 
 		/**
-		 Returns a resource of this resource manager by its filename (given name and path).
+		 Returns the given resource of this resource manager.
 
-		 @param[in]		name
-						A reference to the name of the resource.
-		 @param[in]		path
-						A reference to the path of the resource.
+		 @param[in]		fname
+						A reference to the filename of the resource.
 		 @return		@c nullptr if the resource is not present.
 		 @return		A pointer to the resource.
 		 */
-		SharedPtr< T > GetResource(const wstring &name, const wstring &path = MAGE_DEFAULT_RESOURCE_PATH) const;
+		SharedPtr< T > GetResource(const wstring &fname) const;
 
 	private:
 
@@ -135,12 +122,6 @@ namespace mage {
 		 and their file names as key.
 		 */
 		map< wstring, SharedPtr< T > > m_resources;
-
-		/**
-		 The application specific resource creation function for the resources
-		 of this resource manager.
-		 */
-		void(*CreateResource)(T **resource, const wstring &name, const wstring &path);
 	};
 }
 

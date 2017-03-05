@@ -157,6 +157,9 @@
     <Filter Include="Source Files\texture\dds">
       <UniqueIdentifier>{5ffca290-9577-45c0-92d1-59a6ed07db40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\resource">
+      <UniqueIdentifier>{0b3d584a-6f9a-4b10-ad87-8cd5f1354171}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -411,6 +414,9 @@
     <ClInclude Include="MAGE\src\texture\texture_loader.hpp">
       <Filter>Header Files\texture</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\resource\resource_factory.hpp">
+      <Filter>Header Files\resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -550,6 +556,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\texture\texture_loader.cpp">
       <Filter>Source Files\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\resource\resource_factory.cpp">
+      <Filter>Source Files\resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

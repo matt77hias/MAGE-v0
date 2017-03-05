@@ -44,16 +44,6 @@ namespace mage {
 		virtual ~Resource() = default;
 
 		/**
-		 Copies the given resource to this resource.
-
-		 @param[in]		resource
-						A reference to the resource to copy from.
-		 @return		A reference to the copy of the given resource
-						(i.e. this resource).
-		 */
-		Resource &operator=(const Resource &resource) = default;
-
-		/**
 		 Returns the filename of this resource.
 
 		 @return		The filename of this resource.
@@ -82,6 +72,16 @@ namespace mage {
 		}
 
 	private:
+
+		/**
+		 Copies the given resource to this resource.
+
+		 @param[in]		resource
+						A reference to the resource to copy from.
+		 @return		A reference to the copy of the given resource
+						(i.e. this resource).
+		 */
+		Resource &operator=(const Resource &resource) = delete;
 
 		/**
 		 The name of this resource.

@@ -79,8 +79,8 @@ namespace mage {
 			return E_FAIL;
 		}
 
-		const LONG width  = (LONG)g_device_enumeration->GetDisplayMode()->Width;
-		const LONG height = (LONG)g_device_enumeration->GetDisplayMode()->Height;
+		const LONG width  = static_cast< LONG >(g_device_enumeration->GetDisplayMode()->Width);
+		const LONG height = static_cast< LONG >(g_device_enumeration->GetDisplayMode()->Height);
 		
 		// Initialize the window System.
 		m_main_window = make_unique< MainWindow >(setup.GetApplicationHinstance(), setup.GetApplicationName(), width, height);
@@ -96,13 +96,16 @@ namespace mage {
 			return E_FAIL;
 		}
 		
-		// Initialize the input manager.
+		// Initialize the input system.
 		m_input_manager = make_unique< InputManager >(m_main_window->GetHandle());
 		if (!m_input_manager->IsLoaded()) {
 			Error("Input manager creation failed.");
 			return E_FAIL;
 		}
 		
+		// Initialize the resource system.
+		m_resource_factory = make_unique< ResourceFactory >();
+
 		// Initialize the first scene.
 		SetScene(setup.CreateScene());
 

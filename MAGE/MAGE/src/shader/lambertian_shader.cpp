@@ -14,10 +14,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-#define MAGE_FNAME_LAMBERTIAN_VS L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/lambertian_VS.cso"
-#define MAGE_FNAME_LAMBERTIAN_PS L"D:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/lambertian_PS.cso"
-
-
 	struct MaterialBuffer {
 		XMVECTOR x;
 	};

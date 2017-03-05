@@ -77,6 +77,7 @@
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.tpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
+    <ClInclude Include="MAGE\src\resource\resource_factory.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
@@ -130,6 +131,7 @@
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_device.cpp" />
+    <ClCompile Include="MAGE\src\resource\resource_factory.cpp" />
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script_loader.cpp" />

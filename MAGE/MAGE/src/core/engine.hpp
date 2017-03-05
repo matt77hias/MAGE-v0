@@ -11,6 +11,7 @@
 #include "rendering\renderer.hpp"
 #include "input\input_manager.hpp"
 #include "ui\main_window.hpp"
+#include "resource\resource_factory.hpp"
 
 #include "engine_setup.hpp"
 
@@ -49,7 +50,9 @@ namespace mage {
 		 */
 		void Run(int nCmdShow = SW_NORMAL);
 
+		//---------------------------------------------------------------------
 		// WINDOW SYSTEM
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the main window of this engine.
@@ -70,7 +73,9 @@ namespace mage {
 			m_deactive = deactive;
 		}
 
-		// RENDERER SYSTEM
+		//---------------------------------------------------------------------
+		// RENDERING SYSTEM
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the renderer of this engine.
@@ -91,7 +96,9 @@ namespace mage {
 			m_mode_switch = mode_switch;
 		}
 
+		//---------------------------------------------------------------------
 		// INPUT SYSTEM
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the input manager of this engine.
@@ -102,7 +109,22 @@ namespace mage {
 			return *m_input_manager;
 		}
 
+		//---------------------------------------------------------------------
+		// RESOURCE SYSTEM
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the resource factory of this engine.
+
+		 @return		A reference to the resource factory of this engine.
+		 */
+		ResourceFactory &GetResourceFactory() const {
+			return *m_resource_factory;
+		}
+
+		//---------------------------------------------------------------------
 		// SCENE
+		//---------------------------------------------------------------------
 
 		/**
 		 Sets the scene of this engine to the given scene.
@@ -140,6 +162,15 @@ namespace mage {
 		*/
 		HRESULT InitializeSystems(const EngineSetup &setup);
 
+		//---------------------------------------------------------------------
+		// WINDOW SYSTEM
+		//---------------------------------------------------------------------
+
+		/**
+		 A pointer to the main window of this engine. 
+		 */
+		UniquePtr< MainWindow > m_main_window;
+
 		/**
 		 Checks whether this engine is deactive.
 
@@ -149,6 +180,20 @@ namespace mage {
 		bool IsDeactive() const {
 			return m_deactive;
 		}
+		
+		/** 
+		 Flag indicating whether the application is active or not.
+		 */
+		bool m_deactive;
+
+		//---------------------------------------------------------------------
+		// RENDERING SYSTEM
+		//---------------------------------------------------------------------
+
+		/**
+		 A pointer to the renderer of this engine.
+		 */
+		UniquePtr< Renderer > m_renderer;
 
 		/**
 		 Checks whether this engine should switch modes.
@@ -160,39 +205,33 @@ namespace mage {
 			return m_mode_switch;
 		}
 
-		// WINDOW SYSTEM
-
-		/**
-		 A pointer to the main window of this engine. 
-		 */
-		UniquePtr< MainWindow > m_main_window;
-		
-		/** 
-		 Flag indicating whether the application is active or not.
-		 */
-		bool m_deactive;
-
-		// RENDERER SYSTEM
-
-		/**
-		 A pointer to the renderer of this engine.
-		 */
-		UniquePtr< Renderer > m_renderer;
-
 		/**
 		 Flag indicating whether the application should switch between
 		 full screen and windowed mode.
 		 */
 		bool m_mode_switch;
 
+		//---------------------------------------------------------------------
 		// INPUT SYSTEM
+		//---------------------------------------------------------------------
 
 		/**
 		 A pointer to the input manager of this engine.
 		 */
 		UniquePtr< InputManager > m_input_manager;
 
+		//---------------------------------------------------------------------
+		// RESOURCE SYSTEM
+		//---------------------------------------------------------------------
+
+		/**
+		 A pointer to the resource factory of this engine.
+		 */
+		UniquePtr< ResourceFactory > m_resource_factory;
+
+		//---------------------------------------------------------------------
 		// SCENE
+		//---------------------------------------------------------------------
 
 		/**
 		 The current scene of this engine.

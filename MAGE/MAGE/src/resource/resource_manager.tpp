@@ -19,7 +19,7 @@ namespace mage {
 		if (!resource) {
 			return;
 		}
-		const wstring &fname = resource.GetFilename();
+		const wstring &fname = resource->GetFilename();
 		m_resources[fname] = resource;
 	}
 
@@ -46,8 +46,8 @@ namespace mage {
 
 	template< typename T >
 	SharedPtr< T > ResourceManager< T >::GetResource(const wstring &fname) const {
-		const map< wstring, SharedPtr< T > >::iterator it = m_resources.find(fname);
-		if (it != m_resources.end()) {
+		const map< wstring, SharedPtr< T > >::const_iterator it = m_resources.find(fname);
+		if (it != m_resources.cend()) {
 			return it->second;
 		}
 

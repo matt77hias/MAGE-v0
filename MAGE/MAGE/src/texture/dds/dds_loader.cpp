@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "texture\dds_loader.hpp"
+#include "texture\dds\dds_loader.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

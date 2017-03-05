@@ -6,9 +6,9 @@
 #pragma region
 
 #include "resource\resource.hpp"
-#include "world\world.hpp"
 #include "rendering\rendering_device.hpp"
 #include "material\material.hpp"
+#include "world\world.hpp"
 
 #pragma endregion
 

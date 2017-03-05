@@ -151,6 +151,12 @@
     <Filter Include="Source Files\texture">
       <UniqueIdentifier>{b664c90b-5549-4bbd-b8e2-59575770e9bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\texture\dds">
+      <UniqueIdentifier>{c0063edd-65ba-420c-9d04-420b9e04986b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\texture\dds">
+      <UniqueIdentifier>{5ffca290-9577-45c0-92d1-59a6ed07db40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -396,10 +402,13 @@
     <ClInclude Include="MAGE\src\math\view_frustum.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\texture\dds_loader.hpp">
+    <ClInclude Include="MAGE\src\texture\texture.hpp">
       <Filter>Header Files\texture</Filter>
     </ClInclude>
-    <ClInclude Include="texture.hpp">
+    <ClInclude Include="MAGE\src\texture\dds\dds_loader.hpp">
+      <Filter>Header Files\texture\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\texture\texture_loader.hpp">
       <Filter>Header Files\texture</Filter>
     </ClInclude>
   </ItemGroup>
@@ -527,14 +536,20 @@
     <ClCompile Include="MAGE\src\math\view_frustum.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\texture\dds_loader.cpp">
-      <Filter>Source Files\texture</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering_device.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\shader\empty_shader.cpp">
       <Filter>Source Files\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\texture\texture.cpp">
+      <Filter>Source Files\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\texture\dds\dds_loader.cpp">
+      <Filter>Source Files\texture\dds</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\texture\texture_loader.cpp">
+      <Filter>Source Files\texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

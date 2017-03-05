@@ -97,11 +97,12 @@
     <ClInclude Include="MAGE\src\string\string.hpp" />
     <ClInclude Include="MAGE\src\string\string_utils.hpp" />
     <ClInclude Include="MAGE\src\string\writer.hpp" />
-    <ClInclude Include="MAGE\src\texture\dds_loader.hpp" />
+    <ClInclude Include="MAGE\src\texture\dds\dds_loader.hpp" />
+    <ClInclude Include="MAGE\src\texture\texture.hpp" />
+    <ClInclude Include="MAGE\src\texture\texture_loader.hpp" />
     <ClInclude Include="MAGE\src\ui\combo_box.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
-    <ClInclude Include="texture.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp" />
@@ -143,7 +144,9 @@
     <ClCompile Include="MAGE\src\string\token.cpp" />
     <ClCompile Include="MAGE\src\string\string_utils.cpp" />
     <ClCompile Include="MAGE\src\string\writer.cpp" />
-    <ClCompile Include="MAGE\src\texture\dds_loader.cpp" />
+    <ClCompile Include="MAGE\src\texture\dds\dds_loader.cpp" />
+    <ClCompile Include="MAGE\src\texture\texture.cpp" />
+    <ClCompile Include="MAGE\src\texture\texture_loader.cpp" />
     <ClCompile Include="MAGE\src\ui\combo_box.cpp" />
     <ClCompile Include="MAGE\src\ui\main_window.cpp" />
     <ClCompile Include="MAGE\src\world\transform_buffer.cpp" />

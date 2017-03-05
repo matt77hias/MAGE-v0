@@ -26,7 +26,7 @@ namespace mage {
 
 	HRESULT VertexShader::InitializeShader(const RenderingDevice &device, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements) {
 
-		// Compile the vertex shader.
+		// Compile/Read the vertex shader.
 		ComPtr< ID3DBlob > vertex_shader_blob;
 		const HRESULT result_vertex_shader_blob = D3DReadFileToBlob(GetFilename().c_str(), vertex_shader_blob.GetAddressOf());
 		if (FAILED(result_vertex_shader_blob)) {
@@ -63,7 +63,7 @@ namespace mage {
 
 	HRESULT PixelShader::InitializeShader(const RenderingDevice &device) {
 
-		// Compile the pixel shader.
+		// Compile/Read the pixel shader.
 		ComPtr< ID3DBlob > pixel_shader_blob;
 		const HRESULT result_pixel_shader_blob = D3DReadFileToBlob(GetFilename().c_str(), pixel_shader_blob.GetAddressOf());
 		if (FAILED(result_pixel_shader_blob)) {

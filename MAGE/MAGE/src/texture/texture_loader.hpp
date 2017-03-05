@@ -6,8 +6,8 @@
 #pragma region
 
 #include "platform\windows.hpp"
-#include "collection\collection.hpp"
-#include "material\material.hpp"
+#include "rendering\rendering_device.hpp"
+#include "string\string.hpp"
 
 #pragma endregion
 
@@ -17,13 +17,15 @@
 namespace mage {
 
 	/**
-	 Imports the materials from the given file.
+	 Imports the texture from the given file.
 
 	 @param[in]		fname
 					A reference to the file name.
+	 @param[in]		device
+					A reference to the rendering device.
 	 @param[out]	material_buffer
-					A reference to the empty material buffer.
+					A pointer to a pointer to a shader resource view.
 	 @return		A success/error value.
-	*/
-	HRESULT ImportMaterialFromFile(const wstring &fname, vector< Material > &material_buffer);
+	 */
+	HRESULT ImportTextureFromFile(const wstring &fname, const RenderingDevice &device, ID3D11ShaderResourceView **texture_resource_view);
 }

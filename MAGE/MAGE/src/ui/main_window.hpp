@@ -6,6 +6,7 @@
 #pragma region
 
 #include "loadable.hpp"
+#include "platform\windows.hpp"
 #include "string\string.hpp"
 
 #pragma endregion
@@ -78,7 +79,25 @@ namespace mage {
 			return m_name;
 		}
 
-	protected:
+	private:
+
+		/**
+		 Constructs a main window from the given main window.
+
+		 @param[in]		main_window
+						A reference to the main window.
+		 */
+		MainWindow(const MainWindow &main_window) = delete;
+
+		/**
+		 Copies the given main window to this main window.
+
+		 @param[in]		main_window
+						A reference to the main window to copy from.
+		 @return		A reference to the copy of the given main window
+						(i.e. this main window).
+		 */
+		MainWindow &operator=(const MainWindow &main_window) = delete;
 
 		/**
 		 Initializes the engine window of this main window.
@@ -106,26 +125,6 @@ namespace mage {
 		 @return		A success/error value.
 		 */
 		HRESULT UninitializeWindow();
-
-	private:
-
-		/**
-		 Constructs a main window from the given main window.
-
-		 @param[in]		main_window
-						A reference to the main window.
-		 */
-		MainWindow(const MainWindow &main_window) = delete;
-
-		/**
-		 Copies the given main window to this main window.
-
-		 @param[in]		main_window
-						A reference to the main window to copy from.
-		 @return		A reference to the copy of the given main window
-						(i.e. this main window).
-		 */
-		MainWindow &operator=(const MainWindow &main_window) = delete;
 
 		/**
 		 Application instance handle.

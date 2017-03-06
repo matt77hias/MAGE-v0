@@ -19,16 +19,6 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Resource Creation
-	//-------------------------------------------------------------------------
-
-	template < typename VertexT >
-	SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, const MeshDescriptor< VertexT > &desc);
-	CombinedShader CreateLambertianShader();
-	SharedPtr< Texture > CreateTexture(const wstring &fname);
-	SharedPtr< VariableScript > CreateVariableScript(const wstring &fname);
-
-	//-------------------------------------------------------------------------
 	// ResourceFactory
 	//-------------------------------------------------------------------------
 	
@@ -57,4 +47,30 @@ namespace mage {
 		UniquePtr< ResourceManager< Texture > > m_texture_resource_manager;
 		UniquePtr< ResourceManager< VariableScript > > m_variable_script_resource_manager;
 	};
+
+	//-------------------------------------------------------------------------
+	// Resource Creation
+	//-------------------------------------------------------------------------
+
+	RenderingDevice GetRenderingDevice();
+
+	ResourceFactory &GetResourceFactory();
+
+	template < typename VertexT >
+	SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, const MeshDescriptor< VertexT > &desc);
+
+	CombinedShader CreateLambertianShader();
+
+	SharedPtr< Texture > CreateTexture(const wstring &fname);
+
+	SharedPtr< VariableScript > CreateVariableScript(const wstring &fname);
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "resource\resource_factory.tpp"
+
+#pragma endregion

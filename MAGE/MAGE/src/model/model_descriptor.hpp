@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\resource.hpp"
 #include "model\model_output.hpp"
 #include "mesh\mesh.hpp"
 #include "mesh\mesh_descriptor.hpp"
@@ -22,7 +21,8 @@ namespace mage {
 	public:
 
 		template < typename VertexT >
-		ModelDescriptor(const RenderingDevice &device, const wstring &fname, const MeshDescriptor< VertexT > &desc);
+		ModelDescriptor(const RenderingDevice &device, const wstring &fname,
+			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >());
 		virtual ~ModelDescriptor() {
 			m_materials.clear();
 			m_model_parts.clear();
@@ -60,6 +60,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "model\model_loader.tpp"
+#include "model\model_descriptor.tpp"
 
 #pragma endregion

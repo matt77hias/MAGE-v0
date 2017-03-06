@@ -578,9 +578,6 @@
     <ClCompile Include="MAGE\src\model\meshmodel.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\model\model_descriptor.tpp">
-      <Filter>Header Files\model</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">
@@ -603,14 +600,20 @@
     <None Include="MAGE\src\mesh\mesh.tpp">
       <Filter>Header Files\mesh</Filter>
     </None>
-    <None Include="MAGE\src\model\model_loader.tpp">
-      <Filter>Header Files\model</Filter>
-    </None>
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp">
       <Filter>Header Files\mesh\obj</Filter>
     </None>
     <None Include="MAGE\src\rendering\rendering_device.tpp">
       <Filter>Header Files\rendering</Filter>
+    </None>
+    <None Include="MAGE\src\resource\resource_factory.tpp">
+      <Filter>Header Files\resource</Filter>
+    </None>
+    <None Include="MAGE\src\model\model_loader.tpp">
+      <Filter>Header Files\model</Filter>
+    </None>
+    <None Include="MAGE\src\model\model_descriptor.tpp">
+      <Filter>Header Files\model</Filter>
     </None>
   </ItemGroup>
 </Project>

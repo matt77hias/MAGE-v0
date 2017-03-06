@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template < typename Vertex >
+	template < typename VertexT >
 	struct MeshDescriptor final {
 
 	public:
@@ -22,10 +22,10 @@ namespace mage {
 		 */
 		MeshDescriptor(bool invert_handedness = false, bool clockwise_order = true)
 			: m_invert_handedness(invert_handedness), m_clockwise_order(clockwise_order) {}
-		MeshDescriptor(const MeshDescriptor &desc) = default;
+		MeshDescriptor(const MeshDescriptor< VertexT > &desc) = default;
 		~MeshDescriptor() = default;
 
-		MeshDescriptor &operator=(const MeshDescriptor &desc) = default;
+		MeshDescriptor &operator=(const MeshDescriptor< VertexT > &desc) = default;
 
 		bool InvertHandness() const {
 			return m_invert_handedness;

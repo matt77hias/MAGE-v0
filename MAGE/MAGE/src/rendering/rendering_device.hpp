@@ -19,6 +19,7 @@ namespace mage {
 
 	public:
 
+		RenderingDevice() = default;
 		RenderingDevice(ComPtr< ID3D11Device2 > device) :
 			m_device(device) {}
 		RenderingDevice(const RenderingDevice &device) = default;

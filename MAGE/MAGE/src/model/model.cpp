@@ -48,7 +48,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	SubModel::SubModel(const string &name, size_t start_index, size_t nb_indices, const ShadedMaterial &material)
-		: Model(name), m_start_index(start_index), m_nb_indices(m_nb_indices),
+		: Model(name), m_start_index(start_index), m_nb_indices(nb_indices),
 		m_material(new ShadedMaterial(material)) {}
 	
 	SubModel::SubModel(const SubModel &submodel) 

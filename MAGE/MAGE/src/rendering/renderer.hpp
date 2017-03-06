@@ -74,7 +74,7 @@ namespace mage {
 		/**
 		 Returns the device of this renderer.
 
-		 @return		A pointer to the device of this renderer.
+		 @return		The device of this renderer.
 		 */
 		RenderingDevice GetDevice() const {
 			return RenderingDevice(m_device2);

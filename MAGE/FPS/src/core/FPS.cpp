@@ -3,7 +3,6 @@
 #include "core\engine.hpp"
 #include "camera\perspective_camera.hpp"
 #include "model\meshmodel.hpp"
-#include "shader\lambertian_shader.hpp"
 #include "scripting\behavior_script.hpp"
 
 using namespace mage;
@@ -66,7 +65,7 @@ public:
 		CombinedShader shader = CreateLambertianShader();
 
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc, CreateModelDescriptor(L"assets/models/teapot.obj", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc = CreateModelDescriptor(L"assets/models/teapot.obj", mesh_desc);
 		SharedPtr< Model > test_model(new MeshModel("model", *model_desc, shader));
 		GetWorld().AddModel(test_model);
 

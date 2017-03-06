@@ -130,7 +130,6 @@
     <ClCompile Include="MAGE\src\mesh\vertex.cpp" />
     <ClCompile Include="MAGE\src\model\meshmodel.cpp" />
     <ClCompile Include="MAGE\src\model\model.cpp" />
-    <ClCompile Include="MAGE\src\model\model_descriptor.tpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\parallel.cpp" />
     <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp" />
@@ -192,8 +191,10 @@
     <None Include="MAGE\src\memory\memory_arena.tpp" />
     <None Include="MAGE\src\mesh\mesh.tpp" />
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp" />
+    <None Include="MAGE\src\model\model_descriptor.tpp" />
     <None Include="MAGE\src\model\model_loader.tpp" />
     <None Include="MAGE\src\rendering\rendering_device.tpp" />
+    <None Include="MAGE\src\resource\resource_factory.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

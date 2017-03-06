@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "shader\shading.hpp"
 #include "shader\shader.hpp"
+#include "shader\shading.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

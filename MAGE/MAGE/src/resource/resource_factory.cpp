@@ -4,7 +4,6 @@
 #pragma region
 
 #include "engine.hpp"
-#include "logging\error.hpp"
 #include "shader\lambertian_shader.hpp"
 
 #pragma endregion

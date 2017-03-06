@@ -80,7 +80,8 @@ namespace mage {
 		/**
 		 Copies the given AABB to this AABB.
 
-		 @param[in]		A reference to the AABB to copy from.
+		 @param[in]		aabb
+						A reference to the AABB to copy from.
 		 @return		A reference to the copy of the given AABB
 						(i.e. this AABB).
 		 */
@@ -324,7 +325,8 @@ namespace mage {
 		/**
 		 Copies the given BS to this BS.
 
-		 @param[in]		A reference to the BS to copy from.
+		 @param[in]		bs
+						A reference to the BS to copy from.
 		 @return		A reference to the copy of the given BS
 						(i.e. this BS).
 		 */

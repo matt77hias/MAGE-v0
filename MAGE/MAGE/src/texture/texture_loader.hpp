@@ -23,7 +23,7 @@ namespace mage {
 					A reference to the filename.
 	 @param[in]		device
 					A reference to the rendering device.
-	 @param[out]	material_buffer
+	 @param[out]	texture_resource_view
 					A pointer to a pointer to a shader resource view.
 	 @return		A success/error value.
 	 */

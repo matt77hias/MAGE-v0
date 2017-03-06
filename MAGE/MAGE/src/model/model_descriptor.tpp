@@ -10,7 +10,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions and Declarations
+// Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -28,5 +28,17 @@ namespace mage {
 		 m_mesh = SharedPtr< Mesh >(new Mesh(device, buffer.vertex_buffer, buffer.index_buffer));
 		 m_materials = buffer.material_buffer;
 		 m_model_parts = buffer.model_parts;
+	 }
+
+	 // Forward declarations
+	 class ResourceFactory;
+	 RenderingDevice GetModelRenderingDevice();
+	 ResourceFactory &GetModelResourceFactory();
+
+	 template < typename VertexT >
+	 SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, const MeshDescriptor< VertexT > &desc) {
+		 const RenderingDevice device = GetModelRenderingDevice();
+		 ResourceFactory &factory = GetModelResourceFactory();
+		 return factory.CreateModelDescriptor(fname, device, desc);
 	 }
 }

@@ -193,6 +193,6 @@ namespace mage {
 		const wstring texture_path = mage::GetPathName(GetFilename());
 		const wstring texture_name = str_convert(ReadString());
 		const wstring texture_fname = mage::GetFilename(texture_path, texture_name);
-		return CreateMaterialTexture(texture_fname);
+		return CreateTexture(texture_fname);
 	}
 }

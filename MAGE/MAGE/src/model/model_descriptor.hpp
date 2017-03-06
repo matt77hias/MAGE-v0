@@ -53,6 +53,9 @@ namespace mage {
 		vector< Material > m_materials;
 		vector< ModelPart > m_model_parts;
 	};
+
+	template < typename VertexT >
+	SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, const MeshDescriptor< VertexT > &desc);
 }
 
 //-----------------------------------------------------------------------------

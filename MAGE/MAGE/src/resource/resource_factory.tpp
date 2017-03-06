@@ -1,5 +1,8 @@
 #pragma once
 
+//-----------------------------------------------------------------------------
+// Engine Definitions
+//-----------------------------------------------------------------------------
 namespace mage {
 
 	//-------------------------------------------------------------------------
@@ -16,16 +19,5 @@ namespace mage {
 			m_model_descriptor_resource_manager->AddResource(resource);
 		}
 		return resource;
-	}
-
-	//-------------------------------------------------------------------------
-	// Resource Creation
-	//-------------------------------------------------------------------------
-
-	template < typename VertexT >
-	inline SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, const MeshDescriptor< VertexT > &desc) {
-		const RenderingDevice device = GetRenderingDevice();
-		ResourceFactory &factory = GetResourceFactory();
-		return factory.CreateModelDescriptor(fname, device, desc);
 	}
 }

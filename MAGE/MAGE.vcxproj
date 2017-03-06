@@ -119,7 +119,6 @@
     <ClCompile Include="MAGE\src\logging\logging.cpp" />
     <ClCompile Include="MAGE\src\logging\progress_reporter.cpp" />
     <ClCompile Include="MAGE\src\logging\timer.cpp" />
-    <ClCompile Include="MAGE\src\material\material.cpp" />
     <ClCompile Include="MAGE\src\material\material_loader.cpp" />
     <ClCompile Include="MAGE\src\material\mtl\mtl_loader.cpp" />
     <ClCompile Include="MAGE\src\material\mtl\mtl_reader.cpp" />
@@ -131,6 +130,7 @@
     <ClCompile Include="MAGE\src\mesh\vertex.cpp" />
     <ClCompile Include="MAGE\src\model\meshmodel.cpp" />
     <ClCompile Include="MAGE\src\model\model.cpp" />
+    <ClCompile Include="MAGE\src\model\model_descriptor.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\parallel.cpp" />
     <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp" />

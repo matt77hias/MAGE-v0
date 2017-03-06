@@ -33,4 +33,6 @@ namespace mage {
 
 		ComPtr< ID3D11ShaderResourceView > m_texture_resource_view;
 	};
+
+	SharedPtr< Texture > CreateTexture(const wstring &fname);
 }

@@ -5,9 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "texture\texture.hpp"
+#include "resource\resource_factory.hpp"
 #include "texture\texture_loader.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -25,5 +24,11 @@ namespace mage {
 			Error("Texture initialization failed: %ld.", result_texture_import);
 			return;
 		}
+	}
+
+	SharedPtr< Texture > CreateTexture(const wstring &fname) {
+		const RenderingDevice device = GetRenderingDevice();
+		ResourceFactory &factory = GetResourceFactory();
+		return factory.CreateTexture(device, fname);
 	}
 }

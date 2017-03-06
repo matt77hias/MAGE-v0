@@ -33,7 +33,7 @@ namespace mage {
 		SharedPtr< VertexShader > CreateLambertianVertexShader(const RenderingDevice &device);
 		SharedPtr< PixelShader > CreateLambertianPixelShader(const RenderingDevice &device);
 		SharedPtr< Texture > CreateTexture(const RenderingDevice &device, const wstring &fname);
-		SharedPtr< VariableScript > CreateVariableScript(const wstring &fname);
+		SharedPtr< VariableScript > CreateVariableScript(const wstring &fname, bool import);
 
 	private:
 
@@ -54,15 +54,6 @@ namespace mage {
 	RenderingDevice GetRenderingDevice();
 
 	ResourceFactory &GetResourceFactory();
-
-	template < typename VertexT >
-	SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, const MeshDescriptor< VertexT > &desc);
-
-	CombinedShader CreateLambertianShader();
-
-	SharedPtr< Texture > CreateTexture(const wstring &fname);
-
-	SharedPtr< VariableScript > CreateVariableScript(const wstring &fname);
 }
 
 //-----------------------------------------------------------------------------

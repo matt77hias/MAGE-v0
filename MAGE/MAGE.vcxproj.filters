@@ -578,8 +578,8 @@
     <ClCompile Include="MAGE\src\model\meshmodel.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\material\material.cpp">
-      <Filter>Source Files\material</Filter>
+    <ClCompile Include="MAGE\src\model\model_descriptor.cpp">
+      <Filter>Source Files\model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

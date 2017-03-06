@@ -28,8 +28,11 @@ namespace mage {
 
 		 @param[in]		fname
 						A reference to the filename of the variable script.
-		*/
-		VariableScript(const wstring &fname);
+		 @param[in]		import
+						Flag indicating whether the variables of the variable script
+						need to be imported.
+		 */
+		VariableScript(const wstring &fname, bool import = true);
 
 		/**
 		 Destruct this variable script.
@@ -159,6 +162,18 @@ namespace mage {
 		 */
 		map< string, Variable * > m_variables;
 	};
+
+	/**
+	 Creates a variable script.
+
+	 @param[in]		fname
+					A reference to the filename of the variable script.
+	 @param[in]		import
+					Flag indicating whether the variables of the variable script
+					need to be imported.
+	 @return		A pointer to the variable script.
+	 */
+	SharedPtr< VariableScript > CreateVariableScript(const wstring &fname, bool import = true);
 }
 
 //-----------------------------------------------------------------------------

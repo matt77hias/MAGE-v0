@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "resource\resource_factory.hpp"
 #include "shader\lambertian_shader.hpp"
-#include "logging\error.hpp"
 #include "mesh\vertex.hpp"
 
 #pragma endregion
@@ -61,5 +61,13 @@ namespace mage {
 		device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 		device_context->PSSetShaderResources(0, 1, material.m_diffuse_reflectivity_texture->GetTextureResourceView().GetAddressOf());
 		device_context->PSSetSamplers(0, 1, m_sampler.GetAddressOf());
+	}
+
+	CombinedShader CreateLambertianShader() {
+		const RenderingDevice device = GetRenderingDevice();
+		ResourceFactory &factory = GetResourceFactory();
+		SharedPtr< VertexShader > vs = factory.CreateLambertianVertexShader(device);
+		SharedPtr< PixelShader > ps = factory.CreateLambertianPixelShader(device);
+		return CombinedShader(vs, ps);
 	}
 }

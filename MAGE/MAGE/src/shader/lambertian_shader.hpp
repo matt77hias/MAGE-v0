@@ -51,4 +51,6 @@ namespace mage {
 		ComPtr< ID3D11Buffer > m_cb_material;
 		ComPtr< ID3D11SamplerState >m_sampler;
 	};
+
+	CombinedShader CreateLambertianShader();
 }

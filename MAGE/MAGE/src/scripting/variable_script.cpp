@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\variable_script.hpp"
+#include "resource\resource_factory.hpp"
 #include "scripting\variable_script_loader.hpp"
 
 #pragma endregion
@@ -13,9 +13,16 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VariableScript::VariableScript(const wstring &fname)
+	VariableScript::VariableScript(const wstring &fname, bool import)
 		: Resource(fname) {
-		ImportScript();
+
+		if (import) {
+			const HRESULT result_import = ImportScript();
+			if (FAILED(result_import)) {
+				Error("Variable script import failed: %ld.", result_import);
+				return;
+			}
+		}
 	}
 
 	VariableScript::~VariableScript() {
@@ -56,5 +63,10 @@ namespace mage {
 
 	void VariableScript::RemoveAllVariables() {
 		RemoveAndDestructAllSecondElements(m_variables);
+	}
+
+	SharedPtr< VariableScript > CreateVariableScript(const wstring &fname, bool import) {
+		ResourceFactory &factory = GetResourceFactory();
+		return factory.CreateVariableScript(fname, import);
 	}
 }

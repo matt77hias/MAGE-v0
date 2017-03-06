@@ -58,11 +58,11 @@ namespace mage {
 		return resource;
 	}
 	
-	SharedPtr< VariableScript > ResourceFactory::CreateVariableScript(const wstring &fname) {
+	SharedPtr< VariableScript > ResourceFactory::CreateVariableScript(const wstring &fname, bool import) {
 		SharedPtr< VariableScript > resource = m_variable_script_resource_manager->GetResource(fname);
 		if (!resource) {
 			// Create a new resource.
-			resource = SharedPtr< VariableScript >(new VariableScript(fname));
+			resource = SharedPtr< VariableScript >(new VariableScript(fname, import));
 			// Store the new resource.
 			m_variable_script_resource_manager->AddResource(resource);
 		}
@@ -81,24 +81,5 @@ namespace mage {
 	ResourceFactory &GetResourceFactory() {
 		Assert(g_engine);
 		return g_engine->GetResourceFactory();
-	}
-
-	CombinedShader CreateLambertianShader() {
-		const RenderingDevice device = GetRenderingDevice();
-		ResourceFactory &factory = GetResourceFactory();
-		SharedPtr< VertexShader > vs = factory.CreateLambertianVertexShader(device);
-		SharedPtr< PixelShader > ps = factory.CreateLambertianPixelShader(device);
-		return CombinedShader(vs, ps);
-	}
-
-	SharedPtr< Texture > CreateTexture(const wstring &fname) {
-		const RenderingDevice device = GetRenderingDevice();
-		ResourceFactory &factory = GetResourceFactory();
-		return factory.CreateTexture(device, fname);
-	}
-
-	SharedPtr< VariableScript > CreateVariableScript(const wstring &fname) {
-		ResourceFactory &factory = GetResourceFactory();
-		return factory.CreateVariableScript(fname);
 	}
 }

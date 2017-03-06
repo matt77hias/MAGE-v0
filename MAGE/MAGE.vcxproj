@@ -119,6 +119,7 @@
     <ClCompile Include="MAGE\src\logging\logging.cpp" />
     <ClCompile Include="MAGE\src\logging\progress_reporter.cpp" />
     <ClCompile Include="MAGE\src\logging\timer.cpp" />
+    <ClCompile Include="MAGE\src\material\material.cpp" />
     <ClCompile Include="MAGE\src\material\material_loader.cpp" />
     <ClCompile Include="MAGE\src\material\mtl\mtl_loader.cpp" />
     <ClCompile Include="MAGE\src\material\mtl\mtl_reader.cpp" />

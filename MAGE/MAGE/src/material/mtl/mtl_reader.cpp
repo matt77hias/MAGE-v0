@@ -165,14 +165,10 @@ namespace mage {
 	}
 
 	SharedPtr< Texture > MTLReader::ReadMTLTexture() {
+		// "-options args" are not supported and are not allowed.
 		const wstring texture_path = mage::GetPathName(GetFilename());
 		const wstring texture_name = str_convert(ReadString());
 		const wstring texture_fname = mage::GetFilename(texture_path, texture_name);
-
-		SharedPtr< Texture > texture;
-		//CreateDDSTextureFromFile(g_engine->GetRenderer().GetDevice(), L"seafloor.dds", nullptr, shader_resource_view.ReleaseAndGetAddressOf());
-
-		// "-options args" are not supported and are not allowed.
-		return texture;
+		return CreateMaterialTexture(texture_fname);
 	}
 }

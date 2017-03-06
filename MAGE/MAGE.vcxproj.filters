@@ -578,6 +578,9 @@
     <ClCompile Include="MAGE\src\model\meshmodel.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\material\material.cpp">
+      <Filter>Source Files\material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">

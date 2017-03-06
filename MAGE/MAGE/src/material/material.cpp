@@ -1,17 +1,10 @@
-#pragma once
-
 //-----------------------------------------------------------------------------
-// Engine Defines
+// Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_VERSION_MAJOR 0
-#define MAGE_VERSION_MINOR 8
-#define MAGE_VERSION_PATCH 0
-
-#define MAGE_QUOTE(S) #S
-#define MAGE_STR(S) MAGE_QUOTE(S)
-#define MAGE_VERSION_STRING MAGE_STR(MAGE_VERSION_MAJOR) "." MAGE_STR(MAGE_VERSION_MINOR) "." MAGE_STR(MAGE_VERSION_PATCH)
+#include "material\material.hpp"
+#include "resource\resource_factory.hpp"
 
 #pragma endregion
 
@@ -20,8 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	/**
-	 Prints the header of the engine to the console.
-	 */
-	void PrintConsoleHeader();
+	SharedPtr< Texture > CreateMaterialTexture(const wstring &fname) {
+		return CreateTexture(fname);
+	}
 }

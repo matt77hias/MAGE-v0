@@ -8,7 +8,6 @@
 #include "resource\resource_manager.hpp"
 #include "model\model_descriptor.hpp"
 #include "shader\shader.hpp"
-#include "texture\texture.hpp"
 #include "scripting\variable_script.hpp"
 
 #pragma endregion

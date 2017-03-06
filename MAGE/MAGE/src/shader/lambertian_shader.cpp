@@ -59,6 +59,7 @@ namespace mage {
 		UNUSED(material);
 		UNUSED(world);
 		device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
+		device_context->PSSetShaderResources(0, 1, material.m_diffuse_reflectivity_texture->GetTextureResourceView().GetAddressOf());
 		device_context->PSSetSamplers(0, 1, m_sampler.GetAddressOf());
 	}
 }

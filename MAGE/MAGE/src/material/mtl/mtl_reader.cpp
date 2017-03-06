@@ -27,6 +27,9 @@ namespace mage {
 		if (str_equals(token, MAGE_MTL_TOKEN_MATERIAL_DECLARATION)) {
 			ReadMTLMaterialName();
 		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_TRANSMISSION_FILTER)) {
+			ReadMTLTransmissionFilter();
+		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_AMBIENT_REFLECTIVITY)) {
 			ReadMTLAmbientReflectivity();
 		}
@@ -36,17 +39,38 @@ namespace mage {
 		else if (str_equals(token, MAGE_MTL_TOKEN_SPECULAR_REFLECTIVITY)) {
 			ReadMTLSpecularReflectivity();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_TRANSMISSION_FILTER)) {
-			ReadMTLTransmissionFilter();
-		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_SPECULAR_EXPONENT)) {
 			ReadMTLSpecularExponent();
+		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_DISSOLVE)) {
+			ReadMTLDissolve();
 		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_OPTICAL_DENSITY)) {
 			ReadMTLOpticalDensity();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_DISSOLVE)) {
-			ReadMTLDissolve();
+		else if (str_equals(token, MAGE_MTL_TOKEN_AMBIENT_REFLECTIVITY_MAP)) {
+			ReadMTLAmbientReflectivityTexture();
+		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_DIFFUSE_REFLECTIVITY_MAP)) {
+			ReadMTLDiffuseReflectivityTexture();
+		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_SPECULAR_REFLECTIVITY_MAP)) {
+			ReadMTLSpecularReflectivityTexture();
+		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_SPECULAR_EXPONENT_MAP)) {
+			ReadMTLSpecularExponentTexture();
+		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_DISSOLVE_MAP)) {
+			ReadMTLDissolveTexture();
+		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_DECAL_MAP)) {
+			ReadMTLDecalTexture();
+		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_DISPLACEMENT_MAP)) {
+			ReadMTLDisplacementTexture();
+		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_BUMP_MAP)) {
+			ReadMTLBumpTexture();
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
@@ -128,7 +152,7 @@ namespace mage {
 	}
 
 	RGBSpectrum MTLReader::ReadMTLSpectrum() {
-		if (HasChars()) {
+		if (!HasFloat()) {
 			const char *str = ReadChars();
 
 			// XYZ spectrum

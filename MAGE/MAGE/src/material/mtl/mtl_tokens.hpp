@@ -22,7 +22,7 @@
 #define MAGE_MTL_TOKEN_SPECULAR_EXPONENT_MAP "map_Ns"
 #define MAGE_MTL_TOKEN_DISSOLVE_MAP "map_d"
 #define MAGE_MTL_TOKEN_DECAL_MAP "decal"
-#define MAGE_MTL_TOKEN_DISP_MAP "disp"
+#define MAGE_MTL_TOKEN_DISPLACEMENT_MAP "disp"
 #define MAGE_MTL_TOKEN_BUMP_MAP "bump"
 
 #pragma endregion

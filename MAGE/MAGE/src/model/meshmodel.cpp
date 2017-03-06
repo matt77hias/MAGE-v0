@@ -34,7 +34,7 @@ namespace mage {
 			Material material(MAGE_MODEL_PART_DEFAULT_MATERIAL);
 			if (it->material != MAGE_MODEL_PART_DEFAULT_MATERIAL) {
 				for (vector< Material >::const_iterator mit = desc.MaterialsBegin(); mit != desc.MaterialsEnd(); ++mit) {
-					if (mit->m_name == it->child) {
+					if (mit->m_name == it->material) {
 						material = *mit;
 						break;
 					}

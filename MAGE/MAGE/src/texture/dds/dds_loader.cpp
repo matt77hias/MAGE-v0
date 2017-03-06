@@ -701,7 +701,7 @@ static HRESULT CreateD3DResources(_In_ const RenderingDevice &device,
             desc.MiscFlags = misc_flags & ~D3D11_RESOURCE_MISC_TEXTURECUBE;
         }
 
-        ID3D11Texture2D* tex = nullptr;
+        ID3D11Texture2D *tex = nullptr;
         hr = device.CreateTexture2D(&desc, init_data, &tex);
         if (SUCCEEDED(hr) && tex != 0) {
             if (texture_view != 0) {
@@ -764,7 +764,7 @@ static HRESULT CreateD3DResources(_In_ const RenderingDevice &device,
         desc.CPUAccessFlags = cpu_access_flags;
         desc.MiscFlags = misc_flags & ~D3D11_RESOURCE_MISC_TEXTURECUBE;
 
-        ID3D11Texture3D* tex = nullptr;
+        ID3D11Texture3D *tex = nullptr;
         hr = device.CreateTexture3D(&desc, init_data, &tex);
         if (SUCCEEDED(hr) && tex != 0) {
             if (texture_view != 0) {
@@ -799,7 +799,7 @@ static HRESULT CreateD3DResources(_In_ const RenderingDevice &device,
 
 static HRESULT CreateTextureFromDDS(_In_ const RenderingDevice &device,
     _In_opt_ ID3D11DeviceContext *d3dContext,
-    _In_ const DDS_HEADER* header,
+    _In_ const DDS_HEADER *header,
     _In_reads_bytes_(bit_size) const uint8_t *bit_data,
     _In_ size_t bit_size,
     _In_ size_t maxsize,
@@ -966,7 +966,7 @@ static HRESULT CreateTextureFromDDS(_In_ const RenderingDevice &device,
 
     if (autogen) {
         // Create texture with auto-generated mipmaps
-        ID3D11Resource* tex = nullptr;
+        ID3D11Resource *tex = nullptr;
         hr = CreateD3DResources(device, res_dim, width, height, depth, 0, array_size,
             format, usage,
             bindFlags | D3D11_BIND_RENDER_TARGET,

@@ -1,7 +1,7 @@
 # MAGE
 
 ## About
-
+<p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/MAGE.png"></p>
 
 ## Development
 * **Platform**: (minimum) Windows 8.1 32 Bit and 64 Bit (Windows API + Direct3D 11)

@@ -232,10 +232,5 @@ namespace mage {
 		 The position of the far z-plane.
 		 */
 		float m_far_z;
-
-		/**
-		 The transform of this camera.
-		 */
-		SharedPtr< Transform > m_transform;
 	};
 }

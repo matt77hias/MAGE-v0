@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_DEFAULT_APPLICATION_NAME L"Application"
+#define MAGE_DEFAULT_APPLICATION_NAME L"Game"
 
 #pragma endregion
 

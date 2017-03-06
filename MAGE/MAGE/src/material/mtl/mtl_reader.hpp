@@ -5,9 +5,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\line_reader.hpp"
-#include "collection\collection.hpp"
 #include "material\material.hpp"
+#include "collection\collection.hpp"
+#include "string\line_reader.hpp"
 
 #pragma endregion
 

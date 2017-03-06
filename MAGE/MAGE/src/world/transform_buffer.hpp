@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\math.hpp"
 #include "camera\camera.hpp"
 
 #pragma endregion

@@ -6,7 +6,6 @@
 #pragma region
 
 #include "resource\resource.hpp"
-#include "rendering\rendering_device.hpp"
 #include "material\material.hpp"
 #include "world\world.hpp"
 

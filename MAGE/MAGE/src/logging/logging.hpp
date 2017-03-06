@@ -42,13 +42,12 @@ namespace mage {
 		 @param[in]		logging_configuration
 						A reference to the logging configuration.
 		 */
-		LoggingConfiguration(const LoggingConfiguration &logging_configuration) 
-			: m_quiet(logging_configuration.m_quiet), m_verbose(logging_configuration.m_verbose) {}
+		LoggingConfiguration(const LoggingConfiguration &logging_configuration) = default;
 
 		/**
 		 Destructs this logging configuration.
 		 */
-		~LoggingConfiguration() {}
+		~LoggingConfiguration() = default;
 
 		/**
 		 Copies the given logging configuration to this logging configuration.
@@ -58,11 +57,7 @@ namespace mage {
 		 @return		A reference to the copy of the given logging configuration
 						(i.e. this logging configuration).
 		 */
-		LoggingConfiguration &operator=(const LoggingConfiguration &logging_configuration) {
-			m_quiet   = logging_configuration.m_quiet;
-			m_verbose = logging_configuration.m_verbose;
-			return (*this);
-		}
+		LoggingConfiguration &operator=(const LoggingConfiguration &logging_configuration) = default;
 
 		/**
 		 Checks whether the logging of the engine processing is quiet.

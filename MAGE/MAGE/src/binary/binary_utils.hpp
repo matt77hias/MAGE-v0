@@ -17,6 +17,37 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Binary Conversion Utilities
 	//-------------------------------------------------------------------------
+	inline int8_t BytesBigEndianToInt8(const uint8_t *bytes) {
+		return *reinterpret_cast< const int8_t * >(bytes);
+	}
+	inline uint8_t BytesBigEndianToUInt8(const uint8_t *bytes) {
+		return bytes[0];
+	}
+	inline int16_t BytesBigEndianToInt16(const uint8_t *bytes) {
+		return *reinterpret_cast< const int16_t * >(bytes);
+	}
+	inline uint16_t BytesBigEndianToUInt16(const uint8_t *bytes) {
+		return *reinterpret_cast< const uint16_t * >(bytes);
+	}
+	inline int32_t BytesBigEndianToInt32(const uint8_t *bytes) {
+		return *reinterpret_cast< const int32_t * >(bytes);
+	}
+	inline uint32_t BytesBigEndianToUInt32(const uint8_t *bytes) {
+		return *reinterpret_cast< const uint32_t * >(bytes);
+	}
+	inline int64_t BytesBigEndianToInt64(const uint8_t *bytes) {
+		return *reinterpret_cast< const int64_t * >(bytes);
+	}
+	inline uint64_t BytesBigEndianToUInt64(const uint8_t *bytes) {
+		return *reinterpret_cast< const uint64_t * >(bytes);
+	}
+	inline float BytesBigEndianToFloat(const uint8_t *bytes) {
+		return *reinterpret_cast< const float * >(bytes);
+	}
+	inline double BytesBigEndianToDouble(const uint8_t *bytes) {
+		return *reinterpret_cast< const double * >(bytes);
+	}
+
 	inline int8_t BytesLittleEndianToInt8(const uint8_t *bytes) {
 		return *reinterpret_cast< const int8_t * >(bytes);
 	}
@@ -56,41 +87,10 @@ namespace mage {
 		return BytesBigEndianToDouble(reversed_bytes);
 	}
 
-	inline int8_t BytesBigEndianToInt8(const uint8_t *bytes) {
+	inline int8_t BytesToInt8(const uint8_t *bytes) {
 		return *reinterpret_cast< const int8_t * >(bytes);
 	}
-	inline uint8_t BytesBigEndianToUInt8(const uint8_t *bytes) {
-		return bytes[0];
-	}
-	inline int16_t BytesBigEndianToInt16(const uint8_t *bytes) {
-		return *reinterpret_cast< const int16_t * >(bytes);
-	}
-	inline uint16_t BytesBigEndianToUInt16(const uint8_t *bytes) {
-		return *reinterpret_cast< const uint16_t * >(bytes);
-	}
-	inline int32_t BytesBigEndianToInt32(const uint8_t *bytes) {
-		return *reinterpret_cast< const int32_t * >(bytes);
-	}
-	inline uint32_t BytesBigEndianToUInt32(const uint8_t *bytes) {
-		return *reinterpret_cast< const uint32_t * >(bytes);
-	}
-	inline int64_t BytesBigEndianToInt64(const uint8_t *bytes) {
-		return *reinterpret_cast< const int64_t * >(bytes);
-	}
-	inline uint64_t BytesBigEndianToUInt64(const uint8_t *bytes) {
-		return *reinterpret_cast< const uint64_t * >(bytes);
-	}
-	inline float BytesBigEndianToFloat(const uint8_t *bytes) {
-		return *reinterpret_cast< const float * >(bytes);
-	}
-	inline double BytesBigEndianToDouble(const uint8_t *bytes) {
-		return *reinterpret_cast< const double * >(bytes);
-	}
-
-	inline int8_t BytesToInt8(const uint8_t *bytes, bool big_endian) {
-		return *reinterpret_cast< const int8_t * >(bytes);
-	}
-	inline uint8_t BytesToUInt8(const uint8_t *bytes, bool big_endian) {
+	inline uint8_t BytesToUInt8(const uint8_t *bytes) {
 		return bytes[0];
 	}
 	inline int16_t BytesToInt16(const uint8_t *bytes, bool big_endian) {

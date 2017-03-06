@@ -12,6 +12,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\memory.hpp"
 #include "logging\error.hpp"
 #include "logging\logging.hpp"
 #include "string\string.hpp"

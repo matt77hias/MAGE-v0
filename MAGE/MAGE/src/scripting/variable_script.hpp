@@ -5,8 +5,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "collection\collection.hpp" 
-#include "resource\resource.hpp" 
+#include "platform\windows.hpp"
+#include "resource\resource.hpp"
+#include "collection\collection.hpp"
 #include "scripting\variable.hpp"
 
 #pragma endregion

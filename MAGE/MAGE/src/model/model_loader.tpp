@@ -6,8 +6,6 @@
 #pragma region
 
 #include "mesh\obj\obj_loader.hpp"
-#include "logging\error.hpp"
-#include "file\file_utils.hpp"
 
 #pragma endregion
 

@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "platform\windows.hpp"
 #include "rendering\rendering_device.hpp"
 #include "string\string.hpp"
 

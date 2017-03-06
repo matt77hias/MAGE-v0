@@ -3,6 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\memory.hpp"
 #include "parallel\lock.hpp"
 #include "logging\error.hpp"
 

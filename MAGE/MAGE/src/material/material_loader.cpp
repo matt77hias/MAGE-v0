@@ -6,7 +6,6 @@
 #include "material\material_loader.hpp"
 #include "material\mtl\mtl_loader.hpp"
 #include "logging\error.hpp"
-#include "file\file_utils.hpp"
 
 #pragma endregion
 

@@ -7,7 +7,6 @@
 #include "material\mtl\mtl_tokens.hpp"
 #include "string\string_utils.hpp"
 #include "logging\error.hpp"
-#include "file\file_utils.hpp"
 
 #pragma endregion
 

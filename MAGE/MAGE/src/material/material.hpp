@@ -15,8 +15,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SharedPtr< Texture > CreateMaterialTexture(const wstring &fname);
-
 	struct Material {
 
 	public:

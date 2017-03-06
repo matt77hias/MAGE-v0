@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	struct PointLight : public WorldObject {
+	class PointLight : public WorldObject {
 
 	public:
 

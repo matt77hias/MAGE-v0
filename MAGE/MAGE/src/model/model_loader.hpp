@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "platform\windows.hpp"
 #include "model\model_output.hpp"
 #include "mesh\mesh_descriptor.hpp"
 

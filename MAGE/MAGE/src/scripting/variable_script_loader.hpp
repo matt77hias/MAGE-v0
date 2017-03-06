@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "platform\windows.hpp"
 #include "collection\collection.hpp" 
 #include "scripting\variable.hpp"
 

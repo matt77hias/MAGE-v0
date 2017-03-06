@@ -5,9 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
 #include "rendering\rendering.hpp"
-#include "collection\collection.hpp"
 #include "world\transform_buffer.hpp"
 #include "light\point_light.hpp"
 

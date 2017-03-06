@@ -6,10 +6,9 @@
 #pragma region
 
 #include "mesh\obj\obj_tokens.hpp"
+#include "mesh\vertex.hpp"
 #include "string\string_utils.hpp"
 #include "logging\error.hpp"
-#include "file\file_utils.hpp"
-#include "mesh\vertex.hpp"
 #include "material\material_loader.hpp"
 
 #pragma endregion

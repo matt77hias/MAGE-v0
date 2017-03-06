@@ -10,15 +10,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "memory\memory.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -86,7 +77,7 @@ namespace mage {
 #define Assert(expr) (__noop)
 #else
 #define Assert(expr) ((expr) ? __noop : Fatal("Assertion \"%s\" failed in %s, line %d", \
-			   #expr, __FILE__, __LINE__))
+												#expr, __FILE__, __LINE__))
 #endif
 
 #pragma endregion

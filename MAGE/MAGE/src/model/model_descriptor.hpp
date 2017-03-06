@@ -5,9 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "model\model_output.hpp"
+#include "model\model_loader.hpp"
 #include "mesh\mesh.hpp"
-#include "mesh\mesh_descriptor.hpp"
 
 #pragma endregion
 

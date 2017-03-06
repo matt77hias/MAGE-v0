@@ -5,9 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "platform\windows.hpp"
-#include "collection\collection.hpp"
 #include "material\material.hpp"
+#include "collection\collection.hpp"
 
 #pragma endregion
 

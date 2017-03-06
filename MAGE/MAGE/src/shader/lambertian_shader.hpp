@@ -9,6 +9,15 @@
 
 #pragma endregion
 
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "shader\shader.hpp"
+
+#pragma endregion
+
 #define MAGE_FNAME_LAMBERTIAN_VS L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/lambertian_VS.cso"
 #define MAGE_FNAME_LAMBERTIAN_PS L"C:/Users/Matthias/Documents/Visual Studio 2015/Projects/MAGE/MAGE/MAGE/bin/x64/Debug/lambertian_PS.cso"
 

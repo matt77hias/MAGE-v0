@@ -23,7 +23,7 @@ namespace mage {
 	Model::Model(const Model &model)
 		: WorldObject(model) {
 
-		for (set< SubModel * >::const_iterator it = m_submodels.cbegin(); it != m_submodels.cend(); ++it) {
+		for (set< SubModel * >::const_iterator it = model.m_submodels.cbegin(); it != model.m_submodels.cend(); ++it) {
 			AddSubModel((*it)->Clone());
 		}
 	}

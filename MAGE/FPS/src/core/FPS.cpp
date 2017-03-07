@@ -63,7 +63,7 @@ public:
 		SharedPtr< ModelDescriptor > model_desc = CreateModelDescriptor(L"assets/models/cube.obj", mesh_desc);
 		SharedPtr< Model > test_model(new MeshModel("model", *model_desc, shader));
 		GetWorld().AddModel(test_model);
-
+		
 		SharedPtr< PointLight > light(new PointLight("light", 100.0f, RGBSpectrum(0.5f, 0.5f, 0.0f)));
 		GetWorld().AddLight(light);
 

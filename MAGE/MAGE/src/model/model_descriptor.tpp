@@ -12,7 +12,7 @@ namespace mage {
 		 ModelOutput< VertexT > buffer;
 		 const HRESULT result_load = LoadModelFromFile(fname, buffer, desc);
 		 if (FAILED(result_load)) {
-			 Error("Model loading failed: %ld.", result_load);
+			 Error("Model loading failed: %08X.", result_load);
 			 return;
 		 }
 

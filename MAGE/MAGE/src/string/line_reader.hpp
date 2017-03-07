@@ -43,7 +43,7 @@ namespace mage {
 		virtual HRESULT Postprocess();
 		void ReadLineRemaining();
 
-		char *ReadChars();
+		const char *ReadChars();
 		string ReadString();
 		string ReadQuotedString();
 		bool ReadBool();
@@ -80,8 +80,8 @@ namespace mage {
 
 	private:
 
-		LineReader(const LineReader &parser) = delete;
-		LineReader &operator=(const LineReader &parser) = delete;
+		LineReader(const LineReader &reader) = delete;
+		LineReader &operator=(const LineReader &reader) = delete;
 
 		wstring m_fname;
 		string m_delimiters;

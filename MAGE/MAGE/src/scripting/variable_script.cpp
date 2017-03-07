@@ -19,7 +19,7 @@ namespace mage {
 		if (import) {
 			const HRESULT result_import = ImportScript();
 			if (FAILED(result_import)) {
-				Error("Variable script import failed: %ld.", result_import);
+				Error("Variable script import failed: %08X.", result_import);
 				return;
 			}
 		}

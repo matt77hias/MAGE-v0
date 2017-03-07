@@ -75,7 +75,7 @@ namespace mage {
 		ComPtr< IDXGIFactory3 > factory;
 		const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)factory.GetAddressOf());
 		if (FAILED(result_factory)) {
-			Error("IDXGIFactory3 creation failed: %ld.", result_factory);
+			Error("IDXGIFactory3 creation failed: %08X.", result_factory);
 			return E_FAIL;
 		}
 
@@ -91,7 +91,7 @@ namespace mage {
 			ComPtr< IDXGIAdapter2 > adapter2;
 			const HRESULT result_adapter2 = adapter1.As(&adapter2);
 			if (FAILED(result_adapter2)) {
-				Error("IDXGIAdapter2 creation failed: %ld.", result_adapter2);
+				Error("IDXGIAdapter2 creation failed: %08X.", result_adapter2);
 				return E_FAIL;
 			}
 
@@ -104,7 +104,7 @@ namespace mage {
 			ComPtr< IDXGIOutput2 > output2;
 			const HRESULT result_output2 = output.As(&output2);
 			if (FAILED(result_output2)) {
-				Error("IDXGIOutput2 creation failed: %ld.", result_output2);
+				Error("IDXGIOutput2 creation failed: %08X.", result_output2);
 				return E_FAIL;
 			}
 
@@ -112,7 +112,7 @@ namespace mage {
 			DXGI_ADAPTER_DESC2 desc;
 			const HRESULT result_adapter_desc = adapter2->GetDesc2(&desc);
 			if (FAILED(result_adapter_desc)) {
-				Error("DXGI_ADAPTER_DESC2 retrieval failed: %ld.", result_adapter_desc);
+				Error("DXGI_ADAPTER_DESC2 retrieval failed: %08X.", result_adapter_desc);
 				return E_FAIL;
 			}
 
@@ -170,13 +170,13 @@ namespace mage {
 		// Initialize the adapter and output.
 		const HRESULT result_init_adapter_and_output = InitializeAdapterAndOutput();
 		if (FAILED(result_init_adapter_and_output)) {
-			Error("Adapter and Output initialization failed: %ld.", result_init_adapter_and_output);
+			Error("Adapter and Output initialization failed: %08X.", result_init_adapter_and_output);
 			return E_FAIL;
 		}
 		// Initialize the display modes.
 		const HRESULT result_init_display_modes = InitializeDisplayModes();
 		if (FAILED(result_init_display_modes)) {
-			Error("Display modes list initialization failed: %ld.", result_init_display_modes);
+			Error("Display modes list initialization failed: %08X.", result_init_display_modes);
 			return E_FAIL;
 		}
 

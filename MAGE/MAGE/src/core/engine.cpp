@@ -36,7 +36,7 @@ namespace mage {
 		// Attach a console.
 		const HRESULT result_console = InitializeConsole();
 		if (FAILED(result_console)) {
-			Error("Console initialization failed: %ld.", result_console);
+			Error("Console initialization failed: %08X.", result_console);
 			return;
 		}
 		PrintConsoleHeader();
@@ -44,7 +44,7 @@ namespace mage {
 		// Initialize the different engine systems.
 		const HRESULT result_system = InitializeSystems(setup);
 		if (FAILED(result_system)) {
-			Error("Systems initialization failed: %ld.", result_system);
+			Error("Systems initialization failed: %08X.", result_system);
 			return;
 		}
 

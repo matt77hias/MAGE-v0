@@ -21,7 +21,7 @@ namespace mage {
 		// Create the pixel shader.
 		const HRESULT result_texture_import = ImportTextureFromFile(GetFilename(), device, m_texture_resource_view.ReleaseAndGetAddressOf());
 		if (FAILED(result_texture_import)) {
-			Error("Texture initialization failed: %ld.", result_texture_import);
+			Error("Texture initialization failed: %08X.", result_texture_import);
 			return;
 		}
 	}

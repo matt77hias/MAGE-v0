@@ -59,3 +59,26 @@ namespace mage {
 #define UNUSED(param) (void)(param)
 
 #pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
+#pragma region
+
+struct HandleCloser {
+
+	void operator()(HANDLE handle) {
+		if (handle) {
+			CloseHandle(handle);
+		}
+
+	} 
+};
+
+typedef std::unique_ptr< void, HandleCloser > HandlePtr;
+
+inline HANDLE SafeHandle(HANDLE handle) { 
+	return (handle == INVALID_HANDLE_VALUE) ? nullptr : handle; 
+}
+
+#pragma endregion

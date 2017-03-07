@@ -25,7 +25,7 @@ namespace mage {
 
 		const HRESULT result_cb_transform = device.CreateConstantBuffer< TransformBuffer >(m_cb_transform.ReleaseAndGetAddressOf());
 		if (FAILED(result_cb_transform)) {
-			Error("Transformation constant buffer creation failed: %ld.", result_cb_transform);
+			Error("Transformation constant buffer creation failed: %08X.", result_cb_transform);
 			return;
 		}
 	}
@@ -44,13 +44,13 @@ namespace mage {
 
 		const HRESULT result_cb_material = device.CreateConstantBuffer< MaterialBuffer >(m_cb_material.ReleaseAndGetAddressOf());
 		if (FAILED(result_cb_material)) {
-			Error("Material constant buffer creation failed: %ld.", result_cb_material);
+			Error("Material constant buffer creation failed: %08X.", result_cb_material);
 			return;
 		}
 
 		const HRESULT result_sampler_state = device.CreateLinearSamplerState(m_sampler.ReleaseAndGetAddressOf());
 		if (FAILED(result_sampler_state)) {
-			Error("Sampler state creation failed: %ld.", result_sampler_state);
+			Error("Sampler state creation failed: %08X.", result_sampler_state);
 			return;
 		}
 	}

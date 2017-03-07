@@ -19,7 +19,7 @@ namespace mage {
 
 		const HRESULT result_initialization = InitializeModel(desc, shader);
 		if (FAILED(result_initialization)) {
-			Error("Model initialization failed: %ld.", result_initialization);
+			Error("Model initialization failed: %08X.", result_initialization);
 			return;
 		}
 	}

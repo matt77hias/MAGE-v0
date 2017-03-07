@@ -23,7 +23,7 @@ namespace mage {
 		}
 		const HRESULT result_input_systems = InitializeInputSystems();
 		if (FAILED(result_input_systems)) {
-			Error("Input systems initialization failed: %ld.", result_input_systems);
+			Error("Input systems initialization failed: %08X.", result_input_systems);
 			return;
 		}
 

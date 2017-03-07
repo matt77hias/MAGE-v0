@@ -20,7 +20,7 @@ namespace mage {
 
 		const HRESULT result_renderer = InitializeRenderer();
 		if (FAILED(result_renderer)) {
-			Error("Renderer intialization failed: %ld.", result_renderer);
+			Error("Renderer intialization failed: %08X.", result_renderer);
 			return;
 		}
 
@@ -30,7 +30,7 @@ namespace mage {
 	Renderer::~Renderer() {
 		const HRESULT result_renderer = UnitializeRenderer();
 		if (FAILED(result_renderer)) {
-			Error("Renderer unintialization failed: %ld.", result_renderer);
+			Error("Renderer unintialization failed: %08X.", result_renderer);
 		}
 	}
 
@@ -38,26 +38,26 @@ namespace mage {
 		// Setup the ID3D11Device2 and ID3D11DeviceContext2.
 		const HRESULT result_device = SetupDevice();
 		if (FAILED(result_device)) {
-			Error("Device setup failed: %ld.", result_device);
+			Error("Device setup failed: %08X.", result_device);
 			return result_device;
 		}
 		// Setup the IDXGISwapChain2.
 		const HRESULT result_swapchain = SetupSwapChain();
 		if (FAILED(result_swapchain)) {
-			Error("Swap chain setup failed: %ld.", result_swapchain);
+			Error("Swap chain setup failed: %08X.", result_swapchain);
 			return result_swapchain;
 		}
 
 		// Setup the ID3D11RenderTargetView
 		const HRESULT result_render_target_view = SetupRenderTargetView();
 		if (FAILED(result_render_target_view)) {
-			Error("Target render view setup failed: %ld.", result_render_target_view);
+			Error("Target render view setup failed: %08X.", result_render_target_view);
 			return result_render_target_view;
 		}
 		// Setup the ID3D11DepthStencilView.
 		const HRESULT result_depth_stencil_view = SetupDepthStencilView();
 		if (FAILED(result_depth_stencil_view)) {
-			Error("Depth stencil view setup failed: %ld.", result_depth_stencil_view);
+			Error("Depth stencil view setup failed: %08X.", result_depth_stencil_view);
 			return result_depth_stencil_view;
 		}
 		// Bind one or more render targets atomically and 
@@ -70,14 +70,14 @@ namespace mage {
 		// Setup the ID3D11RasterizerState.
 		const HRESULT result_rasterizer_state = SetupRasterizerStates();
 		if (FAILED(result_rasterizer_state)) {
-			Error("Rasterizer states setup failed: %ld.", result_rasterizer_state);
+			Error("Rasterizer states setup failed: %08X.", result_rasterizer_state);
 			return result_rasterizer_state;
 		}
 
 		// Setup the D3D11_VIEWPORT.
 		const HRESULT result_view_port = SetupViewPort();
 		if (FAILED(result_view_port)) {
-			Error("Viewport setup failed: %ld.", result_view_port);
+			Error("Viewport setup failed: %08X.", result_view_port);
 			return result_view_port;
 		}
 
@@ -122,20 +122,20 @@ namespace mage {
 			device_context.GetAddressOf()				// The address of a pointer to the ID3D11DeviceContext.
 		);
 		if (FAILED(result_device)) {
-			Error("ID3D11Device creation failed: %ld.", result_device);
+			Error("ID3D11Device creation failed: %08X.", result_device);
 			return result_device;
 		}
 
 		// Get the ID3D11Device2.
 		const HRESULT result_device2 = device.As(&m_device2);
 		if (FAILED(result_device2)) {
-			Error("ID3D11Device2 creation failed: %ld.", result_device2);
+			Error("ID3D11Device2 creation failed: %08X.", result_device2);
 			return result_device2;
 		}
 		// Get the ID3D11DeviceContext2.
 		const HRESULT result_device_context2 = device_context.As(&m_device_context2);
 		if (FAILED(result_device_context2)) {
-			Error("ID3D11DeviceContext2 creation failed: %ld.", result_device_context2);
+			Error("ID3D11DeviceContext2 creation failed: %08X.", result_device_context2);
 			return result_device_context2;
 		}
 
@@ -149,7 +149,7 @@ namespace mage {
 		ComPtr< IDXGIFactory3 > dxgi_factory3;
 		const HRESULT result_dxgi_factory3 = dxgi_adapter2->GetParent(__uuidof(IDXGIFactory3), (void **)dxgi_factory3.GetAddressOf());
 		if (FAILED(result_dxgi_factory3)) {
-			Error("IDXGIFactory3 creation failed: %ld.", result_dxgi_factory3);
+			Error("IDXGIFactory3 creation failed: %08X.", result_dxgi_factory3);
 			return result_dxgi_factory3;
 		}
 
@@ -179,13 +179,13 @@ namespace mage {
 		ComPtr< IDXGISwapChain1 > swap_chain1;
 		const HRESULT result_swap_chain1 = dxgi_factory3->CreateSwapChainForHwnd(m_device2.Get(), m_hwindow, &swap_chain_desc, &swap_chain_fullscreen_desc, nullptr, swap_chain1.ReleaseAndGetAddressOf());
 		if (FAILED(result_swap_chain1)) {
-			Error("IDXGISwapChain1 creation failed: %ld.", result_swap_chain1);
+			Error("IDXGISwapChain1 creation failed: %08X.", result_swap_chain1);
 			return result_swap_chain1;
 		}
 		// Get the IDXGISwapChain2.
 		const HRESULT result_swap_chain2 = swap_chain1.As(&m_swap_chain2);
 		if (FAILED(result_swap_chain2)) {
-			Error("IDXGISwapChain2 creation failed: %ld.", result_swap_chain2);
+			Error("IDXGISwapChain2 creation failed: %08X.", result_swap_chain2);
 			return result_swap_chain2;
 		}
 
@@ -200,14 +200,14 @@ namespace mage {
 		ComPtr< ID3D11Texture2D > back_buffer;
 		const HRESULT result_back_buffer = m_swap_chain2->GetBuffer(0, __uuidof(ID3D11Texture2D), (void **)back_buffer.GetAddressOf());
 		if (FAILED(result_back_buffer)) {
-			Error("Back buffer texture creation failed: %ld.", result_back_buffer);
+			Error("Back buffer texture creation failed: %08X.", result_back_buffer);
 			return result_back_buffer;
 		}
 		
 		// Create a ID3D11RenderTargetView.
 		const HRESULT result_render_target_view = m_device2->CreateRenderTargetView(back_buffer.Get(), nullptr, m_render_target_view.ReleaseAndGetAddressOf());
 		if (FAILED(result_render_target_view)) {
-			Error("ID3D11RenderTargetView creation failed: %ld.", result_render_target_view);
+			Error("ID3D11RenderTargetView creation failed: %08X.", result_render_target_view);
 			return result_render_target_view;
 		}
 
@@ -231,7 +231,7 @@ namespace mage {
 		depth_stencil_desc.MiscFlags          = 0;							   // Flags that identify other, less common resource options.
 		const HRESULT result_depth_stencil    = m_device2->CreateTexture2D(&depth_stencil_desc, nullptr, m_depth_stencil.ReleaseAndGetAddressOf());
 		if (FAILED(result_depth_stencil)) {
-			Error("Depth-stencil texture creation failed: %ld.", result_depth_stencil);
+			Error("Depth-stencil texture creation failed: %08X.", result_depth_stencil);
 			return result_depth_stencil;
 		}
 
@@ -243,7 +243,7 @@ namespace mage {
 		depth_stencil_view_desc.Texture2D.MipSlice = 0;
 		const HRESULT result_depth_stencil_view    = m_device2->CreateDepthStencilView(m_depth_stencil.Get(), &depth_stencil_view_desc, m_depth_stencil_view.ReleaseAndGetAddressOf());
 		if (FAILED(result_depth_stencil_view)) {
-			Error("Depth-stencil view creation failed: %ld.", result_depth_stencil_view);
+			Error("Depth-stencil view creation failed: %08X.", result_depth_stencil_view);
 			return result_depth_stencil_view;
 		}
 

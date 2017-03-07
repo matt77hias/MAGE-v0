@@ -120,7 +120,7 @@ namespace mage{
 		//Initialize a window.
 		const HRESULT result_window = InitializeWindow(width, height);
 		if (FAILED(result_window)) {
-			Error("Window initialization failed: %ld.", result_window);
+			Error("Window initialization failed: %08X.", result_window);
 			return;
 		}
 
@@ -131,7 +131,7 @@ namespace mage{
 		// Unintialize the window.
 		const HRESULT result_window = UninitializeWindow();
 		if (FAILED(result_window)) {
-			Error("Window uninitialization failed: %ld.", result_window);
+			Error("Window uninitialization failed: %08X.", result_window);
 			return;
 		}
 	}

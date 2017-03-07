@@ -163,6 +163,9 @@
     <Filter Include="Header Files\world">
       <UniqueIdentifier>{061bf1e1-1117-445f-8078-90ad4d54fdbf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\binary">
+      <UniqueIdentifier>{97c8fb08-ca1b-44d1-96e3-02246fdd9961}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -432,6 +435,9 @@
     <ClInclude Include="MAGE\src\world\world_object.hpp">
       <Filter>Header Files\world</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\binary\binary_reader.hpp">
+      <Filter>Header Files\binary</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -580,6 +586,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\model\model_descriptor.cpp">
       <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\string\binary_reader.cpp">
+      <Filter>Source Files\binary</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

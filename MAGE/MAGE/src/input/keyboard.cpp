@@ -18,7 +18,7 @@ namespace mage {
 
 		const HRESULT result_keyboard = InitializeKeyboard(di);
 		if (FAILED(result_keyboard)) {
-			Error("Keyboard initialization failed: %ld.", result_keyboard);
+			Error("Keyboard initialization failed: %08X.", result_keyboard);
 			return;
 		}
 
@@ -33,13 +33,13 @@ namespace mage {
 		// 3. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or nullptr if the interface is not aggregated.
 		const HRESULT result_keyboard_create = di->CreateDevice(GUID_SysKeyboard, &m_keyboard, nullptr);
 		if (FAILED(result_keyboard_create)) {
-			Error("Keyboard device creation failed: %ld.", result_keyboard_create);
+			Error("Keyboard device creation failed: %08X.", result_keyboard_create);
 			return result_keyboard_create;
 		}
 		// Set the data format for the DirectInput device. 
 		const HRESULT result_keyboard_format = m_keyboard->SetDataFormat(&c_dfDIKeyboard);
 		if (FAILED(result_keyboard_format)) {
-			Error("Setting data format for keyboard device failed: %ld.", result_keyboard_format);
+			Error("Setting data format for keyboard device failed: %08X.", result_keyboard_format);
 			return result_keyboard_format;
 		}
 		// Establish the cooperative level for this instance of the device. 
@@ -47,7 +47,7 @@ namespace mage {
 		// with other instances of the device and the rest of the system. 
 		const HRESULT result_keyboard_cooperative = m_keyboard->SetCooperativeLevel(m_hwindow, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 		if (FAILED(result_keyboard_cooperative)) {
-			Error("Setting cooperation level for keyboard device failed: %ld.", result_keyboard_cooperative);
+			Error("Setting cooperation level for keyboard device failed: %08X.", result_keyboard_cooperative);
 			return result_keyboard_cooperative;
 		}
 		// Obtain access to the input device. 

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MAGE\src\binary\binary_reader.hpp" />
     <ClInclude Include="MAGE\src\binary\binary_utils.hpp" />
     <ClInclude Include="MAGE\src\camera\camera.hpp" />
     <ClInclude Include="MAGE\src\camera\orthographic_camera.hpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="MAGE\src\shader\lambertian_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
     <ClCompile Include="MAGE\src\shader\shader.cpp" />
+    <ClCompile Include="MAGE\src\string\binary_reader.cpp" />
     <ClCompile Include="MAGE\src\string\line_reader.cpp" />
     <ClCompile Include="MAGE\src\string\token.cpp" />
     <ClCompile Include="MAGE\src\string\string_utils.cpp" />

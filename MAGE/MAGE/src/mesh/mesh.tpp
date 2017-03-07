@@ -20,13 +20,13 @@ namespace mage {
 		
 		const HRESULT result_vertex_buffer = device.CreateVertexBuffer< VertexT >(m_vertex_buffer.ReleaseAndGetAddressOf(), vertices, nb_vertices);
 		if (FAILED(result_vertex_buffer)) {
-			Error("Vertex buffer creation failed: %ld.", result_vertex_buffer);
+			Error("Vertex buffer creation failed: %08X.", result_vertex_buffer);
 			return;
 		}
 
 		const HRESULT result_index_buffer = device.CreateIndexBuffer< uint32_t >(m_index_buffer.ReleaseAndGetAddressOf(), indices, nb_indices);
 		if (FAILED(result_index_buffer)) {
-			Error("Index buffer creation failed: %ld.", result_index_buffer);
+			Error("Index buffer creation failed: %08X.", result_index_buffer);
 			return;
 		}
 	}

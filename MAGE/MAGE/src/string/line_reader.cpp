@@ -123,7 +123,7 @@ namespace mage {
 		}
 	}
 	
-	char *LineReader::ReadChars() {
+	const char *LineReader::ReadChars() {
 		char *result;
 		const TokenResult token_result = mage::ReadChars(nullptr, &m_context, &result, GetDelimiters().c_str());
 

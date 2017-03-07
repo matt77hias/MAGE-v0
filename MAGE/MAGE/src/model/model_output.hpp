@@ -1,11 +1,21 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <stdint.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
 #include "material\material.hpp"
+#include "collection\collection.hpp"
 
 #pragma endregion
 

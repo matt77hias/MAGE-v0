@@ -30,13 +30,14 @@ namespace mage {
 		const wstring &GetFilename() const {
 			return m_fname;
 		}
+		
+	protected:
+
+		virtual HRESULT Read() = 0;
+
 		bool HasCharsLeft() const {
 			return m_pos < m_end;
 		}
-
-	protected:
-
-		virtual HRESULT Process() = 0;
 
 		const char *ReadChars(size_t size);
 		int8_t ReadInt8();

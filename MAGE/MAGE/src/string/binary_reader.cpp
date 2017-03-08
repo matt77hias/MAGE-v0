@@ -48,13 +48,7 @@ namespace mage {
 			
 		m_pos = data.get();
 		m_end = data.get() + nb_bytes;
-
-		const HRESULT result = Process();
-
-		m_pos = nullptr;
-		m_end = nullptr;
-
-		return result;
+		return Read();
 	}
 	HRESULT BinaryReader::ReadFromMemory(const uint8_t *input, size_t size, bool big_endian) {
 		m_fname = L"input string";
@@ -67,13 +61,7 @@ namespace mage {
 
 		m_pos = input;
 		m_end = input + size;
-		
-		const HRESULT result = Process();
-		
-		m_pos = nullptr;
-		m_end = nullptr;
-		
-		return result;
+		return Read();
 	}
 
 	const char *BinaryReader::ReadChars(size_t size) {

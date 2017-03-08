@@ -3,6 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\memory.hpp"
 #include "texture\dds\dds_loader.hpp"
 #include "logging\error.hpp"
 
@@ -112,21 +113,6 @@ namespace mage {
 
 #pragma pack(pop)
 
-    struct HandleCloser {
-
-        void operator()(HANDLE h) {
-            if (h) {
-                CloseHandle(h);
-            }
-        }
-    };
-
-    typedef public std::unique_ptr<void, HandleCloser> ScopedHandle;
-
-    inline HANDLE safe_handle(HANDLE h) { 
-        return (h == INVALID_HANDLE_VALUE) ? 0 : h;
-    }
-
     template< UINT TNameLength >
     inline void SetDebugObjectName(_In_ ID3D11DeviceChild *resource, _In_ const char(&name)[TNameLength]) {
 #if defined(_DEBUG) || defined(PROFILE)
@@ -143,11 +129,8 @@ static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *file_name, std::uni
     }
 
     // open the file
-#if (_WIN32_WINNT >= _WIN32_WINNT_WIN8)
-    ScopedHandle hfile(safe_handle(CreateFile2(file_name, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr)));
-#else
-    ScopedHandle hfile(safe_handle(CreateFileW(file_name, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr)));
-#endif
+    UniqueHandle hfile(SafeHandle(CreateFile2(file_name, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr)));
+
 
     if (!hfile) {
         return HRESULT_FROM_WIN32(GetLastError());

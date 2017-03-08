@@ -18,7 +18,7 @@ namespace mage {
 		m_fname = fname;
 		m_big_endian = big_endian;
 
-		HandlePtr file_handle(SafeHandle(CreateFile2(fname.c_str(), GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr)));
+		UniqueHandle file_handle(SafeHandle(CreateFile2(fname.c_str(), GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr)));
 		FILE_STANDARD_INFO file_info;
 		if (!GetFileInformationByHandleEx(file_handle.get(), FileStandardInfo, &file_info, sizeof(file_info))) {
 			Error("%ls: could not retrieve file information.", GetFilename().c_str());

@@ -65,20 +65,34 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-struct HandleCloser {
+namespace mage {
 
-	void operator()(HANDLE handle) {
+	struct HandleCloser {
+
+		void operator()(HANDLE handle) {
+			if (handle) {
+				CloseHandle(handle);
+			}
+
+		}
+	};
+	
+	inline void HandleDeleter(HANDLE handle) {
 		if (handle) {
 			CloseHandle(handle);
 		}
+	}
 
-	} 
-};
+	typedef std::unique_ptr< void, HandleCloser > UniqueHandle;
+	typedef SharedPtr< void > SharedHandle;
 
-typedef std::unique_ptr< void, HandleCloser > HandlePtr;
+	inline HANDLE SafeHandle(HANDLE handle) {
+		return (handle == INVALID_HANDLE_VALUE) ? nullptr : handle;
+	}
 
-inline HANDLE SafeHandle(HANDLE handle) { 
-	return (handle == INVALID_HANDLE_VALUE) ? nullptr : handle; 
+	inline SharedHandle CreateSharedHandle(HANDLE handle) {
+		return SharedHandle(SafeHandle(handle), HandleDeleter);
+	}
 }
 
 #pragma endregion

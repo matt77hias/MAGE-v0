@@ -29,11 +29,11 @@ namespace mage {
 		 Constructs a transform from the given translation, rotation and scale component.
 
 		 @param[in]		translation
-						The translation component.
+						A reference to the translation component.
 		 @param[in]		rotation
-						The rotation component.
+						A reference to the rotation component.
 		 @param[in]		scale
-						The scale component.
+						A reference to the scale component.
 		 */
 		Transform(const XMFLOAT3 &translation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &rotation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &scale = { 1.0f, 1.0f, 1.0f })
 			: m_translation(translation), m_rotation(rotation), m_scale(scale) {

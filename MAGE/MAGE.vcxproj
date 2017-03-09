@@ -41,6 +41,7 @@
     <ClInclude Include="MAGE\src\logging\logging.hpp" />
     <ClInclude Include="MAGE\src\logging\progress_reporter.hpp" />
     <ClInclude Include="MAGE\src\logging\timer.hpp" />
+    <ClInclude Include="MAGE\src\material\color.hpp" />
     <ClInclude Include="MAGE\src\material\material.hpp" />
     <ClInclude Include="MAGE\src\material\material_loader.hpp" />
     <ClInclude Include="MAGE\src\material\mtl\mtl_loader.hpp" />
@@ -95,6 +96,11 @@
     <ClInclude Include="MAGE\src\shader\shader_utils.hpp" />
     <ClInclude Include="MAGE\src\shader\shading.hpp" />
     <ClInclude Include="MAGE\src\shader\shader.hpp" />
+    <ClInclude Include="MAGE\src\sprite\glyph.hpp" />
+    <ClInclude Include="MAGE\src\sprite\sprite_batch.hpp" />
+    <ClInclude Include="MAGE\src\sprite\sprite_effects.hpp" />
+    <ClInclude Include="MAGE\src\sprite\sprite_font.hpp" />
+    <ClInclude Include="MAGE\src\sprite\sprite_transform.hpp" />
     <ClInclude Include="MAGE\src\string\line_reader.hpp" />
     <ClInclude Include="MAGE\src\string\token.hpp" />
     <ClInclude Include="MAGE\src\string\string.hpp" />
@@ -149,6 +155,7 @@
     <ClCompile Include="MAGE\src\shader\lambertian_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
     <ClCompile Include="MAGE\src\shader\shader.cpp" />
+    <ClCompile Include="MAGE\src\sprite\sprite_font.cpp" />
     <ClCompile Include="MAGE\src\string\binary_reader.cpp" />
     <ClCompile Include="MAGE\src\string\line_reader.cpp" />
     <ClCompile Include="MAGE\src\string\token.cpp" />
@@ -289,6 +296,7 @@
       <SDLCheck>true</SDLCheck>
       <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -313,6 +321,7 @@
       <SDLCheck>true</SDLCheck>
       <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -338,6 +347,7 @@
       <SDLCheck>true</SDLCheck>
       <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -368,6 +378,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

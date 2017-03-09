@@ -91,9 +91,6 @@
     <Filter Include="Source Files\shader">
       <UniqueIdentifier>{bf5285b6-f30c-44ef-b945-a5cbfe9b4dc8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\font">
-      <UniqueIdentifier>{660c971a-3e19-4793-b5e5-7d829ee704ed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\mesh">
       <UniqueIdentifier>{782ee454-4d9a-4d6e-9daa-32a156758e2f}</UniqueIdentifier>
     </Filter>
@@ -165,6 +162,12 @@
     </Filter>
     <Filter Include="Source Files\binary">
       <UniqueIdentifier>{97c8fb08-ca1b-44d1-96e3-02246fdd9961}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sprite">
+      <UniqueIdentifier>{0e6f04b4-b3bf-4a6c-b89d-f80e376d898a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sprite">
+      <UniqueIdentifier>{30da0086-7246-40cb-8a93-c0e0e68a7ce6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -438,6 +441,24 @@
     <ClInclude Include="MAGE\src\binary\binary_reader.hpp">
       <Filter>Header Files\binary</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\glyph.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite_font.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\material\color.hpp">
+      <Filter>Header Files\material</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite_transform.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite_effects.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite_batch.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -589,6 +610,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\string\binary_reader.cpp">
       <Filter>Source Files\binary</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\sprite\sprite_font.cpp">
+      <Filter>Source Files\sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

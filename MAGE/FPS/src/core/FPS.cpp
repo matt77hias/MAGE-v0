@@ -60,7 +60,7 @@ public:
 		CombinedShader shader = CreateLambertianShader();
 
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc = CreateModelDescriptor(L"assets/models/sphere.obj", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc = CreateModelDescriptor(L"assets/models/cube.obj", mesh_desc);
 		SharedPtr< Model > test_model(new MeshModel("model", *model_desc, shader));
 		GetWorld().AddModel(test_model);
 		

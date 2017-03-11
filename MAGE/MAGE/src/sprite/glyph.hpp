@@ -36,8 +36,8 @@ namespace mage {
 		bool operator<(const Glyph &glyph) const {
 			return m_character < glyph.m_character;
 		}
-		bool operator<(uint32_t character) const {
-			return m_character < character;
+		bool operator<(wchar_t character) const {
+			return m_character < static_cast< uint32_t >(character);
 		}
 
 		uint32_t m_character;
@@ -58,11 +58,11 @@ namespace mage {
 		return left.m_character < right.m_character;
 	}
 
-	inline bool operator<(const Glyph &left, uint32_t right) {
-		return left.m_character < right;
+	inline bool operator<(const Glyph &left, wchar_t right) {
+		return left.m_character < static_cast< uint32_t >(right);
 	}
 
-	inline bool operator<(uint32_t left, const Glyph &right) {
-		return left < right.m_character;
+	inline bool operator<(wchar_t left, const Glyph &right) {
+		return static_cast< uint32_t >(left) < right.m_character;
 	}
 }

@@ -53,16 +53,4 @@ namespace mage {
 
 		float m_advance_x;
 	};
-
-	inline bool operator<(const Glyph &left, const Glyph &right) {
-		return left.m_character < right.m_character;
-	}
-
-	inline bool operator<(const Glyph &left, wchar_t right) {
-		return left.m_character < static_cast< uint32_t >(right);
-	}
-
-	inline bool operator<(wchar_t left, const Glyph &right) {
-		return static_cast< uint32_t >(left) < right.m_character;
-	}
 }

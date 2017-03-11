@@ -5,7 +5,25 @@
 
 namespace mage {
 
-	
+	struct GlyphLessThan final {
+
+	public:
+
+		GlyphLessThan() = default;
+		GlyphLessThan(const GlyphLessThan &comparator) = default;
+		~GlyphLessThan() = default;
+		GlyphLessThan &operator=(const GlyphLessThan &comparator) = default;
+
+		inline bool operator()(const Glyph &left, const Glyph &right) {
+			return left.m_character < right.m_character;
+		}
+		inline bool operator()(const Glyph &left, wchar_t right) {
+			return left.m_character < static_cast< uint32_t >(right);
+		}
+		inline bool operator()(wchar_t left, const Glyph &right) {
+			return static_cast< uint32_t >(left) < right.m_character;
+		}
+	};
 
 
 	SpriteFont::SpriteFont(const RenderingDevice &device, const wstring &fname, bool force_srgb) {
@@ -146,11 +164,11 @@ namespace mage {
 		}
 	}
 	bool SpriteFont::ContainsCharacter(wchar_t character) const {
-		return false; // std::binary_search(m_glyphs.cbegin(), m_glyphs.cend(), character);
+		return std::binary_search(m_glyphs.cbegin(), m_glyphs.cend(), character, GlyphLessThan());
 	}
 
 	const Glyph *SpriteFont::GetGlyph(wchar_t character) const {
-		const vector< Glyph >::const_iterator it;// = std::lower_bound(m_glyphs.cbegin(), m_glyphs.cend(), character);
+		const vector< Glyph >::const_iterator it = std::lower_bound(m_glyphs.cbegin(), m_glyphs.cend(), character, GlyphLessThan());
 		if (it != m_glyphs.cend() && it->m_character == character) {
 			return &(*it);
 		}

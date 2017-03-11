@@ -146,7 +146,7 @@ namespace mage {
 		}
 	}
 	bool SpriteFont::ContainsCharacter(wchar_t character) const {
-		return std::binary_search(m_glyphs.cbegin(), m_glyphs.cend(), character);
+		return false; // std::binary_search(m_glyphs.cbegin(), m_glyphs.cend(), character);
 	}
 
 	const Glyph *SpriteFont::GetGlyph(wchar_t character) const {

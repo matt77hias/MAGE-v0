@@ -30,7 +30,7 @@ namespace mage {
 						A reference to the translation component.
 		 @param[in]		rotation
 						A reference to the rotation component.
-		 @param[in]		rotation
+		 @param[in]		rotation_origin
 						A reference to the rotation component.
 		 @param[in]		scale
 						A reference to the scale component.
@@ -82,7 +82,7 @@ namespace mage {
 						A reference to the translation component.
 		 @param[in]		rotation
 						A reference to the rotation component.
-		 @param[in]		rotation
+		 @param[in]		rotation_origin
 						A reference to the rotation component.
 		 @param[in]		scale
 						A reference to the scale component.

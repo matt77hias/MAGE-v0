@@ -3,8 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "material\material_loader.hpp"
-#include "material\mtl\mtl_loader.hpp"
+#include "sprite\sprite_font_loader.hpp"
+#include "sprite\font\font_loader.hpp"
+#include "file\file_utils.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -14,14 +15,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT ImportMaterialFromFile(const wstring &fname, vector< Material > &material_buffer) {
+	HRESULT ImportSpriteFontFromFile(const wstring &fname, const RenderingDevice &device, SpriteFontOutput &output, const SpriteFontDescriptor &desc) {
 		const wstring extension = GetFileExtension(fname);
 
-		if (extension == L"mtl" || extension == L"MTL") {
-			return ImportMTLMaterialFromFile(fname, material_buffer);
+		if (extension == L"font" || extension == L"FONT") {
+			return ImportFontFromFile(fname, device, output, desc);
 		}
 
-		Warning("Unknown material file extension: %ls", fname.c_str());
+		Warning("Unknown sprite font file extension: %ls", fname.c_str());
 		return E_FAIL;
 	}
 }

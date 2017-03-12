@@ -17,39 +17,46 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Binary Conversion Utilities
 	//-------------------------------------------------------------------------
+	
+	template < typename ValueT >
+	inline const ValueT *BytesBigEndianToValue(const uint8_t *bytes) {
+		static_assert(std::is_pod< ValueT >::value, "Can only read plain-old-data types.");
+		return reinterpret_cast< const ValueT * >(bytes);
+	}
+	
 	inline int8_t BytesBigEndianToInt8(const uint8_t *bytes) {
-		return *reinterpret_cast< const int8_t * >(bytes);
+		return *BytesBigEndianToValue< int8_t >(bytes);
 	}
 	inline uint8_t BytesBigEndianToUInt8(const uint8_t *bytes) {
 		return bytes[0];
 	}
 	inline int16_t BytesBigEndianToInt16(const uint8_t *bytes) {
-		return *reinterpret_cast< const int16_t * >(bytes);
+		return *BytesBigEndianToValue< int16_t >(bytes);
 	}
 	inline uint16_t BytesBigEndianToUInt16(const uint8_t *bytes) {
-		return *reinterpret_cast< const uint16_t * >(bytes);
+		return *BytesBigEndianToValue< uint16_t >(bytes);
 	}
 	inline int32_t BytesBigEndianToInt32(const uint8_t *bytes) {
-		return *reinterpret_cast< const int32_t * >(bytes);
+		return *BytesBigEndianToValue< int32_t >(bytes);
 	}
 	inline uint32_t BytesBigEndianToUInt32(const uint8_t *bytes) {
-		return *reinterpret_cast< const uint32_t * >(bytes);
+		return *BytesBigEndianToValue< uint32_t >(bytes);
 	}
 	inline int64_t BytesBigEndianToInt64(const uint8_t *bytes) {
-		return *reinterpret_cast< const int64_t * >(bytes);
+		return *BytesBigEndianToValue< int64_t >(bytes);
 	}
 	inline uint64_t BytesBigEndianToUInt64(const uint8_t *bytes) {
-		return *reinterpret_cast< const uint64_t * >(bytes);
+		return *BytesBigEndianToValue< uint64_t >(bytes);
 	}
 	inline float BytesBigEndianToFloat(const uint8_t *bytes) {
-		return *reinterpret_cast< const float * >(bytes);
+		return *BytesBigEndianToValue< float >(bytes);
 	}
 	inline double BytesBigEndianToDouble(const uint8_t *bytes) {
-		return *reinterpret_cast< const double * >(bytes);
+		return *BytesBigEndianToValue< double >(bytes);
 	}
 
 	inline int8_t BytesLittleEndianToInt8(const uint8_t *bytes) {
-		return *reinterpret_cast< const int8_t * >(bytes);
+		return *BytesBigEndianToValue< int8_t >(bytes);
 	}
 	inline uint8_t BytesLittleEndianToUInt8(const uint8_t *bytes) {
 		return bytes[0];
@@ -88,7 +95,7 @@ namespace mage {
 	}
 
 	inline int8_t BytesToInt8(const uint8_t *bytes) {
-		return *reinterpret_cast< const int8_t * >(bytes);
+		return *BytesBigEndianToValue< int8_t >(bytes);
 	}
 	inline uint8_t BytesToUInt8(const uint8_t *bytes) {
 		return bytes[0];

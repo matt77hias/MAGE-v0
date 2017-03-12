@@ -1,45 +1,52 @@
 #pragma once
 
-#include "resource\resource.hpp"
-#include "collection\collection.hpp"
-#include "rendering\rendering_device.hpp"
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
 
-#include "sprite\glyph.hpp"
+#include "resource\resource.hpp"
+#include "rendering\rendering_device.hpp"
+#include "sprite\sprite_font_output.hpp"
+#include "sprite\sprite_font_descriptor.hpp"
 #include "sprite\sprite_transform.hpp"
 #include "sprite\sprite_batch.hpp"
 #include "sprite\sprite_effects.hpp"
 #include "material\color.hpp"
 
+#pragma endregion
 
-
+//-----------------------------------------------------------------------------
+// Engine Declarations
+//-----------------------------------------------------------------------------
 namespace mage {
 
-	class SpriteFont {
+	class SpriteFont : public Resource {
 
 	public:
 
-		SpriteFont(const RenderingDevice &device, const wstring &fname, bool force_srgb);
+		SpriteFont(const RenderingDevice &device, const wstring &fname, const SpriteFontDescriptor &desc);
 		virtual ~SpriteFont() = default;
 
 		void DrawString(SpriteBatch &sprite_batch, const wchar_t *text, const SpriteTransform &transform,
 			XMVECTOR color = Colors::White, SpriteEffects effects = SpriteEffects_None, float layer_depth = 0.0f) const;
 
-		XMVECTOR MeasureString(const wchar_t *text);
-		RECT MeasureDrawBounds(const wchar_t *text, const XMFLOAT2 &position);
+		XMVECTOR MeasureString(const wchar_t *text) const;
+		RECT MeasureDrawBounds(const wchar_t *text, const XMFLOAT2 &position) const;
 		
 		float GetLineSpacing() const;
 		void SetLineSpacing(float spacing);
 		wchar_t GetDefaultCharacter() const;
 		void SetDefaultCharacter(wchar_t character);
 		bool ContainsCharacter(wchar_t character) const;
-
 		const Glyph *GetGlyph(wchar_t character) const;
-		void GetSpriteSheet(ID3D11ShaderResourceView **texture);
 
 	private:
 
 		SpriteFont(const SpriteFont &font) = delete;
 		SpriteFont &operator=(const SpriteFont &font) = delete;
+
+		HRESULT InitializeSpriteFont(const SpriteFontOutput &output);
 
 		ComPtr< ID3D11ShaderResourceView > m_texture;
 		vector < Glyph > m_glyphs;

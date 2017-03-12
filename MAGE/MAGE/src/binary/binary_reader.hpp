@@ -7,6 +7,7 @@
 
 #include "platform\windows.hpp"
 #include "string\string.hpp"
+#include "binary\binary_utils.hpp"
 #include "memory\memory.hpp"
 
 #pragma endregion
@@ -15,6 +16,12 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	HRESULT ReadBinaryFile(const wchar_t *fname, UniquePtr< uint8_t[] > &data, size_t *size);
+
+	//-------------------------------------------------------------------------
+	// BinaryReader
+	//-------------------------------------------------------------------------
 
 	class BinaryReader {
 
@@ -60,5 +67,59 @@ namespace mage {
 		bool m_big_endian;
 		const uint8_t *m_pos;
 		const uint8_t *m_end;
+		UniquePtr< uint8_t[] > m_data;
+	};
+
+	//-------------------------------------------------------------------------
+	// BigEndianBinaryReader
+	//-------------------------------------------------------------------------
+
+	class BigEndianBinaryReader {
+
+	public:
+
+		BigEndianBinaryReader()
+			: m_pos(nullptr), m_end(nullptr) {}
+		virtual ~BigEndianBinaryReader() = default;
+
+		HRESULT ReadFromFile(const wstring &fname);
+		HRESULT ReadFromMemory(const uint8_t *input, size_t size);
+
+		const wstring &GetFilename() const {
+			return m_fname;
+		}
+
+	protected:
+
+		virtual HRESULT Read() = 0;
+
+		bool HasCharsLeft() const {
+			return m_pos < m_end;
+		}
+
+		template< typename ValueT >
+		const ValueT &ReadValue();
+
+		template< typename ValueT >
+		const ValueT *ReadValueArray(size_t size);
+		
+	private:
+
+		BigEndianBinaryReader(const BigEndianBinaryReader &reader) = delete;
+		BigEndianBinaryReader &operator=(const BigEndianBinaryReader &reader) = delete;
+
+		wstring m_fname;
+		const uint8_t *m_pos;
+		const uint8_t *m_end;
+		UniquePtr< uint8_t[] > m_data;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "binary\binary_reader.tpp"
+
+#pragma endregion

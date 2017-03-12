@@ -4,8 +4,6 @@
 #pragma region
 
 #include "binary\binary_reader.hpp"
-#include "binary\binary_utils.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -14,40 +12,56 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	HRESULT ReadBinaryFile(const wchar_t *fname, UniquePtr< uint8_t[] > &data, size_t *size) {
+		UniqueHandle file_handle(SafeHandle(CreateFile2(fname, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr)));
+		FILE_STANDARD_INFO file_info;
+		if (!GetFileInformationByHandleEx(file_handle.get(), FileStandardInfo, &file_info, sizeof(file_info))) {
+			Error("%ls: could not retrieve file information.", fname);
+			return HRESULT_FROM_WIN32(GetLastError());
+		}
+		if (file_info.EndOfFile.HighPart > 0) {
+			Error("%ls: file too big for 32-bit allocation.", fname);
+			return E_FAIL;
+		}
+		
+		const DWORD nb_bytes = file_info.EndOfFile.LowPart;
+		*size = nb_bytes;
+		data.reset(new uint8_t[nb_bytes]);
+		if (!data) {
+			Error("%ls: file too big for allocation.", fname);
+			return E_FAIL;
+		}
+
+		DWORD nb_bytes_read = 0;
+		if (!ReadFile(file_handle.get(), data.get(), nb_bytes, &nb_bytes_read, nullptr)) {
+			Error("%ls: could not load file data.", fname);
+			return HRESULT_FROM_WIN32(GetLastError());
+		}
+		if (nb_bytes_read < nb_bytes) {
+			Error("%ls: could not load all file data.", fname);
+			return E_FAIL;
+		}
+	
+		return S_OK;
+	}
+
+	//-------------------------------------------------------------------------
+	// BinaryReader
+	//-------------------------------------------------------------------------
+
 	HRESULT BinaryReader::ReadFromFile(const wstring &fname, bool big_endian) {
 		m_fname = fname;
 		m_big_endian = big_endian;
 
-		UniqueHandle file_handle(SafeHandle(CreateFile2(fname.c_str(), GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr)));
-		FILE_STANDARD_INFO file_info;
-		if (!GetFileInformationByHandleEx(file_handle.get(), FileStandardInfo, &file_info, sizeof(file_info))) {
-			Error("%ls: could not retrieve file information.", GetFilename().c_str());
-			return HRESULT_FROM_WIN32(GetLastError());
-		}
-		if (file_info.EndOfFile.HighPart > 0) {
-			Error("%ls: too big for 32-bit allocation.", GetFilename().c_str());
-			return E_FAIL;
-		}
-		const DWORD nb_bytes = file_info.EndOfFile.LowPart;
-		UniquePtr< uint8_t[] > data(new uint8_t[nb_bytes]);
-		if (!data) {
-			Error("%ls: too big for allocation.", GetFilename().c_str());
+		size_t nb_bytes;
+		const HRESULT result_read = ReadBinaryFile(fname.c_str(), m_data, &nb_bytes);
+		if (FAILED(result_read)) {
+			Error("%ls: failed to read binary file.", fname.c_str());
 			return E_FAIL;
 		}
 
-
-		DWORD nb_bytes_read = 0;
-		if (!ReadFile(file_handle.get(), data.get(), nb_bytes, &nb_bytes_read, nullptr)) {
-			Error("%ls: could not load file data.", GetFilename().c_str());
-			return HRESULT_FROM_WIN32(GetLastError());
-		}
-		if (nb_bytes_read < nb_bytes) {
-			Error("%ls: could not load all file data.", GetFilename().c_str());
-			return E_FAIL;
-		}
-			
-		m_pos = data.get();
-		m_end = data.get() + nb_bytes;
+		m_pos = m_data.get();
+		m_end = m_data.get() + nb_bytes;
 		return Read();
 	}
 	HRESULT BinaryReader::ReadFromMemory(const uint8_t *input, size_t size, bool big_endian) {
@@ -228,5 +242,36 @@ namespace mage {
 		const double result = BytesToDouble(m_pos, m_big_endian);
 		m_pos = new_pos;
 		return result;
+	}
+
+	//-------------------------------------------------------------------------
+	// BigEndianBinaryReader
+	//-------------------------------------------------------------------------
+
+	HRESULT BigEndianBinaryReader::ReadFromFile(const wstring &fname) {
+		m_fname = fname;
+
+		size_t nb_bytes;
+		const HRESULT result_read = ReadBinaryFile(fname.c_str(), m_data, &nb_bytes);
+		if (FAILED(result_read)) {
+			Error("%ls: failed to read binary file.", fname.c_str());
+			return E_FAIL;
+		}
+
+		m_pos = m_data.get();
+		m_end = m_data.get() + nb_bytes;
+		return Read();
+	}
+	HRESULT BigEndianBinaryReader::ReadFromMemory(const uint8_t *input, size_t size) {
+		m_fname = L"input string";
+
+		if (m_end < m_pos) {
+			Error("%ls: overflow.", GetFilename().c_str());
+			return E_FAIL;
+		}
+
+		m_pos = input;
+		m_end = input + size;
+		return Read();
 	}
 }

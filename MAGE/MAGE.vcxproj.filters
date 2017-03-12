@@ -169,6 +169,12 @@
     <Filter Include="Source Files\sprite">
       <UniqueIdentifier>{30da0086-7246-40cb-8a93-c0e0e68a7ce6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\sprite\font">
+      <UniqueIdentifier>{d0a56794-7dd5-4d3e-baa9-75fa1b0af830}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sprite\font">
+      <UniqueIdentifier>{c636e84e-a591-4c0d-b37a-41107b1454b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -459,6 +465,24 @@
     <ClInclude Include="MAGE\src\sprite\sprite_batch.hpp">
       <Filter>Header Files\sprite</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\font\font_reader.hpp">
+      <Filter>Header Files\sprite\font</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\font\font_tokens.hpp">
+      <Filter>Header Files\sprite\font</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite_font_output.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite_font_descriptor.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite_font_loader.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\font\font_loader.hpp">
+      <Filter>Header Files\sprite\font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -614,6 +638,15 @@
     <ClCompile Include="MAGE\src\sprite\sprite_font.cpp">
       <Filter>Source Files\sprite</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\sprite\font\font_reader.cpp">
+      <Filter>Source Files\sprite\font</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\sprite\sprite_font_loader.cpp">
+      <Filter>Source Files\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\sprite\font\font_loader.cpp">
+      <Filter>Source Files\sprite\font</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">
@@ -650,6 +683,9 @@
     </None>
     <None Include="MAGE\src\model\model_descriptor.tpp">
       <Filter>Header Files\model</Filter>
+    </None>
+    <None Include="MAGE\src\binary\binary_reader.tpp">
+      <Filter>Header Files\binary</Filter>
     </None>
   </ItemGroup>
 </Project>

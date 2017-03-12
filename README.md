@@ -16,8 +16,6 @@
   * d3dcompiler.lib
 * **Compiler**: MSVC++ 14.0
 * **IDE**: Visual Studio 2015
-* **Documentation style**: [JavaDoc style](http://www.stack.nl/~dimitri/doxygen/manual/docblocks.html) extended with [Doxygen keywords](https://www.stack.nl/~dimitri/doxygen/manual/commands.html)
-* **Documentation generation**: [Doxygen](http://www.stack.nl/~dimitri/doxygen/index.html) to HTML and LaTeX
 
 ## Codebase
 Based on:

@@ -19,7 +19,6 @@ namespace mage {
 
 	public:
 
-		LineReader() : m_context(nullptr) {}
 		virtual ~LineReader() = default;
 
 		HRESULT ReadFromFile(const wstring &fname, const string &delimiters = MAGE_DEFAULT_DELIMITERS);
@@ -33,6 +32,9 @@ namespace mage {
 		}
 
 	protected:
+
+		LineReader()
+			: m_context(nullptr) {}
 
 		const uint32_t GetCurrentLineNumber() const {
 			return m_line_number;

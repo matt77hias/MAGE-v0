@@ -27,8 +27,6 @@ namespace mage {
 
 	public:
 
-		BinaryReader()
-			: m_pos(nullptr), m_end(nullptr) {}
 		virtual ~BinaryReader() = default;
 
 		HRESULT ReadFromFile(const wstring &fname, bool big_endian);
@@ -39,6 +37,9 @@ namespace mage {
 		}
 		
 	protected:
+
+		BinaryReader()
+			: m_pos(nullptr), m_end(nullptr) {}
 
 		virtual HRESULT Read() = 0;
 
@@ -78,8 +79,6 @@ namespace mage {
 
 	public:
 
-		BigEndianBinaryReader()
-			: m_pos(nullptr), m_end(nullptr) {}
 		virtual ~BigEndianBinaryReader() = default;
 
 		HRESULT ReadFromFile(const wstring &fname);
@@ -90,6 +89,9 @@ namespace mage {
 		}
 
 	protected:
+
+		BigEndianBinaryReader()
+			: m_pos(nullptr), m_end(nullptr) {}
 
 		virtual HRESULT Read() = 0;
 

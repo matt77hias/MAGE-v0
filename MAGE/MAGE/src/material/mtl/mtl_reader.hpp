@@ -19,7 +19,6 @@ namespace mage {
 	class MTLReader : public LineReader {
 
 	public:
-
 		MTLReader(vector< Material > &material_buffer)
 			: LineReader(), m_material_buffer(material_buffer) {}
 		virtual ~MTLReader() = default;

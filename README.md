@@ -18,12 +18,15 @@
 * **IDE**: Visual Studio 2015
 
 ## Codebase
-Based on:
-* [pbrt-v2](https://github.com/mmp/pbrt-v2): low level, non-pbrt functionality
-* [pbrt-v3](https://github.com/mmp/pbrt-v3): low level, non-pbrt functionality
+*Non-substantially* based on:
+* [pbrt-v2](https://github.com/mmp/pbrt-v2): low level, non-pbrt functionality [[License](https://github.com/mmp/pbrt-v2/blob/master/src/LICENSE.txt)]
+* [pbrt-v3](https://github.com/mmp/pbrt-v3): low level, non-pbrt functionality [[License](https://github.com/mmp/pbrt-v3/blob/master/LICENSE.txt)]
 * [VYGE](https://github.com/matt77hias/VYGE)
-* [DirectXTK](https://github.com/Microsoft/DirectXTK)
-* [directx-sdk-samples](https://github.com/walbourn/directx-sdk-samples)
+* [directx-sdk-samples](https://github.com/walbourn/directx-sdk-samples) [[License](https://github.com/walbourn/directx-sdk-samples/blob/master/LICENSE)]
+
+*Substantially* based on:
+* [DirectXTK](https://github.com/Microsoft/DirectXTK) [[License](https://github.com/Microsoft/DirectXTK/blob/master/LICENSE)]
+* [Logo](http://www.deviantart.com/art/Black-Mage-356147620) [[License](https://creativecommons.org/licenses/by-nc-nd/3.0/)]
 
 ## Further iterations
 * Animation

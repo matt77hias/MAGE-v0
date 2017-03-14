@@ -23,7 +23,7 @@ namespace mage {
 
 	void PrintConsoleHeader() {
 		printf("Engine version %s of %s at %s\n", MAGE_VERSION_STRING, __DATE__, __TIME__);
-		printf("Copyright (c) 2016 Matthias Moulin.\n");
+		printf("Copyright (c) 2016-2017 Matthias Moulin.\n");
 		fflush(stdout);
 	}
 }

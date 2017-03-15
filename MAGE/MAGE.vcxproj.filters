@@ -175,8 +175,8 @@
     <Filter Include="Source Files\sprite\spritefont">
       <UniqueIdentifier>{c636e84e-a591-4c0d-b37a-41107b1454b2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\shaders">
-      <UniqueIdentifier>{4c09547b-8627-40ef-855e-05235e162cd4}</UniqueIdentifier>
+    <Filter Include="Header Files\shader\cso">
+      <UniqueIdentifier>{3e728b6b-cea7-411c-907f-9061e4579b11}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -483,14 +483,14 @@
     <ClInclude Include="MAGE\src\sprite\spritefont\spritefont_loader.hpp">
       <Filter>Header Files\sprite\spritefont</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shaders\lambertian_PS.h">
-      <Filter>Header Files\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shaders\lambertian_VS.h">
-      <Filter>Header Files\shaders</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp">
       <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\lambertian_PS.h">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\lambertian_VS.h">
+      <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "sprite\sprite_font.hpp"
 
 using namespace mage;
 
@@ -69,6 +70,8 @@ public:
 
 		SharedPtr< BehaviorScript > test_script(new TestScript(test_model));
 		AddScript(test_script);
+
+		SpriteFont font(g_engine->GetRenderer().GetDevice(), L"assets/fonts/calibri.spritefont", SpriteFontDescriptor());
 	}
 
 private:

@@ -1,10 +1,10 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Defines
+// Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
-
+	
 #define MAGE_FONT_MAGIC "MAGEfont"
 
 #pragma endregion

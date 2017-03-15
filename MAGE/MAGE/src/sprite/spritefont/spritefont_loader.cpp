@@ -14,7 +14,7 @@
 namespace mage {
 
 	HRESULT ImportFontFromFile(const wstring &fname, const RenderingDevice &device, SpriteFontOutput &output, const SpriteFontDescriptor &desc) {
-		FontReader reader(device, output, desc);
+		SpriteFontReader reader(device, output, desc);
 		return reader.ReadFromFile(fname);
 	}
 }

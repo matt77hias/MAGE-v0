@@ -17,12 +17,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class FontReader : public BigEndianBinaryReader {
+	class SpriteFontReader : public BigEndianBinaryReader {
 
 	public:
 
-		FontReader(const RenderingDevice &device, SpriteFontOutput &output, const SpriteFontDescriptor &desc);
-		virtual ~FontReader() = default;
+		SpriteFontReader(const RenderingDevice &device, SpriteFontOutput &output, const SpriteFontDescriptor &desc);
+		virtual ~SpriteFontReader() = default;
 
 		virtual HRESULT Read() override;
 
@@ -33,8 +33,8 @@ namespace mage {
 
 	private:
 
-		FontReader(const FontReader &reader) = delete;
-		FontReader &operator=(const FontReader &reader) = delete;
+		SpriteFontReader(const SpriteFontReader &reader) = delete;
+		SpriteFontReader &operator=(const SpriteFontReader &reader) = delete;
 
 		const RenderingDevice &m_device;
 		SpriteFontOutput &m_output;

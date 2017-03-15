@@ -14,10 +14,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	FontReader::FontReader(const RenderingDevice &device, SpriteFontOutput &output, const SpriteFontDescriptor &desc)
+	SpriteFontReader::SpriteFontReader(const RenderingDevice &device, SpriteFontOutput &output, const SpriteFontDescriptor &desc)
 		: BigEndianBinaryReader(), m_device(device), m_output(output), m_desc(desc) {}
 
-	HRESULT FontReader::Read() {
+	HRESULT SpriteFontReader::Read() {
 	
 		if (!IsHeaderValid()) {
 			Error("%ls: invalid sprite font header.", GetFilename().c_str());
@@ -45,9 +45,9 @@ namespace mage {
 		return S_OK;
 	}
 
-	bool FontReader::IsHeaderValid() {
+	bool SpriteFontReader::IsHeaderValid() {
 		const char *magic = MAGE_FONT_MAGIC;
-		while (magic != L'\0') {
+		while (*magic != L'\0') {
 			if (ReadValue< uint8_t >() != *magic) {
 				return false;
 			}
@@ -56,7 +56,7 @@ namespace mage {
 		return true;
 	}
 
-	HRESULT FontReader::ReadTexture() {
+	HRESULT SpriteFontReader::ReadTexture() {
 		// Read texture data.
 		const uint32_t texture_width     = ReadValue< uint32_t >();
 		const uint32_t texture_height    = ReadValue< uint32_t >();

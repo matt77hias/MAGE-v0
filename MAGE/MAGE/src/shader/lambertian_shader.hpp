@@ -10,15 +10,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "shader\shader.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Defines
 //-----------------------------------------------------------------------------
 #pragma region
@@ -33,11 +24,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// LambertianVertexShader
+	//-------------------------------------------------------------------------
+
 	class LambertianVertexShader : public VertexShader {
 
 	public:
 
-		LambertianVertexShader(const RenderingDevice &device);
+		LambertianVertexShader(ComPtr< ID3D11Device2 > device);
 		virtual ~LambertianVertexShader() = default;
 
 		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world, const TransformBuffer &transform_buffer) const override;
@@ -50,11 +45,15 @@ namespace mage {
 		ComPtr< ID3D11Buffer > m_cb_transform;
 	};
 
+	//-------------------------------------------------------------------------
+	// LambertianPixelShader
+	//-------------------------------------------------------------------------
+
 	class LambertianPixelShader : public PixelShader {
 
 	public:
 
-		LambertianPixelShader(const RenderingDevice &device);
+		LambertianPixelShader(ComPtr< ID3D11Device2 > device);
 		virtual ~LambertianPixelShader() = default;
 
 		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world) const override;
@@ -67,6 +66,10 @@ namespace mage {
 		ComPtr< ID3D11Buffer > m_cb_material;
 		ComPtr< ID3D11SamplerState >m_sampler;
 	};
+
+	//-------------------------------------------------------------------------
+	// Combined Lambertian Shader
+	//-------------------------------------------------------------------------
 
 	CombinedShader CreateLambertianShader();
 }

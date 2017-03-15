@@ -43,7 +43,7 @@ namespace mage {
 		}
 	};
 
-	SpriteFont::SpriteFont(const RenderingDevice &device, const wstring &fname, const SpriteFontDescriptor &desc)
+	SpriteFont::SpriteFont(ComPtr< ID3D11Device2 > device, const wstring &fname, const SpriteFontDescriptor &desc)
 		: Resource(fname) {
 
 		SpriteFontOutput output;

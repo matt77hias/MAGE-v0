@@ -6,7 +6,8 @@
 #pragma region
 
 #include "resource\resource.hpp"
-#include "rendering\rendering_device.hpp"
+#include "memory\memory.hpp"
+#include "rendering\rendering.hpp"
 #include "sprite\sprite_font_output.hpp"
 #include "sprite\sprite_font_descriptor.hpp"
 #include "sprite\sprite_transform.hpp"
@@ -25,7 +26,7 @@ namespace mage {
 
 	public:
 
-		SpriteFont(const RenderingDevice &device, const wstring &fname, const SpriteFontDescriptor &desc);
+		SpriteFont(ComPtr< ID3D11Device2 > device, const wstring &fname, const SpriteFontDescriptor &desc);
 		virtual ~SpriteFont() = default;
 
 		void DrawString(SpriteBatch &sprite_batch, const wchar_t *text, const SpriteTransform &transform,

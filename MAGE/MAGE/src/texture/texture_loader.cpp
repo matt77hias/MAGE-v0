@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT ImportTextureFromFile(const wstring &fname, const RenderingDevice &device, ID3D11ShaderResourceView **texture_resource_view) {
+	HRESULT ImportTextureFromFile(const wstring &fname, ComPtr< ID3D11Device2 > device, ID3D11ShaderResourceView **texture_resource_view) {
 		const wstring extension = GetFileExtension(fname);
 
 		if (extension == L"dds" || extension == L"DDS") {

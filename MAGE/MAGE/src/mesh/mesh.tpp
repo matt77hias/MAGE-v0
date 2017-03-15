@@ -15,26 +15,38 @@
 namespace mage {
 
 	template < typename VertexT >
-	Mesh::Mesh(const RenderingDevice &device, const VertexT *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices)
+	Mesh::Mesh(ComPtr< ID3D11Device2 > device, const VertexT *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices)
 		: m_nb_vertices(nb_vertices), m_nb_indices(nb_indices), m_vertex_size(sizeof(VertexT)) {
 		
-		const HRESULT result_vertex_buffer = device.CreateVertexBuffer< VertexT >(m_vertex_buffer.ReleaseAndGetAddressOf(), vertices, nb_vertices);
+		const HRESULT result_initialization = InitializeMesh< VertexT >(device, vertices, indices);
+		if (FAILED(result_initialization)) {
+			Error("Mesh initialization failed: %08X.", result_initialization);
+			return;
+		}
+	}
+
+	template < typename VertexT >
+	HRESULT Mesh::InitializeMesh(ComPtr< ID3D11Device2 > device, const VertexT *vertices, const uint32_t *indices) {
+
+		const HRESULT result_vertex_buffer = CreateVertexBuffer< VertexT >(device, m_vertex_buffer.ReleaseAndGetAddressOf(), vertices, m_nb_vertices);
 		if (FAILED(result_vertex_buffer)) {
 			Error("Vertex buffer creation failed: %08X.", result_vertex_buffer);
-			return;
+			return result_vertex_buffer;
 		}
 
-		const HRESULT result_index_buffer = device.CreateIndexBuffer< uint32_t >(m_index_buffer.ReleaseAndGetAddressOf(), indices, nb_indices);
+		const HRESULT result_index_buffer = CreateIndexBuffer< uint32_t >(device, m_index_buffer.ReleaseAndGetAddressOf(), indices, m_nb_indices);
 		if (FAILED(result_index_buffer)) {
 			Error("Index buffer creation failed: %08X.", result_index_buffer);
-			return;
+			return result_index_buffer;
 		}
+
+		return S_OK;
 	}
 
 	inline void Mesh::Render(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		// Set the vertex buffer.
 		UINT stride = static_cast<UINT>(m_vertex_size); // The size (in bytes) of the elements that are to be used from a vertex buffer.
-		UINT offset = 0;			// The number of bytes between the first element of a vertex buffer and the first element that will be used.
+		UINT offset = 0;								// The number of bytes between the first element of a vertex buffer and the first element that will be used.
 		// 1. The first input slot for binding.
 		// 2. The number of vertex buffers in the array.
 		// 3. A pointer to an array of vertex buffers.

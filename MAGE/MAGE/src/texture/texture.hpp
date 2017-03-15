@@ -6,7 +6,8 @@
 #pragma region
 
 #include "resource\resource.hpp"
-#include "rendering\rendering_device.hpp"
+#include "memory\memory.hpp"
+#include "rendering\rendering.hpp"
 
 #pragma endregion
 
@@ -19,7 +20,7 @@ namespace mage {
 
 	public:
 
-		Texture(const RenderingDevice &device, const wstring &fname);
+		Texture(ComPtr< ID3D11Device2 > device, const wstring &fname);
 		virtual ~Texture() = default;
 
 		ComPtr< ID3D11ShaderResourceView > GetTextureResourceView() const {

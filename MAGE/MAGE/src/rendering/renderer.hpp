@@ -15,7 +15,8 @@
 #pragma region
 
 #include "loadable.hpp"
-#include "rendering\rendering_device.hpp"
+#include "memory\memory.hpp"
+#include "rendering\rendering.hpp"
 
 #pragma endregion
 
@@ -74,10 +75,10 @@ namespace mage {
 		/**
 		 Returns the device of this renderer.
 
-		 @return		The device of this renderer.
+		 @return		A pointer to device of this renderer.
 		 */
-		RenderingDevice GetDevice() const {
-			return RenderingDevice(m_device2);
+		ComPtr< ID3D11Device2 > GetDevice() const {
+			return m_device2;
 		}
 
 		/**

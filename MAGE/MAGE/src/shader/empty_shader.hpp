@@ -14,11 +14,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// EmptyVertexShader
+	//-------------------------------------------------------------------------
+
 	class EmptyVertexShader : public VertexShader {
 
 	public:
 
-		EmptyVertexShader(const RenderingDevice &device, const wstring &fname, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
+		EmptyVertexShader(ComPtr< ID3D11Device2 > device, const wstring &fname, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
 			: VertexShader(device, fname, input_element_desc, nb_input_elements) {}
 		virtual ~EmptyVertexShader() = default;
 
@@ -30,11 +34,15 @@ namespace mage {
 		EmptyVertexShader &operator=(const EmptyVertexShader &vertex_shader) = delete;
 	};
 
+	//-------------------------------------------------------------------------
+	// EmptyPixelShader
+	//-------------------------------------------------------------------------
+
 	class EmptyPixelShader : public PixelShader {
 
 	public:
 
-		EmptyPixelShader(const RenderingDevice &device, const wstring &fname)
+		EmptyPixelShader(ComPtr< ID3D11Device2 > device, const wstring &fname)
 			: PixelShader(device, fname) {}
 		virtual ~EmptyPixelShader() = default;
 

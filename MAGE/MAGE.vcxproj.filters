@@ -417,9 +417,6 @@
     <ClInclude Include="MAGE\src\shader\empty_shader.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\rendering_device.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\math\view_frustum.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
@@ -491,6 +488,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\shaders\lambertian_VS.h">
       <Filter>Header Files\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp">
+      <Filter>Header Files\rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -617,9 +617,6 @@
     <ClCompile Include="MAGE\src\math\view_frustum.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\rendering_device.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\shader\empty_shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
@@ -656,6 +653,9 @@
     <ClCompile Include="MAGE\src\sprite\spritefont\spritefont_loader.cpp">
       <Filter>Source Files\sprite\spritefont</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">
@@ -681,9 +681,6 @@
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp">
       <Filter>Header Files\mesh\obj</Filter>
     </None>
-    <None Include="MAGE\src\rendering\rendering_device.tpp">
-      <Filter>Header Files\rendering</Filter>
-    </None>
     <None Include="MAGE\src\resource\resource_factory.tpp">
       <Filter>Header Files\resource</Filter>
     </None>
@@ -695,6 +692,9 @@
     </None>
     <None Include="MAGE\src\binary\binary_reader.tpp">
       <Filter>Header Files\binary</Filter>
+    </None>
+    <None Include="MAGE\src\rendering\rendering_factory.tpp">
+      <Filter>Header Files\rendering</Filter>
     </None>
   </ItemGroup>
 </Project>

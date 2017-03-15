@@ -29,10 +29,10 @@ namespace mage {
 		virtual ~ResourceFactory() = default;
 
 		template < typename VertexT >
-		SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, const RenderingDevice &device, const MeshDescriptor< VertexT > &desc);
-		SharedPtr< VertexShader > CreateLambertianVertexShader(const RenderingDevice &device);
-		SharedPtr< PixelShader > CreateLambertianPixelShader(const RenderingDevice &device);
-		SharedPtr< Texture > CreateTexture(const RenderingDevice &device, const wstring &fname);
+		SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, ComPtr< ID3D11Device2 > device, const MeshDescriptor< VertexT > &desc);
+		SharedPtr< VertexShader > CreateLambertianVertexShader(ComPtr< ID3D11Device2 > device);
+		SharedPtr< PixelShader > CreateLambertianPixelShader(ComPtr< ID3D11Device2 > device);
+		SharedPtr< Texture > CreateTexture(ComPtr< ID3D11Device2 > device, const wstring &fname);
 		SharedPtr< VariableScript > CreateVariableScript(const wstring &fname, bool import);
 
 	private:
@@ -51,7 +51,7 @@ namespace mage {
 	// Resource Creation
 	//-------------------------------------------------------------------------
 
-	RenderingDevice GetRenderingDevice();
+	ComPtr< ID3D11Device2 > GetRenderingDevice();
 
 	ResourceFactory &GetResourceFactory();
 }

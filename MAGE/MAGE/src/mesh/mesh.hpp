@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_device.hpp"
+#include "rendering\rendering_factory.hpp"
 #include "collection\collection.hpp"
 
 #pragma endregion
@@ -30,7 +30,7 @@ namespace mage {
 		 @tparam		VertexT
 						The vertex type.
 		 @param[in]		device
-						A reference to the rendering device.
+						A pointer to the rendering device.
 		 @param[in]		vertices
 						A pointer to an array of vertices.
 		 @param[in]		nb_vertices
@@ -41,7 +41,7 @@ namespace mage {
 						The number of indices.
 		 */
 		template < typename VertexT >
-		Mesh(const RenderingDevice &device, const VertexT *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices);
+		Mesh(ComPtr< ID3D11Device2 > device, const VertexT *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices);
 
 		/**
 		 Constructs a mesh.
@@ -51,7 +51,7 @@ namespace mage {
 		 @tparam		VertexT
 						The vertex type.
 		 @param[in]		device
-						A reference to the rendering device.
+						A pointer to the rendering device.
 		 @param[in]		vertices
 						A reference to a vector of vertices.
 		 @param[in]		indices
@@ -60,7 +60,7 @@ namespace mage {
 						A pointer to an D3D11 device.
 		 */
 		template < typename VertexT >
-		Mesh(const RenderingDevice &device, const vector< VertexT > &vertices, const vector< uint32_t > &indices)
+		Mesh(ComPtr< ID3D11Device2 > device, const vector< VertexT > &vertices, const vector< uint32_t > &indices)
 			: Mesh(device, &vertices[0], vertices.size(), &indices[0], indices.size()) {}
 
 		/**
@@ -108,6 +108,23 @@ namespace mage {
 						(i.e. this mesh).
 		 */
 		Mesh &operator=(const Mesh &mesh) = delete;
+
+		/**
+		 Initializes this mesh.
+
+		 @pre			@a vertices may not be equal to @c nullptr
+		 @pre			@a indices may not be equal to @c nullptr
+		 @tparam		VertexT
+						The vertex type.
+		 @param[in]		device
+						A pointer to the rendering device.
+		 @param[in]		vertices
+						A pointer to an array of vertices.
+		 @param[in]		indices
+						A pointer to an array of indices.
+		 */
+		template < typename VertexT >
+		HRESULT InitializeMesh(ComPtr< ID3D11Device2 > device, const VertexT *vertices, const uint32_t *indices);
 
 		/**
 		 The size of the vertices of this mesh.

@@ -24,9 +24,9 @@ namespace mage {
 
 	public:
 
-		VertexShader(const RenderingDevice &device, const wstring &guid, 
+		VertexShader(ComPtr< ID3D11Device2 > device, const wstring &guid,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
-		VertexShader(const RenderingDevice &device, const wstring &guid, 
+		VertexShader(ComPtr< ID3D11Device2 > device, const wstring &guid,
 			const void *bytecode, SIZE_T bytecode_size,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 		virtual ~VertexShader() = default;
@@ -43,9 +43,9 @@ namespace mage {
 		VertexShader(const VertexShader &vertex_shader) = delete;
 		VertexShader &operator=(const VertexShader &vertex_shader) = delete;
 
-		HRESULT InitializeShader(const RenderingDevice &device, 
+		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
-		HRESULT InitializeShader(const RenderingDevice &device, 
+		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device,
 			const void *bytecode, SIZE_T bytecode_size,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 	};
@@ -58,8 +58,8 @@ namespace mage {
 
 	public:
 
-		PixelShader(const RenderingDevice &device, const wstring &guid);
-		PixelShader(const RenderingDevice &device, const wstring &guid, 
+		PixelShader(ComPtr< ID3D11Device2 > device, const wstring &guid);
+		PixelShader(ComPtr< ID3D11Device2 > device, const wstring &guid,
 			const void *bytecode, SIZE_T bytecode_size);
 		virtual ~PixelShader() = default;
 
@@ -74,8 +74,8 @@ namespace mage {
 		PixelShader(const PixelShader &pixel_shader) = delete;
 		PixelShader &operator=(const PixelShader &pixel_shader) = delete;
 
-		HRESULT InitializeShader(const RenderingDevice &device);
-		HRESULT InitializeShader(const RenderingDevice &device, 
+		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device);
+		HRESULT InitializeShader(ComPtr< ID3D11Device2 > device,
 			const void *bytecode, SIZE_T bytecode_size);
 	};
 

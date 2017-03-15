@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	RenderingDevice GetModelRenderingDevice() {
+	ComPtr< ID3D11Device2 > GetModelRenderingDevice() {
 		return GetRenderingDevice();
 	}
 

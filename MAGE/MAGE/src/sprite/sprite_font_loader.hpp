@@ -6,7 +6,8 @@
 #pragma region
 
 #include "string\string.hpp"
-#include "rendering\rendering_device.hpp"
+#include "memory\memory.hpp"
+#include "rendering\rendering.hpp"
 #include "sprite\sprite_font_output.hpp"
 #include "sprite\sprite_font_descriptor.hpp"
 
@@ -17,5 +18,5 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT ImportSpriteFontFromFile(const wstring &fname, const RenderingDevice &device, SpriteFontOutput &output, const SpriteFontDescriptor &desc = SpriteFontDescriptor());
+	HRESULT ImportSpriteFontFromFile(const wstring &fname, ComPtr< ID3D11Device2 > device, SpriteFontOutput &output, const SpriteFontDescriptor &desc = SpriteFontDescriptor());
 }

@@ -4,6 +4,7 @@
 #pragma region
 
 #include "resource\resource_factory.hpp"
+#include "rendering\rendering_factory.hpp"
 #include "shader\lambertian_shader.hpp"
 #include "shaders\lambertian_PS.h"
 #include "shaders\lambertian_VS.h"
@@ -20,12 +21,16 @@ namespace mage {
 		XMVECTOR x;
 	};
 
-	LambertianVertexShader::LambertianVertexShader(const RenderingDevice &device)
+	//-------------------------------------------------------------------------
+	// LambertianVertexShader
+	//-------------------------------------------------------------------------
+
+	LambertianVertexShader::LambertianVertexShader(ComPtr< ID3D11Device2 > device)
 		: VertexShader(device, MAGE_GUID_LAMBERTIAN_VS, g_lambertian_vs, sizeof(g_lambertian_vs),
 			VertexPositionNormalTexture::input_element_desc,
 			VertexPositionNormalTexture::nb_input_elements) {
 
-		const HRESULT result_cb_transform = device.CreateConstantBuffer< TransformBuffer >(m_cb_transform.ReleaseAndGetAddressOf());
+		const HRESULT result_cb_transform = CreateConstantBuffer< TransformBuffer >(device, m_cb_transform.ReleaseAndGetAddressOf());
 		if (FAILED(result_cb_transform)) {
 			Error("Transformation constant buffer creation failed: %08X.", result_cb_transform);
 			return;
@@ -41,16 +46,20 @@ namespace mage {
 		device_context->VSSetConstantBuffers(0, 1, m_cb_transform.GetAddressOf());
 	}
 
-	LambertianPixelShader::LambertianPixelShader(const RenderingDevice &device)
+	//-------------------------------------------------------------------------
+	// LambertianPixelShader
+	//-------------------------------------------------------------------------
+
+	LambertianPixelShader::LambertianPixelShader(ComPtr< ID3D11Device2 > device)
 		: PixelShader(device, MAGE_GUID_LAMBERTIAN_PS, g_lambertian_ps, sizeof(g_lambertian_ps)) {
 
-		const HRESULT result_cb_material = device.CreateConstantBuffer< MaterialBuffer >(m_cb_material.ReleaseAndGetAddressOf());
+		const HRESULT result_cb_material = CreateConstantBuffer< MaterialBuffer >(device, m_cb_material.ReleaseAndGetAddressOf());
 		if (FAILED(result_cb_material)) {
 			Error("Material constant buffer creation failed: %08X.", result_cb_material);
 			return;
 		}
 
-		const HRESULT result_sampler_state = device.CreateLinearSamplerState(m_sampler.ReleaseAndGetAddressOf());
+		const HRESULT result_sampler_state = CreateLinearSamplerState(device, m_sampler.ReleaseAndGetAddressOf());
 		if (FAILED(result_sampler_state)) {
 			Error("Sampler state creation failed: %08X.", result_sampler_state);
 			return;
@@ -65,8 +74,12 @@ namespace mage {
 		device_context->PSSetSamplers(0, 1, m_sampler.GetAddressOf());
 	}
 
+	//-------------------------------------------------------------------------
+	// Combined Lambertian Shader
+	//-------------------------------------------------------------------------
+
 	CombinedShader CreateLambertianShader() {
-		const RenderingDevice device = GetRenderingDevice();
+		ComPtr< ID3D11Device2 > device = GetRenderingDevice();
 		ResourceFactory &factory = GetResourceFactory();
 		SharedPtr< VertexShader > vs = factory.CreateLambertianVertexShader(device);
 		SharedPtr< PixelShader > ps = factory.CreateLambertianPixelShader(device);

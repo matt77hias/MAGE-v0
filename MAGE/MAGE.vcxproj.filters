@@ -169,10 +169,10 @@
     <Filter Include="Source Files\sprite">
       <UniqueIdentifier>{30da0086-7246-40cb-8a93-c0e0e68a7ce6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\sprite\font">
+    <Filter Include="Header Files\sprite\spritefont">
       <UniqueIdentifier>{d0a56794-7dd5-4d3e-baa9-75fa1b0af830}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\sprite\font">
+    <Filter Include="Source Files\sprite\spritefont">
       <UniqueIdentifier>{c636e84e-a591-4c0d-b37a-41107b1454b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -465,12 +465,6 @@
     <ClInclude Include="MAGE\src\sprite\sprite_batch.hpp">
       <Filter>Header Files\sprite</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\font\font_reader.hpp">
-      <Filter>Header Files\sprite\font</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\font\font_tokens.hpp">
-      <Filter>Header Files\sprite\font</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\sprite\sprite_font_output.hpp">
       <Filter>Header Files\sprite</Filter>
     </ClInclude>
@@ -480,8 +474,14 @@
     <ClInclude Include="MAGE\src\sprite\sprite_font_loader.hpp">
       <Filter>Header Files\sprite</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\font\font_loader.hpp">
-      <Filter>Header Files\sprite\font</Filter>
+    <ClInclude Include="MAGE\src\sprite\spritefont\spritefont_reader.hpp">
+      <Filter>Header Files\sprite\spritefont</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\spritefont\spritefont_tokens.hpp">
+      <Filter>Header Files\sprite\spritefont</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\spritefont\spritefont_loader.hpp">
+      <Filter>Header Files\sprite\spritefont</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -638,14 +638,14 @@
     <ClCompile Include="MAGE\src\sprite\sprite_font.cpp">
       <Filter>Source Files\sprite</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\sprite\font\font_reader.cpp">
-      <Filter>Source Files\sprite\font</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\sprite\sprite_font_loader.cpp">
       <Filter>Source Files\sprite</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\sprite\font\font_loader.cpp">
-      <Filter>Source Files\sprite\font</Filter>
+    <ClCompile Include="MAGE\src\sprite\spritefont\spritefont_reader.cpp">
+      <Filter>Source Files\sprite\spritefont</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\sprite\spritefont\spritefont_loader.cpp">
+      <Filter>Source Files\sprite\spritefont</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

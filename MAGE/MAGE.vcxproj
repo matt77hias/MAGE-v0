@@ -96,10 +96,10 @@
     <ClInclude Include="MAGE\src\shader\shader_utils.hpp" />
     <ClInclude Include="MAGE\src\shader\shading.hpp" />
     <ClInclude Include="MAGE\src\shader\shader.hpp" />
-    <ClInclude Include="MAGE\src\sprite\font\font_loader.hpp" />
-    <ClInclude Include="MAGE\src\sprite\font\font_reader.hpp" />
-    <ClInclude Include="MAGE\src\sprite\font\font_tokens.hpp" />
     <ClInclude Include="MAGE\src\sprite\glyph.hpp" />
+    <ClInclude Include="MAGE\src\sprite\spritefont\spritefont_loader.hpp" />
+    <ClInclude Include="MAGE\src\sprite\spritefont\spritefont_reader.hpp" />
+    <ClInclude Include="MAGE\src\sprite\spritefont\spritefont_tokens.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_batch.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_effects.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_font.hpp" />
@@ -161,8 +161,8 @@
     <ClCompile Include="MAGE\src\shader\lambertian_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
     <ClCompile Include="MAGE\src\shader\shader.cpp" />
-    <ClCompile Include="MAGE\src\sprite\font\font_loader.cpp" />
-    <ClCompile Include="MAGE\src\sprite\font\font_reader.cpp" />
+    <ClCompile Include="MAGE\src\sprite\spritefont\spritefont_loader.cpp" />
+    <ClCompile Include="MAGE\src\sprite\spritefont\spritefont_reader.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_font.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_font_loader.cpp" />
     <ClCompile Include="MAGE\src\string\binary_reader.cpp" />

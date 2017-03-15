@@ -75,7 +75,7 @@ namespace mage {
 		/**
 		 Returns the device of this renderer.
 
-		 @return		A pointer to device of this renderer.
+		 @return		A pointer to the device of this renderer.
 		 */
 		ComPtr< ID3D11Device2 > GetDevice() const {
 			return m_device2;

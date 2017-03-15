@@ -1,11 +1,8 @@
-#pragma once
-
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "world\world.hpp"
 #include "model\model.hpp"
 
 #pragma endregion

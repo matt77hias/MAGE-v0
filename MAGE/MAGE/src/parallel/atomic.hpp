@@ -1,5 +1,14 @@
 #pragma once
 
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "memory\memory.hpp"
+
+#pragma endregion
+
 //-------------------------------------------------------------------------
 // System Includes
 //-------------------------------------------------------------------------
@@ -11,15 +20,6 @@
 // _ReadWriteBarrier effectively blocks an optimization of reads and writes 
 // to global memory. This can be useful to ensure the state of global variables 
 // at a particular point in the code for multithreaded applications.
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "memory\memory.hpp"
 
 #pragma endregion
 

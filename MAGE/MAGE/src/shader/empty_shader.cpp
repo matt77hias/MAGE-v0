@@ -8,7 +8,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 

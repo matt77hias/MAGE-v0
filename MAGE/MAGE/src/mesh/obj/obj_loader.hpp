@@ -10,7 +10,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 

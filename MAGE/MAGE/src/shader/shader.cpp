@@ -4,7 +4,6 @@
 #pragma region
 
 #include "resource\resource_factory.hpp"
-#include "shader\shader.hpp"
 #include "shader\shading.hpp"
 #include "logging\error.hpp"
 

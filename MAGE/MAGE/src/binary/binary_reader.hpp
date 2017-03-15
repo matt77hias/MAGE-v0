@@ -5,10 +5,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "platform\windows.hpp"
+#include "memory\memory.hpp"
 #include "string\string.hpp"
 #include "binary\binary_utils.hpp"
-#include "memory\memory.hpp"
 
 #pragma endregion
 

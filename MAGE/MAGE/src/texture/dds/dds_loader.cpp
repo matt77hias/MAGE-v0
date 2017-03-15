@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
 #include "texture\dds\dds_loader.hpp"
 #include "logging\error.hpp"
 

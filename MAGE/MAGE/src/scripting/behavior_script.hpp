@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
 #include "scene\scene.hpp"
 
 #pragma endregion

@@ -16,11 +16,19 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// VertexShader
+	//-------------------------------------------------------------------------
+
 	class VertexShader : public Resource {
 
 	public:
 
-		VertexShader(const RenderingDevice &device, const wstring &fname, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
+		VertexShader(const RenderingDevice &device, const wstring &guid, 
+			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
+		VertexShader(const RenderingDevice &device, const wstring &guid, 
+			const void *bytecode, SIZE_T bytecode_size,
+			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 		virtual ~VertexShader() = default;
 
 		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world, const TransformBuffer &transform_buffer) const = 0;
@@ -35,14 +43,24 @@ namespace mage {
 		VertexShader(const VertexShader &vertex_shader) = delete;
 		VertexShader &operator=(const VertexShader &vertex_shader) = delete;
 
-		HRESULT InitializeShader(const RenderingDevice &device, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
+		HRESULT InitializeShader(const RenderingDevice &device, 
+			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
+		HRESULT InitializeShader(const RenderingDevice &device, 
+			const void *bytecode, SIZE_T bytecode_size,
+			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 	};
+
+	//-------------------------------------------------------------------------
+	// PixelShader
+	//-------------------------------------------------------------------------
 
 	class PixelShader : public Resource {
 
 	public:
 
-		PixelShader(const RenderingDevice &device, const wstring &fname);
+		PixelShader(const RenderingDevice &device, const wstring &guid);
+		PixelShader(const RenderingDevice &device, const wstring &guid, 
+			const void *bytecode, SIZE_T bytecode_size);
 		virtual ~PixelShader() = default;
 
 		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world) const = 0;
@@ -57,7 +75,13 @@ namespace mage {
 		PixelShader &operator=(const PixelShader &pixel_shader) = delete;
 
 		HRESULT InitializeShader(const RenderingDevice &device);
+		HRESULT InitializeShader(const RenderingDevice &device, 
+			const void *bytecode, SIZE_T bytecode_size);
 	};
+
+	//-------------------------------------------------------------------------
+	// CombinedShader
+	//-------------------------------------------------------------------------
 
 	struct CombinedShader final {
 

@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class ModelDescriptor : public Resource {
+	class ModelDescriptor : public FileResource {
 
 	public:
 

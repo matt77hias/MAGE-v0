@@ -16,7 +16,7 @@
 namespace mage {
 
 	Texture::Texture(const RenderingDevice &device, const wstring &fname)
-		: Resource(fname) {
+		: FileResource(fname) {
 
 		// Create the pixel shader.
 		const HRESULT result_texture_import = ImportTextureFromFile(GetFilename(), device, m_texture_resource_view.ReleaseAndGetAddressOf());

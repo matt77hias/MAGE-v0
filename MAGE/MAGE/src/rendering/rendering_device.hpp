@@ -58,16 +58,27 @@ namespace mage {
 		}
 
 		HRESULT CreateVertexShader(ID3D11VertexShader **shader, ComPtr< ID3DBlob > shader_blob) const {
-			return m_device->CreateVertexShader(shader_blob->GetBufferPointer(), shader_blob->GetBufferSize(), nullptr, shader);
+			return CreateVertexShader(shader, shader_blob->GetBufferPointer(), shader_blob->GetBufferSize(), nullptr);
+		}
+		HRESULT CreateVertexShader(ID3D11VertexShader **shader, const void *bytecode, SIZE_T bytecode_size, ID3D11ClassLinkage *class_linkage) const {
+			return m_device->CreateVertexShader(bytecode, bytecode_size, class_linkage, shader);
 		}
 		HRESULT CreatePixelShader(ID3D11PixelShader **shader, ComPtr< ID3DBlob > shader_blob) const {
-			return m_device->CreatePixelShader(shader_blob->GetBufferPointer(), shader_blob->GetBufferSize(), nullptr, shader);
+			return CreatePixelShader(shader, shader_blob->GetBufferPointer(), shader_blob->GetBufferSize(), nullptr);
+		}
+		HRESULT CreatePixelShader(ID3D11PixelShader **shader, const void *bytecode, SIZE_T bytecode_size, ID3D11ClassLinkage *class_linkage) const {
+			return m_device->CreatePixelShader(bytecode, bytecode_size, class_linkage, shader);
 		}
 		HRESULT CreateVertexInputLayout(ID3D11InputLayout **input_layout, ComPtr< ID3DBlob > shader_blob,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements) const {
-			return m_device->CreateInputLayout(input_element_desc, static_cast< UINT >(nb_input_elements), shader_blob->GetBufferPointer(), shader_blob->GetBufferSize(), input_layout);
+			return CreateVertexInputLayout(input_layout, shader_blob->GetBufferPointer(), shader_blob->GetBufferSize(), 
+				input_element_desc, static_cast< UINT >(nb_input_elements));
 		}
-		
+		HRESULT CreateVertexInputLayout(ID3D11InputLayout **input_layout, const void *bytecode, SIZE_T bytecode_size,
+			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements) const {
+			return m_device->CreateInputLayout(input_element_desc, static_cast< UINT >(nb_input_elements), bytecode, bytecode_size, input_layout);
+		}
+
 		HRESULT CreateSamplerState(const D3D11_SAMPLER_DESC *desc, ID3D11SamplerState **sampler_state) const {
 			return m_device->CreateSamplerState(desc, sampler_state);
 		}

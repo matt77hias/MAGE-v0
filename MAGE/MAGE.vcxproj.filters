@@ -175,6 +175,9 @@
     <Filter Include="Source Files\sprite\spritefont">
       <UniqueIdentifier>{c636e84e-a591-4c0d-b37a-41107b1454b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\shaders">
+      <UniqueIdentifier>{4c09547b-8627-40ef-855e-05235e162cd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -482,6 +485,12 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\sprite\spritefont\spritefont_loader.hpp">
       <Filter>Header Files\sprite\spritefont</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shaders\lambertian_PS.h">
+      <Filter>Header Files\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shaders\lambertian_VS.h">
+      <Filter>Header Files\shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

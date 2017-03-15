@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class Texture : public Resource {
+	class Texture : public FileResource {
 
 	public:
 

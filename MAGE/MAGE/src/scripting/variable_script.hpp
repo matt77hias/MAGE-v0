@@ -20,7 +20,7 @@ namespace mage {
 	/**
 	 A class of variable scripts.
 	 */
-	class VariableScript : public Resource {
+	class VariableScript : public FileResource {
 
 	public:
 

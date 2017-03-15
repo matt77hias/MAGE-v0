@@ -25,7 +25,7 @@ namespace mage {
 		m_variable_script_resource_manager(new ResourceManager< VariableScript >()) {}
 
 	SharedPtr< VertexShader > ResourceFactory::CreateLambertianVertexShader(const RenderingDevice &device) {
-		SharedPtr< VertexShader > resource = m_vertex_shader_resource_manager->GetResource(MAGE_FNAME_LAMBERTIAN_PS);
+		SharedPtr< VertexShader > resource = m_vertex_shader_resource_manager->GetResource(MAGE_GUID_LAMBERTIAN_VS);
 		if (!resource) {
 			// Create a new resource.
 			resource = SharedPtr< VertexShader >(new LambertianVertexShader(device));
@@ -36,7 +36,7 @@ namespace mage {
 	}
 	
 	SharedPtr< PixelShader > ResourceFactory::CreateLambertianPixelShader(const RenderingDevice &device) {
-		SharedPtr< PixelShader > resource = m_pixel_shader_resource_manager->GetResource(MAGE_FNAME_LAMBERTIAN_PS);
+		SharedPtr< PixelShader > resource = m_pixel_shader_resource_manager->GetResource(MAGE_GUID_LAMBERTIAN_PS);
 		if (!resource) {
 			// Create a new resource.
 			resource = SharedPtr< PixelShader >(new LambertianPixelShader(device));

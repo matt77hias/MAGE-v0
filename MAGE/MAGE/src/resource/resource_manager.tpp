@@ -10,13 +10,13 @@ namespace mage {
 		if (!resource) {
 			return;
 		}
-		const wstring &fname = resource->GetFilename();
-		m_resources[fname] = resource;
+		const wstring &guid = resource->GetGuid();
+		m_resources[guid] = resource;
 	}
 
 	template< typename T >
-	void ResourceManager< T >::RemoveResource(const wstring &fname) {
-		const map< wstring, SharedPtr< T > >::const_iterator it = m_resources.find(fname);
+	void ResourceManager< T >::RemoveResource(const wstring &guid) {
+		const map< wstring, SharedPtr< T > >::const_iterator it = m_resources.find(guid);
 		if (it != m_resources.cend()) {
 			m_resources.erase(it);
 		}
@@ -27,7 +27,7 @@ namespace mage {
 		if (!resource) {
 			return;
 		}
-		RemoveResource(resource.GetFilename());
+		RemoveResource(resource.GetGuid());
 	}
 
 	template< typename T >
@@ -36,8 +36,8 @@ namespace mage {
 	}
 
 	template< typename T >
-	SharedPtr< T > ResourceManager< T >::GetResource(const wstring &fname) const {
-		const map< wstring, SharedPtr< T > >::const_iterator it = m_resources.find(fname);
+	SharedPtr< T > ResourceManager< T >::GetResource(const wstring &guid) const {
+		const map< wstring, SharedPtr< T > >::const_iterator it = m_resources.find(guid);
 		if (it != m_resources.cend()) {
 			return it->second;
 		}

@@ -40,13 +40,13 @@ namespace mage {
 		/**
 		 Checks whether this resource manager contains the given resource.
 
-		 @param[in]		fname
-						A reference to the filename of the resource.
+		 @param[in]		guid
+						A reference to the globally unique identifier of the resource.
 		 @return		@c true if this resource manager contains the given resource.
 						@c false otherwise.
 		 */
-		bool ContainsResource(const wstring &fname) const {
-			return (GetResource(fname) != nullptr);
+		bool ContainsResource(const wstring &guid) const {
+			return (GetResource(guid) != nullptr);
 		}
 
 		/**
@@ -69,10 +69,10 @@ namespace mage {
 		/**
 		 Removes the given resource from this resource manager.
 
-		 @param[in]		fname
-						A reference to the filename of the resource.
+		 @param[in]		guid
+						A reference to the globally unique identifier of the resource.
 		 */
-		void RemoveResource(const wstring &fname);
+		void RemoveResource(const wstring &guid);
 
 		/**
 		 Removes the given resource from this resource manager.
@@ -90,12 +90,12 @@ namespace mage {
 		/**
 		 Returns the given resource of this resource manager.
 
-		 @param[in]		fname
-						A reference to the filename of the resource.
+		 @param[in]		guid
+						A reference to the globally unique identifier of the resource.
 		 @return		@c nullptr if the resource is not present.
 		 @return		A pointer to the resource.
 		 */
-		SharedPtr< T > GetResource(const wstring &fname) const;
+		SharedPtr< T > GetResource(const wstring &guid) const;
 
 	private:
 
@@ -119,7 +119,7 @@ namespace mage {
 
 		/**
 		 The map containing the resources of this resource manager as value
-		 and their file names as key.
+		 and their globally unique identifiers as key.
 		 */
 		map< wstring, SharedPtr< T > > m_resources;
 	};

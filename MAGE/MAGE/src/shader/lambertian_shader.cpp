@@ -5,6 +5,8 @@
 
 #include "resource\resource_factory.hpp"
 #include "shader\lambertian_shader.hpp"
+#include "shaders\lambertian_PS.h"
+#include "shaders\lambertian_VS.h"
 #include "mesh\vertex.hpp"
 
 #pragma endregion
@@ -19,7 +21,7 @@ namespace mage {
 	};
 
 	LambertianVertexShader::LambertianVertexShader(const RenderingDevice &device)
-		: VertexShader(device, MAGE_FNAME_LAMBERTIAN_VS,
+		: VertexShader(device, MAGE_GUID_LAMBERTIAN_VS, g_lambertian_vs, sizeof(g_lambertian_vs),
 			VertexPositionNormalTexture::input_element_desc,
 			VertexPositionNormalTexture::nb_input_elements) {
 
@@ -40,7 +42,7 @@ namespace mage {
 	}
 
 	LambertianPixelShader::LambertianPixelShader(const RenderingDevice &device)
-		: PixelShader(device, MAGE_FNAME_LAMBERTIAN_PS) {
+		: PixelShader(device, MAGE_GUID_LAMBERTIAN_PS, g_lambertian_ps, sizeof(g_lambertian_ps)) {
 
 		const HRESULT result_cb_material = device.CreateConstantBuffer< MaterialBuffer >(m_cb_material.ReleaseAndGetAddressOf());
 		if (FAILED(result_cb_material)) {

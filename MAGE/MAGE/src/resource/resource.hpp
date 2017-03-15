@@ -14,6 +14,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Resource
+	//-------------------------------------------------------------------------
+
 	/**
 	 A class of resources.
 	 */
@@ -22,13 +26,13 @@ namespace mage {
 	public:
 
 		/**
-		 Constructs a resource with a given filename.
+		 Constructs a resource with a given globally unique identifier.
 
-		 @param[in]		fname
-						A reference to the filename.
+		 @param[in]		guid
+						A reference to the globally unique identifier.
 		 */
-		Resource(const wstring &fname)
-			: m_fname(fname) {}
+		Resource(const wstring &guid)
+			: m_guid(guid) {}
 
 		/**
 		 Constructs a resource from the given resource.
@@ -44,31 +48,12 @@ namespace mage {
 		virtual ~Resource() = default;
 
 		/**
-		 Returns the filename of this resource.
+		 Returns the globally unique identifier of this resource.
 
-		 @return		The filename of this resource.
+		 @return		The globally unique identifier of this resource.
 		 */
-		const wstring GetFilename() const {
-			return m_fname;
-		}
-
-		/**
-		 Returns the name of this resource.
-
-		 @return		The name of this resource.
-		 */
-		const wstring GetName() const {
-			return GetFileName(m_fname);
-		}
-
-
-		/**
-		 Returns the path of this resource.
-
-		 @return		The path of this resource.
-		 */
-		const wstring GetPath() const {
-			return GetPathName(m_fname);
+		const wstring GetGuid() const {
+			return m_guid;
 		}
 
 	private:
@@ -84,8 +69,82 @@ namespace mage {
 		Resource &operator=(const Resource &resource) = delete;
 
 		/**
-		 The name of this resource.
+		 The globally unique identifier of this resource.
 		 */
-		const wstring m_fname;
+		const wstring m_guid;
+	};
+
+	//-------------------------------------------------------------------------
+	// FileResource
+	//-------------------------------------------------------------------------
+
+	/**
+	 A class of file resources.
+	 */
+	class FileResource : public Resource {
+
+	public:
+
+		/**
+		 Constructs a file resource with a given filename.
+
+		 @param[in]		fname
+						A reference to the filename.
+		 */
+		FileResource(const wstring &fname)
+			: Resource(fname) {}
+
+		/**
+		 Constructs a file resource from the given file resource.
+
+		 @param[in]		file_resource
+						A reference to the file resource.
+		 */
+		FileResource(const FileResource &file_resource) = default;
+
+		/**
+		 Destructs this file resource.
+		 */
+		virtual ~FileResource() = default;
+
+		/**
+		 Returns the filename of this file resource.
+
+		 @return		The filename of this file resource.
+		 */
+		const wstring GetFilename() const {
+			return GetGuid();
+		}
+
+		/**
+		 Returns the name of this file resource.
+
+		 @return		The name of this file resource.
+		 */
+		const wstring GetName() const {
+			return GetFileName(GetGuid());
+		}
+
+
+		/**
+		 Returns the path of this file resource.
+
+		 @return		The path of this file resource.
+		 */
+		const wstring GetPath() const {
+			return GetPathName(GetGuid());
+		}
+
+	private:
+
+		/**
+		 Copies the given file resource to this file resource.
+
+		 @param[in]		file_resource
+						A reference to the file resource to copy from.
+		 @return		A reference to the copy of the given file resource
+						(i.e. this file resource).
+		 */
+		FileResource &operator=(const FileResource &file_resource) = delete;
 	};
 }

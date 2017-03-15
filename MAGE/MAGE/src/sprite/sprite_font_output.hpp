@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering.hpp"
 #include "memory\memory.hpp"
+#include "rendering\rendering.hpp"
 #include "collection\collection.hpp"
 #include "sprite\glyph.hpp"
 

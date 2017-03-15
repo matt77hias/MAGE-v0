@@ -5,9 +5,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\resource.hpp"
 #include "memory\memory.hpp"
 #include "rendering\rendering.hpp"
+#include "resource\resource.hpp"
 #include "sprite\sprite_font_output.hpp"
 #include "sprite\sprite_font_descriptor.hpp"
 #include "sprite\sprite_transform.hpp"

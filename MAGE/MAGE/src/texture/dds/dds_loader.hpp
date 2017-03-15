@@ -14,7 +14,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "platform\windows.hpp"
 #include "memory\memory.hpp"
 #include "rendering\rendering.hpp"
 

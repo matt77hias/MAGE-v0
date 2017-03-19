@@ -28,7 +28,7 @@ namespace mage {
 	template < typename VertexT >
 	HRESULT Mesh::InitializeMesh(ComPtr< ID3D11Device2 > device, const VertexT *vertices, const uint32_t *indices) {
 
-		const HRESULT result_vertex_buffer = CreateVertexBuffer< VertexT >(device, m_vertex_buffer.ReleaseAndGetAddressOf(), vertices, m_nb_vertices);
+		const HRESULT result_vertex_buffer = CreateStaticVertexBuffer< VertexT >(device, m_vertex_buffer.ReleaseAndGetAddressOf(), vertices, m_nb_vertices);
 		if (FAILED(result_vertex_buffer)) {
 			Error("Vertex buffer creation failed: %08X.", result_vertex_buffer);
 			return result_vertex_buffer;

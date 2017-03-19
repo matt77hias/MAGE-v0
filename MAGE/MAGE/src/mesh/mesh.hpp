@@ -61,7 +61,7 @@ namespace mage {
 		 */
 		template < typename VertexT >
 		Mesh(ComPtr< ID3D11Device2 > device, const vector< VertexT > &vertices, const vector< uint32_t > &indices)
-			: Mesh(device, &vertices[0], vertices.size(), &indices[0], indices.size()) {}
+			: Mesh(device, vertices.data(), vertices.size(), indices.data(), indices.size()) {}
 
 		/**
 		 Destructs this mesh.

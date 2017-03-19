@@ -492,6 +492,9 @@
     <ClInclude Include="MAGE\src\shader\cso\lambertian_VS.h">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite_sort_mode.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -655,6 +658,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp">
       <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\sprite\sprite_batch.cpp">
+      <Filter>Source Files\sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

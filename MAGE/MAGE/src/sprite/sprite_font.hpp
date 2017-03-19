@@ -8,10 +8,7 @@
 #include "resource\resource.hpp"
 #include "sprite\sprite_font_output.hpp"
 #include "sprite\sprite_font_descriptor.hpp"
-#include "sprite\sprite_transform.hpp"
 #include "sprite\sprite_batch.hpp"
-#include "sprite\sprite_effects.hpp"
-#include "material\color.hpp"
 
 #pragma endregion
 

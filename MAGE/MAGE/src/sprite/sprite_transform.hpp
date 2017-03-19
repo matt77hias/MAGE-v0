@@ -29,13 +29,13 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component.
 		 @param[in]		rotation
-						A reference to the rotation component.
+						The rotation component.
 		 @param[in]		rotation_origin
 						A reference to the rotation component.
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		SpriteTransform(const XMFLOAT2 &translation = { 0.0f, 0.0f }, const XMFLOAT2 &rotation = { 0.0f, 0.0f },
+		SpriteTransform(const XMFLOAT2 &translation = { 0.0f, 0.0f }, float rotation = 0.0f,
 			const XMFLOAT2 &rotation_origin = { 0.0f, 0.0f }, const XMFLOAT2 &scale = { 1.0f, 1.0f })
 			: m_translation(translation), m_rotation(rotation), m_rotation_origin(rotation_origin), m_scale(scale) {}
 
@@ -81,13 +81,13 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component.
 		 @param[in]		rotation
-						A reference to the rotation component.
+						The rotation component.
 		 @param[in]		rotation_origin
 						A reference to the rotation component.
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		void SetComponents(const XMFLOAT2 &translation, const XMFLOAT2 &rotation, const XMFLOAT2 &rotation_origin, const XMFLOAT2 &scale) {
+		void SetComponents(const XMFLOAT2 &translation, float rotation, const XMFLOAT2 &rotation_origin, const XMFLOAT2 &scale) {
 			m_translation = translation;
 			m_rotation = rotation;
 			m_rotation_origin = rotation_origin;
@@ -216,107 +216,23 @@ namespace mage {
 		//-------------------------------------------------------------------------
 
 		/**
-		 Sets the x-value of the rotation component of this sprite transform to the given value.
-
-		 @param[in]		x
-						The x-value of the rotation component.
-		 */
-		void SetRotationX(float x) {
-			m_rotation.x = x;
-		}
-
-		/**
-		 Sets the y-value of the rotation component of this sprite transform to the given value.
-
-		 @param[in]		y
-						The y-value of the rotation component.
-		 */
-		void SetRotationY(float y) {
-			m_rotation.y = y;
-		}
-
-		/**
-		 Sets the rotation component of this sprite transform to the given rotation component.
-
-		 @param[in]		x
-						The x-value of the rotation component.
-		 @param[in]		y
-						The y-value of the rotation component.
-		 */
-		void SetRotation(float x, float y) {
-			m_rotation.x = x;
-			m_rotation.y = y;
-		}
-
-		/**
 		 Sets the rotation component of this sprite transform to the given rotation component.
 
 		 @param[in]		rotation
-						A reference to the rotation component.
+						The rotation component.
 		 */
-		void SetRotation(const XMFLOAT2 &rotation) {
+		void SetRotation(float rotation) {
 			m_rotation = rotation;
 		}
 
 		/**
-		 Adds the given x-value to the rotation component of this sprite transform.
-
-		 @param[in]		x
-						The x-value of the rotation component to add.
-		 */
-		void AddRotationX(float x) {
-			m_rotation.x += x;
-		}
-
-		/**
-		 Adds the given y-value to the rotation component of this sprite transform.
-
-		 @param[in]		y
-						The y-value of the rotation component to add.
-		 */
-		void AddRotationY(float y) {
-			m_rotation.y += y;
-		}
-
-		/**
-		 Adds the given rotation component to the rotation component of this sprite transform.
-
-		 @param[in]		x
-						The x-value of the rotation component to add.
-		 @param[in]		y
-						The y-value of the rotation component to add.
-		 */
-		void AddRotation(float x, float y) {
-			m_rotation.x += x;
-			m_rotation.y += y;
-		}
-
-		/**
 		 Adds the given rotation component to the rotation component of this sprite transform.
 
 		 @param[in]		rotation
-						A reference to the rotation component to add.
+						The rotation component to add.
 		 */
-		void AddRotation(const XMFLOAT2 &rotation) {
-			AddRotation(rotation.x, rotation.y);
-		}
-
-		/**
-		 Returns the x-value of the rotation component of this sprite transform.
-
-		 @return		The x-value of the rotation component of this sprite transform.
-		 */
-		float GetRotationX() const {
-			return m_rotation.x;
-		}
-
-		/**
-		 Returns the y-value of the rotation component of this sprite transform.
-
-		 @return		The y-value of the rotation component of this sprite transform.
-		 */
-		float GetRotationY() const {
-			return m_rotation.y;
+		void AddRotation(float rotation) {
+			m_rotation += rotation;
 		}
 
 		/**
@@ -324,7 +240,7 @@ namespace mage {
 
 		 @return		The rotation component of this sprite transform.
 		 */
-		XMFLOAT2 GetRotation() const {
+		float GetRotation() const {
 			return m_rotation;
 		}
 
@@ -572,7 +488,7 @@ namespace mage {
 		/**
 		 The rotation component (in radians) of this sprite transform.
 		 */
-		XMFLOAT2 m_rotation;
+		float m_rotation;
 
 		/**
 		 The rotation origin of this sprite transform.

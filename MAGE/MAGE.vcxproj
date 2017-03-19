@@ -110,6 +110,7 @@
     <ClInclude Include="MAGE\src\sprite\sprite_font_output.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_sort_mode.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_transform.hpp" />
+    <ClInclude Include="MAGE\src\sprite\sprite_utils.hpp" />
     <ClInclude Include="MAGE\src\string\line_reader.hpp" />
     <ClInclude Include="MAGE\src\string\token.hpp" />
     <ClInclude Include="MAGE\src\string\string.hpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="MAGE\src\sprite\sprite_batch.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_font.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_font_loader.cpp" />
+    <ClCompile Include="MAGE\src\sprite\sprite_utils.cpp" />
     <ClCompile Include="MAGE\src\string\binary_reader.cpp" />
     <ClCompile Include="MAGE\src\string\line_reader.cpp" />
     <ClCompile Include="MAGE\src\string\token.cpp" />

@@ -42,10 +42,10 @@ namespace mage {
 			XMVECTOR color, SpriteEffects effects, float layer_depth);
 		void End();
 
-		void SetRotation(DXGI_MODE_ROTATION rotation_mode) {
+		void SetRotationMode(DXGI_MODE_ROTATION rotation_mode) {
 			m_rotation_mode = rotation_mode;
 		}
-		DXGI_MODE_ROTATION GetRotation() const {
+		DXGI_MODE_ROTATION GetRotationMode() const {
 			return m_rotation_mode;
 		}
 		void SetViewport(const D3D11_VIEWPORT &viewport) {

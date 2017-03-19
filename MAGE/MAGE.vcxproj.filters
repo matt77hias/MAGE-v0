@@ -495,6 +495,9 @@
     <ClInclude Include="MAGE\src\sprite\sprite_sort_mode.hpp">
       <Filter>Header Files\sprite</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite_utils.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -660,6 +663,9 @@
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\sprite\sprite_batch.cpp">
+      <Filter>Source Files\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\sprite\sprite_utils.cpp">
       <Filter>Source Files\sprite</Filter>
     </ClCompile>
   </ItemGroup>

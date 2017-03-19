@@ -45,7 +45,7 @@ namespace mage {
 
 	inline void Mesh::Render(ComPtr< ID3D11DeviceContext2 > device_context) const {
 		// Set the vertex buffer.
-		UINT stride = static_cast<UINT>(m_vertex_size); // The size (in bytes) of the elements that are to be used from a vertex buffer.
+		UINT stride = static_cast< UINT >(m_vertex_size); // The size (in bytes) of the elements that are to be used from a vertex buffer.
 		UINT offset = 0;								// The number of bytes between the first element of a vertex buffer and the first element that will be used.
 		// 1. The first input slot for binding.
 		// 2. The number of vertex buffers in the array.

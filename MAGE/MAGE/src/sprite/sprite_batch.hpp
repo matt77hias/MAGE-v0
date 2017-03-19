@@ -42,6 +42,20 @@ namespace mage {
 			XMVECTOR color, SpriteEffects effects, float layer_depth);
 		void End();
 
+		void SetRotation(DXGI_MODE_ROTATION rotation_mode) {
+			m_rotation_mode = rotation_mode;
+		}
+		DXGI_MODE_ROTATION GetRotation() const {
+			return m_rotation_mode;
+		}
+		void SetViewport(const D3D11_VIEWPORT &viewport) {
+			m_viewport_dirty = true;
+			m_viewport = viewport;
+		}
+		const D3D11_VIEWPORT &GetViewport() const {
+			return m_viewport;
+		}
+
 	private:
 
 		SpriteBatch(const SpriteBatch &sprite_batch) = delete;
@@ -60,5 +74,22 @@ namespace mage {
 		 A pointer to the index buffer of this sprite batch.
 		 */
 		ComPtr< ID3D11Buffer > m_index_buffer;
+
+		/**
+		 A flag indicating how the back buffers should be rotated 
+		 to fit the physical rotation of a monitor.
+		 */
+		DXGI_MODE_ROTATION m_rotation_mode;
+
+		/**
+		 A flag (dirty bit) indicating whether the viewport of
+		 this sprite batch has been set.
+		 */
+		bool m_viewport_dirty;
+
+		/**
+		 The viewport of this sprite batch.
+		 */
+		D3D11_VIEWPORT m_viewport;
 	};
 }

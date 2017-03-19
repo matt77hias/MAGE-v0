@@ -24,10 +24,13 @@ namespace mage {
 		//-------------------------------------------------------------------------
 
 		/**
-		 Constructs a sprite transform from the given translation, rotation, rotation origin and scale component.
+		 Constructs a sprite transform from the given translation, depth, 
+		 rotation, rotation origin and scale component.
 
 		 @param[in]		translation
 						A reference to the translation component.
+		 @param[in]		depth
+						The depth component.
 		 @param[in]		rotation
 						The rotation component.
 		 @param[in]		rotation_origin
@@ -35,9 +38,10 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		SpriteTransform(const XMFLOAT2 &translation = { 0.0f, 0.0f }, float rotation = 0.0f,
-			const XMFLOAT2 &rotation_origin = { 0.0f, 0.0f }, const XMFLOAT2 &scale = { 1.0f, 1.0f })
-			: m_translation(translation), m_rotation(rotation), m_rotation_origin(rotation_origin), m_scale(scale) {}
+		SpriteTransform(const XMFLOAT2 &translation = { 0.0f, 0.0f }, float depth = 0.0f,
+			float rotation = 0.0f, const XMFLOAT2 &rotation_origin = { 0.0f, 0.0f }, const XMFLOAT2 &scale = { 1.0f, 1.0f })
+			: m_translation(translation), m_depth(depth), 
+			m_rotation(rotation), m_rotation_origin(rotation_origin), m_scale(scale) {}
 
 		/**
 		 Constructs a sprite transform from the given sprite transform.
@@ -75,11 +79,13 @@ namespace mage {
 		//-------------------------------------------------------------------------
 
 		/**
-		 Sets the translation, rotation, scale component of this sprite transform
-		 to the given components.
+		 Sets the translation, depth, rotation, rotation origin and scale component 
+		 of this sprite transform to the given components.
 
 		 @param[in]		translation
 						A reference to the translation component.
+		 @param[in]		depth
+						The depth component.
 		 @param[in]		rotation
 						The rotation component.
 		 @param[in]		rotation_origin
@@ -87,8 +93,10 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		void SetComponents(const XMFLOAT2 &translation, float rotation, const XMFLOAT2 &rotation_origin, const XMFLOAT2 &scale) {
+		void SetComponents(const XMFLOAT2 &translation, float depth, 
+			float rotation, const XMFLOAT2 &rotation_origin, const XMFLOAT2 &scale) {
 			m_translation = translation;
+			m_depth = depth;
 			m_rotation = rotation;
 			m_rotation_origin = rotation_origin;
 			m_scale = scale;
@@ -212,6 +220,39 @@ namespace mage {
 		}
 
 		//-------------------------------------------------------------------------
+		// Depth
+		//-------------------------------------------------------------------------
+
+		/**
+		 Sets the depth component of this sprite transform to the given depth component.
+
+		 @param[in]		depth
+						The depth component.
+		 */
+		void SetDepth(float depth) {
+			m_depth = depth;
+		}
+
+		/**
+		 Adds the given depth component to the depth component of this sprite transform.
+
+		 @param[in]		depth
+						The depth component to add.
+		 */
+		void AddDepth(float depth) {
+			m_depth += depth;
+		}
+
+		/**
+		 Returns the depth component of this sprite transform.
+
+		 @return		The depth component of this sprite transform.
+		 */
+		float GetDepth() const {
+			return m_depth;
+		}
+
+		//-------------------------------------------------------------------------
 		// Rotation
 		//-------------------------------------------------------------------------
 
@@ -245,7 +286,7 @@ namespace mage {
 		}
 
 		//-------------------------------------------------------------------------
-		// Rotation
+		// Rotation Origin
 		//-------------------------------------------------------------------------
 
 		/**
@@ -484,6 +525,11 @@ namespace mage {
 		 The translation component of this sprite transform.
 		 */
 		XMFLOAT2 m_translation;
+
+		/**
+		 The depth component of this sprite transform.
+		 */
+		float m_depth;
 
 		/**
 		 The rotation component (in radians) of this sprite transform.

@@ -25,7 +25,7 @@ namespace mage {
 		virtual ~SpriteFont() = default;
 
 		void DrawString(SpriteBatch &sprite_batch, const wchar_t *text, const SpriteTransform &transform,
-			XMVECTOR color = Colors::White, SpriteEffects effects = SpriteEffects_None, float layer_depth = 0.0f) const;
+			XMVECTOR color = Colors::White, SpriteEffects effects = SpriteEffects_None) const;
 
 		XMVECTOR MeasureString(const wchar_t *text) const;
 		RECT MeasureDrawBounds(const wchar_t *text, const XMFLOAT2 &position) const;

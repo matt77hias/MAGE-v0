@@ -75,8 +75,8 @@ namespace mage {
 		return S_OK;
 	}
 
-	void SpriteFont::DrawString(SpriteBatch &sprite_batch, const wchar_t *text, const SpriteTransform &transform,
-		XMVECTOR color, SpriteEffects effects, float layer_depth) const {
+	void SpriteFont::DrawString(SpriteBatch &sprite_batch, const wchar_t *text, 
+		const SpriteTransform &transform, XMVECTOR color, SpriteEffects effects) const {
 
 		static const XMVECTORF32 axis_direction_table[4] = {
 			{-1.0f, -1.0f},

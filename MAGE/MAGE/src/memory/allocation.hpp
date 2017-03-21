@@ -9,9 +9,9 @@
 
 #pragma endregion
 
-//-------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Engine Defines
-//-------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 #pragma region
 
 #define alloca _alloca
@@ -32,12 +32,14 @@ namespace mage {
 	 
 	 @param[in]		size
 					The requested size in bytes to allocate in memory.
+	 @param[in]		alignment
+					The alignment.
 	 @return		@c nullptr if the allocation failed.
 	 @return		A pointer to the memory block that was allocated.
 	 				The pointer is a multiple of the alignment of 64 bytes.
 	 */
-	inline void *AllocAligned(size_t size) {
-		return _aligned_malloc(size, MAGE_L1_CACHE_LINE_SIZE);
+	inline void *AllocAligned(size_t size, size_t alignment = MAGE_L1_CACHE_LINE_SIZE) {
+		return _aligned_malloc(size, alignment);
 	}
 
 	/**
@@ -51,7 +53,7 @@ namespace mage {
 	 @return		A pointer to the memory block that was allocated.
 	 				The pointer is a multiple of the alignment of 64 bytes.
 	*/
-	template <typename T>
+	template < typename T >
 	inline T *AllocAligned(size_t count) {
 		return (T *)AllocAligned(count * sizeof(T));
 	}
@@ -69,4 +71,29 @@ namespace mage {
 
 		_aligned_free(ptr);
 	}
+
+	template< typename T >
+	struct AlignedValue {
+
+		static void *operator new(size_t size) {
+			const size_t alignment = __alignof(T);
+			
+			// __declspec(align) on T is required
+			static_assert(alignment > 8, "AlignedValue is only useful for types with > 8 byte alignment.");
+
+			return AllocAligned(size, alignment);
+		}
+
+		static void operator delete(void *ptr) {
+			FreeAligned(ptr);
+		}
+
+		static void *operator new[](size_t size) {
+			return operator new(size);
+		}
+
+		static void operator delete[](void *ptr) {
+			operator delete(ptr);
+		}
+	};
 }

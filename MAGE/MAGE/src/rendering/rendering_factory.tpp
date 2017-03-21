@@ -5,8 +5,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Buffers
+	//-------------------------------------------------------------------------
+
 	template < typename VertexT >
-	inline HRESULT CreateStaticVertexBuffer(ComPtr< ID3D11Device2 > device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) {
+	inline HRESULT CreateStaticVertexBuffer(ID3D11Device2 &device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -24,11 +28,11 @@ namespace mage {
 		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
 		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
 		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
-		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
+		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
 	template < typename VertexT >
-	inline HRESULT CreateDynamicVertexBuffer(ComPtr< ID3D11Device2 > device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) {
+	inline HRESULT CreateDynamicVertexBuffer(ID3D11Device2 &device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -46,11 +50,11 @@ namespace mage {
 		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
 		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
 		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
-		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
+		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
 	template < typename IndexT >
-	inline HRESULT CreateIndexBuffer(ComPtr< ID3D11Device2 > device, ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices) {
+	inline HRESULT CreateIndexBuffer(ID3D11Device2 &device, ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -68,11 +72,11 @@ namespace mage {
 		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
 		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
 		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
-		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
+		return device.CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
 	template < typename BufferT >
-	inline HRESULT CreateConstantBuffer(ComPtr< ID3D11Device2 > device, ID3D11Buffer **buffer) {
+	inline HRESULT CreateConstantBuffer(ID3D11Device2 &device, ID3D11Buffer **buffer) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -85,6 +89,6 @@ namespace mage {
 		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
 		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
 		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
-		return device->CreateBuffer(&buffer_desc, nullptr, buffer);
+		return device.CreateBuffer(&buffer_desc, nullptr, buffer);
 	}
 }

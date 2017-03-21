@@ -37,7 +37,7 @@ namespace mage {
 
 	protected:
 
-		virtual void RenderModel(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const override {
+		virtual void RenderModel(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const override {
 			UNUSED(world);
 			UNUSED(transform_buffer);
 			m_mesh->Render(device_context);

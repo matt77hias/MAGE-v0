@@ -20,7 +20,7 @@ namespace mage {
 
 	public:
 
-		SpriteFontReader(ComPtr< ID3D11Device2 > device, SpriteFontOutput &output, const SpriteFontDescriptor &desc);
+		SpriteFontReader(ID3D11Device2 &device, SpriteFontOutput &output, const SpriteFontDescriptor &desc);
 		virtual ~SpriteFontReader() = default;
 
 		virtual HRESULT Read() override;
@@ -35,7 +35,7 @@ namespace mage {
 		SpriteFontReader(const SpriteFontReader &reader) = delete;
 		SpriteFontReader &operator=(const SpriteFontReader &reader) = delete;
 
-		ComPtr< ID3D11Device2 > m_device;
+		ID3D11Device2 &m_device;
 		SpriteFontOutput &m_output;
 		const SpriteFontDescriptor &m_desc;
 	};

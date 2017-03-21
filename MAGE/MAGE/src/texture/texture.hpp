@@ -20,7 +20,7 @@ namespace mage {
 
 	public:
 
-		Texture(ComPtr< ID3D11Device2 > device, const wstring &fname);
+		Texture(ID3D11Device2 &device, const wstring &fname);
 		virtual ~Texture() = default;
 
 		ComPtr< ID3D11ShaderResourceView > GetTextureResourceView() const {

@@ -104,7 +104,7 @@ namespace mage {
 			(*it)->Update(elapsed_time, *this);
 		}
 	}
-	void Scene::Render(ComPtr< ID3D11DeviceContext2 > device_context) {
+	void Scene::Render(ID3D11DeviceContext2 &device_context) {
 		TransformBuffer transform_buffer(GetCamera());
 		m_world->Render(device_context, transform_buffer);
 	}

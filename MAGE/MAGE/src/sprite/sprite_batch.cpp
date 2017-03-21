@@ -44,7 +44,7 @@ namespace mage {
 		return max_sprites_per_batch * indices_per_sprite;
 	}
 
-	HRESULT SpriteBatch::InitializeVertexBuffer(ComPtr< ID3D11Device2 > device) {
+	HRESULT SpriteBatch::InitializeVertexBuffer(ID3D11Device2 &device) {
 		const HRESULT result_create = CreateDynamicVertexBuffer< VertexPositionColorTexture >(device, m_vertex_buffer.ReleaseAndGetAddressOf(), nullptr, MaxVerticesPerSprite());
 		if (FAILED(result_create)) {
 			Error("Vertex buffer creation failed: %08X.", result_create);
@@ -54,7 +54,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT SpriteBatch::InitializeIndexBuffer(ComPtr< ID3D11Device2 > device) {
+	HRESULT SpriteBatch::InitializeIndexBuffer(ID3D11Device2 &device) {
 		static_assert(MaxVerticesPerSprite() < USHRT_MAX, "max_sprites_per_batch too large for 16-bit indices.");
 
 		// Create indices.

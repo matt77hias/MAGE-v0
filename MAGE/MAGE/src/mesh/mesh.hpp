@@ -30,7 +30,7 @@ namespace mage {
 		 @tparam		VertexT
 						The vertex type.
 		 @param[in]		device
-						A pointer to the rendering device.
+						A reference to the rendering device.
 		 @param[in]		vertices
 						A pointer to an array of vertices.
 		 @param[in]		nb_vertices
@@ -41,7 +41,7 @@ namespace mage {
 						The number of indices.
 		 */
 		template < typename VertexT >
-		Mesh(ComPtr< ID3D11Device2 > device, const VertexT *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices);
+		Mesh(ID3D11Device2 &device, const VertexT *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices);
 
 		/**
 		 Constructs a mesh.
@@ -51,7 +51,7 @@ namespace mage {
 		 @tparam		VertexT
 						The vertex type.
 		 @param[in]		device
-						A pointer to the rendering device.
+						A reference to the rendering device.
 		 @param[in]		vertices
 						A reference to a vector of vertices.
 		 @param[in]		indices
@@ -60,7 +60,7 @@ namespace mage {
 						A pointer to an D3D11 device.
 		 */
 		template < typename VertexT >
-		Mesh(ComPtr< ID3D11Device2 > device, const vector< VertexT > &vertices, const vector< uint32_t > &indices)
+		Mesh(ID3D11Device2 &device, const vector< VertexT > &vertices, const vector< uint32_t > &indices)
 			: Mesh(device, vertices.data(), vertices.size(), indices.data(), indices.size()) {}
 
 		/**
@@ -87,7 +87,7 @@ namespace mage {
 		}
 
 
-		void Render(ComPtr< ID3D11DeviceContext2 > device_context) const;
+		void Render(ID3D11DeviceContext2 &device_context) const;
 
 	private:
 
@@ -117,14 +117,14 @@ namespace mage {
 		 @tparam		VertexT
 						The vertex type.
 		 @param[in]		device
-						A pointer to the rendering device.
+						A reference to the rendering device.
 		 @param[in]		vertices
 						A pointer to an array of vertices.
 		 @param[in]		indices
 						A pointer to an array of indices.
 		 */
 		template < typename VertexT >
-		HRESULT InitializeMesh(ComPtr< ID3D11Device2 > device, const VertexT *vertices, const uint32_t *indices);
+		HRESULT InitializeMesh(ID3D11Device2 &device, const VertexT *vertices, const uint32_t *indices);
 
 		/**
 		 The size of the vertices of this mesh.

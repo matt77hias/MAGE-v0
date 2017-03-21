@@ -32,10 +32,10 @@ namespace mage {
 
 	public:
 
-		LambertianVertexShader(ComPtr< ID3D11Device2 > device);
+		LambertianVertexShader(ID3D11Device2 &device);
 		virtual ~LambertianVertexShader() = default;
 
-		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world, const TransformBuffer &transform_buffer) const override;
+		virtual void Render(ID3D11DeviceContext2 &device_context, const Material &material, const World &world, const TransformBuffer &transform_buffer) const override;
 
 	private:
 
@@ -53,10 +53,10 @@ namespace mage {
 
 	public:
 
-		LambertianPixelShader(ComPtr< ID3D11Device2 > device);
+		LambertianPixelShader(ID3D11Device2 &device);
 		virtual ~LambertianPixelShader() = default;
 
-		virtual void Render(ComPtr< ID3D11DeviceContext2 > device_context, const Material &material, const World &world) const override;
+		virtual void Render(ID3D11DeviceContext2 &device_context, const Material &material, const World &world) const override;
 
 	private:
 

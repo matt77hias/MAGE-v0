@@ -24,7 +24,7 @@ namespace mage {
 		m_texture_resource_manager(new ResourceManager< Texture >()), 
 		m_variable_script_resource_manager(new ResourceManager< VariableScript >()) {}
 
-	SharedPtr< VertexShader > ResourceFactory::CreateLambertianVertexShader(ComPtr< ID3D11Device2 > device) {
+	SharedPtr< VertexShader > ResourceFactory::CreateLambertianVertexShader(ID3D11Device2 &device) {
 		SharedPtr< VertexShader > resource = m_vertex_shader_resource_manager->GetResource(MAGE_GUID_LAMBERTIAN_VS);
 		if (!resource) {
 			// Create a new resource.
@@ -35,7 +35,7 @@ namespace mage {
 		return resource;
 	}
 	
-	SharedPtr< PixelShader > ResourceFactory::CreateLambertianPixelShader(ComPtr< ID3D11Device2 > device) {
+	SharedPtr< PixelShader > ResourceFactory::CreateLambertianPixelShader(ID3D11Device2 &device) {
 		SharedPtr< PixelShader > resource = m_pixel_shader_resource_manager->GetResource(MAGE_GUID_LAMBERTIAN_PS);
 		if (!resource) {
 			// Create a new resource.
@@ -46,7 +46,7 @@ namespace mage {
 		return resource;
 	}
 	
-	SharedPtr< Texture > ResourceFactory::CreateTexture(ComPtr< ID3D11Device2 > device, const wstring &fname) {
+	SharedPtr< Texture > ResourceFactory::CreateTexture(ID3D11Device2 &device, const wstring &fname) {
 		SharedPtr< Texture > resource = m_texture_resource_manager->GetResource(fname);
 		if (!resource) {
 			// Create a new resource.
@@ -72,7 +72,7 @@ namespace mage {
 	// Resource Creation
 	//-------------------------------------------------------------------------
 
-	ComPtr< ID3D11Device2 > GetRenderingDevice() {
+	ID3D11Device2 &GetRenderingDevice() {
 		Assert(g_engine);
 		return g_engine->GetRenderer().GetDevice();
 	}

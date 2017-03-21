@@ -35,7 +35,7 @@ namespace mage {
 
 		virtual Model *Clone() const = 0;
 
-		void Render(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const {
+		void Render(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const {
 			RenderModel(device_context, world, transform_buffer);
 			RenderSubModels(device_context, world, transform_buffer);
 		}
@@ -66,13 +66,13 @@ namespace mage {
 		Model(const string &name);
 		Model(const Model &model);
 
-		virtual void RenderModel(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const = 0;
+		virtual void RenderModel(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const = 0;
 		
 	private:
 
 		Model &operator=(const Model &model) = delete;
 
-		void RenderSubModels(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const;
+		void RenderSubModels(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const;
 
 		set< SubModel *, std::less<> > m_submodels;
 	};
@@ -110,12 +110,12 @@ namespace mage {
 
 	protected:
 
-		virtual void RenderModel(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const override {
+		virtual void RenderModel(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const override {
 			// Appearance
 			transform_buffer.SetModelToWorld(GetTransform().GetObjectToWorldMatrix());
 			m_material->Render(device_context, world, transform_buffer);
 			// Geometry
-			device_context->DrawIndexed(static_cast< UINT >(m_nb_indices), static_cast< UINT >(m_start_index), 0);
+			device_context.DrawIndexed(static_cast< UINT >(m_nb_indices), static_cast< UINT >(m_start_index), 0);
 		}
 		
 	private:
@@ -127,7 +127,7 @@ namespace mage {
 		ShadedMaterial *m_material;
 	};
 
-	inline void Model::RenderSubModels(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) const {
+	inline void Model::RenderSubModels(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const {
 		for (set< SubModel * >::const_iterator it = m_submodels.cbegin(); it != m_submodels.cend(); ++it) {
 			(*it)->Render(device_context, world, transform_buffer);
 		}

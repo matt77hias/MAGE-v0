@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Texture::Texture(ComPtr< ID3D11Device2 > device, const wstring &fname)
+	Texture::Texture(ID3D11Device2 &device, const wstring &fname)
 		: FileResource(fname) {
 
 		// Create the pixel shader.
@@ -25,7 +25,7 @@ namespace mage {
 	}
 
 	SharedPtr< Texture > CreateTexture(const wstring &fname) {
-		ComPtr< ID3D11Device2 > device = GetRenderingDevice();
+		ID3D11Device2 &device = GetRenderingDevice();
 		ResourceFactory &factory = GetResourceFactory();
 		return factory.CreateTexture(device, fname);
 	}

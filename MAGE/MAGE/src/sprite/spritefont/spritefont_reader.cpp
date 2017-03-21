@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpriteFontReader::SpriteFontReader(ComPtr< ID3D11Device2 > device, SpriteFontOutput &output, const SpriteFontDescriptor &desc)
+	SpriteFontReader::SpriteFontReader(ID3D11Device2 &device, SpriteFontOutput &output, const SpriteFontDescriptor &desc)
 		: BigEndianBinaryReader(), m_device(device), m_output(output), m_desc(desc) {}
 
 	HRESULT SpriteFontReader::Read() {
@@ -74,7 +74,7 @@ namespace mage {
 		init_data.SysMemPitch = texture_stride;
 		// Create the texture resource.
 		ComPtr< ID3D11Texture2D > texture;
-		const HRESULT result_texture = m_device->CreateTexture2D(&texture_desc, &init_data, texture.ReleaseAndGetAddressOf());
+		const HRESULT result_texture = m_device.CreateTexture2D(&texture_desc, &init_data, texture.ReleaseAndGetAddressOf());
 		if (FAILED(result_texture)) {
 			Error("%ls: failed to create ID3D11Texture2D: %08X.", GetFilename().c_str(), result_texture);
 			return result_texture;
@@ -83,7 +83,7 @@ namespace mage {
 		// Create the shader resource view descriptor.
 		CD3D11_SHADER_RESOURCE_VIEW_DESC shader_resource_view_desc(D3D11_SRV_DIMENSION_TEXTURE2D, texture_format);
 		// Create the shader resource view.
-		const HRESULT result_shader_resource_view = m_device->CreateShaderResourceView(texture.Get(), &shader_resource_view_desc, m_output.m_texture.ReleaseAndGetAddressOf());
+		const HRESULT result_shader_resource_view = m_device.CreateShaderResourceView(texture.Get(), &shader_resource_view_desc, m_output.m_texture.ReleaseAndGetAddressOf());
 		if (FAILED(result_shader_resource_view)) {
 			Error("%ls: failed to create ID3D11ShaderResourceView: %08X.", GetFilename().c_str(), result_texture);
 			return result_shader_resource_view;

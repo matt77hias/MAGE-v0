@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void World::Render(ComPtr< ID3D11DeviceContext2 > device_context, const TransformBuffer &transform_buffer) {
+	void World::Render(ID3D11DeviceContext2 &device_context, const TransformBuffer &transform_buffer) {
 		for (set< SharedPtr< Model > >::iterator it = m_models.begin(); it != m_models.end(); ++it) {
 			(*it)->Render(device_context, *this, transform_buffer);
 		}

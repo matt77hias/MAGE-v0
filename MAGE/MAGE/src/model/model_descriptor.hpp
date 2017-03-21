@@ -20,7 +20,7 @@ namespace mage {
 	public:
 
 		template < typename VertexT >
-		ModelDescriptor(ComPtr< ID3D11Device2 > device, const wstring &fname,
+		ModelDescriptor(ID3D11Device2 &device, const wstring &fname,
 			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >());
 		virtual ~ModelDescriptor() {
 			m_materials.clear();

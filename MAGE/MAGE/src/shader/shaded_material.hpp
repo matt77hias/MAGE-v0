@@ -25,7 +25,7 @@ namespace mage {
 
 		ShadedMaterial &operator=(const ShadedMaterial &shaded_material) = default;
 
-		void Render(ComPtr< ID3D11DeviceContext2 > device_context, const World &world, const TransformBuffer &transform_buffer) {
+		void Render(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) {
 			m_shader.Render(device_context, m_material, world, transform_buffer);
 		}
 

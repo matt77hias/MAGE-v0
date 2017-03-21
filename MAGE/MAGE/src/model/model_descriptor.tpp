@@ -6,7 +6,7 @@
 namespace mage {
 
 	 template < typename VertexT >
-	 ModelDescriptor::ModelDescriptor(ComPtr< ID3D11Device2 > device, const wstring &fname, const MeshDescriptor< VertexT > &desc)
+	 ModelDescriptor::ModelDescriptor(ID3D11Device2 &device, const wstring &fname, const MeshDescriptor< VertexT > &desc)
 		 : FileResource(fname) {
 		 
 		 ModelOutput< VertexT > buffer;
@@ -23,12 +23,12 @@ namespace mage {
 
 	 // Forward declarations
 	 class ResourceFactory;
-	 ComPtr< ID3D11Device2 > GetModelRenderingDevice();
+	 ID3D11Device2 &GetModelRenderingDevice();
 	 ResourceFactory &GetModelResourceFactory();
 
 	 template < typename VertexT >
 	 SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, const MeshDescriptor< VertexT > &desc) {
-		 ComPtr< ID3D11Device2 > device = GetModelRenderingDevice();
+		 ID3D11Device2 &device = GetModelRenderingDevice();
 		 ResourceFactory &factory = GetModelResourceFactory();
 		 return factory.CreateModelDescriptor(fname, device, desc);
 	 }

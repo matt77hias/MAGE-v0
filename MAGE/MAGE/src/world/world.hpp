@@ -29,7 +29,7 @@ namespace mage {
 			RemoveAllLights();
 		}
 
-		void Render(ComPtr< ID3D11DeviceContext2 > device_context, const TransformBuffer &transform_buffer);
+		void Render(ID3D11DeviceContext2 &device_context, const TransformBuffer &transform_buffer);
 
 		//-------------------------------------------------------------------------
 		// Models

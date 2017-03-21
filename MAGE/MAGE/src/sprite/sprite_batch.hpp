@@ -6,7 +6,7 @@
 #pragma region
 
 #include "memory\memory.hpp"
-#include "rendering\rendering.hpp"
+#include "sprite\sprite_utils.hpp"
 #include "sprite\sprite_sort_mode.hpp"
 #include "sprite\sprite_effects.hpp"
 #include "sprite\sprite_transform.hpp"
@@ -61,9 +61,9 @@ namespace mage {
 		SpriteBatch(const SpriteBatch &sprite_batch) = delete;
 		SpriteBatch &operator=(const SpriteBatch &sprite_batch) = delete;
 
-		HRESULT InitializeIndexBuffer(ComPtr< ID3D11Device2 > device);
-		HRESULT InitializeVertexBuffer(ComPtr< ID3D11Device2 > device);
-		HRESULT InitializeShaders(ComPtr< ID3D11Device2 > device);
+		HRESULT InitializeIndexBuffer(ID3D11Device2 &device);
+		HRESULT InitializeVertexBuffer(ID3D11Device2 &device);
+		HRESULT InitializeShaders(ID3D11Device2 &device);
 
 		/**
 		 A pointer to the vertex buffer of this sprite batch.

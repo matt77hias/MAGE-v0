@@ -45,10 +45,18 @@ namespace mage {
 		 Constructs a transform from the components of the given transform.
 
 		 @param[in]		transform
-						The transform.
+						A reference to the transform.
 		 */
 		Transform(const Transform &transform)
 			: Transform(transform.m_translation, transform.m_rotation, transform.m_scale) {}
+
+		/**
+		 Constructs a transform from the given transform.
+
+		 @param[in]		transform
+						A reference to the transform.
+		 */
+		Transform(Transform &&transform) = default;
 
 		//-------------------------------------------------------------------------
 		// Destruction
@@ -69,7 +77,7 @@ namespace mage {
 		 Copies the components of the given transform to this transform.
 
 		 @param[in]		transform
-						The transform to copy from.
+						A reference to the transform to copy from.
 		 @return		A reference to the copy of the given transform
 						(i.e. this transform).
 		 */
@@ -77,6 +85,16 @@ namespace mage {
 			SetComponents(transform);
 			return (*this);
 		}
+
+		/**
+		 Copies the given transform to this transform.
+
+		 @param[in]		transform
+						A reference to the transform to copy from.
+		 @return		A reference to the copy of the given transform
+						(i.e. this transform).
+		 */
+		Transform &operator=(Transform &&transform) = default;
 
 		//-------------------------------------------------------------------------
 		// Tranbslation + Rotation + Scale

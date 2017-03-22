@@ -65,12 +65,14 @@ namespace mage {
 
 		Model(const string &name);
 		Model(const Model &model);
+		Model(Model &&model) = default;
 
 		virtual void RenderModel(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const = 0;
 		
 	private:
 
 		Model &operator=(const Model &model) = delete;
+		Model &operator=(Model &&model) = delete;
 
 		void RenderSubModels(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const;
 
@@ -90,6 +92,7 @@ namespace mage {
 
 		SubModel(const string &name, size_t start_index, size_t nb_indices, const ShadedMaterial &material);
 		SubModel(const SubModel &submodel);
+		SubModel(SubModel &&submodel) = default;
 		virtual ~SubModel() {
 			delete m_material;
 		}
@@ -121,6 +124,7 @@ namespace mage {
 	private:
 
 		SubModel &operator=(const SubModel &submodel) = delete;
+		SubModel &operator=(SubModel &&submodel) = delete;
 
 		const size_t m_start_index;
 		const size_t m_nb_indices;

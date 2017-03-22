@@ -25,13 +25,15 @@ namespace mage {
 		WorldObject(const WorldObject &world_object)
 			: m_name(world_object.m_name), 
 			m_transform(new Transform(*world_object.m_transform)) {}
+		WorldObject(WorldObject &&world_object) = default;
 		virtual ~WorldObject() = default;
 
 		WorldObject &operator=(const WorldObject &world_object) {
-			m_name = world_object.m_name;
+			m_name      = world_object.m_name;
 			m_transform = SharedPtr< Transform >(new Transform(*world_object.m_transform));
 			return *this;
 		}
+		WorldObject &operator=(WorldObject &&world_object) = default;
 
 		WorldObject *Clone() const {
 			return new WorldObject(*this);

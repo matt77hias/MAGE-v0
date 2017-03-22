@@ -42,7 +42,7 @@ namespace mage {
 		return m_texture_resource_pool->GetResource< ID3D11Device2 &, const wstring & >(fname, device, fname);
 	}
 	SharedPtr< VariableScript > ResourceFactory::CreateVariableScript(const wstring &fname, bool import) {
-		return m_variable_script_resource_pool->GetResource< const wstring &, bool & >(fname, fname, import);
+		return m_variable_script_resource_pool->GetResource< const wstring &, const bool & >(fname, fname, import);
 	}
 
 	//-------------------------------------------------------------------------

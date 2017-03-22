@@ -40,7 +40,9 @@ namespace mage {
 	private:
 
 		SpriteFont(const SpriteFont &font) = delete;
+		SpriteFont(SpriteFont &&font) = delete;
 		SpriteFont &operator=(const SpriteFont &font) = delete;
+		SpriteFont &operator=(SpriteFont &&font) = delete;
 
 		HRESULT InitializeSpriteFont(const SpriteFontOutput &output);
 

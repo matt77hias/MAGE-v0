@@ -31,7 +31,9 @@ namespace mage {
 	private:
 
 		VSWriter(const VSWriter &reader) = delete;
+		VSWriter(VSWriter &&reader) = delete;
 		VSWriter &operator=(const VSWriter &reader) = delete;
+		VSWriter &operator=(VSWriter &&reader) = delete;
 
 		const vector< Variable * > &m_variable_buffer;
 	};

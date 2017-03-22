@@ -51,6 +51,14 @@ namespace mage {
 		 */
 		SpriteTransform(const SpriteTransform &transform) = default;
 
+		/**
+		 Constructs a sprite transform from the given sprite transform.
+
+		 @param[in]		transform
+						The sprite transform.
+		 */
+		SpriteTransform(SpriteTransform &&transform) = default;
+
 		//-------------------------------------------------------------------------
 		// Destruction
 		//-------------------------------------------------------------------------
@@ -73,6 +81,16 @@ namespace mage {
 						(i.e. this sprite transform).
 		 */
 		SpriteTransform &operator=(const SpriteTransform &transform) = default;
+
+		/**
+		 Copies the given sprite transform to this sprite transform.
+
+		 @param[in]		transform
+						The sprite transform to copy from.
+		 @return		A reference to the copy of the given sprite transform
+						(i.e. this sprite transform).
+		 */
+		SpriteTransform &operator=(SpriteTransform &&transform) = default;
 
 		//-------------------------------------------------------------------------
 		// Tranbslation + Rotation + Scale

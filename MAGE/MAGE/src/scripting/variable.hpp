@@ -157,6 +157,14 @@ namespace mage {
 		Variable(const Variable &variable) = delete;
 
 		/**
+		 Constructs a variable from the given variable.
+
+		 @param[in]		variable
+						A reference to the variable.
+		 */
+		Variable(Variable &&variable) = delete;
+
+		/**
 		 Copies the given variable to this variable.
 
 		 @param[in]		variable
@@ -165,6 +173,16 @@ namespace mage {
 						(i.e. this variable).
 		 */
 		Variable &operator=(const Variable &variable) = delete;
+
+		/**
+		 Copies the given variable to this variable.
+
+		 @param[in]		variable
+						A reference to the variable to copy from.
+		 @return		A reference to the copy of the given variable
+						(i.e. this variable).
+		 */
+		Variable &operator=(Variable &&variable) = delete;
 
 		/**
 		 The name of this variable.
@@ -218,6 +236,14 @@ namespace mage {
 			 */
 			AbstractValue(const AbstractValue &abstract_value) = default;
 
+			/**
+			 Constructs an abstract value from the given abstract value.
+
+			 @param[in]		abstract_value
+							A reference to the abstract value.
+			 */
+			AbstractValue(AbstractValue &&abstract_value) = default;
+
 		private:
 
 			/**
@@ -229,6 +255,16 @@ namespace mage {
 							(i.e. this abstract value).
 			 */
 			AbstractValue &operator=(const AbstractValue &abstract_value) = delete;
+
+			/**
+			 Copies the given abstract value to this abstract value.
+
+			 @param[in]		abstract_value
+							A reference to the abstract value to copy from.
+			 @return		A reference to the copy of the given abstract value
+							(i.e. this abstract value).
+			 */
+			AbstractValue &operator=(AbstractValue &&abstract_value) = delete;
 		};
 
 		/**
@@ -278,6 +314,17 @@ namespace mage {
 				: AbstractValue(value), m_value(value.m_value) {}
 
 			/**
+			 Constructs a value from the given value.
+
+			 @param[in]		value
+							A reference to the value.
+			 */
+			Value(Value &&value)
+				: AbstractValue(value), m_value(value.m_value) {
+				value.m_data = nullptr;
+			}
+
+			/**
 			 Copies the given value to this value.
 
 			 @param[in]		value
@@ -286,6 +333,16 @@ namespace mage {
 							(i.e. this value).
 			 */
 			Value &operator=(const Value &value) = delete;
+
+			/**
+			 Copies the given value to this value.
+
+			 @param[in]		value
+							A reference to the value to copy from.
+			 @return		A reference to the copy of the given value
+							(i.e. this value).
+			 */
+			Value &operator=(Value &&value) = delete;
 
 			/**
 			 A pointer to the value of this value.

@@ -78,6 +78,14 @@ namespace mage {
 		CartesianAxesSystem(const CartesianAxesSystem &axes) = default;
 
 		/**
+		 Constructs a Cartesian axes system from the given Cartesian axes system.
+
+		 @param[in]		axes
+						The Cartesian axes system.
+		 */
+		CartesianAxesSystem(CartesianAxesSystem &&axes) = default;
+
+		/**
 		 Destructs this Cartesian axes system.
 		 */
 		~CartesianAxesSystem() = default;
@@ -91,6 +99,16 @@ namespace mage {
 						(i.e. this Cartesian axes system).
 		 */
 		CartesianAxesSystem &operator=(const CartesianAxesSystem &axes) = default;
+
+		/**
+		 Copies the given Cartesian axes system to this Cartesian axes system.
+
+		 @param[in]		axes
+						The Cartesian axes system to copy from.
+		 @return		A reference to the copy of the given Cartesian axes system
+						(i.e. this Cartesian axes system).
+		 */
+		CartesianAxesSystem &operator=(CartesianAxesSystem &&axes) = default;
 
 		/**
 		 Returns the x-axis of this Cartesian axes system.
@@ -173,6 +191,14 @@ namespace mage {
 		CartesianCoordinateSystem(const CartesianCoordinateSystem &coordinate_system) = default;
 
 		/**
+		 Constructs a Cartesian coordinate system from the given Cartesian coordinate system.
+
+		 @param[in]		coordinate_system
+						The Cartesian coordinate system.
+		 */
+		CartesianCoordinateSystem(CartesianCoordinateSystem &&coordinate_system) = default;
+
+		/**
 		 Destructs this Cartesian coordinate system.
 		 */
 		~CartesianCoordinateSystem() = default;
@@ -186,6 +212,16 @@ namespace mage {
 						(i.e. this Cartesian coordinate system).
 		 */
 		CartesianCoordinateSystem &operator=(const CartesianCoordinateSystem &coordinate_system) = default;
+
+		/**
+		 Copies the given Cartesian coordinate system to this Cartesian coordinate system.
+
+		 @param[in]		coordinate_system
+						The Cartesian coordinate system to copy from.
+		 @return		A reference to the copy of the given Cartesian coordinate system
+						(i.e. this Cartesian coordinate system).
+		 */
+		CartesianCoordinateSystem &operator=(CartesianCoordinateSystem &&coordinate_system) = default;
 
 		/**
 		 Returns the origin of this Cartesian coordinate system.

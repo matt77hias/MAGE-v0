@@ -55,6 +55,14 @@ namespace mage {
 		IdGenerator(const IdGenerator &id_generator) = delete;
 
 		/**
+		 Constructs an id generator from the given id generator.
+
+		 @param[in]		id_generator
+						The id generator.
+		 */
+		IdGenerator(IdGenerator &&id_generator) = delete;
+
+		/**
 		 Copies the given id generator to this id generator.
 
 		 @param[in]		id_generator
@@ -63,6 +71,16 @@ namespace mage {
 						(i.e. this id generator).
 		 */
 		IdGenerator &operator=(const IdGenerator &id_generator) = delete;
+
+		/**
+		 Copies the given id generator to this id generator.
+
+		 @param[in]		id_generator
+						The id generator to copy from.
+		 @return		A reference to the copy of the given id generator
+						(i.e. this id generator).
+		 */
+		IdGenerator &operator=(IdGenerator &&id_generator) = delete;
 
 		/**
 		 The current id of this id generator.

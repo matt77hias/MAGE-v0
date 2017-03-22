@@ -38,7 +38,9 @@ namespace mage {
 	private:
 
 		Writer(const Writer &reader) = delete;
+		Writer(Writer &&reader) = delete;
 		Writer &operator=(const Writer &reader) = delete;
+		Writer &operator=(Writer &&reader) = delete;
 
 		FILE *m_file;
 		wstring m_fname;

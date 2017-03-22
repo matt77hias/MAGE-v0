@@ -23,9 +23,11 @@ namespace mage {
 		MeshDescriptor(bool invert_handedness = false, bool clockwise_order = true)
 			: m_invert_handedness(invert_handedness), m_clockwise_order(clockwise_order) {}
 		MeshDescriptor(const MeshDescriptor< VertexT > &desc) = default;
+		MeshDescriptor(MeshDescriptor< VertexT > &&desc) = default;
 		~MeshDescriptor() = default;
 
 		MeshDescriptor &operator=(const MeshDescriptor< VertexT > &desc) = default;
+		MeshDescriptor &operator=(MeshDescriptor< VertexT > &&desc) = default;
 
 		bool InvertHandness() const {
 			return m_invert_handedness;

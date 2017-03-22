@@ -144,6 +144,14 @@ namespace mage {
 		Engine(const Engine &engine) = delete;
 
 		/**
+		 Constructs an engine from the given engine.
+
+		 @param[in]		engine
+						A reference to the engine.
+		 */
+		Engine(Engine &&engine) = delete;
+
+		/**
 		 Copies the given engine to this engine.
 
 		 @param[in]		engine
@@ -152,6 +160,16 @@ namespace mage {
 						(i.e. this engine).
 		 */
 		Engine &operator=(const Engine &engine) = delete;
+
+		/**
+		 Copies the given engine to this engine.
+
+		 @param[in]		engine
+						A reference to the engine to copy from.
+		 @return		A reference to the copy of the given engine
+						(i.e. this engine).
+		 */
+		Engine &operator=(Engine &&engine) = delete;
 
 		/**
 		 Initializes the different systems of this engine.

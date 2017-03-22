@@ -35,14 +35,6 @@ namespace mage {
 			: m_guid(guid) {}
 
 		/**
-		 Constructs a resource from the given resource.
-
-		 @param[in]		resource
-						A reference to the resource.
-		 */
-		Resource(const Resource &resource) = default;
-
-		/**
 		 Destructs this resource.
 		 */
 		virtual ~Resource() = default;
@@ -59,6 +51,22 @@ namespace mage {
 	private:
 
 		/**
+		 Constructs a resource from the given resource.
+
+		 @param[in]		resource
+						A reference to the resource.
+		 */
+		Resource(const Resource &resource) = delete;
+
+		/**
+		 Constructs a resource from the given resource.
+
+		 @param[in]		resource
+						A reference to the resource.
+		 */
+		Resource(Resource &&resource) = delete;
+
+		/**
 		 Copies the given resource to this resource.
 
 		 @param[in]		resource
@@ -67,6 +75,16 @@ namespace mage {
 						(i.e. this resource).
 		 */
 		Resource &operator=(const Resource &resource) = delete;
+
+		/**
+		 Copies the given resource to this resource.
+
+		 @param[in]		resource
+						A reference to the resource to copy from.
+		 @return		A reference to the copy of the given resource
+						(i.e. this resource).
+		 */
+		Resource &operator=(Resource &&resource) = delete;
 
 		/**
 		 The globally unique identifier of this resource.
@@ -93,14 +111,6 @@ namespace mage {
 		 */
 		FileResource(const wstring &fname)
 			: Resource(fname) {}
-
-		/**
-		 Constructs a file resource from the given file resource.
-
-		 @param[in]		file_resource
-						A reference to the file resource.
-		 */
-		FileResource(const FileResource &file_resource) = default;
 
 		/**
 		 Destructs this file resource.
@@ -138,6 +148,22 @@ namespace mage {
 	private:
 
 		/**
+		 Constructs a file resource from the given file resource.
+
+		 @param[in]		file_resource
+						A reference to the file resource.
+		 */
+		FileResource(const FileResource &file_resource) = delete;
+
+		/**
+		 Constructs a file resource from the given file resource.
+
+		 @param[in]		file_resource
+						A reference to the file resource.
+		 */
+		FileResource(FileResource &&file_resource) = delete;
+
+		/**
 		 Copies the given file resource to this file resource.
 
 		 @param[in]		file_resource
@@ -146,5 +172,15 @@ namespace mage {
 						(i.e. this file resource).
 		 */
 		FileResource &operator=(const FileResource &file_resource) = delete;
+
+		/**
+		 Copies the given file resource to this file resource.
+
+		 @param[in]		file_resource
+						A reference to the file resource to copy from.
+		 @return		A reference to the copy of the given file resource
+						(i.e. this file resource).
+		 */
+		FileResource &operator=(FileResource &&file_resource) = delete;
 	};
 }

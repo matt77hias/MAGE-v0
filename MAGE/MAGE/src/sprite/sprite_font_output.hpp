@@ -32,6 +32,8 @@ namespace mage {
 	private:
 
 		SpriteFontOutput(const SpriteFontOutput &output) = delete;
-		SpriteFontOutput &operator=(SpriteFontOutput &output) = delete;
+		SpriteFontOutput(SpriteFontOutput &&output) = delete;
+		SpriteFontOutput &operator=(const SpriteFontOutput &output) = delete;
+		SpriteFontOutput &operator=(SpriteFontOutput &&output) = delete;
 	};
 }

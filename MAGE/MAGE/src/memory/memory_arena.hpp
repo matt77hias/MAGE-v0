@@ -114,12 +114,28 @@ namespace mage {
 		MemoryArena(const MemoryArena &arena) = delete;
 
 		/**
+		 Constructs a memory arena from the given memory arena.
+
+		 @param[in]		arena
+						The memory arena.
+		 */
+		MemoryArena(MemoryArena &&arena) = delete;
+
+		/**
 		 Copies the given memory arena to this memory arena.
 
 		 @param[in]		arena
 						The memory arena.
 		 */
 		MemoryArena &operator=(const MemoryArena &arena) = delete;
+
+		/**
+		 Copies the given memory arena to this memory arena.
+
+		 @param[in]		arena
+						The memory arena.
+		 */
+		MemoryArena &operator=(MemoryArena &&arena) = delete;
 		
 		/**
 		 The fixed block size of this memory arena.

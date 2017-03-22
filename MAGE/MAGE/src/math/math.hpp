@@ -36,12 +36,20 @@ namespace mage {
 			: XMFLOAT2(x, y) {}
 		UV(const UV &uv)
 			: XMFLOAT2(static_cast< const XMFLOAT2 & >(uv)) {}
+		UV(UV &&uv)
+			: XMFLOAT2(static_cast< XMFLOAT2 && >(uv)) {}
 		explicit UV(const XMFLOAT2 &vector)
+			: XMFLOAT2(vector) {}
+		explicit UV(XMFLOAT2 &&vector)
 			: XMFLOAT2(vector) {}
 
 		~UV() = default;
 
 		UV &operator=(const UV &uv) {
+			XMFLOAT2::operator=(uv);
+			return (*this);
+		}
+		UV &operator=(UV &&uv) {
 			XMFLOAT2::operator=(uv);
 			return (*this);
 		}
@@ -72,14 +80,24 @@ namespace mage {
 			: XMFLOAT3(x, y, z) {}
 		Point3(const Point3 &point)
 			: XMFLOAT3(static_cast< const XMFLOAT3 & >(point)) {}
+		Point3(Point3 &&point)
+			: XMFLOAT3(static_cast< XMFLOAT3 && >(point)) {}
 		explicit Point3(const Direction3 &direction);
+		explicit Point3(Direction3 &&direction);
 		explicit Point3(const Normal3 &normal);
+		explicit Point3(Normal3 &&normal);
 		explicit Point3(const XMFLOAT3 &vector)
+			: XMFLOAT3(vector) {}
+		explicit Point3(XMFLOAT3 &&vector)
 			: XMFLOAT3(vector) {}
 
 		~Point3() = default;
 
 		Point3 &operator=(const Point3 &point) {
+			XMFLOAT3::operator=(point);
+			return (*this);
+		}
+		Point3 &operator=(Point3 &&point) {
 			XMFLOAT3::operator=(point);
 			return (*this);
 		}
@@ -95,15 +113,26 @@ namespace mage {
 			: XMFLOAT3(x, y, z) {}
 		Direction3(const Direction3 &direction)
 			: XMFLOAT3(static_cast< const XMFLOAT3 & >(direction)) {}
+		Direction3(Direction3 &&direction)
+			: XMFLOAT3(static_cast< XMFLOAT3 && >(direction)) {}
 		explicit Direction3(const Point3 &point)
 			: XMFLOAT3(static_cast< const XMFLOAT3 & >(point)) {}
+		explicit Direction3(Point3 &&point)
+			: XMFLOAT3(static_cast< XMFLOAT3 && >(point)) {}
 		Direction3(const Normal3 &normal);
+		Direction3(Normal3 &&normal);
 		explicit Direction3(const XMFLOAT3 &vector)
+			: XMFLOAT3(vector) {}
+		explicit Direction3(XMFLOAT3 &&vector)
 			: XMFLOAT3(vector) {}
 
 		~Direction3() = default;
 
 		Direction3 &operator=(const Direction3 &direction) {
+			XMFLOAT3::operator=(direction);
+			return (*this);
+		}
+		Direction3 &operator=(Direction3 &&direction) {
 			XMFLOAT3::operator=(direction);
 			return (*this);
 		}
@@ -119,11 +148,19 @@ namespace mage {
 			: XMFLOAT3(x, y, z) {}
 		Normal3(const Normal3 &normal)
 			: XMFLOAT3(static_cast< const XMFLOAT3 & >(normal)) {}
+		Normal3(Normal3 &&normal)
+			: XMFLOAT3(static_cast< XMFLOAT3 && >(normal)) {}
 		explicit Normal3(const Point3 &point)
 			: XMFLOAT3(static_cast< const XMFLOAT3 & >(point)) {}
+		explicit Normal3(Point3 &&point)
+			: XMFLOAT3(static_cast< XMFLOAT3 && >(point)) {}
 		explicit Normal3(const Direction3 &direction)
 			: XMFLOAT3(static_cast< const XMFLOAT3 & >(direction)) {}
+		explicit Normal3(Direction3 &&direction)
+			: XMFLOAT3(static_cast< XMFLOAT3 && >(direction)) {}
 		explicit Normal3(const XMFLOAT3 &vector)
+			: XMFLOAT3(vector) {}
+		explicit Normal3(XMFLOAT3 &&vector)
 			: XMFLOAT3(vector) {}
 
 		~Normal3() = default;
@@ -132,16 +169,26 @@ namespace mage {
 			XMFLOAT3::operator=(normal);
 			return (*this);
 		}
+		Normal3 &operator=(Normal3 &&normal) {
+			XMFLOAT3::operator=(normal);
+			return (*this);
+		}
 	};
 
 	inline Point3::Point3(const Direction3 &direction)
 		: XMFLOAT3(static_cast< const XMFLOAT3 & >(direction)) {}
+	inline Point3::Point3(Direction3 &&direction)
+		: XMFLOAT3(static_cast< XMFLOAT3 && >(direction)) {}
 	
 	inline Point3::Point3(const Normal3 &normal)
 		: XMFLOAT3(static_cast< const XMFLOAT3 & >(normal)) {}
+	inline Point3::Point3(Normal3 &&normal)
+		: XMFLOAT3(static_cast< XMFLOAT3 && >(normal)) {}
 	
 	inline Direction3::Direction3(const Normal3 &normal)
 		: XMFLOAT3(static_cast< const XMFLOAT3 & >(normal)) {}
+	inline Direction3::Direction3(Normal3 &&normal)
+		: XMFLOAT3(static_cast< XMFLOAT3 && >(normal)) {}
 
 	static_assert(sizeof(Point3) == sizeof(XMFLOAT3), "Point3/XMFLOAT3 mismatch");
 	static_assert(sizeof(Direction3) == sizeof(XMFLOAT3), "Direction3/XMFLOAT3 mismatch");
@@ -166,12 +213,20 @@ namespace mage {
 			: XMFLOAT4(x, y, z, w) {}
 		Color(const Color &color)
 			: XMFLOAT4(static_cast< const XMFLOAT4 & >(color)) {}
+		Color(Color &&color)
+			: XMFLOAT4(static_cast< XMFLOAT4 && >(color)) {}
 		explicit Color(const XMFLOAT4 &vector)
+			: XMFLOAT4(vector) {}
+		explicit Color(XMFLOAT4 &&vector)
 			: XMFLOAT4(vector) {}
 		
 		~Color() = default;
 
 		Color &operator=(const Color &color) {
+			XMFLOAT4::operator=(color);
+			return (*this);
+		}
+		Color &operator=(Color &&color) {
 			XMFLOAT4::operator=(color);
 			return (*this);
 		}

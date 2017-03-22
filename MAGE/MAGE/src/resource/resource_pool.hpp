@@ -47,7 +47,9 @@ namespace mage {
 	private:
 
 		ResourcePool(const ResourcePool &resource_pool) = delete;
+		ResourcePool(ResourcePool &&resource_pool) = delete;
 		ResourcePool &operator=(const ResourcePool &resource_pool) = delete;
+		ResourcePool &operator=(ResourcePool &&resource_pool) = delete;
 
 		ResourceMap< KeyT, ResourceT > m_resource_map;
 		Mutex *m_resource_map_mutex;
@@ -69,7 +71,9 @@ namespace mage {
 		private:
 
 			ResourcePoolEntry(const ResourcePoolEntry &resource) = delete;
+			ResourcePoolEntry(ResourcePoolEntry &&resource) = delete;
 			ResourcePoolEntry &operator=(const ResourcePoolEntry &resource) = delete;
+			ResourcePoolEntry &operator=(ResourcePoolEntry &&resource) = delete;
 
 			ResourcePool< KeyT, ResourceT > &m_resource_pool;
 			KeyT m_resource_key;

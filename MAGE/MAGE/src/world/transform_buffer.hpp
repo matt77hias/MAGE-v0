@@ -20,8 +20,10 @@ namespace mage {
 
 		TransformBuffer(const Camera &camera);
 		TransformBuffer(const TransformBuffer &buffer) = default;
+		TransformBuffer(TransformBuffer &&buffer) = default;
 		~TransformBuffer() = default;
 		TransformBuffer &operator=(const TransformBuffer &buffer) = default;
+		TransformBuffer &operator=(TransformBuffer &&buffer) = default;
 
 		void SetModelToWorld(const XMMATRIX &model_to_world) const {
 			m_model_to_world = XMMatrixTranspose(model_to_world);

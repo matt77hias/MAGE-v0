@@ -108,7 +108,9 @@ namespace mage {
 	private:
 
 		Scene(const Scene &scene) = delete;
+		Scene(Scene &&scene) = delete;
 		Scene &operator=(const Scene &scene) = delete;
+		Scene &operator=(Scene &&scene) = delete;
 		
 		string m_name;
 		SharedPtr< Camera > m_camera;

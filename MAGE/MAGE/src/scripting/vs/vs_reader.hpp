@@ -43,7 +43,9 @@ namespace mage {
 	private:
 
 		VSReader(const VSReader &reader) = delete;
+		VSReader(VSReader &&reader) = delete;
 		VSReader &operator=(const VSReader &reader) = delete;
+		VSReader &operator=(VSReader &&reader) = delete;
 
 		vector< Variable * > &m_variable_buffer;
 	};

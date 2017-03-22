@@ -33,7 +33,9 @@ namespace mage {
 	private:
 
 		SpriteFontReader(const SpriteFontReader &reader) = delete;
+		SpriteFontReader(SpriteFontReader &&reader) = delete;
 		SpriteFontReader &operator=(const SpriteFontReader &reader) = delete;
+		SpriteFontReader &operator=(SpriteFontReader &&reader) = delete;
 
 		ID3D11Device2 &m_device;
 		SpriteFontOutput &m_output;

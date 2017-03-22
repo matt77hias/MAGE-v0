@@ -45,9 +45,11 @@ namespace mage {
 			const string &material = MAGE_MODEL_PART_DEFAULT_MATERIAL)
 			: child(child), parent(parent), start_index(start_index), nb_indices(nb_indices), material(material) {}
 		ModelPart(const ModelPart &model_part) = default;
+		ModelPart(ModelPart &&model_part) = default;
 		~ModelPart() = default;
 
-		ModelPart &operator=(ModelPart &model_part) = default;
+		ModelPart &operator=(const ModelPart &model_part) = default;
+		ModelPart &operator=(ModelPart &&model_part) = default;
 
 		string child;
 		string parent;
@@ -95,6 +97,8 @@ namespace mage {
 	private:
 
 		ModelOutput(const ModelOutput< VertexT > &output) = delete;
-		ModelOutput< VertexT > &operator=(ModelOutput< VertexT > &output) = delete;
+		ModelOutput(ModelOutput< VertexT > &&output) = delete;
+		ModelOutput< VertexT > &operator=(const ModelOutput< VertexT > &output) = delete;
+		ModelOutput< VertexT > &operator=(ModelOutput< VertexT > &&output) = delete;
 	};
 }

@@ -25,9 +25,11 @@ namespace mage {
 			m_dissolve(dissolve), 
 			m_index_of_refraction(index_of_refraction) {}
 		Material(const Material &material) = default;
+		Material(Material &&material) = default;
 		~Material() = default;
 
 		Material &operator=(const Material &material) = default;
+		Material &operator=(Material &&material) = default;
 
 		/**
 		 The name of this material.

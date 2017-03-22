@@ -59,7 +59,9 @@ namespace mage {
 	private:
 
 		SpriteBatch(const SpriteBatch &sprite_batch) = delete;
+		SpriteBatch(SpriteBatch &&sprite_batch) = delete;
 		SpriteBatch &operator=(const SpriteBatch &sprite_batch) = delete;
+		SpriteBatch &operator=(SpriteBatch &&sprite_batch) = delete;
 
 		HRESULT InitializeIndexBuffer(ID3D11Device2 &device);
 		HRESULT InitializeVertexBuffer(ID3D11Device2 &device);

@@ -130,6 +130,14 @@ namespace mage {
 		Mouse(const Mouse &mouse) = delete;
 
 		/**
+		 Constructs a mouse from the given mouse.
+
+		 @param[in]		mouse
+						A reference to the mouse.
+		 */
+		Mouse(Mouse &&mouse) = delete;
+
+		/**
 		 Copies the given mouse to this mouse.
 
 		 @param[in]		mouse
@@ -138,6 +146,16 @@ namespace mage {
 						(i.e. this mouse).
 		 */
 		Mouse &operator=(const Mouse &mouse) = delete;
+
+		/**
+		 Copies the given mouse to this mouse.
+
+		 @param[in]		mouse
+						A reference to the mouse to copy from.
+		 @return		A reference to the copy of the given mouse
+						(i.e. this mouse).
+		 */
+		Mouse &operator=(Mouse &&mouse) = delete;
 
 		/**
 		 Initializes the mouse device of this mouse.

@@ -30,7 +30,9 @@ namespace mage {
 	private:
 
 		Texture(const Texture &texture) = delete;
+		Texture(Texture &&texture) = delete;
 		Texture &operator=(const Texture &texture) = delete;
+		Texture &operator=(Texture &&texture) = delete;
 
 		ComPtr< ID3D11ShaderResourceView > m_texture_resource_view;
 	};

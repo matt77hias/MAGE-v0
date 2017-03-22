@@ -163,6 +163,14 @@ namespace mage {
 		Renderer(const Renderer &renderer) = delete;
 
 		/**
+		 Constructs a renderer from the given renderer.
+
+		 @param[in]		renderer
+						A reference to a renderer.
+		 */
+		Renderer(Renderer &&renderer) = delete;
+
+		/**
 		 Copies the given renderer to this renderer.
 
 		 @param[in]		renderer
@@ -171,6 +179,16 @@ namespace mage {
 						(i.e. this renderer).
 		 */
 		Renderer &operator=(const Renderer &renderer) = delete;
+
+		/**
+		 Copies the given renderer to this renderer.
+
+		 @param[in]		renderer
+						A reference to a renderer.
+		 @return		A reference to the copy of the given renderer
+						(i.e. this renderer).
+		 */
+		Renderer &operator=(Renderer &&renderer) = delete;
 
 		/**
 		 Initializes this renderer.

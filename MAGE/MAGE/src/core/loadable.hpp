@@ -42,6 +42,14 @@ namespace mage {
 		Loadable(const Loadable &loadable) = default;
 
 		/**
+		 Constructs a loadable from the given loadable.
+
+		 @param[in]		loadable
+						A reference to the loadable.
+		 */
+		Loadable(Loadable &&loadable) = default;
+
+		/**
 		 Destructs this loadable.
 		 */
 		virtual ~Loadable() = default;
@@ -55,6 +63,16 @@ namespace mage {
 						(i.e. this loadable).
 		 */
 		Loadable &operator=(const Loadable &loadable) = default;
+
+		/**
+		 Copies the given loadable to this loadable.
+
+		 @param[in]		loadable
+						A reference to the loadable to copy from.
+		 @return		A reference to the copy of the given loadable
+						(i.e. this loadable).
+		 */
+		Loadable &operator=(Loadable &&loadable) = default;
 
 		/**
 		 Set the state of this loadable to the given value.

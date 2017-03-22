@@ -72,7 +72,9 @@ namespace mage {
 		};
 
 		OBJReader(const OBJReader &reader) = delete;
+		OBJReader(OBJReader &&reader) = delete;
 		OBJReader &operator=(const OBJReader &reader) = delete;
+		OBJReader &operator=(OBJReader &&reader) = delete;
 
 		vector< Point3 >  m_vertex_coordinates;
 		vector< UV > m_vertex_texture_coordinates;

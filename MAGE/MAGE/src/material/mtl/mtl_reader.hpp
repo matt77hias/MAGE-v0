@@ -52,7 +52,9 @@ namespace mage {
 	private:
 
 		MTLReader(const MTLReader &reader) = delete;
+		MTLReader(MTLReader &&reader) = delete;
 		MTLReader &operator=(const MTLReader &reader) = delete;
+		MTLReader &operator=(MTLReader &&reader) = delete;
 
 		vector< Material > &m_material_buffer;
 	};

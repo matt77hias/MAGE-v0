@@ -106,7 +106,9 @@ namespace mage {
 	private:
 
 		World(const World &world) = delete;
+		World(World &&world) = delete;
 		World &operator=(const World &world) = delete;
+		World &operator=(World &&world) = delete;
 
 		set< SharedPtr< Model >, std::less<> > m_models;
 		set< SharedPtr< PointLight >, std::less<> > m_lights;

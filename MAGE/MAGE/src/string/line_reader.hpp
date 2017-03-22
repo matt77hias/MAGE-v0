@@ -83,7 +83,9 @@ namespace mage {
 	private:
 
 		LineReader(const LineReader &reader) = delete;
+		LineReader(LineReader &&reader) = delete;
 		LineReader &operator=(const LineReader &reader) = delete;
+		LineReader &operator=(LineReader &&reader) = delete;
 
 		wstring m_fname;
 		string m_delimiters;

@@ -46,7 +46,9 @@ namespace mage {
 	private:
 
 		ModelDescriptor(const ModelDescriptor &desc) = delete;
+		ModelDescriptor(ModelDescriptor &&desc) = delete;
 		ModelDescriptor &operator=(const ModelDescriptor &desc) = delete;
+		ModelDescriptor &operator=(ModelDescriptor &&desc) = delete;
 
 		SharedPtr< Mesh > m_mesh;
 		vector< Material > m_materials;

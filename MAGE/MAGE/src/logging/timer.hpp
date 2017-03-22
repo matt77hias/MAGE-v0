@@ -35,6 +35,14 @@ namespace mage {
 		Timer(const Timer &timer) = default;
 
 		/**
+		 Constructs a timer from the given timer.
+
+		 @param[in]		timer
+						A reference to the timer.
+		 */
+		Timer(Timer &&timer) = default;
+
+		/**
 		 Destructs this timer.
 		 */
 		virtual ~Timer() = default;
@@ -48,6 +56,16 @@ namespace mage {
 						(i.e. this timer).
 		 */
 		Timer &operator=(const Timer &timer) = default;
+
+		/**
+		 Copies the given timer to this timer.
+
+		 @param[in]		timer
+						A reference to the timer to copy from.
+		 @return		A reference to the copy of the given timer
+						(i.e. this timer).
+		 */
+		Timer &operator=(Timer &&timer) = default;
 
 		/**
 		 Starts this timer.

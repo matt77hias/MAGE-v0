@@ -31,7 +31,9 @@ namespace mage {
 	private:
 
 		EmptyVertexShader(const EmptyVertexShader &vertex_shader) = delete;
+		EmptyVertexShader(EmptyVertexShader &&vertex_shader) = delete;
 		EmptyVertexShader &operator=(const EmptyVertexShader &vertex_shader) = delete;
+		EmptyVertexShader &operator=(EmptyVertexShader &&vertex_shader) = delete;
 	};
 
 	//-------------------------------------------------------------------------
@@ -51,6 +53,8 @@ namespace mage {
 	private:
 
 		EmptyPixelShader(const EmptyPixelShader &pixel_shader) = delete;
+		EmptyPixelShader(EmptyPixelShader &&pixel_shader) = delete;
 		EmptyPixelShader &operator=(const EmptyPixelShader &pixel_shader) = delete;
+		EmptyPixelShader &operator=(EmptyPixelShader &&pixel_shader) = delete;
 	};
 }

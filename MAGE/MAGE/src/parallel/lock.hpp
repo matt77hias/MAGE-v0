@@ -65,6 +65,14 @@ namespace mage {
 		Mutex(const Mutex &mutex) = delete;
 
 		/**
+		 Constructs a mutex from the given mutex.
+
+		 @param[in]		mutex
+						A reference to a mutex.
+		 */
+		Mutex(Mutex &&mutex) = delete;
+
+		/**
 		 Destructs this mutex.
 		 */
 		~Mutex();
@@ -78,6 +86,16 @@ namespace mage {
 						(i.e. this mutex).
 		 */
 		Mutex &operator=(const Mutex &mutex) = delete;
+
+		/**
+		 Copies the given mutex to this mutex.
+
+		 @param[in]		mutex
+						A reference to a mutex.
+		 @return		A reference to the copy of the given mutex
+						(i.e. this mutex).
+		 */
+		Mutex &operator=(Mutex &&mutex) = delete;
 
 		/**
 		 The critical section object of this mutex.
@@ -114,6 +132,14 @@ namespace mage {
 		MutexLock(const MutexLock &mutex_lock) = delete;
 
 		/**
+		 Constructs a mutex lock from the given mutex lock.
+
+		 @param[in]		mutex_lock
+						A reference to a mutex lock.
+		 */
+		MutexLock(MutexLock &&mutex_lock) = delete;
+
+		/**
 		 Copies the given mutex lock to this mutex lock.
 
 		 @param[in]		mutex_lock
@@ -122,6 +148,16 @@ namespace mage {
 						(i.e. this mutex lock)
 		 */
 		MutexLock &operator=(const MutexLock &mutex_lock) = delete;
+
+		/**
+		 Copies the given mutex lock to this mutex lock.
+
+		 @param[in]		mutex_lock
+						A reference to a mutex lock.
+		 @return		A reference to the copy of the given mutex lock
+						(i.e. this mutex lock)
+		 */
+		MutexLock &operator=(MutexLock &&mutex_lock) = delete;
 
 		/**
 		 The mutex of this mutex lock.
@@ -171,6 +207,14 @@ namespace mage {
 		ReadWriteMutex(const ReadWriteMutex &mutex) = delete;
 
 		/**
+		 Constructs a read write mutex from the given read write mutex.
+
+		 @param[in]		mutex
+						The read write mutex.
+		 */
+		ReadWriteMutex(ReadWriteMutex &&mutex) = delete;
+
+		/**
 		 Destructs this read write mutex.
 		 */
 		~ReadWriteMutex();
@@ -183,6 +227,15 @@ namespace mage {
 		 @return		A reference to the copy of @a mutex.
 		 */
 		ReadWriteMutex &operator=(const ReadWriteMutex &mutex) = delete;
+
+		/**
+		 Copies the given read write mutex to this read write mutex.
+
+		 @param[in]		mutex
+						A reference to a read write mutex.
+		 @return		A reference to the copy of @a mutex.
+		 */
+		ReadWriteMutex &operator=(ReadWriteMutex &&mutex) = delete;
 
 		/**
 		 Acquires a read.
@@ -284,6 +337,14 @@ namespace mage {
 		ReadWriteMutexLock(const ReadWriteMutexLock &mutex_lock) = delete;
 
 		/**
+		 Constructs a read write mutex lock from the given read write mutex lock.
+
+		 @param[in]		mutex_lock
+						A reference to a read write mutex lock.
+		 */
+		ReadWriteMutexLock(ReadWriteMutexLock &&mutex_lock) = delete;
+
+		/**
 		 Copies the given read write mutex lock to this read write mutex lock.
 
 		 @param[in]		mutex_lock
@@ -292,6 +353,16 @@ namespace mage {
 						(i.e. this mutex lock).
 		 */
 		ReadWriteMutexLock &operator=(const ReadWriteMutexLock &mutex_lock) = delete;
+
+		/**
+		 Copies the given read write mutex lock to this read write mutex lock.
+
+		 @param[in]		mutex_lock
+						A reference to a read write mutex lock.
+		 @return		A reference to the copy of the given mutex lock
+						(i.e. this mutex lock).
+		 */
+		ReadWriteMutexLock &operator=(ReadWriteMutexLock &&mutex_lock) = delete;
 
 		/**
 		 The lock type of this read write mutex lock. 
@@ -360,6 +431,14 @@ namespace mage {
 		Semaphore(const Semaphore &semaphore) = delete;
 
 		/**
+		 Constructs a semaphore from the given semaphore.
+
+		 @param[in]		semaphore
+						A reference to a semaphore.
+		 */
+		Semaphore(Semaphore &&semaphore) = delete;
+
+		/**
 		 Copies the given semaphore to this semaphore.
 
 		 @param[in]		semaphore
@@ -368,6 +447,16 @@ namespace mage {
 						(i.e. this semaphore)
 		 */
 		Semaphore &operator=(const Semaphore &semaphore) = delete;
+
+		/**
+		 Copies the given semaphore to this semaphore.
+
+		 @param[in]		semaphore
+						A reference to a semaphore.
+		 @return		A reference to the copy of the given semaphore
+						(i.e. this semaphore)
+		 */
+		Semaphore &operator=(Semaphore &&semaphore) = delete;
 
 		/**
 		 The handle of this semaphore.
@@ -423,6 +512,14 @@ namespace mage {
 		ConditionVariable(const ConditionVariable &condition_variable) = delete;
 
 		/**
+		 Constructs a condition variable from the given condition variable.
+
+		 @param[in]		condition_variable
+						A reference to a condition variable.
+		 */
+		ConditionVariable(ConditionVariable &&condition_variable) = delete;
+
+		/**
 		 Copies the given condition variable to this condition variable.
 
 		 @param[in]		condition_variable
@@ -431,6 +528,16 @@ namespace mage {
 						(i.e. this condition variable)
 		 */
 		ConditionVariable &operator=(const ConditionVariable &condition_variable) = delete;
+
+		/**
+		 Copies the given condition variable to this condition variable.
+
+		 @param[in]		condition_variable
+						A reference to a condition variable.
+		 @return		A reference to the copy of the given condition variable
+						(i.e. this condition variable)
+		 */
+		ConditionVariable &operator=(ConditionVariable &&condition_variable) = delete;
 
 		/** 
 		 The number of waiters of this condition variable.

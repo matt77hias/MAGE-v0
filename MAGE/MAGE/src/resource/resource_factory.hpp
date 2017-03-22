@@ -38,7 +38,9 @@ namespace mage {
 	private:
 
 		ResourceFactory(const ResourceFactory &resource_factory) = delete;
+		ResourceFactory(ResourceFactory &&resource_factory) = delete;
 		ResourceFactory &operator=(const ResourceFactory &resource_factory) = delete;
+		ResourceFactory &operator=(ResourceFactory &&resource_factory) = delete;
 
 		UniquePtr< ResourcePool< wstring, ModelDescriptor > > m_model_descriptor_resource_pool;
 		UniquePtr< ResourcePool< wstring, VertexShader > >    m_vertex_shader_resource_pool;

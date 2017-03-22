@@ -65,6 +65,14 @@ namespace mage {
 		AABB(const AABB &aabb) = default;
 
 		/**
+		 Constructs an AABB from the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 */
+		AABB(AABB &&aabb) = default;
+
+		/**
 		 Constructs an AABB of the given BS.
 
 		 @param[in]		bs
@@ -86,6 +94,16 @@ namespace mage {
 						(i.e. this AABB).
 		 */
 		AABB &operator=(const AABB &aabb) = default;
+
+		/**
+		 Copies the given AABB to this AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB to copy from.
+		 @return		A reference to the copy of the given AABB
+						(i.e. this AABB).
+		 */
+		AABB &operator=(AABB &&aabb) = default;
 
 		/**
 		 Checks whether this AABB completely encloses the given point.
@@ -318,6 +336,14 @@ namespace mage {
 		BS(const BS &bs) = default;
 
 		/**
+		 Constructs a BS from the given BS.
+
+		 @param[in]		bs
+						A reference to the bs.
+		 */
+		BS(BS &&bs) = default;
+
+		/**
 		 Destructs this BS.
 		 */
 		~BS() = default;
@@ -331,6 +357,16 @@ namespace mage {
 						(i.e. this BS).
 		 */
 		BS &operator=(const BS &bs) = default;
+
+		/**
+		 Copies the given BS to this BS.
+
+		 @param[in]		bs
+						A reference to the BS to copy from.
+		 @return		A reference to the copy of the given BS
+						(i.e. this BS).
+		 */
+		BS &operator=(BS &&bs) = default;
 
 		/**
 		 Checks whether this BS completely encloses the given point.

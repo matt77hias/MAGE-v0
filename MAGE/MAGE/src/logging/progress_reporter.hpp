@@ -69,6 +69,14 @@ namespace mage {
 		ProgressReporter(const ProgressReporter &progress_reporter) = delete;
 
 		/**
+		 Constructs a progress reporter from the given progress reporter.
+
+		 @param[in]		progress_reporter
+						A reference to the progress reporter.
+		 */
+		ProgressReporter(ProgressReporter &&progress_reporter) = delete;
+
+		/**
 		 Copies the given progress reporter to this progress reporter.
 		
 		 @param[in]		progress_reporter
@@ -77,6 +85,16 @@ namespace mage {
 						(i.e. this progress reporter).
 		 */
 		ProgressReporter &operator=(const ProgressReporter &progress_reporter) = delete;
+
+		/**
+		 Copies the given progress reporter to this progress reporter.
+
+		 @param[in]		progress_reporter
+						A reference to the progress reporter to copy from.
+		 @return		A reference to the copy of the given progress reporter
+						(i.e. this progress reporter).
+		 */
+		ProgressReporter &operator=(ProgressReporter &&progress_reporter) = delete;
 
 		/**
 		 The total number of work units that need to be done.

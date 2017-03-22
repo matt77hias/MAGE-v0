@@ -40,7 +40,9 @@ namespace mage {
 	private:
 
 		LambertianVertexShader(const LambertianVertexShader &vertex_shader) = delete;
+		LambertianVertexShader(LambertianVertexShader &&vertex_shader) = delete;
 		LambertianVertexShader &operator=(const LambertianVertexShader &vertex_shader) = delete;
+		LambertianVertexShader &operator=(LambertianVertexShader &&vertex_shader) = delete;
 
 		ComPtr< ID3D11Buffer > m_cb_transform;
 	};
@@ -61,7 +63,9 @@ namespace mage {
 	private:
 
 		LambertianPixelShader(const LambertianPixelShader &pixel_shader) = delete;
+		LambertianPixelShader(LambertianPixelShader &&pixel_shader) = delete;
 		LambertianPixelShader &operator=(const LambertianPixelShader &pixel_shader) = delete;
+		LambertianPixelShader &operator=(LambertianPixelShader &&pixel_shader) = delete;
 
 		ComPtr< ID3D11Buffer > m_cb_material;
 		ComPtr< ID3D11SamplerState >m_sampler;

@@ -54,6 +54,14 @@ namespace mage {
 		VertexPosition(const VertexPosition &vertex) = default;
 
 		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPosition(VertexPosition &&vertex) = default;
+
+		/**
 		 Destructs this vertex.
 		 */
 		~VertexPosition() = default;
@@ -66,6 +74,15 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this vertex).
 		 */
 		VertexPosition &operator=(const VertexPosition &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPosition &operator=(VertexPosition &&vertex) = default;
 
 		/**
 		 The position of this vertex.
@@ -112,6 +129,14 @@ namespace mage {
 		VertexPositionNormal(const VertexPositionNormal &vertex) = default;
 
 		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPositionNormal(VertexPositionNormal &&vertex) = default;
+
+		/**
 		 Destructs this vertex.
 		 */
 		~VertexPositionNormal() = default;
@@ -124,6 +149,15 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this vertex).
 		 */
 		VertexPositionNormal &operator=(const VertexPositionNormal &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionNormal &operator=(VertexPositionNormal &&vertex) = default;
 
 		/**
 		 The position of this vertex.
@@ -175,6 +209,14 @@ namespace mage {
 		VertexPositionColor(const VertexPositionColor &vertex) = default;
 
 		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPositionColor(VertexPositionColor &&vertex) = default;
+
+		/**
 		 Destructs this vertex.
 		 */
 		~VertexPositionColor() = default;
@@ -187,6 +229,15 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this vertex).
 		 */
 		VertexPositionColor &operator=(const VertexPositionColor &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionColor &operator=(VertexPositionColor &&vertex) = default;
 
 		/**
 		 The position of this vertex.
@@ -238,6 +289,14 @@ namespace mage {
 		VertexPositionTexture(const VertexPositionTexture &vertex) = default;
 
 		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPositionTexture(VertexPositionTexture &&vertex) = default;
+
+		/**
 		 Destructs this vertex.
 		 */
 		~VertexPositionTexture() = default;
@@ -250,6 +309,15 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this vertex).
 		 */
 		VertexPositionTexture &operator=(const VertexPositionTexture &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionTexture &operator=(VertexPositionTexture &&vertex) = default;
 
 		/**
 		 The position of this vertex.
@@ -303,6 +371,14 @@ namespace mage {
 		VertexPositionNormalColor(const VertexPositionNormalColor &vertex) = default;
 
 		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPositionNormalColor(VertexPositionNormalColor &&vertex) = default;
+
+		/**
 		 Destructs this vertex.
 		 */
 		~VertexPositionNormalColor() = default;
@@ -315,6 +391,15 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this vertex).
 		 */
 		VertexPositionNormalColor &operator=(const VertexPositionNormalColor &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionNormalColor &operator=(VertexPositionNormalColor &&vertex) = default;
 
 		/**
 		 The position of this vertex.
@@ -373,6 +458,14 @@ namespace mage {
 		VertexPositionNormalTexture(const VertexPositionNormalTexture &vertex) = default;
 
 		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPositionNormalTexture(VertexPositionNormalTexture &&vertex) = default;
+
+		/**
 		 Destructs this vertex.
 		 */
 		~VertexPositionNormalTexture() = default;
@@ -385,6 +478,15 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this vertex).
 		 */
 		VertexPositionNormalTexture &operator=(const VertexPositionNormalTexture &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionNormalTexture &operator=(VertexPositionNormalTexture &&vertex) = default;
 
 		/**
 		 The position of this vertex.
@@ -443,6 +545,14 @@ namespace mage {
 		VertexPositionColorTexture(const VertexPositionColorTexture &vertex) = default;
 
 		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPositionColorTexture(VertexPositionColorTexture &&vertex) = default;
+
+		/**
 		 Destructs this vertex.
 		 */
 		~VertexPositionColorTexture() = default;
@@ -455,6 +565,15 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this vertex).
 		 */
 		VertexPositionColorTexture &operator=(const VertexPositionColorTexture &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionColorTexture &operator=(VertexPositionColorTexture &&vertex) = default;
 
 		/**
 		 The position of this vertex.
@@ -515,6 +634,14 @@ namespace mage {
 		VertexPositionNormalColorTexture(const VertexPositionNormalColorTexture &vertex) = default;
 
 		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPositionNormalColorTexture(VertexPositionNormalColorTexture &&vertex) = default;
+
+		/**
 		 Destructs this vertex.
 		 */
 		~VertexPositionNormalColorTexture() = default;
@@ -527,6 +654,15 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this vertex).
 		 */
 		VertexPositionNormalColorTexture &operator=(const VertexPositionNormalColorTexture &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionNormalColorTexture &operator=(VertexPositionNormalColorTexture &&vertex) = default;
 
 		/**
 		 The position of this vertex.
@@ -588,6 +724,14 @@ namespace mage {
 						A reference to a vertex.
 		 */
 		VertexPositionTextureTexture(const VertexPositionTextureTexture &vertex) = default;
+
+		/**
+		 Constructs a vertex from the given vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 */
+		VertexPositionTextureTexture(VertexPositionTextureTexture &&vertex) = default;
 		
 		/**
 		 Destructs this vertex.
@@ -602,6 +746,15 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this vertex).
 		 */
 		VertexPositionTextureTexture &operator=(const VertexPositionTextureTexture &vertex) = default;
+
+		/**
+		 Copies the given vertex to this vertex.
+
+		 @param[in]		vertex
+						A reference to a vertex.
+		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+		 */
+		VertexPositionTextureTexture &operator=(VertexPositionTextureTexture &&vertex) = default;
 
 		/**
 		 The position of this vertex.

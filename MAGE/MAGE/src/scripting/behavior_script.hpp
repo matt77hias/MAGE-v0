@@ -75,6 +75,14 @@ namespace mage {
 		BehaviorScript(const BehaviorScript &script) = delete;
 
 		/**
+		 Constructs a behavior script from the given behavior script.
+
+		 @param[in]		script
+						A reference to the behavior script.
+		 */
+		BehaviorScript(BehaviorScript &&script) = delete;
+
+		/**
 		 Copies the given behavior script to this behavior script.
 
 		 @param[in]		script
@@ -84,6 +92,19 @@ namespace mage {
 		 */
 		BehaviorScript &operator=(const BehaviorScript &script) = delete;
 
+		/**
+		 Copies the given behavior script to this behavior script.
+
+		 @param[in]		script
+						A reference to the behavior script to copy from.
+		 @return		A reference to the copy of the given behavior script
+						(i.e. this behavior script).
+		 */
+		BehaviorScript &operator=(BehaviorScript &&script) = delete;
+
+		/**
+		 The name of this script.
+		 */
 		string m_name;
 	};
 }

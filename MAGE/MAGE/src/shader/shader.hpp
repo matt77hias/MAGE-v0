@@ -41,7 +41,9 @@ namespace mage {
 	private:
 
 		VertexShader(const VertexShader &vertex_shader) = delete;
+		VertexShader(VertexShader &&vertex_shader) = delete;
 		VertexShader &operator=(const VertexShader &vertex_shader) = delete;
+		VertexShader &operator=(VertexShader &&vertex_shader) = delete;
 
 		HRESULT InitializeShader(ID3D11Device2 &device,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
@@ -72,7 +74,9 @@ namespace mage {
 	private:
 
 		PixelShader(const PixelShader &pixel_shader) = delete;
+		PixelShader(PixelShader &&pixel_shader) = delete;
 		PixelShader &operator=(const PixelShader &pixel_shader) = delete;
+		PixelShader &operator=(PixelShader &&pixel_shader) = delete;
 
 		HRESULT InitializeShader(ID3D11Device2 &device);
 		HRESULT InitializeShader(ID3D11Device2 &device,
@@ -90,9 +94,11 @@ namespace mage {
 		CombinedShader(SharedPtr< VertexShader > vertex_shader, SharedPtr< PixelShader > pixel_shader)
 			: m_vertex_shader(vertex_shader), m_pixel_shader(pixel_shader) {}
 		CombinedShader(const CombinedShader &shader) = default;
+		CombinedShader(CombinedShader &&shader) = default;
 		~CombinedShader() = default;
 
 		CombinedShader &operator=(const CombinedShader &shader) = default;
+		CombinedShader &operator=(CombinedShader &&shader) = default;
 
 		SharedPtr< VertexShader > GetVertexShader() const {
 			return m_vertex_shader;

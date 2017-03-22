@@ -61,7 +61,9 @@ namespace mage {
 	private:
 
 		BinaryReader(const BinaryReader &reader) = delete;
+		BinaryReader(BinaryReader &&reader) = delete;
 		BinaryReader &operator=(const BinaryReader &reader) = delete;
+		BinaryReader &operator=(BinaryReader &&reader) = delete;
 
 		wstring m_fname;
 		bool m_big_endian;
@@ -107,7 +109,9 @@ namespace mage {
 	private:
 
 		BigEndianBinaryReader(const BigEndianBinaryReader &reader) = delete;
+		BigEndianBinaryReader(BigEndianBinaryReader &&reader) = delete;
 		BigEndianBinaryReader &operator=(const BigEndianBinaryReader &reader) = delete;
+		BigEndianBinaryReader &operator=(BigEndianBinaryReader &&reader) = delete;
 
 		wstring m_fname;
 		const uint8_t *m_pos;

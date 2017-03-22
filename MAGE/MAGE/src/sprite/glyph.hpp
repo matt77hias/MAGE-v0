@@ -29,9 +29,11 @@ namespace mage {
 
 		Glyph() = default;
 		Glyph(const Glyph &glyph) = default;
+		Glyph(Glyph &&glyph) = default;
 		~Glyph() = default;
 
 		Glyph &operator=(const Glyph &glyph) = default;
+		Glyph &operator=(Glyph &&glyph) = default;
 
 		bool operator<(const Glyph &glyph) const {
 			return m_character < glyph.m_character;

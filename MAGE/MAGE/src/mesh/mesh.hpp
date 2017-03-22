@@ -100,6 +100,14 @@ namespace mage {
 		Mesh(const Mesh &mesh) = delete;
 
 		/**
+		 Constructs a mesh from the given mesh.
+
+		 @param[in]		mesh
+						A reference to the mesh.
+		 */
+		Mesh(Mesh &&mesh) = delete;
+
+		/**
 		 Copies the given mesh to this mesh.
 
 		 @param[in]		mesh
@@ -108,6 +116,16 @@ namespace mage {
 						(i.e. this mesh).
 		 */
 		Mesh &operator=(const Mesh &mesh) = delete;
+
+		/**
+		 Copies the given mesh to this mesh.
+
+		 @param[in]		mesh
+						A reference to the mesh to copy from.
+		 @return		A reference to the copy of the given mesh
+						(i.e. this mesh).
+		 */
+		Mesh &operator=(Mesh &&mesh) = delete;
 
 		/**
 		 Initializes this mesh.

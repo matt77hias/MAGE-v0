@@ -29,8 +29,10 @@ namespace mage {
 
 		GlyphLessThan() = default;
 		GlyphLessThan(const GlyphLessThan &comparator) = default;
+		GlyphLessThan(GlyphLessThan &&comparator) = default;
 		~GlyphLessThan() = default;
 		GlyphLessThan &operator=(const GlyphLessThan &comparator) = default;
+		GlyphLessThan &operator=(GlyphLessThan &&comparator) = default;
 
 		inline bool operator()(const Glyph &left, const Glyph &right) {
 			return left.m_character < right.m_character;

@@ -711,5 +711,8 @@
     <None Include="MAGE\src\rendering\rendering_factory.tpp">
       <Filter>Header Files\rendering</Filter>
     </None>
+    <None Include="MAGE\src\resource\resource_pool.tpp">
+      <Filter>Header Files\resource</Filter>
+    </None>
   </ItemGroup>
 </Project>

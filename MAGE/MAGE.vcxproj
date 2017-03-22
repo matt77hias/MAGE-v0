@@ -258,6 +258,7 @@
     <None Include="MAGE\src\model\model_loader.tpp" />
     <None Include="MAGE\src\rendering\rendering_factory.tpp" />
     <None Include="MAGE\src\resource\resource_factory.tpp" />
+    <None Include="MAGE\src\resource\resource_pool.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

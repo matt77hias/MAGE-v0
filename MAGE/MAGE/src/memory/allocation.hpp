@@ -72,13 +72,15 @@ namespace mage {
 		_aligned_free(ptr);
 	}
 
-	template< typename T >
-	struct AlignedValue {
+	template< typename DataT >
+	struct AlignedData {
+
+	public:
 
 		static void *operator new(size_t size) {
-			const size_t alignment = __alignof(T);
+			const size_t alignment = __alignof(DataT);
 			
-			// __declspec(align) on T is required
+			// __declspec(align) on DataT is required
 			static_assert(alignment > 8, "AlignedValue is only useful for types with > 8 byte alignment.");
 
 			return AllocAligned(size, alignment);

@@ -58,58 +58,6 @@ namespace mage {
 		 */
 		void Done();
 
-	protected:
-
-		/**
-		 The total number of work units that need to be done.
-		 */
-		const uint32_t m_nb_work_total;
-		
-		/**
-		 The number of work units that are already done.
-		 */
-		uint32_t m_nb_work_done;
-
-		/**
-		 The total number of plusses that need to be outputted.
-		 */
-		uint32_t m_nb_plusses_total;
-
-		/**
-		 The total number of plusses that are already outputted.
-		 */
-		uint32_t m_nb_plusses_printed;
-		
-		/**
-		 The timer of this progress reporter.
-		 */
-		UniquePtr< Timer >m_timer;
-		
-		/**
-		 The output file stream of this progress reporter.
-		 */
-		FILE *m_fout;
-
-		/**
-		 The character representing a work unit that is already done.
-		 */
-		const char m_plus_char;
-		
-		/**
-		 The output buffer of this progress reporter.
-		 */
-		char *m_buffer;
-
-		/**
-		 The current (output) position of this progress reporter.
-		 */
-		char *m_current_pos;
-		
-		/**
-		 The mutex needed for updating this progress reporter.
-		 */
-		Mutex *m_mutex;
-
 	private:
 
 		/**
@@ -129,5 +77,55 @@ namespace mage {
 						(i.e. this progress reporter).
 		 */
 		ProgressReporter &operator=(const ProgressReporter &progress_reporter) = delete;
+
+		/**
+		 The total number of work units that need to be done.
+		 */
+		const uint32_t m_nb_work_total;
+
+		/**
+		 The number of work units that are already done.
+		 */
+		uint32_t m_nb_work_done;
+
+		/**
+		 The total number of plusses that need to be outputted.
+		 */
+		uint32_t m_nb_plusses_total;
+
+		/**
+		 The total number of plusses that are already outputted.
+		 */
+		uint32_t m_nb_plusses_printed;
+
+		/**
+		 The timer of this progress reporter.
+		 */
+		UniquePtr< Timer >m_timer;
+
+		/**
+		 The output file stream of this progress reporter.
+		 */
+		FILE *m_fout;
+
+		/**
+		 The character representing a work unit that is already done.
+		 */
+		const char m_plus_char;
+
+		/**
+		 The output buffer of this progress reporter.
+		 */
+		char *m_buffer;
+
+		/**
+		 The current (output) position of this progress reporter.
+		 */
+		char *m_current_pos;
+
+		/**
+		 The mutex needed for updating this progress reporter.
+		 */
+		Mutex *m_mutex;
 	};
 }

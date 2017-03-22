@@ -222,9 +222,6 @@
     <ClInclude Include="MAGE\src\resource\resource.hpp">
       <Filter>Header Files\resource</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\resource\resource_manager.hpp">
-      <Filter>Header Files\resource</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\scripting\variable.hpp">
       <Filter>Header Files\scripting</Filter>
     </ClInclude>
@@ -314,9 +311,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\model\model.hpp">
       <Filter>Header Files\model</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\resource\resource_manager.tpp">
-      <Filter>Header Files\resource</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\collection\collection.tpp">
       <Filter>Header Files\collection</Filter>

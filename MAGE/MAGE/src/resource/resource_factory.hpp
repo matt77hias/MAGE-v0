@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\resource_manager.hpp"
 #include "resource\resource_pool.hpp"
 #include "model\model_descriptor.hpp"
 #include "shader\shader.hpp"

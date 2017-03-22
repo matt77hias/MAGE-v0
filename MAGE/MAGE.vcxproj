@@ -78,8 +78,6 @@
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
-    <ClInclude Include="MAGE\src\resource\resource_manager.tpp" />
-    <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_factory.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_pool.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />

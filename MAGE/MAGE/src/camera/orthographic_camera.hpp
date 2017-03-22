@@ -47,6 +47,15 @@ namespace mage {
 			: Camera(camera) {}
 
 		/**
+		 Constructs an orthographic camera from the given orthographic camera.
+
+		 @param[in]		camera
+						A reference to the orthographic camera.
+		 */
+		OrthographicCamera(OrthographicCamera &&camera)
+			: Camera(camera) {}
+
+		/**
 		 Destructs this orthographic camera.
 		 */
 		virtual ~OrthographicCamera() = default;
@@ -62,6 +71,17 @@ namespace mage {
 			return (*this);
 		}
 		
+		/**
+		 Copies the given orthographic camera to this orthographic camera.
+
+		 @param[in]		orthographic_camera
+						The orthographic camera.
+		 */
+		OrthographicCamera &operator=(OrthographicCamera &&orthographic_camera) {
+			Camera::operator=(static_cast< Camera && >(orthographic_camera));
+			return (*this);
+		}
+
 		/**
 		 Clones this orthographic camera.
 

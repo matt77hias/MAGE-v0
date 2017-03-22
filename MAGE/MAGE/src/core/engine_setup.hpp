@@ -81,6 +81,17 @@ namespace mage {
 		 */
 		EngineSetup(const EngineSetup &setup) = default;
 
+		/**
+		 Constructs an engine setup from the given engine setup.
+
+		 @param[in]		setup
+						A reference to the engine setup.
+		 */
+		EngineSetup(EngineSetup &&setup)
+			: m_hinstance(setup.m_hinstance), m_name(std::move(setup.m_name)) {
+			setup.m_hinstance = nullptr;
+		}
+
 	private:
 
 		/**
@@ -92,6 +103,16 @@ namespace mage {
 						(i.e. this engine setup).
 		 */
 		EngineSetup &operator=(const EngineSetup &setup) = delete;
+
+		/**
+		 Copies the given engine setup to this engine setup.
+
+		 @param[in]		setup
+						A reference to the engine setup to copy from.
+		 @return		A reference to the copy of the given engine setup
+						(i.e. this engine setup).
+		 */
+		EngineSetup &operator=(EngineSetup &&setup) = delete;
 
 		/**
 		 Application instance handle.

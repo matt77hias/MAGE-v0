@@ -45,10 +45,25 @@ namespace mage {
 		 */
 		Camera &operator=(const Camera &camera) {
 			WorldObject::operator=(static_cast< const WorldObject & >(camera));
-			m_width     = camera.m_width;
-			m_height    = camera.m_height;
-			m_near_z    = camera.m_near_z;
-			m_far_z     = camera.m_far_z;
+			m_width  = camera.m_width;
+			m_height = camera.m_height;
+			m_near_z = camera.m_near_z;
+			m_far_z  = camera.m_far_z;
+			return (*this);
+		}
+
+		/**
+		 Copies the given camera to this camera.
+
+		 @param[in]		camera
+						The camera.
+		 */
+		Camera &operator=(Camera &&camera) {
+			WorldObject::operator=(static_cast< WorldObject && >(camera));
+			m_width  = camera.m_width;
+			m_height = camera.m_height;
+			m_near_z = camera.m_near_z;
+			m_far_z  = camera.m_far_z;
 			return (*this);
 		}
 
@@ -208,6 +223,16 @@ namespace mage {
 						The camera.
 		 */
 		Camera(const Camera &camera)
+			: WorldObject(camera), m_width(camera.m_width), m_height(camera.m_height),
+			m_near_z(camera.m_near_z), m_far_z(camera.m_far_z) {}
+
+		/**
+		 Constructs a camera from the given camera.
+
+		 @param[in]		camera
+						The camera.
+		 */
+		Camera(Camera &&camera)
 			: WorldObject(camera), m_width(camera.m_width), m_height(camera.m_height),
 			m_near_z(camera.m_near_z), m_far_z(camera.m_far_z) {}
 

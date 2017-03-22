@@ -22,9 +22,11 @@ namespace mage {
 		//http://www.txutxi.com/?p=444
 		ViewFrustum(const Camera &camera);
 		ViewFrustum(const ViewFrustum &view_frustum) = default;
+		ViewFrustum(ViewFrustum &&view_frustum) = default;
 		~ViewFrustum() = default;
 
 		ViewFrustum &operator=(const ViewFrustum &view_frustum) = default;
+		ViewFrustum &operator=(ViewFrustum &&view_frustum) = default;
 		
 		bool Encloses(const Point3 &point) const;
 		//http://www.txutxi.com/?p=584

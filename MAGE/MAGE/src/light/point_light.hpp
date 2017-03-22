@@ -23,12 +23,21 @@ namespace mage {
 			: WorldObject(name), m_radius(radius), m_intensity(intensity) {}
 		PointLight(const PointLight &light)
 			: WorldObject(light), m_radius(light.m_radius), m_intensity(light.m_intensity) {}
+		PointLight(PointLight &&light)
+			: WorldObject(light), m_radius(light.m_radius), m_intensity(std::move(light.m_intensity)) {}
+
 		virtual ~PointLight() = default;
 
 		PointLight &operator=(const PointLight &light) {
 			WorldObject::operator=(static_cast< const WorldObject & >(light));
-			m_radius = light.m_radius;
+			m_radius    = light.m_radius;
 			m_intensity = light.m_intensity;
+			return (*this);
+		}
+		PointLight &operator=(PointLight &&light) {
+			WorldObject::operator=(static_cast< WorldObject && >(light));
+			m_radius    = light.m_radius;
+			m_intensity = std::move(light.m_intensity);
 			return (*this);
 		}
 
@@ -59,11 +68,6 @@ namespace mage {
 		 The name of this point light.
 		 */
 		string m_name;
-
-		/**
-		 The transform of this point light.
-		 */
-		SharedPtr< Transform > m_transform;
 
 		/**
 		 The radius of this point light.

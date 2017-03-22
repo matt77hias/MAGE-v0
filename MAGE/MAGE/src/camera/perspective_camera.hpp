@@ -51,6 +51,15 @@ namespace mage {
 			: Camera(camera), m_fov_y(camera.m_fov_y) {}
 		
 		/**
+		 Constructs a perspective camera from the given perpsective camera.
+
+		 @param[in]		camera
+						A reference to the perspective camera.
+		 */
+		PerspectiveCamera(PerspectiveCamera &&camera)
+			: Camera(camera), m_fov_y(camera.m_fov_y) {}
+
+		/**
 		 Destructs this perspective camera.
 		 */
 		virtual ~PerspectiveCamera() = default;
@@ -63,6 +72,19 @@ namespace mage {
 		 */
 		PerspectiveCamera &operator=(const PerspectiveCamera &perspective_camera) {
 			Camera::operator=(static_cast< const Camera & >(perspective_camera));
+			m_fov_y = perspective_camera.m_fov_y;
+			return (*this);
+		}
+
+		/**
+		 Copies the given perspective camera to this perspective camera.
+
+		 @param[in]		perspective_camera
+						The perspective camera.
+		 */
+		PerspectiveCamera &operator=(PerspectiveCamera &&perspective_camera) {
+			Camera::operator=(static_cast< Camera && >(perspective_camera));
+			m_fov_y = perspective_camera.m_fov_y;
 			return (*this);
 		}
 

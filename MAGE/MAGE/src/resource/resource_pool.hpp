@@ -1,5 +1,8 @@
 #pragma once
 
+#include "rendering\rendering.hpp"
+#include "mesh\mesh_descriptor.hpp"
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
@@ -19,21 +22,30 @@ namespace mage {
 	template< typename KeyT, typename ResourceT >
 	using ResourceMap = map< KeyT, WeakPtr< ResourceT > >;
 
-	template< typename KeyT, typename ResourceT, typename... ConstructorArgsT >
+	template< typename KeyT, typename ResourceT >
 	class ResourcePool {
 
 	public:
 
 		ResourcePool() {
 			m_resource_map_mutex = Mutex::Create();
+			MutexLock lock1(*m_resource_map_mutex);
+			MutexLock lock2(*m_resource_map_mutex);
 		}
 		virtual ~ResourcePool() {
+			RemoveAllResources();
 			Mutex::Destroy(m_resource_map_mutex);
 		}
 
 		size_t GetNumberOfResources() const;
-		SharedPtr< ResourceT > GetResource(KeyT key, ConstructorArgsT... args);
+
+		template< typename... ConstructorArgsT >
+		SharedPtr< ResourceT > GetResource(KeyT key, ConstructorArgsT&&... args);
+		template< typename DerivedResourceT, typename... ConstructorArgsT >
+		SharedPtr< ResourceT > GetDerivedResource(KeyT key, ConstructorArgsT&&... args);
+		
 		void RemoveResource(KeyT key);
+		void RemoveAllResources();
 		
 	private:
 
@@ -43,23 +55,26 @@ namespace mage {
 		ResourceMap< KeyT, ResourceT > m_resource_map;
 		Mutex *m_resource_map_mutex;
 
-		struct DerivedResource final : public ResourceT {
+		template< typename DerivedResourceT >
+		struct ResourcePoolEntry final : public DerivedResourceT {
 
 		public:
 
-			DerivedResource(ResourcePool< KeyT, ResourceT, ConstructorArgsT... > &resource_pool,
-				KeyT resource_key, ConstructorArgsT... args)
-				: ResourceT(args...), m_resource_pool(resource_pool), m_resource_key(resource_key) {}
-			virtual ~DerivedResource() {
+			template< typename... ConstructorArgsT >
+			ResourcePoolEntry(ResourcePool< KeyT, ResourceT > &resource_pool,
+				KeyT resource_key, ConstructorArgsT&&... args)
+				: DerivedResourceT(std::forward< ConstructorArgsT >(args)...), m_resource_pool(resource_pool), m_resource_key(resource_key) {}
+
+			virtual ~ResourcePoolEntry() {
 				m_resource_pool.RemoveResource(m_resource_key);
 			}
 
 		private:
 
-			DerivedResource(const DerivedResource &resource) = delete;
-			DerivedResource &operator=(const DerivedResource &resource) = delete;
+			ResourcePoolEntry(const ResourcePoolEntry &resource) = delete;
+			ResourcePoolEntry &operator=(const ResourcePoolEntry &resource) = delete;
 
-			ResourcePool< KeyT, ResourceT, ConstructorArgsT... > &m_resource_pool;
+			ResourcePool< KeyT, ResourceT > &m_resource_pool;
 			KeyT m_resource_key;
 		};
 	};

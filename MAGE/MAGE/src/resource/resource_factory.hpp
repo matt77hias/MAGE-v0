@@ -6,6 +6,7 @@
 #pragma region
 
 #include "resource\resource_manager.hpp"
+#include "resource\resource_pool.hpp"
 #include "model\model_descriptor.hpp"
 #include "shader\shader.hpp"
 #include "scripting\variable_script.hpp"
@@ -26,7 +27,7 @@ namespace mage {
 	public:
 
 		ResourceFactory();
-		virtual ~ResourceFactory() = default;
+		virtual ~ResourceFactory();
 
 		template < typename VertexT >
 		SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, ID3D11Device2 &device, const MeshDescriptor< VertexT > &desc);
@@ -40,11 +41,11 @@ namespace mage {
 		ResourceFactory(const ResourceFactory &resource_factory) = delete;
 		ResourceFactory &operator=(const ResourceFactory &resource_factory) = delete;
 
-		UniquePtr< ResourceManager< ModelDescriptor > > m_model_descriptor_resource_manager;
-		UniquePtr< ResourceManager< VertexShader > > m_vertex_shader_resource_manager;
-		UniquePtr< ResourceManager< PixelShader > > m_pixel_shader_resource_manager;
-		UniquePtr< ResourceManager< Texture > > m_texture_resource_manager;
-		UniquePtr< ResourceManager< VariableScript > > m_variable_script_resource_manager;
+		UniquePtr< ResourcePool< wstring, ModelDescriptor > > m_model_descriptor_resource_pool;
+		UniquePtr< ResourcePool< wstring, VertexShader > >    m_vertex_shader_resource_pool;
+		UniquePtr< ResourcePool< wstring, PixelShader > >     m_pixel_shader_resource_pool;
+		UniquePtr< ResourcePool< wstring, Texture > >         m_texture_resource_pool;
+		UniquePtr< ResourcePool< wstring, VariableScript > >  m_variable_script_resource_pool;
 	};
 
 	//-------------------------------------------------------------------------

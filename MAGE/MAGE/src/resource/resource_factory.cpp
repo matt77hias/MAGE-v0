@@ -18,54 +18,31 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	
 	ResourceFactory::ResourceFactory()
-		: m_model_descriptor_resource_manager(new ResourceManager< ModelDescriptor >()),
-		m_vertex_shader_resource_manager(new ResourceManager< VertexShader >()), 
-		m_pixel_shader_resource_manager(new ResourceManager< PixelShader >()), 
-		m_texture_resource_manager(new ResourceManager< Texture >()), 
-		m_variable_script_resource_manager(new ResourceManager< VariableScript >()) {}
+		: m_model_descriptor_resource_pool(new ResourcePool< wstring, ModelDescriptor >()),
+		m_vertex_shader_resource_pool(new ResourcePool< wstring, VertexShader >()),
+		m_pixel_shader_resource_pool(new ResourcePool< wstring, PixelShader >()),
+		m_texture_resource_pool(new ResourcePool< wstring, Texture >()),
+		m_variable_script_resource_pool(new ResourcePool< wstring, VariableScript >()) {}
+
+	ResourceFactory::~ResourceFactory() {
+		m_model_descriptor_resource_pool->RemoveAllResources();
+		m_vertex_shader_resource_pool->RemoveAllResources();
+		m_pixel_shader_resource_pool->RemoveAllResources();
+		m_texture_resource_pool->RemoveAllResources();
+		m_variable_script_resource_pool->RemoveAllResources();
+	}
 
 	SharedPtr< VertexShader > ResourceFactory::CreateLambertianVertexShader(ID3D11Device2 &device) {
-		SharedPtr< VertexShader > resource = m_vertex_shader_resource_manager->GetResource(MAGE_GUID_LAMBERTIAN_VS);
-		if (!resource) {
-			// Create a new resource.
-			resource = SharedPtr< VertexShader >(new LambertianVertexShader(device));
-			// Store the new resource.
-			m_vertex_shader_resource_manager->AddResource(resource);
-		}
-		return resource;
+		return m_vertex_shader_resource_pool->GetDerivedResource< LambertianVertexShader, ID3D11Device2 & >(MAGE_GUID_LAMBERTIAN_VS, device);
 	}
-	
 	SharedPtr< PixelShader > ResourceFactory::CreateLambertianPixelShader(ID3D11Device2 &device) {
-		SharedPtr< PixelShader > resource = m_pixel_shader_resource_manager->GetResource(MAGE_GUID_LAMBERTIAN_PS);
-		if (!resource) {
-			// Create a new resource.
-			resource = SharedPtr< PixelShader >(new LambertianPixelShader(device));
-			// Store the new resource.
-			m_pixel_shader_resource_manager->AddResource(resource);
-		}
-		return resource;
+		return m_pixel_shader_resource_pool->GetDerivedResource< LambertianPixelShader, ID3D11Device2 & >(MAGE_GUID_LAMBERTIAN_PS, device);
 	}
-	
 	SharedPtr< Texture > ResourceFactory::CreateTexture(ID3D11Device2 &device, const wstring &fname) {
-		SharedPtr< Texture > resource = m_texture_resource_manager->GetResource(fname);
-		if (!resource) {
-			// Create a new resource.
-			resource = SharedPtr< Texture >(new Texture(device, fname));
-			// Store the new resource.
-			m_texture_resource_manager->AddResource(resource);
-		}
-		return resource;
+		return m_texture_resource_pool->GetResource< ID3D11Device2 &, const wstring & >(fname, device, fname);
 	}
-	
 	SharedPtr< VariableScript > ResourceFactory::CreateVariableScript(const wstring &fname, bool import) {
-		SharedPtr< VariableScript > resource = m_variable_script_resource_manager->GetResource(fname);
-		if (!resource) {
-			// Create a new resource.
-			resource = SharedPtr< VariableScript >(new VariableScript(fname, import));
-			// Store the new resource.
-			m_variable_script_resource_manager->AddResource(resource);
-		}
-		return resource;
+		return m_variable_script_resource_pool->GetResource< const wstring &, bool & >(fname, fname, import);
 	}
 
 	//-------------------------------------------------------------------------

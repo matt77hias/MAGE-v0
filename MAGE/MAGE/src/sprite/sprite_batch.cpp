@@ -80,5 +80,63 @@ namespace mage {
 		return S_OK;
 	}
 
+	void SpriteBatch::Begin(SpriteSortMode sort_mode, ID3D11BlendState *blend_state, ID3D11SamplerState *sampler_state,
+		ID3D11DepthStencilState *depth_stencil_state, ID3D11RasterizerState *rasterizer_state,
+		std::function< void() > SetCustomShadersFunction, XMMATRIX transform) {
+		// This SpriteBatch may not already be in a begin/end pair.
+		Assert(!m_in_begin_end_pair);
 
+		m_sort_mode           = sort_mode;
+		m_blend_state         = blend_state;
+		m_sampler_state       = sampler_state;
+		m_depth_stencil_state = depth_stencil_state;
+		m_rasterizer_state    = rasterizer_state;
+		SetCustomShaders      = SetCustomShadersFunction;
+		m_transform           = transform;
+
+		if (m_sort_mode == SpriteSortMode_Immediate) {
+			// Only one SpriteBatch at a time can use SpriteSortMode_Immediate.
+			//Assert(!m_context_resources->inImmediateMode);
+			
+			//PrepareForRendering();
+
+			//m_context_resources->inImmediateMode = true;
+		}
+
+		// Toggle the begin/end pair.
+		m_in_begin_end_pair = true;
+
+	}
+	void SpriteBatch::Draw(ID3D11ShaderResourceView *texture, const SpriteTransform &transform,
+		XMVECTOR color, SpriteEffects effects, float layer_depth) {
+
+	}
+	void SpriteBatch::End() {
+		// This SpriteBatch must already be in a begin/end pair.
+		Assert(m_in_begin_end_pair);
+
+		if (m_sort_mode == SpriteSortMode_Immediate) {
+			// Queued sprites have already been drawn.
+			//m_context_resources->inImmediateMode = false;
+		}
+		else {
+			// Draw the queued sprites.
+			//Assert(m_context_resources->inImmediateMode);
+
+			//PrepareForRendering();
+			//FlushBatch();
+		}
+
+		// Break circular reference chains in case the state lambda closed
+		// over an object that holds a reference to this SpriteBatch.
+		SetCustomShaders = nullptr;
+
+		// Untoggle the begin/end pair.
+		m_in_begin_end_pair = false;
+	}
+
+
+
+
+	void SpriteBatch::PrepareForRendering(ID3D11DeviceContext &device_context) {}
 }

@@ -29,8 +29,6 @@ namespace mage {
 			bar_length = ConsoleWidth() - 28;
 		}
 		
-		m_mutex = Mutex::Create();
-		
 		m_nb_plusses_total = std::max(2u, bar_length - static_cast< uint32_t >(title.size()));
 	
 		m_timer = make_unique< Timer >();
@@ -76,7 +74,6 @@ namespace mage {
 
 	ProgressReporter::~ProgressReporter() {
 		delete[] m_buffer;
-		Mutex::Destroy(m_mutex);
 	}
 
 	void ProgressReporter::Update(uint32_t nb_work) {
@@ -85,7 +82,7 @@ namespace mage {
 			return;
 		}
 
-		MutexLock lock(*m_mutex);
+		MutexLock lock(m_mutex);
 		
 		m_nb_work_done += nb_work;
 		const float percent_done = static_cast< float >(m_nb_work_done) / static_cast< float >(m_nb_work_total);
@@ -126,7 +123,7 @@ namespace mage {
 			return;
 		}
 
-		MutexLock lock(*m_mutex);
+		MutexLock lock(m_mutex);
 		
 		while (m_nb_plusses_printed < m_nb_plusses_total) {
 			*m_current_pos++ = m_plus_char;

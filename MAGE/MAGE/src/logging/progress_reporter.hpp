@@ -144,6 +144,6 @@ namespace mage {
 		/**
 		 The mutex needed for updating this progress reporter.
 		 */
-		Mutex *m_mutex;
+		Mutex m_mutex;
 	};
 }

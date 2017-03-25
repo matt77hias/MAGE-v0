@@ -33,28 +33,16 @@ namespace mage {
 	public:
 
 		/**
-		 Creates a mutex.
-		 */
-		static Mutex *Create() {
-			return new Mutex();
-		}
-
-		/**
-		 Destroys a given mutex.
-
-		 @param[in]		mutex
-						The mutex to destroy.
-		 */
-		static void Destroy(Mutex *mutex) {
-			delete mutex;
-		}
-
-	private:
-
-		/**
 		 Constructs a mutex.
 		 */
 		Mutex();
+
+		/**
+		 Destructs this mutex.
+		 */
+		~Mutex();
+
+	private:
 
 		/**
 		 Constructs a mutex from the given mutex.
@@ -71,11 +59,6 @@ namespace mage {
 						A reference to a mutex.
 		 */
 		Mutex(Mutex &&mutex) = delete;
-
-		/**
-		 Destructs this mutex.
-		 */
-		~Mutex();
 		
 		/**
 		 Copies the given mutex to this mutex.
@@ -175,28 +158,16 @@ namespace mage {
 	public:
 
 		/**
-		 Creates a mutex.
-		 */
-		static ReadWriteMutex *Create() {
-			return new ReadWriteMutex();
-		}
-
-		/**
-		 Destroys a given read write mutex.
-
-		 @param[in]		mutex
-						The read write mutex to destroy.
-		 */
-		static void Destroy(ReadWriteMutex *mutex) {
-			delete mutex;
-		}
-
-	private:
-
-		/**
 		 Constructs a read write mutex.
 		 */
 		ReadWriteMutex();
+
+		/**
+		 Destructs this read write mutex.
+		 */
+		~ReadWriteMutex();
+
+	private:
 
 		/**
 		 Constructs a read write mutex from the given read write mutex.
@@ -214,11 +185,6 @@ namespace mage {
 		 */
 		ReadWriteMutex(ReadWriteMutex &&mutex) = delete;
 
-		/**
-		 Destructs this read write mutex.
-		 */
-		~ReadWriteMutex();
-		
 		/**
 		 Copies the given read write mutex to this read write mutex.
 

@@ -6,6 +6,7 @@
 #pragma region
 
 #include "memory\memory.hpp"
+#include "collection\collection.hpp"
 #include "sprite\sprite_utils.hpp"
 #include "sprite\sprite_sort_mode.hpp"
 #include "sprite\sprite_effects.hpp"
@@ -28,6 +29,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	struct SpriteInfo {
+
+	};
+
 	class SpriteBatch {
 
 	public:
@@ -37,7 +42,7 @@ namespace mage {
 
 		void Begin(SpriteSortMode sort_mode, ID3D11BlendState *blend_state, ID3D11SamplerState *sampler_state,
 			ID3D11DepthStencilState *depth_stencil_state, ID3D11RasterizerState *rasterizer_state,
-			std::function< void() > SetCustomShaders, XMMATRIX transformMatrix = XMMatrixIdentity());
+			std::function< void() > SetCustomShadersFunction, XMMATRIX transform = XMMatrixIdentity());
 		void Draw(ID3D11ShaderResourceView *texture, const SpriteTransform &transform,
 			XMVECTOR color, SpriteEffects effects, float layer_depth);
 		void End();
@@ -67,6 +72,8 @@ namespace mage {
 		HRESULT InitializeVertexBuffer(ID3D11Device2 &device);
 		HRESULT InitializeShaders(ID3D11Device2 &device);
 
+		void PrepareForRendering(ID3D11DeviceContext &context);
+
 		/**
 		 A pointer to the vertex buffer of this sprite batch.
 		 */
@@ -76,6 +83,25 @@ namespace mage {
 		 A pointer to the index buffer of this sprite batch.
 		 */
 		ComPtr< ID3D11Buffer > m_index_buffer;
+
+
+		// Queue of sprites waiting to be drawn.
+		UniquePtr< SpriteInfo[] > m_sprite_queue;
+		size_t m_sprite_queue_size;
+		size_t m_sprite_queue_array_size;
+		vector< const SpriteInfo * > m_sorted_sprites;
+		vector< ComPtr< ID3D11ShaderResourceView > > m_sprite_texture_references;
+
+
+		bool m_in_begin_end_pair;
+
+		SpriteSortMode m_sort_mode;;
+		ComPtr< ID3D11BlendState > m_blend_state;
+		ComPtr< ID3D11SamplerState > m_sampler_state;
+		ComPtr< ID3D11DepthStencilState > m_depth_stencil_state;
+		ComPtr< ID3D11RasterizerState > m_rasterizer_state;
+		std::function< void() > SetCustomShaders;
+		XMMATRIX m_transform;
 
 		/**
 		 A flag indicating how the back buffers should be rotated 

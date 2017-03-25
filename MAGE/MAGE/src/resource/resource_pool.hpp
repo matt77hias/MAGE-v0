@@ -24,14 +24,9 @@ namespace mage {
 
 	public:
 
-		ResourcePool() {
-			m_resource_map_mutex = Mutex::Create();
-			MutexLock lock1(*m_resource_map_mutex);
-			MutexLock lock2(*m_resource_map_mutex);
-		}
+		ResourcePool() = default;
 		virtual ~ResourcePool() {
 			RemoveAllResources();
-			Mutex::Destroy(m_resource_map_mutex);
 		}
 
 		size_t GetNumberOfResources() const;
@@ -52,7 +47,7 @@ namespace mage {
 		ResourcePool &operator=(ResourcePool &&resource_pool) = delete;
 
 		ResourceMap< KeyT, ResourceT > m_resource_map;
-		Mutex *m_resource_map_mutex;
+		Mutex m_resource_map_mutex;
 
 		template< typename DerivedResourceT >
 		struct ResourcePoolEntry final : public DerivedResourceT {

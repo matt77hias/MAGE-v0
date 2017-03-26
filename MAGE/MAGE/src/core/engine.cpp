@@ -180,7 +180,7 @@ namespace mage {
 				}
 				
 				// Render the current scene.
-				m_renderer->StartFrame();
+				m_renderer->BeginFrame();
 				m_scene->Render(m_renderer->GetDeviceContext());
 				m_renderer->EndFrame();
 			}

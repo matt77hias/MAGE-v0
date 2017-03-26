@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_state.hpp"
-#include "rendering\rendering_state_cache.hpp"
+#include "rendering_state.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -16,24 +15,24 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	inline RenderingStateCache &GetRenderingStateCache() {
-		return RenderingStateCache(nullptr); //@TODO
-	}
-
-	RenderingState::RenderingState(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context)
-		: m_device(device), m_device_context(device_context) {
-		
-		SetAlphaBlendState();
-		SetDepthNoneDepthStencilState();
-		SetCullCounterClockwiseRasterizerState();
-		SetLinearClampSamplerState();
-	}
-	
 	void RenderingState::Render() {
 		m_device_context->OMSetBlendState(m_blend_state.Get(), nullptr, 0xFFFFFFFF);
 		m_device_context->OMSetDepthStencilState(m_depth_stencil_state.Get(), 0);
 		m_device_context->RSSetState(m_rasterizer_state.Get());
 		m_device_context->PSSetSamplers(0, 1, m_sampler_state.GetAddressOf());
+	}
+
+	void RenderingState::SetDefaultRenderingState2D() {
+		SetAlphaBlendState();
+		SetDepthNoneDepthStencilState();
+		SetCullCounterClockwiseRasterizerState();
+		SetLinearClampSamplerState();
+	}
+	void RenderingState::SetDefaultRenderingState3D() {
+		SetAlphaBlendState();
+		SetDepthDefaultDepthStencilState();
+		SetCullCounterClockwiseRasterizerState();
+		SetLinearClampSamplerState();
 	}
 
 	//-------------------------------------------------------------------------
@@ -45,16 +44,16 @@ namespace mage {
 		m_blend_state = blend_state;
 	}
 	void RenderingState::SetOpaqueBlendState() {
-		m_blend_state = GetRenderingStateCache().GetOpaqueBlendState();
+		m_blend_state = m_rendering_state_cache->GetOpaqueBlendState();
 	}
 	void RenderingState::SetAlphaBlendState() {
-		m_blend_state = GetRenderingStateCache().GetAlphaBlendState();
+		m_blend_state = m_rendering_state_cache->GetAlphaBlendState();
 	}
 	void RenderingState::SetAdditiveBlendState() {
-		m_blend_state = GetRenderingStateCache().GetAdditiveBlendState();
+		m_blend_state = m_rendering_state_cache->GetAdditiveBlendState();
 	}
 	void RenderingState::SetNonPremultipliedBlendState() {
-		m_blend_state = GetRenderingStateCache().GetNonPremultipliedBlendState();
+		m_blend_state = m_rendering_state_cache->GetNonPremultipliedBlendState();
 	}
 
 	//-------------------------------------------------------------------------
@@ -66,13 +65,13 @@ namespace mage {
 		m_depth_stencil_state = depth_stencil_state;
 	}
 	void RenderingState::SetDepthNoneDepthStencilState() {
-		m_depth_stencil_state = GetRenderingStateCache().GetDepthNoneDepthStencilState();
+		m_depth_stencil_state = m_rendering_state_cache->GetDepthNoneDepthStencilState();
 	}
 	void RenderingState::SetDepthDefaultDepthStencilState() {
-		m_depth_stencil_state = GetRenderingStateCache().GetDepthDefaultDepthStencilState();
+		m_depth_stencil_state = m_rendering_state_cache->GetDepthDefaultDepthStencilState();
 	}
 	void RenderingState::SetDepthReadDepthStencilState() {
-		m_depth_stencil_state = GetRenderingStateCache().GetDepthReadDepthStencilState();
+		m_depth_stencil_state = m_rendering_state_cache->GetDepthReadDepthStencilState();
 	}
 
 	//-------------------------------------------------------------------------
@@ -84,16 +83,16 @@ namespace mage {
 		m_rasterizer_state = rasterizer_state;
 	}
 	void RenderingState::SetCullNoneRasterizerState() {
-		m_rasterizer_state = GetRenderingStateCache().GetCullNoneRasterizerState();
+		m_rasterizer_state = m_rendering_state_cache->GetCullNoneRasterizerState();
 	}
 	void RenderingState::SetCullClockwiseRasterizerState() {
-		m_rasterizer_state = GetRenderingStateCache().GetCullClockwiseRasterizerState();
+		m_rasterizer_state = m_rendering_state_cache->GetCullClockwiseRasterizerState();
 	}
 	void RenderingState::SetCullCounterClockwiseRasterizerState() {
-		m_rasterizer_state = GetRenderingStateCache().GetCullCounterClockwiseRasterizerState();
+		m_rasterizer_state = m_rendering_state_cache->GetCullCounterClockwiseRasterizerState();
 	}
 	void RenderingState::SetWireframeRasterizerState() {
-		m_rasterizer_state = GetRenderingStateCache().GetWireframeRasterizerState();
+		m_rasterizer_state = m_rendering_state_cache->GetWireframeRasterizerState();
 	}
 
 	//-------------------------------------------------------------------------
@@ -105,21 +104,21 @@ namespace mage {
 		m_sampler_state = sampler_state;
 	}
 	void RenderingState::SetPointWrapSamplerState() {
-		m_sampler_state = GetRenderingStateCache().GetPointWrapSamplerState();
+		m_sampler_state = m_rendering_state_cache->GetPointWrapSamplerState();
 	}
 	void RenderingState::SetPointClampSamplerState() {
-		m_sampler_state = GetRenderingStateCache().GetPointClampSamplerState();
+		m_sampler_state = m_rendering_state_cache->GetPointClampSamplerState();
 	}
 	void RenderingState::SetLinearWrapSamplerState() {
-		m_sampler_state = GetRenderingStateCache().GetLinearWrapSamplerState();
+		m_sampler_state = m_rendering_state_cache->GetLinearWrapSamplerState();
 	}
 	void RenderingState::SetLinearClampSamplerState() {
-		m_sampler_state = GetRenderingStateCache().GetLinearClampSamplerState();
+		m_sampler_state = m_rendering_state_cache->GetLinearClampSamplerState();
 	}
 	void RenderingState::SetAnisotropicWrapSamplerState() {
-		m_sampler_state = GetRenderingStateCache().GetAnisotropicWrapSamplerState();
+		m_sampler_state = m_rendering_state_cache->GetAnisotropicWrapSamplerState();
 	}
 	void RenderingState::SetAnisotropicClampSamplerState() {
-		m_sampler_state = GetRenderingStateCache().GetAnisotropicClampSamplerState();
+		m_sampler_state = m_rendering_state_cache->GetAnisotropicClampSamplerState();
 	}
 }

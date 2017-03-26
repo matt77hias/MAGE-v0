@@ -68,7 +68,6 @@ namespace mage {
 		LambertianPixelShader &operator=(LambertianPixelShader &&pixel_shader) = delete;
 
 		ComPtr< ID3D11Buffer > m_cb_material;
-		ComPtr< ID3D11SamplerState >m_sampler;
 	};
 
 	//-------------------------------------------------------------------------

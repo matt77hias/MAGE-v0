@@ -18,10 +18,10 @@ public:
 		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_UP)) {
 			solid = !solid;
 			if (solid) {
-				g_engine->GetRenderer().StartSolidRasterizer();
+				g_engine->GetRenderer().GetRenderingState().SetCullCounterClockwiseRasterizerState();
 			}
 			else {
-				g_engine->GetRenderer().StartWireframeRasterizer();
+				g_engine->GetRenderer().GetRenderingState().SetWireframeRasterizerState();
 			}
 		}
 		

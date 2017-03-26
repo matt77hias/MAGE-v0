@@ -6,8 +6,7 @@
 #pragma region
 
 #include "loadable.hpp"
-#include "memory\memory.hpp"
-#include "rendering\rendering.hpp"
+#include "rendering\rendering_state.hpp"
 
 #pragma endregion
 
@@ -91,6 +90,15 @@ namespace mage {
 		}
 
 		/**
+		 Returns the rendering state of this renderer.
+
+		 @return		A reference to the rendering state of this renderer.
+		 */
+		RenderingState &GetRenderingState() const {
+			return *m_rendering_state;
+		}
+
+		/**
 		 Checks whether this renderer renders in windowed mode.
 
 		 @return		@c true if this renderer renders in windowed mode.
@@ -133,24 +141,14 @@ namespace mage {
 		void SwitchMode(bool toggle);
 
 		/**
-		 Start the solid rasterizer of this renderer.
+		 Begins the rendering of the current frame.
 		 */
-		void StartSolidRasterizer();
-
-		/**
-		 Start the wireframe rasterizer of this renderer.
-		 */
-		void StartWireframeRasterizer();
-
-		/**
-		 Starts the rendering of the current frame.
-		 */
-		void StartFrame() const;
+		void BeginFrame();
 
 		/**
 		 Ends the rendering of the current frame.
 		 */
-		void EndFrame() const;
+		void EndFrame();
 
 	private:
 
@@ -233,19 +231,15 @@ namespace mage {
 		HRESULT SetupDepthStencilView();
 
 		/**
-		 Sets up the rasterizer states of this renderer.
-
-		 @return		A success/error value.
+		 Sets up the rendering states of this renderer.
 		 */
-		HRESULT SetupRasterizerStates();
+		void SetupRenderingState();
 
 		/**
 		 Sets up and binds the viewport of this renderer
 		 to the graphics pipeline.
-
-		 @return		A success/error value.
 		 */
-		HRESULT SetupViewPort() const;
+		void SetupViewPort() const;
 
 		/**
 		 The handle of the parent window.
@@ -258,6 +252,11 @@ namespace mage {
 		 */
 		bool m_fullscreen;
 
+		/**
+		 A flag indicating whether this renderer is inside a begin/end pair.
+		 */
+		bool m_in_begin_end_pair;
+
 		DXGI_MODE_DESC1					 m_display_mode;
 		D3D_FEATURE_LEVEL		         m_feature_level;
 		ComPtr< ID3D11Device2 >	         m_device2;
@@ -266,7 +265,7 @@ namespace mage {
 		ComPtr< ID3D11RenderTargetView > m_render_target_view;
 		ComPtr< ID3D11Texture2D >        m_depth_stencil;
 		ComPtr< ID3D11DepthStencilView > m_depth_stencil_view;
-		ComPtr< ID3D11RasterizerState1 > m_solid_rasterizer_state;
-		ComPtr< ID3D11RasterizerState1 > m_wireframe_rasterizer_state;
+		UniquePtr< RenderingState >      m_rendering_state;
+		SharedPtr< RenderingStateCache > m_rendering_state_cache;
 	};
 }

@@ -58,12 +58,6 @@ namespace mage {
 			Error("Material constant buffer creation failed: %08X.", result_cb_material);
 			return;
 		}
-
-		const HRESULT result_sampler_state = CreateLinearWrapSamplerState(device, m_sampler.ReleaseAndGetAddressOf());
-		if (FAILED(result_sampler_state)) {
-			Error("Sampler state creation failed: %08X.", result_sampler_state);
-			return;
-		}
 	}
 
 	void LambertianPixelShader::Render(ID3D11DeviceContext2 &device_context, const Material &material, const World &world) const {
@@ -71,7 +65,6 @@ namespace mage {
 		UNUSED(world);
 		device_context.PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 		device_context.PSSetShaderResources(0, 1, material.m_diffuse_reflectivity_texture->GetTextureResourceView().GetAddressOf());
-		device_context.PSSetSamplers(0, 1, m_sampler.GetAddressOf());
 	}
 
 	//-------------------------------------------------------------------------
@@ -82,7 +75,7 @@ namespace mage {
 		ID3D11Device2 &device = GetRenderingDevice();
 		ResourceFactory &factory = GetResourceFactory();
 		SharedPtr< VertexShader > vs = factory.CreateLambertianVertexShader(device);
-		SharedPtr< PixelShader > ps = factory.CreateLambertianPixelShader(device);
+		SharedPtr< PixelShader >  ps = factory.CreateLambertianPixelShader(device);
 		return CombinedShader(vs, ps);
 	}
 }

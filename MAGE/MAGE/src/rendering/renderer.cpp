@@ -67,19 +67,10 @@ namespace mage {
 		// 3. The depth-stencil state.
 		m_device_context2->OMSetRenderTargets(1, m_render_target_view.GetAddressOf(), m_depth_stencil_view.Get());
 
-		// Setup the ID3D11RasterizerState.
-		const HRESULT result_rasterizer_state = SetupRasterizerStates();
-		if (FAILED(result_rasterizer_state)) {
-			Error("Rasterizer states setup failed: %08X.", result_rasterizer_state);
-			return result_rasterizer_state;
-		}
-
-		// Setup the D3D11_VIEWPORT.
-		const HRESULT result_view_port = SetupViewPort();
-		if (FAILED(result_view_port)) {
-			Error("Viewport setup failed: %08X.", result_view_port);
-			return result_view_port;
-		}
+		// Setup the rendering state.
+		SetupRenderingState();
+		// Setup the viewport.
+		SetupViewPort();
 
 		return S_OK;
 	}
@@ -250,42 +241,13 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT Renderer::SetupRasterizerStates() {
-		// Setup the (default) rasterizer state.
-		D3D11_RASTERIZER_DESC1 rasterizer_desc;
-		ZeroMemory(&rasterizer_desc, sizeof(rasterizer_desc));
-		rasterizer_desc.FillMode              = D3D11_FILL_SOLID;
-		rasterizer_desc.CullMode              = D3D11_CULL_BACK;
-		rasterizer_desc.FrontCounterClockwise = false;
-		rasterizer_desc.DepthBias             = 0;
-		rasterizer_desc.DepthBiasClamp        = 0.0f;
-		rasterizer_desc.SlopeScaledDepthBias  = 0.0f;
-		rasterizer_desc.DepthClipEnable       = true;
-		rasterizer_desc.ScissorEnable         = false;
-		rasterizer_desc.MultisampleEnable     = false;
-		rasterizer_desc.AntialiasedLineEnable = false;
-
-		// Create the rasterizer state from the rasterizer description.
-		const HRESULT result_solid_rasterizer_state = m_device2->CreateRasterizerState1(&rasterizer_desc, m_solid_rasterizer_state.ReleaseAndGetAddressOf());
-		if (FAILED(result_solid_rasterizer_state)) {
-			return result_solid_rasterizer_state;
-		}
-
-		rasterizer_desc.FillMode               = D3D11_FILL_WIREFRAME;
-		rasterizer_desc.CullMode               = D3D11_CULL_NONE;
-
-		// Create the rasterizer state from the rasterizer description.
-		const HRESULT result_wireframe_rasterizer_state = m_device2->CreateRasterizerState1(&rasterizer_desc, m_wireframe_rasterizer_state.ReleaseAndGetAddressOf());
-		if (FAILED(result_wireframe_rasterizer_state)) {
-			return result_wireframe_rasterizer_state;
-		}
-
-		StartSolidRasterizer();
-
-		return S_OK;
+	void Renderer::SetupRenderingState() {
+		m_rendering_state_cache = SharedPtr< RenderingStateCache >(new RenderingStateCache(m_device2));
+		m_rendering_state       = make_unique< RenderingState >(m_device2, m_device_context2, m_rendering_state_cache);
+		m_rendering_state->SetDefaultRenderingState3D();
 	}
 
-	HRESULT Renderer::SetupViewPort() const {
+	void Renderer::SetupViewPort() const {
 		// Setup the (default) viewport.
 		D3D11_VIEWPORT viewport;
 		ZeroMemory(&viewport, sizeof(viewport));
@@ -300,22 +262,30 @@ namespace mage {
 		// 1. Number of viewports to bind.
 		// 2. An array of D3D11_VIEWPORT structures to bind to the device.
 		m_device_context2->RSSetViewports(1, &viewport);
-
-		return S_OK;
 	}
 
-	void Renderer::StartFrame() const {
+	void Renderer::BeginFrame() {
+		Assert(!m_in_begin_end_pair);
+
 		const XMVECTORF32 background_color = { 0.0f, 0.117647058f, 0.149019608f, 1.000000000f };
 
 		// Clear the back buffer.
 		m_device_context2->ClearRenderTargetView(m_render_target_view.Get(), background_color);
 		// Clear the depth buffer to 1.0 (i.e. max depth).
 		m_device_context2->ClearDepthStencilView(m_depth_stencil_view.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+		m_rendering_state->Render();
+
+		m_in_begin_end_pair = true;
 	}
 
-	void Renderer::EndFrame() const {
+	void Renderer::EndFrame() {
+		Assert(m_in_begin_end_pair);
+
 		// Present the back buffer to the front buffer.
 		m_swap_chain2->Present(0, 0);
+
+		m_in_begin_end_pair = false;
 	}
 
 	void Renderer::SwitchMode(bool toggle) {
@@ -339,13 +309,5 @@ namespace mage {
 	
 		m_swap_chain2->GetFullscreenState(&current, nullptr);
 		m_fullscreen = (current != 0);
-	}
-
-	void Renderer::StartSolidRasterizer() {
-		m_device_context2->RSSetState(m_solid_rasterizer_state.Get());
-	}
-
-	void Renderer::StartWireframeRasterizer() {
-		m_device_context2->RSSetState(m_wireframe_rasterizer_state.Get());
 	}
 }

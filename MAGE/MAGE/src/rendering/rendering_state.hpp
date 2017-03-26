@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
-#include "rendering\rendering.hpp"
+#include "rendering\rendering_state_cache.hpp"
 
 #pragma endregion
 
@@ -19,7 +18,8 @@ namespace mage {
 
 	public:
 
-		RenderingState(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > m_device_context);
+		RenderingState(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, SharedPtr< RenderingStateCache > rendering_state_cache)
+			: m_device(device), m_device_context(device_context), m_rendering_state_cache(rendering_state_cache) {}
 		RenderingState(const RenderingState &rendering_state) = default;
 		RenderingState(RenderingState &&rendering_state) = default;
 		~RenderingState() = default;
@@ -28,6 +28,9 @@ namespace mage {
 		RenderingState &operator=(RenderingState &&rendering_state) = default;
 
 		void Render();
+
+		void SetDefaultRenderingState2D();
+		void SetDefaultRenderingState3D();
 
 		//---------------------------------------------------------------------
 		// Blend state
@@ -93,6 +96,11 @@ namespace mage {
 		 The device context of this rendering state.
 		 */
 		ComPtr< ID3D11DeviceContext2 > m_device_context;
+
+		/**
+		 The rendering state cache of this rendering state.
+		 */
+		SharedPtr< RenderingStateCache > m_rendering_state_cache;
 
 		/**
 		 The blend state of this rendering state.

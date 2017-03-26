@@ -7,20 +7,11 @@
 
 #include "memory\memory.hpp"
 #include "collection\collection.hpp"
+#include "math\sprite_transform.hpp"
 #include "sprite\sprite_utils.hpp"
 #include "sprite\sprite_sort_mode.hpp"
 #include "sprite\sprite_effects.hpp"
-#include "sprite\sprite_transform.hpp"
 #include "material\color.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <functional>
 
 #pragma endregion
 
@@ -40,7 +31,7 @@ namespace mage {
 		SpriteBatch();
 		virtual ~SpriteBatch() = default;
 
-		void Begin(SpriteSortMode sort_mode, std::function< void() > SetCustomShadersFunction, XMMATRIX transform = XMMatrixIdentity());
+		void Begin(SpriteSortMode sort_mode, XMMATRIX transform = XMMatrixIdentity());
 		void Draw(ID3D11ShaderResourceView *texture, const SpriteTransform &transform, XMVECTOR color, SpriteEffects effects);
 		void End();
 
@@ -67,7 +58,6 @@ namespace mage {
 
 		HRESULT InitializeIndexBuffer(ID3D11Device2 &device);
 		HRESULT InitializeVertexBuffer(ID3D11Device2 &device);
-		HRESULT InitializeShaders(ID3D11Device2 &device);
 
 		void PrepareForRendering(ID3D11DeviceContext &context);
 
@@ -93,7 +83,6 @@ namespace mage {
 		bool m_in_begin_end_pair;
 
 		SpriteSortMode m_sort_mode;;
-		std::function< void() > SetCustomShaders;
 		XMMATRIX m_transform;
 
 		/**

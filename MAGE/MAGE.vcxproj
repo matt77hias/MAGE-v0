@@ -51,6 +51,7 @@
     <ClInclude Include="MAGE\src\math\bounding_volume.hpp" />
     <ClInclude Include="MAGE\src\math\coordinate_system.hpp" />
     <ClInclude Include="MAGE\src\math\math.hpp" />
+    <ClInclude Include="MAGE\src\math\sprite_transform.hpp" />
     <ClInclude Include="MAGE\src\math\transform.hpp" />
     <ClInclude Include="MAGE\src\math\view_frustum.hpp" />
     <ClInclude Include="MAGE\src\memory\allocation.hpp" />
@@ -110,7 +111,6 @@
     <ClInclude Include="MAGE\src\sprite\sprite_font_loader.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_font_output.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_sort_mode.hpp" />
-    <ClInclude Include="MAGE\src\sprite\sprite_transform.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_utils.hpp" />
     <ClInclude Include="MAGE\src\string\line_reader.hpp" />
     <ClInclude Include="MAGE\src\string\token.hpp" />

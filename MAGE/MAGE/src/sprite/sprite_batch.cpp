@@ -44,6 +44,11 @@ namespace mage {
 		return max_sprites_per_batch * indices_per_sprite;
 	}
 
+	SpriteBatch::SpriteBatch()
+		: m_in_begin_end_pair(false) {
+
+	}
+
 	HRESULT SpriteBatch::InitializeVertexBuffer(ID3D11Device2 &device) {
 		const HRESULT result_create = CreateDynamicVertexBuffer< VertexPositionColorTexture >(device, m_vertex_buffer.ReleaseAndGetAddressOf(), nullptr, MaxVerticesPerSprite());
 		if (FAILED(result_create)) {
@@ -80,12 +85,11 @@ namespace mage {
 		return S_OK;
 	}
 
-	void SpriteBatch::Begin(SpriteSortMode sort_mode, std::function< void() > SetCustomShadersFunction, XMMATRIX transform) {
+	void SpriteBatch::Begin(SpriteSortMode sort_mode, XMMATRIX transform) {
 		// This SpriteBatch may not already be in a begin/end pair.
 		Assert(!m_in_begin_end_pair);
 
 		m_sort_mode           = sort_mode;
-		SetCustomShaders      = SetCustomShadersFunction;
 		m_transform           = transform;
 
 		if (m_sort_mode == SpriteSortMode_Immediate) {
@@ -119,10 +123,6 @@ namespace mage {
 			//PrepareForRendering();
 			//FlushBatch();
 		}
-
-		// Break circular reference chains in case the state lambda closed
-		// over an object that holds a reference to this SpriteBatch.
-		SetCustomShaders = nullptr;
 
 		// Untoggle the begin/end pair.
 		m_in_begin_end_pair = false;

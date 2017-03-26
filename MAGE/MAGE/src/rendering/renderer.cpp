@@ -16,6 +16,7 @@ namespace mage {
 
 	Renderer::Renderer(HWND hwindow) : 
 		Loadable(), m_hwindow(hwindow), m_fullscreen(false),
+		m_in_begin_end_pair(false), 
 		m_display_mode(*g_device_enumeration->GetDisplayMode()) {
 
 		const HRESULT result_renderer = InitializeRenderer();

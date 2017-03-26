@@ -450,9 +450,6 @@
     <ClInclude Include="MAGE\src\material\color.hpp">
       <Filter>Header Files\material</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\sprite_transform.hpp">
-      <Filter>Header Files\sprite</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\sprite\sprite_effects.hpp">
       <Filter>Header Files\sprite</Filter>
     </ClInclude>
@@ -500,6 +497,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\rendering_state_cache.hpp">
       <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\math\sprite_transform.hpp">
+      <Filter>Header Files\math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

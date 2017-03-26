@@ -501,6 +501,9 @@
     <ClInclude Include="MAGE\src\math\sprite_transform.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\sprite_mesh.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

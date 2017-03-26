@@ -62,6 +62,7 @@
     <ClInclude Include="MAGE\src\mesh\obj\obj_loader.hpp" />
     <ClInclude Include="MAGE\src\mesh\obj\obj_reader.hpp" />
     <ClInclude Include="MAGE\src\mesh\obj\obj_tokens.hpp" />
+    <ClInclude Include="MAGE\src\mesh\sprite_mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\vertex.hpp" />
     <ClInclude Include="MAGE\src\model\meshmodel.hpp" />
     <ClInclude Include="MAGE\src\model\model.hpp" />

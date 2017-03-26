@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\memory.hpp"
 #include "rendering\rendering_factory.hpp"
 #include "collection\collection.hpp"
 

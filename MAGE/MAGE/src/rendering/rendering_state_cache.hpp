@@ -16,18 +16,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	struct RenderingStateCache {
+	struct RenderingStateCache final {
 
 	public:
 
 		RenderingStateCache(ComPtr< ID3D11Device2 > device)
 			: m_device(device) {}
-		RenderingStateCache(const RenderingStateCache &rendering_state_cache) = default;
-		RenderingStateCache(RenderingStateCache &&rendering_state_cache) = default;
 		~RenderingStateCache() = default;
-
-		RenderingStateCache &operator=(const RenderingStateCache &rendering_state_cache) = default;
-		RenderingStateCache &operator=(RenderingStateCache &&rendering_state_cache) = default;
 
 		//---------------------------------------------------------------------
 		// Blend states
@@ -67,6 +62,12 @@ namespace mage {
 		ComPtr< ID3D11SamplerState > GetAnisotropicClampSamplerState();
 
 	private:
+
+		RenderingStateCache(const RenderingStateCache &rendering_state_cache) = delete;
+		RenderingStateCache(RenderingStateCache &&rendering_state_cache) = delete;
+		
+		RenderingStateCache &operator=(const RenderingStateCache &rendering_state_cache) = delete;
+		RenderingStateCache &operator=(RenderingStateCache &&rendering_state_cache) = delete;
 
 		/**
 		 The device of this rendering state.

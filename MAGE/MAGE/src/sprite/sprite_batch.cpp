@@ -80,17 +80,11 @@ namespace mage {
 		return S_OK;
 	}
 
-	void SpriteBatch::Begin(SpriteSortMode sort_mode, ID3D11BlendState *blend_state, ID3D11SamplerState *sampler_state,
-		ID3D11DepthStencilState *depth_stencil_state, ID3D11RasterizerState *rasterizer_state,
-		std::function< void() > SetCustomShadersFunction, XMMATRIX transform) {
+	void SpriteBatch::Begin(SpriteSortMode sort_mode, std::function< void() > SetCustomShadersFunction, XMMATRIX transform) {
 		// This SpriteBatch may not already be in a begin/end pair.
 		Assert(!m_in_begin_end_pair);
 
 		m_sort_mode           = sort_mode;
-		m_blend_state         = blend_state;
-		m_sampler_state       = sampler_state;
-		m_depth_stencil_state = depth_stencil_state;
-		m_rasterizer_state    = rasterizer_state;
 		SetCustomShaders      = SetCustomShadersFunction;
 		m_transform           = transform;
 
@@ -107,8 +101,7 @@ namespace mage {
 		m_in_begin_end_pair = true;
 
 	}
-	void SpriteBatch::Draw(ID3D11ShaderResourceView *texture, const SpriteTransform &transform,
-		XMVECTOR color, SpriteEffects effects, float layer_depth) {
+	void SpriteBatch::Draw(ID3D11ShaderResourceView *texture, const SpriteTransform &transform, XMVECTOR color, SpriteEffects effects) {
 
 	}
 	void SpriteBatch::End() {

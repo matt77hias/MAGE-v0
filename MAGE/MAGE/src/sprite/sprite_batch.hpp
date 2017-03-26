@@ -40,11 +40,8 @@ namespace mage {
 		SpriteBatch();
 		virtual ~SpriteBatch() = default;
 
-		void Begin(SpriteSortMode sort_mode, ID3D11BlendState *blend_state, ID3D11SamplerState *sampler_state,
-			ID3D11DepthStencilState *depth_stencil_state, ID3D11RasterizerState *rasterizer_state,
-			std::function< void() > SetCustomShadersFunction, XMMATRIX transform = XMMatrixIdentity());
-		void Draw(ID3D11ShaderResourceView *texture, const SpriteTransform &transform,
-			XMVECTOR color, SpriteEffects effects, float layer_depth);
+		void Begin(SpriteSortMode sort_mode, std::function< void() > SetCustomShadersFunction, XMMATRIX transform = XMMatrixIdentity());
+		void Draw(ID3D11ShaderResourceView *texture, const SpriteTransform &transform, XMVECTOR color, SpriteEffects effects);
 		void End();
 
 		void SetRotationMode(DXGI_MODE_ROTATION rotation_mode) {
@@ -96,10 +93,6 @@ namespace mage {
 		bool m_in_begin_end_pair;
 
 		SpriteSortMode m_sort_mode;;
-		ComPtr< ID3D11BlendState > m_blend_state;
-		ComPtr< ID3D11SamplerState > m_sampler_state;
-		ComPtr< ID3D11DepthStencilState > m_depth_stencil_state;
-		ComPtr< ID3D11RasterizerState > m_rasterizer_state;
 		std::function< void() > SetCustomShaders;
 		XMMATRIX m_transform;
 

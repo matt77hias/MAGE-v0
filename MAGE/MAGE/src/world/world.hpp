@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering.hpp"
 #include "world\transform_buffer.hpp"
 #include "light\point_light.hpp"
 
@@ -29,7 +28,7 @@ namespace mage {
 			RemoveAllLights();
 		}
 
-		void Render(ID3D11DeviceContext2 &device_context, const TransformBuffer &transform_buffer);
+		void Render(const TransformBuffer &transform_buffer);
 
 		//-------------------------------------------------------------------------
 		// Models

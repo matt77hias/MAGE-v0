@@ -18,6 +18,7 @@
 namespace mage {
 
 	struct MaterialBuffer {
+		//TODO
 		XMVECTOR x;
 	};
 
@@ -25,46 +26,45 @@ namespace mage {
 	// LambertianVertexShader
 	//-------------------------------------------------------------------------
 
-	LambertianVertexShader::LambertianVertexShader(ID3D11Device2 &device)
-		: VertexShader(device, MAGE_GUID_LAMBERTIAN_VS, g_lambertian_vs, sizeof(g_lambertian_vs),
-			VertexPositionNormalTexture::input_element_desc,
-			VertexPositionNormalTexture::nb_input_elements) {
+	LambertianVertexShader::LambertianVertexShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context)
+		: VertexShader(device, device_context, MAGE_GUID_LAMBERTIAN_VS, g_lambertian_vs, sizeof(g_lambertian_vs),
+			VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements) {
 
-		const HRESULT result_cb_transform = CreateConstantBuffer< TransformBuffer >(device, m_cb_transform.ReleaseAndGetAddressOf());
+		const HRESULT result_cb_transform = CreateConstantBuffer< TransformBuffer >(*m_device.Get(), m_cb_transform.ReleaseAndGetAddressOf());
 		if (FAILED(result_cb_transform)) {
 			Error("Transformation constant buffer creation failed: %08X.", result_cb_transform);
 			return;
 		}
 	}
 
-	void LambertianVertexShader::Render(ID3D11DeviceContext2 &device_context, const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
+	void LambertianVertexShader::Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
 		UNUSED(world);
 		UNUSED(material);
-		device_context.IASetInputLayout(m_vertex_layout.Get());
-		device_context.UpdateSubresource(m_cb_transform.Get(), 0, nullptr, &transform_buffer, 0, 0);
-		device_context.VSSetShader(m_vertex_shader.Get(), nullptr, 0);
-		device_context.VSSetConstantBuffers(0, 1, m_cb_transform.GetAddressOf());
+		m_device_context->IASetInputLayout(m_vertex_layout.Get());
+		m_device_context->UpdateSubresource(m_cb_transform.Get(), 0, nullptr, &transform_buffer, 0, 0);
+		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
+		m_device_context->VSSetConstantBuffers(0, 1, m_cb_transform.GetAddressOf());
 	}
 
 	//-------------------------------------------------------------------------
 	// LambertianPixelShader
 	//-------------------------------------------------------------------------
 
-	LambertianPixelShader::LambertianPixelShader(ID3D11Device2 &device)
-		: PixelShader(device, MAGE_GUID_LAMBERTIAN_PS, g_lambertian_ps, sizeof(g_lambertian_ps)) {
+	LambertianPixelShader::LambertianPixelShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context)
+		: PixelShader(device, device_context, MAGE_GUID_LAMBERTIAN_PS, g_lambertian_ps, sizeof(g_lambertian_ps)) {
 
-		const HRESULT result_cb_material = CreateConstantBuffer< MaterialBuffer >(device, m_cb_material.ReleaseAndGetAddressOf());
+		const HRESULT result_cb_material = CreateConstantBuffer< MaterialBuffer >(*m_device.Get(), m_cb_material.ReleaseAndGetAddressOf());
 		if (FAILED(result_cb_material)) {
 			Error("Material constant buffer creation failed: %08X.", result_cb_material);
 			return;
 		}
 	}
 
-	void LambertianPixelShader::Render(ID3D11DeviceContext2 &device_context, const Material &material, const World &world) const {
+	void LambertianPixelShader::Draw(const Material &material, const World &world) const {
 		UNUSED(material);
 		UNUSED(world);
-		device_context.PSSetShader(m_pixel_shader.Get(), nullptr, 0);
-		device_context.PSSetShaderResources(0, 1, material.m_diffuse_reflectivity_texture->GetTextureResourceView().GetAddressOf());
+		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
+		m_device_context->PSSetShaderResources(0, 1, material.m_diffuse_reflectivity_texture->GetTextureResourceView().GetAddressOf());
 	}
 
 	//-------------------------------------------------------------------------
@@ -72,10 +72,11 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	CombinedShader CreateLambertianShader() {
-		ID3D11Device2 &device = GetRenderingDevice();
+		ComPtr< ID3D11Device2 > device = GetRenderingDevice();
+		ComPtr< ID3D11DeviceContext2 > device_context = GetRenderingDeviceContext();
 		ResourceFactory &factory = GetResourceFactory();
-		SharedPtr< VertexShader > vs = factory.CreateLambertianVertexShader(device);
-		SharedPtr< PixelShader >  ps = factory.CreateLambertianPixelShader(device);
+		SharedPtr< VertexShader > vs = factory.CreateLambertianVertexShader(device, device_context);
+		SharedPtr< PixelShader >  ps = factory.CreateLambertianPixelShader(device, device_context);
 		return CombinedShader(vs, ps);
 	}
 }

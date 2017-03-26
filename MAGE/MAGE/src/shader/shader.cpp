@@ -18,31 +18,31 @@ namespace mage {
 	// VertexShader
 	//-------------------------------------------------------------------------
 
-	VertexShader::VertexShader(ID3D11Device2 &device, const wstring &guid,
+	VertexShader::VertexShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+		const wstring &guid,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
-		: Resource(guid) {
+		: Resource(guid), m_device(device), m_device_context(device_context) {
 
-		const HRESULT result_shader = InitializeShader(device, input_element_desc, nb_input_elements);
+		const HRESULT result_shader = SetupShader(input_element_desc, nb_input_elements);
 		if (FAILED(result_shader)) {
-			Error("Shader initialization failed: %08X.", result_shader);
+			Error("Shader setup failed: %08X.", result_shader);
 			return;
 		}
 	}
 
-	VertexShader::VertexShader(ID3D11Device2 &device, const wstring &guid,
-		const void *bytecode, SIZE_T bytecode_size,
+	VertexShader::VertexShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+		const wstring &guid, const void *bytecode, SIZE_T bytecode_size,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
-		: Resource(guid) {
+		: Resource(guid), m_device(device), m_device_context(device_context) {
 
-		const HRESULT result_shader = InitializeShader(device, bytecode, bytecode_size, input_element_desc, nb_input_elements);
+		const HRESULT result_shader = SetupShader(bytecode, bytecode_size, input_element_desc, nb_input_elements);
 		if (FAILED(result_shader)) {
-			Error("Shader initialization failed: %08X.", result_shader);
+			Error("Shader setup failed: %08X.", result_shader);
 			return;
 		}
 	}
 
-	HRESULT VertexShader::InitializeShader(ID3D11Device2 &device,
-		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements) {
+	HRESULT VertexShader::SetupShader(const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements) {
 
 		// Compile/Read the vertex shader.
 		ComPtr< ID3DBlob > vertex_shader_blob;
@@ -53,21 +53,21 @@ namespace mage {
 		}
 
 		// Create the vertex shader.
-		const HRESULT result_vertex_shader = device.CreateVertexShader(vertex_shader_blob->GetBufferPointer(),
-																	   vertex_shader_blob->GetBufferSize(),
-																	   nullptr,
-																	   m_vertex_shader.ReleaseAndGetAddressOf());
+		const HRESULT result_vertex_shader = m_device->CreateVertexShader(vertex_shader_blob->GetBufferPointer(),
+																		  vertex_shader_blob->GetBufferSize(),
+																		  nullptr,
+																		  m_vertex_shader.ReleaseAndGetAddressOf());
 		if (FAILED(result_vertex_shader)) {
 			Error("Vertex shader creation failed: %08X.", result_vertex_shader);
 			return result_vertex_shader;
 		}
 
 		// Create the vertex input layout.
-		const HRESULT result_vertex_input_layout = device.CreateInputLayout(input_element_desc,
-																			static_cast< UINT >(nb_input_elements),
-																			vertex_shader_blob->GetBufferPointer(),
-																			vertex_shader_blob->GetBufferSize(),
-																			m_vertex_layout.ReleaseAndGetAddressOf());
+		const HRESULT result_vertex_input_layout = m_device->CreateInputLayout(input_element_desc,
+																			   static_cast< UINT >(nb_input_elements),
+																			   vertex_shader_blob->GetBufferPointer(),
+																			   vertex_shader_blob->GetBufferSize(),
+																			   m_vertex_layout.ReleaseAndGetAddressOf());
 		if (FAILED(result_vertex_input_layout)) {
 			Error("Vertex input layout creation failed: %08X.", result_vertex_input_layout);
 			return result_vertex_input_layout;
@@ -76,12 +76,11 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT VertexShader::InitializeShader(ID3D11Device2 &device,
-		const void *bytecode, SIZE_T bytecode_size,
+	HRESULT VertexShader::SetupShader(const void *bytecode, SIZE_T bytecode_size,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements) {
 
 		// Create the vertex shader.
-		const HRESULT result_vertex_shader = device.CreateVertexShader(bytecode,
+		const HRESULT result_vertex_shader = m_device->CreateVertexShader(bytecode,
 																	   bytecode_size,
 																	   nullptr,
 																	   m_vertex_shader.ReleaseAndGetAddressOf());
@@ -91,11 +90,11 @@ namespace mage {
 		}
 
 		// Create the vertex input layout.
-		const HRESULT result_vertex_input_layout = device.CreateInputLayout(input_element_desc,
-																			static_cast< UINT >(nb_input_elements),
-																			bytecode,
-																			bytecode_size,
-																			m_vertex_layout.ReleaseAndGetAddressOf());
+		const HRESULT result_vertex_input_layout = m_device->CreateInputLayout(input_element_desc,
+																			   static_cast< UINT >(nb_input_elements),
+																			   bytecode,
+																			   bytecode_size,
+																			   m_vertex_layout.ReleaseAndGetAddressOf());
 		if (FAILED(result_vertex_input_layout)) {
 			Error("Vertex input layout creation failed: %08X.", result_vertex_input_layout);
 			return result_vertex_input_layout;
@@ -108,28 +107,29 @@ namespace mage {
 	// PixelShader
 	//-------------------------------------------------------------------------
 
-	PixelShader::PixelShader(ID3D11Device2 &device, const wstring &guid)
-		: Resource(guid) {
+	PixelShader::PixelShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+		const wstring &guid)
+		: Resource(guid), m_device(device), m_device_context(device_context) {
 
-		const HRESULT result_shader = InitializeShader(device);
+		const HRESULT result_shader = SetupShader();
 		if (FAILED(result_shader)) {
-			Error("Shader initialization failed: %08X.", result_shader);
+			Error("Shader setup failed: %08X.", result_shader);
 			return;
 		}
 	}
 
-	PixelShader::PixelShader(ID3D11Device2 &device, const wstring &guid,
-		const void *bytecode, SIZE_T bytecode_size)
-		: Resource(guid) {
+	PixelShader::PixelShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+		const wstring &guid, const void *bytecode, SIZE_T bytecode_size)
+		: Resource(guid), m_device(device), m_device_context(device_context) {
 
-		const HRESULT result_shader = InitializeShader(device, bytecode, bytecode_size);
+		const HRESULT result_shader = SetupShader(bytecode, bytecode_size);
 		if (FAILED(result_shader)) {
-			Error("Shader initialization failed: %08X.", result_shader);
+			Error("Shader setup failed: %08X.", result_shader);
 			return;
 		}
 	}
 
-	HRESULT PixelShader::InitializeShader(ID3D11Device2 &device) {
+	HRESULT PixelShader::SetupShader() {
 
 		// Compile/Read the pixel shader.
 		ComPtr< ID3DBlob > pixel_shader_blob;
@@ -140,10 +140,10 @@ namespace mage {
 		}
 
 		// Create the pixel shader.
-		const HRESULT result_pixel_layout = device.CreatePixelShader(pixel_shader_blob->GetBufferPointer(), 
-																	 pixel_shader_blob->GetBufferSize(), 
-																	 nullptr,
-																	 m_pixel_shader.ReleaseAndGetAddressOf());
+		const HRESULT result_pixel_layout = m_device->CreatePixelShader(pixel_shader_blob->GetBufferPointer(),
+																		pixel_shader_blob->GetBufferSize(), 
+																		nullptr,
+																		m_pixel_shader.ReleaseAndGetAddressOf());
 		if (FAILED(result_pixel_layout)) {
 			Error("Pixel shader creation failed: %08X.", result_pixel_layout);
 			return result_pixel_layout;
@@ -152,14 +152,13 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT PixelShader::InitializeShader(ID3D11Device2 &device,
-		const void *bytecode, SIZE_T bytecode_size) {
+	HRESULT PixelShader::SetupShader(const void *bytecode, SIZE_T bytecode_size) {
 
 		// Create the pixel shader.
-		const HRESULT result_pixel_shader = device.CreatePixelShader(bytecode,
-																	 bytecode_size,
-																	 nullptr,
-																	 m_pixel_shader.ReleaseAndGetAddressOf());
+		const HRESULT result_pixel_shader = m_device->CreatePixelShader(bytecode,
+																		bytecode_size,
+																		nullptr,
+																		m_pixel_shader.ReleaseAndGetAddressOf());
 		if (FAILED(result_pixel_shader)) {
 			Error("Pixel shader creation failed: %08X.", result_pixel_shader);
 			return result_pixel_shader;

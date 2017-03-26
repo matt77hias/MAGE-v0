@@ -13,11 +13,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Texture::Texture(ID3D11Device2 &device, const wstring &fname)
-		: FileResource(fname) {
+	Texture::Texture(ComPtr< ID3D11Device2 > device, const wstring &fname)
+		: FileResource(fname), m_device(device) {
 
 		// Create the pixel shader.
-		const HRESULT result_texture_import = ImportTextureFromFile(GetFilename(), device, m_texture_resource_view.ReleaseAndGetAddressOf());
+		const HRESULT result_texture_import = ImportTextureFromFile(GetFilename(), *m_device.Get(), m_texture_resource_view.ReleaseAndGetAddressOf());
 		if (FAILED(result_texture_import)) {
 			Error("Texture initialization failed: %08X.", result_texture_import);
 			return;
@@ -25,7 +25,7 @@ namespace mage {
 	}
 
 	SharedPtr< Texture > CreateTexture(const wstring &fname) {
-		ID3D11Device2 &device = GetRenderingDevice();
+		ComPtr< ID3D11Device2 > device = GetRenderingDevice();
 		ResourceFactory &factory = GetResourceFactory();
 		return factory.CreateTexture(device, fname);
 	}

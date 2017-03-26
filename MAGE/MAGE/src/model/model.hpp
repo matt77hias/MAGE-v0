@@ -11,7 +11,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions and Declarations
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -35,10 +35,7 @@ namespace mage {
 
 		virtual Model *Clone() const = 0;
 
-		void Render(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const {
-			RenderModel(device_context, world, transform_buffer);
-			RenderSubModels(device_context, world, transform_buffer);
-		}
+		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const = 0;
 		
 		set< SubModel * >::iterator SubModelsBegin() {
 			return m_submodels.begin();
@@ -67,15 +64,11 @@ namespace mage {
 		Model(const Model &model);
 		Model(Model &&model)
 			: WorldObject(model), m_submodels(std::move(model.m_submodels)) {}
-
-		virtual void RenderModel(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const = 0;
 		
 	private:
 
 		Model &operator=(const Model &model) = delete;
 		Model &operator=(Model &&model) = delete;
-
-		void RenderSubModels(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const;
 
 		set< SubModel *, std::less<> > m_submodels;
 	};
@@ -108,6 +101,11 @@ namespace mage {
 			return new SubModel(*this);
 		}
 
+		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const override {
+			transform_buffer.SetModelToWorld(GetTransform().GetObjectToWorldMatrix());
+			m_material->Draw(world, transform_buffer);
+		}
+
 		size_t GetStartIndex() const {
 			return m_start_index;
 		}
@@ -118,16 +116,6 @@ namespace mage {
 			m_material->GetMaterial();
 		}
 
-	protected:
-
-		virtual void RenderModel(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const override {
-			// Appearance
-			transform_buffer.SetModelToWorld(GetTransform().GetObjectToWorldMatrix());
-			m_material->Render(device_context, world, transform_buffer);
-			// Geometry
-			device_context.DrawIndexed(static_cast< UINT >(m_nb_indices), static_cast< UINT >(m_start_index), 0);
-		}
-		
 	private:
 
 		SubModel &operator=(const SubModel &submodel) = delete;
@@ -137,10 +125,4 @@ namespace mage {
 		const size_t m_nb_indices;
 		ShadedMaterial *m_material;
 	};
-
-	inline void Model::RenderSubModels(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const {
-		for (set< SubModel * >::const_iterator it = m_submodels.cbegin(); it != m_submodels.cend(); ++it) {
-			(*it)->Render(device_context, world, transform_buffer);
-		}
-	}
 }

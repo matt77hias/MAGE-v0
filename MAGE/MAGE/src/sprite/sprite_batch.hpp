@@ -56,21 +56,8 @@ namespace mage {
 		SpriteBatch &operator=(const SpriteBatch &sprite_batch) = delete;
 		SpriteBatch &operator=(SpriteBatch &&sprite_batch) = delete;
 
-		HRESULT InitializeIndexBuffer(ID3D11Device2 &device);
-		HRESULT InitializeVertexBuffer(ID3D11Device2 &device);
-
+	
 		void PrepareForRendering(ID3D11DeviceContext &context);
-
-		/**
-		 A pointer to the vertex buffer of this sprite batch.
-		 */
-		ComPtr< ID3D11Buffer > m_vertex_buffer;
-
-		/**
-		 A pointer to the index buffer of this sprite batch.
-		 */
-		ComPtr< ID3D11Buffer > m_index_buffer;
-
 
 		// Queue of sprites waiting to be drawn.
 		UniquePtr< SpriteInfo[] > m_sprite_queue;

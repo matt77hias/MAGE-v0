@@ -34,16 +34,16 @@ namespace mage {
 			return new MeshModel(*this);
 		}
 
-		const Mesh &GetMesh() const {
-			return *m_mesh;
+		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const override {
+			m_mesh->PrepareDrawing();
+			for (set< SubModel * >::const_iterator it = SubModelsBegin(); it != SubModelsEnd(); ++it) {
+				(*it)->Draw(world, transform_buffer);
+				m_mesh->Draw((*it)->GetStartIndex(), (*it)->GetNumberOfIndices());
+			}
 		}
 
-	protected:
-
-		virtual void RenderModel(ID3D11DeviceContext2 &device_context, const World &world, const TransformBuffer &transform_buffer) const override {
-			UNUSED(world);
-			UNUSED(transform_buffer);
-			m_mesh->Render(device_context);
+		const StaticMesh &GetMesh() const {
+			return *m_mesh;
 		}
 
 	private:
@@ -53,6 +53,6 @@ namespace mage {
 
 		HRESULT InitializeModel(const ModelDescriptor &desc, const CombinedShader &shader);
 
-		SharedPtr< Mesh > m_mesh;
+		SharedPtr< StaticMesh > m_mesh;
 	};
 }

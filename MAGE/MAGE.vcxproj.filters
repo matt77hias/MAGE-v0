@@ -178,6 +178,9 @@
     <Filter Include="Header Files\shader\cso">
       <UniqueIdentifier>{3e728b6b-cea7-411c-907f-9061e4579b11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\mesh">
+      <UniqueIdentifier>{e7352513-7730-49d0-b678-7af1f64efbcc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -305,9 +308,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\parallel\id_generator.hpp">
       <Filter>Header Files\parallel</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\mesh.hpp">
-      <Filter>Header Files\mesh</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\model\model.hpp">
       <Filter>Header Files\model</Filter>
@@ -501,7 +501,13 @@
     <ClInclude Include="MAGE\src\math\sprite_transform.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\sprite_mesh.hpp">
+    <ClInclude Include="MAGE\src\mesh\sprite_batch_mesh.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\static_mesh.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\mesh.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
   </ItemGroup>
@@ -680,6 +686,12 @@
     <ClCompile Include="MAGE\src\rendering\rendering_state.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\static_mesh.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">
@@ -708,9 +720,6 @@
     <None Include="MAGE\src\scripting\variable_script.tpp">
       <Filter>Header Files\scripting</Filter>
     </None>
-    <None Include="MAGE\src\mesh\mesh.tpp">
-      <Filter>Header Files\mesh</Filter>
-    </None>
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp">
       <Filter>Header Files\mesh\obj</Filter>
     </None>
@@ -731,6 +740,9 @@
     </None>
     <None Include="MAGE\src\resource\resource_pool.tpp">
       <Filter>Header Files\resource</Filter>
+    </None>
+    <None Include="MAGE\src\mesh\static_mesh.tpp">
+      <Filter>Header Files\mesh</Filter>
     </None>
   </ItemGroup>
 </Project>

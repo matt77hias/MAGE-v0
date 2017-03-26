@@ -6,12 +6,12 @@
 #pragma region
 
 #include "model\model_loader.hpp"
-#include "mesh\mesh.hpp"
+#include "mesh\static_mesh.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions and Declarations
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -20,14 +20,14 @@ namespace mage {
 	public:
 
 		template < typename VertexT >
-		ModelDescriptor(ID3D11Device2 &device, const wstring &fname,
-			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >());
+		ModelDescriptor(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context,
+			const wstring &fname, const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >());
 		virtual ~ModelDescriptor() {
 			m_materials.clear();
 			m_model_parts.clear();
 		}
 
-		SharedPtr< Mesh > GetMesh() const {
+		SharedPtr< StaticMesh > GetMesh() const {
 			return m_mesh;
 		}
 		vector< Material >::const_iterator MaterialsBegin() const {
@@ -50,7 +50,7 @@ namespace mage {
 		ModelDescriptor &operator=(const ModelDescriptor &desc) = delete;
 		ModelDescriptor &operator=(ModelDescriptor &&desc) = delete;
 
-		SharedPtr< Mesh > m_mesh;
+		SharedPtr< StaticMesh > m_mesh;
 		vector< Material > m_materials;
 		vector< ModelPart > m_model_parts;
 	};

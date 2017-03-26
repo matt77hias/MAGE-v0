@@ -74,19 +74,19 @@ namespace mage {
 		/**
 		 Returns the device of this renderer.
 
-		 @return		A reference to the device of this renderer.
+		 @return		A pointer to the device of this renderer.
 		 */
-		ID3D11Device2 &GetDevice() const {
-			return *m_device2.Get();
+		ComPtr< ID3D11Device2 > GetDevice() const {
+			return m_device2;
 		}
 
 		/**
 		 Returns the device context of this renderer.
 
-		 @return		A reference to the device context of this renderer.
+		 @return		A pointer to the device context of this renderer.
 		 */
-		ID3D11DeviceContext2 &GetDeviceContext() const {
-			return *m_device_context2.Get();
+		ComPtr< ID3D11DeviceContext2 > GetDeviceContext() const {
+			return m_device_context2;
 		}
 
 		/**

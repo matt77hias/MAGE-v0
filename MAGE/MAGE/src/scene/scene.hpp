@@ -88,11 +88,8 @@ namespace mage {
 
 		/**
 		 Renders this scene.
-
-		 @param[in]		device_context
-						A pointer to the device context.
 		 */
-		void Render(ID3D11DeviceContext2 &device_context);
+		void Render();
 
 		/**
 		 Closes this scene.

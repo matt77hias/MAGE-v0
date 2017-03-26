@@ -12,10 +12,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ID3D11Device2 &GetModelRenderingDevice() {
+	ComPtr< ID3D11Device2 > GetModelRenderingDevice() {
 		return GetRenderingDevice();
 	}
-
+	ComPtr< ID3D11DeviceContext2 > GetModelRenderingDeviceContext() {
+		return GetRenderingDeviceContext();
+	}
 	ResourceFactory &GetModelResourceFactory() {
 		return GetResourceFactory();
 	}

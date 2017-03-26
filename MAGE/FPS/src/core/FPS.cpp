@@ -71,7 +71,8 @@ public:
 		SharedPtr< BehaviorScript > test_script(new TestScript(test_model));
 		AddScript(test_script);
 
-		SpriteFont font(g_engine->GetRenderer().GetDevice(), L"assets/fonts/calibri.spritefont", SpriteFontDescriptor());
+		//TODO
+		SpriteFont font(*(g_engine->GetRenderer().GetDevice().Get()), L"assets/fonts/calibri.spritefont", SpriteFontDescriptor());
 	}
 
 private:

@@ -36,10 +36,10 @@ namespace mage {
 
 		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const override {
 			m_mesh->PrepareDrawing();
-			for (set< SubModel * >::const_iterator it = SubModelsBegin(); it != SubModelsEnd(); ++it) {
-				(*it)->Draw(world, transform_buffer);
-				m_mesh->Draw((*it)->GetStartIndex(), (*it)->GetNumberOfIndices());
-			}
+			ForEachSubModel([&](SubModel *submodel) {
+				submodel->Draw(world, transform_buffer);
+				m_mesh->Draw(submodel->GetStartIndex(), submodel->GetNumberOfIndices());
+			});
 		}
 
 		const StaticMesh &GetMesh() const {

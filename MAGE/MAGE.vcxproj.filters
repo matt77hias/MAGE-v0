@@ -744,5 +744,14 @@
     <None Include="MAGE\src\mesh\static_mesh.tpp">
       <Filter>Header Files\mesh</Filter>
     </None>
+    <None Include="MAGE\src\world\world.tpp">
+      <Filter>Header Files\world</Filter>
+    </None>
+    <None Include="MAGE\src\scene\scene.tpp">
+      <Filter>Header Files\scene</Filter>
+    </None>
+    <None Include="MAGE\src\model\model.tpp">
+      <Filter>Header Files\model</Filter>
+    </None>
   </ItemGroup>
 </Project>

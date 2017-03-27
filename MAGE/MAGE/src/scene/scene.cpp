@@ -95,14 +95,14 @@ namespace mage {
 	}
 
 	void Scene::Load() {
-		for (set< SharedPtr< BehaviorScript > >::iterator it = m_scripts.begin(); it != m_scripts.end(); ++it) {
-			(*it)->Load();
-		}
+		ForEachScript([](SharedPtr< BehaviorScript > script) {
+			script->Load();
+		});
 	}
 	void Scene::Update(double elapsed_time) {
-		for (set< SharedPtr< BehaviorScript > >::iterator it = m_scripts.begin(); it != m_scripts.end(); ++it) {
-			(*it)->Update(elapsed_time, *this);
-		}
+		ForEachScript([&](SharedPtr< BehaviorScript > script) {
+			script->Update(elapsed_time, *this);
+		});
 	}
 	void Scene::Render() {
 		TransformBuffer transform_buffer(GetCamera());

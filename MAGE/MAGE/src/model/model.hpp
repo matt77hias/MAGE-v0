@@ -37,18 +37,6 @@ namespace mage {
 
 		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const = 0;
 		
-		set< SubModel * >::iterator SubModelsBegin() {
-			return m_submodels.begin();
-		}
-		set< SubModel * >::iterator SubModelsEnd() {
-			return m_submodels.end();
-		}
-		set< SubModel * >::const_iterator SubModelsBegin() const {
-			return m_submodels.cbegin();
-		}
-		set< SubModel * >::const_iterator SubModelsEnd() const {
-			return m_submodels.cend();
-		}
 		size_t GetNumberOfSubModels() const {
 			return m_submodels.size();
 		}
@@ -57,6 +45,10 @@ namespace mage {
 			return GetSubModel(name) != nullptr;
 		}
 		void AddSubModel(SubModel *submodel);
+		template< typename ActionT >
+		void ForEachSubModel(ActionT action);
+		template< typename ActionT >
+		void ForEachSubModel(ActionT action) const;
 
 	protected:
 
@@ -126,3 +118,12 @@ namespace mage {
 		ShadedMaterial *m_material;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "model\model.tpp"
+
+#pragma endregion

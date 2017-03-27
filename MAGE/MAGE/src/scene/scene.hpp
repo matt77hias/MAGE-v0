@@ -43,18 +43,6 @@ namespace mage {
 		// Scripts
 		//-------------------------------------------------------------------------
 
-		set< SharedPtr< BehaviorScript > >::iterator ScriptsBegin() {
-			return m_scripts.begin();
-		}
-		set< SharedPtr< BehaviorScript > >::iterator ScriptsEnd() {
-			return m_scripts.end();
-		}
-		set< SharedPtr< BehaviorScript > >::const_iterator ScriptsBegin() const {
-			return m_scripts.cbegin();
-		}
-		set< SharedPtr< BehaviorScript > >::const_iterator ScriptsEnd() const {
-			return m_scripts.cend();
-		}
 		size_t GetNumberOfScripts() const {
 			return m_scripts.size();
 		}
@@ -67,6 +55,10 @@ namespace mage {
 		void RemoveScript(const string &name, bool close = false);
 		void RemoveScript(SharedPtr< BehaviorScript > script, bool close = false);
 		void RemoveAllScripts(bool close = false);
+		template< typename ActionT >
+		void ForEachScript(ActionT action);
+		template< typename ActionT >
+		void ForEachScript(ActionT action) const;
 
 		//-------------------------------------------------------------------------
 		// Lifecycle
@@ -115,3 +107,12 @@ namespace mage {
 		set< SharedPtr< BehaviorScript >, std::less<> > m_scripts;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "scene\scene.tpp"
+
+#pragma endregion

@@ -326,12 +326,15 @@
     <None Include="MAGE\src\memory\memory_arena.tpp" />
     <None Include="MAGE\src\mesh\static_mesh.tpp" />
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp" />
+    <None Include="MAGE\src\model\model.tpp" />
     <None Include="MAGE\src\model\model_descriptor.tpp" />
     <None Include="MAGE\src\model\model_loader.tpp" />
     <None Include="MAGE\src\rendering\rendering_factory.tpp" />
     <None Include="MAGE\src\resource\resource_factory.tpp" />
     <None Include="MAGE\src\resource\resource_pool.tpp" />
+    <None Include="MAGE\src\scene\scene.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
+    <None Include="MAGE\src\world\world.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>

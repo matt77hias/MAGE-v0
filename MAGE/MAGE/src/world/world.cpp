@@ -13,9 +13,9 @@
 namespace mage {
 
 	void World::Render(const TransformBuffer &transform_buffer) {
-		for (set< SharedPtr< Model > >::iterator it = m_models.begin(); it != m_models.end(); ++it) {
-			(*it)->Draw(*this, transform_buffer);
-		}
+		ForEachModel([&](SharedPtr< Model > model) {
+			model->Draw(*this, transform_buffer);
+		});
 	}
 
 	//-------------------------------------------------------------------------

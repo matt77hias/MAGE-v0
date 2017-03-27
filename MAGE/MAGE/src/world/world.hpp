@@ -34,18 +34,6 @@ namespace mage {
 		// Models
 		//-------------------------------------------------------------------------
 
-		set< SharedPtr< Model > >::iterator ModelsBegin() {
-			return m_models.begin();
-		}
-		set< SharedPtr< Model > >::iterator ModelsEnd() {
-			return m_models.end();
-		}
-		set< SharedPtr< Model > >::const_iterator ModelsBegin() const {
-			return m_models.cbegin();
-		}
-		set< SharedPtr< Model > >::const_iterator ModelsEnd() const {
-			return m_models.cend();
-		}
 		size_t GetNumberOfModels() const {
 			return m_models.size();
 		}
@@ -65,23 +53,15 @@ namespace mage {
 		void RemoveAllModels() {
 			m_models.clear();
 		}
+		template< typename ActionT >
+		void ForEachModel(ActionT action);
+		template< typename ActionT >
+		void ForEachModel(ActionT action) const;
 
 		//-------------------------------------------------------------------------
 		// Lights
 		//-------------------------------------------------------------------------
 
-		set< SharedPtr< PointLight > >::iterator LightsBegin() {
-			return m_lights.begin();
-		}
-		set< SharedPtr< PointLight > >::iterator LightsEnd() {
-			return m_lights.end();
-		}
-		set< SharedPtr< PointLight > >::const_iterator LightsBegin() const {
-			return m_lights.cbegin();
-		}
-		set< SharedPtr< PointLight > >::const_iterator LightsEnd() const {
-			return m_lights.cend();
-		}
 		size_t GetNumberOfLights() const {
 			return m_lights.size();
 		}
@@ -101,6 +81,10 @@ namespace mage {
 		void RemoveAllLights() {
 			m_lights.clear();
 		}
+		template< typename ActionT >
+		void ForEachLight(ActionT action);
+		template< typename ActionT >
+		void ForEachLight(ActionT action) const;
 
 	private:
 
@@ -113,3 +97,12 @@ namespace mage {
 		set< SharedPtr< PointLight >, std::less<> > m_lights;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "world\world.tpp"
+
+#pragma endregion

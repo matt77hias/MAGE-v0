@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "mesh\mesh.hpp"
 #include "world\world_object.hpp"
 #include "shader\shaded_material.hpp"
 
@@ -35,7 +36,10 @@ namespace mage {
 
 		virtual Model *Clone() const = 0;
 
-		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const = 0;
+		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const {
+			UNUSED(world);
+			UNUSED(transform_buffer);
+		}
 		
 		size_t GetNumberOfSubModels() const {
 			return m_submodels.size();
@@ -93,9 +97,16 @@ namespace mage {
 			return new SubModel(*this);
 		}
 
-		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const override {
+		void Draw(const Mesh &mesh, const World &world, const TransformBuffer &transform_buffer) const {
+			// Appearance
 			transform_buffer.SetModelToWorld(GetTransform().GetObjectToWorldMatrix());
 			m_material->Draw(world, transform_buffer);
+			// Geometry
+			mesh.Draw(m_start_index, m_nb_indices);
+			// Childs
+			ForEachSubModel([&](SubModel *submodel) {
+				submodel->Draw(mesh, world, transform_buffer);
+			});
 		}
 
 		size_t GetStartIndex() const {

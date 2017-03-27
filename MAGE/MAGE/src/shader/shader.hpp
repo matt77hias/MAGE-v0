@@ -116,7 +116,7 @@ namespace mage {
 			m_pixel_shader = pixel_shader;
 		}
 
-		void Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) {
+		void Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
 			m_vertex_shader->Draw(material, world, transform_buffer);
 			m_pixel_shader->Draw(material, world);
 		}

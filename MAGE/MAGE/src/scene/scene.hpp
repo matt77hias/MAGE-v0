@@ -81,7 +81,7 @@ namespace mage {
 		/**
 		 Renders this scene.
 		 */
-		void Render();
+		void Render() const;
 
 		/**
 		 Closes this scene.
@@ -103,7 +103,7 @@ namespace mage {
 		
 		string m_name;
 		SharedPtr< Camera > m_camera;
-		SharedPtr< World > m_world;
+		UniquePtr< World > m_world;
 		set< SharedPtr< BehaviorScript >, std::less<> > m_scripts;
 	};
 }

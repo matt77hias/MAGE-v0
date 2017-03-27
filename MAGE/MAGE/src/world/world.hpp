@@ -28,7 +28,7 @@ namespace mage {
 			RemoveAllLights();
 		}
 
-		void Render(const TransformBuffer &transform_buffer);
+		void Render(const TransformBuffer &transform_buffer) const;
 
 		//-------------------------------------------------------------------------
 		// Models

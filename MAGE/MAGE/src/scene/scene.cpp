@@ -104,7 +104,7 @@ namespace mage {
 			script.Update(elapsed_time, *this);
 		});
 	}
-	void Scene::Render() {
+	void Scene::Render() const {
 		TransformBuffer transform_buffer(GetCamera());
 		m_world->Render(transform_buffer);
 	}

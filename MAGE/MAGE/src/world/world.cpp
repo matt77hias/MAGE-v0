@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void World::Render(const TransformBuffer &transform_buffer) {
+	void World::Render(const TransformBuffer &transform_buffer) const {
 		ForEachModel([&](const Model &model) {
 			model.Draw(*this, transform_buffer);
 		});

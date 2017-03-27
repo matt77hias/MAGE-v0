@@ -63,7 +63,7 @@ namespace mage {
 	}
 
 	HRESULT SpriteFont::InitializeSpriteFont(const SpriteFontOutput &output) {
-		m_glyphs = output.m_glyphs;
+		m_glyphs = std::move(output.m_glyphs);
 		if (!std::is_sorted(m_glyphs.cbegin(), m_glyphs.cend(), GlyphLessThan())) {
 			Error("Sprite font glyphs are not sorted.");
 			return E_FAIL;

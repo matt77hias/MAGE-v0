@@ -95,13 +95,13 @@ namespace mage {
 	}
 
 	void Scene::Load() {
-		ForEachScript([](SharedPtr< BehaviorScript > script) {
-			script->Load();
+		ForEachScript([](BehaviorScript &script) {
+			script.Load();
 		});
 	}
 	void Scene::Update(double elapsed_time) {
-		ForEachScript([&](SharedPtr< BehaviorScript > script) {
-			script->Update(elapsed_time, *this);
+		ForEachScript([&](BehaviorScript &script) {
+			script.Update(elapsed_time, *this);
 		});
 	}
 	void Scene::Render() {

@@ -1059,42 +1059,6 @@ namespace mage {
 			return m_childs.size();
 		}
 
-		/**
-		 Returns an iterator to the beginning of the childs of this transform.
-
-		 @return		An iterator to the beginning of the childs of this transform.
-		 */
-		set< SharedPtr< Transform > >::iterator begin() {
-			return m_childs.begin();
-		}
-
-		/**
-		 Returns an iterator to the end of the childs of this transform.
-
-		 @return		An iterator to the end of the childs of this transform.
-		 */
-		set< SharedPtr< Transform > >::iterator end() {
-			return m_childs.end();
-		}
-
-		/**
-		 Returns a constant iterator to the beginning of the childs of this transform.
-
-		 @return		A constant iterator to the beginning of the childs of this transform.
-		 */
-		set< SharedPtr< Transform > >::const_iterator cbegin() const {
-			return m_childs.cbegin();
-		}
-
-		/**
-		 Returns a constant iterator to the end of the childs of this transform.
-
-		 @return		A constant iterator to the end of the childs of this transform.
-		 */
-		set< SharedPtr< Transform > >::const_iterator cend() const {
-			return m_childs.cend();
-		}
-
 	private:
 
 		/**

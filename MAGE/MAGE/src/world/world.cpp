@@ -13,8 +13,8 @@
 namespace mage {
 
 	void World::Render(const TransformBuffer &transform_buffer) {
-		ForEachModel([&](SharedPtr< Model > model) {
-			model->Draw(*this, transform_buffer);
+		ForEachModel([&](const Model &model) {
+			model.Draw(*this, transform_buffer);
 		});
 	}
 

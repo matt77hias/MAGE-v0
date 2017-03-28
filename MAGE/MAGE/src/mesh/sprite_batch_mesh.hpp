@@ -21,10 +21,10 @@ namespace mage {
 
 	public:
 
-		static const size_t SpriteBatchMesh::min_sprites_per_batch = 128;
-		static const size_t SpriteBatchMesh::max_sprites_per_batch = 2048;
-		static const size_t SpriteBatchMesh::vertices_per_sprite   = 4; // quad = 2 triangles
-		static const size_t SpriteBatchMesh::indices_per_sprite    = 6; // quad = 2 triangles
+		static const size_t min_sprites_per_batch = 128;
+		static const size_t max_sprites_per_batch = 2048;
+		static const size_t vertices_per_sprite   = 4; // quad = 2 triangles
+		static const size_t indices_per_sprite    = 6; // quad = 2 triangles
 
 		static constexpr size_t MinVerticesPerSprite() {
 			return min_sprites_per_batch * vertices_per_sprite;

@@ -72,7 +72,7 @@ public:
 		AddScript(test_script);
 
 		//TODO
-		SpriteFont font(*(g_engine->GetRenderer().GetDevice().Get()), L"assets/fonts/calibri.spritefont", SpriteFontDescriptor());
+		SpriteFont font(g_engine->GetRenderer().GetDevice(), L"assets/fonts/calibri.spritefont", SpriteFontDescriptor());
 	}
 
 private:
@@ -116,7 +116,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 	// Create the engine, then run it.
 	g_engine = new Engine(setup);
 	g_engine->Run(nCmdShow);
-	delete g_engine;
+	SAFE_DELETE(g_engine);
 
 	return 0;
 }

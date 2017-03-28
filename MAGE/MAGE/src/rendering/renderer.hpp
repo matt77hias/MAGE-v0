@@ -76,8 +76,8 @@ namespace mage {
 
 		 @return		A pointer to the device of this renderer.
 		 */
-		ComPtr< ID3D11Device2 > GetDevice() const {
-			return m_device2;
+		ID3D11Device2 *GetDevice() const {
+			return m_device2.Get();
 		}
 
 		/**
@@ -85,8 +85,8 @@ namespace mage {
 
 		 @return		A pointer to the device context of this renderer.
 		 */
-		ComPtr< ID3D11DeviceContext2 > GetDeviceContext() const {
-			return m_device_context2;
+		ID3D11DeviceContext2 *GetDeviceContext() const {
+			return m_device_context2.Get();
 		}
 
 		/**
@@ -266,6 +266,6 @@ namespace mage {
 		ComPtr< ID3D11Texture2D >        m_depth_stencil;
 		ComPtr< ID3D11DepthStencilView > m_depth_stencil_view;
 		UniquePtr< RenderingState >      m_rendering_state;
-		SharedPtr< RenderingStateCache > m_rendering_state_cache;
+		UniquePtr< RenderingStateCache > m_rendering_state_cache;
 	};
 }

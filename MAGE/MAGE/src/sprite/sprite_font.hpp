@@ -21,7 +21,7 @@ namespace mage {
 
 	public:
 
-		SpriteFont(ID3D11Device2 &device, const wstring &fname, const SpriteFontDescriptor &desc);
+		SpriteFont(ID3D11Device2 *device, const wstring &fname, const SpriteFontDescriptor &desc);
 		virtual ~SpriteFont() = default;
 
 		void DrawString(SpriteBatch &sprite_batch, const wchar_t *text, const SpriteTransform &transform,

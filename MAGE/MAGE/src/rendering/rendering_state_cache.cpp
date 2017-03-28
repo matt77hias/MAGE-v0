@@ -20,190 +20,190 @@ namespace mage {
 	// Blend states
 	//-------------------------------------------------------------------------
 	
-	ComPtr< ID3D11BlendState > RenderingStateCache::GetOpaqueBlendState() {
+	ID3D11BlendState *RenderingStateCache::GetOpaqueBlendState() {
 		MutexLock lock(m_mutex);
 		if (!m_opaque_blend_state) {
-			const HRESULT result_create = CreateOpaqueBlendState(*m_device.Get(), m_opaque_blend_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateOpaqueBlendState(m_device, m_opaque_blend_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Opaque blend state creation failed: %08X.", result_create);
 			}
 		}
-		return m_opaque_blend_state;
+		return m_opaque_blend_state.Get();
 	}
-	ComPtr< ID3D11BlendState > RenderingStateCache::GetAlphaBlendState() {
+	ID3D11BlendState *RenderingStateCache::GetAlphaBlendState() {
 		MutexLock lock(m_mutex);
 		if (!m_alpha_blend_state) {
-			const HRESULT result_create = CreateAlphaBlendState(*m_device.Get(), m_alpha_blend_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateAlphaBlendState(m_device, m_alpha_blend_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Alpha blend state creation failed: %08X.", result_create);
 			}
 		}
-		return m_alpha_blend_state;
+		return m_alpha_blend_state.Get();
 
 	}
-	ComPtr< ID3D11BlendState > RenderingStateCache::GetAdditiveBlendState() {
+	ID3D11BlendState *RenderingStateCache::GetAdditiveBlendState() {
 		MutexLock lock(m_mutex);
 		if (!m_additive_blend_state) {
-			const HRESULT result_create = CreateAdditiveBlendState(*m_device.Get(), m_additive_blend_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateAdditiveBlendState(m_device, m_additive_blend_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Additive blend state creation failed: %08X.", result_create);
 			}
 		}
-		return m_additive_blend_state;
+		return m_additive_blend_state.Get();
 	}
-	ComPtr< ID3D11BlendState > RenderingStateCache::GetNonPremultipliedBlendState() {
+	ID3D11BlendState *RenderingStateCache::GetNonPremultipliedBlendState() {
 		MutexLock lock(m_mutex);
 		if (!m_non_premultiplied_blend_state) {
-			const HRESULT result_create = CreateNonPremultipliedBlendState(*m_device.Get(), m_non_premultiplied_blend_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateNonPremultipliedBlendState(m_device, m_non_premultiplied_blend_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Non-premultiplied blend state creation failed: %08X.", result_create);
 			}
 		}
-		return m_non_premultiplied_blend_state;
+		return m_non_premultiplied_blend_state.Get();
 	}
 
 	//-------------------------------------------------------------------------
 	// Depth stencil states
 	//-------------------------------------------------------------------------
 
-	ComPtr< ID3D11DepthStencilState > RenderingStateCache::GetDepthNoneDepthStencilState() {
+	ID3D11DepthStencilState *RenderingStateCache::GetDepthNoneDepthStencilState() {
 		MutexLock lock(m_mutex);
 		if (!m_depth_none_depth_stencil_state) {
-			const HRESULT result_create = CreateDepthNoneDepthStencilState(*m_device.Get(), m_depth_none_depth_stencil_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateDepthNoneDepthStencilState(m_device, m_depth_none_depth_stencil_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Depth non depth stencil state creation failed: %08X.", result_create);
 			}
 		}
-		return m_depth_none_depth_stencil_state;
+		return m_depth_none_depth_stencil_state.Get();
 	}
-	ComPtr< ID3D11DepthStencilState > RenderingStateCache::GetDepthDefaultDepthStencilState() {
+	ID3D11DepthStencilState *RenderingStateCache::GetDepthDefaultDepthStencilState() {
 		MutexLock lock(m_mutex);
 		if (!m_depth_default_depth_stencil_state) {
-			const HRESULT result_create = CreateDepthDefaultDepthStencilState(*m_device.Get(), m_depth_default_depth_stencil_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateDepthDefaultDepthStencilState(m_device, m_depth_default_depth_stencil_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Depth default depth stencil state creation failed: %08X.", result_create);
 			}
 		}
-		return m_depth_default_depth_stencil_state;
+		return m_depth_default_depth_stencil_state.Get();
 	}
-	ComPtr< ID3D11DepthStencilState > RenderingStateCache::GetDepthReadDepthStencilState() {
+	ID3D11DepthStencilState *RenderingStateCache::GetDepthReadDepthStencilState() {
 		MutexLock lock(m_mutex);
 		if (!m_depth_read_depth_stencil_state) {
-			const HRESULT result_create = CreateDepthReadDepthStencilState(*m_device.Get(), m_depth_read_depth_stencil_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateDepthReadDepthStencilState(m_device, m_depth_read_depth_stencil_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Depth read depth stencil state creation failed: %08X.", result_create);
 			}
 		}
-		return m_depth_read_depth_stencil_state;
+		return m_depth_read_depth_stencil_state.Get();
 	}
 
 	//-------------------------------------------------------------------------
 	// Rasterizer states
 	//-------------------------------------------------------------------------
 
-	ComPtr< ID3D11RasterizerState > RenderingStateCache::GetCullNoneRasterizerState() {
+	ID3D11RasterizerState *RenderingStateCache::GetCullNoneRasterizerState() {
 		MutexLock lock(m_mutex);
 		if (!m_cull_none_rasterizer_state) {
-			const HRESULT result_create = CreateCullNoneRasterizerState(*m_device.Get(), m_cull_none_rasterizer_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateCullNoneRasterizerState(m_device, m_cull_none_rasterizer_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Cull none rasterizer state creation failed: %08X.", result_create);
 			}
 		}
-		return m_cull_none_rasterizer_state;
+		return m_cull_none_rasterizer_state.Get();
 	}
-	ComPtr< ID3D11RasterizerState > RenderingStateCache::GetCullClockwiseRasterizerState() {
+	ID3D11RasterizerState *RenderingStateCache::GetCullClockwiseRasterizerState() {
 		MutexLock lock(m_mutex);
 		if (!m_cull_clockwise_rasterizer_state) {
-			const HRESULT result_create = CreateCullClockwiseRasterizerState(*m_device.Get(), m_cull_clockwise_rasterizer_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateCullClockwiseRasterizerState(m_device, m_cull_clockwise_rasterizer_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Cull clockwise rasterizer state creation failed: %08X.", result_create);
 			}
 		}
-		return m_cull_clockwise_rasterizer_state;
+		return m_cull_clockwise_rasterizer_state.Get();
 	}
-	ComPtr< ID3D11RasterizerState > RenderingStateCache::GetCullCounterClockwiseRasterizerState() {
+	ID3D11RasterizerState *RenderingStateCache::GetCullCounterClockwiseRasterizerState() {
 		MutexLock lock(m_mutex);
 		if (!m_cull_counter_clockwise_rasterizer_state) {
-			const HRESULT result_create = CreateCullCounterClockwiseRasterizerState(*m_device.Get(), m_cull_counter_clockwise_rasterizer_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateCullCounterClockwiseRasterizerState(m_device, m_cull_counter_clockwise_rasterizer_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Cull counter clockwise state creation failed: %08X.", result_create);
 			}
 		}
-		return m_cull_counter_clockwise_rasterizer_state;
+		return m_cull_counter_clockwise_rasterizer_state.Get();
 	}
-	ComPtr< ID3D11RasterizerState > RenderingStateCache::GetWireframeRasterizerState() {
+	ID3D11RasterizerState *RenderingStateCache::GetWireframeRasterizerState() {
 		MutexLock lock(m_mutex);
 		if (!m_wireframe_rasterizer_state) {
-			const HRESULT result_create = CreateWireframeRasterizerState(*m_device.Get(), m_wireframe_rasterizer_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateWireframeRasterizerState(m_device, m_wireframe_rasterizer_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Wireframe rasterizer state creation failed: %08X.", result_create);
 			}
 		}
-		return m_wireframe_rasterizer_state;
+		return m_wireframe_rasterizer_state.Get();
 	}
 
 	//-------------------------------------------------------------------------
 	// Sampler states
 	//-------------------------------------------------------------------------
 
-	ComPtr< ID3D11SamplerState > RenderingStateCache::GetPointWrapSamplerState() {
+	ID3D11SamplerState *RenderingStateCache::GetPointWrapSamplerState() {
 		MutexLock lock(m_mutex);
 		if (!m_point_wrap_sampler_state) {
-			const HRESULT result_create = CreatePointWrapSamplerState(*m_device.Get(), m_point_wrap_sampler_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreatePointWrapSamplerState(m_device, m_point_wrap_sampler_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Point wrap sampler state creation failed: %08X.", result_create);
 			}
 		}
-		return m_point_wrap_sampler_state;
+		return m_point_wrap_sampler_state.Get();
 	}
-	ComPtr< ID3D11SamplerState > RenderingStateCache::GetPointClampSamplerState() {
+	ID3D11SamplerState *RenderingStateCache::GetPointClampSamplerState() {
 		MutexLock lock(m_mutex);
 		if (!m_point_clamp_sampler_state) {
-			const HRESULT result_create = CreatePointClampSamplerState(*m_device.Get(), m_point_clamp_sampler_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreatePointClampSamplerState(m_device, m_point_clamp_sampler_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Point clamp sampler state creation failed: %08X.", result_create);
 			}
 		}
-		return m_point_clamp_sampler_state;
+		return m_point_clamp_sampler_state.Get();
 	}
-	ComPtr< ID3D11SamplerState > RenderingStateCache::GetLinearWrapSamplerState() {
+	ID3D11SamplerState *RenderingStateCache::GetLinearWrapSamplerState() {
 		MutexLock lock(m_mutex);
 		if (!m_linear_wrap_sampler_state) {
-			const HRESULT result_create = CreateLinearWrapSamplerState(*m_device.Get(), m_linear_wrap_sampler_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateLinearWrapSamplerState(m_device, m_linear_wrap_sampler_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Linear wrap sampler state creation failed: %08X.", result_create);
 			}
 		}
-		return m_linear_wrap_sampler_state;
+		return m_linear_wrap_sampler_state.Get();
 	}
-	ComPtr< ID3D11SamplerState > RenderingStateCache::GetLinearClampSamplerState() {
+	ID3D11SamplerState *RenderingStateCache::GetLinearClampSamplerState() {
 		MutexLock lock(m_mutex);
 		if (!m_linear_clamp_sampler_state) {
-			const HRESULT result_create = CreateLinearClampSamplerState(*m_device.Get(), m_linear_clamp_sampler_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateLinearClampSamplerState(m_device, m_linear_clamp_sampler_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Linear clamp sampler state creation failed: %08X.", result_create);
 			}
 		}
-		return m_linear_clamp_sampler_state;
+		return m_linear_clamp_sampler_state.Get();
 	}
-	ComPtr< ID3D11SamplerState > RenderingStateCache::GetAnisotropicWrapSamplerState() {
+	ID3D11SamplerState *RenderingStateCache::GetAnisotropicWrapSamplerState() {
 		MutexLock lock(m_mutex);
 		if (!m_anisotropic_wrap_sampler_state) {
-			const HRESULT result_create = CreateAnisotropicWrapSamplerState(*m_device.Get(), m_anisotropic_wrap_sampler_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateAnisotropicWrapSamplerState(m_device, m_anisotropic_wrap_sampler_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Anistropic wrap sampler state creation failed: %08X.", result_create);
 			}
 		}
-		return m_anisotropic_wrap_sampler_state;
+		return m_anisotropic_wrap_sampler_state.Get();
 	}
-	ComPtr< ID3D11SamplerState > RenderingStateCache::GetAnisotropicClampSamplerState() {
+	ID3D11SamplerState *RenderingStateCache::GetAnisotropicClampSamplerState() {
 		MutexLock lock(m_mutex);
 		if (!m_anisotropic_clamp_sampler_state) {
-			const HRESULT result_create = CreateAnisotropicClampSamplerState(*m_device.Get(), m_anisotropic_clamp_sampler_state.ReleaseAndGetAddressOf());
+			const HRESULT result_create = CreateAnisotropicClampSamplerState(m_device, m_anisotropic_clamp_sampler_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
 				Error("Anistropic clamp sampler state creation failed: %08X.", result_create);
 			}
 		}
-		return m_anisotropic_clamp_sampler_state;
+		return m_anisotropic_clamp_sampler_state.Get();
 	}
 }

@@ -18,7 +18,7 @@ namespace mage {
 	// VertexShader
 	//-------------------------------------------------------------------------
 
-	VertexShader::VertexShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+	VertexShader::VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &guid,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
 		: Resource(guid), m_device(device), m_device_context(device_context) {
@@ -30,7 +30,7 @@ namespace mage {
 		}
 	}
 
-	VertexShader::VertexShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+	VertexShader::VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &guid, const void *bytecode, SIZE_T bytecode_size,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
 		: Resource(guid), m_device(device), m_device_context(device_context) {
@@ -107,7 +107,7 @@ namespace mage {
 	// PixelShader
 	//-------------------------------------------------------------------------
 
-	PixelShader::PixelShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+	PixelShader::PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &guid)
 		: Resource(guid), m_device(device), m_device_context(device_context) {
 
@@ -118,7 +118,7 @@ namespace mage {
 		}
 	}
 
-	PixelShader::PixelShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+	PixelShader::PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &guid, const void *bytecode, SIZE_T bytecode_size)
 		: Resource(guid), m_device(device), m_device_context(device_context) {
 

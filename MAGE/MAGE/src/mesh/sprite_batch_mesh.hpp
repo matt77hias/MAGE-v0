@@ -42,7 +42,7 @@ namespace mage {
 		/**
 		 Constructs a sprite batch mesh.
 		 */
-		SpriteBatchMesh(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context);
+		SpriteBatchMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
 
 		/**
 		 Destructs this sprite batch mesh.

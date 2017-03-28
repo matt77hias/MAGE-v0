@@ -89,9 +89,7 @@ namespace mage {
 			m_material(std::move(submodel.m_material)) {
 			submodel.m_material = nullptr;
 		}
-		virtual ~SubModel() {
-			delete m_material;
-		}
+		virtual ~SubModel() = default;
 
 		virtual SubModel *Clone() const {
 			return new SubModel(*this);
@@ -126,7 +124,7 @@ namespace mage {
 
 		const size_t m_start_index;
 		const size_t m_nb_indices;
-		ShadedMaterial *m_material;
+		UniquePtr< ShadedMaterial > m_material;
 	};
 }
 

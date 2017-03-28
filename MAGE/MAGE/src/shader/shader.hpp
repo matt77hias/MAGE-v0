@@ -24,9 +24,9 @@ namespace mage {
 
 	public:
 
-		VertexShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+		VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, 
 			const wstring &guid, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
-		VertexShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context,
+		VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &guid, const void *bytecode, SIZE_T bytecode_size,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 		virtual ~VertexShader() = default;
@@ -35,10 +35,10 @@ namespace mage {
 
 	protected:
 
-		ComPtr< ID3D11Device2 >        m_device;
-		ComPtr< ID3D11DeviceContext2 > m_device_context;
-		ComPtr< ID3D11VertexShader >   m_vertex_shader;
-		ComPtr< ID3D11InputLayout >    m_vertex_layout;
+		ID3D11Device2 * const m_device;
+		ID3D11DeviceContext2 * const m_device_context;
+		ComPtr< ID3D11VertexShader > m_vertex_shader;
+		ComPtr< ID3D11InputLayout >  m_vertex_layout;
 
 	private:
 
@@ -60,9 +60,9 @@ namespace mage {
 
 	public:
 
-		PixelShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+		PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &guid);
-		PixelShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+		PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &guid, const void *bytecode, SIZE_T bytecode_size);
 		virtual ~PixelShader() = default;
 
@@ -70,9 +70,9 @@ namespace mage {
 
 	protected:
 
-		ComPtr< ID3D11Device2 >        m_device;
-		ComPtr< ID3D11DeviceContext2 > m_device_context;
-		ComPtr< ID3D11PixelShader >    m_pixel_shader;
+		ID3D11Device2 * const m_device;
+		ID3D11DeviceContext2 * const m_device_context;
+		ComPtr< ID3D11PixelShader > m_pixel_shader;
 
 	private:
 
@@ -101,20 +101,6 @@ namespace mage {
 
 		CombinedShader &operator=(const CombinedShader &shader) = default;
 		CombinedShader &operator=(CombinedShader &&shader) = default;
-
-		SharedPtr< VertexShader > GetVertexShader() const {
-			return m_vertex_shader;
-		}
-		void SetVertexShader(SharedPtr< VertexShader > vertex_shader) {
-			m_vertex_shader = vertex_shader;
-		}
-
-		SharedPtr< PixelShader > GetPixelShader() const {
-			return m_pixel_shader;
-		}
-		void SetPixelShader(SharedPtr< PixelShader > pixel_shader) {
-			m_pixel_shader = pixel_shader;
-		}
 
 		void Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
 			m_vertex_shader->Draw(material, world, transform_buffer);

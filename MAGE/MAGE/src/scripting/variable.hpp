@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\memory.hpp"
 #include "string\string.hpp"
 #include "math\math.hpp"
 
@@ -75,9 +76,7 @@ namespace mage {
 		/**
 		 Destructs this variable.
 		 */
-		~Variable() {
-			delete m_value;
-		}
+		~Variable() = default;
 		
 		/**
 		 Checks whether the given variable is equal to this variable.
@@ -142,8 +141,7 @@ namespace mage {
 		 */
 		template< typename T >
 		void SetValue(const T *value) {
-			delete m_value;
-			m_value = new Value< T >(value);
+			m_value.reset(new Value< T >(value));
 		}
 
 	private:
@@ -289,9 +287,7 @@ namespace mage {
 			/**
 			 Destructs this value.
 			 */
-			virtual ~Value() {
-				delete m_value;
-			}
+			virtual ~Value() = default;
 
 			/**
 			 Returns the value of this value.
@@ -299,7 +295,7 @@ namespace mage {
 			 @return		A pointer to the value of this value.
 			 */
 			virtual const void *GetValue() const override {
-				return (void *)m_value;
+				return (void *)m_value.get();
 			}
 
 		private:
@@ -347,12 +343,12 @@ namespace mage {
 			/**
 			 A pointer to the value of this value.
 			 */
-			const T *m_value;
+			UniquePtr< const T > m_value;
 		};
 
 		/**
-		A pointer to the value of this variable.
-		*/
-		const AbstractValue *m_value;
+		 A pointer to the value of this variable.
+		 */
+		UniquePtr< const AbstractValue > m_value;
 	};
 }

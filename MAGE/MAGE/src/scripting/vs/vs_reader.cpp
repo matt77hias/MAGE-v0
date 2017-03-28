@@ -152,6 +152,6 @@ namespace mage {
 		const char *str = ReadChars();
 		char *value = new char[MAX_PATH + 1];
 		strcpy_s(value, MAX_PATH + 1, str);
-		m_variable_buffer.push_back(new Variable(UnknownType, name, (void *)value));
+		m_variable_buffer.push_back(new Variable(UnknownType, name, value));
 	}
 }

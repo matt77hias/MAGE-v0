@@ -20,7 +20,7 @@ namespace mage {
 
 	public:
 
-		RenderingStateCache(ComPtr< ID3D11Device2 > device)
+		RenderingStateCache(ID3D11Device2 *device)
 			: m_device(device) {}
 		~RenderingStateCache() = default;
 
@@ -28,38 +28,38 @@ namespace mage {
 		// Blend states
 		//---------------------------------------------------------------------
 
-		ComPtr< ID3D11BlendState > GetOpaqueBlendState();
-		ComPtr< ID3D11BlendState > GetAlphaBlendState();
-		ComPtr< ID3D11BlendState > GetAdditiveBlendState();
-		ComPtr< ID3D11BlendState > GetNonPremultipliedBlendState();
+		ID3D11BlendState *GetOpaqueBlendState();
+		ID3D11BlendState *GetAlphaBlendState();
+		ID3D11BlendState *GetAdditiveBlendState();
+		ID3D11BlendState *GetNonPremultipliedBlendState();
 
 		//---------------------------------------------------------------------
 		// Depth stencil states
 		//---------------------------------------------------------------------
 
-		ComPtr< ID3D11DepthStencilState > GetDepthNoneDepthStencilState();
-		ComPtr< ID3D11DepthStencilState > GetDepthDefaultDepthStencilState();
-		ComPtr< ID3D11DepthStencilState > GetDepthReadDepthStencilState();
+		ID3D11DepthStencilState *GetDepthNoneDepthStencilState();
+		ID3D11DepthStencilState *GetDepthDefaultDepthStencilState();
+		ID3D11DepthStencilState *GetDepthReadDepthStencilState();
 
 		//-------------------------------------------------------------------------
 		// Rasterizer states
 		//-------------------------------------------------------------------------
 
-		ComPtr< ID3D11RasterizerState > GetCullNoneRasterizerState();
-		ComPtr< ID3D11RasterizerState > GetCullClockwiseRasterizerState();
-		ComPtr< ID3D11RasterizerState > GetCullCounterClockwiseRasterizerState();
-		ComPtr< ID3D11RasterizerState > GetWireframeRasterizerState();
+		ID3D11RasterizerState *GetCullNoneRasterizerState();
+		ID3D11RasterizerState *GetCullClockwiseRasterizerState();
+		ID3D11RasterizerState *GetCullCounterClockwiseRasterizerState();
+		ID3D11RasterizerState *GetWireframeRasterizerState();
 
 		//-------------------------------------------------------------------------
 		// Sampler states
 		//-------------------------------------------------------------------------
 
-		ComPtr< ID3D11SamplerState > GetPointWrapSamplerState();
-		ComPtr< ID3D11SamplerState > GetPointClampSamplerState();
-		ComPtr< ID3D11SamplerState > GetLinearWrapSamplerState();
-		ComPtr< ID3D11SamplerState > GetLinearClampSamplerState();
-		ComPtr< ID3D11SamplerState > GetAnisotropicWrapSamplerState();
-		ComPtr< ID3D11SamplerState > GetAnisotropicClampSamplerState();
+		ID3D11SamplerState *GetPointWrapSamplerState();
+		ID3D11SamplerState *GetPointClampSamplerState();
+		ID3D11SamplerState *GetLinearWrapSamplerState();
+		ID3D11SamplerState *GetLinearClampSamplerState();
+		ID3D11SamplerState *GetAnisotropicWrapSamplerState();
+		ID3D11SamplerState *GetAnisotropicClampSamplerState();
 
 	private:
 
@@ -72,7 +72,7 @@ namespace mage {
 		/**
 		 The device of this rendering state.
 		 */
-		ComPtr< ID3D11Device2 > m_device;
+		ID3D11Device2 * const m_device;
 
 		ComPtr< ID3D11BlendState > m_opaque_blend_state;
 		ComPtr< ID3D11BlendState > m_alpha_blend_state;

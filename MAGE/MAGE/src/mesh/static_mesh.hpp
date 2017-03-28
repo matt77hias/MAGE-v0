@@ -43,7 +43,7 @@ namespace mage {
 						The number of indices.
 		 */
 		template < typename VertexT >
-		StaticMesh(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+		StaticMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const VertexT *vertices, size_t nb_vertices, 
 			const uint32_t *indices, size_t nb_indices);
 
@@ -64,7 +64,7 @@ namespace mage {
 						A reference to a vector of indices.
 		 */
 		template < typename VertexT >
-		StaticMesh(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+		StaticMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const vector< VertexT > &vertices, const vector< uint32_t > &indices)
 			: StaticMesh(device, device_context, 
 				vertices.data(), vertices.size(), 

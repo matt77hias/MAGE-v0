@@ -32,7 +32,7 @@ namespace mage {
 
 	public:
 
-		LambertianVertexShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context);
+		LambertianVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
 		virtual ~LambertianVertexShader() = default;
 
 		virtual void Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const override;
@@ -55,7 +55,7 @@ namespace mage {
 
 	public:
 
-		LambertianPixelShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context);
+		LambertianPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
 		virtual ~LambertianPixelShader() = default;
 
 		virtual void Draw(const Material &material, const World &world) const override;

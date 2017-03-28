@@ -22,7 +22,7 @@ namespace mage {
 
 	public:
 
-		EmptyVertexShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+		EmptyVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &fname, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
 			: VertexShader(device, device_context, fname, input_element_desc, nb_input_elements) {}
 		virtual ~EmptyVertexShader() = default;
@@ -45,7 +45,7 @@ namespace mage {
 
 	public:
 
-		EmptyPixelShader(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, 
+		EmptyPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &fname)
 			: PixelShader(device, device_context, fname) {}
 		virtual ~EmptyPixelShader() = default;

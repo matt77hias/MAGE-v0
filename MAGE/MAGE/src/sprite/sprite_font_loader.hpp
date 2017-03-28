@@ -16,5 +16,5 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT ImportSpriteFontFromFile(const wstring &fname, ID3D11Device2 &device, SpriteFontOutput &output, const SpriteFontDescriptor &desc = SpriteFontDescriptor());
+	HRESULT ImportSpriteFontFromFile(const wstring &fname, ID3D11Device2 *device, SpriteFontOutput &output, const SpriteFontDescriptor &desc = SpriteFontDescriptor());
 }

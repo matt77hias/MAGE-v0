@@ -243,8 +243,8 @@ namespace mage {
 	}
 
 	void Renderer::SetupRenderingState() {
-		m_rendering_state_cache = SharedPtr< RenderingStateCache >(new RenderingStateCache(m_device2));
-		m_rendering_state       = make_unique< RenderingState >(m_device2, m_device_context2, m_rendering_state_cache);
+		m_rendering_state_cache = make_unique< RenderingStateCache >(m_device2.Get());
+		m_rendering_state       = make_unique< RenderingState >(m_device2.Get(), m_device_context2.Get(), m_rendering_state_cache.get());
 		m_rendering_state->SetDefaultRenderingState3D();
 	}
 

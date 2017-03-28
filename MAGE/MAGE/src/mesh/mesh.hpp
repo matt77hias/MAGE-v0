@@ -118,7 +118,7 @@ namespace mage {
 		 @param[in]		primitive_topology
 						The primitive topology.
 		 */
-		Mesh(ComPtr< ID3D11Device2 > device, ComPtr< ID3D11DeviceContext2 > device_context, size_t vertex_size,
+		Mesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, size_t vertex_size,
 			DXGI_FORMAT index_format = DXGI_FORMAT_R32_UINT, 
 			D3D11_PRIMITIVE_TOPOLOGY primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 			: m_device(device), m_device_context(device_context), 
@@ -148,7 +148,7 @@ namespace mage {
 		/**
 		 A pointer to the device of this mesh.
 		 */
-		ComPtr< ID3D11Device2 > m_device;
+		ID3D11Device2 * const m_device;
 
 		/**
 		 A pointer to the vertex buffer of this mesh.
@@ -201,7 +201,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this mesh.
 		 */
-		ComPtr< ID3D11DeviceContext2 > m_device_context;
+		ID3D11DeviceContext2 * const m_device_context;
 
 		/**
 		 The vertex size of this static mesh.

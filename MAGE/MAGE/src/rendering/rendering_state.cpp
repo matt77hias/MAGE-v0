@@ -11,15 +11,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
 	void RenderingState::Render() {
-		m_device_context->OMSetBlendState(m_blend_state.Get(), nullptr, 0xFFFFFFFF);
-		m_device_context->OMSetDepthStencilState(m_depth_stencil_state.Get(), 0);
-		m_device_context->RSSetState(m_rasterizer_state.Get());
-		m_device_context->PSSetSamplers(0, 1, m_sampler_state.GetAddressOf());
+		m_device_context->OMSetBlendState(m_blend_state, nullptr, 0xFFFFFFFF);
+		m_device_context->OMSetDepthStencilState(m_depth_stencil_state, 0);
+		m_device_context->RSSetState(m_rasterizer_state);
+		m_device_context->PSSetSamplers(0, 1, &m_sampler_state);
 	}
 
 	void RenderingState::SetDefaultRenderingState2D() {
@@ -39,7 +39,7 @@ namespace mage {
 	// Blend state
 	//-------------------------------------------------------------------------
 
-	void RenderingState::SetBlendState(ComPtr< ID3D11BlendState > blend_state) {
+	void RenderingState::SetBlendState(ID3D11BlendState *blend_state) {
 		Assert(blend_state);
 		m_blend_state = blend_state;
 	}
@@ -60,7 +60,7 @@ namespace mage {
 	// Depth stencil state
 	//-------------------------------------------------------------------------
 
-	void RenderingState::SetDepthStencilState(ComPtr< ID3D11DepthStencilState > depth_stencil_state) {
+	void RenderingState::SetDepthStencilState(ID3D11DepthStencilState *depth_stencil_state) {
 		Assert(depth_stencil_state);
 		m_depth_stencil_state = depth_stencil_state;
 	}
@@ -78,7 +78,7 @@ namespace mage {
 	// Rasterizer state
 	//-------------------------------------------------------------------------
 
-	void RenderingState::SetRasterizerState(ComPtr< ID3D11RasterizerState > rasterizer_state) {
+	void RenderingState::SetRasterizerState(ID3D11RasterizerState *rasterizer_state) {
 		Assert(rasterizer_state);
 		m_rasterizer_state = rasterizer_state;
 	}
@@ -99,7 +99,7 @@ namespace mage {
 	// Sampler state
 	//-------------------------------------------------------------------------
 
-	void RenderingState::SetSamplerState(ComPtr< ID3D11SamplerState > sampler_state) {
+	void RenderingState::SetSamplerState(ID3D11SamplerState *sampler_state) {
 		Assert(sampler_state);
 		m_sampler_state = sampler_state;
 	}

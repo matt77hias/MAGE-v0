@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT ImportSpriteFontFromFile(const wstring &fname, ID3D11Device2 &device, SpriteFontOutput &output, const SpriteFontDescriptor &desc) {
+	HRESULT ImportSpriteFontFromFile(const wstring &fname, ID3D11Device2 *device, SpriteFontOutput &output, const SpriteFontDescriptor &desc) {
 		const wstring extension = GetFileExtension(fname);
 
 		if (extension == L"spritefont" || extension == L"SPRITEFONT") {

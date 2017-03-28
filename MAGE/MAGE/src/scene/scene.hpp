@@ -56,8 +56,6 @@ namespace mage {
 		void RemoveScript(SharedPtr< BehaviorScript > script, bool close = false);
 		void RemoveAllScripts(bool close = false);
 		template< typename ActionT >
-		void ForEachScript(ActionT action);
-		template< typename ActionT >
 		void ForEachScript(ActionT action) const;
 
 		//-------------------------------------------------------------------------

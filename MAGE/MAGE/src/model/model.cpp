@@ -30,8 +30,8 @@ namespace mage {
 
 	void Model::AddSubModel(SubModel *submodel) {
 		Assert(submodel);
-		AddChildTransform(*submodel);
 		m_submodels.insert(submodel);
+		submodel->GetTransform().SetDirty();
 	}
 
 	SubModel *Model::GetSubModel(const string &name) const {
@@ -41,6 +41,15 @@ namespace mage {
 			}
 		}
 		return nullptr;
+	}
+
+	void Model::UpdateChildTransforms(bool dirty_ancestor) {
+		ForEachSubModel([&](SubModel &submodel) {
+			submodel.UpdateTransform(
+				GetTransform().GetWorldToObjectMatrix(), 
+				GetTransform().GetObjectToWorldMatrix(),
+				dirty_ancestor);
+		});
 	}
 
 	//-------------------------------------------------------------------------

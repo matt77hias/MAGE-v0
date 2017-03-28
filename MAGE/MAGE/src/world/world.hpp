@@ -30,6 +30,9 @@ namespace mage {
 
 		void Render(const TransformBuffer &transform_buffer) const;
 
+		template< typename ActionT >
+		void ForEachWorldObject(ActionT action) const;
+
 		//-------------------------------------------------------------------------
 		// Models
 		//-------------------------------------------------------------------------
@@ -53,8 +56,6 @@ namespace mage {
 		void RemoveAllModels() {
 			m_models.clear();
 		}
-		template< typename ActionT >
-		void ForEachModel(ActionT action);
 		template< typename ActionT >
 		void ForEachModel(ActionT action) const;
 
@@ -81,8 +82,6 @@ namespace mage {
 		void RemoveAllLights() {
 			m_lights.clear();
 		}
-		template< typename ActionT >
-		void ForEachLight(ActionT action);
 		template< typename ActionT >
 		void ForEachLight(ActionT action) const;
 

@@ -50,8 +50,6 @@ namespace mage {
 		}
 		void AddSubModel(SubModel *submodel);
 		template< typename ActionT >
-		void ForEachSubModel(ActionT action);
-		template< typename ActionT >
 		void ForEachSubModel(ActionT action) const;
 
 	protected:
@@ -60,6 +58,8 @@ namespace mage {
 		Model(const Model &model);
 		Model(Model &&model)
 			: WorldObject(model), m_submodels(std::move(model.m_submodels)) {}
+
+		virtual void UpdateChildTransforms(bool dirty_ancestor) override;
 		
 	private:
 
@@ -102,8 +102,8 @@ namespace mage {
 			// Geometry
 			mesh.Draw(m_start_index, m_nb_indices);
 			// Childs
-			ForEachSubModel([&](SubModel *submodel) {
-				submodel->Draw(mesh, world, transform_buffer);
+			ForEachSubModel([&](SubModel &submodel) {
+				submodel.Draw(mesh, world, transform_buffer);
 			});
 		}
 

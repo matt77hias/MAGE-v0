@@ -37,18 +37,21 @@ namespace mage {
 		 */
 		Transform(const XMFLOAT3 &translation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &rotation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &scale = { 1.0f, 1.0f, 1.0f })
 			: m_translation(translation), m_rotation(rotation), m_scale(scale) {
-			const XMMATRIX &identity = XMMatrixIdentity();
-			Update(identity, identity);
+			SetDirty();
 		}
 		
 		/**
-		 Constructs a transform from the components of the given transform.
+		 Constructs a transform from the given transform.
 
 		 @param[in]		transform
 						A reference to the transform.
 		 */
 		Transform(const Transform &transform)
-			: Transform(transform.m_translation, transform.m_rotation, transform.m_scale) {}
+			: m_translation(transform.m_translation), 
+			m_rotation(transform.m_rotation),
+			m_scale(transform.m_scale) {
+			SetDirty();
+		}
 
 		/**
 		 Constructs a transform from the given transform.
@@ -56,7 +59,12 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the transform.
 		 */
-		Transform(Transform &&transform) = default;
+		Transform(Transform &&transform)
+			: m_translation(std::move(transform.m_translation)),
+			m_rotation(std::move(transform.m_rotation)),
+			m_scale(std::move(transform.m_scale)) {
+			SetDirty();
+		}
 
 		//-------------------------------------------------------------------------
 		// Destruction
@@ -65,16 +73,14 @@ namespace mage {
 		/**
 		 Destructs this transform.
 		 */
-		~Transform() {
-			RemoveAllChilds();
-		}
+		~Transform() = default;
 		
 		//-------------------------------------------------------------------------
 		// Copying
 		//-------------------------------------------------------------------------
 
 		/**
-		 Copies the components of the given transform to this transform.
+		 Copies the given transform to this transform.
 
 		 @param[in]		transform
 						A reference to the transform to copy from.
@@ -82,7 +88,10 @@ namespace mage {
 						(i.e. this transform).
 		 */
 		Transform &operator=(const Transform &transform) {
-			SetComponents(transform);
+			m_translation = transform.m_translation;
+			m_rotation    = transform.m_rotation;
+			m_scale       = transform.m_scale;
+			SetDirty();
 			return (*this);
 		}
 
@@ -94,39 +103,12 @@ namespace mage {
 		 @return		A reference to the copy of the given transform
 						(i.e. this transform).
 		 */
-		Transform &operator=(Transform &&transform) = default;
-
-		//-------------------------------------------------------------------------
-		// Tranbslation + Rotation + Scale
-		//-------------------------------------------------------------------------
-
-		/**
-		 Sets the translation, rotation, scale component of this transform 
-		 to the given components.
-
-		 @param[in]		translation
-						A reference to the translation component.
-		 @param[in]		rotation
-						A reference to the rotation component.
-		 @param[in]		scale
-						A reference to the scale component.
-		 */
-		void SetComponents(const XMFLOAT3 &translation, const XMFLOAT3 &rotation, const XMFLOAT3 &scale) {
-			m_translation = translation;
-			m_rotation    = rotation;
-			m_scale       = scale;
-			Update();
-		}
-
-		/**
-		 Sets the translation, rotation, scale component of this transform
-		 to the components of the given transform..
-
-		 @param[in]		transform
-						A reference to the transform.
-		 */
-		void SetComponents(const Transform &transform) {
-			SetComponents(transform.m_translation, transform.m_rotation, transform.m_scale);
+		Transform &operator=(Transform &&transform) {
+			m_translation = std::move(transform.m_translation);
+			m_rotation    = std::move(transform.m_rotation);
+			m_scale       = std::move(transform.m_scale);
+			SetDirty();
+			return (*this);
 		}
 
 		//-------------------------------------------------------------------------
@@ -141,7 +123,7 @@ namespace mage {
 		 */
 		void SetTranslationX(float x) {
 			m_translation.x = x;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -152,7 +134,7 @@ namespace mage {
 		 */
 		void SetTranslationY(float y) {
 			m_translation.y = y;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -163,7 +145,7 @@ namespace mage {
 		 */
 		void SetTranslationZ(float z) {
 			m_translation.z = z;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -180,7 +162,7 @@ namespace mage {
 			m_translation.x = x;
 			m_translation.y = y;
 			m_translation.z = z;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -191,7 +173,7 @@ namespace mage {
 		 */
 		void SetTranslation(const XMFLOAT3 &translation) {
 			m_translation = translation;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -202,7 +184,7 @@ namespace mage {
 		 */
 		void AddTranslationX(float x) {
 			m_translation.x += x;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -213,7 +195,7 @@ namespace mage {
 		 */
 		void AddTranslationY(float y) {
 			m_translation.y += y;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -224,7 +206,7 @@ namespace mage {
 		 */
 		void AddTranslationZ(float z) {
 			m_translation.z += z;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -241,7 +223,7 @@ namespace mage {
 			m_translation.x += x;
 			m_translation.y += y;
 			m_translation.z += z;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -311,7 +293,7 @@ namespace mage {
 		 */
 		void SetRotationX(float x) {
 			m_rotation.x = x;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -322,7 +304,7 @@ namespace mage {
 		 */
 		void SetRotationY(float y) {
 			m_rotation.y = y;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -333,7 +315,7 @@ namespace mage {
 		 */
 		void SetRotationZ(float z) {
 			m_rotation.z = z;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -350,7 +332,7 @@ namespace mage {
 			m_rotation.x = x;
 			m_rotation.y = y;
 			m_rotation.z = z;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -361,7 +343,7 @@ namespace mage {
 		 */
 		void SetRotation(const XMFLOAT3 &rotation) {
 			m_rotation = rotation;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -385,7 +367,7 @@ namespace mage {
 			const float cy = rotation._33 / cp;
 			m_rotation.x = acosf(cy);
 
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -396,7 +378,7 @@ namespace mage {
 		 */
 		void AddRotationX(float x) {
 			m_rotation.x += x;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -407,7 +389,7 @@ namespace mage {
 		 */
 		void AddRotationY(float y) {
 			m_rotation.y += y;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -418,7 +400,7 @@ namespace mage {
 		 */
 		void AddRotationZ(float z) {
 			m_rotation.z += z;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -435,7 +417,7 @@ namespace mage {
 			m_rotation.x += x;
 			m_rotation.y += y;
 			m_rotation.z += z;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -505,7 +487,7 @@ namespace mage {
 		 */
 		void SetScaleX(float x) {
 			m_scale.x = x;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -516,7 +498,7 @@ namespace mage {
 		 */
 		void SetScaleY(float y) {
 			m_scale.y = y;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -527,7 +509,7 @@ namespace mage {
 		 */
 		void SetScaleZ(float z) {
 			m_scale.z = z;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -544,7 +526,7 @@ namespace mage {
 			m_scale.x = x;
 			m_scale.y = y;
 			m_scale.z = z;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -555,7 +537,7 @@ namespace mage {
 		 */
 		void SetScale(const XMFLOAT3 &scale) {
 			m_scale = scale;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -566,7 +548,7 @@ namespace mage {
 		 */
 		void AddScaleX(float x) {
 			m_scale.x += x;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -577,7 +559,7 @@ namespace mage {
 		 */
 		void AddScaleY(float y) {
 			m_scale.y += y;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -588,7 +570,7 @@ namespace mage {
 		 */
 		void AddScaleZ(float z) {
 			m_scale.z += z;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -605,7 +587,7 @@ namespace mage {
 			m_scale.x += x;
 			m_scale.y += y;
 			m_scale.z += z;
-			Update();
+			SetDirty();
 		}
 		
 		/**
@@ -1012,51 +994,48 @@ namespace mage {
 		}
 
 		//-------------------------------------------------------------------------
-		// Childs
+		// Update
 		//-------------------------------------------------------------------------
 
 		/**
-		 Checks whether this transform contains the given transform as a child transform.
+		 Checks whether this transform is dirty.
 
-		 @return		@c true if this transform contains the given transform as a child transform.
+		 @return		@c true if this transform is dirty.
 						@c false otherwise.
 		 */
-		bool ContainsChild(const SharedPtr< Transform > child) const {
-			return m_childs.find(child) != m_childs.cend();
+		bool IsDirty() const {
+			return m_dirty;
 		}
 
 		/**
-		 Adds the given child transform to the child transforms of this transform.
-
-		 @pre			@a child may not refer to @c nullptr.
-		 @pre			@a child may not refer to @c this.		
-		 @param[in]		child
-						A pointer to the child transform.
+		 Sets this transform to dirty.
 		 */
-		void AddChild(SharedPtr< Transform > child);
-
-		/**
-		 Removes the given child transform from the child transforms of this transform.
-
-		 @param[in]		child
-						A pointer to the child transform.
-		 */
-		void RemoveChild(SharedPtr< Transform > child);
-
-		/**
-		 Removes and destructs all child transforms of this transform.
-		 */
-		void RemoveAllChilds() {
-			m_childs.clear();
+		void SetDirty() {
+			m_dirty = true;
 		}
 
 		/**
-		 Returns the total number of child transforms of this transform.
-
-		 @return		The total number of child transforms of this transform.
+		 Updates the world-to-object and object-to-world matrices of this transform.
 		 */
-		size_t GetNumberOfChilds() const {
-			return m_childs.size();
+		void Update() {
+			m_world_to_object = GetParentToObjectMatrix();
+			m_object_to_world = GetObjectToParentMatrix();
+			SetNotDirty();
+		}
+
+		/**
+		 Updates the world-to-object and object-to-world matrices of this transform
+		 based on the given world-to-parent and parent-to-world matrices.
+
+		 @param[in]		world_to_parent
+						A reference to the world-to-parent matrix.
+		 @param[in]		parent_to_world
+						A reference to the parent-to-world matrix.
+		 */
+		void Update(const XMMATRIX &world_to_parent, const XMMATRIX &parent_to_world) {
+			m_world_to_object = GetParentToObjectMatrix() * world_to_parent;
+			m_object_to_world = parent_to_world * GetObjectToParentMatrix();
+			SetNotDirty();
 		}
 
 	private:
@@ -1100,26 +1079,15 @@ namespace mage {
 			return XMVector3Normalize(XMVector4Transform(direction, transformation));
 		}
 
-		/**
-		 Updates the world-to-object and object-to-world matrices, and 
-		 updates all the childs of this transform.
-		 */
-		void Update();
+		//-------------------------------------------------------------------------
+		// Update
+		//-------------------------------------------------------------------------
 
 		/**
-		 Updates the world-to-object and object-to-world matrices, and
-		 updates the world-to-parent and parent-to-world matrices of this transform
-		 based on the given world-to-parent and parent-to-world matrices of this transform.
-
-		 @param[in]		world_to_parent
-						A reference to the world-to-parent matrix.
-		 @param[in]		parent_to_world
-						A reference to the parent-to-world matrix.	
+		 Sets this transform to not dirty.
 		 */
-		void Update(const XMMATRIX &world_to_parent, const XMMATRIX &parent_to_world) {
-			m_world_to_parent = world_to_parent;
-			m_parent_to_world = parent_to_world;
-			Update();
+		void SetNotDirty() {
+			m_dirty = false;
 		}
 
 		/**
@@ -1148,18 +1116,8 @@ namespace mage {
 		XMMATRIX m_object_to_world;
 
 		/**
-		 The world-to-parent matrix of this transform.
+		 A flag indicating whether this transform is dirty.
 		 */
-		XMMATRIX m_world_to_parent;
-
-		/**
-		 The parent-to-world matrix of this transform.
-		 */
-		XMMATRIX m_parent_to_world;
-
-		/**
-		 A set containing the child transforms of this transform.
-		 */
-		set< SharedPtr< Transform >, std::less<> > m_childs;
+		bool m_dirty;
 	};
 }

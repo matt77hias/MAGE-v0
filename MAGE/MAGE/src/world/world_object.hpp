@@ -29,9 +29,9 @@ namespace mage {
 		virtual ~WorldObject() = default;
 
 		WorldObject &operator=(const WorldObject &world_object) {
-			m_name      = world_object.m_name;
-			m_transform = SharedPtr< Transform >(new Transform(*world_object.m_transform));
-			return *this;
+			m_name = world_object.m_name;
+			m_transform.reset(new Transform(*world_object.m_transform));
+			return (*this);
 		}
 		WorldObject &operator=(WorldObject &&world_object) = default;
 
@@ -49,15 +49,32 @@ namespace mage {
 			return *m_transform;
 		}
 
-	protected:
-
-		void AddChildTransform(const WorldObject &world_object) const {
-			m_transform->AddChild(world_object.m_transform);
+		void UpdateTransform() {
+			if (m_transform->IsDirty()) {
+				m_transform->Update();
+				UpdateChildTransforms(true);
+			}
+			else {
+				UpdateChildTransforms(false);
+			}
 		}
+		void UpdateTransform(const XMMATRIX &world_to_parent, const XMMATRIX &parent_to_world, bool dirty_ancestor) {
+			if (dirty_ancestor || m_transform->IsDirty()) {
+				m_transform->Update(world_to_parent, parent_to_world);
+				UpdateChildTransforms(true);
+			}
+			else {
+				UpdateChildTransforms(false);
+			}
+		}
+		
+	protected:
+		
+		virtual void UpdateChildTransforms(bool dirty_ancestor) {}
 
 	private:
 
 		string m_name;
-		SharedPtr< Transform > m_transform;
+		UniquePtr< Transform > m_transform;
 	};
 }

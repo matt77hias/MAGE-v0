@@ -37,8 +37,8 @@ namespace mage {
 		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const override {
 			m_mesh->PrepareDrawing();
 			// Childs
-			ForEachSubModel([&](SubModel *submodel) {
-				submodel->Draw(*m_mesh, world, transform_buffer);
+			ForEachSubModel([&](SubModel &submodel) {
+				submodel.Draw(*m_mesh, world, transform_buffer);
 			});
 		}
 

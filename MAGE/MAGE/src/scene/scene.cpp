@@ -4,6 +4,7 @@
 #pragma region
 
 #include "scene\scene.hpp"
+#include "model\model.hpp"
 #include "scripting\behavior_script.hpp"
 #include "logging\error.hpp"
 
@@ -102,6 +103,11 @@ namespace mage {
 	void Scene::Update(double elapsed_time) {
 		ForEachScript([&](BehaviorScript &script) {
 			script.Update(elapsed_time, *this);
+		});
+
+		m_camera->UpdateTransform();
+		m_world->ForEachWorldObject([](WorldObject &world_object) {
+			world_object.UpdateTransform();
 		});
 	}
 	void Scene::Render() const {

@@ -3,7 +3,9 @@ Always use `const` (member method, method return argument, method input argument
 Always use `const` for return by value of non-built-in types to avoid assignment (and its side effects).
 
 ### Explicit constructors
-Make **all** (non-default, non-copy, non-move) constructors `explicit` (independent of the number of arguments).  
+Make **all** (non-default, non-copy, non-move) constructors `explicit` (independent of the number of arguments).
+
+Prefer inheritance with explicit constructors over typedefs to force explicit type conversion between aliases.
 
 ### Implicitly defined member methods
 Do not use implicitly defined (i.e. compiler generated) member methods. Always declare and define (with `= default`/`= delete` if possible) the following member methods:

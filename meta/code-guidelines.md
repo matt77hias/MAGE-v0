@@ -1,3 +1,6 @@
+### const
+Always use `const` (member method, method return argument, method input arguments, local variables) if applicable.
+Always use `const` for return by value of non-built-in types to avoid assignment (and its side effects).
 
 ### Explicit constructors
 Make **all** (non-default, non-copy, non-move) constructors `explicit` (independent of the number of arguments).  
@@ -17,4 +20,11 @@ Note that Move Constructors make sense in nearly all situations (except in case 
 Enumerate all member variables in the initializer list of constructors in order.
 
 ### Smart pointers
-Use `SharedPtr`, `UniquePtr` and `ComPtr` (`memory\memory.hpp`) to express ownership. Use `WeakPtr` (for `SharedPtr`), raw pointer (for `UniquePtr` and `ComPtr`) to express usage without ownership.
+Use `SharedPtr`, `UniquePtr` and `ComPtr` (`memory\memory.hpp`) to express ownership.
+Use `WeakPtr` (for `SharedPtr`), raw pointer (for `UniquePtr` and `ComPtr`) to express usage without ownership.
+
+### `static_cast`
+Always use `static_cast` for type conversion between built-in types.
+
+### `<stdint.h>`
+Prefer `(u)intX_t` and `size_t` over non-typedefed built-in types.

@@ -16,5 +16,5 @@ Note that Move Constructors make sense in nearly all situations (except in case 
 ### Member initializer lists
 Enumerate all member variables in the initializer list of constructors in order.
 
-### Smart pointer
-Use SharedPtr, UniquePtr and ComPtr to express ownership. Use WeakPtr (for SharedPtr), raw pointer (for UniquePtr and ComPtr) to express usage without ownership.
+### Smart pointers
+Use `SharedPtr`, `UniquePtr` and `ComPtr` (`memory\memory.hpp`) to express ownership. Use `WeakPtr` (for `SharedPtr`), raw pointer (for `UniquePtr` and `ComPtr`) to express usage without ownership.

@@ -191,22 +191,22 @@ namespace mage {
 	}
 
 	template < typename VertexT >
-	Point3 OBJReader< VertexT >::ReadOBJVertexCoordinates() {
+	const Point3 OBJReader< VertexT >::ReadOBJVertexCoordinates() {
 		return (Point3)ReadFloat3();
 	}
 
 	template < typename VertexT >
-	Normal3 OBJReader< VertexT >::ReadOBJVertexNormalCoordinates() {
+	const Normal3 OBJReader< VertexT >::ReadOBJVertexNormalCoordinates() {
 		return (Normal3)ReadFloat3();
 	}
 
 	template < typename VertexT >
-	UV OBJReader< VertexT >::ReadOBJVertexTextureCoordinates() {
+	const UV OBJReader< VertexT >::ReadOBJVertexTextureCoordinates() {
 		return (UV)ReadFloat2();
 	}
 
 	template < typename VertexT >
-	XMUINT3 OBJReader< VertexT >::ReadOBJVertexIndices() {
+	const XMUINT3 OBJReader< VertexT >::ReadOBJVertexIndices() {
 		const char *token = ReadChars();
 
 		uint32_t vertex_index = 0;
@@ -251,7 +251,7 @@ namespace mage {
 	}
 
 	template < typename VertexT >
-	VertexT OBJReader< VertexT >::ConstructVertex(const XMUINT3 &vertex_indices) {
+	const VertexT OBJReader< VertexT >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexT vertex;
 		if (vertex_indices.x) {
 			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
@@ -266,7 +266,7 @@ namespace mage {
 	}
 
 	template <>
-	inline VertexPosition OBJReader< VertexPosition >::ConstructVertex(const XMUINT3 &vertex_indices) {
+	inline const VertexPosition OBJReader< VertexPosition >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexPosition vertex;
 		if (vertex_indices.x) {
 			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
@@ -275,7 +275,7 @@ namespace mage {
 	}
 
 	template <>
-	inline VertexPositionNormal OBJReader< VertexPositionNormal >::ConstructVertex(const XMUINT3 &vertex_indices) {
+	inline const VertexPositionNormal OBJReader< VertexPositionNormal >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexPositionNormal vertex;
 		if (vertex_indices.x) {
 			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
@@ -287,7 +287,7 @@ namespace mage {
 	}
 
 	template <>
-	inline VertexPositionTexture OBJReader< VertexPositionTexture >::ConstructVertex(const XMUINT3 &vertex_indices) {
+	inline const VertexPositionTexture OBJReader< VertexPositionTexture >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexPositionTexture vertex;
 		if (vertex_indices.x) {
 			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];

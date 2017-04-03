@@ -14,7 +14,8 @@
 namespace mage {
 
 	InputManager::InputManager(HWND hwindow) 
-		: Loadable(), m_hwindow(hwindow) {
+		: Loadable(), m_hwindow(hwindow), 
+		m_di(), m_keyboard(), m_mouse() {
 
 		const HRESULT result_di = InitializeDI();
 		if (FAILED(result_di)) {
@@ -41,12 +42,12 @@ namespace mage {
 	}
 
 	HRESULT InputManager::InitializeInputSystems() {
-		m_keyboard = make_unique< Keyboard >(m_hwindow, m_di);
+		m_keyboard = make_unique< Keyboard >(m_hwindow, m_di.Get());
 		if (!m_keyboard->IsLoaded()) {
 			Error("Keyboard creation failed.");
 			return E_FAIL;
 		}
-		m_mouse = make_unique< Mouse >(m_hwindow, m_di);
+		m_mouse = make_unique< Mouse >(m_hwindow, m_di.Get());
 		if (!m_mouse->IsLoaded()) {
 			Error("Mouse creation failed.");
 			return E_FAIL;

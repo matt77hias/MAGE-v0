@@ -38,7 +38,15 @@ namespace mage {
 						The length of the progress bar.
 						If 0 the default length will be chosen.
 		 */
-		ProgressReporter(const string &title, uint32_t nb_work, char plus_char = '+', uint32_t bar_length = 0);
+		explicit ProgressReporter(const string &title, uint32_t nb_work, char plus_char = '+', uint32_t bar_length = 0);
+
+		/**
+		 Constructs a progress reporter from the given progress reporter.
+
+		 @param[in]		progress_reporter
+						A reference to the progress reporter.
+		 */
+		ProgressReporter(ProgressReporter &&progress_reporter) = default;
 
 		/**
 		 Destructs this progress reporter.
@@ -67,14 +75,6 @@ namespace mage {
 						A reference to the progress reporter.
 		 */
 		ProgressReporter(const ProgressReporter &progress_reporter) = delete;
-
-		/**
-		 Constructs a progress reporter from the given progress reporter.
-
-		 @param[in]		progress_reporter
-						A reference to the progress reporter.
-		 */
-		ProgressReporter(ProgressReporter &&progress_reporter) = delete;
 
 		/**
 		 Copies the given progress reporter to this progress reporter.
@@ -117,19 +117,14 @@ namespace mage {
 		uint32_t m_nb_plusses_printed;
 
 		/**
-		 The timer of this progress reporter.
+		 The character representing a work unit that is already done.
 		 */
-		UniquePtr< Timer >m_timer;
+		const char m_plus_char;
 
 		/**
 		 The output file stream of this progress reporter.
 		 */
 		FILE *m_fout;
-
-		/**
-		 The character representing a work unit that is already done.
-		 */
-		const char m_plus_char;
 
 		/**
 		 The output buffer of this progress reporter.
@@ -140,6 +135,11 @@ namespace mage {
 		 The current (output) position of this progress reporter.
 		 */
 		char *m_current_pos;
+
+		/**
+		 The timer of this progress reporter.
+		 */
+		UniquePtr< Timer >m_timer;
 
 		/**
 		 The mutex needed for updating this progress reporter.

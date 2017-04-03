@@ -8,7 +8,7 @@ namespace mage {
 	 template < typename VertexT >
 	 ModelDescriptor::ModelDescriptor(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		 const wstring &fname, const MeshDescriptor< VertexT > &desc)
-		 : FileResource(fname) {
+		 : FileResource(fname), m_mesh(), m_materials(), m_model_parts() {
 		 
 		 ModelOutput< VertexT > buffer;
 		 const HRESULT result_load = LoadModelFromFile(fname, buffer, desc);

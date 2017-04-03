@@ -29,6 +29,7 @@ namespace mage {
 	public:
 
 		SpriteBatch();
+		SpriteBatch(SpriteBatch &&sprite_batch) = default;
 		virtual ~SpriteBatch() = default;
 
 		void Begin(SpriteSortMode sort_mode, XMMATRIX transform = XMMatrixIdentity());
@@ -52,7 +53,6 @@ namespace mage {
 	private:
 
 		SpriteBatch(const SpriteBatch &sprite_batch) = delete;
-		SpriteBatch(SpriteBatch &&sprite_batch) = delete;
 		SpriteBatch &operator=(const SpriteBatch &sprite_batch) = delete;
 		SpriteBatch &operator=(SpriteBatch &&sprite_batch) = delete;
 

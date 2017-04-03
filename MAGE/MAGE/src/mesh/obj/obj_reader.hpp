@@ -21,8 +21,11 @@ namespace mage {
 
 	public:
 
-		OBJReader(ModelOutput< VertexT > &model_output, const MeshDescriptor< VertexT > &mesh_desc)
-			: LineReader(), m_model_output(model_output), m_mesh_desc(mesh_desc) {}
+		explicit OBJReader(ModelOutput< VertexT > &model_output, const MeshDescriptor< VertexT > &mesh_desc)
+			: LineReader(), 
+			m_vertex_coordinates(), m_vertex_texture_coordinates(),
+			m_vertex_normal_coordinates(), m_mapping(),
+			m_model_output(model_output), m_mesh_desc(mesh_desc) {}
 		virtual ~OBJReader() = default;
 
 	protected:
@@ -40,12 +43,12 @@ namespace mage {
 		void ReadOBJVertexNormal();
 		void ReadOBJTriangleFace();
 
-		Point3 ReadOBJVertexCoordinates();
-		Normal3 ReadOBJVertexNormalCoordinates();
-		UV ReadOBJVertexTextureCoordinates();
-		XMUINT3 ReadOBJVertexIndices();
+		const Point3 ReadOBJVertexCoordinates();
+		const Normal3 ReadOBJVertexNormalCoordinates();
+		const UV ReadOBJVertexTextureCoordinates();
+		const XMUINT3 ReadOBJVertexIndices();
 		
-		VertexT ConstructVertex(const XMUINT3 &vertex_indices);
+		const VertexT ConstructVertex(const XMUINT3 &vertex_indices);
 
 	private:
 

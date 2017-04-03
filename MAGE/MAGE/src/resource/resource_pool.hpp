@@ -25,6 +25,7 @@ namespace mage {
 	public:
 
 		ResourcePool() = default;
+		ResourcePool(ResourcePool &&resource_pool) = default;
 		virtual ~ResourcePool() {
 			RemoveAllResources();
 		}
@@ -42,7 +43,6 @@ namespace mage {
 	private:
 
 		ResourcePool(const ResourcePool &resource_pool) = delete;
-		ResourcePool(ResourcePool &&resource_pool) = delete;
 		ResourcePool &operator=(const ResourcePool &resource_pool) = delete;
 		ResourcePool &operator=(ResourcePool &&resource_pool) = delete;
 
@@ -57,7 +57,9 @@ namespace mage {
 			template< typename... ConstructorArgsT >
 			ResourcePoolEntry(ResourcePool< KeyT, ResourceT > &resource_pool,
 				KeyT resource_key, ConstructorArgsT&&... args)
-				: DerivedResourceT(std::forward< ConstructorArgsT >(args)...), m_resource_pool(resource_pool), m_resource_key(resource_key) {}
+				: DerivedResourceT(std::forward< ConstructorArgsT >(args)...), 
+				m_resource_pool(resource_pool), m_resource_key(resource_key) {}
+			ResourcePoolEntry(ResourcePoolEntry &&resource) = default;
 
 			virtual ~ResourcePoolEntry() {
 				m_resource_pool.RemoveResource(m_resource_key);
@@ -66,7 +68,6 @@ namespace mage {
 		private:
 
 			ResourcePoolEntry(const ResourcePoolEntry &resource) = delete;
-			ResourcePoolEntry(ResourcePoolEntry &&resource) = delete;
 			ResourcePoolEntry &operator=(const ResourcePoolEntry &resource) = delete;
 			ResourcePoolEntry &operator=(ResourcePoolEntry &&resource) = delete;
 

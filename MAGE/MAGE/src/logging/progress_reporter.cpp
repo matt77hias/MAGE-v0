@@ -23,7 +23,8 @@
 namespace mage {
 
 	ProgressReporter::ProgressReporter(const string &title, uint32_t nb_work, char plus_char, uint32_t bar_length)
-		: m_nb_work_total(nb_work), m_nb_work_done(0), m_nb_plusses_printed(0), m_plus_char(plus_char) {
+		: m_nb_work_total(nb_work), m_nb_work_done(0), m_nb_plusses_printed(0), m_plus_char(plus_char),
+		m_fout(nullptr), m_buffer(nullptr), m_current_pos(nullptr), m_timer(), m_mutex() {
 		
 		if (bar_length == 0) {
 			bar_length = ConsoleWidth() - 28;

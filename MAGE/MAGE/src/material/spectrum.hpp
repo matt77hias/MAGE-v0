@@ -38,14 +38,8 @@ namespace mage {
 
 		~RGBSpectrum() = default;
 
-		RGBSpectrum &operator=(const RGBSpectrum &rgb) {
-			XMFLOAT3::operator=(rgb);
-			return (*this);
-		}
-		RGBSpectrum &operator=(RGBSpectrum &&rgb) {
-			XMFLOAT3::operator=(rgb);
-			return (*this);
-		}
+		RGBSpectrum &operator=(const RGBSpectrum &rgb) = default;
+		RGBSpectrum &operator=(RGBSpectrum &&rgb) = default;
 	};
 
 	struct XYZSpectrum final : public XMFLOAT3 {
@@ -69,14 +63,8 @@ namespace mage {
 
 		~XYZSpectrum() = default;
 
-		XYZSpectrum &operator=(const XYZSpectrum &xyz) {
-			XMFLOAT3::operator=(xyz);
-			return (*this);
-		}
-		XYZSpectrum &operator=(XYZSpectrum &&xyz) {
-			XMFLOAT3::operator=(xyz);
-			return (*this);
-		}
+		XYZSpectrum &operator=(const XYZSpectrum &xyz) = default;
+		XYZSpectrum &operator=(XYZSpectrum &&xyz) = default;
 	};
 
 	static_assert(sizeof(RGBSpectrum) == sizeof(XMFLOAT3), "RGBSpectrum/XMFLOAT3 mismatch");

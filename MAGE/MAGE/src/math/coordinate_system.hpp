@@ -34,7 +34,7 @@ namespace mage {
 		 @param[in]		x
 						The x-axis.
 		 */
-		CartesianAxesSystem(const XMVECTOR &x) 
+		explicit CartesianAxesSystem(const XMVECTOR &x) 
 			: m_x(x) {
 			XMFLOAT3 w;
 			XMStoreFloat3(&w, m_x);
@@ -52,7 +52,7 @@ namespace mage {
 		 @param[in]		y
 						The y-axis.
 		 */
-		CartesianAxesSystem(const XMVECTOR &x, const XMVECTOR &y) 
+		explicit CartesianAxesSystem(const XMVECTOR &x, const XMVECTOR &y) 
 			: m_x(x), m_y(y), m_z(XMVector3Cross(x, y)) {}
 
 		/**
@@ -66,7 +66,7 @@ namespace mage {
 		 @param[in]		z
 						The z-axis.
 		 */
-		CartesianAxesSystem(const XMVECTOR &x, const XMVECTOR &y, const XMVECTOR &z) 
+		explicit CartesianAxesSystem(const XMVECTOR &x, const XMVECTOR &y, const XMVECTOR &z) 
 			: m_x(x), m_y(y), m_z(z) {}
 
 		/**
@@ -115,7 +115,7 @@ namespace mage {
 
 		 @return		The x-axis of this Cartesian axes system.
 		 */
-		XMVECTOR GetAxisX() const {
+		const XMVECTOR GetAxisX() const {
 			return m_x;
 		}
 
@@ -124,7 +124,7 @@ namespace mage {
 
 		 @return		The y-axis of this Cartesian axes system.
 		 */
-		XMVECTOR GetAxisY() const {
+		const XMVECTOR GetAxisY() const {
 			return m_y;
 		}
 
@@ -133,7 +133,7 @@ namespace mage {
 
 		 @return		The z-axis of this Cartesian axes system.
 		 */
-		XMVECTOR GetAxisZ() const {
+		const XMVECTOR GetAxisZ() const {
 			return m_z;
 		}
 
@@ -179,7 +179,7 @@ namespace mage {
 		 @param[in]		axes
 						The Cartesian axes system.
 		 */
-		CartesianCoordinateSystem(const XMVECTOR &o, const CartesianAxesSystem &axes)
+		explicit CartesianCoordinateSystem(const XMVECTOR &o, const CartesianAxesSystem &axes)
 			: m_o(o), m_axes(axes) {}
 
 		/**
@@ -228,7 +228,7 @@ namespace mage {
 
 		 @return		The origin of this Cartesian coordinate system.
 		 */
-		XMVECTOR GetOrigin() const {
+		const XMVECTOR GetOrigin() const {
 			return m_o;
 		}
 
@@ -237,7 +237,7 @@ namespace mage {
 
 		 @return		The x-axis of this Cartesian coordinate system.
 		 */
-		XMVECTOR GetAxisX() const {
+		const XMVECTOR GetAxisX() const {
 			return m_axes.GetAxisX();
 		}
 
@@ -246,7 +246,7 @@ namespace mage {
 
 		 @return		The y-axis of this Cartesian coordinate system.
 		 */
-		XMVECTOR GetAxisY() const {
+		const XMVECTOR GetAxisY() const {
 			return m_axes.GetAxisY();
 		}
 
@@ -255,7 +255,7 @@ namespace mage {
 
 		 @return		The z-axis of this Cartesian coordinate system.
 		 */
-		XMVECTOR GetAxisZ() const {
+		const XMVECTOR GetAxisZ() const {
 			return m_axes.GetAxisZ();
 		}
 		
@@ -264,7 +264,7 @@ namespace mage {
 
 		 @return		The Cartesian axes system of this Cartesian coordinate system.
 		 */
-		CartesianAxesSystem GetAxes() const {
+		const CartesianAxesSystem GetAxes() const {
 			return m_axes;
 		}
 

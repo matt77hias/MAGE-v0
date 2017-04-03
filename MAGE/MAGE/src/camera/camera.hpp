@@ -43,14 +43,7 @@ namespace mage {
 		 @param[in]		camera
 						The camera.
 		 */
-		Camera &operator=(const Camera &camera) {
-			WorldObject::operator=(static_cast< const WorldObject & >(camera));
-			m_width  = camera.m_width;
-			m_height = camera.m_height;
-			m_near_z = camera.m_near_z;
-			m_far_z  = camera.m_far_z;
-			return (*this);
-		}
+		Camera &operator=(const Camera &camera) = default;
 
 		/**
 		 Copies the given camera to this camera.
@@ -58,14 +51,7 @@ namespace mage {
 		 @param[in]		camera
 						The camera.
 		 */
-		Camera &operator=(Camera &&camera) {
-			WorldObject::operator=(static_cast< WorldObject && >(camera));
-			m_width  = camera.m_width;
-			m_height = camera.m_height;
-			m_near_z = camera.m_near_z;
-			m_far_z  = camera.m_far_z;
-			return (*this);
-		}
+		Camera &operator=(Camera &&camera) = default;
 
 		/**
 		 Clones this camera.
@@ -211,7 +197,7 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane.
 		 */
-		Camera(const string &name, float width, float height, 
+		explicit Camera(const string &name, float width, float height, 
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z)
 			: WorldObject(name), m_width(width), m_height(height), 
 			m_near_z(near_z), m_far_z(far_z) {}
@@ -222,9 +208,7 @@ namespace mage {
 		 @param[in]		camera
 						The camera.
 		 */
-		Camera(const Camera &camera)
-			: WorldObject(camera), m_width(camera.m_width), m_height(camera.m_height),
-			m_near_z(camera.m_near_z), m_far_z(camera.m_far_z) {}
+		Camera(const Camera &camera) = default;
 
 		/**
 		 Constructs a camera from the given camera.
@@ -232,9 +216,7 @@ namespace mage {
 		 @param[in]		camera
 						The camera.
 		 */
-		Camera(Camera &&camera)
-			: WorldObject(camera), m_width(camera.m_width), m_height(camera.m_height),
-			m_near_z(camera.m_near_z), m_far_z(camera.m_far_z) {}
+		Camera(Camera &&camera) = default;
 
 	private:
 

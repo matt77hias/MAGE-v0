@@ -32,7 +32,8 @@ namespace mage {
 
 	public:
 
-		LambertianVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+		explicit LambertianVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+		LambertianVertexShader(LambertianVertexShader &&vertex_shader) = default;
 		virtual ~LambertianVertexShader() = default;
 
 		virtual void Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const override;
@@ -40,7 +41,6 @@ namespace mage {
 	private:
 
 		LambertianVertexShader(const LambertianVertexShader &vertex_shader) = delete;
-		LambertianVertexShader(LambertianVertexShader &&vertex_shader) = delete;
 		LambertianVertexShader &operator=(const LambertianVertexShader &vertex_shader) = delete;
 		LambertianVertexShader &operator=(LambertianVertexShader &&vertex_shader) = delete;
 
@@ -55,7 +55,8 @@ namespace mage {
 
 	public:
 
-		LambertianPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+		explicit LambertianPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+		LambertianPixelShader(LambertianPixelShader &&pixel_shader) = default;
 		virtual ~LambertianPixelShader() = default;
 
 		virtual void Draw(const Material &material, const World &world) const override;
@@ -63,7 +64,6 @@ namespace mage {
 	private:
 
 		LambertianPixelShader(const LambertianPixelShader &pixel_shader) = delete;
-		LambertianPixelShader(LambertianPixelShader &&pixel_shader) = delete;
 		LambertianPixelShader &operator=(const LambertianPixelShader &pixel_shader) = delete;
 		LambertianPixelShader &operator=(LambertianPixelShader &&pixel_shader) = delete;
 

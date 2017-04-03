@@ -27,6 +27,14 @@ namespace mage {
 		BehaviorScript() = default;
 
 		/**
+		 Constructs a behavior script from the given behavior script.
+
+		 @param[in]		script
+						A reference to the behavior script.
+		 */
+		BehaviorScript(BehaviorScript &&script) = default;
+
+		/**
 		 Destructs this behavior script.
 		 */
 		~BehaviorScript() = default;
@@ -72,15 +80,7 @@ namespace mage {
 		 @param[in]		script
 						A reference to the behavior script.
 		 */
-		BehaviorScript(const BehaviorScript &script) = delete;
-
-		/**
-		 Constructs a behavior script from the given behavior script.
-
-		 @param[in]		script
-						A reference to the behavior script.
-		 */
-		BehaviorScript(BehaviorScript &&script) = delete;
+		BehaviorScript(const BehaviorScript &script) = default;
 
 		/**
 		 Copies the given behavior script to this behavior script.

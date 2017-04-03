@@ -19,7 +19,6 @@ namespace mage {
 
 	Model::Model(const string &name)
 		: WorldObject(name) {}
-
 	Model::Model(const Model &model)
 		: WorldObject(model) {
 

@@ -13,10 +13,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Keyboard::Keyboard(HWND hwindow, ComPtr< IDirectInput8 > di) : Loadable(),
-		m_press_stamp(0), m_hwindow(hwindow) {
+	Keyboard::Keyboard(HWND hwindow, IDirectInput8 *di) 
+		: Loadable(), m_hwindow(hwindow), m_di(di),
+		m_press_stamp(0) {
 
-		const HRESULT result_keyboard = InitializeKeyboard(di);
+		const HRESULT result_keyboard = InitializeKeyboard();
 		if (FAILED(result_keyboard)) {
 			Error("Keyboard initialization failed: %08X.", result_keyboard);
 			return;
@@ -25,13 +26,13 @@ namespace mage {
 		SetLoaded();
 	}
 
-	HRESULT Keyboard::InitializeKeyboard(ComPtr< IDirectInput8 > di) {
+	HRESULT Keyboard::InitializeKeyboard() {
 		// Create and initialize an instance of a device based on a given globally unique identifier (GUID), 
 		// and obtain an IDirectInputDevice8 Interface interface. 
 		// 1. Reference to the GUID for the desired input device.
 		// 2. Address of a variable to receive the IDirectInputDevice8 Interface interface pointer if successful.
 		// 3. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or nullptr if the interface is not aggregated.
-		const HRESULT result_keyboard_create = di->CreateDevice(GUID_SysKeyboard, &m_keyboard, nullptr);
+		const HRESULT result_keyboard_create = m_di->CreateDevice(GUID_SysKeyboard, &m_keyboard, nullptr);
 		if (FAILED(result_keyboard_create)) {
 			Error("Keyboard device creation failed: %08X.", result_keyboard_create);
 			return result_keyboard_create;

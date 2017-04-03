@@ -43,7 +43,7 @@ namespace mage {
 						The number of indices.
 		 */
 		template < typename VertexT >
-		StaticMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		explicit StaticMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const VertexT *vertices, size_t nb_vertices, 
 			const uint32_t *indices, size_t nb_indices);
 
@@ -64,11 +64,19 @@ namespace mage {
 						A reference to a vector of indices.
 		 */
 		template < typename VertexT >
-		StaticMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		explicit StaticMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const vector< VertexT > &vertices, const vector< uint32_t > &indices)
 			: StaticMesh(device, device_context, 
 				vertices.data(), vertices.size(), 
 				indices.data(), indices.size()) {}
+
+		/**
+		 Constructs a static mesh from the given static mesh.
+
+		 @param[in]		static_mesh
+						A reference to the static mesh.
+		 */
+		StaticMesh(StaticMesh &&static_mesh) = default;
 
 		/**
 		 Destructs this static mesh.
@@ -84,14 +92,6 @@ namespace mage {
 						A reference to the static mesh.
 		 */
 		StaticMesh(const StaticMesh &static_mesh) = delete;
-
-		/**
-		 Constructs a static mesh from the given static mesh.
-
-		 @param[in]		static_mesh
-						A reference to the static mesh.
-		 */
-		StaticMesh(StaticMesh &&static_mesh) = delete;
 
 		/**
 		 Copies the given static mesh to this static mesh.

@@ -20,18 +20,11 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_DELIMITERS " \t\n\r"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	const char * const mage_default_delimiters = " \t\n\r";
 
 	enum TokenResult {
 		valid_token,
@@ -82,41 +75,41 @@ namespace mage {
 	// Parsing Utilities
 	//-------------------------------------------------------------------------
 
-	TokenResult ReadChars(char *str, char **context, char **result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadString(char *str, char **context, string &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadQuotedString(char *str, char **context, string &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadBool(char *str, char **context, bool &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadInt8(char *str, char **context, int8_t &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadUInt8(char *str, char **context, uint8_t &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadInt16(char *str, char **context, int16_t &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadUInt16(char *str, char **context, uint16_t &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadInt32(char *str, char **context, int32_t &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadUInt32(char *str, char **context, uint32_t &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadInt64(char *str, char **context, int64_t &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadUInt64(char *str, char **context, uint64_t &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadFloat(char *str, char **context, float &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadDouble(char *str, char **context, double &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadFloat2(char *str, char **context, XMFLOAT2 &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadFloat3(char *str, char **context, XMFLOAT3 &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult ReadFloat4(char *str, char **context, XMFLOAT4 &result, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult ReadChars(char *str, char **context, char **result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadString(char *str, char **context, string &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadQuotedString(char *str, char **context, string &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadBool(char *str, char **context, bool &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadInt8(char *str, char **context, int8_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadUInt8(char *str, char **context, uint8_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadInt16(char *str, char **context, int16_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadUInt16(char *str, char **context, uint16_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadInt32(char *str, char **context, int32_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadUInt32(char *str, char **context, uint32_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadInt64(char *str, char **context, int64_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadUInt64(char *str, char **context, uint64_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadFloat(char *str, char **context, float &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadDouble(char *str, char **context, double &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadFloat2(char *str, char **context, XMFLOAT2 &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadFloat3(char *str, char **context, XMFLOAT3 &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadFloat4(char *str, char **context, XMFLOAT4 &result, const char *delimiters = mage_default_delimiters);
 
-	TokenResult HasChars(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult HasString(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult HasQuotedString(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult HasBool(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult HasInt8(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult HasUInt8(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult HasInt16(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult HasUInt16(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult HasInt32(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult HasUInt32(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult HasInt64(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult HasUInt64(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult HasFloat(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	TokenResult HasDouble(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	TokenResult HasChars(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasString(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasQuotedString(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasBool(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasInt8(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasUInt8(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasInt16(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasUInt16(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasInt32(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasUInt32(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasInt64(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasUInt64(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasFloat(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasDouble(const char *str, const char *delimiters = mage_default_delimiters);
 
-	char *SkipDelimiters(char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	const char *SkipDelimiters(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	char *GotoDelimiters(char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
-	const char *GotoDelimiters(const char *str, const char *delimiters = MAGE_DEFAULT_DELIMITERS);
+	char *SkipDelimiters(char *str, const char *delimiters = mage_default_delimiters);
+	const char *SkipDelimiters(const char *str, const char *delimiters = mage_default_delimiters);
+	char *GotoDelimiters(char *str, const char *delimiters = mage_default_delimiters);
+	const char *GotoDelimiters(const char *str, const char *delimiters = mage_default_delimiters);
 }

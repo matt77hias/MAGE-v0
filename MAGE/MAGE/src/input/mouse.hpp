@@ -40,7 +40,15 @@ namespace mage {
 		 @param[in]		di
 						A pointer to a direct input object.
 		 */
-		Mouse(HWND hwindow, ComPtr< IDirectInput8 > di);
+		explicit Mouse(HWND hwindow, IDirectInput8 *di);
+
+		/**
+		 Constructs a mouse from the given mouse.
+
+		 @param[in]		mouse
+						A reference to the mouse.
+		 */
+		Mouse(Mouse &&mouse) = default;
 
 		/**
 		Destructs this mouse.
@@ -130,14 +138,6 @@ namespace mage {
 		Mouse(const Mouse &mouse) = delete;
 
 		/**
-		 Constructs a mouse from the given mouse.
-
-		 @param[in]		mouse
-						A reference to the mouse.
-		 */
-		Mouse(Mouse &&mouse) = delete;
-
-		/**
 		 Copies the given mouse to this mouse.
 
 		 @param[in]		mouse
@@ -160,16 +160,19 @@ namespace mage {
 		/**
 		 Initializes the mouse device of this mouse.
 
-		 @param[in]		di
-						A pointer to a direct input object.
 		 @return		A success/error value.
 		 */
-		HRESULT InitializeMouse(ComPtr< IDirectInput8 > di);
+		HRESULT InitializeMouse();
 
 		/**
-		 The handle of the parent window.
+		 The handle of the parent window of this mouse.
 		 */
 		HWND m_hwindow;
+
+		/**
+		 The DirectInput object of this keyboard of this mouse.
+		 */
+		IDirectInput8 * const m_di;
 
 		/**
 		 DirectInput mouse device of this mouse.
@@ -178,7 +181,7 @@ namespace mage {
 		 to Microsoft DirectInput devices, manage device properties and information, set behavior,
 		 perform initialization, create and play force-feedback effects, and invoke a device's control panel.
 		 */
-		ComPtr< IDirectInputDevice8 > m_mouse;
+		IDirectInputDevice8 *m_mouse;
 
 		/**
 		The current press stamp (incremented every frame).

@@ -33,7 +33,15 @@ namespace mage {
 						Flag indicating whether the variables of the variable script
 						need to be imported.
 		 */
-		VariableScript(const wstring &fname, bool import = true);
+		explicit VariableScript(const wstring &fname, bool import = true);
+
+		/**
+		 Constructs a variable script from the given variable script.
+
+		 @param[in]		variable_script
+						A reference to the variable script.
+		 */
+		VariableScript(VariableScript &&variable_script) = default;
 
 		/**
 		 Destruct this variable script.
@@ -147,14 +155,6 @@ namespace mage {
 						A reference to the variable script.
 		 */
 		VariableScript(const VariableScript &variable_script) = delete;
-
-		/**
-		 Constructs a variable script from the given variable script.
-
-		 @param[in]		variable_script
-						A reference to the variable script.
-		 */
-		VariableScript(VariableScript &&variable_script) = delete;
 
 		/**
 		Copies the given variable script to this variable script.

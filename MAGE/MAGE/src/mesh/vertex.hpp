@@ -42,7 +42,7 @@ namespace mage {
 		 @param[in]		p
 						A reference to the position of the vertex.
 		 */
-		VertexPosition(const Point3 &p)
+		explicit VertexPosition(const Point3 &p)
 			: p(p) {}
 
 		/**
@@ -117,7 +117,7 @@ namespace mage {
 		 @param[in]		n
 						A reference to the normal of the vertex.
 		 */
-		VertexPositionNormal(const Point3 &p, const Normal3 &n)
+		explicit VertexPositionNormal(const Point3 &p, const Normal3 &n)
 			: p(p), n(n) {}
 
 		/**
@@ -197,7 +197,7 @@ namespace mage {
 		 @param[in]		c
 						A reference to the color of the vertex.
 		 */
-		VertexPositionColor(const Point3 &p, const Color &c)
+		explicit VertexPositionColor(const Point3 &p, const Color &c)
 			: p(p), c(c) {}
 
 		/**
@@ -277,7 +277,7 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		VertexPositionTexture(const Point3 &p, const UV &tex)
+		explicit VertexPositionTexture(const Point3 &p, const UV &tex)
 			: p(p), tex(tex) {}
 
 		/**
@@ -359,7 +359,7 @@ namespace mage {
 		 @param[in]		c
 						A reference to the color of the vertex.
 		 */
-		VertexPositionNormalColor(const Point3 &p, const Normal3 &n, const Color &c)
+		explicit VertexPositionNormalColor(const Point3 &p, const Normal3 &n, const Color &c)
 			: p(p), n(n), c(c) {}
 
 		/**
@@ -446,7 +446,7 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		VertexPositionNormalTexture(const Point3 &p, const Normal3 &n, const UV &tex)
+		explicit VertexPositionNormalTexture(const Point3 &p, const Normal3 &n, const UV &tex)
 			: p(p), n(n), tex(tex) {}
 
 		/**
@@ -533,7 +533,7 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		VertexPositionColorTexture(const Point3 &p, const Color &c, const UV &tex)
+		explicit VertexPositionColorTexture(const Point3 &p, const Color &c, const UV &tex)
 			: p(p), c(c), tex(tex) {}
 
 		/**
@@ -622,7 +622,7 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		VertexPositionNormalColorTexture(const Point3 &p, const Normal3 &n, const Color &c, const UV &tex)
+		explicit VertexPositionNormalColorTexture(const Point3 &p, const Normal3 &n, const Color &c, const UV &tex)
 			: p(p), n(n), c(c), tex(tex) {}
 
 		/**
@@ -714,7 +714,7 @@ namespace mage {
 		 @param[in]		tex2
 						A reference to the second texture coordinates of the vertex.
 		 */
-		VertexPositionTextureTexture(const Point3 &p, const UV &tex1, const UV &tex2)
+		explicit VertexPositionTextureTexture(const Point3 &p, const UV &tex1, const UV &tex2)
 			: p(p), tex1(tex1), tex2(tex2) {}
 
 		/**

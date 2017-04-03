@@ -35,7 +35,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		Transform(const XMFLOAT3 &translation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &rotation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &scale = { 1.0f, 1.0f, 1.0f })
+		explicit Transform(const XMFLOAT3 &translation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &rotation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &scale = { 1.0f, 1.0f, 1.0f })
 			: m_translation(translation), m_rotation(rotation), m_scale(scale) {
 			SetDirty();
 		}
@@ -268,7 +268,7 @@ namespace mage {
 
 		 @return		The translation component of this transform.
 		 */
-		XMFLOAT3 GetTranslation() const {
+		const XMFLOAT3 GetTranslation() const {
 			return m_translation;
 		}
 		
@@ -277,7 +277,7 @@ namespace mage {
 
 		 @return		The translation matrix of this transform.
 		 */
-		XMMATRIX GetTranslationMatrix() const {
+		const XMMATRIX GetTranslationMatrix() const {
 			return XMMatrixTranslationFromVector(XMLoadFloat3(&m_translation));
 		}
 
@@ -462,7 +462,7 @@ namespace mage {
 
 		 @return		The rotation component of this transform.
 		 */
-		XMFLOAT3 GetRotation() const {
+		const XMFLOAT3 GetRotation() const {
 			return m_rotation;
 		}
 		
@@ -471,7 +471,7 @@ namespace mage {
 
 		 @return		The rotation matrix of this transform.
 		 */
-		XMMATRIX GetRotationMatrix() const {
+		const XMMATRIX GetRotationMatrix() const {
 			return XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&m_rotation));
 		}
 
@@ -632,7 +632,7 @@ namespace mage {
 
 		 @return		The scale component of this transform.
 		 */
-		XMFLOAT3 GetScale() const {
+		const XMFLOAT3 GetScale() const {
 			return m_scale;
 		}
 		
@@ -641,7 +641,7 @@ namespace mage {
 
 		 @return		The scale matrix of this transform.
 		 */
-		XMMATRIX GetScaleMatrix() const {
+		const XMMATRIX GetScaleMatrix() const {
 			return XMMatrixScalingFromVector(XMLoadFloat3(&m_scale));
 		}
 
@@ -654,7 +654,7 @@ namespace mage {
 
 		 @return		The position of the local origin of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetObjectOrigin() const {
+		const XMVECTOR GetObjectOrigin() const {
 			return XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
 		}
 
@@ -663,7 +663,7 @@ namespace mage {
 
 		 @return		The direction of the local x-axis of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetObjectAxisX() const {
+		const XMVECTOR GetObjectAxisX() const {
 			return XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
 		}
 		
@@ -672,7 +672,7 @@ namespace mage {
 
 		 @return		The direction of the local y-axis of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetObjectAxisY() const {
+		const XMVECTOR GetObjectAxisY() const {
 			return XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 		}
 		
@@ -681,7 +681,7 @@ namespace mage {
 
 		 @return		The direction of the local z-axis of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetObjectAxisZ() const {
+		const XMVECTOR GetObjectAxisZ() const {
 			return XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
 		}
 		
@@ -690,7 +690,7 @@ namespace mage {
 
 		 @return		The local Cartesian axes system of this transform expressed in object space coordinates.
 		 */
-		CartesianAxesSystem GetObjectAxes() const {
+		const CartesianAxesSystem GetObjectAxes() const {
 			return CartesianAxesSystem(GetObjectAxisX(), GetObjectAxisY(), GetObjectAxisZ());
 		}
 		
@@ -699,7 +699,7 @@ namespace mage {
 
 		 @return		The local Cartesian coordinate system of this transform expressed in object space coordinates.
 		 */
-		CartesianCoordinateSystem GetObjectCoordinateSystem() const {
+		const CartesianCoordinateSystem GetObjectCoordinateSystem() const {
 			return CartesianCoordinateSystem(GetObjectOrigin(), GetObjectAxes());
 		}
 		
@@ -712,7 +712,7 @@ namespace mage {
 
 		 @return		The position of the local origin of this transform expressed in parent space coordinates.
 		 */
-		XMVECTOR GetParentOrigin() const {
+		const XMVECTOR GetParentOrigin() const {
 			return XMLoadFloat3(&m_translation);
 		}
 
@@ -721,7 +721,7 @@ namespace mage {
 
 		 @return		The direction of the local x-axis of this transform expressed in parent space coordinates.
 		 */
-		XMVECTOR GetParentAxisX() const {
+		const XMVECTOR GetParentAxisX() const {
 			return TransformObjectToParentDirection(GetObjectAxisX());
 		}
 		
@@ -730,7 +730,7 @@ namespace mage {
 
 		 @return		The direction of the local y-axis of this transform expressed in parent space coordinates.
 		 */
-		XMVECTOR GetParentAxisY() const {
+		const XMVECTOR GetParentAxisY() const {
 			return TransformObjectToParentDirection(GetObjectAxisY());
 		}
 		
@@ -739,7 +739,7 @@ namespace mage {
 
 		 @return		The direction of the local z-axis of this transform expressed in parent space coordinates.
 		 */
-		XMVECTOR GetParentAxisZ() const {
+		const XMVECTOR GetParentAxisZ() const {
 			return TransformObjectToParentDirection(GetObjectAxisZ());
 		}
 		
@@ -748,7 +748,7 @@ namespace mage {
 
 		 @return		The local Cartesian axes system of this transform expressed in parent space coordinates.
 		 */
-		CartesianAxesSystem GetParentAxes() const {
+		const CartesianAxesSystem GetParentAxes() const {
 			return CartesianAxesSystem(GetParentAxisX(), GetParentAxisY(), GetParentAxisZ());
 		}
 		
@@ -757,7 +757,7 @@ namespace mage {
 
 		 @return		The local Cartesian coordinate system of this transform expressed in parent space coordinates.
 		 */
-		CartesianCoordinateSystem GetParentCoordinateSystem() const {
+		const CartesianCoordinateSystem GetParentCoordinateSystem() const {
 			return CartesianCoordinateSystem(GetParentOrigin(), GetParentAxes());
 		}
 
@@ -770,7 +770,7 @@ namespace mage {
 
 		 @return		The position of the local origin of this transform expressed in world space coordinates.
 		 */
-		XMVECTOR GetWorldOrigin() const {
+		const XMVECTOR GetWorldOrigin() const {
 			return TransformObjectToWorld(GetObjectOrigin());
 		}
 
@@ -779,7 +779,7 @@ namespace mage {
 
 		 @return		The direction of the local x-axis of this transform expressed in world space coordinates.
 		 */
-		XMVECTOR GetWorldAxisX() const {
+		const XMVECTOR GetWorldAxisX() const {
 			return TransformObjectToWorld(GetObjectAxisX());
 		}
 
@@ -788,7 +788,7 @@ namespace mage {
 
 		 @return		The direction of the local y-axis of this transform expressed in world space coordinates.
 		 */
-		XMVECTOR GetWorldAxisY() const {
+		const XMVECTOR GetWorldAxisY() const {
 			return TransformObjectToWorld(GetObjectAxisY());
 		}
 
@@ -797,7 +797,7 @@ namespace mage {
 
 		 @return		The direction of the local z-axis of this transform expressed in world space coordinates.
 		 */
-		XMVECTOR GetWorldAxisZ() const {
+		const XMVECTOR GetWorldAxisZ() const {
 			return TransformObjectToWorld(GetObjectAxisZ());
 		}
 
@@ -806,7 +806,7 @@ namespace mage {
 
 		 @return		The local Cartesian axes system of this transform expressed in world space coordinates.
 		 */
-		CartesianAxesSystem GetWorldAxes() const {
+		const CartesianAxesSystem GetWorldAxes() const {
 			return CartesianAxesSystem(GetWorldAxisX(), GetWorldAxisY(), GetWorldAxisZ());
 		}
 
@@ -815,7 +815,7 @@ namespace mage {
 
 		 @return		The local Cartesian coordinate system of this transform expressed in world space coordinates.
 		 */
-		CartesianCoordinateSystem GetWorldCoordinateSystem() const {
+		const CartesianCoordinateSystem GetWorldCoordinateSystem() const {
 			return CartesianCoordinateSystem(GetWorldOrigin(), GetWorldAxes());
 		}
 
@@ -828,7 +828,7 @@ namespace mage {
 
 		 @return		The local eye position of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetObjectEye() const {
+		const XMVECTOR GetObjectEye() const {
 			return GetObjectOrigin();
 		}
 
@@ -837,7 +837,7 @@ namespace mage {
 
 		 @return		The local left direction of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetObjectLeft() const {
+		const XMVECTOR GetObjectLeft() const {
 			return GetObjectAxisX();
 		}
 		
@@ -846,7 +846,7 @@ namespace mage {
 
 		 @return		The local up direction of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetObjectUp() const {
+		const XMVECTOR GetObjectUp() const {
 			return GetObjectAxisY();
 		}
 		
@@ -855,7 +855,7 @@ namespace mage {
 
 		 @return		The local forward direction of this transform expressed in object space coordinates.
 		 */
-		XMVECTOR GetObjectForward() const {
+		const XMVECTOR GetObjectForward() const {
 			return GetObjectAxisZ();
 		}
 		
@@ -868,7 +868,7 @@ namespace mage {
 
 		 @return		The local eye position of this transform expressed in world space coordinates.
 		 */
-		XMVECTOR GetWorldEye() const {
+		const XMVECTOR GetWorldEye() const {
 			return GetWorldOrigin();
 		}
 
@@ -877,7 +877,7 @@ namespace mage {
 
 		 @return		The local left direction of this transform expressed in world space coordinates.
 		 */
-		XMVECTOR GetWorldLeft() const {
+		const XMVECTOR GetWorldLeft() const {
 			return GetWorldAxisX();
 		}
 		
@@ -886,7 +886,7 @@ namespace mage {
 
 		 @return		The local up direction of this transform expressed in world space coordinates.
 		 */
-		XMVECTOR GetWorldUp() const {
+		const XMVECTOR GetWorldUp() const {
 			return GetWorldAxisY();
 		}
 		
@@ -895,7 +895,7 @@ namespace mage {
 
 		 @return		The local forward direction of this transform expressed in world space coordinates.
 		 */
-		XMVECTOR GetWorldForward() const {
+		const XMVECTOR GetWorldForward() const {
 			return GetWorldAxisZ();
 		}
 		
@@ -908,7 +908,7 @@ namespace mage {
 
 		 @return		The parent-to-object matrix of this transform.
 		 */
-		XMMATRIX GetParentToObjectMatrix() const {
+		const XMMATRIX GetParentToObjectMatrix() const {
 			return GetTranslationMatrix() * GetRotationMatrix() * GetScaleMatrix();
 		}
 		
@@ -917,7 +917,7 @@ namespace mage {
 
 		 @return		The object-to-parent matrix of this transform.
 		 */
-		XMMATRIX GetObjectToParentMatrix() const {
+		const XMMATRIX GetObjectToParentMatrix() const {
 			return GetInverseScaleMatrix() * GetInverseRotationMatrix() * GetInverseTranslationMatrix();
 		}
 
@@ -926,7 +926,7 @@ namespace mage {
 
 		 @return		The world-to-object matrix of this transform.
 		 */
-		XMMATRIX GetWorldToObjectMatrix() const {
+		const XMMATRIX GetWorldToObjectMatrix() const {
 			return m_world_to_object;
 		}
 
@@ -935,7 +935,7 @@ namespace mage {
 
 		 @return		The object-to-world matrix of this transform.
 		 */
-		XMMATRIX GetObjectToWorldMatrix() const {
+		const XMMATRIX GetObjectToWorldMatrix() const {
 			return m_object_to_world;
 		}
 		
@@ -945,7 +945,7 @@ namespace mage {
 		 @return		The parent-to-view matrix of this transform.
 		 @note			Transforms for cameras should not contain scaling components.
 		 */
-		XMMATRIX GetWorldToViewMatrix() const {
+		const XMMATRIX GetWorldToViewMatrix() const {
 			return m_world_to_object;
 		}
 
@@ -956,7 +956,7 @@ namespace mage {
 						A reference to the vector expressed in parent space coordinates.
 		 @return		The transformed vector expressed in object space coordinates.
 		 */
-		XMVECTOR TransformParentToObject(const XMVECTOR &vector) const {
+		const XMVECTOR TransformParentToObject(const XMVECTOR &vector) const {
 			return XMVector4Transform(vector, GetParentToObjectMatrix());
 		}
 
@@ -967,7 +967,7 @@ namespace mage {
 						A reference to the vector expressed in object space coordinates.
 		 @return		The transformed vector expressed in parent space coordinates.
 		 */
-		XMVECTOR TransformObjectToParent(const XMVECTOR &vector) const {
+		const XMVECTOR TransformObjectToParent(const XMVECTOR &vector) const {
 			return XMVector4Transform(vector, GetObjectToParentMatrix());
 		}
 
@@ -978,7 +978,7 @@ namespace mage {
 						A reference to the vector expressed in world space coordinates.
 		 @return		The transformed vector expressed in object space coordinates.
 		 */
-		XMVECTOR TransformWorldToObject(const XMVECTOR &vector) const {
+		const XMVECTOR TransformWorldToObject(const XMVECTOR &vector) const {
 			return XMVector4Transform(vector, GetWorldToObjectMatrix());
 		}
 
@@ -989,7 +989,7 @@ namespace mage {
 						A reference to the vector expressed in object space coordinates.
 		 @return		The transformed vector expressed in world space coordinates.
 		 */
-		XMVECTOR TransformObjectToWorld(const XMVECTOR &vector) const {
+		const XMVECTOR TransformObjectToWorld(const XMVECTOR &vector) const {
 			return XMVector4Transform(vector, GetObjectToWorldMatrix());
 		}
 
@@ -1045,7 +1045,7 @@ namespace mage {
 
 		 @return		The inverse translation matrix of this transform.
 		 */
-		XMMATRIX GetInverseTranslationMatrix() const {
+		const XMMATRIX GetInverseTranslationMatrix() const {
 			return XMMatrixTranslationFromVector(XMVectorSet(-m_translation.x, -m_translation.y, -m_translation.z, 0.0f));
 		}
 
@@ -1054,7 +1054,7 @@ namespace mage {
 
 		 @return		The inverse rotation matrix of this transform.
 		 */
-		XMMATRIX GetInverseRotationMatrix() const {
+		const XMMATRIX GetInverseRotationMatrix() const {
 			return XMMatrixRotationRollPitchYawFromVector(XMVectorSet(-m_rotation.x, -m_rotation.y, -m_rotation.z, 0.0f));
 		}
 
@@ -1063,7 +1063,7 @@ namespace mage {
 
 		 @return		The inverse scale matrix of this transform.
 		 */
-		XMMATRIX GetInverseScaleMatrix() const {
+		const XMMATRIX GetInverseScaleMatrix() const {
 			return XMMatrixScalingFromVector(XMVectorSet(1.0f / m_scale.x, 1.0f / m_scale.y, 1.0f / m_scale.z, 0.0f));
 		}
 
@@ -1074,7 +1074,7 @@ namespace mage {
 						A reference to the direction expressed in object space coordinates.
 		 @return		The transformed (normalized) direction expressed in parent space coordinates.
 		 */
-		XMVECTOR TransformObjectToParentDirection(const XMVECTOR &direction) const {
+		const XMVECTOR TransformObjectToParentDirection(const XMVECTOR &direction) const {
 			const XMMATRIX transformation = GetInverseScaleMatrix() * GetInverseRotationMatrix();
 			return XMVector3Normalize(XMVector4Transform(direction, transformation));
 		}

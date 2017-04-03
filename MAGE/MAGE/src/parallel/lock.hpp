@@ -97,7 +97,7 @@ namespace mage {
 		 @param[in]		mutex
 						A reference to a mutex.
 		 */
-		MutexLock(Mutex &mutex);
+		explicit MutexLock(Mutex &mutex);
 
 		/**
 		 Destructs this mutex lock.
@@ -275,7 +275,7 @@ namespace mage {
 		 @param[in]		lock_type
 						The lock type.
 		 */
-		ReadWriteMutexLock(ReadWriteMutex &mutex, ReadWriteMutexLockType lock_type);
+		explicit ReadWriteMutexLock(ReadWriteMutex &mutex, ReadWriteMutexLockType lock_type);
 
 		/**
 		 Destructs this read write mutex lock.

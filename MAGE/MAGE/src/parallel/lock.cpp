@@ -45,8 +45,9 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// ReadWriteMutex
 	//-------------------------------------------------------------------------
-	ReadWriteMutex::ReadWriteMutex() : m_nb_writers_waiting(0), m_nb_readers_waiting(0),
-		m_active_writer_readers(0) {
+	ReadWriteMutex::ReadWriteMutex() : 
+		m_nb_writers_waiting(0), m_nb_readers_waiting(0), m_active_writer_readers(0), 
+		m_ready_to_read_handle(nullptr), m_ready_to_write_handle(nullptr) {
 
 		// Initialize a critical section object.
 		InitializeCriticalSection(&m_critical_section);
@@ -303,7 +304,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Semaphore
 	//-------------------------------------------------------------------------
-	Semaphore::Semaphore() {
+	Semaphore::Semaphore() 
+		: m_handle(nullptr) {
 		// Creates or opens an unnamed semaphore object.
 		// 1. The returned handle cannot be inherited by child processes.
 		// 2. The initial count for the semaphore object. 

@@ -54,10 +54,9 @@ namespace mage {
 
 	protected:
 
-		Model(const string &name);
+		explicit Model(const string &name);
 		Model(const Model &model);
-		Model(Model &&model)
-			: WorldObject(model), m_submodels(std::move(model.m_submodels)) {}
+		Model(Model &&model) = default;
 
 		virtual void UpdateChildTransforms(bool dirty_ancestor) override;
 		
@@ -80,15 +79,9 @@ namespace mage {
 
 	public:
 
-		SubModel(const string &name, size_t start_index, size_t nb_indices, const ShadedMaterial &material);
+		explicit SubModel(const string &name, size_t start_index, size_t nb_indices, const ShadedMaterial &material);
 		SubModel(const SubModel &submodel);
-		SubModel(SubModel &&submodel)
-			: Model(submodel), 
-			m_start_index(submodel.m_start_index),
-			m_nb_indices(submodel.m_nb_indices), 
-			m_material(std::move(submodel.m_material)) {
-			submodel.m_material = nullptr;
-		}
+		SubModel(SubModel &&submodel) = default;
 		virtual ~SubModel() = default;
 
 		virtual SubModel *Clone() const {

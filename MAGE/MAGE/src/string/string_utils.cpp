@@ -156,11 +156,11 @@ namespace mage {
 		return CW2A(str);
 	}
 
-	wstring str_convert(const string &str) {
+	const wstring str_convert(const string &str) {
 		return wstring(CA2W(str.c_str()));
 	}
 
-	string str_convert(const wstring &str) {
+	const string str_convert(const wstring &str) {
 		return string(CW2A(str.c_str()));
 	}
 }

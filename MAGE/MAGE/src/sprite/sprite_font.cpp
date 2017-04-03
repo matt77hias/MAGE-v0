@@ -46,7 +46,8 @@ namespace mage {
 	};
 
 	SpriteFont::SpriteFont(ID3D11Device2 *device, const wstring &fname, const SpriteFontDescriptor &desc)
-		: Resource(fname) {
+		: Resource(fname), m_texture(), m_glyphs(), 
+		m_default_glyph(nullptr), m_line_spacing(0.0f) {
 
 		SpriteFontOutput output;
 		const HRESULT result_load = ImportSpriteFontFromFile(fname, device, output, desc);

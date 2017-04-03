@@ -9,7 +9,7 @@ namespace mage {
 
 	public:
 
-		SpriteFontDescriptor(bool force_srgb = false)
+		explicit SpriteFontDescriptor(bool force_srgb = false)
 			: m_force_srgb(force_srgb) {}
 		SpriteFontDescriptor(const SpriteFontDescriptor &desc) = default;
 		SpriteFontDescriptor(SpriteFontDescriptor &&desc) = default;

@@ -38,7 +38,9 @@ namespace mage {
 	protected:
 
 		BinaryReader()
-			: m_pos(nullptr), m_end(nullptr) {}
+			: m_fname(), m_big_endian(true), 
+			m_pos(nullptr), m_end(nullptr), m_data() {}
+		BinaryReader(BinaryReader &&reader) = default;
 
 		virtual HRESULT Read() = 0;
 
@@ -61,7 +63,6 @@ namespace mage {
 	private:
 
 		BinaryReader(const BinaryReader &reader) = delete;
-		BinaryReader(BinaryReader &&reader) = delete;
 		BinaryReader &operator=(const BinaryReader &reader) = delete;
 		BinaryReader &operator=(BinaryReader &&reader) = delete;
 
@@ -92,7 +93,8 @@ namespace mage {
 	protected:
 
 		BigEndianBinaryReader()
-			: m_pos(nullptr), m_end(nullptr) {}
+			: m_fname(), m_pos(nullptr), m_end(nullptr), m_data() {}
+		BigEndianBinaryReader(BigEndianBinaryReader &&reader) = default;
 
 		virtual HRESULT Read() = 0;
 
@@ -102,14 +104,12 @@ namespace mage {
 
 		template< typename ValueT >
 		const ValueT &ReadValue();
-
 		template< typename ValueT >
 		const ValueT *ReadValueArray(size_t size);
 		
 	private:
 
 		BigEndianBinaryReader(const BigEndianBinaryReader &reader) = delete;
-		BigEndianBinaryReader(BigEndianBinaryReader &&reader) = delete;
 		BigEndianBinaryReader &operator=(const BigEndianBinaryReader &reader) = delete;
 		BigEndianBinaryReader &operator=(BigEndianBinaryReader &&reader) = delete;
 

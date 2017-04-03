@@ -22,12 +22,9 @@ namespace mage {
 
 	public:
 
-		MeshModel(const string &name, const ModelDescriptor &desc, const CombinedShader &shader);
-		MeshModel(const MeshModel &model)
-			: Model(model), m_mesh(model.m_mesh) {}
-		MeshModel(MeshModel &&model)
-			: Model(model), m_mesh(std::move(model.m_mesh)) {}
-
+		explicit MeshModel(const string &name, const ModelDescriptor &desc, const CombinedShader &shader);
+		MeshModel(const MeshModel &model) = default;
+		MeshModel(MeshModel &&model) = default;
 		virtual ~MeshModel() = default;
 
 		virtual MeshModel *Clone() const override {

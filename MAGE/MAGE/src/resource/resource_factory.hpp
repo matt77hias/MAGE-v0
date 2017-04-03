@@ -26,6 +26,7 @@ namespace mage {
 	public:
 
 		ResourceFactory();
+		ResourceFactory(ResourceFactory &&resource_factory) = default;
 		virtual ~ResourceFactory();
 
 		template < typename VertexT >
@@ -42,7 +43,6 @@ namespace mage {
 	private:
 
 		ResourceFactory(const ResourceFactory &resource_factory) = delete;
-		ResourceFactory(ResourceFactory &&resource_factory) = delete;
 		ResourceFactory &operator=(const ResourceFactory &resource_factory) = delete;
 		ResourceFactory &operator=(ResourceFactory &&resource_factory) = delete;
 

@@ -27,10 +27,18 @@ namespace mage {
 		 @param[in]		block_size
 						The maximum block size in bytes.
 		 */
-		MemoryArena(size_t block_size = 32768) 
+		explicit MemoryArena(size_t block_size = 32768) 
 			: m_block_size(block_size), m_current_block_pos(0), 
-			m_current_block(pair< size_t, char * >(0, nullptr)) {
-		}
+			m_current_block(pair< size_t, char * >(0, nullptr)),
+			m_used_blocks(), m_available_blocks() {}
+
+		/**
+		 Constructs a memory arena from the given memory arena.
+
+		 @param[in]		arena
+						The memory arena.
+		 */
+		MemoryArena(MemoryArena &&arena) = default;
 		
 		/**
 		 Destructs the given memory arena.
@@ -112,14 +120,6 @@ namespace mage {
 						The memory arena.
 		 */
 		MemoryArena(const MemoryArena &arena) = delete;
-
-		/**
-		 Constructs a memory arena from the given memory arena.
-
-		 @param[in]		arena
-						The memory arena.
-		 */
-		MemoryArena(MemoryArena &&arena) = delete;
 
 		/**
 		 Copies the given memory arena to this memory arena.

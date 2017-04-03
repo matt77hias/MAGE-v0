@@ -19,7 +19,7 @@ namespace mage {
 
 	public:
 
-		WorldObject(const string &name) 
+		explicit WorldObject(const string &name) 
 			: m_name(name),
 			m_transform(new Transform()) {}
 		WorldObject(const WorldObject &world_object)
@@ -70,7 +70,9 @@ namespace mage {
 		
 	protected:
 		
-		virtual void UpdateChildTransforms(bool dirty_ancestor) {}
+		virtual void UpdateChildTransforms(bool dirty_ancestor) {
+			UNUSED(dirty_ancestor);
+		}
 
 	private:
 

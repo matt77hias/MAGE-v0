@@ -150,7 +150,7 @@ namespace mage {
 		m_material_buffer.back().m_bump_texture = ReadMTLTexture();
 	}
 
-	RGBSpectrum MTLReader::ReadMTLSpectrum() {
+	const RGBSpectrum MTLReader::ReadMTLSpectrum() {
 		if (!HasFloat()) {
 			const char *str = ReadChars();
 

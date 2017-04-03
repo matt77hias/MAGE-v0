@@ -37,7 +37,15 @@ namespace mage {
 		 @param[in]		hwindow
 						The main window handle.
 		 */
-		Renderer(HWND hwindow);
+		explicit Renderer(HWND hwindow);
+
+		/**
+		 Constructs a renderer from the given renderer.
+
+		 @param[in]		renderer
+						A reference to a renderer.
+		 */
+		Renderer(Renderer &&renderer) = delete;
 
 		/**
 		 Destructs this renderer.
@@ -77,7 +85,7 @@ namespace mage {
 		 @return		A pointer to the device of this renderer.
 		 */
 		ID3D11Device2 *GetDevice() const {
-			return m_device2.Get();
+			return m_device.Get();
 		}
 
 		/**
@@ -86,7 +94,7 @@ namespace mage {
 		 @return		A pointer to the device context of this renderer.
 		 */
 		ID3D11DeviceContext2 *GetDeviceContext() const {
-			return m_device_context2.Get();
+			return m_device_context.Get();
 		}
 
 		/**
@@ -116,7 +124,7 @@ namespace mage {
 		 */
 		bool IsFullScreen() const {
 			BOOL current = false;
-			m_swap_chain2->GetFullscreenState(&current, nullptr);
+			m_swap_chain->GetFullscreenState(&current, nullptr);
 			return current != 0;
 		}
 
@@ -159,14 +167,6 @@ namespace mage {
 						A reference to a renderer.
 		 */
 		Renderer(const Renderer &renderer) = delete;
-
-		/**
-		 Constructs a renderer from the given renderer.
-
-		 @param[in]		renderer
-						A reference to a renderer.
-		 */
-		Renderer(Renderer &&renderer) = delete;
 
 		/**
 		 Copies the given renderer to this renderer.
@@ -259,9 +259,9 @@ namespace mage {
 
 		DXGI_MODE_DESC1					 m_display_mode;
 		D3D_FEATURE_LEVEL		         m_feature_level;
-		ComPtr< ID3D11Device2 >	         m_device2;
-		ComPtr< ID3D11DeviceContext2 >   m_device_context2;
-		ComPtr< IDXGISwapChain2 >        m_swap_chain2;
+		ComPtr< ID3D11Device2 >	         m_device;
+		ComPtr< ID3D11DeviceContext2 >   m_device_context;
+		ComPtr< IDXGISwapChain2 >        m_swap_chain;
 		ComPtr< ID3D11RenderTargetView > m_render_target_view;
 		ComPtr< ID3D11Texture2D >        m_depth_stencil;
 		ComPtr< ID3D11DepthStencilView > m_depth_stencil_view;

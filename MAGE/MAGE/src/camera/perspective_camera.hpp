@@ -47,8 +47,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the perspective camera.
 		 */
-		PerspectiveCamera(const PerspectiveCamera &camera)
-			: Camera(camera), m_fov_y(camera.m_fov_y) {}
+		PerspectiveCamera(const PerspectiveCamera &camera) = default;
 		
 		/**
 		 Constructs a perspective camera from the given perpsective camera.
@@ -56,8 +55,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the perspective camera.
 		 */
-		PerspectiveCamera(PerspectiveCamera &&camera)
-			: Camera(camera), m_fov_y(camera.m_fov_y) {}
+		PerspectiveCamera(PerspectiveCamera &&camera) = default;
 
 		/**
 		 Destructs this perspective camera.
@@ -70,11 +68,7 @@ namespace mage {
 		 @param[in]		perspective_camera
 						The perspective camera.
 		 */
-		PerspectiveCamera &operator=(const PerspectiveCamera &perspective_camera) {
-			Camera::operator=(static_cast< const Camera & >(perspective_camera));
-			m_fov_y = perspective_camera.m_fov_y;
-			return (*this);
-		}
+		PerspectiveCamera &operator=(const PerspectiveCamera &perspective_camera) = default;
 
 		/**
 		 Copies the given perspective camera to this perspective camera.
@@ -82,11 +76,7 @@ namespace mage {
 		 @param[in]		perspective_camera
 						The perspective camera.
 		 */
-		PerspectiveCamera &operator=(PerspectiveCamera &&perspective_camera) {
-			Camera::operator=(static_cast< Camera && >(perspective_camera));
-			m_fov_y = perspective_camera.m_fov_y;
-			return (*this);
-		}
+		PerspectiveCamera &operator=(PerspectiveCamera &&perspective_camera) = default;
 
 		/**
 		 Clones this perspective camera.

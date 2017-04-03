@@ -221,7 +221,7 @@ namespace mage {
 					A reference to the string to copy.
 	 @return		The copy.
 	 */
-	wstring str_convert(const string &str);
+	const wstring str_convert(const string &str);
 	
 	/**
 	 Converts the given Wide string to an ANSI string.
@@ -230,5 +230,5 @@ namespace mage {
 					A reference to the string to copy.
 	 @return		The copy.
 	 */
-	string str_convert(const wstring &str);
+	const string str_convert(const wstring &str);
 }

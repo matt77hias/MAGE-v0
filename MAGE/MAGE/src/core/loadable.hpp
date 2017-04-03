@@ -30,7 +30,7 @@ namespace mage {
 		 @param[in]		loaded
 						Flag indicating wether the loadable is loaded.
 		 */
-		Loadable(bool loaded = false) 
+		explicit Loadable(bool loaded = false) 
 			: m_loaded(loaded) {}
 
 		/**

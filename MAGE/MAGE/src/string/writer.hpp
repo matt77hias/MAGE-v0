@@ -19,7 +19,9 @@ namespace mage {
 
 	public:
 
-		Writer() : m_file(nullptr) {}
+		Writer() 
+			: m_file(nullptr), m_fname() {}
+		Writer(Writer &&reader) = default;
 		virtual ~Writer() = default;
 
 		HRESULT WriteToFile(const wstring &fname);
@@ -38,7 +40,6 @@ namespace mage {
 	private:
 
 		Writer(const Writer &reader) = delete;
-		Writer(Writer &&reader) = delete;
 		Writer &operator=(const Writer &reader) = delete;
 		Writer &operator=(Writer &&reader) = delete;
 

@@ -39,11 +39,12 @@ namespace mage {
 
 	public:
 
-		ModelPart(const string &child = MAGE_MODEL_PART_DEFAULT_CHILD, 
+		explicit ModelPart(const string &child = MAGE_MODEL_PART_DEFAULT_CHILD, 
 			const string &parent = MAGE_MODEL_PART_DEFAULT_PARENT,
 			uint32_t start_index = 0, uint32_t nb_indices = 0, 
 			const string &material = MAGE_MODEL_PART_DEFAULT_MATERIAL)
-			: child(child), parent(parent), start_index(start_index), nb_indices(nb_indices), material(material) {}
+			: child(child), parent(parent), material(material), 
+			start_index(start_index), nb_indices(nb_indices) {}
 		ModelPart(const ModelPart &model_part) = default;
 		ModelPart(ModelPart &&model_part) = default;
 		~ModelPart() = default;
@@ -64,6 +65,7 @@ namespace mage {
 	public:
 
 		ModelOutput() = default;
+		ModelOutput(ModelOutput< VertexT > &&output) = default;
 		~ModelOutput() = default;
 
 		bool HasModelPart(const string &child) {
@@ -97,7 +99,6 @@ namespace mage {
 	private:
 
 		ModelOutput(const ModelOutput< VertexT > &output) = delete;
-		ModelOutput(ModelOutput< VertexT > &&output) = delete;
 		ModelOutput< VertexT > &operator=(const ModelOutput< VertexT > &output) = delete;
 		ModelOutput< VertexT > &operator=(ModelOutput< VertexT > &&output) = delete;
 	};

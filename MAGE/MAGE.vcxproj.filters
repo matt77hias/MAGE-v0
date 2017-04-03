@@ -587,9 +587,6 @@
     <ClCompile Include="MAGE\src\string\token.cpp">
       <Filter>Source Files\string</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\vertex.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\material\mtl\mtl_loader.cpp">
       <Filter>Source Files\material\mtl</Filter>
     </ClCompile>
@@ -687,6 +684,9 @@
       <Filter>Source Files\mesh</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\mesh\static_mesh.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\vertex.cpp">
       <Filter>Source Files\mesh</Filter>
     </ClCompile>
   </ItemGroup>

@@ -32,9 +32,14 @@ namespace mage {
 
 		/**
 		 Constructs a new logging configuration.
+
+		 @param[in]		quiet
+						Flag indicating whether quiet logging is preferred.
+		 @param[in]		verbose
+						Flag indicating whether verbose logging is preferred.
 		 */
-		LoggingConfiguration() 
-			: m_quiet(false), m_verbose(false) {}
+		explicit LoggingConfiguration(bool quiet = false, bool verbose = false)
+			: m_quiet(quiet), m_verbose(verbose) {}
 
 		/**
 		 Constructs a logging configuration from the given logging configuration.

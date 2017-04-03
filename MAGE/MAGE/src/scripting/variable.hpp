@@ -183,11 +183,6 @@ namespace mage {
 		Variable &operator=(Variable &&variable) = delete;
 
 		/**
-		 The name of this variable.
-		 */
-		const string m_name;
-
-		/**
 		 The type of this value.
 
 		 @note			It is not possible to use typeid(T).name() since this assumes
@@ -195,6 +190,11 @@ namespace mage {
 						which is not the case. Thus the type needs to be stored explicitly.
 		 */
 		const VariableType m_type;
+
+		/**
+		 The name of this variable.
+		 */
+		const string m_name;
 
 		/**
 		 A struct of immutable abstract values.
@@ -306,8 +306,7 @@ namespace mage {
 			 @param[in]		value
 							A reference to the value.
 			 */
-			Value(const Value &value)
-				: AbstractValue(value), m_value(value.m_value) {}
+			Value(const Value &value) = delete;
 
 			/**
 			 Constructs a value from the given value.
@@ -315,10 +314,7 @@ namespace mage {
 			 @param[in]		value
 							A reference to the value.
 			 */
-			Value(Value &&value)
-				: AbstractValue(value), m_value(value.m_value) {
-				value.m_data = nullptr;
-			}
+			Value(Value &&value) = delete;
 
 			/**
 			 Copies the given value to this value.

@@ -20,7 +20,7 @@ namespace mage {
 
 	public:
 
-		VSReader(vector< Variable * > &variable_buffer)
+		explicit VSReader(vector< Variable * > &variable_buffer)
 			: LineReader(), m_variable_buffer(variable_buffer) {}
 		virtual ~VSReader() = default;
 

@@ -21,7 +21,8 @@ namespace mage {
 
 	public:
 
-		SpriteFont(ID3D11Device2 *device, const wstring &fname, const SpriteFontDescriptor &desc);
+		explicit SpriteFont(ID3D11Device2 *device, const wstring &fname, const SpriteFontDescriptor &desc);
+		SpriteFont(SpriteFont &&font) = default;
 		virtual ~SpriteFont() = default;
 
 		void DrawString(SpriteBatch &sprite_batch, const wchar_t *text, const SpriteTransform &transform,
@@ -40,7 +41,6 @@ namespace mage {
 	private:
 
 		SpriteFont(const SpriteFont &font) = delete;
-		SpriteFont(SpriteFont &&font) = delete;
 		SpriteFont &operator=(const SpriteFont &font) = delete;
 		SpriteFont &operator=(SpriteFont &&font) = delete;
 

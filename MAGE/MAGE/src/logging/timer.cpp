@@ -13,7 +13,7 @@
 namespace mage {
 
 	Timer::Timer() 
-		: m_running(false), m_time0(0.0), m_elapsed(0.0) {
+		: m_time0(0.0), m_elapsed(0.0), m_running(false) {
 		// Retrieve the frequency of the performance counter. 
 		// The frequency of the performance counter is fixed at system boot 
 		// and is consistent across all processors.

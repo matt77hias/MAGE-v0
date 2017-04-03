@@ -27,8 +27,16 @@ namespace mage {
 		 @param[in]		first_id
 						The first id of this id_generator
 		 */
-		IdGenerator(uint32_t first_id = 0) 
+		explicit IdGenerator(uint32_t first_id = 0) 
 			: m_current_id(first_id) {}
+
+		/**
+		 Constructs an id generator from the given id generator.
+
+		 @param[in]		id_generator
+						The id generator.
+		 */
+		IdGenerator(IdGenerator &&id_generator) = default;
 
 		/**
 		 Destructs this id generator.
@@ -53,14 +61,6 @@ namespace mage {
 						The id generator.	
 		 */
 		IdGenerator(const IdGenerator &id_generator) = delete;
-
-		/**
-		 Constructs an id generator from the given id generator.
-
-		 @param[in]		id_generator
-						The id generator.
-		 */
-		IdGenerator(IdGenerator &&id_generator) = delete;
 
 		/**
 		 Copies the given id generator to this id generator.

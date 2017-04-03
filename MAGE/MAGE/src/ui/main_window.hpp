@@ -35,7 +35,15 @@ namespace mage {
 		 @param[in]		height
 						The height of the window.
 		 */
-		MainWindow(HINSTANCE hinstance, const wstring &name, LONG width, LONG height);
+		explicit MainWindow(HINSTANCE hinstance, const wstring &name, LONG width, LONG height);
+
+		/**
+		 Constructs a main window from the given main window.
+
+		 @param[in]		main_window
+						A reference to the main window.
+		 */
+		MainWindow(MainWindow &&main_window) = default;
 
 		/**
 		 Destructs this main window.
@@ -88,14 +96,6 @@ namespace mage {
 						A reference to the main window.
 		 */
 		MainWindow(const MainWindow &main_window) = delete;
-
-		/**
-		 Constructs a main window from the given main window.
-
-		 @param[in]		main_window
-						A reference to the main window.
-		 */
-		MainWindow(MainWindow &&main_window) = delete;
 
 		/**
 		 Copies the given main window to this main window.

@@ -315,7 +315,7 @@ namespace mage {
 		return true;
 	}
 
-	Point3 AABB::Centroid() const {
+	const Point3 AABB::Centroid() const {
 		const XMVECTOR p_min_v = XMLoadFloat3(&p_min);
 		const XMVECTOR p_max_v = XMLoadFloat3(&p_max);
 		const XMVECTOR centroid_v = 0.5f * (p_min_v + p_max_v);
@@ -324,7 +324,7 @@ namespace mage {
 		return centroid;
 	}
 
-	Direction3 AABB::Diagonal() const {
+	const Direction3 AABB::Diagonal() const {
 		const XMVECTOR p_min_v = XMLoadFloat3(&p_min);
 		const XMVECTOR p_max_v = XMLoadFloat3(&p_max);
 		const XMVECTOR diagonal_v = p_max_v - p_min_v;
@@ -333,7 +333,7 @@ namespace mage {
 		return diagonal;
 	}
 
-	AABB Union(const AABB &aabb, const Point3 &point) {
+	const AABB Union(const AABB &aabb, const Point3 &point) {
 		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb.p_min);
 		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb.p_max);
 		const XMVECTOR p_v2 = XMLoadFloat3(&point);
@@ -345,7 +345,7 @@ namespace mage {
 		return AABB(p_min, p_max);
 	}
 
-	AABB Union(const AABB &aabb1, const AABB &aabb2) {
+	const AABB Union(const AABB &aabb1, const AABB &aabb2) {
 		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.p_min);
 		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb1.p_max);
 		const XMVECTOR p_min_v2 = XMLoadFloat3(&aabb2.p_min);
@@ -358,7 +358,7 @@ namespace mage {
 		return AABB(p_min, p_max);
 	}
 
-	AABB Overlap(const AABB &aabb1, const AABB &aabb2) {
+	const AABB Overlap(const AABB &aabb1, const AABB &aabb2) {
 		if (!aabb1.Overlaps(aabb2)) {
 			return AABB();
 		}
@@ -374,7 +374,7 @@ namespace mage {
 		return AABB(p_min, p_max);
 	}
 
-	AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2) {
+	const AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2) {
 		if (!aabb1.OverlapsStrict(aabb2)) {
 			return AABB();
 		}

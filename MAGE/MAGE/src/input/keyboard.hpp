@@ -40,7 +40,15 @@ namespace mage {
 		 @param[in]		di
 						A pointer to a direct input object.
 		 */
-		Keyboard(HWND hwindow, ComPtr< IDirectInput8 > di);
+		explicit Keyboard(HWND hwindow, IDirectInput8 *di);
+
+		/**
+		 Constructs a keyboard from the given keyboard.
+
+		 @param[in]		keyboard
+						A reference to the keyboard.
+		 */
+		Keyboard(Keyboard &&keyboard) = default;
 
 		/**
 		 Destructs this keyboard.
@@ -85,14 +93,6 @@ namespace mage {
 		Keyboard(const Keyboard &keyboard) = delete;
 
 		/**
-		 Constructs a keyboard from the given keyboard.
-
-		 @param[in]		keyboard
-						A reference to the keyboard.
-		 */
-		Keyboard(Keyboard &&keyboard) = delete;
-
-		/**
 		 Copies the given keyboard to this keyboard.
 
 		 @param[in]		keyboard
@@ -115,16 +115,19 @@ namespace mage {
 		/**
 		 Initializes the keyboard device of this keyboard.
 
-		 @param[in]		di
-						A pointer to a direct input object.
 		 @return		A success/error value.
 		 */
-		HRESULT InitializeKeyboard(ComPtr< IDirectInput8 > di);
+		HRESULT InitializeKeyboard();
 
 		/**
-		 The handle of the parent window.
+		 The handle of the parent window of this keyboard..
 		 */
 		HWND m_hwindow;
+
+		/**
+		 The DirectInput object of this keyboard.
+		 */
+		IDirectInput8 * const m_di;
 
 		/**
 		 The DirectInput keyboard device of this keyboard.
@@ -133,7 +136,7 @@ namespace mage {
 		 to Microsoft DirectInput devices, manage device properties and information, set behavior,
 		 perform initialization, create and play force-feedback effects, and invoke a device's control panel.
 		 */
-		ComPtr< IDirectInputDevice8 > m_keyboard;
+		IDirectInputDevice8 *m_keyboard;
 
 		/**
 		 The current press stamp (incremented every frame).

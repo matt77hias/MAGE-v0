@@ -23,6 +23,7 @@ namespace mage {
 	public:
 
 		World() = default;
+		World(World &&world) = default;
 		virtual ~World() {
 			RemoveAllModels();
 			RemoveAllLights();
@@ -88,7 +89,6 @@ namespace mage {
 	private:
 
 		World(const World &world) = delete;
-		World(World &&world) = delete;
 		World &operator=(const World &world) = delete;
 		World &operator=(World &&world) = delete;
 

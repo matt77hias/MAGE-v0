@@ -20,7 +20,7 @@ namespace mage {
 						Flag indicating whether the vertices of triangles
 						should be in clockwise order.
 		 */
-		MeshDescriptor(bool invert_handedness = false, bool clockwise_order = true)
+		explicit MeshDescriptor(bool invert_handedness = false, bool clockwise_order = true)
 			: m_invert_handedness(invert_handedness), m_clockwise_order(clockwise_order) {}
 		MeshDescriptor(const MeshDescriptor< VertexT > &desc) = default;
 		MeshDescriptor(MeshDescriptor< VertexT > &&desc) = default;

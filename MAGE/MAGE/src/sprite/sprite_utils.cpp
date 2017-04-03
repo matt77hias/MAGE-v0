@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	XMMATRIX GetViewportTransform(ID3D11DeviceContext *device_context, DXGI_MODE_ROTATION rotation_mode) {
+	const XMMATRIX GetViewportTransform(ID3D11DeviceContext *device_context, DXGI_MODE_ROTATION rotation_mode) {
 		Assert(device_context);
 		
 		UINT nb_of_viewports = 1;
@@ -24,7 +24,7 @@ namespace mage {
 		return GetViewportTransform(viewport, rotation_mode);
 	}
 
-	XMMATRIX GetViewportTransform(ID3D11DeviceContext *device_context, DXGI_MODE_ROTATION rotation_mode, D3D11_VIEWPORT **viewport) {
+	const XMMATRIX GetViewportTransform(ID3D11DeviceContext *device_context, DXGI_MODE_ROTATION rotation_mode, D3D11_VIEWPORT **viewport) {
 		Assert(device_context);
 		
 		UINT nb_of_viewports = 1;
@@ -34,7 +34,7 @@ namespace mage {
 		return GetViewportTransform(**viewport, rotation_mode);
 	}
 	
-	XMMATRIX GetViewportTransform(const D3D11_VIEWPORT &viewport, DXGI_MODE_ROTATION rotation_mode) {
+	const XMMATRIX GetViewportTransform(const D3D11_VIEWPORT &viewport, DXGI_MODE_ROTATION rotation_mode) {
 		const float scale_x = (viewport.Width  > 0.0f) ? 2.0f / viewport.Width  : 0.0f;
 		const float scale_y = (viewport.Height > 0.0f) ? 2.0f / viewport.Height : 0.0f;
 		

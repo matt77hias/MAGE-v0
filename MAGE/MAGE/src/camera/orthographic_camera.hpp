@@ -43,8 +43,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera.
 		 */
-		OrthographicCamera(const OrthographicCamera &camera)
-			: Camera(camera) {}
+		OrthographicCamera(const OrthographicCamera &camera) = default;
 
 		/**
 		 Constructs an orthographic camera from the given orthographic camera.
@@ -52,8 +51,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera.
 		 */
-		OrthographicCamera(OrthographicCamera &&camera)
-			: Camera(camera) {}
+		OrthographicCamera(OrthographicCamera &&camera) = default;
 
 		/**
 		 Destructs this orthographic camera.
@@ -66,10 +64,7 @@ namespace mage {
 		 @param[in]		orthographic_camera
 						The orthographic camera.
 		 */
-		OrthographicCamera &operator=(const OrthographicCamera &orthographic_camera) {
-			Camera::operator=(static_cast< const Camera & >(orthographic_camera));
-			return (*this);
-		}
+		OrthographicCamera &operator=(const OrthographicCamera &orthographic_camera) = default;
 		
 		/**
 		 Copies the given orthographic camera to this orthographic camera.
@@ -77,10 +72,7 @@ namespace mage {
 		 @param[in]		orthographic_camera
 						The orthographic camera.
 		 */
-		OrthographicCamera &operator=(OrthographicCamera &&orthographic_camera) {
-			Camera::operator=(static_cast< Camera && >(orthographic_camera));
-			return (*this);
-		}
+		OrthographicCamera &operator=(OrthographicCamera &&orthographic_camera) = default;
 
 		/**
 		 Clones this orthographic camera.

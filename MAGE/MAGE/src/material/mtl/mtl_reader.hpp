@@ -20,7 +20,7 @@ namespace mage {
 
 	public:
 
-		MTLReader(vector< Material > &material_buffer)
+		explicit MTLReader(vector< Material > &material_buffer)
 			: LineReader(), m_material_buffer(material_buffer) {}
 		virtual ~MTLReader() = default;
 
@@ -46,7 +46,7 @@ namespace mage {
 		void ReadMTLDisplacementTexture();
 		void ReadMTLBumpTexture();
 
-		RGBSpectrum ReadMTLSpectrum();
+		const RGBSpectrum ReadMTLSpectrum();
 		SharedPtr< Texture > ReadMTLTexture();
 
 	private:

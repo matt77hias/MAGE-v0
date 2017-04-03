@@ -31,8 +31,16 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier.
 		 */
-		Resource(const wstring &guid)
+		explicit Resource(const wstring &guid)
 			: m_guid(guid) {}
+
+		/**
+		 Constructs a resource from the given resource.
+
+		 @param[in]		resource
+						A reference to the resource.
+		 */
+		Resource(Resource &&resource) = default;
 
 		/**
 		 Destructs this resource.
@@ -42,9 +50,9 @@ namespace mage {
 		/**
 		 Returns the globally unique identifier of this resource.
 
-		 @return		The globally unique identifier of this resource.
+		 @return		A reference to the globally unique identifier of this resource.
 		 */
-		const wstring GetGuid() const {
+		const wstring &GetGuid() const {
 			return m_guid;
 		}
 
@@ -57,14 +65,6 @@ namespace mage {
 						A reference to the resource.
 		 */
 		Resource(const Resource &resource) = delete;
-
-		/**
-		 Constructs a resource from the given resource.
-
-		 @param[in]		resource
-						A reference to the resource.
-		 */
-		Resource(Resource &&resource) = delete;
 
 		/**
 		 Copies the given resource to this resource.
@@ -109,8 +109,16 @@ namespace mage {
 		 @param[in]		fname
 						A reference to the filename.
 		 */
-		FileResource(const wstring &fname)
+		explicit FileResource(const wstring &fname)
 			: Resource(fname) {}
+
+		/**
+		 Constructs a file resource from the given file resource.
+
+		 @param[in]		file_resource
+						A reference to the file resource.
+		 */
+		FileResource(FileResource &&file_resource) = default;
 
 		/**
 		 Destructs this file resource.
@@ -120,9 +128,9 @@ namespace mage {
 		/**
 		 Returns the filename of this file resource.
 
-		 @return		The filename of this file resource.
+		 @return		A reference to the filename of this file resource.
 		 */
-		const wstring GetFilename() const {
+		const wstring &GetFilename() const {
 			return GetGuid();
 		}
 
@@ -154,14 +162,6 @@ namespace mage {
 						A reference to the file resource.
 		 */
 		FileResource(const FileResource &file_resource) = delete;
-
-		/**
-		 Constructs a file resource from the given file resource.
-
-		 @param[in]		file_resource
-						A reference to the file resource.
-		 */
-		FileResource(FileResource &&file_resource) = delete;
 
 		/**
 		 Copies the given file resource to this file resource.

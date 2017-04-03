@@ -68,7 +68,9 @@ namespace mage {
 	}
 
 	DeviceEnumeration::DeviceEnumeration() 
-		: m_selected_diplay_mode(nullptr) {}
+		: m_adapter(), m_output(), m_settings_script(),
+		m_display_modes(), m_selected_diplay_mode(nullptr),
+		m_windowed(false), m_vsync(false) {}
 
 	HRESULT DeviceEnumeration::InitializeAdapterAndOutput() {
 		// Get the IDXGIFactory3.

@@ -14,7 +14,7 @@
 namespace mage {
 
 	Texture::Texture(ID3D11Device2 *device, const wstring &fname)
-		: FileResource(fname), m_device(device) {
+		: FileResource(fname), m_device(device), m_texture_resource_view() {
 
 		// Create the pixel shader.
 		const HRESULT result_texture_import = ImportTextureFromFile(GetFilename(), m_device, m_texture_resource_view.ReleaseAndGetAddressOf());

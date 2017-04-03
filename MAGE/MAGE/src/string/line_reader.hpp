@@ -21,8 +21,8 @@ namespace mage {
 
 		virtual ~LineReader() = default;
 
-		HRESULT ReadFromFile(const wstring &fname, const string &delimiters = MAGE_DEFAULT_DELIMITERS);
-		HRESULT ReadFromMemory(const char *input, const string &delimiters = MAGE_DEFAULT_DELIMITERS);
+		HRESULT ReadFromFile(const wstring &fname, const string &delimiters = mage_default_delimiters);
+		HRESULT ReadFromMemory(const char *input, const string &delimiters = mage_default_delimiters);
 
 		const wstring &GetFilename() const {
 			return m_fname;
@@ -34,7 +34,9 @@ namespace mage {
 	protected:
 
 		LineReader()
-			: m_context(nullptr) {}
+			: m_context(nullptr), m_fname(), 
+			m_delimiters(mage_default_delimiters), m_line_number(0) {}
+		LineReader(LineReader &&reader) = default;
 
 		const uint32_t GetCurrentLineNumber() const {
 			return m_line_number;
@@ -46,8 +48,8 @@ namespace mage {
 		void ReadLineRemaining();
 
 		const char *ReadChars();
-		string ReadString();
-		string ReadQuotedString();
+		const string ReadString();
+		const string ReadQuotedString();
 		bool ReadBool();
 		int8_t ReadInt8();
 		uint8_t ReadUInt8();
@@ -59,9 +61,9 @@ namespace mage {
 		uint64_t ReadUInt64();
 		float ReadFloat();
 		double ReadDouble();
-		XMFLOAT2 ReadFloat2();
-		XMFLOAT3 ReadFloat3();
-		XMFLOAT4 ReadFloat4();
+		const XMFLOAT2 ReadFloat2();
+		const XMFLOAT3 ReadFloat3();
+		const XMFLOAT4 ReadFloat4();
 
 		bool HasChars() const;
 		bool HasString() const;
@@ -83,7 +85,6 @@ namespace mage {
 	private:
 
 		LineReader(const LineReader &reader) = delete;
-		LineReader(LineReader &&reader) = delete;
 		LineReader &operator=(const LineReader &reader) = delete;
 		LineReader &operator=(LineReader &&reader) = delete;
 

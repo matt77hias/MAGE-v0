@@ -53,7 +53,7 @@ namespace mage {
 		 @param[in]		p_max
 						A reference to the maximum extents.
 		 */
-		AABB(const Point3 &p_min, const Point3 &p_max) 
+		explicit AABB(const Point3 &p_min, const Point3 &p_max)
 			: p_min(p_min), p_max(p_max) {}
 
 		/**
@@ -216,14 +216,14 @@ namespace mage {
 
 		 @return		The centroid of this AABB.
 		 */
-		Point3 Centroid() const;
+		const Point3 Centroid() const;
 
 		/**
 		 Returns the diagonal of this AABB.
 
 		 @return		The diagonal of this AABB.
 		 */
-		Direction3 Diagonal() const;
+		const Direction3 Diagonal() const;
 
 		/**
 		 The minimum extents of this AABB.
@@ -245,7 +245,7 @@ namespace mage {
 					A reference to the point.
 	 @return		The union AABB of @a aabb and @a point.
 	 */
-	AABB Union(const AABB &aabb, const Point3 &point);
+	const AABB Union(const AABB &aabb, const Point3 &point);
 	
 	/**
 	 Returns the union AABB of the two given AABBs.
@@ -256,7 +256,7 @@ namespace mage {
 					A reference to the second AABB.
 	 @return		The union AABB of @a aabb1 and @a aabb2.
 	 */
-	AABB Union(const AABB &aabb1, const AABB &aabb2);
+	const AABB Union(const AABB &aabb1, const AABB &aabb2);
 	
 	/**
 	 Returns the overlap AABB of the two given AABBs.
@@ -268,7 +268,7 @@ namespace mage {
 	 @return		The identity AABB in case of no overlap.
 	 @return		The overlap AABB of @a aabb1 and @a aabb2.
 	 */
-	AABB Overlap(const AABB &aabb1, const AABB &aabb2);
+	const AABB Overlap(const AABB &aabb1, const AABB &aabb2);
 	
 	/**
 	 Returns the strict overlap AABB of the two given AABBs.
@@ -280,7 +280,7 @@ namespace mage {
 	 @return		The identity AABB in case of no strict overlap.
 	 @return		The strict overlap AABB of @a aabb1 and @a aabb2.
 	 */
-	AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2);
+	const AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2);
 
 	//-------------------------------------------------------------------------
 	// Bounding Sphere
@@ -316,7 +316,7 @@ namespace mage {
 		 @param[in]		r
 						The radius.
 		 */
-		BS(const Point3 &p, float r) 
+		explicit BS(const Point3 &p, float r)
 			: p(p), r(r) {}
 
 		/**
@@ -459,7 +459,7 @@ namespace mage {
 
 		 @return		The centroid of this AABB.
 		 */
-		Point3 Centroid() const {
+		const Point3 Centroid() const {
 			return p;
 		}
 

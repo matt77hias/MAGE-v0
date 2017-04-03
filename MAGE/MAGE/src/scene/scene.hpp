@@ -89,13 +89,13 @@ namespace mage {
 
 	protected:
 
-		Scene(const string &name)
+		explicit Scene(const string &name)
 			: m_name(name), m_world(new World()) {}
+		Scene(Scene &&scene) = default;
 
 	private:
 
 		Scene(const Scene &scene) = delete;
-		Scene(Scene &&scene) = delete;
 		Scene &operator=(const Scene &scene) = delete;
 		Scene &operator=(Scene &&scene) = delete;
 		

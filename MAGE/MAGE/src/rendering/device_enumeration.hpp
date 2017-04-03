@@ -108,7 +108,7 @@ namespace mage {
 		 @param[in]		device_enumeration
 						A reference to a device enumeration.
 		 */
-		DeviceEnumeration(DeviceEnumeration &&device_enumeration) = delete;
+		DeviceEnumeration(DeviceEnumeration &&device_enumeration) = default;
 
 		/**
 		 Copies the given device enumeration to this device enumeration.

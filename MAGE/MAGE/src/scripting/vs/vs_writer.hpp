@@ -20,7 +20,7 @@ namespace mage {
 
 	public:
 
-		VSWriter(const vector< Variable * > &variable_buffer)
+		explicit VSWriter(const vector< Variable * > &variable_buffer)
 			: Writer(), m_variable_buffer(variable_buffer) {}
 		virtual ~VSWriter() = default;
 

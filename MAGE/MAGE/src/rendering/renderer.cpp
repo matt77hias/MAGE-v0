@@ -17,7 +17,10 @@ namespace mage {
 	Renderer::Renderer(HWND hwindow) : 
 		Loadable(), m_hwindow(hwindow), m_fullscreen(false),
 		m_in_begin_end_pair(false), 
-		m_display_mode(*g_device_enumeration->GetDisplayMode()) {
+		m_display_mode(*g_device_enumeration->GetDisplayMode()),
+		m_device(), m_device_context(), m_swap_chain(),
+		m_render_target_view(), m_depth_stencil(), m_depth_stencil_view(),
+		m_rendering_state(), m_rendering_state_cache() {
 
 		const HRESULT result_renderer = InitializeRenderer();
 		if (FAILED(result_renderer)) {
@@ -66,7 +69,7 @@ namespace mage {
 		// 1. Number of render targets to bind.
 		// 2. Pointer to an array of ID3D11RenderTargetViews
 		// 3. The depth-stencil state.
-		m_device_context2->OMSetRenderTargets(1, m_render_target_view.GetAddressOf(), m_depth_stencil_view.Get());
+		m_device_context->OMSetRenderTargets(1, m_render_target_view.GetAddressOf(), m_depth_stencil_view.Get());
 
 		// Setup the rendering state.
 		SetupRenderingState();
@@ -79,13 +82,13 @@ namespace mage {
 	HRESULT Renderer::UnitializeRenderer() {
 		// Switch to windowed mode since Direct3D is incapable of when in fullscreen mode
 		// due to certain threading issues that occur behind the scenes.
-		if (m_swap_chain2) {
-			m_swap_chain2->SetFullscreenState(FALSE, nullptr);
+		if (m_swap_chain) {
+			m_swap_chain->SetFullscreenState(FALSE, nullptr);
 		}
 
 		// Reset any device context to the default settings. 
-		if (m_device_context2) {
-			m_device_context2->ClearState();
+		if (m_device_context) {
+			m_device_context->ClearState();
 		}
 
 		return S_OK;
@@ -119,13 +122,13 @@ namespace mage {
 		}
 
 		// Get the ID3D11Device2.
-		const HRESULT result_device2 = device.As(&m_device2);
+		const HRESULT result_device2 = device.As(&m_device);
 		if (FAILED(result_device2)) {
 			Error("ID3D11Device2 creation failed: %08X.", result_device2);
 			return result_device2;
 		}
 		// Get the ID3D11DeviceContext2.
-		const HRESULT result_device_context2 = device_context.As(&m_device_context2);
+		const HRESULT result_device_context2 = device_context.As(&m_device_context);
 		if (FAILED(result_device_context2)) {
 			Error("ID3D11DeviceContext2 creation failed: %08X.", result_device_context2);
 			return result_device_context2;
@@ -169,20 +172,20 @@ namespace mage {
 
 		// Get the IDXGISwapChain1.
 		ComPtr< IDXGISwapChain1 > swap_chain1;
-		const HRESULT result_swap_chain1 = dxgi_factory3->CreateSwapChainForHwnd(m_device2.Get(), m_hwindow, &swap_chain_desc, &swap_chain_fullscreen_desc, nullptr, swap_chain1.ReleaseAndGetAddressOf());
+		const HRESULT result_swap_chain1 = dxgi_factory3->CreateSwapChainForHwnd(m_device.Get(), m_hwindow, &swap_chain_desc, &swap_chain_fullscreen_desc, nullptr, swap_chain1.ReleaseAndGetAddressOf());
 		if (FAILED(result_swap_chain1)) {
 			Error("IDXGISwapChain1 creation failed: %08X.", result_swap_chain1);
 			return result_swap_chain1;
 		}
 		// Get the IDXGISwapChain2.
-		const HRESULT result_swap_chain2 = swap_chain1.As(&m_swap_chain2);
+		const HRESULT result_swap_chain2 = swap_chain1.As(&m_swap_chain);
 		if (FAILED(result_swap_chain2)) {
 			Error("IDXGISwapChain2 creation failed: %08X.", result_swap_chain2);
 			return result_swap_chain2;
 		}
 
 		// Set to windowed mode.
-		m_swap_chain2->SetFullscreenState(FALSE, nullptr);
+		m_swap_chain->SetFullscreenState(FALSE, nullptr);
 
 		return S_OK;
 	}
@@ -190,14 +193,14 @@ namespace mage {
 	HRESULT Renderer::SetupRenderTargetView() {
 		// Access the only back buffer of the swap-chain.
 		ComPtr< ID3D11Texture2D > back_buffer;
-		const HRESULT result_back_buffer = m_swap_chain2->GetBuffer(0, __uuidof(ID3D11Texture2D), (void **)back_buffer.GetAddressOf());
+		const HRESULT result_back_buffer = m_swap_chain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void **)back_buffer.GetAddressOf());
 		if (FAILED(result_back_buffer)) {
 			Error("Back buffer texture creation failed: %08X.", result_back_buffer);
 			return result_back_buffer;
 		}
 		
 		// Create a ID3D11RenderTargetView.
-		const HRESULT result_render_target_view = m_device2->CreateRenderTargetView(back_buffer.Get(), nullptr, m_render_target_view.ReleaseAndGetAddressOf());
+		const HRESULT result_render_target_view = m_device->CreateRenderTargetView(back_buffer.Get(), nullptr, m_render_target_view.ReleaseAndGetAddressOf());
 		if (FAILED(result_render_target_view)) {
 			Error("ID3D11RenderTargetView creation failed: %08X.", result_render_target_view);
 			return result_render_target_view;
@@ -221,7 +224,7 @@ namespace mage {
 		depth_stencil_desc.BindFlags          = D3D11_BIND_DEPTH_STENCIL;	   // Flags for binding to pipeline stages. 
 		depth_stencil_desc.CPUAccessFlags     = 0;							   // No CPU access is necessary.
 		depth_stencil_desc.MiscFlags          = 0;							   // Flags that identify other, less common resource options.
-		const HRESULT result_depth_stencil    = m_device2->CreateTexture2D(&depth_stencil_desc, nullptr, m_depth_stencil.ReleaseAndGetAddressOf());
+		const HRESULT result_depth_stencil    = m_device->CreateTexture2D(&depth_stencil_desc, nullptr, m_depth_stencil.ReleaseAndGetAddressOf());
 		if (FAILED(result_depth_stencil)) {
 			Error("Depth-stencil texture creation failed: %08X.", result_depth_stencil);
 			return result_depth_stencil;
@@ -233,7 +236,7 @@ namespace mage {
 		depth_stencil_view_desc.Format             = depth_stencil_desc.Format;
 		depth_stencil_view_desc.ViewDimension      = D3D11_DSV_DIMENSION_TEXTURE2D;
 		depth_stencil_view_desc.Texture2D.MipSlice = 0;
-		const HRESULT result_depth_stencil_view    = m_device2->CreateDepthStencilView(m_depth_stencil.Get(), &depth_stencil_view_desc, m_depth_stencil_view.ReleaseAndGetAddressOf());
+		const HRESULT result_depth_stencil_view    = m_device->CreateDepthStencilView(m_depth_stencil.Get(), &depth_stencil_view_desc, m_depth_stencil_view.ReleaseAndGetAddressOf());
 		if (FAILED(result_depth_stencil_view)) {
 			Error("Depth-stencil view creation failed: %08X.", result_depth_stencil_view);
 			return result_depth_stencil_view;
@@ -243,8 +246,8 @@ namespace mage {
 	}
 
 	void Renderer::SetupRenderingState() {
-		m_rendering_state_cache = make_unique< RenderingStateCache >(m_device2.Get());
-		m_rendering_state       = make_unique< RenderingState >(m_device2.Get(), m_device_context2.Get(), m_rendering_state_cache.get());
+		m_rendering_state_cache = make_unique< RenderingStateCache >(m_device.Get());
+		m_rendering_state       = make_unique< RenderingState >(m_device.Get(), m_device_context.Get(), m_rendering_state_cache.get());
 		m_rendering_state->SetDefaultRenderingState3D();
 	}
 
@@ -262,7 +265,7 @@ namespace mage {
 		// Bind an array of viewports to the rasterizer stage of the pipeline.
 		// 1. Number of viewports to bind.
 		// 2. An array of D3D11_VIEWPORT structures to bind to the device.
-		m_device_context2->RSSetViewports(1, &viewport);
+		m_device_context->RSSetViewports(1, &viewport);
 	}
 
 	void Renderer::BeginFrame() {
@@ -271,9 +274,9 @@ namespace mage {
 		const XMVECTORF32 background_color = { 0.0f, 0.117647058f, 0.149019608f, 1.000000000f };
 
 		// Clear the back buffer.
-		m_device_context2->ClearRenderTargetView(m_render_target_view.Get(), background_color);
+		m_device_context->ClearRenderTargetView(m_render_target_view.Get(), background_color);
 		// Clear the depth buffer to 1.0 (i.e. max depth).
-		m_device_context2->ClearDepthStencilView(m_depth_stencil_view.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+		m_device_context->ClearDepthStencilView(m_depth_stencil_view.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 		m_rendering_state->Render();
 
@@ -284,7 +287,7 @@ namespace mage {
 		Assert(m_in_begin_end_pair);
 
 		// Present the back buffer to the front buffer.
-		m_swap_chain2->Present(0, 0);
+		m_swap_chain->Present(0, 0);
 
 		m_in_begin_end_pair = false;
 	}
@@ -297,18 +300,18 @@ namespace mage {
 
 		BOOL current = false;
 		if (toggle) {
-			m_swap_chain2->GetFullscreenState(&current, nullptr);
+			m_swap_chain->GetFullscreenState(&current, nullptr);
 			current = !current;
-			m_swap_chain2->SetFullscreenState(current, nullptr);
+			m_swap_chain->SetFullscreenState(current, nullptr);
 		}
 
 		// Recreate the swap chain buffers.
-		m_swap_chain2->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+		m_swap_chain->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
 		SetupRenderTargetView();
 		SetupDepthStencilView();
-		m_device_context2->OMSetRenderTargets(1, m_render_target_view.GetAddressOf(), m_depth_stencil_view.Get());
+		m_device_context->OMSetRenderTargets(1, m_render_target_view.GetAddressOf(), m_depth_stencil_view.Get());
 	
-		m_swap_chain2->GetFullscreenState(&current, nullptr);
+		m_swap_chain->GetFullscreenState(&current, nullptr);
 		m_fullscreen = (current != 0);
 	}
 }

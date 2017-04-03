@@ -35,7 +35,15 @@ namespace mage {
 		 @param[in]		setup
 						A reference to an engine setup.
 		 */
-		Engine(const EngineSetup &setup);
+		explicit Engine(const EngineSetup &setup);
+
+		/**
+		 Constructs an engine from the given engine.
+
+		 @param[in]		engine
+						A reference to the engine.
+		 */
+		Engine(Engine &&engine) = default;
 
 		/**
 		 Destructs this engine.
@@ -142,14 +150,6 @@ namespace mage {
 						A reference to the engine.
 		 */
 		Engine(const Engine &engine) = delete;
-
-		/**
-		 Constructs an engine from the given engine.
-
-		 @param[in]		engine
-						A reference to the engine.
-		 */
-		Engine(Engine &&engine) = delete;
 
 		/**
 		 Copies the given engine to this engine.

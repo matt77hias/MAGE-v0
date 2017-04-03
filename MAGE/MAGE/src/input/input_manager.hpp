@@ -28,7 +28,15 @@ namespace mage {
 		 @param[in]		hwindow
 						The handle of the parent window.
 		 */
-		InputManager(HWND hwindow);
+		explicit InputManager(HWND hwindow);
+
+		/**
+		 Constructs an input manager from the given input manager.
+
+		 @param[in]		input_manager
+						A reference to the input manager.
+		 */
+		InputManager(InputManager &&input_manager) = default;
 
 		/**
 		 Destructs this input manager.
@@ -76,14 +84,6 @@ namespace mage {
 						A reference to the input manager.
 		 */
 		InputManager(const InputManager &input_manager) = delete;
-
-		/**
-		 Constructs an input manager from the given input manager.
-
-		 @param[in]		input_manager
-						A reference to the input manager.
-		 */
-		InputManager(InputManager &&input_manager) = delete;
 
 		/**
 		 Copies the given input manager to this input manager.

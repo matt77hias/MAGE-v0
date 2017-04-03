@@ -18,7 +18,7 @@ namespace mage {
 
 	public:
 
-		TransformBuffer(const Camera &camera);
+		explicit TransformBuffer(const Camera &camera);
 		TransformBuffer(const TransformBuffer &buffer) = default;
 		TransformBuffer(TransformBuffer &&buffer) = default;
 		~TransformBuffer() = default;

@@ -21,7 +21,8 @@ namespace mage {
 	VertexShader::VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &guid,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
-		: Resource(guid), m_device(device), m_device_context(device_context) {
+		: Resource(guid), m_device(device), m_device_context(device_context),
+		m_vertex_shader(), m_vertex_layout() {
 
 		const HRESULT result_shader = SetupShader(input_element_desc, nb_input_elements);
 		if (FAILED(result_shader)) {
@@ -33,7 +34,8 @@ namespace mage {
 	VertexShader::VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &guid, const void *bytecode, SIZE_T bytecode_size,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
-		: Resource(guid), m_device(device), m_device_context(device_context) {
+		: Resource(guid), m_device(device), m_device_context(device_context),
+		m_vertex_shader(), m_vertex_layout() {
 
 		const HRESULT result_shader = SetupShader(bytecode, bytecode_size, input_element_desc, nb_input_elements);
 		if (FAILED(result_shader)) {
@@ -109,7 +111,8 @@ namespace mage {
 
 	PixelShader::PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &guid)
-		: Resource(guid), m_device(device), m_device_context(device_context) {
+		: Resource(guid), m_device(device), m_device_context(device_context), 
+		m_pixel_shader() {
 
 		const HRESULT result_shader = SetupShader();
 		if (FAILED(result_shader)) {
@@ -120,7 +123,8 @@ namespace mage {
 
 	PixelShader::PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &guid, const void *bytecode, SIZE_T bytecode_size)
-		: Resource(guid), m_device(device), m_device_context(device_context) {
+		: Resource(guid), m_device(device), m_device_context(device_context), 
+		m_pixel_shader() {
 
 		const HRESULT result_shader = SetupShader(bytecode, bytecode_size);
 		if (FAILED(result_shader)) {

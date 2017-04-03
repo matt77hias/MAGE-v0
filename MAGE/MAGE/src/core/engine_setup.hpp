@@ -70,7 +70,7 @@ namespace mage {
 		 @param[in]		name
 						A reference to the name of the application.
 		 */
-		EngineSetup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
+		explicit EngineSetup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
 			: m_hinstance(hinstance), m_name(name) {}
 
 		/**
@@ -87,10 +87,7 @@ namespace mage {
 		 @param[in]		setup
 						A reference to the engine setup.
 		 */
-		EngineSetup(EngineSetup &&setup)
-			: m_hinstance(setup.m_hinstance), m_name(std::move(setup.m_name)) {
-			setup.m_hinstance = nullptr;
-		}
+		EngineSetup(EngineSetup &&setup) = default;
 
 	private:
 

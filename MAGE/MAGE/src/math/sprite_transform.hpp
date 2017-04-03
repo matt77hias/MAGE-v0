@@ -38,7 +38,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		SpriteTransform(const XMFLOAT2 &translation = { 0.0f, 0.0f }, float depth = 0.0f,
+		explicit SpriteTransform(const XMFLOAT2 &translation = { 0.0f, 0.0f }, float depth = 0.0f,
 			float rotation = 0.0f, const XMFLOAT2 &rotation_origin = { 0.0f, 0.0f }, const XMFLOAT2 &scale = { 1.0f, 1.0f })
 			: m_translation(translation), m_depth(depth), 
 			m_rotation(rotation), m_rotation_origin(rotation_origin), m_scale(scale) {}
@@ -91,34 +91,6 @@ namespace mage {
 						(i.e. this sprite transform).
 		 */
 		SpriteTransform &operator=(SpriteTransform &&transform) = default;
-
-		//-------------------------------------------------------------------------
-		// Tranbslation + Rotation + Scale
-		//-------------------------------------------------------------------------
-
-		/**
-		 Sets the translation, depth, rotation, rotation origin and scale component 
-		 of this sprite transform to the given components.
-
-		 @param[in]		translation
-						A reference to the translation component.
-		 @param[in]		depth
-						The depth component.
-		 @param[in]		rotation
-						The rotation component.
-		 @param[in]		rotation_origin
-						A reference to the rotation component.
-		 @param[in]		scale
-						A reference to the scale component.
-		 */
-		void SetComponents(const XMFLOAT2 &translation, float depth, 
-			float rotation, const XMFLOAT2 &rotation_origin, const XMFLOAT2 &scale) {
-			m_translation = translation;
-			m_depth = depth;
-			m_rotation = rotation;
-			m_rotation_origin = rotation_origin;
-			m_scale = scale;
-		}
 
 		//-------------------------------------------------------------------------
 		// Translation
@@ -233,7 +205,7 @@ namespace mage {
 
 		 @return		The translation component of this sprite transform.
 		 */
-		XMFLOAT2 GetTranslation() const {
+		const XMFLOAT2 GetTranslation() const {
 			return m_translation;
 		}
 
@@ -416,7 +388,7 @@ namespace mage {
 
 		 @return		The rotation origin of this sprite transform.
 		 */
-		XMFLOAT2 GetRotationOrigin() const {
+		const XMFLOAT2 GetRotationOrigin() const {
 			return m_rotation_origin;
 		}
 
@@ -533,7 +505,7 @@ namespace mage {
 
 		 @return		The scale component of this sprite transform.
 		 */
-		XMFLOAT2 GetScale() const {
+		const XMFLOAT2 GetScale() const {
 			return m_scale;
 		}
 

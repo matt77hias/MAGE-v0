@@ -18,7 +18,7 @@ namespace mage {
 
 	public:
 
-		ShadedMaterial(const CombinedShader &shader, const Material &material)
+		explicit ShadedMaterial(const CombinedShader &shader, const Material &material)
 			: m_shader(shader), m_material(material) {}
 		ShadedMaterial(const ShadedMaterial &shaded_material) = default;
 		ShadedMaterial(ShadedMaterial &&shaded_material) = default;

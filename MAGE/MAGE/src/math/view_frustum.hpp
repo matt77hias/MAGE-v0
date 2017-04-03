@@ -20,7 +20,7 @@ namespace mage {
 	public:
 		
 		//http://www.txutxi.com/?p=444
-		ViewFrustum(const Camera &camera);
+		explicit ViewFrustum(const Camera &camera);
 		ViewFrustum(const ViewFrustum &view_frustum) = default;
 		ViewFrustum(ViewFrustum &&view_frustum) = default;
 		~ViewFrustum() = default;

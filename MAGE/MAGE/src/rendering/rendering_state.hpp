@@ -18,7 +18,7 @@ namespace mage {
 
 	public:
 
-		RenderingState(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, RenderingStateCache *rendering_state_cache)
+		explicit RenderingState(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, RenderingStateCache *rendering_state_cache)
 			: m_device(device), m_device_context(device_context), m_rendering_state_cache(rendering_state_cache) {}
 		RenderingState(const RenderingState &rendering_state) = default;
 		RenderingState(RenderingState &&rendering_state) = default;

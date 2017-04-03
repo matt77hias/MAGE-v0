@@ -137,7 +137,7 @@ namespace mage {
 		}
 		}
 	}
-	string LineReader::ReadString() {
+	const string LineReader::ReadString() {
 		string result;
 		const TokenResult token_result = mage::ReadString(nullptr, &m_context, result, GetDelimiters().c_str());
 
@@ -151,7 +151,7 @@ namespace mage {
 		}
 		}
 	}
-	string LineReader::ReadQuotedString() {
+	const string LineReader::ReadQuotedString() {
 		string result;
 		const TokenResult token_result = mage::ReadQuotedString(nullptr, &m_context, result, GetDelimiters().c_str());
 
@@ -367,7 +367,7 @@ namespace mage {
 		}
 		}
 	}
-	XMFLOAT2 LineReader::ReadFloat2() {
+	const XMFLOAT2 LineReader::ReadFloat2() {
 		XMFLOAT2 result;
 		const TokenResult token_result = mage::ReadFloat2(nullptr, &m_context, result, GetDelimiters().c_str());
 
@@ -385,7 +385,7 @@ namespace mage {
 		}
 		}
 	}
-	XMFLOAT3 LineReader::ReadFloat3() {
+	const XMFLOAT3 LineReader::ReadFloat3() {
 		XMFLOAT3 result;
 		const TokenResult token_result = mage::ReadFloat3(nullptr, &m_context, result, GetDelimiters().c_str());
 
@@ -403,7 +403,7 @@ namespace mage {
 		}
 		}
 	}
-	XMFLOAT4 LineReader::ReadFloat4() {
+	const XMFLOAT4 LineReader::ReadFloat4() {
 		XMFLOAT4 result;
 		const TokenResult token_result = mage::ReadFloat4(nullptr, &m_context, result, GetDelimiters().c_str());
 

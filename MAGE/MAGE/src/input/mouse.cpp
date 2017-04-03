@@ -13,10 +13,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Mouse::Mouse(HWND hwindow, ComPtr< IDirectInput8 > di) : Loadable(),
-		m_press_stamp(0), m_hwindow(hwindow) {
+	Mouse::Mouse(HWND hwindow, IDirectInput8 *di) 
+		: Loadable(), m_hwindow(hwindow), m_di(di),
+		m_press_stamp(0) {
 
-		const HRESULT result_mouse = InitializeMouse(di);
+		const HRESULT result_mouse = InitializeMouse();
 		if (FAILED(result_mouse)) {
 			Error("Mouse initialization failed: %08X.", result_mouse);
 			return;
@@ -25,13 +26,13 @@ namespace mage {
 		SetLoaded();
 	}
 
-	HRESULT Mouse::InitializeMouse(ComPtr< IDirectInput8 > di) {
+	HRESULT Mouse::InitializeMouse() {
 		// Create and initialize an instance of a device based on a given globally unique identifier (GUID), 
 		// and obtain an IDirectInputDevice8 Interface interface. 
 		// 1. Reference to the GUID for the desired input device.
 		// 2. Address of a variable to receive the IDirectInputDevice8 Interface interface pointer if successful.
 		// 3. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or nullptr if the interface is not aggregated.
-		const HRESULT result_mouse_create = di->CreateDevice(GUID_SysMouse, &m_mouse, nullptr);
+		const HRESULT result_mouse_create = m_di->CreateDevice(GUID_SysMouse, &m_mouse, nullptr);
 		if (FAILED(result_mouse_create)) {
 			Error("Mouse device creation failed: %08X.", result_mouse_create);
 			return result_mouse_create;

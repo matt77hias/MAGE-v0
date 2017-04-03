@@ -42,7 +42,15 @@ namespace mage {
 		/**
 		 Constructs a sprite batch mesh.
 		 */
-		SpriteBatchMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+		explicit SpriteBatchMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+
+		/**
+		 Constructs a sprite batch mesh from the given sprite batch mesh.
+
+		 @param[in]		sprite_batch_mesh
+						A reference to the sprite batch mesh.
+		 */
+		SpriteBatchMesh(SpriteBatchMesh &&sprite_batch_mesh) = default;
 
 		/**
 		 Destructs this sprite batch mesh.
@@ -58,14 +66,6 @@ namespace mage {
 						A reference to the sprite batch mesh.
 		 */
 		SpriteBatchMesh(const SpriteBatchMesh &sprite_batch_mesh) = delete;
-
-		/**
-		 Constructs a sprite batch mesh from the given sprite batch mesh.
-
-		 @param[in]		sprite_batch_mesh
-						A reference to the sprite batch mesh.
-		 */
-		SpriteBatchMesh(SpriteBatchMesh &&sprite_batch_mesh) = delete;
 
 		/**
 		 Copies the given sprite batch mesh to this sprite batch mesh.

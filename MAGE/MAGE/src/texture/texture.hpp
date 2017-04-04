@@ -27,7 +27,7 @@ namespace mage {
 		ID3D11ShaderResourceView *GetTextureResourceView() const {
 			return m_texture_resource_view.Get();
 		}
-		ID3D11ShaderResourceView **GetTextureResourceViewAddress() {
+		ID3D11ShaderResourceView * const *GetTextureResourceViewAddress() const {
 			return m_texture_resource_view.GetAddressOf();
 		}
 

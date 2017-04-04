@@ -32,7 +32,8 @@ namespace mage {
 		VertexShader(VertexShader &&vertex_shader) = default;
 		virtual ~VertexShader() = default;
 
-		virtual void Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const = 0;
+		virtual void Draw(const XMMATRIX &transform) const;
+		virtual void Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const;
 
 	protected:
 
@@ -67,7 +68,11 @@ namespace mage {
 		PixelShader(PixelShader &&pixel_shader) = default;
 		virtual ~PixelShader() = default;
 
-		virtual void Draw(const Material &material, const World &world) const = 0;
+		void Draw(const Texture &texture) const {
+			Draw(texture.GetTextureResourceViewAddress());
+		}
+		virtual void Draw(ID3D11ShaderResourceView * const *texture) const;
+		virtual void Draw(const Material &material, const World &world) const;
 
 	protected:
 
@@ -102,6 +107,14 @@ namespace mage {
 		CombinedShader &operator=(const CombinedShader &shader) = default;
 		CombinedShader &operator=(CombinedShader &&shader) = default;
 
+		void Draw(const Texture &texture, const XMMATRIX &matrix) const {
+			m_vertex_shader->Draw(matrix);
+			m_pixel_shader->Draw(texture);
+		}
+		void Draw(ID3D11ShaderResourceView * const *texture, const XMMATRIX &matrix) const {
+			m_vertex_shader->Draw(matrix);
+			m_pixel_shader->Draw(texture);
+		}
 		void Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
 			m_vertex_shader->Draw(material, world, transform_buffer);
 			m_pixel_shader->Draw(material, world);

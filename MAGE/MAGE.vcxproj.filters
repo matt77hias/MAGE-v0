@@ -510,6 +510,15 @@
     <ClInclude Include="MAGE\src\mesh\mesh.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\sprite_PS.h">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\sprite_VS.h">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\sprite_shader.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -688,6 +697,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\mesh\vertex.cpp">
       <Filter>Source Files\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\sprite_shader.cpp">
+      <Filter>Source Files\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

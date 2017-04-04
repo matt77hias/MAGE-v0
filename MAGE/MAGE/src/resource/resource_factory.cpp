@@ -5,6 +5,7 @@
 
 #include "engine.hpp"
 #include "shader\lambertian_shader.hpp"
+#include "shader\sprite_shader.hpp"
 
 #pragma endregion
 
@@ -41,6 +42,16 @@ namespace mage {
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context) {
 		return m_pixel_shader_resource_pool->template 
 			GetDerivedResource< LambertianPixelShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >(MAGE_GUID_LAMBERTIAN_PS, device, device_context);
+	}
+	SharedPtr< VertexShader > ResourceFactory::CreateSpriteVertexShader(
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context) {
+		return m_vertex_shader_resource_pool->template
+			GetDerivedResource< SpriteVertexShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >(MAGE_GUID_SPRITE_VS, device, device_context);
+	}
+	SharedPtr< PixelShader > ResourceFactory::CreateSpritePixelShader(
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context) {
+		return m_pixel_shader_resource_pool->template
+			GetDerivedResource< SpritePixelShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >(MAGE_GUID_SPRITE_PS, device, device_context);
 	}
 	SharedPtr< Texture > ResourceFactory::CreateTexture(
 		ID3D11Device2 *device, const wstring &fname) {

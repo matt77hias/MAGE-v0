@@ -57,6 +57,13 @@ namespace mage {
 		 */
 		virtual ~SpriteBatchMesh() = default;
 
+		HRESULT MapVertexBuffer(D3D11_MAP map_type, D3D11_MAPPED_SUBRESOURCE *mapped_buffer) const {
+			return m_device_context->Map(m_vertex_buffer.Get(), 0, map_type, 0, mapped_buffer);
+		}
+		void UnmapVertexBuffer() {
+			m_device_context->Unmap(m_vertex_buffer.Get(), 0);
+		}
+
 	private:
 
 		/**

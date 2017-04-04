@@ -5,9 +5,12 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
-#include "collection\collection.hpp"
+#include "memory\allocation.hpp"
 #include "math\sprite_transform.hpp"
+#include "mesh\sprite_batch_mesh.hpp"
+#include "mesh\vertex.hpp"
+#include "shader\shader.hpp"
+
 #include "sprite\sprite_utils.hpp"
 #include "sprite\sprite_sort_mode.hpp"
 #include "sprite\sprite_effects.hpp"
@@ -20,8 +23,20 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	struct SpriteInfo {
+	__declspec(align(16)) struct SpriteInfo : public AlignedData< SpriteInfo > {
+		XMFLOAT4A source;
+		XMFLOAT4A destination;
+		XMFLOAT4A color;
+		XMFLOAT4A origin_rotation_depth;
+		ID3D11ShaderResourceView* texture;
+		int flags;
 
+
+		// Combine values from the public SpriteEffects enum with these internal-only flags.
+		static const int SourceInTexels = 4;
+		static const int DestinationSizeInPixels = 8;
+
+		static_assert((SpriteEffects_FlipBoth & (SourceInTexels | DestinationSizeInPixels)) == 0, "Flag bits must not overlap");
 	};
 
 	class SpriteBatch {
@@ -43,7 +58,7 @@ namespace mage {
 			return m_rotation_mode;
 		}
 		void SetViewport(const D3D11_VIEWPORT &viewport) {
-			m_viewport_dirty = true;
+			m_viewport_set = true;
 			m_viewport = viewport;
 		}
 		const D3D11_VIEWPORT &GetViewport() const {
@@ -56,8 +71,42 @@ namespace mage {
 		SpriteBatch &operator=(const SpriteBatch &sprite_batch) = delete;
 		SpriteBatch &operator=(SpriteBatch &&sprite_batch) = delete;
 
-	
-		void PrepareForRendering(ID3D11DeviceContext &context);
+		void PrepareDrawing();
+		void FlushBatch(const XMMATRIX &transform);
+		void SortSprites();
+		void GrowSortedSprites();
+		void RenderBatch(ID3D11ShaderResourceView *texture, const XMMATRIX &transform,
+			const SpriteInfo * const * sprites, size_t nb_sprites);
+		void RenderSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
+			const XMVECTOR &texture_size, const XMVECTOR &inverse_texture_size);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+		ID3D11Device * m_device;
+		ID3D11DeviceContext * m_device_context;
+		UniquePtr< SpriteBatchMesh > m_mesh;
+		size_t m_vertex_buffer_position;
+		UniquePtr< CombinedShader > m_shader;
+
+
+
+
+
+
 
 		// Queue of sprites waiting to be drawn.
 		UniquePtr< SpriteInfo[] > m_sprite_queue;
@@ -69,7 +118,7 @@ namespace mage {
 
 		bool m_in_begin_end_pair;
 
-		SpriteSortMode m_sort_mode;;
+		SpriteSortMode m_sort_mode;
 		XMMATRIX m_transform;
 
 		/**
@@ -79,10 +128,10 @@ namespace mage {
 		DXGI_MODE_ROTATION m_rotation_mode;
 
 		/**
-		 A flag (dirty bit) indicating whether the viewport of
+		 A flag (indicating whether the viewport of
 		 this sprite batch has been set.
 		 */
-		bool m_viewport_dirty;
+		bool m_viewport_set;
 
 		/**
 		 The viewport of this sprite batch.

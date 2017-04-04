@@ -3,6 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\memory.hpp"
 #include "sprite\sprite_utils.hpp"
 #include "logging\error.hpp"
 
@@ -76,5 +77,25 @@ namespace mage {
 				-1.0f,     1.0f,    0.0f, 1.0f
 			};
 		}
+	}
+
+	const XMVECTOR GetTexture2DSize(ID3D11ShaderResourceView *texture) {
+		ComPtr< ID3D11Resource > resource;
+		texture->GetResource(&resource);
+
+		ComPtr<ID3D11Texture2D> texture2D;
+		if (FAILED(resource.As(&texture2D))) {
+			Error("Conversion to Texture2D resource failed.");
+			return XMVectorSet(-1.0f, -1.0f, -1.0f, -1.0f);
+		}
+
+		// Query the texture size.
+		D3D11_TEXTURE2D_DESC desc;
+		texture2D->GetDesc(&desc);
+
+		const XMVECTOR width  = XMLoadInt(&desc.Width);
+		const XMVECTOR height = XMLoadInt(&desc.Height);
+		const XMVECTOR size   = XMVectorMergeXY(width, height);
+		return XMConvertVectorUIntToFloat(size, 0);
 	}
 }

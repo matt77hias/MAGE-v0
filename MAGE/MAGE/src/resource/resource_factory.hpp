@@ -33,9 +33,14 @@ namespace mage {
 		SharedPtr< ModelDescriptor > CreateModelDescriptor(
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, 
 			const wstring &fname, const MeshDescriptor< VertexT > &desc);
+		
 		SharedPtr< VertexShader > CreateLambertianVertexShader(
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
 		SharedPtr< PixelShader > CreateLambertianPixelShader(
+			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+		SharedPtr< VertexShader > CreateSpriteVertexShader(
+			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+		SharedPtr< PixelShader > CreateSpritePixelShader(
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
 		SharedPtr< Texture > CreateTexture(ID3D11Device2 *device, const wstring &fname);
 		SharedPtr< VariableScript > CreateVariableScript(const wstring &fname, bool import);

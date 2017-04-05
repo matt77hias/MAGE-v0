@@ -23,74 +23,66 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	static const size_t initial_queue_size    = 64;
-
-	SpriteBatch::SpriteBatch()
-		: m_in_begin_end_pair(false) {
-
-	}
+	SpriteBatch::SpriteBatch(ID3D11Device *device, ID3D11DeviceContext *device_context,
+		const CombinedShader &shader)
+		: m_device(device), m_device_context(device_context), 
+		m_mesh(), m_vertex_buffer_position(0), m_shader(new CombinedShader(shader)),
+		m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY), 
+		m_viewport_set(false), m_viewport{}, m_in_begin_end_pair(false), 
+		m_sort_mode(SpriteSortMode_Immediate), m_transform(XMMatrixIdentity()),
+		m_sprite_queue(), m_sprite_queue_size(0), m_sprite_queue_array_size(0), 
+		m_sorted_sprites(), m_sprite_texture_references() {}
 
 	void SpriteBatch::Begin(SpriteSortMode sort_mode, XMMATRIX transform) {
 		// This SpriteBatch may not already be in a begin/end pair.
 		Assert(!m_in_begin_end_pair);
 
-		m_sort_mode           = sort_mode;
-		m_transform           = transform;
+		m_sort_mode = sort_mode;
+		m_transform = transform;
 
 		if (m_sort_mode == SpriteSortMode_Immediate) {
-			// Only one SpriteBatch at a time can use SpriteSortMode_Immediate.
-			//Assert(!m_context_resources->inImmediateMode);
-			
-			//PrepareForRendering();
-
-			//m_context_resources->inImmediateMode = true;
+			PrepareDrawing();
 		}
 
 		// Toggle the begin/end pair.
 		m_in_begin_end_pair = true;
 
 	}
+	
 	void SpriteBatch::Draw(ID3D11ShaderResourceView *texture, const SpriteTransform &transform, XMVECTOR color, SpriteEffects effects) {
 
 	}
+
 	void SpriteBatch::End() {
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);
 
-		if (m_sort_mode == SpriteSortMode_Immediate) {
-			// Queued sprites have already been drawn.
-			//m_context_resources->inImmediateMode = false;
-		}
-		else {
+		if (m_sort_mode != SpriteSortMode_Immediate) {
 			// Draw the queued sprites.
-			//Assert(m_context_resources->inImmediateMode);
-
-			//PrepareForRendering();
-			//FlushBatch();
+			PrepareDrawing();
+			FlushBatch();
 		}
 
 		// Untoggle the begin/end pair.
 		m_in_begin_end_pair = false;
 	}
 
-
-
-
 	void SpriteBatch::PrepareDrawing() {
-		// Set the transform matrix.
-		/*XMMATRIX transformMatrix = (m_rotation_mode == DXGI_MODE_ROTATION_UNSPECIFIED)
-			? m_transform
-			: (m_transform * GetViewportTransform(m_device_context, m_rotation_mode));
-
-		GetViewportTransform(m_device_context, m_rotation_mode, &m_viewport);*/
-
-		
 		if (m_device_context->GetType() == D3D11_DEVICE_CONTEXT_DEFERRED) {
 			m_vertex_buffer_position = 0;
 		}
+
+		if (m_rotation_mode != DXGI_MODE_ROTATION_UNSPECIFIED) {
+			if (m_viewport_set) {
+				m_transform *= GetViewportTransform(m_device_context, m_rotation_mode, &m_viewport);
+			}
+			else {
+				m_transform *= GetViewportTransform(m_viewport, m_rotation_mode);
+			}
+		}
 	}
 
-	void SpriteBatch::FlushBatch(const XMMATRIX &transform) {
+	void SpriteBatch::FlushBatch() {
 		if (m_sprite_queue_size == 0) {
 			return;
 		}
@@ -109,7 +101,7 @@ namespace mage {
 				if (i > batch_start) {
 					// Flush the current subbatch.
 					const size_t nb_sprites = i - batch_start;
-					RenderBatch(batch_texture, transform, &m_sorted_sprites[batch_start], nb_sprites);
+					RenderBatch(batch_texture, &m_sorted_sprites[batch_start], nb_sprites);
 				}
 				batch_texture = sprite_texture;
 				batch_start   = i;
@@ -117,7 +109,7 @@ namespace mage {
 		}
 		// Flush the final subbatch.
 		const size_t nb_sprites = m_sprite_queue_size - batch_start;
-		RenderBatch(batch_texture, transform, &m_sorted_sprites[batch_start], nb_sprites);
+		RenderBatch(batch_texture, &m_sorted_sprites[batch_start], nb_sprites);
 
 		// Reset the sprite queue.
 		m_sprite_queue_size = 0;
@@ -170,9 +162,9 @@ namespace mage {
 		}
 	}
 
-	void SpriteBatch::RenderBatch(ID3D11ShaderResourceView *texture, const XMMATRIX &transform,
+	void SpriteBatch::RenderBatch(ID3D11ShaderResourceView *texture,
 		const SpriteInfo * const * sprites, size_t nb_sprites) {
-		m_shader->Draw(&texture, transform);
+		m_shader->Draw(&texture, m_transform);
 
 		const XMVECTOR texture_size = GetTexture2DSize(texture);
 		const XMVECTOR inverse_texture_size = XMVectorReciprocal(texture_size);
@@ -247,7 +239,7 @@ namespace mage {
 		XMVECTOR origin                      = XMVectorDivide(origin_rotation_depth, non_zero_source_size);
 
 		// Convert the source region from texels to mod-1 texture coordinate format.
-		if (flags & SpriteInfo::SourceInTexels) {
+		if (flags & SpriteInfo::source_in_texels) {
 			source      *= inverse_texture_size;
 			source_size *= inverse_texture_size;
 		}
@@ -255,7 +247,7 @@ namespace mage {
 			origin      *= inverse_texture_size;
 		}
 		// If the destination size is relative to the source region, convert it to pixels.
-		if (!(flags & SpriteInfo::DestinationSizeInPixels)) {
+		if (!(flags & SpriteInfo::destination_size_in_pixels)) {
 			destination_size *= texture_size;
 		}
 

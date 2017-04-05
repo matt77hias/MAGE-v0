@@ -24,26 +24,27 @@
 namespace mage {
 
 	__declspec(align(16)) struct SpriteInfo : public AlignedData< SpriteInfo > {
+		// Combine values from SpriteEffects with these internal-only flags.
+		static const int source_in_texels = 4;
+		static const int destination_size_in_pixels = 8;
+
+		static_assert((SpriteEffects_FlipBoth & (source_in_texels | destination_size_in_pixels)) == 0, 
+			"Flag bits must not overlap");
+		
 		XMFLOAT4A source;
 		XMFLOAT4A destination;
 		XMFLOAT4A color;
 		XMFLOAT4A origin_rotation_depth;
-		ID3D11ShaderResourceView* texture;
+		ID3D11ShaderResourceView *texture;
 		int flags;
-
-
-		// Combine values from the public SpriteEffects enum with these internal-only flags.
-		static const int SourceInTexels = 4;
-		static const int DestinationSizeInPixels = 8;
-
-		static_assert((SpriteEffects_FlipBoth & (SourceInTexels | DestinationSizeInPixels)) == 0, "Flag bits must not overlap");
 	};
 
 	class SpriteBatch {
 
 	public:
 
-		SpriteBatch();
+		SpriteBatch(ID3D11Device *device, ID3D11DeviceContext *device_context,
+			const CombinedShader &shader);
 		SpriteBatch(SpriteBatch &&sprite_batch) = default;
 		virtual ~SpriteBatch() = default;
 
@@ -72,57 +73,22 @@ namespace mage {
 		SpriteBatch &operator=(SpriteBatch &&sprite_batch) = delete;
 
 		void PrepareDrawing();
-		void FlushBatch(const XMMATRIX &transform);
+		void FlushBatch();
 		void SortSprites();
 		void GrowSortedSprites();
-		void RenderBatch(ID3D11ShaderResourceView *texture, const XMMATRIX &transform,
+		void RenderBatch(ID3D11ShaderResourceView *texture,
 			const SpriteInfo * const * sprites, size_t nb_sprites);
 		void RenderSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
 			const XMVECTOR &texture_size, const XMVECTOR &inverse_texture_size);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-
-		ID3D11Device * m_device;
-		ID3D11DeviceContext * m_device_context;
+		ID3D11Device * const m_device;
+		ID3D11DeviceContext * const m_device_context;
 		UniquePtr< SpriteBatchMesh > m_mesh;
 		size_t m_vertex_buffer_position;
 		UniquePtr< CombinedShader > m_shader;
 
-
-
-
-
-
-
-		// Queue of sprites waiting to be drawn.
-		UniquePtr< SpriteInfo[] > m_sprite_queue;
-		size_t m_sprite_queue_size;
-		size_t m_sprite_queue_array_size;
-		vector< const SpriteInfo * > m_sorted_sprites;
-		vector< ComPtr< ID3D11ShaderResourceView > > m_sprite_texture_references;
-
-
-		bool m_in_begin_end_pair;
-
-		SpriteSortMode m_sort_mode;
-		XMMATRIX m_transform;
-
 		/**
-		 A flag indicating how the back buffers should be rotated 
+		 A flag indicating how the back buffers should be rotated
 		 to fit the physical rotation of a monitor.
 		 */
 		DXGI_MODE_ROTATION m_rotation_mode;
@@ -137,5 +103,18 @@ namespace mage {
 		 The viewport of this sprite batch.
 		 */
 		D3D11_VIEWPORT m_viewport;
+
+		bool m_in_begin_end_pair;
+		SpriteSortMode m_sort_mode;
+		XMMATRIX m_transform;
+
+		// Queue of sprites waiting to be drawn.
+		UniquePtr< SpriteInfo[] > m_sprite_queue;
+		size_t m_sprite_queue_size;
+		size_t m_sprite_queue_array_size;
+		vector< const SpriteInfo * > m_sorted_sprites;
+		vector< ComPtr< ID3D11ShaderResourceView > > m_sprite_texture_references;
+
+		static const size_t initial_queue_size = 64;
 	};
 }

@@ -49,7 +49,8 @@ namespace mage {
 		virtual ~SpriteBatch() = default;
 
 		void Begin(SpriteSortMode sort_mode, XMMATRIX transform = XMMatrixIdentity());
-		void Draw(ID3D11ShaderResourceView *texture, const SpriteTransform &transform, XMVECTOR color, SpriteEffects effects);
+		void Draw(ID3D11ShaderResourceView *texture, XMVECTOR color, SpriteEffects effects,
+			const SpriteTransform &transform, const RECT *source = nullptr);
 		void End();
 
 		void SetRotationMode(DXGI_MODE_ROTATION rotation_mode) {
@@ -72,6 +73,7 @@ namespace mage {
 		SpriteBatch &operator=(const SpriteBatch &sprite_batch) = delete;
 		SpriteBatch &operator=(SpriteBatch &&sprite_batch) = delete;
 
+		void GrowSpriteQueue();
 		void PrepareDrawing();
 		void FlushBatch();
 		void SortSprites();

@@ -49,8 +49,72 @@ namespace mage {
 
 	}
 	
-	void SpriteBatch::Draw(ID3D11ShaderResourceView *texture, const SpriteTransform &transform, XMVECTOR color, SpriteEffects effects) {
+	void SpriteBatch::Draw(ID3D11ShaderResourceView *texture, XMVECTOR color, SpriteEffects effects,
+		const SpriteTransform &transform, const RECT *source) {
+		// This SpriteBatch must already be in a begin/end pair.
+		Assert(m_in_begin_end_pair);
+		Assert(texture);
 
+		if (m_sprite_queue_size >= m_sprite_queue_array_size) {
+			GrowSpriteQueue();
+		}
+		
+		SpriteInfo *sprite = &m_sprite_queue[m_sprite_queue_size];
+
+		int flags = effects;
+		// destination: Tx Ty Sx Sy
+		const XMVECTOR destination = XMVectorSet(
+										transform.GetTranslation().x,
+										transform.GetTranslation().y,
+										transform.GetScale().x,
+										transform.GetScale().y);
+		// origin_rotation_depth: ROx ROy R D
+		const XMVECTOR origin_rotation_depth = XMVectorSet(
+										transform.GetRotationOrigin().x, 
+										transform.GetRotationOrigin().y, 
+										transform.GetRotation(), 
+										transform.GetDepth());
+		
+		XMVECTOR dst = destination;
+		if (source) {
+			XMVECTOR src = XMVectorLeftTopWidthHeight(*source);
+			XMStoreFloat4A(&sprite->source, src);
+
+			// If the destination size is relative to the source region, convert it to pixels.
+			if (!(flags & SpriteInfo::destination_size_in_pixels)) {
+				dst = XMVectorPermute<0, 1, 6, 7>(dst, dst * src);
+			}
+
+			flags |= SpriteInfo::source_in_texels | SpriteInfo::destination_size_in_pixels;
+		}
+		else {
+			// No explicit source region, so use the entire texture.
+			static const XMVECTORF32 max_texture_region = { 0, 0, 1, 1 };
+			XMStoreFloat4A(&sprite->source, max_texture_region);
+		}
+
+		// Store sprite parameters.
+		XMStoreFloat4A(&sprite->destination, dst);
+		XMStoreFloat4A(&sprite->color, color);
+		XMStoreFloat4A(&sprite->origin_rotation_depth, origin_rotation_depth);
+		sprite->texture = texture;
+		sprite->flags = flags;
+
+		if (m_sort_mode == SpriteSortMode_Immediate) {
+			RenderBatch(texture, &sprite, 1);
+		}
+		else {
+			// Queue this sprite for later sorting and batched rendering.
+			++m_sprite_queue_size;
+
+			// Make sure we hold a refcount on this texture until the sprite has been drawn. Only checking the
+			// back of the vector means we will add duplicate references if the caller switches back and forth
+			// between multiple repeated textures, but calling AddRef more times than strictly necessary hurts
+			// nothing, and is faster than scanning the whole list or using a map to detect all duplicates.
+			if (m_sprite_texture_references.empty() || texture != m_sprite_texture_references.back().Get()) {
+				m_sprite_texture_references.emplace_back(texture);
+			}
+		}
 	}
 
 	void SpriteBatch::End() {
@@ -65,6 +129,20 @@ namespace mage {
 
 		// Untoggle the begin/end pair.
 		m_in_begin_end_pair = false;
+	}
+
+	void SpriteBatch::GrowSpriteQueue() {
+		const size_t sprite_queue_array_size = 
+			std::max(SpriteBatch::initial_queue_size, m_sprite_queue_array_size * 2);
+		UniquePtr< SpriteInfo[] > sprite_queue(new SpriteInfo[sprite_queue_array_size]);
+		for (size_t i = 0; i < m_sprite_queue_size; ++i) {
+			sprite_queue[i] = m_sprite_queue[i];
+		}
+		m_sprite_queue = std::move(sprite_queue);
+		m_sprite_queue_size = sprite_queue_array_size;
+
+		// Clear any dangling SpriteInfo pointers left over from previous rendering.
+		m_sorted_sprites.clear();
 	}
 
 	void SpriteBatch::PrepareDrawing() {

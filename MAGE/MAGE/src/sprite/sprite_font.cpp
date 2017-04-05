@@ -140,8 +140,7 @@ namespace mage {
 						offset = XMVectorMultiplyAdd(glyph_rect, mirror, offset);
 					}
 
-
-					//sprite_batch->Draw(m_texture.Get(), )
+					sprite_batch.Draw(m_texture.Get(), color, effects, transform);
 				}
 
 				x += advance;

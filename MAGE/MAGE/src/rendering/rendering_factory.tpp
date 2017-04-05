@@ -41,6 +41,10 @@ namespace mage {
 		buffer_desc.BindFlags      = D3D11_BIND_VERTEX_BUFFER;
 		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
+		if (!vertices) {
+			return device->CreateBuffer(&buffer_desc, nullptr, buffer);
+		}
+
 		// Specify data for initializing a subresource.
 		D3D11_SUBRESOURCE_DATA init_data;
 		ZeroMemory(&init_data, sizeof(init_data));

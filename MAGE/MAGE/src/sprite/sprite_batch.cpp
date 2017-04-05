@@ -3,6 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "resource\resource_factory.hpp"
+#include "shader\sprite_shader.hpp"
 #include "sprite\sprite_batch.hpp"
 #include "logging\error.hpp"
 
@@ -23,13 +25,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpriteBatch::SpriteBatch(ID3D11Device *device, ID3D11DeviceContext *device_context,
+	SpriteBatch::SpriteBatch(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CombinedShader &shader)
 		: m_device(device), m_device_context(device_context), 
-		m_mesh(), m_vertex_buffer_position(0), m_shader(new CombinedShader(shader)),
-		m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY), 
+		m_mesh(new SpriteBatchMesh(device, device_context)), m_vertex_buffer_position(0),
+		m_shader(new CombinedShader(shader)), m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY), 
 		m_viewport_set(false), m_viewport{}, m_in_begin_end_pair(false), 
-		m_sort_mode(SpriteSortMode_Immediate), m_transform(XMMatrixIdentity()),
+		m_sort_mode(SpriteSortMode_Deferred), m_transform(XMMatrixIdentity()),
 		m_sprite_queue(), m_sprite_queue_size(0), m_sprite_queue_array_size(0), 
 		m_sorted_sprites(), m_sprite_texture_references() {}
 
@@ -139,7 +141,7 @@ namespace mage {
 			sprite_queue[i] = m_sprite_queue[i];
 		}
 		m_sprite_queue = std::move(sprite_queue);
-		m_sprite_queue_size = sprite_queue_array_size;
+		m_sprite_queue_array_size = sprite_queue_array_size;
 
 		// Clear any dangling SpriteInfo pointers left over from previous rendering.
 		m_sorted_sprites.clear();
@@ -152,10 +154,10 @@ namespace mage {
 
 		if (m_rotation_mode != DXGI_MODE_ROTATION_UNSPECIFIED) {
 			if (m_viewport_set) {
-				m_transform *= GetViewportTransform(m_device_context, m_rotation_mode, &m_viewport);
+				m_transform *= GetViewportTransform(m_viewport, m_rotation_mode);
 			}
 			else {
-				m_transform *= GetViewportTransform(m_viewport, m_rotation_mode);
+				m_transform *= GetViewportTransform(m_device_context, m_rotation_mode);
 			}
 		}
 	}
@@ -363,7 +365,7 @@ namespace mage {
 		static_assert(SpriteEffects_FlipHorizontally == 1 && SpriteEffects_FlipVertically == 2,
 						"The mirroring implementation must be updated to match");
 
-		int mirrorBits = flags & 3;
+		const int mirror_bits = flags & 3;
 
 		// Generate the four output vertices.
 		for (size_t i = 0; i < SpriteBatchMesh::vertices_per_sprite; ++i) {
@@ -384,8 +386,14 @@ namespace mage {
 			XMStoreFloat4(&vertices[i].c, color);
 
 			// Compute and write the texture coordinate.
-			const XMVECTOR textureCoordinate = XMVectorMultiplyAdd(corner_offsets[i ^ mirrorBits], source_size, source);
+			const XMVECTOR textureCoordinate = XMVectorMultiplyAdd(corner_offsets[i ^ mirror_bits], source_size, source);
 			XMStoreFloat2(&vertices[i].tex, textureCoordinate);
 		}
+	}
+
+	SharedPtr< SpriteBatch > CreateSpriteBatch() {
+		ID3D11Device2 *device = GetRenderingDevice();
+		ID3D11DeviceContext2 *device_context = GetRenderingDeviceContext();
+		return SharedPtr< SpriteBatch >(new SpriteBatch(device, device_context));
 	}
 }

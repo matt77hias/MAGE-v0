@@ -23,7 +23,7 @@ namespace mage {
 
 	SpriteVertexShader::SpriteVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: VertexShader(device, device_context, MAGE_GUID_SPRITE_VS, g_sprite_vs, sizeof(g_sprite_vs),
-			VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements) {
+			VertexPositionColorTexture::input_element_desc, VertexPositionColorTexture::nb_input_elements) {
 
 		const HRESULT result_cb_transform = CreateConstantBuffer< XMMATRIX >(m_device, m_cb_transform.ReleaseAndGetAddressOf());
 		if (FAILED(result_cb_transform)) {

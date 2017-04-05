@@ -98,12 +98,21 @@ namespace mage {
 		}
 
 		/**
-		 Returns the rendering state of this renderer.
+		 Returns the 2D rendering state of this renderer.
 
-		 @return		A reference to the rendering state of this renderer.
+		 @return		A reference to the 2D rendering state of this renderer.
 		 */
-		RenderingState &GetRenderingState() const {
-			return *m_rendering_state;
+		RenderingState &GetRenderingState2D() const {
+			return *m_rendering_state_2d;
+		}
+
+		/**
+		 Returns the 3D rendering state of this renderer.
+
+		 @return		A reference to the 3D rendering state of this renderer.
+		 */
+		RenderingState &GetRenderingState3D() const {
+			return *m_rendering_state_3d;
 		}
 
 		/**
@@ -157,6 +166,20 @@ namespace mage {
 		 Ends the rendering of the current frame.
 		 */
 		void EndFrame();
+
+		/**
+		 Begins the 2D rendering of the current frame.
+		 */
+		void BeginRendering2D() {
+			m_rendering_state_2d->Render();
+		}
+
+		/**
+		 Begins the 3D rendering of the current frame.
+		 */
+		void BeginRendering3D() {
+			m_rendering_state_3d->Render();
+		}
 
 	private:
 
@@ -233,7 +256,7 @@ namespace mage {
 		/**
 		 Sets up the rendering states of this renderer.
 		 */
-		void SetupRenderingState();
+		void SetupRenderingStates();
 
 		/**
 		 Sets up and binds the viewport of this renderer
@@ -265,7 +288,8 @@ namespace mage {
 		ComPtr< ID3D11RenderTargetView > m_render_target_view;
 		ComPtr< ID3D11Texture2D >        m_depth_stencil;
 		ComPtr< ID3D11DepthStencilView > m_depth_stencil_view;
-		UniquePtr< RenderingState >      m_rendering_state;
+		UniquePtr< RenderingState >      m_rendering_state_2d;
+		UniquePtr< RenderingState >      m_rendering_state_3d;
 		UniquePtr< RenderingStateCache > m_rendering_state_cache;
 	};
 }

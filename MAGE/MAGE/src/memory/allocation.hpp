@@ -82,8 +82,13 @@ namespace mage {
 			
 			// __declspec(align) on DataT is required
 			static_assert(alignment > 8, "AlignedValue is only useful for types with > 8 byte alignment.");
+			
+			void * const ptr = AllocAligned(size, alignment);
+			if (!ptr) {
+				throw std::bad_alloc();
+			}
 
-			return AllocAligned(size, alignment);
+			return ptr;
 		}
 
 		static void operator delete(void *ptr) {

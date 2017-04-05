@@ -33,7 +33,7 @@ namespace mage {
 	}
 
 	HRESULT SpriteBatchMesh::SetupVertexBuffer() {
-		const HRESULT result_vertex_buffer = CreateDynamicVertexBuffer< VertexPositionColorTexture >(m_device, m_vertex_buffer.ReleaseAndGetAddressOf(), nullptr, MaxVerticesPerSprite());
+		const HRESULT result_vertex_buffer = CreateDynamicVertexBuffer< VertexPositionColorTexture >(m_device, m_vertex_buffer.ReleaseAndGetAddressOf(), nullptr, MaxVerticesPerBatch());
 		if (FAILED(result_vertex_buffer)) {
 			Error("Vertex buffer creation failed: %08X.", result_vertex_buffer);
 			return result_vertex_buffer;
@@ -43,12 +43,12 @@ namespace mage {
 	}
 
 	HRESULT SpriteBatchMesh::SetupIndexBuffer() {
-		static_assert(MaxVerticesPerSprite() < USHRT_MAX, "max_sprites_per_batch too large for 16-bit indices.");
+		static_assert(MaxVerticesPerBatch() < USHRT_MAX, "max_sprites_per_batch too large for 16-bit indices.");
 
 		// Create indices.
 		vector< uint16_t > indices;
-		indices.reserve(MaxIndicesPerSprite());
-		for (uint16_t i = 0; i < MaxVerticesPerSprite(); i += vertices_per_sprite) {
+		indices.reserve(MaxIndicesPerBatch());
+		for (uint16_t i = 0; i < MaxVerticesPerBatch(); i += vertices_per_sprite) {
 			// First triangle
 			indices.push_back(i);
 			indices.push_back(i + 1);

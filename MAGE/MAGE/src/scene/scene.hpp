@@ -79,7 +79,12 @@ namespace mage {
 		/**
 		 Renders this scene.
 		 */
-		void Render() const;
+		void Render2D() const;
+
+		/**
+		 Renders this scene.
+		 */
+		void Render3D() const;
 
 		/**
 		 Closes this scene.

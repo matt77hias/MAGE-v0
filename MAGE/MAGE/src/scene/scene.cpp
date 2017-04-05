@@ -110,9 +110,12 @@ namespace mage {
 			world_object.UpdateTransform();
 		});
 	}
-	void Scene::Render() const {
+	void Scene::Render2D() const {
+		m_world->Render2D();
+	}
+	void Scene::Render3D() const {
 		TransformBuffer transform_buffer(GetCamera());
-		m_world->Render(transform_buffer);
+		m_world->Render3D(transform_buffer);
 	}
 	void Scene::Close() {
 		RemoveAllScripts(true);

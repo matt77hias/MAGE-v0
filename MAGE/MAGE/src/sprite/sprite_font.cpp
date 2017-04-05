@@ -103,14 +103,14 @@ namespace mage {
 		float x = 0;
 		float y = 0;
 
-		while (text != L'\0') {
+		while (*text != L'\0') {
 			const wchar_t character = *text;
 			switch (character) {
 
-			case '\r': {
+			case L'\r': {
 				continue;
 			}
-			case '\n': {
+			case L'\n': {
 				x = 0;
 				y += m_line_spacing;
 				break;
@@ -156,14 +156,14 @@ namespace mage {
 		float x = 0;
 		float y = 0;
 
-		while (text != L'\0') {
+		while (*text != L'\0') {
 			const wchar_t character = *text;
 			switch (character) {
 
-			case '\r': {
+			case L'\r': {
 				continue;
 			}
-			case '\n': {
+			case L'\n': {
 				x = 0;
 				y += m_line_spacing;
 				break;
@@ -199,14 +199,14 @@ namespace mage {
 		float x = 0;
 		float y = 0;
 
-		while (text != L'\0') {
+		while (*text != L'\0') {
 			const wchar_t character = *text;
 			switch (character) {
 			
-			case '\r': {
+			case L'\r': {
 				continue;
 			}
-			case '\n': {
+			case L'\n': {
 				x = 0;
 				y += m_line_spacing;
 				break;

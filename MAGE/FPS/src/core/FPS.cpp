@@ -18,10 +18,10 @@ public:
 		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_UP)) {
 			solid = !solid;
 			if (solid) {
-				g_engine->GetRenderer().GetRenderingState().SetCullCounterClockwiseRasterizerState();
+				g_engine->GetRenderer().GetRenderingState3D().SetCullCounterClockwiseRasterizerState();
 			}
 			else {
-				g_engine->GetRenderer().GetRenderingState().SetWireframeRasterizerState();
+				g_engine->GetRenderer().GetRenderingState3D().SetWireframeRasterizerState();
 			}
 		}
 		
@@ -72,7 +72,7 @@ public:
 		AddScript(test_script);
 
 		//TODO
-		SpriteFont font(g_engine->GetRenderer().GetDevice(), L"assets/fonts/calibri.spritefont", SpriteFontDescriptor());
+		GetWorld().m_font = SharedPtr< SpriteFont >(new SpriteFont(g_engine->GetRenderer().GetDevice(), L"assets/fonts/calibri.spritefont", SpriteFontDescriptor()));
 	}
 
 private:

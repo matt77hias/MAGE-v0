@@ -4,6 +4,7 @@
 #pragma region
 
 #include "model\model.hpp"
+#include "sprite\sprite_font.hpp"
 
 #pragma endregion
 
@@ -12,7 +13,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void World::Render(const TransformBuffer &transform_buffer) const {
+	World::World() 
+		: m_models(), m_lights(), m_sprite_batch(CreateSpriteBatch()) {}
+
+	void World::Render2D() const {
+		m_sprite_batch->Begin();
+		m_font->DrawString(*m_sprite_batch, L"Hello, world!", SpriteTransform(XMFLOAT2(256,256)));
+		m_sprite_batch->End();
+	}
+	void World::Render3D(const TransformBuffer &transform_buffer) const {
 		ForEachModel([&](const Model &model) {
 			model.Draw(*this, transform_buffer);
 		});

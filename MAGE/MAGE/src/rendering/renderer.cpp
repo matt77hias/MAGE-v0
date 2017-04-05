@@ -20,7 +20,7 @@ namespace mage {
 		m_display_mode(*g_device_enumeration->GetDisplayMode()),
 		m_device(), m_device_context(), m_swap_chain(),
 		m_render_target_view(), m_depth_stencil(), m_depth_stencil_view(),
-		m_rendering_state(), m_rendering_state_cache() {
+		m_rendering_state_2d(), m_rendering_state_3d(), m_rendering_state_cache() {
 
 		const HRESULT result_renderer = InitializeRenderer();
 		if (FAILED(result_renderer)) {
@@ -71,8 +71,8 @@ namespace mage {
 		// 3. The depth-stencil state.
 		m_device_context->OMSetRenderTargets(1, m_render_target_view.GetAddressOf(), m_depth_stencil_view.Get());
 
-		// Setup the rendering state.
-		SetupRenderingState();
+		// Setup the rendering states.
+		SetupRenderingStates();
 		// Setup the viewport.
 		SetupViewPort();
 
@@ -245,10 +245,12 @@ namespace mage {
 		return S_OK;
 	}
 
-	void Renderer::SetupRenderingState() {
+	void Renderer::SetupRenderingStates() {
 		m_rendering_state_cache = make_unique< RenderingStateCache >(m_device.Get());
-		m_rendering_state       = make_unique< RenderingState >(m_device.Get(), m_device_context.Get(), m_rendering_state_cache.get());
-		m_rendering_state->SetDefaultRenderingState3D();
+		m_rendering_state_2d    = make_unique< RenderingState >(m_device.Get(), m_device_context.Get(), m_rendering_state_cache.get());
+		m_rendering_state_3d    = make_unique< RenderingState >(m_device.Get(), m_device_context.Get(), m_rendering_state_cache.get());
+		m_rendering_state_2d->SetDefaultRenderingState2D();
+		m_rendering_state_3d->SetDefaultRenderingState3D();
 	}
 
 	void Renderer::SetupViewPort() const {
@@ -277,8 +279,6 @@ namespace mage {
 		m_device_context->ClearRenderTargetView(m_render_target_view.Get(), background_color);
 		// Clear the depth buffer to 1.0 (i.e. max depth).
 		m_device_context->ClearDepthStencilView(m_depth_stencil_view.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
-
-		m_rendering_state->Render();
 
 		m_in_begin_end_pair = true;
 	}

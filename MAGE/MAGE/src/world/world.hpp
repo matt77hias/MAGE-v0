@@ -15,21 +15,24 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	// Forward declaration
+	// Forward declarations
 	class Model;
+	class SpriteBatch;
+	class SpriteFont;
 
 	class World {
 
 	public:
 
-		World() = default;
+		World();
 		World(World &&world) = default;
 		virtual ~World() {
 			RemoveAllModels();
 			RemoveAllLights();
 		}
 
-		void Render(const TransformBuffer &transform_buffer) const;
+		void Render2D() const;
+		void Render3D(const TransformBuffer &transform_buffer) const;
 
 		template< typename ActionT >
 		void ForEachWorldObject(ActionT action) const;
@@ -86,14 +89,21 @@ namespace mage {
 		template< typename ActionT >
 		void ForEachLight(ActionT action) const;
 
+		//TODO
+		SharedPtr< SpriteFont > m_font;
+
 	private:
 
 		World(const World &world) = delete;
 		World &operator=(const World &world) = delete;
 		World &operator=(World &&world) = delete;
 
+		// 3D
 		set< SharedPtr< Model >, std::less<> > m_models;
 		set< SharedPtr< PointLight >, std::less<> > m_lights;
+
+		// 2D
+		SharedPtr< SpriteBatch > m_sprite_batch;
 	};
 }
 

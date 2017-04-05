@@ -10,6 +10,7 @@
 #include "mesh\sprite_batch_mesh.hpp"
 #include "mesh\vertex.hpp"
 #include "shader\shader.hpp"
+#include "shader\sprite_shader.hpp"
 
 #include "sprite\sprite_utils.hpp"
 #include "sprite\sprite_sort_mode.hpp"
@@ -43,12 +44,12 @@ namespace mage {
 
 	public:
 
-		SpriteBatch(ID3D11Device *device, ID3D11DeviceContext *device_context,
-			const CombinedShader &shader);
+		SpriteBatch(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+			const CombinedShader &shader = CreateSpriteShader());
 		SpriteBatch(SpriteBatch &&sprite_batch) = default;
 		virtual ~SpriteBatch() = default;
 
-		void Begin(SpriteSortMode sort_mode, XMMATRIX transform = XMMatrixIdentity());
+		void Begin(SpriteSortMode sort_mode = SpriteSortMode_Deferred, XMMATRIX transform = XMMatrixIdentity());
 		void Draw(ID3D11ShaderResourceView *texture, XMVECTOR color, SpriteEffects effects,
 			const SpriteTransform &transform, const RECT *source = nullptr);
 		void End();
@@ -83,8 +84,8 @@ namespace mage {
 		void RenderSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
 			const XMVECTOR &texture_size, const XMVECTOR &inverse_texture_size);
 
-		ID3D11Device * const m_device;
-		ID3D11DeviceContext * const m_device_context;
+		ID3D11Device2 * const m_device;
+		ID3D11DeviceContext2 * const m_device_context;
 		UniquePtr< SpriteBatchMesh > m_mesh;
 		size_t m_vertex_buffer_position;
 		UniquePtr< CombinedShader > m_shader;
@@ -119,4 +120,6 @@ namespace mage {
 
 		static const size_t initial_queue_size = 64;
 	};
+
+	SharedPtr< SpriteBatch > CreateSpriteBatch();
 }

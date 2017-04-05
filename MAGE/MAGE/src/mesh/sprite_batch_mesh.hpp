@@ -26,17 +26,17 @@ namespace mage {
 		static const size_t vertices_per_sprite   = 4; // quad = 2 triangles
 		static const size_t indices_per_sprite    = 6; // quad = 2 triangles
 
-		static constexpr size_t MinVerticesPerSprite() {
-			return min_sprites_per_batch * vertices_per_sprite;
+		static constexpr size_t MinVerticesPerBatch() {
+			return vertices_per_sprite * min_sprites_per_batch;
 		}
-		static constexpr size_t MaxVerticesPerSprite() {
-			return max_sprites_per_batch * vertices_per_sprite;
+		static constexpr size_t MaxVerticesPerBatch() {
+			return vertices_per_sprite * max_sprites_per_batch;
 		}
-		static constexpr size_t MinIndicesPerSprite() {
-			return min_sprites_per_batch * indices_per_sprite;
+		static constexpr size_t MinIndicesPerBatch() {
+			return indices_per_sprite * min_sprites_per_batch;
 		}
-		static constexpr size_t MaxIndicesPerSprite() {
-			return max_sprites_per_batch * indices_per_sprite;
+		static constexpr size_t MaxIndicesPerBatch() {
+			return indices_per_sprite * max_sprites_per_batch;
 		}
 
 		/**

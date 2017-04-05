@@ -20,20 +20,18 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_ERROR_IGNORE 0
-#define MAGE_ERROR_CONTINUE 1
-#define MAGE_ERROR_ABORT 2
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	/**
+	 An enumeration of error dispositions.
+	 */
+	enum ErrorDisposition {
+		ERROR_IGNORE_DISPOSITION, 
+		ERROR_CONTINUE_DISPOSITION, 
+		ERROR_ABORT_DISPOSITION
+	};
 
 	/**
 	 Finds the end of a word.
@@ -59,14 +57,13 @@ namespace mage {
 					The arguments of the format string.
 	 @param[in]		error_type
 					The type of the error.
-	 @param[in]		error_disposition
-					Disposition of the error.
+	 @param[in]		disposition
+					The disposition of the error.
 	 */
 	static void ProcessError(const char *format, const va_list args,
-		const string &error_type, int error_disposition) {
+		const string &error_type, ErrorDisposition disposition) {
 
-		if (error_disposition == MAGE_ERROR_IGNORE) {
-			// MAGE_ERROR_IGNORE
+		if (disposition == ERROR_IGNORE_DISPOSITION) {
 			return;
 		}
 
@@ -108,8 +105,7 @@ namespace mage {
 		// Writes the error_string pointed by format to stderr.
 		fprintf(stderr, "%s\n", error_string.c_str());
 
-		if (error_disposition == MAGE_ERROR_ABORT) {
-			// MAGE_ERROR_ABORT
+		if (disposition == ERROR_ABORT_DISPOSITION) {
 			__debugbreak();
 		}
 	}
@@ -124,7 +120,7 @@ namespace mage {
 		va_list args;
 		// Retrieve the additional arguments after format
 		va_start(args, format);
-		ProcessError(format, args, "Debug Info", MAGE_ERROR_CONTINUE);
+		ProcessError(format, args, "Debug Info", ERROR_CONTINUE_DISPOSITION);
 		// End using variable argument list
 		va_end(args);	
 #endif
@@ -140,7 +136,7 @@ namespace mage {
 		va_list args;
 		// Retrieve the additional arguments after format
 		va_start(args, format);
-		ProcessError(format, args, "Info", MAGE_ERROR_CONTINUE);
+		ProcessError(format, args, "Info", ERROR_CONTINUE_DISPOSITION);
 		// End using variable argument list
 		va_end(args);
 	}
@@ -153,7 +149,7 @@ namespace mage {
 		va_list args;
 		// Retrieve the additional arguments after format
 		va_start(args, format);
-		ProcessError(format, args, "Warning", MAGE_ERROR_CONTINUE);
+		ProcessError(format, args, "Warning", ERROR_CONTINUE_DISPOSITION);
 		// End using variable argument list
 		va_end(args);
 	}
@@ -162,7 +158,7 @@ namespace mage {
 		va_list args;
 		// Retrieve the additional arguments after format
 		va_start(args, format);
-		ProcessError(format, args, "Error", MAGE_ERROR_CONTINUE);
+		ProcessError(format, args, "Error", ERROR_CONTINUE_DISPOSITION);
 		// End using variable argument list
 		va_end(args);
 	}
@@ -171,7 +167,7 @@ namespace mage {
 		va_list args;
 		// Retrieve the additional arguments after format
 		va_start(args, format);
-		ProcessError(format, args, "Fatal Error", MAGE_ERROR_ABORT);
+		ProcessError(format, args, "Fatal Error", ERROR_ABORT_DISPOSITION);
 		// End using variable argument list
 		va_end(args);
 	}

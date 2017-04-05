@@ -15,7 +15,7 @@ namespace mage {
 
 	Keyboard::Keyboard(HWND hwindow, IDirectInput8 *di) 
 		: Loadable(), m_hwindow(hwindow), m_di(di),
-		m_press_stamp(0) {
+		m_press_stamp(0), m_key_press_stamp() {
 
 		const HRESULT result_keyboard = InitializeKeyboard();
 		if (FAILED(result_keyboard)) {

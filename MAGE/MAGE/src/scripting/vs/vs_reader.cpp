@@ -149,9 +149,8 @@ namespace mage {
 
 	void VSReader::ReadVSUnknown() {
 		const string name = ReadString();
-		const char *str = ReadChars();
-		char *value = new char[MAX_PATH + 1];
-		strcpy_s(value, MAX_PATH + 1, str);
+		const string str = ReadQuotedString();
+		const string *value = new string(str);
 		m_variable_buffer.push_back(new Variable(VariableType_Unknown, name, value));
 	}
 }

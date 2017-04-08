@@ -28,6 +28,9 @@ namespace mage {
 
 		virtual ~BinaryReader() = default;
 
+		BinaryReader &operator=(const BinaryReader &reader) = delete;
+		BinaryReader &operator=(BinaryReader &&reader) = delete;
+
 		HRESULT ReadFromFile(const wstring &fname, bool big_endian);
 		HRESULT ReadFromMemory(const uint8_t *input, size_t size, bool big_endian);
 
@@ -40,6 +43,7 @@ namespace mage {
 		BinaryReader()
 			: m_fname(), m_big_endian(true), 
 			m_pos(nullptr), m_end(nullptr), m_data() {}
+		BinaryReader(const BinaryReader &reader) = delete;
 		BinaryReader(BinaryReader &&reader) = default;
 
 		virtual HRESULT Read() = 0;
@@ -62,10 +66,6 @@ namespace mage {
 
 	private:
 
-		BinaryReader(const BinaryReader &reader) = delete;
-		BinaryReader &operator=(const BinaryReader &reader) = delete;
-		BinaryReader &operator=(BinaryReader &&reader) = delete;
-
 		wstring m_fname;
 		bool m_big_endian;
 		const uint8_t *m_pos;
@@ -83,6 +83,9 @@ namespace mage {
 
 		virtual ~BigEndianBinaryReader() = default;
 
+		BigEndianBinaryReader &operator=(const BigEndianBinaryReader &reader) = delete;
+		BigEndianBinaryReader &operator=(BigEndianBinaryReader &&reader) = delete;
+
 		HRESULT ReadFromFile(const wstring &fname);
 		HRESULT ReadFromMemory(const uint8_t *input, size_t size);
 
@@ -94,6 +97,7 @@ namespace mage {
 
 		BigEndianBinaryReader()
 			: m_fname(), m_pos(nullptr), m_end(nullptr), m_data() {}
+		BigEndianBinaryReader(const BigEndianBinaryReader &reader) = delete;
 		BigEndianBinaryReader(BigEndianBinaryReader &&reader) = default;
 
 		virtual HRESULT Read() = 0;
@@ -108,10 +112,6 @@ namespace mage {
 		const ValueT *ReadValueArray(size_t size);
 		
 	private:
-
-		BigEndianBinaryReader(const BigEndianBinaryReader &reader) = delete;
-		BigEndianBinaryReader &operator=(const BigEndianBinaryReader &reader) = delete;
-		BigEndianBinaryReader &operator=(BigEndianBinaryReader &&reader) = delete;
 
 		wstring m_fname;
 		const uint8_t *m_pos;

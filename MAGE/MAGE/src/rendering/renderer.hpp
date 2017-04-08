@@ -45,12 +45,40 @@ namespace mage {
 		 @param[in]		renderer
 						A reference to a renderer.
 		 */
+		Renderer(const Renderer &renderer) = delete;
+
+		/**
+		 Constructs a renderer from the given renderer.
+
+		 @param[in]		renderer
+						A reference to a renderer.
+		 */
 		Renderer(Renderer &&renderer) = delete;
 
 		/**
 		 Destructs this renderer.
 		 */
 		virtual ~Renderer();
+
+		/**
+		 Copies the given renderer to this renderer.
+
+		 @param[in]		renderer
+						A reference to a renderer.
+		 @return		A reference to the copy of the given renderer
+						(i.e. this renderer).
+		 */
+		Renderer &operator=(const Renderer &renderer) = delete;
+
+		/**
+		 Copies the given renderer to this renderer.
+
+		 @param[in]		renderer
+						A reference to a renderer.
+		 @return		A reference to the copy of the given renderer
+						(i.e. this renderer).
+		 */
+		Renderer &operator=(Renderer &&renderer) = delete;
 
 		/**
 		 Returns the window handle of this renderer.
@@ -182,34 +210,6 @@ namespace mage {
 		}
 
 	private:
-
-		/**
-		 Constructs a renderer from the given renderer.
-
-		 @param[in]		renderer
-						A reference to a renderer.
-		 */
-		Renderer(const Renderer &renderer) = delete;
-
-		/**
-		 Copies the given renderer to this renderer.
-
-		 @param[in]		renderer
-						A reference to a renderer.
-		 @return		A reference to the copy of the given renderer
-						(i.e. this renderer).
-		 */
-		Renderer &operator=(const Renderer &renderer) = delete;
-
-		/**
-		 Copies the given renderer to this renderer.
-
-		 @param[in]		renderer
-						A reference to a renderer.
-		 @return		A reference to the copy of the given renderer
-						(i.e. this renderer).
-		 */
-		Renderer &operator=(Renderer &&renderer) = delete;
 
 		/**
 		 Initializes this renderer.

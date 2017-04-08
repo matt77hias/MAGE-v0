@@ -59,17 +59,17 @@ namespace mage {
 				KeyT resource_key, ConstructorArgsT&&... args)
 				: DerivedResourceT(std::forward< ConstructorArgsT >(args)...), 
 				m_resource_pool(resource_pool), m_resource_key(resource_key) {}
-			ResourcePoolEntry(ResourcePoolEntry &&resource) = default;
+			ResourcePoolEntry(const ResourcePoolEntry &resource) = delete;
+			ResourcePoolEntry(ResourcePoolEntry &&resource) = delete;
 
 			virtual ~ResourcePoolEntry() {
 				m_resource_pool.RemoveResource(m_resource_key);
 			}
 
-		private:
-
-			ResourcePoolEntry(const ResourcePoolEntry &resource) = delete;
 			ResourcePoolEntry &operator=(const ResourcePoolEntry &resource) = delete;
 			ResourcePoolEntry &operator=(ResourcePoolEntry &&resource) = delete;
+
+		private:
 
 			ResourcePool< KeyT, ResourceT > &m_resource_pool;
 			KeyT m_resource_key;

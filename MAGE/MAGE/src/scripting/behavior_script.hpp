@@ -22,22 +22,29 @@ namespace mage {
 	public:
 
 		/**
-		 Constructs a behavior script.
-		 */
-		BehaviorScript() = default;
-
-		/**
-		 Constructs a behavior script from the given behavior script.
-
-		 @param[in]		script
-						A reference to the behavior script.
-		 */
-		BehaviorScript(BehaviorScript &&script) = default;
-
-		/**
 		 Destructs this behavior script.
 		 */
 		~BehaviorScript() = default;
+
+		/**
+		 Copies the given behavior script to this behavior script.
+
+		 @param[in]		script
+						A reference to the behavior script to copy from.
+		 @return		A reference to the copy of the given behavior script
+						(i.e. this behavior script).
+		 */
+		BehaviorScript &operator=(const BehaviorScript &script) = delete;
+
+		/**
+		 Copies the given behavior script to this behavior script.
+
+		 @param[in]		script
+						A reference to the behavior script to copy from.
+		 @return		A reference to the copy of the given behavior script
+						(i.e. this behavior script).
+		 */
+		BehaviorScript &operator=(BehaviorScript &&script) = delete;
 
 		const string &GetName() const {
 			return m_name;
@@ -72,7 +79,12 @@ namespace mage {
 		 */
 		virtual void Close() {}
 
-	private:
+	protected:
+
+		/**
+		 Constructs a behavior script.
+		 */
+		BehaviorScript() = default;
 
 		/**
 		 Constructs a behavior script from the given behavior script.
@@ -83,24 +95,14 @@ namespace mage {
 		BehaviorScript(const BehaviorScript &script) = default;
 
 		/**
-		 Copies the given behavior script to this behavior script.
+		 Constructs a behavior script from the given behavior script.
 
 		 @param[in]		script
-						A reference to the behavior script to copy from.
-		 @return		A reference to the copy of the given behavior script
-						(i.e. this behavior script).
+						A reference to the behavior script.
 		 */
-		BehaviorScript &operator=(const BehaviorScript &script) = delete;
+		BehaviorScript(BehaviorScript &&script) = default;
 
-		/**
-		 Copies the given behavior script to this behavior script.
-
-		 @param[in]		script
-						A reference to the behavior script to copy from.
-		 @return		A reference to the copy of the given behavior script
-						(i.e. this behavior script).
-		 */
-		BehaviorScript &operator=(BehaviorScript &&script) = delete;
+	private:
 
 		/**
 		 The name of this script.

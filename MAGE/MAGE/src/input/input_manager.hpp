@@ -36,12 +36,40 @@ namespace mage {
 		 @param[in]		input_manager
 						A reference to the input manager.
 		 */
+		InputManager(const InputManager &input_manager) = delete;
+
+		/**
+		 Constructs an input manager from the given input manager.
+
+		 @param[in]		input_manager
+						A reference to the input manager.
+		 */
 		InputManager(InputManager &&input_manager) = default;
 
 		/**
 		 Destructs this input manager.
 		 */
 		virtual ~InputManager() = default;
+
+		/**
+		 Copies the given input manager to this input manager.
+
+		 @param[in]		input_manager
+						A reference to the input manager to copy from.
+		 @return		A reference to the copy of the given input manager
+						(i.e. this input manager).
+		 */
+		InputManager &operator=(const InputManager &input_manager) = delete;
+
+		/**
+		 Copies the given input manager to this input manager.
+
+		 @param[in]		input_manager
+						A reference to the input manager to copy from.
+		 @return		A reference to the copy of the given input manager
+						(i.e. this input manager).
+		 */
+		InputManager &operator=(InputManager &&input_manager) = delete;
 
 		/**
 		 Updates the state of the input systems of this input manager.
@@ -76,34 +104,6 @@ namespace mage {
 		}
 
 	private:
-
-		/**
-		 Constructs an input manager from the given input manager.
-
-		 @param[in]		input_manager
-						A reference to the input manager.
-		 */
-		InputManager(const InputManager &input_manager) = delete;
-
-		/**
-		 Copies the given input manager to this input manager.
-
-		 @param[in]		input_manager
-						A reference to the input manager to copy from.
-		 @return		A reference to the copy of the given input manager
-						(i.e. this input manager).
-		 */
-		InputManager &operator=(const InputManager &input_manager) = delete;
-
-		/**
-		 Copies the given input manager to this input manager.
-
-		 @param[in]		input_manager
-						A reference to the input manager to copy from.
-		 @return		A reference to the copy of the given input manager
-						(i.e. this input manager).
-		 */
-		InputManager &operator=(InputManager &&input_manager) = delete;
 
 		/**
 		 Initializes the DirectInput object of this input manager.

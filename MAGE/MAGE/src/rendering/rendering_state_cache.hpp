@@ -28,8 +28,12 @@ namespace mage {
 			m_point_wrap_sampler_state(), m_point_clamp_sampler_state(), m_linear_wrap_sampler_state(), 
 			m_linear_clamp_sampler_state(), m_anisotropic_wrap_sampler_state(), m_anisotropic_clamp_sampler_state(),
 			m_mutex() {}
+		RenderingStateCache(const RenderingStateCache &rendering_state_cache) = delete;
 		RenderingStateCache(RenderingStateCache &&rendering_state_cache) = default;
 		~RenderingStateCache() = default;
+
+		RenderingStateCache &operator=(const RenderingStateCache &rendering_state_cache) = delete;
+		RenderingStateCache &operator=(RenderingStateCache &&rendering_state_cache) = delete;
 
 		//---------------------------------------------------------------------
 		// Blend states
@@ -69,10 +73,6 @@ namespace mage {
 		ID3D11SamplerState *GetAnisotropicClampSamplerState();
 
 	private:
-
-		RenderingStateCache(const RenderingStateCache &rendering_state_cache) = delete;
-		RenderingStateCache &operator=(const RenderingStateCache &rendering_state_cache) = delete;
-		RenderingStateCache &operator=(RenderingStateCache &&rendering_state_cache) = delete;
 
 		/**
 		 The device of this rendering state.

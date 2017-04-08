@@ -9,7 +9,11 @@ public:
 
 	TestScript(SharedPtr< Model > model)
 		: BehaviorScript(), m_model(model), solid(true) {}
+	TestScript(const TestScript &script) = delete;
+	TestScript(TestScript &&script) = default;
 	~TestScript() = default;
+	TestScript &operator=(const TestScript &script) = delete;
+	TestScript &operator=(TestScript &&script) = delete;
 
 	virtual void Update(double elapsed_time, const Scene &scene) override {
 		UNUSED(scene);
@@ -34,9 +38,6 @@ public:
 
 private:
 	
-	TestScript(const TestScript &script) = delete;
-	TestScript &operator=(const TestScript &script) = delete;
-
 	SharedPtr< Model > m_model;
 	bool solid;
 };
@@ -47,7 +48,11 @@ public:
 
 	TestScene()
 		: Scene("testscene") {}
+	TestScene(const TestScene &scene) = delete;
+	TestScene(TestScene &&scene) = delete;
 	~TestScene() = default;
+	TestScene &operator=(const TestScene &scene) = delete;
+	TestScene &operator=(TestScene &&scene) = delete;
 
 	virtual void Load() override {
 
@@ -74,11 +79,6 @@ public:
 		//TODO
 		GetWorld().m_font = SharedPtr< SpriteFont >(new SpriteFont(g_engine->GetRenderer().GetDevice(), L"assets/fonts/calibri.spritefont", SpriteFontDescriptor()));
 	}
-
-private:
-
-	TestScene(const TestScene &scene) = delete;
-	TestScene &operator=(const TestScene &scene) = delete;
 };
 
 struct TestSetup : public EngineSetup {

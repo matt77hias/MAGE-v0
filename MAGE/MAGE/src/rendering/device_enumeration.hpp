@@ -26,6 +26,26 @@ namespace mage {
 	public:
 
 		/**
+		 Copies the given device enumeration to this device enumeration.
+
+		 @param[in]		device_enumeration
+						A reference to a device enumeration.
+		 @return		A reference to the copy of the given device enumeration
+						(i.e. this device enumeration).
+		 */
+		DeviceEnumeration &operator=(const DeviceEnumeration &device_enumeration) = delete;
+
+		/**
+		 Copies the given device enumeration to this device enumeration.
+
+		 @param[in]		device_enumeration
+						A reference to a device enumeration.
+		 @return		A reference to the copy of the given device enumeration
+						(i.e. this device enumeration).
+		 */
+		DeviceEnumeration &operator=(DeviceEnumeration &&device_enumeration) = delete;
+
+		/**
 		 Returns the adapter.
 
 		 @return		A pointer to the adapter.
@@ -109,26 +129,6 @@ namespace mage {
 						A reference to a device enumeration.
 		 */
 		DeviceEnumeration(DeviceEnumeration &&device_enumeration) = default;
-
-		/**
-		 Copies the given device enumeration to this device enumeration.
-
-		 @param[in]		device_enumeration
-						A reference to a device enumeration.
-		 @return		A reference to the copy of the given device enumeration
-						(i.e. this device enumeration).
-		 */
-		DeviceEnumeration &operator=(const DeviceEnumeration &device_enumeration) = delete;
-
-		/**
-		 Copies the given device enumeration to this device enumeration.
-
-		 @param[in]		device_enumeration
-						A reference to a device enumeration.
-		 @return		A reference to the copy of the given device enumeration
-						(i.e. this device enumeration).
-		 */
-		DeviceEnumeration &operator=(DeviceEnumeration &&device_enumeration) = delete;
 
 		/**
 		 Initializes the adapter and the output of this device enumeration.

@@ -26,7 +26,12 @@ namespace mage {
 			m_vertex_coordinates(), m_vertex_texture_coordinates(),
 			m_vertex_normal_coordinates(), m_mapping(),
 			m_model_output(model_output), m_mesh_desc(mesh_desc) {}
+		OBJReader(const OBJReader &reader) = delete;
+		OBJReader(OBJReader &&reader) = delete;
 		virtual ~OBJReader() = default;
+
+		OBJReader &operator=(const OBJReader &reader) = delete;
+		OBJReader &operator=(OBJReader &&reader) = delete;
 
 	protected:
 
@@ -73,11 +78,6 @@ namespace mage {
 				return (a.x == b.x) ? ((a.y == b.y) ? (a.z < b.z) : (a.y < b.y)) : (a.x < b.x);
 			}
 		};
-
-		OBJReader(const OBJReader &reader) = delete;
-		OBJReader(OBJReader &&reader) = delete;
-		OBJReader &operator=(const OBJReader &reader) = delete;
-		OBJReader &operator=(OBJReader &&reader) = delete;
 
 		vector< Point3 >  m_vertex_coordinates;
 		vector< UV > m_vertex_texture_coordinates;

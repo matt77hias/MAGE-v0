@@ -21,8 +21,12 @@ namespace mage {
 
 		Writer() 
 			: m_file(nullptr), m_fname() {}
+		Writer(const Writer &reader) = delete;
 		Writer(Writer &&reader) = default;
 		virtual ~Writer() = default;
+
+		Writer &operator=(const Writer &reader) = delete;
+		Writer &operator=(Writer &&reader) = delete;
 
 		HRESULT WriteToFile(const wstring &fname);
 
@@ -38,10 +42,6 @@ namespace mage {
 		void WriteLine(const char *str) const;
 
 	private:
-
-		Writer(const Writer &reader) = delete;
-		Writer &operator=(const Writer &reader) = delete;
-		Writer &operator=(Writer &&reader) = delete;
 
 		FILE *m_file;
 		wstring m_fname;

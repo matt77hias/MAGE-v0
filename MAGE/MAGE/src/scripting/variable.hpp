@@ -74,9 +74,45 @@ namespace mage {
 			: m_type(type), m_name(name), m_value(new Value< T >(value)) {}
 
 		/**
+		 Constructs a variable from the given variable.
+
+		 @param[in]		variable
+						A reference to the variable.
+		 */
+		Variable(const Variable &variable) = delete;
+
+		/**
+		 Constructs a variable from the given variable.
+
+		 @param[in]		variable
+						A reference to the variable.
+		 */
+		Variable(Variable &&variable) = default;
+
+		/**
 		 Destructs this variable.
 		 */
 		~Variable() = default;
+
+		/**
+		 Copies the given variable to this variable.
+
+		 @param[in]		variable
+						A reference to the variable to copy from.
+		 @return		A reference to the copy of the given variable
+						(i.e. this variable).
+		 */
+		Variable &operator=(const Variable &variable) = delete;
+
+		/**
+		 Copies the given variable to this variable.
+
+		 @param[in]		variable
+						A reference to the variable to copy from.
+		 @return		A reference to the copy of the given variable
+						(i.e. this variable).
+		 */
+		Variable &operator=(Variable &&variable) = delete;
 		
 		/**
 		 Checks whether the given variable is equal to this variable.
@@ -147,42 +183,6 @@ namespace mage {
 	private:
 
 		/**
-		 Constructs a variable from the given variable.
-
-		 @param[in]		variable
-						A reference to the variable.
-		 */
-		Variable(const Variable &variable) = delete;
-
-		/**
-		 Constructs a variable from the given variable.
-
-		 @param[in]		variable
-						A reference to the variable.
-		 */
-		Variable(Variable &&variable) = delete;
-
-		/**
-		 Copies the given variable to this variable.
-
-		 @param[in]		variable
-						A reference to the variable to copy from.
-		 @return		A reference to the copy of the given variable
-						(i.e. this variable).
-		 */
-		Variable &operator=(const Variable &variable) = delete;
-
-		/**
-		 Copies the given variable to this variable.
-
-		 @param[in]		variable
-						A reference to the variable to copy from.
-		 @return		A reference to the copy of the given variable
-						(i.e. this variable).
-		 */
-		Variable &operator=(Variable &&variable) = delete;
-
-		/**
 		 The type of this value.
 
 		 @note			It is not possible to use typeid(T).name() since this assumes
@@ -213,6 +213,26 @@ namespace mage {
 			virtual ~AbstractValue() = default;
 
 			/**
+			 Copies the given abstract value to this abstract value.
+
+			 @param[in]		abstract_value
+							A reference to the abstract value to copy from.
+			 @return		A reference to the copy of the given abstract value
+							(i.e. this abstract value).
+			 */
+			AbstractValue &operator=(const AbstractValue &abstract_value) = delete;
+
+			/**
+			 Copies the given abstract value to this abstract value.
+
+			 @param[in]		abstract_value
+							A reference to the abstract value to copy from.
+			 @return		A reference to the copy of the given abstract value
+							(i.e. this abstract value).
+			 */
+			AbstractValue &operator=(AbstractValue &&abstract_value) = delete;
+
+			/**
 			 Returns the value of this value.
 
 			 @return		A pointer to the value of this value.
@@ -241,28 +261,6 @@ namespace mage {
 							A reference to the abstract value.
 			 */
 			AbstractValue(AbstractValue &&abstract_value) = default;
-
-		private:
-
-			/**
-			 Copies the given abstract value to this abstract value.
-
-			 @param[in]		abstract_value
-							A reference to the abstract value to copy from.
-			 @return		A reference to the copy of the given abstract value
-							(i.e. this abstract value).
-			 */
-			AbstractValue &operator=(const AbstractValue &abstract_value) = delete;
-
-			/**
-			 Copies the given abstract value to this abstract value.
-
-			 @param[in]		abstract_value
-							A reference to the abstract value to copy from.
-			 @return		A reference to the copy of the given abstract value
-							(i.e. this abstract value).
-			 */
-			AbstractValue &operator=(AbstractValue &&abstract_value) = delete;
 		};
 
 		/**
@@ -271,7 +269,7 @@ namespace mage {
 						The type of the value.
 		 */
 		template < typename T >
-		struct Value : public AbstractValue {
+		struct Value final : public AbstractValue {
 
 		public:
 
@@ -283,22 +281,6 @@ namespace mage {
 			 */
 			Value(const T *value)
 				: AbstractValue(), m_value(value) {}
-
-			/**
-			 Destructs this value.
-			 */
-			virtual ~Value() = default;
-
-			/**
-			 Returns the value of this value.
-
-			 @return		A pointer to the value of this value.
-			 */
-			virtual const void *GetValue() const override {
-				return (void *)m_value.get();
-			}
-
-		private:
 
 			/**
 			 Constructs a value from the given value.
@@ -314,7 +296,12 @@ namespace mage {
 			 @param[in]		value
 							A reference to the value.
 			 */
-			Value(Value &&value) = delete;
+			Value(Value &&value) = default;
+
+			/**
+			 Destructs this value.
+			 */
+			virtual ~Value() = default;
 
 			/**
 			 Copies the given value to this value.
@@ -335,6 +322,17 @@ namespace mage {
 							(i.e. this value).
 			 */
 			Value &operator=(Value &&value) = delete;
+
+			/**
+			 Returns the value of this value.
+
+			 @return		A pointer to the value of this value.
+			 */
+			virtual const void *GetValue() const override {
+				return (void *)m_value.get();
+			}
+
+		private:
 
 			/**
 			 A pointer to the value of this value.

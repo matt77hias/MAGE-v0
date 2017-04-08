@@ -22,8 +22,12 @@ namespace mage {
 	public:
 
 		explicit SpriteFont(ID3D11Device2 *device, const wstring &fname, const SpriteFontDescriptor &desc);
+		SpriteFont(const SpriteFont &font) = delete;
 		SpriteFont(SpriteFont &&font) = default;
 		virtual ~SpriteFont() = default;
+
+		SpriteFont &operator=(const SpriteFont &font) = delete;
+		SpriteFont &operator=(SpriteFont &&font) = delete;
 
 		void DrawString(SpriteBatch &sprite_batch, const wchar_t *text, const SpriteTransform &transform,
 			XMVECTOR color = Colors::White, SpriteEffect effects = SpriteEffect_None) const;
@@ -47,10 +51,6 @@ namespace mage {
 		const Glyph *GetGlyph(wchar_t character) const;
 
 	private:
-
-		SpriteFont(const SpriteFont &font) = delete;
-		SpriteFont &operator=(const SpriteFont &font) = delete;
-		SpriteFont &operator=(SpriteFont &&font) = delete;
 
 		HRESULT InitializeSpriteFont(const SpriteFontOutput &output);
 

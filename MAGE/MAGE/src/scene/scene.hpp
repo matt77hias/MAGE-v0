@@ -23,6 +23,9 @@ namespace mage {
 
 		~Scene() = default;
 
+		Scene &operator=(const Scene &scene) = delete;
+		Scene &operator=(Scene &&scene) = delete;
+
 		const string &GetName() const {
 			return m_name;
 		}
@@ -96,14 +99,11 @@ namespace mage {
 
 		explicit Scene(const string &name)
 			: m_name(name), m_world(new World()) {}
+		Scene(const Scene &scene) = delete;
 		Scene(Scene &&scene) = default;
 
 	private:
 
-		Scene(const Scene &scene) = delete;
-		Scene &operator=(const Scene &scene) = delete;
-		Scene &operator=(Scene &&scene) = delete;
-		
 		string m_name;
 		SharedPtr< Camera > m_camera;
 		UniquePtr< World > m_world;

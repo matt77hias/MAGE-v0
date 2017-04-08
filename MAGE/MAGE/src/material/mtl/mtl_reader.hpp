@@ -22,7 +22,12 @@ namespace mage {
 
 		explicit MTLReader(vector< Material > &material_buffer)
 			: LineReader(), m_material_buffer(material_buffer) {}
+		MTLReader(const MTLReader &reader) = delete;
+		MTLReader(MTLReader &&reader) = delete;
 		virtual ~MTLReader() = default;
+
+		MTLReader &operator=(const MTLReader &reader) = delete;
+		MTLReader &operator=(MTLReader &&reader) = delete;
 
 	protected:
 
@@ -50,11 +55,6 @@ namespace mage {
 		SharedPtr< Texture > ReadMTLTexture();
 
 	private:
-
-		MTLReader(const MTLReader &reader) = delete;
-		MTLReader(MTLReader &&reader) = delete;
-		MTLReader &operator=(const MTLReader &reader) = delete;
-		MTLReader &operator=(MTLReader &&reader) = delete;
 
 		vector< Material > &m_material_buffer;
 	};

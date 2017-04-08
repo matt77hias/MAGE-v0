@@ -34,6 +34,9 @@ namespace mage {
 			RemoveAndDestructAllElements(m_submodels);
 		}
 
+		Model &operator=(const Model &model) = delete;
+		Model &operator=(Model &&model) = delete;
+
 		virtual Model *Clone() const = 0;
 
 		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const {
@@ -62,9 +65,6 @@ namespace mage {
 		
 	private:
 
-		Model &operator=(const Model &model) = delete;
-		Model &operator=(Model &&model) = delete;
-
 		set< SubModel *, std::less<> > m_submodels;
 	};
 
@@ -83,6 +83,9 @@ namespace mage {
 		SubModel(const SubModel &submodel);
 		SubModel(SubModel &&submodel) = default;
 		virtual ~SubModel() = default;
+
+		SubModel &operator=(const SubModel &submodel) = delete;
+		SubModel &operator=(SubModel &&submodel) = delete;
 
 		virtual SubModel *Clone() const {
 			return new SubModel(*this);
@@ -111,9 +114,6 @@ namespace mage {
 		}
 
 	private:
-
-		SubModel &operator=(const SubModel &submodel) = delete;
-		SubModel &operator=(SubModel &&submodel) = delete;
 
 		const size_t m_start_index;
 		const size_t m_nb_indices;

@@ -48,12 +48,40 @@ namespace mage {
 		 @param[in]		keyboard
 						A reference to the keyboard.
 		 */
+		Keyboard(const Keyboard &keyboard) = delete;
+
+		/**
+		 Constructs a keyboard from the given keyboard.
+
+		 @param[in]		keyboard
+						A reference to the keyboard.
+		 */
 		Keyboard(Keyboard &&keyboard) = default;
 
 		/**
 		 Destructs this keyboard.
 		 */
 		virtual ~Keyboard() = default;
+
+		/**
+		 Copies the given keyboard to this keyboard.
+
+		 @param[in]		keyboard
+						A reference to the keyboard to copy from.
+		 @return		A reference to the copy of the given keyboard
+						(i.e. this keyboard).
+		 */
+		Keyboard &operator=(const Keyboard &keyboard) = delete;
+
+		/**
+		 Copies the given keyboard to this keyboard.
+
+		 @param[in]		keyboard
+						A reference to the keyboard to copy from.
+		 @return		A reference to the copy of the given keyboard
+						(i.e. this keyboard).
+		 */
+		Keyboard &operator=(Keyboard &&keyboard) = delete;
 
 		/**
 		 Updates the state of this keyboard.
@@ -83,34 +111,6 @@ namespace mage {
 		bool GetKeyPress(unsigned char key, bool ignore_press_stamp = false) const;
 
 	private:
-
-		/**
-		 Constructs a keyboard from the given keyboard.
-
-		 @param[in]		keyboard
-						A reference to the keyboard.
-		 */
-		Keyboard(const Keyboard &keyboard) = delete;
-
-		/**
-		 Copies the given keyboard to this keyboard.
-
-		 @param[in]		keyboard
-						A reference to the keyboard to copy from.
-		 @return		A reference to the copy of the given keyboard
-						(i.e. this keyboard).
-		 */
-		Keyboard &operator=(const Keyboard &keyboard) = delete;
-
-		/**
-		 Copies the given keyboard to this keyboard.
-
-		 @param[in]		keyboard
-						A reference to the keyboard to copy from.
-		 @return		A reference to the copy of the given keyboard
-						(i.e. this keyboard).
-		 */
-		Keyboard &operator=(Keyboard &&keyboard) = delete;
 
 		/**
 		 Initializes the keyboard device of this keyboard.

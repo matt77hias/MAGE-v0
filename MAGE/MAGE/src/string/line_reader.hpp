@@ -19,6 +19,9 @@ namespace mage {
 
 	public:
 
+		LineReader &operator=(const LineReader &reader) = delete;
+		LineReader &operator=(LineReader &&reader) = delete;
+
 		virtual ~LineReader() = default;
 
 		HRESULT ReadFromFile(const wstring &fname, const string &delimiters = mage_default_delimiters);
@@ -36,6 +39,7 @@ namespace mage {
 		LineReader()
 			: m_context(nullptr), m_fname(), 
 			m_delimiters(mage_default_delimiters), m_line_number(0) {}
+		LineReader(const LineReader &reader) = delete;
 		LineReader(LineReader &&reader) = default;
 
 		const uint32_t GetCurrentLineNumber() const {
@@ -83,10 +87,6 @@ namespace mage {
 		char *m_context;
 
 	private:
-
-		LineReader(const LineReader &reader) = delete;
-		LineReader &operator=(const LineReader &reader) = delete;
-		LineReader &operator=(LineReader &&reader) = delete;
 
 		wstring m_fname;
 		string m_delimiters;

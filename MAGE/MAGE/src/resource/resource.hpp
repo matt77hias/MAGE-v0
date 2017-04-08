@@ -40,23 +40,7 @@ namespace mage {
 		 @param[in]		resource
 						A reference to the resource.
 		 */
-		Resource(Resource &&resource) = default;
-
-		/**
-		 Destructs this resource.
-		 */
-		virtual ~Resource() = default;
-
-		/**
-		 Returns the globally unique identifier of this resource.
-
-		 @return		A reference to the globally unique identifier of this resource.
-		 */
-		const wstring &GetGuid() const {
-			return m_guid;
-		}
-
-	private:
+		Resource(const Resource &resource) = delete;
 
 		/**
 		 Constructs a resource from the given resource.
@@ -64,7 +48,12 @@ namespace mage {
 		 @param[in]		resource
 						A reference to the resource.
 		 */
-		Resource(const Resource &resource) = delete;
+		Resource(Resource &&resource) = default;
+
+		/**
+		 Destructs this resource.
+		 */
+		virtual ~Resource() = default;
 
 		/**
 		 Copies the given resource to this resource.
@@ -85,6 +74,17 @@ namespace mage {
 						(i.e. this resource).
 		 */
 		Resource &operator=(Resource &&resource) = delete;
+
+		/**
+		 Returns the globally unique identifier of this resource.
+
+		 @return		A reference to the globally unique identifier of this resource.
+		 */
+		const wstring &GetGuid() const {
+			return m_guid;
+		}
+
+	private:
 
 		/**
 		 The globally unique identifier of this resource.
@@ -118,42 +118,7 @@ namespace mage {
 		 @param[in]		file_resource
 						A reference to the file resource.
 		 */
-		FileResource(FileResource &&file_resource) = default;
-
-		/**
-		 Destructs this file resource.
-		 */
-		virtual ~FileResource() = default;
-
-		/**
-		 Returns the filename of this file resource.
-
-		 @return		A reference to the filename of this file resource.
-		 */
-		const wstring &GetFilename() const {
-			return GetGuid();
-		}
-
-		/**
-		 Returns the name of this file resource.
-
-		 @return		The name of this file resource.
-		 */
-		const wstring GetName() const {
-			return GetFileName(GetGuid());
-		}
-
-
-		/**
-		 Returns the path of this file resource.
-
-		 @return		The path of this file resource.
-		 */
-		const wstring GetPath() const {
-			return GetPathName(GetGuid());
-		}
-
-	private:
+		FileResource(const FileResource &file_resource) = delete;
 
 		/**
 		 Constructs a file resource from the given file resource.
@@ -161,7 +126,12 @@ namespace mage {
 		 @param[in]		file_resource
 						A reference to the file resource.
 		 */
-		FileResource(const FileResource &file_resource) = delete;
+		FileResource(FileResource &&file_resource) = default;
+
+		/**
+		 Destructs this file resource.
+		 */
+		virtual ~FileResource() = default;
 
 		/**
 		 Copies the given file resource to this file resource.
@@ -182,5 +152,32 @@ namespace mage {
 						(i.e. this file resource).
 		 */
 		FileResource &operator=(FileResource &&file_resource) = delete;
+
+		/**
+		 Returns the filename of this file resource.
+
+		 @return		A reference to the filename of this file resource.
+		 */
+		const wstring &GetFilename() const {
+			return GetGuid();
+		}
+
+		/**
+		 Returns the name of this file resource.
+
+		 @return		The name of this file resource.
+		 */
+		const wstring GetName() const {
+			return GetFileName(GetGuid());
+		}
+
+		/**
+		 Returns the path of this file resource.
+
+		 @return		The path of this file resource.
+		 */
+		const wstring GetPath() const {
+			return GetPathName(GetGuid());
+		}
 	};
 }

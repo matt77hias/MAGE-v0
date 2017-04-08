@@ -43,12 +43,40 @@ namespace mage {
 		 @param[in]		engine
 						A reference to the engine.
 		 */
+		Engine(const Engine &engine) = delete;
+
+		/**
+		 Constructs an engine from the given engine.
+
+		 @param[in]		engine
+						A reference to the engine.
+		 */
 		Engine(Engine &&engine) = default;
 
 		/**
 		 Destructs this engine.
 		 */
 		virtual ~Engine();
+
+		/**
+		 Copies the given engine to this engine.
+
+		 @param[in]		engine
+						A reference to the engine to copy from.
+		 @return		A reference to the copy of the given engine
+						(i.e. this engine).
+		 */
+		Engine &operator=(const Engine &engine) = delete;
+
+		/**
+		 Copies the given engine to this engine.
+
+		 @param[in]		engine
+						A reference to the engine to copy from.
+		 @return		A reference to the copy of the given engine
+						(i.e. this engine).
+		 */
+		Engine &operator=(Engine &&engine) = delete;
 
 		/**
 		 Runs this engine.
@@ -142,34 +170,6 @@ namespace mage {
 		void SetScene(SharedPtr< Scene > scene);
 
 	private:
-
-		/**
-		 Constructs an engine from the given engine.
-
-		 @param[in]		engine
-						A reference to the engine.
-		 */
-		Engine(const Engine &engine) = delete;
-
-		/**
-		 Copies the given engine to this engine.
-
-		 @param[in]		engine
-						A reference to the engine to copy from.
-		 @return		A reference to the copy of the given engine
-						(i.e. this engine).
-		 */
-		Engine &operator=(const Engine &engine) = delete;
-
-		/**
-		 Copies the given engine to this engine.
-
-		 @param[in]		engine
-						A reference to the engine to copy from.
-		 @return		A reference to the copy of the given engine
-						(i.e. this engine).
-		 */
-		Engine &operator=(Engine &&engine) = delete;
 
 		/**
 		 Initializes the different systems of this engine.

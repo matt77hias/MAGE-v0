@@ -41,12 +41,40 @@ namespace mage {
 		 @param[in]		variable_script
 						A reference to the variable script.
 		 */
+		VariableScript(const VariableScript &variable_script) = delete;
+
+		/**
+		 Constructs a variable script from the given variable script.
+
+		 @param[in]		variable_script
+						A reference to the variable script.
+		 */
 		VariableScript(VariableScript &&variable_script) = default;
 
 		/**
 		 Destruct this variable script.
 		 */
 		virtual ~VariableScript();
+
+		/**
+		 Copies the given variable script to this variable script.
+
+		 @param[in]		variable_script
+						A reference to the variable script to copy from.
+		 @return		A reference to the copy of the given variable script
+						(i.e. this variable script).
+		 */
+		VariableScript &operator=(const VariableScript &variable_script) = delete;
+
+		/**
+		 Copies the given variable script to this variable script.
+
+		 @param[in]		variable_script
+						A reference to the variable script to copy from.
+		 @return		A reference to the copy of the given variable script
+						(i.e. this variable script).
+		 */
+		VariableScript &operator=(VariableScript &&variable_script) = delete;
 
 		/**
 		 Imports this variable script from the file with the given filename.
@@ -147,34 +175,6 @@ namespace mage {
 		void SetValueOfVariable(const string &name, const T *value);
 
 	private:
-
-		/**
-		 Constructs a variable script from the given variable script.
-
-		 @param[in]		variable_script
-						A reference to the variable script.
-		 */
-		VariableScript(const VariableScript &variable_script) = delete;
-
-		/**
-		Copies the given variable script to this variable script.
-
-		 @param[in]		variable_script
-						A reference to the variable script to copy from.
-		 @return		A reference to the copy of the given variable script
-						(i.e. this variable script).
-		 */
-		VariableScript &operator=(const VariableScript &variable_script) = delete;
-
-		/**
-		 Copies the given variable script to this variable script.
-
-		 @param[in]		variable_script
-						A reference to the variable script to copy from.
-		 @return		A reference to the copy of the given variable script
-						(i.e. this variable script).
-		 */
-		VariableScript &operator=(VariableScript &&variable_script) = delete;
 
 		/**
 		 Linked list containing the variables in this variable script.

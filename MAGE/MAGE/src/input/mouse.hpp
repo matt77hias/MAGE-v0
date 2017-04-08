@@ -48,12 +48,40 @@ namespace mage {
 		 @param[in]		mouse
 						A reference to the mouse.
 		 */
+		Mouse(const Mouse &mouse) = delete;
+
+		/**
+		 Constructs a mouse from the given mouse.
+
+		 @param[in]		mouse
+						A reference to the mouse.
+		 */
 		Mouse(Mouse &&mouse) = default;
 
 		/**
 		Destructs this mouse.
 		*/
 		virtual ~Mouse() = default;
+
+		/**
+		 Copies the given mouse to this mouse.
+
+		 @param[in]		mouse
+						A reference to the mouse to copy from.
+		 @return		A reference to the copy of the given mouse
+						(i.e. this mouse).
+		 */
+		Mouse &operator=(const Mouse &mouse) = delete;
+
+		/**
+		 Copies the given mouse to this mouse.
+
+		 @param[in]		mouse
+						A reference to the mouse to copy from.
+		 @return		A reference to the copy of the given mouse
+						(i.e. this mouse).
+		 */
+		Mouse &operator=(Mouse &&mouse) = delete;
 
 		/**
 		 Updates the state of this mouse.
@@ -128,34 +156,6 @@ namespace mage {
 		}
 
 	private:
-
-		/**
-		 Constructs a mouse from the given mouse.
-
-		 @param[in]		mouse
-						A reference to the mouse.
-		 */
-		Mouse(const Mouse &mouse) = delete;
-
-		/**
-		 Copies the given mouse to this mouse.
-
-		 @param[in]		mouse
-						A reference to the mouse to copy from.
-		 @return		A reference to the copy of the given mouse
-						(i.e. this mouse).
-		 */
-		Mouse &operator=(const Mouse &mouse) = delete;
-
-		/**
-		 Copies the given mouse to this mouse.
-
-		 @param[in]		mouse
-						A reference to the mouse to copy from.
-		 @return		A reference to the copy of the given mouse
-						(i.e. this mouse).
-		 */
-		Mouse &operator=(Mouse &&mouse) = delete;
 
 		/**
 		 Initializes the mouse device of this mouse.

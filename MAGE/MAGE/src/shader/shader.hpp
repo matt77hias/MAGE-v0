@@ -29,8 +29,12 @@ namespace mage {
 		explicit VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &guid, const void *bytecode, SIZE_T bytecode_size,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
+		VertexShader(const VertexShader &vertex_shader) = delete;
 		VertexShader(VertexShader &&vertex_shader) = default;
 		virtual ~VertexShader() = default;
+
+		VertexShader &operator=(const VertexShader &vertex_shader) = delete;
+		VertexShader &operator=(VertexShader &&vertex_shader) = delete;
 
 		virtual void Draw(const XMMATRIX &transform) const;
 		virtual void Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const;
@@ -43,10 +47,6 @@ namespace mage {
 		ComPtr< ID3D11InputLayout >  m_vertex_layout;
 
 	private:
-
-		VertexShader(const VertexShader &vertex_shader) = delete;
-		VertexShader &operator=(const VertexShader &vertex_shader) = delete;
-		VertexShader &operator=(VertexShader &&vertex_shader) = delete;
 
 		HRESULT SetupShader(const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 		HRESULT SetupShader(const void *bytecode, SIZE_T bytecode_size,
@@ -65,8 +65,12 @@ namespace mage {
 			const wstring &guid);
 		explicit PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &guid, const void *bytecode, SIZE_T bytecode_size);
+		PixelShader(const PixelShader &pixel_shader) = delete;
 		PixelShader(PixelShader &&pixel_shader) = default;
 		virtual ~PixelShader() = default;
+
+		PixelShader &operator=(const PixelShader &pixel_shader) = delete;
+		PixelShader &operator=(PixelShader &&pixel_shader) = delete;
 
 		void Draw(const Texture &texture) const {
 			Draw(texture.GetTextureResourceViewAddress());
@@ -81,10 +85,6 @@ namespace mage {
 		ComPtr< ID3D11PixelShader > m_pixel_shader;
 
 	private:
-
-		PixelShader(const PixelShader &pixel_shader) = delete;
-		PixelShader &operator=(const PixelShader &pixel_shader) = delete;
-		PixelShader &operator=(PixelShader &&pixel_shader) = delete;
 
 		HRESULT SetupShader();
 		HRESULT SetupShader(const void *bytecode, SIZE_T bytecode_size);

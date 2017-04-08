@@ -25,11 +25,15 @@ namespace mage {
 	public:
 
 		World();
+		World(const World &world) = delete;
 		World(World &&world) = default;
 		virtual ~World() {
 			RemoveAllModels();
 			RemoveAllLights();
 		}
+
+		World &operator=(const World &world) = delete;
+		World &operator=(World &&world) = delete;
 
 		void Render2D() const;
 		void Render3D(const TransformBuffer &transform_buffer) const;
@@ -93,10 +97,6 @@ namespace mage {
 		SharedPtr< SpriteFont > m_font;
 
 	private:
-
-		World(const World &world) = delete;
-		World &operator=(const World &world) = delete;
-		World &operator=(World &&world) = delete;
 
 		// 3D
 		set< SharedPtr< Model >, std::less<> > m_models;

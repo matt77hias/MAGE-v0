@@ -36,6 +36,26 @@ namespace mage {
 		virtual ~EngineSetup() = default;
 
 		/**
+		 Copies the given engine setup to this engine setup.
+
+		 @param[in]		setup
+						A reference to the engine setup to copy from.
+		 @return		A reference to the copy of the given engine setup
+						(i.e. this engine setup).
+		 */
+		EngineSetup &operator=(const EngineSetup &setup) = delete;
+
+		/**
+		 Copies the given engine setup to this engine setup.
+
+		 @param[in]		setup
+						A reference to the engine setup to copy from.
+		 @return		A reference to the copy of the given engine setup
+						(i.e. this engine setup).
+		 */
+		EngineSetup &operator=(EngineSetup &&setup) = delete;
+
+		/**
 		 Returns the name of the application.
 
 		 @return		A reference to the name of the application.
@@ -90,26 +110,6 @@ namespace mage {
 		EngineSetup(EngineSetup &&setup) = default;
 
 	private:
-
-		/**
-		 Copies the given engine setup to this engine setup.
-
-		 @param[in]		setup
-						A reference to the engine setup to copy from.
-		 @return		A reference to the copy of the given engine setup
-						(i.e. this engine setup).
-		 */
-		EngineSetup &operator=(const EngineSetup &setup) = delete;
-
-		/**
-		 Copies the given engine setup to this engine setup.
-
-		 @param[in]		setup
-						A reference to the engine setup to copy from.
-		 @return		A reference to the copy of the given engine setup
-						(i.e. this engine setup).
-		 */
-		EngineSetup &operator=(EngineSetup &&setup) = delete;
 
 		/**
 		 Application instance handle.

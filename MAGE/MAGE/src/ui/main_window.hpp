@@ -43,12 +43,40 @@ namespace mage {
 		 @param[in]		main_window
 						A reference to the main window.
 		 */
+		MainWindow(const MainWindow &main_window) = delete;
+
+		/**
+		 Constructs a main window from the given main window.
+
+		 @param[in]		main_window
+						A reference to the main window.
+		 */
 		MainWindow(MainWindow &&main_window) = default;
 
 		/**
 		 Destructs this main window.
 		 */
 		virtual ~MainWindow();
+
+		/**
+		 Copies the given main window to this main window.
+
+		 @param[in]		main_window
+						A reference to the main window to copy from.
+		 @return		A reference to the copy of the given main window
+						(i.e. this main window).
+		 */
+		MainWindow &operator=(const MainWindow &main_window) = delete;
+
+		/**
+		 Copies the given main window to this main window.
+
+		 @param[in]		main_window
+						A reference to the main window to copy from.
+		 @return		A reference to the copy of the given main window
+						(i.e. this main window).
+		 */
+		MainWindow &operator=(MainWindow &&main_window) = delete;
 
 		/**
 		 Sets the specified window's show state of this main window.
@@ -88,34 +116,6 @@ namespace mage {
 		}
 
 	private:
-
-		/**
-		 Constructs a main window from the given main window.
-
-		 @param[in]		main_window
-						A reference to the main window.
-		 */
-		MainWindow(const MainWindow &main_window) = delete;
-
-		/**
-		 Copies the given main window to this main window.
-
-		 @param[in]		main_window
-						A reference to the main window to copy from.
-		 @return		A reference to the copy of the given main window
-						(i.e. this main window).
-		 */
-		MainWindow &operator=(const MainWindow &main_window) = delete;
-
-		/**
-		 Copies the given main window to this main window.
-
-		 @param[in]		main_window
-						A reference to the main window to copy from.
-		 @return		A reference to the copy of the given main window
-						(i.e. this main window).
-		 */
-		MainWindow &operator=(MainWindow &&main_window) = delete;
 
 		/**
 		 Initializes the engine window of this main window.

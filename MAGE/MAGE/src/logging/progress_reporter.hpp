@@ -46,6 +46,14 @@ namespace mage {
 		 @param[in]		progress_reporter
 						A reference to the progress reporter.
 		 */
+		ProgressReporter(const ProgressReporter &progress_reporter) = delete;
+
+		/**
+		 Constructs a progress reporter from the given progress reporter.
+
+		 @param[in]		progress_reporter
+						A reference to the progress reporter.
+		 */
 		ProgressReporter(ProgressReporter &&progress_reporter) = default;
 
 		/**
@@ -54,31 +62,8 @@ namespace mage {
 		virtual ~ProgressReporter();
 
 		/**
-		 Updates this progress reporter.
-
-		 @param[in]		nb_work
-						The number of work units that are done.
-		 */
-		void Update(uint32_t nb_work = 1);
-		
-		/**
-		 Finishes this progress reporter.
-		 */
-		void Done();
-
-	private:
-
-		/**
-		 Constructs a progress reporter from the given progress reporter.
-		
-		 @param[in]		progress_reporter
-						A reference to the progress reporter.
-		 */
-		ProgressReporter(const ProgressReporter &progress_reporter) = delete;
-
-		/**
 		 Copies the given progress reporter to this progress reporter.
-		
+
 		 @param[in]		progress_reporter
 						A reference to the progress reporter to copy from.
 		 @return		A reference to the copy of the given progress reporter
@@ -95,6 +80,21 @@ namespace mage {
 						(i.e. this progress reporter).
 		 */
 		ProgressReporter &operator=(ProgressReporter &&progress_reporter) = delete;
+
+		/**
+		 Updates this progress reporter.
+
+		 @param[in]		nb_work
+						The number of work units that are done.
+		 */
+		void Update(uint32_t nb_work = 1);
+		
+		/**
+		 Finishes this progress reporter.
+		 */
+		void Done();
+
+	private:
 
 		/**
 		 The total number of work units that need to be done.

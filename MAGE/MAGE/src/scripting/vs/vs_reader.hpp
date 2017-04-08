@@ -22,7 +22,12 @@ namespace mage {
 
 		explicit VSReader(vector< Variable * > &variable_buffer)
 			: LineReader(), m_variable_buffer(variable_buffer) {}
+		VSReader(const VSReader &reader) = delete;
+		VSReader(VSReader &&reader) = delete;
 		virtual ~VSReader() = default;
+
+		VSReader &operator=(const VSReader &reader) = delete;
+		VSReader &operator=(VSReader &&reader) = delete;
 
 	protected:
 
@@ -41,11 +46,6 @@ namespace mage {
 		void ReadVSUnknown();
 
 	private:
-
-		VSReader(const VSReader &reader) = delete;
-		VSReader(VSReader &&reader) = delete;
-		VSReader &operator=(const VSReader &reader) = delete;
-		VSReader &operator=(VSReader &&reader) = delete;
 
 		vector< Variable * > &m_variable_buffer;
 	};

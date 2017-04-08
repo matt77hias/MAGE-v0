@@ -50,21 +50,7 @@ namespace mage {
 		 @param[in]		sprite_batch_mesh
 						A reference to the sprite batch mesh.
 		 */
-		SpriteBatchMesh(SpriteBatchMesh &&sprite_batch_mesh) = default;
-
-		/**
-		 Destructs this sprite batch mesh.
-		 */
-		virtual ~SpriteBatchMesh() = default;
-
-		HRESULT MapVertexBuffer(D3D11_MAP map_type, D3D11_MAPPED_SUBRESOURCE *mapped_buffer) const {
-			return m_device_context->Map(m_vertex_buffer.Get(), 0, map_type, 0, mapped_buffer);
-		}
-		void UnmapVertexBuffer() {
-			m_device_context->Unmap(m_vertex_buffer.Get(), 0);
-		}
-
-	private:
+		SpriteBatchMesh(const SpriteBatchMesh &sprite_batch_mesh) = delete;
 
 		/**
 		 Constructs a sprite batch mesh from the given sprite batch mesh.
@@ -72,7 +58,12 @@ namespace mage {
 		 @param[in]		sprite_batch_mesh
 						A reference to the sprite batch mesh.
 		 */
-		SpriteBatchMesh(const SpriteBatchMesh &sprite_batch_mesh) = delete;
+		SpriteBatchMesh(SpriteBatchMesh &&sprite_batch_mesh) = default;
+
+		/**
+		 Destructs this sprite batch mesh.
+		 */
+		virtual ~SpriteBatchMesh() = default;
 
 		/**
 		 Copies the given sprite batch mesh to this sprite batch mesh.
@@ -81,7 +72,7 @@ namespace mage {
 						A reference to the sprite batch mesh to copy from.
 		 @return		A reference to the copy of the given sprite batch mesh
 						(i.e. this sprite batch mesh).
-		*/
+		 */
 		SpriteBatchMesh &operator=(const SpriteBatchMesh &sprite_batch_mesh) = delete;
 
 		/**
@@ -93,6 +84,15 @@ namespace mage {
 						(i.e. this sprite batch mesh).
 		 */
 		SpriteBatchMesh &operator=(SpriteBatchMesh &&sprite_batch_mesh) = delete;
+
+		HRESULT MapVertexBuffer(D3D11_MAP map_type, D3D11_MAPPED_SUBRESOURCE *mapped_buffer) const {
+			return m_device_context->Map(m_vertex_buffer.Get(), 0, map_type, 0, mapped_buffer);
+		}
+		void UnmapVertexBuffer() {
+			m_device_context->Unmap(m_vertex_buffer.Get(), 0);
+		}
+
+	private:
 
 		/**
 		 Sets up the vertex buffer of this sprite batch mesh.

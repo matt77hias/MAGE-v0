@@ -16,24 +16,22 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class VSWriter : public Writer {
+	class VSWriter final : public Writer {
 
 	public:
 
 		explicit VSWriter(const vector< Variable * > &variable_buffer)
 			: Writer(), m_variable_buffer(variable_buffer) {}
+		VSWriter(const VSWriter &reader) = delete;
+		VSWriter(VSWriter &&reader) = delete;
 		virtual ~VSWriter() = default;
 
-	protected:
-
-		virtual HRESULT Write() const override;
+		VSWriter &operator=(const VSWriter &reader) = delete;
+		VSWriter &operator=(VSWriter &&reader) = delete;
 
 	private:
 
-		VSWriter(const VSWriter &reader) = delete;
-		VSWriter(VSWriter &&reader) = delete;
-		VSWriter &operator=(const VSWriter &reader) = delete;
-		VSWriter &operator=(VSWriter &&reader) = delete;
+		virtual HRESULT Write() const override;
 
 		const vector< Variable * > &m_variable_buffer;
 	};

@@ -24,6 +24,9 @@ namespace mage {
 		RenderingState(RenderingState &&rendering_state) = default;
 		~RenderingState() = default;
 
+		RenderingState &operator=(const RenderingState &rendering_state) = delete;
+		RenderingState &operator=(RenderingState &&rendering_state) = delete;
+
 		void Render();
 
 		void SetDefaultRenderingState2D();
@@ -83,9 +86,6 @@ namespace mage {
 		}
 
 	private:
-
-		RenderingState &operator=(const RenderingState &rendering_state) = delete;
-		RenderingState &operator=(RenderingState &&rendering_state) = delete;
 
 		/**
 		 A pointer to the device of this rendering state.

@@ -27,6 +27,9 @@ namespace mage {
 		MeshModel(MeshModel &&model) = default;
 		virtual ~MeshModel() = default;
 
+		MeshModel &operator=(const MeshModel &model) = delete;
+		MeshModel &operator=(MeshModel &&model) = delete;
+
 		virtual MeshModel *Clone() const override {
 			return new MeshModel(*this);
 		}
@@ -44,9 +47,6 @@ namespace mage {
 		}
 
 	private:
-
-		MeshModel &operator=(const MeshModel &model) = delete;
-		MeshModel &operator=(MeshModel &&model) = delete;
 
 		HRESULT InitializeModel(const ModelDescriptor &desc, const CombinedShader &shader);
 

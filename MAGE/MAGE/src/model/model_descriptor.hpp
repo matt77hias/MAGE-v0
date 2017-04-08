@@ -22,11 +22,15 @@ namespace mage {
 		template < typename VertexT >
 		explicit ModelDescriptor(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &fname, const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >());
+		ModelDescriptor(const ModelDescriptor &desc) = delete;
 		ModelDescriptor(ModelDescriptor &&desc) = default;
 		virtual ~ModelDescriptor() {
 			m_materials.clear();
 			m_model_parts.clear();
 		}
+
+		ModelDescriptor &operator=(const ModelDescriptor &desc) = delete;
+		ModelDescriptor &operator=(ModelDescriptor &&desc) = delete;
 
 		SharedPtr< StaticMesh > GetMesh() const {
 			return m_mesh;
@@ -45,10 +49,6 @@ namespace mage {
 		}
 
 	private:
-
-		ModelDescriptor(const ModelDescriptor &desc) = delete;
-		ModelDescriptor &operator=(const ModelDescriptor &desc) = delete;
-		ModelDescriptor &operator=(ModelDescriptor &&desc) = delete;
 
 		SharedPtr< StaticMesh > m_mesh;
 		vector< Material > m_materials;

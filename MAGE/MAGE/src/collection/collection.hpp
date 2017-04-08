@@ -5,6 +5,11 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include <array>
+namespace mage {
+	using std::array;
+}
+
 #include <vector>
 namespace mage {
 	using std::vector;

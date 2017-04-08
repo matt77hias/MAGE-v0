@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A struct of id generators.
 	 */
-	struct IdGenerator {
+	struct IdGenerator final {
 
 	public:
 
@@ -36,31 +36,20 @@ namespace mage {
 		 @param[in]		id_generator
 						The id generator.
 		 */
-		IdGenerator(IdGenerator &&id_generator) = default;
-
-		/**
-		 Destructs this id generator.
-		 */
-		virtual ~IdGenerator() = default;
-
-		/**
-		 Returns the next id of this id generator.
-
-		 @return		The next id of this id generator.
-		 */
-		inline uint32_t GetNextId() {
-			return static_cast< uint32_t >(AtomicAdd(&m_current_id, 1));
-		}
-
-	private:
+		IdGenerator(const IdGenerator &id_generator) = delete;
 
 		/**
 		 Constructs an id generator from the given id generator.
 
 		 @param[in]		id_generator
-						The id generator.	
+						The id generator.
 		 */
-		IdGenerator(const IdGenerator &id_generator) = delete;
+		IdGenerator(IdGenerator &&id_generator) = default;
+
+		/**
+		 Destructs this id generator.
+		 */
+		~IdGenerator() = default;
 
 		/**
 		 Copies the given id generator to this id generator.
@@ -81,6 +70,17 @@ namespace mage {
 						(i.e. this id generator).
 		 */
 		IdGenerator &operator=(IdGenerator &&id_generator) = delete;
+
+		/**
+		 Returns the next id of this id generator.
+
+		 @return		The next id of this id generator.
+		 */
+		inline uint32_t GetNextId() {
+			return static_cast< uint32_t >(AtomicAdd(&m_current_id, 1));
+		}
+
+	private:
 
 		/**
 		 The current id of this id generator.

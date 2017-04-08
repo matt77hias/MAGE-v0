@@ -65,8 +65,12 @@ namespace mage {
 	public:
 
 		ModelOutput() = default;
+		ModelOutput(const ModelOutput< VertexT > &output) = delete;
 		ModelOutput(ModelOutput< VertexT > &&output) = default;
 		~ModelOutput() = default;
+
+		ModelOutput< VertexT > &operator=(const ModelOutput< VertexT > &output) = delete;
+		ModelOutput< VertexT > &operator=(ModelOutput< VertexT > &&output) = delete;
 
 		bool HasModelPart(const string &child) {
 			for (vector< ModelPart >::const_iterator it = model_parts.cbegin(); it != model_parts.cend(); ++it) {
@@ -95,11 +99,5 @@ namespace mage {
 		vector< uint32_t > index_buffer;
 		vector< Material > material_buffer;
 		vector< ModelPart > model_parts;
-
-	private:
-
-		ModelOutput(const ModelOutput< VertexT > &output) = delete;
-		ModelOutput< VertexT > &operator=(const ModelOutput< VertexT > &output) = delete;
-		ModelOutput< VertexT > &operator=(ModelOutput< VertexT > &&output) = delete;
 	};
 }

@@ -76,14 +76,7 @@ namespace mage {
 		 @param[in]		static_mesh
 						A reference to the static mesh.
 		 */
-		StaticMesh(StaticMesh &&static_mesh) = default;
-
-		/**
-		 Destructs this static mesh.
-		 */
-		virtual ~StaticMesh() = default;
-
-	private:
+		StaticMesh(const StaticMesh &static_mesh) = delete;
 
 		/**
 		 Constructs a static mesh from the given static mesh.
@@ -91,7 +84,12 @@ namespace mage {
 		 @param[in]		static_mesh
 						A reference to the static mesh.
 		 */
-		StaticMesh(const StaticMesh &static_mesh) = delete;
+		StaticMesh(StaticMesh &&static_mesh) = default;
+
+		/**
+		 Destructs this static mesh.
+		 */
+		virtual ~StaticMesh() = default;
 
 		/**
 		 Copies the given static mesh to this static mesh.
@@ -112,6 +110,8 @@ namespace mage {
 						(i.e. this static mesh).
 		 */
 		StaticMesh &operator=(StaticMesh &&static_mesh) = delete;
+
+	private:
 
 		/**
 		 Sets up the vertex buffer of this static mesh.

@@ -38,12 +38,36 @@ namespace mage {
 		 @param[in]		arena
 						The memory arena.
 		 */
+		MemoryArena(const MemoryArena &arena) = delete;
+
+		/**
+		 Constructs a memory arena from the given memory arena.
+
+		 @param[in]		arena
+						The memory arena.
+		 */
 		MemoryArena(MemoryArena &&arena) = default;
 		
 		/**
 		 Destructs the given memory arena.
 		 */
 		virtual ~MemoryArena();
+
+		/**
+		 Copies the given memory arena to this memory arena.
+
+		 @param[in]		arena
+						The memory arena.
+		 */
+		MemoryArena &operator=(const MemoryArena &arena) = delete;
+
+		/**
+		 Copies the given memory arena to this memory arena.
+
+		 @param[in]		arena
+						The memory arena.
+		 */
+		MemoryArena &operator=(MemoryArena &&arena) = delete;
 
 		/**
 		 Returns the maximum block size of this memory arena.
@@ -113,30 +137,6 @@ namespace mage {
 
 	private:
 
-		/**
-		 Constructs a memory arena from the given memory arena.
-
-		 @param[in]		arena
-						The memory arena.
-		 */
-		MemoryArena(const MemoryArena &arena) = delete;
-
-		/**
-		 Copies the given memory arena to this memory arena.
-
-		 @param[in]		arena
-						The memory arena.
-		 */
-		MemoryArena &operator=(const MemoryArena &arena) = delete;
-
-		/**
-		 Copies the given memory arena to this memory arena.
-
-		 @param[in]		arena
-						The memory arena.
-		 */
-		MemoryArena &operator=(MemoryArena &&arena) = delete;
-		
 		/**
 		 The fixed block size of this memory arena.
 		 */

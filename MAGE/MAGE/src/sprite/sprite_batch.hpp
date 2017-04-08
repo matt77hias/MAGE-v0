@@ -46,8 +46,12 @@ namespace mage {
 
 		SpriteBatch(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const CombinedShader &shader = CreateSpriteShader());
+		SpriteBatch(const SpriteBatch &sprite_batch) = delete;
 		SpriteBatch(SpriteBatch &&sprite_batch) = default;
 		virtual ~SpriteBatch() = default;
+
+		SpriteBatch &operator=(const SpriteBatch &sprite_batch) = delete;
+		SpriteBatch &operator=(SpriteBatch &&sprite_batch) = delete;
 
 		void Begin(SpriteSortMode sort_mode = SpriteSortMode_Deferred, XMMATRIX transform = XMMatrixIdentity());
 		void Draw(ID3D11ShaderResourceView *texture, XMVECTOR color, SpriteEffect effects,
@@ -69,10 +73,6 @@ namespace mage {
 		}
 
 	private:
-
-		SpriteBatch(const SpriteBatch &sprite_batch) = delete;
-		SpriteBatch &operator=(const SpriteBatch &sprite_batch) = delete;
-		SpriteBatch &operator=(SpriteBatch &&sprite_batch) = delete;
 
 		void GrowSpriteQueue();
 		void PrepareDrawing();

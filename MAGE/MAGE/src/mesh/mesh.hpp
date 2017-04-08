@@ -28,6 +28,26 @@ namespace mage {
 		virtual ~Mesh() = default;
 
 		/**
+		 Copies the given mesh to this mesh.
+
+		 @param[in]		mesh
+						A reference to the mesh to copy from.
+		 @return		A reference to the copy of the given mesh
+						(i.e. this mesh).
+		 */
+		Mesh &operator=(const Mesh &mesh) = delete;
+
+		/**
+		 Copies the given mesh to this mesh.
+
+		 @param[in]		mesh
+						A reference to the mesh to copy from.
+		 @return		A reference to the copy of the given mesh
+						(i.e. this mesh).
+		 */
+		Mesh &operator=(Mesh &&mesh) = delete;
+
+		/**
 		 Returns the size of the vertices of this mesh.
 
 		 @return		The vertex size of this static mesh.
@@ -126,6 +146,22 @@ namespace mage {
 			m_index_format(index_format), m_primitive_topology(primitive_topology) {}
 
 		/**
+		 Constructs a mesh from the given mesh.
+
+		 @param[in]		mesh
+						A reference to the mesh.
+		 */
+		Mesh(const Mesh &mesh) = delete;
+
+		/**
+		 Constructs a mesh from the given mesh.
+
+		 @param[in]		mesh
+						A reference to the mesh.
+		 */
+		Mesh(Mesh &&mesh) = default;
+
+		/**
 		 Sets the number of vertices of this mesh to the given number.
 
 		 @param[in]		nb_vertices
@@ -166,42 +202,6 @@ namespace mage {
 		ComPtr< ID3D11Buffer > m_index_buffer;
 
 	private:
-
-		/**
-		 Constructs a mesh from the given mesh.
-
-		 @param[in]		mesh
-						A reference to the mesh.
-		 */
-		Mesh(const Mesh &mesh) = delete;
-
-		/**
-		 Constructs a mesh from the given mesh.
-
-		 @param[in]		mesh
-						A reference to the mesh.
-		 */
-		Mesh(Mesh &&mesh) = delete;
-
-		/**
-		 Copies the given mesh to this mesh.
-
-		 @param[in]		mesh
-						A reference to the mesh to copy from.
-		 @return		A reference to the copy of the given mesh
-						(i.e. this mesh).
-		 */
-		Mesh &operator=(const Mesh &mesh) = delete;
-
-		/**
-		 Copies the given mesh to this mesh.
-
-		 @param[in]		mesh
-						A reference to the mesh to copy from.
-		 @return		A reference to the copy of the given mesh
-						(i.e. this mesh).
-		 */
-		Mesh &operator=(Mesh &&mesh) = delete;
 
 		/**
 		 The vertex size of this static mesh.

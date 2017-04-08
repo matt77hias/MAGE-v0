@@ -21,7 +21,12 @@ namespace mage {
 	public:
 
 		explicit SpriteFontReader(ID3D11Device2 *device, SpriteFontOutput &output, const SpriteFontDescriptor &desc);
+		SpriteFontReader(const SpriteFontReader &reader) = delete;
+		SpriteFontReader(SpriteFontReader &&reader) = delete;
 		virtual ~SpriteFontReader() = default;
+
+		SpriteFontReader &operator=(const SpriteFontReader &reader) = delete;
+		SpriteFontReader &operator=(SpriteFontReader &&reader) = delete;
 
 		virtual HRESULT Read() override;
 
@@ -31,11 +36,6 @@ namespace mage {
 		HRESULT ReadTexture();
 
 	private:
-
-		SpriteFontReader(const SpriteFontReader &reader) = delete;
-		SpriteFontReader(SpriteFontReader &&reader) = delete;
-		SpriteFontReader &operator=(const SpriteFontReader &reader) = delete;
-		SpriteFontReader &operator=(SpriteFontReader &&reader) = delete;
 
 		ID3D11Device2 *m_device;
 		SpriteFontOutput &m_output;

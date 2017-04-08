@@ -37,17 +37,17 @@ namespace mage {
 	 Enumeration of variable types.
 	 */
 	enum VariableType {
-		BoolType,
-		IntType,
-		Int2Type,
-		Int3Type,
-		FloatType,
-		Float2Type,
-		Float3Type,
-		Float4Type,
-		ColorType,
-		StringType,
-		UnknownType
+		VariableType_Bool,
+		VariableType_Int,
+		VariableType_Int2,
+		VariableType_Int3,
+		VariableType_Float,
+		VariableType_Float2,
+		VariableType_Float3,
+		VariableType_Float4,
+		VariableType_Color,
+		VariableType_String,
+		VariableType_Unknown
 	};
 
 	/**

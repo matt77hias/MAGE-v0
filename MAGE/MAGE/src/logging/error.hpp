@@ -14,6 +14,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	using std::exception;
+
 	/**
 	 Notifies a debug message.
 

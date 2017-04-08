@@ -5,10 +5,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	enum SpriteEffects {
-		SpriteEffects_None = 0,
-		SpriteEffects_FlipHorizontally = 1,
-		SpriteEffects_FlipVertically = 2,
-		SpriteEffects_FlipBoth = SpriteEffects_FlipHorizontally | SpriteEffects_FlipVertically
+	enum SpriteEffect {
+		SpriteEffect_None             = 0,
+		SpriteEffect_FlipHorizontally = 1,
+		SpriteEffect_FlipVertically   = 2,
+		SpriteEffect_FlipBoth         = SpriteEffect_FlipHorizontally | SpriteEffect_FlipVertically
 	};
 }

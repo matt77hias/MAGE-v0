@@ -48,10 +48,9 @@ namespace mage {
 
 		// Toggle the begin/end pair.
 		m_in_begin_end_pair = true;
-
 	}
 	
-	void SpriteBatch::Draw(ID3D11ShaderResourceView *texture, XMVECTOR color, SpriteEffects effects,
+	void SpriteBatch::Draw(ID3D11ShaderResourceView *texture, XMVECTOR color, SpriteEffect effects,
 		const SpriteTransform &transform, const RECT *source) {
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);
@@ -79,12 +78,12 @@ namespace mage {
 		
 		XMVECTOR dst = destination;
 		if (source) {
-			XMVECTOR src = XMVectorLeftTopWidthHeight(*source);
+			const XMVECTOR src = XMVectorLeftTopWidthHeight(*source);
 			XMStoreFloat4A(&sprite->source, src);
 
 			// If the destination size is relative to the source region, convert it to pixels.
 			if (!(flags & SpriteInfo::destination_size_in_pixels)) {
-				dst = XMVectorPermute<0, 1, 6, 7>(dst, dst * src);
+				dst = XMVectorPermute< 0, 1, 6, 7 >(dst, dst * src);
 			}
 
 			flags |= SpriteInfo::source_in_texels | SpriteInfo::destination_size_in_pixels;
@@ -277,7 +276,7 @@ namespace mage {
 			}
 
 			// Update vertex buffer
-			VertexPositionColorTexture * vertices = 
+			VertexPositionColorTexture *vertices = 
 				static_cast< VertexPositionColorTexture * >(mapped_buffer.pData) 
 				+ m_vertex_buffer_position * SpriteBatchMesh::vertices_per_sprite;
 			for (size_t i = 0; i < nb_sprites_to_render; ++i) {
@@ -360,9 +359,9 @@ namespace mage {
 		// must be indexed in a different order. This is done as follows:
 		//
 		//    position = cornerOffsets[i]
-		//    texcoord = cornerOffsets[i ^ SpriteEffects]
+		//    texcoord = cornerOffsets[i ^ SpriteEffect]
 
-		static_assert(SpriteEffects_FlipHorizontally == 1 && SpriteEffects_FlipVertically == 2,
+		static_assert(SpriteEffect_FlipHorizontally == 1 && SpriteEffect_FlipVertically == 2,
 						"The mirroring implementation must be updated to match");
 
 		const int mirror_bits = flags & 3;
@@ -377,7 +376,7 @@ namespace mage {
 			// Set z = depth.
 			const XMVECTOR position = XMVectorPermute< 0, 1, 7, 6 >(position2, origin_rotation_depth);
 
-			// Write the position as a XMFLOAT4, even though VertexPositionColor::p is an XMFLOAT3.
+			// Write the position as a XMFLOAT4, even though VertexPositionColorTexture::p is an XMFLOAT3.
 			// This is faster, and harmless as we are just clobbering the first element of the
 			// following color field, which will immediately be overwritten with its correct value.
 			XMStoreFloat4(reinterpret_cast< XMFLOAT4 * >(&vertices[i].p), position);

@@ -27,9 +27,9 @@ namespace mage {
 	const char * const mage_default_delimiters = " \t\n\r";
 
 	enum TokenResult {
-		valid_token,
-		no_token,
-		invalid_token
+		TokenResult_Valid,
+		TokenResult_None,
+		TokenResult_Invalid
 	};
 
 	//-------------------------------------------------------------------------

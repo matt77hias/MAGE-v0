@@ -23,7 +23,7 @@ namespace mage {
 			const void *raw_value = variable->GetValue();
 
 			switch (variable->GetType()) {
-			case BoolType: {
+			case VariableType_Bool: {
 				const bool *value = (bool *)raw_value;
 				if (*value) {
 					sprintf_s(output, (unsigned int)_countof(output), "%s %s true", MAGE_VS_TOKEN_BOOL, name);
@@ -33,52 +33,52 @@ namespace mage {
 				}
 				break;
 			}
-			case IntType: {
+			case VariableType_Int: {
 				const int *value = (int *)raw_value;
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %d", MAGE_VS_TOKEN_INT, name, *value);
 				break;
 			}
-			case Int2Type: {
+			case VariableType_Int2: {
 				const int2 *value = (int2 *)raw_value;
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %d %d", MAGE_VS_TOKEN_INT2, name, value->x, value->y);
 				break;
 			}
-			case Int3Type: {
+			case VariableType_Int3: {
 				const int3 *value = (int3 *)raw_value;
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %d %d %d", MAGE_VS_TOKEN_INT3, name, value->x, value->y, value->z);
 				break;
 			}
-			case FloatType: {
+			case VariableType_Float: {
 				const float *value = (float *)raw_value;
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %f", MAGE_VS_TOKEN_FLOAT, name, *value);
 				break;
 			}
-			case Float2Type: {
+			case VariableType_Float2: {
 				const float2 *value = (float2 *)raw_value;
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %f %f", MAGE_VS_TOKEN_FLOAT2, name, value->x, value->y);
 				break;
 			}
-			case Float3Type: {
+			case VariableType_Float3: {
 				const float3 *value = (float3 *)raw_value;
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %f %f %f", MAGE_VS_TOKEN_FLOAT3, name, value->x, value->y, value->z);
 				break;
 			}
-			case Float4Type: {
+			case VariableType_Float4: {
 				const float4 *value = (float4 *)raw_value;
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %f %f %f %f", MAGE_VS_TOKEN_FLOAT4, name, value->x, value->y, value->z, value->w);
 				break;
 			}
-			case ColorType: {
+			case VariableType_Color: {
 				const color *value = (color *)raw_value;
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %f %f %f %f", MAGE_VS_TOKEN_COLOR, name, value->x, value->y, value->z, value->w);
 				break;
 			}
-			case StringType: {
+			case VariableType_String: {
 				const string *value = (string *)raw_value;
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s \"%s\"", MAGE_VS_TOKEN_STRING, name, value->c_str());
 				break;
 			}
-			case UnknownType: {
+			case VariableType_Unknown: {
 				const char *value = (char *)raw_value;
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %s", MAGE_VS_TOKEN_UNKNOWN, name, value);
 				break;

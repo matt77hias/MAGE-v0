@@ -25,11 +25,11 @@
 namespace mage {
 
 	__declspec(align(16)) struct SpriteInfo : public AlignedData< SpriteInfo > {
-		// Combine values from SpriteEffects with these internal-only flags.
+		// Combine values from SpriteEffect with these internal-only flags.
 		static const int source_in_texels = 4;
 		static const int destination_size_in_pixels = 8;
 
-		static_assert((SpriteEffects_FlipBoth & (source_in_texels | destination_size_in_pixels)) == 0, 
+		static_assert((SpriteEffect_FlipBoth & (source_in_texels | destination_size_in_pixels)) == 0, 
 			"Flag bits must not overlap");
 		
 		XMFLOAT4A source;
@@ -50,7 +50,7 @@ namespace mage {
 		virtual ~SpriteBatch() = default;
 
 		void Begin(SpriteSortMode sort_mode = SpriteSortMode_Deferred, XMMATRIX transform = XMMatrixIdentity());
-		void Draw(ID3D11ShaderResourceView *texture, XMVECTOR color, SpriteEffects effects,
+		void Draw(ID3D11ShaderResourceView *texture, XMVECTOR color, SpriteEffect effects,
 			const SpriteTransform &transform, const RECT *source = nullptr);
 		void End();
 

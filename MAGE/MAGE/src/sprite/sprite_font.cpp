@@ -34,14 +34,14 @@ namespace mage {
 		GlyphLessThan &operator=(const GlyphLessThan &comparator) = default;
 		GlyphLessThan &operator=(GlyphLessThan &&comparator) = default;
 
-		inline bool operator()(const Glyph &left, const Glyph &right) {
-			return left.m_character < right.m_character;
+		inline bool operator()(const Glyph &lhs, const Glyph &rhs) {
+			return lhs.m_character < rhs.m_character;
 		}
-		inline bool operator()(const Glyph &left, wchar_t right) {
-			return left.m_character < static_cast< uint32_t >(right);
+		inline bool operator()(const Glyph &lhs, wchar_t rhs) {
+			return lhs.m_character < static_cast< uint32_t >(rhs);
 		}
-		inline bool operator()(wchar_t left, const Glyph &right) {
-			return static_cast< uint32_t >(left) < right.m_character;
+		inline bool operator()(wchar_t lhs, const Glyph &rhs) {
+			return static_cast< uint32_t >(lhs) < rhs.m_character;
 		}
 	};
 
@@ -73,35 +73,40 @@ namespace mage {
 		SetLineSpacing(output.m_line_spacing);
 		SetDefaultCharacter(output.m_default_character);
 		
-		m_texture = output.m_texture;
+		m_texture = std::move(output.m_texture);
 
 		return S_OK;
 	}
 
 	void SpriteFont::DrawString(SpriteBatch &sprite_batch, const wchar_t *text, 
-		const SpriteTransform &transform, XMVECTOR color, SpriteEffects effects) const {
+		const SpriteTransform &transform, XMVECTOR color, SpriteEffect effects) const {
 
+		static_assert(SpriteEffect_FlipHorizontally == 1 && SpriteEffect_FlipVertically == 2,
+			"The following tables must be updated to match");
+		// Lookup table indicates which way to move along each axes for each SpriteEffect.
 		static const XMVECTORF32 axis_direction_table[4] = {
-			{-1.0f, -1.0f},
-			{ 1.0f, -1.0f},
-			{-1.0f,  1.0f},
-			{ 1.0f,  1.0f}
+			{-1.0f, -1.0f}, //SpriteEffect_None
+			{ 1.0f, -1.0f}, //SpriteEffect_FlipHorizontally
+			{-1.0f,  1.0f}, //SpriteEffect_FlipVertically
+			{ 1.0f,  1.0f}  //SpriteEffect_FlipBoth
 		};
+		// Lookup table indiucates which axes are mirrored for each SpriteEffect.
 		static const XMVECTORF32 axis_is_mirrored_table[4] = {
-			{ 0.0f, 0.0f },
-			{ 1.0f, 0.0f },
-			{ 0.0f, 1.0f },
-			{ 1.0f, 1.0f }
+			{ 0.0f, 0.0f }, //SpriteEffect_None
+			{ 1.0f, 0.0f }, //SpriteEffect_FlipHorizontally
+			{ 0.0f, 1.0f }, //SpriteEffect_FlipVertically
+			{ 1.0f, 1.0f } //SpriteEffect_FlipBoth
 		};
 
 		const XMFLOAT2 rotation_origin = transform.GetRotationOrigin();
 		XMVECTOR base_offset = XMLoadFloat2(&rotation_origin);
-		if (effects != SpriteEffects_None) {
+		if (effects != SpriteEffect_None) {
 			base_offset -= MeasureString(text) * axis_is_mirrored_table[effects & 3];
 		}
 
 		float x = 0;
 		float y = 0;
+		SpriteTransform sprite_transform(transform);
 
 		while (*text != L'\0') {
 			const wchar_t character = *text;
@@ -129,18 +134,21 @@ namespace mage {
 
 				if (!iswspace(character) || width > 1 || height > 1) {
 					const XMVECTOR top_left = XMVectorSet(x, y + glyph->m_offset_y, 0.0f, 0.0f);
-					const XMVECTOR flip = axis_direction_table[effects & 3];
+					const XMVECTOR &flip = axis_direction_table[effects & 3];
 					XMVECTOR offset = XMVectorMultiplyAdd(top_left, flip, base_offset);
 
-					if (effects != SpriteEffects_None) {
+					if (effects != SpriteEffect_None) {
 						const XMVECTOR rect = XMLoadInt4(reinterpret_cast<const uint32_t *>(&(glyph->m_sub_rectangle)));
 						XMVECTOR glyph_rect = XMConvertVectorIntToFloat(rect, 0);
 						glyph_rect = XMVectorSwizzle< 2, 3, 0, 1 >(glyph_rect) - glyph_rect;
-						const XMVECTOR mirror = axis_is_mirrored_table[effects & 3];
+						const XMVECTOR &mirror = axis_is_mirrored_table[effects & 3];
 						offset = XMVectorMultiplyAdd(glyph_rect, mirror, offset);
 					}
 
-					sprite_batch.Draw(m_texture.Get(), color, effects, transform);
+					XMFLOAT2 sprite_rotation_origin;
+					XMStoreFloat2(&sprite_rotation_origin, offset);
+					sprite_transform.SetRotationOrigin(sprite_rotation_origin);
+					sprite_batch.Draw(m_texture.Get(), color, effects, sprite_transform);
 				}
 
 				x += advance;
@@ -252,21 +260,6 @@ namespace mage {
 		return result;
 	}
 
-	float SpriteFont::GetLineSpacing() const {
-		return m_line_spacing;
-	}
-	void SpriteFont::SetLineSpacing(float spacing) {
-		m_line_spacing = spacing;
-	}
-	wchar_t SpriteFont::GetDefaultCharacter() const {
-		return m_default_glyph ? (wchar_t)m_default_glyph->m_character : 0;
-	}
-	void SpriteFont::SetDefaultCharacter(wchar_t character) {
-		m_default_glyph = nullptr;
-		if (character) {
-			m_default_glyph = GetGlyph(character);
-		}
-	}
 	bool SpriteFont::ContainsCharacter(wchar_t character) const {
 		return std::binary_search(m_glyphs.cbegin(), m_glyphs.cend(), character, GlyphLessThan());
 	}
@@ -275,6 +268,10 @@ namespace mage {
 		const vector< Glyph >::const_iterator it = std::lower_bound(m_glyphs.cbegin(), m_glyphs.cend(), character, GlyphLessThan());
 		if (it != m_glyphs.cend() && it->m_character == character) {
 			return &(*it);
+		}
+
+		if (!m_default_glyph) {
+			throw exception("Character not found in sprite font.");
 		}
 
 		return m_default_glyph;

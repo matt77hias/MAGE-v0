@@ -26,15 +26,23 @@ namespace mage {
 		virtual ~SpriteFont() = default;
 
 		void DrawString(SpriteBatch &sprite_batch, const wchar_t *text, const SpriteTransform &transform,
-			XMVECTOR color = Colors::White, SpriteEffects effects = SpriteEffects_None) const;
+			XMVECTOR color = Colors::White, SpriteEffect effects = SpriteEffect_None) const;
 
 		XMVECTOR MeasureString(const wchar_t *text) const;
 		RECT MeasureDrawBounds(const wchar_t *text, const XMFLOAT2 &position) const;
 		
-		float GetLineSpacing() const;
-		void SetLineSpacing(float spacing);
-		wchar_t GetDefaultCharacter() const;
-		void SetDefaultCharacter(wchar_t character);
+		float GetLineSpacing() const {
+			return m_line_spacing;
+		}
+		void SetLineSpacing(float spacing) {
+			m_line_spacing = spacing;
+		}
+		wchar_t GetDefaultCharacter() const {
+			return m_default_glyph ? static_cast< wchar_t >(m_default_glyph->m_character) : L'0';
+		}
+		void SetDefaultCharacter(wchar_t character) {
+			m_default_glyph = (character) ? GetGlyph(character) : nullptr;
+		}
 		bool ContainsCharacter(wchar_t character) const;
 		const Glyph *GetGlyph(wchar_t character) const;
 

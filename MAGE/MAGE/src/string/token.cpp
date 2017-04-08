@@ -19,111 +19,111 @@ namespace mage {
 
 	TokenResult StringToBool(const char *str, bool &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		if (str_equals(str, "true")) {
 			result = true;
-			return valid_token;
+			return TokenResult_Valid;
 		}
 		
 		result = false;
-		return (str_equals(str, "false")) ? valid_token : invalid_token;
+		return (str_equals(str, "false")) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToInt8(const char *str, int8_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< int8_t >(strtol(str, &inner_context, 10));
-		return (*inner_context == '\0') ? valid_token : invalid_token;
+		return (*inner_context == '\0') ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToUInt8(const char *str, uint8_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< uint8_t >(strtoul(str, &inner_context, 10));
-		return (*inner_context == '\0') ? valid_token : invalid_token;
+		return (*inner_context == '\0') ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToInt16(const char *str, int16_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< int16_t >(strtol(str, &inner_context, 10));
-		return (*inner_context == '\0') ? valid_token : invalid_token;
+		return (*inner_context == '\0') ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToUInt16(const char *str, uint16_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< uint16_t >(strtoul(str, &inner_context, 10));
-		return (*inner_context == '\0') ? valid_token : invalid_token;
+		return (*inner_context == '\0') ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToInt32(const char *str, int32_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< int32_t >(strtol(str, &inner_context, 10));
-		return (*inner_context == '\0') ? valid_token : invalid_token;
+		return (*inner_context == '\0') ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToUInt32(const char *str, uint32_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< uint32_t >(strtoul(str, &inner_context, 10));
-		return (*inner_context == '\0') ? valid_token : invalid_token;
+		return (*inner_context == '\0') ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToInt64(const char *str, int64_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< int64_t >(strtoll(str, &inner_context, 10));
-		return (*inner_context == '\0') ? valid_token : invalid_token;
+		return (*inner_context == '\0') ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToUInt64(const char *str, uint64_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< uint64_t >(strtoull(str, &inner_context, 10));
-		return (*inner_context == '\0') ? valid_token : invalid_token;
+		return (*inner_context == '\0') ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToFloat(const char *str, float &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = strtof(str, &inner_context);
-		return (*inner_context == '\0') ? valid_token : invalid_token;
+		return (*inner_context == '\0') ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToDouble(const char *str, double &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = strtod(str, &inner_context);
-		return (*inner_context == '\0') ? valid_token : invalid_token;
+		return (*inner_context == '\0') ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	
 	TokenResult StringToBool(const char *begin, const char *end, bool &result) {
 		if (!begin) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		if (end - begin == 4) {
@@ -132,11 +132,11 @@ namespace mage {
 				(*(begin + 2) != 'u') || 
 				(*(begin + 3) != 'e')) {
 				result = false;
-				return invalid_token;
+				return TokenResult_Invalid;
 			}
 
 			result = true;
-			return valid_token;
+			return TokenResult_Valid;
 		} 
 		
 		if (end - begin == 5) {
@@ -146,196 +146,196 @@ namespace mage {
 				(*(begin + 3) != 's') ||
 				(*(begin + 4) != 'e')) {
 				result = false;
-				return invalid_token;
+				return TokenResult_Invalid;
 			}
 
 			result = false;
-			return valid_token;
+			return TokenResult_Valid;
 		}
 		
 		result = false;
-		return invalid_token;
+		return TokenResult_Invalid;
 	}
 	TokenResult StringToInt8(const char *begin, const char *end, int8_t &result) {
 		if (!begin) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< int8_t >(strtol(begin, &inner_context, 10));
-		return (inner_context == end) ? valid_token : invalid_token;
+		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToUInt8(const char *begin, const char *end, uint8_t &result) {
 		if (!begin) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< uint8_t >(strtoul(begin, &inner_context, 10));
-		return (inner_context == end) ? valid_token : invalid_token;
+		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToInt16(const char *begin, const char *end, int16_t &result) {
 		if (!begin) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< int16_t >(strtol(begin, &inner_context, 10));
-		return (inner_context == end) ? valid_token : invalid_token;
+		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToUInt16(const char *begin, const char *end, uint16_t &result) {
 		if (!begin) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< uint16_t >(strtoul(begin, &inner_context, 10));
-		return (inner_context == end) ? valid_token : invalid_token;
+		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToInt32(const char *begin, const char *end, int32_t &result) {
 		if (!begin) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< int32_t >(strtol(begin, &inner_context, 10));
-		return (inner_context == end) ? valid_token : invalid_token;
+		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToUInt32(const char *begin, const char *end, uint32_t &result) {
 		if (!begin) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< uint32_t >(strtoul(begin, &inner_context, 10));
-		return (inner_context == end) ? valid_token : invalid_token;
+		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToInt64(const char *begin, const char *end, int64_t &result) {
 		if (!begin) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< int64_t >(strtoll(begin, &inner_context, 10));
-		return (inner_context == end) ? valid_token : invalid_token;
+		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToUInt64(const char *begin, const char *end, uint64_t &result) {
 		if (!begin) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< uint64_t >(strtoull(begin, &inner_context, 10));
-		return (inner_context == end) ? valid_token : invalid_token;
+		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToFloat(const char *begin, const char *end, float &result) {
 		if (!begin) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = strtof(begin, &inner_context);
-		return (inner_context == end) ? valid_token : invalid_token;
+		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringToDouble(const char *begin, const char *end, double &result) {
 		if (!begin) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = strtod(begin, &inner_context);
-		return (inner_context == end) ? valid_token : invalid_token;
+		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 
 	TokenResult StringPrefixToInt8(const char *str, int8_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< int8_t >(strtol(str, &inner_context, 10));
-		return (inner_context != str) ? valid_token : invalid_token;
+		return (inner_context != str) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringPrefixToUInt8(const char *str, uint8_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< uint8_t >(strtoul(str, &inner_context, 10));
-		return (inner_context != str) ? valid_token : invalid_token;
+		return (inner_context != str) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringPrefixToInt16(const char *str, int16_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< int16_t >(strtol(str, &inner_context, 10));
-		return (inner_context != str) ? valid_token : invalid_token;
+		return (inner_context != str) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringPrefixToUInt16(const char *str, uint16_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< uint16_t >(strtoul(str, &inner_context, 10));
-		return (inner_context != str) ? valid_token : invalid_token;
+		return (inner_context != str) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringPrefixToInt32(const char *str, int32_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< int32_t >(strtol(str, &inner_context, 10));
-		return (inner_context != str) ? valid_token : invalid_token;
+		return (inner_context != str) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringPrefixToUInt32(const char *str, uint32_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< uint32_t>(strtoul(str, &inner_context, 10));
-		return (inner_context != str) ? valid_token : invalid_token;
+		return (inner_context != str) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringPrefixToInt64(const char *str, int64_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< int64_t >(strtoll(str, &inner_context, 10));
-		return (inner_context != str) ? valid_token : invalid_token;
+		return (inner_context != str) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringPrefixToUInt64(const char *str, uint64_t &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = static_cast< uint64_t >(strtoull(str, &inner_context, 10));
-		return (inner_context != str) ? valid_token : invalid_token;
+		return (inner_context != str) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringPrefixToFloat(const char *str, float &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = strtof(str, &inner_context);
-		return (inner_context != str) ? valid_token : invalid_token;
+		return (inner_context != str) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult StringPrefixToDouble(const char *str, double &result) {
 		if (!str) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *inner_context = nullptr;
 		result = strtod(str, &inner_context);
-		return (inner_context != str) ? valid_token : invalid_token;
+		return (inner_context != str) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 
 	//-------------------------------------------------------------------------
@@ -345,44 +345,44 @@ namespace mage {
 	TokenResult ReadChars(char *str, char **context, char **result, const char *delimiters) {
 		*result = strtok_s(str, delimiters, context);
 		if (!result) {
-			return no_token;
+			return TokenResult_None;
 		}
 
-		return valid_token;
+		return TokenResult_Valid;
 	}
 	TokenResult ReadString(char *str, char **context, string &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
 		if (!token) {
-			return no_token;
+			return TokenResult_None;
 		}
 		
 		result = token;
 
-		return valid_token;
+		return TokenResult_Valid;
 	}
 	TokenResult ReadQuotedString(char *str, char **context, string &result, const char *delimiters) {
 		char *start = (str) ? SkipDelimiters(str, delimiters) : SkipDelimiters(*context, delimiters);
 		if (!start) {
-			return no_token;
+			return TokenResult_None;
 		}
 
 		char *first_quote = str_escape_first(start, '"');
 		if (!first_quote) {
-			return invalid_token;
+			return TokenResult_Invalid;
 		}
 		char *last_quote = str_escape_first(first_quote + 1, '"');
 		if (!last_quote) {
-			return invalid_token;
+			return TokenResult_Invalid;
 		}
 
 		if (!str_contains(delimiters, *(last_quote + 1))) {
-			return invalid_token;
+			return TokenResult_Invalid;
 		}
 
 		*last_quote = '\0';
 		result = first_quote + 1;
 		*context = last_quote + 1;
-		return valid_token;
+		return TokenResult_Valid;
 	}
 	TokenResult ReadBool(char *str, char **context, bool &result, const char *delimiters) {
 		const char *token = strtok_s(str, delimiters, context);
@@ -430,62 +430,62 @@ namespace mage {
 	}
 	TokenResult ReadFloat2(char *str, char **context, XMFLOAT2 &result, const char *delimiters) {
 		const TokenResult token_result_x = ReadFloat(str, context, result.x, delimiters);
-		if (token_result_x != valid_token) {
+		if (token_result_x != TokenResult_Valid) {
 			return token_result_x;
 		}
 
 		const TokenResult token_result_y = ReadFloat(str, context, result.y, delimiters);
-		if (token_result_y != valid_token) {
+		if (token_result_y != TokenResult_Valid) {
 			return token_result_y;
 		}
 		
-		return valid_token;
+		return TokenResult_Valid;
 	}
 	TokenResult ReadFloat3(char *str, char **context, XMFLOAT3 &result, const char *delimiters) {
 		const TokenResult token_result_x = ReadFloat(str, context, result.x, delimiters);
-		if (token_result_x != valid_token) {
+		if (token_result_x != TokenResult_Valid) {
 			return token_result_x;
 		}
 
 		const TokenResult token_result_y = ReadFloat(str, context, result.y, delimiters);
-		if (token_result_y != valid_token) {
+		if (token_result_y != TokenResult_Valid) {
 			return token_result_y;
 		}
 
 		const TokenResult token_result_z = ReadFloat(str, context, result.z, delimiters);
-		if (token_result_z != valid_token) {
+		if (token_result_z != TokenResult_Valid) {
 			return token_result_z;
 		}
 
-		return valid_token;
+		return TokenResult_Valid;
 	}
 	TokenResult ReadFloat4(char *str, char **context, XMFLOAT4 &result, const char *delimiters) {
 		const TokenResult token_result_x = ReadFloat(str, context, result.x, delimiters);
-		if (token_result_x != valid_token) {
+		if (token_result_x != TokenResult_Valid) {
 			return token_result_x;
 		}
 
 		const TokenResult token_result_y = ReadFloat(str, context, result.y, delimiters);
-		if (token_result_y != valid_token) {
+		if (token_result_y != TokenResult_Valid) {
 			return token_result_y;
 		}
 
 		const TokenResult token_result_z = ReadFloat(str, context, result.z, delimiters);
-		if (token_result_z != valid_token) {
+		if (token_result_z != TokenResult_Valid) {
 			return token_result_z;
 		}
 
 		const TokenResult token_result_w = ReadFloat(str, context, result.w, delimiters);
-		if (token_result_w != valid_token) {
+		if (token_result_w != TokenResult_Valid) {
 			return token_result_w;
 		}
 
-		return valid_token;
+		return TokenResult_Valid;
 	}
 
 	TokenResult HasChars(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
-		return (start) ? valid_token : no_token;
+		return (start) ? TokenResult_Valid : TokenResult_None;
 	}
 	TokenResult HasString(const char *str, const char *delimiters) {
 		return HasChars(str, delimiters);
@@ -493,24 +493,24 @@ namespace mage {
 	TokenResult HasQuotedString(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
-			return no_token;
+			return TokenResult_None;
 		}
 		
 		const char *first_quote = str_escape_first(start, '"');
 		if (!first_quote) {
-			return invalid_token;
+			return TokenResult_Invalid;
 		}
 		const char *last_quote = str_escape_first(first_quote + 1, '"');
 		if (!last_quote) {
-			return invalid_token;
+			return TokenResult_Invalid;
 		}
 		
-		return str_contains(delimiters, *(last_quote + 1)) ? valid_token : invalid_token;
+		return str_contains(delimiters, *(last_quote + 1)) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	TokenResult HasBool(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
-			return no_token;
+			return TokenResult_None;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
@@ -520,7 +520,7 @@ namespace mage {
 	TokenResult HasInt8(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
-			return no_token;
+			return TokenResult_None;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
@@ -530,7 +530,7 @@ namespace mage {
 	TokenResult HasUInt8(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
-			return no_token;
+			return TokenResult_None;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
@@ -540,7 +540,7 @@ namespace mage {
 	TokenResult HasInt16(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
-			return no_token;
+			return TokenResult_None;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
@@ -550,7 +550,7 @@ namespace mage {
 	TokenResult HasUInt16(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
-			return no_token;
+			return TokenResult_None;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
@@ -560,7 +560,7 @@ namespace mage {
 	TokenResult HasInt32(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
-			return no_token;
+			return TokenResult_None;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
@@ -570,7 +570,7 @@ namespace mage {
 	TokenResult HasUInt32(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
-			return no_token;
+			return TokenResult_None;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
@@ -580,7 +580,7 @@ namespace mage {
 	TokenResult HasInt64(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
-			return no_token;
+			return TokenResult_None;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
@@ -590,7 +590,7 @@ namespace mage {
 	TokenResult HasUInt64(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
-			return no_token;
+			return TokenResult_None;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
@@ -600,7 +600,7 @@ namespace mage {
 	TokenResult HasFloat(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
-			return no_token;
+			return TokenResult_None;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
@@ -610,7 +610,7 @@ namespace mage {
 	TokenResult HasDouble(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
-			return no_token;
+			return TokenResult_None;
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 

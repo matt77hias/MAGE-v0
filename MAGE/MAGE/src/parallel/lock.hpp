@@ -32,6 +32,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a mutex.
 		 */
@@ -58,6 +62,10 @@ namespace mage {
 		 */
 		~Mutex();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given mutex to this mutex.
 
@@ -80,6 +88,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The critical section object of this mutex.
 		 */
@@ -90,6 +102,10 @@ namespace mage {
 	 A struct of mutex locks.
 	 */
 	struct MutexLock final {
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a mutex lock for the given mutex.
@@ -120,6 +136,10 @@ namespace mage {
 		 */
 		~MutexLock();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given mutex lock to this mutex lock.
 
@@ -142,6 +162,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 The mutex of this mutex lock.
 		 */
@@ -156,6 +180,10 @@ namespace mage {
 	friend struct ReadWriteMutexLock;
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a read write mutex.
@@ -183,6 +211,10 @@ namespace mage {
 		 */
 		~ReadWriteMutex();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given read write mutex to this read write mutex.
 
@@ -203,6 +235,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Acquires a read.
 		 */
@@ -222,6 +258,10 @@ namespace mage {
 		 Release a write.
 		 */
 		void ReleaseWrite();
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The number of writers waiting for this read write mutex lock.
@@ -267,6 +307,10 @@ namespace mage {
 	 */
 	struct ReadWriteMutexLock final {
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a read write mutex lock for the given read write mutex and lock type.
 
@@ -298,6 +342,10 @@ namespace mage {
 		 */
 		~ReadWriteMutexLock();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given read write mutex lock to this read write mutex lock.
 
@@ -318,6 +366,10 @@ namespace mage {
 		 */
 		ReadWriteMutexLock &operator=(ReadWriteMutexLock &&mutex_lock) = delete;
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Upgrades this read write lock to write.
 		 */
@@ -329,6 +381,10 @@ namespace mage {
 		void DowngradeToRead();
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The lock type of this read write mutex lock. 
@@ -347,6 +403,10 @@ namespace mage {
 	class Semaphore final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a semaphore.
@@ -374,6 +434,10 @@ namespace mage {
 		 */
 		~Semaphore();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given semaphore to this semaphore.
 
@@ -393,6 +457,10 @@ namespace mage {
 						(i.e. this semaphore)
 		 */
 		Semaphore &operator=(Semaphore &&semaphore) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Increments the value of this semaphore variable by the given value.
@@ -424,6 +492,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The handle of this semaphore.
 		 */
@@ -436,6 +508,10 @@ namespace mage {
 	class ConditionVariable final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a condition variable.
@@ -463,6 +539,10 @@ namespace mage {
 		 */
 		~ConditionVariable();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given condition variable to this condition variable.
 
@@ -482,6 +562,10 @@ namespace mage {
 						(i.e. this condition variable)
 		 */
 		ConditionVariable &operator=(ConditionVariable &&condition_variable) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Locks this condition variable.
@@ -504,6 +588,10 @@ namespace mage {
 		void Signal();
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/** 
 		 The number of waiters of this condition variable.

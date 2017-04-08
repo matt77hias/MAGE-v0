@@ -21,10 +21,18 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Destructs this behavior script.
 		 */
 		~BehaviorScript() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
 
 		/**
 		 Copies the given behavior script to this behavior script.
@@ -46,6 +54,10 @@ namespace mage {
 		 */
 		BehaviorScript &operator=(BehaviorScript &&script) = delete;
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		const string &GetName() const {
 			return m_name;
 		}
@@ -54,7 +66,7 @@ namespace mage {
 		}
 
 		//-------------------------------------------------------------------------
-		// Lifecycle
+		// Member Methods: Lifecycle
 		//-------------------------------------------------------------------------
 
 		/**
@@ -81,6 +93,10 @@ namespace mage {
 
 	protected:
 
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a behavior script.
 		 */
@@ -103,6 +119,10 @@ namespace mage {
 		BehaviorScript(BehaviorScript &&script) = default;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The name of this script.

@@ -24,11 +24,27 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		ResourcePool() = default;
+		ResourcePool(const ResourcePool &resource_pool) = delete;
 		ResourcePool(ResourcePool &&resource_pool) = default;
 		virtual ~ResourcePool() {
 			RemoveAllResources();
 		}
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
+		ResourcePool &operator=(const ResourcePool &resource_pool) = delete;
+		ResourcePool &operator=(ResourcePool &&resource_pool) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		size_t GetNumberOfResources() const;
 
@@ -42,9 +58,9 @@ namespace mage {
 		
 	private:
 
-		ResourcePool(const ResourcePool &resource_pool) = delete;
-		ResourcePool &operator=(const ResourcePool &resource_pool) = delete;
-		ResourcePool &operator=(ResourcePool &&resource_pool) = delete;
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		ResourceMap< KeyT, ResourceT > m_resource_map;
 		Mutex m_resource_map_mutex;
@@ -53,6 +69,10 @@ namespace mage {
 		struct ResourcePoolEntry final : public DerivedResourceT {
 
 		public:
+
+			//-----------------------------------------------------------------
+			// Constructors and Destructors
+			//-----------------------------------------------------------------
 
 			template< typename... ConstructorArgsT >
 			ResourcePoolEntry(ResourcePool< KeyT, ResourceT > &resource_pool,
@@ -66,10 +86,18 @@ namespace mage {
 				m_resource_pool.RemoveResource(m_resource_key);
 			}
 
+			//-----------------------------------------------------------------
+			// Assignment Operators
+			//-----------------------------------------------------------------
+
 			ResourcePoolEntry &operator=(const ResourcePoolEntry &resource) = delete;
 			ResourcePoolEntry &operator=(ResourcePoolEntry &&resource) = delete;
 
 		private:
+
+			//-----------------------------------------------------------------
+			// Member Variables
+			//-----------------------------------------------------------------
 
 			ResourcePool< KeyT, ResourceT > &m_resource_pool;
 			KeyT m_resource_key;

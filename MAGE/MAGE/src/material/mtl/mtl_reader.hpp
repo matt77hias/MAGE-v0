@@ -16,9 +16,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class MTLReader : public LineReader {
+	class MTLReader final : public LineReader {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		explicit MTLReader(vector< Material > &material_buffer)
 			: LineReader(), m_material_buffer(material_buffer) {}
@@ -26,10 +30,18 @@ namespace mage {
 		MTLReader(MTLReader &&reader) = delete;
 		virtual ~MTLReader() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		MTLReader &operator=(const MTLReader &reader) = delete;
 		MTLReader &operator=(MTLReader &&reader) = delete;
 
-	protected:
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		virtual HRESULT ReadLine(char *line) override;
 
@@ -54,7 +66,9 @@ namespace mage {
 		const RGBSpectrum ReadMTLSpectrum();
 		SharedPtr< Texture > ReadMTLTexture();
 
-	private:
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		vector< Material > &m_material_buffer;
 	};

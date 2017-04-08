@@ -21,6 +21,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs an id generator.
 
@@ -51,6 +55,10 @@ namespace mage {
 		 */
 		~IdGenerator() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given id generator to this id generator.
 
@@ -71,6 +79,10 @@ namespace mage {
 		 */
 		IdGenerator &operator=(IdGenerator &&id_generator) = delete;
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the next id of this id generator.
 
@@ -81,6 +93,10 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The current id of this id generator.

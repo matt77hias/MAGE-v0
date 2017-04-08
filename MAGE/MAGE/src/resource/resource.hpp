@@ -25,6 +25,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a resource with a given globally unique identifier.
 
@@ -55,6 +59,10 @@ namespace mage {
 		 */
 		virtual ~Resource() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given resource to this resource.
 
@@ -75,6 +83,10 @@ namespace mage {
 		 */
 		Resource &operator=(Resource &&resource) = delete;
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the globally unique identifier of this resource.
 
@@ -85,6 +97,10 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The globally unique identifier of this resource.
@@ -102,6 +118,10 @@ namespace mage {
 	class FileResource : public Resource {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a file resource with a given filename.
@@ -133,6 +153,10 @@ namespace mage {
 		 */
 		virtual ~FileResource() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given file resource to this file resource.
 
@@ -152,6 +176,10 @@ namespace mage {
 						(i.e. this file resource).
 		 */
 		FileResource &operator=(FileResource &&file_resource) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the filename of this file resource.

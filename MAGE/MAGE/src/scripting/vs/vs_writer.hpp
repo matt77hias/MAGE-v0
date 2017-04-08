@@ -20,18 +20,34 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit VSWriter(const vector< Variable * > &variable_buffer)
 			: Writer(), m_variable_buffer(variable_buffer) {}
 		VSWriter(const VSWriter &reader) = delete;
 		VSWriter(VSWriter &&reader) = delete;
 		virtual ~VSWriter() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		VSWriter &operator=(const VSWriter &reader) = delete;
 		VSWriter &operator=(VSWriter &&reader) = delete;
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		virtual HRESULT Write() const override;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		const vector< Variable * > &m_variable_buffer;
 	};

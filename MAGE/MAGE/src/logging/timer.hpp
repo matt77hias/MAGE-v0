@@ -21,6 +21,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a timer.
 		 */
@@ -47,6 +51,10 @@ namespace mage {
 		 */
 		virtual ~Timer() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given timer to this timer.
 		
@@ -66,6 +74,10 @@ namespace mage {
 						(i.e. this timer).
 		 */
 		Timer &operator=(Timer &&timer) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Starts this timer.
@@ -99,6 +111,10 @@ namespace mage {
 
 	protected:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the time of this timer.
 
@@ -106,6 +122,12 @@ namespace mage {
 		 @note			This member method encapsulates the counter/frequency processing.
 		*/
 		double time();
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The initial time stamp of this timer. 

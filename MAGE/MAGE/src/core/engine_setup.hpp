@@ -30,10 +30,18 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Destructs this engine setup.
 		 */
 		virtual ~EngineSetup() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
 
 		/**
 		 Copies the given engine setup to this engine setup.
@@ -54,6 +62,10 @@ namespace mage {
 						(i.e. this engine setup).
 		 */
 		EngineSetup &operator=(EngineSetup &&setup) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the name of the application.
@@ -81,6 +93,10 @@ namespace mage {
 		virtual SharedPtr< Scene > CreateScene() const = 0;
 
 	protected:
+
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs an engine setup.
@@ -110,6 +126,10 @@ namespace mage {
 		EngineSetup(EngineSetup &&setup) = default;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 Application instance handle.

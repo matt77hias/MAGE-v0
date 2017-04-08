@@ -25,9 +25,13 @@ namespace mage {
 	/**
 	 A class of engines.
 	 */
-	class Engine : public Loadable {
+	class Engine final : public Loadable {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs an engine from the given engine setup.
@@ -58,6 +62,10 @@ namespace mage {
 		 */
 		virtual ~Engine();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given engine to this engine.
 
@@ -87,7 +95,7 @@ namespace mage {
 		void Run(int nCmdShow = SW_NORMAL);
 
 		//---------------------------------------------------------------------
-		// WINDOW SYSTEM
+		// Member Methods: Window System
 		//---------------------------------------------------------------------
 
 		/**
@@ -110,7 +118,7 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
-		// RENDERING SYSTEM
+		// Member Methods: Rendering System
 		//---------------------------------------------------------------------
 
 		/**
@@ -133,7 +141,7 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
-		// INPUT SYSTEM
+		// Member Methods: Input System
 		//---------------------------------------------------------------------
 
 		/**
@@ -146,7 +154,7 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
-		// RESOURCE SYSTEM
+		// Member Methods: Resource System
 		//---------------------------------------------------------------------
 
 		/**
@@ -159,7 +167,7 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
-		// SCENE
+		// Member Methods: Scene
 		//---------------------------------------------------------------------
 
 		/**
@@ -171,6 +179,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Initializes the different systems of this engine.
 
@@ -181,7 +193,7 @@ namespace mage {
 		HRESULT InitializeSystems(const EngineSetup &setup);
 
 		//---------------------------------------------------------------------
-		// WINDOW SYSTEM
+		// Member Variables: Window System
 		//---------------------------------------------------------------------
 
 		/**
@@ -189,23 +201,13 @@ namespace mage {
 		 */
 		UniquePtr< MainWindow > m_main_window;
 
-		/**
-		 Checks whether this engine is deactive.
-
-		 @return		@c true if this engine is deactive.
-						@c false otherwise.
-		 */
-		bool IsDeactive() const {
-			return m_deactive;
-		}
-		
 		/** 
 		 Flag indicating whether the application is active or not.
 		 */
 		bool m_deactive;
 
 		//---------------------------------------------------------------------
-		// RENDERING SYSTEM
+		// Member Variables: Rendering System
 		//---------------------------------------------------------------------
 
 		/**
@@ -214,23 +216,13 @@ namespace mage {
 		UniquePtr< Renderer > m_renderer;
 
 		/**
-		 Checks whether this engine should switch modes.
-
-		 @return		@c true if this engine should switch modes.
-						@c false otherwise.
-		 */
-		bool ModeSwitch() const {
-			return m_mode_switch;
-		}
-
-		/**
 		 Flag indicating whether the application should switch between
 		 full screen and windowed mode.
 		 */
 		bool m_mode_switch;
 
 		//---------------------------------------------------------------------
-		// INPUT SYSTEM
+		// Member Variables: Input System
 		//---------------------------------------------------------------------
 
 		/**
@@ -239,7 +231,7 @@ namespace mage {
 		UniquePtr< InputManager > m_input_manager;
 
 		//---------------------------------------------------------------------
-		// RESOURCE SYSTEM
+		// Member Variables: Resource System
 		//---------------------------------------------------------------------
 
 		/**
@@ -248,7 +240,7 @@ namespace mage {
 		UniquePtr< ResourceFactory > m_resource_factory;
 
 		//---------------------------------------------------------------------
-		// SCENE
+		// Member Variables: Scene
 		//---------------------------------------------------------------------
 
 		/**

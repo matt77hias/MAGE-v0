@@ -24,6 +24,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		World();
 		World(const World &world) = delete;
 		World(World &&world) = default;
@@ -32,8 +36,16 @@ namespace mage {
 			RemoveAllLights();
 		}
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		World &operator=(const World &world) = delete;
 		World &operator=(World &&world) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------	
 
 		void Render2D() const;
 		void Render3D(const TransformBuffer &transform_buffer) const;
@@ -42,7 +54,7 @@ namespace mage {
 		void ForEachWorldObject(ActionT action) const;
 
 		//-------------------------------------------------------------------------
-		// Models
+		// Member Methods: Models
 		//-------------------------------------------------------------------------
 
 		size_t GetNumberOfModels() const {
@@ -68,7 +80,7 @@ namespace mage {
 		void ForEachModel(ActionT action) const;
 
 		//-------------------------------------------------------------------------
-		// Lights
+		// Member Methods: Lights
 		//-------------------------------------------------------------------------
 
 		size_t GetNumberOfLights() const {
@@ -97,6 +109,10 @@ namespace mage {
 		SharedPtr< SpriteFont > m_font;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		// 3D
 		set< SharedPtr< Model >, std::less<> > m_models;

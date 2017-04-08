@@ -24,6 +24,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a variable script.
 
@@ -56,6 +60,10 @@ namespace mage {
 		 */
 		virtual ~VariableScript();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given variable script to this variable script.
 
@@ -75,6 +83,10 @@ namespace mage {
 						(i.e. this variable script).
 		 */
 		VariableScript &operator=(VariableScript &&variable_script) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Imports this variable script from the file with the given filename.
@@ -175,6 +187,10 @@ namespace mage {
 		void SetValueOfVariable(const string &name, const T *value);
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 Linked list containing the variables in this variable script.

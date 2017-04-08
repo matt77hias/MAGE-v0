@@ -19,14 +19,26 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		PointLight(const string name, float radius, const RGBSpectrum &intensity)
 			: WorldObject(name), m_radius(radius), m_intensity(intensity) {}
 		PointLight(const PointLight &light) = default;
 		PointLight(PointLight &&light) = default;
 		virtual ~PointLight() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		PointLight &operator=(const PointLight &light) = default;
 		PointLight &operator=(PointLight &&light) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		virtual PointLight *Clone() const {
 			return new PointLight(*this);
@@ -46,6 +58,10 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The radius of this point light.

@@ -21,6 +21,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a perspective camera.
 
@@ -62,6 +66,10 @@ namespace mage {
 		 */
 		virtual ~PerspectiveCamera() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given perspective camera to this perspective camera.
 
@@ -77,6 +85,10 @@ namespace mage {
 						The perspective camera.
 		 */
 		PerspectiveCamera &operator=(PerspectiveCamera &&perspective_camera) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Clones this perspective camera.
@@ -149,6 +161,10 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The vertical field-of-view of this perspective camera.

@@ -21,6 +21,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		RGBSpectrum()
 			: XMFLOAT3() {}
 		RGBSpectrum(float r, float g, float b)
@@ -38,6 +42,10 @@ namespace mage {
 
 		~RGBSpectrum() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		RGBSpectrum &operator=(const RGBSpectrum &rgb) = default;
 		RGBSpectrum &operator=(RGBSpectrum &&rgb) = default;
 	};
@@ -45,6 +53,10 @@ namespace mage {
 	struct XYZSpectrum final : public XMFLOAT3 {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		XYZSpectrum()
 			: XMFLOAT3() {}
@@ -62,6 +74,10 @@ namespace mage {
 			: XMFLOAT3(vector) {}
 
 		~XYZSpectrum() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
 
 		XYZSpectrum &operator=(const XYZSpectrum &xyz) = default;
 		XYZSpectrum &operator=(XYZSpectrum &&xyz) = default;

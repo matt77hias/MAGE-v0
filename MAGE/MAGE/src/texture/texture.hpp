@@ -20,13 +20,25 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit Texture(ID3D11Device2 *device, const wstring &fname);
 		Texture(const Texture &texture) = delete;
 		Texture(Texture &&texture) = default;
 		virtual ~Texture() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		Texture &operator=(const Texture &texture) = delete;
 		Texture &operator=(Texture &&texture) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		ID3D11ShaderResourceView *GetTextureResourceView() const {
 			return m_texture_resource_view.Get();
@@ -36,6 +48,10 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		ID3D11Device2 * const m_device;
 		ComPtr< ID3D11ShaderResourceView > m_texture_resource_view;

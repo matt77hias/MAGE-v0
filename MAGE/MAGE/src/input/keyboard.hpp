@@ -28,9 +28,13 @@ namespace mage {
 	/**
 	 A class of keyboards.
 	 */
-	class Keyboard : public Loadable {
+	class Keyboard final : public Loadable {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a keyboard.
@@ -63,6 +67,10 @@ namespace mage {
 		 */
 		virtual ~Keyboard() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given keyboard to this keyboard.
 
@@ -82,6 +90,10 @@ namespace mage {
 						(i.e. this keyboard).
 		 */
 		Keyboard &operator=(Keyboard &&keyboard) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Updates the state of this keyboard.
@@ -112,12 +124,20 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Initializes the keyboard device of this keyboard.
 
 		 @return		A success/error value.
 		 */
 		HRESULT InitializeKeyboard();
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The handle of the parent window of this keyboard..

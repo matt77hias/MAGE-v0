@@ -77,6 +77,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Allocation Operators
+		//---------------------------------------------------------------------	
+
 		static void *operator new(size_t size) {
 			const size_t alignment = __alignof(DataT);
 			

@@ -12,6 +12,19 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Destructs this loadable.
+		 */
+		virtual ~Loadable() = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Checks wether this loadable is loaded.
 
@@ -23,6 +36,10 @@ namespace mage {
 		}
 
 	protected:
+
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a loadable.
@@ -49,10 +66,9 @@ namespace mage {
 		 */
 		Loadable(Loadable &&loadable) = default;
 
-		/**
-		 Destructs this loadable.
-		 */
-		virtual ~Loadable() = default;
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given loadable to this loadable.
@@ -74,6 +90,10 @@ namespace mage {
 		 */
 		Loadable &operator=(Loadable &&loadable) = default;
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Set the state of this loadable to the given value.
 
@@ -85,6 +105,10 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 Flag indicating wether this loadable is loaded.

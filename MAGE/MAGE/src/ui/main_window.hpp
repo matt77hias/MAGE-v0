@@ -23,6 +23,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a main window.
 
@@ -58,6 +62,10 @@ namespace mage {
 		 */
 		virtual ~MainWindow();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given main window to this main window.
 
@@ -77,6 +85,10 @@ namespace mage {
 						(i.e. this main window).
 		 */
 		MainWindow &operator=(MainWindow &&main_window) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Sets the specified window's show state of this main window.
@@ -117,6 +129,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Initializes the engine window of this main window.
 
@@ -143,6 +159,10 @@ namespace mage {
 		 @return		A success/error value.
 		 */
 		HRESULT UninitializeWindow();
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 Application instance handle.

@@ -16,9 +16,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class VSReader : public LineReader {
+	class VSReader final : public LineReader {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		explicit VSReader(vector< Variable * > &variable_buffer)
 			: LineReader(), m_variable_buffer(variable_buffer) {}
@@ -26,10 +30,18 @@ namespace mage {
 		VSReader(VSReader &&reader) = delete;
 		virtual ~VSReader() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		VSReader &operator=(const VSReader &reader) = delete;
 		VSReader &operator=(VSReader &&reader) = delete;
 
-	protected:
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		virtual HRESULT ReadLine(char *line) override;
 
@@ -45,7 +57,9 @@ namespace mage {
 		void ReadVSString();
 		void ReadVSUnknown();
 
-	private:
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		vector< Variable * > &m_variable_buffer;
 	};

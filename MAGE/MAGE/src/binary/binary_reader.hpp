@@ -26,10 +26,22 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Destructors
+		//---------------------------------------------------------------------
+
 		virtual ~BinaryReader() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
 
 		BinaryReader &operator=(const BinaryReader &reader) = delete;
 		BinaryReader &operator=(BinaryReader &&reader) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		HRESULT ReadFromFile(const wstring &fname, bool big_endian);
 		HRESULT ReadFromMemory(const uint8_t *input, size_t size, bool big_endian);
@@ -40,11 +52,19 @@ namespace mage {
 		
 	protected:
 
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
+
 		BinaryReader()
 			: m_fname(), m_big_endian(true), 
 			m_pos(nullptr), m_end(nullptr), m_data() {}
 		BinaryReader(const BinaryReader &reader) = delete;
 		BinaryReader(BinaryReader &&reader) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		virtual HRESULT Read() = 0;
 
@@ -66,6 +86,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		wstring m_fname;
 		bool m_big_endian;
 		const uint8_t *m_pos;
@@ -81,10 +105,22 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Destructors
+		//---------------------------------------------------------------------
+
 		virtual ~BigEndianBinaryReader() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
 
 		BigEndianBinaryReader &operator=(const BigEndianBinaryReader &reader) = delete;
 		BigEndianBinaryReader &operator=(BigEndianBinaryReader &&reader) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		HRESULT ReadFromFile(const wstring &fname);
 		HRESULT ReadFromMemory(const uint8_t *input, size_t size);
@@ -95,10 +131,18 @@ namespace mage {
 
 	protected:
 
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
+
 		BigEndianBinaryReader()
 			: m_fname(), m_pos(nullptr), m_end(nullptr), m_data() {}
 		BigEndianBinaryReader(const BigEndianBinaryReader &reader) = delete;
 		BigEndianBinaryReader(BigEndianBinaryReader &&reader) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		virtual HRESULT Read() = 0;
 
@@ -112,6 +156,10 @@ namespace mage {
 		const ValueT *ReadValueArray(size_t size);
 		
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		wstring m_fname;
 		const uint8_t *m_pos;

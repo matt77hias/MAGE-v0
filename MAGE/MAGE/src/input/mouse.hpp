@@ -28,9 +28,13 @@ namespace mage {
 	/**
 	 A class of mouses.
 	 */
-	class Mouse : public Loadable {
+	class Mouse final : public Loadable {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a mouse.
@@ -59,9 +63,13 @@ namespace mage {
 		Mouse(Mouse &&mouse) = default;
 
 		/**
-		Destructs this mouse.
-		*/
+		 Destructs this mouse.
+		 */
 		virtual ~Mouse() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
 
 		/**
 		 Copies the given mouse to this mouse.
@@ -82,6 +90,10 @@ namespace mage {
 						(i.e. this mouse).
 		 */
 		Mouse &operator=(Mouse &&mouse) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Updates the state of this mouse.
@@ -157,12 +169,20 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Initializes the mouse device of this mouse.
 
 		 @return		A success/error value.
 		 */
 		HRESULT InitializeMouse();
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The handle of the parent window of this mouse.

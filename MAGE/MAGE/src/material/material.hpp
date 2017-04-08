@@ -15,9 +15,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	struct Material {
+	struct Material final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		Material(const string &name, float specular_exponent = 0.0f, 
 			float dissolve = 1.0f, float index_of_refraction = 1.0f)
@@ -33,8 +37,16 @@ namespace mage {
 		Material(Material &&material) = default;
 		~Material() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		Material &operator=(const Material &material) = default;
 		Material &operator=(Material &&material) = default;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The name of this material.

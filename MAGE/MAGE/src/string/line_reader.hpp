@@ -19,10 +19,22 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Destructors
+		//---------------------------------------------------------------------
+
+		virtual ~LineReader() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		LineReader &operator=(const LineReader &reader) = delete;
 		LineReader &operator=(LineReader &&reader) = delete;
 
-		virtual ~LineReader() = default;
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		HRESULT ReadFromFile(const wstring &fname, const string &delimiters = mage_default_delimiters);
 		HRESULT ReadFromMemory(const char *input, const string &delimiters = mage_default_delimiters);
@@ -36,11 +48,19 @@ namespace mage {
 
 	protected:
 
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
+
 		LineReader()
 			: m_context(nullptr), m_fname(), 
 			m_delimiters(mage_default_delimiters), m_line_number(0) {}
 		LineReader(const LineReader &reader) = delete;
 		LineReader(LineReader &&reader) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		const uint32_t GetCurrentLineNumber() const {
 			return m_line_number;
@@ -84,9 +104,17 @@ namespace mage {
 		bool HasFloat() const;
 		bool HasDouble() const;
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		char *m_context;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		wstring m_fname;
 		string m_delimiters;

@@ -19,14 +19,22 @@ namespace mage {
 
 	public:
 
-		Writer() 
-			: m_file(nullptr), m_fname() {}
-		Writer(const Writer &reader) = delete;
-		Writer(Writer &&reader) = default;
+		//---------------------------------------------------------------------
+		// Destructors
+		//---------------------------------------------------------------------
+
 		virtual ~Writer() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
 
 		Writer &operator=(const Writer &reader) = delete;
 		Writer &operator=(Writer &&reader) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		HRESULT WriteToFile(const wstring &fname);
 
@@ -36,12 +44,29 @@ namespace mage {
 
 	protected:
 
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
+
+		Writer()
+			: m_file(nullptr), m_fname() {}
+		Writer(const Writer &reader) = delete;
+		Writer(Writer &&reader) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		virtual HRESULT Write() const = 0;
 		void Write(char c) const;
 		void Write(const char *str) const;
 		void WriteLine(const char *str) const;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		FILE *m_file;
 		wstring m_fname;

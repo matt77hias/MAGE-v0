@@ -30,6 +30,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a new logging configuration.
 
@@ -62,6 +66,10 @@ namespace mage {
 		 */
 		~LoggingConfiguration() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given logging configuration to this logging configuration.
 
@@ -81,6 +89,10 @@ namespace mage {
 						(i.e. this logging configuration).
 		 */
 		LoggingConfiguration &operator=(LoggingConfiguration &&logging_configuration) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Checks whether the logging of the engine processing is quiet.
@@ -103,6 +115,10 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 Flag indicating the logging of the engine processing is quiet.

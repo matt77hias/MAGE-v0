@@ -19,6 +19,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit WorldObject(const string &name) 
 			: m_name(name),
 			m_transform(new Transform()) {}
@@ -28,6 +32,10 @@ namespace mage {
 		WorldObject(WorldObject &&world_object) = default;
 		virtual ~WorldObject() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		WorldObject &operator=(const WorldObject &world_object) {
 			m_name = world_object.m_name;
 			m_transform.reset(new Transform(*world_object.m_transform));
@@ -35,7 +43,11 @@ namespace mage {
 		}
 		WorldObject &operator=(WorldObject &&world_object) = default;
 
-		WorldObject *Clone() const {
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		virtual WorldObject *Clone() const {
 			return new WorldObject(*this);
 		}
 
@@ -70,11 +82,19 @@ namespace mage {
 		
 	protected:
 		
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		virtual void UpdateChildTransforms(bool dirty_ancestor) {
 			UNUSED(dirty_ancestor);
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		string m_name;
 		UniquePtr< Transform > m_transform;

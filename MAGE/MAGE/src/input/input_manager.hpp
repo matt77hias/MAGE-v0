@@ -18,9 +18,13 @@ namespace mage {
 	/**
 	 A class of input managers.
 	 */
-	class InputManager : public Loadable {
+	class InputManager final : public Loadable {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs an input manager for the given window handle.
@@ -51,6 +55,10 @@ namespace mage {
 		 */
 		virtual ~InputManager() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given input manager to this input manager.
 
@@ -70,6 +78,10 @@ namespace mage {
 						(i.e. this input manager).
 		 */
 		InputManager &operator=(InputManager &&input_manager) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Updates the state of the input systems of this input manager.
@@ -105,6 +117,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Initializes the DirectInput object of this input manager.
 
@@ -116,6 +132,10 @@ namespace mage {
 		 Initializes the different input systems of this input manager.
 		 */
 		HRESULT InitializeInputSystems();
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The handle of the parent window.

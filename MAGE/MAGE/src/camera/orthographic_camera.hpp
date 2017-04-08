@@ -19,6 +19,10 @@ namespace mage {
 	 */
 	class OrthographicCamera : public Camera {
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs an orthographic camera.
 
@@ -58,6 +62,10 @@ namespace mage {
 		 */
 		virtual ~OrthographicCamera() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given orthographic camera to this orthographic camera.
 
@@ -73,6 +81,10 @@ namespace mage {
 						The orthographic camera.
 		 */
 		OrthographicCamera &operator=(OrthographicCamera &&orthographic_camera) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Clones this orthographic camera.

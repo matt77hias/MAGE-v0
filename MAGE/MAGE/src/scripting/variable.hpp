@@ -37,6 +37,7 @@ namespace mage {
 	 Enumeration of variable types.
 	 */
 	enum VariableType {
+		VariableType_Unknown = 0,
 		VariableType_Bool,
 		VariableType_Int,
 		VariableType_Int2,
@@ -46,8 +47,7 @@ namespace mage {
 		VariableType_Float3,
 		VariableType_Float4,
 		VariableType_Color,
-		VariableType_String,
-		VariableType_Unknown
+		VariableType_String
 	};
 
 	/**
@@ -56,6 +56,10 @@ namespace mage {
 	struct Variable final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a variable.
@@ -94,6 +98,10 @@ namespace mage {
 		 */
 		~Variable() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given variable to this variable.
 
@@ -114,6 +122,10 @@ namespace mage {
 		 */
 		Variable &operator=(Variable &&variable) = delete;
 		
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Checks whether the given variable is equal to this variable.
 
@@ -182,6 +194,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The type of this value.
 
@@ -207,10 +223,18 @@ namespace mage {
 
 		public:
 
+			//---------------------------------------------------------------------
+			// Destructors
+			//---------------------------------------------------------------------
+
 			/**
 			 Destructs this value.
 			 */
 			virtual ~AbstractValue() = default;
+
+			//---------------------------------------------------------------------
+			// Assignment Operators
+			//---------------------------------------------------------------------	
 
 			/**
 			 Copies the given abstract value to this abstract value.
@@ -232,6 +256,10 @@ namespace mage {
 			 */
 			AbstractValue &operator=(AbstractValue &&abstract_value) = delete;
 
+			//---------------------------------------------------------------------
+			// Member Methods
+			//---------------------------------------------------------------------
+
 			/**
 			 Returns the value of this value.
 
@@ -240,6 +268,10 @@ namespace mage {
 			virtual const void *GetValue() const = 0;
 
 		protected:
+
+			//---------------------------------------------------------------------
+			// Constructors
+			//---------------------------------------------------------------------
 
 			/**
 			 Constructs an abstract value.
@@ -273,6 +305,10 @@ namespace mage {
 
 		public:
 
+			//---------------------------------------------------------------------
+			// Constructors and Destructors
+			//---------------------------------------------------------------------
+
 			/**
 			 Constructs a value.
 
@@ -303,6 +339,10 @@ namespace mage {
 			 */
 			virtual ~Value() = default;
 
+			//---------------------------------------------------------------------
+			// Assignment Operators
+			//---------------------------------------------------------------------	
+
 			/**
 			 Copies the given value to this value.
 
@@ -323,6 +363,10 @@ namespace mage {
 			 */
 			Value &operator=(Value &&value) = delete;
 
+			//---------------------------------------------------------------------
+			// Member Methods
+			//---------------------------------------------------------------------
+
 			/**
 			 Returns the value of this value.
 
@@ -333,6 +377,10 @@ namespace mage {
 			}
 
 		private:
+
+			//---------------------------------------------------------------------
+			// Member Variables
+			//---------------------------------------------------------------------
 
 			/**
 			 A pointer to the value of this value.

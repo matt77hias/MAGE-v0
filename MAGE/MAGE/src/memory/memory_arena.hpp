@@ -17,9 +17,13 @@ namespace mage {
 	/**
 	 A class of memory arena's.
 	 */
-	class MemoryArena {
+	class MemoryArena final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a memory arena with given block size.
@@ -53,6 +57,10 @@ namespace mage {
 		 */
 		virtual ~MemoryArena();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		/**
 		 Copies the given memory arena to this memory arena.
 
@@ -68,6 +76,10 @@ namespace mage {
 						The memory arena.
 		 */
 		MemoryArena &operator=(MemoryArena &&arena) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the maximum block size of this memory arena.
@@ -136,6 +148,10 @@ namespace mage {
 		T *Alloc(size_t count = 1, bool initialization = true);
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The fixed block size of this memory arena.

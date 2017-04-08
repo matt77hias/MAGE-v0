@@ -20,9 +20,13 @@ namespace mage {
 	/**
 	 A class of progress reporters.
 	 */
-	class ProgressReporter {
+	class ProgressReporter final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a progress reporter.
@@ -61,6 +65,10 @@ namespace mage {
 		 */
 		virtual ~ProgressReporter();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given progress reporter to this progress reporter.
 
@@ -81,6 +89,10 @@ namespace mage {
 		 */
 		ProgressReporter &operator=(ProgressReporter &&progress_reporter) = delete;
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Updates this progress reporter.
 
@@ -95,6 +107,10 @@ namespace mage {
 		void Done();
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The total number of work units that need to be done.

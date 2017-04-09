@@ -17,9 +17,13 @@
 namespace mage {
 
 	template < typename VertexT >
-	class OBJReader : public LineReader {
+	class OBJReader final : public LineReader {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		explicit OBJReader(ModelOutput< VertexT > &model_output, const MeshDescriptor< VertexT > &mesh_desc)
 			: LineReader(), 
@@ -30,10 +34,18 @@ namespace mage {
 		OBJReader(OBJReader &&reader) = delete;
 		virtual ~OBJReader() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		OBJReader &operator=(const OBJReader &reader) = delete;
 		OBJReader &operator=(OBJReader &&reader) = delete;
 
-	protected:
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		virtual HRESULT Preprocess() override;
 		virtual HRESULT ReadLine(char *line) override;
@@ -54,8 +66,6 @@ namespace mage {
 		const XMUINT3 ReadOBJVertexIndices();
 		
 		const VertexT ConstructVertex(const XMUINT3 &vertex_indices);
-
-	private:
 
 		/**
 		 A struct of @c XMUINT3 comparators for OBJ vertex indices.
@@ -78,6 +88,10 @@ namespace mage {
 				return (a.x == b.x) ? ((a.y == b.y) ? (a.z < b.z) : (a.y < b.y)) : (a.x < b.x);
 			}
 		};
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		vector< Point3 >  m_vertex_coordinates;
 		vector< UV > m_vertex_texture_coordinates;

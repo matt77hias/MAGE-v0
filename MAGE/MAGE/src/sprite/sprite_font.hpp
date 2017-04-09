@@ -21,13 +21,25 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit SpriteFont(ID3D11Device2 *device, const wstring &fname, const SpriteFontDescriptor &desc);
 		SpriteFont(const SpriteFont &font) = delete;
 		SpriteFont(SpriteFont &&font) = default;
 		virtual ~SpriteFont() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		SpriteFont &operator=(const SpriteFont &font) = delete;
 		SpriteFont &operator=(SpriteFont &&font) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		void DrawString(SpriteBatch &sprite_batch, const wchar_t *text, const SpriteTransform &transform,
 			XMVECTOR color = Colors::White, SpriteEffect effects = SpriteEffect_None) const;
@@ -52,7 +64,15 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		HRESULT InitializeSpriteFont(const SpriteFontOutput &output);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		ComPtr< ID3D11ShaderResourceView > m_texture;
 		vector < Glyph > m_glyphs;

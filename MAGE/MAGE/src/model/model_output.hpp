@@ -39,6 +39,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit ModelPart(const string &child = MAGE_MODEL_PART_DEFAULT_CHILD, 
 			const string &parent = MAGE_MODEL_PART_DEFAULT_PARENT,
 			uint32_t start_index = 0, uint32_t nb_indices = 0, 
@@ -49,8 +53,16 @@ namespace mage {
 		ModelPart(ModelPart &&model_part) = default;
 		~ModelPart() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		ModelPart &operator=(const ModelPart &model_part) = default;
 		ModelPart &operator=(ModelPart &&model_part) = default;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		string child;
 		string parent;
@@ -64,13 +76,25 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		ModelOutput() = default;
 		ModelOutput(const ModelOutput< VertexT > &output) = delete;
 		ModelOutput(ModelOutput< VertexT > &&output) = default;
 		~ModelOutput() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		ModelOutput< VertexT > &operator=(const ModelOutput< VertexT > &output) = delete;
 		ModelOutput< VertexT > &operator=(ModelOutput< VertexT > &&output) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		bool HasModelPart(const string &child) {
 			for (vector< ModelPart >::const_iterator it = model_parts.cbegin(); it != model_parts.cend(); ++it) {
@@ -94,6 +118,10 @@ namespace mage {
 			const uint32_t end = static_cast< uint32_t >(index_buffer.size());
 			current.nb_indices = end - start;
 		}
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		vector< VertexT > vertex_buffer;
 		vector< uint32_t > index_buffer;

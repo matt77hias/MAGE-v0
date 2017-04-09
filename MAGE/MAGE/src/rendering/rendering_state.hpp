@@ -18,14 +18,26 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit RenderingState(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, RenderingStateCache *rendering_state_cache)
 			: m_device(device), m_device_context(device_context), m_rendering_state_cache(rendering_state_cache) {}
 		RenderingState(const RenderingState &rendering_state) = default;
 		RenderingState(RenderingState &&rendering_state) = default;
 		~RenderingState() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		RenderingState &operator=(const RenderingState &rendering_state) = delete;
 		RenderingState &operator=(RenderingState &&rendering_state) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		void Render();
 
@@ -33,7 +45,7 @@ namespace mage {
 		void SetDefaultRenderingState3D();
 
 		//---------------------------------------------------------------------
-		// Blend state
+		// Member Methods: Blend State
 		//---------------------------------------------------------------------
 
 		void SetBlendState(ID3D11BlendState *blend_state);
@@ -46,7 +58,7 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
-		// Depth stencil state
+		// Member Methods: Depth Stencil State
 		//---------------------------------------------------------------------
 
 		void SetDepthStencilState(ID3D11DepthStencilState *depth_stencil_state);
@@ -58,7 +70,7 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
-		// Rasterizer state
+		// Member Methods: Rasterizer State
 		//---------------------------------------------------------------------
 
 		void SetRasterizerState(ID3D11RasterizerState *rasterizer_state);
@@ -71,7 +83,7 @@ namespace mage {
 		}
 
 		//-------------------------------------------------------------------------
-		// Sampler state
+		// Member Methods: Sampler State
 		//-------------------------------------------------------------------------
 
 		void SetSamplerState(ID3D11SamplerState *sampler_state);
@@ -86,6 +98,10 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 A pointer to the device of this rendering state.

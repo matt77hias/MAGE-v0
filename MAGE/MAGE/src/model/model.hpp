@@ -30,12 +30,24 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Destructors
+		//---------------------------------------------------------------------
+
 		virtual ~Model() {
 			RemoveAndDestructAllElements(m_submodels);
 		}
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		Model &operator=(const Model &model) = delete;
 		Model &operator=(Model &&model) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		virtual Model *Clone() const = 0;
 
@@ -57,13 +69,25 @@ namespace mage {
 
 	protected:
 
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
+
 		explicit Model(const string &name);
 		Model(const Model &model);
 		Model(Model &&model) = default;
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		virtual void UpdateChildTransforms(bool dirty_ancestor) override;
 		
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		set< SubModel *, std::less<> > m_submodels;
 	};
@@ -79,13 +103,25 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit SubModel(const string &name, size_t start_index, size_t nb_indices, const ShadedMaterial &material);
 		SubModel(const SubModel &submodel);
 		SubModel(SubModel &&submodel) = default;
 		virtual ~SubModel() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		SubModel &operator=(const SubModel &submodel) = delete;
 		SubModel &operator=(SubModel &&submodel) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		virtual SubModel *Clone() const {
 			return new SubModel(*this);
@@ -114,6 +150,10 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		const size_t m_start_index;
 		const size_t m_nb_indices;

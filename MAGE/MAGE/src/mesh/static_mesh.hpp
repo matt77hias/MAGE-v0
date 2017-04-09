@@ -22,6 +22,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a static mesh.
 
@@ -91,6 +95,10 @@ namespace mage {
 		 */
 		virtual ~StaticMesh() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given static mesh to this static mesh.
 
@@ -112,6 +120,10 @@ namespace mage {
 		StaticMesh &operator=(StaticMesh &&static_mesh) = delete;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Sets up the vertex buffer of this static mesh.

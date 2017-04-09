@@ -30,6 +30,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		UV()
 			: XMFLOAT2() {}
 		UV(float x, float y)
@@ -44,6 +48,10 @@ namespace mage {
 			: XMFLOAT2(vector) {}
 
 		~UV() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
 
 		UV &operator=(const UV &uv) {
 			XMFLOAT2::operator=(uv);
@@ -74,6 +82,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		Point3()
 			: XMFLOAT3() {}
 		Point3(float x, float y, float z) 
@@ -93,6 +105,10 @@ namespace mage {
 
 		~Point3() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		Point3 &operator=(const Point3 &point) {
 			XMFLOAT3::operator=(point);
 			return (*this);
@@ -106,6 +122,10 @@ namespace mage {
 	struct Direction3 final : public XMFLOAT3 {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		Direction3()
 			: XMFLOAT3() {}
@@ -128,6 +148,10 @@ namespace mage {
 
 		~Direction3() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		Direction3 &operator=(const Direction3 &direction) {
 			XMFLOAT3::operator=(direction);
 			return (*this);
@@ -141,6 +165,10 @@ namespace mage {
 	struct Normal3 final : public XMFLOAT3 {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		Normal3()
 			: XMFLOAT3() {}
@@ -164,6 +192,10 @@ namespace mage {
 			: XMFLOAT3(vector) {}
 
 		~Normal3() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
 
 		Normal3 &operator=(const Normal3 &normal) {
 			XMFLOAT3::operator=(normal);
@@ -207,6 +239,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		Color()
 			: XMFLOAT4() {}
 		Color(float x, float y, float z, float w)
@@ -221,6 +257,10 @@ namespace mage {
 			: XMFLOAT4(vector) {}
 		
 		~Color() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
 
 		Color &operator=(const Color &color) {
 			XMFLOAT4::operator=(color);

@@ -29,6 +29,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs an (identity) AABB.
 		 */
@@ -85,6 +89,10 @@ namespace mage {
 		 */
 		~AABB() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given AABB to this AABB.
 
@@ -104,6 +112,10 @@ namespace mage {
 						(i.e. this AABB).
 		 */
 		AABB &operator=(AABB &&aabb) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Checks whether this AABB completely encloses the given point.
@@ -225,6 +237,10 @@ namespace mage {
 		 */
 		const Direction3 Diagonal() const;
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The minimum extents of this AABB.
 		 */
@@ -293,6 +309,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a BS.
 		 */
@@ -348,6 +368,10 @@ namespace mage {
 		 */
 		~BS() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given BS to this BS.
 
@@ -367,6 +391,10 @@ namespace mage {
 						(i.e. this BS).
 		 */
 		BS &operator=(BS &&bs) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Checks whether this BS completely encloses the given point.
@@ -462,6 +490,10 @@ namespace mage {
 		const Point3 Centroid() const {
 			return p;
 		}
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The position of this BS.

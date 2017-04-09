@@ -25,6 +25,11 @@
 namespace mage {
 
 	__declspec(align(16)) struct SpriteInfo : public AlignedData< SpriteInfo > {
+		
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+		
 		// Combine values from SpriteEffect with these internal-only flags.
 		static const int source_in_texels = 4;
 		static const int destination_size_in_pixels = 8;
@@ -32,6 +37,10 @@ namespace mage {
 		static_assert((SpriteEffect_FlipBoth & (source_in_texels | destination_size_in_pixels)) == 0, 
 			"Flag bits must not overlap");
 		
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		XMFLOAT4A source;
 		XMFLOAT4A destination;
 		XMFLOAT4A color;
@@ -44,14 +53,26 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		SpriteBatch(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const CombinedShader &shader = CreateSpriteShader());
 		SpriteBatch(const SpriteBatch &sprite_batch) = delete;
 		SpriteBatch(SpriteBatch &&sprite_batch) = default;
 		virtual ~SpriteBatch() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		SpriteBatch &operator=(const SpriteBatch &sprite_batch) = delete;
 		SpriteBatch &operator=(SpriteBatch &&sprite_batch) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		void Begin(SpriteSortMode sort_mode = SpriteSortMode_Deferred, XMMATRIX transform = XMMatrixIdentity());
 		void Draw(ID3D11ShaderResourceView *texture, XMVECTOR color, SpriteEffect effects,
@@ -74,6 +95,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		void GrowSpriteQueue();
 		void PrepareDrawing();
 		void FlushBatch();
@@ -83,6 +108,10 @@ namespace mage {
 			const SpriteInfo * const * sprites, size_t nb_sprites);
 		void RenderSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
 			const XMVECTOR &texture_size, const XMVECTOR &inverse_texture_size);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		ID3D11Device2 * const m_device;
 		ID3D11DeviceContext2 * const m_device_context;

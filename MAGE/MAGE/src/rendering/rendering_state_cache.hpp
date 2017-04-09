@@ -20,6 +20,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit RenderingStateCache(ID3D11Device2 *device)
 			: m_device(device), 
 			m_opaque_blend_state(), m_alpha_blend_state(), m_additive_blend_state(), m_non_premultiplied_blend_state(),
@@ -32,11 +36,15 @@ namespace mage {
 		RenderingStateCache(RenderingStateCache &&rendering_state_cache) = default;
 		~RenderingStateCache() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
 		RenderingStateCache &operator=(const RenderingStateCache &rendering_state_cache) = delete;
 		RenderingStateCache &operator=(RenderingStateCache &&rendering_state_cache) = delete;
 
 		//---------------------------------------------------------------------
-		// Blend states
+		// Member Methods: Blend States
 		//---------------------------------------------------------------------
 
 		ID3D11BlendState *GetOpaqueBlendState();
@@ -45,7 +53,7 @@ namespace mage {
 		ID3D11BlendState *GetNonPremultipliedBlendState();
 
 		//---------------------------------------------------------------------
-		// Depth stencil states
+		// Member Methods: Depth Stencil States
 		//---------------------------------------------------------------------
 
 		ID3D11DepthStencilState *GetDepthNoneDepthStencilState();
@@ -53,7 +61,7 @@ namespace mage {
 		ID3D11DepthStencilState *GetDepthReadDepthStencilState();
 
 		//-------------------------------------------------------------------------
-		// Rasterizer states
+		// Member Methods: Rasterizer States
 		//-------------------------------------------------------------------------
 
 		ID3D11RasterizerState *GetCullNoneRasterizerState();
@@ -62,7 +70,7 @@ namespace mage {
 		ID3D11RasterizerState *GetWireframeRasterizerState();
 
 		//-------------------------------------------------------------------------
-		// Sampler states
+		// Member Methods: Sampler States
 		//-------------------------------------------------------------------------
 
 		ID3D11SamplerState *GetPointWrapSamplerState();
@@ -73,6 +81,10 @@ namespace mage {
 		ID3D11SamplerState *GetAnisotropicClampSamplerState();
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The device of this rendering state.

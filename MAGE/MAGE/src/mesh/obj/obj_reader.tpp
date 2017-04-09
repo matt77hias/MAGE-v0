@@ -192,17 +192,17 @@ namespace mage {
 
 	template < typename VertexT >
 	const Point3 OBJReader< VertexT >::ReadOBJVertexCoordinates() {
-		return (Point3)ReadFloat3();
+		return static_cast< Point3 >(ReadFloat3());
 	}
 
 	template < typename VertexT >
 	const Normal3 OBJReader< VertexT >::ReadOBJVertexNormalCoordinates() {
-		return (Normal3)ReadFloat3();
+		return static_cast< Normal3 >(ReadFloat3());
 	}
 
 	template < typename VertexT >
 	const UV OBJReader< VertexT >::ReadOBJVertexTextureCoordinates() {
-		return (UV)ReadFloat2();
+		return static_cast< UV >(ReadFloat2());
 	}
 
 	template < typename VertexT >

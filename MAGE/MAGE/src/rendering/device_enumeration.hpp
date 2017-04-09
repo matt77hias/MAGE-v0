@@ -25,6 +25,10 @@ namespace mage {
 	
 	public:
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given device enumeration to this device enumeration.
 
@@ -44,6 +48,10 @@ namespace mage {
 						(i.e. this device enumeration).
 		 */
 		DeviceEnumeration &operator=(DeviceEnumeration &&device_enumeration) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the adapter.
@@ -104,15 +112,14 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a device enumeration.
 		 */
 		DeviceEnumeration();
-
-		/**
-		 Destructs this device enumeration.
-		 */
-		~DeviceEnumeration() = default;
 
 		/**
 		 Constructs a device enumeration from the given device enumeration.
@@ -129,6 +136,15 @@ namespace mage {
 						A reference to a device enumeration.
 		 */
 		DeviceEnumeration(DeviceEnumeration &&device_enumeration) = default;
+
+		/**
+		 Destructs this device enumeration.
+		 */
+		~DeviceEnumeration() = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Initializes the adapter and the output of this device enumeration.
@@ -168,6 +184,10 @@ namespace mage {
 						@c false otherwise.
 		 */
 		INT_PTR SettingsDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 		
 		/**
 		 A pointer to the adapter (or video card).

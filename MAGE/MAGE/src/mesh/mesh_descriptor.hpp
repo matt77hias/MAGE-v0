@@ -10,6 +10,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a mesh descriptor.
 
@@ -26,8 +30,16 @@ namespace mage {
 		MeshDescriptor(MeshDescriptor< VertexT > &&desc) = default;
 		~MeshDescriptor() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		MeshDescriptor &operator=(const MeshDescriptor< VertexT > &desc) = default;
 		MeshDescriptor &operator=(MeshDescriptor< VertexT > &&desc) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		bool InvertHandness() const {
 			return m_invert_handedness;
@@ -37,6 +49,10 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		bool m_invert_handedness;
 		bool m_clockwise_order;

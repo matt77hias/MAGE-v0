@@ -31,6 +31,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a vertex.
 		 */
@@ -66,6 +70,10 @@ namespace mage {
 		 */
 		~VertexPosition() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		Copies the given vertex to this vertex.
 
@@ -84,10 +92,18 @@ namespace mage {
 		 */
 		VertexPosition &operator=(VertexPosition &&vertex) = default;
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The position of this vertex.
 		 */
 		Point3 p;
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The number of elements in the input element descriptor of a vertex.
@@ -103,6 +119,10 @@ namespace mage {
 	struct VertexPositionNormal final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a vertex.
@@ -141,6 +161,10 @@ namespace mage {
 		 */
 		~VertexPositionNormal() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given vertex to this vertex.
 
@@ -159,6 +183,10 @@ namespace mage {
 		 */
 		VertexPositionNormal &operator=(VertexPositionNormal &&vertex) = default;
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The position of this vertex.
 		 */
@@ -168,6 +196,10 @@ namespace mage {
 		 The normal of this vertex.
 		 */
 		Normal3 n;
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The number of elements in the input element descriptor of a vertex.
@@ -183,6 +215,10 @@ namespace mage {
 	struct VertexPositionColor final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a vertex.
@@ -221,6 +257,10 @@ namespace mage {
 		 */
 		~VertexPositionColor() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given vertex to this vertex.
 
@@ -239,6 +279,10 @@ namespace mage {
 		 */
 		VertexPositionColor &operator=(VertexPositionColor &&vertex) = default;
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The position of this vertex.
 		 */
@@ -248,6 +292,10 @@ namespace mage {
 		 The color of this vertex.
 		 */
 		Color c;
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The number of elements in the input element descriptor of a vertex.
@@ -263,6 +311,10 @@ namespace mage {
 	struct VertexPositionTexture final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a vertex.
@@ -301,6 +353,10 @@ namespace mage {
 		 */
 		~VertexPositionTexture() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given vertex to this vertex.
 
@@ -319,6 +375,10 @@ namespace mage {
 		 */
 		VertexPositionTexture &operator=(VertexPositionTexture &&vertex) = default;
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The position of this vertex.
 		 */
@@ -328,6 +388,10 @@ namespace mage {
 		 The texture coordinates of this vertex.
 		 */
 		UV tex;
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The number of elements in the input element descriptor of a vertex.
@@ -343,6 +407,10 @@ namespace mage {
 	struct VertexPositionNormalColor final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a vertex.
@@ -383,6 +451,10 @@ namespace mage {
 		 */
 		~VertexPositionNormalColor() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given vertex to this vertex.
 
@@ -401,6 +473,10 @@ namespace mage {
 		 */
 		VertexPositionNormalColor &operator=(VertexPositionNormalColor &&vertex) = default;
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The position of this vertex.
 		 */
@@ -416,6 +492,10 @@ namespace mage {
 		 */
 		Color c;
 
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
@@ -430,6 +510,10 @@ namespace mage {
 	struct VertexPositionNormalTexture final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a vertex.
@@ -470,6 +554,10 @@ namespace mage {
 		 */
 		~VertexPositionNormalTexture() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given vertex to this vertex.
 
@@ -488,6 +576,10 @@ namespace mage {
 		 */
 		VertexPositionNormalTexture &operator=(VertexPositionNormalTexture &&vertex) = default;
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The position of this vertex.
 		 */
@@ -503,6 +595,10 @@ namespace mage {
 		 */
 		UV tex;
 
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
@@ -517,6 +613,10 @@ namespace mage {
 	struct VertexPositionColorTexture final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a vertex.
@@ -557,6 +657,10 @@ namespace mage {
 		 */
 		~VertexPositionColorTexture() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given vertex to this vertex.
 
@@ -575,6 +679,10 @@ namespace mage {
 		 */
 		VertexPositionColorTexture &operator=(VertexPositionColorTexture &&vertex) = default;
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The position of this vertex.
 		 */
@@ -590,6 +698,10 @@ namespace mage {
 		 */
 		UV tex;
 
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
@@ -604,6 +716,10 @@ namespace mage {
 	struct VertexPositionNormalColorTexture final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a vertex.
@@ -646,6 +762,10 @@ namespace mage {
 		 */
 		~VertexPositionNormalColorTexture() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given vertex to this vertex.
 
@@ -663,6 +783,10 @@ namespace mage {
 		 @return		A reference to the copy of the given vertex (i.e. this vertex).
 		 */
 		VertexPositionNormalColorTexture &operator=(VertexPositionNormalColorTexture &&vertex) = default;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The position of this vertex.
@@ -684,6 +808,10 @@ namespace mage {
 		 */
 		UV tex;
 
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
@@ -698,6 +826,10 @@ namespace mage {
 	struct VertexPositionTextureTexture final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a vertex.
@@ -738,6 +870,10 @@ namespace mage {
 		 */
 		~VertexPositionTextureTexture() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given vertex to this vertex.
 
@@ -756,6 +892,10 @@ namespace mage {
 		 */
 		VertexPositionTextureTexture &operator=(VertexPositionTextureTexture &&vertex) = default;
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The position of this vertex.
 		 */
@@ -770,6 +910,10 @@ namespace mage {
 		 The second texture coordinates of this vertex.
 		 */
 		UV tex2;
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The number of elements in the input element descriptor of a vertex.

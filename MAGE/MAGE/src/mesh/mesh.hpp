@@ -22,10 +22,18 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Destructs this mesh.
 		 */
 		virtual ~Mesh() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given mesh to this mesh.
@@ -46,6 +54,10 @@ namespace mage {
 						(i.e. this mesh).
 		 */
 		Mesh &operator=(Mesh &&mesh) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the size of the vertices of this mesh.
@@ -124,6 +136,10 @@ namespace mage {
 
 	protected:
 
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a mesh.
 
@@ -161,6 +177,10 @@ namespace mage {
 		 */
 		Mesh(Mesh &&mesh) = default;
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Sets the number of vertices of this mesh to the given number.
 
@@ -180,6 +200,10 @@ namespace mage {
 		void SetNumberOfIndices(size_t nb_indices) {
 			m_nb_indices = nb_indices;
 		}
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 A pointer to the device of this mesh.
@@ -202,6 +226,10 @@ namespace mage {
 		ComPtr< ID3D11Buffer > m_index_buffer;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The vertex size of this static mesh.

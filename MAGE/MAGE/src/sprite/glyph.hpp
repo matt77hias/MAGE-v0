@@ -27,13 +27,25 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		Glyph() = default;
 		Glyph(const Glyph &glyph) = default;
 		Glyph(Glyph &&glyph) = default;
 		~Glyph() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		Glyph &operator=(const Glyph &glyph) = default;
 		Glyph &operator=(Glyph &&glyph) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		bool operator<(const Glyph &glyph) const {
 			return m_character < glyph.m_character;
@@ -41,6 +53,10 @@ namespace mage {
 		bool operator<(wchar_t character) const {
 			return m_character < static_cast< uint32_t >(character);
 		}
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		uint32_t m_character;
 		RECT m_sub_rectangle;

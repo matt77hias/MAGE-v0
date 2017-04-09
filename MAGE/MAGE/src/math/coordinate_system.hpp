@@ -21,6 +21,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a Cartesian axes system.
 		 */
@@ -90,6 +94,10 @@ namespace mage {
 		 */
 		~CartesianAxesSystem() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given Cartesian axes system to this Cartesian axes system.
 
@@ -109,6 +117,10 @@ namespace mage {
 						(i.e. this Cartesian axes system).
 		 */
 		CartesianAxesSystem &operator=(CartesianAxesSystem &&axes) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the x-axis of this Cartesian axes system.
@@ -139,6 +151,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		/**
 		 The x-axis of this Cartesian axes system.
 		 */
@@ -161,6 +177,10 @@ namespace mage {
 	struct CartesianCoordinateSystem final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a Cartesian coordinate system from the given Cartesian axes system.
@@ -203,6 +223,10 @@ namespace mage {
 		 */
 		~CartesianCoordinateSystem() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given Cartesian coordinate system to this Cartesian coordinate system.
 
@@ -222,6 +246,10 @@ namespace mage {
 						(i.e. this Cartesian coordinate system).
 		 */
 		CartesianCoordinateSystem &operator=(CartesianCoordinateSystem &&coordinate_system) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the origin of this Cartesian coordinate system.
@@ -269,6 +297,10 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The origin of this Cartesian coordinate system.

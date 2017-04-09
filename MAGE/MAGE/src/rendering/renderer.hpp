@@ -31,6 +31,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Constructs a renderer.
 
@@ -60,6 +64,10 @@ namespace mage {
 		 */
 		virtual ~Renderer();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		/**
 		 Copies the given renderer to this renderer.
 
@@ -79,6 +87,10 @@ namespace mage {
 						(i.e. this renderer).
 		 */
 		Renderer &operator=(Renderer &&renderer) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the window handle of this renderer.
@@ -211,6 +223,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Initializes this renderer.
 
@@ -263,6 +279,10 @@ namespace mage {
 		 to the graphics pipeline.
 		 */
 		void SetupViewPort() const;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The handle of the parent window.

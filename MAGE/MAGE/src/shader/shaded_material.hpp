@@ -18,14 +18,26 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit ShadedMaterial(const CombinedShader &shader, const Material &material)
 			: m_shader(shader), m_material(material) {}
 		ShadedMaterial(const ShadedMaterial &shaded_material) = default;
 		ShadedMaterial(ShadedMaterial &&shaded_material) = default;
 		~ShadedMaterial() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		ShadedMaterial &operator=(const ShadedMaterial &shaded_material) = default;
 		ShadedMaterial &operator=(ShadedMaterial &&shaded_material) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		void Draw(const World &world, const TransformBuffer &transform_buffer) {
 			m_shader.Draw(m_material, world, transform_buffer);
@@ -46,6 +58,10 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		CombinedShader m_shader;
 		Material m_material;

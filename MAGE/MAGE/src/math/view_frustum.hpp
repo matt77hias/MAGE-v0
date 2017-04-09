@@ -18,6 +18,10 @@ namespace mage {
 	class ViewFrustum final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 		
 		//http://www.txutxi.com/?p=444
 		explicit ViewFrustum(const Camera &camera);
@@ -25,9 +29,17 @@ namespace mage {
 		ViewFrustum(ViewFrustum &&view_frustum) = default;
 		~ViewFrustum() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		ViewFrustum &operator=(const ViewFrustum &view_frustum) = default;
 		ViewFrustum &operator=(ViewFrustum &&view_frustum) = default;
 		
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		bool Encloses(const Point3 &point) const;
 		//http://www.txutxi.com/?p=584
 		bool Overlaps(const Transform &transform, const BS &bs) const;
@@ -35,7 +47,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		XMFLOAT4 m_planes[6];
 	};
-
 }

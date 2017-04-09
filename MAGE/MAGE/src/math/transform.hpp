@@ -21,9 +21,9 @@ namespace mage {
 	 */
 	struct Transform final {
 
-		//-------------------------------------------------------------------------
-		// Construction
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		/**
 		 Constructs a transform from the given translation, rotation and scale component.
@@ -66,18 +66,14 @@ namespace mage {
 			SetDirty();
 		}
 
-		//-------------------------------------------------------------------------
-		// Destruction
-		//-------------------------------------------------------------------------
-
 		/**
 		 Destructs this transform.
 		 */
 		~Transform() = default;
 		
-		//-------------------------------------------------------------------------
-		// Copying
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given transform to this transform.
@@ -111,9 +107,9 @@ namespace mage {
 			return (*this);
 		}
 
-		//-------------------------------------------------------------------------
-		// Translation
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
+		// Member Methods: Translation
+		//---------------------------------------------------------------------
 
 		/**
 		 Sets the x-value of the translation component of this transform to the given value.
@@ -281,9 +277,9 @@ namespace mage {
 			return XMMatrixTranslationFromVector(XMLoadFloat3(&m_translation));
 		}
 
-		//-------------------------------------------------------------------------
-		// Rotation
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
+		// Member Methods: Rotation
+		//---------------------------------------------------------------------
 
 		/**
 		 Sets the x-value of the rotation component of this transform to the given value.
@@ -475,9 +471,9 @@ namespace mage {
 			return XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&m_rotation));
 		}
 
-		//-------------------------------------------------------------------------
-		// Scale
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
+		// Member Methods: Scale
+		//---------------------------------------------------------------------
 
 		/**
 		 Sets the x-value of the scale component of this transform to the given value.
@@ -645,9 +641,9 @@ namespace mage {
 			return XMMatrixScalingFromVector(XMLoadFloat3(&m_scale));
 		}
 
-		//-------------------------------------------------------------------------
-		// Object Space
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
+		// Member Methods: Object Space
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the position of the local origin of this transform expressed in object space coordinates.
@@ -703,9 +699,9 @@ namespace mage {
 			return CartesianCoordinateSystem(GetObjectOrigin(), GetObjectAxes());
 		}
 		
-		//-------------------------------------------------------------------------
-		// Parent Space
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
+		// Member Methods: Parent Space
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the position of the local origin of this transform expressed in parent space coordinates.
@@ -761,9 +757,9 @@ namespace mage {
 			return CartesianCoordinateSystem(GetParentOrigin(), GetParentAxes());
 		}
 
-		//-------------------------------------------------------------------------
-		// World Space
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
+		// Member Methods: World Space
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the position of the local origin of this transform expressed in world space coordinates.
@@ -819,9 +815,9 @@ namespace mage {
 			return CartesianCoordinateSystem(GetWorldOrigin(), GetWorldAxes());
 		}
 
-		//-------------------------------------------------------------------------
-		// Camera Object Space
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
+		// Member Methods: Camera Object Space
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the local eye position of this transform expressed in object space coordinates.
@@ -859,9 +855,9 @@ namespace mage {
 			return GetObjectAxisZ();
 		}
 		
-		//-------------------------------------------------------------------------
-		// Camera World Space
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
+		// Member Methods: Camera World Space
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the local eye position of this transform expressed in world space coordinates.
@@ -899,9 +895,9 @@ namespace mage {
 			return GetWorldAxisZ();
 		}
 		
-		//-------------------------------------------------------------------------
-		// Transformation
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
+		// Member Methods: Transformation
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the parent-to-object matrix of this transform.
@@ -993,9 +989,9 @@ namespace mage {
 			return XMVector4Transform(vector, GetObjectToWorldMatrix());
 		}
 
-		//-------------------------------------------------------------------------
-		// Update
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
+		// Member Methods: Update
+		//---------------------------------------------------------------------
 
 		/**
 		 Checks whether this transform is dirty.
@@ -1040,6 +1036,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the inverse translation matrix of this transform.
 
@@ -1079,9 +1079,9 @@ namespace mage {
 			return XMVector3Normalize(XMVector4Transform(direction, transformation));
 		}
 
-		//-------------------------------------------------------------------------
-		// Update
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
+		// Member Methods: Update
+		//---------------------------------------------------------------------
 
 		/**
 		 Sets this transform to not dirty.
@@ -1089,6 +1089,10 @@ namespace mage {
 		void SetNotDirty() {
 			m_dirty = false;
 		}
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		/**
 		 The translation component of this transform.

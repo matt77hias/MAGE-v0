@@ -21,14 +21,26 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		SpriteFontOutput() = default;
 		SpriteFontOutput(const SpriteFontOutput &output) = delete;
 		SpriteFontOutput(SpriteFontOutput &&output) = default;
 		~SpriteFontOutput() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		SpriteFontOutput &operator=(const SpriteFontOutput &output) = delete;
 		SpriteFontOutput &operator=(SpriteFontOutput &&output) = delete;
 	
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		ComPtr< ID3D11ShaderResourceView > m_texture;
 		vector < Glyph > m_glyphs;
 		wchar_t m_default_character;

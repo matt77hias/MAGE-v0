@@ -24,6 +24,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &guid, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 		explicit VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
@@ -33,13 +37,25 @@ namespace mage {
 		VertexShader(VertexShader &&vertex_shader) = default;
 		virtual ~VertexShader() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		VertexShader &operator=(const VertexShader &vertex_shader) = delete;
 		VertexShader &operator=(VertexShader &&vertex_shader) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		virtual void Draw(const XMMATRIX &transform) const;
 		virtual void Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const;
 
 	protected:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		ID3D11Device2 * const m_device;
 		ID3D11DeviceContext2 * const m_device_context;
@@ -47,6 +63,10 @@ namespace mage {
 		ComPtr< ID3D11InputLayout >  m_vertex_layout;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		HRESULT SetupShader(const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 		HRESULT SetupShader(const void *bytecode, SIZE_T bytecode_size,
@@ -61,6 +81,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &guid);
 		explicit PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
@@ -69,8 +93,16 @@ namespace mage {
 		PixelShader(PixelShader &&pixel_shader) = default;
 		virtual ~PixelShader() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		PixelShader &operator=(const PixelShader &pixel_shader) = delete;
 		PixelShader &operator=(PixelShader &&pixel_shader) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		void Draw(const Texture &texture) const {
 			Draw(texture.GetTextureResourceViewAddress());
@@ -80,11 +112,19 @@ namespace mage {
 
 	protected:
 
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		ID3D11Device2 * const m_device;
 		ID3D11DeviceContext2 * const m_device_context;
 		ComPtr< ID3D11PixelShader > m_pixel_shader;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		HRESULT SetupShader();
 		HRESULT SetupShader(const void *bytecode, SIZE_T bytecode_size);
@@ -98,14 +138,26 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit CombinedShader(SharedPtr< VertexShader > vertex_shader, SharedPtr< PixelShader > pixel_shader)
 			: m_vertex_shader(vertex_shader), m_pixel_shader(pixel_shader) {}
 		CombinedShader(const CombinedShader &shader) = default;
 		CombinedShader(CombinedShader &&shader) = default;
 		~CombinedShader() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		CombinedShader &operator=(const CombinedShader &shader) = default;
 		CombinedShader &operator=(CombinedShader &&shader) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		void Draw(const Texture &texture, const XMMATRIX &matrix) const {
 			m_vertex_shader->Draw(matrix);
@@ -121,6 +173,10 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		SharedPtr< VertexShader > m_vertex_shader;
 		SharedPtr< PixelShader > m_pixel_shader;

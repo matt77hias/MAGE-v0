@@ -80,7 +80,7 @@ namespace mage {
 	}
 
 	void SpriteFont::DrawString(SpriteBatch &sprite_batch, const wchar_t *text, 
-		const SpriteTransform &transform, XMVECTOR color, SpriteEffect effects) const {
+		const SpriteTransform &transform, const XMVECTOR &color, SpriteEffect effects) const {
 
 		static_assert(SpriteEffect_FlipHorizontally == 1 && SpriteEffect_FlipVertically == 2,
 			"The following tables must be updated to match");

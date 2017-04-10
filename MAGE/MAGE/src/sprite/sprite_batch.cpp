@@ -50,7 +50,8 @@ namespace mage {
 		m_in_begin_end_pair = true;
 	}
 	
-	void SpriteBatch::Draw(ID3D11ShaderResourceView *texture, XMVECTOR color, SpriteEffect effects,
+	void SpriteBatch::Draw(ID3D11ShaderResourceView *texture, 
+		const XMVECTOR &color, SpriteEffect effects,
 		const SpriteTransform &transform, const RECT *source) {
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);

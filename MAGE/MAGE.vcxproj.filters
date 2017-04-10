@@ -187,6 +187,12 @@
     <Filter Include="Source Files\font\spritefont">
       <UniqueIdentifier>{5d7d2382-63a6-4d48-8a3e-fe2402d997c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\text">
+      <UniqueIdentifier>{207846ed-8a16-4e94-a121-b9b981c5bb24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\text">
+      <UniqueIdentifier>{8e8ea5e0-8c99-4c25-b6ad-76568f9c8a31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -524,6 +530,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\font\spritefont\spritefont_reader.hpp">
       <Filter>Header Files\font\spritefont</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\text\sprite_text.hpp">
+      <Filter>Header Files\text</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

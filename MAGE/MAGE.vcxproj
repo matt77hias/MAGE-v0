@@ -125,6 +125,7 @@
     <ClInclude Include="MAGE\src\texture\dds\dds_loader.hpp" />
     <ClInclude Include="MAGE\src\texture\texture.hpp" />
     <ClInclude Include="MAGE\src\texture\texture_loader.hpp" />
+    <ClInclude Include="MAGE\src\text\sprite_text.hpp" />
     <ClInclude Include="MAGE\src\ui\combo_box.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />

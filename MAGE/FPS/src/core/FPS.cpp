@@ -11,7 +11,7 @@ public:
 		: BehaviorScript(), m_model(model), solid(true) {}
 	TestScript(const TestScript &script) = delete;
 	TestScript(TestScript &&script) = default;
-	~TestScript() = default;
+	virtual ~TestScript() = default;
 	TestScript &operator=(const TestScript &script) = delete;
 	TestScript &operator=(TestScript &&script) = delete;
 
@@ -50,7 +50,7 @@ public:
 		: Scene("testscene") {}
 	TestScene(const TestScene &scene) = delete;
 	TestScene(TestScene &&scene) = delete;
-	~TestScene() = default;
+	virtual ~TestScene() = default;
 	TestScene &operator=(const TestScene &scene) = delete;
 	TestScene &operator=(TestScene &&scene) = delete;
 

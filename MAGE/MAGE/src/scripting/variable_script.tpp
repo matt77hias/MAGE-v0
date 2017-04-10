@@ -15,7 +15,7 @@
 namespace mage {
 	
 	template < typename T >
-	void VariableScript::AddVariable(const string &name, VariableType type, const T *value) {
+	inline void VariableScript::AddVariable(const string &name, VariableType type, const T *value) {
 		m_variables[name] = new Variable(type, name, value);
 	}
 

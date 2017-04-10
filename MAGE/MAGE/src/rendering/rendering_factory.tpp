@@ -10,7 +10,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template < typename VertexT >
-	inline HRESULT CreateStaticVertexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) {
+	HRESULT CreateStaticVertexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -32,7 +32,7 @@ namespace mage {
 	}
 
 	template < typename VertexT >
-	inline HRESULT CreateDynamicVertexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) {
+	HRESULT CreateDynamicVertexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -58,7 +58,7 @@ namespace mage {
 	}
 
 	template < typename IndexT >
-	inline HRESULT CreateIndexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices) {
+	HRESULT CreateIndexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
@@ -80,7 +80,7 @@ namespace mage {
 	}
 
 	template < typename BufferT >
-	inline HRESULT CreateConstantBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer) {
+	HRESULT CreateConstantBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));

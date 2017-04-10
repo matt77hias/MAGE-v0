@@ -57,10 +57,10 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual HRESULT Write() const = 0;
-		void Write(char c) const;
-		void Write(const char *str) const;
-		void WriteLine(const char *str) const;
+		virtual HRESULT Write() = 0;
+		void Write(char c);
+		void Write(const char *str);
+		void WriteLine(const char *str);
 
 	private:
 

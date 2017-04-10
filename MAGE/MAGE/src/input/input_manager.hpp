@@ -89,15 +89,6 @@ namespace mage {
 		void Update();
 
 		/**
-		 Returns the window handle of this input manager.
-
-		 @return		The window handle of this input manager.
-		 */
-		HWND GetHandle() const {
-			return m_hwindow;
-		}
-
-		/**
 		 Returns the keyboard of this input manager.
 
 		 @return		A reference to the keyboard of this input manager.
@@ -140,7 +131,7 @@ namespace mage {
 		/**
 		 The handle of the parent window.
 		 */
-		HWND m_hwindow;
+		HWND const m_hwindow;
 
 		/**
 		 The DirectInput object of this input manager.

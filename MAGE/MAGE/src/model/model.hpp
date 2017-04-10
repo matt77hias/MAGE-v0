@@ -34,9 +34,7 @@ namespace mage {
 		// Destructors
 		//---------------------------------------------------------------------
 
-		virtual ~Model() {
-			RemoveAndDestructAllElements(m_submodels);
-		}
+		virtual ~Model();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -51,10 +49,7 @@ namespace mage {
 
 		virtual Model *Clone() const = 0;
 
-		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const {
-			UNUSED(world);
-			UNUSED(transform_buffer);
-		}
+		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const;
 		
 		size_t GetNumberOfSubModels() const {
 			return m_submodels.size();
@@ -89,7 +84,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		set< SubModel *, std::less<> > m_submodels;
+		vector< SubModel * > m_submodels;
 	};
 
 	//-------------------------------------------------------------------------
@@ -127,17 +122,7 @@ namespace mage {
 			return new SubModel(*this);
 		}
 
-		void Draw(const Mesh &mesh, const World &world, const TransformBuffer &transform_buffer) const {
-			// Appearance
-			transform_buffer.SetModelToWorld(GetTransform().GetObjectToWorldMatrix());
-			m_material->Draw(world, transform_buffer);
-			// Geometry
-			mesh.Draw(m_start_index, m_nb_indices);
-			// Childs
-			ForEachSubModel([&](SubModel &submodel) {
-				submodel.Draw(mesh, world, transform_buffer);
-			});
-		}
+		void Draw(const Mesh &mesh, const World &world, const TransformBuffer &transform_buffer) const;
 
 		size_t GetStartIndex() const {
 			return m_start_index;

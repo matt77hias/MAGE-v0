@@ -719,6 +719,9 @@
     <ClCompile Include="MAGE\src\font\sprite_font.cpp">
       <Filter>Source Files\font</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\world\world_object.cpp">
+      <Filter>Source Files\world</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">

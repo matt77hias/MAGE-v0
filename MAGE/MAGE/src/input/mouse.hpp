@@ -101,15 +101,6 @@ namespace mage {
 		void Update();
 
 		/**
-		 Returns the window handle of this mouse.
-
-		 @return		The window handle of this mouse.
-		 */
-		HWND GetHandle() const {
-			return m_hwindow;
-		}
-
-		/**
 		 Checks whether the given mouse button of this mouse is pressed.
 
 		 @param[in]		mouse_button
@@ -187,7 +178,7 @@ namespace mage {
 		/**
 		 The handle of the parent window of this mouse.
 		 */
-		HWND m_hwindow;
+		HWND const m_hwindow;
 
 		/**
 		 The DirectInput object of this keyboard of this mouse.

@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT VSWriter::Write() const {
+	HRESULT VSWriter::Write() {
 		char output[MAX_PATH];
 
 		for (vector< Variable * >::const_iterator it = m_variable_buffer.cbegin(); it != m_variable_buffer.cend(); ++it) {

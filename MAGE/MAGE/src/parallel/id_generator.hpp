@@ -88,7 +88,7 @@ namespace mage {
 
 		 @return		The next id of this id generator.
 		 */
-		inline uint32_t GetNextId() {
+		uint32_t GetNextId() {
 			return static_cast< uint32_t >(AtomicAdd(&m_current_id, 1));
 		}
 

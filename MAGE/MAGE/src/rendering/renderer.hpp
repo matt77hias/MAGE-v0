@@ -27,7 +27,7 @@ namespace mage {
 	/**
 	 A class of renderers.
 	 */
-	class Renderer : public Loadable {
+	class Renderer final : public Loadable {
 
 	public:
 
@@ -91,15 +91,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Returns the window handle of this renderer.
-
-		 @return		The window handle of this renderer.
-		 */
-		HWND GetHandle() const {
-			return m_hwindow;
-		}
 
 		/**
 		 Returns the width in pixels of the display of this renderer.
@@ -287,7 +278,7 @@ namespace mage {
 		/**
 		 The handle of the parent window.
 		 */
-		HWND m_hwindow;
+		HWND const m_hwindow;
 
 		/**
 		 A flag indicating whether this renderer uses a full screen mode

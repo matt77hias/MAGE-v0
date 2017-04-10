@@ -60,7 +60,7 @@ namespace mage {
 		/**
 		 Destructs this engine.
 		 */
-		virtual ~Engine();
+		~Engine();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

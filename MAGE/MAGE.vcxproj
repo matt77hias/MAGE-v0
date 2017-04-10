@@ -195,6 +195,7 @@
     <ClCompile Include="MAGE\src\ui\main_window.cpp" />
     <ClCompile Include="MAGE\src\world\transform_buffer.cpp" />
     <ClCompile Include="MAGE\src\world\world.cpp" />
+    <ClCompile Include="MAGE\src\world\world_object.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">

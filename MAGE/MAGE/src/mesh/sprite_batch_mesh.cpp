@@ -69,4 +69,12 @@ namespace mage {
 
 		return S_OK;
 	}
+
+	HRESULT SpriteBatchMesh::MapVertexBuffer(D3D11_MAP map_type, D3D11_MAPPED_SUBRESOURCE *mapped_buffer) {
+		return m_device_context->Map(m_vertex_buffer.Get(), 0, map_type, 0, mapped_buffer);
+	}
+
+	void SpriteBatchMesh::UnmapVertexBuffer() {
+		m_device_context->Unmap(m_vertex_buffer.Get(), 0);
+	}
 }

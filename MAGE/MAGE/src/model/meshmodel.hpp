@@ -46,13 +46,7 @@ namespace mage {
 			return new MeshModel(*this);
 		}
 
-		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const override {
-			m_mesh->PrepareDrawing();
-			// Childs
-			ForEachSubModel([&](SubModel &submodel) {
-				submodel.Draw(*m_mesh, world, transform_buffer);
-			});
-		}
+		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const override;
 
 		const StaticMesh &GetMesh() const {
 			return *m_mesh;

@@ -155,7 +155,7 @@ namespace mage {
 		/**
 		 The timer of this progress reporter.
 		 */
-		UniquePtr< Timer >m_timer;
+		UniquePtr< Timer > m_timer;
 
 		/**
 		 The mutex needed for updating this progress reporter.

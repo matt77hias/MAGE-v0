@@ -19,7 +19,7 @@ namespace mage {
 	/**
 	 A class of main windows.
 	 */
-	class MainWindow : public Loadable {
+	class MainWindow final : public Loadable {
 
 	public:
 

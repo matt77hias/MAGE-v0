@@ -101,15 +101,6 @@ namespace mage {
 		void Update();
 
 		/**
-		 Returns the window handle of this keyboard.
-
-		 @return		The window handle of this keyboard.
-		 */
-		HWND GetHandle() const {
-			return m_hwindow;
-		}
-
-		/**
 		 Checks whether the given key of this keyboard is pressed.
 
 		 @param[in]		key
@@ -142,7 +133,7 @@ namespace mage {
 		/**
 		 The handle of the parent window of this keyboard..
 		 */
-		HWND m_hwindow;
+		HWND const m_hwindow;
 
 		/**
 		 The DirectInput object of this keyboard.

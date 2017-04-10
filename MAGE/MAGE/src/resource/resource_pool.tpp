@@ -6,14 +6,14 @@
 namespace mage {
 
 	template< typename KeyT, typename ResourceT >
-	size_t ResourcePool< KeyT, ResourceT >::GetNumberOfResources() const {
+	inline size_t ResourcePool< KeyT, ResourceT >::GetNumberOfResources() const {
 		MutexLock lock(m_resource_map_mutex);
 		return m_resource_map.size();
 	}
 
 	template< typename KeyT, typename ResourceT >
 	template< typename... ConstructorArgsT >
-	SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >::GetResource(KeyT key, ConstructorArgsT&&... args) {
+	inline SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >::GetResource(KeyT key, ConstructorArgsT&&... args) {
 		return GetDerivedResource< ResourceT, ConstructorArgsT... >(key, std::forward< ConstructorArgsT >(args)...);
 	}
 
@@ -50,7 +50,7 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
-	void ResourcePool< KeyT, ResourceT >::RemoveAllResources() {
+	inline void ResourcePool< KeyT, ResourceT >::RemoveAllResources() {
 		MutexLock lock(m_resource_map_mutex);
 
 		m_resource_map.clear();

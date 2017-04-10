@@ -49,7 +49,7 @@ namespace mage {
 		int flags;
 	};
 
-	class SpriteBatch {
+	class SpriteBatch final {
 
 	public:
 
@@ -61,7 +61,7 @@ namespace mage {
 			const CombinedShader &shader = CreateSpriteShader());
 		SpriteBatch(const SpriteBatch &sprite_batch) = delete;
 		SpriteBatch(SpriteBatch &&sprite_batch) = default;
-		virtual ~SpriteBatch() = default;
+		~SpriteBatch() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

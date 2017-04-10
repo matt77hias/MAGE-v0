@@ -10,7 +10,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template < typename VertexT >
-	SharedPtr< ModelDescriptor > ResourceFactory::CreateModelDescriptor(
+	inline SharedPtr< ModelDescriptor > ResourceFactory::CreateModelDescriptor(
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &fname, const MeshDescriptor< VertexT > &desc) {
 		return m_model_descriptor_resource_pool->template 

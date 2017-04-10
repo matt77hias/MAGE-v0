@@ -15,7 +15,7 @@
 namespace mage {
 
 	template< typename ValueT >
-	const ValueT &BigEndianBinaryReader::ReadValue() {
+	inline const ValueT &BigEndianBinaryReader::ReadValue() {
 		return *ReadValueArray< ValueT >(1);
 	}
 

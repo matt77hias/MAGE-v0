@@ -55,7 +55,7 @@ namespace mage {
 		/**
 		 Destructs the given memory arena.
 		 */
-		virtual ~MemoryArena();
+		~MemoryArena();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

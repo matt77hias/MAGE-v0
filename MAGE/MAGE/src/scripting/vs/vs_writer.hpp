@@ -43,7 +43,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual HRESULT Write() const override;
+		virtual HRESULT Write() override;
 
 		//---------------------------------------------------------------------
 		// Member Variables

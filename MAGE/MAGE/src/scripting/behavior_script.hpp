@@ -28,7 +28,7 @@ namespace mage {
 		/**
 		 Destructs this behavior script.
 		 */
-		~BehaviorScript() = default;
+		virtual ~BehaviorScript() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

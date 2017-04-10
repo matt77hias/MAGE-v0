@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of (high precision) timers.
 	 */
-	class Timer {
+	class Timer final {
 
 	public:
 
@@ -49,7 +49,7 @@ namespace mage {
 		/**
 		 Destructs this timer.
 		 */
-		virtual ~Timer() = default;
+		~Timer() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

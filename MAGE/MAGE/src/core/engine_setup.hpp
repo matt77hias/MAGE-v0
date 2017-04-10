@@ -134,7 +134,7 @@ namespace mage {
 		/**
 		 Application instance handle.
 		 */
-		HINSTANCE m_hinstance;
+		HINSTANCE const m_hinstance;
 
 		/**
 		 Name of the application.

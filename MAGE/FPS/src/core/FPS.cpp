@@ -1,8 +1,10 @@
 #include "stdafx.h"
 
+#include "script\fps_script.hpp"
+
 using namespace mage;
 
-class TestScript : public BehaviorScript {
+class TestScript final : public BehaviorScript {
 
 public:
 
@@ -41,7 +43,7 @@ private:
 	bool solid;
 };
 
-class TestScene : public Scene {
+class TestScene final : public Scene {
 
 public:
 
@@ -80,12 +82,15 @@ public:
 		// Texture
 		SharedPtr< Texture > texture = CreateTexture(L"assets/models/seafloor.dds");
 		// Image
-		SharedPtr< SpriteImage > image(new SpriteImage("image", texture));
-		GetWorld().AddImage(image);
+		//SharedPtr< SpriteImage > image(new SpriteImage("image", texture));
+		//GetWorld().AddImage(image);
 
 		// Script
 		SharedPtr< BehaviorScript > script(new TestScript(model));
 		AddScript(script);
+
+		SharedPtr< BehaviorScript > fps(new FPSScript(text));
+		AddScript(fps);
 	}
 };
 

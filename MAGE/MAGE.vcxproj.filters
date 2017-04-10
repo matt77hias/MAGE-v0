@@ -193,6 +193,12 @@
     <Filter Include="Source Files\camera">
       <UniqueIdentifier>{387a1d6e-f2b9-464f-91ca-5c2ced312bca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\script">
+      <UniqueIdentifier>{8983d755-74ee-48c2-98f2-db143aa04e59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\script">
+      <UniqueIdentifier>{0ed63e00-b1e9-4c71-bbe7-abe117b09780}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -537,6 +543,9 @@
     <ClInclude Include="MAGE\src\sprite\sprite_image.hpp">
       <Filter>Header Files\sprite</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\script\fps_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -727,6 +736,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp">
       <Filter>Source Files\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\script\fps_script.cpp">
+      <Filter>Source Files\script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

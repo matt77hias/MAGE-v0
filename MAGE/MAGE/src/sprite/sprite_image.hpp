@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "font\sprite_font.hpp"
+#include "sprite\sprite_batch.hpp"
+#include "texture\texture.hpp"
 
 #pragma endregion
 
@@ -14,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class SpriteText {
+	class SpriteImage {
 
 	public:
 
@@ -22,41 +23,43 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit SpriteText(const wstring &text, SharedPtr< SpriteFont > font,
-			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None) 
-			: m_text(text), m_font(font), 
+		explicit SpriteImage(SharedPtr< Texture > texture,
+			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
+			: m_region(), m_texture(texture), 
 			m_color(color), m_effects(effects), 
 			m_transform() {}
-		SpriteText(const SpriteText &sprite_text) = default;
-		SpriteText(SpriteText &&sprite_text) = default;
-		virtual ~SpriteText() = default;
+		explicit SpriteImage(SharedPtr< Texture > texture, const RECT &region,
+			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
+			: m_region(new RECT(region)), m_texture(texture),
+			m_color(color), m_effects(effects),
+			m_transform() {}
+		SpriteImage(const SpriteImage &sprite_image) = default;
+		SpriteImage(SpriteImage &&sprite_image) = default;
+		virtual ~SpriteImage() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		SpriteText &operator=(const SpriteText &sprite_text) = default;
-		SpriteText &operator=(SpriteText &&sprite_text) = default;
+		SpriteImage &operator=(const SpriteImage &sprite_image) = default;
+		SpriteImage &operator=(SpriteImage &&sprite_image) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		void Draw(SpriteBatch &sprite_batch) const {
-			m_font->DrawString(sprite_batch, m_text.c_str(), m_transform, m_color, m_effects);
+			sprite_batch.Draw(m_texture->GetTextureResourceView(), m_color, m_effects, m_transform, m_region.get());
 		}
 
-		SharedPtr< SpriteFont > GetFont() const {
-			return m_font;
+		void SetRegion(const RECT &region) {
+			m_region.reset(new RECT(region));
 		}
-		void SetFont(SharedPtr< SpriteFont > font) {
-			m_font = font;
+		SharedPtr< Texture > GetTexture() const {
+			return m_texture;
 		}
-		const wstring &GetText() const {
-			return m_text;
-		}
-		void SetText(const wstring &text) {
-			m_text = text;
+		void SetTexture(SharedPtr< Texture > texture) {
+			m_texture = texture;
 		}
 		const Color GetColor() const {
 			Color c;
@@ -81,15 +84,15 @@ namespace mage {
 		const SpriteTransform &GetTransform() const {
 			return m_transform;
 		}
-		
+
 	private:
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		SharedPtr< SpriteFont > m_font;
-		wstring m_text;
+		UniquePtr< RECT > m_region;
+		SharedPtr< Texture > m_texture;
 		XMVECTOR m_color;
 		SpriteEffect m_effects;
 		SpriteTransform m_transform;

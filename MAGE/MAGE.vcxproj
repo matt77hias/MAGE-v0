@@ -115,6 +115,7 @@
     <ClInclude Include="MAGE\src\shader\sprite_shader.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_batch.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_effects.hpp" />
+    <ClInclude Include="MAGE\src\sprite\sprite_image.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_sort_mode.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_utils.hpp" />
     <ClInclude Include="MAGE\src\string\line_reader.hpp" />

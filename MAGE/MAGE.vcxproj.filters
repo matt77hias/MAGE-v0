@@ -534,6 +534,9 @@
     <ClInclude Include="MAGE\src\text\sprite_text.hpp">
       <Filter>Header Files\text</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite_image.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

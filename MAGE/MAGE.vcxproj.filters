@@ -199,6 +199,12 @@
     <Filter Include="Source Files\script">
       <UniqueIdentifier>{0ed63e00-b1e9-4c71-bbe7-abe117b09780}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\system">
+      <UniqueIdentifier>{a4d86b15-ef73-4b59-808c-66fbc132761e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\system">
+      <UniqueIdentifier>{c6d373e4-d148-4ea4-8574-dcda34eb9f85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -546,6 +552,12 @@
     <ClInclude Include="MAGE\src\script\fps_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\system\system.hpp">
+      <Filter>Header Files\system</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\script\system_usage_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -738,6 +750,12 @@
       <Filter>Source Files\camera</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\script\fps_script.cpp">
+      <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\system\system.cpp">
+      <Filter>Source Files\system</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\script\system_usage_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
   </ItemGroup>

@@ -103,6 +103,7 @@
     <ClInclude Include="MAGE\src\scripting\vs\vs_tokens.hpp" />
     <ClInclude Include="MAGE\src\scripting\vs\vs_writer.hpp" />
     <ClInclude Include="MAGE\src\script\fps_script.hpp" />
+    <ClInclude Include="MAGE\src\script\system_usage_script.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\lambertian_PS.h" />
     <ClInclude Include="MAGE\src\shader\cso\lambertian_VS.h" />
     <ClInclude Include="MAGE\src\shader\cso\sprite_PS.h" />
@@ -124,6 +125,7 @@
     <ClInclude Include="MAGE\src\string\string.hpp" />
     <ClInclude Include="MAGE\src\string\string_utils.hpp" />
     <ClInclude Include="MAGE\src\string\writer.hpp" />
+    <ClInclude Include="MAGE\src\system\system.hpp" />
     <ClInclude Include="MAGE\src\texture\dds\dds_loader.hpp" />
     <ClInclude Include="MAGE\src\texture\texture.hpp" />
     <ClInclude Include="MAGE\src\texture\texture_loader.hpp" />
@@ -180,6 +182,7 @@
     <ClCompile Include="MAGE\src\scripting\vs\vs_reader.cpp" />
     <ClCompile Include="MAGE\src\scripting\vs\vs_writer.cpp" />
     <ClCompile Include="MAGE\src\script\fps_script.cpp" />
+    <ClCompile Include="MAGE\src\script\system_usage_script.cpp" />
     <ClCompile Include="MAGE\src\shader\empty_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\lambertian_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
@@ -192,6 +195,7 @@
     <ClCompile Include="MAGE\src\string\token.cpp" />
     <ClCompile Include="MAGE\src\string\string_utils.cpp" />
     <ClCompile Include="MAGE\src\string\writer.cpp" />
+    <ClCompile Include="MAGE\src\system\system.cpp" />
     <ClCompile Include="MAGE\src\texture\dds\dds_loader.cpp" />
     <ClCompile Include="MAGE\src\texture\texture.cpp" />
     <ClCompile Include="MAGE\src\texture\texture_loader.cpp" />

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "script\fps_script.hpp"
+#include "script\system_usage_script.hpp"
 
 using namespace mage;
 
@@ -74,7 +75,7 @@ public:
 		GetWorld()->AddLight(light);
 
 		// Font
-		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/comicsansms.spritefont", SpriteFontDescriptor());
+		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/calibri.spritefont", SpriteFontDescriptor());
 		// Text
 		SharedPtr< SpriteText > text(new SpriteText("text", L"Hello World!", font));
 		GetWorld()->AddText(text);
@@ -89,8 +90,8 @@ public:
 		SharedPtr< BehaviorScript > script(new TestScript(model));
 		AddScript(script);
 
-		SharedPtr< BehaviorScript > fps(new FPSScript(text));
-		AddScript(fps);
+		SharedPtr< BehaviorScript > stats(new SystemUsageScript(text));
+		AddScript(stats);
 	}
 };
 

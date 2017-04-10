@@ -77,7 +77,7 @@ public:
 		AddScript(test_script);
 
 		//TODO
-		GetWorld().m_font = SharedPtr< SpriteFont >(new SpriteFont(g_engine->GetRenderer().GetDevice(), L"assets/fonts/calibri.spritefont", SpriteFontDescriptor()));
+		GetWorld().m_font = SharedPtr< SpriteFont >(new SpriteFont(g_engine->GetRenderer().GetDevice(), L"assets/fonts/comicsansms.spritefont", SpriteFontDescriptor()));
 	}
 };
 

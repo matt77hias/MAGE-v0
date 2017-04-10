@@ -31,6 +31,7 @@ namespace mage {
 		GlyphLessThan(const GlyphLessThan &comparator) = default;
 		GlyphLessThan(GlyphLessThan &&comparator) = default;
 		~GlyphLessThan() = default;
+
 		GlyphLessThan &operator=(const GlyphLessThan &comparator) = default;
 		GlyphLessThan &operator=(GlyphLessThan &&comparator) = default;
 
@@ -148,7 +149,7 @@ namespace mage {
 					XMFLOAT2 sprite_rotation_origin;
 					XMStoreFloat2(&sprite_rotation_origin, offset);
 					sprite_transform.SetRotationOrigin(sprite_rotation_origin);
-					sprite_batch.Draw(m_texture.Get(), color, effects, sprite_transform);
+					sprite_batch.Draw(m_texture.Get(), color, effects, sprite_transform, &glyph->m_sub_rectangle);
 				}
 
 				x += advance;

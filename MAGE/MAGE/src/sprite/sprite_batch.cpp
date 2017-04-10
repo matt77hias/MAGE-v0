@@ -147,6 +147,8 @@ namespace mage {
 	}
 
 	void SpriteBatch::PrepareDrawing() {
+		m_mesh->PrepareDrawing();
+		
 		if (m_device_context->GetType() == D3D11_DEVICE_CONTEXT_DEFERRED) {
 			m_vertex_buffer_position = 0;
 		}
@@ -243,7 +245,7 @@ namespace mage {
 
 	void SpriteBatch::RenderBatch(ID3D11ShaderResourceView *texture,
 		const SpriteInfo * const * sprites, size_t nb_sprites) {
-		m_shader->Draw(&texture, m_transform);
+		m_shader->Draw(&texture, XMMatrixTranspose(m_transform));
 
 		const XMVECTOR texture_size = GetTexture2DSize(texture);
 		const XMVECTOR inverse_texture_size = XMVectorReciprocal(texture_size);
@@ -385,8 +387,8 @@ namespace mage {
 			XMStoreFloat4(&vertices[i].c, color);
 
 			// Compute and write the texture coordinate.
-			const XMVECTOR textureCoordinate = XMVectorMultiplyAdd(corner_offsets[i ^ mirror_bits], source_size, source);
-			XMStoreFloat2(&vertices[i].tex, textureCoordinate);
+			const XMVECTOR texture_coordinate = XMVectorMultiplyAdd(corner_offsets[i ^ mirror_bits], source_size, source);
+			XMStoreFloat2(&vertices[i].tex, texture_coordinate);
 		}
 	}
 

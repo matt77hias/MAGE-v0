@@ -18,7 +18,7 @@ namespace mage {
 
 	void World::Render2D() const {
 		m_sprite_batch->Begin();
-		m_font->DrawString(*m_sprite_batch, L"Hello, world!", SpriteTransform(XMFLOAT2(256,256)));
+		m_font->DrawString(*m_sprite_batch, L"Hello World", SpriteTransform());
 		m_sprite_batch->End();
 	}
 	void World::Render3D(const TransformBuffer &transform_buffer) const {

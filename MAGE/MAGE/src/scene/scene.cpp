@@ -16,7 +16,7 @@
 namespace mage {
 
 	SharedPtr< BehaviorScript > Scene::GetScript(const string &name) const {
-		set< SharedPtr< BehaviorScript > >::const_iterator it = m_scripts.cbegin();
+		vector< SharedPtr< BehaviorScript > >::const_iterator it = m_scripts.cbegin();
 		while (it != m_scripts.cend()) {
 			if ((*it)->GetName() == name) {
 				return (*it);
@@ -28,7 +28,7 @@ namespace mage {
 		return nullptr;
 	}
 	bool Scene::HasScript(const SharedPtr< BehaviorScript > script) const {
-		set< SharedPtr< BehaviorScript > >::const_iterator it = m_scripts.cbegin();
+		vector< SharedPtr< BehaviorScript > >::const_iterator it = m_scripts.cbegin();
 		while (it != m_scripts.cend()) {
 			if ((*it) == script) {
 				return true;
@@ -44,14 +44,14 @@ namespace mage {
 			return;
 		}
 
-		m_scripts.insert(script);
+		m_scripts.push_back(script);
 
 		if (load) {
 			script->Load();
 		}
 	}
 	void Scene::RemoveScript(const string &name, bool close) {
-		set< SharedPtr< BehaviorScript > >::iterator it = m_scripts.begin();
+		vector< SharedPtr< BehaviorScript > >::iterator it = m_scripts.begin();
 		while (it != m_scripts.end()) {
 			if ((*it)->GetName() == name) {
 				if (close) {
@@ -66,7 +66,7 @@ namespace mage {
 		}
 	}
 	void Scene::RemoveScript(SharedPtr< BehaviorScript > script, bool close) {
-		set< SharedPtr< BehaviorScript > >::iterator it = m_scripts.begin();
+		vector< SharedPtr< BehaviorScript > >::iterator it = m_scripts.begin();
 		while (it != m_scripts.end()) {
 			if ((*it) == script) {
 				if (close) {
@@ -81,7 +81,7 @@ namespace mage {
 		}
 	}
 	void Scene::RemoveAllScripts(bool close) {
-		set< SharedPtr< BehaviorScript > >::iterator it = m_scripts.begin();
+		vector< SharedPtr< BehaviorScript > >::iterator it = m_scripts.begin();
 		if (close) {
 			while (it != m_scripts.end()) {
 				(*it)->Close();
@@ -101,10 +101,12 @@ namespace mage {
 		});
 	}
 	void Scene::Update(double elapsed_time) {
+		// Update scripts.
 		ForEachScript([&](BehaviorScript &script) {
 			script.Update(elapsed_time, *this);
 		});
 
+		// Update and propagate transforms.
 		m_camera->UpdateTransform();
 		m_world->ForEachWorldObject([](WorldObject &world_object) {
 			world_object.UpdateTransform();

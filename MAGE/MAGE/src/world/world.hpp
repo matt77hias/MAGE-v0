@@ -69,7 +69,7 @@ namespace mage {
 			if (!model) {
 				return;
 			}
-			m_models.insert(model);
+			m_models.push_back(model);
 		}
 		void RemoveModel(const string &name);
 		void RemoveModel(SharedPtr< Model > model);
@@ -95,7 +95,7 @@ namespace mage {
 			if (!light) {
 				return;
 			}
-			m_lights.insert(light);
+			m_lights.push_back(light);
 		}
 		void RemoveLight(const string &name);
 		void RemoveLight(SharedPtr< PointLight > light);
@@ -115,11 +115,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		// 3D
-		set< SharedPtr< Model >, std::less<> > m_models;
-		set< SharedPtr< PointLight >, std::less<> > m_lights;
+		vector< SharedPtr< Model > > m_models;
+		vector< SharedPtr< PointLight > > m_lights;
 
 		// 2D
+
 		SharedPtr< SpriteBatch > m_sprite_batch;
+
 	};
 }
 

@@ -127,7 +127,7 @@ namespace mage {
 		string m_name;
 		SharedPtr< Camera > m_camera;
 		UniquePtr< World > m_world;
-		set< SharedPtr< BehaviorScript >, std::less<> > m_scripts;
+		vector< SharedPtr< BehaviorScript > > m_scripts;
 	};
 }
 

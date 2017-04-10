@@ -44,14 +44,17 @@ namespace mage {
 		void SetName(const string &name) {
 			m_name = name;
 		}
-		Camera &GetCamera() const {
-			return *m_camera;
+		SharedPtr< Camera > GetCamera() {
+			return m_camera;
 		}
 		void SetCamera(SharedPtr< Camera > camera) {
 			m_camera = camera;
 		}
-		World &GetWorld() const {
-			return *m_world;
+		World *GetWorld() {
+			return m_world.get();
+		}
+		const World *GetWorld() const {
+			return m_world.get();
 		}
 
 		//-------------------------------------------------------------------------

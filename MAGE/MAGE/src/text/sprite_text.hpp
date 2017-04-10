@@ -26,7 +26,7 @@ namespace mage {
 			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None) 
 			: m_name(name), m_text(text), m_font(font), 
 			m_color(color), m_effects(effects), 
-			m_transform() {}
+			m_transform(new SpriteTransform()) {}
 		SpriteText(const SpriteText &sprite_text) = default;
 		SpriteText(SpriteText &&sprite_text) = default;
 		virtual ~SpriteText() = default;
@@ -43,7 +43,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		void Draw(SpriteBatch &sprite_batch) const {
-			m_font->DrawString(sprite_batch, m_text.c_str(), m_transform, m_color, m_effects);
+			m_font->DrawString(sprite_batch, m_text.c_str(), *m_transform, m_color, m_effects);
 		}
 
 		const string &GetName() const {
@@ -81,11 +81,11 @@ namespace mage {
 		void SetSpriteEffects(SpriteEffect effects) {
 			m_effects = effects;
 		}
-		SpriteTransform &GetTransform() {
-			return m_transform;
+		SpriteTransform *GetTransform() {
+			return m_transform.get();
 		}
-		const SpriteTransform &GetTransform() const {
-			return m_transform;
+		const SpriteTransform *GetTransform() const {
+			return m_transform.get();
 		}
 		
 	private:
@@ -99,6 +99,6 @@ namespace mage {
 		wstring m_text;
 		XMVECTOR m_color;
 		SpriteEffect m_effects;
-		SpriteTransform m_transform;
+		UniquePtr< SpriteTransform > m_transform;
 	};
 }

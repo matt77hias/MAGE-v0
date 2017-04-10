@@ -131,19 +131,19 @@ namespace mage {
 		/**
 		 Returns the 2D rendering state of this renderer.
 
-		 @return		A reference to the 2D rendering state of this renderer.
+		 @return		A pointer to the 2D rendering state of this renderer.
 		 */
-		RenderingState &GetRenderingState2D() const {
-			return *m_rendering_state_2d;
+		RenderingState *GetRenderingState2D() const {
+			return m_rendering_state_2d.get();
 		}
 
 		/**
 		 Returns the 3D rendering state of this renderer.
 
-		 @return		A reference to the 3D rendering state of this renderer.
+		 @return		A pointer to the 3D rendering state of this renderer.
 		 */
-		RenderingState &GetRenderingState3D() const {
-			return *m_rendering_state_3d;
+		RenderingState *GetRenderingState3D() const {
+			return m_rendering_state_3d.get();
 		}
 
 		/**

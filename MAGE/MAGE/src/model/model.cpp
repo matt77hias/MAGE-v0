@@ -34,7 +34,7 @@ namespace mage {
 	void Model::AddSubModel(SubModel *submodel) {
 		Assert(submodel);
 		m_submodels.push_back(submodel);
-		submodel->GetTransform().SetDirty();
+		submodel->GetTransform()->SetDirty();
 	}
 
 	SubModel *Model::GetSubModel(const string &name) const {
@@ -54,8 +54,8 @@ namespace mage {
 	void Model::UpdateChildTransforms(bool dirty_ancestor) {
 		ForEachSubModel([&](SubModel &submodel) {
 			submodel.UpdateTransform(
-				GetTransform().GetWorldToObjectMatrix(), 
-				GetTransform().GetObjectToWorldMatrix(),
+				GetTransform()->GetWorldToObjectMatrix(), 
+				GetTransform()->GetObjectToWorldMatrix(),
 				dirty_ancestor);
 		});
 	}
@@ -74,7 +74,7 @@ namespace mage {
 
 	void SubModel::Draw(const Mesh &mesh, const World &world, const TransformBuffer &transform_buffer) const {
 		// Appearance
-		transform_buffer.SetModelToWorld(GetTransform().GetObjectToWorldMatrix());
+		transform_buffer.SetModelToWorld(GetTransform()->GetObjectToWorldMatrix());
 		m_material->Draw(world, transform_buffer);
 		// Geometry
 		mesh.Draw(m_start_index, m_nb_indices);

@@ -130,7 +130,10 @@ namespace mage {
 		size_t GetNumberOfIndices() const {
 			return m_nb_indices;
 		}
-		Material &GetMaterial() const {
+		Material &GetMaterial() {
+			m_material->GetMaterial();
+		}
+		const Material &GetMaterial() const {
 			m_material->GetMaterial();
 		}
 

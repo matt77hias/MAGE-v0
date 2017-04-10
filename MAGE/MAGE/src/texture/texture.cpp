@@ -26,7 +26,7 @@ namespace mage {
 
 	SharedPtr< Texture > CreateTexture(const wstring &fname) {
 		ID3D11Device2 *device = GetRenderingDevice();
-		ResourceFactory &factory = GetResourceFactory();
-		return factory.CreateTexture(device, fname);
+		ResourceFactory *factory = GetResourceFactory();
+		return factory->CreateTexture(device, fname);
 	}
 }

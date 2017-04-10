@@ -58,9 +58,9 @@ namespace mage {
 	CombinedShader CreateSpriteShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		ID3D11DeviceContext2 *device_context = GetRenderingDeviceContext();
-		ResourceFactory &factory = GetResourceFactory();
-		SharedPtr< VertexShader > vs = factory.CreateSpriteVertexShader(device, device_context);
-		SharedPtr< PixelShader >  ps = factory.CreateSpritePixelShader(device, device_context);
+		ResourceFactory *factory = GetResourceFactory();
+		SharedPtr< VertexShader > vs = factory->CreateSpriteVertexShader(device, device_context);
+		SharedPtr< PixelShader >  ps = factory->CreateSpritePixelShader(device, device_context);
 		return CombinedShader(vs, ps);
 	}
 }

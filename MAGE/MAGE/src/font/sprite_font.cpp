@@ -280,7 +280,7 @@ namespace mage {
 
 	SharedPtr< SpriteFont > CreateFont(const wstring &fname, const SpriteFontDescriptor &desc) {
 		ID3D11Device2 *device = GetRenderingDevice();
-		ResourceFactory &factory = GetResourceFactory();
-		return factory.CreateFont(device, fname, desc);
+		ResourceFactory *factory = GetResourceFactory();
+		return factory->CreateFont(device, fname, desc);
 	}
 }

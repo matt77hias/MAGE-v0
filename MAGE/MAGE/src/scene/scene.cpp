@@ -92,7 +92,7 @@ namespace mage {
 		m_world->Render2D();
 	}
 	void Scene::Render3D() const {
-		TransformBuffer transform_buffer(GetCamera());
+		TransformBuffer transform_buffer(*m_camera);
 		m_world->Render3D(transform_buffer);
 	}
 	void Scene::Close() {

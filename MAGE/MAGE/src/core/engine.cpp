@@ -163,7 +163,7 @@ namespace mage {
 				// Update the input manager.
 				m_input_manager->Update();
 				// Handle forced exit.
-				if (m_input_manager->GetKeyboard().GetKeyPress(DIK_F1)) {
+				if (m_input_manager->GetKeyboard()->GetKeyPress(DIK_F1)) {
 					PostQuitMessage(0);
 					continue;
 				}

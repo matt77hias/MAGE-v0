@@ -66,7 +66,7 @@ namespace mage {
 	}
 
 	SharedPtr< VariableScript > CreateVariableScript(const wstring &fname, bool import) {
-		ResourceFactory &factory = GetResourceFactory();
-		return factory.CreateVariableScript(fname, import);
+		ResourceFactory *factory = GetResourceFactory();
+		return factory->CreateVariableScript(fname, import);
 	}
 }

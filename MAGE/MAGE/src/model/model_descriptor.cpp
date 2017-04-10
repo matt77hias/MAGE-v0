@@ -18,7 +18,7 @@ namespace mage {
 	ID3D11DeviceContext2 *GetModelRenderingDeviceContext() {
 		return GetRenderingDeviceContext();
 	}
-	ResourceFactory &GetModelResourceFactory() {
+	ResourceFactory *GetModelResourceFactory() {
 		return GetResourceFactory();
 	}
 }

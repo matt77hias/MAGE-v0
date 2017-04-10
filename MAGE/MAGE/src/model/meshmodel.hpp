@@ -50,8 +50,8 @@ namespace mage {
 
 		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const override;
 
-		const StaticMesh &GetMesh() const {
-			return *m_mesh;
+		const StaticMesh *GetMesh() const {
+			return m_mesh.get();
 		}
 
 	private:

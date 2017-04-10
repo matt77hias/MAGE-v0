@@ -26,13 +26,13 @@ namespace mage {
 	 class ResourceFactory;
 	 ID3D11Device2 *GetModelRenderingDevice();
 	 ID3D11DeviceContext2 *GetModelRenderingDeviceContext();
-	 ResourceFactory &GetModelResourceFactory();
+	 ResourceFactory *GetModelResourceFactory();
 
 	 template < typename VertexT >
 	 SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, const MeshDescriptor< VertexT > &desc) {
 		 ID3D11Device2 *device = GetModelRenderingDevice();
 		 ID3D11DeviceContext2 *device_context = GetModelRenderingDeviceContext();
-		 ResourceFactory &factory = GetModelResourceFactory();
-		 return factory.CreateModelDescriptor(device, device_context, fname, desc);
+		 ResourceFactory *factory = GetModelResourceFactory();
+		 return factory->CreateModelDescriptor(device, device_context, fname, desc);
 	 }
 }

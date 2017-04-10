@@ -49,8 +49,11 @@ namespace mage {
 		void SetName(const string &name) {
 			m_name = name;
 		}
-		Transform &GetTransform() const {
-			return *m_transform;
+		Transform *GetTransform() {
+			return m_transform.get();
+		}
+		const Transform *GetTransform() const {
+			return m_transform.get();
 		}
 
 		void UpdateTransform();

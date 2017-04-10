@@ -74,9 +74,9 @@ namespace mage {
 	CombinedShader CreateLambertianShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		ID3D11DeviceContext2 *device_context = GetRenderingDeviceContext();
-		ResourceFactory &factory = GetResourceFactory();
-		SharedPtr< VertexShader > vs = factory.CreateLambertianVertexShader(device, device_context);
-		SharedPtr< PixelShader >  ps = factory.CreateLambertianPixelShader(device, device_context);
+		ResourceFactory *factory = GetResourceFactory();
+		SharedPtr< VertexShader > vs = factory->CreateLambertianVertexShader(device, device_context);
+		SharedPtr< PixelShader >  ps = factory->CreateLambertianPixelShader(device, device_context);
 		return CombinedShader(vs, ps);
 	}
 }

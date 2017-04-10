@@ -91,19 +91,19 @@ namespace mage {
 		/**
 		 Returns the keyboard of this input manager.
 
-		 @return		A reference to the keyboard of this input manager.
+		 @return		A pointer to the keyboard of this input manager.
 		 */
-		const Keyboard &GetKeyboard() const {
-			return *m_keyboard;
+		const Keyboard *GetKeyboard() const {
+			return m_keyboard.get();
 		}
 
 		/**
 		 Returns the mouse of this input manager.
 
-		 @return		A reference to the mouse of this input manager.
+		 @return		A pointer to the mouse of this input manager.
 		 */
-		const Mouse &GetMouse() const {
-			return *m_mouse;
+		const Mouse *GetMouse() const {
+			return m_mouse.get();
 		}
 
 	private:

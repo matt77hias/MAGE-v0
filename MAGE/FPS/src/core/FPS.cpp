@@ -18,19 +18,19 @@ public:
 
 	virtual void Update(double elapsed_time, const Scene &scene) override {
 		UNUSED(scene);
-		m_model->GetTransform().AddRotationY((float)elapsed_time);
+		m_model->GetTransform()->AddRotationY((float)elapsed_time);
 
-		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_UP)) {
+		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_UP)) {
 			solid = !solid;
 			if (solid) {
-				g_engine->GetRenderer().GetRenderingState3D().SetCullCounterClockwiseRasterizerState();
+				g_engine->GetRenderer()->GetRenderingState3D()->SetCullCounterClockwiseRasterizerState();
 			}
 			else {
-				g_engine->GetRenderer().GetRenderingState3D().SetWireframeRasterizerState();
+				g_engine->GetRenderer()->GetRenderingState3D()->SetWireframeRasterizerState();
 			}
 		}
 		
-		if (g_engine->GetInputManager().GetKeyboard().GetKeyPress(DIK_F2)) {
+		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_F2)) {
 			//PostQuitMessage(0);
 			VariableScript s(L"assets/scripts/script_test.vs");
 			s.ExportScript(L"assets/scripts/output.vs");
@@ -59,7 +59,7 @@ public:
 
 		// Camera
 		SharedPtr< Camera > camera = CreatePerspectiveCamera("camera");
-		camera->GetTransform().SetTranslation(0.0f, 1.0f, -4.0f);
+		camera->GetTransform()->SetTranslation(0.0f, 1.0f, -4.0f);
 		SetCamera(camera);
 		
 		// ModelDescriptor
@@ -67,23 +67,23 @@ public:
 		SharedPtr< ModelDescriptor > model_desc = CreateModelDescriptor(L"assets/models/cube.obj", mesh_desc);
 		// Model
 		SharedPtr< Model > model(new MeshModel("model", *model_desc));
-		GetWorld().AddModel(model);
+		GetWorld()->AddModel(model);
 		
 		// Light
 		SharedPtr< PointLight > light(new PointLight("light", 100.0f, RGBSpectrum(0.5f, 0.5f, 0.0f)));
-		GetWorld().AddLight(light);
+		GetWorld()->AddLight(light);
 
 		// Font
 		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/comicsansms.spritefont", SpriteFontDescriptor());
 		// Text
 		SharedPtr< SpriteText > text(new SpriteText("text", L"Hello World!", font));
-		GetWorld().AddText(text);
+		GetWorld()->AddText(text);
 
 		// Texture
 		SharedPtr< Texture > texture = CreateTexture(L"assets/models/seafloor.dds");
 		// Image
 		//SharedPtr< SpriteImage > image(new SpriteImage("image", texture));
-		//GetWorld().AddImage(image);
+		//GetWorld()->AddImage(image);
 
 		// Script
 		SharedPtr< BehaviorScript > script(new TestScript(model));

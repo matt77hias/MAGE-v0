@@ -76,13 +76,15 @@ namespace mage {
 
 	ID3D11Device2 *GetRenderingDevice() {
 		Assert(g_engine);
-		return g_engine->GetRenderer().GetDevice();
+		Assert(g_engine->GetRenderer());
+		return g_engine->GetRenderer()->GetDevice();
 	}
 	ID3D11DeviceContext2 *GetRenderingDeviceContext() {
 		Assert(g_engine);
-		return g_engine->GetRenderer().GetDeviceContext();
+		Assert(g_engine->GetRenderer());
+		return g_engine->GetRenderer()->GetDeviceContext();
 	}
-	ResourceFactory &GetResourceFactory() {
+	ResourceFactory *GetResourceFactory() {
 		Assert(g_engine);
 		return g_engine->GetResourceFactory();
 	}

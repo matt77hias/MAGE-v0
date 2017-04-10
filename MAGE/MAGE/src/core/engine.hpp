@@ -101,10 +101,10 @@ namespace mage {
 		/**
 		 Returns the main window of this engine.
 		 
-		 @return		A reference to the main window of this engine.
+		 @return		A pointer to the main window of this engine.
 		 */
-		const MainWindow &GetMainWindow() const {
-			return *m_main_window;
+		const MainWindow *GetMainWindow() const {
+			return m_main_window.get();
 		}
 		
 		/**
@@ -124,10 +124,10 @@ namespace mage {
 		/**
 		 Returns the renderer of this engine.
 
-		 @return		A reference to the renderer of this engine.
+		 @return		A pointer to the renderer of this engine.
 		 */
-		Renderer &GetRenderer() const {
-			return *m_renderer;
+		const Renderer *GetRenderer() const {
+			return m_renderer.get();
 		}
 
 		/**
@@ -147,10 +147,10 @@ namespace mage {
 		/**
 		 Returns the input manager of this engine.
 
-		 @return		A reference to the input manager of this engine.
+		 @return		A pointer to the input manager of this engine.
 		 */
-		const InputManager &GetInputManager() const {
-			return *m_input_manager;
+		const InputManager *GetInputManager() const {
+			return m_input_manager.get();
 		}
 
 		//---------------------------------------------------------------------
@@ -160,10 +160,10 @@ namespace mage {
 		/**
 		 Returns the resource factory of this engine.
 
-		 @return		A reference to the resource factory of this engine.
+		 @return		A pointer to the resource factory of this engine.
 		 */
-		ResourceFactory &GetResourceFactory() const {
-			return *m_resource_factory;
+		ResourceFactory *GetResourceFactory() const {
+			return m_resource_factory.get();
 		}
 
 		//---------------------------------------------------------------------

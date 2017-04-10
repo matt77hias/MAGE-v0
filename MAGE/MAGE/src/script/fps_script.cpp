@@ -15,11 +15,16 @@
 namespace mage {
 
 	void FPSScript::Update(double elapsed_time, const Scene &scene) {
-		UNUSED(elapsed_time);
 		UNUSED(scene);
 		
-		m_spf = (m_nb_frames * m_spf + elapsed_time) / (m_nb_frames + 1);
+		m_seconds_per_frame = (m_nb_frames * m_seconds_per_frame + elapsed_time) / (m_nb_frames + 1);
+		const double m_frames_per_second = 1.0 / m_seconds_per_frame;
 		++m_nb_frames;
-		m_text->SetText(to_wstring(1.0 / m_spf));
+
+		wchar_t buffer[10];
+		_snwprintf_s(buffer, _countof(buffer), L"%u FPS", static_cast< uint32_t >(m_frames_per_second));
+		const wstring text = buffer;
+
+		m_text->SetText(text);
 	}
 }

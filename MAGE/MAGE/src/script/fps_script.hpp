@@ -23,8 +23,9 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		FPSScript(SharedPtr< SpriteText > text)
-			: BehaviorScript(), m_spf(0.0), m_nb_frames(0), m_text(text) {}
+		explicit FPSScript(SharedPtr< SpriteText > text)
+			: BehaviorScript(), m_seconds_per_frame(0.0), m_nb_frames(0), 
+			m_text(text) {}
 		FPSScript(const FPSScript &script) = delete;
 		FPSScript(FPSScript &&script) = default;
 		virtual ~FPSScript() = default;
@@ -47,7 +48,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-		double m_spf;
+		double m_seconds_per_frame;
 		uint32_t m_nb_frames;
 		SharedPtr< SpriteText > m_text;
 	};

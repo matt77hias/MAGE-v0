@@ -64,8 +64,8 @@ public:
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		SharedPtr< ModelDescriptor > model_desc = CreateModelDescriptor(L"assets/models/cube.obj", mesh_desc);
 		// Model
-		SharedPtr< Model > test_model(new MeshModel("model", *model_desc));
-		GetWorld().AddModel(test_model);
+		SharedPtr< Model > model(new MeshModel("model", *model_desc));
+		GetWorld().AddModel(model);
 		
 		// Light
 		SharedPtr< PointLight > light(new PointLight("light", 100.0f, RGBSpectrum(0.5f, 0.5f, 0.0f)));
@@ -84,8 +84,8 @@ public:
 		GetWorld().AddImage(image);
 
 		// Script
-		SharedPtr< BehaviorScript > test_script(new TestScript(test_model));
-		AddScript(test_script);
+		SharedPtr< BehaviorScript > script(new TestScript(model));
+		AddScript(script);
 	}
 };
 

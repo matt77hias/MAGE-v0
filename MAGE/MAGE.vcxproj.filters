@@ -190,8 +190,8 @@
     <Filter Include="Header Files\text">
       <UniqueIdentifier>{207846ed-8a16-4e94-a121-b9b981c5bb24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\text">
-      <UniqueIdentifier>{8e8ea5e0-8c99-4c25-b6ad-76568f9c8a31}</UniqueIdentifier>
+    <Filter Include="Source Files\camera">
+      <UniqueIdentifier>{387a1d6e-f2b9-464f-91ca-5c2ced312bca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -721,6 +721,12 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\world\world_object.cpp">
       <Filter>Source Files\world</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\camera\perspective_camera.cpp">
+      <Filter>Source Files\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp">
+      <Filter>Source Files\camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

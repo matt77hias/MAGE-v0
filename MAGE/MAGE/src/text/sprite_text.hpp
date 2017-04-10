@@ -22,9 +22,9 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit SpriteText(const wstring &text, SharedPtr< SpriteFont > font,
+		explicit SpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
 			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None) 
-			: m_text(text), m_font(font), 
+			: m_name(name), m_text(text), m_font(font), 
 			m_color(color), m_effects(effects), 
 			m_transform() {}
 		SpriteText(const SpriteText &sprite_text) = default;
@@ -46,6 +46,12 @@ namespace mage {
 			m_font->DrawString(sprite_batch, m_text.c_str(), m_transform, m_color, m_effects);
 		}
 
+		const string &GetName() const {
+			return m_name;
+		}
+		void SetName(const string &name) {
+			m_name = name;
+		}
 		SharedPtr< SpriteFont > GetFont() const {
 			return m_font;
 		}
@@ -88,6 +94,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
+		string m_name;
 		SharedPtr< SpriteFont > m_font;
 		wstring m_text;
 		XMVECTOR m_color;

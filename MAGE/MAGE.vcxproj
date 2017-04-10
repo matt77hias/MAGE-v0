@@ -135,6 +135,8 @@
     <ClInclude Include="MAGE\src\world\world_object.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp" />
+    <ClCompile Include="MAGE\src\camera\perspective_camera.cpp" />
     <ClCompile Include="MAGE\src\core\engine.cpp" />
     <ClCompile Include="MAGE\src\core\version.cpp" />
     <ClCompile Include="MAGE\src\font\spritefont\spritefont_loader.cpp" />

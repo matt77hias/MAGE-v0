@@ -25,7 +25,8 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit SpriteFont(ID3D11Device2 *device, const wstring &fname, const SpriteFontDescriptor &desc);
+		explicit SpriteFont(ID3D11Device2 *device, const wstring &fname, 
+			const SpriteFontDescriptor &desc = SpriteFontDescriptor());
 		SpriteFont(const SpriteFont &font) = delete;
 		SpriteFont(SpriteFont &&font) = default;
 		virtual ~SpriteFont() = default;
@@ -79,4 +80,6 @@ namespace mage {
 		const Glyph *m_default_glyph;
 		float m_line_spacing;
 	};
+
+	SharedPtr< SpriteFont > CreateFont(const wstring &fname, const SpriteFontDescriptor &desc);
 }

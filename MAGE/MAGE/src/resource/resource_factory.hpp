@@ -8,6 +8,7 @@
 #include "resource\resource_pool.hpp"
 #include "model\model_descriptor.hpp"
 #include "shader\shader.hpp"
+#include "font\sprite_font.hpp"
 #include "scripting\variable_script.hpp"
 
 #pragma endregion
@@ -58,6 +59,8 @@ namespace mage {
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
 		SharedPtr< PixelShader > CreateSpritePixelShader(
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+		SharedPtr< SpriteFont > CreateFont(ID3D11Device2 *device, const wstring &fname,
+			const SpriteFontDescriptor &desc);
 		SharedPtr< Texture > CreateTexture(ID3D11Device2 *device, const wstring &fname);
 		SharedPtr< VariableScript > CreateVariableScript(const wstring &fname, bool import);
 
@@ -70,6 +73,7 @@ namespace mage {
 		UniquePtr< ResourcePool< wstring, ModelDescriptor > > m_model_descriptor_resource_pool;
 		UniquePtr< ResourcePool< wstring, VertexShader > >    m_vertex_shader_resource_pool;
 		UniquePtr< ResourcePool< wstring, PixelShader > >     m_pixel_shader_resource_pool;
+		UniquePtr< ResourcePool< wstring, SpriteFont > >      m_font_resource_pool;
 		UniquePtr< ResourcePool< wstring, Texture > >         m_texture_resource_pool;
 		UniquePtr< ResourcePool< wstring, VariableScript > >  m_variable_script_resource_pool;
 	};

@@ -23,14 +23,14 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit SpriteImage(SharedPtr< Texture > texture,
+		explicit SpriteImage(const string &name, SharedPtr< Texture > texture,
 			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
-			: m_region(), m_texture(texture), 
+			: m_name(name), m_region(), m_texture(texture), 
 			m_color(color), m_effects(effects), 
 			m_transform() {}
-		explicit SpriteImage(SharedPtr< Texture > texture, const RECT &region,
+		explicit SpriteImage(const string &name, SharedPtr< Texture > texture, const RECT &region,
 			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
-			: m_region(new RECT(region)), m_texture(texture),
+			: m_name(name), m_region(new RECT(region)), m_texture(texture),
 			m_color(color), m_effects(effects),
 			m_transform() {}
 		SpriteImage(const SpriteImage &sprite_image) = default;
@@ -52,6 +52,12 @@ namespace mage {
 			sprite_batch.Draw(m_texture->GetTextureResourceView(), m_color, m_effects, m_transform, m_region.get());
 		}
 
+		const string &GetName() const {
+			return m_name;
+		}
+		void SetName(const string &name) {
+			m_name = name;
+		}
 		void SetRegion(const RECT &region) {
 			m_region.reset(new RECT(region));
 		}
@@ -91,6 +97,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
+		string m_name;
 		UniquePtr< RECT > m_region;
 		SharedPtr< Texture > m_texture;
 		XMVECTOR m_color;

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "font\sprite_font.hpp"
 
 using namespace mage;
 
@@ -56,28 +55,37 @@ public:
 
 	virtual void Load() override {
 
-		// @TODO: cameras straight from renderer?
-		const float width  = (float)g_engine->GetRenderer().GetWidth();
-		const float height = (float)g_engine->GetRenderer().GetHeight();
-		SharedPtr< Camera > camera(new PerspectiveCamera("camera", width, height));
-		SetCamera(camera);
+		// Camera
+		SharedPtr< Camera > camera = CreatePerspectiveCamera("camera");
 		camera->GetTransform().SetTranslation(0.0f, 1.0f, -4.0f);
+		SetCamera(camera);
 		
-		CombinedShader shader = CreateLambertianShader();
-
+		// ModelDescriptor
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		SharedPtr< ModelDescriptor > model_desc = CreateModelDescriptor(L"assets/models/cube.obj", mesh_desc);
-		SharedPtr< Model > test_model(new MeshModel("model", *model_desc, shader));
+		// Model
+		SharedPtr< Model > test_model(new MeshModel("model", *model_desc));
 		GetWorld().AddModel(test_model);
 		
+		// Light
 		SharedPtr< PointLight > light(new PointLight("light", 100.0f, RGBSpectrum(0.5f, 0.5f, 0.0f)));
 		GetWorld().AddLight(light);
 
+		// Font
+		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/comicsansms.spritefont", SpriteFontDescriptor());
+		// Text
+		SharedPtr< SpriteText > text(new SpriteText("text", L"Hello World!", font));
+		GetWorld().AddText(text);
+
+		// Texture
+		SharedPtr< Texture > texture = CreateTexture(L"assets/models/seafloor.dds");
+		// Image
+		SharedPtr< SpriteImage > image(new SpriteImage("image", texture));
+		GetWorld().AddImage(image);
+
+		// Script
 		SharedPtr< BehaviorScript > test_script(new TestScript(test_model));
 		AddScript(test_script);
-
-		//TODO
-		GetWorld().m_font = SharedPtr< SpriteFont >(new SpriteFont(g_engine->GetRenderer().GetDevice(), L"assets/fonts/comicsansms.spritefont", SpriteFontDescriptor()));
 	}
 };
 

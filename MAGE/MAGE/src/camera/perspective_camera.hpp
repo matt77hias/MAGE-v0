@@ -171,4 +171,9 @@ namespace mage {
 		 */
 		float m_fov_y;
 	};
+
+	SharedPtr< Camera > CreatePerspectiveCamera(const string &name, 
+		float fov_y = MAGE_DEFAULT_CAMERA_FOV_Y,
+		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
+		float far_z = MAGE_DEFAULT_CAMERA_FAR_Z);
 }

@@ -61,13 +61,8 @@ namespace mage {
 		size_t GetNumberOfScripts() const {
 			return m_scripts.size();
 		}
-		SharedPtr< BehaviorScript > GetScript(const string &name) const;
-		bool HasScript(const string &name) const {
-			return GetScript(name) != nullptr;
-		}
 		bool HasScript(const SharedPtr< BehaviorScript > script) const;
 		void AddScript(SharedPtr< BehaviorScript > script, bool load = false);
-		void RemoveScript(const string &name, bool close = false);
 		void RemoveScript(SharedPtr< BehaviorScript > script, bool close = false);
 		void RemoveAllScripts(bool close = false);
 		template< typename ActionT >

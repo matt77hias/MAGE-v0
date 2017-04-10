@@ -4,7 +4,10 @@
 #pragma region
 
 #include "scene\scene.hpp"
-#include "model\model.hpp"
+#include "model\meshmodel.hpp"
+#include "light\point_light.hpp"
+#include "text\sprite_text.hpp"
+#include "sprite\sprite_image.hpp"
 #include "scripting\behavior_script.hpp"
 #include "logging\error.hpp"
 
@@ -15,18 +18,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SharedPtr< BehaviorScript > Scene::GetScript(const string &name) const {
-		vector< SharedPtr< BehaviorScript > >::const_iterator it = m_scripts.cbegin();
-		while (it != m_scripts.cend()) {
-			if ((*it)->GetName() == name) {
-				return (*it);
-			}
-			else {
-				++it;
-			}
-		}
-		return nullptr;
-	}
 	bool Scene::HasScript(const SharedPtr< BehaviorScript > script) const {
 		vector< SharedPtr< BehaviorScript > >::const_iterator it = m_scripts.cbegin();
 		while (it != m_scripts.cend()) {
@@ -48,21 +39,6 @@ namespace mage {
 
 		if (load) {
 			script->Load();
-		}
-	}
-	void Scene::RemoveScript(const string &name, bool close) {
-		vector< SharedPtr< BehaviorScript > >::iterator it = m_scripts.begin();
-		while (it != m_scripts.end()) {
-			if ((*it)->GetName() == name) {
-				if (close) {
-					(*it)->Close();
-				}
-				it = m_scripts.erase(it);
-				break;
-			}
-			else {
-				++it;
-			}
 		}
 	}
 	void Scene::RemoveScript(SharedPtr< BehaviorScript > script, bool close) {
@@ -108,7 +84,7 @@ namespace mage {
 
 		// Update and propagate transforms.
 		m_camera->UpdateTransform();
-		m_world->ForEachWorldObject([](WorldObject &world_object) {
+		m_world->ForEachObject3D([](WorldObject &world_object) {
 			world_object.UpdateTransform();
 		});
 	}

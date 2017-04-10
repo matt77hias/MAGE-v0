@@ -19,6 +19,8 @@ namespace mage {
 	 */
 	class OrthographicCamera : public Camera {
 
+	public:
+
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
@@ -123,4 +125,8 @@ namespace mage {
 			SetNearAndFarZ(near_z, far_z);
 		}
 	};
+
+	SharedPtr< Camera > CreateOrthographicCamera(const string &name,
+		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
+		float far_z = MAGE_DEFAULT_CAMERA_FAR_Z);
 }

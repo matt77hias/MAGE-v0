@@ -22,6 +22,7 @@ namespace mage {
 		: m_model_descriptor_resource_pool(new ResourcePool< wstring, ModelDescriptor >()),
 		m_vertex_shader_resource_pool(new ResourcePool< wstring, VertexShader >()),
 		m_pixel_shader_resource_pool(new ResourcePool< wstring, PixelShader >()),
+		m_font_resource_pool(new ResourcePool< wstring, SpriteFont >()),
 		m_texture_resource_pool(new ResourcePool< wstring, Texture >()),
 		m_variable_script_resource_pool(new ResourcePool< wstring, VariableScript >()) {}
 
@@ -29,6 +30,7 @@ namespace mage {
 		m_model_descriptor_resource_pool->RemoveAllResources();
 		m_vertex_shader_resource_pool->RemoveAllResources();
 		m_pixel_shader_resource_pool->RemoveAllResources();
+		m_font_resource_pool->RemoveAllResources();
 		m_texture_resource_pool->RemoveAllResources();
 		m_variable_script_resource_pool->RemoveAllResources();
 	}
@@ -52,6 +54,11 @@ namespace mage {
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context) {
 		return m_pixel_shader_resource_pool->template
 			GetDerivedResource< SpritePixelShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >(MAGE_GUID_SPRITE_PS, device, device_context);
+	}
+	SharedPtr< SpriteFont > ResourceFactory::CreateFont(
+		ID3D11Device2 *device, const wstring &fname, const SpriteFontDescriptor &desc) {
+		return m_font_resource_pool->template
+			GetResource< ID3D11Device2 *&, const wstring &, const SpriteFontDescriptor & >(fname, device, fname, desc);
 	}
 	SharedPtr< Texture > ResourceFactory::CreateTexture(
 		ID3D11Device2 *device, const wstring &fname) {

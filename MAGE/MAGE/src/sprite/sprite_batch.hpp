@@ -9,7 +9,6 @@
 #include "math\sprite_transform.hpp"
 #include "mesh\sprite_batch_mesh.hpp"
 #include "mesh\vertex.hpp"
-#include "shader\shader.hpp"
 #include "shader\sprite_shader.hpp"
 
 #include "sprite\sprite_utils.hpp"

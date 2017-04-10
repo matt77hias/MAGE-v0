@@ -6,7 +6,6 @@
 #pragma region
 
 #include "world\transform_buffer.hpp"
-#include "light\point_light.hpp"
 
 #pragma endregion
 
@@ -17,8 +16,10 @@ namespace mage {
 
 	// Forward declarations
 	class Model;
+	class PointLight;
 	class SpriteBatch;
-	class SpriteFont;
+	class SpriteText;
+	class SpriteImage;
 
 	class World {
 
@@ -51,7 +52,11 @@ namespace mage {
 		void Render3D(const TransformBuffer &transform_buffer) const;
 
 		template< typename ActionT >
-		void ForEachWorldObject(ActionT action) const;
+		void ForEachObject(ActionT action) const;
+		template< typename ActionT >
+		void ForEachObject2D(ActionT action) const;
+		template< typename ActionT >
+		void ForEachObject3D(ActionT action) const;
 
 		//-------------------------------------------------------------------------
 		// Member Methods: Models
@@ -60,22 +65,10 @@ namespace mage {
 		size_t GetNumberOfModels() const {
 			return m_models.size();
 		}
-		SharedPtr< Model > GetModel(const string &name) const;
-		bool HasModel(const string &name) const {
-			return GetModel(name) != nullptr;
-		}
 		bool HasModel(const SharedPtr< Model > model) const;
-		void AddModel(SharedPtr< Model > model) {
-			if (!model) {
-				return;
-			}
-			m_models.push_back(model);
-		}
-		void RemoveModel(const string &name);
+		void AddModel(SharedPtr< Model > model);
 		void RemoveModel(SharedPtr< Model > model);
-		void RemoveAllModels() {
-			m_models.clear();
-		}
+		void RemoveAllModels();
 		template< typename ActionT >
 		void ForEachModel(ActionT action) const;
 
@@ -86,27 +79,40 @@ namespace mage {
 		size_t GetNumberOfLights() const {
 			return m_lights.size();
 		}
-		SharedPtr< PointLight > GetLight(const string &name) const;
-		bool HasLight(const string &name) const {
-			return GetLight(name) != nullptr;
-		}
 		bool HasLight(const SharedPtr< PointLight > light) const;
-		void AddLight(SharedPtr< PointLight > light) {
-			if (!light) {
-				return;
-			}
-			m_lights.push_back(light);
-		}
-		void RemoveLight(const string &name);
+		void AddLight(SharedPtr< PointLight > light);
 		void RemoveLight(SharedPtr< PointLight > light);
-		void RemoveAllLights() {
-			m_lights.clear();
-		}
+		void RemoveAllLights();
 		template< typename ActionT >
 		void ForEachLight(ActionT action) const;
 
-		//TODO
-		SharedPtr< SpriteFont > m_font;
+		//-------------------------------------------------------------------------
+		// Member Methods: Texts
+		//-------------------------------------------------------------------------
+
+		size_t GetNumberOfTexts() const {
+			return m_texts.size();
+		}
+		bool HasText(const SharedPtr< SpriteText > text) const;
+		void AddText(SharedPtr< SpriteText > text);
+		void RemoveText(SharedPtr< SpriteText > text);
+		void RemoveAllTexts();
+		template< typename ActionT >
+		void ForEachText(ActionT action) const;
+
+		//-------------------------------------------------------------------------
+		// Member Methods: Images
+		//-------------------------------------------------------------------------
+
+		size_t GetNumberOfImages() const {
+			return m_images.size();
+		}
+		bool HasImage(const SharedPtr< SpriteImage > image) const;
+		void AddImage(SharedPtr< SpriteImage > image);
+		void RemoveImage(SharedPtr< SpriteImage > image);
+		void RemoveAllImages();
+		template< typename ActionT >
+		void ForEachImage(ActionT action) const;
 
 	private:
 
@@ -119,9 +125,9 @@ namespace mage {
 		vector< SharedPtr< PointLight > > m_lights;
 
 		// 2D
-
+		vector< SharedPtr < SpriteText > > m_texts;
+		vector< SharedPtr < SpriteImage > > m_images;
 		SharedPtr< SpriteBatch > m_sprite_batch;
-
 	};
 }
 

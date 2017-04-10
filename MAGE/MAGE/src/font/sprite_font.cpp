@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "font\sprite_font.hpp"
+#include "resource\resource_factory.hpp"
 #include "font\sprite_font_loader.hpp"
 #include "logging\error.hpp"
 
@@ -276,5 +276,11 @@ namespace mage {
 		}
 
 		return m_default_glyph;
+	}
+
+	SharedPtr< SpriteFont > CreateFont(const wstring &fname, const SpriteFontDescriptor &desc) {
+		ID3D11Device2 *device = GetRenderingDevice();
+		ResourceFactory &factory = GetResourceFactory();
+		return factory.CreateFont(device, fname, desc);
 	}
 }

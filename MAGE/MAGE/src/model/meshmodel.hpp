@@ -7,6 +7,7 @@
 
 #include "model\model.hpp"
 #include "model\model_descriptor.hpp"
+#include "shader\lambertian_shader.hpp"
 
 #pragma endregion
 
@@ -26,7 +27,8 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit MeshModel(const string &name, const ModelDescriptor &desc, const CombinedShader &shader);
+		explicit MeshModel(const string &name, const ModelDescriptor &desc, 
+			const CombinedShader &shader = CreateLambertianShader());
 		MeshModel(const MeshModel &model) = default;
 		MeshModel(MeshModel &&model) = default;
 		virtual ~MeshModel() = default;

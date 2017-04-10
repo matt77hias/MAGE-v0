@@ -6,8 +6,8 @@
 #pragma region
 
 #include "binary\binary_reader.hpp"
-#include "sprite\sprite_font_output.hpp"
-#include "sprite\sprite_font_descriptor.hpp"
+#include "font\sprite_font_output.hpp"
+#include "font\sprite_font_descriptor.hpp"
 
 #pragma endregion
 

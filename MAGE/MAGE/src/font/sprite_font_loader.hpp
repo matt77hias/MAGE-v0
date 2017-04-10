@@ -1,20 +1,20 @@
+#pragma once
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "sprite\spritefont\spritefont_loader.hpp"
-#include "sprite\spritefont\spritefont_reader.hpp"
+#include "string\string.hpp"
+#include "font\sprite_font_output.hpp"
+#include "font\sprite_font_descriptor.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT ImportFontFromFile(const wstring &fname, ID3D11Device2 *device, SpriteFontOutput &output, const SpriteFontDescriptor &desc) {
-		SpriteFontReader reader(device, output, desc);
-		return reader.ReadFromFile(fname);
-	}
+	HRESULT ImportSpriteFontFromFile(const wstring &fname, ID3D11Device2 *device, SpriteFontOutput &output, const SpriteFontDescriptor &desc = SpriteFontDescriptor());
 }

@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "sprite\sprite_font.hpp"
-#include "sprite\sprite_font_loader.hpp"
+#include "font\sprite_font.hpp"
+#include "font\sprite_font_loader.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

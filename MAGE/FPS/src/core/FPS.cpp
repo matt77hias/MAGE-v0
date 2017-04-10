@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "sprite\sprite_font.hpp"
+#include "font\sprite_font.hpp"
 
 using namespace mage;
 

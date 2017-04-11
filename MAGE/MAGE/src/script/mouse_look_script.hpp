@@ -29,8 +29,14 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit MouseLookScript()
-			: BehaviorScript() {}
+		explicit MouseLookScript(
+			SharedPtr< Camera > camera, 
+			RotationAxes axes = RotationAxes_MouseXAndY,
+			const XMFLOAT2 &sensitivity = XMFLOAT2(15.0f, 15.0f),
+			const XMFLOAT2 &minimum = XMFLOAT2(-XM_2PI, -XM_PI / 3.0f),
+			const XMFLOAT2 &maximum = XMFLOAT2( XM_2PI,  XM_PI / 3.0f))
+			: BehaviorScript(), m_camera(camera), m_axes(axes),
+			m_sensitivity(sensitivity), m_min(minimum), m_max(minimum) {}
 		MouseLookScript(const MouseLookScript &script) = delete;
 		MouseLookScript(MouseLookScript &&script) = default;
 		virtual ~MouseLookScript() = default;
@@ -55,7 +61,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		RotationAxes m_axes;
-		XMFLOAT2 m_rotation;
 		XMFLOAT2 m_sensitivity;
 		XMFLOAT2 m_min;
 		XMFLOAT2 m_max;

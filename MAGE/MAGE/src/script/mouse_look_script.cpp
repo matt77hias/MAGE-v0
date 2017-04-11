@@ -21,19 +21,19 @@ namespace mage {
 		switch (m_axes) {
 
 		case RotationAxes_MouseXAndY: {
-			const float rotation_x = m_rotation.x + mouse->GetDeltaX() * m_sensitivity.x;
-			const float rotation_y = m_rotation.y + mouse->GetDeltaY() * m_sensitivity.y;
+			const float rotation_x = transform->GetRotationX() + mouse->GetDeltaX() * m_sensitivity.x;
+			const float rotation_y = transform->GetRotationY() + mouse->GetDeltaY() * m_sensitivity.y;
 			transform->AddRotationX(ClampAngleRadians(rotation_x, m_min.x, m_max.x));
 			transform->AddRotationY(ClampAngleRadians(rotation_y, m_min.y, m_max.y));
 			break;
 		}
 		case RotationAxes_MouseX: {
-			const float rotation_x = m_rotation.x + mouse->GetDeltaX() * m_sensitivity.x;
+			const float rotation_x = transform->GetRotationX() + mouse->GetDeltaX() * m_sensitivity.x;
 			transform->AddRotationX(ClampAngleRadians(rotation_x, m_min.x, m_max.x));
 			break;
 		}
 		case RotationAxes_MouseY: {
-			const float rotation_y = m_rotation.y + mouse->GetDeltaY() * m_sensitivity.y;
+			const float rotation_y = transform->GetRotationY() + mouse->GetDeltaY() * m_sensitivity.y;
 			transform->AddRotationY(ClampAngleRadians(rotation_y, m_min.y, m_max.y));
 			break;
 		}

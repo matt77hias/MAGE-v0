@@ -10,7 +10,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -19,32 +19,25 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
+		// Destructors
 		//---------------------------------------------------------------------
 
-		explicit SpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
-			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None) 
-			: m_name(name), m_text(text), m_font(font), 
-			m_color(color), m_effects(effects), 
-			m_transform(new SpriteTransform()) {}
-		SpriteText(const SpriteText &sprite_text) = default;
-		SpriteText(SpriteText &&sprite_text) = default;
 		virtual ~SpriteText() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		SpriteText &operator=(const SpriteText &sprite_text) = default;
+		SpriteText &operator=(const SpriteText &sprite_text);
 		SpriteText &operator=(SpriteText &&sprite_text) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void Draw(SpriteBatch &sprite_batch) const {
-			m_font->DrawString(sprite_batch, m_text.c_str(), *m_transform, m_color, m_effects);
-		}
+		virtual SpriteText *Clone() const = 0;
+
+		virtual void Draw(SpriteBatch &sprite_batch) const = 0;
 
 		const string &GetName() const {
 			return m_name;
@@ -87,7 +80,29 @@ namespace mage {
 		const SpriteTransform *GetTransform() const {
 			return m_transform.get();
 		}
-		
+
+	protected:
+
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
+
+		explicit SpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
+			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None);
+		SpriteText(const SpriteText &sprite_text);
+		SpriteText(SpriteText &&sprite_text) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		const XMVECTOR GetColorVector() const {
+			return m_color;
+		}
+		const SpriteFont *GetRawFont() const {
+			return m_font.get();
+		}
+
 	private:
 
 		//---------------------------------------------------------------------

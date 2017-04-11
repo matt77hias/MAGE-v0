@@ -18,13 +18,12 @@ namespace mage {
 	const double SystemUsageScript::resource_fetch_period = 0.25;
 
 	void SystemUsageScript::Update(double elapsed_time, const Scene &scene) {
-		UNUSED(elapsed_time);
 		UNUSED(scene);
 
 		m_time += elapsed_time;
 		if (m_time > SystemUsageScript::resource_fetch_period) {
 			const uint32_t cpu_usage = static_cast<uint32_t>(GetProcessorUsage());
-			const uint32_t ram_usage = static_cast<uint32_t>(GetPhysicalMemoryUsage() >> 20);
+			const uint32_t ram_usage = static_cast<uint32_t>(GetVirtualMemoryUsage() >> 20);
 
 			m_cpu_usage = (cpu_usage) ? cpu_usage : m_cpu_usage;
 			m_ram_usage = (ram_usage) ? ram_usage : m_ram_usage;

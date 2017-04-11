@@ -157,7 +157,7 @@ namespace mage {
 			}
 			else if (!m_deactive && m_scene) {
 				// Calculate the elapsed time.
-				const double elapsed_time = timer.Time();
+				const double elapsed_time = timer.GetElapsedTime();
 				timer.Restart();
 
 				// Update the input manager.

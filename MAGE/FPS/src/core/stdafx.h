@@ -13,7 +13,9 @@
 #include "scripting\behavior_script.hpp"
 #include "model\meshmodel.hpp"
 #include "light\point_light.hpp"
-#include "text\sprite_text.hpp"
+#include "text\normal_sprite_text.hpp"
+#include "text\outline_sprite_text.hpp"
+#include "text\dropshadow_sprite_text.hpp"
 #include "sprite\sprite_image.hpp"
 #include "shader\lambertian_shader.hpp"
 

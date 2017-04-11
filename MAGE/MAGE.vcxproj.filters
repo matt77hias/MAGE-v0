@@ -205,6 +205,9 @@
     <Filter Include="Source Files\system">
       <UniqueIdentifier>{c6d373e4-d148-4ea4-8574-dcda34eb9f85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\text">
+      <UniqueIdentifier>{70445d7e-adf2-4861-815f-d860713f57c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -558,6 +561,15 @@
     <ClInclude Include="MAGE\src\script\system_usage_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\text\dropshadow_sprite_text.hpp">
+      <Filter>Header Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\text\normal_sprite_text.hpp">
+      <Filter>Header Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\text\outline_sprite_text.hpp">
+      <Filter>Header Files\text</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -757,6 +769,18 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\script\system_usage_script.cpp">
       <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\text\sprite_text.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\text\dropshadow_sprite_text.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\text\outline_sprite_text.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\text\normal_sprite_text.cpp">
+      <Filter>Source Files\text</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

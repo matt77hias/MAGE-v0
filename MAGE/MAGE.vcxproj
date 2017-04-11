@@ -129,6 +129,9 @@
     <ClInclude Include="MAGE\src\texture\dds\dds_loader.hpp" />
     <ClInclude Include="MAGE\src\texture\texture.hpp" />
     <ClInclude Include="MAGE\src\texture\texture_loader.hpp" />
+    <ClInclude Include="MAGE\src\text\dropshadow_sprite_text.hpp" />
+    <ClInclude Include="MAGE\src\text\normal_sprite_text.hpp" />
+    <ClInclude Include="MAGE\src\text\outline_sprite_text.hpp" />
     <ClInclude Include="MAGE\src\text\sprite_text.hpp" />
     <ClInclude Include="MAGE\src\ui\combo_box.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window.hpp" />
@@ -199,6 +202,10 @@
     <ClCompile Include="MAGE\src\texture\dds\dds_loader.cpp" />
     <ClCompile Include="MAGE\src\texture\texture.cpp" />
     <ClCompile Include="MAGE\src\texture\texture_loader.cpp" />
+    <ClCompile Include="MAGE\src\text\dropshadow_sprite_text.cpp" />
+    <ClCompile Include="MAGE\src\text\normal_sprite_text.cpp" />
+    <ClCompile Include="MAGE\src\text\outline_sprite_text.cpp" />
+    <ClCompile Include="MAGE\src\text\sprite_text.cpp" />
     <ClCompile Include="MAGE\src\ui\combo_box.cpp" />
     <ClCompile Include="MAGE\src\ui\main_window.cpp" />
     <ClCompile Include="MAGE\src\world\transform_buffer.cpp" />

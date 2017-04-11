@@ -24,16 +24,16 @@
 namespace mage {
 
 	uint64_t GetVirtualMemoryUsage() {
-		PROCESS_MEMORY_COUNTERS_EX memory_stats;
+		PROCESS_MEMORY_COUNTERS memory_stats;
 		ZeroMemory(&memory_stats, sizeof(memory_stats));
-		const BOOL result = GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS *)&memory_stats, sizeof(memory_stats));
-		return (result == 0) ? 0 : static_cast< uint64_t >(memory_stats.PrivateUsage);
+		const BOOL result = GetProcessMemoryInfo(GetCurrentProcess(), &memory_stats, sizeof(memory_stats));
+		return (result == 0) ? 0 : static_cast< uint64_t >(memory_stats.PagefileUsage);
 	}
 
 	uint64_t GetPhysicalMemoryUsage() {
-		PROCESS_MEMORY_COUNTERS_EX memory_stats;
+		PROCESS_MEMORY_COUNTERS memory_stats;
 		ZeroMemory(&memory_stats, sizeof(memory_stats));
-		const BOOL result = GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS *)&memory_stats, sizeof(memory_stats));
+		const BOOL result = GetProcessMemoryInfo(GetCurrentProcess(), &memory_stats, sizeof(memory_stats));
 		return (result == 0) ? 0 : static_cast< uint64_t >(memory_stats.WorkingSetSize);
 	}
 
@@ -97,7 +97,7 @@ namespace mage {
 		const double numerator   = (kernel_mode_time.QuadPart - last_kernel_mode_time.QuadPart) +
 								   (user_mode_time.QuadPart   - last_user_mode_time.QuadPart);
 		const double denominator = (now_time.QuadPart         - last_time.QuadPart) * NumberOfSystemCores();
-		const double percentage = 100.0 * numerator / denominator;
+		const double percentage  = 100.0 * numerator / denominator;
 
 		last_time             = now_time;
 		last_kernel_mode_time = kernel_mode_time;

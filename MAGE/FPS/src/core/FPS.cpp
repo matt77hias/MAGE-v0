@@ -77,7 +77,7 @@ public:
 		// Font
 		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/calibri.spritefont", SpriteFontDescriptor());
 		// Text
-		SharedPtr< SpriteText > text(new SpriteText("text", L"Hello World!", font));
+		SharedPtr< SpriteText > text(new NormalSpriteText("text", L"Hello World!", font));
 		GetWorld()->AddText(text);
 
 		// Texture

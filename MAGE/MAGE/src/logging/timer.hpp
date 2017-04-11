@@ -90,38 +90,28 @@ namespace mage {
 		void Stop();
 
 		/**
-		 Resets this timer.
-		 */
-		void Reset();
-
-		/**
 		 Restarts this timer.
 		 */
-		void Restart() {
-			Reset();
-			Start();
-		}
+		void Restart();
+
+		/**
+		 Resumes this timer.
+		 */
+		void Resume();
 
 		/**
 		 Returns the elapsed time of this timer.
 
 		 @return		The elapsed time of this timer.
 		 */
-		double Time();
-
-	protected:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
+		double GetElapsedTime() const;
 
 		/**
 		 Returns the time of this timer.
 
 		 @return		The time of this timer.
-		 @note			This member method encapsulates the counter/frequency processing.
-		*/
-		double time();
+		 */
+		double GetTime() const;
 
 	private:
 
@@ -132,12 +122,17 @@ namespace mage {
 		/**
 		 The initial time stamp of this timer. 
 		 */
-		double m_time0;
+		double m_initial_time;
+
+		/**
+		 The last time stamp of this timer.
+		 */
+		mutable double m_last_time;
 
 		/**
 		 The elapsed time of this timer.
 		 */
-		double m_elapsed;
+		mutable double m_elapsed_time;
 
 		/**
 		 Flag indicating whether this timer is running.
@@ -147,7 +142,7 @@ namespace mage {
 		/**
 		 The counter of this timer.
 		 */
-		LARGE_INTEGER m_performance_counter;
+		mutable LARGE_INTEGER m_performance_counter;
 
 		/**
 		 The frequency of this timer.

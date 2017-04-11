@@ -71,7 +71,10 @@ namespace mage {
 		}
 	}
 
-	void Scene::Load() {
+	void Scene::Initialize() {
+		// Load scene.
+		Load();
+		// Load scripts.
 		ForEachScript([](BehaviorScript &script) {
 			script.Load();
 		});
@@ -95,7 +98,14 @@ namespace mage {
 		TransformBuffer transform_buffer(*m_camera);
 		m_world->Render3D(transform_buffer);
 	}
-	void Scene::Close() {
+	void Scene::Uninitialize() {
+		// Close scripts.
+		ForEachScript([](BehaviorScript &script) {
+			script.Close();
+		});
+		// Close scene.
+		Close();
+		
 		RemoveAllScripts(true);
 	}
 }

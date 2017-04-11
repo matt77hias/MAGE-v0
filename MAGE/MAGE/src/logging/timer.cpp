@@ -30,12 +30,10 @@ namespace mage {
 
 		m_running = true;
 		
-		// Set the initial time stamp.
-		m_initial_time = GetTime();
+		UpdateInitialTime();
 		// Reset the elapsed time.
 		m_elapsed_time = 0.0;
-		// Reset the last time stamp.
-		m_last_time = m_initial_time;
+		UpdateLastTime();
 	}
 
 	void Timer::Stop() {
@@ -45,10 +43,7 @@ namespace mage {
 
 		m_running = false;
 		
-		// Set the elapsed time.
-		m_elapsed_time = GetTime() - m_last_time;
-		// Set the last time stamp.
-		m_last_time = GetTime();
+		UpdateElapsedTime();
 	}
 
 	void Timer::Restart() {
@@ -63,16 +58,12 @@ namespace mage {
 
 		m_running = true;
 
-		// Set the last time stamp.
-		m_last_time = GetTime();
+		UpdateLastTime();
 	}
 
 	double Timer::GetElapsedTime() const {
 		if (m_running) {
-			// Set the elapsed time.
-			m_elapsed_time = GetTime() - m_last_time;
-			// Set the last time stamp.
-			m_last_time = GetTime();
+			UpdateElapsedTime();
 		}
 
 		return m_elapsed_time;

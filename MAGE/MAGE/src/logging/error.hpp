@@ -6,6 +6,7 @@
 #pragma region
 
 #include <assert.h>
+#include <new>
 
 #pragma endregion
 

@@ -116,6 +116,36 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Updates the initial time of this timer.
+		 */
+		void UpdateInitialTime() {
+			// Set the initial time stamp.
+			m_initial_time = GetTime();
+		}
+
+		/**
+		 Updates the last time of this timer.
+		 */
+		void UpdateLastTime() const {
+			// Set the last time stamp.
+			m_last_time = GetTime();
+		}
+
+		/**
+		 Updates the elapsed time (and last time) of this timer.
+		 */
+		void UpdateElapsedTime() const {
+			// Set the elapsed time.
+			m_elapsed_time = GetTime() - m_last_time;
+			// Set the last time stamp.
+			m_last_time = GetTime();
+		}
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 

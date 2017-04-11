@@ -230,7 +230,7 @@ namespace mage {
 
 		 @return		A success/error value.
 		 */
-		HRESULT UnitializeRenderer();
+		HRESULT UninitializeRenderer();
 
 		/**
 		 Setup the D3D11 device and context of this renderer.

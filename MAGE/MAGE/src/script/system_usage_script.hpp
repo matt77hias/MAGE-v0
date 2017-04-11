@@ -6,12 +6,13 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
+#include "system\cpu_monitor.hpp"
 #include "text\sprite_text.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -31,8 +32,8 @@ namespace mage {
 
 		explicit SystemUsageScript(SharedPtr< SpriteText > text)
 			: BehaviorScript(), m_time(0.0),
-			m_cpu_usage(0), m_ram_usage(0), 
-			m_text(text) {}
+			m_cpu_usage(0.0), m_ram_usage(0), 
+			m_monitor(new CPUMonitor()), m_text(text) {}
 		SystemUsageScript(const SystemUsageScript &script) = delete;
 		SystemUsageScript(SystemUsageScript &&script) = default;
 		virtual ~SystemUsageScript() = default;
@@ -48,7 +49,9 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		virtual void Load() override;
 		virtual void Update(double elapsed_time, const Scene &scene) override;
+		virtual void Close() override;
 
 	private:
 
@@ -57,8 +60,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		double m_time;
-		uint32_t m_cpu_usage;
+		double m_cpu_usage;
 		uint32_t m_ram_usage;
+		UniquePtr< CPUMonitor > m_monitor;
 		SharedPtr< SpriteText > m_text;
 	};
 }

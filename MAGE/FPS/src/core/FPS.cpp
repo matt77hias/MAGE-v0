@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "script\fps_script.hpp"
-#include "script\system_usage_script.hpp"
+#include "script\stats_script.hpp"
 
 using namespace mage;
 
@@ -90,7 +90,7 @@ public:
 		SharedPtr< BehaviorScript > script(new TestScript(model));
 		AddScript(script);
 
-		SharedPtr< BehaviorScript > stats(new SystemUsageScript(text));
+		SharedPtr< BehaviorScript > stats(new StatsScript(text));
 		AddScript(stats);
 	}
 };

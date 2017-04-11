@@ -115,13 +115,13 @@ namespace mage {
 
 	void Engine::SetScene(SharedPtr< Scene > scene) {
 		if (m_scene) {
-			m_scene->Close();
+			m_scene->Uninitialize();
 		}
 
 		m_scene = scene;
 		
 		if (m_scene) {
-			m_scene->Load();
+			m_scene->Initialize();
 		}
 	}
 

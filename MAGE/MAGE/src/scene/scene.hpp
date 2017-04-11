@@ -76,10 +76,9 @@ namespace mage {
 		//-------------------------------------------------------------------------
 
 		/**
-		 Loads this scene.
-		 Allows this scene to preform any pre-processing construction.
+		 Initializes this scene.
 		 */
-		virtual void Load();
+		void Initialize();
 
 		/**
 		 Updates this scene.
@@ -100,10 +99,9 @@ namespace mage {
 		void Render3D() const;
 
 		/**
-		 Closes this scene.
-		 Allows this scene to preform any post-processing destruction.
+		 Uninitializes this scene.
 		 */
-		virtual void Close();
+		void Uninitialize();
 
 	protected:
 
@@ -115,6 +113,18 @@ namespace mage {
 			: m_name(name), m_world(new World()) {}
 		Scene(const Scene &scene) = delete;
 		Scene(Scene &&scene) = default;
+
+		/**
+		 Loads this scene.
+		 Allows this scene to preform any pre-processing construction.
+		 */
+		virtual void Load() {}
+
+		/**
+		 Closes this scene.
+		 Allows this scene to preform any post-processing destruction.
+		 */
+		virtual void Close() {}
 
 	private:
 

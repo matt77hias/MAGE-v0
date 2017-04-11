@@ -32,7 +32,7 @@ namespace mage {
 	}
 
 	Renderer::~Renderer() {
-		const HRESULT result_renderer = UnitializeRenderer();
+		const HRESULT result_renderer = UninitializeRenderer();
 		if (FAILED(result_renderer)) {
 			Error("Renderer unintialization failed: %08X.", result_renderer);
 		}
@@ -79,7 +79,7 @@ namespace mage {
 		return S_OK;
 	}
 
-	HRESULT Renderer::UnitializeRenderer() {
+	HRESULT Renderer::UninitializeRenderer() {
 		// Switch to windowed mode since Direct3D is incapable of when in fullscreen mode
 		// due to certain threading issues that occur behind the scenes.
 		if (m_swap_chain) {

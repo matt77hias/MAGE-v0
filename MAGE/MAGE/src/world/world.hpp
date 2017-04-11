@@ -21,7 +21,7 @@ namespace mage {
 	class SpriteText;
 	class SpriteImage;
 
-	class World {
+	class World final {
 
 	public:
 
@@ -32,7 +32,7 @@ namespace mage {
 		World();
 		World(const World &world) = delete;
 		World(World &&world) = default;
-		virtual ~World() {
+		~World() {
 			RemoveAllModels();
 			RemoveAllLights();
 		}

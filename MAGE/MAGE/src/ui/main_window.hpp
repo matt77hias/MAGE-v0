@@ -154,7 +154,7 @@ namespace mage {
 		HRESULT InitializeWindow(RECT rectangle);
 
 		/**
-		 Unitializes the engine window of this main window.
+		 Uninitializes the engine window of this main window.
 
 		 @return		A success/error value.
 		 */

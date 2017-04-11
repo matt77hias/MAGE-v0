@@ -128,7 +128,7 @@ namespace mage{
 	}
 
 	MainWindow::~MainWindow() {
-		// Unintialize the window.
+		// Uninitialize the window.
 		const HRESULT result_window = UninitializeWindow();
 		if (FAILED(result_window)) {
 			Error("Window uninitialization failed: %08X.", result_window);

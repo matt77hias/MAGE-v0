@@ -124,7 +124,7 @@ namespace mage {
 		 @return		The elapsed system time of this timer's process.
 		 */
 		double GetElapsedCPUPercentage() const {
-			const double time     = m_timer->GetElapsedTime();
+			const double time     = m_timer->GetElapsedSystemTime();
 			const double cpu_time = m_cpu_timer->GetElapsedCoreTimePerCore();
 			return 100.0 * (cpu_time / time);
 		}

@@ -17,13 +17,7 @@ namespace mage {
 
 	const double SystemUsageScript::resource_fetch_period = 1.00;
 
-	void SystemUsageScript::Load() {
-		m_monitor->Start();
-	}
-
-	void SystemUsageScript::Update(double elapsed_time, const Scene &scene) {
-		UNUSED(scene);
-
+	void SystemUsageScript::Update(double elapsed_time) {
 		// CPU + MEM
 		m_time += elapsed_time;
 		if (m_time > SystemUsageScript::resource_fetch_period) {
@@ -37,9 +31,5 @@ namespace mage {
 		const wstring text = buffer;
 
 		m_text->SetText(text);
-	}
-
-	void SystemUsageScript::Close() {
-		m_monitor.reset();
 	}
 }

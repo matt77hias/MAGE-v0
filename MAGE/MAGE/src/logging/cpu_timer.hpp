@@ -109,50 +109,62 @@ namespace mage {
 		void Resume();
 
 		/**
-		 Returns the elapsed core time per processing core of this timer's process.
+		 Returns the elapsed core time (in seconds) 
+		 per processing core of this timer's process.
 
-		 @return		The elapsed core time per processing core of this timer's process.
+		 @return		The elapsed core time (in seconds) 
+						per processing core of this timer's process.
 		 */
 		double GetElapsedCoreTimePerCore() const {
 			return GetElapsedCoreTime() / m_nb_processor_cores;
 		}
 
 		/**
-		 Returns the elapsed core time of this timer's process.
+		 Returns the elapsed core time (in seconds) 
+		 of this timer's process.
 
-		 @return		The elapsed core time of this timer's process.
+		 @return		The elapsed core time (in seconds) 
+						of this timer's process.
 		 */
 		double GetElapsedCoreTime() const;
 
 		/**
-		 Returns the elapsed kernel mode time per processing core of this timer's process.
+		 Returns the elapsed kernel mode time (in seconds) 
+		 per processing core of this timer's process.
 
-		 @return		The elapsed kernel mode time per processing core of this timer's process.
+		 @return		The elapsed kernel mode time (in seconds) 
+						per processing core of this timer's process.
 		 */
 		double GetElapsedKernelModeTimePerCore() const {
 			return GetElapsedKernelModeTime() / m_nb_processor_cores;
 		}
 
 		/**
-		 Returns the elapsed kernel mode time of this timer's process.
+		 Returns the elapsed kernel mode time (in seconds) 
+		 of this timer's process.
 
-		 @return		The elapsed kernel mode of this timer's process.
+		 @return		The elapsed kernel mode (in seconds) 
+						of this timer's process.
 		 */
 		double GetElapsedKernelModeTime() const;
 
 		/**
-		 Returns the elapsed user mode time per processing core of this timer's process.
+		 Returns the elapsed user mode time (in seconds) 
+		 per processing core of this timer's process.
 
-		 @return		The elapsed user mode time per processing core of this timer's process.
+		 @return		The elapsed user mode time (in seconds) 
+						per processing core of this timer's process.
 		 */
 		double GetElapsedUserModeTimePerCore() const {
 			return GetElapsedUserModeTime() / m_nb_processor_cores;
 		}
 
 		/**
-		 Returns the elapsed user mode time of this timer's process.
+		 Returns the elapsed user mode time (in seconds) 
+		 of this timer's process.
 
-		 @return		The elapsed user mode time of this timer's process.
+		 @return		The elapsed user mode time (in seconds) 
+						of this timer's process.
 		 */
 		double GetElapsedUserModeTime() const;
 
@@ -163,17 +175,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Updates the initial time of this timer.
+		 Updates the initial time stamp of this timer.
 		 */
-		void UpdateInitialTime();
+		void UpdateInitialTimeStamp();
 
 		/**
-		 Updates the last time of this timer.
+		 Updates the last time stamp of this timer.
 		 */
-		void UpdateLastTime() const;
+		void UpdateLastTimeStamp() const;
 
 		/**
-		 Updates the elapsed time (and last time) of this timer.
+		 Updates the elapsed time (and last time stamp) of this timer.
 		 */
 		void UpdateElapsedTime() const;
 
@@ -192,32 +204,38 @@ namespace mage {
 		size_t m_nb_processor_cores;
 
 		/**
-		 The initial kernel mode time of this timer.
+		 The initial kernel mode time stamp
+		 of this timer's process.
 		 */
 		uint64_t m_initial_kernel_mode_time;
 		
 		/**
-		 The initial user mode time of this timer.
+		 The initial user mode time stamp
+		 of this timer's process.
 		 */
 		uint64_t m_initial_user_mode_time;
 
 		/**
-		 The last kernel mode time of this timer.
+		 The last kernel mode time stamp
+		 of this timer's process.
 		 */
 		mutable uint64_t m_last_kernel_mode_time;
 		
 		/**
-		 The last user mode time of this timer.
+		 The last user mode time stamp
+		 of this timer's process.
 		 */
 		mutable uint64_t m_last_user_mode_time;
 
 		/**
-		 The elapsed kernel mode time of this timer.
+		 The elapsed kernel mode time (in seconds) 
+		 of this timer's process.
 		 */
 		mutable double m_elapsed_kernel_mode_time;
 
 		/**
-		 The elapsed user mode time of this timer.
+		 The elapsed user mode time of (in seconds) 
+		 of this timer's process.
 		 */
 		mutable double m_elapsed_user_mode_time;
 

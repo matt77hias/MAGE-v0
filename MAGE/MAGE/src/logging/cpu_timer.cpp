@@ -29,11 +29,11 @@ namespace mage {
 
 		m_running = true;
 
-		UpdateInitialTime();
+		UpdateInitialTimeStamp();
 		// Reset the elapsed time.
 		m_elapsed_kernel_mode_time = 0.0;
 		m_elapsed_user_mode_time   = 0.0;
-		UpdateLastTime();
+		UpdateLastTimeStamp();
 	}
 
 	void CPUTimer::Stop() {
@@ -58,7 +58,7 @@ namespace mage {
 
 		m_running = true;
 
-		UpdateLastTime();
+		UpdateLastTimeStamp();
 	}
 
 	double CPUTimer::GetElapsedCoreTime() const {
@@ -85,12 +85,12 @@ namespace mage {
 		return m_elapsed_user_mode_time;
 	}
 
-	void CPUTimer::UpdateInitialTime() {
+	void CPUTimer::UpdateInitialTimeStamp() {
 		// Set the initial time stamp.
 		GetCoreTime(m_handle, &m_initial_kernel_mode_time, &m_initial_user_mode_time);
 	}
 
-	void CPUTimer::UpdateLastTime() const {
+	void CPUTimer::UpdateLastTimeStamp() const {
 		// Set the last time stamp.
 		GetCoreTime(m_handle, &m_last_kernel_mode_time, &m_last_user_mode_time);
 	}

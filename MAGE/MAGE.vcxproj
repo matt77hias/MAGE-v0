@@ -60,6 +60,7 @@
     <ClInclude Include="MAGE\src\math\bounding_volume.hpp" />
     <ClInclude Include="MAGE\src\math\coordinate_system.hpp" />
     <ClInclude Include="MAGE\src\math\math.hpp" />
+    <ClInclude Include="MAGE\src\math\math_utils.hpp" />
     <ClInclude Include="MAGE\src\math\sprite_transform.hpp" />
     <ClInclude Include="MAGE\src\math\transform.hpp" />
     <ClInclude Include="MAGE\src\math\view_frustum.hpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="MAGE\src\scripting\vs\vs_tokens.hpp" />
     <ClInclude Include="MAGE\src\scripting\vs\vs_writer.hpp" />
     <ClInclude Include="MAGE\src\script\fps_script.hpp" />
+    <ClInclude Include="MAGE\src\script\mouse_look_script.hpp" />
     <ClInclude Include="MAGE\src\script\stats_script.hpp" />
     <ClInclude Include="MAGE\src\script\system_usage_script.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\lambertian_PS.h" />
@@ -190,6 +192,7 @@
     <ClCompile Include="MAGE\src\scripting\vs\vs_reader.cpp" />
     <ClCompile Include="MAGE\src\scripting\vs\vs_writer.cpp" />
     <ClCompile Include="MAGE\src\script\fps_script.cpp" />
+    <ClCompile Include="MAGE\src\script\mouse_look_script.cpp" />
     <ClCompile Include="MAGE\src\script\stats_script.cpp" />
     <ClCompile Include="MAGE\src\script\system_usage_script.cpp" />
     <ClCompile Include="MAGE\src\shader\empty_shader.cpp" />

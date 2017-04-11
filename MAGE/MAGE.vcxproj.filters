@@ -582,6 +582,12 @@
     <ClInclude Include="MAGE\src\script\stats_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\script\mouse_look_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\math\math_utils.hpp">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -801,6 +807,9 @@
       <Filter>Source Files\system</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\script\stats_script.cpp">
+      <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\script\mouse_look_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
   </ItemGroup>

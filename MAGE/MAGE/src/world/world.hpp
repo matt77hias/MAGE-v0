@@ -32,10 +32,7 @@ namespace mage {
 		World();
 		World(const World &world) = delete;
 		World(World &&world) = default;
-		~World() {
-			RemoveAllModels();
-			RemoveAllLights();
-		}
+		~World();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -47,6 +44,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------	
+		void Clear();
 
 		void Render2D() const;
 		void Render3D(const TransformBuffer &transform_buffer) const;

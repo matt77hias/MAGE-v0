@@ -30,24 +30,17 @@ namespace mage {
 		}
 		return false;
 	}
-	void Scene::AddScript(SharedPtr< BehaviorScript > script, bool load) {
+	void Scene::AddScript(SharedPtr< BehaviorScript > script) {
 		if (!script) {
 			return;
 		}
 
 		m_scripts.push_back(script);
-
-		if (load) {
-			script->Load();
-		}
 	}
-	void Scene::RemoveScript(SharedPtr< BehaviorScript > script, bool close) {
+	void Scene::RemoveScript(SharedPtr< BehaviorScript > script) {
 		vector< SharedPtr< BehaviorScript > >::iterator it = m_scripts.begin();
 		while (it != m_scripts.end()) {
 			if ((*it) == script) {
-				if (close) {
-					(*it)->Close();
-				}
 				it = m_scripts.erase(it);
 				break;
 			}
@@ -56,33 +49,19 @@ namespace mage {
 			}
 		}
 	}
-	void Scene::RemoveAllScripts(bool close) {
+	void Scene::RemoveAllScripts() {
 		vector< SharedPtr< BehaviorScript > >::iterator it = m_scripts.begin();
-		if (close) {
-			while (it != m_scripts.end()) {
-				(*it)->Close();
-				it = m_scripts.erase(it);
-			}
-		}
-		else {
-			while (it != m_scripts.end()) {
-				it = m_scripts.erase(it);
-			}
-		}
+		m_scripts.clear();
 	}
 
 	void Scene::Initialize() {
 		// Load scene.
 		Load();
-		// Load scripts.
-		ForEachScript([](BehaviorScript &script) {
-			script.Load();
-		});
 	}
 	void Scene::Update(double elapsed_time) {
 		// Update scripts.
-		ForEachScript([&](BehaviorScript &script) {
-			script.Update(elapsed_time, *this);
+		ForEachScript([elapsed_time](BehaviorScript &script) {
+			script.Update(elapsed_time);
 		});
 
 		// Update and propagate transforms.
@@ -99,13 +78,11 @@ namespace mage {
 		m_world->Render3D(transform_buffer);
 	}
 	void Scene::Uninitialize() {
-		// Close scripts.
-		ForEachScript([](BehaviorScript &script) {
-			script.Close();
-		});
 		// Close scene.
 		Close();
 		
-		RemoveAllScripts(true);
+		RemoveAllScripts();
+		m_world->Clear();
+		m_camera.reset();
 	}
 }

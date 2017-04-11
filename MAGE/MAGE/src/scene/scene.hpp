@@ -65,9 +65,9 @@ namespace mage {
 			return m_scripts.size();
 		}
 		bool HasScript(const SharedPtr< BehaviorScript > script) const;
-		void AddScript(SharedPtr< BehaviorScript > script, bool load = false);
-		void RemoveScript(SharedPtr< BehaviorScript > script, bool close = false);
-		void RemoveAllScripts(bool close = false);
+		void AddScript(SharedPtr< BehaviorScript > script);
+		void RemoveScript(SharedPtr< BehaviorScript > script);
+		void RemoveAllScripts();
 		template< typename ActionT >
 		void ForEachScript(ActionT action) const;
 
@@ -110,7 +110,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit Scene(const string &name)
-			: m_name(name), m_world(new World()) {}
+			: m_name(name), m_camera(), 
+			m_world(new World()), m_scripts() {}
 		Scene(const Scene &scene) = delete;
 		Scene(Scene &&scene) = default;
 

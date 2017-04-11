@@ -34,7 +34,9 @@ namespace mage {
 			: BehaviorScript(), 
 			m_seconds_per_frame(0.0), m_nb_frames(0),
 			m_time(0.0), m_cpu_usage(0.0), m_ram_usage(0),
-			m_monitor(new CPUMonitor()), m_text(text) {}
+			m_monitor(new CPUMonitor()), m_text(text) {
+			m_monitor->Start();
+		}
 		StatsScript(const StatsScript &script) = delete;
 		StatsScript(StatsScript &&script) = default;
 		virtual ~StatsScript() = default;
@@ -50,9 +52,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Load() override;
-		virtual void Update(double elapsed_time, const Scene &scene) override;
-		virtual void Close() override;
+		virtual void Update(double elapsed_time) override;
 
 	private:
 

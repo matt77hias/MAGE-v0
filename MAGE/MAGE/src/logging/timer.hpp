@@ -100,18 +100,20 @@ namespace mage {
 		void Resume();
 
 		/**
-		 Returns the elapsed time of this timer.
+		 Returns the elapsed system time (in seconds) 
+		 of this timer.
 
-		 @return		The elapsed time of this timer.
+		 @return		The elapsed system time (in seconds) 
+						of this timer.
 		 */
-		double GetElapsedTime() const;
+		double GetElapsedSystemTime() const;
 
 		/**
-		 Returns the time of this timer.
+		 Returns the system time of this timer.
 
-		 @return		The time of this timer.
+		 @return		The system time of this timer.
 		 */
-		double GetTime() const;
+		double GetSystemTime() const;
 
 	private:
 
@@ -122,17 +124,17 @@ namespace mage {
 		/**
 		 Updates the initial time of this timer.
 		 */
-		void UpdateInitialTime() {
+		void UpdateInitialTimeStamp() {
 			// Set the initial time stamp.
-			m_initial_time = GetTime();
+			m_initial_time = GetSystemTime();
 		}
 
 		/**
 		 Updates the last time of this timer.
 		 */
-		void UpdateLastTime() const {
+		void UpdateLastTimeStamp() const {
 			// Set the last time stamp.
-			m_last_time = GetTime();
+			m_last_time = GetSystemTime();
 		}
 
 		/**
@@ -140,9 +142,9 @@ namespace mage {
 		 */
 		void UpdateElapsedTime() const {
 			// Set the elapsed time.
-			m_elapsed_time = GetTime() - m_last_time;
+			m_elapsed_time = GetSystemTime() - m_last_time;
 			// Set the last time stamp.
-			m_last_time = GetTime();
+			m_last_time = GetSystemTime();
 		}
 
 		//---------------------------------------------------------------------
@@ -160,7 +162,7 @@ namespace mage {
 		mutable double m_last_time;
 
 		/**
-		 The elapsed time of this timer.
+		 The elapsed time (in seconds) of this timer.
 		 */
 		mutable double m_elapsed_time;
 

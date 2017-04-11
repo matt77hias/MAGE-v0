@@ -1,6 +1,5 @@
 #include "stdafx.h"
 
-#include "script\fps_script.hpp"
 #include "script\stats_script.hpp"
 
 using namespace mage;
@@ -17,8 +16,7 @@ public:
 	TestScript &operator=(const TestScript &script) = delete;
 	TestScript &operator=(TestScript &&script) = delete;
 
-	virtual void Update(double elapsed_time, const Scene &scene) override {
-		UNUSED(scene);
+	virtual void Update(double elapsed_time) override {
 		m_model->GetTransform()->AddRotationY((float)elapsed_time);
 
 		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_UP)) {

@@ -30,10 +30,10 @@ namespace mage {
 
 		m_running = true;
 		
-		UpdateInitialTime();
+		UpdateInitialTimeStamp();
 		// Reset the elapsed time.
 		m_elapsed_time = 0.0;
-		UpdateLastTime();
+		UpdateLastTimeStamp();
 	}
 
 	void Timer::Stop() {
@@ -58,10 +58,10 @@ namespace mage {
 
 		m_running = true;
 
-		UpdateLastTime();
+		UpdateLastTimeStamp();
 	}
 
-	double Timer::GetElapsedTime() const {
+	double Timer::GetElapsedSystemTime() const {
 		if (m_running) {
 			UpdateElapsedTime();
 		}
@@ -69,7 +69,7 @@ namespace mage {
 		return m_elapsed_time;
 	}
 
-	double Timer::GetTime() const {
+	double Timer::GetSystemTime() const {
 		// Retrieve the current value of the performance counter, 
 		// which is a high resolution (< 1 µs) time stamp 
 		// that can be used for time-interval measurements.

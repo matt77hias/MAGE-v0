@@ -6,8 +6,7 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "system\cpu_monitor.hpp"
-#include "text\sprite_text.hpp"
+#include "camera\camera.hpp"
 
 #pragma endregion
 
@@ -16,34 +15,32 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class SystemUsageScript final : public BehaviorScript {
+	enum RotationAxes {
+		RotationAxes_MouseXAndY = 0,
+		RotationAxes_MouseX,
+		RotationAxes_MouseY
+	};
+
+	class MouseLookScript final : public BehaviorScript {
 
 	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------
-
-		static const double resource_fetch_period;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit SystemUsageScript(SharedPtr< SpriteText > text)
-			: BehaviorScript(), m_time(0.0),
-			m_cpu_usage(0.0), m_ram_usage(0), 
-			m_monitor(), m_text(text) {}
-		SystemUsageScript(const SystemUsageScript &script) = delete;
-		SystemUsageScript(SystemUsageScript &&script) = default;
-		virtual ~SystemUsageScript() = default;
+		explicit MouseLookScript()
+			: BehaviorScript() {}
+		MouseLookScript(const MouseLookScript &script) = delete;
+		MouseLookScript(MouseLookScript &&script) = default;
+		virtual ~MouseLookScript() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		SystemUsageScript &operator=(const SystemUsageScript &script) = delete;
-		SystemUsageScript &operator=(SystemUsageScript &&script) = delete;
+		MouseLookScript &operator=(const MouseLookScript &script) = delete;
+		MouseLookScript &operator=(MouseLookScript &&script) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -57,10 +54,11 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		double m_time;
-		double m_cpu_usage;
-		uint32_t m_ram_usage;
-		UniquePtr< CPUMonitor > m_monitor;
-		SharedPtr< SpriteText > m_text;
+		RotationAxes m_axes;
+		XMFLOAT2 m_rotation;
+		XMFLOAT2 m_sensitivity;
+		XMFLOAT2 m_min;
+		XMFLOAT2 m_max;
+		SharedPtr< Camera > m_camera;
 	};
 }

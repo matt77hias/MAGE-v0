@@ -11,7 +11,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// EEngine Declarations and Definitions
+// Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -41,7 +41,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update(double elapsed_time, const Scene &scene) override;
+		virtual void Update(double elapsed_time) override;
 
 	private:
 

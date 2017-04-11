@@ -16,7 +16,20 @@
 namespace mage {
 
 	World::World() 
-		: m_models(), m_lights(), m_sprite_batch(CreateSpriteBatch()) {}
+		: m_models(), m_lights(), 
+		m_texts(), m_images(), 
+		m_sprite_batch(CreateSpriteBatch()) {}
+
+	World::~World() {
+		Clear();
+	}
+
+	void World::Clear() {
+		RemoveAllModels();
+		RemoveAllLights();
+		RemoveAllTexts();
+		RemoveAllImages();
+	}
 
 	void World::Render2D() const {
 		m_sprite_batch->Begin();

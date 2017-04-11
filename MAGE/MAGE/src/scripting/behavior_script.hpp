@@ -1,15 +1,6 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "scene\scene.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -54,26 +45,9 @@ namespace mage {
 		 */
 		BehaviorScript &operator=(BehaviorScript &&script) = delete;
 
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		const string &GetName() const {
-			return m_name;
-		}
-		void SetName(const string &name) {
-			m_name = name;
-		}
-
 		//-------------------------------------------------------------------------
 		// Member Methods: Lifecycle
 		//-------------------------------------------------------------------------
-
-		/**
-		 Loads this behavior script.
-		 Allows this behavior script to preform any pre-processing construction.
-		 */
-		virtual void Load() {}
 
 		/**
 		 Updates this behavior script.
@@ -83,13 +57,7 @@ namespace mage {
 		 @param[in]		scene
 						A reference to the current scene.
 		 */
-		virtual void Update(double elapsed_time, const Scene &scene) = 0;
-
-		/**
-		 Closes this behavior script.
-		 Allows this behavior script to preform any post-processing destruction.
-		 */
-		virtual void Close() {}
+		virtual void Update(double elapsed_time) = 0;
 
 	protected:
 
@@ -117,16 +85,5 @@ namespace mage {
 						A reference to the behavior script.
 		 */
 		BehaviorScript(BehaviorScript &&script) = default;
-
-	private:
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		/**
-		 The name of this script.
-		 */
-		string m_name;
 	};
 }

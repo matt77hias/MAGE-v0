@@ -31,8 +31,8 @@ namespace mage {
 
 		explicit MouseLookScript(
 			SharedPtr< Camera > camera, 
-			RotationAxes axes = RotationAxes_MouseXAndY,
-			const XMFLOAT2 &sensitivity = XMFLOAT2(15.0f, 15.0f),
+			RotationAxes axes = RotationAxes_MouseY,
+			const XMFLOAT2 &sensitivity = XMFLOAT2(0.001f, 0.001f),
 			const XMFLOAT2 &minimum = XMFLOAT2(-XM_2PI, -XM_PI / 3.0f),
 			const XMFLOAT2 &maximum = XMFLOAT2( XM_2PI,  XM_PI / 3.0f))
 			: BehaviorScript(), m_camera(camera), m_axes(axes),

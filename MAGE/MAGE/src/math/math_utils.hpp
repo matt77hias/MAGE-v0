@@ -21,11 +21,11 @@ namespace mage {
 	}
 
 	inline float ClampAngleRadians(float angle, float min, float max) {
-		if (angle < -XM_PI) {
-			angle += XM_PI;
+		if (angle < -XM_2PI) {
+			angle += XM_2PI;
 		}
-		if (angle > XM_PI) {
-			angle -= XM_PI;
+		if (angle > XM_2PI) {
+			angle -= XM_2PI;
 		}
 		return Clamp(angle, min, max);
 	}

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#include "script\mouse_look_script.hpp"
 #include "script\stats_script.hpp"
 
 using namespace mage;
@@ -84,12 +85,13 @@ public:
 		//SharedPtr< SpriteImage > image(new SpriteImage("image", texture));
 		//GetWorld()->AddImage(image);
 
-		// Script
+		// Scripts
 		SharedPtr< BehaviorScript > script(new TestScript(model));
 		AddScript(script);
-
 		SharedPtr< BehaviorScript > stats(new StatsScript(text));
 		AddScript(stats);
+		SharedPtr< BehaviorScript > mouse(new MouseLookScript(camera));
+		AddScript(mouse);
 	}
 };
 

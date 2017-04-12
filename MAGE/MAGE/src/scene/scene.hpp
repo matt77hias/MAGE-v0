@@ -83,10 +83,10 @@ namespace mage {
 		/**
 		 Updates this scene.
 
-		 @param[in]		elapsed_time
+		 @param[in]		delta_time
 						The elapsed time since the previous update.
 		 */
-		void Update(double elapsed_time);
+		void Update(double delta_time);
 
 		/**
 		 Renders this scene.

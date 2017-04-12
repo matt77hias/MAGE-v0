@@ -17,14 +17,14 @@ namespace mage {
 
 	const double StatsScript::resource_fetch_period = 1.00;
 
-	void StatsScript::Update(double elapsed_time) {
+	void StatsScript::Update(double delta_time) {
 		// FPS
-		m_seconds_per_frame = (m_nb_frames * m_seconds_per_frame + elapsed_time) / (m_nb_frames + 1);
+		m_seconds_per_frame = (m_nb_frames * m_seconds_per_frame + delta_time) / (m_nb_frames + 1);
 		const uint32_t frames_per_second = static_cast< uint32_t >(1.0 / m_seconds_per_frame);
 		++m_nb_frames;
 
 		// CPU + MEM
-		m_time += elapsed_time;
+		m_time += delta_time;
 		if (m_time > StatsScript::resource_fetch_period) {
 			m_cpu_usage = m_monitor->GetCPUDeltaPercentage();
 			m_ram_usage = static_cast< uint32_t >(GetVirtualMemoryUsage() >> 20);

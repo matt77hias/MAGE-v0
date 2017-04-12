@@ -52,12 +52,12 @@ namespace mage {
 		/**
 		 Updates this behavior script.
 
-		 @param[in]		elapsed_time
+		 @param[in]		delta_time
 						The elapsed time since the previous update.
 		 @param[in]		scene
 						A reference to the current scene.
 		 */
-		virtual void Update(double elapsed_time) = 0;
+		virtual void Update(double delta_time) = 0;
 
 	protected:
 

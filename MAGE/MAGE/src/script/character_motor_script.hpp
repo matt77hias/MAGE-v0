@@ -6,8 +6,7 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "system\cpu_monitor.hpp"
-#include "text\sprite_text.hpp"
+#include "math\transform.hpp"
 
 #pragma endregion
 
@@ -16,34 +15,26 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class SystemUsageScript final : public BehaviorScript {
+	class CharacterMotorScript final : public BehaviorScript {
 
 	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------
-
-		static const double resource_fetch_period;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit SystemUsageScript(SharedPtr< SpriteText > text)
-			: BehaviorScript(), m_time(0.0),
-			m_cpu_usage(0.0), m_ram_usage(0), 
-			m_monitor(), m_text(text) {}
-		SystemUsageScript(const SystemUsageScript &script) = delete;
-		SystemUsageScript(SystemUsageScript &&script) = default;
-		virtual ~SystemUsageScript() = default;
+		explicit CharacterMotorScript(Transform *transform)
+			: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {}
+		CharacterMotorScript(const CharacterMotorScript &script) = delete;
+		CharacterMotorScript(CharacterMotorScript &&script) = default;
+		virtual ~CharacterMotorScript() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		SystemUsageScript &operator=(const SystemUsageScript &script) = delete;
-		SystemUsageScript &operator=(SystemUsageScript &&script) = delete;
+		CharacterMotorScript &operator=(const CharacterMotorScript &script) = delete;
+		CharacterMotorScript &operator=(CharacterMotorScript &&script) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -57,10 +48,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		double m_time;
-		double m_cpu_usage;
-		uint32_t m_ram_usage;
-		UniquePtr< CPUMonitor > m_monitor;
-		SharedPtr< SpriteText > m_text;
+		Transform * const m_transform;
+		float m_velocity;
 	};
 }

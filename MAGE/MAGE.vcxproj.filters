@@ -552,9 +552,6 @@
     <ClInclude Include="MAGE\src\sprite\sprite_image.hpp">
       <Filter>Header Files\sprite</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\script\fps_script.hpp">
-      <Filter>Header Files\script</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\script\system_usage_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
@@ -587,6 +584,15 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\math\math_utils.hpp">
       <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\script\character_motor_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\script\fps_input_controller_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\script\frame_rate_script.hpp">
+      <Filter>Header Files\script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -779,9 +785,6 @@
     <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp">
       <Filter>Source Files\camera</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\script\fps_script.cpp">
-      <Filter>Source Files\script</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\script\system_usage_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
@@ -810,6 +813,12 @@
       <Filter>Source Files\script</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\script\mouse_look_script.cpp">
+      <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\script\character_motor_script.cpp">
+      <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\script\frame_rate_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "script\mouse_look_script.hpp"
+#include "script\fps_input_controller_script.hpp"
 #include "script\stats_script.hpp"
 
 using namespace mage;
@@ -17,8 +17,8 @@ public:
 	TestScript &operator=(const TestScript &script) = delete;
 	TestScript &operator=(TestScript &&script) = delete;
 
-	virtual void Update(double elapsed_time) override {
-		m_model->GetTransform()->AddRotationY((float)elapsed_time);
+	virtual void Update(double delta_time) override {
+		m_model->GetTransform()->AddRotationY((float)delta_time);
 
 		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_UP)) {
 			solid = !solid;
@@ -86,12 +86,12 @@ public:
 		//GetWorld()->AddImage(image);
 
 		// Scripts
-		SharedPtr< BehaviorScript > script(new TestScript(model));
-		AddScript(script);
+		//SharedPtr< BehaviorScript > script(new TestScript(model));
+		//AddScript(script);
 		SharedPtr< BehaviorScript > stats(new StatsScript(text));
 		AddScript(stats);
-		SharedPtr< BehaviorScript > mouse(new MouseLookScript(camera));
-		AddScript(mouse);
+		SharedPtr< BehaviorScript > controller(new FPSInputControllerScript(camera->GetTransform()));
+		AddScript(controller);
 	}
 };
 

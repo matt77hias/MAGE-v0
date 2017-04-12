@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "camera\camera.hpp"
+#include "math\transform.hpp"
 
 #pragma endregion
 
@@ -29,13 +29,12 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit MouseLookScript(
-			SharedPtr< Camera > camera, 
+		explicit MouseLookScript(Transform *transform,
 			RotationAxes axes = RotationAxes_MouseXAndY,
 			const XMFLOAT2 &sensitivity = XMFLOAT2(1.8f,1.8f),
 			const XMFLOAT2 &minimum = XMFLOAT2(-XM_PI / 3.0f , -XM_2PI),
 			const XMFLOAT2 &maximum = XMFLOAT2( XM_PI / 3.0f,   XM_2PI))
-			: BehaviorScript(), m_camera(camera), m_axes(axes),
+			: BehaviorScript(), m_transform(transform), m_axes(axes),
 			m_sensitivity(sensitivity), m_min(minimum), m_max(maximum) {}
 		MouseLookScript(const MouseLookScript &script) = delete;
 		MouseLookScript(MouseLookScript &&script) = default;
@@ -52,7 +51,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update(double elapsed_time) override;
+		virtual void Update(double delta_time) override;
 
 	private:
 
@@ -60,7 +59,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		SharedPtr< Camera > m_camera;
+		Transform * const m_transform;
 		RotationAxes m_axes;
 		XMFLOAT2 m_sensitivity;
 		XMFLOAT2 m_min;

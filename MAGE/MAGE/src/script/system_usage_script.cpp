@@ -17,9 +17,9 @@ namespace mage {
 
 	const double SystemUsageScript::resource_fetch_period = 1.00;
 
-	void SystemUsageScript::Update(double elapsed_time) {
+	void SystemUsageScript::Update(double delta_time) {
 		// CPU + MEM
-		m_time += elapsed_time;
+		m_time += delta_time;
 		if (m_time > SystemUsageScript::resource_fetch_period) {
 			m_cpu_usage = m_monitor->GetCPUDeltaPercentage();
 			m_ram_usage = static_cast< uint32_t >(GetVirtualMemoryUsage() >> 20);

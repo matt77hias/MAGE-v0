@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\fps_script.hpp"
+#include "script\frame_rate_script.hpp"
 
 #pragma endregion
 
@@ -14,9 +14,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void FPSScript::Update(double elapsed_time) {
+	void FrameRateScript::Update(double delta_time) {
 		// FPS
-		m_seconds_per_frame = (m_nb_frames * m_seconds_per_frame + elapsed_time) / (m_nb_frames + 1);
+		m_seconds_per_frame = (m_nb_frames * m_seconds_per_frame + delta_time) / (m_nb_frames + 1);
 		const uint32_t frames_per_second = static_cast< uint32_t >(1.0 / m_seconds_per_frame);
 		++m_nb_frames;
 

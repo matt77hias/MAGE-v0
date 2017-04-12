@@ -58,10 +58,10 @@ namespace mage {
 		// Load scene.
 		Load();
 	}
-	void Scene::Update(double elapsed_time) {
+	void Scene::Update(double delta_time) {
 		// Update scripts.
-		ForEachScript([elapsed_time](BehaviorScript &script) {
-			script.Update(elapsed_time);
+		ForEachScript([delta_time](BehaviorScript &script) {
+			script.Update(delta_time);
 		});
 
 		// Update and propagate transforms.

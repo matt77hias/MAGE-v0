@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\behavior_script.hpp"
-#include "text\sprite_text.hpp"
+#include "script\character_motor_script.hpp"
+#include "script\mouse_look_script.hpp"
 
 #pragma endregion
 
@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class FPSScript final : public BehaviorScript {
+	class FPSInputControllerScript final : public BehaviorScript {
 
 	public:
 
@@ -23,33 +23,37 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit FPSScript(SharedPtr< SpriteText > text)
-			: BehaviorScript(), m_seconds_per_frame(0.0), m_nb_frames(0), 
-			m_text(text) {}
-		FPSScript(const FPSScript &script) = delete;
-		FPSScript(FPSScript &&script) = default;
-		virtual ~FPSScript() = default;
-		
+		explicit FPSInputControllerScript(Transform *transform)
+			: BehaviorScript(),
+			m_orientation_script(new MouseLookScript(transform)), 
+			m_movement_script(new CharacterMotorScript(transform)) {}
+		FPSInputControllerScript(const FPSInputControllerScript &script) = delete;
+		FPSInputControllerScript(FPSInputControllerScript &&script) = default;
+		virtual ~FPSInputControllerScript() = default;
+
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		FPSScript &operator=(const FPSScript &script) = delete;
-		FPSScript &operator=(FPSScript &&script) = delete;
+		FPSInputControllerScript &operator=(const FPSInputControllerScript &script) = delete;
+		FPSInputControllerScript &operator=(FPSInputControllerScript &&script) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update(double elapsed_time) override;
+		virtual void Update(double delta_time) override {
+			m_orientation_script->Update(delta_time);
+			m_movement_script->Update(delta_time);
+		}
 
 	private:
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-		double m_seconds_per_frame;
-		uint32_t m_nb_frames;
-		SharedPtr< SpriteText > m_text;
+
+		UniquePtr< MouseLookScript > m_orientation_script;
+		UniquePtr< CharacterMotorScript > m_movement_script;
 	};
 }

@@ -8,7 +8,7 @@
 ## Development
 * **Platform**: (minimum) Windows 8.1 32 Bit and 64 Bit (Windows API + Direct3D 11)
 * **Engine Programming Language**: C++14 (will and must change to C++17 since I need `if-constexpr`)
-* **Shading Model**: Shader Model 4.0
+* **Shading Model**: Shader Model 5.0
 * **Scripting Language**: C++14
 * **Dependencies**:
   * d3d11.lib
@@ -17,7 +17,7 @@
   * dxguid.lib
   * d3dcompiler.lib
 * **Compiler**: MSVC++ 14.0
-* **IDE**: Visual Studio 2015
+* **IDE**: Visual Studio 2015 (will change to Visual Studio 2017 when "Visual Studio 2017 Color Theme Editor" is released)
 
 ## Codebase
 *Non-substantially* based on:

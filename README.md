@@ -3,6 +3,8 @@
 ## About
 <p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Example.png"></p>
 
+*<p align="center">System: CPU: i7-5500U @ 2.40GHz - GPU: GTX 960M</p>*
+
 ## Development
 * **Platform**: (minimum) Windows 8.1 32 Bit and 64 Bit (Windows API + Direct3D 11)
 * **Engine Programming Language**: C++14 (will and must change to C++17 since I need `if-constexpr`)

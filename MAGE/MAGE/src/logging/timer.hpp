@@ -141,13 +141,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the current system time stamp of this timer.
-
-		 @return		The current system time stamp of this timer.
-		 */
-		uint64_t GetCurrentSystemTimestamp() const;
-
-		/**
 		 Updates the last timestamp of this timer.
 		 */
 		void UpdateLastTimestamp() const;
@@ -169,7 +162,7 @@ namespace mage {
 		/**
 		 The last timestamp of this timer.
 		 */
-		mutable uint64_t m_last_timestamp;
+		mutable LARGE_INTEGER m_last_timestamp;
 
 		/**
 		 The delta time of this timer.
@@ -185,11 +178,6 @@ namespace mage {
 		 Flag indicating whether this timer is running.
 		 */
 		bool m_running;
-
-		/**
-		 The time counter of this timer.
-		 */
-		mutable LARGE_INTEGER m_time_counter;
 
 		/**
 		 The time frequency of this timer.

@@ -91,7 +91,7 @@ public:
 		SharedPtr< BehaviorScript > stats(new StatsScript(text));
 		AddScript(stats);
 		SharedPtr< BehaviorScript > mouse(new MouseLookScript(camera));
-		AddScript(mouse);
+		//AddScript(mouse);
 	}
 };
 

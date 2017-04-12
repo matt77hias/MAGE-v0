@@ -7,7 +7,6 @@
 #include "version.hpp"
 #include "logging\error.hpp"
 #include "logging\logging.hpp"
-#include "logging\timer.hpp"
 
 #pragma endregion
 
@@ -30,8 +29,8 @@ namespace mage {
 		: Loadable(), 
 		m_main_window(), m_deactive(false), 
 		m_renderer(), m_mode_switch(false),
-		m_input_manager(), m_resource_factory(), 
-		m_scene() {
+		m_input_manager(), m_resource_factory(),
+		m_scene(), m_timer(new Timer()) {
 
 		// Store a pointer to the engine in a global variable for easy access.
 		SAFE_DELETE(g_engine);
@@ -113,7 +112,20 @@ namespace mage {
 		return S_OK;
 	}
 
+	void Engine::SetDeactiveFlag(bool deactive) {
+		m_deactive = deactive;
+		
+		if (m_deactive) {
+			m_timer->Stop();
+		}
+		else {
+			m_timer->Resume();
+		}
+	}
+
 	void Engine::SetScene(SharedPtr< Scene > scene) {
+		m_timer->Stop();
+		
 		if (m_scene) {
 			m_scene->Uninitialize();
 		}
@@ -123,6 +135,8 @@ namespace mage {
 		if (m_scene) {
 			m_scene->Initialize();
 		}
+		
+		m_timer->Restart();
 	}
 
 	void Engine::Run(int nCmdShow) {
@@ -139,8 +153,7 @@ namespace mage {
 			m_renderer->SwitchMode(true);
 		}
 
-		Timer timer;
-		timer.Start();
+		m_timer->Restart();
 
 		// Enter the message loop.
 		MSG msg;
@@ -156,10 +169,6 @@ namespace mage {
 				DispatchMessage(&msg);
 			}
 			else if (!m_deactive && m_scene) {
-				// Calculate the elapsed time.
-				const double elapsed_time = timer.GetSystemDeltaTime();
-				timer.Restart();
-
 				// Update the input manager.
 				m_input_manager->Update();
 				// Handle forced exit.
@@ -176,6 +185,9 @@ namespace mage {
 					continue;
 				}
 
+				// Calculate the elapsed time.
+				const double elapsed_time = m_timer->GetSystemDeltaTime();
+
 				// Update the current scene.
 				m_scene->Update(elapsed_time);
 				if (!m_scene) {
@@ -190,9 +202,6 @@ namespace mage {
 				m_renderer->BeginRendering2D();
 				m_scene->Render2D();
 				m_renderer->EndFrame();
-			}
-			else {
-				timer.Stop();
 			}
 		}
 	}

@@ -12,6 +12,7 @@
 #include "input\input_manager.hpp"
 #include "ui\main_window.hpp"
 #include "resource\resource_factory.hpp"
+#include "logging\timer.hpp"
 
 #include "engine_setup.hpp"
 
@@ -113,9 +114,7 @@ namespace mage {
 		 @param[in]		deactive
 						The new value for the deactive flag.	
 		 */
-		void SetDeactiveFlag(bool deactive) {
-			m_deactive = deactive;
-		}
+		void SetDeactiveFlag(bool deactive);
 
 		//---------------------------------------------------------------------
 		// Member Methods: Rendering System
@@ -247,6 +246,15 @@ namespace mage {
 		 The current scene of this engine.
 		 */
 		SharedPtr< Scene > m_scene;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Timer
+		//---------------------------------------------------------------------
+
+		/**
+		 The timer of this engine.
+		 */
+		UniquePtr< Timer > m_timer;
 	};
 
 	/**

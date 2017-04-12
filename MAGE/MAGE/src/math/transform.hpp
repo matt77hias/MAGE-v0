@@ -173,6 +173,17 @@ namespace mage {
 		}
 		
 		/**
+		 Sets the translation component of this transform to the given translation component.
+
+		 @param[in]		translation
+						A reference to the translation component.
+		 */
+		void SetTranslation(const XMVECTOR &translation) {
+			XMStoreFloat3(&m_translation, translation);
+			SetDirty();
+		}
+
+		/**
 		 Adds the given x-value to the translation component of this transform.
 
 		 @param[in]		x
@@ -232,6 +243,16 @@ namespace mage {
 			AddTranslation(translation.x, translation.y, translation.z);
 		}
 		
+		/**
+		 Adds the given translation component to the translation component of this transform.
+
+		 @param[in]		translation
+						A reference to the translation component to add.
+		 */
+		void AddTranslation(const XMVECTOR &translation) {
+			AddTranslation(XMVectorGetX(translation), XMVectorGetY(translation), XMVectorGetZ(translation));
+		}
+
 		/**
 		 Returns the x-value of the translation component of this transform.
 
@@ -341,6 +362,17 @@ namespace mage {
 			m_rotation = rotation;
 			SetDirty();
 		}
+
+		/**
+		 Sets the rotation component of this transform to the given rotation component.
+
+		 @param[in]		rotation
+						A reference to the rotation component.
+		 */
+		void SetRotation(const XMVECTOR &rotation) {
+			XMStoreFloat3(&m_rotation, rotation);
+			SetDirty();
+		}
 		
 		/**
 		 Sets the rotation component to a rotation of the given angle around the given normal.
@@ -426,6 +458,16 @@ namespace mage {
 			AddRotation(rotation.x, rotation.y, rotation.z);
 		}
 		
+		/**
+		 Adds the given rotation component to the rotation component of this transform.
+
+		 @param[in]		rotation
+						A reference to the rotation component to add.
+		 */
+		void AddRotation(const XMVECTOR &rotation) {
+			AddRotation(XMVectorGetX(rotation), XMVectorGetY(rotation), XMVectorGetZ(rotation));
+		}
+
 		/**
 		 Returns the x-value of the rotation component of this transform.
 
@@ -537,6 +579,17 @@ namespace mage {
 		}
 		
 		/**
+		 Sets the scale component of this transform to the given scale component.
+
+		 @param[in]		scale
+						A reference to the scale component.
+		 */
+		void SetScale(const XMVECTOR &scale) {
+			XMStoreFloat3(&m_scale, scale);
+			SetDirty();
+		}
+
+		/**
 		 Adds the given x-value to the scale component of this transform.
 
 		 @param[in]		x
@@ -594,6 +647,16 @@ namespace mage {
 		 */
 		void AddScale(const XMFLOAT3 &scale) {
 			AddScale(scale.x, scale.y, scale.z);
+		}
+
+		/**
+		 Adds the given scale component to the scale component of this transform.
+
+		 @param[in]		scale
+						A reference to the scale component to add.
+		 */
+		void AddScale(const XMVECTOR &scale) {
+			AddScale(XMVectorGetX(scale), XMVectorGetY(scale), XMVectorGetZ(scale));
 		}
 		
 		/**

@@ -136,6 +136,16 @@ namespace mage {
 		}
 
 		/**
+		 Sets the translation component of this sprite transform to the given translation component.
+
+		 @param[in]		translation
+						A reference to the translation component.
+		 */
+		void SetTranslation(const XMVECTOR &translation) {
+			XMStoreFloat2(&m_translation, translation);
+		}
+
+		/**
 		 Adds the given x-value to the translation component of this sprite transform.
 
 		 @param[in]		x
@@ -176,6 +186,16 @@ namespace mage {
 		 */
 		void AddTranslation(const XMFLOAT2 &translation) {
 			AddTranslation(translation.x, translation.y);
+		}
+
+		/**
+		 Adds the given translation component to the translation component of this sprite transform.
+
+		 @param[in]		translation
+						A reference to the translation component to add.
+		 */
+		void AddTranslation(const XMVECTOR &translation) {
+			AddTranslation(XMVectorGetX(translation), XMVectorGetY(translation));
 		}
 
 		/**
@@ -319,6 +339,16 @@ namespace mage {
 		}
 
 		/**
+		 Sets the rotation origin of this sprite transform to the given rotation origin.
+
+		 @param[in]		rotation_origin
+						A reference to the rotation origin.
+		 */
+		void SetRotationOrigin(const XMVECTOR &rotation_origin) {
+			XMStoreFloat2(&m_rotation_origin, rotation_origin);
+		}
+
+		/**
 		 Adds the given x-value to the rotation origin of this sprite transform.
 
 		 @param[in]		x
@@ -359,6 +389,16 @@ namespace mage {
 		 */
 		void AddRotationOrigin(const XMFLOAT2 &rotation_origin) {
 			AddRotationOrigin(rotation_origin.x, rotation_origin.y);
+		}
+
+		/**
+		 Adds the given rotation origin to the rotation origin of this sprite transform.
+
+		 @param[in]		rotation_origin
+						A reference to the rotation origin to add.
+		 */
+		void AddRotationOrigin(const XMVECTOR &rotation_origin) {
+			AddRotationOrigin(XMVectorGetX(rotation_origin), XMVectorGetY(rotation_origin));
 		}
 
 		/**
@@ -436,6 +476,16 @@ namespace mage {
 		}
 
 		/**
+		 Sets the scale component of this sprite transform to the given scale component.
+
+		 @param[in]		scale
+		 A reference to the scale component.
+		 */
+		void SetScale(const XMVECTOR &scale) {
+			XMStoreFloat2(&m_scale, scale);
+		}
+
+		/**
 		 Adds the given x-value to the scale component of this sprite transform.
 
 		 @param[in]		x
@@ -476,6 +526,16 @@ namespace mage {
 		 */
 		void AddScale(const XMFLOAT2 &scale) {
 			AddScale(scale.x, scale.y);
+		}
+
+		/**
+		 Adds the given scale component to the scale component of this sprite transform.
+
+		 @param[in]		scale
+						A reference to the scale component to add.
+		 */
+		void AddScale(const XMVECTOR &scale) {
+			AddScale(XMVectorGetX(scale), XMVectorGetY(scale));
 		}
 
 		/**

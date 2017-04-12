@@ -15,6 +15,8 @@
 namespace mage {
 
 	void MouseLookScript::Update(double elapsed_time) {
+		UNUSED(elapsed_time);
+
 		const Mouse *mouse = g_engine->GetInputManager()->GetMouse();
 		Transform *transform = m_camera->GetTransform();
 

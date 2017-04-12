@@ -36,7 +36,7 @@ namespace mage {
 			const XMFLOAT2 &minimum = XMFLOAT2(-XM_2PI, -XM_PI / 3.0f),
 			const XMFLOAT2 &maximum = XMFLOAT2( XM_2PI,  XM_PI / 3.0f))
 			: BehaviorScript(), m_camera(camera), m_axes(axes),
-			m_sensitivity(sensitivity), m_min(minimum), m_max(minimum) {}
+			m_sensitivity(sensitivity), m_min(minimum), m_max(maximum) {}
 		MouseLookScript(const MouseLookScript &script) = delete;
 		MouseLookScript(MouseLookScript &&script) = default;
 		virtual ~MouseLookScript() = default;

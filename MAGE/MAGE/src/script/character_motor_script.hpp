@@ -42,6 +42,13 @@ namespace mage {
 
 		virtual void Update(double delta_time) override;
 
+		float GetVelocity() const {
+			return m_velocity;
+		}
+		void SetVelocity(float velocity) {
+			m_velocity = velocity;
+		}
+
 	private:
 
 		//---------------------------------------------------------------------

@@ -67,7 +67,7 @@ namespace mage {
 			CoUninitialize();
 		}
 
-		delete g_device_enumeration;
+		SAFE_DELETE(g_device_enumeration);
 	}
 
 	HRESULT Engine::InitializeSystems(const EngineSetup &setup) {

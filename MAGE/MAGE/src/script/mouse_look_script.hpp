@@ -16,9 +16,9 @@
 namespace mage {
 
 	enum RotationAxes {
-		RotationAxes_MouseXAndY = 0,
-		RotationAxes_MouseX,
-		RotationAxes_MouseY
+		RotationAxes_MouseX = 1,
+		RotationAxes_MouseY = 2,
+		RotationAxes_MouseXAndY = RotationAxes_MouseX | RotationAxes_MouseY
 	};
 
 	class MouseLookScript final : public BehaviorScript {
@@ -31,10 +31,10 @@ namespace mage {
 
 		explicit MouseLookScript(
 			SharedPtr< Camera > camera, 
-			RotationAxes axes = RotationAxes_MouseY,
-			const XMFLOAT2 &sensitivity = XMFLOAT2(0.001f, 0.001f),
-			const XMFLOAT2 &minimum = XMFLOAT2(-XM_2PI, -XM_PI / 3.0f),
-			const XMFLOAT2 &maximum = XMFLOAT2( XM_2PI,  XM_PI / 3.0f))
+			RotationAxes axes = RotationAxes_MouseXAndY,
+			const XMFLOAT2 &sensitivity = XMFLOAT2(1.8f,1.8f),
+			const XMFLOAT2 &minimum = XMFLOAT2(-XM_PI / 3.0f , -XM_2PI),
+			const XMFLOAT2 &maximum = XMFLOAT2( XM_PI / 3.0f,   XM_2PI))
 			: BehaviorScript(), m_camera(camera), m_axes(axes),
 			m_sensitivity(sensitivity), m_min(minimum), m_max(maximum) {}
 		MouseLookScript(const MouseLookScript &script) = delete;

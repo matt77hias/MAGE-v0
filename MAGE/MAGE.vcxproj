@@ -110,6 +110,7 @@
     <ClInclude Include="MAGE\src\script\mouse_look_script.hpp" />
     <ClInclude Include="MAGE\src\script\stats_script.hpp" />
     <ClInclude Include="MAGE\src\script\system_usage_script.hpp" />
+    <ClInclude Include="MAGE\src\script\text_console_script.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\lambertian_PS.h" />
     <ClInclude Include="MAGE\src\shader\cso\lambertian_VS.h" />
     <ClInclude Include="MAGE\src\shader\cso\sprite_PS.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="MAGE\src\script\mouse_look_script.cpp" />
     <ClCompile Include="MAGE\src\script\stats_script.cpp" />
     <ClCompile Include="MAGE\src\script\system_usage_script.cpp" />
+    <ClCompile Include="MAGE\src\script\text_console_script.cpp" />
     <ClCompile Include="MAGE\src\shader\empty_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\lambertian_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />

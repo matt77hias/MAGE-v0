@@ -57,6 +57,9 @@ namespace mage {
 		void SetText(const wstring &text) {
 			m_text = text;
 		}
+		void SetText(const wchar_t *text) {
+			m_text = text;
+		}
 		const Color GetColor() const {
 			Color c;
 			XMStoreFloat4(&c, m_color);
@@ -81,6 +84,10 @@ namespace mage {
 			return m_transform.get();
 		}
 
+		XMVECTOR MeasureString(const wchar_t *text) const {
+			return m_font->MeasureString(text);
+		}
+
 	protected:
 
 		//---------------------------------------------------------------------
@@ -96,11 +103,11 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		const XMVECTOR GetColorVector() const {
-			return m_color;
-		}
 		const SpriteFont *GetRawFont() const {
 			return m_font.get();
+		}
+		const XMVECTOR GetColorVector() const {
+			return m_color;
 		}
 
 	private:

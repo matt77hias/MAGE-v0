@@ -594,6 +594,9 @@
     <ClInclude Include="MAGE\src\script\frame_rate_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\script\text_console_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -819,6 +822,9 @@
       <Filter>Source Files\script</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\script\frame_rate_script.cpp">
+      <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\script\text_console_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
   </ItemGroup>

@@ -43,6 +43,13 @@ namespace mage {
 
 		virtual void Update(double delta_time) override;
 
+		SpriteText *GetTransform() {
+			return m_text.get();
+		}
+		const SpriteText *GetTransform() const {
+			return m_text.get();
+		}
+
 	private:
 
 		//---------------------------------------------------------------------

@@ -6,8 +6,17 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "system\cpu_monitor.hpp"
 #include "text\sprite_text.hpp"
+#include "parallel\lock.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <stdint.h>
 
 #pragma endregion
 
@@ -16,43 +25,37 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class StatsScript final : public BehaviorScript {
+	class TextConsoleScript final : public BehaviorScript {
 
 	public:
-
-		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------
-
-		static const double resource_fetch_period;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit StatsScript(SharedPtr< SpriteText > text)
-			: BehaviorScript(), 
-			m_seconds_per_frame(0.0), m_nb_frames(0),
-			m_time(0.0), m_cpu_usage(0.0), m_ram_usage(0),
-			m_monitor(new CPUMonitor()), m_text(text) {
-			m_monitor->Start();
-		}
-		StatsScript(const StatsScript &script) = delete;
-		StatsScript(StatsScript &&script) = default;
-		virtual ~StatsScript() = default;
+		explicit TextConsoleScript(SharedPtr< SpriteText > text,
+			uint32_t nb_rows, uint32_t nb_columns);
+		TextConsoleScript(const TextConsoleScript &script) = delete;
+		TextConsoleScript(TextConsoleScript &&script) = default;
+		virtual ~TextConsoleScript() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		StatsScript &operator=(const StatsScript &script) = delete;
-		StatsScript &operator=(StatsScript &&script) = delete;
+		TextConsoleScript &operator=(const TextConsoleScript &script) = delete;
+		TextConsoleScript &operator=(TextConsoleScript &&script) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		virtual void Update(double delta_time) override;
+		
+		void Clear();
+		void Write(const wchar_t *str);
+		void WriteLine(const wchar_t *str);
+		void Format(const wchar_t *format, ...);
 
 		SpriteText *GetTransform() {
 			return m_text.get();
@@ -64,19 +67,28 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		void ProcessString(const wchar_t *str);
+		void IncrementRow();
+
+		void SetCharacter(wchar_t character, uint32_t row, uint32_t column);
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		// FPS
-		double m_seconds_per_frame;
-		uint32_t m_nb_frames;
-		
-		// CPU + MEM
-		double m_time;
-		double m_cpu_usage;
-		uint32_t m_ram_usage;
-		UniquePtr< CPUMonitor > m_monitor;
-		
 		SharedPtr< SpriteText > m_text;
+
+		const uint32_t m_nb_rows;
+		const uint32_t m_nb_columns;
+		uint32_t m_current_column;
+		uint32_t m_current_row;
+
+		UniquePtr< wchar_t[] > m_buffer;
+		vector< wchar_t > m_temp_buffer;
+		
+		Mutex m_mutex;
 	};
 }

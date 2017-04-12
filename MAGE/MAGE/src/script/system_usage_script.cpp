@@ -27,7 +27,7 @@ namespace mage {
 		}
 
 		wchar_t buffer[32];
-		_snwprintf_s(buffer, _countof(buffer), L"CPU: %.1lf %%\nRAM: %u MB", m_cpu_usage, m_ram_usage);
+		_snwprintf_s(buffer, _countof(buffer), L"CPU: %.1lf%%\nRAM: %uMB", m_cpu_usage, m_ram_usage);
 		const wstring text = buffer;
 
 		m_text->SetText(text);

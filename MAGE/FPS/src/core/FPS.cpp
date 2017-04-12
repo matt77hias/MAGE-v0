@@ -74,16 +74,18 @@ public:
 		GetWorld()->AddLight(light);
 
 		// Font
-		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/calibri.spritefont", SpriteFontDescriptor());
+		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/couriernew.spritefont", SpriteFontDescriptor());
 		// Text
 		SharedPtr< SpriteText > text(new NormalSpriteText("text", L"Hello World!", font));
 		GetWorld()->AddText(text);
 
 		// Texture
-		SharedPtr< Texture > texture = CreateTexture(L"assets/models/seafloor.dds");
+		SharedPtr< Texture > texture = CreateTexture(L"assets/sprites/mage.dds");
 		// Image
-		//SharedPtr< SpriteImage > image(new SpriteImage("image", texture));
-		//GetWorld()->AddImage(image);
+		SharedPtr< SpriteImage > image(new SpriteImage("image", texture));
+		image->GetTransform()->SetScale(0.25f, 0.25f);
+		image->GetTransform()->SetTranslation(730.0f, 530.0f);
+		GetWorld()->AddImage(image);
 
 		// Scripts
 		//SharedPtr< BehaviorScript > script(new TestScript(model));

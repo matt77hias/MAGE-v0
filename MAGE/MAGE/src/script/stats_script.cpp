@@ -32,7 +32,7 @@ namespace mage {
 		}
 
 		wchar_t buffer[64];
-		_snwprintf_s(buffer, _countof(buffer), L"FPS: %u\nCPU: %.1lf %%\nRAM: %u MB", 
+		_snwprintf_s(buffer, _countof(buffer), L"FPS: %u\nCPU: %.1lf%%\nRAM: %uMB", 
 			frames_per_second, m_cpu_usage, m_ram_usage);
 		const wstring text = buffer;
 

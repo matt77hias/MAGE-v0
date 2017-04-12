@@ -14,7 +14,7 @@
 namespace mage {
 
 	inline uint64_t ConvertTimestamp(const FILETIME &ftime) {
-		return static_cast< uint64_t >(ftime.dwLowDateTime) | static_cast< uint64_t >(ftime.dwHighDateTime << 32);
+		return static_cast< uint64_t >(ftime.dwLowDateTime) | static_cast< uint64_t >(ftime.dwHighDateTime) << 32;
 	}
 
 	uint64_t GetCurrentSystemTimestamp() {

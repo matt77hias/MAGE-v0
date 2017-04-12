@@ -118,8 +118,8 @@ namespace mage {
 
 		 @return		The horizontal position of this mouse.
 		 */
-		long GetPosX() const {
-			return m_mouse_position.x;
+		int32_t GetPosX() const {
+			return static_cast< int32_t >(m_mouse_position.x);
 		}
 
 		/**
@@ -127,8 +127,8 @@ namespace mage {
 
 		 @return		The vertical position of this mouse.
 		 */
-		long GetPosY() const {
-			return m_mouse_position.y;
+		int32_t GetPosY() const {
+			return static_cast< int32_t >(m_mouse_position.y);
 		}
 
 		/**
@@ -136,8 +136,8 @@ namespace mage {
 
 		 @return		The change in this mouse's horizontal coordinate.
 		 */
-		long GetDeltaX() const {
-			return m_mouse_state.lX;
+		int32_t GetDeltaX() const {
+			return static_cast< int32_t >(m_mouse_state.lX);
 		}
 
 		/**
@@ -145,8 +145,8 @@ namespace mage {
 
 		 @return		The change in this mouse's vertical coordinate.
 		 */
-		long GetDeltaY() const {
-			return m_mouse_state.lY;
+		int32_t GetDeltaY() const {
+			return static_cast< int32_t >(m_mouse_state.lY);
 		}
 
 		/**
@@ -154,8 +154,8 @@ namespace mage {
 
 		 @return		The change in this mouse's scroll wheel.
 		 */
-		long GetDeltaWheel() const {
-			return m_mouse_state.lZ;
+		int32_t GetDeltaWheel() const {
+			return static_cast< int32_t >(m_mouse_state.lZ);
 		}
 
 	private:

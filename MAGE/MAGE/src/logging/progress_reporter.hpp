@@ -63,7 +63,7 @@ namespace mage {
 		/**
 		 Destructs this progress reporter.
 		 */
-		virtual ~ProgressReporter();
+		~ProgressReporter() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -138,22 +138,23 @@ namespace mage {
 		const char m_plus_char;
 
 		/**
-		 The output file stream of this progress reporter.
+		 A pointer to the output file stream of this progress reporter.
 		 */
 		FILE *m_fout;
 
 		/**
-		 The output buffer of this progress reporter.
+		 A pointer to the output buffer of this progress reporter.
 		 */
-		char *m_buffer;
+		UniquePtr< char [] > m_buffer;
 
 		/**
-		 The current (output) position of this progress reporter.
+		 A pointer to the current (output) character in the output buffer 
+		 of this progress reporter.
 		 */
 		char *m_current_pos;
 
 		/**
-		 The timer of this progress reporter.
+		 A pointer to the timer of this progress reporter.
 		 */
 		UniquePtr< Timer > m_timer;
 

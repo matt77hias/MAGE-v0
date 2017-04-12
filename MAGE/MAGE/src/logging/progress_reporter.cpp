@@ -24,31 +24,25 @@ namespace mage {
 
 	ProgressReporter::ProgressReporter(const string &title, uint32_t nb_work, char plus_char, uint32_t bar_length)
 		: m_nb_work_total(nb_work), m_nb_work_done(0), m_nb_plusses_printed(0), m_plus_char(plus_char),
-		m_fout(nullptr), m_buffer(nullptr), m_current_pos(nullptr), m_timer(), m_mutex() {
+		m_fout(stdout), m_buffer(), m_current_pos(nullptr), m_timer(new Timer()), m_mutex() {
 		
 		if (bar_length == 0) {
 			bar_length = ConsoleWidth() - 28;
 		}
 		
 		m_nb_plusses_total = std::max(2u, bar_length - static_cast< uint32_t >(title.size()));
-	
-		m_timer = make_unique< Timer >();
-		m_timer->Start();
-		
-		m_fout = stdout;
-		
 		// Initialize progress string
 		const size_t buffer_length = title.size() + m_nb_plusses_total + 64;
-		m_buffer = new char[buffer_length];
+		m_buffer.reset(new char[buffer_length]);
 		// Composes a string with the same text that would be printed 
 		// if format was used on printf, but instead of being printed, 
 		// the content is stored in the buffer.
-		snprintf(m_buffer, buffer_length, "\r%s: [", title.c_str());
+		snprintf(m_buffer.get(), buffer_length, "\r%s: [", title.c_str());
 		
 		// A C string is as long as the number of characters between 
 		// the beginning of the string and the terminating null character 
 		// (without including the terminating null character itself).
-		m_current_pos = m_buffer + strlen(m_buffer);
+		m_current_pos = m_buffer.get() + strlen(m_buffer.get());
 		char *s = m_current_pos;
 		for (uint32_t i = 0; i < m_nb_plusses_total; ++i) {
 			*s++ = ' ';
@@ -63,7 +57,7 @@ namespace mage {
 		}
 
 		// Write the buffer to the output file stream.
-		fputs(m_buffer, m_fout);
+		fputs(m_buffer.get(), m_fout);
 
 		// If the given stream was open for writing
 		// (or if it was open for updating and the last 
@@ -71,10 +65,8 @@ namespace mage {
 		// any unwritten data in its output buffer is written 
 		// to the output file stream.
 		fflush(m_fout);
-	}
 
-	ProgressReporter::~ProgressReporter() {
-		delete[] m_buffer;
+		m_timer->Start();
 	}
 
 	void ProgressReporter::Update(uint32_t nb_work) {
@@ -97,7 +89,7 @@ namespace mage {
 		}
 
 		// Write the buffer to the output file stream.
-		fputs(m_buffer, m_fout);
+		fputs(m_buffer.get(), m_fout);
 		// Update elapsed time and estimated time to completion
 		const float seconds = static_cast< float >(m_timer->GetSystemDeltaTime());
 		const float estimation_remaining = seconds / percent_done - seconds;
@@ -132,7 +124,7 @@ namespace mage {
 		}
 
 		// Write the buffer to the output file stream.
-		fputs(m_buffer, m_fout);
+		fputs(m_buffer.get(), m_fout);
 		// Update elapsed time
 		const float seconds = static_cast< float >(m_timer->GetSystemDeltaTime());
 		// Writes the string format to the output file stream.

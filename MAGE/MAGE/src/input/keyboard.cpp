@@ -62,7 +62,8 @@ namespace mage {
 			return false;
 		}
 
-		const bool pressed = (!ignore_press_stamp && (m_key_press_stamp[key] == m_press_stamp - 1 || m_key_press_stamp[key] == m_press_stamp)) ? false : true;
+		const bool pressed = (!ignore_press_stamp && (m_key_press_stamp[key] == m_press_stamp - 1)) 
+							? false : true;
 
 		m_key_press_stamp[key] = m_press_stamp;
 

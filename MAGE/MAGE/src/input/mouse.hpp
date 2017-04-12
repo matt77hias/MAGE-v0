@@ -118,7 +118,7 @@ namespace mage {
 
 		 @return		The horizontal position of this mouse.
 		 */
-		int32_t GetPosX() const {
+		int32_t GetPositionX() const {
 			return static_cast< int32_t >(m_mouse_position.x);
 		}
 
@@ -127,7 +127,7 @@ namespace mage {
 
 		 @return		The vertical position of this mouse.
 		 */
-		int32_t GetPosY() const {
+		int32_t GetPositionY() const {
 			return static_cast< int32_t >(m_mouse_position.y);
 		}
 

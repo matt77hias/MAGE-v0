@@ -54,8 +54,6 @@ namespace mage {
 
 		 @param[in]		delta_time
 						The elapsed time since the previous update.
-		 @param[in]		scene
-						A reference to the current scene.
 		 */
 		virtual void Update(double delta_time) = 0;
 

@@ -119,13 +119,24 @@ namespace mage {
 		}
 
 		/**
-		 Returns the elapsed CPU percentage of this timer's process.
+		 Returns the CPU delta percentage of this timer's process.
 
-		 @return		The elapsed system time of this timer's process.
+		 @return		The CPU delta percentage of this timer's process.
 		 */
-		double GetElapsedCPUPercentage() const {
-			const double time     = m_timer->GetElapsedSystemTime();
-			const double cpu_time = m_cpu_timer->GetElapsedCoreTimePerCore();
+		double GetCPUDeltaPercentage() const {
+			const double time     = m_timer->GetSystemDeltaTime();
+			const double cpu_time = m_cpu_timer->GetCoreDeltaTimePerCore();
+			return 100.0 * (cpu_time / time);
+		}
+
+		/**
+		 Returns the total CPU delta percentage of this timer's process.
+
+		 @return		The total CPU delta percentage of this timer's process.
+		 */
+		double GetTotalCPUDeltaPercentage() const {
+			const double time = m_timer->GetTotalSystemDeltaTime();
+			const double cpu_time = m_cpu_timer->GetTotalCoreDeltaTimePerCore();
 			return 100.0 * (cpu_time / time);
 		}
 

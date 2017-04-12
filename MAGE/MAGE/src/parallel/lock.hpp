@@ -613,11 +613,11 @@ namespace mage {
 		/**
 		 Type of events (indices).
 		 */
-		enum { SIGNAL = 0, BROADCAST = 1, NUM_EVENTS = 2 };
+		enum { SIGNAL = 0, BROADCAST = 1, NB_EVENTS = 2 };
 
 		/**
 		 Signal and broadcast event handles of this condition variable.
 		 */
-		HANDLE m_events[NUM_EVENTS];
+		HANDLE m_events[NB_EVENTS];
 	};
 }

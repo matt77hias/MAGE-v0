@@ -9,40 +9,27 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <psapi.h>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	inline uint64_t ConvertTime(const FILETIME &ftime) {
+	inline uint64_t ConvertTimestamp(const FILETIME &ftime) {
 		return static_cast< uint64_t >(ftime.dwLowDateTime) | static_cast< uint64_t >(ftime.dwHighDateTime << 32);
 	}
 
-	uint64_t GetSystemTime() {
+	uint64_t GetCurrentSystemTimestamp() {
 		FILETIME ftime;
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
 		GetSystemTimeAsFileTime(&ftime);
 
-		return ConvertTime(ftime);
+		return ConvertTimestamp(ftime);
 	}
 
-	void GetCoreTime(uint64_t *kernel_mode_time, uint64_t *user_mode_time) {
-		GetCoreTime(GetCurrentProcess(), kernel_mode_time, user_mode_time);
-	}
-
-	void GetCoreTime(HANDLE handle_process,
-		uint64_t *kernel_mode_time, uint64_t *user_mode_time) {
-		Assert(kernel_mode_time);
-		Assert(user_mode_time);
+	void GetCurrentCoreTimestamp(HANDLE handle_process,
+		uint64_t *kernel_mode_timestamp, uint64_t *user_mode_timestamp) {
+		Assert(kernel_mode_timestamp);
+		Assert(user_mode_timestamp);
 
 		FILETIME ftime;
 		FILETIME kernel_mode_ftime;
@@ -55,12 +42,12 @@ namespace mage {
 		// 5. A pointer to a FILETIME structure that receives the amount of time that the process has executed in user mode.
 		const BOOL result = GetProcessTimes(handle_process, &ftime, &ftime, &kernel_mode_ftime, &user_mode_ftime);
 		if (result != 0) {
-			*kernel_mode_time = ConvertTime(kernel_mode_ftime);
-			*user_mode_time   = ConvertTime(user_mode_ftime);
+			*kernel_mode_timestamp = ConvertTimestamp(kernel_mode_ftime);
+			*user_mode_timestamp   = ConvertTimestamp(user_mode_ftime);
 		}
 		else {
-			*kernel_mode_time = 0;
-			*user_mode_time   = 0;
+			*kernel_mode_timestamp = 0;
+			*user_mode_timestamp   = 0;
 		}
 	}
 }

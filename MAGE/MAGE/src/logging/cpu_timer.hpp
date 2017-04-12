@@ -108,65 +108,133 @@ namespace mage {
 		 */
 		void Resume();
 
+		//---------------------------------------------------------------------
+		// Member Methods: Delta Time
+		//---------------------------------------------------------------------
+
 		/**
-		 Returns the elapsed core time (in seconds) 
+		 Returns the core delta time (in seconds) 
 		 per processing core of this timer's process.
 
-		 @return		The elapsed core time (in seconds) 
+		 @return		The core delta time (in seconds) 
 						per processing core of this timer's process.
 		 */
-		double GetElapsedCoreTimePerCore() const {
-			return GetElapsedCoreTime() / m_nb_processor_cores;
+		double GetCoreDeltaTimePerCore() const {
+			return GetCoreDeltaTime() / m_nb_processor_cores;
 		}
 
 		/**
-		 Returns the elapsed core time (in seconds) 
+		 Returns the core delta time (in seconds) 
 		 of this timer's process.
 
-		 @return		The elapsed core time (in seconds) 
+		 @return		The core delta time (in seconds) 
 						of this timer's process.
 		 */
-		double GetElapsedCoreTime() const;
+		double GetCoreDeltaTime() const;
 
 		/**
-		 Returns the elapsed kernel mode time (in seconds) 
+		 Returns the kernel mode delta time (in seconds) 
 		 per processing core of this timer's process.
 
-		 @return		The elapsed kernel mode time (in seconds) 
+		 @return		The kernel mode delta time (in seconds) 
 						per processing core of this timer's process.
 		 */
-		double GetElapsedKernelModeTimePerCore() const {
-			return GetElapsedKernelModeTime() / m_nb_processor_cores;
+		double GetKernelModeDeltaTimePerCore() const {
+			return GetKernelModeDeltaTime() / m_nb_processor_cores;
 		}
 
 		/**
-		 Returns the elapsed kernel mode time (in seconds) 
+		 Returns the kernel mode delta time (in seconds) 
 		 of this timer's process.
 
-		 @return		The elapsed kernel mode (in seconds) 
+		 @return		The kernel mode delta time (in seconds) 
 						of this timer's process.
 		 */
-		double GetElapsedKernelModeTime() const;
+		double GetKernelModeDeltaTime() const;
 
 		/**
-		 Returns the elapsed user mode time (in seconds) 
+		 Returns the user mode delta time (in seconds) 
 		 per processing core of this timer's process.
 
-		 @return		The elapsed user mode time (in seconds) 
+		 @return		The user mode delta time (in seconds) 
 						per processing core of this timer's process.
 		 */
-		double GetElapsedUserModeTimePerCore() const {
-			return GetElapsedUserModeTime() / m_nb_processor_cores;
+		double GetUserModeDeltaTimePerCore() const {
+			return GetUserModeDeltaTime() / m_nb_processor_cores;
 		}
 
 		/**
-		 Returns the elapsed user mode time (in seconds) 
+		 Returns the user mode delta time (in seconds) 
 		 of this timer's process.
 
-		 @return		The elapsed user mode time (in seconds) 
+		 @return		The user mode delta time (in seconds) 
 						of this timer's process.
 		 */
-		double GetElapsedUserModeTime() const;
+		double GetUserModeDeltaTime() const;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Total Delta Time
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the total core delta time (in seconds)
+		 per processing core of this timer's process.
+
+		 @return		The total core delta time (in seconds)
+						per processing core of this timer's process.
+		 */
+		double GetTotalCoreDeltaTimePerCore() const {
+			return GetTotalCoreDeltaTime() / m_nb_processor_cores;
+		}
+
+		/**
+		 Returns the total core delta time (in seconds)
+		 of this timer's process.
+
+		 @return		The total core delta time (in seconds)
+						of this timer's process.
+		 */
+		double GetTotalCoreDeltaTime() const;
+
+		/**
+		 Returns the total kernel mode delta time (in seconds)
+		 per processing core of this timer's process.
+
+		 @return		The total kernel mode delta time (in seconds)
+						per processing core of this timer's process.
+		 */
+		double GetTotalKernelModeDeltaTimePerCore() const {
+			return GetTotalKernelModeDeltaTime() / m_nb_processor_cores;
+		}
+
+		/**
+		 Returns the total kernel mode delta time (in seconds)
+		 of this timer's process.
+
+		 @return		The total kernel mode delta time (in seconds)
+						of this timer's process.
+		 */
+		double GetTotalKernelModeDeltaTime() const;
+
+		/**
+		 Returns the total user mode delta time (in seconds)
+		 per processing core of this timer's process.
+
+		 @return		The total user mode delta time (in seconds)
+						per processing core of this timer's process.
+		 */
+		double GetTotalUserModeDeltaTimePerCore() const {
+			return GetTotalUserModeDeltaTime() / m_nb_processor_cores;
+		}
+
+		/**
+		 Returns the total user mode delta time (in seconds)
+		 of this timer's process.
+
+		 @return		The total user mode delta time (in seconds)
+						of this timer's process.
+		 */
+		double GetTotalUserModeDeltaTime() const;
 
 	private:
 
@@ -175,19 +243,22 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Updates the initial time stamp of this timer.
+		 Updates the modes' last timestamps 
+		 of this timer's process.
 		 */
-		void UpdateInitialTimeStamp();
+		void UpdateLastTimestamp() const;
 
 		/**
-		 Updates the last time stamp of this timer.
+		 Resets the modes' delta times, total delta times and last timestamps 
+		 of this timer's process.
 		 */
-		void UpdateLastTimeStamp() const;
+		void ResetDeltaTime() const;
 
 		/**
-		 Updates the elapsed time (and last time stamp) of this timer.
+		 Updates the modes' delta times, total delta times and last timestamps 
+		 of this timer's process.
 		 */
-		void UpdateElapsedTime() const;
+		void UpdateDeltaTime() const;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -202,46 +273,43 @@ namespace mage {
 		 The number of processor cores.
 		 */
 		size_t m_nb_processor_cores;
-
-		/**
-		 The initial kernel mode time stamp
-		 of this timer's process.
-		 */
-		uint64_t m_initial_kernel_mode_time;
 		
 		/**
-		 The initial user mode time stamp
-		 of this timer's process.
+		 The modes of this timer.
 		 */
-		uint64_t m_initial_user_mode_time;
+		enum { 
+			KERNEL_MODE = 0,
+			USER_MODE   = 1,
+			NB_MODES    = 2
+		};
 
 		/**
-		 The last kernel mode time stamp
-		 of this timer's process.
+		 The modes' last timestamps of this timer's process.
 		 */
-		mutable uint64_t m_last_kernel_mode_time;
+		mutable uint64_t m_last_timestamp[NB_MODES];
 		
 		/**
-		 The last user mode time stamp
-		 of this timer's process.
+		 The modes' delta times (in seconds) of this timer's process.
 		 */
-		mutable uint64_t m_last_user_mode_time;
+		mutable uint64_t m_delta_time[NB_MODES];
 
 		/**
-		 The elapsed kernel mode time (in seconds) 
-		 of this timer's process.
+		 The modes' total delta times (in seconds) of this timer's process.
 		 */
-		mutable double m_elapsed_kernel_mode_time;
-
-		/**
-		 The elapsed user mode time of (in seconds) 
-		 of this timer's process.
-		 */
-		mutable double m_elapsed_user_mode_time;
+		mutable uint64_t m_total_delta_time[NB_MODES];
 
 		/**
 		 Flag indicating whether this timer is running.
 		 */
 		bool m_running;
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The time period.
+		 */
+		static const double time_period;
 	};
 }

@@ -10,6 +10,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <stdint.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -99,21 +108,31 @@ namespace mage {
 		 */
 		void Resume();
 
+		//---------------------------------------------------------------------
+		// Member Methods: Delta Time
+		//---------------------------------------------------------------------
+
 		/**
-		 Returns the elapsed system time (in seconds) 
+		 Returns the system delta time (in seconds) 
 		 of this timer.
 
-		 @return		The elapsed system time (in seconds) 
+		 @return		The system delta time (in seconds) 
 						of this timer.
 		 */
-		double GetElapsedSystemTime() const;
+		double GetSystemDeltaTime() const;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Total Delta Time
+		//---------------------------------------------------------------------
 
 		/**
-		 Returns the system time of this timer.
+		 Returns the total system delta time (in seconds)
+		 of this timer.
 
-		 @return		The system time of this timer.
+		 @return		The total system delta time (in seconds)
+						of this timer.
 		 */
-		double GetSystemTime() const;
+		double GetTotalSystemDeltaTime() const;
 
 	private:
 
@@ -122,49 +141,45 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Updates the initial time of this timer.
+		 Returns the current system time stamp of this timer.
+
+		 @return		The current system time stamp of this timer.
 		 */
-		void UpdateInitialTimeStamp() {
-			// Set the initial time stamp.
-			m_initial_time = GetSystemTime();
-		}
+		uint64_t GetCurrentSystemTimestamp() const;
 
 		/**
-		 Updates the last time of this timer.
+		 Updates the last timestamp of this timer.
 		 */
-		void UpdateLastTimeStamp() const {
-			// Set the last time stamp.
-			m_last_time = GetSystemTime();
-		}
+		void UpdateLastTimestamp() const;
 
 		/**
-		 Updates the elapsed time (and last time) of this timer.
+		 Resets the delta time, total delta time and last timestamp of this timer.
 		 */
-		void UpdateElapsedTime() const {
-			// Set the elapsed time.
-			m_elapsed_time = GetSystemTime() - m_last_time;
-			// Set the last time stamp.
-			m_last_time = GetSystemTime();
-		}
+		void ResetDeltaTime() const;
+
+		/**
+		 Updates the delta time, total delta time and last timestamp of this timer.
+		 */
+		void UpdateDeltaTime() const;
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 The initial time stamp of this timer. 
+		 The last timestamp of this timer.
 		 */
-		double m_initial_time;
+		mutable uint64_t m_last_timestamp;
 
 		/**
-		 The last time stamp of this timer.
+		 The delta time of this timer.
 		 */
-		mutable double m_last_time;
+		mutable uint64_t m_delta_time;
 
 		/**
-		 The elapsed time (in seconds) of this timer.
+		 The total delta time of this timer.
 		 */
-		mutable double m_elapsed_time;
+		mutable uint64_t m_total_delta_time;
 
 		/**
 		 Flag indicating whether this timer is running.
@@ -172,18 +187,18 @@ namespace mage {
 		bool m_running;
 
 		/**
-		 The counter of this timer.
+		 The time counter of this timer.
 		 */
-		mutable LARGE_INTEGER m_performance_counter;
+		mutable LARGE_INTEGER m_time_counter;
 
 		/**
-		 The frequency of this timer.
+		 The time frequency of this timer.
 		 */
-		LARGE_INTEGER m_performance_frequency;
+		LARGE_INTEGER m_time_frequency;
 
 		/**
-		 The period of this timer.
-		*/
-		double m_performance_period;
+		 The time period of this timer.
+		 */
+		double m_time_period;
 	};
 }

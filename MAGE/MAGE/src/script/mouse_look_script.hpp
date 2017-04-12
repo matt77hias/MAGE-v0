@@ -60,10 +60,10 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
+		SharedPtr< Camera > m_camera;
 		RotationAxes m_axes;
 		XMFLOAT2 m_sensitivity;
 		XMFLOAT2 m_min;
 		XMFLOAT2 m_max;
-		SharedPtr< Camera > m_camera;
 	};
 }

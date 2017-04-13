@@ -262,6 +262,22 @@ namespace mage {
 	 @return		The union AABB of @a aabb and @a point.
 	 */
 	const AABB Union(const AABB &aabb, const Point3 &point);
+
+	/**
+	 Returns the union AABB of the given AABB and the given vertex.
+
+	 @tparam		VertexT
+					The vertex type.
+	 @param[in]		aabb
+					A reference to the AABB.
+	 @param[in]		vertex
+					A reference to the VertexT.
+	 @return		The union AABB of @a aabb and @a vertex.
+	 */
+	template< typename VertexT >
+	inline const AABB Union(const AABB &aabb, const VertexT &vertex) {
+		return Union(aabb, vertex.p);
+	}
 	
 	/**
 	 Returns the union AABB of the two given AABBs.

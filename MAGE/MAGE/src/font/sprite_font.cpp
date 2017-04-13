@@ -146,9 +146,7 @@ namespace mage {
 						offset = XMVectorMultiplyAdd(glyph_rect, mirror, offset);
 					}
 
-					XMFLOAT2 sprite_rotation_origin;
-					XMStoreFloat2(&sprite_rotation_origin, offset);
-					sprite_transform.SetRotationOrigin(sprite_rotation_origin);
+					sprite_transform.SetRotationOrigin(offset);
 					sprite_batch.Draw(m_texture.Get(), color, effects, sprite_transform, &glyph->m_sub_rectangle);
 				}
 

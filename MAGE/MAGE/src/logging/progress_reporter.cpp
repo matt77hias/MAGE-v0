@@ -91,7 +91,7 @@ namespace mage {
 		// Write the buffer to the output file stream.
 		fputs(m_buffer.get(), m_fout);
 		// Update elapsed time and estimated time to completion
-		const float seconds = static_cast< float >(m_timer->GetSystemDeltaTime());
+		const float seconds = static_cast< float >(m_timer->GetDeltaTime());
 		const float estimation_remaining = seconds / percent_done - seconds;
 		if (percent_done == 1.0f) {
 			// Writes the string format to the output file stream.
@@ -126,7 +126,7 @@ namespace mage {
 		// Write the buffer to the output file stream.
 		fputs(m_buffer.get(), m_fout);
 		// Update elapsed time
-		const float seconds = static_cast< float >(m_timer->GetSystemDeltaTime());
+		const float seconds = static_cast< float >(m_timer->GetDeltaTime());
 		// Writes the string format to the output file stream.
 		fprintf(m_fout, " (%.1fs)       \n", seconds);
 		

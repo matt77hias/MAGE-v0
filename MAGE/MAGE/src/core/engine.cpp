@@ -186,7 +186,7 @@ namespace mage {
 				}
 
 				// Calculate the elapsed time.
-				const double delta_time = m_timer->GetSystemDeltaTime();
+				const double delta_time = m_timer->GetDeltaTime();
 
 				// Update the current scene.
 				m_scene->Update(delta_time);

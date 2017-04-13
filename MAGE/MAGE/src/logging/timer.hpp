@@ -113,26 +113,26 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the system delta time (in seconds) 
+		 Returns the wall clock delta time (in seconds) 
 		 of this timer.
 
-		 @return		The system delta time (in seconds) 
+		 @return		The wall clock delta time (in seconds) 
 						of this timer.
 		 */
-		double GetSystemDeltaTime() const;
+		double GetDeltaTime() const;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Total Delta Time
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the total system delta time (in seconds)
+		 Returns the total wall clock delta time (in seconds)
 		 of this timer.
 
-		 @return		The total system delta time (in seconds)
+		 @return		The total wall clock delta time (in seconds)
 						of this timer.
 		 */
-		double GetTotalSystemDeltaTime() const;
+		double GetTotalDeltaTime() const;
 
 	private:
 

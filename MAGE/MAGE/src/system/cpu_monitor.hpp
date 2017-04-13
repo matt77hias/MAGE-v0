@@ -124,7 +124,7 @@ namespace mage {
 		 @return		The CPU delta percentage of this timer's process.
 		 */
 		double GetCPUDeltaPercentage() const {
-			const double time     = m_timer->GetSystemDeltaTime();
+			const double time     = m_timer->GetDeltaTime();
 			const double cpu_time = m_cpu_timer->GetCoreDeltaTimePerCore();
 			return 100.0 * (cpu_time / time);
 		}
@@ -135,7 +135,7 @@ namespace mage {
 		 @return		The total CPU delta percentage of this timer's process.
 		 */
 		double GetTotalCPUDeltaPercentage() const {
-			const double time = m_timer->GetTotalSystemDeltaTime();
+			const double time = m_timer->GetTotalDeltaTime();
 			const double cpu_time = m_cpu_timer->GetTotalCoreDeltaTimePerCore();
 			return 100.0 * (cpu_time / time);
 		}

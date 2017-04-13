@@ -827,6 +827,9 @@
     <ClCompile Include="MAGE\src\script\text_console_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\sprite\sprite_image.cpp">
+      <Filter>Source Files\sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">

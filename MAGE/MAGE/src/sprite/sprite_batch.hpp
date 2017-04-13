@@ -24,7 +24,7 @@
 namespace mage {
 
 	__declspec(align(16)) struct SpriteInfo : public AlignedData< SpriteInfo > {
-		
+
 		//---------------------------------------------------------------------
 		// Class Member Variables
 		//---------------------------------------------------------------------
@@ -73,7 +73,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void Begin(SpriteSortMode sort_mode = SpriteSortMode_Deferred, XMMATRIX transform = XMMatrixIdentity());
+		void Begin(SpriteSortMode sort_mode = SpriteSortMode_Deferred, const XMMATRIX &transform = XMMatrixIdentity());
 		void Draw(ID3D11ShaderResourceView *texture, const XMVECTOR &color, SpriteEffect effects,
 			const SpriteTransform &transform, const RECT *source = nullptr);
 		void End();

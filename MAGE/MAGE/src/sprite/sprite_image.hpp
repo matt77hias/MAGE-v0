@@ -25,15 +25,15 @@ namespace mage {
 
 		explicit SpriteImage(const string &name, SharedPtr< Texture > texture,
 			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
-			: m_name(name), m_region(), m_texture(texture), 
-			m_color(color), m_effects(effects), 
+			: m_name(name), m_color(color), m_effects(effects),
+			m_region(), m_texture(texture),
 			m_transform(new SpriteTransform()) {}
 		explicit SpriteImage(const string &name, SharedPtr< Texture > texture, const RECT &region,
 			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
-			: m_name(name), m_region(new RECT(region)), m_texture(texture),
-			m_color(color), m_effects(effects),
+			: m_name(name), m_color(color), m_effects(effects),
+			m_region(new RECT(region)), m_texture(texture),
 			m_transform(new SpriteTransform()) {}
-		SpriteImage(const SpriteImage &sprite_image) = default;
+		SpriteImage(const SpriteImage &sprite_image);
 		SpriteImage(SpriteImage &&sprite_image) = default;
 		virtual ~SpriteImage() = default;
 
@@ -41,7 +41,7 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		SpriteImage &operator=(const SpriteImage &sprite_image) = default;
+		SpriteImage &operator=(const SpriteImage &sprite_image);
 		SpriteImage &operator=(SpriteImage &&sprite_image) = default;
 
 		//---------------------------------------------------------------------
@@ -98,10 +98,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		string m_name;
-		UniquePtr< RECT > m_region;
-		SharedPtr< Texture > m_texture;
+
 		XMVECTOR m_color;
 		SpriteEffect m_effects;
+		UniquePtr< RECT > m_region;
+		SharedPtr< Texture > m_texture;
 		UniquePtr< SpriteTransform > m_transform;
 	};
 }

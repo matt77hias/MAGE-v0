@@ -117,10 +117,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		string m_name;
-		SharedPtr< SpriteFont > m_font;
 		wstring m_text;
+
 		XMVECTOR m_color;
 		SpriteEffect m_effects;
+		SharedPtr< SpriteFont > m_font;
 		UniquePtr< SpriteTransform > m_transform;
 	};
 }

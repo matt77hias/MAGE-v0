@@ -243,7 +243,11 @@ namespace mage {
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_DISPLAY_FORMAT));
 			for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 				wchar_t bpp_buffer[8];
-				swprintf_s(bpp_buffer, _countof(bpp_buffer), L"%lld bbp", BitsPerPixel(it->Format));
+#ifdef MAGE_X86
+				swprintf_s(bpp_buffer, _countof(bpp_buffer), L"%u bbp", BitsPerPixel(it->Format));
+#else
+				swprintf_s(bpp_buffer, _countof(bpp_buffer), L"%llu bbp", BitsPerPixel(it->Format));
+#endif
 				if (!ComboBoxContains(hwndDlg, IDC_DISPLAY_FORMAT, bpp_buffer)) {
 					ComboBoxAdd(hwndDlg, IDC_DISPLAY_FORMAT, (void*)it->Format, bpp_buffer);
 				}
@@ -259,7 +263,7 @@ namespace mage {
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
 			for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 				if (it->Format == (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_COLOUR_DEPTH))) {
-					swprintf_s(buffer, _countof(buffer), L"%d x %d", it->Width, it->Height);
+					swprintf_s(buffer, _countof(buffer), L"%u x %u", it->Width, it->Height);
 					if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
 						ComboBoxAdd(hwndDlg, IDC_RESOLUTION, (void*)(static_cast< size_t >(MAKELONG(it->Width, it->Height))), buffer);
 					}
@@ -274,7 +278,7 @@ namespace mage {
 			for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 				if (static_cast< size_t >(MAKELONG(it->Width, it->Height)) == static_cast< size_t >(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION)))) {
 					const UINT refresh_rate = static_cast< UINT >(round(it->RefreshRate.Numerator / static_cast< float >(it->RefreshRate.Denominator)));
-					swprintf_s(buffer, _countof(buffer), L"%d Hz", refresh_rate);
+					swprintf_s(buffer, _countof(buffer), L"%u Hz", refresh_rate);
 					if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
 						ComboBoxAdd(hwndDlg, IDC_REFRESH_RATE, (void*)(static_cast< size_t >(MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator))), buffer);
 					}
@@ -352,7 +356,7 @@ namespace mage {
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
 					for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 						if (it->Format == (DXGI_FORMAT)PtrToUlong(ComboBoxSelected(hwndDlg, IDC_COLOUR_DEPTH))) {
-							swprintf_s(buffer, _countof(buffer), L"%d x %d", it->Width, it->Height);
+							swprintf_s(buffer, _countof(buffer), L"%u x %u", it->Width, it->Height);
 							if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
 								ComboBoxAdd(hwndDlg, IDC_RESOLUTION, (void*)(static_cast< size_t >(MAKELONG(it->Width, it->Height))), buffer);
 								if (selected_resolution == static_cast< size_t >(MAKELONG(it->Width, it->Height))) {
@@ -378,7 +382,7 @@ namespace mage {
 					for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 						if ((size_t)MAKELONG(it->Width, it->Height) == static_cast< size_t >(PtrToUlong(ComboBoxSelected(hwndDlg, IDC_RESOLUTION)))) {
 							const UINT refresh_rate = static_cast< UINT >(round(it->RefreshRate.Numerator / static_cast< float >(it->RefreshRate.Denominator)));
-							swprintf_s(buffer, _countof(buffer), L"%d Hz", refresh_rate);
+							swprintf_s(buffer, _countof(buffer), L"%u Hz", refresh_rate);
 							if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
 								ComboBoxAdd(hwndDlg, IDC_REFRESH_RATE, (void*)(static_cast< size_t >(MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator))), buffer);
 								if (selected_refresh_rate == static_cast< size_t >(MAKELONG(it->RefreshRate.Numerator, it->RefreshRate.Denominator))) {

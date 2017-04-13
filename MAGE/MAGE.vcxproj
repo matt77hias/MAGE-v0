@@ -206,6 +206,7 @@
     <ClCompile Include="MAGE\src\shader\shader.cpp" />
     <ClCompile Include="MAGE\src\shader\sprite_shader.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_batch.cpp" />
+    <ClCompile Include="MAGE\src\sprite\sprite_image.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_utils.cpp" />
     <ClCompile Include="MAGE\src\string\binary_reader.cpp" />
     <ClCompile Include="MAGE\src\string\line_reader.cpp" />

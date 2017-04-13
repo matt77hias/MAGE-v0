@@ -24,7 +24,7 @@
 namespace mage {
 
 	/**
-	 A class of (high precision) timers.
+	 A class of (high precision) wall clock timers.
 	 */
 	class Timer final {
 

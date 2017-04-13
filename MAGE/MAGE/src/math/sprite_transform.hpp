@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A struct of transforms.
 	 */
-	struct SpriteTransform final {
+	__declspec(align(16)) struct SpriteTransform final : public AlignedData< SpriteTransform > {
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -42,6 +42,30 @@ namespace mage {
 			float rotation = 0.0f, const XMFLOAT2 &rotation_origin = { 0.0f, 0.0f }, const XMFLOAT2 &scale = { 1.0f, 1.0f })
 			: m_translation(translation), m_depth(depth), 
 			m_rotation(rotation), m_rotation_origin(rotation_origin), m_scale(scale) {}
+
+		/**
+		 Constructs a sprite transform from the given translation, depth,
+		 rotation, rotation origin and scale component.
+
+		 @param[in]		translation
+						A reference to the translation component.
+		 @param[in]		depth
+						The depth component.
+		 @param[in]		rotation
+						The rotation component.
+		 @param[in]		rotation_origin
+						A reference to the rotation component.
+		 @param[in]		scale
+						A reference to the scale component.
+		 */
+		explicit SpriteTransform(const XMVECTOR &translation, float depth,
+			float rotation, const XMVECTOR &rotation_origin, const XMVECTOR &scale)
+			: m_translation(), m_depth(depth),
+			m_rotation(rotation), m_rotation_origin(), m_scale() {
+			SetTranslation(translation);
+			SetRotationOrigin(rotation_origin);
+			SetScale(scale);
+		}
 
 		/**
 		 Constructs a sprite transform from the given sprite transform.

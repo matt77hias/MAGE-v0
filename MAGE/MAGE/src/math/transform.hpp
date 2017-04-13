@@ -19,7 +19,7 @@ namespace mage {
 	/**
 	 A struct of transforms.
 	 */
-	struct Transform final {
+	__declspec(align(16)) struct Transform final : public AlignedData< Transform > {
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -40,6 +40,23 @@ namespace mage {
 			SetDirty();
 		}
 		
+		/**
+		 Constructs a transform from the given translation, rotation and scale component.
+
+		 @param[in]		translation
+						A reference to the translation component.
+		 @param[in]		rotation
+						A reference to the rotation component.
+		 @param[in]		scale
+						A reference to the scale component.
+		 */
+		explicit Transform(const XMVECTOR &translation, const XMVECTOR &rotation, const XMVECTOR &scale)
+			: m_translation(), m_rotation(), m_scale() {
+			SetTranslation(translation);
+			SetRotation(rotation);
+			SetScale(scale);
+		}
+
 		/**
 		 Constructs a transform from the given transform.
 

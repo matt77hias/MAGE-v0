@@ -24,15 +24,29 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit SpriteImage(const string &name, SharedPtr< Texture > texture,
-			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
+			const Color &color, SpriteEffect effects = SpriteEffect_None)
 			: m_name(name), m_color(color), m_effects(effects),
 			m_region(), m_texture(texture),
 			m_transform(new SpriteTransform()) {}
 		explicit SpriteImage(const string &name, SharedPtr< Texture > texture, const RECT &region,
-			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
+			const Color &color, SpriteEffect effects = SpriteEffect_None)
 			: m_name(name), m_color(color), m_effects(effects),
 			m_region(new RECT(region)), m_texture(texture),
 			m_transform(new SpriteTransform()) {}
+		explicit SpriteImage(const string &name, SharedPtr< Texture > texture,
+			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
+			: m_name(name), m_color(), m_effects(effects),
+			m_region(), m_texture(texture),
+			m_transform(new SpriteTransform()) {
+			SetColor(color);
+		}
+		explicit SpriteImage(const string &name, SharedPtr< Texture > texture, const RECT &region,
+			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
+			: m_name(name), m_color(), m_effects(effects),
+			m_region(new RECT(region)), m_texture(texture),
+			m_transform(new SpriteTransform()) {
+			SetColor(color);
+		}
 		SpriteImage(const SpriteImage &sprite_image);
 		SpriteImage(SpriteImage &&sprite_image) = default;
 		virtual ~SpriteImage() = default;
@@ -48,9 +62,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void Draw(SpriteBatch &sprite_batch) const {
-			sprite_batch.Draw(m_texture->GetTextureResourceView(), m_color, m_effects, *m_transform, m_region.get());
-		}
+		void Draw(SpriteBatch &sprite_batch) const;
 
 		const string &GetName() const {
 			return m_name;
@@ -68,18 +80,13 @@ namespace mage {
 			m_texture = texture;
 		}
 		const Color GetColor() const {
-			Color c;
-			XMStoreFloat4(&c, m_color);
-			return c;
+			return m_color;
 		}
 		void SetColor(const Color &color) {
-			m_color = XMLoadFloat4(&color);
-		}
-		void SetColor(const XMVECTOR &color) {
 			m_color = color;
 		}
-		SpriteEffect GetSpriteEffects() const {
-			return m_effects;
+		void SetColor(const XMVECTOR &color) {
+			XMStoreFloat4(&m_color, color);
 		}
 		void SetSpriteEffects(SpriteEffect effects) {
 			m_effects = effects;
@@ -94,12 +101,20 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		const XMVECTOR GetColorVector() const {
+			return XMLoadFloat4(&m_color);
+		}
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		string m_name;
 
-		XMVECTOR m_color;
+		Color m_color;
 		SpriteEffect m_effects;
 		UniquePtr< RECT > m_region;
 		SharedPtr< Texture > m_texture;

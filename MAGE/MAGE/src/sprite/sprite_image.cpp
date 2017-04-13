@@ -27,4 +27,8 @@ namespace mage {
 		m_transform.reset(new SpriteTransform(*sprite_image.m_transform));
 		return (*this);
 	}
+
+	void SpriteImage::Draw(SpriteBatch &sprite_batch) const {
+		sprite_batch.Draw(m_texture->GetTextureResourceView(), GetColorVector(), m_effects, *m_transform, m_region.get());
+	}
 }

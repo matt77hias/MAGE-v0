@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\allocation.hpp"
 #include "math\math.hpp"
 
 #pragma endregion
@@ -17,7 +18,7 @@ namespace mage {
 	/**
 	 A struct of Cartesian axes systems.
 	 */
-	struct CartesianAxesSystem final {
+	__declspec(align(16)) struct CartesianAxesSystem final : public AlignedData< CartesianAxesSystem > {
 
 	public:
 
@@ -174,7 +175,7 @@ namespace mage {
 	/**
 	 A struct of Cartesian coordinate systems.
 	 */
-	struct CartesianCoordinateSystem final {
+	_declspec(align(16)) struct CartesianCoordinateSystem final : public AlignedData< CartesianCoordinateSystem > {
 
 	public:
 

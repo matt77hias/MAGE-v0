@@ -23,10 +23,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit OutlineSpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
+			const Color &color, const Color &border_color,
+			SpriteEffect effects = SpriteEffect_None)
+			: SpriteText(name, text, font, color, effects),
+			m_border_color(border_color) {}
+		explicit OutlineSpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
 			const XMVECTOR &color = Colors::White, const XMVECTOR &border_color = Colors::Black,
 			SpriteEffect effects = SpriteEffect_None)
 			: SpriteText(name, text, font, color, effects), 
-			m_border_color(border_color) {}
+			m_border_color() {
+			SetBorderColor(border_color);
+		}
 		OutlineSpriteText(const OutlineSpriteText &sprite_text) = default;
 		OutlineSpriteText(OutlineSpriteText &&sprite_text) = default;
 		virtual ~OutlineSpriteText() = default;
@@ -49,19 +56,29 @@ namespace mage {
 		virtual void Draw(SpriteBatch &sprite_batch) const override;
 	
 		const Color GetBorderColor() const {
-			Color c;
-			XMStoreFloat4(&c, m_border_color);
-			return c;
+			return m_border_color;
 		}
 		void SetBorderColor(const Color &color) {
-			m_border_color = XMLoadFloat4(&color);
+			m_border_color = color;
 		}
 		void SetBorderColor(const XMVECTOR &color) {
-			m_border_color = color;
+			XMStoreFloat4(&m_border_color, color);
 		}
 
 	private:
 
-		XMVECTOR m_border_color;
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		const XMVECTOR GetBorderColorVector() const {
+			return XMLoadFloat4(&m_border_color);
+		};
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		Color m_border_color;
 	};
 }

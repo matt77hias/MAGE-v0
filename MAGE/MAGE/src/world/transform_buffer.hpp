@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	struct TransformBuffer final {
+	__declspec(align(16)) struct TransformBuffer final : public AlignedData< TransformBuffer > {
 
 	public:
 

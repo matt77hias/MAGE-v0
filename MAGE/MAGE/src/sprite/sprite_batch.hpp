@@ -23,7 +23,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	__declspec(align(16)) struct SpriteInfo : public AlignedData< SpriteInfo > {
+	__declspec(align(16)) struct SpriteInfo final : public AlignedData< SpriteInfo > {
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -48,7 +48,7 @@ namespace mage {
 		int flags;
 	};
 
-	class SpriteBatch final {
+	__declspec(align(16)) class SpriteBatch final : public AlignedData< SpriteBatch > {
 
 	public:
 

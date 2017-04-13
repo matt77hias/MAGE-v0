@@ -23,10 +23,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit DropshadowSpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
+			const Color &color, const Color &shadow_color,
+			SpriteEffect effects = SpriteEffect_None)
+			: SpriteText(name, text, font, color, effects),
+			m_shadow_color(shadow_color) {}
+		explicit DropshadowSpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
 			const XMVECTOR &color = Colors::White, const XMVECTOR &shadow_color = Colors::Black,
 			SpriteEffect effects = SpriteEffect_None)
 			: SpriteText(name, text, font, color, effects), 
-			m_shadow_color(shadow_color) {}
+			m_shadow_color() {
+			SetShadowColor(shadow_color);
+		}
 		DropshadowSpriteText(const DropshadowSpriteText &sprite_text) = default;
 		DropshadowSpriteText(DropshadowSpriteText &&sprite_text) = default;
 		virtual ~DropshadowSpriteText() = default;
@@ -49,19 +56,29 @@ namespace mage {
 		virtual void Draw(SpriteBatch &sprite_batch) const override;
 	
 		const Color GetShadowColor() const {
-			Color c;
-			XMStoreFloat4(&c, m_shadow_color);
-			return c;
+			return m_shadow_color;
 		}
 		void SetShadowColor(const Color &color) {
-			m_shadow_color = XMLoadFloat4(&color);
+			m_shadow_color = color;
 		}
 		void SetShadowColor(const XMVECTOR &color) {
-			m_shadow_color = color;
+			XMStoreFloat4(&m_shadow_color, color);
 		}
 
 	private:
 
-		XMVECTOR m_shadow_color;
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		const XMVECTOR GetShadowColorVector() const {
+			return XMLoadFloat4(&m_shadow_color);
+		};
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		Color m_shadow_color;
 	};
 }

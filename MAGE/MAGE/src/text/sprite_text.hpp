@@ -61,15 +61,13 @@ namespace mage {
 			m_text = text;
 		}
 		const Color GetColor() const {
-			Color c;
-			XMStoreFloat4(&c, m_color);
-			return c;
+			return m_color;
 		}
 		void SetColor(const Color &color) {
-			m_color = XMLoadFloat4(&color);
+			m_color = color;
 		}
 		void SetColor(const XMVECTOR &color) {
-			m_color = color;
+			XMStoreFloat4(&m_color, color);
 		}
 		SpriteEffect GetSpriteEffects() const {
 			return m_effects;
@@ -95,7 +93,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit SpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
-			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None);
+			const Color &color, SpriteEffect effects = SpriteEffect_None) 
+			: m_name(name), m_text(text),
+			m_color(color), m_effects(effects),
+			m_font(font), m_transform(new SpriteTransform()) {}
+		explicit SpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
+			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
+			: m_name(name), m_text(text),
+			m_color(), m_effects(effects),
+			m_font(font), m_transform(new SpriteTransform()) {
+			SetColor(color);
+		}
 		SpriteText(const SpriteText &sprite_text);
 		SpriteText(SpriteText &&sprite_text) = default;
 
@@ -107,7 +115,7 @@ namespace mage {
 			return m_font.get();
 		}
 		const XMVECTOR GetColorVector() const {
-			return m_color;
+			return XMLoadFloat4(&m_color);
 		}
 
 	private:
@@ -119,7 +127,7 @@ namespace mage {
 		string m_name;
 		wstring m_text;
 
-		XMVECTOR m_color;
+		Color m_color;
 		SpriteEffect m_effects;
 		SharedPtr< SpriteFont > m_font;
 		UniquePtr< SpriteTransform > m_transform;

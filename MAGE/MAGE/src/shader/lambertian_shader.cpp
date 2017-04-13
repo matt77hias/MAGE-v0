@@ -17,7 +17,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	struct MaterialBuffer {
+	__declspec(align(16)) struct MaterialBuffer : public AlignedData< MaterialBuffer > {
 		//TODO
 		XMVECTOR x;
 	};

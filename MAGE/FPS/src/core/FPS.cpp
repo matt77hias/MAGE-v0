@@ -84,7 +84,7 @@ public:
 		// Image
 		SharedPtr< SpriteImage > image(new SpriteImage("image", texture));
 		image->GetTransform()->SetScale(0.25f, 0.25f);
-		image->GetTransform()->SetTranslation(730.0f, 530.0f);
+		image->GetTransform()->SetNormalizedTranslation(0.90f, 0.88f);
 		GetWorld()->AddImage(image);
 
 		// Scripts

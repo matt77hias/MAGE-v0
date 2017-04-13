@@ -7,7 +7,7 @@
 
 #include "memory\memory.hpp"
 #include "string\string.hpp"
-#include "logging\timer.hpp"
+#include "timer\timer.hpp"
 #include "parallel\lock.hpp"
 
 #pragma endregion

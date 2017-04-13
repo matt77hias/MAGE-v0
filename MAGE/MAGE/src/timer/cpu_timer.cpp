@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "logging\cpu_timer.hpp"
+#include "timer\cpu_timer.hpp"
 #include "parallel\parallel.hpp"
 #include "system\system_time.hpp"
 

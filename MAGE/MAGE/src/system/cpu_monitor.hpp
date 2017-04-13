@@ -6,8 +6,8 @@
 #pragma region
 
 #include "memory\memory.hpp"
-#include "logging\timer.hpp"
-#include "logging\cpu_timer.hpp"
+#include "timer\timer.hpp"
+#include "timer\cpu_timer.hpp"
 
 #pragma endregion
 

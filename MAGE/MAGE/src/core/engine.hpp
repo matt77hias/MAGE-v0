@@ -12,7 +12,7 @@
 #include "input\input_manager.hpp"
 #include "ui\main_window.hpp"
 #include "resource\resource_factory.hpp"
-#include "logging\timer.hpp"
+#include "timer\timer.hpp"
 
 #include "engine_setup.hpp"
 

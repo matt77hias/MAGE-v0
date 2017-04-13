@@ -208,6 +208,12 @@
     <Filter Include="Source Files\text">
       <UniqueIdentifier>{70445d7e-adf2-4861-815f-d860713f57c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\timer">
+      <UniqueIdentifier>{5636ccf3-489b-4f0c-83a2-47b0e06f195e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\timer">
+      <UniqueIdentifier>{2e63c3b9-e3dd-4066-98c2-40380aaf8d47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -274,9 +280,6 @@
       <Filter>Header Files\logging</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\logging\logging.hpp">
-      <Filter>Header Files\logging</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\logging\timer.hpp">
       <Filter>Header Files\logging</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\parallel\lock.hpp">
@@ -564,9 +567,6 @@
     <ClInclude Include="MAGE\src\text\outline_sprite_text.hpp">
       <Filter>Header Files\text</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\logging\cpu_timer.hpp">
-      <Filter>Header Files\logging</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\system\system_usage.hpp">
       <Filter>Header Files\system</Filter>
     </ClInclude>
@@ -596,6 +596,12 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\script\text_console_script.hpp">
       <Filter>Header Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\timer\timer.hpp">
+      <Filter>Header Files\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\timer\cpu_timer.hpp">
+      <Filter>Header Files\timer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -631,9 +637,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\ui\main_window.cpp">
       <Filter>Source Files\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\logging\timer.cpp">
-      <Filter>Source Files\logging</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\logging\error.cpp">
       <Filter>Source Files\logging</Filter>
@@ -803,9 +806,6 @@
     <ClCompile Include="MAGE\src\text\normal_sprite_text.cpp">
       <Filter>Source Files\text</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\logging\cpu_timer.cpp">
-      <Filter>Source Files\logging</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\system\system_usage.cpp">
       <Filter>Source Files\system</Filter>
     </ClCompile>
@@ -829,6 +829,12 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\sprite\sprite_image.cpp">
       <Filter>Source Files\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\timer\cpu_timer.cpp">
+      <Filter>Source Files\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\timer\timer.cpp">
+      <Filter>Source Files\timer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -45,11 +45,9 @@
     <ClInclude Include="MAGE\src\input\keyboard.hpp" />
     <ClInclude Include="MAGE\src\input\mouse.hpp" />
     <ClInclude Include="MAGE\src\light\point_light.hpp" />
-    <ClInclude Include="MAGE\src\logging\cpu_timer.hpp" />
     <ClInclude Include="MAGE\src\logging\error.hpp" />
     <ClInclude Include="MAGE\src\logging\logging.hpp" />
     <ClInclude Include="MAGE\src\logging\progress_reporter.hpp" />
-    <ClInclude Include="MAGE\src\logging\timer.hpp" />
     <ClInclude Include="MAGE\src\material\color.hpp" />
     <ClInclude Include="MAGE\src\material\material.hpp" />
     <ClInclude Include="MAGE\src\material\material_loader.hpp" />
@@ -142,6 +140,8 @@
     <ClInclude Include="MAGE\src\text\normal_sprite_text.hpp" />
     <ClInclude Include="MAGE\src\text\outline_sprite_text.hpp" />
     <ClInclude Include="MAGE\src\text\sprite_text.hpp" />
+    <ClInclude Include="MAGE\src\timer\cpu_timer.hpp" />
+    <ClInclude Include="MAGE\src\timer\timer.hpp" />
     <ClInclude Include="MAGE\src\ui\combo_box.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
@@ -161,11 +161,9 @@
     <ClCompile Include="MAGE\src\input\input_manager.cpp" />
     <ClCompile Include="MAGE\src\input\keyboard.cpp" />
     <ClCompile Include="MAGE\src\input\mouse.cpp" />
-    <ClCompile Include="MAGE\src\logging\cpu_timer.cpp" />
     <ClCompile Include="MAGE\src\logging\error.cpp" />
     <ClCompile Include="MAGE\src\logging\logging.cpp" />
     <ClCompile Include="MAGE\src\logging\progress_reporter.cpp" />
-    <ClCompile Include="MAGE\src\logging\timer.cpp" />
     <ClCompile Include="MAGE\src\material\material_loader.cpp" />
     <ClCompile Include="MAGE\src\material\mtl\mtl_loader.cpp" />
     <ClCompile Include="MAGE\src\material\mtl\mtl_reader.cpp" />
@@ -222,6 +220,8 @@
     <ClCompile Include="MAGE\src\text\normal_sprite_text.cpp" />
     <ClCompile Include="MAGE\src\text\outline_sprite_text.cpp" />
     <ClCompile Include="MAGE\src\text\sprite_text.cpp" />
+    <ClCompile Include="MAGE\src\timer\cpu_timer.cpp" />
+    <ClCompile Include="MAGE\src\timer\timer.cpp" />
     <ClCompile Include="MAGE\src\ui\combo_box.cpp" />
     <ClCompile Include="MAGE\src\ui\main_window.cpp" />
     <ClCompile Include="MAGE\src\world\transform_buffer.cpp" />

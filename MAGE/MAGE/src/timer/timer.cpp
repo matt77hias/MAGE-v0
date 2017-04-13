@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "logging\timer.hpp"
+#include "timer\timer.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

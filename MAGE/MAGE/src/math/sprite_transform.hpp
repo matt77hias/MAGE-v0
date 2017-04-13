@@ -15,6 +15,98 @@
 namespace mage {
 
 	/**
+	 Converts the given normalized screen x-value to absolute screen x-value.
+
+	 @param[in]		x
+					The given normalized screen x-value.
+	 */
+	float ConvertNormalizedToAbsoluteScreenX(float x);
+
+	/**
+	 Converts the given normalized screen y-value to absolute screen y-value.
+
+	 @param[in]		y
+					The given normalized screen y-value.
+	 */
+	float ConvertNormalizedToAbsoluteScreenY(float y);
+	
+	/**
+	 Converts the given normalized screen values to absolute screen values.
+
+	 @param[in]		x
+					The given normalized screen x-value.
+	 @param[in]		y
+					The given normalized screen y-value.
+	 */
+	inline const XMFLOAT2 ConvertNormalizedToAbsoluteScreen(float x, float y) {
+		return XMFLOAT2(ConvertNormalizedToAbsoluteScreenX(x), ConvertNormalizedToAbsoluteScreenY(y));
+	}
+	
+	/**
+	 Converts the given normalized screen position to absolute screen position.
+
+	 @param[in]		position
+					The given normalized screen position.
+	 */
+	inline const XMFLOAT2 ConvertNormalizedToAbsoluteScreen(const XMFLOAT2 &position) {
+		return ConvertNormalizedToAbsoluteScreen(position.x, position.y);
+	}
+	
+	/**
+	 Converts the given normalized screen position to absolute screen position.
+
+	 @param[in]		position
+					The given normalized screen position.
+	 */
+	const XMVECTOR ConvertNormalizedToAbsoluteScreen(const XMVECTOR &position);
+
+	/**
+	 Converts the given absolute screen x-value to normalized screen x-value.
+
+	 @param[in]		x
+					The given absolute screen x-value.
+	 */
+	float ConvertAbsoluteToNormalizedScreenX(float x);
+
+	/**
+	 Converts the given absolute screen y-value to normalized screen y-value.
+
+	 @param[in]		y
+					The given absolute screen y-value.
+	 */
+	float ConvertAbsoluteToNormalizedScreenY(float y);
+	
+	/**
+	 Converts the given absolute screen values to normalized screen values.
+
+	 @param[in]		x
+					The given absolute screen x-value.
+	 @param[in]		y
+					The given absolute screen y-value.
+	 */
+	inline const XMFLOAT2 ConvertAbsoluteToNormalizedScreen(float x, float y) {
+		return XMFLOAT2(ConvertAbsoluteToNormalizedScreenX(x), ConvertAbsoluteToNormalizedScreenY(y));
+	}
+	
+	/**
+	 Converts the given absolute screen position to normalized screen position.
+
+	 @param[in]		position
+					The given absolute screen position.
+	 */
+	inline const XMFLOAT2 ConvertAbsoluteToNormalizedScreen(const XMFLOAT2 &position) {
+		return ConvertAbsoluteToNormalizedScreen(position.x, position.y);
+	}
+	
+	/**
+	 Converts the given absolute screen position to normalized screen position.
+
+	 @param[in]		position
+					The given absolute screen position.
+	 */
+	const XMVECTOR ConvertAbsoluteToNormalizedScreen(const XMVECTOR &position);
+
+	/**
 	 A struct of transforms.
 	 */
 	__declspec(align(16)) struct SpriteTransform final : public AlignedData< SpriteTransform > {
@@ -250,6 +342,141 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
+		// Member Methods: Normalized Translation
+		//---------------------------------------------------------------------
+
+		/**
+		 Sets the x-value of the translation component of this sprite transform to the given normalized value.
+
+		 @param[in]		x
+						The x-value of the normalized translation component.
+		 */
+		void SetNormalizedTranslationX(float x) {
+			SetTranslationX(ConvertNormalizedToAbsoluteScreenX(x));
+		}
+
+		/**
+		 Sets the y-value of the translation component of this sprite transform to the given normalized value.
+
+		 @param[in]		y
+						The y-value of the normalized translation component.
+		 */
+		void SetNormalizedTranslationY(float y) {
+			SetTranslationY(ConvertNormalizedToAbsoluteScreenY(y));
+		}
+
+		/**
+		 Sets the translation component of this sprite transform to the given normalized translation component.
+
+		 @param[in]		x
+						The x-value of the normalized translation component.
+		 @param[in]		y
+						The y-value of the normalized translation component.
+		 */
+		void SetNormalizedTranslation(float x, float y) {
+			SetTranslation(ConvertNormalizedToAbsoluteScreen(x, y));
+		}
+
+		/**
+		 Sets the translation component of this sprite transform to the given normalized translation component.
+
+		 @param[in]		translation
+						A reference to the normalized translation component.
+		 */
+		void SetNormalizedTranslation(const XMFLOAT2 &translation) {
+			SetTranslation(ConvertNormalizedToAbsoluteScreen(translation));
+		}
+
+		/**
+		 Sets the translation component of this sprite transform to the given normalized translation component.
+
+		 @param[in]		translation
+						A reference to the normalized translation component.
+		 */
+		void SetNormalizedTranslation(const XMVECTOR &translation) {
+			SetTranslation(ConvertNormalizedToAbsoluteScreen(translation));
+		}
+
+		/**
+		 Adds the given x-value to the normalized translation component of this sprite transform.
+
+		 @param[in]		x
+						The x-value of the normalized translation component to add.
+		 */
+		void AddNormalizedTranslationX(float x) {
+			AddTranslationX(ConvertNormalizedToAbsoluteScreenX(x));
+		}
+
+		/**
+		 Adds the given y-value to the normalized translation component of this sprite transform.
+
+		 @param[in]		y
+						The y-value of the normalized translation component to add.
+		 */
+		void AddNormalizedTranslationY(float y) {
+			AddTranslationY(ConvertNormalizedToAbsoluteScreenY(y));
+		}
+
+		/**
+		 Adds the given translation component to the normalized translation component of this sprite transform.
+
+		 @param[in]		x
+						The x-value of the normalized translation component to add.
+		 @param[in]		y
+						The y-value of the normalized translation component to add.
+		 */
+		void AddNormalizedTranslation(float x, float y) {
+			AddTranslation(ConvertNormalizedToAbsoluteScreen(x, y));
+		}
+
+		/**
+		 Adds the given translation component to the normalized translation component of this sprite transform.
+
+		 @param[in]		translation
+						A reference to the normalized translation component to add.
+		 */
+		void AddNormalizedTranslation(const XMFLOAT2 &translation) {
+			AddTranslation(ConvertNormalizedToAbsoluteScreen(translation));
+		}
+
+		/**
+		 Adds the given translation component to the normalized translation component of this sprite transform.
+
+		 @param[in]		translation
+						A reference to the normalized translation component to add.
+		 */
+		void AddNormalizedTranslation(const XMVECTOR &translation) {
+			AddTranslation(ConvertNormalizedToAbsoluteScreen(translation));
+		}
+
+		/**
+		 Returns the x-value of the normalized translation component of this sprite transform.
+
+		 @return		The x-value of the normalized translation component of this sprite transform.
+		 */
+		float GetNormalizedTranslationX() const {
+			return ConvertAbsoluteToNormalizedScreenX(GetTranslationX());
+		}
+
+		/**
+		 Returns the y-value of the normalized translation component of this sprite transform.
+
+		 @return		The y-value of the normalized translation component of this sprite transform.
+		 */
+		float GetNormalizedTranslationY() const {
+			return ConvertAbsoluteToNormalizedScreenY(GetTranslationY());
+		}
+
+		/**
+		 Returns the normalized translation component of this sprite transform.
+
+		 @return		The normalized translation component of this sprite transform.
+		 */
+		const XMFLOAT2 GetNormalizedTranslation() const {
+			return ConvertAbsoluteToNormalizedScreen(GetTranslation());
+		}
+
+		//---------------------------------------------------------------------
 		// Member Methods: Depth
 		//---------------------------------------------------------------------
 
@@ -450,6 +677,141 @@ namespace mage {
 		 */
 		const XMFLOAT2 GetRotationOrigin() const {
 			return m_rotation_origin;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Normalized Rotation Origin
+		//---------------------------------------------------------------------
+
+		/**
+		 Sets the x-value of the rotation origin of this sprite transform to the given normalized value.
+
+		 @param[in]		x
+						The x-value of the normalized rotation origin.
+		 */
+		void SetNormalizedRotationOriginX(float x) {
+			SetRotationOriginX(ConvertNormalizedToAbsoluteScreenX(x));
+		}
+
+		/**
+		 Sets the y-value of the rotation origin of this sprite transform to the given normalized value.
+
+		 @param[in]		y
+						The y-value of the normalized rotation origin.
+		 */
+		void SetNormalizedRotationOriginY(float y) {
+			SetRotationOriginY(ConvertNormalizedToAbsoluteScreenY(y));
+		}
+
+		/**
+		 Sets the rotation origin of this sprite transform to the given normalized rotation origin.
+
+		 @param[in]		x
+						The x-value of the normalized rotation origin.
+		 @param[in]		y
+						The y-value of the normalized rotation origin.
+		 */
+		void SetNormalizedRotationOrigin(float x, float y) {
+			SetRotationOrigin(ConvertNormalizedToAbsoluteScreen(x, y));
+		}
+
+		/**
+		 Sets the rotation origin of this sprite transform to the given normalized rotation origin.
+
+		 @param[in]		rotation_origin
+						A reference to the normalized rotation origin.
+		 */
+		void SetNormalizedRotationOrigin(const XMFLOAT2 &rotation_origin) {
+			SetRotationOrigin(ConvertNormalizedToAbsoluteScreen(rotation_origin));
+		}
+
+		/**
+		 Sets the rotation origin of this sprite transform to the given normalized rotation origin.
+
+		 @param[in]		rotation_origin
+						A reference to the normalized rotation origin.
+		 */
+		void SetNormalizedRotationOrigin(const XMVECTOR &rotation_origin) {
+			SetRotationOrigin(ConvertNormalizedToAbsoluteScreen(rotation_origin));
+		}
+
+		/**
+		 Adds the given x-value to the normalized rotation origin of this sprite transform.
+
+		 @param[in]		x
+						The x-value of the normalized rotation origin to add.
+		 */
+		void AddNormalizedRotationOriginX(float x) {
+			AddRotationOriginX(ConvertAbsoluteToNormalizedScreenX(x));
+		}
+
+		/**
+		 Adds the given y-value to the normalized rotation origin of this sprite transform.
+
+		 @param[in]		y
+						The y-value of the normalized rotation origin to add.
+		 */
+		void AddNormalizedRotationOriginY(float y) {
+			AddRotationOriginY(ConvertAbsoluteToNormalizedScreenY(y));
+		}
+
+		/**
+		 Adds the given rotation origin to the normalized rotation origin of this sprite transform.
+
+		 @param[in]		x
+						The x-value of the normalized rotation origin to add.
+		 @param[in]		y
+						The y-value of the normalized rotation origin to add.
+		 */
+		void AddNormalizedRotationOrigin(float x, float y) {
+			AddRotationOrigin(ConvertAbsoluteToNormalizedScreen(x, y));
+		}
+
+		/**
+		 Adds the given rotation origin to the normalized rotation origin of this sprite transform.
+
+		 @param[in]		rotation_origin
+						A reference to the normalized rotation origin to add.
+		 */
+		void AddNormalizedRotationOrigin(const XMFLOAT2 &rotation_origin) {
+			AddRotationOrigin(ConvertAbsoluteToNormalizedScreen(rotation_origin));
+		}
+
+		/**
+		 Adds the given rotation origin to the normalized rotation origin of this sprite transform.
+
+		 @param[in]		rotation_origin
+						A reference to the normalized rotation origin to add.
+		 */
+		void AddNormalizedRotationOrigin(const XMVECTOR &rotation_origin) {
+			AddRotationOrigin(ConvertAbsoluteToNormalizedScreen(rotation_origin));
+		}
+
+		/**
+		 Returns the x-value of the normalized rotation origin of this sprite transform.
+
+		 @return		The x-value of the normalized rotation origin of this sprite transform.
+		 */
+		float GetNormalizedRotationOriginX() const {
+			return ConvertAbsoluteToNormalizedScreenX(GetRotationOriginX());
+		}
+
+		/**
+		 Returns the y-value of the normalized rotation origin of this sprite transform.
+
+		 @return		The y-value of the normalized rotation origin of this sprite transform.
+		 */
+		float GetNormalizedRotationOriginY() const {
+			return ConvertAbsoluteToNormalizedScreenY(GetRotationOriginY());
+		}
+
+		/**
+		 Returns the normalized rotation origin of this sprite transform.
+
+		 @return		The normalized rotation origin of this sprite transform.
+		 */
+		const XMFLOAT2 GetNormalizedRotationOrigin() const {
+			return ConvertAbsoluteToNormalizedScreen(GetRotationOrigin());
 		}
 
 		//---------------------------------------------------------------------

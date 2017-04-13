@@ -169,6 +169,7 @@
     <ClCompile Include="MAGE\src\material\mtl\mtl_reader.cpp" />
     <ClCompile Include="MAGE\src\material\spectrum.cpp" />
     <ClCompile Include="MAGE\src\math\bounding_volume.cpp" />
+    <ClCompile Include="MAGE\src\math\sprite_transform.cpp" />
     <ClCompile Include="MAGE\src\math\view_frustum.cpp" />
     <ClCompile Include="MAGE\src\memory\memory_arena.cpp" />
     <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp" />

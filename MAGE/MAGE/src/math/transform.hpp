@@ -325,7 +325,7 @@ namespace mage {
 		 @return		The parent-to-object translation matrix of this transform.
 		 */
 		const XMMATRIX GetParentToObjectTranslationMatrix() const {
-			return XMMatrixTranslationFromVector(XMVectorSet(-m_translation.x, -m_translation.y, -m_translation.z, 0.0f));
+			return XMMatrixTranslationFromVector(-XMLoadFloat3(&m_translation));
 		}
 
 		//---------------------------------------------------------------------
@@ -540,7 +540,8 @@ namespace mage {
 		 @return		The object-to-parent rotation matrix of this transform.
 		 */
 		const XMMATRIX GetObjectToParentRotationMatrix() const {
-			return XMMatrixRotationY(GetRotationY()) * XMMatrixRotationX(GetRotationX()) * XMMatrixRotationZ(GetRotationZ());
+			//return XMMatrixRotationY(GetRotationY()) * XMMatrixRotationX(GetRotationX()) * XMMatrixRotationZ(GetRotationZ());
+			return XMMatrixRotationZ(GetRotationZ()) * XMMatrixRotationX(GetRotationX()) * XMMatrixRotationY(GetRotationY());
 		}
 
 		/**
@@ -549,7 +550,8 @@ namespace mage {
 		 @return		The parent-to-object rotation matrix of this transform.
 		 */
 		const XMMATRIX GetParentToObjectRotationMatrix() const {
-			return XMMatrixRotationZ(-GetRotationZ()) * XMMatrixRotationX(-GetRotationX()) * XMMatrixRotationY(-GetRotationY());
+			//return XMMatrixRotationZ(-GetRotationZ()) * XMMatrixRotationX(-GetRotationX()) * XMMatrixRotationY(-GetRotationY());
+			return XMMatrixRotationY(-GetRotationY()) * XMMatrixRotationX(-GetRotationX()) * XMMatrixRotationZ(-GetRotationZ());
 		}
 
 		//---------------------------------------------------------------------

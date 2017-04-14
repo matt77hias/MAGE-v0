@@ -540,7 +540,7 @@ namespace mage {
 		 @return		The object-to-parent rotation matrix of this transform.
 		 */
 		const XMMATRIX GetObjectToParentRotationMatrix() const {
-			return XMMatrixRotationZ(GetRotationZ()) * XMMatrixRotationY(GetRotationY()) * XMMatrixRotationX(GetRotationX());
+			return XMMatrixRotationY(GetRotationY()) * XMMatrixRotationX(GetRotationX()) * XMMatrixRotationZ(GetRotationZ());
 		}
 
 		/**
@@ -549,7 +549,7 @@ namespace mage {
 		 @return		The parent-to-object rotation matrix of this transform.
 		 */
 		const XMMATRIX GetParentToObjectRotationMatrix() const {
-			return XMMatrixRotationZ(-GetRotationZ()) * XMMatrixRotationY(-GetRotationY()) * XMMatrixRotationX(-GetRotationX());
+			return XMMatrixRotationZ(-GetRotationZ()) * XMMatrixRotationX(-GetRotationX()) * XMMatrixRotationY(-GetRotationY());
 		}
 
 		//---------------------------------------------------------------------
@@ -1011,6 +1011,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the object-to-parent matrix of this transform.
+
+		 @return		The object-to-parent matrix of this transform.
+		 */
+		const XMMATRIX GetObjectToParentMatrix() const {
+			return GetObjectToParentScaleMatrix() * GetObjectToParentRotationMatrix() * GetObjectToParentTranslationMatrix();
+		}
+
+		/**
 		 Returns the parent-to-object matrix of this transform.
 
 		 @return		The parent-to-object matrix of this transform.
@@ -1018,14 +1027,14 @@ namespace mage {
 		const XMMATRIX GetParentToObjectMatrix() const {
 			return GetParentToObjectTranslationMatrix() * GetParentToObjectRotationMatrix() * GetParentToObjectScaleMatrix();
 		}
-		
-		/**
-		 Returns the object-to-parent matrix of this transform.
 
-		 @return		The object-to-parent matrix of this transform.
+		/**
+		 Returns the object-to-world matrix of this transform.
+
+		 @return		The object-to-world matrix of this transform.
 		 */
-		const XMMATRIX GetObjectToParentMatrix() const {
-			return GetObjectToParentScaleMatrix() * GetObjectToParentRotationMatrix() * GetObjectToParentTranslationMatrix();
+		const XMMATRIX GetObjectToWorldMatrix() const {
+			return m_object_to_world;
 		}
 
 		/**
@@ -1038,15 +1047,6 @@ namespace mage {
 		}
 
 		/**
-		 Returns the object-to-world matrix of this transform.
-
-		 @return		The object-to-world matrix of this transform.
-		 */
-		const XMMATRIX GetObjectToWorldMatrix() const {
-			return m_object_to_world;
-		}
-		
-		/**
 		 Returns the parent-to-view matrix of this transform.
 
 		 @return		The parent-to-view matrix of this transform.
@@ -1054,17 +1054,6 @@ namespace mage {
 		 */
 		const XMMATRIX GetWorldToViewMatrix() const {
 			return m_world_to_object;
-		}
-
-		/**
-		 Transforms the given vector expressed in parent space coordinates to object space coordinates.
-
-		 @param[in]		vector
-						A reference to the vector expressed in parent space coordinates.
-		 @return		The transformed vector expressed in object space coordinates.
-		 */
-		const XMVECTOR TransformParentToObject(const XMVECTOR &vector) const {
-			return XMVector4Transform(vector, GetParentToObjectMatrix());
 		}
 
 		/**
@@ -1079,14 +1068,14 @@ namespace mage {
 		}
 
 		/**
-		 Transforms the given vector expressed in world space coordinates to object space coordinates.
+		 Transforms the given vector expressed in parent space coordinates to object space coordinates.
 
 		 @param[in]		vector
-						A reference to the vector expressed in world space coordinates.
+						A reference to the vector expressed in parent space coordinates.
 		 @return		The transformed vector expressed in object space coordinates.
 		 */
-		const XMVECTOR TransformWorldToObject(const XMVECTOR &vector) const {
-			return XMVector4Transform(vector, GetWorldToObjectMatrix());
+		const XMVECTOR TransformParentToObject(const XMVECTOR &vector) const {
+			return XMVector4Transform(vector, GetParentToObjectMatrix());
 		}
 
 		/**
@@ -1100,7 +1089,18 @@ namespace mage {
 			return XMVector4Transform(vector, GetObjectToWorldMatrix());
 		}
 
-		//---------------------------------------------------------------------
+		/**
+		 Transforms the given vector expressed in world space coordinates to object space coordinates.
+
+		 @param[in]		vector
+						A reference to the vector expressed in world space coordinates.
+		 @return		The transformed vector expressed in object space coordinates.
+		 */
+		const XMVECTOR TransformWorldToObject(const XMVECTOR &vector) const {
+			return XMVector4Transform(vector, GetWorldToObjectMatrix());
+		}
+
+		//-------)-------------------------------------------------------------
 		// Member Methods: Update
 		//---------------------------------------------------------------------
 
@@ -1140,8 +1140,8 @@ namespace mage {
 						A reference to the parent-to-world matrix.
 		 */
 		void Update(const XMMATRIX &world_to_parent, const XMMATRIX &parent_to_world) {
-			m_world_to_object = GetParentToObjectMatrix() * world_to_parent;
-			m_object_to_world = parent_to_world * GetObjectToParentMatrix();
+			m_world_to_object = world_to_parent * GetParentToObjectMatrix();
+			m_object_to_world = GetObjectToParentMatrix() * parent_to_world;
 			SetNotDirty();
 		}
 

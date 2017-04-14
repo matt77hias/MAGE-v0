@@ -307,12 +307,21 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the translation matrix of this transform.
+		 Returns the object-to-parent translation matrix of this transform.
 
-		 @return		The translation matrix of this transform.
+		 @return		The object-to-parent translation matrix of this transform.
 		 */
-		const XMMATRIX GetTranslationMatrix() const {
+		const XMMATRIX GetObjectToParentTranslationMatrix() const {
 			return XMMatrixTranslationFromVector(XMLoadFloat3(&m_translation));
+		}
+
+		/**
+		 Returns the parent-to-object translation matrix of this transform.
+
+		 @return		The parent-to-object translation matrix of this transform.
+		 */
+		const XMMATRIX GetParentToObjectTranslationMatrix() const {
+			return XMMatrixTranslationFromVector(XMVectorSet(-m_translation.x, -m_translation.y, -m_translation.z, 0.0f));
 		}
 
 		//---------------------------------------------------------------------
@@ -522,12 +531,21 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the rotation matrix of this transform.
+		 Returns the object-to-parent rotation matrix of this transform.
 
-		 @return		The rotation matrix of this transform.
+		 @return		The object-to-parent rotation matrix of this transform.
 		 */
-		const XMMATRIX GetRotationMatrix() const {
+		const XMMATRIX GetObjectToParentRotationMatrix() const {
 			return XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&m_rotation));
+		}
+
+		/**
+		 Returns the parent-to-object rotation matrix of this transform.
+
+		 @return		The parent-to-object rotation matrix of this transform.
+		 */
+		const XMMATRIX GetParentToObjectRotationMatrix() const {
+			return XMMatrixRotationRollPitchYawFromVector(XMVectorSet(-m_rotation.x, -m_rotation.y, -m_rotation.z, 0.0f));
 		}
 
 		//---------------------------------------------------------------------
@@ -713,12 +731,21 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the scale matrix of this transform.
+		 Returns the object-to-parent scale matrix of this transform.
 
-		 @return		The scale matrix of this transform.
+		 @return		The scale object-to-parent matrix of this transform.
 		 */
-		const XMMATRIX GetScaleMatrix() const {
+		const XMMATRIX GetObjectToParentScaleMatrix() const {
 			return XMMatrixScalingFromVector(XMLoadFloat3(&m_scale));
+		}
+
+		/**
+		 Returns the parent-to-object scale matrix of this transform.
+
+		 @return		The parent-to-object scale matrix of this transform.
+		 */
+		const XMMATRIX GetParentToObjectScaleMatrix() const {
+			return XMMatrixScalingFromVector(XMVectorSet(1.0f / m_scale.x, 1.0f / m_scale.y, 1.0f / m_scale.z, 0.0f));
 		}
 
 		//---------------------------------------------------------------------
@@ -985,7 +1012,7 @@ namespace mage {
 		 @return		The parent-to-object matrix of this transform.
 		 */
 		const XMMATRIX GetParentToObjectMatrix() const {
-			return GetTranslationMatrix() * GetRotationMatrix() * GetScaleMatrix();
+			return GetParentToObjectTranslationMatrix() * GetParentToObjectRotationMatrix() * GetParentToObjectScaleMatrix();
 		}
 		
 		/**
@@ -994,7 +1021,7 @@ namespace mage {
 		 @return		The object-to-parent matrix of this transform.
 		 */
 		const XMMATRIX GetObjectToParentMatrix() const {
-			return GetInverseScaleMatrix() * GetInverseRotationMatrix() * GetInverseTranslationMatrix();
+			return GetObjectToParentScaleMatrix() * GetObjectToParentRotationMatrix() * GetObjectToParentTranslationMatrix();
 		}
 
 		/**
@@ -1121,33 +1148,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the inverse translation matrix of this transform.
-
-		 @return		The inverse translation matrix of this transform.
-		 */
-		const XMMATRIX GetInverseTranslationMatrix() const {
-			return XMMatrixTranslationFromVector(XMVectorSet(-m_translation.x, -m_translation.y, -m_translation.z, 0.0f));
-		}
-
-		/**
-		 Returns the inverse rotation matrix of this transform.
-
-		 @return		The inverse rotation matrix of this transform.
-		 */
-		const XMMATRIX GetInverseRotationMatrix() const {
-			return XMMatrixRotationRollPitchYawFromVector(XMVectorSet(-m_rotation.x, -m_rotation.y, -m_rotation.z, 0.0f));
-		}
-
-		/**
-		 Returns the inverse scale matrix of this transform.
-
-		 @return		The inverse scale matrix of this transform.
-		 */
-		const XMMATRIX GetInverseScaleMatrix() const {
-			return XMMatrixScalingFromVector(XMVectorSet(1.0f / m_scale.x, 1.0f / m_scale.y, 1.0f / m_scale.z, 0.0f));
-		}
-
-		/**
 		 Transforms the given direction expressed in object space coordinates to parent space coordinates.
 
 		 @param[in]		direction
@@ -1155,7 +1155,7 @@ namespace mage {
 		 @return		The transformed (normalized) direction expressed in parent space coordinates.
 		 */
 		const XMVECTOR TransformObjectToParentDirection(const XMVECTOR &direction) const {
-			const XMMATRIX transformation = GetInverseScaleMatrix() * GetInverseRotationMatrix();
+			const XMMATRIX transformation = GetObjectToParentScaleMatrix() * GetObjectToParentRotationMatrix();
 			return XMVector3Normalize(XMVector4Transform(direction, transformation));
 		}
 

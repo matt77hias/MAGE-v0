@@ -14,7 +14,7 @@
 namespace mage {
 
 	TransformBuffer::TransformBuffer(const Camera &camera) {
-		const XMMATRIX world_to_view      = camera.GetTransform()->GetObjectToWorldMatrix();
+		const XMMATRIX world_to_view      = camera.GetTransform()->GetWorldToViewMatrix();
 		const XMMATRIX view_to_projection = camera.GetViewToProjectionMatrix();
 
 		m_world_to_view                   = XMMatrixTranspose(world_to_view);

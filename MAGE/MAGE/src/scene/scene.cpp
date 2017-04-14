@@ -57,6 +57,12 @@ namespace mage {
 	void Scene::Initialize() {
 		// Load scene.
 		Load();
+
+		// Update and propagate transforms.
+		m_camera->UpdateTransform();
+		m_world->ForEachObject3D([](WorldObject &world_object) {
+			world_object.UpdateTransform();
+		});
 	}
 	void Scene::Update(double delta_time) {
 		// Update scripts.

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "script\fps_input_controller_script.hpp"
+#include "script\location_script.hpp"
 #include "script\stats_script.hpp"
 
 using namespace mage;
@@ -74,7 +75,7 @@ public:
 		GetWorld()->AddLight(light);
 
 		// Font
-		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/couriernew.spritefont", SpriteFontDescriptor());
+		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
 		// Text
 		SharedPtr< SpriteText > text(new NormalSpriteText("text", L"Hello World!", font));
 		GetWorld()->AddText(text);
@@ -90,10 +91,10 @@ public:
 		// Scripts
 		//SharedPtr< BehaviorScript > script(new TestScript(model));
 		//AddScript(script);
-		SharedPtr< BehaviorScript > stats(new StatsScript(text));
-		AddScript(stats);
 		SharedPtr< BehaviorScript > controller(new FPSInputControllerScript(camera->GetTransform()));
 		AddScript(controller);
+		SharedPtr< BehaviorScript > stats(new LocationScript(camera->GetTransform(), text));
+		AddScript(stats);
 	}
 };
 

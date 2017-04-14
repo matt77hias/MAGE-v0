@@ -603,6 +603,9 @@
     <ClInclude Include="MAGE\src\timer\cpu_timer.hpp">
       <Filter>Header Files\timer</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\script\location_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -838,6 +841,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\math\sprite_transform.cpp">
       <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\script\location_script.cpp">
+      <Filter>Source Files\script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

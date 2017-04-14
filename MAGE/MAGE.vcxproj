@@ -106,6 +106,7 @@
     <ClInclude Include="MAGE\src\script\fps_input_controller_script.hpp" />
     <ClInclude Include="MAGE\src\script\frame_rate_script.hpp" />
     <ClInclude Include="MAGE\src\script\location_script.hpp" />
+    <ClInclude Include="MAGE\src\script\manhattan_motor_script.hpp" />
     <ClInclude Include="MAGE\src\script\mouse_look_script.hpp" />
     <ClInclude Include="MAGE\src\script\stats_script.hpp" />
     <ClInclude Include="MAGE\src\script\system_usage_script.hpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="MAGE\src\script\character_motor_script.cpp" />
     <ClCompile Include="MAGE\src\script\frame_rate_script.cpp" />
     <ClCompile Include="MAGE\src\script\location_script.cpp" />
+    <ClCompile Include="MAGE\src\script\manhattan_motor_script.cpp" />
     <ClCompile Include="MAGE\src\script\mouse_look_script.cpp" />
     <ClCompile Include="MAGE\src\script\stats_script.cpp" />
     <ClCompile Include="MAGE\src\script\system_usage_script.cpp" />

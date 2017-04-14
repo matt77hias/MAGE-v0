@@ -606,6 +606,9 @@
     <ClInclude Include="MAGE\src\script\location_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\script\manhattan_motor_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -843,6 +846,9 @@
       <Filter>Source Files\math</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\script\location_script.cpp">
+      <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\script\manhattan_motor_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
   </ItemGroup>

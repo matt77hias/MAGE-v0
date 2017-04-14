@@ -35,7 +35,9 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		explicit Transform(const XMFLOAT3 &translation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &rotation = { 0.0f, 0.0f, 0.0f }, const XMFLOAT3 &scale = { 1.0f, 1.0f, 1.0f })
+		explicit Transform(const XMFLOAT3 &translation = { 0.0f, 0.0f, 0.0f }, 
+			const XMFLOAT3 &rotation = { 0.0f, 0.0f, 0.0f }, 
+			const XMFLOAT3 &scale = { 1.0f, 1.0f, 1.0f })
 			: m_translation(translation), m_rotation(rotation), m_scale(scale) {
 			SetDirty();
 		}
@@ -50,7 +52,9 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		explicit Transform(const XMVECTOR &translation, const XMVECTOR &rotation, const XMVECTOR &scale)
+		explicit Transform(const XMVECTOR &translation, 
+			const XMVECTOR &rotation, 
+			const XMVECTOR &scale)
 			: m_translation(), m_rotation(), m_scale() {
 			SetTranslation(translation);
 			SetRotation(rotation);
@@ -536,7 +540,7 @@ namespace mage {
 		 @return		The object-to-parent rotation matrix of this transform.
 		 */
 		const XMMATRIX GetObjectToParentRotationMatrix() const {
-			return XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&m_rotation));
+			return XMMatrixRotationZ(GetRotationZ()) * XMMatrixRotationY(GetRotationY()) * XMMatrixRotationX(GetRotationX());
 		}
 
 		/**
@@ -545,7 +549,7 @@ namespace mage {
 		 @return		The parent-to-object rotation matrix of this transform.
 		 */
 		const XMMATRIX GetParentToObjectRotationMatrix() const {
-			return XMMatrixRotationRollPitchYawFromVector(XMVectorSet(-m_rotation.x, -m_rotation.y, -m_rotation.z, 0.0f));
+			return XMMatrixRotationZ(-GetRotationZ()) * XMMatrixRotationY(-GetRotationY()) * XMMatrixRotationX(-GetRotationX());
 		}
 
 		//---------------------------------------------------------------------

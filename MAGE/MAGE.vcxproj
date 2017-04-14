@@ -142,6 +142,7 @@
     <ClInclude Include="MAGE\src\text\normal_sprite_text.hpp" />
     <ClInclude Include="MAGE\src\text\outline_sprite_text.hpp" />
     <ClInclude Include="MAGE\src\text\sprite_text.hpp" />
+    <ClInclude Include="MAGE\src\text\sprite_text_item.hpp" />
     <ClInclude Include="MAGE\src\timer\cpu_timer.hpp" />
     <ClInclude Include="MAGE\src\timer\timer.hpp" />
     <ClInclude Include="MAGE\src\ui\combo_box.hpp" />
@@ -388,6 +389,7 @@
     <None Include="MAGE\src\resource\resource_pool.tpp" />
     <None Include="MAGE\src\scene\scene.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
+    <None Include="MAGE\src\text\sprite_text.tpp" />
     <None Include="MAGE\src\world\world.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

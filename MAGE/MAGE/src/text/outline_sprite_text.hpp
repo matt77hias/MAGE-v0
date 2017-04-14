@@ -22,15 +22,13 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit OutlineSpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
-			const Color &color, const Color &border_color,
-			SpriteEffect effects = SpriteEffect_None)
-			: SpriteText(name, text, font, color, effects),
+		explicit OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
+			const Color &border_color, SpriteEffect effects = SpriteEffect_None)
+			: SpriteText(name, font, effects),
 			m_border_color(border_color) {}
-		explicit OutlineSpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
-			const XMVECTOR &color = Colors::White, const XMVECTOR &border_color = Colors::Black,
-			SpriteEffect effects = SpriteEffect_None)
-			: SpriteText(name, text, font, color, effects), 
+		explicit OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
+			const XMVECTOR &border_color = Colors::Black, SpriteEffect effects = SpriteEffect_None)
+			: SpriteText(name, font, effects), 
 			m_border_color() {
 			SetBorderColor(border_color);
 		}

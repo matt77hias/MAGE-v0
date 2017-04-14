@@ -6,6 +6,7 @@
 #pragma region
 
 #include "font\sprite_font.hpp"
+#include "text\sprite_text_item.hpp"
 
 #pragma endregion
 
@@ -51,24 +52,31 @@ namespace mage {
 		void SetFont(SharedPtr< SpriteFont > font) {
 			m_font = font;
 		}
-		const wstring &GetText() const {
-			return m_text;
-		}
+		
 		void SetText(const wstring &text) {
-			m_text = text;
+			m_items.clear();
+			m_items.push_back(SpriteTextItem(text));
 		}
 		void SetText(const wchar_t *text) {
-			m_text = text;
+			m_items.clear();
+			m_items.push_back(SpriteTextItem(text));
 		}
-		const Color GetColor() const {
-			return m_color;
+		void SetText(const SpriteTextItem &text) {
+			m_items.clear();
+			m_items.push_back(SpriteTextItem(text));
 		}
-		void SetColor(const Color &color) {
-			m_color = color;
+		void AppendText(const wstring &text) {
+			m_items.push_back(SpriteTextItem(text));
 		}
-		void SetColor(const XMVECTOR &color) {
-			XMStoreFloat4(&m_color, color);
+		void AppendText(const wchar_t *text) {
+			m_items.push_back(SpriteTextItem(text));
 		}
+		void AppendText(const SpriteTextItem &text) {
+			m_items.push_back(SpriteTextItem(text));
+		}
+		void SetColor(const Color &color);
+		void SetColor(const XMVECTOR &color);
+
 		SpriteEffect GetSpriteEffects() const {
 			return m_effects;
 		}
@@ -82,9 +90,7 @@ namespace mage {
 			return m_transform.get();
 		}
 
-		XMVECTOR MeasureString(const wchar_t *text) const {
-			return m_font->MeasureString(text);
-		}
+		const XMVECTOR MeasureString() const;
 
 	protected:
 
@@ -92,18 +98,10 @@ namespace mage {
 		// Constructors
 		//---------------------------------------------------------------------
 
-		explicit SpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
-			const Color &color, SpriteEffect effects = SpriteEffect_None) 
-			: m_name(name), m_text(text),
-			m_color(color), m_effects(effects),
+		explicit SpriteText(const string &name, SharedPtr< SpriteFont > font,
+			SpriteEffect effects = SpriteEffect_None) 
+			: m_name(name), m_effects(effects),
 			m_font(font), m_transform(new SpriteTransform()) {}
-		explicit SpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
-			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
-			: m_name(name), m_text(text),
-			m_color(), m_effects(effects),
-			m_font(font), m_transform(new SpriteTransform()) {
-			SetColor(color);
-		}
 		SpriteText(const SpriteText &sprite_text);
 		SpriteText(SpriteText &&sprite_text) = default;
 
@@ -114,9 +112,11 @@ namespace mage {
 		const SpriteFont *GetRawFont() const {
 			return m_font.get();
 		}
-		const XMVECTOR GetColorVector() const {
-			return XMLoadFloat4(&m_color);
-		}
+
+		template< typename ActionT >
+		inline void ForEachSpriteTextItem(ActionT action);
+		template< typename ActionT >
+		inline void ForEachSpriteTextItem(ActionT action) const;
 
 	private:
 
@@ -125,11 +125,18 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		string m_name;
-		wstring m_text;
-
-		Color m_color;
+		vector< SpriteTextItem > m_items;
 		SpriteEffect m_effects;
 		SharedPtr< SpriteFont > m_font;
 		UniquePtr< SpriteTransform > m_transform;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "text\sprite_text.tpp"
+
+#pragma endregion

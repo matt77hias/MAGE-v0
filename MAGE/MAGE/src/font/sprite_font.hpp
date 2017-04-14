@@ -45,8 +45,8 @@ namespace mage {
 		void DrawString(SpriteBatch &sprite_batch, const wchar_t *text, const SpriteTransform &transform,
 			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None) const;
 
-		XMVECTOR MeasureString(const wchar_t *text) const;
-		RECT MeasureDrawBounds(const wchar_t *text, const XMFLOAT2 &position) const;
+		const XMVECTOR MeasureString(const wchar_t *text) const;
+		const RECT MeasureDrawBounds(const wchar_t *text, const XMFLOAT2 &position) const;
 		
 		float GetLineSpacing() const {
 			return m_line_spacing;

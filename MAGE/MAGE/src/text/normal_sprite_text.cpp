@@ -13,6 +13,8 @@
 namespace mage {
 
 	void NormalSpriteText::Draw(SpriteBatch &sprite_batch) const {
-		GetRawFont()->DrawString(sprite_batch, GetText().c_str(), *GetTransform(), GetColorVector(), GetSpriteEffects());
+		ForEachSpriteTextItem([&](const SpriteTextItem &item) {
+			GetRawFont()->DrawString(sprite_batch, item.GetText().c_str(), *GetTransform(), item.GetColorVector(), GetSpriteEffects());
+		});
 	}
 }

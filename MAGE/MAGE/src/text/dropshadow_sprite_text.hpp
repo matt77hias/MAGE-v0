@@ -22,15 +22,13 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit DropshadowSpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
-			const Color &color, const Color &shadow_color,
-			SpriteEffect effects = SpriteEffect_None)
-			: SpriteText(name, text, font, color, effects),
+		explicit DropshadowSpriteText(const string &name, SharedPtr< SpriteFont > font,
+			const Color &shadow_color, SpriteEffect effects = SpriteEffect_None)
+			: SpriteText(name, font, effects),
 			m_shadow_color(shadow_color) {}
-		explicit DropshadowSpriteText(const string &name, const wstring &text, SharedPtr< SpriteFont > font,
-			const XMVECTOR &color = Colors::White, const XMVECTOR &shadow_color = Colors::Black,
-			SpriteEffect effects = SpriteEffect_None)
-			: SpriteText(name, text, font, color, effects), 
+		explicit DropshadowSpriteText(const string &name, SharedPtr< SpriteFont > font,
+			const XMVECTOR &shadow_color = Colors::Black, SpriteEffect effects = SpriteEffect_None)
+			: SpriteText(name, font, effects), 
 			m_shadow_color() {
 			SetShadowColor(shadow_color);
 		}

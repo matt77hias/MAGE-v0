@@ -609,6 +609,9 @@
     <ClInclude Include="MAGE\src\script\manhattan_motor_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\text\sprite_text_item.hpp">
+      <Filter>Header Files\text</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -911,6 +914,9 @@
     </None>
     <None Include="MAGE\src\model\model.tpp">
       <Filter>Header Files\model</Filter>
+    </None>
+    <None Include="MAGE\src\text\sprite_text.tpp">
+      <Filter>Header Files\text</Filter>
     </None>
   </ItemGroup>
 </Project>

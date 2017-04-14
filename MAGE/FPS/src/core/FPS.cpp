@@ -78,7 +78,7 @@ public:
 		// Font
 		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
 		// Text
-		SharedPtr< SpriteText > text(new NormalSpriteText("text", L"Hello World!", font));
+		SharedPtr< SpriteText > text(new NormalSpriteText("text", font));
 		GetWorld()->AddText(text);
 
 		// Texture

@@ -158,7 +158,7 @@ namespace mage {
 			++text;
 		}
 	}
-	XMVECTOR SpriteFont::MeasureString(const wchar_t *text) const {
+	const XMVECTOR SpriteFont::MeasureString(const wchar_t *text) const {
 		XMVECTOR result = XMVectorZero();
 		float x = 0;
 		float y = 0;
@@ -201,7 +201,7 @@ namespace mage {
 
 		return result;
 	}
-	RECT SpriteFont::MeasureDrawBounds(const wchar_t *text, const XMFLOAT2 &position) const {
+	const RECT SpriteFont::MeasureDrawBounds(const wchar_t *text, const XMFLOAT2 &position) const {
 		RECT result = { LONG_MAX, LONG_MAX, 0, 0 };
 		float x = 0;
 		float y = 0;

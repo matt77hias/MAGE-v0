@@ -13,17 +13,21 @@
 namespace mage {
 
 	void DropshadowSpriteText::Draw(SpriteBatch &sprite_batch) const {
-		const XMVECTOR color = GetColorVector();
-		const XMVECTOR shadow_color = GetShadowColorVector();
-
-		SpriteTransform transform(*GetTransform());
 		// +1, +1
-		transform.AddTranslation(XMFLOAT2(1.0f, 1.0f));
-		GetRawFont()->DrawString(sprite_batch, GetText().c_str(), transform, shadow_color, GetSpriteEffects());
+		SpriteTransform transform1(*GetTransform());
+		transform1.AddTranslation(XMFLOAT2(1.0f, 1.0f));
 		// -1, +1
-		transform.AddTranslationX(-2.0f);
-		GetRawFont()->DrawString(sprite_batch, GetText().c_str(), transform, shadow_color, GetSpriteEffects());
+		SpriteTransform transform2(*GetTransform());
+		transform2.AddTranslation(XMFLOAT2(-1.0f, 1.0f));
+		
+		const XMVECTOR shadow_color = GetShadowColorVector();
+		ForEachSpriteTextItem([&](const SpriteTextItem &item) {
+			GetRawFont()->DrawString(sprite_batch, item.GetText().c_str(), transform1, shadow_color, GetSpriteEffects());
+			GetRawFont()->DrawString(sprite_batch, item.GetText().c_str(), transform2, shadow_color, GetSpriteEffects());
+		});
 
-		GetRawFont()->DrawString(sprite_batch, GetText().c_str(), transform, color, GetSpriteEffects());
+		ForEachSpriteTextItem([&](const SpriteTextItem &item) {
+			GetRawFont()->DrawString(sprite_batch, item.GetText().c_str(), *GetTransform(), item.GetColorVector(), GetSpriteEffects());
+		});
 	}
 }

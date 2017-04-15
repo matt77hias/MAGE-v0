@@ -105,12 +105,12 @@ namespace mage {
 		return S_OK;
 	}
 
-	void VertexShader::Draw(const XMMATRIX &transform) const {
+	void VertexShader::PrepareShading(const XMMATRIX &transform) const {
 		UNUSED(transform);
 		Error("Unimplemented VertexShader::Draw() method called.");
 	}
 	
-	void VertexShader::Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
+	void VertexShader::PrepareShading(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
 		UNUSED(material);
 		UNUSED(world);
 		UNUSED(transform_buffer);
@@ -183,12 +183,12 @@ namespace mage {
 		return S_OK;
 	}
 
-	void PixelShader::Draw(ID3D11ShaderResourceView * const * texture) const {
+	void PixelShader::PrepareShading(ID3D11ShaderResourceView * const * texture) const {
 		UNUSED(texture);
 		Error("Unimplemented PixelShader::Draw() method called.");
 	}
 
-	void PixelShader::Draw(const Material &material, const World &world) const {
+	void PixelShader::PrepareShading(const Material &material, const World &world) const {
 		UNUSED(material);
 		UNUSED(world);
 		Error("Unimplemented PixelShader::Draw() method called.");

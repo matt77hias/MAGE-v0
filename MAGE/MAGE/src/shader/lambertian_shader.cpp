@@ -37,7 +37,7 @@ namespace mage {
 		}
 	}
 
-	void LambertianVertexShader::Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
+	void LambertianVertexShader::PrepareShading(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
 		UNUSED(world);
 		UNUSED(material);
 		m_device_context->IASetInputLayout(m_vertex_layout.Get());
@@ -60,7 +60,7 @@ namespace mage {
 		}
 	}
 
-	void LambertianPixelShader::Draw(const Material &material, const World &world) const {
+	void LambertianPixelShader::PrepareShading(const Material &material, const World &world) const {
 		UNUSED(material);
 		UNUSED(world);
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);

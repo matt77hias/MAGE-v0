@@ -39,8 +39,8 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void Draw(const World &world, const TransformBuffer &transform_buffer) {
-			m_shader.Draw(m_material, world, transform_buffer);
+		void PrepareShading(const World &world, const TransformBuffer &transform_buffer) const {
+			m_shader.PrepareShading(m_material, world, transform_buffer);
 		}
 
 		Material &GetMaterial() {

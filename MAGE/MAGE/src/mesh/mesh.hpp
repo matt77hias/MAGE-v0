@@ -107,7 +107,7 @@ namespace mage {
 		/**
 		 Prepare the drawing of this mesh.
 		 */
-		void PrepareDrawing() {
+		void PrepareDrawing() const {
 			UINT stride = static_cast< UINT >(m_vertex_size);
 			UINT offset = 0;
 			m_device_context->IASetVertexBuffers(0, 1, m_vertex_buffer.GetAddressOf(), &stride, &offset);

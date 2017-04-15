@@ -32,7 +32,7 @@ namespace mage {
 		}
 	}
 
-	void SpriteVertexShader::Draw(const XMMATRIX &transform) const {
+	void SpriteVertexShader::PrepareShading(const XMMATRIX &transform) const {
 		m_device_context->IASetInputLayout(m_vertex_layout.Get());
 		m_device_context->UpdateSubresource(m_cb_transform.Get(), 0, nullptr, &transform, 0, 0);
 		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
@@ -46,7 +46,7 @@ namespace mage {
 	SpritePixelShader::SpritePixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: PixelShader(device, device_context, MAGE_GUID_SPRITE_PS, g_sprite_ps, sizeof(g_sprite_ps)) {}
 
-	void SpritePixelShader::Draw(ID3D11ShaderResourceView * const *texture) const {
+	void SpritePixelShader::PrepareShading(ID3D11ShaderResourceView * const *texture) const {
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 		m_device_context->PSSetShaderResources(0, 1, texture);
 	}

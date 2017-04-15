@@ -75,7 +75,7 @@ namespace mage {
 	void SubModel::Draw(const Mesh &mesh, const World &world, const TransformBuffer &transform_buffer) const {
 		// Appearance
 		transform_buffer.SetModelToWorld(GetTransform()->GetObjectToWorldMatrix());
-		m_material->Draw(world, transform_buffer);
+		m_material->PrepareShading(world, transform_buffer);
 		// Geometry
 		mesh.Draw(m_start_index, m_nb_indices);
 		// Childs

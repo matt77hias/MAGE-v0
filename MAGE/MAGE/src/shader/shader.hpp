@@ -48,8 +48,8 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Draw(const XMMATRIX &transform) const;
-		virtual void Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const;
+		virtual void PrepareShading(const XMMATRIX &transform) const;
+		virtual void PrepareShading(const Material &material, const World &world, const TransformBuffer &transform_buffer) const;
 
 	protected:
 
@@ -104,11 +104,11 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void Draw(const Texture &texture) const {
-			Draw(texture.GetTextureResourceViewAddress());
+		void PrepareShading(const Texture &texture) const {
+			PrepareShading(texture.GetTextureResourceViewAddress());
 		}
-		virtual void Draw(ID3D11ShaderResourceView * const *texture) const;
-		virtual void Draw(const Material &material, const World &world) const;
+		virtual void PrepareShading(ID3D11ShaderResourceView * const *texture) const;
+		virtual void PrepareShading(const Material &material, const World &world) const;
 
 	protected:
 
@@ -159,17 +159,17 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void Draw(const Texture &texture, const XMMATRIX &matrix) const {
-			m_vertex_shader->Draw(matrix);
-			m_pixel_shader->Draw(texture);
+		void PrepareShading(const Texture &texture, const XMMATRIX &matrix) const {
+			m_vertex_shader->PrepareShading(matrix);
+			m_pixel_shader->PrepareShading(texture);
 		}
-		void Draw(ID3D11ShaderResourceView * const *texture, const XMMATRIX &matrix) const {
-			m_vertex_shader->Draw(matrix);
-			m_pixel_shader->Draw(texture);
+		void PrepareShading(ID3D11ShaderResourceView * const *texture, const XMMATRIX &matrix) const {
+			m_vertex_shader->PrepareShading(matrix);
+			m_pixel_shader->PrepareShading(texture);
 		}
-		void Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
-			m_vertex_shader->Draw(material, world, transform_buffer);
-			m_pixel_shader->Draw(material, world);
+		void PrepareShading(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
+			m_vertex_shader->PrepareShading(material, world, transform_buffer);
+			m_pixel_shader->PrepareShading(material, world);
 		}
 
 	private:

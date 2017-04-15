@@ -52,7 +52,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Draw(const XMMATRIX &transform) const override;
+		virtual void PrepareShading(const XMMATRIX &transform) const override;
 
 	private:
 
@@ -91,7 +91,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Draw(ID3D11ShaderResourceView * const *texture) const override;
+		virtual void PrepareShading(ID3D11ShaderResourceView * const *texture) const override;
 	};
 
 	//-------------------------------------------------------------------------

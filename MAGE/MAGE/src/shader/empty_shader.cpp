@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void EmptyVertexShader::Draw(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
+	void EmptyVertexShader::PrepareShading(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
 		UNUSED(material);
 		UNUSED(world);
 		UNUSED(transform_buffer);
@@ -20,7 +20,7 @@ namespace mage {
 		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
 	}
 	
-	void EmptyPixelShader::Draw(const Material &material, const World &world) const {
+	void EmptyPixelShader::PrepareShading(const Material &material, const World &world) const {
 		UNUSED(material);
 		UNUSED(world);
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);

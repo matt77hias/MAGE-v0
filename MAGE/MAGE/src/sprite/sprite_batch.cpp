@@ -246,7 +246,7 @@ namespace mage {
 
 	void SpriteBatch::RenderBatch(ID3D11ShaderResourceView *texture,
 		const SpriteInfo * const * sprites, size_t nb_sprites) {
-		m_shader->Draw(&texture, XMMatrixTranspose(m_transform));
+		m_shader->PrepareShading(&texture, XMMatrixTranspose(m_transform));
 
 		const XMVECTOR texture_size = GetTexture2DSize(texture);
 		const XMVECTOR inverse_texture_size = XMVectorReciprocal(texture_size);

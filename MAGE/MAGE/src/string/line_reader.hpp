@@ -65,12 +65,8 @@ namespace mage {
 		const uint32_t GetCurrentLineNumber() const {
 			return m_line_number;
 		}
-
-		virtual HRESULT Preprocess();
-		virtual HRESULT ReadLine(char *line) = 0;
-		virtual HRESULT Postprocess();
+		
 		void ReadLineRemaining();
-
 		const char *ReadChars();
 		const string ReadString();
 		const string ReadQuotedString();
@@ -111,6 +107,14 @@ namespace mage {
 		char *m_context;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		virtual HRESULT Preprocess();
+		virtual HRESULT ReadLine(char *line) = 0;
+		virtual HRESULT Postprocess();
 
 		//---------------------------------------------------------------------
 		// Member Variables

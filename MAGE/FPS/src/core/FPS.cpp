@@ -44,6 +44,8 @@ public:
 	TestScene &operator=(const TestScene &scene) = delete;
 	TestScene &operator=(TestScene &&scene) = delete;
 
+private:
+
 	virtual void Load() override {
 
 		// Camera

@@ -115,6 +115,12 @@ namespace mage {
 		Scene(const Scene &scene) = delete;
 		Scene(Scene &&scene) = default;
 
+	private:
+
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
+
 		/**
 		 Loads this scene.
 		 Allows this scene to preform any pre-processing construction.
@@ -126,8 +132,6 @@ namespace mage {
 		 Allows this scene to preform any post-processing destruction.
 		 */
 		virtual void Close() {}
-
-	private:
 
 		//---------------------------------------------------------------------
 		// Member Variables

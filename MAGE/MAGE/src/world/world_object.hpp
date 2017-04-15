@@ -57,17 +57,22 @@ namespace mage {
 		}
 
 		void UpdateTransform();
-		void UpdateTransform(const XMMATRIX &world_to_parent, const XMMATRIX &parent_to_world, bool dirty_ancestor);
 		
 	protected:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		void UpdateTransform(const XMMATRIX &world_to_parent, const XMMATRIX &parent_to_world, bool dirty_ancestor);
+		
+	private:
 		
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		virtual void UpdateChildTransforms(bool dirty_ancestor);
-
-	private:
 
 		//---------------------------------------------------------------------
 		// Member Variables

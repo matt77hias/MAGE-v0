@@ -49,8 +49,8 @@ namespace mage {
 
 		virtual Model *Clone() const = 0;
 
-		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const;
-		
+		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const = 0;
+
 		size_t GetNumberOfSubModels() const {
 			return m_submodels.size();
 		}
@@ -72,13 +72,13 @@ namespace mage {
 		Model(const Model &model);
 		Model(Model &&model) = default;
 
+	private:
+
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		virtual void UpdateChildTransforms(bool dirty_ancestor) override;
-		
-	private:
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -122,6 +122,7 @@ namespace mage {
 			return new SubModel(*this);
 		}
 
+		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const;
 		void Draw(const Mesh &mesh, const World &world, const TransformBuffer &transform_buffer) const;
 
 		size_t GetStartIndex() const {

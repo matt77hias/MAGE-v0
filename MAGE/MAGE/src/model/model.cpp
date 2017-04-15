@@ -19,6 +19,7 @@ namespace mage {
 
 	Model::Model(const string &name)
 		: WorldObject(name) {}
+	
 	Model::Model(const Model &model)
 		: WorldObject(model) {
 
@@ -46,11 +47,6 @@ namespace mage {
 		return nullptr;
 	}
 
-	void Model::Draw(const World &world, const TransformBuffer &transform_buffer) const {
-		UNUSED(world);
-		UNUSED(transform_buffer);
-	}
-
 	void Model::UpdateChildTransforms(bool dirty_ancestor) {
 		ForEachSubModel([&](SubModel &submodel) {
 			submodel.UpdateTransform(
@@ -72,9 +68,15 @@ namespace mage {
 		: Model(submodel), m_start_index(submodel.m_start_index), m_nb_indices(submodel.m_nb_indices),
 		m_material(new ShadedMaterial(*submodel.m_material)) {}
 
+	void SubModel::Draw(const World &world, const TransformBuffer &transform_buffer) const {
+		UNUSED(world);
+		UNUSED(transform_buffer);
+	}
+
 	void SubModel::Draw(const Mesh &mesh, const World &world, const TransformBuffer &transform_buffer) const {
-		// Appearance
+		// Transform
 		transform_buffer.SetModelToWorld(GetTransform()->GetObjectToWorldMatrix());
+		// Appearance
 		m_material->PrepareShading(world, transform_buffer);
 		// Geometry
 		mesh.Draw(m_start_index, m_nb_indices);

@@ -6,8 +6,8 @@
 #include "resource\resource_factory.hpp"
 #include "rendering\rendering_factory.hpp"
 #include "shader\lambertian_shader.hpp"
-#include "shader\cso\lambertian_PS.h"
-#include "shader\cso\lambertian_VS.h"
+#include "shader\cso\lambertian_PS.hpp"
+#include "shader\cso\lambertian_VS.hpp"
 #include "mesh\vertex.hpp"
 
 #pragma endregion

@@ -483,12 +483,6 @@
     <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\lambertian_PS.h">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\lambertian_VS.h">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\sprite\sprite_sort_mode.hpp">
       <Filter>Header Files\sprite</Filter>
     </ClInclude>
@@ -515,12 +509,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\mesh\mesh.hpp">
       <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\sprite_PS.h">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\sprite_VS.h">
-      <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\sprite_shader.hpp">
       <Filter>Header Files\shader</Filter>
@@ -611,6 +599,18 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\text\sprite_text_item.hpp">
       <Filter>Header Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\lambertian_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\lambertian_VS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\sprite_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\sprite_VS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

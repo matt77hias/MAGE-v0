@@ -6,8 +6,8 @@
 #include "resource\resource_factory.hpp"
 #include "rendering\rendering_factory.hpp"
 #include "shader\sprite_shader.hpp"
-#include "shader\cso\sprite_PS.h"
-#include "shader\cso\sprite_VS.h"
+#include "shader\cso\sprite_PS.hpp"
+#include "shader\cso\sprite_VS.hpp"
 #include "mesh\vertex.hpp"
 
 #pragma endregion

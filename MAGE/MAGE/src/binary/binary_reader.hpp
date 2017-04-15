@@ -66,8 +66,6 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual HRESULT Read() = 0;
-
 		bool HasCharsLeft() const {
 			return m_pos < m_end;
 		}
@@ -85,6 +83,12 @@ namespace mage {
 		double ReadDouble();
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		virtual HRESULT Read() = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -144,8 +148,6 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual HRESULT Read() = 0;
-
 		bool HasCharsLeft() const {
 			return m_pos < m_end;
 		}
@@ -156,6 +158,12 @@ namespace mage {
 		const ValueT *ReadValueArray(size_t size);
 		
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		virtual HRESULT Read() = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables

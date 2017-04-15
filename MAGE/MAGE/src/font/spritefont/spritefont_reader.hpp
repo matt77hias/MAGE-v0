@@ -36,17 +36,13 @@ namespace mage {
 		SpriteFontReader &operator=(const SpriteFontReader &reader) = delete;
 		SpriteFontReader &operator=(SpriteFontReader &&reader) = delete;
 
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		virtual HRESULT Read() override;
-
 	private:
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		virtual HRESULT Read() override;
 
 		bool IsHeaderValid();
 		HRESULT ReadTexture();

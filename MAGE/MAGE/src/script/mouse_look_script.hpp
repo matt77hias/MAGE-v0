@@ -31,15 +31,17 @@ namespace mage {
 
 		explicit MouseLookScript(Transform *transform,
 			RotationAxes axes = RotationAxes_MouseXAndY,
-			const XMFLOAT2 &sensitivity = XMFLOAT2(1.8f,1.8f),
+			const XMFLOAT2 &sensitivity      = XMFLOAT2(1.8f,1.8f),
 			const XMFLOAT2 &minimum_rotation = XMFLOAT2(-XM_PI / 3.0f , -XM_2PI),
-			const XMFLOAT2 &maximum_rotation = XMFLOAT2( XM_PI / 3.0f,   XM_2PI))
-			: BehaviorScript(), 
+			const XMFLOAT2 &maximum_rotation = XMFLOAT2( XM_PI / 3.0f,   XM_2PI),
+			const XMFLOAT2 &direction        = XMFLOAT2(1.0f, 1.0f))
+			: BehaviorScript(),
 			m_transform(transform), 
 			m_axes(axes),
 			m_sensitivity(sensitivity), 
 			m_minimum_rotation(minimum_rotation),
-			m_maximum_rotation(maximum_rotation) {}
+			m_maximum_rotation(maximum_rotation),
+			m_direction(direction) {}
 		MouseLookScript(const MouseLookScript &script) = delete;
 		MouseLookScript(MouseLookScript &&script) = default;
 		virtual ~MouseLookScript() = default;
@@ -142,6 +144,13 @@ namespace mage {
 			XMStoreFloat2(&m_maximum_rotation, maximum_rotation);
 		}
 
+		void InvertDirectionX() {
+			m_direction.x *= -1.0f;
+		}
+		void InvertDirectionY() {
+			m_direction.y *= -1.0f;
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -153,5 +162,6 @@ namespace mage {
 		XMFLOAT2 m_sensitivity;
 		XMFLOAT2 m_minimum_rotation;
 		XMFLOAT2 m_maximum_rotation;
+		XMFLOAT2 m_direction;
 	};
 }

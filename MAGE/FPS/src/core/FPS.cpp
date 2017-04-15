@@ -1,8 +1,6 @@
 #include "stdafx.h"
 
 #include "script\fps_input_controller_script.hpp"
-#include "script\manhattan_motor_script.hpp"
-#include "script\location_script.hpp"
 #include "script\stats_script.hpp"
 
 using namespace mage;
@@ -12,7 +10,7 @@ class TestScript final : public BehaviorScript {
 public:
 
 	TestScript(SharedPtr< Model > model)
-		: BehaviorScript(), m_model(model), solid(true) {}
+		: BehaviorScript(), m_model(model) {}
 	TestScript(const TestScript &script) = delete;
 	TestScript(TestScript &&script) = default;
 	virtual ~TestScript() = default;
@@ -22,16 +20,6 @@ public:
 	virtual void Update(double delta_time) override {
 		m_model->GetTransform()->AddRotationY((float)delta_time);
 
-		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_UP)) {
-			solid = !solid;
-			if (solid) {
-				g_engine->GetRenderer()->GetRenderingState3D()->SetCullCounterClockwiseRasterizerState();
-			}
-			else {
-				g_engine->GetRenderer()->GetRenderingState3D()->SetWireframeRasterizerState();
-			}
-		}
-		
 		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_F2)) {
 			//PostQuitMessage(0);
 			VariableScript s(L"assets/scripts/script_test.vs");
@@ -42,7 +30,6 @@ public:
 private:
 	
 	SharedPtr< Model > m_model;
-	bool solid;
 };
 
 class TestScene final : public Scene {

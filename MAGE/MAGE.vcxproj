@@ -106,6 +106,7 @@
     <ClInclude Include="MAGE\src\script\fps_input_controller_script.hpp" />
     <ClInclude Include="MAGE\src\script\frame_rate_script.hpp" />
     <ClInclude Include="MAGE\src\script\location_script.hpp" />
+    <ClInclude Include="MAGE\src\script\manhattan_input_controller_script.hpp" />
     <ClInclude Include="MAGE\src\script\manhattan_motor_script.hpp" />
     <ClInclude Include="MAGE\src\script\mouse_look_script.hpp" />
     <ClInclude Include="MAGE\src\script\stats_script.hpp" />

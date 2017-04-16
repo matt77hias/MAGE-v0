@@ -615,6 +615,9 @@
     <ClInclude Include="MAGE\src\script\wireframe_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\script\manhattan_input_controller_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

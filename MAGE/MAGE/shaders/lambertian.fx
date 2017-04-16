@@ -13,7 +13,7 @@ cbuffer cb_transform : register(b0) {
 
 cbuffer cb_material :  register(b1) {
 	// Ambient reflectivity.
-	float4 ca;
+	//float4 ca;
 	// Diffuse reflectivity.
 	float4 cd;
 }
@@ -57,7 +57,7 @@ PS_INPUT VS(VS_INPUT input) {
 // Pixel Shader
 //-----------------------------------------------------------------------------
 float4 PS(PS_INPUT input) : SV_Target {
-	return diffuse_texture_map.Sample(texture_sampler, input.tex);
+	return diffuse_texture_map.Sample(texture_sampler, input.tex) * cd;
 	//const float3 l_view = normalize(light_p_view - input.p_view);
 	//return ca + cd * saturate(dot(input.n_view, l_view));
 	//return float4(1.0f, 1.0f, 0.0f, 1.0f);

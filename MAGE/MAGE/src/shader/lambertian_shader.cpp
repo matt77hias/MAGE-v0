@@ -19,7 +19,7 @@ namespace mage {
 
 	__declspec(align(16)) struct MaterialBuffer : public AlignedData< MaterialBuffer > {
 		//TODO
-		XMVECTOR x;
+		Color m_diffuse_color;
 	};
 
 	//-------------------------------------------------------------------------
@@ -61,9 +61,16 @@ namespace mage {
 	}
 
 	void LambertianPixelShader::PrepareShading(const Material &material, const World &world) const {
-		UNUSED(material);
 		UNUSED(world);
+
+		MaterialBuffer material_buffer;
+		material_buffer.m_diffuse_color 
+			= Color(material.m_diffuse_reflectivity.x, material.m_diffuse_reflectivity.y, material.m_diffuse_reflectivity.z, 1.0);
+
+		m_device_context->UpdateSubresource(m_cb_material.Get(), 0, nullptr, &material_buffer, 0, 0);
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
+		m_device_context->PSSetConstantBuffers(1, 1, m_cb_material.GetAddressOf());
+
 		// TODO
 		if (material.m_diffuse_reflectivity_texture) {
 			m_device_context->PSSetShaderResources(0, 1, material.m_diffuse_reflectivity_texture->GetTextureResourceViewAddress());

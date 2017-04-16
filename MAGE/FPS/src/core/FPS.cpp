@@ -50,14 +50,15 @@ private:
 
 		// Camera
 		SharedPtr< Camera > camera = CreatePerspectiveCamera("camera");
-		camera->GetTransform()->SetTranslation(0.0f, 1.0f, -4.0f);
+		camera->GetTransform()->SetTranslation(0.0f, 2.0f, 0.0f);
 		SetCamera(camera);
 		
 		// ModelDescriptor
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc = CreateModelDescriptor(L"assets/models/cube.obj", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc = CreateModelDescriptor(L"assets/models/sponza/sponza.obj", mesh_desc);
 		// Model
 		SharedPtr< Model > model(new MeshModel("model", *model_desc));
+		model->GetTransform()->SetScale(10.0f, 10.0f, 10.0f);
 		GetWorld()->AddModel(model);
 		
 		// Light

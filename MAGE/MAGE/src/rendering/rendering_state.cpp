@@ -26,13 +26,13 @@ namespace mage {
 		SetAlphaBlendState();
 		SetDepthNoneDepthStencilState();
 		SetCullCounterClockwiseRasterizerState();
-		SetLinearClampSamplerState();
+		SetLinearWrapSamplerState();
 	}
 	void RenderingState::SetDefaultRenderingState3D() {
 		SetAlphaBlendState();
 		SetDepthDefaultDepthStencilState();
 		SetCullCounterClockwiseRasterizerState();
-		SetLinearClampSamplerState();
+		SetLinearWrapSamplerState();
 	}
 
 	//-------------------------------------------------------------------------

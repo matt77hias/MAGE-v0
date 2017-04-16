@@ -58,6 +58,7 @@ namespace mage {
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+			return S_OK;
 		}
 
 		ReadLineRemaining();

@@ -52,32 +52,36 @@ namespace mage {
 			return S_OK;
 		}
 
-		if (str_equals(token, MAGE_OBJ_MATERIAL_LIBRARY_TOKEN)) {
-			ReadOBJMaterialLibrary();
-		}
-		else if (str_equals(token, MAGE_OBJ_MATERIAL_USE_TOKEN)) {
-			ReadOBJMaterialUse();
-		}
-		else if (str_equals(token, MAGE_OBJ_GROUP_TOKEN)) {
-			ReadOBJGroup();
-		}
-		else if (str_equals(token, MAGE_OBJ_OBJECT_TOKEN)) {
-			ReadOBJObject();
-		}
-		else if (str_equals(token, MAGE_OBJ_VERTEX_TOKEN)) {
+		if (str_equals(token, MAGE_OBJ_TOKEN_VERTEX)) {
 			ReadOBJVertex();
 		}
-		else if (str_equals(token, MAGE_OBJ_TEXTURE_TOKEN)) {
+		else if (str_equals(token, MAGE_OBJ_TOKEN_TEXTURE)) {
 			ReadOBJVertexTexture();
 		}
-		else if (str_equals(token, MAGE_OBJ_NORMAL_TOKEN)) {
+		else if (str_equals(token, MAGE_OBJ_TOKEN_NORMAL)) {
 			ReadOBJVertexNormal();
 		}
-		else if (str_equals(token, MAGE_OBJ_FACE_TOKEN)) {
-			ReadOBJTriangleFace();
+		else if (str_equals(token, MAGE_OBJ_TOKEN_FACE)) {
+			ReadOBJFace();
+		}
+		else if (str_equals(token, MAGE_OBJ_TOKEN_MATERIAL_LIBRARY)) {
+			ReadOBJMaterialLibrary();
+		}
+		else if (str_equals(token, MAGE_OBJ_TOKEN_MATERIAL_USE)) {
+			ReadOBJMaterialUse();
+		}
+		else if (str_equals(token, MAGE_OBJ_TOKEN_GROUP)) {
+			ReadOBJGroup();
+		}
+		else if (str_equals(token, MAGE_OBJ_TOKEN_OBJECT)) {
+			ReadOBJObject();
+		}
+		else if (str_equals(token, MAGE_OBJ_TOKEN_SMOOTHING_GROUP)) {
+			ReadOBJSmoothingGroup();
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+			return S_OK;
 		}
 
 		ReadLineRemaining();
@@ -124,7 +128,15 @@ namespace mage {
 	}
 
 	template < typename VertexT >
-	void OBJReader< VertexT >::ReadOBJObject() {}
+	void OBJReader< VertexT >::ReadOBJObject() {
+		ReadString();
+	}
+
+	template < typename VertexT >
+	void OBJReader< VertexT >::ReadOBJSmoothingGroup() {
+		// Silently ignore smoothing group declarations
+		ReadString();
+	}
 
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJVertex() {
@@ -157,7 +169,7 @@ namespace mage {
 	}
 
 	template < typename VertexT >
-	void OBJReader< VertexT >::ReadOBJTriangleFace() {
+	void OBJReader< VertexT >::ReadOBJFace() {
 		vector< uint32_t > indices;
 		while (indices.size() < 3 || HasString()) {
 			const XMUINT3 vertex_indices = ReadOBJVertexIndices();
@@ -202,7 +214,14 @@ namespace mage {
 
 	template < typename VertexT >
 	inline const UV OBJReader< VertexT >::ReadOBJVertexTextureCoordinates() {
-		return static_cast< UV >(ReadFloat2());
+		const UV result = static_cast< UV >(ReadFloat2());
+		
+		if (HasFloat()) {
+			// Silently ignore 3D vertex texture coordinates.
+			ReadFloat();
+		}
+
+		return result;
 	}
 
 	template < typename VertexT >

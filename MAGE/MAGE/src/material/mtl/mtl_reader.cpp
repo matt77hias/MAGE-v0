@@ -71,8 +71,12 @@ namespace mage {
 		else if (str_equals(token, MAGE_MTL_TOKEN_BUMP_MAP)) {
 			ReadMTLBumpTexture();
 		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_ILLUMINATION_MODEL)) {
+			ReadMTLIlluminationModel();
+		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+			return S_OK;
 		}
 
 		ReadLineRemaining();
@@ -106,7 +110,7 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLDissolve() {
-		if (HasChars()) {
+		if (!HasFloat()) {
 			const char *token = ReadChars();
 			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 		}
@@ -193,5 +197,10 @@ namespace mage {
 		const wstring texture_name = str_convert(ReadString());
 		const wstring texture_fname = mage::GetFilename(texture_path, texture_name);
 		return CreateTexture(texture_fname);
+	}
+
+	void MTLReader::ReadMTLIlluminationModel() {
+		// Silently ignore illumination model declarations.
+		ReadUInt32();
 	}
 }

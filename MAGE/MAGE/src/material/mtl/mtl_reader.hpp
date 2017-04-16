@@ -63,6 +63,8 @@ namespace mage {
 		void ReadMTLDisplacementTexture();
 		void ReadMTLBumpTexture();
 
+		void ReadMTLIlluminationModel();
+
 		const RGBSpectrum ReadMTLSpectrum();
 		SharedPtr< Texture > ReadMTLTexture();
 

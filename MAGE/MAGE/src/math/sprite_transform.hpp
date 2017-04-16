@@ -841,6 +841,16 @@ namespace mage {
 		/**
 		 Sets the scale component of this sprite transform to the given scale component.
 
+		 @param[in]		s
+						The scale component.
+		 */
+		void SetScale(float s) {
+			SetScale(s, s);
+		}
+
+		/**
+		 Sets the scale component of this sprite transform to the given scale component.
+
 		 @param[in]		x
 						The x-value of the scale component.
 		 @param[in]		y
@@ -889,6 +899,16 @@ namespace mage {
 		 */
 		void AddScaleY(float y) {
 			m_scale.y += y;
+		}
+
+		/**
+		 Adds the given scale component to the scale component of this sprite transform.
+
+		 @param[in]		s
+						The scale component to add.
+		 */
+		void AddScale(float s) {
+			AddScale(s, s);
 		}
 
 		/**

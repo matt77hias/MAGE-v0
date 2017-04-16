@@ -588,6 +588,16 @@ namespace mage {
 			m_scale.z = z;
 			SetDirty();
 		}
+
+		/**
+		 Sets the scale component of this transform to the given scale component.
+
+		 @param[in]		s
+						The scale component.
+		 */
+		void SetScale(float s) {
+			SetScale(s, s, s);
+		}
 		
 		/**
 		 Sets the scale component of this transform to the given scale component.
@@ -659,6 +669,16 @@ namespace mage {
 		void AddScaleZ(float z) {
 			m_scale.z += z;
 			SetDirty();
+		}
+
+		/**
+		 Adds the given scale component to the scale component of this transform.
+
+		 @param[in]		s
+						The scale component to add.
+		 */
+		void AddScale(float s) {
+			AddScale(s, s, s);
 		}
 		
 		/**

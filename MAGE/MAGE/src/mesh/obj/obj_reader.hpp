@@ -55,10 +55,11 @@ namespace mage {
 		void ReadOBJMaterialUse();
 		void ReadOBJGroup();
 		void ReadOBJObject();
+		void ReadOBJSmoothingGroup();
 		void ReadOBJVertex();
 		void ReadOBJVertexTexture();
 		void ReadOBJVertexNormal();
-		void ReadOBJTriangleFace();
+		void ReadOBJFace();
 
 		const Point3 ReadOBJVertexCoordinates();
 		const Normal3 ReadOBJVertexNormalCoordinates();

@@ -1,12 +1,15 @@
+## Fonts
 
-### Sprite Font: .spritefont
+### .spritefont
 * File mode: binary
 * File extension: `spritefont` or `SPRITEFONT`
 * Use: storing sprite fonts
 * Magic: `MAGEfont`
 * Syntax: see [SpriteFont format](https://github.com/matt77hias/MAGE-SpriteFont)
 
-### Material: .mtl
+## Materials
+
+### .mtl
 * File mode: ANSI
 * File extension: `mtl` or `MTL`
 * Use: storing materials
@@ -23,7 +26,9 @@
   * `map_disp` instead of `disp`
   * `map_bump` instead of `bump`
 
-### Mesh: .msh
+## Meshes
+
+### .msh
 * File mode: binary
 * File extension: `msh` or `MSH`
 * Use: storing one vertex buffer and its associated index buffer. `VertexT` and `IndexT` are not included in the file.
@@ -35,7 +40,7 @@
      * `<vertices>` = `<VertexT> ... <VertexT>` (`<nb-vertices>` *times*)
      * `<indices>` = `<IndexT> ... <IndexT>` (`<nb-indices>` *times*)
      
-### Mesh/Model: .obj
+### .obj
 * File mode: ANSI
 * File extension: `obj` or `OBJ`
 * Use: storing meshes/models
@@ -51,7 +56,9 @@
   * `g` has different usage
   * UVW vertex texture coordinates will be converted to UV vertex texture coordinates
   
-### Model: .mdl
+## Models
+  
+### .mdl
 * File mode: ANSI
 * File extension: `mdl` or `MDL`
 * Use: storing models
@@ -73,14 +80,18 @@
      * `<start-index>` = `<uint32_t>`
      * `<nb-indices>` = `<uint32_t>`
      
-### Texture: .dds
+## Textures
+     
+### .dds
 * File mode: binary
 * File extension: `dds` or `DDS`
 * Use: storing textures
 * Magic: `DDS`
 * Syntax: see [DDS format](https://msdn.microsoft.com/en-us/library/windows/desktop/bb943991%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#File_Layout1).
 
-### Variable Script: .vs
+## Variable Scripts
+
+### .vs
 * File mode: ANSI
 * File extension: `vs` or `VS`
 * Use: storing simple properties

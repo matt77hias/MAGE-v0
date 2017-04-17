@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class Writer {
+	class BigEndianBinaryWriter {
 
 	public:
 
@@ -23,14 +23,14 @@ namespace mage {
 		// Destructors
 		//---------------------------------------------------------------------
 
-		virtual ~Writer() = default;
+		virtual ~BigEndianBinaryWriter() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		Writer &operator=(const Writer &reader) = delete;
-		Writer &operator=(Writer &&reader) = delete;
+		BigEndianBinaryWriter &operator=(const BigEndianBinaryWriter &reader) = delete;
+		BigEndianBinaryWriter &operator=(BigEndianBinaryWriter &&reader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -48,23 +48,23 @@ namespace mage {
 		// Constructors
 		//---------------------------------------------------------------------
 
-		Writer()
+		BigEndianBinaryWriter()
 			: m_file(nullptr), m_fname() {}
-		Writer(const Writer &reader) = delete;
-		Writer(Writer &&reader) = default;
+		BigEndianBinaryWriter(const BigEndianBinaryWriter &reader) = delete;
+		BigEndianBinaryWriter(BigEndianBinaryWriter &&reader) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		template< typename DataT >
+		void WriteValue(const DataT &data);
+		template< typename DataT >
+		void WriteValueArray(const DataT *data, size_t count);
 		void WriteCharacter(char c);
 		void WriteString(const char *str);
 		void WriteString(const string &str) {
 			WriteString(str.c_str());
-		}
-		void WriteStringLine(const char *str);
-		void WriteStringLine(const string &str) {
-			WriteStringLine(str.c_str());
 		}
 
 	private:
@@ -83,3 +83,12 @@ namespace mage {
 		wstring m_fname;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "binary\binary_writer.tpp"
+
+#pragma endregion

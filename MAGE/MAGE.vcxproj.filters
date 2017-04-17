@@ -648,6 +648,9 @@
     <ClInclude Include="MAGE\src\model\mdl\mdl_tokens.hpp">
       <Filter>Header Files\model\mdl</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\binary\binary_writer.hpp">
+      <Filter>Header Files\binary</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -893,6 +896,9 @@
     <ClCompile Include="MAGE\src\script\wireframe_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\binary\binary_writer.cpp">
+      <Filter>Source Files\binary</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">
@@ -957,9 +963,6 @@
     <None Include="MAGE\src\text\sprite_text.tpp">
       <Filter>Header Files\text</Filter>
     </None>
-    <None Include="MAGE\src\string\writer.tpp">
-      <Filter>Header Files\string</Filter>
-    </None>
     <None Include="MAGE\src\mesh\msh\msh_loader.tpp">
       <Filter>Header Files\mesh\msh</Filter>
     </None>
@@ -977,6 +980,9 @@
     </None>
     <None Include="MAGE\src\model\mdl\mdl_reader.tpp">
       <Filter>Header Files\model\mdl</Filter>
+    </None>
+    <None Include="MAGE\src\binary\binary_writer.tpp">
+      <Filter>Header Files\binary</Filter>
     </None>
   </ItemGroup>
 </Project>

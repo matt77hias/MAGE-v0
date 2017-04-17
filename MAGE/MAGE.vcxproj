@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="MAGE\src\binary\binary_reader.hpp" />
     <ClInclude Include="MAGE\src\binary\binary_utils.hpp" />
+    <ClInclude Include="MAGE\src\binary\binary_writer.hpp" />
     <ClInclude Include="MAGE\src\camera\camera.hpp" />
     <ClInclude Include="MAGE\src\camera\orthographic_camera.hpp" />
     <ClInclude Include="MAGE\src\camera\perspective_camera.hpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="MAGE\src\world\world_object.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MAGE\src\binary\binary_writer.cpp" />
     <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp" />
     <ClCompile Include="MAGE\src\camera\perspective_camera.cpp" />
     <ClCompile Include="MAGE\src\core\engine.cpp" />
@@ -389,6 +391,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\binary\binary_reader.tpp" />
+    <None Include="MAGE\src\binary\binary_writer.tpp" />
     <None Include="MAGE\src\memory\memory_arena.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_loader.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_reader.tpp" />
@@ -406,7 +409,6 @@
     <None Include="MAGE\src\resource\resource_pool.tpp" />
     <None Include="MAGE\src\scene\scene.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
-    <None Include="MAGE\src\string\writer.tpp" />
     <None Include="MAGE\src\text\sprite_text.tpp" />
     <None Include="MAGE\src\world\world.tpp" />
   </ItemGroup>

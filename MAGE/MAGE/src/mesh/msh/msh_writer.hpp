@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\writer.hpp"
+#include "binary\binary_writer.hpp"
 #include "collection\collection.hpp"
 
 #pragma endregion
@@ -16,7 +16,7 @@
 namespace mage {
 
 	template< typename VertexT, typename IndexT >
-	class MSHWriter final : public Writer {
+	class MSHWriter final : public BigEndianBinaryWriter {
 
 	public:
 

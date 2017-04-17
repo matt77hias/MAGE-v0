@@ -19,7 +19,7 @@ public:
 	TestScript &operator=(TestScript &&script) = delete;
 
 	virtual void Update(double delta_time) override {
-		m_model->GetTransform()->AddRotationY((float)delta_time);
+		//m_model->GetTransform()->AddRotationY((float)delta_time);
 
 		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_F2)) {
 			//PostQuitMessage(0);

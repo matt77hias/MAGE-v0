@@ -57,6 +57,8 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		template< typename DataT >
+		void Write(const DataT *data, size_t count);
 		void Write(char c);
 		void Write(const char *str);
 		void WriteLine(const char *str);
@@ -77,3 +79,12 @@ namespace mage {
 		wstring m_fname;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "string\writer.tpp"
+
+#pragma endregion

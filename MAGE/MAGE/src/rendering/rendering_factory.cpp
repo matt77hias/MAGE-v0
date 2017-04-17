@@ -136,7 +136,6 @@ namespace mage {
 	}
 	HRESULT CreateLinearWrapSamplerState(ID3D11Device2 *device, ID3D11SamplerState **sampler_state) {
 		return CreateSamplerState(device, sampler_state, D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP);
-
 	}
 	HRESULT CreateLinearClampSamplerState(ID3D11Device2 *device, ID3D11SamplerState **sampler_state) {
 		return CreateSamplerState(device, sampler_state, D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_CLAMP);

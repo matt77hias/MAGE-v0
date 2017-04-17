@@ -2,6 +2,7 @@
 
 #include "script\fps_input_controller_script.hpp"
 #include "script\stats_script.hpp"
+#include "script\wireframe_script.hpp"
 
 using namespace mage;
 
@@ -84,8 +85,11 @@ private:
 		//AddScript(script);
 		SharedPtr< BehaviorScript > controller(new FPSInputControllerScript(camera->GetTransform()));
 		AddScript(controller);
+		
 		SharedPtr< BehaviorScript > stats(new StatsScript(text));
 		AddScript(stats);
+		SharedPtr< BehaviorScript > wf(new WireframeScript());
+		AddScript(wf);
 	}
 };
 

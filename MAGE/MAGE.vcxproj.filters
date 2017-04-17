@@ -927,5 +927,8 @@
     <None Include="MAGE\src\text\sprite_text.tpp">
       <Filter>Header Files\text</Filter>
     </None>
+    <None Include="MAGE\src\string\writer.tpp">
+      <Filter>Header Files\string</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\mesh\mesh_reader.hpp"
-#include "mesh\mesh\mesh_writer.hpp"
+#include "mesh\msh\msh_reader.hpp"
+#include "mesh\msh\msh_writer.hpp"
 
 #pragma endregion
 
@@ -16,16 +16,16 @@
 namespace mage {
 
 	template < typename VertexT >
-	HRESULT ImportMESHFromFile(const wstring &fname,
+	HRESULT ImportMSHMeshFromFile(const wstring &fname,
 		vector< VertexT > &vertices, vector < uint32_t > &indices) {
-		MESHReader reader(vertices, indices);
+		MSHReader< VertexT, uint32_t > reader(vertices, indices);
 		return reader.ReadFromFile(fname);
 	}
 
 	template < typename VertexT >
-	HRESULT ExportMESHToFile(const wstring &fname,
+	HRESULT ExportMSHMeshToFile(const wstring &fname,
 		const vector< VertexT > &vertices, const vector< uint32_t > &indices) {
-		MESHWriter writer(vertices, indices);
+		MSHWriter< VertexT, uint32_t > writer(vertices, indices);
 		return writer.WriteToFile(fname);
 	}
 }

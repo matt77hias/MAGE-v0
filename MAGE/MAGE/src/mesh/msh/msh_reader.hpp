@@ -16,7 +16,7 @@
 namespace mage {
 
 	template< typename VertexT, typename IndexT >
-	class MESHReader final : public BigEndianBinaryReader {
+	class MSHReader final : public BigEndianBinaryReader {
 
 	public:
 
@@ -24,18 +24,18 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit MESHReader(vector< VertexT > &vertices, vector< IndexT > &indices)
+		explicit MSHReader(vector< VertexT > &vertices, vector< IndexT > &indices)
 			: BigEndianBinaryReader(), m_vertices(vertices), m_indices(indices) {}
-		MESHReader(const VSReader &reader) = delete;
-		MESHReader(MESHReader &&reader) = delete;
-		virtual ~MESHReader() = default;
+		MSHReader(const MSHReader &reader) = delete;
+		MSHReader(MSHReader &&reader) = delete;
+		virtual ~MSHReader() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
-		MESHReader &operator=(const MESHReader &reader) = delete;
-		MESHReader &operator=(MESHReader &&reader) = delete;
+		MSHReader &operator=(const MSHReader &reader) = delete;
+		MSHReader &operator=(MSHReader &&reader) = delete;
 
 	private:
 
@@ -61,6 +61,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\mesh\mesh_reader.tpp"
+#include "mesh\msh\msh_reader.tpp"
 
 #pragma endregion

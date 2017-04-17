@@ -30,7 +30,7 @@ namespace mage {
 		}
 
 		// Begin current group.
-		m_model_output.StartModelPart(MAGE_MODEL_PART_DEFAULT_CHILD);
+		m_model_output.StartModelPart(MAGE_MDL_PART_DEFAULT_CHILD);
 
 		return S_OK;
 	}
@@ -110,7 +110,7 @@ namespace mage {
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJGroup() {
 		const string child = ReadString();
-		if (child == MAGE_MODEL_PART_DEFAULT_CHILD) {
+		if (child == MAGE_MDL_PART_DEFAULT_CHILD) {
 			if (!m_model_output.index_buffer.empty()) {
 				Error("%ls: line %u: default child name can only be explicitly defined before all face definitions.", GetFilename().c_str(), GetCurrentLineNumber());
 			}
@@ -121,7 +121,7 @@ namespace mage {
 			return;
 		}
 		
-		const string parent = HasString() ? ReadString() : MAGE_MODEL_PART_DEFAULT_PARENT;
+		const string parent = HasString() ? ReadString() : MAGE_MDL_PART_DEFAULT_PARENT;
 		
 		m_model_output.EndModelPart();
 		m_model_output.StartModelPart(child, parent);

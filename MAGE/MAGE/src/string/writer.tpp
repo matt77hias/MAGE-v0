@@ -6,12 +6,12 @@
 namespace mage {
 
 	template< typename DataT >
-	void Writer::WriteValue(const DataT &data) {
-		WriteData(&data, 1);
+	inline void Writer::WriteValue(const DataT &data) {
+		WriteValueArray(&data, 1);
 	}
 
 	template< typename DataT >
-	void Writer::WriteValueArray(const DataT *data, size_t count) {
+	inline void Writer::WriteValueArray(const DataT *data, size_t count) {
 		fwrite(data, sizeof(DataT), count, m_file);
 	}
 }

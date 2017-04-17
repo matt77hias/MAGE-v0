@@ -1,6 +1,6 @@
 #pragma once
 
-#include "targetver.hpp"
+#include "core\targetver.hpp"
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -14,7 +14,7 @@
 #include "resource\resource_factory.hpp"
 #include "timer\timer.hpp"
 
-#include "engine_setup.hpp"
+#include "core\engine_setup.hpp"
 
 #pragma endregion
 

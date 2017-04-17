@@ -89,7 +89,7 @@ namespace mage {
 			}
 			}
 
-			WriteLine(output);
+			WriteStringLine(output);
 		}
 
 		return S_OK;

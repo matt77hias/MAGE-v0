@@ -71,7 +71,7 @@ namespace mage {
 		else if (str_equals(token, MAGE_MTL_TOKEN_BUMP_MAP)) {
 			ReadMTLBumpTexture();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_ILLUMINATION_MODEL)) {
+		else if (str_equals(token, MAGE_MTL_TOKEN_ILLUMINATION_MDL)) {
 			ReadMTLIlluminationModel();
 		}
 		else {

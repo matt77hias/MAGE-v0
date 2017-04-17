@@ -12,52 +12,47 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdint.h>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 
 	/**
-	 Imports the mesh from the given MESH file.
+	 Imports the mesh from the given MSH file.
 
 	 @tparam		VertexT
 					The vertex type.
+	 @tparam		IndexT
+					The index type.
 	 @param[in]		fname
-					A reference to the MESH filename.
+					A reference to the MSH filename.
 	 @param[in,out]	vertices
 					A reference to a vector containing the vertices of the mesh.
 	 @param[in,out]	indices
 					A reference to a vector containing the indices of the mesh.
 	 @return		A success/error value.
 	 */
-	template < typename VertexT >
-	HRESULT ImportMESHFromFile(const wstring &fname, 
-		vector< VertexT > &vertices, vector< uint32_t > &indices);
+	template < typename VertexT, typename IndexT >
+	HRESULT ImportMSHMeshFromFile(const wstring &fname, 
+		vector< VertexT > &vertices, vector< IndexT > &indices);
 
 	/**
-	 Exports the given mesh to the given MESH file.
+	 Exports the given mesh to the given MSH file.
 
 	 @tparam		VertexT
 					The vertex type.
+	 @tparam		IndexT
+					The index type.
 	 @param[in]		fname
-					A reference to the MESH filename.
+					A reference to the MSH filename.
 	 @param[in]		vertices
 					A reference to a vector containing the vertices of the mesh.
 	 @param[in]		indices
 					A reference to a vector containing the indices of the mesh.
 	 @return		A success/error value.
 	 */
-	template < typename VertexT >
-	HRESULT ExportMESHToFile(const wstring &fname, 
-		const vector< VertexT > &vertices, const vector< uint32_t > &indices);
+	template < typename VertexT, typename IndexT >
+	HRESULT ExportMSHMeshToFile(const wstring &fname,
+		const vector< VertexT > &vertices, const vector< IndexT > &indices);
 }
 
 //-----------------------------------------------------------------------------
@@ -65,6 +60,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\mesh\mesh_loader.tpp"
+#include "mesh\msh\msh_loader.tpp"
 
 #pragma endregion

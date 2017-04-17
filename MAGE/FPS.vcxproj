@@ -96,25 +96,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectName)\src\core\;$(ProjectName)\src\;MAGE\src\core\;MAGE\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <OutDir>$(ProjectName)\bin\x86\$(Configuration)\</OutDir>
     <IntDir>$(ProjectName)\tmp\x86\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectName)\src\core\;$(ProjectName)\src\;MAGE\src\core\;MAGE\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <OutDir>$(ProjectName)\bin\x64\$(Configuration)\</OutDir>
     <IntDir>$(ProjectName)\tmp\x64\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectName)\src\core\;$(ProjectName)\src\;MAGE\src\core\;MAGE\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <OutDir>$(ProjectName)\bin\x86\$(Configuration)\</OutDir>
     <IntDir>$(ProjectName)\tmp\x86\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectName)\src\core\;$(ProjectName)\src\;MAGE\src\core\;MAGE\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;MAGE\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <OutDir>$(ProjectName)\bin\x64\$(Configuration)\</OutDir>
     <IntDir>$(ProjectName)\tmp\x64\$(Configuration)\</IntDir>
   </PropertyGroup>

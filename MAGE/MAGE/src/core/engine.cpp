@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "engine.hpp"
-#include "version.hpp"
+#include "core\engine.hpp"
+#include "core\version.hpp"
 #include "logging\error.hpp"
 #include "logging\logging.hpp"
 

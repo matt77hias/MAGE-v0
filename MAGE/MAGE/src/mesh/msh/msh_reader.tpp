@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\mesh\mesh_tokens.hpp"
+#include "mesh\msh\msh_tokens.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -25,7 +25,7 @@
 namespace mage {
 
 	template< typename VertexT, typename IndexT >
-	MESHReader< VertexT, IndexT >::HRESULT Read() {
+	HRESULT MSHReader< VertexT, IndexT >::Read() {
 
 		if (!IsHeaderValid()) {
 			Error("%ls: invalid sprite font header.", GetFilename().c_str());
@@ -45,8 +45,8 @@ namespace mage {
 	}
 
 	template< typename VertexT, typename IndexT >
-	bool MESHReader< VertexT, IndexT >::IsHeaderValid() {
-		const char *magic = MAGE_MESH_MAGIC;
+	bool MSHReader< VertexT, IndexT >::IsHeaderValid() {
+		const char *magic = MAGE_MSH_MAGIC;
 		while (*magic != L'\0') {
 			if (ReadValue< uint8_t >() != *magic) {
 				return false;

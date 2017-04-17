@@ -1,6 +1,6 @@
 #pragma once
 
-#include "targetver.h"
+#include "core\targetver.h"
 
 //-----------------------------------------------------------------------------
 // Engine Includes

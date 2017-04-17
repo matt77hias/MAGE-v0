@@ -66,10 +66,10 @@
     <ClInclude Include="MAGE\src\memory\memory.hpp" />
     <ClInclude Include="MAGE\src\memory\memory_arena.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh.hpp" />
-    <ClInclude Include="MAGE\src\mesh\mesh\mesh_loader.hpp" />
-    <ClInclude Include="MAGE\src\mesh\mesh\mesh_reader.hpp" />
-    <ClInclude Include="MAGE\src\mesh\mesh\mesh_tokens.hpp" />
-    <ClInclude Include="MAGE\src\mesh\mesh\mesh_writer.hpp" />
+    <ClInclude Include="MAGE\src\mesh\msh\msh_loader.hpp" />
+    <ClInclude Include="MAGE\src\mesh\msh\msh_reader.hpp" />
+    <ClInclude Include="MAGE\src\mesh\msh\msh_tokens.hpp" />
+    <ClInclude Include="MAGE\src\mesh\msh\msh_writer.hpp" />
     <ClInclude Include="MAGE\src\mesh\static_mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh_descriptor.hpp" />
     <ClInclude Include="MAGE\src\mesh\obj\obj_loader.hpp" />
@@ -77,6 +77,10 @@
     <ClInclude Include="MAGE\src\mesh\obj\obj_tokens.hpp" />
     <ClInclude Include="MAGE\src\mesh\sprite_batch_mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\vertex.hpp" />
+    <ClInclude Include="MAGE\src\model\mdl\mdl_loader.hpp" />
+    <ClInclude Include="MAGE\src\model\mdl\mdl_reader.hpp" />
+    <ClInclude Include="MAGE\src\model\mdl\mdl_writer.hpp" />
+    <ClInclude Include="MAGE\src\model\mdl\mdl_tokens.hpp" />
     <ClInclude Include="MAGE\src\model\meshmodel.hpp" />
     <ClInclude Include="MAGE\src\model\model.hpp" />
     <ClInclude Include="MAGE\src\model\model_loader.hpp" />
@@ -386,11 +390,14 @@
   <ItemGroup>
     <None Include="MAGE\src\binary\binary_reader.tpp" />
     <None Include="MAGE\src\memory\memory_arena.tpp" />
-    <None Include="MAGE\src\mesh\mesh\mesh_loader.tpp" />
-    <None Include="MAGE\src\mesh\mesh\mesh_reader.tpp" />
-    <None Include="MAGE\src\mesh\mesh\mesh_writer.tpp" />
+    <None Include="MAGE\src\mesh\msh\msh_loader.tpp" />
+    <None Include="MAGE\src\mesh\msh\msh_reader.tpp" />
+    <None Include="MAGE\src\mesh\msh\msh_writer.tpp" />
     <None Include="MAGE\src\mesh\static_mesh.tpp" />
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp" />
+    <None Include="MAGE\src\model\mdl\mdl_loader.tpp" />
+    <None Include="MAGE\src\model\mdl\mdl_reader.tpp" />
+    <None Include="MAGE\src\model\mdl\mdl_writer.tpp" />
     <None Include="MAGE\src\model\model.tpp" />
     <None Include="MAGE\src\model\model_descriptor.tpp" />
     <None Include="MAGE\src\model\model_loader.tpp" />
@@ -457,7 +464,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectName)\src\core\;$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;</LibraryPath>
     <OutDir>$(ProjectName)\bin\x86\$(Configuration)\</OutDir>
     <IntDir>$(ProjectName)\tmp\x86\$(Configuration)\</IntDir>
@@ -466,12 +473,12 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectName)\bin\x64\$(Configuration)\</OutDir>
     <IntDir>$(ProjectName)\tmp\x64\$(Configuration)\</IntDir>
-    <IncludePath>$(ProjectName)\src\core\;$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectName)\src\core\;$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;</LibraryPath>
     <OutDir>$(ProjectName)\bin\x86\$(Configuration)\</OutDir>
     <IntDir>$(ProjectName)\tmp\x86\$(Configuration)\</IntDir>
@@ -480,7 +487,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectName)\bin\x64\$(Configuration)\</OutDir>
     <IntDir>$(ProjectName)\tmp\x64\$(Configuration)\</IntDir>
-    <IncludePath>$(ProjectName)\src\core\;$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ProjectName)\src\;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

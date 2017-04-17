@@ -5,6 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_MESH_MAGIC "MAGEmesh"
+#define MAGE_MSH_MAGIC "MAGEmesh"
 
 #pragma endregion

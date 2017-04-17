@@ -24,9 +24,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_MODEL_PART_DEFAULT_CHILD "default"
-#define MAGE_MODEL_PART_DEFAULT_PARENT "root"
-#define MAGE_MODEL_PART_DEFAULT_MATERIAL "none"
+#define MAGE_MDL_PART_DEFAULT_CHILD "default"
+#define MAGE_MDL_PART_DEFAULT_PARENT "root"
+#define MAGE_MDL_PART_DEFAULT_MATERIAL "none"
 
 #pragma endregion
 
@@ -43,10 +43,10 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit ModelPart(const string &child = MAGE_MODEL_PART_DEFAULT_CHILD, 
-			const string &parent = MAGE_MODEL_PART_DEFAULT_PARENT,
+		explicit ModelPart(const string &child = MAGE_MDL_PART_DEFAULT_CHILD, 
+			const string &parent = MAGE_MDL_PART_DEFAULT_PARENT,
 			uint32_t start_index = 0, uint32_t nb_indices = 0, 
-			const string &material = MAGE_MODEL_PART_DEFAULT_MATERIAL)
+			const string &material = MAGE_MDL_PART_DEFAULT_MATERIAL)
 			: child(child), parent(parent), material(material), 
 			start_index(start_index), nb_indices(nb_indices) {}
 		ModelPart(const ModelPart &model_part) = default;
@@ -104,7 +104,7 @@ namespace mage {
 			}
 			return false;
 		}
-		void StartModelPart(const string &child, const string &parent = MAGE_MODEL_PART_DEFAULT_PARENT) {
+		void StartModelPart(const string &child, const string &parent = MAGE_MDL_PART_DEFAULT_PARENT) {
 			const uint32_t start = static_cast< uint32_t >(index_buffer.size());
 			model_parts.push_back(ModelPart(child, parent, start));
 		}

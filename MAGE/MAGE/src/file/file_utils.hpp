@@ -111,4 +111,28 @@ namespace mage {
 		const size_t end_pos = fname.find_last_of(L"/");
 		return fname.substr(0, end_pos + 1);
 	}
+
+	/**
+	 Returns the filename of the given file without its file extension.
+
+	 @param[in]		fname
+					A reference to the filename of the file.
+	 @return		The filename of the given file without its file extension.
+	 */
+	inline const string GetFilenameWithoutFileExtension(const string &fname) {
+		const size_t end_pos = fname.find_last_of(".");
+		return fname.substr(0, end_pos + 1);
+	}
+
+	/**
+	 Returns the filename of the given file without its file extension.
+
+	 @param[in]		fname
+					A reference to the filename of the file.
+	 @return		The filename of the given file without its file extension.
+	 */
+	inline const wstring GetFilenameWithoutFileExtension(const wstring &fname) {
+		const size_t end_pos = fname.find_last_of(L".");
+		return fname.substr(0, end_pos + 1);
+	}
 }

@@ -25,12 +25,12 @@ namespace mage {
 	HRESULT MeshModel::InitializeModel(const ModelDescriptor &desc, const CombinedShader &shader) {
 		map< string, pair< SubModel *, string > > mapping;
 		for (vector< ModelPart >::const_iterator it = desc.ModelPartsBegin(); it != desc.ModelPartsEnd(); ++it) {
-			if (it->child == MAGE_MODEL_PART_DEFAULT_CHILD && it->nb_indices == 0) {
+			if (it->child == MAGE_MDL_PART_DEFAULT_CHILD && it->nb_indices == 0) {
 				continue;
 			}
 
-			Material material(MAGE_MODEL_PART_DEFAULT_MATERIAL);
-			if (it->material != MAGE_MODEL_PART_DEFAULT_MATERIAL) {
+			Material material(MAGE_MDL_PART_DEFAULT_MATERIAL);
+			if (it->material != MAGE_MDL_PART_DEFAULT_MATERIAL) {
 				for (vector< Material >::const_iterator mit = desc.MaterialsBegin(); mit != desc.MaterialsEnd(); ++mit) {
 					if (mit->m_name == it->material) {
 						material = *mit;
@@ -46,7 +46,7 @@ namespace mage {
 		for (map< string, pair< SubModel *, string > >::const_iterator it = mapping.cbegin(); it != mapping.cend(); ++it) {
 			const pair< SubModel *, string > &element = it->second;
 			const string &parent = element.second;
-			if (parent == MAGE_MODEL_PART_DEFAULT_PARENT) {
+			if (parent == MAGE_MDL_PART_DEFAULT_PARENT) {
 				AddSubModel(element.first);
 			}
 			else {

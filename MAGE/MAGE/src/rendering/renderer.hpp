@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "loadable.hpp"
+#include "core\loadable.hpp"
 #include "rendering\rendering_state.hpp"
 
 #pragma endregion

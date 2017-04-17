@@ -31,16 +31,16 @@ namespace mage {
 		return result_write;
 	}
 
-	void Writer::Write(char c) {
+	void Writer::WriteCharacter(char c) {
 		fputc(c, m_file);
 	}
 	
-	void Writer::Write(const char *str) {
+	void Writer::WriteString(const char *str) {
 		fputs(str, m_file);
 	}
 	
-	void Writer::WriteLine(const char *str) {
-		Write(str);
-		Write('\n');
+	void Writer::WriteStringLine(const char *str) {
+		WriteString(str);
+		WriteCharacter('\n');
 	}
 }

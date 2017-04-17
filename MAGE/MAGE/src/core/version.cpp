@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "version.hpp"
+#include "core\version.hpp"
 
 #pragma endregion
 

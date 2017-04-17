@@ -214,8 +214,11 @@
     <Filter Include="Source Files\timer">
       <UniqueIdentifier>{2e63c3b9-e3dd-4066-98c2-40380aaf8d47}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\mesh\mesh">
+    <Filter Include="Header Files\mesh\msh">
       <UniqueIdentifier>{64d4666f-d830-4c5e-8a25-388b28130596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\model\mdl">
+      <UniqueIdentifier>{30b20d94-ffc8-40c1-b7d1-60836c97c92c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -621,17 +624,29 @@
     <ClInclude Include="MAGE\src\script\manhattan_input_controller_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\mesh\mesh_reader.hpp">
-      <Filter>Header Files\mesh\mesh</Filter>
+    <ClInclude Include="MAGE\src\mesh\msh\msh_reader.hpp">
+      <Filter>Header Files\mesh\msh</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\mesh\mesh_tokens.hpp">
-      <Filter>Header Files\mesh\mesh</Filter>
+    <ClInclude Include="MAGE\src\mesh\msh\msh_tokens.hpp">
+      <Filter>Header Files\mesh\msh</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\mesh\mesh_writer.hpp">
-      <Filter>Header Files\mesh\mesh</Filter>
+    <ClInclude Include="MAGE\src\mesh\msh\msh_writer.hpp">
+      <Filter>Header Files\mesh\msh</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\mesh\mesh_loader.hpp">
-      <Filter>Header Files\mesh\mesh</Filter>
+    <ClInclude Include="MAGE\src\mesh\msh\msh_loader.hpp">
+      <Filter>Header Files\mesh\msh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\model\mdl\mdl_reader.hpp">
+      <Filter>Header Files\model\mdl</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\model\mdl\mdl_writer.hpp">
+      <Filter>Header Files\model\mdl</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\model\mdl\mdl_loader.hpp">
+      <Filter>Header Files\model\mdl</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\model\mdl\mdl_tokens.hpp">
+      <Filter>Header Files\model\mdl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -945,14 +960,23 @@
     <None Include="MAGE\src\string\writer.tpp">
       <Filter>Header Files\string</Filter>
     </None>
-    <None Include="MAGE\src\mesh\mesh\mesh_loader.tpp">
-      <Filter>Header Files\mesh\mesh</Filter>
+    <None Include="MAGE\src\mesh\msh\msh_loader.tpp">
+      <Filter>Header Files\mesh\msh</Filter>
     </None>
-    <None Include="MAGE\src\mesh\mesh\mesh_writer.tpp">
-      <Filter>Header Files\mesh\mesh</Filter>
+    <None Include="MAGE\src\mesh\msh\msh_reader.tpp">
+      <Filter>Header Files\mesh\msh</Filter>
     </None>
-    <None Include="MAGE\src\mesh\mesh\mesh_reader.tpp">
-      <Filter>Header Files\mesh\mesh</Filter>
+    <None Include="MAGE\src\mesh\msh\msh_writer.tpp">
+      <Filter>Header Files\mesh\msh</Filter>
+    </None>
+    <None Include="MAGE\src\model\mdl\mdl_loader.tpp">
+      <Filter>Header Files\model\mdl</Filter>
+    </None>
+    <None Include="MAGE\src\model\mdl\mdl_writer.tpp">
+      <Filter>Header Files\model\mdl</Filter>
+    </None>
+    <None Include="MAGE\src\model\mdl\mdl_reader.tpp">
+      <Filter>Header Files\model\mdl</Filter>
     </None>
   </ItemGroup>
 </Project>

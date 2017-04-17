@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\writer.hpp"
-#include "collection\collection.hpp"
+#include "model\model_output.hpp"
+#include "string\line_reader.hpp"
 
 #pragma endregion
 
@@ -15,8 +15,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template< typename VertexT, typename IndexT >
-	class MESHWriter final : public Writer {
+	template < typename VertexT >
+	class MDLReader final : public LineReader {
 
 	public:
 
@@ -24,18 +24,18 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit MESHWriter(const vector< VertexT > &vertices, const vector< IndexT > &indices)
-			: Writer(), m_vertices(vertices), m_indices(indices) {}
-		MESHWriter(const MESHWriter &writer) = delete;
-		MESHWriter(MESHWriter &&writer) = delete;
-		virtual ~MESHWriter() = default;
+		explicit MDLReader(ModelOutput< VertexT > &model_output)
+			: LineReader(), m_model_output(model_output) {}
+		MDLReader(const MDLReader &reader) = delete;
+		MDLReader(MDLReader &&reader) = delete;
+		virtual ~MDLReader() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------	
+		//---------------------------------------------------------------------
 
-		MESHWriter &operator=(const MESHWriter &writer) = delete;
-		MESHWriter &operator=(MESHWriter &&writer) = delete;
+		MDLReader &operator=(const MDLReader &reader) = delete;
+		MDLReader &operator=(MDLReader &&reader) = delete;
 
 	private:
 
@@ -43,14 +43,17 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual HRESULT Write() override;
+		virtual HRESULT Preprocess() override;
+		virtual HRESULT ReadLine(char *line) override;
+
+		void ReadMDLSubModel();
+		void ReadMDLMaterialLibrary();
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		const vector< VertexT > &m_vertices;
-		const vector< IndexT > &m_indices;
+		ModelOutput< VertexT > &m_model_output;
 	};
 }
 
@@ -59,6 +62,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\mesh\mesh_writer.tpp"
+#include "model\mdl\mdl_reader.tpp"
 
 #pragma endregion

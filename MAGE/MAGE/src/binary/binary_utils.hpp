@@ -20,7 +20,6 @@ namespace mage {
 	
 	template < typename ValueT >
 	inline const ValueT *BytesBigEndianToValue(const uint8_t *bytes) {
-		//static_assert(std::is_pod< ValueT >::value, "Can only read plain-old-data types.");
 		return reinterpret_cast< const ValueT * >(bytes);
 	}
 	

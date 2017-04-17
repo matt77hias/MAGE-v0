@@ -29,8 +29,8 @@ namespace mage {
 		WriteString(MAGE_MSH_MAGIC);
 
 		const uint32_t nb_vertices = static_cast< uint32_t >(m_vertices.size());
-		const uint32_t nb_indices  = static_cast< uint32_t >(m_indices.size());
 		WriteValue(nb_vertices);
+		const uint32_t nb_indices  = static_cast< uint32_t >(m_indices.size());
 		WriteValue(nb_indices);
 		
 		WriteValueArray(m_vertices.data(), m_vertices.size());

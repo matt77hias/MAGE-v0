@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "logging\error.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -12,6 +21,7 @@ namespace mage {
 
 	template< typename DataT >
 	inline void Writer::WriteValueArray(const DataT *data, size_t count) {
-		fwrite(data, sizeof(DataT), count, m_file);
+		const size_t count_written = fwrite(data, sizeof(DataT), count, m_file);
+		Assert(count == count_written);
 	}
 }

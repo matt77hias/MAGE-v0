@@ -29,7 +29,7 @@
 * Use: storing one vertex buffer and its associated index buffer. `VertexT` and `IndexT` are not included in the file.
 * Magic: `MAGEmesh`
 * Syntax:
-  * `<nb-vertices> <nb-indices> <vertices> <indices>`
+  * `MAGEmesh <nb-vertices> <nb-indices> <vertices> <indices>`
      * `<nb-vertices>` = `<uint32_t>`
      * `<nb-indices>` = `<uint32_t>`
      * `<vertices>` = `<VertexT> ... <VertexT>` (`<nb-vertices>` *times*)

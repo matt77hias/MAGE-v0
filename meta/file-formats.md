@@ -4,7 +4,7 @@
 * File extension: `spritefont` or `SPRITEFONT`
 * Use: storing sprite fonts
 * Magic: `MAGEfont`
-* Syntax: see [SpriteFont format](https://github.com/matt77hias/MAGE-SpriteFont).
+* Syntax: see [SpriteFont format](https://github.com/matt77hias/MAGE-SpriteFont)
 
 ### Material: .mtl
 * File mode: ANSI

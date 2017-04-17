@@ -46,6 +46,7 @@ namespace mage {
 		virtual HRESULT Preprocess() override;
 		virtual HRESULT ReadLine(char *line) override;
 
+		HRESULT ImportMesh();
 		void ReadMDLSubModel();
 		void ReadMDLMaterialLibrary();
 

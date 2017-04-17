@@ -6,6 +6,7 @@
 #pragma region
 
 #include "model\mdl\mdl_tokens.hpp"
+#include "mesh\msh\msh_loader.hpp"
 #include "string\string_utils.hpp"
 #include "logging\error.hpp"
 #include "material\material_loader.hpp"
@@ -28,7 +29,20 @@ namespace mage {
 			return E_FAIL;
 		}
 
+		const HRESULT result_mesh = ImportMesh();
+		if (FAILED(result_mesh)) {
+			Error("Mesh importing failed: %08X.", result_mesh);
+			return result_mesh;
+		}
+
 		return S_OK;
+	}
+
+	template < typename VertexT >
+	HRESULT MDLReader< VertexT >::ImportMesh() {
+		const wstring &fname = GetFilename();
+		const wstring msh_fname = mage::GetFilenameWithoutFileExtension(fname) + L".msh";
+		return ImportMSHMeshFromFile(msh_fname, m_model_output.vertex_buffer, m_model_output.index_buffer);
 	}
 
 	template < typename VertexT >

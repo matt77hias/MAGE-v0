@@ -51,7 +51,7 @@ namespace mage {
 		char output[MAX_PATH];
 
 		sprintf_s(output, (unsigned int)_countof(output), "%s %s.mtl",
-			MAGE_MDL_TOKEN_MATERIAL_LIBRARY, str_convert(file_name_we));
+			MAGE_MDL_TOKEN_MATERIAL_LIBRARY, str_convert(file_name_we).c_str());
 
 		WriteStringLine(output);
 	}

@@ -53,9 +53,6 @@ namespace mage {
 		else if (str_equals(token, MAGE_VS_TOKEN_STRING)) {
 			ReadVSString();
 		}
-		else if (str_equals(token, MAGE_VS_TOKEN_UNKNOWN)) {
-			ReadVSUnknown();
-		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 			return S_OK;
@@ -146,12 +143,5 @@ namespace mage {
 		const string str = ReadQuotedString();
 		const string *value = new string(str);
 		m_variable_buffer.push_back(new Variable(VariableType_String, name, value));
-	}
-
-	void VSReader::ReadVSUnknown() {
-		const string name = ReadString();
-		const string str = ReadQuotedString();
-		const string *value = new string(str);
-		m_variable_buffer.push_back(new Variable(VariableType_Unknown, name, value));
 	}
 }

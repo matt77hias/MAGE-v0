@@ -55,7 +55,6 @@ namespace mage {
 		void ReadVSFloat4();
 		void ReadVSColor();
 		void ReadVSString();
-		void ReadVSUnknown();
 
 		//---------------------------------------------------------------------
 		// Member Variables

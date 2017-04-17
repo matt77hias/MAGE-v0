@@ -37,7 +37,6 @@ namespace mage {
 	 Enumeration of variable types.
 	 */
 	enum VariableType {
-		VariableType_Unknown = 0,
 		VariableType_Bool,
 		VariableType_Int,
 		VariableType_Int2,

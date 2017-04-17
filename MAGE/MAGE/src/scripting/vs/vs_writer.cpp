@@ -78,11 +78,6 @@ namespace mage {
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s \"%s\"", MAGE_VS_TOKEN_STRING, name, value->c_str());
 				break;
 			}
-			case VariableType_Unknown: {
-				const char *value = (char *)raw_value;
-				sprintf_s(output, (unsigned int)_countof(output), "%s %s %s", MAGE_VS_TOKEN_UNKNOWN, name, value);
-				break;
-			}
 			default: {
 				Error("%ls: could not export variable: %s", GetFilename().c_str(), name);
 				return E_FAIL;

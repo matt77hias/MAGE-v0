@@ -121,7 +121,7 @@ namespace mage {
 	 */
 	inline const string GetFilenameWithoutFileExtension(const string &fname) {
 		const size_t end_pos = fname.find_last_of(".");
-		return fname.substr(0, end_pos + 1);
+		return fname.substr(0, end_pos);
 	}
 
 	/**
@@ -133,6 +133,6 @@ namespace mage {
 	 */
 	inline const wstring GetFilenameWithoutFileExtension(const wstring &fname) {
 		const size_t end_pos = fname.find_last_of(L".");
-		return fname.substr(0, end_pos + 1);
+		return fname.substr(0, end_pos);
 	}
 }

@@ -16,6 +16,5 @@
 #define MAGE_VS_TOKEN_FLOAT4 "float4"
 #define MAGE_VS_TOKEN_COLOR "color"
 #define MAGE_VS_TOKEN_STRING "string"
-#define MAGE_VS_TOKEN_UNKNOWN "unknown"
 
 #pragma endregion

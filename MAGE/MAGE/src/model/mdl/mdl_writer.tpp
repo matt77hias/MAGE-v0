@@ -47,32 +47,27 @@ namespace mage {
 		const wstring &fname = GetFilename();
 		const wstring file_name = mage::GetFileName(fname);
 		const wstring file_name_we = mage::GetFilenameWithoutFileExtension(file_name);
-		const string mtl_name = str_convert(file_name_we) + ".mtl";
 
-		WriteString(MAGE_MDL_TOKEN_MATERIAL_LIBRARY);
-		WriteCharacter(' ');
-		WriteString(mtl_name);
-		WriteCharacter(' ');
-		WriteCharacter('\n');
+		char output[MAX_PATH];
+
+		sprintf_s(output, (unsigned int)_countof(output), "%s %s.mtl",
+			MAGE_MDL_TOKEN_MATERIAL_LIBRARY, str_convert(file_name_we));
+
+		WriteStringLine(output);
 	}
 
 	template < typename VertexT >
 	void MDLWriter< VertexT >::WriteModelParts() {
+		char output[MAX_PATH];
+		
 		for (vector< ModelPart >::const_iterator it = m_model_output.model_parts.cbegin();
 			it != m_model_output.model_parts.cend(); ++it) {
 
-			WriteString(MAGE_MDL_TOKEN_MATERIAL_LIBRARY);
-			WriteCharacter(' ');
-			WriteString(it->child);
-			WriteCharacter(' ');
-			WriteString(it->parent);
-			WriteCharacter(' ');
-			WriteString(it->material);
-			WriteCharacter(' ');
-			WriteValue(it->start_index);
-			WriteCharacter(' ');
-			WriteValue(it->nb_indices);
-			WriteCharacter('\n');
+			sprintf_s(output, (unsigned int)_countof(output), "%s %s %s %s %u %u", 
+				MAGE_MDL_TOKEN_SUBMODEL, it->child.c_str(), it->parent.c_str(), it->material.c_str(),
+				it->start_index, it->nb_indices);
+			
+			WriteStringLine(output);
 		}
 	}
 }

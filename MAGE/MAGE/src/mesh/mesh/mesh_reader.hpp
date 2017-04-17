@@ -5,9 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\writer.hpp"
+#include "binary\binary_reader.hpp"
 #include "collection\collection.hpp"
-#include "scripting\variable.hpp"
 
 #pragma endregion
 
@@ -16,7 +15,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class VSWriter final : public Writer {
+	template< typename VertexT, typename IndexT >
+	class MESHReader final : public BigEndianBinaryReader {
 
 	public:
 
@@ -24,18 +24,18 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit VSWriter(const vector< Variable * > &variable_buffer)
-			: Writer(), m_variable_buffer(variable_buffer) {}
-		VSWriter(const VSWriter &writer) = delete;
-		VSWriter(VSWriter &&writer) = delete;
-		virtual ~VSWriter() = default;
+		explicit MESHReader(vector< VertexT > &vertices, vector< IndexT > &indices)
+			: BigEndianBinaryReader(), m_vertices(vertices), m_indices(indices) {}
+		MESHReader(const VSReader &reader) = delete;
+		MESHReader(MESHReader &&reader) = delete;
+		virtual ~MESHReader() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
-		VSWriter &operator=(const VSWriter &writer) = delete;
-		VSWriter &operator=(VSWriter &&writer) = delete;
+		MESHReader &operator=(const MESHReader &reader) = delete;
+		MESHReader &operator=(MESHReader &&reader) = delete;
 
 	private:
 
@@ -43,12 +43,24 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual HRESULT Write() override;
+		virtual HRESULT Read() override;
+
+		bool IsHeaderValid();
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		const vector< Variable * > &m_variable_buffer;
+		vector< VertexT > &m_vertices;
+		vector< IndexT > &m_indices;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "mesh\mesh\mesh_reader.tpp"
+
+#pragma endregion

@@ -58,7 +58,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		template< typename DataT >
-		void Write(const DataT *data, size_t count);
+		void WriteValue(const DataT &data);
+		template< typename DataT >
+		void WriteValueArray(const DataT *data, size_t count);
 		void Write(char c);
 		void Write(const char *str);
 		void WriteLine(const char *str);

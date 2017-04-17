@@ -7,7 +7,6 @@
 
 #include "string\writer.hpp"
 #include "collection\collection.hpp"
-#include "scripting\variable.hpp"
 
 #pragma endregion
 
@@ -16,7 +15,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class VSWriter final : public Writer {
+	template< typename VertexT, typename IndexT >
+	class MESHWriter final : public Writer {
 
 	public:
 
@@ -24,18 +24,18 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit VSWriter(const vector< Variable * > &variable_buffer)
-			: Writer(), m_variable_buffer(variable_buffer) {}
-		VSWriter(const VSWriter &writer) = delete;
-		VSWriter(VSWriter &&writer) = delete;
-		virtual ~VSWriter() = default;
+		explicit MESHWriter(const vector< VertexT > &vertices, const vector< IndexT > &indices)
+			: Writer(), m_vertices(vertices), m_indices(indices) {}
+		MESHWriter(const MESHWriter &writer) = delete;
+		MESHWriter(MESHWriter &&writer) = delete;
+		virtual ~MESHWriter() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
-		VSWriter &operator=(const VSWriter &writer) = delete;
-		VSWriter &operator=(VSWriter &&writer) = delete;
+		MESHWriter &operator=(const MESHWriter &writer) = delete;
+		MESHWriter &operator=(MESHWriter &&writer) = delete;
 
 	private:
 
@@ -49,6 +49,16 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		const vector< Variable * > &m_variable_buffer;
+		const vector< VertexT > &m_vertices;
+		const vector< IndexT > &m_indices;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "mesh\mesh\mesh_writer.tpp"
+
+#pragma endregion

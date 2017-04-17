@@ -214,6 +214,9 @@
     <Filter Include="Source Files\timer">
       <UniqueIdentifier>{2e63c3b9-e3dd-4066-98c2-40380aaf8d47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\mesh\mesh">
+      <UniqueIdentifier>{64d4666f-d830-4c5e-8a25-388b28130596}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -618,6 +621,18 @@
     <ClInclude Include="MAGE\src\script\manhattan_input_controller_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\mesh\mesh_reader.hpp">
+      <Filter>Header Files\mesh\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\mesh\mesh_tokens.hpp">
+      <Filter>Header Files\mesh\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\mesh\mesh_writer.hpp">
+      <Filter>Header Files\mesh\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\mesh\mesh_loader.hpp">
+      <Filter>Header Files\mesh\mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -929,6 +944,15 @@
     </None>
     <None Include="MAGE\src\string\writer.tpp">
       <Filter>Header Files\string</Filter>
+    </None>
+    <None Include="MAGE\src\mesh\mesh\mesh_loader.tpp">
+      <Filter>Header Files\mesh\mesh</Filter>
+    </None>
+    <None Include="MAGE\src\mesh\mesh\mesh_writer.tpp">
+      <Filter>Header Files\mesh\mesh</Filter>
+    </None>
+    <None Include="MAGE\src\mesh\mesh\mesh_reader.tpp">
+      <Filter>Header Files\mesh\mesh</Filter>
     </None>
   </ItemGroup>
 </Project>

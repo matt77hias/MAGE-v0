@@ -35,6 +35,12 @@ MAGE - Matthias Advanced Game Engine
 * [DirectXTK](https://github.com/Microsoft/DirectXTK) [[License](https://github.com/Microsoft/DirectXTK/blob/master/LICENSE)]
 * [Logo](http://www.deviantart.com/art/Black-Mage-356147620) [[License](https://creativecommons.org/licenses/by-nc-nd/3.0/)]
 
+## Current iteration' TODOs
+* Frustum culling
+* Multiple lights/Lighting
+* Collision detection
+* Optional MSAA
+
 ## Further iterations
 * Animation
 * Audio

@@ -56,7 +56,7 @@ private:
 		
 		// ModelDescriptor
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc = CreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc = CreateModelDescriptor(L"assets/models/sponza/sponza.obj", mesh_desc);
 		// Model
 		SharedPtr< Model > model(new MeshModel("model", *model_desc));
 		model->GetTransform()->SetScale(10.0f, 10.0f, 10.0f);

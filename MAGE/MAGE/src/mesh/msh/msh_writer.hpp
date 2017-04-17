@@ -25,7 +25,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit MSHWriter(const vector< VertexT > &vertices, const vector< IndexT > &indices)
-			: Writer(), m_vertices(vertices), m_indices(indices) {}
+			: BigEndianBinaryWriter(), m_vertices(vertices), m_indices(indices) {}
 		MSHWriter(const MSHWriter &writer) = delete;
 		MSHWriter(MSHWriter &&writer) = delete;
 		virtual ~MSHWriter() = default;

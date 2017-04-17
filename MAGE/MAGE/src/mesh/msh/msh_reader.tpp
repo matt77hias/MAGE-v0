@@ -28,7 +28,7 @@ namespace mage {
 	HRESULT MSHReader< VertexT, IndexT >::Read() {
 
 		if (!IsHeaderValid()) {
-			Error("%ls: invalid sprite font header.", GetFilename().c_str());
+			Error("%ls: invalid mesh header.", GetFilename().c_str());
 			return E_FAIL;
 		}
 

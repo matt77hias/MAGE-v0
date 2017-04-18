@@ -58,7 +58,7 @@ private:
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		SharedPtr< ModelDescriptor > model_desc = CreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
 		// Model
-		SharedPtr< Model > model(new MeshModel("model", *model_desc));
+		SharedPtr< MeshModel > model(new MeshModel("model", *model_desc));
 		model->GetTransform()->SetScale(10.0f, 10.0f, 10.0f);
 		GetWorld()->AddModel(model);
 		
@@ -66,19 +66,19 @@ private:
 		SharedPtr< PointLight > light(new PointLight("light", 100.0f, RGBSpectrum(0.5f, 0.5f, 0.0f)));
 		GetWorld()->AddLight(light);
 
-		// Font
-		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
-		// Text
-		SharedPtr< SpriteText > text(new NormalSpriteText("text", font));
-		GetWorld()->AddText(text);
-
 		// Texture
 		SharedPtr< Texture > texture = CreateTexture(L"assets/sprites/mage.dds");
 		// Image
 		SharedPtr< SpriteImage > image(new SpriteImage("image", texture));
 		image->GetTransform()->SetScale(0.25f, 0.25f);
 		image->GetTransform()->SetNormalizedTranslation(0.90f, 0.88f);
-		GetWorld()->AddImage(image);
+		GetWorld()->AddSprite(image);
+
+		// Font
+		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
+		// Text
+		SharedPtr< SpriteText > text(new NormalSpriteText("text", font));
+		GetWorld()->AddSprite(text);
 
 		// Scripts
 		//SharedPtr< BehaviorScript > script(new TestScript(model));

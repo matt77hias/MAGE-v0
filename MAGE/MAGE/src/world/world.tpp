@@ -26,23 +26,15 @@ namespace mage {
 	}
 
 	template< typename ActionT >
-	inline void World::ForEachText(ActionT action) const {
-		for (vector< SharedPtr< SpriteText > >::const_iterator it = m_texts.cbegin(); it != m_texts.cend(); ++it) {
-			action(**it);
-		}
-	}
-
-	template< typename ActionT >
-	inline void World::ForEachImage(ActionT action) const {
-		for (vector< SharedPtr< SpriteImage > >::const_iterator it = m_images.cbegin(); it != m_images.cend(); ++it) {
+	inline void World::ForEachSprite(ActionT action) const {
+		for (vector< SharedPtr< SpriteObject > >::const_iterator it = m_sprites.cbegin(); it != m_sprites.cend(); ++it) {
 			action(**it);
 		}
 	}
 
 	template< typename ActionT >
 	inline void World::ForEachObject2D(ActionT action) const {
-		ForEachText(action);
-		ForEachImage(action);
+		ForEachSprite(action);
 	}
 
 	template< typename ActionT >

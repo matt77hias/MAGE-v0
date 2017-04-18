@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "sprite\sprite_batch.hpp"
+#include "sprite\sprite_object.hpp"
 #include "texture\texture.hpp"
 
 #pragma endregion
@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class SpriteImage {
+	class SpriteImage : public SpriteObject {
 
 	public:
 
@@ -25,26 +25,22 @@ namespace mage {
 
 		explicit SpriteImage(const string &name, SharedPtr< Texture > texture,
 			const Color &color, SpriteEffect effects = SpriteEffect_None)
-			: m_name(name), m_color(color), m_effects(effects),
-			m_region(), m_texture(texture),
-			m_transform(new SpriteTransform()) {}
+			: SpriteObject(name, effects), m_color(color),
+			m_region(), m_texture(texture) {}
 		explicit SpriteImage(const string &name, SharedPtr< Texture > texture, const RECT &region,
 			const Color &color, SpriteEffect effects = SpriteEffect_None)
-			: m_name(name), m_color(color), m_effects(effects),
-			m_region(new RECT(region)), m_texture(texture),
-			m_transform(new SpriteTransform()) {}
+			: SpriteObject(name, effects), m_color(color),
+			m_region(new RECT(region)), m_texture(texture) {}
 		explicit SpriteImage(const string &name, SharedPtr< Texture > texture,
 			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
-			: m_name(name), m_color(), m_effects(effects),
-			m_region(), m_texture(texture),
-			m_transform(new SpriteTransform()) {
+			: SpriteObject(name, effects), m_color(),
+			m_region(), m_texture(texture) {
 			SetColor(color);
 		}
 		explicit SpriteImage(const string &name, SharedPtr< Texture > texture, const RECT &region,
 			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None)
-			: m_name(name), m_color(), m_effects(effects),
-			m_region(new RECT(region)), m_texture(texture),
-			m_transform(new SpriteTransform()) {
+			: SpriteObject(name, effects), m_color(),
+			m_region(new RECT(region)), m_texture(texture) {
 			SetColor(color);
 		}
 		SpriteImage(const SpriteImage &sprite_image);
@@ -62,14 +58,12 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		virtual SpriteImage *Clone() const {
+			return new SpriteImage(*this);
+		}
+
 		void Draw(SpriteBatch &sprite_batch) const;
 
-		const string &GetName() const {
-			return m_name;
-		}
-		void SetName(const string &name) {
-			m_name = name;
-		}
 		void SetRegion(const RECT &region) {
 			m_region.reset(new RECT(region));
 		}
@@ -88,15 +82,6 @@ namespace mage {
 		void SetColor(const XMVECTOR &color) {
 			XMStoreFloat4(&m_color, color);
 		}
-		void SetSpriteEffects(SpriteEffect effects) {
-			m_effects = effects;
-		}
-		SpriteTransform *GetTransform() {
-			return m_transform.get();
-		}
-		const SpriteTransform *GetTransform() const {
-			return m_transform.get();
-		}
 
 	private:
 
@@ -112,12 +97,8 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		string m_name;
-
 		Color m_color;
-		SpriteEffect m_effects;
 		UniquePtr< RECT > m_region;
 		SharedPtr< Texture > m_texture;
-		UniquePtr< SpriteTransform > m_transform;
 	};
 }

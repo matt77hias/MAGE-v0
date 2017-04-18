@@ -45,7 +45,11 @@
     <ClInclude Include="MAGE\src\input\input_manager.hpp" />
     <ClInclude Include="MAGE\src\input\keyboard.hpp" />
     <ClInclude Include="MAGE\src\input\mouse.hpp" />
+    <ClInclude Include="MAGE\src\light\directional_light.hpp" />
+    <ClInclude Include="MAGE\src\light\light.hpp" />
+    <ClInclude Include="MAGE\src\light\omni_light.hpp" />
     <ClInclude Include="MAGE\src\light\point_light.hpp" />
+    <ClInclude Include="MAGE\src\light\spot_light.hpp" />
     <ClInclude Include="MAGE\src\logging\error.hpp" />
     <ClInclude Include="MAGE\src\logging\logging.hpp" />
     <ClInclude Include="MAGE\src\logging\progress_reporter.hpp" />
@@ -133,6 +137,7 @@
     <ClInclude Include="MAGE\src\shader\shading.hpp" />
     <ClInclude Include="MAGE\src\shader\shader.hpp" />
     <ClInclude Include="MAGE\src\shader\sprite_shader.hpp" />
+    <ClInclude Include="MAGE\src\sprite\sprite_object.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_batch.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_effects.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_image.hpp" />
@@ -224,6 +229,7 @@
     <ClCompile Include="MAGE\src\shader\sprite_shader.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_batch.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_image.cpp" />
+    <ClCompile Include="MAGE\src\sprite\sprite_object.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_utils.cpp" />
     <ClCompile Include="MAGE\src\string\binary_reader.cpp" />
     <ClCompile Include="MAGE\src\string\line_reader.cpp" />
@@ -238,7 +244,6 @@
     <ClCompile Include="MAGE\src\text\dropshadow_sprite_text.cpp" />
     <ClCompile Include="MAGE\src\text\normal_sprite_text.cpp" />
     <ClCompile Include="MAGE\src\text\outline_sprite_text.cpp" />
-    <ClCompile Include="MAGE\src\text\sprite_text.cpp" />
     <ClCompile Include="MAGE\src\timer\cpu_timer.cpp" />
     <ClCompile Include="MAGE\src\timer\timer.cpp" />
     <ClCompile Include="MAGE\src\ui\combo_box.cpp" />

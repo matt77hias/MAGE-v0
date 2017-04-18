@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "sprite\sprite_object.hpp"
 #include "font\sprite_font.hpp"
 #include "text\sprite_text_item.hpp"
 
@@ -15,7 +16,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class SpriteText {
+	class SpriteText : public SpriteObject {
 
 	public:
 
@@ -29,7 +30,7 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		SpriteText &operator=(const SpriteText &sprite_text);
+		SpriteText &operator=(const SpriteText &sprite_text) = default;
 		SpriteText &operator=(SpriteText &&sprite_text) = default;
 
 		//---------------------------------------------------------------------
@@ -40,19 +41,12 @@ namespace mage {
 
 		virtual void Draw(SpriteBatch &sprite_batch) const = 0;
 
-		const string &GetName() const {
-			return m_name;
-		}
-		void SetName(const string &name) {
-			m_name = name;
-		}
 		SharedPtr< SpriteFont > GetFont() const {
 			return m_font;
 		}
 		void SetFont(SharedPtr< SpriteFont > font) {
 			m_font = font;
 		}
-		
 		void SetText(const wstring &text) {
 			m_items.clear();
 			m_items.push_back(SpriteTextItem(text));
@@ -76,20 +70,6 @@ namespace mage {
 		}
 		void SetColor(const Color &color);
 		void SetColor(const XMVECTOR &color);
-
-		SpriteEffect GetSpriteEffects() const {
-			return m_effects;
-		}
-		void SetSpriteEffects(SpriteEffect effects) {
-			m_effects = effects;
-		}
-		SpriteTransform *GetTransform() {
-			return m_transform.get();
-		}
-		const SpriteTransform *GetTransform() const {
-			return m_transform.get();
-		}
-
 		const XMVECTOR MeasureString() const;
 
 	protected:
@@ -100,9 +80,8 @@ namespace mage {
 
 		explicit SpriteText(const string &name, SharedPtr< SpriteFont > font,
 			SpriteEffect effects = SpriteEffect_None) 
-			: m_name(name), m_effects(effects),
-			m_font(font), m_transform(new SpriteTransform()) {}
-		SpriteText(const SpriteText &sprite_text);
+			: SpriteObject(name, effects), m_items(), m_font(font) {}
+		SpriteText(const SpriteText &sprite_text) = default;
 		SpriteText(SpriteText &&sprite_text) = default;
 
 		//---------------------------------------------------------------------
@@ -124,11 +103,8 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		string m_name;
 		vector< SpriteTextItem > m_items;
-		SpriteEffect m_effects;
 		SharedPtr< SpriteFont > m_font;
-		UniquePtr< SpriteTransform > m_transform;
 	};
 }
 

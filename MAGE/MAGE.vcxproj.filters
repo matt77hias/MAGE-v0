@@ -651,6 +651,21 @@
     <ClInclude Include="MAGE\src\binary\binary_writer.hpp">
       <Filter>Header Files\binary</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\light\spot_light.hpp">
+      <Filter>Header Files\light</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\light\directional_light.hpp">
+      <Filter>Header Files\light</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\light\light.hpp">
+      <Filter>Header Files\light</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\light\omni_light.hpp">
+      <Filter>Header Files\light</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite_object.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -842,9 +857,6 @@
     <ClCompile Include="MAGE\src\script\system_usage_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\text\sprite_text.cpp">
-      <Filter>Source Files\text</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\text\dropshadow_sprite_text.cpp">
       <Filter>Source Files\text</Filter>
     </ClCompile>
@@ -898,6 +910,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\binary\binary_writer.cpp">
       <Filter>Source Files\binary</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\sprite\sprite_object.cpp">
+      <Filter>Source Files\sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -16,8 +16,7 @@
 namespace mage {
 
 	World::World() 
-		: m_models(), m_lights(), 
-		m_texts(), m_images(), 
+		: m_models(), m_lights(), m_sprites(),
 		m_sprite_batch(CreateSpriteBatch()) {}
 
 	World::~World() {
@@ -27,17 +26,13 @@ namespace mage {
 	void World::Clear() {
 		RemoveAllModels();
 		RemoveAllLights();
-		RemoveAllTexts();
-		RemoveAllImages();
+		RemoveAllSprites();
 	}
 
 	void World::Render2D() const {
 		m_sprite_batch->Begin();
-		ForEachImage([&](const SpriteImage &image) {
-			image.Draw(*m_sprite_batch);
-		});
-		ForEachText([&](const SpriteText &text) {
-			text.Draw(*m_sprite_batch);
+		ForEachSprite([&](const SpriteObject &sprite) {
+			sprite.Draw(*m_sprite_batch);
 		});
 		m_sprite_batch->End();
 	}
@@ -116,28 +111,28 @@ namespace mage {
 	}
 
 	//-------------------------------------------------------------------------
-	// Texts
+	// Sprites
 	//-------------------------------------------------------------------------
 
-	bool World::HasText(const SharedPtr< SpriteText > text) const {
-		for (vector< SharedPtr< SpriteText > >::const_iterator it = m_texts.cbegin(); it != m_texts.cend(); ++it) {
-			if ((*it) == text) {
+	bool World::HasSprite(const SharedPtr< SpriteObject > sprite) const {
+		for (vector< SharedPtr< SpriteObject > >::const_iterator it = m_sprites.cbegin(); it != m_sprites.cend(); ++it) {
+			if ((*it) == sprite) {
 				return true;
 			}
 		}
 		return false;
 	}
-	void World::AddText(SharedPtr< SpriteText > text) {
-		if (!text) {
+	void World::AddSprite(SharedPtr< SpriteObject > sprite) {
+		if (!sprite) {
 			return;
 		}
-		m_texts.push_back(text);
+		m_sprites.push_back(sprite);
 	}
-	void World::RemoveText(SharedPtr< SpriteText > text) {
-		vector< SharedPtr< SpriteText > >::iterator it = m_texts.begin();
-		while (it != m_texts.end()) {
-			if ((*it) == text) {
-				it = m_texts.erase(it);
+	void World::RemoveSprite(SharedPtr< SpriteObject > sprite) {
+		vector< SharedPtr< SpriteObject > >::iterator it = m_sprites.begin();
+		while (it != m_sprites.end()) {
+			if ((*it) == sprite) {
+				it = m_sprites.erase(it);
 				break;
 			}
 			else {
@@ -145,41 +140,7 @@ namespace mage {
 			}
 		}
 	}
-	void World::RemoveAllTexts() {
-		m_texts.clear();
-	}
-
-	//-------------------------------------------------------------------------
-	// Images
-	//-------------------------------------------------------------------------
-
-	bool World::HasImage(const SharedPtr< SpriteImage > image) const {
-		for (vector< SharedPtr< SpriteImage > >::const_iterator it = m_images.cbegin(); it != m_images.cend(); ++it) {
-			if ((*it) == image) {
-				return true;
-			}
-		}
-		return false;
-	}
-	void World::AddImage(SharedPtr< SpriteImage > image) {
-		if (!image) {
-			return;
-		}
-		m_images.push_back(image);
-	}
-	void World::RemoveImage(SharedPtr< SpriteImage > image) {
-		vector< SharedPtr< SpriteImage > >::iterator it = m_images.begin();
-		while (it != m_images.end()) {
-			if ((*it) == image) {
-				it = m_images.erase(it);
-				break;
-			}
-			else {
-				++it;
-			}
-		}
-	}
-	void World::RemoveAllImages() {
-		m_images.clear();
+	void World::RemoveAllSprites() {
+		m_sprites.clear();
 	}
 }

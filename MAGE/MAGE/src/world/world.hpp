@@ -18,8 +18,7 @@ namespace mage {
 	class Model;
 	class PointLight;
 	class SpriteBatch;
-	class SpriteText;
-	class SpriteImage;
+	class SpriteObject;
 
 	class World final {
 
@@ -85,32 +84,18 @@ namespace mage {
 		void ForEachLight(ActionT action) const;
 
 		//-------------------------------------------------------------------------
-		// Member Methods: Texts
+		// Member Methods: Sprites
 		//-------------------------------------------------------------------------
 
-		size_t GetNumberOfTexts() const {
-			return m_texts.size();
+		size_t GetNumberOfSprites() const {
+			return m_sprites.size();
 		}
-		bool HasText(const SharedPtr< SpriteText > text) const;
-		void AddText(SharedPtr< SpriteText > text);
-		void RemoveText(SharedPtr< SpriteText > text);
-		void RemoveAllTexts();
+		bool HasSprite(const SharedPtr< SpriteObject > sprite) const;
+		void AddSprite(SharedPtr< SpriteObject > sprite);
+		void RemoveSprite(SharedPtr< SpriteObject > sprite);
+		void RemoveAllSprites();
 		template< typename ActionT >
-		void ForEachText(ActionT action) const;
-
-		//-------------------------------------------------------------------------
-		// Member Methods: Images
-		//-------------------------------------------------------------------------
-
-		size_t GetNumberOfImages() const {
-			return m_images.size();
-		}
-		bool HasImage(const SharedPtr< SpriteImage > image) const;
-		void AddImage(SharedPtr< SpriteImage > image);
-		void RemoveImage(SharedPtr< SpriteImage > image);
-		void RemoveAllImages();
-		template< typename ActionT >
-		void ForEachImage(ActionT action) const;
+		void ForEachSprite(ActionT action) const;
 
 	private:
 
@@ -123,8 +108,7 @@ namespace mage {
 		vector< SharedPtr< PointLight > > m_lights;
 
 		// 2D
-		vector< SharedPtr < SpriteText > > m_texts;
-		vector< SharedPtr < SpriteImage > > m_images;
+		vector< SharedPtr < SpriteObject > > m_sprites;
 		SharedPtr< SpriteBatch > m_sprite_batch;
 	};
 }

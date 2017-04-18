@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include "script\fps_input_controller_script.hpp"
-#include "script\manhattan_input_controller_script.hpp"
 #include "script\stats_script.hpp"
 #include "script\wireframe_script.hpp"
 
@@ -84,7 +83,7 @@ private:
 		// Scripts
 		//SharedPtr< BehaviorScript > script(new TestScript(model));
 		//AddScript(script);
-		SharedPtr< BehaviorScript > controller(new ManhattanInputControllerScript(camera->GetTransform()));
+		SharedPtr< BehaviorScript > controller(new FPSInputControllerScript(camera->GetTransform()));
 		AddScript(controller);
 		
 		SharedPtr< BehaviorScript > stats(new StatsScript(text));

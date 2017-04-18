@@ -120,7 +120,7 @@ namespace mage {
 		 @return		A reference to this camera.
 		 */
 		Camera &SetWidthAndHeight(float width, float height) {
-			m_width = width;
+			m_width  = width;
 			m_height = height;
 			return (*this);
 		}
@@ -178,7 +178,7 @@ namespace mage {
 		 */
 		Camera &SetNearAndFarZ(float near_z, float far_z) {
 			m_near_z = near_z;
-			m_far_z = far_z;
+			m_far_z  = far_z;
 			return (*this);
 		}
 
@@ -210,8 +210,10 @@ namespace mage {
 						The position of the far z-plane.
 		 */
 		explicit Camera(const string &name, float width, float height, 
-			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: WorldObject(name), m_width(width), m_height(height), 
+			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
+			: WorldObject(name), 
+			m_width(width), m_height(height), 
 			m_near_z(near_z), m_far_z(far_z) {}
 
 		/**

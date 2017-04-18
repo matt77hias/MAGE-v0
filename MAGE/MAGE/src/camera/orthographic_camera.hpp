@@ -30,17 +30,20 @@ namespace mage {
 
 		 @param[in]		name
 						A reference to the name of the orthographic camera.
-		 @param[in]		width
-						The width.
-		 @param[in]		height
-						The height.
 		 @param[in]		near_z
 						The position of the near z-plane.
 		 @param[in]		far_z
 						The position of the far z-plane.
+		  @param[in]	width
+						The width.
+		 @param[in]		height
+						The height.
 		 */
-		OrthographicCamera(const string &name, float width, float height, 
-			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z)
+		OrthographicCamera(const string &name, 
+			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z,
+			float width  = 2.0f,
+			float height = 2.0f)
 			: Camera(name, width, height, near_z, far_z) {}
 		
 		/**
@@ -119,7 +122,8 @@ namespace mage {
 						The position of the far z-plane.
 		*/
 		void SetViewToProjectionMatrix(float width, float height,
-			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, float far_z = MAGE_DEFAULT_CAMERA_FAR_Z) {
+			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) {
 			
 			SetWidthAndHeight(width, height);
 			SetNearAndFarZ(near_z, far_z);
@@ -128,5 +132,5 @@ namespace mage {
 
 	SharedPtr< Camera > CreateOrthographicCamera(const string &name,
 		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
-		float far_z = MAGE_DEFAULT_CAMERA_FAR_Z);
+		float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
 }

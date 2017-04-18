@@ -28,14 +28,15 @@ namespace mage {
 		else if (keyboard->GetKeyPress(DIK_RIGHT, true) || keyboard->GetKeyPress(DIK_D, true)) {
 			m_transform->AddTranslationX(movement_magnitude);
 		}
-		else if (keyboard->GetKeyPress(DIK_LSHIFT, true)) {
+		else if (keyboard->GetKeyPress(DIK_LEFT, true) || keyboard->GetKeyPress(DIK_A, true)) {
 			m_transform->AddTranslationX(-movement_magnitude);
+		}
+		else if (keyboard->GetKeyPress(DIK_LSHIFT, true)) {
+			m_transform->AddTranslationY(-movement_magnitude);
 		}
 		else if (keyboard->GetKeyPress(DIK_RSHIFT, true)) {
 			m_transform->AddTranslationY(movement_magnitude);
 		}
-		else if (keyboard->GetKeyPress(DIK_LEFT, true) || keyboard->GetKeyPress(DIK_A, true)) {
-			m_transform->AddTranslationY(-movement_magnitude);
-		}
+		
 	}
 }

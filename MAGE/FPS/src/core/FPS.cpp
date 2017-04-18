@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "script\fps_input_controller_script.hpp"
+#include "script\manhattan_input_controller_script.hpp"
 #include "script\stats_script.hpp"
 #include "script\wireframe_script.hpp"
 
@@ -50,7 +51,7 @@ private:
 	virtual void Load() override {
 
 		// Camera
-		SharedPtr< Camera > camera = CreateOrthographicCamera("camera");
+		SharedPtr< Camera > camera = CreatePerspectiveCamera("camera");
 		camera->GetTransform()->SetTranslation(0.0f, 2.0f, 0.0f);
 		SetCamera(camera);
 		
@@ -83,7 +84,7 @@ private:
 		// Scripts
 		//SharedPtr< BehaviorScript > script(new TestScript(model));
 		//AddScript(script);
-		SharedPtr< BehaviorScript > controller(new FPSInputControllerScript(camera->GetTransform()));
+		SharedPtr< BehaviorScript > controller(new ManhattanInputControllerScript(camera->GetTransform()));
 		AddScript(controller);
 		
 		SharedPtr< BehaviorScript > stats(new StatsScript(text));

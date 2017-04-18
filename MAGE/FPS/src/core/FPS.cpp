@@ -50,7 +50,7 @@ private:
 	virtual void Load() override {
 
 		// Camera
-		SharedPtr< Camera > camera = CreatePerspectiveCamera("camera");
+		SharedPtr< Camera > camera = CreateOrthographicCamera("camera");
 		camera->GetTransform()->SetTranslation(0.0f, 2.0f, 0.0f);
 		SetCamera(camera);
 		
@@ -63,7 +63,7 @@ private:
 		GetWorld()->AddModel(model);
 		
 		// Light
-		SharedPtr< PointLight > light(new PointLight("light", 100.0f, RGBSpectrum(0.5f, 0.5f, 0.0f)));
+		SharedPtr< OmniLight > light(new OmniLight("light", RGBSpectrum(0.5f, 0.5f, 0.0f)));
 		GetWorld()->AddLight(light);
 
 		// Texture

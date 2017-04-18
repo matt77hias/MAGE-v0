@@ -48,10 +48,10 @@ namespace mage {
 	protected:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
+		// Constructors
 		//---------------------------------------------------------------------
 
-		Light(const string name, const RGBSpectrum &intensity)
+		explicit Light(const string name, const RGBSpectrum &intensity)
 			: WorldObject(name), m_intensity(intensity) {}
 		Light(const Light &light) = default;
 		Light(Light &&light) = default;

@@ -4,11 +4,10 @@
 #pragma region
 
 #include "scene\scene.hpp"
-#include "model\meshmodel.hpp"
-#include "light\point_light.hpp"
-#include "text\sprite_text.hpp"
-#include "sprite\sprite_image.hpp"
 #include "scripting\behavior_script.hpp"
+#include "model\model.hpp"
+#include "light\light.hpp"
+#include "sprite\sprite_object.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

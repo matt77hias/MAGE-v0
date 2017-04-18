@@ -4,9 +4,8 @@
 #pragma region
 
 #include "model\model.hpp"
-#include "light\point_light.hpp"
-#include "text\sprite_text.hpp"
-#include "sprite\sprite_image.hpp"
+#include "light\light.hpp"
+#include "sprite\sprite_object.hpp"
 
 #pragma endregion
 
@@ -80,22 +79,22 @@ namespace mage {
 	// Lights
 	//-------------------------------------------------------------------------
 
-	bool World::HasLight(const SharedPtr< PointLight > light) const {
-		for (vector< SharedPtr< PointLight > >::const_iterator it = m_lights.cbegin(); it != m_lights.cend(); ++it) {
+	bool World::HasLight(const SharedPtr< Light > light) const {
+		for (vector< SharedPtr< Light > >::const_iterator it = m_lights.cbegin(); it != m_lights.cend(); ++it) {
 			if ((*it) == light) {
 				return true;
 			}
 		}
 		return false;
 	}
-	void World::AddLight(SharedPtr< PointLight > light) {
+	void World::AddLight(SharedPtr< Light > light) {
 		if (!light) {
 			return;
 		}
 		m_lights.push_back(light);
 	}
-	void World::RemoveLight(SharedPtr< PointLight > light) {
-		vector< SharedPtr< PointLight > >::iterator it = m_lights.begin();
+	void World::RemoveLight(SharedPtr< Light > light) {
+		vector< SharedPtr< Light > >::iterator it = m_lights.begin();
 		while (it != m_lights.end()) {
 			if ((*it) == light) {
 				it = m_lights.erase(it);

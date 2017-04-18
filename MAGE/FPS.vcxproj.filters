@@ -24,7 +24,7 @@
     <ClInclude Include="FPS\src\core\stdafx.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
-    <ClInclude Include="FPS\src\core\targetver.h">
+    <ClInclude Include="FPS\src\core\targetver.hpp">
       <Filter>Header Files\core</Filter>
     </ClInclude>
   </ItemGroup>

@@ -16,9 +16,9 @@ namespace mage {
 
 	// Forward declarations
 	class Model;
-	class PointLight;
-	class SpriteBatch;
+	class Light;
 	class SpriteObject;
+	class SpriteBatch;
 
 	class World final {
 
@@ -76,9 +76,9 @@ namespace mage {
 		size_t GetNumberOfLights() const {
 			return m_lights.size();
 		}
-		bool HasLight(const SharedPtr< PointLight > light) const;
-		void AddLight(SharedPtr< PointLight > light);
-		void RemoveLight(SharedPtr< PointLight > light);
+		bool HasLight(const SharedPtr< Light > light) const;
+		void AddLight(SharedPtr< Light > light);
+		void RemoveLight(SharedPtr< Light > light);
 		void RemoveAllLights();
 		template< typename ActionT >
 		void ForEachLight(ActionT action) const;
@@ -105,7 +105,7 @@ namespace mage {
 
 		// 3D
 		vector< SharedPtr< Model > > m_models;
-		vector< SharedPtr< PointLight > > m_lights;
+		vector< SharedPtr< Light > > m_lights;
 
 		// 2D
 		vector< SharedPtr < SpriteObject > > m_sprites;

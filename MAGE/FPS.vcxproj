@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPS\src\core\stdafx.h" />
-    <ClInclude Include="FPS\src\core\targetver.h" />
+    <ClInclude Include="FPS\src\core\targetver.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FPS\src\core\FPS.cpp" />

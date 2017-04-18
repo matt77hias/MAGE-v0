@@ -432,9 +432,6 @@
     <ClInclude Include="MAGE\src\scene\scene.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\light\point_light.hpp">
-      <Filter>Header Files\light</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\model\meshmodel.hpp">
       <Filter>Header Files\model</Filter>
     </ClInclude>

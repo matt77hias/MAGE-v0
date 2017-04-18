@@ -10,6 +10,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y XM_PIDIV2
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -42,7 +51,7 @@ namespace mage {
 						The position of the far z-plane.
 		 */
 		PerspectiveCamera(const string &name, float width, float height, 
-			float fov_y  = MAGE_DEFAULT_CAMERA_FOV_Y,
+			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
 			: Camera(name, width, height, near_z, far_z), m_fov_y(fov_y) {}
@@ -155,7 +164,7 @@ namespace mage {
 						The position of the far z-plane.
 		 */
 		void SetViewToProjectionMatrix(float width, float height, 
-			float fov_y  = MAGE_DEFAULT_CAMERA_FOV_Y,
+			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) {
 			
@@ -177,7 +186,7 @@ namespace mage {
 	};
 
 	SharedPtr< Camera > CreatePerspectiveCamera(const string &name, 
-		float fov_y  = MAGE_DEFAULT_CAMERA_FOV_Y,
+		float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 		float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
 }

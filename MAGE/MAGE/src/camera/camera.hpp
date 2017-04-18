@@ -14,7 +14,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_DEFAULT_CAMERA_FOV_Y XM_PIDIV2
 #define MAGE_DEFAULT_CAMERA_NEAR_Z 0.01f
 #define MAGE_DEFAULT_CAMERA_FAR_Z 100.0f
 

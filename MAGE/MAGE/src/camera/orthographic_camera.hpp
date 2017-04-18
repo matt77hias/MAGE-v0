@@ -10,6 +10,16 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH 2.0f
+#define MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT 2.0f
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -30,20 +40,20 @@ namespace mage {
 
 		 @param[in]		name
 						A reference to the name of the orthographic camera.
+		 @param[in]		width
+						The width.
+		 @param[in]		height
+						The height.
 		 @param[in]		near_z
 						The position of the near z-plane.
 		 @param[in]		far_z
 						The position of the far z-plane.
-		  @param[in]	width
-						The width.
-		 @param[in]		height
-						The height.
 		 */
 		OrthographicCamera(const string &name, 
+			float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
+			float height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z,
-			float width  = 2.0f,
-			float height = 2.0f)
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
 			: Camera(name, width, height, near_z, far_z) {}
 		
 		/**
@@ -121,7 +131,9 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane.
 		*/
-		void SetViewToProjectionMatrix(float width, float height,
+		void SetViewToProjectionMatrix(
+			float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
+			float height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) {
 			
@@ -131,6 +143,8 @@ namespace mage {
 	};
 
 	SharedPtr< Camera > CreateOrthographicCamera(const string &name,
+		float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
+		float height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
 		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 		float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
 }

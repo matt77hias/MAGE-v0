@@ -27,8 +27,8 @@ MAGE - Matthias Advanced Game Engine
 * [directxtk-samples](https://github.com/walbourn/directxtk-samples) [[License](https://github.com/walbourn/directxtk-samples/blob/master/LICENSE)]
 * [pbrt-v2](https://github.com/mmp/pbrt-v2): low level, non-pbrt functionality [[License](https://github.com/mmp/pbrt-v2/blob/master/src/LICENSE.txt)]
 * [pbrt-v3](https://github.com/mmp/pbrt-v3): low level, non-pbrt functionality [[License](https://github.com/mmp/pbrt-v3/blob/master/LICENSE.txt)]
-* [RasterTek: DirectX 11 Tutorials](https://www.rastertek.com/tutdx11.html)
-* [RasterTek: DirectX 11 Tutorials - Series 2](https://www.rastertek.com/tutdx11s2.html)
+* [RasterTek: DirectX 11 Tutorials](http://www.rastertek.com/tutdx11.html)
+* [RasterTek: DirectX 11 Tutorials - Series 2](http://www.rastertek.com/tutdx11s2.html)
 * [VYGE](https://github.com/matt77hias/VYGE)
 
 *Substantially* based on:

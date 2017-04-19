@@ -41,20 +41,21 @@ namespace mage {
 		 @param[in]		name
 						A reference to the name of the orthographic camera.
 		 @param[in]		width
-						The width.
+						The width in camera space.
 		 @param[in]		height
-						The height.
+						The height in camera space.
 		 @param[in]		near_z
-						The position of the near z-plane.
+						The position of the near z-plane in camera space.
 		 @param[in]		far_z
-						The position of the far z-plane.
+						The position of the far z-plane in camera space.
 		 */
-		OrthographicCamera(const string &name, 
+		explicit OrthographicCamera(const string &name, 
 			float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
 			float height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: Camera(name, width, height, near_z, far_z) {}
+			: Camera(name, near_z, far_z), 
+			m_width(width), m_height(height) {}
 		
 		/**
 		 Constructs an orthographic camera from the given orthographic camera.
@@ -84,18 +85,18 @@ namespace mage {
 		/**
 		 Copies the given orthographic camera to this orthographic camera.
 
-		 @param[in]		orthographic_camera
-						The orthographic camera.
+		 @param[in]		camera
+						A reference to the orthographic camera.
 		 */
-		OrthographicCamera &operator=(const OrthographicCamera &orthographic_camera) = default;
+		OrthographicCamera &operator=(const OrthographicCamera &camera) = default;
 		
 		/**
 		 Copies the given orthographic camera to this orthographic camera.
 
-		 @param[in]		orthographic_camera
-						The orthographic camera.
+		 @param[in]		camera
+						A reference to the orthographic camera.
 		 */
-		OrthographicCamera &operator=(OrthographicCamera &&orthographic_camera) = default;
+		OrthographicCamera &operator=(OrthographicCamera &&camera) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -111,25 +112,73 @@ namespace mage {
 		}
 
 		/**
-		 Returns the view-to-projection matrix of this orthographic camera.
+		 Returns the width of this orthographic camera in camera space.
 
-		 @return		The view-to-projection matrix of this orthographic camera.
+		 @return		The width of this orthographic camera in camera space.
 		 */
-		virtual XMMATRIX GetViewToProjectionMatrix() const override {
-			return XMMatrixOrthographicLH(GetWidth(), GetHeight(), GetNearZ(), GetFarZ());
+		float GetWidth() const {
+			return m_width;
+		}
+
+		/**
+		 Sets the width of this orthographic camera to the given value.
+
+		 @param[in]		width
+						The width in camera space.
+		 @return		A reference to this orthographic camera.
+		 */
+		Camera &SetWidth(float width) {
+			m_width = width;
+			return (*this);
+		}
+
+		/**
+		 Returns the height of this orthographic camera in camera space.
+
+		 @return		The height of this orthographic camera in camera space.
+		 */
+		float GetHeight() const {
+			return m_height;
+		}
+
+		/**
+		 Sets the height of this orthographic camera to the given value.
+
+		 @param[in]		height
+						The height in camera space.
+		 @return		A reference to this orthographic camera.
+		 */
+		Camera &SetHeight(float height) {
+			m_height = height;
+			return (*this);
+		}
+
+		/**
+		 Sets the width and height of this orthographic camera to the given values.
+
+		 @param[in]		width
+						The width in camera space.
+		 @param[in]		height
+						The height in camera space.
+		 @return		A reference to this orthographic camera.
+		 */
+		Camera &SetWidthAndHeight(float width, float height) {
+			m_width = width;
+			m_height = height;
+			return (*this);
 		}
 
 		/**
 		 Sets the view-to-projection matrix of this orthographic camera.
 
 		 @param[in]		width
-						The width.
+						The width in camera space.
 		 @param[in]		height
-						The height.
+						The height in camera space.
 		 @param[in]		near_z
-						The position of the near z-plane.
+						The position of the near z-plane in camera space.
 		 @param[in]		far_z
-						The position of the far z-plane.
+						The position of the far z-plane in camera space.
 		*/
 		void SetViewToProjectionMatrix(
 			float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
@@ -140,6 +189,31 @@ namespace mage {
 			SetWidthAndHeight(width, height);
 			SetNearAndFarZ(near_z, far_z);
 		}
+	
+		/**
+		 Returns the view-to-projection matrix of this orthographic camera.
+
+		 @return		The view-to-projection matrix of this orthographic camera.
+		 */
+		virtual XMMATRIX GetViewToProjectionMatrix() const override {
+			return XMMatrixOrthographicLH(GetWidth(), GetHeight(), GetNearZ(), GetFarZ());
+		}
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The width of this orthographic camera in camera space.
+		 */
+		float m_width;
+
+		/**
+		 The height of this orthographic camera in camera space.
+		 */
+		float m_height;
 	};
 
 	SharedPtr< Camera > CreateOrthographicCamera(const string &name,

@@ -39,6 +39,27 @@ namespace mage {
 
 		 @param[in]		name
 						A reference to the name of the perspective camera.
+		 @param[in]		aspect_ratio
+						The aspect ratio.
+		 @param[in]		fov_y
+						The vertical field-of-view.
+		 @param[in]		near_z
+						The position of the near z-plane in camera space.
+		 @param[in]		far_z
+						The position of the far z-plane in camera space.
+		 */
+		explicit PerspectiveCamera(const string &name, float aspect_ratio,
+			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
+			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
+			: Camera(name, near_z, far_z),
+			m_aspect_ratio(aspect_ratio), m_fov_y(fov_y) {}
+
+		/**
+		 Constructs a perspective camera.
+
+		 @param[in]		name
+						A reference to the name of the perspective camera.
 		 @param[in]		width
 						The width.
 		 @param[in]		height
@@ -46,15 +67,16 @@ namespace mage {
 		 @param[in]		fov_y
 						The vertical field-of-view.
 		 @param[in]		near_z
-						The position of the near z-plane.
+						The position of the near z-plane in camera space.
 		 @param[in]		far_z
-						The position of the far z-plane.
+						The position of the far z-plane in camera space.
 		 */
-		PerspectiveCamera(const string &name, float width, float height, 
+		explicit PerspectiveCamera(const string &name, float width, float height, 
 			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: Camera(name, width, height, near_z, far_z), m_fov_y(fov_y) {}
+			: Camera(name, near_z, far_z), 
+			m_aspect_ratio(width / height), m_fov_y(fov_y) {}
 
 		/**
 		 Constructs a perspective camera from the given perpsective camera.
@@ -84,18 +106,18 @@ namespace mage {
 		/**
 		 Copies the given perspective camera to this perspective camera.
 
-		 @param[in]		perspective_camera
-						The perspective camera.
+		 @param[in]		camera
+						A reference to the perspective camera.
 		 */
-		PerspectiveCamera &operator=(const PerspectiveCamera &perspective_camera) = default;
+		PerspectiveCamera &operator=(const PerspectiveCamera &camera) = default;
 
 		/**
 		 Copies the given perspective camera to this perspective camera.
 
-		 @param[in]		perspective_camera
-						The perspective camera.
+		 @param[in]		camera
+						A reference to the perspective camera.
 		 */
-		PerspectiveCamera &operator=(PerspectiveCamera &&perspective_camera) = default;
+		PerspectiveCamera &operator=(PerspectiveCamera &&camera) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -137,16 +159,55 @@ namespace mage {
 		 @return		The aspect ratio of this perspective camera.
 		 */
 		float GetAspectRatio() const {
-			return GetWidth() / GetHeight();
+			return m_aspect_ratio;
+		}
+
+		/**
+		 Sets the aspect ratio of this perspective camera to the given value.
+
+		 @param[in]		aspect_ratio
+						The aspect ratio.
+		 @return		A reference to this perspective camera.
+		 */
+		Camera &SetAspectRatio(float aspect_ratio) {
+			m_aspect_ratio = aspect_ratio;
+			return (*this);
+		}
+
+		/**
+		 Sets the aspect ratio of this perspective camera.
+
+		 @param[in]		width
+						The width.
+		 @param[in]		height
+						The height.
+		 @return		A reference to this perspective camera.
+		 */
+		Camera &SetAspectRatio(float width, float height) {
+			m_aspect_ratio = width / height;
+			return (*this);
 		}
 	
 		/**
-		 Returns the view-to-projection matrix of this perspective camera.
+		 Sets the view-to-projection matrix of this perspective camera.
 
-		 @return		The view-to-projection matrix of this perspective camera.
+		 @param[in]		aspect_ratio
+						The aspect ratio.
+		 @param[in]		fov_y
+						The vertical field-of-view.
+		 @param[in]		near_z
+						The position of the near z-plane in camera space.
+		 @param[in]		far_z
+						The position of the far z-plane in camera space.
 		 */
-		virtual XMMATRIX GetViewToProjectionMatrix() const override {
-			return XMMatrixPerspectiveFovLH(GetFOVY(), GetAspectRatio(), GetNearZ(), GetFarZ());
+		void SetViewToProjectionMatrix(float aspect_ratio,
+			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
+			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) {
+
+			SetAspectRatio(aspect_ratio);
+			SetFOVY(fov_y);
+			SetNearAndFarZ(near_z, far_z);
 		}
 
 		/**
@@ -159,18 +220,27 @@ namespace mage {
 		 @param[in]		fov_y
 						The vertical field-of-view.
 		 @param[in]		near_z
-						The position of the near z-plane.
+						The position of the near z-plane in camera space.
 		 @param[in]		far_z
-						The position of the far z-plane.
+						The position of the far z-plane in camera space.
 		 */
 		void SetViewToProjectionMatrix(float width, float height, 
 			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) {
 			
-			SetWidthAndHeight(width, height);
+			SetAspectRatio(width, height);
 			SetFOVY(fov_y);
 			SetNearAndFarZ(near_z, far_z);
+		}
+
+		/**
+		 Returns the view-to-projection matrix of this perspective camera.
+
+		 @return		The view-to-projection matrix of this perspective camera.
+		 */
+		virtual XMMATRIX GetViewToProjectionMatrix() const override {
+			return XMMatrixPerspectiveFovLH(GetFOVY(), GetAspectRatio(), GetNearZ(), GetFarZ());
 		}
 
 	private:
@@ -178,6 +248,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
+
+		/**
+		 The aspect ratio of this perspective camera.
+		 */
+		float m_aspect_ratio;
 
 		/**
 		 The vertical field-of-view of this perspective camera.

@@ -44,7 +44,7 @@ namespace mage {
 		 Copies the given camera to this camera.
 
 		 @param[in]		camera
-						The camera.
+						A reference to the orthographic camera.
 		 */
 		Camera &operator=(const Camera &camera) = default;
 
@@ -52,7 +52,7 @@ namespace mage {
 		 Copies the given camera to this camera.
 
 		 @param[in]		camera
-						The camera.
+						A reference to the orthographic camera.
 		 */
 		Camera &operator=(Camera &&camera) = default;
 
@@ -68,64 +68,7 @@ namespace mage {
 		virtual Camera *Clone() const = 0;
 
 		/**
-		 Returns the width of this camera.
-
-		 @return		The width of this camera.
-		 */
-		float GetWidth() const {
-			return m_width;
-		}
-		
-		/**
-		 Sets the width of this camera to the given value.
-
-		 @param[in]		width
-						The width.
-		 @return		A reference to this camera.
-		 */
-		Camera &SetWidth(float width) {
-			m_width = width;
-			return (*this);
-		}
-		
-		/**
-		 Returns the height of this camera.
-
-		 @return		The height of this camera.
-		 */
-		float GetHeight() const {
-			return m_height;
-		}
-		
-		/**
-		 Sets the height of this camera to the given value.
-
-		 @param[in]		height
-						The height.
-		 @return		A reference to this camera.
-		 */
-		Camera &SetHeight(float height) {
-			m_height = height;
-			return (*this);
-		}
-		
-		/**
-		 Sets the width and height of this camera to the given values.
-
-		 @param[in]		width
-						The width.
-		 @param[in]		height
-						The height.
-		 @return		A reference to this camera.
-		 */
-		Camera &SetWidthAndHeight(float width, float height) {
-			m_width  = width;
-			m_height = height;
-			return (*this);
-		}
-
-		/**
-		 Returns the position of the near z-plane of this camera.
+		 Returns the position of the near z-plane of this camera in camera space.
 
 		 @return		The position of the near z-plane of this camera.
 		 */
@@ -137,8 +80,8 @@ namespace mage {
 		 Sets the position of the near z-plane of this camera to the given value.
 
 		 @param[in]		near_z
-						The position of the near z-plane.
-		 @return		A reference to this camera.
+						The position of the near z-plane in camera space.
+		 @return		A reference to this camera in camera space.
 		 */
 		Camera &SetNearZ(float near_z) {
 			m_near_z = near_z;
@@ -146,7 +89,7 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the position of the far z-plane of this camera.
+		 Returns the position of the far z-plane of this camera in camera space.
 
 		 @return		The position of the far z-plane of this camera.
 		 */
@@ -158,8 +101,8 @@ namespace mage {
 		 Sets the position of the far z-plane of this camera to the given value.
 
 		 @param[in]		far_z
-						The position of the far z-plane.
-		 @return		A reference to this camera.
+						The position of the far z-plane in camera space.
+		 @return		A reference to this camera in camera space.
 		 */
 		Camera &SetFarZ(float far_z) {
 			m_far_z = far_z;
@@ -170,9 +113,9 @@ namespace mage {
 		 Sets the position of the near and far z-plane of this camera to the given values.
 
 		 @param[in]		near_z
-						The position of the near z-plane.
+						The position of the near z-plane in camera space.
 		 @param[in]		far_z
-						The position of the far z-plane.
+						The position of the far z-plane in camera space.
 		 @return		A reference to this camera.
 		 */
 		Camera &SetNearAndFarZ(float near_z, float far_z) {
@@ -199,20 +142,15 @@ namespace mage {
 
 		 @param[in]		name
 						A reference to the name of the camera.
-		 @param[in]		width
-						The width.
-		 @param[in]		height
-						The height.
 		 @param[in]		near_z
-						The position of the near z-plane.
+						The position of the near z-plane in camera space.
 		 @param[in]		far_z
-						The position of the far z-plane.
+						The position of the far z-plane in camera space.
 		 */
-		explicit Camera(const string &name, float width, float height, 
+		explicit Camera(const string &name,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
 			: WorldObject(name), 
-			m_width(width), m_height(height), 
 			m_near_z(near_z), m_far_z(far_z) {}
 
 		/**
@@ -238,22 +176,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The width of this camera.
-		 */
-		float m_width;
-
-		/**
-		 The height of this camera.
-		 */
-		float m_height;
-
-		/**
-		 The position of the near z-plane. 
+		 The position of the near z-plane in camera space. 
 		 */
 		float m_near_z;
 
 		/**
-		 The position of the far z-plane.
+		 The position of the far z-plane in camera space.
 		 */
 		float m_far_z;
 	};

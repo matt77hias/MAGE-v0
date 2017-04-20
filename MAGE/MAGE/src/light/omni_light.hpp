@@ -20,12 +20,9 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit OmniLight(const string name, const RGBSpectrum &intensity,
-			float distance_falloff_start = 0.0f, 
-			float distance_falloff_end = 10.0f)
+		explicit OmniLight(const string name, const RGBSpectrum &intensity)
 			: Light(name, intensity), 
-			m_distance_falloff_start(distance_falloff_start),
-			m_distance_falloff_end(distance_falloff_end) {}
+			m_distance_falloff_start(0.0f), m_distance_falloff_end(1.0f) {}
 		OmniLight(const OmniLight &light) = default;
 		OmniLight(OmniLight &&light) = default;
 		virtual ~OmniLight() = default;
@@ -52,18 +49,21 @@ namespace mage {
 		float GetStartDistanceFalloff() const {
 			return m_distance_falloff_start;
 		}
-		void SetStartDistanceFalloff(float distance_falloff_start) {
+		OmniLight &SetStartDistanceFalloff(float distance_falloff_start) {
 			m_distance_falloff_start = distance_falloff_start;
+			return (*this);
 		}
 		float GetEndDistanceFalloff() const {
 			return m_distance_falloff_end;
 		}
-		void SetEndDistanceFalloff(float distance_falloff_end) {
+		OmniLight &SetEndDistanceFalloff(float distance_falloff_end) {
 			m_distance_falloff_end = distance_falloff_end;
+			return (*this);
 		}
-		void SetDistanceFalloff(float distance_falloff_start, float distance_falloff_end) {
+		OmniLight &SetDistanceFalloff(float distance_falloff_start, float distance_falloff_end) {
 			SetStartDistanceFalloff(distance_falloff_start);
 			SetEndDistanceFalloff(distance_falloff_end);
+			return (*this);
 		}
 
 	private:

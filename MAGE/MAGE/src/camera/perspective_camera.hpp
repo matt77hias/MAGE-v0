@@ -148,7 +148,7 @@ namespace mage {
 						The vertical field-of-view.
 		 @return		A reference to this perspective camera.
 		 */
-		Camera &SetFOVY(float fov_y) {
+		PerspectiveCamera &SetFOVY(float fov_y) {
 			m_fov_y = fov_y;
 			return (*this);
 		}
@@ -169,7 +169,7 @@ namespace mage {
 						The aspect ratio.
 		 @return		A reference to this perspective camera.
 		 */
-		Camera &SetAspectRatio(float aspect_ratio) {
+		PerspectiveCamera &SetAspectRatio(float aspect_ratio) {
 			m_aspect_ratio = aspect_ratio;
 			return (*this);
 		}
@@ -183,7 +183,7 @@ namespace mage {
 						The height.
 		 @return		A reference to this perspective camera.
 		 */
-		Camera &SetAspectRatio(float width, float height) {
+		PerspectiveCamera &SetAspectRatio(float width, float height) {
 			m_aspect_ratio = width / height;
 			return (*this);
 		}

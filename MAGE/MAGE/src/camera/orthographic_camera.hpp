@@ -127,7 +127,7 @@ namespace mage {
 						The width in camera space.
 		 @return		A reference to this orthographic camera.
 		 */
-		Camera &SetWidth(float width) {
+		OrthographicCamera &SetWidth(float width) {
 			m_width = width;
 			return (*this);
 		}
@@ -148,7 +148,7 @@ namespace mage {
 						The height in camera space.
 		 @return		A reference to this orthographic camera.
 		 */
-		Camera &SetHeight(float height) {
+		OrthographicCamera &SetHeight(float height) {
 			m_height = height;
 			return (*this);
 		}
@@ -162,7 +162,7 @@ namespace mage {
 						The height in camera space.
 		 @return		A reference to this orthographic camera.
 		 */
-		Camera &SetWidthAndHeight(float width, float height) {
+		OrthographicCamera &SetWidthAndHeight(float width, float height) {
 			m_width = width;
 			m_height = height;
 			return (*this);

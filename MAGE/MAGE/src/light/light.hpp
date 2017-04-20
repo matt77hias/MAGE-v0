@@ -64,7 +64,7 @@ namespace mage {
 
 		/**
 		 The intensity of this light.
-		*/
+		 */
 		RGBSpectrum m_intensity;
 	};
 }

@@ -25,7 +25,7 @@ namespace mage {
 		: VertexShader(device, device_context, MAGE_GUID_SPRITE_VS, g_sprite_vs, sizeof(g_sprite_vs),
 			VertexPositionColorTexture::input_element_desc, VertexPositionColorTexture::nb_input_elements) {
 
-		const HRESULT result_cb_transform = CreateConstantBuffer< XMMATRIX >(m_device, m_cb_transform.ReleaseAndGetAddressOf());
+		const HRESULT result_cb_transform = CreateConstantBuffer< XMMATRIX >(m_device, m_transform_buffer.ReleaseAndGetAddressOf());
 		if (FAILED(result_cb_transform)) {
 			Error("Transformation constant buffer creation failed: %08X.", result_cb_transform);
 			return;
@@ -34,9 +34,9 @@ namespace mage {
 
 	void SpriteVertexShader::PrepareShading(const XMMATRIX &transform) const {
 		m_device_context->IASetInputLayout(m_vertex_layout.Get());
-		m_device_context->UpdateSubresource(m_cb_transform.Get(), 0, nullptr, &transform, 0, 0);
+		m_device_context->UpdateSubresource(m_transform_buffer.Get(), 0, nullptr, &transform, 0, 0);
 		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
-		m_device_context->VSSetConstantBuffers(0, 1, m_cb_transform.GetAddressOf());
+		m_device_context->VSSetConstantBuffers(0, 1, m_transform_buffer.GetAddressOf());
 	}
 
 	//-------------------------------------------------------------------------

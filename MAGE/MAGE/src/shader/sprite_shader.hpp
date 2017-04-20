@@ -60,7 +60,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		ComPtr< ID3D11Buffer > m_cb_transform;
+		ComPtr< ID3D11Buffer > m_transform_buffer;
 	};
 
 	//-------------------------------------------------------------------------

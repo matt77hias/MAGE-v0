@@ -42,9 +42,5 @@ namespace mage {
 		virtual DirectionalLight *Clone() const {
 			return new DirectionalLight(*this);
 		}
-
-		const XMVECTOR GetWorldLightDirection() const {
-			return GetTransform()->GetWorldForward();
-		}
 	};
 }

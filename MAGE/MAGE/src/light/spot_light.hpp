@@ -1,9 +1,12 @@
+#pragma once
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
 #include "light\light.hpp"
+#include "memory\allocation.hpp"
 
 #pragma endregion
 
@@ -11,6 +14,29 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	__declspec(align(16)) struct SpotLightBuffer final : public AlignedData< SpotLightBuffer > {
+
+	public:
+
+		SpotLightBuffer() = default;
+		SpotLightBuffer(const SpotLightBuffer &buffer) = default;
+		SpotLightBuffer(SpotLightBuffer &&buffer) = default;
+		~SpotLightBuffer() = default;
+		SpotLightBuffer &operator=(const SpotLightBuffer &buffer) = default;
+		SpotLightBuffer &operator=(SpotLightBuffer &&buffer) = default;
+
+		XMFLOAT4A p;
+		XMFLOAT3  I;
+		float     exponent_property;
+		XMFLOAT3  d;
+		float     distance_falloff_start;
+		float     distance_falloff_end;
+		float     cos_penumbra;
+		float     cos_umbra;
+	};
+
+	static_assert(sizeof(SpotLightBuffer) == 64, "CPU/GPU struct mismatch");
 
 	class SpotLight : public Light {
 
@@ -44,13 +70,20 @@ namespace mage {
 			return new SpotLight(*this);
 		}
 
-		const XMVECTOR GetWorldLightPosition() const {
-			return GetTransform()->GetWorldEye();
+		const SpotLightBuffer GetBuffer(const XMMATRIX &world_to_view) const {
+			SpotLightBuffer buffer;
+
+			XMStoreFloat4(&buffer.p, GetViewLightPosition(world_to_view));
+			buffer.I                      = GetIntensity();
+			buffer.exponent_property      = m_exponent_property;
+			XMStoreFloat3(&buffer.d, GetViewLightDirection(world_to_view));
+			buffer.distance_falloff_start = m_distance_falloff_start;
+			buffer.distance_falloff_end   = m_distance_falloff_end;
+			buffer.cos_penumbra           = m_cos_penumbra;
+			buffer.cos_umbra              = m_cos_umbra;
+			return buffer;
 		}
-		const XMVECTOR GetWorldLightDirection() const {
-			return GetTransform()->GetWorldForward();
-		}
-		
+
 		float GetStartDistanceFalloff() const {
 			return m_distance_falloff_start;
 		}

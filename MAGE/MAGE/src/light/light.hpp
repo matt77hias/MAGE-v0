@@ -56,6 +56,23 @@ namespace mage {
 		Light(const Light &light) = default;
 		Light(Light &&light) = default;
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		const XMVECTOR GetWorldLightPosition() const {
+			return GetTransform()->GetWorldEye();
+		}
+		const XMVECTOR GetWorldLightDirection() const {
+			return GetTransform()->GetWorldForward();
+		}
+		const XMVECTOR GetViewLightPosition(const XMMATRIX &world_to_view) const {
+			return XMVector3Transform(GetWorldLightPosition(), world_to_view);
+		}
+		const XMVECTOR GetViewLightDirection(const XMMATRIX &world_to_view) const {
+			return XMVector3Transform(GetWorldLightDirection(), world_to_view);
+		}
+
 	private:
 
 		//---------------------------------------------------------------------

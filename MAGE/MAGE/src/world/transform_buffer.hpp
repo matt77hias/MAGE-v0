@@ -53,4 +53,6 @@ namespace mage {
 		XMMATRIX m_world_to_view_inverse_transpose;
 		XMMATRIX m_view_to_projection;
 	};
+
+	static_assert(sizeof(TransformBuffer) == 256, "CPU/GPU struct mismatch");
 }

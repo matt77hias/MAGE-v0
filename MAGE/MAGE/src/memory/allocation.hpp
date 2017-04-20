@@ -45,17 +45,17 @@ namespace mage {
 	/**
 	 Allocates memory on an alignment boundary of 64 bytes.
 
-	 @tparam		T
+	 @tparam		DataT
 					The type of objects to allocate in memory.
 	 @param[in]		count
-					The number of objects of type @c T to allocate in memory.
+					The number of objects of type @c DataT to allocate in memory.
 	 @return		@c nullptr if the allocation failed.
 	 @return		A pointer to the memory block that was allocated.
 	 				The pointer is a multiple of the alignment of 64 bytes.
 	*/
-	template < typename T >
-	inline T *AllocAligned(size_t count) {
-		return (T *)AllocAligned(count * sizeof(T));
+	template < typename DataT >
+	inline DataT *AllocAligned(size_t count) {
+		return (DataT *)AllocAligned(count * sizeof(DataT));
 	}
 
 	/**

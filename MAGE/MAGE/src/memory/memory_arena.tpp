@@ -14,10 +14,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template< typename T >
-	T *MemoryArena::Alloc(size_t count, bool initialization) {
+	template< typename DataT >
+	DataT *MemoryArena::Alloc(size_t count, bool initialization) {
 		// Allocation
-		T *ptr = (T *)Alloc(count * sizeof(T));
+		DataT *ptr = (DataT *)Alloc(count * sizeof(DataT));
 
 		if (ptr == nullptr) {
 			// The allocation failed.
@@ -27,7 +27,7 @@ namespace mage {
 		// Initialization
 		if (initialization) {
 			for (size_t i = 0; i < count; ++i) {
-				new (&ptr[i]) T();
+				new (&ptr[i]) DataT();
 			}
 		}
 

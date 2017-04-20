@@ -133,10 +133,10 @@ namespace mage {
 		/**
 		 Allocates a block of memory.
 
-		 @tparam		T
+		 @tparam		DataT
 						The type of objects to allocate in memory.
 		 @param[in]		count
-						The number of objects of type @c T to allocate in memory.
+						The number of objects of type @c DataT to allocate in memory.
 		 @param[in]		initialization
 						Flag indicating whether the objects need to be initialized
 						(i.e. the constructor needs to be called).
@@ -144,8 +144,8 @@ namespace mage {
 		 @return		A pointer to the memory block that was allocated.
 		 @note			The objects will be constructed with their default empty constructor.
 		 */
-		template< typename T >
-		T *Alloc(size_t count = 1, bool initialization = true);
+		template< typename DataT >
+		DataT *Alloc(size_t count = 1, bool initialization = true);
 
 	private:
 

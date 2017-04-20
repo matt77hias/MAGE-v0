@@ -95,6 +95,7 @@
     <ClInclude Include="MAGE\src\parallel\lock.hpp" />
     <ClInclude Include="MAGE\src\parallel\parallel.hpp" />
     <ClInclude Include="MAGE\src\platform\windows.hpp" />
+    <ClInclude Include="MAGE\src\rendering\constant_buffer.hpp" />
     <ClInclude Include="MAGE\src\rendering\device_enumeration.hpp" />
     <ClInclude Include="MAGE\src\rendering\graphics_settings.hpp" />
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />

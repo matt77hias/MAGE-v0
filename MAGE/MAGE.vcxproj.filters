@@ -666,6 +666,9 @@
     <ClInclude Include="MAGE\src\rendering\constant_buffer.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\structured_buffer.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1000,6 +1003,9 @@
       <Filter>Header Files\binary</Filter>
     </None>
     <None Include="MAGE\src\rendering\constant_buffer.tpp">
+      <Filter>Header Files\rendering</Filter>
+    </None>
+    <None Include="MAGE\src\rendering\structured_buffer.tpp">
       <Filter>Header Files\rendering</Filter>
     </None>
   </ItemGroup>

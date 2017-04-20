@@ -7,6 +7,7 @@
 
 #include "memory\memory.hpp"
 #include "rendering\rendering.hpp"
+#include "collection\collection.hpp"
 
 #pragma endregion
 
@@ -16,7 +17,7 @@
 namespace mage {
 
 	template< typename DataT >
-	struct ConstantBuffer final {
+	struct StructuredBuffer final {
 
 	public:
 
@@ -24,23 +25,27 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit ConstantBuffer(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
-		ConstantBuffer(const ConstantBuffer &buffer) = delete;
-		ConstantBuffer(ConstantBuffer &&buffer) = default;
-		~ConstantBuffer() = default;
+		explicit StructuredBuffer(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, 
+			size_t nb_initial_data_elements);
+		StructuredBuffer(const StructuredBuffer &buffer) = delete;
+		StructuredBuffer(StructuredBuffer &&buffer) = default;
+		~StructuredBuffer() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
-		ConstantBuffer &operator=(const ConstantBuffer &buffer) = delete;
-		ConstantBuffer &operator=(ConstantBuffer &&buffer) = delete;
+		StructuredBuffer &operator=(const StructuredBuffer &buffer) = delete;
+		StructuredBuffer &operator=(StructuredBuffer &&buffer) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void UpdateData(const DataT &data) const;
+		size_t GetNumberOfDataElements() const {
+			return m_nb_data_elements;
+		}
+		void UpdateData(const vector< DataT > &data) const;
 		ID3D11Buffer *Get() const {
 			return m_buffer.Get();
 		}
@@ -56,7 +61,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-		HRESULT SetupConstantBuffer();
+		HRESULT SetupStructuredBuffer(size_t nb_data_elements);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -65,6 +70,7 @@ namespace mage {
 		ID3D11Device2 * const m_device;
 		ID3D11DeviceContext2 * const m_device_context;
 		ComPtr< ID3D11Buffer > m_buffer;
+		mutable size_t m_nb_data_elements;
 	};
 
 }
@@ -74,6 +80,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\constant_buffer.tpp"
+#include "rendering\structured_buffer.tpp"
 
 #pragma endregion

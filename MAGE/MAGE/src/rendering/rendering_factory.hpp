@@ -24,8 +24,8 @@ namespace mage {
 	HRESULT CreateDynamicVertexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices);
 	template < typename IndexT >
 	HRESULT CreateStaticIndexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices);
-	template < typename BufferT >
-	HRESULT CreateConstantBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer);
+	template < typename DataT >
+	HRESULT CreateConstantBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, size_t count = 1);
 
 	//-------------------------------------------------------------------------
 	// Blend states

@@ -103,6 +103,7 @@
     <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_state.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_state_cache.hpp" />
+    <ClInclude Include="MAGE\src\rendering\structured_buffer.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_factory.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_pool.hpp" />
@@ -411,6 +412,7 @@
     <None Include="MAGE\src\model\model_loader.tpp" />
     <None Include="MAGE\src\rendering\constant_buffer.tpp" />
     <None Include="MAGE\src\rendering\rendering_factory.tpp" />
+    <None Include="MAGE\src\rendering\structured_buffer.tpp" />
     <None Include="MAGE\src\resource\resource_factory.tpp" />
     <None Include="MAGE\src\resource\resource_pool.tpp" />
     <None Include="MAGE\src\scene\scene.tpp" />

@@ -79,15 +79,15 @@ namespace mage {
 		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
-	template < typename BufferT >
-	HRESULT CreateConstantBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer) {
+	template < typename DataT >
+	HRESULT CreateConstantBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, size_t count) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
-		buffer_desc.ByteWidth      = static_cast< UINT >(sizeof(BufferT)); // Size of the buffer in bytes.
-		buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;	               // How the buffer is expected to be read from and written to.
-		buffer_desc.BindFlags      = D3D11_BIND_CONSTANT_BUFFER;           // How the buffer will be bound to the pipeline.
-		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;			   // No CPU access is necessary.
+		buffer_desc.ByteWidth      = static_cast< UINT >(count * sizeof(DataT));// Size of the buffer in bytes.
+		buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;						// How the buffer is expected to be read from and written to.
+		buffer_desc.BindFlags      = D3D11_BIND_CONSTANT_BUFFER;				// How the buffer will be bound to the pipeline.
+		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;					// No CPU access is necessary.
 
 		// Create the index buffer.
 		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.

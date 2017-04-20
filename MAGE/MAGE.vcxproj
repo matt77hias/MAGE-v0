@@ -47,6 +47,7 @@
     <ClInclude Include="MAGE\src\input\mouse.hpp" />
     <ClInclude Include="MAGE\src\light\directional_light.hpp" />
     <ClInclude Include="MAGE\src\light\light.hpp" />
+    <ClInclude Include="MAGE\src\light\light_info.hpp" />
     <ClInclude Include="MAGE\src\light\omni_light.hpp" />
     <ClInclude Include="MAGE\src\light\spot_light.hpp" />
     <ClInclude Include="MAGE\src\logging\error.hpp" />

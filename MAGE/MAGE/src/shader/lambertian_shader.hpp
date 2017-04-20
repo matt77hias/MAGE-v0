@@ -52,7 +52,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void PrepareShading(const Material &material, const World &world, const TransformBuffer &transform_buffer) const override;
+		virtual void PrepareShading(const Material &material, const World &world, const TransformBuffer &transform_buffer) const override final;
 
 	private:
 
@@ -91,7 +91,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void PrepareShading(const Material &material, const World &world) const override;
+		virtual void PrepareShading(const Material &material, const World &world) const override final;
 
 	private:
 

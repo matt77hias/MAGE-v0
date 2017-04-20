@@ -26,7 +26,7 @@ namespace mage {
 	/**
 	 A class of perspective camera.
 	 */
-	class PerspectiveCamera : public Camera {
+	class PerspectiveCamera final : public Camera {
 
 	public:
 

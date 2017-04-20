@@ -122,7 +122,7 @@ namespace mage {
 			return new SubModel(*this);
 		}
 
-		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const;
+		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const final;
 		void Draw(const Mesh &mesh, const World &world, const TransformBuffer &transform_buffer) const;
 
 		size_t GetStartIndex() const {

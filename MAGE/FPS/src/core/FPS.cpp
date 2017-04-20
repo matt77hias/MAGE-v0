@@ -19,7 +19,7 @@ public:
 	TestScript &operator=(TestScript &&script) = delete;
 
 	virtual void Update(double delta_time) override {
-		//m_model->GetTransform()->AddRotationY((float)delta_time);
+		m_model->GetTransform()->AddRotationY((float)delta_time);
 
 		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_F2)) {
 			//PostQuitMessage(0);
@@ -56,12 +56,16 @@ private:
 		
 		// ModelDescriptor
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc = CreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_sponza = CreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_teapot = CreateModelDescriptor(L"assets/models/teapot/teapot.mdl", mesh_desc);
 		// Model
-		SharedPtr< MeshModel > model(new MeshModel("model", *model_desc));
-		model->GetTransform()->SetScale(10.0f, 10.0f, 10.0f);
-		GetWorld()->AddModel(model);
-		
+		SharedPtr< MeshModel > model_sponza(new MeshModel("sponza", *model_desc_sponza));
+		model_sponza->GetTransform()->SetScale(10.0f);
+		GetWorld()->AddModel(model_sponza);
+		SharedPtr< MeshModel > model_teapot(new MeshModel("teapot", *model_desc_teapot));
+		model_teapot->GetTransform()->AddTranslationY(1.5f);
+		GetWorld()->AddModel(model_teapot);
+
 		// Light
 		SharedPtr< OmniLight > light(new OmniLight("light", RGBSpectrum(0.5f, 0.5f, 0.0f)));
 		GetWorld()->AddLight(light);
@@ -81,7 +85,7 @@ private:
 		GetWorld()->AddSprite(text);
 
 		// Scripts
-		//SharedPtr< BehaviorScript > script(new TestScript(model));
+		//SharedPtr< BehaviorScript > script(new TestScript(model_teapot));
 		//AddScript(script);
 		SharedPtr< BehaviorScript > controller(new FPSInputControllerScript(camera->GetTransform()));
 		AddScript(controller);

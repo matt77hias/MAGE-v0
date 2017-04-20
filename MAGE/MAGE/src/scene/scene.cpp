@@ -6,7 +6,8 @@
 #include "scene\scene.hpp"
 #include "scripting\behavior_script.hpp"
 #include "model\model.hpp"
-#include "light\light.hpp"
+#include "light\omni_light.hpp"
+#include "light\spot_light.hpp"
 #include "sprite\sprite_object.hpp"
 #include "logging\error.hpp"
 
@@ -18,16 +19,7 @@
 namespace mage {
 
 	bool Scene::HasScript(const SharedPtr< BehaviorScript > script) const {
-		vector< SharedPtr< BehaviorScript > >::const_iterator it = m_scripts.cbegin();
-		while (it != m_scripts.cend()) {
-			if ((*it) == script) {
-				return true;
-			}
-			else {
-				++it;
-			}
-		}
-		return false;
+		return std::find(m_scripts.begin(), m_scripts.end(), script) != m_scripts.end();
 	}
 	void Scene::AddScript(SharedPtr< BehaviorScript > script) {
 		if (!script) {
@@ -37,15 +29,9 @@ namespace mage {
 		m_scripts.push_back(script);
 	}
 	void Scene::RemoveScript(SharedPtr< BehaviorScript > script) {
-		vector< SharedPtr< BehaviorScript > >::iterator it = m_scripts.begin();
-		while (it != m_scripts.end()) {
-			if ((*it) == script) {
-				it = m_scripts.erase(it);
-				break;
-			}
-			else {
-				++it;
-			}
+		vector< SharedPtr< BehaviorScript > >::iterator it = std::find(m_scripts.begin(), m_scripts.end(), script);
+		if (it != m_scripts.end()) {
+			m_scripts.erase(it);
 		}
 	}
 	void Scene::RemoveAllScripts() {

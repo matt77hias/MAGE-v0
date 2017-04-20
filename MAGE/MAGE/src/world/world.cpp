@@ -4,7 +4,8 @@
 #pragma region
 
 #include "model\model.hpp"
-#include "light\light.hpp"
+#include "light\omni_light.hpp"
+#include "light\spot_light.hpp"
 #include "sprite\sprite_object.hpp"
 
 #pragma endregion
@@ -15,7 +16,7 @@
 namespace mage {
 
 	World::World() 
-		: m_models(), m_lights(), m_sprites(),
+		: m_models(), m_omni_lights(), m_spot_lights(), m_sprites(),
 		m_sprite_batch(CreateSpriteBatch()) {}
 
 	World::~World() {
@@ -46,12 +47,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	bool World::HasModel(const SharedPtr< Model > model) const {
-		for (vector< SharedPtr< Model > >::const_iterator it = m_models.cbegin(); it != m_models.cend(); ++it) {
-			if ((*it) == model) {
-				return true;
-			}
-		}
-		return false;
+		return std::find(m_models.begin(), m_models.end(), model) != m_models.end();
 	}
 	void World::AddModel(SharedPtr< Model > model) {
 		if (!model) {
@@ -60,15 +56,9 @@ namespace mage {
 		m_models.push_back(model);
 	}
 	void World::RemoveModel(SharedPtr< Model > model) {
-		vector< SharedPtr< Model > >::iterator it = m_models.begin();
-		while (it != m_models.end()) {
-			if ((*it) == model) {
-				it = m_models.erase(it);
-				break;
-			}
-			else {
-				++it;
-			}
+		vector< SharedPtr< Model > >::iterator it = std::find(m_models.begin(), m_models.end(), model);
+		if (it != m_models.end()) {
+			m_models.erase(it);
 		}
 	}
 	void World::RemoveAllModels() {
@@ -79,34 +69,39 @@ namespace mage {
 	// Lights
 	//-------------------------------------------------------------------------
 
-	bool World::HasLight(const SharedPtr< Light > light) const {
-		for (vector< SharedPtr< Light > >::const_iterator it = m_lights.cbegin(); it != m_lights.cend(); ++it) {
-			if ((*it) == light) {
-				return true;
-			}
-		}
-		return false;
+	bool World::HasLight(const SharedPtr< OmniLight > light) const {
+		return std::find(m_omni_lights.begin(), m_omni_lights.end(), light) != m_omni_lights.end();
 	}
-	void World::AddLight(SharedPtr< Light > light) {
+	bool World::HasLight(const SharedPtr< SpotLight > light) const {
+		return std::find(m_spot_lights.begin(), m_spot_lights.end(), light) != m_spot_lights.end();
+	}
+	void World::AddLight(SharedPtr< OmniLight > light) {
 		if (!light) {
 			return;
 		}
-		m_lights.push_back(light);
+		m_omni_lights.push_back(light);
 	}
-	void World::RemoveLight(SharedPtr< Light > light) {
-		vector< SharedPtr< Light > >::iterator it = m_lights.begin();
-		while (it != m_lights.end()) {
-			if ((*it) == light) {
-				it = m_lights.erase(it);
-				break;
-			}
-			else {
-				++it;
-			}
+	void World::AddLight(SharedPtr< SpotLight > light) {
+		if (!light) {
+			return;
+		}
+		m_spot_lights.push_back(light);
+	}
+	void World::RemoveLight(SharedPtr< OmniLight > light) {
+		vector< SharedPtr< OmniLight > >::iterator it = std::find(m_omni_lights.begin(), m_omni_lights.end(), light);
+		if (it != m_omni_lights.end()) {
+			m_omni_lights.erase(it);
+		}
+	}
+	void World::RemoveLight(SharedPtr< SpotLight > light) {
+		vector< SharedPtr< SpotLight > >::iterator it = std::find(m_spot_lights.begin(), m_spot_lights.end(), light);
+		if (it != m_spot_lights.end()) {
+			m_spot_lights.erase(it);
 		}
 	}
 	void World::RemoveAllLights() {
-		m_lights.clear();
+		m_omni_lights.clear();
+		m_spot_lights.clear();
 	}
 
 	//-------------------------------------------------------------------------
@@ -114,12 +109,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	bool World::HasSprite(const SharedPtr< SpriteObject > sprite) const {
-		for (vector< SharedPtr< SpriteObject > >::const_iterator it = m_sprites.cbegin(); it != m_sprites.cend(); ++it) {
-			if ((*it) == sprite) {
-				return true;
-			}
-		}
-		return false;
+		return std::find(m_sprites.begin(), m_sprites.end(), sprite) != m_sprites.end();
 	}
 	void World::AddSprite(SharedPtr< SpriteObject > sprite) {
 		if (!sprite) {
@@ -128,15 +118,9 @@ namespace mage {
 		m_sprites.push_back(sprite);
 	}
 	void World::RemoveSprite(SharedPtr< SpriteObject > sprite) {
-		vector< SharedPtr< SpriteObject > >::iterator it = m_sprites.begin();
-		while (it != m_sprites.end()) {
-			if ((*it) == sprite) {
-				it = m_sprites.erase(it);
-				break;
-			}
-			else {
-				++it;
-			}
+		vector< SharedPtr< SpriteObject > >::iterator it = std::find(m_sprites.begin(), m_sprites.end(), sprite);
+		if (it != m_sprites.end()) {
+			m_sprites.erase(it);
 		}
 	}
 	void World::RemoveAllSprites() {

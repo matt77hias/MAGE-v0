@@ -16,7 +16,8 @@ namespace mage {
 
 	// Forward declarations
 	class Model;
-	class Light;
+	class OmniLight;
+	class SpotLight;
 	class SpriteObject;
 	class SpriteBatch;
 
@@ -73,12 +74,18 @@ namespace mage {
 		// Member Methods: Lights
 		//-------------------------------------------------------------------------
 
-		size_t GetNumberOfLights() const {
-			return m_lights.size();
+		size_t GetNumberOfPointLights() const {
+			return m_omni_lights.size();
 		}
-		bool HasLight(const SharedPtr< Light > light) const;
-		void AddLight(SharedPtr< Light > light);
-		void RemoveLight(SharedPtr< Light > light);
+		size_t GetNumberOfSpotLights() const {
+			return m_spot_lights.size();
+		}
+		bool HasLight(const SharedPtr< OmniLight > light) const;
+		bool HasLight(const SharedPtr< SpotLight > light) const;
+		void AddLight(SharedPtr< OmniLight > light);
+		void AddLight(SharedPtr< SpotLight > light);
+		void RemoveLight(SharedPtr< OmniLight > light);
+		void RemoveLight(SharedPtr< SpotLight > light);
 		void RemoveAllLights();
 		template< typename ActionT >
 		void ForEachLight(ActionT action) const;
@@ -105,7 +112,8 @@ namespace mage {
 
 		// 3D
 		vector< SharedPtr< Model > > m_models;
-		vector< SharedPtr< Light > > m_lights;
+		vector< SharedPtr< OmniLight > > m_omni_lights;
+		vector< SharedPtr< SpotLight > > m_spot_lights;
 
 		// 2D
 		vector< SharedPtr < SpriteObject > > m_sprites;

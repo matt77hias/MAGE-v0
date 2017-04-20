@@ -14,7 +14,10 @@ namespace mage {
 
 	template< typename ActionT >
 	inline void World::ForEachLight(ActionT action) const {
-		for (vector< SharedPtr< Light > >::const_iterator it = m_lights.cbegin(); it != m_lights.cend(); ++it) {
+		for (vector< SharedPtr< OmniLight > >::const_iterator it = m_omni_lights.cbegin(); it != m_omni_lights.cend(); ++it) {
+			action(**it);
+		}
+		for (vector< SharedPtr< SpotLight > >::const_iterator it = m_spot_lights.cbegin(); it != m_spot_lights.cend(); ++it) {
 			action(**it);
 		}
 	}

@@ -59,7 +59,7 @@ namespace mage {
 			indices.push_back(i + 2);
 		}
 
-		const HRESULT result_index_buffer = CreateIndexBuffer< uint16_t >(m_device, m_index_buffer.ReleaseAndGetAddressOf(), indices.data(), indices.size());
+		const HRESULT result_index_buffer = CreateStaticIndexBuffer< uint16_t >(m_device, m_index_buffer.ReleaseAndGetAddressOf(), indices.data(), indices.size());
 		if (FAILED(result_index_buffer)) {
 			Error("Index buffer creation failed: %08X.", result_index_buffer);
 			return result_index_buffer;

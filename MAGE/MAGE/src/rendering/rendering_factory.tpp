@@ -15,7 +15,7 @@ namespace mage {
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
 		buffer_desc.ByteWidth      = static_cast< UINT >(nb_vertices * sizeof(VertexT));
-		buffer_desc.Usage          = D3D11_USAGE_DEFAULT;
+		buffer_desc.Usage          = D3D11_USAGE_IMMUTABLE;
 		buffer_desc.BindFlags      = D3D11_BIND_VERTEX_BUFFER;
 		buffer_desc.CPUAccessFlags = 0;
 
@@ -58,12 +58,12 @@ namespace mage {
 	}
 
 	template < typename IndexT >
-	HRESULT CreateIndexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices) {
+	HRESULT CreateStaticIndexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices) {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
 		buffer_desc.ByteWidth      = static_cast< UINT >(nb_indices * sizeof(IndexT));
-		buffer_desc.Usage          = D3D11_USAGE_DEFAULT;
+		buffer_desc.Usage          = D3D11_USAGE_IMMUTABLE;
 		buffer_desc.BindFlags      = D3D11_BIND_INDEX_BUFFER;
 		buffer_desc.CPUAccessFlags = 0;
 
@@ -85,9 +85,9 @@ namespace mage {
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
 		buffer_desc.ByteWidth      = static_cast< UINT >(sizeof(BufferT)); // Size of the buffer in bytes.
-		buffer_desc.Usage          = D3D11_USAGE_DEFAULT;	               // How the buffer is expected to be read from and written to.
+		buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;	               // How the buffer is expected to be read from and written to.
 		buffer_desc.BindFlags      = D3D11_BIND_CONSTANT_BUFFER;           // How the buffer will be bound to the pipeline.
-		buffer_desc.CPUAccessFlags = 0;						               // No CPU access is necessary.
+		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;			   // No CPU access is necessary.
 
 		// Create the index buffer.
 		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.

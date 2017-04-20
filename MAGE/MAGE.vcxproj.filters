@@ -999,5 +999,8 @@
     <None Include="MAGE\src\binary\binary_writer.tpp">
       <Filter>Header Files\binary</Filter>
     </None>
+    <None Include="MAGE\src\rendering\constant_buffer.tpp">
+      <Filter>Header Files\rendering</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #pragma region
 
 #include "shader\shader.hpp"
+#include "rendering\constant_buffer.hpp"
 
 #pragma endregion
 
@@ -60,7 +61,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		ComPtr< ID3D11Buffer > m_transform_buffer;
+		ConstantBuffer< TransformBuffer > m_transform_buffer;
 	};
 
 	//-------------------------------------------------------------------------
@@ -99,7 +100,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		ComPtr< ID3D11Buffer > m_material_buffer;
+		ConstantBuffer< MaterialBuffer > m_material_buffer;
 	};
 
 	//-------------------------------------------------------------------------

@@ -23,7 +23,7 @@ namespace mage {
 	template < typename VertexT >
 	HRESULT CreateDynamicVertexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices);
 	template < typename IndexT >
-	HRESULT CreateIndexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices);
+	HRESULT CreateStaticIndexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices);
 	template < typename BufferT >
 	HRESULT CreateConstantBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer);
 

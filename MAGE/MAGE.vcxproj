@@ -409,6 +409,7 @@
     <None Include="MAGE\src\model\model.tpp" />
     <None Include="MAGE\src\model\model_descriptor.tpp" />
     <None Include="MAGE\src\model\model_loader.tpp" />
+    <None Include="MAGE\src\rendering\constant_buffer.tpp" />
     <None Include="MAGE\src\rendering\rendering_factory.tpp" />
     <None Include="MAGE\src\resource\resource_factory.tpp" />
     <None Include="MAGE\src\resource\resource_pool.tpp" />

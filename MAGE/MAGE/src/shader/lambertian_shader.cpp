@@ -42,14 +42,20 @@ namespace mage {
 
 	LambertianPixelShader::LambertianPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: PixelShader(device, device_context, MAGE_GUID_LAMBERTIAN_PS, g_lambertian_ps, sizeof(g_lambertian_ps)),
-		m_material_buffer(m_device, m_device_context) {}
+		m_material_buffer(m_device, m_device_context),
+		m_omni_lights_buffer(m_device, m_device_context, 64),
+		m_spot_lights_buffer(m_device, m_device_context, 64) {}
 
 	void LambertianPixelShader::PrepareShading(const Material &material, const World &world) const {
 		UNUSED(world);
 
 		m_material_buffer.UpdateData(material.GetBuffer());
+		
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
+		
 		m_device_context->PSSetConstantBuffers(1, 1, m_material_buffer.GetAddressOf());
+		m_device_context->PSSetConstantBuffers(2, 1, m_omni_lights_buffer.GetAddressOf());
+		m_device_context->PSSetConstantBuffers(3, 1, m_spot_lights_buffer.GetAddressOf());
 
 		// TODO
 		if (material.m_diffuse_reflectivity_texture) {

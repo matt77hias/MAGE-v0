@@ -7,6 +7,9 @@
 
 #include "shader\shader.hpp"
 #include "rendering\constant_buffer.hpp"
+#include "rendering\structured_buffer.hpp"
+#include "light\omni_light.hpp"
+#include "light\spot_light.hpp"
 
 #pragma endregion
 
@@ -101,6 +104,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		ConstantBuffer< MaterialBuffer > m_material_buffer;
+		StructuredBuffer< OmniLightBuffer > m_omni_lights_buffer;
+		StructuredBuffer< SpotLightBuffer > m_spot_lights_buffer;
 	};
 
 	//-------------------------------------------------------------------------

@@ -25,9 +25,9 @@ namespace mage {
 		: VertexShader(device, device_context, MAGE_GUID_SPRITE_VS, g_sprite_vs, sizeof(g_sprite_vs),
 			VertexPositionColorTexture::input_element_desc, VertexPositionColorTexture::nb_input_elements) {
 
-		const HRESULT result_cb_transform = CreateConstantBuffer< XMMATRIX >(m_device, m_transform_buffer.ReleaseAndGetAddressOf());
-		if (FAILED(result_cb_transform)) {
-			Error("Transformation constant buffer creation failed: %08X.", result_cb_transform);
+		const HRESULT result_transform_buffer_create = CreateConstantBuffer< XMMATRIX >(m_device, m_transform_buffer.ReleaseAndGetAddressOf());
+		if (FAILED(result_transform_buffer_create)) {
+			Error("Transformation constant buffer creation failed: %08X.", result_transform_buffer_create);
 			return;
 		}
 	}

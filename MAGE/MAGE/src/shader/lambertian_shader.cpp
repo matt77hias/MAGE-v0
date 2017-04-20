@@ -25,9 +25,9 @@ namespace mage {
 		: VertexShader(device, device_context, MAGE_GUID_LAMBERTIAN_VS, g_lambertian_vs, sizeof(g_lambertian_vs),
 			VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements) {
 
-		const HRESULT result_cb_transform = CreateConstantBuffer< TransformBuffer >(m_device, m_transform_buffer.ReleaseAndGetAddressOf());
-		if (FAILED(result_cb_transform)) {
-			Error("Transformation constant buffer creation failed: %08X.", result_cb_transform);
+		const HRESULT result_transform_buffer_create = CreateConstantBuffer< TransformBuffer >(m_device, m_transform_buffer.ReleaseAndGetAddressOf());
+		if (FAILED(result_transform_buffer_create)) {
+			Error("Transformation constant buffer creation failed: %08X.", result_transform_buffer_create);
 			return;
 		}
 	}
@@ -48,9 +48,9 @@ namespace mage {
 	LambertianPixelShader::LambertianPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: PixelShader(device, device_context, MAGE_GUID_LAMBERTIAN_PS, g_lambertian_ps, sizeof(g_lambertian_ps)) {
 
-		const HRESULT result_cb_material = CreateConstantBuffer< MaterialBuffer >(m_device, m_material_buffer.ReleaseAndGetAddressOf());
-		if (FAILED(result_cb_material)) {
-			Error("Material constant buffer creation failed: %08X.", result_cb_material);
+		const HRESULT result_material_buffer_create = CreateConstantBuffer< MaterialBuffer >(m_device, m_material_buffer.ReleaseAndGetAddressOf());
+		if (FAILED(result_material_buffer_create)) {
+			Error("Material constant buffer creation failed: %08X.", result_material_buffer_create);
 			return;
 		}
 	}

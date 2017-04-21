@@ -28,14 +28,28 @@ namespace mage {
 
 	void World::Render2D() const {
 		m_sprite_batch->Begin();
+		
 		ForEachSprite([&](const SpriteObject &sprite) {
 			sprite.Draw(*m_sprite_batch);
 		});
+		
 		m_sprite_batch->End();
 	}
 	void World::Render3D(const TransformBuffer &transform_buffer) const {
+		LightBuffer lighting;
+
+		const XMMATRIX world_to_view = transform_buffer.GetWorldToViewMatrix();
+		ForEachOmniLight([&](const OmniLight &light) {
+			lighting.omni_lights.push_back(light.GetBuffer(world_to_view));
+		});
+		ForEachSpotLight([&](const SpotLight &light) {
+			lighting.spot_lights.push_back(light.GetBuffer(world_to_view));
+		});
+
+		lighting.UpdateSizes();
+
 		ForEachModel([&](const Model &model) {
-			model.Draw(LightBuffer(), transform_buffer);
+			model.Draw(lighting, transform_buffer);
 		});
 	}
 

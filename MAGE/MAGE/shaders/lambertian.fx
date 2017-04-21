@@ -81,8 +81,8 @@ struct SpotLight {
 	float  cos_umbra;				// The cosine of the umbra angle at which intensity falloff ends.
 };
 
-StructuredBuffer< OmniLight > omni_lights : register(b2);
-StructuredBuffer< SpotLight > spot_lights : register(b3);
+StructuredBuffer< OmniLight > omni_lights : register(b3);
+StructuredBuffer< SpotLight > spot_lights : register(b4);
 
 // Calculates the distance fall off at a given distance r.
 float DistanceFalloff(float r, float r_start, float r_end) {
@@ -318,8 +318,8 @@ float4 PS(PS_INPUT input) : SV_Target {
 
 	//return float4(float3(0.5f, 0.5f, 0.5f) + 0.5 * input.n_view, 0.0f);
 
-	//return PhongBRDFShading(input.p_view, input.n_view, input.tex);
+	return PhongBRDFShading(input.p_view, input.n_view, input.tex);
 
-	const float4 I = float4(Kd, dissolve);
-	return diffuse_texture_map.Sample(texture_sampler, input.tex) * I;
+	//const float4 I = float4(Kd, dissolve);
+	//return diffuse_texture_map.Sample(texture_sampler, input.tex) * I;
 }

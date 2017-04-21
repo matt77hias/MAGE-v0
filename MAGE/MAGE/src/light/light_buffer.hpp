@@ -28,7 +28,10 @@ namespace mage {
 
 	public:
 
-		LightDataBuffer() = default;
+		LightDataBuffer()
+			: Ia(0.0f, 0.0f, 0.0f), nb_omni_lights(0), 
+			Id(0.0f, 0.0f, 0.0f), nb_spot_lights(0), 
+			d(0.0f, 0.0f, 0.0f), padding(0) {}
 		LightDataBuffer(const LightDataBuffer &buffer) = default;
 		LightDataBuffer(LightDataBuffer &&buffer) = default;
 		~LightDataBuffer() = default;
@@ -36,9 +39,9 @@ namespace mage {
 		LightDataBuffer &operator=(LightDataBuffer &&buffer) = default;
 
 		XMFLOAT3 Ia;
-		uint32_t nb_omnilights;
+		uint32_t nb_omni_lights;
 		XMFLOAT3 Id;
-		uint32_t nb_spotlights;
+		uint32_t nb_spot_lights;
 		XMFLOAT3 d;
 		uint32_t padding;
 	};
@@ -55,6 +58,11 @@ namespace mage {
 		~LightBuffer() = default;
 		LightBuffer &operator=(const LightBuffer &buffer) = default;
 		LightBuffer &operator=(LightBuffer &&buffer) = default;
+
+		void UpdateSizes() {
+			light_data.nb_omni_lights = static_cast< uint32_t >(omni_lights.size());
+			light_data.nb_spot_lights = static_cast< uint32_t >(spot_lights.size());
+		}
 
 		LightDataBuffer light_data;
 		vector< OmniLightBuffer > omni_lights;

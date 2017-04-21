@@ -102,6 +102,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		ConstantBuffer< MaterialBuffer > m_material_buffer;
+		ConstantBuffer< LightDataBuffer > m_light_data_buffer;
 		StructuredBuffer< OmniLightBuffer > m_omni_lights_buffer;
 		StructuredBuffer< SpotLightBuffer > m_spot_lights_buffer;
 	};

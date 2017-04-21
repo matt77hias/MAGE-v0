@@ -43,19 +43,22 @@ namespace mage {
 	LambertianPixelShader::LambertianPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: PixelShader(device, device_context, MAGE_GUID_LAMBERTIAN_PS, g_lambertian_ps, sizeof(g_lambertian_ps)),
 		m_material_buffer(m_device, m_device_context),
+		m_light_data_buffer(m_device, m_device_context),
 		m_omni_lights_buffer(m_device, m_device_context, 64),
 		m_spot_lights_buffer(m_device, m_device_context, 64) {}
 
 	void LambertianPixelShader::PrepareShading(const Material &material, const LightBuffer &lighting) const {
-		UNUSED(lighting);
-
 		m_material_buffer.UpdateData(material.GetBuffer());
+		m_light_data_buffer.UpdateData(lighting.light_data);
+		m_omni_lights_buffer.UpdateData(lighting.omni_lights);
+		m_spot_lights_buffer.UpdateData(lighting.spot_lights);
 		
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 		
 		m_device_context->PSSetConstantBuffers(1, 1, m_material_buffer.GetAddressOf());
-		m_device_context->PSSetConstantBuffers(2, 1, m_omni_lights_buffer.GetAddressOf());
-		m_device_context->PSSetConstantBuffers(3, 1, m_spot_lights_buffer.GetAddressOf());
+		m_device_context->PSSetConstantBuffers(2, 1, m_light_data_buffer.GetAddressOf());
+		m_device_context->PSSetConstantBuffers(3, 1, m_omni_lights_buffer.GetAddressOf());
+		m_device_context->PSSetConstantBuffers(4, 1, m_spot_lights_buffer.GetAddressOf());
 
 		// TODO
 		if (material.m_diffuse_reflectivity_texture) {

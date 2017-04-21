@@ -61,7 +61,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-		HRESULT SetupStructuredBuffer(size_t nb_data_elements);
+		HRESULT SetupStructuredBuffer(size_t nb_data_elements) const;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -69,7 +69,7 @@ namespace mage {
 
 		ID3D11Device2 * const m_device;
 		ID3D11DeviceContext2 * const m_device_context;
-		ComPtr< ID3D11Buffer > m_buffer;
+		mutable ComPtr< ID3D11Buffer > m_buffer;
 		mutable size_t m_nb_data_elements;
 	};
 

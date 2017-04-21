@@ -84,6 +84,10 @@ namespace mage {
 		void RemoveLight(SharedPtr< SpotLight > light);
 		void RemoveAllLights();
 		template< typename ActionT >
+		void ForEachOmniLight(ActionT action) const;
+		template< typename ActionT >
+		void ForEachSpotLight(ActionT action) const;
+		template< typename ActionT >
 		void ForEachLight(ActionT action) const;
 
 		//-------------------------------------------------------------------------

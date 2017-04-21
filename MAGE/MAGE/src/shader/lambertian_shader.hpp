@@ -8,8 +8,6 @@
 #include "shader\shader.hpp"
 #include "rendering\constant_buffer.hpp"
 #include "rendering\structured_buffer.hpp"
-#include "light\omni_light.hpp"
-#include "light\spot_light.hpp"
 
 #pragma endregion
 
@@ -56,7 +54,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void PrepareShading(const Material &material, const World &world, const TransformBuffer &transform_buffer) const override final;
+		virtual void PrepareShading(const Material &material, const LightBuffer &lighting, const TransformBuffer &transform_buffer) const override final;
 
 	private:
 
@@ -95,7 +93,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void PrepareShading(const Material &material, const World &world) const override final;
+		virtual void PrepareShading(const Material &material, const LightBuffer &lighting) const override final;
 
 	private:
 

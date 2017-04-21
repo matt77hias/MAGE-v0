@@ -7,7 +7,8 @@
 
 #include "resource\resource.hpp"
 #include "material\material.hpp"
-#include "world\world.hpp"
+#include "light\light_buffer.hpp"
+#include "world\transform_buffer.hpp"
 
 #pragma endregion
 
@@ -49,7 +50,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		virtual void PrepareShading(const XMMATRIX &transform) const;
-		virtual void PrepareShading(const Material &material, const World &world, const TransformBuffer &transform_buffer) const;
+		virtual void PrepareShading(const Material &material, const LightBuffer &lighting, const TransformBuffer &transform_buffer) const;
 
 	protected:
 
@@ -108,7 +109,7 @@ namespace mage {
 			PrepareShading(texture.GetTextureResourceViewAddress());
 		}
 		virtual void PrepareShading(ID3D11ShaderResourceView * const *texture) const;
-		virtual void PrepareShading(const Material &material, const World &world) const;
+		virtual void PrepareShading(const Material &material, const LightBuffer &lighting) const;
 
 	protected:
 
@@ -167,9 +168,9 @@ namespace mage {
 			m_vertex_shader->PrepareShading(matrix);
 			m_pixel_shader->PrepareShading(texture);
 		}
-		void PrepareShading(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
-			m_vertex_shader->PrepareShading(material, world, transform_buffer);
-			m_pixel_shader->PrepareShading(material, world);
+		void PrepareShading(const Material &material, const LightBuffer &lighting, const TransformBuffer &transform_buffer) const {
+			m_vertex_shader->PrepareShading(material, lighting, transform_buffer);
+			m_pixel_shader->PrepareShading(material, lighting);
 		}
 
 	private:

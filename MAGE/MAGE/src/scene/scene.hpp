@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "scripting\behavior_script.hpp"
 #include "world\world.hpp"
 
 #pragma endregion

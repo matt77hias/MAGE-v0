@@ -4,11 +4,6 @@
 #pragma region
 
 #include "scene\scene.hpp"
-#include "scripting\behavior_script.hpp"
-#include "model\model.hpp"
-#include "light\omni_light.hpp"
-#include "light\spot_light.hpp"
-#include "sprite\sprite_object.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

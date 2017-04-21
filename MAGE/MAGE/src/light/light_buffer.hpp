@@ -40,7 +40,7 @@ namespace mage {
 		XMFLOAT3 Id;
 		uint32_t nb_spotlights;
 		XMFLOAT3 d;
-
+		uint32_t padding;
 	};
 
 	static_assert(sizeof(LightDataBuffer) == 48, "CPU/GPU struct mismatch");

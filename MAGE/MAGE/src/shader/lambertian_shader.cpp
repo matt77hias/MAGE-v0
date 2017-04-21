@@ -26,8 +26,8 @@ namespace mage {
 			VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements),
 			m_transform_buffer(m_device, m_device_context) {}
 
-	void LambertianVertexShader::PrepareShading(const Material &material, const World &world, const TransformBuffer &transform_buffer) const {
-		UNUSED(world);
+	void LambertianVertexShader::PrepareShading(const Material &material, const LightBuffer &lighting, const TransformBuffer &transform_buffer) const {
+		UNUSED(lighting);
 		UNUSED(material);
 
 		m_transform_buffer.UpdateData(transform_buffer);
@@ -46,8 +46,8 @@ namespace mage {
 		m_omni_lights_buffer(m_device, m_device_context, 64),
 		m_spot_lights_buffer(m_device, m_device_context, 64) {}
 
-	void LambertianPixelShader::PrepareShading(const Material &material, const World &world) const {
-		UNUSED(world);
+	void LambertianPixelShader::PrepareShading(const Material &material, const LightBuffer &lighting) const {
+		UNUSED(lighting);
 
 		m_material_buffer.UpdateData(material.GetBuffer());
 		

@@ -57,12 +57,12 @@ namespace mage {
 		return S_OK;
 	}
 
-	void MeshModel::Draw(const World &world, const TransformBuffer &transform_buffer) const {
+	void MeshModel::Draw(const LightBuffer &lighting, const TransformBuffer &transform_buffer) const {
 		m_mesh->PrepareDrawing();
 		
 		// Childs
 		ForEachSubModel([&](SubModel &submodel) {
-			submodel.Draw(*m_mesh, world, transform_buffer);
+			submodel.Draw(*m_mesh, lighting, transform_buffer);
 		});
 	}
 }

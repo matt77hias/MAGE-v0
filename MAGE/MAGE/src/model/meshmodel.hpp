@@ -48,7 +48,7 @@ namespace mage {
 			return new MeshModel(*this);
 		}
 
-		virtual void Draw(const World &world, const TransformBuffer &transform_buffer) const override final;
+		virtual void Draw(const LightBuffer &lighting, const TransformBuffer &transform_buffer) const override final;
 
 		const StaticMesh *GetMesh() const {
 			return m_mesh.get();

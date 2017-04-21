@@ -6,6 +6,9 @@
 #pragma region
 
 #include "world\transform_buffer.hpp"
+#include "model\model.hpp"
+#include "sprite\sprite_object.hpp"
+#include "sprite\sprite_batch.hpp"
 
 #pragma endregion
 
@@ -13,13 +16,6 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	// Forward declarations
-	class Model;
-	class OmniLight;
-	class SpotLight;
-	class SpriteObject;
-	class SpriteBatch;
 
 	class World final {
 

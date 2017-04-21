@@ -68,21 +68,21 @@ namespace mage {
 		: Model(submodel), m_start_index(submodel.m_start_index), m_nb_indices(submodel.m_nb_indices),
 		m_material(new ShadedMaterial(*submodel.m_material)) {}
 
-	void SubModel::Draw(const World &world, const TransformBuffer &transform_buffer) const {
-		UNUSED(world);
+	void SubModel::Draw(const LightBuffer &lighting, const TransformBuffer &transform_buffer) const {
+		UNUSED(lighting);
 		UNUSED(transform_buffer);
 	}
 
-	void SubModel::Draw(const Mesh &mesh, const World &world, const TransformBuffer &transform_buffer) const {
+	void SubModel::Draw(const Mesh &mesh, const LightBuffer &lighting, const TransformBuffer &transform_buffer) const {
 		// Transform
 		transform_buffer.SetModelToWorld(GetTransform()->GetObjectToWorldMatrix());
 		// Appearance
-		m_material->PrepareShading(world, transform_buffer);
+		m_material->PrepareShading(lighting, transform_buffer);
 		// Geometry
 		mesh.Draw(m_start_index, m_nb_indices);
 		// Childs
 		ForEachSubModel([&](SubModel &submodel) {
-			submodel.Draw(mesh, world, transform_buffer);
+			submodel.Draw(mesh, lighting, transform_buffer);
 		});
 	}
 }

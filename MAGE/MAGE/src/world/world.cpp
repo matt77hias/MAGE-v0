@@ -3,10 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "model\model.hpp"
-#include "light\omni_light.hpp"
-#include "light\spot_light.hpp"
-#include "sprite\sprite_object.hpp"
+#include "world\world.hpp"
 
 #pragma endregion
 
@@ -38,7 +35,7 @@ namespace mage {
 	}
 	void World::Render3D(const TransformBuffer &transform_buffer) const {
 		ForEachModel([&](const Model &model) {
-			model.Draw(*this, transform_buffer);
+			model.Draw(LightBuffer(), transform_buffer);
 		});
 	}
 

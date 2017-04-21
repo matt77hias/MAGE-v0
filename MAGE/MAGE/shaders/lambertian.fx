@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // Transformations
 //-----------------------------------------------------------------------------
-cbuffer TransformBuffer : register(b0) {
+cbuffer Transform : register(b0) {
 	matrix model_to_world;
 	matrix world_to_view;
 	matrix world_to_view_inverse_transpose;
@@ -14,7 +14,7 @@ cbuffer TransformBuffer : register(b0) {
 Texture2D diffuse_texture_map : register(t0);
 sampler texture_sampler       : register(s0);
 
-cbuffer MaterialBuffer : register(b1) {
+cbuffer Material : register(b1) {
 	float3 Kd;						// The diffuse reflectivity of the material.
 	float  dissolve;				// The dissolve of the material.
 	float3 Ks;						// The specular reflectivity of the material.
@@ -55,7 +55,7 @@ float ModifiedBlinnPhongBRDF(float3 n, float3 l) {
 // Lights
 //-----------------------------------------------------------------------------
 
-cbuffer LightBuffer : register(b2) {
+cbuffer LightData : register(b2) {
 	float3 Ia;						// The intensity of the ambient light. 
 	uint   nb_omnilights;			// The number of omni lights.
 	float3 Id;						// The intensity of the directional light.

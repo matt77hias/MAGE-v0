@@ -669,6 +669,9 @@
     <ClInclude Include="MAGE\src\rendering\structured_buffer.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\light\light_buffer.hpp">
+      <Filter>Header Files\light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

@@ -26,6 +26,8 @@ namespace mage {
 	HRESULT CreateStaticIndexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices);
 	template < typename DataT >
 	HRESULT CreateConstantBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, size_t count = 1);
+	template < typename DataT >
+	HRESULT CreateStructuredBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, size_t count = 1);
 
 	//-------------------------------------------------------------------------
 	// Blend states

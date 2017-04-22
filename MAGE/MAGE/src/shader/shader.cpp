@@ -110,10 +110,8 @@ namespace mage {
 		Error("Unimplemented VertexShader::Draw() method called.");
 	}
 	
-	void VertexShader::PrepareShading(const Material &material, const LightBuffer &lighting, const TransformBuffer &transform_buffer) const {
-		UNUSED(material);
-		UNUSED(lighting);
-		UNUSED(transform_buffer);
+	void VertexShader::PrepareShading(const TransformBuffer &transform) const {
+		UNUSED(transform);
 		Error("Unimplemented VertexShader::Draw() method called.");
 	}
 

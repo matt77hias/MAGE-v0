@@ -67,10 +67,10 @@ namespace mage {
 			return GetTransform()->GetWorldForward();
 		}
 		const XMVECTOR GetViewLightPosition(const XMMATRIX &world_to_view) const {
-			return XMVector3Transform(GetWorldLightPosition(), world_to_view);
+			return XMVector4Transform(GetWorldLightPosition(), world_to_view);
 		}
 		const XMVECTOR GetViewLightDirection(const XMMATRIX &world_to_view) const {
-			return XMVector3Transform(GetWorldLightDirection(), world_to_view);
+			return XMVector4Transform(GetWorldLightDirection(), world_to_view);
 		}
 
 	private:

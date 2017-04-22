@@ -67,8 +67,12 @@ private:
 		GetWorld()->AddModel(model_teapot);
 
 		// Light
-		SharedPtr< OmniLight > light(new OmniLight("light", RGBSpectrum(0.5f, 0.5f, 0.0f)));
-		GetWorld()->AddLight(light);
+		SharedPtr< OmniLight > omni_light(new OmniLight("light", RGBSpectrum(1.0f, 1.0f, 1.0f)));
+
+		omni_light->SetDistanceFalloff(0.0f, 0.5f);
+
+
+		GetWorld()->AddLight(omni_light);
 
 		// Texture
 		SharedPtr< Texture > texture = CreateTexture(L"assets/sprites/mage.dds");

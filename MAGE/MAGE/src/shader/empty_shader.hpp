@@ -45,7 +45,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		virtual void PrepareShading(const XMMATRIX &transform) const override final;
-		virtual void PrepareShading(const Material &material, const LightBuffer &lighting, const TransformBuffer &transform_buffer) const override final;
+		virtual void PrepareShading(const TransformBuffer &transform) const override final;
 	};
 
 	//-------------------------------------------------------------------------

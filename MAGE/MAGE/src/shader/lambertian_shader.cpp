@@ -26,11 +26,8 @@ namespace mage {
 			VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements),
 			m_transform_buffer(m_device, m_device_context) {}
 
-	void LambertianVertexShader::PrepareShading(const Material &material, const LightBuffer &lighting, const TransformBuffer &transform_buffer) const {
-		UNUSED(lighting);
-		UNUSED(material);
-
-		m_transform_buffer.UpdateData(transform_buffer);
+	void LambertianVertexShader::PrepareShading(const TransformBuffer &transform) const {
+		m_transform_buffer.UpdateData(transform);
 		m_device_context->IASetInputLayout(m_vertex_layout.Get());
 		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
 		m_device_context->VSSetConstantBuffers(0, 1, m_transform_buffer.GetAddressOf());
@@ -57,8 +54,8 @@ namespace mage {
 		
 		m_device_context->PSSetConstantBuffers(1, 1, m_material_buffer.GetAddressOf());
 		m_device_context->PSSetConstantBuffers(2, 1, m_light_data_buffer.GetAddressOf());
-		m_device_context->PSSetConstantBuffers(3, 1, m_omni_lights_buffer.GetAddressOf());
-		m_device_context->PSSetConstantBuffers(4, 1, m_spot_lights_buffer.GetAddressOf());
+		m_device_context->PSSetShaderResources(1, 1, m_omni_lights_buffer.GetAddressOf());
+		m_device_context->PSSetShaderResources(2, 1, m_spot_lights_buffer.GetAddressOf());
 
 		// TODO
 		if (material.m_diffuse_reflectivity_texture) {

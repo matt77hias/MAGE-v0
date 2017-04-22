@@ -25,9 +25,6 @@ namespace mage {
 		init_data.pSysMem = vertices;
 
 		// Create the vertex buffer.
-		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
-		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
-		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
 		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
@@ -51,9 +48,6 @@ namespace mage {
 		init_data.pSysMem = vertices;
 
 		// Create the vertex buffer.
-		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
-		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
-		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
 		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
@@ -73,9 +67,6 @@ namespace mage {
 		init_data.pSysMem = indices;
 
 		// Create the index buffer.
-		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
-		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
-		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
 		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
@@ -84,15 +75,28 @@ namespace mage {
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
-		buffer_desc.ByteWidth      = static_cast< UINT >(count * sizeof(DataT));// Size of the buffer in bytes.
-		buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;						// How the buffer is expected to be read from and written to.
-		buffer_desc.BindFlags      = D3D11_BIND_CONSTANT_BUFFER;				// How the buffer will be bound to the pipeline.
-		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;					// No CPU access is necessary.
+		buffer_desc.ByteWidth      = static_cast< UINT >(count * sizeof(DataT));
+		buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;
+		buffer_desc.BindFlags      = D3D11_BIND_CONSTANT_BUFFER;
+		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
-		// Create the index buffer.
-		// 1. A pointer to a D3D11_BUFFER_DESC structure that describes the buffer.
-		// 2. A pointer to a D3D11_SUBRESOURCE_DATA structure that describes the initialization data.
-		// 3. Address of a pointer to the ID3D11Buffer interface for the buffer object created.
+		// Create the constant buffer.
+		return device->CreateBuffer(&buffer_desc, nullptr, buffer);
+	}
+
+	template < typename DataT >
+	HRESULT CreateStructuredBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, size_t count) {
+		// Describe the buffer resource.
+		D3D11_BUFFER_DESC buffer_desc;
+		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
+		buffer_desc.ByteWidth           = static_cast< UINT >(count * sizeof(DataT));
+		buffer_desc.Usage               = D3D11_USAGE_DYNAMIC;
+		buffer_desc.BindFlags           = D3D11_BIND_SHADER_RESOURCE;
+		buffer_desc.CPUAccessFlags      = D3D11_CPU_ACCESS_WRITE;
+		buffer_desc.MiscFlags           = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+		buffer_desc.StructureByteStride = static_cast< UINT >(sizeof(DataT));
+
+		// Create the structured buffer.
 		return device->CreateBuffer(&buffer_desc, nullptr, buffer);
 	}
 }

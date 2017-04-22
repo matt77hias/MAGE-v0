@@ -81,8 +81,8 @@ struct SpotLight {
 	float  cos_umbra;				// The cosine of the umbra angle at which intensity falloff ends.
 };
 
-StructuredBuffer< OmniLight > omni_lights : register(b3);
-StructuredBuffer< SpotLight > spot_lights : register(b4);
+StructuredBuffer< OmniLight > omni_lights : register(t1);
+StructuredBuffer< SpotLight > spot_lights : register(t2);
 
 // Calculates the distance fall off at a given distance r.
 float DistanceFalloff(float r, float r_start, float r_end) {
@@ -125,6 +125,13 @@ float3 SpotLightMaxContribution(SpotLight light, float4 p, float3 l) {
 // Calculates the Lambertian shading.
 float4 LambertianBRDFShading(float4 p, float3 n, float2 tex) {
 
+	float r = 1.0f - distance(omni_lights[0].p, p);
+	if (r < 0.0f) {
+		r = 0.0f;
+	}
+	return float4(r, r, r, dissolve);
+
+
 	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
 
 	// Ambient light and directional light contribution
@@ -153,7 +160,7 @@ float4 LambertianBRDFShading(float4 p, float3 n, float2 tex) {
 
 	float4 I = float4(0.0f, 0.0f, 0.0f, dissolve);
 	I.xyz = Kd * I_diffuse;
-	I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	//I *= diffuse_texture_map.Sample(texture_sampler, tex);
 	return I;
 }
 // Calculates the Phong BRDF shading.
@@ -318,7 +325,7 @@ float4 PS(PS_INPUT input) : SV_Target {
 
 	//return float4(float3(0.5f, 0.5f, 0.5f) + 0.5 * input.n_view, 0.0f);
 
-	return PhongBRDFShading(input.p_view, input.n_view, input.tex);
+	return LambertianBRDFShading(input.p_view, input.n_view, input.tex);
 
 	//const float4 I = float4(Kd, dissolve);
 	//return diffuse_texture_map.Sample(texture_sampler, input.tex) * I;

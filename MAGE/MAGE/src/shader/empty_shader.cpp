@@ -18,10 +18,8 @@ namespace mage {
 		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
 	}
 
-	void EmptyVertexShader::PrepareShading(const Material &material, const LightBuffer &lighting, const TransformBuffer &transform_buffer) const {
-		UNUSED(material);
-		UNUSED(lighting);
-		UNUSED(transform_buffer);
+	void EmptyVertexShader::PrepareShading(const TransformBuffer &transform) const {
+		UNUSED(transform);
 		m_device_context->IASetInputLayout(m_vertex_layout.Get());
 		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
 	}

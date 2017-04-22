@@ -50,7 +50,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		virtual void PrepareShading(const XMMATRIX &transform) const;
-		virtual void PrepareShading(const Material &material, const LightBuffer &lighting, const TransformBuffer &transform_buffer) const;
+		virtual void PrepareShading(const TransformBuffer &transform) const;
 
 	protected:
 
@@ -160,16 +160,16 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void PrepareShading(const Texture &texture, const XMMATRIX &matrix) const {
-			m_vertex_shader->PrepareShading(matrix);
+		void PrepareShading(const Texture &texture, const XMMATRIX &transform) const {
+			m_vertex_shader->PrepareShading(transform);
 			m_pixel_shader->PrepareShading(texture);
 		}
 		void PrepareShading(ID3D11ShaderResourceView * const *texture, const XMMATRIX &matrix) const {
 			m_vertex_shader->PrepareShading(matrix);
 			m_pixel_shader->PrepareShading(texture);
 		}
-		void PrepareShading(const Material &material, const LightBuffer &lighting, const TransformBuffer &transform_buffer) const {
-			m_vertex_shader->PrepareShading(material, lighting, transform_buffer);
+		void PrepareShading(const Material &material, const LightBuffer &lighting, const TransformBuffer &transform) const {
+			m_vertex_shader->PrepareShading(transform);
 			m_pixel_shader->PrepareShading(material, lighting);
 		}
 

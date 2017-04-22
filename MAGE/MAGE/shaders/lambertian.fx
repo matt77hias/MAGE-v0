@@ -61,6 +61,7 @@ cbuffer LightData : register(b2) {
 	float3 Id;						// The intensity of the directional light.
 	uint   nb_spotlights;			// The number of spotlights.
 	float3 d;						// The direction of the directional light in camera space.
+	uint   padding;
 };
 
 struct OmniLight {
@@ -68,6 +69,7 @@ struct OmniLight {
 	float3 I;						// The intensity of the omni light.
 	float  distance_falloff_start;	// The distance at which intensity falloff starts.
 	float  distance_falloff_end;	// The distance at which intensity falloff ends.
+	uint   padding[3];
 };
 
 struct SpotLight {
@@ -79,6 +81,7 @@ struct SpotLight {
 	float  distance_falloff_end;	// The distance at which intensity falloff ends.
 	float  cos_penumbra;			// The cosine of the penumbra angle at which intensity falloff starts.
 	float  cos_umbra;				// The cosine of the umbra angle at which intensity falloff ends.
+	uint   padding;
 };
 
 StructuredBuffer< OmniLight > omni_lights : register(t1);
@@ -105,13 +108,13 @@ float AngularFalloff(float cos_theta, float cos_penumbra, float cos_umbra, float
 
 // Calculates the maximum contribution of the given omni light on the given point.
 float3 OmniLightMaxContribution(OmniLight light, float4 p) {
-	const float r  = distance(light.p, p);
+	const float r  = distance(light.p.xyz, p.xyz);
 	const float df = DistanceFalloff(r, light.distance_falloff_start, light.distance_falloff_end);
 	return df * light.I;
 }
 // Calculates the maximum contribution of the given spotlight on the given point.
 float3 SpotLightMaxContribution(SpotLight light, float4 p, float3 l) {
-	const float r  = distance(light.p, p);
+	const float r  = distance(light.p.xyz, p.xyz);
 	const float cos_theta = dot(light.d, -l);
 	const float df = DistanceFalloff(r, light.distance_falloff_start, light.distance_falloff_end);
 	const float af = AngularFalloff(cos_theta, light.cos_penumbra, light.cos_umbra, light.exponent_property);
@@ -124,7 +127,8 @@ float3 SpotLightMaxContribution(SpotLight light, float4 p, float3 l) {
 
 // Calculates the Lambertian shading.
 float4 LambertianBRDFShading(float4 p, float3 n, float2 tex) {
-	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
+
+	float3 I_diffuse = float3(0.0f, 0.0f, 0.0f);
 
 	// Ambient light and directional light contribution
 	float3 brdf = LambertianBRDF(n, -d);
@@ -133,7 +137,7 @@ float4 LambertianBRDFShading(float4 p, float3 n, float2 tex) {
 	// Omni lights contribution
 	for (uint i = 0; i < nb_omnilights; ++i) {
 		const OmniLight light = omni_lights[i];
-		const float3 l = normalize(light.p - p).xyz;
+		const float3 l = normalize(light.p.xyz - p.xyz);
 		const float3 I_light = OmniLightMaxContribution(light, p);
 		
 		brdf = LambertianBRDF(n, l);
@@ -143,7 +147,7 @@ float4 LambertianBRDFShading(float4 p, float3 n, float2 tex) {
 	// Spotlights contribution
 	for (uint j = 0; j < nb_spotlights; ++j) {
 		const SpotLight light = spot_lights[j];
-		const float3 l = normalize(light.p - p).xyz;
+		const float3 l = normalize(light.p.xyz - p.xyz);
 		const float3 I_light = SpotLightMaxContribution(light, p, l);
 		
 		brdf = LambertianBRDF(n, l);
@@ -168,7 +172,7 @@ float4 PhongBRDFShading(float4 p, float3 n, float2 tex) {
 	// Omni lights contribution
 	for (uint i = 0; i < nb_omnilights; ++i) {
 		const OmniLight light = omni_lights[i];
-		const float3 l = normalize(light.p - p).xyz;
+		const float3 l = normalize(light.p.xyz - p.xyz);
 		const float3 I_light = OmniLightMaxContribution(light, p);
 
 		brdf = LambertianBRDF(n, l);
@@ -181,7 +185,7 @@ float4 PhongBRDFShading(float4 p, float3 n, float2 tex) {
 	// Spotlights contribution
 	for (uint j = 0; j < nb_spotlights; ++j) {
 		const SpotLight light = spot_lights[j];
-		const float3 l = normalize(light.p - p).xyz;
+		const float3 l = normalize(light.p.xyz - p.xyz);
 		const float3 I_light = SpotLightMaxContribution(light, p, l);
 
 		brdf = LambertianBRDF(n, l);
@@ -210,7 +214,7 @@ float4 BlinnPhongBRDFShading(float4 p, float3 n, float2 tex) {
 	// Omni lights contribution
 	for (uint i = 0; i < nb_omnilights; ++i) {
 		const OmniLight light = omni_lights[i];
-		const float3 l = normalize(light.p - p).xyz;
+		const float3 l = normalize(light.p.xyz - p.xyz);
 		const float3 I_light = OmniLightMaxContribution(light, p);
 
 		brdf = LambertianBRDF(n, l);
@@ -223,7 +227,7 @@ float4 BlinnPhongBRDFShading(float4 p, float3 n, float2 tex) {
 	// Spotlights contribution
 	for (uint j = 0; j < nb_spotlights; ++j) {
 		const SpotLight light = spot_lights[j];
-		const float3 l = normalize(light.p - p).xyz;
+		const float3 l = normalize(light.p.xyz - p.xyz);
 		const float3 I_light = SpotLightMaxContribution(light, p, l);
 
 		brdf = LambertianBRDF(n, l);
@@ -252,7 +256,7 @@ float4 ModifiedBlinnPhongBRDFShading(float4 p, float3 n, float2 tex) {
 	// Omni lights contribution
 	for (uint i = 0; i < nb_omnilights; ++i) {
 		const OmniLight light = omni_lights[i];
-		const float3 l = normalize(light.p - p).xyz;
+		const float3 l = normalize(light.p.xyz - p.xyz);
 		const float3 I_light = OmniLightMaxContribution(light, p);
 
 		brdf = LambertianBRDF(n, l);
@@ -265,7 +269,7 @@ float4 ModifiedBlinnPhongBRDFShading(float4 p, float3 n, float2 tex) {
 	// Spotlights contribution
 	for (uint j = 0; j < nb_spotlights; ++j) {
 		const SpotLight light = spot_lights[j];
-		const float3 l = normalize(light.p - p).xyz;
+		const float3 l = normalize(light.p.xyz - p.xyz);
 		const float3 I_light = SpotLightMaxContribution(light, p, l);
 
 		brdf = LambertianBRDF(n, l);

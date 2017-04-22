@@ -11,6 +11,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <stdint.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -26,14 +35,15 @@ namespace mage {
 		SpotLightBuffer &operator=(const SpotLightBuffer &buffer) = default;
 		SpotLightBuffer &operator=(SpotLightBuffer &&buffer) = default;
 
-		XMFLOAT4A p;
-		XMFLOAT3  I;
-		float     exponent_property;
-		XMFLOAT3  d;
-		float     distance_falloff_start;
-		float     distance_falloff_end;
-		float     cos_penumbra;
-		float     cos_umbra;
+		XMFLOAT4 p;
+		XMFLOAT3 I;
+		float    exponent_property;
+		XMFLOAT3 d;
+		float    distance_falloff_start;
+		float    distance_falloff_end;
+		float    cos_penumbra;
+		float    cos_umbra;
+		uint32_t padding;
 	};
 
 	static_assert(sizeof(SpotLightBuffer) == 64, "CPU/GPU struct mismatch");

@@ -68,10 +68,8 @@ private:
 
 		// Light
 		SharedPtr< OmniLight > omni_light(new OmniLight("light", RGBSpectrum(1.0f, 1.0f, 1.0f)));
-
-		omni_light->SetDistanceFalloff(0.0f, 0.5f);
-
-
+		omni_light->GetTransform()->SetTranslation(0.0f, 2.0f, 0.0f);
+		omni_light->SetDistanceFalloff(0.0f, 2.0f);
 		GetWorld()->AddLight(omni_light);
 
 		// Texture

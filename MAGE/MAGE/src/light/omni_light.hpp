@@ -11,6 +11,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <stdint.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -26,10 +35,11 @@ namespace mage {
 		OmniLightBuffer &operator=(const OmniLightBuffer &buffer) = default;
 		OmniLightBuffer &operator=(OmniLightBuffer &&buffer) = default;
 
-		XMFLOAT4A p;
+		XMFLOAT4  p;
 		XMFLOAT3  I;
 		float     distance_falloff_start;
 		float     distance_falloff_end;
+		uint32_t  padding[3];
 	};
 
 	static_assert(sizeof(OmniLightBuffer) == 48, "CPU/GPU struct mismatch");

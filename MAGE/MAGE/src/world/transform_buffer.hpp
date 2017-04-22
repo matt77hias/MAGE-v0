@@ -39,13 +39,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		const XMMATRIX GetWorldToViewMatrix() const {
-			return m_world_to_view;
+			return XMMatrixTranspose(m_world_to_view);
 		}
 		const XMMATRIX GetWorldToViewInverseTransposeMatrix() const {
-			return m_world_to_view_inverse_transpose;
+			return XMMatrixTranspose(m_world_to_view_inverse_transpose);
 		}
 		const XMMATRIX GetViewToProjectionMatrix() const {
-			return m_view_to_projection;
+			return XMMatrixTranspose(m_view_to_projection);
 		}
 		void SetModelToWorld(const XMMATRIX &model_to_world) const {
 			m_model_to_world = XMMatrixTranspose(model_to_world);

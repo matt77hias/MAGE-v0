@@ -124,14 +124,6 @@ float3 SpotLightMaxContribution(SpotLight light, float4 p, float3 l) {
 
 // Calculates the Lambertian shading.
 float4 LambertianBRDFShading(float4 p, float3 n, float2 tex) {
-
-	float r = 1.0f - distance(omni_lights[0].p, p);
-	if (r < 0.0f) {
-		r = 0.0f;
-	}
-	return float4(r, r, r, dissolve);
-
-
 	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
 
 	// Ambient light and directional light contribution
@@ -160,7 +152,7 @@ float4 LambertianBRDFShading(float4 p, float3 n, float2 tex) {
 
 	float4 I = float4(0.0f, 0.0f, 0.0f, dissolve);
 	I.xyz = Kd * I_diffuse;
-	//I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	I *= diffuse_texture_map.Sample(texture_sampler, tex);
 	return I;
 }
 // Calculates the Phong BRDF shading.

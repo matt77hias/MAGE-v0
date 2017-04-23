@@ -34,6 +34,7 @@ namespace mage {
 
 	template< typename ActionT >
 	inline void World::ForEachObject3D(ActionT action) const {
+		// Order is important for the efficiency of UpdateTransform.
 		ForEachModel(action);
 		ForEachLight(action);
 	}

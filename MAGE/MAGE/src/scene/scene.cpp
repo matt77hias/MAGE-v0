@@ -39,10 +39,16 @@ namespace mage {
 		Load();
 
 		// Update and propagate transforms.
-		m_camera->UpdateTransform();
+		UpdateTransforms();
+	}
+	void Scene::UpdateTransforms() {
+		// 1. Traverse the scene graphs (root world objects) which can contain lights as childs. 
+		// 2. Traverse the lights which (no transformations will be re-calculated).
 		m_world->ForEachObject3D([](WorldObject &world_object) {
 			world_object.UpdateTransform();
 		});
+		// 3. Traverse the camera which (no transformations will be re-calculated).
+		m_camera->UpdateTransform();
 	}
 	void Scene::Update(double delta_time) {
 		// Update scripts.
@@ -51,10 +57,7 @@ namespace mage {
 		});
 
 		// Update and propagate transforms.
-		m_camera->UpdateTransform();
-		m_world->ForEachObject3D([](WorldObject &world_object) {
-			world_object.UpdateTransform();
-		});
+		UpdateTransforms();
 	}
 	void Scene::Render2D() const {
 		m_world->Render2D();

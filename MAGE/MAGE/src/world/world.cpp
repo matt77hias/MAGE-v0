@@ -36,6 +36,7 @@ namespace mage {
 		m_sprite_batch->End();
 	}
 	void World::Render3D(const TransformBuffer &transform_buffer) const {
+		// Gather light data for the shaders.
 		LightBuffer lighting;
 
 		const XMMATRIX world_to_view = transform_buffer.GetWorldToViewMatrix();
@@ -48,6 +49,7 @@ namespace mage {
 
 		lighting.UpdateSizes();
 
+		// Render models.
 		ForEachModel([&](const Model &model) {
 			model.Draw(lighting, transform_buffer);
 		});

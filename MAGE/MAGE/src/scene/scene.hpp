@@ -122,6 +122,8 @@ namespace mage {
 		// Constructors
 		//---------------------------------------------------------------------
 
+		void UpdateTransforms();
+
 		/**
 		 Loads this scene.
 		 Allows this scene to preform any pre-processing construction.

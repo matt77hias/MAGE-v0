@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\mesh.hpp"
 #include "world\world_object.hpp"
+#include "mesh\mesh.hpp"
 #include "shader\shaded_material.hpp"
 
 #pragma endregion

@@ -23,7 +23,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit ManhattanInputControllerScript(Transform *transform)
+		explicit ManhattanInputControllerScript(const TransformGroup &transform)
 			: BehaviorScript(),
 			m_orientation_script(new MouseLookScript(transform)),
 			m_movement_script(new ManhattanMotorScript(transform)) {}

@@ -23,7 +23,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit FPSInputControllerScript(Transform *transform)
+		explicit FPSInputControllerScript(const TransformGroup &transform)
 			: BehaviorScript(),
 			m_orientation_script(new MouseLookScript(transform)), 
 			m_movement_script(new CharacterMotorScript(transform)) {}

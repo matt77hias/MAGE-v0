@@ -672,6 +672,9 @@
     <ClInclude Include="MAGE\src\light\light_buffer.hpp">
       <Filter>Header Files\light</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\math\transform_group.hpp">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1011,8 +1014,8 @@
     <None Include="MAGE\src\rendering\structured_buffer.tpp">
       <Filter>Header Files\rendering</Filter>
     </None>
-    <None Include="MAGE\src\world\world_object.tpp">
-      <Filter>Header Files\world</Filter>
+    <None Include="MAGE\src\math\transform_group.tpp">
+      <Filter>Header Files\math</Filter>
     </None>
   </ItemGroup>
 </Project>

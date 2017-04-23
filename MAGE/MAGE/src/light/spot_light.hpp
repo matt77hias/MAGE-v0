@@ -6,7 +6,6 @@
 #pragma region
 
 #include "light\light.hpp"
-#include "memory\allocation.hpp"
 
 #pragma endregion
 

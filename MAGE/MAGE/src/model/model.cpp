@@ -49,8 +49,6 @@ namespace mage {
 	}
 
 	void Model::UpdateChildTransforms(bool dirty_ancestor) {
-		WorldObject::UpdateChildTransforms(dirty_ancestor);
-
 		ForEachSubModel([&](SubModel &submodel) {
 			submodel.UpdateTransform(
 				GetTransform()->GetWorldToObjectMatrix(), 

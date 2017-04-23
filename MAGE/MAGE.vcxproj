@@ -66,6 +66,7 @@
     <ClInclude Include="MAGE\src\math\math_utils.hpp" />
     <ClInclude Include="MAGE\src\math\sprite_transform.hpp" />
     <ClInclude Include="MAGE\src\math\transform.hpp" />
+    <ClInclude Include="MAGE\src\math\transform_group.hpp" />
     <ClInclude Include="MAGE\src\math\view_frustum.hpp" />
     <ClInclude Include="MAGE\src\memory\allocation.hpp" />
     <ClInclude Include="MAGE\src\memory\memory.hpp" />
@@ -399,6 +400,7 @@
   <ItemGroup>
     <None Include="MAGE\src\binary\binary_reader.tpp" />
     <None Include="MAGE\src\binary\binary_writer.tpp" />
+    <None Include="MAGE\src\math\transform_group.tpp" />
     <None Include="MAGE\src\memory\memory_arena.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_loader.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_reader.tpp" />
@@ -420,7 +422,6 @@
     <None Include="MAGE\src\scripting\variable_script.tpp" />
     <None Include="MAGE\src\text\sprite_text.tpp" />
     <None Include="MAGE\src\world\world.tpp" />
-    <None Include="MAGE\src\world\world_object.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>

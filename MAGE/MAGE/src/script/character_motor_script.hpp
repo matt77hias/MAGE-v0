@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "math\transform.hpp"
+#include "math\transform_group.hpp"
 
 #pragma endregion
 
@@ -22,8 +22,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
-
-		explicit CharacterMotorScript(Transform *transform)
+		
+		explicit CharacterMotorScript(const TransformGroup &transform)
 			: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {}
 		CharacterMotorScript(const CharacterMotorScript &script) = delete;
 		CharacterMotorScript(CharacterMotorScript &&script) = default;
@@ -55,7 +55,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		Transform * const m_transform;
+		const TransformGroup m_transform;
 		float m_velocity;
 	};
 }

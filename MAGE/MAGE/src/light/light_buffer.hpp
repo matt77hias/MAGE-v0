@@ -7,15 +7,7 @@
 
 #include "light\omni_light.hpp"
 #include "light\spot_light.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdint.h>
+#include "collection\collection.hpp"
 
 #pragma endregion
 

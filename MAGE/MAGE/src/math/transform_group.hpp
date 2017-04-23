@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\behavior_script.hpp"
-#include "math\transform_group.hpp"
+#include "math\transform.hpp"
+#include "collection\collection.hpp"
 
 #pragma endregion
 
@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class ManhattanMotorScript final : public BehaviorScript {
+	struct TransformGroup final {
 
 	public:
 
@@ -23,31 +23,38 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit ManhattanMotorScript(const TransformGroup &transform)
-			: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {}
-		ManhattanMotorScript(const ManhattanMotorScript &script) = delete;
-		ManhattanMotorScript(ManhattanMotorScript &&script) = default;
-		virtual ~ManhattanMotorScript() = default;
+		TransformGroup() = default;
+		TransformGroup(Transform *transform)
+			: TransformGroup() {
+			AddTransform(transform);
+		}
+		TransformGroup(const TransformGroup &transform_group) = default;
+		TransformGroup(TransformGroup &&transform_group) = default;
+		~TransformGroup() {
+			m_transforms.clear();
+			m_transform_groups.clear();
+		}
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		ManhattanMotorScript &operator=(const ManhattanMotorScript &script) = delete;
-		ManhattanMotorScript &operator=(ManhattanMotorScript &&script) = delete;
+		TransformGroup &operator=(const TransformGroup &transform_group) = delete;
+		TransformGroup &operator=(TransformGroup &&transform_group) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update(double delta_time) override;
+		void AddTransform(Transform *transform) {
+			m_transforms.push_back(transform);
+		}
+		void AddTransform(const TransformGroup &transform) {
+			m_transform_groups.push_back(transform);
+		}
 
-		float GetVelocity() const {
-			return m_velocity;
-		}
-		void SetVelocity(float velocity) {
-			m_velocity = velocity;
-		}
+		template< typename ActionT >
+		void ForEachTransform(ActionT action) const;
 
 	private:
 
@@ -55,7 +62,16 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		const TransformGroup m_transform;
-		float m_velocity;
+		vector< Transform * > m_transforms;
+		vector< TransformGroup > m_transform_groups;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "math\transform_group.tpp"
+
+#pragma endregion

@@ -49,16 +49,23 @@ private:
 
 	virtual void Load() override {
 
+		//---------------------------------------------------------------------
 		// Camera
+		//---------------------------------------------------------------------
 		SharedPtr< Camera > camera = CreatePerspectiveCamera("camera");
 		camera->GetTransform()->SetTranslation(0.0f, 2.0f, 0.0f);
 		SetCamera(camera);
 		
-		// ModelDescriptor
+
+		//---------------------------------------------------------------------
+		// ModelDescriptors
+		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		SharedPtr< ModelDescriptor > model_desc_sponza = CreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
 		SharedPtr< ModelDescriptor > model_desc_sphere = CreateModelDescriptor(L"assets/models/sphere/sphere.mdl", mesh_desc);
-		// Model
+		//---------------------------------------------------------------------
+		// Models
+		//---------------------------------------------------------------------
 		SharedPtr< MeshModel > model_sponza(new MeshModel("sponza", *model_desc_sponza));
 		model_sponza->GetTransform()->SetScale(10.0f);
 		GetWorld()->AddModel(model_sponza);
@@ -66,40 +73,59 @@ private:
 		model_sphere->GetTransform()->AddTranslationY(0.5f);
 		GetWorld()->AddModel(model_sphere);
 
-		// Light
+
+		//---------------------------------------------------------------------
+		// Lights
+		//---------------------------------------------------------------------
 		SharedPtr< OmniLight > omni_light(new OmniLight("omnilight", RGBSpectrum(1.0f, 1.0f, 1.0f)));
 		omni_light->GetTransform()->SetTranslationY(2.0f);
 		omni_light->SetDistanceFalloff(0.0f, 2.0f);
 		GetWorld()->AddLight(omni_light);
 		SharedPtr< SpotLight > spot_light(new SpotLight("spotlight", RGBSpectrum(1.0f, 1.0f, 1.0f)));
+		spot_light->GetTransform()->SetTranslation(0.0f, 2.0f, 0.0f);
 		spot_light->SetDistanceFalloff(0.0f, 3.0f);
-		camera->AddChild(spot_light);
 		GetWorld()->AddLight(spot_light);
 
-		// Texture
-		SharedPtr< Texture > texture = CreateTexture(L"assets/sprites/mage.dds");
-		// Image
-		SharedPtr< SpriteImage > image(new SpriteImage("image", texture));
-		image->GetTransform()->SetScale(0.25f, 0.25f);
-		image->GetTransform()->SetNormalizedTranslation(0.90f, 0.88f);
-		GetWorld()->AddSprite(image);
 
+		//---------------------------------------------------------------------
+		// Texture
+		//---------------------------------------------------------------------
+		SharedPtr< Texture > texture_logo = CreateTexture(L"assets/sprites/mage.dds");
+		//---------------------------------------------------------------------
+		// Image
+		//---------------------------------------------------------------------
+		SharedPtr< SpriteImage > logo(new SpriteImage("logo", texture_logo));
+		logo->GetTransform()->SetScale(0.25f, 0.25f);
+		logo->GetTransform()->SetNormalizedTranslation(0.90f, 0.88f);
+		GetWorld()->AddSprite(logo);
+
+
+		//---------------------------------------------------------------------
 		// Font
+		//---------------------------------------------------------------------
 		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
+		//---------------------------------------------------------------------
 		// Text
+		//---------------------------------------------------------------------
 		SharedPtr< SpriteText > text(new NormalSpriteText("text", font));
 		GetWorld()->AddSprite(text);
 
+
+		//---------------------------------------------------------------------
 		// Scripts
+		//---------------------------------------------------------------------
 		//SharedPtr< BehaviorScript > script(new TestScript(model_teapot));
 		//AddScript(script);
-		SharedPtr< BehaviorScript > controller(new FPSInputControllerScript(camera->GetTransform()));
-		AddScript(controller);
 		
-		SharedPtr< BehaviorScript > stats(new StatsScript(text));
-		AddScript(stats);
-		SharedPtr< BehaviorScript > wf(new WireframeScript());
-		AddScript(wf);
+		TransformGroup transform(camera->GetTransform());
+		transform.AddTransform(spot_light->GetTransform());
+		
+		SharedPtr< BehaviorScript > controller_script(new FPSInputControllerScript(transform));
+		AddScript(controller_script);
+		SharedPtr< BehaviorScript > stats_script(new StatsScript(text));
+		AddScript(stats_script);
+		SharedPtr< BehaviorScript > wireframe_script(new WireframeScript());
+		AddScript(wireframe_script);
 	}
 };
 

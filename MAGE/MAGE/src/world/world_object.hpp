@@ -7,7 +7,6 @@
 
 #include "string\string.hpp"
 #include "math\transform.hpp"
-#include "collection\collection.hpp"
 
 #pragma endregion
 
@@ -27,7 +26,7 @@ namespace mage {
 		explicit WorldObject(const string &name);
 		WorldObject(const WorldObject &world_object);
 		WorldObject(WorldObject &&world_object) = default;
-		virtual ~WorldObject();
+		virtual ~WorldObject() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -59,16 +58,6 @@ namespace mage {
 
 		void UpdateTransform();
 
-		size_t GetNumberOfChilds() const {
-			return m_childs.size();
-		}
-		bool HasChild(const SharedPtr< WorldObject > child) const;
-		void AddChild(SharedPtr< WorldObject > child);
-		void RemoveChild(SharedPtr< WorldObject > child);
-		void RemoveAllChilds();
-		template< typename ActionT >
-		void ForEachChild(ActionT action) const;
-
 	protected:
 
 		//---------------------------------------------------------------------
@@ -86,15 +75,5 @@ namespace mage {
 
 		string m_name;
 		UniquePtr< Transform > m_transform;
-		vector< SharedPtr< WorldObject > > m_childs;
 	};
 }
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "world\world_object.tpp"
-
-#pragma endregion

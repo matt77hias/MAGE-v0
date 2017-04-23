@@ -1011,5 +1011,8 @@
     <None Include="MAGE\src\rendering\structured_buffer.tpp">
       <Filter>Header Files\rendering</Filter>
     </None>
+    <None Include="MAGE\src\world\world_object.tpp">
+      <Filter>Header Files\world</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -23,9 +23,10 @@ namespace mage {
 	Model::Model(const Model &model)
 		: WorldObject(model) {
 
-		for (vector< SubModel * >::const_iterator it = model.m_submodels.cbegin(); it != model.m_submodels.cend(); ++it) {
-			AddSubModel((*it)->Clone());
-		}
+		// Deep copy
+		model.ForEachSubModel([&](const SubModel &submodel) {
+			AddSubModel(submodel.Clone());
+		});
 	}
 
 	Model::~Model() {
@@ -48,6 +49,8 @@ namespace mage {
 	}
 
 	void Model::UpdateChildTransforms(bool dirty_ancestor) {
+		WorldObject::UpdateChildTransforms(dirty_ancestor);
+
 		ForEachSubModel([&](SubModel &submodel) {
 			submodel.UpdateTransform(
 				GetTransform()->GetWorldToObjectMatrix(), 

@@ -63,8 +63,8 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
-		OmniLight &operator=(const OmniLight &light) = default;
-		OmniLight &operator=(OmniLight &&light) = default;
+		OmniLight &operator=(const OmniLight &light) = delete;
+		OmniLight &operator=(OmniLight &&light) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

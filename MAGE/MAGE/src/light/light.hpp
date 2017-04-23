@@ -29,8 +29,8 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
-		Light &operator=(const Light &light) = default;
-		Light &operator=(Light &&light) = default;
+		Light &operator=(const Light &light) = delete;
+		Light &operator=(Light &&light) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

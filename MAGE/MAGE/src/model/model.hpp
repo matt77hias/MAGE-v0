@@ -72,13 +72,13 @@ namespace mage {
 		Model(const Model &model);
 		Model(Model &&model) = default;
 
-	private:
-
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		virtual void UpdateChildTransforms(bool dirty_ancestor) override;
+
+	private:
 
 		//---------------------------------------------------------------------
 		// Member Variables

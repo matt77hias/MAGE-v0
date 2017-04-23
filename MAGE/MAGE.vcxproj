@@ -420,6 +420,7 @@
     <None Include="MAGE\src\scripting\variable_script.tpp" />
     <None Include="MAGE\src\text\sprite_text.tpp" />
     <None Include="MAGE\src\world\world.tpp" />
+    <None Include="MAGE\src\world\world_object.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>

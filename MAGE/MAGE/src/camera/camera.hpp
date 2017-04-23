@@ -40,13 +40,9 @@ namespace mage {
 		 */
 		virtual ~Camera() = default;
 
-		/**
-		 Copies the given camera to this camera.
-
-		 @param[in]		camera
-						A reference to the orthographic camera.
-		 */
-		Camera &operator=(const Camera &camera) = default;
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
 
 		/**
 		 Copies the given camera to this camera.
@@ -54,7 +50,15 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera.
 		 */
-		Camera &operator=(Camera &&camera) = default;
+		Camera &operator=(const Camera &camera) = delete;
+
+		/**
+		 Copies the given camera to this camera.
+
+		 @param[in]		camera
+						A reference to the orthographic camera.
+		 */
+		Camera &operator=(Camera &&camera) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

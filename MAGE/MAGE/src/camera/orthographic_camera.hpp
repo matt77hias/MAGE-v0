@@ -88,7 +88,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera.
 		 */
-		OrthographicCamera &operator=(const OrthographicCamera &camera) = default;
+		OrthographicCamera &operator=(const OrthographicCamera &camera) = delete;
 		
 		/**
 		 Copies the given orthographic camera to this orthographic camera.
@@ -96,7 +96,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera.
 		 */
-		OrthographicCamera &operator=(OrthographicCamera &&camera) = default;
+		OrthographicCamera &operator=(OrthographicCamera &&camera) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

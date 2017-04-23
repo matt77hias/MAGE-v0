@@ -67,10 +67,14 @@ private:
 		GetWorld()->AddModel(model_sphere);
 
 		// Light
-		SharedPtr< OmniLight > omni_light(new OmniLight("light", RGBSpectrum(1.0f, 1.0f, 1.0f)));
+		SharedPtr< OmniLight > omni_light(new OmniLight("omnilight", RGBSpectrum(1.0f, 1.0f, 1.0f)));
 		omni_light->GetTransform()->SetTranslationY(2.0f);
 		omni_light->SetDistanceFalloff(0.0f, 2.0f);
-		GetWorld()->AddLight(omni_light);
+		//GetWorld()->AddLight(omni_light);
+		SharedPtr< SpotLight > spot_light(new SpotLight("spotlight", RGBSpectrum(1.0f, 1.0f, 1.0f)));
+		spot_light->SetDistanceFalloff(0.0f, 3.0f);
+		camera->AddChild(spot_light);
+		GetWorld()->AddLight(spot_light);
 
 		// Texture
 		SharedPtr< Texture > texture = CreateTexture(L"assets/sprites/mage.dds");

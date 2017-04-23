@@ -69,8 +69,8 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
-		SpotLight &operator=(const SpotLight &light) = default;
-		SpotLight &operator=(SpotLight &&light) = default;
+		SpotLight &operator=(const SpotLight &light) = delete;
+		SpotLight &operator=(SpotLight &&light) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

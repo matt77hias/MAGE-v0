@@ -109,7 +109,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the perspective camera.
 		 */
-		PerspectiveCamera &operator=(const PerspectiveCamera &camera) = default;
+		PerspectiveCamera &operator=(const PerspectiveCamera &camera) = delete;
 
 		/**
 		 Copies the given perspective camera to this perspective camera.
@@ -117,7 +117,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the perspective camera.
 		 */
-		PerspectiveCamera &operator=(PerspectiveCamera &&camera) = default;
+		PerspectiveCamera &operator=(PerspectiveCamera &&camera) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

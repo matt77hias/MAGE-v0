@@ -32,8 +32,8 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
-		DirectionalLight &operator=(const DirectionalLight &light) = default;
-		DirectionalLight &operator=(DirectionalLight &&light) = default;
+		DirectionalLight &operator=(const DirectionalLight &light) = delete;
+		DirectionalLight &operator=(DirectionalLight &&light) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

@@ -26,7 +26,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		RGBSpectrum()
-			: XMFLOAT3() {}
+			: RGBSpectrum(0.0f, 0.0f, 0.0f) {}
 		RGBSpectrum(float r, float g, float b)
 			: XMFLOAT3(r, g, b) {}
 		RGBSpectrum(const RGBSpectrum &rgb)
@@ -59,7 +59,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		XYZSpectrum()
-			: XMFLOAT3() {}
+			: XYZSpectrum(0.0f, 0.0f, 0.0f) {}
 		XYZSpectrum(float x, float y, float z)
 			: XMFLOAT3(x, y, z) {}
 		XYZSpectrum(const XYZSpectrum &xyz)

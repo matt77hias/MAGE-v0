@@ -321,7 +321,7 @@ float4 PS(PS_INPUT input) : SV_Target {
 
 	//return float4(float3(0.5f, 0.5f, 0.5f) + 0.5 * input.n_view, 0.0f);
 
-	return LambertianBRDFShading(input.p_view, input.n_view, input.tex);
+	return ModifiedBlinnPhongBRDFShading(input.p_view, input.n_view, input.tex);
 
 	//const float4 I = float4(Kd, dissolve);
 	//return diffuse_texture_map.Sample(texture_sampler, input.tex) * I;

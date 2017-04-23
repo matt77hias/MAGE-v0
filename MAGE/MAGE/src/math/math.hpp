@@ -35,7 +35,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		UV()
-			: XMFLOAT2() {}
+			: UV(0.0f, 0.0f) {}
 		UV(float x, float y)
 			: XMFLOAT2(x, y) {}
 		UV(const UV &uv)
@@ -87,7 +87,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		Point3()
-			: XMFLOAT3() {}
+			: Point3(0.0f, 0.0f, 0.0f) {}
 		Point3(float x, float y, float z) 
 			: XMFLOAT3(x, y, z) {}
 		Point3(const Point3 &point)
@@ -128,7 +128,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		Direction3()
-			: XMFLOAT3() {}
+			: Direction3(0.0f, 0.0f, 0.0f) {}
 		Direction3(float x, float y, float z)
 			: XMFLOAT3(x, y, z) {}
 		Direction3(const Direction3 &direction)
@@ -171,7 +171,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		Normal3()
-			: XMFLOAT3() {}
+			: Normal3(0.0f, 0.0f, 0.0f) {}
 		Normal3(float x, float y, float z)
 			: XMFLOAT3(x, y, z) {}
 		Normal3(const Normal3 &normal)
@@ -244,7 +244,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		Color()
-			: XMFLOAT4() {}
+			: Color(0.0f, 0.0f, 0.0f, 0.0f) {}
 		Color(float x, float y, float z, float w)
 			: XMFLOAT4(x, y, z, w) {}
 		Color(const Color &color)

@@ -63,12 +63,12 @@ private:
 		model_sponza->GetTransform()->SetScale(10.0f);
 		GetWorld()->AddModel(model_sponza);
 		SharedPtr< MeshModel > model_sphere(new MeshModel("sphere", *model_desc_sphere));
-		model_sphere->GetTransform()->AddTranslationY(1.5f);
+		model_sphere->GetTransform()->AddTranslationY(0.5f);
 		GetWorld()->AddModel(model_sphere);
 
 		// Light
 		SharedPtr< OmniLight > omni_light(new OmniLight("light", RGBSpectrum(1.0f, 1.0f, 1.0f)));
-		omni_light->GetTransform()->SetTranslation(0.0f, 2.0f, 0.0f);
+		omni_light->GetTransform()->SetTranslationY(2.0f);
 		omni_light->SetDistanceFalloff(0.0f, 2.0f);
 		GetWorld()->AddLight(omni_light);
 

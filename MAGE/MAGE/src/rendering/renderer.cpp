@@ -273,7 +273,8 @@ namespace mage {
 	void Renderer::BeginFrame() {
 		Assert(!m_in_begin_end_pair);
 
-		const XMVECTORF32 background_color = { 0.0f, 0.117647058f, 0.149019608f, 1.000000000f };
+		//const XMVECTORF32 background_color = { 0.0f, 0.117647058f, 0.149019608f, 1.000000000f };
+		const XMVECTORF32 background_color = { 0.0f, 0.0f, 0.0f, 1.000000000f };
 
 		// Clear the back buffer.
 		m_device_context->ClearRenderTargetView(m_render_target_view.Get(), background_color);

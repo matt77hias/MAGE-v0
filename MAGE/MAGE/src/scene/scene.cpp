@@ -42,16 +42,16 @@ namespace mage {
 		UpdateTransforms();
 	}
 	void Scene::UpdateTransforms() {
-		// 1. Traverse the scene graphs (root world objects) which can contain lights as childs.
+		// Traverse the scene graphs (root world objects) which can contain lights as childs.
 		m_world->ForEachModel([](WorldObject &world_object) {
 			world_object.UpdateTransform();
 		});
-		// 2. Traverse the lights (no transformations will be re-calculated).
+		// Traverse the camera (no transformations will be re-calculated).
+		m_camera->UpdateTransform();
+		// Traverse the lights (no transformations will be re-calculated).
 		m_world->ForEachLight([](WorldObject &world_object) {
 			world_object.UpdateTransform();
 		});
-		// 3. Traverse the camera (no transformations will be re-calculated).
-		m_camera->UpdateTransform();
 	}
 	void Scene::Update(double delta_time) {
 		// Update scripts.

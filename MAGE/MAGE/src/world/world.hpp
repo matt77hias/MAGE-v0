@@ -45,13 +45,6 @@ namespace mage {
 		void Render2D() const;
 		void Render3D(const TransformBuffer &transform_buffer) const;
 
-		template< typename ActionT >
-		void ForEachObject(ActionT action) const;
-		template< typename ActionT >
-		void ForEachObject2D(ActionT action) const;
-		template< typename ActionT >
-		void ForEachObject3D(ActionT action) const;
-
 		//-------------------------------------------------------------------------
 		// Member Methods: Models
 		//-------------------------------------------------------------------------

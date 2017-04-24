@@ -69,7 +69,9 @@ namespace mage {
 
 		 @return		A pointer to the clone of this camera.
 		 */
-		virtual Camera *Clone() const = 0;
+		SharedPtr< Camera > Clone() {
+			return std::static_pointer_cast< Camera >(CloneImplementation());
+		}
 
 		/**
 		 Returns the position of the near z-plane of this camera in camera space.
@@ -174,6 +176,12 @@ namespace mage {
 		Camera(Camera &&camera) = default;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		virtual SharedPtr< WorldObject > CloneImplementation() const = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables

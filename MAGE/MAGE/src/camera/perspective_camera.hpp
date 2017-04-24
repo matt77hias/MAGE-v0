@@ -128,8 +128,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this perspective camera.
 		 */
-		virtual PerspectiveCamera *Clone() const override {
-			return new PerspectiveCamera(*this);
+		SharedPtr< PerspectiveCamera > Clone() const {
+			return std::static_pointer_cast< PerspectiveCamera >(CloneImplementation());
 		}
 
 		/**
@@ -246,6 +246,14 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		virtual SharedPtr< WorldObject > CloneImplementation() const override {
+			return SharedPtr< PerspectiveCamera >(new PerspectiveCamera(*this));
+		}
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
@@ -260,7 +268,7 @@ namespace mage {
 		float m_fov_y;
 	};
 
-	SharedPtr< Camera > CreatePerspectiveCamera(const string &name, 
+	SharedPtr< PerspectiveCamera > CreatePerspectiveCamera(const string &name,
 		float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 		float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);

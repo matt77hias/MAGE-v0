@@ -36,7 +36,14 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual Light *Clone() const = 0;
+		/**
+		 Clones this light.
+
+		 @return		A pointer to the clone of this light.
+		 */
+		SharedPtr< Light > Clone() {
+			return std::static_pointer_cast< Light >(CloneImplementation());
+		}
 
 		const RGBSpectrum GetIntensity() const {
 			return m_intensity;
@@ -74,6 +81,12 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		virtual SharedPtr< WorldObject > CloneImplementation() const = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables

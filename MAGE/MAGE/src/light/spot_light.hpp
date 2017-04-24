@@ -75,8 +75,8 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual SpotLight *Clone() const {
-			return new SpotLight(*this);
+		SharedPtr< SpotLight > Clone() const {
+			return std::static_pointer_cast< SpotLight >(CloneImplementation());
 		}
 
 		const SpotLightBuffer GetBuffer(const XMMATRIX &world_to_view) const {
@@ -142,6 +142,18 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		virtual SharedPtr< WorldObject > CloneImplementation() const override {
+			return SharedPtr< SpotLight >(new SpotLight(*this));
+		}
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		float m_exponent_property;
 		float m_distance_falloff_start;

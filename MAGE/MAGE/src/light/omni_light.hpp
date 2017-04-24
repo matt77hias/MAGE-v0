@@ -69,8 +69,8 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual OmniLight *Clone() const {
-			return new OmniLight(*this);
+		SharedPtr< OmniLight > Clone() const {
+			return std::static_pointer_cast< OmniLight >(CloneImplementation());
 		}
 		
 		const OmniLightBuffer GetBuffer(const XMMATRIX &world_to_view) const {
@@ -103,6 +103,18 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		virtual SharedPtr< WorldObject > CloneImplementation() const override {
+			return SharedPtr< OmniLight >(new OmniLight(*this));
+		}
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		float m_distance_falloff_start;
 		float m_distance_falloff_end;

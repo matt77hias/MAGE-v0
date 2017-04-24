@@ -66,7 +66,6 @@
     <ClInclude Include="MAGE\src\math\math_utils.hpp" />
     <ClInclude Include="MAGE\src\math\sprite_transform.hpp" />
     <ClInclude Include="MAGE\src\math\transform.hpp" />
-    <ClInclude Include="MAGE\src\math\transform_node.hpp" />
     <ClInclude Include="MAGE\src\math\view_frustum.hpp" />
     <ClInclude Include="MAGE\src\memory\allocation.hpp" />
     <ClInclude Include="MAGE\src\memory\memory.hpp" />
@@ -87,7 +86,6 @@
     <ClInclude Include="MAGE\src\model\mdl\mdl_reader.hpp" />
     <ClInclude Include="MAGE\src\model\mdl\mdl_writer.hpp" />
     <ClInclude Include="MAGE\src\model\mdl\mdl_tokens.hpp" />
-    <ClInclude Include="MAGE\src\model\meshmodel.hpp" />
     <ClInclude Include="MAGE\src\model\model.hpp" />
     <ClInclude Include="MAGE\src\model\model_loader.hpp" />
     <ClInclude Include="MAGE\src\model\model_output.hpp" />
@@ -198,7 +196,6 @@
     <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\static_mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\vertex.cpp" />
-    <ClCompile Include="MAGE\src\model\meshmodel.cpp" />
     <ClCompile Include="MAGE\src\model\model.cpp" />
     <ClCompile Include="MAGE\src\model\model_descriptor.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
@@ -400,7 +397,6 @@
   <ItemGroup>
     <None Include="MAGE\src\binary\binary_reader.tpp" />
     <None Include="MAGE\src\binary\binary_writer.tpp" />
-    <None Include="MAGE\src\math\transform_node.tpp" />
     <None Include="MAGE\src\memory\memory_arena.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_loader.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_reader.tpp" />

@@ -39,8 +39,18 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual DirectionalLight *Clone() const {
-			return new DirectionalLight(*this);
+		SharedPtr< DirectionalLight > Clone() const {
+			return std::static_pointer_cast< DirectionalLight >(CloneImplementation());
+		}
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		virtual SharedPtr< WorldObject > CloneImplementation() const override {
+			return SharedPtr< DirectionalLight >(new DirectionalLight(*this));
 		}
 	};
 }

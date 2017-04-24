@@ -432,9 +432,6 @@
     <ClInclude Include="MAGE\src\scene\scene.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\model\meshmodel.hpp">
-      <Filter>Header Files\model</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\lambertian_shader.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
@@ -672,9 +669,6 @@
     <ClInclude Include="MAGE\src\light\light_buffer.hpp">
       <Filter>Header Files\light</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\math\transform_node.hpp">
-      <Filter>Header Files\math</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -805,9 +799,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\resource\resource_factory.cpp">
       <Filter>Source Files\resource</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\model\meshmodel.cpp">
-      <Filter>Source Files\model</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\model\model_descriptor.cpp">
       <Filter>Source Files\model</Filter>
@@ -1013,9 +1004,6 @@
     </None>
     <None Include="MAGE\src\rendering\structured_buffer.tpp">
       <Filter>Header Files\rendering</Filter>
-    </None>
-    <None Include="MAGE\src\math\transform_node.tpp">
-      <Filter>Header Files\math</Filter>
     </None>
   </ItemGroup>
 </Project>

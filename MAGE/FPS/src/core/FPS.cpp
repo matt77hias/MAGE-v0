@@ -66,10 +66,10 @@ private:
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		SharedPtr< MeshModel > model_sponza(new MeshModel("sponza", *model_desc_sponza));
+		SharedPtr< Model > model_sponza(new Model("sponza", *model_desc_sponza));
 		model_sponza->GetTransform()->SetScale(10.0f);
 		GetWorld()->AddModel(model_sponza);
-		SharedPtr< MeshModel > model_sphere(new MeshModel("sphere", *model_desc_sphere));
+		SharedPtr< Model > model_sphere(new Model("sphere", *model_desc_sphere));
 		model_sphere->GetTransform()->AddTranslationY(0.5f);
 		GetWorld()->AddModel(model_sphere);
 

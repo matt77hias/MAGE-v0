@@ -107,8 +107,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this orthographic camera.
 		 */
-		virtual OrthographicCamera *Clone() const override {
-			return new OrthographicCamera(*this);
+		SharedPtr< OrthographicCamera > Clone() const {
+			return std::static_pointer_cast< OrthographicCamera >(CloneImplementation());
 		}
 
 		/**
@@ -202,6 +202,14 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		virtual SharedPtr< WorldObject > CloneImplementation() const override {
+			return SharedPtr< OrthographicCamera >(new OrthographicCamera(*this));
+		}
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
@@ -216,7 +224,7 @@ namespace mage {
 		float m_height;
 	};
 
-	SharedPtr< Camera > CreateOrthographicCamera(const string &name,
+	SharedPtr< OrthographicCamera > CreateOrthographicCamera(const string &name,
 		float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
 		float height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
 		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 

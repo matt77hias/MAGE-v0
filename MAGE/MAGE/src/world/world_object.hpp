@@ -39,8 +39,8 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual WorldObject *Clone() const {
-			return new WorldObject(*this);
+		SharedPtr< WorldObject > Clone() const {
+			return CloneImplementation();
 		}
 
 		const string &GetName() const {
@@ -65,9 +65,18 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		void UpdateTransform(const XMMATRIX &world_to_parent, const XMMATRIX &parent_to_world, bool dirty_ancestor);
-		virtual void UpdateChildTransforms(bool dirty_ancestor);
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		virtual void UpdateChildTransforms(bool dirty_ancestor);
+
+		virtual SharedPtr< WorldObject > CloneImplementation() const {
+			return SharedPtr< WorldObject >(new WorldObject(*this));
+		}
 		
 		//---------------------------------------------------------------------
 		// Member Variables

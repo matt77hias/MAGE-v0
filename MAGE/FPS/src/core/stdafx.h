@@ -17,7 +17,7 @@
 #include "scripting\behavior_script.hpp"
 
 // Models
-#include "model\meshmodel.hpp"
+#include "model\model.hpp"
 
 // Lights
 #include "light\directional_light.hpp"

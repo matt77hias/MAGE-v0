@@ -44,7 +44,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		SharedPtr< StaticMesh > GetMesh() const {
+		SharedPtr< const StaticMesh > GetMesh() const {
 			return m_mesh;
 		}
 		vector< Material >::const_iterator MaterialsBegin() const {

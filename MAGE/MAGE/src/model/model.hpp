@@ -97,7 +97,7 @@ namespace mage {
 			return SharedPtr< Model >(new Model(*this));
 		}
 
-		virtual void UpdateChildTransforms(bool dirty_ancestor) override;
+		virtual void UpdateChildTransforms(bool dirty_ancestor) override final;
 
 		HRESULT InitializeModel(const ModelDescriptor &desc, const CombinedShader &shader);
 		void AddSubModel(SharedPtr< Model > submodel);

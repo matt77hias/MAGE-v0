@@ -59,25 +59,18 @@ namespace mage {
 				return;
 			}
 
-			Material material(MAGE_MDL_PART_DEFAULT_MATERIAL);
-			bool early_quit = false;
 			if (model_part.material != MAGE_MDL_PART_DEFAULT_MATERIAL) {
-
-				desc.ForEachMaterial([&](const Material &submaterial) {
-					if (early_quit) {
-						return;
-					}
-
-					if (submaterial.m_name == model_part.material) {
-						material = submaterial;
-						early_quit = true;
-					}
-				});
+				Material material(*desc.GetMaterial(model_part.material));
+				ShadedMaterial shaded_material(shader, material);
+				SharedPtr< Model > submodel(new Model(model_part, m_mesh, shaded_material));
+				mapping[model_part.child] = SubModelPair(submodel, model_part.parent);
 			}
-			
-			ShadedMaterial shaded_material(shader, material);
-			SharedPtr< Model > submodel(new Model(model_part, m_mesh, shaded_material));
-			mapping[model_part.child] = SubModelPair(submodel, model_part.parent);
+			else {
+				Material material(MAGE_MDL_PART_DEFAULT_MATERIAL);
+				ShadedMaterial shaded_material(shader, material);
+				SharedPtr< Model > submodel(new Model(model_part, m_mesh, shaded_material));
+				mapping[model_part.child] = SubModelPair(submodel, model_part.parent);
+			}
 		});
 		
 		for (map< string, SubModelPair >::const_iterator it = mapping.cbegin(); it != mapping.cend(); ++it) {

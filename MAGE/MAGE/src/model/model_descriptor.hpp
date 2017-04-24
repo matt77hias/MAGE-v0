@@ -48,8 +48,10 @@ namespace mage {
 			return m_mesh;
 		}
 
+		const Material *GetMaterial(const string &name) const;
 		template< typename ActionT >
 		void ForEachMaterial(ActionT action) const;
+		const ModelPart *GetModelPart(const string &name) const;
 		template< typename ActionT >
 		void ForEachModelPart(ActionT action) const;
 

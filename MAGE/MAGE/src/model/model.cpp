@@ -59,14 +59,14 @@ namespace mage {
 				return;
 			}
 
-			if (model_part.material != MAGE_MDL_PART_DEFAULT_MATERIAL) {
-				Material material(*desc.GetMaterial(model_part.material));
+			if (model_part.material == MAGE_MDL_PART_DEFAULT_MATERIAL) {
+				Material material(MAGE_MDL_PART_DEFAULT_MATERIAL);
 				ShadedMaterial shaded_material(shader, material);
 				SharedPtr< Model > submodel(new Model(model_part, m_mesh, shaded_material));
 				mapping[model_part.child] = SubModelPair(submodel, model_part.parent);
 			}
 			else {
-				Material material(MAGE_MDL_PART_DEFAULT_MATERIAL);
+				Material material(*desc.GetMaterial(model_part.material));
 				ShadedMaterial shaded_material(shader, material);
 				SharedPtr< Model > submodel(new Model(model_part, m_mesh, shaded_material));
 				mapping[model_part.child] = SubModelPair(submodel, model_part.parent);

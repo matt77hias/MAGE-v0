@@ -25,6 +25,10 @@ namespace mage {
 		}
 	}
 
+	Model::Model(const ModelPart model_part, SharedPtr< const StaticMesh > mesh,
+		const ShadedMaterial &material)
+		: Model(model_part.child, mesh, model_part.start_index, model_part.nb_indices, material) {}
+
 	Model::Model(const string &name, SharedPtr< const StaticMesh > mesh,
 		size_t start_index, size_t nb_indices, const ShadedMaterial &material)
 		: WorldObject(name), 
@@ -47,28 +51,37 @@ namespace mage {
 	}
 
 	HRESULT Model::InitializeModel(const ModelDescriptor &desc, const CombinedShader &shader) {
-		map< string, pair< SharedPtr< Model >, string > > mapping;
-		for (vector< ModelPart >::const_iterator it = desc.ModelPartsBegin(); it != desc.ModelPartsEnd(); ++it) {
-			if (it->child == MAGE_MDL_PART_DEFAULT_CHILD && it->nb_indices == 0) {
-				continue;
+		typedef pair< SharedPtr< Model >, string > SubModelPair;
+		map< string, SubModelPair > mapping;
+		
+		desc.ForEachModelPart([&](const ModelPart &model_part) {
+			if (model_part.child == MAGE_MDL_PART_DEFAULT_CHILD && model_part.nb_indices == 0) {
+				return;
 			}
 
 			Material material(MAGE_MDL_PART_DEFAULT_MATERIAL);
-			if (it->material != MAGE_MDL_PART_DEFAULT_MATERIAL) {
-				for (vector< Material >::const_iterator mit = desc.MaterialsBegin(); mit != desc.MaterialsEnd(); ++mit) {
-					if (mit->m_name == it->material) {
-						material = *mit;
-						break;
-					}
-				}
-			}
-			ShadedMaterial shaded_material(shader, material);
+			bool early_quit = false;
+			if (model_part.material != MAGE_MDL_PART_DEFAULT_MATERIAL) {
 
-			SharedPtr< Model > submodel(new Model(it->child, m_mesh, it->start_index, it->nb_indices, shaded_material));
-			mapping[it->child] = pair< SharedPtr< Model >, string >(submodel, it->parent);
-		}
-		for (map< string, pair< SharedPtr< Model >, string > >::const_iterator it = mapping.cbegin(); it != mapping.cend(); ++it) {
-			const pair< SharedPtr< Model >, string > &element = it->second;
+				desc.ForEachMaterial([&](const Material &submaterial) {
+					if (early_quit) {
+						return;
+					}
+
+					if (submaterial.m_name == model_part.material) {
+						material = submaterial;
+						early_quit = true;
+					}
+				});
+			}
+			
+			ShadedMaterial shaded_material(shader, material);
+			SharedPtr< Model > submodel(new Model(model_part, m_mesh, shaded_material));
+			mapping[model_part.child] = SubModelPair(submodel, model_part.parent);
+		});
+		
+		for (map< string, SubModelPair >::const_iterator it = mapping.cbegin(); it != mapping.cend(); ++it) {
+			const SubModelPair &element = it->second;
 			const string &parent = element.second;
 			if (parent == MAGE_MDL_PART_DEFAULT_PARENT) {
 				AddSubModel(element.first);

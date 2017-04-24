@@ -24,6 +24,20 @@ namespace mage {
 		 m_model_parts = std::move(buffer.model_parts);
 	 }
 
+	 template< typename ActionT >
+	 inline void ModelDescriptor::ForEachMaterial(ActionT action) const {
+		 for (vector< Material >::const_iterator it = m_materials.cbegin(); it != m_materials.cend(); ++it) {
+			 action(*it);
+		 }
+	 }
+
+	 template< typename ActionT >
+	 inline void ModelDescriptor::ForEachModelPart(ActionT action) const {
+		 for (vector< ModelPart >::const_iterator it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
+			 action(*it);
+		 }
+	 }
+
 	 // Forward declarations
 	 class ResourceFactory;
 	 ID3D11Device2 *GetModelRenderingDevice();

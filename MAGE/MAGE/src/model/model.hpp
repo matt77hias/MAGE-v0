@@ -83,6 +83,9 @@ namespace mage {
 		// Constructors
 		//---------------------------------------------------------------------
 
+		explicit Model::Model(const ModelPart model_part, SharedPtr< const StaticMesh > mesh,
+			const ShadedMaterial &material);
+
 		explicit Model(const string &name, SharedPtr< const StaticMesh > mesh,
 			size_t start_index, size_t nb_indices, const ShadedMaterial &material);
 

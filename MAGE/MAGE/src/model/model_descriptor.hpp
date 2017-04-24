@@ -47,18 +47,11 @@ namespace mage {
 		SharedPtr< const StaticMesh > GetMesh() const {
 			return m_mesh;
 		}
-		vector< Material >::const_iterator MaterialsBegin() const {
-			return m_materials.cbegin();
-		}
-		vector< Material >::const_iterator MaterialsEnd() const {
-			return m_materials.cend();
-		}
-		vector< ModelPart >::const_iterator ModelPartsBegin() const {
-			return m_model_parts.cbegin();
-		}
-		vector< ModelPart >::const_iterator ModelPartsEnd() const {
-			return m_model_parts.cend();
-		}
+
+		template< typename ActionT >
+		void ForEachMaterial(ActionT action) const;
+		template< typename ActionT >
+		void ForEachModelPart(ActionT action) const;
 
 	private:
 

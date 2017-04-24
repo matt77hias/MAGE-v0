@@ -672,7 +672,7 @@
     <ClInclude Include="MAGE\src\light\light_buffer.hpp">
       <Filter>Header Files\light</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\math\transform_group.hpp">
+    <ClInclude Include="MAGE\src\math\transform_node.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1014,7 +1014,7 @@
     <None Include="MAGE\src\rendering\structured_buffer.tpp">
       <Filter>Header Files\rendering</Filter>
     </None>
-    <None Include="MAGE\src\math\transform_group.tpp">
+    <None Include="MAGE\src\math\transform_node.tpp">
       <Filter>Header Files\math</Filter>
     </None>
   </ItemGroup>

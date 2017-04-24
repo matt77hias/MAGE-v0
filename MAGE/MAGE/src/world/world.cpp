@@ -29,7 +29,7 @@ namespace mage {
 	void World::Render2D() const {
 		m_sprite_batch->Begin();
 		
-		ForEachSprite([&](const SpriteObject &sprite) {
+		ForEachSprite([this](const SpriteObject &sprite) {
 			sprite.Draw(*m_sprite_batch);
 		});
 		
@@ -40,17 +40,17 @@ namespace mage {
 		LightBuffer lighting;
 
 		const XMMATRIX world_to_view = transform_buffer.GetWorldToViewMatrix();
-		ForEachOmniLight([&](const OmniLight &light) {
+		ForEachOmniLight([&lighting, &world_to_view](const OmniLight &light) {
 			lighting.omni_lights.push_back(light.GetBuffer(world_to_view));
 		});
-		ForEachSpotLight([&](const SpotLight &light) {
+		ForEachSpotLight([&lighting, &world_to_view](const SpotLight &light) {
 			lighting.spot_lights.push_back(light.GetBuffer(world_to_view));
 		});
 
 		lighting.UpdateSizes();
 
 		// Render models.
-		ForEachModel([&](const Model &model) {
+		ForEachModel([&lighting, &transform_buffer](const Model &model) {
 			model.Draw(lighting, transform_buffer);
 		});
 	}

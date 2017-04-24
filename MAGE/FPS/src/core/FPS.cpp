@@ -117,11 +117,13 @@ private:
 		//SharedPtr< BehaviorScript > script(new TestScript(model_teapot));
 		//AddScript(script);
 		
-		TransformGroup transform(camera->GetTransform());
-		transform.AddTransform(spot_light->GetTransform());
-		
-		SharedPtr< BehaviorScript > controller_script(new FPSInputControllerScript(transform));
+		SharedPtr< BehaviorScript > controller_script(new FPSInputControllerScript(camera->GetTransform()));
 		AddScript(controller_script);
+
+		SharedPtr< BehaviorScript > controller_script2(new FPSInputControllerScript(spot_light->GetTransform()));
+		AddScript(controller_script2);
+
+
 		SharedPtr< BehaviorScript > stats_script(new StatsScript(text));
 		AddScript(stats_script);
 		SharedPtr< BehaviorScript > wireframe_script(new WireframeScript());

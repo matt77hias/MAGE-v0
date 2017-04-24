@@ -24,7 +24,7 @@ namespace mage {
 		: WorldObject(model) {
 
 		// Deep copy
-		model.ForEachSubModel([&](const SubModel &submodel) {
+		model.ForEachSubModel([this](const SubModel &submodel) {
 			AddSubModel(submodel.Clone());
 		});
 	}
@@ -49,7 +49,7 @@ namespace mage {
 	}
 
 	void Model::UpdateChildTransforms(bool dirty_ancestor) {
-		ForEachSubModel([&](SubModel &submodel) {
+		ForEachSubModel([this, dirty_ancestor](SubModel &submodel) {
 			submodel.UpdateTransform(
 				GetTransform()->GetWorldToObjectMatrix(), 
 				GetTransform()->GetObjectToWorldMatrix(),
@@ -82,7 +82,7 @@ namespace mage {
 		// Geometry
 		mesh.Draw(m_start_index, m_nb_indices);
 		// Childs
-		ForEachSubModel([&](SubModel &submodel) {
+		ForEachSubModel([&mesh, &lighting, &transform_buffer](SubModel &submodel) {
 			submodel.Draw(mesh, lighting, transform_buffer);
 		});
 	}

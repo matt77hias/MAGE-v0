@@ -61,7 +61,7 @@ namespace mage {
 		m_mesh->PrepareDrawing();
 		
 		// Childs
-		ForEachSubModel([&](SubModel &submodel) {
+		ForEachSubModel([this, &lighting, &transform_buffer](SubModel &submodel) {
 			submodel.Draw(*m_mesh, lighting, transform_buffer);
 		});
 	}

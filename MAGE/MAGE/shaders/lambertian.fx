@@ -344,8 +344,6 @@ float4 DistanceMap_PS(PS_INPUT input) : SV_Target{
 }
 
 
-
-
 float4 PS(PS_INPUT input) : SV_Target {
 	return ModifiedBlinnPhongBRDFShading(input.p_view, input.n_view, input.tex);
 }

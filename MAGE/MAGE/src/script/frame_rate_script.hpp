@@ -20,11 +20,18 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
+		static const double resource_fetch_period;
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		explicit FrameRateScript(SharedPtr< SpriteText > text)
-			: BehaviorScript(), m_seconds_per_frame(0.0), m_nb_frames(0), 
+			: BehaviorScript(), m_accumulated_time(0.0),
+			m_accumulated_nb_frames(0), m_last_frames_per_second(0),
 			m_text(text) {}
 		FrameRateScript(const FrameRateScript &script) = delete;
 		FrameRateScript(FrameRateScript &&script) = default;
@@ -55,8 +62,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-		double m_seconds_per_frame;
-		uint32_t m_nb_frames;
+		
+		double m_accumulated_time;
+		uint32_t m_accumulated_nb_frames;
+		uint32_t m_last_frames_per_second;
+		
 		SharedPtr< SpriteText > m_text;
 	};
 }

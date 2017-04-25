@@ -31,8 +31,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit SystemUsageScript(SharedPtr< SpriteText > text)
-			: BehaviorScript(), m_time(0.0),
-			m_cpu_usage(0.0), m_ram_usage(0), 
+			: BehaviorScript(), m_accumulated_time(0.0),
+			m_last_cpu_usage(0.0), m_last_ram_usage(0),
 			m_monitor(), m_text(text) {}
 		SystemUsageScript(const SystemUsageScript &script) = delete;
 		SystemUsageScript(SystemUsageScript &&script) = default;
@@ -64,10 +64,11 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		double m_time;
-		double m_cpu_usage;
-		uint32_t m_ram_usage;
+		double m_accumulated_time;
+		double m_last_cpu_usage;
+		uint32_t m_last_ram_usage;
 		UniquePtr< CPUMonitor > m_monitor;
+
 		SharedPtr< SpriteText > m_text;
 	};
 }

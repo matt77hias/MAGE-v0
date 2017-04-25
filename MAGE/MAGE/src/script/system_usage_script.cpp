@@ -17,15 +17,20 @@ namespace mage {
 
 	void SystemUsageScript::Update(double delta_time) {
 		// CPU + MEM
-		m_time += delta_time;
-		if (m_time > SystemUsageScript::resource_fetch_period) {
-			m_cpu_usage = m_monitor->GetCPUDeltaPercentage();
-			m_ram_usage = static_cast< uint32_t >(GetVirtualMemoryUsage() >> 20);
-			m_time = 0.0;
+		m_accumulated_time += delta_time;
+		if (m_accumulated_time > SystemUsageScript::resource_fetch_period) {
+			m_accumulated_time = 0.0;
+			
+			// CPU
+			m_last_cpu_usage = m_monitor->GetCPUDeltaPercentage();
+
+			// MEM
+			m_last_ram_usage = static_cast< uint32_t >(GetVirtualMemoryUsage() >> 20);
+
 		}
 
 		wchar_t buffer[32];
-		_snwprintf_s(buffer, _countof(buffer), L"CPU: %.1lf%%\nRAM: %uMB", m_cpu_usage, m_ram_usage);
+		_snwprintf_s(buffer, _countof(buffer), L"CPU: %.1lf%%\nRAM: %uMB", m_last_cpu_usage, m_last_ram_usage);
 		const wstring text = buffer;
 
 		m_text->SetText(text);

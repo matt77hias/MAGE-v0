@@ -13,25 +13,28 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const double StatsScript::resource_fetch_period = 1.00;
+	const double StatsScript::resource_fetch_period = 1.0;
 
 	void StatsScript::Update(double delta_time) {
-		// FPS
-		m_seconds_per_frame = (m_nb_frames * m_seconds_per_frame + delta_time) / (m_nb_frames + 1);
-		const uint32_t frames_per_second = static_cast< uint32_t >(1.0 / m_seconds_per_frame);
-		++m_nb_frames;
+		m_accumulated_time += delta_time;
+		++m_accumulated_nb_frames;
 
-		// CPU + MEM
-		m_time += delta_time;
-		if (m_time > StatsScript::resource_fetch_period) {
-			m_cpu_usage = m_monitor->GetCPUDeltaPercentage();
-			m_ram_usage = static_cast< uint32_t >(GetVirtualMemoryUsage() >> 20);
-			m_time = 0.0;
+		if (m_accumulated_time > StatsScript::resource_fetch_period) {
+			// FPS
+			m_last_frames_per_second = static_cast< uint32_t >(m_accumulated_nb_frames / m_accumulated_time);
+			m_accumulated_time = 0.0;
+			m_accumulated_nb_frames = 0;
+			
+			// CPU
+			m_last_cpu_usage = m_monitor->GetCPUDeltaPercentage();
+			
+			// MEM
+			m_last_ram_usage = static_cast< uint32_t >(GetVirtualMemoryUsage() >> 20);
 		}
 
 		wchar_t buffer[64];
 		_snwprintf_s(buffer, _countof(buffer), L"FPS: %u\nCPU: %.1lf%%\nRAM: %uMB", 
-			frames_per_second, m_cpu_usage, m_ram_usage);
+			m_last_frames_per_second, m_last_cpu_usage, m_last_ram_usage);
 		const wstring text = buffer;
 
 		m_text->SetText(text);

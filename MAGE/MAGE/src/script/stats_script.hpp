@@ -32,8 +32,8 @@ namespace mage {
 
 		explicit StatsScript(SharedPtr< SpriteText > text)
 			: BehaviorScript(), 
-			m_seconds_per_frame(0.0), m_nb_frames(0),
-			m_time(0.0), m_cpu_usage(0.0), m_ram_usage(0),
+			m_accumulated_time(0.0), m_accumulated_nb_frames(0),
+			m_last_cpu_usage(0.0), m_last_ram_usage(0),
 			m_monitor(new CPUMonitor()), m_text(text) {
 			m_monitor->Start();
 		}
@@ -67,14 +67,11 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		// FPS
-		double m_seconds_per_frame;
-		uint32_t m_nb_frames;
-		
-		// CPU + MEM
-		double m_time;
-		double m_cpu_usage;
-		uint32_t m_ram_usage;
+		double m_accumulated_time;
+		uint32_t m_accumulated_nb_frames;
+		uint32_t m_last_frames_per_second;
+		double m_last_cpu_usage;
+		uint32_t m_last_ram_usage;
 		UniquePtr< CPUMonitor > m_monitor;
 		
 		SharedPtr< SpriteText > m_text;

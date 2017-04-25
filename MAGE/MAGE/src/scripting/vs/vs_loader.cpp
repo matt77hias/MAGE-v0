@@ -16,11 +16,13 @@ namespace mage {
 	
 	HRESULT ImportVSFromFile(const wstring &fname, vector< Variable * > &variable_buffer) {
 		VSReader reader(variable_buffer);
-		return reader.ReadFromFile(fname);
+		reader.ReadFromFile(fname);
+		return S_OK;
 	}
 
 	HRESULT ExportVSToFile(const wstring &fname, const vector< Variable * > &variable_buffer) {
 		VSWriter writer(variable_buffer);
-		return writer.WriteToFile(fname);
+		writer.WriteToFile(fname);
+		return S_OK;
 	}
 }

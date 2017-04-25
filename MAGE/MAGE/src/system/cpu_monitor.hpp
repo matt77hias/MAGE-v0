@@ -16,6 +16,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 A class of CPU monitors for monitoring CPU usage.
+	 */
 	class CPUMonitor final {
 
 	public:
@@ -42,10 +45,10 @@ namespace mage {
 			m_cpu_timer(new CPUTimer(*cpu_monitor.m_cpu_timer)) {}
 
 		/**
-		 Constructs a CPU monitor from the given CPU monitor.
+		 Constructs a CPU monitor by moving the given CPU monitor.
 
 		 @param[in]		cpu_monitor
-						A reference to the CPU monitor.
+						A reference to the CPU monitor to move.
 		 */
 		CPUMonitor(CPUMonitor &&cpu_monitor) = default;
 
@@ -73,11 +76,11 @@ namespace mage {
 		}
 
 		/**
-		 Copies the given CPU monitor to this CPU monitor.
+		 Moves the given CPU monitor to this CPU monitor.
 
 		 @param[in]		cpu_monitor
-						A reference to the CPU monitor to copy from.
-		 @return		A reference to the copy of the given CPU monitor
+						A reference to the CPU monitor to move.
+		 @return		A reference to the moved CPU monitor
 						(i.e. this CPU monitor).
 		 */
 		CPUMonitor &operator=(CPUMonitor &&cpu_monitor) = default;
@@ -119,9 +122,9 @@ namespace mage {
 		}
 
 		/**
-		 Returns the CPU delta percentage of this timer's process.
+		 Returns the CPU delta percentage of this CPU monitor's process.
 
-		 @return		The CPU delta percentage of this timer's process.
+		 @return		The CPU delta percentage of this CPU monitor's process.
 		 */
 		double GetCPUDeltaPercentage() const {
 			const double time     = m_timer->GetDeltaTime();
@@ -130,12 +133,12 @@ namespace mage {
 		}
 
 		/**
-		 Returns the total CPU delta percentage of this timer's process.
+		 Returns the total CPU delta percentage of this CPU monitor's process.
 
-		 @return		The total CPU delta percentage of this timer's process.
+		 @return		The total CPU delta percentage of this CPU monitor's process.
 		 */
 		double GetTotalCPUDeltaPercentage() const {
-			const double time = m_timer->GetTotalDeltaTime();
+			const double time     = m_timer->GetTotalDeltaTime();
 			const double cpu_time = m_cpu_timer->GetTotalCoreDeltaTimePerCore();
 			return 100.0 * (cpu_time / time);
 		}
@@ -146,7 +149,14 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
+		/**
+		 A pointer to the wallclock timer of this CPU monitor.
+		 */
 		UniquePtr< Timer > m_timer;
+
+		/**
+		 A pointer to the CPU core timer of this CPU monitor.
+		 */
 		UniquePtr< CPUTimer > m_cpu_timer;
 	};
 }

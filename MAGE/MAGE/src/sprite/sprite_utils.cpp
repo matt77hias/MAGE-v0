@@ -6,6 +6,7 @@
 #include "memory\memory.hpp"
 #include "sprite\sprite_utils.hpp"
 #include "logging\error.hpp"
+#include "logging\exception.hpp"
 
 #pragma endregion
 

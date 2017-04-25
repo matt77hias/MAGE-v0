@@ -6,6 +6,7 @@
 #include "resource\resource_factory.hpp"
 #include "font\sprite_font_loader.hpp"
 #include "logging\error.hpp"
+#include "logging\exception.hpp"
 
 #pragma endregion
 

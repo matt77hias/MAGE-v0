@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "platform\windows.hpp"
 #include "string\token.hpp"
 
 #pragma endregion
@@ -29,7 +28,7 @@ namespace mage {
 		/**
 		 Destructs this line reader.
 		 */
-		virtual ~LineReader() = default;
+		virtual ~LineReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -60,12 +59,30 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Reads the given file.
+
+		 @param[in]		fname
+						A reference to the file name.
+		 @param[in]		delimiters
+						A reference to a string containing the token delimiters
+						(single characters).
+		 @throws		FormattedException
+						The file reading failed.
 		 */
-		HRESULT ReadFromFile(const wstring &fname, const string &delimiters = mage_default_delimiters);
+		void ReadFromFile(const wstring &fname, const string &delimiters = mage_default_delimiters);
 		
 		/**
+		 Reads the input string.
+
+		 @param[in]		input
+						A pointer to the input null-terminated byte string.
+		 @param[in]		delimiters
+						A reference to a string containing the token delimiters
+						(single characters).
+		 @throws		FormattedException
+						The string reading failed.
 		 */
-		HRESULT ReadFromMemory(const char *input, const string &delimiters = mage_default_delimiters);
+		void ReadFromMemory(const char *input, const string &delimiters = mage_default_delimiters);
 
 		/**
 		 Returns the current filename of this line reader.
@@ -95,7 +112,7 @@ namespace mage {
 		 Constructs a line reader.
 		 */
 		LineReader()
-			: m_context(nullptr), m_fname(), 
+			: m_context(nullptr), m_file(nullptr), m_fname(), 
 			m_delimiters(mage_default_delimiters), m_line_number(0) {}
 
 		/**
@@ -127,38 +144,289 @@ namespace mage {
 			return m_line_number;
 		}
 		
+		/**
+		 Reads the remaining tokens of the current line of this line reader.
+		 */
 		void ReadLineRemaining();
+
+		/**
+		 Reads and converts the next token of this line reader to a string.
+
+		 @return		The string represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token.
+		 */
 		const char *ReadChars();
+
+		/**
+		 Reads and converts the next token of this line reader to a string.
+
+		 @return		The string represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token.
+		 */
 		const string ReadString();
+
+		/**
+		 Reads and converts the next token of this line reader to a quoted string.
+
+		 @return		The quoted string represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a quoted string.
+		 */
 		const string ReadQuotedString();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c bool.
+
+		 @return		The @c bool represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c bool.
+		 */
 		bool ReadBool();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c int8_t.
+
+		 @return		The @c int8_t represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c int8_t.
+		 */
 		int8_t ReadInt8();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c uint8_t.
+
+		 @return		The @c uint8_t represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c uint8_t.
+		 */
 		uint8_t ReadUInt8();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c int16_t.
+
+		 @return		The @c int16_t represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c int16_t.
+		 */
 		int16_t ReadInt16();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c uint16_t.
+
+		 @return		The @c uint16_t represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c uint16_t.
+		 */
 		uint16_t ReadUInt16();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c int32_t.
+
+		 @return		The @c int32_t represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c int32_t.
+		 */
 		int32_t ReadInt32();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c uint32_t.
+
+		 @return		The @c uint32_t represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c uint32_t.
+		 */
 		uint32_t ReadUInt32();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c int64_t.
+
+		 @return		The @c int64_t represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c int64_t.
+		 */
 		int64_t ReadInt64();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c uint64_t.
+
+		 @return		The @c uint64_t represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c uint64_t.
+		 */
 		uint64_t ReadUInt64();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c float.
+
+		 @return		The @c float represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c float.
+		 */
 		float ReadFloat();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c double.
+
+		 @return		The @c double represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c double.
+		 */
 		double ReadDouble();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c XMFLOAT2.
+
+		 @return		The @c XMFLOAT2 represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c XMFLOAT2.
+		 */
 		const XMFLOAT2 ReadFloat2();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c XMFLOAT3.
+
+		 @return		The @c XMFLOAT3 represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c XMFLOAT3.
+		 */
 		const XMFLOAT3 ReadFloat3();
+
+		/**
+		 Reads and converts the next token of this line reader to a @c XMFLOAT4.
+
+		 @return		The @c XMFLOAT4 represented by the next token of this line reader.
+		 @throws		FormattedException
+						If there is no next token or the next token does not represent
+						a @c XMFLOAT4.
+		*/
 		const XMFLOAT4 ReadFloat4();
 
+		/**
+		 Checks whether this line reader has a next token.
+
+		 @return		@c true if this line reader has a next token.
+						@c false otherwise.
+		 */
 		bool HasChars() const;
+
+		/**
+		 Checks whether the next token of this line reader is a string.
+
+		 @return		@c true if the next token of this line reader is a string.
+						@c false otherwise.
+		 */
 		bool HasString() const;
+
+		/**
+		 Checks whether the next token of this line reader is a quoted string.
+
+		 @return		@c true if the next token of this line reader is a quoted string.
+						@c false otherwise.
+		 */
 		bool HasQuotedString() const;
+
+		/**
+		 Checks whether the next token of this line reader is a @c bool.
+
+		 @return		@c true if the next token of this line reader is a @c bool.
+						@c false otherwise.
+		 */
 		bool HasBool() const;
+
+		/**
+		 Checks whether the next token of this line reader is a @c int8_t.
+
+		 @return		@c true if the next token of this line reader is a @c int8_t.
+						@c false otherwise.
+		 */
 		bool HasInt8() const;
+
+		/**
+		 Checks whether the next token of this line reader is a @c uint8_t.
+ 
+		 @return		@c true if the next token of this line reader is a @c uint8_t.
+						@c false otherwise.
+		 */
 		bool HasUInt8() const;
+
+		/**
+		 Checks whether the next token of this line reader is a @c int16_t.
+
+		 @return		@c true if the next token of this line reader is a @c int16_t.
+						@c false otherwise.
+		 */
 		bool HasInt16() const;
+
+		/**
+		 Checks whether the next token of this line reader is a @c uint16_t.
+
+		 @return		@c true if the next token of this line reader is a @c uint16_t.
+						@c false otherwise.
+		 */
 		bool HasUInt16() const;
+
+		/**
+		 Checks whether the next token of this line reader is a @c int32_t.
+
+		 @return		@c true if the next token of this line reader is a @c int32_t.
+						@c false otherwise.
+		*/
 		bool HasInt32() const;
+
+		/**
+		 Checks whether the next token of this line reader is a @c uint32_t.
+
+		 @return		@c true if the next token of this line reader is a @c uint32_t.
+						@c false otherwise.
+		 */
 		bool HasUInt32() const;
+
+		/**
+		 Checks whether the next token of this line reader is a @c int64_t.
+
+		 @return		@c true if the next token of this line reader is a @c int64_t.
+						@c false otherwise.
+		 */
 		bool HasInt64() const;
+
+		/**
+		 Checks whether the next token of this line reader is a @c uint64_t.
+
+		 @return		@c true if the next token of this line reader is a @c uint64_t.
+						@c false otherwise.
+		 */
 		bool HasUInt64() const;
+
+		/**
+		 Checks whether the next token of this line reader is a @c float.
+
+		 @return		@c true if the next token of this line reader is a @c float.
+						@c false otherwise.
+		 */
 		bool HasFloat() const;
+
+		/**
+		 Checks whether the next token of this line reader is a @c double.
+
+		 @return		@c true if the next token of this line reader is a @c double.
+						@c false otherwise.
+		 */
 		bool HasDouble() const;
 
 		//---------------------------------------------------------------------
@@ -179,29 +447,42 @@ namespace mage {
 		/**
 		 Pre-process before reading the current file of this line reader.
 
-		 @return		A success/error value.
+		 @throws		FormattedException
+						The pre-processing failed.
 		 */
-		virtual HRESULT Preprocess();
+		virtual void Preprocess() {}
 
 		/**
 		 Reads the given line.
 
-		 @parm[in,out]	line
+		 @param[in, out]line
 						A pointer to the null-terminated byte string to read.
-		 @return		A success/error value.
+		 @throws		FormattedException
+						The reading of the line failed.
 		 */
-		virtual HRESULT ReadLine(char *line) = 0;
+		virtual void ReadLine(char *line) = 0;
 
 		/**
-		 Post-process after reading the current file of this line reader. 
+		 Post-process after reading the current file of this line reader.
 
-		 @return		A success/error value.
+		 @throws		FormattedException
+						The post-processing failed.
 		 */
-		virtual HRESULT Postprocess();
+		virtual void Postprocess() {}
+
+		/**
+		 Closes the current file of this line reader.
+		 */
+		void CloseFile();
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
+
+		/**
+		The file of this line reader.
+		*/
+		FILE *m_file;
 
 		/**
 		 The current filename of this line reader.

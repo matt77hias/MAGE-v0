@@ -15,12 +15,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT MTLReader::ReadLine(char *line) {
+	void MTLReader::ReadLine(char *line) {
 		m_context = nullptr;
 		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || token[0] == MAGE_MTL_COMMENT_CHAR) {
-			return S_OK;
+			return;
 		}
 
 		if (str_equals(token, MAGE_MTL_TOKEN_MATERIAL_DECLARATION)) {
@@ -76,12 +76,10 @@ namespace mage {
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
-			return S_OK;
+			return;
 		}
 
 		ReadLineRemaining();
-
-		return S_OK;
 	}
 
 	void MTLReader::ReadMTLMaterialName() {

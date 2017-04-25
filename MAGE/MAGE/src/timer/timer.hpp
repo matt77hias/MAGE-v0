@@ -48,10 +48,10 @@ namespace mage {
 		Timer(const Timer &timer) = default;
 
 		/**
-		 Constructs a timer from the given timer.
+		 Constructs a timer by moving the given timer.
 
 		 @param[in]		timer
-						A reference to the timer.
+						A reference to the timer to move.
 		 */
 		Timer(Timer &&timer) = default;
 
@@ -75,11 +75,11 @@ namespace mage {
 		Timer &operator=(const Timer &timer) = default;
 
 		/**
-		 Copies the given timer to this timer.
+		 Moves the given timer to this timer.
 
 		 @param[in]		timer
-						A reference to the timer to copy from.
-		 @return		A reference to the copy of the given timer
+						A reference to the timer to move.
+		 @return		A reference to the moved timer
 						(i.e. this timer).
 		 */
 		Timer &operator=(Timer &&timer) = default;
@@ -113,11 +113,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the wall clock delta time (in seconds) 
-		 of this timer.
+		 Returns the wall clock delta time (in seconds) of this timer.
 
-		 @return		The wall clock delta time (in seconds) 
-						of this timer.
+		 @return		The wall clock delta time (in seconds) of this timer.
 		 */
 		double GetDeltaTime() const;
 
@@ -126,11 +124,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the total wall clock delta time (in seconds)
-		 of this timer.
+		 Returns the total wall clock delta time (in seconds) of this timer.
 
-		 @return		The total wall clock delta time (in seconds)
-						of this timer.
+		 @return		The total wall clock delta time (in seconds) of this timer.
 		 */
 		double GetTotalDeltaTime() const;
 

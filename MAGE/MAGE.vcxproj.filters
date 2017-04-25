@@ -684,6 +684,9 @@
     <ClInclude Include="MAGE\src\scene\scene_node.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\logging\exception.hpp">
+      <Filter>Header Files\logging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -928,6 +931,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\buffer\transform_buffer.cpp">
       <Filter>Source Files\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\logging\exception.cpp">
+      <Filter>Source Files\logging</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

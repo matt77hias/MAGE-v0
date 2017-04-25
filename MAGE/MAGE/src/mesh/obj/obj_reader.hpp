@@ -47,9 +47,9 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual HRESULT Preprocess() override;
-		virtual HRESULT ReadLine(char *line) override;
-		virtual HRESULT Postprocess() override;
+		virtual void Preprocess() override;
+		virtual void ReadLine(char *line) override;
+		virtual void Postprocess() override;
 
 		void ReadOBJMaterialLibrary();
 		void ReadOBJMaterialUse();

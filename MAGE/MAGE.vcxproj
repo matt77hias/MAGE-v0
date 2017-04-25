@@ -54,6 +54,7 @@
     <ClInclude Include="MAGE\src\light\omni_light.hpp" />
     <ClInclude Include="MAGE\src\light\spot_light.hpp" />
     <ClInclude Include="MAGE\src\logging\error.hpp" />
+    <ClInclude Include="MAGE\src\logging\exception.hpp" />
     <ClInclude Include="MAGE\src\logging\logging.hpp" />
     <ClInclude Include="MAGE\src\logging\progress_reporter.hpp" />
     <ClInclude Include="MAGE\src\material\color.hpp" />
@@ -187,6 +188,7 @@
     <ClCompile Include="MAGE\src\input\keyboard.cpp" />
     <ClCompile Include="MAGE\src\input\mouse.cpp" />
     <ClCompile Include="MAGE\src\logging\error.cpp" />
+    <ClCompile Include="MAGE\src\logging\exception.cpp" />
     <ClCompile Include="MAGE\src\logging\logging.cpp" />
     <ClCompile Include="MAGE\src\logging\progress_reporter.cpp" />
     <ClCompile Include="MAGE\src\material\material_loader.cpp" />

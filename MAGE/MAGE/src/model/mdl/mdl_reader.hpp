@@ -43,10 +43,10 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual HRESULT Preprocess() override;
-		virtual HRESULT ReadLine(char *line) override;
+		virtual void Preprocess() override;
+		virtual void ReadLine(char *line) override;
 
-		HRESULT ImportMesh();
+		void ImportMesh();
 		void ReadMDLSubModel();
 		void ReadMDLMaterialLibrary();
 

@@ -30,6 +30,7 @@ namespace mage {
 	template < typename VertexT >
 	HRESULT ImportOBJMeshFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, const MeshDescriptor< VertexT > &mesh_desc = MeshDescriptor< VertexT >()) {
 		OBJReader< VertexT > reader(model_output, mesh_desc);
-		return reader.ReadFromFile(fname);
+		reader.ReadFromFile(fname);
+		return S_OK;
 	}
 }

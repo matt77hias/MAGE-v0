@@ -15,6 +15,7 @@ namespace mage {
 
 	HRESULT ImportMTLMaterialFromFile(const wstring &fname, vector< Material > &material_buffer) {
 		MTLReader reader(material_buffer);
-		return reader.ReadFromFile(fname);
+		reader.ReadFromFile(fname);
+		return S_OK;
 	}
 }

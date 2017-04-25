@@ -19,13 +19,15 @@ namespace mage {
 	HRESULT ImportMDLModelFromFile(const wstring &fname,
 		ModelOutput< VertexT > &model_output) {
 		MDLReader< VertexT > reader(model_output);
-		return reader.ReadFromFile(fname);
+		reader.ReadFromFile(fname);
+		return S_OK;
 	}
 
 	template < typename VertexT >
 	HRESULT ExportMDLModelToFile(const wstring &fname,
 		const ModelOutput< VertexT > &model_output) {
 		MDLWriter< VertexT > writer(model_output);
-		return writer.WriteToFile(fname);
+		writer.WriteToFile(fname);
+		return S_OK;
 	}
 }

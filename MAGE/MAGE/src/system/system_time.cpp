@@ -13,6 +13,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 Converts the given file time to a @c uint64_t (in 100 ns).
+
+	 @param[in]		ftime
+					A reference to the file time.
+	 @return		A @c uint64_t (in 100 ns) representing 
+					the given file time @a ftime.
+	 */
 	inline uint64_t ConvertTimestamp(const FILETIME &ftime) {
 		return static_cast< uint64_t >(ftime.dwLowDateTime) | static_cast< uint64_t >(ftime.dwHighDateTime) << 32;
 	}

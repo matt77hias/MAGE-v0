@@ -19,37 +19,31 @@
 namespace mage {
 
 	template < typename VertexT >
-	HRESULT OBJReader< VertexT >::Preprocess() {
+	void OBJReader< VertexT >::Preprocess() {
 		if (!m_model_output.vertex_buffer.empty()) {
 			Error("%ls: vertex buffer must be empty.", GetFilename().c_str());
-			return E_FAIL;
 		}
 		if (!m_model_output.index_buffer.empty()) {
 			Error("%ls: index buffer must be empty.", GetFilename().c_str());
-			return E_FAIL;
 		}
 
 		// Begin current group.
 		m_model_output.StartModelPart(MAGE_MDL_PART_DEFAULT_CHILD);
-
-		return S_OK;
 	}
 
 	template < typename VertexT >
-	HRESULT OBJReader< VertexT >::Postprocess() {
+	void OBJReader< VertexT >::Postprocess() {
 		// End current group.
 		m_model_output.EndModelPart();
-
-		return S_OK;
 	}
 
 	template < typename VertexT >
-	HRESULT OBJReader< VertexT >::ReadLine(char *line) {
+	void OBJReader< VertexT >::ReadLine(char *line) {
 		m_context = nullptr;
 		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || token[0] == MAGE_OBJ_COMMENT_CHAR) {
-			return S_OK;
+			return;
 		}
 
 		if (str_equals(token, MAGE_OBJ_TOKEN_VERTEX)) {
@@ -81,12 +75,10 @@ namespace mage {
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
-			return S_OK;
+			return;
 		}
 
 		ReadLineRemaining();
-
-		return S_OK;
 	}
 
 	template < typename VertexT >

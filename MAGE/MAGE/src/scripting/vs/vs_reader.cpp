@@ -15,12 +15,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT VSReader::ReadLine(char *line) {
+	void VSReader::ReadLine(char *line) {
 		m_context = nullptr;
 		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || token[0] == MAGE_VS_TOKEN_COMMENT) {
-			return S_OK;
+			return;
 		}
 
 		if (str_equals(token, MAGE_VS_TOKEN_BOOL)) {
@@ -55,12 +55,10 @@ namespace mage {
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
-			return S_OK;
+			return;
 		}
 
 		ReadLineRemaining();
-
-		return S_OK;
 	}
 
 	void VSReader::ReadVSBool() {

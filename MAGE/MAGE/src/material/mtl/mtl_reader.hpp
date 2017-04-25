@@ -43,7 +43,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual HRESULT ReadLine(char *line) override;
+		virtual void ReadLine(char *line) override;
 
 		void ReadMTLMaterialName();
 		void ReadMTLTransmissionFilter();

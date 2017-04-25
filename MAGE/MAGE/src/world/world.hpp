@@ -5,10 +5,13 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "world\transform_buffer.hpp"
-#include "model\model.hpp"
+#include "scene\scene_node.hpp"
+#include "model\model_descriptor.hpp"
 #include "sprite\sprite_object.hpp"
 #include "sprite\sprite_batch.hpp"
+#include "rendering\structured_buffer.hpp"
+#include "buffer\transform_buffer.hpp"
+#include "buffer\light_buffer.hpp"
 
 #pragma endregion
 
@@ -25,7 +28,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		World();
+		World(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
 		World(const World &world) = delete;
 		World(World &&world) = default;
 		~World();
@@ -43,18 +46,36 @@ namespace mage {
 		void Clear();
 
 		void Render2D() const;
-		void Render3D(const TransformBuffer &transform_buffer) const;
+		void Render3D() const;
+
+		//-------------------------------------------------------------------------
+		// Member Methods: Camera
+		//-------------------------------------------------------------------------
+		
+		SharedPtr< PerspectiveCameraNode > GetCamera() const {
+			return m_camera;
+		}
+		void SetCamera(SharedPtr< PerspectiveCameraNode > camera) {
+			m_camera = camera;
+		}
+
+		SharedPtr< OrthographicCameraNode > CreateOrthographicCameraNode();
+		SharedPtr< PerspectiveCameraNode > CreatePerspectiveCameraNode();
+		SharedPtr< OmniLightNode > CreateOmniLightNode();
+		SharedPtr< SpotLightNode > CreateSpotLightNode();
+		SharedPtr< ModelNode > CreateModelNode(const ModelDescriptor &desc,
+			const CombinedShader &shader = CreateLambertianShader());
+
+		void AddSprite(SharedPtr< SpriteObject > sprite);
+
+	private:
 
 		//-------------------------------------------------------------------------
 		// Member Methods: Models
 		//-------------------------------------------------------------------------
 
-		size_t GetNumberOfModels() const {
-			return m_models.size();
-		}
-		bool HasModel(const SharedPtr< Model > model) const;
-		void AddModel(SharedPtr< Model > model);
-		void RemoveModel(SharedPtr< Model > model);
+		void AddModel(SharedPtr< ModelNode > model);
+		void RemoveModel(SharedPtr< ModelNode > model);
 		void RemoveAllModels();
 		template< typename ActionT >
 		void ForEachModel(ActionT action) const;
@@ -63,18 +84,10 @@ namespace mage {
 		// Member Methods: Lights
 		//-------------------------------------------------------------------------
 
-		size_t GetNumberOfPointLights() const {
-			return m_omni_lights.size();
-		}
-		size_t GetNumberOfSpotLights() const {
-			return m_spot_lights.size();
-		}
-		bool HasLight(const SharedPtr< OmniLight > light) const;
-		bool HasLight(const SharedPtr< SpotLight > light) const;
-		void AddLight(SharedPtr< OmniLight > light);
-		void AddLight(SharedPtr< SpotLight > light);
-		void RemoveLight(SharedPtr< OmniLight > light);
-		void RemoveLight(SharedPtr< SpotLight > light);
+		void AddLight(SharedPtr< OmniLightNode > light);
+		void AddLight(SharedPtr< SpotLightNode > light);
+		void RemoveLight(SharedPtr< OmniLightNode > light);
+		void RemoveLight(SharedPtr< SpotLightNode > light);
 		void RemoveAllLights();
 		template< typename ActionT >
 		void ForEachOmniLight(ActionT action) const;
@@ -87,30 +100,31 @@ namespace mage {
 		// Member Methods: Sprites
 		//-------------------------------------------------------------------------
 
-		size_t GetNumberOfSprites() const {
-			return m_sprites.size();
-		}
-		bool HasSprite(const SharedPtr< SpriteObject > sprite) const;
-		void AddSprite(SharedPtr< SpriteObject > sprite);
 		void RemoveSprite(SharedPtr< SpriteObject > sprite);
 		void RemoveAllSprites();
 		template< typename ActionT >
 		void ForEachSprite(ActionT action) const;
 
-	private:
-
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
+		SharedPtr< PerspectiveCameraNode > m_camera;
+
 		// 3D
-		vector< SharedPtr< Model > > m_models;
-		vector< SharedPtr< OmniLight > > m_omni_lights;
-		vector< SharedPtr< SpotLight > > m_spot_lights;
+		vector< SharedPtr< ModelNode > > m_models;
+		vector< SharedPtr< OmniLightNode > > m_omni_lights;
+		vector< SharedPtr< SpotLightNode > > m_spot_lights;
 
 		// 2D
 		vector< SharedPtr < SpriteObject > > m_sprites;
 		SharedPtr< SpriteBatch > m_sprite_batch;
+
+		// Buffers
+		ConstantBuffer< TransformBuffer > m_transform_buffer;
+		ConstantBuffer< LightDataBuffer > m_light_data_buffer;
+		StructuredBuffer< OmniLightBuffer > m_omni_lights_buffer;
+		StructuredBuffer< SpotLightBuffer > m_spot_lights_buffer;
 	};
 }
 

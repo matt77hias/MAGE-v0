@@ -7,21 +7,21 @@ namespace mage {
 
 	template< typename ActionT >
 	inline void World::ForEachModel(ActionT action) const {
-		for (vector< SharedPtr< Model > >::const_iterator it = m_models.cbegin(); it != m_models.cend(); ++it) {
+		for (vector< SharedPtr< ModelNode > >::const_iterator it = m_models.cbegin(); it != m_models.cend(); ++it) {
 			action(**it);
 		}
 	}
 
 	template< typename ActionT >
 	inline void World::ForEachOmniLight(ActionT action) const {
-		for (vector< SharedPtr< OmniLight > >::const_iterator it = m_omni_lights.cbegin(); it != m_omni_lights.cend(); ++it) {
+		for (vector< SharedPtr< OmniLightNode > >::const_iterator it = m_omni_lights.cbegin(); it != m_omni_lights.cend(); ++it) {
 			action(**it);
 		}
 	}
 
 	template< typename ActionT >
 	inline void World::ForEachSpotLight(ActionT action) const {
-		for (vector< SharedPtr< SpotLight > >::const_iterator it = m_spot_lights.cbegin(); it != m_spot_lights.cend(); ++it) {
+		for (vector< SharedPtr< SpotLightNode > >::const_iterator it = m_spot_lights.cbegin(); it != m_spot_lights.cend(); ++it) {
 			action(**it);
 		}
 	}

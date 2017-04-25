@@ -15,9 +15,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	// Forward declaration
-	class BehaviorScript;
-
 	class Scene {
 
 	public:
@@ -45,19 +42,18 @@ namespace mage {
 		void SetName(const string &name) {
 			m_name = name;
 		}
-		SharedPtr< Camera > GetCamera() {
-			return m_camera;
-		}
-		void SetCamera(SharedPtr< Camera > camera) {
-			m_camera = camera;
-		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: World
+		//---------------------------------------------------------------------
+
 		World *GetWorld() {
 			return m_world.get();
 		}
 		const World *GetWorld() const {
 			return m_world.get();
 		}
-
+		
 		//-------------------------------------------------------------------------
 		// Member Methods: Scripts
 		//-------------------------------------------------------------------------
@@ -65,7 +61,7 @@ namespace mage {
 		size_t GetNumberOfScripts() const {
 			return m_scripts.size();
 		}
-		bool HasScript(const SharedPtr< BehaviorScript > script) const;
+		bool HasScript(SharedPtr< const BehaviorScript > script) const;
 		void AddScript(SharedPtr< BehaviorScript > script);
 		void RemoveScript(SharedPtr< BehaviorScript > script);
 		void RemoveAllScripts();
@@ -87,17 +83,25 @@ namespace mage {
 		 @param[in]		delta_time
 						The elapsed time since the previous update.
 		 */
-		void Update(double delta_time);
+		void Update(double delta_time) {
+			ForEachScript([delta_time](BehaviorScript &script) {
+				script.Update(delta_time);
+			});
+		}
 
 		/**
 		 Renders this scene.
 		 */
-		void Render2D() const;
+		void Render2D() const {
+			m_world->Render2D();
+		}
 
 		/**
 		 Renders this scene.
 		 */
-		void Render3D() const;
+		void Render3D() const {
+			m_world->Render3D();
+		}
 
 		/**
 		 Uninitializes this scene.
@@ -110,19 +114,15 @@ namespace mage {
 		// Constructors
 		//---------------------------------------------------------------------
 
-		explicit Scene(const string &name)
-			: m_name(name), m_camera(), 
-			m_world(new World()), m_scripts() {}
+		explicit Scene(const string &name);
 		Scene(const Scene &scene) = delete;
 		Scene(Scene &&scene) = default;
 
 	private:
 
 		//---------------------------------------------------------------------
-		// Constructors
+		// Member Methods: Lifecycle
 		//---------------------------------------------------------------------
-
-		void UpdateTransforms();
 
 		/**
 		 Loads this scene.
@@ -141,7 +141,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		string m_name;
-		SharedPtr< Camera > m_camera;
 		UniquePtr< World > m_world;
 		vector< SharedPtr< BehaviorScript > > m_scripts;
 	};

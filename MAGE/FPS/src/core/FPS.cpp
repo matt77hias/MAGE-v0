@@ -10,7 +10,7 @@ class TestScript final : public BehaviorScript {
 
 public:
 
-	TestScript(SharedPtr< Model > model)
+	TestScript(SharedPtr< ModelNode > model)
 		: BehaviorScript(), m_model(model) {}
 	TestScript(const TestScript &script) = delete;
 	TestScript(TestScript &&script) = default;
@@ -19,7 +19,7 @@ public:
 	TestScript &operator=(TestScript &&script) = delete;
 
 	virtual void Update(double delta_time) override {
-		m_model->GetTransform()->AddRotationY((float)delta_time);
+		m_model->AddRotationY(static_cast< float >(delta_time));
 
 		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_F2)) {
 			//PostQuitMessage(0);
@@ -30,7 +30,7 @@ public:
 
 private:
 	
-	SharedPtr< Model > m_model;
+	SharedPtr< ModelNode > m_model;
 };
 
 class TestScene final : public Scene {
@@ -52,11 +52,9 @@ private:
 		//---------------------------------------------------------------------
 		// Camera
 		//---------------------------------------------------------------------
-		SharedPtr< Camera > camera = CreatePerspectiveCamera("camera");
-		camera->GetTransform()->SetTranslation(0.0f, 2.0f, 0.0f);
-		SetCamera(camera);
+		SharedPtr< PerspectiveCameraNode > camera = GetWorld()->CreatePerspectiveCameraNode();
+		camera->SetTranslationY(2.0f);
 		
-
 		//---------------------------------------------------------------------
 		// ModelDescriptors
 		//---------------------------------------------------------------------
@@ -66,25 +64,22 @@ private:
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		SharedPtr< Model > model_sponza(new Model("sponza", *model_desc_sponza));
-		model_sponza->GetTransform()->SetScale(10.0f);
-		GetWorld()->AddModel(model_sponza);
-		SharedPtr< Model > model_sphere(new Model("sphere", *model_desc_sphere));
-		model_sphere->GetTransform()->AddTranslationY(0.5f);
-		GetWorld()->AddModel(model_sphere);
+		SharedPtr< ModelNode > model_sponza = GetWorld()->CreateModelNode(*model_desc_sponza);
+		model_sponza->SetScale(10.0f);
+		SharedPtr< ModelNode > model_sphere = GetWorld()->CreateModelNode(*model_desc_sphere);
+		model_sphere->AddTranslationY(0.5f);
 
 
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		SharedPtr< OmniLight > omni_light(new OmniLight("omnilight", RGBSpectrum(1.0f, 1.0f, 1.0f)));
-		omni_light->GetTransform()->SetTranslationY(2.0f);
-		omni_light->SetDistanceFalloff(0.0f, 2.0f);
-		GetWorld()->AddLight(omni_light);
-		SharedPtr< SpotLight > spot_light(new SpotLight("spotlight", RGBSpectrum(1.0f, 1.0f, 1.0f)));
-		spot_light->GetTransform()->SetTranslation(0.0f, 2.0f, 0.0f);
-		spot_light->SetDistanceFalloff(0.0f, 3.0f);
-		GetWorld()->AddLight(spot_light);
+		SharedPtr< OmniLightNode > omni_light = GetWorld()->CreateOmniLightNode();
+		omni_light->SetTranslationY(2.0f);
+		omni_light->GetObject()->SetDistanceFalloff(0.0f, 2.0f);
+		SharedPtr< SpotLightNode > spot_light = GetWorld()->CreateSpotLightNode();
+		//spot_light->SetTranslation(0.0f, 2.0f, 0.0f);
+		spot_light->GetObject()->SetDistanceFalloff(0.0f, 3.0f);
+		camera->AddChildTransformNode(spot_light);
 
 
 		//---------------------------------------------------------------------
@@ -117,13 +112,8 @@ private:
 		//SharedPtr< BehaviorScript > script(new TestScript(model_teapot));
 		//AddScript(script);
 		
-		SharedPtr< BehaviorScript > controller_script(new FPSInputControllerScript(camera->GetTransform()));
+		SharedPtr< BehaviorScript > controller_script(new FPSInputControllerScript(camera.get()));
 		AddScript(controller_script);
-
-		SharedPtr< BehaviorScript > controller_script2(new FPSInputControllerScript(spot_light->GetTransform()));
-		AddScript(controller_script2);
-
-
 		SharedPtr< BehaviorScript > stats_script(new StatsScript(text));
 		AddScript(stats_script);
 		SharedPtr< BehaviorScript > wireframe_script(new WireframeScript());

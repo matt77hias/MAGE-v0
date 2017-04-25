@@ -5,8 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
-#include "collection\collection.hpp"
 #include "math\coordinate_system.hpp"
 
 #pragma endregion
@@ -20,6 +18,8 @@ namespace mage {
 	 A struct of transforms.
 	 */
 	__declspec(align(16)) struct Transform final : public AlignedData< Transform > {
+
+	public:
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -284,7 +284,7 @@ namespace mage {
 		}
 		
 		/**
-		Returns the y-value of the translation component of this transform.
+		 Returns the y-value of the translation component of this transform.
 
 		 @return		The y-value of the translation component of this transform.
 		 */
@@ -889,144 +889,6 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
-		// Member Methods: World Space
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the position of the local origin of this transform expressed in world space coordinates.
-
-		 @return		The position of the local origin of this transform expressed in world space coordinates.
-		 */
-		const XMVECTOR GetWorldOrigin() const {
-			return TransformObjectToWorld(GetObjectOrigin());
-		}
-
-		/**
-		 Returns the direction of the local x-axis of this transform expressed in world space coordinates.
-
-		 @return		The direction of the local x-axis of this transform expressed in world space coordinates.
-		 */
-		const XMVECTOR GetWorldAxisX() const {
-			return TransformObjectToWorld(GetObjectAxisX());
-		}
-
-		/**
-		 Returns the direction of the local y-axis of this transform expressed in world space coordinates.
-
-		 @return		The direction of the local y-axis of this transform expressed in world space coordinates.
-		 */
-		const XMVECTOR GetWorldAxisY() const {
-			return TransformObjectToWorld(GetObjectAxisY());
-		}
-
-		/**
-		 Returns the direction of the local z-axis of this transform expressed in world space coordinates.
-
-		 @return		The direction of the local z-axis of this transform expressed in world space coordinates.
-		 */
-		const XMVECTOR GetWorldAxisZ() const {
-			return TransformObjectToWorld(GetObjectAxisZ());
-		}
-
-		/**
-		 Returns the local Cartesian axes system of this transform expressed in world space coordinates.
-
-		 @return		The local Cartesian axes system of this transform expressed in world space coordinates.
-		 */
-		const CartesianAxesSystem GetWorldAxes() const {
-			return CartesianAxesSystem(GetWorldAxisX(), GetWorldAxisY(), GetWorldAxisZ());
-		}
-
-		/**
-		 Returns the local Cartesian coordinate system of this transform in world space coordinates.
-
-		 @return		The local Cartesian coordinate system of this transform expressed in world space coordinates.
-		 */
-		const CartesianCoordinateSystem GetWorldCoordinateSystem() const {
-			return CartesianCoordinateSystem(GetWorldOrigin(), GetWorldAxes());
-		}
-
-		//---------------------------------------------------------------------
-		// Member Methods: Camera Object Space
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the local eye position of this transform expressed in object space coordinates.
-
-		 @return		The local eye position of this transform expressed in object space coordinates.
-		 */
-		const XMVECTOR GetObjectEye() const {
-			return GetObjectOrigin();
-		}
-
-		/**
-		 Returns the local left direction of this transform expressed in object space coordinates.
-
-		 @return		The local left direction of this transform expressed in object space coordinates.
-		 */
-		const XMVECTOR GetObjectLeft() const {
-			return GetObjectAxisX();
-		}
-		
-		/**
-		 Returns the local up direction of this transform expressed in object space coordinates.
-
-		 @return		The local up direction of this transform expressed in object space coordinates.
-		 */
-		const XMVECTOR GetObjectUp() const {
-			return GetObjectAxisY();
-		}
-		
-		/**
-		 Returns the local forward direction of this transform expressed in object space coordinates.
-
-		 @return		The local forward direction of this transform expressed in object space coordinates.
-		 */
-		const XMVECTOR GetObjectForward() const {
-			return GetObjectAxisZ();
-		}
-		
-		//---------------------------------------------------------------------
-		// Member Methods: Camera World Space
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the local eye position of this transform expressed in world space coordinates.
-
-		 @return		The local eye position of this transform expressed in world space coordinates.
-		 */
-		const XMVECTOR GetWorldEye() const {
-			return GetWorldOrigin();
-		}
-
-		/**
-		 Returns the local left direction of this transform expressed in world space coordinates.
-
-		 @return		The local left direction of this transform expressed in world space coordinates.
-		 */
-		const XMVECTOR GetWorldLeft() const {
-			return GetWorldAxisX();
-		}
-		
-		/**
-		 Returns the local up direction of this transform expressed in world space coordinates.
-
-		 @return		The local up direction of this transform expressed in world space coordinates.
-		 */
-		const XMVECTOR GetWorldUp() const {
-			return GetWorldAxisY();
-		}
-		
-		/**
-		 Returns the local forward direction of this transform expressed in world space coordinates.
-
-		 @return		The local forward direction of this transform expressed in world space coordinates.
-		 */
-		const XMVECTOR GetWorldForward() const {
-			return GetWorldAxisZ();
-		}
-		
-		//---------------------------------------------------------------------
 		// Member Methods: Transformation
 		//---------------------------------------------------------------------
 
@@ -1036,7 +898,8 @@ namespace mage {
 		 @return		The object-to-parent matrix of this transform.
 		 */
 		const XMMATRIX GetObjectToParentMatrix() const {
-			return GetObjectToParentScaleMatrix() * GetObjectToParentRotationMatrix() * GetObjectToParentTranslationMatrix();
+			UpdateObjectToParentMatrix();
+			return m_object_to_parent;
 		}
 
 		/**
@@ -1045,35 +908,8 @@ namespace mage {
 		 @return		The parent-to-object matrix of this transform.
 		 */
 		const XMMATRIX GetParentToObjectMatrix() const {
-			return GetParentToObjectTranslationMatrix() * GetParentToObjectRotationMatrix() * GetParentToObjectScaleMatrix();
-		}
-
-		/**
-		 Returns the object-to-world matrix of this transform.
-
-		 @return		The object-to-world matrix of this transform.
-		 */
-		const XMMATRIX GetObjectToWorldMatrix() const {
-			return m_object_to_world;
-		}
-
-		/**
-		 Returns the world-to-object matrix of this transform.
-
-		 @return		The world-to-object matrix of this transform.
-		 */
-		const XMMATRIX GetWorldToObjectMatrix() const {
-			return m_world_to_object;
-		}
-
-		/**
-		 Returns the parent-to-view matrix of this transform.
-
-		 @return		The parent-to-view matrix of this transform.
-		 @note			Transforms for cameras should not contain scaling components.
-		 */
-		const XMMATRIX GetWorldToViewMatrix() const {
-			return m_world_to_object;
+			UpdateParentToObjectMatrix();
+			return m_parent_to_object;
 		}
 
 		/**
@@ -1098,73 +934,6 @@ namespace mage {
 			return XMVector4Transform(vector, GetParentToObjectMatrix());
 		}
 
-		/**
-		 Transforms the given vector expressed in object space coordinates to world space coordinates.
-
-		 @param[in]		vector
-						A reference to the vector expressed in object space coordinates.
-		 @return		The transformed vector expressed in world space coordinates.
-		 */
-		const XMVECTOR TransformObjectToWorld(const XMVECTOR &vector) const {
-			return XMVector4Transform(vector, GetObjectToWorldMatrix());
-		}
-
-		/**
-		 Transforms the given vector expressed in world space coordinates to object space coordinates.
-
-		 @param[in]		vector
-						A reference to the vector expressed in world space coordinates.
-		 @return		The transformed vector expressed in object space coordinates.
-		 */
-		const XMVECTOR TransformWorldToObject(const XMVECTOR &vector) const {
-			return XMVector4Transform(vector, GetWorldToObjectMatrix());
-		}
-
-		//---------------------------------------------------------------------
-		// Member Methods: Update
-		//---------------------------------------------------------------------
-
-		/**
-		 Checks whether this transform is dirty.
-
-		 @return		@c true if this transform is dirty.
-						@c false otherwise.
-		 */
-		bool IsDirty() const {
-			return m_dirty;
-		}
-
-		/**
-		 Sets this transform to dirty.
-		 */
-		void SetDirty() {
-			m_dirty = true;
-		}
-
-		/**
-		 Updates the world-to-object and object-to-world matrices of this transform.
-		 */
-		void Update() {
-			m_world_to_object = GetParentToObjectMatrix();
-			m_object_to_world = GetObjectToParentMatrix();
-			SetNotDirty();
-		}
-
-		/**
-		 Updates the world-to-object and object-to-world matrices of this transform
-		 based on the given world-to-parent and parent-to-world matrices.
-
-		 @param[in]		world_to_parent
-						A reference to the world-to-parent matrix.
-		 @param[in]		parent_to_world
-						A reference to the parent-to-world matrix.
-		 */
-		void Update(const XMMATRIX &world_to_parent, const XMMATRIX &parent_to_world) {
-			m_world_to_object = world_to_parent * GetParentToObjectMatrix();
-			m_object_to_world = GetObjectToParentMatrix() * parent_to_world;
-			SetNotDirty();
-		}
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -1183,15 +952,32 @@ namespace mage {
 			return XMVector3Normalize(XMVector4Transform(direction, transformation));
 		}
 
-		//---------------------------------------------------------------------
-		// Member Methods: Update
-		//---------------------------------------------------------------------
+		/**
+		 Sets this transform to dirty.
+		 */
+		void SetDirty() const {
+			m_dirty_object_to_parent = true;
+			m_dirty_parent_to_object = true;
+		}
 
 		/**
-		 Sets this transform to not dirty.
+		 Updates the object-to-parent matrix of this transform if dirty.
 		 */
-		void SetNotDirty() {
-			m_dirty = false;
+		void UpdateObjectToParentMatrix() const{
+			if (m_dirty_object_to_parent) {
+				m_object_to_parent = GetObjectToParentScaleMatrix() * GetObjectToParentRotationMatrix() * GetObjectToParentTranslationMatrix();
+				m_dirty_object_to_parent = false;
+			}
+		}
+		
+		/**
+		 Updates the parent-to-object matrix of this transform if dirty.
+		 */
+		void UpdateParentToObjectMatrix() const{
+			if (m_dirty_parent_to_object) {
+				m_parent_to_object = GetParentToObjectTranslationMatrix() * GetParentToObjectRotationMatrix() * GetParentToObjectScaleMatrix();
+				m_dirty_parent_to_object = false;
+			}
 		}
 
 		//---------------------------------------------------------------------
@@ -1214,18 +1000,25 @@ namespace mage {
 		XMFLOAT3 m_scale;
 
 		/**
-		 The world-to-object matrix of this transform.
+		 The cached object-to-parent matrix of this transform.
 		 */
-		XMMATRIX m_world_to_object;
+		mutable XMMATRIX m_object_to_parent;
 
 		/**
-		 The object-to-world matrix of this transform.
+		 The cached parent-to-object matrix of this transform.
 		 */
-		XMMATRIX m_object_to_world;
+		mutable XMMATRIX m_parent_to_object;
 
 		/**
-		 A flag indicating whether this transform is dirty.
+		 A flag indicating whether the object-to-parent matrix 
+		 of this transform node are dirty.
 		 */
-		bool m_dirty;
+		mutable bool m_dirty_object_to_parent;
+
+		/**
+		 A flag indicating whether the parent-to-object matrix 
+		 of this transform node are dirty.
+		 */
+		mutable bool m_dirty_parent_to_object;
 	};
 }

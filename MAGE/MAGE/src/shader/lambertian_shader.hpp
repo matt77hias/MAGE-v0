@@ -7,7 +7,7 @@
 
 #include "shader\shader.hpp"
 #include "rendering\constant_buffer.hpp"
-#include "rendering\structured_buffer.hpp"
+#include "buffer\material_buffer.hpp"
 
 #pragma endregion
 
@@ -54,15 +54,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void PrepareShading(const TransformBuffer &transform) const override final;
-
-	private:
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		ConstantBuffer< TransformBuffer > m_transform_buffer;
+		virtual void PrepareShading(ID3D11Buffer *transform) const override final;
 	};
 
 	//-------------------------------------------------------------------------
@@ -93,7 +85,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void PrepareShading(const Material &material, const LightBuffer &lighting) const override final;
+		virtual void PrepareShading(const Material &material, const Lighting &lighting) const override final;
 
 	private:
 
@@ -102,9 +94,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		ConstantBuffer< MaterialBuffer > m_material_buffer;
-		ConstantBuffer< LightDataBuffer > m_light_data_buffer;
-		StructuredBuffer< OmniLightBuffer > m_omni_lights_buffer;
-		StructuredBuffer< SpotLightBuffer > m_spot_lights_buffer;
 	};
 
 	//-------------------------------------------------------------------------

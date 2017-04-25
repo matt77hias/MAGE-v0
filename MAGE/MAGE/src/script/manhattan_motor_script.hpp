@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "math\transform.hpp"
+#include "math\transform_node.hpp"
 
 #pragma endregion
 
@@ -23,7 +23,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit ManhattanMotorScript(Transform *transform)
+		explicit ManhattanMotorScript(TransformNode *transform)
 			: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {}
 		ManhattanMotorScript(const ManhattanMotorScript &script) = delete;
 		ManhattanMotorScript(ManhattanMotorScript &&script) = default;
@@ -55,7 +55,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		Transform * const m_transform;
+		TransformNode * const m_transform;
 		float m_velocity;
 	};
 }

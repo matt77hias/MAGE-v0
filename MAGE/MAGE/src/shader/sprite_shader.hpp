@@ -6,7 +6,6 @@
 #pragma region
 
 #include "shader\shader.hpp"
-#include "rendering\constant_buffer.hpp"
 
 #pragma endregion
 
@@ -53,15 +52,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void PrepareShading(const XMMATRIX &transform) const override final;
-
-	private:
-
-		//---------------------------------------------------------------------
-		// Member Variables
-		//---------------------------------------------------------------------
-
-		ConstantBuffer< XMMATRIX > m_transform_buffer;
+		virtual void PrepareShading(ID3D11Buffer *transform) const override final;
 	};
 
 	//-------------------------------------------------------------------------
@@ -92,7 +83,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void PrepareShading(ID3D11ShaderResourceView * const *texture) const override final;
+		virtual void PrepareShading(ID3D11ShaderResourceView *texture) const override final;
 	};
 
 	//-------------------------------------------------------------------------

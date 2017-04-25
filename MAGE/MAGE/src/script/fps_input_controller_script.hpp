@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\memory.hpp"
 #include "script\character_motor_script.hpp"
 #include "script\mouse_look_script.hpp"
 
@@ -23,7 +24,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit FPSInputControllerScript(Transform *transform)
+		explicit FPSInputControllerScript(TransformNode *transform)
 			: BehaviorScript(),
 			m_orientation_script(new MouseLookScript(transform)), 
 			m_movement_script(new CharacterMotorScript(transform)) {}

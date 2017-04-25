@@ -37,8 +37,6 @@ namespace mage {
 		/**
 		 Constructs a perspective camera.
 
-		 @param[in]		name
-						A reference to the name of the perspective camera.
 		 @param[in]		aspect_ratio
 						The aspect ratio.
 		 @param[in]		fov_y
@@ -48,18 +46,16 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
-		explicit PerspectiveCamera(const string &name, float aspect_ratio,
+		explicit PerspectiveCamera(float aspect_ratio,
 			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
 			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: Camera(name, near_z, far_z),
+			: Camera(near_z, far_z),
 			m_aspect_ratio(aspect_ratio), m_fov_y(fov_y) {}
 
 		/**
 		 Constructs a perspective camera.
 
-		 @param[in]		name
-						A reference to the name of the perspective camera.
 		 @param[in]		width
 						The width.
 		 @param[in]		height
@@ -71,11 +67,11 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
-		explicit PerspectiveCamera(const string &name, float width, float height, 
+		explicit PerspectiveCamera(float width, float height, 
 			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: Camera(name, near_z, far_z), 
+			: Camera(near_z, far_z), 
 			m_aspect_ratio(width / height), m_fov_y(fov_y) {}
 
 		/**
@@ -249,7 +245,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual SharedPtr< WorldObject > CloneImplementation() const override {
+		virtual SharedPtr< Camera > CloneImplementation() const override {
 			return SharedPtr< PerspectiveCamera >(new PerspectiveCamera(*this));
 		}
 
@@ -268,7 +264,7 @@ namespace mage {
 		float m_fov_y;
 	};
 
-	SharedPtr< PerspectiveCamera > CreatePerspectiveCamera(const string &name,
+	SharedPtr< PerspectiveCamera > CreatePerspectiveCamera(
 		float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 		float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);

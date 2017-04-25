@@ -4,6 +4,7 @@
 #pragma region
 
 #include "scene\scene.hpp"
+#include "resource\resource_factory.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -13,7 +14,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	bool Scene::HasScript(const SharedPtr< BehaviorScript > script) const {
+	Scene::Scene(const string &name)
+		: m_name(name),
+		m_world(new World(GetRenderingDevice(), GetRenderingDeviceContext())),
+		m_scripts() {}
+
+	bool Scene::HasScript(SharedPtr< const BehaviorScript > script) const {
 		return std::find(m_scripts.begin(), m_scripts.end(), script) != m_scripts.end();
 	}
 	void Scene::AddScript(SharedPtr< BehaviorScript > script) {
@@ -37,37 +43,6 @@ namespace mage {
 	void Scene::Initialize() {
 		// Load scene.
 		Load();
-
-		// Update and propagate transforms.
-		UpdateTransforms();
-	}
-	void Scene::UpdateTransforms() {
-		// Update the camera transform.
-		m_camera->UpdateTransform();
-		// Update the model transforms.
-		m_world->ForEachModel([](Model &model) {
-			model.UpdateTransform();
-		});
-		// Update the light transforms. 
-		m_world->ForEachLight([](Light &light) {
-			light.UpdateTransform();
-		});
-	}
-	void Scene::Update(double delta_time) {
-		// Update scripts.
-		ForEachScript([delta_time](BehaviorScript &script) {
-			script.Update(delta_time);
-		});
-
-		// Update and propagate transforms.
-		UpdateTransforms();
-	}
-	void Scene::Render2D() const {
-		m_world->Render2D();
-	}
-	void Scene::Render3D() const {
-		TransformBuffer transform_buffer(*m_camera);
-		m_world->Render3D(transform_buffer);
 	}
 	void Scene::Uninitialize() {
 		// Close scene.
@@ -75,6 +50,5 @@ namespace mage {
 		
 		RemoveAllScripts();
 		m_world->Clear();
-		m_camera.reset();
 	}
 }

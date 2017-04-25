@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "world\world_object.hpp"
-#include "model\model_descriptor.hpp"
+#include "mesh\mesh.hpp"
 #include "shader\shaded_material.hpp"
 #include "shader\lambertian_shader.hpp"
 
@@ -20,7 +19,7 @@ namespace mage {
 	/**
 	 A class of models.
 	 */
-	class Model : public WorldObject {
+	class Model {
 
 	public:
 
@@ -28,11 +27,11 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit Model(const string &name, const ModelDescriptor &desc,
-			const CombinedShader &shader = CreateLambertianShader());
+		explicit Model(SharedPtr< const Mesh > mesh,
+			size_t start_index, size_t nb_indices, const ShadedMaterial &material);
 		Model(const Model &model);
 		Model(Model &&model) = default;
-		virtual ~Model();
+		virtual ~Model() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -46,10 +45,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		SharedPtr< Model > Clone() const {
-			return std::static_pointer_cast< Model >(CloneImplementation());
+			return CloneImplementation();
 		}
-
-		void Draw(const LightBuffer &lighting, const TransformBuffer &transform_buffer) const;
 
 		size_t GetStartIndex() const {
 			return m_start_index;
@@ -57,68 +54,49 @@ namespace mage {
 		size_t GetNumberOfIndices() const {
 			return m_nb_indices;
 		}
-		const StaticMesh *GetMesh() const {
+		const Mesh *GetMesh() const {
 			return m_mesh.get();
 		}
 		Material &GetMaterial() {
-			m_material->GetMaterial();
+			return m_material->GetMaterial();
 		}
 		const Material &GetMaterial() const {
-			m_material->GetMaterial();
+			return m_material->GetMaterial();
+		}
+		ShadedMaterial *GetShadedMaterial() {
+			return m_material.get();
+		}
+		const ShadedMaterial *GetShadedMaterial() const {
+			return m_material.get();
 		}
 
-		size_t GetNumberOfSubModels() const {
-			return m_submodels.size();
+		void PrepareDrawing() const {
+			m_mesh->PrepareDrawing();
 		}
-		SharedPtr< Model > GetSubModel(const string &name) const;
-		bool HasSubModel(const string &name) const {
-			return GetSubModel(name) != nullptr;
+		void PrepareShading(ID3D11Buffer *transform, const Lighting &lighting) const {
+			m_material->PrepareShading(transform, lighting);;
 		}
-		template< typename ActionT >
-		void ForEachSubModel(ActionT action) const;
+		void Draw() const {
+			m_mesh->Draw(m_start_index, m_nb_indices);
+		}
 
 	private:
-
-		//---------------------------------------------------------------------
-		// Constructors
-		//---------------------------------------------------------------------
-
-		explicit Model::Model(const ModelPart model_part, SharedPtr< const StaticMesh > mesh,
-			const ShadedMaterial &material);
-
-		explicit Model(const string &name, SharedPtr< const StaticMesh > mesh,
-			size_t start_index, size_t nb_indices, const ShadedMaterial &material);
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual SharedPtr< WorldObject > CloneImplementation() const override {
+		virtual SharedPtr< Model > CloneImplementation() const {
 			return SharedPtr< Model >(new Model(*this));
 		}
-
-		virtual void UpdateChildTransforms(bool dirty_ancestor) override final;
-
-		HRESULT InitializeModel(const ModelDescriptor &desc, const CombinedShader &shader);
-		void AddSubModel(SharedPtr< Model > submodel);
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		SharedPtr< const StaticMesh > m_mesh;
+		SharedPtr< const Mesh > m_mesh;
 		const size_t m_start_index;
 		const size_t m_nb_indices;
 		UniquePtr< ShadedMaterial > m_material;
-		vector< SharedPtr< Model > > m_submodels;
 	};
 }
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "model\model.tpp"
-
-#pragma endregion

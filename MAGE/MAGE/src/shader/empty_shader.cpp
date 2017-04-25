@@ -12,24 +12,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void EmptyVertexShader::PrepareShading(const XMMATRIX &transform) const {
+	void EmptyVertexShader::PrepareShading(ID3D11Buffer *transform) const {
 		UNUSED(transform);
 		m_device_context->IASetInputLayout(m_vertex_layout.Get());
 		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
 	}
 
-	void EmptyVertexShader::PrepareShading(const TransformBuffer &transform) const {
-		UNUSED(transform);
-		m_device_context->IASetInputLayout(m_vertex_layout.Get());
-		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
-	}
-
-	void EmptyPixelShader::PrepareShading(ID3D11ShaderResourceView * const *texture) const {
+	void EmptyPixelShader::PrepareShading(ID3D11ShaderResourceView *texture) const {
 		UNUSED(texture);
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 	}
 	
-	void EmptyPixelShader::PrepareShading(const Material &material, const LightBuffer &lighting) const {
+	void EmptyPixelShader::PrepareShading(const Material &material, const Lighting &lighting) const {
 		UNUSED(material);
 		UNUSED(lighting);
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);

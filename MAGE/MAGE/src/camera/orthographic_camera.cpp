@@ -14,8 +14,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SharedPtr< OrthographicCamera > CreateOrthographicCamera(const string &name,
+	SharedPtr< OrthographicCamera > CreateOrthographicCamera(
 		float width, float height, float near_z, float far_z) {
-		return SharedPtr< OrthographicCamera >(new OrthographicCamera(name, width, height, near_z, far_z));
+		return SharedPtr< OrthographicCamera >(new OrthographicCamera(width, height, near_z, far_z));
 	}
 }

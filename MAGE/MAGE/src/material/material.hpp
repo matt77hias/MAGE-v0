@@ -7,7 +7,6 @@
 
 #include "material\spectrum.hpp"
 #include "texture\texture.hpp"
-#include "memory\allocation.hpp"
 
 #pragma endregion
 
@@ -15,25 +14,6 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	_declspec(align(16)) struct MaterialBuffer final : public AlignedData< MaterialBuffer > {
-
-	public:
-
-		MaterialBuffer() = default;
-		MaterialBuffer(const MaterialBuffer &buffer) = default;
-		MaterialBuffer(MaterialBuffer &&buffer) = default;
-		~MaterialBuffer() = default;
-		MaterialBuffer &operator=(const MaterialBuffer &buffer) = default;
-		MaterialBuffer &operator=(MaterialBuffer &&buffer) = default;
-
-		XMFLOAT3 Kd;
-		float    dissolve;
-		XMFLOAT3 Ks;
-		float    Ns;
-	};
-
-	static_assert(sizeof(MaterialBuffer) == 32, "CPU/GPU struct mismatch");
 
 	struct Material final {
 
@@ -63,19 +43,6 @@ namespace mage {
 
 		Material &operator=(const Material &material) = default;
 		Material &operator=(Material &&material) = default;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		const MaterialBuffer GetBuffer() const {
-			MaterialBuffer buffer;
-			buffer.Kd       = m_diffuse_reflectivity;
-			buffer.dissolve = m_dissolve;
-			buffer.Ks       = m_specular_reflectivity;
-			buffer.Ns       = m_specular_exponent;
-			return buffer;
-		}
 
 		//---------------------------------------------------------------------
 		// Member Variables

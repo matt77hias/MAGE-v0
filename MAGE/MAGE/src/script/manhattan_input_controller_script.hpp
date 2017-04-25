@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\memory.hpp"
 #include "script\manhattan_motor_script.hpp"
 #include "script\mouse_look_script.hpp"
 
@@ -23,7 +24,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit ManhattanInputControllerScript(Transform *transform)
+		explicit ManhattanInputControllerScript(TransformNode *transform)
 			: BehaviorScript(),
 			m_orientation_script(new MouseLookScript(transform)),
 			m_movement_script(new ManhattanMotorScript(transform)) {}

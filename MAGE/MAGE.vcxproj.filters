@@ -220,6 +220,12 @@
     <Filter Include="Header Files\model\mdl">
       <UniqueIdentifier>{30b20d94-ffc8-40c1-b7d1-60836c97c92c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\buffer">
+      <UniqueIdentifier>{6611e24b-5030-4508-99c0-733263f8d080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\buffer">
+      <UniqueIdentifier>{d58afbdd-86c4-4381-a6d1-4e4284f2e246}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -459,13 +465,7 @@
     <ClInclude Include="MAGE\src\model\model_descriptor.hpp">
       <Filter>Header Files\model</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\world\transform_buffer.hpp">
-      <Filter>Header Files\world</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\world\world.hpp">
-      <Filter>Header Files\world</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\world\world_object.hpp">
       <Filter>Header Files\world</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\binary\binary_reader.hpp">
@@ -648,9 +648,6 @@
     <ClInclude Include="MAGE\src\light\spot_light.hpp">
       <Filter>Header Files\light</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\light\directional_light.hpp">
-      <Filter>Header Files\light</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\light\light.hpp">
       <Filter>Header Files\light</Filter>
     </ClInclude>
@@ -666,8 +663,26 @@
     <ClInclude Include="MAGE\src\rendering\structured_buffer.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\light\light_buffer.hpp">
+    <ClInclude Include="MAGE\src\math\transform_node.hpp">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\material_buffer.hpp">
+      <Filter>Header Files\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\light_buffer.hpp">
+      <Filter>Header Files\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\transform_buffer.hpp">
+      <Filter>Header Files\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\light\ambient_light.hpp">
       <Filter>Header Files\light</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\light\directional_light.hpp">
+      <Filter>Header Files\light</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\scene\scene_node.hpp">
+      <Filter>Header Files\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -779,9 +794,6 @@
     <ClCompile Include="MAGE\src\world\world.cpp">
       <Filter>Source Files\world</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\world\transform_buffer.cpp">
-      <Filter>Source Files\world</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\math\view_frustum.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
@@ -844,9 +856,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\font\sprite_font.cpp">
       <Filter>Source Files\font</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\world\world_object.cpp">
-      <Filter>Source Files\world</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\camera\perspective_camera.cpp">
       <Filter>Source Files\camera</Filter>
@@ -914,6 +923,12 @@
     <ClCompile Include="MAGE\src\sprite\sprite_object.cpp">
       <Filter>Source Files\sprite</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\math\transform_node.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\buffer\transform_buffer.cpp">
+      <Filter>Source Files\buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">
@@ -972,9 +987,6 @@
     <None Include="MAGE\src\scene\scene.tpp">
       <Filter>Header Files\scene</Filter>
     </None>
-    <None Include="MAGE\src\model\model.tpp">
-      <Filter>Header Files\model</Filter>
-    </None>
     <None Include="MAGE\src\text\sprite_text.tpp">
       <Filter>Header Files\text</Filter>
     </None>
@@ -1004,6 +1016,9 @@
     </None>
     <None Include="MAGE\src\rendering\structured_buffer.tpp">
       <Filter>Header Files\rendering</Filter>
+    </None>
+    <None Include="MAGE\src\math\transform_node.tpp">
+      <Filter>Header Files\math</Filter>
     </None>
   </ItemGroup>
 </Project>

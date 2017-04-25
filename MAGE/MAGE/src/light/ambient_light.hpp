@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scripting\behavior_script.hpp"
-#include "math\transform_node.hpp"
+#include "light\light.hpp"
 
 #pragma endregion
 
@@ -15,47 +14,43 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class CharacterMotorScript final : public BehaviorScript {
+	class AmbientLight : public Light {
 
 	public:
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
-		
-		explicit CharacterMotorScript(TransformNode *transform)
-			: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {}
-		CharacterMotorScript(const CharacterMotorScript &script) = delete;
-		CharacterMotorScript(CharacterMotorScript &&script) = default;
-		virtual ~CharacterMotorScript() = default;
+
+		explicit AmbientLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f))
+			: Light(intensity) {}
+		AmbientLight(const AmbientLight &light) = default;
+		AmbientLight(AmbientLight &&light) = default;
+		virtual ~AmbientLight() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
-		//---------------------------------------------------------------------
+		//---------------------------------------------------------------------	
 
-		CharacterMotorScript &operator=(const CharacterMotorScript &script) = delete;
-		CharacterMotorScript &operator=(CharacterMotorScript &&script) = delete;
+		AmbientLight &operator=(const AmbientLight &light) = delete;
+		AmbientLight &operator=(AmbientLight &&light) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update(double delta_time) override;
-
-		float GetVelocity() const {
-			return m_velocity;
-		}
-		void SetVelocity(float velocity) {
-			m_velocity = velocity;
+		SharedPtr< AmbientLight > Clone() const {
+			return std::static_pointer_cast< AmbientLight >(CloneImplementation());
 		}
 
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Methods
 		//---------------------------------------------------------------------
 
-		TransformNode * const m_transform;
-		float m_velocity;
+		virtual SharedPtr< Light > CloneImplementation() const override {
+			return SharedPtr< AmbientLight >(new AmbientLight(*this));
+		}
 	};
 }

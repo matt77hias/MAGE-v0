@@ -3,8 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\resource_factory.hpp"
-#include "shader\sprite_shader.hpp"
 #include "sprite\sprite_batch.hpp"
 #include "logging\error.hpp"
 
@@ -31,7 +29,8 @@ namespace mage {
 		m_mesh(new SpriteBatchMesh(device, device_context)), m_vertex_buffer_position(0),
 		m_shader(new CombinedShader(shader)), m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY), 
 		m_viewport_set(false), m_viewport{}, m_in_begin_end_pair(false), 
-		m_sort_mode(SpriteSortMode_Deferred), m_transform(XMMatrixIdentity()),
+		m_sort_mode(SpriteSortMode_Deferred), 
+		m_transform(XMMatrixIdentity()), m_transform_buffer(device, device_context),
 		m_sprite_queue(), m_sprite_queue_size(0), m_sprite_queue_array_size(0), 
 		m_sorted_sprites(), m_sprite_texture_references() {}
 
@@ -162,6 +161,8 @@ namespace mage {
 				m_transform *= GetViewportTransform(m_device_context, m_rotation_mode);
 			}
 		}
+
+		m_transform_buffer.UpdateData(XMMatrixTranspose(m_transform));
 	}
 
 	void SpriteBatch::FlushBatch() {
@@ -246,7 +247,8 @@ namespace mage {
 
 	void SpriteBatch::RenderBatch(ID3D11ShaderResourceView *texture,
 		const SpriteInfo * const * sprites, size_t nb_sprites) {
-		m_shader->PrepareShading(&texture, XMMatrixTranspose(m_transform));
+
+		m_shader->PrepareShading(m_transform_buffer.Get(), texture);
 
 		const XMVECTOR texture_size = GetTexture2DSize(texture);
 		const XMVECTOR inverse_texture_size = XMVectorReciprocal(texture_size);
@@ -391,11 +393,5 @@ namespace mage {
 			const XMVECTOR texture_coordinate = XMVectorMultiplyAdd(corner_offsets[i ^ mirror_bits], source_size, source);
 			XMStoreFloat2(&vertices[i].tex, texture_coordinate);
 		}
-	}
-
-	SharedPtr< SpriteBatch > CreateSpriteBatch() {
-		ID3D11Device2 *device = GetRenderingDevice();
-		ID3D11DeviceContext2 *device_context = GetRenderingDeviceContext();
-		return SharedPtr< SpriteBatch >(new SpriteBatch(device, device_context));
 	}
 }

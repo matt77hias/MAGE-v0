@@ -4,7 +4,6 @@
 #pragma region
 
 #include "resource\resource_factory.hpp"
-#include "rendering\rendering_factory.hpp"
 #include "shader\sprite_shader.hpp"
 #include "shader\cso\sprite_PS.hpp"
 #include "shader\cso\sprite_VS.hpp"
@@ -23,14 +22,12 @@ namespace mage {
 
 	SpriteVertexShader::SpriteVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: VertexShader(device, device_context, MAGE_GUID_SPRITE_VS, g_sprite_vs, sizeof(g_sprite_vs),
-			VertexPositionColorTexture::input_element_desc, VertexPositionColorTexture::nb_input_elements),
-		m_transform_buffer(m_device, m_device_context) {}
+			VertexPositionColorTexture::input_element_desc, VertexPositionColorTexture::nb_input_elements) {}
 
-	void SpriteVertexShader::PrepareShading(const XMMATRIX &transform) const {
-		m_transform_buffer.UpdateData(transform);
+	void SpriteVertexShader::PrepareShading(ID3D11Buffer *transform) const {
 		m_device_context->IASetInputLayout(m_vertex_layout.Get());
 		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
-		m_device_context->VSSetConstantBuffers(0, 1, m_transform_buffer.GetAddressOf());
+		m_device_context->VSSetConstantBuffers(0, 1, &transform);
 	}
 
 	//-------------------------------------------------------------------------
@@ -40,9 +37,9 @@ namespace mage {
 	SpritePixelShader::SpritePixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: PixelShader(device, device_context, MAGE_GUID_SPRITE_PS, g_sprite_ps, sizeof(g_sprite_ps)) {}
 
-	void SpritePixelShader::PrepareShading(ID3D11ShaderResourceView * const *texture) const {
+	void SpritePixelShader::PrepareShading(ID3D11ShaderResourceView *texture) const {
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
-		m_device_context->PSSetShaderResources(0, 1, texture);
+		m_device_context->PSSetShaderResources(0, 1, &texture);
 	}
 
 	//-------------------------------------------------------------------------

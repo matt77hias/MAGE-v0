@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "world\world_object.hpp"
+#include "memory\memory.hpp"
+#include "math\math.hpp"
 
 #pragma endregion
 
@@ -27,7 +28,7 @@ namespace mage {
 	/**
 	 A class of camera.
 	 */
-	class Camera : public WorldObject {
+	class Camera {
 
 	public:
 
@@ -146,18 +147,15 @@ namespace mage {
 		/**
 		 Constructs a camera.
 
-		 @param[in]		name
-						A reference to the name of the camera.
 		 @param[in]		near_z
 						The position of the near z-plane in camera space.
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
-		explicit Camera(const string &name,
+		explicit Camera(
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: WorldObject(name), 
-			m_near_z(near_z), m_far_z(far_z) {}
+			: m_near_z(near_z), m_far_z(far_z) {}
 
 		/**
 		 Constructs a camera from the given camera.
@@ -181,7 +179,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual SharedPtr< WorldObject > CloneImplementation() const = 0;
+		virtual SharedPtr< Camera > CloneImplementation() const = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables

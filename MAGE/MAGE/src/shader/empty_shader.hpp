@@ -44,8 +44,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void PrepareShading(const XMMATRIX &transform) const override final;
-		virtual void PrepareShading(const TransformBuffer &transform) const override final;
+		virtual void PrepareShading(ID3D11Buffer *transform) const override final;
 	};
 
 	//-------------------------------------------------------------------------
@@ -78,7 +77,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void PrepareShading(ID3D11ShaderResourceView * const *texture) const override final;
-		virtual void PrepareShading(const Material &material, const LightBuffer &lighting) const override final;
+		virtual void PrepareShading(ID3D11ShaderResourceView *texture) const override final;
+		virtual void PrepareShading(const Material &material, const Lighting &lighting) const override final;
 	};
 }

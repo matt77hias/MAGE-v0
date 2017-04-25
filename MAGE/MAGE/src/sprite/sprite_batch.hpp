@@ -5,12 +5,12 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\allocation.hpp"
+#include "collection\collection.hpp"
 #include "math\sprite_transform.hpp"
 #include "mesh\sprite_batch_mesh.hpp"
 #include "mesh\vertex.hpp"
+#include "rendering\constant_buffer.hpp"
 #include "shader\sprite_shader.hpp"
-
 #include "sprite\sprite_utils.hpp"
 #include "sprite\sprite_sort_mode.hpp"
 #include "sprite\sprite_effects.hpp"
@@ -138,6 +138,7 @@ namespace mage {
 		bool m_in_begin_end_pair;
 		SpriteSortMode m_sort_mode;
 		XMMATRIX m_transform;
+		ConstantBuffer< XMMATRIX > m_transform_buffer;
 
 		// Queue of sprites waiting to be drawn.
 		UniquePtr< SpriteInfo[] > m_sprite_queue;
@@ -148,6 +149,4 @@ namespace mage {
 
 		static const size_t initial_queue_size = 64;
 	};
-
-	SharedPtr< SpriteBatch > CreateSpriteBatch();
 }

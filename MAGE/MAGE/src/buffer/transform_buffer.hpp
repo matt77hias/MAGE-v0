@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "camera\camera.hpp"
+#include "memory\allocation.hpp"
+#include "math\math.hpp"
 
 #pragma endregion
 
@@ -22,7 +23,8 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit TransformBuffer(const Camera &camera);
+		explicit TransformBuffer(const XMMATRIX &world_to_view, 
+			const XMMATRIX &view_to_projection);
 		TransformBuffer(const TransformBuffer &buffer) = default;
 		TransformBuffer(TransformBuffer &&buffer) = default;
 		~TransformBuffer() = default;

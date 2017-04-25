@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "world\world_object.hpp"
+#include "memory\memory.hpp"
 #include "material\spectrum.hpp"
 
 #pragma endregion
@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class Light : public WorldObject {
+	class Light {
 
 	public:
 
@@ -58,27 +58,10 @@ namespace mage {
 		// Constructors
 		//---------------------------------------------------------------------
 
-		explicit Light(const string name, const RGBSpectrum &intensity)
-			: WorldObject(name), m_intensity(intensity) {}
+		explicit Light(const RGBSpectrum &intensity)
+			: m_intensity(intensity) {}
 		Light(const Light &light) = default;
 		Light(Light &&light) = default;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		const XMVECTOR GetWorldLightPosition() const {
-			return GetTransform()->GetWorldEye();
-		}
-		const XMVECTOR GetWorldLightDirection() const {
-			return GetTransform()->GetWorldForward();
-		}
-		const XMVECTOR GetViewLightPosition(const XMMATRIX &world_to_view) const {
-			return XMVector4Transform(GetWorldLightPosition(), world_to_view);
-		}
-		const XMVECTOR GetViewLightDirection(const XMMATRIX &world_to_view) const {
-			return XMVector4Transform(GetWorldLightDirection(), world_to_view);
-		}
 
 	private:
 
@@ -86,7 +69,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual SharedPtr< WorldObject > CloneImplementation() const = 0;
+		virtual SharedPtr< Light > CloneImplementation() const = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables

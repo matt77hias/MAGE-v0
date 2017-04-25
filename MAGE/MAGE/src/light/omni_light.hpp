@@ -10,38 +10,9 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdint.h>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	__declspec(align(16)) struct OmniLightBuffer final : public AlignedData< OmniLightBuffer > {
-
-	public:
-
-		OmniLightBuffer() = default;
-		OmniLightBuffer(const OmniLightBuffer &buffer) = default;
-		OmniLightBuffer(OmniLightBuffer &&buffer) = default;
-		~OmniLightBuffer() = default;
-		OmniLightBuffer &operator=(const OmniLightBuffer &buffer) = default;
-		OmniLightBuffer &operator=(OmniLightBuffer &&buffer) = default;
-
-		XMFLOAT4  p;
-		XMFLOAT3  I;
-		float     distance_falloff_start;
-		float     distance_falloff_end;
-		uint32_t  padding[3];
-	};
-
-	static_assert(sizeof(OmniLightBuffer) == 48, "CPU/GPU struct mismatch");
 
 	class OmniLight : public Light {
 
@@ -51,8 +22,8 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit OmniLight(const string name, const RGBSpectrum &intensity)
-			: Light(name, intensity), 
+		explicit OmniLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f))
+			: Light(intensity), 
 			m_distance_falloff_start(0.0f), m_distance_falloff_end(1.0f) {}
 		OmniLight(const OmniLight &light) = default;
 		OmniLight(OmniLight &&light) = default;
@@ -73,15 +44,6 @@ namespace mage {
 			return std::static_pointer_cast< OmniLight >(CloneImplementation());
 		}
 		
-		const OmniLightBuffer GetBuffer(const XMMATRIX &world_to_view) const {
-			OmniLightBuffer buffer;
-			XMStoreFloat4(&buffer.p, GetViewLightPosition(world_to_view));
-			buffer.I                      = GetIntensity();
-			buffer.distance_falloff_start = m_distance_falloff_start;
-			buffer.distance_falloff_end   = m_distance_falloff_end;
-			return buffer;
-		}
-
 		float GetStartDistanceFalloff() const {
 			return m_distance_falloff_start;
 		}
@@ -108,7 +70,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual SharedPtr< WorldObject > CloneImplementation() const override {
+		virtual SharedPtr< Light > CloneImplementation() const override {
 			return SharedPtr< OmniLight >(new OmniLight(*this));
 		}
 

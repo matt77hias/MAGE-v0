@@ -12,9 +12,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	World::World() 
-		: m_models(), m_omni_lights(), m_spot_lights(), m_sprites(),
-		m_sprite_batch(CreateSpriteBatch()) {}
+	World::World(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
+		: m_camera(nullptr), 
+		m_models(), m_omni_lights(), m_spot_lights(), m_sprites(), 
+		m_sprite_batch(new SpriteBatch(device, device_context)),
+		m_transform_buffer(device, device_context),
+		m_light_data_buffer(device, device_context), 
+		m_omni_lights_buffer(device, device_context, 64),
+		m_spot_lights_buffer(device, device_context, 64) {}
 
 	World::~World() {
 		Clear();
@@ -35,41 +40,161 @@ namespace mage {
 		
 		m_sprite_batch->End();
 	}
-	void World::Render3D(const TransformBuffer &transform_buffer) const {
-		// Gather light data for the shaders.
-		LightBuffer lighting;
+	void World::Render3D() const {
+		
+		const XMMATRIX world_to_view = m_camera->GetWorldToViewMatrix();
 
-		const XMMATRIX world_to_view = transform_buffer.GetWorldToViewMatrix();
-		ForEachOmniLight([&lighting, &world_to_view](const OmniLight &light) {
-			lighting.omni_lights.push_back(light.GetBuffer(world_to_view));
+		// Update omni light structured buffer.
+		vector< OmniLightBuffer > omni_lights_buffer;
+		ForEachOmniLight([&omni_lights_buffer, &world_to_view](const OmniLightNode &light_node) {
+			OmniLightBuffer light_buffer;
+			
+			XMStoreFloat4(&light_buffer.p, XMVector4Transform(light_node.GetWorldEye(), world_to_view));
+			light_buffer.I                      = light_node.GetObject()->GetIntensity();
+			light_buffer.distance_falloff_start = light_node.GetObject()->GetStartDistanceFalloff();
+			light_buffer.distance_falloff_end   = light_node.GetObject()->GetEndDistanceFalloff();
+			
+			omni_lights_buffer.push_back(light_buffer);
 		});
-		ForEachSpotLight([&lighting, &world_to_view](const SpotLight &light) {
-			lighting.spot_lights.push_back(light.GetBuffer(world_to_view));
-		});
+		m_omni_lights_buffer.UpdateData(omni_lights_buffer);
 
-		lighting.UpdateSizes();
+		// Update spot light structured buffer.
+		vector< SpotLightBuffer > spot_lights_buffer;
+		ForEachSpotLight([&spot_lights_buffer, &world_to_view](const SpotLightNode &light_node) {
+			SpotLightBuffer light_buffer;
+
+			XMStoreFloat4(&light_buffer.p, XMVector4Transform(light_node.GetWorldEye(), world_to_view));
+			light_buffer.I                      = light_node.GetObject()->GetIntensity();
+			light_buffer.exponent_property      = light_node.GetObject()->GetExponentProperty();
+			XMStoreFloat3(&light_buffer.d, XMVector4Transform(light_node.GetWorldForward(), world_to_view));
+			light_buffer.distance_falloff_start = light_node.GetObject()->GetStartDistanceFalloff();
+			light_buffer.distance_falloff_end   = light_node.GetObject()->GetEndDistanceFalloff();
+			light_buffer.cos_penumbra           = light_node.GetObject()->GetStartAngualCutoff();
+			light_buffer.cos_umbra              = light_node.GetObject()->GetEndAngualCutoff();
+
+			spot_lights_buffer.push_back(light_buffer);
+		});
+		m_spot_lights_buffer.UpdateData(spot_lights_buffer);
+
+		// Update light data constant buffer.
+		LightDataBuffer light_data_buffer;
+		light_data_buffer.nb_omni_lights = static_cast< uint32_t >(omni_lights_buffer.size());
+		light_data_buffer.nb_spot_lights = static_cast< uint32_t >(spot_lights_buffer.size());
+		m_light_data_buffer.UpdateData(light_data_buffer);
+		
+		// Create lighting buffer.
+		Lighting lighting;
+		lighting.light_data  = m_light_data_buffer.Get();
+		lighting.omni_lights = m_omni_lights_buffer.Get();
+		lighting.spot_lights = m_spot_lights_buffer.Get();
+
+		// Create Transform buffer.
+		TransformBuffer transform_buffer(
+			m_camera->GetWorldToViewMatrix(),
+			m_camera->GetObject()->GetViewToProjectionMatrix());
 
 		// Render models.
-		ForEachModel([&lighting, &transform_buffer](const Model &model) {
-			model.Draw(lighting, transform_buffer);
+		ForEachModel([&](const ModelNode &model_node) {
+			const Model *model = model_node.GetObject();
+			if (model->GetNumberOfIndices() != 0) {
+
+				// Update transform constant buffer.
+				const XMMATRIX object_to_world = model_node.GetObjectToWorldMatrix();
+				transform_buffer.SetModelToWorld(object_to_world);
+				m_transform_buffer.UpdateData(transform_buffer);
+
+				// Draw model.
+				model->PrepareDrawing();
+				model->PrepareShading(m_transform_buffer.Get(), lighting);
+				model->Draw();
+			}
 		});
+	}
+
+	SharedPtr< OrthographicCameraNode > World::CreateOrthographicCameraNode() {
+		SharedPtr< OrthographicCamera > camera = CreateOrthographicCamera();
+		SharedPtr< OrthographicCameraNode > camera_node(new OrthographicCameraNode("camera", camera));
+		//SetCamera(camera_node);
+		return camera_node;
+	}
+	SharedPtr< PerspectiveCameraNode > World::CreatePerspectiveCameraNode() {
+		SharedPtr< PerspectiveCamera > camera = CreatePerspectiveCamera();
+		SharedPtr< PerspectiveCameraNode > camera_node(new PerspectiveCameraNode("camera", camera));
+		SetCamera(camera_node);
+		return camera_node;
+	}
+	SharedPtr< OmniLightNode > World::CreateOmniLightNode() {
+		SharedPtr< OmniLight > light(new OmniLight());
+		SharedPtr< OmniLightNode > light_node(new OmniLightNode("light", light));
+		AddLight(light_node);
+		return light_node;
+	}
+	SharedPtr< SpotLightNode > World::CreateSpotLightNode() {
+		SharedPtr< SpotLight > light(new SpotLight());
+		SharedPtr< SpotLightNode > light_node(new SpotLightNode("light", light));
+		AddLight(light_node);
+		return light_node;
+	}
+	SharedPtr< ModelNode > World::CreateModelNode(const ModelDescriptor &desc,
+		const CombinedShader &shader) {
+
+		const Material default_material(MAGE_MDL_PART_DEFAULT_MATERIAL);
+		const ShadedMaterial default_shaded_material(shader, default_material);
+
+		SharedPtr< Model > root_model(new Model(desc.GetMesh(), 0, 0, default_shaded_material));
+		SharedPtr< ModelNode > root_model_node(new ModelNode("model", root_model));
+		AddModel(root_model_node);
+
+		typedef pair< SharedPtr< ModelNode >, string > ModelNodePair;
+		map< string, ModelNodePair > mapping;
+
+		desc.ForEachModelPart([&](const ModelPart &model_part) {
+			if (model_part.child == MAGE_MDL_PART_DEFAULT_CHILD && model_part.nb_indices == 0) {
+				return;
+			}
+
+			if (model_part.material == MAGE_MDL_PART_DEFAULT_MATERIAL) {
+				SharedPtr< Model > submodel(new Model(desc.GetMesh(), model_part.start_index, model_part.nb_indices, default_shaded_material));
+				SharedPtr< ModelNode > submodel_node(new ModelNode(model_part.child, submodel));
+				AddModel(submodel_node);
+				mapping[model_part.child] = ModelNodePair(submodel_node, model_part.parent);
+			}
+			else {
+				const Material material(*desc.GetMaterial(model_part.material));
+				const ShadedMaterial shaded_material(shader, material);
+				SharedPtr< Model > submodel(new Model(desc.GetMesh(), model_part.start_index, model_part.nb_indices, shaded_material));
+				SharedPtr< ModelNode > submodel_node(new ModelNode(model_part.child, submodel));
+				AddModel(submodel_node);
+				mapping[model_part.child] = ModelNodePair(submodel_node, model_part.parent);
+			}
+		});
+
+		for (map< string, ModelNodePair >::const_iterator it = mapping.cbegin(); it != mapping.cend(); ++it) {
+			const ModelNodePair &element = it->second;
+			const string &parent = element.second;
+			if (parent == MAGE_MDL_PART_DEFAULT_PARENT) {
+				root_model_node->AddChildTransformNode(element.first);
+			}
+			else {
+				mapping[parent].first->AddChildTransformNode(element.first);
+			}
+		}
+
+		return root_model_node;
 	}
 
 	//-------------------------------------------------------------------------
 	// Models
 	//-------------------------------------------------------------------------
 
-	bool World::HasModel(const SharedPtr< Model > model) const {
-		return std::find(m_models.begin(), m_models.end(), model) != m_models.end();
-	}
-	void World::AddModel(SharedPtr< Model > model) {
+	void World::AddModel(SharedPtr< ModelNode > model) {
 		if (!model) {
 			return;
 		}
 		m_models.push_back(model);
 	}
-	void World::RemoveModel(SharedPtr< Model > model) {
-		vector< SharedPtr< Model > >::iterator it = std::find(m_models.begin(), m_models.end(), model);
+	void World::RemoveModel(SharedPtr< ModelNode > model) {
+		vector< SharedPtr< ModelNode > >::iterator it = std::find(m_models.begin(), m_models.end(), model);
 		if (it != m_models.end()) {
 			m_models.erase(it);
 		}
@@ -82,32 +207,26 @@ namespace mage {
 	// Lights
 	//-------------------------------------------------------------------------
 
-	bool World::HasLight(const SharedPtr< OmniLight > light) const {
-		return std::find(m_omni_lights.begin(), m_omni_lights.end(), light) != m_omni_lights.end();
-	}
-	bool World::HasLight(const SharedPtr< SpotLight > light) const {
-		return std::find(m_spot_lights.begin(), m_spot_lights.end(), light) != m_spot_lights.end();
-	}
-	void World::AddLight(SharedPtr< OmniLight > light) {
+	void World::AddLight(SharedPtr< OmniLightNode > light) {
 		if (!light) {
 			return;
 		}
 		m_omni_lights.push_back(light);
 	}
-	void World::AddLight(SharedPtr< SpotLight > light) {
+	void World::AddLight(SharedPtr< SpotLightNode > light) {
 		if (!light) {
 			return;
 		}
 		m_spot_lights.push_back(light);
 	}
-	void World::RemoveLight(SharedPtr< OmniLight > light) {
-		vector< SharedPtr< OmniLight > >::iterator it = std::find(m_omni_lights.begin(), m_omni_lights.end(), light);
+	void World::RemoveLight(SharedPtr< OmniLightNode > light) {
+		vector< SharedPtr< OmniLightNode > >::iterator it = std::find(m_omni_lights.begin(), m_omni_lights.end(), light);
 		if (it != m_omni_lights.end()) {
 			m_omni_lights.erase(it);
 		}
 	}
-	void World::RemoveLight(SharedPtr< SpotLight > light) {
-		vector< SharedPtr< SpotLight > >::iterator it = std::find(m_spot_lights.begin(), m_spot_lights.end(), light);
+	void World::RemoveLight(SharedPtr< SpotLightNode > light) {
+		vector< SharedPtr< SpotLightNode > >::iterator it = std::find(m_spot_lights.begin(), m_spot_lights.end(), light);
 		if (it != m_spot_lights.end()) {
 			m_spot_lights.erase(it);
 		}
@@ -121,9 +240,6 @@ namespace mage {
 	// Sprites
 	//-------------------------------------------------------------------------
 
-	bool World::HasSprite(const SharedPtr< SpriteObject > sprite) const {
-		return std::find(m_sprites.begin(), m_sprites.end(), sprite) != m_sprites.end();
-	}
 	void World::AddSprite(SharedPtr< SpriteObject > sprite) {
 		if (!sprite) {
 			return;

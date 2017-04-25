@@ -22,6 +22,9 @@
     <ClInclude Include="MAGE\src\binary\binary_reader.hpp" />
     <ClInclude Include="MAGE\src\binary\binary_utils.hpp" />
     <ClInclude Include="MAGE\src\binary\binary_writer.hpp" />
+    <ClInclude Include="MAGE\src\buffer\light_buffer.hpp" />
+    <ClInclude Include="MAGE\src\buffer\material_buffer.hpp" />
+    <ClInclude Include="MAGE\src\buffer\transform_buffer.hpp" />
     <ClInclude Include="MAGE\src\camera\camera.hpp" />
     <ClInclude Include="MAGE\src\camera\orthographic_camera.hpp" />
     <ClInclude Include="MAGE\src\camera\perspective_camera.hpp" />
@@ -45,9 +48,9 @@
     <ClInclude Include="MAGE\src\input\input_manager.hpp" />
     <ClInclude Include="MAGE\src\input\keyboard.hpp" />
     <ClInclude Include="MAGE\src\input\mouse.hpp" />
+    <ClInclude Include="MAGE\src\light\ambient_light.hpp" />
     <ClInclude Include="MAGE\src\light\directional_light.hpp" />
     <ClInclude Include="MAGE\src\light\light.hpp" />
-    <ClInclude Include="MAGE\src\light\light_buffer.hpp" />
     <ClInclude Include="MAGE\src\light\omni_light.hpp" />
     <ClInclude Include="MAGE\src\light\spot_light.hpp" />
     <ClInclude Include="MAGE\src\logging\error.hpp" />
@@ -66,6 +69,7 @@
     <ClInclude Include="MAGE\src\math\math_utils.hpp" />
     <ClInclude Include="MAGE\src\math\sprite_transform.hpp" />
     <ClInclude Include="MAGE\src\math\transform.hpp" />
+    <ClInclude Include="MAGE\src\math\transform_node.hpp" />
     <ClInclude Include="MAGE\src\math\view_frustum.hpp" />
     <ClInclude Include="MAGE\src\memory\allocation.hpp" />
     <ClInclude Include="MAGE\src\memory\memory.hpp" />
@@ -108,6 +112,7 @@
     <ClInclude Include="MAGE\src\resource\resource_factory.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_pool.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
+    <ClInclude Include="MAGE\src\scene\scene_node.hpp" />
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
@@ -165,12 +170,11 @@
     <ClInclude Include="MAGE\src\ui\combo_box.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
-    <ClInclude Include="MAGE\src\world\transform_buffer.hpp" />
     <ClInclude Include="MAGE\src\world\world.hpp" />
-    <ClInclude Include="MAGE\src\world\world_object.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\binary\binary_writer.cpp" />
+    <ClCompile Include="MAGE\src\buffer\transform_buffer.cpp" />
     <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp" />
     <ClCompile Include="MAGE\src\camera\perspective_camera.cpp" />
     <ClCompile Include="MAGE\src\core\engine.cpp" />
@@ -191,6 +195,7 @@
     <ClCompile Include="MAGE\src\material\spectrum.cpp" />
     <ClCompile Include="MAGE\src\math\bounding_volume.cpp" />
     <ClCompile Include="MAGE\src\math\sprite_transform.cpp" />
+    <ClCompile Include="MAGE\src\math\transform_node.cpp" />
     <ClCompile Include="MAGE\src\math\view_frustum.cpp" />
     <ClCompile Include="MAGE\src\memory\memory_arena.cpp" />
     <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp" />
@@ -248,9 +253,7 @@
     <ClCompile Include="MAGE\src\timer\timer.cpp" />
     <ClCompile Include="MAGE\src\ui\combo_box.cpp" />
     <ClCompile Include="MAGE\src\ui\main_window.cpp" />
-    <ClCompile Include="MAGE\src\world\transform_buffer.cpp" />
     <ClCompile Include="MAGE\src\world\world.cpp" />
-    <ClCompile Include="MAGE\src\world\world_object.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">
@@ -397,6 +400,7 @@
   <ItemGroup>
     <None Include="MAGE\src\binary\binary_reader.tpp" />
     <None Include="MAGE\src\binary\binary_writer.tpp" />
+    <None Include="MAGE\src\math\transform_node.tpp" />
     <None Include="MAGE\src\memory\memory_arena.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_loader.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_reader.tpp" />
@@ -406,7 +410,6 @@
     <None Include="MAGE\src\model\mdl\mdl_loader.tpp" />
     <None Include="MAGE\src\model\mdl\mdl_reader.tpp" />
     <None Include="MAGE\src\model\mdl\mdl_writer.tpp" />
-    <None Include="MAGE\src\model\model.tpp" />
     <None Include="MAGE\src\model\model_descriptor.tpp" />
     <None Include="MAGE\src\model\model_loader.tpp" />
     <None Include="MAGE\src\rendering\constant_buffer.tpp" />

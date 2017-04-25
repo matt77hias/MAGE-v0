@@ -38,8 +38,6 @@ namespace mage {
 		/**
 		 Constructs an orthographic camera.
 
-		 @param[in]		name
-						A reference to the name of the orthographic camera.
 		 @param[in]		width
 						The width in camera space.
 		 @param[in]		height
@@ -49,12 +47,12 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
-		explicit OrthographicCamera(const string &name, 
+		explicit OrthographicCamera(
 			float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
 			float height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: Camera(name, near_z, far_z), 
+			: Camera(near_z, far_z), 
 			m_width(width), m_height(height) {}
 		
 		/**
@@ -205,7 +203,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual SharedPtr< WorldObject > CloneImplementation() const override {
+		virtual SharedPtr< Camera > CloneImplementation() const override {
 			return SharedPtr< OrthographicCamera >(new OrthographicCamera(*this));
 		}
 
@@ -224,7 +222,7 @@ namespace mage {
 		float m_height;
 	};
 
-	SharedPtr< OrthographicCamera > CreateOrthographicCamera(const string &name,
+	SharedPtr< OrthographicCamera > CreateOrthographicCamera(
 		float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
 		float height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
 		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 

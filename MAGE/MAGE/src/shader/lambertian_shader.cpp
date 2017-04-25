@@ -23,14 +23,12 @@ namespace mage {
 
 	LambertianVertexShader::LambertianVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: VertexShader(device, device_context, MAGE_GUID_LAMBERTIAN_VS, g_lambertian_vs, sizeof(g_lambertian_vs),
-			VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements),
-			m_transform_buffer(m_device, m_device_context) {}
+			VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements) {}
 
-	void LambertianVertexShader::PrepareShading(const TransformBuffer &transform) const {
-		m_transform_buffer.UpdateData(transform);
+	void LambertianVertexShader::PrepareShading(ID3D11Buffer *transform) const {
 		m_device_context->IASetInputLayout(m_vertex_layout.Get());
 		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
-		m_device_context->VSSetConstantBuffers(0, 1, m_transform_buffer.GetAddressOf());
+		m_device_context->VSSetConstantBuffers(0, 1, &transform);
 	}
 
 	//-------------------------------------------------------------------------
@@ -39,23 +37,23 @@ namespace mage {
 
 	LambertianPixelShader::LambertianPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: PixelShader(device, device_context, MAGE_GUID_LAMBERTIAN_PS, g_lambertian_ps, sizeof(g_lambertian_ps)),
-		m_material_buffer(m_device, m_device_context),
-		m_light_data_buffer(m_device, m_device_context),
-		m_omni_lights_buffer(m_device, m_device_context, 64),
-		m_spot_lights_buffer(m_device, m_device_context, 64) {}
+		m_material_buffer(m_device, m_device_context) {}
 
-	void LambertianPixelShader::PrepareShading(const Material &material, const LightBuffer &lighting) const {
-		m_material_buffer.UpdateData(material.GetBuffer());
-		m_light_data_buffer.UpdateData(lighting.light_data);
-		m_omni_lights_buffer.UpdateData(lighting.omni_lights);
-		m_spot_lights_buffer.UpdateData(lighting.spot_lights);
+	void LambertianPixelShader::PrepareShading(const Material &material, const Lighting &lighting) const {
+
+		MaterialBuffer buffer;
+		buffer.Kd       = material.m_diffuse_reflectivity;
+		buffer.dissolve = material.m_dissolve;
+		buffer.Ks       = material.m_specular_reflectivity;
+		buffer.Ns       = material.m_specular_exponent;
+		m_material_buffer.UpdateData(buffer);
 		
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 		
 		m_device_context->PSSetConstantBuffers(1, 1, m_material_buffer.GetAddressOf());
-		m_device_context->PSSetConstantBuffers(2, 1, m_light_data_buffer.GetAddressOf());
-		m_device_context->PSSetShaderResources(1, 1, m_omni_lights_buffer.GetAddressOf());
-		m_device_context->PSSetShaderResources(2, 1, m_spot_lights_buffer.GetAddressOf());
+		m_device_context->PSSetConstantBuffers(2, 1, &lighting.light_data);
+		m_device_context->PSSetShaderResources(1, 1, &lighting.omni_lights);
+		m_device_context->PSSetShaderResources(2, 1, &lighting.spot_lights);
 
 		// TODO
 		if (material.m_diffuse_reflectivity_texture) {

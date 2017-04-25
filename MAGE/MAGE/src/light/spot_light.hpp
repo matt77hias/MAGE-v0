@@ -10,42 +10,9 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdint.h>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	__declspec(align(16)) struct SpotLightBuffer final : public AlignedData< SpotLightBuffer > {
-
-	public:
-
-		SpotLightBuffer() = default;
-		SpotLightBuffer(const SpotLightBuffer &buffer) = default;
-		SpotLightBuffer(SpotLightBuffer &&buffer) = default;
-		~SpotLightBuffer() = default;
-		SpotLightBuffer &operator=(const SpotLightBuffer &buffer) = default;
-		SpotLightBuffer &operator=(SpotLightBuffer &&buffer) = default;
-
-		XMFLOAT4 p;
-		XMFLOAT3 I;
-		float    exponent_property;
-		XMFLOAT3 d;
-		float    distance_falloff_start;
-		float    distance_falloff_end;
-		float    cos_penumbra;
-		float    cos_umbra;
-		uint32_t padding;
-	};
-
-	static_assert(sizeof(SpotLightBuffer) == 64, "CPU/GPU struct mismatch");
 
 	class SpotLight : public Light {
 
@@ -55,8 +22,8 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit SpotLight(const string name, const RGBSpectrum &intensity)
-			: Light(name, intensity),
+		explicit SpotLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f))
+			: Light(intensity),
 			m_distance_falloff_start(0.0f), m_distance_falloff_end(1.0f),
 			m_cos_penumbra(0.96592583f), m_cos_umbra(0.86602540f),
 			m_exponent_property(1.0f) {}
@@ -77,20 +44,6 @@ namespace mage {
 
 		SharedPtr< SpotLight > Clone() const {
 			return std::static_pointer_cast< SpotLight >(CloneImplementation());
-		}
-
-		const SpotLightBuffer GetBuffer(const XMMATRIX &world_to_view) const {
-			SpotLightBuffer buffer;
-
-			XMStoreFloat4(&buffer.p, GetViewLightPosition(world_to_view));
-			buffer.I                      = GetIntensity();
-			buffer.exponent_property      = m_exponent_property;
-			XMStoreFloat3(&buffer.d, GetViewLightDirection(world_to_view));
-			buffer.distance_falloff_start = m_distance_falloff_start;
-			buffer.distance_falloff_end   = m_distance_falloff_end;
-			buffer.cos_penumbra           = m_cos_penumbra;
-			buffer.cos_umbra              = m_cos_umbra;
-			return buffer;
 		}
 
 		float GetStartDistanceFalloff() const {
@@ -147,7 +100,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual SharedPtr< WorldObject > CloneImplementation() const override {
+		virtual SharedPtr< Light > CloneImplementation() const override {
 			return SharedPtr< SpotLight >(new SpotLight(*this));
 		}
 

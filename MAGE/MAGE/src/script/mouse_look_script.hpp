@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "math\transform.hpp"
+#include "math\transform_node.hpp"
 
 #pragma endregion
 
@@ -29,7 +29,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit MouseLookScript(Transform *transform,
+		explicit MouseLookScript(TransformNode *transform,
 			RotationAxes axes = RotationAxes_MouseXAndY,
 			const XMFLOAT2 &sensitivity      = XMFLOAT2(1.8f,1.8f),
 			const XMFLOAT2 &minimum_rotation = XMFLOAT2(-XM_PI / 3.0f , -XM_2PI),
@@ -157,7 +157,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		Transform * const m_transform;
+		TransformNode * const m_transform;
 		RotationAxes m_axes;
 		XMFLOAT2 m_sensitivity;
 		XMFLOAT2 m_minimum_rotation;

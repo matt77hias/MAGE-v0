@@ -15,6 +15,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 A class of line readers for reading (non-binary) text files line by line.
+	 */
 	class LineReader {
 
 	public:
@@ -23,25 +26,61 @@ namespace mage {
 		// Destructors
 		//---------------------------------------------------------------------
 
+		/**
+		 Destructs this line reader.
+		 */
 		virtual ~LineReader() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
+		/**
+		 Copies the given line reader to this line reader.
+
+		 @param[in]		reader
+						A reference to a line reader to copy from.
+		 @return		A reference to the copy of the given line reader
+						(i.e. this line reader).
+		 */
 		LineReader &operator=(const LineReader &reader) = delete;
+
+		/**
+		 Moves the given line reader to this line reader.
+
+		 @param[in]		reader
+						A reference to a line reader to move.
+		 @return		A reference to the moved line reader
+						(i.e. this line reader).
+		 */
 		LineReader &operator=(LineReader &&reader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		/**
+		 */
 		HRESULT ReadFromFile(const wstring &fname, const string &delimiters = mage_default_delimiters);
+		
+		/**
+		 */
 		HRESULT ReadFromMemory(const char *input, const string &delimiters = mage_default_delimiters);
 
+		/**
+		 Returns the current filename of this line reader.
+
+		 @return		A reference to the current filename of this line reader.
+		 */
 		const wstring &GetFilename() const {
 			return m_fname;
 		}
+
+		/**
+		 Returns the current delimiters of this line reader.
+
+		 @return		A reference to the current delimiters of this line reader.
+		 */
 		const string &GetDelimiters() const {
 			return m_delimiters;
 		}
@@ -52,17 +91,39 @@ namespace mage {
 		// Constructors
 		//---------------------------------------------------------------------
 
+		/**
+		 Constructs a line reader.
+		 */
 		LineReader()
 			: m_context(nullptr), m_fname(), 
 			m_delimiters(mage_default_delimiters), m_line_number(0) {}
+
+		/**
+		 Constructs a line reader from the given line reader.
+
+		 @param[in]		reader
+						A reference to the line reader to copy from.
+		 */
 		LineReader(const LineReader &reader) = delete;
+
+		/**
+		 Constructs a line reader by moving the given line reader.
+
+		 @param[in]		reader
+						A reference to the line reader to move.
+		 */
 		LineReader(LineReader &&reader) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		const uint32_t GetCurrentLineNumber() const {
+		/**
+		 Returns the current line number of this line reader.
+
+		 @return		The current line number of this line reader.
+		 */
+		uint32_t GetCurrentLineNumber() const {
 			return m_line_number;
 		}
 		
@@ -104,6 +165,9 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
+		/**
+		 The current context of this line reader.
+		 */
 		char *m_context;
 
 	private:
@@ -112,16 +176,46 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		/**
+		 Pre-process before reading the current file of this line reader.
+
+		 @return		A success/error value.
+		 */
 		virtual HRESULT Preprocess();
+
+		/**
+		 Reads the given line.
+
+		 @parm[in,out]	line
+						A pointer to the null-terminated byte string to read.
+		 @return		A success/error value.
+		 */
 		virtual HRESULT ReadLine(char *line) = 0;
+
+		/**
+		 Post-process after reading the current file of this line reader. 
+
+		 @return		A success/error value.
+		 */
 		virtual HRESULT Postprocess();
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
+		/**
+		 The current filename of this line reader.
+		 */
 		wstring m_fname;
+
+		/**
+		 The current delimiters of this line reader.
+		 */
 		string m_delimiters;
+
+		/**
+		 The current line number of this line reader.
+		 */
 		uint32_t m_line_number;
 	};
 }

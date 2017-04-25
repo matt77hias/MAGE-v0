@@ -14,8 +14,9 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// String Conversion Utilities
+	// String Conversion Utilities: Complete String
 	//-------------------------------------------------------------------------
+#pragma region
 
 	TokenResult StringToBool(const char *str, bool &result) {
 		if (!str) {
@@ -121,6 +122,13 @@ namespace mage {
 		return (*inner_context == '\0') ? TokenResult_Valid : TokenResult_Invalid;
 	}
 	
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// String Conversion Utilities: Substring
+	//-------------------------------------------------------------------------
+#pragma region
+
 	TokenResult StringToBool(const char *begin, const char *end, bool &result) {
 		if (!begin) {
 			return TokenResult_None;
@@ -247,6 +255,13 @@ namespace mage {
 		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// String Conversion Utilities: String Prefix
+	//-------------------------------------------------------------------------
+#pragma region
+
 	TokenResult StringPrefixToInt8(const char *str, int8_t &result) {
 		if (!str) {
 			return TokenResult_None;
@@ -338,9 +353,12 @@ namespace mage {
 		return (inner_context != str) ? TokenResult_Valid : TokenResult_Invalid;
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
-	// Parsing Utilities
+	// Parsing Utilities: Reading
 	//-------------------------------------------------------------------------
+#pragma region
 
 	TokenResult ReadChars(char *str, char **context, char **result, const char *delimiters) {
 		*result = strtok_s(str, delimiters, context);
@@ -483,6 +501,13 @@ namespace mage {
 		return TokenResult_Valid;
 	}
 
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Parsing Utilities: Peaking
+	//-------------------------------------------------------------------------
+#pragma region
+
 	TokenResult HasChars(const char *str, const char *delimiters) {
 		const char *start = SkipDelimiters(str, delimiters);
 		return (start) ? TokenResult_Valid : TokenResult_None;
@@ -618,6 +643,13 @@ namespace mage {
 		return StringToDouble(start, end, result);
 	}
 
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Parsing Utilities: Advancing
+	//-------------------------------------------------------------------------
+#pragma region
+
 	char *SkipDelimiters(char *str, const char *delimiters) {
 		while (*str != '\0' && str_contains(delimiters, *str)) {
 			++str;
@@ -642,4 +674,6 @@ namespace mage {
 		}
 		return (*str != '\0') ? str : nullptr;
 	}
+
+#pragma endregion
 }

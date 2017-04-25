@@ -18,9 +18,9 @@ namespace mage {
 	 Checks whether the given strings are equal.
 
 	 @param[in]		str1
-					A pointer to the first string.
+					A pointer to the first null-terminated byte string.
 	 @param[in]		str2
-					A pointer to the second string.
+					A pointer to the second null-terminated byte string.
 	 @return		@c true if @a str1 is equal to @a str2.
 					@c false otherwise.
 	 */
@@ -32,9 +32,9 @@ namespace mage {
 	 Checks whether the given strings are equal.
 
 	 @param[in]		str1
-					A pointer to the first string.
+					A pointer to the first null-terminated wide string.
 	 @param[in]		str2
-					A pointer to the second string.
+					A pointer to the second null-terminated wide string.
 	 @return		@c true if @a str1 is equal to @a str2.
 					@c false otherwise.
 	 */
@@ -46,9 +46,10 @@ namespace mage {
 	 Checks whether the first given string contains the second given string.
 
 	 @param[in]		str1
-					A pointer to the string to be scanned.
+					A pointer to the null-terminated byte string to be scanned.
 	 @param[in]		str2
-					A pointer to the string containing the sequence of characters to match.
+					A pointer to the null-terminated byte string 
+					containing the sequence of characters to match.
 	 @return		@c true if @a str1 contains a substring @a str2.
 					@c false otherwise.
 	 */
@@ -60,9 +61,10 @@ namespace mage {
 	 Checks whether the first given string contains the second given string.
 
 	 @param[in]		str1
-					A pointer to the string to be scanned.
+					A pointer to the null-terminated wide string to be scanned.
 	 @param[in]		str2
-					A pointer to the string containing the sequence of characters to match.
+					A pointer to the null-terminated wide string 
+					containing the sequence of characters to match.
 	 @return		@c true if @a str1 contains a substring @a str2.
 					@c false otherwise.
 	 */
@@ -74,9 +76,9 @@ namespace mage {
 	 Checks whether the first given string contains the given character.
 
 	 @param[in]		str
-					A pointer to the string to be scanned.
+					A pointer to the null-terminated byte string to be scanned.
 	 @param[in]		c
-					The character to match.
+					The byte character to match.
 	 @return		@c true if @a str contains a @a c.
 					@c false otherwise.
 	 */
@@ -88,9 +90,9 @@ namespace mage {
 	 Checks whether the first given string contains the given character.
 
 	 @param[in]		str
-					A pointer to the string to be scanned.
+					A pointer to the null-terminated wide string to be scanned.
 	 @param[in]		c
-					The character to match.
+					The wide character to match.
 	 @return		@c true if @a str contains a @a c.
 					@c false otherwise.
 	 */
@@ -103,9 +105,9 @@ namespace mage {
 	 neglecting the usage of the given character in a custom escape sequence. 
 	 
 	 @param[in]		str
-					A pointer to the string to be scanned.
+					A pointer to the null-terminated byte string to be scanned.
 	 @param[in]		c
-					The character to match.
+					The byte character to match.
 	 @return		@c nullptr if @a str does not contain @a c.
 	 @return		A pointer to the first occurrence of @a c in @a str.
 
@@ -117,9 +119,9 @@ namespace mage {
 	 neglecting the usage of the given character in a custom escape sequence.
 
 	 @param[in]		str
-					A pointer to the string to be scanned.
+					A pointer to the null-terminated byte string to be scanned.
 	 @param[in]		c
-					The character to match.
+					The byte character to match.
 	 @return		@c nullptr if @a str does not contain @a c.
 	 @return		A pointer to the first occurrence of @a c in @a str.
 
@@ -131,9 +133,9 @@ namespace mage {
 	 neglecting the usage of the given character in a custom escape sequence.
 
 	 @param[in]		str
-					A pointer to the string to be scanned.
+					A pointer to the null-terminated wide string to be scanned.
 	 @param[in]		c
-					The character to match.
+					The wide character to match.
 	 @return		@c nullptr if @a str does not contain @a c.
 	 @return		A pointer to the first occurrence of @a c in @a str.
 
@@ -145,9 +147,9 @@ namespace mage {
 	 neglecting the usage of the given character in a custom escape sequence.
 
 	 @param[in]		str
-					A pointer to the string to be scanned.
+					A pointer to the null-terminated wide string to be scanned.
 	 @param[in]		c
-					The character to match.
+					The wide character to match.
 	 @return		@c nullptr if @a str does not contain @a c.
 	 @return		A pointer to the first occurrence of @a c in @a str.
 
@@ -165,13 +167,13 @@ namespace mage {
 	 A terminating null character is automatically appended after the characters copied to @a str.
 	 
 	 @param[in]		str
-					A pointer to the string to copy to.
+					A pointer to the null-terminated byte string to copy to.
 	 @param[in]		num
 					Maximum number of characters to be copied into @a str 
 					(including the terminating null-character).
 	 @param[in]		input
 					A pointer to a pointer to the input string.
-	 @note			The @c sgets function is the string variant of @c fgets.
+	 @note			The @c sgets function is the byte string variant of @c fgets.
 	 */
 	char *str_gets(char *str, int num, const char **input);
 
@@ -186,49 +188,55 @@ namespace mage {
 	 A terminating null character is automatically appended after the characters copied to @a str.
 
 	 @param[in]		str
-					A pointer to the string to copy to.
+					A pointer to the null-terminated wide string to copy to.
 	 @param[in]		num
 					Maximum number of characters to be copied into @a str 
 					(including the terminating null-character).
 	 @param[in]		input
 					A pointer to a pointer to the input string.
-	 @note			The @c sgets function is the string variant of @c fgets.
+	 @note			The @c sgets function is the wide string variant of @c fgets.
 	 */
 	wchar_t *str_gets(wchar_t *str, int num, const wchar_t **input);
 
 	/**
-	 Converts the given ANSI string to a Wide string.
+	 Converts the given byte string to a wide string.
 
 	 @param[in]		str
-					A pointer to the string to copy.
-	 @return		A pointer to the copy.
+					A pointer to the null-terminated byte string to copy.
+	 @return		A pointer to the to the null-terminated wide string copy
+					of the given null-terminated byte string.
 	 */
-	wchar_t *str_convert(const char *str);
+	const wchar_t *str_convert(const char *str);
 
 	/**
-	 Converts the given Wide string to an ANSI string.
+	 Converts the given wide string to an byte string.
 
 	 @param[in]		str
-					A pointer to the string to copy.
-	 @return		A pointer to the copy.
+					A pointer to the null-terminated wide string to copy.
+	 @return		A pointer to the to the null-terminated byte string copy
+					of the given null-terminated wide string.
 	 */
-	char *str_convert(const wchar_t *str);
+	const char *str_convert(const wchar_t *str);
 
 	/**
-	 Converts the given ANSI string to a Wide string.
+	 Converts the given byte string to a wide string.
 
 	 @param[in]		str
-					A reference to the string to copy.
-	 @return		The copy.
+					A reference to the byte string to copy.
+	 @return		The wide string copy of the given byte string.
 	 */
-	const wstring str_convert(const string &str);
+	inline const wstring str_convert(const string &str) {
+		return str_convert(str.c_str());
+	}
 	
 	/**
-	 Converts the given Wide string to an ANSI string.
+	 Converts the given wide string to an byte string.
 
 	 @param[in]		str
-					A reference to the string to copy.
-	 @return		The copy.
+					A reference to the wide string to copy.
+	 @return		The byte string copy of the given wide string.
 	 */
-	const string str_convert(const wstring &str);
+	inline const string str_convert(const wstring &str) {
+		return str_convert(str.c_str());
+	}
 }

@@ -17,16 +17,19 @@
 #include <memory>
 namespace mage {
 
+	// Unique Pointer type definition.
 	template < typename T >
 	using UniquePtr = std::unique_ptr< T >;
 
 	using std::make_unique;
 
+	// Shared Pointer type definition.
 	template < typename T >
 	using SharedPtr = std::shared_ptr< T >;
 
 	using std::make_shared;
 
+	// Weak Pointer type definition.
 	template < typename T >
 	using WeakPtr = std::weak_ptr< T >;
 }
@@ -34,6 +37,7 @@ namespace mage {
 #include <wrl.h>
 namespace mage {
 
+	// COM Pointer type definition.
 	template < typename T >
 	using ComPtr = Microsoft::WRL::ComPtr< T >;
 }
@@ -88,13 +92,31 @@ namespace mage {
 		}
 	}
 
+
 	typedef std::unique_ptr< void, HandleCloser > UniqueHandle;
 	typedef SharedPtr< void > SharedHandle;
 
+	/**
+	 Converts the given handle to a safe handle.
+
+	 @param[in]		handle
+					A handle.
+	 @return		If the given handle is an invalid handle, 
+					@c nullptr is returned.
+	 @return		Otherwise, the given handle is returned.
+					
+	 */
 	inline HANDLE SafeHandle(HANDLE handle) {
 		return (handle == INVALID_HANDLE_VALUE) ? nullptr : handle;
 	}
 
+	/**
+	 Creates a shared handle for the given handle.
+
+	 @param[in]		handle
+					A handle.
+	 @return		A shared handle for the given handle @a handle.
+	 */
 	inline SharedHandle CreateSharedHandle(HANDLE handle) {
 		return SharedHandle(SafeHandle(handle), HandleDeleter);
 	}

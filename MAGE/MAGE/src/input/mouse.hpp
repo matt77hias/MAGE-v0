@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\loadable.hpp"
 #include "input\input.hpp"
 #include "memory\memory.hpp"
 
@@ -28,7 +27,7 @@ namespace mage {
 	/**
 	 A class of mouses.
 	 */
-	class Mouse final : public Loadable {
+	class Mouse final {
 
 	public:
 
@@ -43,6 +42,8 @@ namespace mage {
 						The handle of the parent window.
 		 @param[in]		di
 						A pointer to a direct input object.
+		 @throws		FormattedException
+						Failed to initialize the mouse.
 		 */
 		explicit Mouse(HWND hwindow, IDirectInput8 *di);
 
@@ -50,22 +51,22 @@ namespace mage {
 		 Constructs a mouse from the given mouse.
 
 		 @param[in]		mouse
-						A reference to the mouse.
+						A reference to the mouse to copy.
 		 */
 		Mouse(const Mouse &mouse) = delete;
 
 		/**
-		 Constructs a mouse from the given mouse.
+		 Constructs a mouse by moving the given mouse.
 
 		 @param[in]		mouse
-						A reference to the mouse.
+						A reference to the mouse to move.
 		 */
 		Mouse(Mouse &&mouse) = default;
 
 		/**
 		 Destructs this mouse.
 		 */
-		virtual ~Mouse() = default;
+		~Mouse() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -75,18 +76,18 @@ namespace mage {
 		 Copies the given mouse to this mouse.
 
 		 @param[in]		mouse
-						A reference to the mouse to copy from.
+						A reference to the mouse to copy.
 		 @return		A reference to the copy of the given mouse
 						(i.e. this mouse).
 		 */
 		Mouse &operator=(const Mouse &mouse) = delete;
 
 		/**
-		 Copies the given mouse to this mouse.
+		 Moves the given mouse to this mouse.
 
 		 @param[in]		mouse
-						A reference to the mouse to copy from.
-		 @return		A reference to the copy of the given mouse
+						A reference to the mouse to move.
+		 @return		A reference to the moved mouse
 						(i.e. this mouse).
 		 */
 		Mouse &operator=(Mouse &&mouse) = delete;
@@ -167,9 +168,10 @@ namespace mage {
 		/**
 		 Initializes the mouse device of this mouse.
 
-		 @return		A success/error value.
+		 @throws		FormattedException
+						Failed to initialize the mouse.
 		 */
-		HRESULT InitializeMouse();
+		void InitializeMouse();
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -181,26 +183,22 @@ namespace mage {
 		HWND const m_hwindow;
 
 		/**
-		 The DirectInput object of this keyboard of this mouse.
+		 A pointer to the DirectInput object of this mouse.
 		 */
 		IDirectInput8 * const m_di;
 
 		/**
-		 DirectInput mouse device of this mouse.
-
-		 The methods of the IDirectInputDevice8 interface are used to gain and release access
-		 to Microsoft DirectInput devices, manage device properties and information, set behavior,
-		 perform initialization, create and play force-feedback effects, and invoke a device's control panel.
+		 A pointer to the DirectInput mouse device of this mouse.
 		 */
-		IDirectInputDevice8 *m_mouse;
+		ComPtr< IDirectInputDevice8 > m_mouse;
 
 		/**
-		The current press stamp (incremented every frame).
-		*/
+		 The current press stamp (incremented every frame) of this mouse.
+		 */
 		uint64_t m_press_stamp;
 
 		/**
-		 State of the mouse buttons of this mouse.
+		 The state of the mouse buttons of this mouse.
 
 		 Describes the state of a mouse device that has up to four buttons,
 		 or another device that is being accessed as if it were a mouse device.
@@ -208,6 +206,8 @@ namespace mage {
 		DIMOUSESTATE m_mouse_state;
 
 		/**
+		 The mouse button press stamp of this mouse.
+
 		 Stamps the mouse buttons pressed in the last frame of this mouse.
 		 */
 		mutable uint64_t m_mouse_button_press_stamp[3];

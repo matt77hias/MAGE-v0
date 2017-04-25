@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "logging\exception.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // System Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -16,10 +25,6 @@
 
 #define alloca _alloca
 
-#ifndef MAGE_L1_CACHE_LINE_SIZE
-#define MAGE_L1_CACHE_LINE_SIZE 64
-#endif
-
 #pragma endregion
 
 //-----------------------------------------------------------------------------
@@ -28,7 +33,7 @@
 namespace mage {
 
 	/**
-	 Allocates memory on an alignment boundary of 64 bytes of the given size.
+	 Allocates memory on a given alignment boundary of the given size.
 	 
 	 @param[in]		size
 					The requested size in bytes to allocate in memory.
@@ -36,14 +41,14 @@ namespace mage {
 					The alignment.
 	 @return		@c nullptr if the allocation failed.
 	 @return		A pointer to the memory block that was allocated.
-	 				The pointer is a multiple of the alignment of 64 bytes.
+	 				The pointer is a multiple of the given alignment.
 	 */
-	inline void *AllocAligned(size_t size, size_t alignment = MAGE_L1_CACHE_LINE_SIZE) {
+	inline void *AllocAligned(size_t size, size_t alignment = 16) {
 		return _aligned_malloc(size, alignment);
 	}
 
 	/**
-	 Allocates memory on an alignment boundary of 64 bytes.
+	 Allocates memory on an alignment boundary of 16 bytes.
 
 	 @tparam		DataT
 					The type of objects to allocate in memory.
@@ -51,8 +56,8 @@ namespace mage {
 					The number of objects of type @c DataT to allocate in memory.
 	 @return		@c nullptr if the allocation failed.
 	 @return		A pointer to the memory block that was allocated.
-	 				The pointer is a multiple of the alignment of 64 bytes.
-	*/
+	 				The pointer is a multiple of the alignment of 16 bytes.
+	 */
 	template < typename DataT >
 	inline DataT *AllocAligned(size_t count) {
 		return (DataT *)AllocAligned(count * sizeof(DataT));
@@ -63,7 +68,7 @@ namespace mage {
 	
 	 @param[in]		ptr
 					A pointer to the memory block that was allocated.
-	*/
+	 */
 	inline void FreeAligned(void *ptr) {
 		if (!ptr) {
 			return;
@@ -72,6 +77,11 @@ namespace mage {
 		_aligned_free(ptr);
 	}
 
+	/**
+	 A struct of aligned data.
+
+	 @tparam		The data type.
+	 */
 	template< typename DataT >
 	struct AlignedData {
 
@@ -81,28 +91,68 @@ namespace mage {
 		// Allocation Operators
 		//---------------------------------------------------------------------	
 
+		/**
+		 Allocates @a size bytes of storage, suitably aligned to represent 
+		 any object of that size, and returns a non-null pointer to 
+		 the first byte of this block.
+
+		 @param[in]		size
+						The requested size in bytes to allocate in memory.
+		 @return		A pointer to the memory block that was allocated.
+	 					The pointer is a multiple of the given alignment.
+		 @throws		bad_alloc
+						Failed to allocate the memory block.
+		 */
 		static void *operator new(size_t size) {
 			const size_t alignment = __alignof(DataT);
 			
 			// __declspec(align) on DataT is required
-			static_assert(alignment > 8, "AlignedValue is only useful for types with > 8 byte alignment.");
+			static_assert(alignment > 8, "AlignedData is only useful for types with > 8 byte alignment.");
 			
 			void * const ptr = AllocAligned(size, alignment);
 			if (!ptr) {
-				throw std::bad_alloc();
+				throw bad_alloc();
 			}
 
 			return ptr;
 		}
 
+		/**
+		 Deallocates the memory block pointed by @a ptr (if not nullptr), 
+		 releasing the storage space previously allocated to it by a call to 
+		 operator new and rendering that pointer location invalid.
+
+		 @param[in]		ptr
+						A pointer to the memory block that was allocated.
+		 */
 		static void operator delete(void *ptr) {
 			FreeAligned(ptr);
 		}
 
+		/**
+		 Allocates @a size bytes of storage, suitably aligned to represent
+		 any object of that size, and returns a non-null pointer to
+		 the first byte of this block.
+
+		 @param[in]		size
+						The requested size in bytes to allocate in memory.
+		 @return		A pointer to the memory block that was allocated.
+						The pointer is a multiple of the given alignment.
+		 @throws		bad_alloc
+						Failed to allocate the memory block.
+		 */
 		static void *operator new[](size_t size) {
 			return operator new(size);
 		}
 
+		/**
+		 Deallocates the memory block pointed to by @a ptr (if not nullptr), 
+		 releasing the storage space previously allocated to it by a call to 
+		 operator new[] and rendering that pointer location invalid.
+
+		 @param[in]		ptr
+						A pointer to the memory block that was allocated.
+		 */
 		static void operator delete[](void *ptr) {
 			operator delete(ptr);
 		}

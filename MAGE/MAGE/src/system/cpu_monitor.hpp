@@ -38,7 +38,7 @@ namespace mage {
 		 Constructs a CPU monitor from the given CPU monitor.
 
 		 @param[in]		cpu_monitor
-						A reference to the CPU monitor.
+						A reference to the CPU monitor to copy.
 		 */
 		CPUMonitor(const CPUMonitor &cpu_monitor)
 			: m_timer(new Timer(*cpu_monitor.m_timer)), 
@@ -65,7 +65,7 @@ namespace mage {
 		 Copies the given CPU monitor to this CPU monitor.
 
 		 @param[in]		cpu_monitor
-						A reference to the CPU monitor to copy from.
+						A reference to the CPU monitor to copy.
 		 @return		A reference to the copy of the given CPU monitor
 						(i.e. this CPU monitor).
 		 */

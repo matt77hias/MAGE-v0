@@ -38,7 +38,7 @@ namespace mage {
 		 Copies the given line reader to this line reader.
 
 		 @param[in]		reader
-						A reference to a line reader to copy from.
+						A reference to a line reader to copy.
 		 @return		A reference to the copy of the given line reader
 						(i.e. this line reader).
 		 */
@@ -119,7 +119,7 @@ namespace mage {
 		 Constructs a line reader from the given line reader.
 
 		 @param[in]		reader
-						A reference to the line reader to copy from.
+						A reference to the line reader to copy.
 		 */
 		LineReader(const LineReader &reader) = delete;
 

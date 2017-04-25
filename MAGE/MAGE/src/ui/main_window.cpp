@@ -4,7 +4,8 @@
 #pragma region
 
 #include "core\engine.hpp"
-#include "ui/main_window_settings.hpp"
+#include "ui\main_window_settings.hpp"
+#include "logging\exception.hpp"
 
 #pragma endregion
 
@@ -115,33 +116,23 @@ namespace mage{
 	//-------------------------------------------------------------------------
 
 	MainWindow::MainWindow(HINSTANCE hinstance, const wstring &name, LONG width, LONG height) 
-		: Loadable(), m_hinstance(hinstance), m_hwindow(nullptr), m_name(name) {
+		: m_hinstance(hinstance), m_hwindow(nullptr), m_name(name) {
 
 		//Initialize a window.
-		const HRESULT result_window = InitializeWindow(width, height);
-		if (FAILED(result_window)) {
-			Error("Window initialization failed: %08X.", result_window);
-			return;
-		}
-
-		SetLoaded();
+		InitializeWindow(width, height);
 	}
 
 	MainWindow::~MainWindow() {
 		// Uninitialize the window.
-		const HRESULT result_window = UninitializeWindow();
-		if (FAILED(result_window)) {
-			Error("Window uninitialization failed: %08X.", result_window);
-			return;
-		}
+		UninitializeWindow();
 	}
 
-	HRESULT MainWindow::InitializeWindow(LONG width, LONG height) {
+	void MainWindow::InitializeWindow(LONG width, LONG height) {
 		const RECT rectangle = { 0, 0, width, height };
 		return InitializeWindow(rectangle);
 	}
 
-	HRESULT MainWindow::InitializeWindow(RECT rectangle) {
+	void MainWindow::InitializeWindow(RECT rectangle) {
 
 		// Prepare and register the window class.
 		//-----------------------------------------------------------------------------
@@ -184,8 +175,7 @@ namespace mage{
 
 		// Register a window class
 		if (!RegisterClassEx(&wcex)) {
-			Error("Registering windows class failed.");
-			return E_FAIL;
+			throw FormattedException("Registering main window's class failed.");
 		}
 		//-----------------------------------------------------------------------------
 
@@ -203,18 +193,13 @@ namespace mage{
 			rectangle.right - rectangle.left, rectangle.bottom - rectangle.top, nullptr, nullptr, m_hinstance, nullptr);
 
 		if (!m_hwindow) {
-			Error("Window creation failed.");
-			return E_FAIL;
+			throw FormattedException("Main window creation failed.");
 		}
-
-		return S_OK;
 	}
 
-	HRESULT MainWindow::UninitializeWindow() {
+	void MainWindow::UninitializeWindow() {
 		// Unregister the window class.
 		UnregisterClass(MAGE_MAIN_WINDOW_CLASS_NAME, m_hinstance);
-		
-		return S_OK;
 	}
 
 	bool MainWindow::Show(int nCmdShow) {

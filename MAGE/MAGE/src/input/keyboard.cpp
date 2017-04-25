@@ -4,7 +4,7 @@
 #pragma region
 
 #include "input\keyboard.hpp"
-#include "logging\error.hpp"
+#include "logging\exception.hpp"
 
 #pragma endregion
 
@@ -14,47 +14,36 @@
 namespace mage {
 
 	Keyboard::Keyboard(HWND hwindow, IDirectInput8 *di) 
-		: Loadable(), m_hwindow(hwindow), m_di(di),
-		m_press_stamp(0), m_key_press_stamp() {
+		: m_hwindow(hwindow), m_di(di), m_keyboard(),
+		m_press_stamp(0), m_key_state{}, m_key_press_stamp{} {
 
-		const HRESULT result_keyboard = InitializeKeyboard();
-		if (FAILED(result_keyboard)) {
-			Error("Keyboard initialization failed: %08X.", result_keyboard);
-			return;
-		}
-
-		SetLoaded();
+		InitializeKeyboard();
 	}
 
-	HRESULT Keyboard::InitializeKeyboard() {
+	void Keyboard::InitializeKeyboard() {
 		// Create and initialize an instance of a device based on a given globally unique identifier (GUID), 
 		// and obtain an IDirectInputDevice8 Interface interface. 
 		// 1. Reference to the GUID for the desired input device.
 		// 2. Address of a variable to receive the IDirectInputDevice8 Interface interface pointer if successful.
 		// 3. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or nullptr if the interface is not aggregated.
-		const HRESULT result_keyboard_create = m_di->CreateDevice(GUID_SysKeyboard, &m_keyboard, nullptr);
+		const HRESULT result_keyboard_create = m_di->CreateDevice(GUID_SysKeyboard, m_keyboard.ReleaseAndGetAddressOf(), nullptr);
 		if (FAILED(result_keyboard_create)) {
-			Error("Keyboard device creation failed: %08X.", result_keyboard_create);
-			return result_keyboard_create;
+			throw FormattedException("Keyboard device creation failed: %08X.", result_keyboard_create);
 		}
 		// Set the data format for the DirectInput device. 
 		const HRESULT result_keyboard_format = m_keyboard->SetDataFormat(&c_dfDIKeyboard);
 		if (FAILED(result_keyboard_format)) {
-			Error("Setting data format for keyboard device failed: %08X.", result_keyboard_format);
-			return result_keyboard_format;
+			throw FormattedException("Setting data format for keyboard device failed: %08X.", result_keyboard_format);
 		}
 		// Establish the cooperative level for this instance of the device. 
 		// The cooperative level determines how this instance of the device interacts 
 		// with other instances of the device and the rest of the system. 
 		const HRESULT result_keyboard_cooperative = m_keyboard->SetCooperativeLevel(m_hwindow, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 		if (FAILED(result_keyboard_cooperative)) {
-			Error("Setting cooperation level for keyboard device failed: %08X.", result_keyboard_cooperative);
-			return result_keyboard_cooperative;
+			throw FormattedException("Setting cooperation level for keyboard device failed: %08X.", result_keyboard_cooperative);
 		}
 		// Obtain access to the input device. 
 		m_keyboard->Acquire();
-
-		return S_OK;
 	}
 
 	bool Keyboard::GetKeyPress(unsigned char key, bool ignore_press_stamp) const {

@@ -43,7 +43,7 @@ namespace mage {
 		 Constructs a timer from the given timer.
 		
 		 @param[in]		timer
-						A reference to the timer.
+						A reference to the timer to copy.
 		 */
 		Timer(const Timer &timer) = default;
 
@@ -68,7 +68,7 @@ namespace mage {
 		 Copies the given timer to this timer.
 		
 		 @param[in]		timer
-						A reference to the timer to copy from.
+						A reference to the timer to copy.
 		 @return		A reference to the copy of the given timer
 						(i.e. this timer).
 		 */

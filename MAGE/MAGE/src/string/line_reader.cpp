@@ -3,6 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "platform\windows.hpp"
 #include "string\line_reader.hpp"
 #include "string\string_utils.hpp"
 #include "logging\error.hpp"

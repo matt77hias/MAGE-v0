@@ -43,7 +43,7 @@ namespace mage {
 		 Constructs a CPU timer from the given CPU timer.
 
 		 @param[in]		timer
-						A reference to the CPU timer.
+						A reference to the CPU timer to copy.
 		 */
 		CPUTimer(const CPUTimer &timer) = default;
 
@@ -68,7 +68,7 @@ namespace mage {
 		 Copies the given CPU timer to this CPU timer.
 
 		 @param[in]		timer
-						A reference to the CPU timer to copy from.
+						A reference to the CPU timer to copy.
 		 @return		A reference to the copy of the given CPU timer
 						(i.e. this CPU timer).
 		 */

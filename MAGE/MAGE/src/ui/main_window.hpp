@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\loadable.hpp"
 #include "platform\windows.hpp"
 #include "string\string.hpp"
 
@@ -17,9 +16,9 @@
 namespace mage {
 
 	/**
-	 A class of main windows.
+	 A class of application main windows.
 	 */
-	class MainWindow final : public Loadable {
+	class MainWindow final {
 
 	public:
 
@@ -38,6 +37,10 @@ namespace mage {
 						The width of the window.
 		 @param[in]		height
 						The height of the window.
+		 @throws		FormattedException
+						Failed to register the main window's class.
+		 @throws		FormattedException
+						Failed to create the main window.
 		 */
 		explicit MainWindow(HINSTANCE hinstance, const wstring &name, LONG width, LONG height);
 
@@ -45,22 +48,22 @@ namespace mage {
 		 Constructs a main window from the given main window.
 
 		 @param[in]		main_window
-						A reference to the main window.
+						A reference to the main window to copy.
 		 */
 		MainWindow(const MainWindow &main_window) = delete;
 
 		/**
-		 Constructs a main window from the given main window.
+		 Constructs a main window by moving the given main window.
 
 		 @param[in]		main_window
-						A reference to the main window.
+						A reference to the main window to move.
 		 */
 		MainWindow(MainWindow &&main_window) = default;
 
 		/**
 		 Destructs this main window.
 		 */
-		virtual ~MainWindow();
+		~MainWindow();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -70,18 +73,18 @@ namespace mage {
 		 Copies the given main window to this main window.
 
 		 @param[in]		main_window
-						A reference to the main window to copy from.
+						A reference to the main window to copy.
 		 @return		A reference to the copy of the given main window
 						(i.e. this main window).
 		 */
 		MainWindow &operator=(const MainWindow &main_window) = delete;
 
 		/**
-		 Copies the given main window to this main window.
+		 Moves the given main window to this main window.
 
 		 @param[in]		main_window
-						A reference to the main window to copy from.
-		 @return		A reference to the copy of the given main window
+						A reference to the main window to move.
+		 @return		A reference to the moved main window
 						(i.e. this main window).
 		 */
 		MainWindow &operator=(MainWindow &&main_window) = delete;
@@ -105,7 +108,7 @@ namespace mage {
 		 
 		 @return		The application instance handle of this main window.
 		 */
-		HINSTANCE GetHinstance() const {
+		HINSTANCE GetHinstance() {
 			return m_hinstance;
 		}
 
@@ -114,7 +117,7 @@ namespace mage {
 
 		 @return		The window handle of this main window.
 		 */
-		HWND GetHandle() const {
+		HWND GetHandle() {
 			return m_hwindow;
 		}
 
@@ -140,37 +143,41 @@ namespace mage {
 						The width of the client rectangle of the window.
 		 @param[in]		height
 						The height of the client rectangle of the window.
-		 @return		A success/error value.
+		 @throws		FormattedException
+						Failed to register the main window's class.
+		 @throws		FormattedException
+						Failed to create the main window.
 		 */
-		HRESULT InitializeWindow(LONG width, LONG height);
+		void InitializeWindow(LONG width, LONG height);
 
 		/**
 		 Initializes the engine window of this main window.
 
 		 @param[in]		rectangle
 						The client rectangle of the window.
-		 @return		A success/error value.
+		 @throws		FormattedException
+						Failed to register the main window's class.
+		 @throws		FormattedException
+						Failed to create the main window.
 		 */
-		HRESULT InitializeWindow(RECT rectangle);
+		void InitializeWindow(RECT rectangle);
 
 		/**
 		 Uninitializes the engine window of this main window.
-
-		 @return		A success/error value.
 		 */
-		HRESULT UninitializeWindow();
+		void UninitializeWindow();
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 Application instance handle.
+		 The application instance handle of this main window.
 		 */
-		HINSTANCE m_hinstance;
+		const HINSTANCE m_hinstance;
 
 		/**
-		 The handle of the parent window.
+		 The handle of the parent window of this main window.
 		 */
 		HWND m_hwindow;
 

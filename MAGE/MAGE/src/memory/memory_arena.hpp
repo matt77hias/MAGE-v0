@@ -15,7 +15,7 @@
 namespace mage {
 
 	/**
-	 A class of memory arena's.
+	 A class of memory arenas.
 	 */
 	class MemoryArena final {
 
@@ -33,27 +33,27 @@ namespace mage {
 		 */
 		explicit MemoryArena(size_t block_size = 32768) 
 			: m_block_size(block_size), m_current_block_pos(0), 
-			m_current_block(pair< size_t, char * >(0, nullptr)),
+			m_current_block(MemoryBlock(0, nullptr)),
 			m_used_blocks(), m_available_blocks() {}
 
 		/**
 		 Constructs a memory arena from the given memory arena.
 
 		 @param[in]		arena
-						The memory arena.
+						A reference to the memory arena to copy.
 		 */
 		MemoryArena(const MemoryArena &arena) = delete;
 
 		/**
-		 Constructs a memory arena from the given memory arena.
+		 Constructs a memory arena by moving the given memory arena.
 
 		 @param[in]		arena
-						The memory arena.
+						A reference to the memory arena to move.
 		 */
 		MemoryArena(MemoryArena &&arena) = default;
 		
 		/**
-		 Destructs the given memory arena.
+		 Destructs this memory arena.
 		 */
 		~MemoryArena();
 
@@ -65,15 +65,19 @@ namespace mage {
 		 Copies the given memory arena to this memory arena.
 
 		 @param[in]		arena
-						The memory arena.
+						A reference to the memory arena to copy.
+		 @return		A reference to the copy of the given memory arena
+						(i.e. this memory arena).
 		 */
 		MemoryArena &operator=(const MemoryArena &arena) = delete;
 
 		/**
-		 Copies the given memory arena to this memory arena.
+		 Moves the given memory arena to this memory arena.
 
 		 @param[in]		arena
-						The memory arena.
+						A reference to the memory arena to move.
+		 @return		A reference to the moved memory arena
+						(i.e. this memory arena).
 		 */
 		MemoryArena &operator=(MemoryArena &&arena) = delete;
 
@@ -150,6 +154,15 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Type Definitions
+		//---------------------------------------------------------------------
+
+		/**
+		 A type definition for a memory block.
+		 */
+		typedef pair< size_t, char * > MemoryBlock;
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
@@ -166,17 +179,17 @@ namespace mage {
 		/**
 		 A pointer to the current block of this memory arena.
 		 */
-		pair< size_t, char * > m_current_block;
+		MemoryBlock m_current_block;
 		
 		/**
-		 Pointers to the used blocks of this memory arena.
+		 A collection containing the used blocks of this memory arena.
 		 */
-		list< pair< size_t, char * > > m_used_blocks;
+		list< MemoryBlock > m_used_blocks;
 
 		/**
-		 Pointers to the available blocks of this memory arena.
+		 A collection containing the available blocks of this memory arena.
 		 */
-		list< pair< size_t, char * > > m_available_blocks;
+		list< MemoryBlock > m_available_blocks;
 	};
 }
 

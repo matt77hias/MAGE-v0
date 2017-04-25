@@ -18,7 +18,7 @@ namespace mage {
 	/**
 	 A class of input managers.
 	 */
-	class InputManager final : public Loadable {
+	class InputManager final {
 
 	public:
 
@@ -31,6 +31,10 @@ namespace mage {
 
 		 @param[in]		hwindow
 						The handle of the parent window.
+		 @throws		FormattedException
+						Failed to initialize the DirectInput object.
+		 @throws		FormattedException
+						Failed to initialize the input systems.
 		 */
 		explicit InputManager(HWND hwindow);
 
@@ -38,22 +42,22 @@ namespace mage {
 		 Constructs an input manager from the given input manager.
 
 		 @param[in]		input_manager
-						A reference to the input manager.
+						A reference to the input manager to copy.
 		 */
 		InputManager(const InputManager &input_manager) = delete;
 
 		/**
-		 Constructs an input manager from the given input manager.
+		 Constructs an input manager by moving the given input manager.
 
 		 @param[in]		input_manager
-						A reference to the input manager.
+						A reference to the input manager to move.
 		 */
 		InputManager(InputManager &&input_manager) = default;
 
 		/**
 		 Destructs this input manager.
 		 */
-		virtual ~InputManager() = default;
+		~InputManager() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -63,18 +67,18 @@ namespace mage {
 		 Copies the given input manager to this input manager.
 
 		 @param[in]		input_manager
-						A reference to the input manager to copy from.
+						A reference to the input manager to copy.
 		 @return		A reference to the copy of the given input manager
 						(i.e. this input manager).
 		 */
 		InputManager &operator=(const InputManager &input_manager) = delete;
 
 		/**
-		 Copies the given input manager to this input manager.
+		 Moves the given input manager to this input manager.
 
 		 @param[in]		input_manager
-						A reference to the input manager to copy from.
-		 @return		A reference to the copy of the given input manager
+						A reference to the input manager to move.
+		 @return		A reference to the moved input manager
 						(i.e. this input manager).
 		 */
 		InputManager &operator=(InputManager &&input_manager) = delete;
@@ -86,7 +90,10 @@ namespace mage {
 		/**
 		 Updates the state of the input systems of this input manager.
 		 */
-		void Update();
+		void Update() {
+			m_keyboard->Update();
+			m_mouse->Update();
+		}
 
 		/**
 		 Returns the keyboard of this input manager.
@@ -115,26 +122,30 @@ namespace mage {
 		/**
 		 Initializes the DirectInput object of this input manager.
 
-		 @return		A success/error value.
+		 @throws		FormattedException
+						Failed to initialize the DirectInput object.
 		 */
-		HRESULT InitializeDI();
+		void InitializeDI();
 
 		/**
 		 Initializes the different input systems of this input manager.
+
+		 @throws		FormattedException
+						Failed to initialize the input systems.
 		 */
-		HRESULT InitializeInputSystems();
+		void InitializeInputSystems();
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 The handle of the parent window.
+		 The handle of the parent window of this input manager.
 		 */
 		HWND const m_hwindow;
 
 		/**
-		 The DirectInput object of this input manager.
+		 A pointer to the DirectInput object of this input manager.
 
 		 The methods of the IDirectInput8 interface are used to enumerate,
 		 create, and retrieve the status of Microsoft DirectInput device.

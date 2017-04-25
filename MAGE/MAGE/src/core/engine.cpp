@@ -84,10 +84,6 @@ namespace mage {
 		
 		// Initialize the window System.
 		m_main_window = make_unique< MainWindow >(setup.GetApplicationHinstance(), setup.GetApplicationName(), width, height);
-		if (!m_main_window->IsLoaded()) {
-			Error("Window creation failed.");
-			return E_FAIL;
-		}
 
 		// Initialize the rendering system.
 		m_renderer = make_unique< Renderer >(m_main_window->GetHandle());
@@ -98,10 +94,6 @@ namespace mage {
 		
 		// Initialize the input system.
 		m_input_manager = make_unique< InputManager >(m_main_window->GetHandle());
-		if (!m_input_manager->IsLoaded()) {
-			Error("Input manager creation failed.");
-			return E_FAIL;
-		}
 		
 		// Initialize the resource system.
 		m_resource_factory = make_unique< ResourceFactory >();

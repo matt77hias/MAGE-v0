@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\loadable.hpp"
 #include "input\input.hpp"
 #include "memory\memory.hpp"
 
@@ -28,7 +27,7 @@ namespace mage {
 	/**
 	 A class of keyboards.
 	 */
-	class Keyboard final : public Loadable {
+	class Keyboard final {
 
 	public:
 
@@ -43,6 +42,8 @@ namespace mage {
 						The handle of the parent window.
 		 @param[in]		di
 						A pointer to a direct input object.
+		 @throws		FormattedException
+						Failed to initialize the keyboard.
 		 */
 		explicit Keyboard(HWND hwindow, IDirectInput8 *di);
 
@@ -50,22 +51,22 @@ namespace mage {
 		 Constructs a keyboard from the given keyboard.
 
 		 @param[in]		keyboard
-						A reference to the keyboard.
+						A reference to the keyboard to copy.
 		 */
 		Keyboard(const Keyboard &keyboard) = delete;
 
 		/**
-		 Constructs a keyboard from the given keyboard.
+		 Constructs a keyboard by moving the given keyboard.
 
 		 @param[in]		keyboard
-						A reference to the keyboard.
+						A reference to the keyboard to move.
 		 */
 		Keyboard(Keyboard &&keyboard) = default;
 
 		/**
 		 Destructs this keyboard.
 		 */
-		virtual ~Keyboard() = default;
+		~Keyboard() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -75,18 +76,18 @@ namespace mage {
 		 Copies the given keyboard to this keyboard.
 
 		 @param[in]		keyboard
-						A reference to the keyboard to copy from.
+						A reference to the keyboard to copy.
 		 @return		A reference to the copy of the given keyboard
 						(i.e. this keyboard).
 		 */
 		Keyboard &operator=(const Keyboard &keyboard) = delete;
 
 		/**
-		 Copies the given keyboard to this keyboard.
+		 Moves the given keyboard to this keyboard.
 
 		 @param[in]		keyboard
-						A reference to the keyboard to copy from.
-		 @return		A reference to the copy of the given keyboard
+						A reference to the keyboard to move.
+		 @return		A reference to the moved keyboard
 						(i.e. this keyboard).
 		 */
 		Keyboard &operator=(Keyboard &&keyboard) = delete;
@@ -122,44 +123,43 @@ namespace mage {
 		/**
 		 Initializes the keyboard device of this keyboard.
 
-		 @return		A success/error value.
+		 @throws		FormattedException
+						Failed to initialize the keyboard.
 		 */
-		HRESULT InitializeKeyboard();
+		void InitializeKeyboard();
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 The handle of the parent window of this keyboard..
+		 The handle of the parent window of this keyboard.
 		 */
 		HWND const m_hwindow;
 
 		/**
-		 The DirectInput object of this keyboard.
+		 A pointer to the DirectInput object of this keyboard.
 		 */
 		IDirectInput8 * const m_di;
 
 		/**
-		 The DirectInput keyboard device of this keyboard.
-
-		 The methods of the IDirectInputDevice8 interface are used to gain and release access
-		 to Microsoft DirectInput devices, manage device properties and information, set behavior,
-		 perform initialization, create and play force-feedback effects, and invoke a device's control panel.
+		 A pointer to the DirectInput keyboard device of this keyboard.
 		 */
-		IDirectInputDevice8 *m_keyboard;
+		ComPtr< IDirectInputDevice8 > m_keyboard;
 
 		/**
-		 The current press stamp (incremented every frame).
+		 The current press stamp (incremented every frame) of this keyboard.
 		 */
 		uint64_t m_press_stamp;
 
 		/**
-		 State of the keys of this keyboard.
+		 The state of the key buttons of this keyboard.
 		 */
 		unsigned char m_key_state[256];
 
 		/**
+		 The key button press stamp of this keyboard.
+		 
 		 Stamps the keys pressed in the last frame of this keyboard.
 		 */
 		mutable uint64_t m_key_press_stamp[256];

@@ -17,6 +17,8 @@ namespace mage {
 	/**
 	 Checks whether the given strings are equal.
 
+	 @pre			@a str1 is not equal to @c nullptr.
+	 @pre			@a str2 is not equal to @c nullptr.
 	 @param[in]		str1
 					A pointer to the first null-terminated byte string.
 	 @param[in]		str2
@@ -31,6 +33,8 @@ namespace mage {
 	/**
 	 Checks whether the given strings are equal.
 
+	 @pre			@a str1 is not equal to @c nullptr.
+	 @pre			@a str2 is not equal to @c nullptr.
 	 @param[in]		str1
 					A pointer to the first null-terminated wide string.
 	 @param[in]		str2
@@ -45,6 +49,8 @@ namespace mage {
 	/**
 	 Checks whether the first given string contains the second given string.
 
+	 @pre			@a str1 is not equal to @c nullptr.
+	 @pre			@a str2 is not equal to @c nullptr.
 	 @param[in]		str1
 					A pointer to the null-terminated byte string to be scanned.
 	 @param[in]		str2
@@ -60,6 +66,8 @@ namespace mage {
 	/**
 	 Checks whether the first given string contains the second given string.
 
+	 @pre			@a str1 is not equal to @c nullptr.
+	 @pre			@a str2 is not equal to @c nullptr.
 	 @param[in]		str1
 					A pointer to the null-terminated wide string to be scanned.
 	 @param[in]		str2
@@ -75,6 +83,7 @@ namespace mage {
 	/**
 	 Checks whether the first given string contains the given character.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to be scanned.
 	 @param[in]		c
@@ -89,6 +98,7 @@ namespace mage {
 	/**
 	 Checks whether the first given string contains the given character.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated wide string to be scanned.
 	 @param[in]		c
@@ -104,6 +114,7 @@ namespace mage {
 	 Finds the first occurrence of the given character in the given string
 	 neglecting the usage of the given character in a custom escape sequence. 
 	 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to be scanned.
 	 @param[in]		c
@@ -118,6 +129,7 @@ namespace mage {
 	 Finds the first occurrence of the given character in the given string
 	 neglecting the usage of the given character in a custom escape sequence.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to be scanned.
 	 @param[in]		c
@@ -132,6 +144,7 @@ namespace mage {
 	 Finds the first occurrence of the given character in the given string
 	 neglecting the usage of the given character in a custom escape sequence.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated wide string to be scanned.
 	 @param[in]		c
@@ -146,6 +159,7 @@ namespace mage {
 	 Finds the first occurrence of the given character in the given string
 	 neglecting the usage of the given character in a custom escape sequence.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated wide string to be scanned.
 	 @param[in]		c
@@ -166,6 +180,8 @@ namespace mage {
 
 	 A terminating null character is automatically appended after the characters copied to @a str.
 	 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a input is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to copy to.
 	 @param[in]		num
@@ -187,6 +203,8 @@ namespace mage {
 
 	 A terminating null character is automatically appended after the characters copied to @a str.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a input is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated wide string to copy to.
 	 @param[in]		num
@@ -201,6 +219,7 @@ namespace mage {
 	/**
 	 Converts the given byte string to a wide string.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to copy.
 	 @return		A pointer to the to the null-terminated wide string copy
@@ -211,6 +230,7 @@ namespace mage {
 	/**
 	 Converts the given wide string to an byte string.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated wide string to copy.
 	 @return		A pointer to the to the null-terminated byte string copy

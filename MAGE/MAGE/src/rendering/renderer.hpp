@@ -278,7 +278,7 @@ namespace mage {
 		/**
 		 The handle of the parent window.
 		 */
-		HWND const m_hwindow;
+		const HWND m_hwindow;
 
 		/**
 		 A flag indicating whether this renderer uses a full screen mode

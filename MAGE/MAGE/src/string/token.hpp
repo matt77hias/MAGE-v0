@@ -35,7 +35,11 @@ namespace mage {
 
 	/**
 	 An enumeration of the different token results.
-	 This contains: @c TokenResult_Valid, @c TokenResult_None and @c TokenResult_Invalid.
+	 
+	 This contains: 
+	 @c TokenResult_Valid, 
+	 @c TokenResult_None and 
+	 @c TokenResult_Invalid.
 	 */
 	enum TokenResult {
 		TokenResult_Valid,		// The parsed token is valid (matches the expected token type).
@@ -51,6 +55,7 @@ namespace mage {
 	/**
 	 Converts the given string to a @c bool (@c true or @c false).
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -63,6 +68,7 @@ namespace mage {
 	/**
 	 Converts the given string to a @c int8_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -75,6 +81,7 @@ namespace mage {
 	/**
 	 Converts the given string to a @c uint8_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -87,6 +94,7 @@ namespace mage {
 	/**
 	 Converts the given string to a @c int16_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -99,6 +107,7 @@ namespace mage {
 	/**
 	 Converts the given string to a @c uint16_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -111,6 +120,7 @@ namespace mage {
 	/**
 	 Converts the given string to a @c int32_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -123,6 +133,7 @@ namespace mage {
 	/**
 	 Converts the given string to a @c uint32_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -135,6 +146,7 @@ namespace mage {
 	/**
 	 Converts the given string to a @c int64_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -147,6 +159,7 @@ namespace mage {
 	/**
 	 Converts the given string to a @c uint64_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -159,6 +172,7 @@ namespace mage {
 	/**
 	 Converts the given string to a @c float.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -171,6 +185,7 @@ namespace mage {
 	/**
 	 Converts the given string to a @c double.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -190,6 +205,8 @@ namespace mage {
 	/**
 	 Converts the given string to a @c bool (@c true or @c false).
 
+	 @pre			@a begin is not equal to @c nullptr.
+	 @pre			@a end is not equal to @c nullptr.
 	 @param[in]		begin
 					A pointer to the begin (inclusive) of the string to convert.
 	 @param[in]		end
@@ -204,6 +221,8 @@ namespace mage {
 	/**
 	 Converts the given string to a @c int8_t.
 
+	 @pre			@a begin is not equal to @c nullptr.
+	 @pre			@a end is not equal to @c nullptr.
 	 @param[in]		begin
 					A pointer to the begin (inclusive) of the string to convert.
 	 @param[in]		end
@@ -218,6 +237,8 @@ namespace mage {
 	/**
 	 Converts the given string to a @c uint8_t.
 
+	 @pre			@a begin is not equal to @c nullptr.
+	 @pre			@a end is not equal to @c nullptr.
 	 @param[in]		begin
 					A pointer to the begin (inclusive) of the string to convert.
 	 @param[in]		end
@@ -232,6 +253,8 @@ namespace mage {
 	/**
 	 Converts the given string to a @c int16_t.
 
+	 @pre			@a begin is not equal to @c nullptr.
+	 @pre			@a end is not equal to @c nullptr.
 	 @param[in]		begin
 					A pointer to the begin (inclusive) of the string to convert.
 	 @param[in]		end
@@ -246,6 +269,8 @@ namespace mage {
 	/**
 	 Converts the given string to a @c uint16_t.
 
+	 @pre			@a begin is not equal to @c nullptr.
+	 @pre			@a end is not equal to @c nullptr.
 	 @param[in]		begin
 					A pointer to the begin (inclusive) of the string to convert.
 	 @param[in]		end
@@ -260,6 +285,8 @@ namespace mage {
 	/**
 	 Converts the given string to a @c int32_t.
 
+	 @pre			@a begin is not equal to @c nullptr.
+	 @pre			@a end is not equal to @c nullptr.
 	 @param[in]		begin
 					A pointer to the begin (inclusive) of the string to convert.
 	 @param[in]		end
@@ -274,6 +301,8 @@ namespace mage {
 	/**
 	 Converts the given string to a @c uint32_t.
 
+	 @pre			@a begin is not equal to @c nullptr.
+	 @pre			@a end is not equal to @c nullptr.
 	 @param[in]		begin
 					A pointer to the begin (inclusive) of the string to convert.
 	 @param[in]		end
@@ -288,6 +317,8 @@ namespace mage {
 	/**
 	 Converts the given string to a @c int64_t.
 
+	 @pre			@a begin is not equal to @c nullptr.
+	 @pre			@a end is not equal to @c nullptr.
 	 @param[in]		begin
 					A pointer to the begin (inclusive) of the string to convert.
 	 @param[in]		end
@@ -302,6 +333,8 @@ namespace mage {
 	/**
 	 Converts the given string to a @c uint64_t.
 
+	 @pre			@a begin is not equal to @c nullptr.
+	 @pre			@a end is not equal to @c nullptr.
 	 @param[in]		begin
 					A pointer to the begin (inclusive) of the string to convert.
 	 @param[in]		end
@@ -316,6 +349,8 @@ namespace mage {
 	/**
 	 Converts the given string to a @c float.
 
+	 @pre			@a begin is not equal to @c nullptr.
+	 @pre			@a end is not equal to @c nullptr.
 	 @param[in]		begin
 					A pointer to the begin (inclusive) of the string to convert.
 	 @param[in]		end
@@ -330,6 +365,8 @@ namespace mage {
 	/**
 	 Converts the given string to a @c double.
 
+	 @pre			@a begin is not equal to @c nullptr.
+	 @pre			@a end is not equal to @c nullptr.
 	 @param[in]		begin
 					A pointer to the begin (inclusive) of the string to convert.
 	 @param[in]		end
@@ -351,6 +388,7 @@ namespace mage {
 	/**
 	 Converts the prefix of the given string @a str to a @c int8_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -363,6 +401,7 @@ namespace mage {
 	/**
 	 Converts the prefix of the given string @a str to a @c uint8_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -375,6 +414,7 @@ namespace mage {
 	/**
 	 Converts the prefix of the given string @a str to a @c int16_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -387,6 +427,7 @@ namespace mage {
 	/**
 	 Converts the prefix of the given string @a str to a @c uint16_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -399,6 +440,7 @@ namespace mage {
 	/**
 	 Converts the prefix of the given string @a str to a @c int32_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -411,6 +453,7 @@ namespace mage {
 	/**
 	 Converts the prefix of the given string @a str to a @c uint32_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -423,6 +466,7 @@ namespace mage {
 	/**
 	 Converts the prefix of the given string @a str to a @c int64_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -435,6 +479,7 @@ namespace mage {
 	/**
 	 Converts the prefix of the given string @a str to a @c uint64_t.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -447,6 +492,7 @@ namespace mage {
 	/**
 	 Converts the prefix of the given string @a str to a @c float.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -459,6 +505,7 @@ namespace mage {
 	/**
 	 Converts the prefix of the given string @a str to a @c double.
 
+	 @pre			@a str is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
@@ -478,13 +525,15 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to (non-delimiting) characters.
 
+	 @pre			@a result is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A pointer to the pointer to the characters represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -497,13 +546,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a string.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the string represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -516,14 +566,15 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a quoted string.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @pre			The quote '"' may not be delimiter.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the quoted string represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -536,13 +587,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c bool (@c true or @c false).
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c bool represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -555,13 +607,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c int8_t.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c int8_t represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -574,13 +627,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c uint8_t.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c uint8_t represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -593,13 +647,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c int16_t.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c int16_t represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -612,13 +667,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c uint16_t.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c uint16_t represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -631,13 +687,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c int32_t.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c int32_t represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -650,13 +707,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c uint32_t.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c uint32_t represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -669,13 +727,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c int64_t.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c int64_t represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -688,13 +747,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c uint64_t.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c uint64_t represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -707,13 +767,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c float.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-					@param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c float represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -726,13 +787,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c double.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c double represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -745,13 +807,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c XMFLOAT2.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c XMFLOAT2 represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -764,13 +827,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c XMFLOAT3.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr,
 					reading continues from the beginning of @a str.
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c XMFLOAT3 represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -783,13 +847,14 @@ namespace mage {
 	/**
 	 Reads and converts the next token in the given string to a @c XMFLOAT4.
 
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 					If @a str is equal to @c nullptr, 
 					reading continues from the beginning of @a str. 
 					Otherwise, reading continues from the current position.
-	 @param[in, out]context
-					A pointer to the current position int he given string @str.
+	 @param[in,out] context
+					A pointer to the current position int he given string @a str.
 	 @param[out]	result
 					A reference to the @c XMFLOAT4 represented by the next token in the given string @a str.
 	 @param[in]		delimiters
@@ -808,7 +873,9 @@ namespace mage {
 
 	/**
 	 Checks whether the next token in the given string represents (non-delimiting) characters.
-
+	 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -821,6 +888,8 @@ namespace mage {
 	/**
 	 Checks whether the next token in the given string represents a string.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -833,6 +902,8 @@ namespace mage {
 	/**
 	 Checks whether the next token in the given string represents a quoted string.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @pre			The quote '"' may not be delimiter.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
@@ -846,6 +917,8 @@ namespace mage {
 	/**
 	 Checks whether the next token in the given string represents a @c bool.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -858,6 +931,8 @@ namespace mage {
 	/**
 	 Checks whether the next token in the given string represents a @c uint8_t.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -870,6 +945,8 @@ namespace mage {
 	/**
 	 Checks whether the next token in the given string represents a @c uint8_t.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -882,6 +959,8 @@ namespace mage {
 	/**
 	 Checks whether the next token in the given string represents a @c int16_t.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -894,6 +973,8 @@ namespace mage {
 	/**
 	 Checks whether the next token in the given string represents a @c uint16_t.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -906,6 +987,8 @@ namespace mage {
 	/**
 	 Checks whether the next token in the given string represents a @c int32_t.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -918,6 +1001,8 @@ namespace mage {
 	/**
 	 Checks whether the next token in the given string represents a @c uint32_t .
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -930,6 +1015,8 @@ namespace mage {
 	/**
 	 Checks whether the next token in the given string represents a @c int64_t.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -942,6 +1029,8 @@ namespace mage {
 	/**
 	 Checks whether the next token in the given string represents a @c uint64_t.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -954,6 +1043,8 @@ namespace mage {
 	/**
 	 Checks whether the next token in the given string represents a @c float.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -966,6 +1057,8 @@ namespace mage {
 	/**
 	 Checks whether the next token in the given string represents a @c double.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -985,6 +1078,8 @@ namespace mage {
 	/**
 	 Advances to the first non-delimiting character in the given string.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -997,6 +1092,8 @@ namespace mage {
 	/**
 	 Advances to the first non-delimiting character in the given string.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -1009,6 +1106,8 @@ namespace mage {
 	/**
 	 Advances to the first delimiting character in the given string.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters
@@ -1021,6 +1120,8 @@ namespace mage {
 	/**
 	 Advances to the first delimiting character in the given string.
 
+	 @pre			@a str is not equal to @c nullptr.
+	 @pre			@a delimiters is not equal to @c nullptr.
 	 @param[in]		str
 					A pointer to the null-terminated byte string.
 	 @param[in]		delimiters

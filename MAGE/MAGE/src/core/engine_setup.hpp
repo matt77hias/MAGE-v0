@@ -54,11 +54,11 @@ namespace mage {
 		EngineSetup &operator=(const EngineSetup &setup) = delete;
 
 		/**
-		 Copies the given engine setup to this engine setup.
+		 Moves the given engine setup to this engine setup.
 
 		 @param[in]		setup
 						A reference to the engine setup to copy from.
-		 @return		A reference to the copy of the given engine setup
+		 @return		A reference to the moved engine setup
 						(i.e. this engine setup).
 		 */
 		EngineSetup &operator=(EngineSetup &&setup) = delete;
@@ -106,22 +106,23 @@ namespace mage {
 		 @param[in]		name
 						A reference to the name of the application.
 		 */
-		explicit EngineSetup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
+		explicit EngineSetup(HINSTANCE hinstance = nullptr, 
+			const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
 			: m_hinstance(hinstance), m_name(name) {}
 
 		/**
 		 Constructs an engine setup from the given engine setup.
 
 		 @param[in]		setup
-						A reference to the engine setup.
+						A reference to the engine setup to copy.
 		 */
 		EngineSetup(const EngineSetup &setup) = default;
 
 		/**
-		 Constructs an engine setup from the given engine setup.
+		 Constructs an engine setup by moving the given engine setup.
 
 		 @param[in]		setup
-						A reference to the engine setup.
+						A reference to the engine setup to move.
 		 */
 		EngineSetup(EngineSetup &&setup) = default;
 
@@ -134,7 +135,7 @@ namespace mage {
 		/**
 		 Application instance handle.
 		 */
-		HINSTANCE const m_hinstance;
+		const HINSTANCE m_hinstance;
 
 		/**
 		 Name of the application.

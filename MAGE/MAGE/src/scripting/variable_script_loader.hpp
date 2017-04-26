@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "platform\windows.hpp"
 #include "collection\collection.hpp" 
 #include "scripting\variable.hpp"
 
@@ -23,9 +22,10 @@ namespace mage {
 					A reference to the filename.
 	 @param[in,out]	variable_buffer
 					A reference to a vector containing the variables.
-	 @return		A success/error value.
+	 @throws		FormattedException
+					Failed to import the variable script from file.
 	 */
-	HRESULT ImportVariableScriptFromFile(const wstring &fname, vector< Variable * > &variable_buffer);
+	void ImportVariableScriptFromFile(const wstring &fname, vector< Variable > &variable_buffer);
 
 	/**
 	 Exports the given variables to the given file.
@@ -34,7 +34,8 @@ namespace mage {
 					A reference to the filename.
 	 @param[in]		variable_buffer
 					A reference to a vector containing the variables.
-	 @return		A success/error value.
+	 @throws		FormattedException
+					Failed to export the variable script to file.
 	 */
-	HRESULT ExportVariableScriptToFile(const wstring &fname, const vector< Variable * > &variable_buffer);
+	void ExportVariableScriptToFile(const wstring &fname, const vector< Variable > &variable_buffer);
 }

@@ -26,16 +26,22 @@ namespace mage {
 
 	/**
 	 An enumeration of error dispositions.
+	
+	This contains: 
+	 @c ERROR_DISPOSITION_IGNORE, 
+	 @c ERROR_DISPOSITION_CONTINUE and 
+	 @c ERROR_DISPOSITION_ABORT.
 	 */
 	enum ErrorDisposition {
-		ERROR_DISPOSITION_IGNORE, 
-		ERROR_DISPOSITION_CONTINUE,
-		ERROR_DISPOSITION_ABORT
+		ERROR_DISPOSITION_IGNORE,	// Ignore and continue execution.
+		ERROR_DISPOSITION_CONTINUE, // Report and continue execution.
+		ERROR_DISPOSITION_ABORT     // Report and abort exceution.
 	};
 
 	/**
 	 Finds the end of a word.
 
+	 @pre			@a buffer is not equal to @c nullptr.
 	 @param[in]		buffer
 					A pointer to the first character.
 	 @return		A pointer to the end of the word.
@@ -51,6 +57,7 @@ namespace mage {
 	/**
 	 Process the given error.
 
+	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format
 					The format of the error string.
 	 @param[in]		args
@@ -117,11 +124,15 @@ namespace mage {
 			// Do not process info in quiet mode.
 			return;
 		}
+		
 		va_list args;
-		// Retrieve the additional arguments after format
+		
+		// Retrieve the additional arguments after format.
 		va_start(args, format);
+		
 		ProcessError(format, args, "Debug Info", ERROR_DISPOSITION_CONTINUE);
-		// End using variable argument list
+		
+		// End using variable argument list.
 		va_end(args);	
 #endif
 		UNUSED(format);
@@ -133,11 +144,15 @@ namespace mage {
 			// Do not process info in quiet mode.
 			return;
 		}
+
 		va_list args;
-		// Retrieve the additional arguments after format
+		
+		// Retrieve the additional arguments after format.
 		va_start(args, format);
+		
 		ProcessError(format, args, "Info", ERROR_DISPOSITION_CONTINUE);
-		// End using variable argument list
+		
+		// End using variable argument list.
 		va_end(args);
 	}
 
@@ -146,29 +161,39 @@ namespace mage {
 			// Do not process warning in quiet mode.
 			return;
 		}
+		
 		va_list args;
-		// Retrieve the additional arguments after format
+		
+		// Retrieve the additional arguments after format.
 		va_start(args, format);
+		
 		ProcessError(format, args, "Warning", ERROR_DISPOSITION_CONTINUE);
-		// End using variable argument list
+		
+		// End using variable argument list.
 		va_end(args);
 	}
 
 	void Error(const char *format, ...) {
 		va_list args;
-		// Retrieve the additional arguments after format
+		
+		// Retrieve the additional arguments after format.
 		va_start(args, format);
+		
 		ProcessError(format, args, "Error", ERROR_DISPOSITION_CONTINUE);
-		// End using variable argument list
+		
+		// End using variable argument list.
 		va_end(args);
 	}
 
 	void Fatal(const char *format, ...) {
 		va_list args;
-		// Retrieve the additional arguments after format
+		
+		// Retrieve the additional arguments after format.
 		va_start(args, format);
+		
 		ProcessError(format, args, "Fatal Error", ERROR_DISPOSITION_ABORT);
-		// End using variable argument list
+		
+		// End using variable argument list.
 		va_end(args);
 	}
 }

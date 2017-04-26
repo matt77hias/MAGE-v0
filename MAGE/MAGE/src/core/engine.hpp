@@ -1,13 +1,12 @@
 #pragma once
 
-#include "core\targetver.hpp"
-
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\device_enumeration.hpp"
+#include "core\targetver.hpp"
+
 #include "rendering\renderer.hpp"
 #include "input\input_manager.hpp"
 #include "ui\main_window.hpp"
@@ -26,7 +25,7 @@ namespace mage {
 	/**
 	 A class of engines.
 	 */
-	class Engine final : public Loadable {
+	class Engine final {
 
 	public:
 
@@ -39,6 +38,8 @@ namespace mage {
 
 		 @param[in]		setup
 						A reference to an engine setup.
+		 @throws		FormattedException
+						Failed to initialize the engine.
 		 */
 		explicit Engine(const EngineSetup &setup);
 
@@ -46,15 +47,15 @@ namespace mage {
 		 Constructs an engine from the given engine.
 
 		 @param[in]		engine
-						A reference to the engine.
+						A reference to the engine to copy.
 		 */
 		Engine(const Engine &engine) = delete;
 
 		/**
-		 Constructs an engine from the given engine.
+		 Constructs an engine by moving the given engine.
 
 		 @param[in]		engine
-						A reference to the engine.
+						A reference to the engine to move.
 		 */
 		Engine(Engine &&engine) = default;
 
@@ -71,7 +72,7 @@ namespace mage {
 		 Copies the given engine to this engine.
 
 		 @param[in]		engine
-						A reference to the engine to copy from.
+						A reference to the engine to copy.
 		 @return		A reference to the copy of the given engine
 						(i.e. this engine).
 		 */
@@ -81,8 +82,8 @@ namespace mage {
 		 Copies the given engine to this engine.
 
 		 @param[in]		engine
-						A reference to the engine to copy from.
-		 @return		A reference to the copy of the given engine
+						A reference to the engine to move.
+		 @return		A reference to the moved engine
 						(i.e. this engine).
 		 */
 		Engine &operator=(Engine &&engine) = delete;
@@ -102,6 +103,7 @@ namespace mage {
 		/**
 		 Returns the main window of this engine.
 		 
+		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the main window of this engine.
 		 */
 		const MainWindow *GetMainWindow() const {
@@ -123,6 +125,7 @@ namespace mage {
 		/**
 		 Returns the renderer of this engine.
 
+		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the renderer of this engine.
 		 */
 		const Renderer *GetRenderer() const {
@@ -146,6 +149,7 @@ namespace mage {
 		/**
 		 Returns the input manager of this engine.
 
+		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the input manager of this engine.
 		 */
 		const InputManager *GetInputManager() const {
@@ -159,6 +163,7 @@ namespace mage {
 		/**
 		 Returns the resource factory of this engine.
 
+		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the resource factory of this engine.
 		 */
 		ResourceFactory *GetResourceFactory() const {
@@ -187,9 +192,11 @@ namespace mage {
 
 		 @param[in]		setup
 						A reference to an engine setup.
-		 @return		A success/error value.
-		*/
-		HRESULT InitializeSystems(const EngineSetup &setup);
+		 @throws		FormattedException
+						Failed to initialize at least one of
+						the different systems of this engine.
+		 */
+		void InitializeSystems(const EngineSetup &setup);
 
 		//---------------------------------------------------------------------
 		// Member Variables: Window System
@@ -243,7 +250,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The current scene of this engine.
+		 A pointer to the current scene of this engine.
 		 */
 		SharedPtr< Scene > m_scene;
 
@@ -252,13 +259,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The timer of this engine.
+		 A pointer to the timer of this engine.
 		 */
 		UniquePtr< Timer > m_timer;
 	};
 
 	/**
-	 The engine used by the user.
+	 A pointer to the engine used by the user.
 	 */
 	extern Engine *g_engine;
 }

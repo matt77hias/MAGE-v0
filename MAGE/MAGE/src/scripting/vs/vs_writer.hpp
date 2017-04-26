@@ -16,6 +16,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 A class of VS file writers for writing variable scripts.
+	 */
 	class VSWriter final : public Writer {
 
 	public:
@@ -24,17 +27,59 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit VSWriter(const vector< Variable * > &variable_buffer)
+		/**
+		 Constructs a writer.
+
+		 @param[in]		variable_buffer
+						A reference to a vector containing the variables to write
+						to file.
+		 */
+		explicit VSWriter(const vector< Variable > &variable_buffer)
 			: Writer(), m_variable_buffer(variable_buffer) {}
+		
+		/**
+		 Constructs a VS writer from the given VS writer.
+
+		 @param[in]		writer
+						A reference to the VS writer to copy.
+		 */
 		VSWriter(const VSWriter &writer) = delete;
+
+		/**
+		 Constructs a VS writer by moving the given VS writer.
+
+		 @param[in]		writer
+						A reference to the VS writer to move.
+		 */
 		VSWriter(VSWriter &&writer) = delete;
+
+		/**
+		 Destructs this VS writer.
+		 */
 		virtual ~VSWriter() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
+		/**
+		 Copies the given VS writer to this VS writer.
+
+		 @param[in]		writer
+						A reference to a VS writer to copy.
+		 @return		A reference to the copy of the given VS writer
+						(i.e. this VS writer).
+		 */
 		VSWriter &operator=(const VSWriter &writer) = delete;
+
+		/**
+		 Moves the given VS writer to this VS writer.
+
+		 @param[in]		writer
+						A reference to a VS writer to move.
+		 @return		A reference to the moved VS writer
+						(i.e. this VS writer).
+		 */
 		VSWriter &operator=(VSWriter &&writer) = delete;
 
 	private:
@@ -43,12 +88,21 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual HRESULT Write() override;
+		/**
+		 Starts writing.
+
+		 @throws		FormattedException
+						Failed to write to the given file.
+		 */
+		virtual void Write() override;
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		const vector< Variable * > &m_variable_buffer;
+		/**
+		 A reference to a vector containing the variables to write for this VS writer.
+		 */
+		const vector< Variable > &m_variable_buffer;
 	};
 }

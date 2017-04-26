@@ -14,15 +14,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT VSWriter::Write() {
+	void VSWriter::Write() {
 		char output[MAX_PATH];
 
-		for (vector< Variable * >::const_iterator it = m_variable_buffer.cbegin(); it != m_variable_buffer.cend(); ++it) {
-			const Variable *variable = *it;
-			const char *name = variable->GetName().c_str();
-			const void *raw_value = variable->GetValue();
+		for (vector< Variable >::const_iterator it = m_variable_buffer.cbegin(); it != m_variable_buffer.cend(); ++it) {
+			const char *name = it->GetName().c_str();
+			const void *raw_value = it->GetValue();
 
-			switch (variable->GetType()) {
+			switch (it->GetType()) {
 			case VariableType_Bool: {
 				const bool *value = (bool *)raw_value;
 				if (*value) {
@@ -79,14 +78,12 @@ namespace mage {
 				break;
 			}
 			default: {
-				Error("%ls: could not export variable: %s", GetFilename().c_str(), name);
-				return E_FAIL;
+				Warning("%ls: could not export variable: %s", GetFilename().c_str(), name);
+				return;
 			}
 			}
 
 			WriteStringLine(output);
 		}
-
-		return S_OK;
 	}
 }

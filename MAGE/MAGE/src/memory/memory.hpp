@@ -49,6 +49,7 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
+// Pointer size macros
 #ifndef MAGE_POINTER_SIZE
 #if defined(__amd64__) || defined(_M_X64)
 #define MAGE_X64
@@ -76,24 +77,41 @@ namespace mage {
 
 namespace mage {
 
-	struct HandleCloser {
+	//-------------------------------------------------------------------------
+	// Handles
+	//-------------------------------------------------------------------------
 
-		void operator()(HANDLE handle) {
-			if (handle) {
-				CloseHandle(handle);
-			}
+	/**
+	 Destructs the given handle.
 
-		}
-	};
-	
-	inline void HandleDeleter(HANDLE handle) {
+	 @param[in]		handle
+					The handle to destruct.
+	 */
+	inline void DestructHandle(HANDLE handle) {
 		if (handle) {
 			CloseHandle(handle);
 		}
 	}
 
+	/**
+	 A struct of handle destructors (i.e. for closing handles).
+	 */
+	struct HandleCloser {
 
+		/**
+		 Destructs the given handle.
+
+		 @param[in]		handle
+						The handle to destruct.
+		 */
+		void operator()(HANDLE handle) const {
+			DestructHandle(handle);
+		}
+	};
+	
+	// Unique Pointer for handles.
 	typedef std::unique_ptr< void, HandleCloser > UniqueHandle;
+	// Shared Point for handles.
 	typedef SharedPtr< void > SharedHandle;
 
 	/**
@@ -118,7 +136,7 @@ namespace mage {
 	 @return		A shared handle for the given handle @a handle.
 	 */
 	inline SharedHandle CreateSharedHandle(HANDLE handle) {
-		return SharedHandle(SafeHandle(handle), HandleDeleter);
+		return SharedHandle(SafeHandle(handle), DestructHandle);
 	}
 }
 

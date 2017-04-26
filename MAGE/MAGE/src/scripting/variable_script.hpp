@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
 #include "resource\resource.hpp"
 #include "collection\collection.hpp"
 #include "scripting\variable.hpp"
@@ -43,15 +42,15 @@ namespace mage {
 		 Constructs a variable script from the given variable script.
 
 		 @param[in]		variable_script
-						A reference to the variable script.
+						A reference to the variable script to copy.
 		 */
 		VariableScript(const VariableScript &variable_script) = delete;
 
 		/**
-		 Constructs a variable script from the given variable script.
+		 Constructs a variable script by moving the given variable script.
 
 		 @param[in]		variable_script
-						A reference to the variable script.
+						A reference to the variable script to move.
 		 */
 		VariableScript(VariableScript &&variable_script) = default;
 
@@ -68,18 +67,18 @@ namespace mage {
 		 Copies the given variable script to this variable script.
 
 		 @param[in]		variable_script
-						A reference to the variable script to copy from.
+						A reference to the variable script to copy.
 		 @return		A reference to the copy of the given variable script
 						(i.e. this variable script).
 		 */
 		VariableScript &operator=(const VariableScript &variable_script) = delete;
 
 		/**
-		 Copies the given variable script to this variable script.
+		 Moves the given variable script to this variable script.
 
 		 @param[in]		variable_script
-						A reference to the variable script to copy from.
-		 @return		A reference to the copy of the given variable script
+						A reference to the variable script to move.
+		 @return		A reference to the moved variable script
 						(i.e. this variable script).
 		 */
 		VariableScript &operator=(VariableScript &&variable_script) = delete;
@@ -94,9 +93,10 @@ namespace mage {
 
 		 @param[in]		fname
 						A reference to the filename.
-		 @return		A success/error value.
+		 @throws		FormattedException
+						Failed to import the variable script from file.
 		 */
-		HRESULT ImportScript(const wstring &fname = L"");
+		void ImportScript(const wstring &fname = L"");
 
 		/**
 		 Exports this variable script to the file with the given filename.
@@ -104,12 +104,13 @@ namespace mage {
 
 		 @param[in]		fname
 						A reference to the filename.
-		 @return		A success/error value.
+		 @throws		FormattedException
+						Failed to export the variable script to file.
 		 */
-		HRESULT ExportScript(const wstring &fname = L"");
+		void ExportScript(const wstring &fname = L"");
 
 		/**
-		 Checks wether this variable script is empty.
+		 Checks whether this variable script is empty.
 
 		 @return		@c true if this variable script is empty.
 						@c false otherwise.
@@ -131,21 +132,23 @@ namespace mage {
 		 Adds the given variable to this variable script.
 
 		 @pre			No variable with the name @a name
-						exists in this variable script.
+						exist in this variable script.
 		 @tparam		T
-						The type of the value.
-		 @param[in]		name
-						The name of the variable.
+						The (storage) type of the value.
+		 @param[in]		type
+						The (scripting) type of the variable.
 		 @param[in]		type
 						The type of the variable.
+		 @param[in]		name
+						The name of the variable.
 		 @param[in]		value
-						A pointer to the value of the variable.
+						A reference to the value of the variable.
 		 */
 		template < typename T >
-		void AddVariable(const string &name, VariableType type, const T *value);
+		void AddVariable(VariableType type, const string &name, const T &value);
 
 		/**
-		 Removes and destructs the given variable from this variable script.
+		 Removes the given variable from this variable script.
 
 		 @param[in]		name
 						The name of the variable.
@@ -153,7 +156,7 @@ namespace mage {
 		void RemoveVariable(const string &name);
 
 		/**
-		 Removes and destructs all variables from this variable script.
+		 Removes all variables from this variable script.
 		 */
 		void RemoveAllVariables();
 
@@ -161,7 +164,7 @@ namespace mage {
 		 Returns the value of the given variable in this variable script.
 
 		 @tparam		T
-						The type of the value.
+						The (storage) type of the value.
 		 @param[in]		name
 						The name of the variable.
 		 @return		@c nullptr if no variable with the name @a name
@@ -175,16 +178,16 @@ namespace mage {
 		 Sets the value of the given variable in this variable script.
 
 		 @tparam		T
-						The type of the value.
+						The (storage) type of the value.
 		 @param[in]		name
 						The name of the variable.
 		 @param[in]		value
-						A pointer to the value of the variable.
+						A reference to the value of the variable.
 		 @note			Nothing happens if no variable with the name @a name
 						exists in this variable script.
 		 */
 		template < typename T >
-		void SetValueOfVariable(const string &name, const T *value);
+		void SetValueOfVariable(const string &name, const T &value);
 
 	private:
 
@@ -193,9 +196,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Linked list containing the variables in this variable script.
+		 A map containing the variables in this variable script
+		 
+		 The keys match the variables' name and 
+		 the values match the variables.
 		 */
-		map< string, Variable * > m_variables;
+		map< string, Variable > m_variables;
 	};
 
 	/**

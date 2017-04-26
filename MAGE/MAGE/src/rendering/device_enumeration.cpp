@@ -208,11 +208,11 @@ namespace mage {
 			Edit_SetText(GetDlgItem(hwndDlg, IDC_DISPLAY_ADAPTER), desc.Description);
 
 			if (m_settings_script->IsEmpty()) {
-				m_settings_script->AddVariable("windowed",   VariableType_Bool, new bool(true));
-				m_settings_script->AddVariable("vsync",      VariableType_Bool, new bool(false));
-				m_settings_script->AddVariable("bpp",        VariableType_Int,  new int(0));
-				m_settings_script->AddVariable("resolution", VariableType_Int,  new int(0));
-				m_settings_script->AddVariable("refresh",	 VariableType_Int,  new int(0));
+				m_settings_script->AddVariable(VariableType_Bool, "windowed",   true);
+				m_settings_script->AddVariable(VariableType_Bool, "vsync",      false);
+				m_settings_script->AddVariable(VariableType_Int,  "bpp",        0);
+				m_settings_script->AddVariable(VariableType_Int,  "resolution", 0);
+				m_settings_script->AddVariable(VariableType_Int,  "refresh",	0);
 			}
 
 			// Load the windowed state.

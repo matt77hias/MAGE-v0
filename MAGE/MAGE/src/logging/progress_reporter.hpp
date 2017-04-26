@@ -48,15 +48,15 @@ namespace mage {
 		 Constructs a progress reporter from the given progress reporter.
 
 		 @param[in]		progress_reporter
-						A reference to the progress reporter.
+						A reference to the progress reporter to copy.
 		 */
 		ProgressReporter(const ProgressReporter &progress_reporter) = delete;
 
 		/**
-		 Constructs a progress reporter from the given progress reporter.
+		 Constructs a progress reporter by moving the given progress reporter.
 
 		 @param[in]		progress_reporter
-						A reference to the progress reporter.
+						A reference to the progress reporter to move.
 		 */
 		ProgressReporter(ProgressReporter &&progress_reporter) = default;
 
@@ -73,7 +73,7 @@ namespace mage {
 		 Copies the given progress reporter to this progress reporter.
 
 		 @param[in]		progress_reporter
-						A reference to the progress reporter to copy from.
+						A reference to the progress reporter to copy.
 		 @return		A reference to the copy of the given progress reporter
 						(i.e. this progress reporter).
 		 */
@@ -83,8 +83,8 @@ namespace mage {
 		 Copies the given progress reporter to this progress reporter.
 
 		 @param[in]		progress_reporter
-						A reference to the progress reporter to copy from.
-		 @return		A reference to the copy of the given progress reporter
+						A reference to the progress reporter to move.
+		 @return		A reference to moved progress reporter
 						(i.e. this progress reporter).
 		 */
 		ProgressReporter &operator=(ProgressReporter &&progress_reporter) = delete;
@@ -109,6 +109,21 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Initializes this progress reporter.
+
+		 @param[in]		title
+						A reference to the title.
+		 @param[in]		bar_length
+						The length of the progress bar.
+						If 0 the default length will be chosen.
+		 */
+		void Initialize(const string &title, uint32_t bar_length = 0);
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
@@ -118,22 +133,25 @@ namespace mage {
 		const uint32_t m_nb_work_total;
 
 		/**
-		 The number of work units that are already done.
+		 The number of work units that are already done
 		 */
 		uint32_t m_nb_work_done;
 
 		/**
-		 The total number of plusses that need to be outputted.
+		 The total number of plusses that need to be outputted
+		 by this progress reporter.
 		 */
 		uint32_t m_nb_plusses_total;
 
 		/**
-		 The total number of plusses that are already outputted.
+		 The total number of plusses that are already outputted
+		 by this progress reporter.
 		 */
 		uint32_t m_nb_plusses_printed;
 
 		/**
-		 The character representing a work unit that is already done.
+		 The character representing a work unit that is already done
+		 of this progress reporter.
 		 */
 		const char m_plus_char;
 

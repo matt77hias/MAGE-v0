@@ -26,7 +26,7 @@
 namespace mage {
 
 	/**
-	 A class of camera.
+	 A class of cameras.
 	 */
 	class Camera {
 
@@ -49,17 +49,21 @@ namespace mage {
 		 Copies the given camera to this camera.
 
 		 @param[in]		camera
-						A reference to the orthographic camera.
+						A reference to the camera to copy.
+		 @return		A reference to the copy of the given camera
+						(i.e. this camera).
 		 */
-		Camera &operator=(const Camera &camera) = delete;
+		Camera &operator=(const Camera &camera) = default;
 
 		/**
-		 Copies the given camera to this camera.
+		 Moves the given camera to this camera.
 
 		 @param[in]		camera
-						A reference to the orthographic camera.
+						A reference to the camera to move.
+		 @return		A reference to the moved camera
+						(i.e. this camera).
 		 */
-		Camera &operator=(Camera &&camera) = delete;
+		Camera &operator=(Camera &&camera) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -161,15 +165,15 @@ namespace mage {
 		 Constructs a camera from the given camera.
 
 		 @param[in]		camera
-						The camera.
+						A reference to the camera to copy.
 		 */
 		Camera(const Camera &camera) = default;
 
 		/**
-		 Constructs a camera from the given camera.
+		 Constructs a camera by moving the given camera.
 
 		 @param[in]		camera
-						The camera.
+						A reference to the camera to move.
 		 */
 		Camera(Camera &&camera) = default;
 
@@ -179,6 +183,11 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		/**
+		 Clones this camera.
+
+		 @return		A pointer to the clone of this camera.
+		 */
 		virtual SharedPtr< Camera > CloneImplementation() const = 0;
 
 		//---------------------------------------------------------------------
@@ -186,12 +195,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the near z-plane in camera space. 
+		 The position of the near z-plane of this camera in camera space. 
 		 */
 		float m_near_z;
 
 		/**
-		 The position of the far z-plane in camera space.
+		 The position of the far z-plane of this camera in camera space.
 		 */
 		float m_far_z;
 	};

@@ -24,7 +24,7 @@
 namespace mage {
 
 	/**
-	 A class of perspective camera.
+	 A class of perspective cameras.
 	 */
 	class PerspectiveCamera final : public Camera {
 
@@ -75,18 +75,18 @@ namespace mage {
 			m_aspect_ratio(width / height), m_fov_y(fov_y) {}
 
 		/**
-		 Constructs a perspective camera from the given perpsective camera.
+		 Constructs a perspective camera from the given perspective camera.
 
 		 @param[in]		camera
-						A reference to the perspective camera.
+						A reference to the perspective camera to copy.
 		 */
 		PerspectiveCamera(const PerspectiveCamera &camera) = default;
 		
 		/**
-		 Constructs a perspective camera from the given perpsective camera.
+		 Constructs a perspective camera by moving the given perspective camera.
 
 		 @param[in]		camera
-						A reference to the perspective camera.
+						A reference to the perspective camera to move.
 		 */
 		PerspectiveCamera(PerspectiveCamera &&camera) = default;
 
@@ -103,17 +103,21 @@ namespace mage {
 		 Copies the given perspective camera to this perspective camera.
 
 		 @param[in]		camera
-						A reference to the perspective camera.
+						A reference to the perspective camera to copy.
+		 @return		A reference to the copy of the given perspective camera
+						(i.e. this perspective camera).
 		 */
-		PerspectiveCamera &operator=(const PerspectiveCamera &camera) = delete;
+		PerspectiveCamera &operator=(const PerspectiveCamera &camera) = default;
 
 		/**
-		 Copies the given perspective camera to this perspective camera.
+		 Moves the given perspective camera to this perspective camera.
 
 		 @param[in]		camera
-						A reference to the perspective camera.
+						A reference to the perspective camera to move.
+		 @return		A reference to the moved perspective camera
+						(i.e. this perspective camera).
 		 */
-		PerspectiveCamera &operator=(PerspectiveCamera &&camera) = delete;
+		PerspectiveCamera &operator=(PerspectiveCamera &&camera) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -245,6 +249,11 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		/**
+		 Clones this perspective camera.
+
+		 @return		A pointer to the clone of this perspective camera.
+		 */
 		virtual SharedPtr< Camera > CloneImplementation() const override {
 			return SharedPtr< PerspectiveCamera >(new PerspectiveCamera(*this));
 		}
@@ -264,6 +273,19 @@ namespace mage {
 		float m_fov_y;
 	};
 
+	/**
+	 Constructs a perspective camera.
+	
+	 The aspect ratio will be based on the current screen resolution.
+
+	 @pre			The current engine and its renderer must exist.
+	 @param[in]		fov_y
+					The vertical field-of-view.
+	 @param[in]		near_z
+					The position of the near z-plane in camera space.
+	 @param[in]		far_z
+					The position of the far z-plane in camera space.
+	 */
 	SharedPtr< PerspectiveCamera > CreatePerspectiveCamera(
 		float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 

@@ -18,11 +18,15 @@ namespace mage {
 
 	FormattedException::FormattedException(const char *format, ...)
 		: FormattedException() {
+
 		va_list args;
-		// Retrieve the additional arguments after format
+		
+		// Retrieve the additional arguments after format.
 		va_start(args, format);
+		
 		vsnprintf_s(m_text, _countof(m_text), _TRUNCATE, format, args);
-		// End using variable argument list
+		
+		// End using variable argument list.
 		va_end(args);
 	}
 }

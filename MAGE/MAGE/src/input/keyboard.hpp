@@ -135,7 +135,7 @@ namespace mage {
 		/**
 		 The handle of the parent window of this keyboard.
 		 */
-		HWND const m_hwindow;
+		const HWND m_hwindow;
 
 		/**
 		 A pointer to the DirectInput object of this keyboard.

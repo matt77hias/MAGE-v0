@@ -180,7 +180,7 @@ namespace mage {
 		/**
 		 The handle of the parent window of this mouse.
 		 */
-		HWND const m_hwindow;
+		const HWND m_hwindow;
 
 		/**
 		 A pointer to the DirectInput object of this mouse.

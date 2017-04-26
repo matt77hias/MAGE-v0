@@ -24,6 +24,7 @@ namespace mage {
 	 A debug message is associated with generally useful information to log 
 	 only in debug builds.
 
+	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format
 					Pointer to the message format.
 	 */
@@ -34,6 +35,7 @@ namespace mage {
 
 	 An info message is associated with generally useful information to log.
 	 
+	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format
 					Pointer to the message format.	
 	 */
@@ -44,6 +46,7 @@ namespace mage {
 
 	 A warning message is associated with anything that can potentially cause application oddities.
 
+	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format
 					Pointer to the message format.
 	 */
@@ -55,6 +58,7 @@ namespace mage {
 	 An error message is associated with any error which is fatal to the operation,
 	 but not the service or application.
 
+	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format
 					Pointer to the message format.
 	 */
@@ -66,6 +70,7 @@ namespace mage {
 	 A fatal message is associated with any error that is forcing a shutdown 
 	 of the service or application to prevent data loss (or further data loss).
 
+	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format
 					Pointer to the message format.
 	 */
@@ -77,6 +82,7 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
+// Assert definition
 #ifdef NDEBUG
 #define Assert(expr) (__noop)
 #else

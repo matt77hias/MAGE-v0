@@ -863,9 +863,6 @@
     <ClCompile Include="MAGE\src\camera\perspective_camera.cpp">
       <Filter>Source Files\camera</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp">
-      <Filter>Source Files\camera</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\script\system_usage_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>

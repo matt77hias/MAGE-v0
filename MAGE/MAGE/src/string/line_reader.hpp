@@ -59,7 +59,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Reads the given file.
+		 Reads from the given file.
 
 		 @param[in]		fname
 						A reference to the file name.
@@ -67,20 +67,21 @@ namespace mage {
 						A reference to a string containing the token delimiters
 						(single characters).
 		 @throws		FormattedException
-						The file reading failed.
+						Failed to read from the given file.
 		 */
 		void ReadFromFile(const wstring &fname, const string &delimiters = mage_default_delimiters);
 		
 		/**
 		 Reads the input string.
 
+		 @pre			@a input is not equal to @c nullptr.
 		 @param[in]		input
 						A pointer to the input null-terminated byte string.
 		 @param[in]		delimiters
 						A reference to a string containing the token delimiters
 						(single characters).
 		 @throws		FormattedException
-						The string reading failed.
+						Failed to read from the given input string.
 		 */
 		void ReadFromMemory(const char *input, const string &delimiters = mage_default_delimiters);
 
@@ -154,7 +155,7 @@ namespace mage {
 
 		 @return		The string represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token.
+						There is no next token.
 		 */
 		const char *ReadChars();
 
@@ -163,7 +164,7 @@ namespace mage {
 
 		 @return		The string represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token.
+						There is no next token.
 		 */
 		const string ReadString();
 
@@ -172,7 +173,7 @@ namespace mage {
 
 		 @return		The quoted string represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a quoted string.
 		 */
 		const string ReadQuotedString();
@@ -182,7 +183,7 @@ namespace mage {
 
 		 @return		The @c bool represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c bool.
 		 */
 		bool ReadBool();
@@ -192,7 +193,7 @@ namespace mage {
 
 		 @return		The @c int8_t represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c int8_t.
 		 */
 		int8_t ReadInt8();
@@ -202,7 +203,7 @@ namespace mage {
 
 		 @return		The @c uint8_t represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c uint8_t.
 		 */
 		uint8_t ReadUInt8();
@@ -212,7 +213,7 @@ namespace mage {
 
 		 @return		The @c int16_t represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c int16_t.
 		 */
 		int16_t ReadInt16();
@@ -222,7 +223,7 @@ namespace mage {
 
 		 @return		The @c uint16_t represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c uint16_t.
 		 */
 		uint16_t ReadUInt16();
@@ -232,7 +233,7 @@ namespace mage {
 
 		 @return		The @c int32_t represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c int32_t.
 		 */
 		int32_t ReadInt32();
@@ -242,7 +243,7 @@ namespace mage {
 
 		 @return		The @c uint32_t represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c uint32_t.
 		 */
 		uint32_t ReadUInt32();
@@ -252,7 +253,7 @@ namespace mage {
 
 		 @return		The @c int64_t represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c int64_t.
 		 */
 		int64_t ReadInt64();
@@ -262,7 +263,7 @@ namespace mage {
 
 		 @return		The @c uint64_t represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c uint64_t.
 		 */
 		uint64_t ReadUInt64();
@@ -272,7 +273,7 @@ namespace mage {
 
 		 @return		The @c float represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c float.
 		 */
 		float ReadFloat();
@@ -282,7 +283,7 @@ namespace mage {
 
 		 @return		The @c double represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c double.
 		 */
 		double ReadDouble();
@@ -292,7 +293,7 @@ namespace mage {
 
 		 @return		The @c XMFLOAT2 represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c XMFLOAT2.
 		 */
 		const XMFLOAT2 ReadFloat2();
@@ -302,7 +303,7 @@ namespace mage {
 
 		 @return		The @c XMFLOAT3 represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c XMFLOAT3.
 		 */
 		const XMFLOAT3 ReadFloat3();
@@ -312,7 +313,7 @@ namespace mage {
 
 		 @return		The @c XMFLOAT4 represented by the next token of this line reader.
 		 @throws		FormattedException
-						If there is no next token or the next token does not represent
+						There is no next token or the next token does not represent
 						a @c XMFLOAT4.
 		*/
 		const XMFLOAT4 ReadFloat4();
@@ -455,7 +456,7 @@ namespace mage {
 		/**
 		 Reads the given line.
 
-		 @param[in, out]line
+		 @param[in,out] line
 						A pointer to the null-terminated byte string to read.
 		 @throws		FormattedException
 						The reading of the line failed.
@@ -480,8 +481,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		The file of this line reader.
-		*/
+		 The current file of this line reader.
+		 */
 		FILE *m_file;
 
 		/**

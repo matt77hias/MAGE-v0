@@ -29,18 +29,18 @@ namespace mage {
 		 Copies the given behavior script to this behavior script.
 
 		 @param[in]		script
-						A reference to the behavior script to copy from.
+						A reference to the behavior script to copy.
 		 @return		A reference to the copy of the given behavior script
 						(i.e. this behavior script).
 		 */
 		BehaviorScript &operator=(const BehaviorScript &script) = delete;
 
 		/**
-		 Copies the given behavior script to this behavior script.
+		 Moves the given behavior script to this behavior script.
 
 		 @param[in]		script
-						A reference to the behavior script to copy from.
-		 @return		A reference to the copy of the given behavior script
+						A reference to the behavior script to move.
+		 @return		A reference to the moved behavior script
 						(i.e. this behavior script).
 		 */
 		BehaviorScript &operator=(BehaviorScript &&script) = delete;
@@ -72,15 +72,15 @@ namespace mage {
 		 Constructs a behavior script from the given behavior script.
 
 		 @param[in]		script
-						A reference to the behavior script.
+						A reference to the behavior script to copy.
 		 */
 		BehaviorScript(const BehaviorScript &script) = default;
 
 		/**
-		 Constructs a behavior script from the given behavior script.
+		 Constructs a behavior script by moving the given behavior script.
 
 		 @param[in]		script
-						A reference to the behavior script.
+						A reference to the behavior script to move.
 		 */
 		BehaviorScript(BehaviorScript &&script) = default;
 	};

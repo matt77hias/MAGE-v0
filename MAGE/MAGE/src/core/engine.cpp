@@ -5,8 +5,9 @@
 
 #include "core\engine.hpp"
 #include "core\version.hpp"
-#include "logging\error.hpp"
+#include "logging\exception.hpp"
 #include "logging\logging.hpp"
+#include "rendering\device_enumeration.hpp"
 
 #pragma endregion
 
@@ -26,8 +27,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	
 	Engine::Engine(const EngineSetup &setup) 
-		: Loadable(), 
-		m_main_window(), m_deactive(false), 
+		: m_main_window(), m_deactive(false), 
 		m_renderer(), m_mode_switch(false),
 		m_input_manager(), m_resource_factory(),
 		m_scene(), m_timer(new Timer()) {
@@ -36,72 +36,46 @@ namespace mage {
 		SAFE_DELETE(g_engine);
 		g_engine = this;
 
-		// Attach a console.
-		const HRESULT result_console = InitializeConsole();
-		if (FAILED(result_console)) {
-			Error("Console initialization failed: %08X.", result_console);
-			return;
-		}
+		// Initialize a console.
+		InitializeConsole();
 		PrintConsoleHeader();
 
 		// Initialize the different engine systems.
-		const HRESULT result_system = InitializeSystems(setup);
-		if (FAILED(result_system)) {
-			Error("Systems initialization failed: %08X.", result_system);
-			return;
-		}
+		InitializeSystems(setup);
 
 		// Initializes the COM library for use by the calling thread 
 		// and sets the thread's concurrency model to multithreaded concurrency.
 		CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-
-		// The engine is fully loaded and ready to go.
-		SetLoaded();
 	}
 
 	Engine::~Engine() {
 
 		// Uninitialize the COM.
-		if (IsLoaded()) {
-			CoUninitialize();
-		}
+		CoUninitialize();
 
 		SAFE_DELETE(g_device_enumeration);
 	}
 
-	HRESULT Engine::InitializeSystems(const EngineSetup &setup) {
+	void Engine::InitializeSystems(const EngineSetup &setup) {
 		// Enumerate the devices.
 		SAFE_DELETE(g_device_enumeration);
 		g_device_enumeration = new DeviceEnumeration();
-		const HRESULT result_enumerate = g_device_enumeration->Enumerate();
-		if (FAILED(result_enumerate)) {
-			Error("Device enumeration setup failed: %ld", result_enumerate);
-			return E_FAIL;
-		}
-
+		g_device_enumeration->Enumerate();
+		
 		const LONG width  = static_cast< LONG >(g_device_enumeration->GetDisplayMode()->Width);
 		const LONG height = static_cast< LONG >(g_device_enumeration->GetDisplayMode()->Height);
 		
 		// Initialize the window System.
 		m_main_window = make_unique< MainWindow >(setup.GetApplicationHinstance(), setup.GetApplicationName(), width, height);
-
 		// Initialize the rendering system.
 		m_renderer = make_unique< Renderer >(m_main_window->GetHandle());
-		if (!m_renderer->IsLoaded()) {
-			Error("Renderer creation failed.");
-			return E_FAIL;
-		}
-		
 		// Initialize the input system.
 		m_input_manager = make_unique< InputManager >(m_main_window->GetHandle());
-		
 		// Initialize the resource system.
 		m_resource_factory = make_unique< ResourceFactory >();
 
 		// Initialize the first scene.
 		SetScene(setup.CreateScene());
-
-		return S_OK;
 	}
 
 	void Engine::SetDeactiveFlag(bool deactive) {
@@ -132,12 +106,6 @@ namespace mage {
 	}
 
 	void Engine::Run(int nCmdShow) {
-		// Ensure the engine is loaded.
-		if (!IsLoaded()) {
-			Error("Game loop can not be started because the engine is not loaded.");
-			return;
-		}
-
 		m_main_window->Show(nCmdShow);
 
 		// Handle startup in fullscreen mode.

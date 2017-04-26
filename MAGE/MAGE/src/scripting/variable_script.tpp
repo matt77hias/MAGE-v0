@@ -23,7 +23,7 @@ namespace mage {
 	const T *VariableScript::GetValueOfVariable(const string &name) const {
 		const map< string, Variable >::const_iterator it = m_variables.find(name);
 		if (it != m_variables.end()) {
-			return (T *)(it->second.GetValue());
+			return (const T *)(it->second.GetValue());
 		}
 
 		// Return nullptr if the variable was not found.

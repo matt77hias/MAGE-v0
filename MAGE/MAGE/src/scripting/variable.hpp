@@ -308,7 +308,7 @@ namespace mage {
 							A reference to the value.
 			 */
 			explicit Value(const T &value)
-				: AbstractValue(), m_value(new T(value)) {}
+				: AbstractValue(), m_value(value) {}
 
 			/**
 			 Constructs a value from the given value.
@@ -316,8 +316,7 @@ namespace mage {
 			 @param[in]		value
 							A reference to the value to copy.
 			 */
-			Value(const Value &value)
-				: m_value(new T(*value.m_value)) {}
+			Value(const Value &value) = default;
 
 			/**
 			 Constructs a value by moving the given value.
@@ -375,7 +374,7 @@ namespace mage {
 			 @return		A pointer to the value of this value.
 			 */
 			virtual const void *GetValue() const override {
-				return (void *)m_value.get();
+				return (void *)&m_value;
 			}
 
 		private:
@@ -385,9 +384,9 @@ namespace mage {
 			//---------------------------------------------------------------------
 
 			/**
-			 A pointer to the value of this value.
+			 The value of this value.
 			 */
-			UniquePtr< const T > m_value;
+			const T m_value;
 		};
 
 		/**

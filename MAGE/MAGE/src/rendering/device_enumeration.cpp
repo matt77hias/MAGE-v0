@@ -327,11 +327,11 @@ namespace mage {
 				const int refresh_rate_index = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
 
 				// Set all the settings in the script.
-				m_settings_script->SetValueOfVariable("windowed",	new bool(m_windowed));
-				m_settings_script->SetValueOfVariable("vsync",		new bool(m_vsync));
-				m_settings_script->SetValueOfVariable("bpp",		new int(bpp_index));
-				m_settings_script->SetValueOfVariable("resolution", new int(resolution_index));
-				m_settings_script->SetValueOfVariable("refresh",	new int(refresh_rate_index));
+				m_settings_script->SetValueOfVariable("windowed",	m_windowed);
+				m_settings_script->SetValueOfVariable("vsync",		m_vsync);
+				m_settings_script->SetValueOfVariable("bpp",		bpp_index);
+				m_settings_script->SetValueOfVariable("resolution", resolution_index);
+				m_settings_script->SetValueOfVariable("refresh",	refresh_rate_index);
 				// Save all the settings out to the settings script.
 				m_settings_script->ExportScript();
 

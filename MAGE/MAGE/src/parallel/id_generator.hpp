@@ -31,22 +31,22 @@ namespace mage {
 		 @param[in]		first_id
 						The first id of this id_generator
 		 */
-		explicit IdGenerator(uint32_t first_id = 0) 
+		explicit IdGenerator(int32_t first_id = 0)
 			: m_current_id(first_id) {}
 
 		/**
 		 Constructs an id generator from the given id generator.
 
 		 @param[in]		id_generator
-						The id generator.
+						A reference to the id generator to copy.
 		 */
 		IdGenerator(const IdGenerator &id_generator) = delete;
 
 		/**
-		 Constructs an id generator from the given id generator.
+		 Constructs an id generator by moving the given id generator.
 
 		 @param[in]		id_generator
-						The id generator.
+						A reference to the id generator to move.
 		 */
 		IdGenerator(IdGenerator &&id_generator) = default;
 
@@ -63,7 +63,7 @@ namespace mage {
 		 Copies the given id generator to this id generator.
 
 		 @param[in]		id_generator
-						The id generator to copy from.
+						The id generator to copy.
 		 @return		A reference to the copy of the given id generator
 						(i.e. this id generator).
 		 */
@@ -73,8 +73,8 @@ namespace mage {
 		 Copies the given id generator to this id generator.
 
 		 @param[in]		id_generator
-						The id generator to copy from.
-		 @return		A reference to the copy of the given id generator
+						The id generator to move.
+		 @return		A reference to the moved id generator
 						(i.e. this id generator).
 		 */
 		IdGenerator &operator=(IdGenerator &&id_generator) = delete;
@@ -88,8 +88,8 @@ namespace mage {
 
 		 @return		The next id of this id generator.
 		 */
-		uint32_t GetNextId() {
-			return static_cast< uint32_t >(AtomicAdd(&m_current_id, 1));
+		int32_t GetNextId() {
+			return AtomicAdd(&m_current_id, 1);
 		}
 
 	private:

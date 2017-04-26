@@ -55,15 +55,18 @@ namespace mage {
 	 The function compares the original pointer against a given comparand pointer
 	 and exchanges the original pointer with a given exchange pointer in case of equality.
 
-
-	 @param[in, out]	destination
+	 @tparam		The type of pointer.
+	 @pre			@a destination is not equal to @c nullptr.
+	 @pre			@a exchange is not equal to @c nullptr.
+	 @param[in,out]	destination
+					A pointer to a pointer to the destination value.
 	 @param[in]		exchange
 					The exchange pointer.
 	 @param[in]		comparand
 					The pointer to compare to @a destination.
 	 @return		The function returns the initial pointer of @a destination.
 	 */
-	template <typename T>
+	template< typename T >
 	inline T *AtomicCompareAndSwapPointer(T **destination, T *exchange, T *comparand) {
 		return InterlockedCompareExchangePointer(destination, exchange, comparand);
 	}
@@ -75,7 +78,8 @@ namespace mage {
 	/**
 	 Performs an atomic addition operation on the specified values.
 
-	 @param[in, out]	addend
+	 @pre			@a addend is not equal to @c nullptr.
+	 @param[in,out]	addend
 					A pointer to the first operand. This value will be 
 					replaced with the result of the operation.
 	 @param[in]		value
@@ -104,7 +108,9 @@ namespace mage {
 	 The function compares the original value against a given comparand value
 	 and exchanges the original value with a given exchange value in case of equality.
 
-	 @param[in, out]	destination
+	 @pre			@a destination is not equal to @c nullptr.
+	 @param[in,out]	destination
+					A pointer to a pointer to the destination value.
 	 @param[in]		exchange
 					The exchange value.
 	 @param[in]		comparand
@@ -123,7 +129,8 @@ namespace mage {
 	/**
 	 Performs an atomic addition operation on the specified values.
 
-	 @param[in, out]	addend
+	 @pre			@a addend is not equal to @c nullptr.
+	 @param[in,out]	addend
 					A pointer to the first operand. This value will be
 					replaced with the result of the operation.
 	 @param[in]		value
@@ -139,7 +146,9 @@ namespace mage {
 	 The function compares the original value against a given comparand value
 	 and exchanges the original value with a given exchange value in case of equality.
 
-	 @param[in, out]	destination
+	 @pre			@a destination is not equal to @c nullptr.
+	 @param[in,out]	destination
+					A pointer to a pointer to the destination value.
 	 @param[in]		exchange
 					The exchange value.
 	 @param[in]		comparand
@@ -158,7 +167,8 @@ namespace mage {
 	/**
 	 Performs an atomic addition operation on the specified values.
 
-	 @param[in, out]	addend
+	 @pre			@a addend is not equal to @c nullptr.
+	 @param[in,out]	addend
 					A pointer to the first operand. This value will be
 					replaced with the result of the operation.
 	 @param[in]		value

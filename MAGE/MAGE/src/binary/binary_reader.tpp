@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "logging\error.hpp"
+#include "logging\exception.hpp"
 
 #pragma endregion
 
@@ -20,15 +20,13 @@ namespace mage {
 	}
 
 	template< typename ValueT >
-	const ValueT *BigEndianBinaryReader::ReadValueArray(size_t size) {
-		const uint8_t *new_pos = m_pos + sizeof(ValueT) * size;
+	const ValueT *BigEndianBinaryReader::ReadValueArray(size_t count) {
+		const uint8_t *new_pos = m_pos + sizeof(ValueT) * count;
 		if (new_pos < m_pos) {
-			Error("%ls: overflow: no %llu values found.", GetFilename().c_str(), size);
-			return nullptr;
+			throw FormattedException("%ls: overflow: no %llu values found.", GetFilename().c_str(), count);
 		}
 		if (m_end < new_pos) {
-			Error("%ls: end of file: no %llu values found.", GetFilename().c_str(), size);
-			return nullptr;
+			throw FormattedException("%ls: end of file: no %llu values found.", GetFilename().c_str(), count);
 		}
 
 		const ValueT *result = BytesBigEndianToValue< ValueT >(m_pos);

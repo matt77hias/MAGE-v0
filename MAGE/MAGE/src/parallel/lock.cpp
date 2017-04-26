@@ -270,7 +270,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	ReadWriteMutexLock::ReadWriteMutexLock(ReadWriteMutex &mutex, ReadWriteMutexLockType lock_type)
 		: m_type(lock_type), m_mutex(mutex) {
-		if (m_type == READ) {
+		if (m_type == ReadWriteMutexLockType_Read) {
 			m_mutex.AcquireRead();
 		}
 		else {
@@ -279,7 +279,7 @@ namespace mage {
 	}
 
 	ReadWriteMutexLock::~ReadWriteMutexLock() {
-		if (m_type == READ) {
+		if (m_type == ReadWriteMutexLockType_Read) {
 			m_mutex.ReleaseRead();
 		}
 		else {
@@ -291,14 +291,14 @@ namespace mage {
 		Assert(m_type == READ);
 		m_mutex.ReleaseRead();
 		m_mutex.AcquireWrite();
-		m_type = WRITE;
+		m_type = ReadWriteMutexLockType_Write;
 	}
 
 	void ReadWriteMutexLock::DowngradeToRead() {
-		Assert(m_type == WRITE);
+		Assert(m_type == ReadWriteMutexLockType_Write);
 		m_mutex.ReleaseWrite();
 		m_mutex.AcquireRead();
-		m_type = READ;
+		m_type = ReadWriteMutexLockType_Read;
 	}
 
 	//-------------------------------------------------------------------------
@@ -322,7 +322,7 @@ namespace mage {
 		CloseHandle(m_handle);
 	}
 
-	void Semaphore::Post(uint32_t count) {
+	void Semaphore::Signal(uint32_t count) {
 		// Increases the count of the specified semaphore object.
 		// 1. A handle to the semaphore object.
 		// 2. The amount by which the semaphore object's current count is to be increased.
@@ -395,6 +395,18 @@ namespace mage {
 		LeaveCriticalSection(&m_condition_mutex);
 	}
 
+	void ConditionVariable::Signal() {
+		// Retrieve if there are waiters.
+		EnterCriticalSection(&m_nb_waiters_mutex);
+		const bool has_waiters = (m_nb_waiters > 0);
+		LeaveCriticalSection(&m_nb_waiters_mutex);
+
+		if (has_waiters) {
+			// Sets the SIGNAL event object to the signaled state.
+			SetEvent(m_events[SIGNAL]);
+		}
+	}
+
 	void ConditionVariable::Wait() {
 		// Increase the number of waiters.
 		EnterCriticalSection(&m_nb_waiters_mutex);
@@ -428,17 +440,5 @@ namespace mage {
 		}
 
 		EnterCriticalSection(&m_condition_mutex);
-	}
-
-	void ConditionVariable::Signal() {
-		// Retrieve if there are waiters.
-		EnterCriticalSection(&m_nb_waiters_mutex);
-		const bool has_waiters = (m_nb_waiters > 0);
-		LeaveCriticalSection(&m_nb_waiters_mutex);
-
-		if (has_waiters) {
-			// Sets the SIGNAL event object to the signaled state.
-			SetEvent(m_events[SIGNAL]);
-		}
 	}
 }

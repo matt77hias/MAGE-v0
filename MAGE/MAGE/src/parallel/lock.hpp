@@ -26,7 +26,7 @@ namespace mage {
 	/**
 	 A class of mutexes.
 	 */
-	class Mutex final {
+	struct Mutex final {
 
 	friend struct MutexLock;
 
@@ -45,15 +45,15 @@ namespace mage {
 		 Constructs a mutex from the given mutex.
 
 		 @param[in]		mutex
-						A reference to a mutex.
+						A reference to the mutex to copy.
 		 */
 		Mutex(const Mutex &mutex) = delete;
 
 		/**
-		 Constructs a mutex from the given mutex.
+		 Constructs a mutex by moving the given mutex.
 
 		 @param[in]		mutex
-						A reference to a mutex.
+						A reference to the mutex to move.
 		 */
 		Mutex(Mutex &&mutex) = delete;
 
@@ -70,18 +70,18 @@ namespace mage {
 		 Copies the given mutex to this mutex.
 
 		 @param[in]		mutex
-						A reference to a mutex.
+						A reference to the mutex to copy.
 		 @return		A reference to the copy of the given mutex 
 						(i.e. this mutex).
 		 */
 		Mutex &operator=(const Mutex &mutex) = delete;
 
 		/**
-		 Copies the given mutex to this mutex.
+		 Moves the given mutex to this mutex.
 
 		 @param[in]		mutex
-						A reference to a mutex.
-		 @return		A reference to the copy of the given mutex
+						A reference to the mutex to move.
+		 @return		A reference to the moved mutex
 						(i.e. this mutex).
 		 */
 		Mutex &operator=(Mutex &&mutex) = delete;
@@ -111,7 +111,7 @@ namespace mage {
 		 Constructs a mutex lock for the given mutex.
 
 		 @param[in]		mutex
-						A reference to a mutex.
+						A reference to the mutex.
 		 */
 		explicit MutexLock(Mutex &mutex);
 
@@ -119,15 +119,15 @@ namespace mage {
 		 Constructs a mutex lock from the given mutex lock.
 
 		 @param[in]		mutex_lock
-						A reference to a mutex lock.
+						A reference to the mutex lock to copy.
 		 */
 		MutexLock(const MutexLock &mutex_lock) = delete;
 
 		/**
-		 Constructs a mutex lock from the given mutex lock.
+		 Constructs a mutex lock by moving the given mutex lock.
 
 		 @param[in]		mutex_lock
-						A reference to a mutex lock.
+						A reference to the mutex lock to move.
 		 */
 		MutexLock(MutexLock &&mutex_lock) = delete;
 
@@ -144,18 +144,18 @@ namespace mage {
 		 Copies the given mutex lock to this mutex lock.
 
 		 @param[in]		mutex_lock
-						A reference to a mutex lock.
+						A reference to the mutex lock to copy.
 		 @return		A reference to the copy of the given mutex lock 
 						(i.e. this mutex lock)
 		 */
 		MutexLock &operator=(const MutexLock &mutex_lock) = delete;
 
 		/**
-		 Copies the given mutex lock to this mutex lock.
+		 Moves the given mutex lock to this mutex lock.
 
 		 @param[in]		mutex_lock
-						A reference to a mutex lock.
-		 @return		A reference to the copy of the given mutex lock
+						A reference to the mutex lock to move.
+		 @return		A reference to the moved mutex lock
 						(i.e. this mutex lock)
 		 */
 		MutexLock &operator=(MutexLock &&mutex_lock) = delete;
@@ -167,7 +167,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The mutex of this mutex lock.
+		 A reference to the mutex of this mutex lock.
 		 */
 		Mutex &m_mutex;
 	};
@@ -175,7 +175,7 @@ namespace mage {
 	/**
 	 A class of read write mutexes.
 	 */
-	class ReadWriteMutex final {
+	struct ReadWriteMutex final {
 
 	friend struct ReadWriteMutexLock;
 
@@ -194,15 +194,15 @@ namespace mage {
 		 Constructs a read write mutex from the given read write mutex.
 
 		 @param[in]		mutex
-						The read write mutex.
+						A reference to the read write mutex to copy.
 		 */
 		ReadWriteMutex(const ReadWriteMutex &mutex) = delete;
 
 		/**
-		 Constructs a read write mutex from the given read write mutex.
+		 Constructs a read write mutex by moving the given read write mutex.
 
 		 @param[in]		mutex
-						The read write mutex.
+						A reference to the read write mutex to move.
 		 */
 		ReadWriteMutex(ReadWriteMutex &&mutex) = delete;
 
@@ -219,17 +219,19 @@ namespace mage {
 		 Copies the given read write mutex to this read write mutex.
 
 		 @param[in]		mutex
-						A reference to a read write mutex.
-		 @return		A reference to the copy of @a mutex.
+						A reference to a read write mutex to copy.
+		 @return		A reference to the copy of the given read write mutex
+						(i.e. this read write mutex).
 		 */
 		ReadWriteMutex &operator=(const ReadWriteMutex &mutex) = delete;
 
 		/**
-		 Copies the given read write mutex to this read write mutex.
+		 Moves the given read write mutex to this read write mutex.
 
 		 @param[in]		mutex
-						A reference to a read write mutex.
-		 @return		A reference to the copy of @a mutex.
+						A reference to a read write mutex to move.
+		 @return		A reference to the moved read write mutex
+						(i.e. this read write mutex).
 		 */
 		ReadWriteMutex &operator=(ReadWriteMutex &&mutex) = delete;
 
@@ -245,7 +247,7 @@ namespace mage {
 		void AcquireRead();
 
 		/**
-		 Release a read.
+		 Releases a read.
 		 */
 		void ReleaseRead();
 
@@ -255,7 +257,7 @@ namespace mage {
 		void AcquireWrite();
 
 		/**
-		 Release a write.
+		 Releases a write.
 		 */
 		void ReleaseWrite();
 
@@ -264,17 +266,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The number of writers waiting for this read write mutex lock.
+		 The number of writers waiting for this read write mutex.
 		 */
 		LONG m_nb_writers_waiting;
 
 		/**
-		 The number of readers waiting for this read write mutex lock.
+		 The number of readers waiting for this read write mutex.
 		 */
 		LONG m_nb_readers_waiting;
 
 		/**
-		 The active group of this read write mutex lock.
+		 The active group of this read write mutex.
 
 		 HIWORD is the flag indicating a writer is active.
 		 LOWORD is the number of active readers.
@@ -282,12 +284,12 @@ namespace mage {
 		DWORD m_active_writer_readers;
 
 		/**
-		 The handle of this read write mutex lock if ready for reading.
+		 The handle of this read write mutex if ready for reading.
 		 */
 		HANDLE m_ready_to_read_handle;
 
 		/**
-		 The handle of this read write mutex lock if ready for writing.
+		 The handle of this read write mutex if ready for writing.
 		 */
 		HANDLE m_ready_to_write_handle;
 
@@ -298,9 +300,16 @@ namespace mage {
 	};
 
 	/**
-	 Type of read write mutex locks.
+	 An enumeration of the different read write mutex lock types.
+	 
+	 This contains:
+	 @c ReadWriteMutexLockType_Read and 
+	 @c ReadWriteMutexLockType_Write.
 	 */
-	enum ReadWriteMutexLockType { READ, WRITE };
+	enum ReadWriteMutexLockType { 
+		ReadWriteMutexLockType_Read,
+		ReadWriteMutexLockType_Write 
+	};
 
 	/**
 	 A struct of read write mutex locks.
@@ -325,15 +334,15 @@ namespace mage {
 		 Constructs a read write mutex lock from the given read write mutex lock.
 
 		 @param[in]		mutex_lock
-						A reference to a read write mutex lock.
+						A reference to the read write mutex lock to copy.
 		 */
 		ReadWriteMutexLock(const ReadWriteMutexLock &mutex_lock) = delete;
 
 		/**
-		 Constructs a read write mutex lock from the given read write mutex lock.
+		 Constructs a read write mutex lock by moving the given read write mutex lock.
 
 		 @param[in]		mutex_lock
-						A reference to a read write mutex lock.
+						A reference to the read write mutex lock to move.
 		 */
 		ReadWriteMutexLock(ReadWriteMutexLock &&mutex_lock) = delete;
 
@@ -350,19 +359,19 @@ namespace mage {
 		 Copies the given read write mutex lock to this read write mutex lock.
 
 		 @param[in]		mutex_lock
-						A reference to a read write mutex lock.
-		 @return		A reference to the copy of the given mutex lock
-						(i.e. this mutex lock).
+						A reference to the read write mutex lock to copy.
+		 @return		A reference to the copy of the given read write mutex lock
+						(i.e. this read write mutex lock).
 		 */
 		ReadWriteMutexLock &operator=(const ReadWriteMutexLock &mutex_lock) = delete;
 
 		/**
-		 Copies the given read write mutex lock to this read write mutex lock.
+		 Moves the given read write mutex lock to this read write mutex lock.
 
 		 @param[in]		mutex_lock
-						A reference to a read write mutex lock.
-		 @return		A reference to the copy of the given mutex lock
-						(i.e. this mutex lock).
+						A reference to the read write mutex lock to move.
+		 @return		A reference to the moved read write mutex lock
+						(i.e. this read write mutex lock).
 		 */
 		ReadWriteMutexLock &operator=(ReadWriteMutexLock &&mutex_lock) = delete;
 
@@ -392,7 +401,7 @@ namespace mage {
 		ReadWriteMutexLockType m_type;
 
 		/**
-		 The read write mutex of this read write mutex lock. 
+		 A reference to the read write mutex of this read write mutex lock. 
 		 */
 		ReadWriteMutex &m_mutex;
 	};
@@ -400,7 +409,7 @@ namespace mage {
 	/**
 	 A class of semaphores.
 	 */
-	class Semaphore final {
+	struct Semaphore final {
 
 	public:
 
@@ -417,15 +426,15 @@ namespace mage {
 		 Constructs a semaphore from the given semaphore.
 
 		 @param[in]		semaphore
-						A reference to a semaphore.
+						A reference to the semaphore to copy.
 		 */
 		Semaphore(const Semaphore &semaphore) = delete;
 
 		/**
-		 Constructs a semaphore from the given semaphore.
+		 Constructs a semaphore by moving the given semaphore.
 
 		 @param[in]		semaphore
-						A reference to a semaphore.
+						A reference to the semaphore to move.
 		 */
 		Semaphore(Semaphore &&semaphore) = delete;
 
@@ -442,7 +451,7 @@ namespace mage {
 		 Copies the given semaphore to this semaphore.
 
 		 @param[in]		semaphore
-						A reference to a semaphore.
+						A reference to the semaphore to copy.
 		 @return		A reference to the copy of the given semaphore
 						(i.e. this semaphore)
 		 */
@@ -452,8 +461,8 @@ namespace mage {
 		 Copies the given semaphore to this semaphore.
 
 		 @param[in]		semaphore
-						A reference to a semaphore.
-		 @return		A reference to the copy of the given semaphore
+						A reference to the semaphore to move.
+		 @return		A reference to the moved semaphore
 						(i.e. this semaphore)
 		 */
 		Semaphore &operator=(Semaphore &&semaphore) = delete;
@@ -465,20 +474,19 @@ namespace mage {
 		/**
 		 Increments the value of this semaphore variable by the given value.
 		 
-		 The process executing wait is blocked until the value of the semaphore 
-		 is greater or equal to 1.
+		 If the initial value of the semaphore is negative, the waiting queue is not
+		 empty and thus one blocked process can be transferred to the ready queue.
 
 		 @param[in]		count
 						The increment value.
 		 */
-		void Post(uint32_t count = 1);
+		void Signal(uint32_t count = 1);
 		
 		/**
 		 Decrements the value of this semaphore variable by one.
 
-		 If the initial value of the semaphore is negative, the waiting queue is not
-		 empty and thus one blocked process can be transferred to the ready queue.
-
+		 The process executing wait is blocked until the value of the semaphore
+		 is greater or equal to 1.
 		 */
 		void Wait();
 		
@@ -505,7 +513,7 @@ namespace mage {
 	/**
 	 A class of condition variables.
 	 */
-	class ConditionVariable final {
+	struct ConditionVariable final {
 
 	public:
 
@@ -522,15 +530,15 @@ namespace mage {
 		 Constructs a condition variable from the given condition variable.
 
 		 @param[in]		condition_variable
-						A reference to a condition variable.
+						A reference to the condition variable to copy.
 		 */
 		ConditionVariable(const ConditionVariable &condition_variable) = delete;
 
 		/**
-		 Constructs a condition variable from the given condition variable.
+		 Constructs a condition variable by moving the given condition variable.
 
 		 @param[in]		condition_variable
-						A reference to a condition variable.
+						A reference to the condition variable to move.
 		 */
 		ConditionVariable(ConditionVariable &&condition_variable) = delete;
 
@@ -547,18 +555,18 @@ namespace mage {
 		 Copies the given condition variable to this condition variable.
 
 		 @param[in]		condition_variable
-						A reference to a condition variable.
+						A reference to the condition variable to copy.
 		 @return		A reference to the copy of the given condition variable
 						(i.e. this condition variable)
 		 */
 		ConditionVariable &operator=(const ConditionVariable &condition_variable) = delete;
 
 		/**
-		 Copies the given condition variable to this condition variable.
+		 Moves the given condition variable to this condition variable.
 
 		 @param[in]		condition_variable
-						A reference to a condition variable.
-		 @return		A reference to the copy of the given condition variable
+						A reference to the condition variable to move.
+		 @return		A reference to the moved condition variable
 						(i.e. this condition variable)
 		 */
 		ConditionVariable &operator=(ConditionVariable &&condition_variable) = delete;
@@ -578,14 +586,14 @@ namespace mage {
 		void Unlock();
 
 		/**
-		 Wait for a signal indicating a condition change.
-		 */
-		void Wait();
-
-		/**
-		 Signal a condition change.
+		 Signals a condition change.
 		 */
 		void Signal();
+
+		/**
+		 Waits for a signal indicating a condition change.
+		 */
+		void Wait();
 
 	private:
 
@@ -611,12 +619,16 @@ namespace mage {
 		CRITICAL_SECTION m_condition_mutex;
 
 		/**
-		 Type of events (indices).
+		 An enumeration of the different types of events of this condition variable.
 		 */
-		enum { SIGNAL = 0, BROADCAST = 1, NB_EVENTS = 2 };
+		enum { 
+			SIGNAL    = 0, 
+			BROADCAST = 1, 
+			NB_EVENTS = 2 
+		};
 
 		/**
-		 Signal and broadcast event handles of this condition variable.
+		 The signal and broadcast event handles of this condition variable.
 		 */
 		HANDLE m_events[NB_EVENTS];
 	};

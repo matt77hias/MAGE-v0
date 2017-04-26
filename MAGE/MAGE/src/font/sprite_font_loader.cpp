@@ -19,7 +19,8 @@ namespace mage {
 		const wstring extension = GetFileExtension(fname);
 
 		if (extension == L"spritefont" || extension == L"SPRITEFONT") {
-			return ImportFontFromFile(fname, device, output, desc);
+			ImportFontFromFile(fname, device, output, desc);
+			return S_OK;
 		}
 
 		Warning("Unknown sprite font file extension: %ls", fname.c_str());

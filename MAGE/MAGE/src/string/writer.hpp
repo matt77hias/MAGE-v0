@@ -115,7 +115,7 @@ namespace mage {
 		 @param[in]		c
 						The character to write.
 		 @throws		FormattedException
-						Failed to write to the given file.
+						Failed to write the given character.
 		 */
 		void WriteCharacter(char c);
 
@@ -126,7 +126,7 @@ namespace mage {
 		 @param[in]		str
 						A pointer to the first null-terminated byte string to write.
 		 @throws		FormattedException
-						Failed to write to the given file.
+						Failed to write the given string.
 		 */
 		void WriteString(const char *str);
 		
@@ -136,7 +136,7 @@ namespace mage {
 		 @param[in]		str
 						A reference to the string to write.
 		 @throws		FormattedException
-						Failed to write to the given file.
+						Failed to write the given string.
 		 */
 		void WriteString(const string &str) {
 			WriteString(str.c_str());
@@ -149,7 +149,7 @@ namespace mage {
 		 @param[in]		str
 						A pointer to the first null-terminated byte string to write.
 		 @throws		FormattedException
-						Failed to write to the given file.
+						Failed to write the given string.
 		 */
 		void WriteStringLine(const char *str);
 		
@@ -159,7 +159,7 @@ namespace mage {
 		 @param[in]		str
 						A reference to the string to write.
 		 @throws		FormattedException
-						Failed to write to the given file.
+						Failed to write the given string.
 		 */
 		void WriteStringLine(const string &str) {
 			WriteStringLine(str.c_str());
@@ -175,7 +175,7 @@ namespace mage {
 		 Starts writing.
 
 		 @throws		FormattedException
-						Failed to write to the given file.
+						Failed to write.
 		 */
 		virtual void Write() = 0;
 

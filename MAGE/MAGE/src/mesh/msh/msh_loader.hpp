@@ -29,10 +29,9 @@ namespace mage {
 					A reference to a vector containing the vertices of the mesh.
 	 @param[in,out]	indices
 					A reference to a vector containing the indices of the mesh.
-	 @return		A success/error value.
 	 */
 	template < typename VertexT, typename IndexT >
-	HRESULT ImportMSHMeshFromFile(const wstring &fname, 
+	void ImportMSHMeshFromFile(const wstring &fname, 
 		vector< VertexT > &vertices, vector< IndexT > &indices);
 
 	/**
@@ -48,10 +47,9 @@ namespace mage {
 					A reference to a vector containing the vertices of the mesh.
 	 @param[in]		indices
 					A reference to a vector containing the indices of the mesh.
-	 @return		A success/error value.
 	 */
 	template < typename VertexT, typename IndexT >
-	HRESULT ExportMSHMeshToFile(const wstring &fname,
+	void ExportMSHMeshToFile(const wstring &fname,
 		const vector< VertexT > &vertices, const vector< IndexT > &indices);
 }
 

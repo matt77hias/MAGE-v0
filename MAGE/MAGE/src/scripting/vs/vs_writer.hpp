@@ -92,7 +92,7 @@ namespace mage {
 		 Starts writing.
 
 		 @throws		FormattedException
-						Failed to write to the given file.
+						Failed to write.
 		 */
 		virtual void Write() override;
 

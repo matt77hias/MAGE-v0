@@ -94,7 +94,7 @@ namespace mage {
 		 @param[in,out] line
 						A pointer to the null-terminated byte string to read.
 		 @throws		FormattedException
-						The reading of the line failed.
+						Failed to read the given line.
 		 */
 		virtual void ReadLine(char *line) override;
 
@@ -102,7 +102,7 @@ namespace mage {
 		 Reads a Bool variable.
 
 		 @throws		FormattedException
-						The reading of the Bool variable failed.
+						Failed to read a Bool variable.
 		 */
 		void ReadVSBool();
 
@@ -110,7 +110,7 @@ namespace mage {
 		 Reads an Int variable.
 
 		 @throws		FormattedException
-						The reading of the Int variable failed.
+						Failed to read a Int variable.
 		 */
 		void ReadVSInt();
 
@@ -118,7 +118,7 @@ namespace mage {
 		 Reads an Int2 variable.
 
 		 @throws		FormattedException
-						The reading of the Int2 variable failed.
+						Failed to read a Int2 variable.
 		 */
 		void ReadVSInt2();
 
@@ -126,7 +126,7 @@ namespace mage {
 		 Reads an Int variable.
 
 		 @throws		FormattedException
-						The reading of the Int3 variable failed.
+						Failed to read a Int3 variable.
 		 */
 		void ReadVSInt3();
 
@@ -134,7 +134,7 @@ namespace mage {
 		 Reads a Float variable.
 
 		 @throws		FormattedException
-						The reading of the Float variable failed.
+						Failed to read a Float variable.
 		 */
 		void ReadVSFloat();
 
@@ -142,7 +142,7 @@ namespace mage {
 		 Reads a Float2 variable.
 
 		 @throws		FormattedException
-						The reading of the Float2 variable failed.
+						Failed to read a Float2 variable.
 		 */
 		void ReadVSFloat2();
 
@@ -150,7 +150,7 @@ namespace mage {
 		 Reads a Float3 variable.
 
 		 @throws		FormattedException
-						The reading of the Float3 variable failed.
+						Failed to read a Float3 variable.
 		 */
 		void ReadVSFloat3();
 
@@ -158,7 +158,7 @@ namespace mage {
 		 Reads a Float4 variable.
 
 		 @throws		FormattedException
-						The reading of the Float4 variable failed.
+						Failed to read a Float4 variable.
 		 */
 		void ReadVSFloat4();
 
@@ -166,7 +166,7 @@ namespace mage {
 		 Reads a Color variable.
 
 		 @throws		FormattedException
-						The reading of the Color variable failed.
+						Failed to read a Color variable.
 		 */
 		void ReadVSColor();
 
@@ -174,7 +174,7 @@ namespace mage {
 		 Reads a String variable.
 
 		 @throws		FormattedException
-						The reading of the String variable failed.
+						Failed to read a String variable.
 		 */
 		void ReadVSString();
 

@@ -25,11 +25,10 @@
 namespace mage {
 
 	template< typename VertexT, typename IndexT >
-	HRESULT MSHReader< VertexT, IndexT >::Read() {
+	void MSHReader< VertexT, IndexT >::Read() {
 
 		if (!IsHeaderValid()) {
 			Error("%ls: invalid mesh header.", GetFilename().c_str());
-			return E_FAIL;
 		}
 
 		const uint32_t nb_vertices = ReadValue< uint32_t >();
@@ -40,8 +39,6 @@ namespace mage {
 
 		const IndexT *indices   = ReadValueArray< IndexT >(nb_indices);
 		m_indices.assign(indices, indices + nb_indices);
-
-		return S_OK;
 	}
 
 	template< typename VertexT, typename IndexT >

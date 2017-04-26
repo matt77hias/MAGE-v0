@@ -24,7 +24,7 @@
 namespace mage {
 
 	template< typename VertexT, typename IndexT >
-	HRESULT MSHWriter< VertexT, IndexT >::Write() {
+	void MSHWriter< VertexT, IndexT >::Write() {
 
 		WriteString(MAGE_MSH_MAGIC);
 
@@ -35,7 +35,5 @@ namespace mage {
 		
 		WriteValueArray(m_vertices.data(), m_vertices.size());
 		WriteValueArray(m_indices.data(), m_indices.size());
-		
-		return S_OK;
 	}
 }

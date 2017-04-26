@@ -449,7 +449,7 @@ namespace mage {
 		 Pre-process before reading the current file of this line reader.
 
 		 @throws		FormattedException
-						The pre-processing failed.
+						Failed to finish the pre-processing successfully.
 		 */
 		virtual void Preprocess() {}
 
@@ -459,7 +459,7 @@ namespace mage {
 		 @param[in,out] line
 						A pointer to the null-terminated byte string to read.
 		 @throws		FormattedException
-						The reading of the line failed.
+						Failed to read the given line.
 		 */
 		virtual void ReadLine(char *line) = 0;
 
@@ -467,7 +467,7 @@ namespace mage {
 		 Post-process after reading the current file of this line reader.
 
 		 @throws		FormattedException
-						The post-processing failed.
+						Failed to finish post-processing successfully.
 		 */
 		virtual void Postprocess() {}
 

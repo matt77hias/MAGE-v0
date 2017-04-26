@@ -275,7 +275,7 @@ namespace mage {
 		size_t m_nb_processor_cores;
 		
 		/**
-		 The modes of this CPU timer.
+		 An enumeration of the different modes of this CPU timer..
 		 */
 		enum { 
 			KERNEL_MODE = 0,

@@ -12,29 +12,43 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT BigEndianBinaryWriter::WriteToFile(const wstring &fname) {
+	BigEndianBinaryWriter::~BigEndianBinaryWriter() {
+		CloseFile();
+	}
+
+	void BigEndianBinaryWriter::CloseFile() {
+		if (m_file) {
+			fclose(m_file);
+			m_file = nullptr;
+		}
+	}
+
+	void BigEndianBinaryWriter::WriteToFile(const wstring &fname) {
 		m_fname = fname;
+
+		CloseFile();
 
 		const errno_t result_fopen_s = _wfopen_s(&m_file, GetFilename().c_str(), L"wb");
 		if (result_fopen_s) {
-			Error("%ls: could not open file.", GetFilename().c_str());
-			return E_FAIL;
+			throw FormattedException("%ls: could not open file.", GetFilename().c_str());
 		}
 
-		const HRESULT result_write = Write();
+		Write();
 
-		// Close the script file.
-		fclose(m_file);
-		m_file = nullptr;
-
-		return result_write;
+		CloseFile();
 	}
 
 	void BigEndianBinaryWriter::WriteCharacter(char c) {
-		fputc(c, m_file);
+		const int result = fputc(c, m_file);
+		if (result == EOF) {
+			throw FormattedException("%ls: could not write to file.", GetFilename().c_str());
+		}
 	}
 
 	void BigEndianBinaryWriter::WriteString(const char *str) {
-		fputs(str, m_file);
+		const int result = fputs(str, m_file);
+		if (result == EOF) {
+			throw FormattedException("%ls: could not write to file.", GetFilename().c_str());
+		}
 	}
 }

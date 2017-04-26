@@ -43,7 +43,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual HRESULT Read() override;
+		virtual void Read() override;
 
 		bool IsHeaderValid();
 

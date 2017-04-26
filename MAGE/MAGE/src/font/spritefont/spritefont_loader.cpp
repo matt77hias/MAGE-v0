@@ -13,8 +13,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT ImportFontFromFile(const wstring &fname, ID3D11Device2 *device, SpriteFontOutput &output, const SpriteFontDescriptor &desc) {
+	void ImportFontFromFile(const wstring &fname, ID3D11Device2 *device, SpriteFontOutput &output, const SpriteFontDescriptor &desc) {
 		SpriteFontReader reader(device, output, desc);
-		return reader.ReadFromFile(fname);
+		reader.ReadFromFile(fname);
 	}
 }

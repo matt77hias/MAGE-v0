@@ -17,11 +17,10 @@ namespace mage {
 	SpriteFontReader::SpriteFontReader(ID3D11Device2 *device, SpriteFontOutput &output, const SpriteFontDescriptor &desc)
 		: BigEndianBinaryReader(), m_device(device), m_output(output), m_desc(desc) {}
 
-	HRESULT SpriteFontReader::Read() {
+	void SpriteFontReader::Read() {
 	
 		if (!IsHeaderValid()) {
 			Error("%ls: invalid sprite font header.", GetFilename().c_str());
-			return E_FAIL;
 		}
 
 		// Read glyphs.
@@ -39,10 +38,7 @@ namespace mage {
 		const HRESULT result_texture = ReadTexture();
 		if (FAILED(result_texture)) {
 			Error("%ls: failed to create texture: %08X.", GetFilename().c_str(), result_texture);
-			return result_texture;
 		}
-
-		return S_OK;
 	}
 
 	bool SpriteFontReader::IsHeaderValid() {

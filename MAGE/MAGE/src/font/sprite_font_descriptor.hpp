@@ -19,7 +19,7 @@ namespace mage {
 		/**
 		 Constructs a sprite font descriptor.
 
-		 @param[in]		invert_handedness
+		 @param[in]		force_srgb
 						A flag indicating whether working around gamma issues is needed. 
 		 */
 		explicit SpriteFontDescriptor(bool force_srgb = false)

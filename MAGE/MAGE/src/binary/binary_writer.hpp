@@ -42,7 +42,7 @@ namespace mage {
 		 @return		A reference to the copy of the given big endian binary writer
 						(i.e. this big endian binary writer).
 		 */
-		BigEndianBinaryWriter &operator=(const BigEndianBinaryWriter &reader) = delete;
+		BigEndianBinaryWriter &operator=(const BigEndianBinaryWriter &writer) = delete;
 
 		/**
 		 Moves the given big endian binary writer to this big endian binary writer.
@@ -52,7 +52,7 @@ namespace mage {
 		 @return		A reference to the moved big endian binary writer
 						(i.e. this big endian binary writer).
 		 */
-		BigEndianBinaryWriter &operator=(BigEndianBinaryWriter &&reader) = delete;
+		BigEndianBinaryWriter &operator=(BigEndianBinaryWriter &&writer) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -95,7 +95,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the big endian binary writer to copy.
 		 */
-		BigEndianBinaryWriter(const BigEndianBinaryWriter &reader) = delete;
+		BigEndianBinaryWriter(const BigEndianBinaryWriter &writer) = delete;
 		
 		/**
 		 Constructs a big endian binary writer by moving the given big endian binary writer.
@@ -103,7 +103,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the big endian binary writer to move.
 		 */
-		BigEndianBinaryWriter(BigEndianBinaryWriter &&reader) = default;
+		BigEndianBinaryWriter(BigEndianBinaryWriter &&writer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

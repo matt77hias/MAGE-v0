@@ -24,32 +24,135 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 A struct of glyph "less than" comparators.
+	 */
 	struct GlyphLessThan final {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a glyph "less than" comparator.
+		 */
 		GlyphLessThan() = default;
+
+		/**
+		 Constructs a glyph "less than" comparator 
+		 from the given glyph "less than" comparator.
+
+		 @param[in]		comparator
+						A reference to the glyph "less than" 
+						comparator to copy.
+		 */
 		GlyphLessThan(const GlyphLessThan &comparator) = default;
+
+		/**
+		 Constructs a glyph "less than" comparator 
+		 by moving the given glyph "less than" comparator.
+
+		 @param[in]		comparator
+						A reference to the glyph "less than"
+						comparator to move.
+		 */
 		GlyphLessThan(GlyphLessThan &&comparator) = default;
+
+		/**
+		 Destructs this glyph "less than" comparator.
+		 */
 		~GlyphLessThan() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given glyph "less than" comparator
+		 to this glyph "less than" comparator.
+
+		 @param[in]		comparator
+						A reference to the glyph "less than"
+						comparator to copy.
+		 @return		A reference to the copy of the given
+						"less than" comparator 
+						(i.e. this "less than" comparator).
+		 */
 		GlyphLessThan &operator=(const GlyphLessThan &comparator) = default;
+
+		/**
+		 Moves the given glyph "less than" comparator
+		 to this glyph "less than" comparator.
+
+		 @param[in]		comparator
+						A reference to the glyph "less than"
+						comparator to move.
+		 @return		A reference to the moved
+						"less than" comparator
+						(i.e. this "less than" comparator).
+		 */
 		GlyphLessThan &operator=(GlyphLessThan &&comparator) = default;
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether the first given glyph's character is smaller
+		 than the second given glyph's character.
+
+		 @param[in]		lhs
+						A reference to the first glyph.
+		 @param[in]		rhs
+						A reference to the second glyph.
+		 @return		@c true if the first given glyph's character 
+						is smaller than the second given glyph's character.
+						@c false otherwise.
+		 */
 		inline bool operator()(const Glyph &lhs, const Glyph &rhs) {
 			return lhs.m_character < rhs.m_character;
 		}
+
+		/**
+		 Checks whether the given glyph's character is smaller
+		 than the given character.
+
+		 @param[in]		lhs
+						A reference to the glyph.
+		 @param[in]		rhs
+						The character.
+		 @return		@c true if the given glyph's character is smaller
+						than the given character.
+						@c false otherwise.
+		 */
 		inline bool operator()(const Glyph &lhs, wchar_t rhs) {
 			return lhs.m_character < static_cast< uint32_t >(rhs);
 		}
+
+		/**
+		 Checks whether the given character is smaller
+		 than the given glyph's character.
+
+		 @param[in]		lhs
+						The character.
+		 @param[in]		rhs
+						A reference to the glyph.
+		 @return		@c true if the given character is smaller
+						than the given glyph's character.
+						@c false otherwise.
+		 */
 		inline bool operator()(wchar_t lhs, const Glyph &rhs) {
 			return static_cast< uint32_t >(lhs) < rhs.m_character;
 		}
 	};
 
 	SpriteFont::SpriteFont(ID3D11Device2 *device, const wstring &fname, const SpriteFontDescriptor &desc)
-		: Resource(fname), m_texture(), m_glyphs(), 
+		: FileResource(fname), m_texture(), m_glyphs(),
 		m_default_glyph(nullptr), m_line_spacing(0.0f) {
+
+		Assert(device);
 
 		SpriteFontOutput output;
 		ImportSpriteFontFromFile(fname, device, output, desc);
@@ -57,23 +160,21 @@ namespace mage {
 		InitializeSpriteFont(output);
 	}
 
-	HRESULT SpriteFont::InitializeSpriteFont(const SpriteFontOutput &output) {
+	void SpriteFont::InitializeSpriteFont(const SpriteFontOutput &output) {
 		m_glyphs = std::move(output.m_glyphs);
 		if (!std::is_sorted(m_glyphs.cbegin(), m_glyphs.cend(), GlyphLessThan())) {
-			Error("Sprite font glyphs are not sorted.");
-			return E_FAIL;
+			throw FormattedException("Sprite font glyphs are not sorted.");
 		}
 
 		SetLineSpacing(output.m_line_spacing);
 		SetDefaultCharacter(output.m_default_character);
 		
 		m_texture = std::move(output.m_texture);
-
-		return S_OK;
 	}
 
 	void SpriteFont::DrawString(SpriteBatch &sprite_batch, const wchar_t *text, 
 		const SpriteTransform &transform, const XMVECTOR &color, SpriteEffect effects) const {
+		Assert(text);
 
 		static_assert(SpriteEffect_FlipHorizontally == 1 && SpriteEffect_FlipVertically == 2,
 			"The following tables must be updated to match");
@@ -151,7 +252,10 @@ namespace mage {
 			++text;
 		}
 	}
+	
 	const XMVECTOR SpriteFont::MeasureString(const wchar_t *text) const {
+		Assert(text);
+
 		XMVECTOR result = XMVectorZero();
 		float x = 0;
 		float y = 0;
@@ -194,7 +298,10 @@ namespace mage {
 
 		return result;
 	}
+	
 	const RECT SpriteFont::MeasureDrawBounds(const wchar_t *text, const XMFLOAT2 &position) const {
+		Assert(text);
+
 		RECT result = { LONG_MAX, LONG_MAX, 0, 0 };
 		float x = 0;
 		float y = 0;
@@ -263,7 +370,7 @@ namespace mage {
 		}
 
 		if (!m_default_glyph) {
-			throw exception("Character not found in sprite font.");
+			throw FormattedException("Character not found in sprite font.");
 		}
 
 		return m_default_glyph;
@@ -271,7 +378,11 @@ namespace mage {
 
 	SharedPtr< SpriteFont > CreateFont(const wstring &fname, const SpriteFontDescriptor &desc) {
 		ID3D11Device2 *device = GetRenderingDevice();
+		Assert(device);
+		
 		ResourceFactory *factory = GetResourceFactory();
+		Assert(factory);
+		
 		return factory->CreateFont(device, fname, desc);
 	}
 }

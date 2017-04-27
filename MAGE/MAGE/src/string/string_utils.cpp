@@ -171,4 +171,12 @@ namespace mage {
 	const char *str_convert(const wchar_t *str) {
 		return CW2A(str);
 	}
+
+	const wstring str_convert(const string &str) {
+		return wstring(CA2W(str.c_str()));
+	}
+
+	const string str_convert(const wstring &str) {
+		return string(CW2A(str.c_str()));
+	}
 }

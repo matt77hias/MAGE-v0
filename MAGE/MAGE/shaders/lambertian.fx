@@ -2,10 +2,10 @@
 // Transformations
 //-----------------------------------------------------------------------------
 cbuffer Transform : register(b0) {
-	matrix model_to_world;					// The model-to-world transformation matrix.
-	matrix world_to_view;					// The world-to-view transformation matrix.
-	matrix world_to_view_inverse_transpose; // The world-to-view inverse transpose transformation matrix.
-	matrix view_to_projection;				// The view-to-projection transformation matrix.
+	matrix object_to_world;					 // The object-to-world transformation matrix.
+	matrix world_to_view;					 // The world-to-view transformation matrix.
+	matrix object_to_view_inverse_transpose; // The object-to-view inverse transpose transformation matrix.
+	matrix view_to_projection;				 // The view-to-projection transformation matrix.
 }
 
 //-----------------------------------------------------------------------------
@@ -301,11 +301,11 @@ struct PS_INPUT {
 
 PS_INPUT VS(VS_INPUT input) {
 	PS_INPUT output = (PS_INPUT)0;
-	output.p_view   = mul(input.p, model_to_world);
+	output.p_view   = mul(input.p, object_to_world);
 	output.p_view   = mul(output.p_view, world_to_view);
 	output.p        = mul(output.p_view, view_to_projection);
 	output.tex      = input.tex;
-	output.n_view   = mul(input.n, (float3x3)world_to_view_inverse_transpose);
+	output.n_view   = normalize(mul(input.n, (float3x3)object_to_view_inverse_transpose));
 	return output;
 }
 

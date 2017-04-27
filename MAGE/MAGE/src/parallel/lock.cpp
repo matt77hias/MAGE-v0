@@ -288,7 +288,7 @@ namespace mage {
 	}
 	
 	void ReadWriteMutexLock::UpgradeToWrite() {
-		Assert(m_type == READ);
+		Assert(m_type == ReadWriteMutexLockType_Read);
 		m_mutex.ReleaseRead();
 		m_mutex.AcquireWrite();
 		m_type = ReadWriteMutexLockType_Write;

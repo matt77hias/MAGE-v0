@@ -7,6 +7,7 @@
 
 #include "core\targetver.hpp"
 
+#include "core\loadable.hpp"
 #include "rendering\renderer.hpp"
 #include "input\input_manager.hpp"
 #include "ui\main_window.hpp"
@@ -25,7 +26,7 @@ namespace mage {
 	/**
 	 A class of engines.
 	 */
-	class Engine final {
+	class Engine final : public Loadable {
 
 	public:
 
@@ -62,7 +63,7 @@ namespace mage {
 		/**
 		 Destructs this engine.
 		 */
-		~Engine();
+		virtual ~Engine();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

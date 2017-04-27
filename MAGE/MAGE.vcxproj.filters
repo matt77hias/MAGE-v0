@@ -223,9 +223,6 @@
     <Filter Include="Header Files\buffer">
       <UniqueIdentifier>{6611e24b-5030-4508-99c0-733263f8d080}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\buffer">
-      <UniqueIdentifier>{d58afbdd-86c4-4381-a6d1-4e4284f2e246}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -925,9 +922,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\math\transform_node.cpp">
       <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\buffer\transform_buffer.cpp">
-      <Filter>Source Files\buffer</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\logging\exception.cpp">
       <Filter>Source Files\logging</Filter>

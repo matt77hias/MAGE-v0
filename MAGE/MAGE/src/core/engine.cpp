@@ -5,6 +5,7 @@
 
 #include "core\engine.hpp"
 #include "core\version.hpp"
+#include "logging\error.hpp"
 #include "logging\exception.hpp"
 #include "logging\logging.hpp"
 #include "rendering\device_enumeration.hpp"
@@ -27,7 +28,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	
 	Engine::Engine(const EngineSetup &setup) 
-		: m_main_window(), m_deactive(false), 
+		: Loadable(), m_main_window(), m_deactive(false), 
 		m_renderer(), m_mode_switch(false),
 		m_input_manager(), m_resource_factory(),
 		m_scene(), m_timer(new Timer()) {
@@ -40,12 +41,23 @@ namespace mage {
 		InitializeConsole();
 		PrintConsoleHeader();
 
+		// Enumerate the devices.
+		SAFE_DELETE(g_device_enumeration);
+		g_device_enumeration = new DeviceEnumeration();
+		const HRESULT result_enumerate = g_device_enumeration->Enumerate();
+		if (FAILED(result_enumerate)) {
+			Error("Device enumeration setup failed: %ld", result_enumerate);
+			return;
+		}
+
 		// Initialize the different engine systems.
 		InitializeSystems(setup);
 
 		// Initializes the COM library for use by the calling thread 
 		// and sets the thread's concurrency model to multithreaded concurrency.
 		CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+
+		SetLoaded();
 	}
 
 	Engine::~Engine() {
@@ -57,11 +69,6 @@ namespace mage {
 	}
 
 	void Engine::InitializeSystems(const EngineSetup &setup) {
-		// Enumerate the devices.
-		SAFE_DELETE(g_device_enumeration);
-		g_device_enumeration = new DeviceEnumeration();
-		g_device_enumeration->Enumerate();
-		
 		const LONG width  = static_cast< LONG >(g_device_enumeration->GetDisplayMode()->Width);
 		const LONG height = static_cast< LONG >(g_device_enumeration->GetDisplayMode()->Height);
 		
@@ -106,6 +113,11 @@ namespace mage {
 	}
 
 	void Engine::Run(int nCmdShow) {
+		if (!IsLoaded()) {
+			Error("Game loop can not start because the engine is not loaded.");
+			return;
+		}
+
 		m_main_window->Show(nCmdShow);
 
 		// Handle startup in fullscreen mode.

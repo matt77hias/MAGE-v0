@@ -175,7 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\binary\binary_writer.cpp" />
-    <ClCompile Include="MAGE\src\buffer\transform_buffer.cpp" />
     <ClCompile Include="MAGE\src\camera\perspective_camera.cpp" />
     <ClCompile Include="MAGE\src\core\engine.cpp" />
     <ClCompile Include="MAGE\src\core\version.cpp" />

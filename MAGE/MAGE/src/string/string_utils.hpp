@@ -245,9 +245,7 @@ namespace mage {
 					A reference to the byte string to copy.
 	 @return		The wide string copy of the given byte string.
 	 */
-	inline const wstring str_convert(const string &str) {
-		return str_convert(str.c_str());
-	}
+	const wstring str_convert(const string &str);
 	
 	/**
 	 Converts the given wide string to an byte string.
@@ -256,7 +254,5 @@ namespace mage {
 					A reference to the wide string to copy.
 	 @return		The byte string copy of the given wide string.
 	 */
-	inline const string str_convert(const wstring &str) {
-		return str_convert(str.c_str());
-	}
+	const string str_convert(const wstring &str);
 }

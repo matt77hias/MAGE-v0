@@ -20,7 +20,7 @@ namespace mage {
 	FormattedException::FormattedException(const char *format, ...)
 		: FormattedException() {
 
-		Assert(bytes);
+		Assert(format);
 
 		va_list args;
 		

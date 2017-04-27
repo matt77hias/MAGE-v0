@@ -77,6 +77,7 @@ private:
 		omni_light->SetTranslationY(2.0f);
 		omni_light->GetObject()->SetDistanceFalloff(0.0f, 2.0f);
 		SharedPtr< SpotLightNode > spot_light = GetWorld()->CreateSpotLightNode();
+		spot_light->GetObject()->SetAngualCutoff(1.0f, 0.86602540f);
 		spot_light->GetObject()->SetDistanceFalloff(0.0f, 3.0f);
 		camera->AddChildTransformNode(spot_light);
 

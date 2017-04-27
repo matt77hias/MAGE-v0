@@ -406,6 +406,7 @@
     <None Include="MAGE\src\mesh\msh\msh_loader.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_reader.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_writer.tpp" />
+    <None Include="MAGE\src\mesh\obj\obj_loader.tpp" />
     <None Include="MAGE\src\mesh\static_mesh.tpp" />
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp" />
     <None Include="MAGE\src\model\mdl\mdl_loader.tpp" />

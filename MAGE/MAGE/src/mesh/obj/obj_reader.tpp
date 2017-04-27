@@ -9,6 +9,7 @@
 #include "mesh\vertex.hpp"
 #include "string\string_utils.hpp"
 #include "logging\error.hpp"
+#include "logging\exception.hpp"
 #include "material\material_loader.hpp"
 
 #pragma endregion
@@ -21,10 +22,10 @@ namespace mage {
 	template < typename VertexT >
 	void OBJReader< VertexT >::Preprocess() {
 		if (!m_model_output.vertex_buffer.empty()) {
-			Error("%ls: vertex buffer must be empty.", GetFilename().c_str());
+			throw FormattedException("%ls: vertex buffer must be empty.", GetFilename().c_str());
 		}
 		if (!m_model_output.index_buffer.empty()) {
-			Error("%ls: index buffer must be empty.", GetFilename().c_str());
+			throw FormattedException("%ls: index buffer must be empty.", GetFilename().c_str());
 		}
 
 		// Begin current group.
@@ -87,10 +88,7 @@ namespace mage {
 		const wstring mtl_name = str_convert(ReadString());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
-		const HRESULT result = ImportMaterialFromFile(mtl_fname, m_model_output.material_buffer);
-		if (FAILED(result)) {
-			Error("%ls: line %u: %ls could not be loaded.", GetFilename().c_str(), GetCurrentLineNumber(), mtl_fname.c_str());
-		}
+		ImportMaterialFromFile(mtl_fname, m_model_output.material_buffer);
 	}
 
 	template < typename VertexT >
@@ -104,13 +102,12 @@ namespace mage {
 		const string child = ReadString();
 		if (child == MAGE_MDL_PART_DEFAULT_CHILD) {
 			if (!m_model_output.index_buffer.empty()) {
-				Error("%ls: line %u: default child name can only be explicitly defined before all face definitions.", GetFilename().c_str(), GetCurrentLineNumber());
+				throw FormattedException("%ls: line %u: default child name can only be explicitly defined before all face definitions.", GetFilename().c_str(), GetCurrentLineNumber());
 			}
 			return;
 		}
 		if (m_model_output.HasModelPart(child)) {
-			Error("%ls: line %u: child name redefinition: %s.", GetFilename().c_str(), GetCurrentLineNumber(), child.c_str());
-			return;
+			throw FormattedException("%ls: line %u: child name redefinition: %s.", GetFilename().c_str(), GetCurrentLineNumber(), child.c_str());
 		}
 		
 		const string parent = HasString() ? ReadString() : MAGE_MDL_PART_DEFAULT_PARENT;
@@ -228,34 +225,34 @@ namespace mage {
 			// v1//vn1
 			const char *index_end = strchr(token, '/');
 			if (StringToUInt32(token, index_end, vertex_index) == TokenResult_Invalid) {
-				Error("%ls: line %u: invalid vertex index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+				throw FormattedException("%ls: line %u: invalid vertex index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 			if (StringToUInt32(index_end + 2, normal_index) == TokenResult_Invalid) {
-				Error("%ls: line %u: invalid normal index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+				throw FormattedException("%ls: line %u: invalid normal index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 		}
 		else if (str_contains(token, '/')) {
 			// v1/vt1 or v1/vt1/vn1
 			const char *index_end = strchr(token, '/');
 			if (StringToUInt32(token, index_end, vertex_index) == TokenResult_Invalid) {
-				Error("%ls: line %u: invalid vertex index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+				throw FormattedException("%ls: line %u: invalid vertex index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 			
 			if (str_contains(index_end + 1, '/')) {
 				const char *texture_end = strchr(index_end + 1, '/');
 				if (StringToUInt32(index_end + 1, texture_end, texture_index) == TokenResult_Invalid) {
-					Error("%ls: line %u: invalid texture index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+					throw FormattedException("%ls: line %u: invalid texture index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 				}
 				if (StringToUInt32(texture_end + 1, normal_index) == TokenResult_Invalid) {
-					Error("%ls: line %u: invalid normal index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+					throw FormattedException("%ls: line %u: invalid normal index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 				}
 			}
 			else if (StringToUInt32(index_end + 1, texture_index) == TokenResult_Invalid) {
-				Error("%ls: line %u: invalid texture index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+				throw FormattedException("%ls: line %u: invalid texture index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 		}
 		else if (StringToUInt32(token, vertex_index) == TokenResult_Invalid) {
-			Error("%ls: line %u: invalid vertex index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+			throw FormattedException("%ls: line %u: invalid vertex index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 		}
 
 		return XMUINT3(vertex_index, texture_index, normal_index);

@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "platform\windows.hpp"
 #include "string\string.hpp"
 #include "collection\collection.hpp" 
 
@@ -25,10 +24,12 @@ namespace mage {
 					The index type.
 	 @param[in]		fname
 					A reference to the MSH filename.
-	 @param[in,out]	vertices
+	 @param[out]	vertices
 					A reference to a vector containing the vertices of the mesh.
-	 @param[in,out]	indices
+	 @param[out]	indices
 					A reference to a vector containing the indices of the mesh.
+	 @throws		FormattedException
+					Failed to import the mesh from file.
 	 */
 	template < typename VertexT, typename IndexT >
 	void ImportMSHMeshFromFile(const wstring &fname, 
@@ -47,6 +48,8 @@ namespace mage {
 					A reference to a vector containing the vertices of the mesh.
 	 @param[in]		indices
 					A reference to a vector containing the indices of the mesh.
+	 @throws		FormattedException
+					Failed to export the mesh to file.
 	 */
 	template < typename VertexT, typename IndexT >
 	void ExportMSHMeshToFile(const wstring &fname,

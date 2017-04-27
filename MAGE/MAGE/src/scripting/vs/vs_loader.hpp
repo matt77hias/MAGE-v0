@@ -20,7 +20,7 @@ namespace mage {
 
 	 @param[in]		fname
 					A reference to the VS filename.
-	 @param[in,out]	variable_buffer
+	 @param[out]	variable_buffer
 					A reference to a vector containing the variables.
 	 @throws		FormattedException
 					Failed to import the variable script from file.

@@ -23,7 +23,7 @@ namespace mage {
 	 Reads a @c DataT element from the given big endian byte array.
 
 	 @tparam		DataT
-					The type of data.
+					The data type.
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least @c sizeof(DataT) bytes.
 	 @param[in]		bytes

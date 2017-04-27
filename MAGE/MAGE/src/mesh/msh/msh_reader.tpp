@@ -6,7 +6,7 @@
 #pragma region
 
 #include "mesh\msh\msh_tokens.hpp"
-#include "logging\error.hpp"
+#include "logging\exception.hpp"
 
 #pragma endregion
 
@@ -28,7 +28,7 @@ namespace mage {
 	void MSHReader< VertexT, IndexT >::Read() {
 
 		if (!IsHeaderValid()) {
-			Error("%ls: invalid mesh header.", GetFilename().c_str());
+			throw FormattedException("%ls: invalid mesh header.", GetFilename().c_str());
 		}
 
 		const uint32_t nb_vertices = ReadValue< uint32_t >();

@@ -99,82 +99,82 @@ namespace mage {
 		virtual void ReadLine(char *line) override;
 
 		/**
-		 Reads a Bool variable.
+		 Reads a Bool variable definition.
 
 		 @throws		FormattedException
-						Failed to read a Bool variable.
+						Failed to read a Bool variable definition.
 		 */
 		void ReadVSBool();
 
 		/**
-		 Reads an Int variable.
+		 Reads an Int variable definition.
 
 		 @throws		FormattedException
-						Failed to read a Int variable.
+						Failed to read a Int variable definition.
 		 */
 		void ReadVSInt();
 
 		/**
-		 Reads an Int2 variable.
+		 Reads an Int2 variable definition.
 
 		 @throws		FormattedException
-						Failed to read a Int2 variable.
+						Failed to read a Int2 variable definition.
 		 */
 		void ReadVSInt2();
 
 		/**
-		 Reads an Int variable.
+		 Reads an Int variable definition.
 
 		 @throws		FormattedException
-						Failed to read a Int3 variable.
+						Failed to read a Int3 variable definition.
 		 */
 		void ReadVSInt3();
 
 		/**
-		 Reads a Float variable.
+		 Reads a Float variable definition.
 
 		 @throws		FormattedException
-						Failed to read a Float variable.
+						Failed to read a Float variable definition.
 		 */
 		void ReadVSFloat();
 
 		/**
-		 Reads a Float2 variable.
+		 Reads a Float2 variable definition.
 
 		 @throws		FormattedException
-						Failed to read a Float2 variable.
+						Failed to read a Float2 variable definition.
 		 */
 		void ReadVSFloat2();
 
 		/**
-		 Reads a Float3 variable.
+		 Reads a Float3 variable definition.
 
 		 @throws		FormattedException
-						Failed to read a Float3 variable.
+						Failed to read a Float3 variable definition.
 		 */
 		void ReadVSFloat3();
 
 		/**
-		 Reads a Float4 variable.
+		 Reads a Float4 variable definition.
 
 		 @throws		FormattedException
-						Failed to read a Float4 variable.
+						Failed to read a Float4 variable definition.
 		 */
 		void ReadVSFloat4();
 
 		/**
-		 Reads a Color variable.
+		 Reads a Color variable definition.
 
 		 @throws		FormattedException
-						Failed to read a Color variable.
+						Failed to read a Color variable definition.
 		 */
 		void ReadVSColor();
 
 		/**
-		 Reads a String variable.
+		 Reads a String variable definition.
 
 		 @throws		FormattedException
-						Failed to read a String variable.
+						Failed to read a String variable definition.
 		 */
 		void ReadVSString();
 

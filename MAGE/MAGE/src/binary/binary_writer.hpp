@@ -113,7 +113,7 @@ namespace mage {
 		 Writes the given data.
 
 		 @tparam		DataT
-						The type of data.
+						The data type.
 		 @param[in]		data
 						A reference to the data.
 		 @throws		FormattedException
@@ -127,7 +127,7 @@ namespace mage {
 
 		 @pre			@a data is not equal to @c nullptr.
 		 @tparam		DataT
-						The type of data.
+						The data type.
 		 @param[in]		data
 						A pointer to the data.
 		 @param[in]		count

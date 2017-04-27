@@ -431,7 +431,7 @@ namespace mage {
 		 Reads a @c DataT element.
 
 		 @tparam		DataT
-						The type of data.
+						The data type.
 		 @return		A reference to the @c DataT element read.
 		 @throws		FormattedException
 						Failed to read a @c DataT element.
@@ -443,7 +443,7 @@ namespace mage {
 		 Reads an array of @c DataT elements.
 
 		 @tparam		DataT
-						The type of data.
+						The data type.
 		 @param			count
 						The number of @c DataT elements to read.
 		 @return		A pointer to the array of @c DataT element read.

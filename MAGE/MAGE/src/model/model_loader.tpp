@@ -21,11 +21,13 @@ namespace mage {
 		const wstring extension = GetFileExtension(fname);
 
 		if (extension == L"mdl" || extension == L"MDL") {
-			return ImportMDLModelFromFile(fname, model_output);
+			ImportMDLModelFromFile(fname, model_output);
+			return S_OK;
 		}
 
 		if (extension == L"obj" || extension == L"OBJ") {
-			return ImportOBJMeshFromFile(fname, model_output, mesh_desc);
+			ImportOBJMeshFromFile(fname, model_output, mesh_desc);
+			return S_OK;
 		}
 
 		Warning("Unknown model file extension: %ls", fname.c_str());
@@ -38,7 +40,8 @@ namespace mage {
 		const wstring extension = GetFileExtension(fname);
 
 		if (extension == L"mdl" || extension == L"MDL") {
-			return ExportMDLModelToFile(fname, model_output);
+			ExportMDLModelToFile(fname, model_output);
+			return S_OK;
 		}
 
 		Warning("Unknown model file extension: %ls", fname.c_str());

@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "mesh\obj\obj_reader.hpp"
+#include "model\model_output.hpp"
+#include "mesh\mesh_descriptor.hpp"
 
 #pragma endregion
 
@@ -25,12 +26,18 @@ namespace mage {
 					A reference to the model output.
 	 @param[in]		mesh_desc
 					A reference to the mesh descriptor.
-	 @return		A success/error value.
+	 @throws		FormattedException
+					Failed to import the mesh from file.
 	 */
 	template < typename VertexT >
-	HRESULT ImportOBJMeshFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, const MeshDescriptor< VertexT > &mesh_desc = MeshDescriptor< VertexT >()) {
-		OBJReader< VertexT > reader(model_output, mesh_desc);
-		reader.ReadFromFile(fname);
-		return S_OK;
-	}
+	void ImportOBJMeshFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, const MeshDescriptor< VertexT > &mesh_desc = MeshDescriptor< VertexT >());
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "mesh\obj\obj_loader.tpp"
+
+#pragma endregion

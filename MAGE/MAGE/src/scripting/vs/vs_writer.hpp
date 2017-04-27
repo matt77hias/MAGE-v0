@@ -101,7 +101,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to a vector containing the variables to write for this VS writer.
+		 A reference to a vector containing the variables to write by this VS writer.
 		 */
 		const vector< Variable > &m_variable_buffer;
 	};

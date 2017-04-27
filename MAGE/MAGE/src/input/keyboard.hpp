@@ -38,6 +38,8 @@ namespace mage {
 		/**
 		 Constructs a keyboard.
 
+		 @pre			@a hwindow is not equal to @c nullptr.
+		 @pre			@a di is not equal to @c nullptr.
 		 @param[in]		hwindow
 						The handle of the parent window.
 		 @param[in]		di

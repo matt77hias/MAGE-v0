@@ -29,6 +29,7 @@ namespace mage {
 		/**
 		 Constructs a main window.
 
+		 @pre			@a hinstance is not equal to @c nullptr.
 		 @param[in]		hinstance
 						The application instance handle.
 		 @param[in]		name

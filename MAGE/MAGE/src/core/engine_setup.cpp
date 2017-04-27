@@ -3,8 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "font\spritefont\spritefont_loader.hpp"
-#include "font\spritefont\spritefont_reader.hpp"
+#include "core\engine_setup.hpp"
 
 #pragma endregion
 
@@ -13,10 +12,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void ImportFontFromFile(const wstring &fname, ID3D11Device2 *device, SpriteFontOutput &output, const SpriteFontDescriptor &desc) {
-		Assert(device);
+	EngineSetup::EngineSetup(HINSTANCE hinstance, const wstring &name)
+		: m_hinstance(hinstance), m_name(name) {
 
-		SpriteFontReader reader(device, output, desc);
-		reader.ReadFromFile(fname);
+		Assert(hinstance);
 	}
 }

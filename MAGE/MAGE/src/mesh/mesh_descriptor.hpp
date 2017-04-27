@@ -24,7 +24,7 @@ namespace mage {
 		 Constructs a mesh descriptor.
 
 		 @param[in]		invert_handedness
-						Flag indicating whether the mesh coordinate system handness 
+						A flag indicating whether the mesh coordinate system handness 
 						should be inverted.
 		 @param[in]		clockwise_order
 						A flag indicating whether the face vertices should be 
@@ -112,13 +112,13 @@ namespace mage {
 
 		/**
 		 A flag indicating whether the mesh coordinate system handness should be inverted
-		 or not according to this mesh descriptor.
+		 or not for this mesh descriptor.
 		 */
 		bool m_invert_handedness;
 
 		/**
 		 A flag indicating whether the face vertices should be defined in clockwise order
-		 or not (i.e. counterclockwise order) according to this mesh descriptor.
+		 or not (i.e. counterclockwise order) for this mesh descriptor.
 		 */
 		bool m_clockwise_order;
 	};

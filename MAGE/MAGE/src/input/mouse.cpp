@@ -4,6 +4,7 @@
 #pragma region
 
 #include "input\mouse.hpp"
+#include "logging\error.hpp"
 #include "logging\exception.hpp"
 
 #pragma endregion
@@ -17,6 +18,9 @@ namespace mage {
 		: m_hwindow(hwindow), m_di(di), m_mouse(),
 		m_press_stamp(0), m_mouse_state{}, 
 		m_mouse_button_press_stamp(), m_mouse_position{} {
+
+		Assert(hwindow);
+		Assert(di);
 
 		InitializeMouse();
 	}

@@ -4,6 +4,7 @@
 #pragma region
 
 #include "input\keyboard.hpp"
+#include "logging\error.hpp"
 #include "logging\exception.hpp"
 
 #pragma endregion
@@ -16,6 +17,9 @@ namespace mage {
 	Keyboard::Keyboard(HWND hwindow, IDirectInput8 *di) 
 		: m_hwindow(hwindow), m_di(di), m_keyboard(),
 		m_press_stamp(0), m_key_state{}, m_key_press_stamp{} {
+
+		Assert(hwindow);
+		Assert(di);
 
 		InitializeKeyboard();
 	}

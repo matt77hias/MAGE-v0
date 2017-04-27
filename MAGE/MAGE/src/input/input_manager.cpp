@@ -4,6 +4,7 @@
 #pragma region
 
 #include "input\input_manager.hpp"
+#include "logging\error.hpp"
 #include "logging\exception.hpp"
 
 #pragma endregion
@@ -15,6 +16,8 @@ namespace mage {
 
 	InputManager::InputManager(HWND hwindow) 
 		: m_hwindow(hwindow), m_di(), m_keyboard(), m_mouse() {
+
+		Assert(hwindow);
 
 		InitializeDI();
 		InitializeInputSystems();

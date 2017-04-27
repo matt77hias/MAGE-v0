@@ -101,14 +101,14 @@ namespace mage {
 		/**
 		 Constructs an engine setup.
 
+		 @pre			@a hinstance is not equal to @c nullptr.
 		 @param[in]		hinstance
 						The application instance handle of the application.
 		 @param[in]		name
 						A reference to the name of the application.
 		 */
-		explicit EngineSetup(HINSTANCE hinstance = nullptr, 
-			const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
-			: m_hinstance(hinstance), m_name(name) {}
+		explicit EngineSetup(HINSTANCE hinstance,
+			const wstring &name = MAGE_DEFAULT_APPLICATION_NAME);
 
 		/**
 		 Constructs an engine setup from the given engine setup.

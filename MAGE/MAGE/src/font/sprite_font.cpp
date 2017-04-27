@@ -52,17 +52,9 @@ namespace mage {
 		m_default_glyph(nullptr), m_line_spacing(0.0f) {
 
 		SpriteFontOutput output;
-		const HRESULT result_load = ImportSpriteFontFromFile(fname, device, output, desc);
-		if (FAILED(result_load)) {
-			Error("Sprite font loading failed: %08X.", result_load);
-			return;
-		}
+		ImportSpriteFontFromFile(fname, device, output, desc);
 
-		const HRESULT result_initialization = InitializeSpriteFont(output);
-		if (FAILED(result_initialization)) {
-			Error("Sprite font initialization failed: %08X.", result_initialization);
-			return;
-		}
+		InitializeSpriteFont(output);
 	}
 
 	HRESULT SpriteFont::InitializeSpriteFont(const SpriteFontOutput &output) {

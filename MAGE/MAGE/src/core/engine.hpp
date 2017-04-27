@@ -7,13 +7,13 @@
 
 #include "core\targetver.hpp"
 
-#include "core\loadable.hpp"
 #include "rendering\renderer.hpp"
 #include "input\input_manager.hpp"
 #include "ui\main_window.hpp"
 #include "resource\resource_factory.hpp"
 #include "timer\timer.hpp"
 
+#include "core\loadable.hpp"
 #include "core\engine_setup.hpp"
 
 #pragma endregion

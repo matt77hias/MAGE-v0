@@ -5,6 +5,7 @@
 
 #include "core\engine.hpp"
 #include "ui\main_window_settings.hpp"
+#include "logging\error.hpp"
 #include "logging\exception.hpp"
 
 #pragma endregion
@@ -117,6 +118,8 @@ namespace mage{
 
 	MainWindow::MainWindow(HINSTANCE hinstance, const wstring &name, LONG width, LONG height) 
 		: m_hinstance(hinstance), m_hwindow(nullptr), m_name(name) {
+
+		Assert(hinstance);
 
 		//Initialize a window.
 		InitializeWindow(width, height);

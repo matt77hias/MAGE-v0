@@ -27,6 +27,9 @@ namespace mage {
 	 Adds an item associated with the given data and described with the given
 	 descriptor to a combo box.
 
+	 @pre			@a dialog is not equal to @c nullptr.
+	 @pre			@a data is not equal to @c nullptr.
+	 @pre			@a desc is not equal to @c nullptr.
 	 @param[in]		dialog
 					A handle to the dialog box that contains the control.
 	 @param[in]		id
@@ -41,6 +44,7 @@ namespace mage {
 	/**
 	 Selects the item at the given index in a combo box.
 
+	 @pre			@a dialog is not equal to @c nullptr.
 	 @param[in]		dialog
 					A handle to the dialog box that contains the control.
 	 @param[in]		id
@@ -53,6 +57,8 @@ namespace mage {
 	/**
 	 Selects the item associated with the given data in a combo box.
 
+	 @pre			@a dialog is not equal to @c nullptr.
+	 @pre			@a data is not equal to @c nullptr.
 	 @param[in]		dialog
 					A handle to the dialog box that contains the control.
 	 @param[in]		id
@@ -65,6 +71,7 @@ namespace mage {
 	/**
 	 Returns the data associated with the selected item in a combo box.
 
+	 @pre			@a dialog is not equal to @c nullptr.
 	 @param[in]		dialog
 					A handle to the dialog box that contains the control.
 	 @param[in]		id
@@ -77,6 +84,7 @@ namespace mage {
 	/**
 	 Checks whether a valid item is selected in a combo box.
 
+	 @pre			@a dialog is not equal to @c nullptr.
 	 @param[in]		dialog
 					A handle to the dialog box that contains the control.
 	 @param[in]		id
@@ -89,6 +97,7 @@ namespace mage {
 	/**
 	 Returns the number of items in a combo box.
 
+	 @pre			@a dialog is not equal to @c nullptr.
 	 @param[in]		dialog
 					A handle to the dialog box that contains the control.
 	 @param[in]		id
@@ -100,6 +109,8 @@ namespace mage {
 	/**
 	 Checks whether a combo box contains the given descriptor.
 
+	 @pre			@a dialog is not equal to @c nullptr.
+	 @pre			@a desc is not equal to @c nullptr.
 	 @param[in]		dialog
 					A handle to the dialog box that contains the control.
 	 @param[in]		id

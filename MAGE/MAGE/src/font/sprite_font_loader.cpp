@@ -7,6 +7,7 @@
 #include "font\spritefont\spritefont_loader.hpp"
 #include "file\file_utils.hpp"
 #include "logging\error.hpp"
+#include "logging\exception.hpp"
 
 #pragma endregion
 
@@ -15,15 +16,16 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT ImportSpriteFontFromFile(const wstring &fname, ID3D11Device2 *device, SpriteFontOutput &output, const SpriteFontDescriptor &desc) {
+	void ImportSpriteFontFromFile(const wstring &fname, ID3D11Device2 *device, SpriteFontOutput &output, const SpriteFontDescriptor &desc) {
+		Assert(device);
+
 		const wstring extension = GetFileExtension(fname);
 
 		if (extension == L"spritefont" || extension == L"SPRITEFONT") {
 			ImportFontFromFile(fname, device, output, desc);
-			return S_OK;
 		}
-
-		Warning("Unknown sprite font file extension: %ls", fname.c_str());
-		return E_FAIL;
+		else {
+			throw FormattedException("Unknown sprite font file extension: %ls", fname.c_str());
+		}
 	}
 }

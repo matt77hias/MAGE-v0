@@ -29,6 +29,7 @@ namespace mage {
 		/**
 		 Constructs an input manager for the given window handle.
 
+		 @pre			@a hwindow is not equal to @c nullptr.
 		 @param[in]		hwindow
 						The handle of the parent window.
 		 @throws		FormattedException

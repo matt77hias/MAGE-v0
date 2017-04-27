@@ -4,6 +4,7 @@
 #pragma region
 
 #include "ui\combo_box.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -13,6 +14,10 @@
 namespace mage {
 
 	void ComboBoxAdd(HWND dialog, int id, const void *data, const wchar_t *desc) {
+		Assert(dialog);
+		Assert(data);
+		Assert(desc);
+
 		// Retrieve a handle to a control in the specified dialog box.
 		HWND control = GetDlgItem(dialog, id);
 		// Add a string to a list in a combo box and
@@ -23,6 +28,8 @@ namespace mage {
 	}
 
 	void ComboBoxSelect(HWND dialog, int id, int index) {
+		Assert(dialog);
+		
 		// Retrieve a handle to a control in the specified dialog box.
 		HWND control = GetDlgItem(dialog, id);
 		// Set the currently selected item in a combo box.
@@ -37,6 +44,9 @@ namespace mage {
 	}
 
 	void ComboBoxSelect(HWND dialog, int id, const void *data) {
+		Assert(dialog);
+		Assert(data);
+		
 		// Retrieve a handle to a control in the specified dialog box.
 		HWND control = GetDlgItem(dialog, id);
 		for (int i = 0; i < ComboBoxCount(dialog, id); ++i) {
@@ -57,6 +67,8 @@ namespace mage {
 	}
 
 	const void *ComboBoxSelected(HWND dialog, int id) {
+		Assert(dialog);
+		
 		// Retrieve a handle to a control in the specified dialog box.
 		HWND control = GetDlgItem(dialog, id);
 		// Get the currently selected item in a combo box.
@@ -69,6 +81,8 @@ namespace mage {
 	}
 
 	bool ComboBoxSomethingSelected(HWND dialog, int id) {
+		Assert(dialog);
+		
 		// Retrieve a handle to a control in the specified dialog box.
 		HWND control = GetDlgItem(dialog, id);
 		// Get the currently selected item in a combo box.
@@ -77,6 +91,8 @@ namespace mage {
 	}
 
 	int ComboBoxCount(HWND dialog, int id) {
+		Assert(dialog);
+		
 		// Retrieve a handle to a control in the specified dialog box.
 		HWND control = GetDlgItem(dialog, id);
 		// Gets the number of items in the list box of a combo box.
@@ -84,6 +100,9 @@ namespace mage {
 	}
 
 	bool ComboBoxContains(HWND dialog, int id, const wchar_t *desc) {
+		Assert(dialog);
+		Assert(desc);
+		
 		// Retrieve a handle to a control in the specified dialog box.
 		HWND control = GetDlgItem(dialog, id);
 		wchar_t item[MAX_PATH];

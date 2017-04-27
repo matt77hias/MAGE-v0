@@ -6,6 +6,7 @@
 #pragma region
 
 #include "string\string.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -27,6 +28,8 @@ namespace mage {
 					@c false otherwise.
 	 */
 	inline bool str_equals(const char *str1, const char *str2) {
+		Assert(str1);
+		Assert(str2);
 		return strcmp(str1, str2) ? false : true;
 	}
 
@@ -43,6 +46,8 @@ namespace mage {
 					@c false otherwise.
 	 */
 	inline bool str_equals(const wchar_t *str1, const wchar_t *str2) {
+		Assert(str1);
+		Assert(str2);
 		return wcscmp(str1, str2) ? false : true;
 	}
 
@@ -60,6 +65,8 @@ namespace mage {
 					@c false otherwise.
 	 */
 	inline bool str_contains(const char *str1, const char *str2) {
+		Assert(str1);
+		Assert(str2);
 		return strstr(str1, str2) ? true : false;
 	}
 
@@ -77,6 +84,8 @@ namespace mage {
 					@c false otherwise.
 	 */
 	inline bool str_contains(const wchar_t *str1, const wchar_t *str2) {
+		Assert(str1);
+		Assert(str2);
 		return wcsstr(str1, str2) ? true : false;
 	}
 
@@ -92,6 +101,7 @@ namespace mage {
 					@c false otherwise.
 	 */
 	inline bool str_contains(const char *str, char c) {
+		Assert(str);
 		return strchr(str, (int)c) ? true : false;
 	}
 
@@ -107,6 +117,7 @@ namespace mage {
 					@c false otherwise.
 	 */
 	inline bool str_contains(const wchar_t *str, wchar_t c) {
+		Assert(str);
 		return wcschr(str, c) ? true : false;
 	}
 

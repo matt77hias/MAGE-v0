@@ -4,6 +4,7 @@
 #pragma region
 
 #include "memory\memory.hpp"
+#include "logging\error.hpp"
 #include "logging\exception.hpp"
 
 #pragma endregion
@@ -18,6 +19,8 @@ namespace mage {
 
 	FormattedException::FormattedException(const char *format, ...)
 		: FormattedException() {
+
+		Assert(bytes);
 
 		va_list args;
 		

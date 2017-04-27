@@ -8,7 +8,6 @@
 #include "mesh\obj\obj_tokens.hpp"
 #include "mesh\vertex.hpp"
 #include "string\string_utils.hpp"
-#include "logging\error.hpp"
 #include "logging\exception.hpp"
 #include "material\material_loader.hpp"
 

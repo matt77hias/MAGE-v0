@@ -23,6 +23,8 @@
 namespace mage {
 	
 	const char *str_escape_first(const char *str, char c) {
+		Assert(str);
+		
 		const char *input = str;
 		while (true) {
 			const char *result = strchr(input, static_cast< int >(c));
@@ -46,6 +48,8 @@ namespace mage {
 	}
 
 	char *str_escape_first(char *str, char c) {
+		Assert(str);
+		
 		char *input = str;
 		while (true) {
 			char *result = strchr(input, static_cast< int >(c));
@@ -69,6 +73,8 @@ namespace mage {
 	}
 
 	const wchar_t *str_escape_first(const wchar_t *str, wchar_t c) {
+		Assert(str);
+		
 		const wchar_t *input = str;
 		while (true) {
 			const wchar_t *result = wcschr(input, c);
@@ -92,6 +98,8 @@ namespace mage {
 	}
 
 	wchar_t *str_escape_first(wchar_t *str, wchar_t c) {
+		Assert(str);
+		
 		wchar_t *input = str;
 		while (true) {
 			wchar_t *result = wcschr(input, c);
@@ -115,6 +123,9 @@ namespace mage {
 	}
 
 	char *str_gets(char *str, int num, const char **input) {
+		Assert(str);
+		Assert(input);
+		
 		const char *next = *input;
 		int num_read = 0;
 		while (num_read + 1 < num && *next) {
@@ -140,6 +151,9 @@ namespace mage {
 	}
 
 	wchar_t *str_gets(wchar_t *str, int num, const wchar_t **input) {
+		Assert(str);
+		Assert(input);
+		
 		const wchar_t *next = *input;
 		int num_read = 0;
 		while (num_read + 1 < num && *next) {
@@ -165,10 +179,14 @@ namespace mage {
 	}
 
 	const wchar_t *str_convert(const char *str) {
+		Assert(str);
+		
 		return CA2W(str);
 	}
 
 	const char *str_convert(const wchar_t *str) {
+		Assert(str);
+		
 		return CW2A(str);
 	}
 

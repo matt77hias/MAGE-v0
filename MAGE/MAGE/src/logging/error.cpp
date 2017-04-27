@@ -51,6 +51,7 @@ namespace mage {
 		while (*buffer != '\0' && !isspace(*buffer)) {
 			++buffer;
 		}
+
 		return buffer;
 	}
 

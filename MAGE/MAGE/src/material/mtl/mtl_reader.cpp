@@ -6,7 +6,6 @@
 #include "material\mtl\mtl_reader.hpp"
 #include "material\mtl\mtl_tokens.hpp"
 #include "string\string_utils.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 

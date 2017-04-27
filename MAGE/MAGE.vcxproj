@@ -198,6 +198,7 @@
     <ClCompile Include="MAGE\src\math\transform_node.cpp" />
     <ClCompile Include="MAGE\src\math\view_frustum.cpp" />
     <ClCompile Include="MAGE\src\memory\memory_arena.cpp" />
+    <ClCompile Include="MAGE\src\mesh\mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\static_mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\vertex.cpp" />

@@ -13,6 +13,9 @@
 namespace mage {
 
 	void ReadBinaryFile(const wchar_t *fname, UniquePtr< uint8_t[] > &data, size_t *size) {
+		Assert(fname);
+		Assert(size);
+		
 		UniqueHandle file_handle(SafeHandle(CreateFile2(fname, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr)));
 		FILE_STANDARD_INFO file_info;
 		if (!GetFileInformationByHandleEx(file_handle.get(), FileStandardInfo, &file_info, sizeof(file_info))) {
@@ -56,6 +59,8 @@ namespace mage {
 	}
 	
 	void BinaryReader::ReadFromMemory(const uint8_t *input, size_t size, bool big_endian) {
+		Assert(input);
+		
 		m_fname = L"input string";
 		m_big_endian = big_endian;
 
@@ -240,6 +245,8 @@ namespace mage {
 	}
 	
 	void BigEndianBinaryReader::ReadFromMemory(const uint8_t *input, size_t size) {
+		Assert(input);
+
 		m_fname = L"input string";
 
 		m_pos = input;

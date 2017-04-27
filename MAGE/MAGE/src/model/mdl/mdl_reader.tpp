@@ -8,7 +8,6 @@
 #include "model\mdl\mdl_tokens.hpp"
 #include "mesh\msh\msh_loader.hpp"
 #include "string\string_utils.hpp"
-#include "logging\error.hpp"
 #include "material\material_loader.hpp"
 
 #pragma endregion

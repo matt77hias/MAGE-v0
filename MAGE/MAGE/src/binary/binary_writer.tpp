@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "logging\error.hpp"
 #include "logging\exception.hpp"
 
 #pragma endregion
@@ -21,6 +22,8 @@ namespace mage {
 
 	template< typename DataT >
 	inline void BigEndianBinaryWriter::WriteValueArray(const DataT *data, size_t count) {
+		Assert(data);
+		
 		const size_t count_written = fwrite(data, sizeof(DataT), count, m_file);
 		if (count != count_written) {
 			throw FormattedException("%ls: could not write all data to file.", GetFilename().c_str());

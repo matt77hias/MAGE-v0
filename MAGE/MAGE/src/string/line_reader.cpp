@@ -6,7 +6,6 @@
 #include "platform\windows.hpp"
 #include "string\line_reader.hpp"
 #include "string\string_utils.hpp"
-#include "logging\error.hpp"
 #include "logging\exception.hpp"
 
 #pragma endregion
@@ -57,6 +56,8 @@ namespace mage {
 	}
 
 	void LineReader::ReadFromMemory(const char *input, const string &delimiters) {
+		Assert(input);
+		
 		m_fname = L"input string";
 		m_delimiters = delimiters;
 

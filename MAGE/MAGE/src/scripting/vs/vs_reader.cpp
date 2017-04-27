@@ -6,7 +6,6 @@
 #include "scripting\vs\vs_reader.hpp"
 #include "scripting\vs\vs_tokens.hpp"
 #include "string\string_utils.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 

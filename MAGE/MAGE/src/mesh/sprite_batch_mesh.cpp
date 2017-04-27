@@ -7,6 +7,7 @@
 #include "mesh\vertex.hpp"
 #include "rendering\rendering_factory.hpp"
 #include "collection\collection.hpp"
+#include "logging\error.hpp"
 #include "logging\exception.hpp"
 
 #pragma endregion
@@ -56,6 +57,8 @@ namespace mage {
 	}
 
 	HRESULT SpriteBatchMesh::MapVertexBuffer(D3D11_MAP map_type, D3D11_MAPPED_SUBRESOURCE *mapped_buffer) {
+		Assert(mapped_buffer);
+
 		return m_device_context->Map(m_vertex_buffer.Get(), 0, map_type, 0, mapped_buffer);
 	}
 

@@ -19,6 +19,8 @@ namespace mage {
 	/**
 	 Reads the bytes of a binary file.
 
+	 @pre			@a fname is not equal to @c nullptr.
+	 @pre			@a size is not equal to @c nullptr.
 	 @param[in]		fname
 					A pointer to a null-terminated wide string representing the filename.
 	 @param[out]	data

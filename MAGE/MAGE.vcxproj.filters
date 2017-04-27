@@ -926,6 +926,9 @@
     <ClCompile Include="MAGE\src\logging\exception.cpp">
       <Filter>Source Files\logging</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\mesh.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">

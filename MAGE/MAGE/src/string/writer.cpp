@@ -4,6 +4,7 @@
 #pragma region
 
 #include "string\writer.hpp"
+#include "logging\error.hpp"
 #include "logging\exception.hpp"
 
 #pragma endregion
@@ -47,6 +48,8 @@ namespace mage {
 	}
 	
 	void Writer::WriteString(const char *str) {
+		Assert(str);
+		
 		const int result = fputs(str, m_file);
 		if (result == EOF) {
 			throw FormattedException("%ls: could not write to file.", GetFilename().c_str());
@@ -54,6 +57,8 @@ namespace mage {
 	}
 	
 	void Writer::WriteStringLine(const char *str) {
+		Assert(str);
+
 		WriteString(str);
 		WriteCharacter('\n');
 	}

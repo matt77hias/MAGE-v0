@@ -46,6 +46,8 @@ namespace mage {
 	}
 
 	void BigEndianBinaryWriter::WriteString(const char *str) {
+		Assert(str);
+
 		const int result = fputs(str, m_file);
 		if (result == EOF) {
 			throw FormattedException("%ls: could not write to file.", GetFilename().c_str());

@@ -144,6 +144,8 @@ namespace mage {
 			return TokenResult_None;
 		}
 
+		Assert(end);
+
 		if (end - begin == 4) {
 			if ((*begin != 't') || 
 				(*(begin + 1) != 'r') || 
@@ -180,6 +182,8 @@ namespace mage {
 			return TokenResult_None;
 		}
 
+		Assert(end);
+
 		char *inner_context = nullptr;
 		result = static_cast< int8_t >(strtol(begin, &inner_context, 10));
 		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
@@ -189,6 +193,8 @@ namespace mage {
 		if (!begin) {
 			return TokenResult_None;
 		}
+
+		Assert(end);
 
 		char *inner_context = nullptr;
 		result = static_cast< uint8_t >(strtoul(begin, &inner_context, 10));
@@ -200,6 +206,8 @@ namespace mage {
 			return TokenResult_None;
 		}
 
+		Assert(end);
+
 		char *inner_context = nullptr;
 		result = static_cast< int16_t >(strtol(begin, &inner_context, 10));
 		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
@@ -209,6 +217,8 @@ namespace mage {
 		if (!begin) {
 			return TokenResult_None;
 		}
+
+		Assert(end);
 
 		char *inner_context = nullptr;
 		result = static_cast< uint16_t >(strtoul(begin, &inner_context, 10));
@@ -220,6 +230,8 @@ namespace mage {
 			return TokenResult_None;
 		}
 
+		Assert(end);
+
 		char *inner_context = nullptr;
 		result = static_cast< int32_t >(strtol(begin, &inner_context, 10));
 		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
@@ -229,6 +241,8 @@ namespace mage {
 		if (!begin) {
 			return TokenResult_None;
 		}
+
+		Assert(end);
 
 		char *inner_context = nullptr;
 		result = static_cast< uint32_t >(strtoul(begin, &inner_context, 10));
@@ -240,6 +254,8 @@ namespace mage {
 			return TokenResult_None;
 		}
 
+		Assert(end);
+
 		char *inner_context = nullptr;
 		result = static_cast< int64_t >(strtoll(begin, &inner_context, 10));
 		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
@@ -249,6 +265,8 @@ namespace mage {
 		if (!begin) {
 			return TokenResult_None;
 		}
+
+		Assert(end);
 
 		char *inner_context = nullptr;
 		result = static_cast< uint64_t >(strtoull(begin, &inner_context, 10));
@@ -260,6 +278,8 @@ namespace mage {
 			return TokenResult_None;
 		}
 
+		Assert(end);
+
 		char *inner_context = nullptr;
 		result = strtof(begin, &inner_context);
 		return (inner_context == end) ? TokenResult_Valid : TokenResult_Invalid;
@@ -269,6 +289,8 @@ namespace mage {
 		if (!begin) {
 			return TokenResult_None;
 		}
+
+		Assert(end);
 
 		char *inner_context = nullptr;
 		result = strtod(begin, &inner_context);
@@ -390,6 +412,10 @@ namespace mage {
 #pragma region
 
 	TokenResult ReadChars(char *str, char **context, char **result, const char *delimiters) {
+		Assert(str || context);
+		Assert(result);
+		Assert(delimiters);
+		
 		*result = strtok_s(str, delimiters, context);
 		if (!result) {
 			return TokenResult_None;
@@ -399,6 +425,9 @@ namespace mage {
 	}
 	
 	TokenResult ReadString(char *str, char **context, string &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const char *token = strtok_s(str, delimiters, context);
 		if (!token) {
 			return TokenResult_None;
@@ -410,6 +439,9 @@ namespace mage {
 	}
 	
 	TokenResult ReadQuotedString(char *str, char **context, string &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		char *start = (str) ? SkipDelimiters(str, delimiters) : SkipDelimiters(*context, delimiters);
 		if (!start) {
 			return TokenResult_None;
@@ -435,61 +467,97 @@ namespace mage {
 	}
 	
 	TokenResult ReadBool(char *str, char **context, bool &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToBool(token, result);
 	}
 	
 	TokenResult ReadInt8(char *str, char **context, int8_t &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToInt8(token, result);
 	}
 	
 	TokenResult ReadUInt8(char *str, char **context, uint8_t &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToUInt8(token, result);
 	}
 	
 	TokenResult ReadInt16(char *str, char **context, int16_t &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToInt16(token, result);
 	}
 	
 	TokenResult ReadUInt16(char *str, char **context, uint16_t &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToUInt16(token, result);
 	}
 	
 	TokenResult ReadInt32(char *str, char **context, int32_t &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToInt32(token, result);
 	}
 	
 	TokenResult ReadUInt32(char *str, char **context, uint32_t &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToUInt32(token, result);
 	}
 	
 	TokenResult ReadInt64(char *str, char **context, int64_t &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToInt64(token, result);
 	}
 	
 	TokenResult ReadUInt64(char *str, char **context, uint64_t &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToUInt64(token, result);
 	}
 	
 	TokenResult ReadFloat(char *str, char **context, float &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToFloat(token, result);
 	}
 	
 	TokenResult ReadDouble(char *str, char **context, double &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const char *token = strtok_s(str, delimiters, context);
 		return StringToDouble(token, result);
 	}
 	
 	TokenResult ReadFloat2(char *str, char **context, XMFLOAT2 &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const TokenResult token_result_x = ReadFloat(str, context, result.x, delimiters);
 		if (token_result_x != TokenResult_Valid) {
 			return token_result_x;
@@ -504,6 +572,9 @@ namespace mage {
 	}
 	
 	TokenResult ReadFloat3(char *str, char **context, XMFLOAT3 &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const TokenResult token_result_x = ReadFloat(str, context, result.x, delimiters);
 		if (token_result_x != TokenResult_Valid) {
 			return token_result_x;
@@ -523,6 +594,9 @@ namespace mage {
 	}
 	
 	TokenResult ReadFloat4(char *str, char **context, XMFLOAT4 &result, const char *delimiters) {
+		Assert(str || context);
+		Assert(delimiters);
+		
 		const TokenResult token_result_x = ReadFloat(str, context, result.x, delimiters);
 		if (token_result_x != TokenResult_Valid) {
 			return token_result_x;
@@ -554,15 +628,24 @@ namespace mage {
 #pragma region
 
 	TokenResult HasChars(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		const char *start = SkipDelimiters(str, delimiters);
 		return (start) ? TokenResult_Valid : TokenResult_None;
 	}
 	
 	TokenResult HasString(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+
 		return HasChars(str, delimiters);
 	}
 	
 	TokenResult HasQuotedString(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult_None;
@@ -581,6 +664,9 @@ namespace mage {
 	}
 	
 	TokenResult HasBool(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult_None;
@@ -592,6 +678,9 @@ namespace mage {
 	}
 	
 	TokenResult HasInt8(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult_None;
@@ -603,6 +692,9 @@ namespace mage {
 	}
 	
 	TokenResult HasUInt8(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult_None;
@@ -614,6 +706,9 @@ namespace mage {
 	}
 	
 	TokenResult HasInt16(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult_None;
@@ -625,6 +720,9 @@ namespace mage {
 	}
 	
 	TokenResult HasUInt16(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult_None;
@@ -636,6 +734,9 @@ namespace mage {
 	}
 	
 	TokenResult HasInt32(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult_None;
@@ -647,6 +748,9 @@ namespace mage {
 	}
 	
 	TokenResult HasUInt32(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult_None;
@@ -658,6 +762,9 @@ namespace mage {
 	}
 	
 	TokenResult HasInt64(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult_None;
@@ -669,6 +776,9 @@ namespace mage {
 	}
 	
 	TokenResult HasUInt64(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult_None;
@@ -680,6 +790,9 @@ namespace mage {
 	}
 	
 	TokenResult HasFloat(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult_None;
@@ -691,6 +804,9 @@ namespace mage {
 	}
 	
 	TokenResult HasDouble(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		const char *start = SkipDelimiters(str, delimiters);
 		if (!start) {
 			return TokenResult_None;
@@ -709,30 +825,46 @@ namespace mage {
 #pragma region
 
 	char *SkipDelimiters(char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+
 		while (*str != '\0' && str_contains(delimiters, *str)) {
 			++str;
 		}
+		
 		return (*str != '\0') ? str : nullptr;
 	}
 	
 	const char *SkipDelimiters(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		while (*str != '\0' && str_contains(delimiters, *str)) {
 			++str;
 		}
+		
 		return (*str != '\0') ? str : nullptr;
 	}
 	
 	char *GotoDelimiters(char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		while (*str != '\0' && !str_contains(delimiters, *str)) {
 			++str;
 		}
+		
 		return (*str != '\0') ? str : nullptr;
 	}
 	
 	const char *GotoDelimiters(const char *str, const char *delimiters) {
+		Assert(str);
+		Assert(delimiters);
+		
 		while (*str != '\0' && !str_contains(delimiters, *str)) {
 			++str;
 		}
+		
 		return (*str != '\0') ? str : nullptr;
 	}
 

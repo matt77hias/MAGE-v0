@@ -184,6 +184,7 @@ namespace mage {
 		/**
 		 Reads a Vertex Normal Coordinates definition.
 
+		 @pre			All the vertex normals in the OBJ file are normalized.
 		 @throws		FormattedException
 						Failed to read a Vertex Normal Coordinates definition.
 		 */
@@ -211,6 +212,7 @@ namespace mage {
 		/**
 		 Reads the vertex normal coordinates.
 
+		 @pre			All the vertex normals in the OBJ file are normalized.
 		 @return		The @c Normal3 represented by the next token
 						of this OBJ reader (modified according to
 						the mesh descriptor of this OBj reader).

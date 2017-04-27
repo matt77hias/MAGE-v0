@@ -7,7 +7,7 @@
 #include "mesh\vertex.hpp"
 #include "rendering\rendering_factory.hpp"
 #include "collection\collection.hpp"
-#include "logging\error.hpp"
+#include "logging\exception.hpp"
 
 #pragma endregion
 
@@ -19,30 +19,18 @@ namespace mage {
 	SpriteBatchMesh::SpriteBatchMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 	 : Mesh(device, device_context, sizeof(VertexPositionColorTexture), DXGI_FORMAT_R16_UINT) {
 
-			const HRESULT result_vertex_buffer = SetupVertexBuffer();
-			if (FAILED(result_vertex_buffer)) {
-				Error("Vertex buffer setup failed: %08X.", result_vertex_buffer);
-				return;
-			}
-
-			const HRESULT result_index_buffer = SetupIndexBuffer();
-			if (FAILED(result_index_buffer)) {
-				Error("Index buffer setup failed: %08X.", result_index_buffer);
-				return;
-			}
+		SetupVertexBuffer();
+		SetupIndexBuffer();	
 	}
 
-	HRESULT SpriteBatchMesh::SetupVertexBuffer() {
+	void SpriteBatchMesh::SetupVertexBuffer() {
 		const HRESULT result_vertex_buffer = CreateDynamicVertexBuffer< VertexPositionColorTexture >(m_device, m_vertex_buffer.ReleaseAndGetAddressOf(), nullptr, MaxVerticesPerBatch());
 		if (FAILED(result_vertex_buffer)) {
-			Error("Vertex buffer creation failed: %08X.", result_vertex_buffer);
-			return result_vertex_buffer;
+			throw FormattedException("Vertex buffer creation failed: %08X.", result_vertex_buffer);
 		}
-
-		return S_OK;
 	}
 
-	HRESULT SpriteBatchMesh::SetupIndexBuffer() {
+	void SpriteBatchMesh::SetupIndexBuffer() {
 		static_assert(MaxVerticesPerBatch() < USHRT_MAX, "max_sprites_per_batch too large for 16-bit indices.");
 
 		// Create indices.
@@ -61,13 +49,10 @@ namespace mage {
 
 		const HRESULT result_index_buffer = CreateStaticIndexBuffer< uint16_t >(m_device, m_index_buffer.ReleaseAndGetAddressOf(), indices.data(), indices.size());
 		if (FAILED(result_index_buffer)) {
-			Error("Index buffer creation failed: %08X.", result_index_buffer);
-			return result_index_buffer;
+			throw FormattedException("Index buffer creation failed: %08X.", result_index_buffer);
 		}
 
 		SetNumberOfIndices(indices.size());
-
-		return S_OK;
 	}
 
 	HRESULT SpriteBatchMesh::MapVertexBuffer(D3D11_MAP map_type, D3D11_MAPPED_SUBRESOURCE *mapped_buffer) {

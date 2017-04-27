@@ -24,7 +24,7 @@
 namespace mage {
 
 	/**
-	 A class of mutexes.
+	 A struct of mutexes.
 	 */
 	struct Mutex final {
 
@@ -173,7 +173,7 @@ namespace mage {
 	};
 
 	/**
-	 A class of read write mutexes.
+	 A struct of read write mutexes.
 	 */
 	struct ReadWriteMutex final {
 
@@ -407,7 +407,7 @@ namespace mage {
 	};
 
 	/**
-	 A class of semaphores.
+	 A struct of semaphores.
 	 */
 	struct Semaphore final {
 
@@ -511,7 +511,7 @@ namespace mage {
 	};
 
 	/**
-	 A class of condition variables.
+	 A struct of condition variables.
 	 */
 	struct ConditionVariable final {
 

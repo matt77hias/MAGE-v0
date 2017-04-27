@@ -27,6 +27,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 A struct of vertices containing position coordinates.
+	 */
 	struct VertexPosition final {
 
 	public:
@@ -53,15 +56,15 @@ namespace mage {
 		 Constructs a vertex from the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to copy.
 		 */
 		VertexPosition(const VertexPosition &vertex) = default;
 
 		/**
-		 Constructs a vertex from the given vertex.
+		 Constructs a vertex by moving the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to move.
 		 */
 		VertexPosition(VertexPosition &&vertex) = default;
 
@@ -75,20 +78,22 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		Copies the given vertex to this vertex.
+		 Copies the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to copy.
+		 @return		A reference to the copy of the given vertex 
+						(i.e. this vertex).
 		 */
 		VertexPosition &operator=(const VertexPosition &vertex) = default;
 
 		/**
-		 Copies the given vertex to this vertex.
+		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to move.
+		 @return		A reference to the moved vertex 
+						(i.e. this vertex).
 		 */
 		VertexPosition &operator=(VertexPosition &&vertex) = default;
 
@@ -116,6 +121,9 @@ namespace mage {
 		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
 	};
 
+	/**
+	 A struct of vertices containing position and normal coordinates.
+	 */
 	struct VertexPositionNormal final {
 
 	public:
@@ -144,15 +152,15 @@ namespace mage {
 		 Constructs a vertex from the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to copy.
 		*/
 		VertexPositionNormal(const VertexPositionNormal &vertex) = default;
 
 		/**
-		 Constructs a vertex from the given vertex.
+		 Constructs a vertex by moving the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to move.
 		 */
 		VertexPositionNormal(VertexPositionNormal &&vertex) = default;
 
@@ -169,17 +177,19 @@ namespace mage {
 		 Copies the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to copy.
+		 @return		A reference to the copy of the given vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionNormal &operator=(const VertexPositionNormal &vertex) = default;
 
 		/**
-		 Copies the given vertex to this vertex.
+		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to move.
+		 @return		A reference to the moved vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionNormal &operator=(VertexPositionNormal &&vertex) = default;
 
@@ -212,6 +222,9 @@ namespace mage {
 		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
 	};
 
+	/**
+	 A struct of vertices containing position coordinates and a color.
+	 */
 	struct VertexPositionColor final {
 
 	public:
@@ -240,15 +253,15 @@ namespace mage {
 		 Constructs a vertex from the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to copy.
 		 */
 		VertexPositionColor(const VertexPositionColor &vertex) = default;
 
 		/**
-		 Constructs a vertex from the given vertex.
+		 Constructs a vertex by moving the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to move.
 		 */
 		VertexPositionColor(VertexPositionColor &&vertex) = default;
 
@@ -265,17 +278,19 @@ namespace mage {
 		 Copies the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to copy.
+		 @return		A reference to the copy of the given vertex
+						(i.e. this vertex).
 		 */
 		VertexPositionColor &operator=(const VertexPositionColor &vertex) = default;
 
 		/**
-		 Copies the given vertex to this vertex.
+		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to move.
+		 @return		A reference to the moved vertex
+						(i.e. this vertex).
 		 */
 		VertexPositionColor &operator=(VertexPositionColor &&vertex) = default;
 
@@ -308,6 +323,9 @@ namespace mage {
 		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
 	};
 
+	/**
+	 A struct of vertices containing position and texture coordinates.
+	 */
 	struct VertexPositionTexture final {
 
 	public:
@@ -336,15 +354,15 @@ namespace mage {
 		 Constructs a vertex from the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to copy.
 		 */
 		VertexPositionTexture(const VertexPositionTexture &vertex) = default;
 
 		/**
-		 Constructs a vertex from the given vertex.
+		 Constructs a vertex by moving the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to move.
 		 */
 		VertexPositionTexture(VertexPositionTexture &&vertex) = default;
 
@@ -361,17 +379,19 @@ namespace mage {
 		 Copies the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to copy.
+		 @return		A reference to the copy of the given vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionTexture &operator=(const VertexPositionTexture &vertex) = default;
 
 		/**
-		 Copies the given vertex to this vertex.
+		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to move.
+		 @return		A reference to the moved vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionTexture &operator=(VertexPositionTexture &&vertex) = default;
 
@@ -404,6 +424,9 @@ namespace mage {
 		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
 	};
 
+	/**
+	 A struct of vertices containing position and normal coordinates and a color.
+	 */
 	struct VertexPositionNormalColor final {
 
 	public:
@@ -434,15 +457,15 @@ namespace mage {
 		 Constructs a vertex from the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to copy.
 		 */
 		VertexPositionNormalColor(const VertexPositionNormalColor &vertex) = default;
 
 		/**
-		 Constructs a vertex from the given vertex.
+		 Constructs a vertex by moving the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to move.
 		 */
 		VertexPositionNormalColor(VertexPositionNormalColor &&vertex) = default;
 
@@ -459,17 +482,19 @@ namespace mage {
 		 Copies the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to copy.
+		 @return		A reference to the copy of the given vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionNormalColor &operator=(const VertexPositionNormalColor &vertex) = default;
 
 		/**
-		 Copies the given vertex to this vertex.
+		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to move.
+		 @return		A reference to the moved vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionNormalColor &operator=(VertexPositionNormalColor &&vertex) = default;
 
@@ -507,6 +532,9 @@ namespace mage {
 		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
 	};
 
+	/**
+	 A struct of vertices containing position, normal and texture coordinates.
+	 */
 	struct VertexPositionNormalTexture final {
 
 	public:
@@ -537,15 +565,15 @@ namespace mage {
 		 Constructs a vertex from the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to copy.
 		 */
 		VertexPositionNormalTexture(const VertexPositionNormalTexture &vertex) = default;
 
 		/**
-		 Constructs a vertex from the given vertex.
+		 Constructs a vertex by moving the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to move.
 		 */
 		VertexPositionNormalTexture(VertexPositionNormalTexture &&vertex) = default;
 
@@ -562,17 +590,19 @@ namespace mage {
 		 Copies the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to copy.
+		 @return		A reference to the copy of the given vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionNormalTexture &operator=(const VertexPositionNormalTexture &vertex) = default;
 
 		/**
-		 Copies the given vertex to this vertex.
+		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to move.
+		 @return		A reference to the moved vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionNormalTexture &operator=(VertexPositionNormalTexture &&vertex) = default;
 
@@ -610,6 +640,9 @@ namespace mage {
 		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
 	};
 
+	/**
+	 A struct of vertices containing position and texture coordinates and a color.
+	 */
 	struct VertexPositionColorTexture final {
 
 	public:
@@ -640,15 +673,15 @@ namespace mage {
 		 Constructs a vertex from the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to copy.
 		 */
 		VertexPositionColorTexture(const VertexPositionColorTexture &vertex) = default;
 
 		/**
-		 Constructs a vertex from the given vertex.
+		 Constructs a vertex by moving the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to move.
 		 */
 		VertexPositionColorTexture(VertexPositionColorTexture &&vertex) = default;
 
@@ -665,17 +698,19 @@ namespace mage {
 		 Copies the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to copy.
+		 @return		A reference to the copy of the given vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionColorTexture &operator=(const VertexPositionColorTexture &vertex) = default;
 
 		/**
-		 Copies the given vertex to this vertex.
+		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to move.
+		 @return		A reference to the moved vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionColorTexture &operator=(VertexPositionColorTexture &&vertex) = default;
 
@@ -713,6 +748,9 @@ namespace mage {
 		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
 	};
 
+	/**
+	 A struct of vertices containing position, normal and texture coordinates and a color.
+	 */
 	struct VertexPositionNormalColorTexture final {
 
 	public:
@@ -745,15 +783,15 @@ namespace mage {
 		 Constructs a vertex from the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to copy.
 		 */
 		VertexPositionNormalColorTexture(const VertexPositionNormalColorTexture &vertex) = default;
 
 		/**
-		 Constructs a vertex from the given vertex.
+		 Constructs a vertex by moving the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to move.
 		 */
 		VertexPositionNormalColorTexture(VertexPositionNormalColorTexture &&vertex) = default;
 
@@ -770,17 +808,19 @@ namespace mage {
 		 Copies the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to copy.
+		 @return		A reference to the copy of the given vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionNormalColorTexture &operator=(const VertexPositionNormalColorTexture &vertex) = default;
 
 		/**
-		 Copies the given vertex to this vertex.
+		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to move.
+		 @return		A reference to the moved vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionNormalColorTexture &operator=(VertexPositionNormalColorTexture &&vertex) = default;
 
@@ -823,6 +863,9 @@ namespace mage {
 		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
 	};
 
+	/**
+	 A struct of vertices containing position coordinates and two sets of texture coordinates.
+	 */
 	struct VertexPositionTextureTexture final {
 
 	public:
@@ -853,15 +896,15 @@ namespace mage {
 		 Constructs a vertex from the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to copy.
 		 */
 		VertexPositionTextureTexture(const VertexPositionTextureTexture &vertex) = default;
 
 		/**
-		 Constructs a vertex from the given vertex.
+		 Constructs a vertex by moving the given vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
+						A reference to the vertex to move.
 		 */
 		VertexPositionTextureTexture(VertexPositionTextureTexture &&vertex) = default;
 		
@@ -878,17 +921,19 @@ namespace mage {
 		 Copies the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to copy.
+		 @return		A reference to the copy of the given vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionTextureTexture &operator=(const VertexPositionTextureTexture &vertex) = default;
 
 		/**
-		 Copies the given vertex to this vertex.
+		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
-						A reference to a vertex.
-		 @return		A reference to the copy of the given vertex (i.e. this vertex).
+						A reference to the vertex to move.
+		 @return		A reference to the moved vertex 
+						(i.e. this vertex).
 		 */
 		VertexPositionTextureTexture &operator=(VertexPositionTextureTexture &&vertex) = default;
 

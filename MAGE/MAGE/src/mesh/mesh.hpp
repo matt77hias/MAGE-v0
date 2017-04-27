@@ -39,18 +39,18 @@ namespace mage {
 		 Copies the given mesh to this mesh.
 
 		 @param[in]		mesh
-						A reference to the mesh to copy from.
+						A reference to the mesh to copy.
 		 @return		A reference to the copy of the given mesh
 						(i.e. this mesh).
 		 */
 		Mesh &operator=(const Mesh &mesh) = delete;
 
 		/**
-		 Copies the given mesh to this mesh.
+		 Moves the given mesh to this mesh.
 
 		 @param[in]		mesh
-						A reference to the mesh to copy from.
-		 @return		A reference to the copy of the given mesh
+						A reference to the mesh to move.
+		 @return		A reference to the moved mesh
 						(i.e. this mesh).
 		 */
 		Mesh &operator=(Mesh &&mesh) = delete;
@@ -60,9 +60,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the size of the vertices of this mesh.
+		 Returns the size (in bytes) of the vertices of this mesh.
 
-		 @return		The vertex size of this static mesh.
+		 @return		The vertex size (in bytes) of this static mesh.
 		 */
 		size_t GetVertexSize() const {
 			return m_vertex_size;
@@ -105,7 +105,10 @@ namespace mage {
 		}
 
 		/**
-		 Prepare the drawing of this mesh.
+		 Prepares the drawing of this mesh.
+
+		 The vertex buffer, index buffer and primitive topology of this mesh
+		 will be bound to the input-assembler stage.
 		 */
 		void PrepareDrawing() const {
 			UINT stride = static_cast< UINT >(m_vertex_size);
@@ -116,14 +119,14 @@ namespace mage {
 		}
 
 		/**
-		 Draws this mesh.
+		 Draws this complete mesh.
 		 */
 		void Draw() const {
 			m_device_context->DrawIndexed(static_cast< UINT >(m_nb_indices), 0, 0);
 		}
 		
 		/**
-		 Draws this mesh.
+		 Draws a submesh of this mesh.
 
 		 @param[in]		start_index
 						The start index.
@@ -143,6 +146,8 @@ namespace mage {
 		/**
 		 Constructs a mesh.
 
+		 @pre			@a device is not equal to @c nullptr.
+		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
@@ -165,15 +170,15 @@ namespace mage {
 		 Constructs a mesh from the given mesh.
 
 		 @param[in]		mesh
-						A reference to the mesh.
+						A reference to the mesh to copy.
 		 */
 		Mesh(const Mesh &mesh) = delete;
 
 		/**
-		 Constructs a mesh from the given mesh.
+		 Constructs a mesh by moving the given mesh.
 
 		 @param[in]		mesh
-						A reference to the mesh.
+						A reference to the mesh to move.
 		 */
 		Mesh(Mesh &&mesh) = default;
 

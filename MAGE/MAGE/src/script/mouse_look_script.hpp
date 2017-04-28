@@ -32,8 +32,8 @@ namespace mage {
 		explicit MouseLookScript(TransformNode *transform,
 			RotationAxes axes = RotationAxes_MouseXAndY,
 			const XMFLOAT2 &sensitivity      = XMFLOAT2(1.8f,1.8f),
-			const XMFLOAT2 &minimum_rotation = XMFLOAT2(-XM_PI / 3.0f , -XM_2PI),
-			const XMFLOAT2 &maximum_rotation = XMFLOAT2( XM_PI / 3.0f,   XM_2PI),
+			const XMFLOAT2 &minimum_rotation = XMFLOAT2(-XM_PI / 3.0f , -XM_PI),
+			const XMFLOAT2 &maximum_rotation = XMFLOAT2( XM_PI / 3.0f,   XM_PI),
 			const XMFLOAT2 &direction        = XMFLOAT2(1.0f, 1.0f))
 			: BehaviorScript(),
 			m_transform(transform), 

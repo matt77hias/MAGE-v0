@@ -6,7 +6,7 @@
 #pragma region
 
 #include "memory\allocation.hpp"
-#include "math\math.hpp"
+#include "material\spectrum.hpp"
 
 #pragma endregion
 
@@ -26,10 +26,10 @@ namespace mage {
 		MaterialBuffer &operator=(const MaterialBuffer &buffer) = default;
 		MaterialBuffer &operator=(MaterialBuffer &&buffer) = default;
 
-		XMFLOAT3 Kd;
-		float    dissolve;
-		XMFLOAT3 Ks;
-		float    Ns;
+		RGBSpectrum m_Kd;
+		float       m_dissolve;
+		RGBSpectrum m_Ks;
+		float       m_Ns;
 	};
 
 	static_assert(sizeof(MaterialBuffer) == 32, "CPU/GPU struct mismatch");

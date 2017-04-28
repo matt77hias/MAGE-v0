@@ -42,10 +42,10 @@ namespace mage {
 	void LambertianPixelShader::PrepareShading(const Material &material, const Lighting &lighting) const {
 
 		MaterialBuffer buffer;
-		buffer.Kd       = material.m_diffuse_reflectivity;
-		buffer.dissolve = material.m_dissolve;
-		buffer.Ks       = material.m_specular_reflectivity;
-		buffer.Ns       = material.m_specular_exponent;
+		buffer.m_Kd       = material.m_diffuse_reflectivity;
+		buffer.m_dissolve = material.m_dissolve;
+		buffer.m_Ks       = material.m_specular_reflectivity;
+		buffer.m_Ns       = material.m_specular_exponent;
 		m_material_buffer.UpdateData(buffer);
 		
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);

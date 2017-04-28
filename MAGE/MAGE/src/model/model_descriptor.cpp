@@ -23,7 +23,7 @@ namespace mage {
 
 	const ModelPart *ModelDescriptor::GetModelPart(const string &name) const {
 		for (vector< ModelPart >::const_iterator it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
-			if (it->child == name) {
+			if (it->m_child == name) {
 				return &(*it);
 			}
 		}

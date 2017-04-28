@@ -19,9 +19,9 @@ namespace mage {
 
 		 //ExportModelToFile(L"assets/models/model/model.mdl", buffer);
 
-		 m_mesh        = SharedPtr< StaticMesh >(new StaticMesh(device, device_context, buffer.vertex_buffer, buffer.index_buffer));
-		 m_materials   = std::move(buffer.material_buffer);
-		 m_model_parts = std::move(buffer.model_parts);
+		 m_mesh        = SharedPtr< StaticMesh >(new StaticMesh(device, device_context, buffer.m_vertex_buffer, buffer.m_index_buffer));
+		 m_materials   = std::move(buffer.m_material_buffer);
+		 m_model_parts = std::move(buffer.m_model_parts);
 	 }
 
 	 template< typename ActionT >

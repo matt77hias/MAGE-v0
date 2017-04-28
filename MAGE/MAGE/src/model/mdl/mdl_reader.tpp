@@ -19,10 +19,10 @@ namespace mage {
 
 	template < typename VertexT >
 	void MDLReader< VertexT >::Preprocess() {
-		if (!m_model_output.vertex_buffer.empty()) {
+		if (!m_model_output.m_vertex_buffer.empty()) {
 			Error("%ls: vertex buffer must be empty.", GetFilename().c_str());
 		}
-		if (!m_model_output.index_buffer.empty()) {
+		if (!m_model_output.m_index_buffer.empty()) {
 			Error("%ls: index buffer must be empty.", GetFilename().c_str());
 		}
 
@@ -33,7 +33,7 @@ namespace mage {
 	void MDLReader< VertexT >::ImportMesh() {
 		const wstring &fname = GetFilename();
 		const wstring msh_fname = mage::GetFilenameWithoutFileExtension(fname) + L".msh";
-		ImportMSHMeshFromFile(msh_fname, m_model_output.vertex_buffer, m_model_output.index_buffer);
+		ImportMSHMeshFromFile(msh_fname, m_model_output.m_vertex_buffer, m_model_output.m_index_buffer);
 	}
 
 	template < typename VertexT >
@@ -62,13 +62,13 @@ namespace mage {
 	template < typename VertexT >
 	void MDLReader< VertexT >::ReadMDLSubModel() {
 		ModelPart model_part;
-		model_part.child       = ReadString();
-		model_part.parent      = ReadString();
-		model_part.material    = ReadString();
-		model_part.start_index = ReadUInt32();
-		model_part.nb_indices  = ReadUInt32();
+		model_part.m_child       = ReadString();
+		model_part.m_parent      = ReadString();
+		model_part.m_material    = ReadString();
+		model_part.m_start_index = ReadUInt32();
+		model_part.m_nb_indices  = ReadUInt32();
 
-		m_model_output.model_parts.push_back(model_part);
+		m_model_output.m_model_parts.push_back(model_part);
 	}
 
 	template < typename VertexT >
@@ -77,7 +77,7 @@ namespace mage {
 		const wstring mtl_name = str_convert(ReadString());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
-		const HRESULT result = ImportMaterialFromFile(mtl_fname, m_model_output.material_buffer);
+		const HRESULT result = ImportMaterialFromFile(mtl_fname, m_model_output.m_material_buffer);
 		if (FAILED(result)) {
 			Error("%ls: line %u: %ls could not be loaded.", GetFilename().c_str(), GetCurrentLineNumber(), mtl_fname.c_str());
 		}

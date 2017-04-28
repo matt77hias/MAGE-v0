@@ -50,10 +50,10 @@ namespace mage {
 		ForEachOmniLight([&omni_lights_buffer, &world_to_view](const OmniLightNode &light_node) {
 			OmniLightBuffer light_buffer;
 			
-			XMStoreFloat4(&light_buffer.p, XMVector4Transform(light_node.GetWorldEye(), world_to_view));
-			light_buffer.I                      = light_node.GetObject()->GetIntensity();
-			light_buffer.distance_falloff_start = light_node.GetObject()->GetStartDistanceFalloff();
-			light_buffer.distance_falloff_end   = light_node.GetObject()->GetEndDistanceFalloff();
+			XMStoreFloat4(&light_buffer.m_p, XMVector4Transform(light_node.GetWorldEye(), world_to_view));
+			light_buffer.m_I                      = light_node.GetObject()->GetIntensity();
+			light_buffer.m_distance_falloff_start = light_node.GetObject()->GetStartDistanceFalloff();
+			light_buffer.m_distance_falloff_end   = light_node.GetObject()->GetEndDistanceFalloff();
 			
 			omni_lights_buffer.push_back(light_buffer);
 		});
@@ -64,14 +64,14 @@ namespace mage {
 		ForEachSpotLight([&spot_lights_buffer, &world_to_view](const SpotLightNode &light_node) {
 			SpotLightBuffer light_buffer;
 
-			XMStoreFloat4(&light_buffer.p, XMVector4Transform(light_node.GetWorldEye(), world_to_view));
-			light_buffer.I                      = light_node.GetObject()->GetIntensity();
-			light_buffer.exponent_property      = light_node.GetObject()->GetExponentProperty();
-			XMStoreFloat3(&light_buffer.d, XMVector4Transform(light_node.GetWorldForward(), world_to_view));
-			light_buffer.distance_falloff_start = light_node.GetObject()->GetStartDistanceFalloff();
-			light_buffer.distance_falloff_end   = light_node.GetObject()->GetEndDistanceFalloff();
-			light_buffer.cos_penumbra           = light_node.GetObject()->GetStartAngualCutoff();
-			light_buffer.cos_umbra              = light_node.GetObject()->GetEndAngualCutoff();
+			XMStoreFloat4(&light_buffer.m_p, XMVector4Transform(light_node.GetWorldEye(), world_to_view));
+			light_buffer.m_I                      = light_node.GetObject()->GetIntensity();
+			light_buffer.m_exponent_property      = light_node.GetObject()->GetExponentProperty();
+			XMStoreFloat3(&light_buffer.m_d, XMVector4Transform(light_node.GetWorldForward(), world_to_view));
+			light_buffer.m_distance_falloff_start = light_node.GetObject()->GetStartDistanceFalloff();
+			light_buffer.m_distance_falloff_end   = light_node.GetObject()->GetEndDistanceFalloff();
+			light_buffer.m_cos_penumbra           = light_node.GetObject()->GetStartAngualCutoff();
+			light_buffer.m_cos_umbra              = light_node.GetObject()->GetEndAngualCutoff();
 
 			spot_lights_buffer.push_back(light_buffer);
 		});
@@ -79,8 +79,8 @@ namespace mage {
 
 		// Update light data constant buffer.
 		LightDataBuffer light_data_buffer;
-		light_data_buffer.nb_omni_lights = static_cast< uint32_t >(omni_lights_buffer.size());
-		light_data_buffer.nb_spot_lights = static_cast< uint32_t >(spot_lights_buffer.size());
+		light_data_buffer.m_nb_omni_lights = static_cast< uint32_t >(omni_lights_buffer.size());
+		light_data_buffer.m_nb_spot_lights = static_cast< uint32_t >(spot_lights_buffer.size());
 		m_light_data_buffer.UpdateData(light_data_buffer);
 		
 		// Create lighting buffer.
@@ -155,23 +155,23 @@ namespace mage {
 		map< string, ModelNodePair > mapping;
 
 		desc.ForEachModelPart([&](const ModelPart &model_part) {
-			if (model_part.child == MAGE_MDL_PART_DEFAULT_CHILD && model_part.nb_indices == 0) {
+			if (model_part.m_child == MAGE_MDL_PART_DEFAULT_CHILD && model_part.m_nb_indices == 0) {
 				return;
 			}
 
-			if (model_part.material == MAGE_MDL_PART_DEFAULT_MATERIAL) {
-				SharedPtr< Model > submodel(new Model(desc.GetMesh(), model_part.start_index, model_part.nb_indices, default_shaded_material));
-				SharedPtr< ModelNode > submodel_node(new ModelNode(model_part.child, submodel));
+			if (model_part.m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) {
+				SharedPtr< Model > submodel(new Model(desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, default_shaded_material));
+				SharedPtr< ModelNode > submodel_node(new ModelNode(model_part.m_child, submodel));
 				AddModel(submodel_node);
-				mapping[model_part.child] = ModelNodePair(submodel_node, model_part.parent);
+				mapping[model_part.m_child] = ModelNodePair(submodel_node, model_part.m_parent);
 			}
 			else {
-				const Material material(*desc.GetMaterial(model_part.material));
+				const Material material(*desc.GetMaterial(model_part.m_material));
 				const ShadedMaterial shaded_material(shader, material);
-				SharedPtr< Model > submodel(new Model(desc.GetMesh(), model_part.start_index, model_part.nb_indices, shaded_material));
-				SharedPtr< ModelNode > submodel_node(new ModelNode(model_part.child, submodel));
+				SharedPtr< Model > submodel(new Model(desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, shaded_material));
+				SharedPtr< ModelNode > submodel_node(new ModelNode(model_part.m_child, submodel));
 				AddModel(submodel_node);
-				mapping[model_part.child] = ModelNodePair(submodel_node, model_part.parent);
+				mapping[model_part.m_child] = ModelNodePair(submodel_node, model_part.m_parent);
 			}
 		});
 

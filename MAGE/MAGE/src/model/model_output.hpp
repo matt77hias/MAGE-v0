@@ -47,8 +47,8 @@ namespace mage {
 			const string &parent = MAGE_MDL_PART_DEFAULT_PARENT,
 			uint32_t start_index = 0, uint32_t nb_indices = 0, 
 			const string &material = MAGE_MDL_PART_DEFAULT_MATERIAL)
-			: child(child), parent(parent), material(material), 
-			start_index(start_index), nb_indices(nb_indices) {}
+			: m_child(child), m_parent(parent), m_material(material),
+			m_start_index(start_index), m_nb_indices(nb_indices) {}
 		ModelPart(const ModelPart &model_part) = default;
 		ModelPart(ModelPart &&model_part) = default;
 		~ModelPart() = default;
@@ -64,11 +64,11 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		string child;
-		string parent;
-		string material;
-		uint32_t start_index;
-		uint32_t nb_indices;
+		string m_child;
+		string m_parent;
+		string m_material;
+		uint32_t m_start_index;
+		uint32_t m_nb_indices;
 	};
 
 	template < typename VertexT >
@@ -97,35 +97,35 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		bool HasModelPart(const string &child) {
-			for (vector< ModelPart >::const_iterator it = model_parts.cbegin(); it != model_parts.cend(); ++it) {
-				if (it->child == child) {
+			for (vector< ModelPart >::const_iterator it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
+				if (it->m_child == child) {
 					return true;
 				}
 			}
 			return false;
 		}
 		void StartModelPart(const string &child, const string &parent = MAGE_MDL_PART_DEFAULT_PARENT) {
-			const uint32_t start = static_cast< uint32_t >(index_buffer.size());
-			model_parts.push_back(ModelPart(child, parent, start));
+			const uint32_t start = static_cast< uint32_t >(m_index_buffer.size());
+			m_model_parts.push_back(ModelPart(child, parent, start));
 		}
 		void SetMaterial(const string &material) {
-			ModelPart &current = model_parts.back();
-			current.material = material;
+			ModelPart &current = m_model_parts.back();
+			current.m_material = material;
 		}
 		void EndModelPart() {
-			ModelPart &current = model_parts.back();
-			const uint32_t start = current.start_index;
-			const uint32_t end = static_cast< uint32_t >(index_buffer.size());
-			current.nb_indices = end - start;
+			ModelPart &current = m_model_parts.back();
+			const uint32_t start = current.m_start_index;
+			const uint32_t end = static_cast< uint32_t >(m_index_buffer.size());
+			current.m_nb_indices = end - start;
 		}
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		vector< VertexT > vertex_buffer;
-		vector< uint32_t > index_buffer;
-		vector< Material > material_buffer;
-		vector< ModelPart > model_parts;
+		vector< VertexT > m_vertex_buffer;
+		vector< uint32_t > m_index_buffer;
+		vector< Material > m_material_buffer;
+		vector< ModelPart > m_model_parts;
 	};
 }

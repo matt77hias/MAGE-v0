@@ -37,7 +37,8 @@ namespace mage {
 		 Constructs an (identity) AABB.
 		 */
 		AABB() 
-			: p_min(Point3(-INFINITY, -INFINITY, -INFINITY)), p_max(Point3(INFINITY, INFINITY, INFINITY)) {}
+			: m_p_min(Point3(-INFINITY, -INFINITY, -INFINITY)), 
+			m_p_max(Point3(INFINITY, INFINITY, INFINITY)) {}
 
 		/**
 		 Constructs an AABB of the given point.
@@ -46,7 +47,7 @@ namespace mage {
 						A reference to the point.
 		 */
 		explicit AABB(const Point3 &p)
-			: p_min(p), p_max(p) {}
+			: m_p_min(p), m_p_max(p) {}
 
 		/**
 		 Constructs an AABB of the given extents.
@@ -58,7 +59,7 @@ namespace mage {
 						A reference to the maximum extents.
 		 */
 		explicit AABB(const Point3 &p_min, const Point3 &p_max)
-			: p_min(p_min), p_max(p_max) {}
+			: m_p_min(p_min), m_p_max(p_max) {}
 
 		/**
 		 Constructs an AABB from the given AABB.
@@ -244,12 +245,12 @@ namespace mage {
 		/**
 		 The minimum extents of this AABB.
 		 */
-		Point3 p_min;
+		Point3 m_p_min;
 
 		/**
 		 The maximum extents of this AABB.
 		 */
-		Point3 p_max;
+		Point3 m_p_max;
 	};
 
 	/**
@@ -333,7 +334,7 @@ namespace mage {
 		 Constructs a BS.
 		 */
 		BS() 
-			: p(Point3(0.0f, 0.0f, 0.0f)), r(0.0f) {}
+			: m_p(), m_r(0.0f) {}
 
 		/**
 		 Constructs a BS of the given point.
@@ -342,7 +343,7 @@ namespace mage {
 						A reference to the point.
 		 */
 		explicit BS(const Point3 &p)
-			: p(p), r(0.0f) {}
+			: m_p(p), m_r(0.0f) {}
 
 		/**
 		 Constructs a BS.
@@ -353,7 +354,7 @@ namespace mage {
 						The radius.
 		 */
 		explicit BS(const Point3 &p, float r)
-			: p(p), r(r) {}
+			: m_p(p), m_r(r) {}
 
 		/**
 		 Constructs a BS from the given AABB.
@@ -504,7 +505,7 @@ namespace mage {
 		 @return		The centroid of this AABB.
 		 */
 		const Point3 Centroid() const {
-			return p;
+			return m_p;
 		}
 
 		//---------------------------------------------------------------------
@@ -514,11 +515,11 @@ namespace mage {
 		/**
 		 The position of this BS.
 		 */
-		Point3 p;
+		Point3 m_p;
 
 		/**
 		 The radius of this BS.
 		 */
-		float r;
+		float m_r;
 	};
 }

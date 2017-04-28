@@ -39,7 +39,7 @@ namespace mage {
 	HRESULT MDLWriter< VertexT >::ExportMesh() {
 		const wstring &fname = GetFilename();
 		const wstring msh_fname = mage::GetFilenameWithoutFileExtension(fname) + L".msh";
-		return ExportMSHMeshToFile(msh_fname, m_model_output.vertex_buffer, m_model_output.index_buffer);
+		return ExportMSHMeshToFile(msh_fname, m_model_output.m_vertex_buffer, m_model_output.m_index_buffer);
 	}
 
 	template < typename VertexT >

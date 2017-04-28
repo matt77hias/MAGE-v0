@@ -20,10 +20,10 @@ namespace mage {
 
 	template < typename VertexT >
 	void OBJReader< VertexT >::Preprocess() {
-		if (!m_model_output.vertex_buffer.empty()) {
+		if (!m_model_output.m_vertex_buffer.empty()) {
 			throw FormattedException("%ls: vertex buffer must be empty.", GetFilename().c_str());
 		}
-		if (!m_model_output.index_buffer.empty()) {
+		if (!m_model_output.m_index_buffer.empty()) {
 			throw FormattedException("%ls: index buffer must be empty.", GetFilename().c_str());
 		}
 
@@ -87,7 +87,7 @@ namespace mage {
 		const wstring mtl_name = str_convert(ReadString());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
-		ImportMaterialFromFile(mtl_fname, m_model_output.material_buffer);
+		ImportMaterialFromFile(mtl_fname, m_model_output.m_material_buffer);
 	}
 
 	template < typename VertexT >
@@ -100,7 +100,7 @@ namespace mage {
 	void OBJReader< VertexT >::ReadOBJGroup() {
 		const string child = ReadString();
 		if (child == MAGE_MDL_PART_DEFAULT_CHILD) {
-			if (!m_model_output.index_buffer.empty()) {
+			if (!m_model_output.m_index_buffer.empty()) {
 				throw FormattedException("%ls: line %u: default child name can only be explicitly defined before all face definitions.", GetFilename().c_str(), GetCurrentLineNumber());
 			}
 			return;
@@ -167,25 +167,25 @@ namespace mage {
 				indices.push_back(it->second);
 			}
 			else {
-				const uint32_t index = static_cast< uint32_t >(m_model_output.vertex_buffer.size());
+				const uint32_t index = static_cast< uint32_t >(m_model_output.m_vertex_buffer.size());
 				indices.push_back(index);
-				m_model_output.vertex_buffer.push_back(ConstructVertex(vertex_indices));
+				m_model_output.m_vertex_buffer.push_back(ConstructVertex(vertex_indices));
 				m_mapping[vertex_indices] = index;
 			}
 		}
 
 		if (m_mesh_desc.ClockwiseOrder()) {
 			for (size_t i = 1; i < indices.size() - 1; ++i) {
-				m_model_output.index_buffer.push_back(indices[0]);
-				m_model_output.index_buffer.push_back(indices[i + 1]);
-				m_model_output.index_buffer.push_back(indices[i]);
+				m_model_output.m_index_buffer.push_back(indices[0]);
+				m_model_output.m_index_buffer.push_back(indices[i + 1]);
+				m_model_output.m_index_buffer.push_back(indices[i]);
 			}
 		}
 		else {
 			for (size_t i = 1; i < indices.size() - 1; ++i) {
-				m_model_output.index_buffer.push_back(indices[0]);
-				m_model_output.index_buffer.push_back(indices[i]);
-				m_model_output.index_buffer.push_back(indices[i + 1]);
+				m_model_output.m_index_buffer.push_back(indices[0]);
+				m_model_output.m_index_buffer.push_back(indices[i]);
+				m_model_output.m_index_buffer.push_back(indices[i + 1]);
 			}
 		}
 	}

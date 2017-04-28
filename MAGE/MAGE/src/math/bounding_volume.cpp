@@ -26,26 +26,26 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	AABB::AABB(const BS &bs)
-		: p_min(Point3(bs.p.x - bs.r, bs.p.y - bs.r, bs.p.z - bs.r)),
-		p_max(Point3(bs.p.x + bs.r, bs.p.y + bs.r, bs.p.z + bs.r)) {}
+		: m_p_min(Point3(bs.m_p.x - bs.m_r, bs.m_p.y - bs.m_r, bs.m_p.z - bs.m_r)),
+		m_p_max(Point3(bs.m_p.x + bs.m_r, bs.m_p.y + bs.m_r, bs.m_p.z + bs.m_r)) {}
 
 	bool AABB::Encloses(const Point3 &point) const {
-		if (point.x > p_max.x) {
+		if (point.x > m_p_max.x) {
 			return false;
 		}
-		if (point.y > p_max.y) {
+		if (point.y > m_p_max.y) {
 			return false;
 		}
-		if (point.z > p_max.z) {
+		if (point.z > m_p_max.z) {
 			return false;
 		}
-		if (point.x < p_min.x) {
+		if (point.x < m_p_min.x) {
 			return false;
 		}
-		if (point.y < p_min.y) {
+		if (point.y < m_p_min.y) {
 			return false;
 		}
-		if (point.z < p_min.z) {
+		if (point.z < m_p_min.z) {
 			return false;
 		}
 
@@ -53,22 +53,22 @@ namespace mage {
 	}
 
 	bool AABB::EnclosesStrict(const Point3 &point) const {
-		if (point.x >= p_max.x) {
+		if (point.x >= m_p_max.x) {
 			return false;
 		}
-		if (point.y >= p_max.y) {
+		if (point.y >= m_p_max.y) {
 			return false;
 		}
-		if (point.z >= p_max.z) {
+		if (point.z >= m_p_max.z) {
 			return false;
 		}
-		if (point.x <= p_min.x) {
+		if (point.x <= m_p_min.x) {
 			return false;
 		}
-		if (point.y <= p_min.y) {
+		if (point.y <= m_p_min.y) {
 			return false;
 		}
-		if (point.z <= p_min.z) {
+		if (point.z <= m_p_min.z) {
 			return false;
 		}
 
@@ -76,10 +76,10 @@ namespace mage {
 	}
 
 	bool AABB::Encloses(const AABB &aabb) const {
-		if (!Encloses(aabb.p_min)) {
+		if (!Encloses(aabb.m_p_min)) {
 			return false;
 		}
-		if (!Encloses(aabb.p_max)) {
+		if (!Encloses(aabb.m_p_max)) {
 			return false;
 		}
 
@@ -87,10 +87,10 @@ namespace mage {
 	}
 
 	bool AABB::EnclosesStrict(const AABB &aabb) const {
-		if (!EnclosesStrict(aabb.p_min)) {
+		if (!EnclosesStrict(aabb.m_p_min)) {
 			return false;
 		}
-		if (!EnclosesStrict(aabb.p_max)) {
+		if (!EnclosesStrict(aabb.m_p_max)) {
 			return false;
 		}
 
@@ -108,14 +108,14 @@ namespace mage {
 	}
 
 	bool AABB::EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const {
-		const XMVECTOR corner_000_v = XMVectorSet(p_min.x, p_min.y, p_min.z, 1.0f);
-		const XMVECTOR corner_001_v = XMVectorSet(p_min.x, p_min.y, p_max.z, 1.0f);
-		const XMVECTOR corner_010_v = XMVectorSet(p_min.x, p_max.y, p_min.z, 1.0f);
-		const XMVECTOR corner_011_v = XMVectorSet(p_min.x, p_max.y, p_max.z, 1.0f);
-		const XMVECTOR corner_100_v = XMVectorSet(p_max.x, p_min.y, p_min.z, 1.0f);
-		const XMVECTOR corner_101_v = XMVectorSet(p_max.x, p_min.y, p_max.z, 1.0f);
-		const XMVECTOR corner_110_v = XMVectorSet(p_max.x, p_max.y, p_min.z, 1.0f);
-		const XMVECTOR corner_111_v = XMVectorSet(p_max.x, p_max.y, p_max.z, 1.0f);
+		const XMVECTOR corner_000_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_001_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_max.z, 1.0f);
+		const XMVECTOR corner_010_v = XMVectorSet(m_p_min.x, m_p_max.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_011_v = XMVectorSet(m_p_min.x, m_p_max.y, m_p_max.z, 1.0f);
+		const XMVECTOR corner_100_v = XMVectorSet(m_p_max.x, m_p_min.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_101_v = XMVectorSet(m_p_max.x, m_p_min.y, m_p_max.z, 1.0f);
+		const XMVECTOR corner_110_v = XMVectorSet(m_p_max.x, m_p_max.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_111_v = XMVectorSet(m_p_max.x, m_p_max.y, m_p_max.z, 1.0f);
 		
 		for (size_t i  = 0; i < nb_planes; ++i) {
 			const XMVECTOR plane_v = XMLoadFloat4(&planes[i]);
@@ -189,14 +189,14 @@ namespace mage {
 	}
 
 	bool AABB::EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const {
-		const XMVECTOR corner_000_v = XMVectorSet(p_min.x, p_min.y, p_min.z, 1.0f);
-		const XMVECTOR corner_001_v = XMVectorSet(p_min.x, p_min.y, p_max.z, 1.0f);
-		const XMVECTOR corner_010_v = XMVectorSet(p_min.x, p_max.y, p_min.z, 1.0f);
-		const XMVECTOR corner_011_v = XMVectorSet(p_min.x, p_max.y, p_max.z, 1.0f);
-		const XMVECTOR corner_100_v = XMVectorSet(p_max.x, p_min.y, p_min.z, 1.0f);
-		const XMVECTOR corner_101_v = XMVectorSet(p_max.x, p_min.y, p_max.z, 1.0f);
-		const XMVECTOR corner_110_v = XMVectorSet(p_max.x, p_max.y, p_min.z, 1.0f);
-		const XMVECTOR corner_111_v = XMVectorSet(p_max.x, p_max.y, p_max.z, 1.0f);
+		const XMVECTOR corner_000_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_001_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_max.z, 1.0f);
+		const XMVECTOR corner_010_v = XMVectorSet(m_p_min.x, m_p_max.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_011_v = XMVectorSet(m_p_min.x, m_p_max.y, m_p_max.z, 1.0f);
+		const XMVECTOR corner_100_v = XMVectorSet(m_p_max.x, m_p_min.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_101_v = XMVectorSet(m_p_max.x, m_p_min.y, m_p_max.z, 1.0f);
+		const XMVECTOR corner_110_v = XMVectorSet(m_p_max.x, m_p_max.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_111_v = XMVectorSet(m_p_max.x, m_p_max.y, m_p_max.z, 1.0f);
 		
 		for (size_t i = 0; i < nb_planes; ++i) {
 			const XMVECTOR plane_v = XMLoadFloat4(&planes[i]);
@@ -270,22 +270,22 @@ namespace mage {
 	}
 
 	bool AABB::Overlaps(const AABB &aabb) const {
-		if (aabb.p_min.x > p_max.x) {
+		if (aabb.m_p_min.x > m_p_max.x) {
 			return false;
 		}
-		if (aabb.p_min.y > p_max.y) {
+		if (aabb.m_p_min.y > m_p_max.y) {
 			return false;
 		}
-		if (aabb.p_min.z > p_max.z) {
+		if (aabb.m_p_min.z > m_p_max.z) {
 			return false;
 		}
-		if (aabb.p_max.x < p_min.x) {
+		if (aabb.m_p_max.x < m_p_min.x) {
 			return false;
 		}
-		if (aabb.p_max.y < p_min.y) {
+		if (aabb.m_p_max.y < m_p_min.y) {
 			return false;
 		}
-		if (aabb.p_max.z < p_min.z) {
+		if (aabb.m_p_max.z < m_p_min.z) {
 			return false;
 		}
 
@@ -293,22 +293,22 @@ namespace mage {
 	}
 
 	bool AABB::OverlapsStrict(const AABB &aabb) const {
-		if (aabb.p_min.x >= p_max.x) {
+		if (aabb.m_p_min.x >= m_p_max.x) {
 			return false;
 		}
-		if (aabb.p_min.y >= p_max.y) {
+		if (aabb.m_p_min.y >= m_p_max.y) {
 			return false;
 		}
-		if (aabb.p_min.z >= p_max.z) {
+		if (aabb.m_p_min.z >= m_p_max.z) {
 			return false;
 		}
-		if (aabb.p_max.x <= p_min.x) {
+		if (aabb.m_p_max.x <= m_p_min.x) {
 			return false;
 		}
-		if (aabb.p_max.y <= p_min.y) {
+		if (aabb.m_p_max.y <= m_p_min.y) {
 			return false;
 		}
-		if (aabb.p_max.z <= p_min.z) {
+		if (aabb.m_p_max.z <= m_p_min.z) {
 			return false;
 		}
 
@@ -316,8 +316,8 @@ namespace mage {
 	}
 
 	const Point3 AABB::Centroid() const {
-		const XMVECTOR p_min_v = XMLoadFloat3(&p_min);
-		const XMVECTOR p_max_v = XMLoadFloat3(&p_max);
+		const XMVECTOR p_min_v = XMLoadFloat3(&m_p_min);
+		const XMVECTOR p_max_v = XMLoadFloat3(&m_p_max);
 		const XMVECTOR centroid_v = 0.5f * (p_min_v + p_max_v);
 		Point3 centroid;
 		XMStoreFloat3(&centroid, centroid_v);
@@ -325,8 +325,8 @@ namespace mage {
 	}
 
 	const Direction3 AABB::Diagonal() const {
-		const XMVECTOR p_min_v = XMLoadFloat3(&p_min);
-		const XMVECTOR p_max_v = XMLoadFloat3(&p_max);
+		const XMVECTOR p_min_v = XMLoadFloat3(&m_p_min);
+		const XMVECTOR p_max_v = XMLoadFloat3(&m_p_max);
 		const XMVECTOR diagonal_v = p_max_v - p_min_v;
 		Direction3 diagonal;
 		XMStoreFloat3(&diagonal, diagonal_v);
@@ -334,8 +334,8 @@ namespace mage {
 	}
 
 	const AABB Union(const AABB &aabb, const Point3 &point) {
-		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb.p_min);
-		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb.p_max);
+		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb.m_p_min);
+		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb.m_p_max);
 		const XMVECTOR p_v2 = XMLoadFloat3(&point);
 		const XMVECTOR p_min_v = XMVectorMin(p_min_v1, p_v2);
 		const XMVECTOR p_max_v = XMVectorMax(p_max_v1, p_v2);
@@ -346,10 +346,10 @@ namespace mage {
 	}
 
 	const AABB Union(const AABB &aabb1, const AABB &aabb2) {
-		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.p_min);
-		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb1.p_max);
-		const XMVECTOR p_min_v2 = XMLoadFloat3(&aabb2.p_min);
-		const XMVECTOR p_max_v2 = XMLoadFloat3(&aabb2.p_max);
+		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.m_p_min);
+		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb1.m_p_max);
+		const XMVECTOR p_min_v2 = XMLoadFloat3(&aabb2.m_p_min);
+		const XMVECTOR p_max_v2 = XMLoadFloat3(&aabb2.m_p_max);
 		const XMVECTOR p_min_v = XMVectorMin(p_min_v1, p_min_v2);
 		const XMVECTOR p_max_v = XMVectorMax(p_max_v1, p_max_v2);
 		Point3 p_min, p_max;
@@ -362,10 +362,10 @@ namespace mage {
 		if (!aabb1.Overlaps(aabb2)) {
 			return AABB();
 		}
-		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.p_min);
-		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb1.p_max);
-		const XMVECTOR p_min_v2 = XMLoadFloat3(&aabb2.p_min);
-		const XMVECTOR p_max_v2 = XMLoadFloat3(&aabb2.p_max);
+		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.m_p_min);
+		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb1.m_p_max);
+		const XMVECTOR p_min_v2 = XMLoadFloat3(&aabb2.m_p_min);
+		const XMVECTOR p_max_v2 = XMLoadFloat3(&aabb2.m_p_max);
 		const XMVECTOR p_min_v = XMVectorMax(p_min_v1, p_min_v2);
 		const XMVECTOR p_max_v = XMVectorMin(p_max_v1, p_max_v2);
 		Point3 p_min, p_max;
@@ -378,10 +378,10 @@ namespace mage {
 		if (!aabb1.OverlapsStrict(aabb2)) {
 			return AABB();
 		}
-		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.p_min);
-		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb1.p_max);
-		const XMVECTOR p_min_v2 = XMLoadFloat3(&aabb2.p_min);
-		const XMVECTOR p_max_v2 = XMLoadFloat3(&aabb2.p_max);
+		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.m_p_min);
+		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb1.m_p_max);
+		const XMVECTOR p_min_v2 = XMLoadFloat3(&aabb2.m_p_min);
+		const XMVECTOR p_max_v2 = XMLoadFloat3(&aabb2.m_p_max);
 		const XMVECTOR p_min_v = XMVectorMax(p_min_v1, p_min_v2);
 		const XMVECTOR p_max_v = XMVectorMin(p_max_v1, p_max_v2);
 		Point3 p_min, p_max;
@@ -395,57 +395,57 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	BS::BS(const AABB &aabb) {
-		const XMVECTOR p_min_v = XMLoadFloat3(&aabb.p_min);
-		const XMVECTOR p_max_v = XMLoadFloat3(&aabb.p_max);
+		const XMVECTOR p_min_v = XMLoadFloat3(&aabb.m_p_min);
+		const XMVECTOR p_max_v = XMLoadFloat3(&aabb.m_p_max);
 		const XMVECTOR centroid_v = 0.5f * (p_min_v + p_max_v);
 		const XMVECTOR radius_v = 0.5f * (p_max_v - p_min_v);
-		XMStoreFloat3(&p, centroid_v);
+		XMStoreFloat3(&m_p, centroid_v);
 		Direction3 radius;
 		XMStoreFloat3(&radius, radius_v);
-		r = std::max(radius.x, std::max(radius.y, radius.z));
+		m_r = std::max(radius.x, std::max(radius.y, radius.z));
 	}
 
 	bool BS::Encloses(const Point3 &point) const {
-		const XMVECTOR p_v = XMLoadFloat3(&p);
+		const XMVECTOR p_v = XMLoadFloat3(&m_p);
 		const XMVECTOR point_v = XMLoadFloat3(&point);
 		const XMVECTOR length_v = XMVector3Length(point_v - p_v);
 		float length;
 		XMStoreFloat(&length, length_v);
-		return length <= r;
+		return length <= m_r;
 	}
 		
 	bool BS::EnclosesStrict(const Point3 &point) const {
-		const XMVECTOR p_v = XMLoadFloat3(&p);
+		const XMVECTOR p_v = XMLoadFloat3(&m_p);
 		const XMVECTOR point_v = XMLoadFloat3(&point);
 		const XMVECTOR length_v = XMVector3Length(point_v - p_v);
 		float length;
 		XMStoreFloat(&length, length_v);
-		return length < r;
+		return length < m_r;
 	}
 		
 	bool BS::Encloses(const AABB &aabb) const {
-		if (!Encloses(Point3(aabb.p_min.x, aabb.p_min.y, aabb.p_min.z))) {
+		if (!Encloses(Point3(aabb.m_p_min.x, aabb.m_p_min.y, aabb.m_p_min.z))) {
 			return false;
 		}
-		if (!Encloses(Point3(aabb.p_min.x, aabb.p_min.y, aabb.p_max.z))) {
+		if (!Encloses(Point3(aabb.m_p_min.x, aabb.m_p_min.y, aabb.m_p_max.z))) {
 			return false;
 		}
-		if (!Encloses(Point3(aabb.p_min.x, aabb.p_max.y, aabb.p_min.z))) {
+		if (!Encloses(Point3(aabb.m_p_min.x, aabb.m_p_max.y, aabb.m_p_min.z))) {
 			return false;
 		}
-		if (!Encloses(Point3(aabb.p_min.x, aabb.p_max.y, aabb.p_max.z))) {
+		if (!Encloses(Point3(aabb.m_p_min.x, aabb.m_p_max.y, aabb.m_p_max.z))) {
 			return false;
 		}
-		if (!Encloses(Point3(aabb.p_max.x, aabb.p_min.y, aabb.p_min.z))) {
+		if (!Encloses(Point3(aabb.m_p_max.x, aabb.m_p_min.y, aabb.m_p_min.z))) {
 			return false;
 		}
-		if (!Encloses(Point3(aabb.p_max.x, aabb.p_min.y, aabb.p_max.z))) {
+		if (!Encloses(Point3(aabb.m_p_max.x, aabb.m_p_min.y, aabb.m_p_max.z))) {
 			return false;
 		}
-		if (!Encloses(Point3(aabb.p_max.x, aabb.p_max.y, aabb.p_min.z))) {
+		if (!Encloses(Point3(aabb.m_p_max.x, aabb.m_p_max.y, aabb.m_p_min.z))) {
 			return false;
 		}
-		if (!Encloses(Point3(aabb.p_max.x, aabb.p_max.y, aabb.p_max.z))) {
+		if (!Encloses(Point3(aabb.m_p_max.x, aabb.m_p_max.y, aabb.m_p_max.z))) {
 			return false;
 		}
 		
@@ -453,28 +453,28 @@ namespace mage {
 	}
 
 	bool BS::EnclosesStrict(const AABB &aabb) const {
-		if (!EnclosesStrict(Point3(aabb.p_min.x, aabb.p_min.y, aabb.p_min.z))) {
+		if (!EnclosesStrict(Point3(aabb.m_p_min.x, aabb.m_p_min.y, aabb.m_p_min.z))) {
 			return false;
 		}
-		if (!EnclosesStrict(Point3(aabb.p_min.x, aabb.p_min.y, aabb.p_max.z))) {
+		if (!EnclosesStrict(Point3(aabb.m_p_min.x, aabb.m_p_min.y, aabb.m_p_max.z))) {
 			return false;
 		}
-		if (!EnclosesStrict(Point3(aabb.p_min.x, aabb.p_max.y, aabb.p_min.z))) {
+		if (!EnclosesStrict(Point3(aabb.m_p_min.x, aabb.m_p_max.y, aabb.m_p_min.z))) {
 			return false;
 		}
-		if (!EnclosesStrict(Point3(aabb.p_min.x, aabb.p_max.y, aabb.p_max.z))) {
+		if (!EnclosesStrict(Point3(aabb.m_p_min.x, aabb.m_p_max.y, aabb.m_p_max.z))) {
 			return false;
 		}
-		if (!EnclosesStrict(Point3(aabb.p_max.x, aabb.p_min.y, aabb.p_min.z))) {
+		if (!EnclosesStrict(Point3(aabb.m_p_max.x, aabb.m_p_min.y, aabb.m_p_min.z))) {
 			return false;
 		}
-		if (!EnclosesStrict(Point3(aabb.p_max.x, aabb.p_min.y, aabb.p_max.z))) {
+		if (!EnclosesStrict(Point3(aabb.m_p_max.x, aabb.m_p_min.y, aabb.m_p_max.z))) {
 			return false;
 		}
-		if (!EnclosesStrict(Point3(aabb.p_max.x, aabb.p_max.y, aabb.p_min.z))) {
+		if (!EnclosesStrict(Point3(aabb.m_p_max.x, aabb.m_p_max.y, aabb.m_p_min.z))) {
 			return false;
 		}
-		if (!EnclosesStrict(Point3(aabb.p_max.x, aabb.p_max.y, aabb.p_max.z))) {
+		if (!EnclosesStrict(Point3(aabb.m_p_max.x, aabb.m_p_max.y, aabb.m_p_max.z))) {
 			return false;
 		}
 
@@ -482,22 +482,22 @@ namespace mage {
 	}
 
 	bool BS::Encloses(const BS &bs) const {
-		if (!Encloses(Point3(bs.p.x - bs.r, bs.p.y, bs.p.z))) {
+		if (!Encloses(Point3(bs.m_p.x - bs.m_r, bs.m_p.y, bs.m_p.z))) {
 			return false;
 		}
-		if (!Encloses(Point3(bs.p.x + bs.r, bs.p.y, bs.p.z))) {
+		if (!Encloses(Point3(bs.m_p.x + bs.m_r, bs.m_p.y, bs.m_p.z))) {
 			return false;
 		}
-		if (!Encloses(Point3(bs.p.x, bs.p.y - bs.r, bs.p.z))) {
+		if (!Encloses(Point3(bs.m_p.x, bs.m_p.y - bs.m_r, bs.m_p.z))) {
 			return false;
 		}
-		if (!Encloses(Point3(bs.p.x, bs.p.y + bs.r, bs.p.z))) {
+		if (!Encloses(Point3(bs.m_p.x, bs.m_p.y + bs.m_r, bs.m_p.z))) {
 			return false;
 		}
-		if (!Encloses(Point3(bs.p.x, bs.p.y, bs.p.z - bs.r))) {
+		if (!Encloses(Point3(bs.m_p.x, bs.m_p.y, bs.m_p.z - bs.m_r))) {
 			return false;
 		}
-		if (!Encloses(Point3(bs.p.x, bs.p.y, bs.p.z + bs.r))) {
+		if (!Encloses(Point3(bs.m_p.x, bs.m_p.y, bs.m_p.z + bs.m_r))) {
 			return false;
 		}
 
@@ -505,22 +505,22 @@ namespace mage {
 	}
 
 	bool BS::EnclosesStrict(const BS &bs) const {
-		if (!EnclosesStrict(Point3(bs.p.x - bs.r, bs.p.y, bs.p.z))) {
+		if (!EnclosesStrict(Point3(bs.m_p.x - bs.m_r, bs.m_p.y, bs.m_p.z))) {
 			return false;
 		}
-		if (!EnclosesStrict(Point3(bs.p.x + bs.r, bs.p.y, bs.p.z))) {
+		if (!EnclosesStrict(Point3(bs.m_p.x + bs.m_r, bs.m_p.y, bs.m_p.z))) {
 			return false;
 		}
-		if (!EnclosesStrict(Point3(bs.p.x, bs.p.y - bs.r, bs.p.z))) {
+		if (!EnclosesStrict(Point3(bs.m_p.x, bs.m_p.y - bs.m_r, bs.m_p.z))) {
 			return false;
 		}
-		if (!EnclosesStrict(Point3(bs.p.x, bs.p.y + bs.r, bs.p.z))) {
+		if (!EnclosesStrict(Point3(bs.m_p.x, bs.m_p.y + bs.m_r, bs.m_p.z))) {
 			return false;
 		}
-		if (!EnclosesStrict(Point3(bs.p.x, bs.p.y, bs.p.z - bs.r))) {
+		if (!EnclosesStrict(Point3(bs.m_p.x, bs.m_p.y, bs.m_p.z - bs.m_r))) {
 			return false;
 		}
-		if (!EnclosesStrict(Point3(bs.p.x, bs.p.y, bs.p.z + bs.r))) {
+		if (!EnclosesStrict(Point3(bs.m_p.x, bs.m_p.y, bs.m_p.z + bs.m_r))) {
 			return false;
 		}
 
@@ -528,7 +528,7 @@ namespace mage {
 	}
 
 	bool BS::EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const {
-		const XMVECTOR p_v = XMLoadFloat3(&p);
+		const XMVECTOR p_v = XMLoadFloat3(&m_p);
 		
 		for (size_t i = 0; i < nb_planes; ++i) {
 			const XMVECTOR plane_v = XMLoadFloat4(&planes[i]);
@@ -536,7 +536,7 @@ namespace mage {
 			const XMVECTOR result_v = XMPlaneDotCoord(plane_v, p_v);
 			float result;
 			XMStoreFloat(&result, result_v);
-			if (result < -r) {
+			if (result < -m_r) {
 				return false;
 			}
 		}
@@ -545,8 +545,7 @@ namespace mage {
 	}
 
 	bool BS::EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const {
-		const XMVECTOR p_v = XMLoadFloat3(&p);
-		
+		const XMVECTOR p_v = XMLoadFloat3(&m_p);
 		
 		for (size_t i = 0; i < nb_planes; ++i) {
 			const XMVECTOR plane_v = XMLoadFloat4(&planes[i]);
@@ -554,7 +553,7 @@ namespace mage {
 			const XMVECTOR result_v = XMPlaneDotCoord(plane_v, p_v);
 			float result;
 			XMStoreFloat(&result, result_v);
-			if (result <= -r) {
+			if (result <= -m_r) {
 				return false;
 			}
 		}

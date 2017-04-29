@@ -456,6 +456,7 @@ namespace mage {
 		/**
 		 Reads the given line.
 
+		 @pre			@a line is not equal to @c nullptr.
 		 @param[in,out] line
 						A pointer to the null-terminated byte string to read.
 		 @throws		FormattedException

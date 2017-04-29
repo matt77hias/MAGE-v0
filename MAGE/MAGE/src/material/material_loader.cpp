@@ -5,7 +5,8 @@
 
 #include "material\material_loader.hpp"
 #include "material\mtl\mtl_loader.hpp"
-#include "logging\error.hpp"
+#include "file\file_utils.hpp"
+#include "logging\exception.hpp"
 
 #pragma endregion
 
@@ -14,14 +15,16 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	HRESULT ImportMaterialFromFile(const wstring &fname, vector< Material > &material_buffer) {
+	void ImportMaterialFromFile(const wstring &fname, vector< Material > &materials) {
+		
 		const wstring extension = GetFileExtension(fname);
 
 		if (extension == L"mtl" || extension == L"MTL") {
-			return ImportMTLMaterialFromFile(fname, material_buffer);
+			ImportMTLMaterialFromFile(fname, materials);
+			return;
 		}
-
-		Warning("Unknown material file extension: %ls", fname.c_str());
-		return E_FAIL;
+		else {
+			throw FormattedException("Unknown material file extension: %ls", fname.c_str());
+		}
 	}
 }

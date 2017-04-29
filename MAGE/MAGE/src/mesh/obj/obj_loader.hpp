@@ -16,7 +16,7 @@
 namespace mage {
 
 	/**
-	 Imports a mesh from an OBJ file.
+	 Imports a mesh from the given OBJ file.
 
 	 @tparam		VertexT
 					The vertex type.

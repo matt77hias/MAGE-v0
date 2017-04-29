@@ -77,9 +77,6 @@ namespace mage {
 		const wstring mtl_name = str_convert(ReadString());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
-		const HRESULT result = ImportMaterialFromFile(mtl_fname, m_model_output.m_material_buffer);
-		if (FAILED(result)) {
-			Error("%ls: line %u: %ls could not be loaded.", GetFilename().c_str(), GetCurrentLineNumber(), mtl_fname.c_str());
-		}
+		ImportMaterialFromFile(mtl_fname, m_model_output.m_material_buffer);
 	}
 }

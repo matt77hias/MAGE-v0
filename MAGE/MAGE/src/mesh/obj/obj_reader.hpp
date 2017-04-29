@@ -108,6 +108,7 @@ namespace mage {
 		/**
 		 Reads the given line.
 
+		 @pre			@a line is not equal to @c nullptr.
 		 @param[in,out] line
 						A pointer to the null-terminated byte string to read.
 		 @throws		FormattedException
@@ -158,6 +159,8 @@ namespace mage {
 		/**
 		 Reads a Smoothing Group definition.
 
+		 @note			A smoothing group is, if present, 
+						silently ignored.
 		 @throws		FormattedException
 						Failed to read a Smoothing Group definition.
 		 */
@@ -200,7 +203,7 @@ namespace mage {
 		void ReadOBJFace();
 
 		/**
-		 Reads the vertex position coordinates.
+		 Reads a set of vertex position coordinates.
 
 		 @return		The @c Point3 represented by the next token
 						of this OBJ reader (modified according to
@@ -211,7 +214,7 @@ namespace mage {
 		const Point3 ReadOBJVertexCoordinates();
 
 		/**
-		 Reads the vertex normal coordinates.
+		 Reads a set of vertex normal coordinates.
 
 		 @pre			All the vertex normals in the OBJ file are normalized.
 		 @return		The @c Normal3 represented by the next token
@@ -223,7 +226,7 @@ namespace mage {
 		const Normal3 ReadOBJVertexNormalCoordinates();
 
 		/**
-		 Reads the vertex texture coordinates.
+		 Reads a set of vertex texture coordinates.
 
 		 @return		The @c UV represented by the next token 
 						of this OBJ reader (modified according to
@@ -234,7 +237,7 @@ namespace mage {
 		const UV ReadOBJVertexTextureCoordinates();
 
 		/**
-		 Reads the face indices.
+		 Reads a set of face indices.
 
 		 @return		The face indices represented by the next token 
 						of this OBJ reader.	A zero indicates the absence
@@ -257,7 +260,7 @@ namespace mage {
 		/**
 		 A struct of @c XMUINT3 comparators for OBJ vertex indices.
 		 */
-		struct OBJComparatorXMUINT3 {
+		struct OBJComparatorXMUINT3 final {
 
 		public:
 

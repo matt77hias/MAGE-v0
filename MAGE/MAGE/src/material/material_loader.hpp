@@ -20,9 +20,10 @@ namespace mage {
 
 	 @param[in]		fname
 					A reference to the filename.
-	 @param[out]	material_buffer
-					A reference to the empty material buffer.
-	 @return		A success/error value.
-	*/
-	HRESULT ImportMaterialFromFile(const wstring &fname, vector< Material > &material_buffer);
+	 @param[out]	materials
+					A reference to a vector containing the materials.
+	 @throws		FormattedException
+					Failed to import the materials from file.
+	 */
+	void ImportMaterialFromFile(const wstring &fname, vector< Material > &materials);
 }

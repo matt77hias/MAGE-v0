@@ -20,9 +20,10 @@ namespace mage {
 
 	 @param[in]		fname
 					A reference to the MTL filename.
-	 @param[out]	material_buffer
-					A reference to the empty material buffer.
-	 @return		A success/error value.
+	 @param[out]	materials
+					A reference to a vector containing the materials.
+	 @throws		FormattedException
+					Failed to import the mesh from file.
 	 */
-	HRESULT ImportMTLMaterialFromFile(const wstring &fname, vector< Material > &material_buffer);
+	void ImportMTLMaterialFromFile(const wstring &fname, vector< Material > &materials);
 }

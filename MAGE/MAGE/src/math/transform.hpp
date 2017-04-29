@@ -65,7 +65,7 @@ namespace mage {
 		 Constructs a transform from the given transform.
 
 		 @param[in]		transform
-						A reference to the transform.
+						A reference to the transform to copy.
 		 */
 		Transform(const Transform &transform)
 			: m_translation(transform.m_translation), 
@@ -75,10 +75,10 @@ namespace mage {
 		}
 
 		/**
-		 Constructs a transform from the given transform.
+		 Constructs a transform by moving the given transform.
 
 		 @param[in]		transform
-						A reference to the transform.
+						A reference to the transform to move.
 		 */
 		Transform(Transform &&transform)
 			: m_translation(std::move(transform.m_translation)),
@@ -100,7 +100,7 @@ namespace mage {
 		 Copies the given transform to this transform.
 
 		 @param[in]		transform
-						A reference to the transform to copy from.
+						A reference to the transform to copy.
 		 @return		A reference to the copy of the given transform
 						(i.e. this transform).
 		 */
@@ -113,11 +113,11 @@ namespace mage {
 		}
 
 		/**
-		 Copies the given transform to this transform.
+		 Moves the given transform to this transform.
 
 		 @param[in]		transform
-						A reference to the transform to copy from.
-		 @return		A reference to the copy of the given transform
+						A reference to the transform to move.
+		 @return		A reference to the moved transform
 						(i.e. this transform).
 		 */
 		Transform &operator=(Transform &&transform) {

@@ -40,9 +40,10 @@ namespace mage {
 		
 		m_sprite_batch->End();
 	}
+	
 	void World::Render3D() const {
 		
-		const XMMATRIX world_to_view = m_camera->GetWorldToViewMatrix();
+		const XMMATRIX world_to_view = m_camera->GetTransform()->GetWorldToViewMatrix();
 		const XMMATRIX view_to_world = XMMatrixInverse(nullptr, world_to_view);
 
 		// Update omni light structured buffer.
@@ -50,7 +51,7 @@ namespace mage {
 		ForEachOmniLight([&omni_lights_buffer, &world_to_view](const OmniLightNode &light_node) {
 			OmniLightBuffer light_buffer;
 			
-			XMStoreFloat4(&light_buffer.m_p, XMVector4Transform(light_node.GetWorldEye(), world_to_view));
+			XMStoreFloat4(&light_buffer.m_p, XMVector4Transform(light_node.GetTransform()->GetWorldEye(), world_to_view));
 			light_buffer.m_I                      = light_node.GetObject()->GetIntensity();
 			light_buffer.m_distance_falloff_start = light_node.GetObject()->GetStartDistanceFalloff();
 			light_buffer.m_distance_falloff_end   = light_node.GetObject()->GetEndDistanceFalloff();
@@ -64,10 +65,10 @@ namespace mage {
 		ForEachSpotLight([&spot_lights_buffer, &world_to_view](const SpotLightNode &light_node) {
 			SpotLightBuffer light_buffer;
 
-			XMStoreFloat4(&light_buffer.m_p, XMVector4Transform(light_node.GetWorldEye(), world_to_view));
+			XMStoreFloat4(&light_buffer.m_p, XMVector4Transform(light_node.GetTransform()->GetWorldEye(), world_to_view));
 			light_buffer.m_I                      = light_node.GetObject()->GetIntensity();
 			light_buffer.m_exponent_property      = light_node.GetObject()->GetExponentProperty();
-			XMStoreFloat3(&light_buffer.m_d, XMVector4Transform(light_node.GetWorldForward(), world_to_view));
+			XMStoreFloat3(&light_buffer.m_d, XMVector4Transform(light_node.GetTransform()->GetWorldForward(), world_to_view));
 			light_buffer.m_distance_falloff_start = light_node.GetObject()->GetStartDistanceFalloff();
 			light_buffer.m_distance_falloff_end   = light_node.GetObject()->GetEndDistanceFalloff();
 			light_buffer.m_cos_penumbra           = light_node.GetObject()->GetStartAngualCutoff();
@@ -91,7 +92,7 @@ namespace mage {
 
 		// Create Transform buffer.
 		TransformBuffer transform_buffer(
-			m_camera->GetWorldToViewMatrix(),
+			m_camera->GetTransform()->GetWorldToViewMatrix(),
 			m_camera->GetObject()->GetViewToProjectionMatrix());
 
 		// Render models.
@@ -100,8 +101,8 @@ namespace mage {
 			if (model->GetNumberOfIndices() != 0) {
 
 				// Update transform constant buffer.
-				const XMMATRIX object_to_world = model_node.GetObjectToWorldMatrix();
-				const XMMATRIX world_to_object = model_node.GetWorldToObjectMatrix();
+				const XMMATRIX object_to_world = model_node.GetTransform()->GetObjectToWorldMatrix();
+				const XMMATRIX world_to_object = model_node.GetTransform()->GetWorldToObjectMatrix();
 
 				XMFLOAT4X4 m;
 				XMStoreFloat4x4(&m, world_to_object);
@@ -179,10 +180,10 @@ namespace mage {
 			const ModelNodePair &element = it->second;
 			const string &parent = element.second;
 			if (parent == MAGE_MDL_PART_DEFAULT_PARENT) {
-				root_model_node->AddChildTransformNode(element.first);
+				root_model_node->AddChildNode(element.first);
 			}
 			else {
-				mapping[parent].first->AddChildTransformNode(element.first);
+				mapping[parent].first->AddChildNode(element.first);
 			}
 		}
 

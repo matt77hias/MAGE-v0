@@ -17,52 +17,26 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// TransformNode
+	//-------------------------------------------------------------------------
+
 	/**
 	 A struct of transform nodes.
 	 */
-	class TransformNode {
+	class TransformNode final {
 
 	public:
 
 		//---------------------------------------------------------------------
-		// Constructors and Destructors
+		// Destructors
 		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a transform node.
-		 */
-		explicit TransformNode()
-			: m_transform(new Transform()),
-			m_parent(nullptr), m_childs() {
-			SetDirty();
-		}
-		
-		/**
-		 Constructs a transform node from the given transform node.
-
-		 @param[in]		transform_node
-						A reference to the transform node.
-		 */
-		TransformNode(const TransformNode &transform_node);
-
-		/**
-		 Constructs a transform from the given transform node.
-
-		 @param[in]		transform_node
-						A reference to the transform node.
-		 */
-		TransformNode(TransformNode &&transform_node)
-			: m_transform(std::move(transform_node.m_transform)),
-			m_parent(std::move(transform_node.m_parent)),
-			m_childs(std::move(transform_node.m_childs)) {
-			SetDirty();
-		}
 
 		/**
 		 Destructs this transform node.
 		 */
-		virtual ~TransformNode();
-		
+		~TransformNode();
+
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
@@ -71,29 +45,21 @@ namespace mage {
 		 Copies the given transform node to this transform node.
 
 		 @param[in]		transform_node
-						A reference to the transform node to copy from.
+						A reference to the transform node to copy.
 		 @return		A reference to the copy of the given transform node
 						(i.e. this transform node).
 		 */
 		TransformNode &operator=(const TransformNode &transform_node) = delete;
 
 		/**
-		 Copies the given transform node to this transform node.
+		 Moves the given transform node to this transform node.
 
 		 @param[in]		transform_node
-						A reference to the transform node to copy from.
+						A reference to the transform node to move.
 		 @return		A reference to the copy of the given transform node
 						(i.e. this transform node).
 		 */
 		TransformNode &operator=(TransformNode &&transform_node) = delete;
-
-		//---------------------------------------------------------------------
-		// Member Methods: Clone
-		//---------------------------------------------------------------------
-
-		SharedPtr< TransformNode > Clone() const {
-			return CloneImplementation();
-		}
 
 		//---------------------------------------------------------------------
 		// Member Methods: Translation
@@ -1074,37 +1040,51 @@ namespace mage {
 			return XMVector4Transform(vector, GetWorldToObjectMatrix());
 		}
 
-		//---------------------------------------------------------------------
-		// Member Methods: Graph
-		//---------------------------------------------------------------------
-
-		bool HasParentTransformNode() const {
-			return m_parent != nullptr;
-		}
-		TransformNode *GetParentTransformNode() const {
-			return m_parent;
-		}
-		size_t GetNumberOfChildTransformNodes() const {
-			m_childs.size();
-		}
-		bool HasChildTransformNode(SharedPtr< const TransformNode > transform_node) const;
-		void AddChildTransformNode(SharedPtr< TransformNode > transform_node);
-		void RemoveChildTransformNode(SharedPtr< TransformNode > transform_node);
-		void RemoveAllChildTransformNodes();
-		template< typename ActionT >
-		void ForEachChildTransformNode(ActionT action) const;
-		template< typename ActionT >
-		void ForEachDescendantTransformNode(ActionT action) const;
-
 	private:
+
+		//---------------------------------------------------------------------
+		// Friends
+		//---------------------------------------------------------------------
+
+		// Nodes are semantically very similar to TransformNodes. They only add
+		// an extra indirection to the functionality provided by TransformNodes.
+		// Instead of calling the methods of TransformNodes directly, one has to
+		// first obtain a pointer to the TransformNode. 
+		friend class Node;
+
+		//---------------------------------------------------------------------
+		// Constructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a transform node.
+		 */
+		explicit TransformNode();
+
+		/**
+		 Constructs a transform node from the given transform node.
+
+		 @param[in]		transform_node
+						A reference to the transform node to copy.
+		 */
+		TransformNode(const TransformNode &transform_node);
+
+		/**
+		 Constructs a transform node by moving the given transform node.
+
+		 @param[in]		transform_node
+						A reference to the transform node to move.
+		 */
+		TransformNode(TransformNode &&transform_node)
+			: m_transform(std::move(transform_node.m_transform)),
+			m_parent(std::move(transform_node.m_parent)),
+			m_childs(std::move(transform_node.m_childs)) {
+			SetDirty();
+		}
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		virtual SharedPtr< TransformNode > CloneImplementation() const {
-			return SharedPtr< TransformNode >(new TransformNode(*this));
-		}
 
 		/**
 		 Sets this transform node to dirty.
@@ -1122,32 +1102,112 @@ namespace mage {
 		/**
 		 Updates the object-to-world matrix of this transform node if dirty.
 		 */
-		void UpdateObjectToWorldMatrix() const {
-			if (m_dirty_object_to_world) {
-				if (HasParentTransformNode()) {
-					m_object_to_world = GetObjectToParentMatrix() * m_parent->GetObjectToWorldMatrix();
-				}
-				else {
-					m_object_to_world = GetObjectToParentMatrix();
-				}
-				m_dirty_object_to_world = false;
-			}
-		}
+		void UpdateObjectToWorldMatrix() const;
 
 		/**
 		 Updates the world-to-object matrix of this transform node if dirty.
 		 */
-		void UpdateWorldToObjectMatrix() const {
-			if (m_dirty_world_to_object) {
-				if (HasParentTransformNode()) {
-					m_world_to_object = m_parent->GetWorldToObjectMatrix() * GetParentToObjectMatrix();
-				}
-				else {
-					m_world_to_object = GetParentToObjectMatrix();
-				}
-				m_dirty_world_to_object = false;
-			}
+		void UpdateWorldToObjectMatrix() const;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Graph
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this transform node has a parent node.
+
+		 @return		@c true if this transform node has a parent node.
+						@c false otherwise.
+		 */
+		bool HasParentNode() const {
+			return m_parent != nullptr;
 		}
+		
+		/**
+		 Returns the parent node of this transform node.
+
+		 @return		@c nullptr if this transform node has no parent node.
+		 @return		A pointer to the parent node of this transform node.
+		 */
+		Node *GetParentNode() const {
+			return m_parent;
+		}
+		
+		/**
+		 Returns the number of child nodes of this transform node.
+
+		 @return		The number of child nodes of this transform node.
+		 */
+		size_t GetNumberOfChildNodes() const {
+			m_childs.size();
+		}
+		
+		/**
+		 Checks whether this transform node contains the given node
+		 as a child node.
+
+		 @param[in]		node
+						A pointer to the node.
+		 @return		@c true if this transform node contains the
+						given node as a child node.
+						@c false otherwise.
+		 */
+		bool HasChildNode(SharedPtr< const Node > node) const;
+		
+		/**
+		 Removes all child nodes from this transform node.
+		 */
+		void RemoveAllChildNodes();
+		
+		/**
+		 Traverses all child transform nodes of this transform node.
+
+		 @tparam		ActionT
+						An action to perform on all child 
+						transform nodes of this transform node. 
+						The action must accept (@c const) 
+						@c TransformNode& values.
+		 */
+		template< typename ActionT >
+		void ForEachChildTransformNode(ActionT action) const;
+		
+		/**
+		 Traverses all descendant (childs included) transform nodes 
+		 of this transform node.
+
+		 @tparam		ActionT
+						An action to perform on all descendant 
+						transform nodes of this transform node. 
+						The action must accept (@c const) 
+						@c TransformNode& values.
+		 */
+		template< typename ActionT >
+		void ForEachDescendantTransformNode(ActionT action) const;
+		
+		/**
+		 Traverses all child nodes of this transform node.
+
+		 @tparam		ActionT
+						An action to perform on all child 
+						nodes of this transform node. 
+						The action must accept (@c const) 
+						@c Node& values.
+		 */
+		template< typename ActionT >
+		void ForEachChildNode(ActionT action) const;
+		
+		/**
+		 Traverses all descendant (childs included) nodes
+		 of this transform node.
+
+		 @tparam		ActionT
+						An action to perform on all descendant 
+						nodes of this transform node. 
+						The action must accept (@c const) 
+						@c Node& values.
+		 */
+		template< typename ActionT >
+		void ForEachDescendantNode(ActionT action) const;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -1161,12 +1221,12 @@ namespace mage {
 		/**
 		 The parent transform node of this transform node.
 		 */
-		TransformNode *m_parent;
+		Node *m_parent;
 
 		/**
 		 The child transform nodes of this transform node.
 		 */
-		vector< SharedPtr< TransformNode > > m_childs;
+		vector< SharedPtr< Node > > m_childs;
 
 		/**
 		 The cached object-to-world matrix of this transform node.
@@ -1190,6 +1250,254 @@ namespace mage {
 		 */
 		mutable bool m_dirty_world_to_object;
 	};
+
+	//-------------------------------------------------------------------------
+	// Node
+	//-------------------------------------------------------------------------
+
+	/**
+	 A class of nodes.
+	 */
+	class Node {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a node.
+		 */
+		Node();
+
+		/**
+		 Constructs a node from the given node.
+
+		 @param[in]		node
+						A reference to the node.
+		 */
+		Node(const Node &node);
+
+		/**
+		 Constructs a node by moving the given node.
+
+		 @param[in]		node
+						A reference to the node to move.
+		 */
+		Node(Node &&node) = default;
+
+		/**
+		 Destructs this node.
+		 */
+		virtual ~Node() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given node to this node.
+
+		 @param[in]		node
+						A reference to the node to copy.
+		 @return		A reference to the copy of the given node
+						(i.e. this node).
+		 */
+		Node &operator=(const Node &node) = delete;
+
+		/**
+		 Moves the given node to this node.
+
+		 @param[in]		node
+						A reference to the node to move.
+		 @return		A reference to the moved node
+						(i.e. this node).
+		 */
+		Node &operator=(Node &&node) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Clones this node.
+
+		 @return		A pointer to the clone of this node.
+		 */
+		SharedPtr< Node > Clone() const {
+			return CloneImplementation();
+		}
+
+		/**
+		 Returns the transform of this node.
+
+		 @return		A pointer to the transform of this node.
+		 */
+		TransformNode *GetTransform() {
+			return m_transform.get();
+		}
+		
+		/**
+		 Returns the transform of this node.
+
+		 @return		A pointer to the transform of this node.
+		 */
+		const TransformNode *GetTransform() const {
+			return m_transform.get();
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Graph
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this node has a parent node.
+
+		 @return		@c true if this node has a parent node.
+						@c false otherwise.
+		 */
+		bool HasParentNode() const {
+			return m_transform->HasParentNode();
+		}
+		
+		/**
+		 Returns the parent node of this node.
+
+		 @return		@c nullptr if this node has no parent node.
+		 @return		A pointer to the parent node of this node.
+		 */
+		Node *GetParentNode() const {
+			return m_transform->GetParentNode();
+		}
+		
+		/**
+		 Returns the number of child nodes of this node.
+
+		 @return		The number of child nodes of this node.
+		 */
+		size_t GetNumberOfChildNodes() const {
+			return m_transform->GetNumberOfChildNodes();
+		}
+		
+		/**
+		 Checks whether this node contains the given node
+		 as a child node.
+
+		 @param[in]		node
+						A pointer to the node.
+		 @return		@c true if this node contains the
+						given node as a child node.
+						@c false otherwise.
+		 */
+		bool HasChildNode(SharedPtr< const Node > node) const {
+			return m_transform->HasChildNode(node);
+		}
+		
+		/**
+		 Adds the given node to the child nodes of this node.
+
+		 @param[in]		node
+						A pointer to the node to add.
+		 */
+		void AddChildNode(SharedPtr< Node > node);
+
+		/**
+		 Removes the given node from the child nodes of this node.
+
+		 @param[in]		node
+						A pointer to the node to remove.
+		 */
+		void RemoveChildNode(SharedPtr< Node > node);
+
+		/**
+		 Removes all child nodes from this node.
+		 */
+		void RemoveAllChildNodes() {
+			return m_transform->RemoveAllChildNodes();
+		}
+		
+		/**
+		 Traverses all child nodes of this node.
+
+		 @tparam		ActionT
+						An action to perform on all child
+						nodes of this node. The action must 
+						accept (@c const) @c Node& values.
+		*/
+		template< typename ActionT >
+		void ForEachChildNode(ActionT action) const {
+			m_transform->ForEachChildNode(action);
+		}
+		
+		/**
+		 Traverses all descendant (childs included) nodes
+		 of this transform node.
+
+		 @tparam		ActionT
+						An action to perform on all descendant
+						nodes of this node. The action must 
+						accept (@c const) @c Node& values.
+		 */
+		template< typename ActionT >
+		void ForEachDescendantNode(ActionT action) const {
+			m_transform->ForEachDescendantNode(action);
+		}
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Clones this node.
+
+		 @return		A pointer to the clone of this node.
+		 */
+		virtual SharedPtr< Node > CloneImplementation() const {
+			return SharedPtr< Node >(new Node(*this));
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 A pointer to the transform of this node.
+		 */
+		UniquePtr< TransformNode > m_transform;
+	};
+
+	//-------------------------------------------------------------------------
+	// TransformNode
+	//-------------------------------------------------------------------------
+
+	inline void TransformNode::UpdateObjectToWorldMatrix() const {
+		if (m_dirty_object_to_world) {
+			if (HasParentNode()) {
+				m_object_to_world = GetObjectToParentMatrix() * m_parent->GetTransform()->GetObjectToWorldMatrix();
+			}
+			else {
+				m_object_to_world = GetObjectToParentMatrix();
+			}
+
+			m_dirty_object_to_world = false;
+		}
+	}
+
+	inline void TransformNode::UpdateWorldToObjectMatrix() const {
+		if (m_dirty_world_to_object) {
+			if (HasParentNode()) {
+				m_world_to_object = m_parent->GetTransform()->GetWorldToObjectMatrix() * GetParentToObjectMatrix();
+			}
+			else {
+				m_world_to_object = GetParentToObjectMatrix();
+			}
+
+			m_dirty_world_to_object = false;
+		}
+	}
 }
 
 //-----------------------------------------------------------------------------

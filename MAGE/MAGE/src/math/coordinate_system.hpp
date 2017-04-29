@@ -30,20 +30,22 @@ namespace mage {
 		 Constructs a Cartesian axes system.
 		 */
 		CartesianAxesSystem()
-			: m_x(XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f)), m_y(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f)), m_z(XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f)) {}
+			: m_x(XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f)), 
+			m_y(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f)), 
+			m_z(XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f)) {}
 		
 		/**
 		 Constructs a Cartesian axes system from the given axes.
 
 		 @pre			The given axis is normalized.
 		 @param[in]		x
-						The x-axis.
+						A reference to the x-axis.
 		 */
 		explicit CartesianAxesSystem(const XMVECTOR &x) 
 			: m_x(x) {
-			XMFLOAT3 w;
-			XMStoreFloat3(&w, m_x);
-			const XMVECTOR u = (fabs(w.x) > 0.1f) ? XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f) : XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
+			const XMVECTOR u = (fabs(XMVectorGetX(m_x)) > 0.0f) ?
+								XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f) : 
+								XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
 			m_y = XMVector3Cross(m_x, u);
 			m_z = XMVector3Cross(m_x, m_y);
 		}
@@ -53,9 +55,9 @@ namespace mage {
 
 		 @pre			The given axes are orthonormal.
 		 @param[in]		x
-						The x-axis.
+						A reference to the x-axis.
 		 @param[in]		y
-						The y-axis.
+						A reference to the y-axis.
 		 */
 		explicit CartesianAxesSystem(const XMVECTOR &x, const XMVECTOR &y) 
 			: m_x(x), m_y(y), m_z(XMVector3Cross(x, y)) {}
@@ -65,11 +67,11 @@ namespace mage {
 
 		 @pre			The given axes are orthonormal.
 		 @param[in]		x
-						The x-axis.
+						A reference to the x-axis.
 		 @param[in]		y
-						The y-axis.
+						A reference to the y-axis.
 		 @param[in]		z
-						The z-axis.
+						A reference to the z-axis.
 		 */
 		explicit CartesianAxesSystem(const XMVECTOR &x, const XMVECTOR &y, const XMVECTOR &z) 
 			: m_x(x), m_y(y), m_z(z) {}
@@ -78,15 +80,15 @@ namespace mage {
 		 Constructs a Cartesian axes system from the given Cartesian axes system.
 
 		 @param[in]		axes
-						The Cartesian axes system.
+						A reference to the Cartesian axes system to copy.
 		 */
 		CartesianAxesSystem(const CartesianAxesSystem &axes) = default;
 
 		/**
-		 Constructs a Cartesian axes system from the given Cartesian axes system.
+		 Constructs a Cartesian axes system by moving the given Cartesian axes system.
 
 		 @param[in]		axes
-						The Cartesian axes system.
+						A reference to the Cartesian axes system to move.
 		 */
 		CartesianAxesSystem(CartesianAxesSystem &&axes) = default;
 
@@ -103,18 +105,18 @@ namespace mage {
 		 Copies the given Cartesian axes system to this Cartesian axes system.
 
 		 @param[in]		axes
-						The Cartesian axes system to copy from.
+						A reference to the Cartesian axes system to copy.
 		 @return		A reference to the copy of the given Cartesian axes system
 						(i.e. this Cartesian axes system).
 		 */
 		CartesianAxesSystem &operator=(const CartesianAxesSystem &axes) = default;
 
 		/**
-		 Copies the given Cartesian axes system to this Cartesian axes system.
+		 Moves the given Cartesian axes system to this Cartesian axes system.
 
 		 @param[in]		axes
-						The Cartesian axes system to copy from.
-		 @return		A reference to the copy of the given Cartesian axes system
+						A reference to the Cartesian axes system to move.
+		 @return		A reference to the moved Cartesian axes system
 						(i.e. this Cartesian axes system).
 		 */
 		CartesianAxesSystem &operator=(CartesianAxesSystem &&axes) = default;
@@ -187,7 +189,7 @@ namespace mage {
 		 Constructs a Cartesian coordinate system from the given Cartesian axes system.
 
 		 @param[in]		axes
-						The Cartesian axes system.
+						A reference to the Cartesian axes system.
 		 */
 		explicit CartesianCoordinateSystem(const CartesianAxesSystem &axes)
 			: m_o(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)), m_axes(axes) {}
@@ -196,9 +198,9 @@ namespace mage {
 		 Constructs a Cartesian coordinate system from the given origin and Cartesian axes system.
 
 		 @param[in]		o
-						The origin.
+						A reference to the origin.
 		 @param[in]		axes
-						The Cartesian axes system.
+						A reference to the Cartesian axes system.
 		 */
 		explicit CartesianCoordinateSystem(const XMVECTOR &o, const CartesianAxesSystem &axes)
 			: m_o(o), m_axes(axes) {}
@@ -207,15 +209,15 @@ namespace mage {
 		 Constructs a Cartesian coordinate system from the given Cartesian coordinate system.
 
 		 @param[in]		coordinate_system
-						The Cartesian coordinate system.
+						A reference to the Cartesian coordinate system.
 		 */
 		CartesianCoordinateSystem(const CartesianCoordinateSystem &coordinate_system) = default;
 
 		/**
-		 Constructs a Cartesian coordinate system from the given Cartesian coordinate system.
+		 Constructs a Cartesian coordinate system by moving the given Cartesian coordinate system.
 
 		 @param[in]		coordinate_system
-						The Cartesian coordinate system.
+						A reference to the Cartesian coordinate system.
 		 */
 		CartesianCoordinateSystem(CartesianCoordinateSystem &&coordinate_system) = default;
 
@@ -232,18 +234,18 @@ namespace mage {
 		 Copies the given Cartesian coordinate system to this Cartesian coordinate system.
 
 		 @param[in]		coordinate_system
-						The Cartesian coordinate system to copy from.
+						A reference to the Cartesian coordinate system to copy.
 		 @return		A reference to the copy of the given Cartesian coordinate system
 						(i.e. this Cartesian coordinate system).
 		 */
 		CartesianCoordinateSystem &operator=(const CartesianCoordinateSystem &coordinate_system) = default;
 
 		/**
-		 Copies the given Cartesian coordinate system to this Cartesian coordinate system.
+		 Moves the given Cartesian coordinate system to this Cartesian coordinate system.
 
 		 @param[in]		coordinate_system
-						The Cartesian coordinate system to copy from.
-		 @return		A reference to the copy of the given Cartesian coordinate system
+						A reference to the Cartesian coordinate system to move.
+		 @return		A reference to the moved Cartesian coordinate system
 						(i.e. this Cartesian coordinate system).
 		 */
 		CartesianCoordinateSystem &operator=(CartesianCoordinateSystem &&coordinate_system) = default;

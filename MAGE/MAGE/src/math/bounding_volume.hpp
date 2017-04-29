@@ -65,15 +65,15 @@ namespace mage {
 		 Constructs an AABB from the given AABB.
 
 		 @param[in]		aabb
-						A reference to the AABB.
+						A reference to the AABB to copy.
 		 */
 		AABB(const AABB &aabb) = default;
 
 		/**
-		 Constructs an AABB from the given AABB.
+		 Constructs an AABB by moving the given AABB.
 
 		 @param[in]		aabb
-						A reference to the AABB.
+						A reference to the AABB to move.
 		 */
 		AABB(AABB &&aabb) = default;
 
@@ -98,18 +98,18 @@ namespace mage {
 		 Copies the given AABB to this AABB.
 
 		 @param[in]		aabb
-						A reference to the AABB to copy from.
+						A reference to the AABB to copy.
 		 @return		A reference to the copy of the given AABB
 						(i.e. this AABB).
 		 */
 		AABB &operator=(const AABB &aabb) = default;
 
 		/**
-		 Copies the given AABB to this AABB.
+		 Moves the given AABB to this AABB.
 
 		 @param[in]		aabb
-						A reference to the AABB to copy from.
-		 @return		A reference to the copy of the given AABB
+						A reference to the AABB to move.
+		 @return		A reference to the moved AABB
 						(i.e. this AABB).
 		 */
 		AABB &operator=(AABB &&aabb) = default;
@@ -181,6 +181,8 @@ namespace mage {
 		/**
 		 Checks whether this AABB is completely enclosed by the given (closed) volume.
 
+		 @pre			@a planes is not equal to @c nullptr.
+		 @pre			@a planes must point to an array of at least @c nb_planes planes.
 		 @param[in]		planes
 						A pointer to the planes of the volume.
 						(each plane's coefficients are represented as a @c XMFLOAT4)
@@ -194,6 +196,8 @@ namespace mage {
 		/**
 		 Checks whether this AABB is completely, strictly enclosed by the given (closed) volume.
 
+		 @pre			@a planes is not equal to @c nullptr.
+		 @pre			@a planes must point to an array of at least @c nb_planes planes.
 		 @param[in]		planes
 						A pointer to the planes of the volume.
 						(each plane's coefficients are represented as a @c XMFLOAT4)
@@ -476,6 +480,8 @@ namespace mage {
 		/**
 		 Checks whether this BS completely encloses the given (closed) volume.
 
+		 @pre			@a planes is not equal to @c nullptr.
+		 @pre			@a planes must point to an array of at least @c nb_planes planes.
 		 @param[in]		planes
 						A pointer to the planes of the volume.
 						(each plane's coefficients are represented as a @c XMFLOAT4)
@@ -489,6 +495,8 @@ namespace mage {
 		/**
 		 Checks whether this BS completely, strictly encloses the given (closed) volume.
 
+		 @pre			@a planes is not equal to @c nullptr.
+		 @pre			@a planes must point to an array of at least @c nb_planes planes.
 		 @param[in]		planes
 						A pointer to the planes of the volume.
 						(each plane's coefficients are represented as a @c XMFLOAT4)

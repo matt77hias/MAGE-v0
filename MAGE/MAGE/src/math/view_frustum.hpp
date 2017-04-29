@@ -42,8 +42,8 @@ namespace mage {
 
 		bool Encloses(const Point3 &point) const;
 		//http://www.txutxi.com/?p=584
-		bool Overlaps(const Transform &transform, const BS &bs) const;
-		bool Overlaps(const Transform &transform, const AABB &aabb) const;
+		//bool Overlaps(const Transform &transform, const BS &bs) const;
+		//bool Overlaps(const Transform &transform, const AABB &aabb) const;
 
 	private:
 

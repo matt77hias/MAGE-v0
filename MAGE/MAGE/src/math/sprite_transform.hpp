@@ -108,7 +108,7 @@ namespace mage {
 	const XMVECTOR ConvertAbsoluteToNormalizedScreen(const XMVECTOR &position);
 
 	/**
-	 A struct of transforms.
+	 A struct of sprite transforms.
 	 */
 	__declspec(align(16)) struct SpriteTransform final : public AlignedData< SpriteTransform > {
 
@@ -131,10 +131,16 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		explicit SpriteTransform(const XMFLOAT2 &translation = { 0.0f, 0.0f }, float depth = 0.0f,
-			float rotation = 0.0f, const XMFLOAT2 &rotation_origin = { 0.0f, 0.0f }, const XMFLOAT2 &scale = { 1.0f, 1.0f })
-			: m_translation(translation), m_depth(depth), 
-			m_rotation(rotation), m_rotation_origin(rotation_origin), m_scale(scale) {}
+		explicit SpriteTransform(const XMFLOAT2 &translation = { 0.0f, 0.0f }, 
+			float depth = 0.0f,
+			float rotation = 0.0f, 
+			const XMFLOAT2 &rotation_origin = { 0.0f, 0.0f }, 
+			const XMFLOAT2 &scale = { 1.0f, 1.0f })
+			: m_translation(translation), 
+			m_depth(depth), 
+			m_rotation(rotation), 
+			m_rotation_origin(rotation_origin), 
+			m_scale(scale) {}
 
 		/**
 		 Constructs a sprite transform from the given translation, depth,
@@ -151,10 +157,16 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		explicit SpriteTransform(const XMVECTOR &translation, float depth,
-			float rotation, const XMVECTOR &rotation_origin, const XMVECTOR &scale)
-			: m_translation(), m_depth(depth),
-			m_rotation(rotation), m_rotation_origin(), m_scale() {
+		explicit SpriteTransform(const XMVECTOR &translation, 
+			float depth,
+			float rotation, 
+			const XMVECTOR &rotation_origin, 
+			const XMVECTOR &scale)
+			: m_translation(), 
+			m_depth(depth),
+			m_rotation(rotation), 
+			m_rotation_origin(), 
+			m_scale() {
 			SetTranslation(translation);
 			SetRotationOrigin(rotation_origin);
 			SetScale(scale);
@@ -164,15 +176,15 @@ namespace mage {
 		 Constructs a sprite transform from the given sprite transform.
 
 		 @param[in]		transform
-						The sprite transform.
+						A reference to the sprite transform to copy.
 		 */
 		SpriteTransform(const SpriteTransform &transform) = default;
 
 		/**
-		 Constructs a sprite transform from the given sprite transform.
+		 Constructs a sprite transform by moving the given sprite transform.
 
 		 @param[in]		transform
-						The sprite transform.
+						A reference to the sprite transform to move.
 		 */
 		SpriteTransform(SpriteTransform &&transform) = default;
 
@@ -189,18 +201,18 @@ namespace mage {
 		 Copies the given sprite transform to this sprite transform.
 
 		 @param[in]		transform
-						The sprite transform to copy from.
+						The sprite transform to move.
 		 @return		A reference to the copy of the given sprite transform
 						(i.e. this sprite transform).
 		 */
 		SpriteTransform &operator=(const SpriteTransform &transform) = default;
 
 		/**
-		 Copies the given sprite transform to this sprite transform.
+		 Moves the given sprite transform to this sprite transform.
 
 		 @param[in]		transform
-						The sprite transform to copy from.
-		 @return		A reference to the copy of the given sprite transform
+						The sprite transform to copy.
+		 @return		A reference to the moved sprite transform
 						(i.e. this sprite transform).
 		 */
 		SpriteTransform &operator=(SpriteTransform &&transform) = default;

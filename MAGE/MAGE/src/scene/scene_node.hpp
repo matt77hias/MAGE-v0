@@ -27,15 +27,15 @@
 namespace mage {
 
 	template< typename SceneObjectT >
-	class SceneNode : public TransformNode {
+	class SceneNode : public Node {
 
 	public:
 
 		explicit SceneNode(const string &name, SharedPtr< SceneObjectT > scene_object) 
-			: TransformNode(), m_name(name), 
+			: Node(), m_name(name), 
 			m_scene_object(scene_object) {}
 		SceneNode(const SceneNode< SceneObjectT > &scene_node)
-			: TransformNode(scene_node), m_name(scene_node.m_name), 
+			: Node(scene_node), m_name(scene_node.m_name), 
 			m_scene_object(scene_node.m_scene_object->Clone()) {}
 		SceneNode(SceneNode< SceneObjectT > &&scene_node) = default;
 		virtual ~SceneNode() = default;
@@ -66,7 +66,7 @@ namespace mage {
 
 	private:
 
-		virtual SharedPtr< TransformNode > CloneImplementation() const override {
+		virtual SharedPtr< Node > CloneImplementation() const override {
 			return SharedPtr< SceneNode< SceneObjectT > >(new SceneNode< SceneObjectT >(*this));
 		}
 

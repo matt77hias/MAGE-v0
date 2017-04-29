@@ -19,7 +19,7 @@ public:
 	TestScript &operator=(TestScript &&script) = delete;
 
 	virtual void Update(double delta_time) override {
-		m_model->AddRotationY(static_cast< float >(delta_time));
+		m_model->GetTransform()->AddRotationY(static_cast< float >(delta_time));
 
 		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_F2)) {
 			//PostQuitMessage(0);
@@ -53,7 +53,7 @@ private:
 		// Camera
 		//---------------------------------------------------------------------
 		SharedPtr< PerspectiveCameraNode > camera = GetWorld()->CreatePerspectiveCameraNode();
-		camera->SetTranslationY(2.0f);
+		camera->GetTransform()->SetTranslationY(2.0f);
 		
 		//---------------------------------------------------------------------
 		// ModelDescriptors
@@ -65,21 +65,21 @@ private:
 		// Models
 		//---------------------------------------------------------------------
 		SharedPtr< ModelNode > model_sponza = GetWorld()->CreateModelNode(*model_desc_sponza);
-		model_sponza->SetScale(10.0f);
+		model_sponza->GetTransform()->SetScale(10.0f);
 		SharedPtr< ModelNode > model_sphere = GetWorld()->CreateModelNode(*model_desc_sphere);
-		model_sphere->AddTranslationY(0.5f);
+		model_sphere->GetTransform()->AddTranslationY(0.5f);
 
 
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
 		SharedPtr< OmniLightNode > omni_light = GetWorld()->CreateOmniLightNode();
-		omni_light->SetTranslationY(2.0f);
+		omni_light->GetTransform()->SetTranslationY(2.0f);
 		omni_light->GetObject()->SetDistanceFalloff(0.0f, 2.0f);
 		SharedPtr< SpotLightNode > spot_light = GetWorld()->CreateSpotLightNode();
 		spot_light->GetObject()->SetAngualCutoff(1.0f, 0.86602540f);
 		spot_light->GetObject()->SetDistanceFalloff(0.0f, 3.0f);
-		camera->AddChildTransformNode(spot_light);
+		camera->AddChildNode(spot_light);
 
 
 		//---------------------------------------------------------------------
@@ -112,7 +112,7 @@ private:
 		//SharedPtr< BehaviorScript > script(new TestScript(model_teapot));
 		//AddScript(script);
 		
-		SharedPtr< BehaviorScript > controller_script(new FPSInputControllerScript(camera.get()));
+		SharedPtr< BehaviorScript > controller_script(new FPSInputControllerScript(camera->GetTransform()));
 		AddScript(controller_script);
 		SharedPtr< BehaviorScript > stats_script(new StatsScript(text));
 		AddScript(stats_script);

@@ -4,6 +4,7 @@
 #pragma region
 
 #include "math\bounding_volume.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -108,6 +109,8 @@ namespace mage {
 	}
 
 	bool AABB::EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const {
+		Assert(planes);
+		
 		const XMVECTOR corner_000_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_min.z, 1.0f);
 		const XMVECTOR corner_001_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_max.z, 1.0f);
 		const XMVECTOR corner_010_v = XMVectorSet(m_p_min.x, m_p_max.y, m_p_min.z, 1.0f);
@@ -189,6 +192,8 @@ namespace mage {
 	}
 
 	bool AABB::EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const {
+		Assert(planes);
+		
 		const XMVECTOR corner_000_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_min.z, 1.0f);
 		const XMVECTOR corner_001_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_max.z, 1.0f);
 		const XMVECTOR corner_010_v = XMVectorSet(m_p_min.x, m_p_max.y, m_p_min.z, 1.0f);
@@ -362,6 +367,7 @@ namespace mage {
 		if (!aabb1.Overlaps(aabb2)) {
 			return AABB();
 		}
+
 		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.m_p_min);
 		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb1.m_p_max);
 		const XMVECTOR p_min_v2 = XMLoadFloat3(&aabb2.m_p_min);
@@ -378,6 +384,7 @@ namespace mage {
 		if (!aabb1.OverlapsStrict(aabb2)) {
 			return AABB();
 		}
+
 		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.m_p_min);
 		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb1.m_p_max);
 		const XMVECTOR p_min_v2 = XMLoadFloat3(&aabb2.m_p_min);
@@ -528,6 +535,8 @@ namespace mage {
 	}
 
 	bool BS::EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const {
+		Assert(planes);
+		
 		const XMVECTOR p_v = XMLoadFloat3(&m_p);
 		
 		for (size_t i = 0; i < nb_planes; ++i) {
@@ -545,6 +554,8 @@ namespace mage {
 	}
 
 	bool BS::EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const {
+		Assert(planes);
+		
 		const XMVECTOR p_v = XMLoadFloat3(&m_p);
 		
 		for (size_t i = 0; i < nb_planes; ++i) {

@@ -164,7 +164,7 @@ namespace mage {
 					y = ReadFloat();
 					z = ReadFloat();
 				}
-				return XYZSpectrum(RGBSpectrum(x, y, z));
+				return static_cast< RGBSpectrum >(XYZSpectrum(x, y, z));
 			}
 			
 			// Custom spectrum

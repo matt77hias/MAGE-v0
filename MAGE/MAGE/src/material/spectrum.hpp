@@ -17,6 +17,10 @@ namespace mage {
 	// Forward declaration
 	struct XYZSpectrum;
 
+	//-------------------------------------------------------------------------
+	// RGBSpectrum
+	//-------------------------------------------------------------------------
+
 	/**
 	 A struct of RGB color spectra.
 	 */
@@ -84,11 +88,11 @@ namespace mage {
 		/**
 		 Constructs a RGB spectrum from the given components.
 
-		 @param[in]		vector
+		 @param[in]		v
 						A reference to the components to copy.
 		 */
-		explicit RGBSpectrum(const XMFLOAT3 &vector)
-			: XMFLOAT3(vector) {}
+		explicit RGBSpectrum(const XMFLOAT3 &v)
+			: XMFLOAT3(v) {}
 
 		/**
 		 Constructs a RGB spectrum by moving the given components.
@@ -96,8 +100,8 @@ namespace mage {
 		 @param[in]		vector
 						A reference to the components to move.
 		 */
-		explicit RGBSpectrum(XMFLOAT3 &&vector)
-			: XMFLOAT3(vector) {}
+		explicit RGBSpectrum(XMFLOAT3 &&v)
+			: XMFLOAT3(v) {}
 
 		/**
 		 Destructs this RGB spectrum.
@@ -130,6 +134,10 @@ namespace mage {
 	};
 
 	static_assert(sizeof(RGBSpectrum) == sizeof(XMFLOAT3), "RGBSpectrum/XMFLOAT3 mismatch");
+
+	//-------------------------------------------------------------------------
+	// XYZSpectrum
+	//-------------------------------------------------------------------------
 
 	/**
 	 A struct of XYZ color spectra.
@@ -201,8 +209,8 @@ namespace mage {
 		 @param[in]		vector
 						A reference to the components to copy.
 		 */
-		explicit XYZSpectrum(const XMFLOAT3 &vector)
-			: XMFLOAT3(vector) {}
+		explicit XYZSpectrum(const XMFLOAT3 &v)
+			: XMFLOAT3(v) {}
 
 		/**
 		 Constructs a XYZ spectrum by moving the given components.
@@ -210,8 +218,8 @@ namespace mage {
 		 @param[in]		vector
 						A reference to the components to move.
 		 */
-		explicit XYZSpectrum(XMFLOAT3 &&vector)
-			: XMFLOAT3(vector) {}
+		explicit XYZSpectrum(XMFLOAT3 &&v)
+			: XMFLOAT3(v) {}
 
 		/**
 		 Destructs this XYZ spectrum.

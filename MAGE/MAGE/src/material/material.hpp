@@ -97,7 +97,7 @@ namespace mage {
 		string m_name;
 
 		/**
-		 A pointer to the transmission filter of this material.
+		 The transmission filter of this material.
 		 
 		 Any light passing through the material is filtered by the transmission 
 		 filter, which only allows the specific colors to pass through.
@@ -105,7 +105,7 @@ namespace mage {
 		RGBSpectrum m_transmission_filter;
 
 		/**
-		 A pointer to the ambient reflectivity of this material.
+		 The ambient reflectivity of this material.
 		 */
 		RGBSpectrum m_ambient_reflectivity;
 
@@ -115,7 +115,7 @@ namespace mage {
 		SharedPtr< Texture > m_ambient_reflectivity_texture;
 
 		/**
-		 A pointer to the diffuse reflectivity of this material.
+		 The diffuse reflectivity of this material.
 		 */
 		RGBSpectrum m_diffuse_reflectivity;
 
@@ -125,7 +125,7 @@ namespace mage {
 		SharedPtr< Texture > m_diffuse_reflectivity_texture;
 
 		/**
-		 A pointer to the specular reflectivity of this material.
+		 The specular reflectivity of this material.
 		 */
 		RGBSpectrum m_specular_reflectivity;
 

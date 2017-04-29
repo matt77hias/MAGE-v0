@@ -15,6 +15,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 A struct of materials.
+	 */
 	struct Material final {
 
 	public:
@@ -23,25 +26,65 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit Material(const string &name, float specular_exponent = 0.0f, 
-			float dissolve = 1.0f, float index_of_refraction = 1.0f)
+		/**
+		 Constructs a material.
+
+		 @param[in]		name
+						A reference to the name of the material.
+		 */
+		explicit Material(const string &name)
 			: m_name(name), m_transmission_filter(),
 			m_ambient_reflectivity(), m_ambient_reflectivity_texture(),
 			m_diffuse_reflectivity(), m_diffuse_reflectivity_texture(),
 			m_specular_reflectivity(), m_specular_reflectivity_texture(),
-			m_specular_exponent(specular_exponent), m_specular_exponent_texture(),
-			m_dissolve(dissolve), m_dissolve_texture(),
-			m_index_of_refraction(index_of_refraction), m_decal_texture(),
+			m_specular_exponent(0.0f), m_specular_exponent_texture(),
+			m_dissolve(1.0f), m_dissolve_texture(),
+			m_index_of_refraction(1.0f), m_decal_texture(),
 			m_displacement_texture(), m_bump_texture() {}
+		
+		/**
+		 Constructs a material from the given material.
+
+		 @param[in]		material
+						A reference to the material to copy.
+		 */
 		Material(const Material &material) = default;
+		
+		/**
+		 Constructs a material by moving the given material.
+		 
+		 @param[in]		material
+						A reference to the material to move.
+		 */
 		Material(Material &&material) = default;
+		
+		/**
+		 Destructs this material.
+		 */
 		~Material() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
+		/**
+		 Copies the given material to this material.
+
+		 @param[in]		material
+						A reference to the material to copy.
+		 @return		A reference to the copy of the given material
+						(i.e. this material).
+		 */
 		Material &operator=(const Material &material) = default;
+
+		/**
+		 Moves the given material to this material.
+
+		 @param[in]		material
+						A reference to the material to move.
+		 @return		A reference to the moved material
+						(i.e. this material).
+		 */
 		Material &operator=(Material &&material) = default;
 
 		//---------------------------------------------------------------------
@@ -54,7 +97,7 @@ namespace mage {
 		string m_name;
 
 		/**
-		 The transmission filter of this material.
+		 A pointer to the transmission filter of this material.
 		 
 		 Any light passing through the material is filtered by the transmission 
 		 filter, which only allows the specific colors to pass through.
@@ -62,32 +105,32 @@ namespace mage {
 		RGBSpectrum m_transmission_filter;
 
 		/**
-		 The ambient reflectivity of this material.
+		 A pointer to the ambient reflectivity of this material.
 		 */
 		RGBSpectrum m_ambient_reflectivity;
 
 		/**
-		 The ambient reflectivity texture of this material.
+		 A pointer to the ambient reflectivity texture of this material.
 		 */
 		SharedPtr< Texture > m_ambient_reflectivity_texture;
 
 		/**
-		 The diffuse reflectivity of this material.
+		 A pointer to the diffuse reflectivity of this material.
 		 */
 		RGBSpectrum m_diffuse_reflectivity;
 
 		/**
-		 The diffuse reflectivity texture of this material.
+		 A pointer to the diffuse reflectivity texture of this material.
 		 */
 		SharedPtr< Texture > m_diffuse_reflectivity_texture;
 
 		/**
-		 The specular reflectivity of this material.
+		 A pointer to the specular reflectivity of this material.
 		 */
 		RGBSpectrum m_specular_reflectivity;
 
 		/**
-		 The specular reflectivity texture of this material.
+		 A pointer to the specular reflectivity texture of this material.
 		 */
 		SharedPtr< Texture > m_specular_reflectivity_texture;
 
@@ -100,7 +143,7 @@ namespace mage {
 		float m_specular_exponent;
 
 		/**
-		 The specular exponent texture of this material.
+		 A pointer to the specular exponent texture of this material.
 		 */
 		SharedPtr< Texture > m_specular_exponent_texture;
 
@@ -116,7 +159,7 @@ namespace mage {
 		float m_dissolve;
 
 		/**
-		 The dissolve texture of this material.
+		 A pointer to the dissolve texture of this material.
 		 */
 		SharedPtr< Texture > m_dissolve_texture;
 
@@ -126,17 +169,17 @@ namespace mage {
 		float m_index_of_refraction;
 
 		/**
-		 The decal texture of this material.
+		 A pointer to the decal texture of this material.
 		 */
 		SharedPtr< Texture > m_decal_texture;
 
 		/**
-		 The displacement texture of this material.
+		 A pointer to the displacement texture of this material.
 		 */
 		SharedPtr< Texture > m_displacement_texture;
 
 		/**
-		 The bump texture of this material.
+		 A pointer to the bump texture of this material.
 		 */
 		SharedPtr< Texture > m_bump_texture;
 	};

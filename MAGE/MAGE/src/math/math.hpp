@@ -119,6 +119,8 @@ namespace mage {
 		}
 	};
 
+	static_assert(sizeof(Point3) == sizeof(XMFLOAT3), "Point3/XMFLOAT3 mismatch");
+
 	struct Direction3 final : public XMFLOAT3 {
 
 	public:
@@ -161,6 +163,8 @@ namespace mage {
 			return (*this);
 		}
 	};
+
+	static_assert(sizeof(Direction3) == sizeof(XMFLOAT3), "Direction3/XMFLOAT3 mismatch");
 
 	struct Normal3 final : public XMFLOAT3 {
 
@@ -207,6 +211,8 @@ namespace mage {
 		}
 	};
 
+	static_assert(sizeof(Normal3) == sizeof(XMFLOAT3), "Normal3/XMFLOAT3 mismatch");
+
 	inline Point3::Point3(const Direction3 &direction)
 		: XMFLOAT3(static_cast< const XMFLOAT3 & >(direction)) {}
 	inline Point3::Point3(Direction3 &&direction)
@@ -221,10 +227,6 @@ namespace mage {
 		: XMFLOAT3(static_cast< const XMFLOAT3 & >(normal)) {}
 	inline Direction3::Direction3(Normal3 &&normal)
 		: XMFLOAT3(static_cast< XMFLOAT3 && >(normal)) {}
-
-	static_assert(sizeof(Point3) == sizeof(XMFLOAT3), "Point3/XMFLOAT3 mismatch");
-	static_assert(sizeof(Direction3) == sizeof(XMFLOAT3), "Direction3/XMFLOAT3 mismatch");
-	static_assert(sizeof(Normal3) == sizeof(XMFLOAT3), "Normal3/XMFLOAT3 mismatch");
 
 	inline ostream &operator<<(ostream& os, const XMFLOAT3 &v) {
 		os << '[' << v.x << ' ' << v.y << ' ' << v.z << ']';

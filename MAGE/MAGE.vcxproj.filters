@@ -932,6 +932,9 @@
     <ClCompile Include="MAGE\src\core\engine_setup.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\text\sprite_text.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">

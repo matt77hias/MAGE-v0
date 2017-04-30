@@ -22,7 +22,7 @@ namespace mage {
 		D3D11_VIEWPORT viewport;
 		device_context->RSGetViewports(&nb_of_viewports, &viewport);
 		if (nb_of_viewports != 1) {
-			throw exception("No viewport is set.");
+			throw FormattedException("No viewport is set.");
 		}
 		
 		return GetViewportTransform(viewport, rotation_mode);
@@ -30,11 +30,12 @@ namespace mage {
 
 	const XMMATRIX GetViewportTransform(ID3D11DeviceContext *device_context, DXGI_MODE_ROTATION rotation_mode, D3D11_VIEWPORT *viewport) {
 		Assert(device_context);
+		Assert(viewport);
 		
 		UINT nb_of_viewports = 1;
 		device_context->RSGetViewports(&nb_of_viewports, viewport);
 		if (nb_of_viewports != 1) {
-			throw exception("No viewport is set.");
+			throw FormattedException("No viewport is set.");
 		}
 
 		return GetViewportTransform(*viewport, rotation_mode);
@@ -86,13 +87,14 @@ namespace mage {
 
 	const XMVECTOR GetTexture2DSize(ID3D11ShaderResourceView *texture) {
 		Assert(texture);
+		
 		ComPtr< ID3D11Resource > resource;
 		texture->GetResource(&resource);
 
 		ComPtr< ID3D11Texture2D > texture2D;
 		const HRESULT result_texture_2d = resource.As(&texture2D);
 		if (FAILED(result_texture_2d)) {
-			throw exception("Conversion of ID3D11Resource to Texture2D failed.");
+			throw FormattedException("Conversion of ID3D11Resource to Texture2D failed.");
 		}
 
 		// Query the texture size.

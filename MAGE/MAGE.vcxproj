@@ -251,6 +251,7 @@
     <ClCompile Include="MAGE\src\text\dropshadow_sprite_text.cpp" />
     <ClCompile Include="MAGE\src\text\normal_sprite_text.cpp" />
     <ClCompile Include="MAGE\src\text\outline_sprite_text.cpp" />
+    <ClCompile Include="MAGE\src\text\sprite_text.cpp" />
     <ClCompile Include="MAGE\src\timer\cpu_timer.cpp" />
     <ClCompile Include="MAGE\src\timer\timer.cpp" />
     <ClCompile Include="MAGE\src\ui\combo_box.cpp" />

@@ -12,6 +12,22 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	DropshadowSpriteText::DropshadowSpriteText(const string &name, SharedPtr< SpriteFont > font,
+		const Color &shadow_color, SpriteEffect effects)
+		: SpriteText(name, font, effects),
+		m_shadow_color(shadow_color) {}
+
+	DropshadowSpriteText::DropshadowSpriteText(const string &name, SharedPtr< SpriteFont > font,
+		const XMVECTOR &shadow_color, SpriteEffect effects)
+		: SpriteText(name, font, effects),
+		m_shadow_color() {
+		SetShadowColor(shadow_color);
+	}
+
+	SharedPtr< SpriteObject > DropshadowSpriteText::CloneImplementation() const {
+		return SharedPtr< DropshadowSpriteText >(new DropshadowSpriteText(*this));
+	}
+
 	void DropshadowSpriteText::Draw(SpriteBatch &sprite_batch) const {
 		// +1, +1
 		SpriteTransform transform1(*GetTransform());

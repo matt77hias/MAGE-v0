@@ -42,8 +42,7 @@ namespace mage {
 						A reference to a vector for storing the read indices
 						from file.
 		 */
-		explicit MSHReader(vector< VertexT > &vertices, vector< IndexT > &indices)
-			: BigEndianBinaryReader(), m_vertices(vertices), m_indices(indices) {}
+		explicit MSHReader(vector< VertexT > &vertices, vector< IndexT > &indices);
 
 		/**
 		 Constructs a MSH reader from the given MSH reader.

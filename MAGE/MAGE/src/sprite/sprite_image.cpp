@@ -53,6 +53,10 @@ namespace mage {
 		: SpriteObject(sprite_image), m_color(sprite_image.m_color),
 		m_texture_region(new RECT(*sprite_image.m_texture_region)), m_texture(sprite_image.m_texture) {}
 		
+	SharedPtr< SpriteObject > SpriteImage::CloneImplementation() const {
+		return SharedPtr< SpriteImage >(new SpriteImage(*this));
+	}
+
 	void SpriteImage::SetTextureRegion(const RECT &texture_region) {
 		m_texture_region.reset(new RECT(texture_region));
 	}

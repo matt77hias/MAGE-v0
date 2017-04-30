@@ -14,6 +14,20 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	PerspectiveCamera::PerspectiveCamera(float aspect_ratio,
+		float fov_y, float near_z, float far_z)
+		: Camera(near_z, far_z),
+		m_aspect_ratio(aspect_ratio), m_fov_y(fov_y) {}
+
+	PerspectiveCamera::PerspectiveCamera(float width, float height,
+		float fov_y, float near_z, float far_z)
+		: Camera(near_z, far_z),
+		m_aspect_ratio(width / height), m_fov_y(fov_y) {}
+
+	SharedPtr< Camera > PerspectiveCamera::CloneImplementation() const {
+		return SharedPtr< PerspectiveCamera >(new PerspectiveCamera(*this));
+	}
+
 	SharedPtr< PerspectiveCamera > CreatePerspectiveCamera(float fov_y, float near_z, float far_z) {
 		Assert(g_engine);
 		const Renderer *render = g_engine->GetRenderer();

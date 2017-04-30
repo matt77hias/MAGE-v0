@@ -34,8 +34,7 @@ namespace mage {
 						A reference to a vector for storing the read variables
 						from file.
 		 */
-		explicit VSReader(vector< Variable > &variable_buffer)
-			: LineReader(), m_variable_buffer(variable_buffer) {}
+		explicit VSReader(vector< Variable > &variable_buffer);
 		
 		/**
 		 Constructs a VS reader from the given VS reader.

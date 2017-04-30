@@ -226,9 +226,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this sprite image.
 		 */
-		virtual SharedPtr< SpriteObject > CloneImplementation() const override {
-			return SharedPtr< SpriteImage >(new SpriteImage(*this));
-		}
+		virtual SharedPtr< SpriteObject > CloneImplementation() const override;
 
 		/**
 		 Returns the color of this sprite image as @c XMVECTOR.

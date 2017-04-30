@@ -86,8 +86,7 @@ namespace mage {
 		/**
 		 Constructs a writer.
 		 */
-		Writer()
-			: m_file(nullptr), m_fname() {}
+		Writer();
 
 		/**
 		 Constructs a writer from the given writer.

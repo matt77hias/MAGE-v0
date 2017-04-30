@@ -39,9 +39,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit DropshadowSpriteText(const string &name, SharedPtr< SpriteFont > font,
-			const Color &shadow_color, SpriteEffect effects = SpriteEffect_None)
-			: SpriteText(name, font, effects),
-			m_shadow_color(shadow_color) {}
+			const Color &shadow_color, SpriteEffect effects = SpriteEffect_None);
 		
 		/**
 		 Constructs a dropshadow sprite text.
@@ -57,11 +55,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit DropshadowSpriteText(const string &name, SharedPtr< SpriteFont > font,
-			const XMVECTOR &shadow_color = Colors::Black, SpriteEffect effects = SpriteEffect_None)
-			: SpriteText(name, font, effects), 
-			m_shadow_color() {
-			SetShadowColor(shadow_color);
-		}
+			const XMVECTOR &shadow_color = Colors::Black, SpriteEffect effects = SpriteEffect_None);
 		
 		/**
 		 Constructs a dropshadow sprite text from the given dropshadow sprite text.
@@ -168,9 +162,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this dropshadow sprite text.
 		 */
-		virtual SharedPtr< SpriteObject > CloneImplementation() const override {
-			return SharedPtr< DropshadowSpriteText >(new DropshadowSpriteText(*this));
-		}
+		virtual SharedPtr< SpriteObject > CloneImplementation() const override;
 
 		/**
 		 Returns the shadow color of this dropshadow sprite text as @c XMVECTOR.

@@ -34,8 +34,7 @@ namespace mage {
 						A reference to a vector containing the variables to write
 						to file.
 		 */
-		explicit VSWriter(const vector< Variable > &variable_buffer)
-			: Writer(), m_variable_buffer(variable_buffer) {}
+		explicit VSWriter(const vector< Variable > &variable_buffer);
 		
 		/**
 		 Constructs a VS writer from the given VS writer.

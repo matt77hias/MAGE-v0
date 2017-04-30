@@ -79,10 +79,7 @@ namespace mage {
 		 */
 		template < typename VertexT >
 		explicit StaticMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const vector< VertexT > &vertices, const vector< uint32_t > &indices)
-			: StaticMesh(device, device_context, 
-				vertices.data(), vertices.size(), 
-				indices.data(), indices.size()) {}
+			const vector< VertexT > &vertices, const vector< uint32_t > &indices);
 
 		/**
 		 Constructs a static mesh from the given static mesh.

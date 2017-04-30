@@ -39,9 +39,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
-			const Color &border_color, SpriteEffect effects = SpriteEffect_None)
-			: SpriteText(name, font, effects),
-			m_border_color(border_color) {}
+			const Color &border_color, SpriteEffect effects = SpriteEffect_None);
 		
 		/**
 		 Constructs a outline sprite text.
@@ -57,11 +55,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
-			const XMVECTOR &border_color = Colors::Black, SpriteEffect effects = SpriteEffect_None)
-			: SpriteText(name, font, effects), 
-			m_border_color() {
-			SetBorderColor(border_color);
-		}
+			const XMVECTOR &border_color = Colors::Black, SpriteEffect effects = SpriteEffect_None);
 
 		/**
 		 Constructs a outline sprite text from the given outline sprite text.
@@ -168,9 +162,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this outline sprite text.
 		 */
-		virtual SharedPtr< SpriteObject > CloneImplementation() const override {
-			return SharedPtr< OutlineSpriteText >(new OutlineSpriteText(*this));
-		}
+		virtual SharedPtr< SpriteObject > CloneImplementation() const override;
 
 		/**
 		 Returns the border color of this outline sprite text as @c XMVECTOR.

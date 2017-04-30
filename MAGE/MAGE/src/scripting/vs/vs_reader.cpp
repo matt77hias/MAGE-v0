@@ -14,6 +14,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	VSReader::VSReader(vector< Variable > &variable_buffer)
+		: LineReader(), m_variable_buffer(variable_buffer) {}
+
 	void VSReader::ReadLine(char *line) {
 		m_context = nullptr;
 		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);

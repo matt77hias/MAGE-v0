@@ -39,12 +39,8 @@ namespace mage {
 		 @param[in]		mesh_desc
 						A reference to a mesh descriptor.
 		 */
-		explicit OBJReader(ModelOutput< VertexT > &model_output, 
-			const MeshDescriptor< VertexT > &mesh_desc)
-			: LineReader(), 
-			m_vertex_coordinates(), m_vertex_texture_coordinates(),
-			m_vertex_normal_coordinates(), m_mapping(),
-			m_model_output(model_output), m_mesh_desc(mesh_desc) {}
+		explicit OBJReader(ModelOutput< VertexT > &model_output,
+			const MeshDescriptor< VertexT > &mesh_desc);
 		
 		/**
 		 Constructs an OBJ reader from the given OBJ reader.

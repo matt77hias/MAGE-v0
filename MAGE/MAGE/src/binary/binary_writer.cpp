@@ -12,6 +12,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	BigEndianBinaryWriter::BigEndianBinaryWriter()
+		: m_file(nullptr), m_fname() {}
+
 	BigEndianBinaryWriter::~BigEndianBinaryWriter() {
 		CloseFile();
 	}

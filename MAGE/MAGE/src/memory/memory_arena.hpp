@@ -31,10 +31,7 @@ namespace mage {
 		 @param[in]		block_size
 						The maximum block size in bytes.
 		 */
-		explicit MemoryArena(size_t block_size = 32768) 
-			: m_block_size(block_size), m_current_block_pos(0), 
-			m_current_block(MemoryBlock(0, nullptr)),
-			m_used_blocks(), m_available_blocks() {}
+		explicit MemoryArena(size_t block_size = 32768);
 
 		/**
 		 Constructs a memory arena from the given memory arena.

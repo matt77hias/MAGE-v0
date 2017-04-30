@@ -85,7 +85,7 @@ namespace mage {
 
 		 @return		A null-terminated byte string that may be used to identify the exception.
 		 */
-		virtual const char *what() const throw() {
+		virtual const char *what() const override {
 			return m_text;
 		}
 

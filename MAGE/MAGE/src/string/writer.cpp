@@ -14,6 +14,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	Writer::Writer()
+		: m_file(nullptr), m_fname() {}
+
 	Writer::~Writer() {
 		CloseFile();
 	}

@@ -127,9 +127,7 @@ namespace mage {
 		/**
 		 Constructs a binary reader.
 		 */
-		BinaryReader()
-			: m_fname(), m_big_endian(true), 
-			m_pos(nullptr), m_end(nullptr), m_data() {}
+		BinaryReader();
 		
 		/**
 		 Constructs a binary reader from the given binary reader.
@@ -396,8 +394,7 @@ namespace mage {
 		/**
 		 Constructs a big endian binary reader.
 		 */
-		BigEndianBinaryReader()
-			: m_fname(), m_pos(nullptr), m_end(nullptr), m_data() {}
+		BigEndianBinaryReader();
 		
 		/**
 		 Constructs a big endian binary reader from the given big endian binary reader.

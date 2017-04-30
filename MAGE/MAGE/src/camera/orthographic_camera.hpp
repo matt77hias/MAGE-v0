@@ -50,10 +50,8 @@ namespace mage {
 		explicit OrthographicCamera(
 			float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
 			float height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
-			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: Camera(near_z, far_z), 
-			m_width(width), m_height(height) {}
+			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
 		
 		/**
 		 Constructs an orthographic camera from the given orthographic camera.
@@ -219,9 +217,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this orthographic camera.
 		 */
-		virtual SharedPtr< Camera > CloneImplementation() const override {
-			return SharedPtr< OrthographicCamera >(new OrthographicCamera(*this));
-		}
+		virtual SharedPtr< Camera > CloneImplementation() const override;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -252,12 +248,9 @@ namespace mage {
 	 @param[in]		far_z
 					The position of the far z-plane in camera space.
 	 */
-	inline SharedPtr< OrthographicCamera > CreateOrthographicCamera(
-		float width = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
+	SharedPtr< OrthographicCamera > CreateOrthographicCamera(
+		float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
 		float height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
 		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-		float far_z = MAGE_DEFAULT_CAMERA_FAR_Z) {
-		return SharedPtr< OrthographicCamera >(
-			new OrthographicCamera(width, height, near_z, far_z));
-	}
+		float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
 }

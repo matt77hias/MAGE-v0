@@ -37,8 +37,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit NormalSpriteText(const string &name, SharedPtr< SpriteFont > font,
-			SpriteEffect effects = SpriteEffect_None)
-			: SpriteText(name, font, effects) {}
+			SpriteEffect effects = SpriteEffect_None);
 
 		/**
 		 Constructs a normal sprite text from the given normal sprite text.
@@ -118,8 +117,6 @@ namespace mage {
 
 		 @return		A pointer to the clone of this normal sprite text.
 		 */
-		virtual SharedPtr< SpriteObject > CloneImplementation() const override {
-			return SharedPtr< NormalSpriteText >(new NormalSpriteText(*this));
-		}
+		virtual SharedPtr< SpriteObject > CloneImplementation() const override;
 	};
 }

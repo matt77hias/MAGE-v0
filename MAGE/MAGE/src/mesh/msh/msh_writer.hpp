@@ -41,8 +41,7 @@ namespace mage {
 		 @param[in]		indices
 						A reference to a vector containing the indices.
 		 */
-		explicit MSHWriter(const vector< VertexT > &vertices, const vector< IndexT > &indices)
-			: BigEndianBinaryWriter(), m_vertices(vertices), m_indices(indices) {}
+		explicit MSHWriter(const vector< VertexT > &vertices, const vector< IndexT > &indices);
 		
 		/**
 		 Constructs a MSH writer from the given MSH writer.

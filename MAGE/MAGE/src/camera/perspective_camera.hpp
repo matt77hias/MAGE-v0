@@ -49,9 +49,7 @@ namespace mage {
 		explicit PerspectiveCamera(float aspect_ratio,
 			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: Camera(near_z, far_z),
-			m_aspect_ratio(aspect_ratio), m_fov_y(fov_y) {}
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
 
 		/**
 		 Constructs a perspective camera.
@@ -67,12 +65,10 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
-		explicit PerspectiveCamera(float width, float height, 
+		explicit PerspectiveCamera(float width, float height,
 			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
-			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: Camera(near_z, far_z), 
-			m_aspect_ratio(width / height), m_fov_y(fov_y) {}
+			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
 
 		/**
 		 Constructs a perspective camera from the given perspective camera.
@@ -254,9 +250,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this perspective camera.
 		 */
-		virtual SharedPtr< Camera > CloneImplementation() const override {
-			return SharedPtr< PerspectiveCamera >(new PerspectiveCamera(*this));
-		}
+		virtual SharedPtr< Camera > CloneImplementation() const override;
 
 		//---------------------------------------------------------------------
 		// Member Variables

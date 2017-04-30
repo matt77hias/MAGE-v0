@@ -146,7 +146,8 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit SpriteObject(const string &name, SpriteEffect effects = SpriteEffect_None);
+		explicit SpriteObject(const string &name, 
+			SpriteEffect effects = SpriteEffect_None);
 
 		/**
 		 Constructs a sprite object from the given sprite object.

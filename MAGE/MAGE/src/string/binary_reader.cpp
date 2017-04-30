@@ -45,6 +45,10 @@ namespace mage {
 	// BinaryReader
 	//-------------------------------------------------------------------------
 
+	BinaryReader::BinaryReader()
+		: m_fname(), m_big_endian(true),
+		m_pos(nullptr), m_end(nullptr), m_data() {}
+
 	void BinaryReader::ReadFromFile(const wstring &fname, bool big_endian) {
 		m_fname = fname;
 		m_big_endian = big_endian;
@@ -231,6 +235,9 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// BigEndianBinaryReader
 	//-------------------------------------------------------------------------
+
+	BigEndianBinaryReader::BigEndianBinaryReader()
+		: m_fname(), m_pos(nullptr), m_end(nullptr), m_data() {}
 
 	void BigEndianBinaryReader::ReadFromFile(const wstring &fname) {
 		m_fname = fname;

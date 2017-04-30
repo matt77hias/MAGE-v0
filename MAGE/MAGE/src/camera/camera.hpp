@@ -157,9 +157,8 @@ namespace mage {
 						The position of the far z-plane in camera space.
 		 */
 		explicit Camera(
-			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z)
-			: m_near_z(near_z), m_far_z(far_z) {}
+			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
 
 		/**
 		 Constructs a camera from the given camera.

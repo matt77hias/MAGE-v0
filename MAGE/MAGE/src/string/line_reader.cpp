@@ -15,6 +15,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	LineReader::LineReader()
+		: m_context(nullptr), m_file(nullptr), m_fname(),
+		m_delimiters(mage_default_delimiters), m_line_number(0) {}
+
 	LineReader::~LineReader() {
 		CloseFile();
 	}

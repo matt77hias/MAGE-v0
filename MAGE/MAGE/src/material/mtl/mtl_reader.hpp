@@ -33,8 +33,7 @@ namespace mage {
 		 @param[in]		material_buffer
 						A reference to a vector for storing the read materials from file.
 		 */
-		explicit MTLReader(vector< Material > &material_buffer)
-			: LineReader(), m_material_buffer(material_buffer) {}
+		explicit MTLReader(vector< Material > &material_buffer);
 
 		/**
 		 Constructs a MTL reader from the given MTL reader.

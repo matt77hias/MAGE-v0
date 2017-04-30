@@ -25,6 +25,11 @@
 namespace mage {
 
 	template< typename VertexT, typename IndexT >
+	MSHReader< VertexT, IndexT >::MSHReader(
+		vector< VertexT > &vertices, vector< IndexT > &indices)
+		: BigEndianBinaryReader(), m_vertices(vertices), m_indices(indices) {}
+
+	template< typename VertexT, typename IndexT >
 	void MSHReader< VertexT, IndexT >::Read() {
 
 		if (!IsHeaderValid()) {

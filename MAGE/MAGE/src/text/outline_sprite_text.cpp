@@ -12,6 +12,22 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	OutlineSpriteText::OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
+		const Color &border_color, SpriteEffect effects)
+		: SpriteText(name, font, effects),
+		m_border_color(border_color) {}
+
+	OutlineSpriteText::OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
+		const XMVECTOR &border_color, SpriteEffect effects)
+		: SpriteText(name, font, effects),
+		m_border_color() {
+		SetBorderColor(border_color);
+	}
+
+	SharedPtr< SpriteObject > OutlineSpriteText::CloneImplementation() const {
+		return SharedPtr< OutlineSpriteText >(new OutlineSpriteText(*this));
+	}
+
 	void OutlineSpriteText::Draw(SpriteBatch &sprite_batch) const {
 		// +1, +1
 		SpriteTransform transform1(*GetTransform());

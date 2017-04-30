@@ -86,8 +86,7 @@ namespace mage {
 		/**
 		 Constructs a big endian binary writer.
 		 */
-		BigEndianBinaryWriter()
-			: m_file(nullptr), m_fname() {}
+		BigEndianBinaryWriter();
 		
 		/**
 		 Constructs a big endian binary writer from the given big endian binary writer.

@@ -76,6 +76,12 @@ namespace mage {
 				// Allocate new block.
 				const size_t alloc_size = std::max(size, GetBlockSize());
 				char *alloc_ptr = AllocAligned< char >(alloc_size);
+
+				if (!alloc_ptr) {
+					// The allocation failed.
+					return nullptr;
+				}
+
 				m_current_block = MemoryBlock(alloc_size, alloc_ptr);
 			}
 

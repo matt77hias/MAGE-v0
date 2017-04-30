@@ -35,6 +35,7 @@ namespace mage {
 	/**
 	 Allocates memory on a given alignment boundary of the given size.
 	 
+	 @pre			@a alignment must be an integer power of 2.
 	 @param[in]		size
 					The requested size in bytes to allocate in memory.
 	 @param[in]		alignment

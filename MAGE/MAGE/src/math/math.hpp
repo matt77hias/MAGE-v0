@@ -185,16 +185,39 @@ namespace mage {
 		Point3(float x, float y, float z) 
 			: XMFLOAT3(x, y, z) {}
 		
+		/**
+		 Constructs a point from the given point.
+
+		 @param[in]		point
+						A reference to the point to copy.
+		 */
 		Point3(const Point3 &point)
 			: XMFLOAT3(static_cast< const XMFLOAT3 & >(point)) {}
+		
+		/**
+		 Constructs a point by moving the given point.
+
+		 @param[in]		point
+						A reference to the point to move.
+		 */
 		Point3(Point3 &&point)
 			: XMFLOAT3(static_cast< XMFLOAT3 && >(point)) {}
-		explicit Point3(const Direction3 &direction);
-		explicit Point3(Direction3 &&direction);
-		explicit Point3(const Normal3 &normal);
-		explicit Point3(Normal3 &&normal);
+		
+		/**
+		 Constructs a point from the given vector.
+
+		 @param[in]		v
+						A reference to the vector to copy.
+		 */
 		explicit Point3(const XMFLOAT3 &v)
 			: XMFLOAT3(v) {}
+
+		/**
+		 Constructs a point by moving the given vector.
+
+		 @param[in]		v
+						A reference to the vector to move.
+		 */
 		explicit Point3(XMFLOAT3 &&v)
 			: XMFLOAT3(v) {}
 
@@ -267,18 +290,55 @@ namespace mage {
 		Direction3(float x, float y, float z)
 			: XMFLOAT3(x, y, z) {}
 		
+		/**
+		 Constructs a direction from the given direction.
+
+		 @param[in]		direction
+						A reference to the direction to copy.
+		 */
 		Direction3(const Direction3 &direction)
 			: XMFLOAT3(static_cast< const XMFLOAT3 & >(direction)) {}
+		
+		/**
+		 Constructs a direction by moving the given direction.
+
+		 @param[in]		direction
+						A reference to the direction to move.
+		 */
 		Direction3(Direction3 &&direction)
 			: XMFLOAT3(static_cast< XMFLOAT3 && >(direction)) {}
-		explicit Direction3(const Point3 &point)
-			: XMFLOAT3(static_cast< const XMFLOAT3 & >(point)) {}
-		explicit Direction3(Point3 &&point)
-			: XMFLOAT3(static_cast< XMFLOAT3 && >(point)) {}
+		
+		/**
+		 Constructs a direction from the given normal.
+
+		 @param[in]		normal
+						A reference to the normal to copy.
+		 */
 		Direction3(const Normal3 &normal);
+
+		/**
+		 Constructs a direction by moving the given normal.
+
+		 @param[in]		normal
+						A reference to the normal to move.
+		 */
 		Direction3(Normal3 &&normal);
+
+		/**
+		 Constructs a direction from the given vector.
+
+		 @param[in]		v
+						A reference to the vector to copy.
+		 */
 		explicit Direction3(const XMFLOAT3 &v)
 			: XMFLOAT3(v) {}
+
+		/**
+		 Constructs a direction by moving the given vector.
+
+		 @param[in]		v
+						A reference to the vector to move.
+		 */
 		explicit Direction3(XMFLOAT3 &&v)
 			: XMFLOAT3(v) {}
 
@@ -341,8 +401,6 @@ namespace mage {
 		/**
 		 Constructs a normal from the given coordinates.
 
-		 @pre			@c sqrt( @a x @c * @a x @c + @a y @c * @a y @c + @a z @c * @a z ) 
-						is equal to one.
 		 @param[in]		x
 						The x-coordinate.
 		 @param[in]		y
@@ -353,20 +411,57 @@ namespace mage {
 		Normal3(float x, float y, float z)
 			: XMFLOAT3(x, y, z) {}
 		
+		/**
+		 Constructs a normal from the given normal.
+
+		 @param[in]		normal
+						A reference to the normal to copy.
+		 */
 		Normal3(const Normal3 &normal)
 			: XMFLOAT3(static_cast< const XMFLOAT3 & >(normal)) {}
+		
+		/**
+		 Constructs a normal by moving the given normal.
+
+		 @param[in]		normal
+						A reference to the normal to move.
+		 */
 		Normal3(Normal3 &&normal)
 			: XMFLOAT3(static_cast< XMFLOAT3 && >(normal)) {}
-		explicit Normal3(const Point3 &point)
-			: XMFLOAT3(static_cast< const XMFLOAT3 & >(point)) {}
-		explicit Normal3(Point3 &&point)
-			: XMFLOAT3(static_cast< XMFLOAT3 && >(point)) {}
+		
+		/**
+		 Constructs a normal from the given direction.
+
+		 @param[in]		direction
+						A reference to the direction to copy.
+		 */
 		explicit Normal3(const Direction3 &direction)
 			: XMFLOAT3(static_cast< const XMFLOAT3 & >(direction)) {}
+
+		/**
+		 Constructs a normal by moving the given direction.
+
+		 @param[in]		direction
+						A reference to the direction to move.
+		 */
 		explicit Normal3(Direction3 &&direction)
 			: XMFLOAT3(static_cast< XMFLOAT3 && >(direction)) {}
+		
+		/**
+		 Constructs a normal from the given vector.
+
+		 @param[in]		v
+						A reference to the vector to copy.
+		 */
 		explicit Normal3(const XMFLOAT3 &v)
 			: XMFLOAT3(v) {}
+
+		/**
+		 Constructs a normal by moving the given vector.
+
+		 @param[in]		v
+						A reference to the vector to move.
+		 */
 		explicit Normal3(XMFLOAT3 &&v)
 			: XMFLOAT3(v) {}
 
@@ -408,18 +503,6 @@ namespace mage {
 
 	static_assert(sizeof(Normal3) == sizeof(XMFLOAT3), "Normal3/XMFLOAT3 mismatch");
 
-	inline Point3::Point3(const Direction3 &direction)
-		: XMFLOAT3(static_cast< const XMFLOAT3 & >(direction)) {}
-	
-	inline Point3::Point3(Direction3 &&direction)
-		: XMFLOAT3(static_cast< XMFLOAT3 && >(direction)) {}
-	
-	inline Point3::Point3(const Normal3 &normal)
-		: XMFLOAT3(static_cast< const XMFLOAT3 & >(normal)) {}
-	
-	inline Point3::Point3(Normal3 &&normal)
-		: XMFLOAT3(static_cast< XMFLOAT3 && >(normal)) {}
-	
 	inline Direction3::Direction3(const Normal3 &normal)
 		: XMFLOAT3(static_cast< const XMFLOAT3 & >(normal)) {}
 	

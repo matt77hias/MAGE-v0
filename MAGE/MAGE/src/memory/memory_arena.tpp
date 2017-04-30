@@ -19,7 +19,7 @@ namespace mage {
 		// Allocation
 		DataT *ptr = (DataT *)Alloc(count * sizeof(DataT));
 
-		if (ptr == nullptr) {
+		if (!ptr) {
 			// The allocation failed.
 			return nullptr;
 		}

@@ -22,8 +22,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit AmbientLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f))
-			: Light(intensity) {}
+		explicit AmbientLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
 		AmbientLight(const AmbientLight &light) = default;
 		AmbientLight(AmbientLight &&light) = default;
 		virtual ~AmbientLight() = default;
@@ -49,8 +48,6 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual SharedPtr< Light > CloneImplementation() const override {
-			return SharedPtr< AmbientLight >(new AmbientLight(*this));
-		}
+		virtual SharedPtr< Light > CloneImplementation() const override;
 	};
 }

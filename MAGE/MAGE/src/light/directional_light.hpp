@@ -22,8 +22,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit DirectionalLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f))
-			: Light(intensity) {}
+		explicit DirectionalLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
 		DirectionalLight(const DirectionalLight &light) = default;
 		DirectionalLight(DirectionalLight &&light) = default;
 		virtual ~DirectionalLight() = default;
@@ -49,8 +48,6 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual SharedPtr< Light > CloneImplementation() const override {
-			return SharedPtr< DirectionalLight >(new DirectionalLight(*this));
-		}
+		virtual SharedPtr< Light > CloneImplementation() const override;
 	};
 }

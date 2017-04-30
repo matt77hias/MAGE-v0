@@ -223,6 +223,9 @@
     <Filter Include="Header Files\buffer">
       <UniqueIdentifier>{6611e24b-5030-4508-99c0-733263f8d080}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\light">
+      <UniqueIdentifier>{fe412037-a677-4491-99d9-d221f29bf980}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -940,6 +943,21 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp">
       <Filter>Source Files\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\light\spot_light.cpp">
+      <Filter>Source Files\light</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\light\ambient_light.cpp">
+      <Filter>Source Files\light</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\light\directional_light.cpp">
+      <Filter>Source Files\light</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\light\light.cpp">
+      <Filter>Source Files\light</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\light\omni_light.cpp">
+      <Filter>Source Files\light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

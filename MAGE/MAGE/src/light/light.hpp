@@ -58,8 +58,7 @@ namespace mage {
 		// Constructors
 		//---------------------------------------------------------------------
 
-		explicit Light(const RGBSpectrum &intensity)
-			: m_intensity(intensity) {}
+		explicit Light(const RGBSpectrum &intensity);
 		Light(const Light &light) = default;
 		Light(Light &&light) = default;
 

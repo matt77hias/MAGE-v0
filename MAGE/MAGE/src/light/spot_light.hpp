@@ -22,11 +22,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit SpotLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f))
-			: Light(intensity),
-			m_distance_falloff_start(0.0f), m_distance_falloff_end(1.0f),
-			m_cos_penumbra(0.96592583f), m_cos_umbra(0.86602540f),
-			m_exponent_property(1.0f) {}
+		explicit SpotLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
 		SpotLight(const SpotLight &light) = default;
 		SpotLight(SpotLight &&light) = default;
 		virtual ~SpotLight() = default;
@@ -100,9 +96,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual SharedPtr< Light > CloneImplementation() const override {
-			return SharedPtr< SpotLight >(new SpotLight(*this));
-		}
+		virtual SharedPtr< Light > CloneImplementation() const override;
 
 		//---------------------------------------------------------------------
 		// Member Variables

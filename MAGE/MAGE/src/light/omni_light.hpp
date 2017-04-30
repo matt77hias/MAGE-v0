@@ -22,9 +22,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit OmniLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f))
-			: Light(intensity), 
-			m_distance_falloff_start(0.0f), m_distance_falloff_end(1.0f) {}
+		explicit OmniLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
 		OmniLight(const OmniLight &light) = default;
 		OmniLight(OmniLight &&light) = default;
 		virtual ~OmniLight() = default;
@@ -70,9 +68,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual SharedPtr< Light > CloneImplementation() const override {
-			return SharedPtr< OmniLight >(new OmniLight(*this));
-		}
+		virtual SharedPtr< Light > CloneImplementation() const override;
 
 		//---------------------------------------------------------------------
 		// Member Variables

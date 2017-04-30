@@ -188,6 +188,11 @@
     <ClCompile Include="MAGE\src\input\input_manager.cpp" />
     <ClCompile Include="MAGE\src\input\keyboard.cpp" />
     <ClCompile Include="MAGE\src\input\mouse.cpp" />
+    <ClCompile Include="MAGE\src\light\ambient_light.cpp" />
+    <ClCompile Include="MAGE\src\light\directional_light.cpp" />
+    <ClCompile Include="MAGE\src\light\light.cpp" />
+    <ClCompile Include="MAGE\src\light\omni_light.cpp" />
+    <ClCompile Include="MAGE\src\light\spot_light.cpp" />
     <ClCompile Include="MAGE\src\logging\error.cpp" />
     <ClCompile Include="MAGE\src\logging\exception.cpp" />
     <ClCompile Include="MAGE\src\logging\logging.cpp" />

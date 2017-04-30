@@ -987,9 +987,19 @@ namespace mage {
 		}
 
 		/**
-		 Returns the parent-to-view matrix of this transform node.
+		 Returns the view-to-world matrix of this transform node.
 
-		 @return		The parent-to-view matrix of this transform node.
+		 @return		The view-to-world matrix of this transform node.
+		 @note			Transforms for cameras should not contain scaling components.
+		 */
+		const XMMATRIX GetViewToWorldMatrix() const {
+			return GetObjectToWorldMatrix();
+		}
+
+		/**
+		 Returns the world-to-view matrix of this transform node.
+
+		 @return		The world-to-view matrix of this transform node.
 		 @note			Transforms for cameras should not contain scaling components.
 		 */
 		const XMMATRIX GetWorldToViewMatrix() const {

@@ -141,7 +141,7 @@ namespace mage {
 		 @return		The view-to-projection matrix of this camera.
 		 */
 		virtual XMMATRIX GetViewToProjectionMatrix() const = 0;
-			
+
 	protected:
 
 		//---------------------------------------------------------------------

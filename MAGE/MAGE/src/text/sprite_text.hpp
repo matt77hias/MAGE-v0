@@ -103,7 +103,14 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
+		/**
+		 A vector with the sprite text items of this sprite text.
+		 */
 		vector< SpriteTextItem > m_items;
+
+		/**
+		 A pointer to the sprite font of this sprite text.
+		 */
 		SharedPtr< SpriteFont > m_font;
 	};
 }

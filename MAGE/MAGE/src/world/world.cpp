@@ -44,7 +44,7 @@ namespace mage {
 	void World::Render3D() const {
 		
 		const XMMATRIX world_to_view = m_camera->GetTransform()->GetWorldToViewMatrix();
-		const XMMATRIX view_to_world = XMMatrixInverse(nullptr, world_to_view);
+		const XMMATRIX view_to_world = m_camera->GetTransform()->GetViewToWorldMatrix();
 
 		// Update omni light structured buffer.
 		vector< OmniLightBuffer > omni_lights_buffer;
@@ -103,9 +103,6 @@ namespace mage {
 				// Update transform constant buffer.
 				const XMMATRIX object_to_world = model_node.GetTransform()->GetObjectToWorldMatrix();
 				const XMMATRIX world_to_object = model_node.GetTransform()->GetWorldToObjectMatrix();
-
-				XMFLOAT4X4 m;
-				XMStoreFloat4x4(&m, world_to_object);
 				const XMMATRIX view_to_object  = view_to_world * world_to_object;
 				transform_buffer.SetObjectMatrices(object_to_world, view_to_object);
 				m_transform_buffer.UpdateData(transform_buffer);

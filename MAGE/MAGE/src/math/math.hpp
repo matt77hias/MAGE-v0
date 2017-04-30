@@ -158,6 +158,9 @@ namespace mage {
 	// XMFLOAT3: Point3
 	//-------------------------------------------------------------------------
 
+	/**
+	 A struct of points in 3D space.
+	 */
 	struct Point3 final : public XMFLOAT3 {
 
 	public:
@@ -263,6 +266,9 @@ namespace mage {
 	// XMFLOAT3: Direction3
 	//-------------------------------------------------------------------------
 
+	/**
+	 A struct of directions in 3D space.
+	 */
 	struct Direction3 final : public XMFLOAT3 {
 
 	public:
@@ -384,6 +390,12 @@ namespace mage {
 	// XMFLOAT3: Normal3
 	//-------------------------------------------------------------------------
 
+	/**
+	 A struct of normals in 3D space.
+
+	 @note			@c Normal3 does not guarantee or force normalized directions.
+					This should be guaranteed and enforced by the user.
+	 */
 	struct Normal3 final : public XMFLOAT3 {
 
 	public:

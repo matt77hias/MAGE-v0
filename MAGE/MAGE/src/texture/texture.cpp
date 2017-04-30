@@ -5,6 +5,7 @@
 
 #include "resource\resource_factory.hpp"
 #include "texture\texture_loader.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -16,17 +17,16 @@ namespace mage {
 	Texture::Texture(ID3D11Device2 *device, const wstring &fname)
 		: FileResource(fname), m_device(device), m_texture_resource_view() {
 
-		// Create the pixel shader.
-		const HRESULT result_texture_import = ImportTextureFromFile(GetFilename(), m_device, m_texture_resource_view.ReleaseAndGetAddressOf());
-		if (FAILED(result_texture_import)) {
-			Error("Texture initialization failed: %08X.", result_texture_import);
-			return;
-		}
+		Assert(m_device);
+
+		ImportTextureFromFile(GetFilename(), m_device, m_texture_resource_view.ReleaseAndGetAddressOf());
 	}
 
 	SharedPtr< Texture > CreateTexture(const wstring &fname) {
 		ID3D11Device2 *device = GetRenderingDevice();
+		Assert(device);
 		ResourceFactory *factory = GetResourceFactory();
+		Assert(factory);
 		return factory->CreateTexture(device, fname);
 	}
 }

@@ -19,7 +19,7 @@ namespace mage {
 		m_vertex_size(vertex_size), m_nb_vertices(0), m_nb_indices(0),
 		m_index_format(index_format), m_primitive_topology(primitive_topology) {
 
-		Assert(device);
-		Assert(device_context);
+		Assert(m_device);
+		Assert(m_device_context);
 	}
 }

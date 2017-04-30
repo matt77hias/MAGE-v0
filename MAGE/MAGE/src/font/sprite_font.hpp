@@ -261,8 +261,9 @@ namespace mage {
 	};
 
 	/**
-	 Create a sprite font.
+	 Creates a sprite font.
 
+	 @pre			The current engine must be loaded.
 	 @param[in]		fname
 					A reference to the filename.
 	 @param[in]		desc

@@ -188,11 +188,11 @@ namespace mage {
 		/**
 		 Prepares this model for shading.
 
-		 @pre		@a transform is not equal to @c nullptr.
-		 @param[in]	transform
-					A pointer to the transform buffer.
-		 @param[in]	lighting
-					A pointer to the lighting buffer.
+		 @pre			@a transform is not equal to @c nullptr.
+		 @param[in]		transform
+						A pointer to the transform buffer.
+		 @param[in]		lighting
+						A reference to the lighting buffer.
 		 */
 		void PrepareShading(ID3D11Buffer *transform, const Lighting &lighting) const {
 			m_material->PrepareShading(transform, lighting);

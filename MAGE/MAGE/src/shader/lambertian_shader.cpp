@@ -51,9 +51,9 @@ namespace mage {
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 		
 		m_device_context->PSSetConstantBuffers(1, 1, m_material_buffer.GetAddressOf());
-		m_device_context->PSSetConstantBuffers(2, 1, &lighting.light_data);
-		m_device_context->PSSetShaderResources(1, 1, &lighting.omni_lights);
-		m_device_context->PSSetShaderResources(2, 1, &lighting.spot_lights);
+		m_device_context->PSSetConstantBuffers(2, 1, &lighting.m_light_data);
+		m_device_context->PSSetShaderResources(1, 1, &lighting.m_omni_lights);
+		m_device_context->PSSetShaderResources(2, 1, &lighting.m_spot_lights);
 
 		// TODO
 		if (material.m_diffuse_reflectivity_texture) {

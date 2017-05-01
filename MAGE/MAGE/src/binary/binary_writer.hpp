@@ -126,6 +126,8 @@ namespace mage {
 		 Writes the given data.
 
 		 @pre			@a data is not equal to @c nullptr.
+		 @pre			The array pointed to by @a data
+						contains at least @a count elements.
 		 @tparam		DataT
 						The data type.
 		 @param[in]		data

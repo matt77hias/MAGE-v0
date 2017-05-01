@@ -86,9 +86,9 @@ namespace mage {
 		
 		// Create lighting buffer.
 		Lighting lighting;
-		lighting.light_data  = m_light_data_buffer.Get();
-		lighting.omni_lights = m_omni_lights_buffer.Get();
-		lighting.spot_lights = m_spot_lights_buffer.Get();
+		lighting.m_light_data  = m_light_data_buffer.Get();
+		lighting.m_omni_lights = m_omni_lights_buffer.Get();
+		lighting.m_spot_lights = m_spot_lights_buffer.Get();
 
 		// Create Transform buffer.
 		TransformBuffer transform_buffer(

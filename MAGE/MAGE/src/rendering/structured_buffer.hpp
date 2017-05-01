@@ -61,7 +61,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-		HRESULT SetupStructuredBuffer(size_t nb_data_elements) const;
+		void SetupStructuredBuffer(size_t nb_data_elements) const;
 
 		//---------------------------------------------------------------------
 		// Member Variables

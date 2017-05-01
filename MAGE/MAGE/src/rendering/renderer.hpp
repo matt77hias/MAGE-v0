@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\loadable.hpp"
 #include "rendering\rendering_state.hpp"
 
 #pragma endregion
@@ -27,7 +26,7 @@ namespace mage {
 	/**
 	 A class of renderers.
 	 */
-	class Renderer final : public Loadable {
+	class Renderer final {
 
 	public:
 
@@ -62,7 +61,7 @@ namespace mage {
 		/**
 		 Destructs this renderer.
 		 */
-		virtual ~Renderer();
+		~Renderer();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -223,42 +222,42 @@ namespace mage {
 
 		 @return		A success/error value.
 		 */
-		HRESULT InitializeRenderer();
+		void InitializeRenderer();
 
 		/**
 		 Uninitializes this renderer.
 
 		 @return		A success/error value.
 		 */
-		HRESULT UninitializeRenderer();
+		void UninitializeRenderer();
 
 		/**
 		 Setup the D3D11 device and context of this renderer.
 
 		 @return		A success/error value.
 		 */
-		HRESULT SetupDevice();
+		void SetupDevice();
 
 		/**
 		 Sets up the swap chain of this renderer.
 
 		 @return		A success/error value.
 		 */
-		HRESULT SetupSwapChain();
+		void SetupSwapChain();
 
 		/**
 		 Sets up the render target view of this renderer.
 
 		 @return		A success/error value.
 		 */
-		HRESULT SetupRenderTargetView();
+		void SetupRenderTargetView();
 
 		/**
 		 Sets up the depth stencil view of this renderer.
 
 		 @return		A success/error value.
 		 */
-		HRESULT SetupDepthStencilView();
+		void SetupDepthStencilView();
 
 		/**
 		 Sets up the rendering states of this renderer.

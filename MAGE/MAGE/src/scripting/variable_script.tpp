@@ -16,7 +16,7 @@ namespace mage {
 	
 	template < typename T >
 	inline void VariableScript::AddVariable(VariableType type, const string &name, const T &value) {
-		m_variables.insert(pair< string, Variable >(name, Variable(type, name, value)));
+		m_variables.insert(std::make_pair(name, Variable(type, name, value)));
 	}
 
 	template < typename T >

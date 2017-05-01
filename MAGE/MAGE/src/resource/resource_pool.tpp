@@ -5,6 +5,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// ResourcePool
+	//-------------------------------------------------------------------------
+
+	template< typename KeyT, typename ResourceT >
+	ResourcePool< KeyT, ResourceT >::~ResourcePool() {
+		RemoveAllResources();
+	}
+
 	template< typename KeyT, typename ResourceT >
 	inline size_t ResourcePool< KeyT, ResourceT >::GetNumberOfResources() const {
 		MutexLock lock(m_resource_map_mutex);
@@ -35,7 +44,9 @@ namespace mage {
 
 		auto new_resource = SharedPtr< ResourcePoolEntry< DerivedResourceT > >(
 			new ResourcePoolEntry< DerivedResourceT >(*this, key, std::forward< ConstructorArgsT >(args)...));
-		m_resource_map[key] = new_resource;
+		
+		m_resource_map.insert(std::make_pair(key, new_resource));
+		
 		return new_resource;
 	}
 
@@ -54,5 +65,24 @@ namespace mage {
 		MutexLock lock(m_resource_map_mutex);
 
 		m_resource_map.clear();
+	}
+
+	//-------------------------------------------------------------------------
+	// ResourcePoolEntry
+	//-------------------------------------------------------------------------
+
+	template< typename KeyT, typename ResourceT >
+	template< typename DerivedResourceT >
+	template< typename... ConstructorArgsT >
+	ResourcePool< KeyT, ResourceT >::ResourcePoolEntry< DerivedResourceT >::ResourcePoolEntry(
+		ResourcePool< KeyT, ResourceT > &resource_pool, KeyT resource_key, 
+		ConstructorArgsT&&... args)
+		: DerivedResourceT(std::forward< ConstructorArgsT >(args)...),
+		m_resource_pool(resource_pool), m_resource_key(resource_key) {}
+
+	template< typename KeyT, typename ResourceT >
+	template< typename DerivedResourceT >
+	ResourcePool< KeyT, ResourceT >::ResourcePoolEntry< DerivedResourceT >::~ResourcePoolEntry() {
+		m_resource_pool.RemoveResource(m_resource_key);
 	}
 }

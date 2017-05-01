@@ -42,15 +42,15 @@ namespace mage {
 		 Constructs a resource from the given resource.
 
 		 @param[in]		resource
-						A reference to the resource.
+						A reference to the resource to copy.
 		 */
 		Resource(const Resource &resource) = delete;
 
 		/**
-		 Constructs a resource from the given resource.
+		 Constructs a resource by moving the given resource.
 
 		 @param[in]		resource
-						A reference to the resource.
+						A reference to the resource to move.
 		 */
 		Resource(Resource &&resource) = default;
 
@@ -67,18 +67,18 @@ namespace mage {
 		 Copies the given resource to this resource.
 
 		 @param[in]		resource
-						A reference to the resource to copy from.
+						A reference to the resource to copy.
 		 @return		A reference to the copy of the given resource
 						(i.e. this resource).
 		 */
 		Resource &operator=(const Resource &resource) = delete;
 
 		/**
-		 Copies the given resource to this resource.
+		 Moves the given resource to this resource.
 
 		 @param[in]		resource
-						A reference to the resource to copy from.
-		 @return		A reference to the copy of the given resource
+						A reference to the resource to move.
+		 @return		A reference to the moved resource
 						(i.e. this resource).
 		 */
 		Resource &operator=(Resource &&resource) = delete;
@@ -136,15 +136,15 @@ namespace mage {
 		 Constructs a file resource from the given file resource.
 
 		 @param[in]		file_resource
-						A reference to the file resource.
+						A reference to the file resource to copy.
 		 */
 		FileResource(const FileResource &file_resource) = delete;
 
 		/**
-		 Constructs a file resource from the given file resource.
+		 Constructs a file resource by moving the given file resource.
 
 		 @param[in]		file_resource
-						A reference to the file resource.
+						A reference to the file resource to move.
 		 */
 		FileResource(FileResource &&file_resource) = default;
 
@@ -161,18 +161,18 @@ namespace mage {
 		 Copies the given file resource to this file resource.
 
 		 @param[in]		file_resource
-						A reference to the file resource to copy from.
+						A reference to the file resource to copy.
 		 @return		A reference to the copy of the given file resource
 						(i.e. this file resource).
 		 */
 		FileResource &operator=(const FileResource &file_resource) = delete;
 
 		/**
-		 Copies the given file resource to this file resource.
+		 Moves the given file resource to this file resource.
 
 		 @param[in]		file_resource
-						A reference to the file resource to copy from.
-		 @return		A reference to the copy of the given file resource
+						A reference to the file resource to move.
+		 @return		A reference to the moved file resource
 						(i.e. this file resource).
 		 */
 		FileResource &operator=(FileResource &&file_resource) = delete;

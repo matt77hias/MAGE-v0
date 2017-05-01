@@ -9,6 +9,7 @@
 #include "shader\cso\lambertian_PS.hpp"
 #include "shader\cso\lambertian_VS.hpp"
 #include "mesh\vertex.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -67,8 +68,14 @@ namespace mage {
 
 	CombinedShader CreateLambertianShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
+		Assert(device);
+		
 		ID3D11DeviceContext2 *device_context = GetRenderingDeviceContext();
+		Assert(device_context);
+		
 		ResourceFactory *factory = GetResourceFactory();
+		Assert(factory);
+
 		SharedPtr< VertexShader > vs = factory->CreateLambertianVertexShader(device, device_context);
 		SharedPtr< PixelShader >  ps = factory->CreateLambertianPixelShader(device, device_context);
 		return CombinedShader(vs, ps);

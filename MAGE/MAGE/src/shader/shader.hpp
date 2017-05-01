@@ -217,7 +217,7 @@ namespace mage {
 		VertexShader &operator=(const VertexShader &vertex_shader) = delete;
 
 		/**
-		 Copies the given vertex shader to this vertex shader.
+		 Moves the given vertex shader to this vertex shader.
 
 		 @param[in]		vertex_shader
 						A reference to the vertex shader to copy.

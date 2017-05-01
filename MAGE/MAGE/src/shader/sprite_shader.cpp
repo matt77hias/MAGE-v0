@@ -8,6 +8,7 @@
 #include "shader\cso\sprite_PS.hpp"
 #include "shader\cso\sprite_VS.hpp"
 #include "mesh\vertex.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -48,8 +49,14 @@ namespace mage {
 
 	CombinedShader CreateSpriteShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
+		Assert(device);
+
 		ID3D11DeviceContext2 *device_context = GetRenderingDeviceContext();
+		Assert(device_context);
+
 		ResourceFactory *factory = GetResourceFactory();
+		Assert(factory);
+
 		SharedPtr< VertexShader > vs = factory->CreateSpriteVertexShader(device, device_context);
 		SharedPtr< PixelShader >  ps = factory->CreateSpritePixelShader(device, device_context);
 		return CombinedShader(vs, ps);

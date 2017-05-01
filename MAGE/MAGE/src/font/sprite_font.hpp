@@ -32,7 +32,6 @@ namespace mage {
 		 Constructs a sprite font.
 
 		 @pre			@a device is not equal to @c nullptr.
-		
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		fname

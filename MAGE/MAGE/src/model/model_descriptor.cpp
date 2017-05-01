@@ -12,6 +12,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	ModelDescriptor::~ModelDescriptor() {
+		m_materials.clear();
+		m_model_parts.clear();
+	}
+
 	const Material *ModelDescriptor::GetMaterial(const string &name) const {
 		for (vector< Material >::const_iterator it = m_materials.cbegin(); it != m_materials.cend(); ++it) {
 			if (it->m_name == name) {
@@ -33,9 +38,11 @@ namespace mage {
 	ID3D11Device2 *GetModelRenderingDevice() {
 		return GetRenderingDevice();
 	}
+
 	ID3D11DeviceContext2 *GetModelRenderingDeviceContext() {
 		return GetRenderingDeviceContext();
 	}
+
 	ResourceFactory *GetModelResourceFactory() {
 		return GetResourceFactory();
 	}

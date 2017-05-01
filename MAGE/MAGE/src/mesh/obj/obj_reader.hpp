@@ -113,7 +113,7 @@ namespace mage {
 		virtual void ReadLine(char *line) override;
 
 		/**
-		 Post-process after reading the current file of this OBJ reader.
+		 Post-processes after reading the current file of this OBJ reader.
 
 		 @throws		FormattedException
 						Failed to finish post-processing successfully.
@@ -129,10 +129,13 @@ namespace mage {
 		void ReadOBJMaterialLibrary();
 
 		/**
-		 Reads a Material Usage definition.
+		 Reads a Material Usage definition
+		 and imports the materials corresponding to the mesh.
 
 		 @throws		FormattedException
 						Failed to read a Material Usage definition.
+		 @throws		FormattedException
+						Failed to import the materials.
 		 */
 		void ReadOBJMaterialUse();
 

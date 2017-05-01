@@ -18,28 +18,24 @@
 namespace mage {
 
 	template < typename VertexT >
-	HRESULT MDLWriter< VertexT >::Write() {
-		// Export mesh.
-		const HRESULT result_mesh = ExportMesh();
-		if (FAILED(result_mesh)) {
-			Error("Mesh exporting failed: %08X.", result_mesh);
-			return result_mesh;
-		}
+	MDLWriter< VertexT >::MDLWriter(const ModelOutput< VertexT > &model_output)
+		: Writer(), m_model_output(model_output) {}
 
+	template < typename VertexT >
+	void MDLWriter< VertexT >::Write() {
+		// Export mesh.
+		ExportMesh();
 		// Export materials.
 		WriteMaterials();
-
 		// Export model.
 		WriteModelParts();
-
-		return S_OK;
 	}
 
 	template < typename VertexT >
-	HRESULT MDLWriter< VertexT >::ExportMesh() {
+	void MDLWriter< VertexT >::ExportMesh() {
 		const wstring &fname = GetFilename();
 		const wstring msh_fname = mage::GetFilenameWithoutFileExtension(fname) + L".msh";
-		return ExportMSHMeshToFile(msh_fname, m_model_output.m_vertex_buffer, m_model_output.m_index_buffer);
+		ExportMSHMeshToFile(msh_fname, m_model_output.m_vertex_buffer, m_model_output.m_index_buffer);
 	}
 
 	template < typename VertexT >
@@ -51,21 +47,22 @@ namespace mage {
 		char output[MAX_PATH];
 
 		sprintf_s(output, (unsigned int)_countof(output), "%s %s.mtl",
-			MAGE_MDL_TOKEN_MATERIAL_LIBRARY, str_convert(file_name_we).c_str());
+			MAGE_MDL_TOKEN_MATERIAL_LIBRARY, str_convert(file_name_we.c_str()));
 
 		WriteStringLine(output);
 	}
 
 	template < typename VertexT >
 	void MDLWriter< VertexT >::WriteModelParts() {
+		
 		char output[MAX_PATH];
 		
-		for (vector< ModelPart >::const_iterator it = m_model_output.model_parts.cbegin();
-			it != m_model_output.model_parts.cend(); ++it) {
+		for (vector< ModelPart >::const_iterator it = m_model_output.m_model_parts.cbegin();
+			it != m_model_output.m_model_parts.cend(); ++it) {
 
 			sprintf_s(output, (unsigned int)_countof(output), "%s %s %s %s %u %u", 
-				MAGE_MDL_TOKEN_SUBMODEL, it->child.c_str(), it->parent.c_str(), it->material.c_str(),
-				it->start_index, it->nb_indices);
+				MAGE_MDL_TOKEN_SUBMODEL, it->m_child.c_str(), it->m_parent.c_str(), it->m_material.c_str(),
+				it->m_start_index, it->m_nb_indices);
 			
 			WriteStringLine(output);
 		}

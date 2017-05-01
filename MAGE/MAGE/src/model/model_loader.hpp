@@ -16,7 +16,7 @@
 namespace mage {
 
 	/**
-	 Imports a mesh from the given file.
+	 Imports the model from the given file.
 
 	 @tparam		VertexT
 					The vertex type.
@@ -26,14 +26,15 @@ namespace mage {
 					A reference to the model output.
 	 @param[in]		mesh_desc
 					A reference to the mesh descriptor.
-	 @return		A success/error value.
+	 @throws		FormattedException
+					Failed to import the model from file.
 	 */
 	template < typename VertexT >
-	HRESULT ImportModelFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, 
+	void ImportModelFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, 
 		const MeshDescriptor< VertexT > &mesh_desc = MeshDescriptor< VertexT >());
 
 	/**
-	 Exports a mesh to the given file.
+	 Exports the model to the given file.
 
 	 @tparam		VertexT
 					The vertex type.
@@ -41,10 +42,11 @@ namespace mage {
 					A reference to the filename.
 	 @param[in]		model_output
 					A reference to the model output.
-	 @return		A success/error value.
+	 @throws		FormattedException
+					Failed to export the model to file.
 	 */
 	template < typename VertexT >
-	HRESULT ExportModelToFile(const wstring &fname, ModelOutput< VertexT > &model_output);
+	void ExportModelToFile(const wstring &fname, const ModelOutput< VertexT > &model_output);
 }
 
 //-----------------------------------------------------------------------------

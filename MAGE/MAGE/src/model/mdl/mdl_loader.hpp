@@ -21,12 +21,13 @@ namespace mage {
 					The vertex type.
 	 @param[in]		fname
 					A reference to the MDL filename.
-	 @param[in,out]	model_output
+	 @param[out]	model_output
 					A reference to the model output.
-	 @return		A success/error value.
+	 @throws		FormattedException
+					Failed to import the model from file.
 	 */
 	template < typename VertexT >
-	HRESULT ImportMDLModelFromFile(const wstring &fname,
+	void ImportMDLModelFromFile(const wstring &fname,
 		ModelOutput< VertexT > &model_output);
 
 	/**
@@ -36,12 +37,13 @@ namespace mage {
 					The vertex type.
 	 @param[in]		fname
 					A reference to the MDL filename.
-	 @param[in,out]	model_output
+	 @param[in]		model_output
 					A reference to the model output.
-	 @return		A success/error value.
+	 @throws		FormattedException
+					Failed to export the model to file.
 	 */
 	template < typename VertexT >
-	HRESULT ExportMDLModelToFile(const wstring &fname,
+	void ExportMDLModelToFile(const wstring &fname,
 		const ModelOutput< VertexT > &model_output);
 }
 

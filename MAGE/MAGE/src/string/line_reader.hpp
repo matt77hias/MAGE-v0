@@ -445,7 +445,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Pre-process before reading the current file of this line reader.
+		 Pre-processes before reading the current file of this line reader.
 
 		 @throws		FormattedException
 						Failed to finish the pre-processing successfully.
@@ -464,7 +464,7 @@ namespace mage {
 		virtual void ReadLine(char *line) = 0;
 
 		/**
-		 Post-process after reading the current file of this line reader.
+		 Post-processes after reading the current file of this line reader.
 
 		 @throws		FormattedException
 						Failed to finish post-processing successfully.

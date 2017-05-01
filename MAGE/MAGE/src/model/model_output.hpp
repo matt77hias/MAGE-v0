@@ -16,6 +16,7 @@
 
 #include "material\material.hpp"
 #include "collection\collection.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -35,6 +36,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 A struct of model parts.
+	 */
 	struct ModelPart final {
 
 	public:
@@ -43,34 +47,110 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit ModelPart(const string &child = MAGE_MDL_PART_DEFAULT_CHILD, 
+		/**
+		 Constructs a model part.
+
+		 @param[in]		child
+						A reference to the name.
+		 @param[in]		parent
+						A reference to the name of the parent.
+		 @param[in]		start_index
+						The start index.
+		 @param[in]		nb_indices
+						The number of indices.
+						A reference to the name of the material.
+		 */
+		explicit ModelPart(
+			const string &child  = MAGE_MDL_PART_DEFAULT_CHILD, 
 			const string &parent = MAGE_MDL_PART_DEFAULT_PARENT,
 			uint32_t start_index = 0, uint32_t nb_indices = 0, 
 			const string &material = MAGE_MDL_PART_DEFAULT_MATERIAL)
 			: m_child(child), m_parent(parent), m_material(material),
 			m_start_index(start_index), m_nb_indices(nb_indices) {}
+		
+		/**
+		 Constructs a model part from the given model part.
+
+		 @param[in]		model_part
+						A reference to the model part to copy.
+		 */
 		ModelPart(const ModelPart &model_part) = default;
+
+		/**
+		 Constructs a model part by moving the given model part. 
+
+		 @param[in]		model_part
+						A reference to the model part to move.
+		 */
 		ModelPart(ModelPart &&model_part) = default;
+
+		/**
+		 Destructs this model part.
+		 */
 		~ModelPart() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
+		/**
+		 Copies the given model part to this model part.
+
+		 @param[in]		model_part
+						A reference to the model part to copy.
+		 @return		A reference to the copy of the given model part
+						(i.e. this model part).
+		 */
 		ModelPart &operator=(const ModelPart &model_part) = default;
+
+		/**
+		 Moves the given model part to this model part.
+
+		 @param[in]		model_part
+						A reference to the model part to move.
+		 @return		A reference to the moved model part
+						(i.e. this model part).
+		 */
 		ModelPart &operator=(ModelPart &&model_part) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
+		/**
+		 The name of this model part.
+		 */
 		string m_child;
+
+		/**
+		 The name of the parent model part of this model part.
+		 */
 		string m_parent;
+
+		/**
+		 The name of the material of this model part.
+		 */
 		string m_material;
+
+		/**
+		 The start index of this model part 
+		 in the mesh of the corresponding model.
+		 */
 		uint32_t m_start_index;
+
+		/**
+		 The number of indices of this model part 
+		 in the mesh of the corresponding model.
+		 */
 		uint32_t m_nb_indices;
 	};
 
+	/**
+	 A struct of model outputs.
+
+	 @tparam		VertexT
+					The vertex type.
+	 */
 	template < typename VertexT >
 	struct ModelOutput final {
 
@@ -80,39 +160,111 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
+		/**
+		 Constructs a model output.
+		 */
 		ModelOutput() = default;
+
+		/**
+		 Constructs a model output from the given model output.
+
+		 @param[in]		output
+						A reference to the model output to copy.
+		 */
 		ModelOutput(const ModelOutput< VertexT > &output) = delete;
+
+		/**
+		 Constructs a model output by moving the given model output.
+
+		 @param[in]		output
+						A reference to the model output to move.
+		 */
 		ModelOutput(ModelOutput< VertexT > &&output) = default;
+
+		/**
+		 Destructs this model output.
+		 */
 		~ModelOutput() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
+		/**
+		 Copies the given model output to this model output.
+
+		 @param[in]		output
+						A reference to the model output to copy.
+		 @return		A reference to the copy of the given model output
+						(i.e. this model output).
+		 */
 		ModelOutput< VertexT > &operator=(const ModelOutput< VertexT > &output) = delete;
+
+		/**
+		 Moves the given model output to this model output.
+
+		 @param[in]		output
+						A reference to the model output to move.
+		 @return		A reference to the moved model output
+						(i.e. this model output).
+		 */
 		ModelOutput< VertexT > &operator=(ModelOutput< VertexT > &&output) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		bool HasModelPart(const string &child) {
+		/**
+		 Checks whether this model output contains a model part with the given name.
+
+		 @param[in]		name
+						The name of the model part.
+		 */
+		bool HasModelPart(const string &name) {
 			for (vector< ModelPart >::const_iterator it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
-				if (it->m_child == child) {
+				if (it->m_child == name) {
 					return true;
 				}
 			}
 			return false;
 		}
+		
+		/**
+		 Starts the creation of a new model part.
+
+		 @param[in]		child
+						A reference to the name.
+		 @param[in]		parent
+						A reference to the name of the parent model part.
+		 */
 		void StartModelPart(const string &child, const string &parent = MAGE_MDL_PART_DEFAULT_PARENT) {
 			const uint32_t start = static_cast< uint32_t >(m_index_buffer.size());
 			m_model_parts.push_back(ModelPart(child, parent, start));
 		}
+		
+		/**
+		 Sets the name of the material of the last model part
+		 to the given material name.
+
+		 @pre			This model output contains at least one model part.
+		 @param[in]		material
+						A reference to the name of the material.
+		 */
 		void SetMaterial(const string &material) {
+			Assert(!m_model_parts.empty());
+
 			ModelPart &current = m_model_parts.back();
 			current.m_material = material;
 		}
+		
+		/**
+		 Ends the creation of the last model part.
+
+		 @pre			This model output contains at least one model part.
+		 */
 		void EndModelPart() {
+			Assert(!m_model_parts.empty());
+
 			ModelPart &current = m_model_parts.back();
 			const uint32_t start = current.m_start_index;
 			const uint32_t end = static_cast< uint32_t >(m_index_buffer.size());
@@ -123,9 +275,24 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
+		/**
+		 A vector containing the vertices of this model output.
+		 */
 		vector< VertexT > m_vertex_buffer;
+
+		/**
+		 A vector containing the indices of this model output.
+		 */
 		vector< uint32_t > m_index_buffer;
+
+		/**
+		 A vector containing the materials of this model output.
+		 */
 		vector< Material > m_material_buffer;
+
+		/**
+		 A vector containing the model parts of this model output.
+		 */
 		vector< ModelPart > m_model_parts;
 	};
 }

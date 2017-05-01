@@ -11,12 +11,8 @@ namespace mage {
 		 : FileResource(fname), m_mesh(), m_materials(), m_model_parts() {
 		 
 		 ModelOutput< VertexT > buffer;
-		 const HRESULT result_load = ImportModelFromFile(fname, buffer, desc);
-		 if (FAILED(result_load)) {
-			 Error("Model loading failed: %08X.", result_load);
-			 return;
-		 }
-
+		 ImportModelFromFile(fname, buffer, desc);
+		 
 		 //ExportModelToFile(L"assets/models/model/model.mdl", buffer);
 
 		 m_mesh        = SharedPtr< StaticMesh >(new StaticMesh(device, device_context, buffer.m_vertex_buffer, buffer.m_index_buffer));
@@ -40,15 +36,42 @@ namespace mage {
 
 	 // Forward declarations
 	 class ResourceFactory;
+
+	 /**
+	  Returns the rendering device.
+
+	  @pre			The current engine must be loaded.
+	  @return		A pointer to the rendering device.
+	  */
 	 ID3D11Device2 *GetModelRenderingDevice();
+	
+	 /**
+	  Returns the rendering device context.
+
+	  @pre			The current engine must be loaded.
+	  @return		A pointer to the rendering device context.
+	  */
 	 ID3D11DeviceContext2 *GetModelRenderingDeviceContext();
+	
+	 /**
+	  Returns the resource factory.
+
+	  @pre			The current engine must be loaded.
+	  @return		A pointer to the resource factory.
+	  */
 	 ResourceFactory *GetModelResourceFactory();
 
 	 template < typename VertexT >
 	 SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, const MeshDescriptor< VertexT > &desc) {
 		 ID3D11Device2 *device = GetModelRenderingDevice();
+		 Assert(device);
+		
 		 ID3D11DeviceContext2 *device_context = GetModelRenderingDeviceContext();
+		 Assert(device_context);
+		
 		 ResourceFactory *factory = GetModelResourceFactory();
+		 Assert(factory);
+		
 		 return factory->CreateModelDescriptor(device, device_context, fname, desc);
 	 }
 }

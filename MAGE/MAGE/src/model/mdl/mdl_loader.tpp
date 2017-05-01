@@ -16,18 +16,16 @@
 namespace mage {
 
 	template < typename VertexT >
-	HRESULT ImportMDLModelFromFile(const wstring &fname,
+	void ImportMDLModelFromFile(const wstring &fname,
 		ModelOutput< VertexT > &model_output) {
 		MDLReader< VertexT > reader(model_output);
 		reader.ReadFromFile(fname);
-		return S_OK;
 	}
 
 	template < typename VertexT >
-	HRESULT ExportMDLModelToFile(const wstring &fname,
+	void ExportMDLModelToFile(const wstring &fname,
 		const ModelOutput< VertexT > &model_output) {
 		MDLWriter< VertexT > writer(model_output);
 		writer.WriteToFile(fname);
-		return S_OK;
 	}
 }

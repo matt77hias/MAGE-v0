@@ -7,8 +7,9 @@
 
 #include "model\mdl\mdl_tokens.hpp"
 #include "mesh\msh\msh_loader.hpp"
-#include "string\string_utils.hpp"
 #include "material\material_loader.hpp"
+#include "string\string_utils.hpp"
+#include "logging\exception.hpp"
 
 #pragma endregion
 
@@ -18,12 +19,16 @@
 namespace mage {
 
 	template < typename VertexT >
+	MDLReader< VertexT >::MDLReader(ModelOutput< VertexT > &model_output)
+		: LineReader(), m_model_output(model_output) {}
+
+	template < typename VertexT >
 	void MDLReader< VertexT >::Preprocess() {
 		if (!m_model_output.m_vertex_buffer.empty()) {
-			Error("%ls: vertex buffer must be empty.", GetFilename().c_str());
+			throw FormattedException("%ls: vertex buffer must be empty.", GetFilename().c_str());
 		}
 		if (!m_model_output.m_index_buffer.empty()) {
-			Error("%ls: index buffer must be empty.", GetFilename().c_str());
+			throw FormattedException("%ls: index buffer must be empty.", GetFilename().c_str());
 		}
 
 		ImportMesh();

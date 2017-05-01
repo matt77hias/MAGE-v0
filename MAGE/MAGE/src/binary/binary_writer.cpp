@@ -13,36 +13,23 @@
 namespace mage {
 
 	BigEndianBinaryWriter::BigEndianBinaryWriter()
-		: m_file(nullptr), m_fname() {}
-
-	BigEndianBinaryWriter::~BigEndianBinaryWriter() {
-		CloseFile();
-	}
-
-	void BigEndianBinaryWriter::CloseFile() {
-		if (m_file) {
-			fclose(m_file);
-			m_file = nullptr;
-		}
-	}
+		: m_file_stream(nullptr), m_fname() {}
 
 	void BigEndianBinaryWriter::WriteToFile(const wstring &fname) {
 		m_fname = fname;
 
-		CloseFile();
-
-		const errno_t result_fopen_s = _wfopen_s(&m_file, GetFilename().c_str(), L"wb");
+		FILE *file;
+		const errno_t result_fopen_s = _wfopen_s(&file, GetFilename().c_str(), L"wb");
 		if (result_fopen_s) {
 			throw FormattedException("%ls: could not open file.", GetFilename().c_str());
 		}
+		m_file_stream.reset(file);
 
 		Write();
-
-		CloseFile();
 	}
 
 	void BigEndianBinaryWriter::WriteCharacter(char c) {
-		const int result = fputc(c, m_file);
+		const int result = fputc(c, m_file_stream.get());
 		if (result == EOF) {
 			throw FormattedException("%ls: could not write to file.", GetFilename().c_str());
 		}
@@ -51,7 +38,7 @@ namespace mage {
 	void BigEndianBinaryWriter::WriteString(const char *str) {
 		Assert(str);
 
-		const int result = fputs(str, m_file);
+		const int result = fputs(str, m_file_stream.get());
 		if (result == EOF) {
 			throw FormattedException("%ls: could not write to file.", GetFilename().c_str());
 		}

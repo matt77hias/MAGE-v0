@@ -96,7 +96,7 @@ namespace mage {
 	/**
 	 A struct of handle destructors (i.e. for closing handles).
 	 */
-	struct HandleCloser {
+	struct HandleCloser final {
 
 		/**
 		 Destructs the given handle.
@@ -138,6 +138,31 @@ namespace mage {
 	inline SharedHandle CreateSharedHandle(HANDLE handle) {
 		return SharedHandle(SafeHandle(handle), DestructHandle);
 	}
+
+	//-------------------------------------------------------------------------
+	// File Streams
+	//-------------------------------------------------------------------------
+
+	/**
+	 A struct of file stream destructors (i.e. for closing file streams).
+	 */
+	struct FileStreamCloser final {
+
+		/**
+		 Destructs the file stream.
+
+		 @param[in]		file
+						A pointer to a file stream to destruct.
+		 */
+		void operator()(FILE *stream) const {
+			if (stream) {
+				fclose(stream);
+			}
+		}
+	};
+
+	// Unique Pointer for file streams.
+	typedef std::unique_ptr< FILE, FileStreamCloser > UniqueFileStream;
 }
 
 #pragma endregion

@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "platform\windows.hpp"
 #include "string\line_reader.hpp"
 #include "string\string_utils.hpp"
 #include "logging\exception.hpp"
@@ -16,45 +15,32 @@
 namespace mage {
 
 	LineReader::LineReader()
-		: m_context(nullptr), m_file(nullptr), m_fname(),
+		: m_context(nullptr), m_file_stream(nullptr), m_fname(),
 		m_delimiters(mage_default_delimiters), m_line_number(0) {}
-
-	LineReader::~LineReader() {
-		CloseFile();
-	}
-
-	void LineReader::CloseFile() {
-		if (m_file) {
-			fclose(m_file);
-			m_file = nullptr;
-		}
-	}
 
 	void LineReader::ReadFromFile(const wstring &fname, const string &delimiters) {
 		m_fname = fname;
 		m_delimiters = delimiters;
 		
-		CloseFile();
-
 		// Open the file.
-		const errno_t result_fopen_s = _wfopen_s(&m_file, GetFilename().c_str(), L"r");
+		FILE *file;
+		const errno_t result_fopen_s = _wfopen_s(&file, GetFilename().c_str(), L"r");
 		if (result_fopen_s) {
 			throw FormattedException("%ls: could not open file.", GetFilename().c_str());
 		}
+		m_file_stream.reset(file);
 
 		Preprocess();
 
 		char current_line[MAX_PATH];
 		m_line_number = 1;
 		// Continue reading from the file until the eof is reached.
-		while (fgets(current_line, _countof(current_line), m_file)) {
+		while (fgets(current_line, _countof(current_line), m_file_stream.get())) {
 			ReadLine(current_line);
 			++m_line_number;
 		}
 
 		Postprocess();
-		
-		CloseFile();
 
 		m_context = nullptr;
 	}
@@ -64,6 +50,7 @@ namespace mage {
 		
 		m_fname = L"input string";
 		m_delimiters = delimiters;
+		m_file_stream.reset(nullptr);
 
 		Preprocess();
 

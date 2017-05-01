@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\memory.hpp"
 #include "string\token.hpp"
 
 #pragma endregion
@@ -28,7 +29,7 @@ namespace mage {
 		/**
 		 Destructs this line reader.
 		 */
-		virtual ~LineReader();
+		virtual ~LineReader() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -470,19 +471,14 @@ namespace mage {
 		 */
 		virtual void Postprocess() {}
 
-		/**
-		 Closes the current file of this line reader.
-		 */
-		void CloseFile();
-
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 The current file of this line reader.
+		 A pointer to the file stream of this line reader.
 		 */
-		FILE *m_file;
+		UniqueFileStream m_file_stream;
 
 		/**
 		 The current filename of this line reader.

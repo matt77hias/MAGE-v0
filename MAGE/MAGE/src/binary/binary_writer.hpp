@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\memory.hpp"
 #include "string\string.hpp"
 
 #pragma endregion
@@ -28,7 +29,7 @@ namespace mage {
 		/**
 		 Destructs this big endian binary writer.
 		 */
-		virtual ~BigEndianBinaryWriter();
+		virtual ~BigEndianBinaryWriter() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -185,19 +186,14 @@ namespace mage {
 		 */
 		virtual void Write() = 0;
 
-		/**
-		 Closes the current file of this big endian binary writer.
-		 */
-		void CloseFile();
-
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 The current file of this writer.
+		 A pointer to the file stream of this line reader.
 		 */
-		FILE *m_file;
+		UniqueFileStream m_file_stream;
 
 		/**
 		 The current filename of this writer.

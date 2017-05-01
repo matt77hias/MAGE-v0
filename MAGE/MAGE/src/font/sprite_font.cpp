@@ -152,7 +152,7 @@ namespace mage {
 		: FileResource(fname), m_texture(), m_glyphs(),
 		m_default_glyph(nullptr), m_line_spacing(0.0f) {
 
-		Assert(m_device);
+		Assert(device);
 
 		SpriteFontOutput output;
 		ImportSpriteFontFromFile(fname, device, output, desc);

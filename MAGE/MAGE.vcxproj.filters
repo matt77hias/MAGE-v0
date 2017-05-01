@@ -444,9 +444,6 @@
     <ClInclude Include="MAGE\src\shader\shader.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\empty_shader.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\math\view_frustum.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
@@ -799,9 +796,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\math\view_frustum.cpp">
       <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\shader\empty_shader.cpp">
-      <Filter>Source Files\shader</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\texture\texture.cpp">
       <Filter>Source Files\texture</Filter>

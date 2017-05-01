@@ -88,7 +88,8 @@ namespace mage {
 
 	void VertexShader::PrepareShading(ID3D11Buffer *transform) const {
 		UNUSED(transform);
-		Warning("Unimplemented VertexShader::Draw() method called.");
+		m_device_context->IASetInputLayout(m_vertex_layout.Get());
+		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
 	}
 
 	//-------------------------------------------------------------------------
@@ -146,13 +147,13 @@ namespace mage {
 
 	void PixelShader::PrepareShading(ID3D11ShaderResourceView *texture) const {
 		UNUSED(texture);
-		Warning("Unimplemented PixelShader::Draw() method called.");
+		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 	}
 
 	void PixelShader::PrepareShading(const Material &material, const Lighting &lighting) const {
 		UNUSED(material);
 		UNUSED(lighting);
-		Warning("Unimplemented PixelShader::Draw() method called.");
+		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 	}
 
 	//-------------------------------------------------------------------------

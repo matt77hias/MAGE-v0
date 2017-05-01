@@ -191,12 +191,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the file stream of this line reader.
+		 A pointer to the file stream of this big endian binary writer.
 		 */
 		UniqueFileStream m_file_stream;
 
 		/**
-		 The current filename of this writer.
+		 The current filename of this big endian binary writer.
 		 */
 		wstring m_fname;
 	};

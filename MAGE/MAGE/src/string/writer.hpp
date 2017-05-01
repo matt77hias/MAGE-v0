@@ -184,7 +184,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the file stream of this line reader.
+		 A pointer to the file stream of this writer.
 		 */
 		UniqueFileStream m_file_stream;
 

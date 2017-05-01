@@ -41,7 +41,7 @@ namespace mage {
 	  Returns the rendering device.
 
 	  @pre			The current engine must be loaded.
-	  @return		A pointer to the rendering device.
+	  @return		A pointer to the rendering device.	
 	  */
 	 ID3D11Device2 *GetModelRenderingDevice();
 	

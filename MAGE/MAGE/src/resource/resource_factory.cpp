@@ -40,31 +40,37 @@ namespace mage {
 		return m_vertex_shader_resource_pool->template 
 			GetDerivedResource< LambertianVertexShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >(MAGE_GUID_LAMBERTIAN_VS, device, device_context);
 	}
+	
 	SharedPtr< PixelShader > ResourceFactory::CreateLambertianPixelShader(
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context) {
 		return m_pixel_shader_resource_pool->template 
 			GetDerivedResource< LambertianPixelShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >(MAGE_GUID_LAMBERTIAN_PS, device, device_context);
 	}
+	
 	SharedPtr< VertexShader > ResourceFactory::CreateSpriteVertexShader(
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context) {
 		return m_vertex_shader_resource_pool->template
 			GetDerivedResource< SpriteVertexShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >(MAGE_GUID_SPRITE_VS, device, device_context);
 	}
+	
 	SharedPtr< PixelShader > ResourceFactory::CreateSpritePixelShader(
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context) {
 		return m_pixel_shader_resource_pool->template
 			GetDerivedResource< SpritePixelShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >(MAGE_GUID_SPRITE_PS, device, device_context);
 	}
+	
 	SharedPtr< SpriteFont > ResourceFactory::CreateFont(
 		ID3D11Device2 *device, const wstring &fname, const SpriteFontDescriptor &desc) {
 		return m_font_resource_pool->template
 			GetResource< ID3D11Device2 *&, const wstring &, const SpriteFontDescriptor & >(fname, device, fname, desc);
 	}
+	
 	SharedPtr< Texture > ResourceFactory::CreateTexture(
 		ID3D11Device2 *device, const wstring &fname) {
 		return m_texture_resource_pool->template 
 			GetResource< ID3D11Device2 *&, const wstring & >(fname, device, fname);
 	}
+	
 	SharedPtr< VariableScript > ResourceFactory::CreateVariableScript(const wstring &fname, bool import) {
 		return m_variable_script_resource_pool->template 
 			GetResource< const wstring &, const bool & >(fname, fname, import);
@@ -79,11 +85,13 @@ namespace mage {
 		Assert(g_engine->GetRenderer());
 		return g_engine->GetRenderer()->GetDevice();
 	}
+	
 	ID3D11DeviceContext2 *GetRenderingDeviceContext() {
 		Assert(g_engine);
 		Assert(g_engine->GetRenderer());
 		return g_engine->GetRenderer()->GetDeviceContext();
 	}
+	
 	ResourceFactory *GetResourceFactory() {
 		Assert(g_engine);
 		return g_engine->GetResourceFactory();

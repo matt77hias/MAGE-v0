@@ -193,10 +193,8 @@ namespace mage {
 		/**
 		 Prepares this sprite pixel shader for shading.
 
-		 @param[in]		material
-						A reference to the material.
-		 @param[in]		lighting
-						A reference to the lighting buffer.
+		 @param[in]		texture
+						A pointer to the texture shader resource view.
 		 */
 		virtual void PrepareShading(ID3D11ShaderResourceView *texture) const override final;
 	};

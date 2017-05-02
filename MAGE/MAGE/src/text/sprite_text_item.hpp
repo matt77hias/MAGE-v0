@@ -31,8 +31,10 @@ namespace mage {
 		/**
 		 Constructs a sprite text item fromt the given text and color.
 
-		 @param[in]		A reference to the text.
-		 @param[in]		A reference to the color.
+		 @param[in]		text
+						A reference to the text.
+		 @param[in]		color
+						A reference to the color.
 		 */
 		explicit SpriteTextItem(const wstring &text, const Color &color)
 			: m_text(text), m_color(color) {}
@@ -40,8 +42,10 @@ namespace mage {
 		/**
 		 Constructs a sprite text item fromt the given text and color.
 
-		 @param[in]		A reference to the text.
-		 @param[in]		A reference to the color.
+		 @param[in]		text
+						A reference to the text.
+		 @param[in]		color
+						A reference to the color.
 		 */
 		explicit SpriteTextItem(const wstring &text, const XMVECTOR &color = Colors::White)
 			: m_text(text), m_color() {
@@ -52,8 +56,10 @@ namespace mage {
 		 Constructs a sprite text item fromt the given text and color.
 
 		 @pre			@a text is not equal to @c nullptr.
-		 @param[in]		A pointer to the text.
-		 @param[in]		A reference to the color.
+		 @param[in]		text
+						A pointer to the text.
+		 @param[in]		color
+						A reference to the color.
 		 */
 		explicit SpriteTextItem(const wchar_t *text, const Color &color)
 			: m_text(text), m_color(color) {}
@@ -62,8 +68,10 @@ namespace mage {
 		 Constructs a sprite text item fromt the given text and color.
 
 		 @pre			@a text is not equal to @c nullptr.
-		 @param[in]		A pointer to the text.
-		 @param[in]		A reference to the color.
+		 @param[in]		text
+						A pointer to the text.
+		 @param[in]		color
+						A reference to the color.
 		 */
 		explicit SpriteTextItem(const wchar_t *text, const XMVECTOR &color = Colors::White)
 			: m_text(text), m_color() {
@@ -73,14 +81,16 @@ namespace mage {
 		/**
 		 Constructs a sprite text item from the given sprite text item.
 
-		 @param[in]		A reference to the sprite text item to copy.
+		 @param[in]		sprite_text_item
+						A reference to the sprite text item to copy.
 		 */
 		SpriteTextItem(const SpriteTextItem &sprite_text_item) = default;
 
 		/**
 		 Constructs a sprite text item by moving the given sprite text item.
 
-		 @param[in]		A reference to the sprite text item to move.
+		 @param[in]		sprite_text_item
+						A reference to the sprite text item to move.
 		 */
 		SpriteTextItem(SpriteTextItem &&sprite_text_item) = default;
 
@@ -96,7 +106,8 @@ namespace mage {
 		/**
 		 Copies the given sprite text item to this sprite text item.
 
-		 @param[in]		A reference to the sprite text item to copy.
+		 @param[in]		sprite_text_item
+						A reference to the sprite text item to copy.
 		 @return		A reference to the copy of the given sprite text item
 						(i.e. this sprite text item).
 		 */
@@ -105,7 +116,8 @@ namespace mage {
 		/**
 		 Moves the given sprite text item to this sprite text item.
 
-		 @param[in]		A reference to the sprite text item to move.
+		 @param[in]		sprite_text_item
+						A reference to the sprite text item to move.
 		 @return		A reference to the moved sprite text item
 						(i.e. this sprite text item).
 		 */
@@ -127,7 +139,8 @@ namespace mage {
 		/**
 		 Sets the text of this sprite text item to the given text.
 
-		 @param[in]		A reference to the text.
+		 @param[in]		text
+						A reference to the text.
 		 */
 		void SetText(const wstring &text) {
 			m_text = text;
@@ -137,7 +150,8 @@ namespace mage {
 		 Sets the text of this sprite text item to the given text.
 
 		 @pre			@a text is not equal to @c nullptr. 
-		 @param[in]		A pointer to the text.
+		 @param[in]		text
+						A pointer to the text.
 		 */
 		void SetText(const wchar_t *text) {
 			Assert(text);
@@ -165,7 +179,8 @@ namespace mage {
 		/**
 		 Sets the color of this sprite text item to the given color.
 
-		 @param[in]		A reference to the color.
+		 @param[in]		color
+						A reference to the color.
 		 */
 		void SetColor(const Color &color) {
 			m_color = color;
@@ -174,7 +189,8 @@ namespace mage {
 		/**
 		 Sets the color of this sprite text item to the given color.
 
-		 @param[in]		A reference to the color.
+		 @param[in]		color
+						A reference to the color.
 		 */
 		void SetColor(const XMVECTOR &color) {
 			XMStoreFloat4(&m_color, color);

@@ -91,7 +91,8 @@ namespace mage {
 		 Sets the font of this sprite text to the given font.
 
 		 @pre			@c font.get() is not equal to @c nullptr.
-		 @param[in]		A pointer to the font of this sprite text.
+		 @param[in]		font
+						A pointer to the font of this sprite text.
 		 */
 		void SetFont(SharedPtr< SpriteFont > font);
 		

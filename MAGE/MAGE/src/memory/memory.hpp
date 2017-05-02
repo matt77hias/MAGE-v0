@@ -151,7 +151,7 @@ namespace mage {
 		/**
 		 Destructs the file stream.
 
-		 @param[in]		file
+		 @param[in]		stream
 						A pointer to a file stream to destruct.
 		 */
 		void operator()(FILE *stream) const {

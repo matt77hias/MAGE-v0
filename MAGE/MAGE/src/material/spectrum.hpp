@@ -97,7 +97,7 @@ namespace mage {
 		/**
 		 Constructs a RGB spectrum by moving the given components.
 
-		 @param[in]		vector
+		 @param[in]		v
 						A reference to the components to move.
 		 */
 		explicit RGBSpectrum(XMFLOAT3 &&v)
@@ -206,7 +206,7 @@ namespace mage {
 		/**
 		 Constructs a XYZ spectrum from the given components.
 
-		 @param[in]		vector
+		 @param[in]		v
 						A reference to the components to copy.
 		 */
 		explicit XYZSpectrum(const XMFLOAT3 &v)
@@ -215,7 +215,7 @@ namespace mage {
 		/**
 		 Constructs a XYZ spectrum by moving the given components.
 
-		 @param[in]		vector
+		 @param[in]		v
 						A reference to the components to move.
 		 */
 		explicit XYZSpectrum(XMFLOAT3 &&v)

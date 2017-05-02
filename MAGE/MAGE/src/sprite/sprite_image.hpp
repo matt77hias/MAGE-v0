@@ -200,7 +200,8 @@ namespace mage {
 		/**
 		 Sets the color of this sprite image to the given color.
 
-		 @param[in]		A reference to the color.
+		 @param[in]		color
+						A reference to the color.
 		 */
 		void SetColor(const Color &color) {
 			m_color = color;
@@ -209,7 +210,8 @@ namespace mage {
 		/**
 		 Sets the color of this sprite image to the given color.
 
-		 @param[in]		A reference to the color.
+		 @param[in]		color
+						A reference to the color.
 		 */
 		void SetColor(const XMVECTOR &color) {
 			XMStoreFloat4(&m_color, color);

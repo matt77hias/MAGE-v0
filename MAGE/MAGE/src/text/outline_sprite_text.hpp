@@ -136,7 +136,8 @@ namespace mage {
 		/**
 		 Sets the border color of this outline sprite text to the given color.
 
-		 @param[in]		A reference to the border color.
+		 @param[in]		color
+						A reference to the border color.
 		 */
 		void SetBorderColor(const Color &color) {
 			m_border_color = color;
@@ -145,7 +146,8 @@ namespace mage {
 		/**
 		 Sets the border color of this outline sprite text to the given color.
 
-		 @param[in]		A reference to the border color.
+		 @param[in]		color
+						A reference to the border color.
 		 */
 		void SetBorderColor(const XMVECTOR &color) {
 			XMStoreFloat4(&m_border_color, color);

@@ -59,6 +59,8 @@ namespace mage {
 		 @param[in]		nb_indices
 						The number of indices.
 						A reference to the name of the material.
+		 @param[in]		material
+						A reference to the material name.
 		 */
 		explicit ModelPart(
 			const string &child  = MAGE_MDL_PART_DEFAULT_CHILD, 

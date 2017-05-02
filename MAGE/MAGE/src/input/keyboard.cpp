@@ -18,8 +18,8 @@ namespace mage {
 		: m_hwindow(hwindow), m_di(di), m_keyboard(),
 		m_press_stamp(0), m_key_state{}, m_key_press_stamp{} {
 
-		Assert(hwindow);
-		Assert(di);
+		Assert(m_hwindow);
+		Assert(m_di);
 
 		InitializeKeyboard();
 	}

@@ -19,8 +19,8 @@ namespace mage {
 		m_press_stamp(0), m_mouse_state{}, 
 		m_mouse_button_press_stamp(), m_mouse_position{} {
 
-		Assert(hwindow);
-		Assert(di);
+		Assert(m_hwindow);
+		Assert(m_di);
 
 		InitializeMouse();
 	}

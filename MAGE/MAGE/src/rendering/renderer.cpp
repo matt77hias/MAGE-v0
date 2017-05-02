@@ -23,10 +23,12 @@ namespace mage {
 		m_render_target_view(), m_depth_stencil(), m_depth_stencil_view(),
 		m_rendering_state_2d(), m_rendering_state_3d(), m_rendering_state_cache() {
 
-		Assert(hwindow);
+		Assert(m_hwindow);
 
 		InitializeRenderer();
 	}
+
+	Renderer::Renderer(Renderer &&renderer) = default;
 
 	Renderer::~Renderer() {
 		UninitializeRenderer();
@@ -43,10 +45,6 @@ namespace mage {
 		// Setup the ID3D11DepthStencilView.
 		SetupDepthStencilView();
 		// Bind one or more render targets atomically and 
-		// the depth-stencil buffer to the output-merger stage.
-		// 1. Number of render targets to bind.
-		// 2. Pointer to an array of ID3D11RenderTargetViews
-		// 3. The depth-stencil state.
 		m_device_context->OMSetRenderTargets(1, m_render_target_view.GetAddressOf(), m_depth_stencil_view.Get());
 
 		// Setup the rendering states.
@@ -170,7 +168,7 @@ namespace mage {
 	}
 
 	void Renderer::SetupDepthStencilView() {
-		// Create the depth stencil texture.
+		// Create the depth stencil texture descriptor.
 		D3D11_TEXTURE2D_DESC depth_stencil_desc;
 		ZeroMemory(&depth_stencil_desc, sizeof(depth_stencil_desc));
 		depth_stencil_desc.Width              = m_display_mode.Width;	       // Texture width (in texels).
@@ -184,18 +182,22 @@ namespace mage {
 		depth_stencil_desc.BindFlags          = D3D11_BIND_DEPTH_STENCIL;	   // Flags for binding to pipeline stages. 
 		depth_stencil_desc.CPUAccessFlags     = 0;							   // No CPU access is necessary.
 		depth_stencil_desc.MiscFlags          = 0;							   // Flags that identify other, less common resource options.
-		const HRESULT result_depth_stencil    = m_device->CreateTexture2D(&depth_stencil_desc, nullptr, m_depth_stencil.ReleaseAndGetAddressOf());
+		
+		// Create the depth stencil texture.
+		const HRESULT result_depth_stencil = m_device->CreateTexture2D(&depth_stencil_desc, nullptr, m_depth_stencil.ReleaseAndGetAddressOf());
 		if (FAILED(result_depth_stencil)) {
 			throw FormattedException("Depth-stencil texture creation failed: %08X.", result_depth_stencil);
 		}
 
-		// Create the depth stencil view.
+		// Create the depth stencil view descriptor.
 		D3D11_DEPTH_STENCIL_VIEW_DESC depth_stencil_view_desc;
 		ZeroMemory(&depth_stencil_view_desc, sizeof(depth_stencil_view_desc));
 		depth_stencil_view_desc.Format             = depth_stencil_desc.Format;
 		depth_stencil_view_desc.ViewDimension      = D3D11_DSV_DIMENSION_TEXTURE2D;
 		depth_stencil_view_desc.Texture2D.MipSlice = 0;
-		const HRESULT result_depth_stencil_view    = m_device->CreateDepthStencilView(m_depth_stencil.Get(), &depth_stencil_view_desc, m_depth_stencil_view.ReleaseAndGetAddressOf());
+		
+		// Create the depth stencil view.
+		const HRESULT result_depth_stencil_view = m_device->CreateDepthStencilView(m_depth_stencil.Get(), &depth_stencil_view_desc, m_depth_stencil_view.ReleaseAndGetAddressOf());
 		if (FAILED(result_depth_stencil_view)) {
 			throw FormattedException("Depth-stencil view creation failed: %08X.", result_depth_stencil_view);
 		}
@@ -264,10 +266,13 @@ namespace mage {
 
 		// Recreate the swap chain buffers.
 		m_swap_chain->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+		// Setup the ID3D11RenderTargetView
 		SetupRenderTargetView();
+		// Setup the ID3D11DepthStencilView.
 		SetupDepthStencilView();
+		// Bind one or more render targets atomically and 
 		m_device_context->OMSetRenderTargets(1, m_render_target_view.GetAddressOf(), m_depth_stencil_view.Get());
-	
+
 		m_swap_chain->GetFullscreenState(&current, nullptr);
 		m_fullscreen = (current != 0);
 	}

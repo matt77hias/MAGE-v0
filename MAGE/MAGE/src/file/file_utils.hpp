@@ -16,6 +16,16 @@
 namespace mage {
 
 	/**
+	 Checks whether a file with the given filename exists.
+
+	 @param[in]		fname
+					A reference to the filename of the file.
+	 @return		@c true if a file with the given filename exists.
+					@c false otherwise.
+	 */
+	bool FileExists(const wstring &fname);
+
+	/**
 	 Returns the filename of the given file.
 
 	 @pre			The path must end with a '/' character.

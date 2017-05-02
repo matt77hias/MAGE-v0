@@ -16,13 +16,10 @@
 namespace mage {
 
 	/**
-	 A device enumeration.
+	 A class of device enumerations.
 	 */
 	class DeviceEnumeration final {
 
-	friend class Engine;
-	friend INT_PTR CALLBACK SettingsDialogProcDelegate(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	
 	public:
 
 		//---------------------------------------------------------------------
@@ -33,18 +30,18 @@ namespace mage {
 		 Copies the given device enumeration to this device enumeration.
 
 		 @param[in]		device_enumeration
-						A reference to a device enumeration.
+						A reference to a device enumeration to copy.
 		 @return		A reference to the copy of the given device enumeration
 						(i.e. this device enumeration).
 		 */
 		DeviceEnumeration &operator=(const DeviceEnumeration &device_enumeration) = delete;
 
 		/**
-		 Copies the given device enumeration to this device enumeration.
+		 Moves the given device enumeration to this device enumeration.
 
 		 @param[in]		device_enumeration
-						A reference to a device enumeration.
-		 @return		A reference to the copy of the given device enumeration
+						A reference to a device enumeration to move.
+		 @return		A reference to the moved device enumeration
 						(i.e. this device enumeration).
 		 */
 		DeviceEnumeration &operator=(DeviceEnumeration &&device_enumeration) = delete;
@@ -54,27 +51,31 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the adapter.
+		 Returns the adapter of this device enumeration.
 
-		 @return		A pointer to the adapter.
+		 @return		A pointer to the adapter 
+						of this device enumeration.
 		 */
 		ComPtr< IDXGIAdapter2 > GetAdapter() const {
 			return m_adapter;
 		}
 
 		/**
-		 Returns the output.
+		 Returns the output of this device enumeration.
 
-		 @return		A pointer to the output.
+		 @return		A pointer to the output
+						of this device enumeration.
 		 */
 		ComPtr< IDXGIOutput2 > GetOutput() const {
 			return m_output;
 		}
 
 		/**
-		 Returns the selected display mode by the user.
+		 Returns the selected display mode by the user 
+		 of this device enumeration.
 
-		 @return		A pointer to the selected display mode.
+		 @return		A pointer to the selected display mode
+						of this device enumeration.
 		 */
 		const DXGI_MODE_DESC1 *GetDisplayMode() const {
 			return m_selected_diplay_mode;
@@ -101,7 +102,7 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether v-sync should be enabled.
+		 Checks whether V-sync should be enabled.
 
 		 @return		@c true if v-sync should be enabled.
 						@c false otherwise.
@@ -111,6 +112,13 @@ namespace mage {
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Friends
+		//---------------------------------------------------------------------
+
+		friend class Engine;
+		friend INT_PTR CALLBACK SettingsDialogProcDelegate(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -125,22 +133,22 @@ namespace mage {
 		 Constructs a device enumeration from the given device enumeration.
 
 		 @param[in]		device_enumeration
-						A reference to a device enumeration.
+						A reference to a device enumeration to copy.
 		 */
 		DeviceEnumeration(const DeviceEnumeration &device_enumeration) = delete;
 
 		/**
-		 Constructs a device enumeration from the given device enumeration.
+		 Constructs a device enumeration by moving the given device enumeration.
 
 		 @param[in]		device_enumeration
-						A reference to a device enumeration.
+						A reference to a device enumeration to move.
 		 */
-		DeviceEnumeration(DeviceEnumeration &&device_enumeration) = default;
+		DeviceEnumeration(DeviceEnumeration &&device_enumeration);
 
 		/**
 		 Destructs this device enumeration.
 		 */
-		~DeviceEnumeration() = default;
+		~DeviceEnumeration();
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -149,16 +157,20 @@ namespace mage {
 		/**
 		 Initializes the adapter and the output of this device enumeration.
 
-		 @return		A success/error value.
+		 @throws		FormattedException
+						Failed to initialize the adapter and the output 
+						of this device enumeration.
 		 */
-		HRESULT InitializeAdapterAndOutput();
+		void InitializeAdapterAndOutput();
 
 		/**
 		 Initializes the display modes of this device enumeration.
 
-		 @return		A success/error value.
+		 @throws		FormattedException
+						Failed to initialize the display modes
+						of this device enumeration.
 		 */
-		HRESULT InitializeDisplayModes();
+		void InitializeDisplayModes();
 
 		/**
 		 Enumerates the available display modes on the adapter output of
@@ -220,7 +232,7 @@ namespace mage {
 		bool m_windowed;
 		
 		/**
-		 Flag indicating whether v-sync should be enabled.
+		 Flag indicating whether V-sync should be enabled.
 		 */
 		bool m_vsync;
 	};

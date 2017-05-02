@@ -119,11 +119,13 @@ namespace mage{
 	MainWindow::MainWindow(HINSTANCE hinstance, const wstring &name, LONG width, LONG height) 
 		: m_hinstance(hinstance), m_hwindow(nullptr), m_name(name) {
 
-		Assert(hinstance);
+		Assert(m_hinstance);
 
 		//Initialize a window.
 		InitializeWindow(width, height);
 	}
+
+	MainWindow::MainWindow(MainWindow &&main_window) = default;
 
 	MainWindow::~MainWindow() {
 		// Uninitialize the window.

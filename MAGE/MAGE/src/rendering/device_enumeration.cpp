@@ -6,6 +6,8 @@
 #include "rendering\device_enumeration.hpp"
 #include "rendering\graphics_settings.hpp"
 #include "ui\combo_box.hpp"
+#include "file\file_utils.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -59,12 +61,12 @@ namespace mage {
 	 Checks whether the given display mode needs to be rejected for the engine.
 
 	 @param[in]		display_mode_desc
-					A pointer to a display mode descriptor.
-	 @return		@c true if the given display mode needs to be rejected  for the engine.
+					A reference to a display mode descriptor.
+	 @return		@c true if the given display mode needs to be rejected for the engine.
 					@c false otherwise.
 	 */
-	inline bool RejectDisplayMode(const DXGI_MODE_DESC1 *display_mode_desc) {
-		return display_mode_desc->Height < 480;
+	inline bool RejectDisplayMode(const DXGI_MODE_DESC1 &display_mode_desc) {
+		return display_mode_desc.Height < 480;
 	}
 
 	DeviceEnumeration::DeviceEnumeration() 
@@ -72,13 +74,16 @@ namespace mage {
 		m_display_modes(), m_selected_diplay_mode(nullptr),
 		m_windowed(false), m_vsync(false) {}
 
-	HRESULT DeviceEnumeration::InitializeAdapterAndOutput() {
+	DeviceEnumeration::DeviceEnumeration(DeviceEnumeration &&device_enumeration) = default;
+
+	DeviceEnumeration::~DeviceEnumeration() = default;
+
+	void DeviceEnumeration::InitializeAdapterAndOutput() {
 		// Get the IDXGIFactory3.
 		ComPtr< IDXGIFactory3 > factory;
 		const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)factory.GetAddressOf());
 		if (FAILED(result_factory)) {
-			Error("IDXGIFactory3 creation failed: %08X.", result_factory);
-			return E_FAIL;
+			throw FormattedException("IDXGIFactory3 creation failed: %08X.", result_factory);
 		}
 
 		// Get the IDXGIAdapter1 and its primary IDXGIOutput.
@@ -93,8 +98,7 @@ namespace mage {
 			ComPtr< IDXGIAdapter2 > adapter2;
 			const HRESULT result_adapter2 = adapter1.As(&adapter2);
 			if (FAILED(result_adapter2)) {
-				Error("IDXGIAdapter2 creation failed: %08X.", result_adapter2);
-				return E_FAIL;
+				throw FormattedException("IDXGIAdapter2 creation failed: %08X.", result_adapter2);
 			}
 
 			// Get the primary IDXGIOutput.
@@ -106,16 +110,14 @@ namespace mage {
 			ComPtr< IDXGIOutput2 > output2;
 			const HRESULT result_output2 = output.As(&output2);
 			if (FAILED(result_output2)) {
-				Error("IDXGIOutput2 creation failed: %08X.", result_output2);
-				return E_FAIL;
+				throw FormattedException("IDXGIOutput2 creation failed: %08X.", result_output2);
 			}
 
 			// Get the DXGI_ADAPTER_DESC2.
 			DXGI_ADAPTER_DESC2 desc;
 			const HRESULT result_adapter_desc = adapter2->GetDesc2(&desc);
 			if (FAILED(result_adapter_desc)) {
-				Error("DXGI_ADAPTER_DESC2 retrieval failed: %08X.", result_adapter_desc);
-				return E_FAIL;
+				throw FormattedException("DXGI_ADAPTER_DESC2 retrieval failed: %08X.", result_adapter_desc);
 			}
 
 			const SIZE_T vram = desc.DedicatedVideoMemory;
@@ -127,11 +129,9 @@ namespace mage {
 			m_output = output2;
 			max_vram = vram;
 		}
-
-		return S_OK;
 	}
 
-	HRESULT DeviceEnumeration::InitializeDisplayModes() {
+	void DeviceEnumeration::InitializeDisplayModes() {
 		// Create the display modes linked list.
 		m_display_modes = list< DXGI_MODE_DESC1 >();
 		m_selected_diplay_mode = nullptr;
@@ -143,44 +143,43 @@ namespace mage {
 			const UINT flags = DXGI_ENUM_MODES_INTERLACED;
 			UINT nb_display_modes;
 			// Get the number of display modes that match the requested format and other input options.
-			m_output->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, nullptr);
-			DXGI_MODE_DESC1 *dxgi_mode_descs = new DXGI_MODE_DESC1[nb_display_modes];
+			const HRESULT result1 = m_output->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, nullptr);
+			if (FAILED(result1)) {
+				throw FormattedException("Failed to get the number of display modes: %08X.", result1);
+			}
+			UniquePtr< DXGI_MODE_DESC1 >dxgi_mode_descs(new DXGI_MODE_DESC1[nb_display_modes]);
 			// Get the display modes that match the requested format and other input options.
-			m_output->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs);
+			const HRESULT result2 = m_output->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs.get());
+			if (FAILED(result2)) {
+				throw FormattedException("Failed to get the display modes: %08X.", result2);
+			}
 
 			// Enumerate the DXGI_MODE_DESCs.
 			for (UINT mode = 0; mode < nb_display_modes; ++mode) {
 				// Reject small display modes.
-				if (RejectDisplayMode(&dxgi_mode_descs[mode])) {
+				if (RejectDisplayMode(dxgi_mode_descs.get()[mode])) {
 					continue;
 				}
 
 				// Add the display mode to the list.
-				m_display_modes.push_back(dxgi_mode_descs[mode]);
+				m_display_modes.push_back(dxgi_mode_descs.get()[mode]);
 			}
-
-			delete[] dxgi_mode_descs;
 		}
-
-		return S_OK;
 	}
 
 	HRESULT DeviceEnumeration::Enumerate() {
 		// Load the settings script.
-		m_settings_script = make_unique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
+		if (FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE)) {
+			m_settings_script.reset(new VariableScript(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE));
+		}
+		else {
+			m_settings_script.reset(new VariableScript(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, false));
+		}
 
 		// Initialize the adapter and output.
-		const HRESULT result_init_adapter_and_output = InitializeAdapterAndOutput();
-		if (FAILED(result_init_adapter_and_output)) {
-			Error("Adapter and Output initialization failed: %08X.", result_init_adapter_and_output);
-			return E_FAIL;
-		}
+		InitializeAdapterAndOutput();
 		// Initialize the display modes.
-		const HRESULT result_init_display_modes = InitializeDisplayModes();
-		if (FAILED(result_init_display_modes)) {
-			Error("Display modes list initialization failed: %08X.", result_init_display_modes);
-			return E_FAIL;
-		}
+		InitializeDisplayModes();
 
 		// Creates a modal dialog box from a dialog box template resource.
 		// 1. A handle to the module which contains the dialog box template. If this parameter is nullptr, then the current executable is used.

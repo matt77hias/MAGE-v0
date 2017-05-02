@@ -968,6 +968,9 @@
     <ClCompile Include="MAGE\src\script\fps_input_controller_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\file\file_utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">

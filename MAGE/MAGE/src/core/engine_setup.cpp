@@ -15,7 +15,7 @@ namespace mage {
 	EngineSetup::EngineSetup(HINSTANCE hinstance, const wstring &name)
 		: m_hinstance(hinstance), m_name(name) {
 
-		Assert(hinstance);
+		Assert(m_hinstance);
 	}
 
 	EngineSetup::EngineSetup(const EngineSetup &setup) = default;

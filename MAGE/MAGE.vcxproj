@@ -181,6 +181,7 @@
     <ClCompile Include="MAGE\src\core\engine_setup.cpp" />
     <ClCompile Include="MAGE\src\core\loadable.cpp" />
     <ClCompile Include="MAGE\src\core\version.cpp" />
+    <ClCompile Include="MAGE\src\file\file_utils.cpp" />
     <ClCompile Include="MAGE\src\font\spritefont\spritefont_loader.cpp" />
     <ClCompile Include="MAGE\src\font\spritefont\spritefont_reader.cpp" />
     <ClCompile Include="MAGE\src\font\sprite_font.cpp" />

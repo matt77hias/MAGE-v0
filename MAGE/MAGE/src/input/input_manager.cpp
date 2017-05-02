@@ -17,7 +17,7 @@ namespace mage {
 	InputManager::InputManager(HWND hwindow) 
 		: m_hwindow(hwindow), m_di(), m_keyboard(), m_mouse() {
 
-		Assert(hwindow);
+		Assert(m_hwindow);
 
 		InitializeDI();
 		InitializeInputSystems();

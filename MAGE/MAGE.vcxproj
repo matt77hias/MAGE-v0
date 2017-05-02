@@ -173,6 +173,7 @@
     <ClInclude Include="MAGE\src\world\world.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MAGE\src\binary\binary_reader.cpp" />
     <ClCompile Include="MAGE\src\binary\binary_writer.cpp" />
     <ClCompile Include="MAGE\src\camera\camera.cpp" />
     <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp" />
@@ -249,7 +250,6 @@
     <ClCompile Include="MAGE\src\sprite\sprite_image.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_object.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_utils.cpp" />
-    <ClCompile Include="MAGE\src\string\binary_reader.cpp" />
     <ClCompile Include="MAGE\src\string\line_reader.cpp" />
     <ClCompile Include="MAGE\src\string\token.cpp" />
     <ClCompile Include="MAGE\src\string\string_utils.cpp" />

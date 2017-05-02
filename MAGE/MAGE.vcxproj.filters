@@ -815,9 +815,6 @@
     <ClCompile Include="MAGE\src\model\model_descriptor.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\string\binary_reader.cpp">
-      <Filter>Source Files\binary</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
@@ -973,6 +970,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\file\file_utils.cpp">
       <Filter>Source Files\file</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\binary\binary_reader.cpp">
+      <Filter>Source Files\binary</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

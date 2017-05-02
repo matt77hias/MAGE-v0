@@ -147,7 +147,7 @@ namespace mage {
 			if (FAILED(result1)) {
 				throw FormattedException("Failed to get the number of display modes: %08X.", result1);
 			}
-			UniquePtr< DXGI_MODE_DESC1 >dxgi_mode_descs(new DXGI_MODE_DESC1[nb_display_modes]);
+			UniquePtr< DXGI_MODE_DESC1[] >dxgi_mode_descs(new DXGI_MODE_DESC1[nb_display_modes]);
 			// Get the display modes that match the requested format and other input options.
 			const HRESULT result2 = m_output->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs.get());
 			if (FAILED(result2)) {

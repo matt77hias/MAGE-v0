@@ -160,6 +160,10 @@ namespace mage {
 		InitializeSpriteFont(output);
 	}
 
+	SpriteFont::SpriteFont(SpriteFont &&font) = default;
+
+	SpriteFont::~SpriteFont() = default;
+
 	void SpriteFont::InitializeSpriteFont(const SpriteFontOutput &output) {
 		m_glyphs = std::move(output.m_glyphs);
 		if (!std::is_sorted(m_glyphs.cbegin(), m_glyphs.cend(), GlyphLessThan())) {

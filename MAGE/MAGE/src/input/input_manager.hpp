@@ -53,12 +53,12 @@ namespace mage {
 		 @param[in]		input_manager
 						A reference to the input manager to move.
 		 */
-		InputManager(InputManager &&input_manager) = default;
+		InputManager(InputManager &&input_manager);
 
 		/**
 		 Destructs this input manager.
 		 */
-		~InputManager() = default;
+		~InputManager();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

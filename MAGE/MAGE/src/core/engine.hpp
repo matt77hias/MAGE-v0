@@ -58,7 +58,7 @@ namespace mage {
 		 @param[in]		engine
 						A reference to the engine to move.
 		 */
-		Engine(Engine &&engine) = default;
+		Engine(Engine &&engine);
 
 		/**
 		 Destructs this engine.

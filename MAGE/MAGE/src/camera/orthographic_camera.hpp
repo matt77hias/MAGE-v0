@@ -59,7 +59,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera to copy.
 		 */
-		OrthographicCamera(const OrthographicCamera &camera) = default;
+		OrthographicCamera(const OrthographicCamera &camera);
 
 		/**
 		 Constructs an orthographic camera by moving the given orthographic camera.
@@ -67,12 +67,12 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the orthographic camera to move.
 		 */
-		OrthographicCamera(OrthographicCamera &&camera) = default;
+		OrthographicCamera(OrthographicCamera &&camera);
 
 		/**
 		 Destructs this orthographic camera.
 		 */
-		virtual ~OrthographicCamera() = default;
+		virtual ~OrthographicCamera();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -86,7 +86,7 @@ namespace mage {
 		 @return		A reference to the copy of the given orthographic camera
 						(i.e. this orthographic camera).
 		 */
-		OrthographicCamera &operator=(const OrthographicCamera &camera) = default;
+		OrthographicCamera &operator=(const OrthographicCamera &camera);
 		
 		/**
 		 Moves the given orthographic camera to this orthographic camera.
@@ -96,7 +96,7 @@ namespace mage {
 		 @return		A reference to the moved orthographic camera
 						(i.e. this orthographic camera).
 		 */
-		OrthographicCamera &operator=(OrthographicCamera &&camera) = default;
+		OrthographicCamera &operator=(OrthographicCamera &&camera);
 
 		//---------------------------------------------------------------------
 		// Member Methods

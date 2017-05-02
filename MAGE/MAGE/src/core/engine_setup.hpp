@@ -37,7 +37,7 @@ namespace mage {
 		/**
 		 Destructs this engine setup.
 		 */
-		virtual ~EngineSetup() = default;
+		virtual ~EngineSetup();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -116,7 +116,7 @@ namespace mage {
 		 @param[in]		setup
 						A reference to the engine setup to copy.
 		 */
-		EngineSetup(const EngineSetup &setup) = default;
+		EngineSetup(const EngineSetup &setup);
 
 		/**
 		 Constructs an engine setup by moving the given engine setup.
@@ -124,7 +124,7 @@ namespace mage {
 		 @param[in]		setup
 						A reference to the engine setup to move.
 		 */
-		EngineSetup(EngineSetup &&setup) = default;
+		EngineSetup(EngineSetup &&setup);
 
 	private:
 

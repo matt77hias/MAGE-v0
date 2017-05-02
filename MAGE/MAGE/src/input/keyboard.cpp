@@ -24,6 +24,10 @@ namespace mage {
 		InitializeKeyboard();
 	}
 
+	Keyboard::Keyboard(Keyboard &&keyboard) = default;
+
+	Keyboard::~Keyboard() = default;
+
 	void Keyboard::InitializeKeyboard() {
 		// Create and initialize an instance of a device based on a given globally unique identifier (GUID), 
 		// and obtain an IDirectInputDevice8 Interface interface. 

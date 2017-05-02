@@ -23,6 +23,10 @@ namespace mage {
 		InitializeInputSystems();
 	}
 
+	InputManager::InputManager(InputManager &&input_manager) = default;
+
+	InputManager::~InputManager() = default;
+
 	void InputManager::InitializeDI() {
 		// Create a DirectInput interface.
 		// 1. Instance handle to the application that is creating the DirectInput object.

@@ -953,6 +953,9 @@
     <ClCompile Include="MAGE\src\light\omni_light.cpp">
       <Filter>Source Files\light</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\core\loadable.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">

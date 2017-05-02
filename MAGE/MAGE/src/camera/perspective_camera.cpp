@@ -24,6 +24,16 @@ namespace mage {
 		: Camera(near_z, far_z),
 		m_aspect_ratio(width / height), m_fov_y(fov_y) {}
 
+	PerspectiveCamera::PerspectiveCamera(const PerspectiveCamera &camera) = default;
+
+	PerspectiveCamera::PerspectiveCamera(PerspectiveCamera &&camera) = default;
+
+	PerspectiveCamera::~PerspectiveCamera() = default;
+
+	PerspectiveCamera &PerspectiveCamera::operator=(const PerspectiveCamera &camera) = default;
+
+	PerspectiveCamera &PerspectiveCamera::operator=(PerspectiveCamera &&camera) = default;
+
 	SharedPtr< Camera > PerspectiveCamera::CloneImplementation() const {
 		return SharedPtr< PerspectiveCamera >(new PerspectiveCamera(*this));
 	}

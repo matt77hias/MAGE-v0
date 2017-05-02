@@ -50,7 +50,7 @@ namespace mage {
 		/**
 		 Destructs this binary reader.
 		 */
-		virtual ~BinaryReader() = default;
+		virtual ~BinaryReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -143,7 +143,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the binary reader to move.
 		 */
-		BinaryReader(BinaryReader &&reader) = default;
+		BinaryReader(BinaryReader &&reader);
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -323,7 +323,7 @@ namespace mage {
 		/**
 		 Destructs this big endian binary reader.
 		 */
-		virtual ~BigEndianBinaryReader() = default;
+		virtual ~BigEndianBinaryReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -410,7 +410,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the big endian binary reader to move.
 		 */
-		BigEndianBinaryReader(BigEndianBinaryReader &&reader) = default;
+		BigEndianBinaryReader(BigEndianBinaryReader &&reader);
 
 		//---------------------------------------------------------------------
 		// Member Methods

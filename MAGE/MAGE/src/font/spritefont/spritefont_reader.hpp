@@ -55,12 +55,12 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the SPRITEFONT reader to move.
 		 */
-		SpriteFontReader(SpriteFontReader &&reader) = delete;
+		SpriteFontReader(SpriteFontReader &&reader);
 
 		/**
 		 Destructs this SPRITEFONT reader.
 		 */
-		virtual ~SpriteFontReader() = default;
+		virtual ~SpriteFontReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

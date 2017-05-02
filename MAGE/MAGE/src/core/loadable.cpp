@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\engine_setup.hpp"
+#include "core\loadable.hpp"
 
 #pragma endregion
 
@@ -12,15 +12,16 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	EngineSetup::EngineSetup(HINSTANCE hinstance, const wstring &name)
-		: m_hinstance(hinstance), m_name(name) {
+	Loadable::Loadable(bool loaded)
+		: m_loaded(loaded) {}
 
-		Assert(hinstance);
-	}
+	Loadable::Loadable(const Loadable &loadable) = default;
 
-	EngineSetup::EngineSetup(const EngineSetup &setup) = default;
+	Loadable::Loadable(Loadable &&loadable) = default;
 
-	EngineSetup::EngineSetup(EngineSetup &&setup) = default;
+	Loadable &Loadable::operator=(const Loadable &loadable) = default;
 
-	EngineSetup::~EngineSetup() = default;
+	Loadable &Loadable::operator=(Loadable &&loadable) = default;
+
+	Loadable::~Loadable() = default;
 }

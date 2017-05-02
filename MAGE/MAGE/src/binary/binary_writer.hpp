@@ -29,7 +29,7 @@ namespace mage {
 		/**
 		 Destructs this big endian binary writer.
 		 */
-		virtual ~BigEndianBinaryWriter() = default;
+		virtual ~BigEndianBinaryWriter();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -103,7 +103,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the big endian binary writer to move.
 		 */
-		BigEndianBinaryWriter(BigEndianBinaryWriter &&writer) = default;
+		BigEndianBinaryWriter(BigEndianBinaryWriter &&writer);
 
 		//---------------------------------------------------------------------
 		// Member Methods

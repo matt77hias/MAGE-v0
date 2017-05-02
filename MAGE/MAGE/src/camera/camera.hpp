@@ -39,7 +39,7 @@ namespace mage {
 		/**
 		 Destructs this camera.
 		 */
-		virtual ~Camera() = default;
+		virtual ~Camera();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -53,7 +53,7 @@ namespace mage {
 		 @return		A reference to the copy of the given camera
 						(i.e. this camera).
 		 */
-		Camera &operator=(const Camera &camera) = default;
+		Camera &operator=(const Camera &camera);
 
 		/**
 		 Moves the given camera to this camera.
@@ -63,7 +63,7 @@ namespace mage {
 		 @return		A reference to the moved camera
 						(i.e. this camera).
 		 */
-		Camera &operator=(Camera &&camera) = default;
+		Camera &operator=(Camera &&camera);
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -166,7 +166,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the camera to copy.
 		 */
-		Camera(const Camera &camera) = default;
+		Camera(const Camera &camera);
 
 		/**
 		 Constructs a camera by moving the given camera.
@@ -174,7 +174,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the camera to move.
 		 */
-		Camera(Camera &&camera) = default;
+		Camera(Camera &&camera);
 
 	private:
 

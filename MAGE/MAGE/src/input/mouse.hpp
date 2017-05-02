@@ -63,12 +63,12 @@ namespace mage {
 		 @param[in]		mouse
 						A reference to the mouse to move.
 		 */
-		Mouse(Mouse &&mouse) = default;
+		Mouse(Mouse &&mouse);
 
 		/**
 		 Destructs this mouse.
 		 */
-		~Mouse() = default;
+		~Mouse();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

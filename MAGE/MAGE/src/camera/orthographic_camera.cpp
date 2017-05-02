@@ -17,6 +17,16 @@ namespace mage {
 		: Camera(near_z, far_z),
 		m_width(width), m_height(height) {}
 
+	OrthographicCamera::OrthographicCamera(const OrthographicCamera &camera) = default;
+
+	OrthographicCamera::OrthographicCamera(OrthographicCamera &&camera) = default;
+
+	OrthographicCamera::~OrthographicCamera() = default;
+
+	OrthographicCamera &OrthographicCamera::operator=(const OrthographicCamera &camera) = default;
+
+	OrthographicCamera &OrthographicCamera::operator=(OrthographicCamera &&camera) = default;
+
 	SharedPtr< Camera > OrthographicCamera::CloneImplementation() const {
 		return SharedPtr< OrthographicCamera >(new OrthographicCamera(*this));
 	}

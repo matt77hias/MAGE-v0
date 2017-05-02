@@ -15,6 +15,10 @@ namespace mage {
 	BigEndianBinaryWriter::BigEndianBinaryWriter()
 		: m_file_stream(nullptr), m_fname() {}
 
+	BigEndianBinaryWriter::BigEndianBinaryWriter(BigEndianBinaryWriter &&writer) = default;
+
+	BigEndianBinaryWriter::~BigEndianBinaryWriter() = default;
+
 	void BigEndianBinaryWriter::WriteToFile(const wstring &fname) {
 		m_fname = fname;
 

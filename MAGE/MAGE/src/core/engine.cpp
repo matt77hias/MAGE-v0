@@ -60,6 +60,8 @@ namespace mage {
 		SetLoaded();
 	}
 
+	Engine::Engine(Engine &&engine) = default;
+
 	Engine::~Engine() {
 
 		// Uninitialize the COM.

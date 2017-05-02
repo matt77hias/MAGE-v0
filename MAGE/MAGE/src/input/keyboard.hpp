@@ -63,12 +63,12 @@ namespace mage {
 		 @param[in]		keyboard
 						A reference to the keyboard to move.
 		 */
-		Keyboard(Keyboard &&keyboard) = default;
+		Keyboard(Keyboard &&keyboard);
 
 		/**
 		 Destructs this keyboard.
 		 */
-		~Keyboard() = default;
+		~Keyboard();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

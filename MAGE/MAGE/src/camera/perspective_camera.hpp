@@ -76,7 +76,7 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the perspective camera to copy.
 		 */
-		PerspectiveCamera(const PerspectiveCamera &camera) = default;
+		PerspectiveCamera(const PerspectiveCamera &camera);
 		
 		/**
 		 Constructs a perspective camera by moving the given perspective camera.
@@ -84,12 +84,12 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the perspective camera to move.
 		 */
-		PerspectiveCamera(PerspectiveCamera &&camera) = default;
+		PerspectiveCamera(PerspectiveCamera &&camera);
 
 		/**
 		 Destructs this perspective camera.
 		 */
-		virtual ~PerspectiveCamera() = default;
+		virtual ~PerspectiveCamera();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -103,7 +103,7 @@ namespace mage {
 		 @return		A reference to the copy of the given perspective camera
 						(i.e. this perspective camera).
 		 */
-		PerspectiveCamera &operator=(const PerspectiveCamera &camera) = default;
+		PerspectiveCamera &operator=(const PerspectiveCamera &camera);
 
 		/**
 		 Moves the given perspective camera to this perspective camera.
@@ -113,7 +113,7 @@ namespace mage {
 		 @return		A reference to the moved perspective camera
 						(i.e. this perspective camera).
 		 */
-		PerspectiveCamera &operator=(PerspectiveCamera &&camera) = default;
+		PerspectiveCamera &operator=(PerspectiveCamera &&camera);
 
 		//---------------------------------------------------------------------
 		// Member Methods

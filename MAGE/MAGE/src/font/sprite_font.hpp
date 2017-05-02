@@ -58,12 +58,12 @@ namespace mage {
 		 @param[in]		font
 						A reference to the sprite font to move.
 		 */
-		SpriteFont(SpriteFont &&font) = default;
+		SpriteFont(SpriteFont &&font);
 
 		/**
 		 Destructs this sprite font.
 		 */
-		virtual ~SpriteFont() = default;
+		virtual ~SpriteFont();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

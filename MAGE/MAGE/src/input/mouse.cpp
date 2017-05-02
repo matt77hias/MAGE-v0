@@ -25,6 +25,10 @@ namespace mage {
 		InitializeMouse();
 	}
 
+	Mouse::Mouse(Mouse &&mouse) = default;
+
+	Mouse::~Mouse() = default;
+
 	void Mouse::InitializeMouse() {
 		// Create and initialize an instance of a device based on a given globally unique identifier (GUID), 
 		// and obtain an IDirectInputDevice8 Interface interface. 

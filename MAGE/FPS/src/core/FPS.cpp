@@ -144,7 +144,7 @@ struct TestSetup : public EngineSetup {
 				The command line for the application, excluding the program name.
  @param[in]		nCmdShow
 				Controls how the window is to be shown.
- @return		If the function succeeds, terminating when it receives a WM_QUIT message, 
+ @return		If the function succeeds, terminating when it receives a @c WM_QUIT message, 
 				it returns the exit value contained in that message's @c wParam parameter. 
 				If the function terminates before entering the message loop, it returns 0.
  */

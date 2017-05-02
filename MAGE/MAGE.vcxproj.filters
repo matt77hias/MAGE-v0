@@ -226,6 +226,9 @@
     <Filter Include="Source Files\light">
       <UniqueIdentifier>{fe412037-a677-4491-99d9-d221f29bf980}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\file">
+      <UniqueIdentifier>{9839a126-3050-4086-96d1-6ec44c6392aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -969,7 +972,7 @@
       <Filter>Source Files\script</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\file\file_utils.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\file</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

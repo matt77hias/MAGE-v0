@@ -15,6 +15,18 @@ namespace mage {
 
 	const double StatsScript::resource_fetch_period = 1.0;
 
+	StatsScript::StatsScript(SharedPtr< SpriteText > text)
+		: BehaviorScript(),
+		m_accumulated_time(0.0), m_accumulated_nb_frames(0),
+		m_last_cpu_usage(0.0), m_last_ram_usage(0),
+		m_monitor(new CPUMonitor()), m_text(text) {
+		m_monitor->Start();
+	}
+
+	StatsScript::StatsScript(StatsScript &&script) = default;
+	
+	StatsScript::~StatsScript() = default;
+
 	void StatsScript::Update(double delta_time) {
 		m_accumulated_time += delta_time;
 		++m_accumulated_nb_frames;

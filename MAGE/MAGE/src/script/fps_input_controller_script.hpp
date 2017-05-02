@@ -24,13 +24,10 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit FPSInputControllerScript(TransformNode *transform)
-			: BehaviorScript(),
-			m_orientation_script(new MouseLookScript(transform)), 
-			m_movement_script(new CharacterMotorScript(transform)) {}
+		explicit FPSInputControllerScript(TransformNode *transform);
 		FPSInputControllerScript(const FPSInputControllerScript &script) = delete;
-		FPSInputControllerScript(FPSInputControllerScript &&script) = default;
-		virtual ~FPSInputControllerScript() = default;
+		FPSInputControllerScript(FPSInputControllerScript &&script);
+		virtual ~FPSInputControllerScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

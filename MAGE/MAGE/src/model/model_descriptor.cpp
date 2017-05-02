@@ -12,6 +12,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	ModelDescriptor::ModelDescriptor(ModelDescriptor &&desc) = default;
+
 	ModelDescriptor::~ModelDescriptor() {
 		m_materials.clear();
 		m_model_parts.clear();

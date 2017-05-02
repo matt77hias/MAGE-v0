@@ -24,6 +24,12 @@ namespace mage {
 		SetShadowColor(shadow_color);
 	}
 
+	DropshadowSpriteText::DropshadowSpriteText(const DropshadowSpriteText &sprite_text) = default;
+
+	DropshadowSpriteText::DropshadowSpriteText(DropshadowSpriteText &&sprite_text) = default;
+
+	DropshadowSpriteText::~DropshadowSpriteText() = default;
+
 	SharedPtr< SpriteObject > DropshadowSpriteText::CloneImplementation() const {
 		return SharedPtr< DropshadowSpriteText >(new DropshadowSpriteText(*this));
 	}

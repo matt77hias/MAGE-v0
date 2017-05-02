@@ -15,6 +15,15 @@ namespace mage {
 
 	const double SystemUsageScript::resource_fetch_period = 1.00;
 
+	SystemUsageScript::SystemUsageScript(SharedPtr< SpriteText > text)
+		: BehaviorScript(), m_accumulated_time(0.0),
+		m_last_cpu_usage(0.0), m_last_ram_usage(0),
+		m_monitor(), m_text(text) {}
+
+	SystemUsageScript::SystemUsageScript(SystemUsageScript &&script) = default;
+	
+	SystemUsageScript::~SystemUsageScript() = default;
+
 	void SystemUsageScript::Update(double delta_time) {
 		// CPU + MEM
 		m_accumulated_time += delta_time;

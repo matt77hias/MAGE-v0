@@ -63,7 +63,7 @@ namespace mage {
 		 @param[in]		resource_pool
 						A reference to the resource pool to move.
 		 */
-		ResourcePool(ResourcePool &&resource_pool) = default;
+		ResourcePool(ResourcePool &&resource_pool);
 
 		/**
 		 Destructs this resource pool.
@@ -225,7 +225,7 @@ namespace mage {
 			 @param[in]		resource
 							A reference to the resource pool entry to move.
 			 */
-			ResourcePoolEntry(ResourcePoolEntry &&resource) = delete;
+			ResourcePoolEntry(ResourcePoolEntry &&resource);
 
 			/**
 			 Destructs this resource pool entry.

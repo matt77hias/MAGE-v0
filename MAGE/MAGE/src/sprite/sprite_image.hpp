@@ -108,12 +108,12 @@ namespace mage {
 		 @param[in]		sprite_image
 						A reference to the sprite image to move.
 		 */
-		SpriteImage(SpriteImage &&sprite_image) = default;
+		SpriteImage(SpriteImage &&sprite_image);
 
 		/**
 		 Destruct this sprite image.
 		 */
-		virtual ~SpriteImage() = default;
+		virtual ~SpriteImage();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

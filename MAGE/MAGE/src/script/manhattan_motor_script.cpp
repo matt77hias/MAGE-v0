@@ -13,6 +13,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	ManhattanMotorScript::ManhattanMotorScript(TransformNode *transform)
+		: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {}
+
+	ManhattanMotorScript::ManhattanMotorScript(ManhattanMotorScript &&script) = default;
+	
+	ManhattanMotorScript::~ManhattanMotorScript() = default;
+
 	void ManhattanMotorScript::Update(double delta_time) {
 		const Keyboard * const keyboard = g_engine->GetInputManager()->GetKeyboard();
 		const float delta = static_cast< float >(delta_time);

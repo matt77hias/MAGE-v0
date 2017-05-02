@@ -20,6 +20,12 @@ namespace mage {
 		Assert(m_font);
 	}
 
+	SpriteText::SpriteText(const SpriteText &sprite_text) = default;
+
+	SpriteText::SpriteText(SpriteText &&sprite_text) = default;
+
+	SpriteText::~SpriteText() = default;
+
 	void SpriteText::SetFont(SharedPtr< SpriteFont > font) {
 		Assert(font);
 

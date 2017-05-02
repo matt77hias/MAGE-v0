@@ -21,6 +21,8 @@ namespace mage {
 		}
 	}
 
+	VariableScript::VariableScript(VariableScript &&variable_script) = default;
+
 	VariableScript::~VariableScript() {
 		RemoveAllVariables();
 	}

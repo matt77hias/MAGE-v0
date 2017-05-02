@@ -24,12 +24,10 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit LocationScript(Transform *transform, SharedPtr< SpriteText > text)
-			: BehaviorScript(),
-			m_transform(transform), m_text(text) {}
+		explicit LocationScript(Transform *transform, SharedPtr< SpriteText > text);
 		LocationScript(const LocationScript &script) = delete;
-		LocationScript(LocationScript &&script) = default;
-		virtual ~LocationScript() = default;
+		LocationScript(LocationScript &&script);
+		virtual ~LocationScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

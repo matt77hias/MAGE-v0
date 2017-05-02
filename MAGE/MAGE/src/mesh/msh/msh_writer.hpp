@@ -57,12 +57,12 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the MSH writer to move.
 		 */
-		MSHWriter(MSHWriter &&writer) = delete;
+		MSHWriter(MSHWriter &&writer);
 
 		/**
 		 Destructs this MSH writer.
 		 */
-		virtual ~MSHWriter() = default;
+		virtual ~MSHWriter();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

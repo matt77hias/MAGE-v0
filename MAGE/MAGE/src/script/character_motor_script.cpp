@@ -13,6 +13,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	CharacterMotorScript::CharacterMotorScript(TransformNode *transform)
+		: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {}
+	
+	CharacterMotorScript::CharacterMotorScript(CharacterMotorScript &&script) = default;
+	
+	CharacterMotorScript::~CharacterMotorScript() = default;
+
 	void CharacterMotorScript::Update(double delta_time) {
 		const Keyboard * const keyboard = g_engine->GetInputManager()->GetKeyboard();
 		const float delta = static_cast< float >(delta_time);

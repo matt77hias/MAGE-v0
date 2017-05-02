@@ -17,6 +17,10 @@ namespace mage {
 	Writer::Writer()
 		: m_file_stream(nullptr), m_fname() {}
 
+	Writer::Writer(Writer &&writer) = default;
+
+	Writer::~Writer() = default;
+
 	void Writer::WriteToFile(const wstring &fname) {
 		m_fname = fname;
 

@@ -22,11 +22,10 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit WireframeScript()
-			: BehaviorScript(), m_solid(true) {}
+		WireframeScript();
 		WireframeScript(const WireframeScript &script) = delete;
-		WireframeScript(WireframeScript &&script) = default;
-		virtual ~WireframeScript() = default;
+		WireframeScript(WireframeScript &&script);
+		virtual ~WireframeScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

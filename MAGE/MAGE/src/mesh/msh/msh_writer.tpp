@@ -29,6 +29,12 @@ namespace mage {
 		: BigEndianBinaryWriter(), m_vertices(vertices), m_indices(indices) {}
 
 	template< typename VertexT, typename IndexT >
+	MSHWriter< VertexT, IndexT >::MSHWriter(MSHWriter &&writer) = default;
+
+	template< typename VertexT, typename IndexT >
+	MSHWriter< VertexT, IndexT >::~MSHWriter() = default;
+
+	template< typename VertexT, typename IndexT >
 	void MSHWriter< VertexT, IndexT >::Write() {
 
 		WriteString(MAGE_MSH_MAGIC);

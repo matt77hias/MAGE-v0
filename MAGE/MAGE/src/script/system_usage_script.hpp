@@ -30,13 +30,10 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit SystemUsageScript(SharedPtr< SpriteText > text)
-			: BehaviorScript(), m_accumulated_time(0.0),
-			m_last_cpu_usage(0.0), m_last_ram_usage(0),
-			m_monitor(), m_text(text) {}
+		explicit SystemUsageScript(SharedPtr< SpriteText > text);
 		SystemUsageScript(const SystemUsageScript &script) = delete;
-		SystemUsageScript(SystemUsageScript &&script) = default;
-		virtual ~SystemUsageScript() = default;
+		SystemUsageScript(SystemUsageScript &&script);
+		virtual ~SystemUsageScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

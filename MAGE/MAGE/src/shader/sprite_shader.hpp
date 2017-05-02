@@ -67,12 +67,12 @@ namespace mage {
 		 @param[in]		vertex_shader
 						A reference to the sprite vertex shader to move.
 		 */
-		SpriteVertexShader(SpriteVertexShader &&vertex_shader) = default;
+		SpriteVertexShader(SpriteVertexShader &&vertex_shader);
 		
 		/**
 		 Destructs this sprite vertex shader.
 		 */
-		virtual ~SpriteVertexShader() = default;
+		virtual ~SpriteVertexShader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -155,12 +155,12 @@ namespace mage {
 		 @param[in]		pixel_shader
 						A reference to the sprite pixel shader to move.
 		 */
-		SpritePixelShader(SpritePixelShader &&pixel_shader) = default;
+		SpritePixelShader(SpritePixelShader &&pixel_shader);
 
 		/**
 		 Destructs this sprite pixel shader.
 		 */
-		virtual ~SpritePixelShader() = default;
+		virtual ~SpritePixelShader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

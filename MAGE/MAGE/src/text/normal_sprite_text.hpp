@@ -45,7 +45,7 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the normal sprite text to copy.
 		 */
-		NormalSpriteText(const NormalSpriteText &sprite_text) = default;
+		NormalSpriteText(const NormalSpriteText &sprite_text);
 
 		/**
 		 Constructs a normal sprite text by moving the given normal sprite text.
@@ -53,12 +53,12 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the normal sprite text to move.
 		 */
-		NormalSpriteText(NormalSpriteText &&sprite_text) = default;
+		NormalSpriteText(NormalSpriteText &&sprite_text);
 
 		/**
 		 Destructs this normal sprite text.
 		 */
-		virtual ~NormalSpriteText() = default;
+		virtual ~NormalSpriteText();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

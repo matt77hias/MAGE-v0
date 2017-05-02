@@ -1085,12 +1085,7 @@ namespace mage {
 		 @param[in]		transform_node
 						A reference to the transform node to move.
 		 */
-		TransformNode(TransformNode &&transform_node)
-			: m_transform(std::move(transform_node.m_transform)),
-			m_parent(std::move(transform_node.m_parent)),
-			m_childs(std::move(transform_node.m_childs)) {
-			SetDirty();
-		}
+		TransformNode(TransformNode &&transform_node);
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -1295,12 +1290,12 @@ namespace mage {
 		 @param[in]		node
 						A reference to the node to move.
 		 */
-		Node(Node &&node) = default;
+		Node(Node &&node);
 
 		/**
 		 Destructs this node.
 		 */
-		virtual ~Node() = default;
+		virtual ~Node();
 
 		//---------------------------------------------------------------------
 		// Assignment operators

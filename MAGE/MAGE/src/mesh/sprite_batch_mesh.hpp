@@ -123,12 +123,12 @@ namespace mage {
 		 @param[in]		sprite_batch_mesh
 						A reference to the sprite batch mesh to move.
 		 */
-		SpriteBatchMesh(SpriteBatchMesh &&sprite_batch_mesh) = default;
+		SpriteBatchMesh(SpriteBatchMesh &&sprite_batch_mesh);
 
 		/**
 		 Destructs this sprite batch mesh.
 		 */
-		virtual ~SpriteBatchMesh() = default;
+		virtual ~SpriteBatchMesh();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

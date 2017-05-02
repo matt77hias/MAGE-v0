@@ -220,6 +220,8 @@
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_state.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_state_cache.cpp" />
+    <ClCompile Include="MAGE\src\resource\behavior_script.cpp" />
+    <ClCompile Include="MAGE\src\resource\resource.cpp" />
     <ClCompile Include="MAGE\src\resource\resource_factory.cpp" />
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
@@ -228,8 +230,10 @@
     <ClCompile Include="MAGE\src\scripting\vs\vs_reader.cpp" />
     <ClCompile Include="MAGE\src\scripting\vs\vs_writer.cpp" />
     <ClCompile Include="MAGE\src\script\character_motor_script.cpp" />
+    <ClCompile Include="MAGE\src\script\fps_input_controller_script.cpp" />
     <ClCompile Include="MAGE\src\script\frame_rate_script.cpp" />
     <ClCompile Include="MAGE\src\script\location_script.cpp" />
+    <ClCompile Include="MAGE\src\script\manhattan_input_controller_script.cpp" />
     <ClCompile Include="MAGE\src\script\manhattan_motor_script.cpp" />
     <ClCompile Include="MAGE\src\script\mouse_look_script.cpp" />
     <ClCompile Include="MAGE\src\script\stats_script.cpp" />

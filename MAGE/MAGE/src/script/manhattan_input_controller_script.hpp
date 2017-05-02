@@ -24,13 +24,10 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit ManhattanInputControllerScript(TransformNode *transform)
-			: BehaviorScript(),
-			m_orientation_script(new MouseLookScript(transform)),
-			m_movement_script(new ManhattanMotorScript(transform)) {}
+		explicit ManhattanInputControllerScript(TransformNode *transform);
 		ManhattanInputControllerScript(const ManhattanInputControllerScript &script) = delete;
-		ManhattanInputControllerScript(ManhattanInputControllerScript &&script) = default;
-		virtual ~ManhattanInputControllerScript() = default;
+		ManhattanInputControllerScript(ManhattanInputControllerScript &&script);
+		virtual ~ManhattanInputControllerScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

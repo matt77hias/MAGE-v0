@@ -95,12 +95,12 @@ namespace mage {
 		 @param[in]		static_mesh
 						A reference to the static mesh to move.
 		 */
-		StaticMesh(StaticMesh &&static_mesh) = default;
+		StaticMesh(StaticMesh &&static_mesh);
 
 		/**
 		 Destructs this static mesh.
 		 */
-		virtual ~StaticMesh() = default;
+		virtual ~StaticMesh();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

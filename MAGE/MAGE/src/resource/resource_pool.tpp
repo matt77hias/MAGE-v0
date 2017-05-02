@@ -15,6 +15,9 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
+	ResourcePool< KeyT, ResourceT >::ResourcePool(ResourcePool &&resource_pool) = default;
+
+	template< typename KeyT, typename ResourceT >
 	inline size_t ResourcePool< KeyT, ResourceT >::GetNumberOfResources() const {
 		MutexLock lock(m_resource_map_mutex);
 		return m_resource_map.size();
@@ -79,6 +82,10 @@ namespace mage {
 		ConstructorArgsT&&... args)
 		: DerivedResourceT(std::forward< ConstructorArgsT >(args)...),
 		m_resource_pool(resource_pool), m_resource_key(resource_key) {}
+
+	template< typename KeyT, typename ResourceT >
+	template< typename DerivedResourceT >
+	ResourcePool< KeyT, ResourceT >::ResourcePoolEntry< DerivedResourceT >::ResourcePoolEntry(ResourcePoolEntry &&resource) = default;
 
 	template< typename KeyT, typename ResourceT >
 	template< typename DerivedResourceT >

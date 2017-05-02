@@ -52,7 +52,7 @@ namespace mage {
 		 @param[in]		resource_factory
 						A reference to the resource factory to move.
 		 */
-		ResourceFactory(ResourceFactory &&resource_factory) = default;
+		ResourceFactory(ResourceFactory &&resource_factory);
 		
 		/**
 		 Destructs this resource factory.

@@ -26,6 +26,8 @@ namespace mage {
 		m_texture_resource_pool(new ResourcePool< wstring, Texture >()),
 		m_variable_script_resource_pool(new ResourcePool< wstring, VariableScript >()) {}
 
+	ResourceFactory::ResourceFactory(ResourceFactory &&resource_factory) = default;
+
 	ResourceFactory::~ResourceFactory() {
 		m_model_descriptor_resource_pool->RemoveAllResources();
 		m_vertex_shader_resource_pool->RemoveAllResources();

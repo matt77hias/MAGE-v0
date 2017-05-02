@@ -19,7 +19,7 @@ namespace mage {
 		/**
 		 Destructs this behavior script.
 		 */
-		virtual ~BehaviorScript() = default;
+		virtual ~BehaviorScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -66,7 +66,7 @@ namespace mage {
 		/**
 		 Constructs a behavior script.
 		 */
-		BehaviorScript() = default;
+		BehaviorScript();
 
 		/**
 		 Constructs a behavior script from the given behavior script.
@@ -74,7 +74,7 @@ namespace mage {
 		 @param[in]		script
 						A reference to the behavior script to copy.
 		 */
-		BehaviorScript(const BehaviorScript &script) = default;
+		BehaviorScript(const BehaviorScript &script);
 
 		/**
 		 Constructs a behavior script by moving the given behavior script.
@@ -82,6 +82,6 @@ namespace mage {
 		 @param[in]		script
 						A reference to the behavior script to move.
 		 */
-		BehaviorScript(BehaviorScript &&script) = default;
+		BehaviorScript(BehaviorScript &&script);
 	};
 }

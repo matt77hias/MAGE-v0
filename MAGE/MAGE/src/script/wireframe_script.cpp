@@ -13,6 +13,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	WireframeScript::WireframeScript()
+		: BehaviorScript(), m_solid(true) {}
+
+	WireframeScript::WireframeScript(WireframeScript &&script) = default;
+	
+	WireframeScript::~WireframeScript() = default;
+
 	void WireframeScript::Update(double delta_time) {
 		UNUSED(delta_time);
 		

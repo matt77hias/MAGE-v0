@@ -36,8 +36,8 @@ namespace mage {
 		explicit TextConsoleScript(SharedPtr< SpriteText > text,
 			uint32_t nb_rows, uint32_t nb_columns);
 		TextConsoleScript(const TextConsoleScript &script) = delete;
-		TextConsoleScript(TextConsoleScript &&script) = default;
-		virtual ~TextConsoleScript() = default;
+		TextConsoleScript(TextConsoleScript &&script);
+		virtual ~TextConsoleScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

@@ -22,4 +22,8 @@ namespace mage {
 		Assert(m_device);
 		Assert(m_device_context);
 	}
+
+	Mesh::Mesh(Mesh &&mesh) = default;
+
+	Mesh::~Mesh() = default;
 }

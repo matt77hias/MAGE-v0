@@ -17,6 +17,10 @@ namespace mage {
 	VSWriter::VSWriter(const vector< Variable > &variable_buffer)
 		: Writer(), m_variable_buffer(variable_buffer) {}
 
+	VSWriter::VSWriter(VSWriter &&writer) = default;
+
+	VSWriter::~VSWriter() = default;
+
 	void VSWriter::Write() {
 		char output[MAX_PATH];
 

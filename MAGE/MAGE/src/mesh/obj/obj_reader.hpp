@@ -56,12 +56,12 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the OBJ reader to move.
 		 */
-		OBJReader(OBJReader &&reader) = delete;
+		OBJReader(OBJReader &&reader);
 
 		/**
 		 Destructs this OBJ reader.
 		 */
-		virtual ~OBJReader() = default;
+		virtual ~OBJReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

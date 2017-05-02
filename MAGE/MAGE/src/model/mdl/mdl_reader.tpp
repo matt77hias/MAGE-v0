@@ -23,6 +23,12 @@ namespace mage {
 		: LineReader(), m_model_output(model_output) {}
 
 	template < typename VertexT >
+	MDLReader< VertexT >::MDLReader(MDLReader &&reader) = default;
+
+	template < typename VertexT >
+	MDLReader< VertexT >::~MDLReader() = default;
+
+	template < typename VertexT >
 	void MDLReader< VertexT >::Preprocess() {
 		if (!m_model_output.m_vertex_buffer.empty()) {
 			throw FormattedException("%ls: vertex buffer must be empty.", GetFilename().c_str());

@@ -24,6 +24,10 @@ namespace mage {
 		Clear();
 	}
 
+	TextConsoleScript::TextConsoleScript(TextConsoleScript &&script) = default;
+
+	TextConsoleScript::~TextConsoleScript() = default;
+
 	void TextConsoleScript::Update(double delta_time) {
 		UNUSED(delta_time);
 		MutexLock lock(m_mutex);

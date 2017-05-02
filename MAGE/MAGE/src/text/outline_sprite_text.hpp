@@ -63,7 +63,7 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the outline sprite text to copy.
 		 */
-		OutlineSpriteText(const OutlineSpriteText &sprite_text) = default;
+		OutlineSpriteText(const OutlineSpriteText &sprite_text);
 
 		/**
 		 Constructs a outline sprite text by moving the given outline sprite text.
@@ -71,12 +71,12 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the outline sprite text to move.
 		 */
-		OutlineSpriteText(OutlineSpriteText &&sprite_text) = default;
+		OutlineSpriteText(OutlineSpriteText &&sprite_text);
 
 		/**
 		 Destructs this outline sprite text.
 		 */
-		virtual ~OutlineSpriteText() = default;
+		virtual ~OutlineSpriteText();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

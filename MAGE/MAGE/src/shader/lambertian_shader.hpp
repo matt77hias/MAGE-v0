@@ -69,12 +69,12 @@ namespace mage {
 		 @param[in]		vertex_shader
 						A reference to the lambertian vertex shader to move.
 		 */
-		LambertianVertexShader(LambertianVertexShader &&vertex_shader) = default;
+		LambertianVertexShader(LambertianVertexShader &&vertex_shader);
 
 		/**
 		 Destructs this lambertian vertex shader.
 		 */
-		virtual ~LambertianVertexShader() = default;
+		virtual ~LambertianVertexShader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -157,12 +157,12 @@ namespace mage {
 		 @param[in]		pixel_shader
 						A reference to the lambertian pixel shader to move.
 		 */
-		LambertianPixelShader(LambertianPixelShader &&pixel_shader) = default;
+		LambertianPixelShader(LambertianPixelShader &&pixel_shader);
 
 		/**
 		 Destructs this lambertian pixel shader.
 		 */
-		virtual ~LambertianPixelShader() = default;
+		virtual ~LambertianPixelShader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

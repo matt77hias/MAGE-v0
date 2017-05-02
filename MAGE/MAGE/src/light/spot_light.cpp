@@ -18,6 +18,16 @@ namespace mage {
 		m_cos_penumbra(0.96592583f), m_cos_umbra(0.86602540f),
 		m_exponent_property(1.0f) {}
 
+	SpotLight::SpotLight(const SpotLight &light) = default;
+	
+	SpotLight::SpotLight(SpotLight &&light) = default;
+	
+	SpotLight::~SpotLight() = default;
+
+	SpotLight &SpotLight::operator=(const SpotLight &light) = default;
+	
+	SpotLight &SpotLight::operator=(SpotLight &&light) = default;
+
 	SharedPtr< Light > SpotLight::CloneImplementation() const {
 		return SharedPtr< SpotLight >(new SpotLight(*this));
 	}

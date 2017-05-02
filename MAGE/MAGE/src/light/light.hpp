@@ -23,14 +23,14 @@ namespace mage {
 		// Destructors
 		//---------------------------------------------------------------------
 
-		virtual ~Light() = default;
+		virtual ~Light();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
-		Light &operator=(const Light &light) = delete;
-		Light &operator=(Light &&light) = delete;
+		Light &operator=(const Light &light);
+		Light &operator=(Light &&light);
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -59,8 +59,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit Light(const RGBSpectrum &intensity);
-		Light(const Light &light) = default;
-		Light(Light &&light) = default;
+		Light(const Light &light);
+		Light(Light &&light);
 
 	private:
 

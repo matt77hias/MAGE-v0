@@ -25,6 +25,10 @@ namespace mage {
 		: VertexShader(device, device_context, MAGE_GUID_SPRITE_VS, g_sprite_vs, sizeof(g_sprite_vs),
 			VertexPositionColorTexture::input_element_desc, VertexPositionColorTexture::nb_input_elements) {}
 
+	SpriteVertexShader::SpriteVertexShader(SpriteVertexShader &&vertex_shader) = default;
+
+	SpriteVertexShader::~SpriteVertexShader() = default;
+
 	void SpriteVertexShader::PrepareShading(ID3D11Buffer *transform) const {
 		m_device_context->IASetInputLayout(m_vertex_layout.Get());
 		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
@@ -37,6 +41,10 @@ namespace mage {
 
 	SpritePixelShader::SpritePixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: PixelShader(device, device_context, MAGE_GUID_SPRITE_PS, g_sprite_ps, sizeof(g_sprite_ps)) {}
+
+	SpritePixelShader::SpritePixelShader(SpritePixelShader &&pixel_shader) = default;
+
+	SpritePixelShader::~SpritePixelShader() = default;
 
 	void SpritePixelShader::PrepareShading(ID3D11ShaderResourceView *texture) const {
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);

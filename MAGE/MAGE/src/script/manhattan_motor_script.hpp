@@ -23,11 +23,10 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit ManhattanMotorScript(TransformNode *transform)
-			: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {}
+		explicit ManhattanMotorScript(TransformNode *transform);
 		ManhattanMotorScript(const ManhattanMotorScript &script) = delete;
-		ManhattanMotorScript(ManhattanMotorScript &&script) = default;
-		virtual ~ManhattanMotorScript() = default;
+		ManhattanMotorScript(ManhattanMotorScript &&script);
+		virtual ~ManhattanMotorScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

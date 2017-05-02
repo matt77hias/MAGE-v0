@@ -23,11 +23,10 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 		
-		explicit CharacterMotorScript(TransformNode *transform)
-			: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {}
+		explicit CharacterMotorScript(TransformNode *transform);
 		CharacterMotorScript(const CharacterMotorScript &script) = delete;
-		CharacterMotorScript(CharacterMotorScript &&script) = default;
-		virtual ~CharacterMotorScript() = default;
+		CharacterMotorScript(CharacterMotorScript &&script);
+		virtual ~CharacterMotorScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

@@ -28,6 +28,12 @@ namespace mage {
 		m_model_output(model_output), m_mesh_desc(mesh_desc) {}
 
 	template < typename VertexT >
+	OBJReader< VertexT >::OBJReader(OBJReader &&reader) = default;
+
+	template < typename VertexT >
+	OBJReader< VertexT >::~OBJReader() = default;
+
+	template < typename VertexT >
 	void OBJReader< VertexT >::Preprocess() {
 		if (!m_model_output.m_vertex_buffer.empty()) {
 			throw FormattedException("%ls: vertex buffer must be empty.", GetFilename().c_str());

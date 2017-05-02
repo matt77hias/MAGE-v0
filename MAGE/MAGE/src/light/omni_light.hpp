@@ -23,16 +23,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit OmniLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
-		OmniLight(const OmniLight &light) = default;
-		OmniLight(OmniLight &&light) = default;
-		virtual ~OmniLight() = default;
+		OmniLight(const OmniLight &light);
+		OmniLight(OmniLight &&light);
+		virtual ~OmniLight();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
-		OmniLight &operator=(const OmniLight &light) = delete;
-		OmniLight &operator=(OmniLight &&light) = delete;
+		OmniLight &operator=(const OmniLight &light);
+		OmniLight &operator=(OmniLight &&light);
 
 		//---------------------------------------------------------------------
 		// Member Methods

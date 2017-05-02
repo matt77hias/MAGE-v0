@@ -29,7 +29,7 @@ namespace mage {
 		/**
 		 Destructs this line reader.
 		 */
-		virtual ~LineReader() = default;
+		virtual ~LineReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -129,7 +129,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the line reader to move.
 		 */
-		LineReader(LineReader &&reader) = default;
+		LineReader(LineReader &&reader);
 
 		//---------------------------------------------------------------------
 		// Member Methods

@@ -30,16 +30,10 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit StatsScript(SharedPtr< SpriteText > text)
-			: BehaviorScript(), 
-			m_accumulated_time(0.0), m_accumulated_nb_frames(0),
-			m_last_cpu_usage(0.0), m_last_ram_usage(0),
-			m_monitor(new CPUMonitor()), m_text(text) {
-			m_monitor->Start();
-		}
+		explicit StatsScript(SharedPtr< SpriteText > text);
 		StatsScript(const StatsScript &script) = delete;
-		StatsScript(StatsScript &&script) = default;
-		virtual ~StatsScript() = default;
+		StatsScript(StatsScript &&script);
+		virtual ~StatsScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

@@ -22,6 +22,12 @@ namespace mage {
 		: Writer(), m_model_output(model_output) {}
 
 	template < typename VertexT >
+	MDLWriter< VertexT >::MDLWriter(MDLWriter &&writer) = default;
+
+	template < typename VertexT >
+	MDLWriter< VertexT >::~MDLWriter() = default;
+
+	template < typename VertexT >
 	void MDLWriter< VertexT >::Write() {
 		// Export mesh.
 		ExportMesh();

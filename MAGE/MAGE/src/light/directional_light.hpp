@@ -23,16 +23,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit DirectionalLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
-		DirectionalLight(const DirectionalLight &light) = default;
-		DirectionalLight(DirectionalLight &&light) = default;
-		virtual ~DirectionalLight() = default;
+		DirectionalLight(const DirectionalLight &light);
+		DirectionalLight(DirectionalLight &&light);
+		virtual ~DirectionalLight();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
-		DirectionalLight &operator=(const DirectionalLight &light) = delete;
-		DirectionalLight &operator=(DirectionalLight &&light) = delete;
+		DirectionalLight &operator=(const DirectionalLight &light);
+		DirectionalLight &operator=(DirectionalLight &&light);
 
 		//---------------------------------------------------------------------
 		// Member Methods

@@ -35,8 +35,7 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier.
 		 */
-		explicit Resource(const wstring &guid)
-			: m_guid(guid) {}
+		explicit Resource(const wstring &guid);
 
 		/**
 		 Constructs a resource from the given resource.
@@ -52,12 +51,12 @@ namespace mage {
 		 @param[in]		resource
 						A reference to the resource to move.
 		 */
-		Resource(Resource &&resource) = default;
+		Resource(Resource &&resource);
 
 		/**
 		 Destructs this resource.
 		 */
-		virtual ~Resource() = default;
+		virtual ~Resource();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -129,8 +128,7 @@ namespace mage {
 		 @param[in]		fname
 						A reference to the filename.
 		 */
-		explicit FileResource(const wstring &fname)
-			: Resource(fname) {}
+		explicit FileResource(const wstring &fname);
 
 		/**
 		 Constructs a file resource from the given file resource.
@@ -146,12 +144,12 @@ namespace mage {
 		 @param[in]		file_resource
 						A reference to the file resource to move.
 		 */
-		FileResource(FileResource &&file_resource) = default;
+		FileResource(FileResource &&file_resource);
 
 		/**
 		 Destructs this file resource.
 		 */
-		virtual ~FileResource() = default;
+		virtual ~FileResource();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

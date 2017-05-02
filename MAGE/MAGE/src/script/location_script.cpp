@@ -12,6 +12,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	LocationScript::LocationScript(Transform *transform, SharedPtr< SpriteText > text)
+		: BehaviorScript(),
+		m_transform(transform), m_text(text) {}
+	
+	LocationScript::LocationScript(LocationScript &&script) = default;
+	
+	LocationScript::~LocationScript() = default;
+
 	void LocationScript::Update(double delta_time) {
 		UNUSED(delta_time);
 		const XMFLOAT3 translation = m_transform->GetTranslation();

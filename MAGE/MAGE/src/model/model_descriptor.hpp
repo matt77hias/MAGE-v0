@@ -62,7 +62,7 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the model descriptor to move.
 		 */
-		ModelDescriptor(ModelDescriptor &&desc) = default;
+		ModelDescriptor(ModelDescriptor &&desc);
 
 		/**
 		 Destructs a model descriptor.

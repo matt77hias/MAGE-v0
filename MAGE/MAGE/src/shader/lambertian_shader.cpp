@@ -26,6 +26,10 @@ namespace mage {
 		: VertexShader(device, device_context, MAGE_GUID_LAMBERTIAN_VS, g_lambertian_vs, sizeof(g_lambertian_vs),
 			VertexPositionNormalTexture::input_element_desc, VertexPositionNormalTexture::nb_input_elements) {}
 
+	LambertianVertexShader::LambertianVertexShader(LambertianVertexShader &&vertex_shader) = default;
+
+	LambertianVertexShader::~LambertianVertexShader() = default;
+
 	void LambertianVertexShader::PrepareShading(ID3D11Buffer *transform) const {
 		m_device_context->IASetInputLayout(m_vertex_layout.Get());
 		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
@@ -39,6 +43,10 @@ namespace mage {
 	LambertianPixelShader::LambertianPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: PixelShader(device, device_context, MAGE_GUID_LAMBERTIAN_PS, g_lambertian_ps, sizeof(g_lambertian_ps)),
 		m_material_buffer(m_device, m_device_context) {}
+
+	LambertianPixelShader::LambertianPixelShader(LambertianPixelShader &&pixel_shader) = default;
+
+	LambertianPixelShader::~LambertianPixelShader() = default;
 
 	void LambertianPixelShader::PrepareShading(const Material &material, const Lighting &lighting) const {
 

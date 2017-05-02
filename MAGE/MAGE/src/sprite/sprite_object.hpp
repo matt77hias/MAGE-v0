@@ -28,7 +28,7 @@ namespace mage {
 		/**
 		 Destruct this sprite object.
 		 */
-		virtual ~SpriteObject() = default;
+		virtual ~SpriteObject();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -163,7 +163,7 @@ namespace mage {
 		 @param[in]		sprite_object
 						A reference to the sprite object to move.
 		 */
-		SpriteObject(SpriteObject &&sprite_object) = default;
+		SpriteObject(SpriteObject &&sprite_object);
 
 	private:
 

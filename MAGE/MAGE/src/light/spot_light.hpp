@@ -23,16 +23,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit SpotLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
-		SpotLight(const SpotLight &light) = default;
-		SpotLight(SpotLight &&light) = default;
-		virtual ~SpotLight() = default;
+		SpotLight(const SpotLight &light);
+		SpotLight(SpotLight &&light);
+		virtual ~SpotLight();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
-		SpotLight &operator=(const SpotLight &light) = delete;
-		SpotLight &operator=(SpotLight &&light) = delete;
+		SpotLight &operator=(const SpotLight &light);
+		SpotLight &operator=(SpotLight &&light);
 
 		//---------------------------------------------------------------------
 		// Member Methods

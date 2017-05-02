@@ -52,12 +52,12 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the MDL writer to move.
 		 */
-		MDLWriter(MDLWriter &&writer) = delete;
+		MDLWriter(MDLWriter &&writer);
 
 		/**
 		 Destructs this MDL writer.
 		 */
-		virtual ~MDLWriter() = default;
+		virtual ~MDLWriter();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

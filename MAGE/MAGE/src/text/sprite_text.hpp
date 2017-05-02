@@ -30,7 +30,7 @@ namespace mage {
 		/**
 		 Destruct this sprite text.
 		 */
-		virtual ~SpriteText() = default;
+		virtual ~SpriteText();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -172,7 +172,7 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the sprite text to copy.
 		 */
-		SpriteText(const SpriteText &sprite_text) = default;
+		SpriteText(const SpriteText &sprite_text);
 
 		/**
 		 Constructs a sprite text by moving the given sprite text.
@@ -180,7 +180,7 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the sprite text to move.
 		 */
-		SpriteText(SpriteText &&sprite_text) = default;
+		SpriteText(SpriteText &&sprite_text);
 
 		//---------------------------------------------------------------------
 		// Member Methods

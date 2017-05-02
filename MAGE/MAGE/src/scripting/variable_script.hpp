@@ -55,7 +55,7 @@ namespace mage {
 		 @param[in]		variable_script
 						A reference to the variable script to move.
 		 */
-		VariableScript(VariableScript &&variable_script) = default;
+		VariableScript(VariableScript &&variable_script);
 
 		/**
 		 Destruct this variable script.

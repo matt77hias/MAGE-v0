@@ -50,12 +50,12 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the VS writer to move.
 		 */
-		VSWriter(VSWriter &&writer) = delete;
+		VSWriter(VSWriter &&writer);
 
 		/**
 		 Destructs this VS writer.
 		 */
-		virtual ~VSWriter() = default;
+		virtual ~VSWriter();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

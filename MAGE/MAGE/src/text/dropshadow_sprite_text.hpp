@@ -63,7 +63,7 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the dropshadow sprite text to copy.
 		 */
-		DropshadowSpriteText(const DropshadowSpriteText &sprite_text) = default;
+		DropshadowSpriteText(const DropshadowSpriteText &sprite_text);
 		
 		/**
 		 Constructs a dropshadow sprite text by moving the given dropshadow sprite text.
@@ -71,12 +71,12 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the dropshadow sprite text to move.
 		 */
-		DropshadowSpriteText(DropshadowSpriteText &&sprite_text) = default;
+		DropshadowSpriteText(DropshadowSpriteText &&sprite_text);
 
 		/**
 		 Destructs this dropshadow sprite text.
 		 */
-		virtual ~DropshadowSpriteText() = default;
+		virtual ~DropshadowSpriteText();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

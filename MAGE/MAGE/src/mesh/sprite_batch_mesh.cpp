@@ -24,6 +24,10 @@ namespace mage {
 		SetupIndexBuffer();	
 	}
 
+	SpriteBatchMesh::SpriteBatchMesh(SpriteBatchMesh &&sprite_batch_mesh) = default;
+
+	SpriteBatchMesh::~SpriteBatchMesh() = default;
+
 	void SpriteBatchMesh::SetupVertexBuffer() {
 		const HRESULT result_vertex_buffer = CreateDynamicVertexBuffer< VertexPositionColorTexture >(m_device, m_vertex_buffer.ReleaseAndGetAddressOf(), nullptr, MaxVerticesPerBatch());
 		if (FAILED(result_vertex_buffer)) {

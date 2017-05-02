@@ -24,6 +24,12 @@ namespace mage {
 		SetBorderColor(border_color);
 	}
 
+	OutlineSpriteText::OutlineSpriteText(const OutlineSpriteText &sprite_text) = default;
+
+	OutlineSpriteText::OutlineSpriteText(OutlineSpriteText &&sprite_text) = default;
+
+	OutlineSpriteText::~OutlineSpriteText() = default;
+
 	SharedPtr< SpriteObject > OutlineSpriteText::CloneImplementation() const {
 		return SharedPtr< OutlineSpriteText >(new OutlineSpriteText(*this));
 	}

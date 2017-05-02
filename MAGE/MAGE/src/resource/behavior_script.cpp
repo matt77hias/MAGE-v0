@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "light\light.hpp"
+#include "scripting\behavior_script.hpp"
 
 #pragma endregion
 
@@ -12,16 +12,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Light::Light(const RGBSpectrum &intensity)
-		: m_intensity(intensity) {}
+	BehaviorScript::BehaviorScript() = default;
 
-	Light::Light(const Light &light) = default;
-	
-	Light::Light(Light &&light) = default;
+	BehaviorScript::BehaviorScript(const BehaviorScript &script) = default;
 
-	Light::~Light() = default;
+	BehaviorScript::BehaviorScript(BehaviorScript &&script) = default;
 
-	Light &Light::operator=(const Light &light) = default;
-	
-	Light &Light::operator=(Light &&light) = default;
+	BehaviorScript::~BehaviorScript() = default;
 }

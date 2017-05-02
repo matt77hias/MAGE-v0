@@ -14,6 +14,24 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	MouseLookScript::MouseLookScript(TransformNode *transform,
+		RotationAxes axes, 
+		const XMFLOAT2 &sensitivity,
+		const XMFLOAT2 &minimum_rotation, 
+		const XMFLOAT2 &maximum_rotation,
+		const XMFLOAT2 &direction)
+		: BehaviorScript(),
+		m_transform(transform),
+		m_axes(axes),
+		m_sensitivity(sensitivity),
+		m_minimum_rotation(minimum_rotation),
+		m_maximum_rotation(maximum_rotation),
+		m_direction(direction) {}
+	
+	MouseLookScript::MouseLookScript(MouseLookScript &&script) = default;
+	
+	MouseLookScript::~MouseLookScript() = default;
+
 	void MouseLookScript::Update(double delta_time) {
 		const Mouse * const mouse = g_engine->GetInputManager()->GetMouse();
 		const float delta = static_cast< float >(delta_time);

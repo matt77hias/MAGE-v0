@@ -956,6 +956,18 @@
     <ClCompile Include="MAGE\src\core\loadable.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\resource\resource.cpp">
+      <Filter>Source Files\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\resource\behavior_script.cpp">
+      <Filter>Source Files\scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\script\manhattan_input_controller_script.cpp">
+      <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\script\fps_input_controller_script.cpp">
+      <Filter>Source Files\script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian.fx">

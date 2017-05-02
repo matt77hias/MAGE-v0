@@ -19,4 +19,8 @@ namespace mage {
 		: m_name(sprite_object.m_name),
 		m_effects(sprite_object.m_effects),
 		m_transform(new SpriteTransform(*sprite_object.m_transform)) {}
+
+	SpriteObject::SpriteObject(SpriteObject &&sprite_object) = default;
+
+	SpriteObject::~SpriteObject() = default;
 }

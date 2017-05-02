@@ -16,6 +16,12 @@ namespace mage {
 		SpriteEffect effects)
 		: SpriteText(name, font, effects) {}
 
+	NormalSpriteText::NormalSpriteText(const NormalSpriteText &sprite_text) = default;
+
+	NormalSpriteText::NormalSpriteText(NormalSpriteText &&sprite_text) = default;
+
+	NormalSpriteText::~NormalSpriteText() = default;
+
 	SharedPtr< SpriteObject > NormalSpriteText::CloneImplementation() const {
 		return SharedPtr< NormalSpriteText >(new NormalSpriteText(*this));
 	}

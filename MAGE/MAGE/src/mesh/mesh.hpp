@@ -29,7 +29,7 @@ namespace mage {
 		/**
 		 Destructs this mesh.
 		 */
-		virtual ~Mesh() = default;
+		virtual ~Mesh();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -177,7 +177,7 @@ namespace mage {
 		 @param[in]		mesh
 						A reference to the mesh to move.
 		 */
-		Mesh(Mesh &&mesh) = default;
+		Mesh(Mesh &&mesh);
 
 		//---------------------------------------------------------------------
 		// Member Methods

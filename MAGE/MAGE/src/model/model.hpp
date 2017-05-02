@@ -56,12 +56,12 @@ namespace mage {
 		 @param[in]		model
 						A reference to the model to move.
 		 */
-		Model(Model &&model) = default;
+		Model(Model &&model);
 
 		/**
 		 Destructs this model.
 		 */
-		virtual ~Model() = default;
+		virtual ~Model();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

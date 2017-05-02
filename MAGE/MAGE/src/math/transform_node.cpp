@@ -29,6 +29,13 @@ namespace mage {
 		SetDirty();
 	}
 
+	TransformNode::TransformNode(TransformNode &&transform_node)
+		: m_transform(std::move(transform_node.m_transform)),
+		m_parent(std::move(transform_node.m_parent)),
+		m_childs(std::move(transform_node.m_childs)) {
+		SetDirty();
+	}
+
 	TransformNode::~TransformNode() {
 		RemoveAllChildNodes();
 	}
@@ -61,6 +68,10 @@ namespace mage {
 			AddChildNode(child_node.Clone());
 		});
 	}
+
+	Node::Node(Node &&node) = default;
+
+	Node::~Node() = default;
 
 	void Node::AddChildNode(SharedPtr< Node > node) {
 		if (!node || node->m_transform->m_parent == this) {

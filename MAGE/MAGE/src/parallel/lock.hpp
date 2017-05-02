@@ -55,7 +55,7 @@ namespace mage {
 		 @param[in]		mutex
 						A reference to the mutex to move.
 		 */
-		Mutex(Mutex &&mutex) = delete;
+		Mutex(Mutex &&mutex) = default;
 
 		/**
 		 Destructs this mutex.
@@ -129,7 +129,7 @@ namespace mage {
 		 @param[in]		mutex_lock
 						A reference to the mutex lock to move.
 		 */
-		MutexLock(MutexLock &&mutex_lock) = delete;
+		MutexLock(MutexLock &&mutex_lock) = default;
 
 		/**
 		 Destructs this mutex lock.
@@ -204,7 +204,7 @@ namespace mage {
 		 @param[in]		mutex
 						A reference to the read write mutex to move.
 		 */
-		ReadWriteMutex(ReadWriteMutex &&mutex) = delete;
+		ReadWriteMutex(ReadWriteMutex &&mutex) = default;
 
 		/**
 		 Destructs this read write mutex.
@@ -344,7 +344,7 @@ namespace mage {
 		 @param[in]		mutex_lock
 						A reference to the read write mutex lock to move.
 		 */
-		ReadWriteMutexLock(ReadWriteMutexLock &&mutex_lock) = delete;
+		ReadWriteMutexLock(ReadWriteMutexLock &&mutex_lock) = default;
 
 		/**
 		 Destructs this read write mutex lock.
@@ -436,7 +436,7 @@ namespace mage {
 		 @param[in]		semaphore
 						A reference to the semaphore to move.
 		 */
-		Semaphore(Semaphore &&semaphore) = delete;
+		Semaphore(Semaphore &&semaphore) = default;
 
 		/**
 		 Destructs this semaphore.
@@ -540,7 +540,7 @@ namespace mage {
 		 @param[in]		condition_variable
 						A reference to the condition variable to move.
 		 */
-		ConditionVariable(ConditionVariable &&condition_variable) = delete;
+		ConditionVariable(ConditionVariable &&condition_variable) = default;
 
 		/**
 		 Destructs this condition variable.

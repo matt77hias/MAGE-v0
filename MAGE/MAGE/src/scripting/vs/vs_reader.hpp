@@ -50,12 +50,12 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the VS reader to move.
 		 */
-		VSReader(VSReader &&reader) = delete;
+		VSReader(VSReader &&reader);
 
 		/**
 		 Destructs this VS reader.
 		 */
-		virtual ~VSReader() = default;
+		virtual ~VSReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

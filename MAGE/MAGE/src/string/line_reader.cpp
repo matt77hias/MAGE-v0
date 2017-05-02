@@ -18,6 +18,10 @@ namespace mage {
 		: m_context(nullptr), m_file_stream(nullptr), m_fname(),
 		m_delimiters(mage_default_delimiters), m_line_number(0) {}
 
+	LineReader::LineReader(LineReader &&reader) = default;
+
+	LineReader::~LineReader() = default;
+
 	void LineReader::ReadFromFile(const wstring &fname, const string &delimiters) {
 		m_fname = fname;
 		m_delimiters = delimiters;

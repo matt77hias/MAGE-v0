@@ -23,16 +23,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit AmbientLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
-		AmbientLight(const AmbientLight &light) = default;
-		AmbientLight(AmbientLight &&light) = default;
-		virtual ~AmbientLight() = default;
+		AmbientLight(const AmbientLight &light);
+		AmbientLight(AmbientLight &&light);
+		virtual ~AmbientLight();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
-		AmbientLight &operator=(const AmbientLight &light) = delete;
-		AmbientLight &operator=(AmbientLight &&light) = delete;
+		AmbientLight &operator=(const AmbientLight &light);
+		AmbientLight &operator=(AmbientLight &&light);
 
 		//---------------------------------------------------------------------
 		// Member Methods

@@ -58,12 +58,12 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the MSH reader to move.
 		 */
-		MSHReader(MSHReader &&reader) = delete;
+		MSHReader(MSHReader &&reader);
 
 		/**
 		 Destructs this MSH reader.
 		 */
-		virtual ~MSHReader() = default;
+		virtual ~MSHReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

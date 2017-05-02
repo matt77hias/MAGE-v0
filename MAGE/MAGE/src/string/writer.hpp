@@ -29,7 +29,7 @@ namespace mage {
 		/**
 		 Destructs this writer.
 		 */
-		virtual ~Writer() = default;
+		virtual ~Writer();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -103,7 +103,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the writer to move.
 		 */
-		Writer(Writer &&writer) = default;
+		Writer(Writer &&writer);
 
 		//---------------------------------------------------------------------
 		// Member Methods

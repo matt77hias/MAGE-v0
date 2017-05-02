@@ -53,12 +53,12 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the MDL reader to move.
 		 */
-		MDLReader(MDLReader &&reader) = delete;
+		MDLReader(MDLReader &&reader);
 
 		/**
 		 Destructs this MDL reader.
 		 */
-		virtual ~MDLReader() = default;
+		virtual ~MDLReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

@@ -46,6 +46,10 @@ namespace mage {
 		SetupShader(bytecode, bytecode_size, input_element_desc, nb_input_elements);
 	}
 
+	VertexShader::VertexShader(VertexShader &&vertex_shader) = default;
+
+	VertexShader::~VertexShader() = default;
+
 	void VertexShader::SetupShader(const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements) {
 
 		// Compile/Read the vertex shader.
@@ -118,6 +122,10 @@ namespace mage {
 
 		SetupShader(bytecode, bytecode_size);
 	}
+
+	PixelShader::PixelShader(PixelShader &&pixel_shader) = default;
+
+	PixelShader::~PixelShader() = default;
 
 	void PixelShader::SetupShader() {
 

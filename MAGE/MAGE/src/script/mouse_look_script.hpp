@@ -31,20 +31,13 @@ namespace mage {
 
 		explicit MouseLookScript(TransformNode *transform,
 			RotationAxes axes = RotationAxes_MouseXAndY,
-			const XMFLOAT2 &sensitivity      = XMFLOAT2(1.8f,1.8f),
-			const XMFLOAT2 &minimum_rotation = XMFLOAT2(-XM_PI / 3.0f , -XM_PI),
-			const XMFLOAT2 &maximum_rotation = XMFLOAT2( XM_PI / 3.0f,   XM_PI),
-			const XMFLOAT2 &direction        = XMFLOAT2(1.0f, 1.0f))
-			: BehaviorScript(),
-			m_transform(transform), 
-			m_axes(axes),
-			m_sensitivity(sensitivity), 
-			m_minimum_rotation(minimum_rotation),
-			m_maximum_rotation(maximum_rotation),
-			m_direction(direction) {}
+			const XMFLOAT2 &sensitivity      = XMFLOAT2(1.8f, 1.8f),
+			const XMFLOAT2 &minimum_rotation = XMFLOAT2(-XM_PI / 3.0f, -XM_PI),
+			const XMFLOAT2 &maximum_rotation = XMFLOAT2(XM_PI / 3.0f, XM_PI),
+			const XMFLOAT2 &direction        = XMFLOAT2(1.0f, 1.0f));
 		MouseLookScript(const MouseLookScript &script) = delete;
-		MouseLookScript(MouseLookScript &&script) = default;
-		virtual ~MouseLookScript() = default;
+		MouseLookScript(MouseLookScript &&script);
+		virtual ~MouseLookScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

@@ -29,13 +29,10 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit FrameRateScript(SharedPtr< SpriteText > text)
-			: BehaviorScript(), m_accumulated_time(0.0),
-			m_accumulated_nb_frames(0), m_last_frames_per_second(0),
-			m_text(text) {}
+		explicit FrameRateScript(SharedPtr< SpriteText > text);
 		FrameRateScript(const FrameRateScript &script) = delete;
-		FrameRateScript(FrameRateScript &&script) = default;
-		virtual ~FrameRateScript() = default;
+		FrameRateScript(FrameRateScript &&script);
+		virtual ~FrameRateScript();
 		
 		//---------------------------------------------------------------------
 		// Assignment Operators

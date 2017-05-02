@@ -14,6 +14,15 @@ namespace mage {
 
 	const double FrameRateScript::resource_fetch_period = 1.00;
 
+	FrameRateScript::FrameRateScript(SharedPtr< SpriteText > text)
+		: BehaviorScript(), m_accumulated_time(0.0),
+		m_accumulated_nb_frames(0), m_last_frames_per_second(0),
+		m_text(text) {}
+	
+	FrameRateScript::FrameRateScript(FrameRateScript &&script) = default;
+	
+	FrameRateScript::~FrameRateScript() = default;
+
 	void FrameRateScript::Update(double delta_time) {
 		m_accumulated_time += delta_time;
 		++m_accumulated_nb_frames;

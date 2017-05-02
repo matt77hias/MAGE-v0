@@ -17,6 +17,10 @@ namespace mage {
 	MTLReader::MTLReader(vector< Material > &material_buffer)
 		: LineReader(), m_material_buffer(material_buffer) {}
 
+	MTLReader::MTLReader(MTLReader &&reader) = default;
+
+	MTLReader::~MTLReader() = default;
+
 	void MTLReader::ReadLine(char *line) {
 		m_context = nullptr;
 		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);

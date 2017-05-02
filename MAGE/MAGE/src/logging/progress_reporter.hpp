@@ -58,12 +58,12 @@ namespace mage {
 		 @param[in]		progress_reporter
 						A reference to the progress reporter to move.
 		 */
-		ProgressReporter(ProgressReporter &&progress_reporter) = default;
+		ProgressReporter(ProgressReporter &&progress_reporter);
 
 		/**
 		 Destructs this progress reporter.
 		 */
-		~ProgressReporter() = default;
+		~ProgressReporter();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

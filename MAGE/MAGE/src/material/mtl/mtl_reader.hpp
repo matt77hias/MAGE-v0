@@ -49,12 +49,12 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the MTL reader to move.
 		 */
-		MTLReader(MTLReader &&reader) = delete;
+		MTLReader(MTLReader &&reader);
 
 		/**
 		 Destructs this MTL reader.
 		 */
-		virtual ~MTLReader() = default;
+		virtual ~MTLReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

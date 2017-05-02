@@ -45,7 +45,7 @@ namespace mage {
 		 @param[in]		formatted_exception
 						A reference to a formatted exception to copy.
 		 */
-		FormattedException(const FormattedException &formatted_exception) = default;
+		FormattedException(const FormattedException &formatted_exception);
 
 		/**
 		 Constructs a formatted exception by moving the given formatted exception.
@@ -53,12 +53,12 @@ namespace mage {
 		 @param[in]		formatted_exception
 						A reference to a formatted exception to move.
 		 */
-		FormattedException(FormattedException &&formatted_exception) = default;
+		FormattedException(FormattedException &&formatted_exception);
 		
 		/**
 		 Destructs this formatted exception.
 		 */
-		virtual ~FormattedException() = default;
+		virtual ~FormattedException();
 		
 		/**
 		 Copies the given formatted exception to this formatted exception.
@@ -68,7 +68,7 @@ namespace mage {
 		 @return		A reference to the copy of the given formatted exception
 						(i.e. this formatted exception).
 		 */
-		FormattedException &operator=(const FormattedException &formatted_exception) = default;
+		FormattedException &operator=(const FormattedException &formatted_exception);
 		
 		/**
 		 Moves the given formatted exception to this formatted exception.
@@ -78,7 +78,7 @@ namespace mage {
 		 @return		A reference to the moved formatted exception
 						(i.e. this formatted exception).
 		 */
-		FormattedException &operator=(FormattedException &&formatted_exception) = default;
+		FormattedException &operator=(FormattedException &&formatted_exception);
 
 		/**
 		 Returns a null-terminated byte string that may be used to identify the exception.

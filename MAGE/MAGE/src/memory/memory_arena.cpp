@@ -26,6 +26,8 @@ namespace mage {
 		m_current_block(MemoryBlock(0, nullptr)),
 		m_used_blocks(), m_available_blocks() {}
 
+	MemoryArena::MemoryArena(MemoryArena &&arena) = default;
+
 	MemoryArena::~MemoryArena() {
 		FreeAligned(GetCurrentBlockPtr());
 		

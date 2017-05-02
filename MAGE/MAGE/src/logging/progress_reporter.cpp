@@ -29,6 +29,10 @@ namespace mage {
 		Initialize(title, bar_length);
 	}
 
+	ProgressReporter::ProgressReporter(ProgressReporter &&progress_reporter) = default;
+
+	ProgressReporter::~ProgressReporter() = default;
+
 	void ProgressReporter::Initialize(const string &title, uint32_t bar_length) {
 
 		if (bar_length == 0) {

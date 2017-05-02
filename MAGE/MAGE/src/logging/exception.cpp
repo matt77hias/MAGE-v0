@@ -32,4 +32,14 @@ namespace mage {
 		// End using variable argument list.
 		va_end(args);
 	}
+
+	FormattedException::FormattedException(const FormattedException &formatted_exception) = default;
+
+	FormattedException::FormattedException(FormattedException &&formatted_exception) = default;
+
+	FormattedException::~FormattedException() = default;
+
+	FormattedException &FormattedException::operator=(const FormattedException &formatted_exception) = default;
+
+	FormattedException &FormattedException::operator=(FormattedException &&formatted_exception) = default;
 }

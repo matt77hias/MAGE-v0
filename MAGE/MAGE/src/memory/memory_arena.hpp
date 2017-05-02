@@ -47,7 +47,7 @@ namespace mage {
 		 @param[in]		arena
 						A reference to the memory arena to move.
 		 */
-		MemoryArena(MemoryArena &&arena) = default;
+		MemoryArena(MemoryArena &&arena);
 		
 		/**
 		 Destructs this memory arena.

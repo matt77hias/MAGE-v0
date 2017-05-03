@@ -15,7 +15,6 @@ namespace mage {
 
 	void ComboBoxAdd(HWND dialog, int id, const void *data, const wchar_t *desc) {
 		Assert(dialog);
-		Assert(data);
 		Assert(desc);
 
 		// Retrieve a handle to a control in the specified dialog box.
@@ -45,7 +44,6 @@ namespace mage {
 
 	void ComboBoxSelect(HWND dialog, int id, const void *data) {
 		Assert(dialog);
-		Assert(data);
 		
 		// Retrieve a handle to a control in the specified dialog box.
 		HWND control = GetDlgItem(dialog, id);

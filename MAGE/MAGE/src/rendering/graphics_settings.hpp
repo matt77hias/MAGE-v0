@@ -5,7 +5,6 @@
 #define IDD_GRAPHICS_SETTINGS           144
 #define IDC_DISPLAY_ADAPTER             1002
 #define IDC_DISPLAY_FORMAT              1003
-#define IDC_COLOUR_DEPTH                1003
 #define IDC_RESOLUTION                  1004
 #define IDC_REFRESH_RATE                1006
 #define IDC_VSYNC                       1013

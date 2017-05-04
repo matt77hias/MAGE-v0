@@ -37,7 +37,6 @@ MAGE - Matthias Advanced Game Engine
 
 ## Current iteration' TODOs
 * Frustum culling
-* Multiple lights/Lighting
 * Collision detection
 * Optional MSAA
 

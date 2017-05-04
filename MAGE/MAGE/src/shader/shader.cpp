@@ -81,8 +81,8 @@ namespace mage {
 		const HRESULT result_vertex_input_layout = m_device->CreateInputLayout(
 																			input_element_desc,
 																			static_cast< UINT >(nb_input_elements),
-																			compiled_shader.m_bytecode,
-																			compiled_shader.m_bytecode_size,
+																			compiled_vertex_shader.m_bytecode,
+																			compiled_vertex_shader.m_bytecode_size,
 																			m_vertex_layout.ReleaseAndGetAddressOf());
 		if (FAILED(result_vertex_input_layout)) {
 			throw FormattedException("Vertex input layout creation failed: %08X.", result_vertex_input_layout);

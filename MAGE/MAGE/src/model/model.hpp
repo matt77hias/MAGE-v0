@@ -7,7 +7,6 @@
 
 #include "mesh\mesh.hpp"
 #include "shader\shaded_material.hpp"
-#include "shader\lambertian_shader.hpp"
 
 #pragma endregion
 

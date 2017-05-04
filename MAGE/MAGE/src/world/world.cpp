@@ -71,8 +71,8 @@ namespace mage {
 			XMStoreFloat3(&light_buffer.m_d, XMVector4Transform(light_node.GetTransform()->GetWorldForward(), world_to_view));
 			light_buffer.m_distance_falloff_start = light_node.GetObject()->GetStartDistanceFalloff();
 			light_buffer.m_distance_falloff_end   = light_node.GetObject()->GetEndDistanceFalloff();
-			light_buffer.m_cos_penumbra           = light_node.GetObject()->GetStartAngualCutoff();
-			light_buffer.m_cos_umbra              = light_node.GetObject()->GetEndAngualCutoff();
+			light_buffer.m_cos_penumbra           = light_node.GetObject()->GetStartAngularCutoff();
+			light_buffer.m_cos_umbra              = light_node.GetObject()->GetEndAngularCutoff();
 
 			spot_lights_buffer.push_back(light_buffer);
 		});

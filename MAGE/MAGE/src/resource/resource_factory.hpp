@@ -109,34 +109,56 @@ namespace mage {
 			const wstring &fname, const MeshDescriptor< VertexT > &desc);
 		
 		/**
-		 Creates a lambertian vertex shader (if not existing).
+		 Creates a basic vertex shader (if not existing).
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@a bytecode is not equal to @c nullptr.
+		 @pre			The size of the data pointed to by @a bytecode
+						is equal to @a bytecode_size (bytes).
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
+		 @param[in]		guid
+						A reference to the globally unique identifier
+						of this vertex shader.
+		 @param[in]		bytecode
+						A pointer to the shader bytecode.
+		 @param[in]		bytecode_size
+						The size of the given shader bytecode.
 		 @throws		FormattedException
-						Failed to create the lambertian vertex shader.
+						Failed to create the basic vertex shader.
 		 */
-		SharedPtr< VertexShader > CreateLambertianVertexShader(
-			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+		SharedPtr< VertexShader > CreateBasicVertexShader(
+			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+			const wstring &guid, const void *bytecode, SIZE_T bytecode_size);
 		
 		/**
-		 Creates a lambertian pixel shader (if not existing).
+		 Creates a basic pixel shader (if not existing).
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@a bytecode is not equal to @c nullptr.
+		 @pre			The size of the data pointed to by @a bytecode
+						is equal to @a bytecode_size (bytes).
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
+		 @param[in]		guid
+						A reference to the globally unique identifier
+						of this vertex shader.
+		 @param[in]		bytecode
+						A pointer to the shader bytecode.
+		 @param[in]		bytecode_size
+						The size of the given shader bytecode.
 		 @throws		FormattedException
-						Failed to create the lambertian pixel shader.
+						Failed to create the basic pixel shader.
 		 */
-		SharedPtr< PixelShader > CreateLambertianPixelShader(
-			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+		SharedPtr< PixelShader > CreateBasicPixelShader(
+			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+			const wstring &guid, const void *bytecode, SIZE_T bytecode_size);
 		
 		/**
 		 Creates a sprite vertex shader (if not existing).
@@ -147,6 +169,7 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
+		 @return		A pointer to the created sprite vertex shader.
 		 @throws		FormattedException
 						Failed to create the sprite vertex shader.
 		 */
@@ -162,6 +185,7 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
+		 @return		A pointer to the created sprite pixel shader.
 		 @throws		FormattedException
 						Failed to create the sprite pixel shader.
 		 */

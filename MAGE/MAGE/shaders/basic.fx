@@ -299,7 +299,7 @@ struct PS_INPUT {
 // Vertex Shader
 //-----------------------------------------------------------------------------
 
-PS_INPUT VS(VS_INPUT input) {
+PS_INPUT Transform_VS(VS_INPUT input) {
 	PS_INPUT output = (PS_INPUT)0;
 	output.p_view   = mul(input.p, object_to_world);
 	output.p_view   = mul(output.p_view, world_to_view);
@@ -344,6 +344,6 @@ float4 DistanceMap_PS(PS_INPUT input) : SV_Target{
 }
 
 
-float4 PS(PS_INPUT input) : SV_Target {
+float4 Basic_PS(PS_INPUT input) : SV_Target {
 	return ModifiedBlinnPhongBRDFShading(input.p_view, input.n_view, input.tex);
 }

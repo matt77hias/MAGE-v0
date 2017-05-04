@@ -441,9 +441,6 @@
     <ClInclude Include="MAGE\src\scene\scene.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\lambertian_shader.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\shader.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
@@ -600,18 +597,6 @@
     <ClInclude Include="MAGE\src\text\sprite_text_item.hpp">
       <Filter>Header Files\text</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\lambertian_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\lambertian_VS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\sprite_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\sprite_VS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\script\wireframe_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
@@ -686,6 +671,33 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\logging\exception.hpp">
       <Filter>Header Files\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\basic_shader.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\phong_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\sprite_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\sprite_VS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\transform_VS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\diffuse_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\lambertian_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\modified_blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -787,9 +799,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\scene\scene.cpp">
       <Filter>Source Files\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\shader\lambertian_shader.cpp">
-      <Filter>Source Files\shader</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\shader\shader.cpp">
       <Filter>Source Files\shader</Filter>
@@ -974,15 +983,12 @@
     <ClCompile Include="MAGE\src\binary\binary_reader.cpp">
       <Filter>Source Files\binary</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\shader\basic_shader.cpp">
+      <Filter>Source Files\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="MAGE\shaders\lambertian.fx">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\lambertian_PS.hlsl">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\lambertian_VS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\sprite.fx">
@@ -992,6 +998,24 @@
       <Filter>Shader Files</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\sprite_VS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\phong_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\blinn_phong_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\diffuse_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\modified_blinn_phong_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\basic.fx">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\transform_VS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
   </ItemGroup>

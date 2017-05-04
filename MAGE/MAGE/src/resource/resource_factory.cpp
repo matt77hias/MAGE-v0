@@ -4,7 +4,7 @@
 #pragma region
 
 #include "core\engine.hpp"
-#include "shader\lambertian_shader.hpp"
+#include "shader\basic_shader.hpp"
 #include "shader\sprite_shader.hpp"
 
 #pragma endregion
@@ -37,28 +37,36 @@ namespace mage {
 		m_variable_script_resource_pool->RemoveAllResources();
 	}
 
-	SharedPtr< VertexShader > ResourceFactory::CreateLambertianVertexShader(
-		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context) {
+	SharedPtr< VertexShader > ResourceFactory::CreateBasicVertexShader(
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		const wstring &guid, const void *bytecode, SIZE_T bytecode_size) {
 		return m_vertex_shader_resource_pool->template 
-			GetDerivedResource< LambertianVertexShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >(MAGE_GUID_LAMBERTIAN_VS, device, device_context);
+			GetDerivedResource< BasicVertexShader, ID3D11Device2 *&, ID3D11DeviceContext2 *&,
+								const wstring &, const void *&, const SIZE_T& >
+								(guid, device, device_context, guid, bytecode, bytecode_size);
 	}
 	
-	SharedPtr< PixelShader > ResourceFactory::CreateLambertianPixelShader(
-		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context) {
+	SharedPtr< PixelShader > ResourceFactory::CreateBasicPixelShader(
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		const wstring &guid, const void *bytecode, SIZE_T bytecode_size) {
 		return m_pixel_shader_resource_pool->template 
-			GetDerivedResource< LambertianPixelShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >(MAGE_GUID_LAMBERTIAN_PS, device, device_context);
+			GetDerivedResource< BasicPixelShader, ID3D11Device2 *&, ID3D11DeviceContext2 *&,
+								const wstring &, const void *&, const SIZE_T& >
+								(guid, device, device_context, guid, bytecode, bytecode_size);
 	}
 	
 	SharedPtr< VertexShader > ResourceFactory::CreateSpriteVertexShader(
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context) {
 		return m_vertex_shader_resource_pool->template
-			GetDerivedResource< SpriteVertexShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >(MAGE_GUID_SPRITE_VS, device, device_context);
+			GetDerivedResource< SpriteVertexShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >
+								(MAGE_GUID_SPRITE_VS, device, device_context);
 	}
 	
 	SharedPtr< PixelShader > ResourceFactory::CreateSpritePixelShader(
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context) {
 		return m_pixel_shader_resource_pool->template
-			GetDerivedResource< SpritePixelShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >(MAGE_GUID_SPRITE_PS, device, device_context);
+			GetDerivedResource< SpritePixelShader, ID3D11Device2 *&, ID3D11DeviceContext2 *& >
+								(MAGE_GUID_SPRITE_PS, device, device_context);
 	}
 	
 	SharedPtr< SpriteFont > ResourceFactory::CreateFont(

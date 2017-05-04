@@ -171,9 +171,9 @@ namespace mage {
 				
 				// Render the current scene.
 				m_renderer->BeginFrame();
-				m_renderer->BeginRendering3D();
+				m_renderer->PrepareRendering3D();
 				m_scene->Render3D();
-				m_renderer->BeginRendering2D();
+				m_renderer->PrepareRendering2D();
 				m_scene->Render2D();
 				m_renderer->EndFrame();
 			}

@@ -7,6 +7,7 @@
 
 #include "rendering\rendering_state_cache.hpp"
 #include "rendering\rendering_factory.hpp"
+#include "logging\error.hpp"
 #include "logging\exception.hpp"
 
 #pragma endregion
@@ -15,6 +16,22 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	RenderingStateCache::RenderingStateCache(ID3D11Device2 *device)
+		: m_device(device),
+		m_opaque_blend_state(), m_alpha_blend_state(), m_additive_blend_state(), m_non_premultiplied_blend_state(),
+		m_depth_none_depth_stencil_state(), m_depth_default_depth_stencil_state(), m_depth_read_depth_stencil_state(),
+		m_cull_none_rasterizer_state(), m_cull_clockwise_rasterizer_state(), m_cull_counter_clockwise_rasterizer_state(), m_wireframe_rasterizer_state(),
+		m_point_wrap_sampler_state(), m_point_clamp_sampler_state(), m_linear_wrap_sampler_state(),
+		m_linear_clamp_sampler_state(), m_anisotropic_wrap_sampler_state(), m_anisotropic_clamp_sampler_state(),
+		m_mutex() {
+
+		Assert(m_device);
+	}
+
+	RenderingStateCache::RenderingStateCache(RenderingStateCache &&rendering_state_cache) = default;
+
+	RenderingStateCache::~RenderingStateCache() = default;
 
 	//-------------------------------------------------------------------------
 	// Blend states
@@ -30,6 +47,7 @@ namespace mage {
 		}
 		return m_opaque_blend_state.Get();
 	}
+	
 	ID3D11BlendState *RenderingStateCache::GetAlphaBlendState() {
 		MutexLock lock(m_mutex);
 		if (!m_alpha_blend_state) {
@@ -41,6 +59,7 @@ namespace mage {
 		return m_alpha_blend_state.Get();
 
 	}
+	
 	ID3D11BlendState *RenderingStateCache::GetAdditiveBlendState() {
 		MutexLock lock(m_mutex);
 		if (!m_additive_blend_state) {
@@ -51,6 +70,7 @@ namespace mage {
 		}
 		return m_additive_blend_state.Get();
 	}
+	
 	ID3D11BlendState *RenderingStateCache::GetNonPremultipliedBlendState() {
 		MutexLock lock(m_mutex);
 		if (!m_non_premultiplied_blend_state) {
@@ -76,6 +96,7 @@ namespace mage {
 		}
 		return m_depth_none_depth_stencil_state.Get();
 	}
+	
 	ID3D11DepthStencilState *RenderingStateCache::GetDepthDefaultDepthStencilState() {
 		MutexLock lock(m_mutex);
 		if (!m_depth_default_depth_stencil_state) {
@@ -86,6 +107,7 @@ namespace mage {
 		}
 		return m_depth_default_depth_stencil_state.Get();
 	}
+	
 	ID3D11DepthStencilState *RenderingStateCache::GetDepthReadDepthStencilState() {
 		MutexLock lock(m_mutex);
 		if (!m_depth_read_depth_stencil_state) {
@@ -111,6 +133,7 @@ namespace mage {
 		}
 		return m_cull_none_rasterizer_state.Get();
 	}
+	
 	ID3D11RasterizerState *RenderingStateCache::GetCullClockwiseRasterizerState() {
 		MutexLock lock(m_mutex);
 		if (!m_cull_clockwise_rasterizer_state) {
@@ -121,6 +144,7 @@ namespace mage {
 		}
 		return m_cull_clockwise_rasterizer_state.Get();
 	}
+	
 	ID3D11RasterizerState *RenderingStateCache::GetCullCounterClockwiseRasterizerState() {
 		MutexLock lock(m_mutex);
 		if (!m_cull_counter_clockwise_rasterizer_state) {
@@ -131,6 +155,7 @@ namespace mage {
 		}
 		return m_cull_counter_clockwise_rasterizer_state.Get();
 	}
+	
 	ID3D11RasterizerState *RenderingStateCache::GetWireframeRasterizerState() {
 		MutexLock lock(m_mutex);
 		if (!m_wireframe_rasterizer_state) {
@@ -156,6 +181,7 @@ namespace mage {
 		}
 		return m_point_wrap_sampler_state.Get();
 	}
+	
 	ID3D11SamplerState *RenderingStateCache::GetPointClampSamplerState() {
 		MutexLock lock(m_mutex);
 		if (!m_point_clamp_sampler_state) {
@@ -166,6 +192,7 @@ namespace mage {
 		}
 		return m_point_clamp_sampler_state.Get();
 	}
+	
 	ID3D11SamplerState *RenderingStateCache::GetLinearWrapSamplerState() {
 		MutexLock lock(m_mutex);
 		if (!m_linear_wrap_sampler_state) {
@@ -176,6 +203,7 @@ namespace mage {
 		}
 		return m_linear_wrap_sampler_state.Get();
 	}
+	
 	ID3D11SamplerState *RenderingStateCache::GetLinearClampSamplerState() {
 		MutexLock lock(m_mutex);
 		if (!m_linear_clamp_sampler_state) {
@@ -186,6 +214,7 @@ namespace mage {
 		}
 		return m_linear_clamp_sampler_state.Get();
 	}
+	
 	ID3D11SamplerState *RenderingStateCache::GetAnisotropicWrapSamplerState() {
 		MutexLock lock(m_mutex);
 		if (!m_anisotropic_wrap_sampler_state) {
@@ -196,6 +225,7 @@ namespace mage {
 		}
 		return m_anisotropic_wrap_sampler_state.Get();
 	}
+	
 	ID3D11SamplerState *RenderingStateCache::GetAnisotropicClampSamplerState() {
 		MutexLock lock(m_mutex);
 		if (!m_anisotropic_clamp_sampler_state) {

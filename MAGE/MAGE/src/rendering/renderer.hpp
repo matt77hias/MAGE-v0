@@ -207,17 +207,17 @@ namespace mage {
 		void EndFrame();
 
 		/**
-		 Begins the 2D rendering of the current frame.
+		 Prepares the 2D rendering of the current frame.
 		 */
-		void BeginRendering2D() {
-			m_rendering_state_2d->Render();
+		void PrepareRendering2D() {
+			m_rendering_state_2d->PrepareRendering();
 		}
 
 		/**
-		 Begins the 3D rendering of the current frame.
+		 Prepares the 3D rendering of the current frame.
 		 */
-		void BeginRendering3D() {
-			m_rendering_state_3d->Render();
+		void PrepareRendering3D() {
+			m_rendering_state_3d->PrepareRendering();
 		}
 
 	private:

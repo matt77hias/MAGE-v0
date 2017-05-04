@@ -3,8 +3,6 @@
 ## About
 <p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Example.png"></p>
 
-*<p align="center">System: CPU: i7-5500U @ 2.40GHz - GPU: GTX 960M</p>*
-
 MAGE - Matthias Advanced Game Engine
 
 ## Development

@@ -100,6 +100,7 @@ namespace mage {
 						A reference to the filename.
 		 @param[in]		desc
 						A reference to the mesh descriptor.
+		 @return		A pointer to the model descriptor.
 		 @throws		FormattedException
 						Failed to create the model descriptor.
 		 */
@@ -113,52 +114,38 @@ namespace mage {
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a bytecode is not equal to @c nullptr.
-		 @pre			The size of the data pointed to by @a bytecode
-						is equal to @a bytecode_size (bytes).
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		guid
-						A reference to the globally unique identifier
-						of this vertex shader.
-		 @param[in]		bytecode
-						A pointer to the shader bytecode.
-		 @param[in]		bytecode_size
-						The size of the given shader bytecode.
+		 @param[in]		compiled_vertex_shader
+						A reference to the compiled vertex shader.
+		 @return		A pointer to the basic vertex shader.
 		 @throws		FormattedException
 						Failed to create the basic vertex shader.
 		 */
 		SharedPtr< VertexShader > CreateBasicVertexShader(
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid, const void *bytecode, SIZE_T bytecode_size);
+			const CompiledVertexShader &compiled_vertex_shader);
 		
 		/**
 		 Creates a basic pixel shader (if not existing).
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a bytecode is not equal to @c nullptr.
-		 @pre			The size of the data pointed to by @a bytecode
-						is equal to @a bytecode_size (bytes).
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		guid
-						A reference to the globally unique identifier
-						of this vertex shader.
-		 @param[in]		bytecode
-						A pointer to the shader bytecode.
-		 @param[in]		bytecode_size
-						The size of the given shader bytecode.
+		 @param[in]		compiled_pixel_shader
+						A reference to the compiled pixel shader.
+		 @return		A pointer to the basic pixel shader.
 		 @throws		FormattedException
 						Failed to create the basic pixel shader.
 		 */
 		SharedPtr< PixelShader > CreateBasicPixelShader(
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid, const void *bytecode, SIZE_T bytecode_size);
+			const CompiledPixelShader &compiled_pixel_shader);
 		
 		/**
 		 Creates a sprite vertex shader (if not existing).
@@ -169,7 +156,7 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @return		A pointer to the created sprite vertex shader.
+		 @return		A pointer to the sprite vertex shader.
 		 @throws		FormattedException
 						Failed to create the sprite vertex shader.
 		 */
@@ -185,7 +172,7 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @return		A pointer to the created sprite pixel shader.
+		 @return		A pointer to the sprite pixel shader.
 		 @throws		FormattedException
 						Failed to create the sprite pixel shader.
 		 */
@@ -202,7 +189,7 @@ namespace mage {
 						A reference to the filename.
 		 @param[in]		desc
 						A reference to the sprite font descriptor.
-		 @return		A pointer to the created sprite font.
+		 @return		A pointer to the sprite font.
 		 @throws		FormattedException
 						Failed to create the sprite font.
 		 */
@@ -217,7 +204,7 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		fname
 						A reference to the filename.
-		 @return		A pointer to the created texture.
+		 @return		A pointer to the texture.
 		 @throws		FormattedException
 						Failed to create the texture.
 		 */

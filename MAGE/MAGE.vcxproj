@@ -134,6 +134,7 @@
     <ClInclude Include="MAGE\src\script\text_console_script.hpp" />
     <ClInclude Include="MAGE\src\script\wireframe_script.hpp" />
     <ClInclude Include="MAGE\src\shader\basic_shader.hpp" />
+    <ClInclude Include="MAGE\src\shader\compiled_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\blinn_phong_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\diffuse_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\lambertian_PS.hpp" />
@@ -247,6 +248,7 @@
     <ClCompile Include="MAGE\src\script\text_console_script.cpp" />
     <ClCompile Include="MAGE\src\script\wireframe_script.cpp" />
     <ClCompile Include="MAGE\src\shader\basic_shader.cpp" />
+    <ClCompile Include="MAGE\src\shader\compiled_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
     <ClCompile Include="MAGE\src\shader\shader.cpp" />
     <ClCompile Include="MAGE\src\shader\sprite_shader.cpp" />

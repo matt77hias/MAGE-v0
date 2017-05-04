@@ -3,22 +3,15 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "shader\basic_shader.hpp"
-
 #include "resource\resource_factory.hpp"
-#include "shader\cso\transform_VS.hpp"
-#include "shader\cso\diffuse_PS.hpp"
-#include "shader\cso\lambertian_PS.hpp"
-#include "shader\cso\phong_PS.hpp"
-#include "shader\cso\blinn_phong_PS.hpp"
-#include "shader\cso\modified_blinn_phong_PS.hpp"
+#include "shader\basic_shader.hpp"
 #include "mesh\vertex.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -27,16 +20,16 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	BasicVertexShader::BasicVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid)
-			: VertexShader(device, device_context, guid, 
-				VertexPositionNormalTexture::input_element_desc, 
-				VertexPositionNormalTexture::nb_input_elements) {}
+		const wstring &fname) 
+		: VertexShader(device, device_context, fname, 
+			VertexPositionNormalTexture::input_element_desc, 
+			VertexPositionNormalTexture::nb_input_elements) {}
 			
 	BasicVertexShader::BasicVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid, const void *bytecode, SIZE_T bytecode_size)
-			: VertexShader(device, device_context, guid, bytecode, bytecode_size,
-				VertexPositionNormalTexture::input_element_desc, 
-				VertexPositionNormalTexture::nb_input_elements) {}
+		const CompiledVertexShader &compiled_vertex_shader)
+		: VertexShader(device, device_context, compiled_vertex_shader,
+			VertexPositionNormalTexture::input_element_desc, 
+			VertexPositionNormalTexture::nb_input_elements) {}
 	
 	BasicVertexShader::BasicVertexShader(BasicVertexShader &&vertex_shader) = default;
 
@@ -53,13 +46,13 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	BasicPixelShader::BasicPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid)
-			: PixelShader(device, device_context, guid),
+		const wstring &fname)
+			: PixelShader(device, device_context, fname),
 			m_material_buffer(m_device, m_device_context) {}
 			
 	BasicPixelShader::BasicPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid, const void *bytecode, SIZE_T bytecode_size)
-			: PixelShader(device, device_context, guid, bytecode, bytecode_size),
+		const CompiledPixelShader &compiled_pixel_shader)
+			: PixelShader(device, device_context, compiled_pixel_shader),
 			m_material_buffer(m_device, m_device_context) {}
 	
 	BasicPixelShader::BasicPixelShader(BasicPixelShader &&pixel_shader) = default;
@@ -92,7 +85,7 @@ namespace mage {
 	// Factory Methods
 	//-------------------------------------------------------------------------
 
-	CombinedShader CreateDiffuseShader() {
+	const CombinedShader CreateDiffuseShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -103,13 +96,13 @@ namespace mage {
 		Assert(factory);
 
 		SharedPtr< VertexShader > vs = factory->CreateBasicVertexShader(
-			device, device_context, MAGE_GUID_TRANSFORM_VS, g_transform_vs, sizeof(g_transform_vs));
+			device, device_context, CreateCompiledTransformVertexShader());
 		SharedPtr< PixelShader >  ps = factory->CreateBasicPixelShader(
-			device, device_context, MAGE_GUID_DIFFUSE_PS, g_diffuse_ps, sizeof(g_diffuse_ps));
+			device, device_context, CreateCompiledDiffusePixelShader());
 		return CombinedShader(vs, ps);
 	}
 
-	CombinedShader CreateLambertianShader() {
+	const CombinedShader CreateLambertianShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -120,13 +113,13 @@ namespace mage {
 		Assert(factory);
 
 		SharedPtr< VertexShader > vs = factory->CreateBasicVertexShader(
-			device, device_context, MAGE_GUID_TRANSFORM_VS, g_transform_vs, sizeof(g_transform_vs));
+			device, device_context, CreateCompiledTransformVertexShader());
 		SharedPtr< PixelShader >  ps = factory->CreateBasicPixelShader(
-			device, device_context, MAGE_GUID_LAMBERTIAN_PS, g_lambertian_ps, sizeof(g_lambertian_ps));
+			device, device_context, CreateCompiledLambertianPixelShader());
 		return CombinedShader(vs, ps);
 	}
 
-	CombinedShader CreatePhongShader() {
+	const CombinedShader CreatePhongShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -137,13 +130,13 @@ namespace mage {
 		Assert(factory);
 
 		SharedPtr< VertexShader > vs = factory->CreateBasicVertexShader(
-			device, device_context, MAGE_GUID_TRANSFORM_VS, g_transform_vs, sizeof(g_transform_vs));
+			device, device_context, CreateCompiledTransformVertexShader());
 		SharedPtr< PixelShader >  ps = factory->CreateBasicPixelShader(
-			device, device_context, MAGE_GUID_PHONG_PS, g_phong_ps, sizeof(g_phong_ps));
+			device, device_context, CreateCompiledPhongPixelShader());
 		return CombinedShader(vs, ps);
 	}
 
-	CombinedShader CreateBlinnPhongShader() {
+	const CombinedShader CreateBlinnPhongShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -154,13 +147,13 @@ namespace mage {
 		Assert(factory);
 
 		SharedPtr< VertexShader > vs = factory->CreateBasicVertexShader(
-			device, device_context, MAGE_GUID_TRANSFORM_VS, g_transform_vs, sizeof(g_transform_vs));
+			device, device_context, CreateCompiledTransformVertexShader());
 		SharedPtr< PixelShader >  ps = factory->CreateBasicPixelShader(
-			device, device_context, MAGE_GUID_BLINN_PHONG_PS, g_blinn_phong_ps, sizeof(g_blinn_phong_ps));
+			device, device_context, CreateCompiledBlinnPhongPixelShader());
 		return CombinedShader(vs, ps);
 	}
 
-	CombinedShader CreateModifiedBlinnPhongShader() {
+	const CombinedShader CreateModifiedBlinnPhongShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -171,9 +164,9 @@ namespace mage {
 		Assert(factory);
 
 		SharedPtr< VertexShader > vs = factory->CreateBasicVertexShader(
-			device, device_context, MAGE_GUID_TRANSFORM_VS, g_transform_vs, sizeof(g_transform_vs));
+			device, device_context, CreateCompiledTransformVertexShader());
 		SharedPtr< PixelShader >  ps = factory->CreateBasicPixelShader(
-			device, device_context, MAGE_GUID_MODIFIED_BLINN_PHONG_PS, g_modified_blinn_phong_ps, sizeof(g_modified_blinn_phong_ps));
+			device, device_context, CreateCompiledModifiedBlinnPhongPixelShader());
 		return CombinedShader(vs, ps);
 	}
 }

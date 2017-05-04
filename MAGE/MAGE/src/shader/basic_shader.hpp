@@ -12,20 +12,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_GUID_TRANSFORM_VS L"transform_vs"
-#define MAGE_GUID_DIFFUSE_PS L"diffuse_ps"
-#define MAGE_GUID_LAMBERTIAN_PS L"lambertian_ps"
-#define MAGE_GUID_PHONG_PS L"phong_ps"
-#define MAGE_GUID_BLINN_PHONG_PS L"blinn_phong_ps"
-#define MAGE_GUID_MODIFIED_BLINN_PHONG_PS L"modified_blinn_phong_ps"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -54,40 +40,30 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		guid
-						A reference to the globally unique identifier
-						of this vertex shader (i.e. filename of the 
-						compiled shader output).
+		 @param[in]		fname
+						A reference to the filename.
 		 @throws		FormattedException
 						Failed to initialize this vertex shader.
 		 */
 		explicit BasicVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid);
+			const wstring &fname);
 		
 		/**
 		 Constructs a basic vertex shader.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a bytecode is not equal to @c nullptr.
-		 @pre			The size of the data pointed to by @a bytecode
-						is equal to @a bytecode_size (bytes).
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		guid
-						A reference to the globally unique identifier
-						of this vertex shader.
-		 @param[in]		bytecode
-						A pointer to the shader bytecode.
-		 @param[in]		bytecode_size
-						The size of the given shader bytecode.
+		 @param[in]		compiled_vertex_shader
+						A reference to the compiled vertex shader.
 		 @throws		FormattedException
 						Failed to initialize this vertex shader.
 		*/
 		explicit BasicVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid, const void *bytecode, SIZE_T bytecode_size);
+			const CompiledVertexShader &compiled_vertex_shader);
 		
 		/**
 		 Constructs a basic vertex shader from the given basic vertex shader.
@@ -172,40 +148,30 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		guid
-						A reference to the globally unique identifier
-						of this pixel shader (i.e. filename of the
-						compiled shader output).
+		 @param[in]		fname
+						A reference to the filename.
 		 @throws		FormattedException
 						Failed to initialize this pixel shader.
 		 */
 		explicit BasicPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid);
+			const wstring &fname);
 
 		/**
 		 Constructs a basic pixel shader.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a bytecode is not equal to @c nullptr.
-		 @pre			The size of the data pointed to by @a bytecode
-						is equal to @a bytecode_size (bytes).
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		guid
-						A reference to the globally unique identifier
-						of this pixel shader.
-		 @param[in]		bytecode
-						A pointer to the shader bytecode.
-		 @param[in]		bytecode_size
-						The size of the given shader bytecode.
+		 @param[in]		compiled_pixel_shader
+						A reference to the compiled pixel shader.
 		 @throws		FormattedException
 						Failed to initialize this pixel shader.
 		 */
 		explicit BasicPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid, const void *bytecode, SIZE_T bytecode_size);
+			const CompiledPixelShader &compiled_pixel_shader);
 		
 		/**
 		 Constructs a basic pixel shader from the given basic pixel shader.
@@ -286,44 +252,49 @@ namespace mage {
 	 Creates a diffuse shader.
 
 	 @pre			The current engine must be loaded.
+	 @return		The diffuse shader.
 	 @throws		FormattedException
 					Failed to create the lambertian shader.
 	 */
-	CombinedShader CreateDiffuseShader();
+	const CombinedShader CreateDiffuseShader();
 
 	/**
 	 Creates a Lambertian shader.
 
 	 @pre			The current engine must be loaded.
+	 @return		The Lambertian shader.
 	 @throws		FormattedException
 					Failed to create the lambertian shader.
 	 */
-	CombinedShader CreateLambertianShader();
+	const CombinedShader CreateLambertianShader();
 
 	/**
 	 Creates a Phong shader.
 
 	 @pre			The current engine must be loaded.
+	 @return		The Phong shader.
 	 @throws		FormattedException
 					Failed to create the lambertian shader.
 	 */
-	CombinedShader CreatePhongShader();
+	const CombinedShader CreatePhongShader();
 
 	/**
 	 Creates a Blinn-Phong shader.
 
 	 @pre			The current engine must be loaded.
+	 @return		The Blinn-Phong shader.
 	 @throws		FormattedException
 					Failed to create the lambertian shader.
 	 */
-	CombinedShader CreateBlinnPhongShader();
+	const CombinedShader CreateBlinnPhongShader();
 
 	/**
 	 Creates a Modified Blinn-Phong shader.
 
 	 @pre			The current engine must be loaded.
+	 @return		The Modified Blinn-Phong shader.
 	 @throws		FormattedException
 					Failed to create the lambertian shader.
 	 */
-	CombinedShader CreateModifiedBlinnPhongShader();
+	const CombinedShader CreateModifiedBlinnPhongShader();
 }

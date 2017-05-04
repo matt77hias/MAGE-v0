@@ -142,7 +142,7 @@ namespace mage {
 	 @pre			The current engine must be loaded.
 	 @param[in]		fname
 					A reference to the filename.
-	 @return		A pointer to the created texture.
+	 @return		A pointer to the texture.
 	 @throws		FormattedException
 					Failed to create the texture.
 	 */

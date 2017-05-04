@@ -699,6 +699,9 @@
     <ClInclude Include="MAGE\src\shader\cso\modified_blinn_phong_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\compiled_shader.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -984,6 +987,9 @@
       <Filter>Source Files\binary</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\shader\basic_shader.cpp">
+      <Filter>Source Files\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\compiled_shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
   </ItemGroup>

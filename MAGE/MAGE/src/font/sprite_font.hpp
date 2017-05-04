@@ -267,7 +267,7 @@ namespace mage {
 					A reference to the filename.
 	 @param[in]		desc
 					A reference to the sprite font descriptor.
-	 @return		A pointer to the created sprite font.
+	 @return		A pointer to the sprite font.
 	 @throws		FormattedException
 					Failed to create the sprite font.
 	 */

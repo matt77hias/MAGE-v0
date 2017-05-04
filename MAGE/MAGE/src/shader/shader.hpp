@@ -6,6 +6,7 @@
 #pragma region
 
 #include "resource\resource.hpp"
+#include "shader\compiled_shader.hpp"
 #include "material\material.hpp"
 
 #pragma endregion
@@ -132,10 +133,8 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		guid
-						A reference to the globally unique identifier
-						of this vertex shader (i.e. filename of the 
-						compiled shader output).
+		 @param[in]		fname
+						A reference to the filename.
 		 @param[in]		input_element_desc
 						A pointer the input element descriptors.
 		 @param[in]		nb_input_elements
@@ -145,16 +144,13 @@ namespace mage {
 						Failed to initialize this vertex shader.
 		 */
 		explicit VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
+			const wstring &fname, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 		
 		/**
 		 Constructs a vertex shader.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a bytecode is not equal to @c nullptr.
-		 @pre			The size of the data pointed to by @a bytecode
-						is equal to @a bytecode_size (bytes).
 		 @pre			@a input_element_desc is not equal to @c nullptr.
 		 @pre			The array pointed to by @a input_element_desc
 						contains @a nb_input_elements elements.
@@ -162,13 +158,8 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		guid
-						A reference to the globally unique identifier
-						of this vertex shader.
-		 @param[in]		bytecode
-						A pointer to the shader bytecode.
-		 @param[in]		bytecode_size
-						The size of the given shader bytecode.
+		 @param[in]		compiled_vertex_shader
+						A reference to the compiled vertex shader.
 		 @param[in]		input_element_desc
 						A pointer the input element descriptors.
 		 @param[in]		nb_input_elements
@@ -178,8 +169,7 @@ namespace mage {
 						Failed to initialize this vertex shader.
 		*/
 		explicit VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid, const void *bytecode, SIZE_T bytecode_size,
-			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
+			const CompiledVertexShader &compiled_vertex_shader, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 		
 		/**
 		 Constructs a vertex shader from the given vertex shader.
@@ -290,16 +280,11 @@ namespace mage {
 		/**
 		 Sets up this vertex shader.
 
-		 @pre			@a bytecode is not equal to @c nullptr.
-		 @pre			The size of the data pointed to by @a bytecode
-						is equal to @a bytecode_size (bytes).
 		 @pre			@a input_element_desc is not equal to @c nullptr.
 		 @pre			The array pointed to by @a input_element_desc
 						contains @a nb_input_elements elements.
-		 @param[in]		bytecode
-						A pointer to the shader bytecode.
-		 @param[in]		bytecode_size
-						The size of the given shader bytecode.
+		 @param[in]		compiled_vertex_shader
+						A reference to the compiled vertex shader.
 		 @param[in]		input_element_desc
 						A pointer the input element descriptors.
 		 @param[in]		nb_input_elements
@@ -308,7 +293,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to setup this vertex shader.
 		 */
-		void SetupShader(const void *bytecode, SIZE_T bytecode_size,
+		void SetupShader(const CompiledVertexShader &compiled_vertex_shader,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 	};
 
@@ -336,40 +321,30 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		guid
-						A reference to the globally unique identifier
-						of this pixel shader (i.e. filename of the
-						compiled shader output).
+		 @param[in]		fname
+						A reference to the filename.
 		 @throws		FormattedException
 						Failed to initialize this pixel shader.
 		 */
 		explicit PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid);
+			const wstring &fname);
 
 		/**
 		 Constructs a pixel shader.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a bytecode is not equal to @c nullptr.
-		 @pre			The size of the data pointed to by @a bytecode
-						is equal to @a bytecode_size (bytes).
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		guid
-						A reference to the globally unique identifier
-						of this pixel shader.
-		 @param[in]		bytecode
-						A pointer to the shader bytecode.
-		 @param[in]		bytecode_size
-						The size of the given shader bytecode.
+		 @param[in]		compiled_pixel_shader
+						A reference to the compiled pixel shader.
 		 @throws		FormattedException
 						Failed to initialize this pixel shader.
 		 */
 		explicit PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &guid, const void *bytecode, SIZE_T bytecode_size);
+			const CompiledPixelShader &compiled_pixel_shader);
 		
 		/**
 		 Constructs a pixel shader from the given pixel shader.
@@ -477,17 +452,12 @@ namespace mage {
 		/**
 		 Sets up this pixel shader.
 
-		 @pre			@a bytecode is not equal to @c nullptr.
-		 @pre			The size of the data pointed to by @a bytecode 
-						is equal to @a bytecode_size (bytes).
-		 @param[in]		bytecode
-						A pointer to the shader bytecode.
-		 @param[in]		bytecode_size
-						The size of the given shader bytecode.
+		 @param[in]		compiled_pixel_shader
+						A reference to the compiled pixel shader.
 		 @throws		FormattedException
 						Failed to setup this pixel shader.
 		 */
-		void SetupShader(const void *bytecode, SIZE_T bytecode_size);
+		void SetupShader(const CompiledPixelShader &compiled_pixel_shader);
 	};
 
 	//-------------------------------------------------------------------------

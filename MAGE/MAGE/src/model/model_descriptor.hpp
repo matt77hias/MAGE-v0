@@ -180,6 +180,7 @@ namespace mage {
 					A reference to the filename.
 	 @param[in]		desc
 					A reference to the mesh descriptor.
+	 @return		A pointer to the model descriptor.
 	 @throws		FormattedException
 					Failed to initialize the model descriptor.
 	 */

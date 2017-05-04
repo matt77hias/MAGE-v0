@@ -10,16 +10,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_GUID_SPRITE_VS L"sprite_vs"
-#define MAGE_GUID_SPRITE_PS L"sprite_ps"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -207,8 +197,9 @@ namespace mage {
 	 Creates a sprite shader.
 
 	 @pre			The current engine must be loaded.
+	 @return		The sprite shader.
 	 @throws		FormattedException
 					Failed to create the sprite shader.
 	 */
-	CombinedShader CreateSpriteShader();
+	const CombinedShader CreateSpriteShader();
 }

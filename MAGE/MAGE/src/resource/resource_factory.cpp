@@ -39,20 +39,18 @@ namespace mage {
 
 	SharedPtr< VertexShader > ResourceFactory::CreateBasicVertexShader(
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const wstring &guid, const void *bytecode, SIZE_T bytecode_size) {
+		const CompiledVertexShader &compiled_vertex_shader) {
 		return m_vertex_shader_resource_pool->template 
-			GetDerivedResource< BasicVertexShader, ID3D11Device2 *&, ID3D11DeviceContext2 *&,
-								const wstring &, const void *&, const SIZE_T& >
-								(guid, device, device_context, guid, bytecode, bytecode_size);
+			GetDerivedResource< BasicVertexShader, ID3D11Device2 *&, ID3D11DeviceContext2 *&, const CompiledVertexShader & >
+								(compiled_vertex_shader.m_name, device, device_context, compiled_vertex_shader);
 	}
 	
 	SharedPtr< PixelShader > ResourceFactory::CreateBasicPixelShader(
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const wstring &guid, const void *bytecode, SIZE_T bytecode_size) {
+		const CompiledPixelShader &compiled_pixel_shader) {
 		return m_pixel_shader_resource_pool->template 
-			GetDerivedResource< BasicPixelShader, ID3D11Device2 *&, ID3D11DeviceContext2 *&,
-								const wstring &, const void *&, const SIZE_T& >
-								(guid, device, device_context, guid, bytecode, bytecode_size);
+			GetDerivedResource< BasicPixelShader, ID3D11Device2 *&, ID3D11DeviceContext2 *&, const CompiledPixelShader & >
+								(compiled_pixel_shader.m_name, device, device_context, compiled_pixel_shader);
 	}
 	
 	SharedPtr< VertexShader > ResourceFactory::CreateSpriteVertexShader(

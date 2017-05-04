@@ -5,8 +5,6 @@
 
 #include "resource\resource_factory.hpp"
 #include "shader\sprite_shader.hpp"
-#include "shader\cso\sprite_PS.hpp"
-#include "shader\cso\sprite_VS.hpp"
 #include "mesh\vertex.hpp"
 #include "logging\error.hpp"
 
@@ -22,7 +20,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	SpriteVertexShader::SpriteVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
-		: VertexShader(device, device_context, MAGE_GUID_SPRITE_VS, g_sprite_vs, sizeof(g_sprite_vs),
+		: VertexShader(device, device_context, CreateCompiledSpriteVertexShader(),
 			VertexPositionColorTexture::input_element_desc, VertexPositionColorTexture::nb_input_elements) {}
 
 	SpriteVertexShader::SpriteVertexShader(SpriteVertexShader &&vertex_shader) = default;
@@ -40,7 +38,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	SpritePixelShader::SpritePixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
-		: PixelShader(device, device_context, MAGE_GUID_SPRITE_PS, g_sprite_ps, sizeof(g_sprite_ps)) {}
+		: PixelShader(device, device_context, CreateCompiledSpritePixelShader()) {}
 
 	SpritePixelShader::SpritePixelShader(SpritePixelShader &&pixel_shader) = default;
 
@@ -55,7 +53,7 @@ namespace mage {
 	// Combined Sprite Shader
 	//-------------------------------------------------------------------------
 
-	CombinedShader CreateSpriteShader() {
+	const CombinedShader CreateSpriteShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 

@@ -95,7 +95,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this model.
 		 */
-		SharedPtr< Model > Clone() const {
+		UniquePtr< Model > Clone() const {
 			return CloneImplementation();
 		}
 
@@ -208,9 +208,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this model.
 		 */
-		virtual SharedPtr< Model > CloneImplementation() const {
-			return SharedPtr< Model >(new Model(*this));
-		}
+		virtual UniquePtr< Model > CloneImplementation() const;
 
 		//---------------------------------------------------------------------
 		// Member Variables

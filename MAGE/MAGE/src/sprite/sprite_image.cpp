@@ -57,8 +57,8 @@ namespace mage {
 
 	SpriteImage::~SpriteImage() = default;
 
-	SharedPtr< SpriteObject > SpriteImage::CloneImplementation() const {
-		return SharedPtr< SpriteImage >(new SpriteImage(*this));
+	UniquePtr< SpriteObject > SpriteImage::CloneImplementation() const {
+		return UniquePtr< SpriteImage >(new SpriteImage(*this));
 	}
 
 	void SpriteImage::SetTextureRegion(const RECT &texture_region) {

@@ -111,8 +111,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this outline sprite text.
 		 */
-		SharedPtr< OutlineSpriteText > Clone() const {
-			return std::static_pointer_cast< OutlineSpriteText >(CloneImplementation());
+		UniquePtr< OutlineSpriteText > Clone() const {
+			return static_pointer_cast< OutlineSpriteText >(CloneImplementation());
 		}
 
 		/**
@@ -164,7 +164,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this outline sprite text.
 		 */
-		virtual SharedPtr< SpriteObject > CloneImplementation() const override;
+		virtual UniquePtr< SpriteObject > CloneImplementation() const override;
 
 		/**
 		 Returns the border color of this outline sprite text as @c XMVECTOR.

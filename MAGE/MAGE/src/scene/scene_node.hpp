@@ -43,8 +43,8 @@ namespace mage {
 		SceneNode &operator=(const SceneNode< SceneObjectT > &scene_node) = delete;
 		SceneNode &operator=(SceneNode< SceneObjectT > &&scene_node) = delete;
 
-		SharedPtr< SceneNode< SceneObjectT > > Clone() const {
-			return std::static_pointer_cast< SceneNode< SceneObjectT > >(CloneImplementation());
+		UniquePtr< SceneNode< SceneObjectT > > Clone() const {
+			return static_pointer_cast< SceneNode< SceneObjectT > >(CloneImplementation());
 		}
 
 		const string &GetName() const {
@@ -66,8 +66,8 @@ namespace mage {
 
 	private:
 
-		virtual SharedPtr< Node > CloneImplementation() const override {
-			return SharedPtr< SceneNode< SceneObjectT > >(new SceneNode< SceneObjectT >(*this));
+		virtual UniquePtr< Node > CloneImplementation() const override {
+			return UniquePtr< SceneNode< SceneObjectT > >(new SceneNode< SceneObjectT >(*this));
 		}
 
 		string m_name;

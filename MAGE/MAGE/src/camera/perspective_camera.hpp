@@ -124,8 +124,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this perspective camera.
 		 */
-		SharedPtr< PerspectiveCamera > Clone() const {
-			return std::static_pointer_cast< PerspectiveCamera >(CloneImplementation());
+		UniquePtr< PerspectiveCamera > Clone() const {
+			return static_pointer_cast< PerspectiveCamera >(CloneImplementation());
 		}
 
 		/**
@@ -250,7 +250,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this perspective camera.
 		 */
-		virtual SharedPtr< Camera > CloneImplementation() const override;
+		virtual UniquePtr< Camera > CloneImplementation() const override;
 
 		//---------------------------------------------------------------------
 		// Member Variables

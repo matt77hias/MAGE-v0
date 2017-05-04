@@ -34,8 +34,8 @@ namespace mage {
 
 	PerspectiveCamera &PerspectiveCamera::operator=(PerspectiveCamera &&camera) = default;
 
-	SharedPtr< Camera > PerspectiveCamera::CloneImplementation() const {
-		return SharedPtr< PerspectiveCamera >(new PerspectiveCamera(*this));
+	UniquePtr< Camera > PerspectiveCamera::CloneImplementation() const {
+		return UniquePtr< PerspectiveCamera >(new PerspectiveCamera(*this));
 	}
 
 	SharedPtr< PerspectiveCamera > CreatePerspectiveCamera(float fov_y, float near_z, float far_z) {

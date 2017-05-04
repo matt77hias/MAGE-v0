@@ -87,8 +87,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this directional light.
 		 */
-		SharedPtr< DirectionalLight > Clone() const {
-			return std::static_pointer_cast< DirectionalLight >(CloneImplementation());
+		UniquePtr< DirectionalLight > Clone() const {
+			return static_pointer_cast< DirectionalLight >(CloneImplementation());
 		}
 
 	private:
@@ -102,6 +102,6 @@ namespace mage {
 
 		 @return		A pointer to the clone of this directional light.
 		 */
-		virtual SharedPtr< Light > CloneImplementation() const override;
+		virtual UniquePtr< Light > CloneImplementation() const override;
 	};
 }

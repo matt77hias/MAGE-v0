@@ -28,7 +28,7 @@ namespace mage {
 	
 	SpotLight &SpotLight::operator=(SpotLight &&light) = default;
 
-	SharedPtr< Light > SpotLight::CloneImplementation() const {
-		return SharedPtr< SpotLight >(new SpotLight(*this));
+	UniquePtr< Light > SpotLight::CloneImplementation() const {
+		return UniquePtr< SpotLight >(new SpotLight(*this));
 	}
 }

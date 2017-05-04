@@ -74,8 +74,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this camera.
 		 */
-		SharedPtr< Camera > Clone() {
-			return std::static_pointer_cast< Camera >(CloneImplementation());
+		UniquePtr< Camera > Clone() {
+			return static_pointer_cast< Camera >(CloneImplementation());
 		}
 
 		/**
@@ -187,7 +187,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this camera.
 		 */
-		virtual SharedPtr< Camera > CloneImplementation() const = 0;
+		virtual UniquePtr< Camera > CloneImplementation() const = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables

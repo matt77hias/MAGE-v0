@@ -93,8 +93,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this normal sprite text.
 		 */
-		SharedPtr< NormalSpriteText > Clone() const {
-			return std::static_pointer_cast< NormalSpriteText >(CloneImplementation());
+		UniquePtr< NormalSpriteText > Clone() const {
+			return static_pointer_cast< NormalSpriteText >(CloneImplementation());
 		}
 
 		/**
@@ -117,6 +117,6 @@ namespace mage {
 
 		 @return		A pointer to the clone of this normal sprite text.
 		 */
-		virtual SharedPtr< SpriteObject > CloneImplementation() const override;
+		virtual UniquePtr< SpriteObject > CloneImplementation() const override;
 	};
 }

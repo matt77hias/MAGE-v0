@@ -63,7 +63,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this sprite object.
 		 */
-		SharedPtr< SpriteObject > Clone() const {
+		UniquePtr< SpriteObject > Clone() const {
 			return CloneImplementation();
 		}
 
@@ -176,7 +176,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this sprite object.
 		 */
-		virtual SharedPtr< SpriteObject > CloneImplementation() const = 0;
+		virtual UniquePtr< SpriteObject > CloneImplementation() const = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables

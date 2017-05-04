@@ -73,6 +73,10 @@ namespace mage {
 
 	Node::~Node() = default;
 
+	UniquePtr< Node > Node::CloneImplementation() const {
+		return UniquePtr< Node >(new Node(*this));
+	}
+
 	void Node::AddChildNode(SharedPtr< Node > node) {
 		if (!node || node->m_transform->m_parent == this) {
 			return;

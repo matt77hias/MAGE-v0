@@ -87,8 +87,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this spotlight.
 		 */
-		SharedPtr< SpotLight > Clone() const {
-			return std::static_pointer_cast< SpotLight >(CloneImplementation());
+		UniquePtr< SpotLight > Clone() const {
+			return static_pointer_cast< SpotLight >(CloneImplementation());
 		}
 
 		/**
@@ -304,7 +304,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this spotlight.
 		 */
-		virtual SharedPtr< Light > CloneImplementation() const override;
+		virtual UniquePtr< Light > CloneImplementation() const override;
 
 		//---------------------------------------------------------------------
 		// Member Variables

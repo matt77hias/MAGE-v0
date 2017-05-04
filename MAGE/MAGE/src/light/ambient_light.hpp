@@ -87,8 +87,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this ambient light.
 		 */
-		SharedPtr< AmbientLight > Clone() const {
-			return std::static_pointer_cast< AmbientLight >(CloneImplementation());
+		UniquePtr< AmbientLight > Clone() const {
+			return static_pointer_cast< AmbientLight >(CloneImplementation());
 		}
 
 	private:
@@ -102,6 +102,6 @@ namespace mage {
 
 		 @return		A pointer to the clone of this ambient light.
 		 */
-		virtual SharedPtr< Light > CloneImplementation() const override;
+		virtual UniquePtr< Light > CloneImplementation() const override;
 	};
 }

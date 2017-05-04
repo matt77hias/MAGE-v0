@@ -22,8 +22,8 @@ namespace mage {
 
 	NormalSpriteText::~NormalSpriteText() = default;
 
-	SharedPtr< SpriteObject > NormalSpriteText::CloneImplementation() const {
-		return SharedPtr< NormalSpriteText >(new NormalSpriteText(*this));
+	UniquePtr< SpriteObject > NormalSpriteText::CloneImplementation() const {
+		return UniquePtr< NormalSpriteText >(new NormalSpriteText(*this));
 	}
 
 	void NormalSpriteText::Draw(SpriteBatch &sprite_batch) const {

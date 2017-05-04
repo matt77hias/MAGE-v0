@@ -27,8 +27,8 @@ namespace mage {
 
 	OrthographicCamera &OrthographicCamera::operator=(OrthographicCamera &&camera) = default;
 
-	SharedPtr< Camera > OrthographicCamera::CloneImplementation() const {
-		return SharedPtr< OrthographicCamera >(new OrthographicCamera(*this));
+	UniquePtr< Camera > OrthographicCamera::CloneImplementation() const {
+		return UniquePtr< OrthographicCamera >(new OrthographicCamera(*this));
 	}
 
 	SharedPtr< OrthographicCamera > CreateOrthographicCamera(

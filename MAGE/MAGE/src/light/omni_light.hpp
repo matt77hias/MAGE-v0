@@ -87,8 +87,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this omni light.
 		 */
-		SharedPtr< OmniLight > Clone() const {
-			return std::static_pointer_cast< OmniLight >(CloneImplementation());
+		UniquePtr< OmniLight > Clone() const {
+			return static_pointer_cast< OmniLight >(CloneImplementation());
 		}
 		
 		/**
@@ -162,7 +162,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this omni light.
 		 */
-		virtual SharedPtr< Light > CloneImplementation() const override;
+		virtual UniquePtr< Light > CloneImplementation() const override;
 
 		//---------------------------------------------------------------------
 		// Member Variables

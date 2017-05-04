@@ -65,8 +65,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this sprite text.
 		 */
-		SharedPtr< SpriteText > Clone() const {
-			return std::static_pointer_cast< SpriteText >(CloneImplementation());
+		UniquePtr< SpriteText > Clone() const {
+			return static_pointer_cast< SpriteText >(CloneImplementation());
 		}
 
 		/**
@@ -228,7 +228,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this sprite text.
 		 */
-		virtual SharedPtr< SpriteObject > CloneImplementation() const = 0;
+		virtual UniquePtr< SpriteObject > CloneImplementation() const = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables

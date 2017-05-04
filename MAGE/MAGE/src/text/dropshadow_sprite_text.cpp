@@ -30,8 +30,8 @@ namespace mage {
 
 	DropshadowSpriteText::~DropshadowSpriteText() = default;
 
-	SharedPtr< SpriteObject > DropshadowSpriteText::CloneImplementation() const {
-		return SharedPtr< DropshadowSpriteText >(new DropshadowSpriteText(*this));
+	UniquePtr< SpriteObject > DropshadowSpriteText::CloneImplementation() const {
+		return UniquePtr< DropshadowSpriteText >(new DropshadowSpriteText(*this));
 	}
 
 	void DropshadowSpriteText::Draw(SpriteBatch &sprite_batch) const {

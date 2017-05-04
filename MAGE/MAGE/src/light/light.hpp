@@ -64,8 +64,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this light.
 		 */
-		SharedPtr< Light > Clone() {
-			return std::static_pointer_cast< Light >(CloneImplementation());
+		UniquePtr< Light > Clone() {
+			return static_pointer_cast< Light >(CloneImplementation());
 		}
 
 		/**
@@ -128,7 +128,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this light.
 		 */
-		virtual SharedPtr< Light > CloneImplementation() const = 0;
+		virtual UniquePtr< Light > CloneImplementation() const = 0;
 
 		//---------------------------------------------------------------------
 		// Member Variables

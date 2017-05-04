@@ -107,8 +107,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this orthographic camera.
 		 */
-		SharedPtr< OrthographicCamera > Clone() const {
-			return std::static_pointer_cast< OrthographicCamera >(CloneImplementation());
+		UniquePtr< OrthographicCamera > Clone() const {
+			return static_pointer_cast< OrthographicCamera >(CloneImplementation());
 		}
 
 		/**
@@ -217,7 +217,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this orthographic camera.
 		 */
-		virtual SharedPtr< Camera > CloneImplementation() const override;
+		virtual UniquePtr< Camera > CloneImplementation() const override;
 
 		//---------------------------------------------------------------------
 		// Member Variables

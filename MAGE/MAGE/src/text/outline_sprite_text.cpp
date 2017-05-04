@@ -30,8 +30,8 @@ namespace mage {
 
 	OutlineSpriteText::~OutlineSpriteText() = default;
 
-	SharedPtr< SpriteObject > OutlineSpriteText::CloneImplementation() const {
-		return SharedPtr< OutlineSpriteText >(new OutlineSpriteText(*this));
+	UniquePtr< SpriteObject > OutlineSpriteText::CloneImplementation() const {
+		return UniquePtr< OutlineSpriteText >(new OutlineSpriteText(*this));
 	}
 
 	void OutlineSpriteText::Draw(SpriteBatch &sprite_batch) const {

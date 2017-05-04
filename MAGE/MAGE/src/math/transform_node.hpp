@@ -1330,7 +1330,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this node.
 		 */
-		SharedPtr< Node > Clone() const {
+		UniquePtr< Node > Clone() const {
 			return CloneImplementation();
 		}
 
@@ -1460,9 +1460,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this node.
 		 */
-		virtual SharedPtr< Node > CloneImplementation() const {
-			return SharedPtr< Node >(new Node(*this));
-		}
+		virtual UniquePtr< Node > CloneImplementation() const;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Variables

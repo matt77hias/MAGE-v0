@@ -25,7 +25,7 @@ namespace mage {
 	
 	AmbientLight &AmbientLight::operator=(AmbientLight &&light) = default;
 
-	SharedPtr< Light > AmbientLight::CloneImplementation() const {
-		return SharedPtr< AmbientLight >(new AmbientLight(*this));
+	UniquePtr< Light > AmbientLight::CloneImplementation() const {
+		return UniquePtr< AmbientLight >(new AmbientLight(*this));
 	}
 }

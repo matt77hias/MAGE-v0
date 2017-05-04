@@ -148,8 +148,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this sprite image.
 		 */
-		SharedPtr< SpriteImage > Clone() const {
-			return std::static_pointer_cast< SpriteImage >(CloneImplementation());
+		UniquePtr< SpriteImage > Clone() const {
+			return static_pointer_cast< SpriteImage >(CloneImplementation());
 		}
 
 		/**
@@ -228,7 +228,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this sprite image.
 		 */
-		virtual SharedPtr< SpriteObject > CloneImplementation() const override;
+		virtual UniquePtr< SpriteObject > CloneImplementation() const override;
 
 		/**
 		 Returns the color of this sprite image as @c XMVECTOR.

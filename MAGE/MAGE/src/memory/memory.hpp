@@ -78,7 +78,28 @@ namespace mage {
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Handles
+	// UniquePointer
+	//-------------------------------------------------------------------------
+
+	/**
+	 Creates a unique pointer whose stored pointer is obtained 
+	 from the stored pointer of the given unique pointer.
+
+	 @tparam		T
+					The conversion to-type.
+	 @tparam		U
+					The conversion from-type.
+	 @param[in]		ptr
+					The unique pointer to move.
+	 @return		The moved unique pointer.
+	 */
+	template< typename T, typename U >
+	UniquePtr< T > static_pointer_cast(UniquePtr< U > &&ptr) {
+		return UniquePtr< T >(static_cast< T * >(ptr.release()));
+	}
+
+	//-------------------------------------------------------------------------
+	// UniqueHandle and SharedHandle
 	//-------------------------------------------------------------------------
 
 	/**
@@ -140,7 +161,7 @@ namespace mage {
 	}
 
 	//-------------------------------------------------------------------------
-	// File Streams
+	// UniqueFileStream
 	//-------------------------------------------------------------------------
 
 	/**

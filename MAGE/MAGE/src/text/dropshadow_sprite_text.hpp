@@ -111,8 +111,8 @@ namespace mage {
 
 		 @return		A pointer to the clone of this dropshadow sprite text.
 		 */
-		SharedPtr< DropshadowSpriteText > Clone() const {
-			return std::static_pointer_cast< DropshadowSpriteText >(CloneImplementation());
+		UniquePtr< DropshadowSpriteText > Clone() const {
+			return static_pointer_cast< DropshadowSpriteText >(CloneImplementation());
 		}
 
 		/**
@@ -164,7 +164,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this dropshadow sprite text.
 		 */
-		virtual SharedPtr< SpriteObject > CloneImplementation() const override;
+		virtual UniquePtr< SpriteObject > CloneImplementation() const override;
 
 		/**
 		 Returns the shadow color of this dropshadow sprite text as @c XMVECTOR.

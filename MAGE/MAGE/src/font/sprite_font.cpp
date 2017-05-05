@@ -149,7 +149,7 @@ namespace mage {
 	};
 
 	SpriteFont::SpriteFont(ID3D11Device2 *device, const wstring &fname, const SpriteFontDescriptor &desc)
-		: FileResource(fname), m_texture(), m_glyphs(),
+		: FileResource(fname), m_texture_srv(), m_glyphs(),
 		m_default_glyph(nullptr), m_line_spacing(0.0f) {
 
 		Assert(device);
@@ -173,7 +173,7 @@ namespace mage {
 		SetLineSpacing(output.m_line_spacing);
 		SetDefaultCharacter(output.m_default_character);
 		
-		m_texture = std::move(output.m_texture);
+		m_texture_srv = std::move(output.m_texture_srv);
 	}
 
 	void SpriteFont::DrawString(SpriteBatch &sprite_batch, const wchar_t *text, 
@@ -245,7 +245,7 @@ namespace mage {
 					}
 
 					sprite_transform.SetRotationOrigin(offset);
-					sprite_batch.Draw(m_texture.Get(), color, effects, sprite_transform, &glyph->m_sub_rectangle);
+					sprite_batch.Draw(m_texture_srv.Get(), color, effects, sprite_transform, &glyph->m_sub_rectangle);
 				}
 
 				x += advance;

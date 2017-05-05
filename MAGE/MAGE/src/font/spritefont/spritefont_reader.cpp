@@ -87,8 +87,8 @@ namespace mage {
 		CD3D11_SHADER_RESOURCE_VIEW_DESC shader_resource_view_desc(D3D11_SRV_DIMENSION_TEXTURE2D, texture_format);
 		
 		// Create the shader resource view.
-		const HRESULT result_shader_resource_view = m_device->CreateShaderResourceView(texture.Get(), &shader_resource_view_desc, m_output.m_texture.ReleaseAndGetAddressOf());
-		if (FAILED(result_shader_resource_view)) {
+		const HRESULT result_texture_srv = m_device->CreateShaderResourceView(texture.Get(), &shader_resource_view_desc, m_output.m_texture_srv.ReleaseAndGetAddressOf());
+		if (FAILED(result_texture_srv)) {
 			throw FormattedException("%ls: failed to create ID3D11ShaderResourceView: %08X.", GetFilename().c_str(), result_texture);
 		}
 	}

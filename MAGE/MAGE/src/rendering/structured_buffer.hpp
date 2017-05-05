@@ -110,7 +110,7 @@ namespace mage {
 						of this structured buffer.
 		 */
 		ID3D11ShaderResourceView *Get() const {
-			return m_shader_resource_view.Get();
+			return m_buffer_srv.Get();
 		}
 
 		/**
@@ -120,7 +120,7 @@ namespace mage {
 						of this structured buffer.
 		 */
 		ID3D11ShaderResourceView * const *GetAddressOf() const {
-			return m_shader_resource_view.GetAddressOf();
+			return m_buffer_srv.GetAddressOf();
 		}
 
 		/**
@@ -130,7 +130,7 @@ namespace mage {
 						of this structured buffer.
 		 */
 		ID3D11ShaderResourceView **GetAddressOf() {
-			return m_shader_resource_view.GetAddressOf();
+			return m_buffer_srv.GetAddressOf();
 		}
 
 	private:
@@ -177,7 +177,7 @@ namespace mage {
 		/**
 		 A pointer to the shader resource view of this structured buffer.
 		 */
-		mutable ComPtr< ID3D11ShaderResourceView > m_shader_resource_view;
+		mutable ComPtr< ID3D11ShaderResourceView > m_buffer_srv;
 	};
 }
 

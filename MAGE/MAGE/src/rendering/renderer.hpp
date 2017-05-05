@@ -263,7 +263,7 @@ namespace mage {
 						Failed to set up the render target view
 						of this renderer.
 		 */
-		void SetupRenderTargetView();
+		void SetupRTV();
 
 		/**
 		 Sets up the depth stencil view of this renderer.
@@ -272,7 +272,7 @@ namespace mage {
 						Failed to set up the depth stencil view
 						of this renderer.
 		 */
-		void SetupDepthStencilView();
+		void SetupDSV();
 
 		/**
 		 Sets up the rendering states of this renderer.
@@ -337,17 +337,12 @@ namespace mage {
 		/**
 		 A pointer to the render target view of this renderer.
 		 */
-		ComPtr< ID3D11RenderTargetView > m_render_target_view;
-
-		/**
-		 A pointer to the depth stencil buffer of this renderer.
-		 */
-		ComPtr< ID3D11Texture2D > m_depth_stencil;
+		ComPtr< ID3D11RenderTargetView > m_rtv;
 
 		/**
 		 A pointer to the depth stencil view of this renderer.
 		 */
-		ComPtr< ID3D11DepthStencilView > m_depth_stencil_view;
+		ComPtr< ID3D11DepthStencilView > m_dsv;
 
 		/**
 		 A pointer to the 2D rendering state of this renderer.

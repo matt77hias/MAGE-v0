@@ -72,6 +72,6 @@ namespace mage {
 	}
 
 	void SpriteImage::Draw(SpriteBatch &sprite_batch) const {
-		sprite_batch.Draw(m_texture->GetTextureResourceView(), GetColorVector(), GetSpriteEffects(), *GetTransform(), m_texture_region.get());
+		sprite_batch.Draw(m_texture->Get(), GetColorVector(), GetSpriteEffects(), *GetTransform(), m_texture_region.get());
 	}
 }

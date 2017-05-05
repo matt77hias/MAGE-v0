@@ -86,7 +86,7 @@ namespace mage {
 		 A pointer to the texture of the sprite font 
 		 of this sprite font output.
 		 */
-		ComPtr< ID3D11ShaderResourceView > m_texture;
+		ComPtr< ID3D11ShaderResourceView > m_texture_srv;
 
 		/**
 		 A vector containing the glyphs of the sprite font

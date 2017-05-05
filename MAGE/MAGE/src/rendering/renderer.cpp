@@ -19,8 +19,7 @@ namespace mage {
 		m_hwindow(hwindow), m_fullscreen(false),
 		m_in_begin_end_pair(false), 
 		m_display_mode(*g_device_enumeration->GetDisplayMode()),
-		m_device(), m_device_context(), m_swap_chain(),
-		m_render_target_view(), m_depth_stencil(), m_depth_stencil_view(),
+		m_device(), m_device_context(), m_swap_chain(), m_rtv(), m_dsv(),
 		m_rendering_state_2d(), m_rendering_state_3d(), m_rendering_state_cache() {
 
 		Assert(m_hwindow);
@@ -40,12 +39,10 @@ namespace mage {
 		// Setup the IDXGISwapChain2.
 		SetupSwapChain();
 
-		// Setup the ID3D11RenderTargetView
-		SetupRenderTargetView();
-		// Setup the ID3D11DepthStencilView.
-		SetupDepthStencilView();
-		// Bind one or more render targets atomically and 
-		m_device_context->OMSetRenderTargets(1, m_render_target_view.GetAddressOf(), m_depth_stencil_view.Get());
+		// Setup and binds the RTV and DSV.
+		SetupRTV();
+		SetupDSV();
+		m_device_context->OMSetRenderTargets(1, m_rtv.GetAddressOf(), m_dsv.Get());
 
 		// Setup the rendering states.
 		SetupRenderingStates();
@@ -152,7 +149,7 @@ namespace mage {
 		m_swap_chain->SetFullscreenState(FALSE, nullptr);
 	}
 
-	void Renderer::SetupRenderTargetView() {
+	void Renderer::SetupRTV() {
 		// Access the only back buffer of the swap-chain.
 		ComPtr< ID3D11Texture2D > back_buffer;
 		const HRESULT result_back_buffer = m_swap_chain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void **)back_buffer.GetAddressOf());
@@ -160,14 +157,14 @@ namespace mage {
 			throw FormattedException("Back buffer texture creation failed: %08X.", result_back_buffer);
 		}
 		
-		// Create a ID3D11RenderTargetView.
-		const HRESULT result_render_target_view = m_device->CreateRenderTargetView(back_buffer.Get(), nullptr, m_render_target_view.ReleaseAndGetAddressOf());
+		// Create the render target view.
+		const HRESULT result_render_target_view = m_device->CreateRenderTargetView(back_buffer.Get(), nullptr, m_rtv.ReleaseAndGetAddressOf());
 		if (FAILED(result_render_target_view)) {
 			throw FormattedException("ID3D11RenderTargetView creation failed: %08X.", result_render_target_view);
 		}
 	}
 
-	void Renderer::SetupDepthStencilView() {
+	void Renderer::SetupDSV() {
 		// Create the depth stencil texture descriptor.
 		D3D11_TEXTURE2D_DESC depth_stencil_desc;
 		ZeroMemory(&depth_stencil_desc, sizeof(depth_stencil_desc));
@@ -184,22 +181,23 @@ namespace mage {
 		depth_stencil_desc.MiscFlags          = 0;							   // Flags that identify other, less common resource options.
 		
 		// Create the depth stencil texture.
-		const HRESULT result_depth_stencil = m_device->CreateTexture2D(&depth_stencil_desc, nullptr, m_depth_stencil.ReleaseAndGetAddressOf());
+		ComPtr< ID3D11Texture2D > depth_stencil;
+		const HRESULT result_depth_stencil = m_device->CreateTexture2D(&depth_stencil_desc, nullptr, depth_stencil.ReleaseAndGetAddressOf());
 		if (FAILED(result_depth_stencil)) {
 			throw FormattedException("Depth-stencil texture creation failed: %08X.", result_depth_stencil);
 		}
 
 		// Create the depth stencil view descriptor.
-		D3D11_DEPTH_STENCIL_VIEW_DESC depth_stencil_view_desc;
-		ZeroMemory(&depth_stencil_view_desc, sizeof(depth_stencil_view_desc));
-		depth_stencil_view_desc.Format             = depth_stencil_desc.Format;
-		depth_stencil_view_desc.ViewDimension      = D3D11_DSV_DIMENSION_TEXTURE2D;
-		depth_stencil_view_desc.Texture2D.MipSlice = 0;
+		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc;
+		ZeroMemory(&dsv_desc, sizeof(dsv_desc));
+		dsv_desc.Format             = depth_stencil_desc.Format;
+		dsv_desc.ViewDimension      = D3D11_DSV_DIMENSION_TEXTURE2D;
+		dsv_desc.Texture2D.MipSlice = 0;
 		
-		// Create the depth stencil view.
-		const HRESULT result_depth_stencil_view = m_device->CreateDepthStencilView(m_depth_stencil.Get(), &depth_stencil_view_desc, m_depth_stencil_view.ReleaseAndGetAddressOf());
-		if (FAILED(result_depth_stencil_view)) {
-			throw FormattedException("Depth-stencil view creation failed: %08X.", result_depth_stencil_view);
+		// Create a depth stencil view.
+		const HRESULT result_dsv = m_device->CreateDepthStencilView(depth_stencil.Get(), &dsv_desc, m_dsv.ReleaseAndGetAddressOf());
+		if (FAILED(result_dsv)) {
+			throw FormattedException("Depth-stencil view creation failed: %08X.", result_dsv);
 		}
 	}
 
@@ -235,9 +233,9 @@ namespace mage {
 		const XMVECTORF32 background_color = { 0.0f, 0.0f, 0.0f, 1.000000000f };
 
 		// Clear the back buffer.
-		m_device_context->ClearRenderTargetView(m_render_target_view.Get(), background_color);
+		m_device_context->ClearRenderTargetView(m_rtv.Get(), background_color);
 		// Clear the depth buffer to 1.0 (i.e. max depth).
-		m_device_context->ClearDepthStencilView(m_depth_stencil_view.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+		m_device_context->ClearDepthStencilView(m_dsv.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 		m_in_begin_end_pair = true;
 	}
@@ -253,9 +251,8 @@ namespace mage {
 
 	void Renderer::SwitchMode(bool toggle) {
 		// Release the swap chain buffers.
-		m_render_target_view.Reset();
-		m_depth_stencil.Reset();
-		m_depth_stencil_view.Reset();
+		m_rtv.Reset();
+		m_dsv.Reset();
 
 		BOOL current = false;
 		if (toggle) {
@@ -266,12 +263,10 @@ namespace mage {
 
 		// Recreate the swap chain buffers.
 		m_swap_chain->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
-		// Setup the ID3D11RenderTargetView
-		SetupRenderTargetView();
-		// Setup the ID3D11DepthStencilView.
-		SetupDepthStencilView();
-		// Bind one or more render targets atomically and 
-		m_device_context->OMSetRenderTargets(1, m_render_target_view.GetAddressOf(), m_depth_stencil_view.Get());
+		// Setup and binds the RTV and DSV.
+		SetupRTV();
+		SetupDSV();
+		m_device_context->OMSetRenderTargets(1, m_rtv.GetAddressOf(), m_dsv.Get());
 
 		m_swap_chain->GetFullscreenState(&current, nullptr);
 		m_fullscreen = (current != 0);

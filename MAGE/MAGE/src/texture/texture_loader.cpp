@@ -16,14 +16,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void ImportTextureFromFile(const wstring &fname, ID3D11Device2 *device, ID3D11ShaderResourceView **texture_resource_view) {
+	void ImportTextureFromFile(const wstring &fname, ID3D11Device2 *device, ID3D11ShaderResourceView **texture_srv) {
 		Assert(device);
-		Assert(texture_resource_view);
+		Assert(texture_srv);
 		
 		const wstring extension = GetFileExtension(fname);
 
 		if (extension == L"dds" || extension == L"DDS") {
-			const HRESULT result = CreateDDSTextureFromFile(device, fname.c_str(), nullptr, texture_resource_view);
+			const HRESULT result = CreateDDSTextureFromFile(device, fname.c_str(), nullptr, texture_srv);
 			if (FAILED(result)) {
 				throw FormattedException("Texture importing failed: %08X.", result);
 			}

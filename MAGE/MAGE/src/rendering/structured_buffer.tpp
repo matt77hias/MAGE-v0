@@ -20,7 +20,7 @@ namespace mage {
 	StructuredBuffer< DataT >::StructuredBuffer(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		size_t nb_initial_data_elements)
 		: m_device(device), m_device_context(device_context), 
-		m_buffer(), m_nb_data_elements(0), m_shader_resource_view() {
+		m_buffer(), m_nb_data_elements(0), m_buffer_srv() {
 
 		Assert(m_device);
 		Assert(m_device_context);
@@ -45,9 +45,9 @@ namespace mage {
 		resource_view_desc.Buffer.FirstElement = 0;
 		resource_view_desc.Buffer.NumElements  = static_cast< UINT >(m_nb_data_elements);
 
-		const HRESULT result_shader_resource_view = m_device->CreateShaderResourceView(m_buffer.Get(), &resource_view_desc, m_shader_resource_view.ReleaseAndGetAddressOf());
-		if (FAILED(result_shader_resource_view)) {
-			throw FormattedException("Shader resource view creation failed: %08X.", result_shader_resource_view);
+		const HRESULT result_buffer_srv = m_device->CreateShaderResourceView(m_buffer.Get(), &resource_view_desc, m_buffer_srv.ReleaseAndGetAddressOf());
+		if (FAILED(result_buffer_srv)) {
+			throw FormattedException("Shader resource view creation failed: %08X.", result_buffer_srv);
 		}
 	}
 

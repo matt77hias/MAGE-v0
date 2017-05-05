@@ -24,10 +24,10 @@ namespace mage {
 					A reference to the filename.
 	 @param[in]		device
 					A pointer to the device.
-	 @param[out]	texture_resource_view
+	 @param[out]	texture_srv
 					A pointer to a pointer to a shader resource view.
 	 @throws		FormattedException
 					Failed to import the texture from file.
 	 */
-	void ImportTextureFromFile(const wstring &fname, ID3D11Device2 *device, ID3D11ShaderResourceView **texture_resource_view);
+	void ImportTextureFromFile(const wstring &fname, ID3D11Device2 *device, ID3D11ShaderResourceView **texture_srv);
 }

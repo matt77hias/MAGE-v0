@@ -95,8 +95,8 @@ namespace mage {
 		 @return		A pointer to the shader resource view
 						of this texture.
 		 */
-		ID3D11ShaderResourceView *GetTextureResourceView() const {
-			return m_texture_resource_view.Get();
+		ID3D11ShaderResourceView *Get() const {
+			return m_texture_srv.Get();
 		}
 		
 		/**
@@ -105,8 +105,8 @@ namespace mage {
 		 @return		A pointer to the pointer to the shader resource view
 						of this texture.
 		 */
-		ID3D11ShaderResourceView * const *GetTextureResourceViewAddress() const {
-			return m_texture_resource_view.GetAddressOf();
+		ID3D11ShaderResourceView * const *GetAddress() const {
+			return m_texture_srv.GetAddressOf();
 		}
 		
 		/**
@@ -115,8 +115,8 @@ namespace mage {
 		 @return		A pointer to the pointer to the shader resource view 
 						of this texture.
 		 */
-		ID3D11ShaderResourceView **GetTextureResourceViewAddress() {
-			return m_texture_resource_view.GetAddressOf();
+		ID3D11ShaderResourceView **GetAddress() {
+			return m_texture_srv.GetAddressOf();
 		}
 
 	private:
@@ -133,7 +133,7 @@ namespace mage {
 		/**
 		 A pointer to the shader resource view of this texture.
 		 */
-		ComPtr< ID3D11ShaderResourceView > m_texture_resource_view;
+		ComPtr< ID3D11ShaderResourceView > m_texture_srv;
 	};
 
 	/**

@@ -75,7 +75,7 @@ namespace mage {
 
 		// TODO
 		if (material.m_diffuse_reflectivity_texture) {
-			m_device_context->PSSetShaderResources(0, 1, material.m_diffuse_reflectivity_texture->GetTextureResourceViewAddress());
+			m_device_context->PSSetShaderResources(0, 1, material.m_diffuse_reflectivity_texture->GetAddress());
 		}
 	}
 }

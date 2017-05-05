@@ -10,8 +10,8 @@ class TestScript final : public BehaviorScript {
 
 public:
 
-	TestScript(SharedPtr< ModelNode > model)
-		: BehaviorScript(), m_model(model) {}
+	TestScript(TransformNode *transform)
+		: BehaviorScript(), m_transform(transform) {}
 	TestScript(const TestScript &script) = delete;
 	TestScript(TestScript &&script) = default;
 	virtual ~TestScript() = default;
@@ -19,7 +19,7 @@ public:
 	TestScript &operator=(TestScript &&script) = delete;
 
 	virtual void Update(double delta_time) override {
-		m_model->GetTransform()->AddRotationY(static_cast< float >(delta_time));
+		m_transform->AddRotationY(static_cast< float >(delta_time));
 
 		if (g_engine->GetInputManager()->GetKeyboard()->GetKeyPress(DIK_F2)) {
 			//PostQuitMessage(0);
@@ -30,7 +30,7 @@ public:
 
 private:
 	
-	SharedPtr< ModelNode > m_model;
+	TransformNode * const m_transform;
 };
 
 class TestScene final : public Scene {
@@ -40,7 +40,7 @@ public:
 	TestScene()
 		: Scene("testscene") {}
 	TestScene(const TestScene &scene) = delete;
-	TestScene(TestScene &&scene) = delete;
+	TestScene(TestScene &&scene) = default;
 	virtual ~TestScene() = default;
 	TestScene &operator=(const TestScene &scene) = delete;
 	TestScene &operator=(TestScene &&scene) = delete;
@@ -106,7 +106,7 @@ private:
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		//SharedPtr< BehaviorScript > script(new TestScript(model_teapot));
+		//SharedPtr< BehaviorScript > script(new TestScript(model_sphere->GetTransform()));
 		//AddScript(script);
 		
 		SharedPtr< BehaviorScript > controller_script(new FPSInputControllerScript(camera->GetTransform()));

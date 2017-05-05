@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "shader\compiled_shader.hpp"
+#include "shader\compiled_shader_factory.hpp"
 #include "shader\cso\transform_VS.hpp"
 #include "shader\cso\diffuse_PS.hpp"
 #include "shader\cso\lambertian_PS.hpp"

@@ -4,6 +4,7 @@
 #pragma region
 
 #include "core\engine.hpp"
+#include "shader\compiled_shader_factory.hpp"
 #include "shader\basic_shader.hpp"
 #include "shader\sprite_shader.hpp"
 

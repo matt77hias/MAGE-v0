@@ -26,6 +26,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+
+
+
+
+
+
+
+
+
+
+
+
 	template< typename SceneObjectT >
 	class SceneNode : public Node {
 

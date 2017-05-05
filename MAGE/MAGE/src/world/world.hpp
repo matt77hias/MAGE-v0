@@ -12,7 +12,7 @@
 #include "rendering\structured_buffer.hpp"
 #include "buffer\transform_buffer.hpp"
 #include "buffer\light_buffer.hpp"
-#include "shader\basic_shader.hpp"
+#include "shader\basic_shader_factory.hpp"
 
 #pragma endregion
 

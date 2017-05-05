@@ -4,6 +4,7 @@
 #pragma region
 
 #include "resource\resource_factory.hpp"
+#include "shader\compiled_shader_factory.hpp"
 #include "shader\sprite_shader.hpp"
 #include "mesh\vertex.hpp"
 #include "logging\error.hpp"

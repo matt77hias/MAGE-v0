@@ -31,9 +31,9 @@ namespace mage {
 		return UniquePtr< OrthographicCamera >(new OrthographicCamera(*this));
 	}
 
-	SharedPtr< OrthographicCamera > CreateOrthographicCamera(
+	UniquePtr< OrthographicCamera > CreateOrthographicCamera(
 		float width, float height, float near_z, float far_z) {
-		return SharedPtr< OrthographicCamera >(
+		return UniquePtr< OrthographicCamera >(
 			new OrthographicCamera(width, height, near_z, far_z));
 	}
 }

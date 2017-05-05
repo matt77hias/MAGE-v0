@@ -52,8 +52,9 @@ private:
 		//---------------------------------------------------------------------
 		// Camera
 		//---------------------------------------------------------------------
-		SharedPtr< PerspectiveCameraNode > camera = GetWorld()->CreatePerspectiveCameraNode();
+		SharedPtr< PerspectiveCameraNode > camera = CreatePerspectiveCameraNode();
 		camera->GetTransform()->SetTranslationY(2.0f);
+		SetCamera(camera);
 		
 		//---------------------------------------------------------------------
 		// ModelDescriptors
@@ -64,23 +65,21 @@ private:
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		SharedPtr< ModelNode > model_sponza = GetWorld()->CreateModelNode(*model_desc_sponza);
+		SharedPtr< ModelNode > model_sponza = CreateModelNode(*model_desc_sponza);
 		model_sponza->GetTransform()->SetScale(10.0f);
-		SharedPtr< ModelNode > model_sphere = GetWorld()->CreateModelNode(*model_desc_sphere);
+		SharedPtr< ModelNode > model_sphere = CreateModelNode(*model_desc_sphere);
 		model_sphere->GetTransform()->AddTranslationY(0.5f);
-
 
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		SharedPtr< OmniLightNode > omni_light = GetWorld()->CreateOmniLightNode();
+		SharedPtr< OmniLightNode > omni_light = CreateOmniLightNode();
 		omni_light->GetTransform()->SetTranslationY(2.0f);
-		omni_light->GetObject()->SetDistanceFalloff(0.0f, 2.0f);
-		SharedPtr< SpotLightNode > spot_light = GetWorld()->CreateSpotLightNode();
-		spot_light->GetObject()->SetAngularCutoff(1.0f, 0.86602540f);
-		spot_light->GetObject()->SetDistanceFalloff(0.0f, 3.0f);
+		omni_light->GetLight()->SetDistanceFalloff(0.0f, 2.0f);
+		SharedPtr< SpotLightNode > spot_light = CreateSpotLightNode();
+		spot_light->GetLight()->SetAngularCutoff(1.0f, 0.86602540f);
+		spot_light->GetLight()->SetDistanceFalloff(0.0f, 3.0f);
 		camera->AddChildNode(spot_light);
-
 
 		//---------------------------------------------------------------------
 		// Texture
@@ -92,8 +91,7 @@ private:
 		SharedPtr< SpriteImage > logo(new SpriteImage("logo", texture_logo));
 		logo->GetTransform()->SetScale(0.25f, 0.25f);
 		logo->GetTransform()->SetNormalizedTranslation(0.90f, 0.88f);
-		GetWorld()->AddSprite(logo);
-
+		AddSprite(logo);
 
 		//---------------------------------------------------------------------
 		// Font
@@ -103,8 +101,7 @@ private:
 		// Text
 		//---------------------------------------------------------------------
 		SharedPtr< SpriteText > text(new NormalSpriteText("text", font));
-		GetWorld()->AddSprite(text);
-
+		AddSprite(text);
 
 		//---------------------------------------------------------------------
 		// Scripts

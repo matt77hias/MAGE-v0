@@ -26,6 +26,7 @@
     <ClInclude Include="MAGE\src\buffer\material_buffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\transform_buffer.hpp" />
     <ClInclude Include="MAGE\src\camera\camera.hpp" />
+    <ClInclude Include="MAGE\src\camera\camera_node.hpp" />
     <ClInclude Include="MAGE\src\camera\orthographic_camera.hpp" />
     <ClInclude Include="MAGE\src\camera\perspective_camera.hpp" />
     <ClInclude Include="MAGE\src\collection\collection.tpp" />
@@ -51,6 +52,7 @@
     <ClInclude Include="MAGE\src\light\ambient_light.hpp" />
     <ClInclude Include="MAGE\src\light\directional_light.hpp" />
     <ClInclude Include="MAGE\src\light\light.hpp" />
+    <ClInclude Include="MAGE\src\light\light_node.hpp" />
     <ClInclude Include="MAGE\src\light\omni_light.hpp" />
     <ClInclude Include="MAGE\src\light\spot_light.hpp" />
     <ClInclude Include="MAGE\src\logging\error.hpp" />
@@ -93,6 +95,7 @@
     <ClInclude Include="MAGE\src\model\mdl\mdl_tokens.hpp" />
     <ClInclude Include="MAGE\src\model\model.hpp" />
     <ClInclude Include="MAGE\src\model\model_loader.hpp" />
+    <ClInclude Include="MAGE\src\model\model_node.hpp" />
     <ClInclude Include="MAGE\src\model\model_output.hpp" />
     <ClInclude Include="MAGE\src\model\model_descriptor.hpp" />
     <ClInclude Include="MAGE\src\parallel\atomic.hpp" />
@@ -113,7 +116,6 @@
     <ClInclude Include="MAGE\src\resource\resource_factory.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_pool.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
-    <ClInclude Include="MAGE\src\scene\scene_node.hpp" />
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
@@ -177,12 +179,12 @@
     <ClInclude Include="MAGE\src\ui\combo_box.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window.hpp" />
     <ClInclude Include="MAGE\src\ui\main_window_settings.hpp" />
-    <ClInclude Include="MAGE\src\world\world.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\binary\binary_reader.cpp" />
     <ClCompile Include="MAGE\src\binary\binary_writer.cpp" />
     <ClCompile Include="MAGE\src\camera\camera.cpp" />
+    <ClCompile Include="MAGE\src\camera\camera_node.cpp" />
     <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp" />
     <ClCompile Include="MAGE\src\camera\perspective_camera.cpp" />
     <ClCompile Include="MAGE\src\core\engine.cpp" />
@@ -200,6 +202,7 @@
     <ClCompile Include="MAGE\src\light\ambient_light.cpp" />
     <ClCompile Include="MAGE\src\light\directional_light.cpp" />
     <ClCompile Include="MAGE\src\light\light.cpp" />
+    <ClCompile Include="MAGE\src\light\light_node.cpp" />
     <ClCompile Include="MAGE\src\light\omni_light.cpp" />
     <ClCompile Include="MAGE\src\light\spot_light.cpp" />
     <ClCompile Include="MAGE\src\logging\error.cpp" />
@@ -221,6 +224,7 @@
     <ClCompile Include="MAGE\src\mesh\vertex.cpp" />
     <ClCompile Include="MAGE\src\model\model.cpp" />
     <ClCompile Include="MAGE\src\model\model_descriptor.cpp" />
+    <ClCompile Include="MAGE\src\model\model_node.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\parallel.cpp" />
     <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp" />
@@ -276,7 +280,6 @@
     <ClCompile Include="MAGE\src\timer\timer.cpp" />
     <ClCompile Include="MAGE\src\ui\combo_box.cpp" />
     <ClCompile Include="MAGE\src\ui\main_window.cpp" />
-    <ClCompile Include="MAGE\src\world\world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\blinn_phong_PS.hlsl">
@@ -543,6 +546,8 @@
   <ItemGroup>
     <None Include="MAGE\src\binary\binary_reader.tpp" />
     <None Include="MAGE\src\binary\binary_writer.tpp" />
+    <None Include="MAGE\src\camera\camera_node.tpp" />
+    <None Include="MAGE\src\light\light_node.tpp" />
     <None Include="MAGE\src\math\transform_node.tpp" />
     <None Include="MAGE\src\memory\memory_arena.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_loader.tpp" />
@@ -564,7 +569,6 @@
     <None Include="MAGE\src\scene\scene.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
     <None Include="MAGE\src\text\sprite_text.tpp" />
-    <None Include="MAGE\src\world\world.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{28DC5FAC-C856-43E1-828E-BEAA8A0E2CE4}</ProjectGuid>

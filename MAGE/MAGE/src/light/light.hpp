@@ -64,7 +64,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this light.
 		 */
-		UniquePtr< Light > Clone() {
+		UniquePtr< Light > Clone() const {
 			return static_pointer_cast< Light >(CloneImplementation());
 		}
 

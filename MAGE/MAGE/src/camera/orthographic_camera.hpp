@@ -248,7 +248,7 @@ namespace mage {
 	 @param[in]		far_z
 					The position of the far z-plane in camera space.
 	 */
-	SharedPtr< OrthographicCamera > CreateOrthographicCamera(
+	UniquePtr< OrthographicCamera > CreateOrthographicCamera(
 		float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
 		float height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
 		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,

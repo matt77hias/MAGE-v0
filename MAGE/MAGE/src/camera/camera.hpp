@@ -74,7 +74,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this camera.
 		 */
-		UniquePtr< Camera > Clone() {
+		UniquePtr< Camera > Clone() const {
 			return static_pointer_cast< Camera >(CloneImplementation());
 		}
 

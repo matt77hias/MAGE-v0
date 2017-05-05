@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of directional lights.
 	 */
-	class DirectionalLight : public Light {
+	class DirectionalLight final : public Light {
 
 	public:
 

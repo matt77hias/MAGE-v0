@@ -38,12 +38,12 @@ namespace mage {
 		return UniquePtr< PerspectiveCamera >(new PerspectiveCamera(*this));
 	}
 
-	SharedPtr< PerspectiveCamera > CreatePerspectiveCamera(float fov_y, float near_z, float far_z) {
+	UniquePtr< PerspectiveCamera > CreatePerspectiveCamera(float fov_y, float near_z, float far_z) {
 		Assert(g_engine);
 		const Renderer *render = g_engine->GetRenderer();
 		Assert(render);
 		const float width  = static_cast< float >(render->GetWidth());
 		const float height = static_cast< float >(render->GetHeight());
-		return SharedPtr< PerspectiveCamera >(new PerspectiveCamera(width, height, fov_y, near_z, far_z));
+		return UniquePtr< PerspectiveCamera >(new PerspectiveCamera(width, height, fov_y, near_z, far_z));
 	}
 }

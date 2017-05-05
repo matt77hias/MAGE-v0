@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of ambient lights.
 	 */
-	class AmbientLight : public Light {
+	class AmbientLight final : public Light {
 
 	public:
 

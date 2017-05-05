@@ -280,7 +280,7 @@ namespace mage {
 	 @param[in]		far_z
 					The position of the far z-plane in camera space.
 	 */
-	SharedPtr< PerspectiveCamera > CreatePerspectiveCamera(
+	UniquePtr< PerspectiveCamera > CreatePerspectiveCamera(
 		float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
 		float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);

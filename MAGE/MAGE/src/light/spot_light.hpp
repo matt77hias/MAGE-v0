@@ -17,7 +17,7 @@ namespace mage {
 	/**
 	 A class of spotlights.
 	 */
-	class SpotLight : public Light {
+	class SpotLight final : public Light {
 
 	public:
 

@@ -19,6 +19,18 @@
     <Filter Include="Source Files\core">
       <UniqueIdentifier>{82143448-34ad-461b-aa5d-fc44c75fcf0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\samples">
+      <UniqueIdentifier>{a56dd8e1-be04-41a9-a119-048a9959870c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\samples">
+      <UniqueIdentifier>{773de8a1-ffda-4975-ac12-ee957f5c765a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\samples\brdf">
+      <UniqueIdentifier>{559eafa1-baf4-47b9-9525-671e6224850d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\samples\brdf">
+      <UniqueIdentifier>{e4573e60-97e8-4ae1-a685-eedc6f82e96e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPS\src\core\stdafx.h">

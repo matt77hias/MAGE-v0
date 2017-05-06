@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\string.hpp"
-#include "math\transform_node.hpp"
+#include "scene\scene_node.hpp"
 
 // Cameras
 #include "camera\orthographic_camera.hpp"
@@ -19,7 +18,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class CameraNode : public Node {
+	class CameraNode : public SceneNode {
 
 	public:
 
@@ -31,14 +30,6 @@ namespace mage {
 
 		UniquePtr< CameraNode > Clone() const {
 			return static_pointer_cast< CameraNode >(CloneImplementation());
-		}
-		
-		const string &GetName() const {
-			return m_name;
-		}
-		
-		void SetName(const string &name) {
-			m_name = name;
 		}
 		
 		Camera *GetCamera() {
@@ -61,8 +52,6 @@ namespace mage {
 
 		virtual UniquePtr< Node > CloneImplementation() const override = 0;
 
-		string m_name;
-		
 		UniquePtr< Camera > m_camera;
 	};
 

@@ -1352,6 +1352,48 @@ namespace mage {
 			return m_transform.get();
 		}
 
+		/**
+		 Checks whether this node is active.
+
+		 @return		@c true if this node is active.
+						@c false otherwise (i.e. passive).
+		 */
+		bool IsActive() const {
+			return m_active;
+		}
+
+		/**
+		 Checks whether this node is passive.
+
+		 @return		@c true if this node is passive.
+						@c false otherwise (i.e. active).
+		 */
+		bool IsPassive() const {
+			return !m_active;
+		}
+
+		/**
+		 Makes this node (and its descendant nodes) active.
+		 */
+		void MakeActive() {
+			SetActive(true);
+		}
+
+		/**
+		 Makes this node (and its descendant nodes) passive.
+		 */
+		void MakePassive() {
+			SetActive(false);
+		}
+
+		/**
+		 Sets this node active flag to the given value.
+
+		 @param[in]		active
+						The active flag.
+		 */
+		void SetActive(bool active);
+
 		//---------------------------------------------------------------------
 		// Member Methods: Graph
 		//---------------------------------------------------------------------
@@ -1470,6 +1512,11 @@ namespace mage {
 		 A pointer to the transform of this node.
 		 */
 		UniquePtr< TransformNode > m_transform;
+
+		/**
+		 A flag indicating whether this node is active or not (i.e. passive).
+		 */
+		bool m_active;
 	};
 
 	//-------------------------------------------------------------------------

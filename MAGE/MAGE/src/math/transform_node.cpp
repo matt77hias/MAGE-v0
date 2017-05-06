@@ -59,10 +59,12 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	Node::Node()
-		: m_transform(new TransformNode()) {}
+		: m_transform(new TransformNode()), 
+		m_active(true) {}
 	
 	Node::Node(const Node &node)
-		: m_transform(new TransformNode(*node.m_transform)) {
+		: m_transform(new TransformNode(*node.m_transform)),
+		m_active(node.m_active) {
 
 		m_transform->ForEachChildNode([&](const Node &child_node) {
 			AddChildNode(child_node.Clone());
@@ -75,6 +77,16 @@ namespace mage {
 
 	UniquePtr< Node > Node::CloneImplementation() const {
 		return UniquePtr< Node >(new Node(*this));
+	}
+
+	void Node::SetActive(bool active) {
+		if (m_active != active) {
+			m_active = active;
+
+			ForEachChildNode([=](Node &node) {
+				node.SetActive(active);
+			});
+		}
 	}
 
 	void Node::AddChildNode(SharedPtr< Node > node) {

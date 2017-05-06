@@ -68,6 +68,10 @@ namespace mage {
 		// Update omni light structured buffer.
 		vector< OmniLightBuffer > omni_lights_buffer;
 		ForEachOmniLight([&omni_lights_buffer, &world_to_view](const OmniLightNode &light_node) {
+			if (light_node.IsPassive()) {
+				return;
+			}
+
 			const TransformNode * const transform = light_node.GetTransform();
 			const OmniLight     * const light     = light_node.GetLight();
 			
@@ -84,6 +88,10 @@ namespace mage {
 		// Update spotlight structured buffer.
 		vector< SpotLightBuffer > spot_lights_buffer;
 		ForEachSpotLight([&spot_lights_buffer, &world_to_view](const SpotLightNode &light_node) {
+			if (light_node.IsPassive()) {
+				return;
+			}
+			
 			const TransformNode * const transform = light_node.GetTransform();
 			const SpotLight     * const light     = light_node.GetLight();
 			
@@ -120,23 +128,29 @@ namespace mage {
 
 		// Render models.
 		ForEachModel([&](const ModelNode &model_node) {
-			const Model * const model = model_node.GetModel();
-			
-			if (model->GetNumberOfIndices() != 0) {
-				const TransformNode * const transform = model_node.GetTransform();
-
-				// Update transform constant buffer.
-				const XMMATRIX object_to_world = transform->GetObjectToWorldMatrix();
-				const XMMATRIX world_to_object = transform->GetWorldToObjectMatrix();
-				const XMMATRIX view_to_object  = view_to_world * world_to_object;
-				transform_buffer.SetObjectMatrices(object_to_world, view_to_object);
-				m_transform_buffer.UpdateData(transform_buffer);
-
-				// Draw model.
-				model->PrepareDrawing();
-				model->PrepareShading(m_transform_buffer.Get(), lighting);
-				model->Draw();
+			if (model_node.IsPassive()) {
+				return;
 			}
+			
+			const Model * const model = model_node.GetModel();
+
+			if (model->GetNumberOfIndices() == 0) {
+				return;
+			}
+
+			const TransformNode * const transform = model_node.GetTransform();
+
+			// Update transform constant buffer.
+			const XMMATRIX object_to_world = transform->GetObjectToWorldMatrix();
+			const XMMATRIX world_to_object = transform->GetWorldToObjectMatrix();
+			const XMMATRIX view_to_object  = view_to_world * world_to_object;
+			transform_buffer.SetObjectMatrices(object_to_world, view_to_object);
+			m_transform_buffer.UpdateData(transform_buffer);
+
+			// Draw model.
+			model->PrepareDrawing();
+			model->PrepareShading(m_transform_buffer.Get(), lighting);
+			model->Draw();
 		});
 	}
 

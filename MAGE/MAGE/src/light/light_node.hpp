@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\string.hpp"
-#include "math\transform_node.hpp"
+#include "scene\scene_node.hpp"
 
 // Lights
 #include "light\ambient_light.hpp"
@@ -21,7 +20,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class LightNode : public Node {
+	class LightNode : public SceneNode {
 
 	public:
 
@@ -33,14 +32,6 @@ namespace mage {
 
 		UniquePtr< LightNode > Clone() const {
 			return static_pointer_cast< LightNode >(CloneImplementation());
-		}
-
-		const string &GetName() const {
-			return m_name;
-		}
-
-		void SetName(const string &name) {
-			m_name = name;
 		}
 
 		Light *GetLight() {
@@ -62,8 +53,6 @@ namespace mage {
 	private:
 
 		virtual UniquePtr< Node > CloneImplementation() const override = 0;
-
-		string m_name;
 
 		UniquePtr< Light > m_light;
 	};

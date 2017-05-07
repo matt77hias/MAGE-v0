@@ -1,3 +1,5 @@
+#pragma once
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
@@ -30,6 +32,10 @@ namespace mage {
 		BRDFScript &operator=(BRDFScript &&script) = delete;
 
 	private:
+
+		void InitModels();
+
+		void InitShaders();
 
 		void SetShaders() const;
 

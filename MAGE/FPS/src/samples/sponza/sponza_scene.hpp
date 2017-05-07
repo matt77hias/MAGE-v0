@@ -14,21 +14,21 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class BRDFScene final : public Scene {
+	class SponzaScene final : public Scene {
 
 	public:
 
-		BRDFScene();
+		SponzaScene();
 
-		BRDFScene(const BRDFScene &scene) = delete;
+		SponzaScene(const SponzaScene &scene) = delete;
 
-		BRDFScene(BRDFScene &&scene);
+		SponzaScene(SponzaScene &&scene);
 
-		virtual ~BRDFScene();
+		virtual ~SponzaScene();
 
-		BRDFScene &operator=(const BRDFScene &scene) = delete;
+		SponzaScene &operator=(const SponzaScene &scene) = delete;
 
-		BRDFScene &operator=(BRDFScene &&scene) = delete;
+		SponzaScene &operator=(SponzaScene &&scene) = delete;
 
 	private:
 

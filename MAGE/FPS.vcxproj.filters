@@ -31,6 +31,18 @@
     <Filter Include="Source Files\samples\brdf">
       <UniqueIdentifier>{e4573e60-97e8-4ae1-a685-eedc6f82e96e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\samples\sponza">
+      <UniqueIdentifier>{a33e71ef-aef1-4b5b-a6d9-188d14a92180}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\samples\sponza">
+      <UniqueIdentifier>{afef0845-e1e1-4e34-ac22-81e5cfb059d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\script">
+      <UniqueIdentifier>{5a9a9a77-842b-4c70-ac2c-cfb1c5b8321f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\script">
+      <UniqueIdentifier>{fb5ffef0-8a4f-464e-95a4-df5c8255c414}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPS\src\core\targetver.hpp">
@@ -42,6 +54,12 @@
     <ClInclude Include="FPS\src\samples\brdf\brdf_script.hpp">
       <Filter>Header Files\samples\brdf</Filter>
     </ClInclude>
+    <ClInclude Include="FPS\src\samples\sponza\sponza_scene.hpp">
+      <Filter>Header Files\samples\sponza</Filter>
+    </ClInclude>
+    <ClInclude Include="FPS\src\script\rotation_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FPS\src\core\FPS.cpp">
@@ -52,6 +70,12 @@
     </ClCompile>
     <ClCompile Include="FPS\src\samples\brdf\brdf_script.cpp">
       <Filter>Source Files\samples\brdf</Filter>
+    </ClCompile>
+    <ClCompile Include="FPS\src\samples\sponza\sponza_scene.cpp">
+      <Filter>Source Files\samples\sponza</Filter>
+    </ClCompile>
+    <ClCompile Include="FPS\src\script\rotation_script.cpp">
+      <Filter>Source Files\script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

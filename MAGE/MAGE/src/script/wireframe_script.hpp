@@ -18,6 +18,13 @@ namespace mage {
 
 	public:
 
+		enum WireframeMode {
+			WireframeMode_None = 0,
+			WireframeMode_3D   = 1,
+			WireframeMode_2D   = 2,
+			WireframeMode_3Dand2D = WireframeMode_3D | WireframeMode_2D
+		};
+
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
@@ -38,6 +45,14 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		WireframeMode GetWireframeMode() const {
+			return m_mode;
+		}
+
+		void SetWireframeMode(WireframeMode mode) {
+			m_mode = mode;
+		}
+
 		virtual void Update(double delta_time) override;
 
 	private:
@@ -45,6 +60,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
+
+		WireframeMode m_mode;
 
 		bool m_solid;
 	};

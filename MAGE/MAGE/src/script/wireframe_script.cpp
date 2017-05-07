@@ -14,7 +14,7 @@
 namespace mage {
 
 	WireframeScript::WireframeScript()
-		: BehaviorScript(), m_solid(true) {}
+		: BehaviorScript(), m_mode(WireframeMode_3Dand2D), m_solid(true) {}
 
 	WireframeScript::WireframeScript(WireframeScript &&script) = default;
 	
@@ -29,12 +29,20 @@ namespace mage {
 			
 			const Renderer *renderer = g_engine->GetRenderer();
 			if (m_solid) {
-				renderer->GetRenderingState3D()->SetCullCounterClockwiseRasterizerState();
-				renderer->GetRenderingState2D()->SetCullCounterClockwiseRasterizerState();
+				if (m_mode & WireframeMode_3D) {
+					renderer->GetRenderingState3D()->SetCullCounterClockwiseRasterizerState();
+				}
+				if (m_mode & WireframeMode_2D) {
+					renderer->GetRenderingState2D()->SetCullCounterClockwiseRasterizerState();
+				}
 			}
 			else {
-				renderer->GetRenderingState3D()->SetWireframeRasterizerState();
-				renderer->GetRenderingState2D()->SetWireframeRasterizerState();
+				if (m_mode & WireframeMode_3D) {
+					renderer->GetRenderingState3D()->SetWireframeRasterizerState();
+				}
+				if (m_mode & WireframeMode_2D) {
+					renderer->GetRenderingState2D()->SetWireframeRasterizerState();
+				}
 			}
 		}
 	}

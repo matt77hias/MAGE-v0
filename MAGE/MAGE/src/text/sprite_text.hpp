@@ -7,7 +7,6 @@
 
 #include "sprite\sprite_object.hpp"
 #include "font\sprite_font.hpp"
-#include "text\sprite_text_item.hpp"
 
 #pragma endregion
 
@@ -100,7 +99,27 @@ namespace mage {
 		 Clears the text of this sprite text.
 		 */
 		void ClearText() {
-			m_items.clear();
+			m_text = L"";
+			m_strings.clear();
+		}
+
+		/**
+		 Returns the text of this sprite text.
+
+		 @return		The text of this sprite text.
+		 */
+		const wstring &GetText() const {
+			return m_text;
+		}
+
+		/**
+		 Returns the text of this sprite text with colors.
+
+		 @return		A reference to a vector containing the
+						color strings of this sprite text.
+		 */
+		const vector< ColorString > &GetTextWithColors() const {
+			return m_strings;
 		}
 
 		/**
@@ -126,7 +145,7 @@ namespace mage {
 		 @param[in]		text
 						A reference to the text.
 		 */
-		void SetText(const SpriteTextItem &text);
+		void SetText(const ColorString &text);
 		
 		/**
 		 Appends the given text to the end of the text of this sprite text.
@@ -151,7 +170,7 @@ namespace mage {
 		 @param[in]		text
 						A reference to the text.
 		 */
-		void AppendText(const SpriteTextItem &text);
+		void AppendText(const ColorString &text);
 
 	protected:
 
@@ -203,26 +222,26 @@ namespace mage {
 		}
 
 		/**
-		 Traverses all sprite text items of this sprite text.
+		 Traverses all color strings of this sprite text.
 
 		 @tparam		ActionT
-						An action to perform on all sprite text items 
+						An action to perform on all color strings
 						of this sprite text. The action must accept 
-						@c SpriteTextItem& values.
+						@c ColorString& values.
 		 */
 		template< typename ActionT >
-		inline void ForEachSpriteTextItem(ActionT action);
+		inline void ForEachColorString(ActionT action);
 
 		/**
-		 Traverses all sprite text items of this sprite text.
+		 Traverses all color strings of this sprite text.
 
 		 @tparam		ActionT
-						An action to perform on all sprite text items
+						An action to perform on color strings
 						of this sprite text. The action must accept
-						@c const @c SpriteTextItem& values.
+						@c const @c ColorString& values.
 		 */
 		template< typename ActionT >
-		inline void ForEachSpriteTextItem(ActionT action) const;
+		inline void ForEachColorString(ActionT action) const;
 
 	private:
 
@@ -242,9 +261,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A vector with the sprite text items of this sprite text.
+		 The text of this sprite text.
 		 */
-		vector< SpriteTextItem > m_items;
+		wstring m_text;
+
+		/**
+		 A vector with the color strings of this sprite text.
+		 */
+		vector< ColorString > m_strings;
 
 		/**
 		 A pointer to the sprite font of this sprite text.

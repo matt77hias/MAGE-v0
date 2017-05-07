@@ -54,7 +54,7 @@ private:
 		// Camera
 		//---------------------------------------------------------------------
 		SharedPtr< PerspectiveCameraNode > camera = CreatePerspectiveCameraNode();
-		camera->GetTransform()->SetTranslationY(4.0f);
+		camera->GetTransform()->SetTranslationY(2.0f);
 		SetCamera(camera);
 		
 		//---------------------------------------------------------------------
@@ -128,7 +128,7 @@ struct TestSetup : public EngineSetup {
 	virtual ~TestSetup() = default;
 
 	virtual SharedPtr< Scene > CreateScene() const override {
-		return SharedPtr< Scene >(new BRDFScene());
+		return SharedPtr< Scene >(new TestScene());
 	}
 };
 

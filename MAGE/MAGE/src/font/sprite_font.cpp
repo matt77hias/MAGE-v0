@@ -286,7 +286,7 @@ namespace mage {
 		SpriteTransform sprite_transform(transform);
 
 		for (auto it = text.cbegin(); it != text.cend(); ++it) {
-			const wchar_t *str = it->GetText().c_str();
+			const wchar_t *str = it->GetString().c_str();
 
 			for (const wchar_t *s = str; *s != L'\0'; ++s) {
 				const wchar_t character = *s;
@@ -387,7 +387,7 @@ namespace mage {
 		float y = 0;
 
 		for (auto it = text.cbegin(); it != text.cend(); ++it) {
-			const wchar_t *str = it->GetText().c_str();
+			const wchar_t *str = it->GetString().c_str();
 
 			for (const wchar_t *s = str; *s != L'\0'; ++s) {
 				const wchar_t character = *s;
@@ -491,7 +491,7 @@ namespace mage {
 		float y = 0;
 
 		for (auto it = text.cbegin(); it != text.cend(); ++it) {
-			const wchar_t *str = it->GetText().c_str();
+			const wchar_t *str = it->GetString().c_str();
 
 			for (const wchar_t *s = str; *s != L'\0'; ++s) {
 				const wchar_t character = *s;

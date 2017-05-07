@@ -585,9 +585,6 @@
     <ClInclude Include="MAGE\src\script\manhattan_motor_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\text\sprite_text_item.hpp">
-      <Filter>Header Files\text</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\script\wireframe_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>

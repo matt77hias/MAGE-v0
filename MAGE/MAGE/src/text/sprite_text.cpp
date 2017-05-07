@@ -15,7 +15,7 @@ namespace mage {
 
 	SpriteText::SpriteText(const string &name, SharedPtr< SpriteFont > font,
 		SpriteEffect effects)
-		: SpriteObject(name, effects), m_items(), m_font(font) {
+		: SpriteObject(name, effects), m_text(L""), m_strings(), m_font(font) {
 
 		Assert(m_font);
 	}
@@ -24,7 +24,9 @@ namespace mage {
 
 	SpriteText::SpriteText(SpriteText &&sprite_text) = default;
 
-	SpriteText::~SpriteText() = default;
+	SpriteText::~SpriteText() {
+		m_strings.clear();
+	}
 
 	void SpriteText::SetFont(SharedPtr< SpriteFont > font) {
 		Assert(font);
@@ -33,33 +35,39 @@ namespace mage {
 	}
 
 	void SpriteText::SetText(const wstring &text) {
-		m_items.clear();
-		m_items.push_back(SpriteTextItem(text));
+		m_strings.clear();
+		m_strings.push_back(ColorString(text));
+		m_text = text;
 	}
 
 	void SpriteText::SetText(const wchar_t *text) {
 		Assert(text);
 
-		m_items.clear();
-		m_items.push_back(SpriteTextItem(text));
+		m_strings.clear();
+		m_strings.push_back(ColorString(text));
+		m_text = text;
 	}
 
-	void SpriteText::SetText(const SpriteTextItem &text) {
-		m_items.clear();
-		m_items.push_back(SpriteTextItem(text));
+	void SpriteText::SetText(const ColorString &text) {
+		m_strings.clear();
+		m_strings.push_back(ColorString(text));
+		m_text = text.GetString();
 	}
 
 	void SpriteText::AppendText(const wstring &text) {
-		m_items.push_back(SpriteTextItem(text));
+		m_strings.push_back(ColorString(text));
+		m_text += text;
 	}
 
 	void SpriteText::AppendText(const wchar_t *text) {
 		Assert(text);
 
-		m_items.push_back(SpriteTextItem(text));
+		m_strings.push_back(ColorString(text));
+		m_text += text;
 	}
 
-	void SpriteText::AppendText(const SpriteTextItem &text) {
-		m_items.push_back(SpriteTextItem(text));
+	void SpriteText::AppendText(const ColorString &text) {
+		m_strings.push_back(ColorString(text));
+		m_text += text.GetString();
 	}
 }

@@ -175,7 +175,6 @@
     <ClInclude Include="MAGE\src\text\normal_sprite_text.hpp" />
     <ClInclude Include="MAGE\src\text\outline_sprite_text.hpp" />
     <ClInclude Include="MAGE\src\text\sprite_text.hpp" />
-    <ClInclude Include="MAGE\src\text\sprite_text_item.hpp" />
     <ClInclude Include="MAGE\src\timer\cpu_timer.hpp" />
     <ClInclude Include="MAGE\src\timer\timer.hpp" />
     <ClInclude Include="MAGE\src\ui\combo_box.hpp" />

@@ -128,32 +128,32 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the str of this color string.
+		 Returns the string of this color string.
 
-		 @return		A reference to the str of this color string.
+		 @return		A reference to the string of this color string.
 		 */
-		const wstring &GetText() const {
+		const wstring &GetString() const {
 			return m_str;
 		}
 		
 		/**
-		 Sets the str of this color string to the given str.
+		 Sets the string of this color string to the given str.
 
 		 @param[in]		str
-						A reference to the str.
+						A reference to the string.
 		 */
-		void SetText(const wstring &str) {
+		void SetString(const wstring &str) {
 			m_str = str;
 		}
 
 		/**
-		 Sets the str of this color string to the given str.
+		 Sets the string of this color string to the given str.
 
 		 @pre			@a str is not equal to @c nullptr. 
 		 @param[in]		str
-						A pointer to the str.
+						A pointer to the string.
 		 */
-		void SetText(const wchar_t *str) {
+		void SetString(const wchar_t *str) {
 			Assert(str);
 			m_str = str;
 		}

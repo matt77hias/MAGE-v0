@@ -44,10 +44,12 @@ namespace mage {
 			m_last_ram_usage = static_cast< uint32_t >(GetVirtualMemoryUsage() >> 20);
 		}
 
-		wchar_t buffer[64];
-		_snwprintf_s(buffer, _countof(buffer), L"FPS: %u\nCPU: %.1lf%%\nRAM: %uMB", 
-			m_last_frames_per_second, m_last_cpu_usage, m_last_ram_usage);
-		
-		m_text->SetText(buffer);
+		m_text->SetText(L"FPS: ");
+		const XMVECTOR frame_color = (m_last_frames_per_second > 120) ? Colors::Green : Colors::Red;
+		m_text->AppendText(ColorString(to_wstring(m_last_frames_per_second), frame_color));
+
+		wchar_t buffer[32];
+		_snwprintf_s(buffer, _countof(buffer), L"\nCPU: %.1lf%%\nRAM: %uMB", m_last_cpu_usage, m_last_ram_usage);
+		m_text->AppendText(buffer);
 	}
 }

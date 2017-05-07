@@ -35,23 +35,24 @@ namespace mage {
 	}
 
 	void OutlineSpriteText::Draw(SpriteBatch &sprite_batch) const {
-		const wchar_t *text = GetText().c_str();
+		const wchar_t *text = c_str();
 		SpriteTransform transform(*GetTransform());
 		const XMVECTOR border_color = GetBorderColorVector();
+		const SpriteEffect effects = GetSpriteEffects();
 		
 		// +1, +1
 		transform.AddTranslation(XMFLOAT2(1.0f, 1.0f));
-		GetRawFont()->DrawString(sprite_batch, text, transform, border_color, GetSpriteEffects());
+		GetRawFont()->DrawString(sprite_batch, text, transform, border_color, effects);
 		// -1, +1
 		transform.AddTranslationX(-2.0f);
-		GetRawFont()->DrawString(sprite_batch, text, transform, border_color, GetSpriteEffects());
+		GetRawFont()->DrawString(sprite_batch, text, transform, border_color, effects);
 		// -1, -1
 		transform.AddTranslationY(-2.0f);
-		GetRawFont()->DrawString(sprite_batch, text, transform, border_color, GetSpriteEffects());
+		GetRawFont()->DrawString(sprite_batch, text, transform, border_color, effects);
 		// +1, -1
 		transform.AddTranslationX(2.0f);
-		GetRawFont()->DrawString(sprite_batch, text, transform, border_color, GetSpriteEffects());
+		GetRawFont()->DrawString(sprite_batch, text, transform, border_color, effects);
 
-		GetRawFont()->DrawString(sprite_batch, GetTextWithColors(), *GetTransform(), GetSpriteEffects());
+		GetRawFont()->DrawString(sprite_batch, GetTextWithColors(), *GetTransform(), effects);
 	}
 }

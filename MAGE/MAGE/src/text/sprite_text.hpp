@@ -106,7 +106,16 @@ namespace mage {
 		/**
 		 Returns the text of this sprite text.
 
-		 @return		The text of this sprite text.
+		 @return		A pointer to the text of this sprite text.
+		 */
+		const wchar_t *c_str() const {
+			return m_text.c_str();
+		}
+
+		/**
+		 Returns the text of this sprite text.
+
+		 @return		A reference to the text of this sprite text.
 		 */
 		const wstring &GetText() const {
 			return m_text;

@@ -35,17 +35,18 @@ namespace mage {
 	}
 
 	void DropshadowSpriteText::Draw(SpriteBatch &sprite_batch) const {
-		const wchar_t *text = GetText().c_str();
+		const wchar_t *text = c_str();
 		SpriteTransform transform(*GetTransform());
 		const XMVECTOR shadow_color = GetShadowColorVector();
+		const SpriteEffect effects = GetSpriteEffects();
 		
 		// +1, +1
 		transform.AddTranslation(XMFLOAT2(1.0f, 1.0f));
-		GetRawFont()->DrawString(sprite_batch, text, transform, shadow_color, GetSpriteEffects());
+		GetRawFont()->DrawString(sprite_batch, text, transform, shadow_color, effects);
 		// -1, +1
 		transform.AddTranslationX(-2.0f);
-		GetRawFont()->DrawString(sprite_batch, text, transform, shadow_color, GetSpriteEffects());
+		GetRawFont()->DrawString(sprite_batch, text, transform, shadow_color, effects);
 
-		GetRawFont()->DrawString(sprite_batch, GetTextWithColors(), *GetTransform(), GetSpriteEffects());
+		GetRawFont()->DrawString(sprite_batch, GetTextWithColors(), *GetTransform(), effects);
 	}
 }

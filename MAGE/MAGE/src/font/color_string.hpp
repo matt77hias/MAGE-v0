@@ -130,6 +130,15 @@ namespace mage {
 		/**
 		 Returns the string of this color string.
 
+		 @return		A pointer to the string of this color string.
+		 */
+		const wchar_t *c_str() const {
+			return m_str.c_str();
+		}
+
+		/**
+		 Returns the string of this color string.
+
 		 @return		A reference to the string of this color string.
 		 */
 		const wstring &GetString() const {

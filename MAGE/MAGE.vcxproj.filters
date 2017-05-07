@@ -708,6 +708,9 @@
     <ClInclude Include="MAGE\src\font\color_string.hpp">
       <Filter>Header Files\font</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\texture\texture_factory.hpp">
+      <Filter>Header Files\texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -820,9 +823,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\texture\dds\dds_loader.cpp">
       <Filter>Source Files\texture\dds</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\texture\texture_loader.cpp">
-      <Filter>Source Files\texture</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\resource\resource_factory.cpp">
       <Filter>Source Files\resource</Filter>
@@ -1009,6 +1009,12 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\scene\scene_node.cpp">
       <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\texture\texture_factory.cpp">
+      <Filter>Source Files\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\texture\texture_loader.cpp">
+      <Filter>Source Files\texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

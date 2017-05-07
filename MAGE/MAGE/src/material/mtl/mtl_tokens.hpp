@@ -24,6 +24,7 @@
 #define MAGE_MTL_TOKEN_DECAL_MAP "map_decal"
 #define MAGE_MTL_TOKEN_DISPLACEMENT_MAP "map_disp"
 #define MAGE_MTL_TOKEN_BUMP_MAP "map_bump"
+#define MAGE_MTL_TOKEN_NORMAL_MAP "map_normal"
 #define MAGE_MTL_TOKEN_ILLUMINATION_MDL "illum"
 
 #pragma endregion

@@ -40,7 +40,7 @@ namespace mage {
 			m_specular_exponent(0.0f), m_specular_exponent_texture(),
 			m_dissolve(1.0f), m_dissolve_texture(),
 			m_index_of_refraction(1.0f), m_decal_texture(),
-			m_displacement_texture(), m_bump_texture() {}
+			m_displacement_texture(), m_normal_texture() {}
 		
 		/**
 		 Constructs a material from the given material.
@@ -179,8 +179,8 @@ namespace mage {
 		SharedPtr< Texture > m_displacement_texture;
 
 		/**
-		 A pointer to the bump texture of this material.
+		 A pointer to the normal texture of this material.
 		 */
-		SharedPtr< Texture > m_bump_texture;
+		SharedPtr< Texture > m_normal_texture;
 	};
 }

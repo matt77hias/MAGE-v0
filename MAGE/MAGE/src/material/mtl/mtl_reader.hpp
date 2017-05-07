@@ -222,8 +222,17 @@ namespace mage {
 
 		 @throws		FormattedException
 						Failed to read a Bump Texture definition.
+		 @note			Bump maps are not supported, use normal maps instead.
 		 */
 		void ReadMTLBumpTexture();
+
+		/**
+		 Reads a Normal Texture definition.
+
+		 @throws		FormattedException
+						Failed to read a Normal Texture definition.
+		 */
+		void ReadMTLNormalTexture();
 
 		/**
 		 Reads an Illumination Model definition.

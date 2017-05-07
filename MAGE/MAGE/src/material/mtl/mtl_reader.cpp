@@ -155,7 +155,12 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLBumpTexture() {
-		m_material_buffer.back().m_bump_texture = ReadMTLTexture();
+		Warning("%ls: line %u: bump maps are not supported, use normal maps instead.", GetFilename().c_str(), GetCurrentLineNumber());
+		ReadMTLTexture();
+	}
+
+	void MTLReader::ReadMTLNormalTexture() {
+		m_material_buffer.back().m_normal_texture = ReadMTLTexture();
 	}
 
 	const RGBSpectrum MTLReader::ReadMTLSpectrum() {

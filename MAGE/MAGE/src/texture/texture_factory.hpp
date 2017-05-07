@@ -18,6 +18,7 @@ namespace mage {
 	 Creates a black texture.
 
 	 @pre			The current engine must be loaded.
+	 @pre			The standard assets must be present.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException
 					Failed to create the texture.
@@ -30,6 +31,7 @@ namespace mage {
 	 Creates a white texture.
 
 	 @pre			The current engine must be loaded.
+	 @pre			The standard assets must be present.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException
 					Failed to create the texture.

@@ -64,8 +64,12 @@ namespace mage {
 		}
 		
 		// Switch shader.
-		if (keyboard->GetKeyPress(DIK_LALT, false)) {
+		if (keyboard->GetKeyPress(DIK_RALT, false)) {
 			m_shader_index = (m_shader_index + 1) % m_shaders.size();
+			SetShaders();
+		}
+		else if (keyboard->GetKeyPress(DIK_LALT, false)) {
+			m_shader_index = std::min(m_shader_index - 1, m_shaders.size() - 1);
 			SetShaders();
 		}
 	}

@@ -217,6 +217,36 @@ namespace mage {
 		 */
 		const Glyph *GetGlyph(wchar_t character) const;
 
+		/**
+		 Returns a pointer to the shader resource view of the texture of this sprite font.
+
+		 @return		A pointer to the shader resource view
+						of the texture of this sprite font.
+		 */
+		ID3D11ShaderResourceView *Get() const {
+			return m_texture_srv.Get();
+		}
+
+		/**
+		 Returns the address of the shader resource view of of the texture of this sprite font.
+
+		 @return		A pointer to the pointer to the shader resource view
+						of the texture of this sprite font.
+		 */
+		ID3D11ShaderResourceView * const *GetAddress() const {
+			return m_texture_srv.GetAddressOf();
+		}
+
+		/**
+		 Returns the address of the shader resource view of of the texture of this sprite font.
+
+		 @return		A pointer to the pointer to the shader resource view
+						of the texture of this sprite font.
+		 */
+		ID3D11ShaderResourceView **GetAddress() {
+			return m_texture_srv.GetAddressOf();
+		}
+
 	private:
 
 		//---------------------------------------------------------------------

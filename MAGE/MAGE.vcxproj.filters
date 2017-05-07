@@ -708,6 +708,9 @@
     <ClInclude Include="MAGE\src\scene\scene_node.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\font\color_string.hpp">
+      <Filter>Header Files\font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

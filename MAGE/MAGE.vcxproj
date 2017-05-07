@@ -37,6 +37,7 @@
     <ClInclude Include="MAGE\src\core\targetver.hpp" />
     <ClInclude Include="MAGE\src\core\version.hpp" />
     <ClInclude Include="MAGE\src\file\file_utils.hpp" />
+    <ClInclude Include="MAGE\src\font\color_string.hpp" />
     <ClInclude Include="MAGE\src\font\glyph.hpp" />
     <ClInclude Include="MAGE\src\font\spritefont\spritefont_loader.hpp" />
     <ClInclude Include="MAGE\src\font\spritefont\spritefont_reader.hpp" />

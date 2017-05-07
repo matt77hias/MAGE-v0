@@ -38,7 +38,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		SharedPtr< PerspectiveCameraNode > camera = CreatePerspectiveCameraNode();
 		camera->GetTransform()->SetTranslationY(4.0f);
-		camera->GetTransform()->SetTranslationZ(-3.5f);
+		camera->GetTransform()->SetTranslationZ(-10.0f);
 		SetCamera(camera);
 
 		//---------------------------------------------------------------------
@@ -65,12 +65,17 @@ namespace mage {
 
 		model_cone->GetTransform()->SetScale(3.0f);
 		model_cube->GetTransform()->SetScale(3.0f);
+		model_cube->GetTransform()->SetRotationX(-1.047f);
 		model_cylinder->GetTransform()->SetScale(3.0f);
+		model_cylinder->GetTransform()->SetRotationX(-1.047f);
 		model_plane->GetTransform()->SetScale(3.0f);
 		model_plane->GetTransform()->SetRotationX(-1.047f);
 		model_sphere->GetTransform()->SetScale(3.0f);
+		model_sphere->GetTransform()->SetRotationX(-1.047f);
 		model_teapot->GetTransform()->SetScale(3.0f);
+		model_teapot->GetTransform()->SetRotationX(-1.047f);
 		model_torus->GetTransform()->SetScale(3.0f);
+		model_torus->GetTransform()->SetRotationX(-1.047f);
 		
 		//---------------------------------------------------------------------
 		// Lights
@@ -98,13 +103,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteText > text(new NormalSpriteText("text", font));
-		AddSprite(text);
+		SharedPtr< SpriteText > stats_text(new NormalSpriteText("stats_text", font));
+		AddSprite(stats_text);
+		SharedPtr< SpriteText > brdf_text(new NormalSpriteText("brdf_text", font));
+		brdf_text->GetTransform()->SetNormalizedTranslationY(0.1f);
+		AddSprite(brdf_text);
 
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		SharedPtr< BehaviorScript > stats_script(new StatsScript(text));
+		SharedPtr< BehaviorScript > stats_script(new StatsScript(stats_text));
 		AddScript(stats_script);
 		SharedPtr< BehaviorScript > controller_script(new FPSInputControllerScript(camera->GetTransform()));
 		AddScript(controller_script);
@@ -118,7 +126,7 @@ namespace mage {
 		models.push_back(model_sphere.get());
 		models.push_back(model_teapot.get());
 		models.push_back(model_torus.get());
-		SharedPtr< BehaviorScript > brdf_script(new BRDFScript(text.get(), models));
+		SharedPtr< BehaviorScript > brdf_script(new BRDFScript(brdf_text.get(), models));
 		AddScript(brdf_script);
 	}
 }

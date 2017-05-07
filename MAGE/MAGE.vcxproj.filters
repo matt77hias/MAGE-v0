@@ -1010,9 +1010,6 @@
     <ClCompile Include="MAGE\src\scene\scene_node.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\texture\texture_factory.cpp">
-      <Filter>Source Files\texture</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\texture\texture_loader.cpp">
       <Filter>Source Files\texture</Filter>
     </ClCompile>

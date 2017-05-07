@@ -8,6 +8,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "texture\texture_factory.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Game Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -30,10 +39,19 @@ namespace mage {
 	}
 
 	void BRDFScript::InitModels() {
-		for (auto it = ++m_models.cbegin(); it != m_models.cend(); ++it) {
+		SharedPtr< Texture > white = CreateWhiteTexture();
+		
+		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
 			(*it)->MakePassive();
+			
+			Material &material = (*it)->GetModel()->GetMaterial();
+			material.m_diffuse_reflectivity         = RGBSpectrum(0.161f, 0.0841f, 0.0537f);
+			material.m_diffuse_reflectivity_texture = white;
+			material.m_specular_reflectivity        = RGBSpectrum(0.241f, 0.181f, 0.11f);
+			material.m_specular_exponent            = 497.0f;
 		}
 
+		(*m_models.cbegin())->MakeActive();
 	}
 
 	void BRDFScript::InitShaders() {
@@ -78,5 +96,7 @@ namespace mage {
 			m_shader_index = std::min(m_shader_index - 1, m_shaders.size() - 1);
 			SetShaders();
 		}
+
+		m_text->SetText(m_shader_names[m_shader_index]);
 	}
 }

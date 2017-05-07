@@ -208,6 +208,9 @@ namespace mage {
 		// Creates a default shaded material.
 		const ShadedMaterial default_shaded_material(shader, default_material);
 
+		SharedPtr< ModelNode > root_model_node;
+		size_t root_childs = 0;
+
 		typedef pair< SharedPtr< ModelNode >, string > ModelNodePair;
 		map< string, ModelNodePair > mapping;
 
@@ -230,12 +233,22 @@ namespace mage {
 			// Adds this submodel node to this scene.
 			AddModel(submodel_node);
 
+			if (model_part.m_parent == MAGE_MDL_PART_DEFAULT_PARENT) {
+				root_model_node = submodel_node;
+				++root_childs;
+			}
+
 			// Adds this submodel node to the mapping.
 			mapping.insert(std::make_pair(model_part.m_child, ModelNodePair(submodel_node, model_part.m_parent)));
 		});
 
-		if (mapping.size() == 1) {
-			return mapping.cbegin()->second.first;
+		if (root_childs != 1) {
+			// Creates a root model.
+			UniquePtr< Model > root_model(new Model(desc.GetMesh(), 0, 0, default_shaded_material));
+			// Creates a root model node.
+			root_model_node = SharedPtr< ModelNode >(new ModelNode("model", std::move(root_model)));
+			// Adds this root model node to this scene.
+			AddModel(root_model_node);
 		}
 
 		// Creates a root model.

@@ -6,6 +6,7 @@
 #pragma region
 
 #include "resource\resource.hpp"
+#include "font\color_string.hpp"
 #include "font\sprite_font_output.hpp"
 #include "font\sprite_font_descriptor.hpp"
 #include "sprite\sprite_batch.hpp"
@@ -94,14 +95,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Draws the given text string with this sprite font using the given
-		 sprite batch.
+		 Draws the given string with this sprite font using the given sprite batch.
 
-		 @pre			@a text string is not equal to @c nullptr.
+		 @pre			@a str string is not equal to @c nullptr.
 		 @param[in]		sprite_batch
 						A reference to the sprite batch used for rendering
-						the given text string with this sprite font.
-		 @param[in]		text
+						the given string with this sprite font.
+		 @param[in]		str
 						A pointer to the first null-terminated byte string.
 		 @param[in]		transform
 						A reference to the sprite transform.
@@ -110,36 +110,79 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		void DrawString(SpriteBatch &sprite_batch, const wchar_t *text, 
+		void DrawString(SpriteBatch &sprite_batch, 
+			const wchar_t *str,
 			const SpriteTransform &transform,
 			const XMVECTOR &color = Colors::White, 
 			SpriteEffect effects = SpriteEffect_None) const;
 
 		/**
-		 Returns the size of the given text string with this sprite font in pixels.
+		 Draws the given text with this sprite font using the given sprite batch.
 
-		 @pre			@a text string is not equal to @c nullptr.
+		 @param[in]		sprite_batch
+						A reference to the sprite batch used for rendering
+						the given text with this sprite font.
 		 @param[in]		text
+						A reference to a vector containing color strings.
+		 @param[in]		transform
+						A reference to the sprite transform.
+		 @param[in]		effects
+						The sprite effects to apply.
+		 */
+		void DrawString(SpriteBatch &sprite_batch, 
+			const vector< ColorString > &text,
+			const SpriteTransform &transform,
+			SpriteEffect effects = SpriteEffect_None) const;
+
+		/**
+		 Returns the size of the given string with this sprite font in pixels.
+
+		 @pre			@a str is not equal to @c nullptr.
+		 @param[in]		str
 						A pointer to the first null-terminated byte string.
 		 @return		A @a XMVECTOR containing the pixel width as first
 						coordinate and pixel height as second coordinate.
-		 @note			The text string size is computed from the origin to the 
+		 @note			The string size is computed from the origin to the 
 						rightmost pixel rendered by any character glyph. 
 						This has the effect of ignoring 'trailing spaces'.
 		 */
-		const XMVECTOR MeasureString(const wchar_t *text) const;
+		const XMVECTOR MeasureString(const wchar_t *str) const;
+
+		/**
+		 Returns the size of the given text with this sprite font in pixels.
+
+		 @param[in]		text
+						A reference to a vector containing color strings.
+		 @return		A @a XMVECTOR containing the pixel width as first
+						coordinate and pixel height as second coordinate.
+		 @note			The text size is computed from the origin to the
+						rightmost pixel rendered by any character glyph.
+						This has the effect of ignoring 'trailing spaces'.
+		 */
+		const XMVECTOR MeasureString(const vector< ColorString > &text) const;
 		
 		/**
-		 Returns a rectangle bounding the given text string with this sprite font.
+		 Returns a rectangle bounding the given string with this sprite font.
 
-		 @pre			@a text string is not equal to @c nullptr.
-		 @param[in]		text
+		 @pre			@a str string is not equal to @c nullptr.
+		 @param[in]		str
 						A pointer to the first null-terminated byte string.
 		 @param[in]		position
-						The top-left position of the text string.
-		 @return		A @c RECT bounding the given text string with this sprite font.
+						The top-left position of the string.
+		 @return		A @c RECT bounding the given string with this sprite font.
 		 */
-		const RECT MeasureDrawBounds(const wchar_t *text, const XMFLOAT2 &position) const;
+		const RECT MeasureDrawBounds(const wchar_t *str, const XMFLOAT2 &position) const;
+
+		/**
+		 Returns a rectangle bounding the given text with this sprite font.
+
+		 @param[in]		text
+						A reference to a vector containing color strings.
+		 @param[in]		position
+						The top-left position of the text.
+		 @return		A @c RECT bounding the given text with this sprite font.
+		 */
+		const RECT MeasureDrawBounds(const vector< ColorString > &text, const XMFLOAT2 &position) const;
 		
 		/**
 		 Returns the line spacing of this sprite font.

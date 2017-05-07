@@ -176,9 +176,9 @@ namespace mage {
 		m_texture_srv = std::move(output.m_texture_srv);
 	}
 
-	void SpriteFont::DrawString(SpriteBatch &sprite_batch, const wchar_t *text, 
+	void SpriteFont::DrawString(SpriteBatch &sprite_batch, const wchar_t *str, 
 		const SpriteTransform &transform, const XMVECTOR &color, SpriteEffect effects) const {
-		Assert(text);
+		Assert(str);
 
 		static_assert(SpriteEffect_FlipHorizontally == 1 && SpriteEffect_FlipVertically == 2,
 			"The following tables must be updated to match");
@@ -200,15 +200,15 @@ namespace mage {
 		const XMFLOAT2 rotation_origin = transform.GetRotationOrigin();
 		XMVECTOR base_offset = XMLoadFloat2(&rotation_origin);
 		if (effects != SpriteEffect_None) {
-			base_offset -= MeasureString(text) * axis_is_mirrored_table[effects & 3];
+			base_offset -= MeasureString(str) * axis_is_mirrored_table[effects & 3];
 		}
 
 		float x = 0;
 		float y = 0;
 		SpriteTransform sprite_transform(transform);
 
-		while (*text != L'\0') {
-			const wchar_t character = *text;
+		for (const wchar_t *s = str; *s != L'\0'; ++s) {
+			const wchar_t character = *s;
 			switch (character) {
 
 			case L'\r': {
@@ -252,20 +252,100 @@ namespace mage {
 				break;
 			}
 			}
-
-			++text;
 		}
 	}
 	
-	const XMVECTOR SpriteFont::MeasureString(const wchar_t *text) const {
-		Assert(text);
+	void SpriteFont::DrawString(SpriteBatch &sprite_batch, const vector< ColorString > &text,
+		const SpriteTransform &transform, SpriteEffect effects) const {
+		
+		static_assert(SpriteEffect_FlipHorizontally == 1 && SpriteEffect_FlipVertically == 2,
+			"The following tables must be updated to match");
+		// Lookup table indicates which way to move along each axes for each SpriteEffect.
+		static const XMVECTORF32 axis_direction_table[4] = {
+			{ -1.0f, -1.0f }, //SpriteEffect_None
+			{  1.0f, -1.0f }, //SpriteEffect_FlipHorizontally
+			{ -1.0f,  1.0f }, //SpriteEffect_FlipVertically
+			{  1.0f,  1.0f }  //SpriteEffect_FlipBoth
+		};
+		// Lookup table indiucates which axes are mirrored for each SpriteEffect.
+		static const XMVECTORF32 axis_is_mirrored_table[4] = {
+			{ 0.0f, 0.0f }, //SpriteEffect_None
+			{ 1.0f, 0.0f }, //SpriteEffect_FlipHorizontally
+			{ 0.0f, 1.0f }, //SpriteEffect_FlipVertically
+			{ 1.0f, 1.0f }  //SpriteEffect_FlipBoth
+		};
+
+		const XMFLOAT2 rotation_origin = transform.GetRotationOrigin();
+		XMVECTOR base_offset = XMLoadFloat2(&rotation_origin);
+		if (effects != SpriteEffect_None) {
+			base_offset -= MeasureString(text) * axis_is_mirrored_table[effects & 3];
+		}
+
+		float x = 0;
+		float y = 0;
+		SpriteTransform sprite_transform(transform);
+
+		for (vector< ColorString >::const_iterator it = text.cbegin(); it != text.cend(); ++it) {
+			const wchar_t *str = it->GetText().c_str();
+
+			for (const wchar_t *s = str; *s != L'\0'; ++s) {
+				const wchar_t character = *s;
+				switch (character) {
+
+				case L'\r': {
+					continue;
+				}
+				case L'\n': {
+					x = 0;
+					y += m_line_spacing;
+					break;
+				}
+				default: {
+					const Glyph *glyph = GetGlyph(character);
+
+					x += glyph->m_offset_x;
+					if (x < 0) {
+						x = 0;
+					}
+
+					const float width   = static_cast<float>(glyph->m_sub_rectangle.right - glyph->m_sub_rectangle.left);
+					const float height  = static_cast<float>(glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
+					const float advance = width + glyph->m_advance_x;
+
+					if (!iswspace(character) || width > 1 || height > 1) {
+						const XMVECTOR top_left = XMVectorSet(x, y + glyph->m_offset_y, 0.0f, 0.0f);
+						const XMVECTOR &flip = axis_direction_table[effects & 3];
+						XMVECTOR offset = XMVectorMultiplyAdd(top_left, flip, base_offset);
+
+						if (effects != SpriteEffect_None) {
+							const XMVECTOR rect = XMLoadInt4(reinterpret_cast<const uint32_t *>(&(glyph->m_sub_rectangle)));
+							XMVECTOR glyph_rect = XMConvertVectorIntToFloat(rect, 0);
+							glyph_rect = XMVectorSwizzle< 2, 3, 0, 1 >(glyph_rect) - glyph_rect;
+							const XMVECTOR &mirror = axis_is_mirrored_table[effects & 3];
+							offset = XMVectorMultiplyAdd(glyph_rect, mirror, offset);
+						}
+
+						sprite_transform.SetRotationOrigin(offset);
+						sprite_batch.Draw(m_texture_srv.Get(), it->GetColorVector(), effects, sprite_transform, &glyph->m_sub_rectangle);
+					}
+
+					x += advance;
+					break;
+				}
+				}
+			}
+		}
+	}
+
+	const XMVECTOR SpriteFont::MeasureString(const wchar_t *str) const {
+		Assert(str);
 
 		XMVECTOR result = XMVectorZero();
 		float x = 0;
 		float y = 0;
 
-		while (*text != L'\0') {
-			const wchar_t character = *text;
+		for (const wchar_t *s = str; *s != L'\0'; ++s) {
+			const wchar_t character = *s;
 			switch (character) {
 
 			case L'\r': {
@@ -296,22 +376,66 @@ namespace mage {
 				break;
 			}
 			}
-
-			++text;
 		}
 
 		return result;
 	}
 	
-	const RECT SpriteFont::MeasureDrawBounds(const wchar_t *text, const XMFLOAT2 &position) const {
-		Assert(text);
+	const XMVECTOR SpriteFont::MeasureString(const vector< ColorString > &text) const {
+		XMVECTOR result = XMVectorZero();
+		float x = 0;
+		float y = 0;
+
+		for (vector< ColorString >::const_iterator it = text.cbegin(); it != text.cend(); ++it) {
+			const wchar_t *str = it->GetText().c_str();
+
+			for (const wchar_t *s = str; *s != L'\0'; ++s) {
+				const wchar_t character = *s;
+				switch (character) {
+
+				case L'\r': {
+					continue;
+				}
+				case L'\n': {
+					x = 0;
+					y += m_line_spacing;
+					break;
+				}
+				default: {
+					const Glyph *glyph = GetGlyph(character);
+
+					x += glyph->m_offset_x;
+					if (x < 0) {
+						x = 0;
+					}
+
+					const float width   = static_cast<float>(glyph->m_sub_rectangle.right - glyph->m_sub_rectangle.left);
+					const float height  = static_cast<float>(glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
+					const float advance = width + glyph->m_advance_x;
+
+					if (!iswspace(character) || width > 1 || height > 1) {
+						result = XMVectorMax(result, XMVectorSet(x + width, y + std::max(m_line_spacing, height + glyph->m_offset_y), 0.0f, 0.0f));
+					}
+
+					x += advance;
+					break;
+				}
+				}
+			}
+		}
+
+		return result;
+	}
+
+	const RECT SpriteFont::MeasureDrawBounds(const wchar_t *str, const XMFLOAT2 &position) const {
+		Assert(str);
 
 		RECT result = { LONG_MAX, LONG_MAX, 0, 0 };
 		float x = 0;
 		float y = 0;
 
-		while (*text != L'\0') {
-			const wchar_t character = *text;
+		for (const wchar_t *s = str; *s != L'\0'; ++s) {
+			const wchar_t character = *s;
 			switch (character) {
 			
 			case L'\r': {
@@ -351,10 +475,68 @@ namespace mage {
 				break;
 			}
 			}
-
-			++text;
 		}
 		
+		if (result.left == LONG_MAX) {
+			result.left = 0;
+			result.top = 0;
+		}
+
+		return result;
+	}
+
+	const RECT SpriteFont::MeasureDrawBounds(const vector< ColorString > &text, const XMFLOAT2 &position) const {
+		RECT result = { LONG_MAX, LONG_MAX, 0, 0 };
+		float x = 0;
+		float y = 0;
+
+		for (vector< ColorString >::const_iterator it = text.cbegin(); it != text.cend(); ++it) {
+			const wchar_t *str = it->GetText().c_str();
+
+			for (const wchar_t *s = str; *s != L'\0'; ++s) {
+				const wchar_t character = *s;
+				switch (character) {
+
+				case L'\r': {
+					continue;
+				}
+				case L'\n': {
+					x = 0;
+					y += m_line_spacing;
+					break;
+				}
+				default: {
+					const Glyph *glyph = GetGlyph(character);
+
+					x += glyph->m_offset_x;
+					if (x < 0) {
+						x = 0;
+					}
+
+					const float width   = static_cast<float>(glyph->m_sub_rectangle.right  - glyph->m_sub_rectangle.left);
+					const float height  = static_cast<float>(glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
+					const float advance = width + glyph->m_advance_x;
+
+					if (!iswspace(character) || width > 1 || height > 1) {
+
+						const float min_x = position.x + x;
+						const float min_y = position.y + y + glyph->m_offset_y;
+						const float max_x = min_x + width + std::max(0.0f, glyph->m_advance_x);
+						const float max_y = min_y + height;
+
+						result.left   = std::min(result.left, static_cast<LONG>(min_x));
+						result.top    = std::min(result.top, static_cast<LONG>(min_y));
+						result.right  = std::max(result.right, static_cast<LONG>(max_x));
+						result.bottom = std::max(result.bottom, static_cast<LONG>(max_y));
+					}
+
+					x += advance;
+					break;
+				}
+				}
+			}
+		}
+
 		if (result.left == LONG_MAX) {
 			result.left = 0;
 			result.top = 0;

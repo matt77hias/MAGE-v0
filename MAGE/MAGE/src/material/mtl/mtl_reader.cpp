@@ -74,6 +74,9 @@ namespace mage {
 		else if (str_equals(token, MAGE_MTL_TOKEN_DISPLACEMENT_MAP)) {
 			ReadMTLDisplacementTexture();
 		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_NORMAL_MAP)) {
+			ReadMTLNormalTexture();
+		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_BUMP_MAP)) {
 			ReadMTLBumpTexture();
 		}
@@ -154,13 +157,13 @@ namespace mage {
 		m_material_buffer.back().m_displacement_texture = ReadMTLTexture();
 	}
 
+	void MTLReader::ReadMTLNormalTexture() {
+		m_material_buffer.back().m_normal_texture = ReadMTLTexture();
+	}
+
 	void MTLReader::ReadMTLBumpTexture() {
 		Warning("%ls: line %u: bump maps are not supported, use normal maps instead.", GetFilename().c_str(), GetCurrentLineNumber());
 		ReadMTLTexture();
-	}
-
-	void MTLReader::ReadMTLNormalTexture() {
-		m_material_buffer.back().m_normal_texture = ReadMTLTexture();
 	}
 
 	const RGBSpectrum MTLReader::ReadMTLSpectrum() {

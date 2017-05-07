@@ -251,13 +251,6 @@ namespace mage {
 			AddModel(root_model_node);
 		}
 
-		// Creates a root model.
-		UniquePtr< Model > root_model(new Model(desc.GetMesh(), 0, 0, default_shaded_material));
-		// Creates a root model node.
-		SharedPtr< ModelNode > root_model_node(new ModelNode("model", std::move(root_model)));
-		// Adds this root model node to this scene.
-		AddModel(root_model_node);
-
 		for (map< string, ModelNodePair >::const_iterator it = mapping.cbegin(); it != mapping.cend(); ++it) {
 			const SharedPtr< ModelNode > &child = it->second.first;
 			const string &parent = it->second.second;

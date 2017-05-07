@@ -77,6 +77,50 @@ namespace mage {
 		virtual void Draw(SpriteBatch &sprite_batch) const = 0;
 
 		/**
+		 Checks whether this sprite object is active.
+
+		 @return		@c true if this sprite object is active.
+						@c false otherwise (i.e. passive).
+		 */
+		bool IsActive() const {
+			return m_active;
+		}
+
+		/**
+		 Checks whether this sprite object is passive.
+
+		 @return		@c true if this sprite object is passive.
+						@c false otherwise (i.e. active).
+		 */
+		bool IsPassive() const {
+			return !m_active;
+		}
+
+		/**
+		 Makes this sprite object active.
+		 */
+		void MakeActive() {
+			SetActive(true);
+		}
+
+		/**
+		 Makes this sprite object passive.
+		 */
+		void MakePassive() {
+			SetActive(false);
+		}
+
+		/**
+		 Sets this sprite object active flag to the given value.
+
+		 @param[in]		active
+						The active flag.
+		 */
+		void SetActive(bool active) {
+			m_active = active;
+		}
+
+		/**
 		 Returns the name of this sprite object.
 
 		 @return		A reference to the name of this sprite object.
@@ -183,6 +227,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 A pointer to the sprite transform of this sprite object.
+		 */
+		UniquePtr< SpriteTransform > m_transform;
+
+		/**
+		 A flag indicating whether this node is active or not (i.e. passive).
+		 */
+		bool m_active;
+
+		/**
 		 The name of this sprite object.
 		 */
 		string m_name;
@@ -191,10 +245,5 @@ namespace mage {
 		 The sprite effects of this sprite object.
 		 */
 		SpriteEffect m_effects;
-
-		/**
-		 A pointer to the sprite transform of this sprite object.
-		 */
-		UniquePtr< SpriteTransform > m_transform;
 	};
 }

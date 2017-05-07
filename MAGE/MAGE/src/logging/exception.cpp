@@ -31,6 +31,8 @@ namespace mage {
 		
 		// End using variable argument list.
 		va_end(args);
+
+		Error(m_text);
 	}
 
 	FormattedException::FormattedException(const FormattedException &formatted_exception) = default;

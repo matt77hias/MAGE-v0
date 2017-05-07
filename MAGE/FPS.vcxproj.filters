@@ -33,19 +33,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FPS\src\core\stdafx.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
     <ClInclude Include="FPS\src\core\targetver.hpp">
       <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="FPS\src\samples\brdf\brdf_scene.hpp">
+      <Filter>Header Files\samples\brdf</Filter>
+    </ClInclude>
+    <ClInclude Include="FPS\src\samples\brdf\brdf_script.hpp">
+      <Filter>Header Files\samples\brdf</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FPS\src\core\FPS.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="FPS\src\core\stdafx.cpp">
-      <Filter>Source Files\core</Filter>
+    <ClCompile Include="FPS\src\samples\brdf\brdf_scene.cpp">
+      <Filter>Source Files\samples\brdf</Filter>
+    </ClCompile>
+    <ClCompile Include="FPS\src\samples\brdf\brdf_script.cpp">
+      <Filter>Source Files\samples\brdf</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

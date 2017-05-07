@@ -1,5 +1,6 @@
-#include "stdafx.h"
-
+#include "core\engine.hpp"
+#include "text\normal_sprite_text.hpp"
+#include "sprite\sprite_image.hpp"
 #include "script\fps_input_controller_script.hpp"
 #include "script\stats_script.hpp"
 #include "script\wireframe_script.hpp"
@@ -53,7 +54,7 @@ private:
 		// Camera
 		//---------------------------------------------------------------------
 		SharedPtr< PerspectiveCameraNode > camera = CreatePerspectiveCameraNode();
-		camera->GetTransform()->SetTranslationY(2.0f);
+		camera->GetTransform()->SetTranslationY(4.0f);
 		SetCamera(camera);
 		
 		//---------------------------------------------------------------------
@@ -118,6 +119,8 @@ private:
 	}
 };
 
+#include "samples\brdf\brdf_scene.hpp"
+
 struct TestSetup : public EngineSetup {
 
 	TestSetup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
@@ -125,7 +128,7 @@ struct TestSetup : public EngineSetup {
 	virtual ~TestSetup() = default;
 
 	virtual SharedPtr< Scene > CreateScene() const override {
-		return SharedPtr< Scene >(new TestScene());
+		return SharedPtr< Scene >(new BRDFScene());
 	}
 };
 

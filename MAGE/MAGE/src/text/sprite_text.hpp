@@ -97,6 +97,13 @@ namespace mage {
 		void SetFont(SharedPtr< SpriteFont > font);
 		
 		/**
+		 Clears the text of this sprite text.
+		 */
+		void ClearText() {
+			m_items.clear();
+		}
+
+		/**
 		 Sets the text of this sprite text to the given text.
 
 		 @param[in]		text

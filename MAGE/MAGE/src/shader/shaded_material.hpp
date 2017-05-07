@@ -117,12 +117,13 @@ namespace mage {
 		}
 
 		/**
-		 Returns the shader of this shaded material.
+		 Sets the material of this shaded material to the given material.
 
-		 @return		A reference to the shader of this shaded material.
+		 @param[in]		material
+						A reference to the material.
 		 */
-		CombinedShader &GetShader() {
-			return m_shader;
+		void SetMaterial(const Material &material) {
+			m_material = material;
 		}
 
 		/**
@@ -132,6 +133,16 @@ namespace mage {
 		 */
 		const CombinedShader &GetShader() const {
 			return m_shader;
+		}
+
+		/**
+		 Sets the shader of this shaded material to the given shader.
+
+		 @param[in]		shader
+						A reference to the shader.
+		 */
+		void SetShader(const CombinedShader &shader) {
+			m_shader = shader;
 		}
 
 	private:

@@ -54,6 +54,10 @@ namespace mage {
 		m_sprite_batch->Begin();
 
 		ForEachSprite([this](const SpriteObject &sprite) {
+			if (sprite.IsPassive()) {
+				return;
+			}
+
 			sprite.Draw(*m_sprite_batch);
 		});
 
@@ -204,13 +208,6 @@ namespace mage {
 		// Creates a default shaded material.
 		const ShadedMaterial default_shaded_material(shader, default_material);
 
-		// Creates a root model.
-		UniquePtr< Model > root_model(new Model(desc.GetMesh(), 0, 0, default_shaded_material));
-		// Creates a root model node.
-		SharedPtr< ModelNode > root_model_node(new ModelNode("model", std::move(root_model)));
-		// Adds this root model node to this scene.
-		AddModel(root_model_node);
-
 		typedef pair< SharedPtr< ModelNode >, string > ModelNodePair;
 		map< string, ModelNodePair > mapping;
 
@@ -236,6 +233,17 @@ namespace mage {
 			// Adds this submodel node to the mapping.
 			mapping.insert(std::make_pair(model_part.m_child, ModelNodePair(submodel_node, model_part.m_parent)));
 		});
+
+		if (mapping.size() == 1) {
+			return mapping.cbegin()->second.first;
+		}
+
+		// Creates a root model.
+		UniquePtr< Model > root_model(new Model(desc.GetMesh(), 0, 0, default_shaded_material));
+		// Creates a root model node.
+		SharedPtr< ModelNode > root_model_node(new ModelNode("model", std::move(root_model)));
+		// Adds this root model node to this scene.
+		AddModel(root_model_node);
 
 		for (map< string, ModelNodePair >::const_iterator it = mapping.cbegin(); it != mapping.cend(); ++it) {
 			const SharedPtr< ModelNode > &child = it->second.first;

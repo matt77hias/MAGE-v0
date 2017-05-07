@@ -285,7 +285,7 @@ namespace mage {
 		float y = 0;
 		SpriteTransform sprite_transform(transform);
 
-		for (vector< ColorString >::const_iterator it = text.cbegin(); it != text.cend(); ++it) {
+		for (auto it = text.cbegin(); it != text.cend(); ++it) {
 			const wchar_t *str = it->GetText().c_str();
 
 			for (const wchar_t *s = str; *s != L'\0'; ++s) {
@@ -386,7 +386,7 @@ namespace mage {
 		float x = 0;
 		float y = 0;
 
-		for (vector< ColorString >::const_iterator it = text.cbegin(); it != text.cend(); ++it) {
+		for (auto it = text.cbegin(); it != text.cend(); ++it) {
 			const wchar_t *str = it->GetText().c_str();
 
 			for (const wchar_t *s = str; *s != L'\0'; ++s) {
@@ -490,7 +490,7 @@ namespace mage {
 		float x = 0;
 		float y = 0;
 
-		for (vector< ColorString >::const_iterator it = text.cbegin(); it != text.cend(); ++it) {
+		for (auto it = text.cbegin(); it != text.cend(); ++it) {
 			const wchar_t *str = it->GetText().c_str();
 
 			for (const wchar_t *s = str; *s != L'\0'; ++s) {
@@ -550,7 +550,7 @@ namespace mage {
 	}
 
 	const Glyph *SpriteFont::GetGlyph(wchar_t character) const {
-		const vector< Glyph >::const_iterator it = std::lower_bound(m_glyphs.cbegin(), m_glyphs.cend(), character, GlyphLessThan());
+		const auto it = std::lower_bound(m_glyphs.cbegin(), m_glyphs.cend(), character, GlyphLessThan());
 		if (it != m_glyphs.cend() && it->m_character == character) {
 			return &(*it);
 		}

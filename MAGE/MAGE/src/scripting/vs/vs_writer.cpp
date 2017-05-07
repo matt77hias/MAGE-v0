@@ -24,7 +24,7 @@ namespace mage {
 	void VSWriter::Write() {
 		char output[MAX_PATH];
 
-		for (vector< Variable >::const_iterator it = m_variable_buffer.cbegin(); it != m_variable_buffer.cend(); ++it) {
+		for (auto it = m_variable_buffer.cbegin(); it != m_variable_buffer.cend(); ++it) {
 			const char *name = it->GetName().c_str();
 			const void *raw_value = it->GetValue();
 

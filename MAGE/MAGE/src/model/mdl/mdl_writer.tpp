@@ -63,8 +63,7 @@ namespace mage {
 		
 		char output[MAX_PATH];
 		
-		for (vector< ModelPart >::const_iterator it = m_model_output.m_model_parts.cbegin();
-			it != m_model_output.m_model_parts.cend(); ++it) {
+		for (auto it = m_model_output.m_model_parts.cbegin(); it != m_model_output.m_model_parts.cend(); ++it) {
 
 			sprintf_s(output, (unsigned int)_countof(output), "%s %s %s %s %u %u", 
 				MAGE_MDL_TOKEN_SUBMODEL, it->m_child.c_str(), it->m_parent.c_str(), it->m_material.c_str(),

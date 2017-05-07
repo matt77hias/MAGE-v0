@@ -255,7 +255,7 @@ namespace mage {
 			AddModel(root_model_node);
 		}
 
-		for (map< string, ModelNodePair >::const_iterator it = mapping.cbegin(); it != mapping.cend(); ++it) {
+		for (auto it = mapping.cbegin(); it != mapping.cend(); ++it) {
 			const SharedPtr< ModelNode > &child = it->second.first;
 			const string &parent = it->second.second;
 			if (parent == MAGE_MDL_PART_DEFAULT_PARENT) {
@@ -288,14 +288,13 @@ namespace mage {
 	}
 	
 	void Scene::RemoveScript(SharedPtr< BehaviorScript > script) {
-		vector< SharedPtr< BehaviorScript > >::iterator it = std::find(m_scripts.begin(), m_scripts.end(), script);
+		const auto it = std::find(m_scripts.begin(), m_scripts.end(), script);
 		if (it != m_scripts.end()) {
 			m_scripts.erase(it);
 		}
 	}
 	
 	void Scene::RemoveAllScripts() {
-		vector< SharedPtr< BehaviorScript > >::iterator it = m_scripts.begin();
 		m_scripts.clear();
 	}
 
@@ -311,7 +310,7 @@ namespace mage {
 	}
 	
 	void Scene::RemoveModel(SharedPtr< ModelNode > model) {
-		vector< SharedPtr< ModelNode > >::iterator it = std::find(m_models.begin(), m_models.end(), model);
+		const auto it = std::find(m_models.begin(), m_models.end(), model);
 		if (it != m_models.end()) {
 			m_models.erase(it);
 		}
@@ -340,14 +339,14 @@ namespace mage {
 	}
 
 	void Scene::RemoveLight(SharedPtr< OmniLightNode > light) {
-		vector< SharedPtr< OmniLightNode > >::iterator it = std::find(m_omni_lights.begin(), m_omni_lights.end(), light);
+		const auto it = std::find(m_omni_lights.begin(), m_omni_lights.end(), light);
 		if (it != m_omni_lights.end()) {
 			m_omni_lights.erase(it);
 		}
 	}
 
 	void Scene::RemoveLight(SharedPtr< SpotLightNode > light) {
-		vector< SharedPtr< SpotLightNode > >::iterator it = std::find(m_spot_lights.begin(), m_spot_lights.end(), light);
+		const auto it = std::find(m_spot_lights.begin(), m_spot_lights.end(), light);
 		if (it != m_spot_lights.end()) {
 			m_spot_lights.erase(it);
 		}
@@ -370,7 +369,7 @@ namespace mage {
 	}
 
 	void Scene::RemoveSprite(SharedPtr< SpriteObject > sprite) {
-		vector< SharedPtr< SpriteObject > >::iterator it = std::find(m_sprites.begin(), m_sprites.end(), sprite);
+		const auto it = std::find(m_sprites.begin(), m_sprites.end(), sprite);
 		if (it != m_sprites.end()) {
 			m_sprites.erase(it);
 		}

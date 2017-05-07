@@ -71,7 +71,7 @@ namespace mage {
 			}
 
 			// Fetch new block from available blocks.
-			for (list< MemoryBlock >::iterator it = m_available_blocks.begin(); it != m_available_blocks.end(); ++it) {
+			for (auto it = m_available_blocks.begin(); it != m_available_blocks.end(); ++it) {
 				if (it->first >= size) {
 					m_current_block = *it;
 					m_available_blocks.erase(it);

@@ -33,7 +33,7 @@ namespace mage {
 		
 		ImportVariableScriptFromFile(filename, variable_buffer);
 
-		for (vector< Variable >::const_iterator it = variable_buffer.cbegin(); it != variable_buffer.cend(); ++it) {
+		for (auto it = variable_buffer.cbegin(); it != variable_buffer.cend(); ++it) {
 			m_variables.insert(pair< string, Variable >(it->GetName(), *it));
 		}
 	}
@@ -42,7 +42,7 @@ namespace mage {
 		const wstring &filename = (fname != L"") ? fname : GetFilename();
 		vector< Variable > variable_buffer;
 
-		for (map< string, Variable >::const_iterator it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
+		for (auto it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
 			variable_buffer.push_back(it->second);
 		}
 
@@ -50,7 +50,7 @@ namespace mage {
 	}
 
 	void VariableScript::RemoveVariable(const string &name) {
-		const map< string, Variable >::iterator it = m_variables.find(name);
+		const auto it = m_variables.find(name);
 		if (it != m_variables.end()) {
 			m_variables.erase(it);
 		}

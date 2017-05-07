@@ -20,7 +20,7 @@ namespace mage {
 	}
 
 	const Material *ModelDescriptor::GetMaterial(const string &name) const {
-		for (vector< Material >::const_iterator it = m_materials.cbegin(); it != m_materials.cend(); ++it) {
+		for (auto it = m_materials.cbegin(); it != m_materials.cend(); ++it) {
 			if (it->m_name == name) {
 				return &(*it);
 			}
@@ -29,7 +29,7 @@ namespace mage {
 	}
 
 	const ModelPart *ModelDescriptor::GetModelPart(const string &name) const {
-		for (vector< ModelPart >::const_iterator it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
+		for (auto it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
 			if (it->m_child == name) {
 				return &(*it);
 			}

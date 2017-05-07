@@ -16,8 +16,7 @@ namespace mage {
 		: m_text(text), m_models(models), m_shaders(), m_shader_names(),
 		m_model_index(0), m_shader_index(0) {
 
-		for (vector< ModelNode * >::const_iterator it = m_models.cbegin();
-			it != m_models.cend(); ++it) {
+		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
 			(*it)->MakePassive();
 			//(*it)->GetModel()->GetMaterial().m_diffuse_reflectivity_texture.reset();
 		}
@@ -45,8 +44,7 @@ namespace mage {
 
 	void BRDFScript::SetShaders() const {
 		const CombinedShader shader = m_shaders[m_shader_index];
-		for (vector< ModelNode * >::const_iterator it = m_models.cbegin();
-			it != m_models.cend(); ++it) {
+		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
 			(*it)->GetModel()->GetShadedMaterial()->SetShader(shader);
 		}
 	}

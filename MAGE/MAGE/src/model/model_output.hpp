@@ -223,7 +223,7 @@ namespace mage {
 						The name of the model part.
 		 */
 		bool HasModelPart(const string &name) {
-			for (vector< ModelPart >::const_iterator it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
+			for (auto it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
 				if (it->m_child == name) {
 					return true;
 				}

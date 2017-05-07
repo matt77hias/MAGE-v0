@@ -275,7 +275,7 @@ namespace mage {
 			// Fill in the display formats combo box.
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_DISPLAY_FORMAT));
-			for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+			for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 #ifdef MAGE_X86
 				swprintf_s(buffer, _countof(buffer), L"%u bbp", BitsPerPixel(it->Format));
 #else
@@ -293,7 +293,7 @@ namespace mage {
 			// Fill in the resolutions combo box associated with the current format.
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
-			for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+			for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 				if (it->Format == selected_format) {
 					
 					swprintf_s(buffer, _countof(buffer), L"%u x %u", it->Width, it->Height);
@@ -311,7 +311,7 @@ namespace mage {
 			// Fill in the refresh rates combo box associated with the current resolution.
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
-			for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+			for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 				const size_t it_resolution = ConvertResolution(*it);
 				if (it_resolution == selected_resolution) {
 					
@@ -337,7 +337,7 @@ namespace mage {
 				const DXGI_FORMAT selected_format  = ComboBoxSelectedData< DXGI_FORMAT >(hwndDlg, IDC_DISPLAY_FORMAT);
 				const size_t selected_resolution   = ComboBoxSelectedData< size_t >(hwndDlg, IDC_RESOLUTION);
 				const size_t selected_refresh_rate = ComboBoxSelectedData< size_t >(hwndDlg, IDC_REFRESH_RATE);
-				for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+				for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 					const size_t it_resolution = ConvertResolution(*it);
 					if (it_resolution != selected_resolution) {
 						continue;
@@ -399,7 +399,7 @@ namespace mage {
 					// Update the resolution combo box.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
-					for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+					for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 						if (it->Format == selected_format) {
 							
 							swprintf_s(buffer, _countof(buffer), L"%u x %u", it->Width, it->Height);
@@ -430,7 +430,7 @@ namespace mage {
 					// Update the refresh rate combo box.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
-					for (list< DXGI_MODE_DESC1 >::const_iterator it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+					for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 						const size_t it_resolution = ConvertResolution(*it);
 						if (it_resolution == selected_resolution) {
 							

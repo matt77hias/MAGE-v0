@@ -177,7 +177,7 @@ namespace mage {
 		while (indices.size() < 3 || HasString()) {
 			const XMUINT3 vertex_indices = ReadOBJVertexIndices();
 
-			const map< XMUINT3, uint32_t >::const_iterator it = m_mapping.find(vertex_indices);
+			const auto it = m_mapping.find(vertex_indices);
 			if (it != m_mapping.cend()) {
 				indices.push_back(it->second);
 			}

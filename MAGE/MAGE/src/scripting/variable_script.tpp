@@ -21,7 +21,7 @@ namespace mage {
 
 	template < typename T >
 	const T *VariableScript::GetValueOfVariable(const string &name) const {
-		const map< string, Variable >::const_iterator it = m_variables.find(name);
+		const auto it = m_variables.find(name);
 		if (it != m_variables.end()) {
 			return static_cast< const T * >(it->second.GetValue());
 		}
@@ -32,7 +32,7 @@ namespace mage {
 
 	template < typename T >
 	void VariableScript::SetValueOfVariable(const string &name, const T &value) {
-		const map< string, Variable >::iterator it = m_variables.find(name);
+		const auto it = m_variables.find(name);
 		if (it != m_variables.end()) {
 			it->second.SetValue(value);
 			return;

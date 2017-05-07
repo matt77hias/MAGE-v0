@@ -76,8 +76,8 @@ namespace mage {
 		// Lights
 		//---------------------------------------------------------------------
 		SharedPtr< OmniLightNode > omni_light = CreateOmniLightNode();
-		omni_light->GetTransform()->SetTranslationY(2.0f);
-		omni_light->GetLight()->SetDistanceFalloff(0.0f, 2.0f);
+		omni_light->GetTransform()->SetTranslation(0.0f, 4.0f, -3.5f);
+		omni_light->GetLight()->SetDistanceFalloff(0.0f, 10.0f);
 
 		//---------------------------------------------------------------------
 		// Texture

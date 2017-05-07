@@ -30,9 +30,10 @@ namespace mage {
 	}
 
 	void BRDFScript::InitModels() {
-		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
+		for (auto it = ++m_models.cbegin(); it != m_models.cend(); ++it) {
 			(*it)->MakePassive();
 		}
+
 	}
 
 	void BRDFScript::InitShaders() {

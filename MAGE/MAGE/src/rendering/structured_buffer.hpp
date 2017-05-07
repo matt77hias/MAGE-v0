@@ -40,7 +40,7 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		nb_data_elements
+		 @param[in]		nb_initial_data_elements
 						The initial number of slots for storing data elements to provide.
 		 */
 		explicit StructuredBuffer(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, 

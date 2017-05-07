@@ -36,8 +36,7 @@ namespace mage {
 
 		wchar_t buffer[16];
 		_snwprintf_s(buffer, _countof(buffer), L"FPS: %u", m_last_frames_per_second);
-		const wstring text = buffer;
-
-		m_text->SetText(text);
+		
+		m_text->SetText(buffer);
 	}
 }

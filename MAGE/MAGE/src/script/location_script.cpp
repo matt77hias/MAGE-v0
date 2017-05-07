@@ -29,8 +29,7 @@ namespace mage {
 		_snwprintf_s(buffer, _countof(buffer), L"T: %.2f %.2f %.2f\nR: %.2f %.2f %.2f",
 			translation.x, translation.y, translation.z,
 			rotation.x, rotation.y, rotation.z);
-		const wstring text = buffer;
-
-		m_text->SetText(text);
+		
+		m_text->SetText(buffer);
 	}
 }

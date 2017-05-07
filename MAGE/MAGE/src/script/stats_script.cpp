@@ -47,8 +47,7 @@ namespace mage {
 		wchar_t buffer[64];
 		_snwprintf_s(buffer, _countof(buffer), L"FPS: %u\nCPU: %.1lf%%\nRAM: %uMB", 
 			m_last_frames_per_second, m_last_cpu_usage, m_last_ram_usage);
-		const wstring text = buffer;
-
-		m_text->SetText(text);
+		
+		m_text->SetText(buffer);
 	}
 }

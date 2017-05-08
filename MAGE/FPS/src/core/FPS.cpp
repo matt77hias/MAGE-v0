@@ -13,7 +13,7 @@ struct Setup : public EngineSetup {
 	virtual ~Setup() = default;
 
 	virtual SharedPtr< Scene > CreateScene() const override {
-		return SharedPtr< Scene >(new SponzaScene());
+		return SharedPtr< Scene >(new BRDFScene());
 	}
 };
 

@@ -106,7 +106,6 @@ namespace mage {
 		SharedPtr< SpriteText > stats_text(new NormalSpriteText("stats_text", font));
 		AddSprite(stats_text);
 		SharedPtr< SpriteText > brdf_text(new NormalSpriteText("brdf_text", font));
-		brdf_text->GetTransform()->SetNormalizedTranslationY(0.1f);
 		AddSprite(brdf_text);
 
 		//---------------------------------------------------------------------

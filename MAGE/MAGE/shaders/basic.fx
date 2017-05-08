@@ -42,14 +42,12 @@ float LambertianBRDF(float3 n, float3 l) {
 // Calculates the (specular) Phong BRDF (independent of ks).
 float PhongBRDF(float3 n, float3 l) {
 	// dot(r, v)^Ns / dot(n, l)
+	const float n_dot_l = dot(n, l);
+	if (n_dot_l <= 0.0f) {
+		return 0.0f;
+	}
 	const float3 r = ReflectedDirection(n, l);
-	return max(0.0f, pow(max(0.0f, -r.z), Ns) / dot(n, l));
-}
-// Calculates the (specular) Blinn-Phong BRDF (independent of ks).
-float BlinnPhongBRDF(float3 n, float3 l) {
-	// dot(n, h)^Ns / dot(n, l)
-	const float3 h = HalfDirection(l);
-	return max(0.0f, pow(max_dot(n, h), Ns) / dot(n, l));
+	return pow(max(0.0f, -r.z), Ns) / n_dot_l;
 }
 // Calculates the (specular) Modified Blinn-Phong BRDF (independent of ks).
 float ModifiedBlinnPhongBRDF(float3 n, float3 l) {
@@ -57,6 +55,16 @@ float ModifiedBlinnPhongBRDF(float3 n, float3 l) {
 	const float3 h = HalfDirection(l);
 	return pow(max_dot(n, h), Ns);
 }
+// Calculates the (specular) Blinn-Phong BRDF (independent of ks).
+float BlinnPhongBRDF(float3 n, float3 l) {
+	// dot(n, h)^Ns / dot(n, l)
+	const float n_dot_l = dot(n, l);
+	if (n_dot_l <= 0.001f) { // Prevents flickering.
+		return 0.0f;
+	}
+	return ModifiedBlinnPhongBRDF(n, l) / n_dot_l;
+}
+
 
 //-----------------------------------------------------------------------------
 // Lights
@@ -158,7 +166,7 @@ float4 LambertianBRDFShading(float4 p, float3 n, float2 tex) {
 // Calculates the Phong BRDF shading.
 float4 PhongBRDFShading(float4 p, float3 n, float2 tex) {
 
-	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
+	float3 I_diffuse = float3(0.0f, 0.0f, 0.0f);
 	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
 
 	// Ambient light and directional light contribution
@@ -199,7 +207,7 @@ float4 PhongBRDFShading(float4 p, float3 n, float2 tex) {
 // Calculates the Blinn-Phong BRDF shading.
 float4 BlinnPhongBRDFShading(float4 p, float3 n, float2 tex) {
 
-	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
+	float3 I_diffuse = float3(0.0f, 0.0f, 0.0f);
 	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
 
 	// Ambient light and directional light contribution

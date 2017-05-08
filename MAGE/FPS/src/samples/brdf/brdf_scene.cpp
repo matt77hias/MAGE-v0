@@ -37,8 +37,7 @@ namespace mage {
 		// Camera
 		//---------------------------------------------------------------------
 		SharedPtr< PerspectiveCameraNode > camera = CreatePerspectiveCameraNode();
-		camera->GetTransform()->SetTranslationY(4.0f);
-		camera->GetTransform()->SetTranslationZ(-10.0f);
+		camera->GetTransform()->SetTranslation(0.0f, 20.0f, -15.0f);
 		SetCamera(camera);
 
 		//---------------------------------------------------------------------
@@ -63,26 +62,20 @@ namespace mage {
 		SharedPtr< ModelNode > model_teapot   = CreateModelNode(*model_desc_teapot);
 		SharedPtr< ModelNode > model_torus    = CreateModelNode(*model_desc_torus);
 
-		model_cone->GetTransform()->SetScale(3.0f);
-		model_cube->GetTransform()->SetScale(3.0f);
-		model_cube->GetTransform()->SetRotationX(-1.047f);
-		model_cylinder->GetTransform()->SetScale(3.0f);
-		model_cylinder->GetTransform()->SetRotationX(-1.047f);
-		model_plane->GetTransform()->SetScale(3.0f);
-		model_plane->GetTransform()->SetRotationX(-1.047f);
-		model_sphere->GetTransform()->SetScale(3.0f);
-		model_sphere->GetTransform()->SetRotationX(-1.047f);
-		model_teapot->GetTransform()->SetScale(3.0f);
-		model_teapot->GetTransform()->SetRotationX(-1.047f);
-		model_torus->GetTransform()->SetScale(3.0f);
-		model_torus->GetTransform()->SetRotationX(-1.047f);
+		model_cone->GetTransform()->SetScale(10.0f);
+		model_cube->GetTransform()->SetScale(10.0f);
+		model_cylinder->GetTransform()->SetScale(10.0f);
+		model_plane->GetTransform()->SetScale(10.0f);
+		model_sphere->GetTransform()->SetScale(10.0f);
+		model_teapot->GetTransform()->SetScale(30.0f);
+		model_torus->GetTransform()->SetScale(10.0f);
 		
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
 		SharedPtr< OmniLightNode > omni_light = CreateOmniLightNode();
-		omni_light->GetTransform()->SetTranslation(0.0f, 4.0f, -3.5f);
-		omni_light->GetLight()->SetDistanceFalloff(0.0f, 10.0f);
+		omni_light->GetTransform()->SetTranslation(0.0f, 20.0f, -15.0f);
+		omni_light->GetLight()->SetDistanceFalloff(0.0f, 50.0f);
 
 		//---------------------------------------------------------------------
 		// Texture

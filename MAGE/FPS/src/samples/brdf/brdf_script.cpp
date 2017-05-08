@@ -45,10 +45,10 @@ namespace mage {
 			(*it)->MakePassive();
 			
 			Material &material = (*it)->GetModel()->GetMaterial();
-			material.m_diffuse_reflectivity         = RGBSpectrum(0.161f, 0.0841f, 0.0537f);
+			material.m_diffuse_reflectivity         = RGBSpectrum(1.0f, 0.0f, 0.0f);
 			material.m_diffuse_reflectivity_texture = white;
-			material.m_specular_reflectivity        = RGBSpectrum(0.241f, 0.181f, 0.11f);
-			material.m_specular_exponent            = 497.0f;
+			material.m_specular_reflectivity        = RGBSpectrum(1.0f, 1.0f, 1.0f);
+			material.m_specular_exponent            = 10.0f;
 		}
 
 		(*m_models.cbegin())->MakeActive();

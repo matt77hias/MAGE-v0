@@ -5,6 +5,9 @@
 
 MAGE - Matthias Advanced Game Engine
 
+<p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Lambertian.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Blinn-Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Modified-Blinn-Phong.png" width="215"></p>
+<p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/TSPM_Lambertian.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/TSPM_Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/TSPM_Blinn-Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/TSPM_Modified-Blinn-Phong.png" width="215"></p>
+
 ## Development
 * **Platform**: (minimum) Windows 8.1 32 Bit and 64 Bit (Windows API + Direct3D 11)
 * **Engine Programming Language**: C++14 (will and must change to C++17 since I need `if-constexpr`)

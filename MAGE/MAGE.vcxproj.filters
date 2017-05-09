@@ -723,6 +723,12 @@
     <ClInclude Include="MAGE\src\shader\cso\blinn_phong_bump_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\bump_shader.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\bump_shader_factory.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1024,6 +1030,12 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\texture\texture_loader.cpp">
       <Filter>Source Files\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\bump_shader_factory.cpp">
+      <Filter>Source Files\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\bump_shader.cpp">
+      <Filter>Source Files\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

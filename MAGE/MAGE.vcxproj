@@ -139,6 +139,8 @@
     <ClInclude Include="MAGE\src\script\wireframe_script.hpp" />
     <ClInclude Include="MAGE\src\shader\basic_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\basic_shader_factory.hpp" />
+    <ClInclude Include="MAGE\src\shader\bump_shader.hpp" />
+    <ClInclude Include="MAGE\src\shader\bump_shader_factory.hpp" />
     <ClInclude Include="MAGE\src\shader\compiled_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\compiled_shader_factory.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\blinn_phong_bump_PS.hpp" />
@@ -262,6 +264,8 @@
     <ClCompile Include="MAGE\src\script\wireframe_script.cpp" />
     <ClCompile Include="MAGE\src\shader\basic_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\basic_shader_factory.cpp" />
+    <ClCompile Include="MAGE\src\shader\bump_shader.cpp" />
+    <ClCompile Include="MAGE\src\shader\bump_shader_factory.cpp" />
     <ClCompile Include="MAGE\src\shader\compiled_shader_factory.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
     <ClCompile Include="MAGE\src\shader\shader.cpp" />

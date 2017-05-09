@@ -141,10 +141,14 @@
     <ClInclude Include="MAGE\src\shader\basic_shader_factory.hpp" />
     <ClInclude Include="MAGE\src\shader\compiled_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\compiled_shader_factory.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\blinn_phong_bump_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\blinn_phong_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\diffuse_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\lambertian_bump_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\lambertian_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\modified_blinn_phong_bump_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\modified_blinn_phong_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\phong_bump_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\phong_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\sprite_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\sprite_VS.hpp" />

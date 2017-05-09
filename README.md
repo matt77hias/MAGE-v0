@@ -5,8 +5,8 @@
 
 MAGE - Matthias Advanced Game Engine
 
-<p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Lambertian.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Blinn-Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Modified-Blinn-Phong.png" width="215"></p>
-<p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/TSPM_Lambertian.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/TSPM_Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/TSPM_Blinn-Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/TSPM_Modified-Blinn-Phong.png" width="215"></p>
+<p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Lambertian.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Blinn-Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Modified-Blinn-Phong.png" width="215"></p>
+<p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/TSPM_Lambertian.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/TSPM_Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/TSPM_Blinn-Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/TSPM_Modified-Blinn-Phong.png" width="215"></p>
 
 ## Development
 * **Platform**: (minimum) Windows 8.1 32 Bit and 64 Bit (Windows API + Direct3D 11)

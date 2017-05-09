@@ -41,6 +41,7 @@ namespace mage {
 
 	void BRDFScript::InitModels() {
 		SharedPtr< Texture > white = CreateWhiteTexture();
+		SharedPtr< Texture > normal = CreateTexture(L"assets/models/sponza/textures/sponza_bricks_a_normal.dds");
 		
 		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
 			(*it)->MakePassive();
@@ -50,6 +51,7 @@ namespace mage {
 			material.m_diffuse_reflectivity_texture = white;
 			material.m_specular_reflectivity        = RGBSpectrum(1.0f, 1.0f, 1.0f);
 			material.m_specular_exponent            = 10.0f;
+			material.m_normal_texture				= normal;
 		}
 
 		(*m_models.cbegin())->MakeActive();

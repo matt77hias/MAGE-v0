@@ -35,6 +35,8 @@ MAGE - Matthias Advanced Game Engine
   * Kenzie Lamar (updated version),
   * Morgan McGuire ([data]((http://graphics.cs.williams.edu/data/meshes.xml))),
   * Matthias Moulin (updated version).
+  
+* [Logo](http://www.deviantart.com/art/Black-Mage-356147620) [[License](https://creativecommons.org/licenses/by-nc-nd/3.0/)]
 
 *Non-substantially* based on:
 * [directx-sdk-samples](https://github.com/walbourn/directx-sdk-samples) [[License](https://github.com/walbourn/directx-sdk-samples/blob/master/LICENSE)]
@@ -47,7 +49,6 @@ MAGE - Matthias Advanced Game Engine
 
 *Substantially* based on:
 * [DirectXTK](https://github.com/Microsoft/DirectXTK) [[License](https://github.com/Microsoft/DirectXTK/blob/master/LICENSE)]
-* [Logo](http://www.deviantart.com/art/Black-Mage-356147620) [[License](https://creativecommons.org/licenses/by-nc-nd/3.0/)]
 
 ## Current iteration' TODOs
 * Frustum culling

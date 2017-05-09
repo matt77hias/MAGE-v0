@@ -23,6 +23,19 @@ MAGE - Matthias Advanced Game Engine
 * **IDE**: Visual Studio 2015 (will change to Visual Studio 2017 when "Visual Studio 2017 Color Theme Editor" is released)
 
 ## Codebase
+*Assets*:
+* Crytek Sponza:
+  * Marko Dabrovic (original version),
+  * Frank Meinl (modified version, [data](http://www.crytek.com/cryengine/cryengine3/downloads)),
+  * Morgan McGuire (updated version, [data]((http://graphics.cs.williams.edu/data/meshes.xml))),
+  * Matthias Moulin (updated version). 
+  
+* Utah Teapot: 
+  * Martin Newell (original version),
+  * Kenzie Lamar (updated version),
+  * Morgan McGuire ([data]((http://graphics.cs.williams.edu/data/meshes.xml))),
+  * Matthias Moulin (updated version).
+
 *Non-substantially* based on:
 * [directx-sdk-samples](https://github.com/walbourn/directx-sdk-samples) [[License](https://github.com/walbourn/directx-sdk-samples/blob/master/LICENSE)]
 * [directxtk-samples](https://github.com/walbourn/directxtk-samples) [[License](https://github.com/walbourn/directxtk-samples/blob/master/LICENSE)]

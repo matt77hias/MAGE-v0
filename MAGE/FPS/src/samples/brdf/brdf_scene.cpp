@@ -65,7 +65,7 @@ namespace mage {
 		model_cone->GetTransform()->SetScale(10.0f);
 		model_cube->GetTransform()->SetScale(10.0f);
 		model_cylinder->GetTransform()->SetScale(10.0f);
-		model_plane->GetTransform()->SetScale(10.0f);
+		model_plane->GetTransform()->SetScale(20.0f);
 		model_sphere->GetTransform()->SetScale(10.0f);
 		model_teapot->GetTransform()->SetScale(30.0f);
 		model_torus->GetTransform()->SetScale(10.0f);

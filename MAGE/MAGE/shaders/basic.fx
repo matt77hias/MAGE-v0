@@ -385,28 +385,23 @@ float4 Normal_PS(PS_INPUT input) : SV_Target{
 }
 
 float4 LambertianBump_PS(PS_INPUT input) : SV_Target {
-	const float3 v = normalize(-input.p_view.xyz);
-	const float3 n = PerturbNormal(v, input.n_view, input.tex);
+	const float3 n = PerturbNormal(input.p_view.xyz, input.n_view, input.tex);
 	return LambertianBRDFShading(input.p_view, n, input.tex);
 }
 float4 PhongBump_PS(PS_INPUT input) : SV_Target {
-	const float3 v = normalize(-input.p_view.xyz);
-	const float3 n = PerturbNormal(v, input.n_view, input.tex);
+	const float3 n = PerturbNormal(input.p_view.xyz, input.n_view, input.tex);
 	return PhongBRDFShading(input.p_view, n, input.tex);
 }
 float4 BlinnPhongBump_PS(PS_INPUT input) : SV_Target {
-	const float3 v = normalize(-input.p_view.xyz);
-	const float3 n = PerturbNormal(v, input.n_view, input.tex);
+	const float3 n = PerturbNormal(input.p_view.xyz, input.n_view, input.tex);
 	return BlinnPhongBRDFShading(input.p_view, n, input.tex);
 }
 float4 ModifiedBlinnPhongBump_PS(PS_INPUT input) : SV_Target {
-	const float3 v = normalize(-input.p_view.xyz);
-	const float3 n = PerturbNormal(v, input.n_view, input.tex);
+	const float3 n = PerturbNormal(input.p_view.xyz, input.n_view, input.tex);
 	return ModifiedBlinnPhongBRDFShading(input.p_view, n, input.tex);
 }
 float4 NormalBump_PS(PS_INPUT input) : SV_Target {
-	const float3 v = normalize(-input.p_view.xyz);
-	const float3 n = PerturbNormal(v, input.n_view, input.tex);
+	const float3 n = PerturbNormal(input.p_view.xyz, input.n_view, input.tex);
 	return float4(0.5f + 0.5f * n, 1.0f);
 }
 

@@ -41,7 +41,7 @@ namespace mage {
 
 	void BRDFScript::InitModels() {
 		SharedPtr< Texture > white = CreateWhiteTexture();
-		SharedPtr< Texture > normal = CreateTexture(L"assets/models/sponza/textures/sponza_bricks_a_normal.dds");
+		SharedPtr< Texture > normal = CreateTexture(L"assets/sprites/bump/rock 4.dds");
 		
 		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
 			(*it)->MakePassive();
@@ -104,8 +104,8 @@ namespace mage {
 			SetShaders();
 		}
 		else if (keyboard->GetKeyPress(DIK_LALT, false)) {
-			m_shader_index = std::min(m_shader_index - 1, m_shaders.size() - 1);
-			SetShaders();
+			//m_shader_index = std::min(m_shader_index - 1, m_shaders.size() - 1);
+			//SetShaders();
 		}
 
 		m_text->SetText(L"\n\n\n");

@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "math\transform.hpp"
+#include "math\transform_node.hpp"
 #include "text\sprite_text.hpp"
 
 #pragma endregion
@@ -24,7 +24,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit LocationScript(Transform *transform, SharedPtr< SpriteText > text);
+		explicit LocationScript(TransformNode *transform, SharedPtr< SpriteText > text);
 		LocationScript(const LocationScript &script) = delete;
 		LocationScript(LocationScript &&script);
 		virtual ~LocationScript();
@@ -48,7 +48,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		Transform * const m_transform;
+		TransformNode * const m_transform;
 		SharedPtr< SpriteText > m_text;
 	};
 }

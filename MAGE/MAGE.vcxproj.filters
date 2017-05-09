@@ -660,30 +660,6 @@
     <ClInclude Include="MAGE\src\shader\basic_shader.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\phong_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\sprite_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\sprite_VS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\transform_VS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\blinn_phong_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\diffuse_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\lambertian_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\modified_blinn_phong_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\compiled_shader.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
@@ -711,23 +687,47 @@
     <ClInclude Include="MAGE\src\texture\texture_factory.hpp">
       <Filter>Header Files\texture</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\lambertian_bump_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\modified_blinn_phong_bump_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\phong_bump_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\blinn_phong_bump_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\bump_shader.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\bump_shader_factory.hpp">
       <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\sprite_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\sprite_VS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\transform_VS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\tsnm_blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\tsnm_lambertian_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\tsnm_modified_blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\tsnm_phong_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\diffuse_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\lambertian_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\modified_blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\phong_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1069,16 +1069,16 @@
     <FxCompile Include="MAGE\shaders\transform_VS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\blinn_phong_bump_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\tsnm_blinn_phong_PS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\lambertian_bump_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\tsnm_lambertian_PS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\modified_blinn_phong_bump_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\tsnm_phong_PS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\phong_bump_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\tsnm_modified_blinn_phong_PS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
   </ItemGroup>

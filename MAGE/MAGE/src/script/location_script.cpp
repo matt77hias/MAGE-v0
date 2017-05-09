@@ -12,9 +12,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	LocationScript::LocationScript(Transform *transform, SharedPtr< SpriteText > text)
-		: BehaviorScript(),
-		m_transform(transform), m_text(text) {}
+	LocationScript::LocationScript(TransformNode *transform, SharedPtr< SpriteText > text)
+		: BehaviorScript(), m_transform(transform), m_text(text) {}
 	
 	LocationScript::LocationScript(LocationScript &&script) = default;
 	

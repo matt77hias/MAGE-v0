@@ -10,10 +10,10 @@
 #include "shader\cso\phong_PS.hpp"
 #include "shader\cso\blinn_phong_PS.hpp"
 #include "shader\cso\modified_blinn_phong_PS.hpp"
-#include "shader\cso\lambertian_bump_PS.hpp"
-#include "shader\cso\phong_bump_PS.hpp"
-#include "shader\cso\blinn_phong_bump_PS.hpp"
-#include "shader\cso\modified_blinn_phong_bump_PS.hpp"
+#include "shader\cso\tsnm_lambertian_PS.hpp"
+#include "shader\cso\tsnm_phong_PS.hpp"
+#include "shader\cso\tsnm_blinn_phong_PS.hpp"
+#include "shader\cso\tsnm_modified_blinn_phong_PS.hpp"
 #include "shader\cso\sprite_VS.hpp"
 #include "shader\cso\sprite_PS.hpp"
 
@@ -49,19 +49,19 @@ namespace mage {
 	}
 
 	const CompiledPixelShader CreateCompiledLambertianBumpPixelShader() {
-		return CompiledPixelShader(MAGE_GUID_LAMBERTIAN_BUMP_PS, g_lambertian_bump_ps, sizeof(g_lambertian_bump_ps));
+		return CompiledPixelShader(MAGE_GUID_TSNM_LAMBERTIAN_PS, g_tsnm_lambertian_ps, sizeof(g_tsnm_lambertian_ps));
 	}
 
 	const CompiledPixelShader CreateCompiledPhongBumpPixelShader() {
-		return CompiledPixelShader(MAGE_GUID_PHONG_BUMP_PS, g_phong_bump_ps, sizeof(g_phong_bump_ps));
+		return CompiledPixelShader(MAGE_GUID_TSNM_PHONG_PS, g_tsnm_phong_ps, sizeof(g_tsnm_phong_ps));
 	}
 
 	const CompiledPixelShader CreateCompiledBlinnPhongBumpPixelShader() {
-		return CompiledPixelShader(MAGE_GUID_BLINN_PHONG_BUMP_PS, g_blinn_phong_bump_ps, sizeof(g_blinn_phong_bump_ps));
+		return CompiledPixelShader(MAGE_GUID_TSNM_BLINN_PHONG_PS, g_tsnm_blinn_phong_ps, sizeof(g_tsnm_blinn_phong_ps));
 	}
 
 	const CompiledPixelShader CreateCompiledModifiedBlinnPhongBumpPixelShader() {
-		return CompiledPixelShader(MAGE_GUID_MODIFIED_BLINN_PHONG_BUMP_PS, g_modified_blinn_phong_bump_ps, sizeof(g_modified_blinn_phong_bump_ps));
+		return CompiledPixelShader(MAGE_GUID_TSNM_MODIFIED_BLINN_PHONG_PS, g_tsnm_modified_blinn_phong_ps, sizeof(g_tsnm_modified_blinn_phong_ps));
 	}
 
 	const CompiledVertexShader CreateCompiledSpriteVertexShader() {

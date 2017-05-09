@@ -67,10 +67,10 @@ float BlinnPhongBRDF(float3 n, float3 l, float3 v) {
 }
 
 // Calculates the cotangent frame.
-float3x3 CotangentFrame(float3 v, float3 n, float2 tex) {
+float3x3 CotangentFrame(float3 p, float3 n, float2 tex) {
 	// Calculates the edge differences.
-	const float3 dp1  = ddx(v);
-	const float3 dp2  = ddy(v);
+	const float3 dp1  = ddx(p);
+	const float3 dp2  = ddy(p);
 	const float2 duv1 = ddx(tex);
 	const float2 duv2 = ddy(tex);
 
@@ -89,11 +89,11 @@ float3x3 CotangentFrame(float3 v, float3 n, float2 tex) {
 	return TBN;
 }
 // Perturbs the given normal.
-float3 PerturbNormal(float3 v, float3 n, float2 tex) {
+float3 PerturbNormal(float3 p, float3 n, float2 tex) {
 	float3 bump_coefficients = normal_texture_map.Sample(texture_sampler, tex).xyz;
 	bump_coefficients = 2.0f * bump_coefficients - 1.0f;
 
-	const float3x3 TBN = CotangentFrame(v, n, tex);
+	const float3x3 TBN = CotangentFrame(p, n, tex);
 	return normalize(mul(bump_coefficients, TBN));
 }
 

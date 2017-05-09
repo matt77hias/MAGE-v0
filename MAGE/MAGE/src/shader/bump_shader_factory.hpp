@@ -19,16 +19,6 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 Creates a diffuse bump shader.
-
-	 @pre			The current engine must be loaded.
-	 @return		The diffuse bump shader.
-	 @throws		FormattedException
-					Failed to create the shader.
-	 */
-	const CombinedShader CreateDiffuseBumpShader();
-
-	/**
 	 Creates a Lambertian bump shader.
 
 	 @pre			The current engine must be loaded.

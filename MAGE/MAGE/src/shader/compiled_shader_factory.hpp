@@ -20,6 +20,10 @@
 #define MAGE_GUID_PHONG_PS L"phong_ps"
 #define MAGE_GUID_BLINN_PHONG_PS L"blinn_phong_ps"
 #define MAGE_GUID_MODIFIED_BLINN_PHONG_PS L"modified_blinn_phong_ps"
+#define MAGE_GUID_LAMBERTIAN_BUMP_PS L"lambertian_bump_ps"
+#define MAGE_GUID_PHONG_BUMP_PS L"phong_bump_ps"
+#define MAGE_GUID_BLINN_PHONG_BUMP_PS L"blinn_phong_bump_ps"
+#define MAGE_GUID_MODIFIED_BLINN_PHONG_BUMP_PS L"modified_blinn_phong_bump_ps"
 #define MAGE_GUID_SPRITE_VS L"sprite_vs"
 #define MAGE_GUID_SPRITE_PS L"sprite_ps"
 
@@ -75,6 +79,34 @@ namespace mage {
 	 @return		The compiled Modified Blinn-Phong pixel shader.
 	 */
 	const CompiledPixelShader CreateCompiledModifiedBlinnPhongPixelShader();
+
+	/**
+	 Returns the compiled Lambertian bump pixel shader.
+
+	 @return		The compiled Lambertian bump pixel shader.
+	 */
+	const CompiledPixelShader CreateCompiledLambertianBumpPixelShader();
+
+	/**
+	 Returns the compiled Phong bump pixel shader.
+
+	 @return		The compiled Phong bump pixel shader.
+	 */
+	const CompiledPixelShader CreateCompiledPhongBumpPixelShader();
+
+	/**
+	 Returns the compiled Blinn-Phong bump pixel shader.
+
+	 @return		The compiled Blinn-Phong bump pixel shader.
+	 */
+	const CompiledPixelShader CreateCompiledBlinnPhongBumpPixelShader();
+
+	/**
+	 Returns the compiled Modified Blinn-Phong bump pixel shader.
+
+	 @return		The compiled Modified Blinn-Phong bump pixel shader.
+	 */
+	const CompiledPixelShader CreateCompiledModifiedBlinnPhongBumpPixelShader();
 
 	/**
 	 Returns the compiled sprite vertex shader.

@@ -15,23 +15,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const CombinedShader CreateDiffuseBumpShader() {
-		ID3D11Device2 *device = GetRenderingDevice();
-		Assert(device);
-
-		ID3D11DeviceContext2 *device_context = GetRenderingDeviceContext();
-		Assert(device_context);
-
-		ResourceFactory *factory = GetResourceFactory();
-		Assert(factory);
-
-		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
-			device, device_context, CreateCompiledTransformVertexShader());
-		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
-			device, device_context, CreateCompiledDiffusePixelShader());
-		return CombinedShader(vs, ps);
-	}
-
 	const CombinedShader CreateLambertianBumpShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
@@ -45,7 +28,7 @@ namespace mage {
 		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
 			device, device_context, CreateCompiledTransformVertexShader());
 		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
-			device, device_context, CreateCompiledLambertianPixelShader());
+			device, device_context, CreateCompiledLambertianBumpPixelShader());
 		return CombinedShader(vs, ps);
 	}
 
@@ -62,7 +45,7 @@ namespace mage {
 		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
 			device, device_context, CreateCompiledTransformVertexShader());
 		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
-			device, device_context, CreateCompiledPhongPixelShader());
+			device, device_context, CreateCompiledPhongBumpPixelShader());
 		return CombinedShader(vs, ps);
 	}
 
@@ -79,7 +62,7 @@ namespace mage {
 		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
 			device, device_context, CreateCompiledTransformVertexShader());
 		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
-			device, device_context, CreateCompiledBlinnPhongPixelShader());
+			device, device_context, CreateCompiledBlinnPhongBumpPixelShader());
 		return CombinedShader(vs, ps);
 	}
 
@@ -96,7 +79,7 @@ namespace mage {
 		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
 			device, device_context, CreateCompiledTransformVertexShader());
 		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
-			device, device_context, CreateCompiledModifiedBlinnPhongPixelShader());
+			device, device_context, CreateCompiledModifiedBlinnPhongBumpPixelShader());
 		return CombinedShader(vs, ps);
 	}
 }

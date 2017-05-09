@@ -73,9 +73,7 @@ namespace mage {
 		m_device_context->PSSetShaderResources(1, 1, &lighting.m_omni_lights);
 		m_device_context->PSSetShaderResources(2, 1, &lighting.m_spot_lights);
 
-		// TODO
-		if (material.m_diffuse_reflectivity_texture) {
-			m_device_context->PSSetShaderResources(0, 1, material.m_diffuse_reflectivity_texture->GetAddress());
-		}
+		m_device_context->PSSetShaderResources(0, 1, material.m_diffuse_reflectivity_texture->GetAddress());
+		m_device_context->PSSetShaderResources(4, 1, material.m_normal_texture->GetAddress());
 	}
 }

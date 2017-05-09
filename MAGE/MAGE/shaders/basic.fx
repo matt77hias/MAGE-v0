@@ -12,6 +12,7 @@ cbuffer Transform : register(b0) {
 // Materials
 //-----------------------------------------------------------------------------
 Texture2D diffuse_texture_map : register(t0);
+Texture2D normal_texture_map  : register(t4);
 sampler texture_sampler       : register(s0);
 
 cbuffer Material : register(b1) {
@@ -29,10 +30,10 @@ float max_dot(float3 x, float3 y) {
 float3 ReflectedDirection(float3 n, float3 l) {
 	return reflect(-l, n);
 }
-// Calculates the half direction between the v (0,0,-1) and given l.
-float3 HalfDirection(float3 l) {
-	l.z -= 1.0f;
-	return normalize(l);
+// Calculates the half direction between the given l and given v.
+float3 HalfDirection(float3 l, float3 v) {
+	// l+v / ||l+v||
+	return normalize(l + v);
 }
 
 // Calculates the Lambertian BRDF (independent of kd).
@@ -40,29 +41,60 @@ float LambertianBRDF(float3 n, float3 l) {
 	return max_dot(n, l);
 }
 // Calculates the (specular) Phong BRDF (independent of ks).
-float PhongBRDF(float3 n, float3 l) {
+float PhongBRDF(float3 n, float3 l, float3 v) {
 	// dot(r, v)^Ns / dot(n, l)
 	const float n_dot_l = dot(n, l);
 	if (n_dot_l <= 0.0f) {
 		return 0.0f;
 	}
 	const float3 r = ReflectedDirection(n, l);
-	return pow(max(0.0f, -r.z), Ns) / n_dot_l;
+	return pow(max_dot(r, v), Ns) / n_dot_l;
 }
 // Calculates the (specular) Modified Blinn-Phong BRDF (independent of ks).
-float ModifiedBlinnPhongBRDF(float3 n, float3 l) {
+float ModifiedBlinnPhongBRDF(float3 n, float3 l, float3 v) {
 	// dot(n, h)^Ns
-	const float3 h = HalfDirection(l);
+	const float3 h = HalfDirection(l, v);
 	return pow(max_dot(n, h), Ns);
 }
 // Calculates the (specular) Blinn-Phong BRDF (independent of ks).
-float BlinnPhongBRDF(float3 n, float3 l) {
+float BlinnPhongBRDF(float3 n, float3 l, float3 v) {
 	// dot(n, h)^Ns / dot(n, l)
 	const float n_dot_l = dot(n, l);
-	if (n_dot_l <= 0.001f) { // Prevents flickering.
+	if (n_dot_l <= 0.01f) { // Prevents flickering.
 		return 0.0f;
 	}
-	return ModifiedBlinnPhongBRDF(n, l) / n_dot_l;
+	return ModifiedBlinnPhongBRDF(n, l, v) / n_dot_l;
+}
+
+// Calculates the cotangent frame.
+float3x3 CotangentFrame(float3 v, float3 n, float2 tex) {
+	// Calculates the edge differences.
+	const float3 dp1  = ddx(v);
+	const float3 dp2  = ddy(v);
+	const float2 duv1 = ddx(tex);
+	const float2 duv2 = ddy(tex);
+
+	// Solve the linear system of equations to obtain
+	// the cotangents t and b.
+	const float3 dp2_ortho = cross(dp2, n);
+	const float3 dp1_ortho = cross(n, dp1);
+	// t: gradient of texture coordinate u as a function of p.
+	const float3 t = duv1.x * dp2_ortho + duv2.x * dp1_ortho;
+	// b: gradient of texture coordinate v as a function of p.
+	const float3 b = duv1.y * dp2_ortho + duv2.y * dp1_ortho;
+
+	// Construct a scale-invariant frame.
+	const float inv_det = rsqrt(max(dot(t, t), dot(b, b)));
+	const float3x3 TBN = { t * inv_det, b * inv_det, n };
+	return TBN;
+}
+// Perturbs the given normal.
+float3 PerturbNormal(float3 v, float3 n, float2 tex) {
+	float3 bump_coefficients = normal_texture_map.Sample(texture_sampler, tex).xyz;
+	bump_coefficients = 2.0f * bump_coefficients - 1.0f;
+
+	const float3x3 TBN = CotangentFrame(v, n, tex);
+	return normalize(mul(bump_coefficients, TBN));
 }
 
 
@@ -165,6 +197,7 @@ float4 LambertianBRDFShading(float4 p, float3 n, float2 tex) {
 }
 // Calculates the Phong BRDF shading.
 float4 PhongBRDFShading(float4 p, float3 n, float2 tex) {
+	const float3 v = normalize(-p.xyz);
 
 	float3 I_diffuse = float3(0.0f, 0.0f, 0.0f);
 	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
@@ -182,7 +215,7 @@ float4 PhongBRDFShading(float4 p, float3 n, float2 tex) {
 		brdf = LambertianBRDF(n, l);
 		I_diffuse += brdf * I_light;
 
-		brdf = PhongBRDF(n, l);
+		brdf = PhongBRDF(n, l, v);
 		I_specular += brdf * I_light;
 	}
 
@@ -195,7 +228,7 @@ float4 PhongBRDFShading(float4 p, float3 n, float2 tex) {
 		brdf = LambertianBRDF(n, l);
 		I_diffuse += brdf * I_light;
 
-		brdf = PhongBRDF(n, l);
+		brdf = PhongBRDF(n, l, v);
 		I_specular += brdf * I_light;
 	}
 
@@ -206,6 +239,8 @@ float4 PhongBRDFShading(float4 p, float3 n, float2 tex) {
 }
 // Calculates the Blinn-Phong BRDF shading.
 float4 BlinnPhongBRDFShading(float4 p, float3 n, float2 tex) {
+	const float3 v = normalize(-p.xyz);
+
 
 	float3 I_diffuse = float3(0.0f, 0.0f, 0.0f);
 	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
@@ -223,7 +258,7 @@ float4 BlinnPhongBRDFShading(float4 p, float3 n, float2 tex) {
 		brdf = LambertianBRDF(n, l);
 		I_diffuse += brdf * I_light;
 
-		brdf = BlinnPhongBRDF(n, l);
+		brdf = BlinnPhongBRDF(n, l, v);
 		I_specular += brdf * I_light;
 	}
 
@@ -236,7 +271,7 @@ float4 BlinnPhongBRDFShading(float4 p, float3 n, float2 tex) {
 		brdf = LambertianBRDF(n, l);
 		I_diffuse += brdf * I_light;
 
-		brdf = BlinnPhongBRDF(n, l);
+		brdf = BlinnPhongBRDF(n, l, v);
 		I_specular += brdf * I_light;
 	}
 
@@ -247,6 +282,8 @@ float4 BlinnPhongBRDFShading(float4 p, float3 n, float2 tex) {
 }
 // Calculates the Modified Blinn-Phong BRDF shading.
 float4 ModifiedBlinnPhongBRDFShading(float4 p, float3 n, float2 tex) {
+	const float3 v = normalize(-p.xyz);
+
 
 	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
 	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
@@ -264,7 +301,7 @@ float4 ModifiedBlinnPhongBRDFShading(float4 p, float3 n, float2 tex) {
 		brdf = LambertianBRDF(n, l);
 		I_diffuse += brdf * I_light;
 
-		brdf = ModifiedBlinnPhongBRDF(n, l);
+		brdf = ModifiedBlinnPhongBRDF(n, l, v);
 		I_specular += brdf * I_light;
 	}
 
@@ -277,7 +314,7 @@ float4 ModifiedBlinnPhongBRDFShading(float4 p, float3 n, float2 tex) {
 		brdf = LambertianBRDF(n, l);
 		I_diffuse += brdf * I_light;
 
-		brdf = ModifiedBlinnPhongBRDF(n, l);
+		brdf = ModifiedBlinnPhongBRDF(n, l, v);
 		I_specular += brdf * I_light;
 	}
 
@@ -317,7 +354,7 @@ PS_INPUT Transform_VS(VS_INPUT input) {
 	return output;
 }
 
-PS_INPUT NormalMap_VS(VS_INPUT input) {
+PS_INPUT Normal_VS(VS_INPUT input) {
 	PS_INPUT output = (PS_INPUT)0;
 	output.n_view   = input.n;
 	return output;
@@ -343,15 +380,37 @@ float4 BlinnPhong_PS(PS_INPUT input) : SV_Target{
 float4 ModifiedBlinnPhong_PS(PS_INPUT input) : SV_Target{
 	return ModifiedBlinnPhongBRDFShading(input.p_view, input.n_view, input.tex);
 }
-float4 NormalMap_PS(PS_INPUT input) : SV_Target{
+float4 Normal_PS(PS_INPUT input) : SV_Target{
 	return float4(0.5f + 0.5f * input.n_view, 1.0f);
 }
-float4 DistanceMap_PS(PS_INPUT input) : SV_Target{
-	const float c = 1.0f - saturate(length(input.p_view) / 5.0f);
-	return float4(c, c, c, 1.0f);
+
+float4 LambertianBump_PS(PS_INPUT input) : SV_Target {
+	const float3 v = normalize(-input.p_view.xyz);
+	const float3 n = PerturbNormal(v, input.n_view, input.tex);
+	return LambertianBRDFShading(input.p_view, n, input.tex);
+}
+float4 PhongBump_PS(PS_INPUT input) : SV_Target {
+	const float3 v = normalize(-input.p_view.xyz);
+	const float3 n = PerturbNormal(v, input.n_view, input.tex);
+	return PhongBRDFShading(input.p_view, n, input.tex);
+}
+float4 BlinnPhongBump_PS(PS_INPUT input) : SV_Target {
+	const float3 v = normalize(-input.p_view.xyz);
+	const float3 n = PerturbNormal(v, input.n_view, input.tex);
+	return BlinnPhongBRDFShading(input.p_view, n, input.tex);
+}
+float4 ModifiedBlinnPhongBump_PS(PS_INPUT input) : SV_Target {
+	const float3 v = normalize(-input.p_view.xyz);
+	const float3 n = PerturbNormal(v, input.n_view, input.tex);
+	return ModifiedBlinnPhongBRDFShading(input.p_view, n, input.tex);
+}
+float4 NormalBump_PS(PS_INPUT input) : SV_Target {
+	const float3 v = normalize(-input.p_view.xyz);
+	const float3 n = PerturbNormal(v, input.n_view, input.tex);
+	return float4(0.5f + 0.5f * n, 1.0f);
 }
 
-
-float4 Basic_PS(PS_INPUT input) : SV_Target {
-	return ModifiedBlinnPhongBRDFShading(input.p_view, input.n_view, input.tex);
+float4 Distance_PS(PS_INPUT input) : SV_Target{
+	const float c = 1.0f - saturate(length(input.p_view) / 5.0f);
+	return float4(c, c, c, 1.0f);
 }

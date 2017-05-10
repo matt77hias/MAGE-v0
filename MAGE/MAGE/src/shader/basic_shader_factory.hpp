@@ -77,4 +77,34 @@ namespace mage {
 					Failed to create the shader.
 	 */
 	const CombinedShader CreateModifiedBlinnPhongShader();
+
+	/**
+	 Creates a Ward shader.
+
+	 @pre			The current engine must be loaded.
+	 @return		The Ward shader.
+	 @throws		FormattedException
+					Failed to create the shader.
+	 */
+	const CombinedShader CreateWardShader();
+
+	/**
+	 Creates a Ward-Duer shader.
+
+	 @pre			The current engine must be loaded.
+	 @return		The Ward-Duer shader.
+	 @throws		FormattedException
+					Failed to create the shader.
+	 */
+	const CombinedShader CreateWardDuerShader();
+
+	/**
+	 Creates a Cook-Torrance shader.
+
+	 @pre			The current engine must be loaded.
+	 @return		The Cook-Torrance shader.
+	 @throws		FormattedException
+					Failed to create the shader.
+	 */
+	const CombinedShader CreateCookTorranceShader();
 }

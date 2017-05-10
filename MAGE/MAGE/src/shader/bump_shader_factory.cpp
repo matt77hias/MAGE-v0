@@ -99,4 +99,55 @@ namespace mage {
 			device, device_context, CreateCompiledModifiedBlinnPhongBumpPixelShader());
 		return CombinedShader(vs, ps);
 	}
+
+	const CombinedShader CreateWardBumpShader() {
+		ID3D11Device2 *device = GetRenderingDevice();
+		Assert(device);
+
+		ID3D11DeviceContext2 *device_context = GetRenderingDeviceContext();
+		Assert(device_context);
+
+		ResourceFactory *factory = GetResourceFactory();
+		Assert(factory);
+
+		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
+			device, device_context, CreateCompiledTransformVertexShader());
+		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
+			device, device_context, CreateCompiledWardBumpPixelShader());
+		return CombinedShader(vs, ps);
+	}
+
+	const CombinedShader CreateWardDuerBumpShader() {
+		ID3D11Device2 *device = GetRenderingDevice();
+		Assert(device);
+
+		ID3D11DeviceContext2 *device_context = GetRenderingDeviceContext();
+		Assert(device_context);
+
+		ResourceFactory *factory = GetResourceFactory();
+		Assert(factory);
+
+		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
+			device, device_context, CreateCompiledTransformVertexShader());
+		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
+			device, device_context, CreateCompiledWardDuerBumpPixelShader());
+		return CombinedShader(vs, ps);
+	}
+
+	const CombinedShader CreateCookTorranceBumpShader() {
+		ID3D11Device2 *device = GetRenderingDevice();
+		Assert(device);
+
+		ID3D11DeviceContext2 *device_context = GetRenderingDeviceContext();
+		Assert(device_context);
+
+		ResourceFactory *factory = GetResourceFactory();
+		Assert(factory);
+
+		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
+			device, device_context, CreateCompiledTransformVertexShader());
+		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
+			device, device_context, CreateCompiledCookTorranceBumpPixelShader());
+		return CombinedShader(vs, ps);
+	}
 }

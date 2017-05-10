@@ -272,6 +272,132 @@ float4 ModifiedBlinnPhongBRDFShading(float3 p, float3 n, float2 tex) {
 	I.xyz += Ks * I_specular;
 	return I;
 }
+// Calculates the Modified Blinn-Phong BRDF shading.
+float4 WardBRDFShading(float3 p, float3 n, float2 tex) {
+	const float3 v = normalize(-p);
+
+	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
+	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+
+	// Ambient light and directional light contribution
+	float3 brdf = LambertianBRDF(n, -d);
+	I_diffuse = Ia + brdf * Id;
+
+	// Omni lights contribution
+	for (uint i = 0; i < nb_omnilights; ++i) {
+		const OmniLight light = omni_lights[i];
+		const float3 l = normalize(light.p.xyz - p);
+		const float3 I_light = OmniLightMaxContribution(light, p);
+
+		brdf = LambertianBRDF(n, l);
+		I_diffuse += brdf * I_light;
+
+		brdf = WardBRDF(n, l, v);
+		I_specular += brdf * I_light;
+	}
+
+	// Spotlights contribution
+	for (uint j = 0; j < nb_spotlights; ++j) {
+		const SpotLight light = spot_lights[j];
+		const float3 l = normalize(light.p.xyz - p);
+		const float3 I_light = SpotLightMaxContribution(light, p, l);
+
+		brdf = LambertianBRDF(n, l);
+		I_diffuse += brdf * I_light;
+
+		brdf = WardBRDF(n, l, v);
+		I_specular += brdf * I_light;
+	}
+
+	float4 I = float4(Kd * I_diffuse, dissolve);
+	I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	I.xyz += Ks * I_specular;
+	return I;
+}
+// Calculates the Modified Blinn-Phong BRDF shading.
+float4 WardDuerBRDFShading(float3 p, float3 n, float2 tex) {
+	const float3 v = normalize(-p);
+
+	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
+	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+
+	// Ambient light and directional light contribution
+	float3 brdf = LambertianBRDF(n, -d);
+	I_diffuse = Ia + brdf * Id;
+
+	// Omni lights contribution
+	for (uint i = 0; i < nb_omnilights; ++i) {
+		const OmniLight light = omni_lights[i];
+		const float3 l = normalize(light.p.xyz - p);
+		const float3 I_light = OmniLightMaxContribution(light, p);
+
+		brdf = LambertianBRDF(n, l);
+		I_diffuse += brdf * I_light;
+
+		brdf = WardDuerBRDF(n, l, v);
+		I_specular += brdf * I_light;
+	}
+
+	// Spotlights contribution
+	for (uint j = 0; j < nb_spotlights; ++j) {
+		const SpotLight light = spot_lights[j];
+		const float3 l = normalize(light.p.xyz - p);
+		const float3 I_light = SpotLightMaxContribution(light, p, l);
+
+		brdf = LambertianBRDF(n, l);
+		I_diffuse += brdf * I_light;
+
+		brdf = WardDuerBRDF(n, l, v);
+		I_specular += brdf * I_light;
+	}
+
+	float4 I = float4(Kd * I_diffuse, dissolve);
+	I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	I.xyz += Ks * I_specular;
+	return I;
+}
+// Calculates the Modified Blinn-Phong BRDF shading.
+float4 CookTorranceBRDFShading(float3 p, float3 n, float2 tex) {
+	const float3 v = normalize(-p);
+
+	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
+	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+
+	// Ambient light and directional light contribution
+	float3 brdf = LambertianBRDF(n, -d);
+	I_diffuse = Ia + brdf * Id;
+
+	// Omni lights contribution
+	for (uint i = 0; i < nb_omnilights; ++i) {
+		const OmniLight light = omni_lights[i];
+		const float3 l = normalize(light.p.xyz - p);
+		const float3 I_light = OmniLightMaxContribution(light, p);
+
+		brdf = LambertianBRDF(n, l);
+		I_diffuse += brdf * I_light;
+
+		brdf = CookTorranceBRDF(n, l, v);
+		I_specular += brdf * I_light;
+	}
+
+	// Spotlights contribution
+	for (uint j = 0; j < nb_spotlights; ++j) {
+		const SpotLight light = spot_lights[j];
+		const float3 l = normalize(light.p.xyz - p);
+		const float3 I_light = SpotLightMaxContribution(light, p, l);
+
+		brdf = LambertianBRDF(n, l);
+		I_diffuse += brdf * I_light;
+
+		brdf = CookTorranceBRDF(n, l, v);
+		I_specular += brdf * I_light;
+	}
+
+	float4 I = float4(Kd * I_diffuse, dissolve);
+	I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	I.xyz += Ks * I_specular;
+	return I;
+}
 
 //-----------------------------------------------------------------------------
 // Input structures
@@ -333,6 +459,18 @@ float4 ModifiedBlinnPhong_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
 	return ModifiedBlinnPhongBRDFShading(p, input.n_view, input.tex);
 }
+float4 Ward_PS(PS_INPUT input) : SV_Target {
+	const float3 p = input.p_view.xyz;
+	return WardBRDFShading(p, input.n_view, input.tex);
+}
+float4 WardDuer_PS(PS_INPUT input) : SV_Target {
+	const float3 p = input.p_view.xyz;
+	return WardDuerBRDFShading(p, input.n_view, input.tex);
+}
+float4 CookTorrance_PS(PS_INPUT input) : SV_Target {
+	const float3 p = input.p_view.xyz;
+	return CookTorranceBRDFShading(p, input.n_view, input.tex);
+}
 float4 Normal_PS(PS_INPUT input) : SV_Target {
 	return float4(0.5f + 0.5f * input.n_view, 1.0f);
 }
@@ -361,6 +499,21 @@ float4 TangentSpaceNormalMapping_ModifiedBlinnPhong_PS(PS_INPUT input) : SV_Targ
 	const float3 p = input.p_view.xyz;
 	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
 	return ModifiedBlinnPhongBRDFShading(p, n, input.tex);
+}
+float4 TangentSpaceNormalMapping_Ward_PS(PS_INPUT input) : SV_Target {
+	const float3 p = input.p_view.xyz;
+	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
+	return WardBRDFShading(p, n, input.tex);
+}
+float4 TangentSpaceNormalMapping_WardDuer_PS(PS_INPUT input) : SV_Target {
+	const float3 p = input.p_view.xyz;
+	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
+	return WardDuerBRDFShading(p, n, input.tex);
+}
+float4 TangentSpaceNormalMapping_CookTorrance_PS(PS_INPUT input) : SV_Target {
+	const float3 p = input.p_view.xyz;
+	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
+	return CookTorranceBRDFShading(p, n, input.tex);
 }
 float4 TangentSpaceNormalMapping_Normal_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
@@ -392,6 +545,21 @@ float4 ObjectSpaceNormalMapping_ModifiedBlinnPhong_PS(PS_INPUT input) : SV_Targe
 	const float3 p = input.p_view.xyz;
 	const float3 n = ObjectSpaceNormalMapping_PerturbNormal(input.tex);
 	return ModifiedBlinnPhongBRDFShading(p, n, input.tex);
+}
+float4 ObjectSpaceNormalMapping_Ward_PS(PS_INPUT input) : SV_Target {
+	const float3 p = input.p_view.xyz;
+	const float3 n = ObjectSpaceNormalMapping_PerturbNormal(input.tex);
+	return WardBRDFShading(p, n, input.tex);
+}
+float4 ObjectSpaceNormalMapping_WardDuer_PS(PS_INPUT input) : SV_Target {
+	const float3 p = input.p_view.xyz;
+	const float3 n = ObjectSpaceNormalMapping_PerturbNormal(input.tex);
+	return WardDuerBRDFShading(p, n, input.tex);
+}
+float4 ObjectSpaceNormalMapping_CookTorrance_PS(PS_INPUT input) : SV_Target {
+	const float3 p = input.p_view.xyz;
+	const float3 n = ObjectSpaceNormalMapping_PerturbNormal(input.tex);
+	return CookTorranceBRDFShading(p, n, input.tex);
 }
 float4 ObjectSpaceNormalMapping_Normal_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;

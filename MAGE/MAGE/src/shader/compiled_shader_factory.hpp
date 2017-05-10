@@ -21,11 +21,17 @@
 #define MAGE_GUID_MODIFIED_PHONG_PS				L"modified_phong_ps"
 #define MAGE_GUID_BLINN_PHONG_PS				L"blinn_phong_ps"
 #define MAGE_GUID_MODIFIED_BLINN_PHONG_PS		L"modified_blinn_phong_ps"
+#define MAGE_GUID_WARD_PS						L"ward_ps"
+#define MAGE_GUID_WARD_DUER_PS					L"ward_duer_ps"
+#define MAGE_GUID_COOK_TORRANCE_PS				L"cook_torrance_ps"
 #define MAGE_GUID_TSNM_LAMBERTIAN_PS			L"tsnm_lambertian_ps"
 #define MAGE_GUID_TSNM_PHONG_PS					L"tsnm_phong_ps"
 #define MAGE_GUID_TSNM_MODIFIED_PHONG_PS		L"tsnm_modified_phong_ps"
 #define MAGE_GUID_TSNM_BLINN_PHONG_PS			L"tsnm_blinn_phong_ps"
 #define MAGE_GUID_TSNM_MODIFIED_BLINN_PHONG_PS	L"tsnm_modified_blinn_phong_ps"
+#define MAGE_GUID_TSNM_WARD_PS					L"tsnm_ward_ps"
+#define MAGE_GUID_TSNM_WARD_DUER_PS				L"tsnm_ward_duer_ps"
+#define MAGE_GUID_TSNM_COOK_TORRANCE_PS			L"tsnm_cook_torrance_ps"
 #define MAGE_GUID_SPRITE_VS						L"sprite_vs"
 #define MAGE_GUID_SPRITE_PS						L"sprite_ps"
 
@@ -90,6 +96,27 @@ namespace mage {
 	const CompiledPixelShader CreateCompiledModifiedBlinnPhongPixelShader();
 
 	/**
+	 Returns the compiled Ward pixel shader.
+
+	 @return		The compiled Ward pixel shader.
+	 */
+	const CompiledPixelShader CreateCompiledWardPixelShader();
+
+	/**
+	 Returns the compiled Ward-Duer pixel shader.
+
+	 @return		The compiled Ward-Duer pixel shader.
+	 */
+	const CompiledPixelShader CreateCompiledWardDuerPixelShader();
+
+	/**
+	 Returns the compiled Cook-Torrance pixel shader.
+
+	 @return		The compiled Cook-Torrance pixel shader.
+	 */
+	const CompiledPixelShader CreateCompiledCookTorrancePixelShader();
+
+	/**
 	 Returns the compiled Lambertian bump pixel shader.
 
 	 @return		The compiled Lambertian bump pixel shader.
@@ -123,6 +150,27 @@ namespace mage {
 	 @return		The compiled Modified Blinn-Phong bump pixel shader.
 	 */
 	const CompiledPixelShader CreateCompiledModifiedBlinnPhongBumpPixelShader();
+
+	/**
+	 Returns the compiled Ward bump pixel shader.
+
+	 @return		The compiled Ward bump pixel shader.
+	 */
+	const CompiledPixelShader CreateCompiledWardBumpPixelShader();
+
+	/**
+	 Returns the compiled Ward-Duer bump pixel shader.
+
+	 @return		The compiled Ward-Duer bump pixel shader.
+	 */
+	const CompiledPixelShader CreateCompiledWardDuerBumpPixelShader();
+
+	/**
+	 Returns the compiled Cook-Torrance bump pixel shader.
+
+	 @return		The compiled Cook-Torrance bump pixel shader.
+	 */
+	const CompiledPixelShader CreateCompiledCookTorranceBumpPixelShader();
 
 	/**
 	 Returns the compiled sprite vertex shader.

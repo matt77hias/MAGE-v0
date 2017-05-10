@@ -67,4 +67,34 @@ namespace mage {
 					Failed to create the shader.
 	 */
 	const CombinedShader CreateModifiedBlinnPhongBumpShader();
+
+	/**
+	 Creates a Ward bump shader.
+
+	 @pre			The current engine must be loaded.
+	 @return		The Ward bump shader.
+	 @throws		FormattedException
+					Failed to create the shader.
+	 */
+	const CombinedShader CreateWardBumpShader();
+
+	/**
+	 Creates a Ward-Duer bump shader.
+
+	 @pre			The current engine must be loaded.
+	 @return		The Ward-Duer bump shader.
+	 @throws		FormattedException
+					Failed to create the shader.
+	 */
+	const CombinedShader CreateWardDuerBumpShader();
+
+	/**
+	 Creates a Cook-Torrance bump shader.
+
+	 @pre			The current engine must be loaded.
+	 @return		The Cook-Torrance bump shader.
+	 @throws		FormattedException
+					Failed to create the shader.
+	 */
+	const CombinedShader CreateCookTorranceBumpShader();
 }

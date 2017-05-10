@@ -64,6 +64,10 @@ namespace mage {
 		buffer.m_dissolve = material.m_dissolve;
 		buffer.m_Ks       = material.m_specular_reflectivity;
 		buffer.m_Ns       = material.m_specular_exponent;
+		buffer.m_param1   = material.m_param1;
+		buffer.m_param2   = material.m_param2;
+		buffer.m_param3   = material.m_param3;
+		buffer.m_param4   = material.m_param4;
 		m_material_buffer.UpdateData(buffer);
 		
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);

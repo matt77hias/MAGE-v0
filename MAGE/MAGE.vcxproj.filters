@@ -699,6 +699,12 @@
     <ClInclude Include="MAGE\src\shader\cso\osnm_phong_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\osnm_ward_duer_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\osnm_ward_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\phong_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
@@ -714,6 +720,9 @@
     <ClInclude Include="MAGE\src\shader\cso\tsnm_blinn_phong_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\tsnm_cook_torrance_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\tsnm_lambertian_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
@@ -726,7 +735,22 @@
     <ClInclude Include="MAGE\src\shader\cso\tsnm_phong_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\tsnm_ward_duer_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\tsnm_ward_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\ward_duer_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\ward_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\cook_torrance_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\diffuse_PS.hpp">
@@ -738,16 +762,19 @@
     <ClInclude Include="MAGE\src\shader\cso\modified_blinn_phong_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\modified_phong_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\osnm_blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\osnm_cook_torrance_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\osnm_lambertian_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\osnm_modified_blinn_phong_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\modified_phong_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1136,6 +1163,33 @@
       <Filter>Shader Files</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\fog.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\cook_torrance_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\osnm_cook_torrance_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\osnm_ward_duer_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\osnm_ward_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\tsnm_cook_torrance_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\tsnm_ward_duer_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\tsnm_ward_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\ward_duer_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\ward_PS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
   </ItemGroup>

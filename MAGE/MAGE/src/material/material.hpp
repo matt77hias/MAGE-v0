@@ -40,7 +40,8 @@ namespace mage {
 			m_specular_exponent(1.0f), m_specular_exponent_texture(),
 			m_dissolve(1.0f), m_dissolve_texture(),
 			m_index_of_refraction(1.0f), m_decal_texture(),
-			m_displacement_texture(), m_normal_texture() {}
+			m_displacement_texture(), m_normal_texture(),
+			m_param1(0.0f), m_param2(0.0f), m_param3(0.0f), m_param4(0.0f) {}
 		
 		/**
 		 Constructs a material from the given material.
@@ -182,5 +183,25 @@ namespace mage {
 		 A pointer to the normal texture of this material.
 		 */
 		SharedPtr< Texture > m_normal_texture;
+
+		/**
+		 The first material parameter of this material.
+		 */
+		float m_param1;
+
+		/**
+		 The second material parameter of this material.
+		 */
+		float m_param2;
+
+		/**
+		 The thirth material parameter of this material.
+		 */
+		float m_param3;
+
+		/**
+		 The fourth material parameter of this material.
+		 */
+		float m_param4;
 	};
 }

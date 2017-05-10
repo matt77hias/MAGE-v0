@@ -1,3 +1,5 @@
+# Code Guidelines
+
 ### const
 Always use `const` (member method, method return argument, method input arguments, local variables) if applicable.
 Always use `const` for return by value of non-built-in types to avoid assignment (and its side effects).

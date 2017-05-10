@@ -104,8 +104,8 @@ namespace mage {
 			SetShaders();
 		}
 		else if (keyboard->GetKeyPress(DIK_LALT, false)) {
-			//m_shader_index = std::min(m_shader_index - 1, m_shaders.size() - 1);
-			//SetShaders();
+			m_shader_index = std::min(m_shader_index - 1, m_shaders.size() - 1);
+			SetShaders();
 		}
 
 		m_text->SetText(L"\n\n\n");

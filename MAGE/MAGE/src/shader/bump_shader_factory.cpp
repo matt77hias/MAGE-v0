@@ -49,6 +49,23 @@ namespace mage {
 		return CombinedShader(vs, ps);
 	}
 
+	const CombinedShader CreateModifiedPhongBumpShader() {
+		ID3D11Device2 *device = GetRenderingDevice();
+		Assert(device);
+
+		ID3D11DeviceContext2 *device_context = GetRenderingDeviceContext();
+		Assert(device_context);
+
+		ResourceFactory *factory = GetResourceFactory();
+		Assert(factory);
+
+		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
+			device, device_context, CreateCompiledTransformVertexShader());
+		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
+			device, device_context, CreateCompiledModifiedPhongBumpPixelShader());
+		return CombinedShader(vs, ps);
+	}
+
 	const CombinedShader CreateBlinnPhongBumpShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);

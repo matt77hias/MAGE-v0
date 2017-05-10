@@ -18,10 +18,12 @@
 #define MAGE_GUID_DIFFUSE_PS					L"diffuse_ps"
 #define MAGE_GUID_LAMBERTIAN_PS					L"lambertian_ps"
 #define MAGE_GUID_PHONG_PS						L"phong_ps"
+#define MAGE_GUID_MODIFIED_PHONG_PS				L"modified_phong_ps"
 #define MAGE_GUID_BLINN_PHONG_PS				L"blinn_phong_ps"
 #define MAGE_GUID_MODIFIED_BLINN_PHONG_PS		L"modified_blinn_phong_ps"
 #define MAGE_GUID_TSNM_LAMBERTIAN_PS			L"tsnm_lambertian_ps"
 #define MAGE_GUID_TSNM_PHONG_PS					L"tsnm_phong_ps"
+#define MAGE_GUID_TSNM_MODIFIED_PHONG_PS		L"tsnm_modified_phong_ps"
 #define MAGE_GUID_TSNM_BLINN_PHONG_PS			L"tsnm_blinn_phong_ps"
 #define MAGE_GUID_TSNM_MODIFIED_BLINN_PHONG_PS	L"tsnm_modified_blinn_phong_ps"
 #define MAGE_GUID_SPRITE_VS						L"sprite_vs"
@@ -30,7 +32,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -67,6 +69,13 @@ namespace mage {
 	const CompiledPixelShader CreateCompiledPhongPixelShader();
 
 	/**
+	 Returns the compiled Modified Phong pixel shader.
+
+	 @return		The compiled Modified Phong pixel shader.
+	 */
+	const CompiledPixelShader CreateCompiledModifiedPhongPixelShader();
+
+	/**
 	 Returns the compiled Blinn-Phong pixel shader.
 
 	 @return		The compiled Blinn-Phong pixel shader.
@@ -93,6 +102,13 @@ namespace mage {
 	 @return		The compiled Phong bump pixel shader.
 	 */
 	const CompiledPixelShader CreateCompiledPhongBumpPixelShader();
+
+	/**
+	 Returns the compiled Modified Phong bump pixel shader.
+
+	 @return		The compiled Modified Phong bump pixel shader.
+	 */
+	const CompiledPixelShader CreateCompiledModifiedPhongBumpPixelShader();
 
 	/**
 	 Returns the compiled Blinn-Phong bump pixel shader.

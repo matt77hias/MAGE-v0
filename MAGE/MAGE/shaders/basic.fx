@@ -1,11 +1,20 @@
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#include "vs_input_structures.fx"
+
+//-----------------------------------------------------------------------------
 // Transformations
 //-----------------------------------------------------------------------------
 cbuffer Transform : register(b0) {
-	matrix object_to_world;					 // The object-to-world transformation matrix.
-	matrix world_to_view;					 // The world-to-view transformation matrix.
-	matrix object_to_view_inverse_transpose; // The object-to-view inverse transpose transformation matrix.
-	matrix view_to_projection;				 // The view-to-projection transformation matrix.
+	// The object-to-world transformation matrix.
+	float4x4 object_to_world					: packoffset(c0);
+	// The world-to-view transformation matrix.
+	float4x4 world_to_view						: packoffset(c4);
+	// The object-to-view inverse transpose transformation matrix.
+	float4x4 object_to_view_inverse_transpose	: packoffset(c8);
+	// The view-to-projection transformation matrix.
+	float4x4 view_to_projection					: packoffset(c12);
 }
 
 //-----------------------------------------------------------------------------
@@ -16,10 +25,14 @@ Texture2D normal_texture_map  : register(t4);
 sampler texture_sampler       : register(s0);
 
 cbuffer Material : register(b1) {
-	float3 Kd;								// The diffuse reflectivity of the material.
-	float  dissolve;						// The dissolve of the material.
-	float3 Ks;								// The specular reflectivity of the material.
-	float  Ns;								// The specular exponent of the material.
+	// The diffuse reflectivity of the material.
+	float3 Kd									: packoffset(c0);
+	// The dissolve of the material.
+	float dissolve								: packoffset(c0.w);
+	// The specular reflectivity of the material.
+	float3 Ks									: packoffset(c1);
+	// The specular exponent of the material.
+	float Ns									: packoffset(c1.w);
 };
 
 // Calculates the dot product of two vectors and clamp negative values to 0. 
@@ -55,6 +68,11 @@ float ModifiedBlinnPhongBRDF(float3 n, float3 l, float3 v) {
 	// dot(n, h)^Ns
 	const float3 h = HalfDirection(l, v);
 	return pow(max_dot(n, h), Ns);
+}
+// Calculates the (specular) Modified Phong BRDF (independent of ks).
+float ModifiedPhongBRDF(float3 n, float3 l, float3 v) {
+	// dot(n, h)^Ns * (Ns+2)/2
+	return ModifiedBlinnPhongBRDF(n, l, v) * (Ns + 2.0f) / 2.0f;
 }
 // Calculates the (specular) Blinn-Phong BRDF (independent of ks).
 float BlinnPhongBRDF(float3 n, float3 l, float3 v) {
@@ -102,32 +120,49 @@ float3 ObjectSpaceNormalMapping_PerturbNormal(float2 tex) {
 //-----------------------------------------------------------------------------
 
 cbuffer LightData : register(b2) {
-	float3 Ia;								// The intensity of the ambient light. 
-	uint   nb_omnilights;					// The number of omni lights.
-	float3 Id;								// The intensity of the directional light.
-	uint   nb_spotlights;					// The number of spotlights.
-	float3 d;								// The direction of the directional light in camera space.
-	uint   padding;
+	// The intensity of the ambient light. 
+	float3 Ia									: packoffset(c0);
+	// The number of omni lights.
+	uint nb_omnilights							: packoffset(c0.w);
+	// The intensity of the directional light.
+	float3 Id									: packoffset(c1);
+	// The number of spotlights.
+	uint nb_spotlights							: packoffset(c1.w);
+	// The direction of the directional light in camera space.
+	float3 d									: packoffset(c2);
+	uint padding								: packoffset(c2.w);
 };
 
 struct OmniLight {
-	float4 p;								// The position of the omni light in camera space.
-	float3 I;								// The intensity of the omni light.
-	float  distance_falloff_start;			// The distance at which intensity falloff starts.
-	float  distance_falloff_end;			// The distance at which intensity falloff ends.
-	uint   padding[3];
+	// The position of the omni light in camera space.
+	float4 p;
+	// The intensity of the omni light.
+	float3 I;
+	// The distance at which intensity falloff starts.
+	float distance_falloff_start;
+	// The distance at which intensity falloff ends.
+	float distance_falloff_end;
+	uint padding[3];
 };
 
 struct SpotLight {
-	float4 p;								// The position of the spotlight in camera space.
-	float3 I;								// The intensity of the spotlight.
-	float  exponent_property;				// The exponent property of the spotlight.
-	float3 d;								// The direction of the spotlight in camera space.
-	float  distance_falloff_start;			// The distance at which intensity falloff starts.
-	float  distance_falloff_end;			// The distance at which intensity falloff ends.
-	float  cos_penumbra;					// The cosine of the penumbra angle at which intensity falloff starts.
-	float  cos_umbra;						// The cosine of the umbra angle at which intensity falloff ends.
-	uint   padding;
+	// The position of the spotlight in camera space.
+	float4 p;
+	// The intensity of the spotlight.
+	float3 I;
+	// The exponent property of the spotlight.
+	float exponent_property;
+	// The direction of the spotlight in camera space.
+	float3 d;
+	// The distance at which intensity falloff starts.
+	float distance_falloff_start;
+	// The distance at which intensity falloff ends.
+	float distance_falloff_end;
+	// The cosine of the penumbra angle at which intensity falloff starts.
+	float cos_penumbra;
+	// The cosine of the umbra angle at which intensity falloff ends.
+	float cos_umbra;
+	uint padding;
 };
 
 StructuredBuffer< OmniLight > omni_lights : register(t1);
@@ -235,6 +270,48 @@ float4 PhongBRDFShading(float3 p, float3 n, float2 tex) {
 	I.xyz += Ks * I_specular;
 	return I;
 }
+// Calculates the Modified Phong BRDF shading.
+float4 ModifiedPhongBRDFShading(float3 p, float3 n, float2 tex) {
+	const float3 v = normalize(-p);
+
+	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
+	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+
+	// Ambient light and directional light contribution
+	float3 brdf = LambertianBRDF(n, -d);
+	I_diffuse = Ia + brdf * Id;
+
+	// Omni lights contribution
+	for (uint i = 0; i < nb_omnilights; ++i) {
+		const OmniLight light = omni_lights[i];
+		const float3 l = normalize(light.p.xyz - p);
+		const float3 I_light = OmniLightMaxContribution(light, p);
+
+		brdf = LambertianBRDF(n, l);
+		I_diffuse += brdf * I_light;
+
+		brdf = ModifiedPhongBRDF(n, l, v);
+		I_specular += brdf * I_light;
+	}
+
+	// Spotlights contribution
+	for (uint j = 0; j < nb_spotlights; ++j) {
+		const SpotLight light = spot_lights[j];
+		const float3 l = normalize(light.p.xyz - p);
+		const float3 I_light = SpotLightMaxContribution(light, p, l);
+
+		brdf = LambertianBRDF(n, l);
+		I_diffuse += brdf * I_light;
+
+		brdf = ModifiedPhongBRDF(n, l, v);
+		I_specular += brdf * I_light;
+	}
+
+	float4 I = float4(Kd * I_diffuse, dissolve);
+	I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	I.xyz += Ks * I_specular;
+	return I;
+}
 // Calculates the Blinn-Phong BRDF shading.
 float4 BlinnPhongBRDFShading(float3 p, float3 n, float2 tex) {
 	const float3 v = normalize(-p);
@@ -323,24 +400,19 @@ float4 ModifiedBlinnPhongBRDFShading(float3 p, float3 n, float2 tex) {
 //-----------------------------------------------------------------------------
 // Input structures
 //-----------------------------------------------------------------------------
-struct VS_INPUT {
-	float4 p   : POSITION;
-	float3 n   : NORMAL;
-	float2 tex : TEXCOORD0;
-};
 
 struct PS_INPUT {
 	float4 p      : SV_POSITION;
-	float4 p_view : POSITION;
-	float3 n_view : NORMAL;
+	float4 p_view : POSITION0;
+	float3 n_view : NORMAL0;
 	float2 tex    : TEXCOORD0;
 };
 
 //-----------------------------------------------------------------------------
-// Vertex Shader
+// Vertex Shaders
 //-----------------------------------------------------------------------------
 
-PS_INPUT Transform_VS(VS_INPUT input) {
+PS_INPUT Transform_VS(VertexPositionNormalTexture_VS_INPUT input) {
 	PS_INPUT output = (PS_INPUT)0;
 	output.p_view   = mul(input.p, object_to_world);
 	output.p_view   = mul(output.p_view, world_to_view);
@@ -350,14 +422,14 @@ PS_INPUT Transform_VS(VS_INPUT input) {
 	return output;
 }
 
-PS_INPUT Normal_VS(VS_INPUT input) {
+PS_INPUT Normal_VS(VertexPositionNormalTexture_VS_INPUT input) {
 	PS_INPUT output = (PS_INPUT)0;
 	output.n_view   = input.n;
 	return output;
 }
 
 //-----------------------------------------------------------------------------
-// Pixel Shader
+// Pixel Shaders
 //-----------------------------------------------------------------------------
 
 float4 Diffuse_PS(PS_INPUT input) : SV_Target {
@@ -372,6 +444,10 @@ float4 Lambertian_PS(PS_INPUT input) : SV_Target {
 float4 Phong_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
 	return PhongBRDFShading(p, input.n_view, input.tex);
+}
+float4 ModifiedPhong_PS(PS_INPUT input) : SV_Target{
+	const float3 p = input.p_view.xyz;
+	return ModifiedPhongBRDFShading(p, input.n_view, input.tex);
 }
 float4 BlinnPhong_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
@@ -394,6 +470,11 @@ float4 TangentSpaceNormalMapping_Phong_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
 	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
 	return PhongBRDFShading(p, n, input.tex);
+}
+float4 TangentSpaceNormalMapping_ModifiedPhong_PS(PS_INPUT input) : SV_Target{
+	const float3 p = input.p_view.xyz;
+	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
+	return ModifiedPhongBRDFShading(p, n, input.tex);
 }
 float4 TangentSpaceNormalMapping_BlinnPhong_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
@@ -420,6 +501,11 @@ float4 ObjectSpaceNormalMapping_Phong_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
 	const float3 n = ObjectSpaceNormalMapping_PerturbNormal(input.tex);
 	return PhongBRDFShading(p, n, input.tex);
+}
+float4 ObjectSpaceNormalMapping_ModifiedPhong_PS(PS_INPUT input) : SV_Target{
+	const float3 p = input.p_view.xyz;
+	const float3 n = ObjectSpaceNormalMapping_PerturbNormal(input.tex);
+	return ModifiedPhongBRDFShading(p, n, input.tex);
 }
 float4 ObjectSpaceNormalMapping_BlinnPhong_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;

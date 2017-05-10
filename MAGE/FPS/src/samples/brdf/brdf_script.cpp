@@ -61,22 +61,28 @@ namespace mage {
 		m_shaders.push_back(CreateDiffuseShader());
 		m_shaders.push_back(CreateLambertianShader());
 		m_shaders.push_back(CreatePhongShader());
+		m_shaders.push_back(CreateModifiedPhongShader());
 		m_shaders.push_back(CreateBlinnPhongShader());
 		m_shaders.push_back(CreateModifiedBlinnPhongShader());
 		m_shaders.push_back(CreateLambertianBumpShader());
 		m_shaders.push_back(CreatePhongBumpShader());
+		m_shaders.push_back(CreateModifiedPhongBumpShader());
 		m_shaders.push_back(CreateBlinnPhongBumpShader());
 		m_shaders.push_back(CreateModifiedBlinnPhongBumpShader());
 
 		m_shader_names.push_back(L"Diffuse");
 		m_shader_names.push_back(L"Lambertian");
 		m_shader_names.push_back(L"Phong");
+		m_shader_names.push_back(L"Modified Phong");
 		m_shader_names.push_back(L"Blinn-Phong");
 		m_shader_names.push_back(L"Modified Blinn-Phong");
 		m_shader_names.push_back(L"Lambertian + Bump");
 		m_shader_names.push_back(L"Phong + Bump");
+		m_shader_names.push_back(L"Modified Phong + Bump");
 		m_shader_names.push_back(L"Blinn-Phong + Bump");
 		m_shader_names.push_back(L"Modified Blinn-Phong + Bump");
+
+		Assert(m_shaders.size() == m_shader_names.size());
 	}
 
 	void BRDFScript::SetShaders() const {

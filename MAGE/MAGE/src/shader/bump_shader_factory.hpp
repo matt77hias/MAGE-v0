@@ -10,7 +10,7 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -37,6 +37,16 @@ namespace mage {
 					Failed to create the shader.
 	 */
 	const CombinedShader CreatePhongBumpShader();
+
+	/**
+	 Creates a Modified Phong bump shader.
+
+	 @pre			The current engine must be loaded.
+	 @return		The Modified Phong bump shader.
+	 @throws		FormattedException
+					Failed to create the shader.
+	 */
+	const CombinedShader CreateModifiedPhongBumpShader();
 
 	/**
 	 Creates a Blinn-Phong bump shader.

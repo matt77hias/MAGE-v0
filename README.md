@@ -22,4 +22,11 @@ MAGE - Matthias Advanced Game Engine
 * **Compiler**: MSVC++ 14.0
 * **IDE**: Visual Studio 2015 (will change to Visual Studio 2017 when "Visual Studio 2017 Color Theme Editor" is released)
 
+## Index
+* [Codebase](https://github.com/matt77hias/MAGE/blob/master/meta/codebase.md)
+* [Code Guidelines](https://github.com/matt77hias/MAGE/blob/master/meta/code-guidelines.md)
+* [File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
+* [Iterations](https://github.com/matt77hias/MAGE/blob/master/meta/iterations.md)
+* [Standard Scripts](https://github.com/matt77hias/MAGE/blob/master/meta/standard-scripts.md)
+
 <p align="center">Copyright © 2016-2017 Matthias Moulin. All Rights Reserved.</p>

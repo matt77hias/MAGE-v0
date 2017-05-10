@@ -35,86 +35,6 @@ cbuffer Material : register(b1) {
 	float Ns									: packoffset(c1.w);
 };
 
-// Calculates the dot product of two vectors and clamp negative values to 0. 
-float max_dot(float3 x, float3 y) {
-	return max(0.0f, dot(x, y));
-}
-// Calculates the reflected direction of the given l about the given n.
-float3 ReflectedDirection(float3 n, float3 l) {
-	return reflect(-l, n);
-}
-// Calculates the half direction between the given l and given v.
-float3 HalfDirection(float3 l, float3 v) {
-	// l+v / ||l+v||
-	return normalize(l + v);
-}
-
-// Calculates the Lambertian BRDF (independent of kd).
-float LambertianBRDF(float3 n, float3 l) {
-	return max_dot(n, l);
-}
-// Calculates the (specular) Phong BRDF (independent of ks).
-float PhongBRDF(float3 n, float3 l, float3 v) {
-	// dot(r, v)^Ns / dot(n, l)
-	const float n_dot_l = dot(n, l);
-	if (n_dot_l <= 0.0f) {
-		return 0.0f;
-	}
-	const float3 r = ReflectedDirection(n, l);
-	return pow(max_dot(r, v), Ns) / n_dot_l;
-}
-// Calculates the (specular) Modified Blinn-Phong BRDF (independent of ks).
-float ModifiedBlinnPhongBRDF(float3 n, float3 l, float3 v) {
-	// dot(n, h)^Ns
-	const float3 h = HalfDirection(l, v);
-	return pow(max_dot(n, h), Ns);
-}
-// Calculates the (specular) Modified Phong BRDF (independent of ks).
-float ModifiedPhongBRDF(float3 n, float3 l, float3 v) {
-	// dot(n, h)^Ns * (Ns+2)/2
-	return ModifiedBlinnPhongBRDF(n, l, v) * (Ns + 2.0f) / 2.0f;
-}
-// Calculates the (specular) Blinn-Phong BRDF (independent of ks).
-float BlinnPhongBRDF(float3 n, float3 l, float3 v) {
-	// dot(n, h)^Ns / dot(n, l)
-	const float n_dot_l = dot(n, l);
-	if (n_dot_l <= 0.01f) { // Prevents flickering.
-		return 0.0f;
-	}
-	return ModifiedBlinnPhongBRDF(n, l, v) / n_dot_l;
-}
-
-// Perturbs the given normal.
-float3 TangentSpaceNormalMapping_PerturbNormal(float3 p, float3 n, float2 tex) {
-	// Calculates the edge differences.
-	const float3 dp_dj = ddx(p);
-	const float3 dp_di = ddy(p);
-	const float2 dtex_dj = ddx(tex);
-	const float2 dtex_di = ddy(tex);
-
-	// Solve the linear system of equations to obtain
-	// the cotangents t and b.
-	const float3 dp_di_ortho = cross(dp_di, n);
-	const float3 dp_dj_ortho = cross(n, dp_dj);
-	// t: gradient of texture coordinate u as a function of p.
-	const float3 t = dtex_dj.x * dp_di_ortho + dtex_di.x * dp_dj_ortho;
-	// b: gradient of texture coordinate v as a function of p.
-	const float3 b = dtex_dj.y * dp_di_ortho + dtex_di.y * dp_dj_ortho;
-
-	// Construct a scale-invariant frame.
-	const float inv_det = rsqrt(max(dot(t, t), dot(b, b)));
-	const float3x3 TBN = { t * inv_det, b * inv_det, n };
-	
-	float3 coefficients = normal_texture_map.Sample(texture_sampler, tex).xyz;
-	coefficients = 2.0f * coefficients - 1.0f;
-	return normalize(mul(coefficients, TBN));
-}
-float3 ObjectSpaceNormalMapping_PerturbNormal(float2 tex) {
-	float3 coefficients = normal_texture_map.Sample(texture_sampler, tex).xyz;
-	coefficients = 2.0f * coefficients - 1.0f;
-	return normalize(mul(coefficients, (float3x3)object_to_view_inverse_transpose));
-}
-
 //-----------------------------------------------------------------------------
 // Lights
 //-----------------------------------------------------------------------------
@@ -133,64 +53,12 @@ cbuffer LightData : register(b2) {
 	uint padding								: packoffset(c2.w);
 };
 
-struct OmniLight {
-	// The position of the omni light in camera space.
-	float4 p;
-	// The intensity of the omni light.
-	float3 I;
-	// The distance at which intensity falloff starts.
-	float distance_falloff_start;
-	// The distance at which intensity falloff ends.
-	float distance_falloff_end;
-	uint padding[3];
-};
-
-struct SpotLight {
-	// The position of the spotlight in camera space.
-	float4 p;
-	// The intensity of the spotlight.
-	float3 I;
-	// The exponent property of the spotlight.
-	float exponent_property;
-	// The direction of the spotlight in camera space.
-	float3 d;
-	// The distance at which intensity falloff starts.
-	float distance_falloff_start;
-	// The distance at which intensity falloff ends.
-	float distance_falloff_end;
-	// The cosine of the penumbra angle at which intensity falloff starts.
-	float cos_penumbra;
-	// The cosine of the umbra angle at which intensity falloff ends.
-	float cos_umbra;
-	uint padding;
-};
+#include "brdf.fx"
+#include "bump.fx"
+#include "light.fx"
 
 StructuredBuffer< OmniLight > omni_lights : register(t1);
 StructuredBuffer< SpotLight > spot_lights : register(t2);
-
-// Calculates the distance fall off at a given distance r.
-float DistanceFalloff(float r, float r_start, float r_end) {
-	return saturate((r_end - r) / (r_end - r_start));
-}
-// Calculates the angular fall off at a given angle theta.
-float AngularFalloff(float cos_theta, float cos_penumbra, float cos_umbra, float s_exp) {
-	return pow(saturate((cos_theta - cos_umbra) / (cos_penumbra - cos_umbra)), s_exp);
-}
-
-// Calculates the maximum contribution of the given omni light on the given point.
-float3 OmniLightMaxContribution(OmniLight light, float3 p) {
-	const float r  = distance(light.p.xyz, p);
-	const float df = DistanceFalloff(r, light.distance_falloff_start, light.distance_falloff_end);
-	return df * light.I;
-}
-// Calculates the maximum contribution of the given spotlight on the given point.
-float3 SpotLightMaxContribution(SpotLight light, float3 p, float3 l) {
-	const float r  = distance(light.p.xyz, p);
-	const float cos_theta = dot(light.d, -l);
-	const float df = DistanceFalloff(r, light.distance_falloff_start, light.distance_falloff_end);
-	const float af = AngularFalloff(cos_theta, light.cos_penumbra, light.cos_umbra, light.exponent_property);
-	return df * af * light.I;
-}
 
 //-----------------------------------------------------------------------------
 // Shading

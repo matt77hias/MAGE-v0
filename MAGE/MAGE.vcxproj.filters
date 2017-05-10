@@ -1126,6 +1126,15 @@
     <FxCompile Include="MAGE\shaders\vs_input_structures.fx">
       <Filter>Shader Files</Filter>
     </FxCompile>
+    <FxCompile Include="MAGE\shaders\brdf.fx">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\light.fx">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\bump.fx">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\memory\memory_arena.tpp">

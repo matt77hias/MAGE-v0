@@ -27,13 +27,13 @@ MAGE - Matthias Advanced Game Engine
 * Crytek Sponza:
   * Marko Dabrovic (original version),
   * Frank Meinl (modified version, [data](http://www.crytek.com/cryengine/cryengine3/downloads)),
-  * Morgan McGuire (updated version, [data]((http://graphics.cs.williams.edu/data/meshes.xml))),
+  * Morgan McGuire (updated version, [data](http://graphics.cs.williams.edu/data/meshes.xml)),
   * Matthias Moulin (updated version). 
   
 * Utah Teapot: 
   * Martin Newell (original version),
   * Kenzie Lamar (updated version),
-  * Morgan McGuire ([data]((http://graphics.cs.williams.edu/data/meshes.xml))),
+  * Morgan McGuire ([data](http://graphics.cs.williams.edu/data/meshes.xml)),
   * Matthias Moulin (updated version).
   
 * [Logo](http://www.deviantart.com/art/Black-Mage-356147620) [[License](https://creativecommons.org/licenses/by-nc-nd/3.0/)]

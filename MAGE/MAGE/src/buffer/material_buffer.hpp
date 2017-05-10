@@ -31,7 +31,9 @@ namespace mage {
 		 */
 		MaterialBuffer()
 			: m_Kd(), m_dissolve(0.0f), 
-			m_Ks(), m_Ns(0.0f) {}
+			m_Ks(), m_Ns(0.0f), 
+			m_param1(0.0f), m_param2(0.0f), 
+			m_param3(0.0f), m_param4(0.0f) {}
 
 		/**
 		 Constructs a material buffer from the given material buffer.
@@ -101,7 +103,27 @@ namespace mage {
 		 The specular exponent (surface roughness) of this material buffer.
 		 */
 		float m_Ns;
+
+		/**
+		 The first material parameter of this material buffer.
+		 */
+		float m_param1;
+
+		/**
+		 The second material parameter of this material buffer.
+		 */
+		float m_param2;
+
+		/**
+		 The thirth material parameter of this material buffer.
+		 */
+		float m_param3;
+
+		/**
+		 The fourth material parameter of this material buffer.
+		 */
+		float m_param4;
 	};
 
-	static_assert(sizeof(MaterialBuffer) == 32, "CPU/GPU struct mismatch");
+	static_assert(sizeof(MaterialBuffer) == 48, "CPU/GPU struct mismatch");
 }

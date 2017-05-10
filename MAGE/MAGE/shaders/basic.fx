@@ -33,6 +33,14 @@ cbuffer Material : register(b1) {
 	float3 Ks									: packoffset(c1);
 	// The specular exponent of the material.
 	float Ns									: packoffset(c1.w);
+	// The first material parameter of the material.
+	float material_param1						: packoffset(c2.x);
+	// The second material parameter of the material.
+	float material_param2						: packoffset(c2.y);
+	// The thirth material parameter of the material.
+	float material_param3						: packoffset(c2.z);
+	// The fourth material parameter of the material.
+	float material_param4						: packoffset(c2.w);
 };
 
 //-----------------------------------------------------------------------------

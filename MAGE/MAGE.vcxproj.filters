@@ -1135,6 +1135,9 @@
     <FxCompile Include="MAGE\shaders\bump.fx">
       <Filter>Shader Files</Filter>
     </FxCompile>
+    <FxCompile Include="MAGE\shaders\fog.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\memory\memory_arena.tpp">

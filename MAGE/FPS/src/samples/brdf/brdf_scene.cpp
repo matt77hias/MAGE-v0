@@ -46,7 +46,7 @@ namespace mage {
 		// ModelDescriptors
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc_teapot = CreateModelDescriptor(L"assets/models/teapot/teapot.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_teapot   = CreateModelDescriptor(L"assets/models/teapot/teapot.mdl", mesh_desc);
 		SharedPtr< ModelDescriptor > model_desc_cone     = CreateModelDescriptor(L"assets/models/cone/cone.mdl",         mesh_desc);
 		SharedPtr< ModelDescriptor > model_desc_cube     = CreateModelDescriptor(L"assets/models/cube/cube.mdl",         mesh_desc);
 		SharedPtr< ModelDescriptor > model_desc_cylinder = CreateModelDescriptor(L"assets/models/cylinder/cylinder.mdl", mesh_desc);

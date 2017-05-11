@@ -153,34 +153,16 @@ namespace mage {
 
 		 @return		A reference to the material of this model.
 		 */
-		Material &GetMaterial() {
-			return m_material->GetMaterial();
-		}
-
-		/**
-	 	 Returns the material of this model.
-
-		 @return		A reference to the material of this model.
-		 */
-		const Material &GetMaterial() const {
-			return m_material->GetMaterial();
-		}
-
-		/**
-		 Returns the shaded material of this model.
-
-		 @return		A reference to the shaded material of this model.
-		 */
-		ShadedMaterial *GetShadedMaterial() {
+		ShadedMaterial *GetMaterial() {
 			return m_material.get();
 		}
 
 		/**
-		 Returns the shaded material of this model.
+		 Returns the material of this model.
 
-		 @return		A reference to the shaded material of this model.
+		 @return		A reference to the material of this model.
 		 */
-		const ShadedMaterial *GetShadedMaterial() const {
+		const ShadedMaterial *GetMaterial() const {
 			return m_material.get();
 		}
 

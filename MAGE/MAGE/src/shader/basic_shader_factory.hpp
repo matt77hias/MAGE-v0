@@ -19,14 +19,14 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 Creates a diffuse shader.
+	 Creates an emissive shader.
 
 	 @pre			The current engine must be loaded.
-	 @return		The diffuse shader.
+	 @return		The emissive shader.
 	 @throws		FormattedException
 					Failed to create the shader.
 	 */
-	const CombinedShader CreateDiffuseShader();
+	const CombinedShader CreateEmissiveShader();
 
 	/**
 	 Creates a Lambertian shader.

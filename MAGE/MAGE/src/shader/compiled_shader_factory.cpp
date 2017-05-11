@@ -5,7 +5,7 @@
 
 #include "shader\compiled_shader_factory.hpp"
 #include "shader\cso\transform_VS.hpp"
-#include "shader\cso\diffuse_PS.hpp"
+#include "shader\cso\emissive_PS.hpp"
 #include "shader\cso\lambertian_PS.hpp"
 #include "shader\cso\phong_PS.hpp"
 #include "shader\cso\modified_phong_PS.hpp"
@@ -36,8 +36,8 @@ namespace mage {
 		return CompiledVertexShader(MAGE_GUID_TRANSFORM_VS, g_transform_vs, sizeof(g_transform_vs));
 	}
 
-	const CompiledPixelShader CreateCompiledDiffusePixelShader() {
-		return CompiledPixelShader(MAGE_GUID_DIFFUSE_PS, g_diffuse_ps, sizeof(g_diffuse_ps));
+	const CompiledPixelShader CreateCompiledEmissivePixelShader() {
+		return CompiledPixelShader(MAGE_GUID_EMISSIVE_PS, g_emissive_ps, sizeof(g_emissive_ps));
 	}
 
 	const CompiledPixelShader CreateCompiledLambertianPixelShader() {

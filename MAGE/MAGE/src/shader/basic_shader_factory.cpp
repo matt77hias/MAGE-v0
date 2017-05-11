@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const CombinedShader CreateDiffuseShader() {
+	const CombinedShader CreateEmissiveShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -28,7 +28,7 @@ namespace mage {
 		SharedPtr< VertexShader > vs = factory->CreateBasicVertexShader(
 			device, device_context, CreateCompiledTransformVertexShader());
 		SharedPtr< PixelShader >  ps = factory->CreateBasicPixelShader(
-			device, device_context, CreateCompiledDiffusePixelShader());
+			device, device_context, CreateCompiledEmissivePixelShader());
 		return CombinedShader(vs, ps);
 	}
 

@@ -21,7 +21,7 @@ namespace mage {
 
 	const Material *ModelDescriptor::GetMaterial(const string &name) const {
 		for (auto it = m_materials.cbegin(); it != m_materials.cend(); ++it) {
-			if (it->m_name == name) {
+			if (it->GetName() == name) {
 				return &(*it);
 			}
 		}

@@ -97,23 +97,23 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLTransmissionFilter() {
-		m_material_buffer.back().m_transmission_filter = ReadMTLSpectrum();
+		m_material_buffer.back().SetTransmissionFilter(ReadMTLSpectrum());
 	}
 
 	void MTLReader::ReadMTLAmbientReflectivity() {
-		m_material_buffer.back().m_ambient_reflectivity = ReadMTLSpectrum();
+		m_material_buffer.back().SetAmbientReflectivity(ReadMTLSpectrum());
 	}
 
 	void MTLReader::ReadMTLDiffuseReflectivity() {
-		m_material_buffer.back().m_diffuse_reflectivity = ReadMTLSpectrum();
+		m_material_buffer.back().SetDiffuseReflectivity(ReadMTLSpectrum());
 	}
 
 	void MTLReader::ReadMTLSpecularReflectivity() {
-		m_material_buffer.back().m_specular_reflectivity = ReadMTLSpectrum();
+		m_material_buffer.back().SetSpecularReflectivity(ReadMTLSpectrum());
 	}
 
 	void MTLReader::ReadMTLSpecularExponent() {
-		m_material_buffer.back().m_specular_exponent = ReadFloat();
+		m_material_buffer.back().SetSpecularExponent(ReadFloat());
 	}
 
 	void MTLReader::ReadMTLDissolve() {
@@ -122,43 +122,43 @@ namespace mage {
 			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 		}
 
-		m_material_buffer.back().m_dissolve = ReadFloat();
+		m_material_buffer.back().SetDissolve(ReadFloat());
 	}
 
 	void MTLReader::ReadMTLOpticalDensity() {
-		m_material_buffer.back().m_index_of_refraction = ReadFloat();
+		m_material_buffer.back().SetIndexOfRefraction(ReadFloat());
 	}
 
 	void MTLReader::ReadMTLAmbientReflectivityTexture() {
-		m_material_buffer.back().m_ambient_reflectivity_texture = ReadMTLTexture();
+		m_material_buffer.back().SetAmbientReflectivityTexture(ReadMTLTexture());
 	}
 
 	void MTLReader::ReadMTLDiffuseReflectivityTexture() {
-		m_material_buffer.back().m_diffuse_reflectivity_texture = ReadMTLTexture();
+		m_material_buffer.back().SetDiffuseReflectivityTexture(ReadMTLTexture());
 	}
 
 	void MTLReader::ReadMTLSpecularReflectivityTexture() {
-		m_material_buffer.back().m_specular_reflectivity_texture = ReadMTLTexture();
+		m_material_buffer.back().SetSpecularReflectivityTexture(ReadMTLTexture());
 	}
 
 	void MTLReader::ReadMTLSpecularExponentTexture() {
-		m_material_buffer.back().m_specular_exponent_texture = ReadMTLTexture();
+		m_material_buffer.back().SetSpecularExponentTexture(ReadMTLTexture());
 	}
 
 	void MTLReader::ReadMTLDissolveTexture() {
-		m_material_buffer.back().m_dissolve_texture = ReadMTLTexture();
+		m_material_buffer.back().SetDissolveTexture(ReadMTLTexture());
 	}
 
 	void MTLReader::ReadMTLDecalTexture() {
-		m_material_buffer.back().m_decal_texture = ReadMTLTexture();
+		m_material_buffer.back().SetDecalTexture(ReadMTLTexture());
 	}
 
 	void MTLReader::ReadMTLDisplacementTexture() {
-		m_material_buffer.back().m_displacement_texture = ReadMTLTexture();
+		m_material_buffer.back().SetDisplacementTexture(ReadMTLTexture());
 	}
 
 	void MTLReader::ReadMTLNormalTexture() {
-		m_material_buffer.back().m_normal_texture = ReadMTLTexture();
+		m_material_buffer.back().SetNormalTexture(ReadMTLTexture());
 	}
 
 	void MTLReader::ReadMTLBumpTexture() {

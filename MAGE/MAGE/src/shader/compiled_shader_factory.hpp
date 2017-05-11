@@ -15,7 +15,7 @@
 #pragma region
 
 #define MAGE_GUID_TRANSFORM_VS					L"transform_vs"
-#define MAGE_GUID_DIFFUSE_PS					L"diffuse_ps"
+#define MAGE_GUID_EMISSIVE_PS					L"emissive_ps"
 #define MAGE_GUID_LAMBERTIAN_PS					L"lambertian_ps"
 #define MAGE_GUID_PHONG_PS						L"phong_ps"
 #define MAGE_GUID_MODIFIED_PHONG_PS				L"modified_phong_ps"
@@ -54,11 +54,11 @@ namespace mage {
 	const CompiledVertexShader CreateCompiledTransformVertexShader();
 
 	/**
-	 Returns the compiled diffuse pixel shader.
+	 Returns the compiled emissive pixel shader.
 
-	 @return		The compiled diffuse pixel shader.
+	 @return		The compiled emissive pixel shader.
 	 */
-	const CompiledPixelShader CreateCompiledDiffusePixelShader();
+	const CompiledPixelShader CreateCompiledEmissivePixelShader();
 
 	/**
 	 Returns the compiled Lambertian pixel shader.

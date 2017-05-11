@@ -434,7 +434,7 @@ PS_INPUT Normal_VS(VertexPositionNormalTexture_VS_INPUT input) {
 // Pixel Shaders
 //-----------------------------------------------------------------------------
 
-float4 Diffuse_PS(PS_INPUT input) : SV_Target {
+float4 Emissive_PS(PS_INPUT input) : SV_Target {
 	const float4 I = float4(Kd, dissolve);
 	return diffuse_texture_map.Sample(texture_sampler, input.tex) * I;
 }

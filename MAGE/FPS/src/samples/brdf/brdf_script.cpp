@@ -46,22 +46,22 @@ namespace mage {
 		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
 			(*it)->MakePassive();
 			
-			Material &material = (*it)->GetModel()->GetMaterial();
-			material.m_diffuse_reflectivity         = RGBSpectrum(1.0f, 0.0f, 0.0f);
-			material.m_diffuse_reflectivity_texture = white;
-			material.m_specular_reflectivity        = RGBSpectrum(1.0f, 1.0f, 1.0f);
-			material.m_specular_exponent            = 10.0f;
-			material.m_param1 = 0.2f;
-			material.m_param2 = 0.2f;
-			material.m_param3 = 0.3f;
-			material.m_normal_texture				= normal;
+			ShadedMaterial *material = (*it)->GetModel()->GetMaterial();
+			material->SetDiffuseReflectivity(RGBSpectrum(1.0f, 0.0f, 0.0f));
+			material->SetDiffuseReflectivityTexture(white);
+			material->SetSpecularReflectivity(RGBSpectrum(1.0f, 1.0f, 1.0f));
+			material->SetSpecularExponent(10.0f);
+			material->SetParameter1(0.2f);
+			material->SetParameter2(0.2f);
+			material->SetParameter3(0.3f);
+			material->SetNormalTexture(normal);
 		}
 
 		(*m_models.cbegin())->MakeActive();
 	}
 
 	void BRDFScript::InitShaders() {
-		m_shaders.push_back(CreateDiffuseShader());
+		m_shaders.push_back(CreateEmissiveShader());
 		m_shaders.push_back(CreateLambertianShader());
 		m_shaders.push_back(CreatePhongShader());
 		m_shaders.push_back(CreateModifiedPhongShader());
@@ -104,7 +104,7 @@ namespace mage {
 	void BRDFScript::SetShaders() const {
 		const CombinedShader shader = m_shaders[m_shader_index];
 		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
-			(*it)->GetModel()->GetShadedMaterial()->SetShader(shader);
+			(*it)->GetModel()->GetMaterial()->SetShader(shader);
 		}
 	}
 

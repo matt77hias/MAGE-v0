@@ -753,9 +753,6 @@
     <ClInclude Include="MAGE\src\shader\cso\cook_torrance_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\diffuse_PS.hpp">
-      <Filter>Header Files\shader\cso</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\lambertian_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
@@ -775,6 +772,9 @@
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\osnm_modified_blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\emssive_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1085,6 +1085,9 @@
     <ClCompile Include="MAGE\src\shader\bump_shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\shader\shaded_material.cpp">
+      <Filter>Source Files\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian_PS.hlsl">
@@ -1103,9 +1106,6 @@
       <Filter>Shader Files</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\blinn_phong_PS.hlsl">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\diffuse_PS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\modified_blinn_phong_PS.hlsl">
@@ -1190,6 +1190,9 @@
       <Filter>Shader Files</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\ward_PS.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\emissive_PS.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
   </ItemGroup>

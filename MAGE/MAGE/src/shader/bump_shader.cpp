@@ -60,14 +60,14 @@ namespace mage {
 	void BumpPixelShader::PrepareShading(const Material &material, const Lighting &lighting) const {
 
 		MaterialBuffer buffer;
-		buffer.m_Kd       = material.m_diffuse_reflectivity;
-		buffer.m_dissolve = material.m_dissolve;
-		buffer.m_Ks       = material.m_specular_reflectivity;
-		buffer.m_Ns       = material.m_specular_exponent;
-		buffer.m_param1   = material.m_param1;
-		buffer.m_param2   = material.m_param2;
-		buffer.m_param3   = material.m_param3;
-		buffer.m_param4   = material.m_param4;
+		buffer.m_Kd       = material.GetDiffuseReflectivity();
+		buffer.m_dissolve = material.GetDissolve();
+		buffer.m_Ks       = material.GetSpecularReflectivity();
+		buffer.m_Ns       = material.GetSpecularExponent();
+		buffer.m_param1   = material.GetParameter1();
+		buffer.m_param2   = material.GetParameter2();
+		buffer.m_param3   = material.GetParameter3();
+		buffer.m_param4   = material.GetParameter4();
 		m_material_buffer.UpdateData(buffer);
 		
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
@@ -77,7 +77,9 @@ namespace mage {
 		m_device_context->PSSetShaderResources(1, 1, &lighting.m_omni_lights);
 		m_device_context->PSSetShaderResources(2, 1, &lighting.m_spot_lights);
 
-		m_device_context->PSSetShaderResources(0, 1, material.m_diffuse_reflectivity_texture->GetAddress());
-		m_device_context->PSSetShaderResources(4, 1, material.m_normal_texture->GetAddress());
+		Assert(material.GetDiffuseReflectivitySRV());
+		m_device_context->PSSetShaderResources(0, 1, material.GetDiffuseReflectivitySRVAddress());
+		Assert(material.GetNormalSRV());
+		m_device_context->PSSetShaderResources(4, 1, material.GetNormalSRVAddress());
 	}
 }

@@ -105,7 +105,9 @@ namespace mage {
 		SharedPtr< OmniLightNode > CreateOmniLightNode();
 		SharedPtr< SpotLightNode > CreateSpotLightNode();
 		SharedPtr< ModelNode > CreateModelNode(const ModelDescriptor &desc,
-			const CombinedShader &shader = CreateLambertianShader());
+			BRDFType brdf = BRDFType_Unknown);
+		SharedPtr< ModelNode > CreateModelNode(const ModelDescriptor &desc,
+			const CombinedShader &shader);
 
 		//-------------------------------------------------------------------------
 		// Member Methods: Scripts

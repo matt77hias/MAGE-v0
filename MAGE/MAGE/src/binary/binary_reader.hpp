@@ -50,7 +50,7 @@ namespace mage {
 		/**
 		 Destructs this binary reader.
 		 */
-		virtual ~BinaryReader();
+		virtual ~BinaryReader() noexcept;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -114,7 +114,7 @@ namespace mage {
 
 		 @return		A reference to the current filename of this binary reader.
 		 */
-		const wstring &GetFilename() const {
+		const wstring &GetFilename() const noexcept {
 			return m_fname;
 		}
 		
@@ -127,7 +127,7 @@ namespace mage {
 		/**
 		 Constructs a binary reader.
 		 */
-		BinaryReader();
+		BinaryReader() noexcept;
 		
 		/**
 		 Constructs a binary reader from the given binary reader.
@@ -155,7 +155,7 @@ namespace mage {
 		 @return		@c true if there are characters left to read by this binary reader.
 						@c false otherwise.
 		 */
-		bool HasCharsLeft() const {
+		bool HasCharsLeft() const noexcept {
 			return m_pos < m_end;
 		}
 
@@ -323,7 +323,7 @@ namespace mage {
 		/**
 		 Destructs this big endian binary reader.
 		 */
-		virtual ~BigEndianBinaryReader();
+		virtual ~BigEndianBinaryReader() noexcept;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -381,7 +381,7 @@ namespace mage {
 
 		 @return		A reference to the current filename of this big endian binary reader.
 		 */
-		const wstring &GetFilename() const {
+		const wstring &GetFilename() const noexcept {
 			return m_fname;
 		}
 
@@ -394,7 +394,7 @@ namespace mage {
 		/**
 		 Constructs a big endian binary reader.
 		 */
-		BigEndianBinaryReader();
+		BigEndianBinaryReader() noexcept;
 		
 		/**
 		 Constructs a big endian binary reader from the given big endian binary reader.
@@ -422,7 +422,7 @@ namespace mage {
 		 @return		@c true if there are characters left to read by this binary reader.
 						@c false otherwise.
 		 */
-		bool HasCharsLeft() const {
+		bool HasCharsLeft() const noexcept {
 			return m_pos < m_end;
 		}
 

@@ -64,7 +64,7 @@ namespace mage {
 		/**
 		 Destructs this main window.
 		 */
-		~MainWindow();
+		~MainWindow() noexcept;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -109,7 +109,7 @@ namespace mage {
 		 
 		 @return		The application instance handle of this main window.
 		 */
-		HINSTANCE GetHinstance() {
+		HINSTANCE GetHinstance() noexcept {
 			return m_hinstance;
 		}
 
@@ -118,7 +118,7 @@ namespace mage {
 
 		 @return		The window handle of this main window.
 		 */
-		HWND GetHandle() {
+		HWND GetHandle() noexcept {
 			return m_hwindow;
 		}
 
@@ -127,7 +127,7 @@ namespace mage {
 
 		 @return		The name of this main window.
 		 */
-		const wstring &GetName() const {
+		const wstring &GetName() const noexcept {
 			return m_name;
 		}
 
@@ -166,7 +166,7 @@ namespace mage {
 		/**
 		 Uninitializes the engine window of this main window.
 		 */
-		void UninitializeWindow();
+		void UninitializeWindow() noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables

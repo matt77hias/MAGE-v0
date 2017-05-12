@@ -29,7 +29,7 @@ namespace mage {
 		/**
 		 Destructs this big endian binary writer.
 		 */
-		virtual ~BigEndianBinaryWriter();
+		virtual ~BigEndianBinaryWriter() noexcept;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -74,7 +74,7 @@ namespace mage {
 
 		 @return		A reference to the current filename of this writer.
 		 */
-		const wstring &GetFilename() const {
+		const wstring &GetFilename() const noexcept {
 			return m_fname;
 		}
 
@@ -87,7 +87,7 @@ namespace mage {
 		/**
 		 Constructs a big endian binary writer.
 		 */
-		BigEndianBinaryWriter();
+		BigEndianBinaryWriter() noexcept;
 		
 		/**
 		 Constructs a big endian binary writer from the given big endian binary writer.

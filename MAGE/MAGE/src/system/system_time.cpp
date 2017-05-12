@@ -21,7 +21,7 @@ namespace mage {
 	 @return		A @c uint64_t (in 100 ns) representing 
 					the given file time @a ftime.
 	 */
-	inline uint64_t ConvertTimestamp(const FILETIME &ftime) {
+	inline uint64_t ConvertTimestamp(const FILETIME &ftime) noexcept {
 		return static_cast< uint64_t >(ftime.dwLowDateTime) | static_cast< uint64_t >(ftime.dwHighDateTime) << 32;
 	}
 

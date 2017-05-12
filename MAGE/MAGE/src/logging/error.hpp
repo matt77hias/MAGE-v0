@@ -28,7 +28,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.
 	 */
-	void Debug(const char *format, ...) noexcept;
+	void Debug(const char *format, ...);
 
 	/**
 	 Notifies an info message.
@@ -39,7 +39,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.	
 	 */
-	void Info(const char *format, ...) noexcept;
+	void Info(const char *format, ...);
 	
 	/**
 	 Notifies a warning message.
@@ -50,7 +50,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.
 	 */
-	void Warning(const char *format, ...) noexcept;
+	void Warning(const char *format, ...);
 	
 	/**
 	 Notifies an error message.
@@ -62,7 +62,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.
 	 */
-	void Error(const char *format, ...) noexcept;
+	void Error(const char *format, ...);
 	
 	/**
 	 Notifies a fatal message.
@@ -74,7 +74,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.
 	 */
-	void Fatal(const char *format, ...) noexcept;
+	void Fatal(const char *format, ...);
 }
 
 //-----------------------------------------------------------------------------

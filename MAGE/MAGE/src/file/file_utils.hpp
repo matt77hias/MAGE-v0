@@ -35,7 +35,7 @@ namespace mage {
 					A reference to the name of the file.
 	 @return		The filename of the given file.
 	 */
-	inline const string GetFilename(const string &path, const string &name) {
+	inline const string GetFilename(const string &path, const string &name) noexcept {
 		return path + name;
 	}
 
@@ -49,7 +49,7 @@ namespace mage {
 					A reference to the name of the file.
 	 @return		The filename of the given file.
 	 */
-	inline const wstring GetFilename(const wstring &path, const wstring &name) {
+	inline const wstring GetFilename(const wstring &path, const wstring &name) noexcept {
 		return path + name;
 	}
 

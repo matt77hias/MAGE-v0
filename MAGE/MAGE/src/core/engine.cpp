@@ -60,9 +60,9 @@ namespace mage {
 		SetLoaded();
 	}
 
-	Engine::Engine(Engine &&engine) = default;
+	Engine::Engine(Engine &&engine) noexcept = default;
 
-	Engine::~Engine() {
+	Engine::~Engine() noexcept {
 
 		// Uninitialize the COM.
 		CoUninitialize();

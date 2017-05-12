@@ -236,7 +236,7 @@ namespace mage {
 	 @return		A pointer to the to the null-terminated wide string copy
 					of the given null-terminated byte string.
 	 */
-	const wchar_t *str_convert(const char *str) noexcept;
+	const wchar_t *str_convert(const char *str);
 
 	/**
 	 Converts the given wide string to an byte string.
@@ -247,7 +247,7 @@ namespace mage {
 	 @return		A pointer to the to the null-terminated byte string copy
 					of the given null-terminated wide string.
 	 */
-	const char *str_convert(const wchar_t *str) noexcept;
+	const char *str_convert(const wchar_t *str);
 
 	/**
 	 Converts the given byte string to a wide string.
@@ -256,7 +256,7 @@ namespace mage {
 					A reference to the byte string to copy.
 	 @return		The wide string copy of the given byte string.
 	 */
-	const wstring str_convert(const string &str) noexcept;
+	const wstring str_convert(const string &str);
 	
 	/**
 	 Converts the given wide string to an byte string.
@@ -265,5 +265,5 @@ namespace mage {
 					A reference to the wide string to copy.
 	 @return		The byte string copy of the given wide string.
 	 */
-	const string str_convert(const wstring &str) noexcept;
+	const string str_convert(const wstring &str);
 }

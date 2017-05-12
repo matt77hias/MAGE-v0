@@ -66,7 +66,7 @@ namespace mage {
 		/**
 		 Destructs this light data buffer.
 		 */
-		~LightDataBuffer() = default;
+		~LightDataBuffer() noexcept = default;
 		
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -172,7 +172,7 @@ namespace mage {
 		/**
 		 Destructs this omni light buffer.
 		 */
-		~OmniLightBuffer() = default;
+		~OmniLightBuffer() noexcept = default;
 		
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -276,7 +276,7 @@ namespace mage {
 		/**
 		 Destructs this spotlight buffer.
 		 */
-		~SpotLightBuffer() = default;
+		~SpotLightBuffer() noexcept = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

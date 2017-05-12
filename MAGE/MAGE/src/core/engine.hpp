@@ -58,12 +58,12 @@ namespace mage {
 		 @param[in]		engine
 						A reference to the engine to move.
 		 */
-		Engine(Engine &&engine);
+		Engine(Engine &&engine) noexcept;
 
 		/**
 		 Destructs this engine.
 		 */
-		virtual ~Engine();
+		virtual ~Engine() noexcept;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -107,7 +107,7 @@ namespace mage {
 		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the main window of this engine.
 		 */
-		const MainWindow *GetMainWindow() const {
+		const MainWindow *GetMainWindow() const noexcept {
 			return m_main_window.get();
 		}
 		
@@ -129,7 +129,7 @@ namespace mage {
 		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the renderer of this engine.
 		 */
-		const Renderer *GetRenderer() const {
+		const Renderer *GetRenderer() const noexcept {
 			return m_renderer.get();
 		}
 
@@ -139,7 +139,7 @@ namespace mage {
 		 @param[in]		mode_switch
 						The new value for the mode switch flag.
 		 */
-		void SetModeSwitchFlag(bool mode_switch) {
+		void SetModeSwitchFlag(bool mode_switch) noexcept {
 			m_mode_switch = mode_switch;
 		}
 
@@ -153,7 +153,7 @@ namespace mage {
 		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the input manager of this engine.
 		 */
-		const InputManager *GetInputManager() const {
+		const InputManager *GetInputManager() const noexcept {
 			return m_input_manager.get();
 		}
 
@@ -167,7 +167,7 @@ namespace mage {
 		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the resource factory of this engine.
 		 */
-		ResourceFactory *GetResourceFactory() const {
+		ResourceFactory *GetResourceFactory() const noexcept {
 			return m_resource_factory.get();
 		}
 

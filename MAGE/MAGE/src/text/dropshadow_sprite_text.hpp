@@ -71,7 +71,7 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the dropshadow sprite text to move.
 		 */
-		DropshadowSpriteText(DropshadowSpriteText &&sprite_text) noexcept;
+		DropshadowSpriteText(DropshadowSpriteText &&sprite_text);
 
 		/**
 		 Destructs this dropshadow sprite text.

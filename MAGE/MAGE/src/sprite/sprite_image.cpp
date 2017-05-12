@@ -53,7 +53,7 @@ namespace mage {
 		: SpriteObject(sprite_image), m_color(sprite_image.m_color),
 		m_texture_region(new RECT(*sprite_image.m_texture_region)), m_texture(sprite_image.m_texture) {}
 		
-	SpriteImage::SpriteImage(SpriteImage &&sprite_image) noexcept = default;
+	SpriteImage::SpriteImage(SpriteImage &&sprite_image) = default;
 
 	SpriteImage::~SpriteImage() noexcept = default;
 

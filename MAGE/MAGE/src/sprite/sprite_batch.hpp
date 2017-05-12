@@ -78,17 +78,17 @@ namespace mage {
 			const SpriteTransform &transform, const RECT *source = nullptr);
 		void End();
 
-		void SetRotationMode(DXGI_MODE_ROTATION rotation_mode) {
+		void SetRotationMode(DXGI_MODE_ROTATION rotation_mode) noexcept {
 			m_rotation_mode = rotation_mode;
 		}
-		DXGI_MODE_ROTATION GetRotationMode() const {
+		DXGI_MODE_ROTATION GetRotationMode() const noexcept {
 			return m_rotation_mode;
 		}
-		void SetViewport(const D3D11_VIEWPORT &viewport) {
+		void SetViewport(const D3D11_VIEWPORT &viewport) noexcept {
 			m_viewport_set = true;
 			m_viewport = viewport;
 		}
-		const D3D11_VIEWPORT &GetViewport() const {
+		const D3D11_VIEWPORT &GetViewport() const noexcept {
 			return m_viewport;
 		}
 

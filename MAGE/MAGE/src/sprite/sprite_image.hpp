@@ -108,7 +108,7 @@ namespace mage {
 		 @param[in]		sprite_image
 						A reference to the sprite image to move.
 		 */
-		SpriteImage(SpriteImage &&sprite_image) noexcept;
+		SpriteImage(SpriteImage &&sprite_image);
 
 		/**
 		 Destruct this sprite image.
@@ -213,7 +213,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the color.
 		 */
-		void SetColor(const XMVECTOR &color) noexcept {
+		void SetColor(const XMVECTOR &color) {
 			XMStoreFloat4(&m_color, color);
 		}
 
@@ -235,7 +235,7 @@ namespace mage {
 
 		 @return		The color of this sprite image as @c XMVECTOR.
 		 */
-		const XMVECTOR GetColorVector() const noexcept {
+		const XMVECTOR GetColorVector() const {
 			return XMLoadFloat4(&m_color);
 		}
 

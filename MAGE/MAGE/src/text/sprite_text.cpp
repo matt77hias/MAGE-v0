@@ -28,7 +28,7 @@ namespace mage {
 		m_strings.clear();
 	}
 
-	void SpriteText::SetFont(SharedPtr< SpriteFont > font) {
+	void SpriteText::SetFont(SharedPtr< SpriteFont > font) noexcept {
 		Assert(font);
 
 		m_font = font;

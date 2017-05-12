@@ -151,7 +151,7 @@ namespace mage {
 		OmniLightBuffer() 
 			: m_p(0.0f, 0.0f, 0.0f, 0.0f), m_I(),
 			m_distance_falloff_start(0.0f), m_distance_falloff_end(0.0f),
-			m_padding{0} {}
+			m_padding{} {}
 		
 		/**
 		 Constructs an omni light buffer from the given omni light buffer.

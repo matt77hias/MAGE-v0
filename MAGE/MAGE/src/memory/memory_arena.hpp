@@ -169,7 +169,7 @@ namespace mage {
 		const size_t m_maximum_block_size;
 
 		/**
-		 A pointer to the current block of this memory arena.
+		 The current block of this memory arena.
 		 */
 		MemoryBlock m_current_block;
 

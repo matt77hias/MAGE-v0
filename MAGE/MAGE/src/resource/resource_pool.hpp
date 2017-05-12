@@ -25,7 +25,7 @@ namespace mage {
 					The resource type.
 	 */
 	template< typename KeyT, typename ResourceT >
-	using ResourceMap = map< KeyT, WeakPtr< ResourceT > >;
+	using ResourceMap = map< const KeyT, WeakPtr< ResourceT > >;
 
 	/**
 	 A class of resource pools.
@@ -114,7 +114,7 @@ namespace mage {
 						The argument types for creating a new resource 
 						of type @c ResourceT.
 		 @param[in]		key
-						The key of the resource.
+						A reference to the key of the resource.
 		 @param[in]		args
 						The arguments for creating a new resource
 						of type @c ResourceT.
@@ -122,7 +122,7 @@ namespace mage {
 						the given key from this resource pool.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetResource(KeyT key, ConstructorArgsT&&... args);
+		SharedPtr< ResourceT > GetResource(const KeyT &key, ConstructorArgsT&&... args);
 		
 		/**
 		 Returns the resource corresponding to the given key from this resource pool.
@@ -138,7 +138,7 @@ namespace mage {
 						The argument types for creating a new resource
 						of type @c DerivedResourceT.
 		 @param[in]		key
-						The key of the resource.
+						A reference to the key of the resource.
 		 @param[in]		args
 						The arguments for creating a new resource
 						of type @c DerivedResourceT.
@@ -146,15 +146,15 @@ namespace mage {
 						the given key from this resource pool.
 		 */
 		template< typename DerivedResourceT, typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetDerivedResource(KeyT key, ConstructorArgsT&&... args);
+		SharedPtr< ResourceT > GetDerivedResource(const KeyT &key, ConstructorArgsT&&... args);
 		
 		/**
 		 Removes the resource corresponding to the given key from this resource pool.
 
 		 @param[in]		key
-						The key of the resource to remove.
+						A reference to the key of the resource to remove.
 		 */
-		void RemoveResource(KeyT key);
+		void RemoveResource(const KeyT &key);
 
 		/**
 		 Removes all resources from this resource pool.
@@ -202,14 +202,15 @@ namespace mage {
 			 @param[in]		resource_pool
 							A reference to the resource pool.
 			 @param[in]		resource_key
-							The key of the resource in the given resource pool.
+							A reference to the key of the resource 
+							in the given resource pool.
 			 @param[in]		args
 							The arguments for creating a new resource
 							of type @c DerivedResourceT.
 			 */
 			template< typename... ConstructorArgsT >
 			ResourcePoolEntry(ResourcePool< KeyT, ResourceT > &resource_pool,
-				KeyT resource_key, ConstructorArgsT&&... args);
+				const KeyT &resource_key, ConstructorArgsT&&... args);
 			
 			/**
 			 Constructs a resource pool entry from the given resource pool entry.
@@ -271,7 +272,7 @@ namespace mage {
 			 The key of this resource pool entry in the resource pool map containing
 			 this resource pool entry.
 			 */
-			KeyT m_resource_key;
+			const KeyT m_resource_key;
 		};
 	};
 }

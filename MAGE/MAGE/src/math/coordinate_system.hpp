@@ -130,7 +130,7 @@ namespace mage {
 
 		 @return		The x-axis of this Cartesian axes system.
 		 */
-		const XMVECTOR GetAxisX() const {
+		const XMVECTOR GetAxisX() const noexcept {
 			return m_x;
 		}
 
@@ -139,7 +139,7 @@ namespace mage {
 
 		 @return		The y-axis of this Cartesian axes system.
 		 */
-		const XMVECTOR GetAxisY() const {
+		const XMVECTOR GetAxisY() const noexcept {
 			return m_y;
 		}
 
@@ -148,7 +148,7 @@ namespace mage {
 
 		 @return		The z-axis of this Cartesian axes system.
 		 */
-		const XMVECTOR GetAxisZ() const {
+		const XMVECTOR GetAxisZ() const noexcept {
 			return m_z;
 		}
 
@@ -259,7 +259,7 @@ namespace mage {
 
 		 @return		The origin of this Cartesian coordinate system.
 		 */
-		const XMVECTOR GetOrigin() const {
+		const XMVECTOR GetOrigin() const noexcept {
 			return m_o;
 		}
 
@@ -268,7 +268,7 @@ namespace mage {
 
 		 @return		The x-axis of this Cartesian coordinate system.
 		 */
-		const XMVECTOR GetAxisX() const {
+		const XMVECTOR GetAxisX() const noexcept {
 			return m_axes.GetAxisX();
 		}
 
@@ -277,7 +277,7 @@ namespace mage {
 
 		 @return		The y-axis of this Cartesian coordinate system.
 		 */
-		const XMVECTOR GetAxisY() const {
+		const XMVECTOR GetAxisY() const noexcept {
 			return m_axes.GetAxisY();
 		}
 
@@ -286,7 +286,7 @@ namespace mage {
 
 		 @return		The z-axis of this Cartesian coordinate system.
 		 */
-		const XMVECTOR GetAxisZ() const {
+		const XMVECTOR GetAxisZ() const noexcept {
 			return m_axes.GetAxisZ();
 		}
 		
@@ -295,7 +295,7 @@ namespace mage {
 
 		 @return		The Cartesian axes system of this Cartesian coordinate system.
 		 */
-		const CartesianAxesSystem GetAxes() const {
+		const CartesianAxesSystem GetAxes() const noexcept {
 			return m_axes;
 		}
 

@@ -52,95 +52,95 @@ namespace mage {
 
 		virtual void Update(double delta_time) override;
 
-		RotationAxes GetRotationAxes() const {
+		RotationAxes GetRotationAxes() const noexcept {
 			return m_axes;
 		}
-		void SetRotationAxes(RotationAxes axes) {
+		void SetRotationAxes(RotationAxes axes) noexcept {
 			m_axes = axes;
 		}
 
-		float GetSensitivityX() const {
+		float GetSensitivityX() const noexcept {
 			return m_sensitivity.x;
 		}
-		float GetSensitivityY() const {
+		float GetSensitivityY() const noexcept {
 			return m_sensitivity.y;
 		}
-		const XMFLOAT2 GetSensitivity() const {
+		const XMFLOAT2 GetSensitivity() const noexcept {
 			return m_sensitivity;
 		}
-		void SetSensitivityX(float x) {
+		void SetSensitivityX(float x) noexcept {
 			m_sensitivity.x = x;
 		}
-		void SetSensitivityY(float y) {
+		void SetSensitivityY(float y) noexcept {
 			m_sensitivity.y = y;
 		}
 		void SetSensitivity(float x, float y) {
 			m_sensitivity.x = x;
 			m_sensitivity.y = y;
 		}
-		void SetSensitivity(const XMFLOAT2 &sensitivity) {
+		void SetSensitivity(const XMFLOAT2 &sensitivity) noexcept {
 			m_sensitivity = sensitivity;
 		}
 		void SetSensitivity(const XMVECTOR &sensitivity) {
 			XMStoreFloat2(&m_sensitivity, sensitivity);
 		}
 
-		float GetMinimumRotationX() const {
+		float GetMinimumRotationX() const noexcept {
 			return m_minimum_rotation.x;
 		}
-		float GetMinimumRotationY() const {
+		float GetMinimumRotationY() const noexcept {
 			return m_minimum_rotation.y;
 		}
-		const XMFLOAT2 GetMinimumRotation() const {
+		const XMFLOAT2 GetMinimumRotation() const noexcept {
 			return m_minimum_rotation;
 		}
-		void SetMinimumRotationX(float x) {
+		void SetMinimumRotationX(float x) noexcept {
 			m_minimum_rotation.x = x;
 		}
-		void SetMinimumRotationY(float y) {
+		void SetMinimumRotationY(float y) noexcept {
 			m_minimum_rotation.y = y;
 		}
-		void SetMinimumRotation(float x, float y) {
+		void SetMinimumRotation(float x, float y) noexcept {
 			m_minimum_rotation.x = x;
 			m_minimum_rotation.y = y;
 		}
-		void SetMinimumRotation(const XMFLOAT2 &minimum_rotation) {
+		void SetMinimumRotation(const XMFLOAT2 &minimum_rotation) noexcept {
 			m_minimum_rotation = minimum_rotation;
 		}
 		void SetMinimumRotation(const XMVECTOR &minimum_rotation) {
 			XMStoreFloat2(&m_minimum_rotation, minimum_rotation);
 		}
 
-		float GetMaximumRotationX() const {
+		float GetMaximumRotationX() const noexcept {
 			return m_maximum_rotation.x;
 		}
-		float GetMaximumRotationY() const {
+		float GetMaximumRotationY() const noexcept {
 			return m_maximum_rotation.y;
 		}
-		const XMFLOAT2 GetMaximumRotation() const {
+		const XMFLOAT2 GetMaximumRotation() const noexcept {
 			return m_maximum_rotation;
 		}
-		void SetMaximumRotationX(float x) {
+		void SetMaximumRotationX(float x) noexcept {
 			m_maximum_rotation.x = x;
 		}
-		void SetMaximumRotationY(float y) {
+		void SetMaximumRotationY(float y) noexcept {
 			m_maximum_rotation.y = y;
 		}
-		void SetMaximumRotation(float x, float y) {
+		void SetMaximumRotation(float x, float y) noexcept {
 			m_maximum_rotation.x = x;
 			m_maximum_rotation.y = y;
 		}
-		void SetMaximumRotation(const XMFLOAT2 &maximum_rotation) {
+		void SetMaximumRotation(const XMFLOAT2 &maximum_rotation) noexcept {
 			m_maximum_rotation = maximum_rotation;
 		}
 		void SetMaximumRotation(const XMVECTOR &maximum_rotation) {
 			XMStoreFloat2(&m_maximum_rotation, maximum_rotation);
 		}
 
-		void InvertDirectionX() {
+		void InvertDirectionX() noexcept {
 			m_direction.x *= -1.0f;
 		}
-		void InvertDirectionY() {
+		void InvertDirectionY() noexcept {
 			m_direction.y *= -1.0f;
 		}
 

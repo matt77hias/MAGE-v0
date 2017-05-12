@@ -109,7 +109,7 @@ namespace mage {
 		 @return		A pointer to the shader resource view
 						of this structured buffer.
 		 */
-		ID3D11ShaderResourceView *Get() const {
+		ID3D11ShaderResourceView *Get() const noexcept {
 			return m_buffer_srv.Get();
 		}
 
@@ -119,7 +119,7 @@ namespace mage {
 		 @return		A pointer to a pointer to the shader resource view
 						of this structured buffer.
 		 */
-		ID3D11ShaderResourceView * const *GetAddressOf() const {
+		ID3D11ShaderResourceView * const *GetAddressOf() const noexcept {
 			return m_buffer_srv.GetAddressOf();
 		}
 
@@ -129,7 +129,7 @@ namespace mage {
 		 @return		A pointer to a pointer to the shader resource view
 						of this structured buffer.
 		 */
-		ID3D11ShaderResourceView **GetAddressOf() {
+		ID3D11ShaderResourceView **GetAddressOf() noexcept {
 			return m_buffer_srv.GetAddressOf();
 		}
 

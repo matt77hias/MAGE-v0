@@ -22,7 +22,7 @@ namespace mage {
 		m_active(sprite_object.m_active), m_name(sprite_object.m_name),
 		m_effects(sprite_object.m_effects) {}
 
-	SpriteObject::SpriteObject(SpriteObject &&sprite_object) noexcept = default;
+	SpriteObject::SpriteObject(SpriteObject &&sprite_object) = default;
 
-	SpriteObject::~SpriteObject() noexcept = default;
+	SpriteObject::~SpriteObject() = default;
 }

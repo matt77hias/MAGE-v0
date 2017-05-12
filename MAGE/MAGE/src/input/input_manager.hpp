@@ -101,7 +101,7 @@ namespace mage {
 
 		 @return		A pointer to the keyboard of this input manager.
 		 */
-		const Keyboard *GetKeyboard() const {
+		const Keyboard *GetKeyboard() const noexcept {
 			return m_keyboard.get();
 		}
 
@@ -110,7 +110,7 @@ namespace mage {
 
 		 @return		A pointer to the mouse of this input manager.
 		 */
-		const Mouse *GetMouse() const {
+		const Mouse *GetMouse() const noexcept {
 			return m_mouse.get();
 		}
 

@@ -28,7 +28,7 @@ namespace mage {
 		/**
 		 Destruct this sprite object.
 		 */
-		virtual ~SpriteObject() noexcept;
+		virtual ~SpriteObject();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -135,7 +135,7 @@ namespace mage {
 		 @param[in]		name
 						A reference to the name.
 		 */
-		void SetName(const string &name) noexcept {
+		void SetName(const string &name) {
 			m_name = name;
 		}
 		
@@ -207,7 +207,7 @@ namespace mage {
 		 @param[in]		sprite_object
 						A reference to the sprite object to move.
 		 */
-		SpriteObject(SpriteObject &&sprite_object) noexcept;
+		SpriteObject(SpriteObject &&sprite_object);
 
 	private:
 

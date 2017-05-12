@@ -37,7 +37,7 @@ namespace mage {
 		/**
 		 Destructs this engine setup.
 		 */
-		virtual ~EngineSetup() noexcept;
+		virtual ~EngineSetup();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -108,7 +108,7 @@ namespace mage {
 						A reference to the name of the application.
 		 */
 		explicit EngineSetup(HINSTANCE hinstance,
-			const wstring &name = MAGE_DEFAULT_APPLICATION_NAME) noexcept;
+			const wstring &name = MAGE_DEFAULT_APPLICATION_NAME);
 
 		/**
 		 Constructs an engine setup from the given engine setup.

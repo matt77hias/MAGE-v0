@@ -54,7 +54,7 @@ namespace mage {
 		/**
 		 Destructs this material buffer.
 		 */
-		~MaterialBuffer() noexcept = default;
+		~MaterialBuffer() = default;
 		
 		//---------------------------------------------------------------------
 		// Assignment Operators

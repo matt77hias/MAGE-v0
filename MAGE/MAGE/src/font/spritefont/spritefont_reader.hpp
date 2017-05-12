@@ -105,6 +105,8 @@ namespace mage {
 
 		 @return		@c true if the header of the file is valid.
 						@c false otherwise.
+		 @throws		FormattedException
+						Failed to read to the given file.
 		 */
 		bool IsHeaderValid();
 
@@ -113,6 +115,8 @@ namespace mage {
 
 		 @throws		FormattedException
 						Failed to read a texture.
+		 @throws		FormattedException
+						Failed to read to the given file.
 		 */
 		void ReadTexture();
 

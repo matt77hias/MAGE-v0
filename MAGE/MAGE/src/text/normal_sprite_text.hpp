@@ -53,12 +53,12 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the normal sprite text to move.
 		 */
-		NormalSpriteText(NormalSpriteText &&sprite_text) noexcept;
+		NormalSpriteText(NormalSpriteText &&sprite_text);
 
 		/**
 		 Destructs this normal sprite text.
 		 */
-		virtual ~NormalSpriteText() noexcept;
+		virtual ~NormalSpriteText();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

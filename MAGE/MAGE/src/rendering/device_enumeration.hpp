@@ -56,7 +56,7 @@ namespace mage {
 		 @return		A pointer to the adapter 
 						of this device enumeration.
 		 */
-		ComPtr< IDXGIAdapter2 > GetAdapter() const {
+		ComPtr< IDXGIAdapter2 > GetAdapter() const noexcept {
 			return m_adapter;
 		}
 
@@ -66,7 +66,7 @@ namespace mage {
 		 @return		A pointer to the output
 						of this device enumeration.
 		 */
-		ComPtr< IDXGIOutput2 > GetOutput() const {
+		ComPtr< IDXGIOutput2 > GetOutput() const noexcept {
 			return m_output;
 		}
 
@@ -77,7 +77,7 @@ namespace mage {
 		 @return		A pointer to the selected display mode
 						of this device enumeration.
 		 */
-		const DXGI_MODE_DESC1 *GetDisplayMode() const {
+		const DXGI_MODE_DESC1 *GetDisplayMode() const noexcept {
 			return m_selected_diplay_mode;
 		}
 		
@@ -87,7 +87,7 @@ namespace mage {
 		 @return		@c true if the application should run in windowed mode.
 						@c false otherwise.
 		 */
-		bool IsWindowed() const {
+		bool IsWindowed() const noexcept {
 			return m_windowed;
 		}
 
@@ -97,7 +97,7 @@ namespace mage {
 		 @return		@c true if the application should run in full screen mode.
 						@c false otherwise.
 		 */
-		bool IsFullScreen() const {
+		bool IsFullScreen() const noexcept {
 			return !m_windowed;
 		}
 
@@ -107,7 +107,7 @@ namespace mage {
 		 @return		@c true if v-sync should be enabled.
 						@c false otherwise.
 		 */
-		bool IsVSynced() const {
+		bool IsVSynced() const noexcept {
 			return m_vsync;
 		}
 

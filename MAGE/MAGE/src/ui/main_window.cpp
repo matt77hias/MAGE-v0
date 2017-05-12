@@ -127,7 +127,7 @@ namespace mage{
 
 	MainWindow::MainWindow(MainWindow &&main_window) = default;
 
-	MainWindow::~MainWindow() noexcept {
+	MainWindow::~MainWindow() {
 		// Uninitialize the window.
 		UninitializeWindow();
 	}
@@ -202,7 +202,7 @@ namespace mage{
 		}
 	}
 
-	void MainWindow::UninitializeWindow() noexcept {
+	void MainWindow::UninitializeWindow() {
 		// Unregister the window class.
 		UnregisterClass(MAGE_MAIN_WINDOW_CLASS_NAME, m_hinstance);
 	}

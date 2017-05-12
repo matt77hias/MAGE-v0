@@ -22,7 +22,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	const char *str_escape_first(const char *str, char c) noexcept {
+	const char *str_escape_first(const char *str, char c) {
 		Assert(str);
 		
 		const char *input = str;
@@ -47,7 +47,7 @@ namespace mage {
 		}
 	}
 
-	char *str_escape_first(char *str, char c) noexcept {
+	char *str_escape_first(char *str, char c) {
 		Assert(str);
 		
 		char *input = str;
@@ -72,7 +72,7 @@ namespace mage {
 		}
 	}
 
-	const wchar_t *str_escape_first(const wchar_t *str, wchar_t c) noexcept {
+	const wchar_t *str_escape_first(const wchar_t *str, wchar_t c) {
 		Assert(str);
 		
 		const wchar_t *input = str;
@@ -97,7 +97,7 @@ namespace mage {
 		}
 	}
 
-	wchar_t *str_escape_first(wchar_t *str, wchar_t c) noexcept {
+	wchar_t *str_escape_first(wchar_t *str, wchar_t c) {
 		Assert(str);
 		
 		wchar_t *input = str;

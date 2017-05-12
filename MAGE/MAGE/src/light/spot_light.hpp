@@ -96,7 +96,7 @@ namespace mage {
 
 		 @return		The start of the distance falloff of this spotlight.
 		 */
-		float GetStartDistanceFalloff() const {
+		float GetStartDistanceFalloff() const noexcept {
 			return m_distance_falloff_start;
 		}
 		
@@ -108,7 +108,7 @@ namespace mage {
 						The start of the distance falloff.
 		 @return		A reference to this spotlight.
 		 */
-		SpotLight &SetStartDistanceFalloff(float distance_falloff_start) {
+		SpotLight &SetStartDistanceFalloff(float distance_falloff_start) noexcept {
 			m_distance_falloff_start = distance_falloff_start;
 			return (*this);
 		}
@@ -118,7 +118,7 @@ namespace mage {
 
 		 @return		The end of the distance falloff of this spotlight.
 		 */
-		float GetEndDistanceFalloff() const {
+		float GetEndDistanceFalloff() const noexcept {
 			return m_distance_falloff_end;
 		}
 		
@@ -130,7 +130,7 @@ namespace mage {
 						The end of the distance falloff.
 		 @return		A reference to this spotlight.
 		 */
-		SpotLight &SetEndDistanceFalloff(float distance_falloff_end) {
+		SpotLight &SetEndDistanceFalloff(float distance_falloff_end) noexcept {
 			m_distance_falloff_end = distance_falloff_end;
 			return (*this);
 		}
@@ -145,7 +145,7 @@ namespace mage {
 						The end of the distance falloff.
 		 @return		A reference to this spotlight.
 		 */
-		SpotLight &SetDistanceFalloff(float distance_falloff_start, float distance_falloff_end) {
+		SpotLight &SetDistanceFalloff(float distance_falloff_start, float distance_falloff_end) noexcept {
 			SetStartDistanceFalloff(distance_falloff_start);
 			SetEndDistanceFalloff(distance_falloff_end);
 			return (*this);
@@ -156,7 +156,7 @@ namespace mage {
 
 		 @return		The cosine of the penumbra angle of this spotlight.
 		 */
-		float GetStartAngularCutoff() const {
+		float GetStartAngularCutoff() const noexcept {
 			return m_cos_penumbra;
 		}
 		
@@ -168,7 +168,7 @@ namespace mage {
 						The cosine of the penumbra angle.
 		 @return		A reference to this spotlight.
 		 */
-		SpotLight &SetStartAngularCutoff(float cos_penumbra) {
+		SpotLight &SetStartAngularCutoff(float cos_penumbra) noexcept {
 			m_cos_penumbra = cos_penumbra;
 			return (*this);
 		}
@@ -178,7 +178,7 @@ namespace mage {
 
 		 @return		The cosine of the umbra angle of this spotlight.
 		 */
-		float GetEndAngularCutoff() const {
+		float GetEndAngularCutoff() const noexcept {
 			return m_cos_umbra;
 		}
 		
@@ -190,7 +190,7 @@ namespace mage {
 						The cosine of the umbra angle.
 		 @return		A reference to this spotlight.
 		 */
-		SpotLight &SetEndAngularCutoff(float cos_umbra) {
+		SpotLight &SetEndAngularCutoff(float cos_umbra) noexcept {
 			m_cos_umbra = cos_umbra;
 			return (*this);
 		}
@@ -205,7 +205,7 @@ namespace mage {
 						The cosine of the umbra angle.
 		 @return		A reference to this spotlight.
 		 */
-		SpotLight &SetAngularCutoff(float cos_penumbra, float cos_umbra) {
+		SpotLight &SetAngularCutoff(float cos_penumbra, float cos_umbra) noexcept {
 			SetStartAngularCutoff(cos_penumbra);
 			SetEndAngularCutoff(cos_umbra);
 			return (*this);
@@ -216,7 +216,7 @@ namespace mage {
 
 		 @return		The penumbra angle (in radians) of this spotlight.
 		 */
-		float GetPenumbraAngle() const {
+		float GetPenumbraAngle() const noexcept {
 			return acos(m_cos_penumbra);
 		}
 
@@ -228,7 +228,7 @@ namespace mage {
 						The penumbra angle (in radians).
 		 @return		A reference to this spotlight.
 		 */
-		SpotLight &SetPenumbraAngle(float penumbra) {
+		SpotLight &SetPenumbraAngle(float penumbra) noexcept {
 			m_cos_penumbra = cos(penumbra);
 			return (*this);
 		}
@@ -238,7 +238,7 @@ namespace mage {
 
 		 @return		The umbra angle (in radians) of this spotlight.
 		 */
-		float GetUmbraAngle() const {
+		float GetUmbraAngle() const noexcept {
 			return acos(m_cos_umbra);
 		}
 
@@ -250,7 +250,7 @@ namespace mage {
 						The umbra angle (in radians).
 		 @return		A reference to this spotlight.
 		 */
-		SpotLight &SetUmbraAngle(float umbra) {
+		SpotLight &SetUmbraAngle(float umbra) noexcept {
 			m_cos_umbra = cos(umbra);
 			return (*this);
 		}
@@ -265,7 +265,7 @@ namespace mage {
 						The umbra angle (in radians).
 		 @return		A reference to this spotlight.
 		 */
-		SpotLight &SetPenumbraAndUmbraAngles(float penumbra, float umbra) {
+		SpotLight &SetPenumbraAndUmbraAngles(float penumbra, float umbra) noexcept {
 			SetPenumbraAngle(penumbra);
 			SetUmbraAngle(umbra);
 			return (*this);
@@ -276,7 +276,7 @@ namespace mage {
 
 		 @return		The exponent property of this spotlight.
 		 */
-		float GetExponentProperty() const {
+		float GetExponentProperty() const noexcept {
 			return m_exponent_property;
 		}
 		
@@ -288,7 +288,7 @@ namespace mage {
 						The exponent property.
 		 @return		A reference to this spotlight.
 		 */
-		SpotLight &SetExponentProperty(float exponent_property) {
+		SpotLight &SetExponentProperty(float exponent_property) noexcept {
 			m_exponent_property = exponent_property;
 			return (*this);
 		}

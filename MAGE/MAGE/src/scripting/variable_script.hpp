@@ -118,7 +118,7 @@ namespace mage {
 		 @return		@c true if this variable script is empty.
 						@c false otherwise.
 		 */
-		bool IsEmpty() const {
+		bool IsEmpty() const noexcept {
 			return m_variables.empty();
 		}
 
@@ -127,7 +127,7 @@ namespace mage {
 
 		 @return		The number of variables in this variable script.
 		 */
-		size_t GetNumberOfVariables() const {
+		size_t GetNumberOfVariables() const noexcept {
 			return m_variables.size();
 		}
 
@@ -161,7 +161,7 @@ namespace mage {
 		/**
 		 Removes all variables from this variable script.
 		 */
-		void RemoveAllVariables();
+		void RemoveAllVariables() noexcept;
 
 		/**
 		 Returns the value of the given variable in this variable script.

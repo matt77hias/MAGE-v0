@@ -76,7 +76,7 @@ namespace mage {
 		/**
 		 Destructs this outline sprite text.
 		 */
-		virtual ~OutlineSpriteText() noexcept;
+		virtual ~OutlineSpriteText();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

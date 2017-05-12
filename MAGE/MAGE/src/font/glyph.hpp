@@ -98,7 +98,7 @@ namespace mage {
 						than the given glyph's character.
 						@c false otherwise.
 		 */
-		bool operator<(const Glyph &rhs) const {
+		bool operator<(const Glyph &rhs) const noexcept {
 			return m_character < rhs.m_character;
 		}
 
@@ -112,7 +112,7 @@ namespace mage {
 						than the given character.
 						@c false otherwise.
 		 */
-		bool operator<(wchar_t rhs) const {
+		bool operator<(wchar_t rhs) const noexcept {
 			return m_character < static_cast< uint32_t >(rhs);
 		}
 

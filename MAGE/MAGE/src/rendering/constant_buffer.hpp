@@ -105,7 +105,7 @@ namespace mage {
 		 @return		A pointer to the buffer resource 
 						of this constant buffer.
 		 */
-		ID3D11Buffer *Get() const {
+		ID3D11Buffer *Get() const noexcept {
 			return m_buffer.Get();
 		}
 		
@@ -115,7 +115,7 @@ namespace mage {
 		 @return		A pointer to a pointer to the buffer resource 
 						of this constant buffer.
 		 */
-		ID3D11Buffer * const *GetAddressOf() const {
+		ID3D11Buffer * const *GetAddressOf() const noexcept {
 			return m_buffer.GetAddressOf();
 		}
 		
@@ -125,7 +125,7 @@ namespace mage {
 		 @return		A pointer to a pointer to the buffer resource 
 						of this constant buffer.
 		 */
-		ID3D11Buffer **GetAddressOf() {
+		ID3D11Buffer **GetAddressOf() noexcept {
 			return m_buffer.GetAddressOf();
 		}
 

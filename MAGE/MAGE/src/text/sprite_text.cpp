@@ -22,13 +22,13 @@ namespace mage {
 
 	SpriteText::SpriteText(const SpriteText &sprite_text) = default;
 
-	SpriteText::SpriteText(SpriteText &&sprite_text) noexcept = default;
+	SpriteText::SpriteText(SpriteText &&sprite_text) = default;
 
-	SpriteText::~SpriteText() noexcept {
+	SpriteText::~SpriteText() {
 		m_strings.clear();
 	}
 
-	void SpriteText::SetFont(SharedPtr< SpriteFont > font) noexcept {
+	void SpriteText::SetFont(SharedPtr< SpriteFont > font) {
 		Assert(font);
 
 		m_font = font;

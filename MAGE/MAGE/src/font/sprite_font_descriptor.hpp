@@ -81,7 +81,7 @@ namespace mage {
 		 @return		@c true if working around gamma issues is needed.
 						@c false if not.
 		 */
-		bool ForceSRGB() const {
+		bool ForceSRGB() const noexcept {
 			return m_force_srgb;
 		}
 

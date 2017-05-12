@@ -91,7 +91,7 @@ namespace mage {
 
 		 @return		A reference to the globally unique identifier of this resource.
 		 */
-		const wstring &GetGuid() const {
+		const wstring &GetGuid() const noexcept {
 			return m_guid;
 		}
 
@@ -184,7 +184,7 @@ namespace mage {
 
 		 @return		A reference to the filename of this file resource.
 		 */
-		const wstring &GetFilename() const {
+		const wstring &GetFilename() const noexcept {
 			return GetGuid();
 		}
 
@@ -193,7 +193,7 @@ namespace mage {
 
 		 @return		The name of this file resource.
 		 */
-		const wstring GetName() const {
+		const wstring GetName() const noexcept {
 			return GetFileName(GetGuid());
 		}
 
@@ -202,7 +202,7 @@ namespace mage {
 
 		 @return		The path of this file resource.
 		 */
-		const wstring GetPath() const {
+		const wstring GetPath() const noexcept {
 			return GetPathName(GetGuid());
 		}
 	};

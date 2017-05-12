@@ -310,7 +310,7 @@ namespace mage {
 	 @pre			The current engine must be loaded.
 	 @return		A pointer to the rendering device.
 	 */
-	ID3D11Device2 *GetRenderingDevice();
+	ID3D11Device2 *GetRenderingDevice() noexcept;
 
 	/**
 	 Returns the rendering device context.
@@ -318,7 +318,7 @@ namespace mage {
 	 @pre			The current engine must be loaded.
 	 @return		A pointer to the rendering device context.
 	 */
-	ID3D11DeviceContext2 *GetRenderingDeviceContext();
+	ID3D11DeviceContext2 *GetRenderingDeviceContext() noexcept;
 
 	/**
 	 Returns the resource factory.
@@ -326,7 +326,7 @@ namespace mage {
 	 @pre			The current engine must be loaded.
 	 @return		A pointer to the resource factory.
 	 */
-	ResourceFactory *GetResourceFactory();
+	ResourceFactory *GetResourceFactory() noexcept;
 }
 
 //-----------------------------------------------------------------------------

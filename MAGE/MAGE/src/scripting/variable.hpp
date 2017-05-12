@@ -135,7 +135,7 @@ namespace mage {
 
 		 @return		The type of this value.
 		 */
-		VariableType GetType() const {
+		VariableType GetType() const noexcept {
 			return m_type;
 		}
 
@@ -144,7 +144,7 @@ namespace mage {
 
 		 @return		A reference to the name of this variable.
 		 */
-		const string &GetName() const {
+		const string &GetName() const noexcept {
 			return m_name;
 		}
 
@@ -153,7 +153,7 @@ namespace mage {
 
 		 @return		A pointer to the value of this variable.
 		 */
-		const void *GetValue() const {
+		const void *GetValue() const noexcept {
 			return m_value->GetValue();
 		}
 
@@ -250,7 +250,7 @@ namespace mage {
 
 			 @return		A pointer to the value of this abstract value.
 			 */
-			virtual const void *GetValue() const = 0;
+			virtual const void *GetValue() const noexcept = 0;
 
 		protected:
 
@@ -367,7 +367,7 @@ namespace mage {
 
 			 @return		A pointer to the value of this value.
 			 */
-			virtual const void *GetValue() const override {
+			virtual const void *GetValue() const noexcept override {
 				return (void *)&m_value;
 			}
 

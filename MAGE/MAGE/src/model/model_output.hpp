@@ -66,7 +66,7 @@ namespace mage {
 			const string &child  = MAGE_MDL_PART_DEFAULT_CHILD, 
 			const string &parent = MAGE_MDL_PART_DEFAULT_PARENT,
 			uint32_t start_index = 0, uint32_t nb_indices = 0, 
-			const string &material = MAGE_MDL_PART_DEFAULT_MATERIAL)
+			const string &material = MAGE_MDL_PART_DEFAULT_MATERIAL) noexcept
 			: m_child(child), m_parent(parent), m_material(material),
 			m_start_index(start_index), m_nb_indices(nb_indices) {}
 		
@@ -222,7 +222,7 @@ namespace mage {
 		 @param[in]		name
 						The name of the model part.
 		 */
-		bool HasModelPart(const string &name) {
+		bool HasModelPart(const string &name) noexcept {
 			for (auto it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
 				if (it->m_child == name) {
 					return true;

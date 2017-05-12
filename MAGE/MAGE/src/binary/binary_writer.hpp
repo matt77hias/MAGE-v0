@@ -29,7 +29,7 @@ namespace mage {
 		/**
 		 Destructs this big endian binary writer.
 		 */
-		virtual ~BigEndianBinaryWriter() noexcept;
+		virtual ~BigEndianBinaryWriter();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -87,7 +87,7 @@ namespace mage {
 		/**
 		 Constructs a big endian binary writer.
 		 */
-		BigEndianBinaryWriter() noexcept;
+		BigEndianBinaryWriter();
 		
 		/**
 		 Constructs a big endian binary writer from the given big endian binary writer.

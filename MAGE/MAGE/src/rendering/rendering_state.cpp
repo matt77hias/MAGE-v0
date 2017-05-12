@@ -58,7 +58,7 @@ namespace mage {
 	// Blend state
 	//-------------------------------------------------------------------------
 
-	void RenderingState::SetBlendState(ID3D11BlendState *blend_state) {
+	void RenderingState::SetBlendState(ID3D11BlendState *blend_state) noexcept {
 		Assert(blend_state);
 		m_blend_state = blend_state;
 	}
@@ -83,7 +83,7 @@ namespace mage {
 	// Depth stencil state
 	//-------------------------------------------------------------------------
 
-	void RenderingState::SetDepthStencilState(ID3D11DepthStencilState *depth_stencil_state) {
+	void RenderingState::SetDepthStencilState(ID3D11DepthStencilState *depth_stencil_state) noexcept {
 		Assert(depth_stencil_state);
 		m_depth_stencil_state = depth_stencil_state;
 	}
@@ -104,7 +104,7 @@ namespace mage {
 	// Rasterizer state
 	//-------------------------------------------------------------------------
 
-	void RenderingState::SetRasterizerState(ID3D11RasterizerState *rasterizer_state) {
+	void RenderingState::SetRasterizerState(ID3D11RasterizerState *rasterizer_state) noexcept {
 		Assert(rasterizer_state);
 		m_rasterizer_state = rasterizer_state;
 	}
@@ -129,7 +129,7 @@ namespace mage {
 	// Sampler state
 	//-------------------------------------------------------------------------
 
-	void RenderingState::SetSamplerState(ID3D11SamplerState *sampler_state) {
+	void RenderingState::SetSamplerState(ID3D11SamplerState *sampler_state) noexcept {
 		Assert(sampler_state);
 		m_sampler_state = sampler_state;
 	}

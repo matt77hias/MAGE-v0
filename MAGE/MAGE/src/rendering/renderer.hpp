@@ -97,7 +97,7 @@ namespace mage {
 
 		 @return		The width in pixels of the display of this renderer.
 		 */
-		uint32_t GetWidth() const {
+		uint32_t GetWidth() const noexcept {
 			return static_cast< uint32_t >(m_display_mode.Width);
 		}
 
@@ -106,7 +106,7 @@ namespace mage {
 
 		 @return		The height in pixels of the display of this renderer.
 		 */
-		uint32_t GetHeight() const {
+		uint32_t GetHeight() const noexcept {
 			return static_cast< uint32_t >(m_display_mode.Height);
 		}
 
@@ -115,7 +115,7 @@ namespace mage {
 
 		 @return		A pointer to the device of this renderer.
 		 */
-		ID3D11Device2 *GetDevice() const {
+		ID3D11Device2 *GetDevice() const noexcept {
 			return m_device.Get();
 		}
 
@@ -124,7 +124,7 @@ namespace mage {
 
 		 @return		A pointer to the device context of this renderer.
 		 */
-		ID3D11DeviceContext2 *GetDeviceContext() const {
+		ID3D11DeviceContext2 *GetDeviceContext() const noexcept {
 			return m_device_context.Get();
 		}
 
@@ -133,7 +133,7 @@ namespace mage {
 
 		 @return		A pointer to the 2D rendering state of this renderer.
 		 */
-		RenderingState *GetRenderingState2D() const {
+		RenderingState *GetRenderingState2D() const noexcept {
 			return m_rendering_state_2d.get();
 		}
 
@@ -142,7 +142,7 @@ namespace mage {
 
 		 @return		A pointer to the 3D rendering state of this renderer.
 		 */
-		RenderingState *GetRenderingState3D() const {
+		RenderingState *GetRenderingState3D() const noexcept {
 			return m_rendering_state_3d.get();
 		}
 

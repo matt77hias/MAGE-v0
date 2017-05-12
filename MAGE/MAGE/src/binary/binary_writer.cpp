@@ -12,12 +12,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	BigEndianBinaryWriter::BigEndianBinaryWriter() noexcept
+	BigEndianBinaryWriter::BigEndianBinaryWriter()
 		: m_file_stream(nullptr), m_fname() {}
 
 	BigEndianBinaryWriter::BigEndianBinaryWriter(BigEndianBinaryWriter &&writer) = default;
 
-	BigEndianBinaryWriter::~BigEndianBinaryWriter() noexcept = default;
+	BigEndianBinaryWriter::~BigEndianBinaryWriter() = default;
 
 	void BigEndianBinaryWriter::WriteToFile(const wstring &fname) {
 		m_fname = fname;

@@ -43,7 +43,7 @@ namespace mage {
 	  @pre			The current engine must be loaded.
 	  @return		A pointer to the rendering device.	
 	  */
-	 ID3D11Device2 *GetModelRenderingDevice();
+	 ID3D11Device2 *GetModelRenderingDevice() noexcept;
 	
 	 /**
 	  Returns the rendering device context.
@@ -51,7 +51,7 @@ namespace mage {
 	  @pre			The current engine must be loaded.
 	  @return		A pointer to the rendering device context.
 	  */
-	 ID3D11DeviceContext2 *GetModelRenderingDeviceContext();
+	 ID3D11DeviceContext2 *GetModelRenderingDeviceContext() noexcept;
 	
 	 /**
 	  Returns the resource factory.
@@ -59,7 +59,7 @@ namespace mage {
 	  @pre			The current engine must be loaded.
 	  @return		A pointer to the resource factory.
 	  */
-	 ResourceFactory *GetModelResourceFactory();
+	 ResourceFactory *GetModelResourceFactory() noexcept;
 
 	 template < typename VertexT >
 	 SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, const MeshDescriptor< VertexT > &desc) {

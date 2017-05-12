@@ -18,9 +18,9 @@ namespace mage {
 
 	NormalSpriteText::NormalSpriteText(const NormalSpriteText &sprite_text) = default;
 
-	NormalSpriteText::NormalSpriteText(NormalSpriteText &&sprite_text) noexcept = default;
+	NormalSpriteText::NormalSpriteText(NormalSpriteText &&sprite_text) = default;
 
-	NormalSpriteText::~NormalSpriteText() noexcept = default;
+	NormalSpriteText::~NormalSpriteText() = default;
 
 	UniquePtr< SpriteObject > NormalSpriteText::CloneImplementation() const {
 		return UniquePtr< NormalSpriteText >(new NormalSpriteText(*this));

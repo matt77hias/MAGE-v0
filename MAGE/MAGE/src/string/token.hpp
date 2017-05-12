@@ -879,7 +879,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c uint32_t succeeds or not.
 	 */
-	TokenResult HasChars(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasChars(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a string.
@@ -893,7 +893,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a string succeeds or not.
 	 */
-	TokenResult HasString(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasString(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a quoted string.

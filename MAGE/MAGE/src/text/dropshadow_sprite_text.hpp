@@ -76,7 +76,7 @@ namespace mage {
 		/**
 		 Destructs this dropshadow sprite text.
 		 */
-		virtual ~DropshadowSpriteText() noexcept;
+		virtual ~DropshadowSpriteText();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -139,7 +139,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the shadow color.
 		 */
-		void SetShadowColor(const Color &color) noexcept {
+		void SetShadowColor(const Color &color) {
 			m_shadow_color = color;
 		}
 		

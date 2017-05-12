@@ -46,7 +46,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		const string &GetName() const {
+		const string &GetName() const noexcept {
 			return m_name;
 		}
 		void SetName(const string &name) {
@@ -93,7 +93,7 @@ namespace mage {
 		// Member Methods: Factory Methods
 		//-------------------------------------------------------------------------
 
-		SharedPtr< CameraNode > GetCamera() const {
+		SharedPtr< CameraNode > GetCamera() const noexcept {
 			return m_camera;
 		}
 		void SetCamera(SharedPtr< CameraNode > camera) {
@@ -113,7 +113,7 @@ namespace mage {
 		// Member Methods: Scripts
 		//-------------------------------------------------------------------------
 
-		size_t GetNumberOfScripts() const {
+		size_t GetNumberOfScripts() const noexcept {
 			return m_scripts.size();
 		}
 		bool HasScript(SharedPtr< const BehaviorScript > script) const;

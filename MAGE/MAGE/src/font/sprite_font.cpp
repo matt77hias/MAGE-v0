@@ -111,7 +111,7 @@ namespace mage {
 						is smaller than the second given glyph's character.
 						@c false otherwise.
 		 */
-		inline bool operator()(const Glyph &lhs, const Glyph &rhs) {
+		inline bool operator()(const Glyph &lhs, const Glyph &rhs) noexcept {
 			return lhs.m_character < rhs.m_character;
 		}
 
@@ -127,7 +127,7 @@ namespace mage {
 						than the given character.
 						@c false otherwise.
 		 */
-		inline bool operator()(const Glyph &lhs, wchar_t rhs) {
+		inline bool operator()(const Glyph &lhs, wchar_t rhs) noexcept {
 			return lhs.m_character < static_cast< uint32_t >(rhs);
 		}
 
@@ -143,7 +143,7 @@ namespace mage {
 						than the given glyph's character.
 						@c false otherwise.
 		 */
-		inline bool operator()(wchar_t lhs, const Glyph &rhs) {
+		inline bool operator()(wchar_t lhs, const Glyph &rhs) noexcept {
 			return static_cast< uint32_t >(lhs) < rhs.m_character;
 		}
 	};

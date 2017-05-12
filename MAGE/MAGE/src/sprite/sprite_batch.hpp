@@ -59,8 +59,8 @@ namespace mage {
 		SpriteBatch(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const CombinedShader &shader = CreateSpriteShader());
 		SpriteBatch(const SpriteBatch &sprite_batch) = delete;
-		SpriteBatch(SpriteBatch &&sprite_batch) noexcept;
-		~SpriteBatch() noexcept;
+		SpriteBatch(SpriteBatch &&sprite_batch);
+		~SpriteBatch();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

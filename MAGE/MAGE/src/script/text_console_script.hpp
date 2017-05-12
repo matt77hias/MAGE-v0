@@ -57,13 +57,6 @@ namespace mage {
 		void WriteLine(const wchar_t *str);
 		void Format(const wchar_t *format, ...);
 
-		SpriteText *GetTransform() {
-			return m_text.get();
-		}
-		const SpriteText *GetTransform() const {
-			return m_text.get();
-		}
-
 	private:
 
 		//---------------------------------------------------------------------

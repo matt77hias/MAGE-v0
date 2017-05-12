@@ -92,195 +92,195 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		const string &GetName() const {
+		const string &GetName() const noexcept {
 			return m_name;
 		}
 		void SetName(const string &name) {
 			m_name = name;
 		}
 
-		RGBSpectrum &GetTransmissionFilter() {
+		RGBSpectrum &GetTransmissionFilter() noexcept {
 			return m_transmission_filter;
 		}
-		const RGBSpectrum &GetTransmissionFilter() const {
+		const RGBSpectrum &GetTransmissionFilter() const noexcept {
 			return m_transmission_filter;
 		}
 		void SetTransmissionFilter(const RGBSpectrum &transmission_filter) {
 			m_transmission_filter = transmission_filter;
 		}
 
-		RGBSpectrum &GetAmbientReflectivity() {
+		RGBSpectrum &GetAmbientReflectivity() noexcept {
 			return m_ambient_reflectivity;
 		}
-		const RGBSpectrum &GetAmbientReflectivity() const {
+		const RGBSpectrum &GetAmbientReflectivity() const noexcept {
 			return m_ambient_reflectivity;
 		}
 		void SetAmbientReflectivity(const RGBSpectrum &ambient_reflectivity) {
 			m_ambient_reflectivity = ambient_reflectivity;
 		}
-		SharedPtr< Texture > GetAmbientReflectivityTexture() const {
+		SharedPtr< Texture > GetAmbientReflectivityTexture() const noexcept {
 			return m_ambient_reflectivity_texture;
 		}
-		ID3D11ShaderResourceView *GetAmbientReflectivitySRV() const {
+		ID3D11ShaderResourceView *GetAmbientReflectivitySRV() const noexcept {
 			return m_ambient_reflectivity_texture ? m_ambient_reflectivity_texture->Get() : nullptr;
 		}
-		ID3D11ShaderResourceView * const *GetAmbientReflectivitySRVAddress() const {
+		ID3D11ShaderResourceView * const *GetAmbientReflectivitySRVAddress() const noexcept {
 			return m_ambient_reflectivity_texture ? m_ambient_reflectivity_texture->GetAddress() : nullptr;
 		}
 		void SetAmbientReflectivityTexture(SharedPtr< Texture > ambient_reflectivity_texture) {
 			m_ambient_reflectivity_texture = ambient_reflectivity_texture;
 		}
 		
-		RGBSpectrum &GetDiffuseReflectivity() {
+		RGBSpectrum &GetDiffuseReflectivity() noexcept {
 			return m_diffuse_reflectivity;
 		}
-		const RGBSpectrum &GetDiffuseReflectivity() const {
+		const RGBSpectrum &GetDiffuseReflectivity() const noexcept {
 			return m_diffuse_reflectivity;
 		}
 		void SetDiffuseReflectivity(const RGBSpectrum &diffuse_reflectivity) {
 			m_diffuse_reflectivity = diffuse_reflectivity;
 		}
-		SharedPtr< Texture > GetDiffuseReflectivityTexture() const {
+		SharedPtr< Texture > GetDiffuseReflectivityTexture() const noexcept {
 			return m_diffuse_reflectivity_texture;
 		}
-		ID3D11ShaderResourceView *GetDiffuseReflectivitySRV() const {
+		ID3D11ShaderResourceView *GetDiffuseReflectivitySRV() const noexcept {
 			return m_diffuse_reflectivity_texture ? m_diffuse_reflectivity_texture->Get() : nullptr;
 		}
-		ID3D11ShaderResourceView * const *GetDiffuseReflectivitySRVAddress() const {
+		ID3D11ShaderResourceView * const *GetDiffuseReflectivitySRVAddress() const noexcept {
 			return m_diffuse_reflectivity_texture ? m_diffuse_reflectivity_texture->GetAddress() : nullptr;
 		}
 		void SetDiffuseReflectivityTexture(SharedPtr< Texture > diffuse_reflectivity_texture) {
 			m_diffuse_reflectivity_texture = diffuse_reflectivity_texture;
 		}
 		
-		RGBSpectrum &GetSpecularReflectivity() {
+		RGBSpectrum &GetSpecularReflectivity() noexcept {
 			return m_specular_reflectivity;
 		}
-		const RGBSpectrum &GetSpecularReflectivity() const {
+		const RGBSpectrum &GetSpecularReflectivity() const noexcept {
 			return m_specular_reflectivity;
 		}
 		void SetSpecularReflectivity(const RGBSpectrum &specular_reflectivity) {
 			m_specular_reflectivity = specular_reflectivity;
 		}
-		SharedPtr< Texture > GetSpecularReflectivityTexture() const {
+		SharedPtr< Texture > GetSpecularReflectivityTexture() const noexcept {
 			return m_specular_reflectivity_texture;
 		}
-		ID3D11ShaderResourceView *GetSpecularReflectivitySRV() const {
+		ID3D11ShaderResourceView *GetSpecularReflectivitySRV() const noexcept {
 			return m_specular_reflectivity_texture ? m_specular_reflectivity_texture->Get() : nullptr;
 		}
-		ID3D11ShaderResourceView * const *GetSpecularReflectivitySRVAddress() const {
+		ID3D11ShaderResourceView * const *GetSpecularReflectivitySRVAddress() const noexcept {
 			return m_specular_reflectivity_texture ? m_specular_reflectivity_texture->GetAddress() : nullptr;
 		}
 		void SetSpecularReflectivityTexture(SharedPtr< Texture > specular_reflectivity_texture) {
 			m_specular_reflectivity_texture = specular_reflectivity_texture;
 		}
 		
-		float GetSpecularExponent() const {
+		float GetSpecularExponent() const noexcept {
 			return m_specular_exponent;
 		}
-		void SetSpecularExponent(float specular_exponent) {
+		void SetSpecularExponent(float specular_exponent) noexcept {
 			m_specular_exponent = specular_exponent;
 		}
-		SharedPtr< Texture > GetSpecularExponentTexture() const {
+		SharedPtr< Texture > GetSpecularExponentTexture() const noexcept {
 			return m_specular_exponent_texture;
 		}
-		ID3D11ShaderResourceView *GetSpecularExponentSRV() const {
+		ID3D11ShaderResourceView *GetSpecularExponentSRV() const noexcept {
 			return m_specular_exponent_texture ? m_specular_exponent_texture->Get() : nullptr;
 		}
-		ID3D11ShaderResourceView * const *GetSpecularExponentSRVAddress() const {
+		ID3D11ShaderResourceView * const *GetSpecularExponentSRVAddress() const noexcept {
 			return m_specular_exponent_texture ? m_specular_exponent_texture->GetAddress() : nullptr;
 		}
 		void SetSpecularExponentTexture(SharedPtr< Texture > specular_exponent_texture) {
 			m_specular_exponent_texture = specular_exponent_texture;
 		}
 
-		float GetDissolve() const {
+		float GetDissolve() const noexcept {
 			return m_dissolve;
 		}
-		void SetDissolve(float dissolve) {
+		void SetDissolve(float dissolve) noexcept {
 			m_dissolve = dissolve;
 		}
-		SharedPtr< Texture > GetDissolveTexture() const {
+		SharedPtr< Texture > GetDissolveTexture() const noexcept {
 			return m_dissolve_texture;
 		}
-		ID3D11ShaderResourceView *GetDissolveSRV() const {
+		ID3D11ShaderResourceView *GetDissolveSRV() const noexcept {
 			return m_dissolve_texture ? m_dissolve_texture->Get() : nullptr;
 		}
-		ID3D11ShaderResourceView * const *GetDissolveSRVAddress() const {
+		ID3D11ShaderResourceView * const *GetDissolveSRVAddress() const noexcept {
 			return m_dissolve_texture ? m_dissolve_texture->GetAddress() : nullptr;
 		}
 		void SetDissolveTexture(SharedPtr< Texture > dissolve_texture) {
 			m_dissolve_texture = dissolve_texture;
 		}
 
-		float GetIndexOfRefraction() const {
+		float GetIndexOfRefraction() const noexcept {
 			return m_index_of_refraction;
 		}
-		void SetIndexOfRefraction(float index_of_refraction) {
+		void SetIndexOfRefraction(float index_of_refraction) noexcept {
 			m_index_of_refraction = index_of_refraction;
 		}
 
-		SharedPtr< Texture > GetDecalTexture() const {
+		SharedPtr< Texture > GetDecalTexture() const noexcept {
 			return m_decal_texture;
 		}
-		ID3D11ShaderResourceView *GetDecalSRV() const {
+		ID3D11ShaderResourceView *GetDecalSRV() const noexcept {
 			return m_decal_texture ? m_decal_texture->Get() : nullptr;
 		}
-		ID3D11ShaderResourceView * const *GetDecalSRVAddress() const {
+		ID3D11ShaderResourceView * const *GetDecalSRVAddress() const noexcept {
 			return m_decal_texture ? m_decal_texture->GetAddress() : nullptr;
 		}
 		void SetDecalTexture(SharedPtr< Texture > decal_texture) {
 			m_decal_texture = decal_texture;
 		}
 		
-		SharedPtr< Texture > GetDisplacementTexture() const {
+		SharedPtr< Texture > GetDisplacementTexture() const noexcept {
 			return m_displacement_texture;
 		}
-		ID3D11ShaderResourceView *GetDisplacementSRV() const {
+		ID3D11ShaderResourceView *GetDisplacementSRV() const noexcept {
 			return m_displacement_texture ? m_displacement_texture->Get() : nullptr;
 		}
-		ID3D11ShaderResourceView * const *GetDisplacementSRVAddress() const {
+		ID3D11ShaderResourceView * const *GetDisplacementSRVAddress() const noexcept {
 			return m_displacement_texture ? m_displacement_texture->GetAddress() : nullptr;
 		}
 		void SetDisplacementTexture(SharedPtr< Texture > displacement_texture) {
 			m_displacement_texture = displacement_texture;
 		}
 
-		SharedPtr< Texture > GetNormalTexture() const {
+		SharedPtr< Texture > GetNormalTexture() const noexcept {
 			return m_normal_texture;
 		}
-		ID3D11ShaderResourceView *GetNormalSRV() const {
+		ID3D11ShaderResourceView *GetNormalSRV() const noexcept {
 			return m_normal_texture ? m_normal_texture->Get() : nullptr;
 		}
-		ID3D11ShaderResourceView * const *GetNormalSRVAddress() const {
+		ID3D11ShaderResourceView * const *GetNormalSRVAddress() const noexcept {
 			return m_normal_texture ? m_normal_texture->GetAddress() : nullptr;
 		}
 		void SetNormalTexture(SharedPtr< Texture > normal_texture) {
 			m_normal_texture = normal_texture;
 		}
 
-		float GetParameter1() const {
+		float GetParameter1() const noexcept {
 			return m_param1;
 		}
-		void SetParameter1(float param1) {
+		void SetParameter1(float param1) noexcept {
 			m_param1 = param1;
 		}
-		float GetParameter2() const {
+		float GetParameter2() const noexcept {
 			return m_param2;
 		}
-		void SetParameter2(float param2) {
+		void SetParameter2(float param2) noexcept {
 			m_param2 = param2;
 		}
-		float GetParameter3() const {
+		float GetParameter3() const noexcept {
 			return m_param3;
 		}
-		void SetParameter3(float param3) {
+		void SetParameter3(float param3) noexcept {
 			m_param3 = param3;
 		}
-		float GetParameter4() const {
+		float GetParameter4() const noexcept {
 			return m_param4;
 		}
-		void SetParameter4(float param4) {
+		void SetParameter4(float param4) noexcept {
 			m_param4 = param4;
 		}
 

@@ -64,7 +64,7 @@ namespace mage {
 		/**
 		 Destructs this main window.
 		 */
-		~MainWindow() noexcept;
+		~MainWindow();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -166,7 +166,7 @@ namespace mage {
 		/**
 		 Uninitializes the engine window of this main window.
 		 */
-		void UninitializeWindow() noexcept;
+		void UninitializeWindow();
 
 		//---------------------------------------------------------------------
 		// Member Variables

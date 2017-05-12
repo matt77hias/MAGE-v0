@@ -34,11 +34,11 @@ namespace mage {
 			return static_pointer_cast< LightNode >(CloneImplementation());
 		}
 
-		Light *GetLight() {
+		Light *GetLight() noexcept {
 			return m_light.get();
 		}
 
-		const Light *GetLight() const {
+		const Light *GetLight() const noexcept {
 			return m_light.get();
 		}
 
@@ -80,11 +80,11 @@ namespace mage {
 			return static_pointer_cast< DerivedLightNode >(CloneImplementation());
 		}
 
-		LightT *GetLight() {
+		LightT *GetLight() noexcept {
 			return static_cast< LightT * >(LightNode::GetLight());
 		}
 
-		const LightT *GetLight() const {
+		const LightT *GetLight() const noexcept {
 			return static_cast< const LightT * >(LightNode::GetLight());
 		}
 

@@ -73,7 +73,7 @@ namespace mage {
 
 		 @return		The intensity of this light.
 		 */
-		const RGBSpectrum GetIntensity() const {
+		const RGBSpectrum GetIntensity() const noexcept {
 			return m_intensity;
 		}
 

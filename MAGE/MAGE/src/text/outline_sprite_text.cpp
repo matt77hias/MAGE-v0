@@ -28,7 +28,7 @@ namespace mage {
 
 	OutlineSpriteText::OutlineSpriteText(OutlineSpriteText &&sprite_text) = default;
 
-	OutlineSpriteText::~OutlineSpriteText() noexcept = default;
+	OutlineSpriteText::~OutlineSpriteText() = default;
 
 	UniquePtr< SpriteObject > OutlineSpriteText::CloneImplementation() const {
 		return UniquePtr< OutlineSpriteText >(new OutlineSpriteText(*this));

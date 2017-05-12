@@ -50,7 +50,7 @@ namespace mage {
 		/**
 		 Destructs this binary reader.
 		 */
-		virtual ~BinaryReader() noexcept;
+		virtual ~BinaryReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -127,7 +127,7 @@ namespace mage {
 		/**
 		 Constructs a binary reader.
 		 */
-		BinaryReader() noexcept;
+		BinaryReader();
 		
 		/**
 		 Constructs a binary reader from the given binary reader.
@@ -323,7 +323,7 @@ namespace mage {
 		/**
 		 Destructs this big endian binary reader.
 		 */
-		virtual ~BigEndianBinaryReader() noexcept;
+		virtual ~BigEndianBinaryReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -394,7 +394,7 @@ namespace mage {
 		/**
 		 Constructs a big endian binary reader.
 		 */
-		BigEndianBinaryReader() noexcept;
+		BigEndianBinaryReader();
 		
 		/**
 		 Constructs a big endian binary reader from the given big endian binary reader.

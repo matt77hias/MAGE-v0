@@ -19,7 +19,7 @@ namespace mage {
 		m_model_parts.clear();
 	}
 
-	const Material *ModelDescriptor::GetMaterial(const string &name) const {
+	const Material *ModelDescriptor::GetMaterial(const string &name) const noexcept {
 		for (auto it = m_materials.cbegin(); it != m_materials.cend(); ++it) {
 			if (it->GetName() == name) {
 				return &(*it);
@@ -28,7 +28,7 @@ namespace mage {
 		return nullptr;
 	}
 
-	const ModelPart *ModelDescriptor::GetModelPart(const string &name) const {
+	const ModelPart *ModelDescriptor::GetModelPart(const string &name) const noexcept {
 		for (auto it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
 			if (it->m_child == name) {
 				return &(*it);
@@ -37,15 +37,15 @@ namespace mage {
 		return nullptr;
 	}
 
-	ID3D11Device2 *GetModelRenderingDevice() {
+	ID3D11Device2 *GetModelRenderingDevice() noexcept {
 		return GetRenderingDevice();
 	}
 
-	ID3D11DeviceContext2 *GetModelRenderingDeviceContext() {
+	ID3D11DeviceContext2 *GetModelRenderingDeviceContext() noexcept {
 		return GetRenderingDeviceContext();
 	}
 
-	ResourceFactory *GetModelResourceFactory() {
+	ResourceFactory *GetModelResourceFactory() noexcept {
 		return GetResourceFactory();
 	}
 }

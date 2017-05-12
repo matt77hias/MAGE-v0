@@ -40,7 +40,7 @@ namespace mage {
 		}
 	}
 
-	size_t MemoryArena::GetTotalBlockSize() const {
+	size_t MemoryArena::GetTotalBlockSize() const noexcept {
 		size_t size = GetCurrentBlockSize();
 		
 		for (const MemoryBlock &block : m_used_blocks) {

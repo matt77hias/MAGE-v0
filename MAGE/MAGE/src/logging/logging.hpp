@@ -91,7 +91,7 @@ namespace mage {
 		 @return		@c true if the logging of the engine processing is quiet.
 						@c false otherwise.
 		 */
-		bool IsQuiet() const {
+		bool IsQuiet() const noexcept {
 			return m_quiet;
 		}
 
@@ -101,7 +101,7 @@ namespace mage {
 		 @return		@c true if the logging of the engine processing is verbose.
 						@c false otherwise.
 		 */
-		bool IsVerbose() const {
+		bool IsVerbose() const noexcept {
 			return m_verbose;
 		}
 

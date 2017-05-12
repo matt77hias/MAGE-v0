@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	EngineSetup::EngineSetup(HINSTANCE hinstance, const wstring &name) noexcept
+	EngineSetup::EngineSetup(HINSTANCE hinstance, const wstring &name)
 		: m_hinstance(hinstance), m_name(name) {
 
 		Assert(m_hinstance);
@@ -22,5 +22,5 @@ namespace mage {
 
 	EngineSetup::EngineSetup(EngineSetup &&setup) = default;
 
-	EngineSetup::~EngineSetup() noexcept = default;
+	EngineSetup::~EngineSetup() = default;
 }

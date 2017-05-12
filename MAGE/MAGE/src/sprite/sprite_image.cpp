@@ -55,7 +55,7 @@ namespace mage {
 		
 	SpriteImage::SpriteImage(SpriteImage &&sprite_image) = default;
 
-	SpriteImage::~SpriteImage() noexcept = default;
+	SpriteImage::~SpriteImage() = default;
 
 	UniquePtr< SpriteObject > SpriteImage::CloneImplementation() const {
 		return UniquePtr< SpriteImage >(new SpriteImage(*this));
@@ -65,7 +65,7 @@ namespace mage {
 		m_texture_region.reset(new RECT(texture_region));
 	}
 
-	void SpriteImage::SetTexture(SharedPtr< Texture > texture) noexcept {
+	void SpriteImage::SetTexture(SharedPtr< Texture > texture) {
 		Assert(texture);
 
 		m_texture = texture;

@@ -29,7 +29,7 @@ namespace mage {
 		/**
 		 Destructs this writer.
 		 */
-		virtual ~Writer() noexcept;
+		virtual ~Writer();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -87,7 +87,7 @@ namespace mage {
 		/**
 		 Constructs a writer.
 		 */
-		Writer() noexcept;
+		Writer();
 
 		/**
 		 Constructs a writer from the given writer.
@@ -103,7 +103,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the writer to move.
 		 */
-		Writer(Writer &&writer) noexcept;
+		Writer(Writer &&writer);
 
 		//---------------------------------------------------------------------
 		// Member Methods

@@ -113,7 +113,7 @@ namespace mage {
 		/**
 		 Destruct this sprite image.
 		 */
-		virtual ~SpriteImage() noexcept;
+		virtual ~SpriteImage();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -186,7 +186,7 @@ namespace mage {
 		 @param[in]		texture
 						A pointer to the texture.
 		 */
-		void SetTexture(SharedPtr< Texture > texture) noexcept;
+		void SetTexture(SharedPtr< Texture > texture);
 
 		/**
 		 Returns the color of this sprite image.
@@ -203,7 +203,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the color.
 		 */
-		void SetColor(const Color &color) noexcept {
+		void SetColor(const Color &color) {
 			m_color = color;
 		}
 

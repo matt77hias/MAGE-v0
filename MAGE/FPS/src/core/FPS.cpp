@@ -8,9 +8,9 @@ using namespace mage;
 
 struct Setup : public EngineSetup {
 
-	Setup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME) noexcept
+	Setup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
 		: EngineSetup(hinstance, name) {}
-	virtual ~Setup() noexcept = default;
+	virtual ~Setup() = default;
 
 	virtual SharedPtr< Scene > CreateScene() const override {
 		return SharedPtr< Scene >(new BRDFScene());

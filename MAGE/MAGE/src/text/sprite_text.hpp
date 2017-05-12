@@ -29,7 +29,7 @@ namespace mage {
 		/**
 		 Destruct this sprite text.
 		 */
-		virtual ~SpriteText() noexcept;
+		virtual ~SpriteText();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -93,7 +93,7 @@ namespace mage {
 		 @param[in]		font
 						A pointer to the font of this sprite text.
 		 */
-		void SetFont(SharedPtr< SpriteFont > font) noexcept;
+		void SetFont(SharedPtr< SpriteFont > font);
 		
 		/**
 		 Clears the text of this sprite text.
@@ -215,7 +215,7 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the sprite text to move.
 		 */
-		SpriteText(SpriteText &&sprite_text) noexcept;
+		SpriteText(SpriteText &&sprite_text);
 
 		//---------------------------------------------------------------------
 		// Member Methods

@@ -132,7 +132,7 @@ namespace mage {
 
 		 @return		A pointer to the string of this color string.
 		 */
-		const wchar_t *c_str() const {
+		const wchar_t *c_str() const noexcept {
 			return m_str.c_str();
 		}
 
@@ -141,7 +141,7 @@ namespace mage {
 
 		 @return		A reference to the string of this color string.
 		 */
-		const wstring &GetString() const {
+		const wstring &GetString() const noexcept {
 			return m_str;
 		}
 		
@@ -172,7 +172,7 @@ namespace mage {
 
 		 @return		The color of this color string.
 		 */
-		const Color GetColor() const {
+		const Color GetColor() const noexcept {
 			return m_color;
 		}
 

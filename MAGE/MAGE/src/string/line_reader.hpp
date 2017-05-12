@@ -29,7 +29,7 @@ namespace mage {
 		/**
 		 Destructs this line reader.
 		 */
-		virtual ~LineReader() noexcept;
+		virtual ~LineReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -113,7 +113,7 @@ namespace mage {
 		/**
 		 Constructs a line reader.
 		 */
-		LineReader() noexcept;
+		LineReader();
 
 		/**
 		 Constructs a line reader from the given line reader.
@@ -129,7 +129,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the line reader to move.
 		 */
-		LineReader(LineReader &&reader) noexcept;
+		LineReader(LineReader &&reader);
 
 		//---------------------------------------------------------------------
 		// Member Methods

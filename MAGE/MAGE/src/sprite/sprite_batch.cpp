@@ -34,9 +34,9 @@ namespace mage {
 		m_sprite_queue(), m_sprite_queue_size(0), m_sprite_queue_array_size(0), 
 		m_sorted_sprites(), m_sprite_texture_references() {}
 
-	SpriteBatch::SpriteBatch(SpriteBatch &&sprite_batch) noexcept = default;
+	SpriteBatch::SpriteBatch(SpriteBatch &&sprite_batch) = default;
 
-	SpriteBatch::~SpriteBatch() noexcept = default;
+	SpriteBatch::~SpriteBatch() = default;
 
 	void SpriteBatch::Begin(SpriteSortMode sort_mode, const XMMATRIX &transform) {
 		// This SpriteBatch may not already be in a begin/end pair.

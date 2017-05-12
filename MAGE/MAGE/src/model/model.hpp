@@ -108,7 +108,7 @@ namespace mage {
 
 		 @return		The start index of this model in the mesh of this model.
 		 */
-		size_t GetStartIndex() const {
+		size_t GetStartIndex() const noexcept {
 			return m_start_index;
 		}
 
@@ -117,7 +117,7 @@ namespace mage {
 
 		 @return		The number of indices of this model in the mesh of this model.
 		 */
-		size_t GetNumberOfIndices() const {
+		size_t GetNumberOfIndices() const noexcept {
 			return m_nb_indices;
 		}
 
@@ -126,7 +126,7 @@ namespace mage {
 
 		 @return		A pointer to the mesh of this model.
 		 */
-		const Mesh *GetMesh() const {
+		const Mesh *GetMesh() const noexcept {
 			return m_mesh.get();
 		}
 
@@ -153,7 +153,7 @@ namespace mage {
 
 		 @return		A reference to the material of this model.
 		 */
-		ShadedMaterial *GetMaterial() {
+		ShadedMaterial *GetMaterial() noexcept {
 			return m_material.get();
 		}
 
@@ -162,7 +162,7 @@ namespace mage {
 
 		 @return		A reference to the material of this model.
 		 */
-		const ShadedMaterial *GetMaterial() const {
+		const ShadedMaterial *GetMaterial() const noexcept {
 			return m_material.get();
 		}
 

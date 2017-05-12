@@ -97,7 +97,7 @@ namespace mage {
 	 @return		The moved unique pointer.
 	 */
 	template< typename T, typename U >
-	inline UniquePtr< T > static_pointer_cast(UniquePtr< U > &&ptr) {
+	inline UniquePtr< T > static_pointer_cast(UniquePtr< U > &&ptr) noexcept {
 		return UniquePtr< T >(static_cast< T * >(ptr.release()));
 	}
 
@@ -114,7 +114,7 @@ namespace mage {
 	 @return		The moved unique pointer.
 	 */
 	template< typename T, typename U >
-	inline UniquePtr< T > dynamic_pointer_cast(UniquePtr< U > &&ptr) {
+	inline UniquePtr< T > dynamic_pointer_cast(UniquePtr< U > &&ptr) noexcept {
 		U * const stored_ptr = ptr.release();
 		T * const converted_stored_ptr = dynamic_cast< T * >(stored_ptr);
 		if (converted_stored_ptr) {
@@ -139,7 +139,7 @@ namespace mage {
 	 @return		The moved unique pointer.
 	 */
 	template< typename T, typename U >
-	inline UniquePtr< T > const_pointer_cast(UniquePtr< U > &&ptr) {
+	inline UniquePtr< T > const_pointer_cast(UniquePtr< U > &&ptr) noexcept {
 		return UniquePtr< T >(const_cast< T * >(ptr.release()));
 	}
 
@@ -156,7 +156,7 @@ namespace mage {
 	 @return		The moved unique pointer.
 	 */
 	template< typename T, typename U >
-	inline UniquePtr< T > reinterpret_pointer_cast(UniquePtr< U > &&ptr) {
+	inline UniquePtr< T > reinterpret_pointer_cast(UniquePtr< U > &&ptr) noexcept {
 		return UniquePtr< T >(reinterpret_cast< T * >(ptr.release()));
 	}
 
@@ -207,7 +207,7 @@ namespace mage {
 	 @return		Otherwise, the given handle is returned.
 					
 	 */
-	inline HANDLE SafeHandle(HANDLE handle) {
+	inline HANDLE SafeHandle(HANDLE handle) noexcept {
 		return (handle == INVALID_HANDLE_VALUE) ? nullptr : handle;
 	}
 

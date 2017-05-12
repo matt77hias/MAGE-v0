@@ -19,7 +19,7 @@ namespace mage {
 		/**
 		 Destructs this loadable.
 		 */
-		virtual ~Loadable() noexcept;
+		virtual ~Loadable();
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -47,7 +47,7 @@ namespace mage {
 		 @param[in]		loaded
 						Flag indicating whether the loadable is loaded.
 		 */
-		explicit Loadable(bool loaded = false) noexcept;
+		explicit Loadable(bool loaded = false);
 
 		/**
 		 Constructs a loadable from the given loadable.
@@ -55,7 +55,7 @@ namespace mage {
 		 @param[in]		loadable
 						A reference to the loadable.
 		 */
-		Loadable(const Loadable &loadable) noexcept;
+		Loadable(const Loadable &loadable);
 
 		/**
 		 Constructs a loadable by moving the given loadable.
@@ -63,7 +63,7 @@ namespace mage {
 		 @param[in]		loadable
 						A reference to the loadable.
 		 */
-		Loadable(Loadable &&loadable) noexcept;
+		Loadable(Loadable &&loadable);
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -77,7 +77,7 @@ namespace mage {
 		 @return		A reference to the copy of the given loadable
 						(i.e. this loadable).
 		 */
-		Loadable &operator=(const Loadable &loadable) noexcept;
+		Loadable &operator=(const Loadable &loadable);
 
 		/**
 		 Moves the given loadable to this loadable.
@@ -87,7 +87,7 @@ namespace mage {
 		 @return		A reference to the moved loadable
 						(i.e. this loadable).
 		 */
-		Loadable &operator=(Loadable &&loadable) noexcept;
+		Loadable &operator=(Loadable &&loadable);
 
 		//---------------------------------------------------------------------
 		// Member Methods

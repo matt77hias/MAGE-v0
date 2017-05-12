@@ -64,7 +64,7 @@ namespace mage {
 
 		 @return		The vertex size (in bytes) of this static mesh.
 		 */
-		size_t GetVertexSize() const {
+		size_t GetVertexSize() const noexcept {
 			return m_vertex_size;
 		}
 
@@ -73,7 +73,7 @@ namespace mage {
 
 		 @return		The number of vertices of this mesh.
 		 */
-		size_t GetNumberOfVertices() const {
+		size_t GetNumberOfVertices() const noexcept {
 			return m_nb_vertices;
 		}
 
@@ -82,7 +82,7 @@ namespace mage {
 
 		 @return		The number of indices of this mesh.
 		 */
-		size_t GetNumberOfIndices() const {
+		size_t GetNumberOfIndices() const noexcept {
 			return m_nb_indices;
 		}
 
@@ -91,7 +91,7 @@ namespace mage {
 
 		 @return		The index format of this mesh.
 		 */
-		DXGI_FORMAT GetIndexFormat() const {
+		DXGI_FORMAT GetIndexFormat() const noexcept {
 			return m_index_format;
 		}
 
@@ -100,7 +100,7 @@ namespace mage {
 
 		 @return		The primitive topology of this mesh.	
 		 */
-		D3D11_PRIMITIVE_TOPOLOGY GetPrimitiveTopology() const {
+		D3D11_PRIMITIVE_TOPOLOGY GetPrimitiveTopology() const noexcept {
 			return m_primitive_topology;
 		}
 
@@ -189,7 +189,7 @@ namespace mage {
 		 @param[in]		nb_vertices
 						The number of vertices of this mesh.
 		 */
-		void SetNumberOfVertices(size_t nb_vertices) {
+		void SetNumberOfVertices(size_t nb_vertices) noexcept {
 			m_nb_vertices = nb_vertices;
 		}
 
@@ -199,7 +199,7 @@ namespace mage {
 		 @param[in]		nb_indices
 						The number of indices of this mesh.
 		 */
-		void SetNumberOfIndices(size_t nb_indices) {
+		void SetNumberOfIndices(size_t nb_indices) noexcept {
 			m_nb_indices = nb_indices;
 		}
 

@@ -58,12 +58,12 @@ namespace mage {
 		 @param[in]		engine
 						A reference to the engine to move.
 		 */
-		Engine(Engine &&engine) noexcept;
+		Engine(Engine &&engine);
 
 		/**
 		 Destructs this engine.
 		 */
-		virtual ~Engine() noexcept;
+		virtual ~Engine();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

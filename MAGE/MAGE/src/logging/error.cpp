@@ -47,7 +47,7 @@ namespace mage {
 	 @return		A pointer to the end of the word.
 					(i.e. pointer to a space or null-terminating character)
 	 */
-	static const char *FindWordEnd(const char *buffer) noexcept {
+	static const char *FindWordEnd(const char *buffer) {
 		while (*buffer != '\0' && !isspace(*buffer)) {
 			++buffer;
 		}

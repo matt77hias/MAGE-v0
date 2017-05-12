@@ -118,7 +118,7 @@ namespace mage {
 		 @return		The width of the camera projection plane
 						of this orthographic camera in camera space.
 		 */
-		float GetWidth() const {
+		float GetWidth() const noexcept {
 			return m_width;
 		}
 
@@ -130,7 +130,7 @@ namespace mage {
 						The width of the camera projection plane in camera space.
 		 @return		A reference to this orthographic camera.
 		 */
-		OrthographicCamera &SetWidth(float width) {
+		OrthographicCamera &SetWidth(float width) noexcept {
 			m_width = width;
 			return (*this);
 		}
@@ -142,7 +142,7 @@ namespace mage {
 		 @return		The height of the camera projection plane 
 						of this orthographic camera in camera space.
 		 */
-		float GetHeight() const {
+		float GetHeight() const noexcept {
 			return m_height;
 		}
 
@@ -154,7 +154,7 @@ namespace mage {
 						The height of the camera projection plane in camera space.
 		 @return		A reference to this orthographic camera.
 		 */
-		OrthographicCamera &SetHeight(float height) {
+		OrthographicCamera &SetHeight(float height) noexcept {
 			m_height = height;
 			return (*this);
 		}
@@ -169,7 +169,7 @@ namespace mage {
 						The height of the camera projection plane in camera space.
 		 @return		A reference to this orthographic camera.
 		 */
-		OrthographicCamera &SetWidthAndHeight(float width, float height) {
+		OrthographicCamera &SetWidthAndHeight(float width, float height) noexcept {
 			m_width = width;
 			m_height = height;
 			return (*this);
@@ -191,7 +191,7 @@ namespace mage {
 			float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
 			float height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) {
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) noexcept {
 			
 			SetWidthAndHeight(width, height);
 			SetNearAndFarZ(near_z, far_z);

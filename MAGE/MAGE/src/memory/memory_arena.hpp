@@ -87,7 +87,7 @@ namespace mage {
 
 		 @return		The maximum block size of this memory arena.
 		 */
-		size_t GetMaximumBlockSize() const {
+		size_t GetMaximumBlockSize() const noexcept {
 			return m_maximum_block_size;
 		}
 
@@ -96,7 +96,7 @@ namespace mage {
 
 		 @return		The block size (in bytes) of the current block of this memory arena.
 		 */
-		size_t GetCurrentBlockSize() const {
+		size_t GetCurrentBlockSize() const noexcept {
 			return m_current_block.first;
 		}
 
@@ -105,14 +105,14 @@ namespace mage {
 
 		 @return		The block size (in bytes) of all blocks of this memory arena.
 		 */
-		size_t GetTotalBlockSize() const;
+		size_t GetTotalBlockSize() const noexcept;
 
 		/**
 		 Returns a pointer to the current block of this memory arena.
 
 		 @return		A pointer to the current block of this memory arena.
 		 */
-		char *GetCurrentBlockPtr() const {
+		char *GetCurrentBlockPtr() const noexcept {
 			return m_current_block.second;
 		}
 

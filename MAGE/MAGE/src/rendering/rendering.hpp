@@ -58,12 +58,12 @@ namespace mage {
 
 	 @return		The number of bits per pixel of the given format.
 	 */
-	size_t BitsPerPixel(DXGI_FORMAT format);
+	size_t BitsPerPixel(DXGI_FORMAT format) noexcept;
 
 	/**
 	 Converts the given format to an SRGB format.
 
 	 @return		The converted format.
 	 */
-	DXGI_FORMAT ConvertToSRGB(DXGI_FORMAT format);
+	DXGI_FORMAT ConvertToSRGB(DXGI_FORMAT format) noexcept;
 }

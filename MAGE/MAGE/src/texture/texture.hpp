@@ -95,7 +95,7 @@ namespace mage {
 		 @return		A pointer to the shader resource view
 						of this texture.
 		 */
-		ID3D11ShaderResourceView *Get() const {
+		ID3D11ShaderResourceView *Get() const noexcept {
 			return m_texture_srv.Get();
 		}
 		
@@ -105,7 +105,7 @@ namespace mage {
 		 @return		A pointer to the pointer to the shader resource view
 						of this texture.
 		 */
-		ID3D11ShaderResourceView * const *GetAddress() const {
+		ID3D11ShaderResourceView * const *GetAddress() const noexcept {
 			return m_texture_srv.GetAddressOf();
 		}
 		
@@ -115,7 +115,7 @@ namespace mage {
 		 @return		A pointer to the pointer to the shader resource view 
 						of this texture.
 		 */
-		ID3D11ShaderResourceView **GetAddress() {
+		ID3D11ShaderResourceView **GetAddress() noexcept {
 			return m_texture_srv.GetAddressOf();
 		}
 

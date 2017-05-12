@@ -130,7 +130,7 @@ namespace mage {
 						Failed to set the blend state
 						of this rendering state.
 		 */
-		void SetBlendState(ID3D11BlendState *blend_state);
+		void SetBlendState(ID3D11BlendState *blend_state) noexcept;
 
 		/**
 		 Sets the blend state of this rendering state to
@@ -178,7 +178,7 @@ namespace mage {
 		 @return		A pointer to the blend state
 						of this rendering state.
 		 */
-		ID3D11BlendState *GetBlendState() const {
+		ID3D11BlendState *GetBlendState() const noexcept {
 			return m_blend_state;
 		}
 
@@ -194,7 +194,7 @@ namespace mage {
 						Failed to set the depth stencil state
 						of this rendering state.
 		 */
-		void SetDepthStencilState(ID3D11DepthStencilState *depth_stencil_state);
+		void SetDepthStencilState(ID3D11DepthStencilState *depth_stencil_state) noexcept;
 
 		/**
 		 Sets the depth stencil state of this rendering state to
@@ -232,7 +232,7 @@ namespace mage {
 		 @return		A pointer to the depth stencil state
 						of this rendering state.
 		 */
-		ID3D11DepthStencilState *GetDepthStencilState() const {
+		ID3D11DepthStencilState *GetDepthStencilState() const noexcept {
 			return m_depth_stencil_state;
 		}
 
@@ -248,7 +248,7 @@ namespace mage {
 						Failed to set the rasterizer state
 						of this rendering state.
 		 */
-		void SetRasterizerState(ID3D11RasterizerState *rasterizer_state);
+		void SetRasterizerState(ID3D11RasterizerState *rasterizer_state) noexcept;
 
 		/**
 		 Sets the rasterizer state of this rendering state to
@@ -296,7 +296,7 @@ namespace mage {
 		 @return		A pointer to the rasterizer state
 						of this rendering state.
 		 */
-		ID3D11RasterizerState *GetRasterizerState() const {
+		ID3D11RasterizerState *GetRasterizerState() const noexcept {
 			return m_rasterizer_state;
 		}
 
@@ -312,7 +312,7 @@ namespace mage {
 						Failed to set the sampler state
 						of this rendering state.
 		 */
-		void SetSamplerState(ID3D11SamplerState *sampler_state);
+		void SetSamplerState(ID3D11SamplerState *sampler_state) noexcept;
 		
 		/**
 		 Sets the sampler state of this rendering state to
@@ -380,7 +380,7 @@ namespace mage {
 		 @return		A pointer to the sampler state
 						of this rendering state.
 		 */
-		ID3D11SamplerState *GetSamplerState() const {
+		ID3D11SamplerState *GetSamplerState() const noexcept {
 			return m_sampler_state;
 		}
 

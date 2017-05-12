@@ -35,7 +35,7 @@ extern "C" {
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	size_t BitsPerPixel(DXGI_FORMAT format) {
+	size_t BitsPerPixel(DXGI_FORMAT format) noexcept {
 		switch (format) {
 		case DXGI_FORMAT_R32G32B32A32_TYPELESS:
 		case DXGI_FORMAT_R32G32B32A32_FLOAT:
@@ -179,7 +179,7 @@ namespace mage {
 		}
 	}
 
-	DXGI_FORMAT ConvertToSRGB(DXGI_FORMAT format) {
+	DXGI_FORMAT ConvertToSRGB(DXGI_FORMAT format) noexcept {
 		switch (format) {
 
 		case DXGI_FORMAT_R8G8B8A8_UNORM:

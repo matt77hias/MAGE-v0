@@ -58,7 +58,7 @@ namespace mage {
 		/**
 		 Destructs this transform buffer.
 		 */
-		~TransformBuffer() noexcept = default;
+		~TransformBuffer() = default;
 		
 		//---------------------------------------------------------------------
 		// Assignment Operators

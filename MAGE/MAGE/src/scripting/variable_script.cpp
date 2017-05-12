@@ -54,7 +54,7 @@ namespace mage {
 		}
 	}
 
-	void VariableScript::RemoveAllVariables() {
+	void VariableScript::RemoveAllVariables() noexcept {
 		m_variables.clear();
 	}
 

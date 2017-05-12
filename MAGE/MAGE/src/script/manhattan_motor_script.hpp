@@ -41,10 +41,10 @@ namespace mage {
 
 		virtual void Update(double delta_time) override;
 
-		float GetVelocity() const {
+		float GetVelocity() const noexcept {
 			return m_velocity;
 		}
-		void SetVelocity(float velocity) {
+		void SetVelocity(float velocity) noexcept {
 			m_velocity = velocity;
 		}
 

@@ -27,7 +27,7 @@ namespace mage {
 	 @return		@c true if @a str1 is equal to @a str2.
 					@c false otherwise.
 	 */
-	inline bool str_equals(const char *str1, const char *str2) noexcept {
+	inline bool str_equals(const char *str1, const char *str2) {
 		Assert(str1);
 		Assert(str2);
 		return strcmp(str1, str2) ? false : true;
@@ -45,7 +45,7 @@ namespace mage {
 	 @return		@c true if @a str1 is equal to @a str2.
 					@c false otherwise.
 	 */
-	inline bool str_equals(const wchar_t *str1, const wchar_t *str2) noexcept {
+	inline bool str_equals(const wchar_t *str1, const wchar_t *str2) {
 		Assert(str1);
 		Assert(str2);
 		return wcscmp(str1, str2) ? false : true;
@@ -64,7 +64,7 @@ namespace mage {
 	 @return		@c true if @a str1 contains a substring @a str2.
 					@c false otherwise.
 	 */
-	inline bool str_contains(const char *str1, const char *str2) noexcept {
+	inline bool str_contains(const char *str1, const char *str2) {
 		Assert(str1);
 		Assert(str2);
 		return strstr(str1, str2) ? true : false;
@@ -83,7 +83,7 @@ namespace mage {
 	 @return		@c true if @a str1 contains a substring @a str2.
 					@c false otherwise.
 	 */
-	inline bool str_contains(const wchar_t *str1, const wchar_t *str2) noexcept {
+	inline bool str_contains(const wchar_t *str1, const wchar_t *str2) {
 		Assert(str1);
 		Assert(str2);
 		return wcsstr(str1, str2) ? true : false;
@@ -100,7 +100,7 @@ namespace mage {
 	 @return		@c true if @a str contains a @a c.
 					@c false otherwise.
 	 */
-	inline bool str_contains(const char *str, char c) noexcept {
+	inline bool str_contains(const char *str, char c) {
 		Assert(str);
 		return strchr(str, (int)c) ? true : false;
 	}
@@ -116,7 +116,7 @@ namespace mage {
 	 @return		@c true if @a str contains a @a c.
 					@c false otherwise.
 	 */
-	inline bool str_contains(const wchar_t *str, wchar_t c) noexcept {
+	inline bool str_contains(const wchar_t *str, wchar_t c) {
 		Assert(str);
 		return wcschr(str, c) ? true : false;
 	}
@@ -134,7 +134,7 @@ namespace mage {
 	 @return		A pointer to the first occurrence of @a c in @a str.
 
 	 */
-	const char *str_escape_first(const char *str, char c) noexcept;
+	const char *str_escape_first(const char *str, char c);
 
 	/**
 	 Finds the first occurrence of the given character in the given string
@@ -149,7 +149,7 @@ namespace mage {
 	 @return		A pointer to the first occurrence of @a c in @a str.
 
 	 */
-	char *str_escape_first(char *str, char c) noexcept;
+	char *str_escape_first(char *str, char c);
 
 	/**
 	 Finds the first occurrence of the given character in the given string
@@ -164,7 +164,7 @@ namespace mage {
 	 @return		A pointer to the first occurrence of @a c in @a str.
 
 	 */
-	const wchar_t *str_escape_first(const wchar_t *str, wchar_t c) noexcept;
+	const wchar_t *str_escape_first(const wchar_t *str, wchar_t c);
 
 	/**
 	 Finds the first occurrence of the given character in the given string
@@ -179,7 +179,7 @@ namespace mage {
 	 @return		A pointer to the first occurrence of @a c in @a str.
 
 	 */
-	wchar_t *str_escape_first(wchar_t *str, wchar_t c) noexcept;
+	wchar_t *str_escape_first(wchar_t *str, wchar_t c);
 
 	/**
 	 Reads characters from the given input string and stores them as a C string into @a str 

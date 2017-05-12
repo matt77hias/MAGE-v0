@@ -106,19 +106,19 @@ namespace mage {
 	// Resource Creation
 	//-------------------------------------------------------------------------
 
-	ID3D11Device2 *GetRenderingDevice() {
+	ID3D11Device2 *GetRenderingDevice() noexcept {
 		Assert(g_engine);
 		Assert(g_engine->GetRenderer());
 		return g_engine->GetRenderer()->GetDevice();
 	}
 	
-	ID3D11DeviceContext2 *GetRenderingDeviceContext() {
+	ID3D11DeviceContext2 *GetRenderingDeviceContext() noexcept {
 		Assert(g_engine);
 		Assert(g_engine->GetRenderer());
 		return g_engine->GetRenderer()->GetDeviceContext();
 	}
 	
-	ResourceFactory *GetResourceFactory() {
+	ResourceFactory *GetResourceFactory() noexcept {
 		Assert(g_engine);
 		return g_engine->GetResourceFactory();
 	}

@@ -83,7 +83,7 @@ namespace mage {
 
 		 @return		The position of the near z-plane of this camera.
 		 */
-		float GetNearZ() const {
+		float GetNearZ() const noexcept {
 			return m_near_z;
 		}
 		
@@ -94,7 +94,7 @@ namespace mage {
 						The position of the near z-plane in camera space.
 		 @return		A reference to this camera in camera space.
 		 */
-		Camera &SetNearZ(float near_z) {
+		Camera &SetNearZ(float near_z) noexcept {
 			m_near_z = near_z;
 			return (*this);
 		}
@@ -104,7 +104,7 @@ namespace mage {
 
 		 @return		The position of the far z-plane of this camera.
 		 */
-		float GetFarZ() const {
+		float GetFarZ() const noexcept {
 			return m_far_z;
 		}
 		
@@ -115,7 +115,7 @@ namespace mage {
 						The position of the far z-plane in camera space.
 		 @return		A reference to this camera in camera space.
 		 */
-		Camera &SetFarZ(float far_z) {
+		Camera &SetFarZ(float far_z) noexcept {
 			m_far_z = far_z;
 			return (*this);
 		}
@@ -129,7 +129,7 @@ namespace mage {
 						The position of the far z-plane in camera space.
 		 @return		A reference to this camera.
 		 */
-		Camera &SetNearAndFarZ(float near_z, float far_z) {
+		Camera &SetNearAndFarZ(float near_z, float far_z) noexcept {
 			m_near_z = near_z;
 			m_far_z  = far_z;
 			return (*this);

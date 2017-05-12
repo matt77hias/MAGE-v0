@@ -45,11 +45,11 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		WireframeMode GetWireframeMode() const {
+		WireframeMode GetWireframeMode() const noexcept {
 			return m_mode;
 		}
 
-		void SetWireframeMode(WireframeMode mode) {
+		void SetWireframeMode(WireframeMode mode) noexcept {
 			m_mode = mode;
 		}
 

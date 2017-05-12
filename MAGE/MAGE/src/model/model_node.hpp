@@ -37,11 +37,11 @@ namespace mage {
 			return static_pointer_cast< ModelNode >(CloneImplementation());
 		}
 
-		Model *GetModel() {
+		Model *GetModel() noexcept {
 			return m_model.get();
 		}
 
-		const Model *GetModel() const {
+		const Model *GetModel() const noexcept {
 			return m_model.get();
 		}
 

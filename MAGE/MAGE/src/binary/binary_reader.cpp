@@ -45,13 +45,13 @@ namespace mage {
 	// BinaryReader
 	//-------------------------------------------------------------------------
 
-	BinaryReader::BinaryReader() noexcept
+	BinaryReader::BinaryReader()
 		: m_fname(), m_big_endian(true),
 		m_pos(nullptr), m_end(nullptr), m_data() {}
 
 	BinaryReader::BinaryReader(BinaryReader &&reader) = default;
 
-	BinaryReader::~BinaryReader() noexcept = default;
+	BinaryReader::~BinaryReader() = default;
 
 	void BinaryReader::ReadFromFile(const wstring &fname, bool big_endian) {
 		m_fname = fname;
@@ -240,12 +240,12 @@ namespace mage {
 	// BigEndianBinaryReader
 	//-------------------------------------------------------------------------
 
-	BigEndianBinaryReader::BigEndianBinaryReader() noexcept
+	BigEndianBinaryReader::BigEndianBinaryReader()
 		: m_fname(), m_pos(nullptr), m_end(nullptr), m_data() {}
 
 	BigEndianBinaryReader::BigEndianBinaryReader(BigEndianBinaryReader &&reader) = default;
 
-	BigEndianBinaryReader::~BigEndianBinaryReader() noexcept = default;
+	BigEndianBinaryReader::~BigEndianBinaryReader() = default;
 
 	void BigEndianBinaryReader::ReadFromFile(const wstring &fname) {
 		m_fname = fname;

@@ -133,7 +133,7 @@ namespace mage {
 
 		 @return		The vertical field-of-view of this perspective camera.
 		 */
-		float GetFOVY() const {
+		float GetFOVY() const noexcept {
 			return m_fov_y;
 		}
 
@@ -144,7 +144,7 @@ namespace mage {
 						The vertical field-of-view.
 		 @return		A reference to this perspective camera.
 		 */
-		PerspectiveCamera &SetFOVY(float fov_y) {
+		PerspectiveCamera &SetFOVY(float fov_y) noexcept {
 			m_fov_y = fov_y;
 			return (*this);
 		}
@@ -154,7 +154,7 @@ namespace mage {
 
 		 @return		The aspect ratio of this perspective camera.
 		 */
-		float GetAspectRatio() const {
+		float GetAspectRatio() const noexcept {
 			return m_aspect_ratio;
 		}
 
@@ -165,7 +165,7 @@ namespace mage {
 						The aspect ratio.
 		 @return		A reference to this perspective camera.
 		 */
-		PerspectiveCamera &SetAspectRatio(float aspect_ratio) {
+		PerspectiveCamera &SetAspectRatio(float aspect_ratio) noexcept {
 			m_aspect_ratio = aspect_ratio;
 			return (*this);
 		}
@@ -179,7 +179,7 @@ namespace mage {
 						The height.
 		 @return		A reference to this perspective camera.
 		 */
-		PerspectiveCamera &SetAspectRatio(float width, float height) {
+		PerspectiveCamera &SetAspectRatio(float width, float height) noexcept {
 			m_aspect_ratio = width / height;
 			return (*this);
 		}
@@ -199,7 +199,7 @@ namespace mage {
 		void SetViewToProjectionMatrix(float aspect_ratio,
 			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) {
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) noexcept {
 
 			SetAspectRatio(aspect_ratio);
 			SetFOVY(fov_y);
@@ -223,7 +223,7 @@ namespace mage {
 		void SetViewToProjectionMatrix(float width, float height, 
 			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
 			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) {
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) noexcept {
 			
 			SetAspectRatio(width, height);
 			SetFOVY(fov_y);

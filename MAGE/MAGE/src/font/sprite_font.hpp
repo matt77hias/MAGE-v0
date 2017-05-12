@@ -189,7 +189,7 @@ namespace mage {
 
 		 @return		The line spacing of this sprite font.
 		 */
-		float GetLineSpacing() const {
+		float GetLineSpacing() const noexcept {
 			return m_line_spacing;
 		}
 
@@ -199,7 +199,7 @@ namespace mage {
 		 @param[in]		spacing
 						The line spacing.
 		 */
-		void SetLineSpacing(float spacing) {
+		void SetLineSpacing(float spacing) noexcept {
 			m_line_spacing = spacing;
 		}
 		
@@ -210,7 +210,7 @@ namespace mage {
 
 		 @return		The default character of this sprite font.
 		 */
-		wchar_t GetDefaultCharacter() const {
+		wchar_t GetDefaultCharacter() const noexcept {
 			return m_default_glyph ? static_cast< wchar_t >(m_default_glyph->m_character) : L'0';
 		}
 		
@@ -266,7 +266,7 @@ namespace mage {
 		 @return		A pointer to the shader resource view
 						of the texture of this sprite font.
 		 */
-		ID3D11ShaderResourceView *Get() const {
+		ID3D11ShaderResourceView *Get() const noexcept {
 			return m_texture_srv.Get();
 		}
 
@@ -276,7 +276,7 @@ namespace mage {
 		 @return		A pointer to the pointer to the shader resource view
 						of the texture of this sprite font.
 		 */
-		ID3D11ShaderResourceView * const *GetAddress() const {
+		ID3D11ShaderResourceView * const *GetAddress() const noexcept {
 			return m_texture_srv.GetAddressOf();
 		}
 
@@ -286,7 +286,7 @@ namespace mage {
 		 @return		A pointer to the pointer to the shader resource view
 						of the texture of this sprite font.
 		 */
-		ID3D11ShaderResourceView **GetAddress() {
+		ID3D11ShaderResourceView **GetAddress() noexcept {
 			return m_texture_srv.GetAddressOf();
 		}
 

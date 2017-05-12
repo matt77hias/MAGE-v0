@@ -35,7 +35,7 @@ namespace mage {
 			return static_pointer_cast< SceneNode >(CloneImplementation());
 		}
 
-		const string &GetName() const {
+		const string &GetName() const noexcept {
 			return m_name;
 		}
 

@@ -32,11 +32,11 @@ namespace mage {
 			return static_pointer_cast< CameraNode >(CloneImplementation());
 		}
 		
-		Camera *GetCamera() {
+		Camera *GetCamera() noexcept {
 			return m_camera.get();
 		}
 		
-		const Camera *GetCamera() const {
+		const Camera *GetCamera() const noexcept {
 			return m_camera.get();
 		}
 
@@ -78,11 +78,11 @@ namespace mage {
 			return static_pointer_cast< DerivedCameraNode >(CloneImplementation());
 		}
 
-		CameraT *GetCamera() {
+		CameraT *GetCamera() noexcept {
 			return static_cast< CameraT * >(CameraNode::GetCamera());
 		}
 
-		const CameraT *GetCamera() const {
+		const CameraT *GetCamera() const noexcept {
 			return static_cast< const CameraT * >(CameraNode::GetCamera());
 		}
 

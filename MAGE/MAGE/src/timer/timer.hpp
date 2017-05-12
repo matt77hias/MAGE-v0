@@ -45,7 +45,7 @@ namespace mage {
 		 @param[in]		timer
 						A reference to the timer to copy.
 		 */
-		Timer(const Timer &timer) noexcept = default;
+		Timer(const Timer &timer) = default;
 
 		/**
 		 Constructs a timer by moving the given timer.
@@ -53,12 +53,12 @@ namespace mage {
 		 @param[in]		timer
 						A reference to the timer to move.
 		 */
-		Timer(Timer &&timer) noexcept = default;
+		Timer(Timer &&timer) = default;
 
 		/**
 		 Destructs this timer.
 		 */
-		~Timer() noexcept = default;
+		~Timer() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -72,7 +72,7 @@ namespace mage {
 		 @return		A reference to the copy of the given timer
 						(i.e. this timer).
 		 */
-		Timer &operator=(const Timer &timer) noexcept = default;
+		Timer &operator=(const Timer &timer) = default;
 
 		/**
 		 Moves the given timer to this timer.
@@ -82,7 +82,7 @@ namespace mage {
 		 @return		A reference to the moved timer
 						(i.e. this timer).
 		 */
-		Timer &operator=(Timer &&timer) noexcept = default;
+		Timer &operator=(Timer &&timer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

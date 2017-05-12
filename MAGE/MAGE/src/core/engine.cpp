@@ -75,13 +75,13 @@ namespace mage {
 		const LONG height = static_cast< LONG >(g_device_enumeration->GetDisplayMode()->Height);
 		
 		// Initialize the window System.
-		m_main_window = make_unique< MainWindow >(setup.GetApplicationHinstance(), setup.GetApplicationName(), width, height);
+		m_main_window      = std::make_unique< MainWindow >(setup.GetApplicationHinstance(), setup.GetApplicationName(), width, height);
 		// Initialize the rendering system.
-		m_renderer = make_unique< Renderer >(m_main_window->GetHandle());
+		m_renderer         = std::make_unique< Renderer >(m_main_window->GetHandle());
 		// Initialize the input system.
-		m_input_manager = make_unique< InputManager >(m_main_window->GetHandle());
+		m_input_manager    = std::make_unique< InputManager >(m_main_window->GetHandle());
 		// Initialize the resource system.
-		m_resource_factory = make_unique< ResourceFactory >();
+		m_resource_factory = std::make_unique< ResourceFactory >();
 
 		// Initialize the first scene.
 		SetScene(setup.CreateScene());

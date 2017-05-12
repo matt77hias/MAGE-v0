@@ -68,8 +68,6 @@ namespace mage {
 	template < typename T >
 	using SharedPtr = std::shared_ptr< T >;
 
-	using std::make_shared;
-
 	//-------------------------------------------------------------------------
 	// WeakPointer
 	//-------------------------------------------------------------------------
@@ -85,8 +83,6 @@ namespace mage {
 	// Unique Pointer type definition.
 	template < typename T >
 	using UniquePtr = std::unique_ptr< T >;
-
-	using std::make_unique;
 
 	/**
 	 Creates a unique pointer whose stored pointer is obtained 

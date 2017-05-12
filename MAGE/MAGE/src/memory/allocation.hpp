@@ -61,7 +61,7 @@ namespace mage {
 	 */
 	template < typename DataT >
 	inline DataT *AllocAligned(size_t count) {
-		return (DataT *)AllocAligned(count * sizeof(DataT));
+		return static_cast< DataT * >(AllocAligned(count * sizeof(DataT)));
 	}
 
 	/**

@@ -29,23 +29,21 @@ namespace mage {
 
 	void VariableScript::ImportScript(const wstring &fname) {
 		const wstring &filename = (fname != L"") ? fname : GetFilename();
-		vector< Variable > variable_buffer;
 		
+		vector< Variable > variable_buffer;
 		ImportVariableScriptFromFile(filename, variable_buffer);
-
 		for (auto it = variable_buffer.cbegin(); it != variable_buffer.cend(); ++it) {
-			m_variables.insert(pair< string, Variable >(it->GetName(), *it));
+			m_variables.insert(pair< const string, Variable >(it->GetName(), *it));
 		}
 	}
 
 	void VariableScript::ExportScript(const wstring &fname) {
 		const wstring &filename = (fname != L"") ? fname : GetFilename();
+		
 		vector< Variable > variable_buffer;
-
 		for (auto it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
 			variable_buffer.push_back(it->second);
 		}
-
 		ExportVariableScriptToFile(filename, variable_buffer);
 	}
 

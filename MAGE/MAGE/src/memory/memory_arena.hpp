@@ -28,10 +28,10 @@ namespace mage {
 		/**
 		 Constructs a memory arena with given block size.
 
-		 @param[in]		block_size
+		 @param[in]		maximum_block_size
 						The maximum block size in bytes.
 		 */
-		explicit MemoryArena(size_t block_size = 32768);
+		explicit MemoryArena(size_t maximum_block_size = 32768);
 
 		/**
 		 Constructs a memory arena from the given memory arena.
@@ -87,8 +87,8 @@ namespace mage {
 
 		 @return		The maximum block size of this memory arena.
 		 */
-		size_t GetBlockSize() const {
-			return m_block_size;
+		size_t GetMaximumBlockSize() const {
+			return m_maximum_block_size;
 		}
 
 		/**
@@ -164,19 +164,19 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The fixed block size of this memory arena.
+		 The maximum block size of this memory arena.
 		 */
-		const size_t m_block_size;
-
-		/**
-		 The current block position of this memory arena.
-		 */
-		size_t m_current_block_pos;
+		const size_t m_maximum_block_size;
 
 		/**
 		 A pointer to the current block of this memory arena.
 		 */
 		MemoryBlock m_current_block;
+
+		/**
+		 The current block position of this memory arena.
+		 */
+		size_t m_current_block_pos;
 		
 		/**
 		 A collection containing the used blocks of this memory arena.

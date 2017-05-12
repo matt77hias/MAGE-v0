@@ -41,7 +41,7 @@ namespace mage {
 	}
 
 	void InputManager::InitializeInputSystems() {
-		m_keyboard = make_unique< Keyboard >(m_hwindow, m_di.Get());
-		m_mouse = make_unique< Mouse >(m_hwindow, m_di.Get());
+		m_keyboard = std::make_unique< Keyboard >(m_hwindow, m_di.Get());
+		m_mouse    = std::make_unique< Mouse >(m_hwindow, m_di.Get());
 	}
 }

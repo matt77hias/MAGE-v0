@@ -27,7 +27,7 @@ namespace mage {
 	 @return		@c true if @a str1 is equal to @a str2.
 					@c false otherwise.
 	 */
-	inline bool str_equals(const char *str1, const char *str2) {
+	inline bool str_equals(const char *str1, const char *str2) noexcept {
 		Assert(str1);
 		Assert(str2);
 		return strcmp(str1, str2) ? false : true;
@@ -45,7 +45,7 @@ namespace mage {
 	 @return		@c true if @a str1 is equal to @a str2.
 					@c false otherwise.
 	 */
-	inline bool str_equals(const wchar_t *str1, const wchar_t *str2) {
+	inline bool str_equals(const wchar_t *str1, const wchar_t *str2) noexcept {
 		Assert(str1);
 		Assert(str2);
 		return wcscmp(str1, str2) ? false : true;
@@ -64,7 +64,7 @@ namespace mage {
 	 @return		@c true if @a str1 contains a substring @a str2.
 					@c false otherwise.
 	 */
-	inline bool str_contains(const char *str1, const char *str2) {
+	inline bool str_contains(const char *str1, const char *str2) noexcept {
 		Assert(str1);
 		Assert(str2);
 		return strstr(str1, str2) ? true : false;
@@ -83,7 +83,7 @@ namespace mage {
 	 @return		@c true if @a str1 contains a substring @a str2.
 					@c false otherwise.
 	 */
-	inline bool str_contains(const wchar_t *str1, const wchar_t *str2) {
+	inline bool str_contains(const wchar_t *str1, const wchar_t *str2) noexcept {
 		Assert(str1);
 		Assert(str2);
 		return wcsstr(str1, str2) ? true : false;
@@ -100,7 +100,7 @@ namespace mage {
 	 @return		@c true if @a str contains a @a c.
 					@c false otherwise.
 	 */
-	inline bool str_contains(const char *str, char c) {
+	inline bool str_contains(const char *str, char c) noexcept {
 		Assert(str);
 		return strchr(str, (int)c) ? true : false;
 	}
@@ -116,7 +116,7 @@ namespace mage {
 	 @return		@c true if @a str contains a @a c.
 					@c false otherwise.
 	 */
-	inline bool str_contains(const wchar_t *str, wchar_t c) {
+	inline bool str_contains(const wchar_t *str, wchar_t c) noexcept {
 		Assert(str);
 		return wcschr(str, c) ? true : false;
 	}
@@ -134,7 +134,7 @@ namespace mage {
 	 @return		A pointer to the first occurrence of @a c in @a str.
 
 	 */
-	const char *str_escape_first(const char *str, char c);
+	const char *str_escape_first(const char *str, char c) noexcept;
 
 	/**
 	 Finds the first occurrence of the given character in the given string
@@ -149,7 +149,7 @@ namespace mage {
 	 @return		A pointer to the first occurrence of @a c in @a str.
 
 	 */
-	char *str_escape_first(char *str, char c);
+	char *str_escape_first(char *str, char c) noexcept;
 
 	/**
 	 Finds the first occurrence of the given character in the given string
@@ -164,7 +164,7 @@ namespace mage {
 	 @return		A pointer to the first occurrence of @a c in @a str.
 
 	 */
-	const wchar_t *str_escape_first(const wchar_t *str, wchar_t c);
+	const wchar_t *str_escape_first(const wchar_t *str, wchar_t c) noexcept;
 
 	/**
 	 Finds the first occurrence of the given character in the given string
@@ -179,7 +179,7 @@ namespace mage {
 	 @return		A pointer to the first occurrence of @a c in @a str.
 
 	 */
-	wchar_t *str_escape_first(wchar_t *str, wchar_t c);
+	wchar_t *str_escape_first(wchar_t *str, wchar_t c) noexcept;
 
 	/**
 	 Reads characters from the given input string and stores them as a C string into @a str 
@@ -202,7 +202,7 @@ namespace mage {
 					A pointer to a pointer to the input string.
 	 @note			The @c sgets function is the byte string variant of @c fgets.
 	 */
-	char *str_gets(char *str, int num, const char **input);
+	char *str_gets(char *str, int num, const char **input) noexcept;
 
 	/**
 	 Reads characters from the given input string and stores them as a C string into @a str
@@ -225,7 +225,7 @@ namespace mage {
 					A pointer to a pointer to the input string.
 	 @note			The @c sgets function is the wide string variant of @c fgets.
 	 */
-	wchar_t *str_gets(wchar_t *str, int num, const wchar_t **input);
+	wchar_t *str_gets(wchar_t *str, int num, const wchar_t **input) noexcept;
 
 	/**
 	 Converts the given byte string to a wide string.
@@ -236,7 +236,7 @@ namespace mage {
 	 @return		A pointer to the to the null-terminated wide string copy
 					of the given null-terminated byte string.
 	 */
-	const wchar_t *str_convert(const char *str);
+	const wchar_t *str_convert(const char *str) noexcept;
 
 	/**
 	 Converts the given wide string to an byte string.
@@ -247,7 +247,7 @@ namespace mage {
 	 @return		A pointer to the to the null-terminated byte string copy
 					of the given null-terminated wide string.
 	 */
-	const char *str_convert(const wchar_t *str);
+	const char *str_convert(const wchar_t *str) noexcept;
 
 	/**
 	 Converts the given byte string to a wide string.
@@ -256,7 +256,7 @@ namespace mage {
 					A reference to the byte string to copy.
 	 @return		The wide string copy of the given byte string.
 	 */
-	const wstring str_convert(const string &str);
+	const wstring str_convert(const string &str) noexcept;
 	
 	/**
 	 Converts the given wide string to an byte string.
@@ -265,5 +265,5 @@ namespace mage {
 					A reference to the wide string to copy.
 	 @return		The byte string copy of the given wide string.
 	 */
-	const string str_convert(const wstring &str);
+	const string str_convert(const wstring &str) noexcept;
 }

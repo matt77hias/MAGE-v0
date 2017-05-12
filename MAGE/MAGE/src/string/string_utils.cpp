@@ -22,7 +22,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	const char *str_escape_first(const char *str, char c) {
+	const char *str_escape_first(const char *str, char c) noexcept {
 		Assert(str);
 		
 		const char *input = str;
@@ -47,7 +47,7 @@ namespace mage {
 		}
 	}
 
-	char *str_escape_first(char *str, char c) {
+	char *str_escape_first(char *str, char c) noexcept {
 		Assert(str);
 		
 		char *input = str;
@@ -72,7 +72,7 @@ namespace mage {
 		}
 	}
 
-	const wchar_t *str_escape_first(const wchar_t *str, wchar_t c) {
+	const wchar_t *str_escape_first(const wchar_t *str, wchar_t c) noexcept {
 		Assert(str);
 		
 		const wchar_t *input = str;
@@ -97,7 +97,7 @@ namespace mage {
 		}
 	}
 
-	wchar_t *str_escape_first(wchar_t *str, wchar_t c) {
+	wchar_t *str_escape_first(wchar_t *str, wchar_t c) noexcept {
 		Assert(str);
 		
 		wchar_t *input = str;
@@ -122,7 +122,7 @@ namespace mage {
 		}
 	}
 
-	char *str_gets(char *str, int num, const char **input) {
+	char *str_gets(char *str, int num, const char **input) noexcept {
 		Assert(str);
 		Assert(input);
 		
@@ -150,7 +150,7 @@ namespace mage {
 		return str;
 	}
 
-	wchar_t *str_gets(wchar_t *str, int num, const wchar_t **input) {
+	wchar_t *str_gets(wchar_t *str, int num, const wchar_t **input) noexcept {
 		Assert(str);
 		Assert(input);
 		
@@ -178,23 +178,23 @@ namespace mage {
 		return str;
 	}
 
-	const wchar_t *str_convert(const char *str) {
+	const wchar_t *str_convert(const char *str) noexcept {
 		Assert(str);
 		
 		return CA2W(str);
 	}
 
-	const char *str_convert(const wchar_t *str) {
+	const char *str_convert(const wchar_t *str) noexcept {
 		Assert(str);
 		
 		return CW2A(str);
 	}
 
-	const wstring str_convert(const string &str) {
+	const wstring str_convert(const string &str) noexcept {
 		return wstring(CA2W(str.c_str()));
 	}
 
-	const string str_convert(const wstring &str) {
+	const string str_convert(const wstring &str) noexcept {
 		return string(CW2A(str.c_str()));
 	}
 }

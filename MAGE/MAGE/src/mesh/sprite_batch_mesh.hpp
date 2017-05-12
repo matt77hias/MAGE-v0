@@ -42,12 +42,12 @@ namespace mage {
 		/**
 		 The number of vertices per sprite.
 		 */
-		static const size_t vertices_per_sprite   = 4; // quad = 2 triangles
+		static const size_t vertices_per_sprite = 4; // quad = 2 triangles
 		
 		/**
 		 The number of indices per sprite.
 		 */
-		static const size_t indices_per_sprite    = 6; // quad = 2 triangles
+		static const size_t indices_per_sprite = 6; // quad = 2 triangles
 
 		//---------------------------------------------------------------------
 		// Class Member Methods
@@ -58,7 +58,7 @@ namespace mage {
 
 		 @return		The minimum number of vertices to draw per batch for sprite batch meshes.
 		 */
-		static constexpr size_t MinVerticesPerBatch() {
+		static constexpr size_t MinVerticesPerBatch() noexcept {
 			return vertices_per_sprite * min_sprites_per_batch;
 		}
 
@@ -67,7 +67,7 @@ namespace mage {
 
 		 @return		The maximum number of vertices to draw per batch for sprite batch meshes.
 		 */
-		static constexpr size_t MaxVerticesPerBatch() {
+		static constexpr size_t MaxVerticesPerBatch() noexcept {
 			return vertices_per_sprite * max_sprites_per_batch;
 		}
 
@@ -76,7 +76,7 @@ namespace mage {
 
 		 @return		The minimum number of indices to draw per batch for sprite batch meshes.
 		 */
-		static constexpr size_t MinIndicesPerBatch() {
+		static constexpr size_t MinIndicesPerBatch() noexcept {
 			return indices_per_sprite * min_sprites_per_batch;
 		}
 
@@ -85,7 +85,7 @@ namespace mage {
 
 		 @return		The maximum number of indices to draw per batch for sprite batch meshes.
 		 */
-		static constexpr size_t MaxIndicesPerBatch() {
+		static constexpr size_t MaxIndicesPerBatch() noexcept {
 			return indices_per_sprite * max_sprites_per_batch;
 		}
 

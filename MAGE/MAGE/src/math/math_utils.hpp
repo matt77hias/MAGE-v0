@@ -30,7 +30,7 @@ namespace mage {
 					minimum and maximum value.
 	 */
 	template< typename ValueT >
-	inline ValueT Clamp(ValueT value, ValueT low = 0, ValueT high = 1) {
+	inline ValueT Clamp(ValueT value, ValueT low = 0, ValueT high = 1) noexcept {
 		Assert(low <= high);
 		
 		return (value < high) ? ((value > low) ? value : low) : high;
@@ -43,7 +43,7 @@ namespace mage {
 					The angle (in degrees).
 	 @return		The clamped angle (in degrees).
 	 */
-	inline float ClampAngleDegrees(float angle) {
+	inline float ClampAngleDegrees(float angle) noexcept {
 		while (angle <= -180.0f) {
 			angle += 360.0f;
 		}
@@ -60,7 +60,7 @@ namespace mage {
 					The angle (in radians).
 	 @return		The clamped angle (in radians).
 	 */
-	inline float ClampAngleRadians(float angle) {
+	inline float ClampAngleRadians(float angle) noexcept {
 		while (angle < -XM_PI) {
 			angle += XM_2PI;
 		}
@@ -86,7 +86,7 @@ namespace mage {
 	 @return		The clamped angle between the given
 					minimum and maximum angle (in degrees).
 	 */
-	inline float ClampAngleDegrees(float angle, float min_angle, float max_angle) {
+	inline float ClampAngleDegrees(float angle, float min_angle, float max_angle) noexcept {
 		Assert(min_angle <= max_angle);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
@@ -110,7 +110,7 @@ namespace mage {
 	 @return		The clamped angle between the given
 					minimum and maximum angle (in radians).
 	 */
-	inline float ClampAngleRadians(float angle, float min_angle, float max_angle) {
+	inline float ClampAngleRadians(float angle, float min_angle, float max_angle) noexcept {
 		Assert(min_angle <= max_angle);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);

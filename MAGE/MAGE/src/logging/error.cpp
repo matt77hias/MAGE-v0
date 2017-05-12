@@ -47,7 +47,7 @@ namespace mage {
 	 @return		A pointer to the end of the word.
 					(i.e. pointer to a space or null-terminating character)
 	 */
-	static const char *FindWordEnd(const char *buffer) {
+	static const char *FindWordEnd(const char *buffer) noexcept {
 		while (*buffer != '\0' && !isspace(*buffer)) {
 			++buffer;
 		}
@@ -69,7 +69,7 @@ namespace mage {
 					The disposition of the error.
 	 */
 	static void ProcessError(const char *format, const va_list args,
-		const string &error_type, ErrorDisposition disposition) {
+		const string &error_type, ErrorDisposition disposition) noexcept {
 
 		if (disposition == ERROR_DISPOSITION_IGNORE) {
 			return;
@@ -118,7 +118,7 @@ namespace mage {
 		}
 	}
 
-	void Debug(const char *format, ...) {
+	void Debug(const char *format, ...) noexcept {
 #ifdef _DEBUG
 		if (!g_logging_configuration.IsVerbose() || g_logging_configuration.IsQuiet()) {
 			// Do not process info in non-verbose mode.
@@ -139,7 +139,7 @@ namespace mage {
 		UNUSED(format);
 	}
 
-	void Info(const char *format, ...) {
+	void Info(const char *format, ...) noexcept {
 		if (!g_logging_configuration.IsVerbose() || g_logging_configuration.IsQuiet()) {
 			// Do not process info in non-verbose mode.
 			// Do not process info in quiet mode.
@@ -157,7 +157,7 @@ namespace mage {
 		va_end(args);
 	}
 
-	void Warning(const char *format, ...) {
+	void Warning(const char *format, ...) noexcept {
 		if (g_logging_configuration.IsQuiet()) {
 			// Do not process warning in quiet mode.
 			return;
@@ -174,7 +174,7 @@ namespace mage {
 		va_end(args);
 	}
 
-	void Error(const char *format, ...) {
+	void Error(const char *format, ...) noexcept {
 		va_list args;
 		
 		// Retrieve the additional arguments after format.
@@ -186,7 +186,7 @@ namespace mage {
 		va_end(args);
 	}
 
-	void Fatal(const char *format, ...) {
+	void Fatal(const char *format, ...) noexcept {
 		va_list args;
 		
 		// Retrieve the additional arguments after format.

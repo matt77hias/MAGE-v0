@@ -93,10 +93,10 @@ namespace mage {
 		virtual UniquePtr< Node > CloneImplementation() const override;
 	};
 
-	typedef DerivedLightNode< AmbientLight > AmbientLightNode;
-	typedef DerivedLightNode< DirectionalLight > DirectionalLightNode;
-	typedef DerivedLightNode< OmniLight > OmniLightNode;
-	typedef DerivedLightNode< SpotLight > SpotLightNode;
+	using AmbientLightNode     = DerivedLightNode< AmbientLight >;
+	using DirectionalLightNode = DerivedLightNode< DirectionalLight >;
+	using OmniLightNode        = DerivedLightNode< OmniLight >;
+	using SpotLightNode        = DerivedLightNode< SpotLight >;
 }
 
 //-----------------------------------------------------------------------------

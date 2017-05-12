@@ -34,17 +34,17 @@
 #endif
 #endif
 
-typedef volatile LONG AtomicInt32;
-#ifdef MAGE_HAS_64_BIT_ATOMICS
-typedef volatile LONGLONG AtomicInt64;
-#endif
-
 #pragma endregion
 
 //-------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-------------------------------------------------------------------------
 namespace mage {
+
+	using AtomicInt32 = volatile LONG;
+#ifdef MAGE_HAS_64_BIT_ATOMICS
+	using AtomicInt64 = volatile LONGLONG;
+#endif
 
 	//-------------------------------------------------------------------------
 	// Pointers

@@ -151,13 +151,13 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Type Definitions
+		// Type Aliases
 		//---------------------------------------------------------------------
 
 		/**
 		 A type definition for a memory block.
 		 */
-		typedef pair< size_t, char * > MemoryBlock;
+		using MemoryBlock = pair< size_t, char * >;
 
 		//---------------------------------------------------------------------
 		// Member Variables

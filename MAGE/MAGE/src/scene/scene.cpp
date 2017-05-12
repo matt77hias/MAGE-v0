@@ -211,7 +211,7 @@ namespace mage {
 		SharedPtr< ModelNode > root_model_node;
 		size_t nb_root_childs = 0;
 
-		typedef pair< SharedPtr< ModelNode >, string > ModelNodePair;
+		using ModelNodePair = pair< SharedPtr< ModelNode >, string >;
 		map< string, ModelNodePair > mapping;
 
 		desc.ForEachModelPart([&](const ModelPart &model_part) {
@@ -282,7 +282,7 @@ namespace mage {
 		SharedPtr< ModelNode > root_model_node;
 		size_t nb_root_childs = 0;
 
-		typedef pair< SharedPtr< ModelNode >, string > ModelNodePair;
+		using ModelNodePair = pair< SharedPtr< ModelNode >, string >;
 		map< string, ModelNodePair > mapping;
 
 		desc.ForEachModelPart([&](const ModelPart &model_part) {

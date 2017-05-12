@@ -91,8 +91,8 @@ namespace mage {
 		virtual UniquePtr< Node > CloneImplementation() const override;
 	};
 
-	typedef DerivedCameraNode< OrthographicCamera > OrthographicCameraNode;
-	typedef DerivedCameraNode< PerspectiveCamera > PerspectiveCameraNode;
+	using OrthographicCameraNode = DerivedCameraNode< OrthographicCamera >;
+	using PerspectiveCameraNode  = DerivedCameraNode< PerspectiveCamera >;
 }
 
 //-----------------------------------------------------------------------------

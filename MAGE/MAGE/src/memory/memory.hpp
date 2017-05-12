@@ -15,32 +15,7 @@
 #pragma region
 
 #include <memory>
-namespace mage {
-
-	// Unique Pointer type definition.
-	template < typename T >
-	using UniquePtr = std::unique_ptr< T >;
-
-	using std::make_unique;
-
-	// Shared Pointer type definition.
-	template < typename T >
-	using SharedPtr = std::shared_ptr< T >;
-
-	using std::make_shared;
-
-	// Weak Pointer type definition.
-	template < typename T >
-	using WeakPtr = std::weak_ptr< T >;
-}
-
 #include <wrl.h>
-namespace mage {
-
-	// COM Pointer type definition.
-	template < typename T >
-	using ComPtr = Microsoft::WRL::ComPtr< T >;
-}
 
 #pragma endregion
 
@@ -78,8 +53,40 @@ namespace mage {
 namespace mage {
 
 	//-------------------------------------------------------------------------
+	// ComPtr
+	//-------------------------------------------------------------------------
+
+	// COM Pointer type definition.
+	template < typename T >
+	using ComPtr = Microsoft::WRL::ComPtr< T >;
+
+	//-------------------------------------------------------------------------
+	// SharedPointer
+	//-------------------------------------------------------------------------
+	
+	// Shared Pointer type definition.
+	template < typename T >
+	using SharedPtr = std::shared_ptr< T >;
+
+	using std::make_shared;
+
+	//-------------------------------------------------------------------------
+	// WeakPointer
+	//-------------------------------------------------------------------------
+
+	// Weak Pointer type definition.
+	template < typename T >
+	using WeakPtr = std::weak_ptr< T >;
+
+	//-------------------------------------------------------------------------
 	// UniquePointer
 	//-------------------------------------------------------------------------
+
+	// Unique Pointer type definition.
+	template < typename T >
+	using UniquePtr = std::unique_ptr< T >;
+
+	using std::make_unique;
 
 	/**
 	 Creates a unique pointer whose stored pointer is obtained 
@@ -190,9 +197,9 @@ namespace mage {
 	};
 	
 	// Unique Pointer for handles.
-	typedef std::unique_ptr< void, HandleCloser > UniqueHandle;
+	using UniqueHandle = std::unique_ptr< void, HandleCloser >;
 	// Shared Point for handles.
-	typedef SharedPtr< void > SharedHandle;
+	using SharedHandle = SharedPtr< void >;
 
 	/**
 	 Converts the given handle to a safe handle.
@@ -242,7 +249,7 @@ namespace mage {
 	};
 
 	// Unique Pointer for file streams.
-	typedef std::unique_ptr< FILE, FileStreamCloser > UniqueFileStream;
+	using UniqueFileStream = std::unique_ptr< FILE, FileStreamCloser >;
 }
 
 #pragma endregion

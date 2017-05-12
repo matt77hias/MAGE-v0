@@ -12,22 +12,16 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Type Definitions
-//-----------------------------------------------------------------------------
-namespace mage {
-
-	typedef XMINT2 int2;
-	typedef XMINT3 int3;
-	typedef XMFLOAT2 float2;
-	typedef XMFLOAT3 float3;
-	typedef XMFLOAT4 float4;
-	typedef XMFLOAT4 color;
-}
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	using int2   = XMINT2;
+	using int3   = XMINT3;
+	using float2 = XMFLOAT2;
+	using float3 = XMFLOAT3;
+	using float4 = XMFLOAT4;
+	using color  = XMFLOAT4;
 
 	/**
 	 An enumeration of the different (scripting) variable types.

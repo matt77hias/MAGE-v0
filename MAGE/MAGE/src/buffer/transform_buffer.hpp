@@ -94,7 +94,7 @@ namespace mage {
 		 @return		A reference to the (row-major) world-to-view matrix
 						of this transform buffer.
 		 */
-		const XMMATRIX GetWorldToViewMatrix() const noexcept {
+		const XMMATRIX GetWorldToViewMatrix() const {
 			return XMMatrixTranspose(m_world_to_view);
 		}
 
@@ -104,7 +104,7 @@ namespace mage {
 		 @return		A reference to the (row-major) world-to-view matrix
 						of this transform buffer.
 		 */
-		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
+		const XMMATRIX GetViewToProjectionMatrix() const {
 			return XMMatrixTranspose(m_view_to_projection);
 		}
 
@@ -118,7 +118,7 @@ namespace mage {
 						(i.e. object-to-view inverse matrix).
 		 */
 		void SetObjectMatrices(const XMMATRIX &object_to_world,
-			const XMMATRIX &view_to_object) const noexcept {
+			const XMMATRIX &view_to_object) const {
 			m_object_to_world 
 				= XMMatrixTranspose(object_to_world);
 			m_object_to_view_inverse_transpose

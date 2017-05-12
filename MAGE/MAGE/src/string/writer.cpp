@@ -14,12 +14,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Writer::Writer()
+	Writer::Writer() noexcept
 		: m_file_stream(nullptr), m_fname() {}
 
-	Writer::Writer(Writer &&writer) = default;
+	Writer::Writer(Writer &&writer) noexcept = default;
 
-	Writer::~Writer() = default;
+	Writer::~Writer() noexcept = default;
 
 	void Writer::WriteToFile(const wstring &fname) {
 		m_fname = fname;

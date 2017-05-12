@@ -108,12 +108,12 @@ namespace mage {
 		 @param[in]		sprite_image
 						A reference to the sprite image to move.
 		 */
-		SpriteImage(SpriteImage &&sprite_image);
+		SpriteImage(SpriteImage &&sprite_image) noexcept;
 
 		/**
 		 Destruct this sprite image.
 		 */
-		virtual ~SpriteImage();
+		virtual ~SpriteImage() noexcept;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -175,7 +175,7 @@ namespace mage {
 
 		 @return		A pointer to the texture of this sprite image.
 		 */
-		SharedPtr< Texture > GetTexture() const {
+		SharedPtr< Texture > GetTexture() const noexcept {
 			return m_texture;
 		}
 
@@ -186,14 +186,14 @@ namespace mage {
 		 @param[in]		texture
 						A pointer to the texture.
 		 */
-		void SetTexture(SharedPtr< Texture > texture);
+		void SetTexture(SharedPtr< Texture > texture) noexcept;
 
 		/**
 		 Returns the color of this sprite image.
 
 		 @return		The color of this sprite image.
 		 */
-		const Color GetColor() const {
+		const Color GetColor() const noexcept {
 			return m_color;
 		}
 
@@ -203,7 +203,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the color.
 		 */
-		void SetColor(const Color &color) {
+		void SetColor(const Color &color) noexcept {
 			m_color = color;
 		}
 
@@ -213,7 +213,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the color.
 		 */
-		void SetColor(const XMVECTOR &color) {
+		void SetColor(const XMVECTOR &color) noexcept {
 			XMStoreFloat4(&m_color, color);
 		}
 
@@ -235,7 +235,7 @@ namespace mage {
 
 		 @return		The color of this sprite image as @c XMVECTOR.
 		 */
-		const XMVECTOR GetColorVector() const {
+		const XMVECTOR GetColorVector() const noexcept {
 			return XMLoadFloat4(&m_color);
 		}
 

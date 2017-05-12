@@ -14,13 +14,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	LineReader::LineReader()
+	LineReader::LineReader() noexcept
 		: m_context(nullptr), m_file_stream(nullptr), m_fname(),
 		m_delimiters(mage_default_delimiters), m_line_number(0) {}
 
-	LineReader::LineReader(LineReader &&reader) = default;
+	LineReader::LineReader(LineReader &&reader) noexcept = default;
 
-	LineReader::~LineReader() = default;
+	LineReader::~LineReader() noexcept = default;
 
 	void LineReader::ReadFromFile(const wstring &fname, const string &delimiters) {
 		m_fname = fname;

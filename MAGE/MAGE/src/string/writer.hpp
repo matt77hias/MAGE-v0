@@ -29,7 +29,7 @@ namespace mage {
 		/**
 		 Destructs this writer.
 		 */
-		virtual ~Writer();
+		virtual ~Writer() noexcept;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -74,7 +74,7 @@ namespace mage {
 
 		 @return		A reference to the current filename of this writer.
 		 */
-		const wstring &GetFilename() const {
+		const wstring &GetFilename() const noexcept {
 			return m_fname;
 		}
 
@@ -87,7 +87,7 @@ namespace mage {
 		/**
 		 Constructs a writer.
 		 */
-		Writer();
+		Writer() noexcept;
 
 		/**
 		 Constructs a writer from the given writer.
@@ -103,7 +103,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the writer to move.
 		 */
-		Writer(Writer &&writer);
+		Writer(Writer &&writer) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

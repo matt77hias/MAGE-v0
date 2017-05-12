@@ -29,7 +29,7 @@ namespace mage {
 		/**
 		 Destructs this line reader.
 		 */
-		virtual ~LineReader();
+		virtual ~LineReader() noexcept;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -91,7 +91,7 @@ namespace mage {
 
 		 @return		A reference to the current filename of this line reader.
 		 */
-		const wstring &GetFilename() const {
+		const wstring &GetFilename() const noexcept {
 			return m_fname;
 		}
 
@@ -100,7 +100,7 @@ namespace mage {
 
 		 @return		A reference to the current delimiters of this line reader.
 		 */
-		const string &GetDelimiters() const {
+		const string &GetDelimiters() const noexcept {
 			return m_delimiters;
 		}
 
@@ -113,7 +113,7 @@ namespace mage {
 		/**
 		 Constructs a line reader.
 		 */
-		LineReader();
+		LineReader() noexcept;
 
 		/**
 		 Constructs a line reader from the given line reader.
@@ -129,7 +129,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the line reader to move.
 		 */
-		LineReader(LineReader &&reader);
+		LineReader(LineReader &&reader) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -140,7 +140,7 @@ namespace mage {
 
 		 @return		The current line number of this line reader.
 		 */
-		uint32_t GetCurrentLineNumber() const {
+		uint32_t GetCurrentLineNumber() const noexcept {
 			return m_line_number;
 		}
 		

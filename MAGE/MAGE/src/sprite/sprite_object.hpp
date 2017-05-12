@@ -28,7 +28,7 @@ namespace mage {
 		/**
 		 Destruct this sprite object.
 		 */
-		virtual ~SpriteObject();
+		virtual ~SpriteObject() noexcept;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -82,7 +82,7 @@ namespace mage {
 		 @return		@c true if this sprite object is active.
 						@c false otherwise (i.e. passive).
 		 */
-		bool IsActive() const {
+		bool IsActive() const noexcept {
 			return m_active;
 		}
 
@@ -92,21 +92,21 @@ namespace mage {
 		 @return		@c true if this sprite object is passive.
 						@c false otherwise (i.e. active).
 		 */
-		bool IsPassive() const {
+		bool IsPassive() const noexcept {
 			return !m_active;
 		}
 
 		/**
 		 Makes this sprite object active.
 		 */
-		void MakeActive() {
+		void MakeActive() noexcept {
 			SetActive(true);
 		}
 
 		/**
 		 Makes this sprite object passive.
 		 */
-		void MakePassive() {
+		void MakePassive() noexcept {
 			SetActive(false);
 		}
 
@@ -116,7 +116,7 @@ namespace mage {
 		 @param[in]		active
 						The active flag.
 		 */
-		void SetActive(bool active) {
+		void SetActive(bool active) noexcept {
 			m_active = active;
 		}
 
@@ -125,7 +125,7 @@ namespace mage {
 
 		 @return		A reference to the name of this sprite object.
 		 */
-		const string &GetName() const {
+		const string &GetName() const noexcept {
 			return m_name;
 		}
 		
@@ -135,7 +135,7 @@ namespace mage {
 		 @param[in]		name
 						A reference to the name.
 		 */
-		void SetName(const string &name) {
+		void SetName(const string &name) noexcept {
 			m_name = name;
 		}
 		
@@ -144,7 +144,7 @@ namespace mage {
 
 		 @return		The sprite effects of this sprite object.
 		 */
-		SpriteEffect GetSpriteEffects() const {
+		SpriteEffect GetSpriteEffects() const noexcept {
 			return m_effects;
 		}
 		
@@ -154,7 +154,7 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects.
 		 */
-		void SetSpriteEffects(SpriteEffect effects) {
+		void SetSpriteEffects(SpriteEffect effects) noexcept {
 			m_effects = effects;
 		}
 		
@@ -163,7 +163,7 @@ namespace mage {
 
 		 @return		A pointer to the transform of this sprite object.
 		 */
-		SpriteTransform *GetTransform() {
+		SpriteTransform *GetTransform() noexcept {
 			return m_transform.get();
 		}
 		
@@ -172,7 +172,7 @@ namespace mage {
 
 		 @return		A pointer to the transform of this sprite object.
 		 */
-		const SpriteTransform *GetTransform() const {
+		const SpriteTransform *GetTransform() const noexcept {
 			return m_transform.get();
 		}
 
@@ -207,7 +207,7 @@ namespace mage {
 		 @param[in]		sprite_object
 						A reference to the sprite object to move.
 		 */
-		SpriteObject(SpriteObject &&sprite_object);
+		SpriteObject(SpriteObject &&sprite_object) noexcept;
 
 	private:
 

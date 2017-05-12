@@ -71,12 +71,12 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the dropshadow sprite text to move.
 		 */
-		DropshadowSpriteText(DropshadowSpriteText &&sprite_text);
+		DropshadowSpriteText(DropshadowSpriteText &&sprite_text) noexcept;
 
 		/**
 		 Destructs this dropshadow sprite text.
 		 */
-		virtual ~DropshadowSpriteText();
+		virtual ~DropshadowSpriteText() noexcept;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -129,7 +129,7 @@ namespace mage {
 
 		 @return		The shadow color of this dropshadow sprite text.
 		 */
-		const Color GetShadowColor() const {
+		const Color GetShadowColor() const noexcept {
 			return m_shadow_color;
 		}
 		
@@ -139,7 +139,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the shadow color.
 		 */
-		void SetShadowColor(const Color &color) {
+		void SetShadowColor(const Color &color) noexcept {
 			m_shadow_color = color;
 		}
 		

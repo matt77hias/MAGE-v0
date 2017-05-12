@@ -29,7 +29,7 @@ namespace mage {
 		/**
 		 Destruct this sprite text.
 		 */
-		virtual ~SpriteText();
+		virtual ~SpriteText() noexcept;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -82,7 +82,7 @@ namespace mage {
 
 		 @return		A pointer to the font of this sprite text.
 		 */
-		SharedPtr< SpriteFont > GetFont() const {
+		SharedPtr< SpriteFont > GetFont() const noexcept {
 			return m_font;
 		}
 		
@@ -93,7 +93,7 @@ namespace mage {
 		 @param[in]		font
 						A pointer to the font of this sprite text.
 		 */
-		void SetFont(SharedPtr< SpriteFont > font);
+		void SetFont(SharedPtr< SpriteFont > font) noexcept;
 		
 		/**
 		 Clears the text of this sprite text.
@@ -108,7 +108,7 @@ namespace mage {
 
 		 @return		A pointer to the text of this sprite text.
 		 */
-		const wchar_t *c_str() const {
+		const wchar_t *c_str() const noexcept {
 			return m_text.c_str();
 		}
 
@@ -117,7 +117,7 @@ namespace mage {
 
 		 @return		A reference to the text of this sprite text.
 		 */
-		const wstring &GetText() const {
+		const wstring &GetText() const noexcept {
 			return m_text;
 		}
 
@@ -127,7 +127,7 @@ namespace mage {
 		 @return		A reference to a vector containing the
 						color strings of this sprite text.
 		 */
-		const vector< ColorString > &GetTextWithColors() const {
+		const vector< ColorString > &GetTextWithColors() const noexcept {
 			return m_strings;
 		}
 
@@ -215,7 +215,7 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the sprite text to move.
 		 */
-		SpriteText(SpriteText &&sprite_text);
+		SpriteText(SpriteText &&sprite_text) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -226,7 +226,7 @@ namespace mage {
 
 		 @return		A pointer to the font of this sprite text.
 		 */
-		const SpriteFont *GetRawFont() const {
+		const SpriteFont *GetRawFont() const noexcept {
 			return m_font.get();
 		}
 

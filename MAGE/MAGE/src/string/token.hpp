@@ -1083,7 +1083,7 @@ namespace mage {
 	 @return		@c nullptr if the end of string character is reached.
 	 @return		A pointer to the first non-delimiting character in the given string.
 	 */
-	char *SkipDelimiters(char *str, const char *delimiters = mage_default_delimiters);
+	char *SkipDelimiters(char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Advances to the first non-delimiting character in the given string.
@@ -1097,7 +1097,7 @@ namespace mage {
 	 @return		@c nullptr if the end of string character is reached.
 	 @return		A pointer to the first non-delimiting character in the given string.
 	 */
-	const char *SkipDelimiters(const char *str, const char *delimiters = mage_default_delimiters);
+	const char *SkipDelimiters(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Advances to the first delimiting character in the given string.
@@ -1111,7 +1111,7 @@ namespace mage {
 	 @return		@c nullptr if the end of string character is reached.
 	 @return		A pointer to the first delimiting character in the given string.
 	 */
-	char *GotoDelimiters(char *str, const char *delimiters = mage_default_delimiters);
+	char *GotoDelimiters(char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Advances to the first delimiting character in the given string.
@@ -1125,7 +1125,7 @@ namespace mage {
 	 @return		@c nullptr if the end of string character is reached.
 	 @return		A pointer to the first delimiting character in the given string.
 	 */
-	const char *GotoDelimiters(const char *str, const char *delimiters = mage_default_delimiters);
+	const char *GotoDelimiters(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 #pragma endregion
 }

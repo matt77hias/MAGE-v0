@@ -22,9 +22,9 @@ namespace mage {
 
 	SpriteText::SpriteText(const SpriteText &sprite_text) = default;
 
-	SpriteText::SpriteText(SpriteText &&sprite_text) = default;
+	SpriteText::SpriteText(SpriteText &&sprite_text) noexcept = default;
 
-	SpriteText::~SpriteText() {
+	SpriteText::~SpriteText() noexcept {
 		m_strings.clear();
 	}
 

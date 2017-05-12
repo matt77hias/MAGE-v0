@@ -71,12 +71,12 @@ namespace mage {
 		 @param[in]		sprite_text
 						A reference to the outline sprite text to move.
 		 */
-		OutlineSpriteText(OutlineSpriteText &&sprite_text);
+		OutlineSpriteText(OutlineSpriteText &&sprite_text) noexcept;
 
 		/**
 		 Destructs this outline sprite text.
 		 */
-		virtual ~OutlineSpriteText();
+		virtual ~OutlineSpriteText() noexcept;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -129,7 +129,7 @@ namespace mage {
 
 		 @return		The border color of this outline sprite text.
 		 */
-		const Color GetBorderColor() const {
+		const Color GetBorderColor() const noexcept {
 			return m_border_color;
 		}
 		

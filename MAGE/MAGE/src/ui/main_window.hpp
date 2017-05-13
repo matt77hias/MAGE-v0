@@ -64,7 +64,7 @@ namespace mage {
 		/**
 		 Destructs this main window.
 		 */
-		~MainWindow();
+		~MainWindow() noexcept;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -102,7 +102,7 @@ namespace mage {
 		 @return		@c true if the window was previously visible.
 						@c false otherwise.
 		 */
-		bool Show(int nCmdShow);
+		bool Show(int nCmdShow) noexcept;
 
 		/**
 		 Returns the application instance handle of this main window.
@@ -166,7 +166,7 @@ namespace mage {
 		/**
 		 Uninitializes the engine window of this main window.
 		 */
-		void UninitializeWindow();
+		void UninitializeWindow() noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables

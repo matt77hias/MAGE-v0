@@ -10,5 +10,5 @@ namespace mage {
 
 	 @return		The number of system cores (i.e. logical processors).
 	 */
-	size_t NumberOfSystemCores();
+	size_t NumberOfSystemCores() noexcept;
 }

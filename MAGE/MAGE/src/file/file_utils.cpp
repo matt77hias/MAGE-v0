@@ -21,7 +21,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	bool FileExists(const wstring &fname) {
+	bool FileExists(const wstring &fname) noexcept {
 		return PathFileExists(fname.c_str()) != 0;
 	}
 }

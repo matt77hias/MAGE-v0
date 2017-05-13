@@ -91,22 +91,22 @@ namespace mage {
 		/**
 		 Starts this timer.
 		 */
-		void Start();
+		void Start() noexcept;
 
 		/**
 		 Stops this timer.
 		 */
-		void Stop();
+		void Stop() noexcept;
 
 		/**
 		 Restarts this timer.
 		 */
-		void Restart();
+		void Restart() noexcept;
 
 		/**
 		 Resumes this timer.
 		 */
-		void Resume();
+		void Resume() noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Delta Time
@@ -117,7 +117,7 @@ namespace mage {
 
 		 @return		The wall clock delta time (in seconds) of this timer.
 		 */
-		double GetDeltaTime() const;
+		double GetDeltaTime() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Total Delta Time
@@ -128,7 +128,7 @@ namespace mage {
 
 		 @return		The total wall clock delta time (in seconds) of this timer.
 		 */
-		double GetTotalDeltaTime() const;
+		double GetTotalDeltaTime() const noexcept;
 
 	private:
 
@@ -139,17 +139,17 @@ namespace mage {
 		/**
 		 Updates the last timestamp of this timer.
 		 */
-		void UpdateLastTimestamp() const;
+		void UpdateLastTimestamp() const noexcept;
 
 		/**
 		 Resets the delta time, total delta time and last timestamp of this timer.
 		 */
-		void ResetDeltaTime() const;
+		void ResetDeltaTime() const noexcept;
 
 		/**
 		 Updates the delta time, total delta time and last timestamp of this timer.
 		 */
-		void UpdateDeltaTime() const;
+		void UpdateDeltaTime() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables

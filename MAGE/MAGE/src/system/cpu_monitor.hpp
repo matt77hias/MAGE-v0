@@ -92,7 +92,7 @@ namespace mage {
 		/**
 		 Starts this CPU monitor.
 		 */
-		void Start() {
+		void Start() noexcept {
 			m_timer->Start();
 			m_cpu_timer->Start();
 		}
@@ -100,7 +100,7 @@ namespace mage {
 		/**
 		 Stops this CPU monitor.
 		 */
-		void Stop() {
+		void Stop() noexcept {
 			m_timer->Stop();
 			m_cpu_timer->Stop();
 		}
@@ -108,7 +108,7 @@ namespace mage {
 		/**
 		 Restarts this CPU monitor.
 		 */
-		void Restart() {
+		void Restart() noexcept {
 			m_timer->Restart();
 			m_cpu_timer->Restart();
 		}
@@ -116,7 +116,7 @@ namespace mage {
 		/**
 		 Resumes this CPU monitor.
 		 */
-		void Resume() {
+		void Resume() noexcept {
 			m_timer->Resume();
 			m_cpu_timer->Resume();
 		}
@@ -126,7 +126,7 @@ namespace mage {
 
 		 @return		The CPU delta percentage of this CPU monitor's process.
 		 */
-		double GetCPUDeltaPercentage() const {
+		double GetCPUDeltaPercentage() const noexcept {
 			const double time     = m_timer->GetDeltaTime();
 			const double cpu_time = m_cpu_timer->GetCoreDeltaTimePerCore();
 			return 100.0 * (cpu_time / time);
@@ -137,7 +137,7 @@ namespace mage {
 
 		 @return		The total CPU delta percentage of this CPU monitor's process.
 		 */
-		double GetTotalCPUDeltaPercentage() const {
+		double GetTotalCPUDeltaPercentage() const noexcept {
 			const double time     = m_timer->GetTotalDeltaTime();
 			const double cpu_time = m_cpu_timer->GetTotalCoreDeltaTimePerCore();
 			return 100.0 * (cpu_time / time);

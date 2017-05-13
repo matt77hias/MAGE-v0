@@ -126,7 +126,7 @@ namespace mage {
 		 @param[in]		ptr
 						A pointer to the memory block that was allocated.
 		 */
-		static void operator delete(void *ptr) {
+		static void operator delete(void *ptr) noexcept {
 			FreeAligned(ptr);
 		}
 
@@ -154,7 +154,7 @@ namespace mage {
 		 @param[in]		ptr
 						A pointer to the memory block that was allocated.
 		 */
-		static void operator delete[](void *ptr) {
+		static void operator delete[](void *ptr) noexcept {
 			operator delete(ptr);
 		}
 	};

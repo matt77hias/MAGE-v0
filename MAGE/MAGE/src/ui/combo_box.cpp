@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void ComboBoxAdd(HWND dialog, int id, const void *data, const wchar_t *desc) {
+	void ComboBoxAdd(HWND dialog, int id, const void *data, const wchar_t *desc) noexcept {
 		Assert(dialog);
 		Assert(desc);
 
@@ -26,7 +26,7 @@ namespace mage {
 		ComboBox_SetItemData(control, i, data);
 	}
 
-	void ComboBoxSelect(HWND dialog, int id, int index) {
+	void ComboBoxSelect(HWND dialog, int id, int index) noexcept {
 		Assert(dialog);
 		
 		// Retrieve a handle to a control in the specified dialog box.
@@ -42,7 +42,7 @@ namespace mage {
 		PostMessage(dialog, WM_COMMAND, MAKEWPARAM(id, CBN_SELCHANGE), (LPARAM)control);
 	}
 
-	void ComboBoxSelect(HWND dialog, int id, const void *data) {
+	void ComboBoxSelect(HWND dialog, int id, const void *data) noexcept {
 		Assert(dialog);
 		
 		// Retrieve a handle to a control in the specified dialog box.
@@ -64,7 +64,7 @@ namespace mage {
 		}
 	}
 
-	const void *ComboBoxSelected(HWND dialog, int id) {
+	const void *ComboBoxSelected(HWND dialog, int id) noexcept {
 		Assert(dialog);
 		
 		// Retrieve a handle to a control in the specified dialog box.
@@ -78,7 +78,7 @@ namespace mage {
 		return (void*)ComboBox_GetItemData(control, index);
 	}
 
-	bool ComboBoxSomethingSelected(HWND dialog, int id) {
+	bool ComboBoxSomethingSelected(HWND dialog, int id) noexcept {
 		Assert(dialog);
 		
 		// Retrieve a handle to a control in the specified dialog box.
@@ -88,7 +88,7 @@ namespace mage {
 		return (index >= 0);
 	}
 
-	int ComboBoxCount(HWND dialog, int id) {
+	int ComboBoxCount(HWND dialog, int id) noexcept {
 		Assert(dialog);
 		
 		// Retrieve a handle to a control in the specified dialog box.
@@ -97,7 +97,7 @@ namespace mage {
 		return ComboBox_GetCount(control);
 	}
 
-	bool ComboBoxContains(HWND dialog, int id, const wchar_t *desc) {
+	bool ComboBoxContains(HWND dialog, int id, const wchar_t *desc) noexcept {
 		Assert(dialog);
 		Assert(desc);
 		

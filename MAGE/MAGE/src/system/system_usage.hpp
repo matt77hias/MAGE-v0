@@ -23,7 +23,7 @@ namespace mage {
 	 @return		If the retrieval succeeds, the total virtual memory usage 
 					of this process (in bytes).
 	 */
-	uint64_t GetVirtualMemoryUsage();
+	uint64_t GetVirtualMemoryUsage() noexcept;
 
 	/**
 	 Retrieves the current working set size (in bytes) of the running process.
@@ -33,5 +33,5 @@ namespace mage {
 	 @return		If the retrieval succeeds, the total physical memory usage 
 					of this process (in bytes).
 	 */
-	uint64_t GetPhysicalMemoryUsage();
+	uint64_t GetPhysicalMemoryUsage() noexcept;
 }

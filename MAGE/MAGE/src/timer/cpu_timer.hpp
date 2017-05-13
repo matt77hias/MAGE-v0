@@ -91,22 +91,22 @@ namespace mage {
 		/**
 		 Starts this CPU timer.
 		 */
-		void Start();
+		void Start() noexcept;
 
 		/**
 		 Stops this CPU timer.
 		 */
-		void Stop();
+		void Stop() noexcept;
 
 		/**
 		 Restarts this CPU timer.
 		 */
-		void Restart();
+		void Restart() noexcept;
 
 		/**
 		 Resumes this CPU timer.
 		 */
-		void Resume();
+		void Resume() noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Delta Time
@@ -119,7 +119,7 @@ namespace mage {
 		 @return		The core delta time (in seconds) 
 						per processing core of this CPU timer's process.
 		 */
-		double GetCoreDeltaTimePerCore() const {
+		double GetCoreDeltaTimePerCore() const noexcept {
 			return GetCoreDeltaTime() / m_nb_processor_cores;
 		}
 
@@ -130,7 +130,7 @@ namespace mage {
 		 @return		The core delta time (in seconds) 
 						of this CPU timer's process.
 		 */
-		double GetCoreDeltaTime() const;
+		double GetCoreDeltaTime() const noexcept;
 
 		/**
 		 Returns the kernel mode delta time (in seconds) 
@@ -139,7 +139,7 @@ namespace mage {
 		 @return		The kernel mode delta time (in seconds) 
 						per processing core of this CPU timer's process.
 		 */
-		double GetKernelModeDeltaTimePerCore() const {
+		double GetKernelModeDeltaTimePerCore() const noexcept {
 			return GetKernelModeDeltaTime() / m_nb_processor_cores;
 		}
 
@@ -150,7 +150,7 @@ namespace mage {
 		 @return		The kernel mode delta time (in seconds) 
 						of this CPU timer's process.
 		 */
-		double GetKernelModeDeltaTime() const;
+		double GetKernelModeDeltaTime() const noexcept;
 
 		/**
 		 Returns the user mode delta time (in seconds) 
@@ -159,7 +159,7 @@ namespace mage {
 		 @return		The user mode delta time (in seconds) 
 						per processing core of this CPU timer's process.
 		 */
-		double GetUserModeDeltaTimePerCore() const {
+		double GetUserModeDeltaTimePerCore() const noexcept {
 			return GetUserModeDeltaTime() / m_nb_processor_cores;
 		}
 
@@ -170,7 +170,7 @@ namespace mage {
 		 @return		The user mode delta time (in seconds) 
 						of this CPU timer's process.
 		 */
-		double GetUserModeDeltaTime() const;
+		double GetUserModeDeltaTime() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Total Delta Time
@@ -183,7 +183,7 @@ namespace mage {
 		 @return		The total core delta time (in seconds)
 						per processing core of this CPU timer's process.
 		 */
-		double GetTotalCoreDeltaTimePerCore() const {
+		double GetTotalCoreDeltaTimePerCore() const noexcept {
 			return GetTotalCoreDeltaTime() / m_nb_processor_cores;
 		}
 
@@ -194,7 +194,7 @@ namespace mage {
 		 @return		The total core delta time (in seconds)
 						of this CPU timer's process.
 		 */
-		double GetTotalCoreDeltaTime() const;
+		double GetTotalCoreDeltaTime() const noexcept;
 
 		/**
 		 Returns the total kernel mode delta time (in seconds)
@@ -203,7 +203,7 @@ namespace mage {
 		 @return		The total kernel mode delta time (in seconds)
 						per processing core of this CPU timer's process.
 		 */
-		double GetTotalKernelModeDeltaTimePerCore() const {
+		double GetTotalKernelModeDeltaTimePerCore() const noexcept {
 			return GetTotalKernelModeDeltaTime() / m_nb_processor_cores;
 		}
 
@@ -214,7 +214,7 @@ namespace mage {
 		 @return		The total kernel mode delta time (in seconds)
 						of this CPU timer's process.
 		 */
-		double GetTotalKernelModeDeltaTime() const;
+		double GetTotalKernelModeDeltaTime() const noexcept;
 
 		/**
 		 Returns the total user mode delta time (in seconds)
@@ -223,7 +223,7 @@ namespace mage {
 		 @return		The total user mode delta time (in seconds)
 						per processing core of this CPU timer's process.
 		 */
-		double GetTotalUserModeDeltaTimePerCore() const {
+		double GetTotalUserModeDeltaTimePerCore() const noexcept {
 			return GetTotalUserModeDeltaTime() / m_nb_processor_cores;
 		}
 
@@ -234,7 +234,7 @@ namespace mage {
 		 @return		The total user mode delta time (in seconds)
 						of this CPU timer's process.
 		 */
-		double GetTotalUserModeDeltaTime() const;
+		double GetTotalUserModeDeltaTime() const noexcept;
 
 	private:
 
@@ -246,19 +246,19 @@ namespace mage {
 		 Updates the modes' last timestamps 
 		 of this CPU timer's process.
 		 */
-		void UpdateLastTimestamp() const;
+		void UpdateLastTimestamp() const noexcept;
 
 		/**
 		 Resets the modes' delta times, total delta times and last timestamps 
 		 of this CPU timer's process.
 		 */
-		void ResetDeltaTime() const;
+		void ResetDeltaTime() const noexcept;
 
 		/**
 		 Updates the modes' delta times, total delta times and last timestamps 
 		 of this CPU timer's process.
 		 */
-		void UpdateDeltaTime() const;
+		void UpdateDeltaTime() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables

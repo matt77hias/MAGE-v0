@@ -23,7 +23,7 @@ namespace mage {
 		m_time_period = 1.0 / (static_cast< double >(m_time_frequency.QuadPart));
 	}
 
-	void Timer::Start() {
+	void Timer::Start() noexcept {
 		if (m_running) {
 			return;
 		}
@@ -32,7 +32,7 @@ namespace mage {
 		ResetDeltaTime();
 	}
 
-	void Timer::Stop() {
+	void Timer::Stop() noexcept {
 		if (!m_running) {
 			return;
 		}
@@ -41,12 +41,12 @@ namespace mage {
 		UpdateDeltaTime();
 	}
 
-	void Timer::Restart() {
+	void Timer::Restart() noexcept {
 		m_running = false;
 		Start();
 	}
 
-	void Timer::Resume() {
+	void Timer::Resume() noexcept {
 		if (m_running) {
 			return;
 		}
@@ -55,7 +55,7 @@ namespace mage {
 		UpdateLastTimestamp();
 	}
 
-	double Timer::GetDeltaTime() const {
+	double Timer::GetDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
@@ -63,7 +63,7 @@ namespace mage {
 		return m_time_period * static_cast< double >(m_delta_time);
 	}
 
-	double Timer::GetTotalDeltaTime() const {
+	double Timer::GetTotalDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
@@ -71,12 +71,12 @@ namespace mage {
 		return m_time_period * static_cast< double >(m_total_delta_time);
 	}
 
-	void Timer::UpdateLastTimestamp() const {
+	void Timer::UpdateLastTimestamp() const noexcept {
 		// Get the current timestamp of this timer.
 		QueryPerformanceCounter(&m_last_timestamp);
 	}
 
-	void Timer::ResetDeltaTime() const {
+	void Timer::ResetDeltaTime() const noexcept {
 		// Resets the delta time of this timer.
 		m_delta_time       = 0;
 		// Resets the total delta time of this timer.
@@ -85,7 +85,7 @@ namespace mage {
 		UpdateLastTimestamp();
 	}
 
-	void Timer::UpdateDeltaTime() const {
+	void Timer::UpdateDeltaTime() const noexcept {
 		// Get the current timestamp of this timer.
 		LARGE_INTEGER current_timestamp;
 		QueryPerformanceCounter(&current_timestamp);

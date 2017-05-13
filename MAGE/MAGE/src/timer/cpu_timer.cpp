@@ -20,7 +20,7 @@ namespace mage {
 		: m_handle(GetCurrentProcess()), m_nb_processor_cores(NumberOfSystemCores()),
 		m_last_timestamp{}, m_delta_time{}, m_total_delta_time{}, m_running(false) {}
 
-	void CPUTimer::Start() {
+	void CPUTimer::Start() noexcept {
 		if (m_running) {
 			return;
 		}
@@ -29,7 +29,7 @@ namespace mage {
 		ResetDeltaTime();
 	}
 
-	void CPUTimer::Stop() {
+	void CPUTimer::Stop() noexcept {
 		if (!m_running) {
 			return;
 		}
@@ -38,12 +38,12 @@ namespace mage {
 		UpdateDeltaTime();
 	}
 
-	void CPUTimer::Restart() {
+	void CPUTimer::Restart() noexcept {
 		m_running = false;
 		Start();
 	}
 
-	void CPUTimer::Resume() {
+	void CPUTimer::Resume() noexcept {
 		if (m_running) {
 			return;
 		}
@@ -52,7 +52,7 @@ namespace mage {
 		UpdateLastTimestamp();
 	}
 
-	double CPUTimer::GetCoreDeltaTime() const {
+	double CPUTimer::GetCoreDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
@@ -60,7 +60,7 @@ namespace mage {
 		return time_period * static_cast< double >(m_delta_time[KERNEL_MODE] + m_delta_time[USER_MODE]);
 	}
 
-	double CPUTimer::GetKernelModeDeltaTime() const {
+	double CPUTimer::GetKernelModeDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
@@ -68,7 +68,7 @@ namespace mage {
 		return time_period * static_cast< double >(m_delta_time[KERNEL_MODE]);
 	}
 
-	double CPUTimer::GetUserModeDeltaTime() const {
+	double CPUTimer::GetUserModeDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
@@ -76,7 +76,7 @@ namespace mage {
 		return time_period * static_cast< double >(m_delta_time[USER_MODE]);
 	}
 
-	double CPUTimer::GetTotalCoreDeltaTime() const {
+	double CPUTimer::GetTotalCoreDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
@@ -84,7 +84,7 @@ namespace mage {
 		return time_period * static_cast< double >(m_total_delta_time[KERNEL_MODE] + m_total_delta_time[USER_MODE]);
 	}
 
-	double CPUTimer::GetTotalKernelModeDeltaTime() const {
+	double CPUTimer::GetTotalKernelModeDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
@@ -92,7 +92,7 @@ namespace mage {
 		return time_period * static_cast< double >(m_total_delta_time[KERNEL_MODE]);
 	}
 
-	double CPUTimer::GetTotalUserModeDeltaTime() const {
+	double CPUTimer::GetTotalUserModeDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
@@ -100,14 +100,14 @@ namespace mage {
 		return time_period * static_cast< double >(m_total_delta_time[USER_MODE]);
 	}
 
-	void CPUTimer::UpdateLastTimestamp() const {
+	void CPUTimer::UpdateLastTimestamp() const noexcept {
 		// Get the current timestamp of this timer's process.
 		GetCurrentCoreTimestamp(m_handle,
 			&m_last_timestamp[KERNEL_MODE],
 			&m_last_timestamp[USER_MODE]);
 	}
 
-	void CPUTimer::ResetDeltaTime() const {
+	void CPUTimer::ResetDeltaTime() const noexcept {
 		// Resets the modes' delta times of this timer's process.
 		m_delta_time[KERNEL_MODE]       = 0;
 		m_delta_time[USER_MODE]         = 0;
@@ -118,7 +118,7 @@ namespace mage {
 		UpdateLastTimestamp();
 	}
 
-	void CPUTimer::UpdateDeltaTime() const {
+	void CPUTimer::UpdateDeltaTime() const noexcept {
 		// Get the current timestamp of this timer's process.
 		uint64_t current_timestamp[NB_MODES];
 		GetCurrentCoreTimestamp(m_handle,

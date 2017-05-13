@@ -45,7 +45,7 @@ namespace mage{
 	 @return		The return value is the result of the message processing
 					and depends on the message sent.
 	 */
-	LRESULT CALLBACK MainWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+	LRESULT CALLBACK MainWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
 		switch (msg) {
 		case WM_ACTIVATEAPP: {
 			// Sent when a window belonging to a different application 
@@ -127,7 +127,7 @@ namespace mage{
 
 	MainWindow::MainWindow(MainWindow &&main_window) = default;
 
-	MainWindow::~MainWindow() {
+	MainWindow::~MainWindow() noexcept {
 		// Uninitialize the window.
 		UninitializeWindow();
 	}
@@ -202,12 +202,12 @@ namespace mage{
 		}
 	}
 
-	void MainWindow::UninitializeWindow() {
+	void MainWindow::UninitializeWindow() noexcept {
 		// Unregister the window class.
 		UnregisterClass(MAGE_MAIN_WINDOW_CLASS_NAME, m_hinstance);
 	}
 
-	bool MainWindow::Show(int nCmdShow) {
+	bool MainWindow::Show(int nCmdShow) noexcept {
 		return ShowWindow(GetHandle(), nCmdShow) != 0;
 	}
 }

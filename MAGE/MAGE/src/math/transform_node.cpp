@@ -11,7 +11,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage  {
 
 	//-------------------------------------------------------------------------
 	// TransformNode
@@ -29,7 +29,7 @@ namespace mage {
 		SetDirty();
 	}
 
-	TransformNode::TransformNode(TransformNode &&transform_node)
+	TransformNode::TransformNode(TransformNode &&transform_node) noexcept
 		: m_transform(std::move(transform_node.m_transform)),
 		m_parent(std::move(transform_node.m_parent)),
 		m_childs(std::move(transform_node.m_childs)) {
@@ -44,7 +44,7 @@ namespace mage {
 		return std::find(m_childs.begin(), m_childs.end(), node) != m_childs.end();
 	}
 
-	void TransformNode::RemoveAllChildNodes() {
+	void TransformNode::RemoveAllChildNodes() noexcept {
 		
 		ForEachChildTransformNode([](TransformNode &transform_node) {
 			transform_node.m_parent = nullptr;
@@ -79,7 +79,7 @@ namespace mage {
 		return UniquePtr< Node >(new Node(*this));
 	}
 
-	void Node::SetActive(bool active) {
+	void Node::SetActive(bool active) noexcept {
 		if (m_active != active) {
 			m_active = active;
 

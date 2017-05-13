@@ -80,7 +80,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the transform to move.
 		 */
-		Transform(Transform &&transform)
+		Transform(Transform &&transform) noexcept
 			: m_translation(std::move(transform.m_translation)),
 			m_rotation(std::move(transform.m_rotation)),
 			m_scale(std::move(transform.m_scale)) {
@@ -120,7 +120,7 @@ namespace mage {
 		 @return		A reference to the moved transform
 						(i.e. this transform).
 		 */
-		Transform &operator=(Transform &&transform) {
+		Transform &operator=(Transform &&transform) noexcept {
 			m_translation = std::move(transform.m_translation);
 			m_rotation    = std::move(transform.m_rotation);
 			m_scale       = std::move(transform.m_scale);
@@ -138,7 +138,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the translation component.
 		 */
-		void SetTranslationX(float x) {
+		void SetTranslationX(float x) noexcept {
 			m_translation.x = x;
 			SetDirty();
 		}
@@ -149,7 +149,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component.
 		 */
-		void SetTranslationY(float y) {
+		void SetTranslationY(float y) noexcept {
 			m_translation.y = y;
 			SetDirty();
 		}
@@ -160,7 +160,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the translation component.
 		 */
-		void SetTranslationZ(float z) {
+		void SetTranslationZ(float z) noexcept {
 			m_translation.z = z;
 			SetDirty();
 		}
@@ -175,7 +175,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the translation component.
 		 */
-		void SetTranslation(float x, float y, float z) {
+		void SetTranslation(float x, float y, float z) noexcept {
 			m_translation.x = x;
 			m_translation.y = y;
 			m_translation.z = z;
@@ -188,7 +188,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component.
 		 */
-		void SetTranslation(const XMFLOAT3 &translation) {
+		void SetTranslation(const XMFLOAT3 &translation) noexcept {
 			m_translation = translation;
 			SetDirty();
 		}
@@ -210,7 +210,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the translation component to add.
 		 */
-		void AddTranslationX(float x) {
+		void AddTranslationX(float x) noexcept {
 			m_translation.x += x;
 			SetDirty();
 		}
@@ -221,7 +221,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component to add.
 		 */
-		void AddTranslationY(float y) {
+		void AddTranslationY(float y) noexcept {
 			m_translation.y += y;
 			SetDirty();
 		}
@@ -232,7 +232,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the translation component to add.
 		 */
-		void AddTranslationZ(float z) {
+		void AddTranslationZ(float z) noexcept {
 			m_translation.z += z;
 			SetDirty();
 		}
@@ -247,7 +247,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the translation component to add.
 		 */
-		void AddTranslation(float x, float y, float z) {
+		void AddTranslation(float x, float y, float z) noexcept {
 			m_translation.x += x;
 			m_translation.y += y;
 			m_translation.z += z;
@@ -260,7 +260,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component to add.
 		 */
-		void AddTranslation(const XMFLOAT3 &translation) {
+		void AddTranslation(const XMFLOAT3 &translation) noexcept {
 			AddTranslation(translation.x, translation.y, translation.z);
 		}
 		
@@ -279,7 +279,7 @@ namespace mage {
 
 		 @return		The x-value of the translation component of this transform.
 		 */
-		float GetTranslationX() const {
+		float GetTranslationX() const noexcept {
 			return m_translation.x;
 		}
 		
@@ -288,7 +288,7 @@ namespace mage {
 
 		 @return		The y-value of the translation component of this transform.
 		 */
-		float GetTranslationY() const {
+		float GetTranslationY() const noexcept {
 			return m_translation.y;
 		}
 		
@@ -297,7 +297,7 @@ namespace mage {
 
 		 @return		The z-value of the translation component of this transform.
 		 */
-		float GetTranslationZ() const {
+		float GetTranslationZ() const noexcept {
 			return m_translation.z;
 		}
 		
@@ -306,7 +306,7 @@ namespace mage {
 
 		 @return		The translation component of this transform.
 		 */
-		const XMFLOAT3 GetTranslation() const {
+		const XMFLOAT3 GetTranslation() const noexcept {
 			return m_translation;
 		}
 		
@@ -338,7 +338,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the rotation component.
 		 */
-		void SetRotationX(float x) {
+		void SetRotationX(float x) noexcept {
 			m_rotation.x = x;
 			SetDirty();
 		}
@@ -349,7 +349,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation component.
 		 */
-		void SetRotationY(float y) {
+		void SetRotationY(float y) noexcept {
 			m_rotation.y = y;
 			SetDirty();
 		}
@@ -360,7 +360,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the rotation component.
 		 */
-		void SetRotationZ(float z) {
+		void SetRotationZ(float z) noexcept {
 			m_rotation.z = z;
 			SetDirty();
 		}
@@ -375,7 +375,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the rotation component.
 		 */
-		void SetRotation(float x, float y, float z) {
+		void SetRotation(float x, float y, float z) noexcept {
 			m_rotation.x = x;
 			m_rotation.y = y;
 			m_rotation.z = z;
@@ -388,7 +388,7 @@ namespace mage {
 		 @param[in]		rotation
 						A reference to the rotation component.
 		 */
-		void SetRotation(const XMFLOAT3 &rotation) {
+		void SetRotation(const XMFLOAT3 &rotation) noexcept {
 			m_rotation = rotation;
 			SetDirty();
 		}
@@ -434,7 +434,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the rotation component to add.
 		 */
-		void AddRotationX(float x) {
+		void AddRotationX(float x) noexcept {
 			m_rotation.x += x;
 			SetDirty();
 		}
@@ -445,7 +445,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation component to add.
 		 */
-		void AddRotationY(float y) {
+		void AddRotationY(float y) noexcept {
 			m_rotation.y += y;
 			SetDirty();
 		}
@@ -456,7 +456,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the rotation component to add.
 		 */
-		void AddRotationZ(float z) {
+		void AddRotationZ(float z) noexcept {
 			m_rotation.z += z;
 			SetDirty();
 		}
@@ -471,7 +471,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the rotation component to add.
 		 */
-		void AddRotation(float x, float y, float z) {
+		void AddRotation(float x, float y, float z) noexcept {
 			m_rotation.x += x;
 			m_rotation.y += y;
 			m_rotation.z += z;
@@ -484,7 +484,7 @@ namespace mage {
 		 @param[in]		rotation
 						A reference to the rotation component to add.
 		 */
-		void AddRotation(const XMFLOAT3 &rotation) {
+		void AddRotation(const XMFLOAT3 &rotation) noexcept {
 			AddRotation(rotation.x, rotation.y, rotation.z);
 		}
 		
@@ -503,7 +503,7 @@ namespace mage {
 
 		 @return		The x-value of the rotation component of this transform.
 		 */
-		float GetRotationX() const {
+		float GetRotationX() const noexcept {
 			return m_rotation.x;
 		}
 		
@@ -512,7 +512,7 @@ namespace mage {
 
 		 @return		The y-value of the rotation component of this transform.
 		 */
-		float GetRotationY() const {
+		float GetRotationY() const noexcept {
 			return m_rotation.y;
 		}
 		
@@ -521,7 +521,7 @@ namespace mage {
 
 		 @return		The z-value of the rotation component of this transform.
 		 */
-		float GetRotationZ() const {
+		float GetRotationZ() const noexcept {
 			return m_rotation.z;
 		}
 		
@@ -530,7 +530,7 @@ namespace mage {
 
 		 @return		The rotation component of this transform.
 		 */
-		const XMFLOAT3 GetRotation() const {
+		const XMFLOAT3 GetRotation() const noexcept {
 			return m_rotation;
 		}
 		
@@ -562,7 +562,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the scale component.
 		 */
-		void SetScaleX(float x) {
+		void SetScaleX(float x) noexcept {
 			m_scale.x = x;
 			SetDirty();
 		}
@@ -573,7 +573,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component.
 		 */
-		void SetScaleY(float y) {
+		void SetScaleY(float y) noexcept {
 			m_scale.y = y;
 			SetDirty();
 		}
@@ -584,7 +584,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the scale component.
 		 */
-		void SetScaleZ(float z) {
+		void SetScaleZ(float z) noexcept {
 			m_scale.z = z;
 			SetDirty();
 		}
@@ -595,7 +595,7 @@ namespace mage {
 		 @param[in]		s
 						The scale component.
 		 */
-		void SetScale(float s) {
+		void SetScale(float s) noexcept {
 			SetScale(s, s, s);
 		}
 		
@@ -609,7 +609,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the scale component.
 		 */
-		void SetScale(float x, float y, float z) {
+		void SetScale(float x, float y, float z) noexcept {
 			m_scale.x = x;
 			m_scale.y = y;
 			m_scale.z = z;
@@ -622,7 +622,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		void SetScale(const XMFLOAT3 &scale) {
+		void SetScale(const XMFLOAT3 &scale) noexcept {
 			m_scale = scale;
 			SetDirty();
 		}
@@ -644,7 +644,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the scale component to add.
 		 */
-		void AddScaleX(float x) {
+		void AddScaleX(float x) noexcept {
 			m_scale.x += x;
 			SetDirty();
 		}
@@ -655,7 +655,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component to add.
 		 */
-		void AddScaleY(float y) {
+		void AddScaleY(float y) noexcept {
 			m_scale.y += y;
 			SetDirty();
 		}
@@ -666,7 +666,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the scale component to add.
 		 */
-		void AddScaleZ(float z) {
+		void AddScaleZ(float z) noexcept {
 			m_scale.z += z;
 			SetDirty();
 		}
@@ -677,7 +677,7 @@ namespace mage {
 		 @param[in]		s
 						The scale component to add.
 		 */
-		void AddScale(float s) {
+		void AddScale(float s) noexcept {
 			AddScale(s, s, s);
 		}
 		
@@ -691,7 +691,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the scale component to add.
 		 */
-		void AddScale(float x, float y, float z) {
+		void AddScale(float x, float y, float z) noexcept {
 			m_scale.x += x;
 			m_scale.y += y;
 			m_scale.z += z;
@@ -704,7 +704,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component to add.
 		 */
-		void AddScale(const XMFLOAT3 &scale) {
+		void AddScale(const XMFLOAT3 &scale) noexcept {
 			AddScale(scale.x, scale.y, scale.z);
 		}
 
@@ -723,7 +723,7 @@ namespace mage {
 
 		 @return		The x-value of the scale component of this transform.
 		 */
-		float GetScaleX() const {
+		float GetScaleX() const noexcept {
 			return m_scale.x;
 		}
 		
@@ -732,7 +732,7 @@ namespace mage {
 
 		 @return		The y-value of the scale component of this transform.
 		 */
-		float GetScaleY() const {
+		float GetScaleY() const noexcept {
 			return m_scale.y;
 		}
 		
@@ -741,7 +741,7 @@ namespace mage {
 
 		 @return		The z-value of the scale component of this transform.
 		 */
-		float GetScaleZ() const {
+		float GetScaleZ() const noexcept {
 			return m_scale.z;
 		}
 		
@@ -750,7 +750,7 @@ namespace mage {
 
 		 @return		The scale component of this transform.
 		 */
-		const XMFLOAT3 GetScale() const {
+		const XMFLOAT3 GetScale() const noexcept {
 			return m_scale;
 		}
 		
@@ -955,7 +955,7 @@ namespace mage {
 		/**
 		 Sets this transform to dirty.
 		 */
-		void SetDirty() const {
+		void SetDirty() const noexcept {
 			m_dirty_object_to_parent = true;
 			m_dirty_parent_to_object = true;
 		}

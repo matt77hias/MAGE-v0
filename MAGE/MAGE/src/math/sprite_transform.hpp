@@ -237,7 +237,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the translation component.
 		 */
-		void SetTranslationX(float x) {
+		void SetTranslationX(float x) noexcept {
 			m_translation.x = x;
 		}
 
@@ -247,7 +247,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component.
 		 */
-		void SetTranslationY(float y) {
+		void SetTranslationY(float y) noexcept {
 			m_translation.y = y;
 		}
 
@@ -259,7 +259,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component.
 		 */
-		void SetTranslation(float x, float y) {
+		void SetTranslation(float x, float y) noexcept {
 			m_translation.x = x;
 			m_translation.y = y;
 		}
@@ -270,7 +270,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component.
 		 */
-		void SetTranslation(const XMFLOAT2 &translation) {
+		void SetTranslation(const XMFLOAT2 &translation) noexcept {
 			m_translation = translation;
 		}
 
@@ -290,7 +290,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the translation component to add.
 		 */
-		void AddTranslationX(float x) {
+		void AddTranslationX(float x) noexcept {
 			m_translation.x += x;
 		}
 
@@ -300,7 +300,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component to add.
 		 */
-		void AddTranslationY(float y) {
+		void AddTranslationY(float y) noexcept {
 			m_translation.y += y;
 		}
 
@@ -312,7 +312,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component to add.
 		 */
-		void AddTranslation(float x, float y) {
+		void AddTranslation(float x, float y) noexcept {
 			m_translation.x += x;
 			m_translation.y += y;
 		}
@@ -323,7 +323,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component to add.
 		 */
-		void AddTranslation(const XMFLOAT2 &translation) {
+		void AddTranslation(const XMFLOAT2 &translation) noexcept {
 			AddTranslation(translation.x, translation.y);
 		}
 
@@ -342,7 +342,7 @@ namespace mage {
 
 		 @return		The x-value of the translation component of this sprite transform.
 		 */
-		float GetTranslationX() const {
+		float GetTranslationX() const noexcept {
 			return m_translation.x;
 		}
 
@@ -351,7 +351,7 @@ namespace mage {
 
 		 @return		The y-value of the translation component of this sprite transform.
 		 */
-		float GetTranslationY() const {
+		float GetTranslationY() const noexcept {
 			return m_translation.y;
 		}
 
@@ -360,7 +360,7 @@ namespace mage {
 
 		 @return		The translation component of this sprite transform.
 		 */
-		const XMFLOAT2 GetTranslation() const {
+		const XMFLOAT2 GetTranslation() const noexcept {
 			return m_translation;
 		}
 
@@ -522,7 +522,7 @@ namespace mage {
 		 @param[in]		depth
 						The depth component.
 		 */
-		void SetDepth(float depth) {
+		void SetDepth(float depth) noexcept {
 			m_depth = depth;
 		}
 
@@ -532,7 +532,7 @@ namespace mage {
 		 @param[in]		depth
 						The depth component to add.
 		 */
-		void AddDepth(float depth) {
+		void AddDepth(float depth) noexcept {
 			m_depth += depth;
 		}
 
@@ -541,7 +541,7 @@ namespace mage {
 
 		 @return		The depth component of this sprite transform.
 		 */
-		float GetDepth() const {
+		float GetDepth() const noexcept {
 			return m_depth;
 		}
 
@@ -555,7 +555,7 @@ namespace mage {
 		 @param[in]		rotation
 						The rotation component.
 		 */
-		void SetRotation(float rotation) {
+		void SetRotation(float rotation) noexcept {
 			m_rotation = rotation;
 		}
 
@@ -565,7 +565,7 @@ namespace mage {
 		 @param[in]		rotation
 						The rotation component to add.
 		 */
-		void AddRotation(float rotation) {
+		void AddRotation(float rotation) noexcept {
 			m_rotation += rotation;
 		}
 
@@ -574,7 +574,7 @@ namespace mage {
 
 		 @return		The rotation component of this sprite transform.
 		 */
-		float GetRotation() const {
+		float GetRotation() const noexcept {
 			return m_rotation;
 		}
 
@@ -588,7 +588,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the rotation origin.
 		 */
-		void SetRotationOriginX(float x) {
+		void SetRotationOriginX(float x) noexcept {
 			m_rotation_origin.x = x;
 		}
 
@@ -598,7 +598,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation origin.
 		 */
-		void SetRotationOriginY(float y) {
+		void SetRotationOriginY(float y) noexcept {
 			m_rotation_origin.y = y;
 		}
 
@@ -610,7 +610,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation origin.
 		 */
-		void SetRotationOrigin(float x, float y) {
+		void SetRotationOrigin(float x, float y) noexcept {
 			m_rotation_origin.x = x;
 			m_rotation_origin.y = y;
 		}
@@ -621,7 +621,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						A reference to the rotation origin.
 		 */
-		void SetRotationOrigin(const XMFLOAT2 &rotation_origin) {
+		void SetRotationOrigin(const XMFLOAT2 &rotation_origin) noexcept {
 			m_rotation_origin = rotation_origin;
 		}
 
@@ -631,7 +631,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						A reference to the rotation origin.
 		 */
-		void SetRotationOrigin(const XMVECTOR &rotation_origin) {
+		void SetRotationOrigin(const XMVECTOR &rotation_origin) noexcept {
 			XMStoreFloat2(&m_rotation_origin, rotation_origin);
 		}
 
@@ -641,7 +641,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the rotation origin to add.
 		 */
-		void AddRotationOriginX(float x) {
+		void AddRotationOriginX(float x) noexcept {
 			m_rotation_origin.x += x;
 		}
 
@@ -651,7 +651,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation origin to add.
 		 */
-		void AddRotationOriginY(float y) {
+		void AddRotationOriginY(float y) noexcept {
 			m_rotation_origin.y += y;
 		}
 
@@ -663,7 +663,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation origin to add.
 		 */
-		void AddRotationOrigin(float x, float y) {
+		void AddRotationOrigin(float x, float y) noexcept {
 			m_rotation_origin.x += x;
 			m_rotation_origin.y += y;
 		}
@@ -674,7 +674,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						A reference to the rotation origin to add.
 		 */
-		void AddRotationOrigin(const XMFLOAT2 &rotation_origin) {
+		void AddRotationOrigin(const XMFLOAT2 &rotation_origin) noexcept {
 			AddRotationOrigin(rotation_origin.x, rotation_origin.y);
 		}
 
@@ -693,7 +693,7 @@ namespace mage {
 
 		 @return		The x-value of the rotation origin of this sprite transform.
 		 */
-		float GetRotationOriginX() const {
+		float GetRotationOriginX() const noexcept {
 			return m_rotation_origin.x;
 		}
 
@@ -702,7 +702,7 @@ namespace mage {
 
 		 @return		The y-value of the rotation origin of this sprite transform.
 		 */
-		float GetRotationOriginY() const {
+		float GetRotationOriginY() const noexcept {
 			return m_rotation_origin.y;
 		}
 
@@ -711,7 +711,7 @@ namespace mage {
 
 		 @return		The rotation origin of this sprite transform.
 		 */
-		const XMFLOAT2 GetRotationOrigin() const {
+		const XMFLOAT2 GetRotationOrigin() const noexcept {
 			return m_rotation_origin;
 		}
 
@@ -873,7 +873,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the scale component.
 		 */
-		void SetScaleX(float x) {
+		void SetScaleX(float x) noexcept {
 			m_scale.x = x;
 		}
 
@@ -883,7 +883,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component.
 		 */
-		void SetScaleY(float y) {
+		void SetScaleY(float y) noexcept {
 			m_scale.y = y;
 		}
 
@@ -893,7 +893,7 @@ namespace mage {
 		 @param[in]		s
 						The scale component.
 		 */
-		void SetScale(float s) {
+		void SetScale(float s) noexcept {
 			SetScale(s, s);
 		}
 
@@ -905,7 +905,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component.
 		 */
-		void SetScale(float x, float y) {
+		void SetScale(float x, float y) noexcept {
 			m_scale.x = x;
 			m_scale.y = y;
 		}
@@ -916,7 +916,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		void SetScale(const XMFLOAT2 &scale) {
+		void SetScale(const XMFLOAT2 &scale) noexcept {
 			m_scale = scale;
 		}
 
@@ -936,7 +936,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the scale component to add.
 		 */
-		void AddScaleX(float x) {
+		void AddScaleX(float x) noexcept {
 			m_scale.x += x;
 		}
 
@@ -946,7 +946,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component to add.
 		 */
-		void AddScaleY(float y) {
+		void AddScaleY(float y) noexcept {
 			m_scale.y += y;
 		}
 
@@ -956,7 +956,7 @@ namespace mage {
 		 @param[in]		s
 						The scale component to add.
 		 */
-		void AddScale(float s) {
+		void AddScale(float s) noexcept {
 			AddScale(s, s);
 		}
 
@@ -968,7 +968,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component to add.
 		 */
-		void AddScale(float x, float y) {
+		void AddScale(float x, float y) noexcept {
 			m_scale.x += x;
 			m_scale.y += y;
 		}
@@ -979,7 +979,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component to add.
 		 */
-		void AddScale(const XMFLOAT2 &scale) {
+		void AddScale(const XMFLOAT2 &scale) noexcept {
 			AddScale(scale.x, scale.y);
 		}
 
@@ -998,7 +998,7 @@ namespace mage {
 
 		 @return		The x-value of the scale component of this sprite transform.
 		 */
-		float GetScaleX() const {
+		float GetScaleX() const noexcept {
 			return m_scale.x;
 		}
 
@@ -1007,7 +1007,7 @@ namespace mage {
 
 		 @return		The y-value of the scale component of this sprite transform.
 		 */
-		float GetScaleY() const {
+		float GetScaleY() const noexcept {
 			return m_scale.y;
 		}
 
@@ -1016,7 +1016,7 @@ namespace mage {
 
 		 @return		The scale component of this sprite transform.
 		 */
-		const XMFLOAT2 GetScale() const {
+		const XMFLOAT2 GetScale() const noexcept {
 			return m_scale;
 		}
 

@@ -71,7 +71,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the translation component.
 		 */
-		void SetTranslationX(float x) {
+		void SetTranslationX(float x) noexcept {
 			m_transform->SetTranslationX(x);
 			SetDirty();
 		}
@@ -82,7 +82,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component.
 		 */
-		void SetTranslationY(float y) {
+		void SetTranslationY(float y) noexcept {
 			m_transform->SetTranslationY(y);
 			SetDirty();
 		}
@@ -93,7 +93,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the translation component.
 		 */
-		void SetTranslationZ(float z) {
+		void SetTranslationZ(float z) noexcept {
 			m_transform->SetTranslationZ(z);
 			SetDirty();
 		}
@@ -108,7 +108,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the translation component.
 		 */
-		void SetTranslation(float x, float y, float z) {
+		void SetTranslation(float x, float y, float z) noexcept {
 			m_transform->SetTranslation(x, y, z);
 			SetDirty();
 		}
@@ -119,7 +119,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component.
 		 */
-		void SetTranslation(const XMFLOAT3 &translation) {
+		void SetTranslation(const XMFLOAT3 &translation) noexcept {
 			m_transform->SetTranslation(translation);
 			SetDirty();
 		}
@@ -141,7 +141,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the translation component to add.
 		 */
-		void AddTranslationX(float x) {
+		void AddTranslationX(float x) noexcept {
 			m_transform->AddTranslationX(x);
 			SetDirty();
 		}
@@ -152,7 +152,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component to add.
 		 */
-		void AddTranslationY(float y) {
+		void AddTranslationY(float y) noexcept {
 			m_transform->AddTranslationY(y);
 			SetDirty();
 		}
@@ -163,7 +163,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the translation component to add.
 		 */
-		void AddTranslationZ(float z) {
+		void AddTranslationZ(float z) noexcept {
 			m_transform->AddTranslationZ(z);
 			SetDirty();
 		}
@@ -178,7 +178,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the translation component to add.
 		 */
-		void AddTranslation(float x, float y, float z) {
+		void AddTranslation(float x, float y, float z) noexcept {
 			m_transform->AddTranslation(x, y, z);
 			SetDirty();
 		}
@@ -189,7 +189,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component to add.
 		 */
-		void AddTranslation(const XMFLOAT3 &translation) {
+		void AddTranslation(const XMFLOAT3 &translation) noexcept {
 			m_transform->AddTranslation(translation);
 			SetDirty();
 		}
@@ -210,7 +210,7 @@ namespace mage {
 
 		 @return		The x-value of the translation component of this transform node.
 		 */
-		float GetTranslationX() const {
+		float GetTranslationX() const noexcept {
 			return m_transform->GetTranslationX();
 		}
 		
@@ -219,7 +219,7 @@ namespace mage {
 
 		 @return		The y-value of the translation component of this transform node.
 		 */
-		float GetTranslationY() const {
+		float GetTranslationY() const noexcept {
 			return m_transform->GetTranslationY();
 		}
 		
@@ -228,7 +228,7 @@ namespace mage {
 
 		 @return		The z-value of the translation component of this transform node.
 		 */
-		float GetTranslationZ() const {
+		float GetTranslationZ() const noexcept {
 			return m_transform->GetTranslationZ();
 		}
 		
@@ -237,7 +237,7 @@ namespace mage {
 
 		 @return		The translation component of this transform node.
 		 */
-		const XMFLOAT3 GetTranslation() const {
+		const XMFLOAT3 GetTranslation() const noexcept {
 			return m_transform->GetTranslation();
 		}
 		
@@ -269,7 +269,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the rotation component.
 		 */
-		void SetRotationX(float x) {
+		void SetRotationX(float x) noexcept {
 			m_transform->SetRotationX(x);
 			SetDirty();
 		}
@@ -280,7 +280,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation component.
 		 */
-		void SetRotationY(float y) {
+		void SetRotationY(float y) noexcept {
 			m_transform->SetRotationY(y);
 			SetDirty();
 		}
@@ -291,7 +291,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the rotation component.
 		 */
-		void SetRotationZ(float z) {
+		void SetRotationZ(float z) noexcept {
 			m_transform->SetRotationZ(z);
 			SetDirty();
 		}
@@ -306,7 +306,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the rotation component.
 		 */
-		void SetRotation(float x, float y, float z) {
+		void SetRotation(float x, float y, float z) noexcept {
 			m_transform->SetRotation(x, y, z);
 			SetDirty();
 		}
@@ -317,7 +317,7 @@ namespace mage {
 		 @param[in]		rotation
 						A reference to the rotation component.
 		 */
-		void SetRotation(const XMFLOAT3 &rotation) {
+		void SetRotation(const XMFLOAT3 &rotation) noexcept {
 			m_transform->SetRotation(rotation);
 			SetDirty();
 		}
@@ -352,7 +352,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the rotation component to add.
 		 */
-		void AddRotationX(float x) {
+		void AddRotationX(float x) noexcept {
 			m_transform->AddRotationX(x);
 			SetDirty();
 		}
@@ -363,7 +363,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation component to add.
 		 */
-		void AddRotationY(float y) {
+		void AddRotationY(float y) noexcept {
 			m_transform->AddRotationY(y);
 			SetDirty();
 		}
@@ -374,7 +374,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the rotation component to add.
 		 */
-		void AddRotationZ(float z) {
+		void AddRotationZ(float z) noexcept {
 			m_transform->AddRotationZ(z);
 			SetDirty();
 		}
@@ -389,7 +389,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the rotation component to add.
 		 */
-		void AddRotation(float x, float y, float z) {
+		void AddRotation(float x, float y, float z) noexcept {
 			m_transform->AddRotation(x, y, z);
 			SetDirty();
 		}
@@ -400,7 +400,7 @@ namespace mage {
 		 @param[in]		rotation
 						A reference to the rotation component to add.
 		 */
-		void AddRotation(const XMFLOAT3 &rotation) {
+		void AddRotation(const XMFLOAT3 &rotation) noexcept {
 			m_transform->AddRotation(rotation);
 			SetDirty();
 		}
@@ -421,7 +421,7 @@ namespace mage {
 
 		 @return		The x-value of the rotation component of this transform node.
 		 */
-		float GetRotationX() const {
+		float GetRotationX() const noexcept {
 			return m_transform->GetRotationX();
 		}
 		
@@ -430,7 +430,7 @@ namespace mage {
 
 		 @return		The y-value of the rotation component of this transform node.
 		 */
-		float GetRotationY() const {
+		float GetRotationY() const noexcept {
 			return m_transform->GetRotationY();
 		}
 		
@@ -439,7 +439,7 @@ namespace mage {
 
 		 @return		The z-value of the rotation component of this transform node.
 		 */
-		float GetRotationZ() const {
+		float GetRotationZ() const noexcept {
 			return m_transform->GetRotationZ();
 		}
 		
@@ -448,7 +448,7 @@ namespace mage {
 
 		 @return		The rotation component of this transform node.
 		 */
-		const XMFLOAT3 GetRotation() const {
+		const XMFLOAT3 GetRotation() const noexcept {
 			return m_transform->GetRotation();
 		}
 		
@@ -480,7 +480,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the scale component.
 		 */
-		void SetScaleX(float x) {
+		void SetScaleX(float x) noexcept {
 			m_transform->SetScaleX(x);
 			SetDirty();
 		}
@@ -491,7 +491,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component.
 		 */
-		void SetScaleY(float y) {
+		void SetScaleY(float y) noexcept {
 			m_transform->SetScaleY(y);
 			SetDirty();
 		}
@@ -502,7 +502,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the scale component.
 		 */
-		void SetScaleZ(float z) {
+		void SetScaleZ(float z) noexcept {
 			m_transform->SetScaleZ(z);
 			SetDirty();
 		}
@@ -513,7 +513,7 @@ namespace mage {
 		 @param[in]		s
 						The scale component.
 		 */
-		void SetScale(float s) {
+		void SetScale(float s) noexcept {
 			m_transform->SetScale(s);
 			SetDirty();
 		}
@@ -528,7 +528,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the scale component.
 		 */
-		void SetScale(float x, float y, float z) {
+		void SetScale(float x, float y, float z) noexcept {
 			m_transform->SetScale(x, y, z);
 			SetDirty();
 		}
@@ -539,7 +539,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		void SetScale(const XMFLOAT3 &scale) {
+		void SetScale(const XMFLOAT3 &scale) noexcept {
 			m_transform->SetScale(scale);
 			SetDirty();
 		}
@@ -561,7 +561,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the scale component to add.
 		 */
-		void AddScaleX(float x) {
+		void AddScaleX(float x) noexcept {
 			m_transform->AddScaleX(x);
 			SetDirty();
 		}
@@ -572,7 +572,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component to add.
 		 */
-		void AddScaleY(float y) {
+		void AddScaleY(float y) noexcept {
 			m_transform->AddScaleY(y);
 			SetDirty();
 		}
@@ -583,7 +583,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the scale component to add.
 		 */
-		void AddScaleZ(float z) {
+		void AddScaleZ(float z) noexcept {
 			m_transform->AddScaleZ(z);
 			SetDirty();
 		}
@@ -594,7 +594,7 @@ namespace mage {
 		 @param[in]		s
 						The scale component to add.
 		 */
-		void AddScale(float s) {
+		void AddScale(float s) noexcept {
 			m_transform->AddScale(s);
 			SetDirty();
 		}
@@ -609,7 +609,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the scale component to add.
 		 */
-		void AddScale(float x, float y, float z) {
+		void AddScale(float x, float y, float z) noexcept {
 			m_transform->AddScale(x, y, z);
 			SetDirty();
 		}
@@ -620,7 +620,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component to add.
 		 */
-		void AddScale(const XMFLOAT3 &scale) {
+		void AddScale(const XMFLOAT3 &scale) noexcept {
 			m_transform->AddScale(scale);
 			SetDirty();
 		}
@@ -641,7 +641,7 @@ namespace mage {
 
 		 @return		The x-value of the scale component of this transform node.
 		 */
-		float GetScaleX() const {
+		float GetScaleX() const noexcept {
 			return m_transform->GetScaleX();
 		}
 		
@@ -650,7 +650,7 @@ namespace mage {
 
 		 @return		The y-value of the scale component of this transform node.
 		 */
-		float GetScaleY() const {
+		float GetScaleY() const noexcept {
 			return m_transform->GetScaleY();
 		}
 		
@@ -659,7 +659,7 @@ namespace mage {
 
 		 @return		The z-value of the scale component of this transform node.
 		 */
-		float GetScaleZ() const {
+		float GetScaleZ() const noexcept {
 			return m_transform->GetScaleZ();
 		}
 		
@@ -668,7 +668,7 @@ namespace mage {
 
 		 @return		The scale component of this transform node.
 		 */
-		const XMFLOAT3 GetScale() const {
+		const XMFLOAT3 GetScale() const noexcept {
 			return m_transform->GetScale();
 		}
 		
@@ -1085,7 +1085,7 @@ namespace mage {
 		 @param[in]		transform_node
 						A reference to the transform node to move.
 		 */
-		TransformNode(TransformNode &&transform_node);
+		TransformNode(TransformNode &&transform_node) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -1094,7 +1094,7 @@ namespace mage {
 		/**
 		 Sets this transform node to dirty.
 		 */
-		void SetDirty() const {
+		void SetDirty() const noexcept {
 			m_dirty_object_to_world = true;
 			m_dirty_world_to_object = true;
 			
@@ -1124,7 +1124,7 @@ namespace mage {
 		 @return		@c true if this transform node has a parent node.
 						@c false otherwise.
 		 */
-		bool HasParentNode() const {
+		bool HasParentNode() const noexcept {
 			return m_parent != nullptr;
 		}
 		
@@ -1134,7 +1134,7 @@ namespace mage {
 		 @return		@c nullptr if this transform node has no parent node.
 		 @return		A pointer to the parent node of this transform node.
 		 */
-		Node *GetParentNode() const {
+		Node *GetParentNode() const noexcept {
 			return m_parent;
 		}
 		
@@ -1143,7 +1143,7 @@ namespace mage {
 
 		 @return		The number of child nodes of this transform node.
 		 */
-		size_t GetNumberOfChildNodes() const {
+		size_t GetNumberOfChildNodes() const noexcept {
 			m_childs.size();
 		}
 		
@@ -1162,7 +1162,7 @@ namespace mage {
 		/**
 		 Removes all child nodes from this transform node.
 		 */
-		void RemoveAllChildNodes();
+		void RemoveAllChildNodes() noexcept;
 		
 		/**
 		 Traverses all child transform nodes of this transform node.
@@ -1339,7 +1339,7 @@ namespace mage {
 
 		 @return		A pointer to the transform of this node.
 		 */
-		TransformNode *GetTransform() {
+		TransformNode *GetTransform() noexcept {
 			return m_transform.get();
 		}
 		
@@ -1348,7 +1348,7 @@ namespace mage {
 
 		 @return		A pointer to the transform of this node.
 		 */
-		const TransformNode *GetTransform() const {
+		const TransformNode *GetTransform() const noexcept {
 			return m_transform.get();
 		}
 
@@ -1358,7 +1358,7 @@ namespace mage {
 		 @return		@c true if this node is active.
 						@c false otherwise (i.e. passive).
 		 */
-		bool IsActive() const {
+		bool IsActive() const noexcept {
 			return m_active;
 		}
 
@@ -1368,21 +1368,21 @@ namespace mage {
 		 @return		@c true if this node is passive.
 						@c false otherwise (i.e. active).
 		 */
-		bool IsPassive() const {
+		bool IsPassive() const noexcept {
 			return !m_active;
 		}
 
 		/**
 		 Makes this node (and its descendant nodes) active.
 		 */
-		void MakeActive() {
+		void MakeActive() noexcept {
 			SetActive(true);
 		}
 
 		/**
 		 Makes this node (and its descendant nodes) passive.
 		 */
-		void MakePassive() {
+		void MakePassive() noexcept {
 			SetActive(false);
 		}
 
@@ -1392,7 +1392,7 @@ namespace mage {
 		 @param[in]		active
 						The active flag.
 		 */
-		void SetActive(bool active);
+		void SetActive(bool active) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Graph
@@ -1404,7 +1404,7 @@ namespace mage {
 		 @return		@c true if this node has a parent node.
 						@c false otherwise.
 		 */
-		bool HasParentNode() const {
+		bool HasParentNode() const noexcept {
 			return m_transform->HasParentNode();
 		}
 		
@@ -1414,7 +1414,7 @@ namespace mage {
 		 @return		@c nullptr if this node has no parent node.
 		 @return		A pointer to the parent node of this node.
 		 */
-		Node *GetParentNode() const {
+		Node *GetParentNode() const noexcept {
 			return m_transform->GetParentNode();
 		}
 		
@@ -1423,7 +1423,7 @@ namespace mage {
 
 		 @return		The number of child nodes of this node.
 		 */
-		size_t GetNumberOfChildNodes() const {
+		size_t GetNumberOfChildNodes() const noexcept {
 			return m_transform->GetNumberOfChildNodes();
 		}
 		
@@ -1460,7 +1460,7 @@ namespace mage {
 		/**
 		 Removes all child nodes from this node.
 		 */
-		void RemoveAllChildNodes() {
+		void RemoveAllChildNodes() noexcept {
 			return m_transform->RemoveAllChildNodes();
 		}
 		

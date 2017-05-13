@@ -512,7 +512,7 @@ namespace mage {
 
 		 @return		The centroid of this AABB.
 		 */
-		const Point3 Centroid() const {
+		const Point3 Centroid() const noexcept {
 			return m_p;
 		}
 

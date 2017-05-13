@@ -65,7 +65,7 @@ namespace mage {
 		float GetSensitivityY() const noexcept {
 			return m_sensitivity.y;
 		}
-		const XMFLOAT2 GetSensitivity() const noexcept {
+		const XMFLOAT2 &GetSensitivity() const noexcept {
 			return m_sensitivity;
 		}
 		void SetSensitivityX(float x) noexcept {
@@ -91,7 +91,7 @@ namespace mage {
 		float GetMinimumRotationY() const noexcept {
 			return m_minimum_rotation.y;
 		}
-		const XMFLOAT2 GetMinimumRotation() const noexcept {
+		const XMFLOAT2 &GetMinimumRotation() const noexcept {
 			return m_minimum_rotation;
 		}
 		void SetMinimumRotationX(float x) noexcept {
@@ -117,7 +117,7 @@ namespace mage {
 		float GetMaximumRotationY() const noexcept {
 			return m_maximum_rotation.y;
 		}
-		const XMFLOAT2 GetMaximumRotation() const noexcept {
+		const XMFLOAT2 &GetMaximumRotation() const noexcept {
 			return m_maximum_rotation;
 		}
 		void SetMaximumRotationX(float x) noexcept {

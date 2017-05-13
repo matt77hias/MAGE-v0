@@ -106,7 +106,7 @@ namespace mage {
 		void RenderBatch(ID3D11ShaderResourceView *texture,
 			const SpriteInfo * const * sprites, size_t nb_sprites);
 		void RenderSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
-			const XMVECTOR &texture_size, const XMVECTOR &inverse_texture_size);
+			const XMVECTOR &texture_size, const XMVECTOR &inverse_texture_size) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables

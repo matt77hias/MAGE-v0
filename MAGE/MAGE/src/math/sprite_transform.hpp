@@ -280,7 +280,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component.
 		 */
-		void SetTranslation(const XMVECTOR &translation) {
+		void SetTranslation(const XMVECTOR &translation) noexcept {
 			XMStoreFloat2(&m_translation, translation);
 		}
 
@@ -333,7 +333,7 @@ namespace mage {
 		 @param[in]		translation
 						A reference to the translation component to add.
 		 */
-		void AddTranslation(const XMVECTOR &translation) {
+		void AddTranslation(const XMVECTOR &translation) noexcept {
 			AddTranslation(XMVectorGetX(translation), XMVectorGetY(translation));
 		}
 
@@ -684,7 +684,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						A reference to the rotation origin to add.
 		 */
-		void AddRotationOrigin(const XMVECTOR &rotation_origin) {
+		void AddRotationOrigin(const XMVECTOR &rotation_origin) noexcept {
 			AddRotationOrigin(XMVectorGetX(rotation_origin), XMVectorGetY(rotation_origin));
 		}
 
@@ -926,7 +926,7 @@ namespace mage {
 		 @param[in]		scale
 		 A reference to the scale component.
 		 */
-		void SetScale(const XMVECTOR &scale) {
+		void SetScale(const XMVECTOR &scale) noexcept {
 			XMStoreFloat2(&m_scale, scale);
 		}
 
@@ -989,7 +989,7 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component to add.
 		 */
-		void AddScale(const XMVECTOR &scale) {
+		void AddScale(const XMVECTOR &scale) noexcept {
 			AddScale(XMVectorGetX(scale), XMVectorGetY(scale));
 		}
 

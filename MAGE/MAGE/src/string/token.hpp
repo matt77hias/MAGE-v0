@@ -62,7 +62,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c bool succeeded or not.
 	 */
-	TokenResult StringToBool(const char *str, bool &result);
+	TokenResult StringToBool(const char *str, bool &result) noexcept;
 
 	/**
 	 Converts the given string to a @c int8_t.
@@ -74,7 +74,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c int8_t succeeded or not.
 	 */
-	TokenResult StringToInt8(const char *str, int8_t &result);
+	TokenResult StringToInt8(const char *str, int8_t &result) noexcept;
 
 	/**
 	 Converts the given string to a @c uint8_t.
@@ -86,7 +86,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c uint8_t succeeded or not.
 	 */
-	TokenResult StringToUInt8(const char *str, uint8_t &result);
+	TokenResult StringToUInt8(const char *str, uint8_t &result) noexcept;
 
 	/**
 	 Converts the given string to a @c int16_t.
@@ -98,7 +98,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c int16_t succeeded or not.
 	 */
-	TokenResult StringToInt16(const char *str, int16_t &result);
+	TokenResult StringToInt16(const char *str, int16_t &result) noexcept;
 
 	/**
 	 Converts the given string to a @c uint16_t.
@@ -110,7 +110,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c uint16_t succeeded or not.
 	 */
-	TokenResult StringToUInt16(const char *str, uint16_t &result);
+	TokenResult StringToUInt16(const char *str, uint16_t &result) noexcept;
 
 	/**
 	 Converts the given string to a @c int32_t.
@@ -122,7 +122,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c int32_t succeeded or not.
 	 */
-	TokenResult StringToInt32(const char *str, int32_t &result);
+	TokenResult StringToInt32(const char *str, int32_t &result) noexcept;
 
 	/**
 	 Converts the given string to a @c uint32_t.
@@ -134,7 +134,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c uint32_t succeeded or not.
 	 */
-	TokenResult StringToUInt32(const char *str, uint32_t &result);
+	TokenResult StringToUInt32(const char *str, uint32_t &result) noexcept;
 
 	/**
 	 Converts the given string to a @c int64_t.
@@ -146,7 +146,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c int64_t succeeded or not.
 	 */
-	TokenResult StringToInt64(const char *str, int64_t &result);
+	TokenResult StringToInt64(const char *str, int64_t &result) noexcept;
 
 	/**
 	 Converts the given string to a @c uint64_t.
@@ -158,7 +158,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c uint64_t succeeded or not.
 	 */
-	TokenResult StringToUInt64(const char *str, uint64_t &result);
+	TokenResult StringToUInt64(const char *str, uint64_t &result) noexcept;
 
 	/**
 	 Converts the given string to a @c float.
@@ -170,7 +170,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c float succeeded or not.
 	 */
-	TokenResult StringToFloat(const char *str, float &result);
+	TokenResult StringToFloat(const char *str, float &result) noexcept;
 
 	/**
 	 Converts the given string to a @c double.
@@ -182,7 +182,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c double succeeded or not.
 	 */
-	TokenResult StringToDouble(const char *str, double &result);
+	TokenResult StringToDouble(const char *str, double &result) noexcept;
 
 #pragma endregion
 
@@ -205,7 +205,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c bool succeeded or not.
 	 */
-	TokenResult StringToBool(const char *begin, const char *end, bool &result);
+	TokenResult StringToBool(const char *begin, const char *end, bool &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c int8_t.
@@ -221,7 +221,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c int8_t succeeded or not.
 	 */
-	TokenResult StringToInt8(const char *begin, const char *end, int8_t &result);
+	TokenResult StringToInt8(const char *begin, const char *end, int8_t &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c uint8_t.
@@ -237,7 +237,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c uint8_t succeeded or not.
 	 */
-	TokenResult StringToUInt8(const char *begin, const char *end, uint8_t &result);
+	TokenResult StringToUInt8(const char *begin, const char *end, uint8_t &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c int16_t.
@@ -253,7 +253,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c int16_t succeeded or not.
 	 */
-	TokenResult StringToInt16(const char *begin, const char *end, int16_t &result);
+	TokenResult StringToInt16(const char *begin, const char *end, int16_t &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c uint16_t.
@@ -269,7 +269,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c uint16_t succeeded or not.
 	 */
-	TokenResult StringToUInt16(const char *begin, const char *end, uint16_t &result);
+	TokenResult StringToUInt16(const char *begin, const char *end, uint16_t &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c int32_t.
@@ -285,7 +285,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c int32_t succeeded or not.
 	 */
-	TokenResult StringToInt32(const char *begin, const char *end, int32_t &result);
+	TokenResult StringToInt32(const char *begin, const char *end, int32_t &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c uint32_t.
@@ -301,7 +301,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c uint32_t succeeded or not.
 	 */
-	TokenResult StringToUInt32(const char *begin, const char *end, uint32_t &result);
+	TokenResult StringToUInt32(const char *begin, const char *end, uint32_t &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c int64_t.
@@ -317,7 +317,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c int64_t succeeded or not.
 	 */
-	TokenResult StringToInt64(const char *begin, const char *end, int64_t &result);
+	TokenResult StringToInt64(const char *begin, const char *end, int64_t &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c uint64_t.
@@ -333,7 +333,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c uint64_t succeeded or not.
 	 */
-	TokenResult StringToUInt64(const char *begin, const char *end, uint64_t &result);
+	TokenResult StringToUInt64(const char *begin, const char *end, uint64_t &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c float.
@@ -349,7 +349,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c float succeeded or not.
 	 */
-	TokenResult StringToFloat(const char *begin, const char *end, float &result);
+	TokenResult StringToFloat(const char *begin, const char *end, float &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c double.
@@ -365,7 +365,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c double succeeded or not.
 	 */
-	TokenResult StringToDouble(const char *begin, const char *end, double &result);
+	TokenResult StringToDouble(const char *begin, const char *end, double &result) noexcept;
 
 #pragma endregion
 
@@ -384,7 +384,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the prefix 
 					of the given string @a str to a @c int8_t succeeded or not.
 	 */
-	TokenResult StringPrefixToInt8(const char *str, int8_t &result);
+	TokenResult StringPrefixToInt8(const char *str, int8_t &result) noexcept;
 
 	/**
 	 Converts the prefix of the given string @a str to a @c uint8_t.
@@ -396,7 +396,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the prefix 
 					of the given string @a str to a @c uint8_t succeeded or not.
 	 */
-	TokenResult StringPrefixToUInt8(const char *str, uint8_t &result);
+	TokenResult StringPrefixToUInt8(const char *str, uint8_t &result) noexcept;
 
 	/**
 	 Converts the prefix of the given string @a str to a @c int16_t.
@@ -408,7 +408,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the prefix 
 					of the given string @a str to a @c int16_t succeeded or not.
 	 */
-	TokenResult StringPrefixToInt16(const char *str, int16_t &result);
+	TokenResult StringPrefixToInt16(const char *str, int16_t &result) noexcept;
 
 	/**
 	 Converts the prefix of the given string @a str to a @c uint16_t.
@@ -420,7 +420,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the prefix 
 					of the given string @a str to a @c uint16_t succeeded or not.
 	 */
-	TokenResult StringPrefixToUInt16(const char *str, uint16_t &result);
+	TokenResult StringPrefixToUInt16(const char *str, uint16_t &result) noexcept;
 
 	/**
 	 Converts the prefix of the given string @a str to a @c int32_t.
@@ -432,7 +432,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the prefix 
 					of the given string @a str to a @c int32_t succeeded or not.
 	 */
-	TokenResult StringPrefixToInt32(const char *str, int32_t &result);
+	TokenResult StringPrefixToInt32(const char *str, int32_t &result) noexcept;
 
 	/**
 	 Converts the prefix of the given string @a str to a @c uint32_t.
@@ -444,7 +444,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the prefix 
 					of the given string @a str to a @c uint32_t succeeded or not.
 	 */
-	TokenResult StringPrefixToUInt32(const char *str, uint32_t &result);
+	TokenResult StringPrefixToUInt32(const char *str, uint32_t &result) noexcept;
 
 	/**
 	 Converts the prefix of the given string @a str to a @c int64_t.
@@ -456,7 +456,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the prefix 
 					of the given string @a str to a @c int64_t succeeded or not.
 	 */
-	TokenResult StringPrefixToInt64(const char *str, int64_t &result);
+	TokenResult StringPrefixToInt64(const char *str, int64_t &result) noexcept;
 
 	/**
 	 Converts the prefix of the given string @a str to a @c uint64_t.
@@ -468,7 +468,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the prefix 
 					of the given string @a str to a @c uint64_t succeeded or not.
 	 */
-	TokenResult StringPrefixToUInt64(const char *str, uint64_t &result);
+	TokenResult StringPrefixToUInt64(const char *str, uint64_t &result) noexcept;
 
 	/**
 	 Converts the prefix of the given string @a str to a @c float.
@@ -480,7 +480,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the prefix 
 					of the given string @a str to a @c float succeeded or not.
 	 */
-	TokenResult StringPrefixToFloat(const char *str, float &result);
+	TokenResult StringPrefixToFloat(const char *str, float &result) noexcept;
 
 	/**
 	 Converts the prefix of the given string @a str to a @c double.
@@ -492,7 +492,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the prefix 
 					of the given string @a str to a @c double succeeded or not.
 	 */
-	TokenResult StringPrefixToDouble(const char *str, double &result);
+	TokenResult StringPrefixToDouble(const char *str, double &result) noexcept;
 
 #pragma endregion
 
@@ -521,7 +521,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to characters succeeded or not.
 	 */
-	TokenResult ReadChars(char *str, char **context, char **result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadChars(char *str, char **context, char **result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a string.
@@ -585,7 +585,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c bool succeeded or not.
 	 */
-	TokenResult ReadBool(char *str, char **context, bool &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadBool(char *str, char **context, bool &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c int8_t.
@@ -606,7 +606,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c int8_t succeeded or not.
 	 */
-	TokenResult ReadInt8(char *str, char **context, int8_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadInt8(char *str, char **context, int8_t &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c uint8_t.
@@ -627,7 +627,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c uint8_t succeeded or not.
 	 */
-	TokenResult ReadUInt8(char *str, char **context, uint8_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadUInt8(char *str, char **context, uint8_t &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c int16_t.
@@ -648,7 +648,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c int16_t succeeded or not.
 	 */
-	TokenResult ReadInt16(char *str, char **context, int16_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadInt16(char *str, char **context, int16_t &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c uint16_t.
@@ -669,7 +669,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c uint16_t succeeded or not.
 	 */
-	TokenResult ReadUInt16(char *str, char **context, uint16_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadUInt16(char *str, char **context, uint16_t &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c int32_t.
@@ -690,7 +690,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c int32_t succeeded or not.
 	 */
-	TokenResult ReadInt32(char *str, char **context, int32_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadInt32(char *str, char **context, int32_t &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c uint32_t.
@@ -711,7 +711,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c uint32_t succeeded or not.
 	 */
-	TokenResult ReadUInt32(char *str, char **context, uint32_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadUInt32(char *str, char **context, uint32_t &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c int64_t.
@@ -732,7 +732,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c int64_t succeeded or not.
 	 */
-	TokenResult ReadInt64(char *str, char **context, int64_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadInt64(char *str, char **context, int64_t &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c uint64_t.
@@ -753,7 +753,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c uint64_t succeeded or not.
 	 */
-	TokenResult ReadUInt64(char *str, char **context, uint64_t &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadUInt64(char *str, char **context, uint64_t &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c float.
@@ -774,7 +774,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c float succeeded or not.
 	 */
-	TokenResult ReadFloat(char *str, char **context, float &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadFloat(char *str, char **context, float &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c double.
@@ -795,7 +795,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c double succeeded or not.
 	 */
-	TokenResult ReadDouble(char *str, char **context, double &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadDouble(char *str, char **context, double &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c XMFLOAT2.
@@ -816,7 +816,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c XMFLOAT2 succeeded or not.
 	 */
-	TokenResult ReadFloat2(char *str, char **context, XMFLOAT2 &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadFloat2(char *str, char **context, XMFLOAT2 &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c XMFLOAT3.
@@ -837,7 +837,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c XMFLOAT3 succeeded or not.
 	 */
-	TokenResult ReadFloat3(char *str, char **context, XMFLOAT3 &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadFloat3(char *str, char **context, XMFLOAT3 &result, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Reads and converts the next token in the given string to a @c XMFLOAT4.
@@ -858,7 +858,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c XMFLOAT4 succeeded or not.
 	*/
-	TokenResult ReadFloat4(char *str, char **context, XMFLOAT4 &result, const char *delimiters = mage_default_delimiters);
+	TokenResult ReadFloat4(char *str, char **context, XMFLOAT4 &result, const char *delimiters = mage_default_delimiters) noexcept;
 
 #pragma endregion
 
@@ -908,7 +908,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a quoted string succeeds or not.
 	 */
-	TokenResult HasQuotedString(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasQuotedString(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c bool.
@@ -922,7 +922,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c bool succeeds or not.
 	 */
-	TokenResult HasBool(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasBool(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c uint8_t.
@@ -936,7 +936,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c int8_t succeeds or not.
 	 */
-	TokenResult HasInt8(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasInt8(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c uint8_t.
@@ -950,7 +950,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c uint8_t succeeds or not.
 	 */
-	TokenResult HasUInt8(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasUInt8(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c int16_t.
@@ -964,7 +964,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c int16_t succeeds or not.
 	 */
-	TokenResult HasInt16(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasInt16(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c uint16_t.
@@ -978,7 +978,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c uint16_t succeeds or not.
 	 */
-	TokenResult HasUInt16(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasUInt16(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c int32_t.
@@ -992,7 +992,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c int32_t succeeds or not.
 	 */
-	TokenResult HasInt32(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasInt32(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c uint32_t .
@@ -1006,7 +1006,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c uint32_t succeeds or not.
 	 */
-	TokenResult HasUInt32(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasUInt32(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c int64_t.
@@ -1020,7 +1020,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c int64_t succeeds or not.
 	 */
-	TokenResult HasInt64(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasInt64(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c uint64_t.
@@ -1034,7 +1034,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c uint64_t succeeds or not.
 	 */
-	TokenResult HasUInt64(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasUInt64(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c float.
@@ -1048,7 +1048,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c float succeeds or not.
 	 */
-	TokenResult HasFloat(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasFloat(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c double.
@@ -1062,7 +1062,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c double succeeds or not.
 	 */
-	TokenResult HasDouble(const char *str, const char *delimiters = mage_default_delimiters);
+	TokenResult HasDouble(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 #pragma endregion
 

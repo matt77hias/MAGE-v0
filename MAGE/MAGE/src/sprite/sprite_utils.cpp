@@ -41,7 +41,7 @@ namespace mage {
 		return GetViewportTransform(*viewport, rotation_mode);
 	}
 	
-	const XMMATRIX GetViewportTransform(const D3D11_VIEWPORT &viewport, DXGI_MODE_ROTATION rotation_mode) {
+	const XMMATRIX GetViewportTransform(const D3D11_VIEWPORT &viewport, DXGI_MODE_ROTATION rotation_mode) noexcept {
 		const float scale_x = (viewport.Width  > 0.0f) ? 2.0f / viewport.Width  : 0.0f;
 		const float scale_y = (viewport.Height > 0.0f) ? 2.0f / viewport.Height : 0.0f;
 		

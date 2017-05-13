@@ -126,7 +126,7 @@ namespace mage {
 		 @return		@c true if this AABB completely encloses @a point.
 						@c false otherwise.
 		 */
-		bool Encloses(const Point3 &point) const;
+		bool Encloses(const Point3 &point) const noexcept;
 
 		/**
 		 Checks whether this AABB completely, strictly encloses the given point.
@@ -136,7 +136,7 @@ namespace mage {
 		 @return		@c true if this AABB completely, strictly encloses @a point.
 						@c false otherwise.
 		 */
-		bool EnclosesStrict(const Point3 &point) const;
+		bool EnclosesStrict(const Point3 &point) const noexcept;
 
 		/**
 		 Checks whether this AABB completely encloses the given AABB.
@@ -146,7 +146,7 @@ namespace mage {
 		 @return		@c true if this AABB completely encloses @a aabb.
 						@c false otherwise.
 		 */
-		bool Encloses(const AABB &aabb) const;
+		bool Encloses(const AABB &aabb) const noexcept;
 
 		/**
 		 Checks whether this AABB completely, strictly encloses the given AABB.
@@ -156,7 +156,7 @@ namespace mage {
 		 @return		@c true if this AABB completely, strictly encloses @a aabb.
 						@c false otherwise.
 		 */
-		bool EnclosesStrict(const AABB &aabb) const;
+		bool EnclosesStrict(const AABB &aabb) const noexcept;
 
 		/**
 		 Checks whether this AABB completely encloses the given BS.
@@ -166,7 +166,7 @@ namespace mage {
 		 @return		@c true if this AABB completely encloses @a bs.
 						@c false otherwise.
 		 */
-		bool Encloses(const BS &bs) const;
+		bool Encloses(const BS &bs) const noexcept;
 
 		/**
 		 Checks whether this AABB completely, strictly encloses the given BS.
@@ -176,7 +176,7 @@ namespace mage {
 		 @return		@c true if this AABB completely, strictly encloses @a bs.
 						@c false otherwise.
 		 */
-		bool EnclosesStrict(const BS &bs) const;
+		bool EnclosesStrict(const BS &bs) const noexcept;
 
 		/**
 		 Checks whether this AABB is completely enclosed by the given (closed) volume.
@@ -191,7 +191,7 @@ namespace mage {
 		 @return		@c true if this AABB is completely enclosed by @a planes.
 						@c false otherwise.
 		 */
-		bool EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const;
+		bool EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept;
 
 		/**
 		 Checks whether this AABB is completely, strictly enclosed by the given (closed) volume.
@@ -206,7 +206,7 @@ namespace mage {
 		 @return		@c true if this AABB is completely, stricly enclosed by @a planes.
 						@c false otherwise.
 		 */
-		bool EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const;
+		bool EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept;
 
 		/**
 		 Checks whether this AABB overlaps the given AABB.
@@ -216,7 +216,7 @@ namespace mage {
 		 @return		@c true if this AABB overlaps @a aabb.
 						@c false otherwise.
 		 */
-		bool Overlaps(const AABB &aabb) const;
+		bool Overlaps(const AABB &aabb) const noexcept;
 
 		/**
 		 Checks whether this AABB strictly overlaps the given AABB.
@@ -226,21 +226,21 @@ namespace mage {
 		 @return		@c true if this AABB strictly overlaps @a aabb.
 						@c false otherwise.
 		 */
-		bool OverlapsStrict(const AABB &aabb) const;
+		bool OverlapsStrict(const AABB &aabb) const noexcept;
 
 		/**
 		 Returns the centroid of this AABB.
 
 		 @return		The centroid of this AABB.
 		 */
-		const Point3 Centroid() const;
+		const Point3 Centroid() const noexcept;
 
 		/**
 		 Returns the diagonal of this AABB.
 
 		 @return		The diagonal of this AABB.
 		 */
-		const Direction3 Diagonal() const;
+		const Direction3 Diagonal() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -266,7 +266,7 @@ namespace mage {
 					A reference to the point.
 	 @return		The union AABB of @a aabb and @a point.
 	 */
-	const AABB Union(const AABB &aabb, const Point3 &point);
+	const AABB Union(const AABB &aabb, const Point3 &point) noexcept;
 
 	/**
 	 Returns the union AABB of the given AABB and the given vertex.
@@ -280,7 +280,7 @@ namespace mage {
 	 @return		The union AABB of @a aabb and @a vertex.
 	 */
 	template< typename VertexT >
-	inline const AABB Union(const AABB &aabb, const VertexT &vertex) {
+	inline const AABB Union(const AABB &aabb, const VertexT &vertex) noexcept {
 		return Union(aabb, vertex.p);
 	}
 	
@@ -293,7 +293,7 @@ namespace mage {
 					A reference to the second AABB.
 	 @return		The union AABB of @a aabb1 and @a aabb2.
 	 */
-	const AABB Union(const AABB &aabb1, const AABB &aabb2);
+	const AABB Union(const AABB &aabb1, const AABB &aabb2) noexcept;
 	
 	/**
 	 Returns the overlap AABB of the two given AABBs.
@@ -305,7 +305,7 @@ namespace mage {
 	 @return		The identity AABB in case of no overlap.
 	 @return		The overlap AABB of @a aabb1 and @a aabb2.
 	 */
-	const AABB Overlap(const AABB &aabb1, const AABB &aabb2);
+	const AABB Overlap(const AABB &aabb1, const AABB &aabb2) noexcept;
 	
 	/**
 	 Returns the strict overlap AABB of the two given AABBs.
@@ -317,7 +317,7 @@ namespace mage {
 	 @return		The identity AABB in case of no strict overlap.
 	 @return		The strict overlap AABB of @a aabb1 and @a aabb2.
 	 */
-	const AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2);
+	const AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2) noexcept;
 
 	//-------------------------------------------------------------------------
 	// Bounding Sphere
@@ -425,7 +425,7 @@ namespace mage {
 		 @return		@c true if this BS completely encloses @a point.
 						@c false otherwise.
 		 */
-		bool Encloses(const Point3 &point) const;
+		bool Encloses(const Point3 &point) const noexcept;
 
 		/**
 		 Checks whether this BS completely, strictly encloses the given point.
@@ -435,7 +435,7 @@ namespace mage {
 		 @return		@c true if this BS completely, strictly encloses @a point.
 						@c false otherwise.
 		 */
-		bool EnclosesStrict(const Point3 &point) const;
+		bool EnclosesStrict(const Point3 &point) const noexcept;
 
 		/**
 		 Checks whether this BS completely encloses the given AABB.
@@ -445,7 +445,7 @@ namespace mage {
 		 @return		@c true if this BS completely encloses @a aabb.
 						@c false otherwise.
 		 */
-		bool Encloses(const AABB &aabb) const;
+		bool Encloses(const AABB &aabb) const noexcept;
 
 		/**
 		 Checks whether this BS completely, strictly encloses the given AABB.
@@ -455,7 +455,7 @@ namespace mage {
 		 @return		@c true if this BS completely, strictly encloses @a aabb.
 						@c false otherwise.
 		 */
-		bool EnclosesStrict(const AABB &aabb) const;
+		bool EnclosesStrict(const AABB &aabb) const noexcept;
 
 		/**
 		 Checks whether this BS completely encloses the given BS.
@@ -465,7 +465,7 @@ namespace mage {
 		 @return		@c true if this BS completely encloses @a bs.
 						@c false otherwise.
 		 */
-		bool Encloses(const BS &bs) const;
+		bool Encloses(const BS &bs) const noexcept;
 
 		/**
 		 Checks whether this BS completely, strictly encloses the given BS.
@@ -475,7 +475,7 @@ namespace mage {
 		 @return		@c true if this BS completely, strictly encloses @a bs.
 						@c false otherwise.
 		 */
-		bool EnclosesStrict(const BS &bs) const;
+		bool EnclosesStrict(const BS &bs) const noexcept;
 
 		/**
 		 Checks whether this BS completely encloses the given (closed) volume.
@@ -490,7 +490,7 @@ namespace mage {
 		 @return		@c true if this BS completely encloses @a planes.
 						@c false otherwise.
 		 */
-		bool EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const;
+		bool EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept;
 
 		/**
 		 Checks whether this BS completely, strictly encloses the given (closed) volume.
@@ -505,7 +505,7 @@ namespace mage {
 		 @return		@c true if this BS completely, stricly encloses @a planes.
 						@c false otherwise.
 		 */
-		bool EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const;
+		bool EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept;
 
 		/**
 		 Returns the centroid of this AABB.

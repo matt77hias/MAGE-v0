@@ -139,7 +139,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the shadow color.
 		 */
-		void SetShadowColor(const Color &color) {
+		void SetShadowColor(const Color &color) noexcept {
 			m_shadow_color = color;
 		}
 		
@@ -149,7 +149,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the shadow color.
 		 */
-		void SetShadowColor(const XMVECTOR &color) {
+		void SetShadowColor(const XMVECTOR &color) noexcept {
 			XMStoreFloat4(&m_shadow_color, color);
 		}
 
@@ -171,7 +171,7 @@ namespace mage {
 
 		 @return		The shadow color of this dropshadow sprite text as @c XMVECTOR.
 		 */
-		const XMVECTOR GetShadowColorVector() const {
+		const XMVECTOR GetShadowColorVector() const noexcept {
 			return XMLoadFloat4(&m_shadow_color);
 		};
 

@@ -30,7 +30,7 @@ namespace mage {
 		: m_p_min(Point3(bs.m_p.x - bs.m_r, bs.m_p.y - bs.m_r, bs.m_p.z - bs.m_r)),
 		m_p_max(Point3(bs.m_p.x + bs.m_r, bs.m_p.y + bs.m_r, bs.m_p.z + bs.m_r)) {}
 
-	bool AABB::Encloses(const Point3 &point) const {
+	bool AABB::Encloses(const Point3 &point) const noexcept {
 		if (point.x > m_p_max.x) {
 			return false;
 		}
@@ -53,7 +53,7 @@ namespace mage {
 		return true;
 	}
 
-	bool AABB::EnclosesStrict(const Point3 &point) const {
+	bool AABB::EnclosesStrict(const Point3 &point) const noexcept {
 		if (point.x >= m_p_max.x) {
 			return false;
 		}
@@ -76,7 +76,7 @@ namespace mage {
 		return true;
 	}
 
-	bool AABB::Encloses(const AABB &aabb) const {
+	bool AABB::Encloses(const AABB &aabb) const noexcept {
 		if (!Encloses(aabb.m_p_min)) {
 			return false;
 		}
@@ -87,7 +87,7 @@ namespace mage {
 		return true;
 	}
 
-	bool AABB::EnclosesStrict(const AABB &aabb) const {
+	bool AABB::EnclosesStrict(const AABB &aabb) const noexcept {
 		if (!EnclosesStrict(aabb.m_p_min)) {
 			return false;
 		}
@@ -98,17 +98,17 @@ namespace mage {
 		return true;
 	}
 
-	bool AABB::Encloses(const BS &bs) const {
+	bool AABB::Encloses(const BS &bs) const noexcept {
 		const AABB aabb(bs);
 		return Encloses(aabb);
 	}
 
-	bool AABB::EnclosesStrict(const BS &bs) const {
+	bool AABB::EnclosesStrict(const BS &bs) const noexcept {
 		const AABB aabb(bs);
 		return EnclosesStrict(aabb);
 	}
 
-	bool AABB::EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const {
+	bool AABB::EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept {
 		Assert(planes);
 		
 		const XMVECTOR corner_000_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_min.z, 1.0f);
@@ -191,7 +191,7 @@ namespace mage {
 		return true;
 	}
 
-	bool AABB::EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const {
+	bool AABB::EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept {
 		Assert(planes);
 		
 		const XMVECTOR corner_000_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_min.z, 1.0f);
@@ -274,7 +274,7 @@ namespace mage {
 		return true;
 	}
 
-	bool AABB::Overlaps(const AABB &aabb) const {
+	bool AABB::Overlaps(const AABB &aabb) const noexcept {
 		if (aabb.m_p_min.x > m_p_max.x) {
 			return false;
 		}
@@ -297,7 +297,7 @@ namespace mage {
 		return true;
 	}
 
-	bool AABB::OverlapsStrict(const AABB &aabb) const {
+	bool AABB::OverlapsStrict(const AABB &aabb) const noexcept {
 		if (aabb.m_p_min.x >= m_p_max.x) {
 			return false;
 		}
@@ -320,7 +320,7 @@ namespace mage {
 		return true;
 	}
 
-	const Point3 AABB::Centroid() const {
+	const Point3 AABB::Centroid() const noexcept {
 		const XMVECTOR p_min_v = XMLoadFloat3(&m_p_min);
 		const XMVECTOR p_max_v = XMLoadFloat3(&m_p_max);
 		const XMVECTOR centroid_v = 0.5f * (p_min_v + p_max_v);
@@ -329,7 +329,7 @@ namespace mage {
 		return centroid;
 	}
 
-	const Direction3 AABB::Diagonal() const {
+	const Direction3 AABB::Diagonal() const noexcept {
 		const XMVECTOR p_min_v = XMLoadFloat3(&m_p_min);
 		const XMVECTOR p_max_v = XMLoadFloat3(&m_p_max);
 		const XMVECTOR diagonal_v = p_max_v - p_min_v;
@@ -338,7 +338,7 @@ namespace mage {
 		return diagonal;
 	}
 
-	const AABB Union(const AABB &aabb, const Point3 &point) {
+	const AABB Union(const AABB &aabb, const Point3 &point) noexcept {
 		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb.m_p_min);
 		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb.m_p_max);
 		const XMVECTOR p_v2 = XMLoadFloat3(&point);
@@ -350,7 +350,7 @@ namespace mage {
 		return AABB(p_min, p_max);
 	}
 
-	const AABB Union(const AABB &aabb1, const AABB &aabb2) {
+	const AABB Union(const AABB &aabb1, const AABB &aabb2) noexcept {
 		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.m_p_min);
 		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb1.m_p_max);
 		const XMVECTOR p_min_v2 = XMLoadFloat3(&aabb2.m_p_min);
@@ -363,7 +363,7 @@ namespace mage {
 		return AABB(p_min, p_max);
 	}
 
-	const AABB Overlap(const AABB &aabb1, const AABB &aabb2) {
+	const AABB Overlap(const AABB &aabb1, const AABB &aabb2) noexcept {
 		if (!aabb1.Overlaps(aabb2)) {
 			return AABB();
 		}
@@ -380,7 +380,7 @@ namespace mage {
 		return AABB(p_min, p_max);
 	}
 
-	const AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2) {
+	const AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2) noexcept {
 		if (!aabb1.OverlapsStrict(aabb2)) {
 			return AABB();
 		}
@@ -412,7 +412,7 @@ namespace mage {
 		m_r = std::max(radius.x, std::max(radius.y, radius.z));
 	}
 
-	bool BS::Encloses(const Point3 &point) const {
+	bool BS::Encloses(const Point3 &point) const noexcept {
 		const XMVECTOR p_v = XMLoadFloat3(&m_p);
 		const XMVECTOR point_v = XMLoadFloat3(&point);
 		const XMVECTOR length_v = XMVector3Length(point_v - p_v);
@@ -421,7 +421,7 @@ namespace mage {
 		return length <= m_r;
 	}
 		
-	bool BS::EnclosesStrict(const Point3 &point) const {
+	bool BS::EnclosesStrict(const Point3 &point) const noexcept {
 		const XMVECTOR p_v = XMLoadFloat3(&m_p);
 		const XMVECTOR point_v = XMLoadFloat3(&point);
 		const XMVECTOR length_v = XMVector3Length(point_v - p_v);
@@ -430,7 +430,7 @@ namespace mage {
 		return length < m_r;
 	}
 		
-	bool BS::Encloses(const AABB &aabb) const {
+	bool BS::Encloses(const AABB &aabb) const noexcept {
 		if (!Encloses(Point3(aabb.m_p_min.x, aabb.m_p_min.y, aabb.m_p_min.z))) {
 			return false;
 		}
@@ -459,7 +459,7 @@ namespace mage {
 		return true;
 	}
 
-	bool BS::EnclosesStrict(const AABB &aabb) const {
+	bool BS::EnclosesStrict(const AABB &aabb) const noexcept {
 		if (!EnclosesStrict(Point3(aabb.m_p_min.x, aabb.m_p_min.y, aabb.m_p_min.z))) {
 			return false;
 		}
@@ -488,7 +488,7 @@ namespace mage {
 		return true;
 	}
 
-	bool BS::Encloses(const BS &bs) const {
+	bool BS::Encloses(const BS &bs) const noexcept {
 		if (!Encloses(Point3(bs.m_p.x - bs.m_r, bs.m_p.y, bs.m_p.z))) {
 			return false;
 		}
@@ -511,7 +511,7 @@ namespace mage {
 		return true;
 	}
 
-	bool BS::EnclosesStrict(const BS &bs) const {
+	bool BS::EnclosesStrict(const BS &bs) const noexcept {
 		if (!EnclosesStrict(Point3(bs.m_p.x - bs.m_r, bs.m_p.y, bs.m_p.z))) {
 			return false;
 		}
@@ -534,7 +534,7 @@ namespace mage {
 		return true;
 	}
 
-	bool BS::EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const {
+	bool BS::EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept {
 		Assert(planes);
 		
 		const XMVECTOR p_v = XMLoadFloat3(&m_p);
@@ -553,7 +553,7 @@ namespace mage {
 		return true;
 	}
 
-	bool BS::EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const {
+	bool BS::EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept {
 		Assert(planes);
 		
 		const XMVECTOR p_v = XMLoadFloat3(&m_p);

@@ -164,7 +164,7 @@ namespace mage {
 		const RGBSpectrum &GetAmbientReflectivity() const noexcept {
 			return m_material.GetAmbientReflectivity();
 		}
-		void SetAmbientReflectivity(const RGBSpectrum &ambient_reflectivity) {
+		void SetAmbientReflectivity(const RGBSpectrum &ambient_reflectivity) noexcept {
 			m_material.SetAmbientReflectivity(ambient_reflectivity);
 		}
 		SharedPtr< Texture > GetAmbientReflectivityTexture() const noexcept {
@@ -186,7 +186,7 @@ namespace mage {
 		const RGBSpectrum &GetDiffuseReflectivity() const noexcept {
 			return m_material.GetDiffuseReflectivity();
 		}
-		void SetDiffuseReflectivity(const RGBSpectrum &diffuse_reflectivity) {
+		void SetDiffuseReflectivity(const RGBSpectrum &diffuse_reflectivity) noexcept {
 			m_material.SetDiffuseReflectivity(diffuse_reflectivity);
 		}
 		SharedPtr< Texture > GetDiffuseReflectivityTexture() const noexcept {
@@ -208,7 +208,7 @@ namespace mage {
 		const RGBSpectrum &GetSpecularReflectivity() const noexcept {
 			return m_material.GetSpecularReflectivity();
 		}
-		void SetSpecularReflectivity(const RGBSpectrum &specular_reflectivity) {
+		void SetSpecularReflectivity(const RGBSpectrum &specular_reflectivity) noexcept {
 			m_material.SetSpecularReflectivity(specular_reflectivity);
 		}
 		SharedPtr< Texture > GetSpecularReflectivityTexture() const noexcept {

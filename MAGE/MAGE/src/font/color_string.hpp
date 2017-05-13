@@ -181,7 +181,7 @@ namespace mage {
 
 		 @return		The color of this color string as @c XMVECTOR.
 		 */
-		const XMVECTOR GetColorVector() const {
+		const XMVECTOR GetColorVector() const noexcept {
 			return XMLoadFloat4(&m_color);
 		}
 
@@ -191,7 +191,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the color.
 		 */
-		void SetColor(const Color &color) {
+		void SetColor(const Color &color) noexcept {
 			m_color = color;
 		}
 
@@ -201,7 +201,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the color.
 		 */
-		void SetColor(const XMVECTOR &color) {
+		void SetColor(const XMVECTOR &color) noexcept {
 			XMStoreFloat4(&m_color, color);
 		}
 

@@ -24,7 +24,7 @@ namespace mage {
 	 @return		A @c XMVECTOR  (left, top, right, bottom) representing 
 					the given @c RECT (left, top, right, bottom).
 	 */
-	inline const XMVECTOR XMVectorLeftTopRightBottom(const RECT &rect) {
+	inline const XMVECTOR XMVectorLeftTopRightBottom(const RECT &rect) noexcept {
 		const XMVECTOR v = XMLoadInt4(reinterpret_cast<const uint32_t *>(&rect));
 		return XMConvertVectorIntToFloat(v, 0);
 	}
@@ -38,7 +38,7 @@ namespace mage {
 	 @return		A @c XMVECTOR  (left, top, width, height) representing
 					the given @c RECT (left, top, right, bottom).
 	 */
-	inline const XMVECTOR XMVectorLeftTopWidthHeight(const RECT &rect) {
+	inline const XMVECTOR XMVectorLeftTopWidthHeight(const RECT &rect) noexcept {
 		const XMVECTOR v = XMVectorLeftTopRightBottom(rect);
 		return v - XMVectorPermute< 0, 1, 4, 5 >(XMVectorZero(), v);
 
@@ -87,7 +87,7 @@ namespace mage {
 	 @return		The viewport transform for
 					the given viewport and rotation mode.
 	 */
-	const XMMATRIX GetViewportTransform(const D3D11_VIEWPORT &viewport, DXGI_MODE_ROTATION rotation_mode);
+	const XMMATRIX GetViewportTransform(const D3D11_VIEWPORT &viewport, DXGI_MODE_ROTATION rotation_mode) noexcept;
 
 	/**
 	 Returns the size of the given 2D texture.

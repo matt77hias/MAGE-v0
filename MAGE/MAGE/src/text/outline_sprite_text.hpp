@@ -139,7 +139,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the border color.
 		 */
-		void SetBorderColor(const Color &color) {
+		void SetBorderColor(const Color &color) noexcept {
 			m_border_color = color;
 		}
 		
@@ -149,7 +149,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the border color.
 		 */
-		void SetBorderColor(const XMVECTOR &color) {
+		void SetBorderColor(const XMVECTOR &color) noexcept {
 			XMStoreFloat4(&m_border_color, color);
 		}
 
@@ -171,7 +171,7 @@ namespace mage {
 
 		 @return		The border color of this outline sprite text as @c XMVECTOR.
 		 */
-		const XMVECTOR GetBorderColorVector() const {
+		const XMVECTOR GetBorderColorVector() const noexcept {
 			return XMLoadFloat4(&m_border_color);
 		};
 

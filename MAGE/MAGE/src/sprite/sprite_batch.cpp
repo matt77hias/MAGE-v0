@@ -309,7 +309,7 @@ namespace mage {
 	}
 
 	void SpriteBatch::RenderSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
-		const XMVECTOR &texture_size, const XMVECTOR &inverse_texture_size) {
+		const XMVECTOR &texture_size, const XMVECTOR &inverse_texture_size) noexcept {
 		
 		XMVECTOR source                      = XMLoadFloat4A(&sprite->source);
 		const XMVECTOR destination           = XMLoadFloat4A(&sprite->destination);

@@ -202,7 +202,7 @@ namespace mage {
 
 		 @return		The view-to-projection matrix of this orthographic camera.
 		 */
-		virtual XMMATRIX GetViewToProjectionMatrix() const override {
+		virtual XMMATRIX GetViewToProjectionMatrix() const noexcept override {
 			return XMMatrixOrthographicLH(GetWidth(), GetHeight(), GetNearZ(), GetFarZ());
 		}
 

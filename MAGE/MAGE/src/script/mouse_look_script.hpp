@@ -15,15 +15,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	enum RotationAxes {
-		RotationAxes_MouseX = 1,
-		RotationAxes_MouseY = 2,
-		RotationAxes_MouseXAndY = RotationAxes_MouseX | RotationAxes_MouseY
-	};
-
 	class MouseLookScript final : public BehaviorScript {
 
 	public:
+
+		enum RotationAxes {
+			RotationAxes_MouseX = 1,
+			RotationAxes_MouseY = 2,
+			RotationAxes_MouseXAndY = RotationAxes_MouseX | RotationAxes_MouseY
+		};
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -81,7 +81,7 @@ namespace mage {
 		void SetSensitivity(const XMFLOAT2 &sensitivity) noexcept {
 			m_sensitivity = sensitivity;
 		}
-		void SetSensitivity(const XMVECTOR &sensitivity) {
+		void SetSensitivity(const XMVECTOR &sensitivity) noexcept {
 			XMStoreFloat2(&m_sensitivity, sensitivity);
 		}
 
@@ -107,7 +107,7 @@ namespace mage {
 		void SetMinimumRotation(const XMFLOAT2 &minimum_rotation) noexcept {
 			m_minimum_rotation = minimum_rotation;
 		}
-		void SetMinimumRotation(const XMVECTOR &minimum_rotation) {
+		void SetMinimumRotation(const XMVECTOR &minimum_rotation) noexcept {
 			XMStoreFloat2(&m_minimum_rotation, minimum_rotation);
 		}
 
@@ -133,7 +133,7 @@ namespace mage {
 		void SetMaximumRotation(const XMFLOAT2 &maximum_rotation) noexcept {
 			m_maximum_rotation = maximum_rotation;
 		}
-		void SetMaximumRotation(const XMVECTOR &maximum_rotation) {
+		void SetMaximumRotation(const XMVECTOR &maximum_rotation) noexcept {
 			XMStoreFloat2(&m_maximum_rotation, maximum_rotation);
 		}
 

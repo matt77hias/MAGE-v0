@@ -91,7 +91,7 @@ namespace mage {
 		DeleteCriticalSection(&m_critical_section);
 	}
 
-	void ReadWriteMutex::AcquireRead() {
+	void ReadWriteMutex::AcquireRead() noexcept {
 		bool notify_readers = false;
 
 		// Wait for ownership of the specified critical section object. 
@@ -149,7 +149,7 @@ namespace mage {
 		}
 	}
 
-	void ReadWriteMutex::AcquireWrite() {
+	void ReadWriteMutex::AcquireWrite() noexcept {
 
 		// Wait for ownership of the specified critical section object. 
 		// The function returns when the calling thread is granted ownership.
@@ -180,7 +180,7 @@ namespace mage {
 		}
 	}
 
-	void ReadWriteMutex::ReleaseRead() {
+	void ReadWriteMutex::ReleaseRead() noexcept {
 
 		// Wait for ownership of the specified critical section object. 
 		// The function returns when the calling thread is granted ownership.
@@ -218,7 +218,7 @@ namespace mage {
 		LeaveCriticalSection(&m_critical_section);
 	}
 
-	void ReadWriteMutex::ReleaseWrite() {
+	void ReadWriteMutex::ReleaseWrite() noexcept {
 		bool notify_writer = false;
 		bool notify_readers = false;
 
@@ -287,14 +287,14 @@ namespace mage {
 		}
 	}
 	
-	void ReadWriteMutexLock::UpgradeToWrite() {
+	void ReadWriteMutexLock::UpgradeToWrite() noexcept {
 		Assert(m_type == ReadWriteMutexLockType_Read);
 		m_mutex.ReleaseRead();
 		m_mutex.AcquireWrite();
 		m_type = ReadWriteMutexLockType_Write;
 	}
 
-	void ReadWriteMutexLock::DowngradeToRead() {
+	void ReadWriteMutexLock::DowngradeToRead() noexcept {
 		Assert(m_type == ReadWriteMutexLockType_Write);
 		m_mutex.ReleaseWrite();
 		m_mutex.AcquireRead();
@@ -322,7 +322,7 @@ namespace mage {
 		CloseHandle(m_handle);
 	}
 
-	void Semaphore::Signal(uint32_t count) {
+	void Semaphore::Signal(uint32_t count) noexcept {
 		// Increases the count of the specified semaphore object.
 		// 1. A handle to the semaphore object.
 		// 2. The amount by which the semaphore object's current count is to be increased.
@@ -332,7 +332,7 @@ namespace mage {
 		}
 	}
 
-	void Semaphore::Wait() {
+	void Semaphore::Wait() noexcept {
 		// Waits until the specified object is in the signaled state or the time-out interval elapses.
 		// 1. The object handle.
 		// 2. The function will return only when the specified object is signaled.
@@ -341,7 +341,7 @@ namespace mage {
 		}
 	}
 
-	bool Semaphore::TryWait() {
+	bool Semaphore::TryWait() noexcept {
 		// Waits until the specified object is in the signaled state or the time-out interval elapses.
 		// 1. The object handle.
 		// 2. The function does not enter a wait state if the object is not signaled.
@@ -384,18 +384,18 @@ namespace mage {
 		CloseHandle(m_events[BROADCAST]);
 	}
 
-	void ConditionVariable::Lock() {
+	void ConditionVariable::Lock() noexcept {
 		// Wait for ownership of the specified critical section object. 
 		// The function returns when the calling thread is granted ownership.
 		EnterCriticalSection(&m_condition_mutex);
 	}
 
-	void ConditionVariable::Unlock() {
+	void ConditionVariable::Unlock() noexcept {
 		// Release ownership of the specified critical section object.
 		LeaveCriticalSection(&m_condition_mutex);
 	}
 
-	void ConditionVariable::Signal() {
+	void ConditionVariable::Signal() noexcept {
 		// Retrieve if there are waiters.
 		EnterCriticalSection(&m_nb_waiters_mutex);
 		const bool has_waiters = (m_nb_waiters > 0);
@@ -407,7 +407,7 @@ namespace mage {
 		}
 	}
 
-	void ConditionVariable::Wait() {
+	void ConditionVariable::Wait() noexcept {
 		// Increase the number of waiters.
 		EnterCriticalSection(&m_nb_waiters_mutex);
 		++m_nb_waiters;

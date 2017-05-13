@@ -244,22 +244,22 @@ namespace mage {
 		/**
 		 Acquires a read.
 		 */
-		void AcquireRead();
+		void AcquireRead() noexcept;
 
 		/**
 		 Releases a read.
 		 */
-		void ReleaseRead();
+		void ReleaseRead() noexcept;
 
 		/**
 		 Acquires a write.
 		 */
-		void AcquireWrite();
+		void AcquireWrite() noexcept;
 
 		/**
 		 Releases a write.
 		 */
-		void ReleaseWrite();
+		void ReleaseWrite() noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -382,12 +382,12 @@ namespace mage {
 		/**
 		 Upgrades this read write lock to write.
 		 */
-		void UpgradeToWrite();
+		void UpgradeToWrite() noexcept;
 
 		/**
 		 Downgrades this read write lock to read.
 		 */
-		void DowngradeToRead();
+		void DowngradeToRead() noexcept;
 
 	private:
 
@@ -480,7 +480,7 @@ namespace mage {
 		 @param[in]		count
 						The increment value.
 		 */
-		void Signal(uint32_t count = 1);
+		void Signal(uint32_t count = 1) noexcept;
 		
 		/**
 		 Decrements the value of this semaphore variable by one.
@@ -488,7 +488,7 @@ namespace mage {
 		 The process executing wait is blocked until the value of the semaphore
 		 is greater or equal to 1.
 		 */
-		void Wait();
+		void Wait() noexcept;
 		
 		/**
 		 Checks whether waiting for this semaphore would be necessary.
@@ -496,7 +496,7 @@ namespace mage {
 		 @return		@c true if waiting for this semaphore would be necessary.
 						@c false otherwise.
 		 */
-		bool TryWait();
+		bool TryWait() noexcept;
 
 	private:
 
@@ -578,22 +578,22 @@ namespace mage {
 		/**
 		 Locks this condition variable.
 		 */
-		void Lock();
+		void Lock() noexcept;
 
 		/**
 		 Unlocks this condition variable.
 		 */
-		void Unlock();
+		void Unlock() noexcept;
 
 		/**
 		 Signals a condition change.
 		 */
-		void Signal();
+		void Signal() noexcept;
 
 		/**
 		 Waits for a signal indicating a condition change.
 		 */
-		void Wait();
+		void Wait() noexcept;
 
 	private:
 

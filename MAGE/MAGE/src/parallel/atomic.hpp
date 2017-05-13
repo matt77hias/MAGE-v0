@@ -67,7 +67,7 @@ namespace mage {
 	 @return		The function returns the initial pointer of @a destination.
 	 */
 	template< typename T >
-	inline T *AtomicCompareAndSwapPointer(T **destination, T *exchange, T *comparand) {
+	__forceinline T *AtomicCompareAndSwapPointer(T **destination, T *exchange, T *comparand) noexcept {
 		return InterlockedCompareExchangePointer(destination, exchange, comparand);
 	}
 
@@ -86,7 +86,7 @@ namespace mage {
 					The second operand.
 	 @return		The function returns the result of the operation.
 	 */
-	inline int32_t AtomicAdd(AtomicInt32 *addend, int32_t value) {
+	__forceinline int32_t AtomicAdd(AtomicInt32 *addend, int32_t value) noexcept {
 #if (MAGE_POINTER_SIZE == 8)
 		return InterlockedAdd(addend, value);
 #else
@@ -117,7 +117,7 @@ namespace mage {
 					The value to compare to @a destination.
 	 @return		The function returns the initial value of @a destination.
 	 */
-	inline int32_t AtomicCompareAndSwap(AtomicInt32 *destination, int32_t exchange, int32_t comparand) {
+	__forceinline int32_t AtomicCompareAndSwap(AtomicInt32 *destination, int32_t exchange, int32_t comparand) noexcept {
 		return InterlockedCompareExchange(destination, exchange, comparand);
 	}
 
@@ -137,7 +137,7 @@ namespace mage {
 					The second operand.
 	 @return		The function returns the result of the operation.
 	 */
-	inline int64_t AtomicAdd(AtomicInt64 *addend, int64_t value) {
+	__forceinline int64_t AtomicAdd(AtomicInt64 *addend, int64_t value) noexcept {
 		return InterlockedAdd64(addend, value);
 	}
 
@@ -155,7 +155,7 @@ namespace mage {
 					The value to compare to @a destination.
 	 @return		The function returns the initial value of @a destination.
 	 */
-	inline int64_t AtomicCompareAndSwap(AtomicInt64 *destination, int64_t exchange, int64_t comparand) {
+	__forceinline int64_t AtomicCompareAndSwap(AtomicInt64 *destination, int64_t exchange, int64_t comparand) noexcept {
 		return InterlockedCompareExchange64(destination, exchange, comparand);
 	}
 #endif
@@ -175,7 +175,7 @@ namespace mage {
 					The second operand.
 	 @return		The function returns the result of the operation.
 	 */
-	inline float AtomicAdd(volatile float *addend, float value) {
+	__forceinline float AtomicAdd(volatile float *addend, float value) noexcept {
 		union bits { float f; int32_t i; };
 		bits old_value, new_value;
 

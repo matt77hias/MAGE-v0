@@ -83,7 +83,7 @@ namespace mage {
 		 @param[in]		intensity
 						A reference to the intensity.
 		 */
-		void SetIntensity(const RGBSpectrum &intensity) {
+		void SetIntensity(const RGBSpectrum &intensity) noexcept {
 			m_intensity = intensity;
 		}
 

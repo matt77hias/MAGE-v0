@@ -88,7 +88,7 @@ namespace mage {
 
 		 @return		The next id of this id generator.
 		 */
-		int32_t GetNextId() {
+		int32_t GetNextId() noexcept {
 			return AtomicAdd(&m_current_id, 1);
 		}
 

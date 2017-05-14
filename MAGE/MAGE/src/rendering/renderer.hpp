@@ -237,7 +237,7 @@ namespace mage {
 		/**
 		 Uninitializes this renderer.
 		 */
-		void UninitializeRenderer();
+		void UninitializeRenderer() noexcept;
 
 		/**
 		 Sets up the D3D11 device and context of this renderer.

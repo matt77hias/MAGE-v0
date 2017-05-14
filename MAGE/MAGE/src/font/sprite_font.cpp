@@ -194,7 +194,7 @@ namespace mage {
 			{ 0.0f, 0.0f }, //SpriteEffect_None
 			{ 1.0f, 0.0f }, //SpriteEffect_FlipHorizontally
 			{ 0.0f, 1.0f }, //SpriteEffect_FlipVertically
-			{ 1.0f, 1.0f } //SpriteEffect_FlipBoth
+			{ 1.0f, 1.0f }  //SpriteEffect_FlipBoth
 		};
 
 		const XMFLOAT2 rotation_origin = transform.GetRotationOrigin();

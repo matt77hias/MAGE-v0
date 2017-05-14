@@ -50,7 +50,7 @@ namespace mage {
 		SetupViewPort();
 	}
 
-	void Renderer::UninitializeRenderer() {
+	void Renderer::UninitializeRenderer() noexcept {
 		// Switch to windowed mode since Direct3D is incapable of when in fullscreen mode
 		// due to certain threading issues that occur behind the scenes.
 		if (m_swap_chain) {

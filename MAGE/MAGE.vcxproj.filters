@@ -777,6 +777,9 @@
     <ClInclude Include="MAGE\src\shader\cso\emssive_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\rendering_utils.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1087,6 +1090,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\shader\shaded_material.cpp">
       <Filter>Source Files\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\rendering_utils.cpp">
+      <Filter>Source Files\rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,15 @@
 namespace mage {
 
 	/**
+	 The allowed pixel formats.
+	 */
+	constexpr DXGI_FORMAT g_pixel_formats[] = {
+		DXGI_FORMAT_B8G8R8X8_UNORM,	   // A four-component,  32-bit unsigned-normalized-integer format that supports 8  bits for each color channel and 8 bits unused.
+		DXGI_FORMAT_B8G8R8A8_UNORM,    // A four-component,  32-bit unsigned-normalized-integer format that supports 8  bits for each color channel and 8-bit alpha.
+		DXGI_FORMAT_R10G10B10A2_UNORM, // A four-component,  32-bit unsigned-normalized-integer format that supports 10 bits for each color and 2 bits for alpha.
+	};
+
+	/**
 	 A class of device enumerations.
 	 */
 	class DeviceEnumeration final {

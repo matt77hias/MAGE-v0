@@ -4,6 +4,7 @@
 #pragma region
 
 #include "rendering\device_enumeration.hpp"
+#include "rendering\rendering_utils.hpp"
 #include "rendering\graphics_settings.hpp"
 #include "ui\combo_box.hpp"
 #include "file\file_utils.hpp"

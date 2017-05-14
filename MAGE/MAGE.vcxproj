@@ -112,6 +112,7 @@
     <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_state.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_state_cache.hpp" />
+    <ClInclude Include="MAGE\src\rendering\rendering_utils.hpp" />
     <ClInclude Include="MAGE\src\rendering\structured_buffer.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_factory.hpp" />
@@ -257,6 +258,7 @@
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_state.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_state_cache.cpp" />
+    <ClCompile Include="MAGE\src\rendering\rendering_utils.cpp" />
     <ClCompile Include="MAGE\src\resource\behavior_script.cpp" />
     <ClCompile Include="MAGE\src\resource\resource.cpp" />
     <ClCompile Include="MAGE\src\resource\resource_factory.cpp" />

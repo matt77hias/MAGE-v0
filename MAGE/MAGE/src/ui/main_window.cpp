@@ -22,7 +22,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage{
+namespace mage {
 	
 	//-------------------------------------------------------------------------
 	// WindowProc for handling Windows messages.
@@ -127,7 +127,7 @@ namespace mage{
 
 	MainWindow::MainWindow(MainWindow &&main_window) = default;
 
-	MainWindow::~MainWindow() noexcept {
+	MainWindow::~MainWindow() {
 		// Uninitialize the window.
 		UninitializeWindow();
 	}

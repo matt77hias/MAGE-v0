@@ -64,7 +64,7 @@ namespace mage {
 		/**
 		 Destructs this main window.
 		 */
-		~MainWindow() noexcept;
+		~MainWindow();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

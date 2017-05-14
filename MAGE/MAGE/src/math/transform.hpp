@@ -67,12 +67,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the transform to copy.
 		 */
-		Transform(const Transform &transform)
-			: m_translation(transform.m_translation), 
-			m_rotation(transform.m_rotation),
-			m_scale(transform.m_scale) {
-			SetDirty();
-		}
+		Transform(const Transform &transform) = default;
 
 		/**
 		 Constructs a transform by moving the given transform.
@@ -80,12 +75,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the transform to move.
 		 */
-		Transform(Transform &&transform) noexcept
-			: m_translation(std::move(transform.m_translation)),
-			m_rotation(std::move(transform.m_rotation)),
-			m_scale(std::move(transform.m_scale)) {
-			SetDirty();
-		}
+		Transform(Transform &&transform) = default;
 
 		/**
 		 Destructs this transform.
@@ -104,13 +94,7 @@ namespace mage {
 		 @return		A reference to the copy of the given transform
 						(i.e. this transform).
 		 */
-		Transform &operator=(const Transform &transform) {
-			m_translation = transform.m_translation;
-			m_rotation    = transform.m_rotation;
-			m_scale       = transform.m_scale;
-			SetDirty();
-			return (*this);
-		}
+		Transform &operator=(const Transform &transform) = default;
 
 		/**
 		 Moves the given transform to this transform.
@@ -120,13 +104,7 @@ namespace mage {
 		 @return		A reference to the moved transform
 						(i.e. this transform).
 		 */
-		Transform &operator=(Transform &&transform) noexcept {
-			m_translation = std::move(transform.m_translation);
-			m_rotation    = std::move(transform.m_rotation);
-			m_scale       = std::move(transform.m_scale);
-			SetDirty();
-			return (*this);
-		}
+		Transform &operator=(Transform &&transform) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Translation

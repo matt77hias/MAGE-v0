@@ -270,7 +270,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	ReadWriteMutexLock::ReadWriteMutexLock(ReadWriteMutex &mutex, ReadWriteMutexLockType lock_type)
 		: m_type(lock_type), m_mutex(mutex) {
-		if (m_type == ReadWriteMutexLockType_Read) {
+		if (m_type == ReadWriteMutexLockType::Read) {
 			m_mutex.AcquireRead();
 		}
 		else {
@@ -279,7 +279,7 @@ namespace mage {
 	}
 
 	ReadWriteMutexLock::~ReadWriteMutexLock() {
-		if (m_type == ReadWriteMutexLockType_Read) {
+		if (m_type == ReadWriteMutexLockType::Read) {
 			m_mutex.ReleaseRead();
 		}
 		else {
@@ -288,17 +288,17 @@ namespace mage {
 	}
 	
 	void ReadWriteMutexLock::UpgradeToWrite() noexcept {
-		Assert(m_type == ReadWriteMutexLockType_Read);
+		Assert(m_type == ReadWriteMutexLockType::Read);
 		m_mutex.ReleaseRead();
 		m_mutex.AcquireWrite();
-		m_type = ReadWriteMutexLockType_Write;
+		m_type = ReadWriteMutexLockType::Write;
 	}
 
 	void ReadWriteMutexLock::DowngradeToRead() noexcept {
-		Assert(m_type == ReadWriteMutexLockType_Write);
+		Assert(m_type == ReadWriteMutexLockType::Write);
 		m_mutex.ReleaseWrite();
 		m_mutex.AcquireRead();
-		m_type = ReadWriteMutexLockType_Read;
+		m_type = ReadWriteMutexLockType::Read;
 	}
 
 	//-------------------------------------------------------------------------
@@ -362,16 +362,18 @@ namespace mage {
 
 		// Creates or opens a named or unnamed event object.
 		// On success, a handle to the event object is returned.
-		m_events[SIGNAL] = CreateEvent(
-			nullptr,  // no security
-			FALSE, // auto-reset event object
-			FALSE, // non-signaled initial state
-			nullptr); // unnamed event object
-		m_events[BROADCAST] = CreateEvent(
-			nullptr,  // no security
-			TRUE,  // manual-reset event object
-			FALSE, // non-signaled initial state
-			nullptr); // unnamed event object
+		m_events[static_cast< size_t >(Event::Signal)] 
+			= CreateEvent(
+				nullptr,	// no security
+				FALSE,		// auto-reset event object
+				FALSE,		// non-signaled initial state
+				nullptr);	// unnamed event object
+		m_events[static_cast< size_t >(Event::Broadcast)] 
+			= CreateEvent(
+				nullptr,	// no security
+				TRUE,		// manual-reset event object
+				FALSE,		// non-signaled initial state
+				nullptr);	// unnamed event object
 	}
 	
 	ConditionVariable::~ConditionVariable() {
@@ -380,8 +382,8 @@ namespace mage {
 		DeleteCriticalSection(&m_condition_mutex);
 
 		// Close the open event handles.
-		CloseHandle(m_events[SIGNAL]);
-		CloseHandle(m_events[BROADCAST]);
+		CloseHandle(m_events[static_cast< size_t >(Event::Signal)]);
+		CloseHandle(m_events[static_cast< size_t >(Event::Broadcast)]);
 	}
 
 	void ConditionVariable::Lock() noexcept {
@@ -403,7 +405,7 @@ namespace mage {
 
 		if (has_waiters) {
 			// Sets the SIGNAL event object to the signaled state.
-			SetEvent(m_events[SIGNAL]);
+			SetEvent(m_events[static_cast< size_t >(Event::Signal)]);
 		}
 	}
 
@@ -430,13 +432,13 @@ namespace mage {
 		EnterCriticalSection(&m_nb_waiters_mutex);
 		--m_nb_waiters;
 		// WAIT_OBJECT_0: The state of the specified object is signaled.
-		const int last_waiter = (result == WAIT_OBJECT_0 + BROADCAST) && (m_nb_waiters == 0);
+		const int last_waiter = (result == WAIT_OBJECT_0 + static_cast< int >(Event::Broadcast)) && (m_nb_waiters == 0);
 		LeaveCriticalSection(&m_nb_waiters_mutex);
 
 		if (last_waiter) {
 			// We are the last waiter to be notified or to stop waiting, so reset the manual event.
 			// Sets the specified event object to the nonsignaled state.
-			ResetEvent(m_events[BROADCAST]);
+			ResetEvent(m_events[static_cast< size_t >(Event::Broadcast)]);
 		}
 
 		EnterCriticalSection(&m_condition_mutex);

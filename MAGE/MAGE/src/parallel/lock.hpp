@@ -300,21 +300,20 @@ namespace mage {
 	};
 
 	/**
-	 An enumeration of the different read write mutex lock types.
-	 
-	 This contains:
-	 @c ReadWriteMutexLockType_Read and 
-	 @c ReadWriteMutexLockType_Write.
-	 */
-	enum ReadWriteMutexLockType { 
-		ReadWriteMutexLockType_Read,
-		ReadWriteMutexLockType_Write 
-	};
-
-	/**
 	 A struct of read write mutex locks.
 	 */
 	struct ReadWriteMutexLock final {
+
+		/**
+		 An enumeration of the different read write mutex lock types.
+
+		 This contains:
+		 @c Read and @c Write.
+		 */
+		enum struct ReadWriteMutexLockType {
+			Read,
+			Write
+		};
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -621,15 +620,15 @@ namespace mage {
 		/**
 		 An enumeration of the different types of events of this condition variable.
 		 */
-		enum { 
-			SIGNAL    = 0, 
-			BROADCAST = 1, 
-			NB_EVENTS = 2 
+		enum struct Event { 
+			Signal    = 0, 
+			Broadcast = 1, 
+			Count     = 2 
 		};
 
 		/**
 		 The signal and broadcast event handles of this condition variable.
 		 */
-		HANDLE m_events[NB_EVENTS];
+		HANDLE m_events[static_cast< size_t >(Event::Count)];
 	};
 }

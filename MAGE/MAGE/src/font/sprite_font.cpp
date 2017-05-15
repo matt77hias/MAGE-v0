@@ -198,11 +198,12 @@ namespace mage {
 			{ 0.0f, 1.0f }, //SpriteEffect::FlipVertically
 			{ 1.0f, 1.0f }  //SpriteEffect::FlipBoth
 		};
+		const size_t index = static_cast< size_t >(effects) & 3;
 
 		const XMFLOAT2 rotation_origin = transform.GetRotationOrigin();
 		XMVECTOR base_offset = XMLoadFloat2(&rotation_origin);
 		if (effects != SpriteEffect::None) {
-			base_offset -= MeasureString(str) * axis_is_mirrored_table[static_cast< size_t >(effects) & 3];
+			base_offset -= MeasureString(str) * axis_is_mirrored_table[index];
 		}
 
 		float x = 0;
@@ -235,14 +236,14 @@ namespace mage {
 
 				if (!iswspace(character) || width > 1 || height > 1) {
 					const XMVECTOR top_left = XMVectorSet(x, y + glyph->m_offset_y, 0.0f, 0.0f);
-					const XMVECTOR &flip = axis_direction_table[static_cast< size_t >(effects) & 3];
+					const XMVECTOR &flip = axis_direction_table[index];
 					XMVECTOR offset = XMVectorMultiplyAdd(top_left, flip, base_offset);
 
 					if (effects != SpriteEffect::None) {
 						const XMVECTOR rect = XMLoadInt4(reinterpret_cast<const uint32_t *>(&(glyph->m_sub_rectangle)));
 						XMVECTOR glyph_rect = XMConvertVectorIntToFloat(rect, 0);
 						glyph_rect = XMVectorSwizzle< 2, 3, 0, 1 >(glyph_rect) - glyph_rect;
-						const XMVECTOR &mirror = axis_is_mirrored_table[static_cast< size_t >(effects) & 3];
+						const XMVECTOR &mirror = axis_is_mirrored_table[index];
 						offset = XMVectorMultiplyAdd(glyph_rect, mirror, offset);
 					}
 
@@ -278,11 +279,12 @@ namespace mage {
 			{ 0.0f, 1.0f }, //SpriteEffect::FlipVertically
 			{ 1.0f, 1.0f }  //SpriteEffect::FlipBoth
 		};
+		const size_t index = static_cast< size_t >(effects) & 3;
 
 		const XMFLOAT2 rotation_origin = transform.GetRotationOrigin();
 		XMVECTOR base_offset = XMLoadFloat2(&rotation_origin);
 		if (effects != SpriteEffect::None) {
-			base_offset -= MeasureString(text) * axis_is_mirrored_table[static_cast< size_t >(effects) & 3];
+			base_offset -= MeasureString(text) * axis_is_mirrored_table[index];
 		}
 
 		float x = 0;
@@ -318,14 +320,14 @@ namespace mage {
 
 					if (!iswspace(character) || width > 1 || height > 1) {
 						const XMVECTOR top_left = XMVectorSet(x, y + glyph->m_offset_y, 0.0f, 0.0f);
-						const XMVECTOR &flip = axis_direction_table[static_cast< size_t >(effects) & 3];
+						const XMVECTOR &flip = axis_direction_table[index];
 						XMVECTOR offset = XMVectorMultiplyAdd(top_left, flip, base_offset);
 
 						if (effects != SpriteEffect::None) {
 							const XMVECTOR rect = XMLoadInt4(reinterpret_cast<const uint32_t *>(&(glyph->m_sub_rectangle)));
 							XMVECTOR glyph_rect = XMConvertVectorIntToFloat(rect, 0);
 							glyph_rect = XMVectorSwizzle< 2, 3, 0, 1 >(glyph_rect) - glyph_rect;
-							const XMVECTOR &mirror = axis_is_mirrored_table[static_cast< size_t >(effects) & 3];
+							const XMVECTOR &mirror = axis_is_mirrored_table[index];
 							offset = XMVectorMultiplyAdd(glyph_rect, mirror, offset);
 						}
 

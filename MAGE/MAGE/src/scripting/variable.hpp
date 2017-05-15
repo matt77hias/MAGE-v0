@@ -27,28 +27,28 @@ namespace mage {
 	 An enumeration of the different (scripting) variable types.
 
 	 This contains:
-	 @c VariableType_Bool,
-	 @c VariableType_Int,
-	 @c VariableType_Int2,
-	 @c VariableType_Int3,
-	 @c VariableType_Float,
-	 @c VariableType_Float2,
-	 @c VariableType_Float3,
-	 @c VariableType_Float4,
-	 @c VariableType_Color and
-	 @c VariableType_String.
+	 @c Bool,
+	 @c Int,
+	 @c Int2,
+	 @c Int3,
+	 @c Float,
+	 @c Float2,
+	 @c Float3,
+	 @c Float4,
+	 @c Color and
+	 @c VariableType::String.
 	 */
-	enum VariableType {
-		VariableType_Bool,
-		VariableType_Int,
-		VariableType_Int2,
-		VariableType_Int3,
-		VariableType_Float,
-		VariableType_Float2,
-		VariableType_Float3,
-		VariableType_Float4,
-		VariableType_Color,
-		VariableType_String
+	enum struct VariableType {
+		Bool,
+		Int,
+		Int2,
+		Int3,
+		Float,
+		Float2,
+		Float3,
+		Float4,
+		Color,
+		String
 	};
 
 	/**

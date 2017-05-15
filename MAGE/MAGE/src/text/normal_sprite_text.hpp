@@ -37,7 +37,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit NormalSpriteText(const string &name, SharedPtr< SpriteFont > font,
-			SpriteEffect effects = SpriteEffect_None);
+			SpriteEffect effects = SpriteEffect::None);
 
 		/**
 		 Constructs a normal sprite text from the given normal sprite text.

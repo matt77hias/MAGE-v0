@@ -66,7 +66,7 @@ namespace mage {
 		
 		SpriteInfo *sprite = &m_sprite_queue[m_sprite_queue_size];
 
-		int flags = effects;
+		unsigned int flags = static_cast< unsigned int >(effects);
 		// destination: Tx Ty Sx Sy
 		const XMVECTOR destination = XMVectorSet(
 										transform.GetTranslation().x,
@@ -370,8 +370,10 @@ namespace mage {
 		//    position = cornerOffsets[i]
 		//    texcoord = cornerOffsets[i ^ SpriteEffect]
 
-		static_assert(SpriteEffect_FlipHorizontally == 1 && SpriteEffect_FlipVertically == 2,
-						"The mirroring implementation must be updated to match");
+		static_assert(
+			static_cast< unsigned int >(SpriteEffect::FlipHorizontally) == 1u && 
+			static_cast< unsigned int >(SpriteEffect::FlipVertically)   == 2u,
+			"The mirroring implementation must be updated to match");
 
 		const int mirror_bits = flags & 3;
 

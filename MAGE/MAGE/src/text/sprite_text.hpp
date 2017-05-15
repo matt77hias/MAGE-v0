@@ -199,7 +199,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit SpriteText(const string &name, SharedPtr< SpriteFont > font,
-			SpriteEffect effects = SpriteEffect_None);
+			SpriteEffect effects = SpriteEffect::None);
 
 		/**
 		 Constructs a sprite text from the given sprite text.

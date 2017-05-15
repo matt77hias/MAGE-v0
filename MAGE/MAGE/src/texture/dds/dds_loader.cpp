@@ -1089,20 +1089,20 @@ static DDS_ALPHA_MODE GetAlphaMode(_In_ const DDS_HEADER *header) {
 			auto d3d10ext = reinterpret_cast<const DDS_HEADER_DXT10*>((const char*)header + sizeof(DDS_HEADER));
 			auto mode = static_cast<DDS_ALPHA_MODE>(d3d10ext->misc_flags2 & DDS_MISC_FLAGS2_ALPHA_MODE_MASK);
 			switch (mode) {
-			case DDS_ALPHA_MODE_STRAIGHT:
-			case DDS_ALPHA_MODE_PREMULTIPLIED:
-			case DDS_ALPHA_MODE_OPAQUE:
-			case DDS_ALPHA_MODE_CUSTOM:
+			case DDS_ALPHA_MODE::Straight:
+			case DDS_ALPHA_MODE::Premultiplied:
+			case DDS_ALPHA_MODE::Opaque:
+			case DDS_ALPHA_MODE::Custom:
 				return mode;
 			}
 		}
 		else if ((MAKEFOURCC('D', 'X', 'T', '2') == header->ddspf.fourCC)
 			  || (MAKEFOURCC('D', 'X', 'T', '4') == header->ddspf.fourCC)) {
-			return DDS_ALPHA_MODE_PREMULTIPLIED;
+			return DDS_ALPHA_MODE::Premultiplied;
 		}
 	}
 
-	return DDS_ALPHA_MODE_UNKNOWN;
+	return DDS_ALPHA_MODE::Unknown;
 }
 
 _Use_decl_annotations_
@@ -1172,7 +1172,7 @@ HRESULT CreateDDSTextureFromMemoryEx(ID3D11Device2 *device,
 		*texture_view = nullptr;
 	}
 	if (alpha_mode) {
-		*alpha_mode = DDS_ALPHA_MODE_UNKNOWN;
+		*alpha_mode = DDS_ALPHA_MODE::Unknown;
 	}
 
 	if (!device || !dds_data || (!texture && !texture_view)) {
@@ -1293,7 +1293,7 @@ HRESULT CreateDDSTextureFromFileEx(ID3D11Device2 *device,
 		*texture_view = nullptr;
 	}
 	if (alpha_mode) {
-		*alpha_mode = DDS_ALPHA_MODE_UNKNOWN;
+		*alpha_mode = DDS_ALPHA_MODE::Unknown;
 	}
 
 	if (!device || !file_name || (!texture && !texture_view)) {

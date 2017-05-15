@@ -14,17 +14,17 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	enum BRDFType {
-		BRDFType_Unknown = 0,
-		BRDFType_Emissive,
-		BRDFType_Lambertian,
-		BRDFType_Phong,
-		BRDFType_ModifiedPhong,
-		BRDFType_BlinnPhong,
-		BRDFType_ModifiedBlinnPhong,
-		BRDFType_Ward,
-		BRDFType_WardDuer,
-		BRDFType_CookTorrance
+	enum struct BRDFType {
+		Unknown = 0,
+		Emissive,
+		Lambertian,
+		Phong,
+		ModifiedPhong,
+		BlinnPhong,
+		ModifiedBlinnPhong,
+		Ward,
+		WardDuer,
+		CookTorrance
 	};
 
 	const CombinedShader DeduceShader(const Material &material, BRDFType brdf);
@@ -48,7 +48,7 @@ namespace mage {
 		 @param[in]		brdf
 						The brdf type.
 		 */
-		explicit ShadedMaterial(const Material &material, BRDFType brdf = BRDFType_Unknown);
+		explicit ShadedMaterial(const Material &material, BRDFType brdf = BRDFType::Unknown);
 
 		/**
 		 Constructs a shaded material.

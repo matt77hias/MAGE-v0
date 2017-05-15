@@ -70,13 +70,13 @@ namespace mage {
 	void VSReader::ReadVSBool() {
 		const string name = ReadString();
 		const bool value = ReadBool();
-		m_variable_buffer.push_back(Variable(VariableType_Bool, name, value));
+		m_variable_buffer.push_back(Variable(VariableType::Bool, name, value));
 	}
 
 	void VSReader::ReadVSInt() {
 		const string name = ReadString();
 		const int value = ReadInt32();
-		m_variable_buffer.push_back(Variable(VariableType_Int, name, value));
+		m_variable_buffer.push_back(Variable(VariableType::Int, name, value));
 	}
 
 	void VSReader::ReadVSInt2() {
@@ -84,7 +84,7 @@ namespace mage {
 		const int x = ReadInt32();
 		const int y = ReadInt32();
 		const int2 value(x, y);
-		m_variable_buffer.push_back(Variable(VariableType_Int2, name, value));
+		m_variable_buffer.push_back(Variable(VariableType::Int2, name, value));
 	}
 
 	void VSReader::ReadVSInt3() {
@@ -93,13 +93,13 @@ namespace mage {
 		const int y = ReadInt32();
 		const int z = ReadInt32();
 		const int3 value(x, y, z);
-		m_variable_buffer.push_back(Variable(VariableType_Int3, name, value));
+		m_variable_buffer.push_back(Variable(VariableType::Int3, name, value));
 	}
 
 	void VSReader::ReadVSFloat() {
 		const string name = ReadString();
 		const float value = ReadFloat();
-		m_variable_buffer.push_back(Variable(VariableType_Float, name, value));
+		m_variable_buffer.push_back(Variable(VariableType::Float, name, value));
 	}
 
 	void VSReader::ReadVSFloat2() {
@@ -107,7 +107,7 @@ namespace mage {
 		const float x = ReadFloat();
 		const float y = ReadFloat();
 		const float2 value(x, y);
-		m_variable_buffer.push_back(Variable(VariableType_Float2, name, value));
+		m_variable_buffer.push_back(Variable(VariableType::Float2, name, value));
 	}
 	
 	void VSReader::ReadVSFloat3() {
@@ -116,7 +116,7 @@ namespace mage {
 		const float y = ReadFloat();
 		const float z = ReadFloat();
 		const float3 value(x, y, z);
-		m_variable_buffer.push_back(Variable(VariableType_Float3, name, value));
+		m_variable_buffer.push_back(Variable(VariableType::Float3, name, value));
 	}
 
 	void VSReader::ReadVSFloat4() {
@@ -126,7 +126,7 @@ namespace mage {
 		const float z = ReadFloat();
 		const float w = ReadFloat();
 		const float4 value(x, y, z, w);
-		m_variable_buffer.push_back(Variable(VariableType_Float4, name, value));
+		m_variable_buffer.push_back(Variable(VariableType::Float4, name, value));
 	}
 
 	void VSReader::ReadVSColor() {
@@ -136,12 +136,12 @@ namespace mage {
 		const float z = ReadFloat();
 		const float w = ReadFloat();
 		const color value(x, y, z, w);
-		m_variable_buffer.push_back(Variable(VariableType_Color, name, value));
+		m_variable_buffer.push_back(Variable(VariableType::Color, name, value));
 	}
 
 	void VSReader::ReadVSString() {
 		const string name = ReadString();
 		const string value = ReadQuotedString();
-		m_variable_buffer.push_back(Variable(VariableType_String, name, value));
+		m_variable_buffer.push_back(Variable(VariableType::String, name, value));
 	}
 }

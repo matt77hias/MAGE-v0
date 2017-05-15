@@ -180,27 +180,29 @@ namespace mage {
 		const SpriteTransform &transform, const XMVECTOR &color, SpriteEffect effects) const {
 		Assert(str);
 
-		static_assert(SpriteEffect_FlipHorizontally == 1 && SpriteEffect_FlipVertically == 2,
+		static_assert(
+			static_cast< unsigned int >(SpriteEffect::FlipHorizontally) == 1 && 
+			static_cast< unsigned int >(SpriteEffect::FlipVertically)   == 2,
 			"The following tables must be updated to match");
 		// Lookup table indicates which way to move along each axes for each SpriteEffect.
 		static const XMVECTORF32 axis_direction_table[4] = {
-			{-1.0f, -1.0f}, //SpriteEffect_None
-			{ 1.0f, -1.0f}, //SpriteEffect_FlipHorizontally
-			{-1.0f,  1.0f}, //SpriteEffect_FlipVertically
-			{ 1.0f,  1.0f}  //SpriteEffect_FlipBoth
+			{-1.0f, -1.0f}, //SpriteEffect::None
+			{ 1.0f, -1.0f}, //SpriteEffect::FlipHorizontally
+			{-1.0f,  1.0f}, //SpriteEffect::FlipVertically
+			{ 1.0f,  1.0f}  //SpriteEffect::FlipBoth
 		};
 		// Lookup table indiucates which axes are mirrored for each SpriteEffect.
 		static const XMVECTORF32 axis_is_mirrored_table[4] = {
-			{ 0.0f, 0.0f }, //SpriteEffect_None
-			{ 1.0f, 0.0f }, //SpriteEffect_FlipHorizontally
-			{ 0.0f, 1.0f }, //SpriteEffect_FlipVertically
-			{ 1.0f, 1.0f }  //SpriteEffect_FlipBoth
+			{ 0.0f, 0.0f }, //SpriteEffect::None
+			{ 1.0f, 0.0f }, //SpriteEffect::FlipHorizontally
+			{ 0.0f, 1.0f }, //SpriteEffect::FlipVertically
+			{ 1.0f, 1.0f }  //SpriteEffect::FlipBoth
 		};
 
 		const XMFLOAT2 rotation_origin = transform.GetRotationOrigin();
 		XMVECTOR base_offset = XMLoadFloat2(&rotation_origin);
-		if (effects != SpriteEffect_None) {
-			base_offset -= MeasureString(str) * axis_is_mirrored_table[effects & 3];
+		if (effects != SpriteEffect::None) {
+			base_offset -= MeasureString(str) * axis_is_mirrored_table[static_cast< size_t >(effects) & 3];
 		}
 
 		float x = 0;
@@ -233,14 +235,14 @@ namespace mage {
 
 				if (!iswspace(character) || width > 1 || height > 1) {
 					const XMVECTOR top_left = XMVectorSet(x, y + glyph->m_offset_y, 0.0f, 0.0f);
-					const XMVECTOR &flip = axis_direction_table[effects & 3];
+					const XMVECTOR &flip = axis_direction_table[static_cast< size_t >(effects) & 3];
 					XMVECTOR offset = XMVectorMultiplyAdd(top_left, flip, base_offset);
 
-					if (effects != SpriteEffect_None) {
+					if (effects != SpriteEffect::None) {
 						const XMVECTOR rect = XMLoadInt4(reinterpret_cast<const uint32_t *>(&(glyph->m_sub_rectangle)));
 						XMVECTOR glyph_rect = XMConvertVectorIntToFloat(rect, 0);
 						glyph_rect = XMVectorSwizzle< 2, 3, 0, 1 >(glyph_rect) - glyph_rect;
-						const XMVECTOR &mirror = axis_is_mirrored_table[effects & 3];
+						const XMVECTOR &mirror = axis_is_mirrored_table[static_cast< size_t >(effects) & 3];
 						offset = XMVectorMultiplyAdd(glyph_rect, mirror, offset);
 					}
 
@@ -258,27 +260,29 @@ namespace mage {
 	void SpriteFont::DrawString(SpriteBatch &sprite_batch, const vector< ColorString > &text,
 		const SpriteTransform &transform, SpriteEffect effects) const {
 		
-		static_assert(SpriteEffect_FlipHorizontally == 1 && SpriteEffect_FlipVertically == 2,
+		static_assert(
+			static_cast< unsigned int >(SpriteEffect::FlipHorizontally) == 1 &&
+			static_cast< unsigned int >(SpriteEffect::FlipVertically)   == 2,
 			"The following tables must be updated to match");
 		// Lookup table indicates which way to move along each axes for each SpriteEffect.
 		static const XMVECTORF32 axis_direction_table[4] = {
-			{ -1.0f, -1.0f }, //SpriteEffect_None
-			{  1.0f, -1.0f }, //SpriteEffect_FlipHorizontally
-			{ -1.0f,  1.0f }, //SpriteEffect_FlipVertically
-			{  1.0f,  1.0f }  //SpriteEffect_FlipBoth
+			{ -1.0f, -1.0f }, //SpriteEffect::None
+			{  1.0f, -1.0f }, //SpriteEffect::FlipHorizontally
+			{ -1.0f,  1.0f }, //SpriteEffect::FlipVertically
+			{  1.0f,  1.0f }  //SpriteEffect::FlipBoth
 		};
 		// Lookup table indiucates which axes are mirrored for each SpriteEffect.
 		static const XMVECTORF32 axis_is_mirrored_table[4] = {
-			{ 0.0f, 0.0f }, //SpriteEffect_None
-			{ 1.0f, 0.0f }, //SpriteEffect_FlipHorizontally
-			{ 0.0f, 1.0f }, //SpriteEffect_FlipVertically
-			{ 1.0f, 1.0f }  //SpriteEffect_FlipBoth
+			{ 0.0f, 0.0f }, //SpriteEffect::None
+			{ 1.0f, 0.0f }, //SpriteEffect::FlipHorizontally
+			{ 0.0f, 1.0f }, //SpriteEffect::FlipVertically
+			{ 1.0f, 1.0f }  //SpriteEffect::FlipBoth
 		};
 
 		const XMFLOAT2 rotation_origin = transform.GetRotationOrigin();
 		XMVECTOR base_offset = XMLoadFloat2(&rotation_origin);
-		if (effects != SpriteEffect_None) {
-			base_offset -= MeasureString(text) * axis_is_mirrored_table[effects & 3];
+		if (effects != SpriteEffect::None) {
+			base_offset -= MeasureString(text) * axis_is_mirrored_table[static_cast< size_t >(effects) & 3];
 		}
 
 		float x = 0;
@@ -314,14 +318,14 @@ namespace mage {
 
 					if (!iswspace(character) || width > 1 || height > 1) {
 						const XMVECTOR top_left = XMVectorSet(x, y + glyph->m_offset_y, 0.0f, 0.0f);
-						const XMVECTOR &flip = axis_direction_table[effects & 3];
+						const XMVECTOR &flip = axis_direction_table[static_cast< size_t >(effects) & 3];
 						XMVECTOR offset = XMVectorMultiplyAdd(top_left, flip, base_offset);
 
-						if (effects != SpriteEffect_None) {
+						if (effects != SpriteEffect::None) {
 							const XMVECTOR rect = XMLoadInt4(reinterpret_cast<const uint32_t *>(&(glyph->m_sub_rectangle)));
 							XMVECTOR glyph_rect = XMConvertVectorIntToFloat(rect, 0);
 							glyph_rect = XMVectorSwizzle< 2, 3, 0, 1 >(glyph_rect) - glyph_rect;
-							const XMVECTOR &mirror = axis_is_mirrored_table[effects & 3];
+							const XMVECTOR &mirror = axis_is_mirrored_table[static_cast< size_t >(effects) & 3];
 							offset = XMVectorMultiplyAdd(glyph_rect, mirror, offset);
 						}
 

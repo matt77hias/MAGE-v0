@@ -30,10 +30,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 		
 		// Combine values from SpriteEffect with these internal-only flags.
-		static const int source_in_texels = 4;
-		static const int destination_size_in_pixels = 8;
+		static const unsigned int source_in_texels = 4;
+		static const unsigned int destination_size_in_pixels = 8;
 
-		static_assert((SpriteEffect_FlipBoth & (source_in_texels | destination_size_in_pixels)) == 0, 
+		static_assert(
+			(static_cast< unsigned int >(SpriteEffect::FlipBoth) & (source_in_texels | destination_size_in_pixels)) == 0, 
 			"Flag bits must not overlap");
 		
 		//---------------------------------------------------------------------
@@ -45,7 +46,7 @@ namespace mage {
 		XMFLOAT4A color;
 		XMFLOAT4A origin_rotation_depth;
 		ID3D11ShaderResourceView *texture;
-		int flags;
+		unsigned int flags;
 	};
 
 	__declspec(align(16)) class SpriteBatch final : public AlignedData< SpriteBatch > {

@@ -114,7 +114,7 @@ namespace mage {
 			const wchar_t *str,
 			const SpriteTransform &transform,
 			const XMVECTOR &color = Colors::White, 
-			SpriteEffect effects = SpriteEffect_None) const;
+			SpriteEffect effects = SpriteEffect::None) const;
 
 		/**
 		 Draws the given text with this sprite font using the given sprite batch.
@@ -132,7 +132,7 @@ namespace mage {
 		void DrawString(SpriteBatch &sprite_batch, 
 			const vector< ColorString > &text,
 			const SpriteTransform &transform,
-			SpriteEffect effects = SpriteEffect_None) const;
+			SpriteEffect effects = SpriteEffect::None) const;
 
 		/**
 		 Returns the size of the given string with this sprite font in pixels.

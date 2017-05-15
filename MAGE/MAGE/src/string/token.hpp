@@ -37,14 +37,14 @@ namespace mage {
 	 An enumeration of the different token results.
 	 
 	 This contains: 
-	 @c TokenResult_Valid, 
-	 @c TokenResult_None and 
-	 @c TokenResult_Invalid.
+	 @c Valid, 
+	 @c None and 
+	 @c Invalid.
 	 */
-	enum TokenResult {
-		TokenResult_Valid,		// The parsed token is valid (matches the expected token type).
-		TokenResult_None,		// No token can be parsed (independent of the token type).
-		TokenResult_Invalid		// The parsed token is invalid (matches the expected token type).
+	enum struct TokenResult {
+		Valid,	// The parsed token is valid (matches the expected token type).
+		None,	// No token can be parsed (independent of the token type).
+		Invalid	// The parsed token is invalid (matches the expected token type).
 	};
 
 	//-------------------------------------------------------------------------

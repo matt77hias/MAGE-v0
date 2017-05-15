@@ -191,7 +191,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit SpriteObject(const string &name, 
-			SpriteEffect effects = SpriteEffect_None);
+			SpriteEffect effects = SpriteEffect::None);
 
 		/**
 		 Constructs a sprite object from the given sprite object.

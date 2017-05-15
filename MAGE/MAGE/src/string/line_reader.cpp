@@ -85,7 +85,7 @@ namespace mage {
 		const TokenResult token_result = mage::ReadChars(nullptr, &m_context, &result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
 		default: {
@@ -100,7 +100,7 @@ namespace mage {
 		const TokenResult token_result = mage::ReadString(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
 		default: {
@@ -115,10 +115,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadQuotedString(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no quoted string value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -134,10 +134,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadBool(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no bool value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -153,10 +153,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadInt8(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no 8 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -172,10 +172,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadUInt8(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no 8 bit unsigned integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -191,10 +191,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadInt16(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no 16 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -210,10 +210,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadUInt16(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no 16 bit unsigned integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -229,10 +229,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadInt32(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no 32 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -248,10 +248,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadUInt32(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no unsigned 32 bit integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -267,10 +267,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadInt64(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no 64 bit integer value found.", GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		default: {
@@ -284,10 +284,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadUInt64(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no 64 bit unsigned integer value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -303,10 +303,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadFloat(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no float value found.", GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		default: {
@@ -320,10 +320,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadDouble(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no double value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -339,10 +339,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadFloat2(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no float2 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -358,10 +358,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadFloat3(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no float3 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -377,10 +377,10 @@ namespace mage {
 		const TokenResult token_result = mage::ReadFloat4(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
-		case TokenResult_Valid: {
+		case TokenResult::Valid: {
 			return result;
 		}
-		case TokenResult_None: {
+		case TokenResult::None: {
 			throw FormattedException("%ls: line %u: no float4 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
@@ -392,58 +392,58 @@ namespace mage {
 	}
 
 	bool LineReader::HasChars() const {
-		return mage::HasChars(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasChars(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasString() const {
-		return mage::HasString(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasString(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasQuotedString() const {
-		return mage::HasQuotedString(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasQuotedString(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasBool() const {
-		return mage::HasBool(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasBool(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasInt8() const {
-		return mage::HasInt8(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasInt8(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasUInt8() const {
-		return mage::HasUInt8(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasUInt8(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasInt16() const {
-		return mage::HasInt16(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasInt16(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasUInt16() const {
-		return mage::HasUInt16(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasUInt16(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasInt32() const {
-		return mage::HasInt32(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasInt32(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasUInt32() const {
-		return mage::HasUInt32(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasUInt32(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasInt64() const {
-		return mage::HasInt64(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasInt64(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasUInt64() const {
-		return mage::HasUInt64(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasUInt64(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasFloat() const {
-		return mage::HasFloat(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasFloat(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasDouble() const {
-		return mage::HasDouble(m_context, GetDelimiters().c_str()) == TokenResult_Valid;
+		return mage::HasDouble(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 }

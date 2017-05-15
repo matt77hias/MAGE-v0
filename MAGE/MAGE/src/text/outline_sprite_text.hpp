@@ -39,7 +39,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
-			const Color &border_color, SpriteEffect effects = SpriteEffect_None);
+			const Color &border_color, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a outline sprite text.
@@ -55,7 +55,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
-			const XMVECTOR &border_color = Colors::Black, SpriteEffect effects = SpriteEffect_None);
+			const XMVECTOR &border_color = Colors::Black, SpriteEffect effects = SpriteEffect::None);
 
 		/**
 		 Constructs a outline sprite text from the given outline sprite text.

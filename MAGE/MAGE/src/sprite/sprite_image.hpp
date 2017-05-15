@@ -40,7 +40,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit SpriteImage(const string &name, SharedPtr< Texture > texture,
-			const Color &color, SpriteEffect effects = SpriteEffect_None);
+			const Color &color, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a sprite image.
@@ -58,7 +58,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit SpriteImage(const string &name, SharedPtr< Texture > texture, const RECT &texture_region,
-			const Color &color, SpriteEffect effects = SpriteEffect_None);
+			const Color &color, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a sprite image.
@@ -74,7 +74,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit SpriteImage(const string &name, SharedPtr< Texture > texture,
-			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None);
+			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a sprite image.
@@ -92,7 +92,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit SpriteImage(const string &name, SharedPtr< Texture > texture, const RECT &texture_region,
-			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect_None);
+			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a sprite image from the given sprite image.

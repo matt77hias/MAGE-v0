@@ -39,7 +39,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit DropshadowSpriteText(const string &name, SharedPtr< SpriteFont > font,
-			const Color &shadow_color, SpriteEffect effects = SpriteEffect_None);
+			const Color &shadow_color, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a dropshadow sprite text.
@@ -55,7 +55,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit DropshadowSpriteText(const string &name, SharedPtr< SpriteFont > font,
-			const XMVECTOR &shadow_color = Colors::Black, SpriteEffect effects = SpriteEffect_None);
+			const XMVECTOR &shadow_color = Colors::Black, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a dropshadow sprite text from the given dropshadow sprite text.

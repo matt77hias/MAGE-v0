@@ -20,21 +20,21 @@ namespace mage {
 		if (material.GetNormalTexture()) {
 			switch (brdf) {
 
-			case BRDFType_Lambertian:
+			case BRDFType::Lambertian:
 				return CreateLambertianBumpShader();
-			case BRDFType_Phong:
+			case BRDFType::Phong:
 				return CreatePhongBumpShader();
-			case BRDFType_ModifiedPhong:
+			case BRDFType::ModifiedPhong:
 				return CreateModifiedPhongBumpShader();
-			case BRDFType_BlinnPhong:
+			case BRDFType::BlinnPhong:
 				return CreateBlinnPhongBumpShader();
-			case BRDFType_ModifiedBlinnPhong:
+			case BRDFType::ModifiedBlinnPhong:
 				return CreateModifiedBlinnPhongBumpShader();
-			case BRDFType_Ward:
+			case BRDFType::Ward:
 				return CreateWardBumpShader();
-			case BRDFType_WardDuer:
+			case BRDFType::WardDuer:
 				return CreateWardDuerBumpShader();
-			case BRDFType_CookTorrance:
+			case BRDFType::CookTorrance:
 				return CreateCookTorranceBumpShader();
 			default:
 				const RGBSpectrum specular = material.GetSpecularReflectivity();
@@ -50,23 +50,23 @@ namespace mage {
 		else {
 			switch (brdf) {
 
-			case BRDFType_Emissive:
+			case BRDFType::Emissive:
 				return CreateEmissiveShader();
-			case BRDFType_Lambertian:
+			case BRDFType::Lambertian:
 				return CreateLambertianShader();
-			case BRDFType_Phong:
+			case BRDFType::Phong:
 				return CreatePhongShader();
-			case BRDFType_ModifiedPhong:
+			case BRDFType::ModifiedPhong:
 				return CreateModifiedPhongShader();
-			case BRDFType_BlinnPhong:
+			case BRDFType::BlinnPhong:
 				return CreateBlinnPhongShader();
-			case BRDFType_ModifiedBlinnPhong:
+			case BRDFType::ModifiedBlinnPhong:
 				return CreateModifiedBlinnPhongShader();
-			case BRDFType_Ward:
+			case BRDFType::Ward:
 				return CreateWardShader();
-			case BRDFType_WardDuer:
+			case BRDFType::WardDuer:
 				return CreateWardDuerShader();
-			case BRDFType_CookTorrance:
+			case BRDFType::CookTorrance:
 				return CreateCookTorranceShader();
 			default:
 				const RGBSpectrum specular = material.GetSpecularReflectivity();
@@ -90,7 +90,7 @@ namespace mage {
 
 	ShadedMaterial::ShadedMaterial(const Material &material, const CombinedShader &shader)
 		: m_shader(shader), m_automatic_shader_selection(false),
-		m_brdf(BRDFType_Unknown), m_material(material) {
+		m_brdf(BRDFType::Unknown), m_material(material) {
 
 		SetDefaultTextures();
 	}

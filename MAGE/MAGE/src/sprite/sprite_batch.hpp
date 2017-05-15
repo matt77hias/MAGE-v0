@@ -73,7 +73,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void Begin(SpriteSortMode sort_mode = SpriteSortMode_Deferred, const XMMATRIX &transform = XMMatrixIdentity());
+		void Begin(SpriteSortMode sort_mode = SpriteSortMode::Deferred, const XMMATRIX &transform = XMMatrixIdentity());
 		void Draw(ID3D11ShaderResourceView *texture, const XMVECTOR &color, SpriteEffect effects,
 			const SpriteTransform &transform, const RECT *source = nullptr);
 		void End();

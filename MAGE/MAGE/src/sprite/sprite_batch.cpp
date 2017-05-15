@@ -29,7 +29,7 @@ namespace mage {
 		m_mesh(std::make_unique< SpriteBatchMesh >(device, device_context)), m_vertex_buffer_position(0),
 		m_shader(std::make_unique< CombinedShader >(shader)), 
 		m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY), m_viewport_set(false), m_viewport{}, 
-		m_in_begin_end_pair(false), m_sort_mode(SpriteSortMode_Deferred), 
+		m_in_begin_end_pair(false), m_sort_mode(SpriteSortMode::Deferred), 
 		m_transform(XMMatrixIdentity()), m_transform_buffer(device, device_context),
 		m_sprite_queue(), m_sprite_queue_size(0), m_sprite_queue_array_size(0), 
 		m_sorted_sprites(), m_sprite_texture_references() {}
@@ -45,7 +45,7 @@ namespace mage {
 		m_sort_mode = sort_mode;
 		m_transform = transform;
 
-		if (m_sort_mode == SpriteSortMode_Immediate) {
+		if (m_sort_mode == SpriteSortMode::Immediate) {
 			PrepareDrawing();
 		}
 
@@ -105,7 +105,7 @@ namespace mage {
 		sprite->texture = texture;
 		sprite->flags = flags;
 
-		if (m_sort_mode == SpriteSortMode_Immediate) {
+		if (m_sort_mode == SpriteSortMode::Immediate) {
 			RenderBatch(texture, &sprite, 1);
 		}
 		else {
@@ -126,7 +126,7 @@ namespace mage {
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);
 
-		if (m_sort_mode != SpriteSortMode_Immediate) {
+		if (m_sort_mode != SpriteSortMode::Immediate) {
 			// Draw the queued sprites.
 			PrepareDrawing();
 			FlushBatch();
@@ -202,7 +202,7 @@ namespace mage {
 		m_sprite_queue_size = 0;
 		m_sprite_texture_references.clear();
 		// We always re-sort the original ordering.
-		if (m_sort_mode != SpriteSortMode_Deferred) {
+		if (m_sort_mode != SpriteSortMode::Deferred) {
 			m_sorted_sprites.clear();
 		}
 	}
@@ -214,21 +214,21 @@ namespace mage {
 
 		switch (m_sort_mode) {
 
-		case SpriteSortMode_Texture: {
+		case SpriteSortMode::Texture: {
 			std::sort(m_sorted_sprites.begin(), m_sorted_sprites.begin() + m_sprite_queue_size, 
 				[](const SpriteInfo *lhs, const SpriteInfo *rhs) -> bool {
 				return lhs->texture < rhs->texture;
 			});
 			break;
 		}
-		case SpriteSortMode_BackToFront: {
+		case SpriteSortMode::BackToFront: {
 			std::sort(m_sorted_sprites.begin(), m_sorted_sprites.begin() + m_sprite_queue_size, 
 				[](const SpriteInfo *lhs, const SpriteInfo *rhs) -> bool {
 				return lhs->origin_rotation_depth.w > rhs->origin_rotation_depth.w;
 			});
 			break;
 		}
-		case SpriteSortMode_FrontToBack: {
+		case SpriteSortMode::FrontToBack: {
 			std::sort(m_sorted_sprites.begin(), m_sorted_sprites.begin() + m_sprite_queue_size, 
 				[](const SpriteInfo *lhs, const SpriteInfo *rhs) -> bool {
 				return lhs->origin_rotation_depth.w < rhs->origin_rotation_depth.w;

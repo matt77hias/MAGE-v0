@@ -310,7 +310,7 @@ namespace mage {
 		 This contains:
 		 @c Read and @c Write.
 		 */
-		enum struct ReadWriteMutexLockType {
+		enum struct LockType {
 			Read,
 			Write
 		};
@@ -327,7 +327,7 @@ namespace mage {
 		 @param[in]		lock_type
 						The lock type.
 		 */
-		explicit ReadWriteMutexLock(ReadWriteMutex &mutex, ReadWriteMutexLockType lock_type);
+		explicit ReadWriteMutexLock(ReadWriteMutex &mutex, LockType lock_type);
 
 		/**
 		 Constructs a read write mutex lock from the given read write mutex lock.
@@ -397,7 +397,7 @@ namespace mage {
 		/**
 		 The lock type of this read write mutex lock. 
 		 */
-		ReadWriteMutexLockType m_type;
+		LockType m_type;
 
 		/**
 		 A reference to the read write mutex of this read write mutex lock. 
@@ -620,15 +620,15 @@ namespace mage {
 		/**
 		 An enumeration of the different types of events of this condition variable.
 		 */
-		enum struct Event { 
-			Signal    = 0, 
-			Broadcast = 1, 
-			Count     = 2 
+		enum Event { 
+			SIGNAL    = 0, 
+			BROADCAST = 1, 
+			COUNT     = 2 
 		};
 
 		/**
 		 The signal and broadcast event handles of this condition variable.
 		 */
-		HANDLE m_events[static_cast< size_t >(Event::Count)];
+		HANDLE m_events[COUNT];
 	};
 }

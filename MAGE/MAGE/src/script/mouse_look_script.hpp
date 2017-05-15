@@ -19,10 +19,10 @@ namespace mage {
 
 	public:
 
-		enum RotationAxes {
-			RotationAxes_MouseX = 1,
-			RotationAxes_MouseY = 2,
-			RotationAxes_MouseXAndY = RotationAxes_MouseX | RotationAxes_MouseY
+		enum struct RotationAxes {
+			MouseX = 1,
+			MouseY = 2,
+			MouseXAndY = MouseX | MouseY
 		};
 
 		//---------------------------------------------------------------------
@@ -30,7 +30,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit MouseLookScript(TransformNode *transform,
-			RotationAxes axes = RotationAxes_MouseXAndY,
+			RotationAxes axes = RotationAxes::MouseXAndY,
 			const XMFLOAT2 &sensitivity      = XMFLOAT2(1.8f, 1.8f),
 			const XMFLOAT2 &minimum_rotation = XMFLOAT2(-XM_PI / 3.0f, -XM_PI),
 			const XMFLOAT2 &maximum_rotation = XMFLOAT2(XM_PI / 3.0f, XM_PI),

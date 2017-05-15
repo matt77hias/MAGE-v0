@@ -275,28 +275,28 @@ namespace mage {
 		size_t m_nb_processor_cores;
 		
 		/**
-		 An enumeration of the different modes of this CPU timer..
+		 An enumeration of the different modes of this CPU timer.
 		 */
-		enum { 
-			KERNEL_MODE = 0,
-			USER_MODE   = 1,
-			NB_MODES    = 2
+		enum Mode { 
+			KERNEL = 0,
+			USER   = 1,
+			COUNT  = 2
 		};
 
 		/**
 		 The modes' last timestamps of this CPU timer's process.
 		 */
-		mutable uint64_t m_last_timestamp[NB_MODES];
+		mutable uint64_t m_last_timestamp[COUNT];
 		
 		/**
 		 The modes' delta times (in seconds) of this CPU timer's process.
 		 */
-		mutable uint64_t m_delta_time[NB_MODES];
+		mutable uint64_t m_delta_time[COUNT];
 
 		/**
 		 The modes' total delta times (in seconds) of this CPU timer's process.
 		 */
-		mutable uint64_t m_total_delta_time[NB_MODES];
+		mutable uint64_t m_total_delta_time[COUNT];
 
 		/**
 		 Flag indicating whether this CPU timer is running.

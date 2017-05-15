@@ -18,11 +18,11 @@ namespace mage {
 
 	public:
 
-		enum WireframeMode {
-			WireframeMode_None = 0,
-			WireframeMode_3D   = 1,
-			WireframeMode_2D   = 2,
-			WireframeMode_3Dand2D = WireframeMode_3D | WireframeMode_2D
+		enum struct WireframeMode {
+			None    = 0,
+			Mode_3D = 1,
+			Mode_2D = 2,
+			Mode_3Dand2D = Mode_3D | Mode_2D
 		};
 
 		//---------------------------------------------------------------------

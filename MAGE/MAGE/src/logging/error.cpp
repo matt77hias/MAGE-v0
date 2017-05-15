@@ -28,14 +28,14 @@ namespace mage {
 	 An enumeration of error dispositions.
 	
 	This contains: 
-	 @c ERROR_DISPOSITION_IGNORE, 
-	 @c ERROR_DISPOSITION_CONTINUE and 
-	 @c ERROR_DISPOSITION_ABORT.
+	 @c Ignore, 
+	 @c Continue and 
+	 @c Abort.
 	 */
-	enum ErrorDisposition {
-		ERROR_DISPOSITION_IGNORE,	// Ignore and continue execution.
-		ERROR_DISPOSITION_CONTINUE, // Report and continue execution.
-		ERROR_DISPOSITION_ABORT     // Report and abort exceution.
+	enum struct ErrorDisposition {
+		Ignore,	  // Ignore and continue execution.
+		Continue, // Report and continue execution.
+		Abort     // Report and abort exceution.
 	};
 
 	/**
@@ -71,7 +71,7 @@ namespace mage {
 	static void ProcessError(const char *format, const va_list args,
 		const string &error_type, ErrorDisposition disposition) {
 
-		if (disposition == ERROR_DISPOSITION_IGNORE) {
+		if (disposition == ErrorDisposition::Ignore) {
 			return;
 		}
 
@@ -113,7 +113,7 @@ namespace mage {
 		// Writes the error_string pointed by format to stderr.
 		fprintf(stderr, "%s\n", error_string.c_str());
 
-		if (disposition == ERROR_DISPOSITION_ABORT) {
+		if (disposition == ErrorDisposition::Abort) {
 			__debugbreak();
 		}
 	}
@@ -131,7 +131,7 @@ namespace mage {
 		// Retrieve the additional arguments after format.
 		va_start(args, format);
 		
-		ProcessError(format, args, "Debug Info", ERROR_DISPOSITION_CONTINUE);
+		ProcessError(format, args, "Debug Info", ErrorDisposition::Continue);
 		
 		// End using variable argument list.
 		va_end(args);	
@@ -151,7 +151,7 @@ namespace mage {
 		// Retrieve the additional arguments after format.
 		va_start(args, format);
 		
-		ProcessError(format, args, "Info", ERROR_DISPOSITION_CONTINUE);
+		ProcessError(format, args, "Info", ErrorDisposition::Continue);
 		
 		// End using variable argument list.
 		va_end(args);
@@ -168,7 +168,7 @@ namespace mage {
 		// Retrieve the additional arguments after format.
 		va_start(args, format);
 		
-		ProcessError(format, args, "Warning", ERROR_DISPOSITION_CONTINUE);
+		ProcessError(format, args, "Warning", ErrorDisposition::Continue);
 		
 		// End using variable argument list.
 		va_end(args);
@@ -180,7 +180,7 @@ namespace mage {
 		// Retrieve the additional arguments after format.
 		va_start(args, format);
 		
-		ProcessError(format, args, "Error", ERROR_DISPOSITION_CONTINUE);
+		ProcessError(format, args, "Error", ErrorDisposition::Continue);
 		
 		// End using variable argument list.
 		va_end(args);
@@ -192,7 +192,7 @@ namespace mage {
 		// Retrieve the additional arguments after format.
 		va_start(args, format);
 		
-		ProcessError(format, args, "Fatal Error", ERROR_DISPOSITION_ABORT);
+		ProcessError(format, args, "Fatal Error", ErrorDisposition::Abort);
 		
 		// End using variable argument list.
 		va_end(args);

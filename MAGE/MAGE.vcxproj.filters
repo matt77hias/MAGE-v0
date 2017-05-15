@@ -1278,5 +1278,8 @@
     <None Include="MAGE\src\light\light_node.tpp">
       <Filter>Header Files\light</Filter>
     </None>
+    <None Include="MAGE\src\model\model_node.tpp">
+      <Filter>Header Files\model</Filter>
+    </None>
   </ItemGroup>
 </Project>

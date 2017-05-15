@@ -55,3 +55,12 @@ namespace mage {
 		UniquePtr< Model > m_model;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "model\model_node.tpp"
+
+#pragma endregion

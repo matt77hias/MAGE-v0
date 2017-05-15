@@ -1297,6 +1297,7 @@
     <None Include="MAGE\src\model\mdl\mdl_writer.tpp" />
     <None Include="MAGE\src\model\model_descriptor.tpp" />
     <None Include="MAGE\src\model\model_loader.tpp" />
+    <None Include="MAGE\src\model\model_node.tpp" />
     <None Include="MAGE\src\rendering\constant_buffer.tpp" />
     <None Include="MAGE\src\rendering\rendering_factory.tpp" />
     <None Include="MAGE\src\rendering\structured_buffer.tpp" />

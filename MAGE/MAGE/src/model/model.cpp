@@ -19,7 +19,7 @@ namespace mage {
 
 	Model::Model(const Model &model)
 		: m_mesh(model.m_mesh), m_start_index(model.m_start_index), m_nb_indices(model.m_nb_indices),
-		m_material(std::make_unique<  ShadedMaterial >(*model.m_material)) {}
+		m_material(std::make_unique< ShadedMaterial >(*model.m_material)) {}
 
 	Model::Model(Model &&model) = default;
 

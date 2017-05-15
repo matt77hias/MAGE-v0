@@ -41,8 +41,14 @@
 //-------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 Atomic 32-bit integer type.
+	 */
 	using AtomicInt32 = volatile LONG;
 #ifdef MAGE_HAS_64_BIT_ATOMICS
+	/**
+	 Atomic 64-bit integer type.
+	 */
 	using AtomicInt64 = volatile LONGLONG;
 #endif
 

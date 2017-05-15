@@ -3,9 +3,6 @@
 
 using namespace mage;
 
-// VariableScript s(L"assets/scripts/script_test.vs");
-// s.ExportScript(L"assets/scripts/output.vs");
-
 struct Setup : public EngineSetup {
 
 	Setup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
@@ -41,7 +38,9 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 	// Create the engine, then run it.
 	g_engine = new Engine(setup);
 	g_engine->Run(nCmdShow);
-	SAFE_DELETE(g_engine);
 
 	return 0;
 }
+
+//VariableScript s(L"assets/scripts/script_test.vs");
+//s.ExportScript(L"assets/scripts/output.vs");

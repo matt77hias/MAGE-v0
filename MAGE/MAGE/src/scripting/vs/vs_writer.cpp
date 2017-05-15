@@ -45,12 +45,12 @@ namespace mage {
 				break;
 			}
 			case VariableType::Int2: {
-				const int2 *value = static_cast< const int2 *>(raw_value);
+				const XMINT2 *value = static_cast< const XMINT2 *>(raw_value);
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %d %d", MAGE_VS_TOKEN_INT2, name, value->x, value->y);
 				break;
 			}
 			case VariableType::Int3: {
-				const int3 *value = static_cast< const int3 * >(raw_value);
+				const XMINT3 *value = static_cast< const XMINT3 * >(raw_value);
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %d %d %d", MAGE_VS_TOKEN_INT3, name, value->x, value->y, value->z);
 				break;
 			}
@@ -60,22 +60,22 @@ namespace mage {
 				break;
 			}
 			case VariableType::Float2: {
-				const float2 *value = static_cast< const float2 * >(raw_value);
+				const XMFLOAT2 *value = static_cast< const XMFLOAT2 * >(raw_value);
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %f %f", MAGE_VS_TOKEN_FLOAT2, name, value->x, value->y);
 				break;
 			}
 			case VariableType::Float3: {
-				const float3 *value = static_cast< const float3 * >(raw_value);
+				const XMFLOAT3 *value = static_cast< const XMFLOAT3 * >(raw_value);
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %f %f %f", MAGE_VS_TOKEN_FLOAT3, name, value->x, value->y, value->z);
 				break;
 			}
 			case VariableType::Float4: {
-				const float4 *value = static_cast< const float4 * >(raw_value);
+				const XMFLOAT4 *value = static_cast< const XMFLOAT4 * >(raw_value);
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %f %f %f %f", MAGE_VS_TOKEN_FLOAT4, name, value->x, value->y, value->z, value->w);
 				break;
 			}
 			case VariableType::Color: {
-				const color *value = static_cast< const color * >(raw_value);
+				const XMFLOAT4 *value = static_cast< const XMFLOAT4 * >(raw_value);
 				sprintf_s(output, (unsigned int)_countof(output), "%s %s %f %f %f %f", MAGE_VS_TOKEN_COLOR, name, value->x, value->y, value->z, value->w);
 				break;
 			}

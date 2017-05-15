@@ -83,7 +83,7 @@ namespace mage {
 		const string name = ReadString();
 		const int x = ReadInt32();
 		const int y = ReadInt32();
-		const int2 value(x, y);
+		const XMINT2 value(x, y);
 		m_variable_buffer.push_back(Variable(VariableType::Int2, name, value));
 	}
 
@@ -92,7 +92,7 @@ namespace mage {
 		const int x = ReadInt32();
 		const int y = ReadInt32();
 		const int z = ReadInt32();
-		const int3 value(x, y, z);
+		const XMINT3 value(x, y, z);
 		m_variable_buffer.push_back(Variable(VariableType::Int3, name, value));
 	}
 
@@ -106,7 +106,7 @@ namespace mage {
 		const string name = ReadString();
 		const float x = ReadFloat();
 		const float y = ReadFloat();
-		const float2 value(x, y);
+		const XMFLOAT2 value(x, y);
 		m_variable_buffer.push_back(Variable(VariableType::Float2, name, value));
 	}
 	
@@ -115,7 +115,7 @@ namespace mage {
 		const float x = ReadFloat();
 		const float y = ReadFloat();
 		const float z = ReadFloat();
-		const float3 value(x, y, z);
+		const XMFLOAT3 value(x, y, z);
 		m_variable_buffer.push_back(Variable(VariableType::Float3, name, value));
 	}
 
@@ -125,7 +125,7 @@ namespace mage {
 		const float y = ReadFloat();
 		const float z = ReadFloat();
 		const float w = ReadFloat();
-		const float4 value(x, y, z, w);
+		const XMFLOAT4 value(x, y, z, w);
 		m_variable_buffer.push_back(Variable(VariableType::Float4, name, value));
 	}
 
@@ -135,7 +135,7 @@ namespace mage {
 		const float y = ReadFloat();
 		const float z = ReadFloat();
 		const float w = ReadFloat();
-		const color value(x, y, z, w);
+		const XMFLOAT4 value(x, y, z, w);
 		m_variable_buffer.push_back(Variable(VariableType::Color, name, value));
 	}
 

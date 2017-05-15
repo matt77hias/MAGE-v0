@@ -16,13 +16,6 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	using int2   = XMINT2;
-	using int3   = XMINT3;
-	using float2 = XMFLOAT2;
-	using float3 = XMFLOAT3;
-	using float4 = XMFLOAT4;
-	using color  = XMFLOAT4;
-
 	/**
 	 An enumeration of the different (scripting) variable types.
 

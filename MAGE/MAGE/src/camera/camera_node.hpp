@@ -92,7 +92,14 @@ namespace mage {
 		virtual UniquePtr< Node > CloneImplementation() const override;
 	};
 
+	/**
+	 A class of orthographic camera nodes.
+	 */
 	using OrthographicCameraNode = DerivedCameraNode< OrthographicCamera >;
+
+	/**
+	 A class of perspective camera nodes.
+	 */
 	using PerspectiveCameraNode  = DerivedCameraNode< PerspectiveCamera >;
 }
 

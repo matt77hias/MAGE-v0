@@ -56,7 +56,12 @@ namespace mage {
 	// ComPtr
 	//-------------------------------------------------------------------------
 
-	// COM Pointer type definition.
+	/**
+	 A class of smart pointers for managing shared-ownership COM resources.
+
+	 @tparam		T
+					The COM resource type.
+	 */
 	template < typename T >
 	using ComPtr = Microsoft::WRL::ComPtr< T >;
 
@@ -64,7 +69,12 @@ namespace mage {
 	// SharedPointer
 	//-------------------------------------------------------------------------
 	
-	// Shared Pointer type definition.
+	/**
+	 A class of smart pointers for managing shared-ownership memory resources.
+
+	 @tparam		T
+					The memory resource type.
+	 */
 	template < typename T >
 	using SharedPtr = std::shared_ptr< T >;
 
@@ -72,7 +82,13 @@ namespace mage {
 	// WeakPointer
 	//-------------------------------------------------------------------------
 
-	// Weak Pointer type definition.
+	/**
+	 A class of smart pointers for referencing but not managing 
+	 shared-ownership memory resources.
+
+	 @tparam		T
+					The memory resource type.
+	 */
 	template < typename T >
 	using WeakPtr = std::weak_ptr< T >;
 
@@ -80,7 +96,12 @@ namespace mage {
 	// UniquePointer
 	//-------------------------------------------------------------------------
 
-	// Unique Pointer type definition.
+	/**
+	 A class of smart pointers for managing exclusive-ownership memory resources.
+
+	 @tparam		T
+					The memory resource type.
+	 */
 	template < typename T >
 	using UniquePtr = std::unique_ptr< T >;
 
@@ -192,9 +213,14 @@ namespace mage {
 		}
 	};
 	
-	// Unique Pointer for handles.
+	/**
+	 A class of smart pointers for managing exclusive-ownership handle resources.
+	 */
 	using UniqueHandle = std::unique_ptr< void, HandleCloser >;
-	// Shared Point for handles.
+	
+	/**
+	 A class of smart pointers for managing shared-ownership handle resources.
+	 */
 	using SharedHandle = SharedPtr< void >;
 
 	/**
@@ -244,7 +270,9 @@ namespace mage {
 		}
 	};
 
-	// Unique Pointer for file streams.
+	/**
+	 A class of smart pointers for managing exclusive-ownership file streams.
+	 */
 	using UniqueFileStream = std::unique_ptr< FILE, FileStreamCloser >;
 }
 

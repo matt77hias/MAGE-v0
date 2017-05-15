@@ -94,10 +94,25 @@ namespace mage {
 		virtual UniquePtr< Node > CloneImplementation() const override;
 	};
 
-	using AmbientLightNode     = DerivedLightNode< AmbientLight >;
+	/**
+	 A class of ambient light nodes.
+	 */
+	using AmbientLightNode = DerivedLightNode< AmbientLight >;
+	
+	/**
+	 A class of directional light nodes.
+	 */
 	using DirectionalLightNode = DerivedLightNode< DirectionalLight >;
-	using OmniLightNode        = DerivedLightNode< OmniLight >;
-	using SpotLightNode        = DerivedLightNode< SpotLight >;
+	
+	/**
+	 A class of omni light nodes.
+	 */
+	using OmniLightNode = DerivedLightNode< OmniLight >;
+	
+	/**
+	 A class of spotlight nodes.
+	 */
+	using SpotLightNode = DerivedLightNode< SpotLight >;
 }
 
 //-----------------------------------------------------------------------------

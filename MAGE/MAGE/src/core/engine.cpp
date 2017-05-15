@@ -68,6 +68,7 @@ namespace mage {
 		CoUninitialize();
 
 		SAFE_DELETE(g_device_enumeration);
+		g_engine = nullptr;
 	}
 
 	void Engine::InitializeSystems(const EngineSetup &setup) {

@@ -17,7 +17,7 @@
 namespace mage {
 
 	/**
-	 A type definition for a resource map used by a resource pool.
+	 A resource map used by a resource pool.
 
 	 @tparam		KeyT
 					The key type.

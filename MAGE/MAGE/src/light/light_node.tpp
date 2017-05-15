@@ -6,8 +6,9 @@
 namespace mage {
 
 	template< typename LightT >
-	DerivedLightNode< LightT >::DerivedLightNode(const string &name)
-		: LightNode(name, std::make_unique< LightT >()) {}
+	template< typename... ConstructorArgsT >
+	DerivedLightNode< LightT >::DerivedLightNode(const string &name, ConstructorArgsT&&... args)
+		: LightNode(name, std::make_unique< LightT >(std::forward< ConstructorArgsT >(args)...)) {}
 
 	template< typename LightT >
 	DerivedLightNode< LightT >::DerivedLightNode(const string &name, UniquePtr< LightT > &&light)

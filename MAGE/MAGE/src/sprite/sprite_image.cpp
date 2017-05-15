@@ -24,7 +24,8 @@ namespace mage {
 	SpriteImage::SpriteImage(const string &name, SharedPtr< Texture > texture, 
 		const RECT &texture_region, const Color &color, SpriteEffect effects)
 		: SpriteObject(name, effects), m_color(color),
-		m_texture_region(new RECT(texture_region)), m_texture(texture) {
+		m_texture_region(std::make_unique< RECT >(texture_region)), 
+		m_texture(texture) {
 	
 		Assert(m_texture);
 	}
@@ -42,7 +43,8 @@ namespace mage {
 	SpriteImage::SpriteImage(const string &name, SharedPtr< Texture > texture, 
 		const RECT &texture_region, const XMVECTOR &color, SpriteEffect effects)
 		: SpriteObject(name, effects), m_color(),
-		m_texture_region(new RECT(texture_region)), m_texture(texture) {
+		m_texture_region(std::make_unique< RECT >(texture_region)), 
+		m_texture(texture) {
 
 		Assert(m_texture);
 
@@ -51,7 +53,8 @@ namespace mage {
 
 	SpriteImage::SpriteImage(const SpriteImage &sprite_image) 
 		: SpriteObject(sprite_image), m_color(sprite_image.m_color),
-		m_texture_region(new RECT(*sprite_image.m_texture_region)), m_texture(sprite_image.m_texture) {}
+		m_texture_region(std::make_unique< RECT >(*sprite_image.m_texture_region)), 
+		m_texture(sprite_image.m_texture) {}
 		
 	SpriteImage::SpriteImage(SpriteImage &&sprite_image) = default;
 

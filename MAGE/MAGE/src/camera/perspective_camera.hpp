@@ -37,6 +37,24 @@ namespace mage {
 		/**
 		 Constructs a perspective camera.
 
+		 The aspect ratio will be based on the current screen resolution.
+
+		 @pre			The current engine and its renderer must exist.
+		 @param[in]		fov_y
+						The vertical field-of-view.
+		 @param[in]		near_z
+						The position of the near z-plane in camera space.
+		 @param[in]		far_z
+						The position of the far z-plane in camera space.
+		 */
+		explicit PerspectiveCamera(
+			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
+			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
+			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
+
+		/**
+		 Constructs a perspective camera.
+
 		 @param[in]		aspect_ratio
 						The aspect ratio.
 		 @param[in]		fov_y
@@ -266,22 +284,4 @@ namespace mage {
 		 */
 		float m_fov_y;
 	};
-
-	/**
-	 Constructs a perspective camera.
-	
-	 The aspect ratio will be based on the current screen resolution.
-
-	 @pre			The current engine and its renderer must exist.
-	 @param[in]		fov_y
-					The vertical field-of-view.
-	 @param[in]		near_z
-					The position of the near z-plane in camera space.
-	 @param[in]		far_z
-					The position of the far z-plane in camera space.
-	 */
-	UniquePtr< PerspectiveCamera > CreatePerspectiveCamera(
-		float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
-		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
-		float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
 }

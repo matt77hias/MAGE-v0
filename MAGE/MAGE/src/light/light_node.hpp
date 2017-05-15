@@ -62,7 +62,8 @@ namespace mage {
 
 	public:
 
-		explicit DerivedLightNode(const string &name);
+		template< typename... ConstructorArgsT >
+		explicit DerivedLightNode(const string &name, ConstructorArgsT&&... args);
 
 		explicit DerivedLightNode(const string &name, UniquePtr< LightT > &&light);
 

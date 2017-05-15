@@ -163,24 +163,15 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	SharedPtr< OrthographicCameraNode > Scene::CreateOrthographicCameraNode() {
-		// Creates an orthographic camera.
-		UniquePtr< OrthographicCamera > camera = CreateOrthographicCamera();
-		// Creates an orthographic camera node.
-		return std::make_shared< OrthographicCameraNode >("camera", std::move(camera));
+		return std::make_shared< OrthographicCameraNode >("camera");
 	}
 
 	SharedPtr< PerspectiveCameraNode > Scene::CreatePerspectiveCameraNode() {
-		// Creates a perspective camera.
-		UniquePtr< PerspectiveCamera > camera = CreatePerspectiveCamera();
-		// Creates a perspective camera node.
-		return std::make_shared< PerspectiveCameraNode >("camera", std::move(camera));
+		return std::make_shared< PerspectiveCameraNode >("camera");
 	}
 
 	SharedPtr< OmniLightNode > Scene::CreateOmniLightNode() {
-		// Creates an omni light.
-		UniquePtr< OmniLight > light(new OmniLight());
-		// Creates an omni light node.
-		SharedPtr< OmniLightNode > light_node(new OmniLightNode("light", std::move(light)));
+		SharedPtr< OmniLightNode > light_node = std::make_shared< OmniLightNode >("light");
 		
 		// Adds this omni light node to this scene.
 		AddLight(light_node);
@@ -189,10 +180,7 @@ namespace mage {
 	}
 
 	SharedPtr< SpotLightNode > Scene::CreateSpotLightNode() {
-		// Creates a spotlight.
-		UniquePtr< SpotLight > light(new SpotLight());
-		// Creates a spotlight node.
-		SharedPtr< SpotLightNode > light_node(new SpotLightNode("light", std::move(light)));
+		SharedPtr< SpotLightNode > light_node = std::make_shared< SpotLightNode >("light");
 		
 		// Adds this spotlight node to this scene.
 		AddLight(light_node);
@@ -226,10 +214,9 @@ namespace mage {
 			// Creates a shaded material.
 			const ShadedMaterial shaded_material(material, brdf);
 
-			// Creates a submodel.
-			UniquePtr< Model > submodel(new Model(desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, shaded_material));
 			// Creates a submodel node.
-			SharedPtr< ModelNode > submodel_node(new ModelNode(model_part.m_child, std::move(submodel)));
+			SharedPtr< ModelNode > submodel_node = std::make_shared< ModelNode >(model_part.m_child, 
+				desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, shaded_material);
 			// Adds this submodel node to this scene.
 			AddModel(submodel_node);
 
@@ -247,10 +234,9 @@ namespace mage {
 		const bool create_root_model_node = (nb_root_childs > 1);
 
 		if (create_root_model_node) {
-			// Creates a root model.
-			UniquePtr< Model > root_model(new Model(desc.GetMesh(), 0, 0, default_shaded_material));
 			// Creates a root model node.
-			root_model_node = SharedPtr< ModelNode >(new ModelNode("model", std::move(root_model)));
+			root_model_node = std::make_shared< ModelNode >("model", 
+				desc.GetMesh(), 0, 0, default_shaded_material);
 			// Adds this root model node to this scene.
 			AddModel(root_model_node);
 		}
@@ -297,10 +283,9 @@ namespace mage {
 			// Creates a shaded material.
 			const ShadedMaterial shaded_material(material, shader);
 
-			// Creates a submodel.
-			UniquePtr< Model > submodel(new Model(desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, shaded_material));
 			// Creates a submodel node.
-			SharedPtr< ModelNode > submodel_node(new ModelNode(model_part.m_child, std::move(submodel)));
+			SharedPtr< ModelNode > submodel_node = std::make_shared< ModelNode >(model_part.m_child,
+				desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, shaded_material);
 			// Adds this submodel node to this scene.
 			AddModel(submodel_node);
 
@@ -318,10 +303,9 @@ namespace mage {
 		const bool create_root_model_node = (nb_root_childs > 1);
 
 		if (create_root_model_node) {
-			// Creates a root model.
-			UniquePtr< Model > root_model(new Model(desc.GetMesh(), 0, 0, default_shaded_material));
 			// Creates a root model node.
-			root_model_node = SharedPtr< ModelNode >(new ModelNode("model", std::move(root_model)));
+			root_model_node = std::make_shared< ModelNode >("model",
+				desc.GetMesh(), 0, 0, default_shaded_material);
 			// Adds this root model node to this scene.
 			AddModel(root_model_node);
 		}

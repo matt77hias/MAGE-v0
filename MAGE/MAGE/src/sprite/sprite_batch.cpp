@@ -26,10 +26,10 @@ namespace mage {
 	SpriteBatch::SpriteBatch(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CombinedShader &shader)
 		: m_device(device), m_device_context(device_context), 
-		m_mesh(new SpriteBatchMesh(device, device_context)), m_vertex_buffer_position(0),
-		m_shader(new CombinedShader(shader)), m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY), 
-		m_viewport_set(false), m_viewport{}, m_in_begin_end_pair(false), 
-		m_sort_mode(SpriteSortMode_Deferred), 
+		m_mesh(std::make_unique< SpriteBatchMesh >(device, device_context)), m_vertex_buffer_position(0),
+		m_shader(std::make_unique< CombinedShader >(shader)), 
+		m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY), m_viewport_set(false), m_viewport{}, 
+		m_in_begin_end_pair(false), m_sort_mode(SpriteSortMode_Deferred), 
 		m_transform(XMMatrixIdentity()), m_transform_buffer(device, device_context),
 		m_sprite_queue(), m_sprite_queue_size(0), m_sprite_queue_array_size(0), 
 		m_sorted_sprites(), m_sprite_texture_references() {}

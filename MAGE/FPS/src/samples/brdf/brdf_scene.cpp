@@ -14,9 +14,7 @@
 #pragma region
 
 #include "sprite\sprite_image.hpp"
-#include "script\location_script.hpp"
 #include "script\stats_script.hpp"
-#include "script\fps_input_controller_script.hpp"
 
 #pragma endregion
 
@@ -86,7 +84,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteImage > logo(new SpriteImage("logo", texture_logo));
+		SharedPtr< SpriteImage > logo = std::make_shared< SpriteImage >("logo", texture_logo);
 		logo->GetTransform()->SetScale(0.25f, 0.25f);
 		logo->GetTransform()->SetNormalizedTranslation(0.90f, 0.88f);
 		AddSprite(logo);
@@ -98,19 +96,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteText > stats_text(new NormalSpriteText("stats_text", font));
+		SharedPtr< SpriteText > stats_text = std::make_shared< NormalSpriteText >("stats_text", font);
 		AddSprite(stats_text);
-		SharedPtr< SpriteText > brdf_text(new NormalSpriteText("brdf_text", font));
+		SharedPtr< SpriteText > brdf_text  = std::make_shared< NormalSpriteText >("brdf_text", font);
 		AddSprite(brdf_text);
 
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		SharedPtr< BehaviorScript > stats_script(new StatsScript(stats_text));
-		AddScript(stats_script);
-		SharedPtr< BehaviorScript > controller_script(new FPSInputControllerScript(camera->GetTransform()));
-		//AddScript(controller_script);
-
+		AddScript(std::make_shared< StatsScript >(stats_text));
 
 		vector< ModelNode * > models;
 		models.push_back(model_teapot.get());
@@ -120,7 +114,6 @@ namespace mage {
 		models.push_back(model_plane.get());
 		models.push_back(model_sphere.get());
 		models.push_back(model_torus.get());
-		SharedPtr< BehaviorScript > brdf_script(new BRDFScript(brdf_text.get(), models));
-		AddScript(brdf_script);
+		AddScript(std::make_shared< BRDFScript >(brdf_text.get(), models));
 	}
 }

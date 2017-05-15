@@ -22,6 +22,6 @@ namespace mage {
 	SceneNode::~SceneNode() = default;
 
 	UniquePtr< Node > SceneNode::CloneImplementation() const {
-		return UniquePtr< Node >(new SceneNode(*this));
+		return std::make_unique< SceneNode >(*this);
 	}
 }

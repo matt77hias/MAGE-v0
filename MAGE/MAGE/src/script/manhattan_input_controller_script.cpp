@@ -14,8 +14,8 @@ namespace mage {
 
 	ManhattanInputControllerScript::ManhattanInputControllerScript(TransformNode *transform)
 		: BehaviorScript(),
-		m_orientation_script(new MouseLookScript(transform)),
-		m_movement_script(new ManhattanMotorScript(transform)) {}
+		m_orientation_script(std::make_unique< MouseLookScript >(transform)),
+		m_movement_script(std::make_unique< ManhattanMotorScript >(transform)) {}
 	
 	ManhattanInputControllerScript::ManhattanInputControllerScript(ManhattanInputControllerScript &&script) = default;
 	

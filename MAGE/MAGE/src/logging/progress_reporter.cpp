@@ -24,7 +24,7 @@ namespace mage {
 
 	ProgressReporter::ProgressReporter(const string &title, uint32_t nb_work, char plus_char, uint32_t bar_length)
 		: m_nb_work_total(nb_work), m_nb_work_done(0), m_nb_plusses_printed(0), m_plus_char(plus_char),
-		m_fout(stdout), m_buffer(), m_current_pos(nullptr), m_timer(new Timer()), m_mutex() {
+		m_fout(stdout), m_buffer(), m_current_pos(nullptr), m_timer(std::make_unique< Timer >()), m_mutex() {
 		
 		Initialize(title, bar_length);
 	}

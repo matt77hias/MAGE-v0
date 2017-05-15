@@ -14,6 +14,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	PerspectiveCamera::PerspectiveCamera(float fov_y, float near_z, float far_z)
+		: PerspectiveCamera(
+			static_cast<float>(g_engine->GetRenderer()->GetWidth()),
+			static_cast<float>(g_engine->GetRenderer()->GetHeight()),
+			fov_y, near_z, far_z) {}
+
 	PerspectiveCamera::PerspectiveCamera(float aspect_ratio,
 		float fov_y, float near_z, float far_z)
 		: Camera(near_z, far_z),
@@ -36,15 +42,5 @@ namespace mage {
 
 	UniquePtr< Camera > PerspectiveCamera::CloneImplementation() const {
 		return std::make_unique< PerspectiveCamera >(*this);
-	}
-
-	UniquePtr< PerspectiveCamera > CreatePerspectiveCamera(float fov_y, float near_z, float far_z) {
-		Assert(g_engine);
-		const Renderer *render = g_engine->GetRenderer();
-		Assert(render);
-		const float width  = static_cast< float >(render->GetWidth());
-		const float height = static_cast< float >(render->GetHeight());
-		
-		return std::make_unique< PerspectiveCamera >(width, height, fov_y, near_z, far_z);
 	}
 }

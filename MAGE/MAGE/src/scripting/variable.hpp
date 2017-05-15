@@ -76,7 +76,8 @@ namespace mage {
 		 */
 		template< typename T >
 		Variable(VariableType type, const string &name, const T &value) 
-			: m_type(type), m_name(name), m_value(new Value< T >(value)) {}
+			: m_type(type), m_name(name), 
+			m_value(std::make_unique< Value< T > >(value)) {}
 
 		/**
 		 Constructs a variable from the given variable.

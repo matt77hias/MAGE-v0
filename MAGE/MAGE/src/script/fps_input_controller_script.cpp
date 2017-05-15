@@ -14,8 +14,8 @@ namespace mage {
 
 	FPSInputControllerScript::FPSInputControllerScript(TransformNode *transform)
 		: BehaviorScript(),
-		m_orientation_script(new MouseLookScript(transform)),
-		m_movement_script(new CharacterMotorScript(transform)) {}
+		m_orientation_script(std::make_unique< MouseLookScript >(transform)),
+		m_movement_script(std::make_unique< CharacterMotorScript >(transform)) {}
 	
 	FPSInputControllerScript::FPSInputControllerScript(FPSInputControllerScript &&script) = default;
 	

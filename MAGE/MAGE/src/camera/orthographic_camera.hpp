@@ -235,22 +235,4 @@ namespace mage {
 		 */
 		float m_height;
 	};
-
-	/**
-	 Constructs an orthographic camera.
-
-	 @param[in]		width
-					The width of the camera projection plane in camera space.
-	 @param[in]		height
-					The height of the camera projection plane in camera space.
-	 @param[in]		near_z
-					The position of the near z-plane in camera space.
-	 @param[in]		far_z
-					The position of the far z-plane in camera space.
-	 */
-	UniquePtr< OrthographicCamera > CreateOrthographicCamera(
-		float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
-		float height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
-		float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-		float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
 }

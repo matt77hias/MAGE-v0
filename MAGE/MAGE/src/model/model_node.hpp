@@ -21,6 +21,9 @@ namespace mage {
 
 	public:
 
+		template< typename... ConstructorArgsT >
+		explicit ModelNode(const string &name, ConstructorArgsT&&... args);
+
 		explicit ModelNode(const string &name, UniquePtr< Model > &&model);
 
 		ModelNode(const ModelNode &model_node);

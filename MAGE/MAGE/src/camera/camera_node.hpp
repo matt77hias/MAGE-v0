@@ -60,7 +60,8 @@ namespace mage {
 
 	public:
 
-		explicit DerivedCameraNode(const string &name);
+		template< typename... ConstructorArgsT >
+		explicit DerivedCameraNode(const string &name, ConstructorArgsT&&... args);
 		
 		explicit DerivedCameraNode(const string &name, UniquePtr< CameraT > &&camera);
 		

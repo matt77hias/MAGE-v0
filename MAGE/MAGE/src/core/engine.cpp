@@ -31,7 +31,7 @@ namespace mage {
 		: Loadable(), m_main_window(), m_deactive(false), 
 		m_renderer(), m_mode_switch(false),
 		m_input_manager(), m_resource_factory(),
-		m_scene(), m_timer(new Timer()) {
+		m_scene(), m_timer(std::make_unique< Timer >()) {
 
 		// Store a pointer to the engine in a global variable for easy access.
 		SAFE_DELETE(g_engine);

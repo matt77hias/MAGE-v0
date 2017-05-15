@@ -18,7 +18,7 @@ namespace mage {
 	StatsScript::StatsScript(SharedPtr< SpriteText > text)
 		: BehaviorScript(),
 		m_accumulated_time(0.0), m_accumulated_nb_frames(0),
-		m_last_cpu_usage(0.0), m_last_ram_usage(0),
+		m_last_frames_per_second(0), m_last_cpu_usage(0.0), m_last_ram_usage(0),
 		m_monitor(std::make_unique< CPUMonitor >()), m_text(text) {
 		m_monitor->Start();
 	}

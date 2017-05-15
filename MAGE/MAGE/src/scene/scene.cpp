@@ -214,9 +214,10 @@ namespace mage {
 			// Creates a shaded material.
 			const ShadedMaterial shaded_material(material, brdf);
 
+			// Creates a submodel.
+			UniquePtr< Model > submodel(new Model(desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, shaded_material));
 			// Creates a submodel node.
-			SharedPtr< ModelNode > submodel_node = std::make_shared< ModelNode >(model_part.m_child, 
-				desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, shaded_material);
+			SharedPtr< ModelNode > submodel_node(new ModelNode(model_part.m_child, std::move(submodel)));
 			// Adds this submodel node to this scene.
 			AddModel(submodel_node);
 
@@ -234,10 +235,10 @@ namespace mage {
 		const bool create_root_model_node = (nb_root_childs > 1);
 
 		if (create_root_model_node) {
+			// Creates a root model.
+			UniquePtr< Model > root_model(new Model(desc.GetMesh(), 0, 0, default_shaded_material));
 			// Creates a root model node.
-			root_model_node = std::make_shared< ModelNode >("model", 
-				desc.GetMesh(), 0, 0, default_shaded_material);
-			// Adds this root model node to this scene.
+			root_model_node = SharedPtr< ModelNode >(new ModelNode("model", std::move(root_model)));
 			AddModel(root_model_node);
 		}
 
@@ -283,9 +284,10 @@ namespace mage {
 			// Creates a shaded material.
 			const ShadedMaterial shaded_material(material, shader);
 
+			// Creates a submodel.
+			UniquePtr< Model > submodel(new Model(desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, shaded_material));
 			// Creates a submodel node.
-			SharedPtr< ModelNode > submodel_node = std::make_shared< ModelNode >(model_part.m_child,
-				desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, shaded_material);
+			SharedPtr< ModelNode > submodel_node(new ModelNode(model_part.m_child, std::move(submodel)));
 			// Adds this submodel node to this scene.
 			AddModel(submodel_node);
 
@@ -303,9 +305,10 @@ namespace mage {
 		const bool create_root_model_node = (nb_root_childs > 1);
 
 		if (create_root_model_node) {
+			// Creates a root model.
+			UniquePtr< Model > root_model(new Model(desc.GetMesh(), 0, 0, default_shaded_material));
 			// Creates a root model node.
-			root_model_node = std::make_shared< ModelNode >("model",
-				desc.GetMesh(), 0, 0, default_shaded_material);
+			root_model_node = SharedPtr< ModelNode >(new ModelNode("model", std::move(root_model)));
 			// Adds this root model node to this scene.
 			AddModel(root_model_node);
 		}

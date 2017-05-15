@@ -26,6 +26,6 @@ namespace mage {
 	Model::~Model() = default;
 
 	UniquePtr< Model > Model::CloneImplementation() const {
-		return UniquePtr< Model >(new Model(*this));
+		return std::make_unique< Model >(*this);
 	}
 }

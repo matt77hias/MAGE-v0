@@ -115,7 +115,7 @@ namespace mage {
 		 Sets the deactive flag of this engine to the given value.
 
 		 @param[in]		deactive
-						The new value for the deactive flag.	
+						The value for the deactive flag.	
 		 */
 		void SetDeactiveFlag(bool deactive);
 
@@ -137,7 +137,7 @@ namespace mage {
 		 Sets the mode switch flag of this engine to the given value.
 
 		 @param[in]		mode_switch
-						The new value for the mode switch flag.
+						The value for the mode switch flag.
 		 */
 		void SetModeSwitchFlag(bool mode_switch) noexcept {
 			m_mode_switch = mode_switch;

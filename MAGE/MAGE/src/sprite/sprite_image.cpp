@@ -58,7 +58,7 @@ namespace mage {
 	SpriteImage::~SpriteImage() = default;
 
 	UniquePtr< SpriteObject > SpriteImage::CloneImplementation() const {
-		return UniquePtr< SpriteImage >(new SpriteImage(*this));
+		return std::make_unique< SpriteImage >(*this);
 	}
 
 	void SpriteImage::SetTextureRegion(const RECT &texture_region) {

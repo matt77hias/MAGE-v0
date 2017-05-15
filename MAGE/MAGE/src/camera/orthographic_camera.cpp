@@ -28,12 +28,11 @@ namespace mage {
 	OrthographicCamera &OrthographicCamera::operator=(OrthographicCamera &&camera) = default;
 
 	UniquePtr< Camera > OrthographicCamera::CloneImplementation() const {
-		return UniquePtr< OrthographicCamera >(new OrthographicCamera(*this));
+		return std::make_unique< OrthographicCamera >(*this);
 	}
 
 	UniquePtr< OrthographicCamera > CreateOrthographicCamera(
 		float width, float height, float near_z, float far_z) {
-		return UniquePtr< OrthographicCamera >(
-			new OrthographicCamera(width, height, near_z, far_z));
+		return std::make_unique< OrthographicCamera >(width, height, near_z, far_z);
 	}
 }

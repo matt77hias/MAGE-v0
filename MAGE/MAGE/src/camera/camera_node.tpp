@@ -7,7 +7,7 @@ namespace mage {
 
 	template< typename CameraT >
 	DerivedCameraNode< CameraT >::DerivedCameraNode(const string &name) 
-		: CameraNode(name, UniquePtr< Camera >(new CameraT())) {}
+		: CameraNode(name, std::make_unique< CameraT >()) {}
 
 	template< typename CameraT >
 	DerivedCameraNode< CameraT >::DerivedCameraNode(const string &name, UniquePtr< CameraT > &&camera)
@@ -24,6 +24,6 @@ namespace mage {
 
 	template< typename CameraT >
 	UniquePtr< Node > DerivedCameraNode< CameraT >::CloneImplementation() const {
-		return UniquePtr< Node >(new DerivedCameraNode(*this));
+		return std::make_unique< DerivedCameraNode >(*this);
 	}
 }

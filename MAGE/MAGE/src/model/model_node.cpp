@@ -23,6 +23,6 @@ namespace mage {
 	ModelNode::~ModelNode() = default;
 
 	UniquePtr< Node > ModelNode::CloneImplementation() const {
-		return UniquePtr< Node >(new ModelNode(*this));
+		return std::make_unique< ModelNode >(*this);
 	}
 }

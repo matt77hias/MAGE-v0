@@ -35,7 +35,7 @@ namespace mage {
 	PerspectiveCamera &PerspectiveCamera::operator=(PerspectiveCamera &&camera) = default;
 
 	UniquePtr< Camera > PerspectiveCamera::CloneImplementation() const {
-		return UniquePtr< PerspectiveCamera >(new PerspectiveCamera(*this));
+		return std::make_unique< PerspectiveCamera >(*this);
 	}
 
 	UniquePtr< PerspectiveCamera > CreatePerspectiveCamera(float fov_y, float near_z, float far_z) {
@@ -44,6 +44,7 @@ namespace mage {
 		Assert(render);
 		const float width  = static_cast< float >(render->GetWidth());
 		const float height = static_cast< float >(render->GetHeight());
-		return UniquePtr< PerspectiveCamera >(new PerspectiveCamera(width, height, fov_y, near_z, far_z));
+		
+		return std::make_unique< PerspectiveCamera >(width, height, fov_y, near_z, far_z);
 	}
 }

@@ -24,7 +24,7 @@ namespace mage {
 	/**
 	 A struct of transform nodes.
 	 */
-	class TransformNode final {
+	__declspec(align(16)) struct TransformNode final : public AlignedData< TransformNode > {
 
 	public:
 

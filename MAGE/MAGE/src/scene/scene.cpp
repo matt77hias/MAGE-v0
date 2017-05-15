@@ -166,14 +166,14 @@ namespace mage {
 		// Creates an orthographic camera.
 		UniquePtr< OrthographicCamera > camera = CreateOrthographicCamera();
 		// Creates an orthographic camera node.
-		return SharedPtr< OrthographicCameraNode >(new OrthographicCameraNode("camera", std::move(camera)));
+		return std::make_shared< OrthographicCameraNode >("camera", std::move(camera));
 	}
 
 	SharedPtr< PerspectiveCameraNode > Scene::CreatePerspectiveCameraNode() {
 		// Creates a perspective camera.
 		UniquePtr< PerspectiveCamera > camera = CreatePerspectiveCamera();
 		// Creates a perspective camera node.
-		return SharedPtr< PerspectiveCameraNode >(new PerspectiveCameraNode("camera", std::move(camera)));
+		return std::make_shared< PerspectiveCameraNode >("camera", std::move(camera));
 	}
 
 	SharedPtr< OmniLightNode > Scene::CreateOmniLightNode() {

@@ -26,7 +26,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a new logging configuration.
+		 Constructs a logging configuration.
 
 		 @param[in]		quiet
 						Flag indicating whether quiet logging is preferred.

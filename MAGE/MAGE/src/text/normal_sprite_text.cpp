@@ -23,7 +23,7 @@ namespace mage {
 	NormalSpriteText::~NormalSpriteText() = default;
 
 	UniquePtr< SpriteObject > NormalSpriteText::CloneImplementation() const {
-		return UniquePtr< NormalSpriteText >(new NormalSpriteText(*this));
+		return std::make_unique< NormalSpriteText >(*this);
 	}
 
 	void NormalSpriteText::Draw(SpriteBatch &sprite_batch) const {

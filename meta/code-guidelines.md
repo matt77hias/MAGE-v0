@@ -1,5 +1,12 @@
 # Code Guidelines
 
+## General
+* Erich Gamma, Richard Helm, Ralph Johnson & John M. Vlissides: Design Patterns *Elements of Reusable Object-Oriented Software*
+* Scott Meyers: Effective C++ (3th edition)
+* Scott Meyers: Effective Modern C++
+
+## Specific
+
 ### const
 Always use `const` (member method, method return argument, method input arguments, local variables) if applicable.
 Always use `const` for return by value of non-built-in types to avoid assignment (and its side effects).

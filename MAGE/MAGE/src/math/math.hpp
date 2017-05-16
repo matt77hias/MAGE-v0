@@ -422,7 +422,7 @@ namespace mage {
 						A reference to the direction to copy.
 		 */
 		explicit Normal3(const Direction3 &direction) noexcept
-			: XMFLOAT3(static_cast< const XMFLOAT3 & >(direction)) {}
+			: XMFLOAT3(direction) {}
 
 		/**
 		 Constructs a normal by moving the given direction.
@@ -431,7 +431,7 @@ namespace mage {
 						A reference to the direction to move.
 		 */
 		explicit Normal3(Direction3 &&direction) noexcept
-			: XMFLOAT3(static_cast< XMFLOAT3 && >(direction)) {}
+			: XMFLOAT3(std::move(direction)) {}
 		
 		/**
 		 Constructs a normal from the given vector.
@@ -484,10 +484,10 @@ namespace mage {
 	static_assert(sizeof(Normal3) == sizeof(XMFLOAT3), "Normal3/XMFLOAT3 mismatch");
 
 	inline Direction3::Direction3(const Normal3 &normal) noexcept
-		: XMFLOAT3(static_cast< const XMFLOAT3 & >(normal)) {}
+		: XMFLOAT3(normal) {}
 	
 	inline Direction3::Direction3(Normal3 &&normal) noexcept
-		: XMFLOAT3(static_cast< XMFLOAT3 && >(normal)) {}
+		: XMFLOAT3(std::move(normal)) {}
 
 	/**
 	 Outputs the given vector to the given output stream.

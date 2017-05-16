@@ -63,8 +63,8 @@ namespace mage {
 		omni_light->GetTransform()->SetTranslationY(2.0f);
 		omni_light->GetLight()->SetDistanceFalloff(0.0f, 2.0f);
 		SharedPtr< SpotLightNode > spot_light = CreateSpotLightNode();
-		spot_light->GetLight()->SetAngularCutoff(1.0f, 0.86602540f);
-		spot_light->GetLight()->SetDistanceFalloff(0.0f, 3.0f);
+		spot_light->GetLight()->SetAngularCutoff(0.0f, 0.0f);// 0.86602540f);
+		spot_light->GetLight()->SetDistanceFalloff(0.0f, 5.0f);
 		camera->AddChildNode(spot_light);
 
 		//---------------------------------------------------------------------
@@ -92,8 +92,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		//AddScript(std::make_shared< RotationYScript >(model_sphere->GetTransform()));
-
+		AddScript(std::make_shared< RotationYScript >(model_sphere->GetTransform()));
 		AddScript(std::make_shared< FPSInputControllerScript >(camera->GetTransform()));
 		AddScript(std::make_shared< StatsScript >(text));
 		AddScript(std::make_shared< WireframeScript >());

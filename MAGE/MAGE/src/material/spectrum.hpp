@@ -57,7 +57,7 @@ namespace mage {
 		 @param[in]		rgb
 						A reference to the RGB spectrum to copy.
 		 */
-		RGBSpectrum(const RGBSpectrum &rgb) noexcept = default;
+		RGBSpectrum(const RGBSpectrum &rgb) = default;
 		
 		/**
 		 Constructs a RGB spectrum by moving the given RGB spectrum.
@@ -118,7 +118,7 @@ namespace mage {
 		 @return		A reference to the copy of the given RGB spectrum
 						(i.e. this RGB spectrum).
 		 */
-		RGBSpectrum &operator=(const RGBSpectrum &rgb) noexcept = default;
+		RGBSpectrum &operator=(const RGBSpectrum &rgb) = default;
 
 		/**
 		 Moves the given RGB spectrum to this RGB spectrum.
@@ -128,7 +128,7 @@ namespace mage {
 		 @return		A reference to the moved RGB spectrum
 						(i.e. this RGB spectrum).
 		 */
-		RGBSpectrum &operator=(RGBSpectrum &&rgb) noexcept = default;
+		RGBSpectrum &operator=(RGBSpectrum &&rgb) = default;
 	};
 
 	static_assert(sizeof(RGBSpectrum) == sizeof(XMFLOAT3), "RGBSpectrum/XMFLOAT3 mismatch");
@@ -173,7 +173,7 @@ namespace mage {
 		 @param[in]		xyz
 						A reference to the XYZ spectrum to copy.
 		 */
-		XYZSpectrum(const XYZSpectrum &xyz) noexcept = default;
+		XYZSpectrum(const XYZSpectrum &xyz) = default;
 		
 		/**
 		 Constructs a XYZ spectrum by moving the given XYZ spectrum.
@@ -234,7 +234,7 @@ namespace mage {
 		 @return		A reference to the copy of the given XYZ spectrum
 						(i.e. this XYZ spectrum).
 		 */
-		XYZSpectrum &operator=(const XYZSpectrum &xyz) noexcept = default;
+		XYZSpectrum &operator=(const XYZSpectrum &xyz) = default;
 
 		/**
 		 Moves the given XYZ spectrum to this XYZ spectrum.
@@ -244,7 +244,7 @@ namespace mage {
 		 @return		A reference to the moved XYZ spectrum
 						(i.e. this XYZ spectrum).
 		 */
-		XYZSpectrum &operator=(XYZSpectrum &&xyz) noexcept = default;
+		XYZSpectrum &operator=(XYZSpectrum &&xyz) = default;
 	};
 
 	static_assert(sizeof(XYZSpectrum) == sizeof(XMFLOAT3), "XYZSpectrum/XMFLOAT3 mismatch");

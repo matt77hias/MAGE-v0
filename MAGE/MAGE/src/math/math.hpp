@@ -61,7 +61,7 @@ namespace mage {
 		 @param[in]		uv
 						A reference to the set of UV texture coordinates to copy.
 		 */
-		UV(const UV &uv) noexcept = default;
+		UV(const UV &uv) = default;
 		
 		/**
 		 Constructs a set of UV texture coordinates by moving
@@ -108,7 +108,7 @@ namespace mage {
 		 @return		A reference to the copy of the given set of UV texture coordinates
 						(i.e. this set of UV texture coordinates).
 		 */
-		UV &operator=(const UV &uv) noexcept = default;
+		UV &operator=(const UV &uv) = default;
 		
 		/**
 		 Moves the given set of UV texture coordinates to
@@ -119,7 +119,7 @@ namespace mage {
 		 @return		A reference to the moved set of UV texture coordinates
 						(i.e. this set of UV texture coordinates).
 		 */
-		UV &operator=(UV &&uv) noexcept = default;
+		UV &operator=(UV &&uv) = default;
 	};
 
 	static_assert(sizeof(UV) == sizeof(XMFLOAT2), "UV/XMFLOAT2 mismatch");
@@ -186,7 +186,7 @@ namespace mage {
 		 @param[in]		point
 						A reference to the point to copy.
 		 */
-		Point3(const Point3 &point) noexcept = default;
+		Point3(const Point3 &point) = default;
 		
 		/**
 		 Constructs a point by moving the given point.
@@ -231,7 +231,7 @@ namespace mage {
 		 @return		A reference to the copy of the given point
 						(i.e. this point).
 		 */
-		Point3 &operator=(const Point3 &point) noexcept = default;
+		Point3 &operator=(const Point3 &point) = default;
 		
 		/**
 		 Moves the given point to this point.
@@ -241,7 +241,7 @@ namespace mage {
 		 @return		A reference to the moved point
 						(i.e. this point).
 		 */
-		Point3 &operator=(Point3 &&point) noexcept = default;
+		Point3 &operator=(Point3 &&point) = default;
 	};
 
 	static_assert(sizeof(Point3) == sizeof(XMFLOAT3), "Point3/XMFLOAT3 mismatch");
@@ -286,7 +286,7 @@ namespace mage {
 		 @param[in]		direction
 						A reference to the direction to copy.
 		 */
-		Direction3(const Direction3 &direction) noexcept = default;
+		Direction3(const Direction3 &direction) = default;
 		
 		/**
 		 Constructs a direction by moving the given direction.
@@ -347,7 +347,7 @@ namespace mage {
 		 @return		A reference to the copy of the given direction
 						(i.e. this direction).
 		 */
-		Direction3 &operator=(const Direction3 &direction) noexcept = default;
+		Direction3 &operator=(const Direction3 &direction) = default;
 		
 		/**
 		 Moves the given direction to this direction.
@@ -357,7 +357,7 @@ namespace mage {
 		 @return		A reference to the moved direction
 						(i.e. this direction).
 		 */
-		Direction3 &operator=(Direction3 &&direction) noexcept = default;
+		Direction3 &operator=(Direction3 &&direction) = default;
 	};
 
 	static_assert(sizeof(Direction3) == sizeof(XMFLOAT3), "Direction3/XMFLOAT3 mismatch");
@@ -405,7 +405,7 @@ namespace mage {
 		 @param[in]		normal
 						A reference to the normal to copy.
 		 */
-		Normal3(const Normal3 &normal) noexcept = default;
+		Normal3(const Normal3 &normal) = default;
 		
 		/**
 		 Constructs a normal by moving the given normal.
@@ -468,7 +468,7 @@ namespace mage {
 		 @return		A reference to the copy of the given normal
 						(i.e. this normal).
 		 */
-		Normal3 &operator=(const Normal3 &normal) noexcept = default;
+		Normal3 &operator=(const Normal3 &normal) = default;
 		
 		/**
 		 Moves the given normal to this normal.
@@ -478,7 +478,7 @@ namespace mage {
 		 @return		A reference to the moved normal
 						(i.e. this normal).
 		 */
-		Normal3 &operator=(Normal3 &&normal) noexcept = default;
+		Normal3 &operator=(Normal3 &&normal) = default;
 	};
 
 	static_assert(sizeof(Normal3) == sizeof(XMFLOAT3), "Normal3/XMFLOAT3 mismatch");
@@ -545,7 +545,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the color to copy.
 		 */
-		Color(const Color &color) noexcept = default;
+		Color(const Color &color) = default;
 		
 		/**
 		 Constructs a color by moving the given color.
@@ -590,7 +590,7 @@ namespace mage {
 		 @return		A reference to the copy of the given color
 						(i.e. this color).
 		 */
-		Color &operator=(const Color &color) noexcept = default;
+		Color &operator=(const Color &color) = default;
 		
 		/**
 		 Moves the given color to this color.
@@ -600,7 +600,7 @@ namespace mage {
 		 @return		A reference to the moved color
 						(i.e. this color).
 		 */
-		Color &operator=(Color &&color) noexcept = default;
+		Color &operator=(Color &&color) = default;
 	};
 
 	static_assert(sizeof(Color) == sizeof(XMFLOAT4), "Color/XMFLOAT4 mismatch");

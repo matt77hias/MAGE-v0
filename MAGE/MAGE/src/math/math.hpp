@@ -40,7 +40,7 @@ namespace mage {
 		/**
 		 Constructs a set of UV texture coordinates.
 		 */
-		UV()
+		UV() noexcept
 			: UV(0.0f, 0.0f) {}
 		
 		/**
@@ -51,7 +51,7 @@ namespace mage {
 		 @param[in]		v
 						The v texture coordinate.			
 		 */
-		UV(float u, float v)
+		UV(float u, float v) noexcept
 			: XMFLOAT2(u, v) {}
 		
 		/**
@@ -61,7 +61,7 @@ namespace mage {
 		 @param[in]		uv
 						A reference to the set of UV texture coordinates to copy.
 		 */
-		UV(const UV &uv) = default;
+		UV(const UV &uv) noexcept = default;
 		
 		/**
 		 Constructs a set of UV texture coordinates by moving
@@ -78,7 +78,7 @@ namespace mage {
 		 @param[in]		v
 						A reference to the vector to copy.
 		 */
-		explicit UV(const XMFLOAT2 &v)
+		explicit UV(const XMFLOAT2 &v) noexcept
 			: XMFLOAT2(v) {}
 
 		/**
@@ -108,7 +108,7 @@ namespace mage {
 		 @return		A reference to the copy of the given set of UV texture coordinates
 						(i.e. this set of UV texture coordinates).
 		 */
-		UV &operator=(const UV &uv) = default;
+		UV &operator=(const UV &uv) noexcept = default;
 		
 		/**
 		 Moves the given set of UV texture coordinates to
@@ -164,7 +164,7 @@ namespace mage {
 		/**
 		 Constructs a point.
 		 */
-		Point3()
+		Point3() noexcept
 			: Point3(0.0f, 0.0f, 0.0f) {}
 		
 		/**
@@ -177,7 +177,7 @@ namespace mage {
 		 @param[in]		z
 						The z-coordinate.
 		 */
-		Point3(float x, float y, float z) 
+		Point3(float x, float y, float z) noexcept
 			: XMFLOAT3(x, y, z) {}
 		
 		/**
@@ -186,7 +186,7 @@ namespace mage {
 		 @param[in]		point
 						A reference to the point to copy.
 		 */
-		Point3(const Point3 &point) = default;
+		Point3(const Point3 &point) noexcept = default;
 		
 		/**
 		 Constructs a point by moving the given point.
@@ -202,7 +202,7 @@ namespace mage {
 		 @param[in]		v
 						A reference to the vector to copy.
 		 */
-		explicit Point3(const XMFLOAT3 &v)
+		explicit Point3(const XMFLOAT3 &v) noexcept
 			: XMFLOAT3(v) {}
 
 		/**
@@ -231,7 +231,7 @@ namespace mage {
 		 @return		A reference to the copy of the given point
 						(i.e. this point).
 		 */
-		Point3 &operator=(const Point3 &point) = default;
+		Point3 &operator=(const Point3 &point) noexcept = default;
 		
 		/**
 		 Moves the given point to this point.
@@ -264,7 +264,7 @@ namespace mage {
 		/**
 		 Constructs a direction.
 		 */
-		Direction3()
+		Direction3() noexcept
 			: Direction3(0.0f, 0.0f, 0.0f) {}
 		
 		/**
@@ -277,7 +277,7 @@ namespace mage {
 		 @param[in]		z
 						The z-coordinate.
 		 */
-		Direction3(float x, float y, float z)
+		Direction3(float x, float y, float z) noexcept
 			: XMFLOAT3(x, y, z) {}
 		
 		/**
@@ -286,7 +286,7 @@ namespace mage {
 		 @param[in]		direction
 						A reference to the direction to copy.
 		 */
-		Direction3(const Direction3 &direction) = default;
+		Direction3(const Direction3 &direction) noexcept = default;
 		
 		/**
 		 Constructs a direction by moving the given direction.
@@ -302,7 +302,7 @@ namespace mage {
 		 @param[in]		normal
 						A reference to the normal to copy.
 		 */
-		Direction3(const Normal3 &normal);
+		Direction3(const Normal3 &normal) noexcept;
 
 		/**
 		 Constructs a direction by moving the given normal.
@@ -310,7 +310,7 @@ namespace mage {
 		 @param[in]		normal
 						A reference to the normal to move.
 		 */
-		Direction3(Normal3 &&normal);
+		Direction3(Normal3 &&normal) noexcept;
 
 		/**
 		 Constructs a direction from the given vector.
@@ -318,7 +318,7 @@ namespace mage {
 		 @param[in]		v
 						A reference to the vector to copy.
 		 */
-		explicit Direction3(const XMFLOAT3 &v)
+		explicit Direction3(const XMFLOAT3 &v) noexcept
 			: XMFLOAT3(v) {}
 
 		/**
@@ -347,7 +347,7 @@ namespace mage {
 		 @return		A reference to the copy of the given direction
 						(i.e. this direction).
 		 */
-		Direction3 &operator=(const Direction3 &direction) = default;
+		Direction3 &operator=(const Direction3 &direction) noexcept = default;
 		
 		/**
 		 Moves the given direction to this direction.
@@ -383,7 +383,7 @@ namespace mage {
 		/**
 		 Constructs a normal.
 		 */
-		Normal3()
+		Normal3() noexcept
 			: Normal3(0.0f, 0.0f, 0.0f) {}
 		
 		/**
@@ -396,7 +396,7 @@ namespace mage {
 		 @param[in]		z
 						The z-coordinate.
 		 */
-		Normal3(float x, float y, float z)
+		Normal3(float x, float y, float z) noexcept
 			: XMFLOAT3(x, y, z) {}
 		
 		/**
@@ -405,7 +405,7 @@ namespace mage {
 		 @param[in]		normal
 						A reference to the normal to copy.
 		 */
-		Normal3(const Normal3 &normal) = default;
+		Normal3(const Normal3 &normal) noexcept = default;
 		
 		/**
 		 Constructs a normal by moving the given normal.
@@ -421,7 +421,7 @@ namespace mage {
 		 @param[in]		direction
 						A reference to the direction to copy.
 		 */
-		explicit Normal3(const Direction3 &direction)
+		explicit Normal3(const Direction3 &direction) noexcept
 			: XMFLOAT3(static_cast< const XMFLOAT3 & >(direction)) {}
 
 		/**
@@ -430,7 +430,7 @@ namespace mage {
 		 @param[in]		direction
 						A reference to the direction to move.
 		 */
-		explicit Normal3(Direction3 &&direction)
+		explicit Normal3(Direction3 &&direction) noexcept
 			: XMFLOAT3(static_cast< XMFLOAT3 && >(direction)) {}
 		
 		/**
@@ -439,7 +439,7 @@ namespace mage {
 		 @param[in]		v
 						A reference to the vector to copy.
 		 */
-		explicit Normal3(const XMFLOAT3 &v)
+		explicit Normal3(const XMFLOAT3 &v) noexcept
 			: XMFLOAT3(v) {}
 
 		/**
@@ -448,7 +448,7 @@ namespace mage {
 		 @param[in]		v
 						A reference to the vector to move.
 		 */
-		explicit Normal3(XMFLOAT3 &&v)
+		explicit Normal3(XMFLOAT3 &&v) noexcept
 			: XMFLOAT3(std::move(v)) {}
 
 		/**
@@ -468,7 +468,7 @@ namespace mage {
 		 @return		A reference to the copy of the given normal
 						(i.e. this normal).
 		 */
-		Normal3 &operator=(const Normal3 &normal) = default;
+		Normal3 &operator=(const Normal3 &normal) noexcept = default;
 		
 		/**
 		 Moves the given normal to this normal.
@@ -483,10 +483,10 @@ namespace mage {
 
 	static_assert(sizeof(Normal3) == sizeof(XMFLOAT3), "Normal3/XMFLOAT3 mismatch");
 
-	inline Direction3::Direction3(const Normal3 &normal)
+	inline Direction3::Direction3(const Normal3 &normal) noexcept
 		: XMFLOAT3(static_cast< const XMFLOAT3 & >(normal)) {}
 	
-	inline Direction3::Direction3(Normal3 &&normal)
+	inline Direction3::Direction3(Normal3 &&normal) noexcept
 		: XMFLOAT3(static_cast< XMFLOAT3 && >(normal)) {}
 
 	/**
@@ -521,7 +521,7 @@ namespace mage {
 		/**
 		 Constructs a color.
 		 */
-		Color()
+		Color() noexcept
 			: Color(0.0f, 0.0f, 0.0f, 0.0f) {}
 		
 		/**
@@ -536,7 +536,7 @@ namespace mage {
 		 @param[in]		w
 						The fourth component.
 		 */
-		Color(float x, float y, float z, float w)
+		Color(float x, float y, float z, float w) noexcept
 			: XMFLOAT4(x, y, z, w) {}
 		
 		/**
@@ -545,7 +545,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the color to copy.
 		 */
-		Color(const Color &color) = default;
+		Color(const Color &color) noexcept = default;
 		
 		/**
 		 Constructs a color by moving the given color.
@@ -561,7 +561,7 @@ namespace mage {
 		 @param[in]		v
 						A reference to the vector to copy.
 		 */
-		explicit Color(const XMFLOAT4 &v)
+		explicit Color(const XMFLOAT4 &v) noexcept
 			: XMFLOAT4(v) {}
 		
 		/**
@@ -570,7 +570,7 @@ namespace mage {
 		 @param[in]		v
 						A reference to the vector to move.
 		 */
-		explicit Color(XMFLOAT4 &&v)
+		explicit Color(XMFLOAT4 &&v) noexcept
 			: XMFLOAT4(std::move(v)) {}
 		
 		/**
@@ -590,7 +590,7 @@ namespace mage {
 		 @return		A reference to the copy of the given color
 						(i.e. this color).
 		 */
-		Color &operator=(const Color &color) = default;
+		Color &operator=(const Color &color) noexcept = default;
 		
 		/**
 		 Moves the given color to this color.

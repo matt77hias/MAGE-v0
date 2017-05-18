@@ -138,6 +138,16 @@ namespace mage {
 		void SetName(const string &name) {
 			m_name = name;
 		}
+
+		/**
+		 Sets the name of this sprite object to the given name.
+
+		 @param[in]		name
+						A reference to the name.
+		 */
+		void SetName(string &&name) noexcept {
+			m_name = std::move(name);
+		}
 		
 		/**
 		 Returns the sprite effects of this sprite object.

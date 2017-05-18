@@ -52,6 +52,9 @@ namespace mage {
 		void SetName(const string &name) {
 			m_name = name;
 		}
+		void SetName(string &&name) {
+			m_name = std::move(name);
+		}
 
 		//-------------------------------------------------------------------------
 		// Member Methods: Lifecycle

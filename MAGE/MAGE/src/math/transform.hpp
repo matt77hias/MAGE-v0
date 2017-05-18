@@ -52,6 +52,22 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
+		explicit Transform(XMFLOAT3 &&translation, XMFLOAT3 &&rotation, XMFLOAT3 &&scale)
+			: m_translation(std::move(translation)), 
+			m_rotation(std::move(rotation)), m_scale(std::move(scale)) {
+			SetDirty();
+		}
+
+		/**
+		 Constructs a transform from the given translation, rotation and scale component.
+
+		 @param[in]		translation
+						A reference to the translation component.
+		 @param[in]		rotation
+						A reference to the rotation component.
+		 @param[in]		scale
+						A reference to the scale component.
+		 */
 		explicit Transform(const XMVECTOR &translation, 
 			const XMVECTOR &rotation, 
 			const XMVECTOR &scale)
@@ -171,6 +187,17 @@ namespace mage {
 			SetDirty();
 		}
 		
+		/**
+		 Sets the translation component of this transform to the given translation component.
+
+		 @param[in]		translation
+						A reference to the translation component.
+		 */
+		void SetTranslation(XMFLOAT3 &&translation) noexcept {
+			m_translation = std::move(translation);
+			SetDirty();
+		}
+
 		/**
 		 Sets the translation component of this transform to the given translation component.
 
@@ -602,6 +629,17 @@ namespace mage {
 		 */
 		void SetScale(const XMFLOAT3 &scale) noexcept {
 			m_scale = scale;
+			SetDirty();
+		}
+
+		/**
+		 Sets the scale component of this transform to the given scale component.
+
+		 @param[in]		scale
+						A reference to the scale component.
+		 */
+		void SetScale(XMFLOAT3 &&scale) noexcept {
+			m_scale = std::move(scale);
 			SetDirty();
 		}
 		

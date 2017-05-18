@@ -52,7 +52,7 @@ namespace mage {
 		void SetName(const string &name) {
 			m_name = name;
 		}
-		void SetName(string &&name) {
+		void SetName(string &&name) noexcept {
 			m_name = std::move(name);
 		}
 

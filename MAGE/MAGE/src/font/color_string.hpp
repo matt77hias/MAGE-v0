@@ -55,6 +55,30 @@ namespace mage {
 		/**
 		 Constructs a color string fromt the given string and color.
 
+		 @param[in]		str
+						A reference to the string.
+		 @param[in]		color
+						A reference to the color.
+		 */
+		explicit ColorString(wstring &&str, const Color &color)
+			: m_str(std::move(str)), m_color(color) {}
+
+		/**
+		 Constructs a color string fromt the given string and color.
+
+		 @param[in]		str
+						A reference to the string.
+		 @param[in]		color
+						A reference to the color.
+		 */
+		explicit ColorString(wstring &&str, const XMVECTOR &color = Colors::White)
+			: m_str(std::move(str)), m_color() {
+			SetColor(color);
+		}
+
+		/**
+		 Constructs a color string fromt the given string and color.
+
 		 @pre			@a str is not equal to @c nullptr.
 		 @param[in]		str
 						A pointer to the string.
@@ -158,6 +182,16 @@ namespace mage {
 		/**
 		 Sets the string of this color string to the given str.
 
+		 @param[in]		str
+						A reference to the string.
+		 */
+		void SetString(wstring &&str) {
+			m_str = std::move(str);
+		}
+
+		/**
+		 Sets the string of this color string to the given str.
+
 		 @pre			@a str is not equal to @c nullptr. 
 		 @param[in]		str
 						A pointer to the string.
@@ -193,6 +227,16 @@ namespace mage {
 		 */
 		void SetColor(const Color &color) noexcept {
 			m_color = color;
+		}
+
+		/**
+		 Sets the color of this color string to the given color.
+
+		 @param[in]		color
+						A reference to the color.
+		 */
+		void SetColor(Color &&color) noexcept {
+			m_color = std::move(color);
 		}
 
 		/**

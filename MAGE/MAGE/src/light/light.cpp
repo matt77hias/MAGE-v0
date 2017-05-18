@@ -15,6 +15,9 @@ namespace mage {
 	Light::Light(const RGBSpectrum &intensity)
 		: m_intensity(intensity) {}
 
+	Light::Light(RGBSpectrum &&intensity)
+		: m_intensity(std::move(intensity)) {}
+
 	Light::Light(const Light &light) = default;
 	
 	Light::Light(Light &&light) = default;

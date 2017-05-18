@@ -87,6 +87,16 @@ namespace mage {
 			m_intensity = intensity;
 		}
 
+		/**
+		 Sets the intensity of this light to the given intensity.
+
+		 @param[in]		intensity
+						A reference to the intensity.
+		 */
+		void SetIntensity(RGBSpectrum &&intensity) noexcept {
+			m_intensity = std::move(intensity);
+		}
+
 	protected:
 
 		//---------------------------------------------------------------------
@@ -97,9 +107,17 @@ namespace mage {
 		 Constructs a light.
 
 		 @param[in]		intensity
-						The RGB intensity.
+						A reference to the RGB intensity.
 		 */
 		explicit Light(const RGBSpectrum &intensity);
+
+		/**
+		 Constructs a light.
+
+		 @param[in]		intensity
+						A reference to the RGB intensity.
+		 */
+		explicit Light(RGBSpectrum &&intensity);
 
 		/**
 		 Constructs a light from the given light.

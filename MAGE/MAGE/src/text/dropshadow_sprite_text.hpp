@@ -142,6 +142,16 @@ namespace mage {
 		void SetShadowColor(const Color &color) noexcept {
 			m_shadow_color = color;
 		}
+
+		/**
+		 Sets the shadow color of this dropshadow sprite text to the given color.
+
+		 @param[in]		color
+						A reference to the shadow color.
+		 */
+		void SetShadowColor(Color &&color) noexcept {
+			m_shadow_color = std::move(color);
+		}
 		
 		/**
 		 Sets the shadow color of this dropshadow sprite text to the given color.

@@ -213,6 +213,16 @@ namespace mage {
 		 @param[in]		color
 						A reference to the color.
 		 */
+		void SetColor(Color &&color) noexcept {
+			m_color = std::move(color);
+		}
+
+		/**
+		 Sets the color of this sprite image to the given color.
+
+		 @param[in]		color
+						A reference to the color.
+		 */
 		void SetColor(const XMVECTOR &color) noexcept {
 			XMStoreFloat4(&m_color, color);
 		}

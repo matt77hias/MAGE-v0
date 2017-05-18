@@ -142,6 +142,16 @@ namespace mage {
 		void SetBorderColor(const Color &color) noexcept {
 			m_border_color = color;
 		}
+
+		/**
+		 Sets the border color of this outline sprite text to the given color.
+
+		 @param[in]		color
+						A reference to the border color.
+		 */
+		void SetBorderColor(Color &&color) noexcept {
+			m_border_color = std::move(color);
+		}
 		
 		/**
 		 Sets the border color of this outline sprite text to the given color.

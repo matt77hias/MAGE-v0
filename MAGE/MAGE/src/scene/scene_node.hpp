@@ -43,6 +43,10 @@ namespace mage {
 			m_name = name;
 		}
 
+		void SetName(string &&name) noexcept {
+			m_name = std::move(name);
+		}
+
 	private:
 
 		virtual UniquePtr< Node > CloneImplementation() const override;

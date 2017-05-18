@@ -185,7 +185,7 @@ namespace mage {
 		 @param[in]		str
 						A reference to the string.
 		 */
-		void SetString(wstring &&str) {
+		void SetString(wstring &&str) noexcept {
 			m_str = std::move(str);
 		}
 

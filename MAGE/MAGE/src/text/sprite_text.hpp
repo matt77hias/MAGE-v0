@@ -163,7 +163,7 @@ namespace mage {
 						A reference to the text.
 		 */
 		void AppendText(const wstring &text);
-		
+
 		/**
 		 Appends the given text to the end of the text of this sprite text.
 

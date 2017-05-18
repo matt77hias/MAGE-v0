@@ -50,7 +50,7 @@ namespace mage {
 
 	void SpriteText::SetText(const ColorString &text) {
 		m_strings.clear();
-		m_strings.push_back(ColorString(text));
+		m_strings.push_back(text);
 		m_text = text.GetString();
 	}
 
@@ -67,7 +67,7 @@ namespace mage {
 	}
 
 	void SpriteText::AppendText(const ColorString &text) {
-		m_strings.push_back(ColorString(text));
+		m_strings.push_back(text);
 		m_text += text.GetString();
 	}
 }

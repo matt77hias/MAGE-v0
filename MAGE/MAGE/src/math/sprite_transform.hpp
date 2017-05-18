@@ -631,6 +631,16 @@ namespace mage {
 		 @param[in]		rotation_origin
 						A reference to the rotation origin.
 		 */
+		void SetRotationOrigin(XMFLOAT2 &&rotation_origin) noexcept {
+			m_rotation_origin = std::move(rotation_origin);
+		}
+
+		/**
+		 Sets the rotation origin of this sprite transform to the given rotation origin.
+
+		 @param[in]		rotation_origin
+						A reference to the rotation origin.
+		 */
 		void SetRotationOrigin(const XMVECTOR &rotation_origin) noexcept {
 			XMStoreFloat2(&m_rotation_origin, rotation_origin);
 		}

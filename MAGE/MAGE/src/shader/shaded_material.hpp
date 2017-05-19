@@ -141,6 +141,16 @@ namespace mage {
 			m_material = material;
 		}
 
+		/**
+		 Sets the material of this shaded material to the given material.
+
+		 @param[in]		material
+						A reference to the material.
+		 */
+		void SetMaterial(Material &&material) {
+			m_material = std::move(material);
+		}
+
 		const string &GetName() const noexcept {
 			return m_material.GetName();
 		}
@@ -365,6 +375,16 @@ namespace mage {
 		 */
 		void SetShader(const CombinedShader &shader) {
 			m_shader = shader;
+		}
+
+		/**
+		 Sets the shader of this shaded material to the given shader.
+
+		 @param[in]		shader
+						A reference to the shader.
+		 */
+		void SetShader(CombinedShader &&shader) {
+			m_shader = std::move(shader);
 		}
 
 	private:

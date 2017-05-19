@@ -98,6 +98,9 @@ namespace mage {
 		void SetName(const string &name) {
 			m_name = name;
 		}
+		void SetName(string &&name) {
+			m_name = std::move(name);
+		}
 
 		RGBSpectrum &GetTransmissionFilter() noexcept {
 			return m_transmission_filter;
@@ -108,6 +111,9 @@ namespace mage {
 		void SetTransmissionFilter(const RGBSpectrum &transmission_filter) noexcept {
 			m_transmission_filter = transmission_filter;
 		}
+		void SetTransmissionFilter(RGBSpectrum &&transmission_filter) noexcept {
+			m_transmission_filter = std::move(transmission_filter);
+		}
 
 		RGBSpectrum &GetAmbientReflectivity() noexcept {
 			return m_ambient_reflectivity;
@@ -117,6 +123,9 @@ namespace mage {
 		}
 		void SetAmbientReflectivity(const RGBSpectrum &ambient_reflectivity) noexcept {
 			m_ambient_reflectivity = ambient_reflectivity;
+		}
+		void SetAmbientReflectivity(RGBSpectrum &&ambient_reflectivity) noexcept {
+			m_ambient_reflectivity = std::move(ambient_reflectivity);
 		}
 		SharedPtr< Texture > GetAmbientReflectivityTexture() const noexcept {
 			return m_ambient_reflectivity_texture;
@@ -140,6 +149,9 @@ namespace mage {
 		void SetDiffuseReflectivity(const RGBSpectrum &diffuse_reflectivity) noexcept {
 			m_diffuse_reflectivity = diffuse_reflectivity;
 		}
+		void SetDiffuseReflectivity(RGBSpectrum &&diffuse_reflectivity) noexcept {
+			m_diffuse_reflectivity = std::move(diffuse_reflectivity);
+		}
 		SharedPtr< Texture > GetDiffuseReflectivityTexture() const noexcept {
 			return m_diffuse_reflectivity_texture;
 		}
@@ -161,6 +173,9 @@ namespace mage {
 		}
 		void SetSpecularReflectivity(const RGBSpectrum &specular_reflectivity) noexcept {
 			m_specular_reflectivity = specular_reflectivity;
+		}
+		void SetSpecularReflectivity(RGBSpectrum &&specular_reflectivity) noexcept {
+			m_specular_reflectivity = std::move(specular_reflectivity);
 		}
 		SharedPtr< Texture > GetSpecularReflectivityTexture() const noexcept {
 			return m_specular_reflectivity_texture;

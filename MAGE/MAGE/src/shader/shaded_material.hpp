@@ -147,6 +147,9 @@ namespace mage {
 		void SetName(const string &name) {
 			m_material.SetName(name);
 		}
+		void SetName(string &&name) {
+			m_material.SetName(std::move(name));
+		}
 
 		RGBSpectrum &GetTransmissionFilter() noexcept {
 			return m_material.GetTransmissionFilter();
@@ -157,6 +160,9 @@ namespace mage {
 		void SetTransmissionFilter(const RGBSpectrum &transmission_filter) {
 			m_material.SetTransmissionFilter(transmission_filter);
 		}
+		void SetTransmissionFilter(RGBSpectrum &&transmission_filter) {
+			m_material.SetTransmissionFilter(std::move(transmission_filter));
+		}
 
 		RGBSpectrum &GetAmbientReflectivity() noexcept {
 			return m_material.GetAmbientReflectivity();
@@ -166,6 +172,9 @@ namespace mage {
 		}
 		void SetAmbientReflectivity(const RGBSpectrum &ambient_reflectivity) noexcept {
 			m_material.SetAmbientReflectivity(ambient_reflectivity);
+		}
+		void SetAmbientReflectivity(RGBSpectrum &&ambient_reflectivity) noexcept {
+			m_material.SetAmbientReflectivity(std::move(ambient_reflectivity));
 		}
 		SharedPtr< Texture > GetAmbientReflectivityTexture() const noexcept {
 			return m_material.GetAmbientReflectivityTexture();
@@ -189,6 +198,9 @@ namespace mage {
 		void SetDiffuseReflectivity(const RGBSpectrum &diffuse_reflectivity) noexcept {
 			m_material.SetDiffuseReflectivity(diffuse_reflectivity);
 		}
+		void SetDiffuseReflectivity(RGBSpectrum &&diffuse_reflectivity) noexcept {
+			m_material.SetDiffuseReflectivity(std::move(diffuse_reflectivity));
+		}
 		SharedPtr< Texture > GetDiffuseReflectivityTexture() const noexcept {
 			return m_material.GetDiffuseReflectivityTexture();
 		}
@@ -210,6 +222,9 @@ namespace mage {
 		}
 		void SetSpecularReflectivity(const RGBSpectrum &specular_reflectivity) noexcept {
 			m_material.SetSpecularReflectivity(specular_reflectivity);
+		}
+		void SetSpecularReflectivity(RGBSpectrum &&specular_reflectivity) noexcept {
+			m_material.SetSpecularReflectivity(std::move(specular_reflectivity));
 		}
 		SharedPtr< Texture > GetSpecularReflectivityTexture() const noexcept {
 			return m_material.GetSpecularReflectivityTexture();

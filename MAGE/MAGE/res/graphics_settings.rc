@@ -1,7 +1,9 @@
 #include "rendering\graphics_settings.hpp"
 
 #define APSTUDIO_READONLY_SYMBOLS
-#include "afxres.h"
+//#include "afxres.h"
+#include "WinResrc.h"
+#define IDC_STATIC -1
 #undef APSTUDIO_READONLY_SYMBOLS
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)

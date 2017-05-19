@@ -131,7 +131,7 @@ namespace mage {
 		TransformBuffer transform_buffer(world_to_view, view_to_projection);
 
 		// Render models.
-		ForEachModel([&](const ModelNode &model_node) {
+		ForEachModel([this, &transform_buffer, &lighting, &view_to_world](const ModelNode &model_node) {
 			if (model_node.IsPassive()) {
 				return;
 			}

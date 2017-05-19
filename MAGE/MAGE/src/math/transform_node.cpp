@@ -66,7 +66,7 @@ namespace mage {
 		: m_transform(new TransformNode(*node.m_transform)),
 		m_active(node.m_active) {
 
-		m_transform->ForEachChildNode([&](const Node &child_node) {
+		m_transform->ForEachChildNode([this](const Node &child_node) {
 			AddChildNode(child_node.Clone());
 		});
 	}
@@ -83,7 +83,7 @@ namespace mage {
 		if (m_active != active) {
 			m_active = active;
 
-			ForEachChildNode([=](Node &node) {
+			ForEachChildNode([active](Node &node) {
 				node.SetActive(active);
 			});
 		}

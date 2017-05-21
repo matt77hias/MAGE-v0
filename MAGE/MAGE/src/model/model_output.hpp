@@ -241,7 +241,7 @@ namespace mage {
 		 */
 		void StartModelPart(const string &child, const string &parent = MAGE_MDL_PART_DEFAULT_PARENT) {
 			const uint32_t start = static_cast< uint32_t >(m_index_buffer.size());
-			m_model_parts.push_back(ModelPart(child, parent, start));
+			m_model_parts.emplace_back(child, parent, start);
 		}
 		
 		/**

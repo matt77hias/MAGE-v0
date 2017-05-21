@@ -79,23 +79,23 @@ namespace mage {
 		m_shaders.push_back(CreateWardDuerBumpShader());
 		m_shaders.push_back(CreateCookTorranceBumpShader());
 
-		m_shader_names.push_back(L"Diffuse");
-		m_shader_names.push_back(L"Lambertian");
-		m_shader_names.push_back(L"Phong");
-		m_shader_names.push_back(L"Modified Phong");
-		m_shader_names.push_back(L"Blinn-Phong");
-		m_shader_names.push_back(L"Modified Blinn-Phong");
-		m_shader_names.push_back(L"Ward");
-		m_shader_names.push_back(L"Ward-Duer");
-		m_shader_names.push_back(L"Cook-Torrance");
-		m_shader_names.push_back(L"Lambertian + Bump");
-		m_shader_names.push_back(L"Phong + Bump");
-		m_shader_names.push_back(L"Modified Phong + Bump");
-		m_shader_names.push_back(L"Blinn-Phong + Bump");
-		m_shader_names.push_back(L"Modified Blinn-Phong + Bump");
-		m_shader_names.push_back(L"Ward + Bump");
-		m_shader_names.push_back(L"Ward-Duer + Bump");
-		m_shader_names.push_back(L"Cook-Torrance + Bump");
+		m_shader_names.emplace_back(L"Diffuse");
+		m_shader_names.emplace_back(L"Lambertian");
+		m_shader_names.emplace_back(L"Phong");
+		m_shader_names.emplace_back(L"Modified Phong");
+		m_shader_names.emplace_back(L"Blinn-Phong");
+		m_shader_names.emplace_back(L"Modified Blinn-Phong");
+		m_shader_names.emplace_back(L"Ward");
+		m_shader_names.emplace_back(L"Ward-Duer");
+		m_shader_names.emplace_back(L"Cook-Torrance");
+		m_shader_names.emplace_back(L"Lambertian + Bump");
+		m_shader_names.emplace_back(L"Phong + Bump");
+		m_shader_names.emplace_back(L"Modified Phong + Bump");
+		m_shader_names.emplace_back(L"Blinn-Phong + Bump");
+		m_shader_names.emplace_back(L"Modified Blinn-Phong + Bump");
+		m_shader_names.emplace_back(L"Ward + Bump");
+		m_shader_names.emplace_back(L"Ward-Duer + Bump");
+		m_shader_names.emplace_back(L"Cook-Torrance + Bump");
 
 
 		Assert(m_shaders.size() == m_shader_names.size());

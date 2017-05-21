@@ -101,7 +101,7 @@ namespace mage {
 		node->m_transform->m_parent = this;
 		node->m_transform->SetDirty();
 
-		m_transform->m_childs.push_back(node);
+		m_transform->m_childs.push_back(std::move(node));
 	}
 
 	void Node::RemoveChildNode(SharedPtr< Node > node) {

@@ -85,7 +85,7 @@ namespace mage {
 			light_buffer.m_distance_falloff_start = light->GetStartDistanceFalloff();
 			light_buffer.m_distance_falloff_end   = light->GetEndDistanceFalloff();
 
-			omni_lights_buffer.push_back(light_buffer);
+			omni_lights_buffer.push_back(std::move(light_buffer));
 		});
 		m_omni_lights_buffer.UpdateData(omni_lights_buffer);
 
@@ -109,7 +109,7 @@ namespace mage {
 			light_buffer.m_cos_penumbra           = light->GetStartAngularCutoff();
 			light_buffer.m_cos_umbra              = light->GetEndAngularCutoff();
 
-			spot_lights_buffer.push_back(light_buffer);
+			spot_lights_buffer.push_back(std::move(light_buffer));
 		});
 		m_spot_lights_buffer.UpdateData(spot_lights_buffer);
 
@@ -339,7 +339,7 @@ namespace mage {
 			return;
 		}
 
-		m_scripts.push_back(script);
+		m_scripts.push_back(std::move(script));
 	}
 	
 	void Scene::RemoveScript(SharedPtr< BehaviorScript > script) {
@@ -361,7 +361,7 @@ namespace mage {
 		if (!model) {
 			return;
 		}
-		m_models.push_back(model);
+		m_models.push_back(std::move(model));
 	}
 	
 	void Scene::RemoveModel(SharedPtr< ModelNode > model) {
@@ -383,14 +383,14 @@ namespace mage {
 		if (!light) {
 			return;
 		}
-		m_omni_lights.push_back(light);
+		m_omni_lights.push_back(std::move(light));
 	}
 
 	void Scene::AddLight(SharedPtr< SpotLightNode > light) {
 		if (!light) {
 			return;
 		}
-		m_spot_lights.push_back(light);
+		m_spot_lights.push_back(std::move(light));
 	}
 
 	void Scene::RemoveLight(SharedPtr< OmniLightNode > light) {
@@ -420,7 +420,7 @@ namespace mage {
 		if (!sprite) {
 			return;
 		}
-		m_sprites.push_back(sprite);
+		m_sprites.push_back(std::move(sprite));
 	}
 
 	void Scene::RemoveSprite(SharedPtr< SpriteObject > sprite) {

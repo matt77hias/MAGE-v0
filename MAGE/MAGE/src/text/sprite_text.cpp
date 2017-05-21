@@ -36,7 +36,7 @@ namespace mage {
 
 	void SpriteText::SetText(const wstring &text) {
 		m_strings.clear();
-		m_strings.push_back(ColorString(text));
+		m_strings.emplace_back(text);
 		m_text = text;
 	}
 
@@ -44,7 +44,7 @@ namespace mage {
 		Assert(text);
 
 		m_strings.clear();
-		m_strings.push_back(ColorString(text));
+		m_strings.emplace_back(text);
 		m_text = text;
 	}
 
@@ -55,14 +55,14 @@ namespace mage {
 	}
 
 	void SpriteText::AppendText(const wstring &text) {
-		m_strings.push_back(ColorString(text));
+		m_strings.emplace_back(text);
 		m_text += text;
 	}
 
 	void SpriteText::AppendText(const wchar_t *text) {
 		Assert(text);
 
-		m_strings.push_back(ColorString(text));
+		m_strings.emplace_back(text);
 		m_text += text;
 	}
 

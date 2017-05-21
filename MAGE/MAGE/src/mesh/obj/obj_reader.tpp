@@ -147,7 +147,7 @@ namespace mage {
 			InvertHandness(ReadOBJVertexCoordinates()) :
 			ReadOBJVertexCoordinates();
 
-		m_vertex_coordinates.push_back(vertex);
+		m_vertex_coordinates.push_back(std::move(vertex));
 	}
 
 	template < typename VertexT >
@@ -156,7 +156,7 @@ namespace mage {
 			InvertHandness(ReadOBJVertexTextureCoordinates()) :
 			ReadOBJVertexTextureCoordinates();
 
-		m_vertex_texture_coordinates.push_back(texture);
+		m_vertex_texture_coordinates.push_back(std::move(texture));
 	}
 
 	template < typename VertexT >
@@ -168,7 +168,7 @@ namespace mage {
 		const XMVECTOR normal_v = XMVector3Normalize(v);
 		XMLoadFloat3(&normal);
 
-		m_vertex_normal_coordinates.push_back(normal);
+		m_vertex_normal_coordinates.push_back(std::move(normal));
 	}
 
 	template < typename VertexT >

@@ -37,8 +37,8 @@ namespace mage {
 		 Constructs an (identity) AABB.
 		 */
 		AABB() 
-			: m_p_min(Point3(-INFINITY, -INFINITY, -INFINITY)), 
-			m_p_max(Point3(INFINITY, INFINITY, INFINITY)) {}
+			: m_p_min(Point3(INFINITY, INFINITY, INFINITY)), 
+			m_p_max(Point3(-INFINITY, -INFINITY, -INFINITY)) {}
 
 		/**
 		 Constructs an AABB of the given point.
@@ -530,4 +530,31 @@ namespace mage {
 		 */
 		float m_r;
 	};
+
+	/**
+	 Returns the union BS of the given BS and the given point.
+
+	 @param[in]		bs
+					A reference to the BS.
+	 @param[in]		point
+					A reference to the point.
+	 @return		The union BS of @a bs and @a point.
+	 */
+	const BS Union(const BS &bs, const Point3 &point) noexcept;
+
+	/**
+	 Returns the union BS of the given BS and the given vertex.
+
+	 @tparam		VertexT
+					The vertex type.
+	 @param[in]		bs
+					A reference to the BS.
+	 @param[in]		vertex
+					A reference to the VertexT.
+	 @return		The union BS of @a bs and @a vertex.
+	 */
+	template< typename VertexT >
+	inline const BS Union(const BS &bs, const VertexT &vertex) noexcept {
+		return Union(bs, vertex.p);
+	}
 }

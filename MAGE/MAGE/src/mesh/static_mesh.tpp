@@ -19,12 +19,13 @@ namespace mage {
 	template < typename VertexT >
 	StaticMesh::StaticMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const VertexT *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices)
-		: Mesh(device, device_context, sizeof(VertexT)) {
+		: Mesh(device, device_context, sizeof(VertexT)), m_aabb(), m_bs() {
 
 		Assert(vertices);
 		Assert(indices);
 		
-		SetupVertexBuffer< VertexT >(vertices, nb_vertices);
+		SetupBoundingVolumes(vertices, nb_vertices);
+		SetupVertexBuffer(vertices, nb_vertices);
 		SetupIndexBuffer(indices, nb_indices);
 	}
 
@@ -34,6 +35,19 @@ namespace mage {
 		: StaticMesh(device, device_context,
 			vertices.data(), vertices.size(),
 			indices.data(), indices.size()) {}
+
+	template < typename VertexT >
+	void StaticMesh::SetupBoundingVolumes(const VertexT *vertices, size_t nb_vertices) {
+		for (const VertexT *v = vertices; v < vertices + nb_vertices; ++v) {
+			m_aabb = Union(m_aabb, *v);
+		}
+		
+		m_bs.m_p = m_aabb.Centroid();
+		
+		for (const VertexT *v = vertices; v < vertices + nb_vertices; ++v) {
+			m_bs = Union(m_bs, *v);
+		}
+	}
 
 	template < typename VertexT >
 	void StaticMesh::SetupVertexBuffer(const VertexT *vertices, size_t nb_vertices) {

@@ -37,7 +37,7 @@ namespace mage {
 			indices.data(), indices.size()) {}
 
 	template < typename VertexT >
-	void StaticMesh::SetupBoundingVolumes(const VertexT *vertices, size_t nb_vertices) {
+	void StaticMesh::SetupBoundingVolumes(const VertexT *vertices, size_t nb_vertices) noexcept {
 		for (const VertexT *v = vertices; v < vertices + nb_vertices; ++v) {
 			m_aabb = Union(m_aabb, *v);
 		}

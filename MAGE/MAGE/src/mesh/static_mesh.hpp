@@ -168,7 +168,7 @@ namespace mage {
 						The number of vertices.
 		 */
 		template < typename VertexT >
-		void SetupBoundingVolumes(const VertexT *vertices, size_t nb_vertices);
+		void SetupBoundingVolumes(const VertexT *vertices, size_t nb_vertices) noexcept;
 
 		/**
 		 Sets up the vertex buffer of this static mesh.

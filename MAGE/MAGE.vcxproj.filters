@@ -1281,5 +1281,8 @@
     <None Include="MAGE\src\model\model_node.tpp">
       <Filter>Header Files\model</Filter>
     </None>
+    <None Include="MAGE\src\model\model_output.tpp">
+      <Filter>Header Files\model</Filter>
+    </None>
   </ItemGroup>
 </Project>

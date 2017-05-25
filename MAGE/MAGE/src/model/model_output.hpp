@@ -14,9 +14,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "math\bounding_volume.hpp"
 #include "material\material.hpp"
 #include "collection\collection.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -68,7 +68,8 @@ namespace mage {
 			uint32_t start_index = 0, uint32_t nb_indices = 0, 
 			const string &material = MAGE_MDL_PART_DEFAULT_MATERIAL)
 			: m_child(child), m_parent(parent), m_material(material),
-			m_start_index(start_index), m_nb_indices(nb_indices) {}
+			m_start_index(start_index), m_nb_indices(nb_indices),
+			m_aabb(), m_bs() {}
 		
 		/**
 		 Constructs a model part from the given model part.
@@ -145,6 +146,16 @@ namespace mage {
 		 in the mesh of the corresponding model.
 		 */
 		uint32_t m_nb_indices;
+
+		/**
+		 The AABB of this model part.
+		 */
+		AABB m_aabb;
+
+		/**
+		 The BS of this model part.
+		 */
+		BS m_bs;
 	};
 
 	/**
@@ -217,19 +228,23 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Adds a model part.
+
+		 @param[in]		model_part
+						A reference to the model part to add.
+		 @param[in]		create_bounding_volumes
+						A flag indicating whether bounding volumes must be created
+						for the given model part.
+		 */
+		void AddModelPart(ModelPart &&model_part, bool create_bounding_volumes = true);
+
+		/**
 		 Checks whether this model output contains a model part with the given name.
 
 		 @param[in]		name
 						The name of the model part.
 		 */
-		bool HasModelPart(const string &name) noexcept {
-			for (auto it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
-				if (it->m_child == name) {
-					return true;
-				}
-			}
-			return false;
-		}
+		bool HasModelPart(const string &name) noexcept;
 		
 		/**
 		 Starts the creation of a new model part.
@@ -239,10 +254,7 @@ namespace mage {
 		 @param[in]		parent
 						A reference to the name of the parent model part.
 		 */
-		void StartModelPart(const string &child, const string &parent = MAGE_MDL_PART_DEFAULT_PARENT) {
-			const uint32_t start = static_cast< uint32_t >(m_index_buffer.size());
-			m_model_parts.emplace_back(child, parent, start);
-		}
+		void StartModelPart(const string &child, const string &parent = MAGE_MDL_PART_DEFAULT_PARENT);
 		
 		/**
 		 Sets the name of the material of the last model part
@@ -252,26 +264,17 @@ namespace mage {
 		 @param[in]		material
 						A reference to the name of the material.
 		 */
-		void SetMaterial(const string &material) {
-			Assert(!m_model_parts.empty());
-
-			ModelPart &current = m_model_parts.back();
-			current.m_material = material;
-		}
+		void SetMaterial(const string &material);
 		
 		/**
 		 Ends the creation of the last model part.
 
 		 @pre			This model output contains at least one model part.
+		 @param[in]		create_bounding_volumes
+						A flag indicating whether bounding volumes must be created
+						for the given model part.
 		 */
-		void EndModelPart() {
-			Assert(!m_model_parts.empty());
-
-			ModelPart &current = m_model_parts.back();
-			const uint32_t start = current.m_start_index;
-			const uint32_t end = static_cast< uint32_t >(m_index_buffer.size());
-			current.m_nb_indices = end - start;
-		}
+		void EndModelPart(bool create_bounding_volumes = true) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -296,5 +299,24 @@ namespace mage {
 		 A vector containing the model parts of this model output.
 		 */
 		vector< ModelPart > m_model_parts;
+
+	private:
+
+		/**
+		 Sets up the bounding volumes of the given model part.
+
+		 @param[in]		model_part
+						A reference to the model part.
+		 */
+		void SetupBoundingVolumes(ModelPart &model_part) noexcept;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "model\model_output.tpp"
+
+#pragma endregion

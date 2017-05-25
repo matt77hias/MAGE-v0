@@ -302,6 +302,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Sets up the bounding volumes of the given model part.
 

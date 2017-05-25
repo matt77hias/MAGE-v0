@@ -216,7 +216,8 @@ namespace mage {
 
 			// Creates a submodel node.
 			SharedPtr< ModelNode > submodel_node = std::make_shared< ModelNode >(model_part.m_child,
-				desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, shaded_material);
+				desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, 
+				model_part.m_aabb, model_part.m_bs, shaded_material);
 			// Adds this submodel node to this scene.
 			AddModel(submodel_node);
 
@@ -236,7 +237,7 @@ namespace mage {
 		if (create_root_model_node) {
 			// Creates a root model node.
 			root_model_node = std::make_shared< ModelNode >("model",
-				desc.GetMesh(), 0, 0, default_shaded_material);
+				desc.GetMesh(), 0, 0, AABB(), BS(), default_shaded_material);
 			// Adds this root model node to this scene.
 			AddModel(root_model_node);
 		}
@@ -285,7 +286,8 @@ namespace mage {
 
 			// Creates a submodel node.
 			SharedPtr< ModelNode > submodel_node = std::make_shared< ModelNode >(model_part.m_child,
-				desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, shaded_material);
+				desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, 
+				model_part.m_aabb, model_part.m_bs, shaded_material);
 			// Adds this submodel node to this scene.
 			AddModel(submodel_node);
 
@@ -305,7 +307,7 @@ namespace mage {
 		if (create_root_model_node) {
 			// Creates a root model node.
 			root_model_node = std::make_shared< ModelNode >("model",
-				desc.GetMesh(), 0, 0, default_shaded_material);
+				desc.GetMesh(), 0, 0, AABB(), BS(), default_shaded_material);
 			// Adds this root model node to this scene.
 			AddModel(root_model_node);
 		}

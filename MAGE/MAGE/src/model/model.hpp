@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "math\bounding_volume.hpp"
 #include "mesh\mesh.hpp"
 #include "shader\shaded_material.hpp"
 
@@ -35,11 +36,15 @@ namespace mage {
 						The start index in the mesh.
 		 @param[in]		nb_indices
 						The number of indices in the mesh.
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @param[in]		bs
+						A reference to the BS.
 		 @param[in]		material
 						A reference to the shaded material.
 		 */
-		explicit Model(SharedPtr< const Mesh > mesh,
-			size_t start_index, size_t nb_indices, const ShadedMaterial &material);
+		explicit Model(SharedPtr< const Mesh > mesh, size_t start_index, size_t nb_indices, 
+			const AABB &aabb, const BS &bs, const ShadedMaterial &material);
 
 		/**
 		 Constructs a model from the given model.
@@ -122,12 +127,21 @@ namespace mage {
 		}
 
 		/**
-		 Returns the mesh of this model.
+		 Returns the AABB of this model.
 
-		 @return		A pointer to the mesh of this model.
+		 @return		A reference to the AABB of this model.
 		 */
-		const Mesh *GetMesh() const noexcept {
-			return m_mesh.get();
+		const AABB &GetAABB() const noexcept {
+			return m_aabb;
+		}
+
+		/**
+		 Returns the BS of this model.
+
+		 @return		A reference to the BS of this model.
+		 */
+		const BS &GetBS() const noexcept {
+			return m_bs;
 		}
 
 		/**
@@ -210,6 +224,16 @@ namespace mage {
 		 The number of indices of this model in the mesh of this model.
 		 */
 		const size_t m_nb_indices;
+
+		/**
+		 The AABB of this model.
+		 */
+		const AABB m_aabb;
+
+		/**
+		 The BS of this model.
+		 */
+		const BS m_bs;
 
 		/**
 		 A pointer to the shaded material of this model.

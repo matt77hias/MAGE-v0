@@ -136,7 +136,7 @@ namespace mage {
 
 		 @return		A reference to the AABB of this static mesh.
 		 */
-		const AABB &GetAABB() const {
+		const AABB &GetAABB() const noexcept {
 			return m_aabb;
 		}
 
@@ -145,7 +145,7 @@ namespace mage {
 
 		 @return		A reference to the BS of this static mesh.
 		 */
-		const BS &GetBS() const {
+		const BS &GetBS() const noexcept {
 			return m_bs;
 		}
 

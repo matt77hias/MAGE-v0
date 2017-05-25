@@ -12,10 +12,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Model::Model(SharedPtr< const Mesh > mesh,
-		size_t start_index, size_t nb_indices, const ShadedMaterial &material)
+	Model::Model(SharedPtr< const Mesh > mesh, size_t start_index, size_t nb_indices,
+		const AABB &aabb, const BS &bs, const ShadedMaterial &material)
 		: m_mesh(mesh), m_start_index(start_index), m_nb_indices(nb_indices),
-		m_material(std::make_unique< ShadedMaterial >(material)) {}
+		m_aabb(aabb), m_bs(bs), m_material(std::make_unique< ShadedMaterial >(material)) {}
 
 	Model::Model(const Model &model)
 		: m_mesh(model.m_mesh), m_start_index(model.m_start_index), m_nb_indices(model.m_nb_indices),

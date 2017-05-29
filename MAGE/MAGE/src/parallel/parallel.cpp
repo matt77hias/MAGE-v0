@@ -43,8 +43,6 @@ namespace mage {
 	}
 
 	size_t NumberOfSystemCores() noexcept {
-		NumberOfPhysicalCores();
-
 		// Structure containing information about the current computer system. 
 		SYSTEM_INFO system_info;
 		ZeroMemory(&system_info, sizeof(system_info));

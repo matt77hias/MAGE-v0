@@ -21,8 +21,7 @@ namespace mage {
 			throw FormattedException("GetStdHandle() failed.");
 		}
 		// Structure containing information about a console screen buffer.
-		CONSOLE_SCREEN_BUFFER_INFO buffer_info;
-		ZeroMemory(&buffer_info, sizeof(buffer_info));
+		CONSOLE_SCREEN_BUFFER_INFO buffer_info = {};
 		GetConsoleScreenBufferInfo(handle, &buffer_info);
 		// dwSize:	a COORD structure that contains the size of the console
 		//			screen buffer in character columns and rows.

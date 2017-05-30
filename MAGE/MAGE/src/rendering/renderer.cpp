@@ -117,8 +117,7 @@ namespace mage {
 		dxgi_factory3->MakeWindowAssociation(m_hwindow, DXGI_MWA_NO_WINDOW_CHANGES | DXGI_MWA_NO_ALT_ENTER | DXGI_MWA_NO_PRINT_SCREEN);
 
 		// Create a DXGI_SWAP_CHAIN_DESC1.
-		DXGI_SWAP_CHAIN_DESC1 swap_chain_desc;
-		ZeroMemory(&swap_chain_desc, sizeof(swap_chain_desc));
+		DXGI_SWAP_CHAIN_DESC1 swap_chain_desc = {};
 		swap_chain_desc.Width              = m_display_mode.Width;	                 // The resolution width.
 		swap_chain_desc.Height             = m_display_mode.Height;                  // The resolution height.
 		swap_chain_desc.Format             = m_display_mode.Format;                  // The display format.
@@ -129,8 +128,7 @@ namespace mage {
 		swap_chain_desc.Flags              = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
 		// Create a DXGI_SWAP_CHAIN_FULLSCREEN_DESC.
-		DXGI_SWAP_CHAIN_FULLSCREEN_DESC swap_chain_fullscreen_desc;
-		ZeroMemory(&swap_chain_fullscreen_desc, sizeof(swap_chain_fullscreen_desc));
+		DXGI_SWAP_CHAIN_FULLSCREEN_DESC swap_chain_fullscreen_desc = {};
 		swap_chain_fullscreen_desc.Windowed = TRUE;
 
 		// Get the IDXGISwapChain1.
@@ -166,8 +164,7 @@ namespace mage {
 
 	void Renderer::SetupDSV() {
 		// Create the depth stencil texture descriptor.
-		D3D11_TEXTURE2D_DESC depth_stencil_desc;
-		ZeroMemory(&depth_stencil_desc, sizeof(depth_stencil_desc));
+		D3D11_TEXTURE2D_DESC depth_stencil_desc = {};
 		depth_stencil_desc.Width              = m_display_mode.Width;	       // Texture width (in texels).
 		depth_stencil_desc.Height             = m_display_mode.Height;	       // Texture height (in texels).
 		depth_stencil_desc.MipLevels          = 1;                             // The maximum number of mipmap levels in the texture.
@@ -188,8 +185,7 @@ namespace mage {
 		}
 
 		// Create the depth stencil view descriptor.
-		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc;
-		ZeroMemory(&dsv_desc, sizeof(dsv_desc));
+		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
 		dsv_desc.Format             = depth_stencil_desc.Format;
 		dsv_desc.ViewDimension      = D3D11_DSV_DIMENSION_TEXTURE2D;
 		dsv_desc.Texture2D.MipSlice = 0;
@@ -211,8 +207,7 @@ namespace mage {
 
 	void Renderer::SetupViewPort() const {
 		// Setup the (default) viewport.
-		D3D11_VIEWPORT viewport;
-		ZeroMemory(&viewport, sizeof(viewport));
+		D3D11_VIEWPORT viewport = {};
 		viewport.TopLeftX = 0;
 		viewport.TopLeftY = 0;
 		viewport.Width    = static_cast< FLOAT >(m_display_mode.Width);

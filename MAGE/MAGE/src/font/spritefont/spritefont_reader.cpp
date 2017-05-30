@@ -72,8 +72,7 @@ namespace mage {
 			1, 1, D3D11_BIND_SHADER_RESOURCE, D3D11_USAGE_IMMUTABLE);
 		
 		// Create the texture data.
-		D3D11_SUBRESOURCE_DATA init_data;
-		ZeroMemory(&init_data, sizeof(init_data));
+		D3D11_SUBRESOURCE_DATA init_data = {};
 		init_data.pSysMem     = texture_data;
 		init_data.SysMemPitch = texture_stride;
 		

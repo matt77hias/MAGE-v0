@@ -38,8 +38,7 @@ namespace mage {
 
 		m_nb_data_elements = nb_data_elements;
 
-		D3D11_SHADER_RESOURCE_VIEW_DESC resource_view_desc;
-		ZeroMemory(&resource_view_desc, sizeof(resource_view_desc));
+		D3D11_SHADER_RESOURCE_VIEW_DESC resource_view_desc = {};
 		resource_view_desc.Format              = DXGI_FORMAT_UNKNOWN;
 		resource_view_desc.ViewDimension       = D3D11_SRV_DIMENSION_BUFFER;
 		resource_view_desc.Buffer.FirstElement = 0;

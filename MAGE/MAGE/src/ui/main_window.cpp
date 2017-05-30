@@ -142,8 +142,7 @@ namespace mage {
 		// Prepare and register the window class.
 		//-----------------------------------------------------------------------------
 		// Structure ontaining window class information. 
-		WNDCLASSEX wcex;
-		ZeroMemory(&wcex, sizeof(wcex));
+		WNDCLASSEX wcex = {};
 		// The size, in bytes, of this structure.
 		wcex.cbSize = sizeof(WNDCLASSEX);
 		// The class style(s)

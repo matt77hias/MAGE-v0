@@ -79,7 +79,7 @@ namespace mage {
 		model_part.m_start_index = ReadUInt32();
 		model_part.m_nb_indices  = ReadUInt32();
 
-		m_model_output.m_model_parts.push_back(std::move(model_part));
+		m_model_output.AddModelPart(std::move(model_part));
 	}
 
 	template < typename VertexT >

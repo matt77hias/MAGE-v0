@@ -571,4 +571,13 @@ namespace mage {
 
 		return true;
 	}
+
+	const BS Union(const BS &bs, const Point3 &point) noexcept {
+		const XMVECTOR p_v = XMLoadFloat3(&bs.m_p);
+		const XMVECTOR point_v = XMLoadFloat3(&point);
+		const XMVECTOR length_v = XMVector3Length(point_v - p_v);
+		float length;
+		XMStoreFloat(&length, length_v);
+		return BS(bs.m_p, std::max(bs.m_r, length));
+	}
 }

@@ -244,6 +244,23 @@ namespace mage {
 		m_in_begin_end_pair = false;
 	}
 
+	void Renderer::BeginTextures(UINT nb_rtvs, 
+		ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv) {
+		Assert(!m_in_begin_end_pair);
+
+		m_device_context->OMSetRenderTargets(nb_rtvs, rtvs, dsv);
+
+		m_in_begin_end_pair = true;
+	}
+
+	void Renderer::EndTextures() {
+		Assert(m_in_begin_end_pair);
+
+		m_device_context->OMSetRenderTargets(1, m_rtv.GetAddressOf(), m_dsv.Get());
+		
+		m_in_begin_end_pair = false;
+	}
+
 	void Renderer::SwitchMode(bool toggle) {
 		// Release the swap chain buffers.
 		m_rtv.Reset();

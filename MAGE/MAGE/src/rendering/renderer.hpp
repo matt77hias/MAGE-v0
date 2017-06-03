@@ -193,6 +193,24 @@ namespace mage {
 		void SwitchMode(bool toggle);
 
 		/**
+		 Prepares the 2D rendering of the current frame.
+		 */
+		void PrepareRendering2D() {
+			m_rendering_state_2d->PrepareRendering();
+		}
+
+		/**
+		 Prepares the 3D rendering of the current frame.
+		 */
+		void PrepareRendering3D() {
+			m_rendering_state_3d->PrepareRendering();
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Render to Frame
+		//---------------------------------------------------------------------
+
+		/**
 		 Begins the rendering of the current frame.
 
 		 @pre			This renderer is not inside a begin/end pair.
@@ -206,19 +224,37 @@ namespace mage {
 		 */
 		void EndFrame();
 
-		/**
-		 Prepares the 2D rendering of the current frame.
-		 */
-		void PrepareRendering2D() {
-			m_rendering_state_2d->PrepareRendering();
-		}
+		//---------------------------------------------------------------------
+		// Member Methods: Render to Texture(s)
+		//---------------------------------------------------------------------
 
 		/**
-		 Prepares the 3D rendering of the current frame.
+		 Begins the rendering to the given render target views and 
+		 depth stencil views.
+
+		 @pre			This renderer is not inside a begin/end pair.
+		 @pre			If @a nb_rtvs is equal to zero, 
+						@a rtvs is equal to @c nullptr.
+		 @pre			If @a nb_rtvs is not equal to zero,
+		 @pre			@a rtvs points to an array containing at least
+						@a nb_rtvs render target views.
+		 @param[in]		rtvs
+						A pointer to an array containing the render target views
+						to render to.
+		 @param[in]		dsv
+						A pointer to the depth stencil view.
+		 @note			The render target views and depth stencil view are not reset.
 		 */
-		void PrepareRendering3D() {
-			m_rendering_state_3d->PrepareRendering();
-		}
+		void BeginTextures(UINT nb_rtvs,
+			ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv);
+
+		/**
+		 Ends the rendering to render target views and 
+		 depth stencil views.
+
+		 @pre			This renderer is inside a begin/end pair.
+		 */
+		void EndTextures();
 
 	private:
 

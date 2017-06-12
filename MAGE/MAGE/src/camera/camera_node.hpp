@@ -45,7 +45,7 @@ namespace mage {
 		/**
 		 Copies the given camera node to this camera node.
 
-		 @param[in]		scene_node
+		 @param[in]		camera_node
 						A reference to the camera node to copy.
 		 @return		A reference to the copy of the given camera node
 						(i.e. this camera node).
@@ -55,7 +55,7 @@ namespace mage {
 		/**
 		 Moves the given camera node to this camera node.
 
-		 @param[in]		scene_node
+		 @param[in]		camera_node
 						A reference to the camera node to move.
 		 @return		A reference to the moved camera node
 						(i.e. this camera node).
@@ -218,7 +218,7 @@ namespace mage {
 		/**
 		 Copies the given derived camera node to this derived camera node.
 
-		 @param[in]		scene_node
+		 @param[in]		camera_node
 						A reference to the derived camera node to copy.
 		 @return		A reference to the copy of the given derived camera node
 						(i.e. this derived camera node).
@@ -228,7 +228,7 @@ namespace mage {
 		/**
 		 Moves the given derived camera node to this derived camera node.
 
-		 @param[in]		scene_node
+		 @param[in]		camera_node
 						A reference to the derived camera node to move.
 		 @return		A reference to the moved derived camera node
 						(i.e. this derived camera node).

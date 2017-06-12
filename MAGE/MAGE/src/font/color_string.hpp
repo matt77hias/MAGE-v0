@@ -170,7 +170,7 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the string of this color string to the given str.
+		 Sets the string of this color string to the given string.
 
 		 @param[in]		str
 						A reference to the string.
@@ -180,7 +180,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the string of this color string to the given str.
+		 Sets the string of this color string to the given string.
 
 		 @param[in]		str
 						A reference to the string.
@@ -190,7 +190,7 @@ namespace mage {
 		}
 
 		/**
-		 Sets the string of this color string to the given str.
+		 Sets the string of this color string to the given string.
 
 		 @pre			@a str is not equal to @c nullptr. 
 		 @param[in]		str

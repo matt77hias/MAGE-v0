@@ -238,6 +238,8 @@ namespace mage {
 		 @pre			If @a nb_rtvs is not equal to zero,
 		 @pre			@a rtvs points to an array containing at least
 						@a nb_rtvs render target views.
+		 @param[in]		nb_rtvs
+						The number of render target views.
 		 @param[in]		rtvs
 						A pointer to an array containing the render target views
 						to render to.

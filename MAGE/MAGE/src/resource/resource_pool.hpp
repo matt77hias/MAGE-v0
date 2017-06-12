@@ -16,6 +16,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Type Declarations and Definitions
+	//-------------------------------------------------------------------------
+
 	/**
 	 A resource map used by a resource pool.
 
@@ -26,6 +30,10 @@ namespace mage {
 	 */
 	template< typename KeyT, typename ResourceT >
 	using ResourceMap = map< const KeyT, WeakPtr< ResourceT > >;
+
+	//-------------------------------------------------------------------------
+	// ResourcePool
+	//-------------------------------------------------------------------------
 
 	/**
 	 A class of resource pools.

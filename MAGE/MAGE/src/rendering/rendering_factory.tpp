@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "logging\error.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -10,7 +19,11 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template < typename VertexT >
-	HRESULT CreateStaticVertexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) {
+	HRESULT CreateStaticVertexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) noexcept {
+		Assert(device);
+		Assert(buffer);
+		Assert(vertices);
+		
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc = {};
 		buffer_desc.ByteWidth      = static_cast< UINT >(nb_vertices * sizeof(VertexT));
@@ -27,7 +40,10 @@ namespace mage {
 	}
 
 	template < typename VertexT >
-	HRESULT CreateDynamicVertexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) {
+	HRESULT CreateDynamicVertexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) noexcept {
+		Assert(device);
+		Assert(buffer);
+		
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc = {};
 		buffer_desc.ByteWidth      = static_cast< UINT >(nb_vertices * sizeof(VertexT));
@@ -48,7 +64,11 @@ namespace mage {
 	}
 
 	template < typename IndexT >
-	HRESULT CreateStaticIndexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices) {
+	HRESULT CreateStaticIndexBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices) noexcept {
+		Assert(device);
+		Assert(buffer);
+		Assert(indices);
+		
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc = {};
 		buffer_desc.ByteWidth      = static_cast< UINT >(nb_indices * sizeof(IndexT));
@@ -65,7 +85,10 @@ namespace mage {
 	}
 
 	template < typename DataT >
-	HRESULT CreateConstantBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, size_t count) {
+	HRESULT CreateConstantBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, size_t count) noexcept {
+		Assert(device);
+		Assert(buffer);
+		
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc = {};
 		buffer_desc.ByteWidth      = static_cast< UINT >(count * sizeof(DataT));
@@ -78,7 +101,10 @@ namespace mage {
 	}
 
 	template < typename DataT >
-	HRESULT CreateStructuredBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, size_t count) {
+	HRESULT CreateStructuredBuffer(ID3D11Device2 *device, ID3D11Buffer **buffer, size_t count) noexcept {
+		Assert(device);
+		Assert(buffer);
+		
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc = {};
 		buffer_desc.ByteWidth           = static_cast< UINT >(count * sizeof(DataT));

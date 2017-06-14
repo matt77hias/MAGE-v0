@@ -44,7 +44,7 @@ namespace mage {
 	 @return		The clamped angle (in degrees).
 	 */
 	inline float ClampAngleDegrees(float angle) noexcept {
-		while (angle <= -180.0f) {
+		while (angle < -180.0f) {
 			angle += 360.0f;
 		}
 		while (angle > 180.0f) {

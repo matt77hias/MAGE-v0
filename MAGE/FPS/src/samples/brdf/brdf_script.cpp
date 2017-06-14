@@ -51,9 +51,9 @@ namespace mage {
 			material->SetDiffuseReflectivityTexture(white);
 			material->SetSpecularReflectivity(RGBSpectrum(1.0f, 1.0f, 1.0f));
 			material->SetSpecularExponent(10.0f);
-			material->SetParameter1(0.2f);
-			material->SetParameter2(0.2f);
-			material->SetParameter3(0.3f);
+			material->SetExtraParameter(0, 0.2f);
+			material->SetExtraParameter(1, 0.2f);
+			material->SetExtraParameter(2, 0.3f);
 			material->SetNormalTexture(normal);
 		}
 

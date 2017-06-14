@@ -30,10 +30,9 @@ namespace mage {
 		 Constructs a material buffer.
 		 */
 		MaterialBuffer()
-			: m_Kd(), m_dissolve(0.0f), 
-			m_Ks(), m_Ns(0.0f), 
-			m_param1(0.0f), m_param2(0.0f), 
-			m_param3(0.0f), m_param4(0.0f) {}
+			: m_Kd{}, m_dissolve(0.0f),
+			m_Ks{}, m_Ns(0.0f),
+			m_extra_parameters{} {}
 
 		/**
 		 Constructs a material buffer from the given material buffer.
@@ -105,24 +104,9 @@ namespace mage {
 		float m_Ns;
 
 		/**
-		 The first material parameter of this material buffer.
+		 The extra material parameter of this material buffer.
 		 */
-		float m_param1;
-
-		/**
-		 The second material parameter of this material buffer.
-		 */
-		float m_param2;
-
-		/**
-		 The thirth material parameter of this material buffer.
-		 */
-		float m_param3;
-
-		/**
-		 The fourth material parameter of this material buffer.
-		 */
-		float m_param4;
+		XMFLOAT4 m_extra_parameters;
 	};
 
 	static_assert(sizeof(MaterialBuffer) == 48, "CPU/GPU struct mismatch");

@@ -60,14 +60,14 @@ namespace mage {
 	void TSNMPixelShader::PrepareShading(const Material &material, const Lighting &lighting) const {
 
 		MaterialBuffer buffer;
-		buffer.m_Kd       = material.GetDiffuseReflectivity();
-		buffer.m_dissolve = material.GetDissolve();
-		buffer.m_Ks       = material.GetSpecularReflectivity();
-		buffer.m_Ns       = material.GetSpecularExponent();
-		buffer.m_param1   = material.GetParameter1();
-		buffer.m_param2   = material.GetParameter2();
-		buffer.m_param3   = material.GetParameter3();
-		buffer.m_param4   = material.GetParameter4();
+		buffer.m_Kd                 = material.GetDiffuseReflectivity();
+		buffer.m_dissolve           = material.GetDissolve();
+		buffer.m_Ks                 = material.GetSpecularReflectivity();
+		buffer.m_Ns                 = material.GetSpecularExponent();
+		buffer.m_extra_parameters.x = material.GetExtraParameter(0);
+		buffer.m_extra_parameters.y = material.GetExtraParameter(1);
+		buffer.m_extra_parameters.z = material.GetExtraParameter(2);
+		buffer.m_extra_parameters.w = material.GetExtraParameter(3);
 		m_material_buffer.UpdateData(buffer);
 		
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);

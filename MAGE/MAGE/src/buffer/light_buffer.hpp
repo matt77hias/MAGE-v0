@@ -43,9 +43,9 @@ namespace mage {
 		 Constructs a light data buffer.
 		 */
 		LightDataBuffer()
-			: m_Ia(), m_nb_omni_lights(0),
-			m_Id(), m_nb_spot_lights(0),
-			m_d(), m_padding(0) {}
+			: m_Ia{}, m_nb_omni_lights(0),
+			m_Id{}, m_nb_spot_lights(0),
+			m_d{}, m_padding{} {}
 		
 		/**
 		 Constructs a light data buffer from the given light data buffer.
@@ -149,7 +149,7 @@ namespace mage {
 		 Constructs an omni light buffer.
 		 */
 		OmniLightBuffer()
-			: m_p(0.0f, 0.0f, 0.0f, 0.0f), m_I(),
+			: m_p{}, m_I(),
 			m_distance_falloff_start(0.0f), m_distance_falloff_end(0.0f),
 			m_padding{} {}
 		
@@ -252,10 +252,9 @@ namespace mage {
 		 Constructs a spotlight buffer.
 		 */
 		SpotLightBuffer()
-			: m_p(0.0f, 0.0f, 0.0f, 0.0f), m_I(),
-			m_exponent_property(0.0f), m_d(),
+			: m_p{}, m_I{}, m_exponent_property(0.0f), m_d{},
 			m_distance_falloff_start(0.0f), m_distance_falloff_end(0.0f),
-			m_cos_penumbra(0.0f), m_cos_umbra(0.0f), m_padding(0) {}
+			m_cos_penumbra(0.0f), m_cos_umbra(0.0f), m_padding{} {}
 		
 		/**
 		 Constructs a spotlight buffer from the given spotlight buffer.

@@ -7,6 +7,7 @@
 
 #include "material\spectrum.hpp"
 #include "texture\texture.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -21,6 +22,15 @@ namespace mage {
 	struct Material final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The number of extra material parameters.
+		 */
+		static const size_t nb_extra_parameters = 4;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -41,7 +51,7 @@ namespace mage {
 			m_dissolve(1.0f), m_dissolve_texture(),
 			m_index_of_refraction(1.0f), m_decal_texture(),
 			m_displacement_texture(), m_normal_texture(),
-			m_param1(0.0f), m_param2(0.0f), m_param3(0.0f), m_param4(0.0f) {}
+			m_extra_parameters{} {}
 		
 		/**
 		 Constructs a material from the given material.
@@ -390,113 +400,283 @@ namespace mage {
 			m_specular_reflectivity_texture = specular_reflectivity_texture;
 		}
 		
+		/**
+		 Returns the specular exponent of this material.
+
+		 @return		The specular exponent of this material.
+		 */
 		float GetSpecularExponent() const noexcept {
 			return m_specular_exponent;
 		}
+		
+		/**
+		 Sets the specular exponent of this material to the given specular exponent.
+
+		 @param[in]		specular_exponent
+						A reference to the specular exponent.
+		 */
 		void SetSpecularExponent(float specular_exponent) noexcept {
 			m_specular_exponent = specular_exponent;
 		}
+		
+		/**
+		 Returns the specular exponent texture of this material.
+
+		 @return		A pointer to the specular exponent texture of this material.
+		 */
 		SharedPtr< Texture > GetSpecularExponentTexture() const noexcept {
 			return m_specular_exponent_texture;
 		}
+		
+		/**
+		 Returns the shader resource view of the specular exponent texture of this material.
+
+		 @return		@c nullptr, if this material has no specular exponent texture.
+		 @return		A pointer to the shader resource view of the specular exponent texture of this material.
+		 */
 		ID3D11ShaderResourceView *GetSpecularExponentSRV() const noexcept {
 			return m_specular_exponent_texture ? m_specular_exponent_texture->Get() : nullptr;
 		}
+		
+		/**
+		 Returns the address of the shader resource view of the specular exponent texture of this material.
+
+		 @return		@c nullptr, if this material has no specular exponent texture.
+		 @return		The address of the shader resource view of the specular exponent texture of this material.
+		 */
 		ID3D11ShaderResourceView * const *GetSpecularExponentSRVAddress() const noexcept {
 			return m_specular_exponent_texture ? m_specular_exponent_texture->GetAddress() : nullptr;
 		}
+		
+		/**
+		 Sets the specular exponent texture of this material to the given specular exponent texture.
+
+		 @param[in]		specular_exponent_texture
+						A reference to the specular exponent texture.
+		 */
 		void SetSpecularExponentTexture(SharedPtr< Texture > specular_exponent_texture) {
 			m_specular_exponent_texture = specular_exponent_texture;
 		}
 
+		/**
+		 Returns the dissolve of this material.
+
+		 @return		The dissolve of this material.
+		 */
 		float GetDissolve() const noexcept {
 			return m_dissolve;
 		}
+		
+		/**
+		 Sets the dissolve of this material to the given dissolve.
+
+		 @param[in]		dissolve
+						A reference to the dissolve.
+		 */
 		void SetDissolve(float dissolve) noexcept {
 			m_dissolve = dissolve;
 		}
+		
+		/**
+		 Returns the dissolve texture of this material.
+
+		 @return		A pointer to the dissolve texture of this material.
+		 */
 		SharedPtr< Texture > GetDissolveTexture() const noexcept {
 			return m_dissolve_texture;
 		}
+		
+		/**
+		 Returns the shader resource view of the dissolve texture of this material.
+
+		 @return		@c nullptr, if this material has no dissolve texture.
+		 @return		A pointer to the shader resource view of the dissolve texture of this material.
+		 */
 		ID3D11ShaderResourceView *GetDissolveSRV() const noexcept {
 			return m_dissolve_texture ? m_dissolve_texture->Get() : nullptr;
 		}
+		
+		/**
+		 Returns the address of the shader resource view of the dissolve texture of this material.
+
+		 @return		@c nullptr, if this material has no dissolve texture.
+		 @return		The address of the shader resource view of the dissolve texture of this material.
+		 */
 		ID3D11ShaderResourceView * const *GetDissolveSRVAddress() const noexcept {
 			return m_dissolve_texture ? m_dissolve_texture->GetAddress() : nullptr;
 		}
+		
+		/**
+		 Sets the dissolve texture of this material to the given dissolve texture.
+
+		 @param[in]		dissolve_texture
+						A reference to the dissolve texture.
+		 */
 		void SetDissolveTexture(SharedPtr< Texture > dissolve_texture) {
 			m_dissolve_texture = dissolve_texture;
 		}
 
+		/**
+		 Returns the index of refraction of this material.
+
+		 @return		The index of refraction of this material.
+		 */
 		float GetIndexOfRefraction() const noexcept {
 			return m_index_of_refraction;
 		}
+		
+		/**
+		 Sets the index of refraction of this material to the given index of refraction.
+
+		 @param[in]		index_of_refraction
+						A reference to the index of refraction.
+		 */
 		void SetIndexOfRefraction(float index_of_refraction) noexcept {
 			m_index_of_refraction = index_of_refraction;
 		}
 
+		/**
+		 Returns the decal texture of this material.
+
+		 @return		A pointer to the decal texture of this material.
+		 */
 		SharedPtr< Texture > GetDecalTexture() const noexcept {
 			return m_decal_texture;
 		}
+		
+		/**
+		 Returns the decal resource view of the decal texture of this material.
+
+		 @return		@c nullptr, if this material has no decal texture.
+		 @return		A pointer to the shader resource view of the decal texture of this material.
+		 */
 		ID3D11ShaderResourceView *GetDecalSRV() const noexcept {
 			return m_decal_texture ? m_decal_texture->Get() : nullptr;
 		}
+		
+		/**
+		 Returns the address of the shader resource view of the decal texture of this material.
+
+		 @return		@c nullptr, if this material has no decal texture.
+		 @return		The address of the shader resource view of the decal texture of this material.
+		 */
 		ID3D11ShaderResourceView * const *GetDecalSRVAddress() const noexcept {
 			return m_decal_texture ? m_decal_texture->GetAddress() : nullptr;
 		}
+		
+		/**
+		 Sets the decal texture of this material to the given decal texture.
+
+		 @param[in]		decal
+						A reference to the decal texture.
+		 */
 		void SetDecalTexture(SharedPtr< Texture > decal_texture) {
 			m_decal_texture = decal_texture;
 		}
 		
+		/**
+		 Returns the displacement texture of this material.
+
+		 @return		A pointer to the displacement texture of this material.
+		 */
 		SharedPtr< Texture > GetDisplacementTexture() const noexcept {
 			return m_displacement_texture;
 		}
+		
+		/**
+		 Returns the shader resource view of the displacement texture of this material.
+
+		 @return		@c nullptr, if this material has no displacement texture.
+		 @return		A pointer to the shader resource view of the displacement texture of this material.
+		 */
 		ID3D11ShaderResourceView *GetDisplacementSRV() const noexcept {
 			return m_displacement_texture ? m_displacement_texture->Get() : nullptr;
 		}
+		
+		/**
+		 Returns the address of the shader resource view of the displacement texture of this material.
+
+		 @return		@c nullptr, if this material has no displacement texture.
+		 @return		The address of the shader resource view of the displacement texture of this material.
+		 */
 		ID3D11ShaderResourceView * const *GetDisplacementSRVAddress() const noexcept {
 			return m_displacement_texture ? m_displacement_texture->GetAddress() : nullptr;
 		}
+		
+		/**
+		 Sets the displacement texture of this material to the given displacement texture.
+
+		 @param[in]		displacement_texture
+						A reference to the displacement texture.
+		 */
 		void SetDisplacementTexture(SharedPtr< Texture > displacement_texture) {
 			m_displacement_texture = displacement_texture;
 		}
 
+		/**
+		 Returns the normal texture of this material.
+
+		 @return		A pointer to the normal texture of this material.
+		 */
 		SharedPtr< Texture > GetNormalTexture() const noexcept {
 			return m_normal_texture;
 		}
+		
+		/**
+		 Returns the shader resource view of the normal texture of this material.
+
+		 @return		@c nullptr, if this material has no normal texture.
+		 @return		A pointer to the shader resource view of the normal texture of this material.
+		 */
 		ID3D11ShaderResourceView *GetNormalSRV() const noexcept {
 			return m_normal_texture ? m_normal_texture->Get() : nullptr;
 		}
+		
+		/**
+		 Returns the address of the shader resource view of the normal texture of this material.
+
+		 @return		@c nullptr, if this material has no normal texture.
+		 @return		The address of the shader resource view of the normal texture of this material.
+		 */
 		ID3D11ShaderResourceView * const *GetNormalSRVAddress() const noexcept {
 			return m_normal_texture ? m_normal_texture->GetAddress() : nullptr;
 		}
+		
+		/**
+		 Sets the normal texture of this material to the given normal texture.
+
+		 @param[in]		normal_texture
+						A reference to the normal texture.
+		 */
 		void SetNormalTexture(SharedPtr< Texture > normal_texture) {
 			m_normal_texture = normal_texture;
 		}
 
-		float GetParameter1() const noexcept {
-			return m_param1;
+		/**
+		 Returns the extra parameter of this material at the given index.
+
+		 @pre			@a index @c < {@link mage::Material::nb_extra_parameters}.
+		 @param[in]		index
+						The index.
+		 @return		The extra parameter of this material at the given index.
+		 */
+		float GetExtraParameter(size_t index) const noexcept {
+			Assert(index < nb_extra_parameters);
+			return m_extra_parameters[index];
 		}
-		void SetParameter1(float param1) noexcept {
-			m_param1 = param1;
-		}
-		float GetParameter2() const noexcept {
-			return m_param2;
-		}
-		void SetParameter2(float param2) noexcept {
-			m_param2 = param2;
-		}
-		float GetParameter3() const noexcept {
-			return m_param3;
-		}
-		void SetParameter3(float param3) noexcept {
-			m_param3 = param3;
-		}
-		float GetParameter4() const noexcept {
-			return m_param4;
-		}
-		void SetParameter4(float param4) noexcept {
-			m_param4 = param4;
+		
+		/**
+		 Sets the extra parameter of this material at the given index to the given value.
+
+		 @pre			@a index @c < {@link mage::Material::nb_extra_parameters}.
+		 @param[in]		index
+						The index.
+		 @param[in]		value
+						The value.
+		 */
+		void SetExtraParameter(size_t index, float value) noexcept {
+			Assert(index < nb_extra_parameters);
+			m_extra_parameters[index] = value;
 		}
 
 	private:
@@ -598,23 +778,8 @@ namespace mage {
 		SharedPtr< Texture > m_normal_texture;
 
 		/**
-		 The first material parameter of this material.
+		 The extra material parameters of this material.
 		 */
-		float m_param1;
-
-		/**
-		 The second material parameter of this material.
-		 */
-		float m_param2;
-
-		/**
-		 The thirth material parameter of this material.
-		 */
-		float m_param3;
-
-		/**
-		 The fourth material parameter of this material.
-		 */
-		float m_param4;
+		float m_extra_parameters[nb_extra_parameters];
 	};
 }

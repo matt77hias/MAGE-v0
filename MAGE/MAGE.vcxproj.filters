@@ -1085,14 +1085,14 @@
     <ClCompile Include="MAGE\src\shader\bump_shader_factory.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\shader\bump_shader.cpp">
-      <Filter>Source Files\shader</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\shader\shaded_material.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering_utils.cpp">
       <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\tsnm_shader.cpp">
+      <Filter>Source Files\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

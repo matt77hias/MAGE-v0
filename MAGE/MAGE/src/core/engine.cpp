@@ -134,6 +134,7 @@ namespace mage {
 		MSG msg;
 		SecureZeroMemory(&msg, sizeof(MSG));
 		while (msg.message != WM_QUIT) {
+			
 			// Retrieves messages for any window that belongs to the current thread
 			// without performing range filtering. Furthermore messages are removed
 			// after processing.
@@ -142,42 +143,46 @@ namespace mage {
 				TranslateMessage(&msg);
 				// Dispatches a message to a window procedure.
 				DispatchMessage(&msg);
+				continue;
 			}
-			else if (!m_deactive && m_scene) {
-				// Update the input manager.
-				m_input_manager->Update();
-				// Handle forced exit.
-				if (m_input_manager->GetKeyboard()->GetKeyPress(DIK_F1)) {
-					PostQuitMessage(0);
-					continue;
-				}
 
-				// Handle switch between full screen and windowed mode.
-				const bool lost_mode = m_renderer->LostMode();
-				if (m_mode_switch || lost_mode) {
-					m_renderer->SwitchMode(!lost_mode);
-					m_mode_switch = false;
-					continue;
-				}
+			if (m_deactive || !m_scene) {
+				continue;
+			}
 
-				// Calculate the elapsed time.
-				const double delta_time = m_timer->GetDeltaTime();
+			// Update the input manager.
+			m_input_manager->Update();
+			// Handle forced exit.
+			if (m_input_manager->GetKeyboard()->GetKeyPress(DIK_F1)) {
+				PostQuitMessage(0);
+				continue;
+			}
 
-				// Update the current scene.
-				m_scene->Update(delta_time);
-				if (!m_scene) {
-					PostQuitMessage(0);
-					continue;
-				}
+			// Handle switch between full screen and windowed mode.
+			const bool lost_mode = m_renderer->LostMode();
+			if (m_mode_switch || lost_mode) {
+				m_renderer->SwitchMode(!lost_mode);
+				m_mode_switch = false;
+				continue;
+			}
+
+			// Calculate the elapsed time.
+			const double delta_time = m_timer->GetDeltaTime();
+
+			// Update the current scene.
+			m_scene->Update(delta_time);
+			if (!m_scene) {
+				PostQuitMessage(0);
+				continue;
+			}
 				
-				// Render the current scene.
-				m_renderer->BeginFrame();
-				m_renderer->PrepareRendering3D();
-				m_scene->Render3D();
-				m_renderer->PrepareRendering2D();
-				m_scene->Render2D();
-				m_renderer->EndFrame();
-			}
+			// Render the current scene.
+			m_renderer->BeginFrame();
+			m_renderer->PrepareRendering3D();
+			m_scene->Render3D();
+			m_renderer->PrepareRendering2D();
+			m_scene->Render2D();
+			m_renderer->EndFrame();
 		}
 	}
 }

@@ -158,16 +158,16 @@ namespace mage {
 						A pointer to the device context.
 		 @param[in]		compiled_vertex_shader
 						A reference to the compiled vertex shader.
-		 @return		A pointer to the tsnm vertex shader.
+		 @return		A pointer to the tangent-space-normal-map vertex shader.
 		 @throws		FormattedException
-						Failed to create the tsnm vertex shader.
+						Failed to create the tangent-space-normal-map vertex shader.
 		 */
 		SharedPtr< VertexShader > CreateTSNMVertexShader(
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const CompiledVertexShader &compiled_vertex_shader);
 
 		/**
-		 Creates a tsnm pixel shader (if not existing).
+		 Creates a tangent-space-normal-map pixel shader (if not existing).
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
@@ -177,9 +177,9 @@ namespace mage {
 						A pointer to the device context.
 		 @param[in]		compiled_pixel_shader
 						A reference to the compiled pixel shader.
-		 @return		A pointer to the tsnm pixel shader.
+		 @return		A pointer to the tangent-space-normal-map pixel shader.
 		 @throws		FormattedException
-						Failed to create the tsnm pixel shader.
+						Failed to create the tangent-space-normal-map pixel shader.
 		 */
 		SharedPtr< PixelShader > CreateTSNMPixelShader(
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,

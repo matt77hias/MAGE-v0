@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const CombinedShader CreateLambertianBumpShader() {
+	const CombinedShader CreateLambertianTSNMShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -25,14 +25,14 @@ namespace mage {
 		ResourceFactory *factory = GetResourceFactory();
 		Assert(factory);
 
-		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
+		SharedPtr< VertexShader > vs = factory->CreateTSNMVertexShader(
 			device, device_context, CreateCompiledTransformVertexShader());
-		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
-			device, device_context, CreateCompiledLambertianBumpPixelShader());
+		SharedPtr< PixelShader >  ps = factory->CreateTSNMPixelShader(
+			device, device_context, CreateCompiledLambertianTSNMPixelShader());
 		return CombinedShader(vs, ps);
 	}
 
-	const CombinedShader CreatePhongBumpShader() {
+	const CombinedShader CreatePhongTSNMShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -42,14 +42,14 @@ namespace mage {
 		ResourceFactory *factory = GetResourceFactory();
 		Assert(factory);
 
-		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
+		SharedPtr< VertexShader > vs = factory->CreateTSNMVertexShader(
 			device, device_context, CreateCompiledTransformVertexShader());
-		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
-			device, device_context, CreateCompiledPhongBumpPixelShader());
+		SharedPtr< PixelShader >  ps = factory->CreateTSNMPixelShader(
+			device, device_context, CreateCompiledPhongTSNMPixelShader());
 		return CombinedShader(vs, ps);
 	}
 
-	const CombinedShader CreateModifiedPhongBumpShader() {
+	const CombinedShader CreateModifiedPhongTSNMShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -59,14 +59,14 @@ namespace mage {
 		ResourceFactory *factory = GetResourceFactory();
 		Assert(factory);
 
-		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
+		SharedPtr< VertexShader > vs = factory->CreateTSNMVertexShader(
 			device, device_context, CreateCompiledTransformVertexShader());
-		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
-			device, device_context, CreateCompiledModifiedPhongBumpPixelShader());
+		SharedPtr< PixelShader >  ps = factory->CreateTSNMPixelShader(
+			device, device_context, CreateCompiledModifiedPhongTSNMPixelShader());
 		return CombinedShader(vs, ps);
 	}
 
-	const CombinedShader CreateBlinnPhongBumpShader() {
+	const CombinedShader CreateBlinnPhongTSNMShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -76,14 +76,14 @@ namespace mage {
 		ResourceFactory *factory = GetResourceFactory();
 		Assert(factory);
 
-		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
+		SharedPtr< VertexShader > vs = factory->CreateTSNMVertexShader(
 			device, device_context, CreateCompiledTransformVertexShader());
-		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
-			device, device_context, CreateCompiledBlinnPhongBumpPixelShader());
+		SharedPtr< PixelShader >  ps = factory->CreateTSNMPixelShader(
+			device, device_context, CreateCompiledBlinnPhongTSNMPixelShader());
 		return CombinedShader(vs, ps);
 	}
 
-	const CombinedShader CreateModifiedBlinnPhongBumpShader() {
+	const CombinedShader CreateModifiedBlinnPhongTSNMShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -93,14 +93,14 @@ namespace mage {
 		ResourceFactory *factory = GetResourceFactory();
 		Assert(factory);
 
-		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
+		SharedPtr< VertexShader > vs = factory->CreateTSNMVertexShader(
 			device, device_context, CreateCompiledTransformVertexShader());
-		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
-			device, device_context, CreateCompiledModifiedBlinnPhongBumpPixelShader());
+		SharedPtr< PixelShader >  ps = factory->CreateTSNMPixelShader(
+			device, device_context, CreateCompiledModifiedBlinnPhongTSNMPixelShader());
 		return CombinedShader(vs, ps);
 	}
 
-	const CombinedShader CreateWardBumpShader() {
+	const CombinedShader CreateWardTSNMShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -110,14 +110,14 @@ namespace mage {
 		ResourceFactory *factory = GetResourceFactory();
 		Assert(factory);
 
-		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
+		SharedPtr< VertexShader > vs = factory->CreateTSNMVertexShader(
 			device, device_context, CreateCompiledTransformVertexShader());
-		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
-			device, device_context, CreateCompiledWardBumpPixelShader());
+		SharedPtr< PixelShader >  ps = factory->CreateTSNMPixelShader(
+			device, device_context, CreateCompiledWardTSNMPixelShader());
 		return CombinedShader(vs, ps);
 	}
 
-	const CombinedShader CreateWardDuerBumpShader() {
+	const CombinedShader CreateWardDuerTSNMShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -127,14 +127,14 @@ namespace mage {
 		ResourceFactory *factory = GetResourceFactory();
 		Assert(factory);
 
-		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
+		SharedPtr< VertexShader > vs = factory->CreateTSNMVertexShader(
 			device, device_context, CreateCompiledTransformVertexShader());
-		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
-			device, device_context, CreateCompiledWardDuerBumpPixelShader());
+		SharedPtr< PixelShader >  ps = factory->CreateTSNMPixelShader(
+			device, device_context, CreateCompiledWardDuerTSNMPixelShader());
 		return CombinedShader(vs, ps);
 	}
 
-	const CombinedShader CreateCookTorranceBumpShader() {
+	const CombinedShader CreateCookTorranceTSNMShader() {
 		ID3D11Device2 *device = GetRenderingDevice();
 		Assert(device);
 
@@ -144,10 +144,10 @@ namespace mage {
 		ResourceFactory *factory = GetResourceFactory();
 		Assert(factory);
 
-		SharedPtr< VertexShader > vs = factory->CreateBumpVertexShader(
+		SharedPtr< VertexShader > vs = factory->CreateTSNMVertexShader(
 			device, device_context, CreateCompiledTransformVertexShader());
-		SharedPtr< PixelShader >  ps = factory->CreateBumpPixelShader(
-			device, device_context, CreateCompiledCookTorranceBumpPixelShader());
+		SharedPtr< PixelShader >  ps = factory->CreateTSNMPixelShader(
+			device, device_context, CreateCompiledCookTorranceTSNMPixelShader());
 		return CombinedShader(vs, ps);
 	}
 }

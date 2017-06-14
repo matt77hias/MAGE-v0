@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "shader\bump_shader_factory.hpp"
+#include "shader\tsnm_shader_factory.hpp"
 #include "texture\texture_factory.hpp"
 
 #pragma endregion
@@ -41,7 +41,7 @@ namespace mage {
 
 	void BRDFScript::InitModels() {
 		SharedPtr< Texture > white = CreateWhiteTexture();
-		SharedPtr< Texture > normal = CreateTexture(L"assets/sprites/bump/rock 4.dds");
+		SharedPtr< Texture > normal = CreateTexture(L"assets/sprites/tsnm/rock 4.dds");
 		
 		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
 			(*it)->MakePassive();
@@ -70,14 +70,14 @@ namespace mage {
 		m_shaders.push_back(CreateWardShader());
 		m_shaders.push_back(CreateWardDuerShader());
 		m_shaders.push_back(CreateCookTorranceShader());
-		m_shaders.push_back(CreateLambertianBumpShader());
-		m_shaders.push_back(CreatePhongBumpShader());
-		m_shaders.push_back(CreateModifiedPhongBumpShader());
-		m_shaders.push_back(CreateBlinnPhongBumpShader());
-		m_shaders.push_back(CreateModifiedBlinnPhongBumpShader());
-		m_shaders.push_back(CreateWardBumpShader());
-		m_shaders.push_back(CreateWardDuerBumpShader());
-		m_shaders.push_back(CreateCookTorranceBumpShader());
+		m_shaders.push_back(CreateLambertianTSNMShader());
+		m_shaders.push_back(CreatePhongTSNMShader());
+		m_shaders.push_back(CreateModifiedPhongTSNMShader());
+		m_shaders.push_back(CreateBlinnPhongTSNMShader());
+		m_shaders.push_back(CreateModifiedBlinnPhongTSNMShader());
+		m_shaders.push_back(CreateWardTSNMShader());
+		m_shaders.push_back(CreateWardDuerTSNMShader());
+		m_shaders.push_back(CreateCookTorranceTSNMShader());
 
 		m_shader_names.emplace_back(L"Diffuse");
 		m_shader_names.emplace_back(L"Lambertian");
@@ -88,14 +88,14 @@ namespace mage {
 		m_shader_names.emplace_back(L"Ward");
 		m_shader_names.emplace_back(L"Ward-Duer");
 		m_shader_names.emplace_back(L"Cook-Torrance");
-		m_shader_names.emplace_back(L"Lambertian + Bump");
-		m_shader_names.emplace_back(L"Phong + Bump");
-		m_shader_names.emplace_back(L"Modified Phong + Bump");
-		m_shader_names.emplace_back(L"Blinn-Phong + Bump");
-		m_shader_names.emplace_back(L"Modified Blinn-Phong + Bump");
-		m_shader_names.emplace_back(L"Ward + Bump");
-		m_shader_names.emplace_back(L"Ward-Duer + Bump");
-		m_shader_names.emplace_back(L"Cook-Torrance + Bump");
+		m_shader_names.emplace_back(L"Lambertian + TSNM");
+		m_shader_names.emplace_back(L"Phong + TSNM");
+		m_shader_names.emplace_back(L"Modified Phong + TSNM");
+		m_shader_names.emplace_back(L"Blinn-Phong + TSNM");
+		m_shader_names.emplace_back(L"Modified Blinn-Phong + TSNM");
+		m_shader_names.emplace_back(L"Ward + TSNM");
+		m_shader_names.emplace_back(L"Ward-Duer + TSNM");
+		m_shader_names.emplace_back(L"Cook-Torrance + TSNM");
 
 
 		Assert(m_shaders.size() == m_shader_names.size());

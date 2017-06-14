@@ -140,8 +140,8 @@
     <ClInclude Include="MAGE\src\script\wireframe_script.hpp" />
     <ClInclude Include="MAGE\src\shader\basic_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\basic_shader_factory.hpp" />
-    <ClInclude Include="MAGE\src\shader\bump_shader.hpp" />
-    <ClInclude Include="MAGE\src\shader\bump_shader_factory.hpp" />
+    <ClInclude Include="MAGE\src\shader\tsnm_shader.hpp" />
+    <ClInclude Include="MAGE\src\shader\tsnm_shader_factory.hpp" />
     <ClInclude Include="MAGE\src\shader\compiled_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\compiled_shader_factory.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\blinn_phong_PS.hpp" />

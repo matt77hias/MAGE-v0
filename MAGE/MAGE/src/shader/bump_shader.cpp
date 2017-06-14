@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "shader\bump_shader.hpp"
+#include "shader\tsnm_shader.hpp"
 #include "mesh\vertex.hpp"
 
 #pragma endregion
@@ -14,50 +14,50 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// BumpVertexShader
+	// TSNMVertexShader
 	//-------------------------------------------------------------------------
 
-	BumpVertexShader::BumpVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+	TSNMVertexShader::TSNMVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &fname) 
 		: VertexShader(device, device_context, fname, 
 			VertexPositionNormalTexture::input_element_desc, 
 			VertexPositionNormalTexture::nb_input_elements) {}
 			
-	BumpVertexShader::BumpVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+	TSNMVertexShader::TSNMVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledVertexShader &compiled_vertex_shader)
 		: VertexShader(device, device_context, compiled_vertex_shader,
 			VertexPositionNormalTexture::input_element_desc, 
 			VertexPositionNormalTexture::nb_input_elements) {}
 	
-	BumpVertexShader::BumpVertexShader(BumpVertexShader &&vertex_shader) = default;
+	TSNMVertexShader::TSNMVertexShader(TSNMVertexShader &&vertex_shader) = default;
 
-	BumpVertexShader::~BumpVertexShader() = default;
+	TSNMVertexShader::~TSNMVertexShader() = default;
 
-	void BumpVertexShader::PrepareShading(ID3D11Buffer *transform) const {
+	void TSNMVertexShader::PrepareShading(ID3D11Buffer *transform) const {
 		m_device_context->IASetInputLayout(m_vertex_layout.Get());
 		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
 		m_device_context->VSSetConstantBuffers(0, 1, &transform);
 	}
 
 	//-------------------------------------------------------------------------
-	// BumpPixelShader
+	// TSNMPixelShader
 	//-------------------------------------------------------------------------
 
-	BumpPixelShader::BumpPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+	TSNMPixelShader::TSNMPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &fname)
 			: PixelShader(device, device_context, fname),
 			m_material_buffer(m_device, m_device_context) {}
 			
-	BumpPixelShader::BumpPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+	TSNMPixelShader::TSNMPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledPixelShader &compiled_pixel_shader)
 			: PixelShader(device, device_context, compiled_pixel_shader),
 			m_material_buffer(m_device, m_device_context) {}
 	
-	BumpPixelShader::BumpPixelShader(BumpPixelShader &&pixel_shader) = default;
+	TSNMPixelShader::TSNMPixelShader(TSNMPixelShader &&pixel_shader) = default;
 
-	BumpPixelShader::~BumpPixelShader() = default;
+	TSNMPixelShader::~TSNMPixelShader() = default;
 
-	void BumpPixelShader::PrepareShading(const Material &material, const Lighting &lighting) const {
+	void TSNMPixelShader::PrepareShading(const Material &material, const Lighting &lighting) const {
 
 		MaterialBuffer buffer;
 		buffer.m_Kd       = material.GetDiffuseReflectivity();

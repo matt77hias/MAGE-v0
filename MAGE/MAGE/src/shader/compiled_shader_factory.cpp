@@ -72,35 +72,35 @@ namespace mage {
 		return CompiledPixelShader(MAGE_GUID_COOK_TORRANCE_PS, g_cook_torrance_ps, sizeof(g_cook_torrance_ps));
 	}
 
-	const CompiledPixelShader CreateCompiledLambertianBumpPixelShader() noexcept {
+	const CompiledPixelShader CreateCompiledLambertianTSNMPixelShader() noexcept {
 		return CompiledPixelShader(MAGE_GUID_TSNM_LAMBERTIAN_PS, g_tsnm_lambertian_ps, sizeof(g_tsnm_lambertian_ps));
 	}
 
-	const CompiledPixelShader CreateCompiledPhongBumpPixelShader() noexcept {
+	const CompiledPixelShader CreateCompiledPhongTSNMPixelShader() noexcept {
 		return CompiledPixelShader(MAGE_GUID_TSNM_PHONG_PS, g_tsnm_phong_ps, sizeof(g_tsnm_phong_ps));
 	}
 
-	const CompiledPixelShader CreateCompiledModifiedPhongBumpPixelShader() noexcept {
+	const CompiledPixelShader CreateCompiledModifiedPhongTSNMPixelShader() noexcept {
 		return CompiledPixelShader(MAGE_GUID_TSNM_MODIFIED_PHONG_PS, g_tsnm_modified_phong_ps, sizeof(g_tsnm_modified_phong_ps));
 	}
 
-	const CompiledPixelShader CreateCompiledBlinnPhongBumpPixelShader() noexcept {
+	const CompiledPixelShader CreateCompiledBlinnPhongTSNMPixelShader() noexcept {
 		return CompiledPixelShader(MAGE_GUID_TSNM_BLINN_PHONG_PS, g_tsnm_blinn_phong_ps, sizeof(g_tsnm_blinn_phong_ps));
 	}
 
-	const CompiledPixelShader CreateCompiledModifiedBlinnPhongBumpPixelShader() noexcept {
+	const CompiledPixelShader CreateCompiledModifiedBlinnPhongTSNMPixelShader() noexcept {
 		return CompiledPixelShader(MAGE_GUID_TSNM_MODIFIED_BLINN_PHONG_PS, g_tsnm_modified_blinn_phong_ps, sizeof(g_tsnm_modified_blinn_phong_ps));
 	}
 
-	const CompiledPixelShader CreateCompiledWardBumpPixelShader() noexcept {
+	const CompiledPixelShader CreateCompiledWardTSNMPixelShader() noexcept {
 		return CompiledPixelShader(MAGE_GUID_TSNM_WARD_PS, g_tsnm_ward_ps, sizeof(g_tsnm_ward_ps));
 	}
 
-	const CompiledPixelShader CreateCompiledWardDuerBumpPixelShader() noexcept {
+	const CompiledPixelShader CreateCompiledWardDuerTSNMPixelShader() noexcept {
 		return CompiledPixelShader(MAGE_GUID_TSNM_WARD_DUER_PS, g_tsnm_ward_duer_ps, sizeof(g_tsnm_ward_duer_ps));
 	}
 
-	const CompiledPixelShader CreateCompiledCookTorranceBumpPixelShader() noexcept {
+	const CompiledPixelShader CreateCompiledCookTorranceTSNMPixelShader() noexcept {
 		return CompiledPixelShader(MAGE_GUID_TSNM_COOK_TORRANCE_PS, g_tsnm_cook_torrance_ps, sizeof(g_tsnm_cook_torrance_ps));
 	}
 

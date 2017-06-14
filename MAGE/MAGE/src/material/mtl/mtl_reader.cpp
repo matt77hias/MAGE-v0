@@ -78,7 +78,7 @@ namespace mage {
 			ReadMTLNormalTexture();
 		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_BUMP_MAP)) {
-			ReadMTLBumpTexture();
+			ReadMTLTSNMTexture();
 		}
 		else if (str_equals(token, MAGE_MTL_TOKEN_ILLUMINATION_MDL)) {
 			ReadMTLIlluminationModel();
@@ -161,8 +161,8 @@ namespace mage {
 		m_material_buffer.back().SetNormalTexture(ReadMTLTexture());
 	}
 
-	void MTLReader::ReadMTLBumpTexture() {
-		Warning("%ls: line %u: bump maps are not supported, use normal maps instead.", GetFilename().c_str(), GetCurrentLineNumber());
+	void MTLReader::ReadMTLTSNMTexture() {
+		Warning("%ls: line %u: tsnm maps are not supported, use normal maps instead.", GetFilename().c_str(), GetCurrentLineNumber());
 		ReadMTLTexture();
 	}
 

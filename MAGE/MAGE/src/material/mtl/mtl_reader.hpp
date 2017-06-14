@@ -226,13 +226,13 @@ namespace mage {
 		void ReadMTLNormalTexture();
 
 		/**
-		 Reads a Bump Texture definition.
+		 Reads a TSNM Texture definition.
 
 		 @throws		FormattedException
-						Failed to read a Bump Texture definition.
-		 @note			Bump maps are not supported, use normal maps instead.
+						Failed to read a TSNM Texture definition.
+		 @note			TSNM maps are not supported, use normal maps instead.
 		 */
-		void ReadMTLBumpTexture();
+		void ReadMTLTSNMTexture();
 
 		/**
 		 Reads an Illumination Model definition.

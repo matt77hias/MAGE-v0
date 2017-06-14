@@ -5,7 +5,7 @@
 
 #include "shader\shaded_material.hpp"
 #include "shader\basic_shader_factory.hpp"
-#include "shader\bump_shader_factory.hpp"
+#include "shader\tsnm_shader_factory.hpp"
 #include "texture\texture_factory.hpp"
 
 #pragma endregion
@@ -21,29 +21,29 @@ namespace mage {
 			switch (brdf) {
 
 			case BRDFType::Lambertian:
-				return CreateLambertianBumpShader();
+				return CreateLambertianTSNMShader();
 			case BRDFType::Phong:
-				return CreatePhongBumpShader();
+				return CreatePhongTSNMShader();
 			case BRDFType::ModifiedPhong:
-				return CreateModifiedPhongBumpShader();
+				return CreateModifiedPhongTSNMShader();
 			case BRDFType::BlinnPhong:
-				return CreateBlinnPhongBumpShader();
+				return CreateBlinnPhongTSNMShader();
 			case BRDFType::ModifiedBlinnPhong:
-				return CreateModifiedBlinnPhongBumpShader();
+				return CreateModifiedBlinnPhongTSNMShader();
 			case BRDFType::Ward:
-				return CreateWardBumpShader();
+				return CreateWardTSNMShader();
 			case BRDFType::WardDuer:
-				return CreateWardDuerBumpShader();
+				return CreateWardDuerTSNMShader();
 			case BRDFType::CookTorrance:
-				return CreateCookTorranceBumpShader();
+				return CreateCookTorranceTSNMShader();
 			default:
 				const RGBSpectrum specular = material.GetSpecularReflectivity();
 				const float specular_sum = specular.x + specular.y + specular.z;
 				if (specular_sum > 0.0f) {
-					return CreateModifiedBlinnPhongBumpShader();
+					return CreateModifiedBlinnPhongTSNMShader();
 				}
 				else {
-					return CreateLambertianBumpShader();
+					return CreateLambertianTSNMShader();
 				}
 			}
 		}

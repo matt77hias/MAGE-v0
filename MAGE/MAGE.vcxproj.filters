@@ -687,12 +687,6 @@
     <ClInclude Include="MAGE\src\texture\texture_factory.hpp">
       <Filter>Header Files\texture</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\bump_shader.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\bump_shader_factory.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\osnm_modified_phong_PS.hpp">
       <Filter>Header Files\shader\cso</Filter>
     </ClInclude>
@@ -779,6 +773,12 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\rendering_utils.hpp">
       <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\tsnm_shader.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\tsnm_shader_factory.hpp">
+      <Filter>Header Files\shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -62,7 +62,7 @@ cbuffer LightData : register(b2) {
 };
 
 #include "brdf.fx"
-#include "bump.fx"
+#include "tsnm.fx"
 #include "light.fx"
 
 StructuredBuffer< OmniLight > omni_lights : register(t1);

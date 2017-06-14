@@ -148,7 +148,7 @@ namespace mage {
 			const CompiledPixelShader &compiled_pixel_shader);
 
 		/**
-		 Creates a bump vertex shader (if not existing).
+		 Creates a tangent-space-normal-map vertex shader (if not existing).
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
@@ -158,16 +158,16 @@ namespace mage {
 						A pointer to the device context.
 		 @param[in]		compiled_vertex_shader
 						A reference to the compiled vertex shader.
-		 @return		A pointer to the bump vertex shader.
+		 @return		A pointer to the tsnm vertex shader.
 		 @throws		FormattedException
-						Failed to create the bump vertex shader.
+						Failed to create the tsnm vertex shader.
 		 */
-		SharedPtr< VertexShader > CreateBumpVertexShader(
+		SharedPtr< VertexShader > CreateTSNMVertexShader(
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const CompiledVertexShader &compiled_vertex_shader);
 
 		/**
-		 Creates a bump pixel shader (if not existing).
+		 Creates a tsnm pixel shader (if not existing).
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
@@ -177,11 +177,11 @@ namespace mage {
 						A pointer to the device context.
 		 @param[in]		compiled_pixel_shader
 						A reference to the compiled pixel shader.
-		 @return		A pointer to the bump pixel shader.
+		 @return		A pointer to the tsnm pixel shader.
 		 @throws		FormattedException
-						Failed to create the bump pixel shader.
+						Failed to create the tsnm pixel shader.
 		 */
-		SharedPtr< PixelShader > CreateBumpPixelShader(
+		SharedPtr< PixelShader > CreateTSNMPixelShader(
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const CompiledPixelShader &compiled_pixel_shader);
 		

@@ -21,9 +21,9 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 A class of bump vertex shaders.
+	 A class of tangent-space-normal-map vertex shaders.
 	 */
-	class BumpVertexShader : public VertexShader {
+	class TSNMVertexShader : public VertexShader {
 
 	public:
 
@@ -32,7 +32,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a bump vertex shader.
+		 Constructs a tangent-space-normal-map vertex shader.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
@@ -45,11 +45,11 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize this vertex shader.
 		 */
-		explicit BumpVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		explicit TSNMVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &fname);
 		
 		/**
-		 Constructs a bump vertex shader.
+		 Constructs a tangent-space-normal-map vertex shader.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
@@ -62,60 +62,64 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize this vertex shader.
 		*/
-		explicit BumpVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		explicit TSNMVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const CompiledVertexShader &compiled_vertex_shader);
 		
 		/**
-		 Constructs a bump vertex shader from the given bump vertex shader.
+		 Constructs a tangent-space-normal-map vertex shader 
+		 from the given tangent-space-normal-map vertex shader.
 
 		 @param[in]		vertex_shader
-						A reference to the bump vertex shader to copy.
+						A reference to the tangent-space-normal-map vertex shader to copy.
 		 */
-		BumpVertexShader(const BumpVertexShader &vertex_shader) = delete;
+		TSNMVertexShader(const TSNMVertexShader &vertex_shader) = delete;
 		
 		/**
-		 Constructs a bump vertex shader by moving the given bump vertex shader.
+		 Constructs a tangent-space-normal-map vertex shader by moving 
+		 the given tangent-space-normal-map vertex shader.
 
 		 @param[in]		vertex_shader
-						A reference to the bump vertex shader to move.
+						A reference to the tangent-space-normal-map vertex shader to move.
 		 */
-		BumpVertexShader(BumpVertexShader &&vertex_shader);
+		TSNMVertexShader(TSNMVertexShader &&vertex_shader);
 
 		/**
-		 Destructs this bump vertex shader.
+		 Destructs this tangent-space-normal-map vertex shader.
 		 */
-		virtual ~BumpVertexShader();
+		virtual ~TSNMVertexShader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given bump vertex shader to this bump vertex shader.
+		 Copies the given tangent-space-normal-map vertex shader 
+		 to this tangent-space-normal-map vertex shader.
 
 		 @param[in]		vertex_shader
-						A reference to the bump vertex shader to copy.
-		 @return		A reference to the copy of the given bump vertex shader
-						(i.e. this bump vertex shader).
+						A reference to the tangent-space-normal-map vertex shader to copy.
+		 @return		A reference to the copy of the given tangent-space-normal-map vertex shader
+						(i.e. this tangent-space-normal-map vertex shader).
 		 */
-		BumpVertexShader &operator=(const BumpVertexShader &vertex_shader) = delete;
+		TSNMVertexShader &operator=(const TSNMVertexShader &vertex_shader) = delete;
 		
 		/**
-		 Copies the given bump vertex shader to this bump vertex shader.
+		 Copies the given tangent-space-normal-map vertex shader 
+		 to this tangent-space-normal-map vertex shader.
 
 		 @param[in]		vertex_shader
-						A reference to the bump vertex shader to copy.
-		 @return		A reference to the moved bump vertex shader
-						(i.e. this bump vertex shader).
+						A reference to the tangent-space-normal-map vertex shader to copy.
+		 @return		A reference to the moved tangent-space-normal-map vertex shader
+						(i.e. this tangent-space-normal-map vertex shader).
 		 */
-		BumpVertexShader &operator=(BumpVertexShader &&vertex_shader) = delete;
+		TSNMVertexShader &operator=(TSNMVertexShader &&vertex_shader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Prepares this bump vertex shader for shading.
+		 Prepares this tangent-space-normal-map vertex shader for shading.
 
 		 @pre			@a transform is not equal to @c nullptr.
 		 @param[in]		transform
@@ -125,13 +129,13 @@ namespace mage {
 	};
 
 	//-------------------------------------------------------------------------
-	// BumpPixelShader
+	// TSNMPixelShader
 	//-------------------------------------------------------------------------
 
 	/**
-	 A class of bump pixel shaders.
+	 A class of tangent-space-normal-map pixel shaders.
 	 */
-	class BumpPixelShader : public PixelShader {
+	class TSNMPixelShader : public PixelShader {
 
 	public:
 
@@ -140,7 +144,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a bump pixel shader.
+		 Constructs a tangent-space-normal-map pixel shader.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
@@ -153,11 +157,11 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize this pixel shader.
 		 */
-		explicit BumpPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		explicit TSNMPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &fname);
 
 		/**
-		 Constructs a bump pixel shader.
+		 Constructs a tangent-space-normal-map pixel shader.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
@@ -170,60 +174,64 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize this pixel shader.
 		 */
-		explicit BumpPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		explicit TSNMPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const CompiledPixelShader &compiled_pixel_shader);
 		
 		/**
-		 Constructs a bump pixel shader from the given bump pixel shader.
+		 Constructs a tangent-space-normal-map pixel shader 
+		 from the given tangent-space-normal-map pixel shader.
 
 		 @param[in]		pixel_shader
-						A reference to the bump pixel shader to copy.
+						A reference to the tangent-space-normal-map pixel shader to copy.
 		 */
-		BumpPixelShader(const BumpPixelShader &pixel_shader) = delete;
+		TSNMPixelShader(const TSNMPixelShader &pixel_shader) = delete;
 
 		/**
-		 Constructs a bump pixel shader by moving the given bump pixel shader.
+		 Constructs a tangent-space-normal-map pixel shader by moving 
+		 the given tangent-space-normal-map pixel shader.
 
 		 @param[in]		pixel_shader
-						A reference to the bump pixel shader to move.
+						A reference to the tangent-space-normal-map pixel shader to move.
 		 */
-		BumpPixelShader(BumpPixelShader &&pixel_shader);
+		TSNMPixelShader(TSNMPixelShader &&pixel_shader);
 
 		/**
-		 Destructs this bump pixel shader.
+		 Destructs this tangent-space-normal-map pixel shader.
 		 */
-		virtual ~BumpPixelShader();
+		virtual ~TSNMPixelShader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given bump pixel shader to this bump pixel shader.
+		 Copies the given tangent-space-normal-map pixel shader 
+		 to this tangent-space-normal-map pixel shader.
 
 		 @param[in]		pixel_shader
-						A reference to the bump pixel shader to copy.
-		 @return		A reference to the copy of the given bump pixel shader
-						(i.e. this bump pixel shader).
+						A reference to the tangent-space-normal-map pixel shader to copy.
+		 @return		A reference to the copy of the given tangent-space-normal-map pixel shader
+						(i.e. this tangent-space-normal-map pixel shader).
 		 */
-		BumpPixelShader &operator=(const BumpPixelShader &pixel_shader) = delete;
+		TSNMPixelShader &operator=(const TSNMPixelShader &pixel_shader) = delete;
 
 		/**
-		 Moves the given bump pixel shader to this bump pixel shader.
+		 Moves the given tangent-space-normal-map pixel shader 
+		 to this tangent-space-normal-map pixel shader.
 
 		 @param[in]		pixel_shader
-						A reference to the bump pixel shader to move.
-		 @return		A reference to the moved bump pixel shader
-						(i.e. this bump pixel shader).
+						A reference to the tangent-space-normal-map pixel shader to move.
+		 @return		A reference to the moved tangent-space-normal-map pixel shader
+						(i.e. this tangent-space-normal-map pixel shader).
 		 */
-		BumpPixelShader &operator=(BumpPixelShader &&pixel_shader) = delete;
+		TSNMPixelShader &operator=(TSNMPixelShader &&pixel_shader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Prepares this bump pixel shader for shading.
+		 Prepares this tangent-space-normal-map pixel shader for shading.
 
 		 @param[in]		material
 						A reference to the material.
@@ -239,7 +247,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the material buffer of this bump pixel shader.
+		 A pointer to the material buffer of this tangent-space-normal-map pixel shader.
 		 */
 		ConstantBuffer< MaterialBuffer > m_material_buffer;
 	};

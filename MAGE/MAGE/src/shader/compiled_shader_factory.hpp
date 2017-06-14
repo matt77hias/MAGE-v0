@@ -117,60 +117,60 @@ namespace mage {
 	const CompiledPixelShader CreateCompiledCookTorrancePixelShader() noexcept;
 
 	/**
-	 Returns the compiled Lambertian bump pixel shader.
+	 Returns the compiled Lambertian tsnm pixel shader.
 
-	 @return		The compiled Lambertian bump pixel shader.
+	 @return		The compiled Lambertian tsnm pixel shader.
 	 */
-	const CompiledPixelShader CreateCompiledLambertianBumpPixelShader() noexcept;
+	const CompiledPixelShader CreateCompiledLambertianTSNMPixelShader() noexcept;
 
 	/**
-	 Returns the compiled Phong bump pixel shader.
+	 Returns the compiled Phong tsnm pixel shader.
 
-	 @return		The compiled Phong bump pixel shader.
+	 @return		The compiled Phong tsnm pixel shader.
 	 */
-	const CompiledPixelShader CreateCompiledPhongBumpPixelShader() noexcept;
+	const CompiledPixelShader CreateCompiledPhongTSNMPixelShader() noexcept;
 
 	/**
-	 Returns the compiled Modified Phong bump pixel shader.
+	 Returns the compiled Modified Phong tsnm pixel shader.
 
-	 @return		The compiled Modified Phong bump pixel shader.
+	 @return		The compiled Modified Phong tsnm pixel shader.
 	 */
-	const CompiledPixelShader CreateCompiledModifiedPhongBumpPixelShader() noexcept;
+	const CompiledPixelShader CreateCompiledModifiedPhongTSNMPixelShader() noexcept;
 
 	/**
-	 Returns the compiled Blinn-Phong bump pixel shader.
+	 Returns the compiled Blinn-Phong tsnm pixel shader.
 
-	 @return		The compiled Blinn-Phong bump pixel shader.
+	 @return		The compiled Blinn-Phong tsnm pixel shader.
 	 */
-	const CompiledPixelShader CreateCompiledBlinnPhongBumpPixelShader() noexcept;
+	const CompiledPixelShader CreateCompiledBlinnPhongTSNMPixelShader() noexcept;
 
 	/**
-	 Returns the compiled Modified Blinn-Phong bump pixel shader.
+	 Returns the compiled Modified Blinn-Phong tsnm pixel shader.
 
-	 @return		The compiled Modified Blinn-Phong bump pixel shader.
+	 @return		The compiled Modified Blinn-Phong tsnm pixel shader.
 	 */
-	const CompiledPixelShader CreateCompiledModifiedBlinnPhongBumpPixelShader() noexcept;
+	const CompiledPixelShader CreateCompiledModifiedBlinnPhongTSNMPixelShader() noexcept;
 
 	/**
-	 Returns the compiled Ward bump pixel shader.
+	 Returns the compiled Ward tsnm pixel shader.
 
-	 @return		The compiled Ward bump pixel shader.
+	 @return		The compiled Ward tsnm pixel shader.
 	 */
-	const CompiledPixelShader CreateCompiledWardBumpPixelShader() noexcept;
+	const CompiledPixelShader CreateCompiledWardTSNMPixelShader() noexcept;
 
 	/**
-	 Returns the compiled Ward-Duer bump pixel shader.
+	 Returns the compiled Ward-Duer tsnm pixel shader.
 
-	 @return		The compiled Ward-Duer bump pixel shader.
+	 @return		The compiled Ward-Duer tsnm pixel shader.
 	 */
-	const CompiledPixelShader CreateCompiledWardDuerBumpPixelShader() noexcept;
+	const CompiledPixelShader CreateCompiledWardDuerTSNMPixelShader() noexcept;
 
 	/**
-	 Returns the compiled Cook-Torrance bump pixel shader.
+	 Returns the compiled Cook-Torrance tsnm pixel shader.
 
-	 @return		The compiled Cook-Torrance bump pixel shader.
+	 @return		The compiled Cook-Torrance tsnm pixel shader.
 	 */
-	const CompiledPixelShader CreateCompiledCookTorranceBumpPixelShader() noexcept;
+	const CompiledPixelShader CreateCompiledCookTorranceTSNMPixelShader() noexcept;
 
 	/**
 	 Returns the compiled sprite vertex shader.

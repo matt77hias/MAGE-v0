@@ -6,7 +6,7 @@
 #include "core\engine.hpp"
 #include "shader\compiled_shader_factory.hpp"
 #include "shader\basic_shader.hpp"
-#include "shader\bump_shader.hpp"
+#include "shader\tsnm_shader.hpp"
 #include "shader\sprite_shader.hpp"
 
 #pragma endregion
@@ -55,19 +55,19 @@ namespace mage {
 								(compiled_pixel_shader.m_name, device, device_context, compiled_pixel_shader);
 	}
 	
-	SharedPtr< VertexShader > ResourceFactory::CreateBumpVertexShader(
+	SharedPtr< VertexShader > ResourceFactory::CreateTSNMVertexShader(
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledVertexShader &compiled_vertex_shader) {
 		return m_vertex_shader_resource_pool->template
-			GetDerivedResource< BumpVertexShader, ID3D11Device2 *&, ID3D11DeviceContext2 *&, const CompiledVertexShader & >
+			GetDerivedResource< TSNMVertexShader, ID3D11Device2 *&, ID3D11DeviceContext2 *&, const CompiledVertexShader & >
 			(compiled_vertex_shader.m_name, device, device_context, compiled_vertex_shader);
 	}
 
-	SharedPtr< PixelShader > ResourceFactory::CreateBumpPixelShader(
+	SharedPtr< PixelShader > ResourceFactory::CreateTSNMPixelShader(
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledPixelShader &compiled_pixel_shader) {
 		return m_pixel_shader_resource_pool->template
-			GetDerivedResource< BumpPixelShader, ID3D11Device2 *&, ID3D11DeviceContext2 *&, const CompiledPixelShader & >
+			GetDerivedResource< TSNMPixelShader, ID3D11Device2 *&, ID3D11DeviceContext2 *&, const CompiledPixelShader & >
 			(compiled_pixel_shader.m_name, device, device_context, compiled_pixel_shader);
 	}
 

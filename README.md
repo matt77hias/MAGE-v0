@@ -27,6 +27,7 @@ MAGE - Matthias Advanced Game Engine
 ## Index
 * [Codebase](https://github.com/matt77hias/MAGE/blob/master/meta/codebase.md)
 * [Code Guidelines](https://github.com/matt77hias/MAGE/blob/master/meta/code-guidelines.md)
+* [Documentation](https://matt77hias.github.io/MAGE-Doc/MAGE-Doc/html/index.html)
 * [File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
 * [Iterations](https://github.com/matt77hias/MAGE/blob/master/meta/iterations.md)
 * [Standard Scripts](https://github.com/matt77hias/MAGE/blob/master/meta/standard-scripts.md)

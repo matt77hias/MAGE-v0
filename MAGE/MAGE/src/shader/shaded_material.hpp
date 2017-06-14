@@ -644,7 +644,7 @@ namespace mage {
 		/**
 		 Sets the decal texture of this shaded material to the given decal texture.
 
-		 @param[in]		decal
+		 @param[in]		decal_texture
 						A reference to the decal texture.
 		 */
 		void SetDecalTexture(SharedPtr< Texture > decal_texture) {

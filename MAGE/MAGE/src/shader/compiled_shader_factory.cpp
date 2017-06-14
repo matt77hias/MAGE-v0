@@ -56,7 +56,7 @@ namespace mage {
 		return CompiledPixelShader(MAGE_GUID_BLINN_PHONG_PS, g_blinn_phong_ps, sizeof(g_blinn_phong_ps));
 	}
 
-	const CompiledPixelShader CreateCompiledModifiedBlinnPhongPixelShader() {
+	const CompiledPixelShader CreateCompiledModifiedBlinnPhongPixelShader() noexcept {
 		return CompiledPixelShader(MAGE_GUID_MODIFIED_BLINN_PHONG_PS, g_modified_blinn_phong_ps, sizeof(g_modified_blinn_phong_ps));
 	}
 

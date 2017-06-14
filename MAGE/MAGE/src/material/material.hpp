@@ -92,100 +92,300 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		/**
+		 Returns the name of this material.
+
+		 @return		A reference to the name of this material.
+		 */
 		const string &GetName() const noexcept {
 			return m_name;
 		}
+		
+		/**
+		 Sets the name of this material to the given name.
+
+		 @param[in]		name
+						A reference to the name.
+		 */
 		void SetName(const string &name) {
 			m_name = name;
 		}
+		
+		/**
+		 Sets the name of this material to the given name.
+
+		 @param[in]		name
+						A reference to the name.
+		 */
 		void SetName(string &&name) {
 			m_name = std::move(name);
 		}
 
+		/**
+		 Returns the transmission filter of this material.
+
+		 @return		A reference to the transmission filter of this material.
+		 */
 		RGBSpectrum &GetTransmissionFilter() noexcept {
 			return m_transmission_filter;
 		}
+		
+		/**
+		 Returns the transmission filter of this material.
+
+		 @return		A reference to the transmission filter of this material.
+		 */
 		const RGBSpectrum &GetTransmissionFilter() const noexcept {
 			return m_transmission_filter;
 		}
+		
+		/**
+		 Sets the transmission filter of this material to the given transmission filter.
+
+		 @param[in]		transmission_filter
+						A reference to the transmission filter.
+		 */
 		void SetTransmissionFilter(const RGBSpectrum &transmission_filter) noexcept {
 			m_transmission_filter = transmission_filter;
 		}
+		
+		/**
+		 Sets the transmission filter of this material to the given transmission filter.
+
+		 @param[in]		transmission_filter
+						A reference to the transmission filter.
+		 */
 		void SetTransmissionFilter(RGBSpectrum &&transmission_filter) noexcept {
 			m_transmission_filter = std::move(transmission_filter);
 		}
 
+		/**
+		 Returns the ambient reflectivity of this material.
+
+		 @return		A reference to the ambient reflectivity of this material.
+		 */
 		RGBSpectrum &GetAmbientReflectivity() noexcept {
 			return m_ambient_reflectivity;
 		}
+		
+		/**
+		 Returns the ambient reflectivity of this material.
+
+		 @return		A reference to the ambient reflectivity of this material.
+		 */
 		const RGBSpectrum &GetAmbientReflectivity() const noexcept {
 			return m_ambient_reflectivity;
 		}
+		
+		/**
+		 Sets the ambient reflectivity of this material to the given ambient reflectivity.
+
+		 @param[in]		ambient_reflectivity
+						A reference to the ambient reflectivity.
+		 */
 		void SetAmbientReflectivity(const RGBSpectrum &ambient_reflectivity) noexcept {
 			m_ambient_reflectivity = ambient_reflectivity;
 		}
+		
+		/**
+		 Sets the ambient reflectivity of this material to the given ambient reflectivity.
+
+		 @param[in]		ambient_reflectivity
+						A reference to the ambient reflectivity.
+		 */
 		void SetAmbientReflectivity(RGBSpectrum &&ambient_reflectivity) noexcept {
 			m_ambient_reflectivity = std::move(ambient_reflectivity);
 		}
+		
+		/**
+		 Returns the ambient reflectivity texture of this material.
+
+		 @return		A pointer to the ambient reflectivity texture of this material.
+		 */
 		SharedPtr< Texture > GetAmbientReflectivityTexture() const noexcept {
 			return m_ambient_reflectivity_texture;
 		}
+		
+		/**
+		 Returns the shader resource view of the ambient reflectivity texture of this material.
+
+		 @return		@c nullptr, if this material has no ambient reflectivity texture.
+		 @return		A pointer to the shader resource view of the ambient reflectivity texture of this material.
+		 */
 		ID3D11ShaderResourceView *GetAmbientReflectivitySRV() const noexcept {
 			return m_ambient_reflectivity_texture ? m_ambient_reflectivity_texture->Get() : nullptr;
 		}
+		
+		/**
+		 Returns the address of the shader resource view of the ambient reflectivity texture of this material.
+
+		 @return		@c nullptr, if this material has no ambient reflectivity texture.
+		 @return		The address of the shader resource view of the ambient reflectivity texture of this material.
+		 */
 		ID3D11ShaderResourceView * const *GetAmbientReflectivitySRVAddress() const noexcept {
 			return m_ambient_reflectivity_texture ? m_ambient_reflectivity_texture->GetAddress() : nullptr;
 		}
+		
+		/**
+		 Sets the ambient reflectivity texture of this material to the given ambient reflectivity texture.
+
+		 @param[in]		ambient_reflectivity_texture
+						A reference to the ambient reflectivity texture.
+		 */
 		void SetAmbientReflectivityTexture(SharedPtr< Texture > ambient_reflectivity_texture) {
 			m_ambient_reflectivity_texture = ambient_reflectivity_texture;
 		}
 		
+		/**
+		 Returns the diffuse reflectivity of this material.
+
+		 @return		A reference to the diffuse reflectivity of this material.
+		 */
 		RGBSpectrum &GetDiffuseReflectivity() noexcept {
 			return m_diffuse_reflectivity;
 		}
+		
+		/**
+		 Returns the diffuse reflectivity of this material.
+
+		 @return		A reference to the diffuse reflectivity of this material.
+		 */
 		const RGBSpectrum &GetDiffuseReflectivity() const noexcept {
 			return m_diffuse_reflectivity;
 		}
+		
+		/**
+		 Sets the diffuse reflectivity of this material to the given diffuse reflectivity.
+
+		 @param[in]		diffuse_reflectivity
+						A reference to the diffuse reflectivity.
+		 */
 		void SetDiffuseReflectivity(const RGBSpectrum &diffuse_reflectivity) noexcept {
 			m_diffuse_reflectivity = diffuse_reflectivity;
 		}
+		
+		/**
+		 Sets the diffuse reflectivity of this material to the given diffuse reflectivity.
+
+		 @param[in]		diffuse_reflectivity
+						A reference to the diffuse reflectivity.
+		 */
 		void SetDiffuseReflectivity(RGBSpectrum &&diffuse_reflectivity) noexcept {
 			m_diffuse_reflectivity = std::move(diffuse_reflectivity);
 		}
+		
+		/**
+		 Returns the diffuse reflectivity texture of this material.
+
+		 @return		A pointer to the diffuse reflectivity texture of this material.
+		 */
 		SharedPtr< Texture > GetDiffuseReflectivityTexture() const noexcept {
 			return m_diffuse_reflectivity_texture;
 		}
+		
+		/**
+		 Returns the shader resource view of the diffuse reflectivity texture of this material.
+
+		 @return		@c nullptr, if this material has no diffuse reflectivity texture.
+		 @return		A pointer to the shader resource view of the diffuse reflectivity texture of this material.
+		 */
 		ID3D11ShaderResourceView *GetDiffuseReflectivitySRV() const noexcept {
 			return m_diffuse_reflectivity_texture ? m_diffuse_reflectivity_texture->Get() : nullptr;
 		}
+		
+		/**
+		 Returns the address of the shader resource view of the diffuse reflectivity texture of this material.
+
+		 @return		@c nullptr, if this material has no diffuse reflectivity texture.
+		 @return		The address of the shader resource view of the diffuse reflectivity texture of this material.
+		 */
 		ID3D11ShaderResourceView * const *GetDiffuseReflectivitySRVAddress() const noexcept {
 			return m_diffuse_reflectivity_texture ? m_diffuse_reflectivity_texture->GetAddress() : nullptr;
 		}
+		
+		/**
+		 Sets the diffuse reflectivity texture of this material to the given diffuse reflectivity texture.
+
+		 @param[in]		diffuse_reflectivity_texture
+						A reference to the diffuse reflectivity texture.
+		 */
 		void SetDiffuseReflectivityTexture(SharedPtr< Texture > diffuse_reflectivity_texture) {
 			m_diffuse_reflectivity_texture = diffuse_reflectivity_texture;
 		}
 		
+		/**
+		 Returns the specular reflectivity of this material.
+
+		 @return		A reference to the specular reflectivity of this material.
+		 */
 		RGBSpectrum &GetSpecularReflectivity() noexcept {
 			return m_specular_reflectivity;
 		}
+		
+		/**
+		 Returns the specular reflectivity of this material.
+
+		 @return		A reference to the specular reflectivity of this material.
+		 */
 		const RGBSpectrum &GetSpecularReflectivity() const noexcept {
 			return m_specular_reflectivity;
 		}
+		
+		/**
+		 Sets the specular reflectivity of this material to the given specular reflectivity.
+
+		 @param[in]		specular_reflectivity
+						A reference to the specular reflectivity.
+		 */
 		void SetSpecularReflectivity(const RGBSpectrum &specular_reflectivity) noexcept {
 			m_specular_reflectivity = specular_reflectivity;
 		}
+		
+		/**
+		 Sets the specular reflectivity of this material to the given specular reflectivity.
+
+		 @param[in]		specular_reflectivity
+						A reference to the specular reflectivity.
+		 */
 		void SetSpecularReflectivity(RGBSpectrum &&specular_reflectivity) noexcept {
 			m_specular_reflectivity = std::move(specular_reflectivity);
 		}
+		
+		/**
+		 Returns the specular reflectivity texture of this material.
+
+		 @return		A pointer to the specular reflectivity texture of this material.
+		 */
 		SharedPtr< Texture > GetSpecularReflectivityTexture() const noexcept {
 			return m_specular_reflectivity_texture;
 		}
+		
+		/**
+		 Returns the shader resource view of the specular reflectivity texture of this material.
+
+		 @return		@c nullptr, if this material has no specular reflectivity texture.
+		 @return		A pointer to the shader resource view of the specular reflectivity texture of this material.
+		 */
 		ID3D11ShaderResourceView *GetSpecularReflectivitySRV() const noexcept {
 			return m_specular_reflectivity_texture ? m_specular_reflectivity_texture->Get() : nullptr;
 		}
+		
+		/**
+		 Returns the address of the shader resource view of the specular reflectivity texture of this material.
+
+		 @return		@c nullptr, if this material has no specular reflectivity texture.
+		 @return		The address of the shader resource view of the specular reflectivity texture of this material.
+		 */
 		ID3D11ShaderResourceView * const *GetSpecularReflectivitySRVAddress() const noexcept {
 			return m_specular_reflectivity_texture ? m_specular_reflectivity_texture->GetAddress() : nullptr;
 		}
+		
+		/**
+		 Sets the specular reflectivity texture of this material to the given specular reflectivity texture.
+
+		 @param[in]		specular_reflectivity_texture
+						A reference to the specular reflectivity texture.
+		 */
 		void SetSpecularReflectivityTexture(SharedPtr< Texture > specular_reflectivity_texture) {
 			m_specular_reflectivity_texture = specular_reflectivity_texture;
 		}

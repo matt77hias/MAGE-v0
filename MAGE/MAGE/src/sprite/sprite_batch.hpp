@@ -27,6 +27,9 @@ namespace mage {
 	// SpriteInfo
 	//-------------------------------------------------------------------------
 
+	/**
+	 A struct of sprite info data for a single sprite.
+	 */
 	__declspec(align(16)) struct SpriteInfo final : public AlignedData< SpriteInfo > {
 
 		//---------------------------------------------------------------------
@@ -46,10 +49,28 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		XMFLOAT4A source;
+
+
 		XMFLOAT4A destination;
+
+		/**
+		 The color of the sprite associated with this sprite info.
+		 */
 		XMFLOAT4A color;
+
+		/**
+		 The origin, rotation and depth (Ox Oy R D) of the sprite 
+		 associated with this sprite info.
+		 */
 		XMFLOAT4A origin_rotation_depth;
+
+		/**
+		 A pointer to the shader resource view of the texture
+		 associated with this sprite info.
+		 */
 		ID3D11ShaderResourceView *texture;
+
+
 		unsigned int flags;
 	};
 

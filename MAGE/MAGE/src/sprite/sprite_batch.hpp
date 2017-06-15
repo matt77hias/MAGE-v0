@@ -28,7 +28,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 A struct of sprite info data for a single sprite.
+	 A struct of sprite info for a single sprite.
 	 */
 	__declspec(align(16)) struct SpriteInfo final : public AlignedData< SpriteInfo > {
 
@@ -56,6 +56,63 @@ namespace mage {
 			(static_cast< unsigned int >(SpriteEffect::FlipBoth) & (source_in_texels | destination_size_in_pixels)) == 0, 
 			"Flag bits must not overlap");
 		
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a sprite info.
+		 */
+		SpriteInfo()
+			: m_source{}, m_destination{},
+			m_color{}, m_origin_rotation_depth{},
+			m_texture(nullptr), m_flags(0) {}
+
+		/**
+		 Constructs a sprite info from the given sprite info.
+
+		 @param[in]		sprite_info
+						A reference to the sprite info to copy.
+		 */
+		SpriteInfo(const SpriteInfo &sprite_info) = default;
+
+		/**
+		 Constructs a sprite info by moving the given sprite info.
+
+		 @param[in]		sprite_info
+						A reference to the sprite info to move.
+		 */
+		SpriteInfo(SpriteInfo &&sprite_info) = default;
+
+		/**
+		 Destructs this sprite info.
+		 */
+		~SpriteInfo() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given sprite info to this sprite info.
+
+		 @param[in]		sprite_info
+						A reference to the sprite info to copy.
+		 @return		A reference to the copy of the given sprite info
+						(i.e. this sprite info).
+		 */
+		SpriteInfo &operator=(const SpriteInfo &sprite_info) = default;
+
+		/**
+		 Moves the given sprite info to this sprite info.
+
+		 @param[in]		sprite_info
+						A reference to the sprite info to move.
+		 @return		A reference to the moved sprite info
+						(i.e. this sprite info).
+		 */
+		SpriteInfo &operator=(SpriteInfo &&sprite_info) = default;
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------

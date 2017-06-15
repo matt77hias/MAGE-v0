@@ -62,7 +62,7 @@ namespace mage {
 		/**
 		 Returns the size (in bytes) of the vertices of this mesh.
 
-		 @return		The vertex size (in bytes) of this static mesh.
+		 @return		The vertex size (in bytes) of this mesh.
 		 */
 		size_t GetVertexSize() const noexcept {
 			return m_vertex_size;
@@ -234,7 +234,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The vertex size of this static mesh.
+		 The vertex size of this mesh.
 		 */
 		const size_t m_vertex_size;
 

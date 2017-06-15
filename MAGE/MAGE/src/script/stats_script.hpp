@@ -24,7 +24,7 @@ namespace mage {
 		// Class Member Variables
 		//---------------------------------------------------------------------
 
-		static const double resource_fetch_period;
+		static const double s_resource_fetch_period;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors

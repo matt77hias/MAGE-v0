@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const double FrameRateScript::resource_fetch_period = 1.00;
+	const double FrameRateScript::s_resource_fetch_period = 1.00;
 
 	FrameRateScript::FrameRateScript(SharedPtr< SpriteText > text)
 		: BehaviorScript(), m_accumulated_time(0.0),
@@ -27,7 +27,7 @@ namespace mage {
 		m_accumulated_time += delta_time;
 		++m_accumulated_nb_frames;
 		
-		if (m_accumulated_time > FrameRateScript::resource_fetch_period) {
+		if (m_accumulated_time > FrameRateScript::s_resource_fetch_period) {
 			// FPS
 			m_last_frames_per_second = static_cast< uint32_t >(m_accumulated_nb_frames / m_accumulated_time);
 			m_accumulated_time = 0.0;

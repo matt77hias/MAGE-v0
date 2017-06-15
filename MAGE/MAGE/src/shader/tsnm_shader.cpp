@@ -20,14 +20,14 @@ namespace mage {
 	TSNMVertexShader::TSNMVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &fname) 
 		: VertexShader(device, device_context, fname, 
-			VertexPositionNormalTexture::input_element_desc, 
-			VertexPositionNormalTexture::nb_input_elements) {}
+			VertexPositionNormalTexture::s_input_element_desc, 
+			VertexPositionNormalTexture::s_nb_input_elements) {}
 			
 	TSNMVertexShader::TSNMVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledVertexShader &compiled_vertex_shader)
 		: VertexShader(device, device_context, compiled_vertex_shader,
-			VertexPositionNormalTexture::input_element_desc, 
-			VertexPositionNormalTexture::nb_input_elements) {}
+			VertexPositionNormalTexture::s_input_element_desc, 
+			VertexPositionNormalTexture::s_nb_input_elements) {}
 	
 	TSNMVertexShader::TSNMVertexShader(TSNMVertexShader &&vertex_shader) = default;
 

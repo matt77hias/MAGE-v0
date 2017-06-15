@@ -113,12 +113,12 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t nb_input_elements = 1;
+		static const uint32_t s_nb_input_elements = 1;
 
 		/**
 		 The input element descriptor of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_desc[s_nb_input_elements];
 	};
 
 	/**
@@ -214,12 +214,12 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t nb_input_elements = 2;
+		static const uint32_t s_nb_input_elements = 2;
 
 		/**
 		 The input element descriptor of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_desc[s_nb_input_elements];
 	};
 
 	/**
@@ -315,12 +315,12 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t nb_input_elements = 2;
+		static const uint32_t s_nb_input_elements = 2;
 
 		/**
 		 The input element descriptor of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_desc[s_nb_input_elements];
 	};
 
 	/**
@@ -416,12 +416,12 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t nb_input_elements = 2;
+		static const uint32_t s_nb_input_elements = 2;
 
 		/**
 		 The input element descriptor of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_desc[s_nb_input_elements];
 	};
 
 	/**
@@ -524,12 +524,12 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t nb_input_elements = 3;
+		static const uint32_t s_nb_input_elements = 3;
 
 		/**
 		 The input element descriptor of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_desc[s_nb_input_elements];
 	};
 
 	/**
@@ -632,12 +632,12 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t nb_input_elements = 3;
+		static const uint32_t s_nb_input_elements = 3;
 
 		/**
 		 The input element descriptor of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_desc[s_nb_input_elements];
 	};
 
 	/**
@@ -740,12 +740,12 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t nb_input_elements = 3;
+		static const uint32_t s_nb_input_elements = 3;
 
 		/**
 		 The input element descriptor of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_desc[s_nb_input_elements];
 	};
 
 	/**
@@ -855,12 +855,12 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const int nb_input_elements = 4;
+		static const int s_nb_input_elements = 4;
 
 		/**
 		 The input element descriptor of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_desc[s_nb_input_elements];
 	};
 
 	/**
@@ -963,11 +963,11 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const int nb_input_elements = 3;
+		static const int s_nb_input_elements = 3;
 
 		/**
 		 The input element descriptor of a vertex.
 		 */
-		static const D3D11_INPUT_ELEMENT_DESC input_element_desc[nb_input_elements];
+		static const D3D11_INPUT_ELEMENT_DESC s_input_element_desc[s_nb_input_elements];
 	};
 }

@@ -22,7 +22,7 @@ namespace mage {
 
 	SpriteVertexShader::SpriteVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: VertexShader(device, device_context, CreateCompiledSpriteVertexShader(),
-			VertexPositionColorTexture::input_element_desc, VertexPositionColorTexture::nb_input_elements) {}
+			VertexPositionColorTexture::s_input_element_desc, VertexPositionColorTexture::s_nb_input_elements) {}
 
 	SpriteVertexShader::SpriteVertexShader(SpriteVertexShader &&vertex_shader) = default;
 

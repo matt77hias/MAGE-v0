@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const double CPUTimer::time_period = 0.0000001;
+	const double CPUTimer::s_time_period = 0.0000001;
 
 	CPUTimer::CPUTimer() 
 		: m_handle(GetCurrentProcess()), m_nb_processor_cores(NumberOfSystemCores()),
@@ -57,7 +57,7 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return time_period * static_cast< double >(m_delta_time[KERNEL] + m_delta_time[USER]);
+		return s_time_period * static_cast< double >(m_delta_time[KERNEL] + m_delta_time[USER]);
 	}
 
 	double CPUTimer::GetKernelModeDeltaTime() const noexcept {
@@ -65,7 +65,7 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return time_period * static_cast< double >(m_delta_time[KERNEL]);
+		return s_time_period * static_cast< double >(m_delta_time[KERNEL]);
 	}
 
 	double CPUTimer::GetUserModeDeltaTime() const noexcept {
@@ -73,7 +73,7 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return time_period * static_cast< double >(m_delta_time[USER]);
+		return s_time_period * static_cast< double >(m_delta_time[USER]);
 	}
 
 	double CPUTimer::GetTotalCoreDeltaTime() const noexcept {
@@ -81,7 +81,7 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return time_period * static_cast< double >(m_total_delta_time[KERNEL] + m_total_delta_time[USER]);
+		return s_time_period * static_cast< double >(m_total_delta_time[KERNEL] + m_total_delta_time[USER]);
 	}
 
 	double CPUTimer::GetTotalKernelModeDeltaTime() const noexcept {
@@ -89,7 +89,7 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return time_period * static_cast< double >(m_total_delta_time[KERNEL]);
+		return s_time_period * static_cast< double >(m_total_delta_time[KERNEL]);
 	}
 
 	double CPUTimer::GetTotalUserModeDeltaTime() const noexcept {
@@ -97,7 +97,7 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return time_period * static_cast< double >(m_total_delta_time[USER]);
+		return s_time_period * static_cast< double >(m_total_delta_time[USER]);
 	}
 
 	void CPUTimer::UpdateLastTimestamp() const noexcept {

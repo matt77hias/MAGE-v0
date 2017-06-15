@@ -20,7 +20,7 @@ namespace mage {
 		// and is consistent across all processors.
 		QueryPerformanceFrequency(&m_time_frequency);
 		// Calculate the period of the performance counter.
-		m_time_period = 1.0 / (static_cast< double >(m_time_frequency.QuadPart));
+		m_s_time_period = 1.0 / (static_cast< double >(m_time_frequency.QuadPart));
 	}
 
 	void Timer::Start() noexcept {
@@ -60,7 +60,7 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return m_time_period * static_cast< double >(m_delta_time);
+		return m_s_time_period * static_cast< double >(m_delta_time);
 	}
 
 	double Timer::GetTotalDeltaTime() const noexcept {
@@ -68,7 +68,7 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return m_time_period * static_cast< double >(m_total_delta_time);
+		return m_s_time_period * static_cast< double >(m_total_delta_time);
 	}
 
 	void Timer::UpdateLastTimestamp() const noexcept {

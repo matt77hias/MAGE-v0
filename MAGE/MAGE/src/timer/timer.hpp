@@ -183,6 +183,6 @@ namespace mage {
 		/**
 		 The time period of this timer.
 		 */
-		double m_time_period;
+		double m_s_time_period;
 	};
 }

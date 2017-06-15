@@ -545,6 +545,6 @@ namespace mage {
 		 The initial size of the queue containing the sprites waiting
 		 to be drawn by a sprite batch.
 		 */
-		static const size_t initial_queue_size = 64;
+		static const size_t s_initial_queue_size = 64;
 	};
 }

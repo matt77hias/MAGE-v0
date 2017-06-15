@@ -30,7 +30,7 @@ namespace mage {
 		/**
 		 The number of extra material parameters.
 		 */
-		static const size_t nb_extra_parameters = 4;
+		static const size_t s_nb_extra_parameters = 4;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -655,27 +655,27 @@ namespace mage {
 		/**
 		 Returns the extra parameter of this material at the given index.
 
-		 @pre			@a index @c < {@link mage::Material::nb_extra_parameters}.
+		 @pre			@a index @c < {@link mage::Material::s_nb_extra_parameters}.
 		 @param[in]		index
 						The index.
 		 @return		The extra parameter of this material at the given index.
 		 */
 		float GetExtraParameter(size_t index) const noexcept {
-			Assert(index < nb_extra_parameters);
+			Assert(index < s_nb_extra_parameters);
 			return m_extra_parameters[index];
 		}
 		
 		/**
 		 Sets the extra parameter of this material at the given index to the given value.
 
-		 @pre			@a index @c < {@link mage::Material::nb_extra_parameters}.
+		 @pre			@a index @c < {@link mage::Material::s_nb_extra_parameters}.
 		 @param[in]		index
 						The index.
 		 @param[in]		value
 						The value.
 		 */
 		void SetExtraParameter(size_t index, float value) noexcept {
-			Assert(index < nb_extra_parameters);
+			Assert(index < s_nb_extra_parameters);
 			m_extra_parameters[index] = value;
 		}
 
@@ -780,6 +780,6 @@ namespace mage {
 		/**
 		 The extra material parameters of this material.
 		 */
-		float m_extra_parameters[nb_extra_parameters];
+		float m_extra_parameters[s_nb_extra_parameters];
 	};
 }

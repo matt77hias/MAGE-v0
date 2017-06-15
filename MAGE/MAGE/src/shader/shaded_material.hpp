@@ -732,7 +732,7 @@ namespace mage {
 		/**
 		 Returns the extra parameter of this shaded material at the given index.
 
-		 @pre			@a index @c < {@link mage::Material::nb_extra_parameters}.
+		 @pre			@a index @c < {@link mage::Material::s_nb_extra_parameters}.
 		 @param[in]		index
 						The index.
 		 @return		The extra parameter of this shaded material at the given index.
@@ -744,7 +744,7 @@ namespace mage {
 		/**
 		 Sets the extra parameter of this shaded material at the given index to the given value.
 
-		 @pre			@a index @c < {@link mage::Material::nb_extra_parameters}.
+		 @pre			@a index @c < {@link mage::Material::s_nb_extra_parameters}.
 		 @param[in]		index
 						The index.
 		 @param[in]		value

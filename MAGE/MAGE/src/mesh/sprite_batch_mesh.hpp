@@ -29,7 +29,7 @@ namespace mage {
 		 The minimum number of sprites to draw per batch
 		 for sprite batch meshes.
 		 */
-		static const size_t min_sprites_per_batch = 128;
+		static const size_t s_min_sprites_per_batch = 128;
 
 		/**
 		 The maximum number of sprites to draw per batch
@@ -37,17 +37,17 @@ namespace mage {
 		 represented by a single sprite batch mesh)
 		 for sprite batch meshes.
 		 */
-		static const size_t max_sprites_per_batch = 2048;
+		static const size_t s_max_sprites_per_batch = 2048;
 		
 		/**
 		 The number of vertices per sprite.
 		 */
-		static const size_t vertices_per_sprite = 4; // quad = 2 triangles
+		static const size_t s_vertices_per_sprite = 4; // quad = 2 triangles
 		
 		/**
 		 The number of indices per sprite.
 		 */
-		static const size_t indices_per_sprite = 6; // quad = 2 triangles
+		static const size_t s_indices_per_sprite = 6; // quad = 2 triangles
 
 		//---------------------------------------------------------------------
 		// Class Member Methods
@@ -59,7 +59,7 @@ namespace mage {
 		 @return		The minimum number of vertices to draw per batch for sprite batch meshes.
 		 */
 		static constexpr size_t MinVerticesPerBatch() noexcept {
-			return vertices_per_sprite * min_sprites_per_batch;
+			return s_vertices_per_sprite * s_min_sprites_per_batch;
 		}
 
 		/**
@@ -68,7 +68,7 @@ namespace mage {
 		 @return		The maximum number of vertices to draw per batch for sprite batch meshes.
 		 */
 		static constexpr size_t MaxVerticesPerBatch() noexcept {
-			return vertices_per_sprite * max_sprites_per_batch;
+			return s_vertices_per_sprite * s_max_sprites_per_batch;
 		}
 
 		/**
@@ -77,7 +77,7 @@ namespace mage {
 		 @return		The minimum number of indices to draw per batch for sprite batch meshes.
 		 */
 		static constexpr size_t MinIndicesPerBatch() noexcept {
-			return indices_per_sprite * min_sprites_per_batch;
+			return s_indices_per_sprite * s_min_sprites_per_batch;
 		}
 
 		/**
@@ -86,7 +86,7 @@ namespace mage {
 		 @return		The maximum number of indices to draw per batch for sprite batch meshes.
 		 */
 		static constexpr size_t MaxIndicesPerBatch() noexcept {
-			return indices_per_sprite * max_sprites_per_batch;
+			return s_indices_per_sprite * s_max_sprites_per_batch;
 		}
 
 		//---------------------------------------------------------------------

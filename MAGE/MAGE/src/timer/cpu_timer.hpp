@@ -310,6 +310,6 @@ namespace mage {
 		/**
 		 The time period of CPU timers.
 		 */
-		static const double time_period;
+		static const double s_time_period;
 	};
 }

@@ -36,12 +36,12 @@ namespace mage {
 	}
 
 	void SpriteBatchMesh::SetupIndexBuffer() {
-		static_assert(MaxVerticesPerBatch() < USHRT_MAX, "max_sprites_per_batch too large for 16-bit indices.");
+		static_assert(MaxVerticesPerBatch() < USHRT_MAX, "s_max_sprites_per_batch too large for 16-bit indices.");
 
 		// Create indices.
 		vector< uint16_t > indices;
 		indices.reserve(MaxIndicesPerBatch());
-		for (uint16_t i = 0; i < MaxVerticesPerBatch(); i += vertices_per_sprite) {
+		for (uint16_t i = 0; i < MaxVerticesPerBatch(); i += s_vertices_per_sprite) {
 			// First triangle
 			indices.push_back(i);
 			indices.push_back(i + 1);

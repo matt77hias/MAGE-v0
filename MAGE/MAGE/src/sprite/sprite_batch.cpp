@@ -268,13 +268,13 @@ namespace mage {
 			// Number of sprites that must be rendered.
 			size_t nb_sprites_to_render = nb_sprites;
 			// Number of sprites that can fit in the vertex buffer.
-			const size_t nb_sprites_available = SpriteBatchMesh::max_sprites_per_batch - m_vertex_buffer_position;
+			const size_t nb_sprites_available = SpriteBatchMesh::s_max_sprites_per_batch - m_vertex_buffer_position;
 			if (nb_sprites_to_render > nb_sprites_available) {
 				// Not all sprites fit in the vertex buffer.
-				if (nb_sprites_available < SpriteBatchMesh::min_sprites_per_batch) {
+				if (nb_sprites_available < SpriteBatchMesh::s_min_sprites_per_batch) {
 					// Wrap back to the start of the vertex buffer in case of a excessively small batch.
 					m_vertex_buffer_position = 0;
-					nb_sprites_to_render = std::min(nb_sprites, SpriteBatchMesh::max_sprites_per_batch);
+					nb_sprites_to_render = std::min(nb_sprites, SpriteBatchMesh::s_max_sprites_per_batch);
 				}
 				else {
 					nb_sprites_to_render = nb_sprites_available;
@@ -294,18 +294,18 @@ namespace mage {
 			// Update vertex buffer
 			VertexPositionColorTexture *vertices = 
 				static_cast< VertexPositionColorTexture * >(mapped_buffer.pData) 
-				+ m_vertex_buffer_position * SpriteBatchMesh::vertices_per_sprite;
+				+ m_vertex_buffer_position * SpriteBatchMesh::s_vertices_per_sprite;
 			for (size_t i = 0; i < nb_sprites_to_render; ++i) {
 				PrepareSprite(sprites[i], vertices, texture_size, inverse_texture_size);
-				vertices += SpriteBatchMesh::vertices_per_sprite;
+				vertices += SpriteBatchMesh::s_vertices_per_sprite;
 			}
 			
 			// Unmap vertex buffer
 			m_mesh->UnmapVertexBuffer();
 
 			// Draw mesh
-			const size_t start_index = m_vertex_buffer_position * SpriteBatchMesh::indices_per_sprite;
-			const size_t nb_indices  = nb_sprites_to_render * SpriteBatchMesh::indices_per_sprite;
+			const size_t start_index = m_vertex_buffer_position * SpriteBatchMesh::s_indices_per_sprite;
+			const size_t nb_indices  = nb_sprites_to_render * SpriteBatchMesh::s_indices_per_sprite;
 			m_mesh->Draw(start_index, nb_indices);
 
 			// Update workload
@@ -363,7 +363,7 @@ namespace mage {
 		}
 
 		// The four corner vertices are computed by transforming these unit-square positions.
-		static XMVECTORF32 corner_offsets[SpriteBatchMesh::vertices_per_sprite] = {
+		static XMVECTORF32 corner_offsets[SpriteBatchMesh::s_vertices_per_sprite] = {
 			{ 0, 0 },
 			{ 1, 0 },
 			{ 0, 1 },
@@ -385,7 +385,7 @@ namespace mage {
 		const int mirror_bits = flags & 3;
 
 		// Generate the four output vertices.
-		for (size_t i = 0; i < SpriteBatchMesh::vertices_per_sprite; ++i) {
+		for (size_t i = 0; i < SpriteBatchMesh::s_vertices_per_sprite; ++i) {
 			// Calculate position.
 			const XMVECTOR corner_offset = (corner_offsets[i] - origin) * destination_size;
 			// Apply 2x2 rotation matrix.

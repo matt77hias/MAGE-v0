@@ -27,7 +27,7 @@ namespace mage {
 	void SystemUsageScript::Update(double delta_time) {
 		// CPU + MEM
 		m_accumulated_time += delta_time;
-		if (m_accumulated_time > SystemUsageScript::s_resource_fetch_period) {
+		if (m_accumulated_time > s_resource_fetch_period) {
 			m_accumulated_time = 0.0;
 			
 			// CPU

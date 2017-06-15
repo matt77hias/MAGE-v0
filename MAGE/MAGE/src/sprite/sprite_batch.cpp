@@ -112,10 +112,11 @@ namespace mage {
 			// Queue this sprite for later sorting and batched rendering.
 			++m_sprite_queue_size;
 
-			// Make sure we hold a refcount on this texture until the sprite has been drawn. Only checking the
-			// back of the vector means we will add duplicate references if the caller switches back and forth
-			// between multiple repeated textures, but calling AddRef more times than strictly necessary hurts
-			// nothing, and is faster than scanning the whole list or using a map to detect all duplicates.
+			// Make sure a refcount is hold on this texture until the sprite has been drawn. 
+			// Only checking the back of the vector means duplicate references will be added 
+			// if the caller switches back and forth between multiple repeated textures, 
+			// but calling AddRef more times than strictly necessary hurts nothing, 
+			// and is faster than scanning the whole list or using a map to detect all duplicates.
 			if (m_sprite_texture_references.empty() || texture != m_sprite_texture_references.back().Get()) {
 				m_sprite_texture_references.emplace_back(texture);
 			}
@@ -140,9 +141,11 @@ namespace mage {
 		const size_t sprite_queue_array_size = 
 			std::max(SpriteBatch::initial_queue_size, m_sprite_queue_array_size * 2);
 		UniquePtr< SpriteInfo[] > sprite_queue(new SpriteInfo[sprite_queue_array_size]);
+		
 		for (size_t i = 0; i < m_sprite_queue_size; ++i) {
 			sprite_queue[i] = m_sprite_queue[i];
 		}
+		
 		m_sprite_queue = std::move(sprite_queue);
 		m_sprite_queue_array_size = sprite_queue_array_size;
 
@@ -151,12 +154,14 @@ namespace mage {
 	}
 
 	void SpriteBatch::PrepareDrawing() {
+		// Prepares the mesh for drawing (for a complete batch).
 		m_mesh->PrepareDrawing();
 		
 		if (m_device_context->GetType() == D3D11_DEVICE_CONTEXT_DEFERRED) {
 			m_vertex_buffer_position = 0;
 		}
 
+		// Apply the rotation mode to the transform of this sprite batch.
 		if (m_rotation_mode != DXGI_MODE_ROTATION_UNSPECIFIED) {
 			if (m_viewport_set) {
 				m_transform *= GetViewportTransform(m_viewport, m_rotation_mode);
@@ -166,6 +171,7 @@ namespace mage {
 			}
 		}
 
+		// Updates the transform (for a complete batch).
 		m_transform_buffer.UpdateData(XMMatrixTranspose(m_transform));
 	}
 
@@ -201,6 +207,7 @@ namespace mage {
 		// Reset the sprite queue.
 		m_sprite_queue_size = 0;
 		m_sprite_texture_references.clear();
+
 		// We always re-sort the original ordering.
 		if (m_sort_mode != SpriteSortMode::Deferred) {
 			m_sorted_sprites.clear();
@@ -289,7 +296,7 @@ namespace mage {
 				static_cast< VertexPositionColorTexture * >(mapped_buffer.pData) 
 				+ m_vertex_buffer_position * SpriteBatchMesh::vertices_per_sprite;
 			for (size_t i = 0; i < nb_sprites_to_render; ++i) {
-				RenderSprite(sprites[i], vertices, texture_size, inverse_texture_size);
+				PrepareSprite(sprites[i], vertices, texture_size, inverse_texture_size);
 				vertices += SpriteBatchMesh::vertices_per_sprite;
 			}
 			
@@ -308,7 +315,7 @@ namespace mage {
 		}
 	}
 
-	void SpriteBatch::RenderSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
+	void SpriteBatch::PrepareSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
 		const XMVECTOR &texture_size, const XMVECTOR &inverse_texture_size) noexcept {
 		
 		XMVECTOR source                      = XMLoadFloat4A(&sprite->source);

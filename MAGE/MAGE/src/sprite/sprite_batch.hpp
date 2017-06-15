@@ -32,12 +32,24 @@ namespace mage {
 	 */
 	__declspec(align(16)) struct SpriteInfo final : public AlignedData< SpriteInfo > {
 
+	public:
+
 		//---------------------------------------------------------------------
 		// Class Member Variables
 		//---------------------------------------------------------------------
 		
 		// Combine values from SpriteEffect with these internal-only flags.
+
+		/**
+		 Mask indicating whether the source region of sprite info structures
+		 is expressed in texels.
+		 */
 		static const unsigned int source_in_texels = 4;
+
+		/**
+		 Mask indicating whether the destination of sprite info structures
+		 is expressed in pixels.
+		 */
 		static const unsigned int destination_size_in_pixels = 8;
 
 		static_assert(
@@ -48,30 +60,39 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		XMFLOAT4A source;
+		/**
+		 The texture source region (Left Top Width Height) of the sprite
+		 associated with this sprite info.
+		 */
+		XMFLOAT4A m_source;
 
-
-		XMFLOAT4A destination;
+		/**
+		 The translation and scale (Tx Ty Sx Sy) of the sprite
+		 associated with this sprite info.
+		 */
+		XMFLOAT4A m_destination;
 
 		/**
 		 The color of the sprite associated with this sprite info.
 		 */
-		XMFLOAT4A color;
+		XMFLOAT4A m_color;
 
 		/**
 		 The origin, rotation and depth (Ox Oy R D) of the sprite 
 		 associated with this sprite info.
 		 */
-		XMFLOAT4A origin_rotation_depth;
+		XMFLOAT4A m_origin_rotation_depth;
 
 		/**
 		 A pointer to the shader resource view of the texture
 		 associated with this sprite info.
 		 */
-		ID3D11ShaderResourceView *texture;
+		ID3D11ShaderResourceView *m_texture;
 
-
-		unsigned int flags;
+		/**
+		 The flags of the sprite associated with this sprite info.
+		 */
+		unsigned int m_flags;
 	};
 
 	//-------------------------------------------------------------------------

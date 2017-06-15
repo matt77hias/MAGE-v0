@@ -83,7 +83,7 @@ namespace mage {
 		XMVECTOR dst = destination;
 		if (source) {
 			const XMVECTOR src = XMVectorLeftTopWidthHeight(*source);
-			XMStoreFloat4A(&sprite->source, src);
+			XMStoreFloat4A(&sprite->m_source, src);
 
 			// If the destination size is relative to the source region, convert it to pixels.
 			if (!(flags & SpriteInfo::destination_size_in_pixels)) {
@@ -95,15 +95,15 @@ namespace mage {
 		else {
 			// No explicit source region, so use the entire texture.
 			static const XMVECTORF32 max_texture_region = { 0, 0, 1, 1 };
-			XMStoreFloat4A(&sprite->source, max_texture_region);
+			XMStoreFloat4A(&sprite->m_source, max_texture_region);
 		}
 
 		// Store sprite parameters.
-		XMStoreFloat4A(&sprite->destination, dst);
-		XMStoreFloat4A(&sprite->color, color);
-		XMStoreFloat4A(&sprite->origin_rotation_depth, origin_rotation_depth);
-		sprite->texture = texture;
-		sprite->flags = flags;
+		XMStoreFloat4A(&sprite->m_destination, dst);
+		XMStoreFloat4A(&sprite->m_color, color);
+		XMStoreFloat4A(&sprite->m_origin_rotation_depth, origin_rotation_depth);
+		sprite->m_texture = texture;
+		sprite->m_flags = flags;
 
 		if (m_sort_mode == SpriteSortMode::Immediate) {
 			RenderBatch(texture, &sprite, 1);
@@ -188,7 +188,7 @@ namespace mage {
 		ID3D11ShaderResourceView *batch_texture = nullptr;
 		size_t batch_start = 0;
 		for (size_t i = 0; i < m_sprite_queue_size; ++i) {
-			ID3D11ShaderResourceView *sprite_texture = m_sorted_sprites[i]->texture;
+			ID3D11ShaderResourceView *sprite_texture = m_sorted_sprites[i]->m_texture;
 			Assert(sprite_texture);
 			if (sprite_texture != batch_texture) {
 				if (i > batch_start) {
@@ -224,21 +224,21 @@ namespace mage {
 		case SpriteSortMode::Texture: {
 			std::sort(m_sorted_sprites.begin(), m_sorted_sprites.begin() + m_sprite_queue_size, 
 				[](const SpriteInfo *lhs, const SpriteInfo *rhs) -> bool {
-				return lhs->texture < rhs->texture;
+				return lhs->m_texture < rhs->m_texture;
 			});
 			break;
 		}
 		case SpriteSortMode::BackToFront: {
 			std::sort(m_sorted_sprites.begin(), m_sorted_sprites.begin() + m_sprite_queue_size, 
 				[](const SpriteInfo *lhs, const SpriteInfo *rhs) -> bool {
-				return lhs->origin_rotation_depth.w > rhs->origin_rotation_depth.w;
+				return lhs->m_origin_rotation_depth.w > rhs->m_origin_rotation_depth.w;
 			});
 			break;
 		}
 		case SpriteSortMode::FrontToBack: {
 			std::sort(m_sorted_sprites.begin(), m_sorted_sprites.begin() + m_sprite_queue_size, 
 				[](const SpriteInfo *lhs, const SpriteInfo *rhs) -> bool {
-				return lhs->origin_rotation_depth.w < rhs->origin_rotation_depth.w;
+				return lhs->m_origin_rotation_depth.w < rhs->m_origin_rotation_depth.w;
 			});
 			break;
 		}
@@ -318,12 +318,12 @@ namespace mage {
 	void SpriteBatch::PrepareSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
 		const XMVECTOR &texture_size, const XMVECTOR &inverse_texture_size) noexcept {
 		
-		XMVECTOR source                      = XMLoadFloat4A(&sprite->source);
-		const XMVECTOR destination           = XMLoadFloat4A(&sprite->destination);
-		const XMVECTOR color                 = XMLoadFloat4A(&sprite->color);
-		const XMVECTOR origin_rotation_depth = XMLoadFloat4A(&sprite->origin_rotation_depth);
-		const float rotation                 = sprite->origin_rotation_depth.z;
-		const int flags                      = sprite->flags;
+		XMVECTOR source                      = XMLoadFloat4A(&sprite->m_source);
+		const XMVECTOR destination           = XMLoadFloat4A(&sprite->m_destination);
+		const XMVECTOR color                 = XMLoadFloat4A(&sprite->m_color);
+		const XMVECTOR origin_rotation_depth = XMLoadFloat4A(&sprite->m_origin_rotation_depth);
+		const float rotation                 = sprite->m_origin_rotation_depth.z;
+		const int flags                      = sprite->m_flags;
 		XMVECTOR source_size                 = XMVectorSwizzle< 2, 3, 2, 3 >(source);
 		XMVECTOR destination_size            = XMVectorSwizzle< 2, 3, 2, 3 >(destination);
 

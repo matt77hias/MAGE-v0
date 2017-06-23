@@ -25,7 +25,7 @@ Do not use implicitly defined (i.e. compiler generated) member methods. Always d
 * Copy Assignment Operator
 * Move Assignment Operator
 
-Note that Move Constructors make sense in nearly all situations (except in case of reference member variables). So prefer `= default` over `= delete`.
+Note that Move Constructors make sense in nearly all situations. So prefer `= default` over `= delete`.
 
 ### Member initializer lists
 Enumerate all member variables in the initializer list of constructors in order.

@@ -27,8 +27,8 @@ MAGE - Matthias Advanced Game Engine
 ## Use
 
 ### How to build the sample project?
-1. Open the Solution file `MAGE\MAGE\MAGE.sln` in Visual Studio 2015 (or higher)
-2. Build the Solution (Platform: `x64|x86`, Configuration: `Debug|Release`)
+1. Open the Solution file `MAGE\MAGE\MAGE.sln` in Visual Studio 2015 (or higher).
+2. Build the Solution (Platform: `x64|x86`, Configuration: `Debug|Release`).
 3. Reposition the `MAGE/MAGE/assets/` directory and all of its contents to the `MAGE\MAGE\FPS\bin\<Platform>\<Configuration>\assets` directory. This is required for running the .exe from inside and outside Visual Studio.
 4. Run `MAGE\MAGE\FPS\bin\<Platform>\<Configuration>\FPS.exe` from inside or outside Visual Studio.
 5. Have fun!

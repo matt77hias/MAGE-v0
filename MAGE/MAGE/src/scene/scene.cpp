@@ -5,6 +5,7 @@
 
 #include "scene\scene.hpp"
 #include "resource\resource_factory.hpp"
+#include "texture\texture_factory.hpp"
 
 #pragma endregion
 
@@ -20,7 +21,18 @@ namespace mage {
 		m_transform_buffer(GetRenderingDevice(), GetRenderingDeviceContext()),
 		m_light_data_buffer(GetRenderingDevice(), GetRenderingDeviceContext()),
 		m_omni_lights_buffer(GetRenderingDevice(), GetRenderingDeviceContext(), 64),
-		m_spot_lights_buffer(GetRenderingDevice(), GetRenderingDeviceContext(), 64) {}
+		m_spot_lights_buffer(GetRenderingDevice(), GetRenderingDeviceContext(), 64) {
+		
+		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
+		SharedPtr< ModelDescriptor > model_desc_box = CreateModelDescriptor(L"assets/models/cube/cube.mdl", mesh_desc);
+		m_box = CreateModelNode(*model_desc_box, BRDFType::Emissive);
+		m_box->MakePassive();
+		
+		SharedPtr< Texture > white = CreateWhiteTexture();
+		ShadedMaterial *material = m_box->GetModel()->GetMaterial();
+		material->SetDiffuseReflectivity(RGBSpectrum(0.0f, 1.0f, 0.0f));
+		material->SetDiffuseReflectivityTexture(white);
+	}
 
 	Scene::~Scene() {
 		// Clears this scene.
@@ -155,6 +167,49 @@ namespace mage {
 			model->PrepareDrawing();
 			model->PrepareShading(m_transform_buffer.Get(), lighting);
 			model->Draw();
+		});
+	}
+
+	void Scene::RenderBoundingBoxes() const {
+		const XMMATRIX world_to_view = m_camera->GetTransform()->GetWorldToViewMatrix();
+		const XMMATRIX view_to_world = m_camera->GetTransform()->GetViewToWorldMatrix();
+		const XMMATRIX view_to_projection = m_camera->GetCamera()->GetViewToProjectionMatrix();
+
+		// Create Transform buffer.
+		TransformBuffer transform_buffer(world_to_view, view_to_projection);
+
+		// Render models.
+		ForEachModel([this, &transform_buffer, &view_to_world](const ModelNode &model_node) {
+			if (model_node.IsPassive()) {
+				return;
+			}
+
+			const Model * const model = model_node.GetModel();
+
+			if (model->GetNumberOfIndices() == 0) {
+				return;
+			}
+
+			const AABB &aabb = model->GetAABB();
+			const Point3 centroid = aabb.Centroid();
+			const Direction3 direction = aabb.Diagonal();
+			Transform box_transform;
+			box_transform.SetScale(direction);
+			box_transform.SetTranslation(centroid.x, centroid.y - 0.5f * direction.y, centroid.z);
+			const TransformNode * const transform = model_node.GetTransform();
+
+			// Update transform constant buffer.
+			const XMMATRIX object_to_world = box_transform.GetObjectToParentMatrix() * transform->GetObjectToWorldMatrix();
+			const XMMATRIX world_to_object = transform->GetWorldToObjectMatrix() * box_transform.GetParentToObjectMatrix();
+			const XMMATRIX view_to_object = view_to_world * world_to_object;
+			transform_buffer.SetObjectMatrices(object_to_world, view_to_object);
+			m_transform_buffer.UpdateData(transform_buffer);
+
+			// Draw bounding box.
+			const Model * const box_model = m_box->GetModel();
+			box_model->PrepareDrawing();
+			box_model->PrepareShading(m_transform_buffer.Get(), Lighting());
+			box_model->Draw();
 		});
 	}
 

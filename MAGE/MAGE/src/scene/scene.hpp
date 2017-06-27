@@ -93,6 +93,8 @@ namespace mage {
 		 */
 		void Render3D() const;
 
+		void RenderBoundingBoxes() const;
+
 		/**
 		 Uninitializes this scene.
 		 */
@@ -222,6 +224,9 @@ namespace mage {
 		ConstantBuffer< LightDataBuffer > m_light_data_buffer;
 		StructuredBuffer< OmniLightBuffer > m_omni_lights_buffer;
 		StructuredBuffer< SpotLightBuffer > m_spot_lights_buffer;
+
+		// Extra
+		SharedPtr< ModelNode > m_box;
 	};
 }
 

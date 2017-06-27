@@ -44,7 +44,7 @@ namespace mage {
 		// ModelDescriptors
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc_teapot   = CreateModelDescriptor(L"assets/models/teapot/teapot.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_teapot   = CreateModelDescriptor(L"assets/models/teapot/teapot.mdl",     mesh_desc);
 		SharedPtr< ModelDescriptor > model_desc_cone     = CreateModelDescriptor(L"assets/models/cone/cone.mdl",         mesh_desc);
 		SharedPtr< ModelDescriptor > model_desc_cube     = CreateModelDescriptor(L"assets/models/cube/cube.mdl",         mesh_desc);
 		SharedPtr< ModelDescriptor > model_desc_cylinder = CreateModelDescriptor(L"assets/models/cylinder/cylinder.mdl", mesh_desc);
@@ -54,7 +54,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		SharedPtr< ModelNode > model_teapot = CreateModelNode(*model_desc_teapot);
+		SharedPtr< ModelNode > model_teapot   = CreateModelNode(*model_desc_teapot);
 		SharedPtr< ModelNode > model_cone     = CreateModelNode(*model_desc_cone);
 		SharedPtr< ModelNode > model_cube     = CreateModelNode(*model_desc_cube);
 		SharedPtr< ModelNode > model_cylinder = CreateModelNode(*model_desc_cylinder);

@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "file\file_utils.hpp"
+#include "string\string.hpp"
 
 #pragma endregion
 
@@ -20,7 +20,11 @@ namespace mage {
 
 	/**
 	 A class of resources.
+
+	 @tparam		ResourceT
+					The reource type.
 	 */
+	template< typename ResourceT >
 	class Resource {
 
 	public:
@@ -30,12 +34,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a resource with a given globally unique identifier.
+		 Constructs a resource.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier.
+		 @param[in]		fname
+						A reference to the filename of the resource.
 		 */
-		explicit Resource(const wstring &guid);
+		explicit Resource(const wstring &guid, const wstring &fname = L"");
 
 		/**
 		 Constructs a resource from the given resource.
@@ -89,11 +95,52 @@ namespace mage {
 		/**
 		 Returns the globally unique identifier of this resource.
 
-		 @return		A reference to the globally unique identifier of this resource.
+		 @return		A refernce to the globally unique identifier 
+						of this resource.
 		 */
 		const wstring &GetGuid() const noexcept {
 			return m_guid;
 		}
+
+		/**
+		 Checks whether this resource represents a file resource.
+
+		 @return		@c true if and only if this resource represents
+						a file resource. @c false otherwise.
+		 */
+		bool IsFileResource() const noexcept;
+
+		/**
+		 Checks whether this resource represents a memory resource.
+
+		 @return		@c true if and only if this resource represents
+						a memory resource. @c false otherwise.
+		 */
+		bool IsMemoryResource() const noexcept;
+
+		/**
+		 Returns the filename of this resource.
+
+		 @pre			This resource represents a file resource.
+		 @return		A reference to the filename of this resource.
+		 */
+		const wstring &GetFilename() const noexcept;
+
+		/**
+		 Returns the name of this resource.
+
+		 @pre			This resource represents a file resource.
+		 @return		The name of this resource.
+		 */
+		const wstring GetName() const noexcept;
+
+		/**
+		 Returns the path of this resource.
+
+		 @pre			This resource represents a file resource.
+		 @return		The path of this resource.
+		 */
+		const wstring GetPath() const noexcept;
 
 	private:
 
@@ -105,105 +152,20 @@ namespace mage {
 		 The globally unique identifier of this resource.
 		 */
 		const wstring m_guid;
-	};
-
-	//-------------------------------------------------------------------------
-	// FileResource
-	//-------------------------------------------------------------------------
-
-	/**
-	 A class of file resources.
-	 */
-	class FileResource : public Resource {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a file resource with a given filename.
-
-		 @param[in]		fname
-						A reference to the filename.
+		 The filename of this resource. If no file is associated with 
+		 this resource, the filename is equal to the empty string.
 		 */
-		explicit FileResource(const wstring &fname);
-
-		/**
-		 Constructs a file resource from the given file resource.
-
-		 @param[in]		file_resource
-						A reference to the file resource to copy.
-		 */
-		FileResource(const FileResource &file_resource) = delete;
-
-		/**
-		 Constructs a file resource by moving the given file resource.
-
-		 @param[in]		file_resource
-						A reference to the file resource to move.
-		 */
-		FileResource(FileResource &&file_resource);
-
-		/**
-		 Destructs this file resource.
-		 */
-		virtual ~FileResource();
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given file resource to this file resource.
-
-		 @param[in]		file_resource
-						A reference to the file resource to copy.
-		 @return		A reference to the copy of the given file resource
-						(i.e. this file resource).
-		 */
-		FileResource &operator=(const FileResource &file_resource) = delete;
-
-		/**
-		 Moves the given file resource to this file resource.
-
-		 @param[in]		file_resource
-						A reference to the file resource to move.
-		 @return		A reference to the moved file resource
-						(i.e. this file resource).
-		 */
-		FileResource &operator=(FileResource &&file_resource) = delete;
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the filename of this file resource.
-
-		 @return		A reference to the filename of this file resource.
-		 */
-		const wstring &GetFilename() const noexcept {
-			return GetGuid();
-		}
-
-		/**
-		 Returns the name of this file resource.
-
-		 @return		The name of this file resource.
-		 */
-		const wstring GetName() const noexcept {
-			return GetFileName(GetGuid());
-		}
-
-		/**
-		 Returns the path of this file resource.
-
-		 @return		The path of this file resource.
-		 */
-		const wstring GetPath() const noexcept {
-			return GetPathName(GetGuid());
-		}
+		const wstring m_fname;
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "resource\resource.tpp"
+
+#pragma endregion

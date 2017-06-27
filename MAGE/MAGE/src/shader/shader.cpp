@@ -22,20 +22,22 @@ namespace mage {
 	VertexShader::VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &fname,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
-		: Resource(fname), m_device(device), m_device_context(device_context),
-		m_vertex_shader(), m_vertex_layout() {
+		: Resource< VertexShader >(fname, fname), 
+		m_device(device), m_device_context(device_context), m_vertex_shader(), m_vertex_layout() {
 
 		Assert(device);
 		Assert(device_context);
 		Assert(input_element_desc);
 
-		SetupShader(input_element_desc, nb_input_elements);
+		const CompiledVertexShader compiled_vertex_shader(fname);
+		SetupShader(compiled_vertex_shader, input_element_desc, nb_input_elements);
 	}
 
 	VertexShader::VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const CompiledVertexShader &compiled_vertex_shader, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
-		: Resource(compiled_vertex_shader.m_name), m_device(device), m_device_context(device_context),
-		m_vertex_shader(), m_vertex_layout() {
+		const CompiledVertexShader &compiled_vertex_shader, 
+		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
+		: Resource< VertexShader >(compiled_vertex_shader.m_name),
+		m_device(device), m_device_context(device_context), m_vertex_shader(), m_vertex_layout() {
 
 		Assert(device);
 		Assert(device_context);
@@ -47,22 +49,6 @@ namespace mage {
 	VertexShader::VertexShader(VertexShader &&vertex_shader) = default;
 
 	VertexShader::~VertexShader() = default;
-
-	void VertexShader::SetupShader(const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements) {
-
-		// Compile/Read the vertex shader.
-		ComPtr< ID3DBlob > vertex_shader_blob;
-		const HRESULT result_vertex_shader_blob = D3DReadFileToBlob(GetGuid().c_str(), vertex_shader_blob.GetAddressOf());
-		if (FAILED(result_vertex_shader_blob)) {
-			throw FormattedException("D3DReadFileToBlob failed: %08X.", result_vertex_shader_blob);
-		}
-
-		const CompiledVertexShader compiled_vertex_shader(
-			GetGuid(),
-			static_cast< BYTE * >(vertex_shader_blob->GetBufferPointer()),
-			vertex_shader_blob->GetBufferSize());
-		SetupShader(compiled_vertex_shader, input_element_desc, nb_input_elements);
-	}
 
 	void VertexShader::SetupShader(const CompiledVertexShader &compiled_vertex_shader,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements) {
@@ -101,19 +87,20 @@ namespace mage {
 
 	PixelShader::PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &fname)
-		: Resource(fname), m_device(device), m_device_context(device_context),
-		m_pixel_shader() {
+		: Resource< PixelShader >(fname, fname), 
+		m_device(device), m_device_context(device_context), m_pixel_shader() {
 
 		Assert(device);
 		Assert(device_context);
 
-		SetupShader();
+		const CompiledPixelShader compiled_pixel_shader(fname);
+		SetupShader(compiled_pixel_shader);
 	}
 
 	PixelShader::PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledPixelShader &compiled_pixel_shader)
-		: Resource(compiled_pixel_shader.m_name), m_device(device), m_device_context(device_context),
-		m_pixel_shader() {
+		: Resource< PixelShader >(compiled_pixel_shader.m_name), 
+		m_device(device), m_device_context(device_context), m_pixel_shader() {
 
 		Assert(device);
 		Assert(device_context);
@@ -124,22 +111,6 @@ namespace mage {
 	PixelShader::PixelShader(PixelShader &&pixel_shader) = default;
 
 	PixelShader::~PixelShader() = default;
-
-	void PixelShader::SetupShader() {
-
-		// Compile/Read the pixel shader.
-		ComPtr< ID3DBlob > pixel_shader_blob;
-		const HRESULT result_pixel_shader_blob = D3DReadFileToBlob(GetGuid().c_str(), pixel_shader_blob.GetAddressOf());
-		if (FAILED(result_pixel_shader_blob)) {
-			throw FormattedException("D3DReadFileToBlob failed: %08X.", result_pixel_shader_blob);
-		}
-
-		const CompiledPixelShader compiled_pixel_shader(
-			GetGuid(), 
-			static_cast< BYTE * >(pixel_shader_blob->GetBufferPointer()), 
-			pixel_shader_blob->GetBufferSize());
-		SetupShader(compiled_pixel_shader);
-	}
 
 	void PixelShader::SetupShader(const CompiledPixelShader &compiled_pixel_shader) {
 

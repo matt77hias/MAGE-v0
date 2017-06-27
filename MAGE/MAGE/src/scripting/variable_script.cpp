@@ -14,7 +14,7 @@
 namespace mage {
 
 	VariableScript::VariableScript(const wstring &fname, bool import)
-		: FileResource(fname) {
+		: Resource< VariableScript >(fname, fname) {
 
 		if (import) {
 			ImportScript();

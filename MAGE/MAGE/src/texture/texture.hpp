@@ -19,7 +19,7 @@ namespace mage {
 	/**
 	 A class of textures.
 	 */
-	class Texture : public FileResource {
+	class Texture : public Resource< Texture > {
 
 	public:
 

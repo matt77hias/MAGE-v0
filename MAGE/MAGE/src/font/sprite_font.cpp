@@ -149,7 +149,7 @@ namespace mage {
 	};
 
 	SpriteFont::SpriteFont(ID3D11Device2 *device, const wstring &fname, const SpriteFontDescriptor &desc)
-		: FileResource(fname), m_texture_srv(), m_glyphs(),
+		: Resource< SpriteFont >(fname, fname), m_texture_srv(), m_glyphs(),
 		m_default_glyph(nullptr), m_line_spacing(0.0f) {
 
 		Assert(device);

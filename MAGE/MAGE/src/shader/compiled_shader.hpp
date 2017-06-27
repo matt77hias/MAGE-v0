@@ -33,11 +33,22 @@ namespace mage {
 		/**
 		 Constructs a compiled vertex shader.
 
+		 @param[in]		fname
+						A reference to the filename.
+		 @throws		FormattedException
+						Failed to load the compiled vertex 
+						shader from the given file.
+		 */
+		explicit CompiledVertexShader(const wstring &fname);
+
+		/**
+		 Constructs a compiled vertex shader.
+
 		 @pre			@a bytecode is not equal to @c nullptr.
 		 @pre			The size of the data pointed to by @a bytecode
 						is equal to @a bytecode_size (bytes).
 		 @param[in]		name
-						A reference to the name of the shader.
+						A reference to the name of the vertex shader.
 		 @param[in]		bytecode
 						A pointer to the shader bytecode.
 		 @param[in]		bytecode_size
@@ -103,12 +114,12 @@ namespace mage {
 		/**
 		 A pointer to the bytecode of this compiled vertex shader.
 		 */
-		const BYTE * const m_bytecode;
+		const BYTE *m_bytecode;
 
 		/**
 		 The size of the bytecode of this compiled vertex shader.
 		 */
-		const SIZE_T m_bytecode_size;
+		SIZE_T m_bytecode_size;
 	};
 
 	//-------------------------------------------------------------------------
@@ -127,13 +138,24 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a compiled shader.
+		 Constructs a compiled pixel shader.
+
+		 @param[in]		fname
+						A reference to the filename.
+		 @throws		FormattedException
+						Failed to load the compiled pixel 
+						shader from the given file.
+		 */
+		explicit CompiledPixelShader(const wstring &fname);
+
+		/**
+		 Constructs a compiled pixel shader.
 
 		 @pre			@a bytecode is not equal to @c nullptr.
 		 @pre			The size of the data pointed to by @a bytecode
 						is equal to @a bytecode_size (bytes).
 		 @param[in]		name
-						A reference to the name of the shader.
+						A reference to the name of the pixel shader.
 		 @param[in]		bytecode
 						A pointer to the shader bytecode.
 		 @param[in]		bytecode_size
@@ -199,11 +221,11 @@ namespace mage {
 		/**
 		 A pointer to the bytecode of this compiled pixel shader.
 		 */
-		const BYTE * const m_bytecode;
+		const BYTE *m_bytecode;
 
 		/**
 		 The size of the bytecode of this compiled pixel shader.
 		 */
-		const SIZE_T m_bytecode_size;
+		SIZE_T m_bytecode_size;
 	};
 }

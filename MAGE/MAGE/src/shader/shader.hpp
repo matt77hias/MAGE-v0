@@ -113,7 +113,7 @@ namespace mage {
 	/**
 	 A class of vertex shaders.
 	 */
-	class VertexShader : public Resource {
+	class VertexShader : public Resource< VertexShader > {
 
 	public:
 
@@ -144,7 +144,8 @@ namespace mage {
 						Failed to initialize this vertex shader.
 		 */
 		explicit VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &fname, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
+			const wstring &fname, 
+			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 		
 		/**
 		 Constructs a vertex shader.
@@ -169,7 +170,8 @@ namespace mage {
 						Failed to initialize this vertex shader.
 		*/
 		explicit VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const CompiledVertexShader &compiled_vertex_shader, const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
+			const CompiledVertexShader &compiled_vertex_shader, 
+			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 		
 		/**
 		 Constructs a vertex shader from the given vertex shader.
@@ -262,22 +264,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Sets up this vertex shader (from compiled shader output).
-
-		 @pre			@a input_element_desc is not equal to @c nullptr.
-		 @pre			The array pointed to by @a input_element_desc
-						contains @a nb_input_elements elements.
-		 @param[in]		input_element_desc
-						A pointer the input element descriptors.
-		 @param[in]		nb_input_elements
-						The number of elements contained in the
-						given input element descriptor.
-		 @throws		FormattedException
-						Failed to setup this vertex shader.
-		 */
-		void SetupShader(const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
-		
-		/**
 		 Sets up this vertex shader.
 
 		 @pre			@a input_element_desc is not equal to @c nullptr.
@@ -304,7 +290,7 @@ namespace mage {
 	/**
 	 A class of pixel shaders.
 	 */
-	class PixelShader : public Resource {
+	class PixelShader : public Resource< PixelShader > {
 
 	public:
 
@@ -440,14 +426,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Sets up this pixel shader (from compiled shader output).
-
-		 @throws		FormattedException
-						Failed to setup this pixel shader.
-		 */
-		void SetupShader();
 
 		/**
 		 Sets up this pixel shader.

@@ -1040,9 +1040,6 @@
     <ClCompile Include="MAGE\src\core\loadable.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\resource\resource.cpp">
-      <Filter>Source Files\resource</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\resource\behavior_script.cpp">
       <Filter>Source Files\scripting</Filter>
     </ClCompile>
@@ -1092,6 +1089,9 @@
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\shader\tsnm_shader.cpp">
+      <Filter>Source Files\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\compiled_shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1283,6 +1283,9 @@
     </None>
     <None Include="MAGE\src\model\model_output.tpp">
       <Filter>Header Files\model</Filter>
+    </None>
+    <None Include="MAGE\src\resource\resource.tpp">
+      <Filter>Header Files\resource</Filter>
     </None>
   </ItemGroup>
 </Project>

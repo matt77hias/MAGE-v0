@@ -15,7 +15,7 @@
 namespace mage {
 
 	Texture::Texture(ID3D11Device2 *device, const wstring &fname)
-		: FileResource(fname), m_device(device), m_texture_srv() {
+		: Resource< Texture >(fname, fname), m_device(device), m_texture_srv() {
 
 		Assert(m_device);
 

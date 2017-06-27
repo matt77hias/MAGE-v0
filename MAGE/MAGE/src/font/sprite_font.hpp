@@ -21,7 +21,7 @@ namespace mage {
 	/**
 	 A class of sprite fonts.
 	 */
-	class SpriteFont : public FileResource {
+	class SpriteFont : public Resource< SpriteFont > {
 
 	public:
 

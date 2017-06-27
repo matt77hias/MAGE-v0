@@ -18,7 +18,7 @@ namespace mage {
 	/**
 	 A class of model descriptors describing a complete model.
 	 */
-	class ModelDescriptor : public FileResource {
+	class ModelDescriptor : public Resource< ModelDescriptor > {
 
 	public:
 

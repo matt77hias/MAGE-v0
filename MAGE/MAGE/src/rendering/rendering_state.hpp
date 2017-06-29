@@ -29,6 +29,15 @@ namespace mage {
 		/**
 		 Constructs a rendering state.
 
+		 @pre			@a rendering_state_cache is not equal to @c nullptr.
+		 @param[in]		rendering_state_cache
+						A pointer to the rendering state cache.
+		 */
+		explicit RenderingState(RenderingStateCache *rendering_state_cache);
+
+		/**
+		 Constructs a rendering state.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a rendering_state_cache is not equal to @c nullptr.
@@ -42,7 +51,7 @@ namespace mage {
 		explicit RenderingState(ID3D11Device2 *device, 
 			ID3D11DeviceContext2 *device_context,
 			RenderingStateCache *rendering_state_cache);
-		
+
 		/**
 		 Constructs a rendering state from the given rendering state.
 

@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering_state.hpp"
+#include "rendering\rendering_state.hpp"
+#include "resource\resource_factory.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -14,6 +15,10 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	RenderingState::RenderingState(RenderingStateCache *rendering_state_cache)
+		: RenderingState(GetRenderingDevice(), GetRenderingDeviceContext(), 
+			rendering_state_cache) {}
 
 	RenderingState::RenderingState(ID3D11Device2 *device, 
 		ID3D11DeviceContext2 *device_context, 

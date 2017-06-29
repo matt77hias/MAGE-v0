@@ -52,6 +52,47 @@ namespace mage {
 		explicit Texture(ID3D11Device2 *device, const wstring &fname);
 
 		/**
+		 Constructs a 2D texture.
+
+		 @pre			The current engine must be loaded.
+		 @pre			@a desc is not equal to @c nullptr.
+		 @pre			@a initial_data is not equal to @c nullptr.
+		 @param[in]		guid
+						A reference to the globally unique identifier.
+		 @param[in]		desc
+						A pointer to the texture descriptor.
+		 @param[in]		initial_data
+						A pointer to the initial data.
+		 @throws		FormattedException
+						Failed to initialize the texture.
+		 */
+		explicit Texture(const wstring &guid,
+			const D3D11_TEXTURE2D_DESC *desc,
+			const D3D11_SUBRESOURCE_DATA *initial_data);
+
+		/**
+		 Constructs a 2D texture.
+
+		 @pre			@a device is not equal to @c nullptr.
+		 @pre			@a desc is not equal to @c nullptr.
+		 @pre			@a initial_data is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
+		 @param[in]		guid
+						A reference to the globally unique identifier.
+		 @param[in]		desc
+						A pointer to the texture descriptor.
+		 @param[in]		initial_data
+						A pointer to the initial data.
+		 @throws		FormattedException
+						Failed to initialize the texture.
+		 */
+		explicit Texture(ID3D11Device2 *device,
+			const wstring &guid,
+			const D3D11_TEXTURE2D_DESC *desc,
+			const D3D11_SUBRESOURCE_DATA *initial_data);
+
+		/**
 		 Constructs a texture from the given texture.
 
 		 @param[in]		texture

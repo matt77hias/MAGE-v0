@@ -5,7 +5,15 @@
 
 #include "resource\resource_factory.hpp"
 #include "texture\texture_factory.hpp"
-#include "math\math.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <stdint.h>
 
 #pragma endregion
 
@@ -14,50 +22,76 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SharedPtr< Texture > CreateBlackTexture() {
-		return CreateTexture(L"black_texture", L"assets/sprites/color/black.dds");
-	}
-
-	SharedPtr< Texture > CreateWhiteTexture() {
-		return CreateTexture(L"white_texture", L"assets/sprites/color/white.dds");
-	}
-
-	SharedPtr< Texture > CreateRedTexture() {
-		return CreateTexture(L"red_texture", L"assets/sprites/color/red.dds");
-	}
-
-	SharedPtr< Texture > CreateGreenTexture() {
-		return CreateTexture(L"green_texture", L"assets/sprites/color/green.dds");
-	}
-
-	SharedPtr< Texture > CreateBlueTexture() {
-		return CreateTexture(L"blue_texture", L"assets/sprites/color/blue.dds");
-	}
-
-	//@TODO
-	void CreateSingleColorTexture(const Color &color, ID3D11ShaderResourceView **texture_srv) {
+	inline D3D11_TEXTURE2D_DESC CreateSingleColorTexture2DDesc() noexcept {
 		D3D11_TEXTURE2D_DESC texture_desc = {};
 		texture_desc.Width              = 1;
 		texture_desc.Height             = 1;
 		texture_desc.MipLevels          = 1;
 		texture_desc.ArraySize          = 1;
-		texture_desc.Format             = DXGI_FORMAT_B8G8R8X8_UNORM;
+		texture_desc.Format             = DXGI_FORMAT_R8G8B8A8_UNORM;
 		texture_desc.SampleDesc.Count   = 1;
-		texture_desc.SampleDesc.Quality = 1;
 		texture_desc.Usage              = D3D11_USAGE_IMMUTABLE;
 		texture_desc.BindFlags          = D3D11_BIND_SHADER_RESOURCE;
-		texture_desc.CPUAccessFlags     = 0;
-		texture_desc.MiscFlags          = 0;
-		
+		return texture_desc;
+	}
+
+	SharedPtr< Texture > CreateBlackTexture() {
+		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
+
+		static const uint32_t color = 0x000000FF;
+
 		D3D11_SUBRESOURCE_DATA texture_data = {};
-		texture_data.pSysMem            = &color;
+		texture_data.pSysMem     = &color;
+		texture_data.SysMemPitch = sizeof(uint32_t);
 		
-		ID3D11Device2 *device = GetRenderingDevice();
-		Assert(device);
+		return CreateTexture(MAGE_GUID_TEXTURE_BLACK, MAGE_GUID_TEXTURE_BLACK, &texture_desc, &texture_data);
+	}
 
-		ComPtr< ID3D11Texture2D > texture;
-		const HRESULT result_resource = device->CreateTexture2D(&texture_desc, &texture_data, texture.ReleaseAndGetAddressOf());
+	SharedPtr< Texture > CreateWhiteTexture() {
+		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
-		const HRESULT result_srv = device->CreateShaderResourceView(texture.Get(), nullptr, texture_srv);
+		static const uint32_t color = 0xFFFFFFFF;
+
+		D3D11_SUBRESOURCE_DATA texture_data = {};
+		texture_data.pSysMem     = &color;
+		texture_data.SysMemPitch = sizeof(uint32_t);
+
+		return CreateTexture(MAGE_GUID_TEXTURE_WHITE, MAGE_GUID_TEXTURE_WHITE, &texture_desc, &texture_data);
+	}
+
+	SharedPtr< Texture > CreateRedTexture() {
+		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
+
+		static const uint32_t color = 0xFF0000FF;
+
+		D3D11_SUBRESOURCE_DATA texture_data = {};
+		texture_data.pSysMem     = &color;
+		texture_data.SysMemPitch = sizeof(uint32_t);
+
+		return CreateTexture(MAGE_GUID_TEXTURE_RED, MAGE_GUID_TEXTURE_RED, &texture_desc, &texture_data);
+	}
+
+	SharedPtr< Texture > CreateGreenTexture() {
+		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
+
+		static const uint32_t color = 0x00FF00FF;
+
+		D3D11_SUBRESOURCE_DATA texture_data = {};
+		texture_data.pSysMem     = &color;
+		texture_data.SysMemPitch = sizeof(uint32_t);
+
+		return CreateTexture(MAGE_GUID_TEXTURE_GREEN, MAGE_GUID_TEXTURE_GREEN, &texture_desc, &texture_data);
+	}
+
+	SharedPtr< Texture > CreateBlueTexture() {
+		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
+
+		static const uint32_t color = 0x0000FFFF;
+
+		D3D11_SUBRESOURCE_DATA texture_data = {};
+		texture_data.pSysMem     = &color;
+		texture_data.SysMemPitch = sizeof(uint32_t);
+
+		return CreateTexture(MAGE_GUID_TEXTURE_BLUE, MAGE_GUID_TEXTURE_BLUE, &texture_desc, &texture_data);
 	}
 }

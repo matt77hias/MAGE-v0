@@ -58,6 +58,9 @@ namespace mage {
 		CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 
 		SetLoaded();
+
+		// Initialize the first scene.
+		SetScene(setup.CreateScene());
 	}
 
 	Engine::Engine(Engine &&engine) = default;
@@ -83,9 +86,6 @@ namespace mage {
 		m_input_manager    = std::make_unique< InputManager >(m_main_window->GetHandle());
 		// Initialize the resource system.
 		m_resource_factory = std::make_unique< ResourceFactory >();
-
-		// Initialize the first scene.
-		SetScene(setup.CreateScene());
 	}
 
 	void Engine::SetDeactiveFlag(bool deactive) {

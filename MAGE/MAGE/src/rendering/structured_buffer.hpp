@@ -34,6 +34,13 @@ namespace mage {
 		/**
 		 Constructs a structured buffer.
 
+		 @pre			The current engine must be loaded.
+		 */
+		StructuredBuffer();
+
+		/**
+		 Constructs a structured buffer.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device

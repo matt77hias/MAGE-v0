@@ -6,7 +6,6 @@
 #pragma region
 
 #include "rendering\rendering_state.hpp"
-#include "resource\resource_factory.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

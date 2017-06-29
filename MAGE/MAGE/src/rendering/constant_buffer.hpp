@@ -33,6 +33,13 @@ namespace mage {
 		/**
 		 Constructs a constant buffer.
 
+		 @pre			The current engine must be loaded.
+		 */
+		ConstantBuffer();
+
+		/**
+		 Constructs a constant buffer.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device

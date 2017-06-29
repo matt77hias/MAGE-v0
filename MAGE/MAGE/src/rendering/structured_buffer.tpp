@@ -17,6 +17,10 @@
 namespace mage {
 
 	template< typename DataT >
+	StructuredBuffer< DataT >::StructuredBuffer()
+		: StructuredBuffer(GetRenderingDevice(), GetRenderingDeviceContext()) {}
+
+	template< typename DataT >
 	StructuredBuffer< DataT >::StructuredBuffer(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		size_t nb_initial_data_elements)
 		: m_device(device), m_device_context(device_context), 

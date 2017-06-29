@@ -17,6 +17,10 @@
 namespace mage {
 
 	template< typename DataT >
+	ConstantBuffer< DataT >::ConstantBuffer()
+		: ConstantBuffer(GetRenderingDevice(), GetRenderingDeviceContext()) {}
+
+	template< typename DataT >
 	ConstantBuffer< DataT >::ConstantBuffer(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: m_device(device), m_device_context(device_context), m_buffer() {
 

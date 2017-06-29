@@ -29,6 +29,7 @@ namespace mage {
 		/**
 		 Constructs a rendering state.
 
+		 @pre			The current engine must be loaded.
 		 @pre			@a rendering_state_cache is not equal to @c nullptr.
 		 @param[in]		rendering_state_cache
 						A pointer to the rendering state cache.

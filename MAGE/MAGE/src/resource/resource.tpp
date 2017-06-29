@@ -27,7 +27,7 @@ namespace mage {
 
 	template< typename ResourceT >
 	inline bool Resource< ResourceT >::IsFileResource() const noexcept {
-		return m_fname == L"";
+		return m_fname != L"";
 	}
 
 	template< typename ResourceT >

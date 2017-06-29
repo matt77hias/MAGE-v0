@@ -34,6 +34,17 @@ namespace mage {
 		/**
 		 Constructs a tangent-space-normal-map vertex shader.
 
+		 @pre			The current engine must be loaded.
+		 @param[in]		fname
+						A reference to the filename.
+		 @throws		FormattedException
+						Failed to initialize this vertex shader.
+		 */
+		explicit TSNMVertexShader(const wstring &fname);
+
+		/**
+		 Constructs a tangent-space-normal-map vertex shader.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device
@@ -48,6 +59,17 @@ namespace mage {
 		explicit TSNMVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &fname);
 		
+		/**
+		 Constructs a tangent-space-normal-map vertex shader.
+
+		 @pre			The current engine must be loaded.
+		 @param[in]		compiled_vertex_shader
+						A reference to the compiled vertex shader.
+		 @throws		FormattedException
+						Failed to initialize this vertex shader.
+		 */
+		explicit TSNMVertexShader(const CompiledVertexShader &compiled_vertex_shader);
+
 		/**
 		 Constructs a tangent-space-normal-map vertex shader.
 
@@ -146,6 +168,17 @@ namespace mage {
 		/**
 		 Constructs a tangent-space-normal-map pixel shader.
 
+		 @pre			The current engine must be loaded.
+		 @param[in]		fname
+						A reference to the filename.
+		 @throws		FormattedException
+						Failed to initialize this pixel shader.
+		 */
+		explicit TSNMPixelShader(const wstring &fname);
+
+		/**
+		 Constructs a tangent-space-normal-map pixel shader.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device
@@ -159,6 +192,17 @@ namespace mage {
 		 */
 		explicit TSNMPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &fname);
+
+		/**
+		 Constructs a tangent-space-normal-map pixel shader.
+
+		 @pre			The current engine must be loaded.
+		 @param[in]		compiled_pixel_shader
+						A reference to the compiled pixel shader.
+		 @throws		FormattedException
+						Failed to initialize this pixel shader.
+		 */
+		explicit TSNMPixelShader(const CompiledPixelShader &compiled_pixel_shader);
 
 		/**
 		 Constructs a tangent-space-normal-map pixel shader.

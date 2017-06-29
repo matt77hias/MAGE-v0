@@ -20,6 +20,9 @@ namespace mage {
 	// SpriteVertexShader
 	//-------------------------------------------------------------------------
 
+	SpriteVertexShader::SpriteVertexShader()
+		: SpriteVertexShader(GetRenderingDevice(), GetRenderingDeviceContext()) {}
+
 	SpriteVertexShader::SpriteVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: VertexShader(device, device_context, CreateCompiledSpriteVertexShader(),
 			VertexPositionColorTexture::s_input_element_desc, VertexPositionColorTexture::s_nb_input_elements) {}
@@ -38,6 +41,9 @@ namespace mage {
 	// SpritePixelShader
 	//-------------------------------------------------------------------------
 
+	SpritePixelShader::SpritePixelShader()
+		: SpritePixelShader(GetRenderingDevice(), GetRenderingDeviceContext()) {}
+
 	SpritePixelShader::SpritePixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: PixelShader(device, device_context, CreateCompiledSpritePixelShader()) {}
 
@@ -55,17 +61,10 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	const CombinedShader CreateSpriteShader() {
-		ID3D11Device2 *device = GetRenderingDevice();
-		Assert(device);
+		SharedPtr< VertexShader > vs = CreateSpriteVertexShader(MAGE_GUID_SPRITE_VS);
 
-		ID3D11DeviceContext2 *device_context = GetRenderingDeviceContext();
-		Assert(device_context);
+		SharedPtr< PixelShader >  ps = CreateSpritePixelShader(MAGE_GUID_SPRITE_PS);
 
-		ResourceFactory *factory = GetResourceFactory();
-		Assert(factory);
-
-		SharedPtr< VertexShader > vs = factory->CreateSpriteVertexShader(device, device_context);
-		SharedPtr< PixelShader >  ps = factory->CreateSpritePixelShader(device, device_context);
 		return CombinedShader(vs, ps);
 	}
 }

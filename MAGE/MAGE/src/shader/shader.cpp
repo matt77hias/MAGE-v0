@@ -19,6 +19,11 @@ namespace mage {
 	// VertexShader
 	//-------------------------------------------------------------------------
 
+	VertexShader::VertexShader(const wstring &fname,
+		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
+		: VertexShader(GetRenderingDevice(), GetRenderingDeviceContext(), 
+			fname, input_element_desc, nb_input_elements) {}
+
 	VertexShader::VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &fname,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
@@ -32,6 +37,11 @@ namespace mage {
 		const CompiledVertexShader compiled_vertex_shader(fname);
 		SetupShader(compiled_vertex_shader, input_element_desc, nb_input_elements);
 	}
+
+	VertexShader::VertexShader(const CompiledVertexShader &compiled_vertex_shader,
+		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
+		: VertexShader(GetRenderingDevice(), GetRenderingDeviceContext(),
+			compiled_vertex_shader, input_element_desc, nb_input_elements) {}
 
 	VertexShader::VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledVertexShader &compiled_vertex_shader, 
@@ -85,6 +95,10 @@ namespace mage {
 	// PixelShader
 	//-------------------------------------------------------------------------
 
+	PixelShader::PixelShader(const wstring &fname)
+		: PixelShader(GetRenderingDevice(), GetRenderingDeviceContext(),
+			fname) {}
+
 	PixelShader::PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &fname)
 		: Resource< PixelShader >(fname, fname), 
@@ -96,6 +110,10 @@ namespace mage {
 		const CompiledPixelShader compiled_pixel_shader(fname);
 		SetupShader(compiled_pixel_shader);
 	}
+
+	PixelShader::PixelShader(const CompiledPixelShader &compiled_pixel_shader)
+		: PixelShader(GetRenderingDevice(), GetRenderingDeviceContext(),
+			compiled_pixel_shader) {}
 
 	PixelShader::PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledPixelShader &compiled_pixel_shader)

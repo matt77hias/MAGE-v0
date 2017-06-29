@@ -219,4 +219,13 @@ namespace mage {
 		 */
 		POINT m_mouse_position;
 	};
+
+	/**
+	 Returns the mouse associated with the current engine.
+
+	 @pre		The current engine must be loaded.
+	 @return	A pointer to the mouse associated
+				with the current engine.
+	 */
+	const Mouse *GetMouse() noexcept;
 }

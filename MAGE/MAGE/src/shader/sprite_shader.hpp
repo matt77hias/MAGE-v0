@@ -32,6 +32,15 @@ namespace mage {
 		/**
 		 Constructs a sprite vertex shader.
 
+		 @pre			The current engine must be loaded.
+		 @throws		FormattedException
+						Failed to initialize this sprite vertex shader.
+		 */
+		SpriteVertexShader();
+
+		/**
+		 Constructs a sprite vertex shader.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device
@@ -116,6 +125,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a sprite pixel shader.
+
+		 @pre			The current engine must be loaded.
+		 @throws		FormattedException
+						Failed to initialize this sprite pixel shader.
+		 */
+		SpritePixelShader();
 
 		/**
 		 Constructs a sprite pixel shader.

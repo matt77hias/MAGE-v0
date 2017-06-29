@@ -124,6 +124,26 @@ namespace mage {
 		/**
 		 Constructs a vertex shader.
 
+		 @pre			The current engine must be loaded.
+		 @pre			@a input_element_desc is not equal to @c nullptr.
+		 @pre			The array pointed to by @a input_element_desc
+						contains @a nb_input_elements elements.
+		 @param[in]		fname
+						A reference to the filename.
+		 @param[in]		input_element_desc
+						A pointer the input element descriptors.
+		 @param[in]		nb_input_elements
+						The number of elements contained in the
+						given input element descriptor.
+		 @throws		FormattedException
+						Failed to initialize this vertex shader.
+		 */
+		explicit VertexShader(const wstring &fname,
+			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
+
+		/**
+		 Constructs a vertex shader.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a input_element_desc is not equal to @c nullptr.
@@ -147,6 +167,26 @@ namespace mage {
 			const wstring &fname, 
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 		
+		/**
+		 Constructs a vertex shader.
+
+		 @pre			The current engine must be loaded.
+		 @pre			@a input_element_desc is not equal to @c nullptr.
+		 @pre			The array pointed to by @a input_element_desc
+						contains @a nb_input_elements elements.
+		 @param[in]		compiled_vertex_shader
+						A reference to the compiled vertex shader.
+		 @param[in]		input_element_desc
+						A pointer the input element descriptors.
+		 @param[in]		nb_input_elements
+						The number of elements contained in the
+						given input element descriptor.
+		 @throws		FormattedException
+						Failed to initialize this vertex shader.
+		 */
+		explicit VertexShader(const CompiledVertexShader &compiled_vertex_shader,
+			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
+
 		/**
 		 Constructs a vertex shader.
 
@@ -293,10 +333,21 @@ namespace mage {
 	class PixelShader : public Resource< PixelShader > {
 
 	public:
-
+		
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a pixel shader.
+
+		 @pre			The current engine must be loaded.
+		 @param[in]		fname
+						A reference to the filename.
+		 @throws		FormattedException
+						Failed to initialize this pixel shader.
+		 */
+		explicit PixelShader(const wstring &fname);
 
 		/**
 		 Constructs a pixel shader.
@@ -314,6 +365,17 @@ namespace mage {
 		 */
 		explicit PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &fname);
+
+		/**
+		 Constructs a pixel shader.
+
+		 @pre			The current engine must be loaded.
+		 @param[in]		compiled_pixel_shader
+						A reference to the compiled pixel shader.
+		 @throws		FormattedException
+						Failed to initialize this pixel shader.
+		 */
+		explicit PixelShader(const CompiledPixelShader &compiled_pixel_shader);
 
 		/**
 		 Constructs a pixel shader.

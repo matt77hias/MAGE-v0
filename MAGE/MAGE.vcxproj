@@ -283,7 +283,7 @@
     <ClCompile Include="MAGE\src\shader\basic_shader_factory.cpp" />
     <ClCompile Include="MAGE\src\shader\compiled_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\tsnm_shader.cpp" />
-    <ClCompile Include="MAGE\src\shader\bump_shader_factory.cpp" />
+    <ClCompile Include="MAGE\src\shader\tsnm_shader_factory.cpp" />
     <ClCompile Include="MAGE\src\shader\compiled_shader_factory.cpp" />
     <ClCompile Include="MAGE\src\shader\shaded_material.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
@@ -301,6 +301,7 @@
     <ClCompile Include="MAGE\src\system\system_usage.cpp" />
     <ClCompile Include="MAGE\src\texture\dds\dds_loader.cpp" />
     <ClCompile Include="MAGE\src\texture\texture.cpp" />
+    <ClCompile Include="MAGE\src\texture\texture_factory.cpp" />
     <ClCompile Include="MAGE\src\texture\texture_loader.cpp" />
     <ClCompile Include="MAGE\src\text\dropshadow_sprite_text.cpp" />
     <ClCompile Include="MAGE\src\text\normal_sprite_text.cpp" />

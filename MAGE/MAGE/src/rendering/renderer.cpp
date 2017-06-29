@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\renderer.hpp"
+#include "core\engine.hpp"
 #include "rendering\device_enumeration.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
@@ -282,5 +282,12 @@ namespace mage {
 
 		m_swap_chain->GetFullscreenState(&current, nullptr);
 		m_fullscreen = (current != 0);
+	}
+
+	const Renderer *GetRenderer() noexcept {
+		Assert(g_engine);
+		Assert(g_engine->IsLoaded());
+
+		return g_engine->GetRenderer();
 	}
 }

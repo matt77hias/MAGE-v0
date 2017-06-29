@@ -1079,9 +1079,6 @@
     <ClCompile Include="MAGE\src\texture\texture_loader.cpp">
       <Filter>Source Files\texture</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\shader\bump_shader_factory.cpp">
-      <Filter>Source Files\shader</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\shader\shaded_material.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
@@ -1092,6 +1089,12 @@
       <Filter>Source Files\shader</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\shader\compiled_shader.cpp">
+      <Filter>Source Files\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\texture\texture_factory.cpp">
+      <Filter>Source Files\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\tsnm_shader_factory.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
   </ItemGroup>

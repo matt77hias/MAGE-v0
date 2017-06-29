@@ -34,6 +34,17 @@ namespace mage {
 		/**
 		 Constructs a basic vertex shader.
 
+		 @pre			The current engine must be loaded.
+		 @param[in]		fname
+						A reference to the filename.
+		 @throws		FormattedException
+						Failed to initialize this vertex shader.
+		 */
+		explicit BasicVertexShader(const wstring &fname);
+
+		/**
+		 Constructs a basic vertex shader.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device
@@ -48,6 +59,17 @@ namespace mage {
 		explicit BasicVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &fname);
 		
+		/**
+		 Constructs a basic vertex shader.
+
+		 @pre			The current engine must be loaded.
+		 @param[in]		compiled_vertex_shader
+						A reference to the compiled vertex shader.
+		 @throws		FormattedException
+						Failed to initialize this vertex shader.
+		 */
+		explicit BasicVertexShader(const CompiledVertexShader &compiled_vertex_shader);
+
 		/**
 		 Constructs a basic vertex shader.
 
@@ -142,6 +164,17 @@ namespace mage {
 		/**
 		 Constructs a basic pixel shader.
 
+		 @pre			The current engine must be loaded.
+		 @param[in]		fname
+						A reference to the filename.
+		 @throws		FormattedException
+						Failed to initialize this pixel shader.
+		 */
+		explicit BasicPixelShader(const wstring &fname);
+
+		/**
+		 Constructs a basic pixel shader.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device
@@ -155,6 +188,17 @@ namespace mage {
 		 */
 		explicit BasicPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const wstring &fname);
+
+		/**
+		 Constructs a basic pixel shader.
+
+		 @pre			The current engine must be loaded.
+		 @param[in]		compiled_pixel_shader
+						A reference to the compiled pixel shader.
+		 @throws		FormattedException
+						Failed to initialize this pixel shader.
+		 */
+		explicit BasicPixelShader(const CompiledPixelShader &compiled_pixel_shader);
 
 		/**
 		 Constructs a basic pixel shader.

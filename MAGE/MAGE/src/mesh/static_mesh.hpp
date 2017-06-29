@@ -30,6 +30,29 @@ namespace mage {
 		/**
 		 Constructs a static mesh.
 
+		 @pre			The current engine must be loaded.
+		 @pre			@a vertices points to an array of at least @a nb_vertices vertices.
+		 @pre			@a nb_vertices must be greater than zero.
+		 @pre			@a indices points to an array of at least @a nb_indices indices.
+		 @pre			@a nb_indices must be greater than zero.
+		 @tparam		VertexT
+						The vertex type.
+		 @param[in]		vertices
+						A pointer to an array of vertices.
+		 @param[in]		nb_vertices
+						The number of vertices.
+		 @param[in]		indices
+						A pointer to an array of indices.
+		 @param[in]		nb_indices
+						The number of indices.
+		 */
+		template < typename VertexT >
+		explicit StaticMesh(const VertexT *vertices, size_t nb_vertices,
+			const uint32_t *indices, size_t nb_indices);
+
+		/**
+		 Constructs a static mesh.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a vertices points to an array of at least @a nb_vertices vertices.
@@ -55,6 +78,26 @@ namespace mage {
 		explicit StaticMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const VertexT *vertices, size_t nb_vertices, 
 			const uint32_t *indices, size_t nb_indices);
+
+		/**
+		 Constructs a static mesh.
+
+		 @pre			The current engine must be loaded.
+		 @pre			The number of vertices must be greater than zero.
+		 @pre			The number of indices must be greater than zero.
+		 @tparam		VertexT
+						The vertex type.
+		 @param[in]		vertices
+						A reference to a vector of vertices.
+		 @param[in]		indices
+						A reference to a vector of indices.
+		 @throws		FormattedException
+						Failed to setup the vertex buffer of the static mesh.
+		 @throws		FormattedException
+						Failed to setup the index buffer of the static mesh.
+		 */
+		template < typename VertexT >
+		explicit StaticMesh(const vector< VertexT > &vertices, const vector< uint32_t > &indices);
 
 		/**
 		 Constructs a static mesh.

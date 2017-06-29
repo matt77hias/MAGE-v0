@@ -13,6 +13,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	Mesh::Mesh(size_t vertex_size, DXGI_FORMAT index_format,
+		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
+		: Mesh(GetRenderingDevice(), GetRenderingDeviceContext(), 
+			vertex_size, index_format, primitive_topology) {}
+
 	Mesh::Mesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, size_t vertex_size,
 		DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: m_device(device), m_device_context(device_context), m_vertex_buffer(), m_index_buffer(),

@@ -23,6 +23,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	SpriteBatch::SpriteBatch(const CombinedShader &shader)
+		: SpriteBatch(GetRenderingDevice(), GetRenderingDeviceContext(), shader) {}
+
 	SpriteBatch::SpriteBatch(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CombinedShader &shader)
 		: m_device(device), m_device_context(device_context), 

@@ -17,6 +17,12 @@
 namespace mage {
 
 	template < typename VertexT >
+	StaticMesh::StaticMesh(const VertexT *vertices, size_t nb_vertices,
+		const uint32_t *indices, size_t nb_indices)
+		: StaticMesh(GetRenderingDevice(), GetRenderingDeviceContext(),
+			vertices, nb_vertices, indices, nb_indices) {}
+
+	template < typename VertexT >
 	StaticMesh::StaticMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const VertexT *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices)
 		: Mesh(device, device_context, sizeof(VertexT)), m_aabb(), m_bs() {
@@ -28,6 +34,11 @@ namespace mage {
 		SetupVertexBuffer(vertices, nb_vertices);
 		SetupIndexBuffer(indices, nb_indices);
 	}
+
+	template < typename VertexT >
+	StaticMesh::StaticMesh(const vector< VertexT > &vertices, const vector< uint32_t > &indices)
+		: StaticMesh(GetRenderingDevice(), GetRenderingDeviceContext(),
+			vertices, indices) {}
 
 	template < typename VertexT >
 	StaticMesh::StaticMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,

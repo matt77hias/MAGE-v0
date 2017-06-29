@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\resource_factory.hpp"
+#include "scripting\variable_script.hpp"
 #include "scripting\variable_script_loader.hpp"
 
 #pragma endregion
@@ -56,10 +56,5 @@ namespace mage {
 
 	void VariableScript::RemoveAllVariables() noexcept {
 		m_variables.clear();
-	}
-
-	SharedPtr< VariableScript > CreateVariableScript(const wstring &fname, bool import) {
-		ResourceFactory *factory = GetResourceFactory();
-		return factory->CreateVariableScript(fname, import);
 	}
 }

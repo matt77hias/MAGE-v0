@@ -96,6 +96,17 @@ namespace mage {
 		/**
 		 Constructs a sprite batch mesh.
 
+		 @pre			The current engine must be loaded.
+		 @throws		FormattedException
+						Failed to setup the vertex buffer of the sprite batch mesh.
+		 @throws		FormattedException
+						Failed to setup the index buffer of the sprite batch mesh.
+		 */
+		SpriteBatchMesh();
+
+		/**
+		 Constructs a sprite batch mesh.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device

@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "input\keyboard.hpp"
+#include "core\engine.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
 
@@ -91,5 +91,15 @@ namespace mage {
 
 		// Increment the press stamp.
 		++m_press_stamp;
+	}
+
+	const Keyboard *GetKeyboard() noexcept {
+		Assert(g_engine);
+		Assert(g_engine->IsLoaded());
+
+		const InputManager * const input_manager = g_engine->GetInputManager();
+		Assert(input_manager);
+
+		return input_manager->GetKeyboard();
 	}
 }

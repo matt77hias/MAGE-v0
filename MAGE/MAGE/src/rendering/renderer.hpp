@@ -397,4 +397,13 @@ namespace mage {
 		 */
 		UniquePtr< RenderingStateCache > m_rendering_state_cache;
 	};
+
+	/**
+	 Returns the renderer associated with the current engine.
+
+	 @pre		The current engine must be loaded.
+	 @return	A pointer to the renderer associated
+				with the current engine.
+	 */
+	const Renderer *GetRenderer() noexcept;
 }

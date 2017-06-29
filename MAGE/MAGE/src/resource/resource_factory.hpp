@@ -7,7 +7,9 @@
 
 #include "resource\resource_pool.hpp"
 #include "model\model_descriptor.hpp"
-#include "shader\shader.hpp"
+#include "shader\basic_shader.hpp"
+#include "shader\tsnm_shader.hpp"
+#include "shader\sprite_shader.hpp"
 #include "font\sprite_font.hpp"
 #include "scripting\variable_script.hpp"
 
@@ -21,7 +23,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// ResourceFactory
 	//-------------------------------------------------------------------------
-	
+
 	/**
 	 A class of resource factories.
 	 */
@@ -90,178 +92,183 @@ namespace mage {
 		/**
 		 Creates a model descriptor (if not existing).
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 @param[in]		fname
-						A reference to the filename.
-		 @param[in]		desc
-						A reference to the mesh descriptor.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the model descriptor.
+		 @param[in]		key
+						A reference to the key of the model descriptor.
+		 @param[in]		args
+						A reference to the constructor arguments 
+						for the model descriptor.
 		 @return		A pointer to the model descriptor.
 		 @throws		FormattedException
 						Failed to create the model descriptor.
 		 */
-		template < typename VertexT >
+		template< typename... ConstructorArgsT >
 		SharedPtr< ModelDescriptor > CreateModelDescriptor(
-			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, 
-			const wstring &fname, const MeshDescriptor< VertexT > &desc);
+			const wstring &key, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a basic vertex shader (if not existing).
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 @param[in]		compiled_vertex_shader
-						A reference to the compiled vertex shader.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the basic vertex shader.
+		 @param[in]		key
+						A reference to the key of the basic vertex shader.
+		 @param[in]		args
+						A reference to the constructor arguments 
+						for the basic vertex shader.
 		 @return		A pointer to the basic vertex shader.
 		 @throws		FormattedException
 						Failed to create the basic vertex shader.
 		 */
+		template< typename... ConstructorArgsT >
 		SharedPtr< VertexShader > CreateBasicVertexShader(
-			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const CompiledVertexShader &compiled_vertex_shader);
+			const wstring &key, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a basic pixel shader (if not existing).
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 @param[in]		compiled_pixel_shader
-						A reference to the compiled pixel shader.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the basic pixel shader.
+		 @param[in]		key
+						A reference to the key of the basic pixel shader.
+		 @param[in]		args
+						A reference to the constructor arguments 
+						for the basic pixel shader.
 		 @return		A pointer to the basic pixel shader.
 		 @throws		FormattedException
 						Failed to create the basic pixel shader.
 		 */
+		template< typename... ConstructorArgsT >
 		SharedPtr< PixelShader > CreateBasicPixelShader(
-			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const CompiledPixelShader &compiled_pixel_shader);
+			const wstring &key, ConstructorArgsT&&... args);
 
 		/**
 		 Creates a tangent-space-normal-map vertex shader (if not existing).
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 @param[in]		compiled_vertex_shader
-						A reference to the compiled vertex shader.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the tangent-space-normal-map vertex shader.
+		 @param[in]		key
+						A reference to the key of the tangent-space-normal-map vertex shader.
+		 @param[in]		args
+						A reference to the constructor arguments 
+						for the tangent-space-normal-map vertex shader.
 		 @return		A pointer to the tangent-space-normal-map vertex shader.
 		 @throws		FormattedException
 						Failed to create the tangent-space-normal-map vertex shader.
 		 */
+		template< typename... ConstructorArgsT >
 		SharedPtr< VertexShader > CreateTSNMVertexShader(
-			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const CompiledVertexShader &compiled_vertex_shader);
+			const wstring &key, ConstructorArgsT&&... args);
 
 		/**
 		 Creates a tangent-space-normal-map pixel shader (if not existing).
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 @param[in]		compiled_pixel_shader
-						A reference to the compiled pixel shader.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the tangent-space-normal-map pixel shader.
+		 @param[in]		key
+						A reference to the key of the tangent-space-normal-map pixel shader.
+		 @param[in]		args
+						A reference to the constructor arguments 
+						for the tangent-space-normal-map pixel shader.
 		 @return		A pointer to the tangent-space-normal-map pixel shader.
 		 @throws		FormattedException
 						Failed to create the tangent-space-normal-map pixel shader.
 		 */
+		template< typename... ConstructorArgsT >
 		SharedPtr< PixelShader > CreateTSNMPixelShader(
-			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const CompiledPixelShader &compiled_pixel_shader);
+			const wstring &key, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a sprite vertex shader (if not existing).
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the sprite vertex shader.
+		 @param[in]		key
+						A reference to the key of the sprite vertex shader.
+		 @param[in]		args
+						A reference to the constructor arguments 
+						for the sprite vertex shader.
 		 @return		A pointer to the sprite vertex shader.
 		 @throws		FormattedException
 						Failed to create the sprite vertex shader.
 		 */
+		template< typename... ConstructorArgsT >
 		SharedPtr< VertexShader > CreateSpriteVertexShader(
-			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+			const wstring &key, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a sprite pixel shader (if not existing).
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the sprite pixel shader.
+		 @param[in]		key
+						A reference to the key of the sprite pixel shader.
+		 @param[in]		args
+						A reference to the constructor arguments 
+						for the sprite pixel shader.
 		 @return		A pointer to the sprite pixel shader.
 		 @throws		FormattedException
 						Failed to create the sprite pixel shader.
 		 */
+		template< typename... ConstructorArgsT >
 		SharedPtr< PixelShader > CreateSpritePixelShader(
-			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+			const wstring &key, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a sprite font (if not existing).
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
-		 @param[in]		fname
-						A reference to the filename.
-		 @param[in]		desc
-						A reference to the sprite font descriptor.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the sprite font.
+		 @param[in]		key
+						A reference to the key of the sprite font.
+		 @param[in]		args
+						A reference to the constructor arguments 
+						for the sprite font.
 		 @return		A pointer to the sprite font.
 		 @throws		FormattedException
 						Failed to create the sprite font.
 		 */
-		SharedPtr< SpriteFont > CreateFont(ID3D11Device2 *device, const wstring &fname,
-			const SpriteFontDescriptor &desc);
+		template< typename... ConstructorArgsT >
+		SharedPtr< SpriteFont > CreateFont(
+			const wstring &key, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a texture (if not existing).
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
-		 @param[in]		fname
-						A reference to the filename.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the texture.
+		 @param[in]		key
+						A reference to the key of the texture.
+		 @param[in]		args
+						A reference to the constructor arguments 
+						for the texture.
 		 @return		A pointer to the texture.
 		 @throws		FormattedException
 						Failed to create the texture.
 		 */
-		SharedPtr< Texture > CreateTexture(ID3D11Device2 *device, const wstring &fname);
+		template< typename... ConstructorArgsT >
+		SharedPtr< Texture > CreateTexture(
+			const wstring &key, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a variable script (if not existing).
 
-		 @param[in]		fname
-						A reference to the filename of the variable script.
-		 @param[in]		import
-						Flag indicating whether the variables of the variable script
-						need to be imported.
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the variable script.
+		 @param[in]		key
+						A reference to the key of the variable script.
+		 @param[in]		args
+						A reference to the constructor arguments 
+						for the variable script.
 		 @return		A pointer to the variable script.
 		 @throws		FormattedException
 						Failed to import the variable script from file
 						(only possible if @a import is equal to @c true).
 		 */
-		SharedPtr< VariableScript > CreateVariableScript(const wstring &fname, bool import);
+		template< typename... ConstructorArgsT >
+		SharedPtr< VariableScript > CreateVariableScript(
+			const wstring &key, ConstructorArgsT&&... args);
 
 	private:
 
@@ -301,24 +308,8 @@ namespace mage {
 	};
 
 	//-------------------------------------------------------------------------
-	// Resource Creation
+	// Resource Factory Methods
 	//-------------------------------------------------------------------------
-
-	/**
-	 Returns the rendering device.
-
-	 @pre			The current engine must be loaded.
-	 @return		A pointer to the rendering device.
-	 */
-	ID3D11Device2 *GetRenderingDevice() noexcept;
-
-	/**
-	 Returns the rendering device context.
-
-	 @pre			The current engine must be loaded.
-	 @return		A pointer to the rendering device context.
-	 */
-	ID3D11DeviceContext2 *GetRenderingDeviceContext() noexcept;
 
 	/**
 	 Returns the resource factory.
@@ -327,6 +318,197 @@ namespace mage {
 	 @return		A pointer to the resource factory.
 	 */
 	ResourceFactory *GetResourceFactory() noexcept;
+
+	/**
+	 Creates a model descriptor (if not existing).
+
+	 @pre			The current engine must be loaded.
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the model descriptor.
+	 @param[in]		key
+					A reference to the key of the model descriptor.
+	 @param[in]		args
+					A reference to the constructor arguments
+					for the model descriptor.
+	 @return		A pointer to the model descriptor.
+	 @throws		FormattedException
+					Failed to create the model descriptor.
+	 */
+	template< typename... ConstructorArgsT >
+	SharedPtr< ModelDescriptor > CreateModelDescriptor(
+		const wstring &key, ConstructorArgsT&&... args);
+
+	/**
+	 Creates a basic vertex shader (if not existing).
+
+	 @pre			The current engine must be loaded.
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the basic vertex shader.
+	 @param[in]		key
+					A reference to the key of the basic vertex shader.
+	 @param[in]		args
+					A reference to the constructor arguments
+					for the basic vertex shader.
+	 @return		A pointer to the basic vertex shader.
+	 @throws		FormattedException
+					Failed to create the basic vertex shader.
+	 */
+	template< typename... ConstructorArgsT >
+	SharedPtr< VertexShader > CreateBasicVertexShader(
+		const wstring &key, ConstructorArgsT&&... args);
+
+	/**
+	 Creates a basic pixel shader (if not existing).
+
+	 @pre			The current engine must be loaded.
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the basic pixel shader.
+	 @param[in]		key
+					A reference to the key of the basic pixel shader.
+	 @param[in]		args
+					A reference to the constructor arguments
+					for the basic pixel shader.
+	 @return		A pointer to the basic pixel shader.
+	 @throws		FormattedException
+					Failed to create the basic pixel shader.
+	 */
+	template< typename... ConstructorArgsT >
+	SharedPtr< PixelShader > CreateBasicPixelShader(
+		const wstring &key, ConstructorArgsT&&... args);
+
+	/**
+	 Creates a tangent-space-normal-map vertex shader (if not existing).
+
+	 @pre			The current engine must be loaded.
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the tangent-space-normal-map vertex shader.
+	 @param[in]		key
+					A reference to the key of the tangent-space-normal-map vertex shader.
+	 @param[in]		args
+					A reference to the constructor arguments
+					for the tangent-space-normal-map vertex shader.
+	 @return		A pointer to the tangent-space-normal-map vertex shader.
+	 @throws		FormattedException
+					Failed to create the tangent-space-normal-map vertex shader.
+	 */
+	template< typename... ConstructorArgsT >
+	SharedPtr< VertexShader > CreateTSNMVertexShader(
+		const wstring &key, ConstructorArgsT&&... args);
+
+	/**
+	 Creates a tangent-space-normal-map pixel shader (if not existing).
+
+	 @pre			The current engine must be loaded.
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the tangent-space-normal-map pixel shader.
+	 @param[in]		key
+					A reference to the key of the tangent-space-normal-map pixel shader.
+	 @param[in]		args
+					A reference to the constructor arguments
+					for the tangent-space-normal-map pixel shader.
+	 @return		A pointer to the tangent-space-normal-map pixel shader.
+	 @throws		FormattedException
+					Failed to create the tangent-space-normal-map pixel shader.
+	 */
+	template< typename... ConstructorArgsT >
+	SharedPtr< PixelShader > CreateTSNMPixelShader(
+		const wstring &key, ConstructorArgsT&&... args);
+
+	/**
+	 Creates a sprite vertex shader (if not existing).
+
+	 @pre			The current engine must be loaded.
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the sprite vertex shader.
+	 @param[in]		key
+					A reference to the key of the sprite vertex shader.
+	 @param[in]		args
+					A reference to the constructor arguments
+					for the sprite vertex shader.
+	 @return		A pointer to the sprite vertex shader.
+	 @throws		FormattedException
+					Failed to create the sprite vertex shader.
+	 */
+	template< typename... ConstructorArgsT >
+	SharedPtr< VertexShader > CreateSpriteVertexShader(
+		const wstring &key, ConstructorArgsT&&... args);
+
+	/**
+	 Creates a sprite pixel shader (if not existing).
+
+	 @pre			The current engine must be loaded.
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the sprite pixel shader.
+	 @param[in]		key
+					A reference to the key of the sprite pixel shader.
+	 @param[in]		args
+					A reference to the constructor arguments
+					for the sprite pixel shader.
+	 @return		A pointer to the sprite pixel shader.
+	 @throws		FormattedException
+					Failed to create the sprite pixel shader.
+	 */
+	template< typename... ConstructorArgsT >
+	SharedPtr< PixelShader > CreateSpritePixelShader(
+		const wstring &key, ConstructorArgsT&&... args);
+
+	/**
+	 Creates a sprite font (if not existing).
+
+	 @pre			The current engine must be loaded.
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the sprite font.
+	 @param[in]		key
+					A reference to the key of the sprite font.
+	 @param[in]		args
+					A reference to the constructor arguments
+					for the sprite font.
+	 @return		A pointer to the sprite font.
+	 @throws		FormattedException
+					Failed to create the sprite font.
+	 */
+	template< typename... ConstructorArgsT >
+	SharedPtr< SpriteFont > CreateFont(
+		const wstring &key, ConstructorArgsT&&... args);
+
+	/**
+	 Creates a texture (if not existing).
+
+	 @pre			The current engine must be loaded.
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the texture.
+	 @param[in]		key
+					A reference to the key of the texture.
+	 @param[in]		args
+					A reference to the constructor arguments
+					for the texture.
+	 @return		A pointer to the texture.
+	 @throws		FormattedException
+					Failed to create the texture.
+	 */
+	template< typename... ConstructorArgsT >
+	SharedPtr< Texture > CreateTexture(
+		const wstring &key, ConstructorArgsT&&... args);
+
+	/**
+	 Creates a variable script (if not existing).
+
+	 @pre			The current engine must be loaded.
+	 @tparam		ConstructorArgsT
+					The constructor argument types of the variable script.
+	 @param[in]		key
+					A reference to the key of the variable script.
+	 @param[in]		args
+					A reference to the constructor arguments
+					for the variable script.
+	 @return		A pointer to the variable script.
+	 @throws		FormattedException
+					Failed to import the variable script from file
+					(only possible if @a import is equal to @c true).
+	 */
+	template< typename... ConstructorArgsT >
+	SharedPtr< VariableScript > CreateVariableScript(
+		const wstring &key, ConstructorArgsT&&... args);
 }
 
 //-----------------------------------------------------------------------------

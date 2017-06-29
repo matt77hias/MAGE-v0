@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\resource_factory.hpp"
+#include "font\sprite_font.hpp"
 #include "font\sprite_font_loader.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
@@ -147,6 +147,9 @@ namespace mage {
 			return static_cast< uint32_t >(lhs) < rhs.m_character;
 		}
 	};
+
+	SpriteFont::SpriteFont(const wstring &fname, const SpriteFontDescriptor &desc)
+		: SpriteFont(GetRenderingDevice(), fname, desc) {}
 
 	SpriteFont::SpriteFont(ID3D11Device2 *device, const wstring &fname, const SpriteFontDescriptor &desc)
 		: Resource< SpriteFont >(fname, fname), m_texture_srv(), m_glyphs(),
@@ -566,15 +569,5 @@ namespace mage {
 		}
 
 		return m_default_glyph;
-	}
-
-	SharedPtr< SpriteFont > CreateFont(const wstring &fname, const SpriteFontDescriptor &desc) {
-		ID3D11Device2 *device = GetRenderingDevice();
-		Assert(device);
-		
-		ResourceFactory *factory = GetResourceFactory();
-		Assert(factory);
-		
-		return factory->CreateFont(device, fname, desc);
 	}
 }

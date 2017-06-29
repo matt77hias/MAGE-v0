@@ -44,13 +44,20 @@ namespace mage {
 		// ModelDescriptors
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc_teapot   = CreateModelDescriptor(L"assets/models/teapot/teapot.mdl",     mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_cone     = CreateModelDescriptor(L"assets/models/cone/cone.mdl",         mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_cube     = CreateModelDescriptor(L"assets/models/cube/cube.mdl",         mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_cylinder = CreateModelDescriptor(L"assets/models/cylinder/cylinder.mdl", mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_plane    = CreateModelDescriptor(L"assets/models/plane/plane.mdl",       mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_sphere   = CreateModelDescriptor(L"assets/models/sphere/sphere.mdl",     mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_torus    = CreateModelDescriptor(L"assets/models/torus/torus.mdl",       mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_teapot   = CreateModelDescriptor(
+			L"assets/models/teapot/teapot.mdl", L"assets/models/teapot/teapot.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_cone     = CreateModelDescriptor(
+			L"assets/models/cone/cone.mdl", L"assets/models/cone/cone.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_cube     = CreateModelDescriptor(
+			L"assets/models/cube/cube.mdl", L"assets/models/cube/cube.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_cylinder = CreateModelDescriptor(
+			L"assets/models/cylinder/cylinder.mdl", L"assets/models/cylinder/cylinder.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_plane    = CreateModelDescriptor(
+			L"assets/models/plane/plane.mdl", L"assets/models/plane/plane.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_sphere   = CreateModelDescriptor(
+			L"assets/models/sphere/sphere.mdl", L"assets/models/sphere/sphere.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_torus    = CreateModelDescriptor(
+			L"assets/models/torus/torus.mdl", L"assets/models/torus/torus.mdl", mesh_desc);
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
@@ -80,7 +87,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Texture
 		//---------------------------------------------------------------------
-		SharedPtr< Texture > texture_logo = CreateTexture(L"assets/sprites/mage.dds");
+		SharedPtr< Texture > texture_logo = CreateTexture(
+			L"assets/sprites/mage.dds", L"assets/sprites/mage.dds");
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
@@ -92,7 +100,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Font
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteFont > font = CreateFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
+		SharedPtr< SpriteFont > font = CreateFont(
+			L"assets/fonts/consolas.spritefont", L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------

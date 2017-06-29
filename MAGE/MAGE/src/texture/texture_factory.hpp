@@ -23,9 +23,7 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to create the texture.
 	 */
-	inline SharedPtr< Texture > CreateBlackTexture() {
-		return CreateTexture(L"assets/sprites/color/black.dds");
-	}
+	SharedPtr< Texture > CreateBlackTexture();
 
 	/**
 	 Creates a white texture.
@@ -36,9 +34,7 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to create the texture.
 	 */
-	inline SharedPtr< Texture > CreateWhiteTexture() {
-		return CreateTexture(L"assets/sprites/color/white.dds");
-	}
+	SharedPtr< Texture > CreateWhiteTexture();
 
 	/**
 	 Creates a red texture.
@@ -49,9 +45,7 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to create the texture.
 	 */
-	inline SharedPtr< Texture > CreateRedTexture() {
-		return CreateTexture(L"assets/sprites/color/red.dds");
-	}
+	SharedPtr< Texture > CreateRedTexture();
 
 	/**
 	 Creates a green texture.
@@ -62,9 +56,7 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to create the texture.
 	 */
-	inline SharedPtr< Texture > CreateGreenTexture() {
-		return CreateTexture(L"assets/sprites/color/green.dds");
-	}
+	SharedPtr< Texture > CreateGreenTexture();
 
 	/**
 	 Creates a blue texture.
@@ -75,7 +67,5 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to create the texture.
 	 */
-	inline SharedPtr< Texture > CreateBlueTexture() {
-		return CreateTexture(L"assets/sprites/color/blue.dds");
-	}
+	SharedPtr< Texture > CreateBlueTexture();
 }

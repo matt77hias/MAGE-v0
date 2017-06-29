@@ -206,21 +206,6 @@ namespace mage {
 		 */
 		map< const string, Variable > m_variables;
 	};
-
-	/**
-	 Creates a variable script.
-
-	 @param[in]		fname
-					A reference to the filename of the variable script.
-	 @param[in]		import
-					Flag indicating whether the variables of the variable script
-					need to be imported.
-	 @return		A pointer to the variable script.
-	 @throws		FormattedException
-					Failed to import the variable script from file
-					(only possible if @a import is equal to @c true).
-	 */
-	SharedPtr< VariableScript > CreateVariableScript(const wstring &fname, bool import = true);
 }
 
 //-----------------------------------------------------------------------------

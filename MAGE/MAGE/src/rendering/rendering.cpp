@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering.hpp"
+#include "core\engine.hpp"
 
 #pragma endregion
 
@@ -29,3 +29,29 @@ extern "C" {
 }
 
 #pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Definitions
+//-----------------------------------------------------------------------------
+namespace mage {
+	
+	ID3D11Device2 *GetRenderingDevice() noexcept {
+		Assert(g_engine);
+		Assert(g_engine->IsLoaded());
+
+		const Renderer * const renderer = g_engine->GetRenderer();
+		Assert(renderer);
+
+		return renderer->GetDevice();
+	}
+
+	ID3D11DeviceContext2 *GetRenderingDeviceContext() noexcept {
+		Assert(g_engine);
+		Assert(g_engine->IsLoaded());
+
+		const Renderer * const renderer = g_engine->GetRenderer();
+		Assert(renderer);
+
+		return renderer->GetDeviceContext();
+	}
+}

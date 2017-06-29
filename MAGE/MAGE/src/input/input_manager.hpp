@@ -163,4 +163,13 @@ namespace mage {
 		 */
 		UniquePtr< Mouse > m_mouse;
 	};
+
+	/**
+	 Returns the input manager associated with the current engine.
+
+	 @pre		The current engine must be loaded.
+	 @return	A pointer to the input manager associated
+				with the current engine.
+	 */
+	const InputManager *GetInputManager() noexcept;
 }

@@ -17,12 +17,20 @@ namespace mage {
 	// TSNMVertexShader
 	//-------------------------------------------------------------------------
 
+	TSNMVertexShader::TSNMVertexShader(const wstring &fname)
+		: TSNMVertexShader(GetRenderingDevice(), GetRenderingDeviceContext(),
+			fname) {}
+
 	TSNMVertexShader::TSNMVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &fname) 
 		: VertexShader(device, device_context, fname, 
 			VertexPositionNormalTexture::s_input_element_desc, 
 			VertexPositionNormalTexture::s_nb_input_elements) {}
 			
+	TSNMVertexShader::TSNMVertexShader(const CompiledVertexShader &compiled_vertex_shader)
+		: TSNMVertexShader(GetRenderingDevice(), GetRenderingDeviceContext(),
+			compiled_vertex_shader) {}
+
 	TSNMVertexShader::TSNMVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledVertexShader &compiled_vertex_shader)
 		: VertexShader(device, device_context, compiled_vertex_shader,
@@ -43,11 +51,19 @@ namespace mage {
 	// TSNMPixelShader
 	//-------------------------------------------------------------------------
 
+	TSNMPixelShader::TSNMPixelShader(const wstring &fname)
+		: TSNMPixelShader(GetRenderingDevice(), GetRenderingDeviceContext(),
+			fname) {}
+
 	TSNMPixelShader::TSNMPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const wstring &fname)
 			: PixelShader(device, device_context, fname),
 			m_material_buffer(m_device, m_device_context) {}
-			
+		
+	TSNMPixelShader::TSNMPixelShader(const CompiledPixelShader &compiled_pixel_shader)
+		: TSNMPixelShader(GetRenderingDevice(), GetRenderingDeviceContext(),
+			compiled_pixel_shader) {}
+
 	TSNMPixelShader::TSNMPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledPixelShader &compiled_pixel_shader)
 			: PixelShader(device, device_context, compiled_pixel_shader),

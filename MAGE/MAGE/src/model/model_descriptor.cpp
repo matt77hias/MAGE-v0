@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\resource_factory.hpp"
+#include "model\model_descriptor.hpp"
 
 #pragma endregion
 
@@ -35,17 +35,5 @@ namespace mage {
 			}
 		}
 		return nullptr;
-	}
-
-	ID3D11Device2 *GetModelRenderingDevice() noexcept {
-		return GetRenderingDevice();
-	}
-
-	ID3D11DeviceContext2 *GetModelRenderingDeviceContext() noexcept {
-		return GetRenderingDeviceContext();
-	}
-
-	ResourceFactory *GetModelResourceFactory() noexcept {
-		return GetResourceFactory();
 	}
 }

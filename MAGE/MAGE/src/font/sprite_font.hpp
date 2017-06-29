@@ -32,6 +32,20 @@ namespace mage {
 		/**
 		 Constructs a sprite font.
 
+		 @pre			The current engine must be loaded.
+		 @param[in]		fname
+						A reference to the filename.
+		 @param[in]		desc
+						A reference to the sprite font descriptor.
+		 @throws		FormattedException
+						Failed to initialize the sprite font.
+		 */
+		explicit SpriteFont(const wstring &fname,
+			const SpriteFontDescriptor &desc = SpriteFontDescriptor());
+
+		/**
+		 Constructs a sprite font.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
@@ -331,18 +345,4 @@ namespace mage {
 		 */
 		float m_line_spacing;
 	};
-
-	/**
-	 Creates a sprite font.
-
-	 @pre			The current engine must be loaded.
-	 @param[in]		fname
-					A reference to the filename.
-	 @param[in]		desc
-					A reference to the sprite font descriptor.
-	 @return		A pointer to the sprite font.
-	 @throws		FormattedException
-					Failed to create the sprite font.
-	 */
-	SharedPtr< SpriteFont > CreateFont(const wstring &fname, const SpriteFontDescriptor &desc);
 }

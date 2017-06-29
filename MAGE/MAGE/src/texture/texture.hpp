@@ -30,6 +30,17 @@ namespace mage {
 		/**
 		 Constructs a texture.
 
+		 @pre			The current engine must be loaded.
+		 @param[in]		fname
+						A reference to the filename.
+		 @throws		FormattedException
+						Failed to initialize the texture.
+		 */
+		explicit Texture(const wstring &fname);
+
+		/**
+		 Constructs a texture.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
@@ -135,16 +146,4 @@ namespace mage {
 		 */
 		ComPtr< ID3D11ShaderResourceView > m_texture_srv;
 	};
-
-	/**
-	 Creates a texture.
-
-	 @pre			The current engine must be loaded.
-	 @param[in]		fname
-					A reference to the filename.
-	 @return		A pointer to the texture.
-	 @throws		FormattedException
-					Failed to create the texture.
-	 */
-	SharedPtr< Texture > CreateTexture(const wstring &fname);
 }

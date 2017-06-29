@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "input\input_manager.hpp"
+#include "core\engine.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
 
@@ -43,5 +43,12 @@ namespace mage {
 	void InputManager::InitializeInputSystems() {
 		m_keyboard = std::make_unique< Keyboard >(m_hwindow, m_di.Get());
 		m_mouse    = std::make_unique< Mouse >(m_hwindow, m_di.Get());
+	}
+
+	const InputManager *GetInputManager() noexcept {
+		Assert(g_engine);
+		Assert(g_engine->IsLoaded());
+
+		return g_engine->GetInputManager();
 	}
 }

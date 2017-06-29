@@ -29,6 +29,23 @@ namespace mage {
 		/**
 		 Constructs a model descriptor.
 
+		 @pre			The current engine must be loaded.
+		 @tparam		VertexT
+						The vertex type.
+		 @param[in]		fname
+						A reference to the filename.
+		 @param[in]		desc
+						A reference to the mesh descriptor.
+		 @throws		FormattedException
+						Failed to initialize the model descriptor.
+		 */
+		template < typename VertexT >
+		explicit ModelDescriptor(const wstring &fname, 
+			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >());
+
+		/**
+		 Constructs a model descriptor.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @tparam		VertexT
@@ -169,23 +186,6 @@ namespace mage {
 		 */
 		vector< ModelPart > m_model_parts;
 	};
-
-	/**
-	 Creates a model descriptor.
-
-	 @pre			The current engine must be loaded.
-	 @tparam		VertexT
-					The vertex type.
-	 @param[in]		fname
-					A reference to the filename.
-	 @param[in]		desc
-					A reference to the mesh descriptor.
-	 @return		A pointer to the model descriptor.
-	 @throws		FormattedException
-					Failed to initialize the model descriptor.
-	 */
-	template < typename VertexT >
-	SharedPtr< ModelDescriptor > CreateModelDescriptor(const wstring &fname, const MeshDescriptor< VertexT > &desc);
 }
 
 //-----------------------------------------------------------------------------

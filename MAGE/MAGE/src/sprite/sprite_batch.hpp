@@ -170,6 +170,15 @@ namespace mage {
 		/**
 		 Constructs a sprite batch.
 
+		 @pre			The current engine must be loaded.
+		 @param[in]		shader
+						A reference to the shader.
+		 */
+		SpriteBatch(const CombinedShader &shader = CreateSpriteShader());
+
+		/**
+		 Constructs a sprite batch.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device

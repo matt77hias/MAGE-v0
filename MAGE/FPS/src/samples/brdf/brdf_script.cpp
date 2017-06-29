@@ -41,7 +41,8 @@ namespace mage {
 
 	void BRDFScript::InitModels() {
 		SharedPtr< Texture > white = CreateWhiteTexture();
-		SharedPtr< Texture > normal = CreateTexture(L"assets/sprites/tsnm/rock 4.dds");
+		SharedPtr< Texture > normal = CreateTexture(
+			L"assets/sprites/tsnm/rock 4.dds", L"assets/sprites/tsnm/rock 4.dds");
 		
 		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
 			(*it)->MakePassive();

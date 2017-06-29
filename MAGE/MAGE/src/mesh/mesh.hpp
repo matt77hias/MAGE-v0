@@ -146,6 +146,20 @@ namespace mage {
 		/**
 		 Constructs a mesh.
 
+		 @pre			The current engine must be loaded.
+		 @param[in]		vertex_size
+						The vertex size.
+		 @param[in]		index_format
+						The index format.
+		 @param[in]		primitive_topology
+						The primitive topology.
+		 */
+		explicit Mesh(size_t vertex_size, DXGI_FORMAT index_format = DXGI_FORMAT_R32_UINT,
+			D3D11_PRIMITIVE_TOPOLOGY primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		/**
+		 Constructs a mesh.
+
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device

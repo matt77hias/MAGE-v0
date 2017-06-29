@@ -21,7 +21,8 @@ namespace mage {
 		: SpriteBatchMesh(GetRenderingDevice(), GetRenderingDeviceContext()) {}
 
 	SpriteBatchMesh::SpriteBatchMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
-	 : Mesh(device, device_context, sizeof(VertexPositionColorTexture), DXGI_FORMAT_R16_UINT) {
+	 : Mesh(device, device_context, sizeof(VertexPositionColorTexture), 
+		 DXGI_FORMAT_R16_UINT, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST) {
 
 		SetupVertexBuffer();
 		SetupIndexBuffer();	

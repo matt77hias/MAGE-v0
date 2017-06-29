@@ -16,16 +16,20 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template < typename VertexT >
+	template < typename VertexT, typename IndexT >
 	StaticMesh::StaticMesh(const VertexT *vertices, size_t nb_vertices,
-		const uint32_t *indices, size_t nb_indices)
+		const IndexT *indices, size_t nb_indices, DXGI_FORMAT index_format,
+		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: StaticMesh(GetRenderingDevice(), GetRenderingDeviceContext(),
-			vertices, nb_vertices, indices, nb_indices) {}
+			vertices, nb_vertices, indices, nb_indices, index_format, primitive_topology) {}
 
-	template < typename VertexT >
+	template < typename VertexT, typename IndexT >
 	StaticMesh::StaticMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const VertexT *vertices, size_t nb_vertices, const uint32_t *indices, size_t nb_indices)
-		: Mesh(device, device_context, sizeof(VertexT)), m_aabb(), m_bs() {
+		const VertexT *vertices, size_t nb_vertices, 
+		const IndexT *indices, size_t nb_indices, DXGI_FORMAT index_format,
+		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
+		: Mesh(device, device_context, sizeof(VertexT), index_format, primitive_topology), 
+		m_aabb(), m_bs() {
 
 		Assert(vertices);
 		Assert(indices);
@@ -35,17 +39,23 @@ namespace mage {
 		SetupIndexBuffer(indices, nb_indices);
 	}
 
-	template < typename VertexT >
-	StaticMesh::StaticMesh(const vector< VertexT > &vertices, const vector< uint32_t > &indices)
+	template < typename VertexT, typename IndexT >
+	StaticMesh::StaticMesh(const vector< VertexT > &vertices, 
+		const vector< IndexT > &indices, DXGI_FORMAT index_format,
+		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: StaticMesh(GetRenderingDevice(), GetRenderingDeviceContext(),
-			vertices, indices) {}
+			vertices, indices, 
+			index_format, primitive_topology) {}
 
-	template < typename VertexT >
+	template < typename VertexT, typename IndexT >
 	StaticMesh::StaticMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const vector< VertexT > &vertices, const vector< uint32_t > &indices)
+		const vector< VertexT > &vertices, 
+		const vector< IndexT > &indices, DXGI_FORMAT index_format,
+		D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
 		: StaticMesh(device, device_context,
-			vertices.data(), vertices.size(),
-			indices.data(), indices.size()) {}
+			vertices.data(), vertices.size(), 
+			indices.data(), indices.size(), 
+			index_format, primitive_topology) {}
 
 	template < typename VertexT >
 	void StaticMesh::SetupBoundingVolumes(const VertexT *vertices, size_t nb_vertices) noexcept {
@@ -68,5 +78,15 @@ namespace mage {
 		}
 
 		SetNumberOfVertices(nb_vertices);
+	}
+
+	template< typename IndexT >
+	void StaticMesh::SetupIndexBuffer(const IndexT *indices, size_t nb_indices) {
+		const HRESULT result_index_buffer = CreateStaticIndexBuffer< IndexT >(m_device, m_index_buffer.ReleaseAndGetAddressOf(), indices, nb_indices);
+		if (FAILED(result_index_buffer)) {
+			throw FormattedException("Index buffer creation failed: %08X.", result_index_buffer);
+		}
+
+		SetNumberOfIndices(nb_indices);
 	}
 }

@@ -154,8 +154,8 @@ namespace mage {
 		 @param[in]		primitive_topology
 						The primitive topology.
 		 */
-		explicit Mesh(size_t vertex_size, DXGI_FORMAT index_format = DXGI_FORMAT_R32_UINT,
-			D3D11_PRIMITIVE_TOPOLOGY primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		explicit Mesh(size_t vertex_size, DXGI_FORMAT index_format, 
+			D3D11_PRIMITIVE_TOPOLOGY primitive_topology);
 
 		/**
 		 Constructs a mesh.
@@ -173,9 +173,9 @@ namespace mage {
 		 @param[in]		primitive_topology
 						The primitive topology.
 		 */
-		explicit Mesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, size_t vertex_size,
-			DXGI_FORMAT index_format = DXGI_FORMAT_R32_UINT,
-			D3D11_PRIMITIVE_TOPOLOGY primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		explicit Mesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, 
+			size_t vertex_size, DXGI_FORMAT index_format,
+			D3D11_PRIMITIVE_TOPOLOGY primitive_topology);
 
 		/**
 		 Constructs a mesh from the given mesh.

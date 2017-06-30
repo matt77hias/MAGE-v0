@@ -92,11 +92,9 @@ namespace mage {
 
 		 @param[in]		near_z
 						The position of the near z-plane in camera space.
-		 @return		A reference to this camera in camera space.
 		 */
-		Camera &SetNearZ(float near_z) noexcept {
+		void SetNearZ(float near_z) noexcept {
 			m_near_z = near_z;
-			return (*this);
 		}
 		
 		/**
@@ -113,11 +111,9 @@ namespace mage {
 
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
-		 @return		A reference to this camera in camera space.
 		 */
-		Camera &SetFarZ(float far_z) noexcept {
+		void SetFarZ(float far_z) noexcept {
 			m_far_z = far_z;
-			return (*this);
 		}
 		
 		/**
@@ -127,12 +123,10 @@ namespace mage {
 						The position of the near z-plane in camera space.
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
-		 @return		A reference to this camera.
 		 */
-		Camera &SetNearAndFarZ(float near_z, float far_z) noexcept {
-			m_near_z = near_z;
-			m_far_z  = far_z;
-			return (*this);
+		void SetNearAndFarZ(float near_z, float far_z) noexcept {
+			SetNearZ(near_z);
+			SetFarZ(far_z);
 		}
 
 		/**

@@ -128,11 +128,9 @@ namespace mage {
 
 		 @param[in]		width
 						The width of the camera projection plane in camera space.
-		 @return		A reference to this orthographic camera.
 		 */
-		OrthographicCamera &SetWidth(float width) noexcept {
+		void SetWidth(float width) noexcept {
 			m_width = width;
-			return (*this);
 		}
 
 		/**
@@ -152,11 +150,9 @@ namespace mage {
 
 		 @param[in]		height
 						The height of the camera projection plane in camera space.
-		 @return		A reference to this orthographic camera.
 		 */
-		OrthographicCamera &SetHeight(float height) noexcept {
+		void SetHeight(float height) noexcept {
 			m_height = height;
-			return (*this);
 		}
 
 		/**
@@ -167,12 +163,10 @@ namespace mage {
 						The width of the camera projection plane in camera space.
 		 @param[in]		height
 						The height of the camera projection plane in camera space.
-		 @return		A reference to this orthographic camera.
 		 */
-		OrthographicCamera &SetWidthAndHeight(float width, float height) noexcept {
-			m_width = width;
+		void SetWidthAndHeight(float width, float height) noexcept {
+			m_width  = width;
 			m_height = height;
-			return (*this);
 		}
 
 		/**

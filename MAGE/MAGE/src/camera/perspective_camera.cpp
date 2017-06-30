@@ -4,8 +4,6 @@
 #pragma region
 
 #include "core\engine.hpp"
-#include "camera\perspective_camera.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -16,8 +14,8 @@ namespace mage {
 
 	PerspectiveCamera::PerspectiveCamera(float fov_y, float near_z, float far_z)
 		: PerspectiveCamera(
-			static_cast<float>(g_engine->GetRenderer()->GetWidth()),
-			static_cast<float>(g_engine->GetRenderer()->GetHeight()),
+			static_cast< float >(g_engine->GetRenderer()->GetWidth()),
+			static_cast< float >(g_engine->GetRenderer()->GetHeight()),
 			fov_y, near_z, far_z) {}
 
 	PerspectiveCamera::PerspectiveCamera(float aspect_ratio,

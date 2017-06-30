@@ -19,15 +19,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define alloca _alloca
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -101,7 +92,7 @@ namespace mage {
 						The requested size in bytes to allocate in memory.
 		 @return		A pointer to the memory block that was allocated.
 	 					The pointer is a multiple of the given alignment.
-		 @throws		bad_alloc
+		 @throws		std::bad_alloc
 						Failed to allocate the memory block.
 		 */
 		static void *operator new(size_t size) {
@@ -112,7 +103,7 @@ namespace mage {
 			
 			void * const ptr = AllocAligned(size, alignment);
 			if (!ptr) {
-				throw bad_alloc();
+				throw std::bad_alloc();
 			}
 
 			return ptr;
@@ -139,7 +130,7 @@ namespace mage {
 						The requested size in bytes to allocate in memory.
 		 @return		A pointer to the memory block that was allocated.
 						The pointer is a multiple of the given alignment.
-		 @throws		bad_alloc
+		 @throws		std::bad_alloc
 						Failed to allocate the memory block.
 		 */
 		static void *operator new[](size_t size) {

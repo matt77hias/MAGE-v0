@@ -39,7 +39,7 @@ namespace mage {
 
 		 The aspect ratio will be based on the current screen resolution.
 
-		 @pre			The current engine and its renderer must exist.
+		 @pre			The current engine must be loaded.
 		 @param[in]		fov_y
 						The vertical field-of-view.
 		 @param[in]		near_z
@@ -160,11 +160,9 @@ namespace mage {
 
 		 @param[in]		fov_y
 						The vertical field-of-view.
-		 @return		A reference to this perspective camera.
 		 */
-		PerspectiveCamera &SetFOVY(float fov_y) noexcept {
+		void SetFOVY(float fov_y) noexcept {
 			m_fov_y = fov_y;
-			return (*this);
 		}
 
 		/**
@@ -181,11 +179,9 @@ namespace mage {
 
 		 @param[in]		aspect_ratio
 						The aspect ratio.
-		 @return		A reference to this perspective camera.
 		 */
-		PerspectiveCamera &SetAspectRatio(float aspect_ratio) noexcept {
+		void SetAspectRatio(float aspect_ratio) noexcept {
 			m_aspect_ratio = aspect_ratio;
-			return (*this);
 		}
 
 		/**
@@ -195,11 +191,9 @@ namespace mage {
 						The width.
 		 @param[in]		height
 						The height.
-		 @return		A reference to this perspective camera.
 		 */
-		PerspectiveCamera &SetAspectRatio(float width, float height) noexcept {
-			m_aspect_ratio = width / height;
-			return (*this);
+		void SetAspectRatio(float width, float height) noexcept {
+			SetAspectRatio(width / height);
 		}
 	
 		/**

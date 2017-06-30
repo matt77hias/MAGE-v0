@@ -17,7 +17,8 @@
 namespace mage {
 
 	template < typename VertexT >
-	void ImportModelFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, const MeshDescriptor< VertexT > &mesh_desc) {
+	void ImportModelFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, 
+		const MeshDescriptor< VertexT > &mesh_desc) {
 
 		const wstring extension = GetFileExtension(fname);
 

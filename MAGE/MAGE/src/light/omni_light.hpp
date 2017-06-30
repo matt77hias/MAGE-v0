@@ -106,11 +106,9 @@ namespace mage {
 
 		 @param[in]		distance_falloff_start
 						The start of the distance falloff.
-		 @return		A reference to this omni light.
 		 */
-		OmniLight &SetStartDistanceFalloff(float distance_falloff_start) noexcept {
+		void SetStartDistanceFalloff(float distance_falloff_start) noexcept {
 			m_distance_falloff_start = distance_falloff_start;
-			return (*this);
 		}
 		
 		/**
@@ -128,11 +126,9 @@ namespace mage {
 
 		 @param[in]		distance_falloff_end
 						The end of the distance falloff.
-		 @return		A reference to this omni light.
 		 */
-		OmniLight &SetEndDistanceFalloff(float distance_falloff_end) noexcept {
+		void SetEndDistanceFalloff(float distance_falloff_end) noexcept {
 			m_distance_falloff_end = distance_falloff_end;
-			return (*this);
 		}
 		
 		/**
@@ -143,12 +139,10 @@ namespace mage {
 						The start of the distance falloff.
 		 @param[in]		distance_falloff_end
 						The end of the distance falloff.
-		 @return		A reference to this omni light.
 		 */
-		OmniLight &SetDistanceFalloff(float distance_falloff_start, float distance_falloff_end) noexcept {
+		void SetDistanceFalloff(float distance_falloff_start, float distance_falloff_end) noexcept {
 			SetStartDistanceFalloff(distance_falloff_start);
 			SetEndDistanceFalloff(distance_falloff_end);
-			return (*this);
 		}
 
 	private:

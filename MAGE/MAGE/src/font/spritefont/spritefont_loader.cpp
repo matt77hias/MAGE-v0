@@ -5,6 +5,7 @@
 
 #include "font\spritefont\spritefont_loader.hpp"
 #include "font\spritefont\spritefont_reader.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 

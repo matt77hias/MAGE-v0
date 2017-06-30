@@ -8,7 +8,6 @@
 #include <new>
 namespace mage {
 	using std::exception;
-	using std::bad_alloc;
 }
 
 #pragma endregion

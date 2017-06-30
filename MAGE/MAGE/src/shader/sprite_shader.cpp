@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\resource_factory.hpp"
+#include "shader\sprite_shader.hpp"
 #include "mesh\vertex.hpp"
 
 #pragma endregion

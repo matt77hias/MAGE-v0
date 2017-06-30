@@ -29,5 +29,6 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to import the texture from file.
 	 */
-	void ImportTextureFromFile(const wstring &fname, ID3D11Device2 *device, ID3D11ShaderResourceView **texture_srv);
+	void ImportTextureFromFile(const wstring &fname, ID3D11Device2 *device, 
+		ID3D11ShaderResourceView **texture_srv);
 }

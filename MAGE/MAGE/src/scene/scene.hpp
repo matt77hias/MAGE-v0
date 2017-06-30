@@ -10,7 +10,6 @@
 #include "light\light_node.hpp"
 #include "model\model_node.hpp"
 #include "model\model_descriptor.hpp"
-#include "shader\basic_shader_factory.hpp"
 #include "sprite\sprite_object.hpp"
 #include "sprite\sprite_batch.hpp"
 

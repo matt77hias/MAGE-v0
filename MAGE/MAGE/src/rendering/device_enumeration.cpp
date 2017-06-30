@@ -170,12 +170,8 @@ namespace mage {
 
 	HRESULT DeviceEnumeration::Enumerate() {
 		// Load the settings script.
-		if (FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE)) {
-			m_settings_script.reset(new VariableScript(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE));
-		}
-		else {
-			m_settings_script.reset(new VariableScript(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, false));
-		}
+		const bool file_exists = FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
+		m_settings_script.reset(new VariableScript(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists));
 
 		// Initialize the adapter and output.
 		InitializeAdapterAndOutput();

@@ -112,9 +112,33 @@ namespace mage {
 		size_t GetNumberOfResources() const;
 
 		/**
+		 Checks whether this resource pool contains a resource corresponding 
+		 to the given key from this resource pool.
+
+		 @param[in]		key
+						A reference to the key of the resource.
+		 @return		@c true, if a resource is contained in
+						this resource pool corresponding to the given key.
+						@c false, otherwise.
+		 */
+		bool HasResource(const KeyT &key) noexcept;
+
+		/**
+		 Returns the resource corresponding to the given key from this resource pool.
+
+		 @param[in]		key
+						A reference to the key of the resource.
+		 @return		@c nullptr, if no resource is contained in 
+						this resource pool corresponding to the given key.
+		 @return		A pointer to the resource corresponding to
+						the given key from this resource pool.
+		 */
+		SharedPtr< ResourceT > GetResource(const KeyT &key) noexcept;
+
+		/**
 		 Returns the resource corresponding to the given key from this resource pool.
 		 
-		 If no resource is contained in this resource pool corresponding to the given key
+		 If no resource is contained in this resource pool corresponding to the given key,
 		 a new resource is created from the given arguments, added to this resource pool
 		 and returned.
 
@@ -135,7 +159,7 @@ namespace mage {
 		/**
 		 Returns the resource corresponding to the given key from this resource pool.
 
-		 If no resource is contained in this resource pool corresponding to the given key
+		 If no resource is contained in this resource pool corresponding to the given key,
 		 a new resource is created from the given arguments, added to this resource pool
 		 and returned.
 

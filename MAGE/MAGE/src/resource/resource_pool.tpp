@@ -24,6 +24,42 @@ namespace mage {
 	}
 
 	template< typename KeyT, typename ResourceT >
+	bool ResourcePool< KeyT, ResourceT >::HasResource(const KeyT &key) noexcept {
+		MutexLock lock(m_resource_map_mutex);
+
+		auto it = m_resource_map.find(key);
+		if (it != m_resource_map.end()) {
+			auto resource = it->second.lock();
+			
+			if (resource) {
+				return true;
+			}
+			
+			m_resource_map.erase(it);
+		}
+
+		return false;
+	}
+
+	template< typename KeyT, typename ResourceT >
+	SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >::GetResource(const KeyT &key) noexcept {
+		MutexLock lock(m_resource_map_mutex);
+
+		auto it = m_resource_map.find(key);
+		if (it != m_resource_map.end()) {
+			auto resource = it->second.lock();
+			
+			if (resource) {
+				return resource;
+			}
+
+			m_resource_map.erase(it);
+		}
+
+		return SharedPtr< ResourceT >();
+	}
+
+	template< typename KeyT, typename ResourceT >
 	template< typename... ConstructorArgsT >
 	inline SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >::GetOrCreateResource(const KeyT &key, ConstructorArgsT&&... args) {
 		return GetOrCreateDerivedResource< ResourceT, ConstructorArgsT... >(key, std::forward< ConstructorArgsT >(args)...);

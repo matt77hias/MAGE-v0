@@ -789,6 +789,9 @@
     <ClInclude Include="MAGE\src\resource\resource_factory.hpp">
       <Filter>Header Files\resource</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\mesh\mesh_factory.hpp">
+      <Filter>Header Files\mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

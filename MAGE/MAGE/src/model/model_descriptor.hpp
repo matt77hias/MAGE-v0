@@ -177,7 +177,7 @@ namespace mage {
 		/**
 		 A pointer to the mesh of the model of this model descriptor.
 		 */
-		SharedPtr< StaticMesh > m_mesh;
+		SharedPtr< const Mesh > m_mesh;
 
 		/**
 		 A vector containing all the materials of the model of this model descriptor.

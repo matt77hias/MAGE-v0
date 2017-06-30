@@ -7,6 +7,7 @@ struct Setup : public EngineSetup {
 
 	Setup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
 		: EngineSetup(hinstance, name) {}
+	
 	virtual ~Setup() = default;
 
 	virtual SharedPtr< Scene > CreateScene() const override {

@@ -106,7 +106,7 @@ namespace mage {
 						Failed to create the model descriptor.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< ModelDescriptor > CreateModelDescriptor(
+		SharedPtr< ModelDescriptor > GetOrCreateModelDescriptor(
 			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
@@ -126,7 +126,7 @@ namespace mage {
 						Failed to create the basic vertex shader.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< VertexShader > CreateBasicVertexShader(
+		SharedPtr< VertexShader > GetOrCreateBasicVertexShader(
 			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
@@ -146,7 +146,7 @@ namespace mage {
 						Failed to create the basic pixel shader.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< PixelShader > CreateBasicPixelShader(
+		SharedPtr< PixelShader > GetOrCreateBasicPixelShader(
 			const wstring &guid, ConstructorArgsT&&... args);
 
 		/**
@@ -166,7 +166,7 @@ namespace mage {
 						Failed to create the tsnm vertex shader.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< VertexShader > CreateTSNMVertexShader(
+		SharedPtr< VertexShader > GetOrCreateTSNMVertexShader(
 			const wstring &guid, ConstructorArgsT&&... args);
 
 		/**
@@ -186,7 +186,7 @@ namespace mage {
 						Failed to create the tsnm pixel shader.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< PixelShader > CreateTSNMPixelShader(
+		SharedPtr< PixelShader > GetOrCreateTSNMPixelShader(
 			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
@@ -206,7 +206,7 @@ namespace mage {
 						Failed to create the sprite vertex shader.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< VertexShader > CreateSpriteVertexShader(
+		SharedPtr< VertexShader > GetOrCreateSpriteVertexShader(
 			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
@@ -226,7 +226,7 @@ namespace mage {
 						Failed to create the sprite pixel shader.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< PixelShader > CreateSpritePixelShader(
+		SharedPtr< PixelShader > GetOrCreateSpritePixelShader(
 			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
@@ -246,7 +246,7 @@ namespace mage {
 						Failed to create the sprite font.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< SpriteFont > CreateSpriteFont(
+		SharedPtr< SpriteFont > GetOrCreateSpriteFont(
 			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
@@ -266,7 +266,7 @@ namespace mage {
 						Failed to create the texture.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< Texture > CreateTexture(
+		SharedPtr< Texture > GetOrCreateTexture(
 			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
@@ -286,7 +286,7 @@ namespace mage {
 						Failed to create the variable script.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< VariableScript > CreateVariableScript(
+		SharedPtr< VariableScript > GetOrCreateVariableScript(
 			const wstring &guid, ConstructorArgsT&&... args);
 
 	private:
@@ -356,7 +356,7 @@ namespace mage {
 					Failed to create the model descriptor.
 	 */
 	template< typename... ConstructorArgsT >
-	SharedPtr< ModelDescriptor > CreateModelDescriptor(
+	SharedPtr< ModelDescriptor > GetOrCreateModelDescriptor(
 		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
@@ -377,7 +377,7 @@ namespace mage {
 					Failed to create the basic vertex shader.
 	 */
 	template< typename... ConstructorArgsT >
-	SharedPtr< VertexShader > CreateBasicVertexShader(
+	SharedPtr< VertexShader > GetOrCreateBasicVertexShader(
 		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
@@ -398,7 +398,7 @@ namespace mage {
 					Failed to create the basic pixel shader.
 	 */
 	template< typename... ConstructorArgsT >
-	SharedPtr< PixelShader > CreateBasicPixelShader(
+	SharedPtr< PixelShader > GetOrCreateBasicPixelShader(
 		const wstring &guid, ConstructorArgsT&&... args);
 
 	/**
@@ -419,7 +419,7 @@ namespace mage {
 					Failed to create the tsnm vertex shader.
 	 */
 	template< typename... ConstructorArgsT >
-	SharedPtr< VertexShader > CreateTSNMVertexShader(
+	SharedPtr< VertexShader > GetOrCreateTSNMVertexShader(
 		const wstring &guid, ConstructorArgsT&&... args);
 
 	/**
@@ -440,7 +440,7 @@ namespace mage {
 					Failed to create the tsnm pixel shader.
 	 */
 	template< typename... ConstructorArgsT >
-	SharedPtr< PixelShader > CreateTSNMPixelShader(
+	SharedPtr< PixelShader > GetOrCreateTSNMPixelShader(
 		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
@@ -461,7 +461,7 @@ namespace mage {
 					Failed to create the sprite vertex shader.
 	 */
 	template< typename... ConstructorArgsT >
-	SharedPtr< VertexShader > CreateSpriteVertexShader(
+	SharedPtr< VertexShader > GetOrCreateSpriteVertexShader(
 		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
@@ -482,7 +482,7 @@ namespace mage {
 					Failed to create the sprite pixel shader.
 	 */
 	template< typename... ConstructorArgsT >
-	SharedPtr< PixelShader > CreateSpritePixelShader(
+	SharedPtr< PixelShader > GetOrCreateSpritePixelShader(
 		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
@@ -503,7 +503,7 @@ namespace mage {
 					Failed to create the sprite font.
 	 */
 	template< typename... ConstructorArgsT >
-	SharedPtr< SpriteFont > CreateSpriteFont(
+	SharedPtr< SpriteFont > GetOrCreateSpriteFont(
 		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
@@ -524,7 +524,7 @@ namespace mage {
 					Failed to create the texture.
 	 */
 	template< typename... ConstructorArgsT >
-	SharedPtr< Texture > CreateTexture(
+	SharedPtr< Texture > GetOrCreateTexture(
 		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
@@ -545,7 +545,7 @@ namespace mage {
 					Failed to create the variable script.
 	 */
 	template< typename... ConstructorArgsT >
-	SharedPtr< VariableScript > CreateVariableScript(
+	SharedPtr< VariableScript > GetOrCreateVariableScript(
 		const wstring &guid, ConstructorArgsT&&... args);
 }
 

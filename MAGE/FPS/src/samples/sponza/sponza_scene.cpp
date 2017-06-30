@@ -46,8 +46,8 @@ namespace mage {
 		// ModelDescriptors
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc_sponza = CreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_sphere = CreateModelDescriptor(L"assets/models/sphere/sphere.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_sponza = GetOrCreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_sphere = GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.mdl", mesh_desc);
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
@@ -70,7 +70,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Texture
 		//---------------------------------------------------------------------
-		SharedPtr< Texture > texture_logo = CreateTexture(L"assets/sprites/mage.dds");
+		SharedPtr< Texture > texture_logo = GetOrCreateTexture(L"assets/sprites/mage.dds");
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
@@ -82,7 +82,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Font
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteFont > font = CreateSpriteFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
+		SharedPtr< SpriteFont > font = GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------

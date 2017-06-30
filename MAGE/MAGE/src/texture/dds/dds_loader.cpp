@@ -785,7 +785,7 @@ static HRESULT CreateD3DResources(_In_ ID3D11Device2 *device,
 	return hr;
 }
 
-static HRESULT CreateTextureFromDDS(_In_ ID3D11Device2 *device,
+static HRESULT GetOrCreateTextureFromDDS(_In_ ID3D11Device2 *device,
 	_In_opt_ ID3D11DeviceContext *device_context,
 	_In_ const DDS_HEADER *header,
 	_In_reads_bytes_(bit_size) const uint8_t *bit_data,
@@ -1209,7 +1209,7 @@ HRESULT CreateDDSTextureFromMemoryEx(ID3D11Device2 *device,
 
 	ptrdiff_t offset = sizeof(uint32_t) + sizeof(DDS_HEADER) + (bDXT10Header ? sizeof(DDS_HEADER_DXT10) : 0);
 
-	HRESULT hr = CreateTextureFromDDS(device, device_context, header,
+	HRESULT hr = GetOrCreateTextureFromDDS(device, device_context, header,
 										dds_data + offset, dds_dataSize - offset, maxsize,
 										usage, bindFlags, cpu_access_flags, misc_flags, forceSRGB,
 										texture, texture_view);
@@ -1310,7 +1310,7 @@ HRESULT CreateDDSTextureFromFileEx(ID3D11Device2 *device,
 		return hr;
 	}
 
-	hr = CreateTextureFromDDS(device, device_context, header, bit_data, bit_size, maxsize, usage, bindFlags, cpu_access_flags, misc_flags, forceSRGB, texture, texture_view);
+	hr = GetOrCreateTextureFromDDS(device, device_context, header, bit_data, bit_size, maxsize, usage, bindFlags, cpu_access_flags, misc_flags, forceSRGB, texture, texture_view);
 
 	if (SUCCEEDED(hr)) {
 #if !defined(NO_D3D11_DEBUG_NAME) && ( defined(_DEBUG) || defined(PROFILE) )

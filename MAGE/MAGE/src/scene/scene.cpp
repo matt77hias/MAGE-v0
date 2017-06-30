@@ -24,7 +24,7 @@ namespace mage {
 		m_spot_lights_buffer(GetRenderingDevice(), GetRenderingDeviceContext(), 64) {
 		
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc_box = CreateModelDescriptor(L"assets/models/cube/cube.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_box = GetOrCreateModelDescriptor(L"assets/models/cube/cube.mdl", mesh_desc);
 		m_box = CreateModelNode(*model_desc_box, BRDFType::Emissive);
 		m_box->MakePassive();
 		

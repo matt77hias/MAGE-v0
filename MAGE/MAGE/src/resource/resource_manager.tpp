@@ -69,7 +69,7 @@ namespace mage {
 	inline SharedPtr< SpriteFont > ResourceManager::GetOrCreateSpriteFont(
 		const wstring &guid, ConstructorArgsT&&... args) {
 
-		return m_font_resource_pool->template
+		return m_sprite_font_resource_pool->template
 			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
@@ -90,7 +90,7 @@ namespace mage {
 	}
 
 	//-------------------------------------------------------------------------
-	// ResourceManager Indirect Methods
+	// Indirect GetOrCreateResource Methods
 	//-------------------------------------------------------------------------
 
 	template< typename... ConstructorArgsT >

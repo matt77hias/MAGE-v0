@@ -84,9 +84,297 @@ namespace mage {
 						(i.e. this resource manager).
 		 */
 		ResourceManager &operator=(ResourceManager &&resource_factory) = delete;
+		
+		//---------------------------------------------------------------------
+		// Member Methods: HasModelDescriptor
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this resource manager contains a model descriptor 
+		 corresponding to the given globally unique identifier.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the 
+						model descriptor.
+		 @return		@c true, if this resource managers contains
+						a model descriptor corresponding to the given 
+						globally unique identifier.
+						@c false, otherwise.
+		 */
+		bool HasModelDescriptor(const wstring &guid) noexcept;
+		
+		/**
+		 Checks whether this resource manager contains a basic vertex shader 
+		 corresponding to the given globally unique identifier.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						basic vertex shader.
+		 @return		@c true, if this resource managers contains
+						a basic vertex shader corresponding to the given 
+						globally unique identifier.
+						@c false, otherwise.
+		 */
+		bool HasBasicVertexShader(const wstring &guid) noexcept;
+		
+		/**
+		 Checks whether this resource manager contains a basic pixel shader 
+		 corresponding to the given globally unique identifier.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						basic pixel shader.
+		 @return		@c true, if this resource managers contains
+						a basic pixel shader corresponding to the given 
+						globally unique identifier.
+						@c false, otherwise.
+		 */
+		bool HasBasicPixelShader(const wstring &guid) noexcept;
+
+		/**
+		 Checks whether this resource manager contains a tsnm vertex shader 
+		 corresponding to the given globally unique identifier.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						tsnm vertex shader.
+		 @return		@c true, if this resource managers contains
+						a tsnm vertex shader corresponding to the given 
+						globally unique identifier.
+						@c false, otherwise.
+		 */
+		bool HasTSNMVertexShader(const wstring &guid) noexcept;
+
+		/**
+		 Checks whether this resource manager contains a tsnm pixel shader 
+		 corresponding to the given globally unique identifier.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						tsnm pixel shader.
+		 @return		@c true, if this resource managers contains
+						a tsnm pixel shader corresponding to the given 
+						globally unique identifier.
+						@c false, otherwise.
+		 */
+		bool HasTSNMPixelShader(const wstring &guid) noexcept;
+		
+		/**
+		 Checks whether this resource manager contains a sprite vertex shader 
+		 corresponding to the given globally unique identifier.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						sprite vertex shader.
+		 @return		@c true, if this resource managers contains
+						a sprite vertex shader corresponding to the given 
+						globally unique identifier.
+						@c false, otherwise.
+		 */
+		bool HasSpriteVertexShader(const wstring &guid) noexcept;
+		
+		/**
+		 Checks whether this resource manager contains a sprite pixel shader 
+		 corresponding to the given globally unique identifier.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						sprite pixel shader.
+		 @return		@c true, if this resource managers contains
+						a sprite pixel shader corresponding to the given 
+						globally unique identifier.
+						@c false, otherwise.
+		 */
+		bool HasSpritePixelShader(const wstring &guid) noexcept;
+		
+		/**
+		 Checks whether this resource manager contains a sprite font 
+		 corresponding to the given globally unique identifier.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						sprite font.
+		 @return		@c true, if this resource managers contains
+						a sprite font corresponding to the given 
+						globally unique identifier.
+						@c false, otherwise.
+		 */
+		bool HasSpriteFont(const wstring &guid) noexcept;
+		
+		/**
+		 Checks whether this resource manager contains a texture 
+		 corresponding to the given globally unique identifier.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						texture.
+		 @return		@c true, if this resource managers contains
+						a texture corresponding to the given 
+						globally unique identifier.
+						@c false, otherwise.
+		 */
+		bool HasTexture(const wstring &guid) noexcept;
+		
+		/**
+		 Checks whether this resource manager contains a variable script 
+		 corresponding to the given globally unique identifier.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						variable script.
+		 @return		@c true, if this resource managers contains
+						a variable script corresponding to the given 
+						globally unique identifier.
+						@c false, otherwise.
+		 */
+		bool HasVariableScript(const wstring &guid) noexcept;
+		
+		//---------------------------------------------------------------------
+		// Member Methods: GetModelDescriptor
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the model descriptor corresponding to the given globally 
+		 unique identifier of this resource manager.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the 
+						model descriptor.
+		 @return		@c nullptr, if this resource managers does not contain
+						a model descriptor corresponding to the given globally
+						unique identifier.
+		 @return		A pointer to the model descriptor.
+		 */
+		SharedPtr< ModelDescriptor > GetModelDescriptor(const wstring &guid) noexcept;
+		
+		/**
+		 Returns the basic vertex shader corresponding to the given globally 
+		 unique identifier of this resource manager.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						basic vertex shader.
+		 @return		@c nullptr, if this resource managers does not contain
+						a basic vertex shader corresponding to the given globally
+						unique identifier.
+		 @return		A pointer to the basic vertex shader.
+		 */
+		SharedPtr< VertexShader > GetBasicVertexShader(const wstring &guid) noexcept;
+		
+		/**
+		 Returns the basic pixel shader corresponding to the given globally 
+		 unique identifier of this resource manager.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						basic pixel shader.
+		 @return		@c nullptr, if this resource managers does not contain
+						a basic pixel shader corresponding to the given globally
+						unique identifier.
+		 @return		A pointer to the basic pixel shader.
+		 */
+		SharedPtr< PixelShader > GetBasicPixelShader(const wstring &guid) noexcept;
+
+		/**
+		 Returns the tsnm vertex shader corresponding to the given globally 
+		 unique identifier of this resource manager.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						tsnm vertex shader.
+		 @return		@c nullptr, if this resource managers does not contain
+						a tsnm vertex shader corresponding to the given globally
+						unique identifier.
+		 @return		A pointer to the tsnm vertex shader.
+		 */
+		SharedPtr< VertexShader > GetTSNMVertexShader(const wstring &guid) noexcept;
+
+		/**
+		 Returns the tsnm pixel shader corresponding to the given globally 
+		 unique identifier of this resource manager.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						tsnm pixel shader.
+		 @return		@c nullptr, if this resource managers does not contain
+						a tsnm pixel shader corresponding to the given globally
+						unique identifier.
+		 @return		A pointer to the tsnm pixel shader.
+		 */
+		SharedPtr< PixelShader > GetTSNMPixelShader(const wstring &guid) noexcept;
+		
+		/**
+		 Returns the sprite vertex shader corresponding to the given globally 
+		 unique identifier of this resource manager.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						sprite vertex shader.
+		 @return		@c nullptr, if this resource managers does not contain
+						a sprite vertex shader corresponding to the given globally
+						unique identifier.
+		 @return		A pointer to the sprite vertex shader.
+		 */
+		SharedPtr< VertexShader > GetSpriteVertexShader(const wstring &guid) noexcept;
+		
+		/**
+		 Returns the sprite pixel shader corresponding to the given globally 
+		 unique identifier of this resource manager.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						sprite pixel shader.
+		 @return		@c nullptr, if this resource managers does not contain
+						a sprite pixel shader corresponding to the given globally
+						unique identifier.
+		 @return		A pointer to the sprite pixel shader.
+		 */
+		SharedPtr< PixelShader > GetSpritePixelShader(const wstring &guid) noexcept;
+		
+		/**
+		 Returns the sprite font corresponding to the given globally 
+		 unique identifier of this resource manager.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						sprite font.
+		 @return		@c nullptr, if this resource managers does not contain
+						a sprite font corresponding to the given globally
+						unique identifier.
+		 @return		A pointer to the sprite font.
+		 */
+		SharedPtr< SpriteFont > GetSpriteFont(const wstring &guid) noexcept;
+		
+		/**
+		 Returns the texture corresponding to the given globally 
+		 unique identifier of this resource manager.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						texture.
+		 @return		@c nullptr, if this resource managers does not contain
+						a texture corresponding to the given globally
+						unique identifier.
+		 @return		A pointer to the texture.
+		 */
+		SharedPtr< Texture > GetTexture(const wstring &guid) noexcept;
+		
+		/**
+		 Returns the variable script corresponding to the given globally 
+		 unique identifier of this resource manager.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						variable script.
+		 @return		@c nullptr, if this resource managers does not contain
+						a variable script corresponding to the given globally
+						unique identifier.
+		 @return		A pointer to the variable script.
+		 */
+		SharedPtr< VariableScript > GetVariableScript(const wstring &guid) noexcept;
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Methods: GetOrCreateModelDescriptor
 		//---------------------------------------------------------------------
 
 		/**
@@ -313,7 +601,7 @@ namespace mage {
 		/**
 		 A pointer to the sprite font resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, SpriteFont > > m_font_resource_pool;
+		UniquePtr< ResourcePool< wstring, SpriteFont > > m_sprite_font_resource_pool;
 
 		/**
 		 A pointer to the texture resource pool of this resource manager.
@@ -325,16 +613,324 @@ namespace mage {
 		 */
 		UniquePtr< ResourcePool< wstring, VariableScript > > m_variable_script_resource_pool;
 	};
+	
+	//---------------------------------------------------------------------
+	// Indirect HasResource Methods
+	//---------------------------------------------------------------------
+
+	/**
+	 Checks whether the global resource manager contains a model descriptor 
+	 corresponding to the given globally unique identifier.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the 
+					model descriptor.
+	 @return		@c true, if the global resource managers contains
+					a model descriptor corresponding to the given 
+					globally unique identifier.
+					@c false, otherwise.
+	 */
+	bool HasModelDescriptor(const wstring &guid) noexcept;
+	
+	/**
+	 Checks whether the global resource manager contains a basic vertex shader 
+	 corresponding to the given globally unique identifier.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					basic vertex shader.
+	 @return		@c true, if the global resource managers contains
+					a basic vertex shader corresponding to the given 
+					globally unique identifier.
+					@c false, otherwise.
+	 */
+	bool HasBasicVertexShader(const wstring &guid) noexcept;
+	
+	/**
+	 Checks whether the global resource manager contains a basic pixel shader 
+	 corresponding to the given globally unique identifier.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					basic pixel shader.
+	 @return		@c true, if the global resource managers contains
+					a basic pixel shader corresponding to the given 
+					globally unique identifier.
+					@c false, otherwise.
+	 */
+	bool HasBasicPixelShader(const wstring &guid) noexcept;
+
+	/**
+	 Checks whether the global resource manager contains a tsnm vertex shader 
+	 corresponding to the given globally unique identifier.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					tsnm vertex shader.
+	 @return		@c true, if the global resource managers contains
+					a tsnm vertex shader corresponding to the given 
+					globally unique identifier.
+					@c false, otherwise.
+	 */
+	bool HasTSNMVertexShader(const wstring &guid) noexcept;
+
+	/**
+	 Checks whether the global resource manager contains a tsnm pixel shader 
+	 corresponding to the given globally unique identifier.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					tsnm pixel shader.
+	 @return		@c true, if the global resource managers contains
+					a tsnm pixel shader corresponding to the given 
+					globally unique identifier.
+					@c false, otherwise.
+	 */
+	bool HasTSNMPixelShader(const wstring &guid) noexcept;
+	
+	/**
+	 Checks whether the global resource manager contains a sprite vertex shader 
+	 corresponding to the given globally unique identifier.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					sprite vertex shader.
+	 @return		@c true, if the global resource managers contains
+					a sprite vertex shader corresponding to the given 
+					globally unique identifier.
+					@c false, otherwise.
+	 */
+	bool HasSpriteVertexShader(const wstring &guid) noexcept;
+	
+	/**
+	 Checks whether the global resource manager contains a sprite pixel shader 
+	 corresponding to the given globally unique identifier.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					sprite pixel shader.
+	 @return		@c true, if the global resource managers contains
+					a sprite pixel shader corresponding to the given 
+					globally unique identifier.
+					@c false, otherwise.
+	 */
+	bool HasSpritePixelShader(const wstring &guid) noexcept;
+	
+	/**
+	 Checks whether the global resource manager contains a sprite font 
+	 corresponding to the given globally unique identifier.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					sprite font.
+	 @return		@c true, if the global resource managers contains
+					a sprite font corresponding to the given 
+					globally unique identifier.
+					@c false, otherwise.
+	 */
+	bool HasSpriteFont(const wstring &guid) noexcept;
+	
+	/**
+	 Checks whether the global resource manager contains a texture 
+	 corresponding to the given globally unique identifier.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					texture.
+	 @return		@c true, if the global resource managers contains
+					a texture corresponding to the given 
+					globally unique identifier.
+					@c false, otherwise.
+	 */
+	bool HasTexture(const wstring &guid) noexcept;
+	
+	/**
+	 Checks whether the global resource manager contains a variable script 
+	 corresponding to the given globally unique identifier.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					variable script.
+	 @return		@c true, if the global resource managers contains
+					a variable script corresponding to the given 
+					globally unique identifier.
+					@c false, otherwise.
+	 */
+	bool HasVariableScript(const wstring &guid) noexcept;
+	
+	//---------------------------------------------------------------------
+	// Indirect GetResource Methods
+	//---------------------------------------------------------------------
+
+	/**
+	 Returns the model descriptor corresponding to the given globally 
+	 unique identifier of the global resource manager.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the 
+					model descriptor.
+	 @return		@c nullptr, if the global resource managers does not contain
+					a model descriptor corresponding to the given globally
+					unique identifier.
+	 @return		A pointer to the model descriptor.
+	 */
+	SharedPtr< ModelDescriptor > GetModelDescriptor(const wstring &guid) noexcept;
+	
+	/**
+	 Returns the basic vertex shader corresponding to the given globally 
+	 unique identifier of the global resource manager.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					basic vertex shader.
+	 @return		@c nullptr, if the global resource managers does not contain
+					a basic vertex shader corresponding to the given globally
+					unique identifier.
+	 @return		A pointer to the basic vertex shader.
+	 */
+	SharedPtr< VertexShader > GetBasicVertexShader(const wstring &guid) noexcept;
+	
+	/**
+	 Returns the basic pixel shader corresponding to the given globally 
+	 unique identifier of the global resource manager.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					basic pixel shader.
+	 @return		@c nullptr, if the global resource managers does not contain
+					a basic pixel shader corresponding to the given globally
+					unique identifier.
+	 @return		A pointer to the basic pixel shader.
+	 */
+	SharedPtr< PixelShader > GetBasicPixelShader(const wstring &guid) noexcept;
+
+	/**
+	 Returns the tsnm vertex shader corresponding to the given globally 
+	 unique identifier of the global resource manager.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					tsnm vertex shader.
+	 @return		@c nullptr, if the global resource manager does not contain
+					a tsnm vertex shader corresponding to the given globally
+					unique identifier.
+	 @return		A pointer to the tsnm vertex shader.
+	 */
+	SharedPtr< VertexShader > GetTSNMVertexShader(const wstring &guid) noexcept;
+
+	/**
+	 Returns the tsnm pixel shader corresponding to the given globally 
+	 unique identifier of the global resource manager.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					tsnm pixel shader.
+	 @return		@c nullptr, if the global resource manager does not contain
+					a tsnm pixel shader corresponding to the given globally
+					unique identifier.
+	 @return		A pointer to the tsnm pixel shader.
+	 */
+	SharedPtr< PixelShader > GetTSNMPixelShader(const wstring &guid) noexcept;
+	
+	/**
+	 Returns the sprite vertex shader corresponding to the given globally 
+	 unique identifier of the global resource manager.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					sprite vertex shader.
+	 @return		@c nullptr, if the global resource managers does not contain
+					a sprite vertex shader corresponding to the given globally
+					unique identifier.
+	 @return		A pointer to the sprite vertex shader.
+	 */
+	SharedPtr< VertexShader > GetSpriteVertexShader(const wstring &guid) noexcept;
+	
+	/**
+	 Returns the sprite pixel shader corresponding to the given globally 
+	 unique identifier of the global resource manager.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					sprite pixel shader.
+	 @return		@c nullptr, if the global resource managers does not contain
+					a sprite pixel shader corresponding to the given globally
+					unique identifier.
+	 @return		A pointer to the sprite pixel shader.
+	 */
+	SharedPtr< PixelShader > GetSpritePixelShader(const wstring &guid) noexcept;
+	
+	/**
+	 Returns the sprite font corresponding to the given globally 
+	 unique identifier of the global resource manager.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					sprite font.
+	 @return		@c nullptr, if the global resource managers does not contain
+					a sprite font corresponding to the given globally
+					unique identifier.
+	 @return		A pointer to the sprite font.
+	 */
+	SharedPtr< SpriteFont > GetSpriteFont(const wstring &guid) noexcept;
+	
+	/**
+	 Returns the texture corresponding to the given globally 
+	 unique identifier of the global resource manager.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					texture.
+	 @return		@c nullptr, if the global resource managers does not contain
+					a texture corresponding to the given globally
+					unique identifier.
+	 @return		A pointer to the texture.
+	 */
+	SharedPtr< Texture > GetTexture(const wstring &guid) noexcept;
+	
+	/**
+	 Returns the variable script corresponding to the given globally 
+	 unique identifier of the global resource manager.
+
+	 @pre			The current engine must be loaded.
+	 @param[in]		guid
+					A reference to the globally unique identifier of the
+					variable script.
+	 @return		@c nullptr, if the global resource managers does not contain
+					a variable script corresponding to the given globally
+					unique identifier.
+	 @return		A pointer to the variable script.
+	 */
+	SharedPtr< VariableScript > GetVariableScript(const wstring &guid) noexcept;
 
 	//-------------------------------------------------------------------------
-	// ResourceManager Indirect Methods
+	// Indirect GetOrCreateResource Methods
 	//-------------------------------------------------------------------------
 
 	/**
-	 Returns the resource manager.
+	 Returns the global resource manager.
 
 	 @pre			The current engine must be loaded.
-	 @return		A pointer to the resource manager.
+	 @return		A pointer to the global resource manager.
 	 */
 	ResourceManager *GetResourceManager() noexcept;
 

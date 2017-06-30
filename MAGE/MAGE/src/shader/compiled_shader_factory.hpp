@@ -10,34 +10,6 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_GUID_TRANSFORM_VS					L"transform_vs"
-#define MAGE_GUID_EMISSIVE_PS					L"emissive_ps"
-#define MAGE_GUID_LAMBERTIAN_PS					L"lambertian_ps"
-#define MAGE_GUID_PHONG_PS						L"phong_ps"
-#define MAGE_GUID_MODIFIED_PHONG_PS				L"modified_phong_ps"
-#define MAGE_GUID_BLINN_PHONG_PS				L"blinn_phong_ps"
-#define MAGE_GUID_MODIFIED_BLINN_PHONG_PS		L"modified_blinn_phong_ps"
-#define MAGE_GUID_WARD_PS						L"ward_ps"
-#define MAGE_GUID_WARD_DUER_PS					L"ward_duer_ps"
-#define MAGE_GUID_COOK_TORRANCE_PS				L"cook_torrance_ps"
-#define MAGE_GUID_TSNM_LAMBERTIAN_PS			L"tsnm_lambertian_ps"
-#define MAGE_GUID_TSNM_PHONG_PS					L"tsnm_phong_ps"
-#define MAGE_GUID_TSNM_MODIFIED_PHONG_PS		L"tsnm_modified_phong_ps"
-#define MAGE_GUID_TSNM_BLINN_PHONG_PS			L"tsnm_blinn_phong_ps"
-#define MAGE_GUID_TSNM_MODIFIED_BLINN_PHONG_PS	L"tsnm_modified_blinn_phong_ps"
-#define MAGE_GUID_TSNM_WARD_PS					L"tsnm_ward_ps"
-#define MAGE_GUID_TSNM_WARD_DUER_PS				L"tsnm_ward_duer_ps"
-#define MAGE_GUID_TSNM_COOK_TORRANCE_PS			L"tsnm_cook_torrance_ps"
-#define MAGE_GUID_SPRITE_VS						L"sprite_vs"
-#define MAGE_GUID_SPRITE_PS						L"sprite_ps"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {

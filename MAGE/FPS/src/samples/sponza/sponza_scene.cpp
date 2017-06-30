@@ -46,10 +46,8 @@ namespace mage {
 		// ModelDescriptors
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc_sponza = CreateModelDescriptor(
-			L"assets/models/sponza/sponza.mdl", L"assets/models/sponza/sponza.mdl", mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_sphere = CreateModelDescriptor(
-			L"assets/models/sphere/sphere.mdl", L"assets/models/sphere/sphere.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_sponza = CreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_sphere = CreateModelDescriptor(L"assets/models/sphere/sphere.mdl", mesh_desc);
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
@@ -72,8 +70,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Texture
 		//---------------------------------------------------------------------
-		SharedPtr< Texture > texture_logo = CreateTexture(
-			L"assets/sprites/mage.dds", L"assets/sprites/mage.dds");
+		SharedPtr< Texture > texture_logo = CreateTexture(L"assets/sprites/mage.dds");
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
@@ -85,8 +82,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Font
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteFont > font = CreateFont(
-			L"assets/fonts/consolas.spritefont", L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
+		SharedPtr< SpriteFont > font = CreateSpriteFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------

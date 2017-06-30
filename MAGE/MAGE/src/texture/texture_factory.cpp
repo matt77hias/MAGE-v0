@@ -3,8 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\resource_factory.hpp"
 #include "texture\texture_factory.hpp"
+#include "resource\resource_manager.hpp"
+#include "resource\guids.hpp"
 
 #pragma endregion
 
@@ -44,7 +45,7 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(uint32_t);
 		
-		return CreateTexture(MAGE_GUID_TEXTURE_BLACK, MAGE_GUID_TEXTURE_BLACK, &texture_desc, &texture_data);
+		return CreateTexture(MAGE_GUID_TEXTURE_BLACK, &texture_desc, &texture_data);
 	}
 
 	SharedPtr< Texture > CreateWhiteTexture() {
@@ -56,7 +57,7 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(uint32_t);
 
-		return CreateTexture(MAGE_GUID_TEXTURE_WHITE, MAGE_GUID_TEXTURE_WHITE, &texture_desc, &texture_data);
+		return CreateTexture(MAGE_GUID_TEXTURE_WHITE, &texture_desc, &texture_data);
 	}
 
 	SharedPtr< Texture > CreateRedTexture() {
@@ -68,7 +69,7 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(uint32_t);
 
-		return CreateTexture(MAGE_GUID_TEXTURE_RED, MAGE_GUID_TEXTURE_RED, &texture_desc, &texture_data);
+		return CreateTexture(MAGE_GUID_TEXTURE_RED, &texture_desc, &texture_data);
 	}
 
 	SharedPtr< Texture > CreateGreenTexture() {
@@ -80,7 +81,7 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(uint32_t);
 
-		return CreateTexture(MAGE_GUID_TEXTURE_GREEN, MAGE_GUID_TEXTURE_GREEN, &texture_desc, &texture_data);
+		return CreateTexture(MAGE_GUID_TEXTURE_GREEN, &texture_desc, &texture_data);
 	}
 
 	SharedPtr< Texture > CreateBlueTexture() {
@@ -92,6 +93,6 @@ namespace mage {
 		texture_data.pSysMem     = &color;
 		texture_data.SysMemPitch = sizeof(uint32_t);
 
-		return CreateTexture(MAGE_GUID_TEXTURE_BLUE, MAGE_GUID_TEXTURE_BLUE, &texture_desc, &texture_data);
+		return CreateTexture(MAGE_GUID_TEXTURE_BLUE, &texture_desc, &texture_data);
 	}
 }

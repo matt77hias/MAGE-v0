@@ -4,7 +4,7 @@
 #pragma region
 
 #include "scene\scene.hpp"
-#include "resource\resource_factory.hpp"
+#include "resource\resource_manager.hpp"
 #include "texture\texture_factory.hpp"
 
 #pragma endregion
@@ -24,8 +24,7 @@ namespace mage {
 		m_spot_lights_buffer(GetRenderingDevice(), GetRenderingDeviceContext(), 64) {
 		
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc_box = CreateModelDescriptor(
-			L"assets/models/cube/cube.mdl", L"assets/models/cube/cube.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_box = CreateModelDescriptor(L"assets/models/cube/cube.mdl", mesh_desc);
 		m_box = CreateModelNode(*model_desc_box, BRDFType::Emissive);
 		m_box->MakePassive();
 		

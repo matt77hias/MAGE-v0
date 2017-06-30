@@ -15,13 +15,15 @@
 namespace mage {
 
 	template < typename VertexT >
-	ModelDescriptor::ModelDescriptor(const wstring &fname, const MeshDescriptor< VertexT > &desc)
-		: ModelDescriptor(GetRenderingDevice(), GetRenderingDeviceContext(), fname, desc) {}
+	ModelDescriptor::ModelDescriptor(const wstring &fname, 
+		const MeshDescriptor< VertexT > &desc)
+		: ModelDescriptor(fname, GetRenderingDevice(), GetRenderingDeviceContext(), desc) {}
 
 	template < typename VertexT >
-	ModelDescriptor::ModelDescriptor(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const wstring &fname, const MeshDescriptor< VertexT > &desc)
-		: Resource< ModelDescriptor >(fname, fname), m_mesh(), m_materials(), m_model_parts() {
+	ModelDescriptor::ModelDescriptor(const wstring &fname, 
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		const MeshDescriptor< VertexT > &desc)
+		: Resource< ModelDescriptor >(fname), m_mesh(), m_materials(), m_model_parts() {
 
 		ModelOutput< VertexT > buffer;
 		ImportModelFromFile(fname, buffer, desc);

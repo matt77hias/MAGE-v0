@@ -30,7 +30,7 @@ namespace mage {
 	Engine::Engine(const EngineSetup &setup) 
 		: Loadable(), m_main_window(), m_deactive(false), 
 		m_renderer(), m_mode_switch(false),
-		m_input_manager(), m_resource_factory(),
+		m_input_manager(), m_resource_manager(),
 		m_scene(), m_timer(std::make_unique< Timer >()) {
 
 		// Store a pointer to the engine in a global variable for easy access.
@@ -85,7 +85,7 @@ namespace mage {
 		// Initialize the input system.
 		m_input_manager    = std::make_unique< InputManager >(m_main_window->GetHandle());
 		// Initialize the resource system.
-		m_resource_factory = std::make_unique< ResourceFactory >();
+		m_resource_manager = std::make_unique< ResourceManager >();
 	}
 
 	void Engine::SetDeactiveFlag(bool deactive) {

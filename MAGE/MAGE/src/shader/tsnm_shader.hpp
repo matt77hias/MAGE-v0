@@ -36,7 +36,8 @@ namespace mage {
 
 		 @pre			The current engine must be loaded.
 		 @param[in]		fname
-						A reference to the filename.
+						A reference to the filename
+						(the globally unique identifier).
 		 @throws		FormattedException
 						Failed to initialize this vertex shader.
 		 */
@@ -47,34 +48,40 @@ namespace mage {
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		fname
+						A reference to the filename
+						(the globally unique identifier).
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		fname
-						A reference to the filename.
 		 @throws		FormattedException
 						Failed to initialize this vertex shader.
 		 */
-		explicit TSNMVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &fname);
+		explicit TSNMVertexShader(const wstring &fname,
+			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
 		
 		/**
 		 Constructs a tangent-space-normal-map vertex shader.
 
 		 @pre			The current engine must be loaded.
+		 @param[in]		guid
+						A reference to the globally unique identifier.
 		 @param[in]		compiled_vertex_shader
 						A reference to the compiled vertex shader.
 		 @throws		FormattedException
 						Failed to initialize this vertex shader.
 		 */
-		explicit TSNMVertexShader(const CompiledVertexShader &compiled_vertex_shader);
+		explicit TSNMVertexShader(const wstring &guid,
+			const CompiledVertexShader &compiled_vertex_shader);
 
 		/**
 		 Constructs a tangent-space-normal-map vertex shader.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		guid
+						A reference to the globally unique identifier.
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
@@ -84,7 +91,8 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize this vertex shader.
 		*/
-		explicit TSNMVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		explicit TSNMVertexShader(const wstring &guid,
+			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const CompiledVertexShader &compiled_vertex_shader);
 		
 		/**
@@ -170,7 +178,8 @@ namespace mage {
 
 		 @pre			The current engine must be loaded.
 		 @param[in]		fname
-						A reference to the filename.
+						A reference to the filename
+						(the globally unique identifier).
 		 @throws		FormattedException
 						Failed to initialize this pixel shader.
 		 */
@@ -181,34 +190,40 @@ namespace mage {
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		fname
+						A reference to the filename
+						(the globally unique identifier).
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		fname
-						A reference to the filename.
 		 @throws		FormattedException
 						Failed to initialize this pixel shader.
 		 */
-		explicit TSNMPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &fname);
+		explicit TSNMPixelShader(const wstring &fname,
+			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
 
 		/**
 		 Constructs a tangent-space-normal-map pixel shader.
 
 		 @pre			The current engine must be loaded.
+		 @param[in]		guid
+						A reference to the globally unique identifier.
 		 @param[in]		compiled_pixel_shader
 						A reference to the compiled pixel shader.
 		 @throws		FormattedException
 						Failed to initialize this pixel shader.
 		 */
-		explicit TSNMPixelShader(const CompiledPixelShader &compiled_pixel_shader);
+		explicit TSNMPixelShader(const wstring &guid,
+			const CompiledPixelShader &compiled_pixel_shader);
 
 		/**
 		 Constructs a tangent-space-normal-map pixel shader.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		guid
+						A reference to the globally unique identifier.
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
@@ -218,7 +233,8 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize this pixel shader.
 		 */
-		explicit TSNMPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		explicit TSNMPixelShader(const wstring &guid,
+			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 			const CompiledPixelShader &compiled_pixel_shader);
 		
 		/**

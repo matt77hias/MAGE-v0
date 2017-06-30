@@ -6,7 +6,7 @@
 #include "material\mtl\mtl_reader.hpp"
 #include "material\mtl\mtl_tokens.hpp"
 #include "string\string_utils.hpp"
-#include "resource\resource_factory.hpp"
+#include "resource\resource_manager.hpp"
 
 #pragma endregion
 
@@ -209,7 +209,7 @@ namespace mage {
 		const wstring texture_path = mage::GetPathName(GetFilename());
 		const wstring texture_name = str_convert(ReadString());
 		const wstring texture_fname = mage::GetFilename(texture_path, texture_name);
-		return CreateTexture(texture_fname, texture_fname);
+		return CreateTexture(texture_fname);
 	}
 
 	void MTLReader::ReadMTLIlluminationModel() {

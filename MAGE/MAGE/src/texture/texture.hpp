@@ -32,7 +32,8 @@ namespace mage {
 
 		 @pre			The current engine must be loaded.
 		 @param[in]		fname
-						A reference to the filename.
+						A reference to the filename
+						(the globally unique identifier).
 		 @throws		FormattedException
 						Failed to initialize the texture.
 		 */
@@ -42,14 +43,15 @@ namespace mage {
 		 Constructs a texture.
 
 		 @pre			@a device is not equal to @c nullptr.
+		 @param[in]		fname
+						A reference to the filename
+						(the globally unique identifier).
 		 @param[in]		device
 						A pointer to the device.
-		 @param[in]		fname
-						A reference to the filename.
 		 @throws		FormattedException
 						Failed to initialize the texture.
 		 */
-		explicit Texture(ID3D11Device2 *device, const wstring &fname);
+		explicit Texture(const wstring &fname, ID3D11Device2 *device);
 
 		/**
 		 Constructs a 2D texture.
@@ -76,10 +78,10 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a desc is not equal to @c nullptr.
 		 @pre			@a initial_data is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
 		 @param[in]		guid
 						A reference to the globally unique identifier.
+		 @param[in]		device
+						A pointer to the device.
 		 @param[in]		desc
 						A pointer to the texture descriptor.
 		 @param[in]		initial_data
@@ -87,8 +89,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize the texture.
 		 */
-		explicit Texture(ID3D11Device2 *device,
-			const wstring &guid,
+		explicit Texture(const wstring &guid, ID3D11Device2 *device,
 			const D3D11_TEXTURE2D_DESC *desc,
 			const D3D11_SUBRESOURCE_DATA *initial_data);
 

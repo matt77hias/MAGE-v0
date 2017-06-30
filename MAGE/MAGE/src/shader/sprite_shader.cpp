@@ -4,15 +4,12 @@
 #pragma region
 
 #include "resource\resource_factory.hpp"
-#include "shader\compiled_shader_factory.hpp"
-#include "shader\sprite_shader.hpp"
 #include "mesh\vertex.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
@@ -20,12 +17,27 @@ namespace mage {
 	// SpriteVertexShader
 	//-------------------------------------------------------------------------
 
-	SpriteVertexShader::SpriteVertexShader()
-		: SpriteVertexShader(GetRenderingDevice(), GetRenderingDeviceContext()) {}
+	SpriteVertexShader::SpriteVertexShader(const wstring &fname)
+		: SpriteVertexShader(fname, GetRenderingDevice(), GetRenderingDeviceContext()) {}
 
-	SpriteVertexShader::SpriteVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
-		: VertexShader(device, device_context, CreateCompiledSpriteVertexShader(),
-			VertexPositionColorTexture::s_input_element_desc, VertexPositionColorTexture::s_nb_input_elements) {}
+	SpriteVertexShader::SpriteVertexShader(const wstring &fname,
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
+		: VertexShader(fname, device, device_context,
+			VertexPositionColorTexture::s_input_element_desc,
+			VertexPositionColorTexture::s_nb_input_elements) {}
+
+	SpriteVertexShader::SpriteVertexShader(const wstring &guid,
+		const CompiledVertexShader &compiled_vertex_shader)
+		: SpriteVertexShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(),
+			compiled_vertex_shader) {}
+
+	SpriteVertexShader::SpriteVertexShader(const wstring &guid,
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		const CompiledVertexShader &compiled_vertex_shader)
+		: VertexShader(guid, device, device_context,
+			compiled_vertex_shader,
+			VertexPositionColorTexture::s_input_element_desc,
+			VertexPositionColorTexture::s_nb_input_elements) {}
 
 	SpriteVertexShader::SpriteVertexShader(SpriteVertexShader &&vertex_shader) = default;
 
@@ -41,11 +53,22 @@ namespace mage {
 	// SpritePixelShader
 	//-------------------------------------------------------------------------
 
-	SpritePixelShader::SpritePixelShader()
-		: SpritePixelShader(GetRenderingDevice(), GetRenderingDeviceContext()) {}
+	SpritePixelShader::SpritePixelShader(const wstring &fname)
+		: SpritePixelShader(fname, GetRenderingDevice(), GetRenderingDeviceContext()) {}
 
-	SpritePixelShader::SpritePixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
-		: PixelShader(device, device_context, CreateCompiledSpritePixelShader()) {}
+	SpritePixelShader::SpritePixelShader(const wstring &fname,
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
+		: PixelShader(fname, device, device_context) {}
+
+	SpritePixelShader::SpritePixelShader(const wstring &guid,
+		const CompiledPixelShader &compiled_pixel_shader)
+		: SpritePixelShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(),
+			compiled_pixel_shader) {}
+
+	SpritePixelShader::SpritePixelShader(const wstring &guid,
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		const CompiledPixelShader &compiled_pixel_shader)
+		: PixelShader(guid, device, device_context, compiled_pixel_shader) {}
 
 	SpritePixelShader::SpritePixelShader(SpritePixelShader &&pixel_shader) = default;
 
@@ -54,17 +77,5 @@ namespace mage {
 	void SpritePixelShader::PrepareShading(ID3D11ShaderResourceView *texture) const {
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 		m_device_context->PSSetShaderResources(0, 1, &texture);
-	}
-
-	//-------------------------------------------------------------------------
-	// Combined Sprite Shader
-	//-------------------------------------------------------------------------
-
-	const CombinedShader CreateSpriteShader() {
-		SharedPtr< VertexShader > vs = CreateSpriteVertexShader(MAGE_GUID_SPRITE_VS);
-
-		SharedPtr< PixelShader >  ps = CreateSpritePixelShader(MAGE_GUID_SPRITE_PS);
-
-		return CombinedShader(vs, ps);
 	}
 }

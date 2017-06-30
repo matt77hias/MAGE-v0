@@ -33,7 +33,8 @@ namespace mage {
 		 @tparam		VertexT
 						The vertex type.
 		 @param[in]		fname
-						A reference to the filename.
+						A reference to the filename
+						(the globally unique identifier).
 		 @param[in]		desc
 						A reference to the mesh descriptor.
 		 @throws		FormattedException
@@ -50,20 +51,22 @@ namespace mage {
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @tparam		VertexT
 						The vertex type.
+		 @param[in]		fname
+						A reference to the filename
+						(the globally unique identifier).
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		fname
-						A reference to the filename.
 		 @param[in]		desc
 						A reference to the mesh descriptor.
 		 @throws		FormattedException
 						Failed to initialize the model descriptor.
 		 */
 		template < typename VertexT >
-		explicit ModelDescriptor(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const wstring &fname, const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >());
+		explicit ModelDescriptor(const wstring &fname, 
+			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >());
 		
 		/**
 		 Constructs a model descriptor from the given model descriptor.

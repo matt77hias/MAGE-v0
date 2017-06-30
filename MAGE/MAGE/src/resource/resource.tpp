@@ -16,8 +16,8 @@
 namespace mage {
 
 	template< typename ResourceT >
-	Resource< ResourceT >::Resource(const wstring &guid, const wstring &fname)
-		: m_guid(guid), m_fname(fname) {}
+	Resource< ResourceT >::Resource(const wstring &guid)
+		: m_guid(guid) {}
 
 	template< typename ResourceT >
 	Resource< ResourceT >::Resource(Resource< ResourceT > &&resource) = default;
@@ -27,7 +27,7 @@ namespace mage {
 
 	template< typename ResourceT >
 	inline bool Resource< ResourceT >::IsFileResource() const noexcept {
-		return m_fname != L"";
+		return FileExists(m_guid);
 	}
 
 	template< typename ResourceT >
@@ -38,18 +38,18 @@ namespace mage {
 	template< typename ResourceT >
 	inline const wstring &Resource< ResourceT >::GetFilename() const noexcept {
 		Assert(IsFileResource());
-		return m_fname;
+		return m_guid;
 	}
 
 	template< typename ResourceT >
 	inline const wstring Resource< ResourceT >::GetName() const noexcept {
 		Assert(IsFileResource());
-		return GetFileName(m_fname);
+		return GetFileName(m_guid);
 	}
 
 	template< typename ResourceT >
 	inline const wstring Resource< ResourceT >::GetPath() const noexcept {
 		Assert(IsFileResource());
-		return GetPathName(m_fname);
+		return GetPathName(m_guid);
 	}
 }

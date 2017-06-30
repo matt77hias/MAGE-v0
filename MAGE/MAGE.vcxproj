@@ -114,8 +114,10 @@
     <ClInclude Include="MAGE\src\rendering\rendering_state_cache.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_utils.hpp" />
     <ClInclude Include="MAGE\src\rendering\structured_buffer.hpp" />
+    <ClInclude Include="MAGE\src\resource\guids.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_factory.hpp" />
+    <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_pool.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
     <ClInclude Include="MAGE\src\scene\scene_node.hpp" />
@@ -140,6 +142,7 @@
     <ClInclude Include="MAGE\src\script\wireframe_script.hpp" />
     <ClInclude Include="MAGE\src\shader\basic_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\basic_shader_factory.hpp" />
+    <ClInclude Include="MAGE\src\shader\sprite_shader_factory.hpp" />
     <ClInclude Include="MAGE\src\shader\tsnm_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\tsnm_shader_factory.hpp" />
     <ClInclude Include="MAGE\src\shader\compiled_shader.hpp" />
@@ -260,7 +263,7 @@
     <ClCompile Include="MAGE\src\rendering\rendering_state_cache.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_utils.cpp" />
     <ClCompile Include="MAGE\src\resource\behavior_script.cpp" />
-    <ClCompile Include="MAGE\src\resource\resource_factory.cpp" />
+    <ClCompile Include="MAGE\src\resource\resource_manager.cpp" />
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
     <ClCompile Include="MAGE\src\scene\scene_node.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
@@ -282,6 +285,7 @@
     <ClCompile Include="MAGE\src\shader\basic_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\basic_shader_factory.cpp" />
     <ClCompile Include="MAGE\src\shader\compiled_shader.cpp" />
+    <ClCompile Include="MAGE\src\shader\sprite_shader_factory.cpp" />
     <ClCompile Include="MAGE\src\shader\tsnm_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\tsnm_shader_factory.cpp" />
     <ClCompile Include="MAGE\src\shader\compiled_shader_factory.cpp" />
@@ -1304,7 +1308,7 @@
     <None Include="MAGE\src\rendering\rendering_factory.tpp" />
     <None Include="MAGE\src\rendering\structured_buffer.tpp" />
     <None Include="MAGE\src\resource\resource.tpp" />
-    <None Include="MAGE\src\resource\resource_factory.tpp" />
+    <None Include="MAGE\src\resource\resource_manager.tpp" />
     <None Include="MAGE\src\resource\resource_pool.tpp" />
     <None Include="MAGE\src\scene\scene.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />

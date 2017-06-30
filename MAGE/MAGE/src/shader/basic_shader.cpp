@@ -18,22 +18,24 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	BasicVertexShader::BasicVertexShader(const wstring &fname)
-		: BasicVertexShader(GetRenderingDevice(), GetRenderingDeviceContext(), 
-			fname) {}
+		: BasicVertexShader(fname, GetRenderingDevice(), GetRenderingDeviceContext()) {}
 
-	BasicVertexShader::BasicVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const wstring &fname) 
-		: VertexShader(device, device_context, fname, 
+	BasicVertexShader::BasicVertexShader(const wstring &fname, 
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context) 
+		: VertexShader(fname, device, device_context, 
 			VertexPositionNormalTexture::s_input_element_desc, 
 			VertexPositionNormalTexture::s_nb_input_elements) {}
 			
-	BasicVertexShader::BasicVertexShader(const CompiledVertexShader &compiled_vertex_shader)
-		: BasicVertexShader(GetRenderingDevice(), GetRenderingDeviceContext(), 
+	BasicVertexShader::BasicVertexShader(const wstring &guid, 
+		const CompiledVertexShader &compiled_vertex_shader)
+		: BasicVertexShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(), 
 			compiled_vertex_shader) {}
 
-	BasicVertexShader::BasicVertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+	BasicVertexShader::BasicVertexShader(const wstring &guid, 
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledVertexShader &compiled_vertex_shader)
-		: VertexShader(device, device_context, compiled_vertex_shader,
+		: VertexShader(guid, device, device_context, 
+			compiled_vertex_shader,
 			VertexPositionNormalTexture::s_input_element_desc, 
 			VertexPositionNormalTexture::s_nb_input_elements) {}
 	
@@ -52,21 +54,22 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	BasicPixelShader::BasicPixelShader(const wstring &fname)
-		: BasicPixelShader(GetRenderingDevice(), GetRenderingDeviceContext(),
-			fname) {}
+		: BasicPixelShader(fname, GetRenderingDevice(), GetRenderingDeviceContext()) {}
 
-	BasicPixelShader::BasicPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const wstring &fname)
-			: PixelShader(device, device_context, fname),
+	BasicPixelShader::BasicPixelShader(const wstring &fname, 
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
+			: PixelShader(fname, device, device_context),
 			m_material_buffer(m_device, m_device_context) {}
 			
-	BasicPixelShader::BasicPixelShader(const CompiledPixelShader &compiled_pixel_shader)
-		: BasicPixelShader(GetRenderingDevice(), GetRenderingDeviceContext(),
+	BasicPixelShader::BasicPixelShader(const wstring &guid, 
+		const CompiledPixelShader &compiled_pixel_shader)
+		: BasicPixelShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(),
 			compiled_pixel_shader) {}
 
-	BasicPixelShader::BasicPixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+	BasicPixelShader::BasicPixelShader(const wstring &guid,
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledPixelShader &compiled_pixel_shader)
-			: PixelShader(device, device_context, compiled_pixel_shader),
+			: PixelShader(guid, device, device_context, compiled_pixel_shader),
 			m_material_buffer(m_device, m_device_context) {}
 	
 	BasicPixelShader::BasicPixelShader(BasicPixelShader &&pixel_shader) = default;

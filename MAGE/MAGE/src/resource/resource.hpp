@@ -38,10 +38,8 @@ namespace mage {
 
 		 @param[in]		guid
 						A reference to the globally unique identifier.
-		 @param[in]		fname
-						A reference to the filename of the resource.
 		 */
-		explicit Resource(const wstring &guid, const wstring &fname = L"");
+		explicit Resource(const wstring &guid);
 
 		/**
 		 Constructs a resource from the given resource.
@@ -152,12 +150,6 @@ namespace mage {
 		 The globally unique identifier of this resource.
 		 */
 		const wstring m_guid;
-
-		/**
-		 The filename of this resource. If no file is associated with 
-		 this resource, the filename is equal to the empty string.
-		 */
-		const wstring m_fname;
 	};
 }
 

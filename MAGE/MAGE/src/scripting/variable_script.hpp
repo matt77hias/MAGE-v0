@@ -31,7 +31,8 @@ namespace mage {
 		 Constructs a variable script.
 
 		 @param[in]		fname
-						A reference to the filename of the variable script.
+						A reference to the filename
+						(the globally unique identifier).
 		 @param[in]		import
 						Flag indicating whether the variables of the variable script
 						need to be imported.

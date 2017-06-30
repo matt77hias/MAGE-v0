@@ -450,9 +450,6 @@
     <ClInclude Include="MAGE\src\texture\texture_loader.hpp">
       <Filter>Header Files\texture</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\resource\resource_factory.hpp">
-      <Filter>Header Files\resource</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\model\model_descriptor.hpp">
       <Filter>Header Files\model</Filter>
     </ClInclude>
@@ -780,6 +777,18 @@
     <ClInclude Include="MAGE\src\shader\tsnm_shader_factory.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\sprite_shader_factory.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\resource\guids.hpp">
+      <Filter>Header Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\resource\resource_manager.hpp">
+      <Filter>Header Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\resource\resource_factory.hpp">
+      <Filter>Header Files\resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -892,9 +901,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\texture\dds\dds_loader.cpp">
       <Filter>Source Files\texture\dds</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\resource\resource_factory.cpp">
-      <Filter>Source Files\resource</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\model\model_descriptor.cpp">
       <Filter>Source Files\model</Filter>
@@ -1097,6 +1103,12 @@
     <ClCompile Include="MAGE\src\shader\tsnm_shader_factory.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\shader\sprite_shader_factory.cpp">
+      <Filter>Source Files\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\resource\resource_manager.cpp">
+      <Filter>Source Files\resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\lambertian_PS.hlsl">
@@ -1215,9 +1227,6 @@
     <None Include="MAGE\src\mesh\obj\obj_reader.tpp">
       <Filter>Header Files\mesh\obj</Filter>
     </None>
-    <None Include="MAGE\src\resource\resource_factory.tpp">
-      <Filter>Header Files\resource</Filter>
-    </None>
     <None Include="MAGE\src\model\model_loader.tpp">
       <Filter>Header Files\model</Filter>
     </None>
@@ -1288,6 +1297,9 @@
       <Filter>Header Files\model</Filter>
     </None>
     <None Include="MAGE\src\resource\resource.tpp">
+      <Filter>Header Files\resource</Filter>
+    </None>
+    <None Include="MAGE\src\resource\resource_manager.tpp">
       <Filter>Header Files\resource</Filter>
     </None>
   </ItemGroup>

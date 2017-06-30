@@ -10,6 +10,7 @@
 #include "rendering\renderer.hpp"
 #include "input\input_manager.hpp"
 #include "ui\main_window.hpp"
+#include "resource\resource_manager.hpp"
 #include "resource\resource_factory.hpp"
 #include "timer\timer.hpp"
 
@@ -162,13 +163,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the resource factory of this engine.
+		 Returns the resource manager of this engine.
 
 		 @return		@c nullptr if this engine is not properly setup.
-		 @return		A pointer to the resource factory of this engine.
+		 @return		A pointer to the resource manager of this engine.
 		 */
-		ResourceFactory *GetResourceFactory() const noexcept {
-			return m_resource_factory.get();
+		ResourceManager *GetResourceManager() const noexcept {
+			return m_resource_manager.get();
 		}
 
 		//---------------------------------------------------------------------
@@ -242,9 +243,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the resource factory of this engine.
+		 A pointer to the resource manager of this engine.
 		 */
-		UniquePtr< ResourceFactory > m_resource_factory;
+		UniquePtr< ResourceManager > m_resource_manager;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Scene

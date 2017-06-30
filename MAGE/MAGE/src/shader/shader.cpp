@@ -4,7 +4,6 @@
 #pragma region
 
 #include "resource\resource_factory.hpp"
-#include "shader\shading.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
 
@@ -21,14 +20,15 @@ namespace mage {
 
 	VertexShader::VertexShader(const wstring &fname,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
-		: VertexShader(GetRenderingDevice(), GetRenderingDeviceContext(), 
-			fname, input_element_desc, nb_input_elements) {}
+		: VertexShader(fname, GetRenderingDevice(), GetRenderingDeviceContext(), 
+			input_element_desc, nb_input_elements) {}
 
-	VertexShader::VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const wstring &fname,
+	VertexShader::VertexShader(const wstring &fname,
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
-		: Resource< VertexShader >(fname, fname), 
-		m_device(device), m_device_context(device_context), m_vertex_shader(), m_vertex_layout() {
+		: Resource< VertexShader >(fname), 
+		m_device(device), m_device_context(device_context), 
+		m_vertex_shader(), m_vertex_layout() {
 
 		Assert(device);
 		Assert(device_context);
@@ -38,16 +38,19 @@ namespace mage {
 		SetupShader(compiled_vertex_shader, input_element_desc, nb_input_elements);
 	}
 
-	VertexShader::VertexShader(const CompiledVertexShader &compiled_vertex_shader,
+	VertexShader::VertexShader(const wstring &guid,
+		const CompiledVertexShader &compiled_vertex_shader,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
-		: VertexShader(GetRenderingDevice(), GetRenderingDeviceContext(),
+		: VertexShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(),
 			compiled_vertex_shader, input_element_desc, nb_input_elements) {}
 
-	VertexShader::VertexShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+	VertexShader::VertexShader(const wstring &guid, 
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledVertexShader &compiled_vertex_shader, 
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements)
-		: Resource< VertexShader >(compiled_vertex_shader.m_name),
-		m_device(device), m_device_context(device_context), m_vertex_shader(), m_vertex_layout() {
+		: Resource< VertexShader >(guid),
+		m_device(device), m_device_context(device_context), 
+		m_vertex_shader(), m_vertex_layout() {
 
 		Assert(device);
 		Assert(device_context);
@@ -65,8 +68,8 @@ namespace mage {
 
 		// Create the vertex shader.
 		const HRESULT result_vertex_shader = m_device->CreateVertexShader(
-																			compiled_vertex_shader.m_bytecode,
-																			compiled_vertex_shader.m_bytecode_size,
+																			compiled_vertex_shader.GetBytecode(),
+																			compiled_vertex_shader.GetBytecodeSize(),
 																			nullptr,
 																			m_vertex_shader.ReleaseAndGetAddressOf());
 		if (FAILED(result_vertex_shader)) {
@@ -77,8 +80,8 @@ namespace mage {
 		const HRESULT result_vertex_input_layout = m_device->CreateInputLayout(
 																			input_element_desc,
 																			static_cast< UINT >(nb_input_elements),
-																			compiled_vertex_shader.m_bytecode,
-																			compiled_vertex_shader.m_bytecode_size,
+																			compiled_vertex_shader.GetBytecode(),
+																			compiled_vertex_shader.GetBytecodeSize(),
 																			m_vertex_layout.ReleaseAndGetAddressOf());
 		if (FAILED(result_vertex_input_layout)) {
 			throw FormattedException("Vertex input layout creation failed: %08X.", result_vertex_input_layout);
@@ -96,13 +99,13 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	PixelShader::PixelShader(const wstring &fname)
-		: PixelShader(GetRenderingDevice(), GetRenderingDeviceContext(),
-			fname) {}
+		: PixelShader(fname, GetRenderingDevice(), GetRenderingDeviceContext()) {}
 
-	PixelShader::PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const wstring &fname)
-		: Resource< PixelShader >(fname, fname), 
-		m_device(device), m_device_context(device_context), m_pixel_shader() {
+	PixelShader::PixelShader(const wstring &fname,
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
+		: Resource< PixelShader >(fname), 
+		m_device(device), m_device_context(device_context), 
+		m_pixel_shader() {
 
 		Assert(device);
 		Assert(device_context);
@@ -111,14 +114,17 @@ namespace mage {
 		SetupShader(compiled_pixel_shader);
 	}
 
-	PixelShader::PixelShader(const CompiledPixelShader &compiled_pixel_shader)
-		: PixelShader(GetRenderingDevice(), GetRenderingDeviceContext(),
+	PixelShader::PixelShader(const wstring &guid,
+		const CompiledPixelShader &compiled_pixel_shader)
+		: PixelShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(),
 			compiled_pixel_shader) {}
 
-	PixelShader::PixelShader(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+	PixelShader::PixelShader(const wstring &guid,
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		const CompiledPixelShader &compiled_pixel_shader)
-		: Resource< PixelShader >(compiled_pixel_shader.m_name), 
-		m_device(device), m_device_context(device_context), m_pixel_shader() {
+		: Resource< PixelShader >(guid), 
+		m_device(device), m_device_context(device_context), 
+		m_pixel_shader() {
 
 		Assert(device);
 		Assert(device_context);
@@ -133,8 +139,8 @@ namespace mage {
 	void PixelShader::SetupShader(const CompiledPixelShader &compiled_pixel_shader) {
 
 		// Create the pixel shader.
-		const HRESULT result_pixel_shader = m_device->CreatePixelShader(compiled_pixel_shader.m_bytecode,
-																		compiled_pixel_shader.m_bytecode_size,
+		const HRESULT result_pixel_shader = m_device->CreatePixelShader(compiled_pixel_shader.GetBytecode(),
+																		compiled_pixel_shader.GetBytecodeSize(),
 																		nullptr,
 																		m_pixel_shader.ReleaseAndGetAddressOf());
 		if (FAILED(result_pixel_shader)) {

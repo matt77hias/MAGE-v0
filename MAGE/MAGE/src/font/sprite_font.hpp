@@ -34,7 +34,8 @@ namespace mage {
 
 		 @pre			The current engine must be loaded.
 		 @param[in]		fname
-						A reference to the filename.
+						A reference to the filename
+						(the globally unique identifier).
 		 @param[in]		desc
 						A reference to the sprite font descriptor.
 		 @throws		FormattedException
@@ -47,16 +48,17 @@ namespace mage {
 		 Constructs a sprite font.
 
 		 @pre			@a device is not equal to @c nullptr.
+		 @param[in]		fname
+						A reference to the filename
+						(the globally unique identifier).
 		 @param[in]		device
 						A pointer to the device.
-		 @param[in]		fname
-						A reference to the filename.
 		 @param[in]		desc
 						A reference to the sprite font descriptor.
 		 @throws		FormattedException
 						Failed to initialize the sprite font.
 		 */
-		explicit SpriteFont(ID3D11Device2 *device, const wstring &fname, 
+		explicit SpriteFont(const wstring &fname, ID3D11Device2 *device,
 			const SpriteFontDescriptor &desc = SpriteFontDescriptor());
 
 		/**

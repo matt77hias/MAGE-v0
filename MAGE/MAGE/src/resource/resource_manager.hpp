@@ -107,7 +107,7 @@ namespace mage {
 		 */
 		template< typename... ConstructorArgsT >
 		SharedPtr< ModelDescriptor > CreateModelDescriptor(
-			const wstring &key, ConstructorArgsT&&... args);
+			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a basic vertex shader (if not existing).
@@ -127,7 +127,7 @@ namespace mage {
 		 */
 		template< typename... ConstructorArgsT >
 		SharedPtr< VertexShader > CreateBasicVertexShader(
-			const wstring &key, ConstructorArgsT&&... args);
+			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a basic pixel shader (if not existing).
@@ -147,7 +147,7 @@ namespace mage {
 		 */
 		template< typename... ConstructorArgsT >
 		SharedPtr< PixelShader > CreateBasicPixelShader(
-			const wstring &key, ConstructorArgsT&&... args);
+			const wstring &guid, ConstructorArgsT&&... args);
 
 		/**
 		 Creates a tsnm vertex shader (if not existing).
@@ -167,7 +167,7 @@ namespace mage {
 		 */
 		template< typename... ConstructorArgsT >
 		SharedPtr< VertexShader > CreateTSNMVertexShader(
-			const wstring &key, ConstructorArgsT&&... args);
+			const wstring &guid, ConstructorArgsT&&... args);
 
 		/**
 		 Creates a tsnm pixel shader (if not existing).
@@ -187,7 +187,7 @@ namespace mage {
 		 */
 		template< typename... ConstructorArgsT >
 		SharedPtr< PixelShader > CreateTSNMPixelShader(
-			const wstring &key, ConstructorArgsT&&... args);
+			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a sprite vertex shader (if not existing).
@@ -207,7 +207,7 @@ namespace mage {
 		 */
 		template< typename... ConstructorArgsT >
 		SharedPtr< VertexShader > CreateSpriteVertexShader(
-			const wstring &key, ConstructorArgsT&&... args);
+			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a sprite pixel shader (if not existing).
@@ -227,7 +227,7 @@ namespace mage {
 		 */
 		template< typename... ConstructorArgsT >
 		SharedPtr< PixelShader > CreateSpritePixelShader(
-			const wstring &key, ConstructorArgsT&&... args);
+			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a sprite font (if not existing).
@@ -247,7 +247,7 @@ namespace mage {
 		 */
 		template< typename... ConstructorArgsT >
 		SharedPtr< SpriteFont > CreateSpriteFont(
-			const wstring &key, ConstructorArgsT&&... args);
+			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a texture (if not existing).
@@ -267,7 +267,7 @@ namespace mage {
 		 */
 		template< typename... ConstructorArgsT >
 		SharedPtr< Texture > CreateTexture(
-			const wstring &key, ConstructorArgsT&&... args);
+			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
 		 Creates a variable script (if not existing).
@@ -287,7 +287,7 @@ namespace mage {
 		 */
 		template< typename... ConstructorArgsT >
 		SharedPtr< VariableScript > CreateVariableScript(
-			const wstring &key, ConstructorArgsT&&... args);
+			const wstring &guid, ConstructorArgsT&&... args);
 
 	private:
 
@@ -357,7 +357,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	SharedPtr< ModelDescriptor > CreateModelDescriptor(
-		const wstring &key, ConstructorArgsT&&... args);
+		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
 	 Creates a basic vertex shader (if not existing).
@@ -378,7 +378,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	SharedPtr< VertexShader > CreateBasicVertexShader(
-		const wstring &key, ConstructorArgsT&&... args);
+		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
 	 Creates a basic pixel shader (if not existing).
@@ -399,7 +399,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	SharedPtr< PixelShader > CreateBasicPixelShader(
-		const wstring &key, ConstructorArgsT&&... args);
+		const wstring &guid, ConstructorArgsT&&... args);
 
 	/**
 	 Creates a tsnm vertex shader (if not existing).
@@ -420,7 +420,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	SharedPtr< VertexShader > CreateTSNMVertexShader(
-		const wstring &key, ConstructorArgsT&&... args);
+		const wstring &guid, ConstructorArgsT&&... args);
 
 	/**
 	 Creates a tsnm pixel shader (if not existing).
@@ -441,7 +441,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	SharedPtr< PixelShader > CreateTSNMPixelShader(
-		const wstring &key, ConstructorArgsT&&... args);
+		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
 	 Creates a sprite vertex shader (if not existing).
@@ -462,7 +462,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	SharedPtr< VertexShader > CreateSpriteVertexShader(
-		const wstring &key, ConstructorArgsT&&... args);
+		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
 	 Creates a sprite pixel shader (if not existing).
@@ -483,7 +483,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	SharedPtr< PixelShader > CreateSpritePixelShader(
-		const wstring &key, ConstructorArgsT&&... args);
+		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
 	 Creates a sprite font (if not existing).
@@ -504,7 +504,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	SharedPtr< SpriteFont > CreateSpriteFont(
-		const wstring &key, ConstructorArgsT&&... args);
+		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
 	 Creates a texture (if not existing).
@@ -525,7 +525,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	SharedPtr< Texture > CreateTexture(
-		const wstring &key, ConstructorArgsT&&... args);
+		const wstring &guid, ConstructorArgsT&&... args);
 	
 	/**
 	 Creates a variable script (if not existing).
@@ -546,7 +546,7 @@ namespace mage {
 	 */
 	template< typename... ConstructorArgsT >
 	SharedPtr< VariableScript > CreateVariableScript(
-		const wstring &key, ConstructorArgsT&&... args);
+		const wstring &guid, ConstructorArgsT&&... args);
 }
 
 //-----------------------------------------------------------------------------

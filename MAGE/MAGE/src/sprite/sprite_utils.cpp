@@ -89,7 +89,7 @@ namespace mage {
 		Assert(texture);
 		
 		ComPtr< ID3D11Resource > resource;
-		texture->GetOrCreateResource(&resource);
+		texture->GetResource(&resource);
 
 		ComPtr< ID3D11Texture2D > texture2D;
 		const HRESULT result_texture_2d = resource.As(&texture2D);

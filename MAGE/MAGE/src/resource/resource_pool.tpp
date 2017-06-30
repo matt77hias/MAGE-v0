@@ -25,13 +25,13 @@ namespace mage {
 
 	template< typename KeyT, typename ResourceT >
 	template< typename... ConstructorArgsT >
-	inline SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >::GetResource(const KeyT &key, ConstructorArgsT&&... args) {
-		return GetDerivedResource< ResourceT, ConstructorArgsT... >(key, std::forward< ConstructorArgsT >(args)...);
+	inline SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >::GetOrCreateResource(const KeyT &key, ConstructorArgsT&&... args) {
+		return GetOrCreateDerivedResource< ResourceT, ConstructorArgsT... >(key, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename KeyT, typename ResourceT >
 	template< typename DerivedResourceT, typename... ConstructorArgsT >
-	SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >::GetDerivedResource(const KeyT &key, ConstructorArgsT&&... args) {
+	SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >::GetOrCreateDerivedResource(const KeyT &key, ConstructorArgsT&&... args) {
 		MutexLock lock(m_resource_map_mutex);
 
 		auto it = m_resource_map.find(key);

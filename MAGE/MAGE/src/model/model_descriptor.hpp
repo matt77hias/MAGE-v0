@@ -118,7 +118,7 @@ namespace mage {
 
 		 @return		A pointer to the mesh of this model descriptor.
 		 */
-		SharedPtr< const StaticMesh > GetMesh() const noexcept {
+		SharedPtr< const Mesh > GetMesh() const noexcept {
 			return m_mesh;
 		}
 

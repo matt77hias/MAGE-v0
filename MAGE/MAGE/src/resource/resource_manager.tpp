@@ -14,7 +14,7 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_model_descriptor_resource_pool->template
-			GetResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -22,7 +22,7 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_vertex_shader_resource_pool->template
-			GetDerivedResource< BasicVertexShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateDerivedResource< BasicVertexShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -30,7 +30,7 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_pixel_shader_resource_pool->template
-			GetDerivedResource< BasicPixelShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateDerivedResource< BasicPixelShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -38,7 +38,7 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_vertex_shader_resource_pool->template
-			GetDerivedResource< TSNMVertexShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateDerivedResource< TSNMVertexShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -46,7 +46,7 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_pixel_shader_resource_pool->template
-			GetDerivedResource< TSNMPixelShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateDerivedResource< TSNMPixelShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -54,7 +54,7 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_vertex_shader_resource_pool->template
-			GetDerivedResource< SpriteVertexShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateDerivedResource< SpriteVertexShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -62,7 +62,7 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_pixel_shader_resource_pool->template
-			GetDerivedResource< SpritePixelShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateDerivedResource< SpritePixelShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -70,7 +70,7 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_font_resource_pool->template
-			GetResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -78,7 +78,7 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_texture_resource_pool->template
-			GetResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -86,7 +86,7 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 		
 		return m_variable_script_resource_pool->template
-			GetResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	//-------------------------------------------------------------------------

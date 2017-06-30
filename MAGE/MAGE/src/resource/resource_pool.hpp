@@ -130,7 +130,7 @@ namespace mage {
 						the given key from this resource pool.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetResource(const KeyT &key, ConstructorArgsT&&... args);
+		SharedPtr< ResourceT > GetOrCreateResource(const KeyT &key, ConstructorArgsT&&... args);
 		
 		/**
 		 Returns the resource corresponding to the given key from this resource pool.
@@ -154,7 +154,7 @@ namespace mage {
 						the given key from this resource pool.
 		 */
 		template< typename DerivedResourceT, typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetDerivedResource(const KeyT &key, ConstructorArgsT&&... args);
+		SharedPtr< ResourceT > GetOrCreateDerivedResource(const KeyT &key, ConstructorArgsT&&... args);
 		
 		/**
 		 Removes the resource corresponding to the given key from this resource pool.

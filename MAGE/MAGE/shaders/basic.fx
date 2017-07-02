@@ -420,7 +420,8 @@ PS_INPUT Transform_VS(VertexPositionNormalTexture_VS_INPUT input) {
 	output.p_view   = mul(output.p_view, world_to_view);
 	output.p        = mul(output.p_view, view_to_projection);
 	output.tex      = input.tex;
-	output.n_view   = normalize(mul(input.n, (float3x3)object_to_view_inverse_transpose));
+	// Normalization in PS after interpolation
+	output.n_view   = mul(input.n, (float3x3)object_to_view_inverse_transpose);
 	return output;
 }
 
@@ -441,83 +442,101 @@ float4 Emissive_PS(PS_INPUT input) : SV_Target {
 
 float4 Lambertian_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	return LambertianBRDFShading(p, input.n_view, input.tex);
+	const float3 n = normalize(input.n_view);
+	return LambertianBRDFShading(p, n, input.tex);
 }
 float4 Phong_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	return PhongBRDFShading(p, input.n_view, input.tex);
+	const float3 n = normalize(input.n_view);
+	return PhongBRDFShading(p, n, input.tex);
 }
 float4 ModifiedPhong_PS(PS_INPUT input) : SV_Target{
 	const float3 p = input.p_view.xyz;
-	return ModifiedPhongBRDFShading(p, input.n_view, input.tex);
+	const float3 n = normalize(input.n_view);
+	return ModifiedPhongBRDFShading(p, n, input.tex);
 }
 float4 BlinnPhong_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	return BlinnPhongBRDFShading(p, input.n_view, input.tex);
+	const float3 n = normalize(input.n_view);
+	return BlinnPhongBRDFShading(p, n, input.tex);
 }
 float4 ModifiedBlinnPhong_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	return ModifiedBlinnPhongBRDFShading(p, input.n_view, input.tex);
+	const float3 n = normalize(input.n_view);
+	return ModifiedBlinnPhongBRDFShading(p, n, input.tex);
 }
 float4 Ward_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	return WardBRDFShading(p, input.n_view, input.tex);
+	const float3 n = normalize(input.n_view);
+	return WardBRDFShading(p, n, input.tex);
 }
 float4 WardDuer_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	return WardDuerBRDFShading(p, input.n_view, input.tex);
+	const float3 n = normalize(input.n_view);
+	return WardDuerBRDFShading(p, n, input.tex);
 }
 float4 CookTorrance_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	return CookTorranceBRDFShading(p, input.n_view, input.tex);
+	const float3 n = normalize(input.n_view);
+	return CookTorranceBRDFShading(p, n, input.tex);
 }
 float4 Normal_PS(PS_INPUT input) : SV_Target {
-	return float4(0.5f + 0.5f * input.n_view, 1.0f);
+	const float3 n = normalize(input.n_view);
+	return float4(0.5f + 0.5f * n, 1.0f);
 }
 
 float4 TangentSpaceNormalMapping_Lambertian_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
+	const float3 n0 = normalize(input.n_view);
+	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, n0, input.tex);
 	return LambertianBRDFShading(p, n, input.tex);
 }
 float4 TangentSpaceNormalMapping_Phong_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
+	const float3 n0 = normalize(input.n_view);
+	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, n0, input.tex);
 	return PhongBRDFShading(p, n, input.tex);
 }
 float4 TangentSpaceNormalMapping_ModifiedPhong_PS(PS_INPUT input) : SV_Target{
 	const float3 p = input.p_view.xyz;
-	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
+	const float3 n0 = normalize(input.n_view);
+	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, n0, input.tex);
 	return ModifiedPhongBRDFShading(p, n, input.tex);
 }
 float4 TangentSpaceNormalMapping_BlinnPhong_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
+	const float3 n0 = normalize(input.n_view);
+	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, n0, input.tex);
 	return BlinnPhongBRDFShading(p, n, input.tex);
 }
 float4 TangentSpaceNormalMapping_ModifiedBlinnPhong_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
+	const float3 n0 = normalize(input.n_view);
+	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, n0, input.tex);
 	return ModifiedBlinnPhongBRDFShading(p, n, input.tex);
 }
 float4 TangentSpaceNormalMapping_Ward_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
+	const float3 n0 = normalize(input.n_view);
+	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, n0, input.tex);
 	return WardBRDFShading(p, n, input.tex);
 }
 float4 TangentSpaceNormalMapping_WardDuer_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
+	const float3 n0 = normalize(input.n_view);
+	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, n0, input.tex);
 	return WardDuerBRDFShading(p, n, input.tex);
 }
 float4 TangentSpaceNormalMapping_CookTorrance_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
+	const float3 n0 = normalize(input.n_view);
+	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, n0, input.tex);
 	return CookTorranceBRDFShading(p, n, input.tex);
 }
 float4 TangentSpaceNormalMapping_Normal_PS(PS_INPUT input) : SV_Target {
 	const float3 p = input.p_view.xyz;
-	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, input.n_view, input.tex);
+	const float3 n0 = normalize(input.n_view);
+	const float3 n = TangentSpaceNormalMapping_PerturbNormal(p, n0, input.tex);
 	return float4(0.5f + 0.5f * n, 1.0f);
 }
 

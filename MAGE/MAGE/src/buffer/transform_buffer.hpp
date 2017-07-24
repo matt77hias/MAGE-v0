@@ -35,8 +35,8 @@ namespace mage {
 						The (row-major) view-to-projection matrix.
 		 */
 		explicit TransformBuffer(
-			FXMMATRIX world_to_view,
-			FXMMATRIX view_to_projection) :
+			CXMMATRIX world_to_view,
+			CXMMATRIX view_to_projection) :
 			m_world_to_view(XMMatrixTranspose(world_to_view)),
 			m_view_to_projection(XMMatrixTranspose(view_to_projection)) {}
 

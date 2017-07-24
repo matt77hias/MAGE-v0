@@ -243,9 +243,9 @@ namespace mage {
 		 Sets the color of this color string to the given color.
 
 		 @param[in]		color
-						A reference to the color.
+						The color.
 		 */
-		void SetColor(const XMVECTOR &color) noexcept {
+		void SetColor(FXMVECTOR color) noexcept {
 			XMStoreFloat4(&m_color, color);
 		}
 

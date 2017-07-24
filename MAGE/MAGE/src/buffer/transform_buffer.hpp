@@ -118,7 +118,7 @@ namespace mage {
 						The (row-major) view-to-object matrix
 						(i.e. object-to-view inverse matrix).
 		 */
-		void SetObjectMatrices(
+		void XM_CALLCONV SetObjectMatrices(
 			FXMMATRIX object_to_world,
 			FXMMATRIX view_to_object) const noexcept {
 			m_object_to_world = XMMatrixTranspose(object_to_world);

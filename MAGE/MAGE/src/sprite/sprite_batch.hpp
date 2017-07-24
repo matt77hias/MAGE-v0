@@ -249,7 +249,7 @@ namespace mage {
 		 @param[in]		transform
 						The transform for the whole batch of sprites.
 		 */
-		void Begin(SpriteSortMode sort_mode = SpriteSortMode::Deferred, 
+		void XM_CALLCONV Begin(SpriteSortMode sort_mode = SpriteSortMode::Deferred,
 			FXMMATRIX transform = XMMatrixIdentity());
 		
 		/**

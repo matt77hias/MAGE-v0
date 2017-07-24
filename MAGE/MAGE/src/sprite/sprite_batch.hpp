@@ -247,9 +247,10 @@ namespace mage {
 		 @param[in]		sort_mode
 						A reference to the sprite sorting mode for the whole batch of sprites.
 		 @param[in]		transform
-						A reference to the transform for the whole batch of sprites.
+						The transform for the whole batch of sprites.
 		 */
-		void Begin(SpriteSortMode sort_mode = SpriteSortMode::Deferred, const XMMATRIX &transform = XMMatrixIdentity());
+		void Begin(SpriteSortMode sort_mode = SpriteSortMode::Deferred, 
+			FXMMATRIX transform = XMMatrixIdentity());
 		
 		/**
 		 Draws a sprite.

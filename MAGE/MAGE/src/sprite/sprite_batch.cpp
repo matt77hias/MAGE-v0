@@ -41,7 +41,7 @@ namespace mage {
 
 	SpriteBatch::~SpriteBatch() = default;
 
-	void SpriteBatch::Begin(SpriteSortMode sort_mode, const XMMATRIX &transform) {
+	void SpriteBatch::Begin(SpriteSortMode sort_mode, FXMMATRIX transform) {
 		// This SpriteBatch may not already be in a begin/end pair.
 		Assert(!m_in_begin_end_pair);
 

@@ -45,9 +45,9 @@ namespace mage {
 		 @param[in]		str
 						A reference to the string.
 		 @param[in]		color
-						A reference to the color.
+						The color.
 		 */
-		explicit ColorString(const wstring &str, const XMVECTOR &color = Colors::White)
+		explicit ColorString(const wstring &str, FXMVECTOR color = Colors::White)
 			: m_str(str), m_color() {
 			SetColor(color);
 		}
@@ -69,9 +69,9 @@ namespace mage {
 		 @param[in]		str
 						A reference to the string.
 		 @param[in]		color
-						A reference to the color.
+						The color.
 		 */
-		explicit ColorString(wstring &&str, const XMVECTOR &color = Colors::White)
+		explicit ColorString(wstring &&str, FXMVECTOR color = Colors::White)
 			: m_str(std::move(str)), m_color() {
 			SetColor(color);
 		}
@@ -95,9 +95,9 @@ namespace mage {
 		 @param[in]		str
 						A pointer to the str.
 		 @param[in]		color
-						A reference to the color.
+						The color.
 		 */
-		explicit ColorString(const wchar_t *str, const XMVECTOR &color = Colors::White)
+		explicit ColorString(const wchar_t *str, FXMVECTOR color = Colors::White)
 			: m_str(str), m_color() {
 			SetColor(color);
 		}

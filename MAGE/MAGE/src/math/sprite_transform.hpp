@@ -20,7 +20,7 @@ namespace mage {
 
 	 @pre			The current engine must be loaded.
 	 @param[in]		x
-					The given normalized screen x-value.
+					The normalized screen x-value.
 	 */
 	float ConvertNormalizedToAbsoluteScreenX(float x);
 
@@ -29,7 +29,7 @@ namespace mage {
 
 	 @pre			The current engine must be loaded.
 	 @param[in]		y
-					The given normalized screen y-value.
+					The normalized screen y-value.
 	 */
 	float ConvertNormalizedToAbsoluteScreenY(float y);
 	
@@ -38,9 +38,9 @@ namespace mage {
 
 	 @pre			The current engine must be loaded.
 	 @param[in]		x
-					The given normalized screen x-value.
+					The normalized screen x-value.
 	 @param[in]		y
-					The given normalized screen y-value.
+					The normalized screen y-value.
 	 */
 	inline const XMFLOAT2 ConvertNormalizedToAbsoluteScreen(float x, float y) {
 		return XMFLOAT2(ConvertNormalizedToAbsoluteScreenX(x), ConvertNormalizedToAbsoluteScreenY(y));
@@ -51,7 +51,7 @@ namespace mage {
 
 	 @pre			The current engine must be loaded.
 	 @param[in]		position
-					The given normalized screen position.
+					A reference to the normalized screen position.
 	 */
 	inline const XMFLOAT2 ConvertNormalizedToAbsoluteScreen(const XMFLOAT2 &position) {
 		return ConvertNormalizedToAbsoluteScreen(position.x, position.y);
@@ -62,16 +62,16 @@ namespace mage {
 
 	 @pre			The current engine must be loaded.
 	 @param[in]		position
-					The given normalized screen position.
+					The normalized screen position.
 	 */
-	const XMVECTOR ConvertNormalizedToAbsoluteScreen(const XMVECTOR &position);
+	const XMVECTOR ConvertNormalizedToAbsoluteScreen(FXMVECTOR position);
 
 	/**
 	 Converts the given absolute screen x-value to normalized screen x-value.
 
 	 @pre			The current engine must be loaded.
 	 @param[in]		x
-					The given absolute screen x-value.
+					The absolute screen x-value.
 	 */
 	float ConvertAbsoluteToNormalizedScreenX(float x);
 
@@ -80,7 +80,7 @@ namespace mage {
 
 	 @pre			The current engine must be loaded.
 	 @param[in]		y
-					The given absolute screen y-value.
+					The absolute screen y-value.
 	 */
 	float ConvertAbsoluteToNormalizedScreenY(float y);
 	
@@ -89,9 +89,9 @@ namespace mage {
 
 	 @pre			The current engine must be loaded.
 	 @param[in]		x
-					The given absolute screen x-value.
+					The absolute screen x-value.
 	 @param[in]		y
-					The given absolute screen y-value.
+					The absolute screen y-value.
 	 */
 	inline const XMFLOAT2 ConvertAbsoluteToNormalizedScreen(float x, float y) {
 		return XMFLOAT2(ConvertAbsoluteToNormalizedScreenX(x), ConvertAbsoluteToNormalizedScreenY(y));
@@ -102,7 +102,7 @@ namespace mage {
 
 	 @pre			The current engine must be loaded.
 	 @param[in]		position
-					The given absolute screen position.
+					A reference to the absolute screen position.
 	 */
 	inline const XMFLOAT2 ConvertAbsoluteToNormalizedScreen(const XMFLOAT2 &position) {
 		return ConvertAbsoluteToNormalizedScreen(position.x, position.y);
@@ -113,9 +113,9 @@ namespace mage {
 
 	 @pre			The current engine must be loaded.
 	 @param[in]		position
-					The given absolute screen position.
+					The absolute screen position.
 	 */
-	const XMVECTOR ConvertAbsoluteToNormalizedScreen(const XMVECTOR &position);
+	const XMVECTOR ConvertAbsoluteToNormalizedScreen(FXMVECTOR position);
 
 	/**
 	 A struct of sprite transforms.
@@ -141,7 +141,8 @@ namespace mage {
 		 @param[in]		scale
 						A reference to the scale component.
 		 */
-		explicit SpriteTransform(const XMFLOAT2 &translation = { 0.0f, 0.0f }, 
+		explicit SpriteTransform(
+			const XMFLOAT2 &translation = { 0.0f, 0.0f }, 
 			float depth = 0.0f,
 			float rotation = 0.0f, 
 			const XMFLOAT2 &rotation_origin = { 0.0f, 0.0f }, 
@@ -157,21 +158,22 @@ namespace mage {
 		 rotation, rotation origin and scale component.
 
 		 @param[in]		translation
-						A reference to the translation component.
+						The translation component.
 		 @param[in]		depth
 						The depth component.
 		 @param[in]		rotation
 						The rotation component.
 		 @param[in]		rotation_origin
-						A reference to the rotation component.
+						The rotation component.
 		 @param[in]		scale
-						A reference to the scale component.
+						The scale component.
 		 */
-		explicit SpriteTransform(const XMVECTOR &translation, 
+		explicit SpriteTransform(
+			FXMVECTOR translation, 
 			float depth,
 			float rotation, 
-			const XMVECTOR &rotation_origin, 
-			const XMVECTOR &scale)
+			FXMVECTOR rotation_origin, 
+			FXMVECTOR scale)
 			: m_translation(), 
 			m_depth(depth),
 			m_rotation(rotation), 
@@ -278,9 +280,9 @@ namespace mage {
 		 Sets the translation component of this sprite transform to the given translation component.
 
 		 @param[in]		translation
-						A reference to the translation component.
+						The translation component.
 		 */
-		void SetTranslation(const XMVECTOR &translation) noexcept {
+		void SetTranslation(FXMVECTOR translation) noexcept {
 			XMStoreFloat2(&m_translation, translation);
 		}
 
@@ -331,9 +333,9 @@ namespace mage {
 		 Adds the given translation component to the translation component of this sprite transform.
 
 		 @param[in]		translation
-						A reference to the translation component to add.
+						The translation component to add.
 		 */
-		void AddTranslation(const XMVECTOR &translation) noexcept {
+		void AddTranslation(FXMVECTOR translation) noexcept {
 			AddTranslation(XMVectorGetX(translation), XMVectorGetY(translation));
 		}
 
@@ -419,9 +421,9 @@ namespace mage {
 
 		 @pre			The current engine must be loaded.
 		 @param[in]		translation
-						A reference to the normalized translation component.
+						The normalized translation component.
 		 */
-		void SetNormalizedTranslation(const XMVECTOR &translation) {
+		void SetNormalizedTranslation(FXMVECTOR translation) {
 			SetTranslation(ConvertNormalizedToAbsoluteScreen(translation));
 		}
 
@@ -476,9 +478,9 @@ namespace mage {
 
 		 @pre			The current engine must be loaded.
 		 @param[in]		translation
-						A reference to the normalized translation component to add.
+						The normalized translation component to add.
 		 */
-		void AddNormalizedTranslation(const XMVECTOR &translation) {
+		void AddNormalizedTranslation(FXMVECTOR translation) {
 			AddTranslation(ConvertNormalizedToAbsoluteScreen(translation));
 		}
 
@@ -639,9 +641,9 @@ namespace mage {
 		 Sets the rotation origin of this sprite transform to the given rotation origin.
 
 		 @param[in]		rotation_origin
-						A reference to the rotation origin.
+						The rotation origin.
 		 */
-		void SetRotationOrigin(const XMVECTOR &rotation_origin) noexcept {
+		void SetRotationOrigin(FXMVECTOR rotation_origin) noexcept {
 			XMStoreFloat2(&m_rotation_origin, rotation_origin);
 		}
 
@@ -692,9 +694,9 @@ namespace mage {
 		 Adds the given rotation origin to the rotation origin of this sprite transform.
 
 		 @param[in]		rotation_origin
-						A reference to the rotation origin to add.
+						The rotation origin to add.
 		 */
-		void AddRotationOrigin(const XMVECTOR &rotation_origin) noexcept {
+		void AddRotationOrigin(FXMVECTOR rotation_origin) noexcept {
 			AddRotationOrigin(XMVectorGetX(rotation_origin), XMVectorGetY(rotation_origin));
 		}
 
@@ -780,9 +782,9 @@ namespace mage {
 
 		 @pre			The current engine must be loaded.
 		 @param[in]		rotation_origin
-						A reference to the normalized rotation origin.
+						The normalized rotation origin.
 		 */
-		void SetNormalizedRotationOrigin(const XMVECTOR &rotation_origin) {
+		void SetNormalizedRotationOrigin(FXMVECTOR rotation_origin) {
 			SetRotationOrigin(ConvertNormalizedToAbsoluteScreen(rotation_origin));
 		}
 
@@ -837,9 +839,9 @@ namespace mage {
 
 		 @pre			The current engine must be loaded.
 		 @param[in]		rotation_origin
-						A reference to the normalized rotation origin to add.
+						The normalized rotation origin to add.
 		 */
-		void AddNormalizedRotationOrigin(const XMVECTOR &rotation_origin) {
+		void AddNormalizedRotationOrigin(FXMVECTOR rotation_origin) {
 			AddRotationOrigin(ConvertAbsoluteToNormalizedScreen(rotation_origin));
 		}
 
@@ -934,9 +936,9 @@ namespace mage {
 		 Sets the scale component of this sprite transform to the given scale component.
 
 		 @param[in]		scale
-		 A reference to the scale component.
+						The scale component.
 		 */
-		void SetScale(const XMVECTOR &scale) noexcept {
+		void SetScale(FXMVECTOR scale) noexcept {
 			XMStoreFloat2(&m_scale, scale);
 		}
 
@@ -997,9 +999,9 @@ namespace mage {
 		 Adds the given scale component to the scale component of this sprite transform.
 
 		 @param[in]		scale
-						A reference to the scale component to add.
+						The scale component to add.
 		 */
-		void AddScale(const XMVECTOR &scale) noexcept {
+		void AddScale(FXMVECTOR scale) noexcept {
 			AddScale(XMVectorGetX(scale), XMVectorGetY(scale));
 		}
 

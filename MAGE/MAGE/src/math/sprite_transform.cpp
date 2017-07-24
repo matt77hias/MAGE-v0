@@ -33,7 +33,7 @@ namespace mage {
 		return y * static_cast< float >(renderer->GetHeight());
 	}
 
-	const XMVECTOR ConvertNormalizedToAbsoluteScreen(const XMVECTOR &position) {
+	const XMVECTOR ConvertNormalizedToAbsoluteScreen(FXMVECTOR position) {
 		Assert(g_engine);
 		Assert(g_engine->IsLoaded());
 		
@@ -68,7 +68,7 @@ namespace mage {
 		return y / static_cast<float>(renderer->GetHeight());
 	}
 
-	const XMVECTOR ConvertAbsoluteToNormalizedScreen(const XMVECTOR &position) {
+	const XMVECTOR ConvertAbsoluteToNormalizedScreen(FXMVECTOR position) {
 		Assert(g_engine);
 		Assert(g_engine->IsLoaded());
 		

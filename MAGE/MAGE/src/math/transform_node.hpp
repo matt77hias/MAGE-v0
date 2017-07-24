@@ -141,7 +141,7 @@ namespace mage {
 		 @param[in]		translation
 						The translation component.
 		 */
-		void SetTranslation(FXMVECTOR translation) noexcept {
+		void XM_CALLCONV SetTranslation(FXMVECTOR translation) noexcept {
 			m_transform->SetTranslation(translation);
 			SetDirty();
 		}
@@ -211,7 +211,7 @@ namespace mage {
 		 @param[in]		translation
 						The translation component to add.
 		 */
-		void AddTranslation(FXMVECTOR translation) noexcept {
+		void XM_CALLCONV AddTranslation(FXMVECTOR translation) noexcept {
 			m_transform->AddTranslation(translation);
 			SetDirty();
 		}
@@ -350,7 +350,7 @@ namespace mage {
 		 @param[in]		rotation
 						The rotation component.
 		 */
-		void SetRotation(FXMVECTOR rotation) noexcept {
+		void XM_CALLCONV SetRotation(FXMVECTOR rotation) noexcept {
 			m_transform->SetRotation(rotation);
 			SetDirty();
 		}
@@ -363,7 +363,7 @@ namespace mage {
 		 @param[in]		angle
 						The angle.
 		 */
-		void SetRotationAroundDirection(FXMVECTOR normal, float angle) noexcept {
+		void XM_CALLCONV SetRotationAroundDirection(FXMVECTOR normal, float angle) noexcept {
 			m_transform->SetRotationAroundDirection(normal, angle);
 			SetDirty();
 		}
@@ -433,7 +433,7 @@ namespace mage {
 		 @param[in]		rotation
 						The rotation component to add.
 		 */
-		void AddRotation(FXMVECTOR rotation) noexcept {
+		void XM_CALLCONV AddRotation(FXMVECTOR rotation) noexcept {
 			m_transform->AddRotation(rotation);
 			SetDirty();
 		}
@@ -583,7 +583,7 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		void SetScale(FXMVECTOR scale) noexcept {
+		void XM_CALLCONV SetScale(FXMVECTOR scale) noexcept {
 			m_transform->SetScale(scale);
 			SetDirty();
 		}
@@ -664,7 +664,7 @@ namespace mage {
 		 @param[in]		scale
 						The scale component to add.
 		 */
-		void AddScale(FXMVECTOR scale) noexcept {
+		void XM_CALLCONV AddScale(FXMVECTOR scale) noexcept {
 			m_transform->AddScale(scale);
 			SetDirty();
 		}
@@ -1046,7 +1046,7 @@ namespace mage {
 						The vector expressed in object space coordinates.
 		 @return		The transformed vector expressed in parent space coordinates.
 		 */
-		const XMVECTOR TransformObjectToParent(FXMVECTOR vector) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformObjectToParent(FXMVECTOR vector) const noexcept {
 			return m_transform->TransformObjectToParent(vector);
 		}
 
@@ -1057,7 +1057,7 @@ namespace mage {
 						The vector expressed in parent space coordinates.
 		 @return		The transformed vector expressed in object space coordinates.
 		 */
-		const XMVECTOR TransformParentToObject(FXMVECTOR vector) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformParentToObject(FXMVECTOR vector) const noexcept {
 			return m_transform->TransformParentToObject(vector);
 		}
 
@@ -1068,7 +1068,7 @@ namespace mage {
 						The vector expressed in object space coordinates.
 		 @return		The transformed vector expressed in world space coordinates.
 		 */
-		const XMVECTOR TransformObjectToWorld(FXMVECTOR vector) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformObjectToWorld(FXMVECTOR vector) const noexcept {
 			return XMVector4Transform(vector, GetObjectToWorldMatrix());
 		}
 
@@ -1079,7 +1079,7 @@ namespace mage {
 						The vector expressed in world space coordinates.
 		 @return		The transformed vector expressed in object space coordinates.
 		 */
-		const XMVECTOR TransformWorldToObject(FXMVECTOR vector) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformWorldToObject(FXMVECTOR vector) const noexcept {
 			return XMVector4Transform(vector, GetWorldToObjectMatrix());
 		}
 

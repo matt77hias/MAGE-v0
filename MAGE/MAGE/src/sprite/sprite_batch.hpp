@@ -268,8 +268,9 @@ namespace mage {
 		 @param[in]		source
 						A pointer the rectangular subregion of the texture.
 		 */
-		void Draw(ID3D11ShaderResourceView *texture, FXMVECTOR color, SpriteEffect effects,
-			const SpriteTransform &transform, const RECT *source = nullptr);
+		void XM_CALLCONV Draw(ID3D11ShaderResourceView *texture, FXMVECTOR color, 
+			SpriteEffect effects, const SpriteTransform &transform, 
+			const RECT *source = nullptr);
 		
 		/**
 		 Ends the processing of a batch of sprites.
@@ -420,7 +421,7 @@ namespace mage {
 		 @param[in]		inverse_texture_size
 						The inverse size of the texture.
 		 */
-		void PrepareSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
+		void XM_CALLCONV PrepareSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
 			FXMVECTOR texture_size, FXMVECTOR inverse_texture_size) noexcept;
 
 		//---------------------------------------------------------------------

@@ -64,7 +64,7 @@ namespace mage {
 	 @param[in]		position
 					The normalized screen position.
 	 */
-	const XMVECTOR ConvertNormalizedToAbsoluteScreen(FXMVECTOR position);
+	const XMVECTOR XM_CALLCONV ConvertNormalizedToAbsoluteScreen(FXMVECTOR position);
 
 	/**
 	 Converts the given absolute screen x-value to normalized screen x-value.
@@ -115,7 +115,7 @@ namespace mage {
 	 @param[in]		position
 					The absolute screen position.
 	 */
-	const XMVECTOR ConvertAbsoluteToNormalizedScreen(FXMVECTOR position);
+	const XMVECTOR XM_CALLCONV ConvertAbsoluteToNormalizedScreen(FXMVECTOR position);
 
 	/**
 	 A struct of sprite transforms.
@@ -282,7 +282,7 @@ namespace mage {
 		 @param[in]		translation
 						The translation component.
 		 */
-		void SetTranslation(FXMVECTOR translation) noexcept {
+		void XM_CALLCONV SetTranslation(FXMVECTOR translation) noexcept {
 			XMStoreFloat2(&m_translation, translation);
 		}
 
@@ -335,7 +335,7 @@ namespace mage {
 		 @param[in]		translation
 						The translation component to add.
 		 */
-		void AddTranslation(FXMVECTOR translation) noexcept {
+		void XM_CALLCONV AddTranslation(FXMVECTOR translation) noexcept {
 			AddTranslation(XMVectorGetX(translation), XMVectorGetY(translation));
 		}
 
@@ -423,7 +423,7 @@ namespace mage {
 		 @param[in]		translation
 						The normalized translation component.
 		 */
-		void SetNormalizedTranslation(FXMVECTOR translation) {
+		void XM_CALLCONV SetNormalizedTranslation(FXMVECTOR translation) {
 			SetTranslation(ConvertNormalizedToAbsoluteScreen(translation));
 		}
 
@@ -480,7 +480,7 @@ namespace mage {
 		 @param[in]		translation
 						The normalized translation component to add.
 		 */
-		void AddNormalizedTranslation(FXMVECTOR translation) {
+		void XM_CALLCONV AddNormalizedTranslation(FXMVECTOR translation) {
 			AddTranslation(ConvertNormalizedToAbsoluteScreen(translation));
 		}
 
@@ -643,7 +643,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						The rotation origin.
 		 */
-		void SetRotationOrigin(FXMVECTOR rotation_origin) noexcept {
+		void XM_CALLCONV SetRotationOrigin(FXMVECTOR rotation_origin) noexcept {
 			XMStoreFloat2(&m_rotation_origin, rotation_origin);
 		}
 
@@ -696,7 +696,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						The rotation origin to add.
 		 */
-		void AddRotationOrigin(FXMVECTOR rotation_origin) noexcept {
+		void XM_CALLCONV AddRotationOrigin(FXMVECTOR rotation_origin) noexcept {
 			AddRotationOrigin(XMVectorGetX(rotation_origin), XMVectorGetY(rotation_origin));
 		}
 
@@ -784,7 +784,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						The normalized rotation origin.
 		 */
-		void SetNormalizedRotationOrigin(FXMVECTOR rotation_origin) {
+		void XM_CALLCONV SetNormalizedRotationOrigin(FXMVECTOR rotation_origin) {
 			SetRotationOrigin(ConvertNormalizedToAbsoluteScreen(rotation_origin));
 		}
 
@@ -841,7 +841,7 @@ namespace mage {
 		 @param[in]		rotation_origin
 						The normalized rotation origin to add.
 		 */
-		void AddNormalizedRotationOrigin(FXMVECTOR rotation_origin) {
+		void XM_CALLCONV AddNormalizedRotationOrigin(FXMVECTOR rotation_origin) {
 			AddRotationOrigin(ConvertAbsoluteToNormalizedScreen(rotation_origin));
 		}
 
@@ -938,7 +938,7 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		void SetScale(FXMVECTOR scale) noexcept {
+		void XM_CALLCONV SetScale(FXMVECTOR scale) noexcept {
 			XMStoreFloat2(&m_scale, scale);
 		}
 
@@ -1001,7 +1001,7 @@ namespace mage {
 		 @param[in]		scale
 						The scale component to add.
 		 */
-		void AddScale(FXMVECTOR scale) noexcept {
+		void XM_CALLCONV AddScale(FXMVECTOR scale) noexcept {
 			AddScale(XMVectorGetX(scale), XMVectorGetY(scale));
 		}
 

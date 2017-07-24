@@ -84,7 +84,7 @@ namespace mage {
 		void SetSensitivity(XMFLOAT2 &&sensitivity) noexcept {
 			m_sensitivity = std::move(sensitivity);
 		}
-		void SetSensitivity(FXMVECTOR sensitivity) noexcept {
+		void XM_CALLCONV SetSensitivity(FXMVECTOR sensitivity) noexcept {
 			XMStoreFloat2(&m_sensitivity, sensitivity);
 		}
 
@@ -113,7 +113,7 @@ namespace mage {
 		void SetMinimumRotation(XMFLOAT2 &&minimum_rotation) noexcept {
 			m_minimum_rotation = std::move(minimum_rotation);
 		}
-		void SetMinimumRotation(FXMVECTOR minimum_rotation) noexcept {
+		void XM_CALLCONV SetMinimumRotation(FXMVECTOR minimum_rotation) noexcept {
 			XMStoreFloat2(&m_minimum_rotation, minimum_rotation);
 		}
 
@@ -142,7 +142,7 @@ namespace mage {
 		void SetMaximumRotation(XMFLOAT2 &&maximum_rotation) noexcept {
 			m_maximum_rotation = std::move(maximum_rotation);
 		}
-		void SetMaximumRotation(FXMVECTOR maximum_rotation) noexcept {
+		void XM_CALLCONV SetMaximumRotation(FXMVECTOR maximum_rotation) noexcept {
 			XMStoreFloat2(&m_maximum_rotation, maximum_rotation);
 		}
 

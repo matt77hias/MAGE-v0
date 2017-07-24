@@ -179,7 +179,7 @@ namespace mage {
 		m_texture_srv = std::move(output.m_texture_srv);
 	}
 
-	void SpriteFont::DrawString(SpriteBatch &sprite_batch, const wchar_t *str, 
+	void XM_CALLCONV SpriteFont::DrawString(SpriteBatch &sprite_batch, const wchar_t *str,
 		const SpriteTransform &transform, FXMVECTOR color, SpriteEffect effects) const {
 		Assert(str);
 

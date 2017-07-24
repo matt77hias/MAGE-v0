@@ -159,7 +159,7 @@ namespace mage {
 		 @param[in]		color
 						The shadow color.
 		 */
-		void SetShadowColor(FXMVECTOR color) noexcept {
+		void XM_CALLCONV SetShadowColor(FXMVECTOR color) noexcept {
 			XMStoreFloat4(&m_shadow_color, color);
 		}
 

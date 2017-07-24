@@ -41,7 +41,7 @@ namespace mage {
 
 	SpriteBatch::~SpriteBatch() = default;
 
-	void SpriteBatch::Begin(SpriteSortMode sort_mode, FXMMATRIX transform) {
+	void XM_CALLCONV SpriteBatch::Begin(SpriteSortMode sort_mode, FXMMATRIX transform) {
 		// This SpriteBatch may not already be in a begin/end pair.
 		Assert(!m_in_begin_end_pair);
 
@@ -318,7 +318,7 @@ namespace mage {
 		}
 	}
 
-	void SpriteBatch::PrepareSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
+	void XM_CALLCONV SpriteBatch::PrepareSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
 		FXMVECTOR texture_size, FXMVECTOR inverse_texture_size) noexcept {
 		
 		XMVECTOR source                      = XMLoadFloat4A(&sprite->m_source);

@@ -206,7 +206,7 @@ namespace mage {
 		 @param[in]		translation
 						The translation component.
 		 */
-		void SetTranslation(FXMVECTOR translation) noexcept {
+		void XM_CALLCONV SetTranslation(FXMVECTOR translation) noexcept {
 			XMStoreFloat3(&m_translation, translation);
 			SetDirty();
 		}
@@ -277,7 +277,7 @@ namespace mage {
 		 @param[in]		translation
 						The translation component to add.
 		 */
-		void AddTranslation(FXMVECTOR translation) noexcept {
+		void XM_CALLCONV AddTranslation(FXMVECTOR translation) noexcept {
 			AddTranslation(XMVectorGetX(translation), XMVectorGetY(translation), XMVectorGetZ(translation));
 		}
 
@@ -406,7 +406,7 @@ namespace mage {
 		 @param[in]		rotation
 						The rotation component.
 		 */
-		void SetRotation(FXMVECTOR rotation) noexcept {
+		void XM_CALLCONV SetRotation(FXMVECTOR rotation) noexcept {
 			XMStoreFloat3(&m_rotation, rotation);
 			SetDirty();
 		}
@@ -419,7 +419,7 @@ namespace mage {
 		 @param[in]		angle
 						The angle.
 		 */
-		void SetRotationAroundDirection(FXMVECTOR normal, float angle) noexcept {
+		void XM_CALLCONV SetRotationAroundDirection(FXMVECTOR normal, float angle) noexcept {
 			const XMMATRIX rotation_m = XMMatrixRotationNormal(normal, angle);
 			XMFLOAT4X4 rotation;
 			XMStoreFloat4x4(&rotation, rotation_m);
@@ -501,7 +501,7 @@ namespace mage {
 		 @param[in]		rotation
 						The rotation component to add.
 		 */
-		void AddRotation(FXMVECTOR rotation) noexcept {
+		void XM_CALLCONV AddRotation(FXMVECTOR rotation) noexcept {
 			AddRotation(XMVectorGetX(rotation), XMVectorGetY(rotation), XMVectorGetZ(rotation));
 		}
 
@@ -651,7 +651,7 @@ namespace mage {
 		 @param[in]		scale
 						The scale component.
 		 */
-		void SetScale(FXMVECTOR scale) noexcept {
+		void XM_CALLCONV SetScale(FXMVECTOR scale) noexcept {
 			XMStoreFloat3(&m_scale, scale);
 			SetDirty();
 		}
@@ -732,7 +732,7 @@ namespace mage {
 		 @param[in]		scale
 						The scale component to add.
 		 */
-		void AddScale(FXMVECTOR scale) noexcept {
+		void XM_CALLCONV AddScale(FXMVECTOR scale) noexcept {
 			AddScale(XMVectorGetX(scale), XMVectorGetY(scale), XMVectorGetZ(scale));
 		}
 		
@@ -937,7 +937,7 @@ namespace mage {
 						The vector expressed in object space coordinates.
 		 @return		The transformed vector expressed in parent space coordinates.
 		 */
-		const XMVECTOR TransformObjectToParent(FXMVECTOR vector) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformObjectToParent(FXMVECTOR vector) const noexcept {
 			return XMVector4Transform(vector, GetObjectToParentMatrix());
 		}
 
@@ -948,7 +948,7 @@ namespace mage {
 						The vector expressed in parent space coordinates.
 		 @return		The transformed vector expressed in object space coordinates.
 		 */
-		const XMVECTOR TransformParentToObject(FXMVECTOR vector) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformParentToObject(FXMVECTOR vector) const noexcept {
 			return XMVector4Transform(vector, GetParentToObjectMatrix());
 		}
 
@@ -965,7 +965,7 @@ namespace mage {
 						The direction expressed in object space coordinates.
 		 @return		The transformed (normalized) direction expressed in parent space coordinates.
 		 */
-		const XMVECTOR TransformObjectToParentDirection(FXMVECTOR direction) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformObjectToParentDirection(FXMVECTOR direction) const noexcept {
 			const XMMATRIX transformation = GetObjectToParentScaleMatrix() * GetObjectToParentRotationMatrix();
 			return XMVector3Normalize(XMVector4Transform(direction, transformation));
 		}

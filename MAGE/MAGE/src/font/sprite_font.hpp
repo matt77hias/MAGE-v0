@@ -126,7 +126,7 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		void DrawString(SpriteBatch &sprite_batch, 
+		void XM_CALLCONV DrawString(SpriteBatch &sprite_batch,
 			const wchar_t *str,
 			const SpriteTransform &transform,
 			FXMVECTOR color = Colors::White, 

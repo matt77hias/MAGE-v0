@@ -159,7 +159,7 @@ namespace mage {
 		 @param[in]		color
 						The border color.
 		 */
-		void SetBorderColor(FXMVECTOR color) noexcept {
+		void XM_CALLCONV SetBorderColor(FXMVECTOR color) noexcept {
 			XMStoreFloat4(&m_border_color, color);
 		}
 

@@ -245,7 +245,7 @@ namespace mage {
 		 @param[in]		color
 						The color.
 		 */
-		void SetColor(FXMVECTOR color) noexcept {
+		void XM_CALLCONV SetColor(FXMVECTOR color) noexcept {
 			XMStoreFloat4(&m_color, color);
 		}
 

@@ -122,14 +122,14 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the sprite transform.
 		 @param[in]		color
-						A reference to the sprite color.
+						The sprite color.
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
 		void DrawString(SpriteBatch &sprite_batch, 
 			const wchar_t *str,
 			const SpriteTransform &transform,
-			const XMVECTOR &color = Colors::White, 
+			FXMVECTOR color = Colors::White, 
 			SpriteEffect effects = SpriteEffect::None) const;
 
 		/**

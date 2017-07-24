@@ -180,7 +180,7 @@ namespace mage {
 	}
 
 	void SpriteFont::DrawString(SpriteBatch &sprite_batch, const wchar_t *str, 
-		const SpriteTransform &transform, const XMVECTOR &color, SpriteEffect effects) const {
+		const SpriteTransform &transform, FXMVECTOR color, SpriteEffect effects) const {
 		Assert(str);
 
 		static_assert(

@@ -57,7 +57,7 @@ namespace mage {
 	}
 	
 	void SpriteBatch::Draw(ID3D11ShaderResourceView *texture, 
-		const XMVECTOR &color, SpriteEffect effects,
+		FXMVECTOR color, SpriteEffect effects,
 		const SpriteTransform &transform, const RECT *source) {
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);
@@ -260,7 +260,7 @@ namespace mage {
 	}
 
 	void SpriteBatch::RenderBatch(ID3D11ShaderResourceView *texture,
-		const SpriteInfo * const * sprites, size_t nb_sprites) {
+		const SpriteInfo * const *sprites, size_t nb_sprites) {
 
 		m_shader->PrepareShading(m_transform_buffer.Get(), texture);
 
@@ -319,7 +319,7 @@ namespace mage {
 	}
 
 	void SpriteBatch::PrepareSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
-		const XMVECTOR &texture_size, const XMVECTOR &inverse_texture_size) noexcept {
+		FXMVECTOR texture_size, FXMVECTOR inverse_texture_size) noexcept {
 		
 		XMVECTOR source                      = XMLoadFloat4A(&sprite->m_source);
 		const XMVECTOR destination           = XMLoadFloat4A(&sprite->m_destination);

@@ -259,7 +259,7 @@ namespace mage {
 		 @param[in]		texture
 						A pointer to the shader resource view of the texture to draw.
 		 @param[in]		color
-						A reference to the color (multiplier).
+						The color (multiplier).
 		 @param[in]		effects
 						The sprite effects to apply.
 		 @param[in]		transform
@@ -267,7 +267,7 @@ namespace mage {
 		 @param[in]		source
 						A pointer the rectangular subregion of the texture.
 		 */
-		void Draw(ID3D11ShaderResourceView *texture, const XMVECTOR &color, SpriteEffect effects,
+		void Draw(ID3D11ShaderResourceView *texture, FXMVECTOR color, SpriteEffect effects,
 			const SpriteTransform &transform, const RECT *source = nullptr);
 		
 		/**
@@ -401,7 +401,7 @@ namespace mage {
 						The number of sprites which need to be rendered.
 		 */
 		void RenderBatch(ID3D11ShaderResourceView *texture,
-			const SpriteInfo * const * sprites, size_t nb_sprites);
+			const SpriteInfo * const *sprites, size_t nb_sprites);
 
 		/**
 		 Prepares a single sprite for rendering.
@@ -415,12 +415,12 @@ namespace mage {
 		 @param[in]		vertices
 						A pointer to the vertices for the sprite.
 		 @param[in]		texture_size
-						A reference to the size of the texture.
+						The size of the texture.
 		 @param[in]		inverse_texture_size
-						A reference to the inverse size of the texture.
+						The inverse size of the texture.
 		 */
 		void PrepareSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
-			const XMVECTOR &texture_size, const XMVECTOR &inverse_texture_size) noexcept;
+			FXMVECTOR texture_size, FXMVECTOR inverse_texture_size) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables

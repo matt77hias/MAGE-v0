@@ -30,12 +30,13 @@ namespace mage {
 		 Constructs a transform buffer from the given camera transformation matrices.
 
 		 @param[in]		world_to_view
-						A reference to the (row-major) world-to-view matrix.
+						The (row-major) world-to-view matrix.
 		 @param[in]		view_to_projection
-						A reference to the (row-major) view-to-projection matrix.
+						The (row-major) view-to-projection matrix.
 		 */
-		explicit TransformBuffer(const XMMATRIX &world_to_view,
-			const XMMATRIX &view_to_projection) :
+		explicit TransformBuffer(
+			FXMMATRIX world_to_view,
+			FXMMATRIX view_to_projection) :
 			m_world_to_view(XMMatrixTranspose(world_to_view)),
 			m_view_to_projection(XMMatrixTranspose(view_to_projection)) {}
 
@@ -112,17 +113,16 @@ namespace mage {
 		 Sets the object-specific matrices of this transform buffer.
 
 		 @param[in]		object_to_world
-						A reference to the (row-major) object-world matrix.
+						The (row-major) object-world matrix.
 		 @param[in]		view_to_object
-						A reference to the (row-major) view-to-object matrix
+						The (row-major) view-to-object matrix
 						(i.e. object-to-view inverse matrix).
 		 */
-		void SetObjectMatrices(const XMMATRIX &object_to_world,
-			const XMMATRIX &view_to_object) const noexcept {
-			m_object_to_world 
-				= XMMatrixTranspose(object_to_world);
-			m_object_to_view_inverse_transpose
-				= view_to_object;
+		void SetObjectMatrices(
+			FXMMATRIX object_to_world,
+			FXMMATRIX view_to_object) const noexcept {
+			m_object_to_world = XMMatrixTranspose(object_to_world);
+			m_object_to_view_inverse_transpose = view_to_object;
 		}
 
 	private:

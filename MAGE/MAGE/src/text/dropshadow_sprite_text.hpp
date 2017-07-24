@@ -157,9 +157,9 @@ namespace mage {
 		 Sets the shadow color of this dropshadow sprite text to the given color.
 
 		 @param[in]		color
-						A reference to the shadow color.
+						The shadow color.
 		 */
-		void SetShadowColor(const XMVECTOR &color) noexcept {
+		void SetShadowColor(FXMVECTOR color) noexcept {
 			XMStoreFloat4(&m_shadow_color, color);
 		}
 

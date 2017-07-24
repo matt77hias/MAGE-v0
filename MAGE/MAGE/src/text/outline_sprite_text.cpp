@@ -18,7 +18,7 @@ namespace mage {
 		m_border_color(border_color) {}
 
 	OutlineSpriteText::OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
-		const XMVECTOR &border_color, SpriteEffect effects)
+		FXMVECTOR border_color, SpriteEffect effects)
 		: SpriteText(name, font, effects),
 		m_border_color() {
 		SetBorderColor(border_color);

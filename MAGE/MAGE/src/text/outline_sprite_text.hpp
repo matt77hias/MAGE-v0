@@ -50,12 +50,12 @@ namespace mage {
 		 @param[in]		font
 						A pointer to the sprite font.
 		 @param[in]		border_color
-						A reference to the border color.
+						The border color.
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
 		explicit OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
-			const XMVECTOR &border_color = Colors::Black, SpriteEffect effects = SpriteEffect::None);
+			FXMVECTOR border_color = Colors::Black, SpriteEffect effects = SpriteEffect::None);
 
 		/**
 		 Constructs a outline sprite text from the given outline sprite text.

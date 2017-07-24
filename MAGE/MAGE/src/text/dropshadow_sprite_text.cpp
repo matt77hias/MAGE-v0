@@ -18,7 +18,7 @@ namespace mage {
 		m_shadow_color(shadow_color) {}
 
 	DropshadowSpriteText::DropshadowSpriteText(const string &name, SharedPtr< SpriteFont > font,
-		const XMVECTOR &shadow_color, SpriteEffect effects)
+		FXMVECTOR shadow_color, SpriteEffect effects)
 		: SpriteText(name, font, effects),
 		m_shadow_color() {
 		SetShadowColor(shadow_color);

@@ -50,12 +50,12 @@ namespace mage {
 		 @param[in]		font
 						A pointer to the sprite font.
 		 @param[in]		shadow_color
-						A reference to the shadow color. 
+						The shadow color. 
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
 		explicit DropshadowSpriteText(const string &name, SharedPtr< SpriteFont > font,
-			const XMVECTOR &shadow_color = Colors::Black, SpriteEffect effects = SpriteEffect::None);
+			FXMVECTOR shadow_color = Colors::Black, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a dropshadow sprite text from the given dropshadow sprite text.

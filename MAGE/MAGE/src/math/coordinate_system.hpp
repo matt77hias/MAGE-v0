@@ -43,9 +43,9 @@ namespace mage {
 
 		 @pre			The given axis is normalized.
 		 @param[in]		x
-						A reference to the x-axis.
+						The x-axis.
 		 */
-		explicit CartesianAxesSystem(const XMVECTOR &x) 
+		explicit CartesianAxesSystem(FXMVECTOR x) 
 			: m_x(x) {
 			const XMVECTOR u = (fabs(XMVectorGetX(m_x)) > 0.0f) ?
 								XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f) : 
@@ -59,11 +59,11 @@ namespace mage {
 
 		 @pre			The given axes are orthonormal.
 		 @param[in]		x
-						A reference to the x-axis.
+						The x-axis.
 		 @param[in]		y
-						A reference to the y-axis.
+						The y-axis.
 		 */
-		explicit CartesianAxesSystem(const XMVECTOR &x, const XMVECTOR &y) 
+		explicit CartesianAxesSystem(FXMVECTOR x, FXMVECTOR y) 
 			: m_x(x), m_y(y), m_z(XMVector3Cross(x, y)) {}
 
 		/**
@@ -71,13 +71,13 @@ namespace mage {
 
 		 @pre			The given axes are orthonormal.
 		 @param[in]		x
-						A reference to the x-axis.
+						The x-axis.
 		 @param[in]		y
-						A reference to the y-axis.
+						The y-axis.
 		 @param[in]		z
-						A reference to the z-axis.
+						The z-axis.
 		 */
-		explicit CartesianAxesSystem(const XMVECTOR &x, const XMVECTOR &y, const XMVECTOR &z) 
+		explicit CartesianAxesSystem(FXMVECTOR x, FXMVECTOR y, FXMVECTOR z) 
 			: m_x(x), m_y(y), m_z(z) {}
 
 		/**
@@ -206,11 +206,11 @@ namespace mage {
 		 Constructs a Cartesian coordinate system from the given origin and Cartesian axes system.
 
 		 @param[in]		o
-						A reference to the origin.
+						The origin.
 		 @param[in]		axes
 						A reference to the Cartesian axes system.
 		 */
-		explicit CartesianCoordinateSystem(const XMVECTOR &o, const CartesianAxesSystem &axes)
+		explicit CartesianCoordinateSystem(FXMVECTOR o, const CartesianAxesSystem &axes)
 			: m_o(o), m_axes(axes) {}
 
 		/**

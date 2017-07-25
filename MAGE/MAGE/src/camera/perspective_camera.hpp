@@ -23,6 +23,74 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Perspective Utilities
+	//-------------------------------------------------------------------------
+
+	/**
+	 Returns the horizontal field-of-view corresponding to 
+	 the given aspect ratio and vertical field-of-view.
+
+	 @param[in]		aspect_ratio
+					The aspect ratio.
+	 @param[in]		fov_y
+					The vertical field-of-view.
+	 @return		The horizontal field-of-view corresponding to 
+					the given aspect ratio and vertical field-of-view.
+	 */
+	inline float FOVXFromFOVY(float aspect_ratio, float fov_y) noexcept {
+		return 2.0f * atanf(aspect_ratio * tanf(0.5f * fov_y));
+	}
+
+	/**
+	 Returns the vertical field-of-view corresponding to 
+	 the given aspect ratio and horizontal field-of-view.
+
+	 @param[in]		aspect_ratio
+					The aspect ratio.
+	 @param[in]		fov_x
+					The horizontal field-of-view.
+	 @return		The vertical field-of-view corresponding to 
+					the given aspect ratio and horizontal field-of-view.
+	 */
+	inline float FOVYFromFOVX(float aspect_ratio, float fov_x) noexcept {
+		return 2.0f * atanf(tanf(0.5f * fov_x) / aspect_ratio);
+	}
+
+	/**
+	 Returns the aspect ratio corresponding to 
+	 the given width and height.
+
+	 @param[in]		width
+					The width.
+	 @param[in]		height
+					The height.
+	 @return		The aspect ratio corresponding to 
+					the given width and height.
+	 */
+	inline float AspectRatioFromWidthAndHeight(float width, float height) noexcept {
+		return width / height;
+	}
+
+	/**
+	 Returns the aspect ratio corresponding to 
+	 the given horizontal and vertical field-of-views.
+
+	 @param[in]		fov_x
+					The horizontal field-of-view.
+	 @param[in]		fov_y
+					The vertical field-of-view.
+	 @return		The aspect ratio corresponding to 
+					the given horizontal and vertical field-of-views.
+	 */
+	inline float AspectRatioFromFOVs(float fov_x, float fov_y) noexcept {
+		return tanf(0.5f * fov_x) / tanf(0.5f * fov_y);
+	}
+
+	//-------------------------------------------------------------------------
+	// PerspectiveCamera
+	//-------------------------------------------------------------------------
+
 	/**
 	 A class of perspective cameras.
 	 */
@@ -147,6 +215,15 @@ namespace mage {
 		}
 
 		/**
+		 Returns the horizontal field-of-view of this perspective camera.
+
+		 @return		The horizontal field-of-view of this perspective camera.
+		 */
+		float GetFOVX() const noexcept {
+			return FOVXFromFOVY(m_aspect_ratio, m_fov_y);
+		}
+
+		/**
 		 Returns the vertical field-of-view of this perspective camera.
 
 		 @return		The vertical field-of-view of this perspective camera.
@@ -193,7 +270,7 @@ namespace mage {
 						The height.
 		 */
 		void SetAspectRatio(float width, float height) noexcept {
-			SetAspectRatio(width / height);
+			SetAspectRatio(AspectRatioFromWidthAndHeight(width, height));
 		}
 	
 		/**

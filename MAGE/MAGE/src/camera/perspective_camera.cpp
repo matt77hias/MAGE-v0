@@ -26,7 +26,7 @@ namespace mage {
 	PerspectiveCamera::PerspectiveCamera(float width, float height,
 		float fov_y, float near_z, float far_z)
 		: Camera(near_z, far_z),
-		m_aspect_ratio(width / height), m_fov_y(fov_y) {}
+		m_aspect_ratio(AspectRatioFromWidthAndHeight(width, height)), m_fov_y(fov_y) {}
 
 	PerspectiveCamera::PerspectiveCamera(const PerspectiveCamera &camera) = default;
 

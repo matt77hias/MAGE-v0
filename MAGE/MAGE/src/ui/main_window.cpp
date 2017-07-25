@@ -132,6 +132,12 @@ namespace mage {
 		UninitializeWindow();
 	}
 
+	const wstring MainWindow::GetTitleText() const noexcept {
+		wchar_t m_text[1024];
+		const int result = GetWindowText(m_hwindow, m_text, 1024);
+		return result ? m_text : L"";
+	}
+
 	void MainWindow::SetTitleText(const wstring &title_text) noexcept {
 		SetTitleText(title_text.c_str());
 	}

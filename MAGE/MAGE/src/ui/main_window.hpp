@@ -123,6 +123,13 @@ namespace mage {
 		}
 
 		/**
+		 Returns the title text of this main window.
+
+		 @return		The title text of this main window.
+		 */
+		const wstring GetTitleText() const noexcept;
+
+		/**
 		 Sets the title text of this main window to the given title text.
 
 		 @param[in]		title_text

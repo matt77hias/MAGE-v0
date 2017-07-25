@@ -57,6 +57,7 @@ namespace mage {
 		double m_accumulated_time;
 		uint32_t m_accumulated_nb_frames;
 		uint32_t m_last_frames_per_second;
+		double m_last_milliseconds_per_frame;
 		double m_last_cpu_usage;
 		uint32_t m_last_ram_usage;
 		UniquePtr< CPUMonitor > m_monitor;

@@ -120,7 +120,7 @@ namespace mage {
 			SetShaders();
 		}
 
-		m_text->SetText(L"\n\n\n");
+		m_text->SetText(L"\n\n\n\n");
 		m_text->AppendText(m_shader_names[m_shader_index]);
 	}
 }

@@ -71,7 +71,7 @@ namespace mage {
 			// that does not correspond to any mnemonic or accelerator key. 
 
 			// Prevent the window to beep on ALT + ENTER for switching from fullscreen to windowed mode.
-			return MNC_CLOSE << 16; // high-order word of return value.
+			return MAKELRESULT(0, MNC_CLOSE); // MNC_CLOSE << 16
 		}
 		case WM_PAINT: {
 			// Sent when the system or another application makes a request 

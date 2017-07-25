@@ -32,8 +32,8 @@ namespace mage {
 		 @pre			@a hinstance is not equal to @c nullptr.
 		 @param[in]		hinstance
 						The application instance handle.
-		 @param[in]		name
-						A reference to the name of the application.
+		 @param[in]		title_text
+						A reference to the title text.
 		 @param[in]		width
 						The width of the window.
 		 @param[in]		height
@@ -43,7 +43,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to create the main window.
 		 */
-		explicit MainWindow(HINSTANCE hinstance, const wstring &name, LONG width, LONG height);
+		explicit MainWindow(HINSTANCE hinstance, const wstring &title_text, LONG width, LONG height);
 
 		/**
 		 Constructs a main window from the given main window.
@@ -123,13 +123,21 @@ namespace mage {
 		}
 
 		/**
-		 Returns the name of this main window.
+		 Sets the title text of this main window to the given title text.
 
-		 @return		The name of this main window.
+		 @param[in]		title_text
+						A reference to the title text.
 		 */
-		const wstring &GetName() const noexcept {
-			return m_name;
-		}
+		void SetTitleText(const wstring &title_text) noexcept;
+
+		/**
+		 Sets the title text of this main window to the given title text.
+
+		 @pre			@a title_text is not equal to @c nullptr.
+		 @param[in]		title_text
+						A pointer to the title text.
+		 */
+		void SetTitleText(const wchar_t *title_text) noexcept;
 
 	private:
 
@@ -140,6 +148,8 @@ namespace mage {
 		/**
 		 Initializes the engine window of this main window.
 
+		 @param[in]		title_text
+						A reference to the title text.
 		 @param[in]		width
 						The width of the client rectangle of the window.
 		 @param[in]		height
@@ -149,11 +159,13 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to create the main window.
 		 */
-		void InitializeWindow(LONG width, LONG height);
+		void InitializeWindow(const wstring &title_text, LONG width, LONG height);
 
 		/**
 		 Initializes the engine window of this main window.
 
+		 @param[in]		title_text
+						A reference to the title text.
 		 @param[in]		rectangle
 						A reference to the client rectangle of the window.
 		 @throws		FormattedException
@@ -161,7 +173,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to create the main window.
 		 */
-		void InitializeWindow(const RECT &rectangle);
+		void InitializeWindow(const wstring &title_text, const RECT &rectangle);
 
 		/**
 		 Uninitializes the engine window of this main window.
@@ -181,10 +193,5 @@ namespace mage {
 		 The handle of the parent window of this main window.
 		 */
 		HWND m_hwindow;
-
-		/**
-		 The name of this main window.
-		 */
-		const wstring m_name;
 	};
 }

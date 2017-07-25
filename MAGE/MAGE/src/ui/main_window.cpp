@@ -23,7 +23,7 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-	
+
 	//-------------------------------------------------------------------------
 	// WindowProc for handling Windows messages.
 	//-------------------------------------------------------------------------
@@ -116,13 +116,13 @@ namespace mage {
 	// MainWindow
 	//-------------------------------------------------------------------------
 
-	MainWindow::MainWindow(HINSTANCE hinstance, const wstring &name, LONG width, LONG height) 
-		: m_hinstance(hinstance), m_hwindow(nullptr), m_name(name) {
+	MainWindow::MainWindow(HINSTANCE hinstance, const wstring &title_text, LONG width, LONG height)
+		: m_hinstance(hinstance), m_hwindow(nullptr) {
 
 		Assert(m_hinstance);
 
 		//Initialize a window.
-		InitializeWindow(width, height);
+		InitializeWindow(title_text, width, height);
 	}
 
 	MainWindow::MainWindow(MainWindow &&main_window) = default;
@@ -132,12 +132,22 @@ namespace mage {
 		UninitializeWindow();
 	}
 
-	void MainWindow::InitializeWindow(LONG width, LONG height) {
-		const RECT rectangle = { 0, 0, width, height };
-		return InitializeWindow(rectangle);
+	void MainWindow::SetTitleText(const wstring &title_text) noexcept {
+		SetTitleText(title_text.c_str());
 	}
 
-	void MainWindow::InitializeWindow(const RECT &rectangle) {
+	void MainWindow::SetTitleText(const wchar_t *title_text) noexcept {
+		Assert(title_text);
+		const BOOL result = SetWindowText(m_hwindow, title_text);
+		Assert(result);
+	}
+
+	void MainWindow::InitializeWindow(const wstring &title_text, LONG width, LONG height) {
+		const RECT rectangle = { 0, 0, width, height };
+		return InitializeWindow(title_text, rectangle);
+	}
+
+	void MainWindow::InitializeWindow(const wstring &title_text, const RECT &rectangle) {
 
 		// Prepare and register the window class.
 		//-----------------------------------------------------------------------------
@@ -194,7 +204,7 @@ namespace mage {
 		AdjustWindowRect(&adjusted_rectangle, style, FALSE);
 
 		// Creates the window and retrieve a handle to it.
-		m_hwindow = CreateWindow(MAGE_MAIN_WINDOW_CLASS_NAME, m_name.c_str(), style, CW_USEDEFAULT, CW_USEDEFAULT,
+		m_hwindow = CreateWindow(MAGE_MAIN_WINDOW_CLASS_NAME, title_text.c_str(), style, CW_USEDEFAULT, CW_USEDEFAULT,
 			adjusted_rectangle.right - adjusted_rectangle.left, adjusted_rectangle.bottom - adjusted_rectangle.top, 
 			nullptr, nullptr, m_hinstance, nullptr);
 

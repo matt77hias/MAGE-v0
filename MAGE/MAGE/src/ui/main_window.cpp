@@ -137,7 +137,7 @@ namespace mage {
 		return InitializeWindow(rectangle);
 	}
 
-	void MainWindow::InitializeWindow(RECT rectangle) {
+	void MainWindow::InitializeWindow(const RECT &rectangle) {
 
 		// Prepare and register the window class.
 		//-----------------------------------------------------------------------------
@@ -190,11 +190,13 @@ namespace mage {
 		// 2. The window style of the window.
 		// 3. Flag indicating whether the window has a menu.
 		const DWORD style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
-		AdjustWindowRect(&rectangle, style, FALSE);
+		RECT adjusted_rectangle = rectangle;
+		AdjustWindowRect(&adjusted_rectangle, style, FALSE);
 
 		// Creates the window and retrieve a handle to it.
 		m_hwindow = CreateWindow(MAGE_MAIN_WINDOW_CLASS_NAME, m_name.c_str(), style, CW_USEDEFAULT, CW_USEDEFAULT,
-			rectangle.right - rectangle.left, rectangle.bottom - rectangle.top, nullptr, nullptr, m_hinstance, nullptr);
+			adjusted_rectangle.right - adjusted_rectangle.left, adjusted_rectangle.bottom - adjusted_rectangle.top, 
+			nullptr, nullptr, m_hinstance, nullptr);
 
 		if (!m_hwindow) {
 			throw FormattedException("Main window creation failed.");

@@ -155,13 +155,13 @@ namespace mage {
 		 Initializes the engine window of this main window.
 
 		 @param[in]		rectangle
-						The client rectangle of the window.
+						A reference to the client rectangle of the window.
 		 @throws		FormattedException
 						Failed to register the main window's class.
 		 @throws		FormattedException
 						Failed to create the main window.
 		 */
-		void InitializeWindow(RECT rectangle);
+		void InitializeWindow(const RECT &rectangle);
 
 		/**
 		 Uninitializes the engine window of this main window.

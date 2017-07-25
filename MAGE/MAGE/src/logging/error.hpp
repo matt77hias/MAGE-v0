@@ -83,6 +83,7 @@ namespace mage {
 #pragma region
 
 // Assert definition
+// The macro NDEBUG controls whether assert statements are active or not.
 #ifdef NDEBUG
 #define Assert(expr) (__noop)
 #else

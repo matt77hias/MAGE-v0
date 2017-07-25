@@ -25,7 +25,8 @@ namespace mage {
 		const XMFLOAT3 rotation    = m_transform->GetRotation();
 
 		wchar_t buffer[128];
-		_snwprintf_s(buffer, _countof(buffer), L"T: %.2f %.2f %.2f\nR: %.2f %.2f %.2f",
+		_snwprintf_s(buffer, _countof(buffer), 
+			L"T: %.2f %.2f %.2f\nR: %.2f %.2f %.2f",
 			translation.x, translation.y, translation.z,
 			rotation.x, rotation.y, rotation.z);
 		

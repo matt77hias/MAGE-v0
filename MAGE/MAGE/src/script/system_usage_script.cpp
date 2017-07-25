@@ -25,8 +25,9 @@ namespace mage {
 	SystemUsageScript::~SystemUsageScript() = default;
 
 	void SystemUsageScript::Update(double delta_time) {
-		// CPU + MEM
 		m_accumulated_time += delta_time;
+
+		// CPU + MEM
 		if (m_accumulated_time > s_resource_fetch_period) {
 			m_accumulated_time = 0.0;
 			
@@ -35,7 +36,6 @@ namespace mage {
 
 			// MEM
 			m_last_ram_usage = static_cast< uint32_t >(GetVirtualMemoryUsage() >> 20);
-
 		}
 
 		wchar_t buffer[32];

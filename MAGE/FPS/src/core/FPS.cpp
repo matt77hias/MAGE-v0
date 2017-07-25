@@ -33,12 +33,21 @@ struct Setup : public EngineSetup {
  */
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 
+#ifdef _DEBUG
+	const int debug_flags = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
+	// Perform automatic leak checking at program exit through a call to 
+	// _CrtDumpMemoryLeaks and generate an error report if the application 
+	// failed to free all the memory it allocated.
+	_CrtSetDbgFlag(debug_flags | _CRTDBG_LEAK_CHECK_DF);
+#endif
+
 	// Create the engine setup structure.
 	Setup setup(hinstance, L"Engine Control Test");
 
 	// Create the engine, then run it.
 	g_engine = new Engine(setup);
 	g_engine->Run(nCmdShow);
+	SAFE_DELETE(g_engine);
 
 	return 0;
 }

@@ -30,9 +30,9 @@ namespace mage {
 		 Constructs a transform buffer from the given camera transformation matrices.
 
 		 @param[in]		world_to_view
-						The (row-major) world-to-view matrix.
+						The (row-major packed, row-major matrix) world-to-view matrix.
 		 @param[in]		view_to_projection
-						The (row-major) view-to-projection matrix.
+						The (row-major packed, row-major matrix) view-to-projection matrix.
 		 */
 		explicit TransformBuffer(
 			CXMMATRIX world_to_view,
@@ -90,20 +90,20 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the (row-major) world-to-view matrix of this transform buffer.
+		 Returns the world-to-view matrix of this transform buffer.
 
-		 @return		A reference to the (row-major) world-to-view matrix
-						of this transform buffer.
+		 @return		A reference to the (row-major packed, row-major matrix) 
+						world-to-view matrix of this transform buffer.
 		 */
 		const XMMATRIX GetWorldToViewMatrix() const noexcept {
 			return XMMatrixTranspose(m_world_to_view);
 		}
 
 		/**
-		 Returns the (row-major) view-to-projection matrix of this transform buffer.
+		 Returns the view-to-projection matrix of this transform buffer.
 
-		 @return		A reference to the (row-major) world-to-view matrix
-						of this transform buffer.
+		 @return		A reference to the (row-major packed, row-major matrix) 
+						world-to-view matrix of this transform buffer.
 		 */
 		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
 			return XMMatrixTranspose(m_view_to_projection);
@@ -113,9 +113,9 @@ namespace mage {
 		 Sets the object-specific matrices of this transform buffer.
 
 		 @param[in]		object_to_world
-						The (row-major) object-world matrix.
+						The (row-major packed, row-major matrix) object-world matrix.
 		 @param[in]		view_to_object
-						The (row-major) view-to-object matrix
+						The (row-major packed, row-major matrix) view-to-object matrix
 						(i.e. object-to-view inverse matrix).
 		 */
 		void XM_CALLCONV SetObjectMatrices(
@@ -131,30 +131,31 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		// HLSL expects column-major packed matrices.
+		// HLSL expects column-major packed matrices by default.
 		// DirectXMath expects row-major packed matrices.
 
 		/**
-		 The (camera independent, object dependent) (column-major) object-to-world matrix
-		 of this transform buffer for use in HLSL.
+		 The (camera independent, object dependent) (column-major packed, row-major matrix) 
+		 object-to-world matrix of this transform buffer for use in HLSL.
 		 */
 		mutable XMMATRIX m_object_to_world;
 		
 		/**
-		 The (camera dependent, object independent) (column-major) world-to-view matrix
-		 of this transform buffer for use in HLSL.
+		 The (camera dependent, object independent) (column-major packed, row-major matrix) 
+		 world-to-view matrix of this transform buffer for use in HLSL.
 		 */
 		XMMATRIX m_world_to_view;
 
 		/**
-		 The (camera dependent, object dependent) (column-major) object-to-view inverse tranpose matrix 
-		 (for transforming object space normals) of this transform buffer for use in HLSL.
+		 The (camera dependent, object dependent) (column-major packed, row-major matrix) 
+		 object-to-view inverse tranpose matrix (for transforming object space normals) 
+		 of this transform buffer for use in HLSL.
 		 */
 		mutable XMMATRIX m_object_to_view_inverse_transpose;
 
 		/**
-		 The (camera dependent, object independent) (column-major) view-to-projection matrix 
-		 of this transform buffer for use in HLSL.
+		 The (camera dependent, object independent) (column-major packed, row-major matrix) 
+		 view-to-projection matrix of this transform buffer for use in HLSL.
 		 */
 		XMMATRIX m_view_to_projection;
 	};

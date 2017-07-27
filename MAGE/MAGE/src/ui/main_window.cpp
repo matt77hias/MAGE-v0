@@ -224,7 +224,9 @@ namespace mage {
 		UnregisterClass(MAGE_MAIN_WINDOW_CLASS_NAME, m_hinstance);
 	}
 
-	bool MainWindow::Show(int nCmdShow) noexcept {
-		return ShowWindow(m_hwindow, nCmdShow) != 0;
+	void MainWindow::Show(int nCmdShow) noexcept {
+		ShowWindow(m_hwindow, nCmdShow) != 0;
+		const BOOL result = UpdateWindow(m_hwindow);
+		Assert(result);
 	}
 }

@@ -99,10 +99,8 @@ namespace mage {
 
 		 @param[in]		nCmdShow
 						Controls how this window is to be shown.
-		 @return		@c true if the window was previously visible.
-						@c false otherwise.
 		 */
-		bool Show(int nCmdShow) noexcept;
+		void Show(int nCmdShow) noexcept;
 
 		/**
 		 Returns the application instance handle of this main window.

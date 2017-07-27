@@ -115,10 +115,10 @@ namespace mage {
 		m_timer->Restart();
 	}
 
-	void Engine::Run(int nCmdShow) {
+	int Engine::Run(int nCmdShow) {
 		if (!IsLoaded()) {
 			Error("Game loop can not start because the engine is not loaded.");
-			return;
+			return 0;
 		}
 
 		m_main_window->Show(nCmdShow);
@@ -185,5 +185,7 @@ namespace mage {
 			m_scene->Render2D();
 			m_renderer->EndFrame();
 		}
+
+		return static_cast<int>(msg.wParam);
 	}
 }

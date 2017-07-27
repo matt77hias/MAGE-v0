@@ -46,10 +46,10 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 
 	// Create the engine, then run it.
 	g_engine = new Engine(setup);
-	g_engine->Run(nCmdShow);
+	const int result = g_engine->Run(nCmdShow);
 	SAFE_DELETE(g_engine);
 
-	return 0;
+	return result;
 }
 
 //VariableScript s(L"assets/scripts/script_test.vs");

@@ -95,8 +95,12 @@ namespace mage {
 
 		 @param[in]		nCmdShow
 						Controls how the engine window is to be shown.
+		 @return		If the function succeeds, terminating when it receives a 
+						@c WM_QUIT message, it returns the exit value contained 
+						in that message's @c wParam parameter. If the function 
+						terminates before entering the message loop, it returns 0.
 		 */
-		void Run(int nCmdShow = SW_NORMAL);
+		int Run(int nCmdShow = SW_NORMAL);
 
 		//---------------------------------------------------------------------
 		// Member Methods: Window System

@@ -224,12 +224,12 @@ namespace mage {
 	void Renderer::BeginFrame() {
 		Assert(!m_in_begin_end_pair);
 
-		//static const XMVECTORF32 background_color = { 0.0f, 0.117647058f, 0.149019608f, 1.000000000f };
-		static const XMVECTORF32 background_color = { 0.0f, 0.0f, 0.0f, 1.000000000f };
+		static const XMVECTORF32 background_color = { 0.0f, 0.117647058f, 0.149019608f, 1.000000000f };
 
 		// Clear the back buffer.
 		m_device_context->ClearRenderTargetView(m_rtv.Get(), background_color);
 		// Clear the depth buffer to 1.0 (i.e. max depth).
+		// Clear the stencil buffer to 0.
 		m_device_context->ClearDepthStencilView(m_dsv.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 		m_in_begin_end_pair = true;

@@ -142,7 +142,7 @@ namespace mage {
 		// Create Transform buffer.
 		TransformBuffer transform_buffer(world_to_view, view_to_projection);
 
-		for (bool transparency : {false}) {
+		for (bool transparency : {false, true}) {
 
 			// Render models.
 			ForEachModel([this, transparency, &transform_buffer, &lighting, &view_to_world](const ModelNode &model_node) {
@@ -155,7 +155,7 @@ namespace mage {
 				if (model->GetNumberOfIndices() == 0) {
 					return;
 				}
-				if (model->GetMaterial()->IsTransparant() == transparency) {
+				if (model->GetMaterial()->IsTransparant() != transparency) {
 					return;
 				}
 

@@ -147,7 +147,8 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLDissolveTexture() {
-		m_material_buffer.back().SetDissolveTexture(ReadMTLTexture());
+		Warning("%ls: line %u: dissolve textures are not supported, use the alpha channel of diffuse textures instead.", GetFilename().c_str(), GetCurrentLineNumber());
+		ReadMTLTexture();
 	}
 
 	void MTLReader::ReadMTLDecalTexture() {
@@ -163,7 +164,7 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLBumpTexture() {
-		Warning("%ls: line %u: bump maps are not supported, use normal maps instead.", GetFilename().c_str(), GetCurrentLineNumber());
+		Warning("%ls: line %u: bump textures are not supported, use normal textures instead.", GetFilename().c_str(), GetCurrentLineNumber());
 		ReadMTLTexture();
 	}
 

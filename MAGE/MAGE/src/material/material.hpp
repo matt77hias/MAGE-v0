@@ -48,9 +48,8 @@ namespace mage {
 			m_diffuse_reflectivity(), m_diffuse_reflectivity_texture(),
 			m_specular_reflectivity(), m_specular_reflectivity_texture(),
 			m_specular_exponent(1.0f), m_specular_exponent_texture(),
-			m_dissolve(1.0f), m_dissolve_texture(),
-			m_index_of_refraction(1.0f), m_decal_texture(),
-			m_displacement_texture(), m_normal_texture(),
+			m_dissolve(1.0f), m_index_of_refraction(1.0f), 
+			m_decal_texture(), m_displacement_texture(), m_normal_texture(),
 			m_extra_parameters{} {}
 		
 		/**
@@ -478,45 +477,6 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the dissolve texture of this material.
-
-		 @return		A pointer to the dissolve texture of this material.
-		 */
-		SharedPtr< Texture > GetDissolveTexture() const noexcept {
-			return m_dissolve_texture;
-		}
-		
-		/**
-		 Returns the shader resource view of the dissolve texture of this material.
-
-		 @return		@c nullptr, if this material has no dissolve texture.
-		 @return		A pointer to the shader resource view of the dissolve texture of this material.
-		 */
-		ID3D11ShaderResourceView *GetDissolveSRV() const noexcept {
-			return m_dissolve_texture ? m_dissolve_texture->Get() : nullptr;
-		}
-		
-		/**
-		 Returns the address of the shader resource view of the dissolve texture of this material.
-
-		 @return		@c nullptr, if this material has no dissolve texture.
-		 @return		The address of the shader resource view of the dissolve texture of this material.
-		 */
-		ID3D11ShaderResourceView * const *GetDissolveSRVAddress() const noexcept {
-			return m_dissolve_texture ? m_dissolve_texture->GetAddress() : nullptr;
-		}
-		
-		/**
-		 Sets the dissolve texture of this material to the given dissolve texture.
-
-		 @param[in]		dissolve_texture
-						A reference to the dissolve texture.
-		 */
-		void SetDissolveTexture(SharedPtr< Texture > dissolve_texture) {
-			m_dissolve_texture = dissolve_texture;
-		}
-
-		/**
 		 Returns the index of refraction of this material.
 
 		 @return		The index of refraction of this material.
@@ -751,11 +711,6 @@ namespace mage {
 		 material thickness nor does it have any spectral character.
 		 */
 		float m_dissolve;
-
-		/**
-		 A pointer to the dissolve texture of this material.
-		 */
-		SharedPtr< Texture > m_dissolve_texture;
 
 		/**
 		 The index of refraction (optical density) of this material.

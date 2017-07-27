@@ -555,45 +555,6 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the dissolve texture of this shaded material.
-
-		 @return		A pointer to the dissolve texture of this shaded material.
-		 */
-		SharedPtr< Texture > GetDissolveTexture() const noexcept {
-			return m_material.GetDissolveTexture();
-		}
-		
-		/**
-		 Returns the shader resource view of the dissolve texture of this shaded material.
-
-		 @return		@c nullptr, if this shaded material has no dissolve texture.
-		 @return		A pointer to the shader resource view of the dissolve texture of this shaded material.
-		 */
-		ID3D11ShaderResourceView *GetDissolveSRV() const noexcept {
-			return m_material.GetDissolveSRV();
-		}
-		
-		/**
-		 Returns the address of the shader resource view of the dissolve texture of this shaded material.
-
-		 @return		@c nullptr, if this shaded material has no dissolve texture.
-		 @return		The address of the shader resource view of the dissolve texture of this shaded material.
-		 */
-		ID3D11ShaderResourceView * const *GetDissolveSRVAddress() const noexcept {
-			return m_material.GetDissolveSRVAddress();
-		}
-		
-		/**
-		 Sets the dissolve texture of this shaded material to the given dissolve texture.
-
-		 @param[in]		dissolve_texture
-						A reference to the dissolve texture.
-		 */
-		void SetDissolveTexture(SharedPtr< Texture > dissolve_texture) {
-			m_material.SetDissolveTexture(dissolve_texture);
-		}
-
-		/**
 		 Returns the index of refraction of this shaded material.
 
 		 @return		The index of refraction of this shaded material.

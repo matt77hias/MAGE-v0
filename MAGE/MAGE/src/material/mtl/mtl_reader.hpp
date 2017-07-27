@@ -198,6 +198,8 @@ namespace mage {
 
 		 @throws		FormattedException
 						Failed to read a Dissolve Texture definition.
+		 @note			Dissolve textures are not supported, use the alpha channel 
+						of diffuse textures instead.
 		 */
 		void ReadMTLDissolveTexture();
 
@@ -230,7 +232,7 @@ namespace mage {
 
 		 @throws		FormattedException
 						Failed to read a Bump Texture definition.
-		 @note			Bump maps are not supported, use normal maps instead.
+		 @note			Bump textures are not supported, use normal textures instead.
 		 */
 		void ReadMTLBumpTexture();
 

@@ -199,6 +199,7 @@
     <ClInclude Include="MAGE\src\texture\texture.hpp" />
     <ClInclude Include="MAGE\src\texture\texture_factory.hpp" />
     <ClInclude Include="MAGE\src\texture\texture_loader.hpp" />
+    <ClInclude Include="MAGE\src\texture\texture_utils.hpp" />
     <ClInclude Include="MAGE\src\text\dropshadow_sprite_text.hpp" />
     <ClInclude Include="MAGE\src\text\normal_sprite_text.hpp" />
     <ClInclude Include="MAGE\src\text\outline_sprite_text.hpp" />
@@ -308,6 +309,7 @@
     <ClCompile Include="MAGE\src\texture\texture.cpp" />
     <ClCompile Include="MAGE\src\texture\texture_factory.cpp" />
     <ClCompile Include="MAGE\src\texture\texture_loader.cpp" />
+    <ClCompile Include="MAGE\src\texture\texture_utils.cpp" />
     <ClCompile Include="MAGE\src\text\dropshadow_sprite_text.cpp" />
     <ClCompile Include="MAGE\src\text\normal_sprite_text.cpp" />
     <ClCompile Include="MAGE\src\text\outline_sprite_text.cpp" />

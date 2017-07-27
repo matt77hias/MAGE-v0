@@ -4,6 +4,7 @@
 #pragma region
 
 #include "sprite\sprite_batch.hpp"
+#include "texture\texture_utils.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

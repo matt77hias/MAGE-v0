@@ -34,4 +34,14 @@ namespace mage {
 					of the given DXGI format.
 	 */
 	DXGI_FORMAT ConvertToSRGB(DXGI_FORMAT format) noexcept;
+
+	/**
+	 Checks whether the given DXGI format contains an alpha component.
+
+	 @param[in]		format
+					The DXGI format.
+	 @return		@c true if and only if the given DXGI format contains
+					an alpha component.
+	*/
+	bool HasAlpha(DXGI_FORMAT format) noexcept;
 }

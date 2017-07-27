@@ -493,27 +493,6 @@ static DXGI_FORMAT GetDXGIFormat(const DDS_PIXELFORMAT &ddpf) {
 	return DXGI_FORMAT_UNKNOWN;
 }
 
-static DXGI_FORMAT MakeSRGB(_In_ DXGI_FORMAT format) {
-	switch (format) {
-	case DXGI_FORMAT_R8G8B8A8_UNORM:
-		return DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
-	case DXGI_FORMAT_BC1_UNORM:
-		return DXGI_FORMAT_BC1_UNORM_SRGB;
-	case DXGI_FORMAT_BC2_UNORM:
-		return DXGI_FORMAT_BC2_UNORM_SRGB;
-	case DXGI_FORMAT_BC3_UNORM:
-		return DXGI_FORMAT_BC3_UNORM_SRGB;
-	case DXGI_FORMAT_B8G8R8A8_UNORM:
-		return DXGI_FORMAT_B8G8R8A8_UNORM_SRGB;
-	case DXGI_FORMAT_B8G8R8X8_UNORM:
-		return DXGI_FORMAT_B8G8R8X8_UNORM_SRGB;
-	case DXGI_FORMAT_BC7_UNORM:
-		return DXGI_FORMAT_BC7_UNORM_SRGB;
-	default:
-		return format;
-	}
-}
-
 static HRESULT FillInitData(_In_ size_t width,
 	_In_ size_t height,
 	_In_ size_t depth,
@@ -619,7 +598,7 @@ static HRESULT CreateD3DResources(_In_ ID3D11Device2 *device,
 	HRESULT hr = E_FAIL;
 
 	if (forceSRGB) {
-		format = MakeSRGB(format);
+		format = ConvertToSRGB(format);
 	}
 
 	switch (res_dim) {

@@ -792,6 +792,9 @@
     <ClInclude Include="MAGE\src\mesh\mesh_factory.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\texture\texture_utils.hpp">
+      <Filter>Header Files\texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1111,6 +1114,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\resource\resource_manager.cpp">
       <Filter>Source Files\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\texture\texture_utils.cpp">
+      <Filter>Source Files\texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

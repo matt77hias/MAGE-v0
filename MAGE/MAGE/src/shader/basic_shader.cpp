@@ -96,7 +96,8 @@ namespace mage {
 		m_device_context->PSSetShaderResources(1, 1, &lighting.m_omni_lights);
 		m_device_context->PSSetShaderResources(2, 1, &lighting.m_spot_lights);
 
-		Assert(material.GetDiffuseReflectivitySRV());
-		m_device_context->PSSetShaderResources(0, 1, material.GetDiffuseReflectivitySRVAddress());
+		ID3D11ShaderResourceView *diffuse_texture = material.GetDiffuseReflectivitySRV();
+		Assert(diffuse_texture);
+		m_device_context->PSSetShaderResources(0, 1, &diffuse_texture);
 	}
 }

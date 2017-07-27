@@ -76,6 +76,8 @@ namespace mage {
 
 	void SpritePixelShader::PrepareShading(ID3D11ShaderResourceView *texture) const {
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
+
+		Assert(texture);
 		m_device_context->PSSetShaderResources(0, 1, &texture);
 	}
 }

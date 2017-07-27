@@ -250,16 +250,6 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the address of the shader resource view of the ambient reflectivity texture of this material.
-
-		 @return		@c nullptr, if this material has no ambient reflectivity texture.
-		 @return		The address of the shader resource view of the ambient reflectivity texture of this material.
-		 */
-		ID3D11ShaderResourceView * const *GetAmbientReflectivitySRVAddress() const noexcept {
-			return m_ambient_reflectivity_texture ? m_ambient_reflectivity_texture->GetAddress() : nullptr;
-		}
-		
-		/**
 		 Sets the ambient reflectivity texture of this material to the given ambient reflectivity texture.
 
 		 @param[in]		ambient_reflectivity_texture
@@ -326,16 +316,6 @@ namespace mage {
 		 */
 		ID3D11ShaderResourceView *GetDiffuseReflectivitySRV() const noexcept {
 			return m_diffuse_reflectivity_texture ? m_diffuse_reflectivity_texture->Get() : nullptr;
-		}
-		
-		/**
-		 Returns the address of the shader resource view of the diffuse reflectivity texture of this material.
-
-		 @return		@c nullptr, if this material has no diffuse reflectivity texture.
-		 @return		The address of the shader resource view of the diffuse reflectivity texture of this material.
-		 */
-		ID3D11ShaderResourceView * const *GetDiffuseReflectivitySRVAddress() const noexcept {
-			return m_diffuse_reflectivity_texture ? m_diffuse_reflectivity_texture->GetAddress() : nullptr;
 		}
 		
 		/**
@@ -406,16 +386,6 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the address of the shader resource view of the specular reflectivity texture of this material.
-
-		 @return		@c nullptr, if this material has no specular reflectivity texture.
-		 @return		The address of the shader resource view of the specular reflectivity texture of this material.
-		 */
-		ID3D11ShaderResourceView * const *GetSpecularReflectivitySRVAddress() const noexcept {
-			return m_specular_reflectivity_texture ? m_specular_reflectivity_texture->GetAddress() : nullptr;
-		}
-		
-		/**
 		 Sets the specular reflectivity texture of this material to the given specular reflectivity texture.
 
 		 @param[in]		specular_reflectivity_texture
@@ -461,16 +431,6 @@ namespace mage {
 		 */
 		ID3D11ShaderResourceView *GetSpecularExponentSRV() const noexcept {
 			return m_specular_exponent_texture ? m_specular_exponent_texture->Get() : nullptr;
-		}
-		
-		/**
-		 Returns the address of the shader resource view of the specular exponent texture of this material.
-
-		 @return		@c nullptr, if this material has no specular exponent texture.
-		 @return		The address of the shader resource view of the specular exponent texture of this material.
-		 */
-		ID3D11ShaderResourceView * const *GetSpecularExponentSRVAddress() const noexcept {
-			return m_specular_exponent_texture ? m_specular_exponent_texture->GetAddress() : nullptr;
 		}
 		
 		/**
@@ -542,16 +502,6 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the address of the shader resource view of the decal texture of this material.
-
-		 @return		@c nullptr, if this material has no decal texture.
-		 @return		The address of the shader resource view of the decal texture of this material.
-		 */
-		ID3D11ShaderResourceView * const *GetDecalSRVAddress() const noexcept {
-			return m_decal_texture ? m_decal_texture->GetAddress() : nullptr;
-		}
-		
-		/**
 		 Sets the decal texture of this material to the given decal texture.
 
 		 @param[in]		decal_texture
@@ -581,16 +531,6 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the address of the shader resource view of the displacement texture of this material.
-
-		 @return		@c nullptr, if this material has no displacement texture.
-		 @return		The address of the shader resource view of the displacement texture of this material.
-		 */
-		ID3D11ShaderResourceView * const *GetDisplacementSRVAddress() const noexcept {
-			return m_displacement_texture ? m_displacement_texture->GetAddress() : nullptr;
-		}
-		
-		/**
 		 Sets the displacement texture of this material to the given displacement texture.
 
 		 @param[in]		displacement_texture
@@ -617,16 +557,6 @@ namespace mage {
 		 */
 		ID3D11ShaderResourceView *GetNormalSRV() const noexcept {
 			return m_normal_texture ? m_normal_texture->Get() : nullptr;
-		}
-		
-		/**
-		 Returns the address of the shader resource view of the normal texture of this material.
-
-		 @return		@c nullptr, if this material has no normal texture.
-		 @return		The address of the shader resource view of the normal texture of this material.
-		 */
-		ID3D11ShaderResourceView * const *GetNormalSRVAddress() const noexcept {
-			return m_normal_texture ? m_normal_texture->GetAddress() : nullptr;
 		}
 		
 		/**

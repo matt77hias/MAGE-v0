@@ -225,6 +225,6 @@ namespace mage {
 	}
 
 	bool MainWindow::Show(int nCmdShow) noexcept {
-		return ShowWindow(GetHandle(), nCmdShow) != 0;
+		return ShowWindow(m_hwindow, nCmdShow) != 0;
 	}
 }

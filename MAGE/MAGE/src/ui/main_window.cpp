@@ -225,7 +225,7 @@ namespace mage {
 	}
 
 	void MainWindow::Show(int nCmdShow) noexcept {
-		ShowWindow(m_hwindow, nCmdShow) != 0;
+		ShowWindow(m_hwindow, nCmdShow);
 		const BOOL result = UpdateWindow(m_hwindow);
 		Assert(result);
 	}

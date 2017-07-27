@@ -186,6 +186,6 @@ namespace mage {
 			m_renderer->EndFrame();
 		}
 
-		return static_cast<int>(msg.wParam);
+		return static_cast< int >(msg.wParam);
 	}
 }

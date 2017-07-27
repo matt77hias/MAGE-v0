@@ -217,7 +217,6 @@ namespace mage {
 		 */
 		void SetDiffuseReflectivity(const RGBSpectrum &diffuse_reflectivity) noexcept {
 			m_diffuse_reflectivity = diffuse_reflectivity;
-			UpdateTransparency();
 		}
 		
 		/**
@@ -228,7 +227,6 @@ namespace mage {
 		 */
 		void SetDiffuseReflectivity(RGBSpectrum &&diffuse_reflectivity) noexcept {
 			m_diffuse_reflectivity = std::move(diffuse_reflectivity);
-			UpdateTransparency();
 		}
 		
 		/**
@@ -258,6 +256,7 @@ namespace mage {
 		 */
 		void SetDiffuseReflectivityTexture(SharedPtr< Texture > diffuse_reflectivity_texture) {
 			m_diffuse_reflectivity_texture = diffuse_reflectivity_texture;
+			UpdateTransparency();
 		}
 		
 		/**

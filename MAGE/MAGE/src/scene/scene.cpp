@@ -142,32 +142,38 @@ namespace mage {
 		// Create Transform buffer.
 		TransformBuffer transform_buffer(world_to_view, view_to_projection);
 
-		// Render models.
-		ForEachModel([this, &transform_buffer, &lighting, &view_to_world](const ModelNode &model_node) {
-			if (model_node.IsPassive()) {
-				return;
-			}
-			
-			const Model * const model = model_node.GetModel();
+		for (bool transparency : {false}) {
 
-			if (model->GetNumberOfIndices() == 0) {
-				return;
-			}
+			// Render models.
+			ForEachModel([this, transparency, &transform_buffer, &lighting, &view_to_world](const ModelNode &model_node) {
+				if (model_node.IsPassive()) {
+					return;
+				}
 
-			const TransformNode * const transform = model_node.GetTransform();
+				const Model * const model = model_node.GetModel();
 
-			// Update transform constant buffer.
-			const XMMATRIX object_to_world = transform->GetObjectToWorldMatrix();
-			const XMMATRIX world_to_object = transform->GetWorldToObjectMatrix();
-			const XMMATRIX view_to_object  = view_to_world * world_to_object;
-			transform_buffer.SetObjectMatrices(object_to_world, view_to_object);
-			m_transform_buffer.UpdateData(transform_buffer);
+				if (model->GetNumberOfIndices() == 0) {
+					return;
+				}
+				if (model->GetMaterial()->IsTransparant() == transparency) {
+					return;
+				}
 
-			// Draw model.
-			model->PrepareDrawing();
-			model->PrepareShading(m_transform_buffer.Get(), lighting);
-			model->Draw();
-		});
+				const TransformNode * const transform = model_node.GetTransform();
+
+				// Update transform constant buffer.
+				const XMMATRIX object_to_world = transform->GetObjectToWorldMatrix();
+				const XMMATRIX world_to_object = transform->GetWorldToObjectMatrix();
+				const XMMATRIX view_to_object = view_to_world * world_to_object;
+				transform_buffer.SetObjectMatrices(object_to_world, view_to_object);
+				m_transform_buffer.UpdateData(transform_buffer);
+
+				// Draw model.
+				model->PrepareDrawing();
+				model->PrepareShading(m_transform_buffer.Get(), lighting);
+				model->Draw();
+			});
+		}
 	}
 
 	void Scene::RenderBoundingBoxes() const {

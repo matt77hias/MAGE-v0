@@ -209,6 +209,28 @@ namespace mage {
 		}
 
 		/**
+		 Checks whether this shaded material is opaque
+		 (i.e. contains alpha channel is equal to 1.0).
+
+		 @return		@c true if and only if this shaded material is opaque.
+		 @c false otherwise.
+		 */
+		bool IsOpaque() const noexcept {
+			return m_material.IsOpaque();
+		}
+
+		/**
+		 Checks whether this shaded material is transparent
+		 (i.e. contains alpha channel is not equal to 1.0).
+
+		 @return		@c true if and only if this shaded material is transparent.
+		 @c false otherwise.
+		 */
+		bool IsTransparant() const noexcept {
+			return m_material.IsTransparant();
+		}
+
+		/**
 		 Returns the transmission filter of this shaded material.
 
 		 @return		A reference to the transmission filter of this shaded material.

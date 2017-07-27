@@ -118,6 +118,8 @@ namespace mage {
 
 		 @throws		FormattedException
 						Failed to read an Ambient Reflectivity definition.
+		 @note			Ambient reflectivities are not supported, use 
+						diffuse reflectivities instead.
 		 */
 		void ReadMTLAmbientReflectivity();
 
@@ -166,6 +168,8 @@ namespace mage {
 
 		 @throws		FormattedException
 						Failed to read Ambient Reflectivity Texture definition.
+		 @note			Ambient reflectivity textures are not supported, use 
+						diffuse reflectivity textures instead.
 		 */
 		void ReadMTLAmbientReflectivityTexture();
 
@@ -199,7 +203,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a Dissolve Texture definition.
 		 @note			Dissolve textures are not supported, use the alpha channel 
-						of diffuse textures instead.
+						of diffuse reflectivity textures instead.
 		 */
 		void ReadMTLDissolveTexture();
 

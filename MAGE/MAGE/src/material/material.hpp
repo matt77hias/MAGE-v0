@@ -44,7 +44,6 @@ namespace mage {
 		 */
 		explicit Material(const string &name)
 			: m_name(name), m_transparent(), m_transmission_filter(),
-			m_ambient_reflectivity(), m_ambient_reflectivity_texture(),
 			m_diffuse_reflectivity(), m_diffuse_reflectivity_texture(),
 			m_specular_reflectivity(), m_specular_reflectivity_texture(),
 			m_specular_exponent(1.0f), m_specular_exponent_texture(),
@@ -192,73 +191,6 @@ namespace mage {
 			m_transmission_filter = std::move(transmission_filter);
 		}
 
-		/**
-		 Returns the ambient reflectivity of this material.
-
-		 @return		A reference to the ambient reflectivity of this material.
-		 */
-		RGBSpectrum &GetAmbientReflectivity() noexcept {
-			return m_ambient_reflectivity;
-		}
-		
-		/**
-		 Returns the ambient reflectivity of this material.
-
-		 @return		A reference to the ambient reflectivity of this material.
-		 */
-		const RGBSpectrum &GetAmbientReflectivity() const noexcept {
-			return m_ambient_reflectivity;
-		}
-		
-		/**
-		 Sets the ambient reflectivity of this material to the given ambient reflectivity.
-
-		 @param[in]		ambient_reflectivity
-						A reference to the ambient reflectivity.
-		 */
-		void SetAmbientReflectivity(const RGBSpectrum &ambient_reflectivity) noexcept {
-			m_ambient_reflectivity = ambient_reflectivity;
-		}
-		
-		/**
-		 Sets the ambient reflectivity of this material to the given ambient reflectivity.
-
-		 @param[in]		ambient_reflectivity
-						A reference to the ambient reflectivity.
-		 */
-		void SetAmbientReflectivity(RGBSpectrum &&ambient_reflectivity) noexcept {
-			m_ambient_reflectivity = std::move(ambient_reflectivity);
-		}
-		
-		/**
-		 Returns the ambient reflectivity texture of this material.
-
-		 @return		A pointer to the ambient reflectivity texture of this material.
-		 */
-		SharedPtr< Texture > GetAmbientReflectivityTexture() const noexcept {
-			return m_ambient_reflectivity_texture;
-		}
-		
-		/**
-		 Returns the shader resource view of the ambient reflectivity texture of this material.
-
-		 @return		@c nullptr, if this material has no ambient reflectivity texture.
-		 @return		A pointer to the shader resource view of the ambient reflectivity texture of this material.
-		 */
-		ID3D11ShaderResourceView *GetAmbientReflectivitySRV() const noexcept {
-			return m_ambient_reflectivity_texture ? m_ambient_reflectivity_texture->Get() : nullptr;
-		}
-		
-		/**
-		 Sets the ambient reflectivity texture of this material to the given ambient reflectivity texture.
-
-		 @param[in]		ambient_reflectivity_texture
-						A reference to the ambient reflectivity texture.
-		 */
-		void SetAmbientReflectivityTexture(SharedPtr< Texture > ambient_reflectivity_texture) {
-			m_ambient_reflectivity_texture = ambient_reflectivity_texture;
-		}
-		
 		/**
 		 Returns the diffuse reflectivity of this material.
 
@@ -631,16 +563,6 @@ namespace mage {
 		 filter, which only allows the specific colors to pass through.
 		 */
 		RGBSpectrum m_transmission_filter;
-
-		/**
-		 The ambient reflectivity of this material.
-		 */
-		RGBSpectrum m_ambient_reflectivity;
-
-		/**
-		 A pointer to the ambient reflectivity texture of this material.
-		 */
-		SharedPtr< Texture > m_ambient_reflectivity_texture;
 
 		/**
 		 The diffuse reflectivity of this material.

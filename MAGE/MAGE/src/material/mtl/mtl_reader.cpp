@@ -102,7 +102,8 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLAmbientReflectivity() {
-		m_material_buffer.back().SetAmbientReflectivity(ReadMTLSpectrum());
+		Warning("%ls: line %u: ambient reflectivities are not supported, use diffuse reflectivities instead.", GetFilename().c_str(), GetCurrentLineNumber());
+		ReadMTLSpectrum();
 	}
 
 	void MTLReader::ReadMTLDiffuseReflectivity() {
@@ -131,7 +132,8 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLAmbientReflectivityTexture() {
-		m_material_buffer.back().SetAmbientReflectivityTexture(ReadMTLTexture());
+		Warning("%ls: line %u: ambient reflectivity textures are not supported, use diffuse reflectivity textures instead.", GetFilename().c_str(), GetCurrentLineNumber());
+		ReadMTLTexture();
 	}
 
 	void MTLReader::ReadMTLDiffuseReflectivityTexture() {
@@ -147,7 +149,7 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLDissolveTexture() {
-		Warning("%ls: line %u: dissolve textures are not supported, use the alpha channel of diffuse textures instead.", GetFilename().c_str(), GetCurrentLineNumber());
+		Warning("%ls: line %u: dissolve textures are not supported, use the alpha channel of diffuse reflectivity textures instead.", GetFilename().c_str(), GetCurrentLineNumber());
 		ReadMTLTexture();
 	}
 

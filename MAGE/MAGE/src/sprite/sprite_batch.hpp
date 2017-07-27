@@ -11,7 +11,6 @@
 #include "mesh\vertex.hpp"
 #include "rendering\constant_buffer.hpp"
 #include "shader\sprite_shader.hpp"
-#include "sprite\sprite_utils.hpp"
 #include "sprite\sprite_sort_mode.hpp"
 #include "sprite\sprite_effects.hpp"
 #include "material\color.hpp"

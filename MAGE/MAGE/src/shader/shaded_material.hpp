@@ -761,6 +761,7 @@ namespace mage {
 		 */
 		CombinedShader m_shader;
 
+		// @TODO
 		bool m_automatic_shader_selection;
 
 		BRDFType m_brdf;

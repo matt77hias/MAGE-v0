@@ -131,6 +131,28 @@ namespace mage {
 		}
 
 		/**
+		 Checks whether this material is opaque 
+		 (i.e. contains alpha channel is equal to 1.0).
+
+		 @return		@c true if and only if this material is opaque.
+						@c false otherwise.
+		 */
+		bool IsOpaque() const noexcept {
+			return !IsTransparant();
+		}
+
+		/**
+		 Checks whether this material is transparent
+		 (i.e. contains alpha channel is not equal to 1.0).
+
+		 @return		@c true if and only if this material is transparent.
+						@c false otherwise.
+		 */
+		bool IsTransparant() const noexcept {
+			return m_transparent;
+		}
+
+		/**
 		 Returns the transmission filter of this material.
 
 		 @return		A reference to the transmission filter of this material.
@@ -271,6 +293,7 @@ namespace mage {
 		 */
 		void SetDiffuseReflectivity(const RGBSpectrum &diffuse_reflectivity) noexcept {
 			m_diffuse_reflectivity = diffuse_reflectivity;
+			UpdateTransparency();
 		}
 		
 		/**
@@ -281,6 +304,7 @@ namespace mage {
 		 */
 		void SetDiffuseReflectivity(RGBSpectrum &&diffuse_reflectivity) noexcept {
 			m_diffuse_reflectivity = std::move(diffuse_reflectivity);
+			UpdateTransparency();
 		}
 		
 		/**
@@ -474,6 +498,7 @@ namespace mage {
 		 */
 		void SetDissolve(float dissolve) noexcept {
 			m_dissolve = dissolve;
+			UpdateTransparency();
 		}
 		
 		/**
@@ -642,6 +667,17 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Updates the transparency flag of this material.
+		 */
+		void UpdateTransparency() noexcept {
+			m_transparent = (m_dissolve != 1.0f) || (m_diffuse_reflectivity_texture && m_diffuse_reflectivity_texture->HasAlpha());
+		}
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
@@ -649,6 +685,12 @@ namespace mage {
 		 The name of this material.
 		 */
 		string m_name;
+
+		/**
+		 Flag indicating whether this material is transparent.
+		 This flag is @c true if this material could contain transparent parts.
+		 */
+		bool m_transparent;
 
 		/**
 		 The transmission filter of this material.

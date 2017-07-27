@@ -132,7 +132,7 @@ namespace mage {
 
 		// Enter the message loop.
 		MSG msg;
-		SecureZeroMemory(&msg, sizeof(MSG));
+		SecureZeroMemory(&msg, sizeof(msg));
 		while (msg.message != WM_QUIT) {
 			
 			// Retrieves messages for any window that belongs to the current thread

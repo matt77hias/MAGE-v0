@@ -74,11 +74,14 @@ StructuredBuffer< SpotLight > spot_lights : register(t2);
 
 // Calculates the Lambertian shading.
 float4 LambertianBRDFShading(float3 p, float3 n, float2 tex) {
-	float3 I_diffuse = float3(0.0f, 0.0f, 0.0f);
+	float4 I = float4(Kd, dissolve) * diffuse_texture_map.Sample(texture_sampler, tex);
+	clip(I.a - 0.1f);
 
 	// Ambient light and directional light contribution
 	float3 brdf = LambertianBRDF(n, -d);
-	I_diffuse = Ia + brdf * Id;
+	float3 I_diffuse = Ia + brdf * Id;
+
+	const float3 v = normalize(-p);
 
 	// Omni lights contribution
 	for (uint i = 0; i < nb_omnilights; ++i) {
@@ -100,20 +103,20 @@ float4 LambertianBRDFShading(float3 p, float3 n, float2 tex) {
 		I_diffuse += brdf * I_light;
 	}
 
-	float4 I = float4(Kd * I_diffuse, dissolve);
-	I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	I.xyz *= I_diffuse;
 	return I;
 }
 // Calculates the Phong BRDF shading.
 float4 PhongBRDFShading(float3 p, float3 n, float2 tex) {
-	const float3 v = normalize(-p);
-
-	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
-	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+	float4 I = float4(Kd, dissolve) * diffuse_texture_map.Sample(texture_sampler, tex);
+	clip(I.a - 0.1f);
 
 	// Ambient light and directional light contribution
 	float3 brdf = LambertianBRDF(n, -d);
-	I_diffuse = Ia + brdf * Id;
+	float3 I_diffuse  = Ia + brdf * Id;
+	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+
+	const float3 v = normalize(-p);
 
 	// Omni lights contribution
 	for (uint i = 0; i < nb_omnilights; ++i) {
@@ -141,21 +144,21 @@ float4 PhongBRDFShading(float3 p, float3 n, float2 tex) {
 		I_specular += brdf * I_light;
 	}
 
-	float4 I = float4(Kd * I_diffuse, dissolve);
-	I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	I.xyz *= I_diffuse;
 	I.xyz += Ks * I_specular;
 	return I;
 }
 // Calculates the Modified Phong BRDF shading.
 float4 ModifiedPhongBRDFShading(float3 p, float3 n, float2 tex) {
-	const float3 v = normalize(-p);
-
-	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
-	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+	float4 I = float4(Kd, dissolve) * diffuse_texture_map.Sample(texture_sampler, tex);
+	clip(I.a - 0.1f);
 
 	// Ambient light and directional light contribution
 	float3 brdf = LambertianBRDF(n, -d);
-	I_diffuse = Ia + brdf * Id;
+	float3 I_diffuse  = Ia + brdf * Id;
+	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+
+	const float3 v = normalize(-p);
 
 	// Omni lights contribution
 	for (uint i = 0; i < nb_omnilights; ++i) {
@@ -183,21 +186,21 @@ float4 ModifiedPhongBRDFShading(float3 p, float3 n, float2 tex) {
 		I_specular += brdf * I_light;
 	}
 
-	float4 I = float4(Kd * I_diffuse, dissolve);
-	I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	I.xyz *= I_diffuse;
 	I.xyz += Ks * I_specular;
 	return I;
 }
 // Calculates the Blinn-Phong BRDF shading.
 float4 BlinnPhongBRDFShading(float3 p, float3 n, float2 tex) {
-	const float3 v = normalize(-p);
-
-	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
-	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+	float4 I = float4(Kd, dissolve) * diffuse_texture_map.Sample(texture_sampler, tex);
+	clip(I.a - 0.1f);
 
 	// Ambient light and directional light contribution
 	float3 brdf = LambertianBRDF(n, -d);
-	I_diffuse = Ia + brdf * Id;
+	float3 I_diffuse  = Ia + brdf * Id;
+	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+
+	const float3 v = normalize(-p);
 
 	// Omni lights contribution
 	for (uint i = 0; i < nb_omnilights; ++i) {
@@ -225,21 +228,21 @@ float4 BlinnPhongBRDFShading(float3 p, float3 n, float2 tex) {
 		I_specular += brdf * I_light;
 	}
 
-	float4 I = float4(Kd * I_diffuse, dissolve);
-	I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	I.xyz *= I_diffuse;
 	I.xyz += Ks * I_specular;
 	return I;
 }
 // Calculates the Modified Blinn-Phong BRDF shading.
 float4 ModifiedBlinnPhongBRDFShading(float3 p, float3 n, float2 tex) {
-	const float3 v = normalize(-p);
-
-	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
-	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+	float4 I = float4(Kd, dissolve) * diffuse_texture_map.Sample(texture_sampler, tex);
+	clip(I.a - 0.1f);
 
 	// Ambient light and directional light contribution
 	float3 brdf = LambertianBRDF(n, -d);
-	I_diffuse = Ia + brdf * Id;
+	float3 I_diffuse  = Ia + brdf * Id;
+	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+
+	const float3 v = normalize(-p);
 
 	// Omni lights contribution
 	for (uint i = 0; i < nb_omnilights; ++i) {
@@ -267,21 +270,21 @@ float4 ModifiedBlinnPhongBRDFShading(float3 p, float3 n, float2 tex) {
 		I_specular += brdf * I_light;
 	}
 
-	float4 I = float4(Kd * I_diffuse, dissolve);
-	I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	I.xyz *= I_diffuse;
 	I.xyz += Ks * I_specular;
 	return I;
 }
 // Calculates the Modified Blinn-Phong BRDF shading.
 float4 WardBRDFShading(float3 p, float3 n, float2 tex) {
-	const float3 v = normalize(-p);
-
-	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
-	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+	float4 I = float4(Kd, dissolve) * diffuse_texture_map.Sample(texture_sampler, tex);
+	clip(I.a - 0.1f);
 
 	// Ambient light and directional light contribution
 	float3 brdf = LambertianBRDF(n, -d);
-	I_diffuse = Ia + brdf * Id;
+	float3 I_diffuse  = Ia + brdf * Id;
+	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+
+	const float3 v = normalize(-p);
 
 	// Omni lights contribution
 	for (uint i = 0; i < nb_omnilights; ++i) {
@@ -309,21 +312,21 @@ float4 WardBRDFShading(float3 p, float3 n, float2 tex) {
 		I_specular += brdf * I_light;
 	}
 
-	float4 I = float4(Kd * I_diffuse, dissolve);
-	I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	I.xyz *= I_diffuse;
 	I.xyz += Ks * I_specular;
 	return I;
 }
 // Calculates the Modified Blinn-Phong BRDF shading.
 float4 WardDuerBRDFShading(float3 p, float3 n, float2 tex) {
-	const float3 v = normalize(-p);
-
-	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
-	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+	float4 I = float4(Kd, dissolve) * diffuse_texture_map.Sample(texture_sampler, tex);
+	clip(I.a - 0.1f);
 
 	// Ambient light and directional light contribution
 	float3 brdf = LambertianBRDF(n, -d);
-	I_diffuse = Ia + brdf * Id;
+	float3 I_diffuse  = Ia + brdf * Id;
+	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+
+	const float3 v = normalize(-p);
 
 	// Omni lights contribution
 	for (uint i = 0; i < nb_omnilights; ++i) {
@@ -351,21 +354,21 @@ float4 WardDuerBRDFShading(float3 p, float3 n, float2 tex) {
 		I_specular += brdf * I_light;
 	}
 
-	float4 I = float4(Kd * I_diffuse, dissolve);
-	I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	I.xyz *= I_diffuse;
 	I.xyz += Ks * I_specular;
 	return I;
 }
 // Calculates the Modified Blinn-Phong BRDF shading.
 float4 CookTorranceBRDFShading(float3 p, float3 n, float2 tex) {
-	const float3 v = normalize(-p);
-
-	float3 I_diffuse  = float3(0.0f, 0.0f, 0.0f);
-	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+	float4 I = float4(Kd, dissolve) * diffuse_texture_map.Sample(texture_sampler, tex);
+	clip(I.a - 0.1f);
 
 	// Ambient light and directional light contribution
 	float3 brdf = LambertianBRDF(n, -d);
-	I_diffuse = Ia + brdf * Id;
+	float3 I_diffuse  = Ia + brdf * Id;
+	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
+
+	const float3 v = normalize(-p);
 
 	// Omni lights contribution
 	for (uint i = 0; i < nb_omnilights; ++i) {
@@ -393,8 +396,7 @@ float4 CookTorranceBRDFShading(float3 p, float3 n, float2 tex) {
 		I_specular += brdf * I_light;
 	}
 
-	float4 I = float4(Kd * I_diffuse, dissolve);
-	I *= diffuse_texture_map.Sample(texture_sampler, tex);
+	I.xyz *= I_diffuse;
 	I.xyz += Ks * I_specular;
 	return I;
 }

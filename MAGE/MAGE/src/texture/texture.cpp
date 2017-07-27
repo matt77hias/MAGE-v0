@@ -5,6 +5,7 @@
 
 #include "texture\texture.hpp"
 #include "texture\texture_loader.hpp"
+#include "texture\texture_utils.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
 
@@ -47,5 +48,9 @@ namespace mage {
 		if (FAILED(result_srv)) {
 			throw FormattedException("Texture shader resource view creation failed: %08X.", result_srv);
 		}
+	}
+
+	bool Texture::HasAlpha() const noexcept {
+		return mage::HasAlpha(m_texture_srv.Get());
 	}
 }

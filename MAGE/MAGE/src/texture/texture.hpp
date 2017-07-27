@@ -172,6 +172,14 @@ namespace mage {
 			return m_texture_srv.GetAddressOf();
 		}
 
+		/**
+		 Checks whether this texture contains an alpha component.
+
+		 @return		@c true if and only if this texture contains
+						an alpha component.
+		 */
+		bool HasAlpha() const noexcept;
+
 	private:
 
 		//---------------------------------------------------------------------

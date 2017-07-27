@@ -111,79 +111,63 @@ namespace mage {
 	bool AABB::EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept {
 		Assert(planes);
 		
-		const XMVECTOR corner_000_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_min.z, 1.0f);
-		const XMVECTOR corner_001_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_max.z, 1.0f);
-		const XMVECTOR corner_010_v = XMVectorSet(m_p_min.x, m_p_max.y, m_p_min.z, 1.0f);
-		const XMVECTOR corner_011_v = XMVectorSet(m_p_min.x, m_p_max.y, m_p_max.z, 1.0f);
-		const XMVECTOR corner_100_v = XMVectorSet(m_p_max.x, m_p_min.y, m_p_min.z, 1.0f);
-		const XMVECTOR corner_101_v = XMVectorSet(m_p_max.x, m_p_min.y, m_p_max.z, 1.0f);
-		const XMVECTOR corner_110_v = XMVectorSet(m_p_max.x, m_p_max.y, m_p_min.z, 1.0f);
-		const XMVECTOR corner_111_v = XMVectorSet(m_p_max.x, m_p_max.y, m_p_max.z, 1.0f);
+		const XMVECTOR corner_000 = XMVectorSet(m_p_min.x, m_p_min.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_001 = XMVectorSet(m_p_min.x, m_p_min.y, m_p_max.z, 1.0f);
+		const XMVECTOR corner_010 = XMVectorSet(m_p_min.x, m_p_max.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_011 = XMVectorSet(m_p_min.x, m_p_max.y, m_p_max.z, 1.0f);
+		const XMVECTOR corner_100 = XMVectorSet(m_p_max.x, m_p_min.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_101 = XMVectorSet(m_p_max.x, m_p_min.y, m_p_max.z, 1.0f);
+		const XMVECTOR corner_110 = XMVectorSet(m_p_max.x, m_p_max.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_111 = XMVectorSet(m_p_max.x, m_p_max.y, m_p_max.z, 1.0f);
 		
 		for (size_t i  = 0; i < nb_planes; ++i) {
-			const XMVECTOR plane_v = XMLoadFloat4(&planes[i]);
+			const XMVECTOR plane = XMLoadFloat4(&planes[i]);
 
 			// 000
-			const XMVECTOR result_000_v = XMPlaneDotCoord(plane_v, corner_000_v);
-			float result_000;
-			XMStoreFloat(&result_000, result_000_v);
-			if (result_000 < 0.0f) {
+			const XMVECTOR result_000 = XMPlaneDotCoord(plane, corner_000);
+			if (XMVectorGetX(result_000) < 0.0f) {
 				return false;
 			}
 
 			// 001
-			const XMVECTOR result_001_v = XMPlaneDotCoord(plane_v, corner_001_v);
-			float result_001;
-			XMStoreFloat(&result_001, result_001_v);
-			if (result_001 < 0.0f) {
+			const XMVECTOR result_001 = XMPlaneDotCoord(plane, corner_001);
+			if (XMVectorGetX(result_001) < 0.0f) {
 				return false;
 			}
 
 			// 010
-			const XMVECTOR result_010_v = XMPlaneDotCoord(plane_v, corner_010_v);
-			float result_010;
-			XMStoreFloat(&result_010, result_010_v);
-			if (result_010 < 0.0f) {
+			const XMVECTOR result_010 = XMPlaneDotCoord(plane, corner_010);
+			if (XMVectorGetX(result_010) < 0.0f) {
 				return false;
 			}
 
 			// 011
-			const XMVECTOR result_011_v = XMPlaneDotCoord(plane_v, corner_011_v);
-			float result_011;
-			XMStoreFloat(&result_011, result_011_v);
-			if (result_011 < 0.0f) {
+			const XMVECTOR result_011 = XMPlaneDotCoord(plane, corner_011);
+			if (XMVectorGetX(result_011) < 0.0f) {
 				return false;
 			}
 
 			// 100
-			const XMVECTOR result_100_v = XMPlaneDotCoord(plane_v, corner_100_v);
-			float result_100;
-			XMStoreFloat(&result_100, result_100_v);
-			if (result_100 < 0.0f) {
+			const XMVECTOR result_100 = XMPlaneDotCoord(plane, corner_100);
+			if (XMVectorGetX(result_100) < 0.0f) {
 				return false;
 			}
 
 			// 101
-			const XMVECTOR result_101_v = XMPlaneDotCoord(plane_v, corner_101_v);
-			float result_101;
-			XMStoreFloat(&result_101, result_101_v);
-			if (result_101 < 0.0f) {
+			const XMVECTOR result_101 = XMPlaneDotCoord(plane, corner_101);
+			if (XMVectorGetX(result_101) < 0.0f) {
 				return false;
 			}
 
 			// 110
-			const XMVECTOR result_110_v = XMPlaneDotCoord(plane_v, corner_110_v);
-			float result_110;
-			XMStoreFloat(&result_110, result_110_v);
-			if (result_110 < 0.0f) {
+			const XMVECTOR result_110 = XMPlaneDotCoord(plane, corner_110);
+			if (XMVectorGetX(result_110) < 0.0f) {
 				return false;
 			}
 
 			// 111
-			const XMVECTOR result_111_v = XMPlaneDotCoord(plane_v, corner_111_v);
-			float result_111;
-			XMStoreFloat(&result_111, result_111_v);
-			if (result_111 < 0.0f) {
+			const XMVECTOR result_111 = XMPlaneDotCoord(plane, corner_111);
+			if (XMVectorGetX(result_111) < 0.0f) {
 				return false;
 			}
 		}
@@ -193,80 +177,64 @@ namespace mage {
 
 	bool AABB::EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept {
 		Assert(planes);
-		
-		const XMVECTOR corner_000_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_min.z, 1.0f);
-		const XMVECTOR corner_001_v = XMVectorSet(m_p_min.x, m_p_min.y, m_p_max.z, 1.0f);
-		const XMVECTOR corner_010_v = XMVectorSet(m_p_min.x, m_p_max.y, m_p_min.z, 1.0f);
-		const XMVECTOR corner_011_v = XMVectorSet(m_p_min.x, m_p_max.y, m_p_max.z, 1.0f);
-		const XMVECTOR corner_100_v = XMVectorSet(m_p_max.x, m_p_min.y, m_p_min.z, 1.0f);
-		const XMVECTOR corner_101_v = XMVectorSet(m_p_max.x, m_p_min.y, m_p_max.z, 1.0f);
-		const XMVECTOR corner_110_v = XMVectorSet(m_p_max.x, m_p_max.y, m_p_min.z, 1.0f);
-		const XMVECTOR corner_111_v = XMVectorSet(m_p_max.x, m_p_max.y, m_p_max.z, 1.0f);
-		
+
+		const XMVECTOR corner_000 = XMVectorSet(m_p_min.x, m_p_min.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_001 = XMVectorSet(m_p_min.x, m_p_min.y, m_p_max.z, 1.0f);
+		const XMVECTOR corner_010 = XMVectorSet(m_p_min.x, m_p_max.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_011 = XMVectorSet(m_p_min.x, m_p_max.y, m_p_max.z, 1.0f);
+		const XMVECTOR corner_100 = XMVectorSet(m_p_max.x, m_p_min.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_101 = XMVectorSet(m_p_max.x, m_p_min.y, m_p_max.z, 1.0f);
+		const XMVECTOR corner_110 = XMVectorSet(m_p_max.x, m_p_max.y, m_p_min.z, 1.0f);
+		const XMVECTOR corner_111 = XMVectorSet(m_p_max.x, m_p_max.y, m_p_max.z, 1.0f);
+
 		for (size_t i = 0; i < nb_planes; ++i) {
-			const XMVECTOR plane_v = XMLoadFloat4(&planes[i]);
+			const XMVECTOR plane = XMLoadFloat4(&planes[i]);
 
 			// 000
-			const XMVECTOR result_000_v = XMPlaneDotCoord(plane_v, corner_000_v);
-			float result_000;
-			XMStoreFloat(&result_000, result_000_v);
-			if (result_000 <= 0.0f) {
+			const XMVECTOR result_000 = XMPlaneDotCoord(plane, corner_000);
+			if (XMVectorGetX(result_000) <= 0.0f) {
 				return false;
 			}
 
 			// 001
-			const XMVECTOR result_001_v = XMPlaneDotCoord(plane_v, corner_001_v);
-			float result_001;
-			XMStoreFloat(&result_001, result_001_v);
-			if (result_001 <= 0.0f) {
+			const XMVECTOR result_001 = XMPlaneDotCoord(plane, corner_001);
+			if (XMVectorGetX(result_001) <= 0.0f) {
 				return false;
 			}
 
 			// 010
-			const XMVECTOR result_010_v = XMPlaneDotCoord(plane_v, corner_010_v);
-			float result_010;
-			XMStoreFloat(&result_010, result_010_v);
-			if (result_010 <= 0.0f) {
+			const XMVECTOR result_010 = XMPlaneDotCoord(plane, corner_010);
+			if (XMVectorGetX(result_010) <= 0.0f) {
 				return false;
 			}
 
 			// 011
-			const XMVECTOR result_011_v = XMPlaneDotCoord(plane_v, corner_011_v);
-			float result_011;
-			XMStoreFloat(&result_011, result_011_v);
-			if (result_011 <= 0.0f) {
+			const XMVECTOR result_011 = XMPlaneDotCoord(plane, corner_011);
+			if (XMVectorGetX(result_011) <= 0.0f) {
 				return false;
 			}
 
 			// 100
-			const XMVECTOR result_100_v = XMPlaneDotCoord(plane_v, corner_100_v);
-			float result_100;
-			XMStoreFloat(&result_100, result_100_v);
-			if (result_100 <= 0.0f) {
+			const XMVECTOR result_100 = XMPlaneDotCoord(plane, corner_100);
+			if (XMVectorGetX(result_100) <= 0.0f) {
 				return false;
 			}
 
 			// 101
-			const XMVECTOR result_101_v = XMPlaneDotCoord(plane_v, corner_101_v);
-			float result_101;
-			XMStoreFloat(&result_101, result_101_v);
-			if (result_101 <= 0.0f) {
+			const XMVECTOR result_101 = XMPlaneDotCoord(plane, corner_101);
+			if (XMVectorGetX(result_101) <= 0.0f) {
 				return false;
 			}
 
 			// 110
-			const XMVECTOR result_110_v = XMPlaneDotCoord(plane_v, corner_110_v);
-			float result_110;
-			XMStoreFloat(&result_110, result_110_v);
-			if (result_110 <= 0.0f) {
+			const XMVECTOR result_110 = XMPlaneDotCoord(plane, corner_110);
+			if (XMVectorGetX(result_110) <= 0.0f) {
 				return false;
 			}
 
 			// 111
-			const XMVECTOR result_111_v = XMPlaneDotCoord(plane_v, corner_111_v);
-			float result_111;
-			XMStoreFloat(&result_111, result_111_v);
-			if (result_111 <= 0.0f) {
+			const XMVECTOR result_111 = XMPlaneDotCoord(plane, corner_111);
+			if (XMVectorGetX(result_111) <= 0.0f) {
 				return false;
 			}
 		}
@@ -321,46 +289,46 @@ namespace mage {
 	}
 
 	const Point3 AABB::Centroid() const noexcept {
-		const XMVECTOR p_min_v = XMLoadFloat3(&m_p_min);
-		const XMVECTOR p_max_v = XMLoadFloat3(&m_p_max);
-		const XMVECTOR centroid_v = 0.5f * (p_min_v + p_max_v);
-		Point3 centroid;
-		XMStoreFloat3(&centroid, centroid_v);
-		return centroid;
+		const XMVECTOR p_min = XMLoadFloat3(&m_p_min);
+		const XMVECTOR p_max = XMLoadFloat3(&m_p_max);
+		const XMVECTOR centroid = 0.5f * (p_min + p_max);
+		Point3 c;
+		XMStoreFloat3(&c, centroid);
+		return c;
 	}
 
 	const Direction3 AABB::Diagonal() const noexcept {
-		const XMVECTOR p_min_v = XMLoadFloat3(&m_p_min);
-		const XMVECTOR p_max_v = XMLoadFloat3(&m_p_max);
-		const XMVECTOR diagonal_v = p_max_v - p_min_v;
-		Direction3 diagonal;
-		XMStoreFloat3(&diagonal, diagonal_v);
-		return diagonal;
+		const XMVECTOR p_min = XMLoadFloat3(&m_p_min);
+		const XMVECTOR p_max = XMLoadFloat3(&m_p_max);
+		const XMVECTOR diagonal = p_max - p_min;
+		Direction3 d;
+		XMStoreFloat3(&d, diagonal);
+		return d;
 	}
 
 	const AABB Union(const AABB &aabb, const Point3 &point) noexcept {
-		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb.m_p_min);
-		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb.m_p_max);
-		const XMVECTOR p_v2 = XMLoadFloat3(&point);
-		const XMVECTOR p_min_v = XMVectorMin(p_min_v1, p_v2);
-		const XMVECTOR p_max_v = XMVectorMax(p_max_v1, p_v2);
-		Point3 p_min, p_max;
-		XMStoreFloat3(&p_min, p_min_v);
-		XMStoreFloat3(&p_max, p_max_v);
-		return AABB(p_min, p_max);
+		const XMVECTOR p_min1 = XMLoadFloat3(&aabb.m_p_min);
+		const XMVECTOR p_max1 = XMLoadFloat3(&aabb.m_p_max);
+		const XMVECTOR p2     = XMLoadFloat3(&point);
+		const XMVECTOR p_min  = XMVectorMin(p_min1, p2);
+		const XMVECTOR p_max  = XMVectorMax(p_max1, p2);
+		Point3 pmin, pmax;
+		XMStoreFloat3(&pmin, p_min);
+		XMStoreFloat3(&pmax, p_max);
+		return AABB(pmin, pmax);
 	}
 
 	const AABB Union(const AABB &aabb1, const AABB &aabb2) noexcept {
-		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.m_p_min);
-		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb1.m_p_max);
-		const XMVECTOR p_min_v2 = XMLoadFloat3(&aabb2.m_p_min);
-		const XMVECTOR p_max_v2 = XMLoadFloat3(&aabb2.m_p_max);
-		const XMVECTOR p_min_v = XMVectorMin(p_min_v1, p_min_v2);
-		const XMVECTOR p_max_v = XMVectorMax(p_max_v1, p_max_v2);
-		Point3 p_min, p_max;
-		XMStoreFloat3(&p_min, p_min_v);
-		XMStoreFloat3(&p_max, p_max_v);
-		return AABB(p_min, p_max);
+		const XMVECTOR p_min1 = XMLoadFloat3(&aabb1.m_p_min);
+		const XMVECTOR p_max1 = XMLoadFloat3(&aabb1.m_p_max);
+		const XMVECTOR p_min2 = XMLoadFloat3(&aabb2.m_p_min);
+		const XMVECTOR p_max2 = XMLoadFloat3(&aabb2.m_p_max);
+		const XMVECTOR p_min  = XMVectorMin(p_min1, p_min2);
+		const XMVECTOR p_max  = XMVectorMax(p_max1, p_max2);
+		Point3 pmin, pmax;
+		XMStoreFloat3(&pmin, p_min);
+		XMStoreFloat3(&pmax, p_max);
+		return AABB(pmin, pmax);
 	}
 
 	const AABB Overlap(const AABB &aabb1, const AABB &aabb2) noexcept {
@@ -368,16 +336,16 @@ namespace mage {
 			return AABB();
 		}
 
-		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.m_p_min);
-		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb1.m_p_max);
-		const XMVECTOR p_min_v2 = XMLoadFloat3(&aabb2.m_p_min);
-		const XMVECTOR p_max_v2 = XMLoadFloat3(&aabb2.m_p_max);
-		const XMVECTOR p_min_v = XMVectorMax(p_min_v1, p_min_v2);
-		const XMVECTOR p_max_v = XMVectorMin(p_max_v1, p_max_v2);
-		Point3 p_min, p_max;
-		XMStoreFloat3(&p_min, p_min_v);
-		XMStoreFloat3(&p_max, p_max_v);
-		return AABB(p_min, p_max);
+		const XMVECTOR p_min1 = XMLoadFloat3(&aabb1.m_p_min);
+		const XMVECTOR p_max1 = XMLoadFloat3(&aabb1.m_p_max);
+		const XMVECTOR p_min2 = XMLoadFloat3(&aabb2.m_p_min);
+		const XMVECTOR p_max2 = XMLoadFloat3(&aabb2.m_p_max);
+		const XMVECTOR p_min  = XMVectorMax(p_min1, p_min2);
+		const XMVECTOR p_max  = XMVectorMin(p_max1, p_max2);
+		Point3 pmin, pmax;
+		XMStoreFloat3(&pmin, p_min);
+		XMStoreFloat3(&pmax, p_max);
+		return AABB(pmin, pmax);
 	}
 
 	const AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2) noexcept {
@@ -385,16 +353,16 @@ namespace mage {
 			return AABB();
 		}
 
-		const XMVECTOR p_min_v1 = XMLoadFloat3(&aabb1.m_p_min);
-		const XMVECTOR p_max_v1 = XMLoadFloat3(&aabb1.m_p_max);
-		const XMVECTOR p_min_v2 = XMLoadFloat3(&aabb2.m_p_min);
-		const XMVECTOR p_max_v2 = XMLoadFloat3(&aabb2.m_p_max);
-		const XMVECTOR p_min_v = XMVectorMax(p_min_v1, p_min_v2);
-		const XMVECTOR p_max_v = XMVectorMin(p_max_v1, p_max_v2);
-		Point3 p_min, p_max;
-		XMStoreFloat3(&p_min, p_min_v);
-		XMStoreFloat3(&p_max, p_max_v);
-		return AABB(p_min, p_max);
+		const XMVECTOR p_min1 = XMLoadFloat3(&aabb1.m_p_min);
+		const XMVECTOR p_max1 = XMLoadFloat3(&aabb1.m_p_max);
+		const XMVECTOR p_min2 = XMLoadFloat3(&aabb2.m_p_min);
+		const XMVECTOR p_max2 = XMLoadFloat3(&aabb2.m_p_max);
+		const XMVECTOR p_min  = XMVectorMax(p_min1, p_min2);
+		const XMVECTOR p_max  = XMVectorMin(p_max1, p_max2);
+		Point3 pmin, pmax;
+		XMStoreFloat3(&pmin, p_min);
+		XMStoreFloat3(&pmax, p_max);
+		return AABB(pmin, pmax);
 	}
 
 	//-------------------------------------------------------------------------
@@ -402,32 +370,26 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	BS::BS(const AABB &aabb) {
-		const XMVECTOR p_min_v = XMLoadFloat3(&aabb.m_p_min);
-		const XMVECTOR p_max_v = XMLoadFloat3(&aabb.m_p_max);
-		const XMVECTOR centroid_v = 0.5f * (p_min_v + p_max_v);
-		const XMVECTOR radius_v = 0.5f * (p_max_v - p_min_v);
-		XMStoreFloat3(&m_p, centroid_v);
-		Direction3 radius;
-		XMStoreFloat3(&radius, radius_v);
-		m_r = std::max(radius.x, std::max(radius.y, radius.z));
+		const XMVECTOR p_min = XMLoadFloat3(&aabb.m_p_min);
+		const XMVECTOR p_max = XMLoadFloat3(&aabb.m_p_max);
+		const XMVECTOR centroid = 0.5f * (p_min + p_max);
+		const XMVECTOR radius   = 0.5f * (p_max - p_min);
+		XMStoreFloat3(&m_p, centroid);
+		m_r = std::max(XMVectorGetX(radius), std::max(XMVectorGetY(radius), XMVectorGetZ(radius)));
 	}
 
 	bool BS::Encloses(const Point3 &point) const noexcept {
-		const XMVECTOR p_v = XMLoadFloat3(&m_p);
-		const XMVECTOR point_v = XMLoadFloat3(&point);
-		const XMVECTOR length_v = XMVector3Length(point_v - p_v);
-		float length;
-		XMStoreFloat(&length, length_v);
-		return length <= m_r;
+		const XMVECTOR p0 = XMLoadFloat3(&m_p);
+		const XMVECTOR p1 = XMLoadFloat3(&point);
+		const XMVECTOR length = XMVector3Length(p1 - p0);
+		return XMVectorGetX(length) <= m_r;
 	}
 		
 	bool BS::EnclosesStrict(const Point3 &point) const noexcept {
-		const XMVECTOR p_v = XMLoadFloat3(&m_p);
-		const XMVECTOR point_v = XMLoadFloat3(&point);
-		const XMVECTOR length_v = XMVector3Length(point_v - p_v);
-		float length;
-		XMStoreFloat(&length, length_v);
-		return length < m_r;
+		const XMVECTOR p0 = XMLoadFloat3(&m_p);
+		const XMVECTOR p1 = XMLoadFloat3(&point);
+		const XMVECTOR length = XMVector3Length(p1 - p0);
+		return XMVectorGetX(length) < m_r;
 	}
 		
 	bool BS::Encloses(const AABB &aabb) const noexcept {
@@ -537,15 +499,12 @@ namespace mage {
 	bool BS::EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept {
 		Assert(planes);
 		
-		const XMVECTOR p_v = XMLoadFloat3(&m_p);
+		const XMVECTOR p = XMLoadFloat3(&m_p);
 		
 		for (size_t i = 0; i < nb_planes; ++i) {
-			const XMVECTOR plane_v = XMLoadFloat4(&planes[i]);
-
-			const XMVECTOR result_v = XMPlaneDotCoord(plane_v, p_v);
-			float result;
-			XMStoreFloat(&result, result_v);
-			if (result < -m_r) {
+			const XMVECTOR plane = XMLoadFloat4(&planes[i]);
+			const XMVECTOR result = XMPlaneDotCoord(plane, p);
+			if (XMVectorGetX(result) < -m_r) {
 				return false;
 			}
 		}
@@ -556,15 +515,12 @@ namespace mage {
 	bool BS::EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept {
 		Assert(planes);
 		
-		const XMVECTOR p_v = XMLoadFloat3(&m_p);
+		const XMVECTOR p = XMLoadFloat3(&m_p);
 		
 		for (size_t i = 0; i < nb_planes; ++i) {
-			const XMVECTOR plane_v = XMLoadFloat4(&planes[i]);
-
-			const XMVECTOR result_v = XMPlaneDotCoord(plane_v, p_v);
-			float result;
-			XMStoreFloat(&result, result_v);
-			if (result <= -m_r) {
+			const XMVECTOR plane = XMLoadFloat4(&planes[i]);
+			const XMVECTOR result = XMPlaneDotCoord(plane, p);
+			if (XMVectorGetX(result) <= -m_r) {
 				return false;
 			}
 		}
@@ -573,11 +529,9 @@ namespace mage {
 	}
 
 	const BS Union(const BS &bs, const Point3 &point) noexcept {
-		const XMVECTOR p_v = XMLoadFloat3(&bs.m_p);
-		const XMVECTOR point_v = XMLoadFloat3(&point);
-		const XMVECTOR length_v = XMVector3Length(point_v - p_v);
-		float length;
-		XMStoreFloat(&length, length_v);
-		return BS(bs.m_p, std::max(bs.m_r, length));
+		const XMVECTOR p0 = XMLoadFloat3(&bs.m_p);
+		const XMVECTOR p1 = XMLoadFloat3(&point);
+		const XMVECTOR length = XMVector3Length(p1 - p0);
+		return BS(bs.m_p, std::max(bs.m_r, XMVectorGetX(length)));
 	}
 }

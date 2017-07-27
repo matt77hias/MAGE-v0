@@ -43,5 +43,11 @@ namespace mage {
 			m_transform->AddTranslationX(static_cast< float >(-movement_cos));
 			m_transform->AddTranslationZ(static_cast< float >( movement_sin));
 		}
+		else if (keyboard->GetKeyPress(DIK_LSHIFT, true)) {
+			m_transform->AddTranslationY(static_cast< float >(-movement_magnitude));
+		}
+		else if (keyboard->GetKeyPress(DIK_RSHIFT, true)) {
+			m_transform->AddTranslationY(static_cast< float >(movement_magnitude));
+		}
 	}
 }

@@ -3,7 +3,6 @@
 // Requires global variable: material_param1
 // Requires global variable: material_param2
 // Requires global variable: material_param3
-
 //-----------------------------------------------------------------------------
 
 // Calculates the dot product of two vectors and clamp negative values to 0. 

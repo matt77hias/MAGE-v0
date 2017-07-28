@@ -2,6 +2,7 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "structures.fx"
+#include "light.fx"
 
 //-----------------------------------------------------------------------------
 // Transformations
@@ -63,7 +64,6 @@ cbuffer LightData : register(b2) {
 
 #include "brdf.fx"
 #include "normal_mapping.fx"
-#include "light.fx"
 
 StructuredBuffer< OmniLight > omni_lights : register(t1);
 StructuredBuffer< SpotLight > spot_lights : register(t2);

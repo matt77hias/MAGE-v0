@@ -1,57 +1,62 @@
 struct OmniLight {
-	// The position of the omni light in camera space.
-	float4 p;
-	// The intensity of the omni light.
-	float3 I;
-	// The distance at which intensity falloff starts.
-	float distance_falloff_start;
-	// The distance at which intensity falloff ends.
-	float distance_falloff_end;
-	uint3 padding;
+	// The position of this omni light in camera-space coordinates.
+	float4 m_p;
+	// The intensity of this omni light.
+	float3 m_I;
+	// Padding.
+	uint m_padding0;
+	//  The distance at which intensity falloff ends of this omni light.
+	float m_distance_falloff_end;
+	// The distance range where intensity falloff occurs of this omni light.
+	// distance_falloff_range = distance_falloff_end - distance_falloff_start
+	float m_distance_falloff_range;
+	// Padding.
+	uint2 m_padding1;
 };
 
 struct SpotLight {
-	// The position of the spotlight in camera space.
-	float4 p;
-	// The intensity of the spotlight.
-	float3 I;
-	// The exponent property of the spotlight.
-	float exponent_property;
-	// The direction of the spotlight in camera space.
-	float3 d;
-	// The distance at which intensity falloff starts.
-	float distance_falloff_start;
-	// The distance at which intensity falloff ends.
-	float distance_falloff_end;
-	// The cosine of the penumbra angle at which intensity falloff starts.
-	float cos_penumbra;
-	// The cosine of the umbra angle at which intensity falloff ends.
-	float cos_umbra;
-	uint padding;
+	// The position of this spotlight in camera-space coordinates.
+	float4 m_p;
+	// The intensity of this spotlight .
+	float3 m_I;
+	// The exponent property of this spotlight.
+	float m_exponent_property;
+	// The (normalized) direction of this spotlight in camera-space coordinates.
+	float3 m_d;
+	// Padding.
+	uint m_padding;
+	// The distance at which intensity falloff ends of this spotlight.
+	float m_distance_falloff_end;
+	// The distance range where intensity falloff occurs of this spotlight.
+	// distance_falloff_range = distance_falloff_end - distance_falloff_start
+	float m_distance_falloff_range;
+	// The cosine of the umbra angle at which intensity falloff ends of this spotlight.
+	float m_cos_umbra;
+	// The cosine range where intensity falloff occurs of this spotlight.
+	// cos_range = cos_penumbra - cos_umbra
+	float m_cos_range;
 };
 
 // Calculates the distance fall off at a given distance r.
-float DistanceFalloff(float r, float r_start, float r_end) {
-	return saturate((r_end - r) / (r_end - r_start));
+float DistanceFalloff(float r, float r_end, float r_range) {
+	return saturate((r_end - r) / r_range);
 }
 
 // Calculates the angular fall off at a given angle theta.
-float AngularFalloff(float cos_theta, float cos_penumbra, float cos_umbra, float s_exp) {
-	return pow(saturate((cos_theta - cos_umbra) / (cos_penumbra - cos_umbra)), s_exp);
+float AngularFalloff(float cos_theta, float cos_umbra, float cos_range, float s_exp) {
+	return pow(saturate((cos_theta - cos_umbra) / cos_range), s_exp);
 }
 
-// Calculates the maximum contribution of the given omni light on the given point.
-float3 OmniLightMaxContribution(OmniLight light, float3 p) {
-	const float r = distance(light.p.xyz, p);
-	const float df = DistanceFalloff(r, light.distance_falloff_start, light.distance_falloff_end);
-	return df * light.I;
+// Calculates the maximum contribution of the given omni light for given distance r.
+float3 OmniLightMaxContribution(OmniLight light, float r) {
+	const float df = DistanceFalloff(r, light.m_distance_falloff_end, light.m_distance_falloff_range);
+	return df * light.m_I;
 }
 
-// Calculates the maximum contribution of the given spotlight on the given point.
-float3 SpotLightMaxContribution(SpotLight light, float3 p, float3 l) {
-	const float r = distance(light.p.xyz, p);
-	const float cos_theta = dot(light.d, -l);
-	const float df = DistanceFalloff(r, light.distance_falloff_start, light.distance_falloff_end);
-	const float af = AngularFalloff(cos_theta, light.cos_penumbra, light.cos_umbra, light.exponent_property);
-	return df * af * light.I;
+// Calculates the maximum contribution of the given spotlight for given distance r and l.
+float3 SpotLightMaxContribution(SpotLight light, float r, float3 l) {
+	const float cos_theta = dot(light.m_d, -l);
+	const float df = DistanceFalloff(r, light.m_distance_falloff_end, light.m_distance_falloff_range);
+	const float af = AngularFalloff(cos_theta, light.m_cos_umbra, light.m_cos_range, light.m_exponent_property);
+	return df * af * light.m_I;
 }

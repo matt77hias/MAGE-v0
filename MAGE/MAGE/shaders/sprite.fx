@@ -6,12 +6,12 @@
 //-----------------------------------------------------------------------------
 // Constant buffers
 //-----------------------------------------------------------------------------
-Texture2D texture_map : register(t0);
-sampler texture_sampler : register(s0);
+Texture2D g_texture : register(t0);
+sampler g_sampler : register(s0);
 
 cbuffer cb_transform : register(b0) {
 	// The object-to-projection transformation matrix.
-	float4x4 transform : packoffset(c0);
+	float4x4 g_transform : packoffset(c0);
 }
 
 //-----------------------------------------------------------------------------
@@ -19,9 +19,9 @@ cbuffer cb_transform : register(b0) {
 //-----------------------------------------------------------------------------
 PSInputPositionColorTexture VS(VSInputPositionColorTexture input) {
 	PSInputPositionColorTexture output = (PSInputPositionColorTexture)0;
-	output.p     = mul(input.p, transform);
-	output.color = input.color;
-	output.tex   = input.tex;
+	output.m_p     = mul(input.m_p, g_transform);
+	output.m_color = input.m_color;
+	output.m_tex   = input.m_tex;
 	return output;
 }
 
@@ -29,5 +29,5 @@ PSInputPositionColorTexture VS(VSInputPositionColorTexture input) {
 // Pixel Shader
 //-----------------------------------------------------------------------------
 float4 PS(PSInputPositionColorTexture input) : SV_Target {
-	return texture_map.Sample(texture_sampler, input.tex) * input.color;
+	return g_texture.Sample(g_sampler, input.m_tex) * input.m_color;
 }

@@ -92,57 +92,67 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the start of the distance falloff of this omni light.
+		 Returns the distance at which intensity falloff starts of this omni light.
 
-		 @return		The start of the distance falloff of this omni light.
+		 @return		The distance at which intensity falloff starts of this omni light.
 		 */
 		float GetStartDistanceFalloff() const noexcept {
 			return m_distance_falloff_start;
 		}
-		
+
 		/**
-		 Sets the start of the distance falloff of this omni light
+		 Sets the distance at which intensity falloff starts of this omni light
 		 to the given value.
 
 		 @param[in]		distance_falloff_start
-						The start of the distance falloff.
+						The distance at which intensity falloff starts.
 		 */
 		void SetStartDistanceFalloff(float distance_falloff_start) noexcept {
 			m_distance_falloff_start = distance_falloff_start;
 		}
-		
-		/**
-		 Returns the end of the distance falloff of this omni light.
 
-		 @return		The end of the distance falloff of this omni light.
+		/**
+		 Returns the distance at which intensity falloff ends of this omni light.
+
+		 @return		The distance at which intensity falloff ends of this omni light.
 		 */
 		float GetEndDistanceFalloff() const noexcept {
 			return m_distance_falloff_end;
 		}
-		
+
 		/**
-		 Sets the end of the distance falloff of this omni light
+		 Sets the distance at which intensity falloff ends of this omni light
 		 to the given value.
 
 		 @param[in]		distance_falloff_end
-						The end of the distance falloff.
+						The distance at which intensity falloff ends.
 		 */
 		void SetEndDistanceFalloff(float distance_falloff_end) noexcept {
 			m_distance_falloff_end = distance_falloff_end;
 		}
-		
+
 		/**
-		 Sets the start and end of the distance falloff of this omni light
+		 Sets the distance at which intensity falloff starts and ends of this omni light
 		 to the given values.
 
 		 @param[in]		distance_falloff_start
-						The start of the distance falloff.
+						The distance at which intensity falloff starts.
 		 @param[in]		distance_falloff_end
-						The end of the distance falloff.
+						The distance at which intensity falloff ends.
 		 */
 		void SetDistanceFalloff(float distance_falloff_start, float distance_falloff_end) noexcept {
 			SetStartDistanceFalloff(distance_falloff_start);
 			SetEndDistanceFalloff(distance_falloff_end);
+		}
+
+		/**
+		 Returns the distance range where intensity falloff occurs of this omni light.
+
+		 @return		The distance range where intensity falloff occurs of this omni light.
+						@a GetEndDistanceFalloff() - @a GetStartDistanceFalloff()
+		 */
+		float GetRangeDistanceFalloff() const noexcept {
+			return m_distance_falloff_end - m_distance_falloff_start;
 		}
 
 	private:

@@ -45,8 +45,8 @@ namespace mage {
 		SceneBuffer()
 			: m_Ia{}, m_nb_omni_lights(0),
 			m_Id{}, m_nb_spot_lights(0),
-			m_d{}, m_fog_distance_falloff_start{}, 
-			m_fog_color{}, m_fog_distance_falloff_end{} {}
+			m_d{}, m_fog_distance_falloff_start(0.0f), 
+			m_fog_color{}, m_fog_distance_falloff_range(0.0f) {}
 		
 		/**
 		 Constructs a scene buffer from the given scene buffer.
@@ -135,10 +135,10 @@ namespace mage {
 		RGBSpectrum m_fog_color;
 		
 		/**
-		 The distance at which intensity falloff ends due to fog
+		 The distance range where intensity falloff occurs due to fog
 		 of this scene buffer.
 		 */
-		float m_fog_distance_falloff_end;
+		float m_fog_distance_falloff_range;
 	};
 
 	static_assert(sizeof(SceneBuffer) == 64, "CPU/GPU struct mismatch");
@@ -162,9 +162,10 @@ namespace mage {
 		 Constructs an omni light buffer.
 		 */
 		OmniLightBuffer()
-			: m_p{}, m_I(),
-			m_distance_falloff_start(0.0f), m_distance_falloff_end(0.0f),
-			m_padding{} {}
+			: m_p{}, 
+			m_I(), m_padding0{},
+			m_distance_falloff_end(0.0f), m_distance_falloff_range(0.0f),
+			m_padding1{} {}
 		
 		/**
 		 Constructs an omni light buffer from the given omni light buffer.
@@ -227,21 +228,26 @@ namespace mage {
 		RGBSpectrum m_I;
 
 		/**
-		 The start of the distance falloff of the omni light 
-		 of this omni light buffer.
+		 The padding of this omni light buffer.
 		 */
-		float m_distance_falloff_start;
+		uint32_t m_padding0;
 
 		/**
-		 The end of the distance falloff of the omni light
+		 The distance at which intensity falloff ends of the omni light 
 		 of this omni light buffer.
 		 */
 		float m_distance_falloff_end;
 
 		/**
+		 The distance range where intensity falloff occurs of the omni light
+		 of this omni light buffer.
+		 */
+		float m_distance_falloff_range;
+
+		/**
 		 The padding of this omni light buffer.
 		 */
-		uint32_t m_padding[3];
+		uint32_t m_padding1[2];
 	};
 
 	static_assert(sizeof(OmniLightBuffer) == 48, "CPU/GPU struct mismatch");
@@ -265,9 +271,11 @@ namespace mage {
 		 Constructs a spotlight buffer.
 		 */
 		SpotLightBuffer()
-			: m_p{}, m_I{}, m_exponent_property(0.0f), m_d{},
-			m_distance_falloff_start(0.0f), m_distance_falloff_end(0.0f),
-			m_cos_penumbra(0.0f), m_cos_umbra(0.0f), m_padding{} {}
+			: m_p{}, 
+			m_I{}, m_exponent_property(0.0f), 
+			m_d{}, m_padding{},
+			m_distance_falloff_end(0.0f), m_distance_falloff_range(0.0f),
+			m_cos_umbra(0.0f), m_cos_range(0.0f) {}
 		
 		/**
 		 Constructs a spotlight buffer from the given spotlight buffer.
@@ -339,25 +347,24 @@ namespace mage {
 		 of this spotlight buffer.
 		 */
 		Direction3 m_d;
-		
-		/**
-		 The start of the distance falloff of the spotlight
-		 of this spotlight buffer.
-		 */
-		float m_distance_falloff_start;
 
 		/**
-		 The end of the distance falloff of the spotlight
+		 The padding of this spotlight buffer.
+		 */
+		uint32_t m_padding;
+		
+		/**
+		 The distance at which intensity falloff ends of the spotlight
 		 of this spotlight buffer.
 		 */
 		float m_distance_falloff_end;
-		
+
 		/**
-		 The cosine of the penumbra angle of the spotlight
+		 The distance range where intensity falloff occurs of the spotlight
 		 of this spotlight buffer.
 		 */
-		float m_cos_penumbra;
-
+		float m_distance_falloff_range;
+		
 		/**
 		 The cosine of the umbra angle of the spotlight
 		 of this spotlight buffer.
@@ -365,9 +372,10 @@ namespace mage {
 		float m_cos_umbra;
 
 		/**
-		 The padding of this spotlight buffer.
+		 The cosine range where intensity falloff occurs of the spotlight
+		 of this spotlight buffer.
 		 */
-		uint32_t m_padding;
+		float m_cos_range;
 	};
 
 	static_assert(sizeof(SpotLightBuffer) == 64, "CPU/GPU struct mismatch");

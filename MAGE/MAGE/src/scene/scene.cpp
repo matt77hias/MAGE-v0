@@ -92,8 +92,8 @@ namespace mage {
 			OmniLightBuffer light_buffer;
 			XMStoreFloat4(&light_buffer.m_p, XMVector4Transform(transform->GetWorldEye(), world_to_view));
 			light_buffer.m_I                      = light->GetIntensity();
-			light_buffer.m_distance_falloff_start = light->GetStartDistanceFalloff();
 			light_buffer.m_distance_falloff_end   = light->GetEndDistanceFalloff();
+			light_buffer.m_distance_falloff_range = light->GetRangeDistanceFalloff();
 
 			omni_lights_buffer.push_back(std::move(light_buffer));
 		});
@@ -114,10 +114,10 @@ namespace mage {
 			light_buffer.m_I                      = light->GetIntensity();
 			light_buffer.m_exponent_property      = light->GetExponentProperty();
 			XMStoreFloat3(&light_buffer.m_d, XMVector4Transform(transform->GetWorldForward(), world_to_view));
-			light_buffer.m_distance_falloff_start = light->GetStartDistanceFalloff();
 			light_buffer.m_distance_falloff_end   = light->GetEndDistanceFalloff();
-			light_buffer.m_cos_penumbra           = light->GetStartAngularCutoff();
+			light_buffer.m_distance_falloff_range = light->GetRangeDistanceFalloff();
 			light_buffer.m_cos_umbra              = light->GetEndAngularCutoff();
+			light_buffer.m_cos_range              = light->GetRangeAngularCutoff();
 
 			spot_lights_buffer.push_back(std::move(light_buffer));
 		});
@@ -127,6 +127,11 @@ namespace mage {
 		SceneBuffer scene_buffer;
 		scene_buffer.m_nb_omni_lights = static_cast< uint32_t >(omni_lights_buffer.size());
 		scene_buffer.m_nb_spot_lights = static_cast< uint32_t >(spot_lights_buffer.size());
+		//TODO
+		scene_buffer.m_fog_color = RGBSpectrum(0.752941251f, 0.752941251f, 0.752941251f);
+		scene_buffer.m_fog_distance_falloff_range = 10.0f;
+		scene_buffer.m_fog_distance_falloff_range = 17.0f;
+
 		m_scene_buffer.UpdateData(scene_buffer);
 
 		// Create lighting buffer.

@@ -92,53 +92,53 @@ namespace mage {
 		}
 
 		/**
-		 Returns the start of the distance falloff of this spotlight.
+		 Returns the distance at which intensity falloff starts of this spotlight.
 
-		 @return		The start of the distance falloff of this spotlight.
+		 @return		The distance at which intensity falloff starts of this spotlight.
 		 */
 		float GetStartDistanceFalloff() const noexcept {
 			return m_distance_falloff_start;
 		}
 		
 		/**
-		 Sets the start of the distance falloff of this spotlight
+		 Sets the distance at which intensity falloff starts of this spotlight
 		 to the given value.
 
 		 @param[in]		distance_falloff_start
-						The start of the distance falloff.
+						The distance at which intensity falloff starts.
 		 */
 		void SetStartDistanceFalloff(float distance_falloff_start) noexcept {
 			m_distance_falloff_start = distance_falloff_start;
 		}
 		
 		/**
-		 Returns the end of the distance falloff of this spotlight.
+		 Returns the distance at which intensity falloff ends of this spotlight.
 
-		 @return		The end of the distance falloff of this spotlight.
+		 @return		The distance at which intensity falloff ends of this spotlight.
 		 */
 		float GetEndDistanceFalloff() const noexcept {
 			return m_distance_falloff_end;
 		}
 		
 		/**
-		 Sets the end of the distance falloff of this spotlight
+		 Sets the distance at which intensity falloff ends of this spotlight
 		 to the given value.
 
 		 @param[in]		distance_falloff_end
-						The end of the distance falloff.
+						The distance at which intensity falloff ends.
 		 */
 		void SetEndDistanceFalloff(float distance_falloff_end) noexcept {
 			m_distance_falloff_end = distance_falloff_end;
 		}
 		
 		/**
-		 Sets the start and end of the distance falloff of this spotlight
+		 Sets the distance at which intensity falloff starts and ends of this spotlight
 		 to the given values.
 
 		 @param[in]		distance_falloff_start
-						The start of the distance falloff.
+						The distance at which intensity falloff starts.
 		 @param[in]		distance_falloff_end
-						The end of the distance falloff.
+						The distance at which intensity falloff ends.
 		 */
 		void SetDistanceFalloff(float distance_falloff_start, float distance_falloff_end) noexcept {
 			SetStartDistanceFalloff(distance_falloff_start);
@@ -146,7 +146,17 @@ namespace mage {
 		}
 
 		/**
-		 Returns cosine of the penumbra angle of this spotlight.
+		 Returns the distance range where intensity falloff occurs of this spotlight.
+
+		 @return		The distance range where intensity falloff occurs of this spotlight.
+						@a GetEndDistanceFalloff() - @a GetStartDistanceFalloff()
+		 */
+		float GetRangeDistanceFalloff() const noexcept {
+			return m_distance_falloff_end - m_distance_falloff_start;
+		}
+
+		/**
+		 Returns the cosine of the penumbra angle of this spotlight.
 
 		 @return		The cosine of the penumbra angle of this spotlight.
 		 */
@@ -166,7 +176,7 @@ namespace mage {
 		}
 		
 		/**
-		 Returns cosine of the umbra angle of this spotlight.
+		 Returns the cosine of the umbra angle of this spotlight.
 
 		 @return		The cosine of the umbra angle of this spotlight.
 		 */
@@ -197,6 +207,16 @@ namespace mage {
 		void SetAngularCutoff(float cos_penumbra, float cos_umbra) noexcept {
 			SetStartAngularCutoff(cos_penumbra);
 			SetEndAngularCutoff(cos_umbra);
+		}
+
+		/**
+		 Returns the cosine range where intensity falloff occurs of this spotlight.
+
+		 @return		The cosine range where intensity falloff occurs of this spotlight.
+						@a GetStartAngularCutoff() - @a GetEndAngularCutoff()
+		 */
+		float GetRangeAngularCutoff() const noexcept {
+			return m_cos_penumbra - m_cos_umbra;
 		}
 
 		/**

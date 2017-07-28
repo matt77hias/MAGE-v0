@@ -1,14 +1,22 @@
 //-----------------------------------------------------------------------------
-// Requires global variable: normal_texture_map
-// Requires global variable: texture_sampler
-// Requires global variable: object_to_view_inverse_transpose
+// Requires global variable: g_normal_texture
+// Requires global variable: g_sampler
+// Requires global variable: g_object_to_view_inverse_transpose
 //-----------------------------------------------------------------------------
 
-// Perturbs the given normal.
+float3 BiasX2(float3 x) {
+	return 2.0f * x - 1.0f;
+}
+
+float3 InverseBiasX2(float3 x) {
+	return 0.5f * x + 0.5f;
+}
+
+// Returns the perturbed normal.
 float3 TangentSpaceNormalMapping_PerturbNormal(float3 p, float3 n, float2 tex) {
 	// Calculates the edge differences.
-	const float3 dp_dj = ddx(p);
-	const float3 dp_di = ddy(p);
+	const float3 dp_dj   = ddx(p);
+	const float3 dp_di   = ddy(p);
 	const float2 dtex_dj = ddx(tex);
 	const float2 dtex_di = ddy(tex);
 
@@ -25,14 +33,12 @@ float3 TangentSpaceNormalMapping_PerturbNormal(float3 p, float3 n, float2 tex) {
 	const float inv_det = rsqrt(max(dot(t, t), dot(b, b)));
 	const float3x3 TBN = { t * inv_det, b * inv_det, n };
 
-	float3 coefficients = normal_texture_map.Sample(texture_sampler, tex).xyz;
-	coefficients = 2.0f * coefficients - 1.0f;
+	const float3 coefficients = BiasX2(g_normal_texture.Sample(g_sampler, tex).xyz);
 	return normalize(mul(coefficients, TBN));
 }
 
-// Perturbs the given normal.
+// Returns the perturbed normal.
 float3 ObjectSpaceNormalMapping_PerturbNormal(float2 tex) {
-	float3 coefficients = normal_texture_map.Sample(texture_sampler, tex).xyz;
-	coefficients = 2.0f * coefficients - 1.0f;
-	return normalize(mul(coefficients, (float3x3)object_to_view_inverse_transpose));
+	const float3 coefficients = BiasX2(g_normal_texture.Sample(g_sampler, tex).xyz);
+	return normalize(mul(coefficients, (float3x3)g_object_to_view_inverse_transpose));
 }

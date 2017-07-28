@@ -9,39 +9,31 @@
 //-----------------------------------------------------------------------------
 cbuffer Transform : register(b0) {
 	// The object-to-world transformation matrix.
-	float4x4 object_to_world					: packoffset(c0);
+	float4x4 g_object_to_world					: packoffset(c0);
 	// The world-to-view transformation matrix.
-	float4x4 world_to_view						: packoffset(c4);
+	float4x4 g_world_to_view					: packoffset(c4);
 	// The object-to-view inverse transpose transformation matrix.
-	float4x4 object_to_view_inverse_transpose	: packoffset(c8);
+	float4x4 g_object_to_view_inverse_transpose	: packoffset(c8);
 	// The view-to-projection transformation matrix.
-	float4x4 view_to_projection					: packoffset(c12);
+	float4x4 g_view_to_projection				: packoffset(c12);
 }
 
 //-----------------------------------------------------------------------------
 // Materials
 //-----------------------------------------------------------------------------
-Texture2D diffuse_texture_map : register(t0);
-Texture2D normal_texture_map  : register(t4);
-sampler texture_sampler       : register(s0);
+Texture2D g_diffuse_texture : register(t0);
+Texture2D g_normal_texture  : register(t4);
+sampler g_sampler			: register(s0);
 
 cbuffer Material : register(b1) {
-	// The diffuse reflectivity of the material.
-	float3 Kd									: packoffset(c0);
-	// The dissolve of the material.
-	float dissolve								: packoffset(c0.w);
+	// The diffuse reflectivity + dissolve of the material
+	float4 g_Kd									: packoffset(c0);
 	// The specular reflectivity of the material.
-	float3 Ks									: packoffset(c1);
+	float3 g_Ks									: packoffset(c1);
 	// The specular exponent of the material.
-	float Ns									: packoffset(c1.w);
-	// The first material parameter of the material.
-	float material_param1						: packoffset(c2.x);
-	// The second material parameter of the material.
-	float material_param2						: packoffset(c2.y);
-	// The thirth material parameter of the material.
-	float material_param3						: packoffset(c2.z);
-	// The fourth material parameter of the material.
-	float material_param4						: packoffset(c2.w);
+	float g_Ns									: packoffset(c1.w);
+	// The extra material parameter of the material.
+	float4 g_material_parameters				: packoffset(c2);
 };
 
 //-----------------------------------------------------------------------------
@@ -50,21 +42,21 @@ cbuffer Material : register(b1) {
 
 cbuffer Scene : register(b2) {
 	// The intensity of the ambient light. 
-	float3 Ia									: packoffset(c0);
+	float3 g_Ia									: packoffset(c0);
 	// The number of omni lights.
-	uint nb_omnilights							: packoffset(c0.w);
+	uint g_nb_omnilights						: packoffset(c0.w);
 	// The intensity of the directional light.
-	float3 Id									: packoffset(c1);
+	float3 g_Id									: packoffset(c1);
 	// The number of spotlights.
-	uint nb_spotlights							: packoffset(c1.w);
-	// The direction of the directional light in camera space.
-	float3 d									: packoffset(c2);
+	uint g_nb_spotlights						: packoffset(c1.w);
+	// The direction of the directional light in camera-space coordinates.
+	float3 g_d									: packoffset(c2);
 	// The distance at which intensity falloff starts due to fog.
-	float fog_distance_falloff_start			: packoffset(c2.w);
+	float g_fog_distance_falloff_start			: packoffset(c2.w);
 	// The color of the fog.
-	float3 fog_color							: packoffset(c3);
-	// The distance at which intensity falloff ends due to fog.
-	float fog_distance_falloff_end				: packoffset(c3.w);
+	float3 g_fog_color							: packoffset(c3);
+	// The distance range where intensity falloff occurs due to fog.
+	float g_fog_distance_falloff_range			: packoffset(c3.w);
 };
 
 #include "brdf.fx"
@@ -79,23 +71,26 @@ StructuredBuffer< SpotLight > spot_lights : register(t2);
 
 // Calculates the BRDF shading.
 float4 BRDFShading(float3 p, float3 n, float2 tex) {
-	float4 I = float4(Kd, dissolve) * diffuse_texture_map.Sample(texture_sampler, tex);
+	float4 I = g_Kd * g_diffuse_texture.Sample(g_sampler, tex);
 	clip(I.a - 0.1f);
 
 	// Ambient light and directional light contribution
-	float3 brdf = LambertianBRDF(n, -d);
-	float3 I_diffuse = Ia + brdf * Id;
+	float3 brdf = LambertianBRDF(n, -g_d);
+	float3 I_diffuse = g_Ia + brdf * g_Id;
 #ifdef SPECULAR_BRDF
 	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
 #endif
 
-	const float3 v = normalize(-p);
+	const float r_eye = length(p);
+	const float3 v = -p / r_eye;
 
 	// Omni lights contribution
-	for (uint i = 0; i < nb_omnilights; ++i) {
+	for (uint i = 0; i < g_nb_omnilights; ++i) {
 		const OmniLight light = omni_lights[i];
-		const float3 l = normalize(light.p.xyz - p);
-		const float3 I_light = OmniLightMaxContribution(light, p);
+		const float3 d_light  = light.m_p.xyz - p;
+		const float r_light   = length(d_light);
+		const float3 l        = d_light / r_light;
+		const float3 I_light  = OmniLightMaxContribution(light, r_light);
 
 		brdf = LambertianBRDF(n, l);
 		I_diffuse  += brdf * I_light;
@@ -107,10 +102,12 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 	}
 
 	// Spotlights contribution
-	for (uint j = 0; j < nb_spotlights; ++j) {
+	for (uint j = 0; j < g_nb_spotlights; ++j) {
 		const SpotLight light = spot_lights[j];
-		const float3 l = normalize(light.p.xyz - p);
-		const float3 I_light = SpotLightMaxContribution(light, p, l);
+		const float3 d_light  = light.m_p.xyz - p;
+		const float r_light   = length(d_light);
+		const float3 l        = d_light / r_light;
+		const float3 I_light  = SpotLightMaxContribution(light, r_light, l);
 
 		brdf = LambertianBRDF(n, l);
 		I_diffuse  += brdf * I_light;
@@ -123,8 +120,11 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 
 	I.xyz *= I_diffuse;
 #ifdef SPECULAR_BRDF
-	I.xyz += Ks * I_specular;
+	I.xyz += g_Ks * I_specular;
 #endif
+
+	const float fog_factor = saturate((r_eye - g_fog_distance_falloff_start) / g_fog_distance_falloff_range);
+	I.xyz = lerp(I.xyz, g_fog_color, fog_factor);
 	return I;
 }
 
@@ -134,21 +134,20 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 
 PSInputPositionNormalTexture Transform_VS(VSInputPositionNormalTexture input) {
 	PSInputPositionNormalTexture output = (PSInputPositionNormalTexture)0;
-	output.p_view = mul(input.p, object_to_world);
-	output.p_view = mul(output.p_view, world_to_view);
-	output.p      = mul(output.p_view, view_to_projection);
-	output.tex    = input.tex;
-	// Normalization in PS after interpolation
-	output.n_view = mul(input.n, (float3x3)object_to_view_inverse_transpose);
+	output.m_p_view = mul(input.m_p, g_object_to_world);
+	output.m_p_view = mul(output.m_p_view, g_world_to_view);
+	output.m_p      = mul(output.m_p_view, g_view_to_projection);
+	output.m_tex    = input.m_tex;
+	output.m_n_view = normalize(mul(input.m_n, (float3x3)g_object_to_view_inverse_transpose));
 	return output;
 }
 
 PSInputPositionNormalTexture Normal_VS(VSInputPositionNormalTexture input) {
 	PSInputPositionNormalTexture output = (PSInputPositionNormalTexture)0;
-	output.p_view = mul(input.p, object_to_world);
-	output.p_view = mul(output.p_view, world_to_view);
-	output.p      = mul(output.p_view, view_to_projection);
-	output.n_view = input.n;
+	output.m_p_view = mul(input.m_p, g_object_to_world);
+	output.m_p_view = mul(output.m_p_view, g_world_to_view);
+	output.m_p      = mul(output.m_p_view, g_view_to_projection);
+	output.m_n_view = input.m_n;
 	return output;
 }
 
@@ -157,45 +156,50 @@ PSInputPositionNormalTexture Normal_VS(VSInputPositionNormalTexture input) {
 //-----------------------------------------------------------------------------
 
 float4 Emissive_PS(PSInputPositionNormalTexture input) : SV_Target {
-	return float4(Kd, dissolve) * diffuse_texture_map.Sample(texture_sampler, input.tex);
+	float4 I = g_Kd * g_diffuse_texture.Sample(g_sampler, input.m_tex);
+
+	const float r_eye = length(input.m_p_view.xyz);
+
+	const float fog_factor = saturate((r_eye - g_fog_distance_falloff_start) / g_fog_distance_falloff_range);
+	I.xyz = lerp(I.xyz, g_fog_color, fog_factor);
+	return I;
 }
 
 float4 Basic_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 p_view = input.p_view.xyz;
-	const float3 n_view = normalize(input.n_view);
-	return BRDFShading(p_view, n_view, input.tex);
+	const float3 p_view = input.m_p_view.xyz;
+	const float3 n_view = normalize(input.m_n_view);
+	return BRDFShading(p_view, n_view, input.m_tex);
 }
 float4 Basic_Normal_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 n_view = normalize(input.n_view);
-	return float4(0.5f + 0.5f * n_view, 1.0f);
+	const float3 n_view = normalize(input.m_n_view);
+	return float4(InverseBiasX2(n_view), 1.0f);
 }
 
 float4 TangentSpaceNormalMapping_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 p_view = input.p_view.xyz;
-	const float3 n0     = normalize(input.n_view);
-	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(p_view, n0, input.tex);
-	return BRDFShading(p_view, n_view, input.tex);
+	const float3 p_view = input.m_p_view.xyz;
+	const float3 n0     = normalize(input.m_n_view);
+	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(p_view, n0, input.m_tex);
+	return BRDFShading(p_view, n_view, input.m_tex);
 }
 float4 TangentSpaceNormalMapping_Normal_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 p_view = input.p_view.xyz;
-	const float3 n0     = normalize(input.n_view);
-	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(p_view, n0, input.tex);
-	return float4(0.5f + 0.5f * n_view, 1.0f);
+	const float3 p_view = input.m_p_view.xyz;
+	const float3 n0     = normalize(input.m_n_view);
+	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(p_view, n0, input.m_tex);
+	return float4(InverseBiasX2(n_view), 1.0f);
 }
 
 float4 ObjectSpaceNormalMapping_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 p_view = input.p_view.xyz;
-	const float3 n_view = ObjectSpaceNormalMapping_PerturbNormal(input.tex);
-	return BRDFShading(p_view, n_view, input.tex);
+	const float3 p_view = input.m_p_view.xyz;
+	const float3 n_view = ObjectSpaceNormalMapping_PerturbNormal(input.m_tex);
+	return BRDFShading(p_view, n_view, input.m_tex);
 }
 float4 ObjectSpaceNormalMapping_Normal_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 p_view = input.p_view.xyz;
-	const float3 n_view = ObjectSpaceNormalMapping_PerturbNormal(input.tex);
-	return float4(0.5f + 0.5f * n_view, 1.0f);
+	const float3 n_view = ObjectSpaceNormalMapping_PerturbNormal(input.m_tex);
+	return float4(InverseBiasX2(n_view), 1.0f);
 }
 
 float4 Distance_PS(PSInputPositionNormalTexture input) : SV_Target{
-	const float3 p_view = input.p_view.xyz;
+	const float3 p_view = input.m_p_view.xyz;
 	const float c = 1.0f - saturate(length(p_view) / 5.0f);
 	return float4(c, c, c, 1.0f);
 }

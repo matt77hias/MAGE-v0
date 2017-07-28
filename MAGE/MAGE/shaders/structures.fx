@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Input structures
+// VS Input Structures
 //-----------------------------------------------------------------------------
 
 struct VSInputPosition {
@@ -50,4 +50,21 @@ struct VSInputPositionTextureTexture {
 	float4 p     : POSITION0;
 	float2 tex1  : TEXCOORD0;
 	float2 tex2  : TEXCOORD1;
+};
+
+//-----------------------------------------------------------------------------
+// PS Input Structures
+//-----------------------------------------------------------------------------
+
+struct PSInputPositionColorTexture {
+	float4 p     : SV_POSITION;
+	float4 color : COLOR0;
+	float2 tex   : TEXCOORD0;
+};
+
+struct PSInputPositionNormalTexture {
+	float4 p      : SV_POSITION;
+	float4 p_view : POSITION0;
+	float3 n_view : NORMAL0;
+	float2 tex    : TEXCOORD0;
 };

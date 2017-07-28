@@ -7,7 +7,7 @@ struct OmniLight {
 	float distance_falloff_start;
 	// The distance at which intensity falloff ends.
 	float distance_falloff_end;
-	uint padding[3];
+	uint3 padding;
 };
 
 struct SpotLight {

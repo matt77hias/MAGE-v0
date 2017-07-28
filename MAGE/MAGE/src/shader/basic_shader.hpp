@@ -287,10 +287,10 @@ namespace mage {
 
 		 @param[in]		material
 						A reference to the material.
-		 @param[in]		lighting
-						A reference to the lighting buffer.
+		 @param[in]		scene
+						A reference to the scene info.
 		 */
-		virtual void PrepareShading(const Material &material, const Lighting &lighting) const override final;
+		virtual void PrepareShading(const Material &material, const SceneInfo &scene) const override final;
 
 	private:
 

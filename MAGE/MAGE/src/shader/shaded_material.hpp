@@ -143,11 +143,11 @@ namespace mage {
 		 @pre			@a transform is not equal to @c nullptr.
 		 @param[in]		transform
 						A pointer to the transform buffer.
-		 @param[in]		lighting
-						A reference to the lighting buffer.
+		 @param[in]		scene_info
+						A reference to the scene info.
 		 */
-		void PrepareShading(ID3D11Buffer *transform, const Lighting &lighting) const {
-			m_shader.PrepareShading(transform, m_material, lighting);
+		void PrepareShading(ID3D11Buffer *transform, const SceneInfo &scene) const {
+			m_shader.PrepareShading(transform, m_material, scene);
 		}
 
 		/**

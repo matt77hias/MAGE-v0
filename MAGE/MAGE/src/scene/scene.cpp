@@ -17,11 +17,9 @@ namespace mage {
 	Scene::Scene(const string &name)
 		: m_name(name), m_scripts(), m_camera(nullptr),
 		m_models(), m_omni_lights(), m_spot_lights(), m_sprites(),
-		m_sprite_batch(new SpriteBatch(GetRenderingDevice(), GetRenderingDeviceContext())),
-		m_transform_buffer(GetRenderingDevice(), GetRenderingDeviceContext()),
-		m_light_data_buffer(GetRenderingDevice(), GetRenderingDeviceContext()),
-		m_omni_lights_buffer(GetRenderingDevice(), GetRenderingDeviceContext(), 64),
-		m_spot_lights_buffer(GetRenderingDevice(), GetRenderingDeviceContext(), 64) {
+		m_sprite_batch(new SpriteBatch()),
+		m_transform_buffer(), m_scene_buffer(),
+		m_omni_lights_buffer(64), m_spot_lights_buffer(64) {
 		
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		SharedPtr< ModelDescriptor > model_desc_box = GetOrCreateModelDescriptor(L"assets/models/cube/cube.mdl", mesh_desc);
@@ -125,17 +123,17 @@ namespace mage {
 		});
 		m_spot_lights_buffer.UpdateData(spot_lights_buffer);
 
-		// Update light data constant buffer.
-		LightDataBuffer light_data_buffer;
-		light_data_buffer.m_nb_omni_lights = static_cast< uint32_t >(omni_lights_buffer.size());
-		light_data_buffer.m_nb_spot_lights = static_cast< uint32_t >(spot_lights_buffer.size());
-		m_light_data_buffer.UpdateData(light_data_buffer);
+		// Update scene constant buffer.
+		SceneBuffer scene_buffer;
+		scene_buffer.m_nb_omni_lights = static_cast< uint32_t >(omni_lights_buffer.size());
+		scene_buffer.m_nb_spot_lights = static_cast< uint32_t >(spot_lights_buffer.size());
+		m_scene_buffer.UpdateData(scene_buffer);
 
 		// Create lighting buffer.
-		Lighting lighting;
-		lighting.m_light_data  = m_light_data_buffer.Get();
-		lighting.m_omni_lights = m_omni_lights_buffer.Get();
-		lighting.m_spot_lights = m_spot_lights_buffer.Get();
+		SceneInfo scene_info;
+		scene_info.m_scene_buffer = m_scene_buffer.Get();
+		scene_info.m_omni_lights  = m_omni_lights_buffer.Get();
+		scene_info.m_spot_lights  = m_spot_lights_buffer.Get();
 
 		const XMMATRIX view_to_projection = m_camera->GetCamera()->GetViewToProjectionMatrix();
 
@@ -145,7 +143,7 @@ namespace mage {
 		for (bool transparency : {false, true}) {
 
 			// Render models.
-			ForEachModel([this, transparency, &transform_buffer, &lighting, &view_to_world](const ModelNode &model_node) {
+			ForEachModel([this, transparency, &transform_buffer, &scene_info, &view_to_world](const ModelNode &model_node) {
 				if (model_node.IsPassive()) {
 					return;
 				}
@@ -170,7 +168,7 @@ namespace mage {
 
 				// Draw model.
 				model->PrepareDrawing();
-				model->PrepareShading(m_transform_buffer.Get(), lighting);
+				model->PrepareShading(m_transform_buffer.Get(), scene_info);
 				model->Draw();
 			});
 		}
@@ -214,7 +212,7 @@ namespace mage {
 			// Draw bounding box.
 			const Model * const box_model = m_box->GetModel();
 			box_model->PrepareDrawing();
-			box_model->PrepareShading(m_transform_buffer.Get(), Lighting());
+			box_model->PrepareShading(m_transform_buffer.Get(), SceneInfo());
 			box_model->Draw();
 		});
 	}

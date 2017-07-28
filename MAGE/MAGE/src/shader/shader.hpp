@@ -17,13 +17,13 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Lighting
+	// SceneBuffer
 	//-------------------------------------------------------------------------
 
 	/**
-	 A struct of lighting buffers.
+	 A struct of scene info.
 	 */
-	struct Lighting final {
+	struct SceneInfo final {
 
 	public:
 
@@ -32,76 +32,76 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a lighting buffer.
+		 Constructs a scene info.
 		 */
-		Lighting()
-			: m_light_data(nullptr), 
+		SceneInfo()
+			: m_scene_buffer(nullptr), 
 			m_omni_lights(nullptr), 
 			m_spot_lights(nullptr) {}
 
 		/**
-		 Constructs a lighting buffer from the given lighting buffer.
+		 Constructs a scene info from the given scene info.
 
-		 @param[in]		buffer
-						A reference to the lighting buffer to copy.
+		 @param[in]		scene
+						A reference to the scene info to copy.
 		 */
-		Lighting(const Lighting &buffer) = default;
+		SceneInfo(const SceneInfo &scene) = default;
 
 		/**
-		 Constructs a lighting buffer by moving the given lighting buffer.
+		 Constructs a scene info by moving the given scene info.
 
-		 @param[in]		buffer
-						A reference to the lighting buffer to move.
+		 @param[in]		scene
+						A reference to the scene info to move.
 		 */
-		Lighting(Lighting &&buffer) = default;
+		SceneInfo(SceneInfo &&scene) = default;
 
 		/**
-		 Destructs this lighting buffer.
+		 Destructs this scene info.
 		 */
-		~Lighting() = default;
+		~SceneInfo() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given lighting buffer to this lighting buffer.
+		 Copies the given scene info to this scene info.
 
-		 @param[in]		buffer
-						A reference to the lighting buffer to copy.
-		 @return		A reference to the copy of the given lighting buffer
-						(i.e. this lighting buffer).
+		 @param[in]		scene
+						A reference to the scene info to copy.
+		 @return		A reference to the copy of the given scene info
+						(i.e. this scene info).
 		 */
-		Lighting &operator=(const Lighting &buffer) = default;
+		SceneInfo &operator=(const SceneInfo &scene) = default;
 
 		/**
-		 Moves the given lighting buffer to this lighting buffer.
+		 Moves the given scene info to this scene info.
 
-		 @param[in]		buffer
-						A reference to the lighting buffer to move.
-		 @return		A reference to the moved lighting buffer
-						(i.e. this lighting buffer).
+		 @param[in]		scene
+						A reference to the scene info to move.
+		 @return		A reference to the moved scene info
+						(i.e. this scene info).
 		 */
-		Lighting &operator=(Lighting &&buffer) = default;
+		SceneInfo &operator=(SceneInfo &&scene) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the light data buffer of this lighting buffer.
+		 A pointer to the scene buffer of this scene info.
 		 */
-		ID3D11Buffer *m_light_data;
+		ID3D11Buffer *m_scene_buffer;
 
 		/**
 		 A pointer to the shader resource view for omni lights 
-		 of this lighting buffer.
+		 of this scene info.
 		 */
 		ID3D11ShaderResourceView *m_omni_lights;
 
 		/**
 		 A pointer to the shader resource view for spotlights
-		 of this lighting buffer.
+		 of this scene info.
 		 */
 		ID3D11ShaderResourceView *m_spot_lights;
 	};
@@ -473,10 +473,10 @@ namespace mage {
 
 		 @param[in]		material
 						A reference to the material.
-		 @param[in]		lighting
-						A reference to the lighting buffer.
+		 @param[in]		scene
+						A reference to the scene info.
 		 */
-		virtual void PrepareShading(const Material &material, const Lighting &lighting) const;
+		virtual void PrepareShading(const Material &material, const SceneInfo &scene) const;
 
 	protected:
 
@@ -619,14 +619,14 @@ namespace mage {
 						A pointer to the transform buffer.
 		 @param[in]		material
 						A reference to the material.
-		 @param[in]		lighting
-						A reference to the lighting buffer.
+		 @param[in]		scene
+						A reference to the scene info.
 		 */
 		void PrepareShading(ID3D11Buffer *transform, 
-			const Material &material, const Lighting &lighting) const {
+			const Material &material, const SceneInfo &scene) const {
 
 			m_vertex_shader->PrepareShading(transform);
-			m_pixel_shader->PrepareShading(material, lighting);
+			m_pixel_shader->PrepareShading(material, scene);
 		}
 
 	private:

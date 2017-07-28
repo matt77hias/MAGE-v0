@@ -153,9 +153,9 @@ namespace mage {
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 	}
 
-	void PixelShader::PrepareShading(const Material &material, const Lighting &lighting) const {
+	void PixelShader::PrepareShading(const Material &material, const SceneInfo &scene) const {
 		UNUSED(material);
-		UNUSED(lighting);
+		UNUSED(scene);
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 	}
 

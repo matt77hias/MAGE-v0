@@ -45,10 +45,10 @@ cbuffer Material : register(b1) {
 };
 
 //-----------------------------------------------------------------------------
-// Lights
+// Scene
 //-----------------------------------------------------------------------------
 
-cbuffer LightData : register(b2) {
+cbuffer Scene : register(b2) {
 	// The intensity of the ambient light. 
 	float3 Ia									: packoffset(c0);
 	// The number of omni lights.
@@ -59,7 +59,12 @@ cbuffer LightData : register(b2) {
 	uint nb_spotlights							: packoffset(c1.w);
 	// The direction of the directional light in camera space.
 	float3 d									: packoffset(c2);
-	uint padding								: packoffset(c2.w);
+	// The distance at which intensity falloff starts due to fog.
+	float fog_distance_falloff_start			: packoffset(c2.w);
+	// The color of the fog.
+	float3 fog_color							: packoffset(c3);
+	// The distance at which intensity falloff ends due to fog.
+	float fog_distance_falloff_end				: packoffset(c3.w);
 };
 
 #include "brdf.fx"

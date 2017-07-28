@@ -35,8 +35,10 @@ namespace mage {
 		 Constructs a structured buffer.
 
 		 @pre			The current engine must be loaded.
+		 @param[in]		nb_initial_data_elements
+						The initial number of slots for storing data elements to provide.
 		 */
-		StructuredBuffer();
+		explicit StructuredBuffer(size_t nb_initial_data_elements);
 
 		/**
 		 Constructs a structured buffer.

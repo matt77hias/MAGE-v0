@@ -1156,9 +1156,6 @@
     <FxCompile Include="MAGE\shaders\light.fx">
       <Filter>Shader Files</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\fog.hlsl">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\normal_mapping.fx">
       <Filter>Shader Files</Filter>
     </FxCompile>

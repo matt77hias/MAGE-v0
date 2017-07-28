@@ -220,7 +220,7 @@ namespace mage {
 
 		// Buffers
 		ConstantBuffer< TransformBuffer > m_transform_buffer;
-		ConstantBuffer< LightDataBuffer > m_light_data_buffer;
+		ConstantBuffer< SceneBuffer > m_scene_buffer;
 		StructuredBuffer< OmniLightBuffer > m_omni_lights_buffer;
 		StructuredBuffer< SpotLightBuffer > m_spot_lights_buffer;
 

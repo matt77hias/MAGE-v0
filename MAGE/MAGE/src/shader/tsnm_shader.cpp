@@ -39,7 +39,7 @@ namespace mage {
 
 	TSNMPixelShader::~TSNMPixelShader() = default;
 
-	void TSNMPixelShader::PrepareShading(const Material &material, const Lighting &lighting) const {
+	void TSNMPixelShader::PrepareShading(const Material &material, const SceneInfo &scene) const {
 
 		MaterialBuffer buffer;
 		buffer.m_Kd                 = material.GetDiffuseReflectivity();
@@ -55,9 +55,9 @@ namespace mage {
 		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
 		
 		m_device_context->PSSetConstantBuffers(1, 1, m_material_buffer.GetAddressOf());
-		m_device_context->PSSetConstantBuffers(2, 1, &lighting.m_light_data);
-		m_device_context->PSSetShaderResources(1, 1, &lighting.m_omni_lights);
-		m_device_context->PSSetShaderResources(2, 1, &lighting.m_spot_lights);
+		m_device_context->PSSetConstantBuffers(2, 1, &scene.m_scene_buffer);
+		m_device_context->PSSetShaderResources(1, 1, &scene.m_omni_lights);
+		m_device_context->PSSetShaderResources(2, 1, &scene.m_spot_lights);
 
 		ID3D11ShaderResourceView *diffuse_texture = material.GetDiffuseReflectivitySRV();
 		Assert(diffuse_texture);

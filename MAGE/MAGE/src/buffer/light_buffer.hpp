@@ -25,13 +25,13 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// LightDataBuffer
+	// SceneBuffer
 	//-------------------------------------------------------------------------
 
 	/**
-	 A struct of light data buffers used by pixel shaders.
+	 A struct of scene buffers used by pixel shaders.
 	 */
-	__declspec(align(16)) struct LightDataBuffer final : public AlignedData< LightDataBuffer > {
+	__declspec(align(16)) struct SceneBuffer final : public AlignedData< SceneBuffer > {
 
 	public:
 
@@ -40,95 +40,108 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a light data buffer.
+		 Constructs a scene buffer.
 		 */
-		LightDataBuffer()
+		SceneBuffer()
 			: m_Ia{}, m_nb_omni_lights(0),
 			m_Id{}, m_nb_spot_lights(0),
-			m_d{}, m_padding{} {}
+			m_d{}, m_fog_distance_falloff_start{}, 
+			m_fog_color{}, m_fog_distance_falloff_end{} {}
 		
 		/**
-		 Constructs a light data buffer from the given light data buffer.
+		 Constructs a scene buffer from the given scene buffer.
 
 		 @param[in]		buffer
-						A reference to the light data buffer to copy.
+						A reference to the scene buffer to copy.
 		 */
-		LightDataBuffer(const LightDataBuffer &buffer) = default;
+		SceneBuffer(const SceneBuffer &buffer) = default;
 		
 		/**
-		 Constructs a light data buffer by moving the given light data buffer.
+		 Constructs a scene buffer by moving the given scene buffer.
 
 		 @param[in]		buffer
-						A reference to the light data buffer to move.
+						A reference to the scene buffer to move.
 		 */
-		LightDataBuffer(LightDataBuffer &&buffer) = default;
+		SceneBuffer(SceneBuffer &&buffer) = default;
 		
 		/**
-		 Destructs this light data buffer.
+		 Destructs this scene buffer.
 		 */
-		~LightDataBuffer() = default;
+		~SceneBuffer() = default;
 		
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given light data buffer to this light data buffer.
+		 Copies the given scene buffer to this scene buffer.
 
 		 @param[in]		buffer
-						A reference to the light data buffer to copy.
-		 @return		A reference to the copy of the given light data buffer
-						(i.e. this light data buffer).
+						A reference to the scene buffer to copy.
+		 @return		A reference to the copy of the given scene buffer
+						(i.e. this scene buffer).
 		 */
-		LightDataBuffer &operator=(const LightDataBuffer &buffer) = default;
+		SceneBuffer &operator=(const SceneBuffer &buffer) = default;
 
 		/**
-		 Moves the given light data buffer to this light data buffer.
+		 Moves the given scene buffer to this scene buffer.
 
 		 @param[in]		buffer
-						A reference to the light data buffer to move.
-		 @return		A reference to the moved light data buffer
-						(i.e. this light data buffer).
+						A reference to the scene buffer to move.
+		 @return		A reference to the moved scene buffer
+						(i.e. this scene buffer).
 		 */
-		LightDataBuffer &operator=(LightDataBuffer &&buffer) = default;
+		SceneBuffer &operator=(SceneBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 The ambient light intensity of this light data buffer.
+		 The ambient light intensity of this scene buffer.
 		 */
 		RGBSpectrum m_Ia;
 
 		/**
-		 The number of omni lights of this light data buffer.
+		 The number of omni lights of this scene buffer.
 		 */
 		uint32_t m_nb_omni_lights;
 
 		/**
-		 The intensity of the directional light of this light data buffer.
+		 The intensity of the directional light of this scene buffer.
 		 */
 		RGBSpectrum m_Id;
 
 		/**
-		 The number of spotlights of this light data buffer.
+		 The number of spotlights of this scene buffer.
 		 */
 		uint32_t m_nb_spot_lights;
 
 		/**
 		 The (normalized) direction of the directional light
-		 in camera-space coordinates of this light data buffer.
+		 in camera-space coordinates of this scene buffer.
 		 */
 		Direction3 m_d;
 
 		/**
-		 The padding of this light data buffer.
+		 The distance at which intensity falloff starts due to fog
+		 of this scene buffer.
 		 */
-		uint32_t m_padding;
+		float m_fog_distance_falloff_start;
+	
+		/**
+		 The color of the fog of this scene buffer.
+		 */
+		RGBSpectrum m_fog_color;
+		
+		/**
+		 The distance at which intensity falloff ends due to fog
+		 of this scene buffer.
+		 */
+		float m_fog_distance_falloff_end;
 	};
 
-	static_assert(sizeof(LightDataBuffer) == 48, "CPU/GPU struct mismatch");
+	static_assert(sizeof(SceneBuffer) == 64, "CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// OmniLightBuffer

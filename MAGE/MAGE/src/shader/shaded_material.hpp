@@ -143,7 +143,7 @@ namespace mage {
 		 @pre			@a transform is not equal to @c nullptr.
 		 @param[in]		transform
 						A pointer to the transform buffer.
-		 @param[in]		scene_info
+		 @param[in]		scene
 						A reference to the scene info.
 		 */
 		void PrepareShading(ID3D11Buffer *transform, const SceneInfo &scene) const {

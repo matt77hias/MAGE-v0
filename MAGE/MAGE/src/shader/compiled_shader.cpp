@@ -7,6 +7,7 @@
 
 #include "shader\compiled_shader.hpp"
 #include "shader\shading.hpp"
+#include "logging\error.hpp"
 #include "logging\exception.hpp"
 
 #pragma endregion
@@ -34,7 +35,9 @@ namespace mage {
 	}
 
 	CompiledShader::CompiledShader(const BYTE *bytecode, SIZE_T bytecode_size)
-		: m_bytecode(bytecode), m_bytecode_size(bytecode_size), m_shader_blob() {}
+		: m_bytecode(bytecode), m_bytecode_size(bytecode_size), m_shader_blob() {
+		Assert(m_bytecode);	
+	}
 
 	CompiledShader::CompiledShader(const CompiledShader &compiled_shader) = default;
 

@@ -33,7 +33,7 @@ namespace mage {
 
 		/**
 		 Constructs a compiled shader.
-
+		 
 		 @param[in]		fname
 						A reference to the filename.
 		 @throws		FormattedException
@@ -44,7 +44,7 @@ namespace mage {
 
 		/**
 		 Constructs a compiled shader.
-
+		 
 		 @pre			@a bytecode is not equal to @c nullptr.
 		 @pre			The size of the data pointed to by @a bytecode
 						is equal to @a bytecode_size (bytes).
@@ -57,7 +57,7 @@ namespace mage {
 
 		/**
 		 Constructs a compiled shader from the given compiled shader.
-
+		 
 		 @param[in]		compiled_shader
 						A reference to the compiled shader to copy.
 		 */
@@ -65,7 +65,7 @@ namespace mage {
 
 		/**
 		 Constructs a compiled shader by moving the given compiled shader.
-
+		 
 		 @param[in]		compiled_shader
 						A reference to the compiled shader to move.
 		 */
@@ -82,7 +82,7 @@ namespace mage {
 
 		/**
 		 Copies the given compiled shader to this compiled shader.
-
+		 
 		 @param[in]		compiled_shader
 						A reference to the compiled shader to copy.
 		 @return		A reference to the copy of the given compiled shader
@@ -92,7 +92,7 @@ namespace mage {
 
 		/**
 		 Moves the given compiled shader to this compiled shader.
-
+		 
 		 @param[in]		compiled_shader
 						A reference to the compiled shader to copy.
 		 @return		A reference to the moved compiled shader
@@ -106,7 +106,7 @@ namespace mage {
 
 		/**
 		 Returns the shader bytecode of this compiled shader.
-
+		 
 		 @return		A pointer to the shader bytecode 
 						of this compiled shader.
 		 */
@@ -117,7 +117,7 @@ namespace mage {
 		/**
 		 Returns the size of the shader bytecode (in bytes) 
 		 of this compiled shader.
-
+		 
 		 @return		The size of the shader bytecode (in bytes)
 						of this compiled shader.
 		 */
@@ -164,7 +164,7 @@ namespace mage {
 
 		/**
 		 Constructs a compiled vertex shader.
-
+		 
 		 @param[in]		fname
 						A reference to the filename.
 		 @throws		FormattedException
@@ -175,7 +175,7 @@ namespace mage {
 
 		/**
 		 Constructs a compiled vertex shader.
-
+		 
 		 @pre			@a bytecode is not equal to @c nullptr.
 		 @pre			The size of the data pointed to by @a bytecode
 						is equal to @a bytecode_size (bytes).
@@ -188,7 +188,7 @@ namespace mage {
 		
 		/**
 		 Constructs a compiled vertex shader from the given compiled vertex shader.
-
+		 
 		 @param[in]		compiled_vertex_shader
 						A reference to the compiled vertex shader to copy.
 		 */
@@ -196,7 +196,7 @@ namespace mage {
 
 		/**
 		 Constructs a compiled vertex shader by moving the given compiled vertex shader.
-
+		 
 		 @param[in]		compiled_vertex_shader
 						A reference to the compiled vertex shader to move.
 		 */
@@ -213,7 +213,7 @@ namespace mage {
 		
 		/**
 		 Copies the given compiled vertex shader to this compiled vertex shader.
-
+		 
 		 @param[in]		compiled_vertex_shader
 						A reference to the compiled vertex shader to copy.
 		 @return		A reference to the copy of the given compiled vertex shader
@@ -223,7 +223,7 @@ namespace mage {
 
 		/**
 		 Moves the given compiled vertex shader to this compiled vertex shader.
-
+		 
 		 @param[in]		compiled_vertex_shader
 						A reference to the compiled vertex shader to copy.
 		 @return		A reference to the moved compiled vertex shader
@@ -249,7 +249,7 @@ namespace mage {
 
 		/**
 		 Constructs a compiled pixel shader.
-
+		 
 		 @param[in]		fname
 						A reference to the filename.
 		 @throws		FormattedException
@@ -260,7 +260,7 @@ namespace mage {
 
 		/**
 		 Constructs a compiled pixel shader.
-
+		 
 		 @pre			@a bytecode is not equal to @c nullptr.
 		 @pre			The size of the data pointed to by @a bytecode
 						is equal to @a bytecode_size (bytes).
@@ -273,7 +273,7 @@ namespace mage {
 
 		/**
 		 Constructs a compiled pixel shader from the given compiled pixel shader.
-
+		 
 		 @param[in]		compiled_pixel_shader
 						A reference to the compiled pixel shader to copy.
 		 */
@@ -281,7 +281,7 @@ namespace mage {
 
 		/**
 		 Constructs a compiled pixel shader by moving the given compiled pixel shader.
-
+		 
 		 @param[in]		compiled_pixel_shader
 						A reference to the compiled pixel shader to move.
 		 */
@@ -298,7 +298,7 @@ namespace mage {
 
 		/**
 		 Copies the given compiled pixel shader to this compiled pixel shader.
-
+		 
 		 @param[in]		compiled_pixel_shader
 						A reference to the compiled pixel shader to copy.
 		 @return		A reference to the copy of the given compiled pixel shader
@@ -308,7 +308,7 @@ namespace mage {
 
 		/**
 		 Moves the given compiled pixel shader to this compiled pixel shader.
-
+		 
 		 @param[in]		compiled_pixel_shader
 						A reference to the compiled pixel shader to copy.
 		 @return		A reference to the moved compiled pixel shader

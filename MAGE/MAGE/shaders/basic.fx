@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "vs_input_structures.fx"
+#include "structures.fx"
 
 //-----------------------------------------------------------------------------
 // Transformations
@@ -416,7 +416,7 @@ struct PS_INPUT {
 // Vertex Shaders
 //-----------------------------------------------------------------------------
 
-PS_INPUT Transform_VS(VertexPositionNormalTexture_VS_INPUT input) {
+PS_INPUT Transform_VS(VSInputPositionNormalTexture input) {
 	PS_INPUT output = (PS_INPUT)0;
 	output.p_view   = mul(input.p, object_to_world);
 	output.p_view   = mul(output.p_view, world_to_view);
@@ -427,7 +427,7 @@ PS_INPUT Transform_VS(VertexPositionNormalTexture_VS_INPUT input) {
 	return output;
 }
 
-PS_INPUT Normal_VS(VertexPositionNormalTexture_VS_INPUT input) {
+PS_INPUT Normal_VS(VSInputPositionNormalTexture input) {
 	PS_INPUT output = (PS_INPUT)0;
 	output.n_view   = input.n;
 	return output;

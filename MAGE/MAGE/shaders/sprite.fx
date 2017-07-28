@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "vs_input_structures.fx"
+#include "structures.fx"
 
 //-----------------------------------------------------------------------------
 // Constant buffers
@@ -27,7 +27,7 @@ struct PS_INPUT {
 //-----------------------------------------------------------------------------
 // Vertex Shader
 //-----------------------------------------------------------------------------
-PS_INPUT VS(VertexPositionColorTexture_VS_INPUT input) {
+PS_INPUT VS(VSInputPositionColorTexture input) {
 	PS_INPUT output = (PS_INPUT)0;
 	output.p        = mul(input.p, transform);
 	output.color    = input.color;

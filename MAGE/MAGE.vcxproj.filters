@@ -1150,9 +1150,6 @@
     <FxCompile Include="MAGE\shaders\basic.fx">
       <Filter>Shader Files</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\vs_input_structures.fx">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\brdf.fx">
       <Filter>Shader Files</Filter>
     </FxCompile>
@@ -1248,6 +1245,9 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\basic\blinn_phong_PS.hlsl">
       <Filter>Shader Files\basic</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\structures.fx">
+      <Filter>Shader Files</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

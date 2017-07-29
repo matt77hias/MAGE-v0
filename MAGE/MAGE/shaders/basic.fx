@@ -87,7 +87,7 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 	// Omni lights contribution
 	for (uint i = 0; i < g_nb_omnilights; ++i) {
 		const OmniLight light = omni_lights[i];
-		const float3 d_light  = light.m_p.xyz - p;
+		const float3 d_light  = light.p.xyz - p;
 		const float r_light   = length(d_light);
 		const float3 l        = d_light / r_light;
 		const float3 I_light  = OmniLightMaxContribution(light, r_light);
@@ -104,7 +104,7 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 	// Spotlights contribution
 	for (uint j = 0; j < g_nb_spotlights; ++j) {
 		const SpotLight light = spot_lights[j];
-		const float3 d_light  = light.m_p.xyz - p;
+		const float3 d_light  = light.p.xyz - p;
 		const float r_light   = length(d_light);
 		const float3 l        = d_light / r_light;
 		const float3 I_light  = SpotLightMaxContribution(light, r_light, l);
@@ -134,20 +134,20 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 
 PSInputPositionNormalTexture Transform_VS(VSInputPositionNormalTexture input) {
 	PSInputPositionNormalTexture output = (PSInputPositionNormalTexture)0;
-	output.m_p_view = mul(input.m_p, g_object_to_world);
-	output.m_p_view = mul(output.m_p_view, g_world_to_view);
-	output.m_p      = mul(output.m_p_view, g_view_to_projection);
-	output.m_tex    = input.m_tex;
-	output.m_n_view = normalize(mul(input.m_n, (float3x3)g_object_to_view_inverse_transpose));
+	output.p_view = mul(input.p, g_object_to_world);
+	output.p_view = mul(output.p_view, g_world_to_view);
+	output.p      = mul(output.p_view, g_view_to_projection);
+	output.tex    = input.tex;
+	output.n_view = normalize(mul(input.n, (float3x3)g_object_to_view_inverse_transpose));
 	return output;
 }
 
 PSInputPositionNormalTexture Normal_VS(VSInputPositionNormalTexture input) {
 	PSInputPositionNormalTexture output = (PSInputPositionNormalTexture)0;
-	output.m_p_view = mul(input.m_p, g_object_to_world);
-	output.m_p_view = mul(output.m_p_view, g_world_to_view);
-	output.m_p      = mul(output.m_p_view, g_view_to_projection);
-	output.m_n_view = input.m_n;
+	output.p_view = mul(input.p, g_object_to_world);
+	output.p_view = mul(output.p_view, g_world_to_view);
+	output.p      = mul(output.p_view, g_view_to_projection);
+	output.n_view = input.n;
 	return output;
 }
 
@@ -156,9 +156,9 @@ PSInputPositionNormalTexture Normal_VS(VSInputPositionNormalTexture input) {
 //-----------------------------------------------------------------------------
 
 float4 Emissive_PS(PSInputPositionNormalTexture input) : SV_Target {
-	float4 I = g_Kd * g_diffuse_texture.Sample(g_sampler, input.m_tex);
+	float4 I = g_Kd * g_diffuse_texture.Sample(g_sampler, input.tex);
 
-	const float r_eye = length(input.m_p_view.xyz);
+	const float r_eye = length(input.p_view.xyz);
 
 	const float fog_factor = saturate((r_eye - g_fog_distance_falloff_start) / g_fog_distance_falloff_range);
 	I.xyz = lerp(I.xyz, g_fog_color, fog_factor);
@@ -166,40 +166,40 @@ float4 Emissive_PS(PSInputPositionNormalTexture input) : SV_Target {
 }
 
 float4 Basic_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 p_view = input.m_p_view.xyz;
-	const float3 n_view = normalize(input.m_n_view);
-	return BRDFShading(p_view, n_view, input.m_tex);
+	const float3 p_view = input.p_view.xyz;
+	const float3 n_view = normalize(input.n_view);
+	return BRDFShading(p_view, n_view, input.tex);
 }
 float4 Basic_Normal_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 n_view = normalize(input.m_n_view);
+	const float3 n_view = normalize(input.n_view);
 	return float4(InverseBiasX2(n_view), 1.0f);
 }
 
 float4 TangentSpaceNormalMapping_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 p_view = input.m_p_view.xyz;
-	const float3 n0     = normalize(input.m_n_view);
-	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(p_view, n0, input.m_tex);
-	return BRDFShading(p_view, n_view, input.m_tex);
+	const float3 p_view = input.p_view.xyz;
+	const float3 n0     = normalize(input.n_view);
+	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(p_view, n0, input.tex);
+	return BRDFShading(p_view, n_view, input.tex);
 }
 float4 TangentSpaceNormalMapping_Normal_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 p_view = input.m_p_view.xyz;
-	const float3 n0     = normalize(input.m_n_view);
-	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(p_view, n0, input.m_tex);
+	const float3 p_view = input.p_view.xyz;
+	const float3 n0     = normalize(input.n_view);
+	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(p_view, n0, input.tex);
 	return float4(InverseBiasX2(n_view), 1.0f);
 }
 
 float4 ObjectSpaceNormalMapping_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 p_view = input.m_p_view.xyz;
-	const float3 n_view = ObjectSpaceNormalMapping_PerturbNormal(input.m_tex);
-	return BRDFShading(p_view, n_view, input.m_tex);
+	const float3 p_view = input.p_view.xyz;
+	const float3 n_view = ObjectSpaceNormalMapping_PerturbNormal(input.tex);
+	return BRDFShading(p_view, n_view, input.tex);
 }
 float4 ObjectSpaceNormalMapping_Normal_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 n_view = ObjectSpaceNormalMapping_PerturbNormal(input.m_tex);
+	const float3 n_view = ObjectSpaceNormalMapping_PerturbNormal(input.tex);
 	return float4(InverseBiasX2(n_view), 1.0f);
 }
 
 float4 Distance_PS(PSInputPositionNormalTexture input) : SV_Target{
-	const float3 p_view = input.m_p_view.xyz;
+	const float3 p_view = input.p_view.xyz;
 	const float c = 1.0f - saturate(length(p_view) / 5.0f);
 	return float4(c, c, c, 1.0f);
 }

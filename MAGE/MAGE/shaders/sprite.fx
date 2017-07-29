@@ -19,9 +19,9 @@ cbuffer cb_transform : register(b0) {
 //-----------------------------------------------------------------------------
 PSInputPositionColorTexture VS(VSInputPositionColorTexture input) {
 	PSInputPositionColorTexture output = (PSInputPositionColorTexture)0;
-	output.m_p     = mul(input.m_p, g_transform);
-	output.m_color = input.m_color;
-	output.m_tex   = input.m_tex;
+	output.p     = mul(input.p, g_transform);
+	output.color = input.color;
+	output.tex   = input.tex;
 	return output;
 }
 
@@ -29,5 +29,5 @@ PSInputPositionColorTexture VS(VSInputPositionColorTexture input) {
 // Pixel Shader
 //-----------------------------------------------------------------------------
 float4 PS(PSInputPositionColorTexture input) : SV_Target {
-	return g_texture.Sample(g_sampler, input.m_tex) * input.m_color;
+	return g_texture.Sample(g_sampler, input.tex) * input.color;
 }

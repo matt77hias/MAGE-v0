@@ -1,9 +1,7 @@
-# MAGE
+# MAGE - Matthias Advanced Game Engine
 
 ## About
 <p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Example.png"></p>
-
-MAGE - Matthias Advanced Game Engine
 
 <p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Lambertian.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Blinn-Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Modified-Blinn-Phong.png" width="215"></p>
 <p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/TSNM_Lambertian.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/TSNM_Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/TSNM_Blinn-Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/TSNM_Modified-Blinn-Phong.png" width="215"></p>

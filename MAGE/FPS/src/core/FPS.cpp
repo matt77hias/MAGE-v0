@@ -11,6 +11,7 @@ struct Setup : public EngineSetup {
 	virtual ~Setup() = default;
 
 	virtual SharedPtr< Scene > CreateScene() const override {
+		// Fog should be dissabled
 		//return std::make_shared< BRDFScene >();
 		return std::make_shared< SponzaScene >();
 	}

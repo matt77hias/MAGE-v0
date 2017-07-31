@@ -69,7 +69,7 @@ namespace mage {
 		m_shaders.push_back(CreateWardDuerTSNMShader());
 		m_shaders.push_back(CreateCookTorranceTSNMShader());
 
-		m_shader_names.emplace_back(L"Diffuse");
+		m_shader_names.emplace_back(L"Emissive");
 		m_shader_names.emplace_back(L"Lambertian");
 		m_shader_names.emplace_back(L"Phong");
 		m_shader_names.emplace_back(L"Modified Phong");

@@ -73,7 +73,10 @@ StructuredBuffer< SpotLight > spot_lights : register(t2);
 float4 BRDFShading(float3 p, float3 n, float2 tex) {
 	float4 I = g_Kd * g_diffuse_texture.Sample(g_sampler, tex);
 	clip(I.a - 0.1f);
+	
+	const float r_eye = length(p);
 
+#ifndef DISSABLE_BRDF
 	// Ambient light and directional light contribution
 	float3 brdf = LambertianBRDF(n, -g_d);
 	float3 I_diffuse = g_Ia + brdf * g_Id;
@@ -81,7 +84,6 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
 #endif
 
-	const float r_eye = length(p);
 	const float3 v = -p / r_eye;
 
 	// Omni lights contribution
@@ -122,9 +124,13 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 #ifdef SPECULAR_BRDF
 	I.xyz += g_Ks * I_specular;
 #endif
+#endif
 
+#ifndef DISSABLE_FOG
 	const float fog_factor = saturate((r_eye - g_fog_distance_falloff_start) / g_fog_distance_falloff_range);
 	I.xyz = lerp(I.xyz, g_fog_color, fog_factor);
+#endif
+	
 	return I;
 }
 
@@ -154,16 +160,6 @@ PSInputPositionNormalTexture Normal_VS(VSInputPositionNormalTexture input) {
 //-----------------------------------------------------------------------------
 // Pixel Shaders
 //-----------------------------------------------------------------------------
-
-float4 Emissive_PS(PSInputPositionNormalTexture input) : SV_Target {
-	float4 I = g_Kd * g_diffuse_texture.Sample(g_sampler, input.tex);
-
-	const float r_eye = length(input.p_view.xyz);
-
-	const float fog_factor = saturate((r_eye - g_fog_distance_falloff_start) / g_fog_distance_falloff_range);
-	I.xyz = lerp(I.xyz, g_fog_color, fog_factor);
-	return I;
-}
 
 float4 Basic_PS(PSInputPositionNormalTexture input) : SV_Target {
 	const float3 p_view = input.p_view.xyz;

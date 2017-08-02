@@ -72,7 +72,7 @@ StructuredBuffer< SpotLight > spot_lights : register(t2);
 // Calculates the BRDF shading.
 float4 BRDFShading(float3 p, float3 n, float2 tex) {
 	float4 I = g_Kd * g_diffuse_texture.Sample(g_sampler, tex);
-	clip(I.a - 0.1f);
+	//clip(I.a - 0.1f);
 	
 	const float r_eye = length(p);
 

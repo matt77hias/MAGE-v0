@@ -121,6 +121,7 @@
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_pool.hpp" />
     <ClInclude Include="MAGE\src\scene\scene.hpp" />
+    <ClInclude Include="MAGE\src\scene\scene_fog.hpp" />
     <ClInclude Include="MAGE\src\scene\scene_node.hpp" />
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />

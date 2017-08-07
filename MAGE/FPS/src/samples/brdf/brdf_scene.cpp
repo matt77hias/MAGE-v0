@@ -33,6 +33,12 @@ namespace mage {
 	void BRDFScene::Load() {
 
 		//---------------------------------------------------------------------
+		// Fog
+		//---------------------------------------------------------------------
+		SceneFog &scene_fog = GetSceneFog();
+		scene_fog.SetDistanceFalloff(1000.0f, 1000.0f);
+
+		//---------------------------------------------------------------------
 		// Camera
 		//---------------------------------------------------------------------
 		SharedPtr< PerspectiveCameraNode > camera = CreatePerspectiveCameraNode();

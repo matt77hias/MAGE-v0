@@ -15,7 +15,7 @@
 namespace mage {
 
 	Scene::Scene(const string &name)
-		: m_name(name), m_scripts(), m_camera(nullptr),
+		: m_name(name), m_scripts(), m_scene_fog(), m_camera(nullptr),
 		m_models(), m_omni_lights(), m_spot_lights(), m_sprites(),
 		m_sprite_batch(new SpriteBatch()),
 		m_transform_buffer(), m_scene_buffer(),
@@ -125,12 +125,11 @@ namespace mage {
 
 		// Update scene constant buffer.
 		SceneBuffer scene_buffer;
-		scene_buffer.m_nb_omni_lights = static_cast< uint32_t >(omni_lights_buffer.size());
-		scene_buffer.m_nb_spot_lights = static_cast< uint32_t >(spot_lights_buffer.size());
-		//TODO
-		scene_buffer.m_fog_color = RGBSpectrum(0.752941251f, 0.752941251f, 0.752941251f);
-		scene_buffer.m_fog_distance_falloff_range = 10.0f;
-		scene_buffer.m_fog_distance_falloff_range = 17.0f;
+		scene_buffer.m_nb_omni_lights             = static_cast< uint32_t >(omni_lights_buffer.size());
+		scene_buffer.m_nb_spot_lights             = static_cast< uint32_t >(spot_lights_buffer.size());
+		scene_buffer.m_fog_color                  = m_scene_fog.GetIntensity();
+		scene_buffer.m_fog_distance_falloff_start = m_scene_fog.GetStartDistanceFalloff();
+		scene_buffer.m_fog_distance_falloff_range = m_scene_fog.GetRangeDistanceFalloff();
 
 		m_scene_buffer.UpdateData(scene_buffer);
 

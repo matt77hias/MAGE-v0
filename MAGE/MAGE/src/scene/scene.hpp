@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "scene\scene_fog.hpp"
 #include "scripting\behavior_script.hpp"
 #include "camera\camera_node.hpp"
 #include "light\light_node.hpp"
@@ -100,7 +101,29 @@ namespace mage {
 		void Uninitialize();
 
 		//-------------------------------------------------------------------------
-		// Member Methods: Factory Methods
+		// Member Methods: Fog
+		//-------------------------------------------------------------------------
+
+		/**
+		 Returns the scene fog of this scene.
+
+		 @return		A reference to the scene fog of this scene.
+		 */
+		SceneFog &GetSceneFog() noexcept {
+			return m_scene_fog;
+		}
+
+		/**
+		 Returns the scene fog of this scene.
+
+		 @return		A reference to the scene fog of this scene.
+		 */
+		const SceneFog &GetSceneFog() const noexcept {
+			return m_scene_fog;
+		}
+
+		//-------------------------------------------------------------------------
+		// Member Methods: Camera
 		//-------------------------------------------------------------------------
 
 		SharedPtr< CameraNode > GetCamera() const noexcept {
@@ -112,8 +135,18 @@ namespace mage {
 
 		SharedPtr< OrthographicCameraNode > CreateOrthographicCameraNode();
 		SharedPtr< PerspectiveCameraNode > CreatePerspectiveCameraNode();
+		
+		//-------------------------------------------------------------------------
+		// Member Methods: Models
+		//-------------------------------------------------------------------------
+		
 		SharedPtr< OmniLightNode > CreateOmniLightNode();
 		SharedPtr< SpotLightNode > CreateSpotLightNode();
+		
+		//-------------------------------------------------------------------------
+		// Member Methods: Lights
+		//-------------------------------------------------------------------------
+
 		SharedPtr< ModelNode > CreateModelNode(const ModelDescriptor &desc,
 			BRDFType brdf = BRDFType::Unknown);
 		SharedPtr< ModelNode > CreateModelNode(const ModelDescriptor &desc,
@@ -207,6 +240,7 @@ namespace mage {
 		
 		vector< SharedPtr< BehaviorScript > > m_scripts;
 
+		SceneFog m_scene_fog;
 		SharedPtr< CameraNode > m_camera;
 
 		// 3D

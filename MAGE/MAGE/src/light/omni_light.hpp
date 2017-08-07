@@ -155,6 +155,19 @@ namespace mage {
 			return m_distance_falloff_end - m_distance_falloff_start;
 		}
 
+		/**
+		 Sets the distance at which intensity falloff starts and the distance range 
+		 where intensity falloff occurs of this omni light to the given values.
+
+		 @param[in]		distance_falloff_start
+						The distance at which intensity falloff starts.
+		 @param[in]		distance_falloff_range
+						The distance range where intensity falloff occurs.
+		 */
+		void SetRangeDistanceFalloff(float distance_falloff_start, float distance_falloff_range) noexcept {
+			SetDistanceFalloff(distance_falloff_start, distance_falloff_start + distance_falloff_range);
+		}
+
 	private:
 
 		//---------------------------------------------------------------------

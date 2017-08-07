@@ -819,6 +819,9 @@
     <ClInclude Include="MAGE\src\shader\cso\tsnm\tsnm_cook_torrance_PS.hpp">
       <Filter>Header Files\shader\cso\tsnm</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\scene\scene_fog.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

@@ -21,6 +21,7 @@ namespace mage {
 		m_transform_buffer(), m_scene_buffer(),
 		m_omni_lights_buffer(64), m_spot_lights_buffer(64) {
 		
+		//TODO
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		SharedPtr< ModelDescriptor > model_desc_box = GetOrCreateModelDescriptor(L"assets/models/cube/cube.mdl", mesh_desc);
 		m_box = CreateModelNode(*model_desc_box, BRDFType::Emissive);
@@ -127,9 +128,9 @@ namespace mage {
 		SceneBuffer scene_buffer;
 		scene_buffer.m_nb_omni_lights             = static_cast< uint32_t >(omni_lights_buffer.size());
 		scene_buffer.m_nb_spot_lights             = static_cast< uint32_t >(spot_lights_buffer.size());
-		scene_buffer.m_fog_color                  = m_scene_fog.GetIntensity();
-		scene_buffer.m_fog_distance_falloff_start = m_scene_fog.GetStartDistanceFalloff();
-		scene_buffer.m_fog_distance_falloff_range = m_scene_fog.GetRangeDistanceFalloff();
+		scene_buffer.m_fog_color                  = m_scene_fog->GetIntensity();
+		scene_buffer.m_fog_distance_falloff_start = m_scene_fog->GetStartDistanceFalloff();
+		scene_buffer.m_fog_distance_falloff_range = m_scene_fog->GetRangeDistanceFalloff();
 
 		m_scene_buffer.UpdateData(scene_buffer);
 

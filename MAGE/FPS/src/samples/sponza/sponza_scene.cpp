@@ -38,8 +38,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Fog
 		//---------------------------------------------------------------------
-		SceneFog &scene_fog = GetSceneFog();
-		scene_fog.SetDistanceFalloff(0.0f, 17.0f);
+		SceneFog *scene_fog = GetSceneFog();
+		scene_fog->SetDistanceFalloff(0.0f, 17.0f);
 
 		//---------------------------------------------------------------------
 		// Camera

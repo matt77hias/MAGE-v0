@@ -107,19 +107,10 @@ namespace mage {
 		/**
 		 Returns the scene fog of this scene.
 
-		 @return		A reference to the scene fog of this scene.
+		 @return		A pointer to the scene fog of this scene.
 		 */
-		SceneFog &GetSceneFog() noexcept {
-			return m_scene_fog;
-		}
-
-		/**
-		 Returns the scene fog of this scene.
-
-		 @return		A reference to the scene fog of this scene.
-		 */
-		const SceneFog &GetSceneFog() const noexcept {
-			return m_scene_fog;
+		SceneFog *GetSceneFog() const noexcept {
+			return m_scene_fog.get();
 		}
 
 		//-------------------------------------------------------------------------
@@ -240,7 +231,7 @@ namespace mage {
 		
 		vector< SharedPtr< BehaviorScript > > m_scripts;
 
-		SceneFog m_scene_fog;
+		UniquePtr< SceneFog > m_scene_fog;
 		SharedPtr< CameraNode > m_camera;
 
 		// 3D

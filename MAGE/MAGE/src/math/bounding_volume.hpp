@@ -15,6 +15,24 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Coverage
+	//-------------------------------------------------------------------------
+
+	/**
+	 An enumeration of the different coverages for volumes.
+
+	 This contains:
+	 @c NoCoverage,
+	 @c PartialCoverage and
+	 @c FullCoverage.
+	 */
+	enum struct Coverage {
+		NoCoverage,		 // No coverage (i.e. no overlap)
+		PartialCoverage, // Partial coverage (i.e. intersection, overlap)
+		FullCoverage	 // Full coverage (i.e. enclosing, overlap)
+	};
+
 	// Forward declaration
 	struct BS;
 

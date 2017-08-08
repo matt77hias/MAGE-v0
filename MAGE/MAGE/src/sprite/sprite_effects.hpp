@@ -15,9 +15,9 @@ namespace mage {
 	 @c FlipBoth.
 	 */
 	enum struct SpriteEffect {
-		None             = 0,	// No sprite effects.
-		FlipHorizontally = 1,  // Flip sprites horizontally.
-		FlipVertically   = 2,  // Flip sprites vertically.
+		None             = 0, // No sprite effects.
+		FlipHorizontally = 1, // Flip sprites horizontally.
+		FlipVertically   = 2, // Flip sprites vertically.
 		FlipBoth         = FlipHorizontally | FlipVertically // Flip sprites both horizontally and vertically.
 	};
 }

@@ -33,6 +33,7 @@
     <ClInclude Include="MAGE\src\collection\collection.hpp" />
     <ClInclude Include="MAGE\src\core\engine.hpp" />
     <ClInclude Include="MAGE\src\core\engine_setup.hpp" />
+    <ClInclude Include="MAGE\src\core\engine_statistics.hpp" />
     <ClInclude Include="MAGE\src\core\loadable.hpp" />
     <ClInclude Include="MAGE\src\core\targetver.hpp" />
     <ClInclude Include="MAGE\src\core\version.hpp" />
@@ -220,6 +221,7 @@
     <ClCompile Include="MAGE\src\camera\perspective_camera.cpp" />
     <ClCompile Include="MAGE\src\core\engine.cpp" />
     <ClCompile Include="MAGE\src\core\engine_setup.cpp" />
+    <ClCompile Include="MAGE\src\core\engine_statistics.cpp" />
     <ClCompile Include="MAGE\src\core\loadable.cpp" />
     <ClCompile Include="MAGE\src\core\version.cpp" />
     <ClCompile Include="MAGE\src\file\file_utils.cpp" />

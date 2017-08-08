@@ -822,6 +822,9 @@
     <ClInclude Include="MAGE\src\scene\scene_fog.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\core\engine_statistics.hpp">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1144,6 +1147,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\texture\texture_utils.cpp">
       <Filter>Source Files\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\core\engine_statistics.cpp">
+      <Filter>Source Files\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

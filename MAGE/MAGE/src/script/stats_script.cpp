@@ -5,6 +5,7 @@
 
 #include "script\stats_script.hpp"
 #include "system\system_usage.hpp"
+#include "core\engine_statistics.hpp"
 
 #pragma endregion
 
@@ -52,8 +53,9 @@ namespace mage {
 		m_text->AppendText(ColorString(std::to_wstring(m_last_frames_per_second), color));
 		
 		wchar_t buffer[64];
-		_snwprintf_s(buffer, _countof(buffer), L"\nSPF: %.2lfms\nCPU: %.1lf%%\nRAM: %uMB", 
-			m_last_milliseconds_per_frame, m_last_cpu_usage, m_last_ram_usage);
+		_snwprintf_s(buffer, _countof(buffer), L"\nSPF: %.2lfms\nCPU: %.1lf%%\nRAM: %uMB\nDCs: %u", 
+			m_last_milliseconds_per_frame, m_last_cpu_usage, m_last_ram_usage, 
+			GetEngineStatistics()->GetNumberOfDrawCalls());
 		m_text->AppendText(buffer);
 	}
 }

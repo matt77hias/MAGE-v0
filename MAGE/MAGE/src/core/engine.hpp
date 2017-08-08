@@ -16,6 +16,7 @@
 
 #include "core\loadable.hpp"
 #include "core\engine_setup.hpp"
+#include "core\engine_statistics.hpp"
 
 #pragma endregion
 
@@ -187,6 +188,19 @@ namespace mage {
 		 */
 		void SetScene(SharedPtr< Scene > scene);
 
+		//-------------------------------------------------------------------------
+		// Member Methods: Statistics
+		//-------------------------------------------------------------------------
+
+		/**
+		 Returns the engine statistics of this engine.
+
+		 @return		A pointer to the engine statistics of this engine.
+		 */
+		EngineStatistics *GetEngineStatistics() const noexcept {
+			return m_engine_stats.get();
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -268,6 +282,12 @@ namespace mage {
 		 A pointer to the timer of this engine.
 		 */
 		UniquePtr< Timer > m_timer;
+
+		//-------------------------------------------------------------------------
+		// Member Variables: Statistics
+		//-------------------------------------------------------------------------
+
+		UniquePtr< EngineStatistics > m_engine_stats;
 	};
 
 	/**

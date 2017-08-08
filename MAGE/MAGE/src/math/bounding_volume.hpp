@@ -137,118 +137,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Checks whether this AABB completely encloses the given point.
-
-		 @param[in]		point
-						A reference to the point.
-		 @return		@c true if this AABB completely encloses @a point.
-						@c false otherwise.
-		 */
-		bool Encloses(const Point3 &point) const noexcept;
-
-		/**
-		 Checks whether this AABB completely, strictly encloses the given point.
-
-		 @param[in]		point
-						A reference to the point.
-		 @return		@c true if this AABB completely, strictly encloses @a point.
-						@c false otherwise.
-		 */
-		bool EnclosesStrict(const Point3 &point) const noexcept;
-
-		/**
-		 Checks whether this AABB completely encloses the given AABB.
-
-		 @param[in]		aabb
-						A reference to the AABB.
-		 @return		@c true if this AABB completely encloses @a aabb.
-						@c false otherwise.
-		 */
-		bool Encloses(const AABB &aabb) const noexcept;
-
-		/**
-		 Checks whether this AABB completely, strictly encloses the given AABB.
-
-		 @param[in]		aabb
-						A reference to the AABB.
-		 @return		@c true if this AABB completely, strictly encloses @a aabb.
-						@c false otherwise.
-		 */
-		bool EnclosesStrict(const AABB &aabb) const noexcept;
-
-		/**
-		 Checks whether this AABB completely encloses the given BS.
-
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		@c true if this AABB completely encloses @a bs.
-						@c false otherwise.
-		 */
-		bool Encloses(const BS &bs) const noexcept;
-
-		/**
-		 Checks whether this AABB completely, strictly encloses the given BS.
-
-		 @param[in]		bs
-						A reference to the BS.
-		 @return		@c true if this AABB completely, strictly encloses @a bs.
-						@c false otherwise.
-		 */
-		bool EnclosesStrict(const BS &bs) const noexcept;
-
-		/**
-		 Checks whether this AABB is completely enclosed by the given (closed) volume.
-
-		 @pre			@a planes is not equal to @c nullptr.
-		 @pre			@a planes must point to an array of at least @c nb_planes planes.
-		 @param[in]		planes
-						A pointer to the planes of the volume.
-						(each plane's coefficients are represented as a @c XMFLOAT4)
-		 @param[in]		nb_planes
-						The number of planes.
-		 @return		@c true if this AABB is completely enclosed by @a planes.
-						@c false otherwise.
-		 */
-		bool EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept;
-
-		/**
-		 Checks whether this AABB is completely, strictly enclosed by the given (closed) volume.
-
-		 @pre			@a planes is not equal to @c nullptr.
-		 @pre			@a planes must point to an array of at least @c nb_planes planes.
-		 @param[in]		planes
-						A pointer to the planes of the volume.
-						(each plane's coefficients are represented as a @c XMFLOAT4)
-		 @param[in]		nb_planes
-						The number of planes.
-		 @return		@c true if this AABB is completely, stricly enclosed by @a planes.
-						@c false otherwise.
-		 */
-		bool EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept;
-
-		/**
-		 Checks whether this AABB overlaps the given AABB.
-
-		 @param[in]		aabb
-						A reference to the AABB.
-		 @return		@c true if this AABB overlaps @a aabb.
-						@c false otherwise.
-		 */
-		bool Overlaps(const AABB &aabb) const noexcept;
-
-		/**
-		 Checks whether this AABB strictly overlaps the given AABB.
-
-		 @param[in]		aabb
-						A reference to the AABB.
-		 @return		@c true if this AABB strictly overlaps @a aabb.
-						@c false otherwise.
-		 */
-		bool OverlapsStrict(const AABB &aabb) const noexcept;
-
-		/**
 		 Returns the centroid of this AABB.
-
+ 
 		 @return		The centroid of this AABB.
 		 */
 		const Point3 Centroid() const noexcept;
@@ -259,6 +149,262 @@ namespace mage {
 		 @return		The diagonal of this AABB.
 		 */
 		const Direction3 Diagonal() const noexcept;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Enclosing = Full Coverage
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this AABB completely encloses the given point.
+
+		 @param[in]		point
+						A reference to the point.
+		 @return		@c true if this AABB completely encloses @a point.
+						@c false otherwise.
+		 @note			This is a full coverage test of a point 
+						with regard to an AABB.
+		 */
+		bool Encloses(const Point3 &point) const noexcept;
+
+		/**
+		 Checks whether this AABB completely, strictly encloses the given point.
+
+		 @param[in]		point
+						A reference to the point.
+		 @return		@c true if this AABB completely, strictly encloses @a point.
+						@c false otherwise.
+		 @note			This is a full coverage test of a point 
+						with regard to an AABB.
+		 */
+		bool EnclosesStrict(const Point3 &point) const noexcept;
+
+		/**
+		 Checks whether this AABB completely encloses the given point.
+
+		 @param[in]		point
+						A reference to the point.
+		 @return		@c true if this AABB completely encloses @a point.
+						@c false otherwise.
+		 @note			This is a full coverage test of a point
+						with regard to an AABB.
+		 */
+		bool Encloses(FXMVECTOR point) const noexcept;
+
+		/**
+		 Checks whether this AABB completely, strictly encloses the given point.
+
+		 @param[in]		point
+						A reference to the point.
+		 @return		@c true if this AABB completely, strictly encloses @a point.
+						@c false otherwise.
+		 @note			This is a full coverage test of a point
+						with regard to an AABB.
+		 */
+		bool EnclosesStrict(FXMVECTOR point) const noexcept;
+
+		/**
+		 Checks whether this AABB completely encloses the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if this AABB completely encloses @a aabb.
+						@c false otherwise.
+		 @note			This is a full coverage test of an AABB 
+						with regard to an AABB.
+		 */
+		bool Encloses(const AABB &aabb) const noexcept;
+
+		/**
+		 Checks whether this AABB completely, strictly encloses the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if this AABB completely, strictly encloses @a aabb.
+						@c false otherwise.
+		 @note			This is a full coverage test of an AABB
+						with regard to an AABB.
+		 */
+		bool EnclosesStrict(const AABB &aabb) const noexcept;
+
+		/**
+		 Checks whether this AABB completely encloses the given BS.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @return		@c true if this AABB completely encloses @a bs.
+						@c false otherwise.
+		 @note			This is a full coverage test of a BS 
+						with regard to an AABB.
+		 */
+		bool Encloses(const BS &bs) const noexcept;
+
+		/**
+		 Checks whether this AABB completely, strictly encloses the given BS.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @return		@c true if this AABB completely, strictly encloses @a bs.
+						@c false otherwise.
+		 @note			This is a full coverage test of a BS 
+						with regard to an AABB.
+		 */
+		bool EnclosesStrict(const BS &bs) const noexcept;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Overlapping = Partial | Full Coverage
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this AABB overlaps the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if this AABB overlaps @a aabb.
+						@c false otherwise.
+		 @note			This is a (partial or full) coverage test of an AABB 
+						with regard to an AABB.
+		 */
+		bool Overlaps(const AABB &aabb) const noexcept;
+
+		/**
+		 Checks whether this AABB strictly overlaps the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if this AABB strictly overlaps @a aabb.
+						@c false otherwise.
+		 @note			This is a (partial or full) coverage test of an AABB 
+						with regard to an AABB.
+		 */
+		bool OverlapsStrict(const AABB &aabb) const noexcept;
+
+		/**
+		 Checks whether this AABB overlaps the given BS.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @return		@c true if this AABB overlaps @a bs.
+						@c false otherwise.
+		 @note			This is a (partial or full) coverage test of a BS 
+						with regard to an AABB.
+		 */
+		bool Overlaps(const BS &bs) const noexcept;
+
+		/**
+		 Checks whether this AABB strictly overlaps the given BS.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @return		@c true if this AABB strictly overlaps @a bs.
+						@c false otherwise.
+		 @note			This is a (partial or full) coverage test of a BS 
+						with regard to an AABB.
+		 */
+		bool OverlapsStrict(const BS &bs) const noexcept;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Intersecting = Partial Coverage
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this AABB intersects the given point.
+
+		 @param[in]		point
+						A reference to the point.
+		 @param[in]		epsilon
+						The epsilon value for float comparisons.
+		 @return		@c true if this AABB intersects @a point.
+						@c false otherwise.
+		 @note			This is a partial coverage test of a point
+						with regard to an AABB.
+		 */
+		bool Intersects(const Point3 &point, float epsilon = 0.0f) const noexcept;
+
+		/**
+		 Checks whether this AABB intersects the given point.
+
+		 @param[in]		point
+						The point.
+		 @param[in]		epsilon
+						The epsilon value for float comparisons.
+		 @return		@c true if this AABB intersects @a point.
+						@c false otherwise.
+		 @note			This is a partial coverage test of a point
+						with regard to an AABB.
+		 */
+		bool Intersects(FXMVECTOR point, float epsilon = 0.0f) const noexcept;
+
+		/**
+		 Checks whether this AABB intersects the given AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @return		@c true if this AABB intersects @a aabb.
+						@c false otherwise.
+		 @note			This is a partial coverage test of an AABB
+						with regard to an AABB.
+		 */
+		bool Intersects(const AABB &aabb) const noexcept;
+
+		/**
+		 Checks whether this AABB intersects the given BS.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @return		@c true if this AABB intersects @a bs.
+						@c false otherwise.
+		 @note			This is a partial coverage test of a BS
+						with regard to an AABB.
+		 */
+		bool Intersects(const BS &bs) const noexcept;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Classification
+		//---------------------------------------------------------------------
+
+		/**
+		 Classifies the coverage of the given point with regard to this AABB.
+
+		 @param[in]		point
+						A reference to the point.
+		 @param[in]		epsilon
+						The epsilon value for float comparisons.
+		 @return		The coverage of @a point with regard to this AABB.
+		 */
+		Coverage Classify(const Point3 &point, float epsilon = 0.0f) const noexcept;
+
+		/**
+		 Classifies the coverage of the given point with regard to this AABB.
+
+		 @param[in]		point
+						The point.
+		 @param[in]		epsilon
+						The epsilon value for float comparisons.
+		 @return		The coverage of @a point with regard to this AABB.
+		 */
+		Coverage Classify(FXMVECTOR point, float epsilon = 0.0f) const noexcept;
+
+		/**
+		 Classifies the coverage of the given AABB with regard to this AABB.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @param[in]		epsilon
+						The epsilon value for float comparisons.
+		 @return		The coverage of @a aabb with regard to this AABB.
+		 */
+		Coverage Classify(const AABB &aabb) const noexcept;
+
+		/**
+		 Classifies the coverage of the given BS with regard to this AABB.
+
+		 @param[in]		bs
+						A reference to the BS.
+		 @param[in]		epsilon
+						The epsilon value for float comparisons.
+		 @return		The coverage of @a bs with regard to this AABB.
+		 */
+		Coverage Classify(const BS &bs) const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -274,6 +420,10 @@ namespace mage {
 		 */
 		Point3 m_p_max;
 	};
+
+	//-------------------------------------------------------------------------
+	// Axis-Aligned Bounding Box: Non-Members
+	//-------------------------------------------------------------------------
 
 	/**
 	 Returns the union AABB of the given AABB and the given point.
@@ -436,12 +586,27 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the centroid of this AABB.
+
+		 @return		The centroid of this AABB.
+		 */
+		const Point3 Centroid() const noexcept {
+			return m_p;
+		}
+
+		//-------------------------------------------------------------------------
+		// Member Methods: Enclosing = Full Coverage
+		//-------------------------------------------------------------------------
+
+		/**
 		 Checks whether this BS completely encloses the given point.
 
 		 @param[in]		point
 						A reference to the point.
 		 @return		@c true if this BS completely encloses @a point.
 						@c false otherwise.
+		 @note			This is a full coverage test of a point 
+						with regard to a BS.
 		 */
 		bool Encloses(const Point3 &point) const noexcept;
 
@@ -452,8 +617,34 @@ namespace mage {
 						A reference to the point.
 		 @return		@c true if this BS completely, strictly encloses @a point.
 						@c false otherwise.
+		 @note			This is a full coverage test of a point 
+						with regard to a BS.
 		 */
 		bool EnclosesStrict(const Point3 &point) const noexcept;
+
+		/**
+		 Checks whether this BS completely encloses the given point.
+
+		 @param[in]		point
+						The point.
+		 @return		@c true if this BS completely encloses @a point.
+						@c false otherwise.
+		 @note			This is a full coverage test of a point
+						with regard to a BS.
+		 */
+		bool Encloses(FXMVECTOR point) const noexcept;
+
+		/**
+		 Checks whether this BS completely, strictly encloses the given point.
+
+		 @param[in]		point
+						The point.
+		 @return		@c true if this BS completely, strictly encloses @a point.
+						@c false otherwise.
+		 @note			This is a full coverage test of a point
+						with regard to a BS.
+		 */
+		bool EnclosesStrict(FXMVECTOR point) const noexcept;
 
 		/**
 		 Checks whether this BS completely encloses the given AABB.
@@ -462,6 +653,8 @@ namespace mage {
 						A reference to the AABB.
 		 @return		@c true if this BS completely encloses @a aabb.
 						@c false otherwise.
+		 @note			This is a full coverage test of an AABB 
+						with regard to a BS.
 		 */
 		bool Encloses(const AABB &aabb) const noexcept;
 
@@ -472,6 +665,8 @@ namespace mage {
 						A reference to the AABB.
 		 @return		@c true if this BS completely, strictly encloses @a aabb.
 						@c false otherwise.
+		 @note			This is a full coverage test of an AABB 
+						with regard to a BS.
 		 */
 		bool EnclosesStrict(const AABB &aabb) const noexcept;
 
@@ -482,6 +677,8 @@ namespace mage {
 						A reference to the BS.
 		 @return		@c true if this BS completely encloses @a bs.
 						@c false otherwise.
+		 @note			This is a full coverage test of a BS 
+						with regard to a BS.
 		 */
 		bool Encloses(const BS &bs) const noexcept;
 
@@ -492,47 +689,10 @@ namespace mage {
 						A reference to the BS.
 		 @return		@c true if this BS completely, strictly encloses @a bs.
 						@c false otherwise.
+		 @note			This is a full coverage test of a BS 
+						with regard to a BS.
 		 */
 		bool EnclosesStrict(const BS &bs) const noexcept;
-
-		/**
-		 Checks whether this BS completely encloses the given (closed) volume.
-
-		 @pre			@a planes is not equal to @c nullptr.
-		 @pre			@a planes must point to an array of at least @c nb_planes planes.
-		 @param[in]		planes
-						A pointer to the planes of the volume.
-						(each plane's coefficients are represented as a @c XMFLOAT4)
-		 @param[in]		nb_planes
-						The number of planes.
-		 @return		@c true if this BS completely encloses @a planes.
-						@c false otherwise.
-		 */
-		bool EnclosedBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept;
-
-		/**
-		 Checks whether this BS completely, strictly encloses the given (closed) volume.
-
-		 @pre			@a planes is not equal to @c nullptr.
-		 @pre			@a planes must point to an array of at least @c nb_planes planes.
-		 @param[in]		planes
-						A pointer to the planes of the volume.
-						(each plane's coefficients are represented as a @c XMFLOAT4)
-		 @param[in]		nb_planes
-						The number of planes.
-		 @return		@c true if this BS completely, stricly encloses @a planes.
-						@c false otherwise.
-		 */
-		bool EnclosedStrictBy(const XMFLOAT4 *planes, size_t nb_planes) const noexcept;
-
-		/**
-		 Returns the centroid of this AABB.
-
-		 @return		The centroid of this AABB.
-		 */
-		const Point3 Centroid() const noexcept {
-			return m_p;
-		}
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -548,6 +708,10 @@ namespace mage {
 		 */
 		float m_r;
 	};
+
+	//-------------------------------------------------------------------------
+	// Bounding Sphere: Non-Members
+	//-------------------------------------------------------------------------
 
 	/**
 	 Returns the union BS of the given BS and the given point.

@@ -6,6 +6,7 @@
 #include "scene\scene.hpp"
 #include "resource\resource_manager.hpp"
 #include "texture\texture_factory.hpp"
+#include "math\view_frustum.hpp"
 
 #pragma endregion
 
@@ -140,7 +141,8 @@ namespace mage {
 		scene_info.m_omni_lights  = m_omni_lights_buffer.Get();
 		scene_info.m_spot_lights  = m_spot_lights_buffer.Get();
 
-		const XMMATRIX view_to_projection = m_camera->GetCamera()->GetViewToProjectionMatrix();
+		const XMMATRIX view_to_projection  = m_camera->GetCamera()->GetViewToProjectionMatrix();
+		const XMMATRIX world_to_projection = world_to_view * view_to_projection;
 
 		// Create Transform buffer.
 		TransformBuffer transform_buffer(world_to_view, view_to_projection);
@@ -148,7 +150,8 @@ namespace mage {
 		for (bool transparency : {false, true}) {
 
 			// Render models.
-			ForEachModel([this, transparency, &transform_buffer, &scene_info, &view_to_world](const ModelNode &model_node) {
+			ForEachModel([this, transparency, &transform_buffer, &scene_info,
+				&view_to_world, &world_to_projection](const ModelNode &model_node) {
 				if (model_node.IsPassive()) {
 					return;
 				}
@@ -164,10 +167,20 @@ namespace mage {
 
 				const TransformNode * const transform = model_node.GetTransform();
 
-				// Update transform constant buffer.
-				const XMMATRIX object_to_world = transform->GetObjectToWorldMatrix();
-				const XMMATRIX world_to_object = transform->GetWorldToObjectMatrix();
-				const XMMATRIX view_to_object = view_to_world * world_to_object;
+				// Update transform constant buffer (1/2).
+				const XMMATRIX object_to_world      = transform->GetObjectToWorldMatrix();
+				const XMMATRIX object_to_projection = object_to_world * world_to_projection;
+				
+				// View Frustum Culling.
+				ViewFrustum view_frustum(object_to_projection);
+				const AABB &aabb = model->GetAABB();
+				if (!view_frustum.Overlaps(aabb)) {
+					return;
+				}
+				
+				// Update transform constant buffer (2/2).
+				const XMMATRIX world_to_object      = transform->GetWorldToObjectMatrix();
+				const XMMATRIX view_to_object       = view_to_world * world_to_object;
 				transform_buffer.SetObjectMatrices(object_to_world, view_to_object);
 				m_transform_buffer.UpdateData(transform_buffer);
 

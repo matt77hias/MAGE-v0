@@ -104,23 +104,23 @@ namespace mage {
 		const Keyboard * const keyboard = g_engine->GetInputManager()->GetKeyboard();
 
 		// Switch model.
-		if (keyboard->GetKeyPress(DIK_SPACE, false)) {
+		if (keyboard->GetKeyPress(DIK_UP, false)) {
 			m_models[m_model_index]->MakePassive();
 			m_model_index = (m_model_index + 1) % m_models.size();
 			m_models[m_model_index]->MakeActive();
 		}
 		
 		// Switch shader.
-		if (keyboard->GetKeyPress(DIK_RALT, false)) {
+		if (keyboard->GetKeyPress(DIK_RIGHT, false)) {
 			m_shader_index = (m_shader_index + 1) % m_shaders.size();
 			SetShaders();
 		}
-		else if (keyboard->GetKeyPress(DIK_LALT, false)) {
+		else if (keyboard->GetKeyPress(DIK_LEFT, false)) {
 			m_shader_index = std::min(m_shader_index - 1, m_shaders.size() - 1);
 			SetShaders();
 		}
 
-		m_text->SetText(L"\n\n\n\n");
+		m_text->SetText(L"\n\n\n\n\n");
 		m_text->AppendText(m_shader_names[m_shader_index]);
 	}
 }

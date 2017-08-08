@@ -6,7 +6,7 @@
 #pragma region
 
 #define MAGE_VERSION_MAJOR 0
-#define MAGE_VERSION_MINOR 40
+#define MAGE_VERSION_MINOR 41
 #define MAGE_VERSION_PATCH 0
 
 #define MAGE_QUOTE(S) #S

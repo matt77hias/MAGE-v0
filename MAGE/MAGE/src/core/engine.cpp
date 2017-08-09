@@ -21,7 +21,7 @@ namespace mage {
 	// Globals
 	//-------------------------------------------------------------------------
 	LoggingConfiguration g_logging_configuration;
-	Engine* g_engine = nullptr;
+	Engine *g_engine = nullptr;
 
 	//-------------------------------------------------------------------------
 	// Engine

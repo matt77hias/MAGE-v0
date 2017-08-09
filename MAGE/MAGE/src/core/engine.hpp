@@ -317,5 +317,5 @@ namespace mage {
 	/**
 	 A pointer to the engine used by the user.
 	 */
-	extern Engine* g_engine;
+	extern Engine *g_engine;
 }

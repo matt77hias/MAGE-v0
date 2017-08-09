@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\device_enumeration.hpp"
+#include "core\engine.hpp"
 #include "rendering\rendering_utils.hpp"
 #include "rendering\graphics_settings.hpp"
 #include "ui\combo_box.hpp"
@@ -27,36 +27,48 @@
 namespace mage {
 	
 	//-------------------------------------------------------------------------
-	// Globals
-	//-------------------------------------------------------------------------
-	DeviceEnumeration *g_device_enumeration = nullptr;
-
-	//-------------------------------------------------------------------------
-	// WindowProc for handling Windows messages.
-	//-------------------------------------------------------------------------
-
-	/**
-	 Engine-defined callback function used with the CreateDialog
-	 for device enumeration.
-
-	 @param[in]		hwndDlg 
-					A handle to the dialog box.
-	 @param[in]		uMsg 
-					The message.
-	 @param[in]		wParam
-					Additional message-specific information.
-	 @param[in]		lParam
-					Additional message-specific information.
-	 @return		@c true if @a uMsg is processed.
-					@c false otherwise.
-	 */
-	INT_PTR CALLBACK SettingsDialogProcDelegate(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-		return g_device_enumeration->SettingsDialogProc(hwndDlg, uMsg, wParam, lParam);
-	}
-
-	//-------------------------------------------------------------------------
 	// DeviceEnumeration
 	//-------------------------------------------------------------------------
+
+	INT_PTR CALLBACK DeviceEnumeration::SettingsDialogProcDelegate(
+		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+
+		return const_cast< DeviceEnumeration * >(GetDeviceEnumeration())->SettingsDialogProc(hwndDlg, uMsg, wParam, lParam);
+
+		if (WM_NCCREATE == uMsg) {
+			const LONG_PTR replacement_value = (LONG_PTR)((CREATESTRUCT *)lParam)->lpCreateParams;
+
+			// Changes an attribute of the specified window.
+			// 1. A handle to the window and, indirectly, the class to which the window belongs.
+			// 2. Sets the user data associated with the window.
+			// 3. The replacement value.
+			SetWindowLongPtr(hwndDlg, GWLP_USERDATA, replacement_value);
+			
+			return TRUE;
+		}
+
+		// Retrieves information about the specified window.
+		// 1. A handle to the window and, indirectly, the class to which the window belongs.
+		// 2. Retrieves the user data associated with the window.
+		DeviceEnumeration * const device_enumeration = ((DeviceEnumeration *)GetWindowLongPtr(hwndDlg, GWLP_USERDATA));
+
+		return device_enumeration->SettingsDialogProc(hwndDlg, uMsg, wParam, lParam);
+	}
+
+	const DXGI_FORMAT DeviceEnumeration::s_pixel_formats[] = {
+		DXGI_FORMAT_B8G8R8X8_UNORM,
+		DXGI_FORMAT_B8G8R8A8_UNORM,
+		DXGI_FORMAT_R10G10B10A2_UNORM,
+	};
+
+	DeviceEnumeration::DeviceEnumeration() 
+		: m_adapter(), m_output(), m_settings_script(),
+		m_display_modes(), m_selected_diplay_mode(nullptr),
+		m_windowed(false), m_vsync(false) {}
+
+	DeviceEnumeration::DeviceEnumeration(DeviceEnumeration &&device_enumeration) = default;
+
+	DeviceEnumeration::~DeviceEnumeration() = default;
 
 	/**
 	 Checks whether the given display mode needs to be rejected for the engine.
@@ -70,14 +82,24 @@ namespace mage {
 		return display_mode_desc.Height < 480;
 	}
 
-	DeviceEnumeration::DeviceEnumeration() 
-		: m_adapter(), m_output(), m_settings_script(),
-		m_display_modes(), m_selected_diplay_mode(nullptr),
-		m_windowed(false), m_vsync(false) {}
+	HRESULT DeviceEnumeration::Enumerate() {
+		// Load the settings script.
+		const bool file_exists = FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
+		m_settings_script.reset(new VariableScript(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists));
 
-	DeviceEnumeration::DeviceEnumeration(DeviceEnumeration &&device_enumeration) = default;
+		// Initialize the adapter and output.
+		InitializeAdapterAndOutput();
+		// Initialize the display modes.
+		InitializeDisplayModes();
 
-	DeviceEnumeration::~DeviceEnumeration() = default;
+		// Creates a modal dialog box from a dialog box template resource.
+		// 1. A handle to the module which contains the dialog box template. If this parameter is nullptr, then the current executable is used.
+		// 2. The dialog box template.
+		// 3. A handle to the window that owns the dialog box.
+		// 4. A pointer to the dialog box procedure.
+		const INT_PTR result_dialog = DialogBox(nullptr, MAKEINTRESOURCE(IDD_GRAPHICS_SETTINGS), nullptr, SettingsDialogProcDelegate);
+		return (result_dialog == IDOK) ? S_OK : E_FAIL;
+	}
 
 	void DeviceEnumeration::InitializeAdapterAndOutput() {
 		// Get the IDXGIFactory3.
@@ -136,21 +158,21 @@ namespace mage {
 		// Create the display modes linked list.
 		m_display_modes = list< DXGI_MODE_DESC1 >();
 		m_selected_diplay_mode = nullptr;
-		
+
 		// Get the DXGI_MODE_DESCs. 
-		for (size_t i = 0; i < _countof(g_pixel_formats); ++i) {
+		for (size_t i = 0; i < _countof(s_pixel_formats); ++i) {
 
 			// The DXGI_MODE_DESC describes a display mode and whether the display mode supports stereo.
 			const UINT flags = DXGI_ENUM_MODES_INTERLACED;
 			UINT nb_display_modes;
 			// Get the number of display modes that match the requested format and other input options.
-			const HRESULT result1 = m_output->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, nullptr);
+			const HRESULT result1 = m_output->GetDisplayModeList1(s_pixel_formats[i], flags, &nb_display_modes, nullptr);
 			if (FAILED(result1)) {
 				throw FormattedException("Failed to get the number of display modes: %08X.", result1);
 			}
 			UniquePtr< DXGI_MODE_DESC1[] >dxgi_mode_descs(new DXGI_MODE_DESC1[nb_display_modes]);
 			// Get the display modes that match the requested format and other input options.
-			const HRESULT result2 = m_output->GetDisplayModeList1(g_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs.get());
+			const HRESULT result2 = m_output->GetDisplayModeList1(s_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs.get());
 			if (FAILED(result2)) {
 				throw FormattedException("Failed to get the display modes: %08X.", result2);
 			}
@@ -166,25 +188,6 @@ namespace mage {
 				m_display_modes.push_back(dxgi_mode_descs.get()[mode]);
 			}
 		}
-	}
-
-	HRESULT DeviceEnumeration::Enumerate() {
-		// Load the settings script.
-		const bool file_exists = FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
-		m_settings_script.reset(new VariableScript(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists));
-
-		// Initialize the adapter and output.
-		InitializeAdapterAndOutput();
-		// Initialize the display modes.
-		InitializeDisplayModes();
-
-		// Creates a modal dialog box from a dialog box template resource.
-		// 1. A handle to the module which contains the dialog box template. If this parameter is nullptr, then the current executable is used.
-		// 2. The dialog box template.
-		// 3. A handle to the window that owns the dialog box.
-		// 4. A pointer to the dialog box procedure.
-		const INT_PTR result_dialog = DialogBox(nullptr, MAKEINTRESOURCE(IDD_GRAPHICS_SETTINGS), nullptr, SettingsDialogProcDelegate);
-		return (result_dialog == IDOK) ? S_OK : E_FAIL;
 	}
 
 	/**
@@ -211,7 +214,8 @@ namespace mage {
 		return static_cast< size_t >(round(desc.RefreshRate.Numerator / static_cast< float >(desc.RefreshRate.Denominator)));
 	}
 
-	INT_PTR DeviceEnumeration::SettingsDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+	INT_PTR DeviceEnumeration::SettingsDialogProc(
+		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		UNUSED(lParam);
 		wchar_t buffer[16];
 
@@ -311,7 +315,7 @@ namespace mage {
 			const int refresh_rate_index = *m_settings_script->GetValueOfVariable< int >("refresh");
 			ComboBoxSelect(hwndDlg, IDC_REFRESH_RATE, refresh_rate_index);
 
-			return true;
+			return TRUE;
 		}
 		case WM_COMMAND: {
 			// Sent when the user selects a command item from a menu, when a control sends a notification message to its parent window.
@@ -346,7 +350,7 @@ namespace mage {
 					// Close the hwndDlg.
 					EndDialog(hwndDlg, IDCANCEL);
 
-					return true;
+					return TRUE;
 				}
 				
 				m_windowed = IsDlgButtonChecked(hwndDlg, IDC_WINDOWED) ? true : false;
@@ -368,13 +372,13 @@ namespace mage {
 				// Close the hwndDlg.
 				EndDialog(hwndDlg, IDOK);
 
-				return true;
+				return TRUE;
 			}
 			case IDCANCEL: {
 				// Close the hwndDlg.
 				EndDialog(hwndDlg, IDCANCEL);
 
-				return true;
+				return TRUE;
 			}
 			case IDC_DISPLAY_FORMAT: {
 				if (CBN_SELCHANGE == HIWORD(wParam)) {
@@ -405,7 +409,7 @@ namespace mage {
 					}
 				}
 
-				return true;
+				return TRUE;
 			}
 			case IDC_RESOLUTION: {
 				if (CBN_SELCHANGE == HIWORD(wParam)) {
@@ -437,15 +441,21 @@ namespace mage {
 					}
 				}
 
-				return true;
+				return TRUE;
 			}
 			case IDC_WINDOWED:
 			case IDC_FULLSCREEN: {
-				return true;
+				return TRUE;
 			}
 			}
 		}
 		}
-		return false;
+		return FALSE;
+	}
+
+	const DeviceEnumeration *GetDeviceEnumeration() noexcept {
+		Assert(g_engine);
+
+		return g_engine->GetDeviceEnumeration();
 	}
 }

@@ -16,20 +16,71 @@
 namespace mage {
 
 	/**
-	 The allowed pixel formats.
-	 */
-	constexpr DXGI_FORMAT g_pixel_formats[] = {
-		DXGI_FORMAT_B8G8R8X8_UNORM,	   // A four-component,  32-bit unsigned-normalized-integer format that supports 8  bits for each color channel and 8 bits unused.
-		DXGI_FORMAT_B8G8R8A8_UNORM,    // A four-component,  32-bit unsigned-normalized-integer format that supports 8  bits for each color channel and 8-bit alpha.
-		DXGI_FORMAT_R10G10B10A2_UNORM, // A four-component,  32-bit unsigned-normalized-integer format that supports 10 bits for each color and 2 bits for alpha.
-	};
-
-	/**
 	 A class of device enumerations.
 	 */
 	class DeviceEnumeration final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Engine-defined callback function used with the CreateDialog
+		 for device enumeration.
+
+		 @param[in]		hwndDlg
+						A handle to the dialog box.
+		 @param[in]		uMsg
+						The message.
+		 @param[in]		wParam
+						Additional message-specific information.
+		 @param[in]		lParam
+						Additional message-specific information.
+		 @return		@c true if @a uMsg is processed.
+						@c false otherwise.
+		 */
+		static INT_PTR CALLBACK SettingsDialogProcDelegate(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The allowed pixel formats.
+		 */
+		static const DXGI_FORMAT s_pixel_formats[3];
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a device enumeration.
+		 */
+		DeviceEnumeration();
+
+		/**
+		 Constructs a device enumeration from the given device enumeration.
+
+		 @param[in]		device_enumeration
+						A reference to a device enumeration to copy.
+		 */
+		DeviceEnumeration(const DeviceEnumeration &device_enumeration) = delete;
+
+		/**
+		 Constructs a device enumeration by moving the given device enumeration.
+
+		 @param[in]		device_enumeration
+						A reference to a device enumeration to move.
+		 */
+		DeviceEnumeration(DeviceEnumeration &&device_enumeration);
+
+		/**
+		 Destructs this device enumeration.
+		 */
+		~DeviceEnumeration();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -58,6 +109,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Enumerates the available display modes on the adapter output of
+		 the physical adapter with the most dedicated video memory.
+
+		 @return		A success/error value.
+		 */
+		HRESULT Enumerate();
 
 		/**
 		 Returns the adapter of this device enumeration.
@@ -122,47 +181,6 @@ namespace mage {
 
 	private:
 
-		//---------------------------------------------------------------------
-		// Friends
-		//---------------------------------------------------------------------
-
-		friend class Engine;
-		friend INT_PTR CALLBACK SettingsDialogProcDelegate(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a device enumeration.
-		 */
-		DeviceEnumeration();
-
-		/**
-		 Constructs a device enumeration from the given device enumeration.
-
-		 @param[in]		device_enumeration
-						A reference to a device enumeration to copy.
-		 */
-		DeviceEnumeration(const DeviceEnumeration &device_enumeration) = delete;
-
-		/**
-		 Constructs a device enumeration by moving the given device enumeration.
-
-		 @param[in]		device_enumeration
-						A reference to a device enumeration to move.
-		 */
-		DeviceEnumeration(DeviceEnumeration &&device_enumeration);
-
-		/**
-		 Destructs this device enumeration.
-		 */
-		~DeviceEnumeration();
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
 		/**
 		 Initializes the adapter and the output of this device enumeration.
 
@@ -180,14 +198,6 @@ namespace mage {
 						of this device enumeration.
 		 */
 		void InitializeDisplayModes();
-
-		/**
-		 Enumerates the available display modes on the adapter output of
-		 the physical adapter with the most dedicated video memory.
-
-		 @return		A success/error value.
-		 */
-		HRESULT Enumerate();
 
 		/**
 		 Engine-defined callback function used with the CreateDialog
@@ -247,7 +257,11 @@ namespace mage {
 	};
 
 	/**
-	 A (global) pointer to the device enumeration.
+	 Returns the device enumeration associated with the current engine.
+
+	 @pre			The current engine is not equal to @c nullptr.
+	 @return		A pointer to the device enumeration 
+					associated with the current engine.
 	 */
-	extern DeviceEnumeration *g_device_enumeration;
+	const DeviceEnumeration *GetDeviceEnumeration() noexcept;
 }

@@ -4,7 +4,6 @@
 #pragma region
 
 #include "core\engine.hpp"
-#include "rendering\device_enumeration.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
 
@@ -18,7 +17,7 @@ namespace mage {
 	Renderer::Renderer(HWND hwindow) : 
 		m_hwindow(hwindow), m_fullscreen(false),
 		m_in_begin_end_pair(false), 
-		m_display_mode(*g_device_enumeration->GetDisplayMode()),
+		m_display_mode(*GetDeviceEnumeration()->GetDisplayMode()),
 		m_device(), m_device_context(), m_swap_chain(), m_rtv(), m_dsv(),
 		m_rendering_state_2d(), m_rendering_state_3d(), m_rendering_state_cache() {
 
@@ -74,7 +73,7 @@ namespace mage {
 		ComPtr< ID3D11Device > device;
 		ComPtr< ID3D11DeviceContext > device_context;
 		HRESULT result_device = D3D11CreateDevice(
-			g_device_enumeration->GetAdapter().Get(),	// Adapter.
+			GetDeviceEnumeration()->GetAdapter().Get(),	// Adapter.
 			D3D_DRIVER_TYPE_UNKNOWN,					// Driver type.
 			nullptr,									// A handle to a DLL that implements a software rasterizer.
 			create_device_flags,						// The runtime layers to enable.
@@ -103,7 +102,7 @@ namespace mage {
 
 	void Renderer::SetupSwapChain() {
 		// Get the IDXGIAdapter2.
-		ComPtr< IDXGIAdapter2 > dxgi_adapter2 = g_device_enumeration->GetAdapter();
+		ComPtr< IDXGIAdapter2 > dxgi_adapter2 = GetDeviceEnumeration()->GetAdapter();
 		// Get the IDXGIFactory3.
 		ComPtr< IDXGIFactory3 > dxgi_factory3;
 		const HRESULT result_dxgi_factory3 = dxgi_adapter2->GetParent(__uuidof(IDXGIFactory3), (void **)dxgi_factory3.GetAddressOf());

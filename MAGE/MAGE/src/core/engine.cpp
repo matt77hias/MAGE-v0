@@ -28,7 +28,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	
 	Engine::Engine(const EngineSetup &setup) 
-		: Loadable(), m_main_window(), m_deactive(false), 
+		: Loadable(), m_device_enumeration(),
+		m_main_window(), m_deactive(false), 
 		m_renderer(), m_mode_switch(false),
 		m_input_manager(), m_resource_manager(),
 		m_scene(), m_timer(std::make_unique< Timer >()),
@@ -41,15 +42,6 @@ namespace mage {
 		// Initialize a console.
 		InitializeConsole();
 		PrintConsoleHeader();
-
-		// Enumerate the devices.
-		SAFE_DELETE(g_device_enumeration);
-		g_device_enumeration = new DeviceEnumeration();
-		const HRESULT result_enumerate = g_device_enumeration->Enumerate();
-		if (FAILED(result_enumerate)) {
-			Error("Device enumeration setup failed: %ld", result_enumerate);
-			return;
-		}
 
 		// Initialize the different engine systems.
 		InitializeSystems(setup);
@@ -71,13 +63,21 @@ namespace mage {
 		// Uninitialize the COM.
 		CoUninitialize();
 
-		SAFE_DELETE(g_device_enumeration);
 		g_engine = nullptr;
 	}
 
 	void Engine::InitializeSystems(const EngineSetup &setup) {
-		const LONG width  = static_cast< LONG >(g_device_enumeration->GetDisplayMode()->Width);
-		const LONG height = static_cast< LONG >(g_device_enumeration->GetDisplayMode()->Height);
+
+		// Enumerate the devices.
+		m_device_enumeration = std::make_unique< DeviceEnumeration >();
+		const HRESULT result_enumerate = m_device_enumeration->Enumerate();
+		if (FAILED(result_enumerate)) {
+			Error("Device enumeration setup failed: %ld", result_enumerate);
+			return;
+		}
+
+		const LONG width  = static_cast< LONG >(m_device_enumeration->GetDisplayMode()->Width);
+		const LONG height = static_cast< LONG >(m_device_enumeration->GetDisplayMode()->Height);
 		
 		// Initialize the window System.
 		m_main_window      = std::make_unique< MainWindow >(setup.GetApplicationHinstance(), setup.GetApplicationName(), width, height);
@@ -125,7 +125,7 @@ namespace mage {
 		m_main_window->Show(nCmdShow);
 
 		// Handle startup in fullscreen mode.
-		if (g_device_enumeration->IsFullScreen()) {
+		if (m_device_enumeration->IsFullScreen()) {
 			m_renderer->SwitchMode(true);
 		}
 

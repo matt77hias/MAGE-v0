@@ -194,6 +194,8 @@ namespace mage {
 
 	void Scene::RenderBoundingBoxes() const {
 
+		// Optimization: Use a separate shader + instancing (1 draw call)
+
 		// Update scene constant buffer.
 		SceneBuffer scene_buffer;
 		scene_buffer.m_fog_distance_falloff_start = FLT_MAX;

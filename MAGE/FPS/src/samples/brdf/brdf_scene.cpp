@@ -36,7 +36,7 @@ namespace mage {
 		// Fog
 		//---------------------------------------------------------------------
 		SceneFog *scene_fog = GetSceneFog();
-		scene_fog->SetDistanceFalloff(1000.0f, 1000.0f);
+		scene_fog->SetDistanceFalloff(FLT_MAX, FLT_MAX);
 
 		//---------------------------------------------------------------------
 		// Camera

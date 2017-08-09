@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "math\bounding_volume.hpp"
-#include "mesh\mesh.hpp"
+#include "mesh\static_mesh.hpp"
 #include "shader\shaded_material.hpp"
 
 #pragma endregion
@@ -30,6 +29,18 @@ namespace mage {
 		/**
 		 Constructs a model.
 
+		 @pre			@a mesh is not equal to @c nullptr.
+		 @param[in]		mesh
+						A pointer to the mesh.
+		 @param[in]		material
+						A reference to the shaded material.
+		 */
+		explicit Model(SharedPtr< const StaticMesh > mesh, const ShadedMaterial &material);
+
+		/**
+		 Constructs a model.
+
+		 @pre			@a mesh is not equal to @c nullptr.
 		 @param[in]		mesh
 						A pointer to the mesh.
 		 @param[in]		start_index

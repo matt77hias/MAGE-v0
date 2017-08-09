@@ -39,18 +39,12 @@ namespace mage {
 		SAFE_DELETE(g_engine);
 		g_engine = this;
 
-		// Initialize a console.
-		InitializeConsole();
-		PrintConsoleHeader();
-
-		// Initialize the different engine systems.
+		// Initialize the systems of this engine.
 		InitializeSystems(setup);
 
-		// Initializes the COM library for use by the calling thread 
-		// and sets the thread's concurrency model to multithreaded concurrency.
-		CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-
-		SetLoaded();
+		if (!IsLoaded()) {
+			return;
+		}
 
 		// Initialize the first scene.
 		SetScene(setup.CreateScene());
@@ -67,6 +61,10 @@ namespace mage {
 	}
 
 	void Engine::InitializeSystems(const EngineSetup &setup) {
+
+		// Initialize a console.
+		InitializeConsole();
+		PrintConsoleHeader();
 
 		// Enumerate the devices.
 		m_device_enumeration = std::make_unique< DeviceEnumeration >();
@@ -87,6 +85,12 @@ namespace mage {
 		m_input_manager    = std::make_unique< InputManager >(m_main_window->GetHandle());
 		// Initialize the resource system.
 		m_resource_manager = std::make_unique< ResourceManager >();
+
+		// Initializes the COM library for use by the calling thread 
+		// and sets the thread's concurrency model to multithreaded concurrency.
+		CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+
+		SetLoaded();
 	}
 
 	void Engine::SetDeactiveFlag(bool deactive) {
@@ -181,8 +185,8 @@ namespace mage {
 			m_engine_stats->PrepareRendering();
 			m_renderer->BeginFrame();
 			m_renderer->PrepareRendering3D();
-			m_scene->Render3D();
-			//m_scene->RenderBoundingBoxes();
+			//m_scene->Render3D();
+			m_scene->RenderBoundingBoxes();
 			m_renderer->PrepareRendering2D();
 			m_scene->Render2D();
 			m_renderer->EndFrame();

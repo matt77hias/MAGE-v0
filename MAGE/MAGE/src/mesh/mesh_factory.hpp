@@ -1,16 +1,18 @@
 #pragma once
 
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
 #include "mesh\static_mesh.hpp"
 
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Declarations
+//-----------------------------------------------------------------------------
 namespace mage {
 
-	inline SharedPtr< const Mesh > CreateLineCube() {
-
-
-
-
-	}
-
-
-
+	UniquePtr< const StaticMesh > CreateLineCube();
 }

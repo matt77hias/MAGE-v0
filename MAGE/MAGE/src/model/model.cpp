@@ -12,6 +12,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	Model::Model(SharedPtr< const StaticMesh > mesh, const ShadedMaterial &material)
+		: Model(static_pointer_cast< const Mesh >(mesh), 0, mesh->GetNumberOfIndices(),
+			mesh->GetAABB(), mesh->GetBS(), material) {}
+
 	Model::Model(SharedPtr< const Mesh > mesh, size_t start_index, size_t nb_indices,
 		const AABB &aabb, const BS &bs, const ShadedMaterial &material)
 		: m_mesh(mesh), m_start_index(start_index), m_nb_indices(nb_indices),

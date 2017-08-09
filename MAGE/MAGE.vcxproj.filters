@@ -1154,6 +1154,9 @@
     <ClCompile Include="MAGE\src\core\engine_statistics.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\mesh\mesh_factory.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\sprite.fx">

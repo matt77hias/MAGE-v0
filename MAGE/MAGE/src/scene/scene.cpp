@@ -5,7 +5,7 @@
 
 #include "scene\scene.hpp"
 #include "resource\resource_manager.hpp"
-#include "texture\texture_factory.hpp"
+#include "resource\resource_factory.hpp"
 #include "math\view_frustum.hpp"
 
 #pragma endregion
@@ -24,15 +24,15 @@ namespace mage {
 		m_omni_lights_buffer(64), m_spot_lights_buffer(64) {
 		
 		//TODO
-		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc_box = GetOrCreateModelDescriptor(L"assets/models/cube/cube.mdl", mesh_desc);
-		m_box = CreateModelNode(*model_desc_box, BRDFType::Emissive);
-		m_box->MakePassive();
-		
-		SharedPtr< Texture > white = CreateWhiteTexture();
-		ShadedMaterial *material = m_box->GetModel()->GetMaterial();
-		material->SetDiffuseReflectivity(RGBSpectrum(0.0f, 1.0f, 0.0f));
-		material->SetDiffuseReflectivityTexture(white);
+		Material box_material("_aabb");
+		box_material.SetDiffuseReflectivityTexture(CreateWhiteTexture());
+		box_material.SetDiffuseReflectivity(RGBSpectrum(1.0f, 1.0f, 1.0f));
+		const ShadedMaterial box_shaded_material(box_material, BRDFType::Emissive);
+
+		SharedPtr< const StaticMesh > box_mesh = CreateLineCube();
+		m_box = std::make_shared< ModelNode >("_aabb", box_mesh, box_shaded_material);
+
+		int k = 0;
 	}
 
 	Scene::~Scene() {
@@ -152,6 +152,7 @@ namespace mage {
 			// Render models.
 			ForEachModel([this, transparency, &transform_buffer, &scene_info,
 				&view_to_world, &world_to_projection](const ModelNode &model_node) {
+				
 				if (model_node.IsPassive()) {
 					return;
 				}
@@ -193,15 +194,18 @@ namespace mage {
 	}
 
 	void Scene::RenderBoundingBoxes() const {
-		const XMMATRIX world_to_view = m_camera->GetTransform()->GetWorldToViewMatrix();
-		const XMMATRIX view_to_world = m_camera->GetTransform()->GetViewToWorldMatrix();
-		const XMMATRIX view_to_projection = m_camera->GetCamera()->GetViewToProjectionMatrix();
+		const XMMATRIX world_to_view       = m_camera->GetTransform()->GetWorldToViewMatrix();
+		const XMMATRIX view_to_world       = m_camera->GetTransform()->GetViewToWorldMatrix();
+		const XMMATRIX view_to_projection  = m_camera->GetCamera()->GetViewToProjectionMatrix();
+		const XMMATRIX world_to_projection = world_to_view * view_to_projection;
 
 		// Create Transform buffer.
 		TransformBuffer transform_buffer(world_to_view, view_to_projection);
 
 		// Render models.
-		ForEachModel([this, &transform_buffer, &view_to_world](const ModelNode &model_node) {
+		ForEachModel([this, &transform_buffer, 
+			&view_to_world, &world_to_projection](const ModelNode &model_node) {
+			
 			if (model_node.IsPassive()) {
 				return;
 			}
@@ -212,19 +216,29 @@ namespace mage {
 				return;
 			}
 
-			const AABB &aabb = model->GetAABB();
-			const Point3 centroid = aabb.Centroid();
-			const Direction3 direction = aabb.Diagonal();
-			Transform box_transform;
-			box_transform.SetScale(direction);
-			box_transform.SetTranslation(centroid.x, centroid.y - 0.5f * direction.y, centroid.z);
 			const TransformNode * const transform = model_node.GetTransform();
 
-			// Update transform constant buffer.
-			const XMMATRIX object_to_world = box_transform.GetObjectToParentMatrix() * transform->GetObjectToWorldMatrix();
-			const XMMATRIX world_to_object = transform->GetWorldToObjectMatrix() * box_transform.GetParentToObjectMatrix();
-			const XMMATRIX view_to_object = view_to_world * world_to_object;
-			transform_buffer.SetObjectMatrices(object_to_world, view_to_object);
+			// Update transform constant buffer (1/2).
+			const XMMATRIX object_to_world      = transform->GetObjectToWorldMatrix();
+			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
+
+			// View Frustum Culling.
+			ViewFrustum view_frustum(object_to_projection);
+			const AABB &aabb = model->GetAABB();
+			if (!view_frustum.Overlaps(aabb)) {
+				return;
+			}
+
+			Transform box_transform;
+			box_transform.SetScale(aabb.Diagonal());
+			box_transform.SetTranslation(aabb.Centroid());
+			
+			// Update transform constant buffer (2/2).
+			const XMMATRIX world_to_object = transform->GetWorldToObjectMatrix();
+			const XMMATRIX box_to_world    = box_transform.GetObjectToParentMatrix() * object_to_world;
+			const XMMATRIX world_to_box    = world_to_object * box_transform.GetParentToObjectMatrix();
+			const XMMATRIX view_to_box     = view_to_world * world_to_box;
+			transform_buffer.SetObjectMatrices(box_to_world, view_to_box);
 			m_transform_buffer.UpdateData(transform_buffer);
 
 			// Draw bounding box.

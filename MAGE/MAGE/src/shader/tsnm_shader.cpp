@@ -16,23 +16,15 @@ namespace mage {
 	// TSNMPixelShader
 	//-------------------------------------------------------------------------
 
-	TSNMPixelShader::TSNMPixelShader(const wstring &fname)
-		: TSNMPixelShader(fname, GetRenderingDevice(), GetRenderingDeviceContext()) {}
-
-	TSNMPixelShader::TSNMPixelShader(const wstring &fname,
-		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
-			: PixelShader(fname, device, device_context),
-			m_material_buffer(m_device, m_device_context) {}
-		
 	TSNMPixelShader::TSNMPixelShader(const wstring &guid, 
-		const CompiledPixelShader &compiled_pixel_shader)
+		const CompiledShader *compiled_shader)
 		: TSNMPixelShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(),
-			compiled_pixel_shader) {}
+			compiled_shader) {}
 
 	TSNMPixelShader::TSNMPixelShader(const wstring &guid, 
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const CompiledPixelShader &compiled_pixel_shader)
-			: PixelShader(guid, device, device_context, compiled_pixel_shader),
+		const CompiledShader *compiled_shader)
+			: PixelShader(guid, device, device_context, compiled_shader),
 			m_material_buffer(m_device, m_device_context) {}
 	
 	TSNMPixelShader::TSNMPixelShader(TSNMPixelShader &&pixel_shader) = default;

@@ -17,25 +17,16 @@ namespace mage {
 	// SpriteVertexShader
 	//-------------------------------------------------------------------------
 
-	SpriteVertexShader::SpriteVertexShader(const wstring &fname)
-		: SpriteVertexShader(fname, GetRenderingDevice(), GetRenderingDeviceContext()) {}
-
-	SpriteVertexShader::SpriteVertexShader(const wstring &fname,
-		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
-		: VertexShader(fname, device, device_context,
-			VertexPositionColorTexture::s_input_element_desc,
-			VertexPositionColorTexture::s_nb_input_elements) {}
-
 	SpriteVertexShader::SpriteVertexShader(const wstring &guid,
-		const CompiledVertexShader &compiled_vertex_shader)
+		const CompiledShader *compiled_shader)
 		: SpriteVertexShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(),
-			compiled_vertex_shader) {}
+			compiled_shader) {}
 
 	SpriteVertexShader::SpriteVertexShader(const wstring &guid,
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const CompiledVertexShader &compiled_vertex_shader)
+		const CompiledShader *compiled_shader)
 		: VertexShader(guid, device, device_context,
-			compiled_vertex_shader,
+			compiled_shader,
 			VertexPositionColorTexture::s_input_element_desc,
 			VertexPositionColorTexture::s_nb_input_elements) {}
 
@@ -53,22 +44,15 @@ namespace mage {
 	// SpritePixelShader
 	//-------------------------------------------------------------------------
 
-	SpritePixelShader::SpritePixelShader(const wstring &fname)
-		: SpritePixelShader(fname, GetRenderingDevice(), GetRenderingDeviceContext()) {}
-
-	SpritePixelShader::SpritePixelShader(const wstring &fname,
-		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
-		: PixelShader(fname, device, device_context) {}
-
 	SpritePixelShader::SpritePixelShader(const wstring &guid,
-		const CompiledPixelShader &compiled_pixel_shader)
+		const CompiledShader *compiled_shader)
 		: SpritePixelShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(),
-			compiled_pixel_shader) {}
+			compiled_shader) {}
 
 	SpritePixelShader::SpritePixelShader(const wstring &guid,
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const CompiledPixelShader &compiled_pixel_shader)
-		: PixelShader(guid, device, device_context, compiled_pixel_shader) {}
+		const CompiledShader *compiled_shader)
+		: PixelShader(guid, device, device_context, compiled_shader) {}
 
 	SpritePixelShader::SpritePixelShader(SpritePixelShader &&pixel_shader) = default;
 

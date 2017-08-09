@@ -17,25 +17,16 @@ namespace mage {
 	// BasicVertexShader
 	//-------------------------------------------------------------------------
 
-	BasicVertexShader::BasicVertexShader(const wstring &fname)
-		: BasicVertexShader(fname, GetRenderingDevice(), GetRenderingDeviceContext()) {}
-
-	BasicVertexShader::BasicVertexShader(const wstring &fname, 
-		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context) 
-		: VertexShader(fname, device, device_context, 
-			VertexPositionNormalTexture::s_input_element_desc, 
-			VertexPositionNormalTexture::s_nb_input_elements) {}
-			
 	BasicVertexShader::BasicVertexShader(const wstring &guid, 
-		const CompiledVertexShader &compiled_vertex_shader)
+		const CompiledShader *compiled_shader)
 		: BasicVertexShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(), 
-			compiled_vertex_shader) {}
+			compiled_shader) {}
 
 	BasicVertexShader::BasicVertexShader(const wstring &guid, 
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const CompiledVertexShader &compiled_vertex_shader)
+		const CompiledShader *compiled_shader)
 		: VertexShader(guid, device, device_context, 
-			compiled_vertex_shader,
+			compiled_shader,
 			VertexPositionNormalTexture::s_input_element_desc, 
 			VertexPositionNormalTexture::s_nb_input_elements) {}
 	
@@ -53,23 +44,15 @@ namespace mage {
 	// BasicPixelShader
 	//-------------------------------------------------------------------------
 
-	BasicPixelShader::BasicPixelShader(const wstring &fname)
-		: BasicPixelShader(fname, GetRenderingDevice(), GetRenderingDeviceContext()) {}
-
-	BasicPixelShader::BasicPixelShader(const wstring &fname, 
-		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
-			: PixelShader(fname, device, device_context),
-			m_material_buffer(m_device, m_device_context) {}
-			
 	BasicPixelShader::BasicPixelShader(const wstring &guid, 
-		const CompiledPixelShader &compiled_pixel_shader)
+		const CompiledShader *compiled_shader)
 		: BasicPixelShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(),
-			compiled_pixel_shader) {}
+			compiled_shader) {}
 
 	BasicPixelShader::BasicPixelShader(const wstring &guid,
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const CompiledPixelShader &compiled_pixel_shader)
-			: PixelShader(guid, device, device_context, compiled_pixel_shader),
+		const CompiledShader *compiled_shader)
+			: PixelShader(guid, device, device_context, compiled_shader),
 			m_material_buffer(m_device, m_device_context) {}
 	
 	BasicPixelShader::BasicPixelShader(BasicPixelShader &&pixel_shader) = default;

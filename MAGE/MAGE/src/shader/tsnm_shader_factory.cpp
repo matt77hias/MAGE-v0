@@ -16,81 +16,81 @@
 namespace mage {
 
 	const CombinedShader CreateLambertianTSNMShader() {
-		const CompiledVertexShader cvs = CreateCompiledTransformVertexShader();
-		SharedPtr< VertexShader > vs   = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs);
+		UniquePtr< CompiledShader > cvs = CreateCompiledTransformVertexShader();
+		SharedPtr< VertexShader > vs    = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs.get());
 
-		const CompiledPixelShader cps  = CreateCompiledLambertianTSNMPixelShader();
-		SharedPtr< PixelShader >  ps   = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_LAMBERTIAN, cps);
+		UniquePtr< CompiledShader > cps = CreateCompiledLambertianTSNMPixelShader();
+		SharedPtr< PixelShader >  ps    = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_LAMBERTIAN, cps.get());
 
 		return CombinedShader(vs, ps);
 	}
 
 	const CombinedShader CreatePhongTSNMShader() {
-		const CompiledVertexShader cvs = CreateCompiledTransformVertexShader();
-		SharedPtr< VertexShader > vs   = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs);
+		UniquePtr< CompiledShader > cvs = CreateCompiledTransformVertexShader();
+		SharedPtr< VertexShader > vs    = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs.get());
 
-		const CompiledPixelShader cps  = CreateCompiledPhongTSNMPixelShader();
-		SharedPtr< PixelShader >  ps   = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_PHONG, cps);
+		UniquePtr< CompiledShader > cps = CreateCompiledPhongTSNMPixelShader();
+		SharedPtr< PixelShader >  ps    = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_PHONG, cps.get());
 
 		return CombinedShader(vs, ps);
 	}
 
 	const CombinedShader CreateModifiedPhongTSNMShader() {
-		const CompiledVertexShader cvs = CreateCompiledTransformVertexShader();
-		SharedPtr< VertexShader > vs   = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs);
+		UniquePtr< CompiledShader > cvs = CreateCompiledTransformVertexShader();
+		SharedPtr< VertexShader > vs    = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs.get());
 
-		const CompiledPixelShader cps  = CreateCompiledModifiedPhongTSNMPixelShader();
-		SharedPtr< PixelShader >  ps   = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_MODIFIED_PHONG, cps);
+		UniquePtr< CompiledShader > cps = CreateCompiledModifiedPhongTSNMPixelShader();
+		SharedPtr< PixelShader >  ps    = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_MODIFIED_PHONG, cps.get());
 
 		return CombinedShader(vs, ps);
 	}
 
 	const CombinedShader CreateBlinnPhongTSNMShader() {
-		const CompiledVertexShader cvs = CreateCompiledTransformVertexShader();
-		SharedPtr< VertexShader > vs   = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs);
+		UniquePtr< CompiledShader > cvs = CreateCompiledTransformVertexShader();
+		SharedPtr< VertexShader > vs    = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs.get());
 
-		const CompiledPixelShader cps  = CreateCompiledBlinnPhongTSNMPixelShader();
-		SharedPtr< PixelShader >  ps   = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_BLINN_PHONG, cps);
+		UniquePtr< CompiledShader > cps = CreateCompiledBlinnPhongTSNMPixelShader();
+		SharedPtr< PixelShader >  ps    = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_BLINN_PHONG, cps.get());
 
 		return CombinedShader(vs, ps);
 	}
 
 	const CombinedShader CreateModifiedBlinnPhongTSNMShader() {
-		const CompiledVertexShader cvs = CreateCompiledTransformVertexShader();
-		SharedPtr< VertexShader > vs   = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs);
+		UniquePtr< CompiledShader > cvs = CreateCompiledTransformVertexShader();
+		SharedPtr< VertexShader > vs    = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs.get());
 
-		const CompiledPixelShader cps  = CreateCompiledModifiedBlinnPhongTSNMPixelShader();
-		SharedPtr< PixelShader >  ps   = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_MODIFIED_BLINN_PHONG, cps);
+		UniquePtr< CompiledShader > cps = CreateCompiledModifiedBlinnPhongTSNMPixelShader();
+		SharedPtr< PixelShader >  ps    = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_MODIFIED_BLINN_PHONG, cps.get());
 
 		return CombinedShader(vs, ps);
 	}
 
 	const CombinedShader CreateWardTSNMShader() {
-		const CompiledVertexShader cvs = CreateCompiledTransformVertexShader();
-		SharedPtr< VertexShader > vs   = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs);
+		UniquePtr< CompiledShader > cvs = CreateCompiledTransformVertexShader();
+		SharedPtr< VertexShader > vs    = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs.get());
 
-		const CompiledPixelShader cps  = CreateCompiledWardTSNMPixelShader();
-		SharedPtr< PixelShader >  ps   = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_WARD, cps);
+		UniquePtr< CompiledShader > cps = CreateCompiledWardTSNMPixelShader();
+		SharedPtr< PixelShader >  ps    = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_WARD, cps.get());
 
 		return CombinedShader(vs, ps);
 	}
 
 	const CombinedShader CreateWardDuerTSNMShader() {
-		const CompiledVertexShader cvs = CreateCompiledTransformVertexShader();
-		SharedPtr< VertexShader > vs   = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs);
+		UniquePtr< CompiledShader > cvs = CreateCompiledTransformVertexShader();
+		SharedPtr< VertexShader > vs    = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs.get());
 
-		const CompiledPixelShader cps  = CreateCompiledWardDuerTSNMPixelShader();
-		SharedPtr< PixelShader >  ps   = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_WARD_DUER, cps);
+		UniquePtr< CompiledShader > cps = CreateCompiledWardDuerTSNMPixelShader();
+		SharedPtr< PixelShader >  ps    = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_WARD_DUER, cps.get());
 
 		return CombinedShader(vs, ps);
 	}
 
 	const CombinedShader CreateCookTorranceTSNMShader() {
-		const CompiledVertexShader cvs = CreateCompiledTransformVertexShader();
-		SharedPtr< VertexShader > vs   = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs);
+		UniquePtr< CompiledShader > cvs = CreateCompiledTransformVertexShader();
+		SharedPtr< VertexShader > vs    = GetOrCreateBasicVertexShader(MAGE_GUID_VS_TRANSFORM, cvs.get());
 
-		const CompiledPixelShader cps  = CreateCompiledCookTorranceTSNMPixelShader();
-		SharedPtr< PixelShader >  ps   = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_COOK_TORRANCE, cps);
+		UniquePtr< CompiledShader > cps = CreateCompiledCookTorranceTSNMPixelShader();
+		SharedPtr< PixelShader >  ps    = GetOrCreateTSNMPixelShader(MAGE_GUID_PS_TSNM_COOK_TORRANCE, cps.get());
 
 		return CombinedShader(vs, ps);
 	}

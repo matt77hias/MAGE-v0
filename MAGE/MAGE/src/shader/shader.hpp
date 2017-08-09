@@ -125,61 +125,14 @@ namespace mage {
 		 Constructs a vertex shader.
 
 		 @pre			The current engine must be loaded.
-		 @pre			@a input_element_desc is not equal to @c nullptr.
-		 @pre			The array pointed to by @a input_element_desc
-						contains @a nb_input_elements elements.
-		 @param[in]		fname
-						A reference to the filename
-						(the globally unique identifier).
-		 @param[in]		input_element_desc
-						A pointer the input element descriptors.
-		 @param[in]		nb_input_elements
-						The number of elements contained in the
-						given input element descriptor.
-		 @throws		FormattedException
-						Failed to initialize this vertex shader.
-		 */
-		explicit VertexShader(const wstring &fname,
-			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
-
-		/**
-		 Constructs a vertex shader.
-
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a input_element_desc is not equal to @c nullptr.
-		 @pre			The array pointed to by @a input_element_desc
-						contains @a nb_input_elements elements.
-		 @param[in]		fname
-						A reference to the filename
-						(the globally unique identifier).
-		 @param[in]		device
-						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 @param[in]		input_element_desc
-						A pointer the input element descriptors.
-		 @param[in]		nb_input_elements
-						The number of elements contained in the
-						given input element descriptor.
-		 @throws		FormattedException
-						Failed to initialize this vertex shader.
-		 */
-		explicit VertexShader(const wstring &fname,
-			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
-		
-		/**
-		 Constructs a vertex shader.
-
-		 @pre			The current engine must be loaded.
+		 @pre			@a compiled_shader is not equal to @c nullptr.
 		 @pre			@a input_element_desc is not equal to @c nullptr.
 		 @pre			The array pointed to by @a input_element_desc
 						contains @a nb_input_elements elements.
 		 @param[in]		guid
 						A reference to the globally unique identifier.
-		 @param[in]		compiled_vertex_shader
-						A reference to the compiled vertex shader.
+		 @param[in]		compiled_shader
+						A pointer to the compiled vertex shader.
 		 @param[in]		input_element_desc
 						A pointer the input element descriptors.
 		 @param[in]		nb_input_elements
@@ -189,7 +142,7 @@ namespace mage {
 						Failed to initialize this vertex shader.
 		 */
 		explicit VertexShader(const wstring &guid,
-			const CompiledVertexShader &compiled_vertex_shader,
+			const CompiledShader *compiled_shader,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 
 		/**
@@ -197,6 +150,7 @@ namespace mage {
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@a compiled_shader is not equal to @c nullptr.
 		 @pre			@a input_element_desc is not equal to @c nullptr.
 		 @pre			The array pointed to by @a input_element_desc
 						contains @a nb_input_elements elements.
@@ -206,8 +160,8 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		compiled_vertex_shader
-						A reference to the compiled vertex shader.
+		 @param[in]		compiled_shader
+						A pointer to the compiled vertex shader.
 		 @param[in]		input_element_desc
 						A pointer the input element descriptors.
 		 @param[in]		nb_input_elements
@@ -218,7 +172,7 @@ namespace mage {
 		*/
 		explicit VertexShader(const wstring &guid,
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const CompiledVertexShader &compiled_vertex_shader, 
+			const CompiledShader *compiled_shader, 
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 		
 		/**
@@ -314,11 +268,12 @@ namespace mage {
 		/**
 		 Sets up this vertex shader.
 
+		 @pre			@a compiled_shader is not equal to @c nullptr.
 		 @pre			@a input_element_desc is not equal to @c nullptr.
 		 @pre			The array pointed to by @a input_element_desc
 						contains @a nb_input_elements elements.
-		 @param[in]		compiled_vertex_shader
-						A reference to the compiled vertex shader.
+		 @param[in]		compiled_shader
+						A pointer to the compiled vertex shader.
 		 @param[in]		input_element_desc
 						A pointer the input element descriptors.
 		 @param[in]		nb_input_elements
@@ -327,7 +282,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to setup this vertex shader.
 		 */
-		void SetupShader(const CompiledVertexShader &compiled_vertex_shader,
+		void SetupShader(const CompiledShader *compiled_shader,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, uint32_t nb_input_elements);
 	};
 
@@ -350,65 +305,37 @@ namespace mage {
 		 Constructs a pixel shader.
 
 		 @pre			The current engine must be loaded.
-		 @param[in]		fname
-						A reference to the filename
-						(the globally unique identifier).
-		 @throws		FormattedException
-						Failed to initialize this pixel shader.
-		 */
-		explicit PixelShader(const wstring &fname);
-
-		/**
-		 Constructs a pixel shader.
-
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		fname
-						A reference to the filename
-						(the globally unique identifier).
-		 @param[in]		device
-						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 @throws		FormattedException
-						Failed to initialize this pixel shader.
-		 */
-		explicit PixelShader(const wstring &fname,
-			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
-
-		/**
-		 Constructs a pixel shader.
-
-		 @pre			The current engine must be loaded.
+		 @pre			@a compiled_shader is not equal to @c nullptr.
 		 @param[in]		guid
 						A reference to the globally unique identifier.
-		 @param[in]		compiled_pixel_shader
-						A reference to the compiled pixel shader.
+		 @param[in]		compiled_shader
+						A pointer to the compiled pixel shader.
 		 @throws		FormattedException
 						Failed to initialize this pixel shader.
 		 */
 		explicit PixelShader(const wstring &guid, 
-			const CompiledPixelShader &compiled_pixel_shader);
+			const CompiledShader *compiled_shader);
 
 		/**
 		 Constructs a pixel shader.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@a compiled_shader is not equal to @c nullptr.
 		 @param[in]		guid
 						A reference to the globally unique identifier.
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		compiled_pixel_shader
-						A reference to the compiled pixel shader.
+		 @param[in]		compiled_shader
+						A pointer to the compiled pixel shader.
 		 @throws		FormattedException
 						Failed to initialize this pixel shader.
 		 */
 		explicit PixelShader(const wstring &guid,
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const CompiledPixelShader &compiled_pixel_shader);
+			const CompiledShader *compiled_shader);
 		
 		/**
 		 Constructs a pixel shader from the given pixel shader.
@@ -508,12 +435,13 @@ namespace mage {
 		/**
 		 Sets up this pixel shader.
 
-		 @param[in]		compiled_pixel_shader
-						A reference to the compiled pixel shader.
+		 @pre			@a compiled_shader is not equal to @c nullptr.
+		 @param[in]		compiled_shader
+						A pointer to the compiled pixel shader.
 		 @throws		FormattedException
 						Failed to setup this pixel shader.
 		 */
-		void SetupShader(const CompiledPixelShader &compiled_pixel_shader);
+		void SetupShader(const CompiledShader *compiled_shader);
 	};
 
 	//-------------------------------------------------------------------------

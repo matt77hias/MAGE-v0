@@ -196,9 +196,8 @@ namespace mage {
 
 		// Update scene constant buffer.
 		SceneBuffer scene_buffer;
-		scene_buffer.m_fog_color = m_scene_fog->GetIntensity();
-		scene_buffer.m_fog_distance_falloff_start = m_scene_fog->GetStartDistanceFalloff();
-		scene_buffer.m_fog_distance_falloff_range = m_scene_fog->GetRangeDistanceFalloff();
+		scene_buffer.m_fog_distance_falloff_start = FLT_MAX;
+		scene_buffer.m_fog_distance_falloff_range = FLT_MAX;
 
 		m_scene_buffer.UpdateData(scene_buffer);
 

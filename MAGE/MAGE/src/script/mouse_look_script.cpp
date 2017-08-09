@@ -33,7 +33,7 @@ namespace mage {
 	MouseLookScript::~MouseLookScript() = default;
 
 	void MouseLookScript::Update(double delta_time) {
-		const Mouse * const mouse = g_engine->GetInputManager()->GetMouse();
+		const Mouse * const mouse = GetMouse();
 
 		switch (m_axes) {
 

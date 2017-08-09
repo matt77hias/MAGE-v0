@@ -101,7 +101,7 @@ namespace mage {
 	void BRDFScript::Update(double time) {
 		UNUSED(time);
 		
-		const Keyboard * const keyboard = g_engine->GetInputManager()->GetKeyboard();
+		const Keyboard * const keyboard = GetKeyboard();
 
 		// Switch model.
 		if (keyboard->GetKeyPress(DIK_UP, false)) {

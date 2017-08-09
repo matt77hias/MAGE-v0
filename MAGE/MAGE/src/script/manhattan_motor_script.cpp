@@ -21,7 +21,7 @@ namespace mage {
 	ManhattanMotorScript::~ManhattanMotorScript() = default;
 
 	void ManhattanMotorScript::Update(double delta_time) {
-		const Keyboard * const keyboard = g_engine->GetInputManager()->GetKeyboard();
+		const Keyboard * const keyboard = GetKeyboard();
 
 		const double movement_magnitude = delta_time * m_velocity;
 

@@ -23,7 +23,7 @@ namespace mage {
 	void WireframeScript::Update(double delta_time) {
 		UNUSED(delta_time);
 		
-		const Keyboard * const keyboard = g_engine->GetInputManager()->GetKeyboard();
+		const Keyboard * const keyboard = GetKeyboard();
 		if (keyboard->GetKeyPress(DIK_SPACE)) {
 			m_solid = !m_solid;
 			

@@ -825,6 +825,9 @@
     <ClInclude Include="MAGE\src\core\engine_statistics.hpp">
       <Filter>Header Files\core</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\platform\windows_utils.hpp">
+      <Filter>Header Files\platform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1340,6 +1343,9 @@
     </None>
     <None Include="MAGE\src\resource\resource_manager.tpp">
       <Filter>Header Files\resource</Filter>
+    </None>
+    <None Include="MAGE\src\platform\windows_utils.tpp">
+      <Filter>Header Files\platform</Filter>
     </None>
   </ItemGroup>
 </Project>

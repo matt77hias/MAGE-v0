@@ -6,6 +6,7 @@
 #include "core\engine.hpp"
 #include "rendering\rendering_utils.hpp"
 #include "rendering\graphics_settings.hpp"
+#include "platform\windows_utils.hpp"
 #include "ui\combo_box.hpp"
 #include "file\file_utils.hpp"
 #include "logging\error.hpp"
@@ -33,25 +34,8 @@ namespace mage {
 	INT_PTR CALLBACK DeviceEnumeration::SettingsDialogProcDelegate(
 		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
-		return const_cast< DeviceEnumeration * >(GetDeviceEnumeration())->SettingsDialogProc(hwndDlg, uMsg, wParam, lParam);
-
-		if (WM_NCCREATE == uMsg) {
-			const LONG_PTR replacement_value = (LONG_PTR)((CREATESTRUCT *)lParam)->lpCreateParams;
-
-			// Changes an attribute of the specified window.
-			// 1. A handle to the window and, indirectly, the class to which the window belongs.
-			// 2. Sets the user data associated with the window.
-			// 3. The replacement value.
-			SetWindowLongPtr(hwndDlg, GWLP_USERDATA, replacement_value);
-			
-			return TRUE;
-		}
-
-		// Retrieves information about the specified window.
-		// 1. A handle to the window and, indirectly, the class to which the window belongs.
-		// 2. Retrieves the user data associated with the window.
-		DeviceEnumeration * const device_enumeration = ((DeviceEnumeration *)GetWindowLongPtr(hwndDlg, GWLP_USERDATA));
-
+		DeviceEnumeration * const device_enumeration 
+			= GetDialogCaller< DeviceEnumeration >(hwndDlg, uMsg, wParam, lParam);
 		return device_enumeration->SettingsDialogProc(hwndDlg, uMsg, wParam, lParam);
 	}
 
@@ -97,7 +81,9 @@ namespace mage {
 		// 2. The dialog box template.
 		// 3. A handle to the window that owns the dialog box.
 		// 4. A pointer to the dialog box procedure.
-		const INT_PTR result_dialog = DialogBox(nullptr, MAKEINTRESOURCE(IDD_GRAPHICS_SETTINGS), nullptr, SettingsDialogProcDelegate);
+		// 5. The value to pass to the dialog box in the lParam parameter of the WM_INITDIALOG message.
+		const INT_PTR result_dialog = DialogBoxParam(nullptr, MAKEINTRESOURCE(IDD_GRAPHICS_SETTINGS), 
+			nullptr, SettingsDialogProcDelegate, reinterpret_cast< LPARAM >(this));
 		return (result_dialog == IDOK) ? S_OK : E_FAIL;
 	}
 

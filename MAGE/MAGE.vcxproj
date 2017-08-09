@@ -106,6 +106,7 @@
     <ClInclude Include="MAGE\src\parallel\lock.hpp" />
     <ClInclude Include="MAGE\src\parallel\parallel.hpp" />
     <ClInclude Include="MAGE\src\platform\windows.hpp" />
+    <ClInclude Include="MAGE\src\platform\windows_utils.hpp" />
     <ClInclude Include="MAGE\src\rendering\constant_buffer.hpp" />
     <ClInclude Include="MAGE\src\rendering\device_enumeration.hpp" />
     <ClInclude Include="MAGE\src\rendering\graphics_settings.hpp" />
@@ -1404,6 +1405,7 @@
     <None Include="MAGE\src\model\model_loader.tpp" />
     <None Include="MAGE\src\model\model_node.tpp" />
     <None Include="MAGE\src\model\model_output.tpp" />
+    <None Include="MAGE\src\platform\windows_utils.tpp" />
     <None Include="MAGE\src\rendering\constant_buffer.tpp" />
     <None Include="MAGE\src\rendering\rendering_factory.tpp" />
     <None Include="MAGE\src\rendering\structured_buffer.tpp" />

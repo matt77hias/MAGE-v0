@@ -1,8 +1,6 @@
 ## Current iteration' TODOs
-* Frustum culling
 * Collision detection
-* Optional MSAA
-* Transparency
+* Optional MSAA (and alpha-to-coverage?)
 * Shadow Mapping
 * Deferred Rendering
 

@@ -185,7 +185,7 @@ namespace mage {
 			m_engine_stats->PrepareRendering();
 			m_renderer->BeginFrame();
 			m_renderer->PrepareRendering3D();
-			//m_scene->Render3D();
+			m_scene->Render3D();
 			m_scene->RenderBoundingBoxes();
 			m_renderer->PrepareRendering2D();
 			m_scene->Render2D();

@@ -24,15 +24,14 @@ namespace mage {
 		m_omni_lights_buffer(64), m_spot_lights_buffer(64) {
 		
 		//TODO
-		Material box_material("_aabb");
-		box_material.SetDiffuseReflectivityTexture(CreateWhiteTexture());
-		box_material.SetDiffuseReflectivity(RGBSpectrum(1.0f, 1.0f, 1.0f));
+		Material box_material("_mat_aabb");
+		SharedPtr< Texture > white = CreateWhiteTexture();
+		box_material.SetDiffuseReflectivityTexture(white);
+		box_material.SetDiffuseReflectivity(RGBSpectrum(0.0f, 1.0f, 0.0f));
 		const ShadedMaterial box_shaded_material(box_material, BRDFType::Emissive);
 
 		SharedPtr< const StaticMesh > box_mesh = CreateLineCube();
-		m_box = std::make_shared< ModelNode >("_aabb", box_mesh, box_shaded_material);
-
-		int k = 0;
+		m_box = std::make_shared< ModelNode >("_mdl_aabb", box_mesh, box_shaded_material);
 	}
 
 	Scene::~Scene() {
@@ -194,6 +193,19 @@ namespace mage {
 	}
 
 	void Scene::RenderBoundingBoxes() const {
+
+		// Update scene constant buffer.
+		SceneBuffer scene_buffer;
+		scene_buffer.m_fog_color = m_scene_fog->GetIntensity();
+		scene_buffer.m_fog_distance_falloff_start = m_scene_fog->GetStartDistanceFalloff();
+		scene_buffer.m_fog_distance_falloff_range = m_scene_fog->GetRangeDistanceFalloff();
+
+		m_scene_buffer.UpdateData(scene_buffer);
+
+		// Create lighting buffer.
+		SceneInfo scene_info;
+		scene_info.m_scene_buffer = m_scene_buffer.Get();
+
 		const XMMATRIX world_to_view       = m_camera->GetTransform()->GetWorldToViewMatrix();
 		const XMMATRIX view_to_world       = m_camera->GetTransform()->GetViewToWorldMatrix();
 		const XMMATRIX view_to_projection  = m_camera->GetCamera()->GetViewToProjectionMatrix();
@@ -203,7 +215,7 @@ namespace mage {
 		TransformBuffer transform_buffer(world_to_view, view_to_projection);
 
 		// Render models.
-		ForEachModel([this, &transform_buffer, 
+		ForEachModel([this, &transform_buffer, &scene_info,
 			&view_to_world, &world_to_projection](const ModelNode &model_node) {
 			
 			if (model_node.IsPassive()) {
@@ -244,7 +256,7 @@ namespace mage {
 			// Draw bounding box.
 			const Model * const box_model = m_box->GetModel();
 			box_model->PrepareDrawing();
-			box_model->PrepareShading(m_transform_buffer.Get(), SceneInfo());
+			box_model->PrepareShading(m_transform_buffer.Get(), scene_info);
 			box_model->Draw();
 		});
 	}

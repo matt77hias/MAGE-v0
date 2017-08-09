@@ -29,7 +29,7 @@ namespace mage {
 		texture_desc.Height             = 1;
 		texture_desc.MipLevels          = 1;
 		texture_desc.ArraySize          = 1;
-		texture_desc.Format             = DXGI_FORMAT_R8G8B8A8_UNORM;
+		texture_desc.Format             = DXGI_FORMAT_B8G8R8X8_UNORM;
 		texture_desc.SampleDesc.Count   = 1;
 		texture_desc.Usage              = D3D11_USAGE_IMMUTABLE;
 		texture_desc.BindFlags          = D3D11_BIND_SHADER_RESOURCE;
@@ -63,7 +63,7 @@ namespace mage {
 	SharedPtr< Texture > CreateRedTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
-		static const uint32_t color = 0xFF0000FF;
+		static const uint32_t color = 0x0000FFFF;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
@@ -87,7 +87,7 @@ namespace mage {
 	SharedPtr< Texture > CreateBlueTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
-		static const uint32_t color = 0x0000FFFF;
+		static const uint32_t color = 0xFF0000FF;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;

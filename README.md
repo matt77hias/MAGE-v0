@@ -1,10 +1,22 @@
+<img align="left" src="res/MAGE.png" width="128px"/>
+
 # MAGE - Matthias Advanced Game Engine
 
 ## About
-<p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Example.png"></p>
+<p align="center"><img src="res/Example.png"></p>
 
-<p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Lambertian.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Blinn Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Modified Blinn Phong.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Cook Torrance.png" width="215"></p>
-<p align="center"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Lambertian + tsnm.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Blinn Phong + tsnm.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Modified Blinn Phong + tsnm.png" width="215"><img src="https://github.com/matt77hias/MAGE/blob/master/res/Material/Cook Torrance + tsnm.png" width="215"></p>
+<p align="center">
+<img src="res/Material/Lambertian.png" width="214">
+<img src="res/Material/Blinn Phong.png" width="214">
+<img src="res/Material/Modified Blinn Phong.png" width="214">
+<img src="res/Material/Cook Torrance.png" width="214">
+</p>
+<p align="center">
+<img src="res/Material/Lambertian + tsnm.png" width="214">
+<img src="res/Material/Blinn Phong + tsnm.png" width="214">
+<img src="res/Material/Modified Blinn Phong + tsnm.png" width="214">
+<img src="res/Material/Cook Torrance + tsnm.png" width="214">
+</p>
 
 **Provides**: input handling for keyboard and mouse, scripting functionality and standard scripts, resource management (shaders, textures, fonts, models, variables scripts, etc.), sprite rendering (image, text, etc.), scene hierarchies, multiple cameras/lights/models, multiple materials and shaders (Diffuse, Lambertian BRDF, Phong BRDF, Modified Phong BRDF, Blinn-Phong BRDF, Modified Blinn-Phong BRDF, Ward BRDF, Ward-Duer BRDF, Cook-Torrance BRDF, all with or without tangent or object space normal mapping), dynamic and multiple lights (ambient, directional, omni and spotlights) lighting, single layer of transparency, configurable display modes, non-hierarchical view frustum culling, switching between windowed and full screen mode, .MDL (model)/ .MSH (mesh)/ .OBJ (model/mesh)/ .MTL (material)/ .DDS (texture)/ .SPRITEFONT (font)/ .VS (variable script) loaders.
 
@@ -32,11 +44,11 @@
 5. Have fun!
 
 ## Index
-* [Codebase](https://github.com/matt77hias/MAGE/blob/master/meta/codebase.md)
-* [Code Guidelines](https://github.com/matt77hias/MAGE/blob/master/meta/code-guidelines.md)
+* [Codebase](meta/codebase.md)
+* [Code Guidelines](meta/code-guidelines.md)
 * [Documentation](https://matt77hias.github.io/MAGE-Doc/MAGE-Doc/html/index.html)
-* [File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
-* [Iterations](https://github.com/matt77hias/MAGE/blob/master/meta/iterations.md)
-* [Standard Scripts](https://github.com/matt77hias/MAGE/blob/master/meta/standard-scripts.md)
+* [File Formats](meta/file-formats.md)
+* [Iterations](meta/iterations.md)
+* [Standard Scripts](meta/standard-scripts.md)
 
 <p align="center">Copyright © 2016-2017 Matthias Moulin. All Rights Reserved.</p>

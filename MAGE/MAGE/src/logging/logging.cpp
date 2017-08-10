@@ -14,6 +14,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	LoggingConfiguration LoggingConfiguration::s_logging_configuration;
+
 	uint16_t ConsoleWidth() {
 		// Retrieve a handle to the standard output device.
 		const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);

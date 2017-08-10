@@ -120,7 +120,7 @@ namespace mage {
 
 	void Debug(const char *format, ...) {
 #ifdef _DEBUG
-		if (!g_logging_configuration.IsVerbose() || g_logging_configuration.IsQuiet()) {
+		if (!LoggingConfiguration::Get()->IsVerbose() || LoggingConfiguration::Get()->IsQuiet()) {
 			// Do not process info in non-verbose mode.
 			// Do not process info in quiet mode.
 			return;
@@ -140,7 +140,7 @@ namespace mage {
 	}
 
 	void Info(const char *format, ...) {
-		if (!g_logging_configuration.IsVerbose() || g_logging_configuration.IsQuiet()) {
+		if (!LoggingConfiguration::Get()->IsVerbose() || LoggingConfiguration::Get()->IsQuiet()) {
 			// Do not process info in non-verbose mode.
 			// Do not process info in quiet mode.
 			return;
@@ -158,7 +158,7 @@ namespace mage {
 	}
 
 	void Warning(const char *format, ...) {
-		if (g_logging_configuration.IsQuiet()) {
+		if (LoggingConfiguration::Get()->IsQuiet()) {
 			// Do not process warning in quiet mode.
 			return;
 		}

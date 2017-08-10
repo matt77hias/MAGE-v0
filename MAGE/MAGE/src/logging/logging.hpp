@@ -22,6 +22,19 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the global logging configuration.
+
+		 @return		A pointer to the global logging configuration.
+		 */
+		static LoggingConfiguration *Get() noexcept {
+			return &s_logging_configuration;
+		}
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -108,6 +121,15 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The global logging configuration.
+		 */
+		static LoggingConfiguration s_logging_configuration;
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
@@ -121,11 +143,6 @@ namespace mage {
 		 */
 		bool m_verbose;
 	};
-
-	/**
-	 The logging configuration defined by the user and used by the engine.
-	 */
-	extern LoggingConfiguration g_logging_configuration;
 
 	/**
 	 Returns the fixed console width.

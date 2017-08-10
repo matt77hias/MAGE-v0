@@ -17,10 +17,10 @@ namespace mage {
 	
 	const CombinedShader CreateSpriteShader() {
 		UniquePtr< CompiledShader > cvs = CreateCompiledSpriteVertexShader();
-		SharedPtr< VertexShader > vs    = GetOrCreateSpriteVertexShader(MAGE_GUID_VS_SPRITE, cvs.get());
+		SharedPtr< VertexShader > vs    = ResourceManager::Get()->GetOrCreateSpriteVertexShader(MAGE_GUID_VS_SPRITE, cvs.get());
 
 		UniquePtr< CompiledShader > cps = CreateCompiledSpritePixelShader();
-		SharedPtr< PixelShader >  ps    = GetOrCreateSpritePixelShader(MAGE_GUID_PS_SPRITE, cps.get());
+		SharedPtr< PixelShader >  ps    = ResourceManager::Get()->GetOrCreateSpritePixelShader(MAGE_GUID_PS_SPRITE, cps.get());
 
 		return CombinedShader(vs, ps);
 	}

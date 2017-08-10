@@ -50,13 +50,20 @@ namespace mage {
 		// ModelDescriptors
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc_teapot   = GetOrCreateModelDescriptor(L"assets/models/teapot/teapot.mdl",     mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_cone     = GetOrCreateModelDescriptor(L"assets/models/cone/cone.mdl",         mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_cube     = GetOrCreateModelDescriptor(L"assets/models/cube/cube.mdl",         mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_cylinder = GetOrCreateModelDescriptor(L"assets/models/cylinder/cylinder.mdl", mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_plane    = GetOrCreateModelDescriptor(L"assets/models/plane/plane.mdl",       mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_sphere   = GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.mdl",     mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_torus    = GetOrCreateModelDescriptor(L"assets/models/torus/torus.mdl",       mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_teapot 
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/teapot/teapot.mdl",     mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_cone 
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cone/cone.mdl",         mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_cube 
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cube/cube.mdl",         mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_cylinder 
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cylinder/cylinder.mdl", mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_plane 
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/plane/plane.mdl",       mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_sphere 
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.mdl",     mesh_desc);
+		SharedPtr< ModelDescriptor > model_desc_torus 
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/torus/torus.mdl",       mesh_desc);
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
@@ -86,7 +93,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Texture
 		//---------------------------------------------------------------------
-		SharedPtr< Texture > texture_logo = GetOrCreateTexture(L"assets/sprites/mage.dds");
+		SharedPtr< Texture > texture_logo = 
+			ResourceManager::Get()->GetOrCreateTexture(L"assets/sprites/mage.dds");
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
@@ -98,7 +106,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Font
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteFont > font = GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
+		SharedPtr< SpriteFont > font = 
+			ResourceManager::Get()->GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------

@@ -16,6 +16,13 @@ namespace mage {
 	// ResourceManager
 	//-------------------------------------------------------------------------
 	
+	ResourceManager *ResourceManager::Get() noexcept {
+		Assert(Engine::Get());
+		Assert(Engine::Get()->IsLoaded());
+
+		return Engine::Get()->GetResourceManager();
+	}
+
 	ResourceManager::ResourceManager()
 		: m_model_descriptor_resource_pool(std::make_unique< ResourcePool< wstring, ModelDescriptor > >()),
 		m_vertex_shader_resource_pool(std::make_unique< ResourcePool< wstring, VertexShader > >()),
@@ -36,7 +43,7 @@ namespace mage {
 	}
 
 	//---------------------------------------------------------------------
-	// ResourceManager: GetModelDescriptor
+	// ResourceManager: HasResource
 	//---------------------------------------------------------------------
 
 	bool ResourceManager::HasModelDescriptor(const wstring &guid) noexcept {
@@ -80,7 +87,7 @@ namespace mage {
 	}
 		
 	//---------------------------------------------------------------------
-	// ResourceManager: GetModelDescriptor
+	// ResourceManager: GetResource
 	//---------------------------------------------------------------------
 
 	SharedPtr< ModelDescriptor > ResourceManager::GetModelDescriptor(const wstring &guid) noexcept {
@@ -121,104 +128,5 @@ namespace mage {
 	
 	SharedPtr< VariableScript > ResourceManager::GetVariableScript(const wstring &guid) noexcept {
 		return m_variable_script_resource_pool->GetResource(guid);
-	}
-	
-	//---------------------------------------------------------------------
-	// Indirect HasResource Methods
-	//---------------------------------------------------------------------
-
-	bool HasModelDescriptor(const wstring &guid) noexcept {
-		return GetResourceManager()->HasModelDescriptor(guid);
-	}
-	
-	bool HasBasicVertexShader(const wstring &guid) noexcept {
-		return GetResourceManager()->HasBasicVertexShader(guid);
-	}
-	
-	bool HasBasicPixelShader(const wstring &guid) noexcept {
-		return GetResourceManager()->HasBasicPixelShader(guid);
-	}
-
-	bool HasTSNMVertexShader(const wstring &guid) noexcept {
-		return GetResourceManager()->HasTSNMVertexShader(guid);
-	}
-
-	bool HasTSNMPixelShader(const wstring &guid) noexcept {
-		return GetResourceManager()->HasTSNMPixelShader(guid);
-	}
-	
-	bool HasSpriteVertexShader(const wstring &guid) noexcept {
-		return GetResourceManager()->HasSpriteVertexShader(guid);
-	}
-	
-	bool HasSpritePixelShader(const wstring &guid) noexcept {
-		return GetResourceManager()->HasSpritePixelShader(guid);
-	}
-	
-	bool HasSpriteFont(const wstring &guid) noexcept {
-		return GetResourceManager()->HasSpriteFont(guid);
-	}
-	
-	bool HasTexture(const wstring &guid) noexcept {
-		return GetResourceManager()->HasTexture(guid);
-	}
-	
-	bool HasVariableScript(const wstring &guid) noexcept {
-		return GetResourceManager()->HasVariableScript(guid);
-	}
-	
-	//---------------------------------------------------------------------
-	// Indirect GetResource Methods
-	//---------------------------------------------------------------------
-
-	SharedPtr< ModelDescriptor > GetModelDescriptor(const wstring &guid) noexcept {
-		return GetResourceManager()->GetModelDescriptor(guid);
-	}
-	
-	SharedPtr< VertexShader > GetBasicVertexShader(const wstring &guid) noexcept {
-		return GetResourceManager()->GetBasicVertexShader(guid);
-	}
-	
-	SharedPtr< PixelShader > GetBasicPixelShader(const wstring &guid) noexcept {
-		return GetResourceManager()->GetBasicPixelShader(guid);
-	}
-
-	SharedPtr< VertexShader > GetTSNMVertexShader(const wstring &guid) noexcept {
-		return GetResourceManager()->GetTSNMVertexShader(guid);
-	}
-
-	SharedPtr< PixelShader > GetTSNMPixelShader(const wstring &guid) noexcept {
-		return GetResourceManager()->GetTSNMPixelShader(guid);
-	}
-	
-	SharedPtr< VertexShader > GetSpriteVertexShader(const wstring &guid) noexcept {
-		return GetResourceManager()->GetSpriteVertexShader(guid);
-	}
-	
-	SharedPtr< PixelShader > GetSpritePixelShader(const wstring &guid) noexcept {
-		return GetResourceManager()->GetSpritePixelShader(guid);
-	}
-	
-	SharedPtr< SpriteFont > GetSpriteFont(const wstring &guid) noexcept {
-		return GetResourceManager()->GetSpriteFont(guid);
-	}
-	
-	SharedPtr< Texture > GetTexture(const wstring &guid) noexcept {
-		return GetResourceManager()->GetTexture(guid);
-	}
-	
-	SharedPtr< VariableScript > GetVariableScript(const wstring &guid) noexcept {
-		return GetResourceManager()->GetVariableScript(guid);
-	}
-	
-	//---------------------------------------------------------------------
-	// GetResourceManager
-	//---------------------------------------------------------------------
-	
-	ResourceManager *GetResourceManager() noexcept {
-		Assert(Engine::Get());
-		Assert(Engine::Get()->IsLoaded());
-
-		return Engine::Get()->GetResourceManager();
 	}
 }

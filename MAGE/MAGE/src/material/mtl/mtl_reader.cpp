@@ -212,7 +212,7 @@ namespace mage {
 		const wstring texture_path = mage::GetPathName(GetFilename());
 		const wstring texture_name = str_convert(ReadString());
 		const wstring texture_fname = mage::GetFilename(texture_path, texture_name);
-		return GetOrCreateTexture(texture_fname);
+		return ResourceManager::Get()->GetOrCreateTexture(texture_fname);
 	}
 
 	void MTLReader::ReadMTLIlluminationModel() {

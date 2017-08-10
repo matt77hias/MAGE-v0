@@ -43,7 +43,7 @@ namespace mage {
 		 @return		A pointer to the current engine.
 		 */
 		static Engine *Get() noexcept {
-			return s_engine.get();
+			return s_engine;
 		}
 
 		//---------------------------------------------------------------------
@@ -238,7 +238,7 @@ namespace mage {
 		/**
 		 A pointer to the global engine.
 		 */
-		static UniquePtr< Engine > s_engine;
+		static Engine *s_engine;
 
 		//---------------------------------------------------------------------
 		// Member Methods

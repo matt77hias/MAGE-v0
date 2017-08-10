@@ -21,7 +21,7 @@ namespace mage {
 	// Engine
 	//-------------------------------------------------------------------------
 	
-	UniquePtr< Engine > Engine::s_engine;
+	Engine *Engine::s_engine = nullptr;
 
 	Engine::Engine(const EngineSetup &setup) 
 		: Loadable(), m_device_enumeration(),
@@ -31,7 +31,7 @@ namespace mage {
 		m_scene(), m_timer(std::make_unique< Timer >()),
 		m_engine_stats(std::make_unique< EngineStatistics >()) {
 
-		s_engine.reset(this);
+		s_engine = this;
 
 		// Initialize the systems of this engine.
 		InitializeSystems(setup);
@@ -50,6 +50,8 @@ namespace mage {
 
 		// Uninitialize the COM.
 		CoUninitialize();
+
+		s_engine = nullptr;
 	}
 
 	void Engine::InitializeSystems(const EngineSetup &setup) {

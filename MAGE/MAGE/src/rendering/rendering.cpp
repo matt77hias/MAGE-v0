@@ -36,22 +36,12 @@ extern "C" {
 namespace mage {
 	
 	ID3D11Device2 *GetRenderingDevice() noexcept {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
-
-		const Renderer * const renderer = g_engine->GetRenderer();
-		Assert(renderer);
-
-		return renderer->GetDevice();
+		Assert(Renderer::Get());
+		return Renderer::Get()->GetDevice();
 	}
 
 	ID3D11DeviceContext2 *GetRenderingDeviceContext() noexcept {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
-
-		const Renderer * const renderer = g_engine->GetRenderer();
-		Assert(renderer);
-
-		return renderer->GetDeviceContext();
+		Assert(Renderer::Get());
+		return Renderer::Get()->GetDeviceContext();
 	}
 }

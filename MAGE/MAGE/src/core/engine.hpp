@@ -128,7 +128,7 @@ namespace mage {
 		 @return		@c nullptr if this engine is not properly setup.
 		 @return		A pointer to the main window of this engine.
 		 */
-		const MainWindow *GetMainWindow() const noexcept {
+		MainWindow *GetMainWindow() const noexcept {
 			return m_main_window.get();
 		}
 		

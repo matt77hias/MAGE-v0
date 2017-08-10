@@ -22,6 +22,19 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the engine statistics associated with the current engine.
+
+		 @pre			The current engine must be loaded.
+		 @return		A pointer to the engine statistics associated
+						with the current engine.
+		 */
+		static EngineStatistics *Get() noexcept;
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -117,13 +130,4 @@ namespace mage {
 		 */
 		uint32_t m_nb_draw_calls;
 	};
-
-	/**
-	 Returns the engine statistics associated with the current engine.
-
-	 @pre			The current engine must be loaded.
-	 @return		A pointer to the engine statistics associated 
-					with the current engine.
-	 */
-	EngineStatistics *GetEngineStatistics() noexcept;
 }

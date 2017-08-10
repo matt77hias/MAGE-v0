@@ -21,7 +21,7 @@ namespace mage {
 	CharacterMotorScript::~CharacterMotorScript() = default;
 
 	void CharacterMotorScript::Update(double delta_time) {
-		const Keyboard * const keyboard = GetKeyboard();
+		const Keyboard * const keyboard = Keyboard::Get();
 		
 		const double movement_magnitude = delta_time * m_velocity;
 		const double movement_cos = cos(m_transform->GetRotationY()) * movement_magnitude;

@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	EngineStatistics *GetEngineStatistics() noexcept {
+	EngineStatistics *EngineStatistics::Get() noexcept {
 		Assert(g_engine);
 		Assert(g_engine->IsLoaded());
 

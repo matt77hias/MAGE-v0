@@ -24,28 +24,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	//-------------------------------------------------------------------------
-	// WindowProc for handling Windows messages.
-	//-------------------------------------------------------------------------
+	MainWindow *MainWindow::Get() noexcept {
+		Assert(g_engine);
+		Assert(g_engine->IsLoaded());
 
-	/**
-	 The application-defined function that processes messages sent to the engine window.
-	 The WindowProc type defines a pointer to this callback function.
+		return g_engine->GetMainWindow();
+	}
 
-	 @param[in]		hWnd
-					A handle to the window.
-	 @param[in]		msg
-					The message.
-	 @param[in]		wParam
-					Additional message information.
-					The contents of this parameter depend on the value of @a msg.
-	 @param[in]		lParam
-					Additional message information.
-					The contents of this parameter depend on the value of @a msg.
-	 @return		The return value is the result of the message processing
-					and depends on the message sent.
-	 */
-	LRESULT CALLBACK MainWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
+	LRESULT CALLBACK MainWindow::MainWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
 		switch (msg) {
 		case WM_ACTIVATEAPP: {
 			// Sent when a window belonging to a different application 
@@ -111,10 +97,6 @@ namespace mage {
 
 		return 0;
 	}
-
-	//-------------------------------------------------------------------------
-	// MainWindow
-	//-------------------------------------------------------------------------
 
 	MainWindow::MainWindow(HINSTANCE hinstance, const wstring &title_text, LONG width, LONG height)
 		: m_hinstance(hinstance), m_hwindow(nullptr) {

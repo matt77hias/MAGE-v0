@@ -14,6 +14,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	const Keyboard *Keyboard::Get() noexcept {
+		Assert(InputManager::Get());
+		return InputManager::Get()->GetKeyboard();
+	}
+
 	Keyboard::Keyboard(HWND hwindow, IDirectInput8 *di) 
 		: m_hwindow(hwindow), m_di(di), m_keyboard(),
 		m_press_stamp(0), m_key_state{}, m_key_press_stamp{} {
@@ -91,15 +96,5 @@ namespace mage {
 
 		// Increment the press stamp.
 		++m_press_stamp;
-	}
-
-	const Keyboard *GetKeyboard() noexcept {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
-
-		const InputManager * const input_manager = g_engine->GetInputManager();
-		Assert(input_manager);
-
-		return input_manager->GetKeyboard();
 	}
 }

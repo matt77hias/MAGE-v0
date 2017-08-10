@@ -124,8 +124,8 @@ namespace mage {
 		 */
 		void Draw() const {
 			m_device_context->DrawIndexed(static_cast< UINT >(m_nb_indices), 0, 0);
-
-			GetEngineStatistics()->IncrementNumberOfDrawCalls();
+			
+			EngineStatistics::Get()->IncrementNumberOfDrawCalls();
 		}
 		
 		/**
@@ -138,8 +138,8 @@ namespace mage {
 		 */
 		void Draw(size_t start_index, size_t nb_indices) const {
 			m_device_context->DrawIndexed(static_cast< UINT >(nb_indices), static_cast< UINT >(start_index), 0);
-
-			GetEngineStatistics()->IncrementNumberOfDrawCalls();
+			
+			EngineStatistics::Get()->IncrementNumberOfDrawCalls();
 		}
 
 	protected:

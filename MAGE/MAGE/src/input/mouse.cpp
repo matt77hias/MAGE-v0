@@ -14,6 +14,11 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	const Mouse *Mouse::Get() noexcept {
+		Assert(InputManager::Get());
+		return InputManager::Get()->GetMouse();
+	}
+
 	Mouse::Mouse(HWND hwindow, IDirectInput8 *di) 
 		: m_hwindow(hwindow), m_di(di), m_mouse(),
 		m_press_stamp(0), m_mouse_state{}, 
@@ -97,15 +102,5 @@ namespace mage {
 
 		// Increment the press stamp.
 		++m_press_stamp;
-	}
-
-	const Mouse *GetMouse() noexcept {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
-
-		const InputManager * const input_manager = g_engine->GetInputManager();
-		Assert(input_manager);
-
-		return input_manager->GetMouse();
 	}
 }

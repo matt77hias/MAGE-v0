@@ -55,7 +55,7 @@ namespace mage {
 		wchar_t buffer[64];
 		_snwprintf_s(buffer, _countof(buffer), L"\nSPF: %.2lfms\nCPU: %.1lf%%\nRAM: %uMB\nDCs: %u", 
 			m_last_milliseconds_per_frame, m_last_cpu_usage, m_last_ram_usage, 
-			GetEngineStatistics()->GetNumberOfDrawCalls());
+			EngineStatistics::Get()->GetNumberOfDrawCalls());
 		m_text->AppendText(buffer);
 	}
 }

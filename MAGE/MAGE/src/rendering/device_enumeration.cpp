@@ -31,6 +31,12 @@ namespace mage {
 	// DeviceEnumeration
 	//-------------------------------------------------------------------------
 
+	const DeviceEnumeration *DeviceEnumeration::Get() noexcept {
+		Assert(g_engine);
+
+		return g_engine->GetDeviceEnumeration();
+	}
+
 	INT_PTR CALLBACK DeviceEnumeration::SettingsDialogProcDelegate(
 		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
@@ -437,11 +443,5 @@ namespace mage {
 		}
 		}
 		return FALSE;
-	}
-
-	const DeviceEnumeration *GetDeviceEnumeration() noexcept {
-		Assert(g_engine);
-
-		return g_engine->GetDeviceEnumeration();
 	}
 }

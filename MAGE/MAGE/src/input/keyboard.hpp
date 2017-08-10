@@ -32,6 +32,19 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the keyboard associated with the current engine.
+
+		 @pre			The current engine must be loaded.
+		 @return		A pointer to the keyboard associated
+						with the current engine.
+		 */
+		static const Keyboard *Get() noexcept;
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -166,13 +179,4 @@ namespace mage {
 		 */
 		mutable uint64_t m_key_press_stamp[256];
 	};
-
-	/**
-	 Returns the keyboard associated with the current engine.
-
-	 @pre			The current engine must be loaded.
-	 @return		A pointer to the keyboard associated
-					with the current engine.
-	 */
-	const Keyboard *GetKeyboard() noexcept;
 }

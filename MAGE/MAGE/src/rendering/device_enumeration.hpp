@@ -27,21 +27,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Engine-defined callback function used with the CreateDialog
-		 for device enumeration.
+		 Returns the device enumeration associated with the current engine.
 
-		 @param[in]		hwndDlg
-						A handle to the dialog box.
-		 @param[in]		uMsg
-						The message.
-		 @param[in]		wParam
-						Additional message-specific information.
-		 @param[in]		lParam
-						Additional message-specific information.
-		 @return		@c true if @a uMsg is processed.
-						@c false otherwise.
+		 @pre			The current engine is not equal to @c nullptr.
+		 @return		A pointer to the device enumeration
+						associated with the current engine.
 		 */
-		static INT_PTR CALLBACK SettingsDialogProcDelegate(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+		static const DeviceEnumeration *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -181,6 +173,31 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Engine-defined callback function used with the CreateDialog
+		 for device enumeration.
+
+		 @param[in]		hwndDlg
+						A handle to the dialog box.
+		 @param[in]		uMsg
+						The message.
+		 @param[in]		wParam
+						Additional message-specific information.
+		 @param[in]		lParam
+						Additional message-specific information.
+		 @return		@c true if @a uMsg is processed.
+						@c false otherwise.
+		 */
+		static INT_PTR CALLBACK SettingsDialogProcDelegate(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		/**
 		 Initializes the adapter and the output of this device enumeration.
 
@@ -255,13 +272,4 @@ namespace mage {
 		 */
 		bool m_vsync;
 	};
-
-	/**
-	 Returns the device enumeration associated with the current engine.
-
-	 @pre			The current engine is not equal to @c nullptr.
-	 @return		A pointer to the device enumeration 
-					associated with the current engine.
-	 */
-	const DeviceEnumeration *GetDeviceEnumeration() noexcept;
 }

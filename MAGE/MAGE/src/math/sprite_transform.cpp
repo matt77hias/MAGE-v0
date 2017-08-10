@@ -3,7 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\engine.hpp"
+#include "math\sprite_transform.hpp"
+#include "rendering\renderer.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -14,32 +15,23 @@
 namespace mage {
 
 	float ConvertNormalizedToAbsoluteScreenX(float x) {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
-
-		const Renderer * const renderer = g_engine->GetRenderer();
+		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
-		
+
 		return x * static_cast< float >(renderer->GetWidth());
 	}
 
 	float ConvertNormalizedToAbsoluteScreenY(float y) {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
-
-		const Renderer * const renderer = g_engine->GetRenderer();
+		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
-		
+
 		return y * static_cast< float >(renderer->GetHeight());
 	}
 
 	const XMVECTOR XM_CALLCONV ConvertNormalizedToAbsoluteScreen(FXMVECTOR position) {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
-		
-		const Renderer * const renderer = g_engine->GetRenderer();
+		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
-		
+
 		const XMVECTOR multiplier = XMVectorSet(
 			static_cast< float >(renderer->GetWidth()),
 			static_cast< float >(renderer->GetHeight()),
@@ -49,30 +41,21 @@ namespace mage {
 	}
 
 	float ConvertAbsoluteToNormalizedScreenX(float x) {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
-		
-		const Renderer * const renderer = g_engine->GetRenderer();
+		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
 
 		return x / static_cast< float >(renderer->GetWidth());
 	}
 
 	float ConvertAbsoluteToNormalizedScreenY(float y) {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
-		
-		const Renderer * const renderer = g_engine->GetRenderer();
+		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
 
 		return y / static_cast<float>(renderer->GetHeight());
 	}
 
 	const XMVECTOR XM_CALLCONV ConvertAbsoluteToNormalizedScreen(FXMVECTOR position) {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
-		
-		const Renderer * const renderer = g_engine->GetRenderer();
+		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
 
 		const XMVECTOR multiplier = XMVectorSet(

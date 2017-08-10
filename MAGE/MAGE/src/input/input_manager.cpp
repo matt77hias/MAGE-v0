@@ -14,6 +14,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	const InputManager *InputManager::Get() noexcept {
+		Assert(g_engine);
+		Assert(g_engine->IsLoaded());
+
+		return g_engine->GetInputManager();
+	}
+
 	InputManager::InputManager(HWND hwindow) 
 		: m_hwindow(hwindow), m_di(), m_keyboard(), m_mouse() {
 
@@ -43,12 +50,5 @@ namespace mage {
 	void InputManager::InitializeInputSystems() {
 		m_keyboard = std::make_unique< Keyboard >(m_hwindow, m_di.Get());
 		m_mouse    = std::make_unique< Mouse >(m_hwindow, m_di.Get());
-	}
-
-	const InputManager *GetInputManager() noexcept {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
-
-		return g_engine->GetInputManager();
 	}
 }

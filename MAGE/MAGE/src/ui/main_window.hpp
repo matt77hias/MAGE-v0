@@ -23,6 +23,19 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the main window associated with the current engine.
+
+		 @pre		The current engine must be loaded.
+		 @return	A pointer to the main window associated
+					with the current engine.
+		 */
+		static MainWindow *Get() noexcept;
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -145,6 +158,29 @@ namespace mage {
 		void SetTitleText(const wchar_t *title_text) noexcept;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 The application-defined function that processes messages sent to the engine window.
+		 The WindowProc type defines a pointer to this callback function.
+
+		 @param[in]		hWnd
+						A handle to the window.
+		 @param[in]		msg
+						The message.
+		 @param[in]		wParam
+						Additional message information.
+						The contents of this parameter depend on the value of @a msg.
+		 @param[in]		lParam
+						Additional message information.
+						The contents of this parameter depend on the value of @a msg.
+		 @return		The return value is the result of the message processing
+						and depends on the message sent.
+		 */
+		static LRESULT CALLBACK MainWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

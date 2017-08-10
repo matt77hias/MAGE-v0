@@ -1,8 +1,10 @@
 <img align="left" src="res/MAGE.png" width="128px"/>
 
-[![Join the chat at https://gitter.im/WickedEngine/Lobby][s1]][gi]
+[![Build status][s1]][av] [![Join the chat at https://gitter.im/WickedEngine/Lobby][s2]][gi]
 
-[s1]: https://badges.gitter.im/MatthiasAdvancedGameEngine/Lobby.svg
+[s1]: https://ci.appveyor.com/api/projects/status/3dbcee5gd6i7qh7v?svg=true
+[s2]: https://badges.gitter.im/MatthiasAdvancedGameEngine/Lobby.svg
+[av]: https://ci.appveyor.com/project/matt77hias/MAGE
 [gi]: https://gitter.im/MatthiasAdvancedGameEngine/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 
 # MAGE - Matthias Advanced Game Engine

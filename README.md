@@ -1,5 +1,10 @@
 <img align="left" src="res/MAGE.png" width="128px"/>
 
+[![Join the chat at https://gitter.im/WickedEngine/Lobby][s1]][gi]
+
+[s1]: https://badges.gitter.im/MatthiasAdvancedGameEngine/Lobby.svg
+[gi]: https://gitter.im/MatthiasAdvancedGameEngine/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
 # MAGE - Matthias Advanced Game Engine
 
 ## About

@@ -4,7 +4,8 @@
 #pragma region
 
 #include "script\wireframe_script.hpp"
-#include "core\engine.hpp"
+#include "input\keyboard.hpp"
+#include "rendering\renderer.hpp"
 
 #pragma endregion
 
@@ -27,7 +28,7 @@ namespace mage {
 		if (keyboard->GetKeyPress(DIK_SPACE)) {
 			m_solid = !m_solid;
 			
-			const Renderer *renderer = g_engine->GetRenderer();
+			const Renderer *renderer = Renderer::Get();
 			if (m_solid) {
 				if (static_cast< unsigned int >(m_mode) & static_cast< unsigned int >(WireframeMode::Mode_3D)) {
 					renderer->GetRenderingState3D()->SetCullCounterClockwiseRasterizerState();

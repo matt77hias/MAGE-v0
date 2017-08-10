@@ -18,14 +18,11 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Globals
-	//-------------------------------------------------------------------------
-	Engine *g_engine = nullptr;
-
-	//-------------------------------------------------------------------------
 	// Engine
 	//-------------------------------------------------------------------------
 	
+	UniquePtr< Engine > Engine::s_engine;
+
 	Engine::Engine(const EngineSetup &setup) 
 		: Loadable(), m_device_enumeration(),
 		m_main_window(), m_deactive(false), 
@@ -34,9 +31,7 @@ namespace mage {
 		m_scene(), m_timer(std::make_unique< Timer >()),
 		m_engine_stats(std::make_unique< EngineStatistics >()) {
 
-		// Store a pointer to the engine in a global variable for easy access.
-		SAFE_DELETE(g_engine);
-		g_engine = this;
+		s_engine.reset(this);
 
 		// Initialize the systems of this engine.
 		InitializeSystems(setup);
@@ -55,8 +50,6 @@ namespace mage {
 
 		// Uninitialize the COM.
 		CoUninitialize();
-
-		g_engine = nullptr;
 	}
 
 	void Engine::InitializeSystems(const EngineSetup &setup) {

@@ -25,10 +25,10 @@
 namespace mage {
 
 	MainWindow *MainWindow::Get() noexcept {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
+		Assert(Engine::Get());
+		Assert(Engine::Get()->IsLoaded());
 
-		return g_engine->GetMainWindow();
+		return Engine::Get()->GetMainWindow();
 	}
 
 	LRESULT CALLBACK MainWindow::MainWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
@@ -39,7 +39,7 @@ namespace mage {
 			// The message is sent to the application whose window is being activated 
 			// and to the application whose window is being deactivated.
 
-			g_engine->SetDeactiveFlag(!wParam);
+			Engine::Get()->SetDeactiveFlag(!wParam);
 			break;
 		}
 		case WM_DESTROY: {
@@ -78,7 +78,7 @@ namespace mage {
 
 			// Check whether the user wants to switch between windowed and full screen mode.
 			if (wParam == VK_RETURN) {
-				g_engine->SetModeSwitchFlag(true);
+				Engine::Get()->SetModeSwitchFlag(true);
 				break;
 			}
 

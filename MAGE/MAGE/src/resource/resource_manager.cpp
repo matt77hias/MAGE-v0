@@ -216,9 +216,9 @@ namespace mage {
 	//---------------------------------------------------------------------
 	
 	ResourceManager *GetResourceManager() noexcept {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
+		Assert(Engine::Get());
+		Assert(Engine::Get()->IsLoaded());
 
-		return g_engine->GetResourceManager();
+		return Engine::Get()->GetResourceManager();
 	}
 }

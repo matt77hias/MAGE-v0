@@ -5,7 +5,7 @@
 
 #include "script\mouse_look_script.hpp"
 #include "math\math_utils.hpp"
-#include "core\engine.hpp"
+#include "input\mouse.hpp"
 
 #pragma endregion
 

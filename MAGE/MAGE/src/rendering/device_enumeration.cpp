@@ -32,9 +32,9 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	const DeviceEnumeration *DeviceEnumeration::Get() noexcept {
-		Assert(g_engine);
+		Assert(Engine::Get());
 
-		return g_engine->GetDeviceEnumeration();
+		return Engine::Get()->GetDeviceEnumeration();
 	}
 
 	INT_PTR CALLBACK DeviceEnumeration::SettingsDialogProcDelegate(

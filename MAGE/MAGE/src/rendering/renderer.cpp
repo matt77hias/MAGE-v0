@@ -15,10 +15,10 @@
 namespace mage {
 
 	const Renderer *Renderer::Get() noexcept {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
+		Assert(Engine::Get());
+		Assert(Engine::Get()->IsLoaded());
 
-		return g_engine->GetRenderer();
+		return Engine::Get()->GetRenderer();
 	}
 
 	Renderer::Renderer(HWND hwindow) : 

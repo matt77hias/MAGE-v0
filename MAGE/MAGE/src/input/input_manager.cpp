@@ -15,10 +15,10 @@
 namespace mage {
 
 	const InputManager *InputManager::Get() noexcept {
-		Assert(g_engine);
-		Assert(g_engine->IsLoaded());
+		Assert(Engine::Get());
+		Assert(Engine::Get()->IsLoaded());
 
-		return g_engine->GetInputManager();
+		return Engine::Get()->GetInputManager();
 	}
 
 	InputManager::InputManager(HWND hwindow) 

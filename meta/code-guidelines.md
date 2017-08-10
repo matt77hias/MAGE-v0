@@ -30,6 +30,9 @@ Note that Move Constructors make sense in nearly all situations. So prefer `= de
 ### Member initializer lists
 Enumerate all member variables in the initializer list of constructors in order.
 
+### new
+Use `new` for assigning to `SharedPtr` in case the data requires custom allocaters (i.e. inherits `AlignedData`).
+
 ### Smart pointers
 Use `SharedPtr`, `UniquePtr` and `ComPtr` (`memory\memory.hpp`) to express ownership.
 Use `WeakPtr` (for `SharedPtr`), raw pointer (for `UniquePtr` and `ComPtr`) to express usage without ownership.

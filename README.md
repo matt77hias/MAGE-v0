@@ -1,4 +1,4 @@
-<img align="left" src="res/MAGE.png" width="128px"/>
+<img align="left" src="res/MAGE.png" width="120px"/>
 
 [![Build status][s1]][av] [![Join the chat at https://gitter.im/WickedEngine/Lobby][s2]][gi]
 
@@ -8,6 +8,8 @@
 [gi]: https://gitter.im/MatthiasAdvancedGameEngine/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 
 # MAGE - Matthias Advanced Game Engine
+
+## About
 
 <p align="center"><img src="res/Example.png"></p>
 
@@ -23,8 +25,6 @@
 <img src="res/Material/Modified Blinn Phong + tsnm.png" width="214">
 <img src="res/Material/Cook Torrance + tsnm.png" width="214">
 </p>
-
-## About
 
 **Provides**: input handling for keyboard and mouse, scripting functionality and standard scripts, resource management (shaders, textures, fonts, models, variables scripts, etc.), sprite rendering (image, text, etc.), scene hierarchies, multiple cameras/lights/models, multiple materials and shaders (Diffuse, Lambertian BRDF, Phong BRDF, Modified Phong BRDF, Blinn-Phong BRDF, Modified Blinn-Phong BRDF, Ward BRDF, Ward-Duer BRDF, Cook-Torrance BRDF, all with or without tangent or object space normal mapping), dynamic and multiple lights (ambient, directional, omni and spotlights) lighting, single layer of transparency, configurable display modes, non-hierarchical view frustum culling, switching between windowed and full screen mode, .MDL (model)/ .MSH (mesh)/ .OBJ (model/mesh)/ .MTL (material)/ .DDS (texture)/ .SPRITEFONT (font)/ .VS (variable script) loaders.
 

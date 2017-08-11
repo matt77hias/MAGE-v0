@@ -43,8 +43,8 @@ namespace mage {
 			material->SetSpecularReflectivity(RGBSpectrum(1.0f, 1.0f, 1.0f));
 			material->SetSpecularExponent(10.0f);
 			material->SetExtraParameter(0, 0.5f);
-			material->SetExtraParameter(1, 0.01f);
-			material->SetExtraParameter(2, 0.9f);
+			material->SetExtraParameter(1, 0.15f);
+			material->SetExtraParameter(2, 0.04f);
 			material->SetNormalTexture(normal);
 		}
 

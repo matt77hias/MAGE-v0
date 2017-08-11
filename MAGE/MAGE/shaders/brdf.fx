@@ -41,6 +41,12 @@ float PhongBRDFxCos(float3 n, float3 l, float3 v) {
 	return pow(max_dot(r, v), g_Ns);
 }
 
+// Calculates the (specular) Modified Phong BRDFxCos intensity.
+float ModifiedPhongBRDFxCos(float3 n, float3 l, float3 v) {
+	// dot(r, v)^Ns * (Ns+2)/2 * dot(n, l)
+	return PhongBRDFxCos(n, l, v) * (g_Ns + 2.0f) * 0.5f * max_dot(n, l);
+}
+
 // Calculates the (specular) Blinn-Phong BRDFxCos intensity.
 float BlinnPhongBRDFxCos(float3 n, float3 l, float3 v) {
 	// dot(n, h)^Ns / dot(n, l) * dot(n, l)
@@ -52,12 +58,6 @@ float BlinnPhongBRDFxCos(float3 n, float3 l, float3 v) {
 float ModifiedBlinnPhongBRDFxCos(float3 n, float3 l, float3 v) {
 	// dot(n, h)^Ns * dot(n, l)
 	return BlinnPhongBRDFxCos(n, l, v) * max_dot(n, l);
-}
-
-// Calculates the (specular) Modified Phong BRDFxCos intensity.
-float ModifiedPhongBRDFxCos(float3 n, float3 l, float3 v) {
-	// dot(n, h)^Ns * (Ns+2)/2 * dot(n, l)
-	return ModifiedBlinnPhongBRDFxCos(n, l, v) * (g_Ns + 2.0f) / 2.0f;
 }
 	
 // Calculates the (specular) Ward BRDFxCos intensity.

@@ -11,8 +11,8 @@ struct Setup : public EngineSetup {
 	virtual ~Setup() = default;
 
 	virtual SharedPtr< Scene > CreateScene() const override {
-		//return MakeShared< BRDFScene >();
-		return MakeShared< SponzaScene >();
+		return MakeShared< BRDFScene >();
+		//return MakeShared< SponzaScene >();
 	}
 };
 

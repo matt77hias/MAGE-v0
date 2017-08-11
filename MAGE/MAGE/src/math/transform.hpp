@@ -942,6 +942,28 @@ namespace mage {
 		}
 
 		/**
+		 Transforms the given point expressed in object space coordinates to parent space coordinates.
+
+		 @param[in]		point
+						The point expressed in object space coordinates.
+		 @return		The transformed point expressed in parent space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformObjectToParentPoint(FXMVECTOR point) const noexcept {
+			return XMVector3TransformCoord(point, GetObjectToParentMatrix());
+		}
+
+		/**
+		 Transforms the given direction expressed in object space coordinates to parent space coordinates.
+
+		 @param[in]		direction
+						The direction expressed in object space coordinates.
+		 @return		The transformed direction expressed in parent space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformObjectToParentDirection(FXMVECTOR direction) const noexcept {
+			return XMVector3TransformNormal(direction, GetObjectToParentMatrix());
+		}
+
+		/**
 		 Transforms the given vector expressed in parent space coordinates to object space coordinates.
 
 		 @param[in]		vector
@@ -952,23 +974,33 @@ namespace mage {
 			return XMVector4Transform(vector, GetParentToObjectMatrix());
 		}
 
+		/**
+		 Transforms the given point expressed in parent space coordinates to object space coordinates.
+
+		 @param[in]		point
+						The point expressed in parent space coordinates.
+		 @return		The transformed point expressed in object space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformParentToObjectPoint(FXMVECTOR point) const noexcept {
+			return XMVector3TransformCoord(point, GetParentToObjectMatrix());
+		}
+
+		/**
+		 Transforms the given direction expressed in parent space coordinates to object space coordinates.
+
+		 @param[in]		direction
+						The direction expressed in parent space coordinates.
+		 @return		The transformed direction expressed in object space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformParentToObjectDirection(FXMVECTOR direction) const noexcept {
+			return XMVector3TransformNormal(direction, GetParentToObjectMatrix());
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		/**
-		 Transforms the given direction expressed in object space coordinates to parent space coordinates.
-
-		 @param[in]		direction
-						The direction expressed in object space coordinates.
-		 @return		The transformed (normalized) direction expressed in parent space coordinates.
-		 */
-		const XMVECTOR XM_CALLCONV TransformObjectToParentDirection(FXMVECTOR direction) const noexcept {
-			const XMMATRIX transformation = GetObjectToParentScaleMatrix() * GetObjectToParentRotationMatrix();
-			return XMVector3Normalize(XMVector4Transform(direction, transformation));
-		}
 
 		/**
 		 Sets this transform to dirty.

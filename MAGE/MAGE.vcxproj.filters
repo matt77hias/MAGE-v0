@@ -1350,5 +1350,8 @@
     <None Include="MAGE\src\platform\windows_utils.tpp">
       <Filter>Header Files\platform</Filter>
     </None>
+    <None Include="MAGE\src\memory\memory.tpp">
+      <Filter>Header Files\memory</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -1392,6 +1392,7 @@
     <None Include="MAGE\src\camera\camera_node.tpp" />
     <None Include="MAGE\src\light\light_node.tpp" />
     <None Include="MAGE\src\math\transform_node.tpp" />
+    <None Include="MAGE\src\memory\memory.tpp" />
     <None Include="MAGE\src\memory\memory_arena.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_loader.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_reader.tpp" />

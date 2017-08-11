@@ -46,7 +46,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 	Setup setup(hinstance, L"Engine Control Test");
 
 	// Create the engine, then run it.
-	UniquePtr< Engine > engine = std::make_unique< Engine >(setup);
+	UniquePtr< Engine > engine = MakeUnique< Engine >(setup);
 	const int result = engine->Run(nCmdShow);
 
 	return result;

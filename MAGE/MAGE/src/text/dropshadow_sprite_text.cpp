@@ -31,7 +31,7 @@ namespace mage {
 	DropshadowSpriteText::~DropshadowSpriteText() = default;
 
 	UniquePtr< SpriteObject > DropshadowSpriteText::CloneImplementation() const {
-		return std::make_unique< DropshadowSpriteText >(*this);
+		return MakeUnique< DropshadowSpriteText >(*this);
 	}
 
 	void DropshadowSpriteText::Draw(SpriteBatch &sprite_batch) const {

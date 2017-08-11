@@ -31,8 +31,8 @@ namespace mage {
 		 Constructs a CPU monitor.
 		 */
 		CPUMonitor()
-			: m_timer(std::make_unique< Timer >()),
-			m_cpu_timer(std::make_unique< CPUTimer >()) {}
+			: m_timer(MakeUnique< Timer >()),
+			m_cpu_timer(MakeUnique< CPUTimer >()) {}
 
 		/**
 		 Constructs a CPU monitor from the given CPU monitor.
@@ -41,8 +41,8 @@ namespace mage {
 						A reference to the CPU monitor to copy.
 		 */
 		CPUMonitor(const CPUMonitor &cpu_monitor)
-			: m_timer(std::make_unique< Timer >(*cpu_monitor.m_timer)), 
-			m_cpu_timer(std::make_unique< CPUTimer >(*cpu_monitor.m_cpu_timer)) {}
+			: m_timer(MakeUnique< Timer >(*cpu_monitor.m_timer)), 
+			m_cpu_timer(MakeUnique< CPUTimer >(*cpu_monitor.m_cpu_timer)) {}
 
 		/**
 		 Constructs a CPU monitor by moving the given CPU monitor.

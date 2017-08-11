@@ -27,6 +27,6 @@ namespace mage {
 	OmniLight &OmniLight::operator=(OmniLight &&light) = default;
 
 	UniquePtr< Light > OmniLight::CloneImplementation() const {
-		return std::make_unique< OmniLight >(*this);
+		return MakeUnique< OmniLight >(*this);
 	}
 }

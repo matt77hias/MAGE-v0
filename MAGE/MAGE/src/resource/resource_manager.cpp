@@ -24,12 +24,12 @@ namespace mage {
 	}
 
 	ResourceManager::ResourceManager()
-		: m_model_descriptor_resource_pool(std::make_unique< ResourcePool< wstring, ModelDescriptor > >()),
-		m_vertex_shader_resource_pool(std::make_unique< ResourcePool< wstring, VertexShader > >()),
-		m_pixel_shader_resource_pool(std::make_unique< ResourcePool< wstring, PixelShader > >()),
-		m_sprite_font_resource_pool(std::make_unique< ResourcePool< wstring, SpriteFont > >()),
-		m_texture_resource_pool(std::make_unique< ResourcePool< wstring, Texture > >()),
-		m_variable_script_resource_pool(std::make_unique< ResourcePool< wstring, VariableScript > >()) {}
+		: m_model_descriptor_resource_pool(MakeUnique< ResourcePool< wstring, ModelDescriptor > >()),
+		m_vertex_shader_resource_pool(MakeUnique< ResourcePool< wstring, VertexShader > >()),
+		m_pixel_shader_resource_pool(MakeUnique< ResourcePool< wstring, PixelShader > >()),
+		m_sprite_font_resource_pool(MakeUnique< ResourcePool< wstring, SpriteFont > >()),
+		m_texture_resource_pool(MakeUnique< ResourcePool< wstring, Texture > >()),
+		m_variable_script_resource_pool(MakeUnique< ResourcePool< wstring, VariableScript > >()) {}
 
 	ResourceManager::ResourceManager(ResourceManager &&resource_factory) = default;
 

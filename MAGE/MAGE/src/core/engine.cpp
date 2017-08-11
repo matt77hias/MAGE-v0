@@ -28,8 +28,8 @@ namespace mage {
 		m_main_window(), m_deactive(false), 
 		m_renderer(), m_mode_switch(false),
 		m_input_manager(), m_resource_manager(),
-		m_scene(), m_timer(std::make_unique< Timer >()),
-		m_engine_stats(std::make_unique< EngineStatistics >()) {
+		m_scene(), m_timer(MakeUnique< Timer >()),
+		m_engine_stats(MakeUnique< EngineStatistics >()) {
 
 		s_engine = this;
 
@@ -61,7 +61,7 @@ namespace mage {
 		PrintConsoleHeader();
 
 		// Enumerate the devices.
-		m_device_enumeration = std::make_unique< DeviceEnumeration >();
+		m_device_enumeration = MakeUnique< DeviceEnumeration >();
 		const HRESULT result_enumerate = m_device_enumeration->Enumerate();
 		if (FAILED(result_enumerate)) {
 			Error("Device enumeration setup failed: %ld", result_enumerate);
@@ -72,13 +72,13 @@ namespace mage {
 		const LONG height = static_cast< LONG >(m_device_enumeration->GetDisplayMode()->Height);
 		
 		// Initialize the window System.
-		m_main_window      = std::make_unique< MainWindow >(setup.GetApplicationHinstance(), setup.GetApplicationName(), width, height);
+		m_main_window      = MakeUnique< MainWindow >(setup.GetApplicationHinstance(), setup.GetApplicationName(), width, height);
 		// Initialize the rendering system.
-		m_renderer         = std::make_unique< Renderer >(m_main_window->GetHandle());
+		m_renderer         = MakeUnique< Renderer >(m_main_window->GetHandle());
 		// Initialize the input system.
-		m_input_manager    = std::make_unique< InputManager >(m_main_window->GetHandle());
+		m_input_manager    = MakeUnique< InputManager >(m_main_window->GetHandle());
 		// Initialize the resource system.
-		m_resource_manager = std::make_unique< ResourceManager >();
+		m_resource_manager = MakeUnique< ResourceManager >();
 
 		// Initializes the COM library for use by the calling thread 
 		// and sets the thread's concurrency model to multithreaded concurrency.

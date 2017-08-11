@@ -204,9 +204,9 @@ namespace mage {
 	}
 
 	void Renderer::SetupRenderingStates() {
-		m_rendering_state_cache = std::make_unique< RenderingStateCache >(m_device.Get());
-		m_rendering_state_2d    = std::make_unique< RenderingState >(m_device.Get(), m_device_context.Get(), m_rendering_state_cache.get());
-		m_rendering_state_3d    = std::make_unique< RenderingState >(m_device.Get(), m_device_context.Get(), m_rendering_state_cache.get());
+		m_rendering_state_cache = MakeUnique< RenderingStateCache >(m_device.Get());
+		m_rendering_state_2d    = MakeUnique< RenderingState >(m_device.Get(), m_device_context.Get(), m_rendering_state_cache.get());
+		m_rendering_state_3d    = MakeUnique< RenderingState >(m_device.Get(), m_device_context.Get(), m_rendering_state_cache.get());
 		m_rendering_state_2d->SetDefaultRenderingState2D();
 		m_rendering_state_3d->SetDefaultRenderingState3D();
 	}

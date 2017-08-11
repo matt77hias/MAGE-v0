@@ -76,7 +76,7 @@ namespace mage {
 	Node::~Node() = default;
 
 	UniquePtr< Node > Node::CloneImplementation() const {
-		return std::make_unique< Node >(*this);
+		return MakeUnique< Node >(*this);
 	}
 
 	void Node::SetActive(bool active) noexcept {

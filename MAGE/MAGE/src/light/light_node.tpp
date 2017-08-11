@@ -8,7 +8,7 @@ namespace mage {
 	template< typename LightT >
 	template< typename... ConstructorArgsT >
 	DerivedLightNode< LightT >::DerivedLightNode(const string &name, ConstructorArgsT&&... args)
-		: LightNode(name, std::make_unique< LightT >(std::forward< ConstructorArgsT >(args)...)) {}
+		: LightNode(name, MakeUnique< LightT >(std::forward< ConstructorArgsT >(args)...)) {}
 
 	template< typename LightT >
 	DerivedLightNode< LightT >::DerivedLightNode(const string &name, UniquePtr< LightT > &&light)
@@ -25,6 +25,6 @@ namespace mage {
 
 	template< typename LightT >
 	UniquePtr< Node > DerivedLightNode< LightT >::CloneImplementation() const {
-		return std::make_unique< DerivedLightNode >(*this);
+		return MakeUnique< DerivedLightNode >(*this);
 	}
 }

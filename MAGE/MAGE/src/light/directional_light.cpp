@@ -26,6 +26,6 @@ namespace mage {
 	DirectionalLight &DirectionalLight::operator=(DirectionalLight &&light) = default;
 
 	UniquePtr< Light > DirectionalLight::CloneImplementation() const {
-		return std::make_unique< DirectionalLight >(*this);
+		return MakeUnique< DirectionalLight >(*this);
 	}
 }

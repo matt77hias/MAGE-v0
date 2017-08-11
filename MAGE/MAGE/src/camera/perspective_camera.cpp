@@ -40,6 +40,6 @@ namespace mage {
 	PerspectiveCamera &PerspectiveCamera::operator=(PerspectiveCamera &&camera) = default;
 
 	UniquePtr< Camera > PerspectiveCamera::CloneImplementation() const {
-		return std::make_unique< PerspectiveCamera >(*this);
+		return MakeUnique< PerspectiveCamera >(*this);
 	}
 }

@@ -17,7 +17,7 @@ namespace mage {
 
 	Scene::Scene(const string &name)
 		: m_name(name), m_scripts(),
-		m_scene_fog(std::make_unique< SceneFog >()), m_camera(nullptr),
+		m_scene_fog(MakeUnique< SceneFog >()), m_camera(nullptr),
 		m_models(), m_omni_lights(), m_spot_lights(), m_sprites(),
 		m_sprite_batch(new SpriteBatch()),
 		m_transform_buffer(), m_scene_buffer(),

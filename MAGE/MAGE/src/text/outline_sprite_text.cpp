@@ -31,7 +31,7 @@ namespace mage {
 	OutlineSpriteText::~OutlineSpriteText() = default;
 
 	UniquePtr< SpriteObject > OutlineSpriteText::CloneImplementation() const {
-		return std::make_unique< OutlineSpriteText >(*this);
+		return MakeUnique< OutlineSpriteText >(*this);
 	}
 
 	void OutlineSpriteText::Draw(SpriteBatch &sprite_batch) const {

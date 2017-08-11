@@ -41,7 +41,7 @@ namespace mage {
 			6, 7
 		};
 
-		return std::make_unique< const StaticMesh >(
+		return MakeUnique< const StaticMesh >(
 								vertices, _countof(vertices), 
 								indices, _countof(indices),
 								DXGI_FORMAT_R16_UINT,

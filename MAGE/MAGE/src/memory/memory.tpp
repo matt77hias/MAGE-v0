@@ -11,7 +11,7 @@ namespace mage {
 
 	template< typename T, typename... ConstructorArgsT >
 	inline SharedPtr< T > MakeShared(ConstructorArgsT&&... args) {
-		return MakeShared< T >(std::forward< ConstructorArgsT >(args)...);
+		return std::make_shared< T >(std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename T, typename... ConstructorArgsT >

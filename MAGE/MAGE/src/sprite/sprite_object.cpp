@@ -13,7 +13,7 @@
 namespace mage {
 
 	SpriteObject::SpriteObject(const string &name, SpriteEffect effects)
-		: m_transform(UniquePtr< SpriteTransform >()), 
+		: m_transform(MakeUnique< SpriteTransform >()), 
 		m_active(true), m_name(name), 
 		m_effects(effects) {}
 

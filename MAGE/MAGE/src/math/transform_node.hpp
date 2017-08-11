@@ -1254,7 +1254,7 @@ namespace mage {
 		/**
 		 The transform of this transform node.
 		 */
-		UniquePtr< Transform > m_transform;
+		SharedPtr< Transform > m_transform;
 
 		/**
 		 The parent transform node of this transform node.

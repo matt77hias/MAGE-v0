@@ -17,8 +17,8 @@ namespace mage {
 		: BehaviorScript(),
 		m_nb_rows(nb_rows), m_nb_columns(nb_columns + 1),
 		m_current_column(0), m_current_row(0),
-		m_buffer(MakeUnique< wchar_t[] >((nb_columns + 1) * nb_rows + 1)), m_temp_buffer(),
-		m_mutex(), m_text(text) {
+		m_buffer(MakeUnique< wchar_t[] >((nb_columns + 1) * nb_rows + 1)), 
+		m_temp_buffer(), m_mutex(), m_text(text) {
 		
 		Clear();
 	}

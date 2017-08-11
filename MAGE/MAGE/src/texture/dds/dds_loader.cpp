@@ -124,7 +124,7 @@ namespace mage {
 #endif
 	}
 
-static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *file_name, std::unique_ptr<uint8_t[]> &dds_data, DDS_HEADER **header, uint8_t **bit_data, size_t *bit_size) {
+static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *file_name, UniquePtr< uint8_t[] > &dds_data, DDS_HEADER **header, uint8_t **bit_data, size_t *bit_size) {
 	if (!header || !bit_data || !bit_size) {
 		return E_POINTER;
 	}
@@ -1003,7 +1003,7 @@ static HRESULT GetOrCreateTextureFromDDS(_In_ ID3D11Device2 *device,
 	}
 	else {
 		// Create the texture
-		std::unique_ptr<D3D11_SUBRESOURCE_DATA[]> init_data(new (std::nothrow) D3D11_SUBRESOURCE_DATA[mip_count * array_size]);
+		UniquePtr< D3D11_SUBRESOURCE_DATA[] > init_data(new (std::nothrow) D3D11_SUBRESOURCE_DATA[mip_count * array_size]);
 		if (!init_data) {
 			return E_OUTOFMEMORY;
 		}
@@ -1283,7 +1283,7 @@ HRESULT CreateDDSTextureFromFileEx(ID3D11Device2 *device,
 	uint8_t* bit_data = nullptr;
 	size_t bit_size = 0;
 
-	std::unique_ptr<uint8_t[]> dds_data;
+	UniquePtr< uint8_t[] > dds_data;
 	HRESULT hr = LoadTextureDataFromFile(file_name, dds_data, &header, &bit_data, &bit_size);
 	if (FAILED(hr)) {
 		return hr;

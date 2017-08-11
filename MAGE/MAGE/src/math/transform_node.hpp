@@ -1051,6 +1051,28 @@ namespace mage {
 		}
 
 		/**
+		 Transforms the given point expressed in object space coordinates to parent space coordinates.
+
+		 @param[in]		point
+						The point expressed in object space coordinates.
+		 @return		The transformed point expressed in parent space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformObjectToParentPoint(FXMVECTOR point) const noexcept {
+			return m_transform->TransformObjectToParentPoint(point);
+		}
+
+		/**
+		 Transforms the given direction expressed in object space coordinates to parent space coordinates.
+
+		 @param[in]		direction
+						The direction expressed in object space coordinates.
+		 @return		The transformed direction expressed in parent space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformObjectToParentDirection(FXMVECTOR direction) const noexcept {
+			return m_transform->TransformObjectToParentDirection(direction);
+		}
+
+		/**
 		 Transforms the given vector expressed in parent space coordinates to object space coordinates.
 
 		 @param[in]		vector
@@ -1059,6 +1081,28 @@ namespace mage {
 		 */
 		const XMVECTOR XM_CALLCONV TransformParentToObject(FXMVECTOR vector) const noexcept {
 			return m_transform->TransformParentToObject(vector);
+		}
+
+		/**
+		 Transforms the given point expressed in parent space coordinates to object space coordinates.
+
+		 @param[in]		point
+						The point expressed in parent space coordinates.
+		 @return		The transformed point expressed in object space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformParentToObjectPoint(FXMVECTOR point) const noexcept {
+			return m_transform->TransformParentToObjectPoint(point);
+		}
+
+		/**
+		 Transforms the given direction expressed in parent space coordinates to object space coordinates.
+
+		 @param[in]		direction
+						The direction expressed in parent space coordinates.
+		 @return		The transformed direction expressed in object space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformParentToObjectDirection(FXMVECTOR direction) const noexcept {
+			return m_transform->TransformParentToObjectDirection(direction);
 		}
 
 		/**
@@ -1073,6 +1117,28 @@ namespace mage {
 		}
 
 		/**
+		 Transforms the given point expressed in object space coordinates to world space coordinates.
+
+		 @param[in]		point
+						The point expressed in object space coordinates.
+		 @return		The transformed point expressed in world space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformObjectToWorldPoint(FXMVECTOR point) const noexcept {
+			return XMVector3TransformCoord(point, GetObjectToWorldMatrix());
+		}
+
+		/**
+		 Transforms the given direction expressed in object space coordinates to world space coordinates.
+
+		 @param[in]		direction
+						The direction expressed in object space coordinates.
+		 @return		The transformed direction expressed in world space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformObjectToWorldDirection(FXMVECTOR direction) const noexcept {
+			return XMVector3TransformNormal(direction, GetObjectToWorldMatrix());
+		}
+
+		/**
 		 Transforms the given vector expressed in world space coordinates to object space coordinates.
 
 		 @param[in]		vector
@@ -1081,6 +1147,28 @@ namespace mage {
 		 */
 		const XMVECTOR XM_CALLCONV TransformWorldToObject(FXMVECTOR vector) const noexcept {
 			return XMVector4Transform(vector, GetWorldToObjectMatrix());
+		}
+
+		/**
+		 Transforms the given point expressed in world space coordinates to object space coordinates.
+
+		 @param[in]		point
+						The point expressed in world space coordinates.
+		 @return		The transformed point expressed in object space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformWorldToObjectPoint(FXMVECTOR point) const noexcept {
+			return XMVector3TransformCoord(point, GetWorldToObjectMatrix());
+		}
+
+		/**
+		 Transforms the direction vector expressed in world space coordinates to object space coordinates.
+
+		 @param[in]		direction
+						The direction expressed in world space coordinates.
+		 @return		The transformed direction expressed in object space coordinates.
+		 */
+		const XMVECTOR XM_CALLCONV TransformWorldToObjectDirection(FXMVECTOR direction) const noexcept {
+			return XMVector3TransformNormal(direction, GetWorldToObjectMatrix());
 		}
 
 	private:

@@ -161,7 +161,7 @@ namespace mage {
 		 */
 		template< typename T >
 		void SetValue(const T &value) {
-			m_value.reset(new Value< T >(value));
+			m_value = MakeUnique< Value< T > >(value));
 		}
 
 	private:

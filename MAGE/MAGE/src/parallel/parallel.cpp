@@ -22,7 +22,7 @@ namespace mage {
 		Assert(result_first == FALSE);
 		Assert(GetLastError() == ERROR_INSUFFICIENT_BUFFER);
 
-		UniquePtr< uint8_t[] > buffer(new uint8_t[length]);
+		UniquePtr< uint8_t[] > buffer(MakeUnique< uint8_t[] >(length));
 		const PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX info = 
 			reinterpret_cast< PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(buffer.get());
 

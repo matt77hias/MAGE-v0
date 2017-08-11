@@ -241,7 +241,7 @@ namespace mage {
 
 		// 2D
 		vector< SharedPtr < SpriteObject > > m_sprites;
-		SharedPtr< SpriteBatch > m_sprite_batch;
+		UniquePtr< SpriteBatch > m_sprite_batch;
 
 		// Buffers
 		ConstantBuffer< TransformBuffer > m_transform_buffer;
@@ -250,7 +250,7 @@ namespace mage {
 		StructuredBuffer< SpotLightBuffer > m_spot_lights_buffer;
 
 		// Extra
-		SharedPtr< ModelNode > m_box;
+		UniquePtr< ModelNode > m_box;
 	};
 }
 

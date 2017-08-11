@@ -145,7 +145,7 @@ namespace mage {
 	void SpriteBatch::GrowSpriteQueue() {
 		const size_t sprite_queue_array_size = 
 			std::max(SpriteBatch::s_initial_queue_size, m_sprite_queue_array_size * 2);
-		UniquePtr< SpriteInfo[] > sprite_queue(new SpriteInfo[sprite_queue_array_size]);
+		UniquePtr< SpriteInfo[] > sprite_queue(MakeUnique< SpriteInfo[] >(sprite_queue_array_size));
 		
 		for (size_t i = 0; i < m_sprite_queue_size; ++i) {
 			sprite_queue[i] = m_sprite_queue[i];

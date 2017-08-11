@@ -18,13 +18,13 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	TransformNode::TransformNode()
-		: m_transform(new Transform()),
+		: m_transform(MakeUnique< Transform >()),
 		m_parent(nullptr), m_childs() {
 		SetDirty();
 	}
 
 	TransformNode::TransformNode(const TransformNode &transform_node)
-		: m_transform(new Transform(*transform_node.m_transform)), 
+		: m_transform(MakeUnique< Transform >(*transform_node.m_transform)),
 		m_parent(nullptr), m_childs() {
 		SetDirty();
 	}
@@ -59,11 +59,11 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	Node::Node()
-		: m_transform(new TransformNode()), 
+		: m_transform(MakeUnique< TransformNode >()),
 		m_active(true) {}
 	
 	Node::Node(const Node &node)
-		: m_transform(new TransformNode(*node.m_transform)),
+		: m_transform(MakeUnique< TransformNode >(*node.m_transform)),
 		m_active(node.m_active) {
 
 		m_transform->ForEachChildNode([this](const Node &child_node) {

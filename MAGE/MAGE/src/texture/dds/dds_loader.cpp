@@ -157,7 +157,7 @@ static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *file_name, UniquePt
 	}
 
 	// create enough space for the file data
-	dds_data.reset(new (std::nothrow) uint8_t[file_size.LowPart]);
+	dds_data = MakeUnique< uint8_t[] >(file_size.LowPart);
 	if (!dds_data) {
 		return E_OUTOFMEMORY;
 	}
@@ -1003,7 +1003,7 @@ static HRESULT GetOrCreateTextureFromDDS(_In_ ID3D11Device2 *device,
 	}
 	else {
 		// Create the texture
-		UniquePtr< D3D11_SUBRESOURCE_DATA[] > init_data(new (std::nothrow) D3D11_SUBRESOURCE_DATA[mip_count * array_size]);
+		UniquePtr< D3D11_SUBRESOURCE_DATA[] > init_data(MakeUnique< D3D11_SUBRESOURCE_DATA[] >(mip_count * array_size));
 		if (!init_data) {
 			return E_OUTOFMEMORY;
 		}

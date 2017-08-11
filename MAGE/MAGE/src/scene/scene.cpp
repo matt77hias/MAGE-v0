@@ -19,7 +19,7 @@ namespace mage {
 		: m_name(name), m_scripts(),
 		m_scene_fog(MakeUnique< SceneFog >()), m_camera(nullptr),
 		m_models(), m_omni_lights(), m_spot_lights(), m_sprites(),
-		m_sprite_batch(new SpriteBatch()),
+		m_sprite_batch(MakeUnique< SpriteBatch >()),
 		m_transform_buffer(), m_scene_buffer(),
 		m_omni_lights_buffer(64), m_spot_lights_buffer(64) {
 		
@@ -31,7 +31,7 @@ namespace mage {
 		const ShadedMaterial box_shaded_material(box_material, BRDFType::Emissive);
 
 		SharedPtr< const StaticMesh > box_mesh = CreateLineCube();
-		m_box = MakeShared< ModelNode >("_mdl_aabb", box_mesh, box_shaded_material);
+		m_box = MakeUnique< ModelNode >("_mdl_aabb", box_mesh, box_shaded_material);
 	}
 
 	Scene::~Scene() {

@@ -43,7 +43,7 @@ namespace mage {
 		
 		// Initialize progress string
 		const size_t buffer_length = title.size() + m_nb_plusses_total + 64;
-		m_buffer.reset(new char[buffer_length]);
+		m_buffer = MakeUnique< char[] >(buffer_length);
 		
 		// Composes a string with the same text that would be printed 
 		// if format was used on printf, but instead of being printed, 

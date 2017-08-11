@@ -27,7 +27,7 @@ namespace mage {
 		
 		const DWORD nb_bytes = file_info.EndOfFile.LowPart;
 		*size = nb_bytes;
-		data.reset(new uint8_t[nb_bytes]);
+		data = MakeUnique< uint8_t[] >(nb_bytes);
 		if (!data) {
 			throw FormattedException("%ls: file too big for allocation.", fname);
 		}

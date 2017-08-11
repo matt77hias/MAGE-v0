@@ -65,7 +65,7 @@ namespace mage {
 	}
 
 	void SpriteImage::SetTextureRegion(const RECT &texture_region) {
-		m_texture_region.reset(new RECT(texture_region));
+		m_texture_region = MakeUnique< RECT >(texture_region);
 	}
 
 	void SpriteImage::SetTexture(SharedPtr< Texture > texture) {

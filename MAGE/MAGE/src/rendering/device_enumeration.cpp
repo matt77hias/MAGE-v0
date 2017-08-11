@@ -75,7 +75,7 @@ namespace mage {
 	HRESULT DeviceEnumeration::Enumerate() {
 		// Load the settings script.
 		const bool file_exists = FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
-		m_settings_script.reset(new VariableScript(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists));
+		m_settings_script = MakeUnique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists);
 
 		// Initialize the adapter and output.
 		InitializeAdapterAndOutput();
@@ -162,7 +162,7 @@ namespace mage {
 			if (FAILED(result1)) {
 				throw FormattedException("Failed to get the number of display modes: %08X.", result1);
 			}
-			UniquePtr< DXGI_MODE_DESC1[] >dxgi_mode_descs(new DXGI_MODE_DESC1[nb_display_modes]);
+			UniquePtr< DXGI_MODE_DESC1[] >dxgi_mode_descs(MakeUnique< DXGI_MODE_DESC1[] >(nb_display_modes));
 			// Get the display modes that match the requested format and other input options.
 			const HRESULT result2 = m_output->GetDisplayModeList1(s_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs.get());
 			if (FAILED(result2)) {

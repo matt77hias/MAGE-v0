@@ -70,8 +70,8 @@ namespace mage {
 						(i.e. this CPU monitor).
 		 */
 		CPUMonitor &operator=(const CPUMonitor &cpu_monitor) {
-			m_timer.reset(new Timer(*cpu_monitor.m_timer));
-			m_cpu_timer.reset(new CPUTimer(*cpu_monitor.m_cpu_timer));
+			m_timer     = MakeUnique< Timer >(*cpu_monitor.m_timer);
+			m_cpu_timer = MakeUnique< CPUTimer >(*cpu_monitor.m_cpu_timer);
 			return (*this);
 		}
 

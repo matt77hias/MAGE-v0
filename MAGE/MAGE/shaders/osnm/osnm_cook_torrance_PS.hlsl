@@ -1,2 +1,2 @@
-#define SPECULAR_BRDF CookTorranceBRDF
+#define SPECULAR_BRDFxCOS CookTorranceBRDFxCos
 #include "basic.fx"

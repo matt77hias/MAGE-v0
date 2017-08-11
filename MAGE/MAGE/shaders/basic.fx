@@ -76,11 +76,11 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 	
 	const float r_eye = length(p);
 
-#ifndef DISSABLE_BRDF
+#ifndef DISSABLE_BRDFxCOS
 	// Ambient light and directional light contribution
-	float3 brdf = LambertianBRDF(n, -g_d);
-	float3 I_diffuse = g_Ia + brdf * g_Id;
-#ifdef SPECULAR_BRDF
+	float3 brdf_cos = LambertianBRDFxCos(n, -g_d);
+	float3 I_diffuse = g_Ia + brdf_cos * g_Id;
+#ifdef SPECULAR_BRDFxCOS
 	float3 I_specular = float3(0.0f, 0.0f, 0.0f);
 #endif
 
@@ -94,12 +94,12 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 		const float3 l        = d_light / r_light;
 		const float3 I_light  = OmniLightMaxContribution(light, r_light);
 
-		brdf = LambertianBRDF(n, l);
-		I_diffuse  += brdf * I_light;
+		brdf_cos = LambertianBRDFxCos(n, l);
+		I_diffuse  += brdf_cos * I_light;
 
-#ifdef SPECULAR_BRDF
-		brdf = SPECULAR_BRDF(n, l, v);
-		I_specular += brdf * I_light;
+#ifdef SPECULAR_BRDFxCOS
+		brdf_cos = SPECULAR_BRDFxCOS(n, l, v);
+		I_specular += brdf_cos * I_light;
 #endif
 	}
 
@@ -111,17 +111,17 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 		const float3 l        = d_light / r_light;
 		const float3 I_light  = SpotLightMaxContribution(light, r_light, l);
 
-		brdf = LambertianBRDF(n, l);
-		I_diffuse  += brdf * I_light;
+		brdf_cos = LambertianBRDFxCos(n, l);
+		I_diffuse  += brdf_cos * I_light;
 
-#ifdef SPECULAR_BRDF
-		brdf = SPECULAR_BRDF(n, l, v);
-		I_specular += brdf * I_light;
+#ifdef SPECULAR_BRDFxCOS
+		brdf_cos = SPECULAR_BRDFxCOS(n, l, v);
+		I_specular += brdf_cos * I_light;
 #endif
 	}
 
 	I.xyz *= I_diffuse;
-#ifdef SPECULAR_BRDF
+#ifdef SPECULAR_BRDFxCOS
 	I.xyz += g_Ks * I_specular;
 #endif
 #endif

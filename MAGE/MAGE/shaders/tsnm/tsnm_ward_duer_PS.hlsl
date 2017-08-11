@@ -1,2 +1,2 @@
-#define SPECULAR_BRDF WardDuerBRDF
+#define SPECULAR_BRDFxCOS WardDuerBRDFxCos
 #include "basic.fx"

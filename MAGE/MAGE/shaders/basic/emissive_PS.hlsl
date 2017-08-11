@@ -1,2 +1,2 @@
-#define DISSABLE_BRDF
+#define DISSABLE_BRDFxCOS
 #include "basic.fx"

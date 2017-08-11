@@ -1,2 +1,2 @@
-#define SPECULAR_BRDF BlinnPhongBRDF
+#define SPECULAR_BRDFxCOS BlinnPhongBRDFxCos
 #include "basic.fx"

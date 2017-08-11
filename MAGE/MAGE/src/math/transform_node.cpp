@@ -18,13 +18,13 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	TransformNode::TransformNode()
-		: m_transform(MakeAllocatedShared< Transform >()),
+		: m_transform(new Transform()),
 		m_parent(nullptr), m_childs() {
 		SetDirty();
 	}
 
 	TransformNode::TransformNode(const TransformNode &transform_node)
-		: m_transform(MakeAllocatedShared< Transform >(*transform_node.m_transform)),
+		: m_transform(new Transform(*transform_node.m_transform)),
 		m_parent(nullptr), m_childs() {
 		SetDirty();
 	}

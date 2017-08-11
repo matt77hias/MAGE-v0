@@ -59,11 +59,11 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	Node::Node()
-		: m_transform(MakeUnique< TransformNode >()),
+		: m_transform(new TransformNode()),
 		m_active(true) {}
 	
 	Node::Node(const Node &node)
-		: m_transform(MakeUnique< TransformNode >(*node.m_transform)),
+		: m_transform(new TransformNode(*node.m_transform)),
 		m_active(node.m_active) {
 
 		m_transform->ForEachChildNode([this](const Node &child_node) {

@@ -1544,7 +1544,7 @@ namespace mage {
 		/**
 		 A pointer to the transform of this node.
 		 */
-		UniquePtr< TransformNode > m_transform;
+		SharedPtr< TransformNode > m_transform;
 
 		/**
 		 A flag indicating whether this node is active or not (i.e. passive).

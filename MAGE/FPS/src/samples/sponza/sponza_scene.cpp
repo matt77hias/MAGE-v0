@@ -83,7 +83,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteImage > logo = std::make_shared< SpriteImage >("logo", texture_logo);
+		SharedPtr< SpriteImage > logo = MakeShared< SpriteImage >("logo", texture_logo);
 		logo->GetTransform()->SetScale(0.25f, 0.25f);
 		logo->GetTransform()->SetNormalizedTranslation(0.90f, 0.88f);
 		AddSprite(logo);
@@ -96,15 +96,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteText > text = std::make_shared< NormalSpriteText >("text", font);
+		SharedPtr< SpriteText > text = MakeShared< NormalSpriteText >("text", font);
 		AddSprite(text);
 
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(std::make_shared< RotationYScript >(model_sphere->GetTransform()));
-		AddScript(std::make_shared< FPSInputControllerScript >(camera->GetTransform()));
-		AddScript(std::make_shared< StatsScript >(text));
-		AddScript(std::make_shared< WireframeScript >());
+		AddScript(MakeShared< RotationYScript >(model_sphere->GetTransform()));
+		AddScript(MakeShared< FPSInputControllerScript >(camera->GetTransform()));
+		AddScript(MakeShared< StatsScript >(text));
+		AddScript(MakeShared< WireframeScript >());
 	}
 }

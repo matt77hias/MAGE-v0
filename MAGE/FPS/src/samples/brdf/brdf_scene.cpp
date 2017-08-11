@@ -98,7 +98,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteImage > logo = std::make_shared< SpriteImage >("logo", texture_logo);
+		SharedPtr< SpriteImage > logo = MakeShared< SpriteImage >("logo", texture_logo);
 		logo->GetTransform()->SetScale(0.25f, 0.25f);
 		logo->GetTransform()->SetNormalizedTranslation(0.90f, 0.88f);
 		AddSprite(logo);
@@ -111,15 +111,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteText > stats_text = std::make_shared< NormalSpriteText >("stats_text", font);
+		SharedPtr< SpriteText > stats_text = MakeShared< NormalSpriteText >("stats_text", font);
 		AddSprite(stats_text);
-		SharedPtr< SpriteText > brdf_text  = std::make_shared< NormalSpriteText >("brdf_text", font);
+		SharedPtr< SpriteText > brdf_text  = MakeShared< NormalSpriteText >("brdf_text", font);
 		AddSprite(brdf_text);
 
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(std::make_shared< StatsScript >(stats_text));
+		AddScript(MakeShared< StatsScript >(stats_text));
 
 		vector< ModelNode * > models;
 		models.push_back(model_teapot.get());
@@ -129,6 +129,6 @@ namespace mage {
 		models.push_back(model_plane.get());
 		models.push_back(model_sphere.get());
 		models.push_back(model_torus.get());
-		AddScript(std::make_shared< BRDFScript >(brdf_text.get(), models));
+		AddScript(MakeShared< BRDFScript >(brdf_text.get(), models));
 	}
 }

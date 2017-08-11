@@ -31,7 +31,7 @@ namespace mage {
 		const ShadedMaterial box_shaded_material(box_material, BRDFType::Emissive);
 
 		SharedPtr< const StaticMesh > box_mesh = CreateLineCube();
-		m_box = std::make_shared< ModelNode >("_mdl_aabb", box_mesh, box_shaded_material);
+		m_box = MakeShared< ModelNode >("_mdl_aabb", box_mesh, box_shaded_material);
 	}
 
 	Scene::~Scene() {
@@ -267,15 +267,15 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	SharedPtr< OrthographicCameraNode > Scene::CreateOrthographicCameraNode() {
-		return std::make_shared< OrthographicCameraNode >("camera");
+		return MakeShared< OrthographicCameraNode >("camera");
 	}
 
 	SharedPtr< PerspectiveCameraNode > Scene::CreatePerspectiveCameraNode() {
-		return std::make_shared< PerspectiveCameraNode >("camera");
+		return MakeShared< PerspectiveCameraNode >("camera");
 	}
 
 	SharedPtr< OmniLightNode > Scene::CreateOmniLightNode() {
-		SharedPtr< OmniLightNode > light_node = std::make_shared< OmniLightNode >("light");
+		SharedPtr< OmniLightNode > light_node = MakeShared< OmniLightNode >("light");
 		
 		// Adds this omni light node to this scene.
 		AddLight(light_node);
@@ -284,7 +284,7 @@ namespace mage {
 	}
 
 	SharedPtr< SpotLightNode > Scene::CreateSpotLightNode() {
-		SharedPtr< SpotLightNode > light_node = std::make_shared< SpotLightNode >("light");
+		SharedPtr< SpotLightNode > light_node = MakeShared< SpotLightNode >("light");
 		
 		// Adds this spotlight node to this scene.
 		AddLight(light_node);
@@ -319,7 +319,7 @@ namespace mage {
 			const ShadedMaterial shaded_material(material, brdf);
 
 			// Creates a submodel node.
-			SharedPtr< ModelNode > submodel_node = std::make_shared< ModelNode >(model_part.m_child,
+			SharedPtr< ModelNode > submodel_node = MakeShared< ModelNode >(model_part.m_child,
 				desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, 
 				model_part.m_aabb, model_part.m_bs, shaded_material);
 			// Adds this submodel node to this scene.
@@ -340,7 +340,7 @@ namespace mage {
 
 		if (create_root_model_node) {
 			// Creates a root model node.
-			root_model_node = std::make_shared< ModelNode >("model",
+			root_model_node = MakeShared< ModelNode >("model",
 				desc.GetMesh(), 0, 0, AABB(), BS(), default_shaded_material);
 			// Adds this root model node to this scene.
 			AddModel(root_model_node);
@@ -389,7 +389,7 @@ namespace mage {
 			const ShadedMaterial shaded_material(material, shader);
 
 			// Creates a submodel node.
-			SharedPtr< ModelNode > submodel_node = std::make_shared< ModelNode >(model_part.m_child,
+			SharedPtr< ModelNode > submodel_node = MakeShared< ModelNode >(model_part.m_child,
 				desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, 
 				model_part.m_aabb, model_part.m_bs, shaded_material);
 			// Adds this submodel node to this scene.
@@ -410,7 +410,7 @@ namespace mage {
 
 		if (create_root_model_node) {
 			// Creates a root model node.
-			root_model_node = std::make_shared< ModelNode >("model",
+			root_model_node = MakeShared< ModelNode >("model",
 				desc.GetMesh(), 0, 0, AABB(), BS(), default_shaded_material);
 			// Adds this root model node to this scene.
 			AddModel(root_model_node);

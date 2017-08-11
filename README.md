@@ -2,7 +2,7 @@
 
 [![Build status][s1]][av] [![License][s2]][li] [![Join the chat at https://gitter.im/WickedEngine/Lobby][s3]][gi]
 
-[s1]: https://ci.appveyor.com/api/projects/status/3dbcee5gd6i7qh7v?svg=true
+[s1]: https://ci.appveyor.com/api/projects/status/ike880pg85pupdj6?svg=true
 [s2]: https://img.shields.io/badge/licence-No%20Licence-blue.svg
 [s3]: https://badges.gitter.im/MatthiasAdvancedGameEngine/Lobby.svg
 [av]: https://ci.appveyor.com/project/matt77hias/MAGE

@@ -263,6 +263,7 @@
     <ClCompile Include="MAGE\src\model\model_node.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\parallel.cpp" />
+    <ClCompile Include="MAGE\src\rendering\display_configuration.cpp" />
     <ClCompile Include="MAGE\src\rendering\display_configurator.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />

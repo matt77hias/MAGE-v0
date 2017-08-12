@@ -43,7 +43,7 @@ namespace mage {
 		/**
 		 The allowed number of samples for MSAA. 
 		 */
-		static const size_t s_msaa_nb_samples[5];
+		static const UINT s_nb_MSAA_samples[5];
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors

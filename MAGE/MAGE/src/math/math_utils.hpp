@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "math\math.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

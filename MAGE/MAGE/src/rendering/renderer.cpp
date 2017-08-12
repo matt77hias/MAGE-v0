@@ -106,6 +106,8 @@ namespace mage {
 	}
 
 	void Renderer::SetupSwapChain() {
+		m_display_configuration->UpdateMSAASampleDesc(GetDevice());
+
 		// Create the swap chain.
 		CreateSwapChain();
 		// Create and binds the RTV and DSV.
@@ -136,19 +138,15 @@ namespace mage {
 		// DXGI_MWA_NO_PRINT_SCREEN:   Prevent DXGI from responding to a print-screen key.
 		dxgi_factory3->MakeWindowAssociation(m_hwindow, DXGI_MWA_NO_WINDOW_CHANGES | DXGI_MWA_NO_ALT_ENTER | DXGI_MWA_NO_PRINT_SCREEN);
 
-		UINT p;
-		m_device->CheckMultisampleQualityLevels(m_display_configuration->GetDisplayFormat(), 4, &p);
-
 		// Create a DXGI_SWAP_CHAIN_DESC1.
 		DXGI_SWAP_CHAIN_DESC1 swap_chain_desc = {};
-		swap_chain_desc.Width              = static_cast< UINT >(m_display_configuration->GetDisplayWidth());
-		swap_chain_desc.Height             = static_cast< UINT >(m_display_configuration->GetDisplayHeight());
-		swap_chain_desc.Format             = m_display_configuration->GetDisplayFormat();
-		swap_chain_desc.SampleDesc.Count   = 8;										 // The number of multisamples per pixel.
-		swap_chain_desc.SampleDesc.Quality = 0;										 // The image quality level. (lowest)
-		swap_chain_desc.BufferUsage        = DXGI_USAGE_RENDER_TARGET_OUTPUT;		 // Use the surface or resource as an output render target.
-		swap_chain_desc.BufferCount        = 1;										 // The number of buffers in the swap chain.
-		swap_chain_desc.Flags              = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+		swap_chain_desc.Width       = static_cast< UINT >(GetWidth());
+		swap_chain_desc.Height      = static_cast< UINT >(GetHeight());
+		swap_chain_desc.Format      = m_display_configuration->GetDisplayFormat();
+		swap_chain_desc.SampleDesc  = m_display_configuration->GetMSAASampleDesc();
+		swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+		swap_chain_desc.BufferCount = 1;
+		swap_chain_desc.Flags       = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
 		// Create a DXGI_SWAP_CHAIN_FULLSCREEN_DESC.
 		DXGI_SWAP_CHAIN_FULLSCREEN_DESC swap_chain_fullscreen_desc = {};
@@ -189,17 +187,16 @@ namespace mage {
 	void Renderer::CreateDSV() {
 		// Create the depth stencil texture descriptor.
 		D3D11_TEXTURE2D_DESC depth_stencil_desc = {};
-		depth_stencil_desc.Width              = static_cast< UINT >(m_display_configuration->GetDisplayWidth());
-		depth_stencil_desc.Height             = static_cast< UINT >(m_display_configuration->GetDisplayHeight());
-		depth_stencil_desc.MipLevels          = 1;                             // The maximum number of mipmap levels in the texture.
-		depth_stencil_desc.ArraySize          = 1;							   // Number of textures in the texture array.
-		depth_stencil_desc.Format             = DXGI_FORMAT_D24_UNORM_S8_UINT; // Texture format.
-		depth_stencil_desc.SampleDesc.Count   = 8;							   // The number of multisamples per pixel.
-		depth_stencil_desc.SampleDesc.Quality = 0;							   // The image quality level. (lowest)
-		depth_stencil_desc.Usage              = D3D11_USAGE_DEFAULT;		   // Value that identifies how the texture is to be read from and written to.
-		depth_stencil_desc.BindFlags          = D3D11_BIND_DEPTH_STENCIL;	   // Flags for binding to pipeline stages. 
-		depth_stencil_desc.CPUAccessFlags     = 0;							   // No CPU access is necessary.
-		depth_stencil_desc.MiscFlags          = 0;							   // Flags that identify other, less common resource options.
+		depth_stencil_desc.Width              = static_cast< UINT >(GetWidth());
+		depth_stencil_desc.Height             = static_cast< UINT >(GetHeight());
+		depth_stencil_desc.MipLevels          = 1;
+		depth_stencil_desc.ArraySize          = 1;
+		depth_stencil_desc.Format             = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		depth_stencil_desc.SampleDesc         = m_display_configuration->GetMSAASampleDesc();
+		depth_stencil_desc.Usage              = D3D11_USAGE_DEFAULT;
+		depth_stencil_desc.BindFlags          = D3D11_BIND_DEPTH_STENCIL;
+		depth_stencil_desc.CPUAccessFlags     = 0;
+		depth_stencil_desc.MiscFlags          = 0;
 		
 		// Create the depth stencil texture.
 		ComPtr< ID3D11Texture2D > depth_stencil;
@@ -211,7 +208,9 @@ namespace mage {
 		// Create the depth stencil view descriptor.
 		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
 		dsv_desc.Format             = depth_stencil_desc.Format;
-		dsv_desc.ViewDimension      = D3D11_DSV_DIMENSION_TEXTURE2DMS;
+		dsv_desc.ViewDimension      = m_display_configuration->UseMSAA() ? 
+										D3D11_DSV_DIMENSION_TEXTURE2DMS : 
+										D3D11_DSV_DIMENSION_TEXTURE2D;
 		dsv_desc.Texture2D.MipSlice = 0;
 		
 		// Create a depth stencil view.

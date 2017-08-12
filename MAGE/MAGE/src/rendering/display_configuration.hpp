@@ -50,12 +50,19 @@ namespace mage {
 						The windowed/fullscreen mode.
 		 @param[in]		vsync
 						The V-sync mode.
+		 @param[in]		nb_MSAA_samples
+						The number of MSAA samples.
 		 */
 		explicit DisplayConfiguration(
 			ComPtr< IDXGIAdapter2 > adapter, ComPtr< IDXGIOutput2 > output,
-			const DXGI_MODE_DESC1 &display_mode, bool windowed, bool vsync)
+			const DXGI_MODE_DESC1 &display_mode, 
+			bool windowed, bool vsync, UINT nb_MSAA_samples = 1)
 			: m_adapter(adapter), m_output(output),
-			m_display_mode(display_mode), m_windowed(windowed), m_vsync(vsync) {}
+			m_display_mode(display_mode), m_windowed(windowed), 
+			m_vsync(vsync), m_MSAA_sample_desc{} {
+
+			SetMSAASampleDesc(nb_MSAA_samples);
+		}
 
 		/**
 		 Constructs a display configuration from the given display configuration.
@@ -196,6 +203,57 @@ namespace mage {
 		}
 
 		/**
+		 Checks whether MSAA should be used for this display configuration.
+
+		 @return		@c true if MSAA should be used for this display configuration.
+						@c false otherwise.
+		 */
+		bool UseMSAA() const noexcept {
+			return m_MSAA_sample_desc.Count != 1;
+		}
+
+		/**
+		 Gets the MSAA sample descriptor of this display configuration.
+
+		 @return		A reference to the MSAA sample descriptor 
+						of this display configuration.
+		 */
+		const DXGI_SAMPLE_DESC &GetMSAASampleDesc() const noexcept {
+			return m_MSAA_sample_desc;
+		}
+
+		/**
+		 Sets the MSAA sample descriptor of this display configuration
+		 to the given number of MSAA samples and quality level.
+
+		 @param[in]		nb_MSAA_samples
+						The number of MSAA samples.
+		 @param[in]		MSAA_quality_level
+						The MSAA quality level.
+		 */
+		void SetMSAASampleDesc(UINT nb_MSAA_samples, UINT MSAA_quality_level = 0) noexcept;
+
+		/**
+		 Sets the MSAA sample descriptor of this display configuration
+		 to the given MSAA sample descriptor.
+
+		 @param[in]		MSAA_sample_desc
+						A reference to the MSAA sample descriptor
+		 */
+		void SetMSAASampleDesc(const DXGI_SAMPLE_DESC &MSAA_sample_desc) noexcept {
+			SetMSAASampleDesc(MSAA_sample_desc.Count, MSAA_sample_desc.Quality);
+		}
+
+		/**
+		 Updates the MSAA sample descriptor according to the given device.
+
+		 @pre			@a device is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
+		 */
+		void UpdateMSAASampleDesc(ID3D11Device2 *device) noexcept;
+
+		/**
 		 Checks whether the application should run in windowed mode
 		 for this display configuration.
 
@@ -287,6 +345,11 @@ namespace mage {
 		 The display mode of this display configuration.
 		 */
 		DXGI_MODE_DESC1 m_display_mode;
+
+		/**
+		 The number of MSAA samples of this display configuration.
+		 */
+		DXGI_SAMPLE_DESC m_MSAA_sample_desc;
 
 		/**
 		 Flag indicating whether the application should run in windowed mode

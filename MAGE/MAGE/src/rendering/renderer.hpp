@@ -402,7 +402,7 @@ namespace mage {
 		/**
 		 A pointer to the display configuration of this renderer.
 		 */
-		UniquePtr< const DisplayConfiguration > m_display_configuration;
+		UniquePtr< DisplayConfiguration > m_display_configuration;
 
 		/**
 		 A pointer to the feature level of this renderer.

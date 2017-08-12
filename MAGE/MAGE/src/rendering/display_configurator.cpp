@@ -28,10 +28,10 @@ namespace mage {
 
 	const DXGI_FORMAT DisplayConfigurator::s_pixel_formats[] = {
 		DXGI_FORMAT_B8G8R8A8_UNORM,
-		DXGI_FORMAT_R10G10B10A2_UNORM,
+		DXGI_FORMAT_R10G10B10A2_UNORM, //TODO: unused
 	};
 
-	const size_t DisplayConfigurator::s_msaa_nb_samples[] = {1, 2, 4, 8, 16};
+	const UINT DisplayConfigurator::s_nb_MSAA_samples[] = { 1, 2, 4, 8, 16 };
 
 	DisplayConfigurator::DisplayConfigurator()
 		: m_display_configuration(), m_display_configuration_script(),
@@ -246,11 +246,10 @@ namespace mage {
 			// Fill in the display formats combo box.
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_MSAA));
-			ComboBoxAddData(hwndDlg, IDC_MSAA, (size_t)1, L"1");
-			ComboBoxAddData(hwndDlg, IDC_MSAA, (size_t)2, L"2");
-			ComboBoxAddData(hwndDlg, IDC_MSAA, (size_t)4, L"4");
-			ComboBoxAddData(hwndDlg, IDC_MSAA, (size_t)8, L"8");
-			ComboBoxAddData(hwndDlg, IDC_MSAA, (size_t)16, L"16");
+			for (size_t i = 0; i < _countof(s_nb_MSAA_samples); ++i) {
+				swprintf_s(buffer, _countof(buffer), L"%u", s_nb_MSAA_samples[i]);
+				ComboBoxAddData(hwndDlg, IDC_MSAA, static_cast< size_t >(s_nb_MSAA_samples[i]), buffer);
+			}
 			const int msaa_index = *m_display_configuration_script->GetValueOfVariable< int >("msaa");
 			ComboBoxSelect(hwndDlg, IDC_MSAA, msaa_index);
 
@@ -336,7 +335,7 @@ namespace mage {
 
 				// Store all the settings to the display configuration.
 				m_display_configuration = MakeUnique< DisplayConfiguration >(
-					m_adapter, m_output, *selected_diplay_mode, windowed, vsync);
+					m_adapter, m_output, *selected_diplay_mode, windowed, vsync, selected_msaa);
 
 				// Get the selected index from each combo box.
 				const int resolution_index	 = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_RESOLUTION));

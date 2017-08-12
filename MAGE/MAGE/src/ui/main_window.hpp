@@ -173,7 +173,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The application-defined function that processes messages sent to the engine window.
+		 The engine-defined function that processes messages sent to the engine window.
 		 The WindowProc type defines a pointer to this callback function.
 
 		 @param[in]		hWnd

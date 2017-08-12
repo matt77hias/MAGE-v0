@@ -5,10 +5,10 @@
 
 #include "core\engine.hpp"
 #include "core\version.hpp"
+#include "rendering\display_configurator.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
 #include "logging\logging.hpp"
-#include "rendering\device_enumeration.hpp"
 
 #pragma endregion
 
@@ -24,8 +24,7 @@ namespace mage {
 	Engine *Engine::s_engine = nullptr;
 
 	Engine::Engine(const EngineSetup &setup) 
-		: Loadable(), m_device_enumeration(),
-		m_main_window(), m_deactive(false), 
+		: Loadable(), m_main_window(), m_deactive(false), 
 		m_renderer(), m_mode_switch(false),
 		m_input_manager(), m_resource_manager(),
 		m_scene(), m_timer(MakeUnique< Timer >()),
@@ -61,20 +60,21 @@ namespace mage {
 		PrintConsoleHeader();
 
 		// Enumerate the devices.
-		m_device_enumeration = MakeUnique< DeviceEnumeration >();
-		const HRESULT result_enumerate = m_device_enumeration->Enumerate();
-		if (FAILED(result_enumerate)) {
-			Error("Device enumeration setup failed: %ld", result_enumerate);
+		UniquePtr< DisplayConfigurator > display_configurator(MakeUnique< DisplayConfigurator >());
+		const HRESULT result_configure = display_configurator->Configure();
+		if (FAILED(result_configure)) {
+			Error("Display configuration failed: %ld", result_configure);
 			return;
 		}
 
-		const LONG width  = static_cast< LONG >(m_device_enumeration->GetDisplayMode()->Width);
-		const LONG height = static_cast< LONG >(m_device_enumeration->GetDisplayMode()->Height);
+		const DisplayConfiguration &display_configuration = display_configurator->GetDisplayConfiguration();
+		const uint32_t width  = display_configuration.GetDisplayWidth();
+		const uint32_t height = display_configuration.GetDisplayHeight();
 		
 		// Initialize the window System.
 		m_main_window      = MakeUnique< MainWindow >(setup.GetApplicationHinstance(), setup.GetApplicationName(), width, height);
 		// Initialize the rendering system.
-		m_renderer         = MakeUnique< Renderer >(m_main_window->GetHandle());
+		m_renderer         = MakeUnique< Renderer >(m_main_window->GetHandle(), display_configuration);
 		// Initialize the input system.
 		m_input_manager    = MakeUnique< InputManager >(m_main_window->GetHandle());
 		// Initialize the resource system.
@@ -121,11 +121,8 @@ namespace mage {
 		}
 
 		m_main_window->Show(nCmdShow);
-
 		// Handle startup in fullscreen mode.
-		if (m_device_enumeration->IsFullScreen()) {
-			m_renderer->SwitchMode(true);
-		}
+		m_renderer->SetInitialMode();
 
 		m_timer->Restart();
 

@@ -6,15 +6,7 @@
 #pragma region
 
 #include "rendering\rendering_state.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdint.h>
+#include "rendering\display_configuration.hpp"
 
 #pragma endregion
 
@@ -53,8 +45,11 @@ namespace mage {
 
 		 @param[in]		hwindow
 						The main window handle.
+		 @param[in]		display_configuration
+						A reference to the display configuration.
 		 */
-		explicit Renderer(HWND hwindow);
+		explicit Renderer(HWND hwindow, 
+			const DisplayConfiguration &display_configuration);
 
 		/**
 		 Constructs a renderer from the given renderer.
@@ -106,21 +101,21 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the width in pixels of the display of this renderer.
+		 Returns the adapter of this renderer.
 
-		 @return		The width in pixels of the display of this renderer.
+		 @return		A pointer to the adapter of this renderer.
 		 */
-		uint32_t GetWidth() const noexcept {
-			return static_cast< uint32_t >(m_display_mode.Width);
+		IDXGIAdapter2 *GetAdapter() const noexcept {
+			return m_display_configuration->GetAdapter();
 		}
 
 		/**
-		 Returns the height in pixels of the display of this renderer.
+		 Returns the output of this renderer.
 
-		 @return		The height in pixels of the display of this renderer.
+		 @return		A pointer to the device context of this renderer.
 		 */
-		uint32_t GetHeight() const noexcept {
-			return static_cast< uint32_t >(m_display_mode.Height);
+		IDXGIOutput2 *GetOutput() const noexcept {
+			return m_display_configuration->GetOutput();
 		}
 
 		/**
@@ -160,6 +155,24 @@ namespace mage {
 		}
 
 		/**
+		 Returns the width in pixels of the display of this renderer.
+
+		 @return		The width in pixels of the display of this renderer.
+		 */
+		uint32_t GetWidth() const noexcept {
+			return m_display_configuration->GetDisplayWidth();
+		}
+
+		/**
+		 Returns the height in pixels of the display of this renderer.
+
+		 @return		The height in pixels of the display of this renderer.
+		 */
+		uint32_t GetHeight() const noexcept {
+			return m_display_configuration->GetDisplayHeight();
+		}
+
+		/**
 		 Checks whether this renderer renders in windowed mode.
 
 		 @return		@c true if this renderer renders in windowed mode.
@@ -190,6 +203,16 @@ namespace mage {
 		 */
 		bool LostMode() const {
 			return m_fullscreen == IsWindowed();
+		}
+
+		/**
+		 Sets the initial mode of this renderer.
+		 Call this method before starting the game loop.
+		 */
+		void SetInitialMode() noexcept {
+			if (m_display_configuration->IsFullScreen()) {
+				SwitchMode(true);
+			}
 		}
 
 		/**
@@ -361,9 +384,9 @@ namespace mage {
 		bool m_in_begin_end_pair;
 
 		/**
-		 A pointer to the display mode of this renderer.
+		 A pointer to the display configuration of this renderer.
 		 */
-		DXGI_MODE_DESC1	m_display_mode;
+		UniquePtr< const DisplayConfiguration > m_display_configuration;
 
 		/**
 		 A pointer to the feature level of this renderer.

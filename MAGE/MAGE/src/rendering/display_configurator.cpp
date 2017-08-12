@@ -3,9 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\engine.hpp"
-#include "rendering\rendering_utils.hpp"
+#include "rendering\display_configurator.hpp"
 #include "rendering\graphics_settings.hpp"
+#include "rendering\rendering_utils.hpp"
 #include "platform\windows_utils.hpp"
 #include "ui\combo_box.hpp"
 #include "file\file_utils.hpp"
@@ -14,68 +14,46 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_DISPLAY_SETTINGS_FILE L"./DisplaySettings.vs"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	//-------------------------------------------------------------------------
-	// DeviceEnumeration
-	//-------------------------------------------------------------------------
-
-	const DeviceEnumeration *DeviceEnumeration::Get() noexcept {
-		Assert(Engine::Get());
-
-		return Engine::Get()->GetDeviceEnumeration();
-	}
-
-	INT_PTR CALLBACK DeviceEnumeration::SettingsDialogProcDelegate(
+	INT_PTR CALLBACK DisplayConfigurator::DisplayDialogProcDelegate(
 		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
-		DeviceEnumeration * const device_enumeration 
-			= GetDialogCaller< DeviceEnumeration >(hwndDlg, uMsg, wParam, lParam);
-		return device_enumeration->SettingsDialogProc(hwndDlg, uMsg, wParam, lParam);
+		DisplayConfigurator * const display_configurator
+			= GetDialogCaller< DisplayConfigurator >(hwndDlg, uMsg, wParam, lParam);
+		return display_configurator->DisplayDialogProc(hwndDlg, uMsg, wParam, lParam);
 	}
 
-	const DXGI_FORMAT DeviceEnumeration::s_pixel_formats[] = {
+	const DXGI_FORMAT DisplayConfigurator::s_pixel_formats[] = {
 		DXGI_FORMAT_B8G8R8X8_UNORM,
 		DXGI_FORMAT_B8G8R8A8_UNORM,
 		DXGI_FORMAT_R10G10B10A2_UNORM,
 	};
 
-	DeviceEnumeration::DeviceEnumeration() 
-		: m_adapter(), m_output(), m_settings_script(),
-		m_display_modes(), m_selected_diplay_mode(nullptr),
-		m_windowed(false), m_vsync(false) {}
+	DisplayConfigurator::DisplayConfigurator() = default;
 
-	DeviceEnumeration::DeviceEnumeration(DeviceEnumeration &&device_enumeration) = default;
+	DisplayConfigurator::DisplayConfigurator(DisplayConfigurator &&device_enumeration) = default;
 
-	DeviceEnumeration::~DeviceEnumeration() = default;
+	DisplayConfigurator::~DisplayConfigurator() = default;
 
 	/**
-	 Checks whether the given display mode needs to be rejected for the engine.
+	 Checks whether the given display mode needs to be rejected.
 
 	 @param[in]		display_mode_desc
 					A reference to a display mode descriptor.
-	 @return		@c true if the given display mode needs to be rejected for the engine.
+	 @return		@c true if the given display mode needs to be rejected.
 					@c false otherwise.
 	 */
 	inline bool RejectDisplayMode(const DXGI_MODE_DESC1 &display_mode_desc) noexcept {
 		return display_mode_desc.Height < 480;
 	}
 
-	HRESULT DeviceEnumeration::Enumerate() {
+	HRESULT DisplayConfigurator::Configure() {
 		// Load the settings script.
 		const bool file_exists = FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
-		m_settings_script = MakeUnique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists);
+		m_display_configuration_script = MakeUnique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists);
 
 		// Initialize the adapter and output.
 		InitializeAdapterAndOutput();
@@ -89,11 +67,14 @@ namespace mage {
 		// 4. A pointer to the dialog box procedure.
 		// 5. The value to pass to the dialog box in the lParam parameter of the WM_INITDIALOG message.
 		const INT_PTR result_dialog = DialogBoxParam(nullptr, MAKEINTRESOURCE(IDD_GRAPHICS_SETTINGS), 
-			nullptr, SettingsDialogProcDelegate, reinterpret_cast< LPARAM >(this));
+			nullptr, DisplayDialogProcDelegate, reinterpret_cast< LPARAM >(this));
 		return (result_dialog == IDOK) ? S_OK : E_FAIL;
 	}
 
-	void DeviceEnumeration::InitializeAdapterAndOutput() {
+	void DisplayConfigurator::InitializeAdapterAndOutput() {
+		ComPtr< IDXGIAdapter2 > selected_adapter;
+		ComPtr< IDXGIOutput2 > selected_output;
+		
 		// Get the IDXGIFactory3.
 		ComPtr< IDXGIFactory3 > factory;
 		const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)factory.GetAddressOf());
@@ -140,16 +121,18 @@ namespace mage {
 				continue;
 			}
 
-			m_adapter = adapter2;
-			m_output = output2;
-			max_vram = vram;
+			selected_adapter = adapter2;
+			selected_output  = output2;
+			max_vram         = vram;
 		}
+
+		m_display_configuration.SetAdapter(selected_adapter);
+		m_display_configuration.SetOutput(selected_output);
 	}
 
-	void DeviceEnumeration::InitializeDisplayModes() {
+	void DisplayConfigurator::InitializeDisplayModes() {
 		// Create the display modes linked list.
 		m_display_modes = list< DXGI_MODE_DESC1 >();
-		m_selected_diplay_mode = nullptr;
 
 		// Get the DXGI_MODE_DESCs. 
 		for (size_t i = 0; i < _countof(s_pixel_formats); ++i) {
@@ -158,13 +141,15 @@ namespace mage {
 			const UINT flags = DXGI_ENUM_MODES_INTERLACED;
 			UINT nb_display_modes;
 			// Get the number of display modes that match the requested format and other input options.
-			const HRESULT result1 = m_output->GetDisplayModeList1(s_pixel_formats[i], flags, &nb_display_modes, nullptr);
+			const HRESULT result1 = m_display_configuration.GetOutput()->
+				GetDisplayModeList1(s_pixel_formats[i], flags, &nb_display_modes, nullptr);
 			if (FAILED(result1)) {
 				throw FormattedException("Failed to get the number of display modes: %08X.", result1);
 			}
 			UniquePtr< DXGI_MODE_DESC1[] >dxgi_mode_descs(MakeUnique< DXGI_MODE_DESC1[] >(nb_display_modes));
 			// Get the display modes that match the requested format and other input options.
-			const HRESULT result2 = m_output->GetDisplayModeList1(s_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs.get());
+			const HRESULT result2 = m_display_configuration.GetOutput()->
+				GetDisplayModeList1(s_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs.get());
 			if (FAILED(result2)) {
 				throw FormattedException("Failed to get the display modes: %08X.", result2);
 			}
@@ -206,7 +191,7 @@ namespace mage {
 		return static_cast< size_t >(round(desc.RefreshRate.Numerator / static_cast< float >(desc.RefreshRate.Denominator)));
 	}
 
-	INT_PTR DeviceEnumeration::SettingsDialogProc(
+	INT_PTR DisplayConfigurator::DisplayDialogProc(
 		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		UNUSED(lParam);
 		wchar_t buffer[16];
@@ -221,25 +206,25 @@ namespace mage {
 
 			// Display the adapter details.
 			DXGI_ADAPTER_DESC2 desc;
-			m_adapter->GetDesc2(&desc);
+			m_display_configuration.GetAdapter()->GetDesc2(&desc);
 			Edit_SetText(GetDlgItem(hwndDlg, IDC_DISPLAY_ADAPTER), desc.Description);
 
-			if (m_settings_script->IsEmpty()) {
-				m_settings_script->AddVariable(VariableType::Bool, "windowed",   true);
-				m_settings_script->AddVariable(VariableType::Bool, "vsync",      false);
-				m_settings_script->AddVariable(VariableType::Int,  "bpp",        0);
-				m_settings_script->AddVariable(VariableType::Int,  "resolution", 0);
-				m_settings_script->AddVariable(VariableType::Int,  "refresh",	 0);
+			if (m_display_configuration_script->IsEmpty()) {
+				m_display_configuration_script->AddVariable(VariableType::Bool, "windowed",   true);
+				m_display_configuration_script->AddVariable(VariableType::Bool, "vsync",      false);
+				m_display_configuration_script->AddVariable(VariableType::Int,  "bpp",        0);
+				m_display_configuration_script->AddVariable(VariableType::Int,  "resolution", 0);
+				m_display_configuration_script->AddVariable(VariableType::Int,  "refresh",	 0);
 			}
 
 			// Load the windowed state.
-			m_windowed = *m_settings_script->GetValueOfVariable< bool >("windowed");
+			const bool windowed = *m_display_configuration_script->GetValueOfVariable< bool >("windowed");
 			// Change the check state of a button control.
 			// 1. A handle to the dialog box that contains the button.
 			// 2. The identifier of the button to modify.
 			// 3. The check state of the button.
-			CheckDlgButton(hwndDlg, IDC_WINDOWED, m_windowed);
-			CheckDlgButton(hwndDlg, IDC_FULLSCREEN, !m_windowed);
+			CheckDlgButton(hwndDlg, IDC_WINDOWED, windowed);
+			CheckDlgButton(hwndDlg, IDC_FULLSCREEN, !windowed);
 
 			EnableWindow(GetDlgItem(hwndDlg, IDC_VSYNC), true);
 			EnableWindow(GetDlgItem(hwndDlg, IDC_DISPLAY_FORMAT), true);
@@ -247,12 +232,12 @@ namespace mage {
 			EnableWindow(GetDlgItem(hwndDlg, IDC_REFRESH_RATE), true);
 
 			// Load the vsync state.
-			m_vsync = *m_settings_script->GetValueOfVariable< bool >("vsync");
+			const bool vsync = *m_display_configuration_script->GetValueOfVariable< bool >("vsync");
 			// Change the check state of a button control.
 			// 1. A handle to the dialog box that contains the button.
 			// 2. The identifier of the button to modify.
 			// 3. The check state of the button.
-			CheckDlgButton(hwndDlg, IDC_VSYNC, m_vsync);
+			CheckDlgButton(hwndDlg, IDC_VSYNC, vsync);
 
 			// Fill in the display formats combo box.
 			// Remove all items from the list box and edit control of a combo box.
@@ -267,7 +252,7 @@ namespace mage {
 					ComboBoxAddData(hwndDlg, IDC_DISPLAY_FORMAT, it->Format, buffer);
 				}
 			}
-			const int bpp_index = *m_settings_script->GetValueOfVariable< int >("bpp");
+			const int bpp_index = *m_display_configuration_script->GetValueOfVariable< int >("bpp");
 			ComboBoxSelect(hwndDlg, IDC_DISPLAY_FORMAT, bpp_index);
 
 			const DXGI_FORMAT selected_format = ComboBoxSelectedData< DXGI_FORMAT >(hwndDlg, IDC_DISPLAY_FORMAT);
@@ -285,7 +270,7 @@ namespace mage {
 					}
 				}
 			}
-			const int resolution_index = *m_settings_script->GetValueOfVariable< int >("resolution");
+			const int resolution_index = *m_display_configuration_script->GetValueOfVariable< int >("resolution");
 			ComboBoxSelect(hwndDlg, IDC_RESOLUTION, resolution_index);
 
 			const size_t selected_resolution = ComboBoxSelectedData< size_t >(hwndDlg, IDC_RESOLUTION);
@@ -304,7 +289,7 @@ namespace mage {
 					}
 				}
 			}
-			const int refresh_rate_index = *m_settings_script->GetValueOfVariable< int >("refresh");
+			const int refresh_rate_index = *m_display_configuration_script->GetValueOfVariable< int >("refresh");
 			ComboBoxSelect(hwndDlg, IDC_REFRESH_RATE, refresh_rate_index);
 
 			return TRUE;
@@ -314,9 +299,10 @@ namespace mage {
 			switch (LOWORD(wParam)) {
 			case IDOK: {
 				// Store the details of the selected display mode.
-				const DXGI_FORMAT selected_format  = ComboBoxSelectedData< DXGI_FORMAT >(hwndDlg, IDC_DISPLAY_FORMAT);
-				const size_t selected_resolution   = ComboBoxSelectedData< size_t >(hwndDlg, IDC_RESOLUTION);
-				const size_t selected_refresh_rate = ComboBoxSelectedData< size_t >(hwndDlg, IDC_REFRESH_RATE);
+				const DXGI_FORMAT selected_format            = ComboBoxSelectedData< DXGI_FORMAT >(hwndDlg, IDC_DISPLAY_FORMAT);
+				const size_t selected_resolution             = ComboBoxSelectedData< size_t >(hwndDlg, IDC_RESOLUTION);
+				const size_t selected_refresh_rate           = ComboBoxSelectedData< size_t >(hwndDlg, IDC_REFRESH_RATE);
+				const DXGI_MODE_DESC1 *selected_diplay_mode  = nullptr;
 				for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 					
 					const size_t resolution = ConvertResolution(*it);
@@ -333,10 +319,10 @@ namespace mage {
 						continue;
 					}
 
-					m_selected_diplay_mode = &(*it);
+					selected_diplay_mode = &(*it);
 					break;
 				}
-				if (!m_selected_diplay_mode) {
+				if (!selected_diplay_mode) {
 					Error("Selected display mode retrieval failed.");
 
 					// Close the hwndDlg.
@@ -345,33 +331,34 @@ namespace mage {
 					return TRUE;
 				}
 				
-				m_windowed = IsDlgButtonChecked(hwndDlg, IDC_WINDOWED) ? true : false;
-				m_vsync	   = IsDlgButtonChecked(hwndDlg, IDC_VSYNC)    ? true : false;
+				const bool windowed = IsDlgButtonChecked(hwndDlg, IDC_WINDOWED) ? true : false;
+				const bool vsync	= IsDlgButtonChecked(hwndDlg, IDC_VSYNC)    ? true : false;
+
+				// Store all the settings to the display configuration.
+				m_display_configuration.SetWindowed(windowed);
+				m_display_configuration.SetVSync(vsync);
+				m_display_configuration.SetDisplayMode(*selected_diplay_mode);
+				
 				// Get the selected index from each combo box.
-				const int bpp_index			 = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_DISPLAY_FORMAT));
+				const int format_index		 = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_DISPLAY_FORMAT));
 				const int resolution_index	 = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_RESOLUTION));
 				const int refresh_rate_index = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
-
-				// Set all the settings in the script.
-				m_settings_script->SetValueOfVariable("windowed",	m_windowed);
-				m_settings_script->SetValueOfVariable("vsync",		m_vsync);
-				m_settings_script->SetValueOfVariable("bpp",		bpp_index);
-				m_settings_script->SetValueOfVariable("resolution", resolution_index);
-				m_settings_script->SetValueOfVariable("refresh",	refresh_rate_index);
-				// Save all the settings out to the settings script.
-				m_settings_script->ExportScript();
+				
+				// Set all the settings in the settings script.
+				m_display_configuration_script->SetValueOfVariable("windowed",	windowed);
+				m_display_configuration_script->SetValueOfVariable("vsync",		vsync);
+				m_display_configuration_script->SetValueOfVariable("bpp",		format_index);
+				m_display_configuration_script->SetValueOfVariable("resolution", resolution_index);
+				m_display_configuration_script->SetValueOfVariable("refresh",	refresh_rate_index);
+				// Save all the settings to the settings script.
+				m_display_configuration_script->ExportScript();
 
 				// Close the hwndDlg.
 				EndDialog(hwndDlg, IDOK);
 
 				return TRUE;
 			}
-			case IDCANCEL: {
-				// Close the hwndDlg.
-				EndDialog(hwndDlg, IDCANCEL);
-
-				return TRUE;
-			}
+			case IDCANCEL:
 			case IDC_DISPLAY_FORMAT: {
 				if (CBN_SELCHANGE == HIWORD(wParam)) {
 					const DXGI_FORMAT selected_format = ComboBoxSelectedData< DXGI_FORMAT >(hwndDlg, IDC_DISPLAY_FORMAT);

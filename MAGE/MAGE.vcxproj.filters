@@ -276,9 +276,6 @@
     <ClInclude Include="MAGE\src\input\mouse.hpp">
       <Filter>Header Files\input</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\device_enumeration.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\graphics_settings.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
@@ -828,6 +825,12 @@
     <ClInclude Include="MAGE\src\platform\windows_utils.hpp">
       <Filter>Header Files\platform</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\display_configuration.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\display_configurator.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -841,9 +844,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\input\mouse.cpp">
       <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp">
-      <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\renderer.cpp">
       <Filter>Source Files\rendering</Filter>
@@ -1156,6 +1156,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\mesh\mesh_factory.cpp">
       <Filter>Source Files\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\display_configurator.cpp">
+      <Filter>Source Files\rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

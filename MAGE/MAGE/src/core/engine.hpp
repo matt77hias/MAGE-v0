@@ -7,7 +7,6 @@
 
 #include "core\targetver.hpp"
 
-#include "rendering\device_enumeration.hpp"
 #include "rendering\renderer.hpp"
 #include "input\input_manager.hpp"
 #include "ui\main_window.hpp"
@@ -116,20 +115,6 @@ namespace mage {
 						terminates before entering the message loop, it returns 0.
 		 */
 		int Run(int nCmdShow = SW_NORMAL);
-
-		//---------------------------------------------------------------------
-		// Member Methods: Device Enumeration
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the device enumeration of this engine.
-
-		 @return		@c nullptr if this engine is not properly setup.
-		 @return		A pointer to the device enumeration of this engine.
-		 */
-		const DeviceEnumeration *GetDeviceEnumeration() const noexcept {
-			return m_device_enumeration.get();
-		}
 
 		//---------------------------------------------------------------------
 		// Member Methods: Window System
@@ -254,15 +239,6 @@ namespace mage {
 						the different systems of this engine.
 		 */
 		void InitializeSystems(const EngineSetup &setup);
-
-		//---------------------------------------------------------------------
-		// Member Variables: Device Enumeration
-		//---------------------------------------------------------------------
-
-		/**
-		 A pointer to the device enumeration of this engine.
-		 */
-		UniquePtr< DeviceEnumeration > m_device_enumeration;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Window System

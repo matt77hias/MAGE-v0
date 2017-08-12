@@ -21,10 +21,11 @@ namespace mage {
 		return Engine::Get()->GetRenderer();
 	}
 
-	Renderer::Renderer(HWND hwindow) : 
+	Renderer::Renderer(HWND hwindow, 
+		const DisplayConfiguration &display_configuration) :
 		m_hwindow(hwindow), m_fullscreen(false),
 		m_in_begin_end_pair(false), 
-		m_display_mode(*DeviceEnumeration::Get()->GetDisplayMode()),
+		m_display_configuration(MakeUnique< DisplayConfiguration >(display_configuration)),
 		m_device(), m_device_context(), m_swap_chain(), m_rtv(), m_dsv(),
 		m_rendering_state_2d(), m_rendering_state_3d(), m_rendering_state_cache() {
 
@@ -80,7 +81,7 @@ namespace mage {
 		ComPtr< ID3D11Device > device;
 		ComPtr< ID3D11DeviceContext > device_context;
 		HRESULT result_device = D3D11CreateDevice(
-			DeviceEnumeration::Get()->GetAdapter().Get(), // Adapter.
+			GetAdapter(),			      // Adapter.
 			D3D_DRIVER_TYPE_UNKNOWN,	  // Driver type.
 			nullptr,					  // A handle to a DLL that implements a software rasterizer.
 			create_device_flags,		  // The runtime layers to enable.
@@ -108,11 +109,9 @@ namespace mage {
 	}
 
 	void Renderer::SetupSwapChain() {
-		// Get the IDXGIAdapter2.
-		ComPtr< IDXGIAdapter2 > dxgi_adapter2 = DeviceEnumeration::Get()->GetAdapter();
 		// Get the IDXGIFactory3.
 		ComPtr< IDXGIFactory3 > dxgi_factory3;
-		const HRESULT result_dxgi_factory3 = dxgi_adapter2->GetParent(__uuidof(IDXGIFactory3), (void **)dxgi_factory3.GetAddressOf());
+		const HRESULT result_dxgi_factory3 = GetAdapter()->GetParent(__uuidof(IDXGIFactory3), (void **)dxgi_factory3.GetAddressOf());
 		if (FAILED(result_dxgi_factory3)) {
 			throw FormattedException("IDXGIFactory3 creation failed: %08X.", result_dxgi_factory3);
 		}
@@ -124,9 +123,9 @@ namespace mage {
 
 		// Create a DXGI_SWAP_CHAIN_DESC1.
 		DXGI_SWAP_CHAIN_DESC1 swap_chain_desc = {};
-		swap_chain_desc.Width              = m_display_mode.Width;	                 // The resolution width.
-		swap_chain_desc.Height             = m_display_mode.Height;                  // The resolution height.
-		swap_chain_desc.Format             = m_display_mode.Format;                  // The display format.
+		swap_chain_desc.Width              = static_cast< UINT >(m_display_configuration->GetDisplayWidth());
+		swap_chain_desc.Height             = static_cast< UINT >(m_display_configuration->GetDisplayHeight());
+		swap_chain_desc.Format             = m_display_configuration->GetDisplayFormat();
 		swap_chain_desc.SampleDesc.Count   = 1;										 // The number of multisamples per pixel.
 		swap_chain_desc.SampleDesc.Quality = 0;										 // The image quality level. (lowest)
 		swap_chain_desc.BufferUsage        = DXGI_USAGE_RENDER_TARGET_OUTPUT;		 // Use the surface or resource as an output render target.
@@ -171,8 +170,8 @@ namespace mage {
 	void Renderer::SetupDSV() {
 		// Create the depth stencil texture descriptor.
 		D3D11_TEXTURE2D_DESC depth_stencil_desc = {};
-		depth_stencil_desc.Width              = m_display_mode.Width;	       // Texture width (in texels).
-		depth_stencil_desc.Height             = m_display_mode.Height;	       // Texture height (in texels).
+		depth_stencil_desc.Width              = static_cast< UINT >(m_display_configuration->GetDisplayWidth());
+		depth_stencil_desc.Height             = static_cast< UINT >(m_display_configuration->GetDisplayHeight());
 		depth_stencil_desc.MipLevels          = 1;                             // The maximum number of mipmap levels in the texture.
 		depth_stencil_desc.ArraySize          = 1;							   // Number of textures in the texture array.
 		depth_stencil_desc.Format             = DXGI_FORMAT_D24_UNORM_S8_UINT; // Texture format.
@@ -216,8 +215,8 @@ namespace mage {
 		D3D11_VIEWPORT viewport = {};
 		viewport.TopLeftX = 0;
 		viewport.TopLeftY = 0;
-		viewport.Width    = static_cast< FLOAT >(m_display_mode.Width);
-		viewport.Height   = static_cast< FLOAT >(m_display_mode.Height);
+		viewport.Width    = static_cast< FLOAT >(m_display_configuration->GetDisplayWidth());
+		viewport.Height   = static_cast< FLOAT >(m_display_configuration->GetDisplayHeight());
 		viewport.MinDepth = 0.0f;
 		viewport.MaxDepth = 1.0f;
 

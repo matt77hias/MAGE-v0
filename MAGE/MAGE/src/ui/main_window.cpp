@@ -98,7 +98,7 @@ namespace mage {
 		return 0;
 	}
 
-	MainWindow::MainWindow(HINSTANCE hinstance, const wstring &title_text, LONG width, LONG height)
+	MainWindow::MainWindow(HINSTANCE hinstance, const wstring &title_text, uint32_t width, uint32_t height)
 		: m_hinstance(hinstance), m_hwindow(nullptr) {
 
 		Assert(m_hinstance);
@@ -130,8 +130,8 @@ namespace mage {
 		Assert(result);
 	}
 
-	void MainWindow::InitializeWindow(const wstring &title_text, LONG width, LONG height) {
-		const RECT rectangle = { 0, 0, width, height };
+	void MainWindow::InitializeWindow(const wstring &title_text, uint32_t width, uint32_t height) {
+		const RECT rectangle = { 0, 0, static_cast< LONG >(width), static_cast< LONG >(height) };
 		return InitializeWindow(title_text, rectangle);
 	}
 

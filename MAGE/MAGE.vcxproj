@@ -108,7 +108,8 @@
     <ClInclude Include="MAGE\src\platform\windows.hpp" />
     <ClInclude Include="MAGE\src\platform\windows_utils.hpp" />
     <ClInclude Include="MAGE\src\rendering\constant_buffer.hpp" />
-    <ClInclude Include="MAGE\src\rendering\device_enumeration.hpp" />
+    <ClInclude Include="MAGE\src\rendering\display_configurator.hpp" />
+    <ClInclude Include="MAGE\src\rendering\display_configuration.hpp" />
     <ClInclude Include="MAGE\src\rendering\graphics_settings.hpp" />
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
@@ -262,7 +263,7 @@
     <ClCompile Include="MAGE\src\model\model_node.cpp" />
     <ClCompile Include="MAGE\src\parallel\lock.cpp" />
     <ClCompile Include="MAGE\src\parallel\parallel.cpp" />
-    <ClCompile Include="MAGE\src\rendering\device_enumeration.cpp" />
+    <ClCompile Include="MAGE\src\rendering\display_configurator.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp" />

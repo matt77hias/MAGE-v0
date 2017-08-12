@@ -11,6 +11,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <stdint.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -56,7 +65,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to create the main window.
 		 */
-		explicit MainWindow(HINSTANCE hinstance, const wstring &title_text, LONG width, LONG height);
+		explicit MainWindow(HINSTANCE hinstance, const wstring &title_text, uint32_t width, uint32_t height);
 
 		/**
 		 Constructs a main window from the given main window.
@@ -200,7 +209,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to create the main window.
 		 */
-		void InitializeWindow(const wstring &title_text, LONG width, LONG height);
+		void InitializeWindow(const wstring &title_text, uint32_t width, uint32_t height);
 
 		/**
 		 Initializes the engine window of this main window.

@@ -27,10 +27,11 @@ namespace mage {
 	}
 
 	const DXGI_FORMAT DisplayConfigurator::s_pixel_formats[] = {
-		DXGI_FORMAT_B8G8R8X8_UNORM,
 		DXGI_FORMAT_B8G8R8A8_UNORM,
 		DXGI_FORMAT_R10G10B10A2_UNORM,
 	};
+
+	const size_t DisplayConfigurator::s_msaa_nb_samples[] = {1, 2, 4, 8, 16};
 
 	DisplayConfigurator::DisplayConfigurator()
 		: m_display_configuration(), m_display_configuration_script(),
@@ -220,9 +221,9 @@ namespace mage {
 			if (m_display_configuration_script->IsEmpty()) {
 				m_display_configuration_script->AddVariable(VariableType::Bool, "windowed",   true);
 				m_display_configuration_script->AddVariable(VariableType::Bool, "vsync",      false);
-				m_display_configuration_script->AddVariable(VariableType::Int,  "bpp",        0);
 				m_display_configuration_script->AddVariable(VariableType::Int,  "resolution", 0);
-				m_display_configuration_script->AddVariable(VariableType::Int,  "refresh",	 0);
+				m_display_configuration_script->AddVariable(VariableType::Int, "msaa", 0);
+				m_display_configuration_script->AddVariable(VariableType::Int,  "refresh",	  0);
 			}
 
 			// Load the windowed state.
@@ -234,11 +235,6 @@ namespace mage {
 			CheckDlgButton(hwndDlg, IDC_WINDOWED, windowed);
 			CheckDlgButton(hwndDlg, IDC_FULLSCREEN, !windowed);
 
-			EnableWindow(GetDlgItem(hwndDlg, IDC_VSYNC), true);
-			EnableWindow(GetDlgItem(hwndDlg, IDC_DISPLAY_FORMAT), true);
-			EnableWindow(GetDlgItem(hwndDlg, IDC_RESOLUTION), true);
-			EnableWindow(GetDlgItem(hwndDlg, IDC_REFRESH_RATE), true);
-
 			// Load the vsync state.
 			const bool vsync = *m_display_configuration_script->GetValueOfVariable< bool >("vsync");
 			// Change the check state of a button control.
@@ -249,21 +245,16 @@ namespace mage {
 
 			// Fill in the display formats combo box.
 			// Remove all items from the list box and edit control of a combo box.
-			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_DISPLAY_FORMAT));
-			for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-#ifdef MAGE_X86
-				swprintf_s(buffer, _countof(buffer), L"%u bbp", BitsPerPixel(it->Format));
-#else
-				swprintf_s(buffer, _countof(buffer), L"%llu bbp", BitsPerPixel(it->Format));
-#endif
-				if (!ComboBoxContains(hwndDlg, IDC_DISPLAY_FORMAT, buffer)) { 
-					ComboBoxAddData(hwndDlg, IDC_DISPLAY_FORMAT, it->Format, buffer);
-				}
-			}
-			const int bpp_index = *m_display_configuration_script->GetValueOfVariable< int >("bpp");
-			ComboBoxSelect(hwndDlg, IDC_DISPLAY_FORMAT, bpp_index);
+			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_MSAA));
+			ComboBoxAddData(hwndDlg, IDC_MSAA, (size_t)1, L"1");
+			ComboBoxAddData(hwndDlg, IDC_MSAA, (size_t)2, L"2");
+			ComboBoxAddData(hwndDlg, IDC_MSAA, (size_t)4, L"4");
+			ComboBoxAddData(hwndDlg, IDC_MSAA, (size_t)8, L"8");
+			ComboBoxAddData(hwndDlg, IDC_MSAA, (size_t)16, L"16");
+			const int msaa_index = *m_display_configuration_script->GetValueOfVariable< int >("msaa");
+			ComboBoxSelect(hwndDlg, IDC_MSAA, msaa_index);
 
-			const DXGI_FORMAT selected_format = ComboBoxSelectedData< DXGI_FORMAT >(hwndDlg, IDC_DISPLAY_FORMAT);
+			const DXGI_FORMAT selected_format = DXGI_FORMAT_B8G8R8A8_UNORM;
 			// Fill in the resolutions combo box associated with the current format.
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
@@ -307,10 +298,11 @@ namespace mage {
 			switch (LOWORD(wParam)) {
 			case IDOK: {
 				// Store the details of the selected display mode.
-				const DXGI_FORMAT selected_format            = ComboBoxSelectedData< DXGI_FORMAT >(hwndDlg, IDC_DISPLAY_FORMAT);
-				const size_t selected_resolution             = ComboBoxSelectedData< size_t >(hwndDlg, IDC_RESOLUTION);
-				const size_t selected_refresh_rate           = ComboBoxSelectedData< size_t >(hwndDlg, IDC_REFRESH_RATE);
-				const DXGI_MODE_DESC1 *selected_diplay_mode  = nullptr;
+				const DXGI_FORMAT selected_format           = DXGI_FORMAT_B8G8R8A8_UNORM;
+				const size_t selected_resolution            = ComboBoxSelectedData< size_t >(hwndDlg, IDC_RESOLUTION);
+				const size_t selected_msaa                  = ComboBoxSelectedData< size_t >(hwndDlg, IDC_MSAA);
+				const size_t selected_refresh_rate          = ComboBoxSelectedData< size_t >(hwndDlg, IDC_REFRESH_RATE);
+				const DXGI_MODE_DESC1 *selected_diplay_mode = nullptr;
 				for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 					
 					const size_t resolution = ConvertResolution(*it);
@@ -347,15 +339,15 @@ namespace mage {
 					m_adapter, m_output, *selected_diplay_mode, windowed, vsync);
 
 				// Get the selected index from each combo box.
-				const int format_index		 = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_DISPLAY_FORMAT));
 				const int resolution_index	 = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_RESOLUTION));
+				const int msaa_index         = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_MSAA));
 				const int refresh_rate_index = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
 				
 				// Store all the settings to the display configuration script.
 				m_display_configuration_script->SetValueOfVariable("windowed",	 windowed);
 				m_display_configuration_script->SetValueOfVariable("vsync",		 vsync);
-				m_display_configuration_script->SetValueOfVariable("bpp",		 format_index);
 				m_display_configuration_script->SetValueOfVariable("resolution", resolution_index);
+				m_display_configuration_script->SetValueOfVariable("msaa",       msaa_index);
 				m_display_configuration_script->SetValueOfVariable("refresh",	 refresh_rate_index);
 				// Save all the settings in the display configuration script.
 				m_display_configuration_script->ExportScript();
@@ -368,37 +360,6 @@ namespace mage {
 			case IDCANCEL: {
 				// Close the hwndDlg.
 				EndDialog(hwndDlg, IDCANCEL);
-
-				return TRUE;
-			}
-			case IDC_DISPLAY_FORMAT: {
-				if (CBN_SELCHANGE == HIWORD(wParam)) {
-					const DXGI_FORMAT selected_format = ComboBoxSelectedData< DXGI_FORMAT >(hwndDlg, IDC_DISPLAY_FORMAT);
-					const size_t selected_resolution  = ComboBoxSelectedData< size_t >(hwndDlg, IDC_RESOLUTION);
-
-					// Update the resolution combo box.
-					// Remove all items from the list box and edit control of a combo box.
-					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
-					for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-						if (selected_format == it->Format) {
-							
-							swprintf_s(buffer, _countof(buffer), L"%u x %u", it->Width, it->Height);
-							
-							if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
-								const size_t resolution = ConvertResolution(*it);
-								ComboBoxAddData(hwndDlg, IDC_RESOLUTION, resolution, buffer);
-
-								if (selected_resolution == resolution) {
-									ComboBoxSelectData(hwndDlg, IDC_RESOLUTION, selected_resolution);
-								}
-							}
-						}
-					}
-
-					if (ComboBoxSelected(hwndDlg, IDC_RESOLUTION) == nullptr) {
-						ComboBoxSelect(hwndDlg, IDC_RESOLUTION, 0);
-					}
-				}
 
 				return TRUE;
 			}
@@ -432,10 +393,6 @@ namespace mage {
 					}
 				}
 
-				return TRUE;
-			}
-			case IDC_WINDOWED:
-			case IDC_FULLSCREEN: {
 				return TRUE;
 			}
 			}

@@ -101,22 +101,6 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether this resource represents a file resource.
-
-		 @return		@c true if and only if this resource represents
-						a file resource. @c false otherwise.
-		 */
-		bool IsFileResource() const noexcept;
-
-		/**
-		 Checks whether this resource represents a memory resource.
-
-		 @return		@c true if and only if this resource represents
-						a memory resource. @c false otherwise.
-		 */
-		bool IsMemoryResource() const noexcept;
-
-		/**
 		 Returns the filename of this resource.
 
 		 @pre			This resource represents a file resource.

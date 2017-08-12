@@ -323,7 +323,8 @@ namespace mage {
 		void SetupDevice();
 
 		/**
-		 Sets up the swap chain of this renderer.
+		 Sets up the swap chain of this renderer with its render target view
+		 and depth stencil view.
 
 		 @throws		FormattedException
 						Failed to set up the swap chain of this renderer.
@@ -331,22 +332,37 @@ namespace mage {
 		void SetupSwapChain();
 
 		/**
-		 Sets up the render target view of this renderer.
+		 Resets the swap chain of this renderer with its render target view
+		 and depth stencil view.
 
 		 @throws		FormattedException
-						Failed to set up the render target view
-						of this renderer.
+						Failed to set up the swap chain of this renderer.
 		 */
-		void SetupRTV();
+		void ResetSwapChain();
 
 		/**
-		 Sets up the depth stencil view of this renderer.
+		 Creates the swap chain of this renderer.
 
 		 @throws		FormattedException
-						Failed to set up the depth stencil view
-						of this renderer.
+						Failed to create the swap chain of this renderer.
 		 */
-		void SetupDSV();
+		void CreateSwapChain();
+
+		/**
+		 Creates the render target view of this renderer.
+
+		 @throws		FormattedException
+						Failed to create the render target view of this renderer.
+		 */
+		void CreateRTV();
+
+		/**
+		 Creates the depth stencil view of this renderer.
+
+		 @throws		FormattedException
+						Failed to create the depth stencil view of this renderer.
+		 */
+		void CreateDSV();
 
 		/**
 		 Sets up the rendering states of this renderer.

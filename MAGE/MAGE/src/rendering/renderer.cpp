@@ -42,15 +42,10 @@ namespace mage {
 	}
 
 	void Renderer::InitializeRenderer() {
-		// Setup the ID3D11Device2 and ID3D11DeviceContext2.
+		// Setup the device and device context.
 		SetupDevice();
-		// Setup the IDXGISwapChain2.
+		// Setup the swap chain.
 		SetupSwapChain();
-
-		// Setup and binds the RTV and DSV.
-		SetupRTV();
-		SetupDSV();
-		m_device_context->OMSetRenderTargets(1, m_rtv.GetAddressOf(), m_dsv.Get());
 
 		// Setup the rendering states.
 		SetupRenderingStates();
@@ -59,7 +54,8 @@ namespace mage {
 	}
 
 	void Renderer::UninitializeRenderer() noexcept {
-		// Switch to windowed mode since Direct3D is incapable of when in fullscreen mode
+		// Switch to windowed mode since Direct3D is incapable 
+		// to clear its state properly when in fullscreen mode
 		// due to certain threading issues that occur behind the scenes.
 		if (m_swap_chain) {
 			m_swap_chain->SetFullscreenState(FALSE, nullptr);
@@ -110,6 +106,24 @@ namespace mage {
 	}
 
 	void Renderer::SetupSwapChain() {
+		// Create the swap chain.
+		CreateSwapChain();
+		// Create and binds the RTV and DSV.
+		CreateRTV();
+		CreateDSV();
+		m_device_context->OMSetRenderTargets(1, m_rtv.GetAddressOf(), m_dsv.Get());
+	}
+
+	void Renderer::ResetSwapChain() {
+		// Recreate the swap chain buffers.
+		m_swap_chain->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+		// Create and binds the RTV and DSV.
+		CreateRTV();
+		CreateDSV();
+		m_device_context->OMSetRenderTargets(1, m_rtv.GetAddressOf(), m_dsv.Get());
+	}
+
+	void Renderer::CreateSwapChain() {
 		// Get the IDXGIFactory3.
 		ComPtr< IDXGIFactory3 > dxgi_factory3;
 		const HRESULT result_dxgi_factory3 = GetAdapter()->GetParent(__uuidof(IDXGIFactory3), (void **)dxgi_factory3.GetAddressOf());
@@ -122,12 +136,15 @@ namespace mage {
 		// DXGI_MWA_NO_PRINT_SCREEN:   Prevent DXGI from responding to a print-screen key.
 		dxgi_factory3->MakeWindowAssociation(m_hwindow, DXGI_MWA_NO_WINDOW_CHANGES | DXGI_MWA_NO_ALT_ENTER | DXGI_MWA_NO_PRINT_SCREEN);
 
+		UINT p;
+		m_device->CheckMultisampleQualityLevels(m_display_configuration->GetDisplayFormat(), 4, &p);
+
 		// Create a DXGI_SWAP_CHAIN_DESC1.
 		DXGI_SWAP_CHAIN_DESC1 swap_chain_desc = {};
 		swap_chain_desc.Width              = static_cast< UINT >(m_display_configuration->GetDisplayWidth());
 		swap_chain_desc.Height             = static_cast< UINT >(m_display_configuration->GetDisplayHeight());
 		swap_chain_desc.Format             = m_display_configuration->GetDisplayFormat();
-		swap_chain_desc.SampleDesc.Count   = 1;										 // The number of multisamples per pixel.
+		swap_chain_desc.SampleDesc.Count   = 8;										 // The number of multisamples per pixel.
 		swap_chain_desc.SampleDesc.Quality = 0;										 // The image quality level. (lowest)
 		swap_chain_desc.BufferUsage        = DXGI_USAGE_RENDER_TARGET_OUTPUT;		 // Use the surface or resource as an output render target.
 		swap_chain_desc.BufferCount        = 1;										 // The number of buffers in the swap chain.
@@ -139,7 +156,8 @@ namespace mage {
 
 		// Get the IDXGISwapChain1.
 		ComPtr< IDXGISwapChain1 > swap_chain1;
-		const HRESULT result_swap_chain1 = dxgi_factory3->CreateSwapChainForHwnd(m_device.Get(), m_hwindow, &swap_chain_desc, &swap_chain_fullscreen_desc, nullptr, swap_chain1.ReleaseAndGetAddressOf());
+		const HRESULT result_swap_chain1 = dxgi_factory3->CreateSwapChainForHwnd(
+			m_device.Get(), m_hwindow, &swap_chain_desc, &swap_chain_fullscreen_desc, nullptr, swap_chain1.ReleaseAndGetAddressOf());
 		if (FAILED(result_swap_chain1)) {
 			throw FormattedException("IDXGISwapChain1 creation failed: %08X.", result_swap_chain1);
 		}
@@ -153,7 +171,7 @@ namespace mage {
 		m_swap_chain->SetFullscreenState(FALSE, nullptr);
 	}
 
-	void Renderer::SetupRTV() {
+	void Renderer::CreateRTV() {
 		// Access the only back buffer of the swap-chain.
 		ComPtr< ID3D11Texture2D > back_buffer;
 		const HRESULT result_back_buffer = m_swap_chain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void **)back_buffer.GetAddressOf());
@@ -168,7 +186,7 @@ namespace mage {
 		}
 	}
 
-	void Renderer::SetupDSV() {
+	void Renderer::CreateDSV() {
 		// Create the depth stencil texture descriptor.
 		D3D11_TEXTURE2D_DESC depth_stencil_desc = {};
 		depth_stencil_desc.Width              = static_cast< UINT >(m_display_configuration->GetDisplayWidth());
@@ -176,7 +194,7 @@ namespace mage {
 		depth_stencil_desc.MipLevels          = 1;                             // The maximum number of mipmap levels in the texture.
 		depth_stencil_desc.ArraySize          = 1;							   // Number of textures in the texture array.
 		depth_stencil_desc.Format             = DXGI_FORMAT_D24_UNORM_S8_UINT; // Texture format.
-		depth_stencil_desc.SampleDesc.Count   = 1;							   // The number of multisamples per pixel.
+		depth_stencil_desc.SampleDesc.Count   = 8;							   // The number of multisamples per pixel.
 		depth_stencil_desc.SampleDesc.Quality = 0;							   // The image quality level. (lowest)
 		depth_stencil_desc.Usage              = D3D11_USAGE_DEFAULT;		   // Value that identifies how the texture is to be read from and written to.
 		depth_stencil_desc.BindFlags          = D3D11_BIND_DEPTH_STENCIL;	   // Flags for binding to pipeline stages. 
@@ -193,7 +211,7 @@ namespace mage {
 		// Create the depth stencil view descriptor.
 		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
 		dsv_desc.Format             = depth_stencil_desc.Format;
-		dsv_desc.ViewDimension      = D3D11_DSV_DIMENSION_TEXTURE2D;
+		dsv_desc.ViewDimension      = D3D11_DSV_DIMENSION_TEXTURE2DMS;
 		dsv_desc.Texture2D.MipSlice = 0;
 		
 		// Create a depth stencil view.
@@ -279,12 +297,7 @@ namespace mage {
 			m_swap_chain->SetFullscreenState(current, nullptr);
 		}
 
-		// Recreate the swap chain buffers.
-		m_swap_chain->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
-		// Setup and binds the RTV and DSV.
-		SetupRTV();
-		SetupDSV();
-		m_device_context->OMSetRenderTargets(1, m_rtv.GetAddressOf(), m_dsv.Get());
+		ResetSwapChain();
 
 		m_swap_chain->GetFullscreenState(&current, nullptr);
 		m_fullscreen = (current != 0);

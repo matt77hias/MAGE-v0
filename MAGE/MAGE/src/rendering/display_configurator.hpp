@@ -40,6 +40,11 @@ namespace mage {
 		 */
 		static const DXGI_FORMAT s_pixel_formats[3];
 
+		/**
+		 The allowed number of samples for MSAA. 
+		 */
+		static const size_t s_msaa_nb_samples[5];
+
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------

@@ -365,7 +365,12 @@ namespace mage {
 
 				return TRUE;
 			}
-			case IDCANCEL:
+			case IDCANCEL: {
+				// Close the hwndDlg.
+				EndDialog(hwndDlg, IDCANCEL);
+
+				return TRUE;
+			}
 			case IDC_DISPLAY_FORMAT: {
 				if (CBN_SELCHANGE == HIWORD(wParam)) {
 					const DXGI_FORMAT selected_format = ComboBoxSelectedData< DXGI_FORMAT >(hwndDlg, IDC_DISPLAY_FORMAT);

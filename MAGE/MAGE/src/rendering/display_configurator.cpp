@@ -4,7 +4,7 @@
 #pragma region
 
 #include "rendering\display_configurator.hpp"
-#include "rendering\graphics_settings.hpp"
+#include "rendering\display_settings.hpp"
 #include "rendering\rendering_utils.hpp"
 #include "platform\windows_utils.hpp"
 #include "ui\combo_box.hpp"
@@ -66,7 +66,7 @@ namespace mage {
 		// 3. A handle to the window that owns the dialog box.
 		// 4. A pointer to the dialog box procedure.
 		// 5. The value to pass to the dialog box in the lParam parameter of the WM_INITDIALOG message.
-		const INT_PTR result_dialog = DialogBoxParam(nullptr, MAKEINTRESOURCE(IDD_GRAPHICS_SETTINGS), 
+		const INT_PTR result_dialog = DialogBoxParam(nullptr, MAKEINTRESOURCE(IDD_DISPLAY_SETTINGS), 
 			nullptr, DisplayDialogProcDelegate, reinterpret_cast< LPARAM >(this));
 		return (result_dialog == IDOK) ? S_OK : E_FAIL;
 	}

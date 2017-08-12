@@ -39,7 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MAGE\res\engine_settings.rc" />
-    <ResourceCompile Include="MAGE\res\graphics_settings.rc" />
+    <ResourceCompile Include="MAGE\res\display_settings.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="MAGE\res\mage.ico" />

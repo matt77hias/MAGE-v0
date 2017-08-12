@@ -2,7 +2,7 @@
 // Microsoft Visual C++ generated include file.
 // Used by graphics_settings.rc
 //
-#define IDD_GRAPHICS_SETTINGS           144
+#define IDD_DISPLAY_SETTINGS            144
 #define IDC_DISPLAY_ADAPTER             1002
 #define IDC_DISPLAY_FORMAT              1003
 #define IDC_RESOLUTION                  1004

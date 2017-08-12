@@ -276,9 +276,6 @@
     <ClInclude Include="MAGE\src\input\mouse.hpp">
       <Filter>Header Files\input</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\graphics_settings.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\renderer.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
@@ -829,6 +826,9 @@
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\display_configurator.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\display_settings.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
   </ItemGroup>

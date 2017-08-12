@@ -67,18 +67,18 @@ namespace mage {
 			return;
 		}
 
-		const DisplayConfiguration &display_configuration = display_configurator->GetDisplayConfiguration();
-		const uint32_t width  = display_configuration.GetDisplayWidth();
-		const uint32_t height = display_configuration.GetDisplayHeight();
+		const DisplayConfiguration *display_configuration = display_configurator->GetDisplayConfiguration();
 		
 		// Initialize the window System.
-		m_main_window      = MakeUnique< MainWindow >(setup.GetApplicationHinstance(), setup.GetApplicationName(), width, height);
+		const uint32_t width  = display_configuration->GetDisplayWidth();
+		const uint32_t height = display_configuration->GetDisplayHeight();
+		m_main_window         = MakeUnique< MainWindow >(setup.GetApplicationHinstance(), setup.GetApplicationName(), width, height);
 		// Initialize the rendering system.
-		m_renderer         = MakeUnique< Renderer >(m_main_window->GetHandle(), display_configuration);
+		m_renderer            = MakeUnique< Renderer >(m_main_window->GetHandle(), display_configuration);
 		// Initialize the input system.
-		m_input_manager    = MakeUnique< InputManager >(m_main_window->GetHandle());
+		m_input_manager       = MakeUnique< InputManager >(m_main_window->GetHandle());
 		// Initialize the resource system.
-		m_resource_manager = MakeUnique< ResourceManager >();
+		m_resource_manager    = MakeUnique< ResourceManager >();
 
 		// Initializes the COM library for use by the calling thread 
 		// and sets the thread's concurrency model to multithreaded concurrency.

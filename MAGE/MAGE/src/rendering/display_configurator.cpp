@@ -32,7 +32,32 @@ namespace mage {
 		DXGI_FORMAT_R10G10B10A2_UNORM,
 	};
 
-	DisplayConfigurator::DisplayConfigurator() = default;
+	DisplayConfigurator::DisplayConfigurator()
+		: m_display_configuration(), m_display_configuration_script(),
+		m_adapter(), m_output(), m_display_modes() {
+
+		// Load the settings script.
+		const bool file_exists = FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
+		m_display_configuration_script = MakeUnique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists);
+
+		// Initialize the adapter and output.
+		InitializeAdapterAndOutput();
+		// Initialize the display modes.
+		InitializeDisplayModes();
+
+	}
+
+	DisplayConfigurator::DisplayConfigurator(ComPtr< IDXGIAdapter2 > adapter, ComPtr< IDXGIOutput2 > output) 
+		: m_display_configuration(), m_display_configuration_script(),
+		m_adapter(adapter), m_output(output), m_display_modes() {
+
+		// Load the settings script.
+		const bool file_exists = FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
+		m_display_configuration_script = MakeUnique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists);
+
+		// Initialize the display modes.
+		InitializeDisplayModes();
+	}
 
 	DisplayConfigurator::DisplayConfigurator(DisplayConfigurator &&device_enumeration) = default;
 
@@ -50,31 +75,7 @@ namespace mage {
 		return display_mode_desc.Height < 480;
 	}
 
-	HRESULT DisplayConfigurator::Configure() {
-		// Load the settings script.
-		const bool file_exists = FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
-		m_display_configuration_script = MakeUnique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists);
-
-		// Initialize the adapter and output.
-		InitializeAdapterAndOutput();
-		// Initialize the display modes.
-		InitializeDisplayModes();
-
-		// Creates a modal dialog box from a dialog box template resource.
-		// 1. A handle to the module which contains the dialog box template. If this parameter is nullptr, then the current executable is used.
-		// 2. The dialog box template.
-		// 3. A handle to the window that owns the dialog box.
-		// 4. A pointer to the dialog box procedure.
-		// 5. The value to pass to the dialog box in the lParam parameter of the WM_INITDIALOG message.
-		const INT_PTR result_dialog = DialogBoxParam(nullptr, MAKEINTRESOURCE(IDD_DISPLAY_SETTINGS), 
-			nullptr, DisplayDialogProcDelegate, reinterpret_cast< LPARAM >(this));
-		return (result_dialog == IDOK) ? S_OK : E_FAIL;
-	}
-
 	void DisplayConfigurator::InitializeAdapterAndOutput() {
-		ComPtr< IDXGIAdapter2 > selected_adapter;
-		ComPtr< IDXGIOutput2 > selected_output;
-		
 		// Get the IDXGIFactory3.
 		ComPtr< IDXGIFactory3 > factory;
 		const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)factory.GetAddressOf());
@@ -121,13 +122,10 @@ namespace mage {
 				continue;
 			}
 
-			selected_adapter = adapter2;
-			selected_output  = output2;
-			max_vram         = vram;
+			m_adapter = adapter2;
+			m_output  = output2;
+			max_vram  = vram;
 		}
-
-		m_display_configuration.SetAdapter(selected_adapter);
-		m_display_configuration.SetOutput(selected_output);
 	}
 
 	void DisplayConfigurator::InitializeDisplayModes() {
@@ -141,15 +139,13 @@ namespace mage {
 			const UINT flags = DXGI_ENUM_MODES_INTERLACED;
 			UINT nb_display_modes;
 			// Get the number of display modes that match the requested format and other input options.
-			const HRESULT result1 = m_display_configuration.GetOutput()->
-				GetDisplayModeList1(s_pixel_formats[i], flags, &nb_display_modes, nullptr);
+			const HRESULT result1 = m_output->GetDisplayModeList1(s_pixel_formats[i], flags, &nb_display_modes, nullptr);
 			if (FAILED(result1)) {
 				throw FormattedException("Failed to get the number of display modes: %08X.", result1);
 			}
 			UniquePtr< DXGI_MODE_DESC1[] >dxgi_mode_descs(MakeUnique< DXGI_MODE_DESC1[] >(nb_display_modes));
 			// Get the display modes that match the requested format and other input options.
-			const HRESULT result2 = m_display_configuration.GetOutput()->
-				GetDisplayModeList1(s_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs.get());
+			const HRESULT result2 = m_output->GetDisplayModeList1(s_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs.get());
 			if (FAILED(result2)) {
 				throw FormattedException("Failed to get the display modes: %08X.", result2);
 			}
@@ -165,6 +161,18 @@ namespace mage {
 				m_display_modes.push_back(dxgi_mode_descs.get()[mode]);
 			}
 		}
+	}
+
+	HRESULT DisplayConfigurator::Configure() {
+		// Creates a modal dialog box from a dialog box template resource.
+		// 1. A handle to the module which contains the dialog box template. If this parameter is nullptr, then the current executable is used.
+		// 2. The dialog box template.
+		// 3. A handle to the window that owns the dialog box.
+		// 4. A pointer to the dialog box procedure.
+		// 5. The value to pass to the dialog box in the lParam parameter of the WM_INITDIALOG message.
+		const INT_PTR result_dialog = DialogBoxParam(nullptr, MAKEINTRESOURCE(IDD_DISPLAY_SETTINGS),
+			nullptr, DisplayDialogProcDelegate, reinterpret_cast< LPARAM >(this));
+		return (result_dialog == IDOK) ? S_OK : E_FAIL;
 	}
 
 	/**
@@ -206,7 +214,7 @@ namespace mage {
 
 			// Display the adapter details.
 			DXGI_ADAPTER_DESC2 desc;
-			m_display_configuration.GetAdapter()->GetDesc2(&desc);
+			m_adapter->GetDesc2(&desc);
 			Edit_SetText(GetDlgItem(hwndDlg, IDC_DISPLAY_ADAPTER), desc.Description);
 
 			if (m_display_configuration_script->IsEmpty()) {
@@ -335,22 +343,21 @@ namespace mage {
 				const bool vsync	= IsDlgButtonChecked(hwndDlg, IDC_VSYNC)    ? true : false;
 
 				// Store all the settings to the display configuration.
-				m_display_configuration.SetWindowed(windowed);
-				m_display_configuration.SetVSync(vsync);
-				m_display_configuration.SetDisplayMode(*selected_diplay_mode);
-				
+				m_display_configuration = MakeUnique< DisplayConfiguration >(
+					m_adapter, m_output, *selected_diplay_mode, windowed, vsync);
+
 				// Get the selected index from each combo box.
 				const int format_index		 = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_DISPLAY_FORMAT));
 				const int resolution_index	 = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_RESOLUTION));
 				const int refresh_rate_index = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
 				
-				// Set all the settings in the settings script.
-				m_display_configuration_script->SetValueOfVariable("windowed",	windowed);
-				m_display_configuration_script->SetValueOfVariable("vsync",		vsync);
-				m_display_configuration_script->SetValueOfVariable("bpp",		format_index);
+				// Store all the settings to the display configuration script.
+				m_display_configuration_script->SetValueOfVariable("windowed",	 windowed);
+				m_display_configuration_script->SetValueOfVariable("vsync",		 vsync);
+				m_display_configuration_script->SetValueOfVariable("bpp",		 format_index);
 				m_display_configuration_script->SetValueOfVariable("resolution", resolution_index);
-				m_display_configuration_script->SetValueOfVariable("refresh",	refresh_rate_index);
-				// Save all the settings to the settings script.
+				m_display_configuration_script->SetValueOfVariable("refresh",	 refresh_rate_index);
+				// Save all the settings in the display configuration script.
 				m_display_configuration_script->ExportScript();
 
 				// Close the hwndDlg.

@@ -42,14 +42,14 @@ namespace mage {
 		/**
 		 Constructs a renderer.
 
-
+		 @pre			@a display_configuration is not equal to @c nullptr.
 		 @param[in]		hwindow
 						The main window handle.
 		 @param[in]		display_configuration
-						A reference to the display configuration.
+						A pointer to the display configuration.
 		 */
 		explicit Renderer(HWND hwindow, 
-			const DisplayConfiguration &display_configuration);
+			const DisplayConfiguration *display_configuration);
 
 		/**
 		 Constructs a renderer from the given renderer.

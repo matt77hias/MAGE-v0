@@ -22,14 +22,15 @@ namespace mage {
 	}
 
 	Renderer::Renderer(HWND hwindow, 
-		const DisplayConfiguration &display_configuration) :
+		const DisplayConfiguration *display_configuration) :
 		m_hwindow(hwindow), m_fullscreen(false),
 		m_in_begin_end_pair(false), 
-		m_display_configuration(MakeUnique< DisplayConfiguration >(display_configuration)),
+		m_display_configuration(MakeUnique< DisplayConfiguration >(*display_configuration)),
 		m_device(), m_device_context(), m_swap_chain(), m_rtv(), m_dsv(),
 		m_rendering_state_2d(), m_rendering_state_3d(), m_rendering_state_cache() {
 
 		Assert(m_hwindow);
+		Assert(m_display_configuration);
 
 		InitializeRenderer();
 	}

@@ -50,6 +50,17 @@ namespace mage {
 		DisplayConfigurator();
 
 		/**
+		 Constructs a display configurator.
+
+		 @param[in]		adapter
+						A pointer to the adapter.
+		 @param[in]		output
+						A pointer to the output.
+		 */
+		explicit DisplayConfigurator(
+			ComPtr< IDXGIAdapter2 > adapter, ComPtr< IDXGIOutput2 > output);
+
+		/**
 		 Constructs a display configurator from the given display configurator.
 
 		 @param[in]		display_configurator
@@ -110,11 +121,11 @@ namespace mage {
 		/**
 		 Returns the display configuration of this display configurator.
 
-		 @return		A reference to the display configuration
+		 @return		A pointer to the display configuration
 						of this display configurator.
 		 */
-		const DisplayConfiguration &GetDisplayConfiguration() const noexcept {
-			return m_display_configuration;
+		const DisplayConfiguration *GetDisplayConfiguration() const noexcept {
+			return m_display_configuration.get();
 		}
 
 	private:
@@ -184,15 +195,25 @@ namespace mage {
 		//---------------------------------------------------------------------
 		
 		/**
-		 The display configuration of this display configurator.
+		 A pointer to the display configuration of this display configurator.
 		 */
-		DisplayConfiguration m_display_configuration;
+		UniquePtr< DisplayConfiguration > m_display_configuration;
 
 		/**
 		 A pointer to the script which stores the display configuration
 		 of this display configurator.
 		 */
 		UniquePtr< VariableScript > m_display_configuration_script;
+
+		/**
+		 A pointer to the adapter (e.g. video card) of this display configurator.
+		 */
+		ComPtr< IDXGIAdapter2 > m_adapter;
+
+		/**
+		 A pointer to the output (e.g. screen monitor) of this display configurator.
+		 */
+		ComPtr< IDXGIOutput2 > m_output;
 
 		/**
 		 The linked list of enumerated display modes of this display configurator.

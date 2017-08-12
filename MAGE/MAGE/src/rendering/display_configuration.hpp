@@ -38,30 +38,6 @@ namespace mage {
 		/**
 		 Constructs a display configuration.
 
-		 @param[in]		adapter
-						A pointer to the adapter.
-		 @param[in]		output
-						A pointer to the output.
-		 */
-		DisplayConfiguration()
-			: DisplayConfiguration(nullptr, nullptr) {}
-
-		/**
-		 Constructs a display configuration.
-
-		 @param[in]		adapter
-						A pointer to the adapter.
-		 @param[in]		output
-						A pointer to the output.
-		 */
-		explicit DisplayConfiguration(
-			ComPtr< IDXGIAdapter2 > adapter, ComPtr< IDXGIOutput2 > output)
-			: m_adapter(adapter), m_output(output), 
-			m_display_mode{}, m_windowed(true), m_vsync(false) {}
-
-		/**
-		 Constructs a display configuration.
-
 		 @pre			@a display_mode must be compatible with
 						@a adapter and @a output.
 		 @param[in]		adapter
@@ -141,17 +117,6 @@ namespace mage {
 		}
 
 		/**
-		 Sets the adapter of this display configuration
-		 to the given adapter.
-
-		 @param[in]		adapter
-						A pointer to the adapter.
-		 */
-		void SetAdapter(ComPtr< IDXGIAdapter2 > adapter) noexcept {
-			m_adapter = adapter;
-		}
-
-		/**
 		 Returns the output of this display configuration.
 
 		 @return		A pointer to the output
@@ -159,17 +124,6 @@ namespace mage {
 		 */
 		IDXGIOutput2 *GetOutput() const noexcept {
 			return m_output.Get();
-		}
-
-		/**
-		 Sets the output of this display configuration
-		 to the given output.
-
-		 @param[in]		output
-						A pointer to the output.
-		 */
-		void SetOutput(ComPtr< IDXGIOutput2 > output) noexcept {
-			m_output = output;
 		}
 
 		/**

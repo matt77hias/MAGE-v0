@@ -121,7 +121,7 @@ namespace mage {
 
 		 @return		A success/error value.
 		 */
-		HRESULT Configure();
+		HRESULT Configure() const;
 
 		/**
 		 Returns the display configuration of this display configurator.

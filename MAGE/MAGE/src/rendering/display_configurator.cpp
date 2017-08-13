@@ -164,7 +164,7 @@ namespace mage {
 		}
 	}
 
-	HRESULT DisplayConfigurator::Configure() {
+	HRESULT DisplayConfigurator::Configure() const {
 		// Creates a modal dialog box from a dialog box template resource.
 		// 1. A handle to the module which contains the dialog box template. If this parameter is nullptr, then the current executable is used.
 		// 2. The dialog box template.
@@ -248,7 +248,7 @@ namespace mage {
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_MSAA));
 			for (size_t i = 0; i < _countof(s_nb_MSAA_samples); ++i) {
 				swprintf_s(buffer, _countof(buffer), L"x%u", s_nb_MSAA_samples[i]);
-				ComboBoxAddData(hwndDlg, IDC_MSAA, static_cast< size_t >(s_nb_MSAA_samples[i]), buffer);
+				ComboBoxAddValue(hwndDlg, IDC_MSAA, static_cast< size_t >(s_nb_MSAA_samples[i]), buffer);
 			}
 			const int msaa_index = *m_display_configuration_script->GetValueOfVariable< int >("msaa");
 			ComboBoxSelect(hwndDlg, IDC_MSAA, msaa_index);
@@ -264,14 +264,14 @@ namespace mage {
 					
 					if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
 						const size_t resolution = ConvertResolution(*it);
-						ComboBoxAddData(hwndDlg, IDC_RESOLUTION, resolution, buffer);
+						ComboBoxAddValue(hwndDlg, IDC_RESOLUTION, resolution, buffer);
 					}
 				}
 			}
 			const int resolution_index = *m_display_configuration_script->GetValueOfVariable< int >("resolution");
 			ComboBoxSelect(hwndDlg, IDC_RESOLUTION, resolution_index);
 
-			const size_t selected_resolution = ComboBoxSelectedData< size_t >(hwndDlg, IDC_RESOLUTION);
+			const size_t selected_resolution = ComboBoxSelectedValue(hwndDlg, IDC_RESOLUTION);
 			// Fill in the refresh rates combo box associated with the current resolution.
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
@@ -283,7 +283,7 @@ namespace mage {
 					swprintf_s(buffer, _countof(buffer), L"%u Hz", static_cast< unsigned int >(refresh_rate));
 					
 					if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
-						ComboBoxAddData(hwndDlg, IDC_REFRESH_RATE, refresh_rate, buffer);
+						ComboBoxAddValue(hwndDlg, IDC_REFRESH_RATE, refresh_rate, buffer);
 					}
 				}
 			}
@@ -298,9 +298,9 @@ namespace mage {
 			case IDOK: {
 				// Store the details of the selected display mode.
 				const DXGI_FORMAT selected_format           = DXGI_FORMAT_B8G8R8A8_UNORM;
-				const size_t selected_resolution            = ComboBoxSelectedData< size_t >(hwndDlg, IDC_RESOLUTION);
-				const size_t selected_msaa                  = ComboBoxSelectedData< size_t >(hwndDlg, IDC_MSAA);
-				const size_t selected_refresh_rate          = ComboBoxSelectedData< size_t >(hwndDlg, IDC_REFRESH_RATE);
+				const size_t selected_resolution            = ComboBoxSelectedValue(hwndDlg, IDC_RESOLUTION);
+				const size_t selected_msaa                  = ComboBoxSelectedValue(hwndDlg, IDC_MSAA);
+				const size_t selected_refresh_rate          = ComboBoxSelectedValue(hwndDlg, IDC_REFRESH_RATE);
 				const DXGI_MODE_DESC1 *selected_diplay_mode = nullptr;
 				for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
 					
@@ -335,7 +335,8 @@ namespace mage {
 
 				// Store all the settings to the display configuration.
 				m_display_configuration = MakeUnique< DisplayConfiguration >(
-					m_adapter, m_output, *selected_diplay_mode, windowed, vsync, selected_msaa);
+					m_adapter, m_output, *selected_diplay_mode, windowed, vsync, 
+					static_cast< UINT >(selected_msaa));
 
 				// Get the selected index from each combo box.
 				const int resolution_index	 = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_RESOLUTION));
@@ -364,8 +365,8 @@ namespace mage {
 			}
 			case IDC_RESOLUTION: {
 				if (CBN_SELCHANGE == HIWORD(wParam)) {
-					const size_t selected_resolution   = ComboBoxSelectedData< size_t >(hwndDlg, IDC_RESOLUTION);
-					const size_t selected_refresh_rate = ComboBoxSelectedData< size_t >(hwndDlg, IDC_REFRESH_RATE);
+					const size_t selected_resolution   = ComboBoxSelectedValue(hwndDlg, IDC_RESOLUTION);
+					const size_t selected_refresh_rate = ComboBoxSelectedValue(hwndDlg, IDC_REFRESH_RATE);
 
 					// Update the refresh rate combo box.
 					// Remove all items from the list box and edit control of a combo box.
@@ -378,10 +379,10 @@ namespace mage {
 							swprintf_s(buffer, _countof(buffer), L"%u Hz", static_cast< unsigned int >(refresh_rate));
 							
 							if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
-								ComboBoxAddData(hwndDlg, IDC_REFRESH_RATE, refresh_rate, buffer);
+								ComboBoxAddValue(hwndDlg, IDC_REFRESH_RATE, refresh_rate, buffer);
 								
 								if (selected_refresh_rate == refresh_rate) {
-									ComboBoxSelectData(hwndDlg, IDC_REFRESH_RATE, selected_refresh_rate);
+									ComboBoxSelectValue(hwndDlg, IDC_REFRESH_RATE, selected_refresh_rate);
 								}
 							}
 						}

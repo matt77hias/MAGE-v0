@@ -247,7 +247,7 @@ namespace mage {
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_MSAA));
 			for (size_t i = 0; i < _countof(s_nb_MSAA_samples); ++i) {
-				swprintf_s(buffer, _countof(buffer), L"%u", s_nb_MSAA_samples[i]);
+				swprintf_s(buffer, _countof(buffer), L"x%u", s_nb_MSAA_samples[i]);
 				ComboBoxAddData(hwndDlg, IDC_MSAA, static_cast< size_t >(s_nb_MSAA_samples[i]), buffer);
 			}
 			const int msaa_index = *m_display_configuration_script->GetValueOfVariable< int >("msaa");

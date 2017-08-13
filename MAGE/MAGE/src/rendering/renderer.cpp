@@ -150,7 +150,8 @@ namespace mage {
 
 		// Create a DXGI_SWAP_CHAIN_FULLSCREEN_DESC.
 		DXGI_SWAP_CHAIN_FULLSCREEN_DESC swap_chain_fullscreen_desc = {};
-		swap_chain_fullscreen_desc.Windowed = TRUE;
+		swap_chain_fullscreen_desc.RefreshRate = m_display_configuration->GetDisplayRefreshRate();
+		swap_chain_fullscreen_desc.Windowed    = TRUE;
 
 		// Get the IDXGISwapChain1.
 		ComPtr< IDXGISwapChain1 > swap_chain1;
@@ -262,7 +263,8 @@ namespace mage {
 		Assert(m_in_begin_end_pair);
 
 		// Present the back buffer to the front buffer.
-		m_swap_chain->Present(0, 0);
+		const UINT sync_interval = (m_display_configuration->IsVSynced()) ? 1 : 0;
+		m_swap_chain->Present(sync_interval, 0);
 
 		m_in_begin_end_pair = false;
 	}

@@ -68,9 +68,9 @@ namespace mage {
 	 @param[in]		aabb
 					A reference to the AABB.
 	 @param[out]	pmin
-					A reference to the minimum point of @aabb along @n.
+					A reference to the minimum point of @a aabb along @a n.
 	 @param[out]	pmax
-					A reference to the maximum point of @aabb along @n.
+					A reference to the maximum point of @a aabb along @a n.
 	 */
 	inline void MinAndMaxPointAlongNormal(FXMVECTOR n, const AABB &aabb, XMVECTOR &pmin, XMVECTOR &pmax) noexcept {
 		const XMVECTOR tests = XMVectorGreaterOrEqual(n, XMVectorZero());
@@ -95,7 +95,7 @@ namespace mage {
 					The normal.
 	 @param[in]		aabb
 					A reference to the AABB.
-	 @return		The minimum point of @aabb along @n.
+	 @return		The minimum point of @a aabb along @a n.
 	 */
 	inline XMVECTOR MinPointAlongNormal(FXMVECTOR n, const AABB &aabb) noexcept {
 		const XMVECTOR tests = XMVectorGreaterOrEqual(n, XMVectorZero());
@@ -113,7 +113,7 @@ namespace mage {
 					The normal.
 	 @param[in]		aabb
 					A reference to the AABB.
-	 @return		The minimum point of @aabb along @n.
+	 @return		The minimum point of @a aabb along @a n.
 	 */
 	inline XMVECTOR MaxPointAlongNormal(FXMVECTOR n, const AABB &aabb) noexcept {
 		const XMVECTOR tests = XMVectorGreaterOrEqual(n, XMVectorZero());

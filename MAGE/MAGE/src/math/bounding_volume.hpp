@@ -389,19 +389,15 @@ namespace mage {
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @param[in]		epsilon
-						The epsilon value for float comparisons.
 		 @return		The coverage of @a aabb with regard to this AABB.
 		 */
 		Coverage Classify(const AABB &aabb) const noexcept;
-
+		
 		/**
 		 Classifies the coverage of the given BS with regard to this AABB.
 
 		 @param[in]		bs
 						A reference to the BS.
-		 @param[in]		epsilon
-						The epsilon value for float comparisons.
 		 @return		The coverage of @a bs with regard to this AABB.
 		 */
 		Coverage Classify(const BS &bs) const noexcept;

@@ -42,7 +42,7 @@
   * dxguid.lib
   * (d3dcompiler.lib)
 * **Compiler**: MSVC++ 14.0
-* **IDE**: Visual Studio 2015 (will change to Visual Studio 2017 when "Visual Studio 2017 Color Theme Editor" is released)
+* **IDE**: Visual Studio 2017
 
 ## Use
 

@@ -115,7 +115,6 @@ namespace mage {
 
 		template< typename SceneNodeT, typename... ConstructorArgsT >
 		SharedPtr< SceneNodeT > Create(const string &name, ConstructorArgsT&&... args);
-		
 		SharedPtr< ModelNode > CreateModel(const ModelDescriptor &desc, BRDFType brdf = BRDFType::Unknown);
 		SharedPtr< ModelNode > CreateModel(const ModelDescriptor &desc, const CombinedShader &shader);
 		
@@ -201,13 +200,13 @@ namespace mage {
 		vector< SharedPtr< BehaviorScript > > m_scripts;
 
 		UniquePtr< SceneFog > m_scene_fog;
-		vector< SharedPtr< CameraNode > > m_cameras;
-		vector< SharedPtr< ModelNode > > m_models;
-		SharedPtr< AmbientLightNode > m_ambient_light;
-		vector< SharedPtr< DirectionalLightNode > > m_directional_lights;
-		vector< SharedPtr< OmniLightNode > > m_omni_lights;
-		vector< SharedPtr< SpotLightNode > > m_spot_lights;
-		vector< SharedPtr < SpriteNode > > m_sprites;
+		mutable vector< SharedPtr< CameraNode > > m_cameras;
+		mutable vector< SharedPtr< ModelNode > > m_models;
+		mutable SharedPtr< AmbientLightNode > m_ambient_light;
+		mutable vector< SharedPtr< DirectionalLightNode > > m_directional_lights;
+		mutable vector< SharedPtr< OmniLightNode > > m_omni_lights;
+		mutable vector< SharedPtr< SpotLightNode > > m_spot_lights;
+		mutable vector< SharedPtr < SpriteNode > > m_sprites;
 		
 
 

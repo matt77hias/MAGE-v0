@@ -12,8 +12,12 @@ branches:
 #---------------------------------#
 image: Visual Studio 2017
 
-configuration: Release
-platform: x64
+configuration: 
+ - Release
+ - Debug
+platform: 
+  - x64
+  - x86
 
 #---------------------------------#
 #       Build Configuration       #

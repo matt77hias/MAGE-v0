@@ -10,7 +10,7 @@ namespace mage {
 		for (auto it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
 			// Visit child transform node.
 			TransformNode *transform_node = (*it)->GetTransform();
-			action(*transform_node);
+			action(transform_node);
 		}
 	}
 	
@@ -19,7 +19,7 @@ namespace mage {
 		for (auto it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
 			// Visit child transform node.
 			TransformNode *transform_node = (*it)->GetTransform();
-			action(*transform_node);
+			action(transform_node);
 			// Visit child transform node's child transform nodes.
 			transform_node->ForEachChildTransformNode(action);
 		}
@@ -29,7 +29,7 @@ namespace mage {
 	inline void TransformNode::ForEachChildNode(ActionT action) const {
 		for (auto it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
 			// Visit child node.
-			action(**it);
+			action(it->get());
 		}
 	}
 
@@ -37,9 +37,9 @@ namespace mage {
 	inline void TransformNode::ForEachDescendantNode(ActionT action) const {
 		for (auto it = m_childs.cbegin(); it != m_childs.cend(); ++it) {
 			// Visit child node.
-			action(**it);
+			action(it->get());
 			// Visit child node's child nodes.
-			(*it)->GetTransform()->ForEachChildTransformNode(action);
+			(*it)->GetTransform()->ForEachChildNode(action);
 		}
 	}
 }

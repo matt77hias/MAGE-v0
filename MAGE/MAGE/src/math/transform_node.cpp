@@ -46,9 +46,9 @@ namespace mage {
 
 	void TransformNode::RemoveAllChildNodes() noexcept {
 		
-		ForEachChildTransformNode([](TransformNode &transform_node) {
-			transform_node.m_parent = nullptr;
-			transform_node.SetDirty();
+		ForEachChildTransformNode([](TransformNode *transform_node) {
+			transform_node->m_parent = nullptr;
+			transform_node->SetDirty();
 		});
 
 		m_childs.clear();
@@ -68,8 +68,8 @@ namespace mage {
 
 		if (!m_terminated) {
 
-			m_transform->ForEachChildNode([this](const Node &child_node) {
-				AddChildNode(child_node.Clone());
+			m_transform->ForEachChildNode([this](const Node *child_node) {
+				AddChildNode(child_node->Clone());
 			});
 		}
 	}
@@ -86,8 +86,8 @@ namespace mage {
 		if (m_active != active) {
 			m_active = active;
 
-			ForEachChildNode([active](Node &node) {
-				node.SetActive(active);
+			ForEachChildNode([active](Node *node) {
+				node->SetActive(active);
 			});
 
 			OnActiveChange();
@@ -101,8 +101,8 @@ namespace mage {
 			m_terminated = true;
 			m_active = false;
 
-			ForEachChildNode([](Node &node) {
-				node.Terminate();
+			ForEachChildNode([](Node *node) {
+				node->Terminate();
 			});
 		}
 	}

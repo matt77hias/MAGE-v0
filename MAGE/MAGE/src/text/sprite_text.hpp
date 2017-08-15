@@ -234,7 +234,7 @@ namespace mage {
 		 @tparam		ActionT
 						An action to perform on all color strings
 						of this sprite text. The action must accept 
-						@c ColorString& values.
+						@c ColorString* values.
 		 */
 		template< typename ActionT >
 		inline void ForEachColorString(ActionT action);
@@ -245,7 +245,7 @@ namespace mage {
 		 @tparam		ActionT
 						An action to perform on color strings
 						of this sprite text. The action must accept
-						@c const @c ColorString& values.
+						@c const @c ColorString* values.
 		 */
 		template< typename ActionT >
 		inline void ForEachColorString(ActionT action) const;

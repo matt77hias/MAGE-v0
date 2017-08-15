@@ -1219,8 +1219,8 @@ namespace mage {
 			m_dirty_world_to_object = true;
 			
 			// Sets the descendants of this transform node to dirty.
-			ForEachDescendantTransformNode([](const TransformNode &transform_node) {
-				transform_node.SetDirty();
+			ForEachDescendantTransformNode([](const TransformNode *transform_node) {
+				transform_node->SetDirty();
 			});
 		}
 
@@ -1291,7 +1291,7 @@ namespace mage {
 						An action to perform on all child 
 						transform nodes of this transform node. 
 						The action must accept (@c const) 
-						@c TransformNode& values.
+						@c TransformNode* values.
 		 */
 		template< typename ActionT >
 		void ForEachChildTransformNode(ActionT action) const;
@@ -1304,7 +1304,7 @@ namespace mage {
 						An action to perform on all descendant 
 						transform nodes of this transform node. 
 						The action must accept (@c const) 
-						@c TransformNode& values.
+						@c TransformNode* values.
 		 */
 		template< typename ActionT >
 		void ForEachDescendantTransformNode(ActionT action) const;
@@ -1316,7 +1316,7 @@ namespace mage {
 						An action to perform on all child 
 						nodes of this transform node. 
 						The action must accept (@c const) 
-						@c Node& values.
+						@c Node* values.
 		 */
 		template< typename ActionT >
 		void ForEachChildNode(ActionT action) const;
@@ -1329,7 +1329,7 @@ namespace mage {
 						An action to perform on all descendant 
 						nodes of this transform node. 
 						The action must accept (@c const) 
-						@c Node& values.
+						@c Node* values.
 		 */
 		template< typename ActionT >
 		void ForEachDescendantNode(ActionT action) const;
@@ -1605,7 +1605,7 @@ namespace mage {
 		 @tparam		ActionT
 						An action to perform on all child
 						nodes of this node. The action must 
-						accept (@c const) @c Node& values.
+						accept (@c const) @c Node* values.
 		*/
 		template< typename ActionT >
 		void ForEachChildNode(ActionT action) const {
@@ -1619,7 +1619,7 @@ namespace mage {
 		 @tparam		ActionT
 						An action to perform on all descendant
 						nodes of this node. The action must 
-						accept (@c const) @c Node& values.
+						accept (@c const) @c Node* values.
 		 */
 		template< typename ActionT >
 		void ForEachDescendantNode(ActionT action) const {

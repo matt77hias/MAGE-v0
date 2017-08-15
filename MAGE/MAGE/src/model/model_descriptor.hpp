@@ -140,7 +140,7 @@ namespace mage {
 		 @tparam		ActionT
 						An action to perform on all materials
 						of this model descriptor. The action 
-						must accept @c const @c Material& values.
+						must accept @c const @c Material* values.
 		*/
 		template< typename ActionT >
 		void ForEachMaterial(ActionT action) const;
@@ -163,7 +163,7 @@ namespace mage {
 		 @tparam		ActionT
 						An action to perform on all model parts
 						of this model descriptor. The action
-						must accept @c const @c ModelPart& values.
+						must accept @c const @c ModelPart* values.
 		 */
 		template< typename ActionT >
 		void ForEachModelPart(ActionT action) const;

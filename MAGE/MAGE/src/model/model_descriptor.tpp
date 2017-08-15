@@ -38,14 +38,14 @@ namespace mage {
 	template< typename ActionT >
 	inline void ModelDescriptor::ForEachMaterial(ActionT action) const {
 		for (auto it = m_materials.cbegin(); it != m_materials.cend(); ++it) {
-			action(*it);
+			action(&*it);
 		}
 	}
 
 	template< typename ActionT >
 	inline void ModelDescriptor::ForEachModelPart(ActionT action) const {
 		for (auto it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
-			action(*it);
+			action(&*it);
 		}
 	}
 }

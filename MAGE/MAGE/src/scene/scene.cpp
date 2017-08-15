@@ -342,33 +342,33 @@ namespace mage {
 		map< string, ModelPair > mapping;
 
 		// Create model nodes.
-		desc.ForEachModelPart([&](const ModelPart &model_part) {
+		desc.ForEachModelPart([&](const ModelPart *model_part) {
 
-			if (model_part.m_child == MAGE_MDL_PART_DEFAULT_CHILD && model_part.m_nb_indices == 0) {
+			if (model_part->m_child == MAGE_MDL_PART_DEFAULT_CHILD && model_part->m_nb_indices == 0) {
 				return;
 			}
 
 			// Create a material.
-			const Material material = (model_part.m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ?
-				default_material : *desc.GetMaterial(model_part.m_material);
+			const Material material = (model_part->m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ?
+				default_material : *desc.GetMaterial(model_part->m_material);
 			// Create a shaded material.
 			const ShadedMaterial shaded_material(material, brdf);
 
 			// Create a submodel node.
 			SharedPtr< ModelNode > submodel_node = MakeShared< ModelNode >(
-														model_part.m_child, desc.GetMesh(), 
-														model_part.m_start_index, model_part.m_nb_indices,
-														model_part.m_aabb, model_part.m_bs, shaded_material);
+														model_part->m_child, desc.GetMesh(),
+														model_part->m_start_index, model_part->m_nb_indices,
+														model_part->m_aabb, model_part->m_bs, shaded_material);
 			// Add this submodel node to this scene.
 			AddSceneNode(submodel_node);
 
-			if (model_part.m_parent == MAGE_MDL_PART_DEFAULT_PARENT) {
+			if (model_part->m_parent == MAGE_MDL_PART_DEFAULT_PARENT) {
 				root_model_node = submodel_node;
 				++nb_root_childs;
 			}
 
 			// Add this submodel node to the mapping.
-			mapping.insert(std::make_pair(model_part.m_child, ModelPair(submodel_node, model_part.m_parent)));
+			mapping.insert(std::make_pair(model_part->m_child, ModelPair(submodel_node, model_part->m_parent)));
 		});
 
 		Assert(nb_root_childs != 0);
@@ -416,33 +416,33 @@ namespace mage {
 		map< string, ModelPair > mapping;
 
 		// Create model nodes.
-		desc.ForEachModelPart([&](const ModelPart &model_part) {
+		desc.ForEachModelPart([&](const ModelPart *model_part) {
 
-			if (model_part.m_child == MAGE_MDL_PART_DEFAULT_CHILD && model_part.m_nb_indices == 0) {
+			if (model_part->m_child == MAGE_MDL_PART_DEFAULT_CHILD && model_part->m_nb_indices == 0) {
 				return;
 			}
 
 			// Create a material.
-			const Material material = (model_part.m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ?
-				default_material : *desc.GetMaterial(model_part.m_material);
+			const Material material = (model_part->m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ?
+				default_material : *desc.GetMaterial(model_part->m_material);
 			// Create a shaded material.
 			const ShadedMaterial shaded_material(material, shader);
 
 			// Create a submodel node.
 			SharedPtr< ModelNode > submodel_node = MakeShared< ModelNode >(
-														model_part.m_child, desc.GetMesh(), 
-														model_part.m_start_index, model_part.m_nb_indices,
-														model_part.m_aabb, model_part.m_bs, shaded_material);
+														model_part->m_child, desc.GetMesh(),
+														model_part->m_start_index, model_part->m_nb_indices,
+														model_part->m_aabb, model_part->m_bs, shaded_material);
 			// Add this submodel node to this scene.
 			AddSceneNode(submodel_node);
 
-			if (model_part.m_parent == MAGE_MDL_PART_DEFAULT_PARENT) {
+			if (model_part->m_parent == MAGE_MDL_PART_DEFAULT_PARENT) {
 				root_model_node = submodel_node;
 				++nb_root_childs;
 			}
 
 			// Adds this submodel node to the mapping.
-			mapping.insert(std::make_pair(model_part.m_child, ModelPair(submodel_node, model_part.m_parent)));
+			mapping.insert(std::make_pair(model_part->m_child, ModelPair(submodel_node, model_part->m_parent)));
 		});
 
 		Assert(nb_root_childs != 0);

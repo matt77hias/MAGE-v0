@@ -39,7 +39,7 @@ namespace mage {
 			// Visit child node.
 			action(it->get());
 			// Visit child node's child nodes.
-			(*it)->GetTransform()->ForEachChildNode(action);
+			(*it)->GetTransform()->ForEachChildTransformNode(action);
 		}
 	}
 }

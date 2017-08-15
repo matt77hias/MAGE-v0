@@ -78,8 +78,8 @@ namespace mage {
 						The elapsed time since the previous update.
 		 */
 		void Update(double delta_time) {
-			ForEachScript([delta_time](BehaviorScript &script) {
-				script.Update(delta_time);
+			ForEachScript([delta_time](BehaviorScript *script) {
+				script->Update(delta_time);
 			});
 		}
 

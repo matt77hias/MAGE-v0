@@ -78,12 +78,12 @@ namespace mage {
 	void Scene::Render2D() const {
 		m_sprite_batch->Begin();
 
-		ForEachSprite([this](const SpriteNode &sprite) {
-			if (sprite.IsPassive()) {
+		ForEachSprite([this](const SpriteNode *sprite) {
+			if (sprite->IsPassive()) {
 				return;
 			}
 
-			sprite.GetSprite()->Draw(*m_sprite_batch);
+			sprite->GetSprite()->Draw(*m_sprite_batch);
 		});
 
 		m_sprite_batch->End();
@@ -95,13 +95,13 @@ namespace mage {
 
 		// Update directional light structured buffer.
 		vector< DirectionalLightBuffer > directional_lights_buffer;
-		ForEachDirectionalLight([&directional_lights_buffer, &world_to_view](const DirectionalLightNode &light_node) {
-			if (light_node.IsPassive()) {
+		ForEachDirectionalLight([&directional_lights_buffer, &world_to_view](const DirectionalLightNode *light_node) {
+			if (light_node->IsPassive()) {
 				return;
 			}
 
-			const TransformNode * const transform = light_node.GetTransform();
-			const DirectionalLight * const light  = light_node.GetLight();
+			const TransformNode * const transform = light_node->GetTransform();
+			const DirectionalLight * const light  = light_node->GetLight();
 
 			DirectionalLightBuffer light_buffer;
 			XMStoreFloat3(&light_buffer.m_d, XMVector3TransformNormal(transform->GetWorldForward(), world_to_view));
@@ -113,13 +113,13 @@ namespace mage {
 
 		// Update omni light structured buffer.
 		vector< OmniLightBuffer > omni_lights_buffer;
-		ForEachOmniLight([&omni_lights_buffer, &world_to_view](const OmniLightNode &light_node) {
-			if (light_node.IsPassive()) {
+		ForEachOmniLight([&omni_lights_buffer, &world_to_view](const OmniLightNode *light_node) {
+			if (light_node->IsPassive()) {
 				return;
 			}
 
-			const TransformNode * const transform = light_node.GetTransform();
-			const OmniLight     * const light     = light_node.GetLight();
+			const TransformNode * const transform = light_node->GetTransform();
+			const OmniLight     * const light     = light_node->GetLight();
 			
 			OmniLightBuffer light_buffer;
 			XMStoreFloat3(&light_buffer.m_p, XMVector3TransformCoord(transform->GetWorldEye(), world_to_view));
@@ -133,13 +133,13 @@ namespace mage {
 
 		// Update spotlight structured buffer.
 		vector< SpotLightBuffer > spot_lights_buffer;
-		ForEachSpotLight([&spot_lights_buffer, &world_to_view](const SpotLightNode &light_node) {
-			if (light_node.IsPassive()) {
+		ForEachSpotLight([&spot_lights_buffer, &world_to_view](const SpotLightNode *light_node) {
+			if (light_node->IsPassive()) {
 				return;
 			}
 			
-			const TransformNode * const transform = light_node.GetTransform();
-			const SpotLight     * const light     = light_node.GetLight();
+			const TransformNode * const transform = light_node->GetTransform();
+			const SpotLight     * const light     = light_node->GetLight();
 			
 			SpotLightBuffer light_buffer;
 			XMStoreFloat3(&light_buffer.m_p, XMVector3TransformCoord(transform->GetWorldEye(), world_to_view));
@@ -184,13 +184,13 @@ namespace mage {
 
 			// Render models.
 			ForEachModel([this, transparency, &transform_buffer, &scene_info,
-				&view_to_world, &world_to_projection](const ModelNode &model_node) {
+				&view_to_world, &world_to_projection](const ModelNode *model_node) {
 				
-				if (model_node.IsPassive()) {
+				if (model_node->IsPassive()) {
 					return;
 				}
 
-				const Model * const model = model_node.GetModel();
+				const Model * const model = model_node->GetModel();
 
 				if (model->GetNumberOfIndices() == 0) {
 					return;
@@ -199,7 +199,7 @@ namespace mage {
 					return;
 				}
 
-				const TransformNode * const transform = model_node.GetTransform();
+				const TransformNode * const transform = model_node->GetTransform();
 
 				// Update transform constant buffer (1/2).
 				const XMMATRIX object_to_world      = transform->GetObjectToWorldMatrix();
@@ -251,19 +251,19 @@ namespace mage {
 
 		// Render models.
 		ForEachModel([this, &transform_buffer, &scene_info,
-			&view_to_world, &world_to_projection](const ModelNode &model_node) {
+			&view_to_world, &world_to_projection](const ModelNode *model_node) {
 			
-			if (model_node.IsPassive()) {
+			if (model_node->IsPassive()) {
 				return;
 			}
 
-			const Model * const model = model_node.GetModel();
+			const Model * const model = model_node->GetModel();
 
 			if (model->GetNumberOfIndices() == 0) {
 				return;
 			}
 
-			const TransformNode * const transform = model_node.GetTransform();
+			const TransformNode * const transform = model_node->GetTransform();
 
 			// Update transform constant buffer (1/2).
 			const XMMATRIX object_to_world      = transform->GetObjectToWorldMatrix();

@@ -19,7 +19,7 @@ namespace mage {
 	template< typename ActionT >
 	inline void Scene::ForEachScript(ActionT action) const {
 		for (auto it = m_scripts.cbegin(); it != m_scripts.cend(); ++it) {
-			action(**it);
+			action(it->get());
 		}
 	}
 
@@ -34,7 +34,7 @@ namespace mage {
 				continue;
 			}
 			
-			action(**it);
+			action(it->get());
 			cameras.push_back(std::move(*it));
 		}
 
@@ -52,7 +52,7 @@ namespace mage {
 				continue;
 			}
 
-			action(**it);
+			action(it->get());
 			models.push_back(std::move(*it));
 		}
 		
@@ -67,7 +67,7 @@ namespace mage {
 			return;
 		}
 
-		action(*m_ambient_light);
+		action(m_ambient_light.get());
 	}
 
 	template< typename ActionT >
@@ -81,7 +81,7 @@ namespace mage {
 				continue;
 			}
 
-			action(**it);
+			action(it->get());
 			directional_lights.push_back(std::move(*it));
 		}
 		
@@ -99,7 +99,7 @@ namespace mage {
 				continue;
 			}
 
-			action(**it);
+			action(it->get());
 			omni_lights.push_back(std::move(*it));
 		}
 		
@@ -117,7 +117,7 @@ namespace mage {
 				continue;
 			}
 
-			action(**it);
+			action(it->get());
 			spot_lights.push_back(std::move(*it));
 		}
 		
@@ -143,7 +143,7 @@ namespace mage {
 				continue;
 			}
 
-			action(**it);
+			action(it->get());
 			sprites.push_back(std::move(*it));
 		}
 		

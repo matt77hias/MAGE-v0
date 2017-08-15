@@ -48,14 +48,15 @@ namespace mage {
 		
 		m_device_context->PSSetConstantBuffers(1, 1, m_material_buffer.GetAddressOf());
 		m_device_context->PSSetConstantBuffers(2, 1, &scene.m_scene_buffer);
-		m_device_context->PSSetShaderResources(1, 1, &scene.m_omni_lights);
-		m_device_context->PSSetShaderResources(2, 1, &scene.m_spot_lights);
+		m_device_context->PSSetShaderResources(2, 1, &scene.m_directional_lights);
+		m_device_context->PSSetShaderResources(3, 1, &scene.m_omni_lights);
+		m_device_context->PSSetShaderResources(4, 1, &scene.m_spot_lights);
 
 		ID3D11ShaderResourceView *diffuse_texture = material.GetDiffuseReflectivitySRV();
 		Assert(diffuse_texture);
 		m_device_context->PSSetShaderResources(0, 1, &diffuse_texture);
 		ID3D11ShaderResourceView *normal_texture = material.GetNormalSRV();
 		Assert(normal_texture);
-		m_device_context->PSSetShaderResources(4, 1, &normal_texture);
+		m_device_context->PSSetShaderResources(5, 1, &normal_texture);
 	}
 }

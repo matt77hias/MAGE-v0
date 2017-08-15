@@ -35,7 +35,8 @@ namespace mage {
 		 Constructs a scene info.
 		 */
 		SceneInfo()
-			: m_scene_buffer(nullptr), 
+			: m_scene_buffer(nullptr),
+			m_directional_lights(nullptr),
 			m_omni_lights(nullptr), 
 			m_spot_lights(nullptr) {}
 
@@ -92,6 +93,12 @@ namespace mage {
 		 A pointer to the scene buffer of this scene info.
 		 */
 		ID3D11Buffer *m_scene_buffer;
+
+		/**
+		 A pointer to the shader resource view for directional lights
+		 of this scene info.
+		 */
+		ID3D11ShaderResourceView *m_directional_lights;
 
 		/**
 		 A pointer to the shader resource view for omni lights 

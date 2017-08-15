@@ -17,12 +17,17 @@ namespace mage {
 
 	Scene::Scene(const string &name)
 		: m_name(name), m_scripts(),
-		m_scene_fog(MakeUnique< SceneFog >()),
-		m_models(), m_omni_lights(), m_spot_lights(), m_sprites(),
+		m_scene_fog(MakeUnique< SceneFog >()), 
+		m_cameras(), m_models(), m_ambient_light(), 
+		m_directional_lights(), m_omni_lights(), m_spot_lights(), m_sprites(),
 		m_sprite_batch(MakeUnique< SpriteBatch >()),
 		m_transform_buffer(), m_scene_buffer(),
-		m_omni_lights_buffer(64), m_spot_lights_buffer(64) {
+		m_directional_lights_buffer(3), 
+		m_omni_lights_buffer(64), 
+		m_spot_lights_buffer(64) {
 		
+		Create< AmbientLightNode >("ambient light");
+
 		//TODO
 		Material box_material("_mat_aabb");
 		SharedPtr< Texture > white = CreateWhiteTexture();
@@ -88,6 +93,24 @@ namespace mage {
 		const XMMATRIX world_to_view = m_cameras[0]->GetTransform()->GetWorldToViewMatrix();
 		const XMMATRIX view_to_world = m_cameras[0]->GetTransform()->GetViewToWorldMatrix();
 
+		// Update directional light structured buffer.
+		vector< DirectionalLightBuffer > directional_lights_buffer;
+		ForEachDirectionalLight([&directional_lights_buffer, &world_to_view](const DirectionalLightNode &light_node) {
+			if (light_node.IsPassive()) {
+				return;
+			}
+
+			const TransformNode * const transform = light_node.GetTransform();
+			const DirectionalLight * const light  = light_node.GetLight();
+
+			DirectionalLightBuffer light_buffer;
+			XMStoreFloat3(&light_buffer.m_d, XMVector3TransformNormal(transform->GetWorldForward(), world_to_view));
+			light_buffer.m_I = light->GetIntensity();
+
+			directional_lights_buffer.push_back(std::move(light_buffer));
+		});
+		m_directional_lights_buffer.UpdateData(directional_lights_buffer);
+
 		// Update omni light structured buffer.
 		vector< OmniLightBuffer > omni_lights_buffer;
 		ForEachOmniLight([&omni_lights_buffer, &world_to_view](const OmniLightNode &light_node) {
@@ -99,7 +122,7 @@ namespace mage {
 			const OmniLight     * const light     = light_node.GetLight();
 			
 			OmniLightBuffer light_buffer;
-			XMStoreFloat4(&light_buffer.m_p, XMVector4Transform(transform->GetWorldEye(), world_to_view));
+			XMStoreFloat3(&light_buffer.m_p, XMVector3TransformCoord(transform->GetWorldEye(), world_to_view));
 			light_buffer.m_I                      = light->GetIntensity();
 			light_buffer.m_distance_falloff_end   = light->GetEndDistanceFalloff();
 			light_buffer.m_distance_falloff_range = light->GetRangeDistanceFalloff();
@@ -119,10 +142,10 @@ namespace mage {
 			const SpotLight     * const light     = light_node.GetLight();
 			
 			SpotLightBuffer light_buffer;
-			XMStoreFloat4(&light_buffer.m_p, XMVector4Transform(transform->GetWorldEye(), world_to_view));
+			XMStoreFloat3(&light_buffer.m_p, XMVector3TransformCoord(transform->GetWorldEye(), world_to_view));
+			XMStoreFloat3(&light_buffer.m_d, XMVector3TransformNormal(transform->GetWorldForward(), world_to_view));
 			light_buffer.m_I                      = light->GetIntensity();
 			light_buffer.m_exponent_property      = light->GetExponentProperty();
-			XMStoreFloat3(&light_buffer.m_d, XMVector4Transform(transform->GetWorldForward(), world_to_view));
 			light_buffer.m_distance_falloff_end   = light->GetEndDistanceFalloff();
 			light_buffer.m_distance_falloff_range = light->GetRangeDistanceFalloff();
 			light_buffer.m_cos_umbra              = light->GetEndAngularCutoff();
@@ -134,6 +157,8 @@ namespace mage {
 
 		// Update scene constant buffer.
 		SceneBuffer scene_buffer;
+		scene_buffer.m_Ia = m_ambient_light->GetLight()->GetIntensity();
+		scene_buffer.m_nb_directional_lights      = static_cast< uint32_t >(directional_lights_buffer.size());
 		scene_buffer.m_nb_omni_lights             = static_cast< uint32_t >(omni_lights_buffer.size());
 		scene_buffer.m_nb_spot_lights             = static_cast< uint32_t >(spot_lights_buffer.size());
 		scene_buffer.m_fog_color                  = m_scene_fog->GetIntensity();
@@ -144,9 +169,10 @@ namespace mage {
 
 		// Create lighting buffer.
 		SceneInfo scene_info;
-		scene_info.m_scene_buffer = m_scene_buffer.Get();
-		scene_info.m_omni_lights  = m_omni_lights_buffer.Get();
-		scene_info.m_spot_lights  = m_spot_lights_buffer.Get();
+		scene_info.m_scene_buffer       = m_scene_buffer.Get();
+		scene_info.m_directional_lights = m_directional_lights_buffer.Get();
+		scene_info.m_omni_lights        = m_omni_lights_buffer.Get();
+		scene_info.m_spot_lights        = m_spot_lights_buffer.Get();
 
 		const XMMATRIX view_to_projection  = m_cameras[0]->GetCamera()->GetViewToProjectionMatrix();
 		const XMMATRIX world_to_projection = world_to_view * view_to_projection;
@@ -301,36 +327,6 @@ namespace mage {
 	// Scene Member Methods: World
 	//-------------------------------------------------------------------------
 
-	SharedPtr< PerspectiveCameraNode > Scene::CreatePerspectiveCamera(const string &name, UniquePtr< PerspectiveCamera > &&camera) {
-		SharedPtr< PerspectiveCameraNode > camera_node
-			= MakeShared< PerspectiveCameraNode >(name, std::move(camera));
-
-		// Add this camera node to this scene.
-		AddSceneNode(camera_node);
-
-		return camera_node;
-	}
-
-	SharedPtr< OrthographicCameraNode > Scene::CreateOrthographicCamera(const string &name, UniquePtr< OrthographicCamera > &&camera) {
-		SharedPtr< OrthographicCameraNode > camera_node
-			= MakeShared< OrthographicCameraNode >(name, std::move(camera));
-
-		// Add this camera node to this scene.
-		AddSceneNode(camera_node);
-
-		return camera_node;
-	}
-
-	SharedPtr< ModelNode > Scene::CreateModel(const string &name, UniquePtr< Model > &&model) {
-		SharedPtr< ModelNode > model_node
-			= MakeShared< ModelNode >(name, std::move(model));
-
-		// Add this model node to this scene.
-		AddSceneNode(model_node);
-
-		return model_node;
-	}
-
 	SharedPtr< ModelNode > Scene::CreateModel(
 		const ModelDescriptor &desc, BRDFType brdf) {
 
@@ -477,86 +473,6 @@ namespace mage {
 		}
 
 		return root_model_node;
-	}
-
-	SharedPtr< AmbientLightNode > Scene::CreateAmbientLight(const string &name, UniquePtr< AmbientLight > &&light) {
-		SharedPtr< AmbientLightNode > light_node
-			= MakeShared< AmbientLightNode >(name, std::move(light));
-
-		// Add this light node to this scene.
-		AddSceneNode(light_node);
-
-		return light_node;
-	}
-
-	SharedPtr< DirectionalLightNode > Scene::CreateDirectionalLight(const string &name, UniquePtr< DirectionalLight > &&light) {
-		SharedPtr< DirectionalLightNode > light_node
-			= MakeShared< DirectionalLightNode >(name, std::move(light));
-
-		// Add this light node to this scene.
-		AddSceneNode(light_node);
-
-		return light_node;
-	}
-
-	SharedPtr< OmniLightNode > Scene::CreateOmniLight(const string &name, UniquePtr< OmniLight > &&light) {
-		SharedPtr< OmniLightNode > light_node
-			= MakeShared< OmniLightNode >(name, std::move(light));
-
-		// Add this light node to this scene.
-		AddSceneNode(light_node);
-
-		return light_node;
-	}
-
-	SharedPtr< SpotLightNode > Scene::CreateSpotLight(const string &name, UniquePtr< SpotLight > &&light) {
-		SharedPtr< SpotLightNode > light_node
-			= MakeShared< SpotLightNode >(name, std::move(light));
-
-		// Add this light node to this scene.
-		AddSceneNode(light_node);
-
-		return light_node;
-	}
-
-	SharedPtr< SpriteImageNode > Scene::CreateSpriteImage(const string &name, UniquePtr< SpriteImage > &&sprite) {
-		SharedPtr< SpriteImageNode > sprite_node
-			= MakeShared< SpriteImageNode >(name, std::move(sprite));
-
-		// Add this sprite node to this scene.
-		AddSceneNode(sprite_node);
-
-		return sprite_node;
-	}
-
-	SharedPtr< NormalSpriteTextNode > Scene::CreateNormalSpriteText(const string &name, UniquePtr< NormalSpriteText > &&sprite) {
-		SharedPtr< NormalSpriteTextNode > sprite_node
-			= MakeShared< NormalSpriteTextNode >(name, std::move(sprite));
-
-		// Add this sprite node to this scene.
-		AddSceneNode(sprite_node);
-
-		return sprite_node;
-	}
-
-	SharedPtr< DropshadowSpriteTextNode > Scene::CreateDropshadowSpriteText(const string &name, UniquePtr< DropshadowSpriteText > &&sprite) {
-		SharedPtr< DropshadowSpriteTextNode > sprite_node
-			= MakeShared< DropshadowSpriteTextNode >(name, std::move(sprite));
-
-		// Add this sprite node to this scene.
-		AddSceneNode(sprite_node);
-
-		return sprite_node;
-	}
-
-	SharedPtr< OutlineSpriteTextNode > Scene::CreateOutlineSpriteText(const string &name, UniquePtr< OutlineSpriteText > &&sprite) {
-		SharedPtr< OutlineSpriteTextNode > sprite_node
-			= MakeShared< OutlineSpriteTextNode >(name, std::move(sprite));
-
-		// Add this sprite node to this scene.
-		AddSceneNode(sprite_node);
-
-		return sprite_node;
 	}
 
 	void Scene::AddSceneNode(SharedPtr< CameraNode > camera) {

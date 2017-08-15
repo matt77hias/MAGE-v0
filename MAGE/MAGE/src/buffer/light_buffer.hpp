@@ -43,10 +43,10 @@ namespace mage {
 		 Constructs a scene buffer.
 		 */
 		SceneBuffer()
-			: m_Ia{}, m_nb_omni_lights(0),
-			m_Id{}, m_nb_spot_lights(0),
-			m_d{}, m_fog_distance_falloff_start(0.0f), 
-			m_fog_color{}, m_fog_distance_falloff_range(0.0f) {}
+			: m_Ia(), m_flags(0),
+			m_nb_directional_lights(0), m_nb_omni_lights(0),
+			m_nb_spot_lights(0), m_fog_distance_falloff_start(0.0f), 
+			m_fog_color(), m_fog_distance_falloff_range(0.0f) {}
 		
 		/**
 		 Constructs a scene buffer from the given scene buffer.
@@ -103,25 +103,24 @@ namespace mage {
 		RGBSpectrum m_Ia;
 
 		/**
+		 The flags of this scene buffer.
+		 */
+		uint32_t m_flags;
+
+		/**
+		 The number of directional lights of this scene buffer.
+		 */
+		uint32_t m_nb_directional_lights;
+
+		/**
 		 The number of omni lights of this scene buffer.
 		 */
 		uint32_t m_nb_omni_lights;
 
 		/**
-		 The intensity of the directional light of this scene buffer.
-		 */
-		RGBSpectrum m_Id;
-
-		/**
 		 The number of spotlights of this scene buffer.
 		 */
 		uint32_t m_nb_spot_lights;
-
-		/**
-		 The (normalized) direction of the directional light
-		 in camera-space coordinates of this scene buffer.
-		 */
-		Direction3 m_d;
 
 		/**
 		 The distance at which intensity falloff starts due to fog
@@ -141,7 +140,102 @@ namespace mage {
 		float m_fog_distance_falloff_range;
 	};
 
-	static_assert(sizeof(SceneBuffer) == 64, "CPU/GPU struct mismatch");
+	static_assert(sizeof(SceneBuffer) == 48, "CPU/GPU struct mismatch");
+
+	//-------------------------------------------------------------------------
+	// DirectionalLightBuffer
+	//-------------------------------------------------------------------------
+
+	/**
+	 A struct of directional light buffers used by pixel shaders.
+	 */
+	__declspec(align(16)) struct DirectionalLightBuffer final : public AlignedData< DirectionalLightBuffer > {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs an directional light buffer.
+		 */
+		DirectionalLightBuffer()
+			:m_I(), m_padding0(0),
+			m_d(), m_padding1(0) {}
+		
+		/**
+		 Constructs an directional light buffer from the given directional light buffer.
+
+		 @param[in]		buffer
+						A reference to the directional light buffer to copy.
+		 */
+		DirectionalLightBuffer(const DirectionalLightBuffer &buffer) = default;
+
+		/**
+		 Constructs an directional light buffer by moving the given directional light buffer.
+
+		 @param[in]		buffer
+						A reference to the directional light buffer to move.
+		 */
+		DirectionalLightBuffer(DirectionalLightBuffer &&buffer) = default;
+		
+		/**
+		 Destructs this directional light buffer.
+		 */
+		~DirectionalLightBuffer() = default;
+		
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given directional light buffer to this directional light buffer.
+
+		 @param[in]		buffer
+						A reference to the directional light buffer to copy.
+		 @return		A reference to the copy of the given directional light buffer
+						(i.e. this directional light buffer).
+		 */
+		DirectionalLightBuffer &operator=(const DirectionalLightBuffer &buffer) = default;
+
+		/**
+		 Moves the given directional light buffer to this directional light buffer.
+
+		 @param[in]		buffer
+						A reference to the directional light buffer to move.
+		 @return		A reference to the moved directional light buffer
+						(i.e. this directional light buffer).
+		 */
+		DirectionalLightBuffer &operator=(DirectionalLightBuffer &&buffer) = default;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The intensity of the directional light of this directional light buffer.
+		 */
+		RGBSpectrum m_I;
+
+		/**
+		 The padding of this directional light buffer.
+		 */
+		uint32_t m_padding0;
+
+		/**
+		 The (normalized) direction of the directional light in camera-space coordinates
+		 of this directional light buffer.
+		 */
+		Direction3 m_d;
+
+		/**
+		 The padding of this directional light buffer.
+		 */
+		uint32_t m_padding1;
+	};
+
+	static_assert(sizeof(DirectionalLightBuffer) == 32, "CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// OmniLightBuffer
@@ -162,10 +256,8 @@ namespace mage {
 		 Constructs an omni light buffer.
 		 */
 		OmniLightBuffer()
-			: m_p{}, 
-			m_I(), m_padding0{},
-			m_distance_falloff_end(0.0f), m_distance_falloff_range(0.0f),
-			m_padding1{} {}
+			: m_p(), m_distance_falloff_end(0.0f),
+			m_I(), m_distance_falloff_range(0.0f) {}
 		
 		/**
 		 Constructs an omni light buffer from the given omni light buffer.
@@ -220,7 +312,13 @@ namespace mage {
 		 The position of the omni light in camera-space coordinates 
 		 of this omni light buffer.
 		 */
-		XMFLOAT4 m_p;
+		Point3 m_p;
+
+		/**
+		 The distance at which intensity falloff ends of the omni light
+		 of this omni light buffer.
+		 */
+		float m_distance_falloff_end;
 
 		/**
 		 The intensity of the omni light of this omni light buffer.
@@ -228,29 +326,13 @@ namespace mage {
 		RGBSpectrum m_I;
 
 		/**
-		 The padding of this omni light buffer.
-		 */
-		uint32_t m_padding0;
-
-		/**
-		 The distance at which intensity falloff ends of the omni light 
-		 of this omni light buffer.
-		 */
-		float m_distance_falloff_end;
-
-		/**
 		 The distance range where intensity falloff occurs of the omni light
 		 of this omni light buffer.
 		 */
 		float m_distance_falloff_range;
-
-		/**
-		 The padding of this omni light buffer.
-		 */
-		uint32_t m_padding1[2];
 	};
 
-	static_assert(sizeof(OmniLightBuffer) == 48, "CPU/GPU struct mismatch");
+	static_assert(sizeof(OmniLightBuffer) == 32, "CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// SpotLightBuffer
@@ -271,9 +353,9 @@ namespace mage {
 		 Constructs a spotlight buffer.
 		 */
 		SpotLightBuffer()
-			: m_p{}, 
-			m_I{}, m_exponent_property(0.0f), 
-			m_d{}, m_padding{},
+			: m_p(), m_padding0(0),
+			m_I(), m_padding1(0),
+			m_d(), m_exponent_property(0.0f),
 			m_distance_falloff_end(0.0f), m_distance_falloff_range(0.0f),
 			m_cos_umbra(0.0f), m_cos_range(0.0f) {}
 		
@@ -330,7 +412,12 @@ namespace mage {
 		 The position of the spotlight in camera-space coordinates
 		 of this spotlight buffer.
 		 */
-		XMFLOAT4 m_p;
+		Point3 m_p;
+
+		/**
+		 The padding of this spotlight buffer.
+		 */
+		uint32_t m_padding0;
 
 		/**
 		 The intensity of the spotlight of this spotlight buffer.
@@ -338,9 +425,9 @@ namespace mage {
 		RGBSpectrum m_I;
 
 		/**
-		 The exponent property of the spotlight of this spotlight buffer.
+		 The padding of this spotlight buffer.
 		 */
-		float m_exponent_property;
+		uint32_t m_padding1;
 
 		/**
 		 The (normalized) direction of the spotlight in camera-space coordinates
@@ -349,9 +436,9 @@ namespace mage {
 		Direction3 m_d;
 
 		/**
-		 The padding of this spotlight buffer.
+		 The exponent property of the spotlight of this spotlight buffer.
 		 */
-		uint32_t m_padding;
+		float m_exponent_property;
 		
 		/**
 		 The distance at which intensity falloff ends of the spotlight

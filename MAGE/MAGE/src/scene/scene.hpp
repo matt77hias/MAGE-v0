@@ -113,45 +113,12 @@ namespace mage {
 			return m_scene_fog.get();
 		}
 
-		template< typename... ConstructorArgsT >
-		SharedPtr< PerspectiveCameraNode > CreatePerspectiveCamera(const string &name, ConstructorArgsT&&... args);
-		SharedPtr< PerspectiveCameraNode > CreatePerspectiveCamera(const string &name, UniquePtr< PerspectiveCamera > &&camera);
-		template< typename... ConstructorArgsT >
-		SharedPtr< OrthographicCameraNode > CreateOrthographicCamera(const string &name, ConstructorArgsT&&... args);
-		SharedPtr< OrthographicCameraNode > CreateOrthographicCamera(const string &name, UniquePtr< OrthographicCamera > &&camera);
-
-		template< typename... ConstructorArgsT >
-		SharedPtr< ModelNode > CreateModel(const string &name, ConstructorArgsT&&... args);
-		SharedPtr< ModelNode > CreateModel(const string &name, UniquePtr< Model > &&model);
+		template< typename SceneNodeT, typename... ConstructorArgsT >
+		SharedPtr< SceneNodeT > Create(const string &name, ConstructorArgsT&&... args);
+		
 		SharedPtr< ModelNode > CreateModel(const ModelDescriptor &desc, BRDFType brdf = BRDFType::Unknown);
 		SharedPtr< ModelNode > CreateModel(const ModelDescriptor &desc, const CombinedShader &shader);
-
-		template< typename... ConstructorArgsT >
-		SharedPtr< AmbientLightNode > CreateAmbientLight(const string &name, ConstructorArgsT&&... args);
-		SharedPtr< AmbientLightNode > CreateAmbientLight(const string &name, UniquePtr< AmbientLight > &&light);
-		template< typename... ConstructorArgsT >
-		SharedPtr< DirectionalLightNode > CreateDirectionalLight(const string &name, ConstructorArgsT&&... args);
-		SharedPtr< DirectionalLightNode > CreateDirectionalLight(const string &name, UniquePtr< DirectionalLight > &&light);
-		template< typename... ConstructorArgsT >
-		SharedPtr< OmniLightNode > CreateOmniLight(const string &name, ConstructorArgsT&&... args);
-		SharedPtr< OmniLightNode > CreateOmniLight(const string &name, UniquePtr< OmniLight > &&light);
-		template< typename... ConstructorArgsT >
-		SharedPtr< SpotLightNode > CreateSpotLight(const string &name, ConstructorArgsT&&... args);
-		SharedPtr< SpotLightNode > CreateSpotLight(const string &name, UniquePtr< SpotLight > &&light);
-
-		template< typename... ConstructorArgsT >
-		SharedPtr< SpriteImageNode > CreateSpriteImage(const string &name, ConstructorArgsT&&... args);
-		SharedPtr< SpriteImageNode > CreateSpriteImage(const string &name, UniquePtr< SpriteImage > &&sprite);
-		template< typename... ConstructorArgsT >
-		SharedPtr< NormalSpriteTextNode > CreateNormalSpriteText(const string &name, ConstructorArgsT&&... args);
-		SharedPtr< NormalSpriteTextNode > CreateNormalSpriteText(const string &name, UniquePtr< NormalSpriteText > &&sprite);
-		template< typename... ConstructorArgsT >
-		SharedPtr< DropshadowSpriteTextNode > CreateDropshadowSpriteText(const string &name, ConstructorArgsT&&... args);
-		SharedPtr< DropshadowSpriteTextNode > CreateDropshadowSpriteText(const string &name, UniquePtr< DropshadowSpriteText > &&sprite);
-		template< typename... ConstructorArgsT >
-		SharedPtr< OutlineSpriteTextNode > CreateOutlineSpriteText(const string &name, ConstructorArgsT&&... args);
-		SharedPtr< OutlineSpriteTextNode > CreateOutlineSpriteText(const string &name, UniquePtr< OutlineSpriteText > &&sprite);
-
+		
 		//-------------------------------------------------------------------------
 		// Member Methods: Scripts
 		//-------------------------------------------------------------------------
@@ -252,6 +219,7 @@ namespace mage {
 		// Buffers
 		ConstantBuffer< TransformBuffer > m_transform_buffer;
 		ConstantBuffer< SceneBuffer > m_scene_buffer;
+		StructuredBuffer< DirectionalLightBuffer > m_directional_lights_buffer;
 		StructuredBuffer< OmniLightBuffer > m_omni_lights_buffer;
 		StructuredBuffer< SpotLightBuffer > m_spot_lights_buffer;
 		// Extra

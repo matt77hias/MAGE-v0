@@ -99,6 +99,7 @@ namespace mage {
 	void Node::Terminate() noexcept {
 		if (!m_terminated) {
 			m_terminated = true;
+			m_active = false;
 
 			ForEachChildNode([](Node &node) {
 				node.Terminate();

@@ -1,30 +1,35 @@
+struct DirectionalLight {
+	// The intensity of this spotlight .
+	float3 I;
+	uint padding0;
+	// The (normalized) direction of this spotlight in camera-space coordinates.
+	float3 d;
+	uint padding1;
+};
+
 struct OmniLight {
 	// The position of this omni light in camera-space coordinates.
-	float4 p;
-	// The intensity of this omni light.
-	float3 I;
-	// Padding.
-	uint padding0;
+	float3 p;
 	//  The distance at which intensity falloff ends of this omni light.
 	float distance_falloff_end;
+	// The intensity of this omni light.
+	float3 I;
 	// The distance range where intensity falloff occurs of this omni light.
 	// distance_falloff_range = distance_falloff_end - distance_falloff_start
 	float distance_falloff_range;
-	// Padding.
-	uint2 padding1;
 };
 
 struct SpotLight {
 	// The position of this spotlight in camera-space coordinates.
-	float4 p;
+	float3 p;
+	uint padding0;
 	// The intensity of this spotlight .
 	float3 I;
-	// The exponent property of this spotlight.
-	float exponent_property;
+	uint padding1;
 	// The (normalized) direction of this spotlight in camera-space coordinates.
 	float3 d;
-	// Padding.
-	uint padding;
+	// The exponent property of this spotlight.
+	float exponent_property;
 	// The distance at which intensity falloff ends of this spotlight.
 	float distance_falloff_end;
 	// The distance range where intensity falloff occurs of this spotlight.

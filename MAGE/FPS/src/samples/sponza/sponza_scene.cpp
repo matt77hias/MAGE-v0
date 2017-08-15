@@ -42,7 +42,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Camera
 		//---------------------------------------------------------------------
-		auto camera = CreatePerspectiveCamera("camera");
+		auto camera = Create< PerspectiveCameraNode >("camera");
 		camera->GetTransform()->SetTranslationY(2.0f);
 
 		//---------------------------------------------------------------------
@@ -64,10 +64,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		auto omni_light = CreateOmniLight("light");
+		auto omni_light = Create< OmniLightNode >("light");
 		omni_light->GetTransform()->SetTranslationY(2.0f);
 		omni_light->GetLight()->SetDistanceFalloff(0.0f, 2.0f);
-		auto spot_light = CreateSpotLight("light");
+		auto spot_light = Create< SpotLightNode >("light");
 		spot_light->GetLight()->SetAngularCutoff(0.0f, 0.0f);// 0.86602540f);
 		spot_light->GetLight()->SetDistanceFalloff(0.0f, 5.0f);
 		camera->AddChildNode(spot_light);
@@ -80,7 +80,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
-		auto logo = CreateSpriteImage("logo", texture_logo);
+		auto logo = Create< SpriteImageNode >("logo", texture_logo);
 		logo->GetSpriteTransform()->SetScale(0.25f, 0.25f);
 		logo->GetSpriteTransform()->SetNormalizedTranslation(0.90f, 0.88f);
 
@@ -92,7 +92,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------
-		auto text = CreateNormalSpriteText("stats", font);
+		auto text = Create< NormalSpriteTextNode >("stats", font);
 
 		//---------------------------------------------------------------------
 		// Scripts

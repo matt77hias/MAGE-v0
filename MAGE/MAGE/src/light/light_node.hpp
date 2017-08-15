@@ -6,12 +6,7 @@
 #pragma region
 
 #include "scene\scene_node.hpp"
-
-// Lights
-#include "light\ambient_light.hpp"
-#include "light\directional_light.hpp"
-#include "light\omni_light.hpp"
-#include "light\spot_light.hpp"
+#include "light\light.hpp"
 
 #pragma endregion
 
@@ -134,9 +129,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		Clones this camera node.
+		Clones this light node.
 
-		@return		A pointer to the clone of this camera node.
+		@return		A pointer to the clone of this light node.
 		*/
 		virtual UniquePtr< Node > CloneImplementation() const override = 0;
 
@@ -281,30 +276,6 @@ namespace mage {
 		 */
 		virtual UniquePtr< Node > CloneImplementation() const override;
 	};
-
-	//-------------------------------------------------------------------------
-	// Type Declarations and Definitions
-	//-------------------------------------------------------------------------
-
-	/**
-	 A class of ambient light nodes.
-	 */
-	using AmbientLightNode = DerivedLightNode< AmbientLight >;
-	
-	/**
-	 A class of directional light nodes.
-	 */
-	using DirectionalLightNode = DerivedLightNode< DirectionalLight >;
-	
-	/**
-	 A class of omni light nodes.
-	 */
-	using OmniLightNode = DerivedLightNode< OmniLight >;
-	
-	/**
-	 A class of spotlight nodes.
-	 */
-	using SpotLightNode = DerivedLightNode< SpotLight >;
 }
 
 //-----------------------------------------------------------------------------

@@ -6,8 +6,6 @@
 #pragma region
 
 #include "scene\scene_node.hpp"
-
-// Models
 #include "model\model.hpp"
 
 #pragma endregion

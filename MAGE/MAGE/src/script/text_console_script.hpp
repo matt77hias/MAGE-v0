@@ -33,7 +33,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit TextConsoleScript(SharedPtr< SpriteText > text,
+		explicit TextConsoleScript(SpriteText *text,
 			uint32_t nb_rows, uint32_t nb_columns);
 		TextConsoleScript(const TextConsoleScript &script) = delete;
 		TextConsoleScript(TextConsoleScript &&script);
@@ -72,7 +72,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		SharedPtr< SpriteText > m_text;
+		SpriteText * const m_text;
 
 		const uint32_t m_nb_rows;
 		const uint32_t m_nb_columns;

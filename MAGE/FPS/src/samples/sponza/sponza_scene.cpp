@@ -13,8 +13,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "text\normal_sprite_text.hpp"
-#include "sprite\sprite_image.hpp"
 #include "script\stats_script.hpp"
 #include "script\fps_input_controller_script.hpp"
 #include "script\wireframe_script.hpp"
@@ -38,39 +36,38 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Fog
 		//---------------------------------------------------------------------
-		SceneFog *scene_fog = GetSceneFog();
+		auto scene_fog = GetSceneFog();
 		scene_fog->SetDistanceFalloff(0.0f, 17.0f);
 
 		//---------------------------------------------------------------------
 		// Camera
 		//---------------------------------------------------------------------
-		SharedPtr< PerspectiveCameraNode > camera = CreatePerspectiveCameraNode();
+		auto camera = CreatePerspectiveCamera("camera");
 		camera->GetTransform()->SetTranslationY(2.0f);
-		SetCamera(camera);
 
 		//---------------------------------------------------------------------
 		// ModelDescriptors
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc_sponza = 
+		auto model_desc_sponza = 
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_sphere = 
+		auto model_desc_sphere = 
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.mdl", mesh_desc);
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		SharedPtr< ModelNode > model_sponza = CreateModelNode(*model_desc_sponza);
+		auto model_sponza = CreateModel(*model_desc_sponza);
 		model_sponza->GetTransform()->SetScale(10.0f);
-		SharedPtr< ModelNode > model_sphere = CreateModelNode(*model_desc_sphere);
+		auto model_sphere = CreateModel(*model_desc_sphere);
 		model_sphere->GetTransform()->AddTranslationY(0.5f);
 
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		SharedPtr< OmniLightNode > omni_light = CreateOmniLightNode();
+		auto omni_light = CreateOmniLight("light");
 		omni_light->GetTransform()->SetTranslationY(2.0f);
 		omni_light->GetLight()->SetDistanceFalloff(0.0f, 2.0f);
-		SharedPtr< SpotLightNode > spot_light = CreateSpotLightNode();
+		auto spot_light = CreateSpotLight("light");
 		spot_light->GetLight()->SetAngularCutoff(0.0f, 0.0f);// 0.86602540f);
 		spot_light->GetLight()->SetDistanceFalloff(0.0f, 5.0f);
 		camera->AddChildNode(spot_light);
@@ -78,33 +75,31 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Texture
 		//---------------------------------------------------------------------
-		SharedPtr< Texture > texture_logo = 
+		auto texture_logo = 
 			ResourceManager::Get()->GetOrCreateTexture(L"assets/sprites/mage.dds");
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteImage > logo = MakeShared< SpriteImage >("logo", texture_logo);
-		logo->GetTransform()->SetScale(0.25f, 0.25f);
-		logo->GetTransform()->SetNormalizedTranslation(0.90f, 0.88f);
-		AddSprite(logo);
+		auto logo = CreateSpriteImage("logo", texture_logo);
+		logo->GetSpriteTransform()->SetScale(0.25f, 0.25f);
+		logo->GetSpriteTransform()->SetNormalizedTranslation(0.90f, 0.88f);
 
 		//---------------------------------------------------------------------
 		// Font
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteFont > font = 
+		auto font = 
 			ResourceManager::Get()->GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteText > text = MakeShared< NormalSpriteText >("text", font);
-		AddSprite(text);
+		auto text = CreateNormalSpriteText("stats", font);
 
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
 		AddScript(MakeShared< RotationYScript >(model_sphere->GetTransform()));
 		AddScript(MakeShared< FPSInputControllerScript >(camera->GetTransform()));
-		AddScript(MakeShared< StatsScript >(text));
+		AddScript(MakeShared< StatsScript >(text->GetSprite()));
 		AddScript(MakeShared< WireframeScript >());
 	}
 }

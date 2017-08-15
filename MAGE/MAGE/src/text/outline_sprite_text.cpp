@@ -12,14 +12,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	OutlineSpriteText::OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
+	OutlineSpriteText::OutlineSpriteText(SharedPtr< SpriteFont > font,
 		const Color &border_color, SpriteEffect effects)
-		: SpriteText(name, font, effects),
+		: SpriteText(font, effects),
 		m_border_color(border_color) {}
 
-	OutlineSpriteText::OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
+	OutlineSpriteText::OutlineSpriteText(SharedPtr< SpriteFont > font,
 		FXMVECTOR border_color, SpriteEffect effects)
-		: SpriteText(name, font, effects),
+		: SpriteText(font, effects),
 		m_border_color() {
 		SetBorderColor(border_color);
 	}
@@ -30,7 +30,7 @@ namespace mage {
 
 	OutlineSpriteText::~OutlineSpriteText() = default;
 
-	UniquePtr< SpriteObject > OutlineSpriteText::CloneImplementation() const {
+	UniquePtr< Sprite > OutlineSpriteText::CloneImplementation() const {
 		return MakeUnique< OutlineSpriteText >(*this);
 	}
 

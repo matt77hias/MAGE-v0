@@ -29,14 +29,12 @@ namespace mage {
 		 Constructs a normal sprite text.
 
 		 @pre			@c font.get() is not equal to @c nullptr.
-		 @param[in]		name
-						The name.
 		 @param[in]		font
 						A pointer to the sprite font.
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit NormalSpriteText(const string &name, SharedPtr< SpriteFont > font,
+		explicit NormalSpriteText(SharedPtr< SpriteFont > font,
 			SpriteEffect effects = SpriteEffect::None);
 
 		/**
@@ -117,6 +115,6 @@ namespace mage {
 
 		 @return		A pointer to the clone of this normal sprite text.
 		 */
-		virtual UniquePtr< SpriteObject > CloneImplementation() const override;
+		virtual UniquePtr< Sprite > CloneImplementation() const override;
 	};
 }

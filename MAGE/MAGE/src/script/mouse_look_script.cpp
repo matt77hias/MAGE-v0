@@ -6,6 +6,7 @@
 #include "script\mouse_look_script.hpp"
 #include "math\math_utils.hpp"
 #include "input\mouse.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -26,7 +27,10 @@ namespace mage {
 		m_sensitivity(sensitivity),
 		m_minimum_rotation(minimum_rotation),
 		m_maximum_rotation(maximum_rotation),
-		m_direction(direction) {}
+		m_direction(direction) {
+
+		Assert(m_transform);
+	}
 	
 	MouseLookScript::MouseLookScript(MouseLookScript &&script) = default;
 	

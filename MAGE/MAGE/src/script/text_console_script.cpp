@@ -4,6 +4,7 @@
 #pragma region
 
 #include "script\text_console_script.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -12,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	TextConsoleScript::TextConsoleScript(SharedPtr< SpriteText > text,
+	TextConsoleScript::TextConsoleScript(SpriteText *text,
 		uint32_t nb_rows, uint32_t nb_columns)
 		: BehaviorScript(),
 		m_nb_rows(nb_rows), m_nb_columns(nb_columns + 1),
@@ -20,6 +21,8 @@ namespace mage {
 		m_buffer(MakeUnique< wchar_t[] >((nb_columns + 1) * nb_rows + 1)), 
 		m_temp_buffer(), m_mutex(), m_text(text) {
 		
+		Assert(m_text);
+
 		Clear();
 	}
 

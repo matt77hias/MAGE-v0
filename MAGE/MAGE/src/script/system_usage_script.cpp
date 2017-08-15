@@ -5,20 +5,24 @@
 
 #include "script\system_usage_script.hpp"
 #include "system\system_usage.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations
+// Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
 	const double SystemUsageScript::s_resource_fetch_period = 1.00;
 
-	SystemUsageScript::SystemUsageScript(SharedPtr< SpriteText > text)
+	SystemUsageScript::SystemUsageScript(SpriteText *text)
 		: BehaviorScript(), m_accumulated_time(0.0),
 		m_last_cpu_usage(0.0), m_last_ram_usage(0),
-		m_monitor(), m_text(text) {}
+		m_monitor(), m_text(text) {
+
+		Assert(m_text);
+	}
 
 	SystemUsageScript::SystemUsageScript(SystemUsageScript &&script) = default;
 	

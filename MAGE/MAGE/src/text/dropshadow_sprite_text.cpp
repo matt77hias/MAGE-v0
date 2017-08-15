@@ -12,14 +12,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	DropshadowSpriteText::DropshadowSpriteText(const string &name, SharedPtr< SpriteFont > font,
+	DropshadowSpriteText::DropshadowSpriteText(SharedPtr< SpriteFont > font,
 		const Color &shadow_color, SpriteEffect effects)
-		: SpriteText(name, font, effects),
+		: SpriteText(font, effects),
 		m_shadow_color(shadow_color) {}
 
-	DropshadowSpriteText::DropshadowSpriteText(const string &name, SharedPtr< SpriteFont > font,
+	DropshadowSpriteText::DropshadowSpriteText(SharedPtr< SpriteFont > font,
 		FXMVECTOR shadow_color, SpriteEffect effects)
-		: SpriteText(name, font, effects),
+		: SpriteText(font, effects),
 		m_shadow_color() {
 		SetShadowColor(shadow_color);
 	}
@@ -30,7 +30,7 @@ namespace mage {
 
 	DropshadowSpriteText::~DropshadowSpriteText() = default;
 
-	UniquePtr< SpriteObject > DropshadowSpriteText::CloneImplementation() const {
+	UniquePtr< Sprite > DropshadowSpriteText::CloneImplementation() const {
 		return MakeUnique< DropshadowSpriteText >(*this);
 	}
 

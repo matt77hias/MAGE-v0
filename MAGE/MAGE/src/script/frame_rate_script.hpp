@@ -29,7 +29,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit FrameRateScript(SharedPtr< SpriteText > text);
+		explicit FrameRateScript(SpriteText *text);
 		FrameRateScript(const FrameRateScript &script) = delete;
 		FrameRateScript(FrameRateScript &&script);
 		virtual ~FrameRateScript();
@@ -58,6 +58,6 @@ namespace mage {
 		uint32_t m_last_frames_per_second;
 		double m_last_milliseconds_per_frame;
 		
-		SharedPtr< SpriteText > m_text;
+		SpriteText * const m_text;
 	};
 }

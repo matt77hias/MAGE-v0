@@ -60,15 +60,18 @@ namespace mage {
 
 	Node::Node()
 		: m_transform(new TransformNode()),
-		m_active(true) {}
+		m_active(true), m_terminated(false) {}
 	
 	Node::Node(const Node &node)
 		: m_transform(new TransformNode(*node.m_transform)),
-		m_active(node.m_active) {
+		m_active(node.m_active), m_terminated(node.m_terminated) {
 
-		m_transform->ForEachChildNode([this](const Node &child_node) {
-			AddChildNode(child_node.Clone());
-		});
+		if (!m_terminated) {
+
+			m_transform->ForEachChildNode([this](const Node &child_node) {
+				AddChildNode(child_node.Clone());
+			});
+		}
 	}
 
 	Node::Node(Node &&node) = default;
@@ -86,11 +89,26 @@ namespace mage {
 			ForEachChildNode([active](Node &node) {
 				node.SetActive(active);
 			});
+
+			OnActiveChange();
+		}
+	}
+
+	void Node::OnActiveChange() noexcept {}
+
+	void Node::Terminate() noexcept {
+		if (!m_terminated) {
+			m_terminated = true;
+
+			ForEachChildNode([](Node &node) {
+				node.Terminate();
+			});
 		}
 	}
 
 	void Node::AddChildNode(SharedPtr< Node > node) {
-		if (!node || node->m_transform->m_parent == this) {
+		if (!node || node->m_transform->m_parent == this 
+			|| IsTerminated() || node->IsTerminated()) {
 			return;
 		}
 

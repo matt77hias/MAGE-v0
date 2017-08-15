@@ -7,13 +7,13 @@
 
 #include "scene\scene_fog.hpp"
 #include "scripting\behavior_script.hpp"
-#include "camera\camera_node.hpp"
-#include "light\light_node.hpp"
+#include "camera\camera_node_types.hpp"
+#include "light\light_node_types.hpp"
 #include "model\model_node.hpp"
 #include "model\model_descriptor.hpp"
-#include "sprite\sprite_object.hpp"
-#include "sprite\sprite_batch.hpp"
+#include "sprite\sprite_node_types.hpp"
 
+#include "sprite\sprite_batch.hpp"
 #include "rendering\structured_buffer.hpp"
 #include "buffer\transform_buffer.hpp"
 #include "buffer\light_buffer.hpp"
@@ -101,7 +101,7 @@ namespace mage {
 		void Uninitialize();
 
 		//-------------------------------------------------------------------------
-		// Member Methods: Fog
+		// Member Methods: World
 		//-------------------------------------------------------------------------
 
 		/**
@@ -113,35 +113,44 @@ namespace mage {
 			return m_scene_fog.get();
 		}
 
-		//-------------------------------------------------------------------------
-		// Member Methods: Camera
-		//-------------------------------------------------------------------------
+		template< typename... ConstructorArgsT >
+		SharedPtr< PerspectiveCameraNode > CreatePerspectiveCamera(const string &name, ConstructorArgsT&&... args);
+		SharedPtr< PerspectiveCameraNode > CreatePerspectiveCamera(const string &name, UniquePtr< PerspectiveCamera > &&camera);
+		template< typename... ConstructorArgsT >
+		SharedPtr< OrthographicCameraNode > CreateOrthographicCamera(const string &name, ConstructorArgsT&&... args);
+		SharedPtr< OrthographicCameraNode > CreateOrthographicCamera(const string &name, UniquePtr< OrthographicCamera > &&camera);
 
-		SharedPtr< CameraNode > GetCamera() const noexcept {
-			return m_camera;
-		}
-		void SetCamera(SharedPtr< CameraNode > camera) {
-			m_camera = camera;
-		}
+		template< typename... ConstructorArgsT >
+		SharedPtr< ModelNode > CreateModel(const string &name, ConstructorArgsT&&... args);
+		SharedPtr< ModelNode > CreateModel(const string &name, UniquePtr< Model > &&model);
+		SharedPtr< ModelNode > CreateModel(const ModelDescriptor &desc, BRDFType brdf = BRDFType::Unknown);
+		SharedPtr< ModelNode > CreateModel(const ModelDescriptor &desc, const CombinedShader &shader);
 
-		SharedPtr< OrthographicCameraNode > CreateOrthographicCameraNode();
-		SharedPtr< PerspectiveCameraNode > CreatePerspectiveCameraNode();
-		
-		//-------------------------------------------------------------------------
-		// Member Methods: Models
-		//-------------------------------------------------------------------------
-		
-		SharedPtr< OmniLightNode > CreateOmniLightNode();
-		SharedPtr< SpotLightNode > CreateSpotLightNode();
-		
-		//-------------------------------------------------------------------------
-		// Member Methods: Lights
-		//-------------------------------------------------------------------------
+		template< typename... ConstructorArgsT >
+		SharedPtr< AmbientLightNode > CreateAmbientLight(const string &name, ConstructorArgsT&&... args);
+		SharedPtr< AmbientLightNode > CreateAmbientLight(const string &name, UniquePtr< AmbientLight > &&light);
+		template< typename... ConstructorArgsT >
+		SharedPtr< DirectionalLightNode > CreateDirectionalLight(const string &name, ConstructorArgsT&&... args);
+		SharedPtr< DirectionalLightNode > CreateDirectionalLight(const string &name, UniquePtr< DirectionalLight > &&light);
+		template< typename... ConstructorArgsT >
+		SharedPtr< OmniLightNode > CreateOmniLight(const string &name, ConstructorArgsT&&... args);
+		SharedPtr< OmniLightNode > CreateOmniLight(const string &name, UniquePtr< OmniLight > &&light);
+		template< typename... ConstructorArgsT >
+		SharedPtr< SpotLightNode > CreateSpotLight(const string &name, ConstructorArgsT&&... args);
+		SharedPtr< SpotLightNode > CreateSpotLight(const string &name, UniquePtr< SpotLight > &&light);
 
-		SharedPtr< ModelNode > CreateModelNode(const ModelDescriptor &desc,
-			BRDFType brdf = BRDFType::Unknown);
-		SharedPtr< ModelNode > CreateModelNode(const ModelDescriptor &desc,
-			const CombinedShader &shader);
+		template< typename... ConstructorArgsT >
+		SharedPtr< SpriteImageNode > CreateSpriteImage(const string &name, ConstructorArgsT&&... args);
+		SharedPtr< SpriteImageNode > CreateSpriteImage(const string &name, UniquePtr< SpriteImage > &&sprite);
+		template< typename... ConstructorArgsT >
+		SharedPtr< NormalSpriteTextNode > CreateNormalSpriteText(const string &name, ConstructorArgsT&&... args);
+		SharedPtr< NormalSpriteTextNode > CreateNormalSpriteText(const string &name, UniquePtr< NormalSpriteText > &&sprite);
+		template< typename... ConstructorArgsT >
+		SharedPtr< DropshadowSpriteTextNode > CreateDropshadowSpriteText(const string &name, ConstructorArgsT&&... args);
+		SharedPtr< DropshadowSpriteTextNode > CreateDropshadowSpriteText(const string &name, UniquePtr< DropshadowSpriteText > &&sprite);
+		template< typename... ConstructorArgsT >
+		SharedPtr< OutlineSpriteTextNode > CreateOutlineSpriteText(const string &name, ConstructorArgsT&&... args);
+		SharedPtr< OutlineSpriteTextNode > CreateOutlineSpriteText(const string &name, UniquePtr< OutlineSpriteText > &&sprite);
 
 		//-------------------------------------------------------------------------
 		// Member Methods: Scripts
@@ -153,20 +162,27 @@ namespace mage {
 		bool HasScript(SharedPtr< const BehaviorScript > script) const;
 		void AddScript(SharedPtr< BehaviorScript > script);
 		void RemoveScript(SharedPtr< BehaviorScript > script);
-		void RemoveAllScripts();
+		void RemoveAllScripts() noexcept;
+		
 		template< typename ActionT >
 		void ForEachScript(ActionT action) const;
-
-		//-------------------------------------------------------------------------
-		// Member Methods: Sprites
-		//-------------------------------------------------------------------------
-
-		void AddSprite(SharedPtr< SpriteObject > sprite);
-		void RemoveSprite(SharedPtr< SpriteObject > sprite);
-		void RemoveAllSprites();
+		template< typename ActionT >
+		void ForEachCamera(ActionT action) const;
+		template< typename ActionT >
+		void ForEachModel(ActionT action) const;
+		template< typename ActionT >
+		void ForEachLight(ActionT action) const;
+		template< typename ActionT >
+		void ForEachAmbientLight(ActionT action) const;
+		template< typename ActionT >
+		void ForEachDirectionalLight(ActionT action) const;
+		template< typename ActionT >
+		void ForEachOmniLight(ActionT action) const;
+		template< typename ActionT >
+		void ForEachSpotLight(ActionT action) const;
 		template< typename ActionT >
 		void ForEachSprite(ActionT action) const;
-
+	
 	protected:
 
 		//---------------------------------------------------------------------
@@ -195,60 +211,49 @@ namespace mage {
 		 */
 		virtual void Close() {}
 
-		void Clear();
+		void Clear() noexcept;
 
 		//-------------------------------------------------------------------------
-		// Member Methods: Models
+		// Member Methods: World
 		//-------------------------------------------------------------------------
 
-		void AddModel(SharedPtr< ModelNode > model);
-		void RemoveModel(SharedPtr< ModelNode > model);
-		void RemoveAllModels();
-		template< typename ActionT >
-		void ForEachModel(ActionT action) const;
-
-		//-------------------------------------------------------------------------
-		// Member Methods: Lights
-		//-------------------------------------------------------------------------
-
-		void AddLight(SharedPtr< OmniLightNode > light);
-		void AddLight(SharedPtr< SpotLightNode > light);
-		void RemoveLight(SharedPtr< OmniLightNode > light);
-		void RemoveLight(SharedPtr< SpotLightNode > light);
-		void RemoveAllLights();
-		template< typename ActionT >
-		void ForEachOmniLight(ActionT action) const;
-		template< typename ActionT >
-		void ForEachSpotLight(ActionT action) const;
-		template< typename ActionT >
-		void ForEachLight(ActionT action) const;
+		void AddSceneNode(SharedPtr< CameraNode > camera);
+		void AddSceneNode(SharedPtr< ModelNode > model);
+		void AddSceneNode(SharedPtr< AmbientLightNode > light);
+		void AddSceneNode(SharedPtr< DirectionalLightNode > light);
+		void AddSceneNode(SharedPtr< OmniLightNode > light);
+		void AddSceneNode(SharedPtr< SpotLightNode > light);
+		void AddSceneNode(SharedPtr< SpriteNode > sprite);
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		string m_name;
-		
+	
 		vector< SharedPtr< BehaviorScript > > m_scripts;
 
 		UniquePtr< SceneFog > m_scene_fog;
-		SharedPtr< CameraNode > m_camera;
-
-		// 3D
+		vector< SharedPtr< CameraNode > > m_cameras;
 		vector< SharedPtr< ModelNode > > m_models;
+		SharedPtr< AmbientLightNode > m_ambient_light;
+		vector< SharedPtr< DirectionalLightNode > > m_directional_lights;
 		vector< SharedPtr< OmniLightNode > > m_omni_lights;
 		vector< SharedPtr< SpotLightNode > > m_spot_lights;
+		vector< SharedPtr < SpriteNode > > m_sprites;
+		
 
-		// 2D
-		vector< SharedPtr < SpriteObject > > m_sprites;
+
+
+
+
+
 		UniquePtr< SpriteBatch > m_sprite_batch;
-
 		// Buffers
 		ConstantBuffer< TransformBuffer > m_transform_buffer;
 		ConstantBuffer< SceneBuffer > m_scene_buffer;
 		StructuredBuffer< OmniLightBuffer > m_omni_lights_buffer;
 		StructuredBuffer< SpotLightBuffer > m_spot_lights_buffer;
-
 		// Extra
 		UniquePtr< ModelNode > m_box;
 	};

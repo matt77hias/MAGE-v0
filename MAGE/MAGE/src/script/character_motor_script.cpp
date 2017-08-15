@@ -5,6 +5,7 @@
 
 #include "script\character_motor_script.hpp"
 #include "input\keyboard.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -14,7 +15,10 @@
 namespace mage {
 
 	CharacterMotorScript::CharacterMotorScript(TransformNode *transform)
-		: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {}
+		: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {
+
+		Assert(m_transform);
+	}
 	
 	CharacterMotorScript::CharacterMotorScript(CharacterMotorScript &&script) = default;
 	

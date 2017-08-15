@@ -13,26 +13,26 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpriteImage::SpriteImage(const string &name, SharedPtr< Texture > texture,
+	SpriteImage::SpriteImage(SharedPtr< Texture > texture,
 		const Color &color, SpriteEffect effects)
-		: SpriteObject(name, effects), m_color(color),
+		: Sprite(effects), m_color(color),
 		m_texture_region(nullptr), m_texture(texture) {
 	
 		Assert(m_texture);
 	}
 	
-	SpriteImage::SpriteImage(const string &name, SharedPtr< Texture > texture, 
+	SpriteImage::SpriteImage(SharedPtr< Texture > texture, 
 		const RECT &texture_region, const Color &color, SpriteEffect effects)
-		: SpriteObject(name, effects), m_color(color),
+		: Sprite(effects), m_color(color),
 		m_texture_region(MakeUnique< RECT >(texture_region)), 
 		m_texture(texture) {
 	
 		Assert(m_texture);
 	}
 	
-	SpriteImage::SpriteImage(const string &name, SharedPtr< Texture > texture,
+	SpriteImage::SpriteImage(SharedPtr< Texture > texture,
 		const XMVECTOR &color, SpriteEffect effects)
-		: SpriteObject(name, effects), m_color(),
+		: Sprite(effects), m_color(),
 		m_texture_region(nullptr), m_texture(texture) {
 		
 		Assert(m_texture);
@@ -40,9 +40,9 @@ namespace mage {
 		SetColor(color);
 	}
 	
-	SpriteImage::SpriteImage(const string &name, SharedPtr< Texture > texture, 
+	SpriteImage::SpriteImage(SharedPtr< Texture > texture, 
 		const RECT &texture_region, const XMVECTOR &color, SpriteEffect effects)
-		: SpriteObject(name, effects), m_color(),
+		: Sprite(effects), m_color(),
 		m_texture_region(MakeUnique< RECT >(texture_region)), 
 		m_texture(texture) {
 
@@ -52,7 +52,7 @@ namespace mage {
 	}
 
 	SpriteImage::SpriteImage(const SpriteImage &sprite_image) 
-		: SpriteObject(sprite_image), m_color(sprite_image.m_color),
+		: Sprite(sprite_image), m_color(sprite_image.m_color),
 		m_texture_region(MakeUnique< RECT >(*sprite_image.m_texture_region)), 
 		m_texture(sprite_image.m_texture) {}
 		
@@ -60,7 +60,7 @@ namespace mage {
 
 	SpriteImage::~SpriteImage() = default;
 
-	UniquePtr< SpriteObject > SpriteImage::CloneImplementation() const {
+	UniquePtr< Sprite > SpriteImage::CloneImplementation() const {
 		return MakeUnique< SpriteImage >(*this);
 	}
 

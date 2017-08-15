@@ -24,7 +24,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit LocationScript(TransformNode *transform, SharedPtr< SpriteText > text);
+		explicit LocationScript(TransformNode *transform, SpriteText *text);
 		LocationScript(const LocationScript &script) = delete;
 		LocationScript(LocationScript &&script);
 		virtual ~LocationScript();
@@ -49,6 +49,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		TransformNode * const m_transform;
-		SharedPtr< SpriteText > m_text;
+		SpriteText * const m_text;
 	};
 }

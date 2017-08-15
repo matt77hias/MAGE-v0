@@ -642,9 +642,6 @@
     <ClInclude Include="MAGE\src\light\omni_light.hpp">
       <Filter>Header Files\light</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\sprite\sprite_object.hpp">
-      <Filter>Header Files\sprite</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\constant_buffer.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
@@ -830,6 +827,21 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\display_settings.hpp">
       <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite_node.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite.hpp">
+      <Filter>Header Files\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\camera\camera_node_types.hpp">
+      <Filter>Header Files\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\light\light_node_types.hpp">
+      <Filter>Header Files\light</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sprite\sprite_node_types.hpp">
+      <Filter>Header Files\sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1043,12 +1055,6 @@
     <ClCompile Include="MAGE\src\binary\binary_writer.cpp">
       <Filter>Source Files\binary</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\sprite\sprite_object.cpp">
-      <Filter>Source Files\sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\math\transform_node.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\logging\exception.cpp">
       <Filter>Source Files\logging</Filter>
     </ClCompile>
@@ -1162,6 +1168,15 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\display_configuration.cpp">
       <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\math\transform_node.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\sprite\sprite.cpp">
+      <Filter>Source Files\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\sprite\sprite_node.cpp">
+      <Filter>Source Files\sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1358,6 +1373,9 @@
     </None>
     <None Include="MAGE\src\memory\memory.tpp">
       <Filter>Header Files\memory</Filter>
+    </None>
+    <None Include="MAGE\src\sprite\sprite_node.tpp">
+      <Filter>Header Files\sprite</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "sprite\sprite_object.hpp"
+#include "sprite\sprite.hpp"
 #include "texture\texture.hpp"
 
 #pragma endregion
@@ -18,7 +18,7 @@ namespace mage {
 	/**
 	 A class of sprite images.
 	 */
-	class SpriteImage : public SpriteObject {
+	class SpriteImage : public Sprite {
 
 	public:
 
@@ -30,8 +30,6 @@ namespace mage {
 		 Constructs a sprite image.
 
 		 @pre			@c texture.get() is not equal to @c nullptr.
-		 @param[in]		name
-						The name.
 		 @param[in]		texture
 						A pointer to the texture.
 		 @param[in]		color
@@ -39,15 +37,13 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit SpriteImage(const string &name, SharedPtr< Texture > texture,
+		explicit SpriteImage(SharedPtr< Texture > texture,
 			const Color &color, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a sprite image.
 
 		 @pre			@c texture.get() is not equal to @c nullptr.
-		 @param[in]		name
-						The name.
 		 @param[in]		texture
 						A pointer to the texture.
 		 @param[in]		texture_region
@@ -57,15 +53,13 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit SpriteImage(const string &name, SharedPtr< Texture > texture, const RECT &texture_region,
+		explicit SpriteImage(SharedPtr< Texture > texture, const RECT &texture_region,
 			const Color &color, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a sprite image.
 
 		 @pre			@c texture.get() is not equal to @c nullptr.
-		 @param[in]		name
-						The name.
 		 @param[in]		texture
 						A pointer to the texture.
 		 @param[in]		color
@@ -73,15 +67,13 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit SpriteImage(const string &name, SharedPtr< Texture > texture,
+		explicit SpriteImage(SharedPtr< Texture > texture,
 			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a sprite image.
 
 		 @pre			@c texture.get() is not equal to @c nullptr.
-		 @param[in]		name
-						The name.
 		 @param[in]		texture
 						A pointer to the texture.
 		 @param[in]		texture_region
@@ -91,7 +83,7 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit SpriteImage(const string &name, SharedPtr< Texture > texture, const RECT &texture_region,
+		explicit SpriteImage(SharedPtr< Texture > texture, const RECT &texture_region,
 			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
@@ -238,7 +230,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this sprite image.
 		 */
-		virtual UniquePtr< SpriteObject > CloneImplementation() const override;
+		virtual UniquePtr< Sprite > CloneImplementation() const override;
 
 		/**
 		 Returns the color of this sprite image as @c XMVECTOR.

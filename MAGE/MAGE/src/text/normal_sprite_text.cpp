@@ -12,9 +12,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	NormalSpriteText::NormalSpriteText(const string &name, SharedPtr< SpriteFont > font,
+	NormalSpriteText::NormalSpriteText(SharedPtr< SpriteFont > font,
 		SpriteEffect effects)
-		: SpriteText(name, font, effects) {}
+		: SpriteText(font, effects) {}
 
 	NormalSpriteText::NormalSpriteText(const NormalSpriteText &sprite_text) = default;
 
@@ -22,7 +22,7 @@ namespace mage {
 
 	NormalSpriteText::~NormalSpriteText() = default;
 
-	UniquePtr< SpriteObject > NormalSpriteText::CloneImplementation() const {
+	UniquePtr< Sprite > NormalSpriteText::CloneImplementation() const {
 		return MakeUnique< NormalSpriteText >(*this);
 	}
 

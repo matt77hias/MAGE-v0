@@ -17,7 +17,7 @@ namespace mage {
 
 	Scene::Scene(const string &name)
 		: m_name(name), m_scripts(),
-		m_scene_fog(MakeUnique< SceneFog >()), m_camera(nullptr),
+		m_scene_fog(MakeUnique< SceneFog >()),
 		m_models(), m_omni_lights(), m_spot_lights(), m_sprites(),
 		m_sprite_batch(MakeUnique< SpriteBatch >()),
 		m_transform_buffer(), m_scene_buffer(),
@@ -55,30 +55,38 @@ namespace mage {
 		Clear();
 	}
 
-	void Scene::Clear() {
+	void Scene::Clear() noexcept {
+		// Scripts
 		RemoveAllScripts();
-		RemoveAllModels();
-		RemoveAllLights();
-		RemoveAllSprites();
+
+		// World
+		m_scene_fog.reset();
+		m_cameras.clear();
+		m_models.clear();
+		m_ambient_light.reset();
+		m_directional_lights.clear();
+		m_omni_lights.clear();
+		m_spot_lights.clear();
+		m_sprites.clear();
 	}
 
 	void Scene::Render2D() const {
 		m_sprite_batch->Begin();
 
-		ForEachSprite([this](const SpriteObject &sprite) {
+		ForEachSprite([this](const SpriteNode &sprite) {
 			if (sprite.IsPassive()) {
 				return;
 			}
 
-			sprite.Draw(*m_sprite_batch);
+			sprite.GetSprite()->Draw(*m_sprite_batch);
 		});
 
 		m_sprite_batch->End();
 	}
 
 	void Scene::Render3D() const {
-		const XMMATRIX world_to_view = m_camera->GetTransform()->GetWorldToViewMatrix();
-		const XMMATRIX view_to_world = m_camera->GetTransform()->GetViewToWorldMatrix();
+		const XMMATRIX world_to_view = m_cameras[0]->GetTransform()->GetWorldToViewMatrix();
+		const XMMATRIX view_to_world = m_cameras[0]->GetTransform()->GetViewToWorldMatrix();
 
 		// Update omni light structured buffer.
 		vector< OmniLightBuffer > omni_lights_buffer;
@@ -140,7 +148,7 @@ namespace mage {
 		scene_info.m_omni_lights  = m_omni_lights_buffer.Get();
 		scene_info.m_spot_lights  = m_spot_lights_buffer.Get();
 
-		const XMMATRIX view_to_projection  = m_camera->GetCamera()->GetViewToProjectionMatrix();
+		const XMMATRIX view_to_projection  = m_cameras[0]->GetCamera()->GetViewToProjectionMatrix();
 		const XMMATRIX world_to_projection = world_to_view * view_to_projection;
 
 		// Create Transform buffer.
@@ -207,9 +215,9 @@ namespace mage {
 		SceneInfo scene_info;
 		scene_info.m_scene_buffer = m_scene_buffer.Get();
 
-		const XMMATRIX world_to_view       = m_camera->GetTransform()->GetWorldToViewMatrix();
-		const XMMATRIX view_to_world       = m_camera->GetTransform()->GetViewToWorldMatrix();
-		const XMMATRIX view_to_projection  = m_camera->GetCamera()->GetViewToProjectionMatrix();
+		const XMMATRIX world_to_view       = m_cameras[0]->GetTransform()->GetWorldToViewMatrix();
+		const XMMATRIX view_to_world       = m_cameras[0]->GetTransform()->GetViewToWorldMatrix();
+		const XMMATRIX view_to_projection  = m_cameras[0]->GetCamera()->GetViewToProjectionMatrix();
 		const XMMATRIX world_to_projection = world_to_view * view_to_projection;
 
 		// Create Transform buffer.
@@ -263,176 +271,6 @@ namespace mage {
 	}
 
 	//-------------------------------------------------------------------------
-	// Scene Member Methods: Factory Methods
-	//-------------------------------------------------------------------------
-
-	SharedPtr< OrthographicCameraNode > Scene::CreateOrthographicCameraNode() {
-		return MakeShared< OrthographicCameraNode >("camera");
-	}
-
-	SharedPtr< PerspectiveCameraNode > Scene::CreatePerspectiveCameraNode() {
-		return MakeShared< PerspectiveCameraNode >("camera");
-	}
-
-	SharedPtr< OmniLightNode > Scene::CreateOmniLightNode() {
-		SharedPtr< OmniLightNode > light_node = MakeShared< OmniLightNode >("light");
-		
-		// Adds this omni light node to this scene.
-		AddLight(light_node);
-		
-		return light_node;
-	}
-
-	SharedPtr< SpotLightNode > Scene::CreateSpotLightNode() {
-		SharedPtr< SpotLightNode > light_node = MakeShared< SpotLightNode >("light");
-		
-		// Adds this spotlight node to this scene.
-		AddLight(light_node);
-
-		return light_node;
-	}
-
-	SharedPtr< ModelNode > Scene::CreateModelNode(const ModelDescriptor &desc,
-		BRDFType brdf) {
-
-		// Creates a default material.
-		const Material default_material(MAGE_MDL_PART_DEFAULT_MATERIAL);
-		// Creates a default shaded material.
-		const ShadedMaterial default_shaded_material(default_material, brdf);
-
-		SharedPtr< ModelNode > root_model_node;
-		size_t nb_root_childs = 0;
-
-		using ModelNodePair = pair< SharedPtr< ModelNode >, string >;
-		map< const string, ModelNodePair > mapping;
-
-		desc.ForEachModelPart([&](const ModelPart &model_part) {
-
-			if (model_part.m_child == MAGE_MDL_PART_DEFAULT_CHILD && model_part.m_nb_indices == 0) {
-				return;
-			}
-
-			// Creates a material.
-			const Material material = (model_part.m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ?
-				default_material : *desc.GetMaterial(model_part.m_material);
-			// Creates a shaded material.
-			const ShadedMaterial shaded_material(material, brdf);
-
-			// Creates a submodel node.
-			SharedPtr< ModelNode > submodel_node = MakeShared< ModelNode >(model_part.m_child,
-				desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, 
-				model_part.m_aabb, model_part.m_bs, shaded_material);
-			// Adds this submodel node to this scene.
-			AddModel(submodel_node);
-
-			if (model_part.m_parent == MAGE_MDL_PART_DEFAULT_PARENT) {
-				root_model_node = submodel_node;
-				++nb_root_childs;
-			}
-
-			// Adds this submodel node to the mapping.
-			mapping.insert(std::make_pair(model_part.m_child, ModelNodePair(submodel_node, model_part.m_parent)));
-		});
-
-		Assert(nb_root_childs != 0);
-
-		const bool create_root_model_node = (nb_root_childs > 1);
-
-		if (create_root_model_node) {
-			// Creates a root model node.
-			root_model_node = MakeShared< ModelNode >("model",
-				desc.GetMesh(), 0, 0, AABB(), BS(), default_shaded_material);
-			// Adds this root model node to this scene.
-			AddModel(root_model_node);
-		}
-
-		for (auto it = mapping.cbegin(); it != mapping.cend(); ++it) {
-			const SharedPtr< ModelNode > &child = it->second.first;
-			const string &parent = it->second.second;
-			if (parent == MAGE_MDL_PART_DEFAULT_PARENT) {
-				if (create_root_model_node) {
-					root_model_node->AddChildNode(child);
-				}
-			}
-			else {
-				mapping[parent].first->AddChildNode(child);
-			}
-		}
-
-		return root_model_node;
-	}
-
-	SharedPtr< ModelNode > Scene::CreateModelNode(const ModelDescriptor &desc,
-		const CombinedShader &shader) {
-
-		// Creates a default material.
-		const Material default_material(MAGE_MDL_PART_DEFAULT_MATERIAL);
-		// Creates a default shaded material.
-		const ShadedMaterial default_shaded_material(default_material, shader);
-
-		SharedPtr< ModelNode > root_model_node;
-		size_t nb_root_childs = 0;
-
-		using ModelNodePair = pair< SharedPtr< ModelNode >, string >;
-		map< const string, ModelNodePair > mapping;
-
-		desc.ForEachModelPart([&](const ModelPart &model_part) {
-			
-			if (model_part.m_child == MAGE_MDL_PART_DEFAULT_CHILD && model_part.m_nb_indices == 0) {
-				return;
-			}
-
-			// Creates a material.
-			const Material material = (model_part.m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ?
-				default_material : *desc.GetMaterial(model_part.m_material);
-			// Creates a shaded material.
-			const ShadedMaterial shaded_material(material, shader);
-
-			// Creates a submodel node.
-			SharedPtr< ModelNode > submodel_node = MakeShared< ModelNode >(model_part.m_child,
-				desc.GetMesh(), model_part.m_start_index, model_part.m_nb_indices, 
-				model_part.m_aabb, model_part.m_bs, shaded_material);
-			// Adds this submodel node to this scene.
-			AddModel(submodel_node);
-
-			if (model_part.m_parent == MAGE_MDL_PART_DEFAULT_PARENT) {
-				root_model_node = submodel_node;
-				++nb_root_childs;
-			}
-
-			// Adds this submodel node to the mapping.
-			mapping.insert(std::make_pair(model_part.m_child, ModelNodePair(submodel_node, model_part.m_parent)));
-		});
-
-		Assert(nb_root_childs != 0);
-
-		const bool create_root_model_node = (nb_root_childs > 1);
-
-		if (create_root_model_node) {
-			// Creates a root model node.
-			root_model_node = MakeShared< ModelNode >("model",
-				desc.GetMesh(), 0, 0, AABB(), BS(), default_shaded_material);
-			// Adds this root model node to this scene.
-			AddModel(root_model_node);
-		}
-
-		for (auto it = mapping.cbegin(); it != mapping.cend(); ++it) {
-			const SharedPtr< ModelNode > &child = it->second.first;
-			const string &parent = it->second.second;
-			if (parent == MAGE_MDL_PART_DEFAULT_PARENT) {
-				if (create_root_model_node) {
-					root_model_node->AddChildNode(child);
-				}
-			}
-			else {
-				mapping[parent].first->AddChildNode(child);
-			}
-		}
-
-		return root_model_node;
-	}
-
-	//-------------------------------------------------------------------------
 	// Scene Member Methods: Scripts
 	//-------------------------------------------------------------------------
 
@@ -455,88 +293,325 @@ namespace mage {
 		}
 	}
 	
-	void Scene::RemoveAllScripts() {
+	void Scene::RemoveAllScripts() noexcept {
 		m_scripts.clear();
 	}
 
 	//-------------------------------------------------------------------------
-	// Scene Member Methods: Models
+	// Scene Member Methods: World
 	//-------------------------------------------------------------------------
 
-	void Scene::AddModel(SharedPtr< ModelNode > model) {
+	SharedPtr< PerspectiveCameraNode > Scene::CreatePerspectiveCamera(const string &name, UniquePtr< PerspectiveCamera > &&camera) {
+		SharedPtr< PerspectiveCameraNode > camera_node
+			= MakeShared< PerspectiveCameraNode >(name, std::move(camera));
+
+		// Add this camera node to this scene.
+		AddSceneNode(camera_node);
+
+		return camera_node;
+	}
+
+	SharedPtr< OrthographicCameraNode > Scene::CreateOrthographicCamera(const string &name, UniquePtr< OrthographicCamera > &&camera) {
+		SharedPtr< OrthographicCameraNode > camera_node
+			= MakeShared< OrthographicCameraNode >(name, std::move(camera));
+
+		// Add this camera node to this scene.
+		AddSceneNode(camera_node);
+
+		return camera_node;
+	}
+
+	SharedPtr< ModelNode > Scene::CreateModel(const string &name, UniquePtr< Model > &&model) {
+		SharedPtr< ModelNode > model_node
+			= MakeShared< ModelNode >(name, std::move(model));
+
+		// Add this model node to this scene.
+		AddSceneNode(model_node);
+
+		return model_node;
+	}
+
+	SharedPtr< ModelNode > Scene::CreateModel(
+		const ModelDescriptor &desc, BRDFType brdf) {
+
+		// Create a default material.
+		const Material default_material("material");
+		// Create a default shaded material.
+		const ShadedMaterial default_shaded_material(default_material, brdf);
+
+		SharedPtr< ModelNode > root_model_node;
+		size_t nb_root_childs = 0;
+
+		using ModelPair = pair< SharedPtr< ModelNode >, string >;
+		map< string, ModelPair > mapping;
+
+		// Create model nodes.
+		desc.ForEachModelPart([&](const ModelPart &model_part) {
+
+			if (model_part.m_child == MAGE_MDL_PART_DEFAULT_CHILD && model_part.m_nb_indices == 0) {
+				return;
+			}
+
+			// Create a material.
+			const Material material = (model_part.m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ?
+				default_material : *desc.GetMaterial(model_part.m_material);
+			// Create a shaded material.
+			const ShadedMaterial shaded_material(material, brdf);
+
+			// Create a submodel node.
+			SharedPtr< ModelNode > submodel_node = MakeShared< ModelNode >(
+														model_part.m_child, desc.GetMesh(), 
+														model_part.m_start_index, model_part.m_nb_indices,
+														model_part.m_aabb, model_part.m_bs, shaded_material);
+			// Add this submodel node to this scene.
+			AddSceneNode(submodel_node);
+
+			if (model_part.m_parent == MAGE_MDL_PART_DEFAULT_PARENT) {
+				root_model_node = submodel_node;
+				++nb_root_childs;
+			}
+
+			// Add this submodel node to the mapping.
+			mapping.insert(std::make_pair(model_part.m_child, ModelPair(submodel_node, model_part.m_parent)));
+		});
+
+		Assert(nb_root_childs != 0);
+
+		const bool create_root_model_node = (nb_root_childs > 1);
+
+		// Create root model node.
+		if (create_root_model_node) {
+			root_model_node = MakeShared< ModelNode >(
+				"model", desc.GetMesh(), 0, 0, AABB(), BS(), default_shaded_material);
+			
+			// Add this root model node to this scene.
+			AddSceneNode(root_model_node);
+		}
+
+		// Connect model nodes.
+		for (auto it = mapping.cbegin(); it != mapping.cend(); ++it) {
+			const SharedPtr< ModelNode > &child = it->second.first;
+			const string &parent = it->second.second;
+			if (parent == MAGE_MDL_PART_DEFAULT_PARENT) {
+				if (create_root_model_node) {
+					root_model_node->AddChildNode(child);
+				}
+			}
+			else {
+				mapping[parent].first->AddChildNode(child);
+			}
+		}
+
+		return root_model_node;
+	}
+
+	SharedPtr< ModelNode > Scene::CreateModel(
+		const ModelDescriptor &desc, const CombinedShader &shader) {
+
+		// Create a default material.
+		const Material default_material("material");
+		// Create a default shaded material.
+		const ShadedMaterial default_shaded_material(default_material, shader);
+
+		SharedPtr< ModelNode > root_model_node;
+		size_t nb_root_childs = 0;
+
+		using ModelPair = pair< SharedPtr< ModelNode >, string >;
+		map< string, ModelPair > mapping;
+
+		// Create model nodes.
+		desc.ForEachModelPart([&](const ModelPart &model_part) {
+
+			if (model_part.m_child == MAGE_MDL_PART_DEFAULT_CHILD && model_part.m_nb_indices == 0) {
+				return;
+			}
+
+			// Create a material.
+			const Material material = (model_part.m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ?
+				default_material : *desc.GetMaterial(model_part.m_material);
+			// Create a shaded material.
+			const ShadedMaterial shaded_material(material, shader);
+
+			// Create a submodel node.
+			SharedPtr< ModelNode > submodel_node = MakeShared< ModelNode >(
+														model_part.m_child, desc.GetMesh(), 
+														model_part.m_start_index, model_part.m_nb_indices,
+														model_part.m_aabb, model_part.m_bs, shaded_material);
+			// Add this submodel node to this scene.
+			AddSceneNode(submodel_node);
+
+			if (model_part.m_parent == MAGE_MDL_PART_DEFAULT_PARENT) {
+				root_model_node = submodel_node;
+				++nb_root_childs;
+			}
+
+			// Adds this submodel node to the mapping.
+			mapping.insert(std::make_pair(model_part.m_child, ModelPair(submodel_node, model_part.m_parent)));
+		});
+
+		Assert(nb_root_childs != 0);
+
+		const bool create_root_model_node = (nb_root_childs > 1);
+
+		// Create root model node.
+		if (create_root_model_node) {
+			root_model_node = MakeShared< ModelNode >(
+				"model", desc.GetMesh(), 0, 0, AABB(), BS(), default_shaded_material);
+			
+			// Add this root model node to this scene.
+			AddSceneNode(root_model_node);
+		}
+
+		// Connect model nodes.
+		for (auto it = mapping.cbegin(); it != mapping.cend(); ++it) {
+			const SharedPtr< ModelNode > &child = it->second.first;
+			const string &parent = it->second.second;
+			if (parent == MAGE_MDL_PART_DEFAULT_PARENT) {
+				if (create_root_model_node) {
+					root_model_node->AddChildNode(child);
+				}
+			}
+			else {
+				mapping[parent].first->AddChildNode(child);
+			}
+		}
+
+		return root_model_node;
+	}
+
+	SharedPtr< AmbientLightNode > Scene::CreateAmbientLight(const string &name, UniquePtr< AmbientLight > &&light) {
+		SharedPtr< AmbientLightNode > light_node
+			= MakeShared< AmbientLightNode >(name, std::move(light));
+
+		// Add this light node to this scene.
+		AddSceneNode(light_node);
+
+		return light_node;
+	}
+
+	SharedPtr< DirectionalLightNode > Scene::CreateDirectionalLight(const string &name, UniquePtr< DirectionalLight > &&light) {
+		SharedPtr< DirectionalLightNode > light_node
+			= MakeShared< DirectionalLightNode >(name, std::move(light));
+
+		// Add this light node to this scene.
+		AddSceneNode(light_node);
+
+		return light_node;
+	}
+
+	SharedPtr< OmniLightNode > Scene::CreateOmniLight(const string &name, UniquePtr< OmniLight > &&light) {
+		SharedPtr< OmniLightNode > light_node
+			= MakeShared< OmniLightNode >(name, std::move(light));
+
+		// Add this light node to this scene.
+		AddSceneNode(light_node);
+
+		return light_node;
+	}
+
+	SharedPtr< SpotLightNode > Scene::CreateSpotLight(const string &name, UniquePtr< SpotLight > &&light) {
+		SharedPtr< SpotLightNode > light_node
+			= MakeShared< SpotLightNode >(name, std::move(light));
+
+		// Add this light node to this scene.
+		AddSceneNode(light_node);
+
+		return light_node;
+	}
+
+	SharedPtr< SpriteImageNode > Scene::CreateSpriteImage(const string &name, UniquePtr< SpriteImage > &&sprite) {
+		SharedPtr< SpriteImageNode > sprite_node
+			= MakeShared< SpriteImageNode >(name, std::move(sprite));
+
+		// Add this sprite node to this scene.
+		AddSceneNode(sprite_node);
+
+		return sprite_node;
+	}
+
+	SharedPtr< NormalSpriteTextNode > Scene::CreateNormalSpriteText(const string &name, UniquePtr< NormalSpriteText > &&sprite) {
+		SharedPtr< NormalSpriteTextNode > sprite_node
+			= MakeShared< NormalSpriteTextNode >(name, std::move(sprite));
+
+		// Add this sprite node to this scene.
+		AddSceneNode(sprite_node);
+
+		return sprite_node;
+	}
+
+	SharedPtr< DropshadowSpriteTextNode > Scene::CreateDropshadowSpriteText(const string &name, UniquePtr< DropshadowSpriteText > &&sprite) {
+		SharedPtr< DropshadowSpriteTextNode > sprite_node
+			= MakeShared< DropshadowSpriteTextNode >(name, std::move(sprite));
+
+		// Add this sprite node to this scene.
+		AddSceneNode(sprite_node);
+
+		return sprite_node;
+	}
+
+	SharedPtr< OutlineSpriteTextNode > Scene::CreateOutlineSpriteText(const string &name, UniquePtr< OutlineSpriteText > &&sprite) {
+		SharedPtr< OutlineSpriteTextNode > sprite_node
+			= MakeShared< OutlineSpriteTextNode >(name, std::move(sprite));
+
+		// Add this sprite node to this scene.
+		AddSceneNode(sprite_node);
+
+		return sprite_node;
+	}
+
+	void Scene::AddSceneNode(SharedPtr< CameraNode > camera) {
+		if (!camera) {
+			return;
+		}
+
+		m_cameras.push_back(std::move(camera));
+	}
+	
+	void Scene::AddSceneNode(SharedPtr< ModelNode > model) {
 		if (!model) {
 			return;
 		}
+
 		m_models.push_back(std::move(model));
 	}
 	
-	void Scene::RemoveModel(SharedPtr< ModelNode > model) {
-		const auto it = std::find(m_models.begin(), m_models.end(), model);
-		if (it != m_models.end()) {
-			m_models.erase(it);
+	void Scene::AddSceneNode(SharedPtr< AmbientLightNode > light) {
+		if (!light) {
+			return;
 		}
+
+		m_ambient_light = std::move(light);
 	}
 	
-	void Scene::RemoveAllModels() {
-		m_models.clear();
-	}
-
-	//-------------------------------------------------------------------------
-	// Scene Member Methods: Lights
-	//-------------------------------------------------------------------------
-
-	void Scene::AddLight(SharedPtr< OmniLightNode > light) {
+	void Scene::AddSceneNode(SharedPtr< DirectionalLightNode > light) {
 		if (!light) {
 			return;
 		}
+
+		m_directional_lights.push_back(std::move(light));
+	}
+	
+	void Scene::AddSceneNode(SharedPtr< OmniLightNode > light) {
+		if (!light) {
+			return;
+		}
+
 		m_omni_lights.push_back(std::move(light));
 	}
-
-	void Scene::AddLight(SharedPtr< SpotLightNode > light) {
+	
+	void Scene::AddSceneNode(SharedPtr< SpotLightNode > light) {
 		if (!light) {
 			return;
 		}
+
 		m_spot_lights.push_back(std::move(light));
 	}
-
-	void Scene::RemoveLight(SharedPtr< OmniLightNode > light) {
-		const auto it = std::find(m_omni_lights.begin(), m_omni_lights.end(), light);
-		if (it != m_omni_lights.end()) {
-			m_omni_lights.erase(it);
-		}
-	}
-
-	void Scene::RemoveLight(SharedPtr< SpotLightNode > light) {
-		const auto it = std::find(m_spot_lights.begin(), m_spot_lights.end(), light);
-		if (it != m_spot_lights.end()) {
-			m_spot_lights.erase(it);
-		}
-	}
-
-	void Scene::RemoveAllLights() {
-		m_omni_lights.clear();
-		m_spot_lights.clear();
-	}
-
-	//-------------------------------------------------------------------------
-	// Scene Member Methods: Sprites
-	//-------------------------------------------------------------------------
-
-	void Scene::AddSprite(SharedPtr< SpriteObject > sprite) {
+	
+	void Scene::AddSceneNode(SharedPtr< SpriteNode > sprite) {
 		if (!sprite) {
 			return;
 		}
+
 		m_sprites.push_back(std::move(sprite));
-	}
-
-	void Scene::RemoveSprite(SharedPtr< SpriteObject > sprite) {
-		const auto it = std::find(m_sprites.begin(), m_sprites.end(), sprite);
-		if (it != m_sprites.end()) {
-			m_sprites.erase(it);
-		}
-	}
-
-	void Scene::RemoveAllSprites() {
-		m_sprites.clear();
 	}
 }

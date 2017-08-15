@@ -4,6 +4,7 @@
 #pragma region
 
 #include "script\frame_rate_script.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -14,11 +15,14 @@ namespace mage {
 
 	const double FrameRateScript::s_resource_fetch_period = 1.00;
 
-	FrameRateScript::FrameRateScript(SharedPtr< SpriteText > text)
+	FrameRateScript::FrameRateScript(SpriteText *text)
 		: BehaviorScript(), 
 		m_accumulated_time(0.0), m_accumulated_nb_frames(0), 
 		m_last_frames_per_second(0), m_last_milliseconds_per_frame(0.0),
-		m_text(text) {}
+		m_text(text) {
+
+		Assert(m_text);
+	}
 	
 	FrameRateScript::FrameRateScript(FrameRateScript &&script) = default;
 	

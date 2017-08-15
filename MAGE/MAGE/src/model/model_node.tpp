@@ -9,5 +9,4 @@ namespace mage {
 	ModelNode::ModelNode(const string &name, ConstructorArgsT&&... args)
 		: SceneNode(name),
 		m_model(MakeUnique< Model >(std::forward< ConstructorArgsT >(args)...)) {}
-
 }

@@ -4,6 +4,7 @@
 #pragma region
 
 #include "script\rotation_script.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -13,7 +14,10 @@
 namespace mage {
 
 	RotationYScript::RotationYScript(TransformNode *transform)
-		: BehaviorScript(), m_transform(transform) {}
+		: BehaviorScript(), m_transform(transform) {
+
+		Assert(m_transform);
+	}
 
 	RotationYScript::RotationYScript(RotationYScript &&script) = default;
 

@@ -4,6 +4,7 @@
 #pragma region
 
 #include "script\location_script.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -12,8 +13,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	LocationScript::LocationScript(TransformNode *transform, SharedPtr< SpriteText > text)
-		: BehaviorScript(), m_transform(transform), m_text(text) {}
+	LocationScript::LocationScript(TransformNode *transform, SpriteText *text)
+		: BehaviorScript(), m_transform(transform), m_text(text) {
+
+		Assert(m_transform);
+		Assert(m_text);
+	}
 	
 	LocationScript::LocationScript(LocationScript &&script) = default;
 	

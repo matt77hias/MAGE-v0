@@ -4,6 +4,7 @@
 #pragma region
 
 #include "samples\brdf\brdf_script.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -15,6 +16,8 @@ namespace mage {
 	BRDFScript::BRDFScript(SpriteText *text, const vector< ModelNode * > &models)
 		: m_text(text), m_models(models), m_shaders(), m_shader_names(),
 		m_model_index(0), m_shader_index(0) {
+
+		Assert(m_text);
 
 		InitModels();
 		InitShaders();

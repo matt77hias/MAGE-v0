@@ -13,7 +13,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "sprite\sprite_image.hpp"
 #include "script\stats_script.hpp"
 
 #pragma endregion
@@ -35,45 +34,44 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Fog
 		//---------------------------------------------------------------------
-		SceneFog *scene_fog = GetSceneFog();
+		auto scene_fog = GetSceneFog();
 		scene_fog->SetDistanceFalloff(FLT_MAX, FLT_MAX);
 
 		//---------------------------------------------------------------------
 		// Camera
 		//---------------------------------------------------------------------
-		SharedPtr< PerspectiveCameraNode > camera = CreatePerspectiveCameraNode();
+		auto camera = CreatePerspectiveCamera("camera");
 		camera->GetTransform()->SetTranslation(-0.66f, 20.0f, -15.23f);
 		camera->GetTransform()->SetRotationX(0.54f);
-		SetCamera(camera);
 
 		//---------------------------------------------------------------------
 		// ModelDescriptors
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		SharedPtr< ModelDescriptor > model_desc_teapot 
+		auto model_desc_teapot 
 			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/teapot/teapot.mdl",     mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_cone 
+		auto model_desc_cone
 			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cone/cone.mdl",         mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_cube 
+		auto model_desc_cube
 			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cube/cube.mdl",         mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_cylinder 
+		auto model_desc_cylinder
 			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cylinder/cylinder.mdl", mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_plane 
+		auto model_desc_plane
 			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/plane/plane.mdl",       mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_sphere 
+		auto model_desc_sphere
 			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.mdl",     mesh_desc);
-		SharedPtr< ModelDescriptor > model_desc_torus 
+		auto model_desc_torus
 			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/torus/torus.mdl",       mesh_desc);
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		SharedPtr< ModelNode > model_teapot   = CreateModelNode(*model_desc_teapot);
-		SharedPtr< ModelNode > model_cone     = CreateModelNode(*model_desc_cone);
-		SharedPtr< ModelNode > model_cube     = CreateModelNode(*model_desc_cube);
-		SharedPtr< ModelNode > model_cylinder = CreateModelNode(*model_desc_cylinder);
-		SharedPtr< ModelNode > model_plane    = CreateModelNode(*model_desc_plane);
-		SharedPtr< ModelNode > model_sphere   = CreateModelNode(*model_desc_sphere);
-		SharedPtr< ModelNode > model_torus    = CreateModelNode(*model_desc_torus);
+		auto model_teapot   = CreateModel(*model_desc_teapot);
+		auto model_cone     = CreateModel(*model_desc_cone);
+		auto model_cube     = CreateModel(*model_desc_cube);
+		auto model_cylinder = CreateModel(*model_desc_cylinder);
+		auto model_plane    = CreateModel(*model_desc_plane);
+		auto model_sphere   = CreateModel(*model_desc_sphere);
+		auto model_torus    = CreateModel(*model_desc_torus);
 
 		model_teapot->GetTransform()->SetScale(30.0f);
 		model_cone->GetTransform()->SetScale(10.0f);
@@ -86,40 +84,37 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		SharedPtr< OmniLightNode > omni_light = CreateOmniLightNode();
+		auto omni_light = CreateOmniLight("light");
 		omni_light->GetTransform()->SetTranslation(0.0f, 20.0f, -15.0f);
 		omni_light->GetLight()->SetDistanceFalloff(0.0f, 50.0f);
 
 		//---------------------------------------------------------------------
 		// Texture
 		//---------------------------------------------------------------------
-		SharedPtr< Texture > texture_logo = 
+		auto texture_logo =
 			ResourceManager::Get()->GetOrCreateTexture(L"assets/sprites/mage.dds");
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteImage > logo = MakeShared< SpriteImage >("logo", texture_logo);
-		logo->GetTransform()->SetScale(0.25f, 0.25f);
-		logo->GetTransform()->SetNormalizedTranslation(0.90f, 0.88f);
-		AddSprite(logo);
+		auto logo = CreateSpriteImage("logo", texture_logo);
+		logo->GetSpriteTransform()->SetScale(0.25f, 0.25f);
+		logo->GetSpriteTransform()->SetNormalizedTranslation(0.90f, 0.88f);
 
 		//---------------------------------------------------------------------
 		// Font
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteFont > font = 
+		auto font =
 			ResourceManager::Get()->GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------
-		SharedPtr< SpriteText > stats_text = MakeShared< NormalSpriteText >("stats_text", font);
-		AddSprite(stats_text);
-		SharedPtr< SpriteText > brdf_text  = MakeShared< NormalSpriteText >("brdf_text", font);
-		AddSprite(brdf_text);
+		auto stats = CreateNormalSpriteText("stats", font);
+		auto brdf  = CreateNormalSpriteText("brdf", font);
 
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(MakeShared< StatsScript >(stats_text));
+		AddScript(MakeShared< StatsScript >(stats->GetSprite()));
 
 		vector< ModelNode * > models;
 		models.push_back(model_teapot.get());
@@ -129,6 +124,6 @@ namespace mage {
 		models.push_back(model_plane.get());
 		models.push_back(model_sphere.get());
 		models.push_back(model_torus.get());
-		AddScript(MakeShared< BRDFScript >(brdf_text.get(), models));
+		AddScript(MakeShared< BRDFScript >(brdf->GetSprite(), models));
 	}
 }

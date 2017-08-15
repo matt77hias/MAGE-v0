@@ -7,7 +7,6 @@
 
 #include "memory\memory.hpp"
 #include "collection\collection.hpp"
-#include "string\string.hpp"
 #include "math\transform.hpp"
 
 #pragma endregion
@@ -44,22 +43,22 @@ namespace mage {
 		/**
 		 Copies the given transform node to this transform node.
 
-		 @param[in]		transform_node
+		 @param[in]		node
 						A reference to the transform node to copy.
 		 @return		A reference to the copy of the given transform node
 						(i.e. this transform node).
 		 */
-		TransformNode &operator=(const TransformNode &transform_node) = delete;
+		TransformNode &operator=(const TransformNode &node) = delete;
 
 		/**
 		 Moves the given transform node to this transform node.
 
-		 @param[in]		transform_node
+		 @param[in]		node
 						A reference to the transform node to move.
 		 @return		A reference to the copy of the given transform node
 						(i.e. this transform node).
 		 */
-		TransformNode &operator=(TransformNode &&transform_node) = delete;
+		TransformNode &operator=(TransformNode &&node) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Translation
@@ -1195,18 +1194,18 @@ namespace mage {
 		/**
 		 Constructs a transform node from the given transform node.
 
-		 @param[in]		transform_node
+		 @param[in]		node
 						A reference to the transform node to copy.
 		 */
-		TransformNode(const TransformNode &transform_node);
+		TransformNode(const TransformNode &node);
 
 		/**
 		 Constructs a transform node by moving the given transform node.
 
-		 @param[in]		transform_node
+		 @param[in]		node
 						A reference to the transform node to move.
 		 */
-		TransformNode(TransformNode &&transform_node) noexcept;
+		TransformNode(TransformNode &&node) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -1515,6 +1514,21 @@ namespace mage {
 		 */
 		void SetActive(bool active) noexcept;
 
+		/**
+		 Checks whether this node is terminated or not.
+
+		 @return		@c true if this node is terminated.
+						@c false otherwise.
+		 */
+		bool IsTerminated() const noexcept {
+			return m_terminated;
+		}
+
+		/**
+		 Terminates this node.
+		 */
+		void Terminate() noexcept;
+
 		//---------------------------------------------------------------------
 		// Member Methods: Graph
 		//---------------------------------------------------------------------
@@ -1619,6 +1633,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 This is method is called when the node becomes 
+		 active or passive.
+		 */
+		virtual void OnActiveChange() noexcept;
+
+		/**
 		 Clones this node.
 
 		 @return		A pointer to the clone of this node.
@@ -1638,6 +1658,11 @@ namespace mage {
 		 A flag indicating whether this node is active or not (i.e. passive).
 		 */
 		bool m_active;
+
+		/**
+		 A flag indicating whether this node is terminated or not. 
+		 */
+		bool m_terminated;
 	};
 
 	//-------------------------------------------------------------------------

@@ -29,8 +29,6 @@ namespace mage {
 		 Constructs a outline sprite text.
 
 		 @pre			@c font.get() is not equal to @c nullptr.
-		 @param[in]		name
-						The name.
 		 @param[in]		font
 						A pointer to the sprite font.
 		 @param[in]		border_color
@@ -38,15 +36,13 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
+		explicit OutlineSpriteText(SharedPtr< SpriteFont > font,
 			const Color &border_color, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a outline sprite text.
 
 		 @pre			@c font.get() is not equal to @c nullptr.
-		 @param[in]		name
-						The name.
 		 @param[in]		font
 						A pointer to the sprite font.
 		 @param[in]		border_color
@@ -54,7 +50,7 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit OutlineSpriteText(const string &name, SharedPtr< SpriteFont > font,
+		explicit OutlineSpriteText(SharedPtr< SpriteFont > font,
 			FXMVECTOR border_color = Colors::Black, SpriteEffect effects = SpriteEffect::None);
 
 		/**
@@ -174,7 +170,7 @@ namespace mage {
 
 		 @return		A pointer to the clone of this outline sprite text.
 		 */
-		virtual UniquePtr< SpriteObject > CloneImplementation() const override;
+		virtual UniquePtr< Sprite > CloneImplementation() const override;
 
 		/**
 		 Returns the border color of this outline sprite text as @c XMVECTOR.

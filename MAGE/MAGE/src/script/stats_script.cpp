@@ -6,22 +6,26 @@
 #include "script\stats_script.hpp"
 #include "system\system_usage.hpp"
 #include "core\engine_statistics.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Declarations
+// Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
 	const double StatsScript::s_resource_fetch_period = 1.0;
 
-	StatsScript::StatsScript(SharedPtr< SpriteText > text)
+	StatsScript::StatsScript(SpriteText *text)
 		: BehaviorScript(),
 		m_accumulated_time(0.0), m_accumulated_nb_frames(0),
 		m_last_frames_per_second(0), m_last_milliseconds_per_frame(0.0),
 		m_last_cpu_usage(0.0), m_last_ram_usage(0),
 		m_monitor(MakeUnique< CPUMonitor >()), m_text(text) {
+		
+		Assert(m_text);
+
 		m_monitor->Start();
 	}
 

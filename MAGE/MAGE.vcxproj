@@ -27,6 +27,7 @@
     <ClInclude Include="MAGE\src\buffer\transform_buffer.hpp" />
     <ClInclude Include="MAGE\src\camera\camera.hpp" />
     <ClInclude Include="MAGE\src\camera\camera_node.hpp" />
+    <ClInclude Include="MAGE\src\camera\camera_node_types.hpp" />
     <ClInclude Include="MAGE\src\camera\orthographic_camera.hpp" />
     <ClInclude Include="MAGE\src\camera\perspective_camera.hpp" />
     <ClInclude Include="MAGE\src\collection\collection.tpp" />
@@ -55,6 +56,7 @@
     <ClInclude Include="MAGE\src\light\directional_light.hpp" />
     <ClInclude Include="MAGE\src\light\light.hpp" />
     <ClInclude Include="MAGE\src\light\light_node.hpp" />
+    <ClInclude Include="MAGE\src\light\light_node_types.hpp" />
     <ClInclude Include="MAGE\src\light\omni_light.hpp" />
     <ClInclude Include="MAGE\src\light\spot_light.hpp" />
     <ClInclude Include="MAGE\src\logging\error.hpp" />
@@ -185,10 +187,12 @@
     <ClInclude Include="MAGE\src\shader\shading.hpp" />
     <ClInclude Include="MAGE\src\shader\shader.hpp" />
     <ClInclude Include="MAGE\src\shader\sprite_shader.hpp" />
-    <ClInclude Include="MAGE\src\sprite\sprite_object.hpp" />
+    <ClInclude Include="MAGE\src\sprite\sprite_node.hpp" />
+    <ClInclude Include="MAGE\src\sprite\sprite.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_batch.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_effects.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_image.hpp" />
+    <ClInclude Include="MAGE\src\sprite\sprite_node_types.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_sort_mode.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_utils.hpp" />
     <ClInclude Include="MAGE\src\string\line_reader.hpp" />
@@ -304,7 +308,8 @@
     <ClCompile Include="MAGE\src\shader\sprite_shader.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_batch.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_image.cpp" />
-    <ClCompile Include="MAGE\src\sprite\sprite_object.cpp" />
+    <ClCompile Include="MAGE\src\sprite\sprite.cpp" />
+    <ClCompile Include="MAGE\src\sprite\sprite_node.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_utils.cpp" />
     <ClCompile Include="MAGE\src\string\line_reader.cpp" />
     <ClCompile Include="MAGE\src\string\token.cpp" />
@@ -1418,6 +1423,7 @@
     <None Include="MAGE\src\resource\resource_pool.tpp" />
     <None Include="MAGE\src\scene\scene.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
+    <None Include="MAGE\src\sprite\sprite_node.tpp" />
     <None Include="MAGE\src\text\sprite_text.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

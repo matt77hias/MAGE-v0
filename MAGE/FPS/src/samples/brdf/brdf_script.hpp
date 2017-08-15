@@ -6,7 +6,6 @@
 #pragma region
 
 #include "core\engine.hpp"
-#include "text\normal_sprite_text.hpp"
 
 #pragma endregion
 

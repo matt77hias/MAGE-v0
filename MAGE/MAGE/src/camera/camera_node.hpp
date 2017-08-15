@@ -6,10 +6,7 @@
 #pragma region
 
 #include "scene\scene_node.hpp"
-
-// Cameras
-#include "camera\orthographic_camera.hpp"
-#include "camera\perspective_camera.hpp"
+#include "camera\camera.hpp"
 
 #pragma endregion
 
@@ -279,20 +276,6 @@ namespace mage {
 		 */
 		virtual UniquePtr< Node > CloneImplementation() const override;
 	};
-
-	//-------------------------------------------------------------------------
-	// Type Declarations and Definitions
-	//-------------------------------------------------------------------------
-
-	/**
-	 A class of orthographic camera nodes.
-	 */
-	using OrthographicCameraNode = DerivedCameraNode< OrthographicCamera >;
-
-	/**
-	 A class of perspective camera nodes.
-	 */
-	using PerspectiveCameraNode  = DerivedCameraNode< PerspectiveCamera >;
 }
 
 //-----------------------------------------------------------------------------

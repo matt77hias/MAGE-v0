@@ -30,7 +30,7 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit StatsScript(SharedPtr< SpriteText > text);
+		explicit StatsScript(SpriteText *text);
 		StatsScript(const StatsScript &script) = delete;
 		StatsScript(StatsScript &&script);
 		virtual ~StatsScript();
@@ -62,6 +62,6 @@ namespace mage {
 		uint32_t m_last_ram_usage;
 		UniquePtr< CPUMonitor > m_monitor;
 		
-		SharedPtr< SpriteText > m_text;
+		SpriteText * const m_text;
 	};
 }

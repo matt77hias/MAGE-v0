@@ -13,9 +13,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpriteText::SpriteText(const string &name, SharedPtr< SpriteFont > font,
+	SpriteText::SpriteText(SharedPtr< SpriteFont > font,
 		SpriteEffect effects)
-		: SpriteObject(name, effects), m_text(L""), m_strings(), m_font(font) {
+		: Sprite(effects), m_text(L""), m_strings(), m_font(font) {
 
 		Assert(m_font);
 	}

@@ -21,7 +21,7 @@ namespace mage {
 			TransformNode *transform_node = (*it)->GetTransform();
 			action(transform_node);
 			// Visit child transform node's child transform nodes.
-			transform_node->ForEachChildTransformNode(action);
+			transform_node->ForEachDescendantTransformNode(action);
 		}
 	}
 
@@ -39,7 +39,7 @@ namespace mage {
 			// Visit child node.
 			action(it->get());
 			// Visit child node's child nodes.
-			(*it)->GetTransform()->ForEachChildTransformNode(action);
+			(*it)->GetTransform()->ForEachDescendantNode(action);
 		}
 	}
 }

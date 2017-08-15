@@ -1219,7 +1219,7 @@ namespace mage {
 			m_dirty_world_to_object = true;
 			
 			// Sets the descendants of this transform node to dirty.
-			ForEachDescendantTransformNode([](const TransformNode *transform_node) {
+			ForEachChildTransformNode([](const TransformNode *transform_node) {
 				transform_node->SetDirty();
 			});
 		}

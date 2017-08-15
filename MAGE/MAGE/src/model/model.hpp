@@ -204,6 +204,40 @@ namespace mage {
 			m_material->PrepareShading(transform, scene);
 		}
 
+		/**
+		 Checks whether this model casts shadows or not.
+
+		 @return		@c true if this model casts shadows.
+						@c false otherwise.
+		 */
+		bool CastShadows() const noexcept {
+			return m_cast_shadows;
+		}
+
+		/**
+		 Enables this model to cast shadows.
+		 */
+		void EnableShadowCasting() noexcept {
+			SetShadowCasting(true);
+		}
+
+		/**
+		 Dissables this model to cast shadows.
+		 */
+		void DissableShadowCasting() noexcept {
+			SetShadowCasting(false);
+		}
+
+		/**
+		 Sets the shadow casting of this model to the given value.
+
+		 @param[in]		cast_shadows
+						The shadow casting value.
+		 */
+		void SetShadowCasting(bool cast_shadows) noexcept {
+			m_cast_shadows = cast_shadows;
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -250,5 +284,10 @@ namespace mage {
 		 A pointer to the shaded material of this model.
 		 */
 		UniquePtr< ShadedMaterial > m_material;
+
+		/**
+		 A flag indicating whether this model casts shadows or not.
+		 */
+		bool m_cast_shadows;
 	};
 }

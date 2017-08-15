@@ -26,7 +26,7 @@ namespace mage {
 		m_omni_lights_buffer(64), 
 		m_spot_lights_buffer(64) {
 		
-		Create< AmbientLightNode >("ambient light");
+		Create< AmbientLightNode >("ambient light", RGBSpectrum());
 
 		//TODO
 		Material box_material("_mat_aabb");

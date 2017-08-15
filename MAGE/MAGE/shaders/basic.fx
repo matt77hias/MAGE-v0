@@ -54,17 +54,17 @@ cbuffer Scene : register(b2) {
 	// The distance at which intensity falloff starts due to fog.
 	float g_fog_distance_falloff_start			: packoffset(c1.w);
 	// The color of the fog.
-	float3 g_fog_color							: packoffset(c3);
+	float3 g_fog_color							: packoffset(c2);
 	// The distance range where intensity falloff occurs due to fog.
-	float g_fog_distance_falloff_range			: packoffset(c3.w);
+	float g_fog_distance_falloff_range			: packoffset(c2.w);
 };
 
 #include "brdf.fx"
 #include "normal_mapping.fx"
 
 StructuredBuffer< DirectionalLight > g_directional_lights : register(t2);
-StructuredBuffer< OmniLight > g_omni_lights : register(t3);
-StructuredBuffer< SpotLight > g_spot_lights : register(t4);
+StructuredBuffer< OmniLight > g_omni_lights               : register(t3);
+StructuredBuffer< SpotLight > g_spot_lights               : register(t4);
 
 //-----------------------------------------------------------------------------
 // Shading

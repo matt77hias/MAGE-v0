@@ -324,6 +324,17 @@ namespace mage {
 			m_viewport = viewport;
 		}
 
+		/**
+		 Sets the viewport of this sprite batch to the given viewport.
+
+		 @param[in]		viewport
+						A reference to the viewport.
+		 */
+		void SetViewport(D3D11_VIEWPORT &&viewport) noexcept {
+			m_viewport_set = true;
+			m_viewport = std::move(viewport);
+		}
+
 	private:
 
 		//---------------------------------------------------------------------

@@ -110,7 +110,7 @@ namespace mage {
 		/**
 		 Returns the model of this model node.
 
-		 @return	A pointer to the model of this model node.
+		 @return		A pointer to the model of this model node.
 		 */
 		Model *GetModel() noexcept {
 			return m_model.get();
@@ -119,7 +119,7 @@ namespace mage {
 		/**
 		 Returns the model of this model node.
 
-		 @return	A pointer to the model of this model node.
+		 @return		A pointer to the model of this model node.
 		 */
 		const Model *GetModel() const noexcept {
 			return m_model.get();

@@ -90,6 +90,9 @@ namespace mage {
 	}
 
 	void Scene::Render3D() const {
+		const D3D11_VIEWPORT viewport = m_cameras[0]->GetViewport();
+		GetRenderingDeviceContext()->RSSetViewports(1, &viewport);
+
 		const XMMATRIX world_to_view = m_cameras[0]->GetTransform()->GetWorldToViewMatrix();
 		const XMMATRIX view_to_world = m_cameras[0]->GetTransform()->GetViewToWorldMatrix();
 

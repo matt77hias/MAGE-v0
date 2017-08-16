@@ -49,8 +49,6 @@ namespace mage {
 
 		// Setup the rendering states.
 		SetupRenderingStates();
-		// Setup the viewport.
-		SetupViewPort();
 	}
 
 	void Renderer::UninitializeRenderer() noexcept {
@@ -229,20 +227,12 @@ namespace mage {
 		m_rendering_state_3d->SetDefaultRenderingState3D();
 	}
 
-	void Renderer::SetupViewPort() const {
-		// Setup the (default) viewport.
+	D3D11_VIEWPORT Renderer::GetMaxViewport() const noexcept {
 		D3D11_VIEWPORT viewport = {};
-		viewport.TopLeftX = 0;
-		viewport.TopLeftY = 0;
-		viewport.Width    = static_cast< FLOAT >(m_display_configuration->GetDisplayWidth());
-		viewport.Height   = static_cast< FLOAT >(m_display_configuration->GetDisplayHeight());
-		viewport.MinDepth = 0.0f;
+		viewport.Width    = static_cast<FLOAT>(Renderer::Get()->GetWidth());
+		viewport.Height   = static_cast<FLOAT>(Renderer::Get()->GetHeight());
 		viewport.MaxDepth = 1.0f;
-
-		// Bind an array of viewports to the rasterizer stage of the pipeline.
-		// 1. Number of viewports to bind.
-		// 2. An array of D3D11_VIEWPORT structures to bind to the device.
-		m_device_context->RSSetViewports(1, &viewport);
+		return viewport;
 	}
 
 	void Renderer::BeginFrame() {

@@ -7,6 +7,7 @@
 
 #include "scene\scene_node.hpp"
 #include "camera\camera.hpp"
+#include "rendering\rendering.hpp"
 
 #pragma endregion
 
@@ -75,7 +76,7 @@ namespace mage {
 		/**
 		 Returns the camera of this camera node.
 
-		 @return	A pointer to the camera of this camera node.	
+		 @return		A pointer to the camera of this camera node.	
 		 */
 		Camera *GetCamera() noexcept {
 			return m_camera.get();
@@ -84,10 +85,39 @@ namespace mage {
 		/**
 		 Returns the camera of this camera node.
 
-		 @return	A pointer to the camera of this camera node.
+		 @return		A pointer to the camera of this camera node.
 		 */
 		const Camera *GetCamera() const noexcept {
 			return m_camera.get();
+		}
+
+		/**
+		 Returns the viewport of this camera node.
+
+		 @return		A reference to the viewport of this camera node.
+		 */
+		const D3D11_VIEWPORT &GetViewport() const noexcept {
+			return m_viewport;
+		}
+
+		/**
+		 Sets the viewport of this camera node to the given viewport.
+
+		 @param[in]		viewport
+						A reference to the viewport.
+		 */
+		void SetViewport(const D3D11_VIEWPORT &viewport) noexcept {
+			m_viewport = viewport;
+		}
+
+		/**
+		 Sets the viewport of this camera node to the given viewport.
+
+		 @param[in]		viewport
+						A reference to the viewport.
+		 */
+		void SetViewport(D3D11_VIEWPORT &&viewport) noexcept {
+			m_viewport = std::move(viewport);
 		}
 
 	protected:
@@ -143,6 +173,11 @@ namespace mage {
 		 A pointer to the camera of this camera node.
 		 */
 		UniquePtr< Camera > m_camera;
+
+		/**
+		 The viewport of this camera node.
+		 */
+		D3D11_VIEWPORT m_viewport;
 	};
 
 	//-------------------------------------------------------------------------
@@ -248,7 +283,7 @@ namespace mage {
 		/**
 		 Returns the camera of this derived camera node.
 
-		 @return	A pointer to the camera of this derived camera node.
+		 @return		A pointer to the camera of this derived camera node.
 		 */
 		CameraT *GetCamera() noexcept {
 			return static_cast< CameraT * >(CameraNode::GetCamera());
@@ -257,7 +292,7 @@ namespace mage {
 		/**
 		 Returns the camera of this derived camera node.
 
-		 @return	A pointer to the camera of this derived camera node.
+		 @return		A pointer to the camera of this derived camera node.
 		 */
 		const CameraT *GetCamera() const noexcept {
 			return static_cast< const CameraT * >(CameraNode::GetCamera());

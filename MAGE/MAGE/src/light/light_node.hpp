@@ -75,7 +75,7 @@ namespace mage {
 		/**
 		 Returns the light of this light node.
 
-		 @return	A pointer to the light of this light node.
+		 @return		A pointer to the light of this light node.
 		 */
 		Light *GetLight() noexcept {
 			return m_light.get();
@@ -84,7 +84,7 @@ namespace mage {
 		/**
 		 Returns the light of this light node.
 
-		 @return	A pointer to the light of this light node.
+		 @return		A pointer to the light of this light node.
 		 */
 		const Light *GetLight() const noexcept {
 			return m_light.get();
@@ -248,7 +248,7 @@ namespace mage {
 		/**
 		 Returns the light of this derived light node.
 
-		 @return	A pointer to the light of this derived light node.
+		 @return		A pointer to the light of this derived light node.
 		 */
 		LightT *GetLight() noexcept {
 			return static_cast< LightT * >(LightNode::GetLight());
@@ -257,7 +257,7 @@ namespace mage {
 		/**
 		 Returns the light of this derived light node.
 
-		 @return	A pointer to the light of this derived light node.
+		 @return		A pointer to the light of this derived light node.
 		 */
 		const LightT *GetLight() const noexcept {
 			return static_cast< const LightT * >(LightNode::GetLight());

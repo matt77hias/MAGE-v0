@@ -93,7 +93,7 @@ namespace mage {
 		/**
 		 Returns the sprite of this sprite node.
 
-		 @return	A pointer to the sprite of this sprite node.
+		 @return		A pointer to the sprite of this sprite node.
 		 */
 		Sprite *GetSprite() noexcept {
 			return m_sprite.get();
@@ -102,7 +102,7 @@ namespace mage {
 		/**
 		 Returns the sprite of this sprite node.
 
-		 @return	A pointer to the sprite of this sprite node.
+		 @return		A pointer to the sprite of this sprite node.
 		 */
 		const Sprite *GetSprite() const noexcept {
 			return m_sprite.get();
@@ -266,7 +266,7 @@ namespace mage {
 		/**
 		 Returns the Sprite of this derived sprite node.
 
-		 @return	A pointer to the Sprite of this derived sprite node.
+		 @return		A pointer to the Sprite of this derived sprite node.
 		 */
 		SpriteT *GetSprite() noexcept {
 			return static_cast< SpriteT * >(SpriteNode::GetSprite());
@@ -275,7 +275,7 @@ namespace mage {
 		/**
 		 Returns the Sprite of this derived sprite node.
 
-		 @return	A pointer to the Sprite of this derived sprite node.
+		 @return		A pointer to the Sprite of this derived sprite node.
 		 */
 		const SpriteT *GetSprite() const noexcept {
 			return static_cast< const SpriteT * >(SpriteNode::GetSprite());

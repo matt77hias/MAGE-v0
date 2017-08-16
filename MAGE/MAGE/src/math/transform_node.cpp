@@ -83,28 +83,36 @@ namespace mage {
 	}
 
 	void Node::SetActive(bool active) noexcept {
-		if (m_active != active) {
-			m_active = active;
-
-			ForEachChildNode([active](Node *node) {
-				node->SetActive(active);
-			});
-
-			OnActiveChange();
+		if (active && m_terminated) {
+			return;
 		}
+
+		if (m_active == active) {
+			return;
+		}
+
+		m_active = active;
+
+		ForEachChildNode([active](Node *node) {
+			node->SetActive(active);
+		});
+
+		OnActiveChange();
 	}
 
 	void Node::OnActiveChange() noexcept {}
 
 	void Node::Terminate() noexcept {
-		if (!m_terminated) {
-			m_terminated = true;
-			m_active = false;
-
-			ForEachChildNode([](Node *node) {
-				node->Terminate();
-			});
+		if (m_terminated) {
+			return;
 		}
+
+		m_terminated = true;
+		m_active     = false;
+
+		ForEachChildNode([](Node *node) {
+			node->Terminate();
+		});
 	}
 
 	void Node::AddChildNode(SharedPtr< Node > node) {

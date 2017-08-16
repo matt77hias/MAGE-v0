@@ -846,6 +846,9 @@
     <ClInclude Include="MAGE\src\model\shadow_behavior.hpp">
       <Filter>Header Files\model</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\scene\scene_manager.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1180,6 +1183,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\sprite\sprite_node.cpp">
       <Filter>Source Files\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\scene\scene_manager.cpp">
+      <Filter>Source Files\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

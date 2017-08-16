@@ -7,11 +7,12 @@
 
 #include "core\targetver.hpp"
 
+#include "ui\main_window.hpp"
 #include "rendering\renderer.hpp"
 #include "input\input_manager.hpp"
-#include "ui\main_window.hpp"
 #include "resource\resource_manager.hpp"
 #include "resource\resource_factory.hpp"
+#include "scene\scene_manager.hpp"
 #include "timer\timer.hpp"
 
 #include "core\loadable.hpp"
@@ -199,7 +200,7 @@ namespace mage {
 
 		 @return		A pointer to the scene to set.
 		 */
-		void SetScene(SharedPtr< Scene > scene);
+		void SetScene(UniquePtr< Scene > &&scene);
 
 		//---------------------------------------------------------------------
 		// Member Methods: Statistics
@@ -288,13 +289,13 @@ namespace mage {
 		UniquePtr< ResourceManager > m_resource_manager;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Scene
+		// Member Variables: Scene System
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the current scene of this engine.
+		 A pointer to the scene manager of this engine.
 		 */
-		SharedPtr< Scene > m_scene;
+		UniquePtr< SceneManager > m_scene_manager;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Timer

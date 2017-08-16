@@ -90,7 +90,7 @@ namespace mage {
 
 		 @return		A pointer to the first scene of the application.
 		 */
-		virtual SharedPtr< Scene > CreateScene() const = 0;
+		virtual UniquePtr< Scene > CreateScene() const = 0;
 
 	protected:
 

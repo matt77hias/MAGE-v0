@@ -27,7 +27,7 @@ namespace mage {
 		: Loadable(), m_main_window(), m_deactive(false), 
 		m_renderer(), m_mode_switch(false),
 		m_input_manager(), m_resource_manager(),
-		m_scene(), m_timer(MakeUnique< Timer >()),
+		m_scene_manager(), m_timer(MakeUnique< Timer >()),
 		m_engine_stats(MakeUnique< EngineStatistics >()) {
 
 		s_engine = this;
@@ -79,6 +79,8 @@ namespace mage {
 		m_input_manager       = MakeUnique< InputManager >(m_main_window->GetHandle());
 		// Initialize the resource system.
 		m_resource_manager    = MakeUnique< ResourceManager >();
+		// Initialize the scene system.
+		m_scene_manager       = MakeUnique< SceneManager >();
 
 		// Initializes the COM library for use by the calling thread 
 		// and sets the thread's concurrency model to multithreaded concurrency.
@@ -98,18 +100,10 @@ namespace mage {
 		}
 	}
 
-	void Engine::SetScene(SharedPtr< Scene > scene) {
+	void Engine::SetScene(UniquePtr< Scene > &&scene) {
 		m_timer->Stop();
 		
-		if (m_scene) {
-			m_scene->Uninitialize();
-		}
-
-		m_scene = scene;
-		
-		if (m_scene) {
-			m_scene->Initialize();
-		}
+		m_scene_manager->SetScene(std::move(scene));
 		
 		m_timer->Restart();
 	}
@@ -117,6 +111,9 @@ namespace mage {
 	int Engine::Run(int nCmdShow) {
 		if (!IsLoaded()) {
 			Error("Game loop can not start because the engine is not loaded.");
+			return 0;
+		}
+		if (m_scene_manager->IsFinished()) {
 			return 0;
 		}
 
@@ -142,7 +139,7 @@ namespace mage {
 				continue;
 			}
 
-			if (m_deactive || !m_scene) {
+			if (m_deactive) {
 				continue;
 			}
 
@@ -166,8 +163,8 @@ namespace mage {
 			const double delta_time = m_timer->GetDeltaTime();
 
 			// Update the current scene.
-			m_scene->Update(delta_time);
-			if (!m_scene) {
+			m_scene_manager->Update(delta_time);
+			if (m_scene_manager->IsFinished()) {
 				PostQuitMessage(0);
 				continue;
 			}
@@ -176,10 +173,10 @@ namespace mage {
 			m_engine_stats->PrepareRendering();
 			m_renderer->BeginFrame();
 			m_renderer->PrepareRendering3D();
-			m_scene->Render3D();
-			//m_scene->RenderBoundingBoxes();
+			m_scene_manager->Render3D();
+			//m_scene_manager->RenderBoundingBoxes();
 			m_renderer->PrepareRendering2D();
-			m_scene->Render2D();
+			m_scene_manager->Render2D();
 			m_renderer->EndFrame();
 		}
 

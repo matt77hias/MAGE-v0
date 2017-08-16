@@ -10,6 +10,8 @@ namespace mage {
 	 */
 	struct ShadowBehavior final {
 
+	public:
+
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
@@ -28,18 +30,18 @@ namespace mage {
 		/**
 		 Constructs a shadow behavior from the given shadow behavior.
 
-		 @param[in]		shadow_behvaior
+		 @param[in]		shadow_behavior
 						A reference to the shadow behavior to copy.
 		 */
-		ShadowBehavior(const ShadowBehavior &shadow_behvaior) = default;
+		ShadowBehavior(const ShadowBehavior &shadow_behavior) = default;
 
 		/**
 		 Constructs a shadow behavior by moving the given shadow behavior.
 
-		 @param[in]		shadow_behvaior
+		 @param[in]		shadow_behavior
 						A reference to the shadow behavior to move.
 		 */
-		ShadowBehavior(ShadowBehavior &&shadow_behvaior) = default;
+		ShadowBehavior(ShadowBehavior &&shadow_behavior) = default;
 
 		/**
 		 Destructs this shadow behavior.
@@ -53,22 +55,22 @@ namespace mage {
 		/**
 		 Copies the given shadow behavior to this shadow behavior.
 
-		 @param[in]		shadow_behvaior
+		 @param[in]		shadow_behavior
 						A reference to the shadow behavior to copy.
 		 @return		A reference to the copy of the given shadow behavior
 						(i.e. this shadow behavior).
 		 */
-		ShadowBehavior &operator=(const ShadowBehavior &shadow_behvaior) = default;
+		ShadowBehavior &operator=(const ShadowBehavior &shadow_behavior) = default;
 
 		/**
 		 Moves the given shadow behavior to this shadow behavior.
 
-		 @param[in]		shadow_behvaior
+		 @param[in]		shadow_behavior
 						A reference to the shadow behavior to move.
 		 @return		A reference to the moved shadow behavior
 						(i.e. this shadow behavior).
 		 */
-		ShadowBehavior &operator=(ShadowBehavior &&shadow_behvaior) = default;
+		ShadowBehavior &operator=(ShadowBehavior &&shadow_behavior) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

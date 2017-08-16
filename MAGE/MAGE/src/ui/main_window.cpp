@@ -39,7 +39,8 @@ namespace mage {
 			// The message is sent to the application whose window is being activated 
 			// and to the application whose window is being deactivated.
 
-			Engine::Get()->SetDeactiveFlag(!wParam);
+			const bool deactive = static_cast< bool >(!wParam);
+			Engine::Get()->OnActiveChange(deactive);
 			break;
 		}
 		case WM_DESTROY: {
@@ -78,7 +79,7 @@ namespace mage {
 
 			// Check whether the user wants to switch between windowed and full screen mode.
 			if (wParam == VK_RETURN) {
-				Engine::Get()->SetModeSwitchFlag(true);
+				Engine::Get()->OnModeSwitch();
 				break;
 			}
 

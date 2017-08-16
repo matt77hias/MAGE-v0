@@ -1633,8 +1633,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 This is method is called when the node becomes 
-		 active or passive.
+		 Notifies this transform node of a change in activeness.
 		 */
 		virtual void OnActiveChange() noexcept;
 

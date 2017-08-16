@@ -113,6 +113,8 @@ namespace mage {
 		ForEachChildNode([](Node *node) {
 			node->Terminate();
 		});
+	
+		OnActiveChange();
 	}
 
 	void Node::AddChildNode(SharedPtr< Node > node) {

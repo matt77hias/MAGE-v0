@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene_manager.hpp"
+#include "core\engine.hpp"
 
 #pragma endregion
 
@@ -28,5 +28,7 @@ namespace mage {
 		if (m_scene) {
 			m_scene->Initialize();
 		}
+
+		Engine::Get()->OnSceneChange();
 	}
 }

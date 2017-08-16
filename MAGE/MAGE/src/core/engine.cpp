@@ -40,7 +40,7 @@ namespace mage {
 		}
 
 		// Initialize the first scene.
-		SetScene(setup.CreateScene());
+		m_scene_manager->SetScene(setup.CreateScene());
 	}
 
 	Engine::Engine(Engine &&engine) = default;
@@ -89,7 +89,7 @@ namespace mage {
 		SetLoaded();
 	}
 
-	void Engine::SetDeactiveFlag(bool deactive) {
+	void Engine::OnActiveChange(bool deactive) noexcept {
 		m_deactive = deactive;
 		
 		if (m_deactive) {
@@ -100,11 +100,7 @@ namespace mage {
 		}
 	}
 
-	void Engine::SetScene(UniquePtr< Scene > &&scene) {
-		m_timer->Stop();
-		
-		m_scene_manager->SetScene(std::move(scene));
-		
+	void Engine::OnSceneChange() noexcept {
 		m_timer->Restart();
 	}
 

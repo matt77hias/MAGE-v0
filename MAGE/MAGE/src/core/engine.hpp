@@ -132,12 +132,15 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the deactive flag of this engine to the given value.
+		 Notifies this engine of a change in activeness.
+
+		 Call this method when the engine becomes active or deactive.
 
 		 @param[in]		deactive
-						The value for the deactive flag.	
+						@c true if this engine becomes deactive.
+						@c false otherwise.
 		 */
-		void SetDeactiveFlag(bool deactive);
+		void OnActiveChange(bool deactive) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Rendering System
@@ -154,13 +157,13 @@ namespace mage {
 		}
 
 		/**
-		 Sets the mode switch flag of this engine to the given value.
-
-		 @param[in]		mode_switch
-						The value for the mode switch flag.
+		 Notifies this engine of a change in display mode.
+		 
+		 Call this method when the engine needs to switch
+		 its current (windowed|fullscreen) display mode.
 		 */
-		void SetModeSwitchFlag(bool mode_switch) noexcept {
-			m_mode_switch = mode_switch;
+		void OnModeSwitch() noexcept {
+			m_mode_switch = true;
 		}
 
 		//---------------------------------------------------------------------
@@ -192,15 +195,23 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
-		// Member Methods: Scene
+		// Member Methods: Scene System
 		//---------------------------------------------------------------------
 
 		/**
-		 Sets the scene of this engine to the given scene.
+		 Returns the scene manager of this engine.
 
-		 @return		A pointer to the scene to set.
+		 @return		@c nullptr if this engine is not properly setup.
+		 @return		A pointer to the scene manager of this engine.
 		 */
-		void SetScene(UniquePtr< Scene > &&scene);
+		SceneManager *GetSceneManager() const noexcept {
+			return m_scene_manager.get();
+		}
+
+		/**
+		 Notifies this engine of a change in scene.
+		 */
+		void OnSceneChange() noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Statistics

@@ -20,12 +20,12 @@ namespace mage {
 		const AABB &aabb, const BS &bs, const ShadedMaterial &material)
 		: m_mesh(mesh), m_start_index(start_index), m_nb_indices(nb_indices),
 		m_aabb(aabb), m_bs(bs), m_material(MakeUnique< ShadedMaterial >(material)) ,
-		m_cast_shadows(true) {}
+		m_shadow_behavior() {}
 
 	Model::Model(const Model &model)
 		: m_mesh(model.m_mesh), m_start_index(model.m_start_index), m_nb_indices(model.m_nb_indices),
 		m_material(MakeUnique< ShadedMaterial >(*model.m_material)),
-		m_cast_shadows(model.m_cast_shadows) {}
+		m_shadow_behavior(model.m_shadow_behavior) {}
 
 	Model::Model(Model &&model) = default;
 

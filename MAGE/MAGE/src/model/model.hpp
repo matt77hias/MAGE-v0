@@ -7,6 +7,7 @@
 
 #include "mesh\static_mesh.hpp"
 #include "shader\shaded_material.hpp"
+#include "model\shadow_behavior.hpp"
 
 #pragma endregion
 
@@ -176,7 +177,7 @@ namespace mage {
 		/**
 		 Returns the material of this model.
 
-		 @return		A reference to the material of this model.
+		 @return		A pointer to the material of this model.
 		 */
 		ShadedMaterial *GetMaterial() noexcept {
 			return m_material.get();
@@ -185,10 +186,28 @@ namespace mage {
 		/**
 		 Returns the material of this model.
 
-		 @return		A reference to the material of this model.
+		 @return		A pointer to the material of this model.
 		 */
 		const ShadedMaterial *GetMaterial() const noexcept {
 			return m_material.get();
+		}
+
+		/**
+		 Returns the shadow behavior of this model.
+
+		 @return		A reference to the shadow behavior of this model.
+		 */
+		ShadowBehavior &GetShadowBehavior() noexcept {
+			return m_shadow_behavior;
+		}
+
+		/**
+		 Returns the shadow behavior of this model.
+
+		 @return		A reference to the shadow behavior of this model.
+		 */
+		const ShadowBehavior &GetShadowBehavior() const noexcept {
+			return m_shadow_behavior;
 		}
 
 		/**
@@ -202,40 +221,6 @@ namespace mage {
 		 */
 		void PrepareShading(ID3D11Buffer *transform, const SceneInfo &scene) const {
 			m_material->PrepareShading(transform, scene);
-		}
-
-		/**
-		 Checks whether this model casts shadows or not.
-
-		 @return		@c true if this model casts shadows.
-						@c false otherwise.
-		 */
-		bool CastShadows() const noexcept {
-			return m_cast_shadows;
-		}
-
-		/**
-		 Enables this model to cast shadows.
-		 */
-		void EnableShadowCasting() noexcept {
-			SetShadowCasting(true);
-		}
-
-		/**
-		 Dissables this model to cast shadows.
-		 */
-		void DissableShadowCasting() noexcept {
-			SetShadowCasting(false);
-		}
-
-		/**
-		 Sets the shadow casting of this model to the given value.
-
-		 @param[in]		cast_shadows
-						The shadow casting value.
-		 */
-		void SetShadowCasting(bool cast_shadows) noexcept {
-			m_cast_shadows = cast_shadows;
 		}
 
 	private:
@@ -286,8 +271,8 @@ namespace mage {
 		UniquePtr< ShadedMaterial > m_material;
 
 		/**
-		 A flag indicating whether this model casts shadows or not.
+		 The shadow behavior of this model.
 		 */
-		bool m_cast_shadows;
+		ShadowBehavior m_shadow_behavior;
 	};
 }

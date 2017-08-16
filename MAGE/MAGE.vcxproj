@@ -103,6 +103,7 @@
     <ClInclude Include="MAGE\src\model\model_node.hpp" />
     <ClInclude Include="MAGE\src\model\model_output.hpp" />
     <ClInclude Include="MAGE\src\model\model_descriptor.hpp" />
+    <ClInclude Include="MAGE\src\model\shadow_behavior.hpp" />
     <ClInclude Include="MAGE\src\parallel\atomic.hpp" />
     <ClInclude Include="MAGE\src\parallel\id_generator.hpp" />
     <ClInclude Include="MAGE\src\parallel\lock.hpp" />

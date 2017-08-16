@@ -15,7 +15,7 @@ namespace mage {
 
 	EngineStatistics *EngineStatistics::Get() noexcept {
 		Assert(Engine::Get());
-		Assert(Engine::Get()->IsLoaded());
+		Assert(Engine::Get()->GetEngineStatistics());
 
 		return Engine::Get()->GetEngineStatistics();
 	}

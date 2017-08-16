@@ -38,7 +38,8 @@ namespace mage {
 		/**
 		 Returns the mouse associated with the current engine.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The mouse associated with the 
+						current engine must be loaded.
 		 @return		A pointer to the mouse associated
 						with the current engine.
 		 */

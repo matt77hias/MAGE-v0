@@ -4,9 +4,6 @@
 #pragma region
 
 #include "scene\scene.hpp"
-#include "resource\resource_manager.hpp"
-#include "resource\resource_factory.hpp"
-#include "math\view_frustum.hpp"
 
 #pragma endregion
 
@@ -16,28 +13,9 @@
 namespace mage {
 
 	Scene::Scene(const string &name)
-		: m_name(name), m_scripts(),
-		m_scene_fog(MakeUnique< SceneFog >()), 
-		m_cameras(), m_models(), m_ambient_light(), 
-		m_directional_lights(), m_omni_lights(), m_spot_lights(), m_sprites(),
-		m_sprite_batch(MakeUnique< SpriteBatch >()),
-		m_transform_buffer(), m_scene_buffer(),
-		m_directional_lights_buffer(3), 
-		m_omni_lights_buffer(64), 
-		m_spot_lights_buffer(64) {
-		
-		Create< AmbientLightNode >("ambient light", RGBSpectrum());
-
-		//TODO
-		Material box_material("_mat_aabb");
-		SharedPtr< Texture > white = CreateWhiteTexture();
-		box_material.SetDiffuseReflectivityTexture(white);
-		box_material.SetDiffuseReflectivity(RGBSpectrum(0.0f, 1.0f, 0.0f));
-		const ShadedMaterial box_shaded_material(box_material, BRDFType::Emissive);
-
-		SharedPtr< const StaticMesh > box_mesh = CreateLineCube();
-		m_box = MakeUnique< ModelNode >("_mdl_aabb", box_mesh, box_shaded_material);
-	}
+		: m_name(name), 
+		m_scripts(), m_scene_fog(), m_cameras(), m_models(), m_ambient_light(), 
+		m_directional_lights(), m_omni_lights(), m_spot_lights(), m_sprites() {}
 
 	Scene::~Scene() {
 		// Clears this scene.
@@ -49,6 +27,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	void Scene::Initialize() {
+		m_scene_fog = MakeUnique< SceneFog >();
+
 		// Loads this scene.
 		Load();
 	}
@@ -56,6 +36,7 @@ namespace mage {
 	void Scene::Uninitialize() {
 		// Closes this scene.
 		Close();
+
 		// Clears this scene.
 		Clear();
 	}
@@ -73,230 +54,6 @@ namespace mage {
 		m_omni_lights.clear();
 		m_spot_lights.clear();
 		m_sprites.clear();
-	}
-
-	void Scene::Render2D() const {
-		m_sprite_batch->Begin();
-
-		ForEachSprite([this](const SpriteNode *sprite) {
-			if (sprite->IsPassive()) {
-				return;
-			}
-
-			sprite->GetSprite()->Draw(*m_sprite_batch);
-		});
-
-		m_sprite_batch->End();
-	}
-
-	void Scene::Render3D() const {
-		const D3D11_VIEWPORT viewport = m_cameras[0]->GetViewport();
-		GetRenderingDeviceContext()->RSSetViewports(1, &viewport);
-
-		const XMMATRIX world_to_view = m_cameras[0]->GetTransform()->GetWorldToViewMatrix();
-		const XMMATRIX view_to_world = m_cameras[0]->GetTransform()->GetViewToWorldMatrix();
-
-		// Update directional light structured buffer.
-		vector< DirectionalLightBuffer > directional_lights_buffer;
-		ForEachDirectionalLight([&directional_lights_buffer, &world_to_view](const DirectionalLightNode *light_node) {
-			if (light_node->IsPassive()) {
-				return;
-			}
-
-			const TransformNode * const transform = light_node->GetTransform();
-			const DirectionalLight * const light  = light_node->GetLight();
-
-			DirectionalLightBuffer light_buffer;
-			XMStoreFloat3(&light_buffer.m_d, XMVector3TransformNormal(transform->GetWorldForward(), world_to_view));
-			light_buffer.m_I = light->GetIntensity();
-
-			directional_lights_buffer.push_back(std::move(light_buffer));
-		});
-		m_directional_lights_buffer.UpdateData(directional_lights_buffer);
-
-		// Update omni light structured buffer.
-		vector< OmniLightBuffer > omni_lights_buffer;
-		ForEachOmniLight([&omni_lights_buffer, &world_to_view](const OmniLightNode *light_node) {
-			if (light_node->IsPassive()) {
-				return;
-			}
-
-			const TransformNode * const transform = light_node->GetTransform();
-			const OmniLight     * const light     = light_node->GetLight();
-			
-			OmniLightBuffer light_buffer;
-			XMStoreFloat3(&light_buffer.m_p, XMVector3TransformCoord(transform->GetWorldEye(), world_to_view));
-			light_buffer.m_I                      = light->GetIntensity();
-			light_buffer.m_distance_falloff_end   = light->GetEndDistanceFalloff();
-			light_buffer.m_distance_falloff_range = light->GetRangeDistanceFalloff();
-
-			omni_lights_buffer.push_back(std::move(light_buffer));
-		});
-		m_omni_lights_buffer.UpdateData(omni_lights_buffer);
-
-		// Update spotlight structured buffer.
-		vector< SpotLightBuffer > spot_lights_buffer;
-		ForEachSpotLight([&spot_lights_buffer, &world_to_view](const SpotLightNode *light_node) {
-			if (light_node->IsPassive()) {
-				return;
-			}
-			
-			const TransformNode * const transform = light_node->GetTransform();
-			const SpotLight     * const light     = light_node->GetLight();
-			
-			SpotLightBuffer light_buffer;
-			XMStoreFloat3(&light_buffer.m_p, XMVector3TransformCoord(transform->GetWorldEye(), world_to_view));
-			XMStoreFloat3(&light_buffer.m_d, XMVector3TransformNormal(transform->GetWorldForward(), world_to_view));
-			light_buffer.m_I                      = light->GetIntensity();
-			light_buffer.m_exponent_property      = light->GetExponentProperty();
-			light_buffer.m_distance_falloff_end   = light->GetEndDistanceFalloff();
-			light_buffer.m_distance_falloff_range = light->GetRangeDistanceFalloff();
-			light_buffer.m_cos_umbra              = light->GetEndAngularCutoff();
-			light_buffer.m_cos_range              = light->GetRangeAngularCutoff();
-
-			spot_lights_buffer.push_back(std::move(light_buffer));
-		});
-		m_spot_lights_buffer.UpdateData(spot_lights_buffer);
-
-		// Update scene constant buffer.
-		SceneBuffer scene_buffer;
-		scene_buffer.m_Ia = m_ambient_light->GetLight()->GetIntensity();
-		scene_buffer.m_nb_directional_lights      = static_cast< uint32_t >(directional_lights_buffer.size());
-		scene_buffer.m_nb_omni_lights             = static_cast< uint32_t >(omni_lights_buffer.size());
-		scene_buffer.m_nb_spot_lights             = static_cast< uint32_t >(spot_lights_buffer.size());
-		scene_buffer.m_fog_color                  = m_scene_fog->GetIntensity();
-		scene_buffer.m_fog_distance_falloff_start = m_scene_fog->GetStartDistanceFalloff();
-		scene_buffer.m_fog_distance_falloff_range = m_scene_fog->GetRangeDistanceFalloff();
-
-		m_scene_buffer.UpdateData(scene_buffer);
-
-		// Create lighting buffer.
-		SceneInfo scene_info;
-		scene_info.m_scene_buffer       = m_scene_buffer.Get();
-		scene_info.m_directional_lights = m_directional_lights_buffer.Get();
-		scene_info.m_omni_lights        = m_omni_lights_buffer.Get();
-		scene_info.m_spot_lights        = m_spot_lights_buffer.Get();
-
-		const XMMATRIX view_to_projection  = m_cameras[0]->GetCamera()->GetViewToProjectionMatrix();
-		const XMMATRIX world_to_projection = world_to_view * view_to_projection;
-
-		// Create Transform buffer.
-		TransformBuffer transform_buffer(world_to_view, view_to_projection);
-
-		for (bool transparency : {false, true}) {
-
-			// Render models.
-			ForEachModel([this, transparency, &transform_buffer, &scene_info,
-				&view_to_world, &world_to_projection](const ModelNode *model_node) {
-				
-				if (model_node->IsPassive()) {
-					return;
-				}
-
-				const Model * const model = model_node->GetModel();
-
-				if (model->GetNumberOfIndices() == 0) {
-					return;
-				}
-				if (model->GetMaterial()->IsTransparant() != transparency) {
-					return;
-				}
-
-				const TransformNode * const transform = model_node->GetTransform();
-
-				// Update transform constant buffer (1/2).
-				const XMMATRIX object_to_world      = transform->GetObjectToWorldMatrix();
-				const XMMATRIX object_to_projection = object_to_world * world_to_projection;
-				
-				// View Frustum Culling.
-				ViewFrustum view_frustum(object_to_projection);
-				const AABB &aabb = model->GetAABB();
-				if (!view_frustum.Overlaps(aabb)) {
-					return;
-				}
-				
-				// Update transform constant buffer (2/2).
-				const XMMATRIX world_to_object      = transform->GetWorldToObjectMatrix();
-				const XMMATRIX view_to_object       = view_to_world * world_to_object;
-				transform_buffer.SetObjectMatrices(object_to_world, view_to_object);
-				m_transform_buffer.UpdateData(transform_buffer);
-
-				// Draw model.
-				model->PrepareDrawing();
-				model->PrepareShading(m_transform_buffer.Get(), scene_info);
-				model->Draw();
-			});
-		}
-	}
-
-	void Scene::RenderBoundingBoxes() const {
-
-		// Optimization: Use a separate shader + instancing (1 draw call)
-
-		// Update scene constant buffer.
-		SceneBuffer scene_buffer;
-		scene_buffer.m_fog_distance_falloff_start = FLT_MAX;
-		scene_buffer.m_fog_distance_falloff_range = FLT_MAX;
-
-		m_scene_buffer.UpdateData(scene_buffer);
-
-		// Create lighting buffer.
-		SceneInfo scene_info;
-		scene_info.m_scene_buffer = m_scene_buffer.Get();
-
-		const XMMATRIX world_to_view       = m_cameras[0]->GetTransform()->GetWorldToViewMatrix();
-		const XMMATRIX view_to_world       = m_cameras[0]->GetTransform()->GetViewToWorldMatrix();
-		const XMMATRIX view_to_projection  = m_cameras[0]->GetCamera()->GetViewToProjectionMatrix();
-		const XMMATRIX world_to_projection = world_to_view * view_to_projection;
-
-		// Create Transform buffer.
-		TransformBuffer transform_buffer(world_to_view, view_to_projection);
-
-		// Render models.
-		ForEachModel([this, &transform_buffer, &scene_info,
-			&view_to_world, &world_to_projection](const ModelNode *model_node) {
-			
-			if (model_node->IsPassive()) {
-				return;
-			}
-
-			const Model * const model = model_node->GetModel();
-
-			if (model->GetNumberOfIndices() == 0) {
-				return;
-			}
-
-			const TransformNode * const transform = model_node->GetTransform();
-
-			// Update transform constant buffer (1/2).
-			const XMMATRIX object_to_world      = transform->GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection = object_to_world * world_to_projection;
-
-			// View Frustum Culling.
-			ViewFrustum view_frustum(object_to_projection);
-			const AABB &aabb = model->GetAABB();
-			if (!view_frustum.Overlaps(aabb)) {
-				return;
-			}
-
-			Transform box_transform;
-			box_transform.SetScale(aabb.Diagonal());
-			box_transform.SetTranslation(aabb.Centroid());
-			
-			// Update transform constant buffer (2/2).
-			const XMMATRIX world_to_object = transform->GetWorldToObjectMatrix();
-			const XMMATRIX box_to_world    = box_transform.GetObjectToParentMatrix() * object_to_world;
-			const XMMATRIX world_to_box    = world_to_object * box_transform.GetParentToObjectMatrix();
-			const XMMATRIX view_to_box     = view_to_world * world_to_box;
-			transform_buffer.SetObjectMatrices(box_to_world, view_to_box);
-			m_transform_buffer.UpdateData(transform_buffer);
-
-			// Draw bounding box.
-			const Model * const box_model = m_box->GetModel();
-			box_model->PrepareDrawing();
-			box_model->PrepareShading(m_transform_buffer.Get(), scene_info);
-			box_model->Draw();
-		});
 	}
 
 	//-------------------------------------------------------------------------

@@ -45,7 +45,8 @@ namespace mage {
 	/**
 	 Returns the rendering device.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The rendering device associated with the 
+					current engine must be loaded.
 	 @return		A pointer to the rendering device.
 	 */
 	ID3D11Device2 *GetRenderingDevice() noexcept;
@@ -53,7 +54,8 @@ namespace mage {
 	/**
 	 Returns the rendering device context.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The rendering device context associated with the 
+					current engine must be loaded.
 	 @return		A pointer to the rendering device context.
 	 */
 	ID3D11DeviceContext2 *GetRenderingDeviceContext() noexcept;

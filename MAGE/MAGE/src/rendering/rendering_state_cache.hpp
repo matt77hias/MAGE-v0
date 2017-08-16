@@ -24,6 +24,20 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the renderer state cache associated with the current engine.
+
+		 @pre			The rendering state cache associated with the 
+						current engine must be loaded.
+		 @return		A pointer to the renderer state cache associated
+						with the current engine.
+		 */
+		static RenderingStateCache *Get() noexcept;
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 

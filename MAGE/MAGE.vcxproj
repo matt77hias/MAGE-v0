@@ -117,7 +117,6 @@
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp" />
-    <ClInclude Include="MAGE\src\rendering\rendering_state.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_state_cache.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_utils.hpp" />
     <ClInclude Include="MAGE\src\rendering\structured_buffer.hpp" />
@@ -130,6 +129,7 @@
     <ClInclude Include="MAGE\src\scene\scene_fog.hpp" />
     <ClInclude Include="MAGE\src\scene\scene_manager.hpp" />
     <ClInclude Include="MAGE\src\scene\scene_node.hpp" />
+    <ClInclude Include="MAGE\src\scene\scene_renderer.hpp" />
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />
@@ -274,7 +274,6 @@
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp" />
-    <ClCompile Include="MAGE\src\rendering\rendering_state.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_state_cache.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_utils.cpp" />
     <ClCompile Include="MAGE\src\resource\behavior_script.cpp" />
@@ -282,6 +281,7 @@
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
     <ClCompile Include="MAGE\src\scene\scene_manager.cpp" />
     <ClCompile Include="MAGE\src\scene\scene_node.cpp" />
+    <ClCompile Include="MAGE\src\scene\scene_renderer.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script_loader.cpp" />
     <ClCompile Include="MAGE\src\scripting\vs\vs_loader.cpp" />

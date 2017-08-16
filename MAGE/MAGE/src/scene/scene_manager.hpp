@@ -1,6 +1,13 @@
 #pragma once
 
-#include "scene\scene.hpp"
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "scene\scene_renderer.hpp"
+
+#pragma endregion
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
@@ -87,16 +94,13 @@ namespace mage {
 		void SetScene(UniquePtr< Scene > &&scene);
 
 		void Update(double delta_time) {
-			m_scene->Update(delta_time);
+			m_scene->ForEachScript([delta_time](BehaviorScript *script) {
+				script->Update(delta_time);
+			});
 		}
-		void Render2D() const {
-			m_scene->Render2D();
-		}
-		void Render3D() const {
-			m_scene->Render3D();
-		}
-		void RenderBoundingBoxes() const {
-			m_scene->RenderBoundingBoxes();
+
+		void Render() {
+			m_renderer->Render(GetScene());
 		}
 
 	private:
@@ -106,7 +110,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the current scene of this engine.
+		 A pointer to the scene renderer of this scene manager.
+		 */
+		UniquePtr< SceneRenderer > m_renderer;
+
+		/**
+		 A pointer to the current scene of this scene manager.
 		 */
 		UniquePtr< Scene > m_scene;
 	};

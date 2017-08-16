@@ -38,9 +38,10 @@ namespace mage {
 		/**
 		 Returns the main window associated with the current engine.
 
-		 @pre		The current engine must be loaded.
-		 @return	A pointer to the main window associated
-					with the current engine.
+		 @pre			The main window associated with the 
+						current engine must be loaded.
+		 @return		A pointer to the main window associated
+						with the current engine.
 		 */
 		static MainWindow *Get() noexcept;
 

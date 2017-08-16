@@ -28,7 +28,8 @@ namespace mage {
 		/**
 		 Returns the engine statistics associated with the current engine.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The engine statistics associated with the 
+						current engine must be loaded.
 		 @return		A pointer to the engine statistics associated
 						with the current engine.
 		 */

@@ -6,6 +6,7 @@
 #pragma region
 
 #include "light\light.hpp"
+#include "math\bounding_volume.hpp"
 
 #pragma endregion
 
@@ -305,6 +306,20 @@ namespace mage {
 		void SetExponentProperty(float exponent_property) noexcept {
 			m_exponent_property = exponent_property;
 		}
+
+		/**
+		 Returns the AABB of this spotlight.
+
+		 @return		The AABB of this spotlight.
+		 */
+		const AABB GetAABB() const noexcept;
+
+		/**
+		 Returns the BS of this omni light.
+
+		 @return		The BS of this omni light.
+		 */
+		const BS GetBS() const noexcept;
 
 	private:
 

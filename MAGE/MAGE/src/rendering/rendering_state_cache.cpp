@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_state_cache.hpp"
+#include "rendering\renderer.hpp"
 #include "rendering\rendering_factory.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
@@ -16,6 +16,13 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	RenderingStateCache *RenderingStateCache::Get() noexcept {
+		Assert(Renderer::Get());
+		Assert(Renderer::Get()->GetRenderingStateCache());
+
+		return Renderer::Get()->GetRenderingStateCache();
+	}
 
 	RenderingStateCache::RenderingStateCache(ID3D11Device2 *device)
 		: m_device(device),

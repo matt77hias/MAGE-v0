@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_state.hpp"
+#include "rendering\rendering_state_cache.hpp"
 #include "rendering\display_configuration.hpp"
 
 #pragma endregion
@@ -29,9 +29,10 @@ namespace mage {
 		/**
 		 Returns the renderer associated with the current engine.
 
-		 @pre		The current engine must be loaded.
-		 @return	A pointer to the renderer associated
-					with the current engine.
+		 @pre			The renderer associated with the 
+						current engine must be loaded.
+		 @return		A pointer to the renderer associated
+						with the current engine.
 		 */
 		static const Renderer *Get() noexcept;
 
@@ -137,21 +138,12 @@ namespace mage {
 		}
 
 		/**
-		 Returns the 2D rendering state of this renderer.
+		 Returns the rendering state cache of this renderer.
 
-		 @return		A pointer to the 2D rendering state of this renderer.
+		 @return		A pointer to the rendering state cache of this renderer.
 		 */
-		RenderingState *GetRenderingState2D() const noexcept {
-			return m_rendering_state_2d.get();
-		}
-
-		/**
-		 Returns the 3D rendering state of this renderer.
-
-		 @return		A pointer to the 3D rendering state of this renderer.
-		 */
-		RenderingState *GetRenderingState3D() const noexcept {
-			return m_rendering_state_3d.get();
+		RenderingStateCache *GetRenderingStateCache() const noexcept {
+			return m_rendering_state_cache.get();
 		}
 
 		/**
@@ -232,20 +224,6 @@ namespace mage {
 						and a mode switch will occur.
 		 */
 		void SwitchMode(bool toggle);
-
-		/**
-		 Prepares the 2D rendering of the current frame.
-		 */
-		void PrepareRendering2D() {
-			m_rendering_state_2d->PrepareRendering();
-		}
-
-		/**
-		 Prepares the 3D rendering of the current frame.
-		 */
-		void PrepareRendering3D() {
-			m_rendering_state_3d->PrepareRendering();
-		}
 
 		//---------------------------------------------------------------------
 		// Member Methods: Render to Frame
@@ -369,15 +347,6 @@ namespace mage {
 		 */
 		void CreateDSV();
 
-		/**
-		 Sets up the rendering states of this renderer.
-
-		 @throws		FormattedException
-						Failed to set up the rendering states
-						this renderer.
-		 */
-		void SetupRenderingStates();
-
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
@@ -432,16 +401,6 @@ namespace mage {
 		 A pointer to the depth stencil view of this renderer.
 		 */
 		ComPtr< ID3D11DepthStencilView > m_dsv;
-
-		/**
-		 A pointer to the 2D rendering state of this renderer.
-		 */
-		UniquePtr< RenderingState > m_rendering_state_2d;
-
-		/**
-		 A pointer to the 3D rendering state of this renderer.
-		 */
-		UniquePtr< RenderingState >  m_rendering_state_3d;
 
 		/**
 		 A pointer to the rendering state cache of this renderer.

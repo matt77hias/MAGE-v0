@@ -495,9 +495,6 @@
     <ClInclude Include="MAGE\src\resource\resource_pool.hpp">
       <Filter>Header Files\resource</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\rendering_state.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\rendering_state_cache.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
@@ -849,6 +846,9 @@
     <ClInclude Include="MAGE\src\scene\scene_manager.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\scene\scene_renderer.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -972,9 +972,6 @@
       <Filter>Source Files\sprite</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering_state_cache.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\rendering_state.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp">
@@ -1185,6 +1182,9 @@
       <Filter>Source Files\sprite</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\scene\scene_manager.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\scene\scene_renderer.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
   </ItemGroup>

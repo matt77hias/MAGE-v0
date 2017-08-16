@@ -18,7 +18,7 @@ namespace mage {
 
 	template< typename ActionT >
 	inline void Scene::ForEachScript(ActionT action) const {
-		for (auto it = m_scripts.cbegin(); it != m_scripts.cend(); ++it) {
+		for (auto it = m_scripts.begin(); it != m_scripts.end(); ++it) {
 			action(it->get());
 		}
 	}
@@ -62,8 +62,7 @@ namespace mage {
 	template< typename ActionT >
 	inline void Scene::ForEachAmbientLight(ActionT action) const {
 		
-		if (m_ambient_light->IsTerminated()) {
-			Create< AmbientLightNode >("ambient light", RGBSpectrum());
+		if (!m_ambient_light || m_ambient_light->IsTerminated()) {
 			return;
 		}
 

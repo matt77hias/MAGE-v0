@@ -38,7 +38,8 @@ namespace mage {
 		/**
 		 Returns the keyboard associated with the current engine.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The keyboard associated with the 
+						current engine must be loaded.
 		 @return		A pointer to the keyboard associated
 						with the current engine.
 		 */

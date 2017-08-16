@@ -26,7 +26,7 @@ namespace mage {
 
 	MainWindow *MainWindow::Get() noexcept {
 		Assert(Engine::Get());
-		Assert(Engine::Get()->IsLoaded());
+		Assert(Engine::Get()->GetMainWindow());
 
 		return Engine::Get()->GetMainWindow();
 	}

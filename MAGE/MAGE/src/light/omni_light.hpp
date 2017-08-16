@@ -6,6 +6,7 @@
 #pragma region
 
 #include "light\light.hpp"
+#include "math\bounding_volume.hpp"
 
 #pragma endregion
 
@@ -166,6 +167,26 @@ namespace mage {
 		 */
 		void SetRangeDistanceFalloff(float distance_falloff_start, float distance_falloff_range) noexcept {
 			SetDistanceFalloff(distance_falloff_start, distance_falloff_start + distance_falloff_range);
+		}
+
+		/**
+		 Returns the AABB of this omni light.
+
+		 @return		The AABB of this omni light.
+		 */
+		const AABB GetAABB() const noexcept {
+			return AABB(
+				Point3(-m_distance_falloff_end, -m_distance_falloff_end, -m_distance_falloff_end),
+				Point3( m_distance_falloff_end,  m_distance_falloff_end,  m_distance_falloff_end));
+		}
+
+		/**
+		 Returns the BS of this omni light.
+
+		 @return		The BS of this omni light.
+		 */
+		const BS GetBS() const noexcept {
+			return BS(Point3(), m_distance_falloff_end);
 		}
 
 	private:

@@ -16,7 +16,7 @@ namespace mage {
 
 	const Renderer *Renderer::Get() noexcept {
 		Assert(Engine::Get());
-		Assert(Engine::Get()->IsLoaded());
+		Assert(Engine::Get()->GetRenderer());
 
 		return Engine::Get()->GetRenderer();
 	}
@@ -27,7 +27,7 @@ namespace mage {
 		m_in_begin_end_pair(false), 
 		m_display_configuration(MakeUnique< DisplayConfiguration >(*display_configuration)),
 		m_device(), m_device_context(), m_swap_chain(), m_rtv(), m_dsv(),
-		m_rendering_state_2d(), m_rendering_state_3d(), m_rendering_state_cache() {
+		m_rendering_state_cache() {
 
 		Assert(m_hwindow);
 		Assert(m_display_configuration);
@@ -48,7 +48,7 @@ namespace mage {
 		SetupSwapChain();
 
 		// Setup the rendering states.
-		SetupRenderingStates();
+		m_rendering_state_cache = MakeUnique< RenderingStateCache >(m_device.Get());
 	}
 
 	void Renderer::UninitializeRenderer() noexcept {
@@ -217,14 +217,6 @@ namespace mage {
 		if (FAILED(result_dsv)) {
 			throw FormattedException("Depth-stencil view creation failed: %08X.", result_dsv);
 		}
-	}
-
-	void Renderer::SetupRenderingStates() {
-		m_rendering_state_cache = MakeUnique< RenderingStateCache >(m_device.Get());
-		m_rendering_state_2d    = MakeUnique< RenderingState >(m_device.Get(), m_device_context.Get(), m_rendering_state_cache.get());
-		m_rendering_state_3d    = MakeUnique< RenderingState >(m_device.Get(), m_device_context.Get(), m_rendering_state_cache.get());
-		m_rendering_state_2d->SetDefaultRenderingState2D();
-		m_rendering_state_3d->SetDefaultRenderingState3D();
 	}
 
 	D3D11_VIEWPORT Renderer::GetMaxViewport() const noexcept {

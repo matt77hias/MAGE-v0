@@ -8,6 +8,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <algorithm>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -30,5 +39,19 @@ namespace mage {
 
 	UniquePtr< Light > SpotLight::CloneImplementation() const {
 		return MakeUnique< SpotLight >(*this);
+	}
+
+	const AABB SpotLight::GetAABB() const noexcept {
+		const float tan_umbra = sqrt(1.0f / (m_cos_umbra * m_cos_umbra) - 1.0f);
+		const float rxy       = m_distance_falloff_end * tan_umbra;
+		return AABB(Point3(-rxy, -rxy, 0.0f),
+					Point3( rxy,  rxy, m_distance_falloff_end));
+	}
+
+	const BS SpotLight::GetBS() const noexcept {
+		const float rz        = 0.5f * m_distance_falloff_end;
+		const float tan_umbra = sqrt(1.0f / (m_cos_umbra * m_cos_umbra) - 1.0f);
+		const float r         = rz * std::max(1.0f, 2.0f * tan_umbra);
+		return BS(Point3(0.0f, 0.0f, rz), r);
 	}
 }

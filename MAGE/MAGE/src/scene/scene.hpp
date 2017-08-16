@@ -13,11 +13,6 @@
 #include "model\model_descriptor.hpp"
 #include "sprite\sprite_node_types.hpp"
 
-#include "sprite\sprite_batch.hpp"
-#include "rendering\structured_buffer.hpp"
-#include "buffer\transform_buffer.hpp"
-#include "buffer\light_buffer.hpp"
-
 #pragma endregion
 
 //-----------------------------------------------------------------------------
@@ -72,30 +67,6 @@ namespace mage {
 		void Initialize();
 
 		/**
-		 Updates this scene.
-
-		 @param[in]		delta_time
-						The elapsed time since the previous update.
-		 */
-		void Update(double delta_time) {
-			ForEachScript([delta_time](BehaviorScript *script) {
-				script->Update(delta_time);
-			});
-		}
-
-		/**
-		 Renders this scene.
-		 */
-		void Render2D() const;
-
-		/**
-		 Renders this scene.
-		 */
-		void Render3D() const;
-
-		void RenderBoundingBoxes() const;
-
-		/**
 		 Uninitializes this scene.
 		 */
 		void Uninitialize();
@@ -130,6 +101,25 @@ namespace mage {
 		void RemoveScript(SharedPtr< BehaviorScript > script);
 		void RemoveAllScripts() noexcept;
 		
+		size_t GetNumberOfCameras() const noexcept {
+			return m_cameras.size();
+		}
+		size_t GetNumberOfModels() const noexcept {
+			return m_models.size();
+		}
+		size_t GetNumberOfDirectionalLights() const noexcept {
+			return m_directional_lights.size();
+		}
+		size_t GetNumberOfOmniLights() const noexcept {
+			return m_omni_lights.size();
+		}
+		size_t GetNumberOfSpotLights() const noexcept {
+			return m_spot_lights.size();
+		}
+		size_t GetNumberOfSprites() const noexcept {
+			return m_sprites.size();
+		}
+
 		template< typename ActionT >
 		void ForEachScript(ActionT action) const;
 		template< typename ActionT >
@@ -196,9 +186,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		string m_name;
-	
 		vector< SharedPtr< BehaviorScript > > m_scripts;
-
 		UniquePtr< SceneFog > m_scene_fog;
 		mutable vector< SharedPtr< CameraNode > > m_cameras;
 		mutable vector< SharedPtr< ModelNode > > m_models;
@@ -207,22 +195,6 @@ namespace mage {
 		mutable vector< SharedPtr< OmniLightNode > > m_omni_lights;
 		mutable vector< SharedPtr< SpotLightNode > > m_spot_lights;
 		mutable vector< SharedPtr < SpriteNode > > m_sprites;
-		
-
-
-
-
-
-
-		UniquePtr< SpriteBatch > m_sprite_batch;
-		// Buffers
-		ConstantBuffer< TransformBuffer > m_transform_buffer;
-		ConstantBuffer< SceneBuffer > m_scene_buffer;
-		StructuredBuffer< DirectionalLightBuffer > m_directional_lights_buffer;
-		StructuredBuffer< OmniLightBuffer > m_omni_lights_buffer;
-		StructuredBuffer< SpotLightBuffer > m_spot_lights_buffer;
-		// Extra
-		UniquePtr< ModelNode > m_box;
 	};
 }
 

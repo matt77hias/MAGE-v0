@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
+#include "platform\windows.hpp"
+#include "string\string.hpp"
 
 #pragma endregion
 
@@ -26,18 +27,46 @@ namespace mage {
 	/**
 	 A struct of engine setups.
 	 */
-	struct EngineSetup {
+	struct EngineSetup final {
 
 	public:
 
 		//---------------------------------------------------------------------
-		// Destructors
+		// Constructors and Destructors
 		//---------------------------------------------------------------------
+
+		/**
+		 Constructs an engine setup.
+
+		 @pre			@a hinstance is not equal to @c nullptr.
+		 @param[in]		hinstance
+						The application instance handle of the application.
+		 @param[in]		name
+						A reference to the name of the application.
+		 */
+		explicit EngineSetup(HINSTANCE hinstance,
+			const wstring &name = MAGE_DEFAULT_APPLICATION_NAME);
+
+		/**
+		 Constructs an engine setup from the given engine setup.
+
+		 @param[in]		setup
+						A reference to the engine setup to copy.
+		 */
+		EngineSetup(const EngineSetup &setup);
+
+		/**
+		 Constructs an engine setup by moving the given engine setup.
+
+		 @param[in]		setup
+						A reference to the engine setup to move.
+		 */
+		EngineSetup(EngineSetup &&setup);
 
 		/**
 		 Destructs this engine setup.
 		 */
-		virtual ~EngineSetup();
+		~EngineSetup();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
@@ -85,47 +114,6 @@ namespace mage {
 			return m_hinstance;
 		}
 	
-		/**
-		 Creates the first scene of the application.
-
-		 @return		A pointer to the first scene of the application.
-		 */
-		virtual UniquePtr< Scene > CreateScene() const = 0;
-
-	protected:
-
-		//---------------------------------------------------------------------
-		// Constructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs an engine setup.
-
-		 @pre			@a hinstance is not equal to @c nullptr.
-		 @param[in]		hinstance
-						The application instance handle of the application.
-		 @param[in]		name
-						A reference to the name of the application.
-		 */
-		explicit EngineSetup(HINSTANCE hinstance,
-			const wstring &name = MAGE_DEFAULT_APPLICATION_NAME);
-
-		/**
-		 Constructs an engine setup from the given engine setup.
-
-		 @param[in]		setup
-						A reference to the engine setup to copy.
-		 */
-		EngineSetup(const EngineSetup &setup);
-
-		/**
-		 Constructs an engine setup by moving the given engine setup.
-
-		 @param[in]		setup
-						A reference to the engine setup to move.
-		 */
-		EngineSetup(EngineSetup &&setup);
-
 	private:
 
 		//---------------------------------------------------------------------

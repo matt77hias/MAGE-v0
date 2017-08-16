@@ -99,6 +99,7 @@ namespace mage {
 		/**
 		 Constructs a light node.
 
+		 @pre			@a light refers to a non @c nullptr.
 		 @param[in]		name
 						A reference to the name.
 		 @param[in]		light
@@ -180,6 +181,7 @@ namespace mage {
 		/**
 		 Constructs a derived light node.
 
+		 @pre			@a light refers to a non @c nullptr.
 		 @param[in]		name
 						A reference to the name.
 		 @param[in]		light

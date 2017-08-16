@@ -4,6 +4,7 @@
 #pragma region
 
 #include "model\model_node.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -13,7 +14,9 @@
 namespace mage {
 
 	ModelNode::ModelNode(const string &name, UniquePtr< Model > &&model)
-		: SceneNode(name), m_model(std::move(model)) {}
+		: SceneNode(name), m_model(std::move(model)) {
+		Assert(m_model);
+	}
 
 	ModelNode::ModelNode(const ModelNode &model_node)
 		: SceneNode(model_node), m_model(model_node.GetModel()->Clone()) {}

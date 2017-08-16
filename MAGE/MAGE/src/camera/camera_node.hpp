@@ -129,6 +129,7 @@ namespace mage {
 		/**
 		 Constructs a camera node.
 
+		 @pre			@a camera refers to a non @c nullptr.
 		 @param[in]		name
 						A reference to the name.
 		 @param[in]		camera
@@ -215,6 +216,7 @@ namespace mage {
 		/**
 		 Constructs a derived camera node.
 
+		 @pre			@a camera refers to a non @c nullptr.
 		 @param[in]		name
 						A reference to the name.
 		 @param[in]		camera

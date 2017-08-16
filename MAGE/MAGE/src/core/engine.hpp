@@ -108,6 +108,8 @@ namespace mage {
 		/**
 		 Runs this engine.
 
+		 @param[in]		scene
+						A reference to the start scene.
 		 @param[in]		nCmdShow
 						Controls how the engine window is to be shown.
 		 @return		If the function succeeds, terminating when it receives a 
@@ -115,7 +117,7 @@ namespace mage {
 						in that message's @c wParam parameter. If the function 
 						terminates before entering the message loop, it returns 0.
 		 */
-		int Run(int nCmdShow = SW_NORMAL);
+		int Run(UniquePtr< Scene > &&scene, int nCmdShow = SW_NORMAL);
 
 		//---------------------------------------------------------------------
 		// Member Methods: Window System

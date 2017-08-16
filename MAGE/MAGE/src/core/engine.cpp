@@ -38,9 +38,6 @@ namespace mage {
 		if (!IsLoaded()) {
 			return;
 		}
-
-		// Initialize the first scene.
-		m_scene_manager->SetScene(setup.CreateScene());
 	}
 
 	Engine::Engine(Engine &&engine) = default;
@@ -104,11 +101,13 @@ namespace mage {
 		m_timer->Restart();
 	}
 
-	int Engine::Run(int nCmdShow) {
+	int Engine::Run(UniquePtr< Scene > &&scene, int nCmdShow) {
 		if (!IsLoaded()) {
 			Error("Game loop can not start because the engine is not loaded.");
 			return 0;
 		}
+		
+		m_scene_manager->SetScene(std::move(scene));
 		if (m_scene_manager->IsFinished()) {
 			return 0;
 		}

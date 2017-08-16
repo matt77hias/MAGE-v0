@@ -117,6 +117,7 @@ namespace mage {
 		/**
 		 Constructs a sprite node.
 
+		 @pre			@a sprite refers to a non @c nullptr.
 		 @param[in]		name
 						A reference to the name.
 		 @param[in]		sprite
@@ -198,6 +199,7 @@ namespace mage {
 		/**
 		 Constructs a derived sprite node.
 
+		 @pre			@a sprite refers to a non @c nullptr.
 		 @param[in]		name
 						A reference to the name.
 		 @param[in]		sprite

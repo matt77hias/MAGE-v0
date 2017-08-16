@@ -42,6 +42,7 @@ namespace mage {
 		/**
 		 Constructs a model node.
 
+		 @pre			@a model refers to a non @c nullptr.
 		 @param[in]		name
 						A reference to the name.
 		 @param[in]		model

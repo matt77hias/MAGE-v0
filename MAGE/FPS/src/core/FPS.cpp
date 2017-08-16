@@ -3,19 +3,6 @@
 
 using namespace mage;
 
-struct Setup : public EngineSetup {
-
-	Setup(HINSTANCE hinstance = nullptr, const wstring &name = MAGE_DEFAULT_APPLICATION_NAME)
-		: EngineSetup(hinstance, name) {}
-	
-	virtual ~Setup() = default;
-
-	virtual UniquePtr< Scene > CreateScene() const override {
-		//return MakeUnique< BRDFScene >();
-		return MakeUnique< SponzaScene >();
-	}
-};
-
 /**
  The user-provided entry point for MAGE.
 
@@ -42,14 +29,21 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 	_CrtSetDbgFlag(debug_flags | _CRTDBG_LEAK_CHECK_DF);
 #endif
 
-	// Create the engine setup structure.
-	Setup setup(hinstance, L"Engine Control Test");
-
-	// Create the engine, then run it.
+	// Create the engine setup.
+	EngineSetup setup(hinstance, L"Engine Control Test");
+	// Create the engine.
 	UniquePtr< Engine > engine = MakeUnique< Engine >(setup);
-	const int result = engine->Run(nCmdShow);
+	
+	if (engine->IsLoaded()) {
+		// Create the scene.
+		//UniquePtr< Scene > scene = MakeUnique< BRDFScene >();
+		UniquePtr< Scene > scene = MakeUnique< SponzaScene >();
 
-	return result;
+		// Run the engine.
+		return engine->Run(std::move(scene), nCmdShow);
+	}
+
+	return 0;
 }
 
 //VariableScript s(L"assets/scripts/script_test.vs");

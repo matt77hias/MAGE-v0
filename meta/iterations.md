@@ -1,6 +1,6 @@
 ## Current iteration' TODOs
 * Render passes: Forward additive/Forward alpha-to-coverage/Deferred/Shadow Mapping
-* Collision detection
+* Ray Tracing, Picking, Collision Detection
 
 ## Further iterations
 * Animation

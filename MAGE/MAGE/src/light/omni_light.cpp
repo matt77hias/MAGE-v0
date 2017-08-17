@@ -14,7 +14,10 @@ namespace mage {
 
 	OmniLight::OmniLight(const RGBSpectrum &intensity)
 		: Light(intensity),
-		m_distance_falloff_start(0.0f), m_distance_falloff_end(1.0f) {}
+		m_distance_falloff_start(0.0f), m_distance_falloff_end(1.0f) {
+
+		UpdateBoundingVolumes();
+	}
 
 	OmniLight::OmniLight(const OmniLight &light) = default;
 	
@@ -28,5 +31,16 @@ namespace mage {
 
 	UniquePtr< Light > OmniLight::CloneImplementation() const {
 		return MakeUnique< OmniLight >(*this);
+	}
+
+	void OmniLight::UpdateBoundingVolumes() noexcept {
+
+		const AABB aabb(
+			Point3(-m_distance_falloff_end, -m_distance_falloff_end, -m_distance_falloff_end),
+			Point3( m_distance_falloff_end,  m_distance_falloff_end,  m_distance_falloff_end));
+
+		const BS bs(Point3(), m_distance_falloff_end);
+
+		SetBoundingVolumes(std::move(aabb), std::move(bs));
 	}
 }

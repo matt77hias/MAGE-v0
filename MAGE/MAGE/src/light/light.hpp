@@ -7,6 +7,7 @@
 
 #include "memory\memory.hpp"
 #include "material\spectrum.hpp"
+#include "math\bounding_volume.hpp"
 
 #pragma endregion
 
@@ -97,6 +98,24 @@ namespace mage {
 			m_intensity = std::move(intensity);
 		}
 
+		/**
+		Returns the AABB of this light.
+
+		@return		A reference to the AABB of this light.
+		*/
+		const AABB &GetAABB() const noexcept {
+			return m_aabb;;
+		}
+
+		/**
+		Returns the BS of this light.
+
+		@return		A reference to the BS of this light.
+		*/
+		const BS &GetBS() const noexcept {
+			return m_bs;
+		}
+
 	protected:
 
 		//---------------------------------------------------------------------
@@ -135,6 +154,32 @@ namespace mage {
 		 */
 		Light(Light &&light);
 
+		/**
+		 Updates the bounding volumes of this omni light.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @param[in]		bs
+						A reference to the BS.
+		 */
+		void SetBoundingVolumes(const AABB &aabb, const BS &bs) noexcept {
+			m_aabb = aabb;
+			m_bs   = bs;
+		}
+
+		/**
+		 Updates the bounding volumes of this omni light.
+
+		 @param[in]		aabb
+						A reference to the AABB.
+		 @param[in]		bs
+						A reference to the BS.
+		 */
+		void SetBoundingVolumes(AABB &&aabb, BS &&bs) noexcept {
+			m_aabb = std::move(aabb);
+			m_bs   = std::move(bs);
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -156,5 +201,15 @@ namespace mage {
 		 The intensity of this light.
 		 */
 		RGBSpectrum m_intensity;
+
+		/**
+		 The AABB of this light.
+		 */
+		AABB m_aabb;
+
+		/**
+		 The BS of this light.
+		 */
+		BS m_bs;
 	};
 }

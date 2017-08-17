@@ -6,7 +6,6 @@
 #pragma region
 
 #include "light\light.hpp"
-#include "math\bounding_volume.hpp"
 
 #pragma endregion
 
@@ -130,6 +129,7 @@ namespace mage {
 		 */
 		void SetEndDistanceFalloff(float distance_falloff_end) noexcept {
 			m_distance_falloff_end = distance_falloff_end;
+			UpdateBoundingVolumes();
 		}
 		
 		/**
@@ -207,6 +207,7 @@ namespace mage {
 		 */
 		void SetEndAngularCutoff(float cos_umbra) noexcept {
 			m_cos_umbra = cos_umbra;
+			UpdateBoundingVolumes();
 		}
 		
 		/**
@@ -250,7 +251,7 @@ namespace mage {
 						The penumbra angle (in radians).
 		 */
 		void SetPenumbraAngle(float penumbra) noexcept {
-			m_cos_penumbra = cos(penumbra);
+			SetStartAngularCutoff(cos(penumbra));
 		}
 
 		/**
@@ -270,7 +271,7 @@ namespace mage {
 						The umbra angle (in radians).
 		 */
 		void SetUmbraAngle(float umbra) noexcept {
-			m_cos_umbra = cos(umbra);
+			SetEndAngularCutoff(cos(umbra));
 		}
 
 		/**
@@ -307,20 +308,6 @@ namespace mage {
 			m_exponent_property = exponent_property;
 		}
 
-		/**
-		 Returns the AABB of this spotlight.
-
-		 @return		The AABB of this spotlight.
-		 */
-		const AABB GetAABB() const noexcept;
-
-		/**
-		 Returns the BS of this omni light.
-
-		 @return		The BS of this omni light.
-		 */
-		const BS GetBS() const noexcept;
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -333,6 +320,11 @@ namespace mage {
 		 @return		A pointer to the clone of this spotlight.
 		 */
 		virtual UniquePtr< Light > CloneImplementation() const override;
+
+		/**
+		 Updates the bounding volumes of this spotlight.
+		 */
+		void UpdateBoundingVolumes() noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables

@@ -45,10 +45,11 @@ namespace mage {
 	}
 
 	void SpotLight::UpdateBoundingVolumes() noexcept {
-		const float tan_umbra = sqrt(1.0f / (m_cos_umbra * m_cos_umbra) - 1.0f);
+		const float a         = 1.0f / (m_cos_umbra * m_cos_umbra);
+		const float tan_umbra = sqrt(a - 1.0f);
 		const float rxy       = m_distance_falloff_end * tan_umbra;
-		const float rz        = 0.5f * m_distance_falloff_end;
-		const float r         = std::max(rz, rxy);
+		const float rz        = m_distance_falloff_end * 0.5f;
+		const float r         = m_distance_falloff_end * sqrt(a - 0.75f);
 
 		const AABB aabb(Point3(-rxy, -rxy, 0.0f),
 						Point3( rxy,  rxy, m_distance_falloff_end));

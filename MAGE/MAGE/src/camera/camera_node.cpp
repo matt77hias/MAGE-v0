@@ -4,7 +4,6 @@
 #pragma region
 
 #include "camera\camera_node.hpp"
-#include "rendering\renderer.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -15,8 +14,7 @@
 namespace mage {
 
 	CameraNode::CameraNode(const string &name, UniquePtr< Camera > &&camera)
-		: SceneNode(name), m_camera(std::move(camera)),
-		m_viewport(Renderer::Get()->GetMaxViewport()) {
+		: SceneNode(name), m_camera(std::move(camera)), m_viewport() {
 		Assert(m_camera);
 	}
 	

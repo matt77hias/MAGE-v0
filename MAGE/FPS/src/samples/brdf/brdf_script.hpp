@@ -42,7 +42,7 @@ namespace mage {
 
 		SpriteText * const m_text;
 		vector< ModelNode * > m_models;
-		vector< CombinedShader > m_shaders;
+		//vector< CombinedShader > m_shaders;
 		vector< wstring > m_shader_names;
 		size_t m_model_index;
 		size_t m_shader_index;

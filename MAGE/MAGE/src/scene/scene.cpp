@@ -87,13 +87,10 @@ namespace mage {
 	// Scene Member Methods: World
 	//-------------------------------------------------------------------------
 
-	SharedPtr< ModelNode > Scene::CreateModel(
-		const ModelDescriptor &desc, BRDFType brdf) {
+	SharedPtr< ModelNode > Scene::CreateModel(const ModelDescriptor &desc) {
 
 		// Create a default material.
 		const Material default_material("material");
-		// Create a default shaded material.
-		const ShadedMaterial default_shaded_material(default_material, brdf);
 
 		SharedPtr< ModelNode > root_model_node;
 		size_t nb_root_childs = 0;
@@ -108,17 +105,16 @@ namespace mage {
 				return;
 			}
 
-			// Create a material.
-			const Material material = (model_part->m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ?
-				default_material : *desc.GetMaterial(model_part->m_material);
-			// Create a shaded material.
-			const ShadedMaterial shaded_material(material, brdf);
-
 			// Create a submodel node.
 			SharedPtr< ModelNode > submodel_node = MakeShared< ModelNode >(
 														model_part->m_child, desc.GetMesh(),
 														model_part->m_start_index, model_part->m_nb_indices,
-														model_part->m_aabb, model_part->m_bs, shaded_material);
+														model_part->m_aabb, model_part->m_bs);
+			// Create a material.
+			const Material material = (model_part->m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ?
+										default_material : *desc.GetMaterial(model_part->m_material);
+			submodel_node->GetModel()->SetMaterial(material);
+
 			// Add this submodel node to this scene.
 			AddSceneNode(submodel_node);
 
@@ -128,7 +124,9 @@ namespace mage {
 			}
 
 			// Add this submodel node to the mapping.
-			mapping.insert(std::make_pair(model_part->m_child, ModelPair(submodel_node, model_part->m_parent)));
+			mapping.insert(std::make_pair(
+				model_part->m_child, 
+				ModelPair(submodel_node, model_part->m_parent)));
 		});
 
 		Assert(nb_root_childs != 0);
@@ -138,81 +136,7 @@ namespace mage {
 		// Create root model node.
 		if (create_root_model_node) {
 			root_model_node = MakeShared< ModelNode >(
-				"model", desc.GetMesh(), 0, 0, AABB(), BS(), default_shaded_material);
-			
-			// Add this root model node to this scene.
-			AddSceneNode(root_model_node);
-		}
-
-		// Connect model nodes.
-		for (auto it = mapping.cbegin(); it != mapping.cend(); ++it) {
-			const SharedPtr< ModelNode > &child = it->second.first;
-			const string &parent = it->second.second;
-			if (parent == MAGE_MDL_PART_DEFAULT_PARENT) {
-				if (create_root_model_node) {
-					root_model_node->AddChildNode(child);
-				}
-			}
-			else {
-				mapping[parent].first->AddChildNode(child);
-			}
-		}
-
-		return root_model_node;
-	}
-
-	SharedPtr< ModelNode > Scene::CreateModel(
-		const ModelDescriptor &desc, const CombinedShader &shader) {
-
-		// Create a default material.
-		const Material default_material("material");
-		// Create a default shaded material.
-		const ShadedMaterial default_shaded_material(default_material, shader);
-
-		SharedPtr< ModelNode > root_model_node;
-		size_t nb_root_childs = 0;
-
-		using ModelPair = pair< SharedPtr< ModelNode >, string >;
-		map< string, ModelPair > mapping;
-
-		// Create model nodes.
-		desc.ForEachModelPart([&](const ModelPart *model_part) {
-
-			if (model_part->m_child == MAGE_MDL_PART_DEFAULT_CHILD && model_part->m_nb_indices == 0) {
-				return;
-			}
-
-			// Create a material.
-			const Material material = (model_part->m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ?
-				default_material : *desc.GetMaterial(model_part->m_material);
-			// Create a shaded material.
-			const ShadedMaterial shaded_material(material, shader);
-
-			// Create a submodel node.
-			SharedPtr< ModelNode > submodel_node = MakeShared< ModelNode >(
-														model_part->m_child, desc.GetMesh(),
-														model_part->m_start_index, model_part->m_nb_indices,
-														model_part->m_aabb, model_part->m_bs, shaded_material);
-			// Add this submodel node to this scene.
-			AddSceneNode(submodel_node);
-
-			if (model_part->m_parent == MAGE_MDL_PART_DEFAULT_PARENT) {
-				root_model_node = submodel_node;
-				++nb_root_childs;
-			}
-
-			// Adds this submodel node to the mapping.
-			mapping.insert(std::make_pair(model_part->m_child, ModelPair(submodel_node, model_part->m_parent)));
-		});
-
-		Assert(nb_root_childs != 0);
-
-		const bool create_root_model_node = (nb_root_childs > 1);
-
-		// Create root model node.
-		if (create_root_model_node) {
-			root_model_node = MakeShared< ModelNode >(
-				"model", desc.GetMesh(), 0, 0, AABB(), BS(), default_shaded_material);
+				"model", desc.GetMesh(), 0, 0, AABB(), BS());
 			
 			// Add this root model node to this scene.
 			AddSceneNode(root_model_node);

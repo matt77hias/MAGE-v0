@@ -33,7 +33,8 @@ namespace mage {
 		/**
 		 Constructs a constant buffer.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 */
 		ConstantBuffer();
 
@@ -42,6 +43,8 @@ namespace mage {
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			The renderer associated with the current engine
+						must be loaded.
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
@@ -116,26 +119,6 @@ namespace mage {
 			return m_buffer.Get();
 		}
 		
-		/**
-		 Returns the address of the buffer resource of this constant buffer.
-
-		 @return		A pointer to a pointer to the buffer resource 
-						of this constant buffer.
-		 */
-		ID3D11Buffer * const *GetAddressOf() const noexcept {
-			return m_buffer.GetAddressOf();
-		}
-		
-		/**
-		 Returns the address of the buffer resource of this constant buffer.
-
-		 @return		A pointer to a pointer to the buffer resource 
-						of this constant buffer.
-		 */
-		ID3D11Buffer **GetAddressOf() noexcept {
-			return m_buffer.GetAddressOf();
-		}
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -176,6 +159,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\constant_buffer.tpp"
+#include "buffer\constant_buffer.tpp"
 
 #pragma endregion

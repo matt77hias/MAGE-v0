@@ -7,9 +7,10 @@
 
 #include "scene\scene.hpp"
 #include "sprite\sprite_batch.hpp"
-#include "rendering\structured_buffer.hpp"
-#include "buffer\transform_buffer.hpp"
+#include "buffer\structured_buffer.hpp"
+#include "buffer\scene_buffer.hpp"
 #include "buffer\light_buffer.hpp"
+#include "buffer\model_buffer.hpp"
 
 #pragma endregion
 
@@ -50,9 +51,11 @@ namespace mage {
 		RGBSpectrum m_ambient_light;
 		UniquePtr< ModelNode > m_box;
 
+		SharedPtr< const VertexShader > m_vs;
+		SharedPtr< const PixelShader > m_ps;
 		UniquePtr< SpriteBatch > m_sprite_batch;
 
-		ConstantBuffer< TransformBuffer > m_transform_buffer;
+		ConstantBuffer< ModelBuffer > m_model_buffer;
 		ConstantBuffer< SceneBuffer > m_scene_buffer;
 		StructuredBuffer< DirectionalLightBuffer > m_directional_lights_buffer;
 		StructuredBuffer< OmniLightBuffer > m_omni_lights_buffer;

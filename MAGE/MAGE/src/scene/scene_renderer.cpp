@@ -19,8 +19,10 @@ namespace mage {
 		: m_cameras(), m_opaque_models(), m_transparent_models(), 
 		m_directional_lights(), m_omni_lights(), m_spot_lights(), 
 		m_sprites(), m_ambient_light(), m_box(),
+		m_vs(CreateTransformVS()),
+		m_ps(CreateLambertianPS()),
 		m_sprite_batch(MakeUnique< SpriteBatch >()),
-		m_transform_buffer(), m_scene_buffer(),
+		m_model_buffer(), m_scene_buffer(),
 		m_directional_lights_buffer(3),
 		m_omni_lights_buffer(64),
 		m_spot_lights_buffer(64) {
@@ -34,21 +36,18 @@ namespace mage {
 
 	void SceneRenderer::CreateBox() {
 		Material box_material("_mat_aabb");
-		SharedPtr< Texture > white = CreateWhiteTexture();
+		SharedPtr< const Texture > white = CreateWhiteTexture();
 		box_material.SetDiffuseReflectivityTexture(white);
 		box_material.SetDiffuseReflectivity(RGBSpectrum(0.0f, 1.0f, 0.0f));
-		const ShadedMaterial box_shaded_material(box_material, BRDFType::Emissive);
 
 		SharedPtr< const StaticMesh > box_mesh = CreateLineCube();
-		m_box = MakeUnique< ModelNode >("_mdl_aabb", box_mesh, box_shaded_material);
+		m_box = MakeUnique< ModelNode >("_mdl_aabb", box_mesh);
+		m_box->GetModel()->SetMaterial(box_material);
+
 	}
 
 	void SceneRenderer::Render(const Scene *scene) {
 		Preprocess(scene);
-		
-		ID3D11SamplerState *sampler_state = RenderingStateCache::Get()->GetLinearWrapSamplerState();
-		GetRenderingDeviceContext()->PSSetSamplers(0, 1, &sampler_state);
-		
 		Render3D(scene);
 		//RenderAABBs();
 		Render2D();
@@ -56,17 +55,24 @@ namespace mage {
 
 	void SceneRenderer::Render3D(const Scene *scene) {
 		
-		ID3D11DepthStencilState *depth_stencil_state = RenderingStateCache::Get()->GetDepthDefaultDepthStencilState();
+		// Sets the sampler state.
+		ID3D11SamplerState * const sampler_state = RenderingStateCache::Get()->GetLinearWrapSamplerState();
+		PixelShader::BindSampler(0, sampler_state);
+
+		// Sets the depth stencil state.
+		ID3D11DepthStencilState * const depth_stencil_state = RenderingStateCache::Get()->GetDepthDefaultDepthStencilState();
 		GetRenderingDeviceContext()->OMSetDepthStencilState(depth_stencil_state, 0);
+
+		m_vs->BindShader();
+		m_ps->BindShader(); //TODO
 
 		for (auto cit = m_cameras.cbegin(); cit != m_cameras.cend(); ++cit) {
 			const CameraNode    * const camera_node      = *cit;
 			const TransformNode * const camera_transform = camera_node->GetTransform();
 			const Camera        * const camera           = camera_node->GetCamera();
 
-			// Sets the viewport of this camera.
-			const D3D11_VIEWPORT &viewport = camera_node->GetViewport();
-			GetRenderingDeviceContext()->RSSetViewports(1, &viewport);
+			// Binds the viewport of this camera.
+			camera_node->GetViewport().BindViewport();
 
 			const XMMATRIX world_to_view           = camera_transform->GetWorldToViewMatrix();
 			const XMMATRIX view_to_world           = camera_transform->GetViewToWorldMatrix();
@@ -93,6 +99,7 @@ namespace mage {
 				directional_lights_buffer.push_back(std::move(light_buffer));
 			}
 			m_directional_lights_buffer.UpdateData(directional_lights_buffer);
+			PixelShader::BindSRV(0, m_directional_lights_buffer.Get());
 
 			// Update omni light structured buffer.
 			vector< OmniLightBuffer > omni_lights_buffer;
@@ -126,7 +133,8 @@ namespace mage {
 				omni_lights_buffer.push_back(std::move(light_buffer));
 			}
 			m_omni_lights_buffer.UpdateData(omni_lights_buffer);
-
+			PixelShader::BindSRV(1, m_omni_lights_buffer.Get());
+			
 			// Update spotlight structured buffer.
 			vector< SpotLightBuffer > spot_lights_buffer;
 			spot_lights_buffer.reserve(m_spot_lights.size());
@@ -164,9 +172,12 @@ namespace mage {
 				spot_lights_buffer.push_back(std::move(light_buffer));
 			}
 			m_spot_lights_buffer.UpdateData(spot_lights_buffer);
+			PixelShader::BindSRV(2, m_spot_lights_buffer.Get());
 
 			// Update scene constant buffer.
 			SceneBuffer scene_buffer;
+			scene_buffer.m_world_to_view              = XMMatrixTranspose(world_to_view);
+			scene_buffer.m_view_to_projection         = XMMatrixTranspose(view_to_projection);
 			scene_buffer.m_Ia                         = m_ambient_light;
 			scene_buffer.m_nb_directional_lights      = static_cast< uint32_t >(directional_lights_buffer.size());
 			scene_buffer.m_nb_omni_lights             = static_cast< uint32_t >(omni_lights_buffer.size());
@@ -176,18 +187,10 @@ namespace mage {
 			scene_buffer.m_fog_distance_falloff_start = fog->GetStartDistanceFalloff();
 			scene_buffer.m_fog_distance_falloff_range = fog->GetRangeDistanceFalloff();
 			m_scene_buffer.UpdateData(scene_buffer);
+			VertexShader::BindConstantBuffer(0, m_scene_buffer.Get());
+			PixelShader::BindConstantBuffer(0, m_scene_buffer.Get());
 
-			// Create lighting buffer.
-			SceneInfo scene_info;
-			scene_info.m_scene_buffer       = m_scene_buffer.Get();
-			scene_info.m_directional_lights = m_directional_lights_buffer.Get();
-			scene_info.m_omni_lights        = m_omni_lights_buffer.Get();
-			scene_info.m_spot_lights        = m_spot_lights_buffer.Get();
-
-			// Create Transform buffer.
-			TransformBuffer transform_buffer(world_to_view, view_to_projection);
-
-			ID3D11BlendState *opaque_blend_state = RenderingStateCache::Get()->GetOpaqueBlendState();
+			ID3D11BlendState * const opaque_blend_state = RenderingStateCache::Get()->GetOpaqueBlendState();
 			GetRenderingDeviceContext()->OMSetBlendState(opaque_blend_state, nullptr, 0xFFFFFFFF);
 
 			for (auto it = m_opaque_models.cbegin(); it != m_opaque_models.cend(); ++it) {
@@ -207,18 +210,30 @@ namespace mage {
 
 				const XMMATRIX world_to_object      = model_transform->GetWorldToObjectMatrix();
 				const XMMATRIX view_to_object       = view_to_world * world_to_object;
+				const Material * const material     = model->GetMaterial();
 				
-				// Update transform constant buffer.
-				transform_buffer.SetObjectMatrices(object_to_world, view_to_object);
-				m_transform_buffer.UpdateData(transform_buffer);
+				// Update model constant buffer.
+				ModelBuffer model_buffer;
+				model_buffer.m_object_to_world    = XMMatrixTranspose(object_to_world);
+				model_buffer.m_object_to_view_inverse_transpose = view_to_object;
+				model_buffer.m_Kd                 = material->GetDiffuseReflectivity();
+				model_buffer.m_dissolve           = material->GetDissolve();
+				model_buffer.m_Ks                 = material->GetSpecularReflectivity();
+				model_buffer.m_Ns                 = material->GetSpecularExponent();
+				model_buffer.m_extra_parameters.x = material->GetExtraParameter(0);
+				model_buffer.m_extra_parameters.y = material->GetExtraParameter(1);
+				model_buffer.m_extra_parameters.z = material->GetExtraParameter(2);
+				model_buffer.m_extra_parameters.w = material->GetExtraParameter(3);
+				m_model_buffer.UpdateData(model_buffer);
+				VertexShader::BindConstantBuffer(1, m_scene_buffer.Get());
+				PixelShader::BindConstantBuffer(1, m_scene_buffer.Get());
 
 				// Draw model.
-				model->PrepareDrawing();
-				model->PrepareShading(m_transform_buffer.Get(), scene_info);
+				model->BindMesh();
 				model->Draw();
 			}
 
-			ID3D11BlendState *alpha_blend_state = RenderingStateCache::Get()->GetAlphaBlendState();
+			ID3D11BlendState * const alpha_blend_state = RenderingStateCache::Get()->GetAlphaBlendState();
 			GetRenderingDeviceContext()->OMSetBlendState(alpha_blend_state, nullptr, 0xFFFFFFFF);
 
 			for (auto it = m_transparent_models.cbegin(); it != m_transparent_models.cend(); ++it) {
@@ -238,14 +253,26 @@ namespace mage {
 
 				const XMMATRIX world_to_object      = model_transform->GetWorldToObjectMatrix();
 				const XMMATRIX view_to_object       = view_to_world * world_to_object;
-
-				// Update transform constant buffer.
-				transform_buffer.SetObjectMatrices(object_to_world, view_to_object);
-				m_transform_buffer.UpdateData(transform_buffer);
+				const Material * const material     = model->GetMaterial();
+				
+				// Update model constant buffer.
+				ModelBuffer model_buffer;
+				model_buffer.m_object_to_world    = XMMatrixTranspose(object_to_world);
+				model_buffer.m_object_to_view_inverse_transpose = view_to_object;
+				model_buffer.m_Kd                 = material->GetDiffuseReflectivity();
+				model_buffer.m_dissolve           = material->GetDissolve();
+				model_buffer.m_Ks                 = material->GetSpecularReflectivity();
+				model_buffer.m_Ns                 = material->GetSpecularExponent();
+				model_buffer.m_extra_parameters.x = material->GetExtraParameter(0);
+				model_buffer.m_extra_parameters.y = material->GetExtraParameter(1);
+				model_buffer.m_extra_parameters.z = material->GetExtraParameter(2);
+				model_buffer.m_extra_parameters.w = material->GetExtraParameter(3);
+				m_model_buffer.UpdateData(model_buffer);
+				VertexShader::BindConstantBuffer(1, m_scene_buffer.Get());
+				PixelShader::BindConstantBuffer(1, m_scene_buffer.Get());
 
 				// Draw model.
-				model->PrepareDrawing();
-				model->PrepareShading(m_transform_buffer.Get(), scene_info);
+				model->BindMesh();
 				model->Draw();
 			}
 		}
@@ -255,17 +282,24 @@ namespace mage {
 
 		// Optimization: Use a separate shader + instancing (1 draw call)
 
-		ID3D11DepthStencilState *depth_stencil_state = RenderingStateCache::Get()->GetDepthDefaultDepthStencilState();
+		// Sets the sampler state.
+		ID3D11SamplerState * const sampler_state = RenderingStateCache::Get()->GetLinearWrapSamplerState();
+		PixelShader::BindSampler(0, sampler_state);
+
+		// Sets the depth stencil state.
+		ID3D11DepthStencilState * const depth_stencil_state = RenderingStateCache::Get()->GetDepthDefaultDepthStencilState();
 		GetRenderingDeviceContext()->OMSetDepthStencilState(depth_stencil_state, 0);
+
+		m_vs->BindShader();
+		m_ps->BindShader(); //TODO
 
 		for (auto cit = m_cameras.cbegin(); cit != m_cameras.cend(); ++cit) {
 			const CameraNode    * const camera_node      = *cit;
 			const TransformNode * const camera_transform = camera_node->GetTransform();
 			const Camera        * const camera           = camera_node->GetCamera();
 
-			// Sets the viewport of this camera.
-			const D3D11_VIEWPORT &viewport = camera_node->GetViewport();
-			GetRenderingDeviceContext()->RSSetViewports(1, &viewport);
+			// Binds the viewport of this camera.
+			camera_node->GetViewport().BindViewport();
 
 			const XMMATRIX world_to_view           = camera_transform->GetWorldToViewMatrix();
 			const XMMATRIX view_to_world           = camera_transform->GetViewToWorldMatrix();
@@ -274,20 +308,31 @@ namespace mage {
 
 			// Update scene constant buffer.
 			SceneBuffer scene_buffer;
+			scene_buffer.m_world_to_view              = XMMatrixTranspose(world_to_view);
+			scene_buffer.m_view_to_projection         = XMMatrixTranspose(view_to_projection);
 			scene_buffer.m_fog_distance_falloff_start = FLT_MAX;
 			scene_buffer.m_fog_distance_falloff_range = FLT_MAX;
 			m_scene_buffer.UpdateData(scene_buffer);
-
-			// Create lighting buffer.
-			SceneInfo scene_info;
-			scene_info.m_scene_buffer       = m_scene_buffer.Get();
-
-			// Create Transform buffer.
-			TransformBuffer transform_buffer(world_to_view, view_to_projection);
+			VertexShader::BindConstantBuffer(0, m_scene_buffer.Get());
+			PixelShader::BindConstantBuffer(0, m_scene_buffer.Get());
 
 			ID3D11BlendState *opaque_blend_state = RenderingStateCache::Get()->GetOpaqueBlendState();
 			GetRenderingDeviceContext()->OMSetBlendState(opaque_blend_state, nullptr, 0xFFFFFFFF);
 
+			const Model    * const box_model = m_box->GetModel();
+			const Material * const material  = box_model->GetMaterial();
+
+			// Update model constant buffer.
+			ModelBuffer model_buffer;
+			model_buffer.m_Kd                 = material->GetDiffuseReflectivity();
+			model_buffer.m_dissolve           = material->GetDissolve();
+			model_buffer.m_Ks                 = material->GetSpecularReflectivity();
+			model_buffer.m_Ns                 = material->GetSpecularExponent();
+			model_buffer.m_extra_parameters.x = material->GetExtraParameter(0);
+			model_buffer.m_extra_parameters.y = material->GetExtraParameter(1);
+			model_buffer.m_extra_parameters.z = material->GetExtraParameter(2);
+			model_buffer.m_extra_parameters.w = material->GetExtraParameter(3);
+			
 			for (auto it = m_opaque_models.cbegin(); it != m_opaque_models.cend(); ++it) {
 				const ModelNode            * const model_node      = *it;
 				const TransformNode        * const model_transform = model_node->GetTransform();
@@ -312,14 +357,15 @@ namespace mage {
 				const XMMATRIX world_to_box         = world_to_object * box_transform.GetParentToObjectMatrix();
 				const XMMATRIX view_to_box          = view_to_world * world_to_box;
 
-				// Update transform constant buffer.
-				transform_buffer.SetObjectMatrices(box_to_world, view_to_box);
-				m_transform_buffer.UpdateData(transform_buffer);
+				// Update model constant buffer.
+				model_buffer.m_object_to_world      = XMMatrixTranspose(box_to_world);
+				model_buffer.m_object_to_view_inverse_transpose = view_to_box;
+				m_model_buffer.UpdateData(model_buffer);
+				VertexShader::BindConstantBuffer(1, m_scene_buffer.Get());
+				PixelShader::BindConstantBuffer(1, m_scene_buffer.Get());
 
 				// Draw model.
-				const Model * const box_model = m_box->GetModel();
-				box_model->PrepareDrawing();
-				box_model->PrepareShading(m_transform_buffer.Get(), scene_info);
+				box_model->BindMesh();
 				box_model->Draw();
 			}
 
@@ -348,26 +394,20 @@ namespace mage {
 				const XMMATRIX view_to_box          = view_to_world * world_to_box;
 
 				// Update transform constant buffer.
-				transform_buffer.SetObjectMatrices(box_to_world, view_to_box);
-				m_transform_buffer.UpdateData(transform_buffer);
+				model_buffer.m_object_to_world      = XMMatrixTranspose(box_to_world);
+				model_buffer.m_object_to_view_inverse_transpose = view_to_box;
+				m_model_buffer.UpdateData(model_buffer);
+				VertexShader::BindConstantBuffer(1, m_scene_buffer.Get());
+				PixelShader::BindConstantBuffer(1, m_scene_buffer.Get());
 
 				// Draw model.
-				const Model * const box_model = m_box->GetModel();
-				box_model->PrepareDrawing();
-				box_model->PrepareShading(m_transform_buffer.Get(), scene_info);
+				box_model->BindMesh();
 				box_model->Draw();
 			}
 		}
 	}
 
 	void SceneRenderer::Render2D() {
-
-		ID3D11DepthStencilState *depth_stencil_state = RenderingStateCache::Get()->GetDepthNoneDepthStencilState();
-		GetRenderingDeviceContext()->OMSetDepthStencilState(depth_stencil_state, 0);
-
-		ID3D11BlendState *alpha_blend_state = RenderingStateCache::Get()->GetAlphaBlendState();
-		GetRenderingDeviceContext()->OMSetBlendState(alpha_blend_state, nullptr, 0xFFFFFFFF);
-
 		m_sprite_batch->Begin();
 
 		for (auto it = m_sprites.cbegin(); it != m_sprites.cend(); ++it) {

@@ -207,7 +207,7 @@ namespace mage {
 		return RGBSpectrum(x, y, z);
 	}
 
-	SharedPtr< Texture > MTLReader::ReadMTLTexture() {
+	SharedPtr< const Texture > MTLReader::ReadMTLTexture() {
 		// "-options args" are not supported and are not allowed.
 		const wstring texture_path = mage::GetPathName(GetFilename());
 		const wstring texture_name = str_convert(ReadString());

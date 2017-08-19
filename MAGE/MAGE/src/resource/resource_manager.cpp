@@ -4,6 +4,7 @@
 #pragma region
 
 #include "core\engine.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -24,19 +25,27 @@ namespace mage {
 	}
 
 	ResourceManager::ResourceManager()
-		: m_model_descriptor_resource_pool(MakeUnique< ResourcePool< wstring, ModelDescriptor > >()),
-		m_vertex_shader_resource_pool(MakeUnique< ResourcePool< wstring, VertexShader > >()),
-		m_pixel_shader_resource_pool(MakeUnique< ResourcePool< wstring, PixelShader > >()),
+		: m_model_descriptor_resource_pool(MakeUnique< ResourcePool< wstring, const ModelDescriptor > >()),
+		m_vs_resource_pool(MakeUnique< ResourcePool< wstring, const VertexShader > >()),
+		m_hs_resource_pool(MakeUnique< ResourcePool< wstring, const HullShader > >()),
+		m_ds_resource_pool(MakeUnique< ResourcePool< wstring, const DomainShader > >()),
+		m_gs_resource_pool(MakeUnique< ResourcePool< wstring, const GeometryShader > >()),
+		m_ps_resource_pool(MakeUnique< ResourcePool< wstring, const PixelShader > >()),
+		m_cs_resource_pool(MakeUnique< ResourcePool< wstring, const ComputeShader > >()),
 		m_sprite_font_resource_pool(MakeUnique< ResourcePool< wstring, SpriteFont > >()),
-		m_texture_resource_pool(MakeUnique< ResourcePool< wstring, Texture > >()),
+		m_texture_resource_pool(MakeUnique< ResourcePool< wstring, const Texture > >()),
 		m_variable_script_resource_pool(MakeUnique< ResourcePool< wstring, VariableScript > >()) {}
 
 	ResourceManager::ResourceManager(ResourceManager &&resource_factory) = default;
 
 	ResourceManager::~ResourceManager() {
 		m_model_descriptor_resource_pool->RemoveAllResources();
-		m_vertex_shader_resource_pool->RemoveAllResources();
-		m_pixel_shader_resource_pool->RemoveAllResources();
+		m_vs_resource_pool->RemoveAllResources();
+		m_hs_resource_pool->RemoveAllResources();
+		m_ds_resource_pool->RemoveAllResources();
+		m_gs_resource_pool->RemoveAllResources();
+		m_ps_resource_pool->RemoveAllResources();
+		m_cs_resource_pool->RemoveAllResources();
 		m_sprite_font_resource_pool->RemoveAllResources();
 		m_texture_resource_pool->RemoveAllResources();
 		m_variable_script_resource_pool->RemoveAllResources();
@@ -50,28 +59,28 @@ namespace mage {
 		return m_model_descriptor_resource_pool->HasResource(guid);
 	}
 	
-	bool ResourceManager::HasBasicVertexShader(const wstring &guid) noexcept {
-		return m_vertex_shader_resource_pool->HasResource(guid);
-	}
-	
-	bool ResourceManager::HasBasicPixelShader(const wstring &guid) noexcept {
-		return m_pixel_shader_resource_pool->HasResource(guid);
+	bool ResourceManager::HasVS(const wstring &guid) noexcept {
+		return m_vs_resource_pool->HasResource(guid);
 	}
 
-	bool ResourceManager::HasTSNMVertexShader(const wstring &guid) noexcept {
-		return m_vertex_shader_resource_pool->HasResource(guid);
+	bool ResourceManager::HasHS(const wstring &guid) noexcept {
+		return m_hs_resource_pool->HasResource(guid);
 	}
 
-	bool ResourceManager::HasTSNMPixelShader(const wstring &guid) noexcept {
-		return m_pixel_shader_resource_pool->HasResource(guid);
+	bool ResourceManager::HasDS(const wstring &guid) noexcept {
+		return m_ds_resource_pool->HasResource(guid);
 	}
-	
-	bool ResourceManager::HasSpriteVertexShader(const wstring &guid) noexcept {
-		return m_vertex_shader_resource_pool->HasResource(guid);
+
+	bool ResourceManager::HasGS(const wstring &guid) noexcept {
+		return m_gs_resource_pool->HasResource(guid);
 	}
-	
-	bool ResourceManager::HasSpritePixelShader(const wstring &guid) noexcept {
-		return m_pixel_shader_resource_pool->HasResource(guid);
+
+	bool ResourceManager::HasPS(const wstring &guid) noexcept {
+		return m_ps_resource_pool->HasResource(guid);
+	}
+
+	bool ResourceManager::HasCS(const wstring &guid) noexcept {
+		return m_cs_resource_pool->HasResource(guid);
 	}
 	
 	bool ResourceManager::HasSpriteFont(const wstring &guid) noexcept {
@@ -90,39 +99,39 @@ namespace mage {
 	// ResourceManager: GetResource
 	//---------------------------------------------------------------------
 
-	SharedPtr< ModelDescriptor > ResourceManager::GetModelDescriptor(const wstring &guid) noexcept {
+	SharedPtr< const ModelDescriptor > ResourceManager::GetModelDescriptor(const wstring &guid) noexcept {
 		return m_model_descriptor_resource_pool->GetResource(guid);
 	}
 	
-	SharedPtr< VertexShader > ResourceManager::GetBasicVertexShader(const wstring &guid) noexcept {
-		return m_vertex_shader_resource_pool->GetResource(guid);
-	}
-	
-	SharedPtr< PixelShader > ResourceManager::GetBasicPixelShader(const wstring &guid) noexcept {
-		return m_pixel_shader_resource_pool->GetResource(guid);
+	SharedPtr< const VertexShader > ResourceManager::GetVS(const wstring &guid) noexcept {
+		return m_vs_resource_pool->GetResource(guid);
 	}
 
-	SharedPtr< VertexShader > ResourceManager::GetTSNMVertexShader(const wstring &guid) noexcept {
-		return m_vertex_shader_resource_pool->GetResource(guid);
+	SharedPtr< const HullShader > ResourceManager::GetHS(const wstring &guid) noexcept {
+		return m_hs_resource_pool->GetResource(guid);
+	}
+	
+	SharedPtr< const DomainShader > ResourceManager::GetDS(const wstring &guid) noexcept {
+		return m_ds_resource_pool->GetResource(guid);
 	}
 
-	SharedPtr< PixelShader > ResourceManager::GetTSNMPixelShader(const wstring &guid) noexcept {
-		return m_pixel_shader_resource_pool->GetResource(guid);
+	SharedPtr< const GeometryShader > ResourceManager::GetGS(const wstring &guid) noexcept {
+		return m_gs_resource_pool->GetResource(guid);
 	}
-	
-	SharedPtr< VertexShader > ResourceManager::GetSpriteVertexShader(const wstring &guid) noexcept {
-		return m_vertex_shader_resource_pool->GetResource(guid);
+
+	SharedPtr< const PixelShader > ResourceManager::GetPS(const wstring &guid) noexcept {
+		return m_ps_resource_pool->GetResource(guid);
 	}
-	
-	SharedPtr< PixelShader > ResourceManager::GetSpritePixelShader(const wstring &guid) noexcept {
-		return m_pixel_shader_resource_pool->GetResource(guid);
+
+	SharedPtr< const ComputeShader > ResourceManager::GetCS(const wstring &guid) noexcept {
+		return m_cs_resource_pool->GetResource(guid);
 	}
 	
 	SharedPtr< SpriteFont > ResourceManager::GetSpriteFont(const wstring &guid) noexcept {
 		return m_sprite_font_resource_pool->GetResource(guid);
 	}
 	
-	SharedPtr< Texture > ResourceManager::GetTexture(const wstring &guid) noexcept {
+	SharedPtr< const Texture > ResourceManager::GetTexture(const wstring &guid) noexcept {
 		return m_texture_resource_pool->GetResource(guid);
 	}
 	

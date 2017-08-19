@@ -10,7 +10,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	template< typename... ConstructorArgsT >
-	inline SharedPtr< ModelDescriptor > ResourceManager::GetOrCreateModelDescriptor(
+	inline SharedPtr< const ModelDescriptor > ResourceManager::GetOrCreateModelDescriptor(
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_model_descriptor_resource_pool->template
@@ -18,51 +18,51 @@ namespace mage {
 	}
 
 	template< typename... ConstructorArgsT >
-	inline SharedPtr< VertexShader > ResourceManager::GetOrCreateBasicVertexShader(
+	inline SharedPtr< const VertexShader > ResourceManager::GetOrCreateVS(
 		const wstring &guid, ConstructorArgsT&&... args) {
 
-		return m_vertex_shader_resource_pool->template
-			GetOrCreateDerivedResource< BasicVertexShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+		return m_vs_resource_pool->template
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
-	inline SharedPtr< PixelShader > ResourceManager::GetOrCreateBasicPixelShader(
+	inline SharedPtr< const HullShader > ResourceManager::GetOrCreateHS(
 		const wstring &guid, ConstructorArgsT&&... args) {
 
-		return m_pixel_shader_resource_pool->template
-			GetOrCreateDerivedResource< BasicPixelShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+		return m_hs_resource_pool->template
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
-	inline SharedPtr< VertexShader > ResourceManager::GetOrCreateTSNMVertexShader(
+	inline SharedPtr< const DomainShader > ResourceManager::GetOrCreateDS(
 		const wstring &guid, ConstructorArgsT&&... args) {
 
-		return m_vertex_shader_resource_pool->template
-			GetOrCreateDerivedResource< TSNMVertexShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+		return m_ds_resource_pool->template
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
-	inline SharedPtr< PixelShader > ResourceManager::GetOrCreateTSNMPixelShader(
+	inline SharedPtr< const GeometryShader > ResourceManager::GetOrCreateGS(
 		const wstring &guid, ConstructorArgsT&&... args) {
 
-		return m_pixel_shader_resource_pool->template
-			GetOrCreateDerivedResource< TSNMPixelShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+		return m_gs_resource_pool->template
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
-	inline SharedPtr< VertexShader > ResourceManager::GetOrCreateSpriteVertexShader(
+	inline SharedPtr< const PixelShader > ResourceManager::GetOrCreatePS(
 		const wstring &guid, ConstructorArgsT&&... args) {
 
-		return m_vertex_shader_resource_pool->template
-			GetOrCreateDerivedResource< SpriteVertexShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+		return m_ps_resource_pool->template
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
-	inline SharedPtr< PixelShader > ResourceManager::GetOrCreateSpritePixelShader(
+	inline SharedPtr< const ComputeShader > ResourceManager::GetOrCreateCS(
 		const wstring &guid, ConstructorArgsT&&... args) {
 
-		return m_pixel_shader_resource_pool->template
-			GetOrCreateDerivedResource< SpritePixelShader, const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+		return m_cs_resource_pool->template
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -74,7 +74,7 @@ namespace mage {
 	}
 
 	template< typename... ConstructorArgsT >
-	inline SharedPtr< Texture > ResourceManager::GetOrCreateTexture(
+	inline SharedPtr< const Texture > ResourceManager::GetOrCreateTexture(
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_texture_resource_pool->template

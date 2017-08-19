@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpriteImage::SpriteImage(SharedPtr< Texture > texture,
+	SpriteImage::SpriteImage(SharedPtr< const Texture > texture,
 		const Color &color, SpriteEffect effects)
 		: Sprite(effects), m_color(color),
 		m_texture_region(nullptr), m_texture(texture) {
@@ -21,7 +21,7 @@ namespace mage {
 		Assert(m_texture);
 	}
 	
-	SpriteImage::SpriteImage(SharedPtr< Texture > texture, 
+	SpriteImage::SpriteImage(SharedPtr< const Texture > texture, 
 		const RECT &texture_region, const Color &color, SpriteEffect effects)
 		: Sprite(effects), m_color(color),
 		m_texture_region(MakeUnique< RECT >(texture_region)), 
@@ -30,7 +30,7 @@ namespace mage {
 		Assert(m_texture);
 	}
 	
-	SpriteImage::SpriteImage(SharedPtr< Texture > texture,
+	SpriteImage::SpriteImage(SharedPtr< const Texture > texture,
 		const XMVECTOR &color, SpriteEffect effects)
 		: Sprite(effects), m_color(),
 		m_texture_region(nullptr), m_texture(texture) {
@@ -40,7 +40,7 @@ namespace mage {
 		SetColor(color);
 	}
 	
-	SpriteImage::SpriteImage(SharedPtr< Texture > texture, 
+	SpriteImage::SpriteImage(SharedPtr< const Texture > texture, 
 		const RECT &texture_region, const XMVECTOR &color, SpriteEffect effects)
 		: Sprite(effects), m_color(),
 		m_texture_region(MakeUnique< RECT >(texture_region)), 
@@ -68,7 +68,7 @@ namespace mage {
 		m_texture_region = MakeUnique< RECT >(texture_region);
 	}
 
-	void SpriteImage::SetTexture(SharedPtr< Texture > texture) {
+	void SpriteImage::SetTexture(SharedPtr< const Texture > texture) {
 		Assert(texture);
 
 		m_texture = texture;

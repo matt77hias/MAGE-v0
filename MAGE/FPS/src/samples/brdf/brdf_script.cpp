@@ -14,7 +14,7 @@
 namespace mage {
 
 	BRDFScript::BRDFScript(SpriteText *text, const vector< ModelNode * > &models)
-		: m_text(text), m_models(models), m_shaders(), m_shader_names(),
+		: m_text(text), m_models(models), m_shader_names(),
 		m_model_index(0), m_shader_index(0) {
 
 		Assert(m_text);
@@ -28,19 +28,19 @@ namespace mage {
 
 	BRDFScript::~BRDFScript() {
 		m_models.clear();
-		m_shaders.clear();
+		//m_shaders.clear();
 		m_shader_names.clear();
 	}
 
 	void BRDFScript::InitModels() {
-		SharedPtr< Texture > white = CreateWhiteTexture();
-		SharedPtr< Texture > normal = 
+		SharedPtr< const Texture > white = CreateWhiteTexture();
+		SharedPtr< const Texture > normal = 
 			ResourceManager::Get()->GetOrCreateTexture(L"assets/sprites/tsnm/rock 4.dds");
 		
 		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
 			(*it)->MakePassive();
 			
-			ShadedMaterial *material = (*it)->GetModel()->GetMaterial();
+			Material * const material = (*it)->GetModel()->GetMaterial();
 			material->SetDiffuseReflectivity(RGBSpectrum(1.0f, 0.0f, 0.0f));
 			material->SetDiffuseReflectivityTexture(white);
 			material->SetSpecularReflectivity(RGBSpectrum(1.0f, 1.0f, 1.0f));
@@ -55,7 +55,7 @@ namespace mage {
 	}
 
 	void BRDFScript::InitShaders() {
-		m_shaders.push_back(CreateEmissiveShader());
+		/*m_shaders.push_back(CreateEmissiveShader());
 		m_shaders.push_back(CreateLambertianShader());
 		m_shaders.push_back(CreatePhongShader());
 		m_shaders.push_back(CreateModifiedPhongShader());
@@ -72,6 +72,7 @@ namespace mage {
 		m_shaders.push_back(CreateWardTSNMShader());
 		m_shaders.push_back(CreateWardDuerTSNMShader());
 		m_shaders.push_back(CreateCookTorranceTSNMShader());
+		*/
 
 		m_shader_names.emplace_back(L"Emissive");
 		m_shader_names.emplace_back(L"Lambertian");
@@ -96,10 +97,10 @@ namespace mage {
 	}
 
 	void BRDFScript::SetShaders() const {
-		const CombinedShader shader = m_shaders[m_shader_index];
+		/*const CombinedShader shader = m_shaders[m_shader_index];
 		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
 			(*it)->GetModel()->GetMaterial()->SetShader(shader);
-		}
+		}*/
 	}
 
 	void BRDFScript::Update(double time) {
@@ -114,6 +115,7 @@ namespace mage {
 			m_models[m_model_index]->MakeActive();
 		}
 		
+		/*
 		// Switch shader.
 		if (keyboard->GetKeyPress(DIK_RIGHT, false)) {
 			m_shader_index = (m_shader_index + 1) % m_shaders.size();
@@ -122,7 +124,7 @@ namespace mage {
 		else if (keyboard->GetKeyPress(DIK_LEFT, false)) {
 			m_shader_index = std::min(m_shader_index - 1, m_shaders.size() - 1);
 			SetShaders();
-		}
+		}*/
 
 		m_text->SetText(L"\n\n\n\n\n");
 		m_text->AppendText(m_shader_names[m_shader_index]);

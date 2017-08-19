@@ -6,6 +6,7 @@
 #include "sprite\sprite_batch.hpp"
 #include "sprite\sprite_utils.hpp"
 #include "texture\texture_utils.hpp"
+#include "rendering\rendering_state_cache.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -25,33 +26,44 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpriteBatch::SpriteBatch(const CombinedShader &shader)
-		: SpriteBatch(GetRenderingDevice(), GetRenderingDeviceContext(), shader) {}
+	SpriteBatch::SpriteBatch(
+		SharedPtr< const VertexShader > vs, SharedPtr< const PixelShader >  ps)
+		: SpriteBatch(GetRenderingDevice(), GetRenderingDeviceContext(), vs, ps) {}
 
-	SpriteBatch::SpriteBatch(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		const CombinedShader &shader)
+	SpriteBatch::SpriteBatch(
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		SharedPtr< const VertexShader > vs, SharedPtr< const PixelShader > ps)
 		: m_device(device), m_device_context(device_context), 
-		m_mesh(MakeUnique< SpriteBatchMesh >(device, device_context)), m_vertex_buffer_position(0),
-		m_shader(MakeUnique< CombinedShader >(shader)), 
+		m_mesh(MakeUnique< SpriteBatchMesh >(device, device_context)), 
+		m_vertex_buffer_position(0), m_vs(vs), m_ps(ps),
+		m_blend_state(nullptr), m_depth_stencil_state(nullptr),
+		m_rasterizer_state(nullptr), m_sampler_state(nullptr),
 		m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY), m_viewport_set(false), m_viewport{}, 
 		m_in_begin_end_pair(false), m_sort_mode(SpriteSortMode::Deferred), 
 		m_transform(XMMatrixIdentity()), m_transform_buffer(device, device_context),
 		m_sprite_queue(), m_sprite_queue_size(0), m_sprite_queue_array_size(0), 
-		m_sorted_sprites(), m_sprite_texture_references() {}
+		m_sorted_sprites(), m_sprite_srvs() {}
 
 	SpriteBatch::SpriteBatch(SpriteBatch &&sprite_batch) = default;
 
 	SpriteBatch::~SpriteBatch() = default;
 
-	void XM_CALLCONV SpriteBatch::Begin(SpriteSortMode sort_mode, FXMMATRIX transform) {
+	void XM_CALLCONV SpriteBatch::Begin(
+		SpriteSortMode sort_mode, FXMMATRIX transform,
+		ID3D11BlendState *blend_state, ID3D11DepthStencilState *depth_stencil_state,
+		ID3D11RasterizerState *rasterizer_state, ID3D11SamplerState *sampler_state) {
 		// This SpriteBatch may not already be in a begin/end pair.
 		Assert(!m_in_begin_end_pair);
 
-		m_sort_mode = sort_mode;
-		m_transform = transform;
+		m_sort_mode           = sort_mode;
+		m_transform           = transform;
+		m_blend_state         = blend_state         ? blend_state         : RenderingStateCache::Get()->GetAlphaBlendState();
+		m_depth_stencil_state = depth_stencil_state ? depth_stencil_state : RenderingStateCache::Get()->GetDepthNoneDepthStencilState();
+		m_rasterizer_state    = rasterizer_state    ? rasterizer_state    : RenderingStateCache::Get()->GetCullCounterClockwiseRasterizerState();
+		m_sampler_state       = sampler_state       ? sampler_state       : RenderingStateCache::Get()->GetLinearWrapSamplerState();
 
 		if (m_sort_mode == SpriteSortMode::Immediate) {
-			PrepareDrawing();
+			BindSpriteBatch();
 		}
 
 		// Toggle the begin/end pair.
@@ -122,8 +134,8 @@ namespace mage {
 			// if the caller switches back and forth between multiple repeated textures, 
 			// but calling AddRef more times than strictly necessary hurts nothing, 
 			// and is faster than scanning the whole list or using a map to detect all duplicates.
-			if (m_sprite_texture_references.empty() || texture != m_sprite_texture_references.back().Get()) {
-				m_sprite_texture_references.emplace_back(texture);
+			if (m_sprite_srvs.empty() || texture != m_sprite_srvs.back().Get()) {
+				m_sprite_srvs.emplace_back(texture);
 			}
 		}
 	}
@@ -134,7 +146,7 @@ namespace mage {
 
 		if (m_sort_mode != SpriteSortMode::Immediate) {
 			// Draw the queued sprites.
-			PrepareDrawing();
+			BindSpriteBatch();
 			FlushBatch();
 		}
 
@@ -158,10 +170,7 @@ namespace mage {
 		m_sorted_sprites.clear();
 	}
 
-	void SpriteBatch::PrepareDrawing() {
-		// Prepares the mesh for drawing (for a complete batch).
-		m_mesh->PrepareDrawing();
-		
+	void SpriteBatch::BindSpriteBatch() {
 		if (m_device_context->GetType() == D3D11_DEVICE_CONTEXT_DEFERRED) {
 			m_vertex_buffer_position = 0;
 		}
@@ -178,6 +187,18 @@ namespace mage {
 
 		// Updates the transform (for a complete batch).
 		m_transform_buffer.UpdateData(XMMatrixTranspose(m_transform));
+
+		// Sets the states.
+		m_device_context->OMSetBlendState(m_blend_state, nullptr, 0xFFFFFFFF);
+		m_device_context->OMSetDepthStencilState(m_depth_stencil_state, 0);
+		m_device_context->RSSetState(m_rasterizer_state);
+		PixelShader::BindSampler(0, m_sampler_state);
+
+		// Binds the mesh, shaders and transform buffer.
+		m_mesh->BindMesh();
+		m_vs->BindShader();
+		m_vs->BindConstantBuffer(0, m_transform_buffer.Get());
+		m_ps->BindShader();
 	}
 
 	void SpriteBatch::FlushBatch() {
@@ -211,7 +232,7 @@ namespace mage {
 
 		// Reset the sprite queue.
 		m_sprite_queue_size = 0;
-		m_sprite_texture_references.clear();
+		m_sprite_srvs.clear();
 
 		// We always re-sort the original ordering.
 		if (m_sort_mode != SpriteSortMode::Deferred) {
@@ -264,7 +285,8 @@ namespace mage {
 	void SpriteBatch::RenderBatch(ID3D11ShaderResourceView *texture,
 		const SpriteInfo * const *sprites, size_t nb_sprites) {
 
-		m_shader->PrepareShading(m_transform_buffer.Get(), texture);
+		// Binds the texture.
+		m_ps->BindSRV(0, texture);
 
 		const XMVECTOR texture_size = GetTexture2DSize(texture);
 		const XMVECTOR inverse_texture_size = XMVectorReciprocal(texture_size);

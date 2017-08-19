@@ -7,9 +7,7 @@
 
 #include "resource\resource_pool.hpp"
 #include "model\model_descriptor.hpp"
-#include "shader\basic_shader.hpp"
-#include "shader\tsnm_shader.hpp"
-#include "shader\sprite_shader.hpp"
+#include "shader\shader.hpp"
 #include "font\sprite_font.hpp"
 #include "scripting\variable_script.hpp"
 
@@ -106,96 +104,96 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the 
 						model descriptor.
-		 @return		@c true, if this resource managers contains
+		 @return		@c true if this resource managers contains
 						a model descriptor corresponding to the given 
 						globally unique identifier.
-						@c false, otherwise.
+						@c false otherwise.
 		 */
 		bool HasModelDescriptor(const wstring &guid) noexcept;
 		
 		/**
-		 Checks whether this resource manager contains a basic vertex shader 
+		 Checks whether this resource manager contains a vertex shader 
 		 corresponding to the given globally unique identifier.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
-						basic vertex shader.
-		 @return		@c true, if this resource managers contains
-						a basic vertex shader corresponding to the given 
+						vertex shader.
+		 @return		@c true if this resource managers contains
+						a vertex shader corresponding to the given 
 						globally unique identifier.
-						@c false, otherwise.
+						@c false otherwise.
 		 */
-		bool HasBasicVertexShader(const wstring &guid) noexcept;
-		
-		/**
-		 Checks whether this resource manager contains a basic pixel shader 
-		 corresponding to the given globally unique identifier.
-
-		 @param[in]		guid
-						A reference to the globally unique identifier of the
-						basic pixel shader.
-		 @return		@c true, if this resource managers contains
-						a basic pixel shader corresponding to the given 
-						globally unique identifier.
-						@c false, otherwise.
-		 */
-		bool HasBasicPixelShader(const wstring &guid) noexcept;
+		bool HasVS(const wstring &guid) noexcept;
 
 		/**
-		 Checks whether this resource manager contains a tsnm vertex shader 
+		 Checks whether this resource manager contains a hull shader 
 		 corresponding to the given globally unique identifier.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
-						tsnm vertex shader.
-		 @return		@c true, if this resource managers contains
-						a tsnm vertex shader corresponding to the given 
+						hull shader.
+		 @return		@c true if this resource managers contains
+						a hull shader corresponding to the given 
 						globally unique identifier.
-						@c false, otherwise.
+						@c false otherwise.
 		 */
-		bool HasTSNMVertexShader(const wstring &guid) noexcept;
+		bool HasHS(const wstring &guid) noexcept;
 
 		/**
-		 Checks whether this resource manager contains a tsnm pixel shader 
+		 Checks whether this resource manager contains a domain shader 
 		 corresponding to the given globally unique identifier.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
-						tsnm pixel shader.
-		 @return		@c true, if this resource managers contains
-						a tsnm pixel shader corresponding to the given 
+						domain shader.
+		 @return		@c true if this resource managers contains
+						a domain shader corresponding to the given 
 						globally unique identifier.
-						@c false, otherwise.
+						@c false otherwise.
 		 */
-		bool HasTSNMPixelShader(const wstring &guid) noexcept;
-		
+		bool HasDS(const wstring &guid) noexcept;
+
 		/**
-		 Checks whether this resource manager contains a sprite vertex shader 
+		 Checks whether this resource manager contains a geometry shader 
 		 corresponding to the given globally unique identifier.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
-						sprite vertex shader.
-		 @return		@c true, if this resource managers contains
-						a sprite vertex shader corresponding to the given 
+						geometry shader.
+		 @return		@c true if this resource managers contains
+						a geometry shader corresponding to the given 
 						globally unique identifier.
-						@c false, otherwise.
+						@c false otherwise.
 		 */
-		bool HasSpriteVertexShader(const wstring &guid) noexcept;
-		
+		bool HasGS(const wstring &guid) noexcept;
+
 		/**
-		 Checks whether this resource manager contains a sprite pixel shader 
+		 Checks whether this resource manager contains a pixel shader 
 		 corresponding to the given globally unique identifier.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
-						sprite pixel shader.
-		 @return		@c true, if this resource managers contains
-						a sprite pixel shader corresponding to the given 
+						pixel shader.
+		 @return		@c true if this resource managers contains
+						a pixel shader corresponding to the given 
 						globally unique identifier.
-						@c false, otherwise.
+						@c false otherwise.
 		 */
-		bool HasSpritePixelShader(const wstring &guid) noexcept;
+		bool HasPS(const wstring &guid) noexcept;
+
+		/**
+		 Checks whether this resource manager contains a compute shader 
+		 corresponding to the given globally unique identifier.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						compute shader.
+		 @return		@c true if this resource managers contains
+						a compute shader corresponding to the given 
+						globally unique identifier.
+						@c false otherwise.
+		 */
+		bool HasCS(const wstring &guid) noexcept;
 		
 		/**
 		 Checks whether this resource manager contains a sprite font 
@@ -204,10 +202,10 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
 						sprite font.
-		 @return		@c true, if this resource managers contains
+		 @return		@c true if this resource managers contains
 						a sprite font corresponding to the given 
 						globally unique identifier.
-						@c false, otherwise.
+						@c false otherwise.
 		 */
 		bool HasSpriteFont(const wstring &guid) noexcept;
 		
@@ -218,10 +216,10 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
 						texture.
-		 @return		@c true, if this resource managers contains
+		 @return		@c true if this resource managers contains
 						a texture corresponding to the given 
 						globally unique identifier.
-						@c false, otherwise.
+						@c false otherwise.
 		 */
 		bool HasTexture(const wstring &guid) noexcept;
 		
@@ -232,10 +230,10 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
 						variable script.
-		 @return		@c true, if this resource managers contains
+		 @return		@c true if this resource managers contains
 						a variable script corresponding to the given 
 						globally unique identifier.
-						@c false, otherwise.
+						@c false otherwise.
 		 */
 		bool HasVariableScript(const wstring &guid) noexcept;
 		
@@ -255,91 +253,91 @@ namespace mage {
 						unique identifier.
 		 @return		A pointer to the model descriptor.
 		 */
-		SharedPtr< ModelDescriptor > GetModelDescriptor(const wstring &guid) noexcept;
+		SharedPtr< const ModelDescriptor > GetModelDescriptor(const wstring &guid) noexcept;
 		
 		/**
-		 Returns the basic vertex shader corresponding to the given globally 
+		 Returns the vertex shader corresponding to the given globally 
 		 unique identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
-						basic vertex shader.
+						vertex shader.
 		 @return		@c nullptr, if this resource managers does not contain
-						a basic vertex shader corresponding to the given globally
+						a vertex shader corresponding to the given globally
 						unique identifier.
-		 @return		A pointer to the basic vertex shader.
+		 @return		A pointer to the vertex shader.
 		 */
-		SharedPtr< VertexShader > GetBasicVertexShader(const wstring &guid) noexcept;
-		
-		/**
-		 Returns the basic pixel shader corresponding to the given globally 
-		 unique identifier of this resource manager.
-
-		 @param[in]		guid
-						A reference to the globally unique identifier of the
-						basic pixel shader.
-		 @return		@c nullptr, if this resource managers does not contain
-						a basic pixel shader corresponding to the given globally
-						unique identifier.
-		 @return		A pointer to the basic pixel shader.
-		 */
-		SharedPtr< PixelShader > GetBasicPixelShader(const wstring &guid) noexcept;
+		SharedPtr< const VertexShader > GetVS(const wstring &guid) noexcept;
 
 		/**
-		 Returns the tsnm vertex shader corresponding to the given globally 
+		 Returns the hull shader corresponding to the given globally 
 		 unique identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
-						tsnm vertex shader.
+						hull shader.
 		 @return		@c nullptr, if this resource managers does not contain
-						a tsnm vertex shader corresponding to the given globally
+						a hull shader corresponding to the given globally
 						unique identifier.
-		 @return		A pointer to the tsnm vertex shader.
+		 @return		A pointer to the hull shader.
 		 */
-		SharedPtr< VertexShader > GetTSNMVertexShader(const wstring &guid) noexcept;
+		SharedPtr< const HullShader > GetHS(const wstring &guid) noexcept;
 
 		/**
-		 Returns the tsnm pixel shader corresponding to the given globally 
+		 Returns the domain shader corresponding to the given globally 
 		 unique identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
-						tsnm pixel shader.
+						domain shader.
 		 @return		@c nullptr, if this resource managers does not contain
-						a tsnm pixel shader corresponding to the given globally
+						a domain shader corresponding to the given globally
 						unique identifier.
-		 @return		A pointer to the tsnm pixel shader.
+		 @return		A pointer to the domain shader.
 		 */
-		SharedPtr< PixelShader > GetTSNMPixelShader(const wstring &guid) noexcept;
-		
+		SharedPtr< const DomainShader > GetDS(const wstring &guid) noexcept;
+
 		/**
-		 Returns the sprite vertex shader corresponding to the given globally 
+		 Returns the geometry shader corresponding to the given globally 
 		 unique identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
-						sprite vertex shader.
+						geometry shader.
 		 @return		@c nullptr, if this resource managers does not contain
-						a sprite vertex shader corresponding to the given globally
+						a geometry shader corresponding to the given globally
 						unique identifier.
-		 @return		A pointer to the sprite vertex shader.
+		 @return		A pointer to the geometry shader.
 		 */
-		SharedPtr< VertexShader > GetSpriteVertexShader(const wstring &guid) noexcept;
-		
+		SharedPtr< const GeometryShader > GetGS(const wstring &guid) noexcept;
+
 		/**
-		 Returns the sprite pixel shader corresponding to the given globally 
+		 Returns the pixel shader corresponding to the given globally 
 		 unique identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
-						sprite pixel shader.
+						pixel shader.
 		 @return		@c nullptr, if this resource managers does not contain
-						a sprite pixel shader corresponding to the given globally
+						a pixel shader corresponding to the given globally
 						unique identifier.
-		 @return		A pointer to the sprite pixel shader.
+		 @return		A pointer to the pixel shader.
 		 */
-		SharedPtr< PixelShader > GetSpritePixelShader(const wstring &guid) noexcept;
+		SharedPtr< const PixelShader > GetPS(const wstring &guid) noexcept;
+
+		/**
+		 Returns the compute shader corresponding to the given globally 
+		 unique identifier of this resource manager.
+
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						compute shader.
+		 @return		@c nullptr, if this resource managers does not contain
+						a compute shader corresponding to the given globally
+						unique identifier.
+		 @return		A pointer to the compute shader.
+		 */
+		SharedPtr< const ComputeShader > GetCS(const wstring &guid) noexcept;
 		
 		/**
 		 Returns the sprite font corresponding to the given globally 
@@ -367,7 +365,7 @@ namespace mage {
 						unique identifier.
 		 @return		A pointer to the texture.
 		 */
-		SharedPtr< Texture > GetTexture(const wstring &guid) noexcept;
+		SharedPtr< const Texture > GetTexture(const wstring &guid) noexcept;
 		
 		/**
 		 Returns the variable script corresponding to the given globally 
@@ -404,127 +402,127 @@ namespace mage {
 						Failed to create the model descriptor.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< ModelDescriptor > GetOrCreateModelDescriptor(
+		SharedPtr< const ModelDescriptor > GetOrCreateModelDescriptor(
 			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
-		 Creates a basic vertex shader (if not existing).
+		 Creates a vertex shader (if not existing).
 
 		 @tparam		ConstructorArgsT
-						The constructor argument types of the basic vertex shader
+						The constructor argument types of the vertex shader
 						(excluding the type of the globally unique identifier).
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
-						basic vertex shader.
-		 @param[in]		args
-						A reference to the constructor arguments for the basic
-	 					vertex shader (excluding the globally unique identifier).
-		 @return		A pointer to the basic vertex shader.
-		 @throws		FormattedException
-						Failed to create the basic vertex shader.
-		 */
-		template< typename... ConstructorArgsT >
-		SharedPtr< VertexShader > GetOrCreateBasicVertexShader(
-			const wstring &guid, ConstructorArgsT&&... args);
-		
-		/**
-		 Creates a basic pixel shader (if not existing).
-
-		 @tparam		ConstructorArgsT
-						The constructor argument types of the basic pixel shader
-						(excluding the type of the globally unique identifier).
-		 @param[in]		guid
-						A reference to the globally unique identifier of the
-						basic pixel shader.
-		 @param[in]		args
-						A reference to the constructor arguments for the basic
-						pixel shader (excluding the globally unique identifier).
-		 @return		A pointer to the basic pixel shader.
-		 @throws		FormattedException
-						Failed to create the basic pixel shader.
-		 */
-		template< typename... ConstructorArgsT >
-		SharedPtr< PixelShader > GetOrCreateBasicPixelShader(
-			const wstring &guid, ConstructorArgsT&&... args);
-
-		/**
-		 Creates a tsnm vertex shader (if not existing).
-
-		 @tparam		ConstructorArgsT
-						The constructor argument types of the tsnm vertex shader
-						(excluding the type of the globally unique identifier).
-		 @param[in]		guid
-						A reference to the globally unique identifier of the
-						tsnm vertex shader.
-		 @param[in]		args
-						A reference to the constructor arguments for the tsnm
-						vertex shader (excluding the globally unique identifier).
-		 @return		A pointer to the tsnm vertex shader.
-		 @throws		FormattedException
-						Failed to create the tsnm vertex shader.
-		 */
-		template< typename... ConstructorArgsT >
-		SharedPtr< VertexShader > GetOrCreateTSNMVertexShader(
-			const wstring &guid, ConstructorArgsT&&... args);
-
-		/**
-		 Creates a tsnm pixel shader (if not existing).
-
-		 @tparam		ConstructorArgsT
-						The constructor argument types of the tsnm pixel shader
-						(excluding the type of the globally unique identifier).
-		 @param[in]		guid
-						A reference to the globally unique identifier of the
-						tsnm pixel shader.
-		 @param[in]		args
-						A reference to the constructor arguments for the tsnm
-						pixel shader (excluding the globally unique identifier).
-		 @return		A pointer to the tsnm pixel shader.
-		 @throws		FormattedException
-						Failed to create the tsnm pixel shader.
-		 */
-		template< typename... ConstructorArgsT >
-		SharedPtr< PixelShader > GetOrCreateTSNMPixelShader(
-			const wstring &guid, ConstructorArgsT&&... args);
-		
-		/**
-		 Creates a sprite vertex shader (if not existing).
-
-		 @tparam		ConstructorArgsT
-						The constructor argument types of the sprite vertex shader
-						(excluding the type of the globally unique identifier).
-		 @param[in]		guid
-						A reference to the globally unique identifier of the
-						sprite vertex shader.
+						vertex shader.
 		 @param[in]		args
 						A reference to the constructor arguments for the sprite
 						vertex shader (excluding the globally unique identifier).
-		 @return		A pointer to the sprite vertex shader.
+		 @return		A pointer to the vertex shader.
 		 @throws		FormattedException
-						Failed to create the sprite vertex shader.
+						Failed to create the vertex shader.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< VertexShader > GetOrCreateSpriteVertexShader(
+		SharedPtr< const VertexShader > GetOrCreateVS(
 			const wstring &guid, ConstructorArgsT&&... args);
-		
+
 		/**
-		 Creates a sprite pixel shader (if not existing).
+		 Creates a hull shader (if not existing).
 
 		 @tparam		ConstructorArgsT
-						The constructor argument types of the sprite pixel shader
+						The constructor argument types of the hull shader
 						(excluding the type of the globally unique identifier).
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
-						sprite pixel shader.
+						hull shader.
+		 @param[in]		args
+						A reference to the constructor arguments for the sprite
+						hull shader (excluding the globally unique identifier).
+		 @return		A pointer to the hull shader.
+		 @throws		FormattedException
+						Failed to create the hull shader.
+		 */
+		template< typename... ConstructorArgsT >
+		SharedPtr< const HullShader > GetOrCreateHS(
+			const wstring &guid, ConstructorArgsT&&... args);
+
+		/**
+		 Creates a domain shader (if not existing).
+
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the domain shader
+						(excluding the type of the globally unique identifier).
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						domain shader.
+		 @param[in]		args
+						A reference to the constructor arguments for the sprite
+						domain shader (excluding the globally unique identifier).
+		 @return		A pointer to the domain shader.
+		 @throws		FormattedException
+						Failed to create the domain shader.
+		 */
+		template< typename... ConstructorArgsT >
+		SharedPtr< const DomainShader > GetOrCreateDS(
+			const wstring &guid, ConstructorArgsT&&... args);
+
+		/**
+		 Creates a geometry shader (if not existing).
+
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the geometry shader
+						(excluding the type of the globally unique identifier).
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						geometry shader.
+		 @param[in]		args
+						A reference to the constructor arguments for the sprite
+						geometry shader (excluding the globally unique identifier).
+		 @return		A pointer to the geometry shader.
+		 @throws		FormattedException
+						Failed to create the geometry shader.
+		 */
+		template< typename... ConstructorArgsT >
+		SharedPtr< const GeometryShader > GetOrCreateGS(
+			const wstring &guid, ConstructorArgsT&&... args);
+
+		/**
+		 Creates a pixel shader (if not existing).
+
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the pixel shader
+						(excluding the type of the globally unique identifier).
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						pixel shader.
 		 @param[in]		args
 						A reference to the constructor arguments for the sprite
 						pixel shader (excluding the globally unique identifier).
-		 @return		A pointer to the sprite pixel shader.
+		 @return		A pointer to the pixel shader.
 		 @throws		FormattedException
-						Failed to create the sprite pixel shader.
+						Failed to create the pixel shader.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< PixelShader > GetOrCreateSpritePixelShader(
+		SharedPtr< const PixelShader > GetOrCreatePS(
+			const wstring &guid, ConstructorArgsT&&... args);
+
+		/**
+		 Creates a compute shader (if not existing).
+
+		 @tparam		ConstructorArgsT
+						The constructor argument types of the compute shader
+						(excluding the type of the globally unique identifier).
+		 @param[in]		guid
+						A reference to the globally unique identifier of the
+						compute shader.
+		 @param[in]		args
+						A reference to the constructor arguments for the sprite
+						compute shader (excluding the globally unique identifier).
+		 @return		A pointer to the compute shader.
+		 @throws		FormattedException
+						Failed to create the compute shader.
+		 */
+		template< typename... ConstructorArgsT >
+		SharedPtr< const ComputeShader > GetOrCreateCS(
 			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
@@ -564,7 +562,7 @@ namespace mage {
 						Failed to create the texture.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< Texture > GetOrCreateTexture(
+		SharedPtr< const Texture > GetOrCreateTexture(
 			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
@@ -596,17 +594,37 @@ namespace mage {
 		/**
 		 A pointer to the model descriptor resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, ModelDescriptor > > m_model_descriptor_resource_pool;
+		UniquePtr< ResourcePool< wstring, const ModelDescriptor > > m_model_descriptor_resource_pool;
 
 		/**
 		 A pointer to the vertex shader resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, VertexShader > > m_vertex_shader_resource_pool;
-		
+		UniquePtr< ResourcePool< wstring, const VertexShader > > m_vs_resource_pool;
+
+		/**
+		 A pointer to the hull shader resource pool of this resource manager.
+		 */
+		UniquePtr< ResourcePool< wstring, const HullShader > > m_hs_resource_pool;
+
+		/**
+		 A pointer to the domain shader resource pool of this resource manager.
+		 */
+		UniquePtr< ResourcePool< wstring, const DomainShader > > m_ds_resource_pool;
+
+		/**
+		 A pointer to the geometry shader resource pool of this resource manager.
+		 */
+		UniquePtr< ResourcePool< wstring, const GeometryShader > > m_gs_resource_pool;
+
 		/**
 		 A pointer to the pixel shader resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, PixelShader > > m_pixel_shader_resource_pool;
+		UniquePtr< ResourcePool< wstring, const PixelShader > > m_ps_resource_pool;
+
+		/**
+		 A pointer to the compute shader resource pool of this resource manager.
+		 */
+		UniquePtr< ResourcePool< wstring, const ComputeShader > > m_cs_resource_pool;
 
 		/**
 		 A pointer to the sprite font resource pool of this resource manager.
@@ -616,7 +634,7 @@ namespace mage {
 		/**
 		 A pointer to the texture resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, Texture > > m_texture_resource_pool;
+		UniquePtr< ResourcePool< wstring, const Texture > > m_texture_resource_pool;
 
 		/**
 		 A pointer to the variable script resource pool of this resource manager.

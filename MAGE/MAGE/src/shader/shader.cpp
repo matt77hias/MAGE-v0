@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "resource\resource_factory.hpp"
+#include "shader\shader.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
 
@@ -69,12 +69,123 @@ namespace mage {
 		}
 	}
 
-	void VertexShader::PrepareShading(ID3D11Buffer *transform) const {
-		UNUSED(transform);
-		m_device_context->IASetInputLayout(m_vertex_layout.Get());
-		m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
+	//-------------------------------------------------------------------------
+	// HullShader
+	//-------------------------------------------------------------------------
+
+	HullShader::HullShader(const wstring &guid,
+		const CompiledShader *compiled_shader)
+		: HullShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(),
+			compiled_shader) {}
+
+	HullShader::HullShader(const wstring &guid,
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		const CompiledShader *compiled_shader)
+		: Resource< HullShader >(guid), 
+		m_device(device), m_device_context(device_context), 
+		m_hull_shader() {
+
+		Assert(device);
+		Assert(device_context);
+		Assert(compiled_shader);
+
+		SetupShader(compiled_shader);
 	}
 
+	HullShader::HullShader(HullShader &&hull_shader) = default;
+
+	HullShader::~HullShader() = default;
+
+	void HullShader::SetupShader(const CompiledShader *compiled_shader) {
+
+		// Create the hull shader.
+		const HRESULT result_hull_shader = m_device->CreateHullShader(compiled_shader->GetBytecode(),
+																		compiled_shader->GetBytecodeSize(),
+																		nullptr,
+																		m_hull_shader.ReleaseAndGetAddressOf());
+		if (FAILED(result_hull_shader)) {
+			throw FormattedException("Hull shader creation failed: %08X.", result_hull_shader);
+		}
+	}
+	
+	//-------------------------------------------------------------------------
+	// DomainShader
+	//-------------------------------------------------------------------------
+
+	DomainShader::DomainShader(const wstring &guid,
+		const CompiledShader *compiled_shader)
+		: DomainShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(),
+			compiled_shader) {}
+
+	DomainShader::DomainShader(const wstring &guid,
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		const CompiledShader *compiled_shader)
+		: Resource< DomainShader >(guid), 
+		m_device(device), m_device_context(device_context), 
+		m_domain_shader() {
+
+		Assert(device);
+		Assert(device_context);
+		Assert(compiled_shader);
+
+		SetupShader(compiled_shader);
+	}
+
+	DomainShader::DomainShader(DomainShader &&domain_shader) = default;
+
+	DomainShader::~DomainShader() = default;
+
+	void DomainShader::SetupShader(const CompiledShader *compiled_shader) {
+
+		// Create the domain shader.
+		const HRESULT result_domain_shader = m_device->CreateDomainShader(compiled_shader->GetBytecode(),
+																			compiled_shader->GetBytecodeSize(),
+																			nullptr,
+																			m_domain_shader.ReleaseAndGetAddressOf());
+		if (FAILED(result_domain_shader)) {
+			throw FormattedException("Domain shader creation failed: %08X.", result_domain_shader);
+		}
+	}
+	
+	//-------------------------------------------------------------------------
+	// GeometryShader
+	//-------------------------------------------------------------------------
+
+	GeometryShader::GeometryShader(const wstring &guid,
+		const CompiledShader *compiled_shader)
+		: GeometryShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(),
+			compiled_shader) {}
+
+	GeometryShader::GeometryShader(const wstring &guid,
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		const CompiledShader *compiled_shader)
+		: Resource< GeometryShader >(guid), 
+		m_device(device), m_device_context(device_context), 
+		m_geometry_shader() {
+
+		Assert(device);
+		Assert(device_context);
+		Assert(compiled_shader);
+
+		SetupShader(compiled_shader);
+	}
+
+	GeometryShader::GeometryShader(GeometryShader &&geometry_shader) = default;
+
+	GeometryShader::~GeometryShader() = default;
+
+	void GeometryShader::SetupShader(const CompiledShader *compiled_shader) {
+
+		// Create the geometry shader.
+		const HRESULT result_geometry_shader = m_device->CreateGeometryShader(compiled_shader->GetBytecode(),
+																				compiled_shader->GetBytecodeSize(),
+																				nullptr,
+																				m_geometry_shader.ReleaseAndGetAddressOf());
+		if (FAILED(result_geometry_shader)) {
+			throw FormattedException("Geometry shader creation failed: %08X.", result_geometry_shader);
+		}
+	}
+	
 	//-------------------------------------------------------------------------
 	// PixelShader
 	//-------------------------------------------------------------------------
@@ -113,29 +224,43 @@ namespace mage {
 			throw FormattedException("Pixel shader creation failed: %08X.", result_pixel_shader);
 		}
 	}
-
-	void PixelShader::PrepareShading(ID3D11ShaderResourceView *texture) const {
-		UNUSED(texture);
-		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
-	}
-
-	void PixelShader::PrepareShading(const Material &material, const SceneInfo &scene) const {
-		UNUSED(material);
-		UNUSED(scene);
-		m_device_context->PSSetShader(m_pixel_shader.Get(), nullptr, 0);
-	}
-
+	
 	//-------------------------------------------------------------------------
-	// CombinedShader
+	// ComputeShader
 	//-------------------------------------------------------------------------
 
-	CombinedShader::CombinedShader(
-		SharedPtr< VertexShader > vertex_shader,
-		SharedPtr< PixelShader > pixel_shader)
-		: m_vertex_shader(vertex_shader),
-		m_pixel_shader(pixel_shader) {
+	ComputeShader::ComputeShader(const wstring &guid,
+		const CompiledShader *compiled_shader)
+		: ComputeShader(guid, GetRenderingDevice(), GetRenderingDeviceContext(),
+			compiled_shader) {}
 
-		Assert(m_vertex_shader);
-		Assert(m_pixel_shader);
+	ComputeShader::ComputeShader(const wstring &guid,
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		const CompiledShader *compiled_shader)
+		: Resource< ComputeShader >(guid), 
+		m_device(device), m_device_context(device_context), 
+		m_compute_shader() {
+
+		Assert(device);
+		Assert(device_context);
+		Assert(compiled_shader);
+
+		SetupShader(compiled_shader);
+	}
+
+	ComputeShader::ComputeShader(ComputeShader &&compute_shader) = default;
+
+	ComputeShader::~ComputeShader() = default;
+
+	void ComputeShader::SetupShader(const CompiledShader *compiled_shader) {
+
+		// Create the compute shader.
+		const HRESULT result_compute_shader = m_device->CreateComputeShader(compiled_shader->GetBytecode(),
+																			compiled_shader->GetBytecodeSize(),
+																			nullptr,
+																			m_compute_shader.ReleaseAndGetAddressOf());
+		if (FAILED(result_compute_shader)) {
+			throw FormattedException("Compute shader creation failed: %08X.", result_compute_shader);
+		}
 	}
 }

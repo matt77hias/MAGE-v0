@@ -22,14 +22,17 @@
     <ClInclude Include="MAGE\src\binary\binary_reader.hpp" />
     <ClInclude Include="MAGE\src\binary\binary_utils.hpp" />
     <ClInclude Include="MAGE\src\binary\binary_writer.hpp" />
+    <ClInclude Include="MAGE\src\buffer\constant_buffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\light_buffer.hpp" />
-    <ClInclude Include="MAGE\src\buffer\material_buffer.hpp" />
-    <ClInclude Include="MAGE\src\buffer\transform_buffer.hpp" />
+    <ClInclude Include="MAGE\src\buffer\model_buffer.hpp" />
+    <ClInclude Include="MAGE\src\buffer\scene_buffer.hpp" />
+    <ClInclude Include="MAGE\src\buffer\structured_buffer.hpp" />
     <ClInclude Include="MAGE\src\camera\camera.hpp" />
     <ClInclude Include="MAGE\src\camera\camera_node.hpp" />
     <ClInclude Include="MAGE\src\camera\camera_node_types.hpp" />
     <ClInclude Include="MAGE\src\camera\orthographic_camera.hpp" />
     <ClInclude Include="MAGE\src\camera\perspective_camera.hpp" />
+    <ClInclude Include="MAGE\src\camera\viewport.hpp" />
     <ClInclude Include="MAGE\src\collection\collection.tpp" />
     <ClInclude Include="MAGE\src\collection\collection.hpp" />
     <ClInclude Include="MAGE\src\core\engine.hpp" />
@@ -63,6 +66,7 @@
     <ClInclude Include="MAGE\src\logging\exception.hpp" />
     <ClInclude Include="MAGE\src\logging\logging.hpp" />
     <ClInclude Include="MAGE\src\logging\progress_reporter.hpp" />
+    <ClInclude Include="MAGE\src\material\brdf.hpp" />
     <ClInclude Include="MAGE\src\material\color.hpp" />
     <ClInclude Include="MAGE\src\material\material.hpp" />
     <ClInclude Include="MAGE\src\material\material_loader.hpp" />
@@ -110,7 +114,6 @@
     <ClInclude Include="MAGE\src\parallel\parallel.hpp" />
     <ClInclude Include="MAGE\src\platform\windows.hpp" />
     <ClInclude Include="MAGE\src\platform\windows_utils.hpp" />
-    <ClInclude Include="MAGE\src\rendering\constant_buffer.hpp" />
     <ClInclude Include="MAGE\src\rendering\display_configurator.hpp" />
     <ClInclude Include="MAGE\src\rendering\display_configuration.hpp" />
     <ClInclude Include="MAGE\src\rendering\display_settings.hpp" />
@@ -119,8 +122,6 @@
     <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_state_cache.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_utils.hpp" />
-    <ClInclude Include="MAGE\src\rendering\structured_buffer.hpp" />
-    <ClInclude Include="MAGE\src\resource\guids.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_factory.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />
@@ -149,8 +150,8 @@
     <ClInclude Include="MAGE\src\script\system_usage_script.hpp" />
     <ClInclude Include="MAGE\src\script\text_console_script.hpp" />
     <ClInclude Include="MAGE\src\script\wireframe_script.hpp" />
-    <ClInclude Include="MAGE\src\shader\basic_shader.hpp" />
-    <ClInclude Include="MAGE\src\shader\basic_shader_factory.hpp" />
+    <ClInclude Include="MAGE\src\shader\guids.hpp" />
+    <ClInclude Include="MAGE\src\shader\shader_factory.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\basic\blinn_phong_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\basic\cook_torrance_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\basic\emissive_PS.hpp" />
@@ -179,16 +180,11 @@
     <ClInclude Include="MAGE\src\shader\cso\tsnm\tsnm_phong_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\tsnm\tsnm_ward_duer_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\tsnm\tsnm_ward_PS.hpp" />
-    <ClInclude Include="MAGE\src\shader\sprite_shader_factory.hpp" />
-    <ClInclude Include="MAGE\src\shader\tsnm_shader.hpp" />
-    <ClInclude Include="MAGE\src\shader\tsnm_shader_factory.hpp" />
     <ClInclude Include="MAGE\src\shader\compiled_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\compiled_shader_factory.hpp" />
-    <ClInclude Include="MAGE\src\shader\shaded_material.hpp" />
     <ClInclude Include="MAGE\src\shader\shader_utils.hpp" />
     <ClInclude Include="MAGE\src\shader\shading.hpp" />
     <ClInclude Include="MAGE\src\shader\shader.hpp" />
-    <ClInclude Include="MAGE\src\shader\sprite_shader.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_node.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite.hpp" />
     <ClInclude Include="MAGE\src\sprite\sprite_batch.hpp" />
@@ -206,6 +202,7 @@
     <ClInclude Include="MAGE\src\system\system_time.hpp" />
     <ClInclude Include="MAGE\src\system\system_usage.hpp" />
     <ClInclude Include="MAGE\src\texture\dds\dds_loader.hpp" />
+    <ClInclude Include="MAGE\src\texture\guids.hpp" />
     <ClInclude Include="MAGE\src\texture\texture.hpp" />
     <ClInclude Include="MAGE\src\texture\texture_factory.hpp" />
     <ClInclude Include="MAGE\src\texture\texture_loader.hpp" />
@@ -227,6 +224,7 @@
     <ClCompile Include="MAGE\src\camera\camera_node.cpp" />
     <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp" />
     <ClCompile Include="MAGE\src\camera\perspective_camera.cpp" />
+    <ClCompile Include="MAGE\src\camera\viewport.cpp" />
     <ClCompile Include="MAGE\src\core\engine.cpp" />
     <ClCompile Include="MAGE\src\core\engine_setup.cpp" />
     <ClCompile Include="MAGE\src\core\engine_statistics.cpp" />
@@ -298,17 +296,11 @@
     <ClCompile Include="MAGE\src\script\system_usage_script.cpp" />
     <ClCompile Include="MAGE\src\script\text_console_script.cpp" />
     <ClCompile Include="MAGE\src\script\wireframe_script.cpp" />
-    <ClCompile Include="MAGE\src\shader\basic_shader.cpp" />
-    <ClCompile Include="MAGE\src\shader\basic_shader_factory.cpp" />
+    <ClCompile Include="MAGE\src\shader\shader_factory.cpp" />
     <ClCompile Include="MAGE\src\shader\compiled_shader.cpp" />
-    <ClCompile Include="MAGE\src\shader\sprite_shader_factory.cpp" />
-    <ClCompile Include="MAGE\src\shader\tsnm_shader.cpp" />
-    <ClCompile Include="MAGE\src\shader\tsnm_shader_factory.cpp" />
     <ClCompile Include="MAGE\src\shader\compiled_shader_factory.cpp" />
-    <ClCompile Include="MAGE\src\shader\shaded_material.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
     <ClCompile Include="MAGE\src\shader\shader.cpp" />
-    <ClCompile Include="MAGE\src\shader\sprite_shader.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_batch.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_image.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite.cpp" />
@@ -1399,6 +1391,8 @@
   <ItemGroup>
     <None Include="MAGE\src\binary\binary_reader.tpp" />
     <None Include="MAGE\src\binary\binary_writer.tpp" />
+    <None Include="MAGE\src\buffer\constant_buffer.tpp" />
+    <None Include="MAGE\src\buffer\structured_buffer.tpp" />
     <None Include="MAGE\src\camera\camera_node.tpp" />
     <None Include="MAGE\src\light\light_node.tpp" />
     <None Include="MAGE\src\math\transform_node.tpp" />
@@ -1418,9 +1412,7 @@
     <None Include="MAGE\src\model\model_node.tpp" />
     <None Include="MAGE\src\model\model_output.tpp" />
     <None Include="MAGE\src\platform\windows_utils.tpp" />
-    <None Include="MAGE\src\rendering\constant_buffer.tpp" />
     <None Include="MAGE\src\rendering\rendering_factory.tpp" />
-    <None Include="MAGE\src\rendering\structured_buffer.tpp" />
     <None Include="MAGE\src\resource\resource.tpp" />
     <None Include="MAGE\src\resource\resource_manager.tpp" />
     <None Include="MAGE\src\resource\resource_pool.tpp" />

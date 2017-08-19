@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "texture\guids.hpp"
 #include "texture\texture.hpp"
 
 #pragma endregion
@@ -17,50 +18,55 @@ namespace mage {
 	/**
 	 Creates a black texture.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException
 					Failed to create the texture.
 	 */
-	SharedPtr< Texture > CreateBlackTexture();
+	SharedPtr< const Texture > CreateBlackTexture();
 
 	/**
 	 Creates a white texture.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException
 					Failed to create the texture.
 	 */
-	SharedPtr< Texture > CreateWhiteTexture();
+	SharedPtr< const Texture > CreateWhiteTexture();
 
 	/**
 	 Creates a red texture.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException
 					Failed to create the texture.
 	 */
-	SharedPtr< Texture > CreateRedTexture();
+	SharedPtr< const Texture > CreateRedTexture();
 
 	/**
 	 Creates a green texture.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException
 					Failed to create the texture.
 	 */
-	SharedPtr< Texture > CreateGreenTexture();
+	SharedPtr< const Texture > CreateGreenTexture();
 
 	/**
 	 Creates a blue texture.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException
 					Failed to create the texture.
 	 */
-	SharedPtr< Texture > CreateBlueTexture();
+	SharedPtr< const Texture > CreateBlueTexture();
 }

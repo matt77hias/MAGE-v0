@@ -219,14 +219,6 @@ namespace mage {
 		}
 	}
 
-	D3D11_VIEWPORT Renderer::GetMaxViewport() const noexcept {
-		D3D11_VIEWPORT viewport = {};
-		viewport.Width    = static_cast<FLOAT>(Renderer::Get()->GetWidth());
-		viewport.Height   = static_cast<FLOAT>(Renderer::Get()->GetHeight());
-		viewport.MaxDepth = 1.0f;
-		return viewport;
-	}
-
 	void Renderer::BeginFrame() {
 		Assert(!m_in_begin_end_pair);
 

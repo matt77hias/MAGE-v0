@@ -106,12 +106,12 @@ namespace mage {
 		}
 
 		/**
-		 Prepares the drawing of this mesh.
+		 Binds this mesh.
 
-		 The vertex buffer, index buffer and primitive topology of this mesh
-		 will be bound to the input-assembler stage.
+		 The vertex buffer, index buffer and primitive topology 
+		 of this mesh will be bound to the input-assembler stage.
 		 */
-		void PrepareDrawing() const {
+		void BindMesh() const noexcept {
 			UINT stride = static_cast< UINT >(m_vertex_size);
 			UINT offset = 0;
 			m_device_context->IASetVertexBuffers(0, 1, m_vertex_buffer.GetAddressOf(), &stride, &offset);
@@ -120,9 +120,26 @@ namespace mage {
 		}
 
 		/**
+		 Binds this mesh with given primitive topology.
+
+		 The vertex buffer, index buffer and given primitive topology 
+		 of this mesh will be bound to the input-assembler stage.
+
+		 @param[in]		topology
+						The primitive topology.
+		 */
+		void BindMesh(D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
+			UINT stride = static_cast< UINT >(m_vertex_size);
+			UINT offset = 0;
+			m_device_context->IASetVertexBuffers(0, 1, m_vertex_buffer.GetAddressOf(), &stride, &offset);
+			m_device_context->IASetIndexBuffer(m_index_buffer.Get(), m_index_format, 0);
+			m_device_context->IASetPrimitiveTopology(topology);
+		}
+
+		/**
 		 Draws this complete mesh.
 		 */
-		void Draw() const {
+		void Draw() const noexcept {
 			m_device_context->DrawIndexed(static_cast< UINT >(m_nb_indices), 0, 0);
 			
 			EngineStatistics::Get()->IncrementNumberOfDrawCalls();
@@ -136,7 +153,7 @@ namespace mage {
 		 @param[in]		nb_indices
 						The number of indices.
 		 */
-		void Draw(size_t start_index, size_t nb_indices) const {
+		void Draw(size_t start_index, size_t nb_indices) const noexcept {
 			m_device_context->DrawIndexed(static_cast< UINT >(nb_indices), static_cast< UINT >(start_index), 0);
 			
 			EngineStatistics::Get()->IncrementNumberOfDrawCalls();
@@ -151,7 +168,8 @@ namespace mage {
 		/**
 		 Constructs a mesh.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		vertex_size
 						The vertex size.
 		 @param[in]		index_format

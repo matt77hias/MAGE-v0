@@ -34,7 +34,8 @@ namespace mage {
 		/**
 		 Constructs a structured buffer.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		nb_initial_data_elements
 						The initial number of slots for storing data elements to provide.
 		 */
@@ -45,6 +46,8 @@ namespace mage {
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			The renderer associated with the current engine
+						must be loaded.
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
@@ -122,26 +125,6 @@ namespace mage {
 			return m_buffer_srv.Get();
 		}
 
-		/**
-		 Returns the address of the shader resource view of this structured buffer.
-
-		 @return		A pointer to a pointer to the shader resource view
-						of this structured buffer.
-		 */
-		ID3D11ShaderResourceView * const *GetAddressOf() const noexcept {
-			return m_buffer_srv.GetAddressOf();
-		}
-
-		/**
-		 Returns the address of the shader resource view of this structured buffer.
-
-		 @return		A pointer to a pointer to the shader resource view
-						of this structured buffer.
-		 */
-		ID3D11ShaderResourceView **GetAddressOf() noexcept {
-			return m_buffer_srv.GetAddressOf();
-		}
-
 	private:
 
 		//---------------------------------------------------------------------
@@ -195,6 +178,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\structured_buffer.tpp"
+#include "buffer\structured_buffer.tpp"
 
 #pragma endregion

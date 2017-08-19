@@ -32,7 +32,8 @@ namespace mage {
 		/**
 		 Constructs a sprite font.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		fname
 						A reference to the filename
 						(the globally unique identifier).
@@ -48,6 +49,8 @@ namespace mage {
 		 Constructs a sprite font.
 
 		 @pre			@a device is not equal to @c nullptr.
+		 @pre			The renderer associated with the current engine
+						must be loaded.
 		 @param[in]		fname
 						A reference to the filename
 						(the globally unique identifier).
@@ -284,26 +287,6 @@ namespace mage {
 		 */
 		ID3D11ShaderResourceView *Get() const noexcept {
 			return m_texture_srv.Get();
-		}
-
-		/**
-		 Returns the address of the shader resource view of of the texture of this sprite font.
-
-		 @return		A pointer to the pointer to the shader resource view
-						of the texture of this sprite font.
-		 */
-		ID3D11ShaderResourceView * const *GetAddress() const noexcept {
-			return m_texture_srv.GetAddressOf();
-		}
-
-		/**
-		 Returns the address of the shader resource view of of the texture of this sprite font.
-
-		 @return		A pointer to the pointer to the shader resource view
-						of the texture of this sprite font.
-		 */
-		ID3D11ShaderResourceView **GetAddress() noexcept {
-			return m_texture_srv.GetAddressOf();
 		}
 
 	private:

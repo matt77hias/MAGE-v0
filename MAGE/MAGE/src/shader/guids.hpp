@@ -5,14 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-// Textures
-#define MAGE_GUID_TEXTURE_BLACK					L"black_texture"
-#define MAGE_GUID_TEXTURE_WHITE					L"white_texture"
-#define MAGE_GUID_TEXTURE_RED					L"red_texture"
-#define MAGE_GUID_TEXTURE_GREEN					L"green_texture"
-#define MAGE_GUID_TEXTURE_BLUE					L"blue_texture"
-
-// Shaders
 #define MAGE_GUID_VS_TRANSFORM					L"transform_vs"
 #define MAGE_GUID_PS_EMISSIVE					L"emissive_ps"
 #define MAGE_GUID_PS_LAMBERTIAN					L"lambertian_ps"

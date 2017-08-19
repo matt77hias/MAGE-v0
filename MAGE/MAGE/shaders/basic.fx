@@ -5,66 +5,66 @@
 #include "light.fx"
 
 //-----------------------------------------------------------------------------
-// Transformations
-//-----------------------------------------------------------------------------
-cbuffer Transform : register(b0) {
-	// The object-to-world transformation matrix.
-	float4x4 g_object_to_world					: packoffset(c0);
-	// The world-to-view transformation matrix.
-	float4x4 g_world_to_view					: packoffset(c4);
-	// The object-to-view inverse transpose transformation matrix.
-	float4x4 g_object_to_view_inverse_transpose	: packoffset(c8);
-	// The view-to-projection transformation matrix.
-	float4x4 g_view_to_projection				: packoffset(c12);
-}
-
-//-----------------------------------------------------------------------------
-// Materials
-//-----------------------------------------------------------------------------
-Texture2D g_diffuse_texture : register(t0);
-Texture2D g_normal_texture  : register(t5);
-sampler g_sampler			: register(s0);
-
-cbuffer Material : register(b1) {
-	// The diffuse reflectivity + dissolve of the material
-	float4 g_Kd									: packoffset(c0);
-	// The specular reflectivity of the material.
-	float3 g_Ks									: packoffset(c1);
-	// The specular exponent of the material.
-	float g_Ns									: packoffset(c1.w);
-	// The extra material parameter of the material.
-	float4 g_material_parameters				: packoffset(c2);
-};
-
-//-----------------------------------------------------------------------------
 // Scene
 //-----------------------------------------------------------------------------
 
-cbuffer Scene : register(b2) {
+cbuffer Scene : register(b0) {
+	// The world-to-view transformation matrix.
+	float4x4 g_world_to_view					: packoffset(c0);
+	// The view-to-projection transformation matrix.
+	float4x4 g_view_to_projection				: packoffset(c4);
+	
 	// The intensity of the ambient light in the scene. 
-	float3 g_Ia									: packoffset(c0);
+	float3 g_Ia									: packoffset(c8);
 	// The global flags.
-	uint g_flags								: packoffset(c0.w);
+	uint g_flags								: packoffset(c8.w);
 	// The number of directional lights in the scene.
-	uint g_nb_directional_lights				: packoffset(c1.x);
+	uint g_nb_directional_lights				: packoffset(c9.x);
 	// The number of omni lights in the scene.
-	uint g_nb_omni_lights						: packoffset(c1.y);
+	uint g_nb_omni_lights						: packoffset(c9.y);
 	// The number of spotlights in the scene.
-	uint g_nb_spot_lights						: packoffset(c1.z);
+	uint g_nb_spot_lights						: packoffset(c9.z);
+	
 	// The distance at which intensity falloff starts due to fog.
-	float g_fog_distance_falloff_start			: packoffset(c1.w);
+	float g_fog_distance_falloff_start			: packoffset(c9.w);
 	// The color of the fog.
-	float3 g_fog_color							: packoffset(c2);
+	float3 g_fog_color							: packoffset(c10);
 	// The distance range where intensity falloff occurs due to fog.
-	float g_fog_distance_falloff_range			: packoffset(c2.w);
+	float g_fog_distance_falloff_range			: packoffset(c10.w);
 };
 
+StructuredBuffer< DirectionalLight > g_directional_lights : register(t0);
+StructuredBuffer< OmniLight > g_omni_lights               : register(t1);
+StructuredBuffer< SpotLight > g_spot_lights               : register(t2);
+sampler g_sampler										  : register(s0);
+
+//-----------------------------------------------------------------------------
+// Model
+//-----------------------------------------------------------------------------
+cbuffer Model : register(b1) {
+	// The object-to-world transformation matrix.
+	float4x4 g_object_to_world					: packoffset(c0);
+	// The object-to-view inverse transpose transformation matrix.
+	float4x4 g_object_to_view_inverse_transpose	: packoffset(c4);
+
+	// The diffuse reflectivity + dissolve of the material
+	float4 g_Kd									: packoffset(c8);
+	// The specular reflectivity of the material.
+	float3 g_Ks									: packoffset(c9);
+	// The specular exponent of the material.
+	float g_Ns									: packoffset(c9.w);
+	// The extra material parameter of the material.
+	float4 g_material_parameters				: packoffset(c10);
+}
+
+Texture2D g_diffuse_texture : register(t3);
+Texture2D g_normal_texture  : register(t5);
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
 #include "brdf.fx"
 #include "normal_mapping.fx"
-
-StructuredBuffer< DirectionalLight > g_directional_lights : register(t2);
-StructuredBuffer< OmniLight > g_omni_lights               : register(t3);
-StructuredBuffer< SpotLight > g_spot_lights               : register(t4);
 
 //-----------------------------------------------------------------------------
 // Shading

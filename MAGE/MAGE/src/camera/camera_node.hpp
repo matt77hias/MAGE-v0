@@ -7,7 +7,7 @@
 
 #include "scene\scene_node.hpp"
 #include "camera\camera.hpp"
-#include "rendering\rendering.hpp"
+#include "camera\viewport.hpp"
 
 #pragma endregion
 
@@ -96,28 +96,17 @@ namespace mage {
 
 		 @return		A reference to the viewport of this camera node.
 		 */
-		const D3D11_VIEWPORT &GetViewport() const noexcept {
+		Viewport &GetViewport() noexcept {
 			return m_viewport;
 		}
 
 		/**
-		 Sets the viewport of this camera node to the given viewport.
+		 Returns the viewport of this camera node.
 
-		 @param[in]		viewport
-						A reference to the viewport.
+		 @return		A reference to the viewport of this camera node.
 		 */
-		void SetViewport(const D3D11_VIEWPORT &viewport) noexcept {
-			m_viewport = viewport;
-		}
-
-		/**
-		 Sets the viewport of this camera node to the given viewport.
-
-		 @param[in]		viewport
-						A reference to the viewport.
-		 */
-		void SetViewport(D3D11_VIEWPORT &&viewport) noexcept {
-			m_viewport = std::move(viewport);
+		const Viewport &GetViewport() const noexcept {
+			return m_viewport;
 		}
 
 	protected:
@@ -178,7 +167,7 @@ namespace mage {
 		/**
 		 The viewport of this camera node.
 		 */
-		D3D11_VIEWPORT m_viewport;
+		Viewport m_viewport;
 	};
 
 	//-------------------------------------------------------------------------

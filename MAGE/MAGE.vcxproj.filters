@@ -402,9 +402,6 @@
     <ClInclude Include="MAGE\src\string\token.hpp">
       <Filter>Header Files\string</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\shaded_material.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\mesh\vertex.hpp">
       <Filter>Header Files\mesh</Filter>
     </ClInclude>
@@ -509,9 +506,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\mesh\mesh.hpp">
       <Filter>Header Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\sprite_shader.hpp">
-      <Filter>Header Files\shader</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\font\sprite_font_loader.hpp">
       <Filter>Header Files\font</Filter>
@@ -639,22 +633,10 @@
     <ClInclude Include="MAGE\src\light\omni_light.hpp">
       <Filter>Header Files\light</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\constant_buffer.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\structured_buffer.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\math\transform_node.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\buffer\material_buffer.hpp">
-      <Filter>Header Files\buffer</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\buffer\light_buffer.hpp">
-      <Filter>Header Files\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\buffer\transform_buffer.hpp">
       <Filter>Header Files\buffer</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\light\ambient_light.hpp">
@@ -666,13 +648,7 @@
     <ClInclude Include="MAGE\src\logging\exception.hpp">
       <Filter>Header Files\logging</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\basic_shader.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\compiled_shader.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\basic_shader_factory.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\compiled_shader_factory.hpp">
@@ -698,18 +674,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\rendering_utils.hpp">
       <Filter>Header Files\rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\tsnm_shader.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\tsnm_shader_factory.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\sprite_shader_factory.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\resource\guids.hpp">
-      <Filter>Header Files\resource</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp">
       <Filter>Header Files\resource</Filter>
@@ -849,6 +813,33 @@
     <ClInclude Include="MAGE\src\scene\scene_renderer.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\shader_factory.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\guids.hpp">
+      <Filter>Header Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\texture\guids.hpp">
+      <Filter>Header Files\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\camera\viewport.hpp">
+      <Filter>Header Files\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\structured_buffer.hpp">
+      <Filter>Header Files\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\constant_buffer.hpp">
+      <Filter>Header Files\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\material\brdf.hpp">
+      <Filter>Header Files\material</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\scene_buffer.hpp">
+      <Filter>Header Files\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\model_buffer.hpp">
+      <Filter>Header Files\buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -983,9 +974,6 @@
     <ClCompile Include="MAGE\src\mesh\vertex.cpp">
       <Filter>Source Files\mesh</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\shader\sprite_shader.cpp">
-      <Filter>Source Files\shader</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\font\spritefont\spritefont_loader.cpp">
       <Filter>Source Files\font\spritefont</Filter>
     </ClCompile>
@@ -1109,13 +1097,7 @@
     <ClCompile Include="MAGE\src\binary\binary_reader.cpp">
       <Filter>Source Files\binary</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\shader\basic_shader.cpp">
-      <Filter>Source Files\shader</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\shader\compiled_shader_factory.cpp">
-      <Filter>Source Files\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\shader\basic_shader_factory.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\camera\camera_node.cpp">
@@ -1133,26 +1115,14 @@
     <ClCompile Include="MAGE\src\texture\texture_loader.cpp">
       <Filter>Source Files\texture</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\shader\shaded_material.cpp">
-      <Filter>Source Files\shader</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering_utils.cpp">
       <Filter>Source Files\rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\shader\tsnm_shader.cpp">
-      <Filter>Source Files\shader</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\shader\compiled_shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\texture\texture_factory.cpp">
       <Filter>Source Files\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\shader\tsnm_shader_factory.cpp">
-      <Filter>Source Files\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\shader\sprite_shader_factory.cpp">
-      <Filter>Source Files\shader</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\resource\resource_manager.cpp">
       <Filter>Source Files\resource</Filter>
@@ -1186,6 +1156,12 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\scene\scene_renderer.cpp">
       <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\shader\shader_factory.cpp">
+      <Filter>Source Files\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\camera\viewport.cpp">
+      <Filter>Source Files\camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1347,12 +1323,6 @@
     <None Include="MAGE\src\binary\binary_writer.tpp">
       <Filter>Header Files\binary</Filter>
     </None>
-    <None Include="MAGE\src\rendering\constant_buffer.tpp">
-      <Filter>Header Files\rendering</Filter>
-    </None>
-    <None Include="MAGE\src\rendering\structured_buffer.tpp">
-      <Filter>Header Files\rendering</Filter>
-    </None>
     <None Include="MAGE\src\math\transform_node.tpp">
       <Filter>Header Files\math</Filter>
     </None>
@@ -1385,6 +1355,12 @@
     </None>
     <None Include="MAGE\src\sprite\sprite_node.tpp">
       <Filter>Header Files\sprite</Filter>
+    </None>
+    <None Include="MAGE\src\buffer\constant_buffer.tpp">
+      <Filter>Header Files\buffer</Filter>
+    </None>
+    <None Include="MAGE\src\buffer\structured_buffer.tpp">
+      <Filter>Header Files\buffer</Filter>
     </None>
   </ItemGroup>
 </Project>

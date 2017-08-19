@@ -29,7 +29,8 @@ namespace mage {
 		/**
 		 Constructs a model descriptor.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @tparam		VertexT
 						The vertex type.
 		 @param[in]		fname
@@ -49,6 +50,8 @@ namespace mage {
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			The renderer associated with the current engine
+						must be loaded.
 		 @tparam		VertexT
 						The vertex type.
 		 @param[in]		fname

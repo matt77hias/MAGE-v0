@@ -18,7 +18,8 @@ namespace mage {
 	/**
 	 Converts the given normalized screen x-value to absolute screen x-value.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The renderer associated with the current engine 
+					must be loaded.
 	 @param[in]		x
 					The normalized screen x-value.
 	 */
@@ -27,7 +28,8 @@ namespace mage {
 	/**
 	 Converts the given normalized screen y-value to absolute screen y-value.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The renderer associated with the current engine 
+					must be loaded.
 	 @param[in]		y
 					The normalized screen y-value.
 	 */
@@ -36,7 +38,8 @@ namespace mage {
 	/**
 	 Converts the given normalized screen values to absolute screen values.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The renderer associated with the current engine 
+					must be loaded.
 	 @param[in]		x
 					The normalized screen x-value.
 	 @param[in]		y
@@ -49,7 +52,8 @@ namespace mage {
 	/**
 	 Converts the given normalized screen position to absolute screen position.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The renderer associated with the current engine 
+					must be loaded.
 	 @param[in]		position
 					A reference to the normalized screen position.
 	 */
@@ -60,7 +64,8 @@ namespace mage {
 	/**
 	 Converts the given normalized screen position to absolute screen position.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The renderer associated with the current engine 
+					must be loaded.
 	 @param[in]		position
 					The normalized screen position.
 	 */
@@ -69,7 +74,8 @@ namespace mage {
 	/**
 	 Converts the given absolute screen x-value to normalized screen x-value.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The renderer associated with the current engine 
+					must be loaded.
 	 @param[in]		x
 					The absolute screen x-value.
 	 */
@@ -78,7 +84,8 @@ namespace mage {
 	/**
 	 Converts the given absolute screen y-value to normalized screen y-value.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The renderer associated with the current engine 
+					must be loaded.
 	 @param[in]		y
 					The absolute screen y-value.
 	 */
@@ -87,7 +94,8 @@ namespace mage {
 	/**
 	 Converts the given absolute screen values to normalized screen values.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The renderer associated with the current engine 
+					must be loaded.
 	 @param[in]		x
 					The absolute screen x-value.
 	 @param[in]		y
@@ -100,7 +108,8 @@ namespace mage {
 	/**
 	 Converts the given absolute screen position to normalized screen position.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The renderer associated with the current engine 
+					must be loaded.
 	 @param[in]		position
 					A reference to the absolute screen position.
 	 */
@@ -111,7 +120,8 @@ namespace mage {
 	/**
 	 Converts the given absolute screen position to normalized screen position.
 
-	 @pre			The current engine must be loaded.
+	 @pre			The renderer associated with the current engine 
+					must be loaded.
 	 @param[in]		position
 					The absolute screen position.
 	 */
@@ -373,7 +383,8 @@ namespace mage {
 		/**
 		 Sets the x-value of the translation component of this sprite transform to the given normalized value.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		x
 						The x-value of the normalized translation component.
 		 */
@@ -384,7 +395,8 @@ namespace mage {
 		/**
 		 Sets the y-value of the translation component of this sprite transform to the given normalized value.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		y
 						The y-value of the normalized translation component.
 		 */
@@ -395,7 +407,8 @@ namespace mage {
 		/**
 		 Sets the translation component of this sprite transform to the given normalized translation component.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		x
 						The x-value of the normalized translation component.
 		 @param[in]		y
@@ -408,7 +421,8 @@ namespace mage {
 		/**
 		 Sets the translation component of this sprite transform to the given normalized translation component.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		translation
 						A reference to the normalized translation component.
 		 */
@@ -419,7 +433,8 @@ namespace mage {
 		/**
 		 Sets the translation component of this sprite transform to the given normalized translation component.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		translation
 						The normalized translation component.
 		 */
@@ -430,7 +445,8 @@ namespace mage {
 		/**
 		 Adds the given x-value to the normalized translation component of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		x
 						The x-value of the normalized translation component to add.
 		 */
@@ -441,7 +457,8 @@ namespace mage {
 		/**
 		 Adds the given y-value to the normalized translation component of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		y
 						The y-value of the normalized translation component to add.
 		 */
@@ -452,7 +469,8 @@ namespace mage {
 		/**
 		 Adds the given translation component to the normalized translation component of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		x
 						The x-value of the normalized translation component to add.
 		 @param[in]		y
@@ -465,7 +483,8 @@ namespace mage {
 		/**
 		 Adds the given translation component to the normalized translation component of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		translation
 						A reference to the normalized translation component to add.
 		 */
@@ -476,7 +495,8 @@ namespace mage {
 		/**
 		 Adds the given translation component to the normalized translation component of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		translation
 						The normalized translation component to add.
 		 */
@@ -487,7 +507,8 @@ namespace mage {
 		/**
 		 Returns the x-value of the normalized translation component of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @return		The x-value of the normalized translation component of this sprite transform.
 		 */
 		float GetNormalizedTranslationX() const {
@@ -497,7 +518,8 @@ namespace mage {
 		/**
 		 Returns the y-value of the normalized translation component of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @return		The y-value of the normalized translation component of this sprite transform.
 		 */
 		float GetNormalizedTranslationY() const {
@@ -507,7 +529,8 @@ namespace mage {
 		/**
 		 Returns the normalized translation component of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @return		The normalized translation component of this sprite transform.
 		 */
 		const XMFLOAT2 GetNormalizedTranslation() const {
@@ -734,7 +757,8 @@ namespace mage {
 		/**
 		 Sets the x-value of the rotation origin of this sprite transform to the given normalized value.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		x
 						The x-value of the normalized rotation origin.
 		 */
@@ -745,7 +769,8 @@ namespace mage {
 		/**
 		 Sets the y-value of the rotation origin of this sprite transform to the given normalized value.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		y
 						The y-value of the normalized rotation origin.
 		 */
@@ -756,7 +781,8 @@ namespace mage {
 		/**
 		 Sets the rotation origin of this sprite transform to the given normalized rotation origin.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		x
 						The x-value of the normalized rotation origin.
 		 @param[in]		y
@@ -769,7 +795,8 @@ namespace mage {
 		/**
 		 Sets the rotation origin of this sprite transform to the given normalized rotation origin.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		rotation_origin
 						A reference to the normalized rotation origin.
 		 */
@@ -780,7 +807,8 @@ namespace mage {
 		/**
 		 Sets the rotation origin of this sprite transform to the given normalized rotation origin.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		rotation_origin
 						The normalized rotation origin.
 		 */
@@ -791,7 +819,8 @@ namespace mage {
 		/**
 		 Adds the given x-value to the normalized rotation origin of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		x
 						The x-value of the normalized rotation origin to add.
 		 */
@@ -802,7 +831,8 @@ namespace mage {
 		/**
 		 Adds the given y-value to the normalized rotation origin of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		y
 						The y-value of the normalized rotation origin to add.
 		 */
@@ -813,7 +843,8 @@ namespace mage {
 		/**
 		 Adds the given rotation origin to the normalized rotation origin of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		x
 						The x-value of the normalized rotation origin to add.
 		 @param[in]		y
@@ -826,7 +857,8 @@ namespace mage {
 		/**
 		 Adds the given rotation origin to the normalized rotation origin of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		rotation_origin
 						A reference to the normalized rotation origin to add.
 		 */
@@ -837,7 +869,8 @@ namespace mage {
 		/**
 		 Adds the given rotation origin to the normalized rotation origin of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @param[in]		rotation_origin
 						The normalized rotation origin to add.
 		 */
@@ -848,7 +881,8 @@ namespace mage {
 		/**
 		 Returns the x-value of the normalized rotation origin of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @return		The x-value of the normalized rotation origin of this sprite transform.
 		 */
 		float GetNormalizedRotationOriginX() const {
@@ -858,7 +892,8 @@ namespace mage {
 		/**
 		 Returns the y-value of the normalized rotation origin of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @return		The y-value of the normalized rotation origin of this sprite transform.
 		 */
 		float GetNormalizedRotationOriginY() const {
@@ -868,7 +903,8 @@ namespace mage {
 		/**
 		 Returns the normalized rotation origin of this sprite transform.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @return		The normalized rotation origin of this sprite transform.
 		 */
 		const XMFLOAT2 GetNormalizedRotationOrigin() const {

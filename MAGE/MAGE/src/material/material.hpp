@@ -42,8 +42,9 @@ namespace mage {
 		 @param[in]		name
 						A reference to the name of the material.
 		 */
-		explicit Material(const string &name)
-			: m_name(name), m_transparent(), m_transmission_filter(),
+		explicit Material(const string &name = "material")
+			: m_name(name), m_light_interaction(true),
+			m_transparent(), m_transmission_filter(),
 			m_diffuse_reflectivity(), m_diffuse_reflectivity_texture(),
 			m_specular_reflectivity(), m_specular_reflectivity_texture(),
 			m_specular_exponent(1.0f), m_specular_exponent_texture(),
@@ -129,6 +130,42 @@ namespace mage {
 		 */
 		void SetName(string &&name) {
 			m_name = std::move(name);
+		}
+
+		/**
+		 Checks whether this material interacts with light and light sources.
+
+		 @return		@c true if this material interacts with light
+						and light sources. @c false otherwise.
+		 */
+		bool InteractsWithLight() const noexcept {
+			return m_light_interaction;
+		}
+
+		/**
+		 Enables this material to interact with light and light sources.
+		 */
+		void EnableLightInteraction() noexcept {
+			SetLightInteraction(true);
+		}
+
+		/**
+		 Dissables this material to interact with light and light sources.
+		 */
+		void DissableLightInteraction() noexcept {
+			SetLightInteraction(false);
+		}
+
+		/**
+		 Sets the light interaction of this material to the given value.
+
+		 @param[in]		light_interaction
+						@c true if this material needs to interact 
+						with light and light sources. 
+						@c false otherwise.
+		 */
+		void SetLightInteraction(bool light_interaction) noexcept {
+			m_light_interaction = light_interaction;
 		}
 
 		/**
@@ -234,7 +271,7 @@ namespace mage {
 
 		 @return		A pointer to the diffuse reflectivity texture of this material.
 		 */
-		SharedPtr< Texture > GetDiffuseReflectivityTexture() const noexcept {
+		SharedPtr< const Texture > GetDiffuseReflectivityTexture() const noexcept {
 			return m_diffuse_reflectivity_texture;
 		}
 		
@@ -254,7 +291,7 @@ namespace mage {
 		 @param[in]		diffuse_reflectivity_texture
 						A reference to the diffuse reflectivity texture.
 		 */
-		void SetDiffuseReflectivityTexture(SharedPtr< Texture > diffuse_reflectivity_texture) {
+		void SetDiffuseReflectivityTexture(SharedPtr< const Texture > diffuse_reflectivity_texture) {
 			m_diffuse_reflectivity_texture = diffuse_reflectivity_texture;
 			UpdateTransparency();
 		}
@@ -302,7 +339,7 @@ namespace mage {
 
 		 @return		A pointer to the specular reflectivity texture of this material.
 		 */
-		SharedPtr< Texture > GetSpecularReflectivityTexture() const noexcept {
+		SharedPtr< const Texture > GetSpecularReflectivityTexture() const noexcept {
 			return m_specular_reflectivity_texture;
 		}
 		
@@ -322,7 +359,7 @@ namespace mage {
 		 @param[in]		specular_reflectivity_texture
 						A reference to the specular reflectivity texture.
 		 */
-		void SetSpecularReflectivityTexture(SharedPtr< Texture > specular_reflectivity_texture) {
+		void SetSpecularReflectivityTexture(SharedPtr< const Texture > specular_reflectivity_texture) {
 			m_specular_reflectivity_texture = specular_reflectivity_texture;
 		}
 		
@@ -350,7 +387,7 @@ namespace mage {
 
 		 @return		A pointer to the specular exponent texture of this material.
 		 */
-		SharedPtr< Texture > GetSpecularExponentTexture() const noexcept {
+		SharedPtr< const Texture > GetSpecularExponentTexture() const noexcept {
 			return m_specular_exponent_texture;
 		}
 		
@@ -370,7 +407,7 @@ namespace mage {
 		 @param[in]		specular_exponent_texture
 						A reference to the specular exponent texture.
 		 */
-		void SetSpecularExponentTexture(SharedPtr< Texture > specular_exponent_texture) {
+		void SetSpecularExponentTexture(SharedPtr< const Texture > specular_exponent_texture) {
 			m_specular_exponent_texture = specular_exponent_texture;
 		}
 
@@ -418,7 +455,7 @@ namespace mage {
 
 		 @return		A pointer to the decal texture of this material.
 		 */
-		SharedPtr< Texture > GetDecalTexture() const noexcept {
+		SharedPtr< const Texture > GetDecalTexture() const noexcept {
 			return m_decal_texture;
 		}
 		
@@ -438,7 +475,7 @@ namespace mage {
 		 @param[in]		decal_texture
 						A reference to the decal texture.
 		 */
-		void SetDecalTexture(SharedPtr< Texture > decal_texture) {
+		void SetDecalTexture(SharedPtr< const Texture > decal_texture) {
 			m_decal_texture = decal_texture;
 		}
 		
@@ -447,7 +484,7 @@ namespace mage {
 
 		 @return		A pointer to the displacement texture of this material.
 		 */
-		SharedPtr< Texture > GetDisplacementTexture() const noexcept {
+		SharedPtr< const Texture > GetDisplacementTexture() const noexcept {
 			return m_displacement_texture;
 		}
 		
@@ -467,7 +504,7 @@ namespace mage {
 		 @param[in]		displacement_texture
 						A reference to the displacement texture.
 		 */
-		void SetDisplacementTexture(SharedPtr< Texture > displacement_texture) {
+		void SetDisplacementTexture(SharedPtr< const Texture > displacement_texture) {
 			m_displacement_texture = displacement_texture;
 		}
 
@@ -476,7 +513,7 @@ namespace mage {
 
 		 @return		A pointer to the normal texture of this material.
 		 */
-		SharedPtr< Texture > GetNormalTexture() const noexcept {
+		SharedPtr< const Texture > GetNormalTexture() const noexcept {
 			return m_normal_texture;
 		}
 		
@@ -496,7 +533,7 @@ namespace mage {
 		 @param[in]		normal_texture
 						A reference to the normal texture.
 		 */
-		void SetNormalTexture(SharedPtr< Texture > normal_texture) {
+		void SetNormalTexture(SharedPtr< const Texture > normal_texture) {
 			m_normal_texture = normal_texture;
 		}
 
@@ -550,16 +587,24 @@ namespace mage {
 		string m_name;
 
 		/**
+		 Flag indicating whether this material interacts
+		 with light and light sources.
+		 */
+		bool m_light_interaction;
+
+		/**
 		 Flag indicating whether this material is transparent.
-		 This flag is @c true if this material could contain transparent parts.
+		 This flag is @c true if this material could contain 
+		 transparent parts. @c false otherwise.
 		 */
 		bool m_transparent;
 
 		/**
 		 The transmission filter of this material.
 		 
-		 Any light passing through the material is filtered by the transmission 
-		 filter, which only allows the specific colors to pass through.
+		 Any light passing through the material is filtered by 
+		 the transmission filter, which only allows the specific 
+		 colors to pass through.
 		 */
 		RGBSpectrum m_transmission_filter;
 
@@ -571,7 +616,7 @@ namespace mage {
 		/**
 		 A pointer to the diffuse reflectivity texture of this material.
 		 */
-		SharedPtr< Texture > m_diffuse_reflectivity_texture;
+		SharedPtr< const Texture > m_diffuse_reflectivity_texture;
 
 		/**
 		 The specular reflectivity of this material.
@@ -581,7 +626,7 @@ namespace mage {
 		/**
 		 A pointer to the specular reflectivity texture of this material.
 		 */
-		SharedPtr< Texture > m_specular_reflectivity_texture;
+		SharedPtr< const Texture > m_specular_reflectivity_texture;
 
 		/**
 		 The specular exponent (surface roughness) of this material.
@@ -594,7 +639,7 @@ namespace mage {
 		/**
 		 A pointer to the specular exponent texture of this material.
 		 */
-		SharedPtr< Texture > m_specular_exponent_texture;
+		SharedPtr< const Texture > m_specular_exponent_texture;
 
 		/**
 		 The amount this material dissolves into the background.
@@ -615,17 +660,17 @@ namespace mage {
 		/**
 		 A pointer to the decal texture of this material.
 		 */
-		SharedPtr< Texture > m_decal_texture;
+		SharedPtr< const Texture > m_decal_texture;
 
 		/**
 		 A pointer to the displacement texture of this material.
 		 */
-		SharedPtr< Texture > m_displacement_texture;
+		SharedPtr< const Texture > m_displacement_texture;
 
 		/**
 		 A pointer to the normal texture of this material.
 		 */
-		SharedPtr< Texture > m_normal_texture;
+		SharedPtr< const Texture > m_normal_texture;
 
 		/**
 		 The extra material parameters of this material.

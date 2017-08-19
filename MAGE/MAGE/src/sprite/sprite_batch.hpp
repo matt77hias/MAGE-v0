@@ -9,8 +9,8 @@
 #include "math\sprite_transform.hpp"
 #include "mesh\sprite_batch_mesh.hpp"
 #include "mesh\vertex.hpp"
-#include "rendering\constant_buffer.hpp"
-#include "shader\sprite_shader.hpp"
+#include "shader\shader_factory.hpp"
+#include "buffer\constant_buffer.hpp"
 #include "sprite\sprite_sort_mode.hpp"
 #include "sprite\sprite_effects.hpp"
 #include "material\color.hpp"
@@ -169,26 +169,44 @@ namespace mage {
 		/**
 		 Constructs a sprite batch.
 
-		 @pre			The current engine must be loaded.
-		 @param[in]		shader
-						A reference to the shader.
+		 @pre			The resource manager associated with the
+						current engine must be loaded.
+		 @pre			@a vs is not equal to @c nullptr.
+		 @pre			@a ps is not equal to @c nullptr.
+		 @pre			@a vs and @a ps are compatible with 
+						this sprite batch and each other.
+		 @param[in]		vs
+						A pointer to the vertex shader.
+		 @param[in]		ps
+						A pointer to the pixel shader.
 		 */
-		SpriteBatch(const CombinedShader &shader = CreateSpriteShader());
+		explicit SpriteBatch(
+			SharedPtr< const VertexShader > vs = CreateSpriteVS(),
+			SharedPtr< const PixelShader >  ps = CreateSpritePS());
 
 		/**
 		 Constructs a sprite batch.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			The resource manager associated with the
+						current engine must be loaded.
+		 @pre			@a vs is not equal to @c nullptr.
+		 @pre			@a ps is not equal to @c nullptr.
+		 @pre			@a vs and @a ps are compatible with 
+						this sprite batch and each other.
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		shader
-						A reference to the shader.
+		 @param[in]		vs
+						A pointer to the vertex shader.
+		 @param[in]		ps
+						A pointer to the pixel shader.
 		 */
 		SpriteBatch(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const CombinedShader &shader = CreateSpriteShader());
+			SharedPtr< const VertexShader > vs = CreateSpriteVS(),
+			SharedPtr< const PixelShader >  ps = CreateSpritePS());
 
 		/**
 		 Constructs a sprite batch from the given sprite batch.
@@ -247,9 +265,21 @@ namespace mage {
 						A reference to the sprite sorting mode for the whole batch of sprites.
 		 @param[in]		transform
 						The transform for the whole batch of sprites.
+		 @param[in]		blend_state
+						A pointer to the blend state.
+		 @param[in]		depth_stencil_state
+						A pointer to the depth stencil state.
+		 @param[in]		rasterizer_state
+						A pointer to the rasterizer state.
+		 @param[in]		sampler_state
+						A pointer to the sampler state.
 		 */
 		void XM_CALLCONV Begin(SpriteSortMode sort_mode = SpriteSortMode::Deferred,
-			FXMMATRIX transform = XMMatrixIdentity());
+			FXMMATRIX transform = XMMatrixIdentity(), 
+			ID3D11BlendState        *blend_state         = nullptr,
+			ID3D11DepthStencilState *depth_stencil_state = nullptr,
+			ID3D11RasterizerState   *rasterizer_state    = nullptr,
+			ID3D11SamplerState      *sampler_state       = nullptr);
 		
 		/**
 		 Draws a sprite.
@@ -352,9 +382,9 @@ namespace mage {
 		void GrowSpriteQueue();
 		
 		/**
-		 Prepares the drawing of the mesh of this sprite batch.
+		 Binds this sprite batch.
 		 */
-		void PrepareDrawing();
+		void BindSpriteBatch();
 
 		/**
 		 Flushes a batch of sprites for rendering if non-immediate
@@ -435,6 +465,16 @@ namespace mage {
 			FXMVECTOR texture_size, FXMVECTOR inverse_texture_size) noexcept;
 
 		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The initial size of the queue containing the sprites waiting
+		 to be drawn by a sprite batch.
+		 */
+		static const size_t s_initial_queue_size = 64;
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
@@ -449,7 +489,7 @@ namespace mage {
 		ID3D11DeviceContext2 * const m_device_context;
 
 		//---------------------------------------------------------------------
-		// Member Variables: Model Data
+		// Member Variables: Rendering
 		//---------------------------------------------------------------------
 
 		/**
@@ -465,10 +505,34 @@ namespace mage {
 		size_t m_vertex_buffer_position;
 
 		/**
-		 A pointer to the shader used by this sprite batch
-		 for shading the sprites.
+		 A pointer to the vertex shader used by this sprite batch.
 		 */
-		UniquePtr< CombinedShader > m_shader;
+		SharedPtr< const VertexShader > m_vs;
+
+		/**
+		 A pointer to the pixel shader used by this sprite batch.
+		 */
+		SharedPtr< const PixelShader > m_ps;
+
+		/**
+		 A pointer to the blend state used by this sprite batch.
+		 */
+		ID3D11BlendState *m_blend_state;
+
+		/**
+		 A pointer to the depth stencil state used by this sprite batch.
+		 */
+		ID3D11DepthStencilState *m_depth_stencil_state;
+
+		/**
+		 A pointer to the rasterizer state used by this sprite batch.
+		 */
+		ID3D11RasterizerState *m_rasterizer_state;
+
+		/**
+		 A pointer to the sampler state used by this sprite batch.
+		 */
+		ID3D11SamplerState *m_sampler_state;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Batch-Independent Data
@@ -556,16 +620,6 @@ namespace mage {
 		 the same object, so instead this separate collection is used to hold just 
 		 a single refcount each time the associated texture is changed.
 		 */
-		vector< ComPtr< ID3D11ShaderResourceView > > m_sprite_texture_references;
-
-		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------
-
-		/**
-		 The initial size of the queue containing the sprites waiting
-		 to be drawn by a sprite batch.
-		 */
-		static const size_t s_initial_queue_size = 64;
+		vector< ComPtr< ID3D11ShaderResourceView > > m_sprite_srvs;
 	};
 }

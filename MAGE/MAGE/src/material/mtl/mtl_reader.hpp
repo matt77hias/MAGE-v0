@@ -268,7 +268,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a texture.
 		 */
-		SharedPtr< Texture > ReadMTLTexture();
+		SharedPtr< const Texture > ReadMTLTexture();
 
 		//---------------------------------------------------------------------
 		// Member Variables

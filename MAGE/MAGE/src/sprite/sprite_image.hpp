@@ -37,7 +37,7 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit SpriteImage(SharedPtr< Texture > texture,
+		explicit SpriteImage(SharedPtr< const Texture > texture,
 			const Color &color, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
@@ -53,7 +53,7 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit SpriteImage(SharedPtr< Texture > texture, const RECT &texture_region,
+		explicit SpriteImage(SharedPtr< const Texture > texture, const RECT &texture_region,
 			const Color &color, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
@@ -67,7 +67,7 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit SpriteImage(SharedPtr< Texture > texture,
+		explicit SpriteImage(SharedPtr< const Texture > texture,
 			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
@@ -83,7 +83,7 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit SpriteImage(SharedPtr< Texture > texture, const RECT &texture_region,
+		explicit SpriteImage(SharedPtr< const Texture > texture, const RECT &texture_region,
 			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
@@ -167,7 +167,7 @@ namespace mage {
 
 		 @return		A pointer to the texture of this sprite image.
 		 */
-		SharedPtr< Texture > GetTexture() const noexcept {
+		SharedPtr< const Texture > GetTexture() const noexcept {
 			return m_texture;
 		}
 
@@ -178,7 +178,7 @@ namespace mage {
 		 @param[in]		texture
 						A pointer to the texture.
 		 */
-		void SetTexture(SharedPtr< Texture > texture);
+		void SetTexture(SharedPtr< const Texture > texture);
 
 		/**
 		 Returns the color of this sprite image.
@@ -260,6 +260,6 @@ namespace mage {
 		/**
 		 A pointer tot the texture of this sprite image.
 		 */
-		SharedPtr< Texture > m_texture;
+		SharedPtr< const Texture > m_texture;
 	};
 }

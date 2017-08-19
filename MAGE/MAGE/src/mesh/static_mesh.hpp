@@ -30,7 +30,8 @@ namespace mage {
 		/**
 		 Constructs a static mesh.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @pre			@a vertices points to an array of at least @a nb_vertices vertices.
 		 @pre			@a nb_vertices must be greater than zero.
 		 @pre			@a indices points to an array of at least @a nb_indices indices.
@@ -66,6 +67,8 @@ namespace mage {
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			The renderer associated with the current engine
+						must be loaded.
 		 @pre			@a vertices points to an array of at least @a nb_vertices vertices.
 		 @pre			@a nb_vertices must be greater than zero.
 		 @pre			@a indices points to an array of at least @a nb_indices indices.
@@ -104,7 +107,8 @@ namespace mage {
 		/**
 		 Constructs a static mesh.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
 		 @pre			The number of vertices must be greater than zero.
 		 @pre			The number of indices must be greater than zero.
 		 @tparam		VertexT
@@ -134,6 +138,8 @@ namespace mage {
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			The renderer associated with the current engine
+						must be loaded.
 		 @pre			The number of vertices must be greater than zero.
 		 @pre			The number of indices must be greater than zero.
 		 @tparam		VertexT

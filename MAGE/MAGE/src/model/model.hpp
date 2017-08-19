@@ -6,7 +6,7 @@
 #pragma region
 
 #include "mesh\static_mesh.hpp"
-#include "shader\shaded_material.hpp"
+#include "material\material.hpp"
 #include "model\shadow_behavior.hpp"
 
 #pragma endregion
@@ -33,10 +33,8 @@ namespace mage {
 		 @pre			@a mesh is not equal to @c nullptr.
 		 @param[in]		mesh
 						A pointer to the mesh.
-		 @param[in]		material
-						A reference to the shaded material.
 		 */
-		explicit Model(SharedPtr< const StaticMesh > mesh, const ShadedMaterial &material);
+		explicit Model(SharedPtr< const StaticMesh > mesh);
 
 		/**
 		 Constructs a model.
@@ -52,11 +50,10 @@ namespace mage {
 						A reference to the AABB.
 		 @param[in]		bs
 						A reference to the BS.
-		 @param[in]		material
-						A reference to the shaded material.
 		 */
-		explicit Model(SharedPtr< const Mesh > mesh, size_t start_index, size_t nb_indices, 
-			const AABB &aabb, const BS &bs, const ShadedMaterial &material);
+		explicit Model(SharedPtr< const Mesh > mesh, 
+			size_t start_index, size_t nb_indices, 
+			const AABB &aabb, const BS &bs);
 
 		/**
 		 Constructs a model from the given model.
@@ -121,24 +118,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the start index of this model in the mesh of this model.
-
-		 @return		The start index of this model in the mesh of this model.
-		 */
-		size_t GetStartIndex() const noexcept {
-			return m_start_index;
-		}
-
-		/**
-		 Returns the number of indices of this model in the mesh of this model.
-
-		 @return		The number of indices of this model in the mesh of this model.
-		 */
-		size_t GetNumberOfIndices() const noexcept {
-			return m_nb_indices;
-		}
-
-		/**
 		 Returns the AABB of this model.
 
 		 @return		A reference to the AABB of this model.
@@ -157,16 +136,44 @@ namespace mage {
 		}
 
 		/**
-		 Prepares this model for drawing.
+		 Returns the start index of this model in the mesh of this model.
+
+		 @return		The start index of this model in the mesh of this model.
 		 */
-		void PrepareDrawing() const {
-			m_mesh->PrepareDrawing();
+		size_t GetStartIndex() const noexcept {
+			return m_start_index;
 		}
 
 		/**
-		 Drwas this model.
+		 Returns the number of indices of this model in the mesh of this model.
+
+		 @return		The number of indices of this model in the mesh of this model.
 		 */
-		void Draw() const {
+		size_t GetNumberOfIndices() const noexcept {
+			return m_nb_indices;
+		}
+
+		/**
+		 Binds the mesh of this model.
+		 */
+		void BindMesh() const noexcept {
+			m_mesh->BindMesh();
+		}
+
+		/**
+		 Binds the mesh of this model with given primitive topology.
+
+		 @param[in]		topology
+						The primitive topology.
+		 */
+		void BindMesh(D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
+			m_mesh->BindMesh(topology);
+		}
+
+		/**
+		 Draws this model.
+		 */
+		void Draw() const noexcept {
 			m_mesh->Draw(m_start_index, m_nb_indices);
 		}
 
@@ -179,7 +186,7 @@ namespace mage {
 
 		 @return		A pointer to the material of this model.
 		 */
-		ShadedMaterial *GetMaterial() noexcept {
+		Material *GetMaterial() noexcept {
 			return m_material.get();
 		}
 
@@ -188,8 +195,28 @@ namespace mage {
 
 		 @return		A pointer to the material of this model.
 		 */
-		const ShadedMaterial *GetMaterial() const noexcept {
+		const Material *GetMaterial() const noexcept {
 			return m_material.get();
+		}
+
+		/**
+		 Sets the material of this model to the given material.
+
+		 @param[in]		material
+						A reference to the material.
+		 */
+		void SetMaterial(const Material &material) noexcept {
+			m_material = MakeUnique< Material >(material);
+		}
+
+		/**
+		 Sets the material of this model to the given material.
+
+		 @param[in]		material
+						A reference to the material.
+		 */
+		void SetMaterial(Material &&material) noexcept {
+			m_material = MakeUnique< Material >(std::move(material));
 		}
 
 		/**
@@ -211,16 +238,23 @@ namespace mage {
 		}
 
 		/**
-		 Prepares this model for shading.
+		 Sets the shadow behavior of this model to the given shadow behavior.
 
-		 @pre			@a transform is not equal to @c nullptr.
-		 @param[in]		transform
-						A pointer to the transform buffer.
-		 @param[in]		scene
-						A reference to the scene info.
+		 @param[in]		shadow_behavior
+						A reference to the shadow behavior.
 		 */
-		void PrepareShading(ID3D11Buffer *transform, const SceneInfo &scene) const {
-			m_material->PrepareShading(transform, scene);
+		void SetShadowBehavior(const ShadowBehavior &shadow_behavior) noexcept {
+			m_shadow_behavior = shadow_behavior;
+		}
+
+		/**
+		 Sets the shadow behavior of this model to the given shadow behavior.
+
+		 @param[in]		shadow_behavior
+						A reference to the shadow behavior.
+		 */
+		void SetShadowBehavior(ShadowBehavior &&shadow_behavior) noexcept {
+			m_shadow_behavior = std::move(shadow_behavior);
 		}
 
 	private:
@@ -266,9 +300,9 @@ namespace mage {
 		const BS m_bs;
 
 		/**
-		 A pointer to the shaded material of this model.
+		 A pointer to the material of this model.
 		 */
-		UniquePtr< ShadedMaterial > m_material;
+		UniquePtr< Material > m_material;
 
 		/**
 		 The shadow behavior of this model.

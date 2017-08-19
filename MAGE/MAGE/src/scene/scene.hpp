@@ -86,8 +86,7 @@ namespace mage {
 
 		template< typename SceneNodeT, typename... ConstructorArgsT >
 		SharedPtr< SceneNodeT > Create(const string &name, ConstructorArgsT&&... args);
-		SharedPtr< ModelNode > CreateModel(const ModelDescriptor &desc, BRDFType brdf = BRDFType::Unknown);
-		SharedPtr< ModelNode > CreateModel(const ModelDescriptor &desc, const CombinedShader &shader);
+		SharedPtr< ModelNode > CreateModel(const ModelDescriptor &desc);
 		
 		//-------------------------------------------------------------------------
 		// Member Methods: Scripts

@@ -165,11 +165,6 @@ namespace mage {
 		}
 
 		/**
-		 Returns the maximum viewport of this renderer.
-		 */
-		D3D11_VIEWPORT GetMaxViewport() const noexcept;
-
-		/**
 		 Checks whether this renderer renders in windowed mode.
 
 		 @return		@c true if this renderer renders in windowed mode.

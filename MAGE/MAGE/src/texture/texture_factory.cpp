@@ -5,7 +5,6 @@
 
 #include "texture\texture_factory.hpp"
 #include "resource\resource_manager.hpp"
-#include "resource\guids.hpp"
 
 #pragma endregion
 
@@ -36,7 +35,7 @@ namespace mage {
 		return texture_desc;
 	}
 
-	SharedPtr< Texture > CreateBlackTexture() {
+	SharedPtr< const Texture > CreateBlackTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
 		static const uint32_t color = 0x000000FF;
@@ -48,7 +47,7 @@ namespace mage {
 		return ResourceManager::Get()->GetOrCreateTexture(MAGE_GUID_TEXTURE_BLACK, &texture_desc, &texture_data);
 	}
 
-	SharedPtr< Texture > CreateWhiteTexture() {
+	SharedPtr< const Texture > CreateWhiteTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
 		static const uint32_t color = 0xFFFFFFFF;
@@ -60,7 +59,7 @@ namespace mage {
 		return ResourceManager::Get()->GetOrCreateTexture(MAGE_GUID_TEXTURE_WHITE, &texture_desc, &texture_data);
 	}
 
-	SharedPtr< Texture > CreateRedTexture() {
+	SharedPtr< const Texture > CreateRedTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
 		static const uint32_t color = 0x0000FFFF;
@@ -72,7 +71,7 @@ namespace mage {
 		return ResourceManager::Get()->GetOrCreateTexture(MAGE_GUID_TEXTURE_RED, &texture_desc, &texture_data);
 	}
 
-	SharedPtr< Texture > CreateGreenTexture() {
+	SharedPtr< const Texture > CreateGreenTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
 		static const uint32_t color = 0x00FF00FF;
@@ -84,7 +83,7 @@ namespace mage {
 		return ResourceManager::Get()->GetOrCreateTexture(MAGE_GUID_TEXTURE_GREEN, &texture_desc, &texture_data);
 	}
 
-	SharedPtr< Texture > CreateBlueTexture() {
+	SharedPtr< const Texture > CreateBlueTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
 		static const uint32_t color = 0xFF0000FF;

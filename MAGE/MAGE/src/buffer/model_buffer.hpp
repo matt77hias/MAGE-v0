@@ -30,7 +30,8 @@ namespace mage {
 		 Constructs a model buffer.
 		 */
 		ModelBuffer()
-			: 
+			: m_object_to_world{}, 
+			m_object_to_view_inverse_transpose{},
 			m_Kd{}, m_dissolve(0.0f),
 			m_Ks{}, m_Ns(0.0f),
 			m_extra_parameters{} {}

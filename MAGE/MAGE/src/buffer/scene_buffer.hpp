@@ -43,7 +43,7 @@ namespace mage {
 		 Constructs a scene buffer.
 		 */
 		SceneBuffer()
-			: m_world_to_view(), m_view_to_projection(),
+			: m_world_to_view{}, m_view_to_projection{},
 			m_Ia(), m_flags(0), m_nb_directional_lights(0), 
 			m_nb_omni_lights(0), m_nb_spot_lights(0), 
 			m_fog_distance_falloff_start(0.0f), m_fog_color(), 

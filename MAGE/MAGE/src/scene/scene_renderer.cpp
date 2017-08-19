@@ -225,8 +225,8 @@ namespace mage {
 				model_buffer.m_extra_parameters.z = material->GetExtraParameter(2);
 				model_buffer.m_extra_parameters.w = material->GetExtraParameter(3);
 				m_model_buffer.UpdateData(model_buffer);
-				VertexShader::BindConstantBuffer(1, m_scene_buffer.Get());
-				PixelShader::BindConstantBuffer(1, m_scene_buffer.Get());
+				VertexShader::BindConstantBuffer(1, m_model_buffer.Get());
+				PixelShader::BindConstantBuffer(1, m_model_buffer.Get());
 
 				PixelShader::BindSRV(3, material->GetDiffuseReflectivitySRV());
 				PixelShader::BindSRV(5, material->GetNormalSRV());
@@ -271,8 +271,8 @@ namespace mage {
 				model_buffer.m_extra_parameters.z = material->GetExtraParameter(2);
 				model_buffer.m_extra_parameters.w = material->GetExtraParameter(3);
 				m_model_buffer.UpdateData(model_buffer);
-				VertexShader::BindConstantBuffer(1, m_scene_buffer.Get());
-				PixelShader::BindConstantBuffer(1, m_scene_buffer.Get());
+				VertexShader::BindConstantBuffer(1, m_model_buffer.Get());
+				PixelShader::BindConstantBuffer(1, m_model_buffer.Get());
 
 				PixelShader::BindSRV(3, material->GetDiffuseReflectivitySRV());
 				PixelShader::BindSRV(5, material->GetNormalSRV());
@@ -369,8 +369,8 @@ namespace mage {
 				model_buffer.m_object_to_world      = XMMatrixTranspose(box_to_world);
 				model_buffer.m_object_to_view_inverse_transpose = view_to_box;
 				m_model_buffer.UpdateData(model_buffer);
-				VertexShader::BindConstantBuffer(1, m_scene_buffer.Get());
-				PixelShader::BindConstantBuffer(1, m_scene_buffer.Get());
+				VertexShader::BindConstantBuffer(1, m_model_buffer.Get());
+				PixelShader::BindConstantBuffer(1, m_model_buffer.Get());
 
 				// Draw model.
 				box_model->BindMesh();
@@ -405,8 +405,8 @@ namespace mage {
 				model_buffer.m_object_to_world      = XMMatrixTranspose(box_to_world);
 				model_buffer.m_object_to_view_inverse_transpose = view_to_box;
 				m_model_buffer.UpdateData(model_buffer);
-				VertexShader::BindConstantBuffer(1, m_scene_buffer.Get());
-				PixelShader::BindConstantBuffer(1, m_scene_buffer.Get());
+				VertexShader::BindConstantBuffer(1, m_model_buffer.Get());
+				PixelShader::BindConstantBuffer(1, m_model_buffer.Get());
 
 				// Draw model.
 				box_model->BindMesh();

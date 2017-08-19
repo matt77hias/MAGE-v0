@@ -228,6 +228,9 @@ namespace mage {
 				VertexShader::BindConstantBuffer(1, m_scene_buffer.Get());
 				PixelShader::BindConstantBuffer(1, m_scene_buffer.Get());
 
+				PixelShader::BindSRV(3, material->GetDiffuseReflectivitySRV());
+				PixelShader::BindSRV(5, material->GetNormalSRV());
+
 				// Draw model.
 				model->BindMesh();
 				model->Draw();
@@ -270,6 +273,9 @@ namespace mage {
 				m_model_buffer.UpdateData(model_buffer);
 				VertexShader::BindConstantBuffer(1, m_scene_buffer.Get());
 				PixelShader::BindConstantBuffer(1, m_scene_buffer.Get());
+
+				PixelShader::BindSRV(3, material->GetDiffuseReflectivitySRV());
+				PixelShader::BindSRV(5, material->GetNormalSRV());
 
 				// Draw model.
 				model->BindMesh();
@@ -333,6 +339,8 @@ namespace mage {
 			model_buffer.m_extra_parameters.z = material->GetExtraParameter(2);
 			model_buffer.m_extra_parameters.w = material->GetExtraParameter(3);
 			
+			PixelShader::BindSRV(3, material->GetDiffuseReflectivitySRV());
+
 			for (auto it = m_opaque_models.cbegin(); it != m_opaque_models.cend(); ++it) {
 				const ModelNode            * const model_node      = *it;
 				const TransformNode        * const model_transform = model_node->GetTransform();

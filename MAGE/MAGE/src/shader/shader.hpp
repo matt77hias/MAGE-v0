@@ -44,7 +44,8 @@ namespace mage {
 						A pointer to the constant buffer.
 		 */
 		static void BindConstantBuffer(UINT slot, ID3D11Buffer *buffer) noexcept {
-			BindConstantBuffers(slot, 1, &buffer);
+			ID3D11Buffer * const buffers[1] = { buffer };
+			BindConstantBuffers(slot, 1, buffers);
 		}
 
 		/**
@@ -86,7 +87,8 @@ namespace mage {
 						A pointer to the shader resource view.
 		 */
 		static void BindSRV(UINT slot, ID3D11ShaderResourceView *srv) noexcept {
-			BindSRVs(slot, 1, &srv);
+			ID3D11ShaderResourceView * const srvs[1] = { srv };
+			BindSRVs(slot, 1, srvs);
 		}
 
 		/**
@@ -129,7 +131,8 @@ namespace mage {
 						A pointer to the sampler.
 		 */
 		static void BindSampler(UINT slot, ID3D11SamplerState *sampler) noexcept {
-			BindSamplers(slot, 1, &sampler);
+			ID3D11SamplerState * const samplers[1] = { sampler };
+			BindSamplers(slot, 1, samplers);
 		}
 		
 		/**
@@ -353,7 +356,8 @@ namespace mage {
 						A pointer to the constant buffer.
 		 */
 		static void BindConstantBuffer(UINT slot, ID3D11Buffer *buffer) noexcept {
-			BindConstantBuffers(slot, 1, &buffer);
+			ID3D11Buffer * const buffers[1] = { buffer };
+			BindConstantBuffers(slot, 1, buffers);
 		}
 
 		/**
@@ -395,7 +399,8 @@ namespace mage {
 						A pointer to the shader resource view.
 		 */
 		static void BindSRV(UINT slot, ID3D11ShaderResourceView *srv) noexcept {
-			BindSRVs(slot, 1, &srv);
+			ID3D11ShaderResourceView * const srvs[1] = { srv };
+			BindSRVs(slot, 1, srvs);
 		}
 
 		/**
@@ -438,7 +443,8 @@ namespace mage {
 						A pointer to the sampler.
 		 */
 		static void BindSampler(UINT slot, ID3D11SamplerState *sampler) noexcept {
-			BindSamplers(slot, 1, &sampler);
+			ID3D11SamplerState * const samplers[1] = { sampler };
+			BindSamplers(slot, 1, samplers);
 		}
 		
 		/**
@@ -629,7 +635,8 @@ namespace mage {
 						A pointer to the constant buffer.
 		 */
 		static void BindConstantBuffer(UINT slot, ID3D11Buffer *buffer) noexcept {
-			BindConstantBuffers(slot, 1, &buffer);
+			ID3D11Buffer * const buffers[1] = { buffer };
+			BindConstantBuffers(slot, 1, buffers);
 		}
 
 		/**
@@ -671,7 +678,8 @@ namespace mage {
 						A pointer to the shader resource view.
 		 */
 		static void BindSRV(UINT slot, ID3D11ShaderResourceView *srv) noexcept {
-			BindSRVs(slot, 1, &srv);
+			ID3D11ShaderResourceView * const srvs[1] = { srv };
+			BindSRVs(slot, 1, srvs);
 		}
 
 		/**
@@ -714,7 +722,8 @@ namespace mage {
 						A pointer to the sampler.
 		 */
 		static void BindSampler(UINT slot, ID3D11SamplerState *sampler) noexcept {
-			BindSamplers(slot, 1, &sampler);
+			ID3D11SamplerState * const samplers[1] = { sampler };
+			BindSamplers(slot, 1, samplers);
 		}
 		
 		/**
@@ -905,7 +914,8 @@ namespace mage {
 						A pointer to the constant buffer.
 		 */
 		static void BindConstantBuffer(UINT slot, ID3D11Buffer *buffer) noexcept {
-			BindConstantBuffers(slot, 1, &buffer);
+			ID3D11Buffer * const buffers[1] = { buffer };
+			BindConstantBuffers(slot, 1, buffers);
 		}
 
 		/**
@@ -947,7 +957,8 @@ namespace mage {
 						A pointer to the shader resource view.
 		 */
 		static void BindSRV(UINT slot, ID3D11ShaderResourceView *srv) noexcept {
-			BindSRVs(slot, 1, &srv);
+			ID3D11ShaderResourceView * const srvs[1] = { srv };
+			BindSRVs(slot, 1, srvs);
 		}
 
 		/**
@@ -990,7 +1001,8 @@ namespace mage {
 						A pointer to the sampler.
 		 */
 		static void BindSampler(UINT slot, ID3D11SamplerState *sampler) noexcept {
-			BindSamplers(slot, 1, &sampler);
+			ID3D11SamplerState * const samplers[1] = { sampler };
+			BindSamplers(slot, 1, samplers);
 		}
 		
 		/**
@@ -1181,7 +1193,8 @@ namespace mage {
 						A pointer to the constant buffer.
 		 */
 		static void BindConstantBuffer(UINT slot, ID3D11Buffer *buffer) noexcept {
-			BindConstantBuffers(slot, 1, &buffer);
+			ID3D11Buffer * const buffers[1] = { buffer };
+			BindConstantBuffers(slot, 1, buffers);
 		}
 
 		/**
@@ -1223,7 +1236,8 @@ namespace mage {
 						A pointer to the shader resource view.
 		 */
 		static void BindSRV(UINT slot, ID3D11ShaderResourceView *srv) noexcept {
-			BindSRVs(slot, 1, &srv);
+			ID3D11ShaderResourceView * const srvs[1] = { srv };
+			BindSRVs(slot, 1, srvs);
 		}
 
 		/**
@@ -1266,7 +1280,8 @@ namespace mage {
 						A pointer to the sampler.
 		 */
 		static void BindSampler(UINT slot, ID3D11SamplerState *sampler) noexcept {
-			BindSamplers(slot, 1, &sampler);
+			ID3D11SamplerState * const samplers[1] = { sampler };
+			BindSamplers(slot, 1, samplers);
 		}
 		
 		/**
@@ -1457,7 +1472,8 @@ namespace mage {
 						A pointer to the constant buffer.
 		 */
 		static void BindConstantBuffer(UINT slot, ID3D11Buffer *buffer) noexcept {
-			BindConstantBuffers(slot, 1, &buffer);
+			ID3D11Buffer * const buffers[1] = { buffer };
+			BindConstantBuffers(slot, 1, buffers);
 		}
 
 		/**
@@ -1499,7 +1515,8 @@ namespace mage {
 						A pointer to the shader resource view.
 		 */
 		static void BindSRV(UINT slot, ID3D11ShaderResourceView *srv) noexcept {
-			BindSRVs(slot, 1, &srv);
+			ID3D11ShaderResourceView * const srvs[1] = { srv };
+			BindSRVs(slot, 1, srvs);
 		}
 
 		/**
@@ -1542,7 +1559,8 @@ namespace mage {
 						A pointer to the unordered access view.
 		 */
 		static void BindUAV(UINT slot, ID3D11UnorderedAccessView *uav) noexcept {
-			BindUAVs(slot, 1, &uav);
+			ID3D11UnorderedAccessView * const uavs[1] = { uav };
+			BindUAVs(slot, 1, uavs);
 		}
 
 		/**
@@ -1564,7 +1582,8 @@ namespace mage {
 						A value of -1 indicates to keep the current offset.
 		 */
 		static void BindUAV(UINT slot, ID3D11UnorderedAccessView *uav, UINT initial_count) noexcept {
-			BindUAVs(slot, 1, &uav, &initial_count);
+			ID3D11UnorderedAccessView * const uavs[1] = { uav };
+			BindUAVs(slot, 1, uavs, &initial_count);
 		}
 
 		/**
@@ -1637,7 +1656,8 @@ namespace mage {
 						A pointer to the sampler.
 		 */
 		static void BindSampler(UINT slot, ID3D11SamplerState *sampler) noexcept {
-			BindSamplers(slot, 1, &sampler);
+			ID3D11SamplerState * const samplers[1] = { sampler };
+			BindSamplers(slot, 1, samplers);
 		}
 		
 		/**

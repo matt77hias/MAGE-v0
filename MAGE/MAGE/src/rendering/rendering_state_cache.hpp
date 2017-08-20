@@ -45,10 +45,13 @@ namespace mage {
 		 Constructs a rendering state cache.
 
 		 @pre			@a device is not equal to @c nullptr.
+		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 */
-		explicit RenderingStateCache(ID3D11Device2 *device);
+		explicit RenderingStateCache(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
 
 		/**
 		 Constructs a rendering state cache from the given rendering state cache.
@@ -111,6 +114,16 @@ namespace mage {
 		ID3D11BlendState *GetOpaqueBlendState();
 
 		/**
+		 Binds the opaque blend state of this rendering cache.
+
+		 @throws		FormattedException
+						Failed to bind the blend state.
+		 */
+		void BindOpaqueBlendState() {
+			m_device_context->OMSetBlendState(GetOpaqueBlendState(), nullptr, 0xFFFFFFFF);
+		}
+
+		/**
 		 Returns the alpha blend state of this rendering cache.
 
 		 @return		A pointer to the alpha blend state
@@ -120,6 +133,16 @@ namespace mage {
 						of this rendering state cache.
 		 */
 		ID3D11BlendState *GetAlphaBlendState();
+
+		/**
+		 Binds the alpha blend state of this rendering cache.
+
+		 @throws		FormattedException
+						Failed to bind the blend state.
+		 */
+		void BindAlphaBlendState() {
+			m_device_context->OMSetBlendState(GetAlphaBlendState(), nullptr, 0xFFFFFFFF);
+		}
 
 		/**
 		 Returns the additive blend state of this rendering cache.
@@ -133,6 +156,16 @@ namespace mage {
 		ID3D11BlendState *GetAdditiveBlendState();
 
 		/**
+		 Binds the additive blend state of this rendering cache.
+
+		 @throws		FormattedException
+						Failed to bind the blend state.
+		 */
+		void BindAdditiveBlendState() {
+			m_device_context->OMSetBlendState(GetAdditiveBlendState(), nullptr, 0xFFFFFFFF);
+		}
+
+		/**
 		 Returns the non-premultiplied blend state of this rendering cache.
 
 		 @return		A pointer to the non-premultiplied blend state
@@ -142,6 +175,16 @@ namespace mage {
 						of this rendering state cache.
 		 */
 		ID3D11BlendState *GetNonPremultipliedBlendState();
+
+		/**
+		 Binds the non-premultiplied blend state of this rendering cache.
+
+		 @throws		FormattedException
+						Failed to bind the blend state.
+		 */
+		void BindNonPremultipliedBlendState() {
+			m_device_context->OMSetBlendState(GetNonPremultipliedBlendState(), nullptr, 0xFFFFFFFF);
+		}
 
 		//---------------------------------------------------------------------
 		// Member Methods: Depth Stencil States
@@ -159,6 +202,17 @@ namespace mage {
 		ID3D11DepthStencilState *GetDepthNoneDepthStencilState();
 
 		/**
+		 Binds the no-depth stencil state
+		 of this rendering cache.
+
+		 @throws		FormattedException
+						Failed to bind the depth stencil state.
+		 */
+		void BindDepthNoneDepthStencilState() {
+			m_device_context->OMSetDepthStencilState(GetDepthNoneDepthStencilState(), 0);
+		}
+
+		/**
 		 Returns the default depth stencil state of this rendering cache.
 
 		 @return		A pointer to the read depth stencil state
@@ -170,6 +224,17 @@ namespace mage {
 		ID3D11DepthStencilState *GetDepthDefaultDepthStencilState();
 
 		/**
+		 Binds the default depth stencil state
+		 of this rendering cache.
+
+		 @throws		FormattedException
+						Failed to bind the depth stencil state.
+		 */
+		void BindDepthDefaultDepthStencilState() {
+			m_device_context->OMSetDepthStencilState(GetDepthDefaultDepthStencilState(), 0);
+		}
+
+		/**
 		 Returns the read depth stencil state of this rendering cache.
 
 		 @return		A pointer to the read depth stencil state
@@ -179,6 +244,17 @@ namespace mage {
 						of this rendering state cache.
 		 */
 		ID3D11DepthStencilState *GetDepthReadDepthStencilState();
+
+		/**
+		 Binds the read depth stencil state
+		 of this rendering cache.
+
+		 @throws		FormattedException
+						Failed to bind the depth stencil state.
+		 */
+		void BindDepthReadDepthStencilState() {
+			m_device_context->OMSetDepthStencilState(GetDepthReadDepthStencilState(), 0);
+		}
 
 		//-------------------------------------------------------------------------
 		// Member Methods: Rasterizer States
@@ -196,6 +272,17 @@ namespace mage {
 		ID3D11RasterizerState *GetCullNoneRasterizerState();
 
 		/**
+		 Binds the no-culling rasterizer state
+		 of this rendering cache.
+
+		 @throws		FormattedException
+						Failed to bind the rasterizer state.
+		 */
+		void BindCullNoneRasterizerState() {
+			m_device_context->RSSetState(GetCullNoneRasterizerState());
+		}
+
+		/**
 		 Returns the clockwise-culling rasterizer state of this rendering cache.
 
 		 @return		A pointer to the clockwise-culling rasterizer state
@@ -205,6 +292,17 @@ namespace mage {
 						of this rendering state cache.
 		 */
 		ID3D11RasterizerState *GetCullClockwiseRasterizerState();
+
+		/**
+		 Binds the clockwise-culling rasterizer state
+		 of this rendering cache.
+
+		 @throws		FormattedException
+						Failed to bind the rasterizer state.
+		 */
+		void BindCullClockwiseRasterizerState() {
+			m_device_context->RSSetState(GetCullClockwiseRasterizerState());
+		}
 
 		/**
 		 Returns the counter-clockwise-culling rasterizer state of this rendering cache.
@@ -218,6 +316,17 @@ namespace mage {
 		ID3D11RasterizerState *GetCullCounterClockwiseRasterizerState();
 
 		/**
+		 Binds the counter-clockwise-culling rasterizer state
+		 of this rendering cache.
+
+		 @throws		FormattedException
+						Failed to bind the rasterizer state.
+		 */
+		void BindCullCounterClockwiseRasterizerState() {
+			m_device_context->RSSetState(GetCullCounterClockwiseRasterizerState());
+		}
+
+		/**
 		 Returns the wireframe rasterizer state of this rendering cache.
 
 		 @return		A pointer to the wireframe rasterizer state
@@ -227,6 +336,17 @@ namespace mage {
 						of this rendering state cache.
 		 */
 		ID3D11RasterizerState *GetWireframeRasterizerState();
+
+		/**
+		 Binds the wireframe rasterizer state
+		 of this rendering cache.
+
+		 @throws		FormattedException
+						Failed to bind the rasterizer state.
+		 */
+		void BindWireframeRasterizerState() {
+			m_device_context->RSSetState(GetWireframeRasterizerState());
+		}
 
 		//-------------------------------------------------------------------------
 		// Member Methods: Sampler States
@@ -308,6 +428,11 @@ namespace mage {
 		 The device of this rendering state.
 		 */
 		ID3D11Device2 * const m_device;
+
+		/**
+		 The device context of this rendering state.
+		 */
+		ID3D11DeviceContext2 * const m_device_context;
 
 		/**
 		 A pointer to the opaque blend state

@@ -13,7 +13,7 @@
 namespace mage {
 
 	SceneManager::SceneManager()
-		: m_renderer(MakeUnique< SceneRenderer >()), m_scene() {}
+		: m_scene(), m_renderer(MakeUnique< SceneRenderer >()) {}
 
 	SceneManager::SceneManager(SceneManager &&scene_behavior) = default;
 

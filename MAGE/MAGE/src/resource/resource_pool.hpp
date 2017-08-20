@@ -29,7 +29,7 @@ namespace mage {
 					The resource type.
 	 */
 	template< typename KeyT, typename ResourceT >
-	using ResourceMap = map< const KeyT, WeakPtr< ResourceT > >;
+	using ResourceMap = map< KeyT, WeakPtr< ResourceT > >;
 
 	/**
 	 A persistent resource map used by a persistent resource pool.
@@ -40,7 +40,7 @@ namespace mage {
 					The resource type.
 	 */
 	template< typename KeyT, typename ResourceT >
-	using PersistentResourceMap = map< const KeyT, SharedPtr< ResourceT > >;
+	using PersistentResourceMap = map< KeyT, SharedPtr< ResourceT > >;
 
 	//-------------------------------------------------------------------------
 	// ResourcePool
@@ -496,104 +496,6 @@ namespace mage {
 		 The mutex for accessing the persistent resource map of this persistent resource pool.
 		 */
 		Mutex m_resource_map_mutex;
-
-		/**
-		 A class of persistent resources.
-
-		 @pre			@c DerivedResourceT is a derived class of @c ResourceT.
-		 @tparam		DerivedResourceT
-						The derived resource type.
-		 */
-		template< typename DerivedResourceT >
-		struct PersistentResource final : public DerivedResourceT {
-
-		public:
-
-			//-----------------------------------------------------------------
-			// Constructors and Destructors
-			//-----------------------------------------------------------------
-
-			/**
-			 Constructs a persistent resource.
-
-			 @tparam		ConstructorArgsT
-							The argument types for creating a new resource
-							of type @c DerivedResourceT.
-			 @param[in]		resource_pool
-							A reference to the persistent resource pool.
-			 @param[in]		resource_key
-							A reference to the key of the resource 
-							in the given persistent resource pool.
-			 @param[in]		args
-							The arguments for creating a new resource
-							of type @c DerivedResourceT.
-			 */
-			template< typename... ConstructorArgsT >
-			PersistentResource(PersistentResourcePool< KeyT, ResourceT > &resource_pool,
-				const KeyT &resource_key, ConstructorArgsT&&... args);
-			
-			/**
-			 Constructs a persistent resource from the given persistent resource.
-
-			 @param[in]		resource
-							A reference to the persistent resource to copy.
-			 */
-			PersistentResource(const PersistentResource &resource) = delete;
-
-			/**
-			 Constructs a persistent resource by moving the given persistent resource poolentry .
-
-			 @param[in]		resource
-							A reference to the persistent resource to move.
-			 */
-			PersistentResource(PersistentResource &&resource);
-
-			/**
-			 Destructs this persistent resource.
-			 */
-			virtual ~PersistentResource();
-
-			//-----------------------------------------------------------------
-			// Assignment Operators
-			//-----------------------------------------------------------------
-
-			/**
-			 Copies the given persistent resource to this persistent resource.
-
-			 @param[in]		resource
-							A reference to the persistent resource to copy.
-			 @return		A reference to the copy of the given persistent resource
-							(i.e. this persistent resource).
-			 */
-			PersistentResource &operator=(const PersistentResource &resource) = delete;
-			
-			/**
-			 Moves the given persistent resource to this persistent resource.
-
-			 @param[in]		resource
-							A reference to the persistent resource to move.
-			 @return		A reference to the moved persistent resource
-							(i.e. this persistent resource).
-			 */
-			PersistentResource &operator=(PersistentResource &&resource) = delete;
-
-		private:
-
-			//-----------------------------------------------------------------
-			// Member Variables
-			//-----------------------------------------------------------------
-
-			/**
-			 A reference to the persistent resource pool map containing this persistent resource.
-			 */
-			PersistentResourcePool< KeyT, ResourceT > &m_resource_pool;
-
-			/**
-			 The key of this persistent resource in the persistent resource pool map containing
-			 this persistent resource.
-			 */
-			const KeyT m_resource_key;
-		};
 	};
 }
 

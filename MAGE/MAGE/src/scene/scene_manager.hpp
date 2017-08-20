@@ -110,13 +110,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the scene renderer of this scene manager.
-		 */
-		UniquePtr< SceneRenderer > m_renderer;
-
-		/**
 		 A pointer to the current scene of this scene manager.
 		 */
 		UniquePtr< Scene > m_scene;
+
+		/**
+		 A pointer to the scene renderer of this scene manager.
+		 */
+		UniquePtr< SceneRenderer > m_renderer;
 	};
 }

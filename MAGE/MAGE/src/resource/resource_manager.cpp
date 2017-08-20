@@ -26,12 +26,12 @@ namespace mage {
 
 	ResourceManager::ResourceManager()
 		: m_model_descriptor_resource_pool(MakeUnique< ResourcePool< wstring, const ModelDescriptor > >()),
-		m_vs_resource_pool(MakeUnique< ResourcePool< wstring, const VertexShader > >()),
-		m_hs_resource_pool(MakeUnique< ResourcePool< wstring, const HullShader > >()),
-		m_ds_resource_pool(MakeUnique< ResourcePool< wstring, const DomainShader > >()),
-		m_gs_resource_pool(MakeUnique< ResourcePool< wstring, const GeometryShader > >()),
-		m_ps_resource_pool(MakeUnique< ResourcePool< wstring, const PixelShader > >()),
-		m_cs_resource_pool(MakeUnique< ResourcePool< wstring, const ComputeShader > >()),
+		m_vs_resource_pool(MakeUnique< PersistentResourcePool< wstring, const VertexShader > >()),
+		m_hs_resource_pool(MakeUnique< PersistentResourcePool< wstring, const HullShader > >()),
+		m_ds_resource_pool(MakeUnique< PersistentResourcePool< wstring, const DomainShader > >()),
+		m_gs_resource_pool(MakeUnique< PersistentResourcePool< wstring, const GeometryShader > >()),
+		m_ps_resource_pool(MakeUnique< PersistentResourcePool< wstring, const PixelShader > >()),
+		m_cs_resource_pool(MakeUnique< PersistentResourcePool< wstring, const ComputeShader > >()),
 		m_sprite_font_resource_pool(MakeUnique< ResourcePool< wstring, SpriteFont > >()),
 		m_texture_resource_pool(MakeUnique< ResourcePool< wstring, const Texture > >()),
 		m_variable_script_resource_pool(MakeUnique< ResourcePool< wstring, VariableScript > >()) {}

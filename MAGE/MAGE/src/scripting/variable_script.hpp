@@ -205,7 +205,7 @@ namespace mage {
 		 The keys match the variables' name and 
 		 the values match the variables.
 		 */
-		map< const string, Variable > m_variables;
+		map< string, Variable > m_variables;
 	};
 }
 

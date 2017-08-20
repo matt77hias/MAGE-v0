@@ -247,6 +247,12 @@
     <Filter Include="Header Files\shader\cso\sprite">
       <UniqueIdentifier>{5f32344a-f3d2-4a74-8586-c30d8fc9d64f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\pass">
+      <UniqueIdentifier>{dd8d5dba-534d-45e4-911f-102f58889355}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\pass">
+      <UniqueIdentifier>{85970b30-13e1-4b93-bee0-801f4035884c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -591,9 +597,6 @@
     <ClInclude Include="MAGE\src\script\manhattan_motor_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\script\wireframe_script.hpp">
-      <Filter>Header Files\script</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\script\manhattan_input_controller_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
@@ -840,6 +843,21 @@
     <ClInclude Include="MAGE\src\buffer\model_buffer.hpp">
       <Filter>Header Files\buffer</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\pass\configuration.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\pass_buffer.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\basic_render_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\camera\camera_settings.hpp">
+      <Filter>Header Files\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\script\mode_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1040,9 +1058,6 @@
     <ClCompile Include="MAGE\src\script\manhattan_motor_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\script\wireframe_script.cpp">
-      <Filter>Source Files\script</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\binary\binary_writer.cpp">
       <Filter>Source Files\binary</Filter>
     </ClCompile>
@@ -1163,6 +1178,18 @@
     <ClCompile Include="MAGE\src\camera\viewport.cpp">
       <Filter>Source Files\camera</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\pass\pass_buffer.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\basic_render_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\material\material.cpp">
+      <Filter>Source Files\material</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\script\mode_script.cpp">
+      <Filter>Source Files\script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\sprite.fx">
@@ -1266,6 +1293,24 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\structures.fx">
       <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\tsnm\tsnm_shading_normal_PS.hlsl">
+      <Filter>Shader Files\tsnm</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\osnm\osnm_shading_normal_PS.hlsl">
+      <Filter>Shader Files\osnm</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\basic\shading_normal_PS.hlsl">
+      <Filter>Shader Files\basic</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\basic\diffuse_reflectivity_texture_PS.hlsl">
+      <Filter>Shader Files\basic</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\basic\distance_PS.hlsl">
+      <Filter>Shader Files\basic</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\basic\diffuse_reflectivity_PS.hlsl">
+      <Filter>Shader Files\basic</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

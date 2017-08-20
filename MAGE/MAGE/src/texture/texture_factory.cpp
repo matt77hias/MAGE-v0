@@ -35,6 +35,14 @@ namespace mage {
 		return texture_desc;
 	}
 
+	SharedPtr< const Texture > CreateMAGETexture() {
+		return ResourceManager::Get()->GetOrCreateTexture(L"assets/sprites/mage.dds");
+	}
+
+	SharedPtr< const Texture > CreateReferenceTexture() {
+		return ResourceManager::Get()->GetOrCreateTexture(L"assets/sprites/reference.dds");
+	}
+
 	SharedPtr< const Texture > CreateBlackTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 

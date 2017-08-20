@@ -599,32 +599,32 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, const VertexShader > > m_vs_resource_pool;
+		UniquePtr< PersistentResourcePool< wstring, const VertexShader > > m_vs_resource_pool;
 
 		/**
 		 A pointer to the hull shader resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, const HullShader > > m_hs_resource_pool;
+		UniquePtr< PersistentResourcePool< wstring, const HullShader > > m_hs_resource_pool;
 
 		/**
 		 A pointer to the domain shader resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, const DomainShader > > m_ds_resource_pool;
+		UniquePtr< PersistentResourcePool< wstring, const DomainShader > > m_ds_resource_pool;
 
 		/**
 		 A pointer to the geometry shader resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, const GeometryShader > > m_gs_resource_pool;
+		UniquePtr< PersistentResourcePool< wstring, const GeometryShader > > m_gs_resource_pool;
 
 		/**
 		 A pointer to the pixel shader resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, const PixelShader > > m_ps_resource_pool;
+		UniquePtr< PersistentResourcePool< wstring, const PixelShader > > m_ps_resource_pool;
 
 		/**
 		 A pointer to the compute shader resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, const ComputeShader > > m_cs_resource_pool;
+		UniquePtr< PersistentResourcePool< wstring, const ComputeShader > > m_cs_resource_pool;
 
 		/**
 		 A pointer to the sprite font resource pool of this resource manager.

@@ -7,6 +7,7 @@
 
 #include "shader\guids.hpp"
 #include "shader\shader.hpp"
+#include "material\brdf.hpp"
 
 #pragma endregion
 
@@ -130,6 +131,65 @@ namespace mage {
 	SharedPtr< const PixelShader > CreateCookTorrancePS();
 
 	/**
+	 Creates a pixel shader matching the given BRDF.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @param[in]		brdf
+					The BRDF type.
+	 @return		A pointer to the pixel shader matching
+					the given BRDF.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreatePS(BRDFType brdf);
+
+	/**
+	 Creates a shading normal pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the shading normal pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateShadingNormalPS();
+
+	/**
+	 Creates a distance pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the distance pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDistancePS();
+
+	/**
+	 Creates a diffuse reflectivity pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the diffuse reflectivity pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDiffuseReflectivityPS();
+
+	/**
+	 Creates a diffuse reflectivity texture pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the diffuse reflectivity texture
+					pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDiffuseReflectivityTexturePS();
+
+	/**
 	 Creates a Lambertian tsnm pixel shader.
 
 	 @pre			The resource manager associated with the
@@ -216,6 +276,31 @@ namespace mage {
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateCookTorranceTSNMPS();
+
+	/**
+	 Creates a tsnm pixel shader matching the given BRDF.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @param[in]		brdf
+					The BRDF type.
+	 @return		A pointer to the tsnm pixel shader matching
+					the given BRDF.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateTSNMPS(BRDFType brdf);
+
+	/**
+	 Creates a shading normal tsnm pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the shading normal tsnm pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateShadingNormalTSNMPS();
 
 	/**
 	 Creates a sprite vertex shader.

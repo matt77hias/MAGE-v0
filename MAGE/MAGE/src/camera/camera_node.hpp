@@ -7,6 +7,7 @@
 
 #include "scene\scene_node.hpp"
 #include "camera\camera.hpp"
+#include "camera\camera_settings.hpp"
 #include "camera\viewport.hpp"
 
 #pragma endregion
@@ -92,6 +93,24 @@ namespace mage {
 		}
 
 		/**
+		 Returns the camera settings of this camera node.
+
+		 @return		A pointer to the camera settings of this camera node.	
+		 */
+		CameraSettings *GetSettings() noexcept {
+			return m_settings.get();
+		}
+		
+		/**
+		 Returns the camera settings of this camera node.
+
+		 @return		A pointer to the camera settings of this camera node.
+		 */
+		const CameraSettings *GetSettings() const noexcept {
+			return m_settings.get();
+		}
+
+		/**
 		 Returns the viewport of this camera node.
 
 		 @return		A reference to the viewport of this camera node.
@@ -163,6 +182,11 @@ namespace mage {
 		 A pointer to the camera of this camera node.
 		 */
 		UniquePtr< Camera > m_camera;
+
+		/**
+		 A pointer to the camera settings of this camera node.
+		 */
+		UniquePtr< CameraSettings > m_settings;
 
 		/**
 		 The viewport of this camera node.

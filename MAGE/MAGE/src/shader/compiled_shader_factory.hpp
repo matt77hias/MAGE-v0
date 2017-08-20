@@ -21,140 +21,175 @@ namespace mage {
 	/**
 	 Returns the compiled transform vertex shader.
 
-	 @return		A pointer to the compiled transform vertex shader.
+	 @return		A buffer compiled transform vertex shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledTransformVS() noexcept;
+	const BufferCompiledShader CreateCompiledTransformVS() noexcept;
 
 	/**
 	 Returns the compiled emissive pixel shader.
 
-	 @return		A pointer to the compiled emissive pixel shader.
+	 @return		A buffer compiled emissive pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledEmissivePS() noexcept;
+	const BufferCompiledShader CreateCompiledEmissivePS() noexcept;
 
 	/**
 	 Returns the compiled Lambertian pixel shader.
 
-	 @return		A pointer to the compiled Lambertian pixel shader.
+	 @return		A buffer compiled Lambertian pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledLambertianPS() noexcept;
+	const BufferCompiledShader CreateCompiledLambertianPS() noexcept;
 
 	/**
 	 Returns the compiled Phong pixel shader.
 
-	 @return		A pointer to the compiled Phong pixel shader.
+	 @return		A buffer compiled Phong pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledPhongPS() noexcept;
+	const BufferCompiledShader CreateCompiledPhongPS() noexcept;
 
 	/**
 	 Returns the compiled Modified Phong pixel shader.
 
-	 @return		A pointer to the compiled Modified Phong pixel shader.
+	 @return		A buffer compiled Modified Phong pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledModifiedPhongPS() noexcept;
+	const BufferCompiledShader CreateCompiledModifiedPhongPS() noexcept;
 
 	/**
 	 Returns the compiled Blinn-Phong pixel shader.
 
-	 @return		A pointer to the compiled Blinn-Phong pixel shader.
+	 @return		A buffer compiled Blinn-Phong pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledBlinnPhongPS() noexcept;
+	const BufferCompiledShader CreateCompiledBlinnPhongPS() noexcept;
 
 	/**
 	 Returns the compiled Modified Blinn-Phong pixel shader.
 
-	 @return		A pointer to the compiled Modified Blinn-Phong pixel shader.
+	 @return		A buffer compiled Modified Blinn-Phong pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledModifiedBlinnPhongPS() noexcept;
+	const BufferCompiledShader CreateCompiledModifiedBlinnPhongPS() noexcept;
 
 	/**
 	 Returns the compiled Ward pixel shader.
 
-	 @return		A pointer to the compiled Ward pixel shader.
+	 @return		A buffer compiled Ward pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledWardPS() noexcept;
+	const BufferCompiledShader CreateCompiledWardPS() noexcept;
 
 	/**
 	 Returns the compiled Ward-Duer pixel shader.
 
-	 @return		A pointer to the compiled Ward-Duer pixel shader.
+	 @return		A buffer compiled Ward-Duer pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledWardDuerPS() noexcept;
+	const BufferCompiledShader CreateCompiledWardDuerPS() noexcept;
 
 	/**
 	 Returns the compiled Cook-Torrance pixel shader.
 
-	 @return		A pointer to the compiled Cook-Torrance pixel shader.
+	 @return		A buffer compiled Cook-Torrance pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledCookTorrancePS() noexcept;
+	const BufferCompiledShader CreateCompiledCookTorrancePS() noexcept;
+
+	/**
+	 Returns the compiled shading normal pixel shader.
+
+	 @return		A buffer compiled shading normal pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledShadingNormalPS() noexcept;
+
+	/**
+	 Returns the compiled distance pixel shader.
+
+	 @return		A buffer compiled distance pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDistancePS() noexcept;
+
+	/**
+	 Returns the compiled diffuse reflectivity pixel shader.
+
+	 @return		A buffer compiled diffuse reflectivity pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDiffuseReflectivityPS() noexcept;
+
+	/**
+	 Returns the compiled diffuse reflectivity texture pixel shader.
+
+	 @return		A buffer compiled diffuse reflectivity texture pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDiffuseReflectivityTexturePS() noexcept;
 
 	/**
 	 Returns the compiled Lambertian tsnm pixel shader.
 
-	 @return		A pointer to the compiled Lambertian tsnm pixel shader.
+	 @return		A buffer compiled Lambertian tsnm pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledLambertianTSNMPS() noexcept;
+	const BufferCompiledShader CreateCompiledLambertianTSNMPS() noexcept;
 
 	/**
 	 Returns the compiled Phong tsnm pixel shader.
 
-	 @return		A pointer to the compiled Phong tsnm pixel shader.
+	 @return		A buffer compiled Phong tsnm pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledPhongTSNMPS() noexcept;
+	const BufferCompiledShader CreateCompiledPhongTSNMPS() noexcept;
 
 	/**
 	 Returns the compiled Modified Phong tsnm pixel shader.
 
-	 @return		A pointer to the compiled Modified Phong tsnm pixel shader.
+	 @return		A buffer compiled Modified Phong tsnm pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledModifiedPhongTSNMPS() noexcept;
+	const BufferCompiledShader CreateCompiledModifiedPhongTSNMPS() noexcept;
 
 	/**
 	 Returns the compiled Blinn-Phong tsnm pixel shader.
 
-	 @return		A pointer to the compiled Blinn-Phong tsnm pixel shader.
+	 @return		A buffer compiled Blinn-Phong tsnm pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledBlinnPhongTSNMPS() noexcept;
+	const BufferCompiledShader CreateCompiledBlinnPhongTSNMPS() noexcept;
 
 	/**
 	 Returns the compiled Modified Blinn-Phong tsnm pixel shader.
 
-	 @return		A pointer to the compiled Modified Blinn-Phong tsnm pixel shader.
+	 @return		A buffer compiled Modified Blinn-Phong tsnm pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledModifiedBlinnPhongTSNMPS() noexcept;
+	const BufferCompiledShader CreateCompiledModifiedBlinnPhongTSNMPS() noexcept;
 
 	/**
 	 Returns the compiled Ward tsnm pixel shader.
 
-	 @return		A pointer to the compiled Ward tsnm pixel shader.
+	 @return		A buffer compiled Ward tsnm pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledWardTSNMPS() noexcept;
+	const BufferCompiledShader CreateCompiledWardTSNMPS() noexcept;
 
 	/**
 	 Returns the compiled Ward-Duer tsnm pixel shader.
 
-	 @return		A pointer to the compiled Ward-Duer tsnm pixel shader.
+	 @return		A buffer compiled Ward-Duer tsnm pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledWardDuerTSNMPS() noexcept;
+	const BufferCompiledShader CreateCompiledWardDuerTSNMPS() noexcept;
 
 	/**
 	 Returns the compiled Cook-Torrance tsnm pixel shader.
 
-	 @return		A pointer to the compiled Cook-Torrance tsnm pixel shader.
+	 @return		A buffer compiled Cook-Torrance tsnm pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledCookTorranceTSNMPS() noexcept;
+	const BufferCompiledShader CreateCompiledCookTorranceTSNMPS() noexcept;
 
 	/**
 	 Returns the compiled sprite vertex shader.
 
-	 @return		A pointer to the compiled sprite vertex shader.
+	 @return		A buffer compiled sprite vertex shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledSpriteVS() noexcept;
+	const BufferCompiledShader CreateCompiledSpriteVS() noexcept;
+
+	/**
+	 Returns the compiled shading normal tsnm pixel shader.
+
+	 @return		A buffer compiled shading normal tsnm pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledShadingNormalTSNMPS() noexcept;
 
 	/**
 	 Returns the compiled sprite pixel shader.
 
-	 @return		A pointer to the compiled sprite pixel shader.
+	 @return		A buffer compiled sprite pixel shader.
 	 */
-	UniquePtr< const CompiledShader > CreateCompiledSpritePS() noexcept;
+	const BufferCompiledShader CreateCompiledSpritePS() noexcept;
 }

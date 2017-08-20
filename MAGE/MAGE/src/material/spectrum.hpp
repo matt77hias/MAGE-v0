@@ -37,6 +37,15 @@ namespace mage {
 		 */
 		RGBSpectrum() noexcept
 			: RGBSpectrum(0.0f, 0.0f, 0.0f) {}
+
+		/**
+		 Constructs a RGB spectrum from the given spectrum components.
+
+		 @param[in]		rgb
+						The red, green and blue component.
+		 */
+		explicit RGBSpectrum(float rgb) noexcept
+			: RGBSpectrum(rgb, rgb, rgb) {}
 		
 		/**
 		 Constructs a RGB spectrum from the given spectrum components.
@@ -153,6 +162,15 @@ namespace mage {
 		 */
 		XYZSpectrum() noexcept
 			: XYZSpectrum(0.0f, 0.0f, 0.0f) {}
+
+		/**
+		 Constructs a XYZ spectrum from the given spectrum components.
+
+		 @param[in]		xyz
+						The x, y and z component.
+		 */
+		explicit XYZSpectrum(float xyz) noexcept
+			: XYZSpectrum(xyz, xyz, xyz) {}
 		
 		/**
 		 Constructs a XYZ spectrum from the given spectrum components.

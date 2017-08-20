@@ -58,6 +58,7 @@ cbuffer Model : register(b1) {
 }
 
 Texture2D g_diffuse_texture : register(t3);
+Texture2D g_specular_texture : register(t4);
 Texture2D g_normal_texture  : register(t5);
 
 //-----------------------------------------------------------------------------
@@ -182,10 +183,6 @@ float4 Basic_PS(PSInputPositionNormalTexture input) : SV_Target {
 	const float3 n_view = normalize(input.n_view);
 	return BRDFShading(p_view, n_view, input.tex);
 }
-float4 Basic_Normal_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 n_view = normalize(input.n_view);
-	return float4(InverseBiasX2(n_view), 1.0f);
-}
 
 float4 TangentSpaceNormalMapping_PS(PSInputPositionNormalTexture input) : SV_Target {
 	const float3 p_view = input.p_view.xyz;
@@ -193,25 +190,9 @@ float4 TangentSpaceNormalMapping_PS(PSInputPositionNormalTexture input) : SV_Tar
 	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(p_view, n0, input.tex);
 	return BRDFShading(p_view, n_view, input.tex);
 }
-float4 TangentSpaceNormalMapping_Normal_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 p_view = input.p_view.xyz;
-	const float3 n0     = normalize(input.n_view);
-	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(p_view, n0, input.tex);
-	return float4(InverseBiasX2(n_view), 1.0f);
-}
 
 float4 ObjectSpaceNormalMapping_PS(PSInputPositionNormalTexture input) : SV_Target {
 	const float3 p_view = input.p_view.xyz;
 	const float3 n_view = ObjectSpaceNormalMapping_PerturbNormal(input.tex);
 	return BRDFShading(p_view, n_view, input.tex);
-}
-float4 ObjectSpaceNormalMapping_Normal_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 n_view = ObjectSpaceNormalMapping_PerturbNormal(input.tex);
-	return float4(InverseBiasX2(n_view), 1.0f);
-}
-
-float4 Distance_PS(PSInputPositionNormalTexture input) : SV_Target{
-	const float3 p_view = input.p_view.xyz;
-	const float c = 1.0f - saturate(length(p_view) / 5.0f);
-	return float4(c, c, c, 1.0f);
 }

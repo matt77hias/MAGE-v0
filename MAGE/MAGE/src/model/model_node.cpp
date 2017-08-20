@@ -19,7 +19,7 @@ namespace mage {
 	}
 
 	ModelNode::ModelNode(const ModelNode &model_node)
-		: SceneNode(model_node), m_model(model_node.GetModel()->Clone()) {}
+		: SceneNode(model_node), m_model(model_node.m_model->Clone()) {}
 
 	ModelNode::ModelNode(ModelNode &&model_node) = default;
 

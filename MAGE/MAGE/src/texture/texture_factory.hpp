@@ -16,6 +16,28 @@
 namespace mage {
 
 	/**
+	 Creates a MAGE texture.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the texture.
+	 @throws		FormattedException
+					Failed to create the texture.
+	 */
+	SharedPtr< const Texture > CreateMAGETexture();
+
+	/**
+	 Creates a reference texture.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the texture.
+	 @throws		FormattedException
+					Failed to create the texture.
+	 */
+	SharedPtr< const Texture > CreateReferenceTexture();
+
+	/**
 	 Creates a black texture.
 
 	 @pre			The resource manager associated with the

@@ -14,6 +14,10 @@
 #include "shader\cso\basic\ward_PS.hpp"
 #include "shader\cso\basic\ward_duer_PS.hpp"
 #include "shader\cso\basic\cook_torrance_PS.hpp"
+#include "shader\cso\basic\shading_normal_PS.hpp"
+#include "shader\cso\basic\distance_PS.hpp"
+#include "shader\cso\basic\diffuse_reflectivity_PS.hpp"
+#include "shader\cso\basic\diffuse_reflectivity_texture_PS.hpp"
 #include "shader\cso\tsnm\tsnm_lambertian_PS.hpp"
 #include "shader\cso\tsnm\tsnm_phong_PS.hpp"
 #include "shader\cso\tsnm\tsnm_modified_phong_PS.hpp"
@@ -22,6 +26,7 @@
 #include "shader\cso\tsnm\tsnm_ward_PS.hpp"
 #include "shader\cso\tsnm\tsnm_ward_duer_PS.hpp"
 #include "shader\cso\tsnm\tsnm_cook_torrance_PS.hpp"
+#include "shader\cso\tsnm\tsnm_shading_normal_PS.hpp"
 #include "shader\cso\sprite\sprite_VS.hpp"
 #include "shader\cso\sprite\sprite_PS.hpp"
 
@@ -32,83 +37,103 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	UniquePtr< const CompiledShader > CreateCompiledTransformVS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_transform_vs, sizeof(g_transform_vs));
+	const BufferCompiledShader CreateCompiledTransformVS() noexcept {
+		return BufferCompiledShader(g_transform_vs, sizeof(g_transform_vs));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledEmissivePS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_emissive_ps, sizeof(g_emissive_ps));
+	const BufferCompiledShader CreateCompiledEmissivePS() noexcept {
+		return BufferCompiledShader(g_emissive_ps, sizeof(g_emissive_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledLambertianPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_lambertian_ps, sizeof(g_lambertian_ps));
+	const BufferCompiledShader CreateCompiledLambertianPS() noexcept {
+		return BufferCompiledShader(g_lambertian_ps, sizeof(g_lambertian_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledPhongPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_phong_ps, sizeof(g_phong_ps));
+	const BufferCompiledShader CreateCompiledPhongPS() noexcept {
+		return BufferCompiledShader(g_phong_ps, sizeof(g_phong_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledModifiedPhongPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_modified_phong_ps, sizeof(g_modified_phong_ps));
+	const BufferCompiledShader CreateCompiledModifiedPhongPS() noexcept {
+		return BufferCompiledShader(g_modified_phong_ps, sizeof(g_modified_phong_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledBlinnPhongPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_blinn_phong_ps, sizeof(g_blinn_phong_ps));
+	const BufferCompiledShader CreateCompiledBlinnPhongPS() noexcept {
+		return BufferCompiledShader(g_blinn_phong_ps, sizeof(g_blinn_phong_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledModifiedBlinnPhongPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_modified_blinn_phong_ps, sizeof(g_modified_blinn_phong_ps));
+	const BufferCompiledShader CreateCompiledModifiedBlinnPhongPS() noexcept {
+		return BufferCompiledShader(g_modified_blinn_phong_ps, sizeof(g_modified_blinn_phong_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledWardPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_ward_ps, sizeof(g_ward_ps));
+	const BufferCompiledShader CreateCompiledWardPS() noexcept {
+		return BufferCompiledShader(g_ward_ps, sizeof(g_ward_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledWardDuerPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_ward_duer_ps, sizeof(g_ward_duer_ps));
+	const BufferCompiledShader CreateCompiledWardDuerPS() noexcept {
+		return BufferCompiledShader(g_ward_duer_ps, sizeof(g_ward_duer_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledCookTorrancePS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_cook_torrance_ps, sizeof(g_cook_torrance_ps));
+	const BufferCompiledShader CreateCompiledCookTorrancePS() noexcept {
+		return BufferCompiledShader(g_cook_torrance_ps, sizeof(g_cook_torrance_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledLambertianTSNMPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_tsnm_lambertian_ps, sizeof(g_tsnm_lambertian_ps));
+	const BufferCompiledShader CreateCompiledShadingNormalPS() noexcept {
+		return BufferCompiledShader(g_shading_normal_ps, sizeof(g_shading_normal_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledPhongTSNMPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_tsnm_phong_ps, sizeof(g_tsnm_phong_ps));
+	const BufferCompiledShader CreateCompiledDistancePS() noexcept {
+		return BufferCompiledShader(g_distance_ps, sizeof(g_distance_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledModifiedPhongTSNMPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_tsnm_modified_phong_ps, sizeof(g_tsnm_modified_phong_ps));
+	const BufferCompiledShader CreateCompiledDiffuseReflectivityPS() noexcept {
+		return BufferCompiledShader(g_diffuse_reflectivity_ps, sizeof(g_diffuse_reflectivity_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledBlinnPhongTSNMPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_tsnm_blinn_phong_ps, sizeof(g_tsnm_blinn_phong_ps));
+	const BufferCompiledShader CreateCompiledDiffuseReflectivityTexturePS() noexcept {
+		return BufferCompiledShader(g_diffuse_reflectivity_texture_ps, sizeof(g_diffuse_reflectivity_texture_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledModifiedBlinnPhongTSNMPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_tsnm_modified_blinn_phong_ps, sizeof(g_tsnm_modified_blinn_phong_ps));
+	const BufferCompiledShader CreateCompiledLambertianTSNMPS() noexcept {
+		return BufferCompiledShader(g_tsnm_lambertian_ps, sizeof(g_tsnm_lambertian_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledWardTSNMPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_tsnm_ward_ps, sizeof(g_tsnm_ward_ps));
+	const BufferCompiledShader CreateCompiledPhongTSNMPS() noexcept {
+		return BufferCompiledShader(g_tsnm_phong_ps, sizeof(g_tsnm_phong_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledWardDuerTSNMPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_tsnm_ward_duer_ps, sizeof(g_tsnm_ward_duer_ps));
+	const BufferCompiledShader CreateCompiledModifiedPhongTSNMPS() noexcept {
+		return BufferCompiledShader(g_tsnm_modified_phong_ps, sizeof(g_tsnm_modified_phong_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledCookTorranceTSNMPS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_tsnm_cook_torrance_ps, sizeof(g_tsnm_cook_torrance_ps));
+	const BufferCompiledShader CreateCompiledBlinnPhongTSNMPS() noexcept {
+		return BufferCompiledShader(g_tsnm_blinn_phong_ps, sizeof(g_tsnm_blinn_phong_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledSpriteVS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_sprite_vs, sizeof(g_sprite_vs));
+	const BufferCompiledShader CreateCompiledModifiedBlinnPhongTSNMPS() noexcept {
+		return BufferCompiledShader(g_tsnm_modified_blinn_phong_ps, sizeof(g_tsnm_modified_blinn_phong_ps));
 	}
 
-	UniquePtr< const CompiledShader > CreateCompiledSpritePS() noexcept {
-		return MakeUnique< const BufferCompiledShader >(g_sprite_ps, sizeof(g_sprite_ps));
+	const BufferCompiledShader CreateCompiledWardTSNMPS() noexcept {
+		return BufferCompiledShader(g_tsnm_ward_ps, sizeof(g_tsnm_ward_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledWardDuerTSNMPS() noexcept {
+		return BufferCompiledShader(g_tsnm_ward_duer_ps, sizeof(g_tsnm_ward_duer_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledCookTorranceTSNMPS() noexcept {
+		return BufferCompiledShader(g_tsnm_cook_torrance_ps, sizeof(g_tsnm_cook_torrance_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledShadingNormalTSNMPS() noexcept {
+		return BufferCompiledShader(g_tsnm_shading_normal_ps, sizeof(g_tsnm_shading_normal_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledSpriteVS() noexcept {
+		return BufferCompiledShader(g_sprite_vs, sizeof(g_sprite_vs));
+	}
+
+	const BufferCompiledShader CreateCompiledSpritePS() noexcept {
+		return BufferCompiledShader(g_sprite_ps, sizeof(g_sprite_ps));
 	}
 }

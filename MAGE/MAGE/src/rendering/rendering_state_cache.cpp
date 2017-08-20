@@ -24,8 +24,9 @@ namespace mage {
 		return Renderer::Get()->GetRenderingStateCache();
 	}
 
-	RenderingStateCache::RenderingStateCache(ID3D11Device2 *device)
-		: m_device(device),
+	RenderingStateCache::RenderingStateCache(ID3D11Device2 *device, 
+		ID3D11DeviceContext2 *device_context)
+		: m_device(device), m_device_context(device_context),
 		m_opaque_blend_state(), m_alpha_blend_state(), m_additive_blend_state(), m_non_premultiplied_blend_state(),
 		m_depth_none_depth_stencil_state(), m_depth_default_depth_stencil_state(), m_depth_read_depth_stencil_state(),
 		m_cull_none_rasterizer_state(), m_cull_clockwise_rasterizer_state(), m_cull_counter_clockwise_rasterizer_state(), m_wireframe_rasterizer_state(),
@@ -34,6 +35,7 @@ namespace mage {
 		m_mutex() {
 
 		Assert(m_device);
+		Assert(m_device_context);
 	}
 
 	RenderingStateCache::RenderingStateCache(RenderingStateCache &&rendering_state_cache) = default;

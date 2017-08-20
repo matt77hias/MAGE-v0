@@ -15,7 +15,7 @@
 
 #include "script\stats_script.hpp"
 #include "script\fps_input_controller_script.hpp"
-#include "script\wireframe_script.hpp"
+#include "script\mode_script.hpp"
 
 #pragma endregion
 
@@ -75,8 +75,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Texture
 		//---------------------------------------------------------------------
-		auto texture_logo = 
-			ResourceManager::Get()->GetOrCreateTexture(L"assets/sprites/mage.dds");
+		auto texture_logo = CreateMAGETexture();
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
@@ -100,6 +99,6 @@ namespace mage {
 		AddScript(MakeShared< RotationYScript >(model_sphere->GetTransform()));
 		AddScript(MakeShared< FPSInputControllerScript >(camera->GetTransform()));
 		AddScript(MakeShared< StatsScript >(text->GetSprite()));
-		AddScript(MakeShared< WireframeScript >());
+		AddScript(MakeShared< ModeScript >(camera->GetSettings()));
 	}
 }

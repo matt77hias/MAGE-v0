@@ -5,12 +5,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene.hpp"
+#include "pass\pass_buffer.hpp"
+#include "pass\basic_render_pass.hpp"
 #include "sprite\sprite_batch.hpp"
-#include "buffer\structured_buffer.hpp"
-#include "buffer\scene_buffer.hpp"
-#include "buffer\light_buffer.hpp"
-#include "buffer\model_buffer.hpp"
 
 #pragma endregion
 
@@ -19,14 +16,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class SceneRenderer {
+
+	class SceneRenderer final {
 
 	public:
 
 		SceneRenderer();
 		SceneRenderer(const SceneRenderer &scene_renderer) = delete;
 		SceneRenderer(SceneRenderer &&scene_renderer);
-		virtual ~SceneRenderer();
+		~SceneRenderer();
 
 		SceneRenderer &operator=(const SceneRenderer &scene_renderer) = delete;
 		SceneRenderer &operator=(SceneRenderer &&scene_renderer) = delete;
@@ -35,30 +33,7 @@ namespace mage {
 
 	private:
 
-		void CreateBox();
-		void Preprocess(const Scene *scene);
-		void Render3D(const Scene *scene);
-		void RenderAABBs();
-		void Render2D();
-
-		vector< const CameraNode * > m_cameras;
-		vector< const ModelNode * > m_opaque_models;
-		vector< const ModelNode * > m_transparent_models;
-		vector< const DirectionalLightNode * > m_directional_lights;
-		vector< const OmniLightNode * > m_omni_lights;
-		vector< const SpotLightNode * > m_spot_lights;
-		vector< const SpriteNode * > m_sprites;
-		RGBSpectrum m_ambient_light;
-		UniquePtr< ModelNode > m_box;
-
-		SharedPtr< const VertexShader > m_vs;
-		SharedPtr< const PixelShader > m_ps;
+		UniquePtr< BasicRenderPass > m_render_pass;
 		UniquePtr< SpriteBatch > m_sprite_batch;
-
-		ConstantBuffer< ModelBuffer > m_model_buffer;
-		ConstantBuffer< SceneBuffer > m_scene_buffer;
-		StructuredBuffer< DirectionalLightBuffer > m_directional_lights_buffer;
-		StructuredBuffer< OmniLightBuffer > m_omni_lights_buffer;
-		StructuredBuffer< SpotLightBuffer > m_spot_lights_buffer;
 	};
 }

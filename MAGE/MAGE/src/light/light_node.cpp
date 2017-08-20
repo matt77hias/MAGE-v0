@@ -19,7 +19,7 @@ namespace mage {
 	}
 
 	LightNode::LightNode(const LightNode &light_node)
-		: SceneNode(light_node), m_light(light_node.GetLight()->Clone()) {}
+		: SceneNode(light_node), m_light(light_node.m_light->Clone()) {}
 
 	LightNode::LightNode(LightNode &&light_node) = default;
 

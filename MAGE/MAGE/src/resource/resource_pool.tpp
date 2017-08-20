@@ -182,8 +182,7 @@ namespace mage {
 			return it->second;
 		}
 
-		auto new_resource = MakeAllocatedShared< PersistentResource< DerivedResourceT > >
-			(*this, key, std::forward< ConstructorArgsT >(args)...);
+		auto new_resource = MakeAllocatedShared< DerivedResourceT >(std::forward< ConstructorArgsT >(args)...);
 
 		m_resource_map.insert(std::make_pair(key, new_resource));
 
@@ -205,29 +204,5 @@ namespace mage {
 		MutexLock lock(m_resource_map_mutex);
 
 		m_resource_map.clear();
-	}
-
-	//-------------------------------------------------------------------------
-	// PersistentResource
-	//-------------------------------------------------------------------------
-
-	template< typename KeyT, typename ResourceT >
-	template< typename DerivedResourceT >
-	template< typename... ConstructorArgsT >
-	PersistentResourcePool< KeyT, ResourceT >::PersistentResource< DerivedResourceT >::PersistentResource(
-			PersistentResourcePool< KeyT, ResourceT > &resource_pool, const KeyT &resource_key,
-			ConstructorArgsT&&... args)
-		: DerivedResourceT(std::forward< ConstructorArgsT >(args)...),
-		m_resource_pool(resource_pool), m_resource_key(resource_key) {}
-
-	template< typename KeyT, typename ResourceT >
-	template< typename DerivedResourceT >
-	PersistentResourcePool< KeyT, ResourceT >::PersistentResource< DerivedResourceT >::PersistentResource(
-		PersistentResource &&resource) = default;
-
-	template< typename KeyT, typename ResourceT >
-	template< typename DerivedResourceT >
-	PersistentResourcePool< KeyT, ResourceT >::PersistentResource< DerivedResourceT >::~PersistentResource() {
-		m_resource_pool.RemoveResource(m_resource_key);
 	}
 }

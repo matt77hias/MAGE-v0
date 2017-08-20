@@ -93,7 +93,7 @@ namespace mage {
 		m_shader_names.emplace_back(L"Cook-Torrance + TSNM");
 
 
-		Assert(m_shaders.size() == m_shader_names.size());
+		//Assert(m_shaders.size() == m_shader_names.size());
 	}
 
 	void BRDFScript::SetShaders() const {

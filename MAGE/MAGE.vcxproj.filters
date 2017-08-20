@@ -855,7 +855,7 @@
     <ClInclude Include="MAGE\src\camera\camera_settings.hpp">
       <Filter>Header Files\camera</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\script\mode_script.hpp">
+    <ClInclude Include="MAGE\src\script\render_mode_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1187,7 +1187,7 @@
     <ClCompile Include="MAGE\src\material\material.cpp">
       <Filter>Source Files\material</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\script\mode_script.cpp">
+    <ClCompile Include="MAGE\src\script\render_mode_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
   </ItemGroup>

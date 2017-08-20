@@ -15,7 +15,7 @@
 
 #include "script\stats_script.hpp"
 #include "script\fps_input_controller_script.hpp"
-#include "script\mode_script.hpp"
+#include "script\render_mode_script.hpp"
 
 #pragma endregion
 
@@ -99,6 +99,6 @@ namespace mage {
 		AddScript(MakeShared< RotationYScript >(model_sphere->GetTransform()));
 		AddScript(MakeShared< FPSInputControllerScript >(camera->GetTransform()));
 		AddScript(MakeShared< StatsScript >(text->GetSprite()));
-		AddScript(MakeShared< ModeScript >(camera->GetSettings()));
+		AddScript(MakeShared< RenderModeScript >(camera->GetSettings()));
 	}
 }

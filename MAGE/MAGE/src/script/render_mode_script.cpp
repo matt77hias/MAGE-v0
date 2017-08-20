@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "script\mode_script.hpp"
+#include "script\render_mode_script.hpp"
 #include "input\keyboard.hpp"
 #include "rendering\renderer.hpp"
 
@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ModeScript::ModeScript(CameraSettings *settings)
+	RenderModeScript::RenderModeScript(CameraSettings *settings)
 		: BehaviorScript(), m_settings(settings), 
 		m_render_modes(), m_index(0) {
 		
@@ -27,23 +27,23 @@ namespace mage {
 		m_render_modes.push_back(RenderMode::Distance);
 	}
 
-	ModeScript::ModeScript(ModeScript &&script) = default;
+	RenderModeScript::RenderModeScript(RenderModeScript &&script) = default;
 	
-	ModeScript::~ModeScript() = default;
+	RenderModeScript::~RenderModeScript() = default;
 
-	void ModeScript::Update(double delta_time) {
+	void RenderModeScript::Update(double delta_time) {
 		UNUSED(delta_time);
 		
 		const Keyboard * const keyboard = Keyboard::Get();
+		if (keyboard->GetKeyPress(DIK_RETURN)) {
+			m_index = (m_index + 1) % m_render_modes.size();
+			m_settings->SetRenderMode(m_render_modes[m_index]);
+		}
 		if (keyboard->GetKeyPress(DIK_B)) {
 			m_settings->ToggleRenderLayer(RenderLayer::AABB);
 		}
-		else if (keyboard->GetKeyPress(DIK_N)) {
+		if (keyboard->GetKeyPress(DIK_N)) {
 			m_settings->ToggleRenderLayer(RenderLayer::Wireframe);
-		} 
-		else if (keyboard->GetKeyPress(DIK_RETURN)) {
-			m_index = (m_index + 1) % m_render_modes.size();
-			m_settings->SetRenderMode(m_render_modes[m_index]);
 		}
 	}
 }

@@ -16,7 +16,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class ModeScript final : public BehaviorScript {
+	class RenderModeScript final : public BehaviorScript {
 
 	public:
 
@@ -24,17 +24,17 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		ModeScript(CameraSettings *settings);
-		ModeScript(const ModeScript &script) = delete;
-		ModeScript(ModeScript &&script);
-		virtual ~ModeScript();
+		RenderModeScript(CameraSettings *settings);
+		RenderModeScript(const RenderModeScript &script) = delete;
+		RenderModeScript(RenderModeScript &&script);
+		virtual ~RenderModeScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		ModeScript &operator=(const ModeScript &script) = delete;
-		ModeScript &operator=(ModeScript &&script) = delete;
+		RenderModeScript &operator=(const RenderModeScript &script) = delete;
+		RenderModeScript &operator=(RenderModeScript &&script) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

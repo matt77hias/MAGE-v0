@@ -153,7 +153,7 @@
     <ClInclude Include="MAGE\src\script\stats_script.hpp" />
     <ClInclude Include="MAGE\src\script\system_usage_script.hpp" />
     <ClInclude Include="MAGE\src\script\text_console_script.hpp" />
-    <ClInclude Include="MAGE\src\script\mode_script.hpp" />
+    <ClInclude Include="MAGE\src\script\render_mode_script.hpp" />
     <ClInclude Include="MAGE\src\shader\guids.hpp" />
     <ClInclude Include="MAGE\src\shader\shader_factory.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\basic\blinn_phong_PS.hpp" />
@@ -302,7 +302,7 @@
     <ClCompile Include="MAGE\src\script\stats_script.cpp" />
     <ClCompile Include="MAGE\src\script\system_usage_script.cpp" />
     <ClCompile Include="MAGE\src\script\text_console_script.cpp" />
-    <ClCompile Include="MAGE\src\script\mode_script.cpp" />
+    <ClCompile Include="MAGE\src\script\render_mode_script.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_factory.cpp" />
     <ClCompile Include="MAGE\src\shader\compiled_shader.cpp" />
     <ClCompile Include="MAGE\src\shader\compiled_shader_factory.cpp" />

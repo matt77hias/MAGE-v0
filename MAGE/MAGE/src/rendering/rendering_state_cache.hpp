@@ -6,7 +6,7 @@
 #pragma region
 
 #include "memory\memory.hpp"
-#include "rendering\rendering.hpp"
+#include "rendering\pipeline.hpp"
 #include "parallel\lock.hpp"
 
 #pragma endregion

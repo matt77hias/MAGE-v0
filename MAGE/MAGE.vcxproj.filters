@@ -858,6 +858,9 @@
     <ClInclude Include="MAGE\src\script\render_mode_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\pipeline.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1406,6 +1409,9 @@
     </None>
     <None Include="MAGE\src\buffer\structured_buffer.tpp">
       <Filter>Header Files\buffer</Filter>
+    </None>
+    <None Include="MAGE\src\shader\shader.tpp">
+      <Filter>Header Files\shader</Filter>
     </None>
   </ItemGroup>
 </Project>

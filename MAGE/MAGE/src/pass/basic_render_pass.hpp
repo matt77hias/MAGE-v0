@@ -67,21 +67,21 @@ namespace mage {
 			const Material *material);
 
 		void BindDirectionalLightsBuffer() noexcept {
-			PixelShader::BindSRV(0, m_directional_lights_buffer.Get());
+			PS::BindSRV(0, m_directional_lights_buffer.Get());
 		}
 		void BindOmniLightsBuffer() noexcept {
-			PixelShader::BindSRV(1, m_omni_lights_buffer.Get());
+			PS::BindSRV(1, m_omni_lights_buffer.Get());
 		}
 		void BindSpotLightsBuffer() noexcept {
-			PixelShader::BindSRV(2, m_spot_lights_buffer.Get());
+			PS::BindSRV(2, m_spot_lights_buffer.Get());
 		}
 		void BindSceneBuffer() noexcept {
-			VertexShader::BindConstantBuffer(0, m_scene_buffer.Get());
-			PixelShader::BindConstantBuffer(0, m_scene_buffer.Get());
+			VS::BindConstantBuffer(0, m_scene_buffer.Get());
+			PS::BindConstantBuffer(0, m_scene_buffer.Get());
 		}
 		void BindModelBuffer() noexcept {
-			VertexShader::BindConstantBuffer(1, m_model_buffer.Get());
-			PixelShader::BindConstantBuffer(1, m_model_buffer.Get());
+			VS::BindConstantBuffer(1, m_model_buffer.Get());
+			PS::BindConstantBuffer(1, m_model_buffer.Get());
 		}
 
 		enum PSIndex {

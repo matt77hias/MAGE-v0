@@ -74,7 +74,7 @@ namespace mage {
 		 @param[in]		resource_pool
 						A reference to the resource pool to copy.
 		 */
-		ResourcePool(const ResourcePool &resource_pool) = delete;
+		ResourcePool(const ResourcePool< KeyT, ResourceT > &resource_pool) = delete;
 
 		/**
 		 Constructs a resource pool by moving the given resource pool.
@@ -82,7 +82,7 @@ namespace mage {
 		 @param[in]		resource_pool
 						A reference to the resource pool to move.
 		 */
-		ResourcePool(ResourcePool &&resource_pool);
+		ResourcePool(ResourcePool< KeyT, ResourceT > &&resource_pool);
 
 		/**
 		 Destructs this resource pool.
@@ -101,7 +101,8 @@ namespace mage {
 		 @return		A reference to the copy of the given resource pool
 						(i.e. this resource pool).
 		 */
-		ResourcePool &operator=(const ResourcePool &resource_pool) = delete;
+		ResourcePool< KeyT, ResourceT > &operator=(
+			const ResourcePool< KeyT, ResourceT > &resource_pool) = delete;
 
 		/**
 		 Moves the given resource pool to this resource pool.
@@ -111,7 +112,8 @@ namespace mage {
 		 @return		A reference to the moved resource pool
 						(i.e. this resource pool).
 		 */
-		ResourcePool &operator=(ResourcePool &&resource_pool) = delete;
+		ResourcePool< KeyT, ResourceT > &operator=(
+			ResourcePool< KeyT, ResourceT > &&resource_pool) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -261,7 +263,7 @@ namespace mage {
 			 @param[in]		resource
 							A reference to the resource to copy.
 			 */
-			Resource(const Resource &resource) = delete;
+			Resource(const Resource< DerivedResourceT > &resource) = delete;
 
 			/**
 			 Constructs a resource by moving the given resource poolentry .
@@ -269,7 +271,7 @@ namespace mage {
 			 @param[in]		resource
 							A reference to the resource to move.
 			 */
-			Resource(Resource &&resource);
+			Resource(Resource< DerivedResourceT > &&resource);
 
 			/**
 			 Destructs this resource.
@@ -288,7 +290,8 @@ namespace mage {
 			 @return		A reference to the copy of the given resource
 							(i.e. this resource).
 			 */
-			Resource &operator=(const Resource &resource) = delete;
+			Resource< DerivedResourceT > &operator=(
+				const Resource< DerivedResourceT > &resource) = delete;
 			
 			/**
 			 Moves the given resource to this resource.
@@ -298,7 +301,8 @@ namespace mage {
 			 @return		A reference to the moved resource
 							(i.e. this resource).
 			 */
-			Resource &operator=(Resource &&resource) = delete;
+			Resource< DerivedResourceT > &operator=(
+				Resource< DerivedResourceT > &&resource) = delete;
 
 		private:
 
@@ -351,7 +355,7 @@ namespace mage {
 		 @param[in]		resource_pool
 						A reference to the persistent resource pool to copy.
 		 */
-		PersistentResourcePool(const PersistentResourcePool &resource_pool) = delete;
+		PersistentResourcePool(const PersistentResourcePool< KeyT, ResourceT > &resource_pool) = delete;
 
 		/**
 		 Constructs a persistent resource pool by moving the given persistent resource pool.
@@ -359,7 +363,7 @@ namespace mage {
 		 @param[in]		resource_pool
 						A reference to the persistent resource pool to move.
 		 */
-		PersistentResourcePool(PersistentResourcePool &&resource_pool);
+		PersistentResourcePool(PersistentResourcePool< KeyT, ResourceT > &&resource_pool);
 
 		/**
 		 Destructs this persistent resource pool.
@@ -378,7 +382,8 @@ namespace mage {
 		 @return		A reference to the copy of the given persistent resource pool
 						(i.e. this persistent resource pool).
 		 */
-		PersistentResourcePool &operator=(const PersistentResourcePool &resource_pool) = delete;
+		PersistentResourcePool< KeyT, ResourceT > &operator=(
+			const PersistentResourcePool< KeyT, ResourceT > &resource_pool) = delete;
 
 		/**
 		 Moves the given persistent resource pool to this persistent resource pool.
@@ -388,7 +393,8 @@ namespace mage {
 		 @return		A reference to the moved persistent resource pool
 						(i.e. this persistent resource pool).
 		 */
-		PersistentResourcePool &operator=(PersistentResourcePool &&resource_pool) = delete;
+		PersistentResourcePool< KeyT, ResourceT > &operator=(
+			PersistentResourcePool< KeyT, ResourceT > &&resource_pool) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

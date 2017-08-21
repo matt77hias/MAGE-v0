@@ -50,7 +50,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the MSH reader to copy.
 		 */
-		MSHReader(const MSHReader &reader) = delete;
+		MSHReader(const MSHReader< VertexT, IndexT > &reader) = delete;
 
 		/**
 		 Constructs a MSH reader by moving the given MSH reader.
@@ -58,7 +58,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the MSH reader to move.
 		 */
-		MSHReader(MSHReader &&reader);
+		MSHReader(MSHReader< VertexT, IndexT > &&reader);
 
 		/**
 		 Destructs this MSH reader.
@@ -77,7 +77,8 @@ namespace mage {
 		 @return		A reference to the copy of the given MSH reader
 						(i.e. this MSH reader).
 		 */
-		MSHReader &operator=(const MSHReader &reader) = delete;
+		MSHReader< VertexT, IndexT > &operator=(
+			const MSHReader< VertexT, IndexT > &reader) = delete;
 
 		/**
 		 Moves the given MSH reader to this MSH reader.
@@ -87,7 +88,8 @@ namespace mage {
 		 @return		A reference to the moved MSH reader
 						(i.e. this MSH reader).
 		 */
-		MSHReader &operator=(MSHReader &&reader) = delete;
+		MSHReader< VertexT, IndexT > &operator=(
+			MSHReader< VertexT, IndexT > &&reader) = delete;
 
 	private:
 

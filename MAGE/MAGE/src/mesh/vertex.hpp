@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering.hpp"
+#include "rendering\pipeline.hpp"
 #include "math\math.hpp"
 
 #pragma endregion

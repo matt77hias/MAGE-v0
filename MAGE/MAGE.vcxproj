@@ -121,6 +121,7 @@
     <ClInclude Include="MAGE\src\rendering\display_configurator.hpp" />
     <ClInclude Include="MAGE\src\rendering\display_configuration.hpp" />
     <ClInclude Include="MAGE\src\rendering\display_settings.hpp" />
+    <ClInclude Include="MAGE\src\rendering\pipeline.hpp" />
     <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp" />
@@ -1581,6 +1582,7 @@
     <None Include="MAGE\src\resource\resource_pool.tpp" />
     <None Include="MAGE\src\scene\scene.tpp" />
     <None Include="MAGE\src\scripting\variable_script.tpp" />
+    <None Include="MAGE\src\shader\shader.tpp" />
     <None Include="MAGE\src\sprite\sprite_node.tpp" />
     <None Include="MAGE\src\text\sprite_text.tpp" />
   </ItemGroup>

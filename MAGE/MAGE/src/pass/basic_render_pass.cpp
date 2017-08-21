@@ -188,9 +188,9 @@ namespace mage {
 		BindModelBuffer();
 
 		BindPixelShader(material);
-		PixelShader::BindSRV(3, material->GetDiffuseReflectivitySRV());
-		PixelShader::BindSRV(4, material->GetSpecularReflectivitySRV());
-		PixelShader::BindSRV(5, material->GetNormalSRV());
+		PS::BindSRV(3, material->GetDiffuseReflectivitySRV());
+		PS::BindSRV(4, material->GetSpecularReflectivitySRV());
+		PS::BindSRV(5, material->GetNormalSRV());
 	}
 
 	void BasicRenderPass::ProcessModels(const vector< const ModelNode * > &models,
@@ -481,7 +481,7 @@ namespace mage {
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
 		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PixelShader::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
 		node->GetViewport().BindViewport();
 
 		const TransformNode * const transform = node->GetTransform();
@@ -504,7 +504,7 @@ namespace mage {
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
 		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PixelShader::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
 		node->GetViewport().BindViewport();
 
 		const TransformNode * const transform = node->GetTransform();
@@ -529,7 +529,7 @@ namespace mage {
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
 		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PixelShader::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
 		node->GetViewport().BindViewport();
 		
 		const TransformNode * const transform = node->GetTransform();
@@ -552,7 +552,7 @@ namespace mage {
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
 		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PixelShader::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
 		node->GetViewport().BindViewport();
 
 		const TransformNode * const transform = node->GetTransform();
@@ -578,7 +578,7 @@ namespace mage {
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
 		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PixelShader::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
 		node->GetViewport().BindViewport();
 
 		const TransformNode * const transform = node->GetTransform();
@@ -600,7 +600,7 @@ namespace mage {
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
 		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PixelShader::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
 		node->GetViewport().BindViewport();
 
 		const TransformNode * const transform = node->GetTransform();
@@ -622,7 +622,7 @@ namespace mage {
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
 		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PixelShader::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
 		node->GetViewport().BindViewport();
 
 		const TransformNode * const transform = node->GetTransform();
@@ -644,7 +644,7 @@ namespace mage {
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
 		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PixelShader::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
 		node->GetViewport().BindViewport();
 
 		const TransformNode * const transform = node->GetTransform();
@@ -673,7 +673,7 @@ namespace mage {
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
 		RenderingStateCache::Get()->BindWireframeRasterizerState();
 		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PixelShader::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
 		node->GetViewport().BindViewport();
 		
 		const TransformNode * const transform = node->GetTransform();

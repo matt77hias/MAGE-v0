@@ -49,7 +49,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the MSH writer to copy.
 		 */
-		MSHWriter(const MSHWriter &writer) = delete;
+		MSHWriter(const MSHWriter< VertexT, IndexT > &writer) = delete;
 
 		/**
 		 Constructs a MSH writer by moving the given MSH writer.
@@ -57,7 +57,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the MSH writer to move.
 		 */
-		MSHWriter(MSHWriter &&writer);
+		MSHWriter(MSHWriter< VertexT, IndexT > &&writer);
 
 		/**
 		 Destructs this MSH writer.
@@ -76,7 +76,8 @@ namespace mage {
 		 @return		A reference to the copy of the given MSH writer
 						(i.e. this MSH writer).
 		 */
-		MSHWriter &operator=(const MSHWriter &writer) = delete;
+		MSHWriter< VertexT, IndexT > &operator=(
+			const MSHWriter< VertexT, IndexT > &writer) = delete;
 
 		/**
 		 Moves the given MSH writer to this MSH writer.
@@ -86,7 +87,8 @@ namespace mage {
 		 @return		A reference to the moved MSH writer
 						(i.e. this MSH writer).
 		 */
-		MSHWriter &operator=(MSHWriter &&writer) = delete;
+		MSHWriter< VertexT, IndexT > &operator=(
+			MSHWriter< VertexT, IndexT > &&writer) = delete;
 
 	private:
 

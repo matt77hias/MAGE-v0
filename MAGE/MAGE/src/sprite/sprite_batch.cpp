@@ -52,6 +52,7 @@ namespace mage {
 		SpriteSortMode sort_mode, FXMMATRIX transform,
 		ID3D11BlendState *blend_state, ID3D11DepthStencilState *depth_stencil_state,
 		ID3D11RasterizerState *rasterizer_state, ID3D11SamplerState *sampler_state) {
+		
 		// This SpriteBatch may not already be in a begin/end pair.
 		Assert(!m_in_begin_end_pair);
 
@@ -73,6 +74,7 @@ namespace mage {
 	void XM_CALLCONV SpriteBatch::Draw(ID3D11ShaderResourceView *texture,
 		FXMVECTOR color, SpriteEffect effects,
 		const SpriteTransform &transform, const RECT *source) {
+		
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);
 		Assert(texture);
@@ -141,6 +143,7 @@ namespace mage {
 	}
 
 	void SpriteBatch::End() {
+		
 		// This SpriteBatch must already be in a begin/end pair.
 		Assert(m_in_begin_end_pair);
 
@@ -192,12 +195,12 @@ namespace mage {
 		m_device_context->OMSetBlendState(m_blend_state, nullptr, 0xFFFFFFFF);
 		m_device_context->OMSetDepthStencilState(m_depth_stencil_state, 0);
 		m_device_context->RSSetState(m_rasterizer_state);
-		PixelShader::BindSampler(0, m_sampler_state);
+		PS::BindSampler(0, m_sampler_state);
 
 		// Binds the mesh, shaders and transform buffer.
 		m_mesh->BindMesh();
 		m_vs->BindShader();
-		m_vs->BindConstantBuffer(0, m_transform_buffer.Get());
+		VS::BindConstantBuffer(0, m_transform_buffer.Get());
 		m_ps->BindShader();
 	}
 
@@ -286,7 +289,7 @@ namespace mage {
 		const SpriteInfo * const *sprites, size_t nb_sprites) {
 
 		// Binds the texture.
-		m_ps->BindSRV(0, texture);
+		PS::BindSRV(0, texture);
 
 		const XMVECTOR texture_size = GetTexture2DSize(texture);
 		const XMVECTOR inverse_texture_size = XMVectorReciprocal(texture_size);

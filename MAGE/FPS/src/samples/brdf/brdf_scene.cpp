@@ -5,6 +5,7 @@
 
 #include "samples\brdf\brdf_scene.hpp"
 #include "samples\brdf\brdf_script.hpp"
+#include "samples\sponza\sponza_scene.hpp"
 
 #pragma endregion
 
@@ -14,6 +15,7 @@
 #pragma region
 
 #include "script\stats_script.hpp"
+#include "script\switch_scene_script.hpp"
 
 #pragma endregion
 
@@ -103,7 +105,7 @@ namespace mage {
 		// Font
 		//---------------------------------------------------------------------
 		auto font =
-			ResourceManager::Get()->GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
+			ResourceManager::Get()->GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont");
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------
@@ -113,6 +115,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
+		AddScript(MakeShared< SwitchSceneScript< SponzaScene > >());
 		AddScript(MakeShared< StatsScript >(stats->GetSprite()));
 
 		vector< ModelNode * > models;
@@ -123,6 +126,7 @@ namespace mage {
 		models.push_back(model_plane.get());
 		models.push_back(model_sphere.get());
 		models.push_back(model_torus.get());
-		AddScript(MakeShared< BRDFScript >(brdf->GetSprite(), models));
+		AddScript(MakeShared< BRDFScript >(
+			camera->GetSettings(), brdf->GetSprite(), models));
 	}
 }

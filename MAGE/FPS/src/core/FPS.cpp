@@ -1,4 +1,4 @@
-//#include "samples\brdf\brdf_scene.hpp"
+#include "samples\brdf\brdf_scene.hpp"
 #include "samples\sponza\sponza_scene.hpp"
 
 using namespace mage;

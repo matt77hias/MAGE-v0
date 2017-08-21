@@ -18,9 +18,20 @@ namespace mage {
 
 	template< typename ActionT >
 	inline void Scene::ForEachScript(ActionT action) const {
-		for (auto &script : m_scripts) {
+		vector< SharedPtr< BehaviorScript > > scripts;
+		scripts.reserve(m_scripts.size());
+
+		for (const auto &script : m_scripts) {
+
+			if (script->IsTerminated()) {
+				continue;
+			}
+
 			action(script.get());
+			scripts.push_back(std::move(script));
 		}
+
+		m_scripts = std::move(scripts);
 	}
 
 	template< typename ActionT >

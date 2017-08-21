@@ -18,7 +18,8 @@ namespace mage {
 
 	public:
 
-		BRDFScript(SpriteText *text, const vector< ModelNode * > &models);
+		BRDFScript(CameraSettings *settings,
+			SpriteText *text, const vector< ModelNode * > &models);
 
 		BRDFScript(const BRDFScript &script) = delete;
 
@@ -32,19 +33,45 @@ namespace mage {
 
 	private:
 
-		void InitModels();
+		enum struct ShaderType {
+			Emissive = 0,
+			Lambertian,
+			Phong,
+			ModifiedPhong,
+			BlinnPhong,
+			ModifiedBlinnPhong,
+			Ward,
+			WardDuer,
+			CookTorrance,
+			TSNMLambertian,
+			TSNMPhong,
+			TSNMModifiedPhong,
+			TSNMBlinnPhong,
+			TSNMModifiedBlinnPhong,
+			TSNMWard,
+			TSNMWardDuer,
+			TSNMCookTorrance
+		};
 
-		void InitShaders();
-
-		void SetShaders() const;
+		void InitMaterials();
+		void InitModels() noexcept;
+		void InitShaders() noexcept;
+		void SetMaterial(const Material &material) noexcept;
+		void SetShader() noexcept;
+		void PrintText();
 
 		virtual void Update(double time) override;
 
+		CameraSettings * const m_settings;
 		SpriteText * const m_text;
+		
 		vector< ModelNode * > m_models;
-		//vector< CombinedShader > m_shaders;
-		vector< wstring > m_shader_names;
+		vector< ShaderType > m_shaders;
 		size_t m_model_index;
 		size_t m_shader_index;
+		
+		Material m_mat_emissive;
+		Material m_mat_basic;
+		Material m_mat_tsnm;
 	};
 }

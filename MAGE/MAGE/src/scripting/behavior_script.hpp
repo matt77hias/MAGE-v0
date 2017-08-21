@@ -57,6 +57,63 @@ namespace mage {
 		 */
 		virtual void Update(double delta_time) = 0;
 
+		/**
+		 Checks whether this behavior script is active.
+
+		 @return		@c true if this behavior script is active.
+						@c false otherwise (i.e. passive).
+		 */
+		bool IsActive() const noexcept {
+			return m_active;
+		}
+
+		/**
+		 Checks whether this behavior script is passive.
+
+		 @return		@c true if this behavior script is passive.
+						@c false otherwise (i.e. active).
+		 */
+		bool IsPassive() const noexcept {
+			return !m_active;
+		}
+
+		/**
+		 Makes this behavior script (and its descendant behavior scripts) active.
+		 */
+		void MakeActive() noexcept {
+			SetActive(true);
+		}
+
+		/**
+		 Makes this behavior script (and its descendant behavior scripts) passive.
+		 */
+		void MakePassive() noexcept {
+			SetActive(false);
+		}
+
+		/**
+		 Sets this behavior script active flag to the given value.
+
+		 @param[in]		active
+						The active flag.
+		 */
+		void SetActive(bool active) noexcept;
+
+		/**
+		 Checks whether this behavior script is terminated or not.
+
+		 @return		@c true if this behavior script is terminated.
+						@c false otherwise.
+		 */
+		bool IsTerminated() const noexcept {
+			return m_terminated;
+		}
+
+		/**
+		 Terminates this behavior script.
+		 */
+		void Terminate() noexcept;
+
 	protected:
 
 		//---------------------------------------------------------------------
@@ -83,5 +140,30 @@ namespace mage {
 						A reference to the behavior script to move.
 		 */
 		BehaviorScript(BehaviorScript &&script);
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Notifies this transform behavior script of a change in activeness.
+		 */
+		virtual void OnActiveChange() noexcept;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 A flag indicating whether this behavior script is active or not (i.e. passive).
+		 */
+		bool m_active;
+
+		/**
+		 A flag indicating whether this behavior script is terminated or not. 
+		 */
+		bool m_terminated;
 	};
 }

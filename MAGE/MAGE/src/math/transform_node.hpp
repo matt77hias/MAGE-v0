@@ -1645,7 +1645,7 @@ namespace mage {
 		virtual UniquePtr< Node > CloneImplementation() const;
 
 		//---------------------------------------------------------------------
-		// Member Methods: Variables
+		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**

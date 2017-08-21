@@ -5,9 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
-#include "script\character_motor_script.hpp"
-#include "script\mouse_look_script.hpp"
+#include "scripting\behavior_script.hpp"
+#include "math\transform_node.hpp"
 
 #pragma endregion
 
@@ -16,33 +15,44 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	class FPSInputControllerScript final : public BehaviorScript {
+	class RotationScript final : public BehaviorScript {
 
 	public:
+
+		enum struct RotationAxis {
+			X = 0,
+			Y = 1,
+			Z = 2,
+		};
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		explicit FPSInputControllerScript(TransformNode *transform);
-		FPSInputControllerScript(const FPSInputControllerScript &script) = delete;
-		FPSInputControllerScript(FPSInputControllerScript &&script);
-		virtual ~FPSInputControllerScript();
+		RotationScript(TransformNode *transform,
+			RotationAxis axis = RotationAxis::Y);
+		RotationScript(const RotationScript &script) = delete;
+		RotationScript(RotationScript &&script);
+		virtual ~RotationScript();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		FPSInputControllerScript &operator=(const FPSInputControllerScript &script) = delete;
-		FPSInputControllerScript &operator=(FPSInputControllerScript &&script) = delete;
+		RotationScript &operator=(const RotationScript &script) = delete;
+		RotationScript &operator=(RotationScript &&script) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update(double delta_time) override {
-			m_orientation_script->Update(delta_time);
-			m_movement_script->Update(delta_time);
+		virtual void Update(double delta_time) override;
+
+		RotationAxis GetRotationAxis() const noexcept {
+			return m_axis;
+		}
+		void SetRotationAxis(RotationAxis axis) noexcept {
+			m_axis = axis;
 		}
 
 	private:
@@ -51,7 +61,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		UniquePtr< MouseLookScript > m_orientation_script;
-		UniquePtr< CharacterMotorScript > m_movement_script;
+		TransformNode * const m_transform;
+		RotationAxis m_axis;
 	};
 }

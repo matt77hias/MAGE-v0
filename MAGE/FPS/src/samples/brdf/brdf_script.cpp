@@ -13,94 +13,247 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	BRDFScript::BRDFScript(SpriteText *text, const vector< ModelNode * > &models)
-		: m_text(text), m_models(models), m_shader_names(),
-		m_model_index(0), m_shader_index(0) {
+	BRDFScript::BRDFScript(CameraSettings *settings,
+		SpriteText *text, const vector< ModelNode * > &models)
+		: m_settings(settings), m_text(text), m_models(models),
+		m_shaders(), m_model_index(0), m_shader_index(0),
+		m_mat_emissive(), m_mat_basic(), m_mat_tsnm() {
 
+		Assert(m_settings);
 		Assert(m_text);
 
+		InitMaterials();
 		InitModels();
 		InitShaders();
-		SetShaders();
 	}
 
 	BRDFScript::BRDFScript(BRDFScript &&script) = default;
 
 	BRDFScript::~BRDFScript() {
 		m_models.clear();
-		//m_shaders.clear();
-		m_shader_names.clear();
+		m_shaders.clear();
 	}
 
-	void BRDFScript::InitModels() {
-		SharedPtr< const Texture > white = CreateWhiteTexture();
-		SharedPtr< const Texture > normal = 
-			ResourceManager::Get()->GetOrCreateTexture(L"assets/sprites/tsnm/rock 4.dds");
+	void BRDFScript::InitMaterials() {
+		auto white = CreateWhiteTexture();
+		auto tsnm = ResourceManager::Get()->GetOrCreateTexture(L"assets/sprites/tsnm/rock 4.dds");
+
+		m_mat_emissive.DissableLightInteraction();
+		m_mat_emissive.SetDiffuseReflectivity(RGBSpectrum(1.0f, 0.0f, 0.0f));
 		
-		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
-			(*it)->MakePassive();
-			
-			Material * const material = (*it)->GetModel()->GetMaterial();
-			material->SetDiffuseReflectivity(RGBSpectrum(1.0f, 0.0f, 0.0f));
-			material->SetDiffuseReflectivityTexture(white);
-			material->SetSpecularReflectivity(RGBSpectrum(1.0f, 1.0f, 1.0f));
-			material->SetSpecularExponent(10.0f);
-			material->SetExtraParameter(0, 0.5f);
-			material->SetExtraParameter(1, 0.15f);
-			material->SetExtraParameter(2, 0.04f);
-			material->SetNormalTexture(normal);
+		m_mat_basic.SetDiffuseReflectivity(RGBSpectrum(1.0f, 0.0f, 0.0f));
+		m_mat_basic.SetDiffuseReflectivityTexture(white);
+		m_mat_basic.SetSpecularReflectivity(RGBSpectrum(1.0f, 1.0f, 1.0f));
+		m_mat_basic.SetSpecularReflectivityTexture(white);
+		m_mat_basic.SetSpecularExponent(10.0f);
+		m_mat_basic.SetExtraParameter(0, 0.5f);
+		m_mat_basic.SetExtraParameter(1, 0.15f);
+		m_mat_basic.SetExtraParameter(2, 0.04f);
+
+		m_mat_tsnm = m_mat_basic;
+		m_mat_tsnm.SetNormalTexture(tsnm);
+	}
+
+	void BRDFScript::InitModels() noexcept {
+		for (const auto &node : m_models) {
+			node->MakePassive();
 		}
 
-		(*m_models.cbegin())->MakeActive();
+		m_models[0]->MakeActive();
 	}
 
-	void BRDFScript::InitShaders() {
-		/*m_shaders.push_back(CreateEmissiveShader());
-		m_shaders.push_back(CreateLambertianShader());
-		m_shaders.push_back(CreatePhongShader());
-		m_shaders.push_back(CreateModifiedPhongShader());
-		m_shaders.push_back(CreateBlinnPhongShader());
-		m_shaders.push_back(CreateModifiedBlinnPhongShader());
-		m_shaders.push_back(CreateWardShader());
-		m_shaders.push_back(CreateWardDuerShader());
-		m_shaders.push_back(CreateCookTorranceShader());
-		m_shaders.push_back(CreateLambertianTSNMShader());
-		m_shaders.push_back(CreatePhongTSNMShader());
-		m_shaders.push_back(CreateModifiedPhongTSNMShader());
-		m_shaders.push_back(CreateBlinnPhongTSNMShader());
-		m_shaders.push_back(CreateModifiedBlinnPhongTSNMShader());
-		m_shaders.push_back(CreateWardTSNMShader());
-		m_shaders.push_back(CreateWardDuerTSNMShader());
-		m_shaders.push_back(CreateCookTorranceTSNMShader());
-		*/
+	void BRDFScript::InitShaders() noexcept {
+		m_shaders.reserve(17);
+		m_shaders.emplace_back(ShaderType::Emissive);
+		m_shaders.emplace_back(ShaderType::Lambertian);
+		m_shaders.emplace_back(ShaderType::Phong);
+		m_shaders.emplace_back(ShaderType::ModifiedPhong);
+		m_shaders.emplace_back(ShaderType::BlinnPhong);
+		m_shaders.emplace_back(ShaderType::ModifiedBlinnPhong);
+		m_shaders.emplace_back(ShaderType::Ward);
+		m_shaders.emplace_back(ShaderType::WardDuer);
+		m_shaders.emplace_back(ShaderType::CookTorrance);
+		m_shaders.emplace_back(ShaderType::TSNMLambertian);
+		m_shaders.emplace_back(ShaderType::TSNMPhong);
+		m_shaders.emplace_back(ShaderType::TSNMModifiedPhong);
+		m_shaders.emplace_back(ShaderType::TSNMBlinnPhong);
+		m_shaders.emplace_back(ShaderType::TSNMModifiedBlinnPhong);
+		m_shaders.emplace_back(ShaderType::TSNMWard);
+		m_shaders.emplace_back(ShaderType::TSNMWardDuer);
+		m_shaders.emplace_back(ShaderType::TSNMCookTorrance);
 
-		m_shader_names.emplace_back(L"Emissive");
-		m_shader_names.emplace_back(L"Lambertian");
-		m_shader_names.emplace_back(L"Phong");
-		m_shader_names.emplace_back(L"Modified Phong");
-		m_shader_names.emplace_back(L"Blinn-Phong");
-		m_shader_names.emplace_back(L"Modified Blinn-Phong");
-		m_shader_names.emplace_back(L"Ward");
-		m_shader_names.emplace_back(L"Ward-Duer");
-		m_shader_names.emplace_back(L"Cook-Torrance");
-		m_shader_names.emplace_back(L"Lambertian + TSNM");
-		m_shader_names.emplace_back(L"Phong + TSNM");
-		m_shader_names.emplace_back(L"Modified Phong + TSNM");
-		m_shader_names.emplace_back(L"Blinn-Phong + TSNM");
-		m_shader_names.emplace_back(L"Modified Blinn-Phong + TSNM");
-		m_shader_names.emplace_back(L"Ward + TSNM");
-		m_shader_names.emplace_back(L"Ward-Duer + TSNM");
-		m_shader_names.emplace_back(L"Cook-Torrance + TSNM");
-
-
-		//Assert(m_shaders.size() == m_shader_names.size());
+		SetShader();
 	}
 
-	void BRDFScript::SetShaders() const {
-		/*const CombinedShader shader = m_shaders[m_shader_index];
-		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
-			(*it)->GetModel()->GetMaterial()->SetShader(shader);
-		}*/
+	void BRDFScript::SetMaterial(const Material &material) noexcept {
+		for (const auto &node : m_models) {
+			node->GetModel()->SetMaterial(material);
+		}
+	}
+
+	void BRDFScript::SetShader() noexcept {
+
+		switch (m_shaders[m_shader_index]) {
+		
+		case ShaderType::Emissive: {
+			SetMaterial(m_mat_emissive);
+			break;
+		}
+		case ShaderType::Lambertian: {
+			SetMaterial(m_mat_basic);
+			m_settings->SetBRDF(BRDFType::Lambertian);
+			break;
+		}
+		case ShaderType::Phong: {
+			SetMaterial(m_mat_basic);
+			m_settings->SetBRDF(BRDFType::Phong);
+			break;
+		}
+		case ShaderType::ModifiedPhong: {
+			SetMaterial(m_mat_basic);
+			m_settings->SetBRDF(BRDFType::ModifiedPhong);
+			break;
+		}
+		case ShaderType::BlinnPhong: {
+			SetMaterial(m_mat_basic);
+			m_settings->SetBRDF(BRDFType::BlinnPhong);
+			break;
+		}
+		case ShaderType::ModifiedBlinnPhong: {
+			SetMaterial(m_mat_basic);
+			m_settings->SetBRDF(BRDFType::ModifiedBlinnPhong);
+			break;
+		}
+		case ShaderType::Ward: {
+			SetMaterial(m_mat_basic);
+			m_settings->SetBRDF(BRDFType::Ward);
+			break;
+		}
+		case ShaderType::WardDuer: {
+			SetMaterial(m_mat_basic);
+			m_settings->SetBRDF(BRDFType::WardDuer);
+			break;
+		}
+		case ShaderType::CookTorrance: {
+			SetMaterial(m_mat_basic);
+			m_settings->SetBRDF(BRDFType::CookTorrance);
+			break;
+		}
+		case ShaderType::TSNMLambertian: {
+			SetMaterial(m_mat_tsnm);
+			m_settings->SetBRDF(BRDFType::Lambertian);
+			break;
+		}
+		case ShaderType::TSNMPhong: {
+			SetMaterial(m_mat_tsnm);
+			m_settings->SetBRDF(BRDFType::Phong);
+			break;
+		}
+		case ShaderType::TSNMModifiedPhong: {
+			SetMaterial(m_mat_tsnm);
+			m_settings->SetBRDF(BRDFType::ModifiedPhong);
+			break;
+		}
+		case ShaderType::TSNMBlinnPhong: {
+			SetMaterial(m_mat_tsnm);
+			m_settings->SetBRDF(BRDFType::BlinnPhong);
+			break;
+		}
+		case ShaderType::TSNMModifiedBlinnPhong: {
+			SetMaterial(m_mat_tsnm);
+			m_settings->SetBRDF(BRDFType::ModifiedBlinnPhong);
+			break;
+		}
+		case ShaderType::TSNMWard: {
+			SetMaterial(m_mat_tsnm);
+			m_settings->SetBRDF(BRDFType::Ward);
+			break;
+		}
+		case ShaderType::TSNMWardDuer: {
+			SetMaterial(m_mat_tsnm);
+			m_settings->SetBRDF(BRDFType::WardDuer);
+			break;
+		}
+		case ShaderType::TSNMCookTorrance: {
+			SetMaterial(m_mat_tsnm);
+			m_settings->SetBRDF(BRDFType::CookTorrance);
+			break;
+		}
+		}
+	}
+
+	void BRDFScript::PrintText() {
+		switch (m_shaders[m_shader_index]) {
+
+		case ShaderType::Emissive: {
+			m_text->SetText(L"\n\n\n\n\nEmissive");
+			break;
+		}
+		case ShaderType::Lambertian: {
+			m_text->SetText(L"\n\n\n\n\nLambertian");
+			break;
+		}
+		case ShaderType::Phong: {
+			m_text->SetText(L"\n\n\n\n\nPhong");
+			break;
+		}
+		case ShaderType::ModifiedPhong: {
+			m_text->SetText(L"\n\n\n\n\nModified Phong");
+			break;
+		}
+		case ShaderType::BlinnPhong: {
+			m_text->SetText(L"\n\n\n\n\nBlinn-Phong");
+			break;
+		}
+		case ShaderType::ModifiedBlinnPhong: {
+			m_text->SetText(L"\n\n\n\n\nModified Blinn-Phong");
+			break;
+		}
+		case ShaderType::Ward: {
+			m_text->SetText(L"\n\n\n\n\nWard");
+			break;
+		}
+		case ShaderType::WardDuer: {
+			m_text->SetText(L"\n\n\n\n\nWard-Duer");
+			break;
+		}
+		case ShaderType::CookTorrance: {
+			m_text->SetText(L"\n\n\n\n\nCook-Torrance");
+			break;
+		}
+		case ShaderType::TSNMLambertian: {
+			m_text->SetText(L"\n\n\n\n\nTSNM + Lambertian");
+			break;
+		}
+		case ShaderType::TSNMPhong: {
+			m_text->SetText(L"\n\n\n\n\nTSNM + Phong");
+			break;
+		}
+		case ShaderType::TSNMModifiedPhong: {
+			m_text->SetText(L"\n\n\n\n\nTSNM + Modified Phong");
+			break;
+		}
+		case ShaderType::TSNMBlinnPhong: {
+			m_text->SetText(L"\n\n\n\n\nTSNM + Blinn-Phong");
+			break;
+		}
+		case ShaderType::TSNMModifiedBlinnPhong: {
+			m_text->SetText(L"\n\n\n\n\nTSNM + Modified Blinn-Phong");
+			break;
+		}
+		case ShaderType::TSNMWard: {
+			m_text->SetText(L"\n\n\n\n\nTSNM + Ward");
+			break;
+		}
+		case ShaderType::TSNMWardDuer: {
+			m_text->SetText(L"\n\n\n\n\nTSNM + Ward-Duer");
+			break;
+		}
+		case ShaderType::TSNMCookTorrance: {
+			m_text->SetText(L"\n\n\n\n\nTSNM + Cook-Torrance");
+			break;
+		}
+		}
 	}
 
 	void BRDFScript::Update(double time) {
@@ -113,20 +266,23 @@ namespace mage {
 			m_models[m_model_index]->MakePassive();
 			m_model_index = (m_model_index + 1) % m_models.size();
 			m_models[m_model_index]->MakeActive();
+		} 
+		else if (keyboard->GetKeyPress(DIK_DOWN, false)) {
+			m_models[m_model_index]->MakePassive();
+			m_model_index = std::min(m_model_index - 1, m_models.size() - 1);
+			m_models[m_model_index]->MakeActive();
 		}
-		
-		/*
+
 		// Switch shader.
 		if (keyboard->GetKeyPress(DIK_RIGHT, false)) {
 			m_shader_index = (m_shader_index + 1) % m_shaders.size();
-			SetShaders();
+			SetShader();
 		}
 		else if (keyboard->GetKeyPress(DIK_LEFT, false)) {
 			m_shader_index = std::min(m_shader_index - 1, m_shaders.size() - 1);
-			SetShaders();
-		}*/
+			SetShader();
+		}
 
-		m_text->SetText(L"\n\n\n\n\n");
-		m_text->AppendText(m_shader_names[m_shader_index]);
+		PrintText();
 	}
 }

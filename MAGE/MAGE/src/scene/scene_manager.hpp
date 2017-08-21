@@ -22,6 +22,20 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the scene manager associated with the current engine.
+
+		 @pre			The scene manager associated with the 
+						current engine must be loaded.
+		 @return		A pointer to the scene manager associated
+						with the current engine.
+		 */
+		static SceneManager *Get() noexcept;
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -93,17 +107,19 @@ namespace mage {
 
 		void SetScene(UniquePtr< Scene > &&scene);
 
-		void Update(double delta_time) {
-			m_scene->ForEachScript([delta_time](BehaviorScript *script) {
-				script->Update(delta_time);
-			});
-		}
+		void Update(double delta_time);
 
 		void Render() {
 			m_renderer->Render(GetScene());
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		void ApplyRequestedScene();
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -114,6 +130,16 @@ namespace mage {
 		 */
 		UniquePtr< Scene > m_scene;
 
+		/**
+		 A pointer to the requested scene of this scene manager.
+		 */
+		UniquePtr< Scene > m_requested_scene;
+
+		/**
+		 A flag indicating whether this scene manager has a requested scene.
+		 */
+		bool m_has_requested_scene;
+		
 		/**
 		 A pointer to the scene renderer of this scene manager.
 		 */

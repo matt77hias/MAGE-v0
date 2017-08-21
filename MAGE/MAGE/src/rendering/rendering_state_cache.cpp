@@ -47,7 +47,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	
 	ID3D11BlendState *RenderingStateCache::GetOpaqueBlendState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_opaque_blend_state) {
 			const HRESULT result_create = CreateOpaqueBlendState(m_device, m_opaque_blend_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -58,7 +58,7 @@ namespace mage {
 	}
 	
 	ID3D11BlendState *RenderingStateCache::GetAlphaBlendState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_alpha_blend_state) {
 			const HRESULT result_create = CreateAlphaBlendState(m_device, m_alpha_blend_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -70,7 +70,7 @@ namespace mage {
 	}
 	
 	ID3D11BlendState *RenderingStateCache::GetAdditiveBlendState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_additive_blend_state) {
 			const HRESULT result_create = CreateAdditiveBlendState(m_device, m_additive_blend_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -81,7 +81,7 @@ namespace mage {
 	}
 	
 	ID3D11BlendState *RenderingStateCache::GetNonPremultipliedBlendState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_non_premultiplied_blend_state) {
 			const HRESULT result_create = CreateNonPremultipliedBlendState(m_device, m_non_premultiplied_blend_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -96,7 +96,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	ID3D11DepthStencilState *RenderingStateCache::GetDepthNoneDepthStencilState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_depth_none_depth_stencil_state) {
 			const HRESULT result_create = CreateDepthNoneDepthStencilState(m_device, m_depth_none_depth_stencil_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -107,7 +107,7 @@ namespace mage {
 	}
 	
 	ID3D11DepthStencilState *RenderingStateCache::GetDepthDefaultDepthStencilState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_depth_default_depth_stencil_state) {
 			const HRESULT result_create = CreateDepthDefaultDepthStencilState(m_device, m_depth_default_depth_stencil_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -118,7 +118,7 @@ namespace mage {
 	}
 	
 	ID3D11DepthStencilState *RenderingStateCache::GetDepthReadDepthStencilState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_depth_read_depth_stencil_state) {
 			const HRESULT result_create = CreateDepthReadDepthStencilState(m_device, m_depth_read_depth_stencil_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -133,7 +133,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	ID3D11RasterizerState *RenderingStateCache::GetCullNoneRasterizerState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_cull_none_rasterizer_state) {
 			const HRESULT result_create = CreateCullNoneRasterizerState(m_device, m_cull_none_rasterizer_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -144,7 +144,7 @@ namespace mage {
 	}
 	
 	ID3D11RasterizerState *RenderingStateCache::GetCullClockwiseRasterizerState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_cull_clockwise_rasterizer_state) {
 			const HRESULT result_create = CreateCullClockwiseRasterizerState(m_device, m_cull_clockwise_rasterizer_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -155,7 +155,7 @@ namespace mage {
 	}
 	
 	ID3D11RasterizerState *RenderingStateCache::GetCullCounterClockwiseRasterizerState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_cull_counter_clockwise_rasterizer_state) {
 			const HRESULT result_create = CreateCullCounterClockwiseRasterizerState(m_device, m_cull_counter_clockwise_rasterizer_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -166,7 +166,7 @@ namespace mage {
 	}
 	
 	ID3D11RasterizerState *RenderingStateCache::GetWireframeRasterizerState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_wireframe_rasterizer_state) {
 			const HRESULT result_create = CreateWireframeRasterizerState(m_device, m_wireframe_rasterizer_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -181,7 +181,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	ID3D11SamplerState *RenderingStateCache::GetPointWrapSamplerState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_point_wrap_sampler_state) {
 			const HRESULT result_create = CreatePointWrapSamplerState(m_device, m_point_wrap_sampler_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -192,7 +192,7 @@ namespace mage {
 	}
 	
 	ID3D11SamplerState *RenderingStateCache::GetPointClampSamplerState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_point_clamp_sampler_state) {
 			const HRESULT result_create = CreatePointClampSamplerState(m_device, m_point_clamp_sampler_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -203,7 +203,7 @@ namespace mage {
 	}
 	
 	ID3D11SamplerState *RenderingStateCache::GetLinearWrapSamplerState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_linear_wrap_sampler_state) {
 			const HRESULT result_create = CreateLinearWrapSamplerState(m_device, m_linear_wrap_sampler_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -214,7 +214,7 @@ namespace mage {
 	}
 	
 	ID3D11SamplerState *RenderingStateCache::GetLinearClampSamplerState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_linear_clamp_sampler_state) {
 			const HRESULT result_create = CreateLinearClampSamplerState(m_device, m_linear_clamp_sampler_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -225,7 +225,7 @@ namespace mage {
 	}
 	
 	ID3D11SamplerState *RenderingStateCache::GetAnisotropicWrapSamplerState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_anisotropic_wrap_sampler_state) {
 			const HRESULT result_create = CreateAnisotropicWrapSamplerState(m_device, m_anisotropic_wrap_sampler_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {
@@ -236,7 +236,7 @@ namespace mage {
 	}
 	
 	ID3D11SamplerState *RenderingStateCache::GetAnisotropicClampSamplerState() {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		if (!m_anisotropic_clamp_sampler_state) {
 			const HRESULT result_create = CreateAnisotropicClampSamplerState(m_device, m_anisotropic_clamp_sampler_state.ReleaseAndGetAddressOf());
 			if (FAILED(result_create)) {

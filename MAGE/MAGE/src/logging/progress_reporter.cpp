@@ -86,7 +86,7 @@ namespace mage {
 			return;
 		}
 
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		
 		m_nb_work_done += nb_work;
 		const float percent_done = static_cast< float >(m_nb_work_done) / m_nb_work_total;
@@ -126,7 +126,7 @@ namespace mage {
 			return;
 		}
 
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		
 		while (m_nb_plusses_printed < m_nb_plusses_total) {
 			*m_current_pos = m_plus_char;

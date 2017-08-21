@@ -4,6 +4,7 @@
 #pragma region
 
 #include "core\engine.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -12,24 +13,58 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	SceneManager *SceneManager::Get() noexcept {
+		Assert(Engine::Get());
+		Assert(Engine::Get()->GetSceneManager());
+
+		return Engine::Get()->GetSceneManager();
+	}
+
 	SceneManager::SceneManager()
-		: m_scene(), m_renderer(MakeUnique< SceneRenderer >()) {}
+		: m_scene(nullptr), m_requested_scene(nullptr), 
+		m_has_requested_scene(false),
+		m_renderer(MakeUnique< SceneRenderer >()) {}
 
 	SceneManager::SceneManager(SceneManager &&scene_behavior) = default;
 
 	SceneManager::~SceneManager() = default;
 
-	void SceneManager::SetScene(UniquePtr< Scene > &&scene) {
+	void SceneManager::ApplyRequestedScene() {
 		if (m_scene) {
 			m_scene->Uninitialize();
 		}
 
-		m_scene = std::move(scene);
+		m_scene               = std::move(m_requested_scene);
+		m_requested_scene     = nullptr;
+		m_has_requested_scene = false;
 
 		if (m_scene) {
 			m_scene->Initialize();
 		}
 
 		Engine::Get()->OnSceneChange();
+	}
+
+	void SceneManager::SetScene(UniquePtr< Scene > &&scene) {
+		m_requested_scene = std::move(scene);
+		m_has_requested_scene = true;
+
+		if (!m_scene) {
+			ApplyRequestedScene();
+		}
+	}
+
+	void SceneManager::Update(double delta_time) {
+		m_scene->ForEachScript([this, delta_time](BehaviorScript *script) {
+
+			if (!m_has_requested_scene && script->IsActive()) {
+				script->Update(delta_time);
+			}
+
+		});
+
+		if (m_has_requested_scene) {
+			ApplyRequestedScene();
+		}
 	}
 }

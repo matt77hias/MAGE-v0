@@ -32,7 +32,7 @@ namespace mage {
 
 	void TextConsoleScript::Update(double delta_time) {
 		UNUSED(delta_time);
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 
 		SetCharacter(L'\n', m_current_row, m_current_column);
 		m_text->SetText(m_buffer.get());
@@ -45,18 +45,18 @@ namespace mage {
 	}
 
 	void TextConsoleScript::Write(const wchar_t *str) {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		ProcessString(str);
 	}
 
 	void TextConsoleScript::WriteLine(const wchar_t *str) {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 		ProcessString(str);
 		IncrementRow();
 	}
 
 	void TextConsoleScript::Format(const wchar_t *format, ...) {
-		MutexLock lock(m_mutex);
+		const MutexLock lock(m_mutex);
 
 		va_list args;
 		// Retrieve the additional arguments after format
@@ -78,6 +78,7 @@ namespace mage {
 
 	void TextConsoleScript::ProcessString(const wchar_t *str) {
 		for (const wchar_t *character = str; *character != L'\0'; ++character, ++m_current_column) {
+			
 			if (*character == L'\n') {
 				IncrementRow();
 				continue;

@@ -185,7 +185,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		string m_name;
-		vector< SharedPtr< BehaviorScript > > m_scripts;
+		mutable vector< SharedPtr< BehaviorScript > > m_scripts;
 		UniquePtr< SceneFog > m_scene_fog;
 		mutable vector< SharedPtr< CameraNode > > m_cameras;
 		mutable vector< SharedPtr< ModelNode > > m_models;

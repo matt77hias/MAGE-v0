@@ -5,7 +5,6 @@
 
 #include "script\render_mode_script.hpp"
 #include "input\keyboard.hpp"
-#include "rendering\renderer.hpp"
 
 #pragma endregion
 
@@ -35,6 +34,7 @@ namespace mage {
 		UNUSED(delta_time);
 		
 		const Keyboard * const keyboard = Keyboard::Get();
+		
 		if (keyboard->GetKeyPress(DIK_RETURN)) {
 			m_index = (m_index + 1) % m_render_modes.size();
 			m_settings->SetRenderMode(m_render_modes[m_index]);

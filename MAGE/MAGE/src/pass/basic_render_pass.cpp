@@ -361,6 +361,7 @@ namespace mage {
 
 	void BasicRenderPass::UpdatePixelShaders(BRDFType brdf) {
 		if (m_brdf != brdf) {
+			m_brdf                 = brdf;
 			m_ps[Default_BRDF]     = CreatePS(brdf);
 			m_ps[Default_BRDFTSNM] = CreateTSNMPS(brdf);
 			m_bound_ps             = Count;
@@ -476,6 +477,7 @@ namespace mage {
 
 	void BasicRenderPass::RenderDefault(const CameraNode *node) {
 		m_render_mode = RenderMode::Default;
+		UpdatePixelShaders(node->GetSettings()->GetBRDF());
 		
 		m_vs->BindShader();
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();

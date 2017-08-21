@@ -543,9 +543,6 @@
     <ClInclude Include="MAGE\src\sprite\sprite_image.hpp">
       <Filter>Header Files\sprite</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\script\system_usage_script.hpp">
-      <Filter>Header Files\script</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\text\dropshadow_sprite_text.hpp">
       <Filter>Header Files\text</Filter>
     </ClInclude>
@@ -576,12 +573,6 @@
     <ClInclude Include="MAGE\src\script\character_motor_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\script\fps_input_controller_script.hpp">
-      <Filter>Header Files\script</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\script\frame_rate_script.hpp">
-      <Filter>Header Files\script</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\script\text_console_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
@@ -595,9 +586,6 @@
       <Filter>Header Files\script</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\script\manhattan_motor_script.hpp">
-      <Filter>Header Files\script</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\script\manhattan_input_controller_script.hpp">
       <Filter>Header Files\script</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\mesh\msh\msh_reader.hpp">
@@ -861,6 +849,15 @@
     <ClInclude Include="MAGE\src\rendering\pipeline.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\script\input_controller_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\script\switch_scene_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\script\rotation_script.hpp">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1007,9 +1004,6 @@
     <ClCompile Include="MAGE\src\camera\perspective_camera.cpp">
       <Filter>Source Files\camera</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\script\system_usage_script.cpp">
-      <Filter>Source Files\script</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\text\dropshadow_sprite_text.cpp">
       <Filter>Source Files\text</Filter>
     </ClCompile>
@@ -1032,9 +1026,6 @@
       <Filter>Source Files\script</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\script\character_motor_script.cpp">
-      <Filter>Source Files\script</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\script\frame_rate_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\script\text_console_script.cpp">
@@ -1099,12 +1090,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\resource\behavior_script.cpp">
       <Filter>Source Files\scripting</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\script\manhattan_input_controller_script.cpp">
-      <Filter>Source Files\script</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\script\fps_input_controller_script.cpp">
-      <Filter>Source Files\script</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\file\file_utils.cpp">
       <Filter>Source Files\file</Filter>
@@ -1195,6 +1180,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering.cpp">
       <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\script\rotation_script.cpp">
+      <Filter>Source Files\script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1415,6 +1403,12 @@
     </None>
     <None Include="MAGE\src\shader\shader.tpp">
       <Filter>Header Files\shader</Filter>
+    </None>
+    <None Include="MAGE\src\script\input_controller_script.tpp">
+      <Filter>Header Files\script</Filter>
+    </None>
+    <None Include="MAGE\src\script\switch_scene_script.tpp">
+      <Filter>Header Files\script</Filter>
     </None>
   </ItemGroup>
 </Project>

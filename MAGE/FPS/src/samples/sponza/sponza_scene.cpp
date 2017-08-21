@@ -4,7 +4,7 @@
 #pragma region
 
 #include "samples\sponza\sponza_scene.hpp"
-#include "script\rotation_script.hpp"
+#include "samples\brdf\brdf_scene.hpp"
 
 #pragma endregion
 
@@ -14,8 +14,10 @@
 #pragma region
 
 #include "script\stats_script.hpp"
-#include "script\fps_input_controller_script.hpp"
+#include "script\input_controller_script.hpp"
 #include "script\render_mode_script.hpp"
+#include "script\rotation_script.hpp"
+#include "script\switch_scene_script.hpp"
 
 #pragma endregion
 
@@ -88,7 +90,7 @@ namespace mage {
 		// Font
 		//---------------------------------------------------------------------
 		auto font = 
-			ResourceManager::Get()->GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont", SpriteFontDescriptor());
+			ResourceManager::Get()->GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont");
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------
@@ -97,7 +99,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(MakeShared< RotationYScript >(model_sphere->GetTransform()));
+		AddScript(MakeShared< SwitchSceneScript< BRDFScene > >());
+		AddScript(MakeShared< RotationScript >(model_sphere->GetTransform()));
 		AddScript(MakeShared< FPSInputControllerScript >(camera->GetTransform()));
 		AddScript(MakeShared< StatsScript >(text->GetSprite()));
 		AddScript(MakeShared< RenderModeScript >(camera->GetSettings()));

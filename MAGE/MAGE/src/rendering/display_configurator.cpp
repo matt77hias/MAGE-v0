@@ -302,23 +302,23 @@ namespace mage {
 				const size_t selected_msaa                  = ComboBoxSelectedValue(hwndDlg, IDC_MSAA);
 				const size_t selected_refresh_rate          = ComboBoxSelectedValue(hwndDlg, IDC_REFRESH_RATE);
 				const DXGI_MODE_DESC1 *selected_diplay_mode = nullptr;
-				for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
+				for (const auto &display_mode : m_display_modes) {
 					
-					const size_t resolution = ConvertResolution(*it);
+					const size_t resolution = ConvertResolution(display_mode);
 					if (selected_resolution != resolution) {
 						continue;
 					}
 
-					const size_t refresh_rate = ConvertRefreshRate(*it);
+					const size_t refresh_rate = ConvertRefreshRate(display_mode);
 					if (selected_refresh_rate != refresh_rate) {
 						continue;
 					}
 
-					if (selected_format != it->Format) {
+					if (selected_format != display_mode.Format) {
 						continue;
 					}
 
-					selected_diplay_mode = &(*it);
+					selected_diplay_mode = &display_mode;
 					break;
 				}
 				if (!selected_diplay_mode) {

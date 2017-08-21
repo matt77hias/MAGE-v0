@@ -106,10 +106,10 @@ namespace mage {
 			}
 
 			// Create a submodel node.
-			SharedPtr< ModelNode > submodel_node = MakeShared< ModelNode >(
-														model_part->m_child, desc.GetMesh(),
-														model_part->m_start_index, model_part->m_nb_indices,
-														model_part->m_aabb, model_part->m_bs);
+			const SharedPtr< ModelNode > submodel_node = MakeShared< ModelNode >(
+															model_part->m_child, desc.GetMesh(),
+															model_part->m_start_index, model_part->m_nb_indices,
+															model_part->m_aabb, model_part->m_bs);
 			// Create a material.
 			const Material material = (model_part->m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ?
 										default_material : *desc.GetMaterial(model_part->m_material);
@@ -125,8 +125,8 @@ namespace mage {
 
 			// Add this submodel node to the mapping.
 			mapping.insert(std::make_pair(
-				model_part->m_child, 
-				ModelPair(submodel_node, model_part->m_parent)));
+							model_part->m_child, 
+							ModelPair(submodel_node, model_part->m_parent)));
 		});
 
 		Assert(nb_root_childs != 0);
@@ -143,9 +143,9 @@ namespace mage {
 		}
 
 		// Connect model nodes.
-		for (auto it = mapping.cbegin(); it != mapping.cend(); ++it) {
-			const SharedPtr< ModelNode > &child = it->second.first;
-			const string &parent = it->second.second;
+		for (const auto &model_pair : mapping) {
+			const SharedPtr< ModelNode > &child = model_pair.second.first;
+			const string &parent                = model_pair.second.second;
 			if (parent == MAGE_MDL_PART_DEFAULT_PARENT) {
 				if (create_root_model_node) {
 					root_model_node->AddChildNode(child);

@@ -28,9 +28,9 @@ namespace mage {
 	bool ResourcePool< KeyT, ResourceT >::HasResource(const KeyT &key) noexcept {
 		MutexLock lock(m_resource_map_mutex);
 
-		auto it = m_resource_map.find(key);
+		const auto it = m_resource_map.find(key);
 		if (it != m_resource_map.end()) {
-			auto resource = it->second.lock();
+			const auto resource = it->second.lock();
 			
 			if (resource) {
 				return true;
@@ -46,9 +46,9 @@ namespace mage {
 	SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >::GetResource(const KeyT &key) noexcept {
 		MutexLock lock(m_resource_map_mutex);
 
-		auto it = m_resource_map.find(key);
+		const auto it = m_resource_map.find(key);
 		if (it != m_resource_map.end()) {
-			auto resource = it->second.lock();
+			const auto resource = it->second.lock();
 			
 			if (resource) {
 				return resource;
@@ -71,9 +71,9 @@ namespace mage {
 	SharedPtr< ResourceT > ResourcePool< KeyT, ResourceT >::GetOrCreateDerivedResource(const KeyT &key, ConstructorArgsT&&... args) {
 		MutexLock lock(m_resource_map_mutex);
 
-		auto it = m_resource_map.find(key);
+		const auto it = m_resource_map.find(key);
 		if (it != m_resource_map.end()) {
-			auto resource = it->second.lock();
+			const auto resource = it->second.lock();
 			if (resource) {
 				return resource;
 			}
@@ -82,7 +82,7 @@ namespace mage {
 			}
 		}
 
-		auto new_resource = MakeAllocatedShared< Resource< DerivedResourceT > >
+		const auto new_resource = MakeAllocatedShared< Resource< DerivedResourceT > >
 								(*this, key, std::forward< ConstructorArgsT >(args)...);
 		
 		m_resource_map.insert(std::make_pair(key, new_resource));
@@ -94,7 +94,7 @@ namespace mage {
 	void ResourcePool< KeyT, ResourceT >::RemoveResource(const KeyT &key) {
 		MutexLock lock(m_resource_map_mutex);
 
-		auto it = m_resource_map.find(key);
+		const auto it = m_resource_map.find(key);
 		if (it != m_resource_map.end() && it->second.expired()) {
 			m_resource_map.erase(it);
 		}
@@ -154,7 +154,7 @@ namespace mage {
 	bool PersistentResourcePool< KeyT, ResourceT >::HasResource(const KeyT &key) noexcept {
 		MutexLock lock(m_resource_map_mutex);
 
-		auto it = m_resource_map.find(key);
+		const auto it = m_resource_map.find(key);
 		return (it != m_resource_map.end());
 	}
 
@@ -162,7 +162,7 @@ namespace mage {
 	SharedPtr< ResourceT > PersistentResourcePool< KeyT, ResourceT >::GetResource(const KeyT &key) noexcept {
 		MutexLock lock(m_resource_map_mutex);
 
-		auto it = m_resource_map.find(key);
+		const auto it = m_resource_map.find(key);
 		return (it != m_resource_map.end()) ? it->second : SharedPtr< ResourceT >();
 	}
 
@@ -177,12 +177,12 @@ namespace mage {
 	SharedPtr< ResourceT > PersistentResourcePool< KeyT, ResourceT >::GetOrCreateDerivedResource(const KeyT &key, ConstructorArgsT&&... args) {
 		MutexLock lock(m_resource_map_mutex);
 
-		auto it = m_resource_map.find(key);
+		const auto it = m_resource_map.find(key);
 		if (it != m_resource_map.end()) {
 			return it->second;
 		}
 
-		auto new_resource = MakeAllocatedShared< DerivedResourceT >(std::forward< ConstructorArgsT >(args)...);
+		const auto new_resource = MakeAllocatedShared< DerivedResourceT >(std::forward< ConstructorArgsT >(args)...);
 
 		m_resource_map.insert(std::make_pair(key, new_resource));
 
@@ -193,7 +193,7 @@ namespace mage {
 	void PersistentResourcePool< KeyT, ResourceT >::RemoveResource(const KeyT &key) {
 		MutexLock lock(m_resource_map_mutex);
 
-		auto it = m_resource_map.find(key);
+		const auto it = m_resource_map.find(key);
 		if (it != m_resource_map.end()) {
 			m_resource_map.erase(it);
 		}

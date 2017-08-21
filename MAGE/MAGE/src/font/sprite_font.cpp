@@ -215,6 +215,7 @@ namespace mage {
 
 		for (const wchar_t *s = str; *s != L'\0'; ++s) {
 			const wchar_t character = *s;
+			
 			switch (character) {
 
 			case L'\r': {
@@ -294,11 +295,10 @@ namespace mage {
 		float y = 0;
 		SpriteTransform sprite_transform(transform);
 
-		for (auto it = text.cbegin(); it != text.cend(); ++it) {
-			const wchar_t *str = it->c_str();
-
-			for (const wchar_t *s = str; *s != L'\0'; ++s) {
+		for (const auto &str : text) {
+			for (const wchar_t *s = str.c_str(); *s != L'\0'; ++s) {
 				const wchar_t character = *s;
+				
 				switch (character) {
 
 				case L'\r': {
@@ -335,7 +335,7 @@ namespace mage {
 						}
 
 						sprite_transform.SetRotationOrigin(offset);
-						sprite_batch.Draw(m_texture_srv.Get(), it->GetColorVector(), effects, sprite_transform, &glyph->m_sub_rectangle);
+						sprite_batch.Draw(m_texture_srv.Get(), str.GetColorVector(), effects, sprite_transform, &glyph->m_sub_rectangle);
 					}
 
 					x += advance;
@@ -355,6 +355,7 @@ namespace mage {
 
 		for (const wchar_t *s = str; *s != L'\0'; ++s) {
 			const wchar_t character = *s;
+
 			switch (character) {
 
 			case L'\r': {
@@ -395,11 +396,10 @@ namespace mage {
 		float x = 0;
 		float y = 0;
 
-		for (auto it = text.cbegin(); it != text.cend(); ++it) {
-			const wchar_t *str = it->c_str();
-
-			for (const wchar_t *s = str; *s != L'\0'; ++s) {
+		for (const auto &str : text) {
+			for (const wchar_t *s = str.c_str(); *s != L'\0'; ++s) {
 				const wchar_t character = *s;
+				
 				switch (character) {
 
 				case L'\r': {
@@ -445,6 +445,7 @@ namespace mage {
 
 		for (const wchar_t *s = str; *s != L'\0'; ++s) {
 			const wchar_t character = *s;
+			
 			switch (character) {
 			
 			case L'\r': {
@@ -499,11 +500,10 @@ namespace mage {
 		float x = 0;
 		float y = 0;
 
-		for (auto it = text.cbegin(); it != text.cend(); ++it) {
-			const wchar_t *str = it->c_str();
-
-			for (const wchar_t *s = str; *s != L'\0'; ++s) {
+		for (const auto &str : text) {
+			for (const wchar_t *s = str.c_str(); *s != L'\0'; ++s) {
 				const wchar_t character = *s;
+
 				switch (character) {
 
 				case L'\r': {

@@ -31,11 +31,11 @@ namespace mage {
 	MemoryArena::~MemoryArena() {
 		FreeAligned(GetCurrentBlockPtr());
 		
-		for (const MemoryBlock &block : m_used_blocks) {
+		for (const auto &block : m_used_blocks) {
 			FreeAligned(block.second);
 		}
 
-		for (const MemoryBlock &block : m_available_blocks) {
+		for (const auto &block : m_available_blocks) {
 			FreeAligned(block.second);
 		}
 	}
@@ -43,11 +43,11 @@ namespace mage {
 	size_t MemoryArena::GetTotalBlockSize() const noexcept {
 		size_t size = GetCurrentBlockSize();
 		
-		for (const MemoryBlock &block : m_used_blocks) {
+		for (const auto &block : m_used_blocks) {
 			size += block.first;
 		}
 
-		for (const MemoryBlock &block : m_available_blocks) {
+		for (const auto &block : m_available_blocks) {
 			size += block.first;
 		}
 
@@ -65,6 +65,7 @@ namespace mage {
 		size = ((size + 15) & (~15));
 
 		if (m_current_block_pos + size > GetCurrentBlockSize()) {
+			
 			// Store current block (if existing) as used block.
 			if (GetCurrentBlockPtr()) {
 				m_used_blocks.push_back(m_current_block);
@@ -82,7 +83,7 @@ namespace mage {
 			if (!GetCurrentBlockPtr()) {
 				// Allocate new block.
 				const size_t alloc_size = std::max(size, GetMaximumBlockSize());
-				char *alloc_ptr = AllocAligned< char >(alloc_size);
+				uint8_t * const alloc_ptr = AllocAligned< uint8_t >(alloc_size);
 
 				if (!alloc_ptr) {
 					// The allocation failed.
@@ -95,7 +96,7 @@ namespace mage {
 			m_current_block_pos = 0;
 		}
 
-		void *ptr = GetCurrentBlockPtr() + m_current_block_pos;
+		void * const ptr = (void *)(m_current_block.second + m_current_block_pos);
 		m_current_block_pos += size;
 		return ptr;
 	}

@@ -10,6 +10,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <stdint.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -112,8 +121,8 @@ namespace mage {
 
 		 @return		A pointer to the current block of this memory arena.
 		 */
-		char *GetCurrentBlockPtr() const noexcept {
-			return m_current_block.second;
+		void *GetCurrentBlockPtr() const noexcept {
+			return (void *)m_current_block.second;
 		}
 
 		/**
@@ -157,7 +166,7 @@ namespace mage {
 		/**
 		 A type definition for a memory block.
 		 */
-		using MemoryBlock = pair< size_t, char * >;
+		using MemoryBlock = pair< size_t, uint8_t * >;
 
 		//---------------------------------------------------------------------
 		// Member Variables

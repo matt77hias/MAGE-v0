@@ -878,9 +878,6 @@
     <ClCompile Include="MAGE\src\rendering\renderer.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\rendering.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp">
       <Filter>Source Files\scripting</Filter>
     </ClCompile>
@@ -1192,6 +1189,12 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\script\render_mode_script.cpp">
       <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\pipeline.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\rendering.cpp">
+      <Filter>Source Files\rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -278,6 +278,7 @@
     <ClCompile Include="MAGE\src\rendering\display_configuration.cpp" />
     <ClCompile Include="MAGE\src\rendering\display_configurator.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
+    <ClCompile Include="MAGE\src\rendering\pipeline.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_state_cache.cpp" />

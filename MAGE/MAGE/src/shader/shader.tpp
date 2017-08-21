@@ -47,7 +47,7 @@ namespace mage {
 	Shader< ShaderT >::~Shader() = default;
 
 	template<>
-	void Shader< ID3D11HullShader >::SetupShader(const CompiledShader *compiled_shader) {
+	inline void Shader< ID3D11HullShader >::SetupShader(const CompiledShader *compiled_shader) {
 
 		// Create the hull shader.
 		const HRESULT result_shader = m_device->CreateHullShader(
@@ -60,7 +60,7 @@ namespace mage {
 	}
 
 	template<>
-	void Shader< ID3D11DomainShader >::SetupShader(const CompiledShader *compiled_shader) {
+	inline void Shader< ID3D11DomainShader >::SetupShader(const CompiledShader *compiled_shader) {
 
 		// Create the domain shader.
 		const HRESULT result_shader = m_device->CreateDomainShader(
@@ -73,7 +73,7 @@ namespace mage {
 	}
 
 	template<>
-	void Shader< ID3D11GeometryShader >::SetupShader(const CompiledShader *compiled_shader) {
+	inline void Shader< ID3D11GeometryShader >::SetupShader(const CompiledShader *compiled_shader) {
 
 		// Create the geometry shader.
 		const HRESULT result_shader = m_device->CreateGeometryShader(
@@ -86,7 +86,7 @@ namespace mage {
 	}
 
 	template<>
-	void Shader< ID3D11PixelShader >::SetupShader(const CompiledShader *compiled_shader) {
+	inline void Shader< ID3D11PixelShader >::SetupShader(const CompiledShader *compiled_shader) {
 
 		// Create the pixel shader.
 		const HRESULT result_shader = m_device->CreatePixelShader(
@@ -99,7 +99,7 @@ namespace mage {
 	}
 
 	template<>
-	void Shader< ID3D11ComputeShader >::SetupShader(const CompiledShader *compiled_shader) {
+	inline void Shader< ID3D11ComputeShader >::SetupShader(const CompiledShader *compiled_shader) {
 
 		// Create the compute shader.
 		const HRESULT result_shader = m_device->CreateComputeShader(

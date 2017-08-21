@@ -60,6 +60,7 @@ namespace mage {
 		model_sponza->GetTransform()->SetScale(10.0f);
 		auto model_sphere = CreateModel(*model_desc_sphere);
 		model_sphere->GetTransform()->AddTranslationY(0.5f);
+		model_sphere->GetModel()->GetMaterial()->SetDiffuseReflectivityTexture(CreateReferenceTexture());
 
 		//---------------------------------------------------------------------
 		// Lights

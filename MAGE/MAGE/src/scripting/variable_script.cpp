@@ -32,8 +32,8 @@ namespace mage {
 		
 		vector< Variable > variable_buffer;
 		ImportVariableScriptFromFile(filename, variable_buffer);
-		for (auto it = variable_buffer.cbegin(); it != variable_buffer.cend(); ++it) {
-			m_variables.insert(pair< const string, Variable >(it->GetName(), *it));
+		for (const auto &variable : variable_buffer) {
+			m_variables.insert(pair< string, Variable >(variable.GetName(), variable));
 		}
 	}
 
@@ -41,9 +41,10 @@ namespace mage {
 		const wstring &filename = (fname != L"") ? fname : GetFilename();
 		
 		vector< Variable > variable_buffer;
-		for (auto it = m_variables.cbegin(); it != m_variables.cend(); ++it) {
-			variable_buffer.push_back(it->second);
+		for (const auto &variable : m_variables) {
+			variable_buffer.push_back(variable.second);
 		}
+
 		ExportVariableScriptToFile(filename, variable_buffer);
 	}
 

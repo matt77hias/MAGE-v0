@@ -25,8 +25,8 @@ namespace mage {
 
 	template < typename VertexT >
 	bool ModelOutput< VertexT >::HasModelPart(const string &name) noexcept {
-		for (auto it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
-			if (it->m_child == name) {
+		for (const auto &model_part : m_model_parts) {
+			if (model_part.m_child == name) {
 				return true;
 			}
 		}

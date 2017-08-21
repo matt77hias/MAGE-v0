@@ -7,15 +7,15 @@ namespace mage {
 	
 	template< typename ActionT >
 	inline void SpriteText::ForEachColorString(ActionT action) {
-		for (auto it = m_strings.begin(); it != m_strings.end(); ++it) {
-			action(&*it);
+		for (auto &str : m_strings) {
+			action(&str);
 		}
 	}
 
 	template< typename ActionT >
 	inline void SpriteText::ForEachColorString(ActionT action) const {
-		for (auto it = m_strings.cbegin(); it != m_strings.cend(); ++it) {
-			action(&*it);
+		for (const auto &str : m_strings) {
+			action(&str);
 		}
 	}
 }

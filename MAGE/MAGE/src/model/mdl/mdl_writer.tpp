@@ -63,11 +63,12 @@ namespace mage {
 		
 		char output[MAX_PATH];
 		
-		for (auto it = m_model_output.m_model_parts.cbegin(); it != m_model_output.m_model_parts.cend(); ++it) {
+		for (const auto &model_part : m_model_output.m_model_parts) {
 
 			sprintf_s(output, (unsigned int)_countof(output), "%s %s %s %s %u %u", 
-				MAGE_MDL_TOKEN_SUBMODEL, it->m_child.c_str(), it->m_parent.c_str(), it->m_material.c_str(),
-				it->m_start_index, it->m_nb_indices);
+				MAGE_MDL_TOKEN_SUBMODEL, model_part.m_child.c_str(), 
+				model_part.m_parent.c_str(), model_part.m_material.c_str(),
+				model_part.m_start_index, model_part.m_nb_indices);
 			
 			WriteStringLine(output);
 		}

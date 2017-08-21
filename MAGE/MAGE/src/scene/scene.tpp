@@ -18,8 +18,8 @@ namespace mage {
 
 	template< typename ActionT >
 	inline void Scene::ForEachScript(ActionT action) const {
-		for (auto it = m_scripts.begin(); it != m_scripts.end(); ++it) {
-			action(it->get());
+		for (auto &script : m_scripts) {
+			action(script.get());
 		}
 	}
 
@@ -28,14 +28,14 @@ namespace mage {
 		vector< SharedPtr< CameraNode > > cameras;
 		cameras.reserve(m_cameras.size());
 		
-		for (auto it = m_cameras.cbegin(); it != m_cameras.cend(); ++it) {
+		for (const auto &camera : m_cameras) {
 			
-			if ((*it)->IsTerminated()) {
+			if (camera->IsTerminated()) {
 				continue;
 			}
 			
-			action(it->get());
-			cameras.push_back(std::move(*it));
+			action(camera.get());
+			cameras.push_back(std::move(camera));
 		}
 
 		m_cameras = std::move(cameras);
@@ -46,14 +46,14 @@ namespace mage {
 		vector< SharedPtr< ModelNode > > models;
 		models.reserve(m_models.size());
 		
-		for (auto it = m_models.cbegin(); it != m_models.cend(); ++it) {
+		for (const auto &model : m_models) {
 			
-			if ((*it)->IsTerminated()) {
+			if (model->IsTerminated()) {
 				continue;
 			}
 
-			action(it->get());
-			models.push_back(std::move(*it));
+			action(model.get());
+			models.push_back(std::move(model));
 		}
 		
 		m_models = std::move(models);
@@ -71,56 +71,56 @@ namespace mage {
 
 	template< typename ActionT >
 	inline void Scene::ForEachDirectionalLight(ActionT action) const {
-		vector< SharedPtr< DirectionalLightNode > > directional_lights;
-		directional_lights.reserve(m_directional_lights.size());
+		vector< SharedPtr< DirectionalLightNode > > lights;
+		lights.reserve(m_directional_lights.size());
 		
-		for (auto it = m_directional_lights.cbegin(); it != m_directional_lights.cend(); ++it) {
+		for (const auto &light : m_directional_lights) {
 			
-			if ((*it)->IsTerminated()) {
+			if (light->IsTerminated()) {
 				continue;
 			}
 
-			action(it->get());
-			directional_lights.push_back(std::move(*it));
+			action(light.get());
+			lights.push_back(std::move(light));
 		}
 		
-		m_directional_lights = std::move(directional_lights);
+		m_directional_lights = std::move(lights);
 	}
 
 	template< typename ActionT >
 	inline void Scene::ForEachOmniLight(ActionT action) const {
-		vector< SharedPtr< OmniLightNode > > omni_lights;
-		omni_lights.reserve(m_omni_lights.size());
+		vector< SharedPtr< OmniLightNode > > lights;
+		lights.reserve(m_omni_lights.size());
 		
-		for (auto it = m_omni_lights.cbegin(); it != m_omni_lights.cend(); ++it) {
+		for (const auto &light : m_omni_lights) {
 			
-			if ((*it)->IsTerminated()) {
+			if (light->IsTerminated()) {
 				continue;
 			}
 
-			action(it->get());
-			omni_lights.push_back(std::move(*it));
+			action(light.get());
+			lights.push_back(std::move(light));
 		}
 		
-		m_omni_lights = std::move(omni_lights);
+		m_omni_lights = std::move(lights);
 	}
 
 	template< typename ActionT >
 	inline void Scene::ForEachSpotLight(ActionT action) const {
-		vector< SharedPtr< SpotLightNode > > spot_lights;
-		spot_lights.reserve(m_spot_lights.size());
+		vector< SharedPtr< SpotLightNode > > lights;
+		lights.reserve(m_spot_lights.size());
 		
-		for (auto it = m_spot_lights.cbegin(); it != m_spot_lights.cend(); ++it) {
+		for (const auto &light : m_spot_lights) {
 			
-			if ((*it)->IsTerminated()) {
+			if (light->IsTerminated()) {
 				continue;
 			}
 
-			action(it->get());
-			spot_lights.push_back(std::move(*it));
+			action(light.get());
+			lights.push_back(std::move(light));
 		}
 		
-		m_spot_lights = std::move(spot_lights);
+		m_spot_lights = std::move(lights);
 	}
 
 	template< typename ActionT >
@@ -136,14 +136,14 @@ namespace mage {
 		vector< SharedPtr< SpriteNode > > sprites;
 		sprites.reserve(m_sprites.size());
 		
-		for (auto it = m_sprites.cbegin(); it != m_sprites.cend(); ++it) {
+		for (const auto &sprite : m_sprites) {
 			
-			if ((*it)->IsTerminated()) {
+			if (sprite->IsTerminated()) {
 				continue;
 			}
 
-			action(it->get());
-			sprites.push_back(std::move(*it));
+			action(sprite.get());
+			sprites.push_back(std::move(sprite));
 		}
 		
 		m_sprites = std::move(sprites);

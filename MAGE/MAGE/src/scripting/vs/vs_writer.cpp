@@ -24,11 +24,11 @@ namespace mage {
 	void VSWriter::Write() {
 		char output[MAX_PATH];
 
-		for (auto it = m_variable_buffer.cbegin(); it != m_variable_buffer.cend(); ++it) {
-			const char *name = it->GetName().c_str();
-			const void *raw_value = it->GetValue();
+		for (const auto &variable : m_variable_buffer) {
+			const char *name = variable.GetName().c_str();
+			const void *raw_value = variable.GetValue();
 
-			switch (it->GetType()) {
+			switch (variable.GetType()) {
 			case VariableType::Bool: {
 				const bool *value = static_cast< const bool *>(raw_value);
 				if (*value) {

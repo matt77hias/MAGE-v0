@@ -37,15 +37,15 @@ namespace mage {
 
 	template< typename ActionT >
 	inline void ModelDescriptor::ForEachMaterial(ActionT action) const {
-		for (auto it = m_materials.cbegin(); it != m_materials.cend(); ++it) {
-			action(&*it);
+		for (const auto &material : m_materials) {
+			action(&material);
 		}
 	}
 
 	template< typename ActionT >
 	inline void ModelDescriptor::ForEachModelPart(ActionT action) const {
-		for (auto it = m_model_parts.cbegin(); it != m_model_parts.cend(); ++it) {
-			action(&*it);
+		for (const auto &model_part : m_model_parts) {
+			action(&model_part);
 		}
 	}
 }

@@ -1,15 +1,6 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdint.h>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -21,12 +12,21 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <stdint.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Defines
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_MDL_PART_DEFAULT_CHILD "default"
-#define MAGE_MDL_PART_DEFAULT_PARENT "root"
+#define MAGE_MDL_PART_DEFAULT_CHILD    "default"
+#define MAGE_MDL_PART_DEFAULT_PARENT   "root"
 #define MAGE_MDL_PART_DEFAULT_MATERIAL "none"
 
 #pragma endregion

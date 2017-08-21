@@ -257,13 +257,13 @@ namespace mage {
 			// Fill in the resolutions combo box associated with the current format.
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
-			for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-				if (selected_format == it->Format) {
+			for (const auto &mode : m_display_modes) {
+				if (selected_format == mode.Format) {
 					
-					swprintf_s(buffer, _countof(buffer), L"%u x %u", it->Width, it->Height);
+					swprintf_s(buffer, _countof(buffer), L"%u x %u", mode.Width, mode.Height);
 					
 					if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
-						const size_t resolution = ConvertResolution(*it);
+						const size_t resolution = ConvertResolution(mode);
 						ComboBoxAddValue(hwndDlg, IDC_RESOLUTION, resolution, buffer);
 					}
 				}
@@ -275,11 +275,11 @@ namespace mage {
 			// Fill in the refresh rates combo box associated with the current resolution.
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
-			for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-				const size_t resolution = ConvertResolution(*it);
+			for (const auto &mode : m_display_modes) {
+				const size_t resolution = ConvertResolution(mode);
 				if (selected_resolution == resolution) {
 					
-					const size_t refresh_rate = ConvertRefreshRate(*it);
+					const size_t refresh_rate = ConvertRefreshRate(mode);
 					swprintf_s(buffer, _countof(buffer), L"%u Hz", static_cast< unsigned int >(refresh_rate));
 					
 					if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
@@ -371,11 +371,11 @@ namespace mage {
 					// Update the refresh rate combo box.
 					// Remove all items from the list box and edit control of a combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
-					for (auto it = m_display_modes.cbegin(); it != m_display_modes.cend(); ++it) {
-						const size_t resolution = ConvertResolution(*it);
+					for (const auto &mode : m_display_modes) {
+						const size_t resolution = ConvertResolution(mode);
 						if (selected_resolution == resolution) {
 							
-							const size_t refresh_rate = ConvertRefreshRate(*it);
+							const size_t refresh_rate = ConvertRefreshRate(mode);
 							swprintf_s(buffer, _countof(buffer), L"%u Hz", static_cast< unsigned int >(refresh_rate));
 							
 							if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {

@@ -4,6 +4,7 @@
 #pragma region
 
 #include "rendering\renderer.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 

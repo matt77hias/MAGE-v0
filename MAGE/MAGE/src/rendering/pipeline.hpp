@@ -65,13 +65,13 @@ namespace mage {
 		}
 
 		static void BindVertexBuffer(
-			UINT slot, ID3D11Buffer *buffer, UINT stride = 0, UINT offset = 0) noexcept {
+			UINT slot, ID3D11Buffer *buffer, UINT stride, UINT offset = 0) noexcept {
 
 			BindVertexBuffer(GetRenderingDeviceContext(),
 				slot, buffer, stride, offset);
 		}
 		static void BindVertexBuffer(ID3D11DeviceContext2 *device_context,
-			UINT slot, ID3D11Buffer *buffer, UINT stride = 0, UINT offset = 0) noexcept {
+			UINT slot, ID3D11Buffer *buffer, UINT stride, UINT offset = 0) noexcept {
 
 			ID3D11Buffer * const buffers[1] = { buffer };
 

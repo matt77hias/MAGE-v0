@@ -125,7 +125,7 @@ namespace mage {
 						The primitive topology.
 		 */
 		void BindMesh(D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
-			IA::BindVertexBuffer(m_device_context, 0, m_vertex_buffer.Get());
+			IA::BindVertexBuffer(m_device_context, 0, m_vertex_buffer.Get(), static_cast< UINT >(m_vertex_size));
 			IA::BindIndexBuffer(m_device_context, m_index_buffer.Get(), m_index_format);
 			IA::BindPrimitiveTopology(m_device_context, topology);
 		}

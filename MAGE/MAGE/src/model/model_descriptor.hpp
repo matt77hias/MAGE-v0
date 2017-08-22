@@ -38,12 +38,16 @@ namespace mage {
 						(the globally unique identifier).
 		 @param[in]		desc
 						A reference to the mesh descriptor.
+		 @param[in]		export_to_mdl
+						@c true if the model descriptor needs to be
+						exported as MDL file. @c false otherwise.
 		 @throws		FormattedException
 						Failed to initialize the model descriptor.
 		 */
 		template < typename VertexT >
 		explicit ModelDescriptor(const wstring &fname, 
-			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >());
+			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >(),
+			bool export_as_MDL = false);
 
 		/**
 		 Constructs a model descriptor.
@@ -63,13 +67,17 @@ namespace mage {
 						A pointer to the device context.
 		 @param[in]		desc
 						A reference to the mesh descriptor.
+		 @param[in]		export_to_mdl
+						@c true if the model descriptor needs to be
+						exported as MDL file. @c false otherwise.
 		 @throws		FormattedException
 						Failed to initialize the model descriptor.
 		 */
 		template < typename VertexT >
 		explicit ModelDescriptor(const wstring &fname, 
 			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >());
+			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >(),
+			bool export_as_MDL = false);
 		
 		/**
 		 Constructs a model descriptor from the given model descriptor.

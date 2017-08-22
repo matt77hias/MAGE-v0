@@ -74,11 +74,9 @@ namespace mage {
 			UINT slot, ID3D11Buffer *buffer, UINT stride = 0, UINT offset = 0) noexcept {
 
 			ID3D11Buffer * const buffers[1] = { buffer };
-			const UINT strides[1]           = { stride };
-			const UINT offsets[1]           = { offset };
 
 			BindVertexBuffers(device_context,
-				slot, 1, buffers, strides, offsets);
+				slot, 1, buffers, &stride, &offset);
 		}
 		static void BindVertexBuffers(
 			UINT slot, UINT nb_buffers, ID3D11Buffer * const *buffers,

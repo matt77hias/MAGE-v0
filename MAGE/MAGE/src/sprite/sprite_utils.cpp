@@ -14,12 +14,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const XMMATRIX GetViewportTransform(ID3D11DeviceContext *device_context, DXGI_MODE_ROTATION rotation_mode) {
+	const XMMATRIX GetViewportTransform(ID3D11DeviceContext2 *device_context, DXGI_MODE_ROTATION rotation_mode) {
 		Assert(device_context);
 		
 		UINT nb_of_viewports = 1;
 		D3D11_VIEWPORT viewport;
-		device_context->RSGetViewports(&nb_of_viewports, &viewport);
+		RS::GetBoundViewports(device_context, &nb_of_viewports, &viewport);
 		if (nb_of_viewports != 1) {
 			throw FormattedException("No viewport is set.");
 		}
@@ -27,12 +27,12 @@ namespace mage {
 		return GetViewportTransform(viewport, rotation_mode);
 	}
 
-	const XMMATRIX GetViewportTransform(ID3D11DeviceContext *device_context, DXGI_MODE_ROTATION rotation_mode, D3D11_VIEWPORT *viewport) {
+	const XMMATRIX GetViewportTransform(ID3D11DeviceContext2 *device_context, DXGI_MODE_ROTATION rotation_mode, D3D11_VIEWPORT *viewport) {
 		Assert(device_context);
 		Assert(viewport);
 		
 		UINT nb_of_viewports = 1;
-		device_context->RSGetViewports(&nb_of_viewports, viewport);
+		RS::GetBoundViewports(device_context, &nb_of_viewports, viewport);
 		if (nb_of_viewports != 1) {
 			throw FormattedException("No viewport is set.");
 		}

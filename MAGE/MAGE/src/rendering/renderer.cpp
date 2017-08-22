@@ -112,7 +112,7 @@ namespace mage {
 		// Create and binds the RTV and DSV.
 		CreateRTV();
 		CreateDSV();
-		m_device_context->OMSetRenderTargets(1, m_rtv.GetAddressOf(), m_dsv.Get());
+		OM::BindRTVAndDSV(m_device_context.Get(), m_rtv.Get(), m_dsv.Get());
 	}
 
 	void Renderer::ResetSwapChain() {
@@ -121,7 +121,7 @@ namespace mage {
 		// Create and binds the RTV and DSV.
 		CreateRTV();
 		CreateDSV();
-		m_device_context->OMSetRenderTargets(1, m_rtv.GetAddressOf(), m_dsv.Get());
+		OM::BindRTVAndDSV(m_device_context.Get(), m_rtv.Get(), m_dsv.Get());
 	}
 
 	void Renderer::CreateSwapChain() {
@@ -248,7 +248,7 @@ namespace mage {
 		ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv) {
 		Assert(!m_in_begin_end_pair);
 
-		m_device_context->OMSetRenderTargets(nb_rtvs, rtvs, dsv);
+		OM::BindRTVsAndDSV(m_device_context.Get(), nb_rtvs, rtvs, dsv);
 
 		m_in_begin_end_pair = true;
 	}
@@ -256,8 +256,8 @@ namespace mage {
 	void Renderer::EndTextures() {
 		Assert(m_in_begin_end_pair);
 
-		m_device_context->OMSetRenderTargets(1, m_rtv.GetAddressOf(), m_dsv.Get());
-		
+		OM::BindRTVAndDSV(m_device_context.Get(), m_rtv.Get(), m_dsv.Get());
+
 		m_in_begin_end_pair = false;
 	}
 

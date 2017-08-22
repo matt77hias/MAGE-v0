@@ -138,8 +138,8 @@ namespace mage {
 		 Binds this vertex shader.
 		 */
 		void BindShader() const noexcept {
-			m_device_context->IASetInputLayout(m_vertex_layout.Get());
-			m_device_context->VSSetShader(m_vertex_shader.Get(), nullptr, 0);
+			IA::BindInputLayout(m_device_context, m_vertex_layout.Get());
+			VS::BindShader(m_device_context, m_vertex_shader.Get());
 		}
 
 	private:

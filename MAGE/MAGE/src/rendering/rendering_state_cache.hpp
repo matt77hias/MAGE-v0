@@ -120,7 +120,7 @@ namespace mage {
 						Failed to bind the blend state.
 		 */
 		void BindOpaqueBlendState() {
-			m_device_context->OMSetBlendState(GetOpaqueBlendState(), nullptr, 0xFFFFFFFF);
+			OM::BindBlendState(m_device_context, GetOpaqueBlendState());
 		}
 
 		/**
@@ -141,7 +141,7 @@ namespace mage {
 						Failed to bind the blend state.
 		 */
 		void BindAlphaBlendState() {
-			m_device_context->OMSetBlendState(GetAlphaBlendState(), nullptr, 0xFFFFFFFF);
+			OM::BindBlendState(m_device_context, GetAlphaBlendState());
 		}
 
 		/**
@@ -162,7 +162,7 @@ namespace mage {
 						Failed to bind the blend state.
 		 */
 		void BindAdditiveBlendState() {
-			m_device_context->OMSetBlendState(GetAdditiveBlendState(), nullptr, 0xFFFFFFFF);
+			OM::BindBlendState(m_device_context, GetAdditiveBlendState());
 		}
 
 		/**
@@ -183,7 +183,7 @@ namespace mage {
 						Failed to bind the blend state.
 		 */
 		void BindNonPremultipliedBlendState() {
-			m_device_context->OMSetBlendState(GetNonPremultipliedBlendState(), nullptr, 0xFFFFFFFF);
+			OM::BindBlendState(m_device_context, GetNonPremultipliedBlendState());
 		}
 
 		//---------------------------------------------------------------------
@@ -209,7 +209,7 @@ namespace mage {
 						Failed to bind the depth stencil state.
 		 */
 		void BindDepthNoneDepthStencilState() {
-			m_device_context->OMSetDepthStencilState(GetDepthNoneDepthStencilState(), 0);
+			OM::BindDepthStencilState(m_device_context, GetDepthNoneDepthStencilState());
 		}
 
 		/**
@@ -231,7 +231,7 @@ namespace mage {
 						Failed to bind the depth stencil state.
 		 */
 		void BindDepthDefaultDepthStencilState() {
-			m_device_context->OMSetDepthStencilState(GetDepthDefaultDepthStencilState(), 0);
+			OM::BindDepthStencilState(m_device_context, GetDepthDefaultDepthStencilState());
 		}
 
 		/**
@@ -253,7 +253,7 @@ namespace mage {
 						Failed to bind the depth stencil state.
 		 */
 		void BindDepthReadDepthStencilState() {
-			m_device_context->OMSetDepthStencilState(GetDepthReadDepthStencilState(), 0);
+			OM::BindDepthStencilState(m_device_context, GetDepthReadDepthStencilState());
 		}
 
 		//-------------------------------------------------------------------------
@@ -279,7 +279,7 @@ namespace mage {
 						Failed to bind the rasterizer state.
 		 */
 		void BindCullNoneRasterizerState() {
-			m_device_context->RSSetState(GetCullNoneRasterizerState());
+			RS::BindState(m_device_context, GetCullNoneRasterizerState());
 		}
 
 		/**
@@ -301,7 +301,7 @@ namespace mage {
 						Failed to bind the rasterizer state.
 		 */
 		void BindCullClockwiseRasterizerState() {
-			m_device_context->RSSetState(GetCullClockwiseRasterizerState());
+			RS::BindState(m_device_context, GetCullClockwiseRasterizerState());
 		}
 
 		/**
@@ -323,7 +323,7 @@ namespace mage {
 						Failed to bind the rasterizer state.
 		 */
 		void BindCullCounterClockwiseRasterizerState() {
-			m_device_context->RSSetState(GetCullCounterClockwiseRasterizerState());
+			RS::BindState(m_device_context, GetCullCounterClockwiseRasterizerState());
 		}
 
 		/**
@@ -345,7 +345,7 @@ namespace mage {
 						Failed to bind the rasterizer state.
 		 */
 		void BindWireframeRasterizerState() {
-			m_device_context->RSSetState(GetWireframeRasterizerState());
+			RS::BindState(m_device_context, GetWireframeRasterizerState());
 		}
 
 		//-------------------------------------------------------------------------

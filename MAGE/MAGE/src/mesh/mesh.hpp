@@ -112,11 +112,7 @@ namespace mage {
 		 of this mesh will be bound to the input-assembler stage.
 		 */
 		void BindMesh() const noexcept {
-			UINT stride = static_cast< UINT >(m_vertex_size);
-			UINT offset = 0;
-			m_device_context->IASetVertexBuffers(0, 1, m_vertex_buffer.GetAddressOf(), &stride, &offset);
-			m_device_context->IASetIndexBuffer(m_index_buffer.Get(), m_index_format, 0);
-			m_device_context->IASetPrimitiveTopology(m_primitive_topology);
+			BindMesh(m_primitive_topology);
 		}
 
 		/**
@@ -129,11 +125,9 @@ namespace mage {
 						The primitive topology.
 		 */
 		void BindMesh(D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
-			UINT stride = static_cast< UINT >(m_vertex_size);
-			UINT offset = 0;
-			m_device_context->IASetVertexBuffers(0, 1, m_vertex_buffer.GetAddressOf(), &stride, &offset);
-			m_device_context->IASetIndexBuffer(m_index_buffer.Get(), m_index_format, 0);
-			m_device_context->IASetPrimitiveTopology(topology);
+			IA::BindVertexBuffer(m_device_context, 0, m_vertex_buffer.Get());
+			IA::BindIndexBuffer(m_device_context, m_index_buffer.Get(), m_index_format);
+			IA::BindPrimitiveTopology(m_device_context, topology);
 		}
 
 		/**

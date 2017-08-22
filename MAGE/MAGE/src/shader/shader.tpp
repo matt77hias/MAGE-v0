@@ -113,26 +113,26 @@ namespace mage {
 
 	template<>
 	inline void Shader< ID3D11HullShader >::BindShader() const noexcept {
-		m_device_context->HSSetShader(m_shader.Get(), nullptr, 0);
+		HS::BindShader(m_device_context, m_shader.Get());
 	}
 
 	template<>
 	inline void Shader< ID3D11DomainShader >::BindShader() const noexcept {
-		m_device_context->DSSetShader(m_shader.Get(), nullptr, 0);
+		DS::BindShader(m_device_context, m_shader.Get());
 	}
 
 	template<>
 	inline void Shader< ID3D11GeometryShader >::BindShader() const noexcept {
-		m_device_context->GSSetShader(m_shader.Get(), nullptr, 0);
+		GS::BindShader(m_device_context, m_shader.Get());
 	}
 
 	template<>
 	inline void Shader< ID3D11PixelShader >::BindShader() const noexcept {
-		m_device_context->PSSetShader(m_shader.Get(), nullptr, 0);
+		PS::BindShader(m_device_context, m_shader.Get());
 	}
 
 	template<>
 	inline void Shader< ID3D11ComputeShader >::BindShader() const noexcept {
-		m_device_context->CSSetShader(m_shader.Get(), nullptr, 0);
+		CS::BindShader(m_device_context, m_shader.Get());
 	}
 }

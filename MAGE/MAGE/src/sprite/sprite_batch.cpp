@@ -192,9 +192,9 @@ namespace mage {
 		m_transform_buffer.UpdateData(XMMatrixTranspose(m_transform));
 
 		// Sets the states.
-		m_device_context->OMSetBlendState(m_blend_state, nullptr, 0xFFFFFFFF);
-		m_device_context->OMSetDepthStencilState(m_depth_stencil_state, 0);
-		m_device_context->RSSetState(m_rasterizer_state);
+		OM::BindBlendState(m_device_context, m_blend_state);
+		OM::BindDepthStencilState(m_device_context, m_depth_stencil_state);
+		RS::BindState(m_device_context, m_rasterizer_state);
 		PS::BindSampler(0, m_sampler_state);
 
 		// Binds the mesh, shaders and transform buffer.

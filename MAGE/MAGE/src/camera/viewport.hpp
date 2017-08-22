@@ -53,7 +53,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		void BindViewport() const noexcept {
-			GetRenderingDeviceContext()->RSSetViewports(1, &m_viewport);
+			RS::BindViewport(&m_viewport);
 		}
 
 		/**

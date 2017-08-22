@@ -805,6 +805,69 @@ namespace mage {
 		// Class Member Methods
 		//---------------------------------------------------------------------
 
+		static void BindScissorRectangle(
+			const D3D11_RECT *rectangle) noexcept {
+
+			BindScissorRectangle(GetRenderingDeviceContext(), rectangle);
+		}
+		static void BindScissorRectangle(ID3D11DeviceContext2 *device_context,
+			const D3D11_RECT *rectangle) noexcept {
+			
+			BindScissorRectangles(device_context, 1, rectangle);
+		}
+		static void BindScissorRectangles(
+			UINT nb_rectangles, const D3D11_RECT *rectangles) noexcept {
+
+			BindScissorRectangles(GetRenderingDeviceContext(), nb_rectangles, rectangles);
+		}
+		static void BindScissorRectangles(ID3D11DeviceContext2 *device_context,
+			UINT nb_rectangles, const D3D11_RECT *rectangles) noexcept {
+
+			device_context->RSSetScissorRects(nb_rectangles, rectangles);
+		}
+		
+		static void BindState(
+			ID3D11RasterizerState *state) noexcept {
+
+			BindState(GetRenderingDeviceContext(), state);
+		}
+		static void BindState(ID3D11DeviceContext2 *device_context,
+			ID3D11RasterizerState *state) noexcept {
+
+			device_context->RSSetState(state);
+		}
+		
+		static void GetBoundViewports(
+			UINT *nb_viewports, D3D11_VIEWPORT *viewports) noexcept {
+
+			GetBoundViewports(GetRenderingDeviceContext(), nb_viewports, viewports);
+		}
+		static void GetBoundViewports(ID3D11DeviceContext2 *device_context,
+			UINT *nb_viewports, D3D11_VIEWPORT *viewports) noexcept {
+
+			device_context->RSGetViewports(nb_viewports, viewports);
+		}
+		static void BindViewport(
+			const D3D11_VIEWPORT *viewport) noexcept {
+
+			BindViewport(GetRenderingDeviceContext(), viewport);
+		}
+		static void BindViewport(ID3D11DeviceContext2 *device_context,
+			const D3D11_VIEWPORT *viewport) noexcept {
+			
+			BindViewports(device_context, 1, viewport);
+		}
+		static void BindViewports(
+			UINT nb_viewports, const D3D11_VIEWPORT *viewports) noexcept {
+
+			BindViewports(GetRenderingDeviceContext(), nb_viewports, viewports);
+		}
+		static void BindViewports(ID3D11DeviceContext2 *device_context,
+			UINT nb_viewports, const D3D11_VIEWPORT *viewports) noexcept {
+
+			device_context->RSSetViewports(nb_viewports, viewports);
+		}
+
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
@@ -1000,6 +1063,110 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Class Member Methods
 		//---------------------------------------------------------------------
+
+		static void BindDepthStencilState(
+			ID3D11DepthStencilState *state, UINT stencil_ref = 0) noexcept {
+			BindDepthStencilState(GetRenderingDeviceContext(), state, stencil_ref);
+		}
+		static void BindDepthStencilState(ID3D11DeviceContext2 *device_context,
+			ID3D11DepthStencilState *state, UINT stencil_ref = 0) noexcept {
+			device_context->OMSetDepthStencilState(state, stencil_ref);
+		}
+
+		static void BindBlendState(
+			ID3D11BlendState *state, UINT sample_mask = 0xffffffff) noexcept {
+			BindBlendState(GetRenderingDeviceContext(), state, sample_mask);
+		}
+		static void BindBlendState(ID3D11DeviceContext2 *device_context,
+			ID3D11BlendState *state, UINT sample_mask = 0xffffffff) noexcept {
+			BindBlendState(device_context, state, nullptr, sample_mask);
+		}
+		static void BindBlendState(
+			ID3D11BlendState *state, const FLOAT blend_factor[4], UINT sample_mask = 0xffffffff) noexcept {
+			BindBlendState(GetRenderingDeviceContext(), state, blend_factor, sample_mask);
+		}
+		static void BindBlendState(ID3D11DeviceContext2 *device_context,
+			ID3D11BlendState *state, const FLOAT blend_factor[4], UINT sample_mask = 0xffffffff) noexcept {
+			device_context->OMSetBlendState(state, blend_factor, sample_mask);
+		}
+
+		static void BindRTVAndDSV(
+			ID3D11RenderTargetView *rtv, ID3D11DepthStencilView *dsv) noexcept {
+
+			BindRTVAndDSV(GetRenderingDeviceContext(), rtv, dsv);
+		}
+		static void BindRTVAndDSV(ID3D11DeviceContext2 *device_context,
+			ID3D11RenderTargetView *rtv, ID3D11DepthStencilView *dsv) noexcept {
+			
+			ID3D11RenderTargetView * const rtvs[1] = { rtv };
+
+			BindRTVsAndDSV(device_context, 1, rtvs, dsv);
+		}
+		static void BindRTVsAndDSV(
+			UINT nb_views, ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv) noexcept {
+
+			BindRTVsAndDSV(GetRenderingDeviceContext(), nb_views, rtvs, dsv);
+		}
+		static void BindRTVsAndDSV(ID3D11DeviceContext2 *device_context,
+			UINT nb_views, ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv) noexcept {
+			
+			device_context->OMSetRenderTargets(nb_views, rtvs, dsv);
+		}
+		static void BindRTVAndDSVAndUAV(ID3D11DeviceContext2 *device_context,
+			ID3D11RenderTargetView *rtv, ID3D11DepthStencilView *dsv,
+			UINT uav_slot, ID3D11UnorderedAccessView *uav,
+			UINT initial_count = 0) noexcept {
+			
+			ID3D11RenderTargetView    * const rtvs[1]   = { rtv };
+			ID3D11UnorderedAccessView * const uavs[1]   = { uav };
+			const UINT                initial_counts[1] = { initial_count };
+
+			BindRTVsAndDSVAndUAVs(device_context,
+				1, rtvs, dsv, uav_slot, 1, uavs, initial_counts);
+		}
+		static void BindRTVAndDSVAndUAV(
+			ID3D11RenderTargetView *rtv, ID3D11DepthStencilView *dsv,
+			UINT uav_slot, ID3D11UnorderedAccessView *uav,
+			UINT initial_count = 0) noexcept {
+
+			BindRTVAndDSVAndUAV(GetRenderingDeviceContext(),
+				rtv, dsv, uav_slot, uav, initial_count);
+		}
+		static void BindRTVsAndDSVAndUAV(
+			UINT nb_views, ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv,
+			UINT uav_slot, ID3D11UnorderedAccessView *uav,
+			UINT initial_count = 0) noexcept {
+
+			BindRTVsAndDSVAndUAV(GetRenderingDeviceContext(),
+				nb_views, rtvs, dsv, uav_slot, uav, initial_count);
+		}
+		static void BindRTVsAndDSVAndUAV(ID3D11DeviceContext2 *device_context,
+			UINT nb_views, ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv,
+			UINT uav_slot, ID3D11UnorderedAccessView *uav,
+			UINT initial_count = 0) noexcept {
+			
+			ID3D11UnorderedAccessView * const uavs[1]   = { uav };
+			const UINT                initial_counts[1] = { initial_count };
+
+			BindRTVsAndDSVAndUAVs(device_context, 
+				nb_views, rtvs, dsv, uav_slot, 1, uavs, initial_counts);
+		}
+		static void BindRTVsAndDSVAndUAVs(
+			UINT nb_views, ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv,
+			UINT uav_slot, UINT nb_uavs, ID3D11UnorderedAccessView * const *uavs,
+			const UINT *initial_counts = nullptr) noexcept {
+
+			BindRTVsAndDSVAndUAVs(GetRenderingDeviceContext(),
+				nb_views, rtvs, dsv, uav_slot, nb_uavs, uavs, initial_counts);
+		}
+		static void BindRTVsAndDSVAndUAVs(ID3D11DeviceContext2 *device_context,
+			UINT nb_views, ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv,
+			UINT uav_slot, UINT nb_uavs, ID3D11UnorderedAccessView * const *uavs,
+			const UINT *initial_counts = nullptr) noexcept {
+			
+			device_context->OMSetRenderTargetsAndUnorderedAccessViews(
+				nb_views, rtvs, dsv, uav_slot, nb_uavs, uavs, initial_counts);
+		}
 
 		//---------------------------------------------------------------------
 		// Assignment Operators

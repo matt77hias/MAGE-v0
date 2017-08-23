@@ -224,7 +224,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -244,7 +244,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -268,7 +268,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -296,7 +296,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -319,7 +319,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -339,7 +339,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -363,7 +363,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -392,7 +392,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -416,7 +416,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -436,7 +436,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -460,7 +460,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -488,7 +488,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -611,7 +611,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -631,7 +631,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -655,7 +655,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -683,7 +683,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -706,7 +706,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -726,7 +726,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -750,7 +750,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -779,7 +779,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -803,7 +803,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -823,7 +823,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -847,7 +847,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -875,7 +875,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -1030,7 +1030,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -1050,7 +1050,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -1074,7 +1074,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -1102,7 +1102,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -1125,7 +1125,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -1145,7 +1145,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -1169,7 +1169,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -1198,7 +1198,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -1222,7 +1222,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -1242,7 +1242,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -1266,7 +1266,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -1294,7 +1294,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -1417,7 +1417,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -1437,7 +1437,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -1461,7 +1461,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -1489,7 +1489,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -1512,7 +1512,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -1532,7 +1532,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -1556,7 +1556,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -1585,7 +1585,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -1609,7 +1609,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -1629,7 +1629,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -1653,7 +1653,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -1681,7 +1681,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -1931,7 +1931,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -1951,7 +1951,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -1975,7 +1975,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -2003,7 +2003,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -2026,7 +2026,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -2046,7 +2046,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -2070,7 +2070,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -2099,7 +2099,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -2123,7 +2123,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -2143,7 +2143,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -2167,7 +2167,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -2195,7 +2195,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -2460,7 +2460,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -2480,7 +2480,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -2504,7 +2504,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -2532,7 +2532,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -2555,7 +2555,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -2575,7 +2575,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -2599,7 +2599,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -2628,7 +2628,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -2652,7 +2652,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting unordered access views to (ranges from 0 to 
-						@c D3D11_1_UAV_SLOT_COUNT - 1u).
+						@c D3D11_1_UAV_SLOT_COUNT - 1).
 		 @param[in]		uav
 						A pointer to the unordered access view.
 		 @param[in]		initial_count
@@ -2676,7 +2676,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting unordered access views to (ranges from 0 to 
-						@c D3D11_1_UAV_SLOT_COUNT - 1u).
+						@c D3D11_1_UAV_SLOT_COUNT - 1).
 		 @param[in]		uav
 						A pointer to the unordered access view.
 		 @param[in]		initial_count
@@ -2703,7 +2703,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting unordered access views to (ranges from 0 
-						to @c D3D11_1_UAV_SLOT_COUNT - 1u).
+						to @c D3D11_1_UAV_SLOT_COUNT - 1).
 		 @param[in]		nb_uavs
 						The number of unordered access views in the array. Up 
 						to a maximum of 64 slots are available for unordered 
@@ -2736,7 +2736,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting unordered access views to (ranges from 0 
-						to @c D3D11_1_UAV_SLOT_COUNT - 1u).
+						to @c D3D11_1_UAV_SLOT_COUNT - 1).
 		 @param[in]		nb_uavs
 						The number of unordered access views in the array. Up 
 						to a maximum of 64 slots are available for unordered 
@@ -2765,7 +2765,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -2785,7 +2785,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -2809,7 +2809,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -2837,7 +2837,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 

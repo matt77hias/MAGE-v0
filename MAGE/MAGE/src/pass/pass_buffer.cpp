@@ -24,13 +24,7 @@ namespace mage {
 		m_cameras.clear();
 		m_cameras.reserve(scene->GetNumberOfCameras());
 		scene->ForEachCamera([this](const CameraNode *node) {
-
-			if (node->IsPassive()) {
-				return;
-			}
-
 			m_cameras.push_back(node);
-
 		});
 	
 		// Collect active models.
@@ -42,7 +36,7 @@ namespace mage {
 
 			const Model * const model = node->GetModel();
 
-			if (node->IsPassive() || model->GetNumberOfIndices() == 0) {
+			if (model->GetNumberOfIndices() == 0) {
 				return;
 			}
 
@@ -58,64 +52,36 @@ namespace mage {
 		// Collect active ambient light.
 		m_ambient_light = RGBSpectrum();
 		scene->ForEachAmbientLight([this](const AmbientLightNode *node) {
-			
-			if (node->IsActive()) {
-				m_ambient_light = node->GetLight()->GetIntensity();
-				return;
-			}
-
+			m_ambient_light = node->GetLight()->GetIntensity();
+			return;
 		});
 	
 		// Collect active directional lights.
 		m_directional_lights.clear();
 		m_directional_lights.reserve(scene->GetNumberOfDirectionalLights());
 		scene->ForEachDirectionalLight([this](const DirectionalLightNode *node) {
-
-			if (node->IsPassive()) {
-				return;
-			}
-
 			m_directional_lights.push_back(node);
-
 		});
 
 		// Collect active omni lights.
 		m_omni_lights.clear();
 		m_omni_lights.reserve(scene->GetNumberOfOmniLights());
 		scene->ForEachOmniLight([this](const OmniLightNode *node) {
-
-			if (node->IsPassive()) {
-				return;
-			}
-
 			m_omni_lights.push_back(node);
-
 		});
 
 		// Collect active spotlights.
 		m_spot_lights.clear();
 		m_spot_lights.reserve(scene->GetNumberOfSpotLights());
 		scene->ForEachSpotLight([this](const SpotLightNode *node) {
-
-			if (node->IsPassive()) {
-				return;
-			}
-
 			m_spot_lights.push_back(node);
-
 		});
 	
 		// Collect active sprites.
 		m_sprites.clear();
 		m_sprites.reserve(scene->GetNumberOfSprites());
 		scene->ForEachSprite([this](const SpriteNode *node) {
-
-			if (node->IsPassive()) {
-				return;
-			}
-
 			m_sprites.push_back(node);
-
 		});
 	
 		// Collect scene fog.

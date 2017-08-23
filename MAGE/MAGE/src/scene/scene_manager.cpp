@@ -46,7 +46,7 @@ namespace mage {
 	}
 
 	void SceneManager::SetScene(UniquePtr< Scene > &&scene) {
-		m_requested_scene = std::move(scene);
+		m_requested_scene     = std::move(scene);
 		m_has_requested_scene = true;
 
 		if (!m_scene) {
@@ -57,7 +57,7 @@ namespace mage {
 	void SceneManager::Update(double delta_time) {
 		m_scene->ForEachScript([this, delta_time](BehaviorScript *script) {
 
-			if (!m_has_requested_scene && script->IsActive()) {
+			if (!m_has_requested_scene) {
 				script->Update(delta_time);
 			}
 

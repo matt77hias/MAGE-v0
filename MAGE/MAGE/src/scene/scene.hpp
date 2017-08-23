@@ -120,23 +120,23 @@ namespace mage {
 		}
 
 		template< typename ActionT >
-		void ForEachScript(ActionT action) const;
+		void ForEachScript(ActionT action, bool include_passive = false) const;
 		template< typename ActionT >
-		void ForEachCamera(ActionT action) const;
+		void ForEachCamera(ActionT action, bool include_passive = false) const;
 		template< typename ActionT >
-		void ForEachModel(ActionT action) const;
+		void ForEachModel(ActionT action, bool include_passive = false) const;
 		template< typename ActionT >
-		void ForEachLight(ActionT action) const;
+		void ForEachLight(ActionT action, bool include_passive = false) const;
 		template< typename ActionT >
-		void ForEachAmbientLight(ActionT action) const;
+		void ForEachAmbientLight(ActionT action, bool include_passive = false) const;
 		template< typename ActionT >
-		void ForEachDirectionalLight(ActionT action) const;
+		void ForEachDirectionalLight(ActionT action, bool include_passive = false) const;
 		template< typename ActionT >
-		void ForEachOmniLight(ActionT action) const;
+		void ForEachOmniLight(ActionT action, bool include_passive = false) const;
 		template< typename ActionT >
-		void ForEachSpotLight(ActionT action) const;
+		void ForEachSpotLight(ActionT action, bool include_passive = false) const;
 		template< typename ActionT >
-		void ForEachSprite(ActionT action) const;
+		void ForEachSprite(ActionT action, bool include_passive = false) const;
 	
 	protected:
 

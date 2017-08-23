@@ -15,6 +15,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 The Golden Angle.
+	 */
 	const float XM_GA = 2.399963230f;
 
 	inline void FibonacciSpiralSamplesInUnitCircle(XMFLOAT2 *samples, size_t nb_samples, 

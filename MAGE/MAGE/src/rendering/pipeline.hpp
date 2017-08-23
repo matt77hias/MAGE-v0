@@ -54,29 +54,29 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		static void BindIndexBuffer(
-			ID3D11Buffer *buffer, DXGI_FORMAT format, UINT offset = 0) noexcept {
+			ID3D11Buffer *buffer, DXGI_FORMAT format, UINT offset = 0u) noexcept {
 
 			BindIndexBuffer(GetRenderingDeviceContext(), buffer, format, offset);
 		}
 		static void BindIndexBuffer(ID3D11DeviceContext2 *device_context,
-			ID3D11Buffer *buffer, DXGI_FORMAT format, UINT offset = 0) noexcept {
+			ID3D11Buffer *buffer, DXGI_FORMAT format, UINT offset = 0u) noexcept {
 
 			device_context->IASetIndexBuffer(buffer, format, offset);
 		}
 
 		static void BindVertexBuffer(
-			UINT slot, ID3D11Buffer *buffer, UINT stride, UINT offset = 0) noexcept {
+			UINT slot, ID3D11Buffer *buffer, UINT stride, UINT offset = 0u) noexcept {
 
 			BindVertexBuffer(GetRenderingDeviceContext(),
 				slot, buffer, stride, offset);
 		}
 		static void BindVertexBuffer(ID3D11DeviceContext2 *device_context,
-			UINT slot, ID3D11Buffer *buffer, UINT stride, UINT offset = 0) noexcept {
+			UINT slot, ID3D11Buffer *buffer, UINT stride, UINT offset = 0u) noexcept {
 
 			ID3D11Buffer * const buffers[1] = { buffer };
 
 			BindVertexBuffers(device_context,
-				slot, 1, buffers, &stride, &offset);
+				slot, 1u, buffers, &stride, &offset);
 		}
 		static void BindVertexBuffers(
 			UINT slot, UINT nb_buffers, ID3D11Buffer * const *buffers,
@@ -160,7 +160,7 @@ namespace mage {
 		static void BindShader(
 			ID3D11VertexShader *shader) noexcept {
 			
-			BindShader(GetRenderingDeviceContext(), shader, nullptr, 0);
+			BindShader(GetRenderingDeviceContext(), shader, nullptr, 0u);
 		}
 		
 		/**
@@ -175,7 +175,7 @@ namespace mage {
 		static void BindShader(ID3D11DeviceContext2 *device_context,
 			ID3D11VertexShader *shader) noexcept {
 				
-			BindShader(device_context, shader, nullptr, 0);
+			BindShader(device_context, shader, nullptr, 0u);
 		}
 		
 		/**
@@ -224,7 +224,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -244,7 +244,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -252,7 +252,7 @@ namespace mage {
 			UINT slot, ID3D11Buffer *buffer) noexcept {
 				
 			ID3D11Buffer * const buffers[1] = { buffer };
-			BindConstantBuffers(device_context, slot, 1, buffers);
+			BindConstantBuffers(device_context, slot, 1u, buffers);
 		}
 		
 		/**
@@ -268,7 +268,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -296,7 +296,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -319,7 +319,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -339,7 +339,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -347,7 +347,7 @@ namespace mage {
 			UINT slot, ID3D11ShaderResourceView *srv) noexcept {
 				
 			ID3D11ShaderResourceView * const srvs[1] = { srv };
-			BindSRVs(device_context, slot, 1, srvs);
+			BindSRVs(device_context, slot, 1u, srvs);
 		}
 		
 		/**
@@ -363,7 +363,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -392,7 +392,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -416,7 +416,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -436,7 +436,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -444,7 +444,7 @@ namespace mage {
 			UINT slot, ID3D11SamplerState *sampler) noexcept {
 				
 			ID3D11SamplerState * const samplers[1] = { sampler };
-			BindSamplers(device_context, slot, 1, samplers);
+			BindSamplers(device_context, slot, 1u, samplers);
 		}
 		
 		/**
@@ -460,7 +460,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -488,7 +488,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -547,7 +547,7 @@ namespace mage {
 		static void BindShader(
 			ID3D11DomainShader *shader) noexcept {
 			
-			BindShader(GetRenderingDeviceContext(), shader, nullptr, 0);
+			BindShader(GetRenderingDeviceContext(), shader, nullptr, 0u);
 		}
 		
 		/**
@@ -562,7 +562,7 @@ namespace mage {
 		static void BindShader(ID3D11DeviceContext2 *device_context,
 			ID3D11DomainShader *shader) noexcept {
 				
-			BindShader(device_context, shader, nullptr, 0);
+			BindShader(device_context, shader, nullptr, 0u);
 		}
 		
 		/**
@@ -611,7 +611,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -631,7 +631,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -639,7 +639,7 @@ namespace mage {
 			UINT slot, ID3D11Buffer *buffer) noexcept {
 				
 			ID3D11Buffer * const buffers[1] = { buffer };
-			BindConstantBuffers(device_context, slot, 1, buffers);
+			BindConstantBuffers(device_context, slot, 1u, buffers);
 		}
 		
 		/**
@@ -655,7 +655,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -683,7 +683,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -706,7 +706,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -726,7 +726,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -734,7 +734,7 @@ namespace mage {
 			UINT slot, ID3D11ShaderResourceView *srv) noexcept {
 				
 			ID3D11ShaderResourceView * const srvs[1] = { srv };
-			BindSRVs(device_context, slot, 1, srvs);
+			BindSRVs(device_context, slot, 1u, srvs);
 		}
 		
 		/**
@@ -750,7 +750,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -779,7 +779,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -803,7 +803,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -823,7 +823,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -831,7 +831,7 @@ namespace mage {
 			UINT slot, ID3D11SamplerState *sampler) noexcept {
 				
 			ID3D11SamplerState * const samplers[1] = { sampler };
-			BindSamplers(device_context, slot, 1, samplers);
+			BindSamplers(device_context, slot, 1u, samplers);
 		}
 		
 		/**
@@ -847,7 +847,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -875,7 +875,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -966,7 +966,7 @@ namespace mage {
 		static void BindShader(
 			ID3D11HullShader *shader) noexcept {
 			
-			BindShader(GetRenderingDeviceContext(), shader, nullptr, 0);
+			BindShader(GetRenderingDeviceContext(), shader, nullptr, 0u);
 		}
 		
 		/**
@@ -981,7 +981,7 @@ namespace mage {
 		static void BindShader(ID3D11DeviceContext2 *device_context,
 			ID3D11HullShader *shader) noexcept {
 				
-			BindShader(device_context, shader, nullptr, 0);
+			BindShader(device_context, shader, nullptr, 0u);
 		}
 		
 		/**
@@ -1030,7 +1030,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -1050,7 +1050,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -1058,7 +1058,7 @@ namespace mage {
 			UINT slot, ID3D11Buffer *buffer) noexcept {
 				
 			ID3D11Buffer * const buffers[1] = { buffer };
-			BindConstantBuffers(device_context, slot, 1, buffers);
+			BindConstantBuffers(device_context, slot, 1u, buffers);
 		}
 		
 		/**
@@ -1074,7 +1074,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -1102,7 +1102,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -1125,7 +1125,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -1145,7 +1145,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -1153,7 +1153,7 @@ namespace mage {
 			UINT slot, ID3D11ShaderResourceView *srv) noexcept {
 				
 			ID3D11ShaderResourceView * const srvs[1] = { srv };
-			BindSRVs(device_context, slot, 1, srvs);
+			BindSRVs(device_context, slot, 1u, srvs);
 		}
 		
 		/**
@@ -1169,7 +1169,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -1198,7 +1198,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -1222,7 +1222,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -1242,7 +1242,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -1250,7 +1250,7 @@ namespace mage {
 			UINT slot, ID3D11SamplerState *sampler) noexcept {
 				
 			ID3D11SamplerState * const samplers[1] = { sampler };
-			BindSamplers(device_context, slot, 1, samplers);
+			BindSamplers(device_context, slot, 1u, samplers);
 		}
 		
 		/**
@@ -1266,7 +1266,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -1294,7 +1294,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -1353,7 +1353,7 @@ namespace mage {
 		static void BindShader(
 			ID3D11GeometryShader *shader) noexcept {
 			
-			BindShader(GetRenderingDeviceContext(), shader, nullptr, 0);
+			BindShader(GetRenderingDeviceContext(), shader, nullptr, 0u);
 		}
 		
 		/**
@@ -1368,7 +1368,7 @@ namespace mage {
 		static void BindShader(ID3D11DeviceContext2 *device_context,
 			ID3D11GeometryShader *shader) noexcept {
 				
-			BindShader(device_context, shader, nullptr, 0);
+			BindShader(device_context, shader, nullptr, 0u);
 		}
 		
 		/**
@@ -1417,7 +1417,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -1437,7 +1437,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -1445,7 +1445,7 @@ namespace mage {
 			UINT slot, ID3D11Buffer *buffer) noexcept {
 				
 			ID3D11Buffer * const buffers[1] = { buffer };
-			BindConstantBuffers(device_context, slot, 1, buffers);
+			BindConstantBuffers(device_context, slot, 1u, buffers);
 		}
 		
 		/**
@@ -1461,7 +1461,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -1489,7 +1489,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -1512,7 +1512,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -1532,7 +1532,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -1540,7 +1540,7 @@ namespace mage {
 			UINT slot, ID3D11ShaderResourceView *srv) noexcept {
 				
 			ID3D11ShaderResourceView * const srvs[1] = { srv };
-			BindSRVs(device_context, slot, 1, srvs);
+			BindSRVs(device_context, slot, 1u, srvs);
 		}
 		
 		/**
@@ -1556,7 +1556,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -1585,7 +1585,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -1609,7 +1609,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -1629,7 +1629,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -1637,7 +1637,7 @@ namespace mage {
 			UINT slot, ID3D11SamplerState *sampler) noexcept {
 				
 			ID3D11SamplerState * const samplers[1] = { sampler };
-			BindSamplers(device_context, slot, 1, samplers);
+			BindSamplers(device_context, slot, 1u, samplers);
 		}
 		
 		/**
@@ -1653,7 +1653,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -1681,7 +1681,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -1767,7 +1767,7 @@ namespace mage {
 		static void BindScissorRectangle(ID3D11DeviceContext2 *device_context,
 			const D3D11_RECT *rectangle) noexcept {
 			
-			BindScissorRectangles(device_context, 1, rectangle);
+			BindScissorRectangles(device_context, 1u, rectangle);
 		}
 		static void BindScissorRectangles(
 			UINT nb_rectangles, const D3D11_RECT *rectangles) noexcept {
@@ -1809,7 +1809,7 @@ namespace mage {
 		static void BindViewport(ID3D11DeviceContext2 *device_context,
 			const D3D11_VIEWPORT *viewport) noexcept {
 			
-			BindViewports(device_context, 1, viewport);
+			BindViewports(device_context, 1u, viewport);
 		}
 		static void BindViewports(
 			UINT nb_viewports, const D3D11_VIEWPORT *viewports) noexcept {
@@ -1867,7 +1867,7 @@ namespace mage {
 		static void BindShader(
 			ID3D11PixelShader *shader) noexcept {
 			
-			BindShader(GetRenderingDeviceContext(), shader, nullptr, 0);
+			BindShader(GetRenderingDeviceContext(), shader, nullptr, 0u);
 		}
 		
 		/**
@@ -1882,7 +1882,7 @@ namespace mage {
 		static void BindShader(ID3D11DeviceContext2 *device_context,
 			ID3D11PixelShader *shader) noexcept {
 				
-			BindShader(device_context, shader, nullptr, 0);
+			BindShader(device_context, shader, nullptr, 0u);
 		}
 		
 		/**
@@ -1931,7 +1931,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -1951,7 +1951,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -1959,7 +1959,7 @@ namespace mage {
 			UINT slot, ID3D11Buffer *buffer) noexcept {
 				
 			ID3D11Buffer * const buffers[1] = { buffer };
-			BindConstantBuffers(device_context, slot, 1, buffers);
+			BindConstantBuffers(device_context, slot, 1u, buffers);
 		}
 		
 		/**
@@ -1975,7 +1975,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -2003,7 +2003,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -2026,7 +2026,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -2046,7 +2046,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -2054,7 +2054,7 @@ namespace mage {
 			UINT slot, ID3D11ShaderResourceView *srv) noexcept {
 				
 			ID3D11ShaderResourceView * const srvs[1] = { srv };
-			BindSRVs(device_context, slot, 1, srvs);
+			BindSRVs(device_context, slot, 1u, srvs);
 		}
 		
 		/**
@@ -2070,7 +2070,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -2099,7 +2099,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -2123,7 +2123,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -2143,7 +2143,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -2151,7 +2151,7 @@ namespace mage {
 			UINT slot, ID3D11SamplerState *sampler) noexcept {
 				
 			ID3D11SamplerState * const samplers[1] = { sampler };
-			BindSamplers(device_context, slot, 1, samplers);
+			BindSamplers(device_context, slot, 1u, samplers);
 		}
 		
 		/**
@@ -2167,7 +2167,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -2195,7 +2195,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -2242,12 +2242,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		static void BindDepthStencilState(
-			ID3D11DepthStencilState *state, UINT stencil_ref = 0) noexcept {
+			ID3D11DepthStencilState *state, UINT stencil_ref = 0u) noexcept {
 			
 			BindDepthStencilState(GetRenderingDeviceContext(), state, stencil_ref);
 		}
 		static void BindDepthStencilState(ID3D11DeviceContext2 *device_context,
-			ID3D11DepthStencilState *state, UINT stencil_ref = 0) noexcept {
+			ID3D11DepthStencilState *state, UINT stencil_ref = 0u) noexcept {
 			
 			device_context->OMSetDepthStencilState(state, stencil_ref);
 		}
@@ -2283,7 +2283,7 @@ namespace mage {
 			
 			ID3D11RenderTargetView * const rtvs[1] = { rtv };
 
-			BindRTVsAndDSV(device_context, 1, rtvs, dsv);
+			BindRTVsAndDSV(device_context, 1u, rtvs, dsv);
 		}
 		static void BindRTVsAndDSV(
 			UINT nb_views, ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv) noexcept {
@@ -2298,19 +2298,19 @@ namespace mage {
 		static void BindRTVAndDSVAndUAV(ID3D11DeviceContext2 *device_context,
 			ID3D11RenderTargetView *rtv, ID3D11DepthStencilView *dsv,
 			UINT uav_slot, ID3D11UnorderedAccessView *uav,
-			UINT initial_count = 0) noexcept {
+			UINT initial_count = 0u) noexcept {
 			
 			ID3D11RenderTargetView    * const rtvs[1]   = { rtv };
 			ID3D11UnorderedAccessView * const uavs[1]   = { uav };
 			const UINT                initial_counts[1] = { initial_count };
 
 			BindRTVsAndDSVAndUAVs(device_context,
-				1, rtvs, dsv, uav_slot, 1, uavs, initial_counts);
+				1u, rtvs, dsv, uav_slot, 1u, uavs, initial_counts);
 		}
 		static void BindRTVAndDSVAndUAV(
 			ID3D11RenderTargetView *rtv, ID3D11DepthStencilView *dsv,
 			UINT uav_slot, ID3D11UnorderedAccessView *uav,
-			UINT initial_count = 0) noexcept {
+			UINT initial_count = 0u) noexcept {
 
 			BindRTVAndDSVAndUAV(GetRenderingDeviceContext(),
 				rtv, dsv, uav_slot, uav, initial_count);
@@ -2318,7 +2318,7 @@ namespace mage {
 		static void BindRTVsAndDSVAndUAV(
 			UINT nb_views, ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv,
 			UINT uav_slot, ID3D11UnorderedAccessView *uav,
-			UINT initial_count = 0) noexcept {
+			UINT initial_count = 0u) noexcept {
 
 			BindRTVsAndDSVAndUAV(GetRenderingDeviceContext(),
 				nb_views, rtvs, dsv, uav_slot, uav, initial_count);
@@ -2326,13 +2326,13 @@ namespace mage {
 		static void BindRTVsAndDSVAndUAV(ID3D11DeviceContext2 *device_context,
 			UINT nb_views, ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv,
 			UINT uav_slot, ID3D11UnorderedAccessView *uav,
-			UINT initial_count = 0) noexcept {
+			UINT initial_count = 0u) noexcept {
 			
 			ID3D11UnorderedAccessView * const uavs[1]   = { uav };
 			const UINT                initial_counts[1] = { initial_count };
 
 			BindRTVsAndDSVAndUAVs(device_context, 
-				nb_views, rtvs, dsv, uav_slot, 1, uavs, initial_counts);
+				nb_views, rtvs, dsv, uav_slot, 1u, uavs, initial_counts);
 		}
 		static void BindRTVsAndDSVAndUAVs(
 			UINT nb_views, ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv,
@@ -2396,7 +2396,7 @@ namespace mage {
 		static void BindShader(
 			ID3D11ComputeShader *shader) noexcept {
 			
-			BindShader(GetRenderingDeviceContext(), shader, nullptr, 0);
+			BindShader(GetRenderingDeviceContext(), shader, nullptr, 0u);
 		}
 		
 		/**
@@ -2411,7 +2411,7 @@ namespace mage {
 		static void BindShader(ID3D11DeviceContext2 *device_context,
 			ID3D11ComputeShader *shader) noexcept {
 				
-			BindShader(device_context, shader, nullptr, 0);
+			BindShader(device_context, shader, nullptr, 0u);
 		}
 		
 		/**
@@ -2460,7 +2460,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -2480,7 +2480,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		buffer
 						A pointer to the constant buffer.
 		 */
@@ -2488,7 +2488,7 @@ namespace mage {
 			UINT slot, ID3D11Buffer *buffer) noexcept {
 				
 			ID3D11Buffer * const buffers[1] = { buffer };
-			BindConstantBuffers(device_context, slot, 1, buffers);
+			BindConstantBuffers(device_context, slot, 1u, buffers);
 		}
 		
 		/**
@@ -2504,7 +2504,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -2532,7 +2532,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting constant buffers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1u).
 		 @param[in]		nb_buffers
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
@@ -2555,7 +2555,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -2575,7 +2575,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the shader resource view to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		srv
 						A pointer to the shader resource view.
 		 */
@@ -2583,7 +2583,7 @@ namespace mage {
 			UINT slot, ID3D11ShaderResourceView *srv) noexcept {
 				
 			ID3D11ShaderResourceView * const srvs[1] = { srv };
-			BindSRVs(device_context, slot, 1, srvs);
+			BindSRVs(device_context, slot, 1u, srvs);
 		}
 		
 		/**
@@ -2599,7 +2599,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -2628,7 +2628,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting shader resource views to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1u).
 		 @param[in]		nb_srvs
 						The number of shader resource views in the array. Up 
 						to a maximum of 128 slots are available for shader 
@@ -2652,7 +2652,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting unordered access views to (ranges from 0 to 
-						@c D3D11_1_UAV_SLOT_COUNT - 1).
+						@c D3D11_1_UAV_SLOT_COUNT - 1u).
 		 @param[in]		uav
 						A pointer to the unordered access view.
 		 @param[in]		initial_count
@@ -2661,7 +2661,7 @@ namespace mage {
 						@c D3D11_BUFFER_UAV_FLAG_APPEND or @c D3D11_BUFFER_UAV_FLAG_COUNTER.
 		 */
 		static void BindUAV(
-			UINT slot, ID3D11UnorderedAccessView *uav, UINT initial_count = 0) noexcept {
+			UINT slot, ID3D11UnorderedAccessView *uav, UINT initial_count = 0u) noexcept {
 				
 			BindUAV(GetRenderingDeviceContext(), slot, uav, initial_count);
 		}
@@ -2676,7 +2676,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting unordered access views to (ranges from 0 to 
-						@c D3D11_1_UAV_SLOT_COUNT - 1).
+						@c D3D11_1_UAV_SLOT_COUNT - 1u).
 		 @param[in]		uav
 						A pointer to the unordered access view.
 		 @param[in]		initial_count
@@ -2685,10 +2685,10 @@ namespace mage {
 						@c D3D11_BUFFER_UAV_FLAG_APPEND or @c D3D11_BUFFER_UAV_FLAG_COUNTER.
 		 */
 		static void BindUAV(ID3D11DeviceContext2 *device_context, 
-			UINT slot, ID3D11UnorderedAccessView *uav, UINT initial_count = 0) noexcept {
+			UINT slot, ID3D11UnorderedAccessView *uav, UINT initial_count = 0u) noexcept {
 				
 			ID3D11UnorderedAccessView * const uavs[1] = { uav };
-			BindUAVs(device_context, slot, 1, uavs, &initial_count);
+			BindUAVs(device_context, slot, 1u, uavs, &initial_count);
 		}
 		
 		/**
@@ -2703,7 +2703,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting unordered access views to (ranges from 0 
-						to @c D3D11_1_UAV_SLOT_COUNT - 1).
+						to @c D3D11_1_UAV_SLOT_COUNT - 1u).
 		 @param[in]		nb_uavs
 						The number of unordered access views in the array. Up 
 						to a maximum of 64 slots are available for unordered 
@@ -2736,7 +2736,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting unordered access views to (ranges from 0 
-						to @c D3D11_1_UAV_SLOT_COUNT - 1).
+						to @c D3D11_1_UAV_SLOT_COUNT - 1u).
 		 @param[in]		nb_uavs
 						The number of unordered access views in the array. Up 
 						to a maximum of 64 slots are available for unordered 
@@ -2765,7 +2765,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -2785,7 +2785,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to set 
 						the sampler to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		sampler
 						A pointer to the sampler.
 		 */
@@ -2793,7 +2793,7 @@ namespace mage {
 			UINT slot, ID3D11SamplerState *sampler) noexcept {
 				
 			ID3D11SamplerState * const samplers[1] = { sampler };
-			BindSamplers(device_context, slot, 1, samplers);
+			BindSamplers(device_context, slot, 1u, samplers);
 		}
 		
 		/**
@@ -2809,7 +2809,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 
@@ -2837,7 +2837,7 @@ namespace mage {
 		 @param[in]		slot
 						The index into the device's zero-based array to begin 
 						setting samplers to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1u).
 		 @param[in]		nb_samplers
 						The number of samplers in the array. Each pipeline stage 
 						has a total of 16 sampler slots available (ranges from 

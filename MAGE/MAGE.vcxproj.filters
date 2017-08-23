@@ -867,6 +867,15 @@
     <ClInclude Include="MAGE\src\sampling\rng.hpp">
       <Filter>Header Files\sampling</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\sampling\qmc.hpp">
+      <Filter>Header Files\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sampling\primes.hpp">
+      <Filter>Header Files\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sampling\fibonacci.hpp">
+      <Filter>Header Files\sampling</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

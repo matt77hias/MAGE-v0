@@ -48,7 +48,7 @@ struct VSInputPositionNormalColorTexture {
 
 struct VSInputPositionTextureTexture {
 	float4 p      : POSITION0;
-	float2 tex1   : TEXCOORD0;
+	float2 tex   : TEXCOORD0;
 	float2 tex2   : TEXCOORD1;
 };
 

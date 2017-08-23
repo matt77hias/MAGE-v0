@@ -1133,9 +1133,6 @@
     <ClCompile Include="MAGE\src\texture\texture_loader.cpp">
       <Filter>Source Files\texture</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\rendering_utils.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\shader\compiled_shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>

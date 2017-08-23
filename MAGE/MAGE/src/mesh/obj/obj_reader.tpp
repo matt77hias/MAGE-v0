@@ -275,48 +275,25 @@ namespace mage {
 	template < typename VertexT >
 	const VertexT OBJReader< VertexT >::ConstructVertex(const XMUINT3 &vertex_indices) {
 		VertexT vertex;
-		if (vertex_indices.x) {
-			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
-		}
-		if (vertex_indices.y) {
-			vertex.tex = m_vertex_texture_coordinates[vertex_indices.y - 1];
-		}
-		if (vertex_indices.z) {
-			vertex.n = m_vertex_normal_coordinates[vertex_indices.z - 1];
-		}
-		return vertex;
-	}
 
-	template <>
-	inline const VertexPosition OBJReader< VertexPosition >::ConstructVertex(const XMUINT3 &vertex_indices) {
-		VertexPosition vertex;
-		if (vertex_indices.x) {
-			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
+		if constexpr(VertexT::HasPosition()) {
+			if (vertex_indices.x) {
+				vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
+			}
 		}
-		return vertex;
-	}
 
-	template <>
-	inline const VertexPositionNormal OBJReader< VertexPositionNormal >::ConstructVertex(const XMUINT3 &vertex_indices) {
-		VertexPositionNormal vertex;
-		if (vertex_indices.x) {
-			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
+		if constexpr(VertexT::HasTexture()) {
+			if (vertex_indices.y) {
+				vertex.tex = m_vertex_texture_coordinates[vertex_indices.y - 1];
+			}
 		}
-		if (vertex_indices.z) {
-			vertex.n = m_vertex_normal_coordinates[vertex_indices.z - 1];
-		}
-		return vertex;
-	}
 
-	template <>
-	inline const VertexPositionTexture OBJReader< VertexPositionTexture >::ConstructVertex(const XMUINT3 &vertex_indices) {
-		VertexPositionTexture vertex;
-		if (vertex_indices.x) {
-			vertex.p = m_vertex_coordinates[vertex_indices.x - 1];
+		if constexpr(VertexT::HasNormal()) {
+			if (vertex_indices.z) {
+				vertex.n = m_vertex_normal_coordinates[vertex_indices.z - 1];
+			}
 		}
-		if (vertex_indices.y) {
-			vertex.tex = m_vertex_texture_coordinates[vertex_indices.y - 1];
-		}
+
 		return vertex;
 	}
 }

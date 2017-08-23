@@ -35,6 +35,50 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether vertices have a position.
+
+		 @return		@c true if vertices have a position.
+						@c false otherwise.
+		 */
+		static constexpr bool HasPosition() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a normal.
+
+		 @return		@c true if vertices have a normal.
+						@c false otherwise.
+		 */
+		static constexpr bool HasNormal() noexcept {
+			return false;
+		}
+
+		/**
+		 Checks whether vertices have a texture.
+
+		 @return		@c true if vertices have a texture.
+						@c false otherwise.
+		 */
+		static constexpr bool HasTexture() noexcept {
+			return false;
+		}
+
+		/**
+		 Checks whether vertices have a color.
+
+		 @return		@c true if vertices have a color.
+						@c false otherwise.
+		 */
+		static constexpr bool HasColor() noexcept {
+			return false;
+		}
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -127,6 +171,50 @@ namespace mage {
 	struct VertexPositionNormal final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether vertices have a position.
+
+		 @return		@c true if vertices have a position.
+						@c false otherwise.
+		 */
+		static constexpr bool HasPosition() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a normal.
+
+		 @return		@c true if vertices have a normal.
+						@c false otherwise.
+		 */
+		static constexpr bool HasNormal() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a texture.
+
+		 @return		@c true if vertices have a texture.
+						@c false otherwise.
+		 */
+		static constexpr bool HasTexture() noexcept {
+			return false;
+		}
+
+		/**
+		 Checks whether vertices have a color.
+
+		 @return		@c true if vertices have a color.
+						@c false otherwise.
+		 */
+		static constexpr bool HasColor() noexcept {
+			return false;
+		}
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -230,6 +318,50 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether vertices have a position.
+
+		 @return		@c true if vertices have a position.
+						@c false otherwise.
+		 */
+		static constexpr bool HasPosition() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a normal.
+
+		 @return		@c true if vertices have a normal.
+						@c false otherwise.
+		 */
+		static constexpr bool HasNormal() noexcept {
+			return false;
+		}
+
+		/**
+		 Checks whether vertices have a texture.
+
+		 @return		@c true if vertices have a texture.
+						@c false otherwise.
+		 */
+		static constexpr bool HasTexture() noexcept {
+			return false;
+		}
+
+		/**
+		 Checks whether vertices have a color.
+
+		 @return		@c true if vertices have a color.
+						@c false otherwise.
+		 */
+		static constexpr bool HasColor() noexcept {
+			return true;
+		}
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -331,6 +463,50 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether vertices have a position.
+
+		 @return		@c true if vertices have a position.
+						@c false otherwise.
+		 */
+		static constexpr bool HasPosition() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a normal.
+
+		 @return		@c true if vertices have a normal.
+						@c false otherwise.
+		 */
+		static constexpr bool HasNormal() noexcept {
+			return false;
+		}
+
+		/**
+		 Checks whether vertices have a texture.
+
+		 @return		@c true if vertices have a texture.
+						@c false otherwise.
+		 */
+		static constexpr bool HasTexture() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a color.
+
+		 @return		@c true if vertices have a color.
+						@c false otherwise.
+		 */
+		static constexpr bool HasColor() noexcept {
+			return false;
+		}
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -430,6 +606,50 @@ namespace mage {
 	struct VertexPositionNormalColor final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether vertices have a position.
+
+		 @return		@c true if vertices have a position.
+						@c false otherwise.
+		 */
+		static constexpr bool HasPosition() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a normal.
+
+		 @return		@c true if vertices have a normal.
+						@c false otherwise.
+		 */
+		static constexpr bool HasNormal() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a texture.
+
+		 @return		@c true if vertices have a texture.
+						@c false otherwise.
+		 */
+		static constexpr bool HasTexture() noexcept {
+			return false;
+		}
+
+		/**
+		 Checks whether vertices have a color.
+
+		 @return		@c true if vertices have a color.
+						@c false otherwise.
+		 */
+		static constexpr bool HasColor() noexcept {
+			return true;
+		}
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -540,6 +760,50 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether vertices have a position.
+
+		 @return		@c true if vertices have a position.
+						@c false otherwise.
+		 */
+		static constexpr bool HasPosition() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a normal.
+
+		 @return		@c true if vertices have a normal.
+						@c false otherwise.
+		 */
+		static constexpr bool HasNormal() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a texture.
+
+		 @return		@c true if vertices have a texture.
+						@c false otherwise.
+		 */
+		static constexpr bool HasTexture() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a color.
+
+		 @return		@c true if vertices have a color.
+						@c false otherwise.
+		 */
+		static constexpr bool HasColor() noexcept {
+			return false;
+		}
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -648,6 +912,50 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether vertices have a position.
+
+		 @return		@c true if vertices have a position.
+						@c false otherwise.
+		 */
+		static constexpr bool HasPosition() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a normal.
+
+		 @return		@c true if vertices have a normal.
+						@c false otherwise.
+		 */
+		static constexpr bool HasNormal() noexcept {
+			return false;
+		}
+
+		/**
+		 Checks whether vertices have a texture.
+
+		 @return		@c true if vertices have a texture.
+						@c false otherwise.
+		 */
+		static constexpr bool HasTexture() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a color.
+
+		 @return		@c true if vertices have a color.
+						@c false otherwise.
+		 */
+		static constexpr bool HasColor() noexcept {
+			return true;
+		}
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -754,6 +1062,50 @@ namespace mage {
 	struct VertexPositionNormalColorTexture final {
 
 	public:
+
+		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether vertices have a position.
+
+		 @return		@c true if vertices have a position.
+						@c false otherwise.
+		 */
+		static constexpr bool HasPosition() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a normal.
+
+		 @return		@c true if vertices have a normal.
+						@c false otherwise.
+		 */
+		static constexpr bool HasNormal() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a texture.
+
+		 @return		@c true if vertices have a texture.
+						@c false otherwise.
+		 */
+		static constexpr bool HasTexture() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a color.
+
+		 @return		@c true if vertices have a color.
+						@c false otherwise.
+		 */
+		static constexpr bool HasColor() noexcept {
+			return true;
+		}
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -871,6 +1223,50 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether vertices have a position.
+
+		 @return		@c true if vertices have a position.
+						@c false otherwise.
+		 */
+		static constexpr bool HasPosition() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a normal.
+
+		 @return		@c true if vertices have a normal.
+						@c false otherwise.
+		 */
+		static constexpr bool HasNormal() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a texture.
+
+		 @return		@c true if vertices have a texture.
+						@c false otherwise.
+		 */
+		static constexpr bool HasTexture() noexcept {
+			return true;
+		}
+
+		/**
+		 Checks whether vertices have a color.
+
+		 @return		@c true if vertices have a color.
+						@c false otherwise.
+		 */
+		static constexpr bool HasColor() noexcept {
+			return false;
+		}
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -884,13 +1280,13 @@ namespace mage {
 
 		 @param[in]		p
 						A reference to the position of the vertex.
-		 @param[in]		tex1
+		 @param[in]		tex
 						A reference to the first texture coordinates of the vertex.
 		 @param[in]		tex2
 						A reference to the second texture coordinates of the vertex.
 		 */
-		explicit VertexPositionTextureTexture(const Point3 &p, const UV &tex1, const UV &tex2)
-			: p(p), tex1(tex1), tex2(tex2) {}
+		explicit VertexPositionTextureTexture(const Point3 &p, const UV &tex, const UV &tex2)
+			: p(p), tex(tex), tex2(tex2) {}
 
 		/**
 		 Constructs a vertex from the given vertex.
@@ -949,7 +1345,7 @@ namespace mage {
 		/**
 		 The first texture coordinates of this vertex.
 		 */
-		UV tex1;
+		UV tex;
 
 		/**
 		 The second texture coordinates of this vertex.

@@ -286,7 +286,6 @@
     <ClCompile Include="MAGE\src\rendering\rendering.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_state_cache.cpp" />
-    <ClCompile Include="MAGE\src\rendering\rendering_utils.cpp" />
     <ClCompile Include="MAGE\src\resource\behavior_script.cpp" />
     <ClCompile Include="MAGE\src\resource\resource_manager.cpp" />
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
@@ -1680,6 +1679,7 @@
       <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
       <DisableSpecificWarnings>4201</DisableSpecificWarnings>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -1712,6 +1712,7 @@
       <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
       <DisableSpecificWarnings>4201</DisableSpecificWarnings>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -1745,6 +1746,7 @@
       <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
       <DisableSpecificWarnings>4201</DisableSpecificWarnings>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -1783,6 +1785,7 @@
       <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
       <XMLDocumentationFileName>$(ProjectName)\doc\</XMLDocumentationFileName>
       <DisableSpecificWarnings>4201</DisableSpecificWarnings>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

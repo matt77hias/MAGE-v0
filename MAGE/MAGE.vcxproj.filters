@@ -253,6 +253,9 @@
     <Filter Include="Source Files\pass">
       <UniqueIdentifier>{85970b30-13e1-4b93-bee0-801f4035884c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\sampling">
+      <UniqueIdentifier>{d06e03bc-6e23-4836-bf70-927dc01ccf1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -857,6 +860,12 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\script\rotation_script.hpp">
       <Filter>Header Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sampling\sampling.hpp">
+      <Filter>Header Files\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\sampling\rng.hpp">
+      <Filter>Header Files\sampling</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

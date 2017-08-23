@@ -144,6 +144,13 @@ namespace mage {
 		const Point3 Centroid() const noexcept;
 
 		/**
+		 Returns the radius of this AABB.
+
+		 @return		The radius of this AABB.
+		 */
+		const Direction3 Radius() const noexcept;
+
+		/**
 		 Returns the diagonal of this AABB.
 
 		 @return		The diagonal of this AABB.

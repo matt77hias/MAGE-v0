@@ -6,6 +6,7 @@
 #pragma region
 
 #include "light\light.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -124,10 +125,12 @@ namespace mage {
 		 Sets the distance at which intensity falloff ends of this omni light
 		 to the given value.
 
+		 @pre			@a distance_falloff_end > 0.
 		 @param[in]		distance_falloff_end
 						The distance at which intensity falloff ends.
 		 */
 		void SetEndDistanceFalloff(float distance_falloff_end) noexcept {
+			Assert(distance_falloff_end);
 			m_distance_falloff_end = distance_falloff_end;
 			UpdateBoundingVolumes();
 		}
@@ -136,6 +139,7 @@ namespace mage {
 		 Sets the distance at which intensity falloff starts and ends of this omni light
 		 to the given values.
 
+		 @pre			@a distance_falloff_end > 0.
 		 @param[in]		distance_falloff_start
 						The distance at which intensity falloff starts.
 		 @param[in]		distance_falloff_end
@@ -160,6 +164,7 @@ namespace mage {
 		 Sets the distance at which intensity falloff starts and the distance range 
 		 where intensity falloff occurs of this omni light to the given values.
 
+		 @pre			@a distance_falloff_start + @a distance_falloff_range > 0.
 		 @param[in]		distance_falloff_start
 						The distance at which intensity falloff starts.
 		 @param[in]		distance_falloff_range

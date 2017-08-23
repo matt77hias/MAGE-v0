@@ -6,6 +6,7 @@
 #pragma region
 
 #include "light\light.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -124,10 +125,12 @@ namespace mage {
 		 Sets the distance at which intensity falloff ends of this spotlight
 		 to the given value.
 
+		 @pre			@a distance_falloff_end > 0.
 		 @param[in]		distance_falloff_end
 						The distance at which intensity falloff ends.
 		 */
 		void SetEndDistanceFalloff(float distance_falloff_end) noexcept {
+			Assert(distance_falloff_end);
 			m_distance_falloff_end = distance_falloff_end;
 			UpdateBoundingVolumes();
 		}
@@ -136,6 +139,7 @@ namespace mage {
 		 Sets the distance at which intensity falloff starts and ends of this spotlight
 		 to the given values.
 
+		 @pre			@a distance_falloff_end > 0.
 		 @param[in]		distance_falloff_start
 						The distance at which intensity falloff starts.
 		 @param[in]		distance_falloff_end
@@ -160,6 +164,7 @@ namespace mage {
 		 Sets the distance at which intensity falloff starts and the distance range
 		 where intensity falloff occurs of this spotlight to the given values.
 
+		 @pre			@a distance_falloff_start + @a distance_falloff_range > 0.
 		 @param[in]		distance_falloff_start
 						The distance at which intensity falloff starts.
 		 @param[in]		distance_falloff_range
@@ -202,10 +207,12 @@ namespace mage {
 		 Sets the cosine of the umbra angle of this spotlight
 		 to the given value.
 
+		 @pre			@a cos_umbra > 0.
 		 @param[in]		cos_umbra
 						The cosine of the umbra angle.
 		 */
 		void SetEndAngularCutoff(float cos_umbra) noexcept {
+			Assert(cos_umbra);
 			m_cos_umbra = cos_umbra;
 			UpdateBoundingVolumes();
 		}
@@ -214,6 +221,7 @@ namespace mage {
 		 Sets the cosine of the penumbra and umbra angles of this spotlight
 		 to the given values.
 
+		 @pre			@a cos_umbra > 0.
 		 @param[in]		cos_penumbra
 						The cosine of the penumbra angle.
 		 @param[in]		cos_umbra
@@ -267,6 +275,7 @@ namespace mage {
 		 Sets the umbra angle (in radians) of this spotlight
 		 to the given value.
 
+		 @pre			cos(@a umbra) > 0.
 		 @param[in]		umbra
 						The umbra angle (in radians).
 		 */
@@ -278,6 +287,7 @@ namespace mage {
 		 Sets the penumbra and umbra angles (in radians) of this spotlight
 		 to the given values.
 
+		 @pre			cos(@a umbra) > 0.
 		 @param[in]		penumbra
 						The penumbra angle (in radians).
 		 @param[in]		umbra

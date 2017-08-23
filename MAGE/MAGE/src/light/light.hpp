@@ -104,7 +104,7 @@ namespace mage {
 		@return		A reference to the AABB of this light.
 		*/
 		const AABB &GetAABB() const noexcept {
-			return m_aabb;;
+			return m_aabb;
 		}
 
 		/**

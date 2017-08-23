@@ -102,6 +102,15 @@ namespace mage {
 		return c;
 	}
 
+	const Direction3 AABB::Radius() const noexcept {
+		const XMVECTOR p_min = XMLoadFloat3(&m_p_min);
+		const XMVECTOR p_max = XMLoadFloat3(&m_p_max);
+		const XMVECTOR radius = 0.5f * (p_max - p_min);
+		Direction3 r;
+		XMStoreFloat3(&r, radius);
+		return r;
+	}
+
 	const Direction3 AABB::Diagonal() const noexcept {
 		const XMVECTOR p_min = XMLoadFloat3(&m_p_min);
 		const XMVECTOR p_max = XMLoadFloat3(&m_p_max);

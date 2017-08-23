@@ -35,11 +35,11 @@ namespace mage {
 
 	void OmniLight::UpdateBoundingVolumes() noexcept {
 
-		const AABB aabb(
+		AABB aabb(
 			Point3(-m_distance_falloff_end, -m_distance_falloff_end, -m_distance_falloff_end),
 			Point3( m_distance_falloff_end,  m_distance_falloff_end,  m_distance_falloff_end));
 
-		const BS bs(Point3(), m_distance_falloff_end);
+		BS bs(Point3(), m_distance_falloff_end);
 
 		SetBoundingVolumes(std::move(aabb), std::move(bs));
 	}

@@ -67,21 +67,21 @@ namespace mage {
 			const Material *material);
 
 		void BindDirectionalLightsBuffer() noexcept {
-			PS::BindSRV(0, m_directional_lights_buffer.Get());
+			PS::BindSRV(m_device_context, 0, m_directional_lights_buffer.Get());
 		}
 		void BindOmniLightsBuffer() noexcept {
-			PS::BindSRV(1, m_omni_lights_buffer.Get());
+			PS::BindSRV(m_device_context, 1, m_omni_lights_buffer.Get());
 		}
 		void BindSpotLightsBuffer() noexcept {
-			PS::BindSRV(2, m_spot_lights_buffer.Get());
+			PS::BindSRV(m_device_context, 2, m_spot_lights_buffer.Get());
 		}
 		void BindSceneBuffer() noexcept {
-			VS::BindConstantBuffer(0, m_scene_buffer.Get());
-			PS::BindConstantBuffer(0, m_scene_buffer.Get());
+			VS::BindConstantBuffer(m_device_context, 0, m_scene_buffer.Get());
+			PS::BindConstantBuffer(m_device_context, 0, m_scene_buffer.Get());
 		}
 		void BindModelBuffer() noexcept {
-			VS::BindConstantBuffer(1, m_model_buffer.Get());
-			PS::BindConstantBuffer(1, m_model_buffer.Get());
+			VS::BindConstantBuffer(m_device_context, 1, m_model_buffer.Get());
+			PS::BindConstantBuffer(m_device_context, 1, m_model_buffer.Get());
 		}
 
 		enum PSIndex {
@@ -103,6 +103,7 @@ namespace mage {
 
 		const PassBuffer *m_scene;
 
+		ID3D11DeviceContext2 * const m_device_context;
 		SharedPtr< const VertexShader > m_vs;
 		SharedPtr< const PixelShader > m_ps[Count];
 

@@ -16,6 +16,7 @@ namespace mage {
 
 	const Mouse *Mouse::Get() noexcept {
 		Assert(InputManager::Get());
+
 		return InputManager::Get()->GetMouse();
 	}
 

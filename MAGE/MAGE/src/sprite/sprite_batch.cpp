@@ -28,19 +28,19 @@ namespace mage {
 
 	SpriteBatch::SpriteBatch(
 		SharedPtr< const VertexShader > vs, SharedPtr< const PixelShader >  ps)
-		: SpriteBatch(GetRenderingDevice(), GetRenderingDeviceContext(), vs, ps) {}
+		: SpriteBatch(GetDevice(), GetImmediateDeviceContext(), vs, ps) {}
 
 	SpriteBatch::SpriteBatch(
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
 		SharedPtr< const VertexShader > vs, SharedPtr< const PixelShader > ps)
-		: m_device(device), m_device_context(device_context), 
-		m_mesh(MakeUnique< SpriteBatchMesh >(device, device_context)), 
+		: m_device_context(device_context), 
+		m_mesh(MakeUnique< SpriteBatchMesh >(device)), 
 		m_vertex_buffer_position(0), m_vs(vs), m_ps(ps),
 		m_blend_state(nullptr), m_depth_stencil_state(nullptr),
 		m_rasterizer_state(nullptr), m_sampler_state(nullptr),
 		m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY), m_viewport_set(false), m_viewport{}, 
 		m_in_begin_end_pair(false), m_sort_mode(SpriteSortMode::Deferred), 
-		m_transform(XMMatrixIdentity()), m_transform_buffer(device, device_context),
+		m_transform(XMMatrixIdentity()), m_transform_buffer(device),
 		m_sprite_queue(), m_sprite_queue_size(0), m_sprite_queue_array_size(0), 
 		m_sorted_sprites(), m_sprite_srvs() {}
 
@@ -189,19 +189,19 @@ namespace mage {
 		}
 
 		// Updates the transform (for a complete batch).
-		m_transform_buffer.UpdateData(XMMatrixTranspose(m_transform));
+		m_transform_buffer.UpdateData(m_device_context, XMMatrixTranspose(m_transform));
 
 		// Sets the states.
 		OM::BindBlendState(m_device_context, m_blend_state);
 		OM::BindDepthStencilState(m_device_context, m_depth_stencil_state);
 		RS::BindState(m_device_context, m_rasterizer_state);
-		PS::BindSampler(0, m_sampler_state);
+		PS::BindSampler(m_device_context, 0, m_sampler_state);
 
 		// Binds the mesh, shaders and transform buffer.
-		m_mesh->BindMesh();
-		m_vs->BindShader();
-		VS::BindConstantBuffer(0, m_transform_buffer.Get());
-		m_ps->BindShader();
+		m_mesh->BindMesh(m_device_context);
+		m_vs->BindShader(m_device_context);
+		VS::BindConstantBuffer(m_device_context, 0, m_transform_buffer.Get());
+		m_ps->BindShader(m_device_context);
 	}
 
 	void SpriteBatch::FlushBatch() {
@@ -289,7 +289,7 @@ namespace mage {
 		const SpriteInfo * const *sprites, size_t nb_sprites) {
 
 		// Binds the texture.
-		PS::BindSRV(0, texture);
+		PS::BindSRV(m_device_context, 0, texture);
 
 		const XMVECTOR texture_size = GetTexture2DSize(texture);
 		const XMVECTOR inverse_texture_size = XMVectorReciprocal(texture_size);
@@ -315,7 +315,7 @@ namespace mage {
 			const D3D11_MAP map_type = (m_vertex_buffer_position == 0) 
 				? D3D11_MAP_WRITE_DISCARD : D3D11_MAP_WRITE_NO_OVERWRITE;
 			D3D11_MAPPED_SUBRESOURCE mapped_buffer;
-			const HRESULT result_map = m_mesh->MapVertexBuffer(map_type, &mapped_buffer);
+			const HRESULT result_map = m_mesh->MapVertexBuffer(m_device_context, map_type, &mapped_buffer);
 			if (FAILED(result_map)) {
 				Error("Vertex buffer mapping failed: %08X.", result_map);
 				return;
@@ -331,12 +331,12 @@ namespace mage {
 			}
 			
 			// Unmap vertex buffer
-			m_mesh->UnmapVertexBuffer();
+			m_mesh->UnmapVertexBuffer(m_device_context);
 
 			// Draw mesh
 			const size_t start_index = m_vertex_buffer_position * SpriteBatchMesh::s_indices_per_sprite;
 			const size_t nb_indices  = nb_sprites_to_render * SpriteBatchMesh::s_indices_per_sprite;
-			m_mesh->Draw(start_index, nb_indices);
+			m_mesh->Draw(m_device_context, start_index, nb_indices);
 
 			// Update workload
 			m_vertex_buffer_position += nb_sprites_to_render;

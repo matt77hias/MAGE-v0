@@ -29,7 +29,9 @@ namespace mage {
 		/**
 		 Constructs a model descriptor.
 
-		 @pre			The renderer associated with the current engine 
+		 @pre			The device associated with the current engine
+						must be loaded.
+		 @pre			The resource manager associated with the current engine
 						must be loaded.
 		 @tparam		VertexT
 						The vertex type.
@@ -53,8 +55,7 @@ namespace mage {
 		 Constructs a model descriptor.
 
 		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			The renderer associated with the current engine
+		 @pre			The resource manager associated with the current engine
 						must be loaded.
 		 @tparam		VertexT
 						The vertex type.
@@ -63,8 +64,6 @@ namespace mage {
 						(the globally unique identifier).
 		 @param[in]		device
 						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
 		 @param[in]		desc
 						A reference to the mesh descriptor.
 		 @param[in]		export_to_mdl
@@ -74,8 +73,7 @@ namespace mage {
 						Failed to initialize the model descriptor.
 		 */
 		template < typename VertexT >
-		explicit ModelDescriptor(const wstring &fname, 
-			ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+		explicit ModelDescriptor(const wstring &fname, ID3D11Device2 *device,
 			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >(),
 			bool export_as_MDL = false);
 		

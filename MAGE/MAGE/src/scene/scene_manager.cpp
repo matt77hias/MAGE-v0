@@ -15,7 +15,6 @@ namespace mage {
 
 	SceneManager *SceneManager::Get() noexcept {
 		Assert(Engine::Get());
-		Assert(Engine::Get()->GetSceneManager());
 
 		return Engine::Get()->GetSceneManager();
 	}

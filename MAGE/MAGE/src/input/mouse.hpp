@@ -38,7 +38,7 @@ namespace mage {
 		/**
 		 Returns the mouse associated with the current engine.
 
-		 @pre			The mouse associated with the 
+		 @pre			The input manager associated with the 
 						current engine must be loaded.
 		 @return		A pointer to the mouse associated
 						with the current engine.

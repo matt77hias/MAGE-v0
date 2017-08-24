@@ -155,26 +155,39 @@ namespace mage {
 
 		/**
 		 Binds the mesh of this model.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 */
-		void BindMesh() const noexcept {
-			m_mesh->BindMesh();
+		void BindMesh(ID3D11DeviceContext2 *device_context) const noexcept {
+			m_mesh->BindMesh(device_context);
 		}
 
 		/**
 		 Binds the mesh of this model with given primitive topology.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @param[in]		topology
 						The primitive topology.
 		 */
-		void BindMesh(D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
-			m_mesh->BindMesh(topology);
+		void BindMesh(ID3D11DeviceContext2 *device_context, 
+			D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
+
+			m_mesh->BindMesh(device_context, topology);
 		}
 
 		/**
 		 Draws this model.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 */
-		void Draw() const noexcept {
-			m_mesh->Draw(m_start_index, m_nb_indices);
+		void Draw(ID3D11DeviceContext2 *device_context) const noexcept {
+			m_mesh->Draw(device_context, m_start_index, m_nb_indices);
 		}
 
 		//---------------------------------------------------------------------

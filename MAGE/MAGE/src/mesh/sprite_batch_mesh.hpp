@@ -96,7 +96,7 @@ namespace mage {
 		/**
 		 Constructs a sprite batch mesh.
 
-		 @pre			The renderer associated with the current engine 
+		 @pre			The device associated with the current engine 
 						must be loaded.
 		 @throws		FormattedException
 						Failed to setup the vertex buffer of the sprite batch mesh.
@@ -109,19 +109,14 @@ namespace mage {
 		 Constructs a sprite batch mesh.
 
 		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			The renderer associated with the current engine
-						must be loaded.
 		 @param[in]		device
 						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
 		 @throws		FormattedException
 						Failed to setup the vertex buffer of the sprite batch mesh.
 		 @throws		FormattedException
 						Failed to setup the index buffer of the sprite batch mesh.
 		 */
-		explicit SpriteBatchMesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+		explicit SpriteBatchMesh(ID3D11Device2 *device);
 
 		/**
 		 Constructs a sprite batch mesh from the given sprite batch mesh.
@@ -175,7 +170,10 @@ namespace mage {
 		/**
 		 Maps the vertex buffer of this this sprite batch mesh.
 
+		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a mapped_buffer is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device context.
 		 @param[in]		map_type
 						The map type specifying the CPU's read and write permissions
 						for the vertex buffer of this this sprite batch mesh.
@@ -183,17 +181,22 @@ namespace mage {
 						A pointer to the map the vertex buffer of this this sprite batch mesh to.
 		 @return		A success/error value.
 		 */
-		HRESULT MapVertexBuffer(D3D11_MAP map_type, D3D11_MAPPED_SUBRESOURCE *mapped_buffer);
+		HRESULT MapVertexBuffer(ID3D11DeviceContext2 *device_context,
+			D3D11_MAP map_type, D3D11_MAPPED_SUBRESOURCE *mapped_buffer);
 		
 		/**
 		 Unmaps the vertex buffer of this this sprite batch mesh.
 
+		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			The vertex buffer of this this sprite batch mesh
 						must be mapped with 
-						{@link mage::SpriteBatchMesh::MapVertexBuffer(D3D11_MAP, D3D11_MAPPED_SUBRESOURCE *)} 
+						{@link mage::SpriteBatchMesh::MapVertexBuffer(
+						D3D11_MAP, D3D11_MAPPED_SUBRESOURCE *)} 
 						before it can be unmapped.
+		 @param[in]		device
+						A pointer to the device context.
 		 */
-		void UnmapVertexBuffer();
+		void UnmapVertexBuffer(ID3D11DeviceContext2 *device_context);
 
 	private:
 
@@ -203,12 +206,20 @@ namespace mage {
 
 		/**
 		 Sets up the vertex buffer of this sprite batch mesh.
+
+		 @pre			@a device is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
 		 */
-		void SetupVertexBuffer();
+		void SetupVertexBuffer(ID3D11Device2 *device);
 
 		/**
 		 Sets up the index buffer of this sprite batch mesh.
+
+		 @pre			@a device is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
 		 */
-		void SetupIndexBuffer();
+		void SetupIndexBuffer(ID3D11Device2 *device);
 	};
 }

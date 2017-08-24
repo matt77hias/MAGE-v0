@@ -16,7 +16,8 @@
 namespace mage {
 
 	/**
-	 A class of constant buffers (for binding buffers to the rendering pipeline).
+	 A class of constant buffers 
+	 (for binding buffers to the rendering pipeline).
 
 	 @tparam		DataT
 					The data type.
@@ -33,7 +34,7 @@ namespace mage {
 		/**
 		 Constructs a constant buffer.
 
-		 @pre			The renderer associated with the current engine 
+		 @pre			The device associated with the current engine 
 						must be loaded.
 		 */
 		ConstantBuffer();
@@ -42,15 +43,10 @@ namespace mage {
 		 Constructs a constant buffer.
 
 		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			The renderer associated with the current engine
-						must be loaded.
 		 @param[in]		device
 						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
 		 */
-		explicit ConstantBuffer(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+		explicit ConstantBuffer(ID3D11Device2 *device);
 		
 		/**
 		 Constructs a constant buffer from the given constant buffer.
@@ -102,12 +98,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Updates the data of constant buffer with the given data.
+		 Updates the data of this constant buffer with the given data.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @param[in]		data
 						A reference to the data.
 		 */
-		void UpdateData(const DataT &data) const;
+		void UpdateData(ID3D11DeviceContext2 *device_context, 
+			const DataT &data) const;
 		
 		/**
 		 Returns the buffer resource of this constant buffer.
@@ -128,24 +128,17 @@ namespace mage {
 		/**
 		 Sets up the resource buffer of this constant buffer.
 
+		 @pre			@a device is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
 		 @throws		FormattedException
 						Failed to setup this constant buffer.
 		 */
-		void SetupConstantBuffer();
+		void SetupConstantBuffer(ID3D11Device2 *device);
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-
-		/**
-		 A pointer to the device of this constant buffer.
-		 */
-		ID3D11Device2 * const m_device;
-
-		/**
-		 A pointer to the device context of this constant buffer.
-		 */
-		ID3D11DeviceContext2 * const m_device_context;
 
 		/**
 		 A pointer to the buffer resource of this constant buffer.

@@ -29,8 +29,6 @@ namespace mage {
 		/**
 		 Returns the input manager associated with the current engine.
 
-		 @pre			The input manager associated with the 
-						current engine must be loaded.
 		 @return		A pointer to the input manager associated
 						with the current engine.
 		 */

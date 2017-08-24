@@ -16,7 +16,6 @@ namespace mage {
 
 	const Renderer *Renderer::Get() noexcept {
 		Assert(Engine::Get());
-		Assert(Engine::Get()->GetRenderer());
 
 		return Engine::Get()->GetRenderer();
 	}
@@ -48,8 +47,7 @@ namespace mage {
 		SetupSwapChain();
 
 		// Setup the rendering states.
-		m_rendering_state_cache = MakeUnique< RenderingStateCache >(
-									m_device.Get(), m_device_context.Get());
+		m_rendering_state_cache = MakeUnique< RenderingStateCache >(m_device.Get());
 	}
 
 	void Renderer::UninitializeRenderer() noexcept {

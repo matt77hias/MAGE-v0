@@ -52,8 +52,8 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void BindViewport() const noexcept {
-			RS::BindViewport(&m_viewport);
+		void BindViewport(ID3D11DeviceContext2 *device_context) const noexcept {
+			RS::BindViewport(device_context, &m_viewport);
 		}
 
 		/**

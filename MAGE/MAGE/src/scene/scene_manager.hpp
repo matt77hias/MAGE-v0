@@ -28,8 +28,6 @@ namespace mage {
 		/**
 		 Returns the scene manager associated with the current engine.
 
-		 @pre			The scene manager associated with the 
-						current engine must be loaded.
 		 @return		A pointer to the scene manager associated
 						with the current engine.
 		 */

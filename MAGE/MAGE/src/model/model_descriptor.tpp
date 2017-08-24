@@ -1,15 +1,6 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "logging\error.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -17,12 +8,11 @@ namespace mage {
 	template < typename VertexT >
 	ModelDescriptor::ModelDescriptor(const wstring &fname, 
 		const MeshDescriptor< VertexT > &desc, bool export_as_MDL)
-		: ModelDescriptor(fname, GetRenderingDevice(), 
-			GetRenderingDeviceContext(), desc, export_as_MDL) {}
+		: ModelDescriptor(fname, GetDevice(), 
+			desc, export_as_MDL) {}
 
 	template < typename VertexT >
-	ModelDescriptor::ModelDescriptor(const wstring &fname, 
-		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
+	ModelDescriptor::ModelDescriptor(const wstring &fname, ID3D11Device2 *device,
 		const MeshDescriptor< VertexT > &desc, bool export_as_MDL)
 		: Resource< ModelDescriptor >(fname), m_mesh(), m_materials(), m_model_parts() {
 
@@ -34,7 +24,8 @@ namespace mage {
 			ExportModelToFile(mdl_fname, buffer);
 		}
 
-		m_mesh = MakeShared< StaticMesh >(device, device_context, buffer.m_vertex_buffer, buffer.m_index_buffer, DXGI_FORMAT_R32_UINT);
+		m_mesh = MakeShared< StaticMesh >(
+			device, buffer.m_vertex_buffer, buffer.m_index_buffer, DXGI_FORMAT_R32_UINT);
 		m_materials = std::move(buffer.m_material_buffer);
 		m_model_parts = std::move(buffer.m_model_parts);
 	}

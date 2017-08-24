@@ -30,7 +30,7 @@ namespace mage {
 		/**
 		 Returns the renderer state cache associated with the current engine.
 
-		 @pre			The rendering state cache associated with the 
+		 @pre			The renderer associated with the 
 						current engine must be loaded.
 		 @return		A pointer to the renderer state cache associated
 						with the current engine.
@@ -45,13 +45,10 @@ namespace mage {
 		 Constructs a rendering state cache.
 
 		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
 		 */
-		explicit RenderingStateCache(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
+		explicit RenderingStateCache(ID3D11Device2 *device);
 
 		/**
 		 Constructs a rendering state cache from the given rendering state cache.
@@ -116,11 +113,14 @@ namespace mage {
 		/**
 		 Binds the opaque blend state of this rendering cache.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @throws		FormattedException
 						Failed to bind the blend state.
 		 */
-		void BindOpaqueBlendState() {
-			OM::BindBlendState(m_device_context, GetOpaqueBlendState());
+		void BindOpaqueBlendState(ID3D11DeviceContext2 *device_context) {
+			OM::BindBlendState(device_context, GetOpaqueBlendState());
 		}
 
 		/**
@@ -137,11 +137,14 @@ namespace mage {
 		/**
 		 Binds the alpha blend state of this rendering cache.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @throws		FormattedException
 						Failed to bind the blend state.
 		 */
-		void BindAlphaBlendState() {
-			OM::BindBlendState(m_device_context, GetAlphaBlendState());
+		void BindAlphaBlendState(ID3D11DeviceContext2 *device_context) {
+			OM::BindBlendState(device_context, GetAlphaBlendState());
 		}
 
 		/**
@@ -158,11 +161,14 @@ namespace mage {
 		/**
 		 Binds the additive blend state of this rendering cache.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @throws		FormattedException
 						Failed to bind the blend state.
 		 */
-		void BindAdditiveBlendState() {
-			OM::BindBlendState(m_device_context, GetAdditiveBlendState());
+		void BindAdditiveBlendState(ID3D11DeviceContext2 *device_context) {
+			OM::BindBlendState(device_context, GetAdditiveBlendState());
 		}
 
 		/**
@@ -179,11 +185,14 @@ namespace mage {
 		/**
 		 Binds the non-premultiplied blend state of this rendering cache.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @throws		FormattedException
 						Failed to bind the blend state.
 		 */
-		void BindNonPremultipliedBlendState() {
-			OM::BindBlendState(m_device_context, GetNonPremultipliedBlendState());
+		void BindNonPremultipliedBlendState(ID3D11DeviceContext2 *device_context) {
+			OM::BindBlendState(device_context, GetNonPremultipliedBlendState());
 		}
 
 		//---------------------------------------------------------------------
@@ -205,11 +214,14 @@ namespace mage {
 		 Binds the no-depth stencil state
 		 of this rendering cache.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @throws		FormattedException
 						Failed to bind the depth stencil state.
 		 */
-		void BindDepthNoneDepthStencilState() {
-			OM::BindDepthStencilState(m_device_context, GetDepthNoneDepthStencilState());
+		void BindDepthNoneDepthStencilState(ID3D11DeviceContext2 *device_context) {
+			OM::BindDepthStencilState(device_context, GetDepthNoneDepthStencilState());
 		}
 
 		/**
@@ -227,11 +239,14 @@ namespace mage {
 		 Binds the default depth stencil state
 		 of this rendering cache.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @throws		FormattedException
 						Failed to bind the depth stencil state.
 		 */
-		void BindDepthDefaultDepthStencilState() {
-			OM::BindDepthStencilState(m_device_context, GetDepthDefaultDepthStencilState());
+		void BindDepthDefaultDepthStencilState(ID3D11DeviceContext2 *device_context) {
+			OM::BindDepthStencilState(device_context, GetDepthDefaultDepthStencilState());
 		}
 
 		/**
@@ -249,11 +264,14 @@ namespace mage {
 		 Binds the read depth stencil state
 		 of this rendering cache.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @throws		FormattedException
 						Failed to bind the depth stencil state.
 		 */
-		void BindDepthReadDepthStencilState() {
-			OM::BindDepthStencilState(m_device_context, GetDepthReadDepthStencilState());
+		void BindDepthReadDepthStencilState(ID3D11DeviceContext2 *device_context) {
+			OM::BindDepthStencilState(device_context, GetDepthReadDepthStencilState());
 		}
 
 		//-------------------------------------------------------------------------
@@ -275,11 +293,14 @@ namespace mage {
 		 Binds the no-culling rasterizer state
 		 of this rendering cache.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @throws		FormattedException
 						Failed to bind the rasterizer state.
 		 */
-		void BindCullNoneRasterizerState() {
-			RS::BindState(m_device_context, GetCullNoneRasterizerState());
+		void BindCullNoneRasterizerState(ID3D11DeviceContext2 *device_context) {
+			RS::BindState(device_context, GetCullNoneRasterizerState());
 		}
 
 		/**
@@ -297,11 +318,14 @@ namespace mage {
 		 Binds the clockwise-culling rasterizer state
 		 of this rendering cache.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @throws		FormattedException
 						Failed to bind the rasterizer state.
 		 */
-		void BindCullClockwiseRasterizerState() {
-			RS::BindState(m_device_context, GetCullClockwiseRasterizerState());
+		void BindCullClockwiseRasterizerState(ID3D11DeviceContext2 *device_context) {
+			RS::BindState(device_context, GetCullClockwiseRasterizerState());
 		}
 
 		/**
@@ -319,11 +343,14 @@ namespace mage {
 		 Binds the counter-clockwise-culling rasterizer state
 		 of this rendering cache.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @throws		FormattedException
 						Failed to bind the rasterizer state.
 		 */
-		void BindCullCounterClockwiseRasterizerState() {
-			RS::BindState(m_device_context, GetCullCounterClockwiseRasterizerState());
+		void BindCullCounterClockwiseRasterizerState(ID3D11DeviceContext2 *device_context) {
+			RS::BindState(device_context, GetCullCounterClockwiseRasterizerState());
 		}
 
 		/**
@@ -341,11 +368,14 @@ namespace mage {
 		 Binds the wireframe rasterizer state
 		 of this rendering cache.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @throws		FormattedException
 						Failed to bind the rasterizer state.
 		 */
-		void BindWireframeRasterizerState() {
-			RS::BindState(m_device_context, GetWireframeRasterizerState());
+		void BindWireframeRasterizerState(ID3D11DeviceContext2 *device_context) {
+			RS::BindState(device_context, GetWireframeRasterizerState());
 		}
 
 		//-------------------------------------------------------------------------
@@ -428,11 +458,6 @@ namespace mage {
 		 The device of this rendering state.
 		 */
 		ID3D11Device2 * const m_device;
-
-		/**
-		 The device context of this rendering state.
-		 */
-		ID3D11DeviceContext2 * const m_device_context;
 
 		/**
 		 A pointer to the opaque blend state

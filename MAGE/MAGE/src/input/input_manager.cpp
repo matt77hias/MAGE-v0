@@ -16,7 +16,6 @@ namespace mage {
 
 	const InputManager *InputManager::Get() noexcept {
 		Assert(Engine::Get());
-		Assert(Engine::Get()->GetInputManager());
 
 		return Engine::Get()->GetInputManager();
 	}

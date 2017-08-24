@@ -16,7 +16,7 @@
 namespace mage {
 
 	BasicRenderPass::BasicRenderPass()
-		: m_scene(nullptr), m_vs(), m_ps{},
+		: m_scene(nullptr), m_device_context(GetImmediateDeviceContext()), m_vs(), m_ps{},
 		m_bound_ps(Count), m_render_mode(RenderMode::Default), m_brdf(BRDFType::Unknown),
 		m_model_buffer(), m_scene_buffer(), m_directional_lights_buffer(3),
 		m_omni_lights_buffer(32), m_spot_lights_buffer(32), 
@@ -60,7 +60,7 @@ namespace mage {
 			buffer.push_back(std::move(light_buffer));
 		}
 
-		m_directional_lights_buffer.UpdateData(buffer);
+		m_directional_lights_buffer.UpdateData(m_device_context, buffer);
 		BindDirectionalLightsBuffer();
 
 		return buffer.size();
@@ -96,7 +96,7 @@ namespace mage {
 			buffer.push_back(std::move(light_buffer));
 		}
 
-		m_omni_lights_buffer.UpdateData(buffer);
+		m_omni_lights_buffer.UpdateData(m_device_context, buffer);
 		BindOmniLightsBuffer();
 
 		return buffer.size();
@@ -137,7 +137,7 @@ namespace mage {
 			buffer.push_back(std::move(light_buffer));
 		}
 		
-		m_spot_lights_buffer.UpdateData(buffer);
+		m_spot_lights_buffer.UpdateData(m_device_context, buffer);
 		BindSpotLightsBuffer();
 
 		return buffer.size();
@@ -165,7 +165,7 @@ namespace mage {
 			scene_buffer.m_fog_distance_falloff_range = m_scene->m_fog->GetRangeDistanceFalloff();
 		}
 
-		m_scene_buffer.UpdateData(scene_buffer);
+		m_scene_buffer.UpdateData(m_device_context, scene_buffer);
 		BindSceneBuffer();
 	}
 
@@ -184,13 +184,13 @@ namespace mage {
 		buffer.m_extra_parameters.z               = material->GetExtraParameter(2);
 		buffer.m_extra_parameters.w               = material->GetExtraParameter(3);
 		
-		m_model_buffer.UpdateData(buffer);
+		m_model_buffer.UpdateData(m_device_context, buffer);
 		BindModelBuffer();
 
 		BindPixelShader(material);
-		PS::BindSRV(3, material->GetDiffuseReflectivitySRV());
-		PS::BindSRV(4, material->GetSpecularReflectivitySRV());
-		PS::BindSRV(5, material->GetNormalSRV());
+		PS::BindSRV(m_device_context, 3, material->GetDiffuseReflectivitySRV());
+		PS::BindSRV(m_device_context, 4, material->GetSpecularReflectivitySRV());
+		PS::BindSRV(m_device_context, 5, material->GetNormalSRV());
 	}
 
 	void BasicRenderPass::ProcessModels(const vector< const ModelNode * > &models,
@@ -214,9 +214,9 @@ namespace mage {
 			ProcessNonConstant(object_to_world, view_to_object, material);
 
 			// Bind model.
-			model->BindMesh();
+			model->BindMesh(m_device_context);
 			// Draw model.
-			model->Draw();
+			model->Draw(m_device_context);
 		}
 	}
 
@@ -240,9 +240,9 @@ namespace mage {
 			ProcessNonConstant(object_to_world, view_to_object, material);
 
 			// Bind model.
-			model->BindMesh();
+			model->BindMesh(m_device_context);
 			// Draw model.
-			model->Draw();
+			model->Draw(m_device_context);
 		}
 	}
 
@@ -273,9 +273,9 @@ namespace mage {
 			ProcessNonConstant(box_to_world, view_to_box, material);
 
 			// Bind model.
-			m_box->BindMesh();
+			m_box->BindMesh(m_device_context);
 			// Draw model.
-			m_box->Draw();
+			m_box->Draw(m_device_context);
 		}
 	}
 
@@ -306,9 +306,9 @@ namespace mage {
 			ProcessNonConstant(box_to_world, view_to_box, material);
 
 			// Bind model.
-			m_box->BindMesh();
+			m_box->BindMesh(m_device_context);
 			// Draw model.
-			m_box->Draw();
+			m_box->Draw(m_device_context);
 		}
 	}
 
@@ -339,9 +339,9 @@ namespace mage {
 			ProcessNonConstant(box_to_world, view_to_box, material);
 
 			// Bind model.
-			m_box->BindMesh();
+			m_box->BindMesh(m_device_context);
 			// Draw model.
-			m_box->Draw();
+			m_box->Draw(m_device_context);
 		}
 	}
 
@@ -370,7 +370,7 @@ namespace mage {
 
 	void BasicRenderPass::BindPixelShader(PSIndex index) noexcept {
 		if (m_bound_ps != index) {
-			m_ps[index]->BindShader();
+			m_ps[index]->BindShader(m_device_context);
 			m_bound_ps = index;
 		}
 	}
@@ -479,12 +479,12 @@ namespace mage {
 		m_render_mode = RenderMode::Default;
 		UpdatePixelShaders(node->GetSettings()->GetBRDF());
 		
-		m_vs->BindShader();
-		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
-		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
-		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
-		node->GetViewport().BindViewport();
+		m_vs->BindShader(m_device_context);
+		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
+		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+		PS::BindSampler(m_device_context, 0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		node->GetViewport().BindViewport(m_device_context);
 
 		const TransformNode * const transform = node->GetTransform();
 		const Camera        * const camera    = node->GetCamera();
@@ -495,19 +495,19 @@ namespace mage {
 
 		ProcessConstant(world_to_projection, world_to_view, view_to_projection, true);
 		ProcessModels(m_scene->m_opaque_models, world_to_projection, view_to_world);
-		RenderingStateCache::Get()->BindAlphaBlendState();
+		RenderingStateCache::Get()->BindAlphaBlendState(m_device_context);
 		ProcessModels(m_scene->m_transparent_models, world_to_projection, view_to_world);
 	}
 
 	void BasicRenderPass::RenderSolid(const CameraNode *node) {
 		m_render_mode = RenderMode::Solid;
 		
-		m_vs->BindShader();
-		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
-		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
-		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
-		node->GetViewport().BindViewport();
+		m_vs->BindShader(m_device_context);
+		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
+		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+		PS::BindSampler(m_device_context, 0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		node->GetViewport().BindViewport(m_device_context);
 
 		const TransformNode * const transform = node->GetTransform();
 		const Camera        * const camera    = node->GetCamera();
@@ -527,12 +527,12 @@ namespace mage {
 	void BasicRenderPass::RenderDiffuseTexture(const CameraNode *node) {
 		m_render_mode = RenderMode::DiffuseTexture;
 		
-		m_vs->BindShader();
-		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
-		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
-		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
-		node->GetViewport().BindViewport();
+		m_vs->BindShader(m_device_context);
+		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
+		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+		PS::BindSampler(m_device_context, 0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		node->GetViewport().BindViewport(m_device_context);
 		
 		const TransformNode * const transform = node->GetTransform();
 		const Camera        * const camera    = node->GetCamera();
@@ -543,19 +543,19 @@ namespace mage {
 
 		ProcessConstant(world_to_projection, world_to_view, view_to_projection, false);
 		ProcessModels(m_scene->m_opaque_models, world_to_projection, view_to_world);
-		RenderingStateCache::Get()->BindAlphaBlendState();
+		RenderingStateCache::Get()->BindAlphaBlendState(m_device_context);
 		ProcessModels(m_scene->m_transparent_models, world_to_projection, view_to_world);
 	}
 
 	void BasicRenderPass::RenderUVTexture(const CameraNode *node) {
 		m_render_mode = RenderMode::UVTexture;
 		
-		m_vs->BindShader();
-		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
-		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
-		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
-		node->GetViewport().BindViewport();
+		m_vs->BindShader(m_device_context);
+		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
+		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+		PS::BindSampler(m_device_context, 0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		node->GetViewport().BindViewport(m_device_context);
 
 		const TransformNode * const transform = node->GetTransform();
 		const Camera        * const camera    = node->GetCamera();
@@ -576,12 +576,12 @@ namespace mage {
 	void BasicRenderPass::RenderShadingNormal(const CameraNode *node) {
 		m_render_mode = RenderMode::ShadingNormal;
 		
-		m_vs->BindShader();
-		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
-		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
-		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
-		node->GetViewport().BindViewport();
+		m_vs->BindShader(m_device_context);
+		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
+		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+		PS::BindSampler(m_device_context, 0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		node->GetViewport().BindViewport(m_device_context);
 
 		const TransformNode * const transform = node->GetTransform();
 		const Camera        * const camera    = node->GetCamera();
@@ -598,12 +598,12 @@ namespace mage {
 	void BasicRenderPass::RenderTSNMShadingNormal(const CameraNode *node) {
 		m_render_mode = RenderMode::TSNMShadingNormal;
 		
-		m_vs->BindShader();
-		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
-		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
-		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
-		node->GetViewport().BindViewport();
+		m_vs->BindShader(m_device_context);
+		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
+		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+		PS::BindSampler(m_device_context, 0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		node->GetViewport().BindViewport(m_device_context);
 
 		const TransformNode * const transform = node->GetTransform();
 		const Camera        * const camera    = node->GetCamera();
@@ -620,12 +620,12 @@ namespace mage {
 	void BasicRenderPass::RenderDistance(const CameraNode *node) {
 		m_render_mode = RenderMode::Distance;
 		
-		m_vs->BindShader();
-		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
-		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
-		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
-		node->GetViewport().BindViewport();
+		m_vs->BindShader(m_device_context);
+		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
+		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+		PS::BindSampler(m_device_context, 0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		node->GetViewport().BindViewport(m_device_context);
 
 		const TransformNode * const transform = node->GetTransform();
 		const Camera        * const camera    = node->GetCamera();
@@ -642,12 +642,12 @@ namespace mage {
 	void BasicRenderPass::RenderAABB(const CameraNode *node) {
 		m_render_mode = RenderMode::None;
 		
-		m_vs->BindShader();
-		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
-		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState();
-		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
-		node->GetViewport().BindViewport();
+		m_vs->BindShader(m_device_context);
+		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
+		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+		PS::BindSampler(m_device_context, 0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		node->GetViewport().BindViewport(m_device_context);
 
 		const TransformNode * const transform = node->GetTransform();
 		const Camera        * const camera    = node->GetCamera();
@@ -671,12 +671,12 @@ namespace mage {
 	void BasicRenderPass::RenderWireframe(const CameraNode *node) {
 		m_render_mode = RenderMode::None;
 		
-		m_vs->BindShader();
-		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState();
-		RenderingStateCache::Get()->BindWireframeRasterizerState();
-		RenderingStateCache::Get()->BindOpaqueBlendState();
-		PS::BindSampler(0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
-		node->GetViewport().BindViewport();
+		m_vs->BindShader(m_device_context);
+		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
+		RenderingStateCache::Get()->BindWireframeRasterizerState(m_device_context);
+		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+		PS::BindSampler(m_device_context, 0, RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		node->GetViewport().BindViewport(m_device_context);
 		
 		const TransformNode * const transform = node->GetTransform();
 		const Camera        * const camera    = node->GetCamera();

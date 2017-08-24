@@ -30,7 +30,7 @@ namespace mage {
 		/**
 		 Constructs a texture.
 
-		 @pre			The renderer associated with the current engine 
+		 @pre			The device associated with the current engine 
 						must be loaded.
 		 @param[in]		fname
 						A reference to the filename
@@ -59,7 +59,8 @@ namespace mage {
 		/**
 		 Constructs a 2D texture.
 
-		 @pre			The current engine must be loaded.
+		 @pre			The device associated with the current engine 
+						must be loaded.
 		 @pre			@a desc is not equal to @c nullptr.
 		 @pre			@a initial_data is not equal to @c nullptr.
 		 @param[in]		guid
@@ -168,11 +169,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-
-		/**
-		 A pointer to the device of this texture.
-		 */
-		ID3D11Device2 * const m_device;
 
 		/**
 		 A pointer to the shader resource view of this texture.

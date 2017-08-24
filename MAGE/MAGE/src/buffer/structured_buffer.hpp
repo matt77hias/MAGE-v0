@@ -17,7 +17,8 @@
 namespace mage {
 
 	/**
-	 A class of structured buffers (for binding arrays of buffers to the rendering pipeline).
+	 A class of structured buffers 
+	 (for binding arrays of buffers to the rendering pipeline).
 
 	 @tparam		DataT
 					The data type.
@@ -34,10 +35,11 @@ namespace mage {
 		/**
 		 Constructs a structured buffer.
 
-		 @pre			The renderer associated with the current engine 
+		 @pre			The device associated with the current engine 
 						must be loaded.
 		 @param[in]		nb_initial_data_elements
-						The initial number of slots for storing data elements to provide.
+						The initial number of slots for storing data 
+						elements to provide.
 		 */
 		explicit StructuredBuffer(size_t nb_initial_data_elements);
 
@@ -45,17 +47,13 @@ namespace mage {
 		 Constructs a structured buffer.
 
 		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			The renderer associated with the current engine
-						must be loaded.
 		 @param[in]		device
 						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
 		 @param[in]		nb_initial_data_elements
-						The initial number of slots for storing data elements to provide.
+						The initial number of slots for storing 
+						data elements to provide.
 		 */
-		explicit StructuredBuffer(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, 
+		explicit StructuredBuffer(ID3D11Device2 *device, 
 			size_t nb_initial_data_elements);
 		
 		/**
@@ -108,12 +106,35 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Updates the data of structured buffer with the given data.
+		 Updates the data of this structured buffer with the given data.
 
+		 @pre			The device associated with the current engine
+						must be loaded in case this structured buffer
+						needs to grow.
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @param[in]		data
 						A reference to a vector with the data elements.
 		 */
-		void UpdateData(const vector< DataT > &data) const;
+		void UpdateData(ID3D11DeviceContext2 *device_context, 
+			const vector< DataT > &data) const;
+
+		/**
+		 Updates the data of this structured buffer with the given data.
+
+		 @pre			@a device is not equal to @c nullptr.
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		data
+						A reference to a vector with the data elements.
+		 */
+		void UpdateData(ID3D11Device2 *device, 
+			ID3D11DeviceContext2 *device_context,
+			const vector< DataT > &data) const;
 
 		/**
 		 Returns the shader resource view of this structured buffer.
@@ -134,26 +155,20 @@ namespace mage {
 		/**
 		 Sets up the resource buffer and shader resource view of this structured buffer.
 
+		 @pre			@a device is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
 		 @param[in]		nb_data_elements
 						The number of slots for storing data elements to provide.
 		 @throws		FormattedException
 						Failed to setup this structured buffer.
 		 */
-		void SetupStructuredBuffer(size_t nb_data_elements) const;
+		void SetupStructuredBuffer(ID3D11Device2 *device, 
+			size_t nb_data_elements) const;
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
-
-		/**
-		 A pointer to the device of this structured buffer.
-		 */
-		ID3D11Device2 * const m_device;
-
-		/**
-		 A pointer to the device context of this structured buffer.
-		 */
-		ID3D11DeviceContext2 * const m_device_context;
 
 		/**
 		 A pointer to the buffer resource of this structured buffer.

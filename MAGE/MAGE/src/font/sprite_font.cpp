@@ -149,7 +149,7 @@ namespace mage {
 	};
 
 	SpriteFont::SpriteFont(const wstring &fname, const SpriteFontDescriptor &desc)
-		: SpriteFont(fname, GetRenderingDevice(), desc) {}
+		: SpriteFont(fname, GetDevice(), desc) {}
 
 	SpriteFont::SpriteFont(const wstring &fname, ID3D11Device2 *device, const SpriteFontDescriptor &desc)
 		: Resource< SpriteFont >(fname), m_texture_srv(), m_glyphs(),
@@ -181,6 +181,7 @@ namespace mage {
 
 	void XM_CALLCONV SpriteFont::DrawString(SpriteBatch &sprite_batch, const wchar_t *str,
 		const SpriteTransform &transform, FXMVECTOR color, SpriteEffect effects) const {
+		
 		Assert(str);
 
 		static_assert(
@@ -347,6 +348,7 @@ namespace mage {
 	}
 
 	const XMVECTOR SpriteFont::MeasureString(const wchar_t *str) const {
+		
 		Assert(str);
 
 		XMVECTOR result = XMVectorZero();
@@ -437,6 +439,7 @@ namespace mage {
 	}
 
 	const RECT SpriteFont::MeasureDrawBounds(const wchar_t *str, const XMFLOAT2 &position) const {
+		
 		Assert(str);
 
 		RECT result = { LONG_MAX, LONG_MAX, 0, 0 };

@@ -32,8 +32,6 @@ namespace mage {
 		/**
 		 Returns the resource manager associated with the current engine.
 
-		 @pre			The resource manager associated with the 
-						current engine must be loaded.
 		 @return		A pointer to the resource manager associated
 						with the current engine.
 		 */

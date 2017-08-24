@@ -61,15 +61,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the size (in bytes) of the vertices of this mesh.
-
-		 @return		The vertex size (in bytes) of this mesh.
-		 */
-		size_t GetVertexSize() const noexcept {
-			return m_vertex_size;
-		}
-
-		/**
 		 Returns the number of vertices of this mesh.
 
 		 @return		The number of vertices of this mesh.
@@ -85,6 +76,15 @@ namespace mage {
 		 */
 		size_t GetNumberOfIndices() const noexcept {
 			return m_nb_indices;
+		}
+
+		/**
+		 Returns the size (in bytes) of the vertices of this mesh.
+
+		 @return		The vertex size (in bytes) of this mesh.
+		 */
+		size_t GetVertexSize() const noexcept {
+			return m_vertex_size;
 		}
 
 		/**
@@ -110,9 +110,13 @@ namespace mage {
 
 		 The vertex buffer, index buffer and primitive topology 
 		 of this mesh will be bound to the input-assembler stage.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 */
-		void BindMesh() const noexcept {
-			BindMesh(m_primitive_topology);
+		void BindMesh(ID3D11DeviceContext2 *device_context) const noexcept {
+			BindMesh(device_context, m_primitive_topology);
 		}
 
 		/**
@@ -121,20 +125,30 @@ namespace mage {
 		 The vertex buffer, index buffer and given primitive topology 
 		 of this mesh will be bound to the input-assembler stage.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @param[in]		topology
 						The primitive topology.
 		 */
-		void BindMesh(D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
-			IA::BindVertexBuffer(m_device_context, 0, m_vertex_buffer.Get(), static_cast< UINT >(m_vertex_size));
-			IA::BindIndexBuffer(m_device_context, m_index_buffer.Get(), m_index_format);
-			IA::BindPrimitiveTopology(m_device_context, topology);
+		void BindMesh(ID3D11DeviceContext2 *device_context, 
+			D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
+
+			IA::BindVertexBuffer(device_context, 0, m_vertex_buffer.Get(), static_cast< UINT >(m_vertex_size));
+			IA::BindIndexBuffer(device_context, m_index_buffer.Get(), m_index_format);
+			IA::BindPrimitiveTopology(device_context, topology);
 		}
 
 		/**
 		 Draws this complete mesh.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 */
-		void Draw() const noexcept {
-			m_device_context->DrawIndexed(static_cast< UINT >(m_nb_indices), 0, 0);
+		void Draw(ID3D11DeviceContext2 *device_context) const noexcept {
+			device_context->DrawIndexed(
+				static_cast< UINT >(m_nb_indices), 0, 0);
 			
 			EngineStatistics::Get()->IncrementNumberOfDrawCalls();
 		}
@@ -142,13 +156,19 @@ namespace mage {
 		/**
 		 Draws a submesh of this mesh.
 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 @param[in]		start_index
 						The start index.
 		 @param[in]		nb_indices
 						The number of indices.
 		 */
-		void Draw(size_t start_index, size_t nb_indices) const noexcept {
-			m_device_context->DrawIndexed(static_cast< UINT >(nb_indices), static_cast< UINT >(start_index), 0);
+		void Draw(ID3D11DeviceContext2 *device_context,
+			size_t start_index, size_t nb_indices) const noexcept {
+
+			device_context->DrawIndexed(
+				static_cast< UINT >(nb_indices), static_cast< UINT >(start_index), 0);
 			
 			EngineStatistics::Get()->IncrementNumberOfDrawCalls();
 		}
@@ -162,8 +182,6 @@ namespace mage {
 		/**
 		 Constructs a mesh.
 
-		 @pre			The renderer associated with the current engine 
-						must be loaded.
 		 @param[in]		vertex_size
 						The vertex size.
 		 @param[in]		index_format
@@ -172,26 +190,6 @@ namespace mage {
 						The primitive topology.
 		 */
 		explicit Mesh(size_t vertex_size, DXGI_FORMAT index_format, 
-			D3D11_PRIMITIVE_TOPOLOGY primitive_topology);
-
-		/**
-		 Constructs a mesh.
-
-		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 @param[in]		vertex_size
-						The vertex size.
-		 @param[in]		index_format
-						The index format.
-		 @param[in]		primitive_topology
-						The primitive topology.
-		 */
-		explicit Mesh(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context, 
-			size_t vertex_size, DXGI_FORMAT index_format,
 			D3D11_PRIMITIVE_TOPOLOGY primitive_topology);
 
 		/**
@@ -239,16 +237,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device of this mesh.
-		 */
-		ID3D11Device2 * const m_device;
-
-		/**
-		 A pointer to the device context of this mesh.
-		 */
-		ID3D11DeviceContext2 * const m_device_context;
-
-		/**
 		 A pointer to the vertex buffer of this mesh.
 		 */
 		ComPtr< ID3D11Buffer > m_vertex_buffer;
@@ -265,11 +253,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The vertex size of this mesh.
-		 */
-		const size_t m_vertex_size;
-
-		/**
 		 The number of vertices of this mesh.
 		 */
 		size_t m_nb_vertices;
@@ -278,6 +261,11 @@ namespace mage {
 		 The number of indices of this mesh.
 		 */
 		size_t m_nb_indices;
+
+		/**
+		 The vertex size of this mesh.
+		 */
+		const size_t m_vertex_size;
 
 		/**
 		 The index format of this mesh.

@@ -21,6 +21,7 @@ namespace mage {
 	template < typename VertexT >
 	HRESULT CreateStaticVertexBuffer(ID3D11Device2 *device, 
 		ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) noexcept {
+		
 		Assert(device);
 		Assert(buffer);
 		Assert(vertices);
@@ -43,6 +44,7 @@ namespace mage {
 	template < typename VertexT >
 	HRESULT CreateDynamicVertexBuffer(ID3D11Device2 *device, 
 		ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) noexcept {
+		
 		Assert(device);
 		Assert(buffer);
 		
@@ -68,6 +70,7 @@ namespace mage {
 	template < typename IndexT >
 	HRESULT CreateStaticIndexBuffer(ID3D11Device2 *device, 
 		ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices) noexcept {
+		
 		Assert(device);
 		Assert(buffer);
 		Assert(indices);
@@ -90,6 +93,7 @@ namespace mage {
 	template < typename DataT >
 	HRESULT CreateConstantBuffer(ID3D11Device2 *device, 
 		ID3D11Buffer **buffer, size_t count) noexcept {
+		
 		Assert(device);
 		Assert(buffer);
 		
@@ -107,6 +111,7 @@ namespace mage {
 	template < typename DataT >
 	HRESULT CreateStructuredBuffer(ID3D11Device2 *device, 
 		ID3D11Buffer **buffer, size_t count) noexcept {
+		
 		Assert(device);
 		Assert(buffer);
 		

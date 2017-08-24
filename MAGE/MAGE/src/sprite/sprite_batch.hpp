@@ -169,6 +169,10 @@ namespace mage {
 		/**
 		 Constructs a sprite batch.
 
+		 @pre			The device associated with the
+						current engine must be loaded.
+		 @pre			The device context associated with the
+						current engine must be loaded.
 		 @pre			The resource manager associated with the
 						current engine must be loaded.
 		 @pre			@a vs is not equal to @c nullptr.
@@ -297,7 +301,8 @@ namespace mage {
 		 @param[in]		source
 						A pointer the rectangular subregion of the texture.
 		 */
-		void XM_CALLCONV Draw(ID3D11ShaderResourceView *texture, FXMVECTOR color, 
+		void XM_CALLCONV Draw(
+			ID3D11ShaderResourceView *texture, FXMVECTOR color, 
 			SpriteEffect effects, const SpriteTransform &transform, 
 			const RECT *source = nullptr);
 		
@@ -475,22 +480,13 @@ namespace mage {
 		static const size_t s_initial_queue_size = 64;
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Rendering
 		//---------------------------------------------------------------------
-
-		/**
-		 A pointer to the device of this sprite batch.
-		 */
-		ID3D11Device2 * const m_device;
 
 		/**
 		 A pointer to the device context of this sprite batch.
 		 */
 		ID3D11DeviceContext2 * const m_device_context;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Rendering
-		//---------------------------------------------------------------------
 
 		/**
 		 A pointer to the sprite batch mesh used by this sprite batch

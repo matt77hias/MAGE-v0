@@ -148,7 +148,8 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateBlendState(ID3D11Device2 *device, 
-		ID3D11BlendState **blend_state, D3D11_BLEND src_blend, D3D11_BLEND dest_blend) noexcept;
+		ID3D11BlendState **blend_state, 
+		D3D11_BLEND src_blend, D3D11_BLEND dest_blend) noexcept;
 	
 	/**
 	 Creates an opaque blend state (i.e. no blending).
@@ -238,7 +239,8 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateDepthStencilState(ID3D11Device2 *device, 
-		ID3D11DepthStencilState **depth_stencil_state, bool enable, bool write_enable) noexcept;
+		ID3D11DepthStencilState **depth_stencil_state, 
+		bool enable, bool write_enable) noexcept;
 	
 	/**
 	 Creates a no-read-no-write depth stencil state.
@@ -302,7 +304,8 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateRasterizerState(ID3D11Device2 *device, 
-		ID3D11RasterizerState **rasterizer_state, D3D11_CULL_MODE cull_mode, D3D11_FILL_MODE fill_mode) noexcept;
+		ID3D11RasterizerState **rasterizer_state, 
+		D3D11_CULL_MODE cull_mode, D3D11_FILL_MODE fill_mode) noexcept;
 	
 	/**
 	 Creates a no-culling (solid) rasterizer state.
@@ -381,7 +384,8 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateSamplerState(ID3D11Device2 *device, 
-		ID3D11SamplerState **sampler_state, D3D11_FILTER filter, D3D11_TEXTURE_ADDRESS_MODE address_mode) noexcept;
+		ID3D11SamplerState **sampler_state, 
+		D3D11_FILTER filter, D3D11_TEXTURE_ADDRESS_MODE address_mode) noexcept;
 	
 	/**
 	 Creates a point sampling state with wrapping.

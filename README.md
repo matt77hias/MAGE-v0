@@ -33,6 +33,8 @@
 
 **Provides**: input handling for keyboard and mouse, scripting functionality and standard scripts, resource management (shaders, textures, fonts, models, variables scripts, etc.), sprite rendering (image, text, etc.), scene hierarchies, multiple cameras/lights/models, multiple materials and shaders (Diffuse, Lambertian BRDF, Phong BRDF, Modified Phong BRDF, Blinn-Phong BRDF, Modified Blinn-Phong BRDF, Ward BRDF, Ward-Duer BRDF, Cook-Torrance BRDF, all with or without tangent or object space normal mapping), dynamic and multiple lights (ambient, directional, omni and spotlights) lighting, single layer of transparency, configurable display modes, non-hierarchical view frustum culling, switching between windowed and full screen mode, .MDL (model)/ .MSH (mesh)/ .OBJ (model/mesh)/ .MTL (material)/ .DDS (texture)/ .SPRITEFONT (font)/ .VS (variable script) loaders.
 
+**License**: Currently, MAGE is licensed under a [No License](https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt), since we do not allow diverging from the base version yet in this early stage of development.  
+
 ## Development
 * **Platform**: (minimum) Windows 8.1 32 Bit and 64 Bit (Windows API + Direct3D 11)
 * **Engine Programming Language**: ISO C++ Latest Draft Standard (> C++17)

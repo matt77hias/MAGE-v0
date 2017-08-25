@@ -18,7 +18,7 @@ cbuffer cb_transform : register(b0) {
 // Vertex Shader
 //-----------------------------------------------------------------------------
 PSInputPositionColorTexture VS(VSInputPositionColorTexture input) {
-	PSInputPositionColorTexture output = (PSInputPositionColorTexture)0;
+	PSInputPositionColorTexture output;
 	output.p     = mul(input.p, g_transform);
 	output.color = input.color;
 	output.tex   = input.tex;

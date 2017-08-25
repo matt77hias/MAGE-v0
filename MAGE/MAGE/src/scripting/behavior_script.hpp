@@ -78,16 +78,16 @@ namespace mage {
 		}
 
 		/**
-		 Makes this behavior script (and its descendant behavior scripts) active.
+		 Activates this behavior script (and its descendant behavior scripts).
 		 */
-		void MakeActive() noexcept {
+		void Activate() noexcept {
 			SetActive(true);
 		}
 
 		/**
-		 Makes this behavior script (and its descendant behavior scripts) passive.
+		 Deactives this behavior script (and its descendant behavior scripts).
 		 */
-		void MakePassive() noexcept {
+		void Deactivate() noexcept {
 			SetActive(false);
 		}
 

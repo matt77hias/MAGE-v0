@@ -1493,16 +1493,16 @@ namespace mage {
 		}
 
 		/**
-		 Makes this node (and its descendant nodes) active.
+		 Activates this node (and its descendant nodes).
 		 */
-		void MakeActive() noexcept {
+		void Activate() noexcept {
 			SetActive(true);
 		}
 
 		/**
-		 Makes this node (and its descendant nodes) passive.
+		 Deactives this node (and its descendant nodes).
 		 */
-		void MakePassive() noexcept {
+		void Deactivate() noexcept {
 			SetActive(false);
 		}
 

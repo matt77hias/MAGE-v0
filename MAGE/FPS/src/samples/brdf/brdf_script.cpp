@@ -56,10 +56,10 @@ namespace mage {
 
 	void BRDFScript::InitModels() noexcept {
 		for (const auto &node : m_models) {
-			node->MakePassive();
+			node->Deactivate();
 		}
 
-		m_models[0]->MakeActive();
+		m_models[0]->Activate();
 	}
 
 	void BRDFScript::InitShaders() noexcept {
@@ -263,14 +263,14 @@ namespace mage {
 
 		// Switch model.
 		if (keyboard->GetKeyPress(DIK_UP, false)) {
-			m_models[m_model_index]->MakePassive();
+			m_models[m_model_index]->Deactivate();
 			m_model_index = (m_model_index + 1) % m_models.size();
-			m_models[m_model_index]->MakeActive();
+			m_models[m_model_index]->Activate();
 		} 
 		else if (keyboard->GetKeyPress(DIK_DOWN, false)) {
-			m_models[m_model_index]->MakePassive();
+			m_models[m_model_index]->Deactivate();
 			m_model_index = std::min(m_model_index - 1, m_models.size() - 1);
-			m_models[m_model_index]->MakeActive();
+			m_models[m_model_index]->Activate();
 		}
 
 		// Switch shader.

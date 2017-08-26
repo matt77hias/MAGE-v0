@@ -1246,9 +1246,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="MAGE\shaders\sprite.fx">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\basic.fx">
       <Filter>Shader Files</Filter>
     </FxCompile>

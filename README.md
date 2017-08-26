@@ -1,11 +1,14 @@
 <img align="left" src="res/MAGE.png" width="120px"/>
 
-[![Build status][s1]][av] [![License][s2]][li] [![Join the chat at https://gitter.im/WickedEngine/Lobby][s3]][gi]
+[![Build status][s1]][av] [![License][s2]][do] [![License][s3]][li] [![Join the chat at https://gitter.im/WickedEngine/Lobby][s4]][gi]
 
 [s1]: https://ci.appveyor.com/api/projects/status/ike880pg85pupdj6?svg=true
-[s2]: https://img.shields.io/badge/licence-No%20Licence-blue.svg
-[s3]: https://badges.gitter.im/MatthiasAdvancedGameEngine/Lobby.svg
+[s2]: https://img.shields.io/badge/docs-doxygen-blue.svg
+[s3]: https://img.shields.io/badge/licence-No%20Licence-blue.svg
+[s4]: https://badges.gitter.im/MatthiasAdvancedGameEngine/Lobby.svg
+
 [av]: https://ci.appveyor.com/project/matt77hias/MAGE
+[do]: https://matt77hias.github.io/MAGE-Doc/MAGE-Doc/html/index.html
 [gi]: https://gitter.im/MatthiasAdvancedGameEngine/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 [li]: https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt
 
@@ -29,6 +32,8 @@
 </p>
 
 **Provides**: input handling for keyboard and mouse, scripting functionality and standard scripts, resource management (shaders, textures, fonts, models, variables scripts, etc.), sprite rendering (image, text, etc.), scene hierarchies, multiple cameras/lights/models, multiple materials and shaders (Diffuse, Lambertian BRDF, Phong BRDF, Modified Phong BRDF, Blinn-Phong BRDF, Modified Blinn-Phong BRDF, Ward BRDF, Ward-Duer BRDF, Cook-Torrance BRDF, all with or without tangent or object space normal mapping), dynamic and multiple lights (ambient, directional, omni and spotlights) lighting, single layer of transparency, configurable display modes, non-hierarchical view frustum culling, switching between windowed and full screen mode, .MDL (model)/ .MSH (mesh)/ .OBJ (model/mesh)/ .MTL (material)/ .DDS (texture)/ .SPRITEFONT (font)/ .VS (variable script) loaders.
+
+**License**: Currently, MAGE is licensed under a [No License](https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt), since we do not allow diverging from the base version yet in this early stage of development.  
 
 ## Development
 * **Platform**: (minimum) Windows 8.1 32 Bit and 64 Bit (Windows API + Direct3D 11)

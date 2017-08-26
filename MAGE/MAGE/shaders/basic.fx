@@ -5,9 +5,8 @@
 #include "light.fx"
 
 //-----------------------------------------------------------------------------
-// Scene
+// Constant Buffers
 //-----------------------------------------------------------------------------
-
 cbuffer Scene : register(b0) {
 	// The world-to-view transformation matrix.
 	float4x4 g_world_to_view					: packoffset(c0);
@@ -33,15 +32,6 @@ cbuffer Scene : register(b0) {
 	float g_fog_distance_falloff_range			: packoffset(c10.w);
 };
 
-StructuredBuffer< DirectionalLight > g_directional_lights : register(t0);
-StructuredBuffer< OmniLight > g_omni_lights               : register(t1);
-StructuredBuffer< SpotLight > g_spot_lights               : register(t2);
-sampler g_sampler										  : register(s0);
-
-//-----------------------------------------------------------------------------
-// Model
-//-----------------------------------------------------------------------------
-
 cbuffer Model : register(b1) {
 	// The object-to-world transformation matrix.
 	float4x4 g_object_to_world					: packoffset(c0);
@@ -58,9 +48,24 @@ cbuffer Model : register(b1) {
 	float4 g_material_parameters				: packoffset(c10);
 }
 
-Texture2D g_diffuse_texture : register(t3);
+//-----------------------------------------------------------------------------
+// Samplers
+//-----------------------------------------------------------------------------
+sampler g_sampler : register(s0);
+
+//-----------------------------------------------------------------------------
+// Structured Buffers
+//-----------------------------------------------------------------------------
+StructuredBuffer< DirectionalLight > g_directional_lights : register(t0);
+StructuredBuffer< OmniLight > g_omni_lights               : register(t1);
+StructuredBuffer< SpotLight > g_spot_lights               : register(t2);
+
+//-----------------------------------------------------------------------------
+// Textures
+//-----------------------------------------------------------------------------
+Texture2D g_diffuse_texture  : register(t3);
 Texture2D g_specular_texture : register(t4);
-Texture2D g_normal_texture  : register(t5);
+Texture2D g_normal_texture   : register(t5);
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -153,10 +158,9 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 }
 
 //-----------------------------------------------------------------------------
-// Vertex Shaders
+// Vertex Shader
 //-----------------------------------------------------------------------------
-
-PSInputPositionNormalTexture Transform_VS(VSInputPositionNormalTexture input) {
+PSInputPositionNormalTexture VS(VSInputPositionNormalTexture input) {
 	PSInputPositionNormalTexture output;
 	output.p      = mul(input.p,  g_object_to_world);
 	output.p      = mul(output.p, g_world_to_view);
@@ -170,7 +174,6 @@ PSInputPositionNormalTexture Transform_VS(VSInputPositionNormalTexture input) {
 //-----------------------------------------------------------------------------
 // Pixel Shaders
 //-----------------------------------------------------------------------------
-
 float4 Basic_PS(PSInputPositionNormalTexture input) : SV_Target {
 	const float3 n_view = normalize(input.n_view);
 	return BRDFShading(input.p_view, n_view, input.tex);

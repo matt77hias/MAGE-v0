@@ -145,51 +145,6 @@ namespace mage {
 	SharedPtr< const PixelShader > CreatePS(BRDFType brdf);
 
 	/**
-	 Creates a shading normal pixel shader.
-
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
-	 @return		A pointer to the shading normal pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateShadingNormalPS();
-
-	/**
-	 Creates a distance pixel shader.
-
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
-	 @return		A pointer to the distance pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateDistancePS();
-
-	/**
-	 Creates a diffuse reflectivity pixel shader.
-
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
-	 @return		A pointer to the diffuse reflectivity pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateDiffuseReflectivityPS();
-
-	/**
-	 Creates a diffuse reflectivity texture pixel shader.
-
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
-	 @return		A pointer to the diffuse reflectivity texture
-					pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateDiffuseReflectivityTexturePS();
-
-	/**
 	 Creates a Lambertian tsnm pixel shader.
 
 	 @pre			The resource manager associated with the
@@ -292,17 +247,6 @@ namespace mage {
 	SharedPtr< const PixelShader > CreateTSNMPS(BRDFType brdf);
 
 	/**
-	 Creates a shading normal tsnm pixel shader.
-
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
-	 @return		A pointer to the shading normal tsnm pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateShadingNormalTSNMPS();
-
-	/**
 	 Creates a sprite vertex shader.
 
 	 @pre			The resource manager associated with the
@@ -323,4 +267,83 @@ namespace mage {
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateSpritePS();
+
+	/**
+	 Creates a minimal transform vertex shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the minimal transform vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateMinimalTransformVS() noexcept;
+
+	/**
+	 Creates a constant color pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the constant color pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateConstantColorPS() noexcept;
+
+	/**
+	 Creates a constant color texture pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the constant color texture pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateConstantColorTexturePS() noexcept;
+
+	/**
+	 Creates a distance pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the distance pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDistancePS() noexcept;
+
+	/**
+	 Creates a shading normal transform vertex shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the shading normal transform 
+					vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateShadingNormalTransformVS() noexcept;
+
+	/**
+	 Creates a shading normal pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the shading normal pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateShadingNormalPS() noexcept;
+
+	/**
+	 Creates a tsnm shading normal pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the tsnm shading normal 
+					pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateShadingNormalTSNMPS() noexcept;
 }

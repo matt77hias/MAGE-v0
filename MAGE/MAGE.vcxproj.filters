@@ -226,9 +226,6 @@
     <Filter Include="Shader Files\tsnm">
       <UniqueIdentifier>{83b020c7-ae7c-4ffe-a70b-5d00bb1de2c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader Files\osnm">
-      <UniqueIdentifier>{ac4f6aa8-b81a-4581-a410-17d94df97d4e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader Files\basic">
       <UniqueIdentifier>{64ff8247-65f8-4a5d-97e2-c3996a96f8f4}</UniqueIdentifier>
     </Filter>
@@ -241,9 +238,6 @@
     <Filter Include="Header Files\shader\cso\tsnm">
       <UniqueIdentifier>{4fb22e1e-35e6-4daf-9489-d6bde00bfb7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\shader\cso\osnm">
-      <UniqueIdentifier>{a302469f-9b5e-4185-bd65-2b31f00056b2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\shader\cso\sprite">
       <UniqueIdentifier>{5f32344a-f3d2-4a74-8586-c30d8fc9d64f}</UniqueIdentifier>
     </Filter>
@@ -255,6 +249,12 @@
     </Filter>
     <Filter Include="Header Files\sampling">
       <UniqueIdentifier>{d06e03bc-6e23-4836-bf70-927dc01ccf1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader Files\miscellaneous">
+      <UniqueIdentifier>{9b57b9c3-85c1-4892-89d7-2a8806d87318}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\shader\cso\miscellaneous">
+      <UniqueIdentifier>{e05475c3-d882-4edd-8b47-3cdbaedb69ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -711,30 +711,6 @@
     <ClInclude Include="MAGE\src\shader\cso\basic\emissive_PS.hpp">
       <Filter>Header Files\shader\cso\basic</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\osnm\osnm_modified_blinn_phong_PS.hpp">
-      <Filter>Header Files\shader\cso\osnm</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\osnm\osnm_modified_phong_PS.hpp">
-      <Filter>Header Files\shader\cso\osnm</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\osnm\osnm_phong_PS.hpp">
-      <Filter>Header Files\shader\cso\osnm</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\osnm\osnm_ward_duer_PS.hpp">
-      <Filter>Header Files\shader\cso\osnm</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\osnm\osnm_ward_PS.hpp">
-      <Filter>Header Files\shader\cso\osnm</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\osnm\osnm_blinn_phong_PS.hpp">
-      <Filter>Header Files\shader\cso\osnm</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\osnm\osnm_cook_torrance_PS.hpp">
-      <Filter>Header Files\shader\cso\osnm</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\osnm\osnm_lambertian_PS.hpp">
-      <Filter>Header Files\shader\cso\osnm</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\sprite\sprite_PS.hpp">
       <Filter>Header Files\shader\cso\sprite</Filter>
     </ClInclude>
@@ -840,9 +816,6 @@
     <ClInclude Include="MAGE\src\pass\pass_buffer.hpp">
       <Filter>Header Files\pass</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\pass\basic_render_pass.hpp">
-      <Filter>Header Files\pass</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\camera\camera_settings.hpp">
       <Filter>Header Files\camera</Filter>
     </ClInclude>
@@ -875,6 +848,54 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\sampling\fibonacci.hpp">
       <Filter>Header Files\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\bounding_volume_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\shading_normal_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\constant_shading_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\constant_component_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\wireframe_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\distance_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\variable_shading_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\variable_component_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\sprite_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\distance_PS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\minimal_transform_VS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\shading_normal_PS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\shading_normal_transform_VS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\tsnm_shading_normal_PS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\constant_color_PS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\constant_color_texture_PS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1181,9 +1202,6 @@
     <ClCompile Include="MAGE\src\pass\pass_buffer.cpp">
       <Filter>Source Files\pass</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\pass\basic_render_pass.cpp">
-      <Filter>Source Files\pass</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\material\material.cpp">
       <Filter>Source Files\material</Filter>
     </ClCompile>
@@ -1198,6 +1216,33 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\script\rotation_script.cpp">
       <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\bounding_volume_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\constant_shading_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\constant_component_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\shading_normal_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\wireframe_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\distance_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\variable_shading_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\variable_component_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\sprite_pass.cpp">
+      <Filter>Source Files\pass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1215,30 +1260,6 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\normal_mapping.fx">
       <Filter>Shader Files</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\osnm\osnm_blinn_phong_PS.hlsl">
-      <Filter>Shader Files\osnm</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\osnm\osnm_cook_torrance_PS.hlsl">
-      <Filter>Shader Files\osnm</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\osnm\osnm_lambertian_PS.hlsl">
-      <Filter>Shader Files\osnm</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\osnm\osnm_modified_blinn_phong_PS.hlsl">
-      <Filter>Shader Files\osnm</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\osnm\osnm_modified_phong_PS.hlsl">
-      <Filter>Shader Files\osnm</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\osnm\osnm_phong_PS.hlsl">
-      <Filter>Shader Files\osnm</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\osnm\osnm_ward_duer_PS.hlsl">
-      <Filter>Shader Files\osnm</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\osnm\osnm_ward_PS.hlsl">
-      <Filter>Shader Files\osnm</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\tsnm\tsnm_blinn_phong_PS.hlsl">
       <Filter>Shader Files\tsnm</Filter>
@@ -1303,23 +1324,29 @@
     <FxCompile Include="MAGE\shaders\structures.fx">
       <Filter>Shader Files</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\tsnm\tsnm_shading_normal_PS.hlsl">
-      <Filter>Shader Files\tsnm</Filter>
+    <FxCompile Include="MAGE\shaders\miscellaneous\distance_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\osnm\osnm_shading_normal_PS.hlsl">
-      <Filter>Shader Files\osnm</Filter>
+    <FxCompile Include="MAGE\shaders\miscellaneous\constant_color_texture_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\basic\shading_normal_PS.hlsl">
-      <Filter>Shader Files\basic</Filter>
+    <FxCompile Include="MAGE\shaders\miscellaneous\constant_color_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\basic\diffuse_reflectivity_texture_PS.hlsl">
-      <Filter>Shader Files\basic</Filter>
+    <FxCompile Include="MAGE\shaders\miscellaneous\shading_normal_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\basic\distance_PS.hlsl">
-      <Filter>Shader Files\basic</Filter>
+    <FxCompile Include="MAGE\shaders\miscellaneous\tsnm_shading_normal_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\basic\diffuse_reflectivity_PS.hlsl">
-      <Filter>Shader Files\basic</Filter>
+    <FxCompile Include="MAGE\shaders\miscellaneous\minimal_transform_VS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\math.fx">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\miscellaneous\shading_normal_transform_VS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

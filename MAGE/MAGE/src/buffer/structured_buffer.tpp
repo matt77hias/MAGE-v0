@@ -24,14 +24,15 @@ namespace mage {
 	template< typename DataT >
 	StructuredBuffer< DataT >::StructuredBuffer(ID3D11Device2 *device,
 		size_t nb_initial_data_elements)
-		: m_buffer(), m_nb_data_elements(0), m_buffer_srv() {
+		: m_buffer(), m_buffer_srv(),
+		m_nb_data_elements(0), m_nb_used_data_elements(0) {
 
 		SetupStructuredBuffer(device, nb_initial_data_elements);
 	}
 
 	template< typename DataT >
 	void StructuredBuffer< DataT >::SetupStructuredBuffer(ID3D11Device2 *device, 
-		size_t nb_data_elements) const {
+		size_t nb_data_elements) {
 		
 		Assert(device);
 
@@ -58,24 +59,24 @@ namespace mage {
 
 	template< typename DataT >
 	inline void StructuredBuffer< DataT >::UpdateData(
-		ID3D11DeviceContext2 *device_context, const vector< DataT > &data) const {
+		ID3D11DeviceContext2 *device_context, const vector< DataT > &data) {
 
 		UpdateData(GetDevice(), device_context, data);
 	}
 
 	template< typename DataT >
 	void StructuredBuffer< DataT >::UpdateData(ID3D11Device2 *device, 
-		ID3D11DeviceContext2 *device_context, const vector< DataT > &data) const {
+		ID3D11DeviceContext2 *device_context, const vector< DataT > &data) {
 		
 		Assert(device_context);
 		Assert(m_buffer);
 
-		const size_t nb_requested_data_elements = data.size();
-		if (nb_requested_data_elements == 0) {
+		m_nb_used_data_elements = data.size();
+		if (m_nb_used_data_elements == 0) {
 			return;
 		}
-		if (m_nb_data_elements < nb_requested_data_elements) {
-			SetupStructuredBuffer(device, nb_requested_data_elements);
+		if (m_nb_data_elements < m_nb_used_data_elements) {
+			SetupStructuredBuffer(device, m_nb_used_data_elements);
 		}
 
 		D3D11_MAPPED_SUBRESOURCE mapped_buffer;
@@ -83,7 +84,7 @@ namespace mage {
 			m_buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped_buffer);
 		Assert(SUCCEEDED(result));
 
-		memcpy(mapped_buffer.pData, data.data(), nb_requested_data_elements * sizeof(DataT));
+		memcpy(mapped_buffer.pData, data.data(), m_nb_used_data_elements * sizeof(DataT));
 
 		device_context->Unmap(m_buffer.Get(), 0);
 	}

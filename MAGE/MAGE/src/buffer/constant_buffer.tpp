@@ -40,7 +40,7 @@ namespace mage {
 
 	template< typename DataT >
 	void ConstantBuffer< DataT >::UpdateData(
-		ID3D11DeviceContext2 *device_context, const DataT &data) const {
+		ID3D11DeviceContext2 *device_context, const DataT &data) {
 
 		Assert(device_context);
 		Assert(m_buffer);

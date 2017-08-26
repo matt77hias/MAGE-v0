@@ -89,26 +89,6 @@ namespace mage {
 		}
 	}
 
-	SharedPtr< const PixelShader > CreateShadingNormalPS() {
-		const BufferCompiledShader cs = CreateCompiledShadingNormalPS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_SHADING_NORMAL, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateDistancePS() {
-		const BufferCompiledShader cs = CreateCompiledDistancePS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DISTANCE, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateDiffuseReflectivityPS() {
-		const BufferCompiledShader cs = CreateCompiledDiffuseReflectivityPS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DIFFUSE_REFLECTIVITY, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateDiffuseReflectivityTexturePS() {
-		const BufferCompiledShader cs = CreateCompiledDiffuseReflectivityTexturePS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DIFFUSE_REFLECTIVITY_TEXTURE, &cs);
-	}
-
 	SharedPtr< const PixelShader > CreateLambertianTSNMPS() {
 		const BufferCompiledShader cs = CreateCompiledLambertianTSNMPS();
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_TSNM_LAMBERTIAN, &cs);
@@ -171,11 +151,6 @@ namespace mage {
 		}
 	}
 
-	SharedPtr< const PixelShader > CreateShadingNormalTSNMPS() {
-		const BufferCompiledShader cs = CreateCompiledShadingNormalTSNMPS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_TSNM_SHADING_NORMAL, &cs);
-	}
-
 	SharedPtr< const VertexShader > CreateSpriteVS() {
 		const BufferCompiledShader cs = CreateCompiledSpriteVS();
 		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_SPRITE, &cs,
@@ -185,6 +160,45 @@ namespace mage {
 
 	SharedPtr< const PixelShader > CreateSpritePS() {
 		const BufferCompiledShader cs = CreateCompiledSpritePS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_VS_MINIMAL_TRANSFORM, &cs);
+	}
+
+	SharedPtr< const VertexShader > CreateMinimalTransformVS() noexcept {
+		const BufferCompiledShader cs = CreateCompiledMinimalTransformVS();
+		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_PS_CONSTANT_COLOR, &cs,
+								VertexPositionNormalTexture::s_input_element_desc,
+								VertexPositionNormalTexture::s_nb_input_elements);
+	}
+
+	SharedPtr< const PixelShader > CreateConstantColorPS() noexcept {
+		const BufferCompiledShader cs = CreateCompiledConstantColorPS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_CONSTANT_COLOR_TEXTURE, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateConstantColorTexturePS() noexcept {
+		const BufferCompiledShader cs = CreateCompiledConstantColorTexturePS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DISTANCE, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateDistancePS() noexcept {
+		const BufferCompiledShader cs = CreateCompiledDistancePS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_VS_SHADING_NORMAL_TRANSFORM, &cs);
+	}
+
+	SharedPtr< const VertexShader > CreateShadingNormalTransformVS() noexcept {
+		const BufferCompiledShader cs = CreateCompiledShadingNormalTransformVS();
+		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_PS_SHADING_NORMAL, &cs,
+								VertexPositionNormalTexture::s_input_element_desc,
+								VertexPositionNormalTexture::s_nb_input_elements);
+	}
+
+	SharedPtr< const PixelShader > CreateShadingNormalPS() noexcept {
+		const BufferCompiledShader cs = CreateCompiledShadingNormalPS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_TSNM_SHADING_NORMAL, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateShadingNormalTSNMPS() noexcept {
+		const BufferCompiledShader cs = CreateCompiledShadingNormalTSNMPS();
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_SPRITE, &cs);
 	}
 }

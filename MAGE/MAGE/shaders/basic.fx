@@ -41,6 +41,7 @@ sampler g_sampler										  : register(s0);
 //-----------------------------------------------------------------------------
 // Model
 //-----------------------------------------------------------------------------
+
 cbuffer Model : register(b1) {
 	// The object-to-world transformation matrix.
 	float4x4 g_object_to_world					: packoffset(c0);
@@ -166,16 +167,6 @@ PSInputPositionNormalTexture Transform_VS(VSInputPositionNormalTexture input) {
 	return output;
 }
 
-PSInputPositionNormalTexture Normal_VS(VSInputPositionNormalTexture input) {
-	PSInputPositionNormalTexture output;
-	output.p      = mul(input.p,  g_object_to_world);
-	output.p      = mul(output.p, g_world_to_view);
-	output.p_view = output.p.xyz;
-	output.p      = mul(output.p, g_view_to_projection);
-	output.n_view = input.n;
-	return output;
-}
-
 //-----------------------------------------------------------------------------
 // Pixel Shaders
 //-----------------------------------------------------------------------------
@@ -188,10 +179,5 @@ float4 Basic_PS(PSInputPositionNormalTexture input) : SV_Target {
 float4 TangentSpaceNormalMapping_PS(PSInputPositionNormalTexture input) : SV_Target {
 	const float3 n0     = normalize(input.n_view);
 	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex);
-	return BRDFShading(input.p_view, n_view, input.tex);
-}
-
-float4 ObjectSpaceNormalMapping_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 n_view = ObjectSpaceNormalMapping_PerturbNormal(input.tex);
 	return BRDFShading(input.p_view, n_view, input.tex);
 }

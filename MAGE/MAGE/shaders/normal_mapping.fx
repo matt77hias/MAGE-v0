@@ -1,16 +1,12 @@
 //-----------------------------------------------------------------------------
 // Requires global variable: g_normal_texture
 // Requires global variable: g_sampler
-// Requires global variable: g_object_to_view_inverse_transpose
 //-----------------------------------------------------------------------------
 
-float3 BiasX2(float3 x) {
-	return 2.0f * x - 1.0f;
-}
-
-float3 InverseBiasX2(float3 x) {
-	return 0.5f * x + 0.5f;
-}
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#include "math.fx"
 
 // Returns the perturbed normal.
 float3 TangentSpaceNormalMapping_PerturbNormal(float3 p, float3 n, float2 tex) {
@@ -35,10 +31,4 @@ float3 TangentSpaceNormalMapping_PerturbNormal(float3 p, float3 n, float2 tex) {
 
 	const float3 coefficients = BiasX2(g_normal_texture.Sample(g_sampler, tex).xyz);
 	return normalize(mul(coefficients, TBN));
-}
-
-// Returns the perturbed normal.
-float3 ObjectSpaceNormalMapping_PerturbNormal(float2 tex) {
-	const float3 coefficients = BiasX2(g_normal_texture.Sample(g_sampler, tex).xyz);
-	return normalize(mul(coefficients, (float3x3)g_object_to_view_inverse_transpose));
 }

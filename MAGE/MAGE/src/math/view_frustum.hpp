@@ -22,6 +22,16 @@ namespace mage {
 
 	public:
 
+		static bool Cull(FXMMATRIX object_to_projection, const AABB &aabb) noexcept {
+			const ViewFrustum view_frustum(object_to_projection);
+			return !view_frustum.Overlaps(aabb);
+		}
+
+		static bool Cull(FXMMATRIX object_to_projection, const BS &bs) noexcept {
+			const ViewFrustum view_frustum(object_to_projection);
+			return !view_frustum.Overlaps(bs);
+		}
+
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------

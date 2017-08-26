@@ -165,4 +165,92 @@ namespace mage {
 	};
 
 	static_assert(sizeof(SceneBuffer) == 176, "CPU/GPU struct mismatch");
+
+	//-------------------------------------------------------------------------
+	// SceneTransformBuffer
+	//-------------------------------------------------------------------------
+
+	/**
+	 A struct of scene transform buffers used by shaders.
+	 */
+	__declspec(align(16)) struct SceneTransformBuffer final : public AlignedData< SceneTransformBuffer > {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a scene transform buffer.
+		 */
+		SceneTransformBuffer()
+			: m_world_to_view{}, m_view_to_projection{} {}
+		
+		/**
+		 Constructs a scene transform buffer from the given scene transform buffer.
+
+		 @param[in]		buffer
+						A reference to the scene transform buffer to copy.
+		 */
+		SceneTransformBuffer(const SceneTransformBuffer &buffer) = default;
+		
+		/**
+		 Constructs a scene transform buffer by moving the given scene transform buffer.
+
+		 @param[in]		buffer
+						A reference to the scene transform buffer to move.
+		 */
+		SceneTransformBuffer(SceneTransformBuffer &&buffer) = default;
+		
+		/**
+		 Destructs this scene transform buffer.
+		 */
+		~SceneTransformBuffer() = default;
+		
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given scene transform buffer to this scene transform buffer.
+
+		 @param[in]		buffer
+						A reference to the scene transform buffer to copy.
+		 @return		A reference to the copy of the given scene transform buffer
+						(i.e. this scene transform buffer).
+		 */
+		SceneTransformBuffer &operator=(const SceneTransformBuffer &buffer) = default;
+
+		/**
+		 Moves the given scene transform buffer to this scene transform buffer.
+
+		 @param[in]		buffer
+						A reference to the scene transform buffer to move.
+		 @return		A reference to the moved scene transform buffer
+						(i.e. this scene transform buffer).
+		 */
+		SceneTransformBuffer &operator=(SceneTransformBuffer &&buffer) = default;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Transforms
+		//---------------------------------------------------------------------
+
+		// HLSL expects column-major packed matrices by default.
+		// DirectXMath expects row-major packed matrices.
+
+		/**
+		 The (camera dependent, object independent) (column-major packed, row-major matrix) 
+		 world-to-view matrix of this scene transform buffer for use in HLSL.
+		 */
+		XMMATRIX m_world_to_view;
+
+		/**
+		 The (camera dependent, object independent) (column-major packed, row-major matrix) 
+		 view-to-projection matrix of this scene transform buffer for use in HLSL.
+		 */
+		XMMATRIX m_view_to_projection;
+	};
+
+	static_assert(sizeof(SceneTransformBuffer) == 128, "CPU/GPU struct mismatch");
 }

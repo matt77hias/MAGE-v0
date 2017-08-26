@@ -107,7 +107,7 @@ namespace mage {
 						A reference to the data.
 		 */
 		void UpdateData(ID3D11DeviceContext2 *device_context, 
-			const DataT &data) const;
+			const DataT &data);
 		
 		/**
 		 Returns the buffer resource of this constant buffer.

@@ -106,6 +106,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the size of this structured buffer
+		 (i.e. the used number of data elements).
+
+		 @return		The size of this structured buffer.
+		 */
+		size_t size() const noexcept {
+			return m_nb_used_data_elements;
+		}
+
+		/**
 		 Updates the data of this structured buffer with the given data.
 
 		 @pre			The device associated with the current engine
@@ -118,7 +128,7 @@ namespace mage {
 						A reference to a vector with the data elements.
 		 */
 		void UpdateData(ID3D11DeviceContext2 *device_context, 
-			const vector< DataT > &data) const;
+			const vector< DataT > &data);
 
 		/**
 		 Updates the data of this structured buffer with the given data.
@@ -134,7 +144,7 @@ namespace mage {
 		 */
 		void UpdateData(ID3D11Device2 *device, 
 			ID3D11DeviceContext2 *device_context,
-			const vector< DataT > &data) const;
+			const vector< DataT > &data);
 
 		/**
 		 Returns the shader resource view of this structured buffer.
@@ -164,7 +174,7 @@ namespace mage {
 						Failed to setup this structured buffer.
 		 */
 		void SetupStructuredBuffer(ID3D11Device2 *device, 
-			size_t nb_data_elements) const;
+			size_t nb_data_elements);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -173,18 +183,24 @@ namespace mage {
 		/**
 		 A pointer to the buffer resource of this structured buffer.
 		 */
-		mutable ComPtr< ID3D11Buffer > m_buffer;
+		ComPtr< ID3D11Buffer > m_buffer;
+
+		/**
+		 A pointer to the shader resource view of this structured buffer.
+		 */
+		ComPtr< ID3D11ShaderResourceView > m_buffer_srv;
 
 		/**
 		 The number of slots available for storing data elements
 		 in the current buffer resource of this structured buffer.
 		 */
-		mutable size_t m_nb_data_elements;
+		size_t m_nb_data_elements;
 
 		/**
-		 A pointer to the shader resource view of this structured buffer.
+		 The number of used slots
+		 in the current buffer resource of this structured buffer.
 		 */
-		mutable ComPtr< ID3D11ShaderResourceView > m_buffer_srv;
+		size_t m_nb_used_data_elements;
 	};
 }
 

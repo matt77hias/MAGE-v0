@@ -89,34 +89,6 @@ namespace mage {
 	const BufferCompiledShader CreateCompiledCookTorrancePS() noexcept;
 
 	/**
-	 Returns the compiled shading normal pixel shader.
-
-	 @return		A buffer compiled shading normal pixel shader.
-	 */
-	const BufferCompiledShader CreateCompiledShadingNormalPS() noexcept;
-
-	/**
-	 Returns the compiled distance pixel shader.
-
-	 @return		A buffer compiled distance pixel shader.
-	 */
-	const BufferCompiledShader CreateCompiledDistancePS() noexcept;
-
-	/**
-	 Returns the compiled diffuse reflectivity pixel shader.
-
-	 @return		A buffer compiled diffuse reflectivity pixel shader.
-	 */
-	const BufferCompiledShader CreateCompiledDiffuseReflectivityPS() noexcept;
-
-	/**
-	 Returns the compiled diffuse reflectivity texture pixel shader.
-
-	 @return		A buffer compiled diffuse reflectivity texture pixel shader.
-	 */
-	const BufferCompiledShader CreateCompiledDiffuseReflectivityTexturePS() noexcept;
-
-	/**
 	 Returns the compiled Lambertian tsnm pixel shader.
 
 	 @return		A buffer compiled Lambertian tsnm pixel shader.
@@ -180,16 +152,58 @@ namespace mage {
 	const BufferCompiledShader CreateCompiledSpriteVS() noexcept;
 
 	/**
-	 Returns the compiled shading normal tsnm pixel shader.
-
-	 @return		A buffer compiled shading normal tsnm pixel shader.
-	 */
-	const BufferCompiledShader CreateCompiledShadingNormalTSNMPS() noexcept;
-
-	/**
 	 Returns the compiled sprite pixel shader.
 
 	 @return		A buffer compiled sprite pixel shader.
 	 */
 	const BufferCompiledShader CreateCompiledSpritePS() noexcept;
+
+	/**
+	 Returns the compiled minimal transform vertex shader.
+
+	 @return		A buffer compiled minimal transform vertex shader.
+	 */
+	const BufferCompiledShader CreateCompiledMinimalTransformVS() noexcept;
+
+	/**
+	 Returns the compiled constant color pixel shader.
+
+	 @return		A buffer compiled constant color pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledConstantColorPS() noexcept;
+
+	/**
+	 Returns the compiled constant color texture pixel shader.
+
+	 @return		A buffer compiled constant color texture pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledConstantColorTexturePS() noexcept;
+
+	/**
+	 Returns the compiled distance pixel shader.
+
+	 @return		A buffer compiled distance pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDistancePS() noexcept;
+
+	/**
+	 Returns the compiled shading normal transform vertex shader.
+
+	 @return		A buffer compiled shading normal transform vertex shader.
+	 */
+	const BufferCompiledShader CreateCompiledShadingNormalTransformVS() noexcept;
+
+	/**
+	 Returns the compiled shading normal pixel shader.
+
+	 @return		A buffer compiled shading normal pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledShadingNormalPS() noexcept;
+
+	/**
+	 Returns the compiled tsnm shading normal pixel shader.
+
+	 @return		A buffer compiled tsnm shading normal pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledShadingNormalTSNMPS() noexcept;
 }

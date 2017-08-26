@@ -66,12 +66,14 @@
    * b: toggle AABB layer
    * n: toggle wireframe layer
    * c: switch scene
+   * F1: terminate
  * BRDF scene - buttons: 
    * up arrow: next model
    * down arrow: previous model
    * left arrow: previous BRDF
    * right arrow: next BRDF
    * c: switch scene
+   * F1: terminate
 
 ## Index
 * [Codebase](meta/codebase.md)

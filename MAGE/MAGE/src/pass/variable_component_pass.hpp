@@ -32,13 +32,7 @@ namespace mage {
 
 	private:
 
-		void BindPS() noexcept;
 		void BindComponent(const Material *material) noexcept;
-
-		enum struct PSIndex {
-			DiffuseTexture = 0,
-			Count          = 1
-		};
 
 		void ProcessScene(
 			FXMMATRIX world_to_view, FXMMATRIX view_to_projection);
@@ -49,10 +43,11 @@ namespace mage {
 		RenderMode m_render_mode;
 
 		SharedPtr< const VertexShader > m_vs;
-		SharedPtr< const PixelShader > m_ps[static_cast< size_t >(PSIndex::Count)];
+		SharedPtr< const PixelShader > m_ps;
 
 		ConstantBuffer< ModelTransformBuffer > m_model_buffer;
 		ConstantBuffer< SceneTransformBuffer > m_scene_buffer;
 		ConstantBuffer< XMFLOAT4 > m_color_buffer;
+		const SharedPtr< const Texture > m_white;
 	};
 }

@@ -50,7 +50,13 @@ namespace mage {
 				break;
 			}
 
-			case RenderMode::DiffuseTexture: {
+			case RenderMode::DiffuseColor:
+			case RenderMode::DiffuseReflectivity:
+			case RenderMode::DiffuseReflectivityTexture:
+			case RenderMode::SpecularColor:
+			case RenderMode::SpecularReflectivity:
+			case RenderMode::SpecularReflectivityTexture:
+			case RenderMode::NormalTexture: {
 				m_variable_component_pass->Render(&buffer, node);
 				break;
 			}

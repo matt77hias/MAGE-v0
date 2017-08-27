@@ -19,11 +19,18 @@ namespace mage {
 		
 		m_render_modes.push_back(RenderMode::Default);
 		m_render_modes.push_back(RenderMode::Solid);
-		m_render_modes.push_back(RenderMode::DiffuseTexture);
+		m_render_modes.push_back(RenderMode::DiffuseColor);
+		m_render_modes.push_back(RenderMode::DiffuseReflectivity);
+		m_render_modes.push_back(RenderMode::DiffuseReflectivityTexture);
+		m_render_modes.push_back(RenderMode::SpecularColor);
+		m_render_modes.push_back(RenderMode::SpecularReflectivity);
+		m_render_modes.push_back(RenderMode::SpecularReflectivityTexture);
+		m_render_modes.push_back(RenderMode::NormalTexture);
 		m_render_modes.push_back(RenderMode::UVTexture);
+		m_render_modes.push_back(RenderMode::Distance);
 		m_render_modes.push_back(RenderMode::ShadingNormal);
 		m_render_modes.push_back(RenderMode::TSNMShadingNormal);
-		m_render_modes.push_back(RenderMode::Distance);
+		m_render_modes.push_back(RenderMode::None);
 	}
 
 	RenderModeScript::RenderModeScript(RenderModeScript &&script) = default;

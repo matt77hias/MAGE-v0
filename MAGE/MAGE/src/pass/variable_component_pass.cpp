@@ -32,29 +32,54 @@ namespace mage {
 	VariableComponentPass::VariableComponentPass()
 		: m_device_context(GetImmediateDeviceContext()), 
 		m_vs(CreateMinimalTransformVS()),
-		m_ps{ CreateConstantColorTexturePS() },
+		m_ps(CreateConstantColorTexturePS()),
 		m_model_buffer(), m_scene_buffer(), 
-		m_color_buffer() {}
+		m_color_buffer(), m_white(CreateWhiteTexture()) {}
 
 	VariableComponentPass::VariableComponentPass(VariableComponentPass &&render_pass) = default;
 
 	VariableComponentPass::~VariableComponentPass() = default;
 
-	void VariableComponentPass::BindPS() noexcept {
-		switch (m_render_mode) {
-
-		case RenderMode::DiffuseTexture: {
-			m_ps[static_cast< size_t >(PSIndex::DiffuseTexture)]->BindShader(m_device_context);
-			break;
-		}
-
-		}
-	}
-
 	void VariableComponentPass::BindComponent(const Material *material) noexcept {
 		switch (m_render_mode) {
 
-		case RenderMode::DiffuseTexture: {
+		case RenderMode::DiffuseColor: {
+
+			const RGBSpectrum color = material->GetDiffuseReflectivity();
+			const float alpha       = material->GetDissolve();
+
+			// Update the color buffer.
+			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(color.x, color.y, color.z, alpha));
+			// Bind the color buffer.
+			PS::BindConstantBuffer(m_device_context,
+				MAGE_VARIABLE_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
+
+			// Bind the diffuse SRV.
+			PS::BindSRV(m_device_context,
+				MAGE_VARIABLE_COMPONENT_PASS_PS_TEXTURE_SRV, material->GetDiffuseReflectivitySRV());
+
+			break;
+		}
+		
+		case RenderMode::DiffuseReflectivity: {
+
+			const RGBSpectrum color = material->GetDiffuseReflectivity();
+			const float alpha       = material->GetDissolve();
+
+			// Update the color buffer.
+			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(color.x, color.y, color.z, alpha));
+			// Bind the color buffer.
+			PS::BindConstantBuffer(m_device_context,
+				MAGE_VARIABLE_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
+
+			// Bind the diffuse SRV.
+			PS::BindSRV(m_device_context,
+				MAGE_VARIABLE_COMPONENT_PASS_PS_TEXTURE_SRV, m_white->Get());
+
+			break;
+		}
+
+		case RenderMode::DiffuseReflectivityTexture: {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
@@ -69,6 +94,69 @@ namespace mage {
 			break;
 		}
 
+		case RenderMode::SpecularColor: {
+
+			const RGBSpectrum color = material->GetSpecularReflectivity();
+
+			// Update the color buffer.
+			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(color.x, color.y, color.z, 1.0f));
+			// Bind the color buffer.
+			PS::BindConstantBuffer(m_device_context,
+				MAGE_VARIABLE_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
+
+			// Bind the diffuse SRV.
+			PS::BindSRV(m_device_context,
+				MAGE_VARIABLE_COMPONENT_PASS_PS_TEXTURE_SRV, material->GetSpecularReflectivitySRV());
+
+			break;
+		}
+
+		case RenderMode::SpecularReflectivity: {
+
+			const RGBSpectrum color = material->GetSpecularReflectivity();
+
+			// Update the color buffer.
+			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(color.x, color.y, color.z, 1.0f));
+			// Bind the color buffer.
+			PS::BindConstantBuffer(m_device_context,
+				MAGE_VARIABLE_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
+
+			// Bind the diffuse SRV.
+			PS::BindSRV(m_device_context,
+				MAGE_VARIABLE_COMPONENT_PASS_PS_TEXTURE_SRV, m_white->Get());
+
+			break;
+		}
+
+		case RenderMode::SpecularReflectivityTexture: {
+
+			// Update the color buffer.
+			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+			// Bind the color buffer.
+			PS::BindConstantBuffer(m_device_context,
+				MAGE_VARIABLE_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
+
+			// Bind the diffuse SRV.
+			PS::BindSRV(m_device_context,
+				MAGE_VARIABLE_COMPONENT_PASS_PS_TEXTURE_SRV, material->GetSpecularReflectivitySRV());
+
+			break;
+		}
+
+		case RenderMode::NormalTexture: {
+
+			// Update the color buffer.
+			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+			// Bind the color buffer.
+			PS::BindConstantBuffer(m_device_context,
+				MAGE_VARIABLE_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
+
+			// Bind the diffuse SRV.
+			PS::BindSRV(m_device_context,
+				MAGE_VARIABLE_COMPONENT_PASS_PS_TEXTURE_SRV, material->GetNormalSRV());
+
+			break;
+		}
 		}
 	}
 
@@ -82,7 +170,7 @@ namespace mage {
 		// Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		// Bind the pixel shader.
-		BindPS();
+		m_ps->BindShader(m_device_context);
 		// Bind the rasterization state.
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// Bind the depth-stencil state.

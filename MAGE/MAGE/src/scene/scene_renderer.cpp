@@ -17,7 +17,6 @@ namespace mage {
 		m_bounding_volume_pass(MakeUnique< BoundingVolumePass >()),
 		m_constant_component_pass(MakeUnique< ConstantComponentPass >()),
 		m_constant_shading_pass(MakeUnique< ConstantShadingPass >()),
-		m_distance_pass(MakeUnique< DistancePass >()),
 		m_sprite_pass(MakeUnique< SpritePass >()),
 		m_variable_component_pass(MakeUnique< VariableComponentPass >()),
 		m_variable_shading_pass(MakeUnique< VariableShadingPass >()),
@@ -38,6 +37,7 @@ namespace mage {
 
 			const CameraSettings *settings = node->GetSettings();
 
+			// RenderMode
 			switch (settings->GetRenderMode()) {
 
 			case RenderMode::Default: {
@@ -55,7 +55,8 @@ namespace mage {
 				break;
 			}
 
-			case RenderMode::UVTexture: {
+			case RenderMode::UVTexture:
+			case RenderMode::Distance: {
 				m_constant_component_pass->Render(&buffer, node);
 				break;
 			}
@@ -66,13 +67,9 @@ namespace mage {
 				break;
 			}
 
-			case RenderMode::Distance: {
-				m_distance_pass->Render(&buffer, node);
-				break;
 			}
 
-			}
-
+			// RenderLayer
 			if (settings->HasRenderLayer(RenderLayer::Wireframe)) {
 				m_wireframe_pass->Render(&buffer, node);
 			}

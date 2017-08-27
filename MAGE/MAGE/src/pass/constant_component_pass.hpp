@@ -34,7 +34,8 @@ namespace mage {
 
 		enum struct PSIndex {
 			UVTexture = 0,
-			Count     = 1
+			Distance  = 1,
+			Count     = 2
 		};
 
 		void BindPS(RenderMode render_mode) noexcept;

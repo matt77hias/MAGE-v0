@@ -32,7 +32,7 @@ namespace mage {
 	ConstantComponentPass::ConstantComponentPass()
 		: m_device_context(GetImmediateDeviceContext()), 
 		m_vs(CreateMinimalTransformVS()),
-		m_ps{ CreateConstantColorTexturePS() },
+		m_ps{ CreateConstantColorTexturePS(), CreateDistancePS() },
 		m_model_buffer(), m_scene_buffer(), 
 		m_color_buffer(), m_uv(CreateReferenceTexture()) {}
 
@@ -57,6 +57,14 @@ namespace mage {
 			// Bind the texture SRV.
 			PS::BindSRV(m_device_context,
 				MAGE_CONSTANT_COMPONENT_PASS_PS_TEXTURE_SRV, m_uv->Get());
+
+			break;
+		}
+		
+		case RenderMode::Distance: {
+
+			// Bind the pixel shader.
+			m_ps[static_cast< size_t >(PSIndex::Distance)]->BindShader(m_device_context);
 
 			break;
 		}

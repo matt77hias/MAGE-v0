@@ -864,9 +864,6 @@
     <ClInclude Include="MAGE\src\pass\wireframe_pass.hpp">
       <Filter>Header Files\pass</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\pass\distance_pass.hpp">
-      <Filter>Header Files\pass</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\pass\variable_shading_pass.hpp">
       <Filter>Header Files\pass</Filter>
     </ClInclude>
@@ -1230,9 +1227,6 @@
       <Filter>Source Files\pass</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\pass\wireframe_pass.cpp">
-      <Filter>Source Files\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\pass\distance_pass.cpp">
       <Filter>Source Files\pass</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\pass\variable_shading_pass.cpp">

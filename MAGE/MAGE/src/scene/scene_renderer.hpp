@@ -9,7 +9,6 @@
 #include "pass\bounding_volume_pass.hpp"
 #include "pass\constant_component_pass.hpp"
 #include "pass\constant_shading_pass.hpp"
-#include "pass\distance_pass.hpp"
 #include "pass\sprite_pass.hpp"
 #include "pass\variable_component_pass.hpp"
 #include "pass\variable_shading_pass.hpp"
@@ -45,7 +44,6 @@ namespace mage {
 		UniquePtr< BoundingVolumePass > m_bounding_volume_pass;
 		UniquePtr< ConstantComponentPass > m_constant_component_pass;
 		UniquePtr< ConstantShadingPass > m_constant_shading_pass;
-		UniquePtr< DistancePass > m_distance_pass;
 		UniquePtr< SpritePass > m_sprite_pass;
 		UniquePtr< VariableComponentPass > m_variable_component_pass;
 		UniquePtr< VariableShadingPass > m_variable_shading_pass;

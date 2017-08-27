@@ -5,7 +5,11 @@
   * Marko Dabrovic (original version),
   * Frank Meinl (modified version, [data](http://www.crytek.com/cryengine/cryengine3/downloads)),
   * Morgan McGuire (updated version, [data](http://graphics.cs.williams.edu/data/meshes.xml)),
-  * Matthias Moulin (updated version). 
+  * Matthias Moulin (updated version).
+  
+* Skull:
+  * Frank D. Luna (original version),
+  * Matthias Moulin (updated version).
   
 * Utah Teapot: 
   * Martin Newell (original version),

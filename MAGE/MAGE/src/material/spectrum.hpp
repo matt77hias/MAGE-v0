@@ -254,4 +254,140 @@ namespace mage {
 	};
 
 	static_assert(sizeof(XYZSpectrum) == sizeof(XMFLOAT3), "XYZSpectrum/XMFLOAT3 mismatch");
+
+	//-------------------------------------------------------------------------
+	// RGBASpectrum
+	//-------------------------------------------------------------------------
+
+	/**
+	 A struct of RGBA color spectra.
+	 */
+	struct RGBASpectrum final : public XMFLOAT4 {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a RGBA spectrum from the given spectrum components.
+
+		 @param[in]		rgba
+						The red, green and blue and alpha component.
+		 */
+		explicit RGBASpectrum(float rgba = 0.0f) noexcept
+			: RGBASpectrum(rgba, rgba, rgba, rgba) {}
+		
+		/**
+		 Constructs a RGBA spectrum from the given spectrum components.
+
+		 @param[in]		r
+						The red component.
+		 @param[in]		g
+						The green component.
+		 @param[in]		b
+						The blue component.
+		 @param[in]		a
+						The alpha component.
+		 */
+		explicit RGBASpectrum(float r, float g, float b, float a = 1.0f) noexcept
+			: XMFLOAT4(r, g, b, a) {}
+
+		/**
+		 Constructs a RGBA spectrum from the given RGBA spectrum.
+
+		 @param[in]		rgba
+						A reference to the RGBA spectrum to copy.
+		 */
+		RGBASpectrum(const RGBASpectrum &rgba) = default;
+		
+		/**
+		 Constructs a RGBA spectrum by moving the given RGBA spectrum.
+
+		 @param[in]		rgba
+						A reference to the RGBA spectrum to move.
+		 */
+		RGBASpectrum(RGBASpectrum &&rgba) noexcept = default;
+		
+		/**
+		 Constructs a RGBA spectrum from the given RGB spectrum.
+
+		 @param[in]		rgb
+						A reference to the rgb spectrum.
+		 @param[in]		a
+						The alpha component.
+		 */
+		explicit RGBASpectrum(const RGBSpectrum &rgb, float a = 1.0f) noexcept
+			: RGBASpectrum(rgb.x, rgb.y, rgb.z, a) {}
+
+		/**
+		 Constructs a RGBA spectrum from the given XYZ spectrum.
+
+		 @param[in]		xyz
+						A reference to the xyz spectrum.
+		 @param[in]		a
+						The alpha component.
+		 */
+		explicit RGBASpectrum(const XYZSpectrum &xyz, float a = 1.0f) noexcept 
+			: RGBASpectrum(RGBSpectrum(xyz), a) {}
+
+		/**
+		 Constructs a RGBA spectrum from the given components.
+
+		 @param[in]		v
+						A reference to the components to copy.
+		 */
+		explicit RGBASpectrum(const XMFLOAT3 &v, float a = 1.0f) noexcept
+			: RGBASpectrum(v.x, v.y, v.z, a) {}
+
+		/**
+		 Constructs a RGBA spectrum from the given components.
+
+		 @param[in]		v
+						A reference to the components to copy.
+		 */
+		explicit RGBASpectrum(const XMFLOAT4 &v) noexcept
+			: XMFLOAT4(v) {}
+
+		/**
+		 Constructs a RGBA spectrum by moving the given components.
+
+		 @param[in]		v
+						A reference to the components to move.
+		 */
+		explicit RGBASpectrum(XMFLOAT4 &&v) noexcept
+			: XMFLOAT4(std::move(v)) {}
+
+		/**
+		 Destructs this RGBA spectrum.
+		 */
+		~RGBASpectrum() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
+		/**
+		 Copies the given RGBA spectrum to this RGBA spectrum.
+
+		 @param[in]		rgba
+						A reference to the RGBA spectrum to copy.
+		 @return		A reference to the copy of the given RGBA spectrum
+						(i.e. this RGBA spectrum).
+		 */
+		RGBASpectrum &operator=(const RGBASpectrum &rgba) = default;
+
+		/**
+		 Moves the given RGBA spectrum to this RGBA spectrum.
+
+		 @param[in]		rgba
+						A reference to the RGBA spectrum to move.
+		 @return		A reference to the moved RGBA spectrum
+						(i.e. this RGBA spectrum).
+		 */
+		RGBASpectrum &operator=(RGBASpectrum &&rgba) = default;
+	};
+
+	static_assert(sizeof(RGBASpectrum) == sizeof(XMFLOAT4), "RGBASpectrum/XMFLOAT4 mismatch");
 }

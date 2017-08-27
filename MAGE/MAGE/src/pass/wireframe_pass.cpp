@@ -77,7 +77,7 @@ namespace mage {
 			MAGE_WIREFRAME_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
 
 		// Update the color buffer.
-		m_color_buffer.UpdateData(m_device_context, XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
+		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(0.0f, 0.0f, 1.0f, 1.0f));
 		// Bind the color buffer.
 		PS::BindConstantBuffer(m_device_context,
 			MAGE_WIREFRAME_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());

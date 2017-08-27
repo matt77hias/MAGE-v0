@@ -48,7 +48,7 @@ namespace mage {
 
 		ConstantBuffer< ModelTransformBuffer > m_model_buffer;
 		ConstantBuffer< SceneTransformBuffer > m_scene_buffer;
-		ConstantBuffer< XMFLOAT4 > m_color_buffer;
+		ConstantBuffer< RGBASpectrum > m_color_buffer;
 		UniquePtr< const StaticMesh > m_box;
 	};
 }

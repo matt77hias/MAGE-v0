@@ -66,7 +66,7 @@ namespace mage {
 		ProcessScene(world_to_view, view_to_projection);
 
 		// Update the color buffer.
-		m_color_buffer.UpdateData(m_device_context, XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f, 0.0f, 0.0f, 1.0f));
 		// Bind the color buffer.
 		PS::BindConstantBuffer(m_device_context,
 			MAGE_BOUNDING_VOLUME_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
@@ -75,7 +75,7 @@ namespace mage {
 		ProcessLights(scene->m_spot_lights, world_to_projection, view_to_world);
 
 		// Update the color buffer.
-		m_color_buffer.UpdateData(m_device_context, XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
+		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(0.0f, 1.0f, 0.0f, 1.0f));
 		// Bind the color buffer.
 		PS::BindConstantBuffer(m_device_context,
 			MAGE_BOUNDING_VOLUME_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());

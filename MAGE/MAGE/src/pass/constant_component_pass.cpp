@@ -49,7 +49,7 @@ namespace mage {
 			m_ps[static_cast< size_t >(PSIndex::UVTexture)]->BindShader(m_device_context);
 
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f, 1.0f, 1.0f, 1.0f));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				MAGE_CONSTANT_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());

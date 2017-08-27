@@ -45,11 +45,8 @@ namespace mage {
 
 		case RenderMode::DiffuseColor: {
 
-			const RGBSpectrum color = material->GetDiffuseReflectivity();
-			const float alpha       = material->GetDissolve();
-
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(color.x, color.y, color.z, alpha));
+			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(material->GetDiffuseReflectivity(), material->GetDissolve()));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				MAGE_VARIABLE_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
@@ -63,11 +60,8 @@ namespace mage {
 		
 		case RenderMode::DiffuseReflectivity: {
 
-			const RGBSpectrum color = material->GetDiffuseReflectivity();
-			const float alpha       = material->GetDissolve();
-
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(color.x, color.y, color.z, alpha));
+			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(material->GetDiffuseReflectivity(), material->GetDissolve()));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				MAGE_VARIABLE_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
@@ -82,7 +76,7 @@ namespace mage {
 		case RenderMode::DiffuseReflectivityTexture: {
 
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				MAGE_VARIABLE_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
@@ -96,10 +90,8 @@ namespace mage {
 
 		case RenderMode::SpecularColor: {
 
-			const RGBSpectrum color = material->GetSpecularReflectivity();
-
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(color.x, color.y, color.z, 1.0f));
+			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(material->GetSpecularReflectivity()));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				MAGE_VARIABLE_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
@@ -113,10 +105,8 @@ namespace mage {
 
 		case RenderMode::SpecularReflectivity: {
 
-			const RGBSpectrum color = material->GetSpecularReflectivity();
-
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(color.x, color.y, color.z, 1.0f));
+			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(material->GetSpecularReflectivity()));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				MAGE_VARIABLE_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
@@ -131,7 +121,7 @@ namespace mage {
 		case RenderMode::SpecularReflectivityTexture: {
 
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				MAGE_VARIABLE_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
@@ -146,7 +136,7 @@ namespace mage {
 		case RenderMode::NormalTexture: {
 
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				MAGE_VARIABLE_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());

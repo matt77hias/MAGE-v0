@@ -47,7 +47,7 @@ namespace mage {
 
 		ConstantBuffer< ModelTransformBuffer > m_model_buffer;
 		ConstantBuffer< SceneTransformBuffer > m_scene_buffer;
-		ConstantBuffer< XMFLOAT4 > m_color_buffer;
+		ConstantBuffer< RGBASpectrum > m_color_buffer;
 		const SharedPtr< const Texture > m_white;
 	};
 }

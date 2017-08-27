@@ -31,8 +31,8 @@ namespace mage {
 	void ConstantBuffer< DataT >::SetupConstantBuffer(ID3D11Device2 *device) {
 		Assert(device);
 
-		const HRESULT result_buffer = CreateConstantBuffer< DataT >(
-			device, m_buffer.ReleaseAndGetAddressOf());
+		const HRESULT result_buffer = CreateDynamicConstantBuffer< DataT >(
+			device, m_buffer.ReleaseAndGetAddressOf(), nullptr);
 		if (FAILED(result_buffer)) {
 			throw FormattedException("Constant buffer creation failed: %08X.", result_buffer);
 		}

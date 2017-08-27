@@ -36,8 +36,8 @@ namespace mage {
 		
 		Assert(device);
 
-		const HRESULT result_buffer = CreateStructuredBuffer< DataT >(
-			device, m_buffer.ReleaseAndGetAddressOf(), nb_data_elements);
+		const HRESULT result_buffer = CreateDynamicStructuredBuffer< DataT >(
+			device, m_buffer.ReleaseAndGetAddressOf(), nullptr, nb_data_elements);
 		if (FAILED(result_buffer)) {
 			throw FormattedException("Structured buffer creation failed: %08X.", result_buffer);
 		}

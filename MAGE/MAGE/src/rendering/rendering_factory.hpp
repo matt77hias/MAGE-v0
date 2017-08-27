@@ -91,42 +91,96 @@ namespace mage {
 		ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices) noexcept;
 	
 	/**
-	 Creates a (dynamic) constant buffer.
+	 Creates a static constant buffer.
 
 	 @tparam		DataT
 					The data type.
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
+	 @pre			@a data is not equal to @c nullptr.
 	 @param[in]		device
 					A pointer to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
+	 @param[in]		data
+					A pointer to the data.
 	 @param[in]		count
 					The number of elements.
 	 @return		A success/error value.
 	 */
 	template < typename DataT >
-	HRESULT CreateConstantBuffer(ID3D11Device2 *device, 
-		ID3D11Buffer **buffer, size_t count = 1) noexcept;
+	HRESULT CreateStaticConstantBuffer(ID3D11Device2 *device, 
+		ID3D11Buffer **buffer, const DataT *data, size_t count = 1) noexcept;
+
+	/**
+	 Creates a dynamic constant buffer.
+
+	 @tparam		DataT
+					The data type.
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a buffer is not equal to @c nullptr.
+	 @pre			If @a data is not equal to @c nullptr,
+					then @a data points to an array containing
+					at least @a count elements.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	buffer
+					A pointer to a pointer to the buffer.
+	 @param[in]		data
+					A pointer to the data.
+	 @param[in]		count
+					The number of elements.
+	 @return		A success/error value.
+	 */
+	template < typename DataT >
+	HRESULT CreateDynamicConstantBuffer(ID3D11Device2 *device, 
+		ID3D11Buffer **buffer, const DataT *data, size_t count = 1) noexcept;
 	
 	/**
-	 Creates a (dynamic) structured buffer.
+	 Creates a static structured buffer.
 
 	 @tparam		DataT
 					The data type.
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
+	 @pre			@a data is not equal to @c nullptr.
 	 @param[in]		device
 					A pointer to the device.
 	 @param[out]	buffer
 					A pointer to a pointer to the buffer.
+	 @param[in]		data
+					A pointer to the data.
 	 @param[in]		count
 					The number of elements.
 	 @return		A success/error value.
 	 */
 	template < typename DataT >
-	HRESULT CreateStructuredBuffer(ID3D11Device2 *device, 
-		ID3D11Buffer **buffer, size_t count = 1) noexcept;
+	HRESULT CreateStaticStructuredBuffer(ID3D11Device2 *device,
+		ID3D11Buffer **buffer, const DataT *data, size_t count = 1) noexcept;
+
+	/**
+	 Creates a dynamic structured buffer.
+
+	 @tparam		DataT
+					The data type.
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a buffer is not equal to @c nullptr.
+	 @pre			If @a data is not equal to @c nullptr,
+					then @a data points to an array containing
+					at least @a count elements.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	buffer
+					A pointer to a pointer to the buffer.
+	 @param[in]		data
+					A pointer to the data.
+	 @param[in]		count
+					The number of elements.
+	 @return		A success/error value.
+	 */
+	template < typename DataT >
+	HRESULT CreateDynamicStructuredBuffer(ID3D11Device2 *device,
+		ID3D11Buffer **buffer, const DataT *data, size_t count = 1) noexcept;
 
 	//-------------------------------------------------------------------------
 	// Blend states

@@ -56,6 +56,7 @@ namespace mage {
 		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
 		if (!vertices) {
+			// Create the vertex buffer.
 			return device->CreateBuffer(&buffer_desc, nullptr, buffer);
 		}
 
@@ -91,8 +92,31 @@ namespace mage {
 	}
 
 	template < typename DataT >
-	HRESULT CreateConstantBuffer(ID3D11Device2 *device, 
-		ID3D11Buffer **buffer, size_t count) noexcept {
+	HRESULT CreateStaticConstantBuffer(ID3D11Device2 *device,
+		ID3D11Buffer **buffer, const DataT *data, size_t count) noexcept {
+		
+		Assert(device);
+		Assert(buffer);
+		Assert(data);
+		
+		// Describe the buffer resource.
+		D3D11_BUFFER_DESC buffer_desc = {};
+		buffer_desc.ByteWidth      = static_cast< UINT >(count * sizeof(DataT));
+		buffer_desc.Usage          = D3D11_USAGE_IMMUTABLE;
+		buffer_desc.BindFlags      = D3D11_BIND_CONSTANT_BUFFER;
+		buffer_desc.CPUAccessFlags = 0;
+
+		// Specify data for initializing a subresource.
+		D3D11_SUBRESOURCE_DATA init_data = {};
+		init_data.pSysMem = data;
+
+		// Create the constant buffer.
+		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
+	}
+
+	template < typename DataT >
+	HRESULT CreateDynamicConstantBuffer(ID3D11Device2 *device,
+		ID3D11Buffer **buffer, const DataT *data, size_t count) noexcept {
 		
 		Assert(device);
 		Assert(buffer);
@@ -104,13 +128,47 @@ namespace mage {
 		buffer_desc.BindFlags      = D3D11_BIND_CONSTANT_BUFFER;
 		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
+		if (!data) {
+			// Create the constant buffer.
+			return device->CreateBuffer(&buffer_desc, nullptr, buffer);
+		}
+
+		// Specify data for initializing a subresource.
+		D3D11_SUBRESOURCE_DATA init_data = {};
+		init_data.pSysMem = data;
+
 		// Create the constant buffer.
-		return device->CreateBuffer(&buffer_desc, nullptr, buffer);
+		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 
 	template < typename DataT >
-	HRESULT CreateStructuredBuffer(ID3D11Device2 *device, 
-		ID3D11Buffer **buffer, size_t count) noexcept {
+	HRESULT CreateStaticStructuredBuffer(ID3D11Device2 *device,
+		ID3D11Buffer **buffer, const DataT *data, size_t count) noexcept {
+		
+		Assert(device);
+		Assert(buffer);
+		Assert(data);
+		
+		// Describe the buffer resource.
+		D3D11_BUFFER_DESC buffer_desc = {};
+		buffer_desc.ByteWidth           = static_cast< UINT >(count * sizeof(DataT));
+		buffer_desc.Usage               = D3D11_USAGE_IMMUTABLE;
+		buffer_desc.BindFlags           = D3D11_BIND_SHADER_RESOURCE;
+		buffer_desc.CPUAccessFlags      = 0;
+		buffer_desc.MiscFlags           = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+		buffer_desc.StructureByteStride = static_cast< UINT >(sizeof(DataT));
+
+		// Specify data for initializing a subresource.
+		D3D11_SUBRESOURCE_DATA init_data = {};
+		init_data.pSysMem = data;
+
+		// Create the structured buffer.
+		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
+	}
+
+	template < typename DataT >
+	HRESULT CreateDynamicStructuredBuffer(ID3D11Device2 *device,
+		ID3D11Buffer **buffer, const DataT *data, size_t count) noexcept {
 		
 		Assert(device);
 		Assert(buffer);
@@ -124,7 +182,16 @@ namespace mage {
 		buffer_desc.MiscFlags           = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
 		buffer_desc.StructureByteStride = static_cast< UINT >(sizeof(DataT));
 
+		if (!data) {
+			// Create the structured buffer.
+			return device->CreateBuffer(&buffer_desc, nullptr, buffer);
+		}
+
+		// Specify data for initializing a subresource.
+		D3D11_SUBRESOURCE_DATA init_data = {};
+		init_data.pSysMem = data;
+
 		// Create the structured buffer.
-		return device->CreateBuffer(&buffer_desc, nullptr, buffer);
+		return device->CreateBuffer(&buffer_desc, &init_data, buffer);
 	}
 }

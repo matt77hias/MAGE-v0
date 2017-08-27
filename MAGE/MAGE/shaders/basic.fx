@@ -162,7 +162,7 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 //-----------------------------------------------------------------------------
 PSInputPositionNormalTexture VS(VSInputPositionNormalTexture input) {
 	PSInputPositionNormalTexture output;
-	output.p      = mul(input.p,  g_object_to_world);
+	output.p      = mul(float4(input.p, 1.0f), g_object_to_world);
 	output.p      = mul(output.p, g_world_to_view);
 	output.p_view = output.p.xyz;
 	output.p      = mul(output.p, g_view_to_projection);

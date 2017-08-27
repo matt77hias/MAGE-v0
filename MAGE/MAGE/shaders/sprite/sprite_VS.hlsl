@@ -16,8 +16,8 @@ cbuffer PerFrame : register(b0) {
 //-----------------------------------------------------------------------------
 PSInputPositionColorTexture VS(VSInputPositionColorTexture input) {
 	PSInputPositionColorTexture output;
-	output.p = mul(input.p, g_transform);
+	output.p     = mul(float4(input.p, 1.0f), g_transform);
 	output.color = input.color;
-	output.tex = input.tex;
+	output.tex   = input.tex;
 	return output;
 }

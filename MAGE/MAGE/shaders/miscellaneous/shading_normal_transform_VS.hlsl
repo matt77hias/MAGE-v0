@@ -4,23 +4,20 @@
 #include "structures.fx"
 
 //-----------------------------------------------------------------------------
-// Constant Buffers: Scene
+// Constant Buffers
 //-----------------------------------------------------------------------------
-cbuffer Scene : register(b0) {
+cbuffer PerFrame : register(b0) {
 	// The world-to-view transformation matrix.
-	float4x4 g_world_to_view					: packoffset(c0);
+	float4x4 g_world_to_view					 : packoffset(c0);
 	// The view-to-projection transformation matrix.
-	float4x4 g_view_to_projection				: packoffset(c4);
+	float4x4 g_view_to_projection				 : packoffset(c4);
 };
 
-//-----------------------------------------------------------------------------
-// Constant Buffers: Model
-//-----------------------------------------------------------------------------
-cbuffer Model : register(b1) {
+cbuffer PerDraw : register(b1) {
 	// The object-to-world transformation matrix.
-	float4x4 g_object_to_world					: packoffset(c0);
+	float4x4 g_object_to_world					 : packoffset(c0);
 	// The object-to-view inverse transpose transformation matrix.
-	float4x4 g_object_to_view_inverse_transpose	: packoffset(c4);
+	float4x4 g_object_to_world_inverse_transpose : packoffset(c4);
 }
 
 //-----------------------------------------------------------------------------
@@ -33,6 +30,6 @@ PSInputPositionNormalTexture VS(VSInputPositionNormalTexture input) {
 	output.p_view = output.p.xyz;
 	output.p      = mul(output.p, g_view_to_projection);
 	output.tex    = input.tex;
-	output.n_view = input.n;
+	output.n_view = normalize(mul(input.n, (float3x3)g_object_to_world_inverse_transpose));
 	return output;
 }

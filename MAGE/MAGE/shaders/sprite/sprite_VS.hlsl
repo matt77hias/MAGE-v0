@@ -6,7 +6,7 @@
 //-----------------------------------------------------------------------------
 // Constant buffers
 //-----------------------------------------------------------------------------
-cbuffer cb_transform : register(b0) {
+cbuffer PerFrame : register(b0) {
 	// The object-to-projection transformation matrix.
 	float4x4 g_transform : packoffset(c0);
 }

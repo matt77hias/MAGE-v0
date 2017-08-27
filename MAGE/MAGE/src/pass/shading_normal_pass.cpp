@@ -131,11 +131,10 @@ namespace mage {
 
 			// Obtain node components (2/2).
 			const XMMATRIX world_to_object        = transform->GetWorldToObjectMatrix();
-			const XMMATRIX view_to_object         = view_to_world * world_to_object;
 				
 			ModelTransformBuffer buffer;
 			buffer.m_object_to_world = XMMatrixTranspose(object_to_world);
-			buffer.m_object_to_view_inverse_transpose = view_to_object;
+			buffer.m_object_to_view_inverse_transpose = world_to_object;
 
 			// Update the model buffer.
 			m_model_buffer.UpdateData(m_device_context, buffer);

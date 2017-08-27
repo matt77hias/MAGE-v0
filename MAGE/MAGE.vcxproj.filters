@@ -885,9 +885,6 @@
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\shading_normal_PS.hpp">
       <Filter>Header Files\shader\cso\miscellaneous</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\shading_normal_transform_VS.hpp">
-      <Filter>Header Files\shader\cso\miscellaneous</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\tsnm_shading_normal_PS.hpp">
       <Filter>Header Files\shader\cso\miscellaneous</Filter>
     </ClInclude>
@@ -895,6 +892,9 @@
       <Filter>Header Files\shader\cso\miscellaneous</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\constant_color_texture_PS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\shading_normal_VS.hpp">
       <Filter>Header Files\shader\cso\miscellaneous</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1342,7 +1342,7 @@
     <FxCompile Include="MAGE\shaders\math.fx">
       <Filter>Shader Files</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\miscellaneous\shading_normal_transform_VS.hlsl">
+    <FxCompile Include="MAGE\shaders\miscellaneous\shading_normal_VS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
   </ItemGroup>

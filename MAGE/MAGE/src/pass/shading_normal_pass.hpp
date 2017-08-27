@@ -44,7 +44,7 @@ namespace mage {
 		void ProcessScene(
 			FXMMATRIX world_to_view, FXMMATRIX view_to_projection);
 		void ProcessModels(const vector< const ModelNode * > &models,
-			FXMMATRIX world_to_projection, FXMMATRIX view_to_world);
+			FXMMATRIX world_to_projection);
 
 		ID3D11DeviceContext2 * const m_device_context;
 		RenderMode m_render_mode;

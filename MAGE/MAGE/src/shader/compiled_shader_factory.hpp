@@ -187,11 +187,11 @@ namespace mage {
 	const BufferCompiledShader CreateCompiledDistancePS() noexcept;
 
 	/**
-	 Returns the compiled shading normal transform vertex shader.
+	 Returns the compiled shading normal vertex shader.
 
-	 @return		A buffer compiled shading normal transform vertex shader.
+	 @return		A buffer compiled shading normal vertex shader.
 	 */
-	const BufferCompiledShader CreateCompiledShadingNormalTransformVS() noexcept;
+	const BufferCompiledShader CreateCompiledShadingNormalVS() noexcept;
 
 	/**
 	 Returns the compiled shading normal pixel shader.

@@ -31,7 +31,7 @@ namespace mage {
 	ShadingNormalPass::ShadingNormalPass()
 		: m_device_context(GetImmediateDeviceContext()), 
 		m_render_mode(RenderMode::None), 
-		m_vs(CreateShadingNormalTransformVS()), 
+		m_vs(CreateShadingNormalVS()), 
 		m_ps{ CreateShadingNormalPS(), CreateShadingNormalTSNMPS() }, 
 		m_bound_ps(PSIndex::Count),
 		m_model_buffer(), m_scene_buffer() {}
@@ -92,13 +92,12 @@ namespace mage {
 		const TransformNode * const transform = node->GetTransform();
 		const Camera        * const camera    = node->GetCamera();
 		const XMMATRIX world_to_view          = transform->GetWorldToViewMatrix();
-		const XMMATRIX view_to_world          = transform->GetViewToWorldMatrix();
 		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
 		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
 
 		ProcessScene(world_to_view, view_to_projection);
-		ProcessModels(scene->m_opaque_models, world_to_projection, view_to_world);
-		ProcessModels(scene->m_transparent_models, world_to_projection, view_to_world);
+		ProcessModels(scene->m_opaque_models, world_to_projection);
+		ProcessModels(scene->m_transparent_models, world_to_projection);
 	}
 
 	void ShadingNormalPass::ProcessScene(FXMMATRIX world_to_view, FXMMATRIX view_to_projection) {
@@ -114,7 +113,7 @@ namespace mage {
 	}
 
 	void ShadingNormalPass::ProcessModels(const vector< const ModelNode * > &models,
-		FXMMATRIX world_to_projection, FXMMATRIX view_to_world) {
+		FXMMATRIX world_to_projection) {
 
 		for (const auto node : models) {
 

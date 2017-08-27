@@ -20,7 +20,7 @@
 #include "shader\cso\miscellaneous\distance_PS.hpp"
 #include "shader\cso\miscellaneous\constant_color_PS.hpp"
 #include "shader\cso\miscellaneous\constant_color_texture_PS.hpp"
-#include "shader\cso\miscellaneous\shading_normal_transform_VS.hpp"
+#include "shader\cso\miscellaneous\shading_normal_VS.hpp"
 #include "shader\cso\miscellaneous\shading_normal_PS.hpp"
 #include "shader\cso\miscellaneous\tsnm_shading_normal_PS.hpp"
 
@@ -139,8 +139,8 @@ namespace mage {
 		return BufferCompiledShader(g_distance_ps, sizeof(g_distance_ps));
 	}
 
-	const BufferCompiledShader CreateCompiledShadingNormalTransformVS() noexcept {
-		return BufferCompiledShader(g_shading_normal_transform_vs, sizeof(g_shading_normal_transform_vs));
+	const BufferCompiledShader CreateCompiledShadingNormalVS() noexcept {
+		return BufferCompiledShader(g_shading_normal_vs, sizeof(g_shading_normal_vs));
 	}
 
 	const BufferCompiledShader CreateCompiledShadingNormalPS() noexcept {

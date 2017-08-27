@@ -313,16 +313,15 @@ namespace mage {
 	SharedPtr< const PixelShader > CreateDistancePS() noexcept;
 
 	/**
-	 Creates a shading normal transform vertex shader.
+	 Creates a shading normal vertex shader.
 
 	 @pre			The resource manager associated with the
 					current engine must be loaded.
-	 @return		A pointer to the shading normal transform 
-					vertex shader.
+	 @return		A pointer to the shading normal vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateShadingNormalTransformVS() noexcept;
+	SharedPtr< const VertexShader > CreateShadingNormalVS() noexcept;
 
 	/**
 	 Creates a shading normal pixel shader.

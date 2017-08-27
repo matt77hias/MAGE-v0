@@ -5,6 +5,7 @@
 
 #include "camera\viewport.hpp"
 #include "rendering\renderer.hpp"
+#include "math\math_utils.hpp"
 
 #pragma endregion
 
@@ -13,18 +14,21 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	inline D3D11_VIEWPORT GetMaxViewport() noexcept {
+	const D3D11_VIEWPORT Viewport::GetMaxViewport() noexcept {
 		D3D11_VIEWPORT viewport = {};
-		viewport.Width    = static_cast<FLOAT>(Renderer::Get()->GetWidth());
-		viewport.Height   = static_cast<FLOAT>(Renderer::Get()->GetHeight());
+		viewport.Width    = static_cast< FLOAT >(Renderer::Get()->GetWidth());
+		viewport.Height   = static_cast< FLOAT >(Renderer::Get()->GetHeight());
 		viewport.MaxDepth = 1.0f;
 		return viewport;
 	}
 
-	Viewport::Viewport()
-		: Viewport(GetMaxViewport()) {}
+	float Viewport::NormalizeWidth(float x) noexcept {
+		const float width = static_cast< float >(Renderer::Get()->GetWidth());
+		return Clamp(x * width, 0.0f, width);
+	}
 
-	void Viewport::SetMaximumViewport() noexcept {
-		SetViewport(GetMaxViewport());
+	float Viewport::NormalizeHeight(float x) noexcept {
+		const float height = static_cast< float >(Renderer::Get()->GetHeight());
+		return Clamp(x * height, 0.0f, height);
 	}
 }

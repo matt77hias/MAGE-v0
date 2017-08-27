@@ -189,6 +189,7 @@ namespace mage {
 			m_rotation(rotation), 
 			m_rotation_origin(), 
 			m_scale() {
+			
 			SetTranslation(translation);
 			SetRotationOrigin(rotation_origin);
 			SetScale(scale);
@@ -1066,6 +1067,35 @@ namespace mage {
 		 */
 		const XMFLOAT2 GetScale() const noexcept {
 			return m_scale;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Transformation
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the matrix of this sprite transform.
+
+		 @return		The matrix of this sprite transform.
+		 */
+		const XMMATRIX GetMatrix() const noexcept {
+			const float s = sin(m_rotation);
+			const float c = cos(m_rotation);
+			const float sSx = s * m_scale.x;
+			const float sSy = s * m_scale.y;
+			const float cSx = c * m_scale.x;
+			const float cSy = c * m_scale.y;
+
+			const float tx = (1.0f - cSx) * m_rotation_origin.x + sSy * m_rotation_origin.y + m_translation.x;
+			const float ty = (1.0f - cSy) * m_rotation_origin.y - sSx * m_rotation_origin.x + m_translation.y;
+
+			return XMMATRIX
+			{
+				 cSx,  sSx, 0.0f, 0.0f,
+				-sSy,  cSy, 0.0f, 0.0f,
+				  tx,   ty, 1.0f, 0.0f,
+				0.0f, 0.0f, 0.0f, 0.0f
+			};
 		}
 
 	private:

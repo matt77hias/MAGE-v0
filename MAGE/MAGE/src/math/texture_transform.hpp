@@ -1,0 +1,655 @@
+#pragma once
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "memory\allocation.hpp"
+#include "math\math.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
+namespace mage {
+
+	/**
+	 A struct of texture transforms.
+	 */
+	__declspec(align(16)) struct TextureTransform final : public AlignedData< TextureTransform > {
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a texture transform from the given translation, depth, 
+		 rotation, rotation origin and scale component.
+
+		 @param[in]		translation
+						A reference to the translation component.
+		 @param[in]		depth
+						The depth component.
+		 @param[in]		rotation
+						The rotation component.
+		 @param[in]		rotation_origin
+						A reference to the rotation component.
+		 @param[in]		scale
+						A reference to the scale component.
+		 */
+		explicit TextureTransform(
+			const XMFLOAT2 &translation = { 0.0f, 0.0f }, 
+			float rotation = 0.0f, 
+			const XMFLOAT2 &rotation_origin = { 0.0f, 0.0f }, 
+			const XMFLOAT2 &scale = { 1.0f, 1.0f })
+			: m_translation(translation), 
+			
+			m_rotation(rotation), 
+			m_rotation_origin(rotation_origin), 
+			m_scale(scale) {}
+
+		/**
+		 Constructs a texture transform from the given translation, depth,
+		 rotation, rotation origin and scale component.
+
+		 @param[in]		translation
+						The translation component.
+		 @param[in]		rotation
+						The rotation component.
+		 @param[in]		rotation_origin
+						The rotation component.
+		 @param[in]		scale
+						The scale component.
+		 */
+		explicit TextureTransform(
+			FXMVECTOR translation, 
+			float rotation, 
+			FXMVECTOR rotation_origin, 
+			FXMVECTOR scale)
+			: m_translation(), 
+			m_rotation(rotation), 
+			m_rotation_origin(), 
+			m_scale() {
+			
+			SetTranslation(translation);
+			SetRotationOrigin(rotation_origin);
+			SetScale(scale);
+		}
+
+		/**
+		 Constructs a texture transform from the given texture transform.
+
+		 @param[in]		transform
+						A reference to the texture transform to copy.
+		 */
+		TextureTransform(const TextureTransform &transform) = default;
+
+		/**
+		 Constructs a texture transform by moving the given texture transform.
+
+		 @param[in]		transform
+						A reference to the texture transform to move.
+		 */
+		TextureTransform(TextureTransform &&transform) = default;
+
+		/**
+		 Destructs this texture transform.
+		 */
+		~TextureTransform() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given texture transform to this texture transform.
+
+		 @param[in]		transform
+						The texture transform to move.
+		 @return		A reference to the copy of the given texture transform
+						(i.e. this texture transform).
+		 */
+		TextureTransform &operator=(const TextureTransform &transform) = default;
+
+		/**
+		 Moves the given texture transform to this texture transform.
+
+		 @param[in]		transform
+						The texture transform to copy.
+		 @return		A reference to the moved texture transform
+						(i.e. this texture transform).
+		 */
+		TextureTransform &operator=(TextureTransform &&transform) = default;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Translation
+		//---------------------------------------------------------------------
+
+		/**
+		 Sets the x-value of the translation component of this texture transform to the given value.
+
+		 @param[in]		x
+						The x-value of the translation component.
+		 */
+		void SetTranslationX(float x) noexcept {
+			m_translation.x = x;
+		}
+
+		/**
+		 Sets the y-value of the translation component of this texture transform to the given value.
+
+		 @param[in]		y
+						The y-value of the translation component.
+		 */
+		void SetTranslationY(float y) noexcept {
+			m_translation.y = y;
+		}
+
+		/**
+		 Sets the translation component of this texture transform to the given translation component.
+
+		 @param[in]		x
+						The x-value of the translation component.
+		 @param[in]		y
+						The y-value of the translation component.
+		 */
+		void SetTranslation(float x, float y) noexcept {
+			m_translation.x = x;
+			m_translation.y = y;
+		}
+
+		/**
+		 Sets the translation component of this texture transform to the given translation component.
+
+		 @param[in]		translation
+						A reference to the translation component.
+		 */
+		void SetTranslation(const XMFLOAT2 &translation) noexcept {
+			m_translation = translation;
+		}
+
+		/**
+		 Sets the translation component of this texture transform to the given translation component.
+
+		 @param[in]		translation
+						The translation component.
+		 */
+		void XM_CALLCONV SetTranslation(FXMVECTOR translation) noexcept {
+			XMStoreFloat2(&m_translation, translation);
+		}
+
+		/**
+		 Adds the given x-value to the translation component of this texture transform.
+
+		 @param[in]		x
+						The x-value of the translation component to add.
+		 */
+		void AddTranslationX(float x) noexcept {
+			m_translation.x += x;
+		}
+
+		/**
+		 Adds the given y-value to the translation component of this texture transform.
+
+		 @param[in]		y
+						The y-value of the translation component to add.
+		 */
+		void AddTranslationY(float y) noexcept {
+			m_translation.y += y;
+		}
+
+		/**
+		 Adds the given translation component to the translation component of this texture transform.
+
+		 @param[in]		x
+						The x-value of the translation component to add.
+		 @param[in]		y
+						The y-value of the translation component to add.
+		 */
+		void AddTranslation(float x, float y) noexcept {
+			m_translation.x += x;
+			m_translation.y += y;
+		}
+
+		/**
+		 Adds the given translation component to the translation component of this texture transform.
+
+		 @param[in]		translation
+						A reference to the translation component to add.
+		 */
+		void AddTranslation(const XMFLOAT2 &translation) noexcept {
+			AddTranslation(translation.x, translation.y);
+		}
+
+		/**
+		 Adds the given translation component to the translation component of this texture transform.
+
+		 @param[in]		translation
+						The translation component to add.
+		 */
+		void XM_CALLCONV AddTranslation(FXMVECTOR translation) noexcept {
+			AddTranslation(XMVectorGetX(translation), XMVectorGetY(translation));
+		}
+
+		/**
+		 Returns the x-value of the translation component of this texture transform.
+
+		 @return		The x-value of the translation component of this texture transform.
+		 */
+		float GetTranslationX() const noexcept {
+			return m_translation.x;
+		}
+
+		/**
+		 Returns the y-value of the translation component of this texture transform.
+
+		 @return		The y-value of the translation component of this texture transform.
+		 */
+		float GetTranslationY() const noexcept {
+			return m_translation.y;
+		}
+
+		/**
+		 Returns the translation component of this texture transform.
+
+		 @return		The translation component of this texture transform.
+		 */
+		const XMFLOAT2 GetTranslation() const noexcept {
+			return m_translation;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Rotation
+		//---------------------------------------------------------------------
+
+		/**
+		 Sets the rotation component of this texture transform to the given rotation component.
+
+		 @param[in]		rotation
+						The rotation component.
+		 */
+		void SetRotation(float rotation) noexcept {
+			m_rotation = rotation;
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of this texture transform.
+
+		 @param[in]		rotation
+						The rotation component to add.
+		 */
+		void AddRotation(float rotation) noexcept {
+			m_rotation += rotation;
+		}
+
+		/**
+		 Returns the rotation component of this texture transform.
+
+		 @return		The rotation component of this texture transform.
+		 */
+		float GetRotation() const noexcept {
+			return m_rotation;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Rotation Origin
+		//---------------------------------------------------------------------
+
+		/**
+		 Sets the x-value of the rotation origin of this texture transform to the given value.
+
+		 @param[in]		x
+						The x-value of the rotation origin.
+		 */
+		void SetRotationOriginX(float x) noexcept {
+			m_rotation_origin.x = x;
+		}
+
+		/**
+		 Sets the y-value of the rotation origin of this texture transform to the given value.
+
+		 @param[in]		y
+						The y-value of the rotation origin.
+		 */
+		void SetRotationOriginY(float y) noexcept {
+			m_rotation_origin.y = y;
+		}
+
+		/**
+		 Sets the rotation origin of this texture transform to the given rotation origin.
+
+		 @param[in]		x
+						The x-value of the rotation origin.
+		 @param[in]		y
+						The y-value of the rotation origin.
+		 */
+		void SetRotationOrigin(float x, float y) noexcept {
+			m_rotation_origin.x = x;
+			m_rotation_origin.y = y;
+		}
+
+		/**
+		 Sets the rotation origin of this texture transform to the given rotation origin.
+
+		 @param[in]		rotation_origin
+						A reference to the rotation origin.
+		 */
+		void SetRotationOrigin(const XMFLOAT2 &rotation_origin) noexcept {
+			m_rotation_origin = rotation_origin;
+		}
+
+		/**
+		 Sets the rotation origin of this texture transform to the given rotation origin.
+
+		 @param[in]		rotation_origin
+						A reference to the rotation origin.
+		 */
+		void SetRotationOrigin(XMFLOAT2 &&rotation_origin) noexcept {
+			m_rotation_origin = std::move(rotation_origin);
+		}
+
+		/**
+		 Sets the rotation origin of this texture transform to the given rotation origin.
+
+		 @param[in]		rotation_origin
+						The rotation origin.
+		 */
+		void XM_CALLCONV SetRotationOrigin(FXMVECTOR rotation_origin) noexcept {
+			XMStoreFloat2(&m_rotation_origin, rotation_origin);
+		}
+
+		/**
+		 Adds the given x-value to the rotation origin of this texture transform.
+
+		 @param[in]		x
+						The x-value of the rotation origin to add.
+		 */
+		void AddRotationOriginX(float x) noexcept {
+			m_rotation_origin.x += x;
+		}
+
+		/**
+		 Adds the given y-value to the rotation origin of this texture transform.
+
+		 @param[in]		y
+						The y-value of the rotation origin to add.
+		 */
+		void AddRotationOriginY(float y) noexcept {
+			m_rotation_origin.y += y;
+		}
+
+		/**
+		 Adds the given rotation origin to the rotation origin of this texture transform.
+
+		 @param[in]		x
+						The x-value of the rotation origin to add.
+		 @param[in]		y
+						The y-value of the rotation origin to add.
+		 */
+		void AddRotationOrigin(float x, float y) noexcept {
+			m_rotation_origin.x += x;
+			m_rotation_origin.y += y;
+		}
+
+		/**
+		 Adds the given rotation origin to the rotation origin of this texture transform.
+
+		 @param[in]		rotation_origin
+						A reference to the rotation origin to add.
+		 */
+		void AddRotationOrigin(const XMFLOAT2 &rotation_origin) noexcept {
+			AddRotationOrigin(rotation_origin.x, rotation_origin.y);
+		}
+
+		/**
+		 Adds the given rotation origin to the rotation origin of this texture transform.
+
+		 @param[in]		rotation_origin
+						The rotation origin to add.
+		 */
+		void XM_CALLCONV AddRotationOrigin(FXMVECTOR rotation_origin) noexcept {
+			AddRotationOrigin(XMVectorGetX(rotation_origin), XMVectorGetY(rotation_origin));
+		}
+
+		/**
+		 Returns the x-value of the rotation origin of this texture transform.
+
+		 @return		The x-value of the rotation origin of this texture transform.
+		 */
+		float GetRotationOriginX() const noexcept {
+			return m_rotation_origin.x;
+		}
+
+		/**
+		 Returns the y-value of the rotation origin of this texture transform.
+
+		 @return		The y-value of the rotation origin of this texture transform.
+		 */
+		float GetRotationOriginY() const noexcept {
+			return m_rotation_origin.y;
+		}
+
+		/**
+		 Returns the rotation origin of this texture transform.
+
+		 @return		The rotation origin of this texture transform.
+		 */
+		const XMFLOAT2 GetRotationOrigin() const noexcept {
+			return m_rotation_origin;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Scale
+		//---------------------------------------------------------------------
+
+		/**
+		 Sets the x-value of the scale component of this texture transform to the given value.
+
+		 @param[in]		x
+						The x-value of the scale component.
+		 */
+		void SetScaleX(float x) noexcept {
+			m_scale.x = x;
+		}
+
+		/**
+		 Sets the y-value of the scale component of this texture transform to the given value.
+
+		 @param[in]		y
+						The y-value of the scale component.
+		 */
+		void SetScaleY(float y) noexcept {
+			m_scale.y = y;
+		}
+
+		/**
+		 Sets the scale component of this texture transform to the given scale component.
+
+		 @param[in]		s
+						The scale component.
+		 */
+		void SetScale(float s) noexcept {
+			SetScale(s, s);
+		}
+
+		/**
+		 Sets the scale component of this texture transform to the given scale component.
+
+		 @param[in]		x
+						The x-value of the scale component.
+		 @param[in]		y
+						The y-value of the scale component.
+		 */
+		void SetScale(float x, float y) noexcept {
+			m_scale.x = x;
+			m_scale.y = y;
+		}
+
+		/**
+		 Sets the scale component of this texture transform to the given scale component.
+
+		 @param[in]		scale
+						A reference to the scale component.
+		 */
+		void SetScale(const XMFLOAT2 &scale) noexcept {
+			m_scale = scale;
+		}
+
+		/**
+		 Sets the scale component of this texture transform to the given scale component.
+
+		 @param[in]		scale
+						The scale component.
+		 */
+		void XM_CALLCONV SetScale(FXMVECTOR scale) noexcept {
+			XMStoreFloat2(&m_scale, scale);
+		}
+
+		/**
+		 Adds the given x-value to the scale component of this texture transform.
+
+		 @param[in]		x
+						The x-value of the scale component to add.
+		 */
+		void AddScaleX(float x) noexcept {
+			m_scale.x += x;
+		}
+
+		/**
+		 Adds the given y-value to the scale component of this texture transform.
+
+		 @param[in]		y
+						The y-value of the scale component to add.
+		 */
+		void AddScaleY(float y) noexcept {
+			m_scale.y += y;
+		}
+
+		/**
+		 Adds the given scale component to the scale component of this texture transform.
+
+		 @param[in]		s
+						The scale component to add.
+		 */
+		void AddScale(float s) noexcept {
+			AddScale(s, s);
+		}
+
+		/**
+		 Adds the given scale component to the scale component of this texture transform.
+
+		 @param[in]		x
+						The x-value of the scale component to add.
+		 @param[in]		y
+						The y-value of the scale component to add.
+		 */
+		void AddScale(float x, float y) noexcept {
+			m_scale.x += x;
+			m_scale.y += y;
+		}
+
+		/**
+		 Adds the given scale component to the scale component of this texture transform.
+
+		 @param[in]		scale
+						A reference to the scale component to add.
+		 */
+		void AddScale(const XMFLOAT2 &scale) noexcept {
+			AddScale(scale.x, scale.y);
+		}
+
+		/**
+		 Adds the given scale component to the scale component of this texture transform.
+
+		 @param[in]		scale
+						The scale component to add.
+		 */
+		void XM_CALLCONV AddScale(FXMVECTOR scale) noexcept {
+			AddScale(XMVectorGetX(scale), XMVectorGetY(scale));
+		}
+
+		/**
+		 Returns the x-value of the scale component of this texture transform.
+
+		 @return		The x-value of the scale component of this texture transform.
+		 */
+		float GetScaleX() const noexcept {
+			return m_scale.x;
+		}
+
+		/**
+		 Returns the y-value of the scale component of this texture transform.
+
+		 @return		The y-value of the scale component of this texture transform.
+		 */
+		float GetScaleY() const noexcept {
+			return m_scale.y;
+		}
+
+		/**
+		 Returns the scale component of this texture transform.
+
+		 @return		The scale component of this texture transform.
+		 */
+		const XMFLOAT2 GetScale() const noexcept {
+			return m_scale;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Transformation
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the matrix of this texture transform.
+
+		 @return		The matrix of this texture transform.
+		 */
+		const XMMATRIX GetMatrix() const noexcept {
+			const float s = sin(m_rotation);
+			const float c = cos(m_rotation);
+			const float sSx = s * m_scale.x;
+			const float sSy = s * m_scale.y;
+			const float cSx = c * m_scale.x;
+			const float cSy = c * m_scale.y;
+
+			const float tx = (1.0f - cSx) * m_rotation_origin.x + sSy * m_rotation_origin.y + m_translation.x;
+			const float ty = (1.0f - cSy) * m_rotation_origin.y - sSx * m_rotation_origin.x + m_translation.y;
+
+			return XMMATRIX
+			{
+				 cSx,  sSx, 0.0f, 0.0f,
+				-sSy,  cSy, 0.0f, 0.0f,
+				  tx,   ty, 1.0f, 0.0f,
+				0.0f, 0.0f, 0.0f, 0.0f
+			};
+		}
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The translation component of this texture transform.
+		 */
+		XMFLOAT2 m_translation;
+
+		/**
+		 The rotation component (in radians) of this texture transform.
+		 */
+		float m_rotation;
+
+		/**
+		 The rotation origin of this texture transform.
+		 */
+		XMFLOAT2 m_rotation_origin;
+
+		/**
+		 The scale component of this texture transform.
+		 */
+		XMFLOAT2 m_scale;
+	};
+}

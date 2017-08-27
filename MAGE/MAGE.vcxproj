@@ -80,6 +80,7 @@
     <ClInclude Include="MAGE\src\math\math.hpp" />
     <ClInclude Include="MAGE\src\math\math_utils.hpp" />
     <ClInclude Include="MAGE\src\math\sprite_transform.hpp" />
+    <ClInclude Include="MAGE\src\math\texture_transform.hpp" />
     <ClInclude Include="MAGE\src\math\transform.hpp" />
     <ClInclude Include="MAGE\src\math\transform_node.hpp" />
     <ClInclude Include="MAGE\src\math\view_frustum.hpp" />

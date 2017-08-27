@@ -163,6 +163,16 @@ namespace mage {
 		}
 
 		/**
+		 Checks whether MSAA is used by this renderer.
+
+		 @return		@c true if MSAA is used by this renderer.
+						@c false otherwise.
+		 */
+		bool HasMSAA() const noexcept {
+			return m_display_configuration->UseMSAA();
+		}
+
+		/**
 		 Checks whether this renderer renders in windowed mode.
 
 		 @return		@c true if this renderer renders in windowed mode.

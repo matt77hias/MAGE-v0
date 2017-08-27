@@ -273,6 +273,20 @@ namespace mage {
 	HRESULT CreateNonPremultipliedBlendState(ID3D11Device2 *device, 
 		ID3D11BlendState **blend_state) noexcept;
 
+	/**
+	 Creates a alpha-to-coverage blend state.
+
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a blend_state is not equal to @c nullptr.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	blend_state
+					A pointer to a pointer to the blend state.
+	 @return		A success/error value.
+	 */
+	HRESULT CreateAlphaToCoverageBlendState(ID3D11Device2 *device, 
+		ID3D11BlendState **blend_state) noexcept;
+
 	//-------------------------------------------------------------------------
 	// Depth stencil states
 	//-------------------------------------------------------------------------

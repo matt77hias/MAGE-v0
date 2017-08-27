@@ -195,6 +195,30 @@ namespace mage {
 			OM::BindBlendState(device_context, GetNonPremultipliedBlendState());
 		}
 
+		/**
+		 Returns the alpha-to-coverage blend state of this rendering cache.
+
+		 @return		A pointer to the alpha-to-coverage blend state
+						of this rendering cache.
+		 @throws		FormattedException
+						Failed to create the blend state
+						of this rendering state cache.
+		 */
+		ID3D11BlendState *GetAlphaToCoverageBlendState();
+
+		/**
+		 Binds the alpha-to-coverage blend state of this rendering cache.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @throws		FormattedException
+						Failed to bind the blend state.
+		 */
+		void BindAlphaToCoverageBlendState(ID3D11DeviceContext2 *device_context) {
+			OM::BindBlendState(device_context, GetAlphaToCoverageBlendState());
+		}
+
 		//---------------------------------------------------------------------
 		// Member Methods: Depth Stencil States
 		//---------------------------------------------------------------------
@@ -482,6 +506,12 @@ namespace mage {
 		 of this rendering cache.
 		 */
 		ComPtr< ID3D11BlendState > m_non_premultiplied_blend_state;
+
+		/**
+		 A pointer to the alpha-to-coverage blend state
+		 of this rendering cache.
+		 */
+		ComPtr< ID3D11BlendState > m_alpha_to_coverage_blend_state;
 
 		/**
 		 A pointer to the no-depth stencil state

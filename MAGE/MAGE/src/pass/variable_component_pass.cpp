@@ -4,6 +4,7 @@
 #pragma region
 
 #include "pass\variable_component_pass.hpp"
+#include "rendering\renderer.hpp"
 #include "rendering\rendering_state_cache.hpp"
 #include "resource\resource_factory.hpp"
 #include "math\view_frustum.hpp"
@@ -182,7 +183,12 @@ namespace mage {
 		ProcessScene(world_to_view, view_to_projection);
 		ProcessModels(scene->m_opaque_models, world_to_projection, view_to_world);
 		// Bind the blend state.
-		RenderingStateCache::Get()->BindAlphaBlendState(m_device_context);
+		if (Renderer::Get()->HasMSAA()) {
+			RenderingStateCache::Get()->BindAlphaToCoverageBlendState(m_device_context);
+		}
+		else {
+			RenderingStateCache::Get()->BindAlphaBlendState(m_device_context);
+		}
 		ProcessModels(scene->m_transparent_models, world_to_projection, view_to_world);
 	}
 

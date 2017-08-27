@@ -62,6 +62,18 @@ namespace mage {
 		return CreateBlendState(device, blend_state, D3D11_BLEND_SRC_ALPHA, D3D11_BLEND_INV_SRC_ALPHA);
 	}
 
+	HRESULT CreateAlphaToCoverageBlendState(ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept {
+		Assert(device);
+		Assert(blend_state);
+		
+		D3D11_BLEND_DESC desc = {};
+		desc.AlphaToCoverageEnable                 = TRUE;
+		desc.RenderTarget[0].BlendEnable           = FALSE;
+		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		return device->CreateBlendState(&desc, blend_state);
+	}
+
 	//-------------------------------------------------------------------------
 	// Depth stencil states
 	//-------------------------------------------------------------------------

@@ -46,7 +46,7 @@ namespace mage {
 	SharedPtr< const Texture > CreateBlackTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
-		static const uint32_t color = 0x000000FF;
+		static const uint32_t color = 0xFF000000;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
@@ -70,7 +70,7 @@ namespace mage {
 	SharedPtr< const Texture > CreateRedTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
-		static const uint32_t color = 0x0000FFFF;
+		static const uint32_t color = 0xFF000000;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
@@ -82,7 +82,7 @@ namespace mage {
 	SharedPtr< const Texture > CreateGreenTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
-		static const uint32_t color = 0x00FF00FF;
+		static const uint32_t color = 0xFF00FF00;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;

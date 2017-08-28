@@ -32,17 +32,25 @@ namespace mage {
 
 	private:
 
-		void XM_CALLCONV ProcessScene(
-			FXMMATRIX world_to_view, FXMMATRIX view_to_projection);
+		void XM_CALLCONV BindModelData(
+			FXMMATRIX box_to_view) noexcept;
+		void XM_CALLCONV BindSceneData(
+			FXMMATRIX view_to_projection) noexcept;
+		void BindLightColorData() noexcept;
+		void BindModelColorData() noexcept;
+
 		void XM_CALLCONV ProcessLights(
 			const vector< const OmniLightNode * > &lights,
-			FXMMATRIX world_to_projection, FXMMATRIX view_to_world);
+			FXMMATRIX world_to_projection, 
+			FXMMATRIX world_to_view) noexcept;
 		void XM_CALLCONV ProcessLights(
 			const vector< const SpotLightNode * > &lights,
-			FXMMATRIX world_to_projection, FXMMATRIX view_to_world);
+			FXMMATRIX world_to_projection, 
+			FXMMATRIX world_to_view) noexcept;
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
-			FXMMATRIX world_to_projection, FXMMATRIX view_to_world);
+			FXMMATRIX world_to_projection, 
+			FXMMATRIX world_to_view) noexcept;
 
 		ID3D11DeviceContext2 * const m_device_context;
 
@@ -50,7 +58,7 @@ namespace mage {
 		SharedPtr< const PixelShader > m_ps;
 
 		ConstantBuffer< ModelTransformBuffer > m_model_buffer;
-		ConstantBuffer< SceneTransformBuffer > m_scene_buffer;
+		ConstantBuffer< XMMATRIX > m_scene_buffer;
 		ConstantBuffer< RGBASpectrum > m_color_buffer;
 		UniquePtr< const StaticMesh > m_box;
 	};

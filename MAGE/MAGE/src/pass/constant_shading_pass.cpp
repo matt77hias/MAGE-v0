@@ -48,15 +48,18 @@ namespace mage {
 
 	ConstantShadingPass::~ConstantShadingPass() = default;
 
-	void XM_CALLCONV ConstantShadingPass::BindComponents(
-		FXMMATRIX object_to_world, FXMMATRIX view_to_object) {
+	void XM_CALLCONV ConstantShadingPass::BindModelData(
+		FXMMATRIX object_to_view, 
+		FXMMATRIX view_to_object,
+		FXMMATRIX texture_transform) noexcept {
 
 		ModelBuffer buffer;
-		buffer.m_object_to_world                  = XMMatrixTranspose(object_to_world);
-		buffer.m_object_to_view_inverse_transpose = view_to_object;
-		buffer.m_Kd                               = RGBSpectrum(1.0f);
-		buffer.m_dissolve                         = 1.0f;
-		buffer.m_Ns                               = 1.0f;
+		buffer.m_object_to_view    = XMMatrixTranspose(object_to_view);
+		buffer.m_normal_to_view    = view_to_object;
+		buffer.m_texture_transform = XMMatrixTranspose(texture_transform);
+		buffer.m_Kd                = RGBSpectrum(1.0f);
+		buffer.m_dissolve          = 1.0f;
+		buffer.m_Ns                = 1.0f;
 		
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, buffer);
@@ -65,6 +68,24 @@ namespace mage {
 			MAGE_CONSTANT_SHADING_PASS_VS_MODEL_BUFFER, m_model_buffer.Get());
 		PS::BindConstantBuffer(m_device_context, 
 			MAGE_CONSTANT_SHADING_PASS_PS_MODEL_BUFFER, m_model_buffer.Get());
+	}
+
+	void XM_CALLCONV ConstantShadingPass::BindSceneData(
+		FXMMATRIX view_to_projection) noexcept {
+
+		SceneBuffer scene_buffer;
+		scene_buffer.m_view_to_projection    = XMMatrixTranspose(view_to_projection);
+		scene_buffer.m_nb_directional_lights = static_cast< uint32_t >(m_directional_lights_buffer.size());
+		scene_buffer.m_nb_omni_lights        = static_cast< uint32_t >(m_omni_lights_buffer.size());
+		scene_buffer.m_nb_spot_lights        = static_cast< uint32_t >(m_spot_lights_buffer.size());
+
+		// Update the scene buffer.
+		m_scene_buffer.UpdateData(m_device_context, scene_buffer);
+		// Bind the scene buffer.
+		VS::BindConstantBuffer(m_device_context, 
+			MAGE_CONSTANT_SHADING_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
+		PS::BindConstantBuffer(m_device_context, 
+			MAGE_CONSTANT_SHADING_PASS_PS_SCENE_BUFFER, m_scene_buffer.Get());
 	}
 
 	void ConstantShadingPass::Render(const PassBuffer *scene, const CameraNode *node) {
@@ -101,34 +122,17 @@ namespace mage {
 		ProcessLights(scene->m_directional_lights, world_to_view);
 		ProcessLights(scene->m_omni_lights, world_to_projection, world_to_view);
 		ProcessLights(scene->m_spot_lights, world_to_projection, world_to_view);
-		ProcessScene(world_to_view, view_to_projection);
-		ProcessModels(scene->m_opaque_models, world_to_projection, view_to_world);
-		ProcessModels(scene->m_transparent_models, world_to_projection, view_to_world);
-	}
-
-	void XM_CALLCONV ConstantShadingPass::ProcessScene(
-		FXMMATRIX world_to_view, FXMMATRIX view_to_projection) {
-
-		SceneBuffer scene_buffer;
-		scene_buffer.m_world_to_view         = XMMatrixTranspose(world_to_view);
-		scene_buffer.m_view_to_projection    = XMMatrixTranspose(view_to_projection);
-
-		scene_buffer.m_nb_directional_lights = static_cast< uint32_t >(m_directional_lights_buffer.size());
-		scene_buffer.m_nb_omni_lights        = static_cast< uint32_t >(m_omni_lights_buffer.size());
-		scene_buffer.m_nb_spot_lights        = static_cast< uint32_t >(m_spot_lights_buffer.size());
-
-		// Update the scene buffer.
-		m_scene_buffer.UpdateData(m_device_context, scene_buffer);
-		// Bind the scene buffer.
-		VS::BindConstantBuffer(m_device_context, 
-			MAGE_CONSTANT_SHADING_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
-		PS::BindConstantBuffer(m_device_context, 
-			MAGE_CONSTANT_SHADING_PASS_PS_SCENE_BUFFER, m_scene_buffer.Get());
+		
+		// Bind the scene data.
+		BindSceneData(view_to_projection);
+		
+		ProcessModels(scene->m_opaque_models,      world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->m_transparent_models, world_to_projection, world_to_view, view_to_world);
 	}
 
 	void XM_CALLCONV ConstantShadingPass::ProcessLights(
 		const vector< const DirectionalLightNode * > &lights, 
-		FXMMATRIX world_to_view) {
+		FXMMATRIX world_to_view) noexcept {
 		
 		vector< DirectionalLightBuffer > buffer;
 		buffer.reserve(lights.size());
@@ -159,7 +163,8 @@ namespace mage {
 	
 	void XM_CALLCONV ConstantShadingPass::ProcessLights(
 		const vector< const OmniLightNode * > &lights,
-		FXMMATRIX world_to_projection, FXMMATRIX world_to_view) {
+		FXMMATRIX world_to_projection, 
+		FXMMATRIX world_to_view) noexcept {
 		
 		vector< OmniLightBuffer > buffer;
 		buffer.reserve(lights.size());
@@ -199,7 +204,8 @@ namespace mage {
 	
 	void XM_CALLCONV ConstantShadingPass::ProcessLights(
 		const vector< const SpotLightNode * > &lights,
-		FXMMATRIX world_to_projection, FXMMATRIX world_to_view) {
+		FXMMATRIX world_to_projection, 
+		FXMMATRIX world_to_view) noexcept {
 		
 		vector< SpotLightBuffer > buffer;
 		buffer.reserve(lights.size());
@@ -244,9 +250,13 @@ namespace mage {
 
 	void XM_CALLCONV ConstantShadingPass::ProcessModels(
 		const vector< const ModelNode * > &models,
-		FXMMATRIX world_to_projection, FXMMATRIX view_to_world) {
+		FXMMATRIX world_to_projection, 
+		FXMMATRIX world_to_view, 
+		FXMMATRIX view_to_world) noexcept {
 
 		for (const auto node : models) {
+
+			// Obtain node components (1/2).
 			const TransformNode * const transform = node->GetTransform();
 			const Model         * const model     = node->GetModel();
 			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
@@ -257,13 +267,15 @@ namespace mage {
 				continue;
 			}
 
+			// Obtain node components (2/2).
+			const XMMATRIX object_to_view         = object_to_world * world_to_view;
 			const XMMATRIX world_to_object        = transform->GetWorldToObjectMatrix();
 			const XMMATRIX view_to_object         = view_to_world * world_to_object;
+			const XMMATRIX texture_transform      = node->GetTextureTransform()->GetTransformMatrix();
 
-			// Bind the components.
-			BindComponents(object_to_world, view_to_object);
-
-			// Bind the model.
+			// Bind the model data.
+			BindModelData(object_to_view, view_to_object, texture_transform);
+			// Bind the model mesh.
 			model->BindMesh(m_device_context);
 			// Draw the model.
 			model->Draw(m_device_context);

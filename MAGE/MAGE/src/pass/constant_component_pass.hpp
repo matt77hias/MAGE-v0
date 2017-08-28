@@ -39,12 +39,18 @@ namespace mage {
 		};
 
 		void BindPS(RenderMode render_mode) noexcept;
-
-		void XM_CALLCONV ProcessScene(
-			FXMMATRIX world_to_view, FXMMATRIX view_to_projection);
+		void XM_CALLCONV BindModelData(
+			FXMMATRIX object_to_view,
+			FXMMATRIX view_to_object,
+			FXMMATRIX texture_transform) noexcept;
+		void XM_CALLCONV BindSceneData(
+			FXMMATRIX view_to_projection) noexcept;
+		
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
-			FXMMATRIX world_to_projection, FXMMATRIX view_to_world);
+			FXMMATRIX world_to_projection, 
+			FXMMATRIX world_to_view, 
+			FXMMATRIX view_to_world) noexcept;
 
 		ID3D11DeviceContext2 * const m_device_context;
 		
@@ -52,7 +58,7 @@ namespace mage {
 		SharedPtr< const PixelShader > m_ps[static_cast< size_t >(PSIndex::Count)];
 
 		ConstantBuffer< ModelTransformBuffer > m_model_buffer;
-		ConstantBuffer< SceneTransformBuffer > m_scene_buffer;
+		ConstantBuffer< XMMATRIX > m_scene_buffer;
 		ConstantBuffer< RGBASpectrum > m_color_buffer;
 		const SharedPtr< const Texture > m_uv;
 	};

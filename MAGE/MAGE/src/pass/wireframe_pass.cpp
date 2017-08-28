@@ -37,6 +37,37 @@ namespace mage {
 
 	WireframePass::~WireframePass() = default;
 
+	void XM_CALLCONV WireframePass::BindModelData(
+		FXMMATRIX object_to_view) noexcept {
+
+		ModelTransformBuffer buffer;
+		buffer.m_object_to_view = XMMatrixTranspose(object_to_view);
+		// m_normal_to_view is not needed.
+		// m_texture_transform is not needed.
+
+		// Update the model buffer.
+		m_model_buffer.UpdateData(m_device_context, buffer);
+		// Bind the model buffer.
+		VS::BindConstantBuffer(m_device_context,
+			MAGE_WIREFRAME_PASS_VS_MODEL_BUFFER, m_model_buffer.Get());
+	}
+
+	void XM_CALLCONV WireframePass::BindSceneData(
+		FXMMATRIX view_to_projection) noexcept {
+
+		// Update the scene buffer.
+		m_scene_buffer.UpdateData(m_device_context, XMMatrixTranspose(view_to_projection));
+		// Bind the scene buffer.
+		VS::BindConstantBuffer(m_device_context,
+			MAGE_WIREFRAME_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
+
+		// Update the color buffer.
+		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(0.0f, 0.0f, 1.0f, 1.0f));
+		// Bind the color buffer.
+		PS::BindConstantBuffer(m_device_context,
+			MAGE_WIREFRAME_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
+	}
+
 	void WireframePass::Render(const PassBuffer *scene, const CameraNode *node) {
 		Assert(scene);
 		Assert(node);
@@ -54,39 +85,21 @@ namespace mage {
 
 		// Obtain node components.
 		const TransformNode * const transform = node->GetTransform();
-		const Camera        * const camera = node->GetCamera();
-		const XMMATRIX world_to_view = transform->GetWorldToViewMatrix();
-		const XMMATRIX view_to_world = transform->GetViewToWorldMatrix();
-		const XMMATRIX view_to_projection = camera->GetViewToProjectionMatrix();
-		const XMMATRIX world_to_projection = world_to_view * view_to_projection;
+		const Camera        * const camera    = node->GetCamera();
+		const XMMATRIX world_to_view          = transform->GetWorldToViewMatrix();
+		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
+		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
 
-		ProcessScene(world_to_view, view_to_projection);
-		ProcessModels(scene->m_opaque_models, world_to_projection, view_to_world);
-		ProcessModels(scene->m_transparent_models, world_to_projection, view_to_world);
-	}
-
-	void XM_CALLCONV WireframePass::ProcessScene(
-		FXMMATRIX world_to_view, FXMMATRIX view_to_projection) {
-		SceneTransformBuffer buffer;
-		buffer.m_world_to_view      = XMMatrixTranspose(world_to_view);
-		buffer.m_view_to_projection = XMMatrixTranspose(view_to_projection);
-
-		// Update the scene buffer.
-		m_scene_buffer.UpdateData(m_device_context, buffer);
-		// Bind the scene buffer.
-		VS::BindConstantBuffer(m_device_context,
-			MAGE_WIREFRAME_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
-
-		// Update the color buffer.
-		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(0.0f, 0.0f, 1.0f, 1.0f));
-		// Bind the color buffer.
-		PS::BindConstantBuffer(m_device_context,
-			MAGE_WIREFRAME_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
+		// Bind the scene data.
+		BindSceneData(view_to_projection);
+		ProcessModels(scene->m_opaque_models,      world_to_projection, world_to_view);
+		ProcessModels(scene->m_transparent_models, world_to_projection, world_to_view);
 	}
 
 	void XM_CALLCONV WireframePass::ProcessModels(
 		const vector< const ModelNode * > &models,
-		FXMMATRIX world_to_projection, FXMMATRIX view_to_world) {
+		FXMMATRIX world_to_projection, 
+		FXMMATRIX world_to_view) noexcept {
 
 		for (const auto node : models) {
 
@@ -102,20 +115,11 @@ namespace mage {
 			}
 
 			// Obtain node components (2/2).
-			const XMMATRIX world_to_object        = transform->GetWorldToObjectMatrix();
-			const XMMATRIX view_to_object         = view_to_world * world_to_object;
+			const XMMATRIX object_to_view         = object_to_world * world_to_view;
 
-			ModelTransformBuffer buffer;
-			buffer.m_object_to_world = XMMatrixTranspose(object_to_world);
-			buffer.m_object_to_view_inverse_transpose = view_to_object;
-
-			// Update the model buffer.
-			m_model_buffer.UpdateData(m_device_context, buffer);
-			// Bind the model buffer.
-			VS::BindConstantBuffer(m_device_context,
-				MAGE_WIREFRAME_PASS_VS_MODEL_BUFFER, m_model_buffer.Get());
-
-			// Bind the model.
+			// Bind the model data.
+			BindModelData(object_to_view);
+			// Bind the model mesh.
 			model->BindMesh(m_device_context);
 			// Draw the model.
 			model->Draw(m_device_context);

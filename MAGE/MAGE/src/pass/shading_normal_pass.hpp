@@ -40,12 +40,16 @@ namespace mage {
 
 		void BindPS(PSIndex index) noexcept;
 		void BindPS(const Material *material) noexcept;
+		void XM_CALLCONV BindModelData(
+			FXMMATRIX object_to_view, 
+			FXMMATRIX world_to_object) noexcept;
+		void XM_CALLCONV BindSceneData(
+			FXMMATRIX view_to_projection) noexcept;
 
-		void XM_CALLCONV ProcessScene(
-			FXMMATRIX world_to_view, FXMMATRIX view_to_projection);
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
-			FXMMATRIX world_to_projection);
+			FXMMATRIX world_to_projection, 
+			FXMMATRIX world_to_view) noexcept;
 
 		ID3D11DeviceContext2 * const m_device_context;
 		RenderMode m_render_mode;
@@ -55,6 +59,6 @@ namespace mage {
 		PSIndex m_bound_ps;
 
 		ConstantBuffer< ModelTransformBuffer > m_model_buffer;
-		ConstantBuffer< SceneTransformBuffer > m_scene_buffer;
+		ConstantBuffer< XMMATRIX > m_scene_buffer;
 	};
 }

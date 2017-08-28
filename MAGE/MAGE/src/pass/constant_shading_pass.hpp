@@ -34,23 +34,29 @@ namespace mage {
 
 	private:
 
-		void XM_CALLCONV BindComponents(
-			FXMMATRIX object_to_world, FXMMATRIX view_to_object);
-
-		void XM_CALLCONV ProcessScene(
-			FXMMATRIX world_to_view, FXMMATRIX view_to_projection);
+		void XM_CALLCONV BindModelData(
+			FXMMATRIX object_to_view, 
+			FXMMATRIX view_to_object,
+			FXMMATRIX texture_transform) noexcept;
+		void XM_CALLCONV BindSceneData(
+			FXMMATRIX view_to_projection) noexcept;
+		
 		void XM_CALLCONV ProcessLights(
 			const vector< const DirectionalLightNode * > &lights,
-			FXMMATRIX world_to_view);
+			FXMMATRIX world_to_view) noexcept;
 		void XM_CALLCONV ProcessLights(
 			const vector< const OmniLightNode * > &lights,
-			FXMMATRIX world_to_projection, FXMMATRIX world_to_view);
+			FXMMATRIX world_to_projection, 
+			FXMMATRIX world_to_view) noexcept;
 		void XM_CALLCONV ProcessLights(
 			const vector< const SpotLightNode * > &lights,
-			FXMMATRIX world_to_projection, FXMMATRIX world_to_view);
+			FXMMATRIX world_to_projection, 
+			FXMMATRIX world_to_view) noexcept;
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
-			FXMMATRIX world_to_projection, FXMMATRIX view_to_world);
+			FXMMATRIX world_to_projection, 
+			FXMMATRIX world_to_view, 
+			FXMMATRIX view_to_world) noexcept;
 
 		ID3D11DeviceContext2 * const m_device_context;
 

@@ -7,6 +7,7 @@
 
 #include "scene\scene_node.hpp"
 #include "model\model.hpp"
+#include "math\texture_transform.hpp"
 
 #pragma endregion
 
@@ -109,6 +110,24 @@ namespace mage {
 		}
 
 		/**
+		 Returns the texture transform of this model node.
+
+		 @return		A pointer to the texture transform of this model node.
+		 */
+		TextureTransform *GetTextureTransform() noexcept {
+			return m_texture_transform.get();
+		}
+
+		/**
+		 Returns the texture transform of this model node.
+
+		 @return		A pointer to the texture transform of this model node.
+		 */
+		const TextureTransform *GetTextureTransform() const noexcept {
+			return m_texture_transform.get();
+		}
+
+		/**
 		 Returns the model of this model node.
 
 		 @return		A pointer to the model of this model node.
@@ -147,6 +166,11 @@ namespace mage {
 		 A pointer to the model of this model node.
 		 */
 		UniquePtr< Model > m_model;
+
+		/**
+		 A pointer to the model of this model node.
+		 */
+		UniquePtr< TextureTransform > m_texture_transform;
 	};
 }
 

@@ -38,6 +38,47 @@ namespace mage {
 
 	BoundingVolumePass::~BoundingVolumePass() = default;
 
+	void XM_CALLCONV BoundingVolumePass::BindModelData(
+		FXMMATRIX box_to_view) noexcept {
+
+		ModelTransformBuffer buffer;
+		buffer.m_object_to_view = XMMatrixTranspose(box_to_view);
+		// m_normal_to_view is not needed.
+		// m_texture_transform is not needed.
+
+		// Update the model buffer.
+		m_model_buffer.UpdateData(m_device_context, buffer);
+		// Bind the model buffer.
+		VS::BindConstantBuffer(m_device_context,
+			MAGE_BOUNDING_VOLUME_PASS_VS_MODEL_BUFFER, m_model_buffer.Get());
+	}
+
+	void XM_CALLCONV BoundingVolumePass::BindSceneData(
+		FXMMATRIX view_to_projection) noexcept {
+
+		// Update the scene buffer.
+		m_scene_buffer.UpdateData(m_device_context, XMMatrixTranspose(view_to_projection));
+		// Bind the scene buffer.
+		VS::BindConstantBuffer(m_device_context,
+			MAGE_BOUNDING_VOLUME_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
+	}
+
+	void BoundingVolumePass::BindLightColorData() noexcept {
+		// Update the color buffer.
+		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f, 0.0f, 0.0f, 1.0f));
+		// Bind the color buffer.
+		PS::BindConstantBuffer(m_device_context,
+			MAGE_BOUNDING_VOLUME_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
+	}
+	
+	void BoundingVolumePass::BindModelColorData() noexcept {
+		// Update the color buffer.
+		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(0.0f, 1.0f, 0.0f, 1.0f));
+		// Bind the color buffer.
+		PS::BindConstantBuffer(m_device_context,
+			MAGE_BOUNDING_VOLUME_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
+	}
+
 	void BoundingVolumePass::Render(const PassBuffer *scene, const CameraNode *node) {
 		Assert(scene);
 		Assert(node);
@@ -59,47 +100,27 @@ namespace mage {
 		const TransformNode * const transform = node->GetTransform();
 		const Camera        * const camera    = node->GetCamera();
 		const XMMATRIX world_to_view          = transform->GetWorldToViewMatrix();
-		const XMMATRIX view_to_world          = transform->GetViewToWorldMatrix();
 		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
 		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
 
-		ProcessScene(world_to_view, view_to_projection);
+		// Bind the scene data.
+		BindSceneData(view_to_projection);
+		
+		// Bind the light color data.
+		BindLightColorData();
+		ProcessLights(scene->m_omni_lights, world_to_projection, world_to_view);
+		ProcessLights(scene->m_spot_lights, world_to_projection, world_to_view);
 
-		// Update the color buffer.
-		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f, 0.0f, 0.0f, 1.0f));
-		// Bind the color buffer.
-		PS::BindConstantBuffer(m_device_context,
-			MAGE_BOUNDING_VOLUME_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
-
-		ProcessLights(scene->m_omni_lights, world_to_projection, view_to_world);
-		ProcessLights(scene->m_spot_lights, world_to_projection, view_to_world);
-
-		// Update the color buffer.
-		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(0.0f, 1.0f, 0.0f, 1.0f));
-		// Bind the color buffer.
-		PS::BindConstantBuffer(m_device_context,
-			MAGE_BOUNDING_VOLUME_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
-
-		ProcessModels(scene->m_opaque_models, world_to_projection, view_to_world);
-		ProcessModels(scene->m_transparent_models, world_to_projection, view_to_world);
-	}
-
-	void XM_CALLCONV BoundingVolumePass::ProcessScene(
-		FXMMATRIX world_to_view, FXMMATRIX view_to_projection) {
-		SceneTransformBuffer buffer;
-		buffer.m_world_to_view      = XMMatrixTranspose(world_to_view);
-		buffer.m_view_to_projection = XMMatrixTranspose(view_to_projection);
-
-		// Update the scene buffer.
-		m_scene_buffer.UpdateData(m_device_context, buffer);
-		// Bind the scene buffer.
-		VS::BindConstantBuffer(m_device_context,
-			MAGE_BOUNDING_VOLUME_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
+		// Bind the model color data.
+		BindModelColorData();
+		ProcessModels(scene->m_opaque_models,      world_to_projection, world_to_view);
+		ProcessModels(scene->m_transparent_models, world_to_projection, world_to_view);
 	}
 
 	void XM_CALLCONV BoundingVolumePass::ProcessLights(
 		const vector< const OmniLightNode * > &lights,
-		FXMMATRIX world_to_projection, FXMMATRIX view_to_world) {
+		FXMMATRIX world_to_projection, 
+		FXMMATRIX world_to_view) noexcept {
 
 		for (const auto node : lights) {
 
@@ -121,21 +142,11 @@ namespace mage {
 			box_transform.SetScale(aabb.Diagonal());
 			box_transform.SetTranslation(aabb.Centroid());
 
-			const XMMATRIX world_to_object        = transform->GetWorldToObjectMatrix();
-			const XMMATRIX box_to_world           = box_transform.GetObjectToParentMatrix() * object_to_world;
-			const XMMATRIX world_to_box           = world_to_object * box_transform.GetParentToObjectMatrix();
-			const XMMATRIX view_to_box            = view_to_world * world_to_box;
+			const XMMATRIX object_to_view         = object_to_world * world_to_view;
+			const XMMATRIX box_to_view            = box_transform.GetObjectToParentMatrix() * object_to_view;
 
-			ModelTransformBuffer buffer;
-			buffer.m_object_to_world = XMMatrixTranspose(box_to_world);
-			buffer.m_object_to_view_inverse_transpose = view_to_box;
-
-			// Update the model buffer.
-			m_model_buffer.UpdateData(m_device_context, buffer);
-			// Bind the model buffer.
-			VS::BindConstantBuffer(m_device_context,
-				MAGE_BOUNDING_VOLUME_PASS_VS_MODEL_BUFFER, m_model_buffer.Get());
-
+			// Bind the model data.
+			BindModelData(box_to_view);
 			// Draw the model.
 			m_box->Draw(m_device_context);
 		}
@@ -143,7 +154,8 @@ namespace mage {
 
 	void XM_CALLCONV BoundingVolumePass::ProcessLights(
 		const vector< const SpotLightNode * > &lights,
-		FXMMATRIX world_to_projection, FXMMATRIX view_to_world) {
+		FXMMATRIX world_to_projection, 
+		FXMMATRIX world_to_view) noexcept {
 
 		for (const auto node : lights) {
 
@@ -164,21 +176,11 @@ namespace mage {
 			box_transform.SetScale(aabb.Diagonal());
 			box_transform.SetTranslation(aabb.Centroid());
 
-			const XMMATRIX world_to_object        = transform->GetWorldToObjectMatrix();
-			const XMMATRIX box_to_world           = box_transform.GetObjectToParentMatrix() * object_to_world;
-			const XMMATRIX world_to_box           = world_to_object * box_transform.GetParentToObjectMatrix();
-			const XMMATRIX view_to_box            = view_to_world * world_to_box;
+			const XMMATRIX object_to_view         = object_to_world * world_to_view;
+			const XMMATRIX box_to_view            = box_transform.GetObjectToParentMatrix() * object_to_view;
 
-			ModelTransformBuffer buffer;
-			buffer.m_object_to_world = XMMatrixTranspose(box_to_world);
-			buffer.m_object_to_view_inverse_transpose = view_to_box;
-
-			// Update the model buffer.
-			m_model_buffer.UpdateData(m_device_context, buffer);
-			// Bind the model buffer.
-			VS::BindConstantBuffer(m_device_context,
-				MAGE_BOUNDING_VOLUME_PASS_VS_MODEL_BUFFER, m_model_buffer.Get());
-
+			// Bind the model data.
+			BindModelData(box_to_view);
 			// Draw the model.
 			m_box->Draw(m_device_context);
 		}
@@ -186,7 +188,8 @@ namespace mage {
 
 	void XM_CALLCONV BoundingVolumePass::ProcessModels(
 		const vector< const ModelNode * > &models,
-		FXMMATRIX world_to_projection, FXMMATRIX view_to_world) {
+		FXMMATRIX world_to_projection, 
+		FXMMATRIX world_to_view) noexcept {
 
 		for (const auto node : models) {
 
@@ -207,21 +210,11 @@ namespace mage {
 			box_transform.SetScale(aabb.Diagonal());
 			box_transform.SetTranslation(aabb.Centroid());
 
-			const XMMATRIX world_to_object        = transform->GetWorldToObjectMatrix();
-			const XMMATRIX box_to_world           = box_transform.GetObjectToParentMatrix() * object_to_world;
-			const XMMATRIX world_to_box           = world_to_object * box_transform.GetParentToObjectMatrix();
-			const XMMATRIX view_to_box            = view_to_world * world_to_box;
+			const XMMATRIX object_to_view         = object_to_world * world_to_view;
+			const XMMATRIX box_to_view            = box_transform.GetObjectToParentMatrix() * object_to_view;
 
-			ModelTransformBuffer buffer;
-			buffer.m_object_to_world = XMMatrixTranspose(box_to_world);
-			buffer.m_object_to_view_inverse_transpose = view_to_box;
-
-			// Update the model buffer.
-			m_model_buffer.UpdateData(m_device_context, buffer);
-			// Bind the model buffer.
-			VS::BindConstantBuffer(m_device_context,
-				MAGE_BOUNDING_VOLUME_PASS_VS_MODEL_BUFFER, m_model_buffer.Get());
-
+			// Bind the model data.
+			BindModelData(box_to_view);
 			// Draw the model.
 			m_box->Draw(m_device_context);
 		}

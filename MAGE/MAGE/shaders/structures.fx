@@ -67,4 +67,5 @@ struct PSInputPositionNormalTexture {
 	float3 p_view : POSITION0;
 	float3 n_view : NORMAL0;
 	float2 tex    : TEXCOORD0;
+	float2 tex2   : TEXCOORD1;
 };

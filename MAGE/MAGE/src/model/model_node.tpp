@@ -8,5 +8,6 @@ namespace mage {
 	template< typename... ConstructorArgsT >
 	ModelNode::ModelNode(const string &name, ConstructorArgsT&&... args)
 		: SceneNode(name),
-		m_model(MakeUnique< Model >(std::forward< ConstructorArgsT >(args)...)) {}
+		m_model(MakeUnique< Model >(std::forward< ConstructorArgsT >(args)...)),
+		m_texture_transform(MakeUnique< TextureTransform >()) {}
 }

@@ -34,8 +34,9 @@ namespace mage {
 		 Constructs a model buffer.
 		 */
 		ModelBuffer()
-			: m_object_to_world{}, 
-			m_object_to_view_inverse_transpose{},
+			: m_object_to_view{}, 
+			m_normal_to_view{}, 
+			m_texture_transform{},
 			m_Kd{}, m_dissolve(0.0f),
 			m_Ks{}, m_Ns(0.0f),
 			m_extra_parameters{} {}
@@ -86,34 +87,40 @@ namespace mage {
 		ModelBuffer &operator=(ModelBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
-		// Member variables: Transforms
+		// Assignment Operators: Transforms
 		//---------------------------------------------------------------------
 
 		// HLSL expects column-major packed matrices by default.
 		// DirectXMath expects row-major packed matrices.
 
 		/**
-		 The (camera independent, object dependent) (column-major packed, row-major matrix) 
-		 object-to-world matrix of this model buffer for use in HLSL.
+		 The (camera dependent, object dependent) (column-major packed, row-major matrix) 
+		 object-to-view matrix of this model buffer for use in HLSL.
 		 */
-		XMMATRIX m_object_to_world;
+		XMMATRIX m_object_to_view;
 		
 		/**
 		 The (camera dependent, object dependent) (column-major packed, row-major matrix) 
-		 object-to-view inverse tranpose matrix (for transforming object space normals) 
+		 object-to-view inverse tranpose matrix (normal-to-view matrix) 
 		 of this model buffer for use in HLSL.
 		 */
-		XMMATRIX m_object_to_view_inverse_transpose;
+		XMMATRIX m_normal_to_view;
+
+		/**
+		 The (object dependent) (column-major packed, row-major matrix) 
+		 texture transform matrix of this model buffer for use in HLSL.
+		 */
+		XMMATRIX m_texture_transform;
 
 		//---------------------------------------------------------------------
-		// Member variables: Materials
+		// Assignment Operators: Material
 		//---------------------------------------------------------------------
 
 		/**
 		 The diffuse reflectivity of this model buffer.
 		 */
 		RGBSpectrum m_Kd;
-		
+
 		/**
 		 The dissolve factor (i.e. opacity) of this model buffer.
 		 */
@@ -135,7 +142,7 @@ namespace mage {
 		XMFLOAT4 m_extra_parameters;
 	};
 
-	static_assert(sizeof(ModelBuffer) == 176, "CPU/GPU struct mismatch");
+	static_assert(sizeof(ModelBuffer) == 240, "CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// ModelTransformBuffer
@@ -156,8 +163,9 @@ namespace mage {
 		 Constructs a model transform buffer.
 		 */
 		ModelTransformBuffer()
-			: m_object_to_world{}, 
-			m_object_to_view_inverse_transpose{} {}
+			: m_object_to_view{},
+			m_normal_to_view{},
+			m_texture_transform{} {}
 
 		/**
 		 Constructs a model transform buffer from the given model transform buffer.
@@ -205,25 +213,31 @@ namespace mage {
 		ModelTransformBuffer &operator=(ModelTransformBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
-		// Member variables: Transforms
+		// Assignment Operators: Transforms
 		//---------------------------------------------------------------------
 
 		// HLSL expects column-major packed matrices by default.
 		// DirectXMath expects row-major packed matrices.
 
 		/**
-		 The (camera independent, object dependent) (column-major packed, row-major matrix) 
-		 object-to-world matrix of this model transform buffer for use in HLSL.
+		 The (camera dependent, object dependent) (column-major packed, row-major matrix) 
+		 object-to-view matrix of this model buffer for use in HLSL.
 		 */
-		XMMATRIX m_object_to_world;
+		XMMATRIX m_object_to_view;
 		
 		/**
 		 The (camera dependent, object dependent) (column-major packed, row-major matrix) 
-		 object-to-view inverse tranpose matrix (for transforming object space normals) 
-		 of this model transform buffer for use in HLSL.
+		 object-to-view inverse tranpose matrix (normal-to-view matrix) 
+		 of this model buffer for use in HLSL.
 		 */
-		XMMATRIX m_object_to_view_inverse_transpose;
+		XMMATRIX m_normal_to_view;
+
+		/**
+		 The (object dependent) (column-major packed, row-major matrix) 
+		 texture transform matrix of this model buffer for use in HLSL.
+		 */
+		XMMATRIX m_texture_transform;
 	};
 
-	static_assert(sizeof(ModelTransformBuffer) == 128, "CPU/GPU struct mismatch");
+	static_assert(sizeof(ModelTransformBuffer) == 192, "CPU/GPU struct mismatch");
 }

@@ -80,21 +80,24 @@ namespace mage {
 		}
 	}
 
-	void XM_CALLCONV VariableShadingPass::BindComponents(
-		FXMMATRIX object_to_world, FXMMATRIX view_to_object,
-		const Material *material) {
+	void XM_CALLCONV VariableShadingPass::BindModelData(
+		FXMMATRIX object_to_view, 
+		FXMMATRIX view_to_object,
+		FXMMATRIX texture_transform,
+		const Material *material) noexcept {
 
 		ModelBuffer buffer;
-		buffer.m_object_to_world                  = XMMatrixTranspose(object_to_world);
-		buffer.m_object_to_view_inverse_transpose = view_to_object;
-		buffer.m_Kd                               = material->GetDiffuseReflectivity();
-		buffer.m_dissolve                         = material->GetDissolve();
-		buffer.m_Ks                               = material->GetSpecularReflectivity();
-		buffer.m_Ns                               = material->GetSpecularExponent();
-		buffer.m_extra_parameters.x               = material->GetExtraParameter(0);
-		buffer.m_extra_parameters.y               = material->GetExtraParameter(1);
-		buffer.m_extra_parameters.z               = material->GetExtraParameter(2);
-		buffer.m_extra_parameters.w               = material->GetExtraParameter(3);
+		buffer.m_object_to_view     = XMMatrixTranspose(object_to_view);
+		buffer.m_normal_to_view     = view_to_object;
+		buffer.m_texture_transform  = XMMatrixTranspose(texture_transform);
+		buffer.m_Kd                 = material->GetDiffuseReflectivity();
+		buffer.m_dissolve           = material->GetDissolve();
+		buffer.m_Ks                 = material->GetSpecularReflectivity();
+		buffer.m_Ns                 = material->GetSpecularExponent();
+		buffer.m_extra_parameters.x = material->GetExtraParameter(0);
+		buffer.m_extra_parameters.y = material->GetExtraParameter(1);
+		buffer.m_extra_parameters.z = material->GetExtraParameter(2);
+		buffer.m_extra_parameters.w = material->GetExtraParameter(3);
 		
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, buffer);
@@ -113,6 +116,29 @@ namespace mage {
 		// Bind the normal SRV.
 		PS::BindSRV(m_device_context, 
 			MAGE_VARIABLE_SHADING_PASS_PS_NORMAL_SRV, material->GetNormalSRV());
+	}
+
+	void XM_CALLCONV VariableShadingPass::BindSceneData(
+		const PassBuffer *scene, 
+		FXMMATRIX view_to_projection) noexcept {
+
+		SceneBuffer scene_buffer;
+		scene_buffer.m_view_to_projection         = XMMatrixTranspose(view_to_projection);
+		scene_buffer.m_Ia                         = scene->m_ambient_light;
+		scene_buffer.m_nb_directional_lights      = static_cast< uint32_t >(m_directional_lights_buffer.size());
+		scene_buffer.m_nb_omni_lights             = static_cast< uint32_t >(m_omni_lights_buffer.size());
+		scene_buffer.m_nb_spot_lights             = static_cast< uint32_t >(m_spot_lights_buffer.size());
+		scene_buffer.m_fog_color                  = scene->m_fog->GetIntensity();
+		scene_buffer.m_fog_distance_falloff_start = scene->m_fog->GetStartDistanceFalloff();
+		scene_buffer.m_fog_distance_falloff_range = scene->m_fog->GetRangeDistanceFalloff();
+
+		// Update the scene buffer.
+		m_scene_buffer.UpdateData(m_device_context, scene_buffer);
+		// Bind the scene buffer.
+		VS::BindConstantBuffer(m_device_context, 
+			MAGE_VARIABLE_SHADING_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
+		PS::BindConstantBuffer(m_device_context, 
+			MAGE_VARIABLE_SHADING_PASS_PS_SCENE_BUFFER, m_scene_buffer.Get());
 	}
 
 	void VariableShadingPass::Render(const PassBuffer *scene, const CameraNode *node) {
@@ -147,8 +173,11 @@ namespace mage {
 		ProcessLights(scene->m_directional_lights, world_to_view);
 		ProcessLights(scene->m_omni_lights, world_to_projection, world_to_view);
 		ProcessLights(scene->m_spot_lights, world_to_projection, world_to_view);
-		ProcessScene(scene, world_to_view, view_to_projection);
-		ProcessModels(scene->m_opaque_models, world_to_projection, view_to_world);
+		
+		// Bind the scene data.
+		BindSceneData(scene, view_to_projection);
+		
+		ProcessModels(scene->m_opaque_models,      world_to_projection, world_to_view, view_to_world);
 		// Bind the blend state.
 		if (Renderer::Get()->HasMSAA()) {
 			RenderingStateCache::Get()->BindAlphaToCoverageBlendState(m_device_context);
@@ -156,38 +185,12 @@ namespace mage {
 		else {
 			RenderingStateCache::Get()->BindAlphaBlendState(m_device_context);
 		}
-		ProcessModels(scene->m_transparent_models, world_to_projection, view_to_world);
-	}
-
-	void XM_CALLCONV VariableShadingPass::ProcessScene(
-		const PassBuffer *scene, 
-		FXMMATRIX world_to_view, FXMMATRIX view_to_projection) {
-
-		SceneBuffer scene_buffer;
-		scene_buffer.m_world_to_view              = XMMatrixTranspose(world_to_view);
-		scene_buffer.m_view_to_projection         = XMMatrixTranspose(view_to_projection);
-
-		scene_buffer.m_Ia                         = scene->m_ambient_light;
-		scene_buffer.m_nb_directional_lights      = static_cast< uint32_t >(m_directional_lights_buffer.size());
-		scene_buffer.m_nb_omni_lights             = static_cast< uint32_t >(m_omni_lights_buffer.size());
-		scene_buffer.m_nb_spot_lights             = static_cast< uint32_t >(m_spot_lights_buffer.size());
-
-		scene_buffer.m_fog_color                  = scene->m_fog->GetIntensity();
-		scene_buffer.m_fog_distance_falloff_start = scene->m_fog->GetStartDistanceFalloff();
-		scene_buffer.m_fog_distance_falloff_range = scene->m_fog->GetRangeDistanceFalloff();
-
-		// Update the scene buffer.
-		m_scene_buffer.UpdateData(m_device_context, scene_buffer);
-		// Bind the scene buffer.
-		VS::BindConstantBuffer(m_device_context, 
-			MAGE_VARIABLE_SHADING_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
-		PS::BindConstantBuffer(m_device_context, 
-			MAGE_VARIABLE_SHADING_PASS_PS_SCENE_BUFFER, m_scene_buffer.Get());
+		ProcessModels(scene->m_transparent_models, world_to_projection, world_to_view, view_to_world);
 	}
 
 	void XM_CALLCONV VariableShadingPass::ProcessLights(
 		const vector< const DirectionalLightNode * > &lights, 
-		FXMMATRIX world_to_view) {
+		FXMMATRIX world_to_view) noexcept {
 		
 		vector< DirectionalLightBuffer > buffer;
 		buffer.reserve(lights.size());
@@ -218,7 +221,8 @@ namespace mage {
 	
 	void XM_CALLCONV VariableShadingPass::ProcessLights(
 		const vector< const OmniLightNode * > &lights,
-		FXMMATRIX world_to_projection, FXMMATRIX world_to_view) {
+		FXMMATRIX world_to_projection, 
+		FXMMATRIX world_to_view) noexcept {
 		
 		vector< OmniLightBuffer > buffer;
 		buffer.reserve(lights.size());
@@ -258,7 +262,8 @@ namespace mage {
 	
 	void XM_CALLCONV VariableShadingPass::ProcessLights(
 		const vector< const SpotLightNode * > &lights,
-		FXMMATRIX world_to_projection, FXMMATRIX world_to_view) {
+		FXMMATRIX world_to_projection, 
+		FXMMATRIX world_to_view) noexcept {
 		
 		vector< SpotLightBuffer > buffer;
 		buffer.reserve(lights.size());
@@ -303,9 +308,13 @@ namespace mage {
 
 	void XM_CALLCONV VariableShadingPass::ProcessModels(
 		const vector< const ModelNode * > &models,
-		FXMMATRIX world_to_projection, FXMMATRIX view_to_world) {
+		FXMMATRIX world_to_projection, 
+		FXMMATRIX world_to_view, 
+		FXMMATRIX view_to_world) noexcept {
 
 		for (const auto node : models) {
+			
+			// Obtain node components (1/2).
 			const TransformNode * const transform = node->GetTransform();
 			const Model         * const model     = node->GetModel();
 			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
@@ -316,16 +325,18 @@ namespace mage {
 				continue;
 			}
 
+			// Obtain node components (2/2).
+			const XMMATRIX object_to_view         = object_to_world * world_to_view;
 			const XMMATRIX world_to_object        = transform->GetWorldToObjectMatrix();
 			const XMMATRIX view_to_object         = view_to_world * world_to_object;
+			const XMMATRIX texture_transform      = node->GetTextureTransform()->GetTransformMatrix();
 			const Material * const material       = model->GetMaterial();
 
-			// Bind the components.
-			BindComponents(object_to_world, view_to_object, material);
+			// Bind the model data.
+			BindModelData(object_to_view, view_to_object, texture_transform, material);
 			// Bind the pixel shader.
 			BindPS(material);
-
-			// Bind the model.
+			// Bind the model mesh.
 			model->BindMesh(m_device_context);
 			// Draw the model.
 			model->Draw(m_device_context);

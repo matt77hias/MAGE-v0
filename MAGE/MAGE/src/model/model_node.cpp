@@ -14,12 +14,16 @@
 namespace mage {
 
 	ModelNode::ModelNode(const string &name, UniquePtr< Model > &&model)
-		: SceneNode(name), m_model(std::move(model)) {
+		: SceneNode(name), 
+		m_model(std::move(model)),
+		m_texture_transform(MakeUnique< TextureTransform >()) {
 		Assert(m_model);
 	}
 
 	ModelNode::ModelNode(const ModelNode &model_node)
-		: SceneNode(model_node), m_model(model_node.m_model->Clone()) {}
+		: SceneNode(model_node), 
+		m_model(model_node.m_model->Clone()),
+		m_texture_transform(MakeUnique< TextureTransform >(*model_node.m_texture_transform)) {}
 
 	ModelNode::ModelNode(ModelNode &&model_node) = default;
 

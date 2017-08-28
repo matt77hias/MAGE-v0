@@ -334,8 +334,6 @@ namespace mage {
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @param[in]		epsilon
-						The epsilon value for float comparisons.
 		 @return		The coverage of @a aabb with regard to this view frustum.
 		 */
 		Coverage Classify(const AABB &aabb) const noexcept;
@@ -345,8 +343,6 @@ namespace mage {
 
 		 @param[in]		bs
 						A reference to the BS.
-		 @param[in]		epsilon
-						The epsilon value for float comparisons.
 		 @return		The coverage of @a bs with regard to this view frustum.
 		 */
 		Coverage Classify(const BS &bs) const noexcept;

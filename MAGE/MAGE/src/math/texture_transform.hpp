@@ -30,8 +30,6 @@ namespace mage {
 
 		 @param[in]		translation
 						A reference to the translation component.
-		 @param[in]		depth
-						The depth component.
 		 @param[in]		rotation
 						The rotation component.
 		 @param[in]		rotation_origin

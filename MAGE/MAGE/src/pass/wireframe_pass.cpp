@@ -65,7 +65,8 @@ namespace mage {
 		ProcessModels(scene->m_transparent_models, world_to_projection, view_to_world);
 	}
 
-	void WireframePass::ProcessScene(FXMMATRIX world_to_view, FXMMATRIX view_to_projection) {
+	void XM_CALLCONV WireframePass::ProcessScene(
+		FXMMATRIX world_to_view, FXMMATRIX view_to_projection) {
 		SceneTransformBuffer buffer;
 		buffer.m_world_to_view      = XMMatrixTranspose(world_to_view);
 		buffer.m_view_to_projection = XMMatrixTranspose(view_to_projection);
@@ -83,7 +84,8 @@ namespace mage {
 			MAGE_WIREFRAME_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
 	}
 
-	void WireframePass::ProcessModels(const vector< const ModelNode * > &models,
+	void XM_CALLCONV WireframePass::ProcessModels(
+		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection, FXMMATRIX view_to_world) {
 
 		for (const auto node : models) {

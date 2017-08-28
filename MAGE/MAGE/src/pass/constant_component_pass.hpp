@@ -23,7 +23,7 @@ namespace mage {
 		ConstantComponentPass();
 		ConstantComponentPass(const ConstantComponentPass &render_pass) = delete;
 		ConstantComponentPass(ConstantComponentPass &&render_pass);
-		virtual ~ConstantComponentPass();
+		~ConstantComponentPass();
 
 		ConstantComponentPass &operator=(const ConstantComponentPass &render_pass) = delete;
 		ConstantComponentPass &operator=(ConstantComponentPass &&render_pass) = delete;
@@ -40,9 +40,10 @@ namespace mage {
 
 		void BindPS(RenderMode render_mode) noexcept;
 
-		void ProcessScene(
+		void XM_CALLCONV ProcessScene(
 			FXMMATRIX world_to_view, FXMMATRIX view_to_projection);
-		void ProcessModels(const vector< const ModelNode * > &models,
+		void XM_CALLCONV ProcessModels(
+			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, FXMMATRIX view_to_world);
 
 		ID3D11DeviceContext2 * const m_device_context;

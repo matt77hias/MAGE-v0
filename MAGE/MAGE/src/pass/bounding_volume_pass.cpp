@@ -84,7 +84,8 @@ namespace mage {
 		ProcessModels(scene->m_transparent_models, world_to_projection, view_to_world);
 	}
 
-	void BoundingVolumePass::ProcessScene(FXMMATRIX world_to_view, FXMMATRIX view_to_projection) {
+	void XM_CALLCONV BoundingVolumePass::ProcessScene(
+		FXMMATRIX world_to_view, FXMMATRIX view_to_projection) {
 		SceneTransformBuffer buffer;
 		buffer.m_world_to_view      = XMMatrixTranspose(world_to_view);
 		buffer.m_view_to_projection = XMMatrixTranspose(view_to_projection);
@@ -96,7 +97,8 @@ namespace mage {
 			MAGE_BOUNDING_VOLUME_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
 	}
 
-	void BoundingVolumePass::ProcessLights(const vector< const OmniLightNode * > &lights,
+	void XM_CALLCONV BoundingVolumePass::ProcessLights(
+		const vector< const OmniLightNode * > &lights,
 		FXMMATRIX world_to_projection, FXMMATRIX view_to_world) {
 
 		for (const auto node : lights) {
@@ -139,7 +141,8 @@ namespace mage {
 		}
 	}
 
-	void BoundingVolumePass::ProcessLights(const vector< const SpotLightNode * > &lights,
+	void XM_CALLCONV BoundingVolumePass::ProcessLights(
+		const vector< const SpotLightNode * > &lights,
 		FXMMATRIX world_to_projection, FXMMATRIX view_to_world) {
 
 		for (const auto node : lights) {
@@ -181,7 +184,8 @@ namespace mage {
 		}
 	}
 
-	void BoundingVolumePass::ProcessModels(const vector< const ModelNode * > &models,
+	void XM_CALLCONV BoundingVolumePass::ProcessModels(
+		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection, FXMMATRIX view_to_world) {
 
 		for (const auto node : models) {

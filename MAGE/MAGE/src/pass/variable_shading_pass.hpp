@@ -25,7 +25,7 @@ namespace mage {
 		VariableShadingPass();
 		VariableShadingPass(const VariableShadingPass &render_pass) = delete;
 		VariableShadingPass(VariableShadingPass &&render_pass);
-		virtual ~VariableShadingPass();
+		~VariableShadingPass();
 
 		VariableShadingPass &operator=(const VariableShadingPass &render_pass) = delete;
 		VariableShadingPass &operator=(VariableShadingPass &&render_pass) = delete;
@@ -44,19 +44,24 @@ namespace mage {
 		void UpdatePSs(BRDFType brdf);
 		void BindPS(PSIndex index) noexcept;
 		void BindPS(const Material *material) noexcept;
-		void VariableShadingPass::BindComponents(
+		void XM_CALLCONV BindComponents(
 			FXMMATRIX object_to_world, FXMMATRIX view_to_object,
 			const Material *material);
 
-		void ProcessScene(const PassBuffer *scene,
+		void XM_CALLCONV ProcessScene(
+			const PassBuffer *scene,
 			FXMMATRIX world_to_view, FXMMATRIX view_to_projection);
-		void ProcessLights(const vector< const DirectionalLightNode * > &lights,
+		void XM_CALLCONV ProcessLights(
+			const vector< const DirectionalLightNode * > &lights,
 			FXMMATRIX world_to_view);
-		void ProcessLights(const vector< const OmniLightNode * > &lights,
+		void XM_CALLCONV ProcessLights(
+			const vector< const OmniLightNode * > &lights,
 			FXMMATRIX world_to_projection, FXMMATRIX world_to_view);
-		void ProcessLights(const vector< const SpotLightNode * > &lights,
+		void XM_CALLCONV ProcessLights(
+			const vector< const SpotLightNode * > &lights,
 			FXMMATRIX world_to_projection, FXMMATRIX world_to_view);
-		void ProcessModels(const vector< const ModelNode * > &models,
+		void XM_CALLCONV ProcessModels(
+			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, FXMMATRIX view_to_world);
 
 		ID3D11DeviceContext2 * const m_device_context;

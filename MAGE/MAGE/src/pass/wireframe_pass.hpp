@@ -23,7 +23,7 @@ namespace mage {
 		WireframePass();
 		WireframePass(const WireframePass &render_pass) = delete;
 		WireframePass(WireframePass &&render_pass);
-		virtual ~WireframePass();
+		~WireframePass();
 
 		WireframePass &operator=(const WireframePass &render_pass) = delete;
 		WireframePass &operator=(WireframePass &&render_pass) = delete;
@@ -32,9 +32,10 @@ namespace mage {
 
 	private:
 
-		void ProcessScene(
+		void XM_CALLCONV ProcessScene(
 			FXMMATRIX world_to_view, FXMMATRIX view_to_projection);
-		void ProcessModels(const vector< const ModelNode * > &models,
+		void XM_CALLCONV ProcessModels(
+			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, FXMMATRIX view_to_world);
 
 		ID3D11DeviceContext2 * const m_device_context;

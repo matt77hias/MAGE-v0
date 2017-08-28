@@ -23,7 +23,7 @@ namespace mage {
 		ShadingNormalPass();
 		ShadingNormalPass(const ShadingNormalPass &render_pass) = delete;
 		ShadingNormalPass(ShadingNormalPass &&render_pass);
-		virtual ~ShadingNormalPass();
+		~ShadingNormalPass();
 
 		ShadingNormalPass &operator=(const ShadingNormalPass &render_pass) = delete;
 		ShadingNormalPass &operator=(ShadingNormalPass &&render_pass) = delete;
@@ -41,9 +41,10 @@ namespace mage {
 		void BindPS(PSIndex index) noexcept;
 		void BindPS(const Material *material) noexcept;
 
-		void ProcessScene(
+		void XM_CALLCONV ProcessScene(
 			FXMMATRIX world_to_view, FXMMATRIX view_to_projection);
-		void ProcessModels(const vector< const ModelNode * > &models,
+		void XM_CALLCONV ProcessModels(
+			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection);
 
 		ID3D11DeviceContext2 * const m_device_context;

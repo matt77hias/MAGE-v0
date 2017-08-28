@@ -25,7 +25,7 @@ namespace mage {
 		ConstantShadingPass();
 		ConstantShadingPass(const ConstantShadingPass &render_pass) = delete;
 		ConstantShadingPass(ConstantShadingPass &&render_pass);
-		virtual ~ConstantShadingPass();
+		~ConstantShadingPass();
 
 		ConstantShadingPass &operator=(const ConstantShadingPass &render_pass) = delete;
 		ConstantShadingPass &operator=(ConstantShadingPass &&render_pass) = delete;
@@ -34,18 +34,22 @@ namespace mage {
 
 	private:
 
-		void BindComponents(
+		void XM_CALLCONV BindComponents(
 			FXMMATRIX object_to_world, FXMMATRIX view_to_object);
 
-		void ProcessScene(
+		void XM_CALLCONV ProcessScene(
 			FXMMATRIX world_to_view, FXMMATRIX view_to_projection);
-		void ProcessLights(const vector< const DirectionalLightNode * > &lights,
+		void XM_CALLCONV ProcessLights(
+			const vector< const DirectionalLightNode * > &lights,
 			FXMMATRIX world_to_view);
-		void ProcessLights(const vector< const OmniLightNode * > &lights,
+		void XM_CALLCONV ProcessLights(
+			const vector< const OmniLightNode * > &lights,
 			FXMMATRIX world_to_projection, FXMMATRIX world_to_view);
-		void ProcessLights(const vector< const SpotLightNode * > &lights,
+		void XM_CALLCONV ProcessLights(
+			const vector< const SpotLightNode * > &lights,
 			FXMMATRIX world_to_projection, FXMMATRIX world_to_view);
-		void ProcessModels(const vector< const ModelNode * > &models,
+		void XM_CALLCONV ProcessModels(
+			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, FXMMATRIX view_to_world);
 
 		ID3D11DeviceContext2 * const m_device_context;

@@ -48,7 +48,7 @@ namespace mage {
 
 	ConstantShadingPass::~ConstantShadingPass() = default;
 
-	void ConstantShadingPass::BindComponents(
+	void XM_CALLCONV ConstantShadingPass::BindComponents(
 		FXMMATRIX object_to_world, FXMMATRIX view_to_object) {
 
 		ModelBuffer buffer;
@@ -106,7 +106,7 @@ namespace mage {
 		ProcessModels(scene->m_transparent_models, world_to_projection, view_to_world);
 	}
 
-	void ConstantShadingPass::ProcessScene(
+	void XM_CALLCONV ConstantShadingPass::ProcessScene(
 		FXMMATRIX world_to_view, FXMMATRIX view_to_projection) {
 
 		SceneBuffer scene_buffer;
@@ -126,7 +126,8 @@ namespace mage {
 			MAGE_CONSTANT_SHADING_PASS_PS_SCENE_BUFFER, m_scene_buffer.Get());
 	}
 
-	void ConstantShadingPass::ProcessLights(const vector< const DirectionalLightNode * > &lights, 
+	void XM_CALLCONV ConstantShadingPass::ProcessLights(
+		const vector< const DirectionalLightNode * > &lights, 
 		FXMMATRIX world_to_view) {
 		
 		vector< DirectionalLightBuffer > buffer;
@@ -156,7 +157,8 @@ namespace mage {
 			m_directional_lights_buffer.Get());
 	}
 	
-	void ConstantShadingPass::ProcessLights(const vector< const OmniLightNode * > &lights,
+	void XM_CALLCONV ConstantShadingPass::ProcessLights(
+		const vector< const OmniLightNode * > &lights,
 		FXMMATRIX world_to_projection, FXMMATRIX world_to_view) {
 		
 		vector< OmniLightBuffer > buffer;
@@ -195,7 +197,8 @@ namespace mage {
 			m_omni_lights_buffer.Get());
 	}
 	
-	void ConstantShadingPass::ProcessLights(const vector< const SpotLightNode * > &lights,
+	void XM_CALLCONV ConstantShadingPass::ProcessLights(
+		const vector< const SpotLightNode * > &lights,
 		FXMMATRIX world_to_projection, FXMMATRIX world_to_view) {
 		
 		vector< SpotLightBuffer > buffer;
@@ -239,7 +242,8 @@ namespace mage {
 			m_spot_lights_buffer.Get());
 	}
 
-	void ConstantShadingPass::ProcessModels(const vector< const ModelNode * > &models,
+	void XM_CALLCONV ConstantShadingPass::ProcessModels(
+		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection, FXMMATRIX view_to_world) {
 
 		for (const auto node : models) {

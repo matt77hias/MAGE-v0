@@ -22,7 +22,7 @@ namespace mage {
 		SpritePass();
 		SpritePass(const SpritePass &render_pass) = delete;
 		SpritePass(SpritePass &&render_pass);
-		virtual ~SpritePass();
+		~SpritePass();
 
 		SpritePass &operator=(const SpritePass &render_pass) = delete;
 		SpritePass &operator=(SpritePass &&render_pass) = delete;

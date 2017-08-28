@@ -100,7 +100,8 @@ namespace mage {
 		ProcessModels(scene->m_transparent_models, world_to_projection);
 	}
 
-	void ShadingNormalPass::ProcessScene(FXMMATRIX world_to_view, FXMMATRIX view_to_projection) {
+	void XM_CALLCONV ShadingNormalPass::ProcessScene(
+		FXMMATRIX world_to_view, FXMMATRIX view_to_projection) {
 		SceneTransformBuffer buffer;
 		buffer.m_world_to_view      = XMMatrixTranspose(world_to_view);
 		buffer.m_view_to_projection = XMMatrixTranspose(view_to_projection);
@@ -112,7 +113,8 @@ namespace mage {
 			MAGE_SHADING_NORMAL_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
 	}
 
-	void ShadingNormalPass::ProcessModels(const vector< const ModelNode * > &models,
+	void XM_CALLCONV ShadingNormalPass::ProcessModels(
+		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection) {
 
 		for (const auto node : models) {

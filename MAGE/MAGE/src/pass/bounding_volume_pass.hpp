@@ -23,7 +23,7 @@ namespace mage {
 		BoundingVolumePass();
 		BoundingVolumePass(const BoundingVolumePass &render_pass) = delete;
 		BoundingVolumePass(BoundingVolumePass &&render_pass);
-		virtual ~BoundingVolumePass();
+		~BoundingVolumePass();
 
 		BoundingVolumePass &operator=(const BoundingVolumePass &render_pass) = delete;
 		BoundingVolumePass &operator=(BoundingVolumePass &&render_pass) = delete;
@@ -32,13 +32,16 @@ namespace mage {
 
 	private:
 
-		void ProcessScene(
+		void XM_CALLCONV ProcessScene(
 			FXMMATRIX world_to_view, FXMMATRIX view_to_projection);
-		void ProcessLights(const vector< const OmniLightNode * > &lights,
+		void XM_CALLCONV ProcessLights(
+			const vector< const OmniLightNode * > &lights,
 			FXMMATRIX world_to_projection, FXMMATRIX view_to_world);
-		void ProcessLights(const vector< const SpotLightNode * > &lights,
+		void XM_CALLCONV ProcessLights(
+			const vector< const SpotLightNode * > &lights,
 			FXMMATRIX world_to_projection, FXMMATRIX view_to_world);
-		void ProcessModels(const vector< const ModelNode * > &models,
+		void XM_CALLCONV ProcessModels(
+			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, FXMMATRIX view_to_world);
 
 		ID3D11DeviceContext2 * const m_device_context;

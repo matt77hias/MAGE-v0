@@ -6,6 +6,7 @@
 #pragma region
 
 #include "math\coordinate_system.hpp"
+#include "math\math_utils.hpp"
 
 #pragma endregion
 
@@ -40,6 +41,7 @@ namespace mage {
 			const XMFLOAT3 &rotation = { 0.0f, 0.0f, 0.0f }, 
 			const XMFLOAT3 &scale = { 1.0f, 1.0f, 1.0f })
 			: m_translation(translation), m_rotation(rotation), m_scale(scale) {
+			
 			SetDirty();
 		}
 		
@@ -56,6 +58,7 @@ namespace mage {
 		explicit Transform(XMFLOAT3 &&translation, XMFLOAT3 &&rotation, XMFLOAT3 &&scale)
 			: m_translation(std::move(translation)), 
 			m_rotation(std::move(rotation)), m_scale(std::move(scale)) {
+			
 			SetDirty();
 		}
 
@@ -74,6 +77,7 @@ namespace mage {
 			FXMVECTOR rotation, 
 			FXMVECTOR scale)
 			: m_translation(), m_rotation(), m_scale() {
+			
 			SetTranslation(translation);
 			SetRotation(rotation);
 			SetScale(scale);
@@ -503,6 +507,140 @@ namespace mage {
 		 */
 		void XM_CALLCONV AddRotation(FXMVECTOR rotation) noexcept {
 			AddRotation(XMVectorGetX(rotation), XMVectorGetY(rotation), XMVectorGetZ(rotation));
+		}
+
+		/**
+		 Adds the given x-value to the rotation component of this transform
+		 and clamps the resulting rotation component of this transform 
+		 between the given values.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		x
+						The x-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddAndClampRotationX(float x, float min_angle, float max_angle) noexcept {
+			m_rotation.x = ClampAngleRadians(m_rotation.x + x, min_angle, max_angle);
+			SetDirty();
+		}
+
+		/**
+		 Adds the given y-value to the rotation component of this transform
+		 and clamps the resulting rotation component of this transform 
+		 between the given values.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		y
+						The y-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddAndClampRotationY(float y, float min_angle, float max_angle) noexcept {
+			m_rotation.y = ClampAngleRadians(m_rotation.y + y, min_angle, max_angle);
+			SetDirty();
+		}
+
+		/**
+		 Adds the given z-value to the rotation component of this transform
+		 and clamps the resulting rotation component of this transform 
+		 between the given values.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		z
+						The z-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddAndClampRotationZ(float z, float min_angle, float max_angle) noexcept {
+			m_rotation.z = ClampAngleRadians(m_rotation.z + z, min_angle, max_angle);
+			SetDirty();
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of 
+		 this transform and clamps the resulting rotation component of 
+		 this transform between the given values.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		x
+						The x-value of the rotation component to add.
+		 @param[in]		y
+						The y-value of the rotation component to add.
+		 @param[in]		z
+						The z-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddAndClampRotation(float x, float y, float z, 
+			float min_angle, float max_angle) noexcept {
+
+			m_rotation.x = ClampAngleRadians(m_rotation.x + x, min_angle, max_angle);
+			m_rotation.y = ClampAngleRadians(m_rotation.y + y, min_angle, max_angle);
+			m_rotation.z = ClampAngleRadians(m_rotation.z + z, min_angle, max_angle);
+			SetDirty();
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of 
+		 this transform and clamps the resulting rotation component of 
+		 this transform between the given values.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		rotation
+						A reference to the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddAndClampRotation(const XMFLOAT3 &rotation, 
+			float min_angle, float max_angle) noexcept {
+
+			AddAndClampRotation(rotation.x, rotation.y, rotation.z, min_angle, max_angle);
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of 
+		 this transform and clamps the resulting rotation component of 
+		 this transform between the given values.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		rotation
+						The rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void XM_CALLCONV AddAndClampRotation(FXMVECTOR rotation, 
+			float min_angle, float max_angle) noexcept {
+
+			AddAndClampRotation(
+				XMVectorGetX(rotation), 
+				XMVectorGetY(rotation), 
+				XMVectorGetZ(rotation), 
+				min_angle, max_angle);
 		}
 
 		/**
@@ -1061,13 +1199,13 @@ namespace mage {
 
 		/**
 		 A flag indicating whether the object-to-parent matrix 
-		 of this transform node are dirty.
+		 of this transform is dirty.
 		 */
 		mutable bool m_dirty_object_to_parent;
 
 		/**
 		 A flag indicating whether the parent-to-object matrix 
-		 of this transform node are dirty.
+		 of this transform is dirty.
 		 */
 		mutable bool m_dirty_parent_to_object;
 	};

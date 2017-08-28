@@ -438,6 +438,136 @@ namespace mage {
 		}
 
 		/**
+		 Adds the given x-value to the rotation component of this transform
+		 and clamps the resulting rotation component of this transform 
+		 between the given values.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		x
+						The x-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddAndClampRotationX(float x, float min_angle, float max_angle) noexcept {
+			m_transform->AddAndClampRotationX(x, min_angle, max_angle);
+			SetDirty();
+		}
+
+		/**
+		 Adds the given y-value to the rotation component of this transform
+		 and clamps the resulting rotation component of this transform 
+		 between the given values.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		y
+						The y-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddAndClampRotationY(float y, float min_angle, float max_angle) noexcept {
+			m_transform->AddAndClampRotationY(y, min_angle, max_angle);
+			SetDirty();
+		}
+
+		/**
+		 Adds the given z-value to the rotation component of this transform
+		 and clamps the resulting rotation component of this transform 
+		 between the given values.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		z
+						The z-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddAndClampRotationZ(float z, float min_angle, float max_angle) noexcept {
+			m_transform->AddAndClampRotationZ(z, min_angle, max_angle);
+			SetDirty();
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of 
+		 this transform and clamps the resulting rotation component of 
+		 this transform between the given values.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		x
+						The x-value of the rotation component to add.
+		 @param[in]		y
+						The y-value of the rotation component to add.
+		 @param[in]		z
+						The z-value of the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddAndClampRotation(float x, float y, float z, 
+			float min_angle, float max_angle) noexcept {
+
+			m_transform->AddAndClampRotation(x, y, z, min_angle, max_angle);
+			SetDirty();
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of 
+		 this transform and clamps the resulting rotation component of 
+		 this transform between the given values.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		rotation
+						A reference to the rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddAndClampRotation(const XMFLOAT3 &rotation, 
+			float min_angle, float max_angle) noexcept {
+
+			m_transform->AddAndClampRotation(rotation, min_angle, max_angle);
+			SetDirty();
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of 
+		 this transform and clamps the resulting rotation component of 
+		 this transform between the given values.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		rotation
+						The rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void XM_CALLCONV AddAndClampRotation(FXMVECTOR rotation, 
+			float min_angle, float max_angle) noexcept {
+
+			m_transform->AddAndClampRotation(rotation, min_angle, max_angle);
+			SetDirty();
+		}
+
+		/**
 		 Returns the x-value of the rotation component of this transform node.
 
 		 @return		The x-value of the rotation component of this transform node.

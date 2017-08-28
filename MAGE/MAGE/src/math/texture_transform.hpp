@@ -6,7 +6,7 @@
 #pragma region
 
 #include "memory\allocation.hpp"
-#include "math\math.hpp"
+#include "math\math_utils.hpp"
 
 #pragma endregion
 
@@ -48,7 +48,10 @@ namespace mage {
 			
 			m_rotation(rotation), 
 			m_rotation_origin(rotation_origin), 
-			m_scale(scale) {}
+			m_scale(scale) {
+
+			SetDirty();
+		}
 
 		/**
 		 Constructs a texture transform from the given translation, depth,
@@ -135,6 +138,7 @@ namespace mage {
 		 */
 		void SetTranslationX(float x) noexcept {
 			m_translation.x = x;
+			SetDirty();
 		}
 
 		/**
@@ -145,6 +149,7 @@ namespace mage {
 		 */
 		void SetTranslationY(float y) noexcept {
 			m_translation.y = y;
+			SetDirty();
 		}
 
 		/**
@@ -158,6 +163,7 @@ namespace mage {
 		void SetTranslation(float x, float y) noexcept {
 			m_translation.x = x;
 			m_translation.y = y;
+			SetDirty();
 		}
 
 		/**
@@ -168,6 +174,7 @@ namespace mage {
 		 */
 		void SetTranslation(const XMFLOAT2 &translation) noexcept {
 			m_translation = translation;
+			SetDirty();
 		}
 
 		/**
@@ -178,6 +185,7 @@ namespace mage {
 		 */
 		void XM_CALLCONV SetTranslation(FXMVECTOR translation) noexcept {
 			XMStoreFloat2(&m_translation, translation);
+			SetDirty();
 		}
 
 		/**
@@ -188,6 +196,7 @@ namespace mage {
 		 */
 		void AddTranslationX(float x) noexcept {
 			m_translation.x += x;
+			SetDirty();
 		}
 
 		/**
@@ -198,6 +207,7 @@ namespace mage {
 		 */
 		void AddTranslationY(float y) noexcept {
 			m_translation.y += y;
+			SetDirty();
 		}
 
 		/**
@@ -211,6 +221,7 @@ namespace mage {
 		void AddTranslation(float x, float y) noexcept {
 			m_translation.x += x;
 			m_translation.y += y;
+			SetDirty();
 		}
 
 		/**
@@ -272,6 +283,7 @@ namespace mage {
 		 */
 		void SetRotation(float rotation) noexcept {
 			m_rotation = rotation;
+			SetDirty();
 		}
 
 		/**
@@ -282,6 +294,26 @@ namespace mage {
 		 */
 		void AddRotation(float rotation) noexcept {
 			m_rotation += rotation;
+			SetDirty();
+		}
+
+		/**
+		 Adds the given rotation component to the rotation component of this texture transform
+		 and clamps the resulting rotation component of this texture transform between the given values.
+
+		 @pre			@a min_angle lies in [-pi, pi].
+		 @pre			@a max_angle lies in [-pi, pi].
+		 @pre			@a min_angle is not greater than @a max_angle.
+		 @param[in]		rotation
+						The rotation component to add.
+		 @param[in]		min_angle
+						The minimum angle (in radians).
+		 @param[in]		max_angle
+						The maximum angle (in radians).
+		 */
+		void AddAndClampRotation(float rotation, float min_angle, float max_angle) noexcept {
+			m_rotation = ClampAngleRadians(m_rotation + rotation, min_angle, max_angle);
+			SetDirty();
 		}
 
 		/**
@@ -305,6 +337,7 @@ namespace mage {
 		 */
 		void SetRotationOriginX(float x) noexcept {
 			m_rotation_origin.x = x;
+			SetDirty();
 		}
 
 		/**
@@ -315,6 +348,7 @@ namespace mage {
 		 */
 		void SetRotationOriginY(float y) noexcept {
 			m_rotation_origin.y = y;
+			SetDirty();
 		}
 
 		/**
@@ -328,6 +362,7 @@ namespace mage {
 		void SetRotationOrigin(float x, float y) noexcept {
 			m_rotation_origin.x = x;
 			m_rotation_origin.y = y;
+			SetDirty();
 		}
 
 		/**
@@ -338,6 +373,7 @@ namespace mage {
 		 */
 		void SetRotationOrigin(const XMFLOAT2 &rotation_origin) noexcept {
 			m_rotation_origin = rotation_origin;
+			SetDirty();
 		}
 
 		/**
@@ -348,6 +384,7 @@ namespace mage {
 		 */
 		void SetRotationOrigin(XMFLOAT2 &&rotation_origin) noexcept {
 			m_rotation_origin = std::move(rotation_origin);
+			SetDirty();
 		}
 
 		/**
@@ -358,6 +395,7 @@ namespace mage {
 		 */
 		void XM_CALLCONV SetRotationOrigin(FXMVECTOR rotation_origin) noexcept {
 			XMStoreFloat2(&m_rotation_origin, rotation_origin);
+			SetDirty();
 		}
 
 		/**
@@ -368,6 +406,7 @@ namespace mage {
 		 */
 		void AddRotationOriginX(float x) noexcept {
 			m_rotation_origin.x += x;
+			SetDirty();
 		}
 
 		/**
@@ -378,6 +417,7 @@ namespace mage {
 		 */
 		void AddRotationOriginY(float y) noexcept {
 			m_rotation_origin.y += y;
+			SetDirty();
 		}
 
 		/**
@@ -391,6 +431,7 @@ namespace mage {
 		void AddRotationOrigin(float x, float y) noexcept {
 			m_rotation_origin.x += x;
 			m_rotation_origin.y += y;
+			SetDirty();
 		}
 
 		/**
@@ -452,6 +493,7 @@ namespace mage {
 		 */
 		void SetScaleX(float x) noexcept {
 			m_scale.x = x;
+			SetDirty();
 		}
 
 		/**
@@ -462,6 +504,7 @@ namespace mage {
 		 */
 		void SetScaleY(float y) noexcept {
 			m_scale.y = y;
+			SetDirty();
 		}
 
 		/**
@@ -485,6 +528,7 @@ namespace mage {
 		void SetScale(float x, float y) noexcept {
 			m_scale.x = x;
 			m_scale.y = y;
+			SetDirty();
 		}
 
 		/**
@@ -495,6 +539,7 @@ namespace mage {
 		 */
 		void SetScale(const XMFLOAT2 &scale) noexcept {
 			m_scale = scale;
+			SetDirty();
 		}
 
 		/**
@@ -505,6 +550,7 @@ namespace mage {
 		 */
 		void XM_CALLCONV SetScale(FXMVECTOR scale) noexcept {
 			XMStoreFloat2(&m_scale, scale);
+			SetDirty();
 		}
 
 		/**
@@ -515,6 +561,7 @@ namespace mage {
 		 */
 		void AddScaleX(float x) noexcept {
 			m_scale.x += x;
+			SetDirty();
 		}
 
 		/**
@@ -525,6 +572,7 @@ namespace mage {
 		 */
 		void AddScaleY(float y) noexcept {
 			m_scale.y += y;
+			SetDirty();
 		}
 
 		/**
@@ -548,6 +596,7 @@ namespace mage {
 		void AddScale(float x, float y) noexcept {
 			m_scale.x += x;
 			m_scale.y += y;
+			SetDirty();
 		}
 
 		/**
@@ -568,6 +617,7 @@ namespace mage {
 		 */
 		void XM_CALLCONV AddScale(FXMVECTOR scale) noexcept {
 			AddScale(XMVectorGetX(scale), XMVectorGetY(scale));
+			SetDirty();
 		}
 
 		/**
@@ -602,31 +652,54 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the matrix of this texture transform.
+		 Returns the (object-to-parent) matrix of this texture transform.
 
-		 @return		The matrix of this texture transform.
+		 @return		The (object-to-parent) matrix of this texture transform.
 		 */
-		const XMMATRIX GetMatrix() const noexcept {
-			const float s = sin(m_rotation);
-			const float c = cos(m_rotation);
-			const float sSx = s * m_scale.x;
-			const float sSy = s * m_scale.y;
-			const float cSx = c * m_scale.x;
-			const float cSy = c * m_scale.y;
-
-			const float tx = (1.0f - cSx) * m_rotation_origin.x + sSy * m_rotation_origin.y + m_translation.x;
-			const float ty = (1.0f - cSy) * m_rotation_origin.y - sSx * m_rotation_origin.x + m_translation.y;
-
-			return XMMATRIX
-			{
-				 cSx,  sSx, 0.0f, 0.0f,
-				-sSy,  cSy, 0.0f, 0.0f,
-				  tx,   ty, 1.0f, 0.0f,
-				0.0f, 0.0f, 0.0f, 0.0f
-			};
+		const XMMATRIX GetTransformMatrix() const noexcept {
+			UpdateObjectToParentMatrix();
+			return m_transform;
 		}
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Sets this texture transform to dirty.
+		 */
+		void SetDirty() const noexcept {
+			m_dirty_transform = true;
+		}
+
+		/**
+		 Updates the (object-to-parent) transform matrix 
+		 of this texture transform if dirty.
+		 */
+		void UpdateObjectToParentMatrix() const noexcept {
+			if (m_dirty_transform) {
+				
+				const float s = sin(m_rotation);
+				const float c = cos(m_rotation);
+				const float sSx = s * m_scale.x;
+				const float sSy = s * m_scale.y;
+				const float cSx = c * m_scale.x;
+				const float cSy = c * m_scale.y;
+
+				const float tx = (1.0f - cSx) * m_rotation_origin.x + sSy * m_rotation_origin.y + m_translation.x;
+				const float ty = (1.0f - cSy) * m_rotation_origin.y - sSx * m_rotation_origin.x + m_translation.y;
+
+				m_transform = XMMATRIX {
+					 cSx,  sSx, 0.0f, 0.0f,
+					-sSy,  cSy, 0.0f, 0.0f,
+					 tx,    ty, 1.0f, 0.0f,
+					0.0f, 0.0f, 0.0f, 0.0f
+				};
+				m_dirty_transform = false;
+			}
+		}
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -643,6 +716,12 @@ namespace mage {
 		float m_rotation;
 
 		/**
+		 A flag indicating whether the (object-to-parent)
+		 transform matrix of this texture transform is dirty.
+		 */
+		mutable bool m_dirty_transform;
+
+		/**
 		 The rotation origin of this texture transform.
 		 */
 		XMFLOAT2 m_rotation_origin;
@@ -651,5 +730,11 @@ namespace mage {
 		 The scale component of this texture transform.
 		 */
 		XMFLOAT2 m_scale;
+
+		/**
+		 The cached (object-to-parent) transform matrix 
+		 of this texture transform.
+		 */
+		mutable XMMATRIX m_transform;
 	};
 }

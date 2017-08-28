@@ -191,7 +191,7 @@ namespace mage {
 		 @pre			The vertex buffer of this this sprite batch mesh
 						must be mapped with 
 						{@link mage::SpriteBatchMesh::MapVertexBuffer(
-						D3D11_MAP, D3D11_MAPPED_SUBRESOURCE *)} 
+						ID3D11DeviceContext2 *, D3D11_MAP, D3D11_MAPPED_SUBRESOURCE *)} 
 						before it can be unmapped.
 		 @param[in]		device_context
 						A pointer to the device context.

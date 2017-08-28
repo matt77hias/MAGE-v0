@@ -314,7 +314,7 @@ namespace mage {
 		 Constructs a RGBA spectrum from the given RGB spectrum.
 
 		 @param[in]		rgb
-						A reference to the rgb spectrum.
+						A reference to the RGB spectrum.
 		 @param[in]		a
 						The alpha component.
 		 */
@@ -325,7 +325,7 @@ namespace mage {
 		 Constructs a RGBA spectrum from the given XYZ spectrum.
 
 		 @param[in]		xyz
-						A reference to the xyz spectrum.
+						A reference to the XYZ spectrum.
 		 @param[in]		a
 						The alpha component.
 		 */
@@ -337,6 +337,8 @@ namespace mage {
 
 		 @param[in]		v
 						A reference to the components to copy.
+		 @param[in]		a
+						The alpha component.
 		 */
 		explicit RGBASpectrum(const XMFLOAT3 &v, float a = 1.0f) noexcept
 			: RGBASpectrum(v.x, v.y, v.z, a) {}
@@ -390,4 +392,142 @@ namespace mage {
 	};
 
 	static_assert(sizeof(RGBASpectrum) == sizeof(XMFLOAT4), "RGBASpectrum/XMFLOAT4 mismatch");
+	
+	//-------------------------------------------------------------------------
+	// XYZASpectrum
+	//-------------------------------------------------------------------------
+
+	/**
+	 A struct of XYZA color spectra.
+	 */
+	struct XYZASpectrum final : public XMFLOAT4 {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a XYZA spectrum from the given spectrum components.
+
+		 @param[in]		xyza
+						The x, y and z and alpha component.
+		 */
+		explicit XYZASpectrum(float xyza = 0.0f) noexcept
+			: XYZASpectrum(xyza, xyza, xyza, xyza) {}
+		
+		/**
+		 Constructs a XYZA spectrum from the given spectrum components.
+
+		 @param[in]		x
+						The x component.
+		 @param[in]		y
+						The y component.
+		 @param[in]		z
+						The z component.
+		 @param[in]		a
+						The alpha component.
+		 */
+		explicit XYZASpectrum(float x, float y, float z, float a = 1.0f) noexcept
+			: XMFLOAT4(x, y, z, a) {}
+
+		/**
+		 Constructs a XYZA spectrum from the given XYZA spectrum.
+
+		 @param[in]		xyza
+						A reference to the XYZA spectrum to copy.
+		 */
+		XYZASpectrum(const XYZASpectrum &xyza) = default;
+		
+		/**
+		 Constructs a XYZA spectrum by moving the given XYZA spectrum.
+
+		 @param[in]		xyza
+						A reference to the XYZA spectrum to move.
+		 */
+		XYZASpectrum(XYZASpectrum &&xyza) noexcept = default;
+		
+		/**
+		 Constructs a XYZA spectrum from the given XYZ spectrum.
+
+		 @param[in]		xyz
+						A reference to the XYZ spectrum.
+		 @param[in]		a
+						The alpha component.
+		 */
+		explicit XYZASpectrum(const XYZSpectrum &xyz, float a = 1.0f) noexcept
+			: XYZASpectrum(xyz.x, xyz.y, xyz.z, a) {}
+
+		/**
+		 Constructs a XYZA spectrum from the given RGB spectrum.
+
+		 @param[in]		rgb
+						A reference to the RGB spectrum.
+		 @param[in]		a
+						The alpha component.
+		 */
+		explicit XYZASpectrum(const RGBSpectrum &rgb, float a = 1.0f) noexcept 
+			: XYZASpectrum(XYZSpectrum(rgb), a) {}
+
+		/**
+		 Constructs a XYZA spectrum from the given components.
+
+		 @param[in]		v
+						A reference to the components to copy.
+		 @param[in]		a
+						The alpha component.
+		 */
+		explicit XYZASpectrum(const XMFLOAT3 &v, float a = 1.0f) noexcept
+			: XYZASpectrum(v.x, v.y, v.z, a) {}
+
+		/**
+		 Constructs a XYZA spectrum from the given components.
+
+		 @param[in]		v
+						A reference to the components to copy.
+		 */
+		explicit XYZASpectrum(const XMFLOAT4 &v) noexcept
+			: XMFLOAT4(v) {}
+
+		/**
+		 Constructs a XYZA spectrum by moving the given components.
+
+		 @param[in]		v
+						A reference to the components to move.
+		 */
+		explicit XYZASpectrum(XMFLOAT4 &&v) noexcept
+			: XMFLOAT4(std::move(v)) {}
+
+		/**
+		 Destructs this XYZA spectrum.
+		 */
+		~XYZASpectrum() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------	
+
+		/**
+		 Copies the given XYZA spectrum to this XYZA spectrum.
+
+		 @param[in]		xyza
+						A reference to the XYZA spectrum to copy.
+		 @return		A reference to the copy of the given XYZA spectrum
+						(i.e. this XYZA spectrum).
+		 */
+		XYZASpectrum &operator=(const XYZASpectrum &xyza) = default;
+
+		/**
+		 Moves the given XYZA spectrum to this XYZA spectrum.
+
+		 @param[in]		xyza
+						A reference to the XYZA spectrum to move.
+		 @return		A reference to the moved XYZA spectrum
+						(i.e. this XYZA spectrum).
+		 */
+		XYZASpectrum &operator=(XYZASpectrum &&xyza) = default;
+	};
+
+	static_assert(sizeof(XYZASpectrum) == sizeof(XMFLOAT4), "XYZASpectrum/XMFLOAT4 mismatch");
 }

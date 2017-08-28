@@ -40,7 +40,7 @@ namespace mage {
 						(the globally unique identifier).
 		 @param[in]		desc
 						A reference to the mesh descriptor.
-		 @param[in]		export_to_mdl
+		 @param[in]		export_as_MDL
 						@c true if the model descriptor needs to be
 						exported as MDL file. @c false otherwise.
 		 @throws		FormattedException
@@ -66,7 +66,7 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		desc
 						A reference to the mesh descriptor.
-		 @param[in]		export_to_mdl
+		 @param[in]		export_as_MDL
 						@c true if the model descriptor needs to be
 						exported as MDL file. @c false otherwise.
 		 @throws		FormattedException

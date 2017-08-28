@@ -195,7 +195,7 @@ namespace mage {
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
 						- @a slot).
-		 @param[in]		buffer
+		 @param[in]		buffers
 						A pointer to an array of constant buffers.
 		 */
 		static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,
@@ -411,7 +411,7 @@ namespace mage {
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
 						- @a slot).
-		 @param[in]		buffer
+		 @param[in]		buffers
 						A pointer to an array of constant buffers.
 		 */
 		static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,
@@ -659,7 +659,7 @@ namespace mage {
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
 						- @a slot).
-		 @param[in]		buffer
+		 @param[in]		buffers
 						A pointer to an array of constant buffers.
 		 */
 		static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,
@@ -875,7 +875,7 @@ namespace mage {
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
 						- @a slot).
-		 @param[in]		buffer
+		 @param[in]		buffers
 						A pointer to an array of constant buffers.
 		 */
 		static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,
@@ -1188,7 +1188,7 @@ namespace mage {
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
 						- @a slot).
-		 @param[in]		buffer
+		 @param[in]		buffers
 						A pointer to an array of constant buffers.
 		 */
 		static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,
@@ -1497,7 +1497,7 @@ namespace mage {
 						The number of constant buffers in the array (ranges from 
 						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
 						- @a slot).
-		 @param[in]		buffer
+		 @param[in]		buffers
 						A pointer to an array of constant buffers.
 		 */
 		static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,

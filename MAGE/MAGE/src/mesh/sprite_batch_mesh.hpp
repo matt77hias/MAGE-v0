@@ -172,7 +172,7 @@ namespace mage {
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@a mapped_buffer is not equal to @c nullptr.
-		 @param[in]		device
+		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		map_type
 						The map type specifying the CPU's read and write permissions
@@ -193,7 +193,7 @@ namespace mage {
 						{@link mage::SpriteBatchMesh::MapVertexBuffer(
 						D3D11_MAP, D3D11_MAPPED_SUBRESOURCE *)} 
 						before it can be unmapped.
-		 @param[in]		device
+		 @param[in]		device_context
 						A pointer to the device context.
 		 */
 		void UnmapVertexBuffer(ID3D11DeviceContext2 *device_context);

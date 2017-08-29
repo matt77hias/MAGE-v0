@@ -69,3 +69,14 @@ struct PSInputPositionNormalTexture {
 	float2 tex    : TEXCOORD0;
 	float2 tex2   : TEXCOORD1;
 };
+
+//-----------------------------------------------------------------------------
+// PS Output Structures
+//-----------------------------------------------------------------------------
+
+struct PSOutputDeferred {
+	float3 p_view : SV_Target0;
+	float3 n_view : SV_Target1;
+	float4 Kd     : SV_Target2;
+	float4 KsNs   : SV_Target3;
+};

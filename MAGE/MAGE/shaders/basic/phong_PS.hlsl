@@ -1,2 +1,2 @@
 #define SPECULAR_BRDFxCOS PhongBRDFxCos
-#include "basic.fx"
+#include "forward.fx"

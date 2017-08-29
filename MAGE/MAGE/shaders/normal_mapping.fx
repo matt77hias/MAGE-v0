@@ -8,6 +8,10 @@
 //-----------------------------------------------------------------------------
 #include "math.fx"
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
+
 // Returns the perturbed normal.
 float3 TangentSpaceNormalMapping_PerturbNormal(float3 p, float3 n, float2 tex) {
 	// Calculates the edge differences.

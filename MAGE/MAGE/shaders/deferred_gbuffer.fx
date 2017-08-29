@@ -42,21 +42,8 @@ Texture2D g_normal_texture   : register(t2);
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
+#include "transform.fx"
 #include "normal_mapping.fx"
-
-//-----------------------------------------------------------------------------
-// Vertex Shader
-//-----------------------------------------------------------------------------
-PSInputPositionNormalTexture VS(VSInputPositionNormalTexture input) {
-	PSInputPositionNormalTexture output;
-	output.p      = mul(float4(input.p, 1.0f), g_object_to_view);
-	output.p_view = output.p.xyz;
-	output.p      = mul(output.p, g_view_to_projection);
-	output.n_view = normalize(mul(input.n, (float3x3)g_normal_to_view));
-	output.tex    = mul(float3(input.tex, 1.0f), (float3x3)g_texture_transform).xy;
-	output.tex2   = input.tex;
-	return output;
-}
 
 //-----------------------------------------------------------------------------
 // Pixel Shaders

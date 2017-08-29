@@ -3,6 +3,10 @@
 // Requires global variable: g_material_parameters
 //-----------------------------------------------------------------------------
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
+
 // Calculates the dot product of two unit vectors and clamps negative values to 0. 
 float sat_dot(float3 x, float3 y) {
 	return saturate(dot(x, y));

@@ -1348,6 +1348,9 @@
     <FxCompile Include="MAGE\shaders\deferred.fx">
       <Filter>Shader Files</Filter>
     </FxCompile>
+    <FxCompile Include="MAGE\shaders\transform.fx">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\memory\memory_arena.tpp">

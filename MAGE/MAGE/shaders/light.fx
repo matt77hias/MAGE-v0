@@ -1,3 +1,7 @@
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
+
 struct DirectionalLight {
 	// The intensity of this spotlight .
 	float3 I;

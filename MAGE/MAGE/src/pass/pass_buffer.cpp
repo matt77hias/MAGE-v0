@@ -53,7 +53,6 @@ namespace mage {
 		m_ambient_light = RGBSpectrum();
 		scene->ForEachAmbientLight([this](const AmbientLightNode *node) {
 			m_ambient_light = node->GetLight()->GetIntensity();
-			return;
 		});
 	
 		// Collect active directional lights.

@@ -75,6 +75,9 @@ namespace mage {
 		spot_light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
 		camera->AddChildNode(spot_light);
 
+		//auto ambient_light = Create< AmbientLightNode >("light");
+		//ambient_light->GetLight()->SetIntensity(RGBSpectrum(0.5f));
+
 		//---------------------------------------------------------------------
 		// Texture
 		//---------------------------------------------------------------------

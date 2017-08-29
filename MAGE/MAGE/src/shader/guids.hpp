@@ -23,6 +23,8 @@
 #define MAGE_GUID_VS_SHADING_NORMAL            L"mage_shading_normal_vs"
 #define MAGE_GUID_PS_SHADING_NORMAL            L"mage_shading_normal_ps"
 #define MAGE_GUID_PS_TSNM_SHADING_NORMAL       L"mage_tsnm_shading_normal_ps"
+#define MAGE_GUID_VS_BOUNDING_VOLUME           L"mage_bounding_volume_vs"
+#define MAGE_GUID_PS_BOUNDING_VOLUME           L"mage_bounding_volume_ps"
 
 #define MAGE_GUID_PS_TSNM_LAMBERTIAN           L"mage_tsnm_lambertian_ps"
 #define MAGE_GUID_PS_TSNM_PHONG                L"mage_tsnm_phong_ps"

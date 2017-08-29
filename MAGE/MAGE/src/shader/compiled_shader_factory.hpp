@@ -15,7 +15,7 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Factory Methods
+	// Factory Methods: ConstantShadingPass and VariableShadingPass
 	//-------------------------------------------------------------------------
 
 	/**
@@ -144,6 +144,10 @@ namespace mage {
 	 */
 	const BufferCompiledShader CreateCompiledCookTorranceTSNMPS() noexcept;
 
+	//-------------------------------------------------------------------------
+	// Factory Methods: SpritePass
+	//-------------------------------------------------------------------------
+
 	/**
 	 Returns the compiled sprite vertex shader.
 
@@ -157,6 +161,10 @@ namespace mage {
 	 @return		A buffer compiled sprite pixel shader.
 	 */
 	const BufferCompiledShader CreateCompiledSpritePS() noexcept;
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: ConstantComponentPass and VariableComponentPass
+	//-------------------------------------------------------------------------
 
 	/**
 	 Returns the compiled minimal transform vertex shader.
@@ -186,6 +194,10 @@ namespace mage {
 	 */
 	const BufferCompiledShader CreateCompiledDistancePS() noexcept;
 
+	//-------------------------------------------------------------------------
+	// Factory Methods: ShadingNormalPass
+	//-------------------------------------------------------------------------
+
 	/**
 	 Returns the compiled shading normal vertex shader.
 
@@ -206,4 +218,22 @@ namespace mage {
 	 @return		A buffer compiled tsnm shading normal pixel shader.
 	 */
 	const BufferCompiledShader CreateCompiledShadingNormalTSNMPS() noexcept;
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: WireframePass
+	//-------------------------------------------------------------------------
+
+	/**
+	 Returns the compiled bounding volume vertex shader.
+
+	 @return		A buffer compiled bounding volume vertex shader.
+	 */
+	const BufferCompiledShader CreateCompiledBoundingVolumeVS() noexcept;
+
+	/**
+	 Returns the compiled bounding volume pixel shader.
+
+	 @return		A buffer compiled bounding volume pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledBoundingVolumePS() noexcept;
 }

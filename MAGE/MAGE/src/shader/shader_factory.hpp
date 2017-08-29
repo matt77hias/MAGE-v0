@@ -17,7 +17,7 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Factory Methods
+	// Factory Methods: ConstantShadingPass and VariableShadingPass
 	//-------------------------------------------------------------------------
 
 	/**
@@ -246,6 +246,10 @@ namespace mage {
 	 */
 	SharedPtr< const PixelShader > CreateTSNMPS(BRDFType brdf);
 
+	//-------------------------------------------------------------------------
+	// Factory Methods: SpritePass
+	//-------------------------------------------------------------------------
+
 	/**
 	 Creates a sprite vertex shader.
 
@@ -267,6 +271,10 @@ namespace mage {
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateSpritePS();
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: ConstantComponentPass and VariableComponentPass
+	//-------------------------------------------------------------------------
 
 	/**
 	 Creates a minimal transform vertex shader.
@@ -312,6 +320,10 @@ namespace mage {
 	 */
 	SharedPtr< const PixelShader > CreateDistancePS() noexcept;
 
+	//-------------------------------------------------------------------------
+	// Factory Methods: ShadingNormalPass
+	//-------------------------------------------------------------------------
+
 	/**
 	 Creates a shading normal vertex shader.
 
@@ -345,4 +357,30 @@ namespace mage {
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateShadingNormalTSNMPS() noexcept;
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: WireframePass
+	//-------------------------------------------------------------------------
+
+	/**
+	 Creates a bounding volume vertex shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the bounding volume vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateBoundingVolumeVS() noexcept;
+
+	/**
+	 Creates a bounding volume pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the bounding volume pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateBoundingVolumePS() noexcept;
 }

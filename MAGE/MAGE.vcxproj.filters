@@ -897,6 +897,12 @@
     <ClInclude Include="MAGE\src\math\texture_transform.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\bounding_volume_PS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\bounding_volume_VS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1350,6 +1356,12 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\transform.fx">
       <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\miscellaneous\bounding_volume_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\miscellaneous\bounding_volume_VS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

@@ -15,6 +15,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Factory Methods: ConstantShadingPass and VariableShadingPass
+	//-------------------------------------------------------------------------
+
 	SharedPtr< const VertexShader > CreateTransformVS() {
 		const BufferCompiledShader cs = CreateCompiledTransformVS();
 		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_TRANSFORM, &cs,
@@ -151,6 +155,10 @@ namespace mage {
 		}
 	}
 
+	//-------------------------------------------------------------------------
+	// Factory Methods: SpritePass
+	//-------------------------------------------------------------------------
+
 	SharedPtr< const VertexShader > CreateSpriteVS() {
 		const BufferCompiledShader cs = CreateCompiledSpriteVS();
 		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_SPRITE, &cs,
@@ -162,6 +170,10 @@ namespace mage {
 		const BufferCompiledShader cs = CreateCompiledSpritePS();
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_SPRITE, &cs);
 	}
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: ConstantComponentPass and VariableComponentPass
+	//-------------------------------------------------------------------------
 
 	SharedPtr< const VertexShader > CreateMinimalTransformVS() noexcept {
 		const BufferCompiledShader cs = CreateCompiledMinimalTransformVS();
@@ -185,6 +197,10 @@ namespace mage {
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DISTANCE, &cs);
 	}
 
+	//-------------------------------------------------------------------------
+	// Factory Methods: ShadingNormalPass
+	//-------------------------------------------------------------------------
+
 	SharedPtr< const VertexShader > CreateShadingNormalVS() noexcept {
 		const BufferCompiledShader cs = CreateCompiledShadingNormalVS();
 		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_SHADING_NORMAL, &cs,
@@ -200,5 +216,21 @@ namespace mage {
 	SharedPtr< const PixelShader > CreateShadingNormalTSNMPS() noexcept {
 		const BufferCompiledShader cs = CreateCompiledShadingNormalTSNMPS();
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_TSNM_SHADING_NORMAL, &cs);
+	}
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: WireframePass
+	//-------------------------------------------------------------------------
+
+	SharedPtr< const VertexShader > CreateBoundingVolumeVS() noexcept {
+		const BufferCompiledShader cs = CreateCompiledBoundingVolumeVS();
+		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_BOUNDING_VOLUME, &cs,
+								VertexPosition::s_input_element_desc,
+								VertexPosition::s_nb_input_elements);
+	}
+
+	SharedPtr< const PixelShader > CreateBoundingVolumePS() noexcept {
+		const BufferCompiledShader cs = CreateCompiledBoundingVolumePS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_BOUNDING_VOLUME, &cs);
 	}
 }

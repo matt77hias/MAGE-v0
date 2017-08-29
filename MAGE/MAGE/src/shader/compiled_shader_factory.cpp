@@ -23,6 +23,8 @@
 #include "shader\cso\miscellaneous\shading_normal_VS.hpp"
 #include "shader\cso\miscellaneous\shading_normal_PS.hpp"
 #include "shader\cso\miscellaneous\tsnm_shading_normal_PS.hpp"
+#include "shader\cso\miscellaneous\bounding_volume_VS.hpp"
+#include "shader\cso\miscellaneous\bounding_volume_PS.hpp"
 
 #include "shader\cso\tsnm\tsnm_lambertian_PS.hpp"
 #include "shader\cso\tsnm\tsnm_phong_PS.hpp"
@@ -42,6 +44,10 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: ConstantShadingPass and VariableShadingPass
+	//-------------------------------------------------------------------------
 
 	const BufferCompiledShader CreateCompiledTransformVS() noexcept {
 		return BufferCompiledShader(g_transform_vs, sizeof(g_transform_vs));
@@ -115,6 +121,10 @@ namespace mage {
 		return BufferCompiledShader(g_tsnm_cook_torrance_ps, sizeof(g_tsnm_cook_torrance_ps));
 	}
 
+	//-------------------------------------------------------------------------
+	// Factory Methods: SpritePass
+	//-------------------------------------------------------------------------
+
 	const BufferCompiledShader CreateCompiledSpriteVS() noexcept {
 		return BufferCompiledShader(g_sprite_vs, sizeof(g_sprite_vs));
 	}
@@ -122,6 +132,10 @@ namespace mage {
 	const BufferCompiledShader CreateCompiledSpritePS() noexcept {
 		return BufferCompiledShader(g_sprite_ps, sizeof(g_sprite_ps));
 	}
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: ConstantComponentPass and VariableComponentPass
+	//-------------------------------------------------------------------------
 
 	const BufferCompiledShader CreateCompiledMinimalTransformVS() noexcept {
 		return BufferCompiledShader(g_minimal_transform_vs, sizeof(g_minimal_transform_vs));
@@ -139,6 +153,10 @@ namespace mage {
 		return BufferCompiledShader(g_distance_ps, sizeof(g_distance_ps));
 	}
 
+	//-------------------------------------------------------------------------
+	// Factory Methods: ShadingNormalPass
+	//-------------------------------------------------------------------------
+
 	const BufferCompiledShader CreateCompiledShadingNormalVS() noexcept {
 		return BufferCompiledShader(g_shading_normal_vs, sizeof(g_shading_normal_vs));
 	}
@@ -149,5 +167,17 @@ namespace mage {
 
 	const BufferCompiledShader CreateCompiledShadingNormalTSNMPS() noexcept {
 		return BufferCompiledShader(g_tsnm_shading_normal_ps, sizeof(g_tsnm_shading_normal_ps));
+	}
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: WireframePass
+	//-------------------------------------------------------------------------
+
+	const BufferCompiledShader CreateCompiledBoundingVolumeVS() noexcept {
+		return BufferCompiledShader(g_bounding_volume_vs, sizeof(g_bounding_volume_vs));
+	}
+
+	const BufferCompiledShader CreateCompiledBoundingVolumePS() noexcept {
+		return BufferCompiledShader(g_bounding_volume_ps, sizeof(g_bounding_volume_ps));
 	}
 }

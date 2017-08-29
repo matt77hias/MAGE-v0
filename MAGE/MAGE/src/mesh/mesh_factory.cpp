@@ -15,15 +15,15 @@ namespace mage {
 
 	UniquePtr< const StaticMesh > CreateLineCube() {
 
-		static const VertexPositionNormalTexture vertices[8] = {
-			VertexPositionNormalTexture(Point3(-0.5, -0.5, -0.5), Normal3(), UV()),
-			VertexPositionNormalTexture(Point3(-0.5, -0.5,  0.5), Normal3(), UV()),
-			VertexPositionNormalTexture(Point3(-0.5,  0.5, -0.5), Normal3(), UV()),
-			VertexPositionNormalTexture(Point3(-0.5,  0.5,  0.5), Normal3(), UV()),
-			VertexPositionNormalTexture(Point3( 0.5, -0.5, -0.5), Normal3(), UV()),
-			VertexPositionNormalTexture(Point3( 0.5, -0.5,  0.5), Normal3(), UV()),
-			VertexPositionNormalTexture(Point3( 0.5,  0.5, -0.5), Normal3(), UV()),
-			VertexPositionNormalTexture(Point3( 0.5,  0.5,  0.5), Normal3(), UV())
+		static const VertexPosition vertices[8] = {
+			VertexPosition(Point3(-0.5, -0.5, -0.5)),
+			VertexPosition(Point3(-0.5, -0.5,  0.5)),
+			VertexPosition(Point3(-0.5,  0.5, -0.5)),
+			VertexPosition(Point3(-0.5,  0.5,  0.5)),
+			VertexPosition(Point3( 0.5, -0.5, -0.5)),
+			VertexPosition(Point3( 0.5, -0.5,  0.5)),
+			VertexPosition(Point3( 0.5,  0.5, -0.5)),
+			VertexPosition(Point3( 0.5,  0.5,  0.5))
 		};
 
 		static const uint16_t indices[24] = {

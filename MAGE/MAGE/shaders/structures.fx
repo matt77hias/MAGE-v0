@@ -56,6 +56,10 @@ struct VSInputPositionTextureTexture {
 // PS Input Structures
 //-----------------------------------------------------------------------------
 
+struct PSInputPosition {
+	float4 p      : SV_POSITION;
+};
+
 struct PSInputPositionColorTexture {
 	float4 p      : SV_POSITION;
 	float4 color  : COLOR0;

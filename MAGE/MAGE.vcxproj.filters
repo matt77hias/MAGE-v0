@@ -1217,9 +1217,6 @@
     <ClCompile Include="MAGE\src\rendering\pipeline.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\rendering.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\script\rotation_script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>

@@ -14,6 +14,29 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Integrated + Dedicated GPU on notebooks  
+//-----------------------------------------------------------------------------
+#pragma region
+
+/**
+ NVIDIA Optimus enablement
+
+ @pre NVIDIA Control Panel > Preferred graphics processor > "Auto-select"
+ */
+extern "C" {
+	__declspec(dllexport) DWORD NvOptimusEnablement;
+}
+
+/**
+ AMD "Optimus" enablement
+ */
+extern "C" {
+	__declspec(dllexport) int AmdPowerXpressRequestHighPerformance;
+}
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {

@@ -200,7 +200,7 @@ namespace mage {
 			const DirectionalLight * const light     = node->GetLight();
 
 			// Transform to view space.
-			const XMVECTOR d = XMVector3TransformNormal(transform->GetWorldForward(), world_to_view);
+			const XMVECTOR d = XMVector3Normalize(XMVector3TransformNormal(transform->GetWorldForward(), world_to_view));
 
 			// Create a directional light buffer.
 			DirectionalLightBuffer light_buffer;
@@ -280,8 +280,8 @@ namespace mage {
 			}
 
 			// Transform to view space.
-			const XMVECTOR p = XMVector3TransformCoord( transform->GetWorldEye(),     world_to_view);
-			const XMVECTOR d = XMVector3TransformNormal(transform->GetWorldForward(), world_to_view);
+			const XMVECTOR p = XMVector3TransformCoord(transform->GetWorldEye(), world_to_view);
+			const XMVECTOR d = XMVector3Normalize(XMVector3TransformNormal(transform->GetWorldForward(), world_to_view));
 
 			// Create a spotlight buffer.
 			SpotLightBuffer light_buffer;

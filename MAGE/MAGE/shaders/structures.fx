@@ -79,8 +79,7 @@ struct PSInputPositionNormalTexture {
 //-----------------------------------------------------------------------------
 
 struct PSOutputDeferred {
-	float3 p_view : SV_Target0;
-	float3 n_view : SV_Target1;
-	float4 Kd     : SV_Target2;
-	float4 KsNs   : SV_Target3;
+	float4 n_view : SV_Target0;
+	float4 Kd     : SV_Target1;
+	float4 KsNs   : SV_Target2;
 };

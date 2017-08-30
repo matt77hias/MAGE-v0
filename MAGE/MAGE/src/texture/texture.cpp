@@ -42,13 +42,13 @@ namespace mage {
 		const HRESULT result_resource = device->CreateTexture2D(
 			desc, initial_data, texture.ReleaseAndGetAddressOf());
 		if (FAILED(result_resource)) {
-			throw FormattedException("Texture creation failed: %08X.", result_resource);
+			throw FormattedException("Texture 2D creation failed: %08X.", result_resource);
 		}
 
 		const HRESULT result_srv = device->CreateShaderResourceView(
 			texture.Get(), nullptr, m_texture_srv.ReleaseAndGetAddressOf());
 		if (FAILED(result_srv)) {
-			throw FormattedException("Texture shader resource view creation failed: %08X.", result_srv);
+			throw FormattedException("Texture SRV creation failed: %08X.", result_srv);
 		}
 	}
 

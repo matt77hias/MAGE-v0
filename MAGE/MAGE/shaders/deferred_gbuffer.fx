@@ -1,6 +1,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
+#include "math.fx"
 #include "structures.fx"
 
 //-----------------------------------------------------------------------------
@@ -23,8 +24,8 @@ cbuffer PerDraw : register(b1) {
 	float4 g_Kd                        : packoffset(c12);
 	// The specular reflectivity of the material.
 	float3 g_Ks                        : packoffset(c13);
-	// The specular exponent of the material.
-	float g_Ns                         : packoffset(c13.w);
+	// The normalized specular exponent of the material.
+	float g_Ns_norm                    : packoffset(c13.w);
 }
 
 //-----------------------------------------------------------------------------
@@ -49,23 +50,24 @@ Texture2D g_normal_texture   : register(t2);
 // Pixel Shaders
 //-----------------------------------------------------------------------------
 PSOutputDeferred Basic_PS(PSInputPositionNormalTexture input) {
+	const float3 n_view = normalize(input.n_view);
+	
 	PSOutputDeferred output;
-	output.p_view   = input.p_view;
-	output.n_view   = normalize(input.n_view);
+	output.n_view   = BiasX2(n_view);
 	output.Kd       = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex);
 	output.KsNs.xyz = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
-	output.KsNs.w   = g_Ns;
+	output.KsNs.w   = g_Ns_norm;
 	return output;
 }
 
 PSOutputDeferred TangentSpaceNormalMapping_PS(PSInputPositionNormalTexture input) {
-	const float3 n0 = normalize(input.n_view);
+	const float3 n0     = normalize(input.n_view);
+	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2);
 	
 	PSOutputDeferred output;
-	output.p_view   = input.p_view;
-	output.n_view   = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2);
+	output.n_view   = BiasX2(n_view);
 	output.Kd       = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex);
 	output.KsNs.xyz = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
-	output.KsNs.w   = g_Ns;
+	output.KsNs.w   = g_Ns_norm;
 	return output;
 }

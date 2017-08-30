@@ -178,7 +178,7 @@ namespace mage {
 		// Create the render target view.
 		const HRESULT result_render_target_view = m_device->CreateRenderTargetView(back_buffer.Get(), nullptr, m_rtv.ReleaseAndGetAddressOf());
 		if (FAILED(result_render_target_view)) {
-			throw FormattedException("ID3D11RenderTargetView creation failed: %08X.", result_render_target_view);
+			throw FormattedException("RTV creation failed: %08X.", result_render_target_view);
 		}
 	}
 
@@ -200,7 +200,7 @@ namespace mage {
 		ComPtr< ID3D11Texture2D > depth_stencil;
 		const HRESULT result_depth_stencil = m_device->CreateTexture2D(&depth_stencil_desc, nullptr, depth_stencil.ReleaseAndGetAddressOf());
 		if (FAILED(result_depth_stencil)) {
-			throw FormattedException("Depth-stencil texture creation failed: %08X.", result_depth_stencil);
+			throw FormattedException("DSV texture creation failed: %08X.", result_depth_stencil);
 		}
 
 		// Create the depth stencil view descriptor.
@@ -214,7 +214,7 @@ namespace mage {
 		// Create a depth stencil view.
 		const HRESULT result_dsv = m_device->CreateDepthStencilView(depth_stencil.Get(), &dsv_desc, m_dsv.ReleaseAndGetAddressOf());
 		if (FAILED(result_dsv)) {
-			throw FormattedException("Depth-stencil view creation failed: %08X.", result_dsv);
+			throw FormattedException("DSV creation failed: %08X.", result_dsv);
 		}
 	}
 

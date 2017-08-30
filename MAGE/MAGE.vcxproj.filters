@@ -256,6 +256,9 @@
     <Filter Include="Header Files\shader\cso\miscellaneous">
       <UniqueIdentifier>{e05475c3-d882-4edd-8b47-3cdbaedb69ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\buffer">
+      <UniqueIdentifier>{40d32902-d3fe-46ad-8b24-0d9fcc8f04c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -903,6 +906,9 @@
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\bounding_volume_VS.hpp">
       <Filter>Header Files\shader\cso\miscellaneous</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\gbuffer.hpp">
+      <Filter>Header Files\buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1243,6 +1249,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\pass\sprite_pass.cpp">
       <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\buffer\gbuffer.cpp">
+      <Filter>Source Files\buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -24,12 +24,12 @@ namespace mage {
 
 	inline D3D11_TEXTURE2D_DESC CreateSingleColorTexture2DDesc() noexcept {
 		D3D11_TEXTURE2D_DESC texture_desc = {};
-		texture_desc.Width              = 1;
-		texture_desc.Height             = 1;
-		texture_desc.MipLevels          = 1;
-		texture_desc.ArraySize          = 1;
+		texture_desc.Width              = 1u;
+		texture_desc.Height             = 1u;
+		texture_desc.MipLevels          = 1u;
+		texture_desc.ArraySize          = 1u;
 		texture_desc.Format             = DXGI_FORMAT_B8G8R8X8_UNORM;
-		texture_desc.SampleDesc.Count   = 1;
+		texture_desc.SampleDesc.Count   = 1u;
 		texture_desc.Usage              = D3D11_USAGE_IMMUTABLE;
 		texture_desc.BindFlags          = D3D11_BIND_SHADER_RESOURCE;
 		return texture_desc;

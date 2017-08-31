@@ -107,19 +107,19 @@ namespace mage {
 
 		// Create the swap chain.
 		CreateSwapChain();
-		// Create and binds the RTV and DSV.
+		// Create and bind the RTV and DSV.
 		CreateRTV();
 		CreateDSV();
-		OM::BindRTVAndDSV(m_device_context.Get(), m_rtv.Get(), m_dsv.Get());
+		BindRTVAndDSV();
 	}
 
 	void Renderer::ResetSwapChain() {
 		// Recreate the swap chain buffers.
 		m_swap_chain->ResizeBuffers(0u, 0u, 0u, DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
-		// Create and binds the RTV and DSV.
+		// Create and bind the RTV and DSV.
 		CreateRTV();
 		CreateDSV();
-		OM::BindRTVAndDSV(m_device_context.Get(), m_rtv.Get(), m_dsv.Get());
+		BindRTVAndDSV();
 	}
 
 	void Renderer::CreateSwapChain() {
@@ -215,43 +215,31 @@ namespace mage {
 		}
 	}
 
-	void Renderer::BeginFrame() {
+	void Renderer::BindRTVAndDSV() const noexcept {
+		OM::BindRTVAndDSV(m_device_context.Get(), m_rtv.Get(), m_dsv.Get());
+	}
+
+	void Renderer::BeginFrame() noexcept {
 		Assert(!m_in_begin_end_pair);
 
-		static const XMVECTORF32 background_color = { 0.0f, 0.117647058f, 0.149019608f, 1.000000000f };
+		static const XMVECTORF32 background_color 
+			= { 0.0f, 0.117647058f, 0.149019608f, 1.000000000f };
 
 		// Clear the back buffer.
-		m_device_context->ClearRenderTargetView(m_rtv.Get(), background_color);
+		OM::ClearRTV(m_device_context.Get(), m_rtv.Get(), background_color);
 		// Clear the depth buffer to 1.0 (i.e. max depth).
 		// Clear the stencil buffer to 0.
-		m_device_context->ClearDepthStencilView(m_dsv.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0u);
+		OM::ClearDSV(m_device_context.Get(), m_dsv.Get());
 
 		m_in_begin_end_pair = true;
 	}
 
-	void Renderer::EndFrame() {
+	void Renderer::EndFrame() noexcept {
 		Assert(m_in_begin_end_pair);
 
 		// Present the back buffer to the front buffer.
 		const UINT sync_interval = (m_display_configuration->IsVSynced()) ? 1u : 0u;
 		m_swap_chain->Present(sync_interval, 0u);
-
-		m_in_begin_end_pair = false;
-	}
-
-	void Renderer::BeginTextures(UINT nb_rtvs, 
-		ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv) {
-		Assert(!m_in_begin_end_pair);
-
-		OM::BindRTVsAndDSV(m_device_context.Get(), nb_rtvs, rtvs, dsv);
-
-		m_in_begin_end_pair = true;
-	}
-
-	void Renderer::EndTextures() {
-		Assert(m_in_begin_end_pair);
-
-		OM::BindRTVAndDSV(m_device_context.Get(), m_rtv.Get(), m_dsv.Get());
 
 		m_in_begin_end_pair = false;
 	}

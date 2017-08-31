@@ -229,56 +229,27 @@ namespace mage {
 		void SwitchMode(bool toggle);
 
 		//---------------------------------------------------------------------
-		// Member Methods: Render to Frame
+		// Member Methods: Rendering
 		//---------------------------------------------------------------------
+
+		/**
+		 Binds the RTV and DSV of this renderer.
+		 */
+		void BindRTVAndDSV() const noexcept;
 
 		/**
 		 Begins the rendering of the current frame.
 
 		 @pre			This renderer is not inside a begin/end pair.
 		 */
-		void BeginFrame();
+		void BeginFrame() noexcept;
 
 		/**
 		 Ends the rendering of the current frame.
 
 		 @pre			This renderer is inside a begin/end pair.
 		 */
-		void EndFrame();
-
-		//---------------------------------------------------------------------
-		// Member Methods: Render to Texture(s)
-		//---------------------------------------------------------------------
-
-		/**
-		 Begins the rendering to the given render target views and 
-		 depth stencil views.
-
-		 @pre			This renderer is not inside a begin/end pair.
-		 @pre			If @a nb_rtvs is equal to zero, 
-						@a rtvs is equal to @c nullptr.
-		 @pre			If @a nb_rtvs is not equal to zero,
-		 @pre			@a rtvs points to an array containing at least
-						@a nb_rtvs render target views.
-		 @param[in]		nb_rtvs
-						The number of render target views.
-		 @param[in]		rtvs
-						A pointer to an array containing the render target views
-						to render to.
-		 @param[in]		dsv
-						A pointer to the depth stencil view.
-		 @note			The render target views and depth stencil view are not reset.
-		 */
-		void BeginTextures(UINT nb_rtvs,
-			ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv);
-
-		/**
-		 Ends the rendering to render target views and 
-		 depth stencil views.
-
-		 @pre			This renderer is inside a begin/end pair.
-		 */
-		void EndTextures();
+		void EndFrame() noexcept;
 
 	private:
 

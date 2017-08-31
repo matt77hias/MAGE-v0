@@ -40,15 +40,15 @@ namespace mage {
 	}
 
 	void GBuffer::ClearRTVsAndDSV(ID3D11DeviceContext2 *device_context) noexcept {
-		static const FLOAT color[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+		static const FLOAT color[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 		
 		// Clear the RTVs.
 		for (UINT i = 0; i < GetNumberOfRTVs(); ++i) {
-			device_context->ClearRenderTargetView(m_rtvs[i].Get(), color);
+			OM::ClearRTV(device_context, m_rtvs[i].Get(), color);
 		}
 
 		// Clear the DSV.
-		device_context->ClearDepthStencilView(m_dsv.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+		OM::ClearDepthOfDSV(device_context, m_dsv.Get());
 	}
 
 	void GBuffer::SetupBuffers(ID3D11Device2 *device) {

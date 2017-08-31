@@ -1389,6 +1389,27 @@ namespace mage {
 				nb_views, rtvs, dsv, uav_slot, nb_uavs, uavs, initial_counts);
 		}
 
+		static void ClearRTV(ID3D11DeviceContext2 *device_context,
+			ID3D11RenderTargetView *rtv, const FLOAT rgba[4]) noexcept {
+
+			device_context->ClearRenderTargetView(rtv, rgba);
+		}
+		static void ClearDSV(ID3D11DeviceContext2 *device_context,
+			ID3D11DepthStencilView *dsv, FLOAT depth = 1.0f, UINT8 stencil = 0u) noexcept {
+
+			device_context->ClearDepthStencilView(dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, depth, stencil);
+		}
+		static void ClearDepthOfDSV(ID3D11DeviceContext2 *device_context,
+			ID3D11DepthStencilView *dsv, FLOAT depth = 1.0f) noexcept {
+
+			device_context->ClearDepthStencilView(dsv, D3D11_CLEAR_DEPTH, depth, 0u);
+		}
+		static void ClearStencilOfDSV(ID3D11DeviceContext2 *device_context, 
+			ID3D11DepthStencilView *dsv, UINT8 stencil = 0u) noexcept {
+
+			device_context->ClearDepthStencilView(dsv, D3D11_CLEAR_STENCIL, 1.0f, stencil);
+		}
+
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------

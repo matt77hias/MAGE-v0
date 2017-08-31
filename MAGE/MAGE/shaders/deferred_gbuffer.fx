@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "math.fx"
 #include "structures.fx"
+#include "math.fx"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
@@ -53,10 +53,10 @@ PSOutputDeferred Basic_PS(PSInputPositionNormalTexture input) {
 	const float3 n_view = normalize(input.n_view);
 	
 	PSOutputDeferred output;
-	output.n_view   = BiasX2(n_view);
-	output.Kd       = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex);
-	output.KsNs.xyz = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
-	output.KsNs.w   = g_Ns_norm;
+	output.normal.xyz   = BiasX2(n_view);
+	output.diffuse      = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex);
+	output.specular.xyz = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
+	output.specular.w   = g_Ns_norm;
 	return output;
 }
 
@@ -65,9 +65,9 @@ PSOutputDeferred TangentSpaceNormalMapping_PS(PSInputPositionNormalTexture input
 	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2);
 	
 	PSOutputDeferred output;
-	output.n_view   = BiasX2(n_view);
-	output.Kd       = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex);
-	output.KsNs.xyz = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
-	output.KsNs.w   = g_Ns_norm;
+	output.normal.xyz   = BiasX2(n_view);
+	output.diffuse      = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex);
+	output.specular.xyz = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
+	output.specular.w   = g_Ns_norm;
 	return output;
 }

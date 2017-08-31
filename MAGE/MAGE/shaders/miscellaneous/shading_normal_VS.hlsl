@@ -30,7 +30,7 @@ PSInputPositionNormalTexture VS(VSInputPositionNormalTexture input) {
 	output.p_view = output.p.xyz;
 	output.p      = mul(output.p, g_view_to_projection);
 	output.n_view = normalize(mul(input.n, (float3x3)g_normal_to_world));
-	//output.tex  = mul(float3(input.tex, 1.0f), (float3x3)g_texture_transform).xy;
+	output.tex    = mul(float3(input.tex, 1.0f), (float3x3)g_texture_transform).xy;
 	output.tex2   = input.tex;
 	return output;
 }

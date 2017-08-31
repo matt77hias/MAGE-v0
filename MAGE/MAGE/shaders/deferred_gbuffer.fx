@@ -53,7 +53,8 @@ PSOutputDeferred Basic_PS(PSInputPositionNormalTexture input) {
 	const float3 n_view = normalize(input.n_view);
 	
 	PSOutputDeferred output;
-	output.normal.xyz   = BiasX2(n_view);
+	// [-1,1] -> [0,1]
+	output.normal.xyz   = InverseBiasX2(n_view);
 	output.diffuse      = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex);
 	output.specular.xyz = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
 	output.specular.w   = g_Ns_norm;
@@ -65,7 +66,8 @@ PSOutputDeferred TangentSpaceNormalMapping_PS(PSInputPositionNormalTexture input
 	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2);
 	
 	PSOutputDeferred output;
-	output.normal.xyz   = BiasX2(n_view);
+	// [-1,1] -> [0,1]
+	output.normal.xyz   = InverseBiasX2(n_view);
 	output.diffuse      = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex);
 	output.specular.xyz = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
 	output.specular.w   = g_Ns_norm;

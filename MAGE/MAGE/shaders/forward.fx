@@ -9,43 +9,43 @@
 //-----------------------------------------------------------------------------
 cbuffer PerFrame : register(b0) {
 	// The view-to-projection transformation matrix.
-	float4x4 g_view_to_projection      : packoffset(c0);
+	float4x4 g_view_to_projection          : packoffset(c0);
 	
 	// The intensity of the ambient light in the scene. 
-	float3 g_Ia                        : packoffset(c4);
+	float3 g_Ia                            : packoffset(c4);
 	// The global flags.
-	uint g_flags                       : packoffset(c4.w);
+	uint g_flags                           : packoffset(c4.w);
 	// The number of directional lights in the scene.
-	uint g_nb_directional_lights       : packoffset(c5.x);
+	uint g_nb_directional_lights           : packoffset(c5.x);
 	// The number of omni lights in the scene.
-	uint g_nb_omni_lights              : packoffset(c5.y);
+	uint g_nb_omni_lights                  : packoffset(c5.y);
 	// The number of spotlights in the scene.
-	uint g_nb_spot_lights              : packoffset(c5.z);
+	uint g_nb_spot_lights                  : packoffset(c5.z);
 	
 	// The distance at which intensity falloff starts due to fog.
-	float g_fog_distance_falloff_start : packoffset(c5.w);
+	float g_fog_distance_falloff_start     : packoffset(c5.w);
 	// The color of the fog.
-	float3 g_fog_color                 : packoffset(c6);
-	// The distance range where intensity falloff occurs due to fog.
-	float g_fog_distance_falloff_range : packoffset(c6.w);
+	float3 g_fog_color                     : packoffset(c6);
+	// The distance inverse range where intensity falloff occurs due to fog.
+	float g_fog_distance_falloff_inv_range : packoffset(c6.w);
 };
 
 cbuffer PerDraw : register(b1) {
 	// The object-to-view transformation matrix.
-	float4x4 g_object_to_view          : packoffset(c0);
+	float4x4 g_object_to_view              : packoffset(c0);
 	// The object-to-view inverse transpose transformation matrix
 	// = The normal-to-view transformation matrix.
-	float4x4 g_normal_to_view          : packoffset(c4);
+	float4x4 g_normal_to_view              : packoffset(c4);
 	// The texture transformation matrix.
-	float4x4 g_texture_transform       : packoffset(c8);
+	float4x4 g_texture_transform           : packoffset(c8);
 	// The diffuse reflectivity + dissolve of the material
-	float4 g_Kd                        : packoffset(c12);
+	float4 g_Kd                            : packoffset(c12);
 	// The specular reflectivity of the material.
-	float3 g_Ks                        : packoffset(c13);
+	float3 g_Ks                            : packoffset(c13);
 	// The specular exponent of the material.
-	float g_Ns                         : packoffset(c13.w);
+	float g_Ns                             : packoffset(c13.w);
 	// The extra material parameter of the material.
-	float4 g_material_parameters       : packoffset(c14);
+	float4 g_material_parameters           : packoffset(c14);
 }
 
 //-----------------------------------------------------------------------------
@@ -98,7 +98,7 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 	// Directional lights contribution
 	for (uint i = 0; i < g_nb_directional_lights; ++i) {
 		const DirectionalLight light = g_directional_lights[i];
-		const float3 l        = -light.d;
+		const float3 l        = light.neg_d;
 		const float3 I_light  = light.I;
 
 		const float fd = LambertianBRDFxCos(n, l);
@@ -151,7 +151,7 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 #endif
 
 #ifndef DISSABLE_FOG
-	const float fog_factor = saturate((r_eye - g_fog_distance_falloff_start) / g_fog_distance_falloff_range);
+	const float fog_factor = saturate((r_eye - g_fog_distance_falloff_start) * g_fog_distance_falloff_inv_range);
 	I.xyz = lerp(I.xyz, g_fog_color, fog_factor);
 #endif
 	

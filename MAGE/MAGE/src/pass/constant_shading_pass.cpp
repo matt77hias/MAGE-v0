@@ -146,7 +146,7 @@ namespace mage {
 
 			// Create a directional light buffer.
 			DirectionalLightBuffer light_buffer;
-			XMStoreFloat3(&light_buffer.m_d, d);
+			XMStoreFloat3(&light_buffer.m_neg_d, -d);
 			light_buffer.m_I = light->GetIntensity();
 
 			// Add directional light buffer to directional light buffers.
@@ -186,9 +186,9 @@ namespace mage {
 			// Create an omni light buffer.
 			OmniLightBuffer light_buffer;
 			XMStoreFloat3(&light_buffer.m_p, p);
-			light_buffer.m_I                      = light->GetIntensity();
-			light_buffer.m_distance_falloff_end   = light->GetEndDistanceFalloff();
-			light_buffer.m_distance_falloff_range = light->GetRangeDistanceFalloff();
+			light_buffer.m_I                          = light->GetIntensity();
+			light_buffer.m_distance_falloff_end       = light->GetEndDistanceFalloff();
+			light_buffer.m_distance_falloff_inv_range = 1.0f / light->GetRangeDistanceFalloff();
 
 			// Add omni light buffer to omni light buffers.
 			buffer.push_back(std::move(light_buffer));
@@ -228,13 +228,13 @@ namespace mage {
 			// Create a spotlight buffer.
 			SpotLightBuffer light_buffer;
 			XMStoreFloat3(&light_buffer.m_p, p);
-			XMStoreFloat3(&light_buffer.m_d, d);
-			light_buffer.m_I                      = light->GetIntensity();
-			light_buffer.m_exponent_property      = light->GetExponentProperty();
-			light_buffer.m_distance_falloff_end   = light->GetEndDistanceFalloff();
-			light_buffer.m_distance_falloff_range = light->GetRangeDistanceFalloff();
-			light_buffer.m_cos_umbra              = light->GetEndAngularCutoff();
-			light_buffer.m_cos_range              = light->GetRangeAngularCutoff();
+			XMStoreFloat3(&light_buffer.m_neg_d, -d);
+			light_buffer.m_I                          = light->GetIntensity();
+			light_buffer.m_exponent_property          = light->GetExponentProperty();
+			light_buffer.m_distance_falloff_end       = light->GetEndDistanceFalloff();
+			light_buffer.m_distance_falloff_inv_range = 1.0f / light->GetRangeDistanceFalloff();
+			light_buffer.m_cos_umbra                  = light->GetEndAngularCutoff();
+			light_buffer.m_cos_inv_range              = 1.0f / light->GetRangeAngularCutoff();
 
 			// Add spotlight buffer to spotlight buffers.
 			buffer.push_back(std::move(light_buffer));

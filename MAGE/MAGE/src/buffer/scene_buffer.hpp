@@ -47,7 +47,7 @@ namespace mage {
 			m_Ia(), m_flags(0), m_nb_directional_lights(0), 
 			m_nb_omni_lights(0), m_nb_spot_lights(0), 
 			m_fog_distance_falloff_start(FLT_MAX), m_fog_color(), 
-			m_fog_distance_falloff_range(FLT_MAX) {}
+			m_fog_distance_falloff_inv_range(0.0f) {}
 		
 		/**
 		 Constructs a scene buffer from the given scene buffer.
@@ -152,10 +152,10 @@ namespace mage {
 		RGBSpectrum m_fog_color;
 		
 		/**
-		 The distance range where intensity falloff occurs due to fog
-		 of this scene buffer.
+		 The distance inverse range where intensity falloff occurs 
+		 due to fog of this scene buffer.
 		 */
-		float m_fog_distance_falloff_range;
+		float m_fog_distance_falloff_inv_range;
 	};
 
 	static_assert(sizeof(SceneBuffer) == 112, "CPU/GPU struct mismatch");

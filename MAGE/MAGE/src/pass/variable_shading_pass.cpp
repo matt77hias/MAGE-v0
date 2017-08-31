@@ -123,14 +123,14 @@ namespace mage {
 		FXMMATRIX view_to_projection) noexcept {
 
 		SceneBuffer scene_buffer;
-		scene_buffer.m_view_to_projection         = XMMatrixTranspose(view_to_projection);
-		scene_buffer.m_Ia                         = scene->m_ambient_light;
-		scene_buffer.m_nb_directional_lights      = static_cast< uint32_t >(m_directional_lights_buffer.size());
-		scene_buffer.m_nb_omni_lights             = static_cast< uint32_t >(m_omni_lights_buffer.size());
-		scene_buffer.m_nb_spot_lights             = static_cast< uint32_t >(m_spot_lights_buffer.size());
-		scene_buffer.m_fog_color                  = scene->m_fog->GetIntensity();
-		scene_buffer.m_fog_distance_falloff_start = scene->m_fog->GetStartDistanceFalloff();
-		scene_buffer.m_fog_distance_falloff_range = scene->m_fog->GetRangeDistanceFalloff();
+		scene_buffer.m_view_to_projection             = XMMatrixTranspose(view_to_projection);
+		scene_buffer.m_Ia                             = scene->m_ambient_light;
+		scene_buffer.m_nb_directional_lights          = static_cast< uint32_t >(m_directional_lights_buffer.size());
+		scene_buffer.m_nb_omni_lights                 = static_cast< uint32_t >(m_omni_lights_buffer.size());
+		scene_buffer.m_nb_spot_lights                 = static_cast< uint32_t >(m_spot_lights_buffer.size());
+		scene_buffer.m_fog_color                      = scene->m_fog->GetIntensity();
+		scene_buffer.m_fog_distance_falloff_start     = scene->m_fog->GetStartDistanceFalloff();
+		scene_buffer.m_fog_distance_falloff_inv_range = 1.0f / scene->m_fog->GetRangeDistanceFalloff();
 
 		// Update the scene buffer.
 		m_scene_buffer.UpdateData(m_device_context, scene_buffer);
@@ -204,7 +204,7 @@ namespace mage {
 
 			// Create a directional light buffer.
 			DirectionalLightBuffer light_buffer;
-			XMStoreFloat3(&light_buffer.m_d, d);
+			XMStoreFloat3(&light_buffer.m_neg_d, -d);
 			light_buffer.m_I = light->GetIntensity();
 
 			// Add directional light buffer to directional light buffers.
@@ -244,9 +244,9 @@ namespace mage {
 			// Create an omni light buffer.
 			OmniLightBuffer light_buffer;
 			XMStoreFloat3(&light_buffer.m_p, p);
-			light_buffer.m_I                      = light->GetIntensity();
-			light_buffer.m_distance_falloff_end   = light->GetEndDistanceFalloff();
-			light_buffer.m_distance_falloff_range = light->GetRangeDistanceFalloff();
+			light_buffer.m_I                          = light->GetIntensity();
+			light_buffer.m_distance_falloff_end       = light->GetEndDistanceFalloff();
+			light_buffer.m_distance_falloff_inv_range = 1.0f / light->GetRangeDistanceFalloff();
 
 			// Add omni light buffer to omni light buffers.
 			buffer.push_back(std::move(light_buffer));
@@ -286,13 +286,13 @@ namespace mage {
 			// Create a spotlight buffer.
 			SpotLightBuffer light_buffer;
 			XMStoreFloat3(&light_buffer.m_p, p);
-			XMStoreFloat3(&light_buffer.m_d, d);
-			light_buffer.m_I                      = light->GetIntensity();
-			light_buffer.m_exponent_property      = light->GetExponentProperty();
-			light_buffer.m_distance_falloff_end   = light->GetEndDistanceFalloff();
-			light_buffer.m_distance_falloff_range = light->GetRangeDistanceFalloff();
-			light_buffer.m_cos_umbra              = light->GetEndAngularCutoff();
-			light_buffer.m_cos_range              = light->GetRangeAngularCutoff();
+			XMStoreFloat3(&light_buffer.m_neg_d, -d);
+			light_buffer.m_I                          = light->GetIntensity();
+			light_buffer.m_exponent_property          = light->GetExponentProperty();
+			light_buffer.m_distance_falloff_end       = light->GetEndDistanceFalloff();
+			light_buffer.m_distance_falloff_inv_range = 1.0f / light->GetRangeDistanceFalloff();
+			light_buffer.m_cos_umbra                  = light->GetEndAngularCutoff();
+			light_buffer.m_cos_inv_range              = 1.0f / light->GetRangeAngularCutoff();
 
 			// Add spotlight buffer to spotlight buffers.
 			buffer.push_back(std::move(light_buffer));

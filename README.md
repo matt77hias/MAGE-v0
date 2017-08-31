@@ -61,7 +61,7 @@
    * mouse: camera
    * arrows (or WASD): movement
    * left shift: vertical down movement
-   * left shift: vertical up movement
+   * right shift: vertical up movement
    * enter: switch render mode
    * b: toggle AABB layer
    * n: toggle wireframe layer

@@ -24,7 +24,7 @@
 #define MAGE_CONSTANT_SHADING_PASS_PS_OMNI_LIGHTS_SRV        1
 #define MAGE_CONSTANT_SHADING_PASS_PS_SPOT_LIGHTS_SRV        2
 #define MAGE_CONSTANT_SHADING_PASS_PS_DIFFUSE_SRV            3
-#define MAGE_CONSTANT_SHADING_PASS_PS_SPECULAR_SRV           4
+//#define MAGE_CONSTANT_SHADING_PASS_PS_SPECULAR_SRV         4
 #define MAGE_CONSTANT_SHADING_PASS_PS_SAMPLER                0
 
 #pragma endregion
@@ -96,11 +96,9 @@ namespace mage {
 		m_vs->BindShader(m_device_context);
 		// Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
-		// Bind the diffuse and specular SRV.
+		// Bind the diffuse SRV.
 		PS::BindSRV(m_device_context, 
 			MAGE_CONSTANT_SHADING_PASS_PS_DIFFUSE_SRV, m_white->Get());
-		PS::BindSRV(m_device_context,
-			MAGE_CONSTANT_SHADING_PASS_PS_SPECULAR_SRV, m_white->Get());
 		// Bind the rasterization state.
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// Bind the depth-stencil state.
@@ -126,8 +124,9 @@ namespace mage {
 		// Bind the scene data.
 		BindSceneData(view_to_projection);
 		
-		ProcessModels(scene->m_opaque_models,      world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->m_transparent_models, world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->m_opaque_emissive_models, world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->m_opaque_brdf_models,     world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->m_transparent_models,     world_to_projection, world_to_view, view_to_world);
 	}
 
 	void XM_CALLCONV ConstantShadingPass::ProcessLights(

@@ -393,6 +393,20 @@ namespace mage {
 	 */
 	SharedPtr< const PixelShader > CreateDeferredCookTorrancePS();
 
+	/**
+	 Creates a deferred pixel shader matching the given BRDF.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @param[in]		brdf
+					The BRDF type.
+	 @return		A pointer to the deferred pixel shader matching
+					the given BRDF.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDeferredPS(BRDFType brdf);
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: SpritePass
 	//-------------------------------------------------------------------------

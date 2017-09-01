@@ -15,6 +15,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	GBuffer::GBuffer()
+		: GBuffer(GetDevice()) {}
+
 	GBuffer::GBuffer(ID3D11Device2 *device)
 		: m_textures{}, m_rtvs{}, m_dsv(), m_srvs{} {
 

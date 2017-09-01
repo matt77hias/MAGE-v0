@@ -124,8 +124,9 @@ namespace mage {
 		// Bind the scene data.
 		BindSceneData(view_to_projection);
 		
-		ProcessModels(scene->m_opaque_models,      world_to_projection, world_to_view);
-		ProcessModels(scene->m_transparent_models, world_to_projection, world_to_view);
+		ProcessModels(scene->m_opaque_emissive_models, world_to_projection, world_to_view);
+		ProcessModels(scene->m_opaque_brdf_models,     world_to_projection, world_to_view);
+		ProcessModels(scene->m_transparent_models,     world_to_projection, world_to_view);
 	}
 
 	void XM_CALLCONV ShadingNormalPass::ProcessModels(

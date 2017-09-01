@@ -6,6 +6,7 @@
 #pragma region
 
 #include "pass\pass_buffer.hpp"
+#include "buffer\constant_buffer.hpp"
 #include "buffer\structured_buffer.hpp"
 #include "buffer\scene_buffer.hpp"
 #include "buffer\light_buffer.hpp"

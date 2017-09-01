@@ -6,6 +6,7 @@
 #pragma region
 
 #include "pass\pass_buffer.hpp"
+#include "buffer\constant_buffer.hpp"
 #include "buffer\structured_buffer.hpp"
 #include "buffer\scene_buffer.hpp"
 #include "buffer\light_buffer.hpp"
@@ -31,7 +32,7 @@ namespace mage {
 		VariableShadingPass &operator=(VariableShadingPass &&render_pass) = delete;
 
 		void Render(const PassBuffer *scene, const CameraNode *node);
-
+		
 	private:
 
 		enum struct PSIndex {

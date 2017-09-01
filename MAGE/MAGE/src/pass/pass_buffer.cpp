@@ -9,16 +9,35 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <algorithm>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
 	PassBuffer::PassBuffer(const Scene *scene) 
-		: m_cameras(), m_opaque_models(), m_transparent_models(), 
+		: m_cameras(),
+		m_opaque_emissive_models(), 
+		m_opaque_brdf_models(),
+		m_transparent_models(), 
 		m_directional_lights(), m_omni_lights(), m_spot_lights(), 
-		m_sprites(), m_ambient_light(), m_fog(nullptr) {
+		m_sprites(), m_ambient_light(), m_fog(nullptr),
+		m_material_coefficient_min{},
+		m_material_coefficient_max{} {
 		
 		Assert(scene);
+
+		for (uint8_t i = 0; i < s_nb_material_coefficients; ++i) {
+			m_material_coefficient_min[i] = FLT_MAX;
+			m_material_coefficient_max[i] = FLT_MIN;
+		}
 
 		// Collect active cameras.
 		m_cameras.clear();
@@ -28,25 +47,35 @@ namespace mage {
 		});
 	
 		// Collect active models.
-		m_opaque_models.clear();
+		m_opaque_emissive_models.clear();
+		m_opaque_brdf_models.clear();
 		m_transparent_models.clear();
-		m_opaque_models.reserve(scene->GetNumberOfModels());
-		m_transparent_models.reserve(scene->GetNumberOfModels());
+		const size_t nb_models = scene->GetNumberOfModels();
+		m_opaque_emissive_models.reserve(nb_models);
+		m_opaque_brdf_models.reserve(nb_models);
+		m_transparent_models.reserve(nb_models);
 		scene->ForEachModel([this](const ModelNode *node) {
 
 			const Model * const model = node->GetModel();
-
 			if (model->GetNumberOfIndices() == 0) {
 				return;
 			}
 
-			if (model->GetMaterial()->IsTransparant()) {
+			const Material * const material = model->GetMaterial();
+			if (material->IsTransparant()) {
 				m_transparent_models.push_back(node);
+				return;
 			}
-			else {
-				m_opaque_models.push_back(node);
+			if (!material->InteractsWithLight()) {
+				m_opaque_emissive_models.push_back(node);
 			}
 
+			m_opaque_brdf_models.push_back(node);
+			for (uint8_t i = 0; i < s_nb_material_coefficients; ++i) {
+				const float p = material->GetMaterialParameter(i);
+				m_material_coefficient_min[i] = std::min(p, m_material_coefficient_min[i]);
+				m_material_coefficient_max[i] = std::max(p, m_material_coefficient_max[i]);
+			}
 		});
 	
 		// Collect active ambient light.

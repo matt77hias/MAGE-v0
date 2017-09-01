@@ -6,8 +6,7 @@
 #pragma region
 
 #include "pass\pass_buffer.hpp"
-#include "buffer\scene_buffer.hpp"
-#include "buffer\model_buffer.hpp"
+#include "buffer\constant_buffer.hpp"
 
 #pragma endregion
 

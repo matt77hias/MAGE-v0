@@ -19,6 +19,7 @@ namespace mage {
 
 	public:
 
+		GBuffer();
 		explicit GBuffer(ID3D11Device2 *device);
 		GBuffer(const GBuffer &buffer) = delete;
 		GBuffer(GBuffer &&buffer) = default;

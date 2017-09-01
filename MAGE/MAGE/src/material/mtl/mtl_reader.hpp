@@ -194,6 +194,8 @@ namespace mage {
 
 		 @throws		FormattedException
 						Failed to read a Specular Exponent Texture definition.
+		 @note			Specular exponent textures are not supported, use the 
+						alpha channel of specular reflectivity textures instead.
 		 */
 		void ReadMTLSpecularExponentTexture();
 

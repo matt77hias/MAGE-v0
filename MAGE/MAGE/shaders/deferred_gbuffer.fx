@@ -1,18 +1,19 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "structures.fx"
 #include "math.fx"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
 cbuffer PerFrame : register(b0) {
+	// CAMERA
 	// The view-to-projection transformation matrix.
 	float4x4 g_view_to_projection      : packoffset(c0);
 };
 
 cbuffer PerDraw : register(b1) {
+	// TRANSFORM
 	// The object-to-view transformation matrix.
 	float4x4 g_object_to_view          : packoffset(c0);
 	// The object-to-view inverse transpose transformation matrix
@@ -20,12 +21,20 @@ cbuffer PerDraw : register(b1) {
 	float4x4 g_normal_to_view          : packoffset(c4);
 	// The texture transformation matrix.
 	float4x4 g_texture_transform       : packoffset(c8);
-	// The diffuse reflectivity + dissolve of the material
-	float4 g_Kd                        : packoffset(c12);
+	
+	// MATERIAL
+	// The diffuse reflectivity of the material
+	float3 g_Kd                        : packoffset(c12);
+	// The 2nd BRDF dependent normalized material coefficient.
+	// R0    [Cook-Torrance]
+	float g_mat2_norm                  : packoffset(c12.w);
 	// The specular reflectivity of the material.
 	float3 g_Ks                        : packoffset(c13);
-	// The normalized specular exponent of the material.
-	float g_Ns_norm                    : packoffset(c13.w);
+	// The 1st BRDF dependent normalized material coefficient.
+	// Ns    [(Modified) Phong/(Modified) Blinn-Phong]
+	// alpha [Ward(-Duer)]
+	// m     [Cook-Torrance]
+	float g_mat1_norm                  : packoffset(c13.w);
 }
 
 //-----------------------------------------------------------------------------
@@ -60,8 +69,9 @@ OMInputDeferred PS(PSInputPositionNormalTexture input) {
 	OMInputDeferred output;
 	// [-1,1] -> [0,1]
 	output.normal.xyz   = InverseBiasX2(n_view);
-	output.diffuse      = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex);
+	output.diffuse.xyz  = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex).xyz;
+	output.diffuse.w    = g_mat2_norm;
 	output.specular.xyz = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
-	output.specular.w   = g_Ns_norm;
+	output.specular.w   = g_mat1_norm;
 	return output;
 }

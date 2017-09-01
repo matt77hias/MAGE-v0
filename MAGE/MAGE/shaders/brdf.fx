@@ -87,10 +87,10 @@ float WardDuerBRDFxCos(float3 n, float3 l, float3 v, float alpha) {
 	return exp(t2 / a2) / (n_dot_v * 4.0f * a2);
 }
 
-float F_Schlick(float f0, float v_dot_h) {
+float F_Schlick(float R0, float v_dot_h) {
 	// Schlick's approximation for Fresnel term.
 	const float a = 1.0f - v_dot_h;
-	return f0 + (1.0f - f0) * a * a * a * a * a;
+	return R0 + (1.0f - R0) * a * a * a * a * a;
 }
 
 float D_Beckmann(float m, float n_dot_h) {
@@ -101,7 +101,7 @@ float D_Beckmann(float m, float n_dot_h) {
 }
 
 // Calculates the (specular) Cook-Torrance BRDFxCos intensity.
-float CookTorranceBRDFxCos(float3 n, float3 l, float3 v, float F0, float m) {
+float CookTorranceBRDFxCos(float3 n, float3 l, float3 v, float m, float R0) {
 	const float n_dot_l = sat_dot(n, l);
 	const float n_dot_v = sat_dot(n, v);
 	if (n_dot_l * n_dot_v == 0) {
@@ -115,7 +115,7 @@ float CookTorranceBRDFxCos(float3 n, float3 l, float3 v, float F0, float m) {
 	const float a = n_dot_h / v_dot_h;
 	const float G = min(1.0f, 2.0f * min(a * n_dot_v, a * n_dot_l));
 	const float D = D_Beckmann(m, n_dot_h);
-	const float F = F_Schlick(F0, v_dot_h);
+	const float F = F_Schlick(R0, v_dot_h);
 
 	return G * D * F / n_dot_v;
 }

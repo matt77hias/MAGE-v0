@@ -12,6 +12,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// System Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <stdint.h>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -28,9 +37,39 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The number of extra material parameters.
+		 The index of the material specular exponent 
+		 in the material parameters.
 		 */
-		static const size_t s_nb_extra_parameters = 4;
+		static const uint8_t s_material_Ns_index = 0;
+
+		/**
+		 The index of the material Ward alpha value
+		 in the material parameters.
+		 */
+		static const uint8_t s_material_Ward_alpha_index = 0;
+
+		/**
+		 The index of the material roughness
+		 in the material parameters.
+		 */
+		static const uint8_t s_material_roughness_index = 0;
+
+		/**
+		 The index of the material reflection coefficient
+		 in the material parameters.
+		 */
+		static const uint8_t s_material_reflection_coefficient_index = 1;
+
+		/**
+		 The index of the material index of refraction
+		 in the material parameters.
+		 */
+		static const uint8_t s_material_index_of_refraction_index = 2;
+
+		/**
+		 The number of material parameters.
+		 */
+		static const uint8_t s_nb_material_parameters = 3;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -356,54 +395,6 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the specular exponent of this material.
-
-		 @return		The specular exponent of this material.
-		 */
-		float GetSpecularExponent() const noexcept {
-			return m_specular_exponent;
-		}
-		
-		/**
-		 Sets the specular exponent of this material to the given specular exponent.
-
-		 @param[in]		specular_exponent
-						A reference to the specular exponent.
-		 */
-		void SetSpecularExponent(float specular_exponent) noexcept {
-			m_specular_exponent = specular_exponent;
-		}
-		
-		/**
-		 Returns the specular exponent texture of this material.
-
-		 @return		A pointer to the specular exponent texture of this material.
-		 */
-		SharedPtr< const Texture > GetSpecularExponentTexture() const noexcept {
-			return m_specular_exponent_texture;
-		}
-		
-		/**
-		 Returns the shader resource view of the specular exponent texture of this material.
-
-		 @return		@c nullptr, if this material has no specular exponent texture.
-		 @return		A pointer to the shader resource view of the specular exponent texture of this material.
-		 */
-		ID3D11ShaderResourceView *GetSpecularExponentSRV() const noexcept {
-			return m_specular_exponent_texture ? m_specular_exponent_texture->Get() : nullptr;
-		}
-		
-		/**
-		 Sets the specular exponent texture of this material to the given specular exponent texture.
-
-		 @param[in]		specular_exponent_texture
-						A reference to the specular exponent texture.
-		 */
-		void SetSpecularExponentTexture(SharedPtr< const Texture > specular_exponent_texture) {
-			m_specular_exponent_texture = specular_exponent_texture;
-		}
-
-		/**
 		 Returns the dissolve of this material.
 
 		 @return		The dissolve of this material.
@@ -424,22 +415,61 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the index of refraction of this material.
+		 Returns the normal texture of this material.
 
-		 @return		The index of refraction of this material.
+		 @return		A pointer to the normal texture of this material.
 		 */
-		float GetIndexOfRefraction() const noexcept {
-			return m_index_of_refraction;
+		SharedPtr< const Texture > GetNormalTexture() const noexcept {
+			return m_normal_texture;
 		}
 		
 		/**
-		 Sets the index of refraction of this material to the given index of refraction.
+		 Returns the shader resource view of the normal texture of this material.
 
-		 @param[in]		index_of_refraction
-						A reference to the index of refraction.
+		 @return		@c nullptr, if this material has no normal texture.
+		 @return		A pointer to the shader resource view of the normal texture of this material.
 		 */
-		void SetIndexOfRefraction(float index_of_refraction) noexcept {
-			m_index_of_refraction = index_of_refraction;
+		ID3D11ShaderResourceView *GetNormalSRV() const noexcept {
+			return m_normal_texture ? m_normal_texture->Get() : nullptr;
+		}
+		
+		/**
+		 Sets the normal texture of this material to the given normal texture.
+
+		 @param[in]		normal_texture
+						A reference to the normal texture.
+		 */
+		void SetNormalTexture(SharedPtr< const Texture > normal_texture) {
+			m_normal_texture = normal_texture;
+		}
+
+		/**
+		 Returns the displacement texture of this material.
+
+		 @return		A pointer to the displacement texture of this material.
+		 */
+		SharedPtr< const Texture > GetDisplacementTexture() const noexcept {
+			return m_displacement_texture;
+		}
+		
+		/**
+		 Returns the shader resource view of the displacement texture of this material.
+
+		 @return		@c nullptr, if this material has no displacement texture.
+		 @return		A pointer to the shader resource view of the displacement texture of this material.
+		 */
+		ID3D11ShaderResourceView *GetDisplacementSRV() const noexcept {
+			return m_displacement_texture ? m_displacement_texture->Get() : nullptr;
+		}
+		
+		/**
+		 Sets the displacement texture of this material to the given displacement texture.
+
+		 @param[in]		displacement_texture
+						A reference to the displacement texture.
+		 */
+		void SetDisplacementTexture(SharedPtr< const Texture > displacement_texture) {
+			m_displacement_texture = displacement_texture;
 		}
 
 		/**
@@ -472,88 +502,68 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the displacement texture of this material.
+		 Returns the specular exponent of this material.
 
-		 @return		A pointer to the displacement texture of this material.
-		 */
-		SharedPtr< const Texture > GetDisplacementTexture() const noexcept {
-			return m_displacement_texture;
-		}
-		
-		/**
-		 Returns the shader resource view of the displacement texture of this material.
-
-		 @return		@c nullptr, if this material has no displacement texture.
-		 @return		A pointer to the shader resource view of the displacement texture of this material.
-		 */
-		ID3D11ShaderResourceView *GetDisplacementSRV() const noexcept {
-			return m_displacement_texture ? m_displacement_texture->Get() : nullptr;
-		}
-		
-		/**
-		 Sets the displacement texture of this material to the given displacement texture.
-
-		 @param[in]		displacement_texture
-						A reference to the displacement texture.
-		 */
-		void SetDisplacementTexture(SharedPtr< const Texture > displacement_texture) {
-			m_displacement_texture = displacement_texture;
+		 @return		The specular exponent of this material.
+		*/
+		float GetSpecularExponent() const noexcept {
+			return GetMaterialParameter(s_material_Ns_index);
 		}
 
 		/**
-		 Returns the normal texture of this material.
+		 Sets the specular exponent of this material to the given specular exponent.
 
-		 @return		A pointer to the normal texture of this material.
-		 */
-		SharedPtr< const Texture > GetNormalTexture() const noexcept {
-			return m_normal_texture;
-		}
-		
-		/**
-		 Returns the shader resource view of the normal texture of this material.
-
-		 @return		@c nullptr, if this material has no normal texture.
-		 @return		A pointer to the shader resource view of the normal texture of this material.
-		 */
-		ID3D11ShaderResourceView *GetNormalSRV() const noexcept {
-			return m_normal_texture ? m_normal_texture->Get() : nullptr;
-		}
-		
-		/**
-		 Sets the normal texture of this material to the given normal texture.
-
-		 @param[in]		normal_texture
-						A reference to the normal texture.
-		 */
-		void SetNormalTexture(SharedPtr< const Texture > normal_texture) {
-			m_normal_texture = normal_texture;
+		 @param[in]		specular_exponent
+						A reference to the specular exponent.
+		*/
+		void SetSpecularExponent(float specular_exponent) noexcept {
+			SetMaterialParameter(s_material_Ns_index, specular_exponent);
 		}
 
 		/**
-		 Returns the extra parameter of this material at the given index.
+		 Returns the index of refraction of this material.
 
-		 @pre			@a index @c < {@link mage::Material::s_nb_extra_parameters}.
+		 @return		The index of refraction of this material.
+		 */
+		float GetIndexOfRefraction() const noexcept {
+			return GetMaterialParameter(s_material_index_of_refraction_index);
+		}
+
+		/**
+		 Sets the index of refraction of this material to the given index of refraction.
+
+		 @param[in]		index_of_refraction
+						A reference to the index of refraction.
+		 */
+		void SetIndexOfRefraction(float index_of_refraction) noexcept {
+			SetMaterialParameter(s_material_index_of_refraction_index, index_of_refraction);
+		}
+
+		/**
+		 Returns the material parameter of this material at the given index.
+
+		 @pre			@a index @c < {@link mage::Material::s_nb_material_parameters}.
 		 @param[in]		index
 						The index.
-		 @return		The extra parameter of this material at the given index.
+		 @return		The material parameter of this material at the given index.
 		 */
-		float GetExtraParameter(size_t index) const noexcept {
-			Assert(index < s_nb_extra_parameters);
-			return m_extra_parameters[index];
+		float GetMaterialParameter(uint8_t index) const noexcept {
+			Assert(index < s_nb_material_parameters);
+			return m_material_parameters[index];
 		}
 		
 		/**
-		 Sets the extra parameter of this material at the given index to the given value.
+		 Sets the material parameter of this material at the given index to the given value.
 
-		 @pre			@a index @c < {@link mage::Material::s_nb_extra_parameters}.
+		 @pre			@a index @c < {@link mage::Material::s_nb_material_parameters}.
 		 @param[in]		index
 						The index.
 		 @param[in]		value
 						The value.
 		 */
-		void SetExtraParameter(size_t index, float value) noexcept {
-			Assert(index < s_nb_extra_parameters);
-			m_extra_parameters[index] = value;
+		void SetMaterialParameter(uint8_t index, float value) noexcept {
+			Assert(index < s_nb_material_parameters);
+			m_material_parameters[index] = value;
 		}
 
 	private:
@@ -621,19 +631,6 @@ namespace mage {
 		SharedPtr< const Texture > m_specular_reflectivity_texture;
 
 		/**
-		 The specular exponent (surface roughness) of this material.
-
-		 A high exponent results in a tight, concentrated highlight.
-		 Values normally range from 0 to 1000.
-		 */
-		float m_specular_exponent;
-
-		/**
-		 A pointer to the specular exponent texture of this material.
-		 */
-		SharedPtr< const Texture > m_specular_exponent_texture;
-
-		/**
 		 The amount this material dissolves into the background.
 
 		 A factor of 1.0 is fully opaque.
@@ -645,14 +642,9 @@ namespace mage {
 		float m_dissolve;
 
 		/**
-		 The index of refraction (optical density) of this material.
+		 A pointer to the normal texture of this material.
 		 */
-		float m_index_of_refraction;
-
-		/**
-		 A pointer to the decal texture of this material.
-		 */
-		SharedPtr< const Texture > m_decal_texture;
+		SharedPtr< const Texture > m_normal_texture;
 
 		/**
 		 A pointer to the displacement texture of this material.
@@ -660,13 +652,13 @@ namespace mage {
 		SharedPtr< const Texture > m_displacement_texture;
 
 		/**
-		 A pointer to the normal texture of this material.
+		 A pointer to the decal texture of this material.
 		 */
-		SharedPtr< const Texture > m_normal_texture;
+		SharedPtr< const Texture > m_decal_texture;
 
 		/**
-		 The extra material parameters of this material.
+		 The material parameters of this material.
 		 */
-		float m_extra_parameters[s_nb_extra_parameters];
+		float m_material_parameters[s_nb_material_parameters];
 	};
 }

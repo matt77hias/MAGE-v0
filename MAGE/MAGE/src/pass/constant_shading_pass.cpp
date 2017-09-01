@@ -54,12 +54,12 @@ namespace mage {
 		FXMMATRIX texture_transform) noexcept {
 
 		ModelBuffer buffer;
-		buffer.m_object_to_view    = XMMatrixTranspose(object_to_view);
-		buffer.m_normal_to_view    = view_to_object;
-		buffer.m_texture_transform = XMMatrixTranspose(texture_transform);
-		buffer.m_Kd                = RGBSpectrum(1.0f);
-		buffer.m_dissolve          = 1.0f;
-		buffer.m_Ns                = 1.0f;
+		buffer.m_object_to_view           = XMMatrixTranspose(object_to_view);
+		buffer.m_normal_to_view           = view_to_object;
+		buffer.m_texture_transform        = XMMatrixTranspose(texture_transform);
+		buffer.m_Kd                       = RGBSpectrum(1.0f);
+		buffer.m_dissolve                 = 1.0f;
+		buffer.m_material_coefficients[0] = 1.0f;
 		
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, buffer);

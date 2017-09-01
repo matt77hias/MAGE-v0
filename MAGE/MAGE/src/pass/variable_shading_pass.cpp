@@ -87,17 +87,14 @@ namespace mage {
 		const Material *material) noexcept {
 
 		ModelBuffer buffer;
-		buffer.m_object_to_view     = XMMatrixTranspose(object_to_view);
-		buffer.m_normal_to_view     = view_to_object;
-		buffer.m_texture_transform  = XMMatrixTranspose(texture_transform);
-		buffer.m_Kd                 = material->GetDiffuseReflectivity();
-		buffer.m_dissolve           = material->GetDissolve();
-		buffer.m_Ks                 = material->GetSpecularReflectivity();
-		buffer.m_Ns                 = material->GetSpecularExponent();
-		buffer.m_extra_parameters.x = material->GetExtraParameter(0);
-		buffer.m_extra_parameters.y = material->GetExtraParameter(1);
-		buffer.m_extra_parameters.z = material->GetExtraParameter(2);
-		buffer.m_extra_parameters.w = material->GetExtraParameter(3);
+		buffer.m_object_to_view           = XMMatrixTranspose(object_to_view);
+		buffer.m_normal_to_view           = view_to_object;
+		buffer.m_texture_transform        = XMMatrixTranspose(texture_transform);
+		buffer.m_Kd                       = material->GetDiffuseReflectivity();
+		buffer.m_dissolve                 = material->GetDissolve();
+		buffer.m_Ks                       = material->GetSpecularReflectivity();
+		buffer.m_material_coefficients[0] = material->GetMaterialParameter(0u);
+		buffer.m_material_coefficients[1] = material->GetMaterialParameter(1u);
 		
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, buffer);

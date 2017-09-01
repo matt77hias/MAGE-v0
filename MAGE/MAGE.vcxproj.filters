@@ -229,7 +229,7 @@
     <Filter Include="Header Files\shader\cso\forward">
       <UniqueIdentifier>{0d379569-c115-48ea-8647-6e51e4fbe76d}</UniqueIdentifier>
     </Filter>
-	<Filter Include="Header Files\shader\cso\miscellaneous">
+    <Filter Include="Header Files\shader\cso\miscellaneous">
       <UniqueIdentifier>{e05475c3-d882-4edd-8b47-3cdbaedb69ad}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\shader\cso\sprite">
@@ -735,7 +735,7 @@
     <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_cook_torrance_PS.hpp">
       <Filter>Header Files\shader\cso\forward</Filter>
     </ClInclude>
-	 <ClInclude Include="MAGE\src\shader\cso\sprite\sprite_PS.hpp">
+    <ClInclude Include="MAGE\src\shader\cso\sprite\sprite_PS.hpp">
       <Filter>Header Files\shader\cso\sprite</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\sprite\sprite_VS.hpp">
@@ -1365,6 +1365,9 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\forward\tsnm_ward_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\lighting.fx">
+      <Filter>Shader Files</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

@@ -53,10 +53,9 @@ namespace mage {
 			TSNMCookTorrance
 		};
 
-		void InitMaterials();
 		void InitModels() noexcept;
-		void InitShaders() noexcept;
-		void SetMaterial(const Material &material) noexcept;
+		void InitShaders();
+		void SetMaterial() noexcept;
 		void SetShader() noexcept;
 		void PrintText();
 
@@ -66,12 +65,8 @@ namespace mage {
 		SpriteText * const m_text;
 		
 		vector< ModelNode * > m_models;
-		vector< ShaderType > m_shaders;
+		vector< pair< ShaderType, Material > > m_shaders;
 		size_t m_model_index;
 		size_t m_shader_index;
-		
-		Material m_mat_emissive;
-		Material m_mat_basic;
-		Material m_mat_tsnm;
 	};
 }

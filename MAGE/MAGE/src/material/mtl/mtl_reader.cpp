@@ -145,7 +145,8 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLSpecularExponentTexture() {
-		m_material_buffer.back().SetSpecularExponentTexture(ReadMTLTexture());
+		Warning("%ls: line %u: specular exponent textures are not supported, use the alpha channel of specular reflectivity textures instead.", GetFilename().c_str(), GetCurrentLineNumber());
+		ReadMTLTexture();
 	}
 
 	void MTLReader::ReadMTLDissolveTexture() {

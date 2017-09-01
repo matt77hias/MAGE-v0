@@ -38,8 +38,7 @@ namespace mage {
 			m_normal_to_view{}, 
 			m_texture_transform{},
 			m_Kd{}, m_dissolve(0.0f),
-			m_Ks{}, m_Ns(0.0f),
-			m_extra_parameters{} {}
+			m_Ks{}, m_material_coefficients{} {}
 
 		/**
 		 Constructs a model buffer from the given model buffer.
@@ -132,14 +131,9 @@ namespace mage {
 		RGBSpectrum m_Ks;
 
 		/**
-		 The specular exponent (surface roughness) of this model buffer.
+		 The BRDF dependent material coefficients.
 		 */
-		float m_Ns;
-
-		/**
-		 The extra model parameter of this model buffer.
-		 */
-		XMFLOAT4 m_extra_parameters;
+		float m_material_coefficients[2];
 	};
 
 	static_assert(sizeof(ModelBuffer) == 240, "CPU/GPU struct mismatch");

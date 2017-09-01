@@ -160,13 +160,12 @@ float4 BRDFShading(float3 p, float3 n, float2 tex) {
 //-----------------------------------------------------------------------------
 // Pixel Shaders
 //-----------------------------------------------------------------------------
-float4 Basic_PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 n_view = normalize(input.n_view);
-	return BRDFShading(input.p_view, n_view, input.tex);
-}
-
-float4 TangentSpaceNormalMapping_PS(PSInputPositionNormalTexture input) : SV_Target {
+float4 PS(PSInputPositionNormalTexture input) : SV_Target {
+#ifdef TSNM
 	const float3 n0     = normalize(input.n_view);
 	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2);
+#else
+	const float3 n_view = normalize(input.n_view);
+#endif
 	return BRDFShading(input.p_view, n_view, input.tex);
 }

@@ -145,6 +145,101 @@ namespace mage {
 	const BufferCompiledShader CreateCompiledCookTorranceTSNMPS() noexcept;
 
 	//-------------------------------------------------------------------------
+	// Factory Methods: DeferredConstantShadingPass and DeferredVariableShadingPass
+	//-------------------------------------------------------------------------
+
+	/**
+	 Returns the compiled GBuffer vertex shader.
+
+	 @return		A buffer compiled GBuffer vertex shader.
+	 */
+	const BufferCompiledShader CreateCompiledGBufferVS() noexcept;
+
+	/**
+	 Returns the compiled GBuffer pixel shader.
+
+	 @return		A buffer compiled GBuffer pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledGBufferPS() noexcept;
+
+	/**
+	 Returns the compiled GBuffer tsnm pixel shader.
+
+	 @return		A buffer compiled GBuffer tsnm pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledGBufferTSNMPS() noexcept;
+
+	/**
+	 Returns the compiled deferred transform vertex shader.
+
+	 @return		A buffer compiled deferred transform vertex shader.
+	 */
+	const BufferCompiledShader CreateCompiledDeferredTransformVS() noexcept;
+
+	/**
+	 Returns the compiled deferred emissive pixel shader.
+
+	 @return		A buffer compiled deferred emissive pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDeferredEmissivePS() noexcept;
+
+	/**
+	 Returns the compiled deferred Lambertian pixel shader.
+
+	 @return		A buffer compiled deferred Lambertian pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDeferredLambertianPS() noexcept;
+
+	/**
+	 Returns the compiled deferred Phong pixel shader.
+
+	 @return		A buffer compiled deferred Phong pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDeferredPhongPS() noexcept;
+
+	/**
+	 Returns the compiled deferred Modified Phong pixel shader.
+
+	 @return		A buffer compiled deferred Modified Phong pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDeferredModifiedPhongPS() noexcept;
+
+	/**
+	 Returns the compiled deferred Blinn-Phong pixel shader.
+
+	 @return		A buffer compiled deferred Blinn-Phong pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDeferredBlinnPhongPS() noexcept;
+
+	/**
+	 Returns the compiled deferred Modified Blinn-Phong pixel shader.
+
+	 @return		A buffer compiled deferred Modified Blinn-Phong pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDeferredModifiedBlinnPhongPS() noexcept;
+
+	/**
+	 Returns the compiled deferred Ward pixel shader.
+
+	 @return		A buffer compiled deferred Ward pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDeferredWardPS() noexcept;
+
+	/**
+	 Returns the compiled deferred Ward-Duer pixel shader.
+
+	 @return		A buffer compiled deferred Ward-Duer pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDeferredWardDuerPS() noexcept;
+
+	/**
+	 Returns the compiled deferred Cook-Torrance pixel shader.
+
+	 @return		A buffer compiled deferred Cook-Torrance pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDeferredCookTorrancePS() noexcept;
+
+	//-------------------------------------------------------------------------
 	// Factory Methods: SpritePass
 	//-------------------------------------------------------------------------
 

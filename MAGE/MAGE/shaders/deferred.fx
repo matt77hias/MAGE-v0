@@ -1,6 +1,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
+#include "structures.fx"
 #include "light.fx"
 #include "math.fx"
 
@@ -84,7 +85,7 @@ Texture2D g_depth_texture    : register(t7);
 // Vertex Shader
 //-----------------------------------------------------------------------------
 PSInputPositionTexture VS(VSInputPositionTexture input) {
-	PSInputPosition output;
+	PSInputPositionTexture output;
 	output.p   = float4(input.p, 1.0f);
 	output.tex = input.tex;
 	return output;

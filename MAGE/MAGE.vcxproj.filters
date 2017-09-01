@@ -256,6 +256,9 @@
     <Filter Include="Shader Files\deferred">
       <UniqueIdentifier>{3ec89566-638c-4b0c-a850-1123a6e71e59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\shader\cso\deferred">
+      <UniqueIdentifier>{c2229bf9-28d0-4049-bfae-4a9c95fe85c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -906,6 +909,45 @@
     <ClInclude Include="MAGE\src\buffer\gbuffer.hpp">
       <Filter>Header Files\buffer</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\lambertian_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\modified_blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\modified_phong_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\phong_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\transform_VS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\ward_duer_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\ward_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\cook_torrance_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\emissive_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\gbuffer_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\gbuffer_tsnm_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\gbuffer_VS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1368,6 +1410,45 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\lighting.fx">
       <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\phong_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\transform_VS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\ward_duer_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\ward_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\blinn_phong_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\cook_torrance_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\emissive_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\gbuffer_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\gbuffer_VS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\lambertian_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\modified_blinn_phong_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\modified_phong_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\gbuffer_tsnm_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

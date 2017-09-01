@@ -247,6 +247,153 @@ namespace mage {
 	SharedPtr< const PixelShader > CreateTSNMPS(BRDFType brdf);
 
 	//-------------------------------------------------------------------------
+	// Factory Methods: ConstantShadingPass and VariableShadingPass
+	//-------------------------------------------------------------------------
+
+	/**
+	 Creates a GBuffer vertex shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the GBuffer vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateGBufferVS();
+
+	/**
+	 Creates a GBuffer pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the GBuffer pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateGBufferPS();
+
+	/**
+	 Creates a GBuffer tsnm pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the GBuffer tsnm pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateGBufferTSNMPS();
+
+	/**
+	 Creates a deferred transform vertex shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the deferred transform vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateDeferredTransformVS();
+
+	/**
+	 Creates a deferred emissive pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the deferred emissive pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDeferredEmissivePS();
+
+	/**
+	 Creates a deferred Lambertian pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the deferred Lambertian pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDeferredLambertianPS();
+
+	/**
+	 Creates a deferred Phong pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the deferred Phong pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDeferredPhongPS();
+
+	/**
+	 Creates a deferred Modified Phong pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the deferred Modified Phong pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDeferredModifiedPhongPS();
+
+	/**
+	 Creates a deferred Blinn-Phong pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the deferred Blinn-Phong pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDeferredBlinnPhongPS();
+
+	/**
+	 Creates a deferred Modified Blinn-Phong pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the deferred Modified Blinn-Phong pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDeferredModifiedBlinnPhongPS();
+
+	/**
+	 Creates a deferred Ward pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the deferred Ward pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDeferredWardPS();
+
+	/**
+	 Creates a deferred Ward-Duer pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the deferred Ward-Duer pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDeferredWardDuerPS();
+
+	/**
+	 Creates a deferred Cook-Torrance pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the deferred Cook-Torrance pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDeferredCookTorrancePS();
+
+	//-------------------------------------------------------------------------
 	// Factory Methods: SpritePass
 	//-------------------------------------------------------------------------
 

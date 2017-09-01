@@ -156,6 +156,101 @@ namespace mage {
 	}
 
 	//-------------------------------------------------------------------------
+	// Factory Methods: DeferredConstantShadingPass and DeferredVariableShadingPass
+	//-------------------------------------------------------------------------
+
+	SharedPtr< const VertexShader > CreateGBufferVS() {
+		const BufferCompiledShader cs = CreateCompiledGBufferVS();
+		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_GBUFFER, &cs,
+								VertexPositionTexture::s_input_element_desc,
+								VertexPositionTexture::s_nb_input_elements);
+	}
+
+	SharedPtr< const PixelShader > CreateGBufferPS() {
+		const BufferCompiledShader cs = CreateCompiledGBufferPS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_GBUFFER, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateGBufferTSNMPS() {
+		const BufferCompiledShader cs = CreateCompiledGBufferTSNMPS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_GBUFFER_TSNM, &cs);
+	}
+
+	SharedPtr< const VertexShader > CreateDeferredTransformVS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredTransformVS();
+		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_DEFERRED_TRANSFORM, &cs,
+								VertexPositionTexture::s_input_element_desc,
+								VertexPositionTexture::s_nb_input_elements);
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredEmissivePS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredEmissivePS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_EMISSIVE, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredLambertianPS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredLambertianPS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_LAMBERTIAN, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredPhongPS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredPhongPS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_PHONG, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredModifiedPhongPS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredModifiedPhongPS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_MODIFIED_PHONG, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredBlinnPhongPS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredBlinnPhongPS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_BLINN_PHONG, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredModifiedBlinnPhongPS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredModifiedBlinnPhongPS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_MODIFIED_BLINN_PHONG, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredWardPS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredWardPS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_WARD, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredWardDuerPS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredWardDuerPS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_WARD_DUER, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredCookTorrancePS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredCookTorrancePS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_COOK_TORRANCE, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredPS(BRDFType brdf) {
+		switch (brdf) {
+
+		case BRDFType::Lambertian:
+			return CreateDeferredLambertianPS();
+		case BRDFType::Phong:
+			return CreateDeferredPhongPS();
+		case BRDFType::ModifiedPhong:
+			return CreateDeferredModifiedPhongPS();
+		case BRDFType::BlinnPhong:
+			return CreateDeferredBlinnPhongPS();
+		case BRDFType::Ward:
+			return CreateDeferredWardPS();
+		case BRDFType::WardDuer:
+			return CreateDeferredWardDuerPS();
+		case BRDFType::CookTorrance:
+			return CreateDeferredCookTorrancePS();
+		default:
+			return CreateDeferredModifiedBlinnPhongPS();
+		}
+	}
+
+	//-------------------------------------------------------------------------
 	// Factory Methods: SpritePass
 	//-------------------------------------------------------------------------
 

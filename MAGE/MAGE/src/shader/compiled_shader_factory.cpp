@@ -5,6 +5,22 @@
 
 #include "shader\compiled_shader_factory.hpp"
 
+// Deferred
+#include "shader\cso\deferred\gbuffer_VS.hpp"
+#include "shader\cso\deferred\gbuffer_PS.hpp"
+#include "shader\cso\deferred\gbuffer_tsnm_PS.hpp"
+#include "shader\cso\deferred\transform_VS.hpp"
+#include "shader\cso\deferred\emissive_PS.hpp"
+#include "shader\cso\deferred\lambertian_PS.hpp"
+#include "shader\cso\deferred\phong_PS.hpp"
+#include "shader\cso\deferred\modified_phong_PS.hpp"
+#include "shader\cso\deferred\blinn_phong_PS.hpp"
+#include "shader\cso\deferred\modified_blinn_phong_PS.hpp"
+#include "shader\cso\deferred\ward_PS.hpp"
+#include "shader\cso\deferred\ward_duer_PS.hpp"
+#include "shader\cso\deferred\cook_torrance_PS.hpp"
+
+// Forward
 #include "shader\cso\forward\transform_VS.hpp"
 #include "shader\cso\forward\emissive_PS.hpp"
 #include "shader\cso\forward\lambertian_PS.hpp"
@@ -24,6 +40,7 @@
 #include "shader\cso\forward\tsnm_ward_duer_PS.hpp"
 #include "shader\cso\forward\tsnm_cook_torrance_PS.hpp"
 
+// Miscellaneous
 #include "shader\cso\miscellaneous\minimal_transform_VS.hpp"
 #include "shader\cso\miscellaneous\distance_PS.hpp"
 #include "shader\cso\miscellaneous\constant_color_PS.hpp"
@@ -34,6 +51,7 @@
 #include "shader\cso\miscellaneous\bounding_volume_VS.hpp"
 #include "shader\cso\miscellaneous\bounding_volume_PS.hpp"
 
+// Sprite
 #include "shader\cso\sprite\sprite_VS.hpp"
 #include "shader\cso\sprite\sprite_PS.hpp"
 
@@ -118,6 +136,62 @@ namespace mage {
 
 	const BufferCompiledShader CreateCompiledCookTorranceTSNMPS() noexcept {
 		return BufferCompiledShader(g_tsnm_cook_torrance_ps, sizeof(g_tsnm_cook_torrance_ps));
+	}
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: DeferredConstantShadingPass and DeferredVariableShadingPass
+	//-------------------------------------------------------------------------
+
+	const BufferCompiledShader CreateCompiledGBufferVS() noexcept {
+		return BufferCompiledShader(g_gbuffer_vs, sizeof(g_gbuffer_vs));
+	}
+
+	const BufferCompiledShader CreateCompiledGBufferPS() noexcept {
+		return BufferCompiledShader(g_gbuffer_ps, sizeof(g_gbuffer_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledGBufferTSNMPS() noexcept {
+		return BufferCompiledShader(g_gbuffer_tsnm_ps, sizeof(g_gbuffer_tsnm_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledDeferredTransformVS() noexcept {
+		return BufferCompiledShader(g_deferred_transform_vs, sizeof(g_deferred_transform_vs));
+	}
+
+	const BufferCompiledShader CreateCompiledDeferredEmissivePS() noexcept {
+		return BufferCompiledShader(g_deferred_emissive_ps, sizeof(g_deferred_emissive_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledDeferredLambertianPS() noexcept {
+		return BufferCompiledShader(g_deferred_lambertian_ps, sizeof(g_deferred_lambertian_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledDeferredPhongPS() noexcept {
+		return BufferCompiledShader(g_deferred_phong_ps, sizeof(g_deferred_phong_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledDeferredModifiedPhongPS() noexcept {
+		return BufferCompiledShader(g_deferred_modified_phong_ps, sizeof(g_deferred_modified_phong_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledDeferredBlinnPhongPS() noexcept {
+		return BufferCompiledShader(g_deferred_blinn_phong_ps, sizeof(g_deferred_blinn_phong_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledDeferredModifiedBlinnPhongPS() noexcept {
+		return BufferCompiledShader(g_deferred_modified_blinn_phong_ps, sizeof(g_deferred_modified_blinn_phong_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledDeferredWardPS() noexcept {
+		return BufferCompiledShader(g_deferred_ward_ps, sizeof(g_deferred_ward_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledDeferredWardDuerPS() noexcept {
+		return BufferCompiledShader(g_deferred_ward_duer_ps, sizeof(g_deferred_ward_duer_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledDeferredCookTorrancePS() noexcept {
+		return BufferCompiledShader(g_deferred_cook_torrance_ps, sizeof(g_deferred_cook_torrance_ps));
 	}
 
 	//-------------------------------------------------------------------------

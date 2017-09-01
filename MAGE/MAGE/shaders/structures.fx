@@ -60,6 +60,11 @@ struct PSInputPosition {
 	float4 p      : SV_POSITION;
 };
 
+struct PSInputPositionTexture {
+	float4 p      : SV_POSITION;
+	float2 tex    : TEXCOORD0;
+};
+
 struct PSInputPositionColorTexture {
 	float4 p      : SV_POSITION;
 	float4 color  : COLOR0;
@@ -75,10 +80,10 @@ struct PSInputPositionNormalTexture {
 };
 
 //-----------------------------------------------------------------------------
-// PS Output Structures
+// OM Input Structures
 //-----------------------------------------------------------------------------
 
-struct PSOutputDeferred {
+struct OMInputDeferred {
 	float4 normal   : SV_Target0;
 	float4 diffuse  : SV_Target1;
 	float4 specular : SV_Target2;

@@ -70,21 +70,19 @@ Texture2D g_depth_texture    : register(t7);
 //-----------------------------------------------------------------------------
 // Vertex Shader
 //-----------------------------------------------------------------------------
-PSInputPosition VS(VSInputPosition input) {
+PSInputPositionTexture VS(VSInputPositionTexture input) {
 	PSInputPosition output;
-	output.p = float4(input.p, 1.0f);
+	output.p   = float4(input.p, 1.0f);
+	output.tex = input.tex;
 	return output;
 }
 
 //-----------------------------------------------------------------------------
 // Pixel Shaders
 //-----------------------------------------------------------------------------
-float4 PS(PSInputPosition input) : SV_Target {
-	// ndc_x [-1,1] -> [-0.5,0.5] -> [0,1] tex_u
-	// ndc_y [-1,1] -> [0.5,-0.5] -> [1,0] tex_v
-	const float2 tex      = float2(0.5f, -0.5f) * input.xy + 0.5f;
+float4 PS(PSInputPositionTexture input) : SV_Target {
 	// location := (u, v, mipmap level)
-	const float3 location = float3(location, 0.0f);
+	const float3 location = float3(input.tex, 0.0f);
 	
 	// Load the depth from the GBuffer depth texture.
 	const float  depth    = g_depth_texture.Load(location).x;

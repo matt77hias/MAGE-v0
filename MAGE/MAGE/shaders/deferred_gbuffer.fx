@@ -49,7 +49,7 @@ Texture2D g_normal_texture   : register(t2);
 //-----------------------------------------------------------------------------
 // Pixel Shaders
 //-----------------------------------------------------------------------------
-PSOutputDeferred PS(PSInputPositionNormalTexture input) {
+OMInputDeferred PS(PSInputPositionNormalTexture input) {
 #ifdef TSNM
 	const float3 n0     = normalize(input.n_view);
 	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2);
@@ -57,7 +57,7 @@ PSOutputDeferred PS(PSInputPositionNormalTexture input) {
 	const float3 n_view = normalize(input.n_view);
 #endif
 	
-	PSOutputDeferred output;
+	OMInputDeferred output;
 	// [-1,1] -> [0,1]
 	output.normal.xyz   = InverseBiasX2(n_view);
 	output.diffuse      = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex);

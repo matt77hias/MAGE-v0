@@ -76,6 +76,27 @@ Texture2D g_normal_texture   : register(t5);
 //-----------------------------------------------------------------------------
 // Shading
 //-----------------------------------------------------------------------------
+float PhongBRDFxCos(float3 n, float3 l, float3 v) {
+	return PhongBRDFxCos(n, l, v, g_Ns);
+}
+float ModifiedPhongBRDFxCos(float3 n, float3 l, float3 v) {
+	return ModifiedPhongBRDFxCos(n, l, v, g_Ns);
+}
+float BlinnPhongBRDFxCos(float3 n, float3 l, float3 v) {
+	return BlinnPhongBRDFxCos(n, l, v, g_Ns);
+}
+float ModifiedBlinnPhongBRDFxCos(float3 n, float3 l, float3 v) {
+	return ModifiedBlinnPhongBRDFxCos(n, l, v, g_Ns);
+}
+float WardBRDFxCos(float3 n, float3 l, float3 v) {
+	return WardBRDFxCos(n, l, v, g_material_parameters.x);
+}
+float WardDuerBRDFxCos(float3 n, float3 l, float3 v) {
+	return WardDuerBRDFxCos(n, l, v, g_material_parameters.x);
+}
+float CookTorranceBRDFxCos(float3 n, float3 l, float3 v) {
+	return CookTorranceBRDFxCos(n, l, v, g_material_parameters.z, g_material_parameters.y);
+}
 
 // Calculates the BRDF shading.
 float4 BRDFShading(float3 p, float3 n, float2 tex) {

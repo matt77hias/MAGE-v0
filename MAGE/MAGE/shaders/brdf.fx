@@ -1,9 +1,4 @@
 //-----------------------------------------------------------------------------
-// Requires global variable: g_Ns
-// Requires global variable: g_material_parameters
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 
@@ -29,37 +24,37 @@ float LambertianBRDFxCos(float3 n, float3 l) {
 }
 
 // Calculates the (specular) Phong BRDFxCos intensity.
-float PhongBRDFxCos(float3 n, float3 l, float3 v) {
+float PhongBRDFxCos(float3 n, float3 l, float3 v, float Ns) {
 	// dot(r, v)^Ns / dot(n, l) * dot(n, l)
 	const float3 r = ReflectedDirection(n, l);
 	const float r_dot_v = sat_dot(r, v);
-	return pow(r_dot_v, g_Ns);
+	return pow(r_dot_v, Ns);
 }
 
 // Calculates the (specular) Modified Phong BRDFxCos intensity.
-float ModifiedPhongBRDFxCos(float3 n, float3 l, float3 v) {
+float ModifiedPhongBRDFxCos(float3 n, float3 l, float3 v, float Ns) {
 	// dot(r, v)^Ns * (Ns+2)/2 * dot(n, l)
 	const float n_dot_l = sat_dot(n, l);
-	return PhongBRDFxCos(n, l, v) * (0.5f * g_Ns + 1.0f) * n_dot_l;
+	return PhongBRDFxCos(n, l, v, Ns) * (0.5f * Ns + 1.0f) * n_dot_l;
 }
 
 // Calculates the (specular) Blinn-Phong BRDFxCos intensity.
-float BlinnPhongBRDFxCos(float3 n, float3 l, float3 v) {
+float BlinnPhongBRDFxCos(float3 n, float3 l, float3 v, float Ns) {
 	// dot(n, h)^Ns / dot(n, l) * dot(n, l)
 	const float3 h = HalfDirection(l, v);
 	const float n_dot_h = sat_dot(n, h);
-	return pow(n_dot_h, g_Ns);
+	return pow(n_dot_h, Ns);
 }
 
 // Calculates the (specular) Modified Blinn-Phong BRDFxCos intensity.
-float ModifiedBlinnPhongBRDFxCos(float3 n, float3 l, float3 v) {
+float ModifiedBlinnPhongBRDFxCos(float3 n, float3 l, float3 v, float Ns) {
 	// dot(n, h)^Ns * dot(n, l)
 	const float n_dot_l = sat_dot(n, l);
-	return BlinnPhongBRDFxCos(n, l, v) * n_dot_l;
+	return BlinnPhongBRDFxCos(n, l, v, Ns) * n_dot_l;
 }
 	
 // Calculates the (specular) Ward BRDFxCos intensity.
-float WardBRDFxCos(float3 n, float3 l, float3 v) {
+float WardBRDFxCos(float3 n, float3 l, float3 v, float alpha) {
 	const float n_dot_l = sat_dot(n, l);
 	const float n_dot_v = sat_dot(n, v);
 	if (n_dot_l * n_dot_v == 0) {
@@ -70,13 +65,13 @@ float WardBRDFxCos(float3 n, float3 l, float3 v) {
 	const float n_dot_h = dot(n, h);
 	const float n_dot_h2 = n_dot_h * n_dot_h;
 	const float t2 = 1.0 - 1.0 / n_dot_h2;
-	const float a2 = g_material_parameters.x * g_material_parameters.x;
+	const float a2 = alpha * alpha;
 
 	return sqrt(n_dot_l / n_dot_v) * exp(t2 / a2) / (4.0f * a2);
 }
 
 // Calculates the (specular) Ward-Duer BRDFxCos intensity.
-float WardDuerBRDFxCos(float3 n, float3 l, float3 v) {
+float WardDuerBRDFxCos(float3 n, float3 l, float3 v, float alpha) {
 	const float n_dot_l = sat_dot(n, l);
 	const float n_dot_v = sat_dot(n, v);
 	if (n_dot_l * n_dot_v == 0) {
@@ -87,7 +82,7 @@ float WardDuerBRDFxCos(float3 n, float3 l, float3 v) {
 	const float n_dot_h = dot(n, h);
 	const float n_dot_h2 = n_dot_h * n_dot_h;
 	const float t2 = 1.0 - 1.0 / n_dot_h2;
-	const float a2 = g_material_parameters.x * g_material_parameters.x;
+	const float a2 = alpha * alpha;
 
 	return exp(t2 / a2) / (n_dot_v * 4.0f * a2);
 }
@@ -106,7 +101,7 @@ float D_Beckmann(float m, float n_dot_h) {
 }
 
 // Calculates the (specular) Cook-Torrance BRDFxCos intensity.
-float CookTorranceBRDFxCos(float3 n, float3 l, float3 v) {
+float CookTorranceBRDFxCos(float3 n, float3 l, float3 v, float F0, float m) {
 	const float n_dot_l = sat_dot(n, l);
 	const float n_dot_v = sat_dot(n, v);
 	if (n_dot_l * n_dot_v == 0) {
@@ -119,8 +114,8 @@ float CookTorranceBRDFxCos(float3 n, float3 l, float3 v) {
 	
 	const float a = n_dot_h / v_dot_h;
 	const float G = min(1.0f, 2.0f * min(a * n_dot_v, a * n_dot_l));
-	const float D = D_Beckmann(g_material_parameters.y, n_dot_h);
-	const float F = F_Schlick(g_material_parameters.z, v_dot_h);
+	const float D = D_Beckmann(m, n_dot_h);
+	const float F = F_Schlick(F0, v_dot_h);
 
 	return G * D * F / n_dot_v;
 }

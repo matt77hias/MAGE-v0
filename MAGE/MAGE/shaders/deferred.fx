@@ -62,10 +62,91 @@ Texture2D g_depth_texture    : register(t7);
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "math.fx"
+#include "brdf.fx"
 
 //-----------------------------------------------------------------------------
 // Shading
 //-----------------------------------------------------------------------------
+
+// Calculates the BRDF shading.
+float4 BRDFShading(float3 p, float3 n, float4 Kd, float3 Ks, float Ns) {
+	float4 I = Kd;
+	//clip(I.a - 0.1f);
+	
+	const float r_eye = length(p);
+
+#ifndef DISSABLE_BRDFxCOS
+
+	// Ambient light contribution
+	float3 Id = g_Ia;
+#ifdef SPECULAR_BRDFxCOS
+	float3 Is = float3(0.0f, 0.0f, 0.0f);
+#endif
+
+	const float3 v = -p / r_eye;
+
+	// Directional lights contribution
+	for (uint i = 0; i < g_nb_directional_lights; ++i) {
+		const DirectionalLight light = g_directional_lights[i];
+		const float3 l        = light.neg_d;
+		const float3 I_light  = light.I;
+
+		const float fd = LambertianBRDFxCos(n, l);
+		Id += fd * I_light;
+
+#ifdef SPECULAR_BRDFxCOS
+		const float fs = SPECULAR_BRDFxCOS(n, l, v, Ns);
+		Is += fs * I_light;
+#endif
+	}
+
+	// Omni lights contribution
+	for (uint j = 0; j < g_nb_omni_lights; ++j) {
+		const OmniLight light = g_omni_lights[j];
+		const float3 d_light  = light.p - p;
+		const float r_light   = length(d_light);
+		const float3 l        = d_light / r_light;
+		const float3 I_light  = OmniLightMaxContribution(light, r_light);
+
+		const float fd = LambertianBRDFxCos(n, l);
+		Id += fd * I_light;
+
+#ifdef SPECULAR_BRDFxCOS
+		const float fs = SPECULAR_BRDFxCOS(n, l, v, Ns);
+		Is += fs * I_light;
+#endif
+	}
+
+	// Spotlights contribution
+	for (uint k = 0; k < g_nb_spot_lights; ++k) {
+		const SpotLight light = g_spot_lights[k];
+		const float3 d_light  = light.p - p;
+		const float r_light   = length(d_light);
+		const float3 l        = d_light / r_light;
+		const float3 I_light  = SpotLightMaxContribution(light, r_light, l);
+
+		const float fd = LambertianBRDFxCos(n, l);
+		Id += fd * I_light;
+
+#ifdef SPECULAR_BRDFxCOS
+		const float fs = SPECULAR_BRDFxCOS(n, l, v, Ns);
+		Is += fs * I_light;
+#endif
+	}
+
+	I.xyz *= Id;
+#ifdef SPECULAR_BRDFxCOS
+	I.xyz += Ks * Is;
+#endif
+#endif
+
+#ifndef DISSABLE_FOG
+	const float fog_factor = saturate((r_eye - g_fog_distance_falloff_start) * g_fog_distance_falloff_inv_range);
+	I.xyz = lerp(I.xyz, g_fog_color, fog_factor);
+#endif
+	
+	return I;
+}
 
 //-----------------------------------------------------------------------------
 // Vertex Shader
@@ -103,5 +184,5 @@ float4 PS(PSInputPositionTexture input) : SV_Target {
 	// Denormalize the specular exponent.
 	const float Ns        = g_Ns_start + specular.w * g_Ns_range;
 
-	return float4(0.0f, 0.0f, 0.0f, 0.0f);
+	return BRDFShading(p_view, n_view, Kd, Ks, Ns);
 }

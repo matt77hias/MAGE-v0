@@ -55,6 +55,7 @@ cbuffer PerDraw : register(b1) {
 	// The 2nd BRDF dependent material coefficient.
 	// R0    [Cook-Torrance]
 	float g_mat2                           : packoffset(c14.x);
+	uint3 g_padding                        : packoffset(c14.y);
 }
 
 //-----------------------------------------------------------------------------

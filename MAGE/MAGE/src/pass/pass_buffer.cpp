@@ -27,7 +27,7 @@ namespace mage {
 		m_opaque_emissive_models(), m_opaque_brdf_models(),
 		m_transparent_emissive_models(), m_transparent_brdf_models(),
 		m_directional_lights(), m_omni_lights(), m_spot_lights(),
-		m_opaque_sprites(), m_transparent_sprites(),
+		m_sprites(),
 		m_ambient_light(), m_fog(nullptr),
 		m_material_coefficient_min{},
 		m_material_coefficient_max{} {}
@@ -114,15 +114,9 @@ namespace mage {
 		});
 	
 		// Collect active sprites.
-		m_opaque_sprites.clear();
-		m_transparent_sprites.clear();
+		m_sprites.clear();
 		scene->ForEachSprite([this](const SpriteNode *node) {
-			if (node->GetSprite()->IsTransparant()) {
-				m_transparent_sprites.push_back(node);
-			}
-			else {
-				m_opaque_sprites.push_back(node);
-			}
+			m_sprites.push_back(node);
 		});
 	
 		// Collect scene fog.

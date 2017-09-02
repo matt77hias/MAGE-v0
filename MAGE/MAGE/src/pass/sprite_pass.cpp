@@ -22,21 +22,14 @@ namespace mage {
 	void SpritePass::Render(const PassBuffer *scene) {
 		m_sprite_batch->Begin();
 
-		ProcessSprites(scene->m_opaque_sprites);
-		ProcessSprites(scene->m_transparent_sprites);
-
-		m_sprite_batch->End();
-	}
-
-	void SpritePass::ProcessSprites(
-		const vector< const SpriteNode * > &sprites) noexcept {
-
-		for (const auto node : sprites) {
+		for (const auto node : scene->m_sprites) {
 			// Obtain node components.
 			const Sprite * const sprite = node->GetSprite();
 
 			// Draw the sprite.
 			sprite->Draw(*m_sprite_batch);
 		}
+
+		m_sprite_batch->End();
 	}
 }

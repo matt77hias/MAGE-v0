@@ -31,9 +31,6 @@ namespace mage {
 
 	private:
 
-		void ProcessSprites(
-			const vector< const SpriteNode * > &sprites) noexcept;
-
 		UniquePtr< SpriteBatch > m_sprite_batch;
 	};
 }

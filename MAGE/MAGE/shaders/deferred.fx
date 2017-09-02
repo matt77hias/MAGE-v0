@@ -8,7 +8,7 @@
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-cbuffer PerFrame : register(b0) {
+cbuffer PerFrame : register(b1) {
 	// CAMERA
 	// The projection values of the view-to-projection transformation matrix.
 	// g_projection_values.x = 1 / view_to_projection00
@@ -17,51 +17,24 @@ cbuffer PerFrame : register(b0) {
 	// g_projection_values.w = -view_to_projection22
 	float4 g_projection_values             : packoffset(c0);
 	
-	// LIGHTING
-	// The intensity of the ambient light in the scene. 
-	float3 g_Ia                            : packoffset(c1);
-	// The global flags.
-	uint g_flags                           : packoffset(c1.w);
-	// The number of directional lights in the scene.
-	uint g_nb_directional_lights           : packoffset(c2.x);
-	// The number of omni lights in the scene.
-	uint g_nb_omni_lights                  : packoffset(c2.y);
-	// The number of spotlights in the scene.
-	uint g_nb_spot_lights                  : packoffset(c3.z);
-	
-	// FOGGING
-	// The distance at which intensity falloff starts due to fog.
-	float g_fog_distance_falloff_start     : packoffset(c3.w);
-	// The color of the fog.
-	float3 g_fog_color                     : packoffset(c4);
-	// The distance inverse range where intensity falloff occurs due to fog.
-	float g_fog_distance_falloff_inv_range : packoffset(c4.w);
-
 	// MATERIAL
 	// The 1st BRDF dependent material coefficient start.
 	// Ns    [(Modified) Phong/(Modified) Blinn-Phong]
 	// alpha [Ward(-Duer)]
 	// m     [Cook-Torrance]
-	float g_mat1_start                       : packoffset(c5.x);
+	float g_mat1_start                       : packoffset(c1.x);
 	// The 1st BRDF dependent material coefficient range.
 	// Ns    [(Modified) Phong/(Modified) Blinn-Phong]
 	// alpha [Ward(-Duer)]
 	// m     [Cook-Torrance]
-	float g_mat1_range                       : packoffset(c5.y);
+	float g_mat1_range                       : packoffset(c1.y);
 	// The 2nd BRDF dependent material coefficient start.
 	// R0    [Cook-Torrance]
-	float g_mat2_start                       : packoffset(c5.z);
+	float g_mat2_start                       : packoffset(c1.z);
 	// The 2nd BRDF dependent material coefficient range.
 	// R0    [Cook-Torrance]
-	float g_mat2_range                       : packoffset(c5.w);
+	float g_mat2_range                       : packoffset(c1.w);
 };
-
-//-----------------------------------------------------------------------------
-// Structured Buffers
-//-----------------------------------------------------------------------------
-StructuredBuffer< DirectionalLight > g_directional_lights : register(t0);
-StructuredBuffer< OmniLight > g_omni_lights               : register(t1);
-StructuredBuffer< SpotLight > g_spot_lights               : register(t2);
 
 //-----------------------------------------------------------------------------
 // Textures

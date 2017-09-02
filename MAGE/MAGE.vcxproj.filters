@@ -807,9 +807,6 @@
     <ClInclude Include="MAGE\src\material\brdf.hpp">
       <Filter>Header Files\material</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\buffer\scene_buffer.hpp">
-      <Filter>Header Files\buffer</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\buffer\model_buffer.hpp">
       <Filter>Header Files\buffer</Filter>
     </ClInclude>
@@ -947,6 +944,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\deferred\gbuffer_VS.hpp">
       <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\lbuffer.hpp">
+      <Filter>Header Files\buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1290,6 +1290,9 @@
       <Filter>Source Files\pass</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\buffer\gbuffer.cpp">
+      <Filter>Source Files\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\buffer\lbuffer.cpp">
       <Filter>Source Files\buffer</Filter>
     </ClCompile>
   </ItemGroup>

@@ -17,17 +17,13 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_VARIABLE_SHADING_PASS_VS_SCENE_BUFFER           0
-#define MAGE_VARIABLE_SHADING_PASS_VS_MODEL_BUFFER           1
-#define MAGE_VARIABLE_SHADING_PASS_PS_SCENE_BUFFER           0
-#define MAGE_VARIABLE_SHADING_PASS_PS_MODEL_BUFFER           1
-#define MAGE_VARIABLE_SHADING_PASS_PS_DIRECTIONAL_LIGHTS_SRV 0
-#define MAGE_VARIABLE_SHADING_PASS_PS_OMNI_LIGHTS_SRV        1
-#define MAGE_VARIABLE_SHADING_PASS_PS_SPOT_LIGHTS_SRV        2
-#define MAGE_VARIABLE_SHADING_PASS_PS_DIFFUSE_SRV            3
-#define MAGE_VARIABLE_SHADING_PASS_PS_SPECULAR_SRV           4
-#define MAGE_VARIABLE_SHADING_PASS_PS_NORMAL_SRV             5
-#define MAGE_VARIABLE_SHADING_PASS_PS_SAMPLER                0
+#define MAGE_VARIABLE_SHADING_PASS_VS_PROJECTION_BUFFER 1
+#define MAGE_VARIABLE_SHADING_PASS_VS_MODEL_BUFFER      2
+#define MAGE_VARIABLE_SHADING_PASS_PS_MODEL_BUFFER      2
+#define MAGE_VARIABLE_SHADING_PASS_PS_DIFFUSE_SRV       3
+#define MAGE_VARIABLE_SHADING_PASS_PS_SPECULAR_SRV      4
+#define MAGE_VARIABLE_SHADING_PASS_PS_NORMAL_SRV        5
+#define MAGE_VARIABLE_SHADING_PASS_PS_SAMPLER           0
 
 #pragma endregion
 
@@ -41,10 +37,7 @@ namespace mage {
 		m_vs(CreateTransformVS()),
 		m_ps{ CreateEmissivePS(), CreatePS(BRDFType::Unknown), CreateTSNMPS(BRDFType::Unknown) },
 		m_bound_ps(PSIndex::Count), m_brdf(BRDFType::Unknown),
-		m_model_buffer(), m_scene_buffer(),
-		m_directional_lights_buffer(3), 
-		m_omni_lights_buffer(32), 
-		m_spot_lights_buffer(32) {}
+		m_model_buffer(), m_projection_buffer() {}
 
 	VariableShadingPass::VariableShadingPass(VariableShadingPass &&render_pass) = default;
 
@@ -78,6 +71,15 @@ namespace mage {
 		else {
 			BindPS(PSIndex::BRDF);
 		}
+	}
+
+	void XM_CALLCONV VariableShadingPass::BindProjectionData(
+		FXMMATRIX view_to_projection) noexcept {
+
+		m_projection_buffer.UpdateData(
+			m_device_context, XMMatrixTranspose(view_to_projection));
+		VS::BindConstantBuffer(m_device_context,
+			MAGE_VARIABLE_SHADING_PASS_VS_PROJECTION_BUFFER, m_projection_buffer.Get());
 	}
 
 	void XM_CALLCONV VariableShadingPass::BindModelData(
@@ -115,29 +117,6 @@ namespace mage {
 			MAGE_VARIABLE_SHADING_PASS_PS_NORMAL_SRV, material->GetNormalSRV());
 	}
 
-	void XM_CALLCONV VariableShadingPass::BindSceneData(
-		const PassBuffer *scene, 
-		FXMMATRIX view_to_projection) noexcept {
-
-		SceneBuffer scene_buffer;
-		scene_buffer.m_view_to_projection             = XMMatrixTranspose(view_to_projection);
-		scene_buffer.m_Ia                             = scene->m_ambient_light;
-		scene_buffer.m_nb_directional_lights          = static_cast< uint32_t >(m_directional_lights_buffer.size());
-		scene_buffer.m_nb_omni_lights                 = static_cast< uint32_t >(m_omni_lights_buffer.size());
-		scene_buffer.m_nb_spot_lights                 = static_cast< uint32_t >(m_spot_lights_buffer.size());
-		scene_buffer.m_fog_color                      = scene->m_fog->GetIntensity();
-		scene_buffer.m_fog_distance_falloff_start     = scene->m_fog->GetStartDistanceFalloff();
-		scene_buffer.m_fog_distance_falloff_inv_range = 1.0f / scene->m_fog->GetRangeDistanceFalloff();
-
-		// Update the scene buffer.
-		m_scene_buffer.UpdateData(m_device_context, scene_buffer);
-		// Bind the scene buffer.
-		VS::BindConstantBuffer(m_device_context, 
-			MAGE_VARIABLE_SHADING_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
-		PS::BindConstantBuffer(m_device_context, 
-			MAGE_VARIABLE_SHADING_PASS_PS_SCENE_BUFFER, m_scene_buffer.Get());
-	}
-
 	void VariableShadingPass::Render(const PassBuffer *scene, const CameraNode *node) {
 		Assert(scene);
 		Assert(node);
@@ -167,12 +146,8 @@ namespace mage {
 		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
 		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
 
-		ProcessLights(scene->m_directional_lights, world_to_view);
-		ProcessLights(scene->m_omni_lights, world_to_projection, world_to_view);
-		ProcessLights(scene->m_spot_lights, world_to_projection, world_to_view);
-		
-		// Bind the scene data.
-		BindSceneData(scene, view_to_projection);
+		// Bind the projection data.
+		BindProjectionData(view_to_projection);
 		
 		ProcessModels(scene->m_opaque_emissive_models,      world_to_projection, world_to_view, view_to_world);
 		ProcessModels(scene->m_opaque_brdf_models,          world_to_projection, world_to_view, view_to_world);
@@ -185,124 +160,6 @@ namespace mage {
 		}
 		ProcessModels(scene->m_transparent_emissive_models, world_to_projection, world_to_view, view_to_world);
 		ProcessModels(scene->m_transparent_brdf_models,     world_to_projection, world_to_view, view_to_world);
-	}
-
-	void XM_CALLCONV VariableShadingPass::ProcessLights(
-		const vector< const DirectionalLightNode * > &lights, 
-		FXMMATRIX world_to_view) noexcept {
-		
-		vector< DirectionalLightBuffer > buffer;
-		buffer.reserve(lights.size());
-		
-		for (const auto node : lights) {
-			const TransformNode    * const transform = node->GetTransform();
-			const DirectionalLight * const light     = node->GetLight();
-
-			// Transform to view space.
-			const XMVECTOR d = XMVector3Normalize(XMVector3TransformNormal(transform->GetWorldForward(), world_to_view));
-
-			// Create a directional light buffer.
-			DirectionalLightBuffer light_buffer;
-			XMStoreFloat3(&light_buffer.m_neg_d, -d);
-			light_buffer.m_I = light->GetIntensity();
-
-			// Add directional light buffer to directional light buffers.
-			buffer.push_back(std::move(light_buffer));
-		}
-
-		// Update the directional lights buffer.
-		m_directional_lights_buffer.UpdateData(m_device_context, buffer);
-		// Bind the directional lights buffer.
-		PS::BindSRV(m_device_context, 
-			MAGE_VARIABLE_SHADING_PASS_PS_DIRECTIONAL_LIGHTS_SRV,
-			m_directional_lights_buffer.Get());
-	}
-	
-	void XM_CALLCONV VariableShadingPass::ProcessLights(
-		const vector< const OmniLightNode * > &lights,
-		FXMMATRIX world_to_projection, 
-		FXMMATRIX world_to_view) noexcept {
-		
-		vector< OmniLightBuffer > buffer;
-		buffer.reserve(lights.size());
-
-		for (const auto node : lights) {
-			const TransformNode * const transform = node->GetTransform();
-			const OmniLight     * const light     = node->GetLight();
-			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection   = object_to_world * world_to_projection;
-
-			// Cull the light against the view frustum.
-			if (ViewFrustum::Cull(object_to_projection, light->GetBS())) {
-				continue;
-			}
-
-			// Transform to view space.
-			const XMVECTOR p = XMVector3TransformCoord(transform->GetWorldEye(), world_to_view);
-			
-			// Create an omni light buffer.
-			OmniLightBuffer light_buffer;
-			XMStoreFloat3(&light_buffer.m_p, p);
-			light_buffer.m_I                          = light->GetIntensity();
-			light_buffer.m_distance_falloff_end       = light->GetEndDistanceFalloff();
-			light_buffer.m_distance_falloff_inv_range = 1.0f / light->GetRangeDistanceFalloff();
-
-			// Add omni light buffer to omni light buffers.
-			buffer.push_back(std::move(light_buffer));
-		}
-
-		// Update the omni lights buffer.
-		m_omni_lights_buffer.UpdateData(m_device_context, buffer);
-		// Bind the omni lights buffer.
-		PS::BindSRV(m_device_context,
-			MAGE_VARIABLE_SHADING_PASS_PS_OMNI_LIGHTS_SRV,
-			m_omni_lights_buffer.Get());
-	}
-	
-	void XM_CALLCONV VariableShadingPass::ProcessLights(
-		const vector< const SpotLightNode * > &lights,
-		FXMMATRIX world_to_projection, 
-		FXMMATRIX world_to_view) noexcept {
-		
-		vector< SpotLightBuffer > buffer;
-		buffer.reserve(lights.size());
-		
-		for (const auto node : lights) {
-			const TransformNode  * const transform = node->GetTransform();
-			const SpotLight      * const light     = node->GetLight();
-			const XMMATRIX object_to_world         = transform->GetObjectToWorldMatrix();
-			const XMMATRIX object_to_projection    = object_to_world * world_to_projection;
-
-			// Cull the light against the view frustum.
-			if (ViewFrustum::Cull(object_to_projection, light->GetAABB())) {
-				continue;
-			}
-
-			// Transform to view space.
-			const XMVECTOR p = XMVector3TransformCoord(transform->GetWorldEye(), world_to_view);
-			const XMVECTOR d = XMVector3Normalize(XMVector3TransformNormal(transform->GetWorldForward(), world_to_view));
-
-			// Create a spotlight buffer.
-			SpotLightBuffer light_buffer;
-			XMStoreFloat3(&light_buffer.m_p, p);
-			XMStoreFloat3(&light_buffer.m_neg_d, -d);
-			light_buffer.m_I                          = light->GetIntensity();
-			light_buffer.m_exponent_property          = light->GetExponentProperty();
-			light_buffer.m_distance_falloff_end       = light->GetEndDistanceFalloff();
-			light_buffer.m_distance_falloff_inv_range = 1.0f / light->GetRangeDistanceFalloff();
-			light_buffer.m_cos_umbra                  = light->GetEndAngularCutoff();
-			light_buffer.m_cos_inv_range              = 1.0f / light->GetRangeAngularCutoff();
-
-			// Add spotlight buffer to spotlight buffers.
-			buffer.push_back(std::move(light_buffer));
-		}
-		
-		// Update the spotlights buffer.
-		m_spot_lights_buffer.UpdateData(m_device_context, buffer);
-		// Bind the spotlights buffer.
-		PS::BindSRV(m_device_context,
-			MAGE_VARIABLE_SHADING_PASS_PS_SPOT_LIGHTS_SRV,
-			m_spot_lights_buffer.Get());
 	}
 
 	void XM_CALLCONV VariableShadingPass::ProcessModels(

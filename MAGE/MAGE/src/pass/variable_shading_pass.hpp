@@ -7,9 +7,6 @@
 
 #include "pass\pass_buffer.hpp"
 #include "buffer\constant_buffer.hpp"
-#include "buffer\structured_buffer.hpp"
-#include "buffer\scene_buffer.hpp"
-#include "buffer\light_buffer.hpp"
 #include "buffer\model_buffer.hpp"
 
 #pragma endregion
@@ -45,26 +42,14 @@ namespace mage {
 		void UpdatePSs(BRDFType brdf);
 		void BindPS(PSIndex index) noexcept;
 		void BindPS(const Material *material) noexcept;
+		void XM_CALLCONV BindProjectionData(
+			FXMMATRIX view_to_projection) noexcept;
 		void XM_CALLCONV BindModelData(
 			FXMMATRIX object_to_view, 
 			FXMMATRIX view_to_object,
 			FXMMATRIX texture_transform,
 			const Material *material) noexcept;
-		void XM_CALLCONV BindSceneData(
-			const PassBuffer *scene,
-			FXMMATRIX view_to_projection) noexcept;
-
-		void XM_CALLCONV ProcessLights(
-			const vector< const DirectionalLightNode * > &lights,
-			FXMMATRIX world_to_view) noexcept;
-		void XM_CALLCONV ProcessLights(
-			const vector< const OmniLightNode * > &lights,
-			FXMMATRIX world_to_projection, 
-			FXMMATRIX world_to_view) noexcept;
-		void XM_CALLCONV ProcessLights(
-			const vector< const SpotLightNode * > &lights,
-			FXMMATRIX world_to_projection, 
-			FXMMATRIX world_to_view) noexcept;
+		
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
@@ -79,9 +64,6 @@ namespace mage {
 		BRDFType m_brdf;
 
 		ConstantBuffer< ModelBuffer > m_model_buffer;
-		ConstantBuffer< SceneBuffer > m_scene_buffer;
-		StructuredBuffer< DirectionalLightBuffer > m_directional_lights_buffer;
-		StructuredBuffer< OmniLightBuffer > m_omni_lights_buffer;
-		StructuredBuffer< SpotLightBuffer > m_spot_lights_buffer;
+		ConstantBuffer< XMMATRIX > m_projection_buffer;
 	};
 }

@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "pass\pass_buffer.hpp"
 #include "pass\bounding_volume_pass.hpp"
 #include "pass\constant_component_pass.hpp"
 #include "pass\constant_shading_pass.hpp"
@@ -14,6 +13,7 @@
 #include "pass\variable_shading_pass.hpp"
 #include "pass\shading_normal_pass.hpp"
 #include "pass\wireframe_pass.hpp"
+#include "buffer\lbuffer.hpp"
 
 #pragma endregion
 
@@ -42,6 +42,7 @@ namespace mage {
 		ID3D11DeviceContext2 * const m_device_context;
 
 		UniquePtr< PassBuffer > m_pass_buffer;
+		UniquePtr< LBuffer > m_lbuffer;
 		UniquePtr< BoundingVolumePass > m_bounding_volume_pass;
 		UniquePtr< ConstantComponentPass > m_constant_component_pass;
 		UniquePtr< ConstantShadingPass > m_constant_shading_pass;

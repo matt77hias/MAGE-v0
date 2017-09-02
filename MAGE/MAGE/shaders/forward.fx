@@ -6,33 +6,13 @@
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-cbuffer PerFrame : register(b0) {
+cbuffer PerFrame : register(b1) {
 	// CAMERA
 	// The view-to-projection transformation matrix.
 	float4x4 g_view_to_projection          : packoffset(c0);
-	
-	// LIGHTING
-	// The intensity of the ambient light in the scene. 
-	float3 g_Ia                            : packoffset(c4);
-	// The global flags.
-	uint g_flags                           : packoffset(c4.w);
-	// The number of directional lights in the scene.
-	uint g_nb_directional_lights           : packoffset(c5.x);
-	// The number of omni lights in the scene.
-	uint g_nb_omni_lights                  : packoffset(c5.y);
-	// The number of spotlights in the scene.
-	uint g_nb_spot_lights                  : packoffset(c5.z);
-	
-	// FOGGING
-	// The distance at which intensity falloff starts due to fog.
-	float g_fog_distance_falloff_start     : packoffset(c5.w);
-	// The color of the fog.
-	float3 g_fog_color                     : packoffset(c6);
-	// The distance inverse range where intensity falloff occurs due to fog.
-	float g_fog_distance_falloff_inv_range : packoffset(c6.w);
 };
 
-cbuffer PerDraw : register(b1) {
+cbuffer PerDraw : register(b2) {
 	// TRANSFORM
 	// The object-to-view transformation matrix.
 	float4x4 g_object_to_view              : packoffset(c0);
@@ -62,13 +42,6 @@ cbuffer PerDraw : register(b1) {
 // Samplers
 //-----------------------------------------------------------------------------
 sampler g_sampler : register(s0);
-
-//-----------------------------------------------------------------------------
-// Structured Buffers
-//-----------------------------------------------------------------------------
-StructuredBuffer< DirectionalLight > g_directional_lights : register(t0);
-StructuredBuffer< OmniLight > g_omni_lights               : register(t1);
-StructuredBuffer< SpotLight > g_spot_lights               : register(t2);
 
 //-----------------------------------------------------------------------------
 // Textures

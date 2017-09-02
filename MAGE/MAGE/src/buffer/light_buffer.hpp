@@ -25,6 +25,128 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
+	// LightBuffer
+	//-------------------------------------------------------------------------
+
+	/**
+	 A struct of light buffers used by shaders.
+	 */
+	__declspec(align(16)) struct LightBuffer final : public AlignedData< LightBuffer > {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a light buffer.
+		 */
+		LightBuffer()
+			: m_Ia(), m_flags(0), m_nb_directional_lights(0), 
+			m_nb_omni_lights(0), m_nb_spot_lights(0), 
+			m_fog_distance_falloff_start(FLT_MAX), m_fog_color(), 
+			m_fog_distance_falloff_inv_range(0.0f) {}
+		
+		/**
+		 Constructs a light buffer from the given light buffer.
+
+		 @param[in]		buffer
+						A reference to the light buffer to copy.
+		 */
+		LightBuffer(const LightBuffer &buffer) = default;
+		
+		/**
+		 Constructs a light buffer by moving the given light buffer.
+
+		 @param[in]		buffer
+						A reference to the light buffer to move.
+		 */
+		LightBuffer(LightBuffer &&buffer) = default;
+		
+		/**
+		 Destructs this light buffer.
+		 */
+		~LightBuffer() = default;
+		
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given light buffer to this light buffer.
+
+		 @param[in]		buffer
+						A reference to the light buffer to copy.
+		 @return		A reference to the copy of the given light buffer
+						(i.e. this light buffer).
+		 */
+		LightBuffer &operator=(const LightBuffer &buffer) = default;
+
+		/**
+		 Moves the given light buffer to this light buffer.
+
+		 @param[in]		buffer
+						A reference to the light buffer to move.
+		 @return		A reference to the moved light buffer
+						(i.e. this light buffer).
+		 */
+		LightBuffer &operator=(LightBuffer &&buffer) = default;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Lights
+		//---------------------------------------------------------------------
+
+		/**
+		 The ambient light intensity of this light buffer.
+		 */
+		RGBSpectrum m_Ia;
+
+		/**
+		 The flags of this light buffer.
+		 */
+		uint32_t m_flags;
+
+		/**
+		 The number of directional lights of this light buffer.
+		 */
+		uint32_t m_nb_directional_lights;
+
+		/**
+		 The number of omni lights of this light buffer.
+		 */
+		uint32_t m_nb_omni_lights;
+
+		/**
+		 The number of spotlights of this light buffer.
+		 */
+		uint32_t m_nb_spot_lights;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Fog
+		//---------------------------------------------------------------------
+
+		/**
+		 The distance at which intensity falloff starts due to fog
+		 of this light buffer.
+		 */
+		float m_fog_distance_falloff_start;
+	
+		/**
+		 The color of the fog of this light buffer.
+		 */
+		RGBSpectrum m_fog_color;
+		
+		/**
+		 The distance inverse range where intensity falloff occurs 
+		 due to fog of this light buffer.
+		 */
+		float m_fog_distance_falloff_inv_range;
+	};
+
+	static_assert(sizeof(LightBuffer) == 48, "CPU/GPU struct mismatch");
+
+	//-------------------------------------------------------------------------
 	// DirectionalLightBuffer
 	//-------------------------------------------------------------------------
 

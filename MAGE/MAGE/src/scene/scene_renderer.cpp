@@ -15,6 +15,7 @@ namespace mage {
 	SceneRenderer::SceneRenderer()
 		: m_device_context(GetImmediateDeviceContext()),
 		m_pass_buffer(MakeUnique< PassBuffer >()),
+		m_lbuffer(MakeUnique< LBuffer >()),
 		m_bounding_volume_pass(MakeUnique< BoundingVolumePass >()),
 		m_constant_component_pass(MakeUnique< ConstantComponentPass >()),
 		m_constant_shading_pass(MakeUnique< ConstantShadingPass >()),
@@ -30,23 +31,26 @@ namespace mage {
 	SceneRenderer::~SceneRenderer() = default;
 
 	void SceneRenderer::Render(const Scene *scene) {
+		// Update the pass buffer.
 		m_pass_buffer->Update(scene);
 		
 		for (const auto node : m_pass_buffer->m_cameras) {
 			// Bind the maximum viewport.
 			node->GetViewport().BindViewport(m_device_context);
-
+			
 			const CameraSettings *settings = node->GetSettings();
 
 			// RenderMode
 			switch (settings->GetRenderMode()) {
 
 			case RenderMode::Default: {
+				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_variable_shading_pass->Render(m_pass_buffer.get(), node);
 				break;
 			}
 
 			case RenderMode::Solid: {
+				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_constant_shading_pass->Render(m_pass_buffer.get(), node);
 				break;
 			}

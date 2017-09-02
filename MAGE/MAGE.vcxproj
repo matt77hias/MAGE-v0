@@ -24,9 +24,9 @@
     <ClInclude Include="MAGE\src\binary\binary_writer.hpp" />
     <ClInclude Include="MAGE\src\buffer\constant_buffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\gbuffer.hpp" />
+    <ClInclude Include="MAGE\src\buffer\lbuffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\light_buffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\model_buffer.hpp" />
-    <ClInclude Include="MAGE\src\buffer\scene_buffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\structured_buffer.hpp" />
     <ClInclude Include="MAGE\src\camera\camera.hpp" />
     <ClInclude Include="MAGE\src\camera\camera_node.hpp" />
@@ -253,6 +253,7 @@
     <ClCompile Include="MAGE\src\binary\binary_reader.cpp" />
     <ClCompile Include="MAGE\src\binary\binary_writer.cpp" />
     <ClCompile Include="MAGE\src\buffer\gbuffer.cpp" />
+    <ClCompile Include="MAGE\src\buffer\lbuffer.cpp" />
     <ClCompile Include="MAGE\src\camera\camera.cpp" />
     <ClCompile Include="MAGE\src\camera\camera_node.cpp" />
     <ClCompile Include="MAGE\src\camera\orthographic_camera.cpp" />

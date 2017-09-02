@@ -7,9 +7,6 @@
 
 #include "pass\pass_buffer.hpp"
 #include "buffer\constant_buffer.hpp"
-#include "buffer\structured_buffer.hpp"
-#include "buffer\scene_buffer.hpp"
-#include "buffer\light_buffer.hpp"
 #include "buffer\model_buffer.hpp"
 
 #pragma endregion
@@ -35,24 +32,13 @@ namespace mage {
 
 	private:
 
+		void XM_CALLCONV BindProjectionData(
+			FXMMATRIX view_to_projection) noexcept;
 		void XM_CALLCONV BindModelData(
 			FXMMATRIX object_to_view, 
 			FXMMATRIX view_to_object,
 			FXMMATRIX texture_transform) noexcept;
-		void XM_CALLCONV BindSceneData(
-			FXMMATRIX view_to_projection) noexcept;
 		
-		void XM_CALLCONV ProcessLights(
-			const vector< const DirectionalLightNode * > &lights,
-			FXMMATRIX world_to_view) noexcept;
-		void XM_CALLCONV ProcessLights(
-			const vector< const OmniLightNode * > &lights,
-			FXMMATRIX world_to_projection, 
-			FXMMATRIX world_to_view) noexcept;
-		void XM_CALLCONV ProcessLights(
-			const vector< const SpotLightNode * > &lights,
-			FXMMATRIX world_to_projection, 
-			FXMMATRIX world_to_view) noexcept;
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
@@ -65,10 +51,7 @@ namespace mage {
 		SharedPtr< const PixelShader > m_ps;
 
 		ConstantBuffer< ModelBuffer > m_model_buffer;
-		ConstantBuffer< SceneBuffer > m_scene_buffer;
-		StructuredBuffer< DirectionalLightBuffer > m_directional_lights_buffer;
-		StructuredBuffer< OmniLightBuffer > m_omni_lights_buffer;
-		StructuredBuffer< SpotLightBuffer > m_spot_lights_buffer;
+		ConstantBuffer< XMMATRIX > m_projection_buffer;
 		const SharedPtr< const Texture > m_white;
 	};
 }

@@ -28,22 +28,6 @@ namespace mage {
 		m_sprite_batch->End();
 	}
 
-	void SpritePass::RenderOpaque(const PassBuffer *scene) {
-		m_sprite_batch->Begin();
-
-		ProcessSprites(scene->m_opaque_sprites);
-
-		m_sprite_batch->End();
-	}
-
-	void SpritePass::RenderTransparent(const PassBuffer *scene) {
-		m_sprite_batch->Begin();
-
-		ProcessSprites(scene->m_transparent_sprites);
-
-		m_sprite_batch->End();
-	}
-
 	void SpritePass::ProcessSprites(
 		const vector< const SpriteNode * > &sprites) noexcept {
 

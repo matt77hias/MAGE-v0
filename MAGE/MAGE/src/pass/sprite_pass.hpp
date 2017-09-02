@@ -28,8 +28,13 @@ namespace mage {
 		SpritePass &operator=(SpritePass &&render_pass) = delete;
 
 		void Render(const PassBuffer *scene);
+		void RenderOpaque(const PassBuffer *scene);
+		void RenderTransparent(const PassBuffer *scene);
 
 	private:
+
+		void ProcessSprites(
+			const vector< const SpriteNode * > &sprites) noexcept;
 
 		UniquePtr< SpriteBatch > m_sprite_batch;
 	};

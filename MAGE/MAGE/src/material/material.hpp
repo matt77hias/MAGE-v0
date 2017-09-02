@@ -201,7 +201,7 @@ namespace mage {
 
 		/**
 		 Checks whether this material is opaque 
-		 (i.e. contains alpha channel is equal to 1.0).
+		 (i.e. contains alpha channel equal to 1.0).
 
 		 @return		@c true if and only if this material is opaque.
 						@c false otherwise.
@@ -212,7 +212,7 @@ namespace mage {
 
 		/**
 		 Checks whether this material is transparent
-		 (i.e. contains alpha channel is not equal to 1.0).
+		 (i.e. contains alpha channel not equal to 1.0).
 
 		 @return		@c true if and only if this material is transparent.
 						@c false otherwise.

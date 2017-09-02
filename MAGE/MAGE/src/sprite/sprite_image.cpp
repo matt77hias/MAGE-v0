@@ -19,6 +19,7 @@ namespace mage {
 		m_texture_region(nullptr), m_texture(texture) {
 	
 		Assert(m_texture);
+		SetTransparency(m_texture->HasAlpha());
 	}
 	
 	SpriteImage::SpriteImage(SharedPtr< const Texture > texture, 
@@ -28,6 +29,7 @@ namespace mage {
 		m_texture(texture) {
 	
 		Assert(m_texture);
+		SetTransparency(m_texture->HasAlpha());
 	}
 	
 	SpriteImage::SpriteImage(SharedPtr< const Texture > texture,
@@ -36,8 +38,8 @@ namespace mage {
 		m_texture_region(nullptr), m_texture(texture) {
 		
 		Assert(m_texture);
-		
 		SetColor(color);
+		SetTransparency(m_texture->HasAlpha());
 	}
 	
 	SpriteImage::SpriteImage(SharedPtr< const Texture > texture, 
@@ -47,8 +49,8 @@ namespace mage {
 		m_texture(texture) {
 
 		Assert(m_texture);
-
 		SetColor(color);
+		SetTransparency(m_texture->HasAlpha());
 	}
 
 	SpriteImage::SpriteImage(const SpriteImage &sprite_image) 

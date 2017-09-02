@@ -5,6 +5,7 @@
 
 #include "font\sprite_font.hpp"
 #include "font\sprite_font_loader.hpp"
+#include "texture\texture_utils.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
 
@@ -572,5 +573,9 @@ namespace mage {
 		}
 
 		return m_default_glyph;
+	}
+
+	bool SpriteFont::HasAlpha() const noexcept {
+		return mage::HasAlpha(m_texture_srv.Get());
 	}
 }

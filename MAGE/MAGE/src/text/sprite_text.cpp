@@ -18,6 +18,7 @@ namespace mage {
 		: Sprite(effects), m_text(L""), m_strings(), m_font(font) {
 
 		Assert(m_font);
+		SetTransparency(m_font->HasAlpha());
 	}
 
 	SpriteText::SpriteText(const SpriteText &sprite_text) = default;

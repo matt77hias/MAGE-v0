@@ -127,7 +127,7 @@ namespace mage {
 					to reconstruct the view position coordinates from the NDC 
 					position coordinates.
 	 */
-	const XMVECTOR XM_CALLCONV GetProjectionValues(FXMMATRIX projection_matrix) noexcept {
+	inline const XMVECTOR XM_CALLCONV GetProjectionValues(FXMMATRIX projection_matrix) noexcept {
 		//        [ 1/X  0   0  0 ]
 		// p_view [  0  1/Y  0  0 ] = [p_view.x 1/X, p_view.y 1/Y, p_view.z (-W) + Z, p_view.z] = p_proj
 		//        [  0   0  -W  1 ]

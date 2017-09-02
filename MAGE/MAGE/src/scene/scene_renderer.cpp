@@ -14,6 +14,7 @@ namespace mage {
 
 	SceneRenderer::SceneRenderer()
 		: m_device_context(GetImmediateDeviceContext()),
+		m_pass_buffer(MakeUnique< PassBuffer >()),
 		m_bounding_volume_pass(MakeUnique< BoundingVolumePass >()),
 		m_constant_component_pass(MakeUnique< ConstantComponentPass >()),
 		m_constant_shading_pass(MakeUnique< ConstantShadingPass >()),
@@ -29,9 +30,9 @@ namespace mage {
 	SceneRenderer::~SceneRenderer() = default;
 
 	void SceneRenderer::Render(const Scene *scene) {
-		PassBuffer buffer(scene);
+		m_pass_buffer->Update(scene);
 		
-		for (const auto node : buffer.m_cameras) {
+		for (const auto node : m_pass_buffer->m_cameras) {
 			// Bind the maximum viewport.
 			node->GetViewport().BindViewport(m_device_context);
 
@@ -41,12 +42,12 @@ namespace mage {
 			switch (settings->GetRenderMode()) {
 
 			case RenderMode::Default: {
-				m_variable_shading_pass->Render(&buffer, node);
+				m_variable_shading_pass->Render(m_pass_buffer.get(), node);
 				break;
 			}
 
 			case RenderMode::Solid: {
-				m_constant_shading_pass->Render(&buffer, node);
+				m_constant_shading_pass->Render(m_pass_buffer.get(), node);
 				break;
 			}
 
@@ -57,19 +58,19 @@ namespace mage {
 			case RenderMode::SpecularReflectivity:
 			case RenderMode::SpecularReflectivityTexture:
 			case RenderMode::NormalTexture: {
-				m_variable_component_pass->Render(&buffer, node);
+				m_variable_component_pass->Render(m_pass_buffer.get(), node);
 				break;
 			}
 
 			case RenderMode::UVTexture:
 			case RenderMode::Distance: {
-				m_constant_component_pass->Render(&buffer, node);
+				m_constant_component_pass->Render(m_pass_buffer.get(), node);
 				break;
 			}
 
 			case RenderMode::ShadingNormal:
 			case RenderMode::TSNMShadingNormal: {
-				m_shading_normal_pass->Render(&buffer, node);
+				m_shading_normal_pass->Render(m_pass_buffer.get(), node);
 				break;
 			}
 
@@ -77,17 +78,17 @@ namespace mage {
 
 			// RenderLayer
 			if (settings->HasRenderLayer(RenderLayer::Wireframe)) {
-				m_wireframe_pass->Render(&buffer, node);
+				m_wireframe_pass->Render(m_pass_buffer.get(), node);
 			}
 			if (settings->HasRenderLayer(RenderLayer::AABB)) {
-				m_bounding_volume_pass->Render(&buffer, node);
+				m_bounding_volume_pass->Render(m_pass_buffer.get(), node);
 			}
 		}
 
 		// Bind the maximum viewport.
 		m_viewport.BindViewport(m_device_context);
 		
-		m_sprite_pass->Render(&buffer);
+		m_sprite_pass->Render(m_pass_buffer.get());
 
 	}
 }

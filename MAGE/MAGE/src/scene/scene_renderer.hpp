@@ -41,6 +41,7 @@ namespace mage {
 
 		ID3D11DeviceContext2 * const m_device_context;
 
+		UniquePtr< PassBuffer > m_pass_buffer;
 		UniquePtr< BoundingVolumePass > m_bounding_volume_pass;
 		UniquePtr< ConstantComponentPass > m_constant_component_pass;
 		UniquePtr< ConstantShadingPass > m_constant_shading_pass;

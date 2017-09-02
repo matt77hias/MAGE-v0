@@ -20,7 +20,7 @@ namespace mage {
 
 		static const uint8_t s_nb_material_coefficients = 2;
 
-		explicit PassBuffer(const Scene *scene);
+		PassBuffer();
 		PassBuffer(const PassBuffer &pass_buffer) = default;
 		PassBuffer(PassBuffer &&pass_buffer) = default;
 		~PassBuffer() = default;
@@ -28,14 +28,18 @@ namespace mage {
 		PassBuffer &operator=(const PassBuffer &pass_buffer) = delete;
 		PassBuffer &operator=(PassBuffer &&pass_buffer) = delete;
 
+		void Update(const Scene *scene);
+
 		vector< const CameraNode * >			m_cameras;
 		vector< const ModelNode * >				m_opaque_emissive_models;
 		vector< const ModelNode * >				m_opaque_brdf_models;
-		vector< const ModelNode * >				m_transparent_models;
+		vector< const ModelNode * >				m_transparent_emissive_models;
+		vector< const ModelNode * >				m_transparent_brdf_models;
 		vector< const DirectionalLightNode * >	m_directional_lights;
 		vector< const OmniLightNode * >			m_omni_lights;
 		vector< const SpotLightNode * >			m_spot_lights;
-		vector< const SpriteNode * >			m_sprites;
+		vector< const SpriteNode * >			m_opaque_sprites;
+		vector< const SpriteNode * >			m_transparent_sprites;
 		RGBSpectrum								m_ambient_light;
 		const SceneFog *						m_fog;
 

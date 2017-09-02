@@ -94,9 +94,10 @@ namespace mage {
 
 		// Bind the model color data.
 		BindModelColorData();
-		ProcessModels(scene->m_opaque_emissive_models, world_to_projection);
-		ProcessModels(scene->m_opaque_brdf_models,     world_to_projection);
-		ProcessModels(scene->m_transparent_models,     world_to_projection);
+		ProcessModels(scene->m_opaque_emissive_models,      world_to_projection);
+		ProcessModels(scene->m_opaque_brdf_models,          world_to_projection);
+		ProcessModels(scene->m_transparent_emissive_models, world_to_projection);
+		ProcessModels(scene->m_transparent_brdf_models,     world_to_projection);
 	}
 
 	void XM_CALLCONV BoundingVolumePass::ProcessLights(

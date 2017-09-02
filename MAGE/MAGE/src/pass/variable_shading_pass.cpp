@@ -174,8 +174,8 @@ namespace mage {
 		// Bind the scene data.
 		BindSceneData(scene, view_to_projection);
 		
-		ProcessModels(scene->m_opaque_emissive_models, world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->m_opaque_brdf_models,     world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->m_opaque_emissive_models,      world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->m_opaque_brdf_models,          world_to_projection, world_to_view, view_to_world);
 		// Bind the blend state.
 		if (Renderer::Get()->HasMSAA()) {
 			RenderingStateCache::Get()->BindAlphaToCoverageBlendState(m_device_context);
@@ -183,7 +183,8 @@ namespace mage {
 		else {
 			RenderingStateCache::Get()->BindAlphaBlendState(m_device_context);
 		}
-		ProcessModels(scene->m_transparent_models,     world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->m_transparent_emissive_models, world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->m_transparent_brdf_models,     world_to_projection, world_to_view, view_to_world);
 	}
 
 	void XM_CALLCONV VariableShadingPass::ProcessLights(

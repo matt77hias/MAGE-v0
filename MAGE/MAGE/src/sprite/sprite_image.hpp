@@ -68,7 +68,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit SpriteImage(SharedPtr< const Texture > texture,
-			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect::None);
+			CXMVECTOR color = Colors::White, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a sprite image.
@@ -84,7 +84,7 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit SpriteImage(SharedPtr< const Texture > texture, const RECT &texture_region,
-			const XMVECTOR &color = Colors::White, SpriteEffect effects = SpriteEffect::None);
+			CXMVECTOR color = Colors::White, SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a sprite image from the given sprite image.
@@ -215,7 +215,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the color.
 		 */
-		void SetColor(const XMVECTOR &color) noexcept {
+		void XM_CALLCONV SetColor(FXMVECTOR color) noexcept {
 			XMStoreFloat4(&m_color, color);
 		}
 

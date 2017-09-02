@@ -33,7 +33,7 @@ namespace mage {
 	}
 	
 	SpriteImage::SpriteImage(SharedPtr< const Texture > texture,
-		const XMVECTOR &color, SpriteEffect effects)
+		CXMVECTOR color, SpriteEffect effects)
 		: Sprite(effects), m_color(),
 		m_texture_region(nullptr), m_texture(texture) {
 		
@@ -43,7 +43,7 @@ namespace mage {
 	}
 	
 	SpriteImage::SpriteImage(SharedPtr< const Texture > texture, 
-		const RECT &texture_region, const XMVECTOR &color, SpriteEffect effects)
+		const RECT &texture_region, CXMVECTOR color, SpriteEffect effects)
 		: Sprite(effects), m_color(),
 		m_texture_region(MakeUnique< RECT >(texture_region)), 
 		m_texture(texture) {

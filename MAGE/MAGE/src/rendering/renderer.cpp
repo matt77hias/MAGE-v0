@@ -237,8 +237,13 @@ namespace mage {
 		// Create the SRV descriptor.
 		D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
 		srv_desc.Format        = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
-		srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-		srv_desc.Texture2D.MipLevels = 1u;
+		if (m_display_configuration->UseMSAA()) {
+			srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
+		}
+		else {
+			srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+			srv_desc.Texture2D.MipLevels = 1u;
+		}
 
 		// Create the SRV.
 		const HRESULT result_srv = m_device->CreateShaderResourceView(

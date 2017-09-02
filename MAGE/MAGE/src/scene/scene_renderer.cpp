@@ -87,8 +87,6 @@ namespace mage {
 
 		// Bind the maximum viewport.
 		m_viewport.BindViewport(m_device_context);
-		
 		m_sprite_pass->Render(m_pass_buffer.get());
-
 	}
 }

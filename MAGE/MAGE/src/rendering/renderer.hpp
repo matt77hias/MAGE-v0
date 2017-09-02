@@ -136,6 +136,50 @@ namespace mage {
 		}
 
 		/**
+		 Returns the back buffer RTV of this renderer.
+
+		 @return		A pointer to the back buffer RTV of this renderer.
+		 @note			The back buffer RTV and SRV cannot both be bind 
+						at the same time.
+		 */
+		ID3D11RenderTargetView *GetBackBufferRTV() const noexcept {
+			return m_back_buffer_rtv.Get();
+		}
+		
+		/**
+		 Returns the back buffer SRV of this renderer.
+
+		 @return		A pointer to the back buffer SRV of this renderer.
+		 @note			The back buffer RTV and SRV cannot both be bind
+						at the same time.
+		 */
+		ID3D11ShaderResourceView *GetBackBufferSRV() const noexcept {
+			return m_back_buffer_srv.Get();
+		}
+		
+		/**
+		 Returns the depth buffer DSV of this renderer.
+
+		 @return		A pointer to the depth buffer DSV of this renderer.
+		 @note			The depth buffer DSV and SRV cannot both be bind
+						at the same time.
+		 */
+		ID3D11DepthStencilView *GetDepthBufferDSV() const noexcept {
+			return m_depth_buffer_dsv.Get();
+		}
+		
+		/**
+		 Returns the depth buffer SRV of this renderer.
+
+		 @return		A pointer to the depth buffer SRV of this renderer.
+		 @note			The depth buffer DSV and SRV cannot both be bind
+						at the same time.
+		 */
+		ID3D11ShaderResourceView *GetDepthBufferSRV() const noexcept {
+			return m_depth_buffer_srv.Get();
+		}
+
+		/**
 		 Returns the rendering state cache of this renderer.
 
 		 @return		A pointer to the rendering state cache of this renderer.

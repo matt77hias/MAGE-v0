@@ -9,7 +9,7 @@
 
 #ifdef TWO_BRDF_COEFFICIENTS
 #define BRDF_COEFFICIENTS mat1, mat2
-#else
+#else  // TWO_BRDF_COEFFICIENTS
 #define BRDF_COEFFICIENTS mat1
 #endif // TWO_BRDF_COEFFICIENTS
 
@@ -22,7 +22,7 @@ float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float m
 
 #ifdef DISSABLE_AMBIENT_LIGHT
 	float3 Id = float3(0.0f, 0.0f, 0.0f);
-#else
+#else  // DISSABLE_AMBIENT_LIGHT
 	// Ambient light contribution
 	float3 Id = g_Ia;
 #endif // DISSABLE_AMBIENT_LIGHT

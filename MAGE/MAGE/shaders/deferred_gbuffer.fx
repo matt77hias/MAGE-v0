@@ -54,19 +54,33 @@ Texture2D g_normal_texture   : register(t2);
 // Pixel Shaders
 //-----------------------------------------------------------------------------
 OMInputDeferred PS(PSInputPositionNormalTexture input) {
+
 #ifdef TSNM
 	const float3 n0     = normalize(input.n_view);
 	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2);
-#else
+#else  // TSNM
 	const float3 n_view = normalize(input.n_view);
-#endif
+#endif // TSNM
 	
 	OMInputDeferred output;
 	// [-1,1] -> [0,1]
 	output.normal.xyz   = InverseBiasX2(n_view);
+	
+#ifdef DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
+	output.diffuse.xyz = g_Kd;
+#else  // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
 	output.diffuse.xyz  = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex).xyz;
+#endif // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
+
 	output.diffuse.w    = g_mat2_norm;
+	
+#ifdef DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
+	output.specular.xyz = g_Ks;
+#else  // DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
 	output.specular.xyz = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
+#endif // DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
+	
 	output.specular.w   = g_mat1_norm;
+	
 	return output;
 }

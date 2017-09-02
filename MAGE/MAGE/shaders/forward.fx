@@ -92,14 +92,23 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 #ifdef TSNM
 	const float3 n0     = normalize(input.n_view);
 	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2);
-#else
+#else  // TSNM
 	const float3 n_view = normalize(input.n_view);
 #endif // TSNM
 
-	const float4 Kd = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex);
+#ifdef DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
+	const float4 Kd = g_Kd;
+#else  // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
+	const float4 Kd = g_Kd * g_diffuse_texture.Sample(g_sampler, input.tex);
+#endif // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
+
 #ifdef SPECULAR_BRDFxCOS
+#ifdef DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
+	const float3 Ks = g_Ks;
+#else  // DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
 	const float3 Ks = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
-#else
+#endif // DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
+#else  // SPECULAR_BRDFxCOS
 	const float3 Ks = float3(0.0f, 0.0f, 0.0f);
 #endif // SPECULAR_BRDFxCOS
 

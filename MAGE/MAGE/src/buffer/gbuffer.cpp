@@ -19,7 +19,7 @@ namespace mage {
 		: GBuffer(GetDevice()) {}
 
 	GBuffer::GBuffer(ID3D11Device2 *device)
-		: m_textures{}, m_rtvs{}, m_dsv(), m_srvs{} {
+		: m_rtvs{}, m_dsv(), m_srvs{} {
 
 		SetupBuffers(device);
 	}
@@ -93,9 +93,10 @@ namespace mage {
 		texture_desc.BindFlags        = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
 
 		// Create the texture.
+		ComPtr< ID3D11Texture2D > texture;
 		const HRESULT result_texture = device->CreateTexture2D(
 			&texture_desc, nullptr, 
-			m_textures[index].ReleaseAndGetAddressOf());
+			texture.ReleaseAndGetAddressOf());
 		if (FAILED(result_texture)) {
 			throw FormattedException("Texture 2D creation failed: %08X.", result_texture);
 		}
@@ -143,9 +144,10 @@ namespace mage {
 		texture_desc.BindFlags        = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
 
 		// Create the texture.
+		ComPtr< ID3D11Texture2D > texture;
 		const HRESULT result_texture = device->CreateTexture2D(
 			&texture_desc, nullptr,
-			m_textures[static_cast< size_t >(GBufferIndex::Depth)].ReleaseAndGetAddressOf());
+			texture.ReleaseAndGetAddressOf());
 		if (FAILED(result_texture)) {
 			throw FormattedException("Texture 2D creation failed: %08X.", result_texture);
 		}

@@ -53,8 +53,6 @@ namespace mage {
 		void SetupBuffers(ID3D11Device2 *device);
 		void SetupBuffer(ID3D11Device2 *device, UINT index,
 			UINT width, UINT height, DXGI_FORMAT format);
-		void SetupDepthBuffer(ID3D11Device2 *device,
-			UINT width, UINT height);
 
 		ComPtr< ID3D11RenderTargetView > m_rtvs[static_cast< size_t >(GBufferIndex::Count) - 1];
 		ComPtr< ID3D11DepthStencilView > m_dsv;

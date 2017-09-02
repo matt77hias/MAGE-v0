@@ -306,20 +306,36 @@ namespace mage {
 		void CreateSwapChain();
 
 		/**
-		 Creates the render target view of this renderer.
+		 Creates the render target view and shader resource view
+		 of the back buffer of this renderer.
 
 		 @throws		FormattedException
-						Failed to create the render target view of this renderer.
+						Failed to obtain the back buffer resource
+						of this renderer.
+		 @throws		FormattedException
+						Failed to create the render target view 
+						of the back buffer of this renderer.
+		 @throws		FormattedException
+						Failed to create the shader resource view 
+						of the back buffer of this renderer.
 		 */
-		void CreateRTV();
+		void CreateBackBufferRTVandSRV();
 
 		/**
-		 Creates the depth stencil view of this renderer.
+		 Creates the depth stencil view and shader resource view 
+		 of the depth buffer of this renderer.
 
 		 @throws		FormattedException
-						Failed to create the depth stencil view of this renderer.
+						Failed to create the depth buffer resource
+						of this renderer.
+		 @throws		FormattedException
+						Failed to create the depth stencil view 
+						of the depth buffer of this renderer.
+		 @throws		FormattedException
+						Failed to create the shader resource view
+						of the depth buffer of this renderer.
 		 */
-		void CreateDSV();
+		void CreateDepthBufferDSVandSRV();
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -367,14 +383,28 @@ namespace mage {
 		ComPtr< IDXGISwapChain2 > m_swap_chain;
 
 		/**
-		 A pointer to the render target view of this renderer.
+		 A pointer to the render target view 
+		 of the back buffer of this renderer.
 		 */
-		ComPtr< ID3D11RenderTargetView > m_rtv;
+		ComPtr< ID3D11RenderTargetView > m_back_buffer_rtv;
 
 		/**
-		 A pointer to the depth stencil view of this renderer.
+		 A pointer to the shader resource view 
+		 of the back buffer of this renderer.
 		 */
-		ComPtr< ID3D11DepthStencilView > m_dsv;
+		ComPtr< ID3D11ShaderResourceView > m_back_buffer_srv;
+
+		/**
+		 A pointer to the depth stencil view 
+		 of the depth buffer of this renderer.
+		 */
+		ComPtr< ID3D11DepthStencilView > m_depth_buffer_dsv;
+
+		/**
+		 A pointer to the shader resource view
+		 of the depth buffer of this renderer.
+		 */
+		ComPtr< ID3D11ShaderResourceView > m_depth_buffer_srv;
 
 		/**
 		 A pointer to the rendering state cache of this renderer.

@@ -74,8 +74,7 @@ namespace mage {
 		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Specular),
 			width, height, DXGI_FORMAT_R8G8B8A8_UNORM);
 
-		// Setup the depth buffer.
-		SetupDepthBuffer(device, width, height);
+
 	}
 
 	void GBuffer::SetupBuffer(ID3D11Device2 *device, UINT index,
@@ -101,14 +100,14 @@ namespace mage {
 			throw FormattedException("Texture 2D creation failed: %08X.", result_texture);
 		}
 
-		// Create the DSV.
+		// Create the RTV descriptor.
 		D3D11_RENDER_TARGET_VIEW_DESC rtv_desc = {};
 		rtv_desc.Format               = format;
 		rtv_desc.ViewDimension        = D3D11_RTV_DIMENSION_TEXTURE2D;
 
-		// Create the DSV descriptor.
+		// Create the RTV.
 		const HRESULT result_rtv = device->CreateRenderTargetView(
-			m_textures[index].Get(), &rtv_desc,
+			texture.Get(), &rtv_desc,
 			m_rtvs[index].ReleaseAndGetAddressOf());
 		if (FAILED(result_rtv)) {
 			throw FormattedException("RTV creation failed: %08X.", result_rtv);
@@ -122,59 +121,8 @@ namespace mage {
 		
 		// Create the SRV.
 		const HRESULT result_srv = device->CreateShaderResourceView(
-			m_textures[index].Get(), &srv_desc,
+			texture.Get(), &srv_desc,
 			m_srvs[index].ReleaseAndGetAddressOf());
-		if (FAILED(result_srv)) {
-			throw FormattedException("SRV creation failed: %08X.", result_srv);
-		}
-	}
-
-	void GBuffer::SetupDepthBuffer(ID3D11Device2 *device, 
-		UINT width, UINT height) {
-
-		// Create the texture descriptor.
-		D3D11_TEXTURE2D_DESC texture_desc = {};
-		texture_desc.Width            = width;
-		texture_desc.Height           = height;
-		texture_desc.MipLevels        = 1u;
-		texture_desc.ArraySize        = 1u;
-		texture_desc.Format           = DXGI_FORMAT_R24G8_TYPELESS;
-		texture_desc.SampleDesc.Count = 1u;
-		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
-		texture_desc.BindFlags        = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
-
-		// Create the texture.
-		ComPtr< ID3D11Texture2D > texture;
-		const HRESULT result_texture = device->CreateTexture2D(
-			&texture_desc, nullptr,
-			texture.ReleaseAndGetAddressOf());
-		if (FAILED(result_texture)) {
-			throw FormattedException("Texture 2D creation failed: %08X.", result_texture);
-		}
-
-		// Create the DSV descriptor.
-		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
-		dsv_desc.Format               = DXGI_FORMAT_D24_UNORM_S8_UINT;
-		dsv_desc.ViewDimension        = D3D11_DSV_DIMENSION_TEXTURE2D;
-
-		// Create the DSV.
-		const HRESULT result_dsv = device->CreateDepthStencilView(
-			m_textures[static_cast< size_t >(GBufferIndex::Depth)].Get(), &dsv_desc,
-			m_dsv.ReleaseAndGetAddressOf());
-		if (FAILED(result_dsv)) {
-			throw FormattedException("DSV creation failed: %08X.", result_dsv);
-		}
-
-		// Create the SRV descriptor.
-		D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
-		srv_desc.Format               = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
-		srv_desc.ViewDimension        = D3D11_SRV_DIMENSION_TEXTURE2D;
-		srv_desc.Texture2D.MipLevels  = 1u;
-		
-		// Create the SRV.
-		const HRESULT result_srv = device->CreateShaderResourceView(
-			m_textures[static_cast< size_t >(GBufferIndex::Depth)].Get(), &srv_desc,
-			m_srvs[static_cast< size_t >(GBufferIndex::Depth)].ReleaseAndGetAddressOf());
 		if (FAILED(result_srv)) {
 			throw FormattedException("SRV creation failed: %08X.", result_srv);
 		}

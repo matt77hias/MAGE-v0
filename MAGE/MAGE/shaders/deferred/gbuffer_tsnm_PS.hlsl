@@ -1,2 +1,2 @@
 #define TSNM
-#include "deferred_gbuffer.fx"
+#include "gbuffer.fx"

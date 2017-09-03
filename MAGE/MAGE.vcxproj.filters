@@ -948,6 +948,9 @@
     <ClInclude Include="MAGE\src\buffer\lbuffer.hpp">
       <Filter>Header Files\buffer</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\pass\gbuffer_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1295,6 +1298,9 @@
     <ClCompile Include="MAGE\src\buffer\lbuffer.cpp">
       <Filter>Source Files\buffer</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\pass\gbuffer_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\brdf.fx">
@@ -1338,9 +1344,6 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\miscellaneous\shading_normal_VS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred_gbuffer.fx">
-      <Filter>Shader Files</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\forward.fx">
       <Filter>Shader Files</Filter>
@@ -1452,6 +1455,9 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\gbuffer_tsnm_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\gbuffer.fx">
+      <Filter>Shader Files</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

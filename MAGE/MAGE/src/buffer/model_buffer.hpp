@@ -131,7 +131,8 @@ namespace mage {
 		RGBSpectrum m_Ks;
 
 		/**
-		 The BRDF dependent material coefficients.
+		 The BRDF dependent material coefficients
+		 of this model buffer.
 		 */
 		float m_material_coefficients[2];
 	};
@@ -234,4 +235,129 @@ namespace mage {
 	};
 
 	static_assert(sizeof(ModelTransformBuffer) == 192, "CPU/GPU struct mismatch");
+
+	//-------------------------------------------------------------------------
+	// DeferredModelBuffer
+	//-------------------------------------------------------------------------
+
+	/**
+	 A struct of deferred model buffers used by pixel shaders.
+	 */
+	_declspec(align(16)) struct DeferredModelBuffer final : public AlignedData< DeferredModelBuffer > {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a deferred model buffer.
+		 */
+		DeferredModelBuffer()
+			: m_object_to_view{}, 
+			m_normal_to_view{}, 
+			m_texture_transform{},
+			m_Kd{}, m_mat2_norm(0.0f),
+			m_Ks{}, m_mat1_norm(0.0f) {}
+
+		/**
+		 Constructs a deferred model buffer from the given deferred model buffer.
+
+		 @param[in]		buffer
+						A reference to the deferred model buffer to copy.
+		 */
+		DeferredModelBuffer(const DeferredModelBuffer &buffer) = default;
+		
+		/**
+		 Constructs a deferred model buffer by moving the given deferred model buffer.
+
+		 @param[in]		buffer
+						A reference to the deferred model buffer to move.
+		 */
+		DeferredModelBuffer(DeferredModelBuffer &&buffer) = default;
+
+		/**
+		 Destructs this deferred model buffer.
+		 */
+		~DeferredModelBuffer() = default;
+		
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+		
+		/**
+		 Copies the given deferred model buffer to this deferred model buffer.
+
+		 @param[in]		buffer
+						A reference to the deferred model buffer to copy.
+		 @return		A reference to the copy of the given deferred model buffer
+						(i.e. this deferred model buffer).
+		 */
+		DeferredModelBuffer &operator=(const DeferredModelBuffer &buffer) = default;
+
+		/**
+		 Moves the given deferred model buffer to this deferred model buffer.
+
+		 @param[in]		buffer
+						A reference to the deferred model buffer to move.
+		 @return		A reference to the moved deferred model buffer
+						(i.e. this deferred model buffer).
+		 */
+		DeferredModelBuffer &operator=(DeferredModelBuffer &&buffer) = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators: Transforms
+		//---------------------------------------------------------------------
+
+		// HLSL expects column-major packed matrices by default.
+		// DirectXMath expects row-major packed matrices.
+
+		/**
+		 The (camera dependent, object dependent) (column-major packed, row-major matrix) 
+		 object-to-view matrix of this deferred model buffer for use in HLSL.
+		 */
+		XMMATRIX m_object_to_view;
+		
+		/**
+		 The (camera dependent, object dependent) (column-major packed, row-major matrix) 
+		 object-to-view inverse tranpose matrix (normal-to-view matrix) 
+		 of this deferred model buffer for use in HLSL.
+		 */
+		XMMATRIX m_normal_to_view;
+
+		/**
+		 The (object dependent) (column-major packed, row-major matrix) 
+		 texture transform matrix of this deferred model buffer for use in HLSL.
+		 */
+		XMMATRIX m_texture_transform;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators: Material
+		//---------------------------------------------------------------------
+
+		/**
+		 The diffuse reflectivity of this deferred model buffer.
+		 */
+		RGBSpectrum m_Kd;
+
+		/**
+		The 2nd BRDF dependent normalized material coefficient
+		of this deferred model buffer.
+		 */
+		float m_mat2_norm;
+
+		/**
+		 The specular reflectivity of this deferred model buffer.
+		 */
+		RGBSpectrum m_Ks;
+
+		/**
+		 The 1st BRDF dependent normalized material coefficient
+		 of this deferred model buffer.
+		 */
+		float m_mat1_norm;
+	};
+
+	static_assert(sizeof(DeferredModelBuffer) == 224, "CPU/GPU struct mismatch");
 }

@@ -162,8 +162,8 @@ namespace mage {
 	SharedPtr< const VertexShader > CreateGBufferVS() {
 		const BufferCompiledShader cs = CreateCompiledGBufferVS();
 		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_GBUFFER, &cs,
-								VertexPositionTexture::s_input_element_desc,
-								VertexPositionTexture::s_nb_input_elements);
+								VertexPositionNormalTexture::s_input_element_desc,
+								VertexPositionNormalTexture::s_nb_input_elements);
 	}
 
 	SharedPtr< const PixelShader > CreateGBufferPS() {

@@ -20,6 +20,7 @@ namespace mage {
 		m_bounding_volume_pass(MakeUnique< BoundingVolumePass >()),
 		m_constant_component_pass(MakeUnique< ConstantComponentPass >()),
 		m_constant_shading_pass(MakeUnique< ConstantShadingPass >()),
+		m_gbuffer_pass(MakeUnique< GBufferPass >()),
 		m_sprite_pass(MakeUnique< SpritePass >()),
 		m_variable_component_pass(MakeUnique< VariableComponentPass >()),
 		m_variable_shading_pass(MakeUnique< VariableShadingPass >()),
@@ -52,9 +53,9 @@ namespace mage {
 
 			case RenderMode::Deferred: {
 				m_gbuffer->BindPacking(m_device_context);
+				m_gbuffer_pass->Render(m_pass_buffer.get(), node);
 				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_gbuffer->BindUnpacking(m_device_context, 4);
-				// Render
 				m_gbuffer->BindRestore(m_device_context, 4);
 				// Render
 				m_variable_shading_pass->RenderPostDeferred(m_pass_buffer.get(), node);

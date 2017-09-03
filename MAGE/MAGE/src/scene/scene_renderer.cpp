@@ -46,13 +46,13 @@ namespace mage {
 			// RenderMode
 			switch (settings->GetRenderMode()) {
 
-			case RenderMode::Deferred: {
+			case RenderMode::Forward: {
 				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_variable_shading_pass->Render(m_pass_buffer.get(), node);
 				break;
 			}
 
-			case RenderMode::Forward: {
+			case RenderMode::Deferred: {
 				m_gbuffer->BindPacking(m_device_context);
 				m_gbuffer_pass->Render(m_pass_buffer.get(), node);
 				

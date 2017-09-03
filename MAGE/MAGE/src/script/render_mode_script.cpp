@@ -18,6 +18,7 @@ namespace mage {
 		m_render_modes(), m_index(0) {
 		
 		m_render_modes.push_back(RenderMode::Forward);
+		m_render_modes.push_back(RenderMode::Deferred);
 		m_render_modes.push_back(RenderMode::Solid);
 		m_render_modes.push_back(RenderMode::DiffuseColor);
 		m_render_modes.push_back(RenderMode::DiffuseReflectivity);

@@ -50,21 +50,21 @@ namespace mage {
 
 	UniquePtr< const StaticMesh > CreateScreenQuad() {
 
-		static const VertexPositionTexture vertices[4] = {
-			VertexPositionTexture(Point3(-1.0, -1.0,  0.0), UV(0.0, 1.0)),
-			VertexPositionTexture(Point3(-1.0,  1.0,  0.0), UV(0.0, 0.0)),
-			VertexPositionTexture(Point3( 1.0,  1.0,  0.0), UV(1.0, 0.0)),
-			VertexPositionTexture(Point3( 1.0, -1.0,  0.5), UV(1.0, 1.0))
+		static const VertexPosition vertices[4] = {
+			VertexPosition(Point3(-1.0, -1.0,  0.0)),
+			VertexPosition(Point3(-1.0,  1.0,  0.0)),
+			VertexPosition(Point3( 1.0,  1.0,  0.0)),
+			VertexPosition(Point3( 1.0, -1.0,  0.0))
 		};
 
-		static const uint16_t indices[6] = {
-			0, 1, 2,
-			2, 3, 0
+		static const uint16_t indices[4] = {
+			1, 2, 0, 3
 		};
 	
 		return MakeUnique< const StaticMesh >(
 			vertices, _countof(vertices),
 			indices, _countof(indices),
-			DXGI_FORMAT_R16_UINT);
+			DXGI_FORMAT_R16_UINT,
+			D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 	}
 }

@@ -69,7 +69,7 @@ OMInputDeferred PS(PSInputPositionNormalTexture input) {
 #ifdef DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
 	output.diffuse.xyz = g_Kd;
 #else  // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
-	output.diffuse.xyz  = g_Kd * g_diffuse_texture.Sample( g_sampler, input.tex).xyz;
+	output.diffuse.xyz  = g_Kd * g_diffuse_texture.Sample(g_sampler, input.tex).xyz;
 #endif // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
 
 	output.diffuse.w    = g_mat2_norm;
@@ -81,6 +81,6 @@ OMInputDeferred PS(PSInputPositionNormalTexture input) {
 #endif // DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
 	
 	output.specular.w   = g_mat1_norm;
-	
+
 	return output;
 }

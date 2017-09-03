@@ -6,7 +6,6 @@
 #include "shader\compiled_shader_factory.hpp"
 
 // Deferred
-#include "shader\cso\deferred\gbuffer_VS.hpp"
 #include "shader\cso\deferred\gbuffer_PS.hpp"
 #include "shader\cso\deferred\gbuffer_tsnm_PS.hpp"
 #include "shader\cso\deferred\transform_VS.hpp"
@@ -141,10 +140,6 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Factory Methods: DeferredConstantShadingPass and DeferredVariableShadingPass
 	//-------------------------------------------------------------------------
-
-	const BufferCompiledShader CreateCompiledGBufferVS() noexcept {
-		return BufferCompiledShader(g_gbuffer_vs, sizeof(g_gbuffer_vs));
-	}
 
 	const BufferCompiledShader CreateCompiledGBufferPS() noexcept {
 		return BufferCompiledShader(g_gbuffer_ps, sizeof(g_gbuffer_ps));

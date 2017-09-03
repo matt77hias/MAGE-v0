@@ -149,13 +149,6 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 Returns the compiled GBuffer vertex shader.
-
-	 @return		A buffer compiled GBuffer vertex shader.
-	 */
-	const BufferCompiledShader CreateCompiledGBufferVS() noexcept;
-
-	/**
 	 Returns the compiled GBuffer pixel shader.
 
 	 @return		A buffer compiled GBuffer pixel shader.

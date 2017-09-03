@@ -159,13 +159,6 @@ namespace mage {
 	// Factory Methods: DeferredConstantShadingPass and DeferredVariableShadingPass
 	//-------------------------------------------------------------------------
 
-	SharedPtr< const VertexShader > CreateGBufferVS() {
-		const BufferCompiledShader cs = CreateCompiledGBufferVS();
-		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_GBUFFER, &cs,
-								VertexPositionNormalTexture::s_input_element_desc,
-								VertexPositionNormalTexture::s_nb_input_elements);
-	}
-
 	SharedPtr< const PixelShader > CreateGBufferPS() {
 		const BufferCompiledShader cs = CreateCompiledGBufferPS();
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_GBUFFER, &cs);
@@ -179,8 +172,8 @@ namespace mage {
 	SharedPtr< const VertexShader > CreateDeferredTransformVS() {
 		const BufferCompiledShader cs = CreateCompiledDeferredTransformVS();
 		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_DEFERRED_TRANSFORM, &cs,
-								VertexPositionTexture::s_input_element_desc,
-								VertexPositionTexture::s_nb_input_elements);
+								VertexPosition::s_input_element_desc,
+								VertexPosition::s_nb_input_elements);
 	}
 
 	SharedPtr< const PixelShader > CreateDeferredEmissivePS() {

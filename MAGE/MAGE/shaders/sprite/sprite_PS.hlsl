@@ -16,6 +16,6 @@ Texture2D g_texture : register(t0);
 //-----------------------------------------------------------------------------
 // Pixel Shader
 //-----------------------------------------------------------------------------
-float4 PS(PSInputPositionColorTexture input) : SV_Target {
+float4 PS(PSInputColorTexture input) : SV_Target {
 	return g_texture.Sample(g_sampler, input.tex) * input.color;
 }

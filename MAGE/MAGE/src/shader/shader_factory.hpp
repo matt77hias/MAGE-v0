@@ -251,17 +251,6 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 Creates a GBuffer vertex shader.
-
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
-	 @return		A pointer to the GBuffer vertex shader.
-	 @throws		FormattedException
-					Failed to create the vertex shader.
-	 */
-	SharedPtr< const VertexShader > CreateGBufferVS();
-
-	/**
 	 Creates a GBuffer pixel shader.
 
 	 @pre			The resource manager associated with the

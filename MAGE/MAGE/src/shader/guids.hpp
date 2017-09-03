@@ -6,7 +6,6 @@
 #pragma region
 
 // Deferred
-#define MAGE_GUID_VS_GBUFFER                       L"mage_gbuffer_vs"
 #define MAGE_GUID_PS_GBUFFER                       L"mage_gbuffer_ps"
 #define MAGE_GUID_PS_GBUFFER_TSNM                  L"mage_gbuffer_tsnm_ps"
 #define MAGE_GUID_VS_DEFERRED_TRANSFORM            L"mage_deferred_transform_vs"

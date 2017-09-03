@@ -25,7 +25,7 @@ namespace mage {
 	}
 
 	void GBuffer::BindPacking(ID3D11DeviceContext2 *device_context) noexcept {
-		static const FLOAT color[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+		static const FLOAT color[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 		// Collect and clear the RTVs.
 		ID3D11RenderTargetView *rtvs[GetNumberOfRTVs()];
@@ -52,25 +52,23 @@ namespace mage {
 		OM::BindRTVAndDSV(device_context, rtv, nullptr);
 
 		// Collect the SRVs (incl. depth SRV of the renderer).
-		ID3D11ShaderResourceView *srvs[GetNumberOfSRVs() + 1];
+		const UINT nb_srvs = GetNumberOfSRVs() + 1;
+		ID3D11ShaderResourceView *srvs[nb_srvs];
 		for (UINT i = 0; i < GetNumberOfSRVs(); ++i) {
 			srvs[i] = m_srvs[i].Get();
 		}
 		srvs[GetNumberOfSRVs()] = renderer->GetDepthBufferSRV();
 	
 		// Bind the SRVs.
-		PS::BindSRVs(device_context, slot, GetNumberOfSRVs(), srvs);
+		PS::BindSRVs(device_context, slot, nb_srvs, srvs);
 	}
 
 	void GBuffer::BindRestore(ID3D11DeviceContext2 *device_context, UINT slot) noexcept {
-		// Collect the SRVs (incl. depth SRV of the renderer).
-		ID3D11ShaderResourceView *srvs[GetNumberOfSRVs() + 1];
-		for (UINT i = 0; i < GetNumberOfSRVs() + 1; ++i) {
-			srvs[i] = nullptr;
-		}
-
+		const UINT nb_srvs = GetNumberOfSRVs() + 1;
+		ID3D11ShaderResourceView * const srvs[nb_srvs] = {};
+		
 		// Bind the SRVs.
-		PS::BindSRVs(device_context, slot, GetNumberOfSRVs(), srvs);
+		PS::BindSRVs(device_context, slot, nb_srvs, srvs);
 
 		// Restore the RTV and DSV of the renderer.
 		const Renderer * const renderer = Renderer::Get();

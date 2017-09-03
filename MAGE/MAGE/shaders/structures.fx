@@ -56,16 +56,15 @@ struct VSInputPositionTextureTexture {
 // PS Input Structures
 //-----------------------------------------------------------------------------
 
+// SV_POSITION is always included. 
+// Therefore, it is not reflected in the struct naming.
+
 struct PSInputPosition {
 	float4 p      : SV_POSITION;
+	float3 p_proj : POSITION0;
 };
 
-struct PSInputPositionTexture {
-	float4 p      : SV_POSITION;
-	float2 tex    : TEXCOORD0;
-};
-
-struct PSInputPositionColorTexture {
+struct PSInputColorTexture {
 	float4 p      : SV_POSITION;
 	float4 color  : COLOR0;
 	float2 tex    : TEXCOORD0;

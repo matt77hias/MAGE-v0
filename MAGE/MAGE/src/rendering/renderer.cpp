@@ -263,7 +263,7 @@ namespace mage {
 		Assert(!m_in_begin_end_pair);
 
 		static const XMVECTORF32 background_color 
-			= { 0.0f, 0.117647058f, 0.149019608f, 1.000000000f };
+			= { 0.0f, 0.117647058f, 0.149019608f, 1.0f };
 
 		// Clear the back buffer.
 		OM::ClearRTV(m_device_context.Get(), m_back_buffer_rtv.Get(), background_color);

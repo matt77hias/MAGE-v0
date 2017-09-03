@@ -4,7 +4,6 @@
 #pragma region
 
 #include "pass\gbuffer_pass.hpp"
-#include "rendering\renderer.hpp"
 #include "rendering\rendering_state_cache.hpp"
 #include "resource\resource_factory.hpp"
 #include "math\view_frustum.hpp"
@@ -34,13 +33,12 @@ namespace mage {
 
 	GBufferPass::GBufferPass()
 		: m_device_context(GetImmediateDeviceContext()),
-		m_vs(CreateGBufferVS()),
+		m_vs(CreateTransformVS()),
 		m_ps{ CreateGBufferPS(), CreateGBufferTSNMPS() },
 		m_bound_ps(PSIndex::Count),
 		m_model_buffer(), m_projection_buffer(),
 		m_material_coefficient_min{}, 
 		m_material_coefficient_range{} {}
-
 
 	GBufferPass::GBufferPass(GBufferPass &&render_pass) = default;
 

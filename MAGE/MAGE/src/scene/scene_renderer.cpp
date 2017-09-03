@@ -20,6 +20,7 @@ namespace mage {
 		m_bounding_volume_pass(MakeUnique< BoundingVolumePass >()),
 		m_constant_component_pass(MakeUnique< ConstantComponentPass >()),
 		m_constant_shading_pass(MakeUnique< ConstantShadingPass >()),
+		m_deferred_shading_pass(MakeUnique< DeferredShadingPass >()),
 		m_gbuffer_pass(MakeUnique< GBufferPass >()),
 		m_sprite_pass(MakeUnique< SpritePass >()),
 		m_variable_component_pass(MakeUnique< VariableComponentPass >()),
@@ -45,19 +46,21 @@ namespace mage {
 			// RenderMode
 			switch (settings->GetRenderMode()) {
 
-			case RenderMode::Forward: {
+			case RenderMode::Deferred: {
 				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_variable_shading_pass->Render(m_pass_buffer.get(), node);
 				break;
 			}
 
-			case RenderMode::Deferred: {
+			case RenderMode::Forward: {
 				m_gbuffer->BindPacking(m_device_context);
 				m_gbuffer_pass->Render(m_pass_buffer.get(), node);
+				
+				m_gbuffer->BindUnpacking(m_device_context, 3);
 				m_lbuffer->Update(m_pass_buffer.get(), node);
-				m_gbuffer->BindUnpacking(m_device_context, 4);
-				m_gbuffer->BindRestore(m_device_context, 4);
-				// Render
+				m_deferred_shading_pass->Render(m_pass_buffer.get(), node);
+				
+				m_gbuffer->BindRestore(m_device_context, 3);
 				m_variable_shading_pass->RenderPostDeferred(m_pass_buffer.get(), node);
 				break;
 			}

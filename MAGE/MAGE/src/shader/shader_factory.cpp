@@ -156,7 +156,7 @@ namespace mage {
 	}
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: DeferredConstantShadingPass and DeferredVariableShadingPass
+	// Factory Methods: GBufferPass
 	//-------------------------------------------------------------------------
 
 	SharedPtr< const PixelShader > CreateGBufferPS() {
@@ -168,6 +168,10 @@ namespace mage {
 		const BufferCompiledShader cs = CreateCompiledGBufferTSNMPS();
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_GBUFFER_TSNM, &cs);
 	}
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: DeferredShadingPass
+	//-------------------------------------------------------------------------
 
 	SharedPtr< const VertexShader > CreateDeferredTransformVS() {
 		const BufferCompiledShader cs = CreateCompiledDeferredTransformVS();

@@ -4,6 +4,7 @@
 #pragma region
 
 #include "scene\scene_renderer.hpp"
+#include "rendering\renderer.hpp"
 
 #pragma endregion
 
@@ -53,6 +54,8 @@ namespace mage {
 			}
 
 			case RenderMode::Deferred: {
+				Assert(!Renderer::Get()->HasMSAA());
+
 				m_gbuffer->BindPacking(m_device_context);
 				m_gbuffer_pass->Render(m_pass_buffer.get(), node);
 				

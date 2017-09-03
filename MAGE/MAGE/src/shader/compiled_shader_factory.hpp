@@ -145,7 +145,7 @@ namespace mage {
 	const BufferCompiledShader CreateCompiledCookTorranceTSNMPS() noexcept;
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: DeferredConstantShadingPass and DeferredVariableShadingPass
+	// Factory Methods: GBufferPass
 	//-------------------------------------------------------------------------
 
 	/**
@@ -161,6 +161,10 @@ namespace mage {
 	 @return		A buffer compiled GBuffer tsnm pixel shader.
 	 */
 	const BufferCompiledShader CreateCompiledGBufferTSNMPS() noexcept;
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: DeferredShadingPass
+	//-------------------------------------------------------------------------
 
 	/**
 	 Returns the compiled deferred transform vertex shader.

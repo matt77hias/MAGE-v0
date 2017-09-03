@@ -247,7 +247,7 @@ namespace mage {
 	SharedPtr< const PixelShader > CreateTSNMPS(BRDFType brdf);
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: ConstantShadingPass and VariableShadingPass
+	// Factory Methods: GBufferPass
 	//-------------------------------------------------------------------------
 
 	/**
@@ -271,6 +271,10 @@ namespace mage {
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateGBufferTSNMPS();
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: DeferredShadingPass
+	//-------------------------------------------------------------------------
 
 	/**
 	 Creates a deferred transform vertex shader.

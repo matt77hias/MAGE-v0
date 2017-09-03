@@ -138,7 +138,7 @@ namespace mage {
 	}
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: DeferredConstantShadingPass and DeferredVariableShadingPass
+	// Factory Methods: GBufferPass
 	//-------------------------------------------------------------------------
 
 	const BufferCompiledShader CreateCompiledGBufferPS() noexcept {
@@ -148,6 +148,10 @@ namespace mage {
 	const BufferCompiledShader CreateCompiledGBufferTSNMPS() noexcept {
 		return BufferCompiledShader(g_gbuffer_tsnm_ps, sizeof(g_gbuffer_tsnm_ps));
 	}
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: DeferredShadingPass
+	//-------------------------------------------------------------------------
 
 	const BufferCompiledShader CreateCompiledDeferredTransformVS() noexcept {
 		return BufferCompiledShader(g_deferred_transform_vs, sizeof(g_deferred_transform_vs));

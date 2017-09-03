@@ -5,9 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-// Deferred
+// Depth
+#define MAGE_GUID_VS_DEPTH                         L"mage_depth_vs"
+
+// GBuffer
 #define MAGE_GUID_PS_GBUFFER                       L"mage_gbuffer_ps"
 #define MAGE_GUID_PS_GBUFFER_TSNM                  L"mage_gbuffer_tsnm_ps"
+
+// Deferred
 #define MAGE_GUID_VS_DEFERRED_TRANSFORM            L"mage_deferred_transform_vs"
 #define MAGE_GUID_PS_DEFERRED_EMISSIVE             L"mage_deferred_emissive_ps"
 #define MAGE_GUID_PS_DEFERRED_LAMBERTIAN           L"mage_deferred_lambertian_ps"

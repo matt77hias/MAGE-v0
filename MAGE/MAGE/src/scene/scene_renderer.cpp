@@ -22,6 +22,7 @@ namespace mage {
 		m_constant_component_pass(MakeUnique< ConstantComponentPass >()),
 		m_constant_shading_pass(MakeUnique< ConstantShadingPass >()),
 		m_deferred_shading_pass(MakeUnique< DeferredShadingPass >()),
+		m_depth_pass(MakeUnique< DepthPass >()),
 		m_gbuffer_pass(MakeUnique< GBufferPass >()),
 		m_sprite_pass(MakeUnique< SpritePass >()),
 		m_variable_component_pass(MakeUnique< VariableComponentPass >()),
@@ -35,6 +36,8 @@ namespace mage {
 	SceneRenderer::~SceneRenderer() = default;
 
 	void SceneRenderer::Render(const Scene *scene) {
+		const Renderer * const renderer = Renderer::Get();
+		
 		// Update the pass buffer.
 		m_pass_buffer->Update(scene);
 		
@@ -48,13 +51,21 @@ namespace mage {
 			switch (settings->GetRenderMode()) {
 
 			case RenderMode::Forward: {
+				//OM::BindRTVAndDSV(m_device_context, nullptr, renderer->GetDepthBufferDSV());
+				//m_depth_pass->Render(m_pass_buffer.get(), node);
+				//renderer->BindRTVAndDSV();
+				
 				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_variable_shading_pass->Render(m_pass_buffer.get(), node);
+				
 				break;
 			}
 
 			case RenderMode::Deferred: {
 				Assert(!Renderer::Get()->HasMSAA());
+
+				//OM::BindRTVAndDSV(m_device_context, nullptr, renderer->GetDepthBufferDSV());
+				//m_depth_pass->Render(m_pass_buffer.get(), node);
 
 				m_gbuffer->BindPacking(m_device_context);
 				m_gbuffer_pass->Render(m_pass_buffer.get(), node);
@@ -65,12 +76,18 @@ namespace mage {
 				
 				m_gbuffer->BindRestore(m_device_context, 3);
 				m_variable_shading_pass->RenderPostDeferred(m_pass_buffer.get(), node);
+				
 				break;
 			}
 
 			case RenderMode::Solid: {
+				//OM::BindRTVAndDSV(m_device_context, nullptr, renderer->GetDepthBufferDSV());
+				//m_depth_pass->Render(m_pass_buffer.get(), node);
+				//renderer->BindRTVAndDSV();
+
 				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_constant_shading_pass->Render(m_pass_buffer.get(), node);
+				
 				break;
 			}
 

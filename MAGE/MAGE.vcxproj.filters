@@ -259,6 +259,18 @@
     <Filter Include="Header Files\shader\cso\deferred">
       <UniqueIdentifier>{c2229bf9-28d0-4049-bfae-4a9c95fe85c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader Files\gbuffer">
+      <UniqueIdentifier>{3c2e2636-ed1f-415d-ba0c-408903337093}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader Files\depth">
+      <UniqueIdentifier>{05ab8c3d-2ba7-417c-b1dc-87ac445156fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\shader\cso\depth">
+      <UniqueIdentifier>{2eef59f3-dadd-4808-bd4f-d94488c98ede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\shader\cso\gbuffer">
+      <UniqueIdentifier>{a627ed48-bd53-4615-8137-37ad5f33d289}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -936,12 +948,6 @@
     <ClInclude Include="MAGE\src\shader\cso\deferred\emissive_PS.hpp">
       <Filter>Header Files\shader\cso\deferred</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\gbuffer_PS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\gbuffer_tsnm_PS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\buffer\lbuffer.hpp">
       <Filter>Header Files\buffer</Filter>
     </ClInclude>
@@ -952,6 +958,18 @@
       <Filter>Header Files\buffer</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\pass\deferred_shading_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\depth\depth_VS.hpp">
+      <Filter>Header Files\shader\cso\depth</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\gbuffer\gbuffer_PS.hpp">
+      <Filter>Header Files\shader\cso\gbuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\gbuffer\gbuffer_tsnm_PS.hpp">
+      <Filter>Header Files\shader\cso\gbuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\depth_pass.hpp">
       <Filter>Header Files\pass</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1307,6 +1325,9 @@
     <ClCompile Include="MAGE\src\pass\deferred_shading_pass.cpp">
       <Filter>Source Files\pass</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\pass\depth_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\brdf.fx">
@@ -1444,9 +1465,6 @@
     <FxCompile Include="MAGE\shaders\deferred\emissive_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\gbuffer_PS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\lambertian_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
@@ -1456,11 +1474,17 @@
     <FxCompile Include="MAGE\shaders\deferred\modified_phong_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\gbuffer_tsnm_PS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\gbuffer.fx">
       <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\gbuffer\gbuffer_tsnm_PS.hlsl">
+      <Filter>Shader Files\gbuffer</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\gbuffer\gbuffer_PS.hlsl">
+      <Filter>Shader Files\gbuffer</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\depth\depth_VS.hlsl">
+      <Filter>Shader Files\depth</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

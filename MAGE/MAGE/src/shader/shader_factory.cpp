@@ -15,9 +15,28 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	// Note: All factory methods could be made lazy.
+	//       This will not result in performance gains since 
+	//       BufferCompiledShaders are not expensive to create. 
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: DepthPass
+	//-------------------------------------------------------------------------
+#pragma region
+
+	SharedPtr< const VertexShader > CreateDepthVS() {
+		const BufferCompiledShader cs = CreateCompiledDepthVS();
+		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_DEPTH, &cs,
+								VertexPositionNormalTexture::s_input_element_desc,
+								VertexPositionNormalTexture::s_nb_input_elements);
+	}
+
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: ConstantShadingPass and VariableShadingPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	SharedPtr< const VertexShader > CreateTransformVS() {
 		const BufferCompiledShader cs = CreateCompiledTransformVS();
@@ -155,9 +174,12 @@ namespace mage {
 		}
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: GBufferPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	SharedPtr< const PixelShader > CreateGBufferPS() {
 		const BufferCompiledShader cs = CreateCompiledGBufferPS();
@@ -169,9 +191,12 @@ namespace mage {
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_GBUFFER_TSNM, &cs);
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: DeferredShadingPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	SharedPtr< const VertexShader > CreateDeferredTransformVS() {
 		const BufferCompiledShader cs = CreateCompiledDeferredTransformVS();
@@ -247,9 +272,12 @@ namespace mage {
 		}
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: SpritePass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	SharedPtr< const VertexShader > CreateSpriteVS() {
 		const BufferCompiledShader cs = CreateCompiledSpriteVS();
@@ -263,9 +291,12 @@ namespace mage {
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_SPRITE, &cs);
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: ConstantComponentPass and VariableComponentPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	SharedPtr< const VertexShader > CreateMinimalTransformVS() noexcept {
 		const BufferCompiledShader cs = CreateCompiledMinimalTransformVS();
@@ -289,9 +320,12 @@ namespace mage {
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DISTANCE, &cs);
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: ShadingNormalPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	SharedPtr< const VertexShader > CreateShadingNormalVS() noexcept {
 		const BufferCompiledShader cs = CreateCompiledShadingNormalVS();
@@ -310,9 +344,12 @@ namespace mage {
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_TSNM_SHADING_NORMAL, &cs);
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: WireframePass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	SharedPtr< const VertexShader > CreateBoundingVolumeVS() noexcept {
 		const BufferCompiledShader cs = CreateCompiledBoundingVolumeVS();
@@ -325,4 +362,6 @@ namespace mage {
 		const BufferCompiledShader cs = CreateCompiledBoundingVolumePS();
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_BOUNDING_VOLUME, &cs);
 	}
+
+#pragma endregion
 }

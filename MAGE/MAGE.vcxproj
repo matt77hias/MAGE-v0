@@ -121,6 +121,7 @@
     <ClInclude Include="MAGE\src\pass\constant_shading_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\constant_component_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\deferred_shading_pass.hpp" />
+    <ClInclude Include="MAGE\src\pass\depth_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\gbuffer_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\sprite_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\variable_shading_pass.hpp" />
@@ -174,8 +175,6 @@
     <ClInclude Include="MAGE\src\shader\cso\deferred\blinn_phong_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\deferred\cook_torrance_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\deferred\emissive_PS.hpp" />
-    <ClInclude Include="MAGE\src\shader\cso\deferred\gbuffer_PS.hpp" />
-    <ClInclude Include="MAGE\src\shader\cso\deferred\gbuffer_tsnm_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\deferred\lambertian_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\deferred\modified_blinn_phong_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\deferred\modified_phong_PS.hpp" />
@@ -183,6 +182,7 @@
     <ClInclude Include="MAGE\src\shader\cso\deferred\transform_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\deferred\ward_duer_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\deferred\ward_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\depth\depth_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\forward\blinn_phong_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\forward\cook_torrance_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\forward\emissive_PS.hpp" />
@@ -201,6 +201,8 @@
     <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_phong_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_ward_duer_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_ward_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\gbuffer\gbuffer_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\gbuffer\gbuffer_tsnm_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\bounding_volume_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\bounding_volume_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\constant_color_PS.hpp" />
@@ -308,6 +310,7 @@
     <ClCompile Include="MAGE\src\pass\constant_shading_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\constant_component_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\deferred_shading_pass.cpp" />
+    <ClCompile Include="MAGE\src\pass\depth_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\gbuffer_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\sprite_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\variable_shading_pass.cpp" />
@@ -497,58 +500,6 @@
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\gbuffer_PS.hlsl">
-      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_gbuffer_ps</VariableName>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ObjectFileOutput>
-      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">g_gbuffer_ps</VariableName>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </ObjectFileOutput>
-      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_gbuffer_ps</VariableName>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ObjectFileOutput>
-      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_gbuffer_ps</VariableName>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ObjectFileOutput>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
-      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
-      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
-      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\gbuffer_tsnm_PS.hlsl">
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ObjectFileOutput>
-      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </ObjectFileOutput>
-      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ObjectFileOutput>
-      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ObjectFileOutput>
-      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_gbuffer_tsnm_ps</VariableName>
-      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">g_gbuffer_tsnm_ps</VariableName>
-      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_gbuffer_tsnm_ps</VariableName>
-      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_gbuffer_tsnm_ps</VariableName>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\lambertian_PS.hlsl">
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_deferred_lambertian_ps</VariableName>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -731,6 +682,32 @@
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
     </FxCompile>
+    <FxCompile Include="MAGE\shaders\depth\depth_VS.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_depth_vs</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\depth\%(Filename).hpp</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ObjectFileOutput>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">g_depth_vs</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)\src\shader\cso\depth\%(Filename).hpp</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ObjectFileOutput>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_depth_vs</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\shader\cso\depth\%(Filename).hpp</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ObjectFileOutput>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_depth_vs</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\shader\cso\depth\%(Filename).hpp</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+    </FxCompile>
     <FxCompile Include="MAGE\shaders\gbuffer.fx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -752,6 +729,58 @@
       </ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\gbuffer\gbuffer_PS.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\gbuffer\%(Filename).hpp</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ObjectFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)\src\shader\cso\gbuffer\%(Filename).hpp</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ObjectFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\shader\cso\gbuffer\%(Filename).hpp</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ObjectFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\shader\cso\gbuffer\%(Filename).hpp</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_gbuffer_ps</VariableName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">g_gbuffer_ps</VariableName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_gbuffer_ps</VariableName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_gbuffer_ps</VariableName>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\gbuffer\gbuffer_tsnm_PS.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\gbuffer\%(Filename).hpp</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ObjectFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)\src\shader\cso\gbuffer\%(Filename).hpp</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ObjectFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\shader\cso\gbuffer\%(Filename).hpp</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ObjectFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\shader\cso\gbuffer\%(Filename).hpp</HeaderFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_gbuffer_tsnm_ps</VariableName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">g_gbuffer_tsnm_ps</VariableName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_gbuffer_tsnm_ps</VariableName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_gbuffer_tsnm_ps</VariableName>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\lighting.fx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

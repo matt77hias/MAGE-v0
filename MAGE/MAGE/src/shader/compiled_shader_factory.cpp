@@ -5,9 +5,14 @@
 
 #include "shader\compiled_shader_factory.hpp"
 
+// Depth
+#include "shader\cso\depth\depth_VS.hpp"
+
+// GBuffer
+#include "shader\cso\gbuffer\gbuffer_PS.hpp"
+#include "shader\cso\gbuffer\gbuffer_tsnm_PS.hpp"
+
 // Deferred
-#include "shader\cso\deferred\gbuffer_PS.hpp"
-#include "shader\cso\deferred\gbuffer_tsnm_PS.hpp"
 #include "shader\cso\deferred\transform_VS.hpp"
 #include "shader\cso\deferred\emissive_PS.hpp"
 #include "shader\cso\deferred\lambertian_PS.hpp"
@@ -62,8 +67,20 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
+	// Factory Methods: DepthPass
+	//-------------------------------------------------------------------------
+#pragma region
+
+	const BufferCompiledShader CreateCompiledDepthVS() noexcept {
+		return BufferCompiledShader(g_depth_vs, sizeof(g_depth_vs));
+	}
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// Factory Methods: ConstantShadingPass and VariableShadingPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	const BufferCompiledShader CreateCompiledTransformVS() noexcept {
 		return BufferCompiledShader(g_transform_vs, sizeof(g_transform_vs));
@@ -137,9 +154,12 @@ namespace mage {
 		return BufferCompiledShader(g_tsnm_cook_torrance_ps, sizeof(g_tsnm_cook_torrance_ps));
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: GBufferPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	const BufferCompiledShader CreateCompiledGBufferPS() noexcept {
 		return BufferCompiledShader(g_gbuffer_ps, sizeof(g_gbuffer_ps));
@@ -149,9 +169,12 @@ namespace mage {
 		return BufferCompiledShader(g_gbuffer_tsnm_ps, sizeof(g_gbuffer_tsnm_ps));
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: DeferredShadingPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	const BufferCompiledShader CreateCompiledDeferredTransformVS() noexcept {
 		return BufferCompiledShader(g_deferred_transform_vs, sizeof(g_deferred_transform_vs));
@@ -193,9 +216,12 @@ namespace mage {
 		return BufferCompiledShader(g_deferred_cook_torrance_ps, sizeof(g_deferred_cook_torrance_ps));
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: SpritePass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	const BufferCompiledShader CreateCompiledSpriteVS() noexcept {
 		return BufferCompiledShader(g_sprite_vs, sizeof(g_sprite_vs));
@@ -205,9 +231,12 @@ namespace mage {
 		return BufferCompiledShader(g_sprite_ps, sizeof(g_sprite_ps));
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: ConstantComponentPass and VariableComponentPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	const BufferCompiledShader CreateCompiledMinimalTransformVS() noexcept {
 		return BufferCompiledShader(g_minimal_transform_vs, sizeof(g_minimal_transform_vs));
@@ -225,9 +254,12 @@ namespace mage {
 		return BufferCompiledShader(g_distance_ps, sizeof(g_distance_ps));
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: ShadingNormalPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	const BufferCompiledShader CreateCompiledShadingNormalVS() noexcept {
 		return BufferCompiledShader(g_shading_normal_vs, sizeof(g_shading_normal_vs));
@@ -241,9 +273,12 @@ namespace mage {
 		return BufferCompiledShader(g_tsnm_shading_normal_ps, sizeof(g_tsnm_shading_normal_ps));
 	}
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: WireframePass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	const BufferCompiledShader CreateCompiledBoundingVolumeVS() noexcept {
 		return BufferCompiledShader(g_bounding_volume_vs, sizeof(g_bounding_volume_vs));
@@ -252,4 +287,6 @@ namespace mage {
 	const BufferCompiledShader CreateCompiledBoundingVolumePS() noexcept {
 		return BufferCompiledShader(g_bounding_volume_ps, sizeof(g_bounding_volume_ps));
 	}
+
+#pragma endregion
 }

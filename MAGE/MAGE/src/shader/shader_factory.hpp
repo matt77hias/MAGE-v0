@@ -17,8 +17,27 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
+	// Factory Methods:DepthPass
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Creates a depth vertex shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the depth vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateDepthVS();
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// Factory Methods: ConstantShadingPass and VariableShadingPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Creates a transform vertex shader.
@@ -246,9 +265,12 @@ namespace mage {
 	 */
 	SharedPtr< const PixelShader > CreateTSNMPS(BRDFType brdf);
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: GBufferPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Creates a GBuffer pixel shader.
@@ -272,9 +294,12 @@ namespace mage {
 	 */
 	SharedPtr< const PixelShader > CreateGBufferTSNMPS();
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: DeferredShadingPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Creates a deferred transform vertex shader.
@@ -400,9 +425,12 @@ namespace mage {
 	 */
 	SharedPtr< const PixelShader > CreateDeferredPS(BRDFType brdf);
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: SpritePass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Creates a sprite vertex shader.
@@ -426,9 +454,12 @@ namespace mage {
 	 */
 	SharedPtr< const PixelShader > CreateSpritePS();
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: ConstantComponentPass and VariableComponentPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Creates a minimal transform vertex shader.
@@ -474,9 +505,12 @@ namespace mage {
 	 */
 	SharedPtr< const PixelShader > CreateDistancePS() noexcept;
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: ShadingNormalPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Creates a shading normal vertex shader.
@@ -512,9 +546,12 @@ namespace mage {
 	 */
 	SharedPtr< const PixelShader > CreateShadingNormalTSNMPS() noexcept;
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: WireframePass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Creates a bounding volume vertex shader.
@@ -537,4 +574,6 @@ namespace mage {
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateBoundingVolumePS() noexcept;
+
+#pragma endregion
 }

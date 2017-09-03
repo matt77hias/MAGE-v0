@@ -15,8 +15,23 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
+	// Factory Methods: GBufferPass
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Returns the compiled depth vertex shader.
+
+	 @return		A buffer compiled depth vertex shader.
+	 */
+	const BufferCompiledShader CreateCompiledDepthVS() noexcept;
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// Factory Methods: ConstantShadingPass and VariableShadingPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Returns the compiled transform vertex shader.
@@ -144,9 +159,12 @@ namespace mage {
 	 */
 	const BufferCompiledShader CreateCompiledCookTorranceTSNMPS() noexcept;
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: GBufferPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Returns the compiled GBuffer pixel shader.
@@ -162,9 +180,12 @@ namespace mage {
 	 */
 	const BufferCompiledShader CreateCompiledGBufferTSNMPS() noexcept;
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: DeferredShadingPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Returns the compiled deferred transform vertex shader.
@@ -236,9 +257,12 @@ namespace mage {
 	 */
 	const BufferCompiledShader CreateCompiledDeferredCookTorrancePS() noexcept;
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: SpritePass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Returns the compiled sprite vertex shader.
@@ -254,9 +278,12 @@ namespace mage {
 	 */
 	const BufferCompiledShader CreateCompiledSpritePS() noexcept;
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: ConstantComponentPass and VariableComponentPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Returns the compiled minimal transform vertex shader.
@@ -286,9 +313,12 @@ namespace mage {
 	 */
 	const BufferCompiledShader CreateCompiledDistancePS() noexcept;
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: ShadingNormalPass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Returns the compiled shading normal vertex shader.
@@ -311,9 +341,12 @@ namespace mage {
 	 */
 	const BufferCompiledShader CreateCompiledShadingNormalTSNMPS() noexcept;
 
+#pragma endregion
+
 	//-------------------------------------------------------------------------
 	// Factory Methods: WireframePass
 	//-------------------------------------------------------------------------
+#pragma region
 
 	/**
 	 Returns the compiled bounding volume vertex shader.
@@ -328,4 +361,6 @@ namespace mage {
 	 @return		A buffer compiled bounding volume pixel shader.
 	 */
 	const BufferCompiledShader CreateCompiledBoundingVolumePS() noexcept;
+
+#pragma endregion
 }

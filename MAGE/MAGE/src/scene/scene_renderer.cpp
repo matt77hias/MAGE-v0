@@ -15,6 +15,7 @@ namespace mage {
 	SceneRenderer::SceneRenderer()
 		: m_device_context(GetImmediateDeviceContext()),
 		m_pass_buffer(MakeUnique< PassBuffer >()),
+		m_gbuffer(MakeUnique< GBuffer >()),
 		m_lbuffer(MakeUnique< LBuffer >()),
 		m_bounding_volume_pass(MakeUnique< BoundingVolumePass >()),
 		m_constant_component_pass(MakeUnique< ConstantComponentPass >()),
@@ -43,9 +44,20 @@ namespace mage {
 			// RenderMode
 			switch (settings->GetRenderMode()) {
 
-			case RenderMode::Default: {
+			case RenderMode::Forward: {
 				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_variable_shading_pass->Render(m_pass_buffer.get(), node);
+				break;
+			}
+
+			case RenderMode::Deferred: {
+				m_gbuffer->BindPacking(m_device_context);
+				m_lbuffer->Update(m_pass_buffer.get(), node);
+				m_gbuffer->BindUnpacking(m_device_context, 4);
+				// Render
+				m_gbuffer->BindRestore(m_device_context, 4);
+				// Render
+				m_variable_shading_pass->RenderPostDeferred(m_pass_buffer.get(), node);
 				break;
 			}
 

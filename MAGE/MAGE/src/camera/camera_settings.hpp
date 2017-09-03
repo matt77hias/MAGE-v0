@@ -39,7 +39,7 @@ namespace mage {
 		 Constructs a camera settings.
 		 */
 		CameraSettings()
-			: m_render_mode(RenderMode::Default), 
+			: m_render_mode(RenderMode::Forward), 
 			m_brdf(BRDFType::Unknown),
 			m_render_layer_mask(static_cast< uint32_t >(RenderLayer::None)) {}
 		
@@ -107,7 +107,7 @@ namespace mage {
 		}
 
 		void ResetRenderMode() noexcept {
-			SetRenderMode(RenderMode::Default);
+			SetRenderMode(RenderMode::Forward);
 		}
 
 		BRDFType GetBRDF() const noexcept {

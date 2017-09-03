@@ -10,7 +10,8 @@ namespace mage {
 
 	 This contains:
 	 @c None,
-	 @c Default,
+	 @c Forward,
+	 @c Deferred,
 	 @c Solid,
 	 @c DiffuseColor,
 	 @c DiffuseReflectivity,
@@ -26,7 +27,8 @@ namespace mage {
 	 */
 	enum struct RenderMode {
 		None = 0,                    // No shading.
-		Default,                     // The normal shading (with lighting).
+		Forward,                     // Forward shading (with lighting).
+		Deferred,					 // Deferred shading (with lighting).
 		Solid,                       // Solid white shading (with lighting).
 		DiffuseColor,                // The diffuse color (reflectivity and reflectivity texture) (without lighting).
 		DiffuseReflectivity,         // The diffuse reflectivity (without lighting).

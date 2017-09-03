@@ -30,6 +30,7 @@ namespace mage {
 
 		void BindPacking(ID3D11DeviceContext2 *device_context) noexcept;
 		void BindUnpacking(ID3D11DeviceContext2 *device_context, UINT slot) noexcept;
+		void BindRestore(ID3D11DeviceContext2 *device_context, UINT slot) noexcept;
 
 	private:
 

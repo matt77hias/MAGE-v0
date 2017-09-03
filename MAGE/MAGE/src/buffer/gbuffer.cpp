@@ -62,6 +62,21 @@ namespace mage {
 		PS::BindSRVs(device_context, slot, GetNumberOfSRVs(), srvs);
 	}
 
+	void GBuffer::BindRestore(ID3D11DeviceContext2 *device_context, UINT slot) noexcept {
+		// Collect the SRVs (incl. depth SRV of the renderer).
+		ID3D11ShaderResourceView *srvs[GetNumberOfSRVs() + 1];
+		for (UINT i = 0; i < GetNumberOfSRVs() + 1; ++i) {
+			srvs[i] = nullptr;
+		}
+
+		// Bind the SRVs.
+		PS::BindSRVs(device_context, slot, GetNumberOfSRVs(), srvs);
+
+		// Restore the RTV and DSV of the renderer.
+		const Renderer * const renderer = Renderer::Get();
+		renderer->BindRTVAndDSV();
+	}
+
 	void GBuffer::SetupBuffers(ID3D11Device2 *device) {
 		Assert(device);
 		

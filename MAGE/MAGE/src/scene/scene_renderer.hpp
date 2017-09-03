@@ -13,6 +13,7 @@
 #include "pass\variable_shading_pass.hpp"
 #include "pass\shading_normal_pass.hpp"
 #include "pass\wireframe_pass.hpp"
+#include "buffer\gbuffer.hpp"
 #include "buffer\lbuffer.hpp"
 
 #pragma endregion
@@ -42,7 +43,9 @@ namespace mage {
 		ID3D11DeviceContext2 * const m_device_context;
 
 		UniquePtr< PassBuffer > m_pass_buffer;
+		UniquePtr< GBuffer > m_gbuffer;
 		UniquePtr< LBuffer > m_lbuffer;
+
 		UniquePtr< BoundingVolumePass > m_bounding_volume_pass;
 		UniquePtr< ConstantComponentPass > m_constant_component_pass;
 		UniquePtr< ConstantShadingPass > m_constant_shading_pass;
@@ -51,6 +54,7 @@ namespace mage {
 		UniquePtr< VariableShadingPass > m_variable_shading_pass;
 		UniquePtr< ShadingNormalPass > m_shading_normal_pass;
 		UniquePtr< WireframePass > m_wireframe_pass;
+		
 		Viewport m_viewport;
 	};
 }

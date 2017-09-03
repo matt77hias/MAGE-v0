@@ -162,6 +162,50 @@ namespace mage {
 		ProcessModels(scene->m_transparent_brdf_models,     world_to_projection, world_to_view, view_to_world);
 	}
 
+	void VariableShadingPass::RenderPostDeferred(const PassBuffer *scene, const CameraNode *node) {
+		Assert(scene);
+		Assert(node);
+
+		// Reset the bound pixel shader index.
+		m_bound_ps = PSIndex::Count;
+		// Update the pixel shaders.
+		UpdatePSs(node->GetSettings()->GetBRDF());
+
+		// Bind the vertex shader.
+		m_vs->BindShader(m_device_context);
+		// Bind the rasterization state.
+		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		// Bind the depth-stencil state.
+		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
+		// Bind the blend state.
+		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+		// Bind the sampler.
+		PS::BindSampler(m_device_context, MAGE_VARIABLE_SHADING_PASS_PS_SAMPLER,
+			RenderingStateCache::Get()->GetLinearWrapSamplerState());
+
+		// Obtain node components.
+		const TransformNode * const transform = node->GetTransform();
+		const Camera        * const camera    = node->GetCamera();
+		const XMMATRIX world_to_view          = transform->GetWorldToViewMatrix();
+		const XMMATRIX view_to_world          = transform->GetViewToWorldMatrix();
+		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
+		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
+
+		// Bind the projection data.
+		BindProjectionData(view_to_projection);
+		
+		ProcessModels(scene->m_opaque_emissive_models,      world_to_projection, world_to_view, view_to_world);
+		// Bind the blend state.
+		if (Renderer::Get()->HasMSAA()) {
+			RenderingStateCache::Get()->BindAlphaToCoverageBlendState(m_device_context);
+		}
+		else {
+			RenderingStateCache::Get()->BindAlphaBlendState(m_device_context);
+		}
+		ProcessModels(scene->m_transparent_emissive_models, world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->m_transparent_brdf_models,     world_to_projection, world_to_view, view_to_world);
+	}
+
 	void XM_CALLCONV VariableShadingPass::ProcessModels(
 		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection, 

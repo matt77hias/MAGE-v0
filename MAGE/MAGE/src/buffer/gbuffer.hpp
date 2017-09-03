@@ -28,9 +28,8 @@ namespace mage {
 		GBuffer &operator=(const GBuffer &buffer) = delete;
 		GBuffer &operator=(GBuffer &&buffer) = delete;
 
-		void BindRTVsAndDSV(ID3D11DeviceContext2 *device_context) noexcept;
-		void BindSRVs(ID3D11DeviceContext2 *device_context, UINT slot) noexcept;
-		void ClearRTVsAndDSV(ID3D11DeviceContext2 *device_context) noexcept;
+		void BindPacking(ID3D11DeviceContext2 *device_context) noexcept;
+		void BindUnpacking(ID3D11DeviceContext2 *device_context, UINT slot) noexcept;
 
 	private:
 
@@ -38,24 +37,21 @@ namespace mage {
 			Normal   = 0,
 			Diffuse  = 1,
 			Specular = 2,
-			Depth    = 3,
-			Count    = 4
+			Count    = 3
 		};
 
 		static constexpr UINT GetNumberOfRTVs() noexcept {
-			return GetNumberOfSRVs() - 1;
+			return static_cast< UINT >(GBufferIndex::Count);
 		}
-		
 		static constexpr UINT GetNumberOfSRVs() noexcept {
-			return static_cast< size_t >(GBufferIndex::Count);
+			return static_cast< UINT >(GBufferIndex::Count);
 		}
 
 		void SetupBuffers(ID3D11Device2 *device);
 		void SetupBuffer(ID3D11Device2 *device, UINT index,
 			UINT width, UINT height, DXGI_FORMAT format);
 
-		ComPtr< ID3D11RenderTargetView > m_rtvs[static_cast< size_t >(GBufferIndex::Count) - 1];
-		ComPtr< ID3D11DepthStencilView > m_dsv;
-		ComPtr< ID3D11ShaderResourceView > m_srvs[static_cast< size_t >(GBufferIndex::Count)];
+		ComPtr< ID3D11RenderTargetView >   m_rtvs[static_cast< UINT >(GBufferIndex::Count)];
+		ComPtr< ID3D11ShaderResourceView > m_srvs[static_cast< UINT >(GBufferIndex::Count)];
 	};
 }

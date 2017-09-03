@@ -29,6 +29,7 @@ namespace mage {
 		VariableShadingPass &operator=(VariableShadingPass &&render_pass) = delete;
 
 		void Render(const PassBuffer *scene, const CameraNode *node);
+		void RenderPostDeferred(const PassBuffer *scene, const CameraNode *node);
 		
 	private:
 

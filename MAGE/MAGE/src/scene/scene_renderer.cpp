@@ -50,11 +50,13 @@ namespace mage {
 			// RenderMode
 			switch (settings->GetRenderMode()) {
 
+			case RenderMode::DepthAndForward: {
+				OM::BindRTVAndDSV(m_device_context, nullptr, renderer->GetDepthBufferDSV());
+				m_depth_pass->Render(m_pass_buffer.get(), node);
+				renderer->BindRTVAndDSV();
+				// Fall through RenderMode::Forward.
+			}
 			case RenderMode::Forward: {
-				//OM::BindRTVAndDSV(m_device_context, nullptr, renderer->GetDepthBufferDSV());
-				//m_depth_pass->Render(m_pass_buffer.get(), node);
-				//renderer->BindRTVAndDSV();
-				
 				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_variable_shading_pass->Render(m_pass_buffer.get(), node);
 				
@@ -63,9 +65,6 @@ namespace mage {
 
 			case RenderMode::Deferred: {
 				Assert(!Renderer::Get()->HasMSAA());
-
-				//OM::BindRTVAndDSV(m_device_context, nullptr, renderer->GetDepthBufferDSV());
-				//m_depth_pass->Render(m_pass_buffer.get(), node);
 
 				m_gbuffer->BindPacking(m_device_context);
 				m_gbuffer_pass->Render(m_pass_buffer.get(), node);
@@ -80,11 +79,13 @@ namespace mage {
 				break;
 			}
 
+			case RenderMode::DepthAndSolid: {
+				OM::BindRTVAndDSV(m_device_context, nullptr, renderer->GetDepthBufferDSV());
+				m_depth_pass->Render(m_pass_buffer.get(), node);
+				renderer->BindRTVAndDSV();
+				// Fall through RenderMode::Solid.
+			}
 			case RenderMode::Solid: {
-				//OM::BindRTVAndDSV(m_device_context, nullptr, renderer->GetDepthBufferDSV());
-				//m_depth_pass->Render(m_pass_buffer.get(), node);
-				//renderer->BindRTVAndDSV();
-
 				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_constant_shading_pass->Render(m_pass_buffer.get(), node);
 				

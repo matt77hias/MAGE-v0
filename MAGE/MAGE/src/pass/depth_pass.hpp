@@ -31,17 +31,21 @@ namespace mage {
 		
 	private:
 
+		void XM_CALLCONV BindModelData(
+			FXMMATRIX object_to_view) noexcept;
 		void XM_CALLCONV BindProjectionData(
-			FXMMATRIX object_to_projection) noexcept;
+			FXMMATRIX view_to_projection) noexcept;
 
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
-			FXMMATRIX world_to_projection) noexcept;
+			FXMMATRIX world_to_projection,
+			FXMMATRIX world_to_view) noexcept;
 
 		ID3D11DeviceContext2 * const m_device_context;
 
 		SharedPtr< const VertexShader > m_vs;
 
 		ConstantBuffer< XMMATRIX > m_projection_buffer;
+		ConstantBuffer< XMMATRIX > m_model_buffer;
 	};
 }

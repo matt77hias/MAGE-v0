@@ -20,5 +20,6 @@ cbuffer PerDraw  : register(b2) {
 // Vertex Shader
 //-----------------------------------------------------------------------------
 float4 VS(VSInputPositionNormalTexture input) : SV_Position {
+        // g_object_to_view * g_view_to_projection: eliminates Z-fighting
 	return mul(mul(float4(input.p, 1.0f), g_object_to_view), g_view_to_projection);
 }

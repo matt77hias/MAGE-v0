@@ -56,31 +56,40 @@ Texture2D g_normal_texture   : register(t2);
 OMInputDeferred PS(PSInputPositionNormalTexture input) {
 
 #ifdef TSNM
-	const float3 c      = BiasX2(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
+	// Obtain the tangent-space normal coefficients in the [-1,1] range. 
+	const float3 c      = UnpackNormal(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
+	// Normalize the view-space normal.
 	const float3 n0     = normalize(input.n_view);
-	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2, c);
+	// Perturb the view-space normal.
+	const float3 n_view = PerturbNormal(input.p_view, n0, input.tex2, c);
 #else  // TSNM
+	// Normalize the view-space normal.
 	const float3 n_view = normalize(input.n_view);
 #endif // TSNM
 	
 	OMInputDeferred output;
-	// [-1,1] -> [0,1]
-	output.normal.xyz   = InverseBiasX2(n_view);
 	
+	// Pack the view-space normal: [-1,1] -> [0,1]
+	output.normal.xyz   = PackNormal(n_view);
+	
+	// Pack the diffuse reflectivity of the material.
 #ifdef DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
-	output.diffuse.xyz = g_Kd;
+	output.diffuse.xyz  = g_Kd;
 #else  // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
 	output.diffuse.xyz  = g_Kd * g_diffuse_texture.Sample(g_sampler, input.tex).xyz;
 #endif // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
 
+	// Pack the 2nd BRDF dependent normalized material coefficient.
 	output.diffuse.w    = g_mat2_norm;
 	
+	// Pack the specular reflectivity of the material.
 #ifdef DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
 	output.specular.xyz = g_Ks;
 #else  // DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
 	output.specular.xyz = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
 #endif // DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
 	
+	// Pack the 1st BRDF dependent normalized material coefficient.
 	output.specular.w   = g_mat1_norm;
 
 	return output;

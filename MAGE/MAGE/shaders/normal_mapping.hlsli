@@ -10,8 +10,20 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 
-// Returns the perturbed normal.
-float3 TangentSpaceNormalMapping_PerturbNormal(
+/**
+ Returns the perturbed normal.
+
+ @pre			@a n is normalized.
+ @param[in]		p
+				The view-space position.
+ @param[in]		n
+				The view-space normal to perturb.
+ @param[in]		tex
+				The texture coordinates.
+ @param[in]		c
+				The tangent-space coefficients.
+ */
+float3 PerturbNormal(
 	float3 p, float3 n, float2 tex, float3 c) {
 
 	// Calculates the edge differences.
@@ -24,9 +36,9 @@ float3 TangentSpaceNormalMapping_PerturbNormal(
 	// the cotangents t and b.
 	const float3 dp_di_ortho = cross(dp_di, n);
 	const float3 dp_dj_ortho = cross(n, dp_dj);
-	// t: gradient of texture coordinate u as a function of p.
+	// Calculate the gradient of texture coordinate u as a function of p.
 	const float3 t = dtex_dj.x * dp_di_ortho + dtex_di.x * dp_dj_ortho;
-	// b: gradient of texture coordinate v as a function of p.
+	// Calculate the gradient of texture coordinate v as a function of p.
 	const float3 b = dtex_dj.y * dp_di_ortho + dtex_di.y * dp_dj_ortho;
 
 	// Construct a scale-invariant frame.

@@ -58,19 +58,25 @@ Texture2D g_normal_texture   : register(t5);
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 
 #ifdef TSNM
-	const float3 c      = BiasX2(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
+	// Obtain the tangent-space normal coefficients in the [-1,1] range. 
+	const float3 c      = UnpackNormal(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
+	// Normalize the view-space normal.
 	const float3 n0     = normalize(input.n_view);
-	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2, c);
+	// Perturb the view-space normal.
+	const float3 n_view = PerturbNormal(input.p_view, n0, input.tex2, c);
 #else  // TSNM
+	// Normalize the view-space normal.
 	const float3 n_view = normalize(input.n_view);
 #endif // TSNM
 
+	// Obtain the diffuse reflectivity of the material.
 #ifdef DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
 	const float4 Kd = g_Kd;
 #else  // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
 	const float4 Kd = g_Kd * g_diffuse_texture.Sample(g_sampler, input.tex);
 #endif // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
 
+	// Obtain the specular reflectivity of the material.
 #ifdef SPECULAR_BRDFxCOS
 #ifdef DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
 	const float3 Ks = g_Ks;

@@ -14,9 +14,13 @@ Texture2D g_normal_texture : register(t0);
 // Pixel Shader
 //-----------------------------------------------------------------------------
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
-	const float3 c      = BiasX2(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
+	// Obtain the tangent-space normal coefficients in the [-1,1] range.
+	const float3 c      = UnpackNormal(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
+	// Normalize the view-space normal.
 	const float3 n0     = normalize(input.n_view);
-	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2, c);
+	// Perturb the view-space normal.
+	const float3 n_view = PerturbNormal(input.p_view, n0, input.tex2, c);
 	
-	return float4(InverseBiasX2(n_view), 1.0f);
+	// Converts the [-1,1] range to the [0,1] range.
+	return float4(PackNormal(n_view), 1.0f);
 }

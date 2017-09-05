@@ -53,6 +53,9 @@ namespace mage {
 		}
 
 		if (!input_element_desc) {
+			// If the vertex shader has no input signature 
+			// (i.e. the mesh is generated on the fly on the GPU),
+			// no vertex input layout needs to be generated.
 			return;
 		}
 

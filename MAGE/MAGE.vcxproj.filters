@@ -1596,5 +1596,8 @@
     <None Include="MAGE\src\script\switch_scene_script.tpp">
       <Filter>Header Files\script</Filter>
     </None>
+    <None Include="MAGE\shaders\primitives.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

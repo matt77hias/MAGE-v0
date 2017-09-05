@@ -36,9 +36,9 @@ namespace mage {
 		 @pre			The rendering device associated with the 
 						current engine must be loaded.
 		 @pre			@a compiled_shader is not equal to @c nullptr.
-		 @pre			@a input_element_desc is not equal to @c nullptr.
 		 @pre			The array pointed to by @a input_element_desc
-						contains @a nb_input_elements elements.
+						contains @a nb_input_elements elements, if
+						@a input_element_desc is not equal to @c nullptr.
 		 @param[in]		guid
 						A reference to the globally unique identifier.
 		 @param[in]		compiled_shader
@@ -61,9 +61,9 @@ namespace mage {
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a compiled_shader is not equal to @c nullptr.
-		 @pre			@a input_element_desc is not equal to @c nullptr.
 		 @pre			The array pointed to by @a input_element_desc
-						contains @a nb_input_elements elements.
+						contains @a nb_input_elements elements, if
+						@a input_element_desc is not equal to @c nullptr.
 		 @param[in]		guid
 						A reference to the globally unique identifier.
 		 @param[in]		device

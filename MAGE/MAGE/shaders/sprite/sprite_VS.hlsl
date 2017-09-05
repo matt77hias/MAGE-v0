@@ -8,7 +8,7 @@
 //-----------------------------------------------------------------------------
 cbuffer PerFrame : register(b0) {
 	// The object-to-projection transformation matrix.
-	float4x4 g_transform : packoffset(c0);
+	float4x4 g_object_to_projection : packoffset(c0);
 }
 
 //-----------------------------------------------------------------------------
@@ -16,7 +16,7 @@ cbuffer PerFrame : register(b0) {
 //-----------------------------------------------------------------------------
 PSInputColorTexture VS(VSInputPositionColorTexture input) {
 	PSInputColorTexture output;
-	output.p     = mul(float4(input.p, 1.0f), g_transform);
+	output.p     = mul(float4(input.p, 1.0f), g_object_to_projection);
 	output.color = input.color;
 	output.tex   = input.tex;
 	return output;

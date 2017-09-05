@@ -1,4 +1,9 @@
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#include "normal_mapping.hlsli"
+
+//-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
 cbuffer PerFrame : register(b1) {
@@ -7,7 +12,7 @@ cbuffer PerFrame : register(b1) {
 	float4x4 g_view_to_projection      : packoffset(c0);
 };
 
-cbuffer PerDraw : register(b2) {
+cbuffer PerDraw  : register(b2) {
 	// TRANSFORM
 	// The object-to-view transformation matrix.
 	float4x4 g_object_to_view          : packoffset(c0);
@@ -33,13 +38,9 @@ cbuffer PerDraw : register(b2) {
 }
 
 //-----------------------------------------------------------------------------
-// Samplers
+// Samplers and Textures
 //-----------------------------------------------------------------------------
-sampler g_sampler : register(s0);
-
-//-----------------------------------------------------------------------------
-// Textures
-//-----------------------------------------------------------------------------
+sampler g_sampler            : register(s0);
 Texture2D g_diffuse_texture  : register(t0);
 Texture2D g_specular_texture : register(t1);
 Texture2D g_normal_texture   : register(t2);
@@ -48,7 +49,6 @@ Texture2D g_normal_texture   : register(t2);
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "transform.fx"
-#include "normal_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
 // Pixel Shaders
@@ -56,8 +56,9 @@ Texture2D g_normal_texture   : register(t2);
 OMInputDeferred PS(PSInputPositionNormalTexture input) {
 
 #ifdef TSNM
+	const float3 c      = BiasX2(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
 	const float3 n0     = normalize(input.n_view);
-	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2);
+	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2, c);
 #else  // TSNM
 	const float3 n_view = normalize(input.n_view);
 #endif // TSNM

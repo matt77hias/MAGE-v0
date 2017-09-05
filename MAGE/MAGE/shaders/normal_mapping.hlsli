@@ -2,11 +2,6 @@
 #define MAGE_HEADER_NORMAL_MAPPING
 
 //-----------------------------------------------------------------------------
-// Requires global variable: g_normal_texture
-// Requires global variable: g_sampler
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "math.hlsli"
@@ -16,7 +11,9 @@
 //-----------------------------------------------------------------------------
 
 // Returns the perturbed normal.
-float3 TangentSpaceNormalMapping_PerturbNormal(float3 p, float3 n, float2 tex) {
+float3 TangentSpaceNormalMapping_PerturbNormal(
+	float3 p, float3 n, float2 tex, float3 c) {
+
 	// Calculates the edge differences.
 	const float3 dp_dj   = ddx(p);
 	const float3 dp_di   = ddy(p);
@@ -36,8 +33,7 @@ float3 TangentSpaceNormalMapping_PerturbNormal(float3 p, float3 n, float2 tex) {
 	const float inv_det = rsqrt(max(dot(t, t), dot(b, b)));
 	const float3x3 TBN = { t * inv_det, b * inv_det, n };
 
-	const float3 coefficients = BiasX2(g_normal_texture.Sample(g_sampler, tex).xyz);
-	return normalize(mul(coefficients, TBN));
+	return normalize(mul(c, TBN));
 }
 
 #endif // MAGE_HEADER_NORMAL_MAPPING

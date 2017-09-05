@@ -2,6 +2,7 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "lighting.hlsli"
+#include "normal_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
@@ -39,13 +40,9 @@ cbuffer PerDraw  : register(b2) {
 }
 
 //-----------------------------------------------------------------------------
-// Samplers
+// Samplers and Textures
 //-----------------------------------------------------------------------------
-sampler g_sampler : register(s0);
-
-//-----------------------------------------------------------------------------
-// Textures
-//-----------------------------------------------------------------------------
+sampler g_sampler            : register(s0);
 Texture2D g_diffuse_texture  : register(t3);
 Texture2D g_specular_texture : register(t4);
 Texture2D g_normal_texture   : register(t5);
@@ -54,7 +51,6 @@ Texture2D g_normal_texture   : register(t5);
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "transform.fx"
-#include "normal_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
 // Pixel Shaders
@@ -62,8 +58,9 @@ Texture2D g_normal_texture   : register(t5);
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 
 #ifdef TSNM
+	const float3 c      = BiasX2(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
 	const float3 n0     = normalize(input.n_view);
-	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2);
+	const float3 n_view = TangentSpaceNormalMapping_PerturbNormal(input.p_view, n0, input.tex2, c);
 #else  // TSNM
 	const float3 n_view = normalize(input.n_view);
 #endif // TSNM

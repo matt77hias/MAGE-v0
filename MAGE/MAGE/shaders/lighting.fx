@@ -1,3 +1,6 @@
+#ifndef MAGE_HEADER_LIGHTING
+#define MAGE_HEADER_LIGHTING
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
@@ -102,3 +105,5 @@ float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float m
 	
 	return I;
 }
+
+#endif //MAGE_HEADER_LIGHTING

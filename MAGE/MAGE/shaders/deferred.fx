@@ -50,25 +50,15 @@ Texture2D g_depth_texture    : register(t6);
 #include "lighting.fx"
 
 //-----------------------------------------------------------------------------
-// Vertex Shader
-//-----------------------------------------------------------------------------
-PSInputPosition VS(VSInputPosition input) {
-	PSInputPosition output;
-	output.p      = float4(input.p, 1.0f);
-	output.p_proj = input.p;
-	return output;
-}
-
-//-----------------------------------------------------------------------------
 // Pixel Shaders
 //-----------------------------------------------------------------------------
-float4 PS(PSInputPosition input) : SV_Target {
+float4 PS(PSInputNDCPosition input) : SV_Target {
 	// location := (px, py, mipmap level)
 	const float3 location = float3(input.p.xy, 0.0f);
 	
 	// Load the depth from the GBuffer depth texture.
 	const float  depth    = g_depth_texture.Load(location).x;
-	const float3 p_ndc    = float3(input.p_proj.xy, depth);
+	const float3 p_ndc    = float3(input.p_ndc, depth);
 	const float3 p_view   = NDCToView(p_ndc, g_projection_values);
 
 	// Load the normal from the GBuffer normal texture.

@@ -13,7 +13,6 @@
 #include "shader\cso\gbuffer\gbuffer_tsnm_PS.hpp"
 
 // Deferred
-#include "shader\cso\deferred\transform_VS.hpp"
 #include "shader\cso\deferred\emissive_PS.hpp"
 #include "shader\cso\deferred\lambertian_PS.hpp"
 #include "shader\cso\deferred\phong_PS.hpp"
@@ -54,6 +53,9 @@
 #include "shader\cso\miscellaneous\tsnm_shading_normal_PS.hpp"
 #include "shader\cso\miscellaneous\bounding_volume_VS.hpp"
 #include "shader\cso\miscellaneous\bounding_volume_PS.hpp"
+
+// Primitives
+#include "shader\cso\primitives\fullscreen_triangle_VS.hpp"
 
 // Sprite
 #include "shader\cso\sprite\sprite_VS.hpp"
@@ -176,10 +178,6 @@ namespace mage {
 	//-------------------------------------------------------------------------
 #pragma region
 
-	const BufferCompiledShader CreateCompiledDeferredTransformVS() noexcept {
-		return BufferCompiledShader(g_deferred_transform_vs, sizeof(g_deferred_transform_vs));
-	}
-
 	const BufferCompiledShader CreateCompiledDeferredEmissivePS() noexcept {
 		return BufferCompiledShader(g_deferred_emissive_ps, sizeof(g_deferred_emissive_ps));
 	}
@@ -214,6 +212,17 @@ namespace mage {
 
 	const BufferCompiledShader CreateCompiledDeferredCookTorrancePS() noexcept {
 		return BufferCompiledShader(g_deferred_cook_torrance_ps, sizeof(g_deferred_cook_torrance_ps));
+	}
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Primitives
+	//-------------------------------------------------------------------------
+#pragma region
+
+	const BufferCompiledShader CreateCompiledFullscreenTriangleVS() noexcept {
+		return BufferCompiledShader(g_fullscreen_triangle_vs, sizeof(g_fullscreen_triangle_vs));
 	}
 
 #pragma endregion

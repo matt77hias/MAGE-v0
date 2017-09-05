@@ -44,6 +44,5 @@ namespace mage {
 		BRDFType m_brdf;
 
 		ConstantBuffer< DeferredBuffer > m_deferred_buffer;
-		UniquePtr< const StaticMesh > m_quad;
 	};
 }

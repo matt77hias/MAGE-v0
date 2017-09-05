@@ -1,3 +1,6 @@
+#ifndef MAGE_HEADER_STRUCTURES
+#define MAGE_HEADER_STRUCTURES
+
 //-----------------------------------------------------------------------------
 // VS Input Structures
 //-----------------------------------------------------------------------------
@@ -59,9 +62,9 @@ struct VSInputPositionTextureTexture {
 // SV_POSITION is always included. 
 // Therefore, it is not reflected in the struct naming.
 
-struct PSInputPosition {
+struct PSInputNDCPosition {
 	float4 p      : SV_POSITION;
-	float3 p_proj : POSITION0;
+	float2 p_ndc  : POSITION0;
 };
 
 struct PSInputColorTexture {
@@ -87,3 +90,5 @@ struct OMInputDeferred {
 	float4 diffuse  : SV_Target1;
 	float4 specular : SV_Target2;
 };
+
+#endif // MAGE_HEADER_STRUCTURES

@@ -15,6 +15,4 @@
 namespace mage {
 
 	UniquePtr< const StaticMesh > CreateLineCube();
-
-	UniquePtr< const StaticMesh > CreateScreenQuad();
 }

@@ -271,6 +271,12 @@
     <Filter Include="Header Files\shader\cso\gbuffer">
       <UniqueIdentifier>{a627ed48-bd53-4615-8137-37ad5f33d289}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader Files\primitives">
+      <UniqueIdentifier>{f01dc00c-5c81-4c85-88a5-d9b6d16c1aef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\shader\cso\primitives">
+      <UniqueIdentifier>{2b89fe09-a8fb-457a-8a4d-f2935b9be598}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -930,9 +936,6 @@
     <ClInclude Include="MAGE\src\shader\cso\deferred\phong_PS.hpp">
       <Filter>Header Files\shader\cso\deferred</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\transform_VS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\deferred\ward_duer_PS.hpp">
       <Filter>Header Files\shader\cso\deferred</Filter>
     </ClInclude>
@@ -971,6 +974,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\pass\depth_pass.hpp">
       <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\primitives\fullscreen_triangle_VS.hpp">
+      <Filter>Header Files\shader\cso\primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1447,9 +1453,6 @@
     <FxCompile Include="MAGE\shaders\deferred\phong_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\transform_VS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\ward_duer_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
@@ -1485,6 +1488,9 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\depth\depth_VS.hlsl">
       <Filter>Shader Files\depth</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\primitives\fullscreen_triangle_VS.hlsl">
+      <Filter>Shader Files\primitives</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

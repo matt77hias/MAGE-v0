@@ -26,10 +26,9 @@ namespace mage {
 
 	DeferredShadingPass::DeferredShadingPass()
 		: m_device_context(GetImmediateDeviceContext()),
-		m_vs(CreateDeferredTransformVS()),
+		m_vs(CreateFullscreenTriangleVS()),
 		m_ps(CreateDeferredPS(BRDFType::Unknown)),
-		m_brdf(BRDFType::Unknown), m_deferred_buffer(),
-		m_quad(CreateScreenQuad()) {}
+		m_brdf(BRDFType::Unknown), m_deferred_buffer() {}
 
 	DeferredShadingPass::DeferredShadingPass(DeferredShadingPass &&render_pass) = default;
 
@@ -76,9 +75,9 @@ namespace mage {
 		// Bind the unpack data.
 		BindUnpackData(view_to_projection, scene);
 
-		// Bind the screen quad.
-		m_quad->BindMesh(m_device_context);
-		// Draw the screen quad.
-		m_quad->Draw(m_device_context);
+		// Bind the fullscreen triangle.
+		IA::BindPrimitiveTopology(m_device_context, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		// Draw the fullscreen triangle.
+		m_device_context->Draw(3, 0);
 	}
 }

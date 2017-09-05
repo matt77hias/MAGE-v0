@@ -1,3 +1,6 @@
+#ifndef MAGE_HEADER_NORMAL_MAPPING
+#define MAGE_HEADER_NORMAL_MAPPING
+
 //-----------------------------------------------------------------------------
 // Requires global variable: g_normal_texture
 // Requires global variable: g_sampler
@@ -36,3 +39,5 @@ float3 TangentSpaceNormalMapping_PerturbNormal(float3 p, float3 n, float2 tex) {
 	const float3 coefficients = BiasX2(g_normal_texture.Sample(g_sampler, tex).xyz);
 	return normalize(mul(coefficients, TBN));
 }
+
+#endif // MAGE_HEADER_NORMAL_MAPPING

@@ -302,17 +302,6 @@ namespace mage {
 #pragma region
 
 	/**
-	 Creates a deferred transform vertex shader.
-
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
-	 @return		A pointer to the deferred transform vertex shader.
-	 @throws		FormattedException
-					Failed to create the vertex shader.
-	 */
-	SharedPtr< const VertexShader > CreateDeferredTransformVS();
-
-	/**
 	 Creates a deferred emissive pixel shader.
 
 	 @pre			The resource manager associated with the
@@ -424,6 +413,24 @@ namespace mage {
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateDeferredPS(BRDFType brdf);
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Primitives
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Creates a fullscreen triangle vertex shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the fullscreen triangle vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateFullscreenTriangleVS();
 
 #pragma endregion
 

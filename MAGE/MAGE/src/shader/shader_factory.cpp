@@ -198,13 +198,6 @@ namespace mage {
 	//-------------------------------------------------------------------------
 #pragma region
 
-	SharedPtr< const VertexShader > CreateDeferredTransformVS() {
-		const BufferCompiledShader cs = CreateCompiledDeferredTransformVS();
-		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_DEFERRED_TRANSFORM, &cs,
-								VertexPosition::s_input_element_desc,
-								VertexPosition::s_nb_input_elements);
-	}
-
 	SharedPtr< const PixelShader > CreateDeferredEmissivePS() {
 		const BufferCompiledShader cs = CreateCompiledDeferredEmissivePS();
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_EMISSIVE, &cs);
@@ -270,6 +263,20 @@ namespace mage {
 		default:
 			return CreateDeferredModifiedBlinnPhongPS();
 		}
+	}
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Primitives
+	//-------------------------------------------------------------------------
+#pragma region
+
+	SharedPtr< const VertexShader > CreateFullscreenTriangleVS() {
+		const BufferCompiledShader cs = CreateCompiledFullscreenTriangleVS();
+		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_FULLSCREEN_TRIANGLE, &cs,
+										nullptr,
+										0);
 	}
 
 #pragma endregion

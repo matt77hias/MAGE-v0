@@ -52,6 +52,10 @@ namespace mage {
 			throw FormattedException("Vertex shader creation failed: %08X.", result_vertex_shader);
 		}
 
+		if (!input_element_desc) {
+			return;
+		}
+
 		// Create the vertex input layout.
 		const HRESULT result_vertex_input_layout = device->CreateInputLayout(
 			input_element_desc, static_cast< UINT >(nb_input_elements),

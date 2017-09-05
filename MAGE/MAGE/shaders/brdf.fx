@@ -1,3 +1,6 @@
+#ifndef MAGE_HEADER_BRDF
+#define MAGE_HEADER_BRDF
+
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
@@ -119,3 +122,5 @@ float CookTorranceBRDFxCos(float3 n, float3 l, float3 v, float m, float R0) {
 
 	return G * D * F / n_dot_v;
 }
+
+#endif // MAGE_HEADER_BRDF

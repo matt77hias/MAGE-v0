@@ -188,13 +188,6 @@ namespace mage {
 #pragma region
 
 	/**
-	 Returns the compiled deferred transform vertex shader.
-
-	 @return		A buffer compiled deferred transform vertex shader.
-	 */
-	const BufferCompiledShader CreateCompiledDeferredTransformVS() noexcept;
-
-	/**
 	 Returns the compiled deferred emissive pixel shader.
 
 	 @return		A buffer compiled deferred emissive pixel shader.
@@ -256,6 +249,20 @@ namespace mage {
 	 @return		A buffer compiled deferred Cook-Torrance pixel shader.
 	 */
 	const BufferCompiledShader CreateCompiledDeferredCookTorrancePS() noexcept;
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Primitives
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Returns the compiled fullscreen triangle vertex shader.
+
+	 @return		A buffer compiled fullscreen triangle vertex shader.
+	 */
+	const BufferCompiledShader CreateCompiledFullscreenTriangleVS() noexcept;
 
 #pragma endregion
 

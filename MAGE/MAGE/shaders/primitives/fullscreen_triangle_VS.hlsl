@@ -4,15 +4,17 @@
 #include "structures.fx"
 
 //-----------------------------------------------------------------------------
-// Constant Buffers
+// Vertex Shader
 //-----------------------------------------------------------------------------
-cbuffer Color : register(b0) {
-	float4 g_color : packoffset(c0);
-};
-
-//-----------------------------------------------------------------------------
-// Pixel Shader
-//-----------------------------------------------------------------------------
-float4 PS(float4 p : SV_Position) : SV_Target {
-	return g_color;
+PSInputNDCPosition VS(uint id: SV_VertexID) {
+	PSInputNDCPosition output;
+	
+	// v0 = (-1,-1, 0)
+	// v1 = (-1, 3, 0)
+	// v2 = ( 3,-1, 0)
+	const float x = (float)(id / 2) * 4.0 - 1.0;
+	const float y = (float)(id % 2) * 4.0 - 1.0;
+	output.p      = float4(x, y, 0.0, 1.0);
+	output.p_ndc  = float2(x, y);
+	return output;
 }

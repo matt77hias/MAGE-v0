@@ -47,24 +47,4 @@ namespace mage {
 								DXGI_FORMAT_R16_UINT,
 								D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 	}
-
-	UniquePtr< const StaticMesh > CreateScreenQuad() {
-
-		static const VertexPosition vertices[4] = {
-			VertexPosition(Point3(-1.0, -1.0,  0.0)),
-			VertexPosition(Point3(-1.0,  1.0,  0.0)),
-			VertexPosition(Point3( 1.0,  1.0,  0.0)),
-			VertexPosition(Point3( 1.0, -1.0,  0.0))
-		};
-
-		static const uint16_t indices[4] = {
-			1, 2, 0, 3
-		};
-	
-		return MakeUnique< const StaticMesh >(
-			vertices, _countof(vertices),
-			indices, _countof(indices),
-			DXGI_FORMAT_R16_UINT,
-			D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-	}
 }

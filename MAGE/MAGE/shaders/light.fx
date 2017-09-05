@@ -1,3 +1,6 @@
+#ifndef MAGE_HEADER_LIGHT
+#define MAGE_HEADER_LIGHT
+
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
@@ -104,3 +107,5 @@ cbuffer LightBuffer : register(b0) {
 StructuredBuffer< DirectionalLight > g_directional_lights : register(t0);
 StructuredBuffer< OmniLight > g_omni_lights               : register(t1);
 StructuredBuffer< SpotLight > g_spot_lights               : register(t2);
+
+#endif //MAGE_HEADER_LIGHT

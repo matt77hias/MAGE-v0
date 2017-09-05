@@ -13,7 +13,6 @@
 #define MAGE_GUID_PS_GBUFFER_TSNM                  L"mage_gbuffer_tsnm_ps"
 
 // Deferred
-#define MAGE_GUID_VS_DEFERRED_TRANSFORM            L"mage_deferred_transform_vs"
 #define MAGE_GUID_PS_DEFERRED_EMISSIVE             L"mage_deferred_emissive_ps"
 #define MAGE_GUID_PS_DEFERRED_LAMBERTIAN           L"mage_deferred_lambertian_ps"
 #define MAGE_GUID_PS_DEFERRED_PHONG                L"mage_deferred_phong_ps"
@@ -54,6 +53,9 @@
 #define MAGE_GUID_PS_TSNM_SHADING_NORMAL           L"mage_tsnm_shading_normal_ps"
 #define MAGE_GUID_VS_BOUNDING_VOLUME               L"mage_bounding_volume_vs"
 #define MAGE_GUID_PS_BOUNDING_VOLUME               L"mage_bounding_volume_ps"
+
+// Primitives
+#define MAGE_GUID_VS_FULLSCREEN_TRIANGLE           L"mage_fullscreen_triangle_vs"
 
 // Sprite
 #define MAGE_GUID_VS_SPRITE                        L"mage_sprite_vs"

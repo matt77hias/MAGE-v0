@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Engine Includes
+// Includes
 //-----------------------------------------------------------------------------
 #include "structures.fx"
 
@@ -14,8 +14,6 @@ cbuffer PerDraw : register(b0) {
 //-----------------------------------------------------------------------------
 // Vertex Shader
 //-----------------------------------------------------------------------------
-PSInputPosition VS(VSInputPosition input) {
-	PSInputPosition output;
-	output.p = mul(float4(input.p, 1.0f), g_object_to_projection);
-	return output;
+float4 VS(VSInputPosition input) : SV_Position {
+	return mul(float4(input.p, 1.0f), g_object_to_projection);
 }

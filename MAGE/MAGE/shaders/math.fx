@@ -1,3 +1,6 @@
+#ifndef MAGE_HEADER_MATH
+#define MAGE_HEADER_MATH
+
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
@@ -20,3 +23,5 @@ float3 NDCToView(float3 p_ndc, float4 projection_values) {
 	const float p_view_z = NDCZToViewZ(p_ndc.z, projection_values.zw);
 	return float3(p_ndc.xy * projection_values.xy, 1.0f) * p_view_z;
 }
+
+#endif //MAGE_HEADER_MATH

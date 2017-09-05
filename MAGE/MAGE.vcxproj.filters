@@ -1336,23 +1336,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="MAGE\shaders\brdf.fx">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\light.fx">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\normal_mapping.fx">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\sprite\sprite_PS.hlsl">
       <Filter>Shader Files\sprite</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\sprite\sprite_VS.hlsl">
       <Filter>Shader Files\sprite</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\structures.fx">
-      <Filter>Shader Files</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\miscellaneous\distance_PS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
@@ -1371,9 +1359,6 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\miscellaneous\minimal_transform_VS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\math.fx">
-      <Filter>Shader Files</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\miscellaneous\shading_normal_VS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
@@ -1447,9 +1432,6 @@
     <FxCompile Include="MAGE\shaders\forward\tsnm_ward_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\lighting.fx">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\phong_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
@@ -1491,6 +1473,24 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\primitives\fullscreen_triangle_VS.hlsl">
       <Filter>Shader Files\primitives</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\brdf.hlsli">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\math.hlsli">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\structures.hlsli">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\lighting.hlsli">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\light.hlsli">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\normal_mapping.hlsli">
+      <Filter>Shader Files</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

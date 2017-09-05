@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "light.fx"
+#include "lighting.hlsli"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
@@ -54,8 +54,7 @@ Texture2D g_normal_texture   : register(t5);
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "transform.fx"
-#include "normal_mapping.fx"
-#include "lighting.fx"
+#include "normal_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
 // Pixel Shaders

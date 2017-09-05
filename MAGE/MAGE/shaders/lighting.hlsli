@@ -4,7 +4,40 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "brdf.fx"
+#include "brdf.hlsli"
+#include "light.hlsli"
+
+//-----------------------------------------------------------------------------
+// Constant Buffers
+//-----------------------------------------------------------------------------
+cbuffer LightBuffer : register(b0) {
+	// LIGHTING
+	// The intensity of the ambient light in the scene. 
+	float3 g_Ia                            : packoffset(c0);
+	// The global flags.
+	uint g_flags                           : packoffset(c0.w);
+	// The number of directional lights in the scene.
+	uint g_nb_directional_lights           : packoffset(c1.x);
+	// The number of omni lights in the scene.
+	uint g_nb_omni_lights                  : packoffset(c1.y);
+	// The number of spotlights in the scene.
+	uint g_nb_spot_lights                  : packoffset(c1.z);
+	
+	// FOGGING
+	// The distance at which intensity falloff starts due to fog.
+	float g_fog_distance_falloff_start     : packoffset(c1.w);
+	// The color of the fog.
+	float3 g_fog_color                     : packoffset(c2);
+	// The distance inverse range where intensity falloff occurs due to fog.
+	float g_fog_distance_falloff_inv_range : packoffset(c2.w);
+}
+
+//-----------------------------------------------------------------------------
+// Structured Buffers
+//-----------------------------------------------------------------------------
+StructuredBuffer< DirectionalLight > g_directional_lights : register(t0);
+StructuredBuffer< OmniLight > g_omni_lights               : register(t1);
+StructuredBuffer< SpotLight > g_spot_lights               : register(t2);
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions

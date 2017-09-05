@@ -1,9 +1,9 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "structures.fx"
-#include "light.fx"
-#include "math.fx"
+#include "structures.hlsli"
+#include "lighting.hlsli"
+#include "math.hlsli"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
@@ -43,11 +43,6 @@ Texture2D g_normal_texture   : register(t3);
 Texture2D g_diffuse_texture  : register(t4);
 Texture2D g_specular_texture : register(t5);
 Texture2D g_depth_texture    : register(t6);
-
-//-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#include "lighting.fx"
 
 //-----------------------------------------------------------------------------
 // Pixel Shaders

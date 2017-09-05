@@ -48,7 +48,7 @@ Texture2D g_normal_texture   : register(t2);
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "transform.fx"
-#include "normal_mapping.fx"
+#include "normal_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
 // Pixel Shaders

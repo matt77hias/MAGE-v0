@@ -14,10 +14,10 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_LBUFFER_PS_LIGHT_BUFFER           0
-#define MAGE_LBUFFER_PS_DIRECTIONAL_LIGHTS_SRV 0
-#define MAGE_LBUFFER_PS_OMNI_LIGHTS_SRV        1
-#define MAGE_LBUFFER_PS_SPOT_LIGHTS_SRV        2
+#define MAGE_LBUFFER_PS_LIGHT_BUFFER 0
+#define MAGE_LBUFFER_CS_LIGHT_BUFFER 0
+#define MAGE_LBUFFER_PS_LIGHTS_SRVS  0
+#define MAGE_LBUFFER_CS_LIGHTS_SRVS  0
 
 #pragma endregion
 
@@ -34,6 +34,7 @@ namespace mage {
 		m_spot_lights_buffer(32) {}
 
 	void LBuffer::Update(const PassBuffer *scene, const CameraNode *node) {
+
 		Assert(scene);
 		Assert(node);
 
@@ -44,13 +45,43 @@ namespace mage {
 		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
 		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
 
-		BindLights(scene->m_directional_lights,               world_to_view);
-		BindLights(scene->m_omni_lights, world_to_projection, world_to_view);
-		BindLights(scene->m_spot_lights, world_to_projection, world_to_view);
-		BindLightData(scene);
+		ProcessLights(scene->m_directional_lights,               world_to_view);
+		ProcessLights(scene->m_omni_lights, world_to_projection, world_to_view);
+		ProcessLights(scene->m_spot_lights, world_to_projection, world_to_view);
+		ProcessLightsData(scene);
 	}
 
-	void LBuffer::BindLightData(const PassBuffer *scene) noexcept {
+	void LBuffer::BindToGraphicsPipeline() const noexcept {
+		ID3D11ShaderResourceView * const srvs[3] = {
+			m_directional_lights_buffer.Get(),
+			m_omni_lights_buffer.Get(),
+			m_spot_lights_buffer.Get()
+		};
+
+		PS::BindConstantBuffer(m_device_context,
+			MAGE_LBUFFER_PS_LIGHT_BUFFER, 
+			m_light_buffer.Get());
+		PS::BindSRVs(m_device_context,
+			MAGE_LBUFFER_PS_LIGHTS_SRVS,
+			_countof(srvs), srvs);
+	}
+
+	void LBuffer::BindToComputePipeline() const noexcept {
+		ID3D11ShaderResourceView * const srvs[3] = {
+			m_directional_lights_buffer.Get(),
+			m_omni_lights_buffer.Get(),
+			m_spot_lights_buffer.Get()
+		};
+
+		CS::BindConstantBuffer(m_device_context,
+			MAGE_LBUFFER_CS_LIGHT_BUFFER,
+			m_light_buffer.Get());
+		CS::BindSRVs(m_device_context,
+			MAGE_LBUFFER_CS_LIGHTS_SRVS,
+			_countof(srvs), srvs);
+	}
+
+	void LBuffer::ProcessLightsData(const PassBuffer *scene) noexcept {
 
 		LightBuffer buffer;
 		buffer.m_Ia                             = scene->m_ambient_light;
@@ -63,12 +94,9 @@ namespace mage {
 
 		// Update the light buffer.
 		m_light_buffer.UpdateData(m_device_context, buffer);
-		// Bind the light buffer.
-		PS::BindConstantBuffer(m_device_context, 
-			MAGE_LBUFFER_PS_LIGHT_BUFFER, m_light_buffer.Get());
 	}
 
-	void XM_CALLCONV LBuffer::BindLights(
+	void XM_CALLCONV LBuffer::ProcessLights(
 		const vector< const DirectionalLightNode * > &lights,
 		FXMMATRIX world_to_view) noexcept {
 
@@ -93,13 +121,9 @@ namespace mage {
 
 		// Update the directional lights buffer.
 		m_directional_lights_buffer.UpdateData(m_device_context, buffer);
-		// Bind the directional lights buffer.
-		PS::BindSRV(m_device_context,
-			MAGE_LBUFFER_PS_DIRECTIONAL_LIGHTS_SRV,
-			m_directional_lights_buffer.Get());
 	}
 
-	void XM_CALLCONV LBuffer::BindLights(
+	void XM_CALLCONV LBuffer::ProcessLights(
 		const vector< const OmniLightNode * > &lights,
 		FXMMATRIX world_to_projection,
 		FXMMATRIX world_to_view) noexcept {
@@ -134,13 +158,9 @@ namespace mage {
 
 		// Update the omni lights buffer.
 		m_omni_lights_buffer.UpdateData(m_device_context, buffer);
-		// Bind the omni lights buffer.
-		PS::BindSRV(m_device_context,
-			MAGE_LBUFFER_PS_OMNI_LIGHTS_SRV,
-			m_omni_lights_buffer.Get());
 	}
 
-	void XM_CALLCONV LBuffer::BindLights(
+	void XM_CALLCONV LBuffer::ProcessLights(
 		const vector< const SpotLightNode * > &lights,
 		FXMMATRIX world_to_projection,
 		FXMMATRIX world_to_view) noexcept {
@@ -180,9 +200,5 @@ namespace mage {
 
 		// Update the spotlights buffer.
 		m_spot_lights_buffer.UpdateData(m_device_context, buffer);
-		// Bind the spotlights buffer.
-		PS::BindSRV(m_device_context,
-			MAGE_LBUFFER_PS_SPOT_LIGHTS_SRV,
-			m_spot_lights_buffer.Get());
 	}
 }

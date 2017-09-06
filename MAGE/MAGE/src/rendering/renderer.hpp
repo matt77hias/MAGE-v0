@@ -139,7 +139,7 @@ namespace mage {
 		 Returns the back buffer RTV of this renderer.
 
 		 @return		A pointer to the back buffer RTV of this renderer.
-		 @note			The back buffer RTV and SRV cannot both be bind 
+		 @note			The back buffer RTV, SRV and UAV cannot both be bound 
 						at the same time.
 		 */
 		ID3D11RenderTargetView *GetBackBufferRTV() const noexcept {
@@ -150,7 +150,7 @@ namespace mage {
 		 Returns the back buffer SRV of this renderer.
 
 		 @return		A pointer to the back buffer SRV of this renderer.
-		 @note			The back buffer RTV and SRV cannot both be bind
+		 @note			The back buffer RTV, SRV and UAV cannot both be bound 
 						at the same time.
 		 */
 		ID3D11ShaderResourceView *GetBackBufferSRV() const noexcept {
@@ -158,10 +158,21 @@ namespace mage {
 		}
 		
 		/**
+		 Returns the back buffer UAV of this renderer.
+
+		 @return		A pointer to the back buffer UAV of this renderer.
+		 @note			The back buffer RTV, SRV and UAV cannot both be bound 
+						at the same time.
+		 */
+		ID3D11UnorderedAccessView *GetBackBufferUAV() const noexcept {
+			return m_back_buffer_uav.Get();
+		}
+
+		/**
 		 Returns the depth buffer DSV of this renderer.
 
 		 @return		A pointer to the depth buffer DSV of this renderer.
-		 @note			The depth buffer DSV and SRV cannot both be bind
+		 @note			The depth buffer DSV and SRV cannot both be bound
 						at the same time.
 		 */
 		ID3D11DepthStencilView *GetDepthBufferDSV() const noexcept {
@@ -172,7 +183,7 @@ namespace mage {
 		 Returns the depth buffer SRV of this renderer.
 
 		 @return		A pointer to the depth buffer SRV of this renderer.
-		 @note			The depth buffer DSV and SRV cannot both be bind
+		 @note			The depth buffer DSV and SRV cannot both be bound
 						at the same time.
 		 */
 		ID3D11ShaderResourceView *GetDepthBufferSRV() const noexcept {
@@ -350,8 +361,8 @@ namespace mage {
 		void CreateSwapChain();
 
 		/**
-		 Creates the render target view and shader resource view
-		 of the back buffer of this renderer.
+		 Creates the render target view, shader resource view and
+		 unordered access view of the back buffer of this renderer.
 
 		 @throws		FormattedException
 						Failed to obtain the back buffer resource
@@ -362,8 +373,11 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to create the shader resource view 
 						of the back buffer of this renderer.
+		 @throws		FormattedException
+						Failed to create the unordered access view 
+						of the back buffer of this renderer.
 		 */
-		void CreateBackBufferRTVandSRV();
+		void CreateBackBufferRTVandSRVandUAV();
 
 		/**
 		 Creates the depth stencil view and shader resource view 
@@ -437,6 +451,12 @@ namespace mage {
 		 of the back buffer of this renderer.
 		 */
 		ComPtr< ID3D11ShaderResourceView > m_back_buffer_srv;
+
+		/**
+		 A pointer to the unordered access view 
+		 of the back buffer of this renderer.
+		 */
+		ComPtr< ID3D11UnorderedAccessView > m_back_buffer_uav;
 
 		/**
 		 A pointer to the depth stencil view 

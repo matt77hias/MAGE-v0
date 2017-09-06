@@ -188,67 +188,67 @@ namespace mage {
 #pragma region
 
 	/**
-	 Returns the compiled deferred emissive pixel shader.
+	 Returns the compiled deferred emissive compute shader.
 
-	 @return		A buffer compiled deferred emissive pixel shader.
+	 @return		A buffer compiled deferred emissive compute shader.
 	 */
-	const BufferCompiledShader CreateCompiledDeferredEmissivePS() noexcept;
+	const BufferCompiledShader CreateCompiledDeferredEmissiveCS() noexcept;
 
 	/**
-	 Returns the compiled deferred Lambertian pixel shader.
+	 Returns the compiled deferred Lambertian compute shader.
 
-	 @return		A buffer compiled deferred Lambertian pixel shader.
+	 @return		A buffer compiled deferred Lambertian compute shader.
 	 */
-	const BufferCompiledShader CreateCompiledDeferredLambertianPS() noexcept;
+	const BufferCompiledShader CreateCompiledDeferredLambertianCS() noexcept;
 
 	/**
-	 Returns the compiled deferred Phong pixel shader.
+	 Returns the compiled deferred Phong compute shader.
 
-	 @return		A buffer compiled deferred Phong pixel shader.
+	 @return		A buffer compiled deferred Phong compute shader.
 	 */
-	const BufferCompiledShader CreateCompiledDeferredPhongPS() noexcept;
+	const BufferCompiledShader CreateCompiledDeferredPhongCS() noexcept;
 
 	/**
-	 Returns the compiled deferred Modified Phong pixel shader.
+	 Returns the compiled deferred Modified Phong compute shader.
 
-	 @return		A buffer compiled deferred Modified Phong pixel shader.
+	 @return		A buffer compiled deferred Modified Phong compute shader.
 	 */
-	const BufferCompiledShader CreateCompiledDeferredModifiedPhongPS() noexcept;
+	const BufferCompiledShader CreateCompiledDeferredModifiedPhongCS() noexcept;
 
 	/**
-	 Returns the compiled deferred Blinn-Phong pixel shader.
+	 Returns the compiled deferred Blinn-Phong compute shader.
 
-	 @return		A buffer compiled deferred Blinn-Phong pixel shader.
+	 @return		A buffer compiled deferred Blinn-Phong compute shader.
 	 */
-	const BufferCompiledShader CreateCompiledDeferredBlinnPhongPS() noexcept;
+	const BufferCompiledShader CreateCompiledDeferredBlinnPhongCS() noexcept;
 
 	/**
-	 Returns the compiled deferred Modified Blinn-Phong pixel shader.
+	 Returns the compiled deferred Modified Blinn-Phong compute shader.
 
-	 @return		A buffer compiled deferred Modified Blinn-Phong pixel shader.
+	 @return		A buffer compiled deferred Modified Blinn-Phong compute shader.
 	 */
-	const BufferCompiledShader CreateCompiledDeferredModifiedBlinnPhongPS() noexcept;
+	const BufferCompiledShader CreateCompiledDeferredModifiedBlinnPhongCS() noexcept;
 
 	/**
-	 Returns the compiled deferred Ward pixel shader.
+	 Returns the compiled deferred Ward compute shader.
 
-	 @return		A buffer compiled deferred Ward pixel shader.
+	 @return		A buffer compiled deferred Ward compute shader.
 	 */
-	const BufferCompiledShader CreateCompiledDeferredWardPS() noexcept;
+	const BufferCompiledShader CreateCompiledDeferredWardCS() noexcept;
 
 	/**
-	 Returns the compiled deferred Ward-Duer pixel shader.
+	 Returns the compiled deferred Ward-Duer compute shader.
 
-	 @return		A buffer compiled deferred Ward-Duer pixel shader.
+	 @return		A buffer compiled deferred Ward-Duer compute shader.
 	 */
-	const BufferCompiledShader CreateCompiledDeferredWardDuerPS() noexcept;
+	const BufferCompiledShader CreateCompiledDeferredWardDuerCS() noexcept;
 
 	/**
-	 Returns the compiled deferred Cook-Torrance pixel shader.
+	 Returns the compiled deferred Cook-Torrance compute shader.
 
-	 @return		A buffer compiled deferred Cook-Torrance pixel shader.
+	 @return		A buffer compiled deferred Cook-Torrance compute shader.
 	 */
-	const BufferCompiledShader CreateCompiledDeferredCookTorrancePS() noexcept;
+	const BufferCompiledShader CreateCompiledDeferredCookTorranceCS() noexcept;
 
 #pragma endregion
 

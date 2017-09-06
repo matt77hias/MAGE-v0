@@ -198,70 +198,70 @@ namespace mage {
 	//-------------------------------------------------------------------------
 #pragma region
 
-	SharedPtr< const PixelShader > CreateDeferredEmissivePS() {
-		const BufferCompiledShader cs = CreateCompiledDeferredEmissivePS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_EMISSIVE, &cs);
+	SharedPtr< const ComputeShader > CreateDeferredEmissiveCS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredEmissiveCS();
+		return ResourceManager::Get()->GetOrCreateCS(MAGE_GUID_CS_DEFERRED_EMISSIVE, &cs);
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredLambertianPS() {
-		const BufferCompiledShader cs = CreateCompiledDeferredLambertianPS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_LAMBERTIAN, &cs);
+	SharedPtr< const ComputeShader > CreateDeferredLambertianCS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredLambertianCS();
+		return ResourceManager::Get()->GetOrCreateCS(MAGE_GUID_CS_DEFERRED_LAMBERTIAN, &cs);
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredPhongPS() {
-		const BufferCompiledShader cs = CreateCompiledDeferredPhongPS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_PHONG, &cs);
+	SharedPtr< const ComputeShader > CreateDeferredPhongCS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredPhongCS();
+		return ResourceManager::Get()->GetOrCreateCS(MAGE_GUID_CS_DEFERRED_PHONG, &cs);
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredModifiedPhongPS() {
-		const BufferCompiledShader cs = CreateCompiledDeferredModifiedPhongPS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_MODIFIED_PHONG, &cs);
+	SharedPtr< const ComputeShader > CreateDeferredModifiedPhongCS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredModifiedPhongCS();
+		return ResourceManager::Get()->GetOrCreateCS(MAGE_GUID_CS_DEFERRED_MODIFIED_PHONG, &cs);
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredBlinnPhongPS() {
-		const BufferCompiledShader cs = CreateCompiledDeferredBlinnPhongPS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_BLINN_PHONG, &cs);
+	SharedPtr< const ComputeShader > CreateDeferredBlinnPhongCS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredBlinnPhongCS();
+		return ResourceManager::Get()->GetOrCreateCS(MAGE_GUID_CS_DEFERRED_BLINN_PHONG, &cs);
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredModifiedBlinnPhongPS() {
-		const BufferCompiledShader cs = CreateCompiledDeferredModifiedBlinnPhongPS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_MODIFIED_BLINN_PHONG, &cs);
+	SharedPtr< const ComputeShader > CreateDeferredModifiedBlinnPhongCS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredModifiedBlinnPhongCS();
+		return ResourceManager::Get()->GetOrCreateCS(MAGE_GUID_CS_DEFERRED_MODIFIED_BLINN_PHONG, &cs);
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredWardPS() {
-		const BufferCompiledShader cs = CreateCompiledDeferredWardPS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_WARD, &cs);
+	SharedPtr< const ComputeShader > CreateDeferredWardCS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredWardCS();
+		return ResourceManager::Get()->GetOrCreateCS(MAGE_GUID_CS_DEFERRED_WARD, &cs);
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredWardDuerPS() {
-		const BufferCompiledShader cs = CreateCompiledDeferredWardDuerPS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_WARD_DUER, &cs);
+	SharedPtr< const ComputeShader > CreateDeferredWardDuerCS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredWardDuerCS();
+		return ResourceManager::Get()->GetOrCreateCS(MAGE_GUID_CS_DEFERRED_WARD_DUER, &cs);
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredCookTorrancePS() {
-		const BufferCompiledShader cs = CreateCompiledDeferredCookTorrancePS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEFERRED_COOK_TORRANCE, &cs);
+	SharedPtr< const ComputeShader > CreateDeferredCookTorranceCS() {
+		const BufferCompiledShader cs = CreateCompiledDeferredCookTorranceCS();
+		return ResourceManager::Get()->GetOrCreateCS(MAGE_GUID_CS_DEFERRED_COOK_TORRANCE, &cs);
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredPS(BRDFType brdf) {
+	SharedPtr< const ComputeShader > CreateDeferredCS(BRDFType brdf) {
 		switch (brdf) {
 
 		case BRDFType::Lambertian:
-			return CreateDeferredLambertianPS();
+			return CreateDeferredLambertianCS();
 		case BRDFType::Phong:
-			return CreateDeferredPhongPS();
+			return CreateDeferredPhongCS();
 		case BRDFType::ModifiedPhong:
-			return CreateDeferredModifiedPhongPS();
+			return CreateDeferredModifiedPhongCS();
 		case BRDFType::BlinnPhong:
-			return CreateDeferredBlinnPhongPS();
+			return CreateDeferredBlinnPhongCS();
 		case BRDFType::Ward:
-			return CreateDeferredWardPS();
+			return CreateDeferredWardCS();
 		case BRDFType::WardDuer:
-			return CreateDeferredWardDuerPS();
+			return CreateDeferredWardDuerCS();
 		case BRDFType::CookTorrance:
-			return CreateDeferredCookTorrancePS();
+			return CreateDeferredCookTorranceCS();
 		default:
-			return CreateDeferredModifiedBlinnPhongPS();
+			return CreateDeferredModifiedBlinnPhongCS();
 		}
 	}
 

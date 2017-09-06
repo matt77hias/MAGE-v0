@@ -13,15 +13,15 @@
 #include "shader\cso\gbuffer\gbuffer_tsnm_PS.hpp"
 
 // Deferred
-#include "shader\cso\deferred\emissive_PS.hpp"
-#include "shader\cso\deferred\lambertian_PS.hpp"
-#include "shader\cso\deferred\phong_PS.hpp"
-#include "shader\cso\deferred\modified_phong_PS.hpp"
-#include "shader\cso\deferred\blinn_phong_PS.hpp"
-#include "shader\cso\deferred\modified_blinn_phong_PS.hpp"
-#include "shader\cso\deferred\ward_PS.hpp"
-#include "shader\cso\deferred\ward_duer_PS.hpp"
-#include "shader\cso\deferred\cook_torrance_PS.hpp"
+#include "shader\cso\deferred\emissive_CS.hpp"
+#include "shader\cso\deferred\lambertian_CS.hpp"
+#include "shader\cso\deferred\phong_CS.hpp"
+#include "shader\cso\deferred\modified_phong_CS.hpp"
+#include "shader\cso\deferred\blinn_phong_CS.hpp"
+#include "shader\cso\deferred\modified_blinn_phong_CS.hpp"
+#include "shader\cso\deferred\ward_CS.hpp"
+#include "shader\cso\deferred\ward_duer_CS.hpp"
+#include "shader\cso\deferred\cook_torrance_CS.hpp"
 
 // Forward
 #include "shader\cso\forward\transform_VS.hpp"
@@ -178,40 +178,40 @@ namespace mage {
 	//-------------------------------------------------------------------------
 #pragma region
 
-	const BufferCompiledShader CreateCompiledDeferredEmissivePS() noexcept {
-		return BufferCompiledShader(g_deferred_emissive_ps, sizeof(g_deferred_emissive_ps));
+	const BufferCompiledShader CreateCompiledDeferredEmissiveCS() noexcept {
+		return BufferCompiledShader(g_deferred_emissive_cs, sizeof(g_deferred_emissive_cs));
 	}
 
-	const BufferCompiledShader CreateCompiledDeferredLambertianPS() noexcept {
-		return BufferCompiledShader(g_deferred_lambertian_ps, sizeof(g_deferred_lambertian_ps));
+	const BufferCompiledShader CreateCompiledDeferredLambertianCS() noexcept {
+		return BufferCompiledShader(g_deferred_lambertian_cs, sizeof(g_deferred_lambertian_cs));
 	}
 
-	const BufferCompiledShader CreateCompiledDeferredPhongPS() noexcept {
-		return BufferCompiledShader(g_deferred_phong_ps, sizeof(g_deferred_phong_ps));
+	const BufferCompiledShader CreateCompiledDeferredPhongCS() noexcept {
+		return BufferCompiledShader(g_deferred_phong_cs, sizeof(g_deferred_phong_cs));
 	}
 
-	const BufferCompiledShader CreateCompiledDeferredModifiedPhongPS() noexcept {
-		return BufferCompiledShader(g_deferred_modified_phong_ps, sizeof(g_deferred_modified_phong_ps));
+	const BufferCompiledShader CreateCompiledDeferredModifiedPhongCS() noexcept {
+		return BufferCompiledShader(g_deferred_modified_phong_cs, sizeof(g_deferred_modified_phong_cs));
 	}
 
-	const BufferCompiledShader CreateCompiledDeferredBlinnPhongPS() noexcept {
-		return BufferCompiledShader(g_deferred_blinn_phong_ps, sizeof(g_deferred_blinn_phong_ps));
+	const BufferCompiledShader CreateCompiledDeferredBlinnPhongCS() noexcept {
+		return BufferCompiledShader(g_deferred_blinn_phong_cs, sizeof(g_deferred_blinn_phong_cs));
 	}
 
-	const BufferCompiledShader CreateCompiledDeferredModifiedBlinnPhongPS() noexcept {
-		return BufferCompiledShader(g_deferred_modified_blinn_phong_ps, sizeof(g_deferred_modified_blinn_phong_ps));
+	const BufferCompiledShader CreateCompiledDeferredModifiedBlinnPhongCS() noexcept {
+		return BufferCompiledShader(g_deferred_modified_blinn_phong_cs, sizeof(g_deferred_modified_blinn_phong_cs));
 	}
 
-	const BufferCompiledShader CreateCompiledDeferredWardPS() noexcept {
-		return BufferCompiledShader(g_deferred_ward_ps, sizeof(g_deferred_ward_ps));
+	const BufferCompiledShader CreateCompiledDeferredWardCS() noexcept {
+		return BufferCompiledShader(g_deferred_ward_cs, sizeof(g_deferred_ward_cs));
 	}
 
-	const BufferCompiledShader CreateCompiledDeferredWardDuerPS() noexcept {
-		return BufferCompiledShader(g_deferred_ward_duer_ps, sizeof(g_deferred_ward_duer_ps));
+	const BufferCompiledShader CreateCompiledDeferredWardDuerCS() noexcept {
+		return BufferCompiledShader(g_deferred_ward_duer_cs, sizeof(g_deferred_ward_duer_cs));
 	}
 
-	const BufferCompiledShader CreateCompiledDeferredCookTorrancePS() noexcept {
-		return BufferCompiledShader(g_deferred_cook_torrance_ps, sizeof(g_deferred_cook_torrance_ps));
+	const BufferCompiledShader CreateCompiledDeferredCookTorranceCS() noexcept {
+		return BufferCompiledShader(g_deferred_cook_torrance_cs, sizeof(g_deferred_cook_torrance_cs));
 	}
 
 #pragma endregion

@@ -44,12 +44,10 @@ namespace mage {
 
 	void GBuffer::BindUnpacking(ID3D11DeviceContext2 *device_context, UINT slot) noexcept {
 		
-		// Reuse the (cleared) RTV of the renderer.
 		const Renderer * const renderer = Renderer::Get();
-		ID3D11RenderTargetView *rtv = renderer->GetBackBufferRTV();
 
-		// Bind the RTV and no DSV.
-		OM::BindRTVAndDSV(device_context, rtv, nullptr);
+		// Bind no RTV and no DSV.
+		OM::BindRTVAndDSV(device_context, nullptr, nullptr);
 
 		// Collect the SRVs (incl. depth SRV of the renderer).
 		const UINT nb_srvs = GetNumberOfSRVs() + 1;
@@ -60,7 +58,9 @@ namespace mage {
 		srvs[GetNumberOfSRVs()] = renderer->GetDepthBufferSRV();
 	
 		// Bind the SRVs.
-		PS::BindSRVs(device_context, slot, nb_srvs, srvs);
+		CS::BindSRVs(device_context, slot, nb_srvs, srvs);
+		// Bind the UAV.
+		CS::BindUAV(device_context, 0, renderer->GetBackBufferUAV());
 	}
 
 	void GBuffer::BindRestore(ID3D11DeviceContext2 *device_context, UINT slot) noexcept {
@@ -68,7 +68,9 @@ namespace mage {
 		ID3D11ShaderResourceView * const srvs[nb_srvs] = {};
 		
 		// Bind the SRVs.
-		PS::BindSRVs(device_context, slot, nb_srvs, srvs);
+		CS::BindSRVs(device_context, slot, nb_srvs, srvs);
+		// Bind the UAV.
+		CS::BindUAV(device_context, 0, nullptr);
 
 		// Restore the RTV and DSV of the renderer.
 		const Renderer * const renderer = Renderer::Get();

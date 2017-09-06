@@ -13,15 +13,15 @@
 #define MAGE_GUID_PS_GBUFFER_TSNM                  L"mage_gbuffer_tsnm_ps"
 
 // Deferred
-#define MAGE_GUID_PS_DEFERRED_EMISSIVE             L"mage_deferred_emissive_ps"
-#define MAGE_GUID_PS_DEFERRED_LAMBERTIAN           L"mage_deferred_lambertian_ps"
-#define MAGE_GUID_PS_DEFERRED_PHONG                L"mage_deferred_phong_ps"
-#define MAGE_GUID_PS_DEFERRED_MODIFIED_PHONG       L"mage_deferred_modified_phong_ps"
-#define MAGE_GUID_PS_DEFERRED_BLINN_PHONG          L"mage_deferred_blinn_phong_ps"
-#define MAGE_GUID_PS_DEFERRED_MODIFIED_BLINN_PHONG L"mage_deferred_modified_blinn_phong_ps"
-#define MAGE_GUID_PS_DEFERRED_WARD                 L"mage_deferred_ward_ps"
-#define MAGE_GUID_PS_DEFERRED_WARD_DUER            L"mage_deferred_ward_duer_ps"
-#define MAGE_GUID_PS_DEFERRED_COOK_TORRANCE        L"mage_deferred_cook_torrance_ps"
+#define MAGE_GUID_CS_DEFERRED_EMISSIVE             L"mage_deferred_emissive_cs"
+#define MAGE_GUID_CS_DEFERRED_LAMBERTIAN           L"mage_deferred_lambertian_cs"
+#define MAGE_GUID_CS_DEFERRED_PHONG                L"mage_deferred_phong_cs"
+#define MAGE_GUID_CS_DEFERRED_MODIFIED_PHONG       L"mage_deferred_modified_phong_cs"
+#define MAGE_GUID_CS_DEFERRED_BLINN_PHONG          L"mage_deferred_blinn_phong_cs"
+#define MAGE_GUID_CS_DEFERRED_MODIFIED_BLINN_PHONG L"mage_deferred_modified_blinn_phong_cs"
+#define MAGE_GUID_CS_DEFERRED_WARD                 L"mage_deferred_ward_cs"
+#define MAGE_GUID_CS_DEFERRED_WARD_DUER            L"mage_deferred_ward_duer_cs"
+#define MAGE_GUID_CS_DEFERRED_COOK_TORRANCE        L"mage_deferred_cook_torrance_cs"
 
 // Forward
 #define MAGE_GUID_VS_TRANSFORM                     L"mage_transform_vs"

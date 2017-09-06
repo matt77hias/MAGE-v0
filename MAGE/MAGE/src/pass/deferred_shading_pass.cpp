@@ -4,7 +4,7 @@
 #pragma region
 
 #include "pass\deferred_shading_pass.hpp"
-#include "rendering\rendering_state_cache.hpp"
+#include "rendering\renderer.hpp"
 #include "resource\resource_factory.hpp"
 #include "logging\error.hpp"
 
@@ -15,7 +15,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_DEFERRED_SHADING_PASS_PS_DEFERRED_BUFFER 1
+#define MAGE_DEFERRED_SHADING_PASS_CS_GROUP_SIZE_X 8
+#define MAGE_DEFERRED_SHADING_PASS_CS_GROUP_SIZE_Y 8
+#define MAGE_DEFERRED_SHADING_PASS_CS_BUFFER       1
 
 #pragma endregion
 
@@ -26,47 +28,48 @@ namespace mage {
 
 	DeferredShadingPass::DeferredShadingPass()
 		: m_device_context(GetImmediateDeviceContext()),
-		m_vs(CreateFullscreenTriangleVS()),
-		m_ps(CreateDeferredPS(BRDFType::Unknown)),
+		m_cs(CreateDeferredCS(BRDFType::Unknown)),
 		m_brdf(BRDFType::Unknown), m_deferred_buffer() {}
 
 	DeferredShadingPass::DeferredShadingPass(DeferredShadingPass &&render_pass) = default;
 
 	DeferredShadingPass::~DeferredShadingPass() = default;
 
-	void DeferredShadingPass::UpdatePS(BRDFType brdf) {
+	void DeferredShadingPass::UpdateCS(BRDFType brdf) {
 		if (m_brdf != brdf) {
 			m_brdf = brdf;
-			m_ps   = CreateDeferredPS(brdf);
+			m_cs   = CreateDeferredCS(brdf);
 		}
 	}
 
 	void XM_CALLCONV DeferredShadingPass::BindUnpackData(
 		FXMMATRIX view_to_projection, const PassBuffer *scene) noexcept {
 
-		DeferredBuffer buffer;
-		buffer.m_projection_values = GetProjectionValues(view_to_projection);
-		buffer.m_mat1_start        = scene->m_material_coefficient_min[0];
-		buffer.m_mat1_range        = scene->m_material_coefficient_max[0] - scene->m_material_coefficient_min[0];
-		buffer.m_mat2_start        = scene->m_material_coefficient_min[1];
-		buffer.m_mat2_range        = scene->m_material_coefficient_max[1] - scene->m_material_coefficient_min[1];
+		DeferredComputeBuffer buffer;
+		buffer.m_projection_values    = GetProjectionValues(view_to_projection);
+		buffer.m_mat1_start           = scene->m_material_coefficient_min[0];
+		buffer.m_mat1_range           = scene->m_material_coefficient_max[0] - scene->m_material_coefficient_min[0];
+		buffer.m_mat2_start           = scene->m_material_coefficient_min[1];
+		buffer.m_mat2_range           = scene->m_material_coefficient_max[1] - scene->m_material_coefficient_min[1];
+
+		const Renderer * const renderer = Renderer::Get();
+		buffer.m_resolution_minus1[0] = renderer->GetWidth()  - 1;
+		buffer.m_resolution_minus1[1] = renderer->GetHeight() - 1;
 
 		m_deferred_buffer.UpdateData(m_device_context, buffer);
-		PS::BindConstantBuffer(m_device_context,
-			MAGE_DEFERRED_SHADING_PASS_PS_DEFERRED_BUFFER, m_deferred_buffer.Get());
+		CS::BindConstantBuffer(m_device_context,
+			MAGE_DEFERRED_SHADING_PASS_CS_BUFFER, m_deferred_buffer.Get());
 	}
 
 	void DeferredShadingPass::Render(const PassBuffer *scene, const CameraNode *node) {
 		Assert(scene);
 		Assert(node);
 
-		// Update the pixel shader.
-		UpdatePS(node->GetSettings()->GetBRDF());
+		// Update the compute shader.
+		UpdateCS(node->GetSettings()->GetBRDF());
 
-		// Bind the vertex shader.
-		m_vs->BindShader(m_device_context);
-		// Bind the pixel shader.
-		m_ps->BindShader(m_device_context);
+		// Bind the compute shader.
+		m_cs->BindShader(m_device_context);
 
 		// Obtain node components.
 		const Camera        * const camera = node->GetCamera();
@@ -75,9 +78,10 @@ namespace mage {
 		// Bind the unpack data.
 		BindUnpackData(view_to_projection, scene);
 
-		// Bind the fullscreen triangle.
-		IA::BindPrimitiveTopology(m_device_context, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-		// Draw the fullscreen triangle.
-		m_device_context->Draw(3, 0);
+		// Dispatch.
+		const Renderer * const renderer = Renderer::Get();
+		const UINT nb_groups_x = renderer->GetWidth()  / MAGE_DEFERRED_SHADING_PASS_CS_GROUP_SIZE_X;
+		const UINT nb_groups_y = renderer->GetHeight() / MAGE_DEFERRED_SHADING_PASS_CS_GROUP_SIZE_Y;
+		m_device_context->Dispatch(nb_groups_x, nb_groups_y, 1u);
 	}
 }

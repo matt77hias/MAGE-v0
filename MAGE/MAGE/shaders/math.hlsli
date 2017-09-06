@@ -172,4 +172,20 @@ float3 NDCtoView(float3 p_ndc, float4 projection_values) {
 	return float3(p_ndc.xy * projection_values.xy, 1.0f) * p_view_z;
 }
 
+/**
+ Converts the given normalized dispatch thread id 
+ to NDC coordinates.
+
+ @pre			@a normalized_id is normalized 
+				(i.e. in the [0,1] range).
+ @param[in]		normalized_id
+				The normalized dispatch thread id.
+ @return		The NDC coordinates.
+ */
+float2 DispatchThreadIDtoNDC(float2 normalized_id) {
+	// x: [0,1] -> [-1,1]
+	// y: [0,1] -> [1,-1]
+	return float2(2.0f, -2.0f) * normalized_id + float2(-1.0f, 1.0f);
+}
+
 #endif //MAGE_HEADER_MATH

@@ -1348,9 +1348,13 @@ namespace mage {
 		static void BindRTVAndDSV(ID3D11DeviceContext2 *device_context,
 			ID3D11RenderTargetView *rtv, ID3D11DepthStencilView *dsv) noexcept {
 			
-			ID3D11RenderTargetView * const rtvs[1] = { rtv };
-
-			BindRTVsAndDSV(device_context, 1u, rtvs, dsv);
+			if (rtv) {
+				ID3D11RenderTargetView * const rtvs[1] = { rtv };
+				BindRTVsAndDSV(device_context, 1u, rtvs, dsv);
+			}
+			else {
+				BindRTVsAndDSV(device_context, 0u, nullptr, dsv);
+			}
 		}
 		static void BindRTVsAndDSV(ID3D11DeviceContext2 *device_context,
 			UINT nb_views, ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv) noexcept {
@@ -1362,23 +1366,52 @@ namespace mage {
 			UINT uav_slot, ID3D11UnorderedAccessView *uav,
 			UINT initial_count = 0u) noexcept {
 			
-			ID3D11RenderTargetView    * const rtvs[1]   = { rtv };
-			ID3D11UnorderedAccessView * const uavs[1]   = { uav };
-			const UINT                initial_counts[1] = { initial_count };
+			if (rtv) {
+				ID3D11RenderTargetView * const rtvs[1] = { rtv };
 
-			BindRTVsAndDSVAndUAVs(device_context,
-				1u, rtvs, dsv, uav_slot, 1u, uavs, initial_counts);
+				if (uav) {
+					ID3D11UnorderedAccessView * const uavs[1] = { uav };
+					const UINT initial_counts[1] = { initial_count };
+
+					BindRTVsAndDSVAndUAVs(device_context,
+						1u, rtvs, dsv, uav_slot, 1u, uavs, initial_counts);
+				}
+				else {
+					BindRTVsAndDSVAndUAVs(device_context,
+						1u, rtvs, dsv, uav_slot, 0u, nullptr, nullptr);
+				}
+			}
+			else {
+
+				if (uav) {
+					ID3D11UnorderedAccessView * const uavs[1] = { uav };
+					const UINT initial_counts[1] = { initial_count };
+
+					BindRTVsAndDSVAndUAVs(device_context,
+						0u, nullptr, dsv, uav_slot, 1u, uavs, initial_counts);
+				}
+				else {
+					BindRTVsAndDSVAndUAVs(device_context,
+						0u, nullptr, dsv, uav_slot, 0u, nullptr, nullptr);
+				}
+			}
 		}
 		static void BindRTVsAndDSVAndUAV(ID3D11DeviceContext2 *device_context,
 			UINT nb_views, ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv,
 			UINT uav_slot, ID3D11UnorderedAccessView *uav,
 			UINT initial_count = 0u) noexcept {
 			
-			ID3D11UnorderedAccessView * const uavs[1]   = { uav };
-			const UINT                initial_counts[1] = { initial_count };
+			if (uav) {
+				ID3D11UnorderedAccessView * const uavs[1] = { uav };
+				const UINT initial_counts[1] = { initial_count };
 
-			BindRTVsAndDSVAndUAVs(device_context, 
-				nb_views, rtvs, dsv, uav_slot, 1u, uavs, initial_counts);
+				BindRTVsAndDSVAndUAVs(device_context,
+					nb_views, rtvs, dsv, uav_slot, 1u, uavs, initial_counts);
+			}
+			else {
+				BindRTVsAndDSVAndUAVs(device_context,
+					nb_views, rtvs, dsv, uav_slot, 0u, nullptr, nullptr);
+			}
 		}
 		static void BindRTVsAndDSVAndUAVs(ID3D11DeviceContext2 *device_context,
 			UINT nb_views, ID3D11RenderTargetView * const *rtvs, ID3D11DepthStencilView *dsv,

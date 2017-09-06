@@ -53,10 +53,10 @@ RWTexture2D< float4 > g_output           : register(u0);
 // Compute Shader
 //-----------------------------------------------------------------------------
 
-[numthreads(8, 8, 1)]
+[numthreads(16, 16, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const float2 p_ndc_xy = 2.0f * thread_id.xy / g_resolution_minus1 - 1.0f;
+	const float2 p_ndc_xy = DispatchThreadIDtoNDC((float2)thread_id.xy / g_resolution_minus1);
 
 	// Load the depth from the GBuffer depth texture.
 	const float  depth     = g_depth_texture[thread_id.xy].x;

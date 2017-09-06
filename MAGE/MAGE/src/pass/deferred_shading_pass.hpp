@@ -32,17 +32,16 @@ namespace mage {
 		
 	private:
 
-		void UpdatePS(BRDFType brdf);
+		void UpdateCS(BRDFType brdf);
 		void XM_CALLCONV BindUnpackData(
 			FXMMATRIX view_to_projection,
 			const PassBuffer *scene) noexcept;
 	
 		ID3D11DeviceContext2 * const m_device_context;
 
-		SharedPtr< const VertexShader > m_vs;
-		SharedPtr< const PixelShader > m_ps;
+		SharedPtr< const ComputeShader > m_cs;
 		BRDFType m_brdf;
 
-		ConstantBuffer< DeferredBuffer > m_deferred_buffer;
+		ConstantBuffer< DeferredComputeBuffer > m_deferred_buffer;
 	};
 }

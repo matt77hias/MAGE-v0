@@ -302,117 +302,117 @@ namespace mage {
 #pragma region
 
 	/**
-	 Creates a deferred emissive pixel shader.
+	 Creates a deferred emissive compute shader.
 
 	 @pre			The resource manager associated with the
 					current engine must be loaded.
-	 @return		A pointer to the deferred emissive pixel shader.
+	 @return		A pointer to the deferred emissive compute shader.
 	 @throws		FormattedException
-					Failed to create the pixel shader.
+					Failed to create the compute shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredEmissivePS();
+	SharedPtr< const ComputeShader > CreateDeferredEmissiveCS();
 
 	/**
-	 Creates a deferred Lambertian pixel shader.
+	 Creates a deferred Lambertian compute shader.
 
 	 @pre			The resource manager associated with the
 					current engine must be loaded.
-	 @return		A pointer to the deferred Lambertian pixel shader.
+	 @return		A pointer to the deferred Lambertian compute shader.
 	 @throws		FormattedException
-					Failed to create the pixel shader.
+					Failed to create the compute shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredLambertianPS();
+	SharedPtr< const ComputeShader > CreateDeferredLambertianCS();
 
 	/**
-	 Creates a deferred Phong pixel shader.
+	 Creates a deferred Phong compute shader.
 
 	 @pre			The resource manager associated with the
 					current engine must be loaded.
-	 @return		A pointer to the deferred Phong pixel shader.
+	 @return		A pointer to the deferred Phong compute shader.
 	 @throws		FormattedException
-					Failed to create the pixel shader.
+					Failed to create the compute shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredPhongPS();
+	SharedPtr< const ComputeShader > CreateDeferredPhongCS();
 
 	/**
-	 Creates a deferred Modified Phong pixel shader.
+	 Creates a deferred Modified Phong compute shader.
 
 	 @pre			The resource manager associated with the
 					current engine must be loaded.
-	 @return		A pointer to the deferred Modified Phong pixel shader.
+	 @return		A pointer to the deferred Modified Phong compute shader.
 	 @throws		FormattedException
-					Failed to create the pixel shader.
+					Failed to create the compute shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredModifiedPhongPS();
+	SharedPtr< const ComputeShader > CreateDeferredModifiedPhongCS();
 
 	/**
-	 Creates a deferred Blinn-Phong pixel shader.
+	 Creates a deferred Blinn-Phong compute shader.
 
 	 @pre			The resource manager associated with the
 					current engine must be loaded.
-	 @return		A pointer to the deferred Blinn-Phong pixel shader.
+	 @return		A pointer to the deferred Blinn-Phong compute shader.
 	 @throws		FormattedException
-					Failed to create the pixel shader.
+					Failed to create the compute shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredBlinnPhongPS();
+	SharedPtr< const ComputeShader > CreateDeferredBlinnPhongCS();
 
 	/**
-	 Creates a deferred Modified Blinn-Phong pixel shader.
+	 Creates a deferred Modified Blinn-Phong compute shader.
 
 	 @pre			The resource manager associated with the
 					current engine must be loaded.
-	 @return		A pointer to the deferred Modified Blinn-Phong pixel shader.
+	 @return		A pointer to the deferred Modified Blinn-Phong compute shader.
 	 @throws		FormattedException
-					Failed to create the pixel shader.
+					Failed to create the compute shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredModifiedBlinnPhongPS();
+	SharedPtr< const ComputeShader > CreateDeferredModifiedBlinnPhongCS();
 
 	/**
-	 Creates a deferred Ward pixel shader.
+	 Creates a deferred Ward compute shader.
 
 	 @pre			The resource manager associated with the
 					current engine must be loaded.
-	 @return		A pointer to the deferred Ward pixel shader.
+	 @return		A pointer to the deferred Ward compute shader.
 	 @throws		FormattedException
-					Failed to create the pixel shader.
+					Failed to create the compute shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredWardPS();
+	SharedPtr< const ComputeShader > CreateDeferredWardCS();
 
 	/**
-	 Creates a deferred Ward-Duer pixel shader.
+	 Creates a deferred Ward-Duer compute shader.
 
 	 @pre			The resource manager associated with the
 					current engine must be loaded.
-	 @return		A pointer to the deferred Ward-Duer pixel shader.
+	 @return		A pointer to the deferred Ward-Duer compute shader.
 	 @throws		FormattedException
-					Failed to create the pixel shader.
+					Failed to create the compute shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredWardDuerPS();
+	SharedPtr< const ComputeShader > CreateDeferredWardDuerCS();
 
 	/**
-	 Creates a deferred Cook-Torrance pixel shader.
+	 Creates a deferred Cook-Torrance compute shader.
 
 	 @pre			The resource manager associated with the
 					current engine must be loaded.
-	 @return		A pointer to the deferred Cook-Torrance pixel shader.
+	 @return		A pointer to the deferred Cook-Torrance compute shader.
 	 @throws		FormattedException
-					Failed to create the pixel shader.
+					Failed to create the compute shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredCookTorrancePS();
+	SharedPtr< const ComputeShader > CreateDeferredCookTorranceCS();
 
 	/**
-	 Creates a deferred pixel shader matching the given BRDF.
+	 Creates a deferred compute shader matching the given BRDF.
 
 	 @pre			The resource manager associated with the
 					current engine must be loaded.
 	 @param[in]		brdf
 					The BRDF type.
-	 @return		A pointer to the deferred pixel shader matching
+	 @return		A pointer to the deferred compute shader matching
 					the given BRDF.
 	 @throws		FormattedException
-					Failed to create the pixel shader.
+					Failed to create the compute shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredPS(BRDFType brdf);
+	SharedPtr< const ComputeShader > CreateDeferredCS(BRDFType brdf);
 
 #pragma endregion
 

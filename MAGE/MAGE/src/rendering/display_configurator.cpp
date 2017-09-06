@@ -50,7 +50,7 @@ namespace mage {
 	}
 
 	const DXGI_FORMAT DisplayConfigurator::s_pixel_formats[] = {
-		DXGI_FORMAT_B8G8R8A8_UNORM,
+		DXGI_FORMAT_R8G8B8A8_UNORM,
 		DXGI_FORMAT_R10G10B10A2_UNORM, //TODO: unused
 	};
 
@@ -276,7 +276,7 @@ namespace mage {
 			const int msaa_index = *m_display_configuration_script->GetValueOfVariable< int >("msaa");
 			ComboBoxSelect(hwndDlg, IDC_MSAA, msaa_index);
 
-			const DXGI_FORMAT selected_format = DXGI_FORMAT_B8G8R8A8_UNORM;
+			const DXGI_FORMAT selected_format = s_pixel_formats[0];
 			// Fill in the resolutions combo box associated with the current format.
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
@@ -320,7 +320,7 @@ namespace mage {
 			switch (LOWORD(wParam)) {
 			case IDOK: {
 				// Store the details of the selected display mode.
-				const DXGI_FORMAT selected_format           = DXGI_FORMAT_B8G8R8A8_UNORM;
+				const DXGI_FORMAT selected_format           = s_pixel_formats[0];
 				const size_t selected_resolution            = ComboBoxSelectedValue(hwndDlg, IDC_RESOLUTION);
 				const size_t selected_msaa                  = ComboBoxSelectedValue(hwndDlg, IDC_MSAA);
 				const size_t selected_refresh_rate          = ComboBoxSelectedValue(hwndDlg, IDC_REFRESH_RATE);

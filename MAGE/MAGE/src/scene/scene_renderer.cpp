@@ -58,6 +58,7 @@ namespace mage {
 			}
 			case RenderMode::Forward: {
 				m_lbuffer->Update(m_pass_buffer.get(), node);
+				m_lbuffer->BindToGraphicsPipeline();
 				m_variable_shading_pass->Render(m_pass_buffer.get(), node);
 				
 				break;
@@ -71,9 +72,11 @@ namespace mage {
 				
 				m_gbuffer->BindUnpacking(m_device_context, 3);
 				m_lbuffer->Update(m_pass_buffer.get(), node);
+				m_lbuffer->BindToComputePipeline();
 				m_deferred_shading_pass->Render(m_pass_buffer.get(), node);
 				
 				m_gbuffer->BindRestore(m_device_context, 3);
+				m_lbuffer->BindToGraphicsPipeline();
 				m_variable_shading_pass->RenderPostDeferred(m_pass_buffer.get(), node);
 				
 				break;
@@ -87,6 +90,7 @@ namespace mage {
 			}
 			case RenderMode::Solid: {
 				m_lbuffer->Update(m_pass_buffer.get(), node);
+				m_lbuffer->BindToGraphicsPipeline();
 				m_constant_shading_pass->Render(m_pass_buffer.get(), node);
 				
 				break;

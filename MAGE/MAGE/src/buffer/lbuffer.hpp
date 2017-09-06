@@ -39,20 +39,23 @@ namespace mage {
 			return m_spot_lights_buffer.size();
 		}
 
-		void Update(const PassBuffer *scene, const CameraNode *node);
+		void Update(const PassBuffer *scene, 
+			const CameraNode *node);
+		void BindToGraphicsPipeline() const noexcept;
+		void BindToComputePipeline() const noexcept;
 
 	private:
 
-		void BindLightData(const PassBuffer *scene) noexcept;
+		void ProcessLightsData(const PassBuffer *scene) noexcept;
 
-		void XM_CALLCONV BindLights(
+		void XM_CALLCONV ProcessLights(
 			const vector< const DirectionalLightNode * > &lights,
 			FXMMATRIX world_to_view) noexcept;
-		void XM_CALLCONV BindLights(
+		void XM_CALLCONV ProcessLights(
 			const vector< const OmniLightNode * > &lights,
 			FXMMATRIX world_to_projection,
 			FXMMATRIX world_to_view) noexcept;
-		void XM_CALLCONV BindLights(
+		void XM_CALLCONV ProcessLights(
 			const vector< const SpotLightNode * > &lights,
 			FXMMATRIX world_to_projection,
 			FXMMATRIX world_to_view) noexcept;

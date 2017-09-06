@@ -53,11 +53,11 @@ RWTexture2D< float4 > g_output           : register(u0);
 // Compute Shader
 //-----------------------------------------------------------------------------
 
-#ifndef MAGE_GROUP_SIZE
-#define MAGE_GROUP_SIZE 16
+#ifndef GROUP_SIZE
+#define GROUP_SIZE 16
 #endif
 
-[numthreads(MAGE_GROUP_SIZE, MAGE_GROUP_SIZE, 1)]
+[numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	const float2 p_ndc_xy = DispatchThreadIDtoNDC((float2)thread_id.xy / g_resolution_minus1);

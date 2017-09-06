@@ -51,13 +51,13 @@ Texture2D g_normal_texture   : register(t2);
 #include "transform.fx"
 
 //-----------------------------------------------------------------------------
-// Pixel Shaders
+// Pixel Shader
 //-----------------------------------------------------------------------------
 OMInputDeferred PS(PSInputPositionNormalTexture input) {
 
 #ifdef TSNM
 	// Obtain the tangent-space normal coefficients in the [-1,1] range. 
-	const float3 c      = UnpackNormal(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
+	const float3 c      = UNORMtoSNORM(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
 	// Normalize the view-space normal.
 	const float3 n0     = normalize(input.n_view);
 	// Perturb the view-space normal.

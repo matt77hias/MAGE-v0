@@ -6,6 +6,118 @@
 //-----------------------------------------------------------------------------
 
 /**
+ Converts the given unsigned normalized value ([0,1] range) 
+ to a signed normalized value ([-1,1] range).
+
+ @pre			The given value is an unsigned normalized value 
+				([0,1] range).
+ @param[in]		x
+				The unsigned normalized value ([0,1] range).
+ @return		The signed normalized value ([-1,1] range).
+ */
+float UNORMtoSNORM(float x) {
+	return 2.0f * x - 1.0f;
+}
+
+/**
+ Converts the given unsigned normalized value ([0,1] range) 
+ to a signed normalized value ([-1,1] range).
+
+ @pre			The given value is an unsigned normalized value 
+				([0,1] range).
+ @param[in]		x
+				The unsigned normalized value ([0,1] range).
+ @return		The signed normalized value ([-1,1] range).
+ */
+float2 UNORMtoSNORM(float2 x) {
+	return 2.0f * x - 1.0f;
+}
+
+/**
+ Converts the given unsigned normalized value ([0,1] range) 
+ to a signed normalized value ([-1,1] range).
+
+ @pre			The given value is an unsigned normalized value 
+				([0,1] range).
+ @param[in]		x
+				The unsigned normalized value ([0,1] range).
+ @return		The signed normalized value ([-1,1] range).
+ */
+float3 UNORMtoSNORM(float3 x) {
+	return 2.0f * x - 1.0f;
+}
+
+/**
+ Converts the given unsigned normalized value ([0,1] range) 
+ to a signed normalized value ([-1,1] range).
+
+ @pre			The given value is an unsigned normalized value 
+				([0,1] range).
+ @param[in]		x
+				The unsigned normalized value ([0,1] range).
+ @return		The signed normalized value ([-1,1] range).
+ */
+float4 UNORMtoSNORM(float4 x) {
+	return 2.0f * x - 1.0f;
+}
+
+/**
+ Converts the given signed normalized value ([-1,1] range) 
+ to an unsigned normalized value ([0,1] range).
+
+ @pre			The given value is a signed normalized value 
+				([-1,1] range).
+ @param[in]		x
+				The signed normalized value ([-1,1] range).
+ @return		The unsigned normalized value ([0,1] range).
+ */
+float SNORMtoUNORM(float x) {
+	return 0.5f * x + 0.5f;
+}
+
+/**
+ Converts the given signed normalized value ([-1,1] range) 
+ to an unsigned normalized value ([0,1] range).
+
+ @pre			The given value is a signed normalized value 
+				([-1,1] range).
+ @param[in]		x
+				The signed normalized value ([-1,1] range).
+ @return		The unsigned normalized value ([0,1] range).
+ */
+float2 SNORMtoUNORM(float2 x) {
+	return 0.5f * x + 0.5f;
+}
+
+/**
+ Converts the given signed normalized value ([-1,1] range) 
+ to an unsigned normalized value ([0,1] range).
+
+ @pre			The given value is a signed normalized value 
+				([-1,1] range).
+ @param[in]		x
+				The signed normalized value ([-1,1] range).
+ @return		The unsigned normalized value ([0,1] range).
+ */
+float3 SNORMtoUNORM(float3 x) {
+	return 0.5f * x + 0.5f;
+}
+
+/**
+ Converts the given signed normalized value ([-1,1] range) 
+ to an unsigned normalized value ([0,1] range).
+
+ @pre			The given value is a signed normalized value 
+				([-1,1] range).
+ @param[in]		x
+				The signed normalized value ([-1,1] range).
+ @return		The unsigned normalized value ([0,1] range).
+ */
+float4 SNORMtoUNORM(float4 x) {
+	return 0.5f * x + 0.5f;
+}
+
+/**
  Converts the given normal from the [0,1] range to the [-1,1] range.
 
  @pre			The given normal is in the [0,1] range.
@@ -16,7 +128,7 @@
 				the converted normal will be normalized after unpacking.
  */
 float3 UnpackNormal(float3 n) {
-	return 2.0f * n - 1.0f;
+	return UNORMtoSNORM(n);
 }
 
 /**
@@ -28,7 +140,7 @@ float3 UnpackNormal(float3 n) {
  @return		The converted normal in the [0,1] range.
  */
 float3 PackNormal(float3 n) {
-	return 0.5f * n + 0.5f;
+	return SNORMtoUNORM(n);
 }
 
 /**

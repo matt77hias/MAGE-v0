@@ -53,7 +53,7 @@ Texture2D g_normal_texture   : register(t5);
 #include "transform.fx"
 
 //-----------------------------------------------------------------------------
-// Pixel Shaders
+// Pixel Shader
 //-----------------------------------------------------------------------------
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 

@@ -978,6 +978,33 @@
     <ClInclude Include="MAGE\src\shader\cso\primitives\fullscreen_triangle_VS.hpp">
       <Filter>Header Files\shader\cso\primitives</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\blinn_phong_CS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\cook_torrance_CS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\emissive_CS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\lambertian_CS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\modified_blinn_phong_CS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\modified_phong_CS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\phong_CS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\ward_CS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\ward_duer_CS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1474,23 +1501,35 @@
     <FxCompile Include="MAGE\shaders\primitives\fullscreen_triangle_VS.hlsl">
       <Filter>Shader Files\primitives</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\brdf.hlsli">
+    <FxCompile Include="MAGE\shaders\deferred_compute.fx">
       <Filter>Shader Files</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\math.hlsli">
-      <Filter>Shader Files</Filter>
+    <FxCompile Include="MAGE\shaders\deferred\emissive_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\structures.hlsli">
-      <Filter>Shader Files</Filter>
+    <FxCompile Include="MAGE\shaders\deferred\lambertian_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\lighting.hlsli">
-      <Filter>Shader Files</Filter>
+    <FxCompile Include="MAGE\shaders\deferred\modified_blinn_phong_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\light.hlsli">
-      <Filter>Shader Files</Filter>
+    <FxCompile Include="MAGE\shaders\deferred\modified_phong_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\normal_mapping.hlsli">
-      <Filter>Shader Files</Filter>
+    <FxCompile Include="MAGE\shaders\deferred\phong_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\ward_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\ward_duer_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\blinn_phong_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\cook_torrance_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1597,6 +1636,15 @@
       <Filter>Header Files\script</Filter>
     </None>
     <None Include="MAGE\shaders\primitives.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\brdf.hlsli" />
+    <None Include="MAGE\shaders\lighting.hlsli" />
+    <None Include="MAGE\shaders\math.hlsli" />
+    <None Include="MAGE\shaders\normal_mapping.hlsli" />
+    <None Include="MAGE\shaders\light.hlsli" />
+    <None Include="MAGE\shaders\structures.hlsli" />
+    <None Include="MAGE\shaders\configuration.hlsli">
       <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>

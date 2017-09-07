@@ -1,1 +1,1 @@
-#include "deferred.fx"
+#include "deferred.hlsli"

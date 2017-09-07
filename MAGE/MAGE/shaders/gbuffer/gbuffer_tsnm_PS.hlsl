@@ -1,2 +1,2 @@
 #define TSNM
-#include "gbuffer.fx"
+#include "gbuffer.hlsli"

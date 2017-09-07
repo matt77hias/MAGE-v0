@@ -1,2 +1,2 @@
 #define SPECULAR_BRDFxCOS PhongBRDFxCos
-#include "deferred.fx"
+#include "deferred.hlsli"

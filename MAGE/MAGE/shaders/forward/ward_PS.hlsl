@@ -1,2 +1,2 @@
 #define SPECULAR_BRDFxCOS WardBRDFxCos
-#include "forward.fx"
+#include "forward.hlsli"

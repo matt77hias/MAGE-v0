@@ -1,2 +1,2 @@
 #define DISSABLE_BRDFxCOS
-#include "deferred.fx"
+#include "deferred.hlsli"

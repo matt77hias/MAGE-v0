@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "lighting.hlsli"
+#include "hlsl.hpp"
 #include "normal_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
@@ -10,33 +10,32 @@
 cbuffer PerFrame : register(REG_B(SLOT_CBUFFER_PER_FRAME)) {
 	// CAMERA
 	// The view-to-projection transformation matrix.
-	float4x4 g_view_to_projection          : packoffset(c0);
+	float4x4 g_view_to_projection      : packoffset(c0);
 };
 
 cbuffer PerDraw  : register(REG_B(SLOT_CBUFFER_PER_DRAW)) {
 	// TRANSFORM
 	// The object-to-view transformation matrix.
-	float4x4 g_object_to_view              : packoffset(c0);
+	float4x4 g_object_to_view          : packoffset(c0);
 	// The object-to-view inverse transpose transformation matrix
 	// = The normal-to-view transformation matrix.
-	float4x4 g_normal_to_view              : packoffset(c4);
+	float4x4 g_normal_to_view          : packoffset(c4);
 	// The texture transformation matrix.
-	float4x4 g_texture_transform           : packoffset(c8);
+	float4x4 g_texture_transform       : packoffset(c8);
 	
 	// MATERIAL
-	// The diffuse reflectivity + dissolve of the material
-	float4 g_Kd                            : packoffset(c12);
+	// The diffuse reflectivity of the material
+	float3 g_Kd                        : packoffset(c12);
+	// The 2nd BRDF dependent normalized material coefficient.
+	// R0    [Cook-Torrance]
+	float g_mat2_norm                  : packoffset(c12.w);
 	// The specular reflectivity of the material.
-	float3 g_Ks                            : packoffset(c13);
-	// The 1st BRDF dependent material coefficient.
+	float3 g_Ks                        : packoffset(c13);
+	// The 1st BRDF dependent normalized material coefficient.
 	// Ns    [(Modified) Phong/(Modified) Blinn-Phong]
 	// alpha [Ward(-Duer)]
 	// m     [Cook-Torrance]
-	float g_mat1                           : packoffset(c13.w);
-	// The 2nd BRDF dependent material coefficient.
-	// R0    [Cook-Torrance]
-	float g_mat2                           : packoffset(c14.x);
-	uint3 g_padding                        : packoffset(c14.y);
+	float g_mat1_norm                  : packoffset(c13.w);
 }
 
 //-----------------------------------------------------------------------------
@@ -50,16 +49,16 @@ Texture2D g_normal_texture   : register(REG_T(SLOT_SRV_NORMAL));
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "transform.fx"
+#include "transform.hlsli"
 
 //-----------------------------------------------------------------------------
 // Pixel Shader
 //-----------------------------------------------------------------------------
-float4 PS(PSInputPositionNormalTexture input) : SV_Target {
+OMInputDeferred PS(PSInputPositionNormalTexture input) {
 
 #ifdef TSNM
 	// Obtain the tangent-space normal coefficients in the [-1,1] range. 
-	const float3 c      = UnpackNormal(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
+	const float3 c      = UNORMtoSNORM(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
 	// Normalize the view-space normal.
 	const float3 n0     = normalize(input.n_view);
 	// Perturb the view-space normal.
@@ -68,24 +67,31 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 	// Normalize the view-space normal.
 	const float3 n_view = normalize(input.n_view);
 #endif // TSNM
-
-	// Obtain the diffuse reflectivity of the material.
+	
+	OMInputDeferred output;
+	
+	// Pack the view-space normal: [-1,1] -> [0,1]
+	output.normal.xyz   = PackNormal(n_view);
+	
+	// Pack the diffuse reflectivity of the material.
 #ifdef DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
-	const float4 Kd = g_Kd;
+	output.diffuse.xyz  = g_Kd;
 #else  // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
-	const float4 Kd = g_Kd * g_diffuse_texture.Sample(g_sampler, input.tex);
+	output.diffuse.xyz  = g_Kd * g_diffuse_texture.Sample(g_sampler, input.tex).xyz;
 #endif // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
 
-	// Obtain the specular reflectivity of the material.
-#ifdef SPECULAR_BRDFxCOS
+	// Pack the 2nd BRDF dependent normalized material coefficient.
+	output.diffuse.w    = g_mat2_norm;
+	
+	// Pack the specular reflectivity of the material.
 #ifdef DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
-	const float3 Ks = g_Ks;
+	output.specular.xyz = g_Ks;
 #else  // DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
-	const float3 Ks = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
+	output.specular.xyz = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
 #endif // DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
-#else  // SPECULAR_BRDFxCOS
-	const float3 Ks = float3(0.0f, 0.0f, 0.0f);
-#endif // SPECULAR_BRDFxCOS
+	
+	// Pack the 1st BRDF dependent normalized material coefficient.
+	output.specular.w   = g_mat1_norm;
 
-	return float4(BRDFShading(input.p_view, n_view, Kd.xyz, Ks, g_mat1, g_mat2), Kd.w);
+	return output;
 }

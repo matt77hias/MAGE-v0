@@ -27,7 +27,7 @@ float sat_dot(float3 x, float3 y) {
  about the given normal.
 
  @pre			@a n is normalized.
- @pre			@a v is normalized.
+ @pre			@a l is normalized.
  @param[in]		n
 				The surface normal.
  @param[in]		l

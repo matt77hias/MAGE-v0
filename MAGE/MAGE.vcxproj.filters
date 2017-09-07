@@ -1644,22 +1644,22 @@
     <None Include="MAGE\shaders\structures.hlsli">
       <Filter>Shader Files</Filter>
     </None>
-    <None Include="MAGE\shaders\deferred.fx">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="MAGE\shaders\deferred_compute.fx">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="MAGE\shaders\forward.fx">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="MAGE\shaders\gbuffer.fx">
-      <Filter>Shader Files</Filter>
-    </None>
-    <None Include="MAGE\shaders\transform.fx">
-      <Filter>Shader Files</Filter>
-    </None>
     <None Include="MAGE\shaders\hlsl.hpp">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\transform.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\gbuffer.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\forward.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\deferred_compute.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\deferred.hlsli">
       <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>

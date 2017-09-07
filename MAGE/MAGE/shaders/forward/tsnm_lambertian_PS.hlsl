@@ -1,2 +1,2 @@
 #define TSNM
-#include "forward.fx"
+#include "forward.hlsli"

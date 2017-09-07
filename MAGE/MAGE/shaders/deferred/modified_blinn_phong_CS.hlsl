@@ -1,2 +1,2 @@
 #define SPECULAR_BRDFxCOS ModifiedBlinnPhongBRDFxCos
-#include "deferred_compute.fx"
+#include "deferred_compute.hlsli"

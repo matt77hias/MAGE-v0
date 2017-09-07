@@ -1,2 +1,2 @@
 #define DISSABLE_BRDFxCOS
-#include "forward.fx"
+#include "forward.hlsli"

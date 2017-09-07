@@ -1,2 +1,2 @@
 #define SPECULAR_BRDFxCOS WardBRDFxCos
-#include "deferred.fx"
+#include "deferred.hlsli"

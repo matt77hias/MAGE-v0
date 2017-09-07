@@ -5,6 +5,9 @@
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 
+/**
+ A struct of directional lights.
+ */
 struct DirectionalLight {
 	// The intensity of this spotlight .
 	float3 I;
@@ -14,6 +17,9 @@ struct DirectionalLight {
 	uint padding1;
 };
 
+/**
+ A struct of omni lights.
+ */
 struct OmniLight {
 	// The position of this omni light in camera-space coordinates.
 	float3 p;
@@ -27,6 +33,9 @@ struct OmniLight {
 	float distance_falloff_inv_range;
 };
 
+/**
+ A struct of spotlights.
+ */
 struct SpotLight {
 	// The position of this spotlight in camera-space coordinates.
 	float3 p;
@@ -52,23 +61,69 @@ struct SpotLight {
 	float cos_inv_range;
 };
 
-// Calculates the distance fall off at a given distance r.
+/**
+ Calculates the distance intensity fallof of a light.
+
+ @param[in]		r
+				The distance between the lit point and 
+				the center of the light.
+ @param[in]		r_end
+				The distance at which intensity falloff ends 
+				of the light.
+ @param[in]		r_inv_range
+				The distance inverse range where intensity falloff occurs 
+				of the light.
+ */
 float DistanceFalloff(float r, float r_end, float r_inv_range) {
 	return saturate((r_end - r) * r_inv_range);
 }
 
-// Calculates the angular fall off at a given angle theta.
+/**
+ Calculates the angular intensity fallof of a light.
+
+ @param[in]		cos_theta
+				The cosine of the angle between the direction
+				from the center of the light to the lit point
+				to the light direction.
+ @param[in]		cos_umbra
+				The cosine of the umbra angle at which intensity falloff 
+				ends of the light.
+ @param[in]		cos_inv_range
+				The cosine inverse range where intensity falloff occurs 
+				of the light.
+ @param[in]		s_exp
+				The exponent property of the light.
+ */
 float AngularFalloff(float cos_theta, float cos_umbra, float cos_inv_range, float s_exp) {
 	return pow(saturate((cos_theta - cos_umbra) * cos_inv_range), s_exp);
 }
 
-// Calculates the maximum contribution of the given omni light for given distance r.
+/**
+ Calculates the maximal intensity contribution of the given omni light.
+
+ @param[in]		light
+				The omni light.
+ @param[in]		r
+				The distance between the lit point and 
+				the center of the light.
+ */
 float3 OmniLightMaxContribution(OmniLight light, float r) {
 	const float df = DistanceFalloff(r, light.distance_falloff_end, light.distance_falloff_inv_range);
 	return df * light.I;
 }
 
-// Calculates the maximum contribution of the given spotlight for given distance r and l.
+/**
+ Calculates the maximal intensity contribution of the given spotlight.
+
+ @pre			@a l is normalized.
+ @param[in]		light
+				The spotlight.
+ @param[in]		r
+				The distance between the lit point and 
+				the center of the light.
+ @param[in]		l
+				The light (hit-to-light) direction.
+ */
 float3 SpotLightMaxContribution(SpotLight light, float r, float3 l) {
 	const float cos_theta = dot(light.neg_d, l);
 	const float df = DistanceFalloff(r, light.distance_falloff_end, light.distance_falloff_inv_range);

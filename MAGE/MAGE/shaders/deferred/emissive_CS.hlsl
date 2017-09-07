@@ -1,2 +1,2 @@
 #define DISSABLE_BRDFxCOS
-#include "deferred_compute.fx"
+#include "deferred_compute.hlsli"

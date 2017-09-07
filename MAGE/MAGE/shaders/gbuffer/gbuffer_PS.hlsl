@@ -1,1 +1,1 @@
-#include "gbuffer.fx"
+#include "gbuffer.hlsli"

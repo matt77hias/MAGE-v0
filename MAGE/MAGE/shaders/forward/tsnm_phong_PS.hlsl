@@ -1,3 +1,3 @@
 #define TSNM
 #define SPECULAR_BRDFxCOS PhongBRDFxCos
-#include "forward.fx"
+#include "forward.hlsli"

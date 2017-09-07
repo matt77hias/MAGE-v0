@@ -1,2 +1,2 @@
 #define SPECULAR_BRDFxCOS ModifiedBlinnPhongBRDFxCos
-#include "forward.fx"
+#include "forward.hlsli"

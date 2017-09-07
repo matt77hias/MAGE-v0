@@ -9,17 +9,8 @@
 #include "math\view_frustum.hpp"
 #include "logging\error.hpp"
 
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_SHADING_NORMAL_PASS_VS_SCENE_BUFFER 0
-#define MAGE_SHADING_NORMAL_PASS_VS_MODEL_BUFFER 1
-#define MAGE_SHADING_NORMAL_PASS_PS_NORMAL_SRV   0
-#define MAGE_SHADING_NORMAL_PASS_PS_SAMPLER      0
+// Include HLSL bindings.
+#include "..\..\shaders\hlsl.hpp"
 
 #pragma endregion
 
@@ -56,7 +47,7 @@ namespace mage {
 
 			// Bind the normal SRV.
 			PS::BindSRV(m_device_context,
-				MAGE_SHADING_NORMAL_PASS_PS_NORMAL_SRV, material->GetNormalSRV());
+				SLOT_SRV_NORMAL, material->GetNormalSRV());
 		}
 		else {
 
@@ -78,7 +69,7 @@ namespace mage {
 		m_model_buffer.UpdateData(m_device_context, buffer);
 		// Bind the model buffer.
 		VS::BindConstantBuffer(m_device_context, 
-			MAGE_SHADING_NORMAL_PASS_VS_MODEL_BUFFER, m_model_buffer.Get());
+			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
 	}
 
 	void XM_CALLCONV ShadingNormalPass::BindSceneData(
@@ -88,7 +79,7 @@ namespace mage {
 		m_scene_buffer.UpdateData(m_device_context, XMMatrixTranspose(view_to_projection));
 		// Bind the scene buffer.
 		VS::BindConstantBuffer(m_device_context, 
-			MAGE_SHADING_NORMAL_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
+			SLOT_CBUFFER_PER_FRAME, m_scene_buffer.Get());
 	}
 
 	void ShadingNormalPass::Render(const PassBuffer *scene, const CameraNode *node) {
@@ -110,7 +101,7 @@ namespace mage {
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 		// Bind the sampler.
 		if (RenderMode::ShadingNormal != m_render_mode) {
-			PS::BindSampler(m_device_context, MAGE_SHADING_NORMAL_PASS_PS_SAMPLER, 
+			PS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
 				RenderingStateCache::Get()->GetLinearWrapSamplerState());
 		}
 			

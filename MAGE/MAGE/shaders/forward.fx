@@ -7,13 +7,13 @@
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-cbuffer PerFrame : register(b1) {
+cbuffer PerFrame : register(REG_B(SLOT_CBUFFER_PER_FRAME)) {
 	// CAMERA
 	// The view-to-projection transformation matrix.
 	float4x4 g_view_to_projection          : packoffset(c0);
 };
 
-cbuffer PerDraw  : register(b2) {
+cbuffer PerDraw  : register(REG_B(SLOT_CBUFFER_PER_DRAW)) {
 	// TRANSFORM
 	// The object-to-view transformation matrix.
 	float4x4 g_object_to_view              : packoffset(c0);
@@ -42,10 +42,10 @@ cbuffer PerDraw  : register(b2) {
 //-----------------------------------------------------------------------------
 // Samplers and Textures
 //-----------------------------------------------------------------------------
-sampler g_sampler            : register(s0);
-Texture2D g_diffuse_texture  : register(t3);
-Texture2D g_specular_texture : register(t4);
-Texture2D g_normal_texture   : register(t5);
+sampler   g_sampler          : register(REG_S(SLOT_SAMPLER_DEFAULT));
+Texture2D g_diffuse_texture  : register(REG_T(SLOT_SRV_DIFFUSE));
+Texture2D g_specular_texture : register(REG_T(SLOT_SRV_SPECULAR));
+Texture2D g_normal_texture   : register(REG_T(SLOT_SRV_NORMAL));
 
 //-----------------------------------------------------------------------------
 // Engine Includes

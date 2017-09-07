@@ -1,14 +1,15 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
+#include "hlsl.hpp"
 #include "structures.hlsli"
 #include "normal_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
 // Samplers and Textures
 //-----------------------------------------------------------------------------
-sampler g_sampler          : register(s0);
-Texture2D g_normal_texture : register(t0);
+sampler   g_sampler        : register(REG_S(SLOT_SAMPLER_DEFAULT));
+Texture2D g_normal_texture : register(REG_T(SLOT_SRV_NORMAL));
 
 //-----------------------------------------------------------------------------
 // Pixel Shader

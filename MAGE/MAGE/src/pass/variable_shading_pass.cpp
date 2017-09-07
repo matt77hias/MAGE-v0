@@ -10,20 +10,8 @@
 #include "math\view_frustum.hpp"
 #include "logging\error.hpp"
 
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_VARIABLE_SHADING_PASS_VS_PROJECTION_BUFFER 1
-#define MAGE_VARIABLE_SHADING_PASS_VS_MODEL_BUFFER      2
-#define MAGE_VARIABLE_SHADING_PASS_PS_MODEL_BUFFER      2
-#define MAGE_VARIABLE_SHADING_PASS_PS_DIFFUSE_SRV       3
-#define MAGE_VARIABLE_SHADING_PASS_PS_SPECULAR_SRV      4
-#define MAGE_VARIABLE_SHADING_PASS_PS_NORMAL_SRV        5
-#define MAGE_VARIABLE_SHADING_PASS_PS_SAMPLER           0
+// Include HLSL bindings.
+#include "..\..\shaders\hlsl.hpp"
 
 #pragma endregion
 
@@ -79,7 +67,7 @@ namespace mage {
 		m_projection_buffer.UpdateData(
 			m_device_context, XMMatrixTranspose(view_to_projection));
 		VS::BindConstantBuffer(m_device_context,
-			MAGE_VARIABLE_SHADING_PASS_VS_PROJECTION_BUFFER, m_projection_buffer.Get());
+			SLOT_CBUFFER_PER_FRAME, m_projection_buffer.Get());
 	}
 
 	void XM_CALLCONV VariableShadingPass::BindModelData(
@@ -102,19 +90,19 @@ namespace mage {
 		m_model_buffer.UpdateData(m_device_context, buffer);
 		// Bind the model buffer.
 		VS::BindConstantBuffer(m_device_context, 
-			MAGE_VARIABLE_SHADING_PASS_VS_MODEL_BUFFER, m_model_buffer.Get());
+			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
 		PS::BindConstantBuffer(m_device_context, 
-			MAGE_VARIABLE_SHADING_PASS_PS_MODEL_BUFFER, m_model_buffer.Get());
+			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
 
 		// Bind the diffuse SRV.
 		PS::BindSRV(m_device_context, 
-			MAGE_VARIABLE_SHADING_PASS_PS_DIFFUSE_SRV, material->GetDiffuseReflectivitySRV());
+			SLOT_SRV_DIFFUSE, material->GetDiffuseReflectivitySRV());
 		// Bind the specular SRV.
 		PS::BindSRV(m_device_context, 
-			MAGE_VARIABLE_SHADING_PASS_PS_SPECULAR_SRV, material->GetSpecularReflectivitySRV());
+			SLOT_SRV_SPECULAR, material->GetSpecularReflectivitySRV());
 		// Bind the normal SRV.
 		PS::BindSRV(m_device_context, 
-			MAGE_VARIABLE_SHADING_PASS_PS_NORMAL_SRV, material->GetNormalSRV());
+			SLOT_SRV_NORMAL, material->GetNormalSRV());
 	}
 
 	void VariableShadingPass::Render(const PassBuffer *scene, const CameraNode *node) {
@@ -135,7 +123,7 @@ namespace mage {
 		// Bind the blend state.
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 		// Bind the sampler.
-		PS::BindSampler(m_device_context, MAGE_VARIABLE_SHADING_PASS_PS_SAMPLER,
+		PS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
 			RenderingStateCache::Get()->GetLinearWrapSamplerState());
 
 		// Obtain node components.
@@ -180,7 +168,7 @@ namespace mage {
 		// Bind the blend state.
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 		// Bind the sampler.
-		PS::BindSampler(m_device_context, MAGE_VARIABLE_SHADING_PASS_PS_SAMPLER,
+		PS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
 			RenderingStateCache::Get()->GetLinearWrapSamplerState());
 
 		// Obtain node components.

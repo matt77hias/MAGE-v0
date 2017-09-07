@@ -1,17 +1,18 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
+#include "hlsl.hpp"
 #include "structures.hlsli"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-cbuffer PerFrame : register(b1) {
+cbuffer PerFrame : register(REG_B(SLOT_CBUFFER_PER_FRAME)) {
 	// The object-to-projection transformation matrix.
 	float4x4 g_view_to_projection : packoffset(c0);
 }
 
-cbuffer PerDraw  : register(b2) {
+cbuffer PerDraw  : register(REG_B(SLOT_CBUFFER_PER_DRAW)) {
 	// The object-to-view transformation matrix.
 	float4x4 g_object_to_view     : packoffset(c0);
 }

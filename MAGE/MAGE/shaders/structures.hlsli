@@ -139,9 +139,9 @@ struct PSInputPositionNormalTexture {
  a normal, diffuse and specular component.
  */
 struct OMInputDeferred {
-	float4 normal   : SV_Target0;
-	float4 diffuse  : SV_Target1;
-	float4 specular : SV_Target2;
+	float4 diffuse  : SV_Target0;
+	float4 specular : SV_Target1;
+	float4 normal   : SV_Target2;
 };
 
 #endif // MAGE_HEADER_STRUCTURES

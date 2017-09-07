@@ -29,15 +29,15 @@ namespace mage {
 		GBuffer &operator=(GBuffer &&buffer) = delete;
 
 		void BindPacking(ID3D11DeviceContext2 *device_context) noexcept;
-		void BindUnpacking(ID3D11DeviceContext2 *device_context, UINT slot) noexcept;
-		void BindRestore(ID3D11DeviceContext2 *device_context, UINT slot) noexcept;
+		void BindUnpacking(ID3D11DeviceContext2 *device_context) noexcept;
+		void BindRestore(ID3D11DeviceContext2 *device_context) noexcept;
 
 	private:
 
 		enum struct GBufferIndex {
-			Normal   = 0,
-			Diffuse  = 1,
-			Specular = 2,
+			Diffuse  = 0,
+			Specular = 1,
+			Normal   = 2,
 			Count    = 3
 		};
 

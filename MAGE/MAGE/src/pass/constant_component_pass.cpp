@@ -9,18 +9,8 @@
 #include "math\view_frustum.hpp"
 #include "logging\error.hpp"
 
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_CONSTANT_COMPONENT_PASS_VS_SCENE_BUFFER 0
-#define MAGE_CONSTANT_COMPONENT_PASS_VS_MODEL_BUFFER 1
-#define MAGE_CONSTANT_COMPONENT_PASS_PS_COLOR_BUFFER 0
-#define MAGE_CONSTANT_COMPONENT_PASS_PS_TEXTURE_SRV  0
-#define MAGE_CONSTANT_COMPONENT_PASS_PS_SAMPLER      0
+// Include HLSL bindings.
+#include "..\..\shaders\hlsl.hpp"
 
 #pragma endregion
 
@@ -52,11 +42,11 @@ namespace mage {
 			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f, 1.0f, 1.0f, 1.0f));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
-				MAGE_CONSTANT_COMPONENT_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
+				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 
 			// Bind the texture SRV.
 			PS::BindSRV(m_device_context,
-				MAGE_CONSTANT_COMPONENT_PASS_PS_TEXTURE_SRV, m_uv->Get());
+				SLOT_SRV_TEXTURE, m_uv->Get());
 
 			break;
 		}
@@ -79,7 +69,7 @@ namespace mage {
 		m_scene_buffer.UpdateData(m_device_context, XMMatrixTranspose(view_to_projection));
 		// Bind the scene buffer.
 		VS::BindConstantBuffer(m_device_context,
-			MAGE_CONSTANT_COMPONENT_PASS_VS_SCENE_BUFFER, m_scene_buffer.Get());
+			SLOT_CBUFFER_PER_FRAME, m_scene_buffer.Get());
 	}
 
 	void XM_CALLCONV ConstantComponentPass::BindModelData(
@@ -96,7 +86,7 @@ namespace mage {
 		m_model_buffer.UpdateData(m_device_context, buffer);
 		// Bind the model buffer.
 		VS::BindConstantBuffer(m_device_context, 
-			MAGE_CONSTANT_COMPONENT_PASS_VS_MODEL_BUFFER, m_model_buffer.Get());
+			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
 	}
 
 	void ConstantComponentPass::Render(const PassBuffer *scene, const CameraNode *node) {
@@ -114,7 +104,7 @@ namespace mage {
 		// Bind the blend state.
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 		// Bind the sampler.
-		PS::BindSampler(m_device_context, MAGE_CONSTANT_COMPONENT_PASS_PS_SAMPLER,
+		PS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
 			RenderingStateCache::Get()->GetLinearWrapSamplerState());
 			
 		// Obtain node components.

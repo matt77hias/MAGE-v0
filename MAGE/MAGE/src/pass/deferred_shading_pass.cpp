@@ -8,16 +8,8 @@
 #include "resource\resource_factory.hpp"
 #include "logging\error.hpp"
 
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFERRED_SHADING_PASS_CS_GROUP_SIZE_X 8
-#define MAGE_DEFERRED_SHADING_PASS_CS_GROUP_SIZE_Y 8
-#define MAGE_DEFERRED_SHADING_PASS_CS_BUFFER       1
+// Include HLSL bindings.
+#include "..\..\shaders\hlsl.hpp"
 
 #pragma endregion
 
@@ -58,7 +50,7 @@ namespace mage {
 
 		m_deferred_buffer.UpdateData(m_device_context, buffer);
 		CS::BindConstantBuffer(m_device_context,
-			MAGE_DEFERRED_SHADING_PASS_CS_BUFFER, m_deferred_buffer.Get());
+			SLOT_CBUFFER_PER_FRAME, m_deferred_buffer.Get());
 	}
 
 	void DeferredShadingPass::Render(const PassBuffer *scene, const CameraNode *node) {
@@ -80,8 +72,8 @@ namespace mage {
 
 		// Dispatch.
 		const Renderer * const renderer = Renderer::Get();
-		const UINT nb_groups_x = renderer->GetWidth()  / MAGE_DEFERRED_SHADING_PASS_CS_GROUP_SIZE_X;
-		const UINT nb_groups_y = renderer->GetHeight() / MAGE_DEFERRED_SHADING_PASS_CS_GROUP_SIZE_Y;
+		const UINT nb_groups_x = renderer->GetWidth()  / DEFAULT_GROUP_SIZE;
+		const UINT nb_groups_y = renderer->GetHeight() / DEFAULT_GROUP_SIZE;
 		m_device_context->Dispatch(nb_groups_x, nb_groups_y, 1u);
 	}
 }

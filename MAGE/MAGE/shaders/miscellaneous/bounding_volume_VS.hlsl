@@ -1,12 +1,13 @@
 //-----------------------------------------------------------------------------
 // Includes
 //-----------------------------------------------------------------------------
+#include "hlsl.hpp"
 #include "structures.hlsli"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-cbuffer PerDraw : register(b0) {
+cbuffer PerDraw : register(REG_B(SLOT_CBUFFER_PER_DRAW)) {
 	// The object-to-projection transformation matrix.
 	float4x4 g_object_to_projection : packoffset(c0);
 }

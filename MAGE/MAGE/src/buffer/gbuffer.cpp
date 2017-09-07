@@ -8,6 +8,9 @@
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
 
+// Include HLSL bindings.
+#include "..\..\shaders\hlsl.hpp"
+
 #pragma endregion
 
 //-----------------------------------------------------------------------------
@@ -42,7 +45,7 @@ namespace mage {
 		OM::BindRTVsAndDSV(device_context, GetNumberOfRTVs(), rtvs, dsv);
 	}
 
-	void GBuffer::BindUnpacking(ID3D11DeviceContext2 *device_context, UINT slot) noexcept {
+	void GBuffer::BindUnpacking(ID3D11DeviceContext2 *device_context) noexcept {
 		
 		const Renderer * const renderer = Renderer::Get();
 
@@ -58,19 +61,23 @@ namespace mage {
 		srvs[GetNumberOfSRVs()] = renderer->GetDepthBufferSRV();
 	
 		// Bind the SRVs.
-		CS::BindSRVs(device_context, slot, nb_srvs, srvs);
+		CS::BindSRVs(device_context, 
+			SLOT_SRV_GBUFFER_START, nb_srvs, srvs);
 		// Bind the UAV.
-		CS::BindUAV(device_context, 0, renderer->GetBackBufferUAV());
+		CS::BindUAV(device_context, 
+			SLOT_UAV_IMAGE, renderer->GetBackBufferUAV());
 	}
 
-	void GBuffer::BindRestore(ID3D11DeviceContext2 *device_context, UINT slot) noexcept {
+	void GBuffer::BindRestore(ID3D11DeviceContext2 *device_context) noexcept {
 		const UINT nb_srvs = GetNumberOfSRVs() + 1;
 		ID3D11ShaderResourceView * const srvs[nb_srvs] = {};
 		
 		// Bind the SRVs.
-		CS::BindSRVs(device_context, slot, nb_srvs, srvs);
+		CS::BindSRVs(device_context, 
+			SLOT_SRV_GBUFFER_START, nb_srvs, srvs);
 		// Bind the UAV.
-		CS::BindUAV(device_context, 0, nullptr);
+		CS::BindUAV(device_context, 
+			SLOT_UAV_IMAGE, nullptr);
 
 		// Restore the RTV and DSV of the renderer.
 		const Renderer * const renderer = Renderer::Get();
@@ -85,10 +92,6 @@ namespace mage {
 		const UINT width  = static_cast< UINT >(renderer->GetWidth());
 		const UINT height = static_cast< UINT >(renderer->GetHeight());
 
-		// Setup the normal buffer.
-		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Normal), 
-			width, height, DXGI_FORMAT_R11G11B10_FLOAT);
-		
 		// Setup the diffuse buffer;
 		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Diffuse),
 			width, height, DXGI_FORMAT_R8G8B8A8_UNORM);
@@ -96,6 +99,10 @@ namespace mage {
 		// Setup the specular buffer.
 		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Specular),
 			width, height, DXGI_FORMAT_R8G8B8A8_UNORM);
+
+		// Setup the normal buffer.
+		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Normal),
+			width, height, DXGI_FORMAT_R11G11B10_FLOAT);
 	}
 
 	void GBuffer::SetupBuffer(ID3D11Device2 *device, UINT index,

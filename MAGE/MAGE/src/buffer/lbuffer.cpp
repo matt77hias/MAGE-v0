@@ -7,17 +7,8 @@
 #include "math\view_frustum.hpp"
 #include "logging\error.hpp"
 
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_LBUFFER_PS_LIGHT_BUFFER 0
-#define MAGE_LBUFFER_CS_LIGHT_BUFFER 0
-#define MAGE_LBUFFER_PS_LIGHTS_SRVS  0
-#define MAGE_LBUFFER_CS_LIGHTS_SRVS  0
+// Include HLSL bindings.
+#include "..\..\shaders\hlsl.hpp"
 
 #pragma endregion
 
@@ -59,10 +50,10 @@ namespace mage {
 		};
 
 		PS::BindConstantBuffer(m_device_context,
-			MAGE_LBUFFER_PS_LIGHT_BUFFER, 
+			SLOT_CBUFFER_LIGHTING,
 			m_light_buffer.Get());
 		PS::BindSRVs(m_device_context,
-			MAGE_LBUFFER_PS_LIGHTS_SRVS,
+			SLOT_SRV_LIGHTS_START,
 			_countof(srvs), srvs);
 	}
 
@@ -74,10 +65,10 @@ namespace mage {
 		};
 
 		CS::BindConstantBuffer(m_device_context,
-			MAGE_LBUFFER_CS_LIGHT_BUFFER,
+			SLOT_CBUFFER_LIGHTING,
 			m_light_buffer.Get());
 		CS::BindSRVs(m_device_context,
-			MAGE_LBUFFER_CS_LIGHTS_SRVS,
+			SLOT_SRV_LIGHTS_START,
 			_countof(srvs), srvs);
 	}
 

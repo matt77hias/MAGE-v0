@@ -9,15 +9,8 @@
 #include "math\view_frustum.hpp"
 #include "logging\error.hpp"
 
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_BOUNDING_VOLUME_PASS_VS_MODEL_BUFFER 0
-#define MAGE_BOUNDING_VOLUME_PASS_PS_COLOR_BUFFER 0
+// Include HLSL bindings.
+#include "..\..\shaders\hlsl.hpp"
 
 #pragma endregion
 
@@ -44,7 +37,7 @@ namespace mage {
 		m_model_buffer.UpdateData(m_device_context, XMMatrixTranspose(box_to_projection));
 		// Bind the model buffer.
 		VS::BindConstantBuffer(m_device_context,
-			MAGE_BOUNDING_VOLUME_PASS_VS_MODEL_BUFFER, m_model_buffer.Get());
+			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
 	}
 
 	void BoundingVolumePass::BindLightColorData() noexcept {
@@ -52,7 +45,7 @@ namespace mage {
 		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f, 0.0f, 0.0f, 1.0f));
 		// Bind the color buffer.
 		PS::BindConstantBuffer(m_device_context,
-			MAGE_BOUNDING_VOLUME_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
+			SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 	}
 	
 	void BoundingVolumePass::BindModelColorData() noexcept {
@@ -60,7 +53,7 @@ namespace mage {
 		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(0.0f, 1.0f, 0.0f, 1.0f));
 		// Bind the color buffer.
 		PS::BindConstantBuffer(m_device_context,
-			MAGE_BOUNDING_VOLUME_PASS_PS_COLOR_BUFFER, m_color_buffer.Get());
+			SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 	}
 
 	void BoundingVolumePass::Render(const PassBuffer *scene, const CameraNode *node) {

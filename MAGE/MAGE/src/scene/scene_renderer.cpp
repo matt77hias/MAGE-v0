@@ -70,12 +70,12 @@ namespace mage {
 				m_gbuffer->BindPacking(m_device_context);
 				m_gbuffer_pass->Render(m_pass_buffer.get(), node);
 				
-				m_gbuffer->BindUnpacking(m_device_context, 3);
+				m_gbuffer->BindUnpacking(m_device_context);
 				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_lbuffer->BindToComputePipeline();
 				m_deferred_shading_pass->Render(m_pass_buffer.get(), node);
 				
-				m_gbuffer->BindRestore(m_device_context, 3);
+				m_gbuffer->BindRestore(m_device_context);
 				m_lbuffer->BindToGraphicsPipeline();
 				m_variable_shading_pass->RenderPostDeferred(m_pass_buffer.get(), node);
 				

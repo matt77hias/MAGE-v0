@@ -1,18 +1,19 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
+#include "hlsl.hpp"
 #include "structures.hlsli"
 
 //-----------------------------------------------------------------------------
 // Samplers and Textures
 //-----------------------------------------------------------------------------
-sampler g_sampler   : register(s0);
-Texture2D g_texture : register(t0);
+sampler   g_sampler : register(REG_S(SLOT_SAMPLER_DEFAULT));
+Texture2D g_texture : register(REG_T(SLOT_SRV_TEXTURE));
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-cbuffer Color : register(b0) {
+cbuffer Color : register(REG_B(SLOT_CBUFFER_COLOR)) {
 	float4 g_color : packoffset(c0);
 };
 

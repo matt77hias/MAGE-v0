@@ -8,7 +8,7 @@
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-cbuffer PerFrame : register(b1) {
+cbuffer PerFrame : register(REG_B(SLOT_CBUFFER_PER_FRAME)) {
 	// CAMERA
 	// The projection values of the view-to-projection transformation matrix.
 	// g_projection_values.x = 1 / view_to_projection00
@@ -39,10 +39,10 @@ cbuffer PerFrame : register(b1) {
 //-----------------------------------------------------------------------------
 // Textures
 //-----------------------------------------------------------------------------
-Texture2D g_normal_texture   : register(t3);
-Texture2D g_diffuse_texture  : register(t4);
-Texture2D g_specular_texture : register(t5);
-Texture2D g_depth_texture    : register(t6);
+Texture2D g_diffuse_texture  : register(REG_T(SLOT_SRV_DIFFUSE));
+Texture2D g_specular_texture : register(REG_T(SLOT_SRV_SPECULAR));
+Texture2D g_normal_texture   : register(REG_T(SLOT_SRV_NORMAL));
+Texture2D g_depth_texture    : register(REG_T(SLOT_SRV_DEPTH));
 
 //-----------------------------------------------------------------------------
 // Pixel Shader

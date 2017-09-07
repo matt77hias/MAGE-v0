@@ -9,6 +9,9 @@
 #include "rendering\rendering_state_cache.hpp"
 #include "logging\error.hpp"
 
+// Include HLSL bindings.
+#include "..\..\shaders\hlsl.hpp"
+
 #pragma endregion
 
 //-----------------------------------------------------------------------------
@@ -194,12 +197,14 @@ namespace mage {
 		OM::BindBlendState(m_device_context, m_blend_state);
 		OM::BindDepthStencilState(m_device_context, m_depth_stencil_state);
 		RS::BindState(m_device_context, m_rasterizer_state);
-		PS::BindSampler(m_device_context, 0, m_sampler_state);
+		PS::BindSampler(m_device_context, 
+			SLOT_SAMPLER_DEFAULT, m_sampler_state);
 
 		// Binds the mesh, shaders and transform buffer.
 		m_mesh->BindMesh(m_device_context);
 		m_vs->BindShader(m_device_context);
-		VS::BindConstantBuffer(m_device_context, 0, m_transform_buffer.Get());
+		VS::BindConstantBuffer(m_device_context, 
+			SLOT_CBUFFER_PER_FRAME, m_transform_buffer.Get());
 		m_ps->BindShader(m_device_context);
 	}
 
@@ -288,7 +293,8 @@ namespace mage {
 		const SpriteInfo * const *sprites, size_t nb_sprites) {
 
 		// Binds the texture.
-		PS::BindSRV(m_device_context, 0, texture);
+		PS::BindSRV(m_device_context, 
+			SLOT_SRV_SPRITE, texture);
 
 		const XMVECTOR texture_size = GetTexture2DSize(texture);
 		const XMVECTOR inverse_texture_size = XMVectorReciprocal(texture_size);

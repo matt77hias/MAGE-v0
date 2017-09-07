@@ -4,13 +4,14 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
+#include "hlsl.hpp"
 #include "brdf.hlsli"
 #include "light.hlsli"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-cbuffer LightBuffer : register(b0) {
+cbuffer LightBuffer : register(REG_B(SLOT_CBUFFER_LIGHTING)) {
 	// LIGHTING
 	// The intensity of the ambient light in the scene. 
 	float3 g_Ia                            : packoffset(c0);
@@ -35,9 +36,12 @@ cbuffer LightBuffer : register(b0) {
 //-----------------------------------------------------------------------------
 // Structured Buffers
 //-----------------------------------------------------------------------------
-StructuredBuffer< DirectionalLight > g_directional_lights : register(t0);
-StructuredBuffer< OmniLight > g_omni_lights               : register(t1);
-StructuredBuffer< SpotLight > g_spot_lights               : register(t2);
+StructuredBuffer< DirectionalLight > g_directional_lights 
+	: register(REG_T(SLOT_SRV_DIRECTIONAL_LIGHTS));
+StructuredBuffer< OmniLight > g_omni_lights               
+	: register(REG_T(SLOT_SRV_OMNI_LIGHTS));
+StructuredBuffer< SpotLight > g_spot_lights               
+	: register(REG_T(SLOT_SRV_SPOT_LIGHTS));
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions

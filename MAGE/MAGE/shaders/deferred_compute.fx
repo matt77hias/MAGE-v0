@@ -54,7 +54,7 @@ RWTexture2D< float4 > g_output           : register(REG_U(SLOT_UAV_IMAGE));
 //-----------------------------------------------------------------------------
 
 #ifndef GROUP_SIZE
-#define GROUP_SIZE DEFAULT_GROUP_SIZE
+#define GROUP_SIZE GROUP_SIZE_DEFAULT
 #endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]

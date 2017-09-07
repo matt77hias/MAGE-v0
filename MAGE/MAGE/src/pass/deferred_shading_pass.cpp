@@ -72,8 +72,8 @@ namespace mage {
 
 		// Dispatch.
 		const Renderer * const renderer = Renderer::Get();
-		const UINT nb_groups_x = renderer->GetWidth()  / DEFAULT_GROUP_SIZE;
-		const UINT nb_groups_y = renderer->GetHeight() / DEFAULT_GROUP_SIZE;
+		const UINT nb_groups_x = renderer->GetWidth()  / GROUP_SIZE_DEFAULT;
+		const UINT nb_groups_y = renderer->GetHeight() / GROUP_SIZE_DEFAULT;
 		m_device_context->Dispatch(nb_groups_x, nb_groups_y, 1u);
 	}
 }

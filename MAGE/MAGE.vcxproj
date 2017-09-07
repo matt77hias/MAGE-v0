@@ -411,7 +411,7 @@
       </EntryPointName>
       <FileType>Document</FileType>
     </None>
-    <None Include="MAGE\shaders\configuration.hlsli" />
+    <None Include="MAGE\shaders\hlsl.hpp" />
     <None Include="MAGE\shaders\deferred.fx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

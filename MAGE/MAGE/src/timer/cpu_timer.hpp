@@ -230,6 +230,37 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 An enumeration of the different modes of this CPU timer.
+		 */
+		enum struct ModeIndex { 
+			Kernel = 0,
+			User   = 1,
+			Count  = 2
+		};
+
+		/**
+		 Returns the kernel mode index of CPU timers.
+
+		 @return		The kernel mode index of CPU timers.
+		 */
+		static constexpr size_t GetKernelModeIndex() noexcept {
+			return static_cast< size_t >(ModeIndex::Kernel);
+		}
+
+		/**
+		 Returns the user mode index of CPU timers.
+
+		 @return		The user mode index of CPU timers.
+		 */
+		static constexpr size_t GetUserModeIndex() noexcept {
+			return static_cast< size_t >(ModeIndex::User);
+		}
+
+		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
@@ -266,28 +297,19 @@ namespace mage {
 		size_t m_nb_processor_cores;
 		
 		/**
-		 An enumeration of the different modes of this CPU timer.
-		 */
-		enum Mode { 
-			KERNEL = 0,
-			USER   = 1,
-			COUNT  = 2
-		};
-
-		/**
 		 The modes' last timestamps of this CPU timer's process.
 		 */
-		mutable uint64_t m_last_timestamp[COUNT];
+		mutable uint64_t m_last_timestamp[static_cast< size_t >(ModeIndex::Count)];
 		
 		/**
 		 The modes' delta times (in seconds) of this CPU timer's process.
 		 */
-		mutable uint64_t m_delta_time[COUNT];
+		mutable uint64_t m_delta_time[static_cast< size_t >(ModeIndex::Count)];
 
 		/**
 		 The modes' total delta times (in seconds) of this CPU timer's process.
 		 */
-		mutable uint64_t m_total_delta_time[COUNT];
+		mutable uint64_t m_total_delta_time[static_cast< size_t >(ModeIndex::Count)];
 
 		/**
 		 Flag indicating whether this CPU timer is running.

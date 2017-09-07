@@ -57,7 +57,9 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< double >(m_delta_time[KERNEL] + m_delta_time[USER]);
+		return s_time_period * static_cast< double >(
+			m_delta_time[GetKernelModeIndex()] 
+			+ m_delta_time[GetUserModeIndex()]);
 	}
 
 	double CPUTimer::GetKernelModeDeltaTime() const noexcept {
@@ -65,7 +67,8 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< double >(m_delta_time[KERNEL]);
+		return s_time_period * static_cast< double >(
+			m_delta_time[GetKernelModeIndex()]);
 	}
 
 	double CPUTimer::GetUserModeDeltaTime() const noexcept {
@@ -73,7 +76,8 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< double >(m_delta_time[USER]);
+		return s_time_period * static_cast< double >(
+			m_delta_time[GetUserModeIndex()]);
 	}
 
 	double CPUTimer::GetTotalCoreDeltaTime() const noexcept {
@@ -81,7 +85,9 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< double >(m_total_delta_time[KERNEL] + m_total_delta_time[USER]);
+		return s_time_period * static_cast< double >(
+			m_total_delta_time[GetKernelModeIndex()] 
+			+ m_total_delta_time[GetUserModeIndex()]);
 	}
 
 	double CPUTimer::GetTotalKernelModeDeltaTime() const noexcept {
@@ -89,7 +95,8 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< double >(m_total_delta_time[KERNEL]);
+		return s_time_period * static_cast< double >(
+			m_total_delta_time[GetKernelModeIndex()]);
 	}
 
 	double CPUTimer::GetTotalUserModeDeltaTime() const noexcept {
@@ -97,42 +104,43 @@ namespace mage {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< double >(m_total_delta_time[USER]);
+		return s_time_period * static_cast< double >(
+			m_total_delta_time[GetUserModeIndex()]);
 	}
 
 	void CPUTimer::UpdateLastTimestamp() const noexcept {
 		// Get the current timestamp of this timer's process.
 		GetCurrentCoreTimestamp(m_handle,
-			&m_last_timestamp[KERNEL],
-			&m_last_timestamp[USER]);
+			&m_last_timestamp[GetKernelModeIndex()],
+			&m_last_timestamp[GetUserModeIndex()]);
 	}
 
 	void CPUTimer::ResetDeltaTime() const noexcept {
 		// Resets the modes' delta times of this timer's process.
-		m_delta_time[KERNEL]       = 0;
-		m_delta_time[USER]         = 0;
+		m_delta_time[GetKernelModeIndex()]       = 0;
+		m_delta_time[GetUserModeIndex()]         = 0;
 		// Resets the modes' total delta times of this timer's process.
-		m_total_delta_time[KERNEL] = 0;
-		m_total_delta_time[USER]   = 0;
+		m_total_delta_time[GetKernelModeIndex()] = 0;
+		m_total_delta_time[GetUserModeIndex()]   = 0;
 		// Resets the modes' last timestamps of this timer's process.
 		UpdateLastTimestamp();
 	}
 
 	void CPUTimer::UpdateDeltaTime() const noexcept {
 		// Get the current timestamp of this timer's process.
-		uint64_t current_timestamp[COUNT];
+		uint64_t current_timestamp[2];
 		GetCurrentCoreTimestamp(m_handle,
-			&current_timestamp[KERNEL],
-			&current_timestamp[USER]);
+			&current_timestamp[GetKernelModeIndex()],
+			&current_timestamp[GetUserModeIndex()]);
 		
 		// Update the modes' delta times of this timer's process.
-		m_delta_time[KERNEL]        = (current_timestamp[KERNEL] - m_last_timestamp[KERNEL]);
-		m_delta_time[USER]          = (current_timestamp[USER]   - m_last_timestamp[USER]);
+		m_delta_time[GetKernelModeIndex()]        = (current_timestamp[GetKernelModeIndex()] - m_last_timestamp[GetKernelModeIndex()]);
+		m_delta_time[GetUserModeIndex()]          = (current_timestamp[GetUserModeIndex()]   - m_last_timestamp[GetUserModeIndex()]);
 		// Update the modes' total delta times of this timer's process.
-		m_total_delta_time[KERNEL] += m_delta_time[KERNEL];
-		m_total_delta_time[USER]   += m_delta_time[USER];
+		m_total_delta_time[GetKernelModeIndex()] += m_delta_time[GetKernelModeIndex()];
+		m_total_delta_time[GetUserModeIndex()]   += m_delta_time[GetUserModeIndex()];
 		// Update the modes' last timestamps of this timer's process.
-		m_last_timestamp[KERNEL]    = current_timestamp[KERNEL];
-		m_last_timestamp[USER]      = current_timestamp[USER];
+		m_last_timestamp[GetKernelModeIndex()]    = current_timestamp[GetKernelModeIndex()];
+		m_last_timestamp[GetUserModeIndex()]      = current_timestamp[GetUserModeIndex()];
 	}
 }

@@ -1626,9 +1626,6 @@
     <None Include="MAGE\shaders\primitives.hlsli">
       <Filter>Shader Files</Filter>
     </None>
-    <None Include="MAGE\shaders\configuration.hlsli">
-      <Filter>Shader Files</Filter>
-    </None>
     <None Include="MAGE\shaders\brdf.hlsli">
       <Filter>Shader Files</Filter>
     </None>
@@ -1660,6 +1657,9 @@
       <Filter>Shader Files</Filter>
     </None>
     <None Include="MAGE\shaders\transform.fx">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\hlsl.hpp">
       <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>

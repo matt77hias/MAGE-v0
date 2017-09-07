@@ -3,7 +3,7 @@
 
 #define MAGE_NVIDIA_WARP_SIZE   32
 #define MAGE_AMD_WAFEFRONT_SIZE 64
-#define DEFAULT_GROUP_SIZE      16
+#define GROUP_SIZE_DEFAULT      16
 
 #define CONCAT_REG_B(x) b##x
 #define CONCAT_REG_T(x) t##x

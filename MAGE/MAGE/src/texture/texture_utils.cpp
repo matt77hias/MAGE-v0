@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
+#include "memory\types.hpp"
 #include "texture\texture_utils.hpp"
 #include "rendering\rendering_utils.hpp"
 #include "logging\error.hpp"

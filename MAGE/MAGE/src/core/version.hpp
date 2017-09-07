@@ -1,12 +1,23 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "memory\types.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Defines
 //-----------------------------------------------------------------------------
 #pragma region
 
+// The version numbers (major/minor/patch) must be macros,
+// allowing the use of these numbers in preprocessor directives (e.g. if).
 #define MAGE_VERSION_MAJOR 0
-#define MAGE_VERSION_MINOR 63
+#define MAGE_VERSION_MINOR 64
 #define MAGE_VERSION_PATCH 0
 
 #define MAGE_QUOTE(S) #S
@@ -21,7 +32,34 @@
 namespace mage {
 
 	/**
+	 Returns the version major number.
+
+	 @return		The version major number.
+	 */
+	inline constexpr uint32_t GetVersionMajor() noexcept {
+		return MAGE_VERSION_MAJOR;
+	}
+
+	/**
+	 Returns the version minor number.
+
+	 @return		The version minor number.
+	 */
+	inline constexpr uint32_t GetVersionMinor() noexcept {
+		return MAGE_VERSION_MINOR;
+	}
+
+	/**
+	 Returns the version patch number.
+
+	 @return		The version patch number.
+	 */
+	inline constexpr uint32_t GetVersionPatch() noexcept {
+		return MAGE_VERSION_PATCH;
+	}
+
+	/**
 	 Prints the header of the engine to the console.
 	 */
-	void PrintConsoleHeader();
+	void PrintConsoleHeader() noexcept;
 }

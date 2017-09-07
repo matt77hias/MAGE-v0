@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
 #include "shader\shading.hpp"
 #include "shader\shader_utils.hpp"
 

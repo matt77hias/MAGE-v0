@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\string.hpp"
+#include "memory\types.hpp"
 
 #pragma endregion
 

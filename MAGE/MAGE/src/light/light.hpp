@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
+#include "memory\types.hpp"
 #include "material\spectrum.hpp"
 #include "math\bounding_volume.hpp"
 

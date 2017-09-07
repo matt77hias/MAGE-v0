@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
 #include "timer\timer.hpp"
 #include "timer\cpu_timer.hpp"
 

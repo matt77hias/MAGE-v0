@@ -3,9 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
-#include "rendering\rendering_utils.hpp"
 #include "texture\dds\dds_loader.hpp"
+#include "rendering\rendering_utils.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion

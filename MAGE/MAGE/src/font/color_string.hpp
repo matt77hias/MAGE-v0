@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\string.hpp"
+#include "memory\types.hpp"
 #include "math\math.hpp"
 #include "material\color.hpp"
 #include "logging\error.hpp"

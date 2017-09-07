@@ -6,16 +6,8 @@
 #pragma region
 
 #include "memory\allocation.hpp"
+#include "memory\types.hpp"
 #include "material\spectrum.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdint.h>
 
 #pragma endregion
 

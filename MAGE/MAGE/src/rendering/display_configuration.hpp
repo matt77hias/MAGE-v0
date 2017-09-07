@@ -5,17 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\types.hpp"
 #include "rendering\pipeline.hpp"
-#include "memory\memory.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdint.h>
 
 #pragma endregion
 

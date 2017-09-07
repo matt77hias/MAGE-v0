@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
 #include "rendering\pipeline.hpp"
 #include "collection\collection.hpp"
 #include "font\glyph.hpp"

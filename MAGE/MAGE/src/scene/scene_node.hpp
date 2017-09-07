@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\string.hpp"
 #include "math\transform_node.hpp"
 
 #pragma endregion

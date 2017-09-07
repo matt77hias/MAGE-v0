@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
+#include "memory\types.hpp"
 
 #pragma endregion
 
@@ -14,7 +14,6 @@
 //-------------------------------------------------------------------------
 #pragma region
 
-#include <stdint.h>
 #include <intrin.h> // _ReadWriteBarrier
 
 // _ReadWriteBarrier effectively blocks an optimization of reads and writes 
@@ -28,10 +27,8 @@
 //-------------------------------------------------------------------------
 #pragma region
 
-#ifndef MAGE_HAS_64_BIT_ATOMICS
 #if (MAGE_POINTER_SIZE == 8)
 #define MAGE_HAS_64_BIT_ATOMICS
-#endif
 #endif
 
 #pragma endregion

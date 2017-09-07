@@ -1,11 +1,11 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// System Includes
+// Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include <stdint.h>
+#include "memory\types.hpp"
 
 #pragma endregion
 

@@ -1,21 +1,20 @@
+#pragma once
+
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "core\engine.hpp"
-#include "logging\error.hpp"
+#include "memory\memory.hpp"
+#include "string\string.hpp"
 
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// Engine Definitions
+// System Includes
 //-----------------------------------------------------------------------------
-namespace mage {
+#pragma region
 
-	EngineStatistics *EngineStatistics::Get() noexcept {
-		Assert(Engine::Get());
+#include <stdint.h>
 
-		return Engine::Get()->GetEngineStatistics();
-	}
-}
+#pragma endregion

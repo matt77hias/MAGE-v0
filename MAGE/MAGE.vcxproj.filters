@@ -1005,6 +1005,9 @@
     <ClInclude Include="MAGE\src\shader\cso\deferred\ward_duer_CS.hpp">
       <Filter>Header Files\shader\cso\deferred</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\memory\types.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1626,11 +1629,6 @@
     <None Include="MAGE\shaders\configuration.hlsli">
       <Filter>Shader Files</Filter>
     </None>
-    <None Include="MAGE\shaders\deferred.fx" />
-    <None Include="MAGE\shaders\deferred_compute.fx" />
-    <None Include="MAGE\shaders\gbuffer.fx" />
-    <None Include="MAGE\shaders\transform.fx" />
-    <None Include="MAGE\shaders\forward.fx" />
     <None Include="MAGE\shaders\brdf.hlsli">
       <Filter>Shader Files</Filter>
     </None>
@@ -1647,6 +1645,21 @@
       <Filter>Shader Files</Filter>
     </None>
     <None Include="MAGE\shaders\structures.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\deferred.fx">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\deferred_compute.fx">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\forward.fx">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\gbuffer.fx">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\transform.fx">
       <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>

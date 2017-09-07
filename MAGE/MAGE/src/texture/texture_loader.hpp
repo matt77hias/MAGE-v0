@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\types.hpp"
 #include "rendering\pipeline.hpp"
-#include "string\string.hpp"
 
 #pragma endregion
 

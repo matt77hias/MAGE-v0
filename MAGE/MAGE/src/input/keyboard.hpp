@@ -6,16 +6,7 @@
 #pragma region
 
 #include "input\input.hpp"
-#include "memory\memory.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdint.h>
+#include "memory\types.hpp"
 
 #pragma endregion
 

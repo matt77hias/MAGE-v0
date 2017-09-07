@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
 #include "script\character_motor_script.hpp"
 #include "script\manhattan_motor_script.hpp"
 #include "script\mouse_look_script.hpp"

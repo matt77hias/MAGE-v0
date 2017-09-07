@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "string\string.hpp"
 #include "font\sprite_font_output.hpp"
 #include "font\sprite_font_descriptor.hpp"
 

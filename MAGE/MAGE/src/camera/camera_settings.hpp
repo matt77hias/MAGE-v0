@@ -5,17 +5,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\types.hpp"
 #include "material\brdf.hpp"
 #include "pass\configuration.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <stdint.h>
 
 #pragma endregion
 

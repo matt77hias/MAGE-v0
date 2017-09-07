@@ -5,8 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\memory.hpp"
-#include "string\string.hpp"
 #include "timer\timer.hpp"
 #include "parallel\lock.hpp"
 

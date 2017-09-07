@@ -89,6 +89,7 @@
     <ClInclude Include="MAGE\src\memory\allocation.hpp" />
     <ClInclude Include="MAGE\src\memory\memory.hpp" />
     <ClInclude Include="MAGE\src\memory\memory_arena.hpp" />
+    <ClInclude Include="MAGE\src\memory\types.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh_factory.hpp" />
     <ClInclude Include="MAGE\src\mesh\msh\msh_loader.hpp" />

@@ -17,7 +17,6 @@
 #pragma region
 
 #include <algorithm>
-#include <stdint.h>
 
 #pragma endregion
 

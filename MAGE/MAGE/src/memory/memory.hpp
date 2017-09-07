@@ -25,14 +25,12 @@
 #pragma region
 
 // Pointer size macros
-#ifndef MAGE_POINTER_SIZE
 #if defined(__amd64__) || defined(_M_X64)
 #define MAGE_X64
 #define MAGE_POINTER_SIZE 8
 #elif defined(__i386__) || defined(_M_IX86)
 #define MAGE_X86
 #define MAGE_POINTER_SIZE 4
-#endif
 #endif
 
 // Memory management macros

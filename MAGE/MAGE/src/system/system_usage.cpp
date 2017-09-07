@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "platform\windows.hpp"
 #include "system\system_usage.hpp"
 
 #pragma endregion

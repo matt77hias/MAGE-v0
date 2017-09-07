@@ -22,36 +22,36 @@ namespace mage {
 
 		//   -w' <= x'
 		// <=> 0 <= w' + x'
-		// <=> 0 <= p . c4 + p . c1
-		// <=> 0 <= p . (c4 + c1)
+		// <=> 0 <= p . c3 + p . c0
+		// <=> 0 <= p . (c3 + c0)
 		m_left_plane = C.r[3] + C.r[0];
 		
 		//    x' <= w'
 		// <=> 0 <= w' - x'
-		// <=> 0 <= p . c4 - p . c1
-		// <=> 0 <= p . (c4 - c1)
+		// <=> 0 <= p . c3 - p . c0
+		// <=> 0 <= p . (c3 - c0)
 		m_right_plane = C.r[3] - C.r[0];
 		
 		//   -w' <= y'
 		// <=> 0 <= w' + y'
-		// <=> 0 <= p . c4 + p . c2
-		// <=> 0 <= p . (c4 + c2)
+		// <=> 0 <= p . c3 + p . c1
+		// <=> 0 <= p . (c3 + c1)
 		m_bottom_plane = C.r[3] + C.r[1];
 		
 		//    y' <= w'
 		// <=> 0 <= w' - y'
-		// <=> 0 <= p . c4 - p . c2
-		// <=> 0 <= p . (c4 - c2)
+		// <=> 0 <= p . c3 - p . c1
+		// <=> 0 <= p . (c3 - c1)
 		m_top_plane = C.r[3] - C.r[1];
 		
 		//     0 <= z'
-		// <=> 0 <= p . c3
+		// <=> 0 <= p . c2
 		m_near_plane = C.r[2];
 
 		//    z' <= w'
 		// <=> 0 <= w' - z'
-		// <=> 0 <= p . c4 - p . c3
-		// <=> 0 <= p . (c4 - c3)
+		// <=> 0 <= p . c3 - p . c2
+		// <=> 0 <= p . (c3 - c2)
 		m_far_plane = C.r[3] - C.r[2];
 
 		// Normalize the view frustum planes.

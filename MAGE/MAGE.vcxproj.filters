@@ -1390,15 +1390,6 @@
     <FxCompile Include="MAGE\shaders\miscellaneous\shading_normal_VS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\forward.fx">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred.fx">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\transform.fx">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\miscellaneous\bounding_volume_PS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
@@ -1486,9 +1477,6 @@
     <FxCompile Include="MAGE\shaders\deferred\modified_phong_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\gbuffer.fx">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\gbuffer\gbuffer_tsnm_PS.hlsl">
       <Filter>Shader Files\gbuffer</Filter>
     </FxCompile>
@@ -1500,9 +1488,6 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\primitives\fullscreen_triangle_VS.hlsl">
       <Filter>Shader Files\primitives</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred_compute.fx">
-      <Filter>Shader Files</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\emissive_CS.hlsl">
       <Filter>Shader Files\deferred</Filter>
@@ -1638,13 +1623,30 @@
     <None Include="MAGE\shaders\primitives.hlsli">
       <Filter>Shader Files</Filter>
     </None>
-    <None Include="MAGE\shaders\brdf.hlsli" />
-    <None Include="MAGE\shaders\lighting.hlsli" />
-    <None Include="MAGE\shaders\math.hlsli" />
-    <None Include="MAGE\shaders\normal_mapping.hlsli" />
-    <None Include="MAGE\shaders\light.hlsli" />
-    <None Include="MAGE\shaders\structures.hlsli" />
     <None Include="MAGE\shaders\configuration.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\deferred.fx" />
+    <None Include="MAGE\shaders\deferred_compute.fx" />
+    <None Include="MAGE\shaders\gbuffer.fx" />
+    <None Include="MAGE\shaders\transform.fx" />
+    <None Include="MAGE\shaders\forward.fx" />
+    <None Include="MAGE\shaders\brdf.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\light.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\lighting.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\math.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\normal_mapping.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\structures.hlsli">
       <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>

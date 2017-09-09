@@ -23,16 +23,12 @@
 
  @pre NVIDIA Control Panel > Preferred graphics processor > "Auto-select"
  */
-extern "C" {
-	__declspec(dllexport) DWORD NvOptimusEnablement;
-}
+extern "C" __declspec(dllexport) DWORD NvOptimusEnablement;
 
 /**
  AMD "Optimus" enablement
  */
-extern "C" {
-	__declspec(dllexport) int AmdPowerXpressRequestHighPerformance;
-}
+extern "C" __declspec(dllexport) int AmdPowerXpressRequestHighPerformance;
 
 #pragma endregion
 
@@ -49,16 +45,15 @@ namespace mage {
 		return display_configurator->DisplayDialogProc(hwndDlg, uMsg, wParam, lParam);
 	}
 
-	const DXGI_FORMAT DisplayConfigurator::s_pixel_formats[] = {
-		DXGI_FORMAT_R8G8B8A8_UNORM,
-		DXGI_FORMAT_R10G10B10A2_UNORM, //TODO: unused
-	};
-
 	const UINT DisplayConfigurator::s_nb_MSAA_samples[] = { 1, 2, 4, 8, 16 };
 
-	DisplayConfigurator::DisplayConfigurator()
-		: m_display_configuration(), m_display_configuration_script(),
-		m_adapter(), m_output(), m_display_modes() {
+	DisplayConfigurator::DisplayConfigurator(
+		DXGI_FORMAT pixel_format)
+		: m_pixel_format(pixel_format), 
+		m_display_configuration(),
+		m_display_configuration_script(),
+		m_adapter(), m_output(), 
+		m_display_modes() {
 
 		// Load the settings script.
 		const bool file_exists = FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
@@ -71,9 +66,14 @@ namespace mage {
 
 	}
 
-	DisplayConfigurator::DisplayConfigurator(ComPtr< IDXGIAdapter2 > adapter, ComPtr< IDXGIOutput2 > output) 
-		: m_display_configuration(), m_display_configuration_script(),
-		m_adapter(adapter), m_output(output), m_display_modes() {
+	DisplayConfigurator::DisplayConfigurator(
+		ComPtr< IDXGIAdapter2 > adapter, ComPtr< IDXGIOutput2 > output,
+		DXGI_FORMAT pixel_format)
+		: m_pixel_format(pixel_format),
+		m_display_configuration(), 
+		m_display_configuration_script(),
+		m_adapter(adapter), m_output(output), 
+		m_display_modes() {
 
 		// Load the settings script.
 		const bool file_exists = FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
@@ -157,33 +157,30 @@ namespace mage {
 		m_display_modes = list< DXGI_MODE_DESC1 >();
 
 		// Get the DXGI_MODE_DESCs. 
-		for (size_t i = 0; i < _countof(s_pixel_formats); ++i) {
+		const UINT flags = DXGI_ENUM_MODES_INTERLACED;
+		UINT nb_display_modes;
+		// Get the number of display modes that match the requested format and other input options.
+		const HRESULT result1 = m_output->GetDisplayModeList1(m_pixel_format, flags, &nb_display_modes, nullptr);
+		if (FAILED(result1)) {
+			throw FormattedException("Failed to get the number of display modes: %08X.", result1);
+		}
+		UniquePtr< DXGI_MODE_DESC1[] >dxgi_mode_descs(MakeUnique< DXGI_MODE_DESC1[] >(nb_display_modes));
+		// Get the display modes that match the requested format and other input options.
+		const HRESULT result2 = m_output->GetDisplayModeList1(m_pixel_format, flags, &nb_display_modes, dxgi_mode_descs.get());
+		if (FAILED(result2)) {
+			throw FormattedException("Failed to get the display modes: %08X.", result2);
+		}
 
-			// The DXGI_MODE_DESC describes a display mode and whether the display mode supports stereo.
-			const UINT flags = DXGI_ENUM_MODES_INTERLACED;
-			UINT nb_display_modes;
-			// Get the number of display modes that match the requested format and other input options.
-			const HRESULT result1 = m_output->GetDisplayModeList1(s_pixel_formats[i], flags, &nb_display_modes, nullptr);
-			if (FAILED(result1)) {
-				throw FormattedException("Failed to get the number of display modes: %08X.", result1);
-			}
-			UniquePtr< DXGI_MODE_DESC1[] >dxgi_mode_descs(MakeUnique< DXGI_MODE_DESC1[] >(nb_display_modes));
-			// Get the display modes that match the requested format and other input options.
-			const HRESULT result2 = m_output->GetDisplayModeList1(s_pixel_formats[i], flags, &nb_display_modes, dxgi_mode_descs.get());
-			if (FAILED(result2)) {
-				throw FormattedException("Failed to get the display modes: %08X.", result2);
+		// Enumerate the DXGI_MODE_DESCs.
+		for (UINT mode = 0; mode < nb_display_modes; ++mode) {
+			
+			// Reject small display modes.
+			if (RejectDisplayMode(dxgi_mode_descs.get()[mode])) {
+				continue;
 			}
 
-			// Enumerate the DXGI_MODE_DESCs.
-			for (UINT mode = 0; mode < nb_display_modes; ++mode) {
-				// Reject small display modes.
-				if (RejectDisplayMode(dxgi_mode_descs.get()[mode])) {
-					continue;
-				}
-
-				// Add the display mode to the list.
-				m_display_modes.push_back(dxgi_mode_descs.get()[mode]);
-			}
+			// Add the display mode to the list.
+			m_display_modes.push_back(dxgi_mode_descs.get()[mode]);
 		}
 	}
 
@@ -276,19 +273,15 @@ namespace mage {
 			const int msaa_index = *m_display_configuration_script->GetValueOfVariable< int >("msaa");
 			ComboBoxSelect(hwndDlg, IDC_MSAA, msaa_index);
 
-			const DXGI_FORMAT selected_format = s_pixel_formats[0];
 			// Fill in the resolutions combo box associated with the current format.
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
 			for (const auto &mode : m_display_modes) {
-				if (selected_format == mode.Format) {
+				swprintf_s(buffer, _countof(buffer), L"%u x %u", mode.Width, mode.Height);
 					
-					swprintf_s(buffer, _countof(buffer), L"%u x %u", mode.Width, mode.Height);
-					
-					if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
-						const size_t resolution = ConvertResolution(mode);
-						ComboBoxAddValue(hwndDlg, IDC_RESOLUTION, resolution, buffer);
-					}
+				if (!ComboBoxContains(hwndDlg, IDC_RESOLUTION, buffer)) {
+					const size_t resolution = ConvertResolution(mode);
+					ComboBoxAddValue(hwndDlg, IDC_RESOLUTION, resolution, buffer);
 				}
 			}
 			const int resolution_index = *m_display_configuration_script->GetValueOfVariable< int >("resolution");
@@ -320,7 +313,6 @@ namespace mage {
 			switch (LOWORD(wParam)) {
 			case IDOK: {
 				// Store the details of the selected display mode.
-				const DXGI_FORMAT selected_format           = s_pixel_formats[0];
 				const size_t selected_resolution            = ComboBoxSelectedValue(hwndDlg, IDC_RESOLUTION);
 				const size_t selected_msaa                  = ComboBoxSelectedValue(hwndDlg, IDC_MSAA);
 				const size_t selected_refresh_rate          = ComboBoxSelectedValue(hwndDlg, IDC_REFRESH_RATE);
@@ -334,10 +326,6 @@ namespace mage {
 
 					const size_t refresh_rate = ConvertRefreshRate(display_mode);
 					if (selected_refresh_rate != refresh_rate) {
-						continue;
-					}
-
-					if (selected_format != display_mode.Format) {
 						continue;
 					}
 

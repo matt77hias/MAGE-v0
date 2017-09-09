@@ -36,12 +36,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The allowed pixel formats.
-		 */
-		static const DXGI_FORMAT s_pixel_formats[3];
-
-		/**
-		 The allowed number of samples for MSAA. 
+		 The allowed number of samples for MSAA of display configurators. 
 		 */
 		static const UINT s_nb_MSAA_samples[5];
 
@@ -51,8 +46,12 @@ namespace mage {
 
 		/**
 		 Constructs a display configurator.
+
+		 @param[in]		pixel_format
+						The pixel format.
 		 */
-		DisplayConfigurator();
+		explicit DisplayConfigurator(
+			DXGI_FORMAT pixel_format = DXGI_FORMAT_R8G8B8A8_UNORM);
 
 		/**
 		 Constructs a display configurator.
@@ -61,9 +60,12 @@ namespace mage {
 						A pointer to the adapter.
 		 @param[in]		output
 						A pointer to the output.
+		 @param[in]		pixel_format
+						The pixel format.
 		 */
 		explicit DisplayConfigurator(
-			ComPtr< IDXGIAdapter2 > adapter, ComPtr< IDXGIOutput2 > output);
+			ComPtr< IDXGIAdapter2 > adapter, ComPtr< IDXGIOutput2 > output,
+			DXGI_FORMAT pixel_format = DXGI_FORMAT_R8G8B8A8_UNORM);
 
 		/**
 		 Constructs a display configurator from the given display configurator.
@@ -199,6 +201,11 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 		
+		/**
+		 The supported pixel format of this display configurator.
+		 */
+		DXGI_FORMAT m_pixel_format;
+
 		/**
 		 A pointer to the display configuration of this display configurator.
 		 */

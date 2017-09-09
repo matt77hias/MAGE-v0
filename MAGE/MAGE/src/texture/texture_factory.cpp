@@ -13,7 +13,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	inline D3D11_TEXTURE2D_DESC CreateSingleColorTexture2DDesc() noexcept {
+	/**
+	 Create a 2D texture descriptor for a single color (i.e. one texel) texture.
+
+	 @return		A 2D texture descriptor for a single color (i.e. one texel) 
+					texture.
+	 */
+	inline const D3D11_TEXTURE2D_DESC CreateSingleColorTexture2DDesc() noexcept {
 		D3D11_TEXTURE2D_DESC texture_desc = {};
 		texture_desc.Width              = 1u;
 		texture_desc.Height             = 1u;

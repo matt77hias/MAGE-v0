@@ -27,9 +27,6 @@ namespace mage {
 	ImagePass::~ImagePass() = default;
 
 	void ImagePass::Render(bool transfer_depth) {
-		Assert(scene);
-		Assert(node);
-
 		// Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		

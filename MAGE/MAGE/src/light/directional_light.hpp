@@ -91,6 +91,47 @@ namespace mage {
 			return static_pointer_cast< DirectionalLight >(CloneImplementation());
 		}
 
+		/**
+		 Checks whether shadows should be used for this directional light.
+
+		 @return		@c true if shadows should be used for this
+						directional light. @c false otherwise.
+		 */
+		bool UseShadows() const noexcept {
+			return m_shadows;
+		}
+
+		/**
+		 Enables shadows for this directional light.
+		 */
+		void EnableShadows() noexcept {
+			SetShadows(true);
+		}
+
+		/**
+		 Dissables shadows for this directional light.
+		 */
+		void DissableShadows() noexcept {
+			SetShadows(false);
+		}
+
+		/**
+		 Toggles shadows for this directional light.
+		 */
+		void ToggleShadows() noexcept {
+			SetShadows(!m_shadows);
+		}
+
+		/**
+		 Sets shadows for this directional light to the given value.
+
+		 @param[in]		@c true if shadows should be used for
+						this directional light. @c false otherwise.
+		 */
+		void SetShadows(bool shadows) noexcept {
+			m_shadows = shadows;
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -103,5 +144,15 @@ namespace mage {
 		 @return		A pointer to the clone of this directional light.
 		 */
 		virtual UniquePtr< Light > CloneImplementation() const override;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 A flag indicating whether shadows should be calculated
+		 or not not for this directional light.
+		 */
+		bool m_shadows;
 	};
 }

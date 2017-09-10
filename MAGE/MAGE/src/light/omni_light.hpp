@@ -6,6 +6,7 @@
 #pragma region
 
 #include "light\light.hpp"
+#include "camera\perspective_camera.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -132,6 +133,11 @@ namespace mage {
 		void SetEndDistanceFalloff(float distance_falloff_end) noexcept {
 			Assert(distance_falloff_end);
 			m_distance_falloff_end = distance_falloff_end;
+			
+			// Update the light camera.
+			m_light_camera.SetFarZ(GetEndDistanceFalloff());
+			
+			// Update the bounding volumes.
 			UpdateBoundingVolumes();
 		}
 
@@ -174,6 +180,57 @@ namespace mage {
 			SetDistanceFalloff(distance_falloff_start, distance_falloff_start + distance_falloff_range);
 		}
 
+		/**
+		 Checks whether shadows should be used for this omni light.
+
+		 @return		@c true if shadows should be used for this
+						omni light. @c false otherwise.
+		 */
+		bool UseShadows() const noexcept {
+			return m_shadows;
+		}
+
+		/**
+		 Enables shadows for this omni light.
+		 */
+		void EnableShadows() noexcept {
+			SetShadows(true);
+		}
+
+		/**
+		 Dissables shadows for this omni light.
+		 */
+		void DissableShadows() noexcept {
+			SetShadows(false);
+		}
+
+		/**
+		 Toggles shadows for this omni light.
+		 */
+		void ToggleShadows() noexcept {
+			SetShadows(!m_shadows);
+		}
+
+		/**
+		 Sets shadows for this omni light to the given value.
+
+		 @param[in]		@c true if shadows should be used for
+						this omni light. @c false otherwise.
+		 */
+		void SetShadows(bool shadows) noexcept {
+			m_shadows = shadows;
+		}
+
+		/**
+		 Returns the (forward) light camera of this omni light.
+
+		 @return		A reference to the (forward) light camera
+						of this omni light.
+		 */
+		const PerspectiveCamera &GetLightCamera() const noexcept {
+			return m_light_camera;
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -186,6 +243,11 @@ namespace mage {
 		 @return		A pointer to the clone of this omni light.
 		 */
 		virtual UniquePtr< Light > CloneImplementation() const override;
+
+		/**
+		 Updates the light camera of this omni light.
+		 */
+		void UpdateLightCamera() noexcept;
 
 		/**
 		 Updates the bounding volumes of this omni light.
@@ -205,5 +267,16 @@ namespace mage {
 		 The end of the distance falloff of this omni light.
 		 */
 		float m_distance_falloff_end;
+
+		/**
+		 A flag indicating whether shadows should be calculated
+		 or not for this omni light.
+		 */
+		bool m_shadows;
+
+		/**
+		 The (forward) light camera of this omni light.
+		 */
+		PerspectiveCamera m_light_camera;
 	};
 }

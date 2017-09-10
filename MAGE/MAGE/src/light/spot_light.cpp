@@ -25,8 +25,13 @@ namespace mage {
 		: Light(intensity),
 		m_distance_falloff_start(0.0f), m_distance_falloff_end(1.0f),
 		m_cos_penumbra(1.0f), m_cos_umbra(0.707106781f),
-		m_exponent_property(1.0f) {
+		m_exponent_property(1.0f), 
+		m_shadows(false), m_light_camera() {
 
+		// Update the light camera.
+		UpdateLightCamera();
+
+		// Update the bounding volumes.
 		UpdateBoundingVolumes();
 	}
 
@@ -42,6 +47,12 @@ namespace mage {
 
 	UniquePtr< Light > SpotLight::CloneImplementation() const {
 		return MakeUnique< SpotLight >(*this);
+	}
+
+	void SpotLight::UpdateLightCamera() noexcept {
+		m_light_camera.SetViewToProjectionMatrix(
+			1.0f, GetUmbraAngle(),
+			MAGE_DEFAULT_CAMERA_NEAR_Z, GetEndDistanceFalloff());
 	}
 
 	void SpotLight::UpdateBoundingVolumes() noexcept {

@@ -6,6 +6,7 @@
 #pragma region
 
 #include "light\light.hpp"
+#include "camera\perspective_camera.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -132,6 +133,11 @@ namespace mage {
 		void SetEndDistanceFalloff(float distance_falloff_end) noexcept {
 			Assert(distance_falloff_end);
 			m_distance_falloff_end = distance_falloff_end;
+
+			// Update the light camera.
+			m_light_camera.SetFarZ(GetEndDistanceFalloff());
+
+			// Update the bounding volumes.
 			UpdateBoundingVolumes();
 		}
 		
@@ -214,6 +220,11 @@ namespace mage {
 		void SetEndAngularCutoff(float cos_umbra) noexcept {
 			Assert(cos_umbra);
 			m_cos_umbra = cos_umbra;
+
+			// Update the light camera.
+			m_light_camera.SetFOVY(GetUmbraAngle());
+
+			// Update the bounding volumes.
 			UpdateBoundingVolumes();
 		}
 		
@@ -318,6 +329,57 @@ namespace mage {
 			m_exponent_property = exponent_property;
 		}
 
+		/**
+		 Checks whether shadows should be used for this spotlight.
+
+		 @return		@c true if shadows should be used for this
+						spotlight. @c false otherwise.
+		 */
+		bool UseShadows() const noexcept {
+			return m_shadows;
+		}
+
+		/**
+		 Enables shadows for this spotlight.
+		 */
+		void EnableShadows() noexcept {
+			SetShadows(true);
+		}
+
+		/**
+		 Dissables shadows for this spotlight.
+		 */
+		void DissableShadows() noexcept {
+			SetShadows(false);
+		}
+
+		/**
+		 Toggles shadows for this spotlight.
+		 */
+		void ToggleShadows() noexcept {
+			SetShadows(!m_shadows);
+		}
+
+		/**
+		 Sets shadows for this spotlight to the given value.
+
+		 @param[in]		@c true if shadows should be used for
+						this spotlight. @c false otherwise.
+		 */
+		void SetShadows(bool shadows) noexcept {
+			m_shadows = shadows;
+		}
+
+		/**
+		 Returns the light camera of this spot light.
+
+		 @return		A reference to the light camera
+						of this spot light.
+		 */
+		const PerspectiveCamera &GetLightCamera() const noexcept {
+			return m_light_camera;
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -330,6 +392,11 @@ namespace mage {
 		 @return		A pointer to the clone of this spotlight.
 		 */
 		virtual UniquePtr< Light > CloneImplementation() const override;
+
+		/**
+		 Updates the light camera of this spotlight.
+		 */
+		void UpdateLightCamera() noexcept;
 
 		/**
 		 Updates the bounding volumes of this spotlight.
@@ -364,5 +431,16 @@ namespace mage {
 		 The cosine of the umbra angle of this spotlight.
 		 */
 		float m_cos_umbra;
+
+		/**
+		 A flag indicating whether shadows should be calculated
+		 or not for this spotlight.
+		 */
+		bool m_shadows;
+
+		/**
+		 The light camera of this spotlight.
+		 */
+		PerspectiveCamera m_light_camera;
 	};
 }

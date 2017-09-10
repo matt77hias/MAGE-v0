@@ -287,9 +287,7 @@ namespace mage {
 						The position of the far z-plane in camera space.
 		 */
 		void SetViewToProjectionMatrix(float aspect_ratio,
-			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
-			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) noexcept {
+			float fov_y, float near_z, float far_z) noexcept {
 
 			SetAspectRatio(aspect_ratio);
 			SetFOVY(fov_y);
@@ -311,9 +309,7 @@ namespace mage {
 						The position of the far z-plane in camera space.
 		 */
 		void SetViewToProjectionMatrix(float width, float height, 
-			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
-			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) noexcept {
+			float fov_y, float near_z, float far_z) noexcept {
 			
 			SetAspectRatio(width, height);
 			SetFOVY(fov_y);

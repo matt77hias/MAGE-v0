@@ -158,17 +158,6 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the back buffer UAV of this renderer.
-
-		 @return		A pointer to the back buffer UAV of this renderer.
-		 @note			The back buffer RTV, SRV and UAV cannot both be bound 
-						at the same time.
-		 */
-		ID3D11UnorderedAccessView *GetBackBufferUAV() const noexcept {
-			return m_back_buffer_uav.Get();
-		}
-
-		/**
 		 Returns the depth buffer DSV of this renderer.
 
 		 @return		A pointer to the depth buffer DSV of this renderer.
@@ -451,12 +440,6 @@ namespace mage {
 		 of the back buffer of this renderer.
 		 */
 		ComPtr< ID3D11ShaderResourceView > m_back_buffer_srv;
-
-		/**
-		 A pointer to the unordered access view 
-		 of the back buffer of this renderer.
-		 */
-		ComPtr< ID3D11UnorderedAccessView > m_back_buffer_uav;
 
 		/**
 		 A pointer to the depth stencil view 

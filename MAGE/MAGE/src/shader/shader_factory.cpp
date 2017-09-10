@@ -268,20 +268,6 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: Primitives
-	//-------------------------------------------------------------------------
-#pragma region
-
-	SharedPtr< const VertexShader > CreateFullscreenTriangleVS() {
-		const BufferCompiledShader cs = CreateCompiledFullscreenTriangleVS();
-		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_FULLSCREEN_TRIANGLE, &cs,
-										nullptr,
-										0);
-	}
-
-#pragma endregion
-
-	//-------------------------------------------------------------------------
 	// Factory Methods: SpritePass
 	//-------------------------------------------------------------------------
 #pragma region
@@ -354,7 +340,7 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: WireframePass
+	// Factory Methods: BoundingVolumePass
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -368,6 +354,30 @@ namespace mage {
 	SharedPtr< const PixelShader > CreateBoundingVolumePS() noexcept {
 		const BufferCompiledShader cs = CreateCompiledBoundingVolumePS();
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_BOUNDING_VOLUME, &cs);
+	}
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods
+	//-------------------------------------------------------------------------
+#pragma region
+
+	SharedPtr< const PixelShader > CreateImagePS() {
+		const BufferCompiledShader cs = CreateCompiledImagePS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_IMAGE, &cs);
+	}
+
+	SharedPtr< const PixelShader > CreateMultiSampleImagePS() {
+		const BufferCompiledShader cs = CreateCompiledMultiSampleImagePS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_MULTI_SAMPLE_IMAGE, &cs);
+	}
+
+	SharedPtr< const VertexShader > CreateFullscreenTriangleVS() {
+		const BufferCompiledShader cs = CreateCompiledFullscreenTriangleVS();
+		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_FULLSCREEN_TRIANGLE, &cs,
+										nullptr,
+										0);
 	}
 
 #pragma endregion

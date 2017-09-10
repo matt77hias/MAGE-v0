@@ -417,24 +417,6 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: Primitives
-	//-------------------------------------------------------------------------
-#pragma region
-
-	/**
-	 Creates a fullscreen triangle vertex shader.
-
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
-	 @return		A pointer to the fullscreen triangle vertex shader.
-	 @throws		FormattedException
-					Failed to create the vertex shader.
-	 */
-	SharedPtr< const VertexShader > CreateFullscreenTriangleVS();
-
-#pragma endregion
-
-	//-------------------------------------------------------------------------
 	// Factory Methods: SpritePass
 	//-------------------------------------------------------------------------
 #pragma region
@@ -556,7 +538,7 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: WireframePass
+	// Factory Methods: BoundingVolumePass
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -581,6 +563,46 @@ namespace mage {
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateBoundingVolumePS() noexcept;
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Creates an image pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the image pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateImagePS();
+
+	/**
+	 Creates a multi-sample image pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the multi-sample image pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateMultiSampleImagePS();
+
+	/**
+	 Creates a fullscreen triangle vertex shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the fullscreen triangle vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateFullscreenTriangleVS();
 
 #pragma endregion
 }

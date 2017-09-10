@@ -26,7 +26,7 @@ namespace mage {
 		m_in_begin_end_pair(false), 
 		m_display_configuration(MakeUnique< DisplayConfiguration >(*display_configuration)),
 		m_device(), m_device_context(), m_swap_chain(), 
-		m_back_buffer_rtv(), m_back_buffer_srv(), m_back_buffer_uav(),
+		m_back_buffer_rtv(), m_back_buffer_srv(),
 		m_depth_buffer_dsv(), m_depth_buffer_srv(),
 		m_rendering_state_cache() {
 
@@ -147,7 +147,7 @@ namespace mage {
 		swap_chain_desc.Height      = static_cast< UINT >(GetHeight());
 		swap_chain_desc.Format      = m_display_configuration->GetDisplayFormat();
 		swap_chain_desc.SampleDesc  = m_display_configuration->GetMSAASampleDesc();
-		swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT | DXGI_USAGE_UNORDERED_ACCESS;
+		swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
 		swap_chain_desc.BufferCount = 1u;
 		swap_chain_desc.Flags       = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
@@ -195,14 +195,6 @@ namespace mage {
 			m_back_buffer_srv.ReleaseAndGetAddressOf());
 		if (FAILED(result_srv)) {
 			throw FormattedException("SRV creation failed: %08X.", result_srv);
-		}
-	
-		// Create the UAV.
-		const HRESULT result_uav = m_device->CreateUnorderedAccessView(
-			back_buffer.Get(), nullptr,
-			m_back_buffer_uav.ReleaseAndGetAddressOf());
-		if (FAILED(result_uav)) {
-			throw FormattedException("UAV creation failed: %08X.", result_uav);
 		}
 	}
 
@@ -296,7 +288,6 @@ namespace mage {
 		// Release the swap chain buffers.
 		m_back_buffer_rtv.Reset();
 		m_back_buffer_srv.Reset();
-		m_back_buffer_uav.Reset();
 		m_depth_buffer_dsv.Reset();
 		m_depth_buffer_srv.Reset();
 

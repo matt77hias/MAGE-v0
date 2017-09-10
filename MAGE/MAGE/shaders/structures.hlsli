@@ -135,13 +135,22 @@ struct PSInputPositionNormalTexture {
 //-----------------------------------------------------------------------------
 
 /**
- A ouput merger input struct of fragments having
+ An ouput merger input struct of fragments having
  a normal, diffuse and specular component.
  */
 struct OMInputDeferred {
 	float4 diffuse  : SV_Target0;
 	float4 specular : SV_Target1;
 	float4 normal   : SV_Target2;
+};
+
+/**
+ An ouput merger input struct of fragments having
+ a color and depth.
+ */
+struct OMInputColorDepth {
+	float4 color : SV_Target;
+	float  depth : SV_Depth;
 };
 
 #endif // MAGE_HEADER_STRUCTURES

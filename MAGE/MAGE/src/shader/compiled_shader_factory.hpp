@@ -253,20 +253,6 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: Primitives
-	//-------------------------------------------------------------------------
-#pragma region
-
-	/**
-	 Returns the compiled fullscreen triangle vertex shader.
-
-	 @return		A buffer compiled fullscreen triangle vertex shader.
-	 */
-	const BufferCompiledShader CreateCompiledFullscreenTriangleVS() noexcept;
-
-#pragma endregion
-
-	//-------------------------------------------------------------------------
 	// Factory Methods: SpritePass
 	//-------------------------------------------------------------------------
 #pragma region
@@ -351,7 +337,7 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: WireframePass
+	// Factory Methods: BoundingVolumePass
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -368,6 +354,34 @@ namespace mage {
 	 @return		A buffer compiled bounding volume pixel shader.
 	 */
 	const BufferCompiledShader CreateCompiledBoundingVolumePS() noexcept;
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Returns the compiled image pixel shader.
+
+	 @return		A buffer compiled image pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledImagePS() noexcept;
+
+	/**
+	 Returns the compiled multi-sample image pixel shader.
+
+	 @return		A buffer compiled multi-sample image pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledMultiSampleImagePS() noexcept;
+
+	/**
+	 Returns the compiled fullscreen triangle vertex shader.
+
+	 @return		A buffer compiled fullscreen triangle vertex shader.
+	 */
+	const BufferCompiledShader CreateCompiledFullscreenTriangleVS() noexcept;
 
 #pragma endregion
 }

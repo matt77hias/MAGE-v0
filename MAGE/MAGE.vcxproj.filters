@@ -1008,6 +1008,15 @@
     <ClInclude Include="MAGE\src\memory\types.hpp">
       <Filter>Header Files\memory</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\pass\image_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\image_PS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\multi_sample_image_PS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1364,6 +1373,9 @@
     <ClCompile Include="MAGE\src\pass\depth_pass.cpp">
       <Filter>Source Files\pass</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\pass\image_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\sprite\sprite_PS.hlsl">
@@ -1518,6 +1530,12 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\cook_torrance_CS.hlsl">
       <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\miscellaneous\image_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\miscellaneous\multi_sample_image_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

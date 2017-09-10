@@ -5,14 +5,17 @@
 #include "structures.hlsli"
 
 //-----------------------------------------------------------------------------
-// Samplers and Textures
+// Textures
 //-----------------------------------------------------------------------------
-sampler   g_sampler : register(REG_S(SLOT_SAMPLER_DEFAULT));
-Texture2D g_texture : register(REG_T(SLOT_SRV_TEXTURE));
+Texture2D g_image_texture : register(REG_T(SLOT_SRV_IMAGE));
+Texture2D g_depth_texture : register(REG_T(SLOT_SRV_DEPTH));
 
 //-----------------------------------------------------------------------------
 // Pixel Shader
 //-----------------------------------------------------------------------------
-float4 PS(PSInputPositionNormalTexture input) : SV_Target{
-	return g_texture.Sample(g_sampler, input.tex);
+OMInputColorDepth PS(PSInputNDCPosition input) {
+	OMInputColorDepth output;
+	output.color = g_image_texture[input.p.xy];
+	output.depth = g_depth_texture[input.p.xy].x;
+	return output;
 }

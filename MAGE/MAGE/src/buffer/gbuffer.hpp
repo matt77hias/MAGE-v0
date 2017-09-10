@@ -38,21 +38,38 @@ namespace mage {
 			Diffuse  = 0,
 			Specular = 1,
 			Normal   = 2,
-			Count    = 3
+			Depth    = 3,
+			Count    = 4
 		};
 
 		static constexpr UINT GetNumberOfRTVs() noexcept {
-			return static_cast< UINT >(GBufferIndex::Count);
+			return static_cast< UINT >(GBufferIndex::Count) - 1u;
 		}
 		static constexpr UINT GetNumberOfSRVs() noexcept {
 			return static_cast< UINT >(GBufferIndex::Count);
 		}
 
 		void SetupBuffers(ID3D11Device2 *device);
+		void SetupDepthBuffer(ID3D11Device2 *device,
+			UINT width, UINT height);
+		void SetupDiffuseBuffer(ID3D11Device2 *device,
+			UINT width, UINT height);
+		void SetupSpecularBuffer(ID3D11Device2 *device,
+			UINT width, UINT height);
+		void SetupNormalBuffer(ID3D11Device2 *device,
+			UINT width, UINT height);
 		void SetupBuffer(ID3D11Device2 *device, UINT index,
 			UINT width, UINT height, DXGI_FORMAT format);
-
-		ComPtr< ID3D11RenderTargetView >   m_rtvs[static_cast< UINT >(GBufferIndex::Count)];
+		void SetupOutputBuffer(ID3D11Device2 *device,
+			UINT width, UINT height);
+		
+		// GBuffer
+		ComPtr< ID3D11DepthStencilView >   m_dsv;
+		ComPtr< ID3D11RenderTargetView >   m_rtvs[static_cast< UINT >(GBufferIndex::Count) - 1u];
 		ComPtr< ID3D11ShaderResourceView > m_srvs[static_cast< UINT >(GBufferIndex::Count)];
+
+		// Output
+		ComPtr< ID3D11UnorderedAccessView > m_image_uav;
+		ComPtr< ID3D11ShaderResourceView >  m_image_srv;
 	};
 }

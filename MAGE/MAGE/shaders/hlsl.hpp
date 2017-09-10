@@ -21,9 +21,6 @@
 #define SLOT_CBUFFER_PER_FRAME      1
 #define SLOT_CBUFFER_PER_DRAW       2
 
-#define SLOT_SRV_SPRITE             0
-#define SLOT_SRV_TEXTURE            0
-
 #define SLOT_SRV_LIGHTS_START       0
 #define SLOT_SRV_DIRECTIONAL_LIGHTS 0
 #define SLOT_SRV_OMNI_LIGHTS        1
@@ -34,6 +31,10 @@
 #define SLOT_SRV_SPECULAR           4
 #define SLOT_SRV_NORMAL             5
 #define SLOT_SRV_DEPTH              6
+
+#define SLOT_SRV_IMAGE              SLOT_SRV_DIFFUSE
+#define SLOT_SRV_SPRITE             SLOT_SRV_DIFFUSE
+#define SLOT_SRV_TEXTURE            SLOT_SRV_DIFFUSE
 
 #define SLOT_UAV_IMAGE              0
 

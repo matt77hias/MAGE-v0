@@ -43,8 +43,14 @@
 #define MAGE_GUID_PS_TSNM_WARD_DUER                L"mage_tsnm_ward_duer_ps"
 #define MAGE_GUID_PS_TSNM_COOK_TORRANCE            L"mage_tsnm_cook_torrance_ps"
 
+// Sprite
+#define MAGE_GUID_VS_SPRITE                        L"mage_sprite_vs"
+#define MAGE_GUID_PS_SPRITE                        L"mage_sprite_ps"
+
 // Miscellaneous
 #define MAGE_GUID_VS_MINIMAL_TRANSFORM             L"mage_minimal_transform_vs"
+#define MAGE_GUID_PS_IMAGE                         L"mage_image_ps"
+#define MAGE_GUID_PS_MULTI_SAMPLE_IMAGE            L"mage_multi_sample_image_ps"
 #define MAGE_GUID_PS_CONSTANT_COLOR                L"mage_constant_color_ps"
 #define MAGE_GUID_PS_CONSTANT_COLOR_TEXTURE        L"mage_constant_color_texture_ps"
 #define MAGE_GUID_PS_DISTANCE                      L"mage_distance_ps"
@@ -56,9 +62,5 @@
 
 // Primitives
 #define MAGE_GUID_VS_FULLSCREEN_TRIANGLE           L"mage_fullscreen_triangle_vs"
-
-// Sprite
-#define MAGE_GUID_VS_SPRITE                        L"mage_sprite_vs"
-#define MAGE_GUID_PS_SPRITE                        L"mage_sprite_ps"
 
 #pragma endregion

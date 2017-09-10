@@ -197,15 +197,16 @@ namespace mage {
 		OM::BindBlendState(m_device_context, m_blend_state);
 		OM::BindDepthStencilState(m_device_context, m_depth_stencil_state);
 		RS::BindState(m_device_context, m_rasterizer_state);
+		VS::BindConstantBuffer(m_device_context,
+			SLOT_CBUFFER_PER_FRAME, m_transform_buffer.Get());
 		PS::BindSampler(m_device_context, 
 			SLOT_SAMPLER_DEFAULT, m_sampler_state);
 
 		// Binds the mesh, shaders and transform buffer.
 		m_mesh->BindMesh(m_device_context);
 		m_vs->BindShader(m_device_context);
-		VS::BindConstantBuffer(m_device_context, 
-			SLOT_CBUFFER_PER_FRAME, m_transform_buffer.Get());
 		m_ps->BindShader(m_device_context);
+		
 	}
 
 	void SpriteBatch::FlushBatch() {

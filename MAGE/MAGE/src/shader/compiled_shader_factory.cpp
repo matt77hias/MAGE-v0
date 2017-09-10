@@ -43,8 +43,14 @@
 #include "shader\cso\forward\tsnm_ward_duer_PS.hpp"
 #include "shader\cso\forward\tsnm_cook_torrance_PS.hpp"
 
+// Sprite
+#include "shader\cso\sprite\sprite_VS.hpp"
+#include "shader\cso\sprite\sprite_PS.hpp"
+
 // Miscellaneous
 #include "shader\cso\miscellaneous\minimal_transform_VS.hpp"
+#include "shader\cso\miscellaneous\image_PS.hpp"
+#include "shader\cso\miscellaneous\multi_sample_image_PS.hpp"
 #include "shader\cso\miscellaneous\distance_PS.hpp"
 #include "shader\cso\miscellaneous\constant_color_PS.hpp"
 #include "shader\cso\miscellaneous\constant_color_texture_PS.hpp"
@@ -56,10 +62,6 @@
 
 // Primitives
 #include "shader\cso\primitives\fullscreen_triangle_VS.hpp"
-
-// Sprite
-#include "shader\cso\sprite\sprite_VS.hpp"
-#include "shader\cso\sprite\sprite_PS.hpp"
 
 #pragma endregion
 
@@ -217,17 +219,6 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: Primitives
-	//-------------------------------------------------------------------------
-#pragma region
-
-	const BufferCompiledShader CreateCompiledFullscreenTriangleVS() noexcept {
-		return BufferCompiledShader(g_fullscreen_triangle_vs, sizeof(g_fullscreen_triangle_vs));
-	}
-
-#pragma endregion
-
-	//-------------------------------------------------------------------------
 	// Factory Methods: SpritePass
 	//-------------------------------------------------------------------------
 #pragma region
@@ -285,7 +276,7 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: WireframePass
+	// Factory Methods: BoundingVolumePass
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -295,6 +286,25 @@ namespace mage {
 
 	const BufferCompiledShader CreateCompiledBoundingVolumePS() noexcept {
 		return BufferCompiledShader(g_bounding_volume_ps, sizeof(g_bounding_volume_ps));
+	}
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods
+	//-------------------------------------------------------------------------
+#pragma region
+
+	const BufferCompiledShader CreateCompiledImagePS() noexcept {
+		return BufferCompiledShader(g_image_ps, sizeof(g_image_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledMultiSampleImagePS() noexcept {
+		return BufferCompiledShader(g_multi_sample_image_ps, sizeof(g_multi_sample_image_ps));
+	}
+
+	const BufferCompiledShader CreateCompiledFullscreenTriangleVS() noexcept {
+		return BufferCompiledShader(g_fullscreen_triangle_vs, sizeof(g_fullscreen_triangle_vs));
 	}
 
 #pragma endregion

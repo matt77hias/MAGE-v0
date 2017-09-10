@@ -10,7 +10,8 @@
 * Height maps (alpha of normal map) + terrains
 
 ## Further iterations
-* Animation
-* Audio
-* Network
+* Collision Detection, Ray Casting, Picking
 * Physics
+* Audio
+* Animation
+* Network

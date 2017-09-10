@@ -83,9 +83,7 @@ namespace mage {
 
 		const HRESULT result_vertex_buffer = CreateStaticVertexBuffer< VertexT >(
 			device, m_vertex_buffer.ReleaseAndGetAddressOf(), vertices, nb_vertices);
-		if (FAILED(result_vertex_buffer)) {
-			throw FormattedException("Vertex buffer creation failed: %08X.", result_vertex_buffer);
-		}
+		ThrowIfFailed(result_vertex_buffer, "Vertex buffer creation failed: %08X.", result_vertex_buffer);
 
 		SetNumberOfVertices(nb_vertices);
 	}
@@ -99,9 +97,7 @@ namespace mage {
 
 		const HRESULT result_index_buffer = CreateStaticIndexBuffer< IndexT >(
 			device, m_index_buffer.ReleaseAndGetAddressOf(), indices, nb_indices);
-		if (FAILED(result_index_buffer)) {
-			throw FormattedException("Index buffer creation failed: %08X.", result_index_buffer);
-		}
+		ThrowIfFailed(result_index_buffer, "Index buffer creation failed: %08X.", result_index_buffer);
 
 		SetNumberOfIndices(nb_indices);
 	}

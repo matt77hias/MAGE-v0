@@ -24,9 +24,7 @@ namespace mage {
 
 		ComPtr< ID3D11Texture2D > texture;
 		const HRESULT result_texture = resource.As(&texture);
-		if (FAILED(result_texture)) {
-			throw FormattedException("Conversion of ID3D11Resource to Texture2D failed.");
-		}
+		ThrowIfFailed(result_texture, "Conversion of ID3D11Resource to Texture2D failed: %08X.", result_texture);
 
 		return GetTexture2DSize(texture.Get());
 	}

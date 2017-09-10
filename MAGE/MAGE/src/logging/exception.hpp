@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "memory\types.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // System Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -37,6 +46,17 @@ namespace mage {
 						Pointer to the message format.
 		 */
 		explicit FormattedException(const char *format, ...);
+
+		/**
+		 Constructs a formatted exception.
+
+		 @pre			@a format is not equal to @c nullptr.
+		 @param[in]		format
+						Pointer to the message format.
+		 @param[in]		args
+						The variable argument list.
+		 */
+		explicit FormattedException(const char * format, va_list args);
 
 		/**
 		 Constructs a formatted exception from the given formatted exception.
@@ -95,4 +115,23 @@ namespace mage {
 		 */
 		char m_text[2048];
 	};
+
+	/**
+	 Throws if the given results corresponds to a failure.
+
+	 @param[in]		result
+					The result value.
+	 */
+	void ThrowIfFailed(HRESULT result);
+
+	/**
+	 Throws if the given results corresponds to a failure.
+
+	 @pre			@a format is not equal to @c nullptr.
+	 @param[in]		result
+					The result value.
+	 @param[in]		format
+					Pointer to the message format.
+	 */
+	void ThrowIfFailed(HRESULT result, const char *format, ...);
 }

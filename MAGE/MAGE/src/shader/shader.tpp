@@ -49,10 +49,7 @@ namespace mage {
 		const HRESULT result_shader = device->CreateHullShader(
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			nullptr, m_shader.ReleaseAndGetAddressOf());
-
-		if (FAILED(result_shader)) {
-			throw FormattedException("Hull shader creation failed: %08X.", result_shader);
-		}
+		ThrowIfFailed(result_shader, "Hull shader creation failed: %08X.", result_shader);
 	}
 
 	template<>
@@ -66,9 +63,7 @@ namespace mage {
 		const HRESULT result_shader = device->CreateDomainShader(
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			nullptr, m_shader.ReleaseAndGetAddressOf());
-		if (FAILED(result_shader)) {
-			throw FormattedException("Domain shader creation failed: %08X.", result_shader);
-		}
+		ThrowIfFailed(result_shader, "Domain shader creation failed: %08X.", result_shader);
 	}
 
 	template<>
@@ -82,9 +77,7 @@ namespace mage {
 		const HRESULT result_shader = device->CreateGeometryShader(
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			nullptr, m_shader.ReleaseAndGetAddressOf());
-		if (FAILED(result_shader)) {
-			throw FormattedException("Geometry shader creation failed: %08X.", result_shader);
-		}
+		ThrowIfFailed(result_shader, "Geometry shader creation failed: %08X.", result_shader);
 	}
 
 	template<>
@@ -98,9 +91,7 @@ namespace mage {
 		const HRESULT result_shader = device->CreatePixelShader(
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			nullptr, m_shader.ReleaseAndGetAddressOf());
-		if (FAILED(result_shader)) {
-			throw FormattedException("Pixel shader creation failed: %08X.", result_shader);
-		}
+		ThrowIfFailed(result_shader, "Pixel shader creation failed: %08X.", result_shader);
 	}
 
 	template<>
@@ -111,9 +102,7 @@ namespace mage {
 		const HRESULT result_shader = device->CreateComputeShader(
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			nullptr, m_shader.ReleaseAndGetAddressOf());
-		if (FAILED(result_shader)) {
-			throw FormattedException("Compute shader creation failed: %08X.", result_shader);
-		}
+		ThrowIfFailed(result_shader, "Compute shader creation failed: %08X.", result_shader);
 	}
 
 	template<>

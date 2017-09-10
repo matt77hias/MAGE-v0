@@ -38,9 +38,7 @@ namespace mage {
 
 		const HRESULT result_buffer = CreateDynamicStructuredBuffer< DataT >(
 			device, m_buffer.ReleaseAndGetAddressOf(), nullptr, nb_data_elements);
-		if (FAILED(result_buffer)) {
-			throw FormattedException("Structured buffer creation failed: %08X.", result_buffer);
-		}
+		ThrowIfFailed(result_buffer, "Structured buffer creation failed: %08X.", result_buffer);
 
 		m_nb_data_elements = nb_data_elements;
 
@@ -52,9 +50,7 @@ namespace mage {
 
 		const HRESULT result_buffer_srv = device->CreateShaderResourceView(
 			m_buffer.Get(), &resource_view_desc, m_buffer_srv.ReleaseAndGetAddressOf());
-		if (FAILED(result_buffer_srv)) {
-			throw FormattedException("Shader resource view creation failed: %08X.", result_buffer_srv);
-		}
+		ThrowIfFailed(result_buffer_srv, "SRV creation failed: %08X.", result_buffer_srv);
 	}
 
 	template< typename DataT >

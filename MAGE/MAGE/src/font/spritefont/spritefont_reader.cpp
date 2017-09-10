@@ -81,17 +81,14 @@ namespace mage {
 		// Create the texture resource.
 		ComPtr< ID3D11Texture2D > texture;
 		const HRESULT result_texture = m_device->CreateTexture2D(&texture_desc, &init_data, texture.ReleaseAndGetAddressOf());
-		if (FAILED(result_texture)) {
-			throw FormattedException("%ls: failed to create ID3D11Texture2D: %08X.", GetFilename().c_str(), result_texture);
-		}
+		ThrowIfFailed(result_texture, "%ls: Texture creation failed: %08X.", GetFilename().c_str(), result_texture);
 
 		// Create the shader resource view descriptor.
 		CD3D11_SHADER_RESOURCE_VIEW_DESC shader_resource_view_desc(D3D11_SRV_DIMENSION_TEXTURE2D, texture_format);
 		
 		// Create the shader resource view.
-		const HRESULT result_texture_srv = m_device->CreateShaderResourceView(texture.Get(), &shader_resource_view_desc, m_output.m_texture_srv.ReleaseAndGetAddressOf());
-		if (FAILED(result_texture_srv)) {
-			throw FormattedException("%ls: failed to create ID3D11ShaderResourceView: %08X.", GetFilename().c_str(), result_texture);
-		}
+		const HRESULT result_texture_srv = m_device->CreateShaderResourceView(texture.Get(), 
+			&shader_resource_view_desc, m_output.m_texture_srv.ReleaseAndGetAddressOf());
+		ThrowIfFailed(result_texture_srv, "%ls: SRV creation failed: %08X.", GetFilename().c_str(), result_texture_srv);
 	}
 }

@@ -53,9 +53,7 @@ namespace mage {
 			
 		// Compile/Read the vertex shader.
 		const HRESULT result_shader_blob = D3DReadFileToBlob(fname.c_str(), m_shader_blob.ReleaseAndGetAddressOf());
-		if (FAILED(result_shader_blob)) {
-			throw FormattedException("D3DReadFileToBlob failed: %08X.", result_shader_blob);
-		}
+		ThrowIfFailed(result_shader_blob, "D3DReadFileToBlob failed: %08X.", result_shader_blob);
 	}
 
 	BlobCompiledShader::BlobCompiledShader(const BlobCompiledShader &compiled_shader) = default;

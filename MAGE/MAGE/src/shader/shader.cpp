@@ -48,9 +48,7 @@ namespace mage {
 		const HRESULT result_vertex_shader = device->CreateVertexShader(
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			nullptr, m_vertex_shader.ReleaseAndGetAddressOf());
-		if (FAILED(result_vertex_shader)) {
-			throw FormattedException("Vertex shader creation failed: %08X.", result_vertex_shader);
-		}
+		ThrowIfFailed(result_vertex_shader, "Vertex shader creation failed: %08X.", result_vertex_shader);
 
 		if (!input_element_desc) {
 			// If the vertex shader has no input signature 
@@ -64,8 +62,6 @@ namespace mage {
 			input_element_desc, static_cast< UINT >(nb_input_elements),
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			m_vertex_layout.ReleaseAndGetAddressOf());
-		if (FAILED(result_vertex_input_layout)) {
-			throw FormattedException("Vertex input layout creation failed: %08X.", result_vertex_input_layout);
-		}
+		ThrowIfFailed(result_vertex_input_layout, "Vertex input layout creation failed: %08X.", result_vertex_input_layout);
 	}
 }

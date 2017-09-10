@@ -39,9 +39,7 @@ namespace mage {
 		
 		const HRESULT result_vertex_buffer = CreateDynamicVertexBuffer< VertexPositionColorTexture >(
 			device, m_vertex_buffer.ReleaseAndGetAddressOf(), nullptr, MaxVerticesPerBatch());
-		if (FAILED(result_vertex_buffer)) {
-			throw FormattedException("Vertex buffer creation failed: %08X.", result_vertex_buffer);
-		}
+		ThrowIfFailed(result_vertex_buffer, "Vertex buffer creation failed: %08X.", result_vertex_buffer);
 	
 		SetNumberOfVertices(MaxVerticesPerBatch());
 	}
@@ -69,9 +67,7 @@ namespace mage {
 
 		const HRESULT result_index_buffer = CreateStaticIndexBuffer< uint16_t >(
 			device, m_index_buffer.ReleaseAndGetAddressOf(), indices.data(), indices.size());
-		if (FAILED(result_index_buffer)) {
-			throw FormattedException("Index buffer creation failed: %08X.", result_index_buffer);
-		}
+		ThrowIfFailed(result_index_buffer, "Index buffer creation failed: %08X.", result_index_buffer);
 
 		SetNumberOfIndices(indices.size());
 	}

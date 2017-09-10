@@ -41,15 +41,11 @@ namespace mage {
 		ComPtr< ID3D11Texture2D > texture;
 		const HRESULT result_resource = device->CreateTexture2D(
 			desc, initial_data, texture.ReleaseAndGetAddressOf());
-		if (FAILED(result_resource)) {
-			throw FormattedException("Texture 2D creation failed: %08X.", result_resource);
-		}
+		ThrowIfFailed(result_resource, "Texture 2D creation failed: %08X.", result_resource);
 
 		const HRESULT result_srv = device->CreateShaderResourceView(
 			texture.Get(), nullptr, m_texture_srv.ReleaseAndGetAddressOf());
-		if (FAILED(result_srv)) {
-			throw FormattedException("Texture SRV creation failed: %08X.", result_srv);
-		}
+		ThrowIfFailed(result_srv, "Texture SRV creation failed: %08X.", result_srv);
 	}
 
 	bool Texture::HasAlpha() const noexcept {

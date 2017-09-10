@@ -42,21 +42,18 @@ namespace mage {
 		// 2. Address of a variable to receive the IDirectInputDevice8 Interface interface pointer if successful.
 		// 3. Pointer to the address of the controlling object's IUnknown interface for COM aggregation, or nullptr if the interface is not aggregated.
 		const HRESULT result_mouse_create = m_di->CreateDevice(GUID_SysMouse, m_mouse.ReleaseAndGetAddressOf(), nullptr);
-		if (FAILED(result_mouse_create)) {
-			throw FormattedException("Mouse device creation failed: %08X.", result_mouse_create);
-		}
+		ThrowIfFailed(result_mouse_create, "Mouse device creation failed: %08X.", result_mouse_create);
+		
 		// Set the data format for the DirectInput device. 
 		const HRESULT result_mouse_format = m_mouse->SetDataFormat(&c_dfDIMouse);
-		if (FAILED(result_mouse_format)) {
-			throw FormattedException("Setting data format for mouse device failed: %08X.", result_mouse_format);
-		}
+		ThrowIfFailed(result_mouse_format, "Setting data format for mouse device failed: %08X.", result_mouse_format);
+		
 		// Establish the cooperative level for this instance of the device. 
 		// The cooperative level determines how this instance of the device interacts 
 		// with other instances of the device and the rest of the system. 
 		const HRESULT result_mouse_cooperative = m_mouse->SetCooperativeLevel(m_hwindow, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
-		if (FAILED(result_mouse_cooperative)) {
-			throw FormattedException("Setting cooperation level for mouse device failed: %08X.", result_mouse_cooperative);
-		}
+		ThrowIfFailed(result_mouse_cooperative, "Setting cooperation level for mouse device failed: %08X.", result_mouse_cooperative);
+		
 		// Obtain access to the input device. 
 		m_mouse->Acquire();
 	}

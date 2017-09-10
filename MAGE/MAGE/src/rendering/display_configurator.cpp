@@ -103,9 +103,7 @@ namespace mage {
 		// Get the IDXGIFactory3.
 		ComPtr< IDXGIFactory3 > factory;
 		const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)factory.GetAddressOf());
-		if (FAILED(result_factory)) {
-			throw FormattedException("IDXGIFactory3 creation failed: %08X.", result_factory);
-		}
+		ThrowIfFailed(result_factory, "IDXGIFactory3 creation failed: %08X.", result_factory);
 
 		// Get the IDXGIAdapter1 and its primary IDXGIOutput.
 		// The IDXGIAdapter represents a display subsystem (including one or more GPUs, DACs and video memory).
@@ -118,9 +116,7 @@ namespace mage {
 			// Get the IDXGIAdapter2.
 			ComPtr< IDXGIAdapter2 > adapter2;
 			const HRESULT result_adapter2 = adapter1.As(&adapter2);
-			if (FAILED(result_adapter2)) {
-				throw FormattedException("IDXGIAdapter2 creation failed: %08X.", result_adapter2);
-			}
+			ThrowIfFailed(result_adapter2, "IDXGIAdapter2 creation failed: %08X.", result_adapter2);
 
 			// Get the primary IDXGIOutput.
 			const HRESULT result_output = adapter2->EnumOutputs(0, output.GetAddressOf());
@@ -130,16 +126,12 @@ namespace mage {
 			// Get the IDXGIOutput2.
 			ComPtr< IDXGIOutput2 > output2;
 			const HRESULT result_output2 = output.As(&output2);
-			if (FAILED(result_output2)) {
-				throw FormattedException("IDXGIOutput2 creation failed: %08X.", result_output2);
-			}
+			ThrowIfFailed(result_output2, "IDXGIOutput2 creation failed: %08X.", result_output2);
 
 			// Get the DXGI_ADAPTER_DESC2.
 			DXGI_ADAPTER_DESC2 desc;
 			const HRESULT result_adapter_desc = adapter2->GetDesc2(&desc);
-			if (FAILED(result_adapter_desc)) {
-				throw FormattedException("DXGI_ADAPTER_DESC2 retrieval failed: %08X.", result_adapter_desc);
-			}
+			ThrowIfFailed(result_adapter_desc, "DXGI_ADAPTER_DESC2 retrieval failed: %08X.", result_adapter_desc);
 
 			const SIZE_T vram = desc.DedicatedVideoMemory;
 			if (vram <= max_vram) {
@@ -161,15 +153,11 @@ namespace mage {
 		UINT nb_display_modes;
 		// Get the number of display modes that match the requested format and other input options.
 		const HRESULT result1 = m_output->GetDisplayModeList1(m_pixel_format, flags, &nb_display_modes, nullptr);
-		if (FAILED(result1)) {
-			throw FormattedException("Failed to get the number of display modes: %08X.", result1);
-		}
+		ThrowIfFailed(result1, "Failed to get the number of display modes: %08X.", result1);
 		UniquePtr< DXGI_MODE_DESC1[] >dxgi_mode_descs(MakeUnique< DXGI_MODE_DESC1[] >(nb_display_modes));
 		// Get the display modes that match the requested format and other input options.
 		const HRESULT result2 = m_output->GetDisplayModeList1(m_pixel_format, flags, &nb_display_modes, dxgi_mode_descs.get());
-		if (FAILED(result2)) {
-			throw FormattedException("Failed to get the display modes: %08X.", result2);
-		}
+		ThrowIfFailed(result2, "Failed to get the display modes: %08X.", result2);
 
 		// Enumerate the DXGI_MODE_DESCs.
 		for (UINT mode = 0; mode < nb_display_modes; ++mode) {

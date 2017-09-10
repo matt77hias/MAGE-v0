@@ -40,7 +40,8 @@ namespace mage {
 	 */
 	template < typename VertexT >
 	HRESULT CreateStaticVertexBuffer(ID3D11Device2 *device, 
-		ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) noexcept;
+		ID3D11Buffer **buffer, 
+		const VertexT *vertices, size_t nb_vertices) noexcept;
 	
 	/**
 	 Creates a dynamic vertex buffer.
@@ -64,7 +65,8 @@ namespace mage {
 	 */
 	template < typename VertexT >
 	HRESULT CreateDynamicVertexBuffer(ID3D11Device2 *device, 
-		ID3D11Buffer **buffer, const VertexT *vertices, size_t nb_vertices) noexcept;
+		ID3D11Buffer **buffer, 
+		const VertexT *vertices, size_t nb_vertices) noexcept;
 	
 	/**
 	 Creates a static index buffer.
@@ -88,7 +90,8 @@ namespace mage {
 	 */
 	template < typename IndexT >
 	HRESULT CreateStaticIndexBuffer(ID3D11Device2 *device, 
-		ID3D11Buffer **buffer, const IndexT *indices, size_t nb_indices) noexcept;
+		ID3D11Buffer **buffer, 
+		const IndexT *indices, size_t nb_indices) noexcept;
 	
 	/**
 	 Creates a static constant buffer.
@@ -110,7 +113,8 @@ namespace mage {
 	 */
 	template < typename DataT >
 	HRESULT CreateStaticConstantBuffer(ID3D11Device2 *device, 
-		ID3D11Buffer **buffer, const DataT *data, size_t count = 1) noexcept;
+		ID3D11Buffer **buffer, 
+		const DataT *data, size_t count = 1) noexcept;
 
 	/**
 	 Creates a dynamic constant buffer.
@@ -134,7 +138,8 @@ namespace mage {
 	 */
 	template < typename DataT >
 	HRESULT CreateDynamicConstantBuffer(ID3D11Device2 *device, 
-		ID3D11Buffer **buffer, const DataT *data, size_t count = 1) noexcept;
+		ID3D11Buffer **buffer, 
+		const DataT *data, size_t count = 1) noexcept;
 	
 	/**
 	 Creates a static structured buffer.
@@ -156,7 +161,8 @@ namespace mage {
 	 */
 	template < typename DataT >
 	HRESULT CreateStaticStructuredBuffer(ID3D11Device2 *device,
-		ID3D11Buffer **buffer, const DataT *data, size_t count = 1) noexcept;
+		ID3D11Buffer **buffer, 
+		const DataT *data, size_t count = 1) noexcept;
 
 	/**
 	 Creates a dynamic structured buffer.
@@ -180,7 +186,8 @@ namespace mage {
 	 */
 	template < typename DataT >
 	HRESULT CreateDynamicStructuredBuffer(ID3D11Device2 *device,
-		ID3D11Buffer **buffer, const DataT *data, size_t count = 1) noexcept;
+		ID3D11Buffer **buffer, 
+		const DataT *data, size_t count = 1) noexcept;
 
 	//-------------------------------------------------------------------------
 	// Blend states
@@ -355,6 +362,31 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// Rasterizer states
 	//-------------------------------------------------------------------------
+
+	/**
+	 Creates a rasterizer state for shadow mapping.
+
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a rasterizer_state is not equal to @c nullptr.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	rasterizer_state
+					A pointer to a pointer to the rasterizer state.
+	 @param[in]		depth_bias
+					The depth value added to a given pixel.
+	 @param[in]		slope_scaled_depth_bias
+					The scalar on a given pixel's slope.
+	 @param[in]		depth_bias_clamp
+					The maximum depth bias of a pixel.
+	 @param[in]		cull_mode
+					The cull mode of the rasterization.
+	 @return		A success/error value.
+	 */
+	HRESULT CreateShadowMapRasterizerState(ID3D11Device2 *device,
+		ID3D11RasterizerState **rasterizer_state,
+		float depth_bias, float slope_scaled_depth_bias,
+		float depth_bias_clamp = 0.0f,
+		D3D11_CULL_MODE cull_mode = D3D11_CULL_BACK) noexcept;
 
 	/**
 	 Creates a rasterizer state.

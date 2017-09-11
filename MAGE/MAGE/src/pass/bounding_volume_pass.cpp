@@ -82,8 +82,10 @@ namespace mage {
 
 		// Bind the light color data.
 		BindLightColorData();
-		ProcessLights(scene->m_omni_lights, world_to_projection);
-		ProcessLights(scene->m_spot_lights, world_to_projection);
+		ProcessLights(scene->m_omni_lights,         world_to_projection);
+		ProcessLights(scene->m_sm_omni_lights, world_to_projection);
+		ProcessLights(scene->m_spot_lights,         world_to_projection);
+		ProcessLights(scene->m_sm_spot_lights, world_to_projection);
 
 		// Bind the model color data.
 		BindModelColorData();

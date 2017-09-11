@@ -36,8 +36,11 @@ namespace mage {
 		vector< const ModelNode * >				m_transparent_emissive_models;
 		vector< const ModelNode * >				m_transparent_brdf_models;
 		vector< const DirectionalLightNode * >	m_directional_lights;
+		vector< const DirectionalLightNode * >	m_sm_directional_lights;
 		vector< const OmniLightNode * >			m_omni_lights;
+		vector< const OmniLightNode * >			m_sm_omni_lights;
 		vector< const SpotLightNode * >			m_spot_lights;
+		vector< const SpotLightNode * >			m_sm_spot_lights;
 		vector< const SpriteNode * >			m_sprites;
 		RGBSpectrum								m_ambient_light;
 		const SceneFog *						m_fog;

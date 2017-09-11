@@ -1014,6 +1014,9 @@
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\multi_sample_image_PS.hpp">
       <Filter>Header Files\shader\cso\miscellaneous</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\shadow_map_buffer.hpp">
+      <Filter>Header Files\buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1372,6 +1375,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\pass\image_pass.cpp">
       <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\buffer\shadow_map_buffer.cpp">
+      <Filter>Source Files\buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

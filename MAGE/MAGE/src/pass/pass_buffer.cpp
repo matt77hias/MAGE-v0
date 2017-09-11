@@ -26,7 +26,9 @@ namespace mage {
 		: m_cameras(),
 		m_opaque_emissive_models(), m_opaque_brdf_models(),
 		m_transparent_emissive_models(), m_transparent_brdf_models(),
-		m_directional_lights(), m_omni_lights(), m_spot_lights(),
+		m_directional_lights(), m_sm_directional_lights(),
+		m_omni_lights(), m_sm_omni_lights(),
+		m_spot_lights(), m_sm_spot_lights(),
 		m_sprites(),
 		m_ambient_light(), m_fog(nullptr),
 		m_material_coefficient_min{},
@@ -97,20 +99,38 @@ namespace mage {
 	
 		// Collect active directional lights.
 		m_directional_lights.clear();
+		m_sm_directional_lights.clear();
 		scene->ForEachDirectionalLight([this](const DirectionalLightNode *node) {
-			m_directional_lights.push_back(node);
+			if (node->GetLight()->UseShadows()) {
+				m_sm_directional_lights.push_back(node);
+			}
+			else {
+				m_directional_lights.push_back(node);
+			}
 		});
 
 		// Collect active omni lights.
 		m_omni_lights.clear();
+		m_sm_omni_lights.clear();
 		scene->ForEachOmniLight([this](const OmniLightNode *node) {
-			m_omni_lights.push_back(node);
+			if (node->GetLight()->UseShadows()) {
+				m_sm_omni_lights.push_back(node);
+			}
+			else {
+				m_omni_lights.push_back(node);
+			}
 		});
 
 		// Collect active spotlights.
 		m_spot_lights.clear();
+		m_sm_spot_lights.clear();
 		scene->ForEachSpotLight([this](const SpotLightNode *node) {
-			m_spot_lights.push_back(node);
+			if (node->GetLight()->UseShadows()) {
+				m_sm_spot_lights.push_back(node);
+			}
+			else {
+				m_spot_lights.push_back(node);
+			}
 		});
 	
 		// Collect active sprites.

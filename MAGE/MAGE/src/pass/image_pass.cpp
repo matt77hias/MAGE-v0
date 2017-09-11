@@ -49,7 +49,7 @@ namespace mage {
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 
 		// Draw the fullscreen triangle.
-		m_device_context->Draw(3,0);
+		m_device_context->Draw(3u, 0u);
 		EngineStatistics::Get()->IncrementNumberOfDrawCalls();
 	}
 }

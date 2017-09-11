@@ -28,8 +28,9 @@ namespace mage {
 		size_t nb_shadow_maps, UINT width, UINT height,
 		DepthFormat format)
 		: m_width(width), m_height(height), m_format(format), 
-		m_dsvs(), m_srv() {
+		m_viewport(), m_dsvs(), m_srv() {
 
+		m_viewport.SetWidthAndHeight(m_width, m_height);
 		SetupShadowMapBuffer(device, nb_shadow_maps);
 	}
 
@@ -141,8 +142,9 @@ namespace mage {
 		size_t nb_shadow_cube_maps, UINT width, UINT height,
 		DepthFormat format)
 		: m_width(width), m_height(height), m_format(format),
-		m_dsvs(), m_srv() {
+		m_viewport(), m_dsvs(), m_srv() {
 
+		m_viewport.SetWidthAndHeight(m_width, m_height);
 		SetupShadowCubeMapBuffer(device, nb_shadow_cube_maps);
 	}
 

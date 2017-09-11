@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
-#include "rendering\pipeline.hpp"
+#include "camera\viewport.hpp"
 #include "collection\collection.hpp"
 
 #pragma endregion
@@ -63,6 +62,9 @@ namespace mage {
 			return m_dsvs.size();
 		}
 
+		void BindViewport(ID3D11DeviceContext2 *device_context) const noexcept {
+			m_viewport.BindViewport(device_context);
+		}
 		void ClearDSVs(ID3D11DeviceContext2 *device_context) const noexcept {
 
 			for (const auto &dsv : m_dsvs) {
@@ -100,6 +102,7 @@ namespace mage {
 		UINT m_width;
 		UINT m_height;
 		DepthFormat m_format;
+		Viewport m_viewport;
 		
 		vector< ComPtr< ID3D11DepthStencilView > > m_dsvs;
 		ComPtr< ID3D11ShaderResourceView > m_srv;
@@ -137,6 +140,9 @@ namespace mage {
 			return m_dsvs.size() / 6u;
 		}
 
+		void BindViewport(ID3D11DeviceContext2 *device_context) const noexcept {
+			m_viewport.BindViewport(device_context);
+		}
 		void ClearDSVs(ID3D11DeviceContext2 *device_context) const noexcept {
 
 			for (const auto &dsv : m_dsvs) {
@@ -175,6 +181,7 @@ namespace mage {
 		UINT m_height;
 		DepthFormat m_format;
 		
+		Viewport m_viewport;
 		vector< ComPtr< ID3D11DepthStencilView > > m_dsvs;
 		ComPtr< ID3D11ShaderResourceView > m_srv;
 	};

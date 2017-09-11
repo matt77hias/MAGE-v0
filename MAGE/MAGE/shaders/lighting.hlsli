@@ -97,7 +97,7 @@ float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float m
 		const float3 d_light  = light.p - p;
 		const float r_light   = length(d_light);
 		const float3 l        = d_light / r_light;
-		const float3 I_light  = OmniLightMaxContribution(light, r_light);
+		const float3 I_light  = MaxContribution(light, r_light);
 
 		const float fd = LambertianBRDFxCos(n, l);
 		Id += fd * I_light;
@@ -116,7 +116,7 @@ float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float m
 		const float3 d_light  = light.p - p;
 		const float r_light   = length(d_light);
 		const float3 l        = d_light / r_light;
-		const float3 I_light  = SpotLightMaxContribution(light, r_light, l);
+		const float3 I_light  = MaxContribution(light, r_light, l);
 
 		const float fd = LambertianBRDFxCos(n, l);
 		Id += fd * I_light;

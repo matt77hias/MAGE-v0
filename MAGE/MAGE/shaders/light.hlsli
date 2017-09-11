@@ -62,6 +62,36 @@ struct SpotLight {
 };
 
 /**
+ A struct of directional lights with shadow mapping.
+ */
+struct DirectionalLightWithShadowMapping {
+	// The directional light of this directional light with shadow mapping.
+	DirectionalLight light;
+	// The camera-view-to-light-projection transformation matrix.
+	float4x4 cview_to_lprojection;
+};
+
+/**
+ A struct of omni lights with shadow mapping.
+ */
+struct OmniLightWithShadowMapping {
+	// The omni light of this omni light with shadow mapping.
+	OmniLight light;
+	// The camera-view-to-light-view transformation matrix.
+	float4x4 cview_to_lview;
+};
+
+/**
+ A struct of spotlights with shadow mapping.
+ */
+struct SpotLightWithShadowMapping {
+	// The spotlight of this spotlight with shadow mapping.
+	SpotLight light;
+	// The camera-view-to-light-projection transformation matrix.
+	float4x4 cview_to_lprojection;
+};
+
+/**
  Calculates the distance intensity fallof of a light.
 
  @param[in]		r
@@ -107,7 +137,7 @@ float AngularFalloff(float cos_theta, float cos_umbra, float cos_inv_range, floa
 				The distance between the lit point and 
 				the center of the light.
  */
-float3 OmniLightMaxContribution(OmniLight light, float r) {
+float3 MaxContribution(OmniLight light, float r) {
 	const float df = DistanceFalloff(r, light.distance_falloff_end, light.distance_falloff_inv_range);
 	return df * light.I;
 }
@@ -124,7 +154,7 @@ float3 OmniLightMaxContribution(OmniLight light, float r) {
  @param[in]		l
 				The light (hit-to-light) direction.
  */
-float3 SpotLightMaxContribution(SpotLight light, float r, float3 l) {
+float3 MaxContribution(SpotLight light, float r, float3 l) {
 	const float cos_theta = dot(light.neg_d, l);
 	const float df = DistanceFalloff(r, light.distance_falloff_end, light.distance_falloff_inv_range);
 	const float af = AngularFalloff(cos_theta, light.cos_umbra, light.cos_inv_range, light.exponent_property);

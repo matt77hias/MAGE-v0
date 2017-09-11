@@ -24,14 +24,14 @@ namespace mage {
 		m_start_index(start_index), m_nb_indices(nb_indices),
 		m_aabb(aabb), m_bs(bs), 
 		m_material(MakeUnique< Material >()),
-		m_shadow_behavior() {}
+		m_light_occlusion(true) {}
 
 	Model::Model(const Model &model)
 		: m_mesh(model.m_mesh), 
 		m_start_index(model.m_start_index), m_nb_indices(model.m_nb_indices),
 		m_aabb(model.m_aabb), m_bs(model.m_bs),
 		m_material(MakeUnique< Material >(*model.m_material)),
-		m_shadow_behavior(model.m_shadow_behavior) {}
+		m_light_occlusion(model.m_light_occlusion) {}
 
 	Model::Model(Model &&model) = default;
 

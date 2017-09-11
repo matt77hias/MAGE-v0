@@ -7,7 +7,6 @@
 
 #include "mesh\static_mesh.hpp"
 #include "material\material.hpp"
-#include "model\shadow_behavior.hpp"
 
 #pragma endregion
 
@@ -191,6 +190,52 @@ namespace mage {
 		}
 
 		//---------------------------------------------------------------------
+		// Member Methods: Occlusion
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this model occludes light.
+
+		 @return		@c true if this model occludes light.
+						@c false otherwise.
+		 */
+		bool OccludesLight() const noexcept {
+			return m_light_occlusion;
+		}
+
+		/**
+		 Enbales the occlusion of light by this model.
+		 */
+		void EnableLightOcclusion() noexcept {
+			SetLightOcclusion(true);
+		}
+
+		/**
+		 Dissables the occlusion of light by this model.
+		 */
+		void DissableLightOcclusion() noexcept {
+			SetLightOcclusion(false);
+		}
+
+		/**
+		 Toggles the occlusion of light by this model.
+		 */
+		bool ToggleLightOcclusion() noexcept {
+			SetLightOcclusion(!m_light_occlusion);
+		}
+
+		/**
+		 Sets the occlusion of light by this model to the given value.
+
+		 @param[in]		light_occlusion
+						@c true if this model needs to occlude light.
+						@c false otherwise.
+		 */
+		void SetLightOcclusion(bool light_occlusion) noexcept {
+			m_light_occlusion = light_occlusion;
+		}
+
+		//---------------------------------------------------------------------
 		// Member Methods: Appearance
 		//---------------------------------------------------------------------
 
@@ -230,44 +275,6 @@ namespace mage {
 		 */
 		void SetMaterial(Material &&material) noexcept {
 			m_material = MakeUnique< Material >(std::move(material));
-		}
-
-		/**
-		 Returns the shadow behavior of this model.
-
-		 @return		A reference to the shadow behavior of this model.
-		 */
-		ShadowBehavior &GetShadowBehavior() noexcept {
-			return m_shadow_behavior;
-		}
-
-		/**
-		 Returns the shadow behavior of this model.
-
-		 @return		A reference to the shadow behavior of this model.
-		 */
-		const ShadowBehavior &GetShadowBehavior() const noexcept {
-			return m_shadow_behavior;
-		}
-
-		/**
-		 Sets the shadow behavior of this model to the given shadow behavior.
-
-		 @param[in]		shadow_behavior
-						A reference to the shadow behavior.
-		 */
-		void SetShadowBehavior(const ShadowBehavior &shadow_behavior) noexcept {
-			m_shadow_behavior = shadow_behavior;
-		}
-
-		/**
-		 Sets the shadow behavior of this model to the given shadow behavior.
-
-		 @param[in]		shadow_behavior
-						A reference to the shadow behavior.
-		 */
-		void SetShadowBehavior(ShadowBehavior &&shadow_behavior) noexcept {
-			m_shadow_behavior = std::move(shadow_behavior);
 		}
 
 	private:
@@ -313,13 +320,13 @@ namespace mage {
 		const BS m_bs;
 
 		/**
+		 A flag indicating whether this model occludes light.
+		 */
+		bool m_light_occlusion;
+
+		/**
 		 A pointer to the material of this model.
 		 */
 		UniquePtr< Material > m_material;
-
-		/**
-		 The shadow behavior of this model.
-		 */
-		ShadowBehavior m_shadow_behavior;
 	};
 }

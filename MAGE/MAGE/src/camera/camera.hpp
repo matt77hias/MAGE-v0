@@ -134,7 +134,7 @@ namespace mage {
 
 		 @return		The view-to-projection matrix of this camera.
 		 */
-		virtual XMMATRIX GetViewToProjectionMatrix() const noexcept = 0;
+		virtual const XMMATRIX GetViewToProjectionMatrix() const noexcept = 0;
 
 	protected:
 

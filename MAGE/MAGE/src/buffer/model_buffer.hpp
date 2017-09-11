@@ -22,7 +22,8 @@ namespace mage {
 	/**
 	 A struct of model buffers used by pixel shaders.
 	 */
-	_declspec(align(16)) struct ModelBuffer final : public AlignedData< ModelBuffer > {
+	_declspec(align(16)) struct ModelBuffer final 
+		: public AlignedData< ModelBuffer > {
 
 	public:
 
@@ -146,7 +147,8 @@ namespace mage {
 	/**
 	 A struct of model transform buffers used by pixel shaders.
 	 */
-	_declspec(align(16)) struct ModelTransformBuffer final : public AlignedData< ModelTransformBuffer > {
+	_declspec(align(16)) struct ModelTransformBuffer final 
+		: public AlignedData< ModelTransformBuffer > {
 
 	public:
 
@@ -243,7 +245,8 @@ namespace mage {
 	/**
 	 A struct of deferred model buffers used by pixel shaders.
 	 */
-	_declspec(align(16)) struct DeferredModelBuffer final : public AlignedData< DeferredModelBuffer > {
+	_declspec(align(16)) struct DeferredModelBuffer final 
+		: public AlignedData< DeferredModelBuffer > {
 
 	public:
 

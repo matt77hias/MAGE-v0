@@ -23,7 +23,8 @@ namespace mage {
 	/**
 	 A struct of light buffers used by shaders.
 	 */
-	__declspec(align(16)) struct LightBuffer final : public AlignedData< LightBuffer > {
+	__declspec(align(16)) struct LightBuffer final 
+		: public AlignedData< LightBuffer > {
 
 	public:
 
@@ -145,7 +146,8 @@ namespace mage {
 	/**
 	 A struct of directional light buffers used by shaders.
 	 */
-	__declspec(align(16)) struct DirectionalLightBuffer final : public AlignedData< DirectionalLightBuffer > {
+	__declspec(align(16)) struct DirectionalLightBuffer final 
+		: public AlignedData< DirectionalLightBuffer > {
 
 	public:
 
@@ -240,7 +242,8 @@ namespace mage {
 	/**
 	 A struct of omni light buffers used by shaders.
 	 */
-	__declspec(align(16)) struct OmniLightBuffer final : public AlignedData< OmniLightBuffer > {
+	__declspec(align(16)) struct OmniLightBuffer final 
+		: public AlignedData< OmniLightBuffer > {
 
 	public:
 
@@ -337,7 +340,8 @@ namespace mage {
 	/**
 	 A struct of spotlight buffers used by shaders.
 	 */
-	__declspec(align(16)) struct SpotLightBuffer final : public AlignedData< SpotLightBuffer > {
+	__declspec(align(16)) struct SpotLightBuffer final 
+		: public AlignedData< SpotLightBuffer > {
 
 	public:
 
@@ -462,4 +466,322 @@ namespace mage {
 	};
 
 	static_assert(sizeof(SpotLightBuffer) == 64, "CPU/GPU struct mismatch");
+
+	//-------------------------------------------------------------------------
+	// DirectionalLightWithShadowMappingBuffer
+	//-------------------------------------------------------------------------
+
+	/**
+	 A struct of directional light with shadow mapping buffers used by shaders.
+	 */
+	__declspec(align(16)) struct DirectionalLightWithShadowMappingBuffer final 
+		: public AlignedData< DirectionalLightWithShadowMappingBuffer > {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs an directional light with shadow mapping buffer.
+		 */
+		DirectionalLightWithShadowMappingBuffer()
+			: m_light(), m_cview_to_lprojection() {}
+		
+		/**
+		 Constructs an directional light with shadow mapping buffer from 
+		 the given directional light with shadow mapping buffer.
+
+		 @param[in]		buffer
+						A reference to the directional light 
+						with shadow mapping buffer to copy.
+		 */
+		DirectionalLightWithShadowMappingBuffer(
+			const DirectionalLightWithShadowMappingBuffer &buffer) = default;
+
+		/**
+		 Constructs an directional light with shadow mapping buffer by moving 
+		 the given directional light with shadow mapping buffer.
+
+		 @param[in]		buffer
+						A reference to the directional light 
+						with shadow mapping buffer to move.
+		 */
+		DirectionalLightWithShadowMappingBuffer(
+			DirectionalLightWithShadowMappingBuffer &&buffer) = default;
+		
+		/**
+		 Destructs this directional light with shadow mapping buffer.
+		 */
+		~DirectionalLightWithShadowMappingBuffer() = default;
+		
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given directional light with shadow mapping buffer 
+		 to this directional light with shadow mapping buffer.
+
+		 @param[in]		buffer
+						A reference to the directional light 
+						with shadow mapping buffer to copy.
+		 @return		A reference to the copy of the given 
+						directional light with shadow mapping buffer
+						(i.e. this directional light with shadow mapping buffer).
+		 */
+		DirectionalLightWithShadowMappingBuffer &operator=(
+			const DirectionalLightWithShadowMappingBuffer &buffer) = default;
+
+		/**
+		 Moves the given directional light with shadow mapping buffer 
+		 to this directional light with shadow mapping buffer.
+
+		 @param[in]		buffer
+						A reference to the directional light 
+						with shadow mapping buffer to move.
+		 @return		A reference to the moved directional light 
+						with shadow mapping buffer
+						(i.e. this directional light with shadow mapping buffer).
+		 */
+		DirectionalLightWithShadowMappingBuffer &operator=(
+			DirectionalLightWithShadowMappingBuffer &&buffer) = default;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Light
+		//---------------------------------------------------------------------
+
+		/**
+		 The directional light buffer of this directional light buffer with shadow mapping.
+		 */
+		DirectionalLightBuffer m_light;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Transform
+		//---------------------------------------------------------------------
+
+		// HLSL expects column-major packed matrices by default.
+		// DirectXMath expects row-major packed matrices.
+
+		/**
+		 The (column-major packed, row-major matrix) camera-view-to-light-projection 
+		 matrix of this directional light buffer with shadow mapping for use in HLSL.
+		 */
+		XMMATRIX m_cview_to_lprojection;
+	};
+
+	static_assert(sizeof(DirectionalLightWithShadowMappingBuffer) == 96, "CPU/GPU struct mismatch");
+
+	//-------------------------------------------------------------------------
+	// OmniLightWithShadowMappingBuffer
+	//-------------------------------------------------------------------------
+
+	/**
+	 A struct of omni light with shadow mapping buffers used by shaders.
+	 */
+	__declspec(align(16)) struct OmniLightWithShadowMappingBuffer final 
+		: public AlignedData< OmniLightWithShadowMappingBuffer > {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs an omni light with shadow mapping buffer.
+		 */
+		OmniLightWithShadowMappingBuffer()
+			: m_light(), m_cview_to_lview() {}
+		
+		/**
+		 Constructs an omni light with shadow mapping buffer from 
+		 the given omni light with shadow mapping buffer.
+
+		 @param[in]		buffer
+						A reference to the omni light 
+						with shadow mapping buffer to copy.
+		 */
+		OmniLightWithShadowMappingBuffer(
+			const OmniLightWithShadowMappingBuffer &buffer) = default;
+
+		/**
+		 Constructs an omni light with shadow mapping buffer by moving 
+		 the given omni light with shadow mapping buffer.
+
+		 @param[in]		buffer
+						A reference to the omni light 
+						with shadow mapping buffer to move.
+		 */
+		OmniLightWithShadowMappingBuffer(
+			OmniLightWithShadowMappingBuffer &&buffer) = default;
+		
+		/**
+		 Destructs this omni light with shadow mapping buffer.
+		 */
+		~OmniLightWithShadowMappingBuffer() = default;
+		
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given omni light with shadow mapping buffer 
+		 to this omni light with shadow mapping buffer.
+
+		 @param[in]		buffer
+						A reference to the omni light 
+						with shadow mapping buffer to copy.
+		 @return		A reference to the copy of the given 
+						omni light with shadow mapping buffer
+						(i.e. this omni light with shadow mapping buffer).
+		 */
+		OmniLightWithShadowMappingBuffer &operator=(
+			const OmniLightWithShadowMappingBuffer &buffer) = default;
+
+		/**
+		 Moves the given omni light with shadow mapping buffer 
+		 to this omni light with shadow mapping buffer.
+
+		 @param[in]		buffer
+						A reference to the omni light 
+						with shadow mapping buffer to move.
+		 @return		A reference to the moved omni light 
+						with shadow mapping buffer
+						(i.e. this omni light with shadow mapping buffer).
+		 */
+		OmniLightWithShadowMappingBuffer &operator=(
+			OmniLightWithShadowMappingBuffer &&buffer) = default;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Light
+		//---------------------------------------------------------------------
+
+		/**
+		 The omni light buffer of this omni light buffer with shadow mapping.
+		 */
+		OmniLightBuffer m_light;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Transform
+		//---------------------------------------------------------------------
+
+		// HLSL expects column-major packed matrices by default.
+		// DirectXMath expects row-major packed matrices.
+
+		/**
+		 The (column-major packed, row-major matrix) camera-view-to-light-view 
+		 matrix of this omni light buffer with shadow mapping for use in HLSL.
+		 */
+		XMMATRIX m_cview_to_lview;
+	};
+
+	static_assert(sizeof(OmniLightWithShadowMappingBuffer) == 96, "CPU/GPU struct mismatch");
+
+	//-------------------------------------------------------------------------
+	// SpotLightWithShadowMappingBuffer
+	//-------------------------------------------------------------------------
+
+	/**
+	 A struct of spotlight with shadow mapping buffers used by shaders.
+	 */
+	__declspec(align(16)) struct SpotLightWithShadowMappingBuffer final 
+		: public AlignedData< SpotLightWithShadowMappingBuffer > {
+
+	public:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a spotlight with shadow mapping buffer.
+		 */
+		SpotLightWithShadowMappingBuffer()
+			: m_light(), m_cview_to_lprojection() {}
+		
+		/**
+		 Constructs a spotlight with shadow mapping buffer from 
+		 the given spotlight with shadow mapping buffer.
+
+		 @param[in]		buffer
+						A reference to the spotlight 
+						with shadow mapping buffer to copy.
+		 */
+		SpotLightWithShadowMappingBuffer(
+			const SpotLightWithShadowMappingBuffer &buffer) = default;
+
+		/**
+		 Constructs a spotlight with shadow mapping buffer by moving 
+		 the given spotlight with shadow mapping buffer.
+
+		 @param[in]		buffer
+						A reference to the spotlight 
+						with shadow mapping buffer to move.
+		 */
+		SpotLightWithShadowMappingBuffer(
+			SpotLightWithShadowMappingBuffer &&buffer) = default;
+		
+		/**
+		 Destructs this spotlight with shadow mapping buffer.
+		 */
+		~SpotLightWithShadowMappingBuffer() = default;
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		/**
+		 Copies the given spotlight with shadow mapping buffer 
+		 to this spotlight with shadow mapping buffer.
+
+		 @param[in]		buffer
+						A reference to the spotlight 
+						with shadow mapping buffer to copy.
+		 @return		A reference to the copy of the given 
+						spotlight with shadow mapping buffer
+						(i.e. this spotlight with shadow mapping buffer).
+		 */
+		SpotLightWithShadowMappingBuffer &operator=(
+			const SpotLightWithShadowMappingBuffer &buffer) = default;
+
+		/**
+		 Moves the given spotlight with shadow mapping buffer 
+		 to this spotlight with shadow mapping buffer.
+
+		 @param[in]		buffer
+						A reference to the spotlight 
+						with shadow mapping buffer to move.
+		 @return		A reference to the moved spotlight 
+						with shadow mapping buffer
+						(i.e. this spotlight with shadow mapping buffer).
+		 */
+		SpotLightWithShadowMappingBuffer &operator=(
+			SpotLightWithShadowMappingBuffer &&buffer) = default;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Light
+		//---------------------------------------------------------------------
+
+		/**
+		 The spotlight buffer of this spotlight buffer with shadow mapping.
+		 */
+		SpotLightBuffer m_light;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Transform
+		//---------------------------------------------------------------------
+
+		// HLSL expects column-major packed matrices by default.
+		// DirectXMath expects row-major packed matrices.
+
+		/**
+		 The (column-major packed, row-major matrix) camera-view-to-light-projection 
+		 matrix of this spotlight buffer with shadow mapping for use in HLSL.
+		 */
+		XMMATRIX m_cview_to_lprojection;
+	};
+
+	static_assert(sizeof(SpotLightWithShadowMappingBuffer) == 128, "CPU/GPU struct mismatch");
 }

@@ -321,7 +321,7 @@ namespace mage {
 
 		 @return		The view-to-projection matrix of this perspective camera.
 		 */
-		virtual XMMATRIX GetViewToProjectionMatrix() const noexcept override {
+		virtual const XMMATRIX GetViewToProjectionMatrix() const noexcept override {
 			return XMMatrixPerspectiveFovLH(GetFOVY(), GetAspectRatio(), GetNearZ(), GetFarZ());
 		}
 

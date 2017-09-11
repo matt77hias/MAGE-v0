@@ -182,10 +182,8 @@ namespace mage {
 						The position of the far z-plane in camera space.
 		*/
 		void SetViewToProjectionMatrix(
-			float width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
-			float height = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT,
-			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z, 
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z) noexcept {
+			float width,  float height,
+			float near_z, float far_z) noexcept {
 			
 			SetWidthAndHeight(width, height);
 			SetNearAndFarZ(near_z, far_z);
@@ -196,7 +194,7 @@ namespace mage {
 
 		 @return		The view-to-projection matrix of this orthographic camera.
 		 */
-		virtual XMMATRIX GetViewToProjectionMatrix() const noexcept override {
+		virtual const XMMATRIX GetViewToProjectionMatrix() const noexcept override {
 			return XMMatrixOrthographicLH(GetWidth(), GetHeight(), GetNearZ(), GetFarZ());
 		}
 

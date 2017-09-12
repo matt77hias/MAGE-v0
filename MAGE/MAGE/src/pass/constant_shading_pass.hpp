@@ -20,30 +20,58 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		ConstantShadingPass();
 		ConstantShadingPass(const ConstantShadingPass &render_pass) = delete;
 		ConstantShadingPass(ConstantShadingPass &&render_pass);
 		~ConstantShadingPass();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		ConstantShadingPass &operator=(const ConstantShadingPass &render_pass) = delete;
 		ConstantShadingPass &operator=(ConstantShadingPass &&render_pass) = delete;
 
-		void Render(const PassBuffer *scene, const CameraNode *node);
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		void BindFixedState();
+
+		void XM_CALLCONV Render(
+			const PassBuffer *scene,
+			FXMMATRIX world_to_projection,
+			CXMMATRIX world_to_view,
+			CXMMATRIX view_to_world,
+			CXMMATRIX view_to_projection);
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		void XM_CALLCONV BindProjectionData(
-			FXMMATRIX view_to_projection) noexcept;
+			FXMMATRIX view_to_projection);
+		
 		void XM_CALLCONV BindModelData(
 			FXMMATRIX object_to_view, 
-			FXMMATRIX view_to_object,
-			FXMMATRIX texture_transform) noexcept;
+			CXMMATRIX view_to_object,
+			CXMMATRIX texture_transform);
 		
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
-			FXMMATRIX world_to_view, 
-			FXMMATRIX view_to_world) noexcept;
+			CXMMATRIX world_to_view, 
+			CXMMATRIX view_to_world);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		ID3D11DeviceContext2 * const m_device_context;
 

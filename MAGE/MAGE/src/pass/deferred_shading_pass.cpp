@@ -35,7 +35,7 @@ namespace mage {
 	}
 
 	void XM_CALLCONV DeferredShadingPass::BindUnpackData(
-		FXMMATRIX view_to_projection, const PassBuffer *scene) noexcept {
+		FXMMATRIX view_to_projection, const PassBuffer *scene) {
 
 		DeferredComputeBuffer buffer;
 		buffer.m_projection_values    = GetProjectionValues(view_to_projection);
@@ -53,19 +53,19 @@ namespace mage {
 			SLOT_CBUFFER_PER_FRAME, m_deferred_buffer.Get());
 	}
 
-	void DeferredShadingPass::Render(const PassBuffer *scene, const CameraNode *node) {
-		Assert(scene);
-		Assert(node);
-
+	void DeferredShadingPass::BindFixedState(BRDFType brdf) {
 		// Update the compute shader.
-		UpdateCS(node->GetSettings()->GetBRDF());
+		UpdateCS(brdf);
 
 		// Bind the compute shader.
 		m_cs->BindShader(m_device_context);
+	}
 
-		// Obtain node components.
-		const Camera        * const camera = node->GetCamera();
-		const XMMATRIX view_to_projection  = camera->GetViewToProjectionMatrix();
+	void XM_CALLCONV DeferredShadingPass::Render(
+		const PassBuffer *scene,
+		FXMMATRIX view_to_projection) {
+
+		Assert(scene);
 
 		// Bind the unpack data.
 		BindUnpackData(view_to_projection, scene);

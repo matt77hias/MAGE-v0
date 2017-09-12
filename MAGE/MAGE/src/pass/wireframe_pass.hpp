@@ -20,27 +20,54 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		WireframePass();
 		WireframePass(const WireframePass &render_pass) = delete;
 		WireframePass(WireframePass &&render_pass);
 		~WireframePass();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		WireframePass &operator=(const WireframePass &render_pass) = delete;
 		WireframePass &operator=(WireframePass &&render_pass) = delete;
 
-		void Render(const PassBuffer *scene, const CameraNode *node);
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		void BindFixedState() const;
+		
+		void XM_CALLCONV Render(
+			const PassBuffer *scene,
+			FXMMATRIX world_to_projection,
+			CXMMATRIX world_to_view,
+			CXMMATRIX view_to_projection);
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		void XM_CALLCONV BindModelData(
-			FXMMATRIX object_to_view) noexcept;
+			FXMMATRIX object_to_view);
+		
 		void XM_CALLCONV BindSceneData(
-			FXMMATRIX view_to_projection) noexcept;
+			FXMMATRIX view_to_projection);
 
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
-			FXMMATRIX world_to_view) noexcept;
+			CXMMATRIX world_to_view);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		ID3D11DeviceContext2 * const m_device_context;
 		

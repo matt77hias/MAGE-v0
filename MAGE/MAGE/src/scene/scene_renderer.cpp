@@ -43,56 +43,88 @@ namespace mage {
 		m_pass_buffer->Update(scene);
 		
 		for (const auto node : m_pass_buffer->m_cameras) {
-			// Bind the maximum viewport.
-			node->GetViewport().BindViewport(m_device_context);
 			
-			const CameraSettings *settings = node->GetSettings();
+			// Obtain node components.
+			const TransformNode  * const transform = node->GetTransform();
+			const Camera         * const camera    = node->GetCamera();
+			const XMMATRIX world_to_view           = transform->GetWorldToViewMatrix();
+			const XMMATRIX view_to_world           = transform->GetViewToWorldMatrix();
+			const XMMATRIX view_to_projection      = camera->GetViewToProjectionMatrix();
+			const XMMATRIX world_to_projection     = world_to_view * view_to_projection;
+			const CameraSettings * const settings  = node->GetSettings();
+			const RenderMode render_mode           = settings->GetRenderMode();
+			const BRDFType brdf                    = settings->GetBRDF();
+			const Viewport &viewport               = node->GetViewport();
+
+			// Bind the viewport.
+			viewport.BindViewport(m_device_context);
 
 			// RenderMode
-			switch (settings->GetRenderMode()) {
+			switch (render_mode) {
 
 			case RenderMode::DepthAndForward: {
 				OM::BindRTVAndDSV(m_device_context, nullptr, renderer->GetDepthBufferDSV());
-				m_depth_pass->Render(m_pass_buffer.get(), node);
+				m_depth_pass->BindFixedState();
+				m_depth_pass->Render(
+					m_pass_buffer.get(), world_to_projection,
+					world_to_view, view_to_projection);
 				renderer->BindRTVAndDSV();
 				// Fall through RenderMode::Forward.
 			}
 			case RenderMode::Forward: {
 				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_lbuffer->BindToGraphicsPipeline();
-				m_variable_shading_pass->Render(m_pass_buffer.get(), node);
+				m_variable_shading_pass->BindFixedState(brdf);
+				m_variable_shading_pass->Render(
+					m_pass_buffer.get(), world_to_projection,
+					world_to_view, view_to_world, view_to_projection);
 				
 				break;
 			}
 
 			case RenderMode::Deferred: {
 				m_gbuffer->BindPacking(m_device_context);
-				m_gbuffer_pass->Render(m_pass_buffer.get(), node);
+				m_gbuffer_pass->BindFixedState();
+				m_gbuffer_pass->Render(
+					m_pass_buffer.get(), world_to_projection,
+					world_to_view, view_to_world, view_to_projection);
 				
 				m_gbuffer->BindUnpacking(m_device_context);
 				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_lbuffer->BindToComputePipeline();
-				m_deferred_shading_pass->Render(m_pass_buffer.get(), node);
-				
+				m_deferred_shading_pass->BindFixedState(brdf);
+				m_deferred_shading_pass->Render(
+					m_pass_buffer.get(), view_to_projection);
+
 				m_gbuffer->BindRestore(m_device_context);
+				m_image_pass->BindFixedState();
 				m_image_pass->Render();
 
 				m_lbuffer->BindToGraphicsPipeline();
-				m_variable_shading_pass->RenderPostDeferred(m_pass_buffer.get(), node);
+				m_variable_shading_pass->BindFixedState(brdf);
+				m_variable_shading_pass->RenderPostDeferred(
+					m_pass_buffer.get(), world_to_projection,
+					world_to_view, view_to_world, view_to_projection);
 				
 				break;
 			}
 
 			case RenderMode::DepthAndSolid: {
 				OM::BindRTVAndDSV(m_device_context, nullptr, renderer->GetDepthBufferDSV());
-				m_depth_pass->Render(m_pass_buffer.get(), node);
+				m_depth_pass->BindFixedState();
+				m_depth_pass->Render(
+					m_pass_buffer.get(), world_to_projection, 
+					world_to_view, view_to_projection);
 				renderer->BindRTVAndDSV();
 				// Fall through RenderMode::Solid.
 			}
 			case RenderMode::Solid: {
 				m_lbuffer->Update(m_pass_buffer.get(), node);
 				m_lbuffer->BindToGraphicsPipeline();
-				m_constant_shading_pass->Render(m_pass_buffer.get(), node);
+				m_constant_shading_pass->BindFixedState();
+				m_constant_shading_pass->Render(
+					m_pass_buffer.get(), world_to_projection, 
+					world_to_view, view_to_world, view_to_projection);
 				
 				break;
 			}
@@ -104,19 +136,28 @@ namespace mage {
 			case RenderMode::SpecularReflectivity:
 			case RenderMode::SpecularReflectivityTexture:
 			case RenderMode::NormalTexture: {
-				m_variable_component_pass->Render(m_pass_buffer.get(), node);
+				m_variable_component_pass->BindFixedState(render_mode);
+				m_variable_component_pass->Render(
+					m_pass_buffer.get(), world_to_projection, 
+					world_to_view, view_to_world, view_to_projection);
 				break;
 			}
 
 			case RenderMode::UVTexture:
 			case RenderMode::Distance: {
-				m_constant_component_pass->Render(m_pass_buffer.get(), node);
+				m_constant_component_pass->BindFixedState(render_mode);
+				m_constant_component_pass->Render(
+					m_pass_buffer.get(), world_to_projection, 
+					world_to_view, view_to_world, view_to_projection);
 				break;
 			}
 
 			case RenderMode::ShadingNormal:
 			case RenderMode::TSNMShadingNormal: {
-				m_shading_normal_pass->Render(m_pass_buffer.get(), node);
+				m_shading_normal_pass->BindFixedState(render_mode);
+				m_shading_normal_pass->Render(
+					m_pass_buffer.get(), world_to_projection, 
+					world_to_view, view_to_projection);
 				break;
 			}
 
@@ -124,15 +165,21 @@ namespace mage {
 
 			// RenderLayer
 			if (settings->HasRenderLayer(RenderLayer::Wireframe)) {
-				m_wireframe_pass->Render(m_pass_buffer.get(), node);
+				m_wireframe_pass->BindFixedState();
+				m_wireframe_pass->Render(
+					m_pass_buffer.get(), world_to_projection, 
+					world_to_view, view_to_projection);
 			}
 			if (settings->HasRenderLayer(RenderLayer::AABB)) {
-				m_bounding_volume_pass->Render(m_pass_buffer.get(), node);
+				m_bounding_volume_pass->BindFixedState();
+				m_bounding_volume_pass->Render(
+					m_pass_buffer.get(), world_to_projection);
 			}
 		}
 
 		// Bind the maximum viewport.
 		m_viewport.BindViewport(m_device_context);
+		
 		m_sprite_pass->Render(m_pass_buffer.get());
 	}
 }

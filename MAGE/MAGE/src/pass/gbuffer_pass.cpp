@@ -68,7 +68,7 @@ namespace mage {
 	}
 
 	void XM_CALLCONV GBufferPass::BindProjectionData(
-		FXMMATRIX view_to_projection) noexcept {
+		FXMMATRIX view_to_projection) {
 
 		m_projection_buffer.UpdateData(
 			m_device_context, XMMatrixTranspose(view_to_projection));
@@ -78,9 +78,9 @@ namespace mage {
 
 	void XM_CALLCONV GBufferPass::BindModelData(
 		FXMMATRIX object_to_view, 
-		FXMMATRIX view_to_object,
-		FXMMATRIX texture_transform,
-		const Material *material) noexcept {
+		CXMMATRIX view_to_object,
+		CXMMATRIX texture_transform,
+		const Material *material) {
 
 		DeferredModelBuffer buffer;
 		buffer.m_object_to_view           = XMMatrixTranspose(object_to_view);
@@ -110,14 +110,9 @@ namespace mage {
 			SLOT_SRV_NORMAL, material->GetNormalSRV());
 	}
 
-	void GBufferPass::Render(const PassBuffer *scene, const CameraNode *node) {
-		Assert(scene);
-		Assert(node);
-
+	void GBufferPass::BindFixedState() {
 		// Reset the bound pixel shader index.
 		m_bound_ps = PSIndex::Count;
-		// Update the material coefficient data.
-		UpdateMaterialCoefficientData(scene);
 
 		// Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
@@ -130,26 +125,32 @@ namespace mage {
 		// Bind the sampler.
 		PS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
 			RenderingStateCache::Get()->GetLinearWrapSamplerState());
+	}
 
-		// Obtain node components.
-		const TransformNode * const transform = node->GetTransform();
-		const Camera        * const camera    = node->GetCamera();
-		const XMMATRIX world_to_view          = transform->GetWorldToViewMatrix();
-		const XMMATRIX view_to_world          = transform->GetViewToWorldMatrix();
-		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
-		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
+	void XM_CALLCONV GBufferPass::Render(
+		const PassBuffer *scene,
+		FXMMATRIX world_to_projection,
+		CXMMATRIX world_to_view,
+		CXMMATRIX view_to_world,
+		CXMMATRIX view_to_projection) {
+
+		Assert(scene);
+
+		// Update the material coefficient data.
+		UpdateMaterialCoefficientData(scene);
 
 		// Bind the projection data.
 		BindProjectionData(view_to_projection);
 		
+		// Process the models.
 		ProcessModels(scene->m_opaque_brdf_models, world_to_projection, world_to_view, view_to_world);
 	}
 
 	void XM_CALLCONV GBufferPass::ProcessModels(
 		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection, 
-		FXMMATRIX world_to_view, 
-		FXMMATRIX view_to_world) noexcept {
+		CXMMATRIX world_to_view, 
+		CXMMATRIX view_to_world) {
 
 		for (const auto node : models) {
 			

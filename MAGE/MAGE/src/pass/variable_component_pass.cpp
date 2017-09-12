@@ -33,9 +33,9 @@ namespace mage {
 
 	void XM_CALLCONV VariableComponentPass::BindModelData(
 		FXMMATRIX object_to_view,
-		FXMMATRIX view_to_object,
-		FXMMATRIX texture_transform,
-		const Material *material) noexcept {
+		CXMMATRIX view_to_object,
+		CXMMATRIX texture_transform,
+		const Material *material) {
 
 		ModelTransformBuffer buffer;
 		buffer.m_object_to_view = XMMatrixTranspose(object_to_view);
@@ -171,7 +171,7 @@ namespace mage {
 	}
 
 	void XM_CALLCONV VariableComponentPass::BindSceneData(
-		FXMMATRIX view_to_projection) noexcept {
+		FXMMATRIX view_to_projection) {
 
 		// Update the scene buffer.
 		m_scene_buffer.UpdateData(m_device_context, XMMatrixTranspose(view_to_projection));
@@ -180,12 +180,9 @@ namespace mage {
 			SLOT_CBUFFER_PER_FRAME, m_scene_buffer.Get());
 	}
 
-	void VariableComponentPass::Render(const PassBuffer *scene, const CameraNode *node) {
-		Assert(scene);
-		Assert(node);
-
+	void VariableComponentPass::BindFixedState(RenderMode render_mode) {
 		// Reset the render mode.
-		m_render_mode = node->GetSettings()->GetRenderMode();
+		m_render_mode = render_mode;
 
 		// Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
@@ -195,25 +192,30 @@ namespace mage {
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// Bind the depth-stencil state.
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
-		// Bind the blend state.
-		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 		// Bind the sampler.
 		PS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
 			RenderingStateCache::Get()->GetLinearWrapSamplerState());
-			
-		// Obtain node components.
-		const TransformNode * const transform = node->GetTransform();
-		const Camera        * const camera    = node->GetCamera();
-		const XMMATRIX world_to_view          = transform->GetWorldToViewMatrix();
-		const XMMATRIX view_to_world          = transform->GetViewToWorldMatrix();
-		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
-		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
+	}
+
+	void XM_CALLCONV VariableComponentPass::Render(
+		const PassBuffer *scene,
+		FXMMATRIX world_to_projection,
+		CXMMATRIX world_to_view,
+		CXMMATRIX view_to_world,
+		CXMMATRIX view_to_projection) {
+
+		Assert(scene);
 
 		// Bind the scene data.
 		BindSceneData(view_to_projection);
 		
+		// Bind the blend state.
+		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+
+		// Process the opaque models.
 		ProcessModels(scene->m_opaque_emissive_models,      world_to_projection, world_to_view, view_to_world);
 		ProcessModels(scene->m_opaque_brdf_models,          world_to_projection, world_to_view, view_to_world);
+		
 		// Bind the blend state.
 		if (Renderer::Get()->HasMSAA()) {
 			RenderingStateCache::Get()->BindAlphaToCoverageBlendState(m_device_context);
@@ -221,6 +223,8 @@ namespace mage {
 		else {
 			RenderingStateCache::Get()->BindAlphaBlendState(m_device_context);
 		}
+		
+		// Process the transparent models.
 		ProcessModels(scene->m_transparent_emissive_models, world_to_projection, world_to_view, view_to_world);
 		ProcessModels(scene->m_transparent_brdf_models,     world_to_projection, world_to_view, view_to_world);
 	}
@@ -228,8 +232,8 @@ namespace mage {
 	void XM_CALLCONV VariableComponentPass::ProcessModels(
 		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection, 
-		FXMMATRIX world_to_view, 
-		FXMMATRIX view_to_world) noexcept {
+		CXMMATRIX world_to_view, 
+		CXMMATRIX view_to_world) {
 
 		for (const auto node : models) {
 

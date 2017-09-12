@@ -20,31 +20,59 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		VariableComponentPass();
 		VariableComponentPass(const VariableComponentPass &render_pass) = delete;
 		VariableComponentPass(VariableComponentPass &&render_pass);
 		~VariableComponentPass();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		VariableComponentPass &operator=(const VariableComponentPass &render_pass) = delete;
 		VariableComponentPass &operator=(VariableComponentPass &&render_pass) = delete;
 
-		void Render(const PassBuffer *scene, const CameraNode *node);
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		void BindFixedState(RenderMode render_mode);
+
+		void XM_CALLCONV Render(
+			const PassBuffer *scene,
+			FXMMATRIX world_to_projection,
+			CXMMATRIX world_to_view,
+			CXMMATRIX view_to_world,
+			CXMMATRIX view_to_projection);
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		void XM_CALLCONV BindModelData(
 			FXMMATRIX object_to_view,
-			FXMMATRIX view_to_object,
-			FXMMATRIX texture_transform,
-			const Material *material) noexcept;
+			CXMMATRIX view_to_object,
+			CXMMATRIX texture_transform,
+			const Material *material);
+		
 		void XM_CALLCONV BindSceneData(
-			FXMMATRIX view_to_projection) noexcept;
+			FXMMATRIX view_to_projection);
 		
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
-			FXMMATRIX world_to_view, 
-			FXMMATRIX view_to_world) noexcept;
+			CXMMATRIX world_to_view, 
+			CXMMATRIX view_to_world);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		ID3D11DeviceContext2 * const m_device_context;
 		RenderMode m_render_mode;

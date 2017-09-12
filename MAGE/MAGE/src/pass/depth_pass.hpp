@@ -19,27 +19,54 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		DepthPass();
 		DepthPass(const DepthPass &render_pass) = delete;
 		DepthPass(DepthPass &&render_pass);
 		~DepthPass();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		DepthPass &operator=(const DepthPass &render_pass) = delete;
 		DepthPass &operator=(DepthPass &&render_pass) = delete;
 
-		void Render(const PassBuffer *scene, const CameraNode *node);
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+		
+		void BindFixedState();
+
+		void XM_CALLCONV Render(
+			const PassBuffer *scene,
+			FXMMATRIX world_to_projection,
+			CXMMATRIX world_to_view,
+			CXMMATRIX view_to_projection);
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		void XM_CALLCONV BindModelData(
-			FXMMATRIX object_to_view) noexcept;
+			FXMMATRIX object_to_view);
+		
 		void XM_CALLCONV BindProjectionData(
-			FXMMATRIX view_to_projection) noexcept;
+			FXMMATRIX view_to_projection);
 
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection,
-			FXMMATRIX world_to_view) noexcept;
+			CXMMATRIX world_to_view);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		ID3D11DeviceContext2 * const m_device_context;
 

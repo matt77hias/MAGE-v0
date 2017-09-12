@@ -31,7 +31,7 @@ namespace mage {
 	ConstantShadingPass::~ConstantShadingPass() = default;
 
 	void XM_CALLCONV ConstantShadingPass::BindProjectionData(
-		FXMMATRIX view_to_projection) noexcept {
+		FXMMATRIX view_to_projection) {
 		
 		m_projection_buffer.UpdateData(
 			m_device_context, XMMatrixTranspose(view_to_projection));
@@ -41,8 +41,8 @@ namespace mage {
 
 	void XM_CALLCONV ConstantShadingPass::BindModelData(
 		FXMMATRIX object_to_view, 
-		FXMMATRIX view_to_object,
-		FXMMATRIX texture_transform) noexcept {
+		CXMMATRIX view_to_object,
+		CXMMATRIX texture_transform) {
 
 		ModelBuffer buffer;
 		buffer.m_object_to_view           = XMMatrixTranspose(object_to_view);
@@ -61,16 +61,13 @@ namespace mage {
 			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
 	}
 
-	void ConstantShadingPass::Render(const PassBuffer *scene, const CameraNode *node) {
-		Assert(scene);
-		Assert(node);
-
+	void ConstantShadingPass::BindFixedState() {
 		// Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		// Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// Bind the diffuse SRV.
-		PS::BindSRV(m_device_context, 
+		PS::BindSRV(m_device_context,
 			SLOT_SRV_DIFFUSE, m_white->Get());
 		// Bind the rasterization state.
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
@@ -81,18 +78,21 @@ namespace mage {
 		// Bind the sampler.
 		PS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
 			RenderingStateCache::Get()->GetLinearWrapSamplerState());
+	}
 
-		// Obtain node components.
-		const TransformNode * const transform = node->GetTransform();
-		const Camera        * const camera    = node->GetCamera();
-		const XMMATRIX world_to_view          = transform->GetWorldToViewMatrix();
-		const XMMATRIX view_to_world          = transform->GetViewToWorldMatrix();
-		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
-		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
+	void XM_CALLCONV ConstantShadingPass::Render(
+		const PassBuffer *scene,
+		FXMMATRIX world_to_projection,
+		CXMMATRIX world_to_view,
+		CXMMATRIX view_to_world,
+		CXMMATRIX view_to_projection) {
+
+		Assert(scene);
 
 		// Bind the projection data.
 		BindProjectionData(view_to_projection);
 		
+		// Process the models.
 		ProcessModels(scene->m_opaque_emissive_models,      world_to_projection, world_to_view, view_to_world);
 		ProcessModels(scene->m_opaque_brdf_models,          world_to_projection, world_to_view, view_to_world);
 		ProcessModels(scene->m_transparent_emissive_models, world_to_projection, world_to_view, view_to_world);
@@ -102,8 +102,8 @@ namespace mage {
 	void XM_CALLCONV ConstantShadingPass::ProcessModels(
 		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection, 
-		FXMMATRIX world_to_view, 
-		FXMMATRIX view_to_world) noexcept {
+		CXMMATRIX world_to_view, 
+		CXMMATRIX view_to_world) {
 
 		for (const auto node : models) {
 

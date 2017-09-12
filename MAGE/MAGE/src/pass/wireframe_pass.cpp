@@ -30,7 +30,7 @@ namespace mage {
 	WireframePass::~WireframePass() = default;
 
 	void XM_CALLCONV WireframePass::BindModelData(
-		FXMMATRIX object_to_view) noexcept {
+		FXMMATRIX object_to_view) {
 
 		ModelTransformBuffer buffer;
 		buffer.m_object_to_view = XMMatrixTranspose(object_to_view);
@@ -45,7 +45,7 @@ namespace mage {
 	}
 
 	void XM_CALLCONV WireframePass::BindSceneData(
-		FXMMATRIX view_to_projection) noexcept {
+		FXMMATRIX view_to_projection) {
 
 		// Update the scene buffer.
 		m_scene_buffer.UpdateData(m_device_context, XMMatrixTranspose(view_to_projection));
@@ -60,10 +60,7 @@ namespace mage {
 			SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 	}
 
-	void WireframePass::Render(const PassBuffer *scene, const CameraNode *node) {
-		Assert(scene);
-		Assert(node);
-
+	void WireframePass::BindFixedState() const {
 		// Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		// Bind the pixel shader.
@@ -74,16 +71,20 @@ namespace mage {
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
 		// Bind the blend state.
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+	}
 
-		// Obtain node components.
-		const TransformNode * const transform = node->GetTransform();
-		const Camera        * const camera    = node->GetCamera();
-		const XMMATRIX world_to_view          = transform->GetWorldToViewMatrix();
-		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
-		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
+	void XM_CALLCONV WireframePass::Render(
+		const PassBuffer *scene,
+		FXMMATRIX world_to_projection,
+		CXMMATRIX world_to_view,
+		CXMMATRIX view_to_projection) {
+		
+		Assert(scene);
 
 		// Bind the scene data.
 		BindSceneData(view_to_projection);
+		
+		// Process the models.
 		ProcessModels(scene->m_opaque_emissive_models,      world_to_projection, world_to_view);
 		ProcessModels(scene->m_opaque_brdf_models,          world_to_projection, world_to_view);
 		ProcessModels(scene->m_transparent_emissive_models, world_to_projection, world_to_view);
@@ -93,7 +94,7 @@ namespace mage {
 	void XM_CALLCONV WireframePass::ProcessModels(
 		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection, 
-		FXMMATRIX world_to_view) noexcept {
+		CXMMATRIX world_to_view) {
 
 		for (const auto node : models) {
 

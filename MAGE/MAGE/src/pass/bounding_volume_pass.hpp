@@ -19,32 +19,60 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		BoundingVolumePass();
 		BoundingVolumePass(const BoundingVolumePass &render_pass) = delete;
 		BoundingVolumePass(BoundingVolumePass &&render_pass);
 		~BoundingVolumePass();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		BoundingVolumePass &operator=(const BoundingVolumePass &render_pass) = delete;
 		BoundingVolumePass &operator=(BoundingVolumePass &&render_pass) = delete;
 
-		void Render(const PassBuffer *scene, const CameraNode *node);
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		void BindFixedState() const;
+
+		void XM_CALLCONV Render(
+			const PassBuffer *scene,
+			FXMMATRIX world_to_projection);
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		void XM_CALLCONV BindModelData(
-			FXMMATRIX box_to_projection) noexcept;
-		void BindLightColorData() noexcept;
-		void BindModelColorData() noexcept;
+			FXMMATRIX box_to_projection);
+		
+		void BindLightColorData();
+		
+		void BindModelColorData();
 
 		void XM_CALLCONV ProcessLights(
 			const vector< const OmniLightNode * > &lights,
-			FXMMATRIX world_to_projection) noexcept;
+			FXMMATRIX world_to_projection);
+		
 		void XM_CALLCONV ProcessLights(
 			const vector< const SpotLightNode * > &lights,
-			FXMMATRIX world_to_projection) noexcept;
+			FXMMATRIX world_to_projection);
+		
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
-			FXMMATRIX world_to_projection) noexcept;
+			FXMMATRIX world_to_projection);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		ID3D11DeviceContext2 * const m_device_context;
 

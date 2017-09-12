@@ -20,23 +20,48 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		DeferredShadingPass();
 		DeferredShadingPass(const DeferredShadingPass &render_pass) = delete;
 		DeferredShadingPass(DeferredShadingPass &&render_pass);
 		~DeferredShadingPass();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		DeferredShadingPass &operator=(const DeferredShadingPass &render_pass) = delete;
 		DeferredShadingPass &operator=(DeferredShadingPass &&render_pass) = delete;
 
-		void Render(const PassBuffer *scene, const CameraNode *node);
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		void BindFixedState(BRDFType brdf);
+
+		void XM_CALLCONV Render(
+			const PassBuffer *scene,
+			FXMMATRIX view_to_projection);
 		
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		void UpdateCS(BRDFType brdf);
+		
 		void XM_CALLCONV BindUnpackData(
 			FXMMATRIX view_to_projection,
-			const PassBuffer *scene) noexcept;
+			const PassBuffer *scene);
 	
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
 		ID3D11DeviceContext2 * const m_device_context;
 
 		SharedPtr< const ComputeShader > m_cs;

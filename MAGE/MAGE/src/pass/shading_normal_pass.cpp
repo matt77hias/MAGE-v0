@@ -58,7 +58,7 @@ namespace mage {
 
 	void XM_CALLCONV ShadingNormalPass::BindModelData(
 		FXMMATRIX object_to_view, 
-		FXMMATRIX world_to_object) noexcept {
+		FXMMATRIX world_to_object) {
 
 		ModelTransformBuffer buffer;
 		buffer.m_object_to_view    = XMMatrixTranspose(object_to_view);
@@ -73,7 +73,7 @@ namespace mage {
 	}
 
 	void XM_CALLCONV ShadingNormalPass::BindSceneData(
-		FXMMATRIX view_to_projection) noexcept {
+		FXMMATRIX view_to_projection) {
 
 		// Update the scene buffer.
 		m_scene_buffer.UpdateData(m_device_context, XMMatrixTranspose(view_to_projection));
@@ -82,15 +82,12 @@ namespace mage {
 			SLOT_CBUFFER_PER_FRAME, m_scene_buffer.Get());
 	}
 
-	void ShadingNormalPass::Render(const PassBuffer *scene, const CameraNode *node) {
-		Assert(scene);
-		Assert(node);
-
+	void ShadingNormalPass::BindFixedState(RenderMode render_mode) {
 		// Reset the render mode.
-		m_render_mode = node->GetSettings()->GetRenderMode();
+		m_render_mode = render_mode;
 		// Reset the bound pixel shader index.
 		m_bound_ps = PSIndex::Count;
-		
+
 		// Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		// Bind the rasterization state.
@@ -104,17 +101,20 @@ namespace mage {
 			PS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
 				RenderingStateCache::Get()->GetLinearWrapSamplerState());
 		}
-			
-		// Obtain node components.
-		const TransformNode * const transform = node->GetTransform();
-		const Camera        * const camera    = node->GetCamera();
-		const XMMATRIX world_to_view          = transform->GetWorldToViewMatrix();
-		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
-		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
+	}
+
+	void XM_CALLCONV ShadingNormalPass::Render(
+		const PassBuffer *scene, 
+		FXMMATRIX world_to_projection,
+		FXMMATRIX world_to_view,
+		FXMMATRIX view_to_projection) {
+		
+		Assert(scene);
 
 		// Bind the scene data.
 		BindSceneData(view_to_projection);
 		
+		// Process the models.
 		ProcessModels(scene->m_opaque_brdf_models,      world_to_projection, world_to_view);
 		ProcessModels(scene->m_transparent_brdf_models, world_to_projection, world_to_view);
 	}
@@ -122,7 +122,7 @@ namespace mage {
 	void XM_CALLCONV ShadingNormalPass::ProcessModels(
 		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection, 
-		FXMMATRIX world_to_view) noexcept {
+		FXMMATRIX world_to_view) {
 
 		for (const auto node : models) {
 

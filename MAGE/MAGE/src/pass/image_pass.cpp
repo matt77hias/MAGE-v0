@@ -26,10 +26,10 @@ namespace mage {
 
 	ImagePass::~ImagePass() = default;
 
-	void ImagePass::Render(bool transfer_depth) {
+	void ImagePass::BindFixedState(bool transfer_depth) {
 		// Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
-		
+
 		if (transfer_depth) {
 			// Bind the pixel shader.
 			m_ms_ps->BindShader(m_device_context);
@@ -47,7 +47,9 @@ namespace mage {
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// Bind the blend state.
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+	}
 
+	void ImagePass::Render() {
 		// Draw the fullscreen triangle.
 		m_device_context->Draw(3u, 0u);
 		EngineStatistics::Get()->IncrementNumberOfDrawCalls();

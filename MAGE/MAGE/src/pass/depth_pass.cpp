@@ -29,7 +29,7 @@ namespace mage {
 	DepthPass::~DepthPass() = default;
 
 	void XM_CALLCONV DepthPass::BindModelData(
-		FXMMATRIX object_to_view) noexcept {
+		FXMMATRIX object_to_view) {
 
 		m_model_buffer.UpdateData(
 			m_device_context, XMMatrixTranspose(object_to_view));
@@ -38,7 +38,7 @@ namespace mage {
 	}
 
 	void XM_CALLCONV DepthPass::BindProjectionData(
-		FXMMATRIX view_to_projection) noexcept {
+		FXMMATRIX view_to_projection) {
 
 		m_projection_buffer.UpdateData(
 			m_device_context, XMMatrixTranspose(view_to_projection));
@@ -46,10 +46,7 @@ namespace mage {
 			SLOT_CBUFFER_PER_FRAME, m_projection_buffer.Get());
 	}
 
-	void DepthPass::Render(const PassBuffer *scene, const CameraNode *node) {
-		Assert(scene);
-		Assert(node);
-
+	void DepthPass::BindFixedState() {
 		// Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		// Bind no pixel shader.
@@ -58,17 +55,20 @@ namespace mage {
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// Bind the depth-stencil state.
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
+	}
 
-		// Obtain node components.
-		const TransformNode * const transform = node->GetTransform();
-		const Camera        * const camera    = node->GetCamera();
-		const XMMATRIX world_to_view          = transform->GetWorldToViewMatrix();
-		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
-		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
+	void XM_CALLCONV DepthPass::Render(
+		const PassBuffer *scene,
+		FXMMATRIX world_to_projection,
+		CXMMATRIX world_to_view,
+		CXMMATRIX view_to_projection) {
+
+		Assert(scene);
 
 		// Bind the projection data.
 		BindProjectionData(view_to_projection);
 
+		// Process the models.
 		ProcessModels(scene->m_opaque_emissive_models, world_to_projection, world_to_view);
 		ProcessModels(scene->m_opaque_brdf_models,     world_to_projection, world_to_view);
 	}
@@ -76,7 +76,7 @@ namespace mage {
 	void XM_CALLCONV DepthPass::ProcessModels(
 		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection,
-		FXMMATRIX world_to_view) noexcept {
+		CXMMATRIX world_to_view) {
 
 		for (const auto node : models) {
 			

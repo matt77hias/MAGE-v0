@@ -4,6 +4,7 @@
 #pragma region
 
 #include "pass\sprite_pass.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -20,6 +21,9 @@ namespace mage {
 	SpritePass::~SpritePass() = default;
 
 	void SpritePass::Render(const PassBuffer *scene) {
+		
+		Assert(scene);
+		
 		m_sprite_batch->Begin();
 
 		for (const auto node : scene->m_sprites) {

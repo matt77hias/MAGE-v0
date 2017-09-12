@@ -31,7 +31,7 @@ namespace mage {
 	BoundingVolumePass::~BoundingVolumePass() = default;
 
 	void XM_CALLCONV BoundingVolumePass::BindModelData(
-		FXMMATRIX box_to_projection) noexcept {
+		FXMMATRIX box_to_projection) {
 
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, XMMatrixTranspose(box_to_projection));
@@ -40,7 +40,7 @@ namespace mage {
 			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
 	}
 
-	void BoundingVolumePass::BindLightColorData() noexcept {
+	void BoundingVolumePass::BindLightColorData() {
 		// Update the color buffer.
 		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f, 0.0f, 0.0f, 1.0f));
 		// Bind the color buffer.
@@ -48,7 +48,7 @@ namespace mage {
 			SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 	}
 	
-	void BoundingVolumePass::BindModelColorData() noexcept {
+	void BoundingVolumePass::BindModelColorData() {
 		// Update the color buffer.
 		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(0.0f, 1.0f, 0.0f, 1.0f));
 		// Bind the color buffer.
@@ -56,10 +56,7 @@ namespace mage {
 			SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 	}
 
-	void BoundingVolumePass::Render(const PassBuffer *scene, const CameraNode *node) {
-		Assert(scene);
-		Assert(node);
-
+	void BoundingVolumePass::BindFixedState() const {
 		// Bind the mesh.
 		m_box->BindMesh(m_device_context);
 		// Bind the vertex shader.
@@ -72,23 +69,27 @@ namespace mage {
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
 		// Bind the blend state.
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+	}
 
-		// Obtain node components.
-		const TransformNode * const transform = node->GetTransform();
-		const Camera        * const camera    = node->GetCamera();
-		const XMMATRIX world_to_view          = transform->GetWorldToViewMatrix();
-		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
-		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
+	void XM_CALLCONV BoundingVolumePass::Render(
+		const PassBuffer *scene, 
+		FXMMATRIX world_to_projection) {
+		
+		Assert(scene);
 
 		// Bind the light color data.
 		BindLightColorData();
-		ProcessLights(scene->m_omni_lights,         world_to_projection);
-		ProcessLights(scene->m_sm_omni_lights, world_to_projection);
-		ProcessLights(scene->m_spot_lights,         world_to_projection);
-		ProcessLights(scene->m_sm_spot_lights, world_to_projection);
+		
+		// Process the lights.
+		ProcessLights(scene->m_omni_lights,                 world_to_projection);
+		ProcessLights(scene->m_sm_omni_lights,              world_to_projection);
+		ProcessLights(scene->m_spot_lights,                 world_to_projection);
+		ProcessLights(scene->m_sm_spot_lights,              world_to_projection);
 
 		// Bind the model color data.
 		BindModelColorData();
+
+		// Process the models.
 		ProcessModels(scene->m_opaque_emissive_models,      world_to_projection);
 		ProcessModels(scene->m_opaque_brdf_models,          world_to_projection);
 		ProcessModels(scene->m_transparent_emissive_models, world_to_projection);
@@ -97,7 +98,7 @@ namespace mage {
 
 	void XM_CALLCONV BoundingVolumePass::ProcessLights(
 		const vector< const OmniLightNode * > &lights,
-		FXMMATRIX world_to_projection) noexcept {
+		FXMMATRIX world_to_projection) {
 
 		for (const auto node : lights) {
 
@@ -130,7 +131,7 @@ namespace mage {
 
 	void XM_CALLCONV BoundingVolumePass::ProcessLights(
 		const vector< const SpotLightNode * > &lights,
-		FXMMATRIX world_to_projection) noexcept {
+		FXMMATRIX world_to_projection) {
 
 		for (const auto node : lights) {
 
@@ -162,7 +163,7 @@ namespace mage {
 
 	void XM_CALLCONV BoundingVolumePass::ProcessModels(
 		const vector< const ModelNode * > &models,
-		FXMMATRIX world_to_projection) noexcept {
+		FXMMATRIX world_to_projection) {
 
 		for (const auto node : models) {
 

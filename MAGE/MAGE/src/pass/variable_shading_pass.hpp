@@ -20,18 +20,47 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		VariableShadingPass();
 		VariableShadingPass(const VariableShadingPass &render_pass) = delete;
 		VariableShadingPass(VariableShadingPass &&render_pass);
 		~VariableShadingPass();
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		VariableShadingPass &operator=(const VariableShadingPass &render_pass) = delete;
 		VariableShadingPass &operator=(VariableShadingPass &&render_pass) = delete;
 
-		void Render(const PassBuffer *scene, const CameraNode *node);
-		void RenderPostDeferred(const PassBuffer *scene, const CameraNode *node);
-		
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		void BindFixedState(BRDFType brdf);
+
+		void XM_CALLCONV Render(
+			const PassBuffer *scene,
+			FXMMATRIX world_to_projection,
+			CXMMATRIX world_to_view,
+			CXMMATRIX view_to_world,
+			CXMMATRIX view_to_projection);
+
+		void XM_CALLCONV RenderPostDeferred(
+			const PassBuffer *scene,
+			FXMMATRIX world_to_projection,
+			CXMMATRIX world_to_view,
+			CXMMATRIX view_to_world,
+			CXMMATRIX view_to_projection);
+
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		enum struct PSIndex {
 			Emissive  = 0,
@@ -41,21 +70,29 @@ namespace mage {
 		};
 
 		void UpdatePSs(BRDFType brdf);
+		
 		void BindPS(PSIndex index) noexcept;
+		
 		void BindPS(const Material *material) noexcept;
+		
 		void XM_CALLCONV BindProjectionData(
-			FXMMATRIX view_to_projection) noexcept;
+			FXMMATRIX view_to_projection);
+		
 		void XM_CALLCONV BindModelData(
 			FXMMATRIX object_to_view, 
-			FXMMATRIX view_to_object,
-			FXMMATRIX texture_transform,
-			const Material *material) noexcept;
+			CXMMATRIX view_to_object,
+			CXMMATRIX texture_transform,
+			const Material *material);
 		
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
-			FXMMATRIX world_to_view, 
-			FXMMATRIX view_to_world) noexcept;
+			CXMMATRIX world_to_view, 
+			CXMMATRIX view_to_world);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		ID3D11DeviceContext2 * const m_device_context;
 

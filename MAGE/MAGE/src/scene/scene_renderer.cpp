@@ -63,20 +63,26 @@ namespace mage {
 			switch (render_mode) {
 
 			case RenderMode::DepthAndForward: {
+				// Bind no RTV, but only the depth buffer DSV.
 				OM::BindRTVAndDSV(m_device_context, nullptr, renderer->GetDepthBufferDSV());
+				// Perform a depth pass.
 				m_depth_pass->BindFixedState();
 				m_depth_pass->Render(
 					m_pass_buffer.get(), world_to_projection,
 					world_to_view, view_to_projection);
+				// Bind the back buffer RTV and depth buffer DSV.
 				renderer->BindRTVAndDSV();
 				// Fall through RenderMode::Forward.
 			}
 			case RenderMode::Forward: {
+				// Create the LBuffer.
 				m_lbuffer->Render(
 					m_pass_buffer.get(), world_to_projection,
 					world_to_view, view_to_world);
 				
+				// Bind the LBuffer to the graphics pipeline.
 				m_lbuffer->BindToGraphicsPipeline();
+				// Perform a variable shading pass.
 				m_variable_shading_pass->BindFixedState(brdf);
 				m_variable_shading_pass->Render(
 					m_pass_buffer.get(), world_to_projection,
@@ -86,27 +92,37 @@ namespace mage {
 			}
 
 			case RenderMode::Deferred: {
+				// Bind the GBuffer for packing.
 				m_gbuffer->BindPacking(m_device_context);
+				// Perform a GBuffer pass.
 				m_gbuffer_pass->BindFixedState();
 				m_gbuffer_pass->Render(
 					m_pass_buffer.get(), world_to_projection,
 					world_to_view, view_to_world, view_to_projection);
 				
-				m_gbuffer->BindUnpacking(m_device_context);
+				// Create the LBuffer.
 				m_lbuffer->Render(
 					m_pass_buffer.get(), world_to_projection,
 					world_to_view, view_to_world);
 				
+				// Bind the GBuffer for unpacking to the compute pipeline.
+				m_gbuffer->BindUnpacking(m_device_context);
+				// Bind the LBuffer to the compute pipeline.
 				m_lbuffer->BindToComputePipeline();
+				// Perform a deferred shading pass.
 				m_deferred_shading_pass->BindFixedState(brdf);
 				m_deferred_shading_pass->Render(
 					m_pass_buffer.get(), view_to_projection);
 
+				// Bind the back buffer RTV and depth buffer DSV.
 				m_gbuffer->BindRestore(m_device_context);
+				// Perform an image pass.
 				m_image_pass->BindFixedState();
 				m_image_pass->Render();
 
+				// Bind the LBuffer to the graphics pipeline.
 				m_lbuffer->BindToGraphicsPipeline();
+				// Perform a variable shading pass (for the remaining geometry).
 				m_variable_shading_pass->BindFixedState(brdf);
 				m_variable_shading_pass->RenderPostDeferred(
 					m_pass_buffer.get(), world_to_projection,
@@ -116,20 +132,26 @@ namespace mage {
 			}
 
 			case RenderMode::DepthAndSolid: {
+				// Bind no RTV, but only the depth buffer DSV.
 				OM::BindRTVAndDSV(m_device_context, nullptr, renderer->GetDepthBufferDSV());
+				// Perform a depth pass.
 				m_depth_pass->BindFixedState();
 				m_depth_pass->Render(
-					m_pass_buffer.get(), world_to_projection, 
+					m_pass_buffer.get(), world_to_projection,
 					world_to_view, view_to_projection);
+				// Bind the back buffer RTV and depth buffer DSV.
 				renderer->BindRTVAndDSV();
-				// Fall through RenderMode::Solid.
+				// Fall through RenderMode::Forward.
 			}
 			case RenderMode::Solid: {
+				// Create the LBuffer.
 				m_lbuffer->Render(
 					m_pass_buffer.get(), world_to_projection,
 					world_to_view, view_to_world);
 				
+				// Bind the LBuffer to the graphics pipeline.
 				m_lbuffer->BindToGraphicsPipeline();
+				// Perform a constant shading pass.
 				m_constant_shading_pass->BindFixedState();
 				m_constant_shading_pass->Render(
 					m_pass_buffer.get(), world_to_projection, 
@@ -189,6 +211,7 @@ namespace mage {
 		// Bind the maximum viewport.
 		m_viewport.BindViewport(m_device_context);
 		
+		// Perform a sprite pass.
 		m_sprite_pass->Render(m_pass_buffer.get());
 	}
 }

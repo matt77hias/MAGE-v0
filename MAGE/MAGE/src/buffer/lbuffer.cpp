@@ -12,8 +12,6 @@
 
 #pragma endregion
 
-
-
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
@@ -59,10 +57,13 @@ namespace mage {
 	}
 
 	void LBuffer::BindToGraphicsPipeline() const noexcept {
-		ID3D11ShaderResourceView * const srvs[3] = {
+		ID3D11ShaderResourceView * const srvs[6] = {
 			m_directional_lights.Get(),
 			m_omni_lights.Get(),
-			m_spot_lights.Get()
+			m_spot_lights.Get(),
+			m_sm_directional_lights.Get(),
+			m_sm_omni_lights.Get(),
+			m_sm_spot_lights.Get()
 		};
 
 		PS::BindConstantBuffer(m_device_context,
@@ -74,10 +75,13 @@ namespace mage {
 	}
 
 	void LBuffer::BindToComputePipeline() const noexcept {
-		ID3D11ShaderResourceView * const srvs[3] = {
+		ID3D11ShaderResourceView * const srvs[6] = {
 			m_directional_lights.Get(),
 			m_omni_lights.Get(),
-			m_spot_lights.Get()
+			m_spot_lights.Get(),
+			m_sm_directional_lights.Get(),
+			m_sm_omni_lights.Get(),
+			m_sm_spot_lights.Get()
 		};
 
 		CS::BindConstantBuffer(m_device_context,
@@ -95,6 +99,9 @@ namespace mage {
 		buffer.m_nb_directional_lights          = static_cast< uint32_t >(m_directional_lights.size());
 		buffer.m_nb_omni_lights                 = static_cast< uint32_t >(m_omni_lights.size());
 		buffer.m_nb_spot_lights                 = static_cast< uint32_t >(m_spot_lights.size());
+		buffer.m_nb_sm_directional_lights       = static_cast< uint32_t >(m_sm_directional_lights.size());
+		buffer.m_nb_sm_omni_lights              = static_cast< uint32_t >(m_sm_omni_lights.size());
+		buffer.m_nb_sm_spot_lights              = static_cast< uint32_t >(m_sm_spot_lights.size());
 		buffer.m_fog_color                      = scene->m_fog->GetIntensity();
 		buffer.m_fog_distance_falloff_start     = scene->m_fog->GetStartDistanceFalloff();
 		buffer.m_fog_distance_falloff_inv_range = 1.0f / scene->m_fog->GetRangeDistanceFalloff();

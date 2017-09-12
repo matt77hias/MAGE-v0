@@ -36,10 +36,12 @@ namespace mage {
 		 Constructs a light buffer.
 		 */
 		LightBuffer()
-			: m_Ia(), m_flags(0), m_nb_directional_lights(0), 
-			m_nb_omni_lights(0), m_nb_spot_lights(0), 
-			m_fog_distance_falloff_start(FLT_MAX), m_fog_color(), 
-			m_fog_distance_falloff_inv_range(0.0f) {}
+			: m_Ia(), m_padding0(0), 
+			m_nb_directional_lights(0), m_nb_omni_lights(0), 
+			m_nb_spot_lights(0), m_padding1(0),
+			m_nb_sm_directional_lights(0), m_nb_sm_omni_lights(0), 
+			m_nb_sm_spot_lights(0), m_fog_distance_falloff_start(FLT_MAX), 
+			m_fog_color(), m_fog_distance_falloff_inv_range(0.0f) {}
 		
 		/**
 		 Constructs a light buffer from the given light buffer.
@@ -96,9 +98,9 @@ namespace mage {
 		RGBSpectrum m_Ia;
 
 		/**
-		 The flags of this light buffer.
+		 The padding of this light buffer. 
 		 */
-		uint32_t m_flags;
+		uint32_t m_padding0;
 
 		/**
 		 The number of directional lights of this light buffer.
@@ -114,6 +116,26 @@ namespace mage {
 		 The number of spotlights of this light buffer.
 		 */
 		uint32_t m_nb_spot_lights;
+
+		/**
+		 The padding of this light buffer. 
+		 */
+		uint32_t m_padding1;
+
+		/**
+		 The number of directional lights with shadow mapping of this light buffer.
+		 */
+		uint32_t m_nb_sm_directional_lights;
+
+		/**
+		 The number of omni lights with shadow mapping of this light buffer.
+		 */
+		uint32_t m_nb_sm_omni_lights;
+
+		/**
+		 The number of spotlights with shadow mapping of this light buffer.
+		 */
+		uint32_t m_nb_sm_spot_lights;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Fog
@@ -137,7 +159,7 @@ namespace mage {
 		float m_fog_distance_falloff_inv_range;
 	};
 
-	static_assert(sizeof(LightBuffer) == 48, "CPU/GPU struct mismatch");
+	static_assert(sizeof(LightBuffer) == 64, "CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// DirectionalLightBuffer

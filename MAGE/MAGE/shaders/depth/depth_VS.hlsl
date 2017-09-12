@@ -8,7 +8,7 @@
 // Constant Buffers
 //-----------------------------------------------------------------------------
 cbuffer PerFrame : register(REG_B(SLOT_CBUFFER_PER_FRAME)) {
-	// The object-to-projection transformation matrix.
+	// The view-to-projection transformation matrix.
 	float4x4 g_view_to_projection : packoffset(c0);
 }
 

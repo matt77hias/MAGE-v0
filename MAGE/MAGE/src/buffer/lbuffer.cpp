@@ -56,6 +56,22 @@ namespace mage {
 		ProcessLightsData(scene);
 	}
 
+	void LBuffer::ClearGraphicsPipeline() const noexcept {
+		ID3D11ShaderResourceView * const srvs[9] = {};
+
+		PS::BindSRVs(m_device_context,
+			SLOT_SRV_LIGHTS_START,
+			_countof(srvs), srvs);
+	}
+
+	void LBuffer::ClearComputePipeline() const noexcept {
+		ID3D11ShaderResourceView * const srvs[9] = {};
+
+		CS::BindSRVs(m_device_context,
+			SLOT_SRV_LIGHTS_START,
+			_countof(srvs), srvs);
+	}
+
 	void LBuffer::BindToGraphicsPipeline() const noexcept {
 		ID3D11ShaderResourceView * const srvs[9] = {
 			m_directional_lights.Get(),

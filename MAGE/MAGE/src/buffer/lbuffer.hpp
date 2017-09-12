@@ -42,6 +42,9 @@ namespace mage {
 
 		void Update(const PassBuffer *scene, 
 			const CameraNode *node);
+		
+		void ClearGraphicsPipeline() const noexcept;
+		void ClearComputePipeline() const noexcept;
 		void BindToGraphicsPipeline() const noexcept;
 		void BindToComputePipeline() const noexcept;
 
@@ -76,6 +79,13 @@ namespace mage {
 		void SetupDirectionalShadowMaps();
 		void SetupOmniShadowMaps();
 		void SetupSpotShadowMaps();
+
+
+
+		void XM_CALLCONV ProcessModels(
+			const vector< const ModelNode * > &models,
+			FXMMATRIX world_to_projection,
+			FXMMATRIX world_to_view) noexcept;
 
 		ID3D11DeviceContext2 * const m_device_context;
 

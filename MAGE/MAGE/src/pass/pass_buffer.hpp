@@ -18,17 +18,37 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
 		static const uint8_t s_nb_material_coefficients = 2;
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
 
 		PassBuffer();
 		PassBuffer(const PassBuffer &pass_buffer) = default;
 		PassBuffer(PassBuffer &&pass_buffer) = default;
 		~PassBuffer() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		PassBuffer &operator=(const PassBuffer &pass_buffer) = delete;
 		PassBuffer &operator=(PassBuffer &&pass_buffer) = delete;
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		void Update(const Scene *scene);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		vector< const CameraNode * >			m_cameras;
 		vector< const ModelNode * >				m_opaque_emissive_models;
@@ -47,5 +67,18 @@ namespace mage {
 
 		float m_material_coefficient_min[s_nb_material_coefficients];
 		float m_material_coefficient_max[s_nb_material_coefficients];
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		void UpdateCameras(const Scene *scene);
+		void UpdateModels(const Scene *scene);
+		void UpdateLights(const Scene *scene);
+		void UpdateSprites(const Scene *scene);
+		void ResetMaterialCoefficients() noexcept;
+		void UpdateMaterialCoefficients(const Material *material) noexcept;
 	};
 }

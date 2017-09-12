@@ -28,7 +28,7 @@ namespace mage {
 		DepthPass &operator=(DepthPass &&render_pass) = delete;
 
 		void Render(const PassBuffer *scene, const CameraNode *node);
-		
+
 	private:
 
 		void XM_CALLCONV BindModelData(

@@ -30,27 +30,23 @@ namespace mage {
 		m_omni_sms(MakeUnique< ShadowCubeMapBuffer >()),
 		m_spot_sms(MakeUnique< ShadowMapBuffer >()) {}
 
-	void LBuffer::Update(const PassBuffer *scene, const CameraNode *node) {
+	void XM_CALLCONV LBuffer::Render(
+		const PassBuffer *scene, 
+		FXMMATRIX world_to_projection,
+		CXMMATRIX world_to_view,
+		CXMMATRIX view_to_world) {
 
 		Assert(scene);
-		Assert(node);
-
-		// Obtain node components.
-		const TransformNode * const transform = node->GetTransform();
-		const Camera        * const camera    = node->GetCamera();
-		const XMMATRIX world_to_view          = transform->GetWorldToViewMatrix();
-		const XMMATRIX view_to_projection     = camera->GetViewToProjectionMatrix();
-		const XMMATRIX world_to_projection    = world_to_view * view_to_projection;
-
+		
 		// Process the lights without shadow mapping.
 		ProcessLights(scene->m_directional_lights,                  world_to_view);
 		ProcessLights(scene->m_omni_lights,    world_to_projection, world_to_view);
 		ProcessLights(scene->m_spot_lights,    world_to_projection, world_to_view);
 		
 		// Process the lights with shadow mapping.
-		ProcessLightsWithShadowMapping(scene->m_sm_directional_lights,               world_to_view);
-		ProcessLightsWithShadowMapping(scene->m_sm_omni_lights, world_to_projection, world_to_view);
-		ProcessLightsWithShadowMapping(scene->m_sm_spot_lights, world_to_projection, world_to_view);
+		ProcessLightsWithShadowMapping(scene->m_sm_directional_lights,               world_to_view, view_to_world);
+		ProcessLightsWithShadowMapping(scene->m_sm_omni_lights, world_to_projection, world_to_view, view_to_world);
+		ProcessLightsWithShadowMapping(scene->m_sm_spot_lights, world_to_projection, world_to_view, view_to_world);
 		
 		// Process the lights' data.
 		ProcessLightsData(scene);
@@ -115,7 +111,7 @@ namespace mage {
 			_countof(srvs), srvs);
 	}
 
-	void LBuffer::ProcessLightsData(const PassBuffer *scene) noexcept {
+	void LBuffer::ProcessLightsData(const PassBuffer *scene) {
 
 		LightBuffer buffer;
 		buffer.m_Ia                             = scene->m_ambient_light;
@@ -137,7 +133,7 @@ namespace mage {
 
 	void XM_CALLCONV LBuffer::ProcessLights(
 		const vector< const DirectionalLightNode * > &lights,
-		FXMMATRIX world_to_view) noexcept {
+		FXMMATRIX world_to_view) {
 
 		vector< DirectionalLightBuffer > buffer;
 		buffer.reserve(lights.size());
@@ -165,7 +161,7 @@ namespace mage {
 	void XM_CALLCONV LBuffer::ProcessLights(
 		const vector< const OmniLightNode * > &lights,
 		FXMMATRIX world_to_projection,
-		FXMMATRIX world_to_view) noexcept {
+		CXMMATRIX world_to_view) {
 
 		vector< OmniLightBuffer > buffer;
 		buffer.reserve(lights.size());
@@ -202,7 +198,7 @@ namespace mage {
 	void XM_CALLCONV LBuffer::ProcessLights(
 		const vector< const SpotLightNode * > &lights,
 		FXMMATRIX world_to_projection,
-		FXMMATRIX world_to_view) noexcept {
+		CXMMATRIX world_to_view) {
 
 		vector< SpotLightBuffer > buffer;
 		buffer.reserve(lights.size());
@@ -243,7 +239,8 @@ namespace mage {
 
 	void XM_CALLCONV LBuffer::ProcessLightsWithShadowMapping(
 		const vector< const DirectionalLightNode * > &lights,
-		FXMMATRIX world_to_view) {
+		FXMMATRIX world_to_view,
+		CXMMATRIX view_to_world) {
 
 		vector< DirectionalLightWithShadowMappingBuffer > buffer;
 		buffer.reserve(lights.size());
@@ -266,7 +263,7 @@ namespace mage {
 
 		// Update the buffer for directional lights.
 		m_sm_directional_lights.UpdateData(m_device_context, buffer);
-		
+
 		// Setup the buffer for the shadow maps of the directional lights.
 		SetupDirectionalShadowMaps();
 	}
@@ -274,7 +271,8 @@ namespace mage {
 	void XM_CALLCONV LBuffer::ProcessLightsWithShadowMapping(
 		const vector< const OmniLightNode * > &lights,
 		FXMMATRIX world_to_projection,
-		FXMMATRIX world_to_view) {
+		CXMMATRIX world_to_view,
+		CXMMATRIX view_to_world) {
 
 		vector< OmniLightWithShadowMappingBuffer > buffer;
 		buffer.reserve(lights.size());
@@ -290,6 +288,9 @@ namespace mage {
 				continue;
 			}
 
+			const XMMATRIX world_to_lview         = transform->GetWorldToObjectMatrix();
+			const XMMATRIX cview_to_lview         = view_to_world * world_to_lview;
+
 			// Transform to view space.
 			const XMVECTOR p = XMVector3TransformCoord(transform->GetWorldEye(), world_to_view);
 
@@ -299,6 +300,7 @@ namespace mage {
 			light_buffer.m_light.m_I                          = light->GetIntensity();
 			light_buffer.m_light.m_distance_falloff_end       = light->GetEndDistanceFalloff();
 			light_buffer.m_light.m_distance_falloff_inv_range = 1.0f / light->GetRangeDistanceFalloff();
+			light_buffer.m_cview_to_lview                     = XMMatrixTranspose(cview_to_lview);
 
 			// Add omni light buffer to omni light buffers.
 			buffer.push_back(std::move(light_buffer));
@@ -314,7 +316,8 @@ namespace mage {
 	void XM_CALLCONV LBuffer::ProcessLightsWithShadowMapping(
 		const vector< const SpotLightNode * > &lights,
 		FXMMATRIX world_to_projection,
-		FXMMATRIX world_to_view) {
+		CXMMATRIX world_to_view,
+		CXMMATRIX view_to_world) {
 
 		vector< SpotLightWithShadowMappingBuffer > buffer;
 		buffer.reserve(lights.size());
@@ -330,6 +333,10 @@ namespace mage {
 				continue;
 			}
 
+			const XMMATRIX world_to_lview          = transform->GetWorldToObjectMatrix();
+			const XMMATRIX lview_to_lprojection    = light->GetLightCamera().GetViewToProjectionMatrix();
+			const XMMATRIX cview_to_lprojection    = view_to_world * world_to_lview * lview_to_lprojection;
+
 			// Transform to view space.
 			const XMVECTOR p = XMVector3TransformCoord(transform->GetWorldEye(), world_to_view);
 			const XMVECTOR d = XMVector3Normalize(XMVector3TransformNormal(transform->GetWorldForward(), world_to_view));
@@ -344,6 +351,7 @@ namespace mage {
 			light_buffer.m_light.m_distance_falloff_inv_range = 1.0f / light->GetRangeDistanceFalloff();
 			light_buffer.m_light.m_cos_umbra                  = light->GetEndAngularCutoff();
 			light_buffer.m_light.m_cos_inv_range              = 1.0f / light->GetRangeAngularCutoff();
+			light_buffer.m_cview_to_lprojection               = XMMatrixTranspose(cview_to_lprojection);
 
 			// Add spotlight buffer to spotlight buffers.
 			buffer.push_back(std::move(light_buffer));

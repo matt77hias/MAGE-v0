@@ -22,13 +22,25 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		LBuffer();
 		LBuffer(const LBuffer &buffer) = delete;
 		LBuffer(LBuffer &&buffer) = default;
 		~LBuffer() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		LBuffer &operator=(const LBuffer &buffer) = delete;
 		LBuffer &operator=(LBuffer &&buffer) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		size_t GetNumberOfDirectionalLights() const noexcept {
 			return m_directional_lights.size();
@@ -40,8 +52,11 @@ namespace mage {
 			return m_spot_lights.size();
 		}
 
-		void Update(const PassBuffer *scene, 
-			const CameraNode *node);
+		void XM_CALLCONV Render(
+			const PassBuffer *scene,
+			FXMMATRIX world_to_projection,
+			CXMMATRIX world_to_view,
+			CXMMATRIX view_to_world);
 		
 		void ClearGraphicsPipeline() const noexcept;
 		void ClearComputePipeline() const noexcept;
@@ -50,42 +65,46 @@ namespace mage {
 
 	private:
 
-		void ProcessLightsData(const PassBuffer *scene) noexcept;
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		void ProcessLightsData(const PassBuffer *scene);
 
 		void XM_CALLCONV ProcessLights(
 			const vector< const DirectionalLightNode * > &lights,
-			FXMMATRIX world_to_view) noexcept;
+			FXMMATRIX world_to_view);
 		void XM_CALLCONV ProcessLights(
 			const vector< const OmniLightNode * > &lights,
 			FXMMATRIX world_to_projection,
-			FXMMATRIX world_to_view) noexcept;
+			CXMMATRIX world_to_view);
 		void XM_CALLCONV ProcessLights(
 			const vector< const SpotLightNode * > &lights,
 			FXMMATRIX world_to_projection,
-			FXMMATRIX world_to_view) noexcept;
+			CXMMATRIX world_to_view);
 
 		void XM_CALLCONV ProcessLightsWithShadowMapping(
 			const vector< const DirectionalLightNode * > &lights,
-			FXMMATRIX world_to_view);
+			FXMMATRIX world_to_view,
+			CXMMATRIX view_to_world);
 		void XM_CALLCONV ProcessLightsWithShadowMapping(
 			const vector< const OmniLightNode * > &lights,
 			FXMMATRIX world_to_projection,
-			FXMMATRIX world_to_view);
+			CXMMATRIX world_to_view,
+			CXMMATRIX view_to_world);
 		void XM_CALLCONV ProcessLightsWithShadowMapping(
 			const vector< const SpotLightNode * > &lights,
 			FXMMATRIX world_to_projection,
-			FXMMATRIX world_to_view);
+			CXMMATRIX world_to_view,
+			CXMMATRIX view_to_world);
 
 		void SetupDirectionalShadowMaps();
 		void SetupOmniShadowMaps();
 		void SetupSpotShadowMaps();
 
-
-
-		void XM_CALLCONV ProcessModels(
-			const vector< const ModelNode * > &models,
-			FXMMATRIX world_to_projection,
-			FXMMATRIX world_to_view) noexcept;
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		ID3D11DeviceContext2 * const m_device_context;
 

@@ -72,7 +72,10 @@ namespace mage {
 				// Fall through RenderMode::Forward.
 			}
 			case RenderMode::Forward: {
-				m_lbuffer->Update(m_pass_buffer.get(), node);
+				m_lbuffer->Render(
+					m_pass_buffer.get(), world_to_projection,
+					world_to_view, view_to_world);
+				
 				m_lbuffer->BindToGraphicsPipeline();
 				m_variable_shading_pass->BindFixedState(brdf);
 				m_variable_shading_pass->Render(
@@ -90,7 +93,10 @@ namespace mage {
 					world_to_view, view_to_world, view_to_projection);
 				
 				m_gbuffer->BindUnpacking(m_device_context);
-				m_lbuffer->Update(m_pass_buffer.get(), node);
+				m_lbuffer->Render(
+					m_pass_buffer.get(), world_to_projection,
+					world_to_view, view_to_world);
+				
 				m_lbuffer->BindToComputePipeline();
 				m_deferred_shading_pass->BindFixedState(brdf);
 				m_deferred_shading_pass->Render(
@@ -119,7 +125,10 @@ namespace mage {
 				// Fall through RenderMode::Solid.
 			}
 			case RenderMode::Solid: {
-				m_lbuffer->Update(m_pass_buffer.get(), node);
+				m_lbuffer->Render(
+					m_pass_buffer.get(), world_to_projection,
+					world_to_view, view_to_world);
+				
 				m_lbuffer->BindToGraphicsPipeline();
 				m_constant_shading_pass->BindFixedState();
 				m_constant_shading_pass->Render(

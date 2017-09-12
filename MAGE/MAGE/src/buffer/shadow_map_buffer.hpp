@@ -41,6 +41,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit ShadowMapBuffer(
 			size_t nb_shadow_maps = 1, 
 			UINT width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
@@ -55,8 +59,16 @@ namespace mage {
 		ShadowMapBuffer(ShadowMapBuffer &&buffer) = default;
 		~ShadowMapBuffer() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		ShadowMapBuffer &operator=(const ShadowMapBuffer &buffer) = delete;
 		ShadowMapBuffer &operator=(ShadowMapBuffer &&buffer) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		size_t GetNumberOfShadowMaps() const noexcept {
 			return m_dsvs.size();
@@ -96,6 +108,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		void SetupShadowMapBuffer(ID3D11Device2 *device,
 			size_t nb_shadow_maps);
 		void Setup16BitShadowMapArray(ID3D11Device2 *device,
@@ -105,6 +121,10 @@ namespace mage {
 		void SetupShadowMapArray(ID3D11Device2 *device,
 			size_t nb_shadow_maps, DXGI_FORMAT texture_format,
 			DXGI_FORMAT dsv_format, DXGI_FORMAT srv_format);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		UINT m_width;
 		UINT m_height;
@@ -123,6 +143,10 @@ namespace mage {
 
 	public:
 
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
 		explicit ShadowCubeMapBuffer(
 			size_t nb_shadow_cube_maps = 1, 
 			UINT width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
@@ -137,8 +161,16 @@ namespace mage {
 		ShadowCubeMapBuffer(ShadowCubeMapBuffer &&buffer) = default;
 		~ShadowCubeMapBuffer() = default;
 
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
 		ShadowCubeMapBuffer &operator=(const ShadowCubeMapBuffer &buffer) = delete;
 		ShadowCubeMapBuffer &operator=(ShadowCubeMapBuffer &&buffer) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		size_t GetNumberOfShadowMaps() const noexcept {
 			return m_dsvs.size();
@@ -181,6 +213,10 @@ namespace mage {
 
 	private:
 
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
 		void SetupShadowCubeMapBuffer(ID3D11Device2 *device,
 			size_t nb_shadow_cube_maps);
 		void Setup16BitShadowCubeMapArray(ID3D11Device2 *device,
@@ -190,6 +226,10 @@ namespace mage {
 		void SetupShadowCubeMapArray(ID3D11Device2 *device,
 			size_t nb_shadow_cube_maps, DXGI_FORMAT texture_format,
 			DXGI_FORMAT dsv_format, DXGI_FORMAT srv_format);
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
 
 		UINT m_width;
 		UINT m_height;

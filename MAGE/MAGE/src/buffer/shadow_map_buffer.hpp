@@ -87,6 +87,13 @@ namespace mage {
 			CS::BindSRV(device_context, slot, m_srv.Get());
 		}
 
+		ID3D11DepthStencilView *GetDSV(size_t dsv_index) const noexcept {
+			return m_dsvs[dsv_index].Get();
+		}
+		ID3D11ShaderResourceView *GetSRV() const noexcept {
+			return m_srv.Get();
+		}
+
 	private:
 
 		void SetupShadowMapBuffer(ID3D11Device2 *device,
@@ -163,6 +170,13 @@ namespace mage {
 			UINT slot) const noexcept {
 			
 			CS::BindSRV(device_context, slot, m_srv.Get());
+		}
+
+		ID3D11DepthStencilView *GetDSV(size_t dsv_index) const noexcept {
+			return m_dsvs[dsv_index].Get();
+		}
+		ID3D11ShaderResourceView *GetSRV() const noexcept {
+			return m_srv.Get();
 		}
 
 	private:

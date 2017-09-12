@@ -57,13 +57,16 @@ namespace mage {
 	}
 
 	void LBuffer::BindToGraphicsPipeline() const noexcept {
-		ID3D11ShaderResourceView * const srvs[6] = {
+		ID3D11ShaderResourceView * const srvs[9] = {
 			m_directional_lights.Get(),
 			m_omni_lights.Get(),
 			m_spot_lights.Get(),
 			m_sm_directional_lights.Get(),
 			m_sm_omni_lights.Get(),
-			m_sm_spot_lights.Get()
+			m_sm_spot_lights.Get(),
+			m_directional_sms->GetSRV(),
+			m_omni_sms->GetSRV(),
+			m_spot_sms->GetSRV()
 		};
 
 		PS::BindConstantBuffer(m_device_context,
@@ -72,16 +75,20 @@ namespace mage {
 		PS::BindSRVs(m_device_context,
 			SLOT_SRV_LIGHTS_START,
 			_countof(srvs), srvs);
+
 	}
 
 	void LBuffer::BindToComputePipeline() const noexcept {
-		ID3D11ShaderResourceView * const srvs[6] = {
+		ID3D11ShaderResourceView * const srvs[9] = {
 			m_directional_lights.Get(),
 			m_omni_lights.Get(),
 			m_spot_lights.Get(),
 			m_sm_directional_lights.Get(),
 			m_sm_omni_lights.Get(),
-			m_sm_spot_lights.Get()
+			m_sm_spot_lights.Get(),
+			m_directional_sms->GetSRV(),
+			m_omni_sms->GetSRV(),
+			m_spot_sms->GetSRV()
 		};
 
 		CS::BindConstantBuffer(m_device_context,
@@ -96,12 +103,14 @@ namespace mage {
 
 		LightBuffer buffer;
 		buffer.m_Ia                             = scene->m_ambient_light;
+		
 		buffer.m_nb_directional_lights          = static_cast< uint32_t >(m_directional_lights.size());
 		buffer.m_nb_omni_lights                 = static_cast< uint32_t >(m_omni_lights.size());
 		buffer.m_nb_spot_lights                 = static_cast< uint32_t >(m_spot_lights.size());
 		buffer.m_nb_sm_directional_lights       = static_cast< uint32_t >(m_sm_directional_lights.size());
 		buffer.m_nb_sm_omni_lights              = static_cast< uint32_t >(m_sm_omni_lights.size());
 		buffer.m_nb_sm_spot_lights              = static_cast< uint32_t >(m_sm_spot_lights.size());
+		
 		buffer.m_fog_color                      = scene->m_fog->GetIntensity();
 		buffer.m_fog_distance_falloff_start     = scene->m_fog->GetStartDistanceFalloff();
 		buffer.m_fog_distance_falloff_inv_range = 1.0f / scene->m_fog->GetRangeDistanceFalloff();

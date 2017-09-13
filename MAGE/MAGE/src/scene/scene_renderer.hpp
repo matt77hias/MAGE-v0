@@ -33,6 +33,8 @@ namespace mage {
 
 	public:
 
+		static SceneRenderer *Get() noexcept;
+
 		SceneRenderer();
 		SceneRenderer(const SceneRenderer &scene_renderer) = delete;
 		SceneRenderer(SceneRenderer &&scene_renderer);
@@ -42,6 +44,90 @@ namespace mage {
 		SceneRenderer &operator=(SceneRenderer &&scene_renderer) = delete;
 
 		void Render(const Scene *scene);
+
+		DepthPass *GetDepthPass() {
+			if (!m_depth_pass) {
+				m_depth_pass = MakeUnique< DepthPass >();
+			}
+			return m_depth_pass.get();
+		}
+
+		GBufferPass *GetGBufferPass() {
+			if (!m_gbuffer_pass) {
+				m_gbuffer_pass = MakeUnique< GBufferPass >();
+			}
+			return m_gbuffer_pass.get();
+		}
+
+		DeferredShadingPass *GetDeferredShadingPass() {
+			if (!m_deferred_shading_pass) {
+				m_deferred_shading_pass = MakeUnique< DeferredShadingPass >();
+			}
+			return m_deferred_shading_pass.get();
+		}
+
+		VariableShadingPass *GetVariableShadingPass() {
+			if (!m_variable_shading_pass) {
+				m_variable_shading_pass = MakeUnique< VariableShadingPass >();
+			}
+			return m_variable_shading_pass.get();
+		}
+
+		SpritePass *GetSpritePass() {
+			if (!m_sprite_pass) {
+				m_sprite_pass = MakeUnique< SpritePass >();
+			}
+			return m_sprite_pass.get();
+		}
+
+		ImagePass *GetImagePass() {
+			if (!m_image_pass) {
+				m_image_pass = MakeUnique< ImagePass >();
+			}
+			return m_image_pass.get();
+		}
+
+		ConstantShadingPass *GetConstantShadingPass() {
+			if (!m_constant_shading_pass) {
+				m_constant_shading_pass = MakeUnique< ConstantShadingPass >();
+			}
+			return m_constant_shading_pass.get();
+		}
+
+		ConstantComponentPass *GetConstantComponentPass() {
+			if (!m_constant_component_pass) {
+				m_constant_component_pass = MakeUnique< ConstantComponentPass >();
+			}
+			return m_constant_component_pass.get();
+		}
+
+		VariableComponentPass *GetVariableComponentPass() {
+			if (!m_variable_component_pass) {
+				m_variable_component_pass = MakeUnique< VariableComponentPass >();
+			}
+			return m_variable_component_pass.get();
+		}
+
+		ShadingNormalPass *GetShadingNormalPass() {
+			if (!m_shading_normal_pass) {
+				m_shading_normal_pass = MakeUnique< ShadingNormalPass >();
+			}
+			return m_shading_normal_pass.get();
+		}
+
+		WireframePass *GetWireframePass() {
+			if (!m_wireframe_pass) {
+				m_wireframe_pass = MakeUnique< WireframePass >();
+			}
+			return m_wireframe_pass.get();
+		}
+
+		BoundingVolumePass *GetBoundingVolumePass() {
+			if (!m_bounding_volume_pass) {
+				m_bounding_volume_pass = MakeUnique< BoundingVolumePass >();
+			}
+			return m_bounding_volume_pass.get();
+		}
 
 	private:
 

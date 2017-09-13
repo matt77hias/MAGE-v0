@@ -370,11 +370,11 @@ namespace mage {
 	const BufferCompiledShader CreateCompiledImagePS() noexcept;
 
 	/**
-	 Returns the compiled multi-sample image pixel shader.
+	 Returns the compiled image depth pixel shader.
 
-	 @return		A buffer compiled multi-sample image pixel shader.
+	 @return		A buffer compiled image depth pixel shader.
 	 */
-	const BufferCompiledShader CreateCompiledMultiSampleImagePS() noexcept;
+	const BufferCompiledShader CreateCompiledImageDepthPS() noexcept;
 
 	/**
 	 Returns the compiled fullscreen triangle vertex shader.

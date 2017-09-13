@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "pass\variable_shading_pass.hpp"
+#include "scene\scene_renderer.hpp"
 #include "rendering\renderer.hpp"
 #include "rendering\rendering_state_cache.hpp"
 #include "resource\resource_factory.hpp"
@@ -20,12 +20,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	VariableShadingPass *VariableShadingPass::Get() {
+		Assert(SceneRenderer::Get());
+
+		return SceneRenderer::Get()->GetVariableShadingPass();
+	}
+
 	VariableShadingPass::VariableShadingPass()
 		: m_device_context(GetImmediateDeviceContext()),
 		m_vs(CreateTransformVS()),
 		m_ps{ CreateEmissivePS(), CreatePS(BRDFType::Unknown), CreateTSNMPS(BRDFType::Unknown) },
 		m_bound_ps(PSIndex::Count), m_brdf(BRDFType::Unknown),
-		m_model_buffer(), m_projection_buffer() {}
+		m_projection_buffer(), m_model_buffer() {}
 
 	VariableShadingPass::VariableShadingPass(VariableShadingPass &&render_pass) = default;
 
@@ -64,8 +70,10 @@ namespace mage {
 	void XM_CALLCONV VariableShadingPass::BindProjectionData(
 		FXMMATRIX view_to_projection) {
 
-		m_projection_buffer.UpdateData(
-			m_device_context, XMMatrixTranspose(view_to_projection));
+		// Update the projection buffer.
+		m_projection_buffer.UpdateData(m_device_context, 
+			XMMatrixTranspose(view_to_projection));
+		// Bind the projection buffer.
 		VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_FRAME, m_projection_buffer.Get());
 	}
@@ -87,7 +95,8 @@ namespace mage {
 		buffer.m_material_coefficients[1] = material->GetMaterialParameter(1u);
 		
 		// Update the model buffer.
-		m_model_buffer.UpdateData(m_device_context, buffer);
+		m_model_buffer.UpdateData(m_device_context, 
+			buffer);
 		// Bind the model buffer.
 		VS::BindConstantBuffer(m_device_context, 
 			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());

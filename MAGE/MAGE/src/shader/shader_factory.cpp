@@ -368,9 +368,9 @@ namespace mage {
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_IMAGE, &cs);
 	}
 
-	SharedPtr< const PixelShader > CreateMultiSampleImagePS() {
-		const BufferCompiledShader cs = CreateCompiledMultiSampleImagePS();
-		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_MULTI_SAMPLE_IMAGE, &cs);
+	SharedPtr< const PixelShader > CreateImageDepthPS() {
+		const BufferCompiledShader cs = CreateCompiledImageDepthPS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_IMAGE_DEPTH, &cs);
 	}
 
 	SharedPtr< const VertexShader > CreateFullscreenTriangleVS() {

@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "pass\variable_component_pass.hpp"
+#include "scene\scene_renderer.hpp"
 #include "rendering\renderer.hpp"
 #include "rendering\rendering_state_cache.hpp"
 #include "resource\resource_factory.hpp"
@@ -20,16 +20,33 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	VariableComponentPass *VariableComponentPass::Get() {
+		Assert(SceneRenderer::Get());
+
+		return SceneRenderer::Get()->GetVariableComponentPass();
+	}
+
 	VariableComponentPass::VariableComponentPass()
 		: m_device_context(GetImmediateDeviceContext()), 
 		m_vs(CreateMinimalTransformVS()),
 		m_ps(CreateConstantColorTexturePS()),
-		m_model_buffer(), m_scene_buffer(), 
-		m_color_buffer(), m_white(CreateWhiteTexture()) {}
+		m_color_buffer(), m_projection_buffer(), m_model_buffer(),
+		m_white(CreateWhiteTexture()) {}
 
 	VariableComponentPass::VariableComponentPass(VariableComponentPass &&render_pass) = default;
 
 	VariableComponentPass::~VariableComponentPass() = default;
+
+	void XM_CALLCONV VariableComponentPass::BindProjectionData(
+		FXMMATRIX view_to_projection) {
+
+		// Update the projection buffer.
+		m_projection_buffer.UpdateData(m_device_context, 
+			XMMatrixTranspose(view_to_projection));
+		// Bind the projection buffer.
+		VS::BindConstantBuffer(m_device_context,
+			SLOT_CBUFFER_PER_FRAME, m_projection_buffer.Get());
+	}
 
 	void XM_CALLCONV VariableComponentPass::BindModelData(
 		FXMMATRIX object_to_view,
@@ -48,7 +65,8 @@ namespace mage {
 			buffer.m_texture_transform = texture_transform;
 
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(material->GetDiffuseReflectivity(), material->GetDissolve()));
+			m_color_buffer.UpdateData(m_device_context, 
+				RGBASpectrum(material->GetDiffuseReflectivity(), material->GetDissolve()));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
@@ -65,7 +83,8 @@ namespace mage {
 			buffer.m_texture_transform = texture_transform;
 
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(material->GetDiffuseReflectivity(), material->GetDissolve()));
+			m_color_buffer.UpdateData(m_device_context, 
+				RGBASpectrum(material->GetDiffuseReflectivity(), material->GetDissolve()));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
@@ -82,7 +101,8 @@ namespace mage {
 			buffer.m_texture_transform = texture_transform;
 
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f));
+			m_color_buffer.UpdateData(m_device_context, 
+				RGBASpectrum(1.0f));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
@@ -99,7 +119,8 @@ namespace mage {
 			buffer.m_texture_transform = texture_transform;
 
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(material->GetSpecularReflectivity()));
+			m_color_buffer.UpdateData(m_device_context, 
+				RGBASpectrum(material->GetSpecularReflectivity()));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
@@ -116,7 +137,8 @@ namespace mage {
 			buffer.m_texture_transform = texture_transform;
 
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(material->GetSpecularReflectivity()));
+			m_color_buffer.UpdateData(m_device_context, 
+				RGBASpectrum(material->GetSpecularReflectivity()));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
@@ -133,7 +155,8 @@ namespace mage {
 			buffer.m_texture_transform = texture_transform;
 
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f));
+			m_color_buffer.UpdateData(m_device_context, 
+				RGBASpectrum(1.0f));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
@@ -150,7 +173,8 @@ namespace mage {
 			buffer.m_texture_transform = XMMatrixIdentity();
 
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f));
+			m_color_buffer.UpdateData(m_device_context, 
+				RGBASpectrum(1.0f));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
@@ -168,16 +192,6 @@ namespace mage {
 		// Bind the model buffer.
 		VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
-	}
-
-	void XM_CALLCONV VariableComponentPass::BindSceneData(
-		FXMMATRIX view_to_projection) {
-
-		// Update the scene buffer.
-		m_scene_buffer.UpdateData(m_device_context, XMMatrixTranspose(view_to_projection));
-		// Bind the scene buffer.
-		VS::BindConstantBuffer(m_device_context, 
-			SLOT_CBUFFER_PER_FRAME, m_scene_buffer.Get());
 	}
 
 	void VariableComponentPass::BindFixedState(RenderMode render_mode) {
@@ -206,8 +220,8 @@ namespace mage {
 
 		Assert(scene);
 
-		// Bind the scene data.
-		BindSceneData(view_to_projection);
+		// Bind the projection data.
+		BindProjectionData(view_to_projection);
 		
 		// Bind the blend state.
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);

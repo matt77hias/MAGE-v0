@@ -3,8 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene_renderer.hpp"
+#include "scene\scene_manager.hpp"
 #include "rendering\renderer.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -13,23 +14,29 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	static SceneRenderer *Get() noexcept {
+		Assert(SceneManager::Get());
+		
+		return SceneManager::Get()->GetRenderer();
+	}
+
 	SceneRenderer::SceneRenderer()
 		: m_device_context(GetImmediateDeviceContext()),
 		m_pass_buffer(MakeUnique< PassBuffer >()),
 		m_gbuffer(MakeUnique< GBuffer >()),
 		m_lbuffer(MakeUnique< LBuffer >()),
-		m_depth_pass(MakeUnique< DepthPass >()),
-		m_gbuffer_pass(MakeUnique< GBufferPass >()),
-		m_deferred_shading_pass(MakeUnique< DeferredShadingPass >()),
-		m_variable_shading_pass(MakeUnique< VariableShadingPass >()),
-		m_sprite_pass(MakeUnique< SpritePass >()),
-		m_image_pass(MakeUnique< ImagePass >()),
-		m_constant_shading_pass(MakeUnique< ConstantShadingPass >()),
-		m_constant_component_pass(MakeUnique< ConstantComponentPass >()),
-		m_variable_component_pass(MakeUnique< VariableComponentPass >()),
-		m_shading_normal_pass(MakeUnique< ShadingNormalPass >()),
-		m_wireframe_pass(MakeUnique< WireframePass >()),
-		m_bounding_volume_pass(MakeUnique< BoundingVolumePass >()),
+		m_depth_pass(), 
+		m_gbuffer_pass(),
+		m_deferred_shading_pass(), 
+		m_variable_shading_pass(),
+		m_sprite_pass(), 
+		m_image_pass(),
+		m_constant_shading_pass(),
+		m_constant_component_pass(), 
+		m_variable_component_pass(),
+		m_shading_normal_pass(), 
+		m_wireframe_pass(), 
+		m_bounding_volume_pass(),
 		m_viewport() {}
 	
 	SceneRenderer::SceneRenderer(SceneRenderer &&scene_renderer) = default;
@@ -212,6 +219,7 @@ namespace mage {
 		m_viewport.BindViewport(m_device_context);
 		
 		// Perform a sprite pass.
+		m_sprite_pass->BindFixedState();
 		m_sprite_pass->Render(m_pass_buffer.get());
 	}
 }

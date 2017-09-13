@@ -9,7 +9,6 @@
 #include "math\sprite_transform.hpp"
 #include "mesh\sprite_batch_mesh.hpp"
 #include "mesh\vertex.hpp"
-#include "shader\shader_factory.hpp"
 #include "buffer\constant_buffer.hpp"
 #include "sprite\sprite_sort_mode.hpp"
 #include "sprite\sprite_effects.hpp"
@@ -29,7 +28,8 @@ namespace mage {
 	/**
 	 A struct of sprite info for a single sprite.
 	 */
-	__declspec(align(16)) struct SpriteInfo final : public AlignedData< SpriteInfo > {
+	__declspec(align(16)) struct SpriteInfo final 
+		: public AlignedData< SpriteInfo > {
 
 	public:
 
@@ -158,7 +158,8 @@ namespace mage {
 	/**
 	 A class of sprite batches.
 	 */
-	__declspec(align(16)) class SpriteBatch final : public AlignedData< SpriteBatch > {
+	__declspec(align(16)) class SpriteBatch final 
+		: public AlignedData< SpriteBatch > {
 
 	public:
 
@@ -173,44 +174,24 @@ namespace mage {
 						current engine must be loaded.
 		 @pre			The device context associated with the
 						current engine must be loaded.
-		 @pre			The resource manager associated with the
+		 @pre			The renderer associated with the
 						current engine must be loaded.
-		 @pre			@a vs is not equal to @c nullptr.
-		 @pre			@a ps is not equal to @c nullptr.
-		 @pre			@a vs and @a ps are compatible with 
-						this sprite batch and each other.
-		 @param[in]		vs
-						A pointer to the vertex shader.
-		 @param[in]		ps
-						A pointer to the pixel shader.
 		 */
-		explicit SpriteBatch(
-			SharedPtr< const VertexShader > vs = CreateSpriteVS(),
-			SharedPtr< const PixelShader >  ps = CreateSpritePS());
+		SpriteBatch();
 
 		/**
 		 Constructs a sprite batch.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			The resource manager associated with the
+		 @pre			The renderer associated with the
 						current engine must be loaded.
-		 @pre			@a vs is not equal to @c nullptr.
-		 @pre			@a ps is not equal to @c nullptr.
-		 @pre			@a vs and @a ps are compatible with 
-						this sprite batch and each other.
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		vs
-						A pointer to the vertex shader.
-		 @param[in]		ps
-						A pointer to the pixel shader.
 		 */
-		SpriteBatch(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-			SharedPtr< const VertexShader > vs = CreateSpriteVS(),
-			SharedPtr< const PixelShader >  ps = CreateSpritePS());
+		SpriteBatch(ID3D11Device2 *device, ID3D11DeviceContext2 *device_context);
 
 		/**
 		 Constructs a sprite batch from the given sprite batch.
@@ -269,21 +250,10 @@ namespace mage {
 						A reference to the sprite sorting mode for the whole batch of sprites.
 		 @param[in]		transform
 						The transform for the whole batch of sprites.
-		 @param[in]		blend_state
-						A pointer to the blend state.
-		 @param[in]		depth_stencil_state
-						A pointer to the depth stencil state.
-		 @param[in]		rasterizer_state
-						A pointer to the rasterizer state.
-		 @param[in]		sampler_state
-						A pointer to the sampler state.
 		 */
-		void XM_CALLCONV Begin(SpriteSortMode sort_mode = SpriteSortMode::Deferred,
-			FXMMATRIX transform = XMMatrixIdentity(), 
-			ID3D11BlendState        *blend_state         = nullptr,
-			ID3D11DepthStencilState *depth_stencil_state = nullptr,
-			ID3D11RasterizerState   *rasterizer_state    = nullptr,
-			ID3D11SamplerState      *sampler_state       = nullptr);
+		void XM_CALLCONV Begin(
+			SpriteSortMode sort_mode = SpriteSortMode::Deferred,
+			FXMMATRIX transform = XMMatrixIdentity());
 		
 		/**
 		 Draws a sprite.
@@ -466,7 +436,8 @@ namespace mage {
 		 @param[in]		inverse_texture_size
 						The inverse size of the texture.
 		 */
-		void XM_CALLCONV PrepareSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
+		void XM_CALLCONV PrepareSprite(
+			const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
 			FXMVECTOR texture_size, FXMVECTOR inverse_texture_size) noexcept;
 
 		//---------------------------------------------------------------------
@@ -499,36 +470,6 @@ namespace mage {
 		 of this sprite batch for adding sprite vertices.
 		 */
 		size_t m_vertex_buffer_position;
-
-		/**
-		 A pointer to the vertex shader used by this sprite batch.
-		 */
-		SharedPtr< const VertexShader > m_vs;
-
-		/**
-		 A pointer to the pixel shader used by this sprite batch.
-		 */
-		SharedPtr< const PixelShader > m_ps;
-
-		/**
-		 A pointer to the blend state used by this sprite batch.
-		 */
-		ID3D11BlendState *m_blend_state;
-
-		/**
-		 A pointer to the depth stencil state used by this sprite batch.
-		 */
-		ID3D11DepthStencilState *m_depth_stencil_state;
-
-		/**
-		 A pointer to the rasterizer state used by this sprite batch.
-		 */
-		ID3D11RasterizerState *m_rasterizer_state;
-
-		/**
-		 A pointer to the sampler state used by this sprite batch.
-		 */
-		ID3D11SamplerState *m_sampler_state;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Batch-Independent Data

@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "pass\depth_pass.hpp"
+#include "scene\scene_renderer.hpp"
 #include "rendering\rendering_state_cache.hpp"
 #include "resource\resource_factory.hpp"
 #include "math\view_frustum.hpp"
@@ -19,6 +19,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	DepthPass *DepthPass::Get() {
+		Assert(SceneRenderer::Get());
+
+		return SceneRenderer::Get()->GetDepthPass();
+	}
+
 	DepthPass::DepthPass()
 		: m_device_context(GetImmediateDeviceContext()),
 		m_vs(CreateDepthVS()),
@@ -28,22 +34,26 @@ namespace mage {
 
 	DepthPass::~DepthPass() = default;
 
-	void XM_CALLCONV DepthPass::BindModelData(
-		FXMMATRIX object_to_view) {
-
-		m_model_buffer.UpdateData(
-			m_device_context, XMMatrixTranspose(object_to_view));
-		VS::BindConstantBuffer(m_device_context,
-			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
-	}
-
 	void XM_CALLCONV DepthPass::BindProjectionData(
 		FXMMATRIX view_to_projection) {
 
-		m_projection_buffer.UpdateData(
-			m_device_context, XMMatrixTranspose(view_to_projection));
+		// Update the projection buffer.
+		m_projection_buffer.UpdateData(m_device_context, 
+			XMMatrixTranspose(view_to_projection));
+		// Bind the projection buffer.
 		VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_FRAME, m_projection_buffer.Get());
+	}
+
+	void XM_CALLCONV DepthPass::BindModelData(
+		FXMMATRIX object_to_view) {
+
+		// Update the model buffer.
+		m_model_buffer.UpdateData(m_device_context, 
+			XMMatrixTranspose(object_to_view));
+		// Bind the model buffer.
+		VS::BindConstantBuffer(m_device_context,
+			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
 	}
 
 	void DepthPass::BindFixedState() {
@@ -68,7 +78,7 @@ namespace mage {
 		// Bind the projection data.
 		BindProjectionData(view_to_projection);
 
-		// Process the models.
+		// Process the opaque models.
 		ProcessModels(scene->m_opaque_emissive_models, world_to_projection, world_to_view);
 		ProcessModels(scene->m_opaque_brdf_models,     world_to_projection, world_to_view);
 	}

@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "pass\shading_normal_pass.hpp"
+#include "scene\scene_renderer.hpp"
 #include "rendering\rendering_state_cache.hpp"
 #include "resource\resource_factory.hpp"
 #include "math\view_frustum.hpp"
@@ -19,13 +19,19 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	ShadingNormalPass *ShadingNormalPass::Get() {
+		Assert(SceneRenderer::Get());
+
+		return SceneRenderer::Get()->GetShadingNormalPass();
+	}
+
 	ShadingNormalPass::ShadingNormalPass()
 		: m_device_context(GetImmediateDeviceContext()), 
 		m_render_mode(RenderMode::None), 
 		m_vs(CreateShadingNormalVS()), 
 		m_ps{ CreateShadingNormalPS(), CreateShadingNormalTSNMPS() }, 
 		m_bound_ps(PSIndex::Count),
-		m_model_buffer(), m_scene_buffer() {}
+		m_projection_buffer(), m_model_buffer() {}
 
 	ShadingNormalPass::ShadingNormalPass(ShadingNormalPass &&render_pass) = default;
 
@@ -56,9 +62,20 @@ namespace mage {
 		}
 	}
 
+	void XM_CALLCONV ShadingNormalPass::BindProjectionData(
+		FXMMATRIX view_to_projection) {
+
+		// Update the projection buffer.
+		m_projection_buffer.UpdateData(m_device_context, 
+			XMMatrixTranspose(view_to_projection));
+		// Bind the projection buffer.
+		VS::BindConstantBuffer(m_device_context,
+			SLOT_CBUFFER_PER_FRAME, m_projection_buffer.Get());
+	}
+
 	void XM_CALLCONV ShadingNormalPass::BindModelData(
 		FXMMATRIX object_to_view, 
-		FXMMATRIX world_to_object) {
+		CXMMATRIX world_to_object) {
 
 		ModelTransformBuffer buffer;
 		buffer.m_object_to_view    = XMMatrixTranspose(object_to_view);
@@ -66,20 +83,11 @@ namespace mage {
 		buffer.m_texture_transform = XMMatrixIdentity();
 
 		// Update the model buffer.
-		m_model_buffer.UpdateData(m_device_context, buffer);
+		m_model_buffer.UpdateData(m_device_context, 
+			buffer);
 		// Bind the model buffer.
 		VS::BindConstantBuffer(m_device_context, 
 			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
-	}
-
-	void XM_CALLCONV ShadingNormalPass::BindSceneData(
-		FXMMATRIX view_to_projection) {
-
-		// Update the scene buffer.
-		m_scene_buffer.UpdateData(m_device_context, XMMatrixTranspose(view_to_projection));
-		// Bind the scene buffer.
-		VS::BindConstantBuffer(m_device_context, 
-			SLOT_CBUFFER_PER_FRAME, m_scene_buffer.Get());
 	}
 
 	void ShadingNormalPass::BindFixedState(RenderMode render_mode) {
@@ -106,15 +114,15 @@ namespace mage {
 	void XM_CALLCONV ShadingNormalPass::Render(
 		const PassBuffer *scene, 
 		FXMMATRIX world_to_projection,
-		FXMMATRIX world_to_view,
-		FXMMATRIX view_to_projection) {
+		CXMMATRIX world_to_view,
+		CXMMATRIX view_to_projection) {
 		
 		Assert(scene);
 
-		// Bind the scene data.
-		BindSceneData(view_to_projection);
+		// Bind the projection data.
+		BindProjectionData(view_to_projection);
 		
-		// Process the models.
+		// Process the models (which interact with light).
 		ProcessModels(scene->m_opaque_brdf_models,      world_to_projection, world_to_view);
 		ProcessModels(scene->m_transparent_brdf_models, world_to_projection, world_to_view);
 	}
@@ -122,7 +130,7 @@ namespace mage {
 	void XM_CALLCONV ShadingNormalPass::ProcessModels(
 		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection, 
-		FXMMATRIX world_to_view) {
+		CXMMATRIX world_to_view) {
 
 		for (const auto node : models) {
 

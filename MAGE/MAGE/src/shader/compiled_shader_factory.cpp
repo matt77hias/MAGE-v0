@@ -50,7 +50,7 @@
 // Miscellaneous
 #include "shader\cso\miscellaneous\minimal_transform_VS.hpp"
 #include "shader\cso\miscellaneous\image_PS.hpp"
-#include "shader\cso\miscellaneous\multi_sample_image_PS.hpp"
+#include "shader\cso\miscellaneous\image_depth_PS.hpp"
 #include "shader\cso\miscellaneous\distance_PS.hpp"
 #include "shader\cso\miscellaneous\constant_color_PS.hpp"
 #include "shader\cso\miscellaneous\constant_color_texture_PS.hpp"
@@ -299,8 +299,8 @@ namespace mage {
 		return BufferCompiledShader(g_image_ps, sizeof(g_image_ps));
 	}
 
-	const BufferCompiledShader CreateCompiledMultiSampleImagePS() noexcept {
-		return BufferCompiledShader(g_multi_sample_image_ps, sizeof(g_multi_sample_image_ps));
+	const BufferCompiledShader CreateCompiledImageDepthPS() noexcept {
+		return BufferCompiledShader(g_image_depth_ps, sizeof(g_image_depth_ps));
 	}
 
 	const BufferCompiledShader CreateCompiledFullscreenTriangleVS() noexcept {

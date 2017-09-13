@@ -1011,11 +1011,11 @@
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\image_PS.hpp">
       <Filter>Header Files\shader\cso\miscellaneous</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\multi_sample_image_PS.hpp">
-      <Filter>Header Files\shader\cso\miscellaneous</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\buffer\shadow_map_buffer.hpp">
       <Filter>Header Files\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\image_depth_PS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1537,7 +1537,7 @@
     <FxCompile Include="MAGE\shaders\miscellaneous\image_PS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\miscellaneous\multi_sample_image_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\miscellaneous\image_depth_PS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
   </ItemGroup>

@@ -220,7 +220,7 @@
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\distance_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\image_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\minimal_transform_VS.hpp" />
-    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\multi_sample_image_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\image_depth_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\shading_normal_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\shading_normal_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\tsnm_shading_normal_PS.hpp" />
@@ -1218,7 +1218,7 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ObjectFileOutput>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\miscellaneous\multi_sample_image_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\miscellaneous\image_depth_PS.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
@@ -1227,19 +1227,19 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_multi_sample_image_ps</VariableName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_image_depth_ps</VariableName>
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\miscellaneous\%(Filename).hpp</HeaderFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ObjectFileOutput>
-      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">g_multi_sample_image_ps</VariableName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">g_image_depth_ps</VariableName>
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)\src\shader\cso\miscellaneous\%(Filename).hpp</HeaderFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </ObjectFileOutput>
-      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_multi_sample_image_ps</VariableName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_image_depth_ps</VariableName>
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\shader\cso\miscellaneous\%(Filename).hpp</HeaderFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </ObjectFileOutput>
-      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_multi_sample_image_ps</VariableName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_image_depth_ps</VariableName>
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\shader\cso\miscellaneous\%(Filename).hpp</HeaderFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ObjectFileOutput>

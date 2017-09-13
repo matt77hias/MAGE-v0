@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "pass\deferred_shading_pass.hpp"
+#include "scene\scene_renderer.hpp"
 #include "rendering\renderer.hpp"
 #include "resource\resource_factory.hpp"
 #include "logging\error.hpp"
@@ -17,6 +17,12 @@
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
+
+	DeferredShadingPass *DeferredShadingPass::Get() {
+		Assert(SceneRenderer::Get());
+
+		return SceneRenderer::Get()->GetDeferredShadingPass();
+	}
 
 	DeferredShadingPass::DeferredShadingPass()
 		: m_device_context(GetImmediateDeviceContext()),
@@ -48,7 +54,10 @@ namespace mage {
 		buffer.m_resolution_minus1[0] = renderer->GetWidth()  - 1;
 		buffer.m_resolution_minus1[1] = renderer->GetHeight() - 1;
 
-		m_deferred_buffer.UpdateData(m_device_context, buffer);
+		// Update the deferred buffer.
+		m_deferred_buffer.UpdateData(m_device_context, 
+			buffer);
+		// Bind the deferred buffer.
 		CS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_FRAME, m_deferred_buffer.Get());
 	}

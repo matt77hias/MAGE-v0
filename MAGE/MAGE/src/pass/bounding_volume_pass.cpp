@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "pass\bounding_volume_pass.hpp"
+#include "scene\scene_renderer.hpp"
 #include "rendering\rendering_state_cache.hpp"
 #include "resource\resource_factory.hpp"
 #include "math\view_frustum.hpp"
@@ -19,44 +19,57 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	BoundingVolumePass *BoundingVolumePass::Get() {
+		Assert(SceneRenderer::Get());
+
+		return SceneRenderer::Get()->GetBoundingVolumePass();
+	}
+
 	BoundingVolumePass::BoundingVolumePass()
 		: m_device_context(GetImmediateDeviceContext()),
 		m_vs(CreateBoundingVolumeVS()), 
 		m_ps(CreateBoundingVolumePS()),
-		m_model_buffer(), m_color_buffer(), 
+		m_color_buffer(), m_model_buffer(),
 		m_box(CreateLineCube()) {}
 
 	BoundingVolumePass::BoundingVolumePass(BoundingVolumePass &&render_pass) = default;
 
 	BoundingVolumePass::~BoundingVolumePass() = default;
 
+	void BoundingVolumePass::BindColorData(const RGBASpectrum &color) {
+		// Update the color buffer.
+		m_color_buffer.UpdateData(m_device_context, color);
+		// Bind the color buffer.
+		PS::BindConstantBuffer(m_device_context,
+			SLOT_CBUFFER_COLOR, m_color_buffer.Get());
+	}
+
+	void BoundingVolumePass::BindLightColorData() {
+		static const RGBASpectrum color(1.0f, 0.0f, 0.0f, 1.0f);
+
+		// Bind the color data.
+		BindColorData(color);
+	}
+
+	void BoundingVolumePass::BindModelColorData() {
+		static const RGBASpectrum color(0.0f, 1.0f, 0.0f, 1.0f);
+
+		// Bind the color data.
+		BindColorData(color);
+	}
+
 	void XM_CALLCONV BoundingVolumePass::BindModelData(
 		FXMMATRIX box_to_projection) {
 
 		// Update the model buffer.
-		m_model_buffer.UpdateData(m_device_context, XMMatrixTranspose(box_to_projection));
+		m_model_buffer.UpdateData(m_device_context, 
+			XMMatrixTranspose(box_to_projection));
 		// Bind the model buffer.
 		VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
 	}
 
-	void BoundingVolumePass::BindLightColorData() {
-		// Update the color buffer.
-		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f, 0.0f, 0.0f, 1.0f));
-		// Bind the color buffer.
-		PS::BindConstantBuffer(m_device_context,
-			SLOT_CBUFFER_COLOR, m_color_buffer.Get());
-	}
-	
-	void BoundingVolumePass::BindModelColorData() {
-		// Update the color buffer.
-		m_color_buffer.UpdateData(m_device_context, RGBASpectrum(0.0f, 1.0f, 0.0f, 1.0f));
-		// Bind the color buffer.
-		PS::BindConstantBuffer(m_device_context,
-			SLOT_CBUFFER_COLOR, m_color_buffer.Get());
-	}
-
-	void BoundingVolumePass::BindFixedState() const {
+	void BoundingVolumePass::BindFixedState() {
 		// Bind the mesh.
 		m_box->BindMesh(m_device_context);
 		// Bind the vertex shader.

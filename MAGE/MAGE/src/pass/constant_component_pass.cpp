@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "pass\constant_component_pass.hpp"
+#include "scene\scene_renderer.hpp"
 #include "rendering\rendering_state_cache.hpp"
 #include "resource\resource_factory.hpp"
 #include "math\view_frustum.hpp"
@@ -19,12 +19,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	ConstantComponentPass *ConstantComponentPass::Get() {
+		Assert(SceneRenderer::Get());
+
+		return SceneRenderer::Get()->GetConstantComponentPass();
+	}
+
 	ConstantComponentPass::ConstantComponentPass()
 		: m_device_context(GetImmediateDeviceContext()), 
 		m_vs(CreateMinimalTransformVS()),
 		m_ps{ CreateConstantColorTexturePS(), CreateDistancePS() },
-		m_model_buffer(), m_scene_buffer(), 
-		m_color_buffer(), m_uv(CreateReferenceTexture()) {}
+		m_color_buffer(), m_projection_buffer(), m_model_buffer(),
+		m_uv(CreateReferenceTexture()) {}
 
 	ConstantComponentPass::ConstantComponentPass(ConstantComponentPass &&render_pass) = default;
 
@@ -39,7 +45,8 @@ namespace mage {
 			m_ps[static_cast< size_t >(PSIndex::UVTexture)]->BindShader(m_device_context);
 
 			// Update the color buffer.
-			m_color_buffer.UpdateData(m_device_context, RGBASpectrum(1.0f, 1.0f, 1.0f, 1.0f));
+			m_color_buffer.UpdateData(m_device_context, 
+				RGBASpectrum(1.0f));
 			// Bind the color buffer.
 			PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
@@ -62,14 +69,15 @@ namespace mage {
 		}
 	}
 
-	void XM_CALLCONV ConstantComponentPass::BindSceneData(
+	void XM_CALLCONV ConstantComponentPass::BindProjectionData(
 		FXMMATRIX view_to_projection) {
 
-		// Update the scene buffer.
-		m_scene_buffer.UpdateData(m_device_context, XMMatrixTranspose(view_to_projection));
-		// Bind the scene buffer.
+		// Update the projection buffer.
+		m_projection_buffer.UpdateData(m_device_context, 
+			XMMatrixTranspose(view_to_projection));
+		// Bind the projection buffer.
 		VS::BindConstantBuffer(m_device_context,
-			SLOT_CBUFFER_PER_FRAME, m_scene_buffer.Get());
+			SLOT_CBUFFER_PER_FRAME, m_projection_buffer.Get());
 	}
 
 	void XM_CALLCONV ConstantComponentPass::BindModelData(
@@ -114,8 +122,8 @@ namespace mage {
 		
 		Assert(scene);
 
-		// Bind the scene data.
-		BindSceneData(view_to_projection);
+		// Bind the projection data.
+		BindProjectionData(view_to_projection);
 
 		// Process the models.
 		ProcessModels(scene->m_opaque_emissive_models,      world_to_projection, world_to_view, view_to_world);

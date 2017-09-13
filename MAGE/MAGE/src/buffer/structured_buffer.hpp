@@ -40,6 +40,8 @@ namespace mage {
 		 @param[in]		nb_initial_data_elements
 						The initial number of slots for storing data 
 						elements to provide.
+		 @throws		FormattedException
+						Failed to setup this structured buffer.
 		 */
 		explicit StructuredBuffer(size_t nb_initial_data_elements);
 
@@ -52,6 +54,8 @@ namespace mage {
 		 @param[in]		nb_initial_data_elements
 						The initial number of slots for storing 
 						data elements to provide.
+		 @throws		FormattedException
+						Failed to setup this structured buffer.
 		 */
 		explicit StructuredBuffer(ID3D11Device2 *device, 
 			size_t nb_initial_data_elements);
@@ -126,6 +130,8 @@ namespace mage {
 						A pointer to the device context.
 		 @param[in]		data
 						A reference to a vector with the data elements.
+		  @throws		FormattedException
+						Failed to update the data.
 		 */
 		void UpdateData(ID3D11DeviceContext2 *device_context, 
 			const vector< DataT > &data);
@@ -141,6 +147,8 @@ namespace mage {
 						A pointer to the device context.
 		 @param[in]		data
 						A reference to a vector with the data elements.
+	     @throws		FormattedException
+						Failed to update the data.
 		 */
 		void UpdateData(ID3D11Device2 *device, 
 			ID3D11DeviceContext2 *device_context,

@@ -28,18 +28,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpriteBatch::SpriteBatch(
-		SharedPtr< const VertexShader > vs, SharedPtr< const PixelShader >  ps)
-		: SpriteBatch(GetDevice(), GetImmediateDeviceContext(), vs, ps) {}
+	SpriteBatch::SpriteBatch()
+		: SpriteBatch(GetDevice(), GetImmediateDeviceContext()) {}
 
 	SpriteBatch::SpriteBatch(
-		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context,
-		SharedPtr< const VertexShader > vs, SharedPtr< const PixelShader > ps)
+		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)
 		: m_device_context(device_context), 
 		m_mesh(MakeUnique< SpriteBatchMesh >(device)), 
-		m_vertex_buffer_position(0), m_vs(vs), m_ps(ps),
-		m_blend_state(nullptr), m_depth_stencil_state(nullptr),
-		m_rasterizer_state(nullptr), m_sampler_state(nullptr),
+		m_vertex_buffer_position(0),
 		m_rotation_mode(DXGI_MODE_ROTATION_IDENTITY), m_viewport_set(false), m_viewport{}, 
 		m_in_begin_end_pair(false), m_sort_mode(SpriteSortMode::Deferred), 
 		m_transform(XMMatrixIdentity()), m_transform_buffer(device),
@@ -51,19 +47,13 @@ namespace mage {
 	SpriteBatch::~SpriteBatch() = default;
 
 	void XM_CALLCONV SpriteBatch::Begin(
-		SpriteSortMode sort_mode, FXMMATRIX transform,
-		ID3D11BlendState *blend_state, ID3D11DepthStencilState *depth_stencil_state,
-		ID3D11RasterizerState *rasterizer_state, ID3D11SamplerState *sampler_state) {
+		SpriteSortMode sort_mode, FXMMATRIX transform) {
 		
 		// This SpriteBatch may not already be in a begin/end pair.
 		Assert(!m_in_begin_end_pair);
 
-		m_sort_mode           = sort_mode;
-		m_transform           = transform;
-		m_blend_state         = blend_state         ? blend_state         : RenderingStateCache::Get()->GetAlphaBlendState();
-		m_depth_stencil_state = depth_stencil_state ? depth_stencil_state : RenderingStateCache::Get()->GetDepthNoneDepthStencilState();
-		m_rasterizer_state    = rasterizer_state    ? rasterizer_state    : RenderingStateCache::Get()->GetCullCounterClockwiseRasterizerState();
-		m_sampler_state       = sampler_state       ? sampler_state       : RenderingStateCache::Get()->GetLinearWrapSamplerState();
+		m_sort_mode = sort_mode;
+		m_transform = transform;
 
 		if (m_sort_mode == SpriteSortMode::Immediate) {
 			BindSpriteBatch();
@@ -193,20 +183,11 @@ namespace mage {
 		// Updates the transform (for a complete batch).
 		m_transform_buffer.UpdateData(m_device_context, XMMatrixTranspose(m_transform));
 
-		// Sets the states.
-		OM::BindBlendState(m_device_context, m_blend_state);
-		OM::BindDepthStencilState(m_device_context, m_depth_stencil_state);
-		RS::BindState(m_device_context, m_rasterizer_state);
+		// Bind the transform buffer.
 		VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_FRAME, m_transform_buffer.Get());
-		PS::BindSampler(m_device_context, 
-			SLOT_SAMPLER_DEFAULT, m_sampler_state);
-
-		// Binds the mesh, shaders and transform buffer.
+		// Binds the mesh.
 		m_mesh->BindMesh(m_device_context);
-		m_vs->BindShader(m_device_context);
-		m_ps->BindShader(m_device_context);
-		
 	}
 
 	void SpriteBatch::FlushBatch() {
@@ -351,7 +332,8 @@ namespace mage {
 		}
 	}
 
-	void XM_CALLCONV SpriteBatch::PrepareSprite(const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
+	void XM_CALLCONV SpriteBatch::PrepareSprite(
+		const SpriteInfo *sprite, VertexPositionColorTexture *vertices,
 		FXMVECTOR texture_size, FXMVECTOR inverse_texture_size) noexcept {
 		
 		XMVECTOR source                      = XMLoadFloat4A(&sprite->m_source);

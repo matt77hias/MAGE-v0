@@ -30,7 +30,9 @@ namespace mage {
 						A flag indicating whether the face vertices should be 
 						defined in clockwise order or not (i.e. counterclockwise order).
 		 */
-		explicit MeshDescriptor(bool invert_handedness = false, bool clockwise_order = true)
+		explicit MeshDescriptor(
+			bool invert_handedness = false, 
+			bool clockwise_order   = true)
 			: m_invert_handedness(invert_handedness), m_clockwise_order(clockwise_order) {}
 		
 		/**

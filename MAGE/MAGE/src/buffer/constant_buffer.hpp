@@ -36,6 +36,8 @@ namespace mage {
 
 		 @pre			The device associated with the current engine 
 						must be loaded.
+		 @throws		FormattedException
+						Failed to setup this constant buffer.
 		 */
 		ConstantBuffer();
 
@@ -45,6 +47,8 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
+		 @throws		FormattedException
+						Failed to setup this constant buffer.
 		 */
 		explicit ConstantBuffer(ID3D11Device2 *device);
 		
@@ -105,6 +109,8 @@ namespace mage {
 						A pointer to the device context.
 		 @param[in]		data
 						A reference to the data.
+		 @throws		FormattedException
+						Failed to update the data.
 		 */
 		void UpdateData(ID3D11DeviceContext2 *device_context, 
 			const DataT &data);

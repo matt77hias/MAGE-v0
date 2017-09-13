@@ -583,15 +583,15 @@ namespace mage {
 	SharedPtr< const PixelShader > CreateImagePS();
 
 	/**
-	 Creates a multi-sample image pixel shader.
+	 Creates a image depth pixel shader.
 
 	 @pre			The resource manager associated with the
 					current engine must be loaded.
-	 @return		A pointer to the multi-sample image pixel shader.
+	 @return		A pointer to the image depth pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateMultiSampleImagePS();
+	SharedPtr< const PixelShader > CreateImageDepthPS();
 
 	/**
 	 Creates a fullscreen triangle vertex shader.

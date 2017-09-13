@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "pass\constant_shading_pass.hpp"
+#include "scene\scene_renderer.hpp"
 #include "rendering\rendering_state_cache.hpp"
 #include "resource\resource_factory.hpp"
 #include "math\view_frustum.hpp"
@@ -19,11 +19,17 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	ConstantShadingPass *ConstantShadingPass::Get() {
+		Assert(SceneRenderer::Get());
+
+		return SceneRenderer::Get()->GetConstantShadingPass();
+	}
+
 	ConstantShadingPass::ConstantShadingPass()
 		: m_device_context(GetImmediateDeviceContext()),
 		m_vs(CreateTransformVS()),
 		m_ps(CreateLambertianPS()),
-		m_model_buffer(), m_projection_buffer(),
+		m_projection_buffer(), m_model_buffer(),
 		m_white(CreateWhiteTexture()) {}
 
 	ConstantShadingPass::ConstantShadingPass(ConstantShadingPass &&render_pass) = default;
@@ -33,8 +39,10 @@ namespace mage {
 	void XM_CALLCONV ConstantShadingPass::BindProjectionData(
 		FXMMATRIX view_to_projection) {
 		
-		m_projection_buffer.UpdateData(
-			m_device_context, XMMatrixTranspose(view_to_projection));
+		// Update the projection buffer.
+		m_projection_buffer.UpdateData(m_device_context, 
+			XMMatrixTranspose(view_to_projection));
+		// Bind the projection buffer.
 		VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_FRAME, m_projection_buffer.Get());
 	}
@@ -53,7 +61,8 @@ namespace mage {
 		buffer.m_material_coefficients[0] = 1.0f;
 		
 		// Update the model buffer.
-		m_model_buffer.UpdateData(m_device_context, buffer);
+		m_model_buffer.UpdateData(m_device_context, 
+			buffer);
 		// Bind the model buffer.
 		VS::BindConstantBuffer(m_device_context, 
 			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());

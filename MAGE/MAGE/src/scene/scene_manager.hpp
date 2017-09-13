@@ -105,6 +105,10 @@ namespace mage {
 
 		void SetScene(UniquePtr< Scene > &&scene);
 
+		SceneRenderer *GetRenderer() const {
+			return m_renderer.get();
+		}
+
 		void Update(double delta_time);
 
 		void Render() {

@@ -32,7 +32,7 @@ namespace mage {
 		/**
 		 Returns the shading normal pass associated with the current engine.
 
-		 @pre			The shading normal pass associated with the 
+		 @pre			The scene renderer associated with the 
 						current engine must be loaded.
 		 @return		A pointer to the shading normal pass associated
 						with the current engine.

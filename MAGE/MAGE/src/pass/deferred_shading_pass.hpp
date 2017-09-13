@@ -32,7 +32,7 @@ namespace mage {
 		/**
 		 Returns the deferred shading pass associated with the current engine.
 
-		 @pre			The deferred shading pass associated with the 
+		 @pre			The scene renderer associated with the 
 						current engine must be loaded.
 		 @return		A pointer to the deferred shading pass associated
 						with the current engine.

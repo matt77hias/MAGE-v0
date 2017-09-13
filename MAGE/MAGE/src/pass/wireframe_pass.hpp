@@ -31,7 +31,7 @@ namespace mage {
 		/**
 		 Returns the wireframe pass associated with the current engine.
 
-		 @pre			The wireframe pass associated with the 
+		 @pre			The scene renderer associated with the 
 						current engine must be loaded.
 		 @return		A pointer to the wireframe pass associated
 						with the current engine.

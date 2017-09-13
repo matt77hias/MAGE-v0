@@ -56,7 +56,7 @@ namespace mage {
 		PassBuffer(PassBuffer &&pass_buffer) = default;
 
 		/**
-		 Destructs this scene fog.
+		 Destructs this pass buffer.
 		 */
 		~PassBuffer() = default;
 

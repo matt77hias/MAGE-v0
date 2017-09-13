@@ -30,7 +30,7 @@ namespace mage {
 		/**
 		 Returns the sprite pass associated with the current engine.
 
-		 @pre			The sprite pass associated with the 
+		 @pre			The scene renderer associated with the 
 						current engine must be loaded.
 		 @return		A pointer to the sprite pass associated
 						with the current engine.

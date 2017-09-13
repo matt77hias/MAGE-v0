@@ -123,8 +123,10 @@ namespace mage {
 		BindProjectionData(view_to_projection);
 		
 		// Process the models (which interact with light).
-		ProcessModels(scene->m_opaque_brdf_models,      world_to_projection, world_to_view);
-		ProcessModels(scene->m_transparent_brdf_models, world_to_projection, world_to_view);
+		ProcessModels(scene->GetOpaqueBRDFModels(), 
+			world_to_projection, world_to_view);
+		ProcessModels(scene->GetTransparentBRDFModels(), 
+			world_to_projection, world_to_view);
 	}
 
 	void XM_CALLCONV ShadingNormalPass::ProcessModels(

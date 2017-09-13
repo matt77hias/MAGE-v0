@@ -94,19 +94,27 @@ namespace mage {
 		BindLightColorData();
 		
 		// Process the lights.
-		ProcessLights(scene->m_omni_lights,                 world_to_projection);
-		ProcessLights(scene->m_sm_omni_lights,              world_to_projection);
-		ProcessLights(scene->m_spot_lights,                 world_to_projection);
-		ProcessLights(scene->m_sm_spot_lights,              world_to_projection);
+		ProcessLights(scene->GetOmniLights(), 
+			world_to_projection);
+		ProcessLights(scene->GetOmniLightsWithShadowMapping(), 
+			world_to_projection);
+		ProcessLights(scene->GetSpotLights(), 
+			world_to_projection);
+		ProcessLights(scene->GetSpotLightsWithShadowMapping(), 
+			world_to_projection);
 
 		// Bind the model color data.
 		BindModelColorData();
 
 		// Process the models.
-		ProcessModels(scene->m_opaque_emissive_models,      world_to_projection);
-		ProcessModels(scene->m_opaque_brdf_models,          world_to_projection);
-		ProcessModels(scene->m_transparent_emissive_models, world_to_projection);
-		ProcessModels(scene->m_transparent_brdf_models,     world_to_projection);
+		ProcessModels(scene->GetOpaqueEmissiveModels(),
+			world_to_projection);
+		ProcessModels(scene->GetOpaqueBRDFModels(),
+			world_to_projection);
+		ProcessModels(scene->GetTransparentEmissiveModels(),
+			world_to_projection);
+		ProcessModels(scene->GetTransparentBRDFModels(),
+			world_to_projection);
 	}
 
 	void XM_CALLCONV BoundingVolumePass::ProcessLights(

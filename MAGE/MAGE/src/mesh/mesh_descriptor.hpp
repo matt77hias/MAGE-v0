@@ -33,7 +33,8 @@ namespace mage {
 		explicit MeshDescriptor(
 			bool invert_handedness = false, 
 			bool clockwise_order   = true)
-			: m_invert_handedness(invert_handedness), m_clockwise_order(clockwise_order) {}
+			: m_invert_handedness(invert_handedness), 
+			m_clockwise_order(clockwise_order) {}
 		
 		/**
 		 Constructs a mesh descriptor from the given mesh descriptor.

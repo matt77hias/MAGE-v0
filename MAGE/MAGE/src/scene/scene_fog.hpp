@@ -41,7 +41,8 @@ namespace mage {
 		 @param[in]		intensity
 						The RGB intensity.
 		 */
-		explicit SceneFog(const RGBSpectrum &intensity = RGBSpectrum(0.752941251f, 0.752941251f, 0.752941251f))
+		explicit SceneFog(const RGBSpectrum &intensity 
+			= RGBSpectrum(0.752941251f, 0.752941251f, 0.752941251f))
 			: m_intensity(intensity), 
 			m_distance_falloff_start(MAGE_DEFAULT_SCENE_FOG_START), 
 			m_distance_falloff_end(MAGE_DEFAULT_SCENE_FOG_END) {}

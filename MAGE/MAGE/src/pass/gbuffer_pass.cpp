@@ -41,8 +41,8 @@ namespace mage {
 	void GBufferPass::UpdateMaterialCoefficientData(const PassBuffer *scene) noexcept {
 
 		for (uint8_t i = 0; i < _countof(m_material_coefficient_min); ++i) {
-			m_material_coefficient_min[i]   = scene->m_material_coefficient_min[i];
-			m_material_coefficient_range[i] = scene->m_material_coefficient_max[i] - scene->m_material_coefficient_min[i];
+			m_material_coefficient_min[i]   = scene->GetMaterialCoefficientMinimum(i);
+			m_material_coefficient_range[i] = scene->GetMaterialCoefficientRange(i);
 		}
 	}
 	
@@ -150,7 +150,8 @@ namespace mage {
 		BindProjectionData(view_to_projection);
 		
 		// Process the models.
-		ProcessModels(scene->m_opaque_brdf_models, world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetOpaqueBRDFModels(), 
+			world_to_projection, world_to_view, view_to_world);
 	}
 
 	void XM_CALLCONV GBufferPass::ProcessModels(

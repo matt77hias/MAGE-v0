@@ -102,10 +102,14 @@ namespace mage {
 		BindProjectionData(view_to_projection);
 		
 		// Process the models.
-		ProcessModels(scene->m_opaque_emissive_models,      world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->m_opaque_brdf_models,          world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->m_transparent_emissive_models, world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->m_transparent_brdf_models,     world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetOpaqueEmissiveModels(), 
+			world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetOpaqueBRDFModels(), 
+			world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetTransparentEmissiveModels(), 
+			world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetTransparentBRDFModels(), 
+			world_to_projection, world_to_view, view_to_world);
 	}
 
 	void XM_CALLCONV ConstantShadingPass::ProcessModels(

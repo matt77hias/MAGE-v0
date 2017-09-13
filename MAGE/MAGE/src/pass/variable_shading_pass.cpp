@@ -147,8 +147,10 @@ namespace mage {
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 		
 		// Process the opaque models.
-		ProcessModels(scene->m_opaque_emissive_models,      world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->m_opaque_brdf_models,          world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetOpaqueEmissiveModels(), 
+			world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetOpaqueBRDFModels(), 
+			world_to_projection, world_to_view, view_to_world);
 		
 		// Bind the blend state.
 		if (Renderer::Get()->HasMSAA()) {
@@ -159,8 +161,10 @@ namespace mage {
 		}
 
 		// Process the transparent models.
-		ProcessModels(scene->m_transparent_emissive_models, world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->m_transparent_brdf_models,     world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetTransparentEmissiveModels(), 
+			world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetTransparentBRDFModels(),
+			world_to_projection, world_to_view, view_to_world);
 	}
 
 	void XM_CALLCONV VariableShadingPass::RenderPostDeferred(
@@ -179,7 +183,8 @@ namespace mage {
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 		
 		// Process the opaque models.
-		ProcessModels(scene->m_opaque_emissive_models,      world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetOpaqueEmissiveModels(), 
+			world_to_projection, world_to_view, view_to_world);
 		
 		// Bind the blend state.
 		if (Renderer::Get()->HasMSAA()) {
@@ -190,8 +195,10 @@ namespace mage {
 		}
 
 		// Process the transparent models.
-		ProcessModels(scene->m_transparent_emissive_models, world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->m_transparent_brdf_models,     world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetTransparentEmissiveModels(),
+			world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetTransparentBRDFModels(),
+			world_to_projection, world_to_view, view_to_world);
 	}
 
 	void XM_CALLCONV VariableShadingPass::ProcessModels(

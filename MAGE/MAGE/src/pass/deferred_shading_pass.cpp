@@ -45,10 +45,10 @@ namespace mage {
 
 		DeferredComputeBuffer buffer;
 		buffer.m_projection_values    = GetProjectionValues(view_to_projection);
-		buffer.m_mat1_start           = scene->m_material_coefficient_min[0];
-		buffer.m_mat1_range           = scene->m_material_coefficient_max[0] - scene->m_material_coefficient_min[0];
-		buffer.m_mat2_start           = scene->m_material_coefficient_min[1];
-		buffer.m_mat2_range           = scene->m_material_coefficient_max[1] - scene->m_material_coefficient_min[1];
+		buffer.m_mat1_start           = scene->GetMaterialCoefficientMinimum(0);
+		buffer.m_mat1_range           = scene->GetMaterialCoefficientRange(0);
+		buffer.m_mat2_start           = scene->GetMaterialCoefficientMinimum(1);
+		buffer.m_mat2_range           = scene->GetMaterialCoefficientRange(1);
 
 		const Renderer * const renderer = Renderer::Get();
 		buffer.m_resolution_minus1[0] = renderer->GetWidth()  - 1;

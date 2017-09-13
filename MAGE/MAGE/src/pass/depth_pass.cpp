@@ -79,8 +79,10 @@ namespace mage {
 		BindProjectionData(view_to_projection);
 
 		// Process the opaque models.
-		ProcessModels(scene->m_opaque_emissive_models, world_to_projection, world_to_view);
-		ProcessModels(scene->m_opaque_brdf_models,     world_to_projection, world_to_view);
+		ProcessModels(scene->GetOpaqueEmissiveModels(), 
+			world_to_projection, world_to_view);
+		ProcessModels(scene->GetOpaqueBRDFModels(), 
+			world_to_projection, world_to_view);
 	}
 
 	void XM_CALLCONV DepthPass::ProcessModels(

@@ -55,7 +55,7 @@ namespace mage {
 		
 		m_sprite_batch->Begin();
 
-		for (const auto node : scene->m_sprites) {
+		for (const auto node : scene->GetSprites()) {
 			// Obtain node components.
 			const Sprite * const sprite = node->GetSprite();
 

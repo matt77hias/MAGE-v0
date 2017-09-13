@@ -177,4 +177,23 @@ namespace mage {
 			m_material_coefficient_max[i] = std::max(p, m_material_coefficient_max[i]);
 		}
 	}
+
+	float PassBuffer::GetMaterialCoefficientMinimum(uint8_t index) const noexcept {
+		Assert(index < s_nb_material_coefficients);
+		
+		return m_material_coefficient_min[index];
+	}
+
+	float PassBuffer::GetMaterialCoefficientMaximum(uint8_t index) const noexcept {
+		Assert(index < s_nb_material_coefficients);
+		
+		return m_material_coefficient_max[index];
+	}
+
+	float PassBuffer::GetMaterialCoefficientRange(uint8_t index) const noexcept {
+		Assert(index < s_nb_material_coefficients);
+
+		return GetMaterialCoefficientMaximum(index) 
+			- GetMaterialCoefficientMinimum(index);
+	}
 }

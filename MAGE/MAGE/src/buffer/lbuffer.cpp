@@ -39,14 +39,20 @@ namespace mage {
 		Assert(scene);
 		
 		// Process the lights without shadow mapping.
-		ProcessLights(scene->m_directional_lights,                  world_to_view);
-		ProcessLights(scene->m_omni_lights,    world_to_projection, world_to_view);
-		ProcessLights(scene->m_spot_lights,    world_to_projection, world_to_view);
+		ProcessLights(scene->GetDirectionalLights(),
+			world_to_view);
+		ProcessLights(scene->GetOmniLights(), 
+			world_to_projection, world_to_view);
+		ProcessLights(scene->GetSpotLights(), 
+			world_to_projection, world_to_view);
 		
 		// Process the lights with shadow mapping.
-		ProcessLightsWithShadowMapping(scene->m_sm_directional_lights,               world_to_view, view_to_world);
-		ProcessLightsWithShadowMapping(scene->m_sm_omni_lights, world_to_projection, world_to_view, view_to_world);
-		ProcessLightsWithShadowMapping(scene->m_sm_spot_lights, world_to_projection, world_to_view, view_to_world);
+		ProcessLightsWithShadowMapping(scene->GetDirectionalLightsWithShadowMapping(), 
+			world_to_view, view_to_world);
+		ProcessLightsWithShadowMapping(scene->GetOmniLightsWithShadowMapping(), 
+			world_to_projection, world_to_view, view_to_world);
+		ProcessLightsWithShadowMapping(scene->GetSpotLightsWithShadowMapping(), 
+			world_to_projection, world_to_view, view_to_world);
 		
 		// Process the lights' data.
 		ProcessLightsData(scene);
@@ -114,7 +120,7 @@ namespace mage {
 	void LBuffer::ProcessLightsData(const PassBuffer *scene) {
 
 		LightBuffer buffer;
-		buffer.m_Ia                             = scene->m_ambient_light;
+		buffer.m_Ia                             = scene->GetAmbientLight();
 		
 		buffer.m_nb_directional_lights          = static_cast< uint32_t >(m_directional_lights.size());
 		buffer.m_nb_omni_lights                 = static_cast< uint32_t >(m_omni_lights.size());
@@ -123,9 +129,9 @@ namespace mage {
 		buffer.m_nb_sm_omni_lights              = static_cast< uint32_t >(m_sm_omni_lights.size());
 		buffer.m_nb_sm_spot_lights              = static_cast< uint32_t >(m_sm_spot_lights.size());
 		
-		buffer.m_fog_color                      = scene->m_fog->GetIntensity();
-		buffer.m_fog_distance_falloff_start     = scene->m_fog->GetStartDistanceFalloff();
-		buffer.m_fog_distance_falloff_inv_range = 1.0f / scene->m_fog->GetRangeDistanceFalloff();
+		buffer.m_fog_color                      = scene->GetFog()->GetIntensity();
+		buffer.m_fog_distance_falloff_start     = scene->GetFog()->GetStartDistanceFalloff();
+		buffer.m_fog_distance_falloff_inv_range = 1.0f / scene->GetFog()->GetRangeDistanceFalloff();
 
 		// Update the light buffer.
 		m_light_buffer.UpdateData(m_device_context, buffer);

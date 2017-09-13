@@ -22,7 +22,7 @@ namespace mage {
 	GBufferPass *GBufferPass::Get() {
 		Assert(SceneRenderer::Get());
 
-		return SceneRenderer::Get()->GBufferPass();
+		return SceneRenderer::Get()->GetGBufferPass();
 	}
 
 	GBufferPass::GBufferPass()

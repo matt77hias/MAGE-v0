@@ -7,6 +7,7 @@
 
 #include "pass\pass_buffer.hpp"
 #include "sprite\sprite_batch.hpp"
+#include "shader\shader.hpp"
 
 #pragma endregion
 
@@ -132,16 +133,16 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this sprite pass.
 		 */
-		SharedPtr< const VertexShader > m_vs;
+		const SharedPtr< const VertexShader > m_vs;
 
 		/**
 		 A pointer to the pixel shader of this sprite pass.
 		 */
-		SharedPtr< const PixelShader > m_ps;
+		const SharedPtr< const PixelShader > m_ps;
 
 		/**
 		 A pointer to the sprite batch.
 		 */
-		const UniquePtr< SpriteBatch > m_sprite_batch;
+		UniquePtr< SpriteBatch > m_sprite_batch;
 	};
 }

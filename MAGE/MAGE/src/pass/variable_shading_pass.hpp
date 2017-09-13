@@ -8,6 +8,7 @@
 #include "pass\pass_buffer.hpp"
 #include "buffer\constant_buffer.hpp"
 #include "buffer\model_buffer.hpp"
+#include "shader\shader.hpp"
 
 #pragma endregion
 
@@ -295,7 +296,7 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this variable shading pass.
 		 */
-		SharedPtr< const VertexShader > m_vs;
+		const SharedPtr< const VertexShader > m_vs;
 
 		/**
 		 An array containing pointers to the pixel shaders

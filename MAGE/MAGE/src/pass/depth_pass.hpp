@@ -7,6 +7,7 @@
 
 #include "pass\pass_buffer.hpp"
 #include "buffer\constant_buffer.hpp"
+#include "shader\shader.hpp"
 
 #pragma endregion
 
@@ -193,7 +194,7 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this depth pass.
 		 */
-		SharedPtr< const VertexShader > m_vs;
+		const SharedPtr< const VertexShader > m_vs;
 
 		/**
 		 The projection buffer of this depth pass.

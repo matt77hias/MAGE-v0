@@ -8,6 +8,7 @@
 #include "pass\pass_buffer.hpp"
 #include "buffer\constant_buffer.hpp"
 #include "buffer\deferred_buffer.hpp"
+#include "shader\shader.hpp"
 
 #pragma endregion
 

@@ -8,6 +8,7 @@
 #include "pass\pass_buffer.hpp"
 #include "buffer\constant_buffer.hpp"
 #include "buffer\model_buffer.hpp"
+#include "shader\shader.hpp"
 
 #pragma endregion
 
@@ -242,13 +243,13 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this shading normal pass.
 		 */
-		SharedPtr< const VertexShader > m_vs;
+		const SharedPtr< const VertexShader > m_vs;
 		
 		/**
 		 An array containing pointers to the pixel shaders
 		 of this shading normal pass.
 		 */
-		SharedPtr< const PixelShader > m_ps[static_cast< size_t >(PSIndex::Count)];
+		const SharedPtr< const PixelShader > m_ps[static_cast< size_t >(PSIndex::Count)];
 		
 		/**
 		 The pixel shader index of the bound pixel shader

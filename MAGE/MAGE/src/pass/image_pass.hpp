@@ -129,16 +129,16 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this image pass.
 		 */
-		SharedPtr< const VertexShader > m_vs;
+		const SharedPtr< const VertexShader > m_vs;
 
 		/**
 		 A pointer to the pixel shader of this image pass.
 		 */
-		SharedPtr< const PixelShader > m_image_ps;
+		const SharedPtr< const PixelShader > m_image_ps;
 
 		/**
 		 A pointer to the pixel shader of this image pass.
 		 */
-		SharedPtr< const PixelShader > m_image_depth_ps;
+		const SharedPtr< const PixelShader > m_image_depth_ps;
 	};
 }

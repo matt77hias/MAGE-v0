@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	static SceneRenderer *Get() noexcept {
+	SceneRenderer *SceneRenderer::Get() noexcept {
 		Assert(SceneManager::Get());
 		
 		return SceneManager::Get()->GetRenderer();
@@ -42,6 +42,90 @@ namespace mage {
 	SceneRenderer::SceneRenderer(SceneRenderer &&scene_renderer) = default;
 	
 	SceneRenderer::~SceneRenderer() = default;
+
+	DepthPass *SceneRenderer::GetDepthPass() {
+		if (!m_depth_pass) {
+			m_depth_pass = MakeUnique< DepthPass >();
+		}
+		return m_depth_pass.get();
+	}
+
+	GBufferPass *SceneRenderer::GetGBufferPass() {
+		if (!m_gbuffer_pass) {
+			m_gbuffer_pass = MakeUnique< GBufferPass >();
+		}
+		return m_gbuffer_pass.get();
+	}
+
+	DeferredShadingPass *SceneRenderer::GetDeferredShadingPass() {
+		if (!m_deferred_shading_pass) {
+			m_deferred_shading_pass = MakeUnique< DeferredShadingPass >();
+		}
+		return m_deferred_shading_pass.get();
+	}
+
+	VariableShadingPass *SceneRenderer::GetVariableShadingPass() {
+		if (!m_variable_shading_pass) {
+			m_variable_shading_pass = MakeUnique< VariableShadingPass >();
+		}
+		return m_variable_shading_pass.get();
+	}
+
+	SpritePass *SceneRenderer::GetSpritePass() {
+		if (!m_sprite_pass) {
+			m_sprite_pass = MakeUnique< SpritePass >();
+		}
+		return m_sprite_pass.get();
+	}
+
+	ImagePass *SceneRenderer::GetImagePass() {
+		if (!m_image_pass) {
+			m_image_pass = MakeUnique< ImagePass >();
+		}
+		return m_image_pass.get();
+	}
+
+	ConstantShadingPass *SceneRenderer::GetConstantShadingPass() {
+		if (!m_constant_shading_pass) {
+			m_constant_shading_pass = MakeUnique< ConstantShadingPass >();
+		}
+		return m_constant_shading_pass.get();
+	}
+
+	ConstantComponentPass *SceneRenderer::GetConstantComponentPass() {
+		if (!m_constant_component_pass) {
+			m_constant_component_pass = MakeUnique< ConstantComponentPass >();
+		}
+		return m_constant_component_pass.get();
+	}
+
+	VariableComponentPass *SceneRenderer::GetVariableComponentPass() {
+		if (!m_variable_component_pass) {
+			m_variable_component_pass = MakeUnique< VariableComponentPass >();
+		}
+		return m_variable_component_pass.get();
+	}
+
+	ShadingNormalPass *SceneRenderer::GetShadingNormalPass() {
+		if (!m_shading_normal_pass) {
+			m_shading_normal_pass = MakeUnique< ShadingNormalPass >();
+		}
+		return m_shading_normal_pass.get();
+	}
+
+	WireframePass *SceneRenderer::GetWireframePass() {
+		if (!m_wireframe_pass) {
+			m_wireframe_pass = MakeUnique< WireframePass >();
+		}
+		return m_wireframe_pass.get();
+	}
+
+	BoundingVolumePass *SceneRenderer::GetBoundingVolumePass() {
+		if (!m_bounding_volume_pass) {
+			m_bounding_volume_pass = MakeUnique< BoundingVolumePass >();
+		}
+		return m_bounding_volume_pass.get();
+	}
 
 	void SceneRenderer::Render(const Scene *scene) {
 		const Renderer * const renderer = Renderer::Get();

@@ -25,9 +25,9 @@ namespace mage {
 		m_maximum_viewport(),
 		m_pass_buffer(MakeUnique< PassBuffer >()),
 		m_gbuffer(MakeUnique< GBuffer >()),
-		m_lbuffer(MakeUnique< LBuffer >()),
 		m_depth_pass(), 
 		m_gbuffer_pass(),
+		m_lbuffer_pass(),
 		m_deferred_shading_pass(), 
 		m_variable_shading_pass(),
 		m_sprite_pass(), 
@@ -187,13 +187,12 @@ namespace mage {
 		CXMMATRIX view_to_world,
 		CXMMATRIX view_to_projection) {
 		
-		// Create the LBuffer.
-		m_lbuffer->Render(
+		// Perform a LBuffer pass.
+		LBufferPass * const lbuffer_pass = GetLBufferPass();
+		lbuffer_pass->Render(
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world);
 
-		// Bind the LBuffer to the graphics pipeline.
-		m_lbuffer->BindToGraphicsPipeline();
 		// Bind the viewport.
 		viewport.BindViewport(m_device_context);
 		
@@ -213,13 +212,12 @@ namespace mage {
 		CXMMATRIX view_to_projection,
 		BRDFType brdf) {
 		
-		// Create the LBuffer.
-		m_lbuffer->Render(
+		// Perform a LBuffer pass.
+		LBufferPass * const lbuffer_pass = GetLBufferPass();
+		lbuffer_pass->Render(
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world);
 
-		// Bind the LBuffer to the graphics pipeline.
-		m_lbuffer->BindToGraphicsPipeline();
 		// Bind the viewport.
 		viewport.BindViewport(m_device_context);
 		
@@ -249,17 +247,16 @@ namespace mage {
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world, view_to_projection);
 
-		// Create the LBuffer.
-		m_lbuffer->Render(
+		// Perform a LBuffer pass.
+		LBufferPass * const lbuffer_pass = GetLBufferPass();
+		lbuffer_pass->Render(
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world);
 
-		// Bind the GBuffer for unpacking to the compute pipeline.
-		m_gbuffer->BindUnpacking(m_device_context);
-		// Bind the LBuffer to the compute pipeline.
-		m_lbuffer->BindToComputePipeline();
 		// Bind the viewport.
 		viewport.BindViewport(m_device_context);
+		// Bind the GBuffer for unpacking to the compute pipeline.
+		m_gbuffer->BindUnpacking(m_device_context);
 
 		// Perform a deferred pass.
 		DeferredShadingPass *deferred_pass = GetDeferredShadingPass();
@@ -275,9 +272,6 @@ namespace mage {
 		image_pass->BindFixedState();
 		image_pass->Render();
 
-		// Bind the LBuffer to the graphics pipeline.
-		m_lbuffer->BindToGraphicsPipeline();
-		
 		// Perform a forward pass.
 		VariableShadingPass * const forward_pass = GetVariableShadingPass();
 		forward_pass->BindFixedState(brdf);

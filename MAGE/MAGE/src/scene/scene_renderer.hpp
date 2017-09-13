@@ -7,6 +7,7 @@
 
 #include "pass\depth_pass.hpp"
 #include "pass\gbuffer_pass.hpp"
+#include "pass\lbuffer_pass.hpp"
 #include "pass\deferred_shading_pass.hpp"
 #include "pass\variable_shading_pass.hpp"
 #include "pass\sprite_pass.hpp"
@@ -20,7 +21,6 @@
 #include "pass\bounding_volume_pass.hpp"
 
 #include "buffer\gbuffer.hpp"
-#include "buffer\lbuffer.hpp"
 
 #pragma endregion
 
@@ -155,6 +155,23 @@ namespace mage {
 				m_gbuffer_pass = MakeUnique< GBufferPass >();
 			}
 			return m_gbuffer_pass.get();
+		}
+
+		/**
+		 Returns the LBuffer pass of this scene renderer.
+
+		 @pre			The renderer associated with the
+						current engine must be loaded.
+		 @pre			The resource manager associated with the
+						current engine must be loaded.
+		 @return		A pointer to the LBuffer pass 
+						of this scene renderer.
+		 */
+		LBufferPass *GetLBufferPass() {
+			if (!m_lbuffer_pass) {
+				m_lbuffer_pass = MakeUnique< LBufferPass >();
+			}
+			return m_lbuffer_pass.get();
 		}
 
 		/**
@@ -385,11 +402,6 @@ namespace mage {
 		 */
 		UniquePtr< GBuffer > m_gbuffer;
 		
-		/**
-		 A pointer to the Lbuffer of this scene renderer.
-		 */
-		UniquePtr< LBuffer > m_lbuffer;
-
 		//---------------------------------------------------------------------
 		// Member Variables: Render Passes
 		//---------------------------------------------------------------------
@@ -403,6 +415,11 @@ namespace mage {
 		 A pointer to the GBuffer pass of this scene renderer.
 		 */
 		UniquePtr< GBufferPass >  m_gbuffer_pass;
+
+		/**
+		 A pointer to the LBuffer pass of this scene renderer.
+		 */
+		UniquePtr< LBufferPass >  m_lbuffer_pass;
 
 		/**
 		 A pointer to the deferred shading pass of this scene renderer.

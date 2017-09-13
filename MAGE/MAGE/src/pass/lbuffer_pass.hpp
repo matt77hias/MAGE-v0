@@ -18,7 +18,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	struct LBuffer final {
+	struct LBufferPass final {
 
 	public:
 
@@ -26,17 +26,17 @@ namespace mage {
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
-		LBuffer();
-		LBuffer(const LBuffer &buffer) = delete;
-		LBuffer(LBuffer &&buffer) = default;
-		~LBuffer() = default;
+		LBufferPass();
+		LBufferPass(const LBufferPass &buffer) = delete;
+		LBufferPass(LBufferPass &&buffer) = default;
+		~LBufferPass() = default;
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		LBuffer &operator=(const LBuffer &buffer) = delete;
-		LBuffer &operator=(LBuffer &&buffer) = delete;
+		LBufferPass &operator=(const LBufferPass &buffer) = delete;
+		LBufferPass &operator=(LBufferPass &&buffer) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -51,6 +51,15 @@ namespace mage {
 		size_t GetNumberOfSpotLights() const noexcept {
 			return m_spot_lights.size();
 		}
+		size_t GetNumberOfDirectionalLightsWithShadowMapping() const noexcept {
+			return m_sm_directional_lights.size();
+		}
+		size_t GetNumberOfOmniLightsWithShadowMapping() const noexcept {
+			return m_sm_omni_lights.size();
+		}
+		size_t GetNumberOfSpotLightsWithShadowMapping() const noexcept {
+			return m_sm_spot_lights.size();
+		}
 
 		void XM_CALLCONV Render(
 			const PassBuffer *scene,
@@ -58,16 +67,14 @@ namespace mage {
 			CXMMATRIX world_to_view,
 			CXMMATRIX view_to_world);
 		
-		void ClearGraphicsPipeline() const noexcept;
-		void ClearComputePipeline() const noexcept;
-		void BindToGraphicsPipeline() const noexcept;
-		void BindToComputePipeline() const noexcept;
-
 	private:
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		void UnbindSMSs() const noexcept;
+		void BindLBuffer() const noexcept;
 
 		void ProcessLightsData(const PassBuffer *scene);
 

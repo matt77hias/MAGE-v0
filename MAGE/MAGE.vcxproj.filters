@@ -948,9 +948,6 @@
     <ClInclude Include="MAGE\src\shader\cso\deferred\emissive_PS.hpp">
       <Filter>Header Files\shader\cso\deferred</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\buffer\lbuffer.hpp">
-      <Filter>Header Files\buffer</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\pass\gbuffer_pass.hpp">
       <Filter>Header Files\pass</Filter>
     </ClInclude>
@@ -1016,6 +1013,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\image_depth_PS.hpp">
       <Filter>Header Files\shader\cso\miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\lbuffer_pass.hpp">
+      <Filter>Header Files\pass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1361,9 +1361,6 @@
     <ClCompile Include="MAGE\src\buffer\gbuffer.cpp">
       <Filter>Source Files\buffer</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\buffer\lbuffer.cpp">
-      <Filter>Source Files\buffer</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\pass\gbuffer_pass.cpp">
       <Filter>Source Files\pass</Filter>
     </ClCompile>
@@ -1378,6 +1375,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\buffer\shadow_map_buffer.cpp">
       <Filter>Source Files\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\lbuffer_pass.cpp">
+      <Filter>Source Files\pass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

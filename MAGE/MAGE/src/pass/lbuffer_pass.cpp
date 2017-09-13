@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "buffer\lbuffer.hpp"
+#include "scene\scene_renderer.hpp"
 #include "math\view_frustum.hpp"
 #include "logging\error.hpp"
 
@@ -17,7 +17,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	LBuffer::LBuffer()
+	LBufferPass::LBufferPass()
 		: m_device_context(GetImmediateDeviceContext()),
 		m_light_buffer(),
 		m_directional_lights(3),
@@ -30,7 +30,7 @@ namespace mage {
 		m_omni_sms(MakeUnique< ShadowCubeMapBuffer >()),
 		m_spot_sms(MakeUnique< ShadowMapBuffer >()) {}
 
-	void XM_CALLCONV LBuffer::Render(
+	void XM_CALLCONV LBufferPass::Render(
 		const PassBuffer *scene, 
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
@@ -46,6 +46,9 @@ namespace mage {
 		ProcessLights(scene->GetSpotLights(), 
 			world_to_projection, world_to_view);
 		
+		// Unbind the shadow map SRVs.
+		UnbindSMSs();
+
 		// Process the lights with shadow mapping.
 		ProcessLightsWithShadowMapping(scene->GetDirectionalLightsWithShadowMapping(), 
 			world_to_view, view_to_world);
@@ -56,25 +59,24 @@ namespace mage {
 		
 		// Process the lights' data.
 		ProcessLightsData(scene);
+
+		// Bind the LBuffer.
+		BindLBuffer();
 	}
 
-	void LBuffer::ClearGraphicsPipeline() const noexcept {
-		ID3D11ShaderResourceView * const srvs[9] = {};
+	void LBufferPass::UnbindSMSs() const noexcept {
+		ID3D11ShaderResourceView * const srvs[3] = {};
 
+		// Unbind the shadow map SRVs.
 		PS::BindSRVs(m_device_context,
-			SLOT_SRV_LIGHTS_START,
+			SLOT_SRV_SHADOW_MAPS_START,
 			_countof(srvs), srvs);
-	}
-
-	void LBuffer::ClearComputePipeline() const noexcept {
-		ID3D11ShaderResourceView * const srvs[9] = {};
-
 		CS::BindSRVs(m_device_context,
-			SLOT_SRV_LIGHTS_START,
+			SLOT_SRV_SHADOW_MAPS_START,
 			_countof(srvs), srvs);
 	}
 
-	void LBuffer::BindToGraphicsPipeline() const noexcept {
+	void LBufferPass::BindLBuffer() const noexcept {
 		ID3D11ShaderResourceView * const srvs[9] = {
 			m_directional_lights.Get(),
 			m_omni_lights.Get(),
@@ -87,37 +89,24 @@ namespace mage {
 			m_spot_sms->GetSRV()
 		};
 
+		// Bind constant buffer.
 		PS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_LIGHTING,
 			m_light_buffer.Get());
-		PS::BindSRVs(m_device_context,
-			SLOT_SRV_LIGHTS_START,
-			_countof(srvs), srvs);
-
-	}
-
-	void LBuffer::BindToComputePipeline() const noexcept {
-		ID3D11ShaderResourceView * const srvs[9] = {
-			m_directional_lights.Get(),
-			m_omni_lights.Get(),
-			m_spot_lights.Get(),
-			m_sm_directional_lights.Get(),
-			m_sm_omni_lights.Get(),
-			m_sm_spot_lights.Get(),
-			m_directional_sms->GetSRV(),
-			m_omni_sms->GetSRV(),
-			m_spot_sms->GetSRV()
-		};
-
 		CS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_LIGHTING,
 			m_light_buffer.Get());
+		
+		// Bind the SRVs.
+		PS::BindSRVs(m_device_context,
+			SLOT_SRV_LIGHTS_START,
+			_countof(srvs), srvs);
 		CS::BindSRVs(m_device_context,
 			SLOT_SRV_LIGHTS_START,
 			_countof(srvs), srvs);
 	}
 
-	void LBuffer::ProcessLightsData(const PassBuffer *scene) {
+	void LBufferPass::ProcessLightsData(const PassBuffer *scene) {
 
 		LightBuffer buffer;
 		buffer.m_Ia                             = scene->GetAmbientLight();
@@ -137,7 +126,7 @@ namespace mage {
 		m_light_buffer.UpdateData(m_device_context, buffer);
 	}
 
-	void XM_CALLCONV LBuffer::ProcessLights(
+	void XM_CALLCONV LBufferPass::ProcessLights(
 		const vector< const DirectionalLightNode * > &lights,
 		FXMMATRIX world_to_view) {
 
@@ -164,7 +153,7 @@ namespace mage {
 		m_directional_lights.UpdateData(m_device_context, buffer);
 	}
 
-	void XM_CALLCONV LBuffer::ProcessLights(
+	void XM_CALLCONV LBufferPass::ProcessLights(
 		const vector< const OmniLightNode * > &lights,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view) {
@@ -201,7 +190,7 @@ namespace mage {
 		m_omni_lights.UpdateData(m_device_context, buffer);
 	}
 
-	void XM_CALLCONV LBuffer::ProcessLights(
+	void XM_CALLCONV LBufferPass::ProcessLights(
 		const vector< const SpotLightNode * > &lights,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view) {
@@ -243,7 +232,7 @@ namespace mage {
 		m_spot_lights.UpdateData(m_device_context, buffer);
 	}
 
-	void XM_CALLCONV LBuffer::ProcessLightsWithShadowMapping(
+	void XM_CALLCONV LBufferPass::ProcessLightsWithShadowMapping(
 		const vector< const DirectionalLightNode * > &lights,
 		FXMMATRIX world_to_view,
 		CXMMATRIX view_to_world) {
@@ -274,7 +263,7 @@ namespace mage {
 		SetupDirectionalShadowMaps();
 	}
 
-	void XM_CALLCONV LBuffer::ProcessLightsWithShadowMapping(
+	void XM_CALLCONV LBufferPass::ProcessLightsWithShadowMapping(
 		const vector< const OmniLightNode * > &lights,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
@@ -319,7 +308,7 @@ namespace mage {
 		SetupOmniShadowMaps();
 	}
 
-	void XM_CALLCONV LBuffer::ProcessLightsWithShadowMapping(
+	void XM_CALLCONV LBufferPass::ProcessLightsWithShadowMapping(
 		const vector< const SpotLightNode * > &lights,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
@@ -370,7 +359,7 @@ namespace mage {
 		SetupSpotShadowMaps();
 	}
 
-	void LBuffer::SetupDirectionalShadowMaps() {
+	void LBufferPass::SetupDirectionalShadowMaps() {
 		const size_t nb_requested = m_sm_directional_lights.size();
 		const size_t nb_available = m_directional_sms->GetNumberOfShadowMaps();
 		
@@ -379,7 +368,7 @@ namespace mage {
 		}
 	}
 	
-	void LBuffer::SetupOmniShadowMaps() {
+	void LBufferPass::SetupOmniShadowMaps() {
 		const size_t nb_requested = m_sm_omni_lights.size();
 		const size_t nb_available = m_omni_sms->GetNumberOfShadowCubeMaps();
 
@@ -388,7 +377,7 @@ namespace mage {
 		}
 	}
 	
-	void LBuffer::SetupSpotShadowMaps() {
+	void LBufferPass::SetupSpotShadowMaps() {
 		const size_t nb_requested = m_sm_spot_lights.size();
 		const size_t nb_available = m_spot_sms->GetNumberOfShadowMaps();
 

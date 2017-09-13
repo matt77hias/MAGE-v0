@@ -85,6 +85,24 @@ namespace mage {
 			world_to_projection, world_to_view);
 	}
 
+	void XM_CALLCONV DepthPass::RenderOccluders(
+		const PassBuffer *scene,
+		FXMMATRIX world_to_projection,
+		CXMMATRIX world_to_view,
+		CXMMATRIX view_to_projection) {
+
+		Assert(scene);
+
+		// Bind the projection data.
+		BindProjectionData(view_to_projection);
+
+		// Process the opaque models.
+		ProcessModels(scene->GetOpaqueEmissiveModels(),
+			world_to_projection, world_to_view);
+		ProcessModels(scene->GetOpaqueBRDFModels(),
+			world_to_projection, world_to_view);
+	}
+
 	void XM_CALLCONV DepthPass::ProcessModels(
 		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection,
@@ -104,6 +122,43 @@ namespace mage {
 			}
 
 			// Obtain node components (2/2).
+			const XMMATRIX object_to_view         = object_to_world * world_to_view;
+
+			// Bind the model data.
+			BindModelData(object_to_view);
+			// Bind the model mesh.
+			model->BindMesh(m_device_context);
+			// Draw the model.
+			model->Draw(m_device_context);
+		}
+	}
+
+	void XM_CALLCONV DepthPass::ProcessOccluderModels(
+		const vector< const ModelNode * > &models,
+		FXMMATRIX world_to_projection,
+		CXMMATRIX world_to_view) {
+
+		for (const auto node : models) {
+
+			// Obtain node components (1/3).
+			const Model         * const model     = node->GetModel();
+
+			// Skip non-occluder models.
+			if (!model->OccludesLight()) {
+				continue;
+			}
+
+			// Obtain node components (2/3).
+			const TransformNode * const transform = node->GetTransform();
+			const XMMATRIX object_to_world        = transform->GetObjectToWorldMatrix();
+			const XMMATRIX object_to_projection   = object_to_world * world_to_projection;
+
+			// Cull the model against the view frustum.
+			if (ViewFrustum::Cull(object_to_projection, model->GetAABB())) {
+				continue;
+			}
+
+			// Obtain node components (3/3).
 			const XMMATRIX object_to_view         = object_to_world * world_to_view;
 
 			// Bind the model data.

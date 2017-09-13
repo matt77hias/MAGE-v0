@@ -129,6 +129,27 @@ namespace mage {
 			CXMMATRIX world_to_view,
 			CXMMATRIX view_to_projection);
 
+		/**
+		 Renders the occluders of the scene.
+
+		 @pre			@a scene is not equal to @c nullptr.
+		 @param[in]		scene
+						A pointer to the scene.
+		 @param[in]		world_to_projection
+						The world-to-projection transformation matrix.
+		 @param[in]		world_to_view
+						The world-to-view transformation matrix.
+		 @param[in]		view_to_projection
+						The view-to-projection transformation matrix.
+		 @throws		FormattedException
+						Failed to render the scene.
+		 */
+		void XM_CALLCONV RenderOccluders(
+			const PassBuffer *scene,
+			FXMMATRIX world_to_projection,
+			CXMMATRIX world_to_view,
+			CXMMATRIX view_to_projection);
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -178,6 +199,29 @@ namespace mage {
 						Failed to process the models.
 		 */
 		void XM_CALLCONV ProcessModels(
+			const vector< const ModelNode * > &models,
+			FXMMATRIX world_to_projection, 
+			CXMMATRIX world_to_view);
+
+		/**
+		 Process the given models.
+
+		 @param[in]		models
+						A reference to a vector containing the model pointers
+						to process.
+		 @param[in]		world_to_projection
+						The world-to-projection transformation matrix.
+						This transformation matrix will be used for 
+						culling.
+		 @param[in]		world_to_view
+						The world-to-view transformation matrix.
+						This transformation matrix will be chained with
+						the object-to-view transformation matrix for
+						transforming vertices.
+		 @throws		FormattedException
+						Failed to process the models.
+		 */
+		void XM_CALLCONV ProcessOccluderModels(
 			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
 			CXMMATRIX world_to_view);

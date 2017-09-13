@@ -17,6 +17,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	__declspec(align(16)) struct LightCamera final
+		: public AlignedData< LightCamera > {
+		
+		XMMATRIX world_to_lprojection;
+		XMMATRIX world_to_lview;
+		XMMATRIX lview_to_lprojection;
+	};
+
 	LBufferPass::LBufferPass()
 		: m_device_context(GetImmediateDeviceContext()),
 		m_light_buffer(),
@@ -238,7 +246,9 @@ namespace mage {
 		CXMMATRIX view_to_world) {
 
 		vector< DirectionalLightWithShadowMappingBuffer > buffer;
+		vector< LightCamera > cameras;
 		buffer.reserve(lights.size());
+		cameras.reserve(lights.size());
 
 		for (const auto node : lights) {
 			const TransformNode    * const transform = node->GetTransform();
@@ -270,7 +280,9 @@ namespace mage {
 		CXMMATRIX view_to_world) {
 
 		vector< OmniLightWithShadowMappingBuffer > buffer;
+		vector< LightCamera > cameras;
 		buffer.reserve(lights.size());
+		cameras.reserve(6 * lights.size());
 
 		for (const auto node : lights) {
 			const TransformNode * const transform = node->GetTransform();
@@ -283,8 +295,17 @@ namespace mage {
 				continue;
 			}
 
-			const XMMATRIX world_to_lview         = transform->GetWorldToObjectMatrix();
-			const XMMATRIX cview_to_lview         = view_to_world * world_to_lview;
+			//TODO: 6 cameras needed!
+
+			// Create an omni light camera.
+			LightCamera camera;
+			camera.world_to_lview         = transform->GetWorldToObjectMatrix();
+			camera.lview_to_lprojection   = light->GetLightCamera().GetViewToProjectionMatrix();
+			camera.world_to_lprojection   = camera.world_to_lview * camera.lview_to_lprojection;
+			const XMMATRIX cview_to_lview = view_to_world * camera.world_to_lview;
+
+			// Add omni light camera to the omni light cameras.
+			cameras.push_back(std::move(camera));
 
 			// Transform to view space.
 			const XMVECTOR p = XMVector3TransformCoord(transform->GetWorldEye(), world_to_view);
@@ -315,7 +336,9 @@ namespace mage {
 		CXMMATRIX view_to_world) {
 
 		vector< SpotLightWithShadowMappingBuffer > buffer;
+		vector< LightCamera > cameras;
 		buffer.reserve(lights.size());
+		cameras.reserve(lights.size());
 
 		for (const auto node : lights) {
 			const TransformNode  * const transform = node->GetTransform();
@@ -328,9 +351,15 @@ namespace mage {
 				continue;
 			}
 
-			const XMMATRIX world_to_lview          = transform->GetWorldToObjectMatrix();
-			const XMMATRIX lview_to_lprojection    = light->GetLightCamera().GetViewToProjectionMatrix();
-			const XMMATRIX cview_to_lprojection    = view_to_world * world_to_lview * lview_to_lprojection;
+			// Create a spotlight camera.
+			LightCamera camera;
+			camera.world_to_lview               = transform->GetWorldToObjectMatrix();
+			camera.lview_to_lprojection         = light->GetLightCamera().GetViewToProjectionMatrix();
+			camera.world_to_lprojection         = camera.world_to_lview * camera.lview_to_lprojection;
+			const XMMATRIX cview_to_lprojection = view_to_world * camera.world_to_lprojection;
+
+			// Add spotlight camera to the spotlight cameras.
+			cameras.push_back(std::move(camera));
 
 			// Transform to view space.
 			const XMVECTOR p = XMVector3TransformCoord(transform->GetWorldEye(), world_to_view);
@@ -360,7 +389,7 @@ namespace mage {
 	}
 
 	void LBufferPass::SetupDirectionalShadowMaps() {
-		const size_t nb_requested = m_sm_directional_lights.size();
+		const size_t nb_requested = GetNumberOfDirectionalLightsWithShadowMapping();
 		const size_t nb_available = m_directional_sms->GetNumberOfShadowMaps();
 		
 		if (nb_available < nb_requested) {
@@ -369,7 +398,7 @@ namespace mage {
 	}
 	
 	void LBufferPass::SetupOmniShadowMaps() {
-		const size_t nb_requested = m_sm_omni_lights.size();
+		const size_t nb_requested = GetNumberOfOmniLightsWithShadowMapping();
 		const size_t nb_available = m_omni_sms->GetNumberOfShadowCubeMaps();
 
 		if (nb_available < nb_requested) {
@@ -378,7 +407,7 @@ namespace mage {
 	}
 	
 	void LBufferPass::SetupSpotShadowMaps() {
-		const size_t nb_requested = m_sm_spot_lights.size();
+		const size_t nb_requested = GetNumberOfSpotLightsWithShadowMapping();
 		const size_t nb_available = m_spot_sms->GetNumberOfShadowMaps();
 
 		if (nb_available < nb_requested) {

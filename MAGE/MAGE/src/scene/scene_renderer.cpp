@@ -176,7 +176,7 @@ namespace mage {
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_projection);
 		
-		// Bind the back buffer RTV and depth buffer DSV.
+		// Restore the RTV and DSV.
 		renderer->BindRTVAndDSV();
 	}
 
@@ -193,8 +193,10 @@ namespace mage {
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world);
 
-		// Bind the viewport.
+		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
+		// Restore the RTV and DSV.
+		Renderer::Get()->BindRTVAndDSV();
 		
 		// Perform a forward pass.
 		ConstantShadingPass * const forward_pass = GetConstantShadingPass();
@@ -218,8 +220,10 @@ namespace mage {
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world);
 
-		// Bind the viewport.
+		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
+		// Restore the RTV and DSV.
+		Renderer::Get()->BindRTVAndDSV();
 		
 		// Perform a forward pass.
 		VariableShadingPass * const forward_pass = GetVariableShadingPass();
@@ -253,7 +257,7 @@ namespace mage {
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world);
 
-		// Bind the viewport.
+		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
 		// Bind the GBuffer for unpacking to the compute pipeline.
 		m_gbuffer->BindUnpacking(m_device_context);

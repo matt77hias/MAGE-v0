@@ -77,9 +77,6 @@ namespace mage {
 		// Reset the SRV.
 		m_srv.Reset();
 
-		// Resize the DSV vector.
-		m_dsvs.resize(nb_shadow_maps);
-
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
 		texture_desc.Width            = m_width;
@@ -98,12 +95,15 @@ namespace mage {
 			texture.ReleaseAndGetAddressOf());
 		ThrowIfFailed(result_texture, "Texture 2D creation failed: %08X.", result_texture);
 
+		// Resize the DSV vector.
+		m_dsvs.resize(texture_desc.ArraySize);
+
 		// Create the DSV descriptor.
 		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
-		dsv_desc.Format        = dsv_format;
-		dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DARRAY;
+		dsv_desc.Format = dsv_format;
+		dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 		dsv_desc.Texture2DArray.ArraySize = 1u;
-		
+
 		// Create the DSVs for each texture element.
 		for (UINT i = 0u; i < texture_desc.ArraySize; ++i) {
 			dsv_desc.Texture2DArray.FirstArraySlice = i;
@@ -116,8 +116,8 @@ namespace mage {
 
 		// Create the SRV descriptor.
 		D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
-		srv_desc.Format        = srv_format;
-		srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		srv_desc.Format = srv_format;
+		srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DARRAY;
 		srv_desc.Texture2DArray.MipLevels = 1u;
 		srv_desc.Texture2DArray.ArraySize = texture_desc.ArraySize;
 
@@ -191,9 +191,6 @@ namespace mage {
 		// Reset the SRV.
 		m_srv.Reset();
 
-		// Resize the DSV vector.
-		m_dsvs.resize(nb_shadow_cube_maps);
-
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
 		texture_desc.Width            = m_width;
@@ -213,14 +210,17 @@ namespace mage {
 			texture.ReleaseAndGetAddressOf());
 		ThrowIfFailed(result_texture, "Texture 2D creation failed: %08X.", result_texture);
 
+		// Resize the DSV vector.
+		m_dsvs.resize(texture_desc.ArraySize);
+
 		// Create the DSV descriptor.
 		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
 		dsv_desc.Format        = dsv_format;
-		dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DARRAY;
-		dsv_desc.Texture2DArray.ArraySize = 6u;
+		dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+		dsv_desc.Texture2DArray.ArraySize = 1u;
 		
 		// Create the DSVs for each texture element.
-		for (UINT i = 0u; i < texture_desc.ArraySize; i += 6u) {
+		for (UINT i = 0u; i < texture_desc.ArraySize; ++i) {
 			dsv_desc.Texture2DArray.FirstArraySlice = i;
 
 			const HRESULT result_dsv = device->CreateDepthStencilView(
@@ -232,7 +232,7 @@ namespace mage {
 		// Create the SRV descriptor.
 		D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
 		srv_desc.Format        = srv_format;
-		srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DARRAY;
 		srv_desc.Texture2DArray.MipLevels = 1u;
 		srv_desc.Texture2DArray.ArraySize = texture_desc.ArraySize;
 

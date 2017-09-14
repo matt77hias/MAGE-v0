@@ -88,17 +88,6 @@ namespace mage {
 
 			OM::BindRTVAndDSV(device_context, nullptr, m_dsvs[dsv_index].Get());
 		}
-		void BindSRVToGraphicsPipeline(ID3D11DeviceContext2 *device_context, 
-			UINT slot) const noexcept {
-			
-			PS::BindSRV(device_context, slot, m_srv.Get());
-		}
-		void BindSRVToComputePipeline(ID3D11DeviceContext2 *device_context, 
-			UINT slot) const noexcept {
-			
-			CS::BindSRV(device_context, slot, m_srv.Get());
-		}
-
 		ID3D11DepthStencilView *GetDSV(size_t dsv_index) const noexcept {
 			return m_dsvs[dsv_index].Get();
 		}
@@ -192,16 +181,6 @@ namespace mage {
 			size_t dsv_index) const noexcept {
 
 			OM::BindRTVAndDSV(device_context, nullptr, m_dsvs[dsv_index].Get());
-		}
-		void BindSRVToGraphicsPipeline(ID3D11DeviceContext2 *device_context, 
-			UINT slot) const noexcept {
-			
-			PS::BindSRV(device_context, slot, m_srv.Get());
-		}
-		void BindSRVToComputePipeline(ID3D11DeviceContext2 *device_context, 
-			UINT slot) const noexcept {
-			
-			CS::BindSRV(device_context, slot, m_srv.Get());
 		}
 
 		ID3D11DepthStencilView *GetDSV(size_t dsv_index) const noexcept {

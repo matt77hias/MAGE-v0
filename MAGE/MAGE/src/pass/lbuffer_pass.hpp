@@ -18,6 +18,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	__declspec(align(16)) struct LightCameraInfo final
+		: public AlignedData< LightCameraInfo > {
+
+		XMMATRIX world_to_lprojection;
+		XMMATRIX world_to_lview;
+		XMMATRIX lview_to_lprojection;
+	};
+
 	struct LBufferPass final {
 
 	public:
@@ -105,9 +113,18 @@ namespace mage {
 			CXMMATRIX world_to_view,
 			CXMMATRIX view_to_world);
 
+		void SetupShadowMaps();
 		void SetupDirectionalShadowMaps();
 		void SetupOmniShadowMaps();
 		void SetupSpotShadowMaps();
+
+		void RenderShadowMaps(const PassBuffer *scene);
+		void RenderDirectionalShadowMaps(
+			DepthPass *pass, const PassBuffer *scene);
+		void RenderOmniShadowMaps(
+			DepthPass *pass, const PassBuffer *scene);
+		void RenderSpotShadowMaps(
+			DepthPass *pass, const PassBuffer *scene);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -130,5 +147,9 @@ namespace mage {
 		UniquePtr< ShadowMapBuffer > m_directional_sms;
 		UniquePtr< ShadowCubeMapBuffer > m_omni_sms;
 		UniquePtr< ShadowMapBuffer > m_spot_sms;
+
+		vector< LightCameraInfo > m_directional_light_cameras;
+		vector< LightCameraInfo > m_omni_light_cameras;
+		vector< LightCameraInfo > m_spot_light_cameras;
 	};
 }

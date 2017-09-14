@@ -70,13 +70,11 @@ namespace mage {
 		auto omni_light = Create< OmniLightNode >("light");
 		omni_light->GetTransform()->SetTranslationY(2.0f);
 		omni_light->GetLight()->SetDistanceFalloff(0.0f, 1.0f);
+		omni_light->GetLight()->EnableShadows();
 		auto spot_light = Create< SpotLightNode >("light");
 		spot_light->GetLight()->SetDistanceFalloff(0.0f, 5.0f);
 		spot_light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
 		camera->AddChildNode(spot_light);
-
-		//auto ambient_light = Create< AmbientLightNode >("light");
-		//ambient_light->GetLight()->SetIntensity(RGBSpectrum(0.5f));
 
 		//---------------------------------------------------------------------
 		// Texture

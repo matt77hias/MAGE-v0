@@ -131,9 +131,6 @@ namespace mage {
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
 		// Bind the blend state.
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
-		// Bind the sampler.
-		PS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
-			RenderingStateCache::Get()->GetLinearWrapSamplerState());
 	}
 
 	void XM_CALLCONV GBufferPass::Render(

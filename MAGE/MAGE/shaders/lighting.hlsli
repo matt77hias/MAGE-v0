@@ -5,6 +5,7 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "hlsl.hpp"
+#include "math.hlsli"
 #include "brdf.hlsli"
 #include "light.hlsli"
 
@@ -38,7 +39,7 @@ cbuffer LightBuffer : register(REG_B(SLOT_CBUFFER_LIGHTING)) {
 }
 
 //-----------------------------------------------------------------------------
-// Structured Buffers
+// Samplers, Textures and Structured Buffers
 //-----------------------------------------------------------------------------
 #ifndef DISSABLE_BRDFxCOS
 
@@ -58,6 +59,9 @@ StructuredBuffer< SpotLight > g_spot_lights
 #endif // DISSABLE_SPOT_LIGHTS
 
 #ifndef DISSABLE_SHADOW_MAPPING
+
+SamplerComparisonState g_pcf_sampler 
+	: register(REG_S(SLOT_SAMPLER_PCF));
 
 #ifndef DISSABLE_SHADOW_MAP_DIRECTIONAL_LIGHTS
 StructuredBuffer< DirectionalLightWithShadowMapping > g_sm_directional_lights
@@ -175,9 +179,15 @@ float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float m
 	// Directional lights with shadow mapping contribution
 	for (uint i3 = 0; i3 < g_nb_sm_directional_lights; ++i3) {
 		const DirectionalLightWithShadowMapping sm_light = g_sm_directional_lights[i3];
+		const float4 p_lproj  = mul(float4(p, 1.0f), sm_light.cview_to_lprojection);
+		const float  inv_w    = 1.0f / p_lproj.w;
+		const float3 p_lndc   = p_lproj.xyz * inv_w;
+		const float3 sm_loc   = float3(NDCtoUV(p_lndc.xy), i3);
+		const float sm_factor = g_directional_sms.SampleCmpLevelZero(g_pcf_sampler, sm_loc, p_lndc.z);
+		
 		const DirectionalLight light = sm_light.light;
 		const float3 l        = light.neg_d;
-		const float3 I_light  = light.I;
+		const float3 I_light  = sm_factor * light.I;
 
 		const float fd = LambertianBRDFxCos(n, l);
 		Id += fd * I_light;
@@ -193,12 +203,16 @@ float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float m
 	// Omni lights with shadow mapping contribution
 	for (uint i4 = 0; i4 < g_nb_sm_omni_lights; ++i4) {
 		const OmniLightWithShadowMapping sm_light = g_sm_omni_lights[i4];
+		const float3 p_lview  = mul(float4(p, 1.0f), sm_light.cview_to_lview).xyz;
+		const float4 sm_loc   = float4(normalize(p_lview), i4);
+		const float sm_factor = g_omni_sms.SampleCmpLevelZero(g_pcf_sampler, sm_loc, p_lview.z);
+		
 		const OmniLight light = sm_light.light;
 		const float3 d_light  = light.p - p;
 		const float r_light   = length(d_light);
 		const float3 l        = d_light / r_light;
-		const float3 I_light  = MaxContribution(light, r_light);
-
+		const float3 I_light  = sm_factor * MaxContribution(light, r_light);
+		
 		const float fd = LambertianBRDFxCos(n, l);
 		Id += fd * I_light;
 
@@ -213,11 +227,17 @@ float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float m
 	// Spotlights with shadow mapping contribution
 	for (uint i5 = 0; i5 < g_nb_sm_spot_lights; ++i5) {
 		const SpotLightWithShadowMapping sm_light = g_sm_spot_lights[i5];
+		const float4 p_lproj  = mul(float4(p, 1.0f), sm_light.cview_to_lprojection);
+		const float  inv_w    = 1.0f / p_lproj.w;
+		const float3 p_lndc   = p_lproj.xyz * inv_w;
+		const float3 sm_loc   = float3(NDCtoUV(p_lndc.xy), i5);
+		const float sm_factor = g_spot_sms.SampleCmpLevelZero(g_pcf_sampler, sm_loc, p_lndc.z);
+		
 		const SpotLight light = sm_light.light;
 		const float3 d_light  = light.p - p;
 		const float r_light   = length(d_light);
 		const float3 l        = d_light / r_light;
-		const float3 I_light  = MaxContribution(light, r_light, l);
+		const float3 I_light  = sm_factor * MaxContribution(light, r_light, l);
 
 		const float fd = LambertianBRDFxCos(n, l);
 		Id += fd * I_light;

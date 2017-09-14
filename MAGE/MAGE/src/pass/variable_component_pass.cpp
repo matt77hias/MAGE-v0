@@ -206,9 +206,6 @@ namespace mage {
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// Bind the depth-stencil state.
 		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
-		// Bind the sampler.
-		PS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
-			RenderingStateCache::Get()->GetLinearWrapSamplerState());
 	}
 
 	void XM_CALLCONV VariableComponentPass::Render(

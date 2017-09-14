@@ -365,31 +365,6 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 Creates a rasterizer state for shadow mapping.
-
-	 @pre			@a device is not equal to @c nullptr.
-	 @pre			@a rasterizer_state is not equal to @c nullptr.
-	 @param[in]		device
-					A pointer to the device.
-	 @param[out]	rasterizer_state
-					A pointer to a pointer to the rasterizer state.
-	 @param[in]		depth_bias
-					The depth value added to a given pixel.
-	 @param[in]		slope_scaled_depth_bias
-					The scalar on a given pixel's slope.
-	 @param[in]		depth_bias_clamp
-					The maximum depth bias of a pixel.
-	 @param[in]		cull_mode
-					The cull mode of the rasterization.
-	 @return		A success/error value.
-	 */
-	HRESULT CreateShadowMapRasterizerState(ID3D11Device2 *device,
-		ID3D11RasterizerState **rasterizer_state,
-		int32_t depth_bias, float slope_scaled_depth_bias,
-		float depth_bias_clamp = 0.0f,
-		D3D11_CULL_MODE cull_mode = D3D11_CULL_BACK) noexcept;
-
-	/**
 	 Creates a rasterizer state.
 
 	 @pre			@a device is not equal to @c nullptr.
@@ -463,6 +438,31 @@ namespace mage {
 	 */
 	HRESULT CreateWireframeRasterizerState(ID3D11Device2 *device, 
 		ID3D11RasterizerState **rasterizer_state) noexcept;
+
+	/**
+	 Creates a rasterizer state for shadow mapping.
+
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a rasterizer_state is not equal to @c nullptr.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	rasterizer_state
+					A pointer to a pointer to the rasterizer state.
+	 @param[in]		depth_bias
+					The depth value added to a given pixel.
+	 @param[in]		slope_scaled_depth_bias
+					The scalar on a given pixel's slope.
+	 @param[in]		depth_bias_clamp
+					The maximum depth bias of a pixel.
+	 @param[in]		cull_mode
+					The cull mode of the rasterization.
+	 @return		A success/error value.
+	 */
+	HRESULT CreateShadowMapRasterizerState(ID3D11Device2 *device,
+		ID3D11RasterizerState **rasterizer_state,
+		int32_t depth_bias, float slope_scaled_depth_bias,
+		float depth_bias_clamp = 0.0f,
+		D3D11_CULL_MODE cull_mode = D3D11_CULL_BACK) noexcept;
 
 	//-------------------------------------------------------------------------
 	// Sampler states
@@ -570,6 +570,20 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateAnisotropicClampSamplerState(ID3D11Device2 *device, 
+		ID3D11SamplerState **sampler_state) noexcept;
+
+	/**
+	 Creates a PCF sampling state.
+
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a sampler_state is not equal to @c nullptr.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	sampler_state
+					A pointer to a pointer to the sampler state.
+	 @return		A success/error value.
+	 */
+	HRESULT CreatePCFSamplerState(ID3D11Device2 *device, 
 		ID3D11SamplerState **sampler_state) noexcept;
 }
 

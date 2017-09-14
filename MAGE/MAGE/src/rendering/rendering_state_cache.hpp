@@ -471,6 +471,17 @@ namespace mage {
 		 */
 		ID3D11SamplerState *GetAnisotropicClampSamplerState();
 
+		/**
+		 Returns the PCF sampling state of this rendering cache.
+
+		 @return		A pointer to the PCF state
+						of this rendering cache.
+		 @throws		FormattedException
+						Failed to create the sampler state
+						of this rendering state cache.
+		 */
+		ID3D11SamplerState *GetPCFSamplerState();
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -589,6 +600,12 @@ namespace mage {
 		 of this rendering cache.
 		 */
 		ComPtr< ID3D11SamplerState > m_anisotropic_clamp_sampler_state;
+
+		/**
+		 A pointer to the PCF sampling state
+		 of this rendering cache.
+		 */
+		ComPtr< ID3D11SamplerState > m_pcf_sampler_state;
 
 		/**
 		 The mutex of this rendering state cache.

@@ -350,6 +350,8 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		void BindFixedState();
+
 		void ExecuteDepthPass(
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view, 

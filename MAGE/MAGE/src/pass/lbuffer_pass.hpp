@@ -132,6 +132,8 @@ namespace mage {
 
 		ID3D11DeviceContext2 * const m_device_context;
 
+		ComPtr< ID3D11SamplerState > m_pcf_sampler;
+
 		ConstantBuffer< LightBuffer > m_light_buffer;
 		StructuredBuffer< DirectionalLightBuffer > m_directional_lights;
 		StructuredBuffer< OmniLightBuffer > m_omni_lights;

@@ -34,7 +34,7 @@
 //-----------------------------------------------------------------------------
 
 #define SLOT_SAMPLER_DEFAULT                   0
-#define SLOT_SAMPLER_SHADOW_MAP                1
+#define SLOT_SAMPLER_PCF                       1
 
 //-----------------------------------------------------------------------------
 // Engine Includes: Constant Buffers 

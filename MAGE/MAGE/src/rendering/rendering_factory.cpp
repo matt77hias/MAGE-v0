@@ -145,26 +145,6 @@ namespace mage {
 	// Rasterizer states
 	//-------------------------------------------------------------------------
 
-	HRESULT CreateShadowMapRasterizerState(ID3D11Device2 *device,
-		ID3D11RasterizerState **rasterizer_state,
-		int32_t depth_bias, float slope_scaled_depth_bias, 
-		float depth_bias_clamp, D3D11_CULL_MODE cull_mode) noexcept {
-		
-		Assert(device);
-		Assert(rasterizer_state);
-
-		D3D11_RASTERIZER_DESC desc = {};
-		desc.CullMode             = cull_mode;
-		desc.FillMode             = D3D11_FILL_SOLID;
-		desc.DepthBias            = static_cast< INT >(depth_bias);
-		desc.SlopeScaledDepthBias = static_cast< float >(slope_scaled_depth_bias);
-		desc.DepthBiasClamp       = static_cast< float >(depth_bias_clamp);
-		desc.DepthClipEnable      = true;
-		desc.MultisampleEnable    = true;
-
-		return device->CreateRasterizerState(&desc, rasterizer_state);
-	}
-
 	HRESULT CreateRasterizerState(ID3D11Device2 *device, 
 		ID3D11RasterizerState **rasterizer_state, 
 		D3D11_CULL_MODE cull_mode, D3D11_FILL_MODE fill_mode) noexcept {
@@ -178,6 +158,11 @@ namespace mage {
 		desc.DepthClipEnable   = true;
 		desc.MultisampleEnable = true;
 
+		//TODO: remove
+		desc.DepthBias = 400;
+		desc.SlopeScaledDepthBias = 1.0f;
+		desc.DepthBiasClamp = 0.0f;
+
 		return device->CreateRasterizerState(&desc, rasterizer_state);
 	}
 	
@@ -187,7 +172,8 @@ namespace mage {
 		Assert(device);
 		Assert(rasterizer_state);
 		
-		return CreateRasterizerState(device, rasterizer_state, D3D11_CULL_NONE, D3D11_FILL_SOLID);
+		return CreateRasterizerState(device, rasterizer_state, 
+			D3D11_CULL_NONE, D3D11_FILL_SOLID);
 	}
 	
 	HRESULT CreateCullClockwiseRasterizerState(ID3D11Device2 *device, 
@@ -196,7 +182,8 @@ namespace mage {
 		Assert(device);
 		Assert(rasterizer_state);
 		
-		return CreateRasterizerState(device, rasterizer_state, D3D11_CULL_FRONT, D3D11_FILL_SOLID);
+		return CreateRasterizerState(device, rasterizer_state, 
+			D3D11_CULL_FRONT, D3D11_FILL_SOLID);
 	}
 	
 	HRESULT CreateCullCounterClockwiseRasterizerState(ID3D11Device2 *device, 
@@ -205,7 +192,8 @@ namespace mage {
 		Assert(device);
 		Assert(rasterizer_state);
 		
-		return CreateRasterizerState(device, rasterizer_state, D3D11_CULL_BACK, D3D11_FILL_SOLID);
+		return CreateRasterizerState(device, rasterizer_state, 
+			D3D11_CULL_BACK, D3D11_FILL_SOLID);
 	}
 	
 	HRESULT CreateWireframeRasterizerState(ID3D11Device2 *device, 
@@ -214,7 +202,28 @@ namespace mage {
 		Assert(device);
 		Assert(rasterizer_state);
 		
-		return CreateRasterizerState(device, rasterizer_state, D3D11_CULL_NONE, D3D11_FILL_WIREFRAME);
+		return CreateRasterizerState(device, rasterizer_state, 
+			D3D11_CULL_NONE, D3D11_FILL_WIREFRAME);
+	}
+
+	HRESULT CreateShadowMapRasterizerState(ID3D11Device2 *device,
+		ID3D11RasterizerState **rasterizer_state,
+		int32_t depth_bias, float slope_scaled_depth_bias, 
+		float depth_bias_clamp, D3D11_CULL_MODE cull_mode) noexcept {
+		
+		Assert(device);
+		Assert(rasterizer_state);
+
+		D3D11_RASTERIZER_DESC desc = {};
+		desc.CullMode             = cull_mode;
+		desc.FillMode             = D3D11_FILL_SOLID;
+		desc.DepthBias            = static_cast< INT >(depth_bias);
+		desc.SlopeScaledDepthBias = static_cast< FLOAT >(slope_scaled_depth_bias);
+		desc.DepthBiasClamp       = static_cast< FLOAT >(depth_bias_clamp);
+		desc.DepthClipEnable      = true;
+		desc.MultisampleEnable    = true;
+
+		return device->CreateRasterizerState(&desc, rasterizer_state);
 	}
 
 	//-------------------------------------------------------------------------
@@ -245,7 +254,8 @@ namespace mage {
 		Assert(device);
 		Assert(sampler_state);
 		
-		return CreateSamplerState(device, sampler_state, D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_WRAP);
+		return CreateSamplerState(device, sampler_state, 
+			D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_WRAP);
 	}
 	
 	HRESULT CreatePointClampSamplerState(ID3D11Device2 *device, 
@@ -254,7 +264,8 @@ namespace mage {
 		Assert(device);
 		Assert(sampler_state);
 		
-		return CreateSamplerState(device, sampler_state, D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP);
+		return CreateSamplerState(device, sampler_state, 
+			D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP);
 	}
 	
 	HRESULT CreateLinearWrapSamplerState(ID3D11Device2 *device, 
@@ -263,7 +274,8 @@ namespace mage {
 		Assert(device);
 		Assert(sampler_state);
 		
-		return CreateSamplerState(device, sampler_state, D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP);
+		return CreateSamplerState(device, sampler_state, 
+			D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP);
 	}
 	
 	HRESULT CreateLinearClampSamplerState(ID3D11Device2 *device, 
@@ -272,7 +284,8 @@ namespace mage {
 		Assert(device);
 		Assert(sampler_state);
 		
-		return CreateSamplerState(device, sampler_state, D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_CLAMP);
+		return CreateSamplerState(device, sampler_state, 
+			D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_CLAMP);
 	}
 	
 	HRESULT CreateAnisotropicWrapSamplerState(ID3D11Device2 *device, 
@@ -281,7 +294,8 @@ namespace mage {
 		Assert(device);
 		Assert(sampler_state);
 		
-		return CreateSamplerState(device, sampler_state, D3D11_FILTER_ANISOTROPIC, D3D11_TEXTURE_ADDRESS_WRAP);
+		return CreateSamplerState(device, sampler_state, 
+			D3D11_FILTER_ANISOTROPIC, D3D11_TEXTURE_ADDRESS_WRAP);
 	}
 	
 	HRESULT CreateAnisotropicClampSamplerState(ID3D11Device2 *device, 
@@ -290,6 +304,29 @@ namespace mage {
 		Assert(device);
 		Assert(sampler_state);
 
-		return CreateSamplerState(device, sampler_state, D3D11_FILTER_ANISOTROPIC, D3D11_TEXTURE_ADDRESS_CLAMP);
+		return CreateSamplerState(device, sampler_state, 
+			D3D11_FILTER_ANISOTROPIC, D3D11_TEXTURE_ADDRESS_CLAMP);
+	}
+
+	HRESULT CreatePCFSamplerState(ID3D11Device2 *device,
+		ID3D11SamplerState **sampler_state) noexcept {
+
+		Assert(device);
+		Assert(sampler_state);
+		
+		D3D11_SAMPLER_DESC desc = {};
+		desc.Filter         = D3D11_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT;
+		desc.AddressU       = D3D11_TEXTURE_ADDRESS_BORDER;
+		desc.AddressV       = D3D11_TEXTURE_ADDRESS_BORDER;
+		desc.AddressW       = D3D11_TEXTURE_ADDRESS_BORDER;
+		desc.MaxAnisotropy  = (device->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) ? D3D11_MAX_MAXANISOTROPY : 2;
+		desc.MaxLOD         = D3D11_FLOAT32_MAX;
+		desc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+		desc.BorderColor[0] = 1.0f;
+		desc.BorderColor[1] = 1.0f;
+		desc.BorderColor[2] = 1.0f;
+		desc.BorderColor[3] = 1.0f;
+
+		return device->CreateSamplerState(&desc, sampler_state);
 	}
 }

@@ -44,9 +44,6 @@ namespace mage {
 		RenderingStateCache::Get()->BindDepthNoneDepthStencilState(m_device_context);
 		// Bind the blend state.
 		RenderingStateCache::Get()->BindAlphaBlendState(m_device_context);
-		// Bind the sampler state.
-		PS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
-			RenderingStateCache::Get()->GetLinearWrapSamplerState());
 	}
 
 	void SpritePass::Render(const PassBuffer *scene) {

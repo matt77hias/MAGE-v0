@@ -7,6 +7,9 @@
 #include "rendering\renderer.hpp"
 #include "logging\error.hpp"
 
+// Include HLSL bindings.
+#include "..\..\shaders\hlsl.hpp"
+
 #pragma endregion
 
 //-----------------------------------------------------------------------------
@@ -43,11 +46,27 @@ namespace mage {
 	
 	SceneRenderer::~SceneRenderer() = default;
 
+	void SceneRenderer::BindFixedState() {
+		// Bind the default sampler.
+		PS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
+			RenderingStateCache::Get()->GetLinearWrapSamplerState());
+		CS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
+			RenderingStateCache::Get()->GetLinearWrapSamplerState());
+
+		// Bind the PCF sampler.
+		PS::BindSampler(m_device_context, SLOT_SAMPLER_PCF,
+			RenderingStateCache::Get()->GetPCFSamplerState());
+		CS::BindSampler(m_device_context, SLOT_SAMPLER_PCF,
+			RenderingStateCache::Get()->GetPCFSamplerState());
+	}
+
 	void SceneRenderer::Render(const Scene *scene) {
 		
 		// Update the pass buffer.
 		m_pass_buffer->Update(scene);
 		
+		BindFixedState();
+
 		for (const auto node : m_pass_buffer->GetCameras()) {
 			
 			// Obtain node components.

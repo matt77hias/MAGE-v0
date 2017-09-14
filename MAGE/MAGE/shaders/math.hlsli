@@ -173,6 +173,19 @@ float3 NDCtoView(float3 p_ndc, float4 projection_values) {
 }
 
 /**
+ Converts the given NDC coordinates to UV coordinates.
+
+ @param[in]		p_ndc_xy
+				The NDC x and y coordinate.
+ @return		The UV coordinates.
+ */
+float2 NDCtoUV(float2 p_ndc_xy) {
+	// x: [-1,1] -> [0,1]
+	// y: [-1,1] -> [1,0]
+	return float2(0.5f, -0.5f) * p_ndc_xy + 0.5f;
+}
+
+/**
  Converts the given normalized dispatch thread id 
  to NDC coordinates.
 

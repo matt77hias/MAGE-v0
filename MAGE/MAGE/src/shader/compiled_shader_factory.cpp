@@ -7,6 +7,8 @@
 
 // Depth
 #include "shader\cso\depth\depth_VS.hpp"
+#include "shader\cso\depth\depth_transparent_VS.hpp"
+#include "shader\cso\depth\depth_transparent_PS.hpp"
 
 // GBuffer
 #include "shader\cso\gbuffer\gbuffer_PS.hpp"
@@ -77,6 +79,14 @@ namespace mage {
 
 	const BufferCompiledShader CreateCompiledDepthVS() noexcept {
 		return BufferCompiledShader(g_depth_vs, sizeof(g_depth_vs));
+	}
+
+	const BufferCompiledShader CreateCompiledDepthTransparentVS() noexcept {
+		return BufferCompiledShader(g_depth_transparent_vs, sizeof(g_depth_transparent_vs));
+	}
+
+	const BufferCompiledShader CreateCompiledDepthTransparentPS() noexcept {
+		return BufferCompiledShader(g_depth_transparent_ps, sizeof(g_depth_transparent_ps));
 	}
 
 #pragma endregion
@@ -291,7 +301,7 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods
+	// Factory Methods: ImagePass
 	//-------------------------------------------------------------------------
 #pragma region
 

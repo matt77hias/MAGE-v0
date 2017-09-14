@@ -1017,6 +1017,12 @@
     <ClInclude Include="MAGE\src\pass\lbuffer_pass.hpp">
       <Filter>Header Files\pass</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\depth\depth_transparent_PS.hpp">
+      <Filter>Header Files\shader\cso\depth</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\depth\depth_transparent_VS.hpp">
+      <Filter>Header Files\shader\cso\depth</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1539,6 +1545,12 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\miscellaneous\image_depth_PS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\depth\depth_transparent_PS.hlsl">
+      <Filter>Shader Files\depth</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\depth\depth_transparent_VS.hlsl">
+      <Filter>Shader Files\depth</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

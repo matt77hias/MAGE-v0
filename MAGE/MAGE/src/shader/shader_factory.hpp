@@ -32,6 +32,28 @@ namespace mage {
 	 */
 	SharedPtr< const VertexShader > CreateDepthVS();
 
+	/**
+	 Creates a depth transparent vertex shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the depth transparent vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateDepthTransparentVS();
+
+	/**
+	 Creates a depth transparent pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the depth transparent pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateDepthTransparentPS();
+
 #pragma endregion
 
 	//-------------------------------------------------------------------------
@@ -567,7 +589,7 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods
+	// Factory Methods: ImagePass
 	//-------------------------------------------------------------------------
 #pragma region
 

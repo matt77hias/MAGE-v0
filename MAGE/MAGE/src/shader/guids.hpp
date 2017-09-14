@@ -7,6 +7,8 @@
 
 // Depth
 #define MAGE_GUID_VS_DEPTH                         L"mage_depth_vs"
+#define MAGE_GUID_VS_DEPTH_TRANSPARENT             L"mage_depth_transparent_vs"
+#define MAGE_GUID_PS_DEPTH_TRANSPARENT             L"mage_depth_transparent_ps"
 
 // GBuffer
 #define MAGE_GUID_PS_GBUFFER                       L"mage_gbuffer_ps"

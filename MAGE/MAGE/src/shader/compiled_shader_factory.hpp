@@ -15,7 +15,7 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: GBufferPass
+	// Factory Methods: DepthPass
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -25,6 +25,20 @@ namespace mage {
 	 @return		A buffer compiled depth vertex shader.
 	 */
 	const BufferCompiledShader CreateCompiledDepthVS() noexcept;
+
+	/**
+	 Returns the compiled depth transparent vertex shader.
+
+	 @return		A buffer compiled depth transparent vertex shader.
+	 */
+	const BufferCompiledShader CreateCompiledDepthTransparentVS() noexcept;
+
+	/**
+	 Returns the compiled depth transparent pixel shader.
+
+	 @return		A buffer compiled depth transparent pixel shader.
+	 */
+	const BufferCompiledShader CreateCompiledDepthTransparentPS() noexcept;
 
 #pragma endregion
 
@@ -358,7 +372,7 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods
+	// Factory Methods: ImagePass
 	//-------------------------------------------------------------------------
 #pragma region
 

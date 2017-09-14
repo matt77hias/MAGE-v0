@@ -109,6 +109,15 @@ struct PSInputNDCPosition {
 
 /**
  A pixel shader input struct of fragments having
+ a pair of texture coordinates.
+*/
+struct PSInputTexture {
+	float4 p      : SV_POSITION;
+	float2 tex    : TEXCOORD0;
+};
+
+/**
+ A pixel shader input struct of fragments having
  a position, color and a pair of texture coordinates.
  */
 struct PSInputColorTexture {

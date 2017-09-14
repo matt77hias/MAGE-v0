@@ -31,6 +31,18 @@ namespace mage {
 								VertexPositionNormalTexture::s_nb_input_elements);
 	}
 
+	SharedPtr< const VertexShader > CreateDepthTransparentVS() {
+		const BufferCompiledShader cs = CreateCompiledDepthTransparentVS();
+		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_DEPTH_TRANSPARENT, &cs,
+								VertexPositionNormalTexture::s_input_element_desc,
+								VertexPositionNormalTexture::s_nb_input_elements);
+	}
+
+	SharedPtr< const PixelShader > CreateDepthTransparentPS() {
+		const BufferCompiledShader cs = CreateCompiledDepthTransparentPS();
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_DEPTH_TRANSPARENT, &cs);
+	}
+
 #pragma endregion
 
 	//-------------------------------------------------------------------------
@@ -359,7 +371,7 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods
+	// Factory Methods: ImagePass
 	//-------------------------------------------------------------------------
 #pragma region
 

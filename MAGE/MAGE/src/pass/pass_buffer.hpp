@@ -322,6 +322,12 @@ namespace mage {
 		 */
 		void UpdateMaterialCoefficients(const Material *material) noexcept;
 
+		/**
+		 Finishes the material coefficients of this pass buffer.
+		 This handles material coefficient ranges which are equal to zero.
+		 */
+		void FinishMaterialCoefficients() noexcept;
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------

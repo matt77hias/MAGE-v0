@@ -101,6 +101,9 @@ namespace mage {
 			// Update the material coefficients.
 			UpdateMaterialCoefficients(material);
 		});
+	
+		// Finish the material coefficients.
+		FinishMaterialCoefficients();
 	}
 
 	void PassBuffer::UpdateLights(const Scene *scene) {
@@ -175,6 +178,25 @@ namespace mage {
 			const float p = material->GetMaterialParameter(i);
 			m_material_coefficient_min[i] = std::min(p, m_material_coefficient_min[i]);
 			m_material_coefficient_max[i] = std::max(p, m_material_coefficient_max[i]);
+		}
+	}
+
+	void PassBuffer::FinishMaterialCoefficients() noexcept {
+		for (uint8_t i = 0; i < s_nb_material_coefficients; ++i) {
+			if (m_material_coefficient_min[i] == m_material_coefficient_max[i]) {
+				if (0.0f == m_material_coefficient_max[i]) {
+					// min := 0 and max := 1 and mat := 0
+					// Normalization: nmat = (mat - min) / (max - min) = 0
+					// Recover:        mat = min + nmat * (max - min)  = mat
+					m_material_coefficient_max[i] = 1.0f;
+				}
+				else {
+					// min := 0 and 0 < max := mat
+					// Normalization: nmat = (mat - min) / (max - min) = 1
+					// Recover:        mat = min + nmat * (max - min)  = mat
+					m_material_coefficient_min[i] = 0.0f;
+				}
+			}
 		}
 	}
 

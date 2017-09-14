@@ -90,13 +90,15 @@ namespace mage {
 		const Material *material) {
 
 		DeferredModelBuffer buffer;
-		buffer.m_object_to_view           = XMMatrixTranspose(object_to_view);
-		buffer.m_normal_to_view           = view_to_object;
-		buffer.m_texture_transform        = XMMatrixTranspose(texture_transform);
-		buffer.m_Kd                       = material->GetDiffuseReflectivity();
-		buffer.m_Ks                       = material->GetSpecularReflectivity();
-		buffer.m_mat1_norm                = NormalizeMaterialCoefficient(0u, material);
-		buffer.m_mat2_norm                = NormalizeMaterialCoefficient(1u, material);
+		// Transforms
+		buffer.m_transform.m_object_to_view    = XMMatrixTranspose(object_to_view);
+		buffer.m_transform.m_normal_to_view    = view_to_object;
+		buffer.m_transform.m_texture_transform = XMMatrixTranspose(texture_transform);
+		// Material
+		buffer.m_Kd        = material->GetDiffuseReflectivity();
+		buffer.m_Ks        = material->GetSpecularReflectivity();
+		buffer.m_mat1_norm = NormalizeMaterialCoefficient(0u, material);
+		buffer.m_mat2_norm = NormalizeMaterialCoefficient(1u, material);
 		
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, buffer);

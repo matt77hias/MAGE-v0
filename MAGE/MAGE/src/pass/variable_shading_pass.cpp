@@ -84,10 +84,12 @@ namespace mage {
 		CXMMATRIX texture_transform,
 		const Material *material) {
 
-		ModelBuffer buffer;
-		buffer.m_object_to_view           = XMMatrixTranspose(object_to_view);
-		buffer.m_normal_to_view           = view_to_object;
-		buffer.m_texture_transform        = XMMatrixTranspose(texture_transform);
+		ForwardModelBuffer buffer;
+		// Transforms
+		buffer.m_transform.m_object_to_view    = XMMatrixTranspose(object_to_view);
+		buffer.m_transform.m_normal_to_view    = view_to_object;
+		buffer.m_transform.m_texture_transform = XMMatrixTranspose(texture_transform);
+		// Material
 		buffer.m_Kd                       = material->GetDiffuseReflectivity();
 		buffer.m_dissolve                 = material->GetDissolve();
 		buffer.m_Ks                       = material->GetSpecularReflectivity();

@@ -247,7 +247,7 @@ namespace mage {
 		/**
 		 The model buffer of this variable component pass.
 		 */
-		ConstantBuffer< ModelTransformBuffer > m_model_buffer;
+		ConstantBuffer< ModelNormalTextureTransformBuffer > m_model_buffer;
 
 		/**
 		 A pointer to the with texture of this variable component pass.

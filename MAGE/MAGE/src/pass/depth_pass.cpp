@@ -28,6 +28,8 @@ namespace mage {
 	DepthPass::DepthPass()
 		: m_device_context(GetImmediateDeviceContext()),
 		m_vs(CreateDepthVS()),
+		m_transparent_vs(CreateDepthTransparentVS()),
+		m_transparent_ps(CreateDepthTransparentPS()),
 		m_projection_buffer(), m_model_buffer() {}
 
 	DepthPass::DepthPass(DepthPass &&render_pass) = default;
@@ -133,7 +135,7 @@ namespace mage {
 		}
 	}
 
-	void XM_CALLCONV DepthPass::ProcessOccluderModels(
+	void XM_CALLCONV DepthPass::ProcessOpaqueOccluderModels(
 		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view) {

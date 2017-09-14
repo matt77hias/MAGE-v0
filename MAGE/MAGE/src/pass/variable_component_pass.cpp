@@ -54,7 +54,7 @@ namespace mage {
 		CXMMATRIX texture_transform,
 		const Material *material) {
 
-		ModelTransformBuffer buffer;
+		ModelNormalTextureTransformBuffer buffer;
 		buffer.m_object_to_view = XMMatrixTranspose(object_to_view);
 		buffer.m_normal_to_view = view_to_object;
 

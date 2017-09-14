@@ -58,7 +58,7 @@ namespace mage {
 	void XM_CALLCONV WireframePass::BindModelData(
 		FXMMATRIX object_to_view) {
 
-		ModelTransformBuffer buffer;
+		ModelNormalTextureTransformBuffer buffer;
 		buffer.m_object_to_view = XMMatrixTranspose(object_to_view);
 		// m_normal_to_view    is not needed.
 		// m_texture_transform is not needed.

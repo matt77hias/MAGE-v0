@@ -52,10 +52,12 @@ namespace mage {
 		CXMMATRIX view_to_object,
 		CXMMATRIX texture_transform) {
 
-		ModelBuffer buffer;
-		buffer.m_object_to_view           = XMMatrixTranspose(object_to_view);
-		buffer.m_normal_to_view           = view_to_object;
-		buffer.m_texture_transform        = XMMatrixTranspose(texture_transform);
+		ForwardModelBuffer buffer;
+		// Transforms
+		buffer.m_transform.m_object_to_view    = XMMatrixTranspose(object_to_view);
+		buffer.m_transform.m_normal_to_view    = view_to_object;
+		buffer.m_transform.m_texture_transform = XMMatrixTranspose(texture_transform);
+		// Material
 		buffer.m_Kd                       = RGBSpectrum(1.0f);
 		buffer.m_dissolve                 = 1.0f;
 		buffer.m_material_coefficients[0] = 1.0f;

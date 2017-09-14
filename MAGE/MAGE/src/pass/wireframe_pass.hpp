@@ -224,6 +224,6 @@ namespace mage {
 		/**
 		 The model buffer of this wireframe pass.
 		 */
-		ConstantBuffer< ModelTransformBuffer > m_model_buffer;
+		ConstantBuffer< ModelNormalTextureTransformBuffer > m_model_buffer;
 	};
 }

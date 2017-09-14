@@ -279,6 +279,15 @@ namespace mage {
 		CXMMATRIX world_to_view,
 		CXMMATRIX view_to_world) {
 
+		static const XMMATRIX rotations[6] = {
+			XMMatrixRotationY( XM_PIDIV2),    // Look: +x
+			XMMatrixRotationY(-XM_PIDIV2),    // Look: -x
+			XMMatrixRotationX(-XM_PIDIV2),    // Look: +y
+			XMMatrixRotationX( XM_PIDIV2),    // Look: -y
+			XMMatrixIdentity(),               // Look: +z
+			XMMatrixRotationY(XM_PI),         // Look: -z
+		};
+
 		vector< OmniLightWithShadowMappingBuffer > buffer;
 		vector< LightCamera > cameras;
 		buffer.reserve(lights.size());
@@ -295,17 +304,19 @@ namespace mage {
 				continue;
 			}
 
-			//TODO: 6 cameras needed!
-
-			// Create an omni light camera.
-			LightCamera camera;
-			camera.world_to_lview         = transform->GetWorldToObjectMatrix();
-			camera.lview_to_lprojection   = light->GetLightCamera().GetViewToProjectionMatrix();
-			camera.world_to_lprojection   = camera.world_to_lview * camera.lview_to_lprojection;
-			const XMMATRIX cview_to_lview = view_to_world * camera.world_to_lview;
-
-			// Add omni light camera to the omni light cameras.
-			cameras.push_back(std::move(camera));
+			// Create six omni light cameras.
+			const XMMATRIX world_to_lview         = transform->GetWorldToObjectMatrix();
+			const XMMATRIX lview_to_lprojection   = light->GetLightCamera().GetViewToProjectionMatrix();
+			for (size_t i = 0; i < _countof(rotations); ++i) {
+				LightCamera camera;
+				camera.world_to_lview             = world_to_lview * rotations[i];
+				camera.lview_to_lprojection       = lview_to_lprojection;
+				camera.world_to_lprojection       = camera.world_to_lview * camera.lview_to_lprojection;
+				
+				// Add omni light camera to the omni light cameras.
+				cameras.push_back(std::move(camera));
+			}
+			const XMMATRIX cview_to_lview         = view_to_world * world_to_lview;
 
 			// Transform to view space.
 			const XMVECTOR p = XMVector3TransformCoord(transform->GetWorldEye(), world_to_view);
@@ -353,10 +364,10 @@ namespace mage {
 
 			// Create a spotlight camera.
 			LightCamera camera;
-			camera.world_to_lview               = transform->GetWorldToObjectMatrix();
-			camera.lview_to_lprojection         = light->GetLightCamera().GetViewToProjectionMatrix();
-			camera.world_to_lprojection         = camera.world_to_lview * camera.lview_to_lprojection;
-			const XMMATRIX cview_to_lprojection = view_to_world * camera.world_to_lprojection;
+			camera.world_to_lview                  = transform->GetWorldToObjectMatrix();
+			camera.lview_to_lprojection            = light->GetLightCamera().GetViewToProjectionMatrix();
+			camera.world_to_lprojection            = camera.world_to_lview * camera.lview_to_lprojection;
+			const XMMATRIX cview_to_lprojection    = view_to_world * camera.world_to_lprojection;
 
 			// Add spotlight camera to the spotlight cameras.
 			cameras.push_back(std::move(camera));

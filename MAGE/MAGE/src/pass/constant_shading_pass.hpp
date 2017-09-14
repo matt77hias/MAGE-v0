@@ -231,7 +231,7 @@ namespace mage {
 		/**
 		 The model buffer of this constant shading pass.
 		 */
-		ConstantBuffer< ModelBuffer > m_model_buffer;
+		ConstantBuffer< ForwardModelBuffer > m_model_buffer;
 		
 		/**
 		 A pointer to the white texture of this constant shading pass.

@@ -147,7 +147,7 @@ namespace mage {
 
 	HRESULT CreateShadowMapRasterizerState(ID3D11Device2 *device,
 		ID3D11RasterizerState **rasterizer_state,
-		float depth_bias, float slope_scaled_depth_bias, 
+		int32_t depth_bias, float slope_scaled_depth_bias, 
 		float depth_bias_clamp, D3D11_CULL_MODE cull_mode) noexcept {
 		
 		Assert(device);
@@ -156,7 +156,7 @@ namespace mage {
 		D3D11_RASTERIZER_DESC desc = {};
 		desc.CullMode             = cull_mode;
 		desc.FillMode             = D3D11_FILL_SOLID;
-		desc.DepthBias            = static_cast< float >(depth_bias);
+		desc.DepthBias            = static_cast< INT >(depth_bias);
 		desc.SlopeScaledDepthBias = static_cast< float >(slope_scaled_depth_bias);
 		desc.DepthBiasClamp       = static_cast< float >(depth_bias_clamp);
 		desc.DepthClipEnable      = true;

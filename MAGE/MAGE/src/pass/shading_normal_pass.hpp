@@ -265,6 +265,6 @@ namespace mage {
 		/**
 		 The model buffer of this shading normal pass.
 		 */
-		ConstantBuffer< ModelTransformBuffer > m_model_buffer;
+		ConstantBuffer< ModelNormalTransformBuffer > m_model_buffer;
 	};
 }

@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\types.hpp"
 #include "rendering\pipeline.hpp"
 
 #pragma endregion
@@ -384,7 +385,7 @@ namespace mage {
 	 */
 	HRESULT CreateShadowMapRasterizerState(ID3D11Device2 *device,
 		ID3D11RasterizerState **rasterizer_state,
-		float depth_bias, float slope_scaled_depth_bias,
+		int32_t depth_bias, float slope_scaled_depth_bias,
 		float depth_bias_clamp = 0.0f,
 		D3D11_CULL_MODE cull_mode = D3D11_CULL_BACK) noexcept;
 

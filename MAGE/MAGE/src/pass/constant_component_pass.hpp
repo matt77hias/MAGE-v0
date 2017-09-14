@@ -264,7 +264,7 @@ namespace mage {
 		/**
 		 The model buffer of this constant component pass.
 		 */
-		ConstantBuffer< ModelTransformBuffer > m_model_buffer;
+		ConstantBuffer< ModelNormalTextureTransformBuffer > m_model_buffer;
 
 		/**
 		 A pointer to the UV reference texture 

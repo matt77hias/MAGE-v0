@@ -77,10 +77,9 @@ namespace mage {
 		FXMMATRIX object_to_view, 
 		CXMMATRIX world_to_object) {
 
-		ModelTransformBuffer buffer;
+		ModelNormalTransformBuffer buffer;
 		buffer.m_object_to_view    = XMMatrixTranspose(object_to_view);
 		buffer.m_normal_to_view    = world_to_object;
-		buffer.m_texture_transform = XMMatrixIdentity();
 
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, 

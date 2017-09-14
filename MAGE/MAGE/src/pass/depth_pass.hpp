@@ -7,6 +7,7 @@
 
 #include "pass\pass_buffer.hpp"
 #include "buffer\constant_buffer.hpp"
+#include "buffer\model_buffer.hpp"
 #include "shader\shader.hpp"
 
 #pragma endregion
@@ -157,6 +158,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Binds the shaders for opaque models.
+		 */
+		void BindOpaqueModelShaders() const noexcept;
+		
+		/**
+		 Binds the shaders for transparent models.
+		 */
+		void BindTransparentModelShaders() const noexcept;
+
+		/**
 		 Binds the projection data of this depth pass.
 
 		 @param[in]		view_to_projection
@@ -169,7 +180,7 @@ namespace mage {
 		void XM_CALLCONV BindProjectionData(FXMMATRIX view_to_projection);
 
 		/**
-		 Binds the model data of this depth pass.
+		 Binds the opaque model data of this depth pass.
 
 		 @param[in]		object_to_view
 						The object-to-view transformation matrix used for
@@ -178,10 +189,31 @@ namespace mage {
 						Failed to bind the model data 
 						of this depth pass.
 		 */
-		void XM_CALLCONV BindModelData(FXMMATRIX object_to_view);
+		void XM_CALLCONV BindOpaqueModelData(FXMMATRIX object_to_view);
 
 		/**
-		 Process the given models.
+		 Binds the transparent model data of this depth pass.
+
+		 @pre			@a material is not equal to @c nullptr.
+		 @param[in]		object_to_view
+						The object-to-view transformation matrix used for
+						transforming vertices.
+		 @param[in]		texture_transform
+						The texture transformation matrix used for
+						transforming texture coordinates.
+		 @param[in]		material
+						A pointer to the material.
+		 @throws		FormattedException
+						Failed to bind the model data 
+						of this depth pass.
+		 */
+		void XM_CALLCONV BindTransparentModelData(
+			FXMMATRIX object_to_view,
+			CXMMATRIX texture_transform,
+			const Material *material);
+
+		/**
+		 Process the given opaque models.
 
 		 @param[in]		models
 						A reference to a vector containing the model pointers
@@ -198,7 +230,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to process the models.
 		 */
-		void XM_CALLCONV ProcessModels(
+		void XM_CALLCONV ProcessOpaqueModels(
 			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
 			CXMMATRIX world_to_view);
@@ -261,7 +293,7 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this depth pass.
 		 */
-		const SharedPtr< const VertexShader > m_vs;
+		const SharedPtr< const VertexShader > m_opaque_vs;
 
 		/**
 		 A pointer to the vertex shader for transparent models
@@ -281,13 +313,18 @@ namespace mage {
 		ConstantBuffer< XMMATRIX > m_projection_buffer;
 
 		/**
-		 The model buffer of this depth pass.
+		 The opaque model buffer of this depth pass.
 		 */
-		ConstantBuffer< XMMATRIX > m_model_buffer;
+		ConstantBuffer< XMMATRIX > m_opaque_model_buffer;
 
+		/**
+		 The transparent model buffer of this depth pass.
+		 */
+		ConstantBuffer< ModelTextureTransformBuffer > m_transparent_model_buffer;
 
-
-
+		/**
+		 The dissolve buffer of this depth pass. 
+		 */
 		ConstantBuffer< XMVECTOR > m_dissolve_buffer;
 	};
 }

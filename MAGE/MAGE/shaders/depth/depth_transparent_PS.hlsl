@@ -22,5 +22,5 @@ Texture2D g_diffuse_texture  : register(REG_T(SLOT_SRV_DIFFUSE));
 //-----------------------------------------------------------------------------
 void PS(PSInputTexture input) {
 	const float a = g_dissolve * g_diffuse_texture.Sample(g_sampler, input.tex).a;
-	clip(a - 0.8f);
+	clip(a - TRANSPARENCY_THRESHOLD);
 }

@@ -12,31 +12,29 @@
 // Constant Buffers
 //-----------------------------------------------------------------------------
 cbuffer LightBuffer : register(REG_B(SLOT_CBUFFER_LIGHTING)) {
-	// LIGHTING
 	// The intensity of the ambient light in the scene. 
 	float3 g_Ia                            : packoffset(c0);
+	
+	// The distance at which intensity falloff starts due to fog.
+	float g_fog_distance_falloff_start     : packoffset(c0.w);
+	// The color of the fog.
+	float3 g_fog_color                     : packoffset(c1);
+	// The distance inverse range where intensity falloff occurs due to fog.
+	float g_fog_distance_falloff_inv_range : packoffset(c1.w);
 
 	// The number of directional lights in the scene.
-	uint g_nb_directional_lights           : packoffset(c1.x);
+	uint g_nb_directional_lights           : packoffset(c2.x);
 	// The number of omni lights in the scene.
-	uint g_nb_omni_lights                  : packoffset(c1.y);
+	uint g_nb_omni_lights                  : packoffset(c2.y);
 	// The number of spotlights in the scene.
-	uint g_nb_spot_lights                  : packoffset(c1.z);
+	uint g_nb_spot_lights                  : packoffset(c2.z);
 
 	// The number of directional lights with shadow mapping in the scene.
-	uint g_nb_sm_directional_lights        : packoffset(c2.x);
+	uint g_nb_sm_directional_lights        : packoffset(c3.x);
 	// The number of omni lights with shadow mapping in the scene.
-	uint g_nb_sm_omni_lights               : packoffset(c2.y);
+	uint g_nb_sm_omni_lights               : packoffset(c3.y);
 	// The number of spotlights with shadow mapping in the scene.
-	uint g_nb_sm_spot_lights               : packoffset(c2.z);
-
-	// FOGGING
-	// The distance at which intensity falloff starts due to fog.
-	float g_fog_distance_falloff_start     : packoffset(c2.w);
-	// The color of the fog.
-	float3 g_fog_color                     : packoffset(c3);
-	// The distance inverse range where intensity falloff occurs due to fog.
-	float g_fog_distance_falloff_inv_range : packoffset(c3.w);
+	uint g_nb_sm_spot_lights               : packoffset(c3.z);
 }
 
 //-----------------------------------------------------------------------------

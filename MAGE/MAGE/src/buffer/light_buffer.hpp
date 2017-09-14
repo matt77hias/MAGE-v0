@@ -36,12 +36,12 @@ namespace mage {
 		 Constructs a light buffer.
 		 */
 		LightBuffer()
-			: m_Ia(), m_padding0(0), 
+			: m_Ia(), m_fog_distance_falloff_start(FLT_MAX),
+			m_fog_color(), m_fog_distance_falloff_inv_range(0.0f),
 			m_nb_directional_lights(0), m_nb_omni_lights(0), 
-			m_nb_spot_lights(0), m_padding1(0),
+			m_nb_spot_lights(0), m_padding0(0),
 			m_nb_sm_directional_lights(0), m_nb_sm_omni_lights(0), 
-			m_nb_sm_spot_lights(0), m_fog_distance_falloff_start(FLT_MAX), 
-			m_fog_color(), m_fog_distance_falloff_inv_range(0.0f) {}
+			m_nb_sm_spot_lights(0), m_padding1(0) {}
 		
 		/**
 		 Constructs a light buffer from the given light buffer.
@@ -98,9 +98,21 @@ namespace mage {
 		RGBSpectrum m_Ia;
 
 		/**
-		 The padding of this light buffer. 
+		 The distance at which intensity falloff starts due to fog
+		 of this light buffer.
 		 */
-		uint32_t m_padding0;
+		float m_fog_distance_falloff_start;
+	
+		/**
+		 The color of the fog of this light buffer.
+		 */
+		RGBSpectrum m_fog_color;
+		
+		/**
+		 The distance inverse range where intensity falloff occurs 
+		 due to fog of this light buffer.
+		 */
+		float m_fog_distance_falloff_inv_range;
 
 		/**
 		 The number of directional lights of this light buffer.
@@ -120,7 +132,7 @@ namespace mage {
 		/**
 		 The padding of this light buffer. 
 		 */
-		uint32_t m_padding1;
+		uint32_t m_padding0;
 
 		/**
 		 The number of directional lights with shadow mapping of this light buffer.
@@ -137,26 +149,10 @@ namespace mage {
 		 */
 		uint32_t m_nb_sm_spot_lights;
 
-		//---------------------------------------------------------------------
-		// Member Variables: Fog
-		//---------------------------------------------------------------------
-
 		/**
-		 The distance at which intensity falloff starts due to fog
-		 of this light buffer.
+		 The padding of this light buffer. 
 		 */
-		float m_fog_distance_falloff_start;
-	
-		/**
-		 The color of the fog of this light buffer.
-		 */
-		RGBSpectrum m_fog_color;
-		
-		/**
-		 The distance inverse range where intensity falloff occurs 
-		 due to fog of this light buffer.
-		 */
-		float m_fog_distance_falloff_inv_range;
+		uint32_t m_padding1;
 	};
 
 	static_assert(sizeof(LightBuffer) == 64, "CPU/GPU struct mismatch");

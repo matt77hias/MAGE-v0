@@ -119,6 +119,10 @@ namespace mage {
 		LightBuffer buffer;
 		buffer.m_Ia                             = scene->GetAmbientLight();
 		
+		buffer.m_fog_color                      = scene->GetFog()->GetIntensity();
+		buffer.m_fog_distance_falloff_start     = scene->GetFog()->GetStartDistanceFalloff();
+		buffer.m_fog_distance_falloff_inv_range = 1.0f / scene->GetFog()->GetRangeDistanceFalloff();
+
 		buffer.m_nb_directional_lights          = static_cast< uint32_t >(m_directional_lights.size());
 		buffer.m_nb_omni_lights                 = static_cast< uint32_t >(m_omni_lights.size());
 		buffer.m_nb_spot_lights                 = static_cast< uint32_t >(m_spot_lights.size());
@@ -126,10 +130,6 @@ namespace mage {
 		buffer.m_nb_sm_omni_lights              = static_cast< uint32_t >(m_sm_omni_lights.size());
 		buffer.m_nb_sm_spot_lights              = static_cast< uint32_t >(m_sm_spot_lights.size());
 		
-		buffer.m_fog_color                      = scene->GetFog()->GetIntensity();
-		buffer.m_fog_distance_falloff_start     = scene->GetFog()->GetStartDistanceFalloff();
-		buffer.m_fog_distance_falloff_inv_range = 1.0f / scene->GetFog()->GetRangeDistanceFalloff();
-
 		// Update the light buffer.
 		m_light_buffer.UpdateData(m_device_context, buffer);
 	}

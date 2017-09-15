@@ -111,15 +111,26 @@ namespace mage {
 						must be loaded.
 		 @param[in]		fov_y
 						The vertical field-of-view.
+		 */
+		explicit PerspectiveCamera(
+			float fov_y = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y);
+
+		/**
+		 Constructs a perspective camera.
+
+		 The aspect ratio will be based on the current screen resolution.
+
+		 @pre			The renderer associated with the current engine 
+						must be loaded.
+		 @param[in]		fov_y
+						The vertical field-of-view.
 		 @param[in]		near_z
 						The position of the near z-plane in camera space.
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
 		explicit PerspectiveCamera(
-			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
-			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
+			float fov_y, float near_z, float far_z);
 
 		/**
 		 Constructs a perspective camera.
@@ -134,9 +145,7 @@ namespace mage {
 						The position of the far z-plane in camera space.
 		 */
 		explicit PerspectiveCamera(float aspect_ratio,
-			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
-			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
+			float fov_y, float near_z, float far_z);
 
 		/**
 		 Constructs a perspective camera.
@@ -153,9 +162,7 @@ namespace mage {
 						The position of the far z-plane in camera space.
 		 */
 		explicit PerspectiveCamera(float width, float height,
-			float fov_y  = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y,
-			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
+			float fov_y, float near_z, float far_z);
 
 		/**
 		 Constructs a perspective camera from the given perspective camera.

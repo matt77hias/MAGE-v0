@@ -71,10 +71,24 @@ namespace mage {
 		omni_light->GetTransform()->SetTranslationY(2.0f);
 		omni_light->GetLight()->SetDistanceFalloff(0.0f, 1.0f);
 		omni_light->GetLight()->EnableShadows();
-		auto spot_light = Create< SpotLightNode >("light");
-		spot_light->GetLight()->SetDistanceFalloff(0.0f, 5.0f);
-		spot_light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
-		camera->AddChildNode(spot_light);
+
+		//auto light0 = Create< SpotLightNode >("light");
+		//light0->GetTransform()->SetTranslationY(2.0f);
+		//light0->GetLight()->SetDistanceFalloff(0.0f, 4.0f);
+		//light0->GetLight()->SetUmbraAngle(XM_PI / 6.0f);
+		//light0->GetLight()->EnableShadows();
+
+		//auto light1 = Create< SpotLightNode >("light");
+		//light1->GetTransform()->SetTranslationY(2.0f);
+		//light1->GetTransform()->SetRotationY(XM_PI);
+		//light1->GetLight()->SetDistanceFalloff(0.0f, 4.0f);
+		//light1->GetLight()->SetUmbraAngle(XM_PI / 6.0f);
+		//light1->GetLight()->EnableShadows();
+
+		//auto spot_light = Create< SpotLightNode >("light");
+		//spot_light->GetLight()->SetDistanceFalloff(0.0f, 5.0f);
+		//spot_light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
+		//camera->AddChildNode(spot_light);
 
 		//---------------------------------------------------------------------
 		// Texture

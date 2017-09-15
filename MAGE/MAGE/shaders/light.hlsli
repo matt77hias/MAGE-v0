@@ -2,6 +2,11 @@
 #define MAGE_HEADER_LIGHT
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#include "math.hlsli"
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 
@@ -158,7 +163,87 @@ float3 MaxContribution(SpotLight light, float r, float3 l) {
 	const float cos_theta = dot(light.neg_d, l);
 	const float df = DistanceFalloff(r, light.distance_falloff_end, light.distance_falloff_inv_range);
 	const float af = AngularFalloff(cos_theta, light.cos_umbra, light.cos_inv_range, light.exponent_property);
-	return df * af * light.I;
+	return af * df * light.I;
+}
+
+void Contribution(DirectionalLight light, 
+	out float3 l, out float3 I) {
+
+	l = light.neg_d;
+	I = light.I;
+}
+
+void Contribution(OmniLight light, 
+	float3 p, out float3 l, out float3 I) {
+
+	const float3 d_light = light.p - p;
+	const float  r_light = length(d_light);
+	l = d_light / r_light;
+	I = MaxContribution(light, r_light);
+}
+
+void Contribution(SpotLight light, 
+	float3 p, out float3 l, out float3 I) {
+
+	const float3 d_light = light.p - p;
+	const float  r_light = length(d_light);
+	l = d_light / r_light;
+	I = MaxContribution(light, r_light, l);
+}
+
+float ShadowFactor(SamplerComparisonState pcf_sampler,
+	Texture2DArray shadow_maps, uint index, float4 p_proj) {
+
+	const float  inv_w  = 1.0f / p_proj.w;
+	const float3 p_ndc  = p_proj.xyz * inv_w;
+	const float3 loc = float3(NDCtoUV(p_ndc.xy), index);
+	return shadow_maps.SampleCmpLevelZero(pcf_sampler, loc, p_ndc.z);
+}
+
+float ShadowFactor(SamplerComparisonState pcf_sampler, 
+	TextureCubeArray shadow_maps, uint index, float3 p_view) {
+
+	const float4 loc = float4(normalize(p_view), index);
+	return shadow_maps.SampleCmpLevelZero(pcf_sampler, loc, p_view.z);
+}
+
+void Contribution(DirectionalLightWithShadowMapping light,
+	SamplerComparisonState pcf_sampler, 
+	Texture2DArray shadow_maps, uint index,
+	float3 p, out float3 l, out float3 I) {
+
+	float3 l0, I0;
+	Contribution(light.light, l0, I0);
+
+	l = l0;
+	const float4 p_proj = mul(float4(p, 1.0f), light.cview_to_lprojection);
+	I = I0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_proj);
+}
+
+void Contribution(OmniLightWithShadowMapping light,
+	SamplerComparisonState pcf_sampler, 
+	TextureCubeArray shadow_maps, uint index,
+	float3 p, out float3 l, out float3 I) {
+
+	float3 l0, I0;
+	Contribution(light.light, p, l0, I0);
+
+	l = l0;
+	const float3 p_view = mul(float4(p, 1.0f), light.cview_to_lview).xyz;
+	I = ShadowFactor(pcf_sampler, shadow_maps, index, p_view);
+}
+
+void Contribution(SpotLightWithShadowMapping light,
+	SamplerComparisonState pcf_sampler,
+	Texture2DArray shadow_maps, uint index,
+	float3 p, out float3 l, out float3 I) {
+
+	float3 l0, I0;
+	Contribution(light.light, p, l0, I0);
+
+	l = l0;
+	const float4 p_proj = mul(float4(p, 1.0f), light.cview_to_lprojection);
+	I = I0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_proj);
 }
 
 #endif //MAGE_HEADER_LIGHT

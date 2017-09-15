@@ -20,10 +20,7 @@ namespace mage {
 
 	__declspec(align(16)) struct LightCameraInfo final
 		: public AlignedData< LightCameraInfo > {
-
-		XMMATRIX world_to_lprojection;
-		XMMATRIX world_to_lview;
-		XMMATRIX lview_to_lprojection;
+		XMMATRIX cview_to_lprojection;
 	};
 
 	struct LBufferPass final {
@@ -81,7 +78,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void UnbindSMSs() const noexcept;
+		void UnbindShadowMaps() const noexcept;
 		void BindLBuffer() const noexcept;
 
 		void ProcessLightsData(const PassBuffer *scene);
@@ -118,13 +115,18 @@ namespace mage {
 		void SetupOmniShadowMaps();
 		void SetupSpotShadowMaps();
 
-		void RenderShadowMaps(const PassBuffer *scene);
+		void RenderShadowMaps(
+			const PassBuffer *scene, 
+			FXMMATRIX world_to_cview);
 		void RenderDirectionalShadowMaps(
-			DepthPass *pass, const PassBuffer *scene);
+			DepthPass *pass, const PassBuffer *scene, 
+			FXMMATRIX world_to_cview);
 		void RenderOmniShadowMaps(
-			DepthPass *pass, const PassBuffer *scene);
+			DepthPass *pass, const PassBuffer *scene, 
+			FXMMATRIX world_to_cview);
 		void RenderSpotShadowMaps(
-			DepthPass *pass, const PassBuffer *scene);
+			DepthPass *pass, const PassBuffer *scene, 
+			FXMMATRIX world_to_cview);
 
 		//---------------------------------------------------------------------
 		// Member Variables

@@ -13,7 +13,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	PerspectiveCamera::PerspectiveCamera(float fov_y, float near_z, float far_z)
+	PerspectiveCamera::PerspectiveCamera(
+		float fov_y)
+		: PerspectiveCamera(fov_y,
+			MAGE_DEFAULT_CAMERA_NEAR_Z,
+			MAGE_DEFAULT_CAMERA_FAR_Z) {}
+
+	PerspectiveCamera::PerspectiveCamera(
+		float fov_y, float near_z, float far_z)
 		: PerspectiveCamera(
 			static_cast< float >(Renderer::Get()->GetWidth()),
 			static_cast< float >(Renderer::Get()->GetHeight()),
@@ -22,12 +29,14 @@ namespace mage {
 	PerspectiveCamera::PerspectiveCamera(float aspect_ratio,
 		float fov_y, float near_z, float far_z)
 		: Camera(near_z, far_z),
-		m_aspect_ratio(aspect_ratio), m_fov_y(fov_y) {}
+		m_aspect_ratio(aspect_ratio), 
+		m_fov_y(fov_y) {}
 
 	PerspectiveCamera::PerspectiveCamera(float width, float height,
 		float fov_y, float near_z, float far_z)
 		: Camera(near_z, far_z),
-		m_aspect_ratio(AspectRatioFromWidthAndHeight(width, height)), m_fov_y(fov_y) {}
+		m_aspect_ratio(AspectRatioFromWidthAndHeight(width, height)), 
+		m_fov_y(fov_y) {}
 
 	PerspectiveCamera::PerspectiveCamera(const PerspectiveCamera &camera) = default;
 

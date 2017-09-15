@@ -33,7 +33,8 @@ namespace mage {
 		 @param[in]		intensity
 						The RGB intensity.
 		 */
-		explicit SpotLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
+		explicit SpotLight(const RGBSpectrum &intensity 
+			= RGBSpectrum(1.0f, 1.0f, 1.0f));
 		
 		/**
 		 Constructs a spotlight from the given spotlight.
@@ -134,9 +135,6 @@ namespace mage {
 			Assert(distance_falloff_end);
 			m_distance_falloff_end = distance_falloff_end;
 
-			// Update the light camera.
-			m_light_camera.SetFarZ(GetEndDistanceFalloff());
-
 			// Update the bounding volumes.
 			UpdateBoundingVolumes();
 		}
@@ -220,9 +218,6 @@ namespace mage {
 		void SetEndAngularCutoff(float cos_umbra) noexcept {
 			Assert(cos_umbra);
 			m_cos_umbra = cos_umbra;
-
-			// Update the light camera.
-			m_light_camera.SetFOVY(GetUmbraAngle());
 
 			// Update the bounding volumes.
 			UpdateBoundingVolumes();
@@ -371,13 +366,31 @@ namespace mage {
 		}
 
 		/**
+		 Returns the view-to-projection matrix 
+		 of the light camera of this spot light.
+
+		 @return		The view-to-projection matrix 
+						of the light camera of this spot light.
+		 */
+		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
+			return XMMatrixPerspectiveFovLH(
+				1.0f, 
+				2.0f * GetUmbraAngle(),
+				MAGE_DEFAULT_CAMERA_NEAR_Z, 
+				GetEndDistanceFalloff());
+		}
+
+		/**
 		 Returns the light camera of this spot light.
 
-		 @return		A reference to the light camera
-						of this spot light.
+		 @return		The light camera of this spot light.
 		 */
-		const PerspectiveCamera &GetLightCamera() const noexcept {
-			return m_light_camera;
+		const PerspectiveCamera GetLightCamera() const noexcept {
+			return PerspectiveCamera(
+				1.0f,
+				2.0f * GetUmbraAngle(),
+				MAGE_DEFAULT_CAMERA_NEAR_Z,
+				GetEndDistanceFalloff());
 		}
 
 	private:
@@ -392,11 +405,6 @@ namespace mage {
 		 @return		A pointer to the clone of this spotlight.
 		 */
 		virtual UniquePtr< Light > CloneImplementation() const override;
-
-		/**
-		 Updates the light camera of this spotlight.
-		 */
-		void UpdateLightCamera() noexcept;
 
 		/**
 		 Updates the bounding volumes of this spotlight.
@@ -437,10 +445,5 @@ namespace mage {
 		 or not for this spotlight.
 		 */
 		bool m_shadows;
-
-		/**
-		 The light camera of this spotlight.
-		 */
-		PerspectiveCamera m_light_camera;
 	};
 }

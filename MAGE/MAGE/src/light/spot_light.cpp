@@ -26,10 +26,7 @@ namespace mage {
 		m_distance_falloff_start(0.0f), m_distance_falloff_end(1.0f),
 		m_cos_penumbra(1.0f), m_cos_umbra(0.707106781f),
 		m_exponent_property(1.0f), 
-		m_shadows(false), m_light_camera() {
-
-		// Update the light camera.
-		UpdateLightCamera();
+		m_shadows(false) {
 
 		// Update the bounding volumes.
 		UpdateBoundingVolumes();
@@ -49,12 +46,6 @@ namespace mage {
 		return MakeUnique< SpotLight >(*this);
 	}
 
-	void SpotLight::UpdateLightCamera() noexcept {
-		m_light_camera.SetViewToProjectionMatrix(
-			1.0f, GetUmbraAngle(),
-			MAGE_DEFAULT_CAMERA_NEAR_Z, GetEndDistanceFalloff());
-	}
-
 	void SpotLight::UpdateBoundingVolumes() noexcept {
 		const float a         = 1.0f / (m_cos_umbra * m_cos_umbra);
 		const float tan_umbra = sqrt(a - 1.0f);
@@ -63,7 +54,7 @@ namespace mage {
 		const float r         = m_distance_falloff_end * sqrt(a - 0.75f);
 
 		AABB aabb(Point3(-rxy, -rxy, 0.0f),
-						Point3( rxy,  rxy, m_distance_falloff_end));
+				  Point3( rxy,  rxy, m_distance_falloff_end));
 
 		BS bs(Point3(0.0f, 0.0f, rz), r);
 

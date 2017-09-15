@@ -59,7 +59,8 @@ RWTexture2D< float4 > g_output           : register(REG_U(SLOT_UAV_IMAGE));
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const float2 p_ndc_xy = DispatchThreadIDtoNDC((float2)thread_id.xy / g_resolution_minus1);
+	const float2 p_ndc_xy = DispatchThreadIDtoNDC(
+		(float2)thread_id.xy / g_resolution_minus1);
 
 	// Load the depth from the GBuffer depth texture.
 	const float  depth     = g_depth_texture[thread_id.xy].x;

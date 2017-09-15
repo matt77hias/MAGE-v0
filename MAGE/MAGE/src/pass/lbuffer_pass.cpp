@@ -50,9 +50,6 @@ namespace mage {
 		ProcessLights(scene->GetSpotLights(), 
 			world_to_projection, world_to_view);
 		
-		// Unbind the shadow map SRVs.
-		UnbindSMSs();
-
 		// Process the lights with shadow mapping.
 		ProcessLightsWithShadowMapping(scene->GetDirectionalLightsWithShadowMapping(), 
 			world_to_view, view_to_world);
@@ -61,19 +58,21 @@ namespace mage {
 		ProcessLightsWithShadowMapping(scene->GetSpotLightsWithShadowMapping(), 
 			world_to_projection, world_to_view, view_to_world);
 		
-		// Process the lights' data.
-		ProcessLightsData(scene);
-
+		// Unbind the shadow map SRVs.
+		UnbindShadowMaps();
 		// Setup the shadow maps.
 		SetupShadowMaps();
 		// Render the shadow maps.
-		RenderShadowMaps(scene);
+		RenderShadowMaps(scene, world_to_view);
+
+		// Process the lights' data.
+		ProcessLightsData(scene);
 
 		// Bind the LBuffer.
 		BindLBuffer();
 	}
 
-	void LBufferPass::UnbindSMSs() const noexcept {
+	void LBufferPass::UnbindShadowMaps() const noexcept {
 		ID3D11ShaderResourceView * const srvs[3] = {};
 
 		// Unbind the shadow map SRVs.
@@ -304,14 +303,12 @@ namespace mage {
 			}
 
 			// Create six omni light cameras.
-			const XMMATRIX world_to_lview         = transform->GetWorldToObjectMatrix();
-			const XMMATRIX lview_to_lprojection   = light->GetLightCamera().GetViewToProjectionMatrix();
+			const XMMATRIX world_to_lview         = transform->GetWorldToViewMatrix();
+			const XMMATRIX lview_to_lprojection   = light->GetViewToProjectionMatrix();
 			for (size_t i = 0; i < _countof(rotations); ++i) {
 				LightCameraInfo camera;
-				camera.world_to_lview             = world_to_lview * rotations[i];
-				camera.lview_to_lprojection       = lview_to_lprojection;
-				camera.world_to_lprojection       = camera.world_to_lview * camera.lview_to_lprojection;
-				
+				camera.cview_to_lprojection       = view_to_world * world_to_lview * rotations[i] * lview_to_lprojection;
+
 				// Add omni light camera to the omni light cameras.
 				m_omni_light_cameras.push_back(std::move(camera));
 			}
@@ -357,12 +354,13 @@ namespace mage {
 				continue;
 			}
 
+			const XMMATRIX world_to_lview          = transform->GetWorldToViewMatrix();
+			const XMMATRIX lview_to_lprojection    = light->GetViewToProjectionMatrix();
+			const XMMATRIX cview_to_lprojection    = view_to_world * world_to_lview * lview_to_lprojection;
+
 			// Create a spotlight camera.
 			LightCameraInfo camera;
-			camera.world_to_lview                  = transform->GetWorldToObjectMatrix();
-			camera.lview_to_lprojection            = light->GetLightCamera().GetViewToProjectionMatrix();
-			camera.world_to_lprojection            = camera.world_to_lview * camera.lview_to_lprojection;
-			const XMMATRIX cview_to_lprojection    = view_to_world * camera.world_to_lprojection;
+			camera.cview_to_lprojection            = cview_to_lprojection;
 
 			// Add spotlight camera to the spotlight cameras.
 			m_spot_light_cameras.push_back(std::move(camera));
@@ -433,75 +431,86 @@ namespace mage {
 		m_spot_sms->ClearDSVs(m_device_context);
 	}
 
-	void LBufferPass::RenderShadowMaps(const PassBuffer *scene) {
+	void LBufferPass::RenderShadowMaps(
+		const PassBuffer *scene, 
+		FXMMATRIX world_to_cview) {
 		DepthPass * const pass = DepthPass::Get();
 		pass->BindFixedState();
 
 		// Render the shadow maps of the directional lights.
-		RenderDirectionalShadowMaps(pass, scene);
+		RenderDirectionalShadowMaps(pass, scene, world_to_cview);
 		// Render the shadow maps of the omni lights.
-		RenderOmniShadowMaps(pass, scene);
+		RenderOmniShadowMaps(pass, scene, world_to_cview);
 		// Render the shadow maps of the spotlights.
-		RenderSpotShadowMaps(pass, scene);
+		RenderSpotShadowMaps(pass, scene, world_to_cview);
 	}
 
 	void LBufferPass::RenderDirectionalShadowMaps(
-		DepthPass *pass, const PassBuffer *scene) {
+		DepthPass *pass, const PassBuffer *scene, 
+		FXMMATRIX world_to_cview) {
 
 		// Bind the viewport.
 		m_directional_sms->BindViewport(m_device_context);
 
 		for (size_t i = 0; i < m_directional_light_cameras.size(); ++i) {
 			const LightCameraInfo &camera = m_directional_light_cameras[i];
+			const XMMATRIX world_to_lprojection
+				= world_to_cview * camera.cview_to_lprojection;
 
 			// Bind the DSV.
 			m_directional_sms->BindDSV(m_device_context, i);
 
 			// Perform the depth pass.
 			pass->RenderOccluders(scene,
-				camera.world_to_lprojection,
-				camera.world_to_lview,
-				camera.lview_to_lprojection);
+				world_to_lprojection,
+				world_to_cview,
+				camera.cview_to_lprojection);
 		}
 	}
 
 	void LBufferPass::RenderOmniShadowMaps(
-		DepthPass *pass, const PassBuffer *scene) {
+		DepthPass *pass, const PassBuffer *scene, 
+		FXMMATRIX world_to_cview) {
 
 		// Bind the viewport.
 		m_omni_sms->BindViewport(m_device_context);
 
 		for (size_t i = 0; i < m_omni_light_cameras.size(); ++i) {
 			const LightCameraInfo &camera = m_omni_light_cameras[i];
+			const XMMATRIX world_to_lprojection
+				= world_to_cview * camera.cview_to_lprojection;
 
 			// Bind the DSV.
 			m_omni_sms->BindDSV(m_device_context, i);
 
 			// Perform the depth pass.
 			pass->RenderOccluders(scene,
-				camera.world_to_lprojection,
-				camera.world_to_lview,
-				camera.lview_to_lprojection);
+				world_to_lprojection,
+				world_to_cview,
+				camera.cview_to_lprojection);
 		}
 	}
 	
 	void LBufferPass::RenderSpotShadowMaps(
-		DepthPass *pass, const PassBuffer *scene) {
+		DepthPass *pass, const PassBuffer *scene, 
+		FXMMATRIX world_to_cview) {
 
 		// Bind the viewport.
 		m_spot_sms->BindViewport(m_device_context);
 
 		for (size_t i = 0; i < m_spot_light_cameras.size(); ++i) {
 			const LightCameraInfo &camera = m_spot_light_cameras[i];
+			const XMMATRIX world_to_lprojection 
+				= world_to_cview * camera.cview_to_lprojection;
 
 			// Bind the DSV.
 			m_spot_sms->BindDSV(m_device_context, i);
 
 			// Perform the depth pass.
 			pass->RenderOccluders(scene,
-				camera.world_to_lprojection,
-				camera.world_to_lview,
-				camera.lview_to_lprojection);
+				world_to_lprojection,
+				world_to_cview,
+				camera.cview_to_lprojection);
 		}
 	}
 }

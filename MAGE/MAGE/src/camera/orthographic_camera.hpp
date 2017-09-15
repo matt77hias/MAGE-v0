@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH 2.0f
+#define MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH  2.0f
 #define MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_HEIGHT 2.0f
 
 #pragma endregion

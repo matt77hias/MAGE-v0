@@ -159,9 +159,9 @@ namespace mage {
 		desc.MultisampleEnable = true;
 
 		//TODO: remove
-		desc.DepthBias = 400;
+		desc.DepthBias            = 400;
 		desc.SlopeScaledDepthBias = 1.0f;
-		desc.DepthBiasClamp = 0.0f;
+		desc.DepthBiasClamp       = 0.0f;
 
 		return device->CreateRasterizerState(&desc, rasterizer_state);
 	}
@@ -321,11 +321,7 @@ namespace mage {
 		desc.AddressW       = D3D11_TEXTURE_ADDRESS_BORDER;
 		desc.MaxAnisotropy  = (device->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) ? D3D11_MAX_MAXANISOTROPY : 2;
 		desc.MaxLOD         = D3D11_FLOAT32_MAX;
-		desc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-		desc.BorderColor[0] = 1.0f;
-		desc.BorderColor[1] = 1.0f;
-		desc.BorderColor[2] = 1.0f;
-		desc.BorderColor[3] = 1.0f;
+		desc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
 
 		return device->CreateSamplerState(&desc, sampler_state);
 	}

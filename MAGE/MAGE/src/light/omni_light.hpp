@@ -33,7 +33,8 @@ namespace mage {
 		 @param[in]		intensity
 						The RGB intensity.
 		 */
-		explicit OmniLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
+		explicit OmniLight(const RGBSpectrum &intensity 
+			= RGBSpectrum(1.0f, 1.0f, 1.0f));
 		
 		/**
 		 Constructs an omni light from the given omni light.
@@ -134,9 +135,6 @@ namespace mage {
 			Assert(distance_falloff_end);
 			m_distance_falloff_end = distance_falloff_end;
 			
-			// Update the light camera.
-			m_light_camera.SetFarZ(GetEndDistanceFalloff());
-			
 			// Update the bounding volumes.
 			UpdateBoundingVolumes();
 		}
@@ -222,13 +220,31 @@ namespace mage {
 		}
 
 		/**
+		 Returns the view-to-projection matrix 
+		 of the (forward) light camera of this omni light.
+
+		 @return		The view-to-projection matrix 
+						of the (forward) light camera of this omni light.
+		 */
+		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
+			return XMMatrixPerspectiveFovLH(
+				1.0f, 
+				XM_PIDIV2,
+				MAGE_DEFAULT_CAMERA_NEAR_Z, 
+				GetEndDistanceFalloff());
+		}
+
+		/**
 		 Returns the (forward) light camera of this omni light.
 
-		 @return		A reference to the (forward) light camera
-						of this omni light.
+		 @return		The (forward) light camera of this omni light.
 		 */
-		const PerspectiveCamera &GetLightCamera() const noexcept {
-			return m_light_camera;
+		const PerspectiveCamera GetLightCamera() const noexcept {
+			return PerspectiveCamera(
+				1.0f,
+				XM_PIDIV2,
+				MAGE_DEFAULT_CAMERA_NEAR_Z,
+				GetEndDistanceFalloff());
 		}
 
 	private:
@@ -243,11 +259,6 @@ namespace mage {
 		 @return		A pointer to the clone of this omni light.
 		 */
 		virtual UniquePtr< Light > CloneImplementation() const override;
-
-		/**
-		 Updates the light camera of this omni light.
-		 */
-		void UpdateLightCamera() noexcept;
 
 		/**
 		 Updates the bounding volumes of this omni light.
@@ -273,10 +284,5 @@ namespace mage {
 		 or not for this omni light.
 		 */
 		bool m_shadows;
-
-		/**
-		 The (forward) light camera of this omni light.
-		 */
-		PerspectiveCamera m_light_camera;
 	};
 }

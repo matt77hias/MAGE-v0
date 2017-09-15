@@ -176,18 +176,20 @@ void Contribution(DirectionalLight light,
 void Contribution(OmniLight light, 
 	float3 p, out float3 l, out float3 I) {
 
-	const float3 d_light = light.p - p;
-	const float  r_light = length(d_light);
-	l = d_light / r_light;
+	const float3 d_light     = light.p - p;
+	const float  r_light     = length(d_light);
+	const float  inv_r_light = 1.0f / r_light;
+	l = d_light * inv_r_light;
 	I = MaxContribution(light, r_light);
 }
 
 void Contribution(SpotLight light, 
 	float3 p, out float3 l, out float3 I) {
 
-	const float3 d_light = light.p - p;
-	const float  r_light = length(d_light);
-	l = d_light / r_light;
+	const float3 d_light     = light.p - p;
+	const float  r_light     = length(d_light);
+	const float  inv_r_light = 1.0f / r_light;
+	l = d_light * inv_r_light;
 	I = MaxContribution(light, r_light, l);
 }
 
@@ -203,8 +205,10 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
 float ShadowFactor(SamplerComparisonState pcf_sampler, 
 	TextureCubeArray shadow_maps, uint index, float3 p_view) {
 
-	const float4 loc = float4(normalize(p_view), index);
-	return shadow_maps.SampleCmpLevelZero(pcf_sampler, loc, p_view.z);
+	const float  r     = length(p_view);
+	const float  inv_r = 1.0f / r;
+	const float4 loc   = float4(p_view * inv_r, index);
+	return shadow_maps.SampleCmpLevelZero(pcf_sampler, loc, r);
 }
 
 void Contribution(DirectionalLightWithShadowMapping light,
@@ -230,7 +234,7 @@ void Contribution(OmniLightWithShadowMapping light,
 
 	l = l0;
 	const float3 p_view = mul(float4(p, 1.0f), light.cview_to_lview).xyz;
-	I = ShadowFactor(pcf_sampler, shadow_maps, index, p_view);
+	I = I0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_view);
 }
 
 void Contribution(SpotLightWithShadowMapping light,

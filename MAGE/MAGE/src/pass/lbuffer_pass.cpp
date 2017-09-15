@@ -279,10 +279,10 @@ namespace mage {
 		CXMMATRIX view_to_world) {
 
 		static const XMMATRIX rotations[6] = {
-			XMMatrixRotationY( XM_PIDIV2),    // Look: +x
-			XMMatrixRotationY(-XM_PIDIV2),    // Look: -x
-			XMMatrixRotationX(-XM_PIDIV2),    // Look: +y
-			XMMatrixRotationX( XM_PIDIV2),    // Look: -y
+			XMMatrixRotationY(-XM_PIDIV2),    // Look: +x
+			XMMatrixRotationY( XM_PIDIV2),    // Look: -x
+			XMMatrixRotationX( XM_PIDIV2),    // Look: +y
+			XMMatrixRotationX(-XM_PIDIV2),    // Look: -y
 			XMMatrixIdentity(),               // Look: +z
 			XMMatrixRotationY(XM_PI),         // Look: -z
 		};

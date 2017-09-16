@@ -30,7 +30,6 @@ namespace mage {
 
 		void BindPacking(ID3D11DeviceContext2 *device_context) noexcept;
 		void BindUnpacking(ID3D11DeviceContext2 *device_context) noexcept;
-		void BindRestore(ID3D11DeviceContext2 *device_context) noexcept;
 
 	private:
 
@@ -60,16 +59,9 @@ namespace mage {
 			UINT width, UINT height);
 		void SetupBuffer(ID3D11Device2 *device, UINT index,
 			UINT width, UINT height, DXGI_FORMAT format);
-		void SetupOutputBuffer(ID3D11Device2 *device,
-			UINT width, UINT height);
-		
-		// GBuffer
+
 		ComPtr< ID3D11DepthStencilView >   m_dsv;
 		ComPtr< ID3D11RenderTargetView >   m_rtvs[static_cast< UINT >(GBufferIndex::Count) - 1u];
 		ComPtr< ID3D11ShaderResourceView > m_srvs[static_cast< UINT >(GBufferIndex::Count)];
-
-		// Output
-		ComPtr< ID3D11UnorderedAccessView > m_image_uav;
-		ComPtr< ID3D11ShaderResourceView >  m_image_srv;
 	};
 }

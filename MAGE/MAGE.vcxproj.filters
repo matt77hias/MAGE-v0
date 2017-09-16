@@ -1023,6 +1023,9 @@
     <ClInclude Include="MAGE\src\shader\cso\depth\depth_transparent_VS.hpp">
       <Filter>Header Files\shader\cso\depth</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\image_buffer.hpp">
+      <Filter>Header Files\buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1384,6 +1387,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\pass\lbuffer_pass.cpp">
       <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\buffer\image_buffer.cpp">
+      <Filter>Source Files\buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -22,8 +22,7 @@ namespace mage {
 		: GBuffer(GetDevice()) {}
 
 	GBuffer::GBuffer(ID3D11Device2 *device)
-		: m_dsv(), m_rtvs{}, m_srvs{}, 
-		m_image_uav(), m_image_srv() {
+		: m_dsv(), m_rtvs{}, m_srvs{} {
 
 		SetupBuffers(device);
 	}
@@ -31,20 +30,22 @@ namespace mage {
 	void GBuffer::BindPacking(ID3D11DeviceContext2 *device_context) noexcept {
 		static const FLOAT color[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
-		// Bind no depth SRV.
-		PS::BindSRV(device_context,
-			SLOT_SRV_DEPTH, nullptr);
-
+		// Collect the SRVs.
+		ID3D11ShaderResourceView * const srvs[GetNumberOfSRVs()] = {};
+		// Bind no SRVs.
+		PS::BindSRVs(device_context,
+			SLOT_SRV_GBUFFER_START, GetNumberOfSRVs(), srvs);
+		CS::BindSRVs(device_context,
+			SLOT_SRV_GBUFFER_START, GetNumberOfSRVs(), srvs);
+		
 		// Collect and clear the RTVs.
 		ID3D11RenderTargetView *rtvs[GetNumberOfRTVs()];
 		for (UINT i = 0; i < GetNumberOfRTVs(); ++i) {
 			rtvs[i] = m_rtvs[i].Get();
 			OM::ClearRTV(device_context, rtvs[i], color);
 		}
-
-		//Clear the DSV.
+		// Clear the DSV.
 		OM::ClearDSV(device_context, m_dsv.Get());
-		
 		// Bind the RTVs and DSV.
 		OM::BindRTVsAndDSV(device_context, GetNumberOfRTVs(), rtvs, m_dsv.Get());
 	}
@@ -59,35 +60,11 @@ namespace mage {
 		for (UINT i = 0; i < GetNumberOfSRVs(); ++i) {
 			srvs[i] = m_srvs[i].Get();
 		}
-	
 		// Bind the SRVs.
+		PS::BindSRVs(device_context,
+			SLOT_SRV_GBUFFER_START, GetNumberOfSRVs(), srvs);
 		CS::BindSRVs(device_context, 
 			SLOT_SRV_GBUFFER_START, GetNumberOfSRVs(), srvs);
-		// Bind the ouput UAV.
-		CS::BindUAV(device_context, 
-			SLOT_UAV_IMAGE, m_image_uav.Get());
-	}
-
-	void GBuffer::BindRestore(ID3D11DeviceContext2 *device_context) noexcept {
-		// Collect the SRVs.
-		ID3D11ShaderResourceView * const srvs[GetNumberOfSRVs()] = {};
-		
-		// Bind no SRVs.
-		CS::BindSRVs(device_context, 
-			SLOT_SRV_GBUFFER_START, GetNumberOfSRVs(), srvs);
-		// Bind no UAV.
-		CS::BindUAV(device_context, 
-			SLOT_UAV_IMAGE, nullptr);
-
-		// Bind the output SRV.
-		PS::BindSRV(device_context,
-			SLOT_SRV_IMAGE, m_image_srv.Get());
-		// Bind the depth SRV.
-		PS::BindSRV(device_context,
-			SLOT_SRV_DEPTH, m_srvs[static_cast< size_t >(GBufferIndex::Depth)].Get());
-
-		// Restore the RTV and DSV of the renderer.
-		Renderer::Get()->BindRTVAndDSV();
 	}
 
 	void GBuffer::SetupBuffers(ID3D11Device2 *device) {
@@ -106,9 +83,6 @@ namespace mage {
 		SetupSpecularBuffer(device, width, height);
 		// Setup the normal buffer.
 		SetupNormalBuffer(device, width, height);
-
-		// Setup the output buffer.
-		SetupOutputBuffer(device, width, height);
 	}
 
 	void GBuffer::SetupDepthBuffer(ID3D11Device2 *device,
@@ -211,40 +185,6 @@ namespace mage {
 		const HRESULT result_srv = device->CreateShaderResourceView(
 			texture.Get(), nullptr,
 			m_srvs[index].ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_srv, "SRV creation failed: %08X.", result_srv);
-	}
-
-	void GBuffer::SetupOutputBuffer(ID3D11Device2 *device,
-		UINT width, UINT height) {
-
-		// Create the texture descriptor.
-		D3D11_TEXTURE2D_DESC texture_desc = {};
-		texture_desc.Width            = width;
-		texture_desc.Height           = height;
-		texture_desc.MipLevels        = 1u;
-		texture_desc.ArraySize        = 1u;
-		texture_desc.Format           = DXGI_FORMAT_R8G8B8A8_UNORM;
-		texture_desc.SampleDesc.Count = 1u;
-		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
-		texture_desc.BindFlags        = D3D11_BIND_UNORDERED_ACCESS | D3D11_BIND_SHADER_RESOURCE;
-
-		// Create the texture.
-		ComPtr< ID3D11Texture2D > texture;
-		const HRESULT result_texture = device->CreateTexture2D(
-			&texture_desc, nullptr, 
-			texture.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_texture, "Texture 2D creation failed: %08X.", result_texture);
-
-		// Create the UAV.
-		const HRESULT result_uav = device->CreateUnorderedAccessView(
-			texture.Get(), nullptr,
-			m_image_uav.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_uav, "UAV creation failed: %08X.", result_uav);
-
-		// Create the SRV.
-		const HRESULT result_srv = device->CreateShaderResourceView(
-			texture.Get(), nullptr,
-			m_image_srv.ReleaseAndGetAddressOf());
 		ThrowIfFailed(result_srv, "SRV creation failed: %08X.", result_srv);
 	}
 }

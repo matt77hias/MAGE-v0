@@ -28,6 +28,7 @@ namespace mage {
 		m_maximum_viewport(),
 		m_pass_buffer(MakeUnique< PassBuffer >()),
 		m_gbuffer(MakeUnique< GBuffer >()),
+		m_image_buffer(MakeUnique< ImageBuffer >()),
 		m_depth_pass(), 
 		m_gbuffer_pass(),
 		m_lbuffer_pass(),
@@ -195,7 +196,7 @@ namespace mage {
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_projection);
 		
-		// Restore the RTV and DSV.
+		// Bind the back and depth buffer.
 		renderer->BindRTVAndDSV();
 	}
 
@@ -214,7 +215,7 @@ namespace mage {
 
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
-		// Restore the RTV and DSV.
+		// Bind the back and depth buffer.
 		Renderer::Get()->BindRTVAndDSV();
 		
 		// Perform a forward pass.
@@ -241,7 +242,7 @@ namespace mage {
 
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
-		// Restore the RTV and DSV.
+		// Bind the back and depth buffer.
 		Renderer::Get()->BindRTVAndDSV();
 		
 		// Perform a forward pass.
@@ -278,8 +279,10 @@ namespace mage {
 
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
-		// Bind the GBuffer for unpacking to the compute pipeline.
+		// Bind the GBuffer for unpacking.
 		m_gbuffer->BindUnpacking(m_device_context);
+		// Bind the ImageBuffer for packing.
+		m_image_buffer->BindPacking(m_device_context);
 
 		// Perform a deferred pass.
 		DeferredShadingPass *deferred_pass = GetDeferredShadingPass();
@@ -287,8 +290,10 @@ namespace mage {
 		deferred_pass->Render(
 			m_pass_buffer.get(), view_to_projection);
 
-		// Bind the back buffer RTV and depth buffer DSV.
-		m_gbuffer->BindRestore(m_device_context);
+		// Bind the ImageBuffer for unpacking.
+		m_image_buffer->BindUnpacking(m_device_context);
+		// Bind the back and depth buffer.
+		Renderer::Get()->BindRTVAndDSV();
 		
 		// Perform an image pass.
 		ImagePass * const image_pass = GetImagePass();

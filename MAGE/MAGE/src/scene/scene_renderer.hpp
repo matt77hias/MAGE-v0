@@ -21,6 +21,7 @@
 #include "pass\bounding_volume_pass.hpp"
 
 #include "buffer\gbuffer.hpp"
+#include "buffer\image_buffer.hpp"
 
 #pragma endregion
 
@@ -403,6 +404,11 @@ namespace mage {
 		 A pointer to the Gbuffer of this scene renderer.
 		 */
 		UniquePtr< GBuffer > m_gbuffer;
+
+		/**
+		 A pointer to the image buffer of this scene renderer.
+		 */
+		UniquePtr< ImageBuffer > m_image_buffer;
 		
 		//---------------------------------------------------------------------
 		// Member Variables: Render Passes

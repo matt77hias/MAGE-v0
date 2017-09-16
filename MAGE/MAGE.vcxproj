@@ -25,6 +25,7 @@
     <ClInclude Include="MAGE\src\buffer\constant_buffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\deferred_buffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\gbuffer.hpp" />
+    <ClInclude Include="MAGE\src\buffer\image_buffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\light_buffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\model_buffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\shadow_map_buffer.hpp" />
@@ -272,6 +273,7 @@
     <ClCompile Include="MAGE\src\binary\binary_reader.cpp" />
     <ClCompile Include="MAGE\src\binary\binary_writer.cpp" />
     <ClCompile Include="MAGE\src\buffer\gbuffer.cpp" />
+    <ClCompile Include="MAGE\src\buffer\image_buffer.cpp" />
     <ClCompile Include="MAGE\src\buffer\shadow_map_buffer.cpp" />
     <ClCompile Include="MAGE\src\camera\camera.cpp" />
     <ClCompile Include="MAGE\src\camera\camera_node.cpp" />

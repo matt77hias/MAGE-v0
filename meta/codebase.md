@@ -11,6 +11,10 @@
   * Frank D. Luna (original version),
   * Matthias Moulin (updated version).
   
+* Trees
+  * [killst4r](https://www.turbosquid.com/3d-models/free-obj-mode-tree-pack/506851) (original version),
+  * Matthias Moulin (updated version).
+  
 * Utah Teapot: 
   * Martin Newell (original version),
   * Kenzie Lamar (updated version),

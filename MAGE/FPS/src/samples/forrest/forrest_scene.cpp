@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "samples\sponza\sponza_scene.hpp"
 #include "samples\forrest\forrest_scene.hpp"
+#include "samples\brdf\brdf_scene.hpp"
 
 #pragma endregion
 
@@ -26,15 +26,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SponzaScene::SponzaScene()
-		: Scene("sponza_scene") {}
+	ForrestScene::ForrestScene()
+		: Scene("forrest_scene") {}
 
-	SponzaScene::SponzaScene(SponzaScene &&scene) = default;
+	ForrestScene::ForrestScene(ForrestScene &&scene) = default;
 
-	SponzaScene::~SponzaScene() = default;
+	ForrestScene::~ForrestScene() = default;
 
-	void SponzaScene::Load() {
-		
+	void ForrestScene::Load() {
+
 		//---------------------------------------------------------------------
 		// Fog
 		//---------------------------------------------------------------------
@@ -51,41 +51,40 @@ namespace mage {
 		// ModelDescriptors
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		auto model_desc_sponza = 
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
-		auto model_desc_sphere = 
+		auto model_desc_plane =
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/plane/plane.mdl", mesh_desc);
+		auto model_desc_tree1 =
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree1a_lod1.mdl", mesh_desc);
-			//ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.mdl", mesh_desc);
-		
+		auto model_desc_tree2 =
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree1b_lod1.mdl", mesh_desc);
+		auto model_desc_tree3 =
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree2a_lod1.mdl", mesh_desc);
+		auto model_desc_tree4 =
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree2b_lod1.mdl", mesh_desc);
+		auto model_desc_tree5 =
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree3a_lod1.mdl", mesh_desc);
+		auto model_desc_tree6 =
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree3b_lod1.mdl", mesh_desc);
+		auto model_desc_tree7 =
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree4a_lod1.mdl", mesh_desc);
+		auto model_desc_tree8 =
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree4b_lod1.mdl", mesh_desc);
+
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		auto model_sponza = CreateModel(*model_desc_sponza);
-		model_sponza->GetTransform()->SetScale(10.0f);
-		auto model_sphere = CreateModel(*model_desc_sphere);
-		model_sphere->GetTransform()->AddTranslationY(0.5f);
-		model_sphere->GetModel()->GetMaterial()->SetDiffuseReflectivityTexture(CreateReferenceTexture());
+		auto model_plane = CreateModel(*model_desc_plane);
+		model_plane->GetTransform()->SetScale(5.0f);
+		auto model_tree1 = CreateModel(*model_desc_tree1);
+		model_tree1->GetTransform()->SetScale(2.0f);
 
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
 		auto omni_light = Create< OmniLightNode >("light");
-		omni_light->GetTransform()->SetTranslationY(2.0f);
+		omni_light->GetTransform()->SetTranslationY(1.5f);
 		omni_light->GetLight()->SetDistanceFalloff(0.0f, 2.0f);
 		omni_light->GetLight()->EnableShadows();
-
-		//auto light0 = Create< SpotLightNode >("light");
-		//light0->GetTransform()->SetTranslationY(2.0f);
-		//light0->GetLight()->SetDistanceFalloff(0.0f, 4.0f);
-		//light0->GetLight()->SetUmbraAngle(XM_PI / 6.0f);
-		//light0->GetLight()->EnableShadows();
-
-		//auto light1 = Create< SpotLightNode >("light");
-		//light1->GetTransform()->SetTranslationY(2.0f);
-		//light1->GetTransform()->SetRotationY(XM_PI);
-		//light1->GetLight()->SetDistanceFalloff(0.0f, 4.0f);
-		//light1->GetLight()->SetUmbraAngle(XM_PI / 6.0f);
-		//light1->GetLight()->EnableShadows();
 
 		//auto spot_light = Create< SpotLightNode >("light");
 		//spot_light->GetLight()->SetDistanceFalloff(0.0f, 5.0f);
@@ -106,7 +105,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Font
 		//---------------------------------------------------------------------
-		auto font = 
+		auto font =
 			ResourceManager::Get()->GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont");
 		//---------------------------------------------------------------------
 		// Text
@@ -116,8 +115,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(MakeShared< SwitchSceneScript< ForrestScene > >());
-		AddScript(MakeShared< RotationScript >(model_sphere->GetTransform()));
+		AddScript(MakeShared< SwitchSceneScript< BRDFScene > >());
+		AddScript(MakeShared< RotationScript >(model_tree1->GetTransform()));
 		AddScript(MakeShared< FPSInputControllerScript >(camera->GetTransform()));
 		AddScript(MakeShared< StatsScript >(text->GetSprite()));
 		AddScript(MakeShared< RenderModeScript >(camera->GetSettings()));

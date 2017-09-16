@@ -234,7 +234,7 @@ void Contribution(OmniLightWithShadowMapping light,
 
 	l = l0;
 	const float3 p_view = mul(float4(p, 1.0f), light.cview_to_lview).xyz;
-	I = ShadowFactor(pcf_sampler, shadow_maps, index, p_view);
+	I = I0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_view);
 }
 
 void Contribution(SpotLightWithShadowMapping light,

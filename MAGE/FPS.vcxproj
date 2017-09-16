@@ -22,12 +22,14 @@
     <ClInclude Include="FPS\src\core\targetver.hpp" />
     <ClInclude Include="FPS\src\samples\brdf\brdf_scene.hpp" />
     <ClInclude Include="FPS\src\samples\brdf\brdf_script.hpp" />
+    <ClInclude Include="FPS\src\samples\forrest\forrest_scene.hpp" />
     <ClInclude Include="FPS\src\samples\sponza\sponza_scene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FPS\src\core\FPS.cpp" />
     <ClCompile Include="FPS\src\samples\brdf\brdf_scene.cpp" />
     <ClCompile Include="FPS\src\samples\brdf\brdf_script.cpp" />
+    <ClCompile Include="FPS\src\samples\forrest\forrest_scene.cpp" />
     <ClCompile Include="FPS\src\samples\sponza\sponza_scene.cpp" />
   </ItemGroup>
   <ItemGroup>

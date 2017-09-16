@@ -37,6 +37,12 @@
     <Filter Include="Source Files\samples\sponza">
       <UniqueIdentifier>{afef0845-e1e1-4e34-ac22-81e5cfb059d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\samples\forrest">
+      <UniqueIdentifier>{ed8a27d9-e9fa-4b57-b1b6-8f2bc6f73354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\samples\forrest">
+      <UniqueIdentifier>{b5cc439c-a0f1-4997-983c-814349016825}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPS\src\core\targetver.hpp">
@@ -51,6 +57,9 @@
     <ClInclude Include="FPS\src\samples\sponza\sponza_scene.hpp">
       <Filter>Header Files\samples\sponza</Filter>
     </ClInclude>
+    <ClInclude Include="FPS\src\samples\forrest\forrest_scene.hpp">
+      <Filter>Header Files\samples\forrest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FPS\src\core\FPS.cpp">
@@ -64,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="FPS\src\samples\sponza\sponza_scene.cpp">
       <Filter>Source Files\samples\sponza</Filter>
+    </ClCompile>
+    <ClCompile Include="FPS\src\samples\forrest\forrest_scene.cpp">
+      <Filter>Source Files\samples\forrest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

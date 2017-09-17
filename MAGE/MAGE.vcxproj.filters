@@ -666,9 +666,6 @@
     <ClInclude Include="MAGE\src\shader\compiled_shader.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\compiled_shader_factory.hpp">
-      <Filter>Header Files\shader</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\camera\camera_node.hpp">
       <Filter>Header Files\camera</Filter>
     </ClInclude>
@@ -1264,9 +1261,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\binary\binary_reader.cpp">
       <Filter>Source Files\binary</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\shader\compiled_shader_factory.cpp">
-      <Filter>Source Files\shader</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\camera\camera_node.cpp">
       <Filter>Source Files\camera</Filter>

@@ -231,7 +231,6 @@
     <ClInclude Include="MAGE\src\shader\cso\sprite\sprite_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\sprite\sprite_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\compiled_shader.hpp" />
-    <ClInclude Include="MAGE\src\shader\compiled_shader_factory.hpp" />
     <ClInclude Include="MAGE\src\shader\guids.hpp" />
     <ClInclude Include="MAGE\src\shader\shader.hpp" />
     <ClInclude Include="MAGE\src\shader\shader_factory.hpp" />
@@ -364,7 +363,6 @@
     <ClCompile Include="MAGE\src\script\render_mode_script.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_factory.cpp" />
     <ClCompile Include="MAGE\src\shader\compiled_shader.cpp" />
-    <ClCompile Include="MAGE\src\shader\compiled_shader_factory.cpp" />
     <ClCompile Include="MAGE\src\shader\shader_utils.cpp" />
     <ClCompile Include="MAGE\src\shader\shader.cpp" />
     <ClCompile Include="MAGE\src\sprite\sprite_batch.cpp" />

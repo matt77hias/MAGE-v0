@@ -1,10 +1,8 @@
 ## Current iteration' TODOs
 * Shadow Mapping
-  * Omni Lights (6x Perspective | CubeMap+GS)
-  * Spotlights (1x Perspective)
-  * Directional lights (1x Orthographic)
+  * Directional lights
 * Voxel Cone Tracing
-* Tiled and Clustered Shading (Forward and Deferred)
+* Tiled and Clustered Shading
 * Billboarding (Ry camera-dependent)
 * Particles (Rx+Ry+Rz camera-dependent)
 * Height maps (alpha of normal map) + terrains

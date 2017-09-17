@@ -210,11 +210,25 @@ float3 PackNormal(float3 n) {
 }
 
 /**
+ Converts the given (linear) view z-coordinate to 
+ the (non-linear) NDC z-coordinate.
+
+ @param[in]		p_view_z
+				The (linear) view z-coordinate.
+ @param[in]		The projection values 
+				[view_projection22, view_projection32].
+ @return		The (non-linear) NDC z-coordinate.
+ */
+float ViewZtoNDCZ(float p_view_z, float2 projection_values) {
+	return projection_values.x + projection_values.y / p_view_z;
+}
+
+/**
  Converts the given (non-linear) NDC z-coordinate to 
  the (linear) view z-coordinate.
 
  @param[in]		p_ndc_z
-				The NDC z-coordinate.
+				The (non-linear) NDC z-coordinate.
  @param[in]		The projection values 
 				[view_projection32, -view_projection22].
  @return		The (linear) view z-coordinate.

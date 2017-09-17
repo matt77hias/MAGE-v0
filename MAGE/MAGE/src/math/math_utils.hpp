@@ -121,22 +121,24 @@ namespace mage {
 
 	/**
 	 Returns the projection values from the given projection matrix
-	 to reconstruct the view position coordinates from the NDC position coordinates.
+	 to construct the view position coordinates from the NDC position coordinates.
 
 	 @return		The projection values from the given projection matrix
-					to reconstruct the view position coordinates from the NDC 
+					to construct the view position coordinates from the NDC 
 					position coordinates.
 	 */
-	inline const XMVECTOR XM_CALLCONV GetProjectionValues(FXMMATRIX projection_matrix) noexcept {
+	inline const XMVECTOR XM_CALLCONV GetViewPositionConstructionValues(
+		FXMMATRIX projection_matrix) noexcept {
+		
 		//        [ 1/X  0   0  0 ]
 		// p_view [  0  1/Y  0  0 ] = [p_view.x 1/X, p_view.y 1/Y, p_view.z (-W) + Z, p_view.z] = p_proj
 		//        [  0   0  -W  1 ]
 		//        [  0   0   Z  0 ]
 		//
-		// p_proj / p_proj.w        = [p_view.x/p_view.z 1/X, p_view.y/p_view.z 1/Y, (-W) + Z/p_view.z, 1] = p_ndc
+		// p_proj / p_proj.w        = [p_view.x/p_view.z 1/X, p_view.y/p_view.z 1/Y, -W + Z/p_view.z, 1] = p_ndc
 		//
-		// Reconstruction of p_view from p_ndc and projection values
-		// 1) p_ndc.z = (-W) + Z/p_view.z     <=> p_view.z = Z / (p_ndc.z + W)
+		// Construction of p_view from p_ndc and projection values
+		// 1) p_ndc.z = -W + Z/p_view.z       <=> p_view.z = Z / (p_ndc.z + W)
 		// 2) p_ndc.x = p_view.x/p_view.z 1/X <=> p_view.x = X * p_ndc.x * p_view.z
 		// 3) p_ndc.y = p_view.y/p_view.z 1/Y <=> p_view.y = Y * p_ndc.y * p_view.z
 
@@ -145,5 +147,32 @@ namespace mage {
 		const float z =  XMVectorGetZ(projection_matrix.r[3]);
 		const float w = -XMVectorGetZ(projection_matrix.r[2]);
 		return XMVectorSet(x, y, z, w);
+	}
+
+	/**
+	 Returns the projection values from the given projection matrix
+	 to construct the NDC position z-coordinate from the view position z-coordinate.
+
+	 @return		The projection values from the given projection matrix
+					to construct the NDC position z-coordinate from the view 
+					position z-coordinate.
+	 */
+	inline const XMVECTOR XM_CALLCONV GetNDCZConstructionValues(
+		FXMMATRIX projection_matrix) noexcept {
+
+		//        [ _  0  0  0 ]
+		// p_view [ 0  _  0  0 ] = [_, _, p_view.z * X + Y, p_view.z] = p_proj
+		//        [ 0  0  X  1 ]
+		//        [ 0  0  Y  0 ]
+		//
+		// p_proj / p_proj.w     = [_, _, X + Y/p_view.z, 1] = p_ndc
+		//
+		// Construction of p_ndc.z from p_view and projection values
+		// p_ndc.z = X + Y/p_view.z
+
+		const float x = XMVectorGetZ(projection_matrix.r[2]);
+		const float y = XMVectorGetZ(projection_matrix.r[3]);
+		return XMVectorSet(x, y, 0.0f, 0.0f);
+
 	}
 }

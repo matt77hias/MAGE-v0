@@ -45,7 +45,7 @@ struct SpotLight {
 	// The position of this spotlight in camera-space coordinates.
 	float3 p;
 	uint padding0;
-	// The intensity of this spotlight .
+	// The intensity of this spotlight.
 	float3 I;
 	uint padding1;
 	// The (normalized) negated direction of this spotlight in camera-space coordinates.
@@ -84,6 +84,12 @@ struct OmniLightWithShadowMapping {
 	OmniLight light;
 	// The camera-view-to-light-view transformation matrix.
 	float4x4 cview_to_lview;
+	// The projection values of the light-view-to-light-projection 
+	// transformation matrix.
+	// g_projection_values.x = view_to_projection22
+	// g_projection_values.y = view_to_projection32
+	float2 projection_values;
+	uint2 padding0;
 };
 
 /**
@@ -194,7 +200,8 @@ void Contribution(SpotLight light,
 }
 
 float ShadowFactor(SamplerComparisonState pcf_sampler,
-	Texture2DArray shadow_maps, uint index, float4 p_proj) {
+	Texture2DArray shadow_maps, uint index, 
+	float4 p_proj) {
 
 	const float  inv_w  = 1.0f / p_proj.w;
 	const float3 p_ndc  = p_proj.xyz * inv_w;
@@ -203,12 +210,13 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
 }
 
 float ShadowFactor(SamplerComparisonState pcf_sampler, 
-	TextureCubeArray shadow_maps, uint index, float3 p_view) {
+	TextureCubeArray shadow_maps, uint index, 
+	float3 p_view, float2 projection_values) {
 
-	const float  r     = length(p_view);
-	const float  inv_r = 1.0f / r;
-	const float4 loc   = float4(p_view * inv_r, index);
-	return shadow_maps.SampleCmpLevelZero(pcf_sampler, loc, r);
+	const float p_view_z = Max(abs(p_view));
+	const float p_ndc_z  = ViewZtoNDCZ(p_view_z, projection_values);
+	const float4 loc     = float4(p_view, index);
+	return shadow_maps.SampleCmpLevelZero(pcf_sampler, loc, p_ndc_z);
 }
 
 void Contribution(DirectionalLightWithShadowMapping light,
@@ -234,7 +242,7 @@ void Contribution(OmniLightWithShadowMapping light,
 
 	l = l0;
 	const float3 p_view = mul(float4(p, 1.0f), light.cview_to_lview).xyz;
-	I = I0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_view);
+	I = ShadowFactor(pcf_sampler, shadow_maps, index, p_view, light.projection_values);
 }
 
 void Contribution(SpotLightWithShadowMapping light,

@@ -324,6 +324,7 @@ namespace mage {
 			light_buffer.m_light.m_distance_falloff_end       = light->GetEndDistanceFalloff();
 			light_buffer.m_light.m_distance_falloff_inv_range = 1.0f / light->GetRangeDistanceFalloff();
 			light_buffer.m_cview_to_lview                     = XMMatrixTranspose(cview_to_lview);
+			XMStoreFloat2(&light_buffer.m_projection_values, GetNDCZConstructionValues(lview_to_lprojection));
 
 			// Add omni light buffer to omni light buffers.
 			buffer.push_back(std::move(light_buffer));

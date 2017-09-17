@@ -44,7 +44,7 @@ namespace mage {
 		FXMMATRIX view_to_projection, const PassBuffer *scene) {
 
 		DeferredComputeBuffer buffer;
-		buffer.m_projection_values    = GetProjectionValues(view_to_projection);
+		buffer.m_projection_values    = GetViewPositionConstructionValues(view_to_projection);
 		buffer.m_mat1_start           = scene->GetMaterialCoefficientMinimum(0);
 		buffer.m_mat1_range           = scene->GetMaterialCoefficientRange(0);
 		buffer.m_mat2_start           = scene->GetMaterialCoefficientMinimum(1);

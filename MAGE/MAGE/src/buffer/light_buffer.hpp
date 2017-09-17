@@ -611,7 +611,8 @@ namespace mage {
 		 Constructs an omni light with shadow mapping buffer.
 		 */
 		OmniLightWithShadowMappingBuffer()
-			: m_light(), m_cview_to_lview() {}
+			: m_light(), m_cview_to_lview(),
+			m_projection_values(), m_padding0() {}
 		
 		/**
 		 Constructs an omni light with shadow mapping buffer from 
@@ -693,9 +694,20 @@ namespace mage {
 		 matrix of this omni light buffer with shadow mapping for use in HLSL.
 		 */
 		XMMATRIX m_cview_to_lview;
+
+		/**
+		 The projection values of the view-to-projection transformation matrix
+		 of this omni light buffer with shadow mapping.
+		 */
+		XMFLOAT2 m_projection_values;
+		
+		/**
+		 The padding of this omni light buffer with shadow mapping. 
+		 */
+		uint32_t m_padding0[2];
 	};
 
-	static_assert(sizeof(OmniLightWithShadowMappingBuffer) == 96, "CPU/GPU struct mismatch");
+	static_assert(sizeof(OmniLightWithShadowMappingBuffer) == 112, "CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// SpotLightWithShadowMappingBuffer

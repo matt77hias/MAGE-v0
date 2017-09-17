@@ -53,9 +53,10 @@ namespace mage {
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		auto model_desc_sponza = 
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
-		auto model_desc_sphere = 
+		auto model_desc_sphere =
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.mdl", mesh_desc);
+		auto model_desc_tree = 
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree1a_lod1.mdl", mesh_desc);
-			//ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.mdl", mesh_desc);
 		
 		//---------------------------------------------------------------------
 		// Models
@@ -63,8 +64,12 @@ namespace mage {
 		auto model_sponza = CreateModel(*model_desc_sponza);
 		model_sponza->GetTransform()->SetScale(10.0f);
 		auto model_sphere = CreateModel(*model_desc_sphere);
-		model_sphere->GetTransform()->AddTranslationY(0.5f);
-		model_sphere->GetModel()->GetMaterial()->SetDiffuseReflectivityTexture(CreateReferenceTexture());
+		model_sphere->GetTransform()->SetTranslationY(2.0f);
+		model_sphere->GetTransform()->SetScale(0.25f);
+		auto model_tree = CreateModel(*model_desc_tree);
+		model_tree->GetTransform()->AddTranslationY(0.5f);
+		
+		//model_sphere->GetModel()->GetMaterial()->SetDiffuseReflectivityTexture(CreateReferenceTexture());
 
 		//---------------------------------------------------------------------
 		// Lights
@@ -117,7 +122,7 @@ namespace mage {
 		// Scripts
 		//---------------------------------------------------------------------
 		AddScript(MakeShared< SwitchSceneScript< ForrestScene > >());
-		AddScript(MakeShared< RotationScript >(model_sphere->GetTransform()));
+		AddScript(MakeShared< RotationScript >(model_tree->GetTransform()));
 		AddScript(MakeShared< FPSInputControllerScript >(camera->GetTransform()));
 		AddScript(MakeShared< StatsScript >(text->GetSprite()));
 		AddScript(MakeShared< RenderModeScript >(camera->GetSettings()));

@@ -159,7 +159,7 @@ namespace mage {
 		desc.MultisampleEnable = true;
 
 		//TODO: remove
-		desc.DepthBias            = 400;
+		desc.DepthBias = 100;
 		desc.SlopeScaledDepthBias = 1.0f;
 		desc.DepthBiasClamp       = 0.0f;
 

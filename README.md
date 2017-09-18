@@ -31,8 +31,6 @@
 <img src="res/Material/TSNM+WardDuer.png" width="214">
 </p>
 
-**Provides**: input handling for keyboard and mouse, scripting functionality and standard scripts, resource management (shaders, textures, fonts, models, variables scripts, etc.), sprite rendering (image, text, etc.), scene hierarchies, multiple cameras/lights/models, multiple materials and shaders (multiple BRDFs, tangent space normal mapping, etc.), dynamic and multiple lights (ambient, directional, omni and spotlights) lighting and shadow mapping, single layer and alpha-to-coverage transparency (for both forward and deferred shading), non-hierarchical view frustum culling, multiple render modes (incl. forward and deferred shading) and layers (wireframe, bounding volumes) for each camera (support for (multi-)split-screen), configurable display modes, switching between windowed and full screen mode, .MDL (model)/ .MSH (mesh)/ .OBJ (model/mesh)/ .MTL (material)/ .DDS (texture)/ .SPRITEFONT (font)/ .VS (variable script) loaders.
-
 **License**: Currently, MAGE is licensed under a [No License](https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt), since we do not allow diverging from the base version yet in this early stage of development.  
 
 ## Development

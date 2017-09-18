@@ -313,7 +313,9 @@ namespace mage {
 		 @param[in]		diffuse_reflectivity_texture
 						A reference to the diffuse reflectivity texture.
 		 */
-		void SetDiffuseReflectivityTexture(SharedPtr< const Texture > diffuse_reflectivity_texture) {
+		void SetDiffuseReflectivityTexture(
+			const SharedPtr< const Texture > &diffuse_reflectivity_texture) {
+			
 			m_diffuse_reflectivity_texture = diffuse_reflectivity_texture;
 			UpdateTransparency();
 		}
@@ -381,7 +383,9 @@ namespace mage {
 		 @param[in]		specular_reflectivity_texture
 						A reference to the specular reflectivity texture.
 		 */
-		void SetSpecularReflectivityTexture(SharedPtr< const Texture > specular_reflectivity_texture) {
+		void SetSpecularReflectivityTexture(
+			const SharedPtr< const Texture > &specular_reflectivity_texture) {
+			
 			m_specular_reflectivity_texture = specular_reflectivity_texture;
 		}
 		
@@ -430,7 +434,9 @@ namespace mage {
 		 @param[in]		normal_texture
 						A reference to the normal texture.
 		 */
-		void SetNormalTexture(SharedPtr< const Texture > normal_texture) {
+		void SetNormalTexture(
+			const SharedPtr< const Texture > &normal_texture) {
+			
 			m_normal_texture = normal_texture;
 		}
 
@@ -459,7 +465,9 @@ namespace mage {
 		 @param[in]		displacement_texture
 						A reference to the displacement texture.
 		 */
-		void SetDisplacementTexture(SharedPtr< const Texture > displacement_texture) {
+		void SetDisplacementTexture(
+			const SharedPtr< const Texture > &displacement_texture) {
+			
 			m_displacement_texture = displacement_texture;
 		}
 
@@ -488,7 +496,9 @@ namespace mage {
 		 @param[in]		decal_texture
 						A reference to the decal texture.
 		 */
-		void SetDecalTexture(SharedPtr< const Texture > decal_texture) {
+		void SetDecalTexture(
+			const SharedPtr< const Texture > &decal_texture) {
+			
 			m_decal_texture = decal_texture;
 		}
 		

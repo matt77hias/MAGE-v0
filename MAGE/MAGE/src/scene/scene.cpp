@@ -14,8 +14,9 @@ namespace mage {
 
 	Scene::Scene(const string &name)
 		: m_name(name), 
-		m_scripts(), m_scene_fog(), m_cameras(), m_models(), m_ambient_light(), 
-		m_directional_lights(), m_omni_lights(), m_spot_lights(), m_sprites() {}
+		m_scripts(), m_cameras(), m_models(), m_directional_lights(), 
+		m_omni_lights(), m_spot_lights(), m_sprites(),
+		m_ambient_light(), m_scene_fog(), m_sky() {}
 
 	Scene::~Scene() {
 		// Clears this scene.
@@ -28,6 +29,7 @@ namespace mage {
 
 	void Scene::Initialize() {
 		m_scene_fog = MakeUnique< SceneFog >();
+		m_sky       = MakeUnique< Sky >();
 
 		// Loads this scene.
 		Load();
@@ -46,7 +48,6 @@ namespace mage {
 		RemoveAllScripts();
 
 		// World
-		m_scene_fog.reset();
 		m_cameras.clear();
 		m_models.clear();
 		m_ambient_light.reset();
@@ -54,6 +55,8 @@ namespace mage {
 		m_omni_lights.clear();
 		m_spot_lights.clear();
 		m_sprites.clear();
+		m_scene_fog.reset();
+		m_sky.reset();
 	}
 
 	//-------------------------------------------------------------------------

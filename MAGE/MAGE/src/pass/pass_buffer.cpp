@@ -30,7 +30,8 @@ namespace mage {
 		m_omni_lights(), m_sm_omni_lights(),
 		m_spot_lights(), m_sm_spot_lights(),
 		m_sprites(),
-		m_ambient_light(), m_fog(nullptr),
+		m_ambient_light(), 
+		m_fog(nullptr), m_sky(nullptr),
 		m_material_coefficient_min{},
 		m_material_coefficient_max{} {}
 		
@@ -46,6 +47,11 @@ namespace mage {
 		UpdateLights(scene);
 		// Update the sprites.
 		UpdateSprites(scene);
+
+		// Collect the scene fog.
+		m_fog = scene->GetSceneFog();
+		// Collect the sky.
+		m_sky = scene->GetSky();
 	}
 
 	void PassBuffer::UpdateCameras(const Scene *scene) {
@@ -150,9 +156,6 @@ namespace mage {
 		scene->ForEachAmbientLight([this](const AmbientLightNode *node) {
 			m_ambient_light = node->GetLight()->GetIntensity();
 		});
-
-		// Collect scene fog.
-		m_fog = scene->GetSceneFog();
 	}
 
 	void PassBuffer::UpdateSprites(const Scene *scene) {

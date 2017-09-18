@@ -1023,6 +1023,9 @@
     <ClInclude Include="MAGE\src\buffer\image_buffer.hpp">
       <Filter>Header Files\buffer</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\scene\sky.hpp">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

@@ -6,6 +6,7 @@
 #pragma region
 
 #include "scene\scene_fog.hpp"
+#include "scene\sky.hpp"
 #include "scripting\behavior_script.hpp"
 #include "camera\camera_node_types.hpp"
 #include "light\light_node_types.hpp"
@@ -82,6 +83,15 @@ namespace mage {
 		 */
 		SceneFog *GetSceneFog() const noexcept {
 			return m_scene_fog.get();
+		}
+
+		/**
+		 Returns the sky of this scene.
+
+		 @return		A pointer to the sky of this scene.
+		 */
+		Sky *GetSky() const noexcept {
+			return m_sky.get();
 		}
 
 		template< typename SceneNodeT, typename... ConstructorArgsT >
@@ -185,15 +195,18 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		string m_name;
+		
 		mutable vector< SharedPtr< BehaviorScript > > m_scripts;
-		UniquePtr< SceneFog > m_scene_fog;
 		mutable vector< SharedPtr< CameraNode > > m_cameras;
 		mutable vector< SharedPtr< ModelNode > > m_models;
-		mutable SharedPtr< AmbientLightNode > m_ambient_light;
 		mutable vector< SharedPtr< DirectionalLightNode > > m_directional_lights;
 		mutable vector< SharedPtr< OmniLightNode > > m_omni_lights;
 		mutable vector< SharedPtr< SpotLightNode > > m_spot_lights;
 		mutable vector< SharedPtr < SpriteNode > > m_sprites;
+
+		SharedPtr< AmbientLightNode > m_ambient_light;
+		UniquePtr< SceneFog > m_scene_fog;
+		UniquePtr< Sky > m_sky;
 	};
 }
 

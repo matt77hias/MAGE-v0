@@ -65,6 +65,4 @@ float3 PerturbNormal(
 	return normalize(mul(c, TBN));
 }
 
-
-
 #endif // MAGE_HEADER_NORMAL_MAPPING

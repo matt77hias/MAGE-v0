@@ -416,6 +416,11 @@ namespace mage {
 		const SceneFog *m_fog;
 
 		/**
+		 A pointer to the sky of this pass buffer.
+		 */
+		const Sky *m_sky;
+
+		/**
 		 The minima of the material coefficients of this pass buffer.
 		 */
 		float m_material_coefficient_min[s_nb_material_coefficients];

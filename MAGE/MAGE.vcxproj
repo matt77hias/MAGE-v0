@@ -157,6 +157,7 @@
     <ClInclude Include="MAGE\src\scene\scene_manager.hpp" />
     <ClInclude Include="MAGE\src\scene\scene_node.hpp" />
     <ClInclude Include="MAGE\src\scene\scene_renderer.hpp" />
+    <ClInclude Include="MAGE\src\scene\sky.hpp" />
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable_script.hpp" />

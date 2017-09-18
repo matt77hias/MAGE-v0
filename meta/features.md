@@ -1,4 +1,6 @@
-#### Display
+# Features
+
+### Display
 * Configurable display modes
   * MSAA samples
   * Refresh rate
@@ -8,11 +10,11 @@
 * Multi split-screen
 * Switching between windowed and full screen
 
-#### Input Handling
+### Input Handling
 * Keyboard
 * Mouse (LMB, MMB and RMB are supported)
 
-#### [Supported File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
+### [Supported File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
 * .DDS (texture)
 * .MDL (model)
 * .MSH (mesh)
@@ -21,7 +23,7 @@
 * .SPRITEFONT (font)
 * .VS (variable script)
 
-#### Rendering
+### Rendering
 * AA
   * MSAA
 * BRDFs (single BRDF/camera)
@@ -59,14 +61,14 @@
  * Alpha-to-Coverage (for both forward and deferred shading)
  * Single layer Alpha Blending
 
-#### Resource Management
+### Resource Management
 * Fonts
 * Models
 * Shaders: Vertex, Domain, Hull, Geometry, Pixel, Compute
 * Textures
 * Variables Scripts
 
-#### Scene
+### Scene
 * Camera
   * Orthographic
   * Perspective
@@ -82,11 +84,11 @@
   * Image
   * Text
   
-#### Scripting
+### Scripting
 * Custom scripts by overriding `mage::BehaviorScript`
 * [Standard scripts](standard-scripts.md)
 
-#### Transformations
+### Transformations
 * Scene hierarchies
 * Normal transformations
 * Sprite transformations

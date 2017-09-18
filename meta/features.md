@@ -42,6 +42,7 @@
 * Normal Mapping
   * Tangent-space
   * ~~Object-space~~ (*not supported any more*)
+  * No precomputed tangent and bitangent vectors
 * Optional occluding behavior for models
 * Optional light interaction for materials
 * Render Layers (multiple render layers/camera)

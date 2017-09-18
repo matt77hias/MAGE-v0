@@ -14,7 +14,7 @@
 * Keyboard
 * Mouse (LMB, MMB and RMB are supported)
 
-### [Supported File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
+### [File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
 * .DDS (texture)
 * .MDL (model)
 * .MSH (mesh)

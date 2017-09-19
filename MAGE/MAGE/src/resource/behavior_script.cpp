@@ -4,6 +4,7 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
+#include "memory\memory.hpp"
 
 #pragma endregion
 
@@ -20,6 +21,12 @@ namespace mage {
 	BehaviorScript::BehaviorScript(BehaviorScript &&script) = default;
 
 	BehaviorScript::~BehaviorScript() = default;
+
+	void BehaviorScript::FixedUpdate() {}
+
+	void BehaviorScript::Update(double delta_time) {
+		UNUSED(delta_time);
+	}
 
 	void BehaviorScript::SetActive(bool active) noexcept {
 		if (active && m_terminated) {

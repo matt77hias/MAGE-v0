@@ -51,11 +51,20 @@ namespace mage {
 
 		/**
 		 Updates this behavior script.
+		 
+		 This method can be called zero, one or multiple times per frame
+		 depending on the fixed delta time used by the engine.
+		 */
+		virtual void FixedUpdate();
+
+		/**
+		 Updates this behavior script.
+		 This method is called once per frame.
 
 		 @param[in]		delta_time
 						The elapsed time since the previous update.
 		 */
-		virtual void Update(double delta_time) = 0;
+		virtual void Update(double delta_time);
 
 		/**
 		 Checks whether this behavior script is active.

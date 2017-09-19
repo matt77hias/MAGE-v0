@@ -109,6 +109,7 @@ namespace mage {
 			return m_renderer.get();
 		}
 
+		void FixedUpdate();
 		void Update(double delta_time);
 
 		void Render() {

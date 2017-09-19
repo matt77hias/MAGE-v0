@@ -277,6 +277,9 @@
     <Filter Include="Header Files\shader\cso\primitives">
       <UniqueIdentifier>{2b89fe09-a8fb-457a-8a4d-f2935b9be598}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader Files\sky">
+      <UniqueIdentifier>{b21300c8-77ee-41cc-90e0-ec9efcd6027b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">

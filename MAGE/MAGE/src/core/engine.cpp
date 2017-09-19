@@ -23,11 +23,11 @@ namespace mage {
 	
 	Engine *Engine::s_engine = nullptr;
 
-	Engine::Engine(const EngineSetup &setup) 
-		: Loadable(), m_main_window(), m_deactive(false), 
+	Engine::Engine(const EngineSetup &setup)
+		: Loadable(), m_main_window(), m_deactive(false),
 		m_renderer(), m_mode_switch(false),
-		m_input_manager(), m_resource_manager(),
-		m_scene_manager(), m_timer(MakeUnique< Timer >()),
+		m_input_manager(), m_resource_manager(), m_scene_manager(),
+		m_timer(MakeUnique< Timer >()), m_fixed_delta_time(0.0f),
 		m_engine_stats(MakeUnique< EngineStatistics >()) {
 
 		s_engine = this;
@@ -117,6 +117,7 @@ namespace mage {
 		m_renderer->SetInitialMode();
 
 		m_timer->Restart();
+		double fixed_time_budget = 0.0f;
 
 		// Enter the message loop.
 		MSG msg;
@@ -157,7 +158,19 @@ namespace mage {
 			// Calculate the elapsed time.
 			const double delta_time = m_timer->GetDeltaTime();
 
-			// Update the current scene.
+			// Perform the fixed delta time updates of the current scene.
+			if (m_fixed_delta_time) {
+				fixed_time_budget += delta_time;
+				while (fixed_time_budget >= m_fixed_delta_time) {
+					m_scene_manager->FixedUpdate();
+					fixed_time_budget -= m_fixed_delta_time;
+				}
+			}
+			else {
+				m_scene_manager->FixedUpdate();
+			}
+
+			// Perform the non-fixed delta time updates of the current scene.
 			m_scene_manager->Update(delta_time);
 			if (m_scene_manager->IsFinished()) {
 				PostQuitMessage(0);

@@ -53,6 +53,12 @@ namespace mage {
 		}
 	}
 
+	void SceneManager::FixedUpdate() {
+		m_scene->ForEachScript([this](BehaviorScript *script) {
+			script->FixedUpdate();
+		});
+	}
+
 	void SceneManager::Update(double delta_time) {
 		m_scene->ForEachScript([this, delta_time](BehaviorScript *script) {
 

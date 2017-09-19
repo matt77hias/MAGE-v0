@@ -319,6 +319,14 @@ namespace mage {
 		 */
 		UniquePtr< Timer > m_timer;
 
+		/**
+		 The fixed delta time of this engine.
+		 
+		 If the fixed delta time is equal to zero, fixed delta time updates 
+		 will be treated as non-fixed delta time updates by this engine.
+		 */
+		double m_fixed_delta_time;
+
 		//---------------------------------------------------------------------
 		// Member Variables: Statistics
 		//---------------------------------------------------------------------

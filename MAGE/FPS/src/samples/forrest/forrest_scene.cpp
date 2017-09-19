@@ -82,7 +82,7 @@ namespace mage {
 		// Lights
 		//---------------------------------------------------------------------
 		auto omni_light = Create< OmniLightNode >("light");
-		omni_light->GetTransform()->SetTranslationY(2.0f);
+		omni_light->GetTransform()->SetTranslationY(3.0f);
 		omni_light->GetLight()->SetDistanceFalloff(3.0f, 3.0f);
 		omni_light->GetLight()->EnableShadows();
 

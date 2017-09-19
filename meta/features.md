@@ -34,7 +34,7 @@
   * Modified Blinn-Phong
   * Ward
   * Ward-Duer
-  * Cook-Torrance (F: Schlick, D: Beckmann)
+  * Cook-Torrance (F: Schlick, D: Beckmann, G: Cook-Torrance)
 * Culling
   * Non-hierarchical
 * Lighting

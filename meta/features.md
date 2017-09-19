@@ -36,9 +36,9 @@
   * Ward-Duer
   * Cook-Torrance (F: Schlick, D: Beckmann)
 * Culling
- * Non-hierarchical
+  * Non-hierarchical
 * Lighting
- * Single pass for all lights which require and do not require shadow mapping
+  * Single pass for all lights which require and do not require shadow mapping
 * Normal Mapping
   * Tangent-space
   * ~~Object-space~~ (*not supported any more*)
@@ -46,12 +46,12 @@
 * Optional occluding behavior for models
 * Optional light interaction for materials
 * Render Layers (multiple render layers/camera)
- * Bounding volumes
- * Wireframe
+  * Bounding volumes
+  * Wireframe
 * Render Modes (single render mode/camera)
- * Forward (with optional early Depth pass)
- * Deferred
- * Various material and component visualizations
+  * Forward (with optional early Depth pass)
+  * Deferred
+  * Various material and component visualizations
 * Shadow Mapping
   * Support for both opaque and transparent models
   * Depth and slope biasing
@@ -59,8 +59,8 @@
   * Omni lights and spotlights
 * Sprites
 * Transparency
- * Alpha-to-Coverage (for both forward and deferred shading)
- * Single layer Alpha Blending
+  * Alpha-to-Coverage (for both forward and deferred shading)
+  * Single layer Alpha Blending
 
 ### Resource Management
 * Fonts

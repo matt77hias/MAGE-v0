@@ -1,9 +1,10 @@
 # Iterations
 
 ## Current iteration' TODOs
-* Sky Domes
-* Shadow Mapping
+* Sky Domes (WIP)
+* Shadow Mapping (WIP)
   * Directional lights
+* SSAO
 * Voxel Cone Tracing
 * Tiled and Clustered Shading
 * Billboarding (Ry camera-dependent)

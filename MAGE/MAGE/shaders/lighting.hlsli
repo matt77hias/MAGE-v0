@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "hlsl.hpp"
+#include "global.hlsli"
 #include "brdf.hlsli"
 #include "light.hlsli"
 
@@ -58,9 +58,6 @@ StructuredBuffer< SpotLight > g_spot_lights
 #endif // DISSABLE_SPOT_LIGHTS
 
 #ifndef DISSABLE_SHADOW_MAPPING
-
-SamplerComparisonState g_pcf_sampler 
-	: register(REG_S(SLOT_SAMPLER_PCF));
 
 #ifndef DISSABLE_SHADOW_MAP_DIRECTIONAL_LIGHTS
 StructuredBuffer< DirectionalLightWithShadowMapping > g_sm_directional_lights

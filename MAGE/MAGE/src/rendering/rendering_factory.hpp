@@ -343,7 +343,7 @@ namespace mage {
 					A pointer to a pointer to the depth stencil state.
 	 @return		A success/error value.
 	 */
-	HRESULT CreateDepthDefaultDepthStencilState(ID3D11Device2 *device, 
+	HRESULT CreateDepthReadWriteDepthStencilState(ID3D11Device2 *device, 
 		ID3D11DepthStencilState **depth_stencil_state) noexcept;
 	
 	/**
@@ -515,6 +515,20 @@ namespace mage {
 	*/
 	HRESULT CreatePointClampSamplerState(ID3D11Device2 *device, 
 		ID3D11SamplerState **sampler_state) noexcept;
+
+	/**
+	Creates a point sampling state with mirroring.
+
+	@pre			@a device is not equal to @c nullptr.
+	@pre			@a sampler_state is not equal to @c nullptr.
+	@param[in]		device
+					A pointer to the device.
+	@param[out]		sampler_state
+					A pointer to a pointer to the sampler state.
+	@return			A success/error value.
+	*/
+	HRESULT CreatePointMirrorSamplerState(ID3D11Device2 *device, 
+		ID3D11SamplerState **sampler_state) noexcept;
 	
 	/**
 	 Creates a linear sampling state with wrapping.
@@ -543,6 +557,20 @@ namespace mage {
 	 */
 	HRESULT CreateLinearClampSamplerState(ID3D11Device2 *device, 
 		ID3D11SamplerState **sampler_state) noexcept;
+
+	/**
+	 Creates a linear sampling state with mirroring.
+
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a sampler_state is not equal to @c nullptr.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	sampler_state
+					A pointer to a pointer to the sampler state.
+	 @return		A success/error value.
+	 */
+	HRESULT CreateLinearMirrorSamplerState(ID3D11Device2 *device, 
+		ID3D11SamplerState **sampler_state) noexcept;
 	
 	/**
 	 Creates an anisotropic sampling state with wrapping.
@@ -570,6 +598,20 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateAnisotropicClampSamplerState(ID3D11Device2 *device, 
+		ID3D11SamplerState **sampler_state) noexcept;
+
+	/**
+	 Creates an anisotropic sampling state with mirroring.
+
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a sampler_state is not equal to @c nullptr.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	sampler_state
+					A pointer to a pointer to the sampler state.
+	 @return		A success/error value.
+	 */
+	HRESULT CreateAnisotropicMirrorSamplerState(ID3D11Device2 *device, 
 		ID3D11SamplerState **sampler_state) noexcept;
 
 	/**

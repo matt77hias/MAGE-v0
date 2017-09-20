@@ -80,7 +80,7 @@ namespace mage {
 		// Bind the rasterization state.
 		RenderingStateCache::Get()->BindWireframeRasterizerState(m_device_context);
 		// Bind the depth-stencil state.
-		RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
+		RenderingStateCache::Get()->BindDepthReadWriteDepthStencilState(m_device_context);
 		// Bind the blend state.
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 	}

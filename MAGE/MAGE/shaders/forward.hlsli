@@ -42,7 +42,6 @@ cbuffer PerDraw  : register(REG_B(SLOT_CBUFFER_PER_DRAW)) {
 //-----------------------------------------------------------------------------
 // Samplers and Textures
 //-----------------------------------------------------------------------------
-sampler   g_sampler          : register(REG_S(SLOT_SAMPLER_DEFAULT));
 Texture2D g_diffuse_texture  : register(REG_T(SLOT_SRV_DIFFUSE));
 Texture2D g_specular_texture : register(REG_T(SLOT_SRV_SPECULAR));
 Texture2D g_normal_texture   : register(REG_T(SLOT_SRV_NORMAL));
@@ -59,7 +58,7 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 
 #ifdef TSNM
 	// Obtain the tangent-space normal coefficients in the [-1,1] range. 
-	const float3 c      = UnpackNormal(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
+	const float3 c      = UnpackNormal(g_normal_texture.Sample(g_variable_sampler0, input.tex2).xyz);
 	// Normalize the view-space normal.
 	const float3 n0     = normalize(input.n_view);
 	// Perturb the view-space normal.
@@ -73,7 +72,7 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 #ifdef DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
 	const float4 Kd = g_Kd;
 #else  // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
-	const float4 Kd = g_Kd * g_diffuse_texture.Sample(g_sampler, input.tex);
+	const float4 Kd = g_Kd * g_diffuse_texture.Sample(g_variable_sampler0, input.tex);
 #endif // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
 
 	// Obtain the specular reflectivity of the material.
@@ -81,7 +80,7 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 #ifdef DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
 	const float3 Ks = g_Ks;
 #else  // DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
-	const float3 Ks = g_Ks * g_specular_texture.Sample(g_sampler, input.tex).xyz;
+	const float3 Ks = g_Ks * g_specular_texture.Sample(g_variable_sampler0, input.tex).xyz;
 #endif // DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
 #else  // SPECULAR_BRDFxCOS
 	const float3 Ks = float3(0.0f, 0.0f, 0.0f);

@@ -1,14 +1,12 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#include "hlsl.hpp"
-#include "structures.hlsli"
+#include "global.hlsli"
 #include "normal_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
-// Samplers and Textures
+// Textures
 //-----------------------------------------------------------------------------
-sampler   g_sampler        : register(REG_S(SLOT_SAMPLER_DEFAULT));
 Texture2D g_normal_texture : register(REG_T(SLOT_SRV_NORMAL));
 
 //-----------------------------------------------------------------------------
@@ -16,7 +14,7 @@ Texture2D g_normal_texture : register(REG_T(SLOT_SRV_NORMAL));
 //-----------------------------------------------------------------------------
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 	// Obtain the tangent-space normal coefficients in the [-1,1] range.
-	const float3 c      = UNORMtoSNORM(g_normal_texture.Sample(g_sampler, input.tex2).xyz);
+	const float3 c      = UNORMtoSNORM(g_normal_texture.Sample(g_variable_sampler0, input.tex2).xyz);
 	// Normalize the view-space normal.
 	const float3 n0     = normalize(input.n_view);
 	// Perturb the view-space normal.

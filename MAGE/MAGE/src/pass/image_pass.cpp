@@ -40,7 +40,7 @@ namespace mage {
 			// Bind the pixel shader.
 			m_image_depth_ps->BindShader(m_device_context);
 			// Bind the depth-stencil state.
-			RenderingStateCache::Get()->BindDepthDefaultDepthStencilState(m_device_context);
+			RenderingStateCache::Get()->BindDepthReadWriteDepthStencilState(m_device_context);
 		}
 		else {
 			// Bind the pixel shader.

@@ -48,8 +48,10 @@ namespace mage {
 		// Setup the swap chain.
 		SetupSwapChain();
 
-		// Setup the rendering states.
+		// Setup the rendering state cache.
 		m_rendering_state_cache = MakeUnique< RenderingStateCache >(m_device.Get());
+		// Bind the persistent samplers of the rendering state cache.
+		m_rendering_state_cache->BindPersistentSamplers(m_device_context.Get());
 	}
 
 	void Renderer::UninitializeRenderer() noexcept {

@@ -33,8 +33,27 @@
 // Engine Includes: Samplers
 //-----------------------------------------------------------------------------
 
-#define SLOT_SAMPLER_DEFAULT                   0
-#define SLOT_SAMPLER_PCF                       1
+#define SLOT_SAMPLER_VARIABLE_0                0
+#define SLOT_SAMPLER_VARIABLE_1                1
+#define SLOT_SAMPLER_VARIABLE_2                2
+#define SLOT_SAMPLER_VARIABLE_3                3
+#define SLOT_SAMPLER_VARIABLE_START            SLOT_SAMPLER_VARIABLE_0
+#define SLOT_SAMPLER_VARIABLE_END              SLOT_SAMPLER_VARIABLE_3
+#define SLOT_SAMPLER_VARIABLE_COUNT            (SLOT_SAMPLER_VARIABLE_END + 1 - SLOT_SAMPLER_VARIABLE_START)
+
+#define SLOT_SAMPLER_POINT_WRAP                4
+#define SLOT_SAMPLER_POINT_CLAMP               5
+#define SLOT_SAMPLER_POINT_MIRROR              6
+#define SLOT_SAMPLER_LINEAR_WRAP               7
+#define SLOT_SAMPLER_LINEAR_CLAMP              8
+#define SLOT_SAMPLER_LINEAR_MIRROR             9
+#define SLOT_SAMPLER_ANISOTROPIC_WRAP          10
+#define SLOT_SAMPLER_ANISOTROPIC_CLAMP         11
+#define SLOT_SAMPLER_ANISOTROPIC_MIRROR        12
+#define SLOT_SAMPLER_PCF                       13
+#define SLOT_SAMPLER_PERSISTENT_START          SLOT_SAMPLER_POINT_WRAP
+#define SLOT_SAMPLER_PERSISTENT_END            SLOT_SAMPLER_PCF
+#define SLOT_SAMPLER_PERSISTENT_COUNT          (SLOT_SAMPLER_PERSISTENT_END + 1 - SLOT_SAMPLER_PERSISTENT_START)
 
 //-----------------------------------------------------------------------------
 // Engine Includes: Constant Buffers 

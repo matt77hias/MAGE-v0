@@ -49,16 +49,10 @@ namespace mage {
 
 	void SceneRenderer::BindFixedState() {
 		// Bind the default sampler.
-		PS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
-			RenderingStateCache::Get()->GetLinearWrapSamplerState());
-		CS::BindSampler(m_device_context, SLOT_SAMPLER_DEFAULT,
-			RenderingStateCache::Get()->GetLinearWrapSamplerState());
-
-		// Bind the PCF sampler.
-		PS::BindSampler(m_device_context, SLOT_SAMPLER_PCF,
-			RenderingStateCache::Get()->GetPCFSamplerState());
-		CS::BindSampler(m_device_context, SLOT_SAMPLER_PCF,
-			RenderingStateCache::Get()->GetPCFSamplerState());
+		RenderingStateCache::Get()->BindLinearWrapSamplerState< PS >(
+			m_device_context, SLOT_SAMPLER_VARIABLE_0);
+		RenderingStateCache::Get()->BindLinearWrapSamplerState< CS >(
+			m_device_context, SLOT_SAMPLER_VARIABLE_0);
 	}
 
 	void SceneRenderer::Render(const Scene *scene) {

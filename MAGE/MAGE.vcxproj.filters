@@ -1558,6 +1558,9 @@
     <FxCompile Include="MAGE\shaders\depth\depth_transparent_VS.hlsl">
       <Filter>Shader Files\depth</Filter>
     </FxCompile>
+    <FxCompile Include="MAGE\shaders\sky\sky_PS.hlsl">
+      <Filter>Shader Files\sky</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\memory\memory_arena.tpp">
@@ -1700,6 +1703,12 @@
     </None>
     <None Include="MAGE\shaders\deferred.hlsli">
       <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\shaders\global.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\src\rendering\rendering_state_cache.tpp">
+      <Filter>Header Files\rendering</Filter>
     </None>
   </ItemGroup>
 </Project>

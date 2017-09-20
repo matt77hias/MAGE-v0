@@ -123,7 +123,7 @@ namespace mage {
 		return CreateDepthStencilState(device, depth_stencil_state, false, false);
 	}
 	
-	HRESULT CreateDepthDefaultDepthStencilState(ID3D11Device2 *device, 
+	HRESULT CreateDepthReadWriteDepthStencilState(ID3D11Device2 *device,
 		ID3D11DepthStencilState **depth_stencil_state) noexcept {
 		
 		Assert(device);
@@ -268,6 +268,16 @@ namespace mage {
 			D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP);
 	}
 	
+	HRESULT CreatePointMirrorSamplerState(ID3D11Device2 *device, 
+		ID3D11SamplerState **sampler_state) noexcept {
+		
+		Assert(device);
+		Assert(sampler_state);
+		
+		return CreateSamplerState(device, sampler_state, 
+			D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_MIRROR);
+	}
+
 	HRESULT CreateLinearWrapSamplerState(ID3D11Device2 *device, 
 		ID3D11SamplerState **sampler_state) noexcept {
 		
@@ -288,6 +298,16 @@ namespace mage {
 			D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_CLAMP);
 	}
 	
+	HRESULT CreateLinearMirrorSamplerState(ID3D11Device2 *device,
+		ID3D11SamplerState **sampler_state) noexcept {
+
+		Assert(device);
+		Assert(sampler_state);
+
+		return CreateSamplerState(device, sampler_state,
+			D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_MIRROR);
+	}
+
 	HRESULT CreateAnisotropicWrapSamplerState(ID3D11Device2 *device, 
 		ID3D11SamplerState **sampler_state) noexcept {
 		
@@ -306,6 +326,16 @@ namespace mage {
 
 		return CreateSamplerState(device, sampler_state, 
 			D3D11_FILTER_ANISOTROPIC, D3D11_TEXTURE_ADDRESS_CLAMP);
+	}
+
+	HRESULT CreateAnisotropicMirrorSamplerState(ID3D11Device2 *device,
+		ID3D11SamplerState **sampler_state) noexcept {
+
+		Assert(device);
+		Assert(sampler_state);
+
+		return CreateSamplerState(device, sampler_state,
+			D3D11_FILTER_ANISOTROPIC, D3D11_TEXTURE_ADDRESS_MIRROR);
 	}
 
 	HRESULT CreatePCFSamplerState(ID3D11Device2 *device,

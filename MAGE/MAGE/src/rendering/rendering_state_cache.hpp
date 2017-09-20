@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\types.hpp"
 #include "rendering\pipeline.hpp"
-#include "parallel\lock.hpp"
 
 #pragma endregion
 
@@ -33,6 +33,9 @@ namespace mage {
 						current engine must be loaded.
 		 @return		A pointer to the renderer state cache associated
 						with the current engine.
+		 @throws		FormattedException
+						Failed to setup the rendering states 
+						of this rendering state cache.
 		 */
 		static RenderingStateCache *Get() noexcept;
 
@@ -46,6 +49,9 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
+		 @throws		FormattedException
+						Failed to setup the rendering states 
+						of this rendering state cache.
 		 */
 		explicit RenderingStateCache(ID3D11Device2 *device);
 
@@ -55,7 +61,8 @@ namespace mage {
 		 @param[in]		rendering_state_cache
 						A reference to the rendering state cache to copy.
 		 */
-		RenderingStateCache(const RenderingStateCache &rendering_state_cache) = delete;
+		RenderingStateCache(
+			const RenderingStateCache &rendering_state_cache) = delete;
 
 		/**
 		 Constructs a rendering state cache by moving the given rendering state cache.
@@ -63,7 +70,8 @@ namespace mage {
 		 @param[in]		rendering_state_cache
 						A reference to the rendering state cache to move.
 		 */
-		RenderingStateCache(RenderingStateCache &&rendering_state_cache);
+		RenderingStateCache(
+			RenderingStateCache &&rendering_state_cache);
 
 		/**
 		 Destructs this rendering state cache.
@@ -82,7 +90,8 @@ namespace mage {
 		 @return		A reference to the copy of the given rendering state cache
 						(i.e. this rendering state cache).
 		 */
-		RenderingStateCache &operator=(const RenderingStateCache &rendering_state_cache) = delete;
+		RenderingStateCache &operator=(
+			const RenderingStateCache &rendering_state_cache) = delete;
 
 		/**
 		 Moves the given rendering state cache to this rendering state cache.
@@ -92,130 +101,81 @@ namespace mage {
 		 @return		A reference to the moved rendering state cache
 						(i.e. this rendering state cache).
 		 */
-		RenderingStateCache &operator=(RenderingStateCache &&rendering_state_cache) = delete;
+		RenderingStateCache &operator=(
+			RenderingStateCache &&rendering_state_cache) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Blend States
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the opaque blend state of this rendering cache.
-
-		 @return		A pointer to the opaque blend state
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the blend state
-						of this rendering state cache.
-		 */
-		ID3D11BlendState *GetOpaqueBlendState();
-
-		/**
-		 Binds the opaque blend state of this rendering cache.
+		 Binds the opaque blend state of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @throws		FormattedException
-						Failed to bind the blend state.
 		 */
-		void BindOpaqueBlendState(ID3D11DeviceContext2 *device_context) {
-			OM::BindBlendState(device_context, GetOpaqueBlendState());
+		void BindOpaqueBlendState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			OM::BindBlendState(device_context,
+				GetBlendState(BlendStateIndex::Opaque));
 		}
 
 		/**
-		 Returns the alpha blend state of this rendering cache.
-
-		 @return		A pointer to the alpha blend state
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the blend state
-						of this rendering state cache.
-		 */
-		ID3D11BlendState *GetAlphaBlendState();
-
-		/**
-		 Binds the alpha blend state of this rendering cache.
+		 Binds the alpha blend state of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @throws		FormattedException
-						Failed to bind the blend state.
 		 */
-		void BindAlphaBlendState(ID3D11DeviceContext2 *device_context) {
-			OM::BindBlendState(device_context, GetAlphaBlendState());
+		void BindAlphaBlendState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			OM::BindBlendState(device_context,
+				GetBlendState(BlendStateIndex::Alpha));
 		}
 
 		/**
-		 Returns the additive blend state of this rendering cache.
-
-		 @return		A pointer to the additive blend state
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the blend state
-						of this rendering state cache.
-		 */
-		ID3D11BlendState *GetAdditiveBlendState();
-
-		/**
-		 Binds the additive blend state of this rendering cache.
+		 Binds the additive blend state of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @throws		FormattedException
-						Failed to bind the blend state.
 		 */
-		void BindAdditiveBlendState(ID3D11DeviceContext2 *device_context) {
-			OM::BindBlendState(device_context, GetAdditiveBlendState());
+		void BindAdditiveBlendState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			OM::BindBlendState(device_context,
+				GetBlendState(BlendStateIndex::Additive));
 		}
 
 		/**
-		 Returns the non-premultiplied blend state of this rendering cache.
-
-		 @return		A pointer to the non-premultiplied blend state
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the blend state
-						of this rendering state cache.
-		 */
-		ID3D11BlendState *GetNonPremultipliedBlendState();
-
-		/**
-		 Binds the non-premultiplied blend state of this rendering cache.
+		 Binds the non-premultiplied blend state of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @throws		FormattedException
-						Failed to bind the blend state.
 		 */
-		void BindNonPremultipliedBlendState(ID3D11DeviceContext2 *device_context) {
-			OM::BindBlendState(device_context, GetNonPremultipliedBlendState());
+		void BindNonPremultipliedBlendState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			OM::BindBlendState(device_context,
+				GetBlendState(BlendStateIndex::NonPremultiplied));
 		}
 
 		/**
-		 Returns the alpha-to-coverage blend state of this rendering cache.
-
-		 @return		A pointer to the alpha-to-coverage blend state
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the blend state
-						of this rendering state cache.
-		 */
-		ID3D11BlendState *GetAlphaToCoverageBlendState();
-
-		/**
-		 Binds the alpha-to-coverage blend state of this rendering cache.
+		 Binds the alpha-to-coverage blend state of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @throws		FormattedException
-						Failed to bind the blend state.
 		 */
-		void BindAlphaToCoverageBlendState(ID3D11DeviceContext2 *device_context) {
-			OM::BindBlendState(device_context, GetAlphaToCoverageBlendState());
+		void BindAlphaToCoverageBlendState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			OM::BindBlendState(device_context,
+				GetBlendState(BlendStateIndex::AlphaToCoverage));
 		}
 
 		//---------------------------------------------------------------------
@@ -223,78 +183,48 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the no-depth stencil state of this rendering cache.
-
-		 @return		A pointer to the read depth stencil state
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the depth stencil state
-						of this rendering state cache.
-		 */
-		ID3D11DepthStencilState *GetDepthNoneDepthStencilState();
-
-		/**
 		 Binds the no-depth stencil state
-		 of this rendering cache.
+		 of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @throws		FormattedException
-						Failed to bind the depth stencil state.
 		 */
-		void BindDepthNoneDepthStencilState(ID3D11DeviceContext2 *device_context) {
-			OM::BindDepthStencilState(device_context, GetDepthNoneDepthStencilState());
+		void BindDepthNoneDepthStencilState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			OM::BindDepthStencilState(device_context,
+				GetDepthStencilState(DepthStencilStateIndex::DepthNone));
 		}
-
-		/**
-		 Returns the default depth stencil state of this rendering cache.
-
-		 @return		A pointer to the read depth stencil state
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the depth stencil state
-						of this rendering state cache.
-		 */
-		ID3D11DepthStencilState *GetDepthDefaultDepthStencilState();
 
 		/**
 		 Binds the default depth stencil state
-		 of this rendering cache.
+		 of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @throws		FormattedException
-						Failed to bind the depth stencil state.
 		 */
-		void BindDepthDefaultDepthStencilState(ID3D11DeviceContext2 *device_context) {
-			OM::BindDepthStencilState(device_context, GetDepthDefaultDepthStencilState());
+		void BindDepthReadWriteDepthStencilState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			OM::BindDepthStencilState(device_context,
+				GetDepthStencilState(DepthStencilStateIndex::DepthReadWrite));
 		}
 
 		/**
-		 Returns the read depth stencil state of this rendering cache.
-
-		 @return		A pointer to the read depth stencil state
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the depth stencil state
-						of this rendering state cache.
-		 */
-		ID3D11DepthStencilState *GetDepthReadDepthStencilState();
-
-		/**
 		 Binds the read depth stencil state
-		 of this rendering cache.
+		 of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @throws		FormattedException
-						Failed to bind the depth stencil state.
 		 */
-		void BindDepthReadDepthStencilState(ID3D11DeviceContext2 *device_context) {
-			OM::BindDepthStencilState(device_context, GetDepthReadDepthStencilState());
+		void BindDepthReadDepthStencilState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			OM::BindDepthStencilState(device_context,
+				GetDepthStencilState(DepthStencilStateIndex::DepthRead));
 		}
 
 		//-------------------------------------------------------------------------
@@ -302,103 +232,63 @@ namespace mage {
 		//-------------------------------------------------------------------------
 
 		/**
-		 Returns the no-culling rasterizer state of this rendering cache.
-
-		 @return		A pointer to the no-culling rasterizer state
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the rasterizer state
-						of this rendering state cache.
-		 */
-		ID3D11RasterizerState *GetCullNoneRasterizerState();
-
-		/**
 		 Binds the no-culling rasterizer state
-		 of this rendering cache.
+		 of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @throws		FormattedException
-						Failed to bind the rasterizer state.
 		 */
-		void BindCullNoneRasterizerState(ID3D11DeviceContext2 *device_context) {
-			RS::BindState(device_context, GetCullNoneRasterizerState());
+		void BindCullNoneRasterizerState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			RS::BindState(device_context,
+				GetRasterizerState(RasterizerStateIndex::NoCulling));
 		}
-
-		/**
-		 Returns the clockwise-culling rasterizer state of this rendering cache.
-
-		 @return		A pointer to the clockwise-culling rasterizer state
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the rasterizer state
-						of this rendering state cache.
-		 */
-		ID3D11RasterizerState *GetCullClockwiseRasterizerState();
 
 		/**
 		 Binds the clockwise-culling rasterizer state
-		 of this rendering cache.
+		 of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @throws		FormattedException
-						Failed to bind the rasterizer state.
 		 */
-		void BindCullClockwiseRasterizerState(ID3D11DeviceContext2 *device_context) {
-			RS::BindState(device_context, GetCullClockwiseRasterizerState());
+		void BindCullClockwiseRasterizerState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+			
+			RS::BindState(device_context,
+				GetRasterizerState(RasterizerStateIndex::ClockwiseCulling));
 		}
-
-		/**
-		 Returns the counter-clockwise-culling rasterizer state of this rendering cache.
-
-		 @return		A pointer to the counter-clockwise-culling rasterizer state
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the rasterizer state
-						of this rendering state cache.
-		 */
-		ID3D11RasterizerState *GetCullCounterClockwiseRasterizerState();
 
 		/**
 		 Binds the counter-clockwise-culling rasterizer state
-		 of this rendering cache.
+		 of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @throws		FormattedException
-						Failed to bind the rasterizer state.
 		 */
-		void BindCullCounterClockwiseRasterizerState(ID3D11DeviceContext2 *device_context) {
-			RS::BindState(device_context, GetCullCounterClockwiseRasterizerState());
+		void BindCullCounterClockwiseRasterizerState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			RS::BindState(device_context,
+				GetRasterizerState(RasterizerStateIndex::CounterClockwiseCulling));
 		}
 
 		/**
-		 Returns the wireframe rasterizer state of this rendering cache.
-
-		 @return		A pointer to the wireframe rasterizer state
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the rasterizer state
-						of this rendering state cache.
-		 */
-		ID3D11RasterizerState *GetWireframeRasterizerState();
-
-		/**
 		 Binds the wireframe rasterizer state
-		 of this rendering cache.
+		 of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @throws		FormattedException
-						Failed to bind the rasterizer state.
 		 */
-		void BindWireframeRasterizerState(ID3D11DeviceContext2 *device_context) {
-			RS::BindState(device_context, GetWireframeRasterizerState());
+		void BindWireframeRasterizerState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			RS::BindState(device_context,
+				GetRasterizerState(RasterizerStateIndex::Wireframe));
 		}
 
 		//-------------------------------------------------------------------------
@@ -406,210 +296,539 @@ namespace mage {
 		//-------------------------------------------------------------------------
 
 		/**
-		 Returns the point sampling state with wrapping of this rendering cache.
-
-		 @return		A pointer to the point sampling state with wrapping
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the sampler state
-						of this rendering state cache.
+		 Binds the persistent samplers of this rendering state cache.
+		 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
 		 */
-		ID3D11SamplerState *GetPointWrapSamplerState();
+		void BindPersistentSamplers(
+			ID3D11DeviceContext2 *device_context) const noexcept;
 
 		/**
-		 Returns the point sampling state with clamping of this rendering cache.
+		 Binds the point sampler state with wrapping 
+		 of this rendering state cache.
 
-		 @return		A pointer to the point sampling state with clamping
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the sampler state
-						of this rendering state cache.
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
+		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array 
+						to set the sampler to (ranges from 
+						@c SLOT_SAMPLER_VARIABLE_START to 
+						@c SLOT_SAMPLER_VARIABLE_END).
 		 */
-		ID3D11SamplerState *GetPointClampSamplerState();
+		template< typename PipelineStageT >
+		void BindPointWrapSamplerState(
+			ID3D11DeviceContext2 *device_context, UINT slot) const noexcept;
+		
+		/**
+		 Binds the point sampler state with clamping 
+		 of this rendering state cache.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
+		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array 
+						to set the sampler to (ranges from 
+						@c SLOT_SAMPLER_VARIABLE_START to 
+						@c SLOT_SAMPLER_VARIABLE_END).
+		 */
+		template< typename PipelineStageT >
+		void BindPointClampSamplerState(
+			ID3D11DeviceContext2 *device_context, UINT slot) const noexcept;
+		
+		/**
+		 Binds the point sampler state with mirroring 
+		 of this rendering state cache.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
+		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array 
+						to set the sampler to (ranges from 
+						@c SLOT_SAMPLER_VARIABLE_START to 
+						@c SLOT_SAMPLER_VARIABLE_END).
+		 */
+		template< typename PipelineStageT >
+		void BindPointMirrorSamplerState(
+			ID3D11DeviceContext2 *device_context, UINT slot) const noexcept;
+		
+		/**
+		 Binds the linear sampler state with wrapping 
+		 of this rendering state cache.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
+		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array 
+						to set the sampler to (ranges from 
+						@c SLOT_SAMPLER_VARIABLE_START to 
+						@c SLOT_SAMPLER_VARIABLE_END).
+		 */
+		template< typename PipelineStageT >
+		void BindLinearWrapSamplerState(
+			ID3D11DeviceContext2 *device_context, UINT slot) const noexcept;
+		
+		/**
+		 Binds the linear sampler state with clamping 
+		 of this rendering state cache.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
+		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array 
+						to set the sampler to (ranges from 
+						@c SLOT_SAMPLER_VARIABLE_START to 
+						@c SLOT_SAMPLER_VARIABLE_END).
+		 */
+		template< typename PipelineStageT >
+		void BindLinearClampSamplerState(
+			ID3D11DeviceContext2 *device_context, UINT slot) const noexcept;
+		
+		/**
+		 Binds the linear sampler state with mirroring 
+		 of this rendering state cache.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
+		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array 
+						to set the sampler to (ranges from 
+						@c SLOT_SAMPLER_VARIABLE_START to 
+						@c SLOT_SAMPLER_VARIABLE_END).
+		 */
+		template< typename PipelineStageT >
+		void BindLinearMirrorSamplerState(
+			ID3D11DeviceContext2 *device_context, UINT slot) const noexcept;
 
 		/**
-		 Returns the point sampling state with wrapping of this rendering cache.
+		 Binds the anisotropic sampler state with wrapping 
+		 of this rendering state cache.
 
-		 @return		A pointer to the point sampling state with wrapping
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the sampler state
-						of this rendering state cache.
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
+		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array 
+						to set the sampler to (ranges from 
+						@c SLOT_SAMPLER_VARIABLE_START to 
+						@c SLOT_SAMPLER_VARIABLE_END).
 		 */
-		ID3D11SamplerState *GetLinearWrapSamplerState();
+		template< typename PipelineStageT >
+		void BindAnisotropicWrapSamplerState(
+			ID3D11DeviceContext2 *device_context, UINT slot) const noexcept;
+		
+		/**
+		 Binds the anisotropic sampler state with clamping 
+		 of this rendering state cache.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
+		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array 
+						to set the sampler to (ranges from 
+						@c SLOT_SAMPLER_VARIABLE_START to 
+						@c SLOT_SAMPLER_VARIABLE_END).
+		 */
+		template< typename PipelineStageT >
+		void BindAnisotropicClampSamplerState(
+			ID3D11DeviceContext2 *device_context, UINT slot) const noexcept;
+		
+		/**
+		 Binds the anisotropic sampler state with mirroring 
+		 of this rendering state cache.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
+		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array 
+						to set the sampler to (ranges from 
+						@c SLOT_SAMPLER_VARIABLE_START to 
+						@c SLOT_SAMPLER_VARIABLE_END).
+		 */
+		template< typename PipelineStageT >
+		void BindAnisotropicMirrorSamplerState(
+			ID3D11DeviceContext2 *device_context, UINT slot) const noexcept;
 
 		/**
-		 Returns the linear sampling state with clamping of this rendering cache.
+		 Binds the PCF sampler state of this rendering state cache.
 
-		 @return		A pointer to the linear sampling state with clamping
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the sampler state
-						of this rendering state cache.
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
+		 @pre			@a slot < @c SLOT_SAMPLER_VARIABLE_END.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array 
+						to set the sampler to (ranges from 
+						@c SLOT_SAMPLER_VARIABLE_START to 
+						@c SLOT_SAMPLER_VARIABLE_END).
 		 */
-		ID3D11SamplerState *GetLinearClampSamplerState();
-
-		/**
-		 Returns the anisotropic sampling state with wrapping of this rendering cache.
-
-		 @return		A pointer to the anisotropic sampling state with wrapping
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the sampler state
-						of this rendering state cache.
-		 */
-		ID3D11SamplerState *GetAnisotropicWrapSamplerState();
-
-		/**
-		 Returns the anisotropic sampling state with clamping of this rendering cache.
-
-		 @return		A pointer to the anisotropic sampling state with clamping
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the sampler state
-						of this rendering state cache.
-		 */
-		ID3D11SamplerState *GetAnisotropicClampSamplerState();
-
-		/**
-		 Returns the PCF sampling state of this rendering cache.
-
-		 @return		A pointer to the PCF state
-						of this rendering cache.
-		 @throws		FormattedException
-						Failed to create the sampler state
-						of this rendering state cache.
-		 */
-		ID3D11SamplerState *GetPCFSamplerState();
-
+		template< typename PipelineStageT >
+		void BindPCFSamplerState(
+			ID3D11DeviceContext2 *device_context, UINT slot) const noexcept;
+		
 	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Setup the rendering states (blend, depth stencil, rasterizer, sampler)
+		 of this rendering state cache.
+
+		 @pre			@a device is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
+		 @throws		FormattedException
+						Failed to setup the rendering states 
+						of this rendering state cache.
+		 */
+		void SetupRenderingStates(ID3D11Device2 *device);
+
+		/**
+		 Setup the blend states of this rendering state cache.
+
+		 @pre			@a device is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
+		 @throws		FormattedException
+						Failed to setup the blend states 
+						of this rendering state cache.
+		 */
+		void SetupBlendStates(ID3D11Device2 *device);
+
+		/**
+		 Setup the depth stencil states of this rendering state cache.
+
+		 @pre			@a device is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
+		 @throws		FormattedException
+						Failed to setup the depth stencil states 
+						of this rendering state cache.
+		 */
+		void SetupDepthStencilStates(ID3D11Device2 *device);
+
+		/**
+		 Setup the rasterizer states of this rendering state cache.
+
+		 @pre			@a device is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
+		 @throws		FormattedException
+						Failed to setup the rasterizer states 
+						of this rendering state cache.
+		 */
+		void SetupRasterizerStates(ID3D11Device2 *device);
+
+		/**
+		 Setup the samplers states of this rendering state cache.
+
+		 @pre			@a device is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
+		 @throws		FormattedException
+						Failed to setup the samplers states 
+						of this rendering state cache.
+		 */
+		void SetupSamplerStates(ID3D11Device2 *device);
+
+		/**
+		 An enumeration of the different blend state indices 
+		 for rendering state caches.
+
+		 This contains:
+		 @c Opaque,
+		 @c Alpha,
+		 @c Additive,
+		 @c NonPremultiplied and
+		 @c AlphaToCoverage.
+		 */
+		enum struct BlendStateIndex {
+			Opaque            = 0,
+			Alpha             = 1,
+			Additive          = 2,
+			NonPremultiplied  = 3,
+			AlphaToCoverage   = 4,
+			Count             = 5
+
+		};
+
+		/**
+		 An enumeration of the different depth stencil state indices 
+		 for rendering state caches.
+
+		 This contains:
+		 @c DepthNone,
+		 @c DepthReadWrite and
+		 @c DepthRead.
+		 */
+		enum struct DepthStencilStateIndex {
+			DepthNone         = 0,
+			DepthReadWrite    = 1,
+			DepthRead         = 2,
+			Count             = 3
+		};
+
+		/**
+		 An enumeration of the different rasterizer state indices 
+		 for rendering state caches.
+
+		 This contains:
+		 @c NoCulling,
+		 @c ClockwiseCulling,
+		 @c CounterClockwiseCulling and
+		 @c Wireframe.
+		 */
+		enum struct RasterizerStateIndex {
+			NoCulling         = 0,
+			ClockwiseCulling  = 1,
+			CounterClockwiseCulling = 2,
+			Wireframe         = 3,
+			Count             = 4
+		};
+
+		/**
+		 An enumeration of the different sampler state indices 
+		 for rendering state caches.
+
+		 This contains:
+		 @c PointWrap,
+		 @c PointClamp,
+		 @c PointMirror,
+		 @c LinearWrap,
+		 @c LinearClamp,
+		 @c LinearMirror,
+		 @c AnisotropicWrap,
+		 @c AnisotropicClamp,
+		 @c AnisotropicMirror and.
+		 @c PCF.
+		 */
+		enum struct SamplerStateIndex {
+			PointWrap         = 0,
+			PointClamp        = 1,
+			PointMirror       = 2,
+			LinearWrap        = 3,
+			LinearClamp       = 4,
+			LinearMirror      = 5,
+			AnisotropicWrap   = 6,
+			AnisotropicClamp  = 7,
+			AnisotropicMirror = 8,
+			PCF               = 9,
+			Count             = 10
+		};
+
+		/**
+		 Returns the blend state
+		 of this rendering state cache associated to the given index.
+
+		 @param[in]		index
+						The blend state index.
+		 @return		A pointer to the blend state of this rendering 
+						state cache associated to the given index.
+		 */
+		ID3D11BlendState *GetBlendState(
+			BlendStateIndex index) const noexcept {
+
+			return m_blend_states[static_cast< size_t >(index)].Get();
+		}
+
+		/**
+		 Returns and releases the address of the blend state
+		 of this rendering state cache associated to the given index.
+
+		 @param[in]		index
+						The blend state index.
+		 @return		A pointer to a pointer to the blend state
+						of this rendering state cache associated to 
+						the given index.
+		 */
+		ID3D11BlendState **ReleaseAndGetAddressOfBlendState(
+			BlendStateIndex index) noexcept {
+
+			return m_blend_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
+		}
+
+		/**
+		 Returns the depth stencil state
+		 of this rendering state cache associated to the given index.
+
+		 @param[in]		index
+						The depth stencil state index.
+		 @return		A pointer to the depth stencil state of this rendering 
+						state cache associated to the given index.
+		 */
+		ID3D11DepthStencilState *GetDepthStencilState(
+			DepthStencilStateIndex index) const noexcept {
+
+			return m_depth_stencil_states[static_cast< size_t >(index)].Get();
+		}
+
+		/**
+		 Returns and releases the address of the depth stencil state
+		 of this rendering state cache associated to the given index.
+
+		 @param[in]		index
+						The depth stencil state index.
+		 @return		A pointer to a pointer to the depth stencil state 
+						of this rendering state cache associated to 
+						the given index.
+		 */
+		ID3D11DepthStencilState **ReleaseAndGetAddressOfDepthStencilState(
+			DepthStencilStateIndex index) noexcept {
+
+			return m_depth_stencil_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
+		}
+
+		/**
+		 Returns the rasterizer state
+		 of this rendering state cache associated to the given index.
+
+		 @param[in]		index
+						The rasterizer state index.
+		 @return		A pointer to the rasterizer state of this rendering 
+						state cache associated to the given index.
+		 */
+		ID3D11RasterizerState *GetRasterizerState(
+			RasterizerStateIndex index) const noexcept {
+
+			return m_rasterizer_states[static_cast< size_t >(index)].Get();
+		}
+
+		/**
+		 Returns and releases the address of the rasterizer state
+		 of this rendering state cache associated to the given index.
+
+		 @param[in]		index
+						The rasterizer state index.
+		 @return		A pointer to a pointer to the rasterizer state
+						of this rendering state cache associated to 
+						the given index.
+		 */
+		ID3D11RasterizerState **ReleaseAndGetAddressOfRasterizerState(
+			RasterizerStateIndex index) noexcept {
+
+			return m_rasterizer_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
+		}
+
+		/**
+		 Returns the sampler state
+		 of this rendering state cache associated to the given index.
+
+		 @param[in]		index
+						The sampler state index.
+		 @return		A pointer to the sampler state of this rendering 
+						state cache associated to the given index.
+		 */
+		ID3D11SamplerState *GetSamplerState(
+			SamplerStateIndex index) const noexcept {
+
+			return m_sampler_states[static_cast< size_t >(index)].Get();
+		}
+
+		/**
+		 Returns and releases the address of the sampler state
+		 of this rendering state cache associated to the given index.
+
+		 @param[in]		index
+						The sampler state index.
+		 @return		A pointer to a pointer to the sampler state
+						of this rendering state cache associated to 
+						the given index.
+		 */
+		ID3D11SamplerState **ReleaseAndGetAddressOfSamplerState(
+			SamplerStateIndex index) noexcept {
+
+			return m_sampler_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
+		}
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 The device of this rendering state.
+		 An array containing pointers to the blend states 
+		 of this rendering state cache.
 		 */
-		ID3D11Device2 * const m_device;
+		ComPtr< ID3D11BlendState > m_blend_states[
+			static_cast< size_t >(BlendStateIndex::Count)];
 
 		/**
-		 A pointer to the opaque blend state
-		 of this rendering cache.
+		 An array containing pointers to the depth stencil states 
+		 of this rendering state cache.
 		 */
-		ComPtr< ID3D11BlendState > m_opaque_blend_state;
+		ComPtr< ID3D11DepthStencilState > m_depth_stencil_states[
+			static_cast< size_t >(DepthStencilStateIndex::Count)];
 
 		/**
-		 A pointer to the alpha blend state
-		 of this rendering cache.
+		 An array containing pointers to the rasterizer states 
+		 of this rendering state cache.
 		 */
-		ComPtr< ID3D11BlendState > m_alpha_blend_state;
+		ComPtr< ID3D11RasterizerState > m_rasterizer_states[
+			static_cast< size_t >(RasterizerStateIndex::Count)];
 
 		/**
-		 A pointer to the additive blend state
-		 of this rendering cache.
+		 An array containing pointers to the sampler states 
+		 of this rendering state cache.
 		 */
-		ComPtr< ID3D11BlendState > m_additive_blend_state;
-
-		/**
-		 A pointer to the non-premultiplied blend state
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11BlendState > m_non_premultiplied_blend_state;
-
-		/**
-		 A pointer to the alpha-to-coverage blend state
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11BlendState > m_alpha_to_coverage_blend_state;
-
-		/**
-		 A pointer to the no-depth stencil state
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11DepthStencilState > m_depth_none_depth_stencil_state;
-
-		/**
-		 A pointer to the default depth stencil state
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11DepthStencilState > m_depth_default_depth_stencil_state;
-
-		/**
-		 A pointer to the read depth stencil state
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11DepthStencilState > m_depth_read_depth_stencil_state;
-
-		/**
-		 A pointer to the no-culling rasterizer state
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11RasterizerState > m_cull_none_rasterizer_state;
-
-		/**
-		 A pointer to the clockwise-culling rasterizer state
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11RasterizerState > m_cull_clockwise_rasterizer_state;
-
-		/**
-		 A pointer to the counter-clockwise-culling rasterizer state
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11RasterizerState > m_cull_counter_clockwise_rasterizer_state;
-
-		/**
-		 A pointer to the wireframe rasterizer state
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11RasterizerState > m_wireframe_rasterizer_state;
-
-		/**
-		 A pointer to the point sampling state with wrapping
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11SamplerState > m_point_wrap_sampler_state;
-
-		/**
-		 A pointer to the point sampling state with clamping
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11SamplerState > m_point_clamp_sampler_state;
-
-		/**
-		 A pointer to the linear sampling state with wrapping
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11SamplerState > m_linear_wrap_sampler_state;
-
-		/**
-		 A pointer to the linear sampling state with clamping
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11SamplerState > m_linear_clamp_sampler_state;
-
-		/**
-		 A pointer to the anisotropic sampling state with wrapping
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11SamplerState > m_anisotropic_wrap_sampler_state;
-
-		/**
-		 A pointer to the anisotropic sampling state with clamping
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11SamplerState > m_anisotropic_clamp_sampler_state;
-
-		/**
-		 A pointer to the PCF sampling state
-		 of this rendering cache.
-		 */
-		ComPtr< ID3D11SamplerState > m_pcf_sampler_state;
-
-		/**
-		 The mutex of this rendering state cache.
-		 */
-		Mutex m_mutex;
+		ComPtr< ID3D11SamplerState > m_sampler_states[
+			static_cast< size_t >(SamplerStateIndex::Count)];
 	};
 }
+
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "rendering\rendering_state_cache.tpp"
+
+#pragma endregion

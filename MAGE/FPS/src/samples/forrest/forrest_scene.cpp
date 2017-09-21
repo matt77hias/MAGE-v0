@@ -75,6 +75,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 		auto model_plane = CreateModel(*model_desc_plane);
 		model_plane->GetTransform()->SetScale(5.0f);
+
+		auto model_plane2 = CreateModel(*model_desc_plane);
+		model_plane2->GetTransform()->SetScale(5.0f);
+		model_plane2->GetTransform()->SetRotationZ(XM_PIDIV4);
+
+		auto model_plane3 = CreateModel(*model_desc_plane);
+		model_plane3->GetTransform()->SetScale(5.0f);
+		model_plane3->GetTransform()->SetTranslationY(0.5f);
+
 		auto model_tree1 = CreateModel(*model_desc_tree1);
 		model_tree1->GetTransform()->SetScale(2.0f);
 
@@ -83,7 +92,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		auto omni_light = Create< OmniLightNode >("light");
 		omni_light->GetTransform()->SetTranslationY(3.0f);
-		omni_light->GetLight()->SetDistanceFalloff(3.0f, 3.0f);
+		omni_light->GetLight()->SetDistanceFalloff(3.0f, 4.0f);
 		omni_light->GetLight()->EnableShadows();
 
 		//auto spot_light = Create< SpotLightNode >("light");

@@ -45,6 +45,9 @@
 #define MAGE_GUID_PS_TSNM_WARD_DUER                L"mage_tsnm_ward_duer_ps"
 #define MAGE_GUID_PS_TSNM_COOK_TORRANCE            L"mage_tsnm_cook_torrance_ps"
 
+// Sky
+#define MAGE_GUID_PS_SKY                           L"mage_sky_ps"
+
 // Sprite
 #define MAGE_GUID_VS_SPRITE                        L"mage_sprite_vs"
 #define MAGE_GUID_PS_SPRITE                        L"mage_sprite_ps"

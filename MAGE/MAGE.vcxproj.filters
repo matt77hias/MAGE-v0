@@ -280,6 +280,9 @@
     <Filter Include="Shader Files\sky">
       <UniqueIdentifier>{b21300c8-77ee-41cc-90e0-ec9efcd6027b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\shader\cso\sky">
+      <UniqueIdentifier>{c392ad62-32d7-4b33-9e0a-839f45907051}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -1028,6 +1031,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\scene\sky.hpp">
       <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\sky\sky_PS.hpp">
+      <Filter>Header Files\shader\cso\sky</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -48,6 +48,9 @@
 #include "shader\cso\forward\tsnm_cook_torrance_PS.hpp"
 
 // Sprite
+#include "shader\cso\sky\sky_PS.hpp"
+
+// Sprite
 #include "shader\cso\sprite\sprite_VS.hpp"
 #include "shader\cso\sprite\sprite_PS.hpp"
 
@@ -443,6 +446,25 @@ namespace mage {
 		const BufferCompiledShader cs(g_image_depth_ps, sizeof(g_image_depth_ps));
 		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_IMAGE_DEPTH, &cs);
 	}
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: SkyPass
+	//-------------------------------------------------------------------------
+#pragma region
+
+	SharedPtr< const PixelShader > CreateSkyPS() {
+		const BufferCompiledShader cs(g_sky_ps, sizeof(g_sky_ps));
+		return ResourceManager::Get()->GetOrCreatePS(MAGE_GUID_PS_SKY, &cs);
+	}
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Primitives
+	//-------------------------------------------------------------------------
+#pragma region
 
 	SharedPtr< const VertexShader > CreateFullscreenTriangleVS() {
 		const BufferCompiledShader cs(g_fullscreen_triangle_vs, sizeof(g_fullscreen_triangle_vs));

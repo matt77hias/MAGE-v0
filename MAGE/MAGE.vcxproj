@@ -229,6 +229,7 @@
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\shading_normal_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\tsnm_shading_normal_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\primitives\fullscreen_triangle_VS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\sky\sky_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\sprite\sprite_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\sprite\sprite_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\compiled_shader.hpp" />

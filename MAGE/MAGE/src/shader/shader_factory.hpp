@@ -615,6 +615,31 @@ namespace mage {
 	 */
 	SharedPtr< const PixelShader > CreateImageDepthPS();
 
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: SkyPass
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Creates a sky pixel shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the sky pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateSkyPS();
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Primitives
+	//-------------------------------------------------------------------------
+#pragma region
+
 	/**
 	 Creates a fullscreen triangle vertex shader.
 

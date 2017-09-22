@@ -199,9 +199,11 @@ namespace mage {
 
 	 @tparam		ShaderT
 					The shader type.
+	 @tparam		PipelineStageT
+					The pipeline stage type.
 	 */
-	template< typename ShaderT >
-	class Shader : public Resource< Shader< ShaderT > > {
+	template< typename ShaderT, typename PipelineStageT >
+	class Shader : public Resource< Shader< ShaderT, PipelineStageT > > {
 
 	public:
 	
@@ -248,7 +250,7 @@ namespace mage {
 		 @param[in]		shader
 						A reference to the shader to copy.
 		 */
-		Shader(const Shader< ShaderT > &shader) = delete;
+		Shader(const Shader< ShaderT, PipelineStageT > &shader) = delete;
 
 		/**
 		 Constructs a shader by moving the given shader.
@@ -256,7 +258,7 @@ namespace mage {
 		 @param[in]		shader
 						A reference to the shader to move.
 		 */
-		Shader(Shader< ShaderT > &&shader);
+		Shader(Shader< ShaderT, PipelineStageT > &&shader);
 
 		/**
 		 Destructs this shader.
@@ -275,7 +277,8 @@ namespace mage {
 		 @return		A reference to the copy of the given shader
 						(i.e. this shader).
 		 */
-		Shader< ShaderT > &operator=(const Shader< ShaderT > &shader) = delete;
+		Shader< ShaderT, PipelineStageT > &operator=(
+			const Shader< ShaderT, PipelineStageT > &shader) = delete;
 
 		/**
 		 Moves the given shader to this shader.
@@ -285,7 +288,8 @@ namespace mage {
 		 @return		A reference to the moved shader
 						(i.e. this shader).
 		 */
-		Shader< ShaderT > &operator=(Shader< ShaderT > &&shader) = delete;
+		Shader< ShaderT, PipelineStageT > &operator=(
+			Shader< ShaderT, PipelineStageT > &&shader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -338,27 +342,27 @@ namespace mage {
 	/**
 	 A struct of hull shaders.
 	 */
-	using HullShader = Shader< ID3D11HullShader >;
+	using HullShader = Shader< ID3D11HullShader, HS >;
 
 	/**
 	 A struct of domain shaders.
 	 */
-	using DomainShader = Shader< ID3D11DomainShader >;
+	using DomainShader = Shader< ID3D11DomainShader, DS >;
 
 	/**
 	 A struct of geometry shaders.
 	 */
-	using GeometryShader = Shader< ID3D11GeometryShader >;
+	using GeometryShader = Shader< ID3D11GeometryShader, GS >;
 
 	/**
 	 A struct of pixel shaders.
 	 */
-	using PixelShader = Shader< ID3D11PixelShader >;
+	using PixelShader = Shader< ID3D11PixelShader, PS >;
 
 	/**
 	 A struct of compute shaders.
 	 */
-	using ComputeShader = Shader< ID3D11ComputeShader >;
+	using ComputeShader = Shader< ID3D11ComputeShader, CS >;
 }
 
 //-----------------------------------------------------------------------------

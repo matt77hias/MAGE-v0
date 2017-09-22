@@ -4,13 +4,13 @@
 #include "global.hlsli"
 
 //-----------------------------------------------------------------------------
-// Textures
+// SRVs
 //-----------------------------------------------------------------------------
-Texture2D g_sprite : register(REG_T(SLOT_SRV_SPRITE));
+TEXTURE_2D(g_sprite, float4, SLOT_SRV_SPRITE);
 
 //-----------------------------------------------------------------------------
 // Pixel Shader
 //-----------------------------------------------------------------------------
 float4 PS(PSInputColorTexture input) : SV_Target {
-	return g_sprite.Sample(g_variable_sampler0, input.tex) * input.color;
+	return g_sprite.Sample(g_linear_wrap_sampler, input.tex) * input.color;
 }

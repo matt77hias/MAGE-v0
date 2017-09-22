@@ -272,6 +272,15 @@ namespace mage {
 		 */
 		void SwitchMode(bool toggle);
 
+		/**
+		 Returns the gamma value of this renderer used for gamma correction.
+
+		 @return		The gamma value of this renderer used for gamma correction.
+		 */
+		float GetGamma() const noexcept {
+			return m_display_configuration->GetGamma();
+		}
+
 		//---------------------------------------------------------------------
 		// Member Methods: Rendering
 		//---------------------------------------------------------------------

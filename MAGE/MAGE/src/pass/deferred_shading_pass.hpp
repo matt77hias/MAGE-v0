@@ -187,6 +187,6 @@ namespace mage {
 		/**
 		 The deferred buffer of this deferred shading pass.
 		 */
-		ConstantBuffer< DeferredComputeBuffer > m_deferred_buffer;
+		ConstantBuffer< DeferredBuffer > m_deferred_buffer;
 	};
 }

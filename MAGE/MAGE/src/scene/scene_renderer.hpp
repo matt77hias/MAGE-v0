@@ -12,6 +12,7 @@
 #include "pass\variable_shading_pass.hpp"
 #include "pass\sprite_pass.hpp"
 #include "pass\image_pass.hpp"
+//#include "pass\sky_pass.hpp"
 
 #include "pass\constant_shading_pass.hpp"
 #include "pass\constant_component_pass.hpp"
@@ -22,6 +23,8 @@
 
 #include "buffer\gbuffer.hpp"
 #include "buffer\image_buffer.hpp"
+
+#include "buffer\game_buffer.hpp"
 
 #pragma endregion
 
@@ -351,7 +354,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void BindFixedState();
+		void BindPersistentState();
 
 		void ExecuteDepthPass(
 			FXMMATRIX world_to_projection,
@@ -409,6 +412,11 @@ namespace mage {
 		 A pointer to the image buffer of this scene renderer.
 		 */
 		UniquePtr< ImageBuffer > m_image_buffer;
+
+		/**
+		 A pointer to the image buffer of this scene renderer.
+		 */
+		ConstantBuffer< GameBuffer > m_game_buffer;
 		
 		//---------------------------------------------------------------------
 		// Member Variables: Render Passes

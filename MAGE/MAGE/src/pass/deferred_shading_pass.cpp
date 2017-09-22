@@ -43,16 +43,12 @@ namespace mage {
 	void XM_CALLCONV DeferredShadingPass::BindUnpackData(
 		FXMMATRIX view_to_projection, const PassBuffer *scene) {
 
-		DeferredComputeBuffer buffer;
+		DeferredBuffer buffer;
 		buffer.m_projection_values    = GetViewPositionConstructionValues(view_to_projection);
 		buffer.m_mat1_start           = scene->GetMaterialCoefficientMinimum(0);
 		buffer.m_mat1_range           = scene->GetMaterialCoefficientRange(0);
 		buffer.m_mat2_start           = scene->GetMaterialCoefficientMinimum(1);
 		buffer.m_mat2_range           = scene->GetMaterialCoefficientRange(1);
-
-		const Renderer * const renderer = Renderer::Get();
-		buffer.m_resolution_minus1[0] = renderer->GetWidth()  - 1;
-		buffer.m_resolution_minus1[1] = renderer->GetHeight() - 1;
 
 		// Update the deferred buffer.
 		m_deferred_buffer.UpdateData(m_device_context, 

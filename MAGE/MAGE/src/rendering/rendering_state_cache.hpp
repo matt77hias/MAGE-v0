@@ -178,6 +178,18 @@ namespace mage {
 				GetBlendState(BlendStateIndex::AlphaToCoverage));
 		}
 
+		/**
+		 Binds the alpha blend state of this rendering state cache if MSAA is
+		 disabled. Otherwise, binds the alpha-to-coverage blend state of this 
+		 rendering state cache.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void BindTransparentBlendState(
+			ID3D11DeviceContext2 *device_context) const noexcept;
+
 		//---------------------------------------------------------------------
 		// Member Methods: Depth Stencil States
 		//---------------------------------------------------------------------

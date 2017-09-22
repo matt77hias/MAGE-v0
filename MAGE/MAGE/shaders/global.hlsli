@@ -11,35 +11,101 @@
 //-----------------------------------------------------------------------------
 // Samplers
 //-----------------------------------------------------------------------------
-SamplerState g_variable_sampler0 
-	: register(REG_S(SLOT_SAMPLER_VARIABLE_0));
-SamplerState g_variable_sampler1 
-	: register(REG_S(SLOT_SAMPLER_VARIABLE_1));
-SamplerState g_variable_sampler2 
-	: register(REG_S(SLOT_SAMPLER_VARIABLE_2));
-SamplerState g_variable_sampler3 
-	: register(REG_S(SLOT_SAMPLER_VARIABLE_3));
+SAMPLER_STATE(g_variable_sampler0,          SLOT_SAMPLER_VARIABLE_0);
+SAMPLER_STATE(g_variable_sampler1,          SLOT_SAMPLER_VARIABLE_1);
+SAMPLER_STATE(g_variable_sampler2,          SLOT_SAMPLER_VARIABLE_2);
+SAMPLER_STATE(g_variable_sampler3,          SLOT_SAMPLER_VARIABLE_3);
 
-SamplerState g_point_wrap_sampler 
-	: register(REG_S(SLOT_SAMPLER_POINT_WRAP));
-SamplerState g_point_clamp_sampler 
-	: register(REG_S(SLOT_SAMPLER_POINT_CLAMP));
-SamplerState g_point_mirror_sampler 
-	: register(REG_S(SLOT_SAMPLER_POINT_MIRROR));
-SamplerState g_linear_wrap_sampler 
-	: register(REG_S(SLOT_SAMPLER_LINEAR_WRAP));
-SamplerState g_linear_clamp_sampler 
-	: register(REG_S(SLOT_SAMPLER_LINEAR_CLAMP));
-SamplerState g_linear_mirror_sampler 
-	: register(REG_S(SLOT_SAMPLER_LINEAR_MIRROR));
-SamplerState g_anisotropic_wrap_sampler 
-	: register(REG_S(SLOT_SAMPLER_ANISOTROPIC_WRAP));
-SamplerState g_anisotropic_clamp_sampler 
-	: register(REG_S(SLOT_SAMPLER_ANISOTROPIC_CLAMP));
-SamplerState g_anisotropic_mirror_sampler 
-	: register(REG_S(SLOT_SAMPLER_ANISOTROPIC_MIRROR));
+SAMPLER_STATE(g_point_wrap_sampler,         SLOT_SAMPLER_POINT_WRAP);
+SAMPLER_STATE(g_point_clamp_sampler,        SLOT_SAMPLER_POINT_CLAMP);
+SAMPLER_STATE(g_point_mirror_sampler,       SLOT_SAMPLER_POINT_MIRROR);
+SAMPLER_STATE(g_linear_wrap_sampler,        SLOT_SAMPLER_LINEAR_WRAP);
+SAMPLER_STATE(g_linear_clamp_sampler,       SLOT_SAMPLER_LINEAR_CLAMP);
+SAMPLER_STATE(g_linear_mirror_sampler,      SLOT_SAMPLER_LINEAR_MIRROR);
+SAMPLER_STATE(g_anisotropic_wrap_sampler,   SLOT_SAMPLER_ANISOTROPIC_WRAP);
+SAMPLER_STATE(g_anisotropic_clamp_sampler,  SLOT_SAMPLER_ANISOTROPIC_CLAMP);
+SAMPLER_STATE(g_anisotropic_mirror_sampler, SLOT_SAMPLER_ANISOTROPIC_MIRROR);
 
-SamplerComparisonState g_pcf_sampler 
-	: register(REG_S(SLOT_SAMPLER_PCF));
+SAMPLER_COMPARISON_STATE(g_pcf_sampler,     SLOT_SAMPLER_PCF);
+
+//-----------------------------------------------------------------------------
+// Constant Buffers 
+//-----------------------------------------------------------------------------
+
+CBUFFER(Game, SLOT_CBUFFER_GAME) {
+	// The display resolution.
+	// g_resolution.x = the display width
+	// g_resolution.y = the display height
+	float2 g_resolution            : packoffset(c0);
+	// The inverse of the display resolution minus 1.
+	// g_inv_resolution_minus1.x = 1 / (g_resolution.x - 1)
+	// g_inv_resolution_minus1.y = 1 / (g_resolution.y - 1)
+	float2 g_inv_resolution_minus1 : packoffset(c0.z);
+	// The gamma exponent used for gamma recovery.
+	// C  = pow(C', g_gamma)
+	float g_gamma                  : packoffset(c1);
+	// The inverse of the gamma exponent used for gamma correction.
+	// C' = pow(C, g_inv_gamma) = pow(C, 1/g_gamma)
+	float g_inv_gamma              : packoffset(c1.y);
+};
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
+
+/**
+ Normalizes the given dispatch thread id.
+
+ @pre			@a id is non-normalized 
+				(i.e. in the [0,g_resolution.x-1] x [0,g_resolution.y-1] range).
+ @param[in]		id
+				The non-normalized dispatch thread id.
+ @return		The normalized dispatch thread id corresponding to the given 
+				non-normalized dispatch thread id.
+ */
+float2 NormalizeDispatchThreadID(uint2 id) {
+	// x: [0,g_resolution.x-1] -> [0,1]
+	// y: [0,g_resolution.y-1] -> [0,1]
+	return id * g_inv_resolution_minus1;
+}
+
+/**
+ Converts the given dispatch thread id to NDC coordinates.
+
+ @pre			@a id is non-normalized 
+				(i.e. in the [0,g_resolution.x-1] x [0,g_resolution.y-1] range).
+ @param[in]		id
+				The non-normalized dispatch thread id.
+ @return		The NDC coordinates.
+ */
+float2 DispatchThreadIDtoNDC(uint2 id) {
+	return NormalizedDispatchThreadIDtoNDC(NormalizeDispatchThreadID(id));
+}
+
+/**
+ Performs gamma correction on the given RGB spectrum.
+
+ @pre			All components of @a rgb must be non-negative.
+ @param[in]		rgb
+				The RGB spectrum.
+ @return		The gamma-corrected RGB spectrum corresponding to the given 
+				RGB spectrum.
+ */
+float3 GammaCorrect(float3 rgb) {
+	return pow(rgb, g_inv_gamma);
+}
+
+/**
+ Performs gamma recovery on the given RGB spectrum.
+
+ @pre			All components of @a rgb must be non-negative.
+ @param[in]		rgb
+				The gamma-corrected RGB spectrum.
+ @return		The gamma-recovered RGB spectrum corresponding to the given 
+				gamma-corrected RGB spectrum.
+ */
+float3 GammaRecover(float3 rgb) {
+	return pow(rgb, g_gamma);
+}
 
 #endif // MAGE_HEADER_GLOBAL

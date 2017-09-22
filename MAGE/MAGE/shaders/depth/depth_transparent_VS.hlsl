@@ -6,12 +6,12 @@
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-cbuffer PerFrame : register(REG_B(SLOT_CBUFFER_PER_FRAME)) {
+CBUFFER(PerFrame, SLOT_CBUFFER_PER_FRAME) {
 	// The view-to-projection transformation matrix.
 	float4x4 g_view_to_projection : packoffset(c0);
 }
 
-cbuffer PerDraw  : register(REG_B(SLOT_CBUFFER_PER_DRAW)) {
+CBUFFER(PerDraw, SLOT_CBUFFER_PER_DRAW) {
 	// The object-to-view transformation matrix.
 	float4x4 g_object_to_view     : packoffset(c0);
 	// The texture transformation matrix.

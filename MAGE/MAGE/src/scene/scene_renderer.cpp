@@ -29,6 +29,7 @@ namespace mage {
 		m_pass_buffer(MakeUnique< PassBuffer >()),
 		m_gbuffer(MakeUnique< GBuffer >()),
 		m_image_buffer(MakeUnique< ImageBuffer >()),
+		m_game_buffer(),
 		m_depth_pass(), 
 		m_gbuffer_pass(),
 		m_lbuffer_pass(),
@@ -41,18 +42,42 @@ namespace mage {
 		m_variable_component_pass(),
 		m_shading_normal_pass(), 
 		m_wireframe_pass(), 
-		m_bounding_volume_pass() {}
+		m_bounding_volume_pass() {
+
+		// Bind the persistent state.
+		BindPersistentState();
+	}
 	
 	SceneRenderer::SceneRenderer(SceneRenderer &&scene_renderer) = default;
 	
 	SceneRenderer::~SceneRenderer() = default;
 
-	void SceneRenderer::BindFixedState() {
-		// Bind the default sampler.
-		RenderingStateCache::Get()->BindLinearWrapSamplerState< PS >(
-			m_device_context, SLOT_SAMPLER_VARIABLE_0);
-		RenderingStateCache::Get()->BindLinearWrapSamplerState< CS >(
-			m_device_context, SLOT_SAMPLER_VARIABLE_0);
+	void SceneRenderer::BindPersistentState() {
+		const Renderer * const renderer = Renderer::Get();
+		
+		GameBuffer game_buffer;
+		game_buffer.m_width             = static_cast< float >(renderer->GetWidth());
+		game_buffer.m_height            = static_cast< float >(renderer->GetHeight());
+		game_buffer.m_inv_width_minus1  = 1.0f / (renderer->GetWidth() - 1.0f);
+		game_buffer.m_inv_height_minus1 = 1.0f / (renderer->GetHeight() - 1.0f);
+		game_buffer.m_gamma             = renderer->GetGamma();
+		game_buffer.m_inv_gamma         = 1.0f / renderer->GetGamma();
+
+		// Update the game buffer.
+		m_game_buffer.UpdateData(m_device_context, game_buffer);
+		// Bind the game buffer.
+		VS::BindConstantBuffer(m_device_context, 
+			SLOT_CBUFFER_GAME, m_game_buffer.Get());
+		HS::BindConstantBuffer(m_device_context,
+			SLOT_CBUFFER_GAME, m_game_buffer.Get());
+		DS::BindConstantBuffer(m_device_context,
+			SLOT_CBUFFER_GAME, m_game_buffer.Get());
+		GS::BindConstantBuffer(m_device_context,
+			SLOT_CBUFFER_GAME, m_game_buffer.Get());
+		PS::BindConstantBuffer(m_device_context,
+			SLOT_CBUFFER_GAME, m_game_buffer.Get());
+		CS::BindConstantBuffer(m_device_context,
+			SLOT_CBUFFER_GAME, m_game_buffer.Get());
 	}
 
 	void SceneRenderer::Render(const Scene *scene) {
@@ -60,8 +85,6 @@ namespace mage {
 		// Update the pass buffer.
 		m_pass_buffer->Update(scene);
 		
-		BindFixedState();
-
 		for (const auto node : m_pass_buffer->GetCameras()) {
 			
 			// Obtain node components.

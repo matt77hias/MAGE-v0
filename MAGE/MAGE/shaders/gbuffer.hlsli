@@ -7,13 +7,13 @@
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-cbuffer PerFrame : register(REG_B(SLOT_CBUFFER_PER_FRAME)) {
+CBUFFER(PerFrame, SLOT_CBUFFER_PER_FRAME) {
 	// CAMERA
 	// The view-to-projection transformation matrix.
 	float4x4 g_view_to_projection      : packoffset(c0);
 };
 
-cbuffer PerDraw  : register(REG_B(SLOT_CBUFFER_PER_DRAW)) {
+CBUFFER(PerDraw, SLOT_CBUFFER_PER_DRAW) {
 	// TRANSFORM
 	// The object-to-view transformation matrix.
 	float4x4 g_object_to_view          : packoffset(c0);
@@ -39,11 +39,11 @@ cbuffer PerDraw  : register(REG_B(SLOT_CBUFFER_PER_DRAW)) {
 }
 
 //-----------------------------------------------------------------------------
-// Samplers and Textures
+// SRVs
 //-----------------------------------------------------------------------------
-Texture2D g_diffuse_texture  : register(REG_T(SLOT_SRV_DIFFUSE));
-Texture2D g_specular_texture : register(REG_T(SLOT_SRV_SPECULAR));
-Texture2D g_normal_texture   : register(REG_T(SLOT_SRV_NORMAL));
+TEXTURE_2D(g_diffuse_texture,  float4, SLOT_SRV_DIFFUSE);
+TEXTURE_2D(g_specular_texture, float4, SLOT_SRV_SPECULAR);
+TEXTURE_2D(g_normal_texture,   float3, SLOT_SRV_NORMAL);
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -57,7 +57,7 @@ OMInputDeferred PS(PSInputPositionNormalTexture input) {
 
 #ifdef TSNM
 	// Obtain the tangent-space normal coefficients in the [-1,1] range. 
-	const float3 c      = UNORMtoSNORM(g_normal_texture.Sample(g_variable_sampler0, input.tex2).xyz);
+	const float3 c      = UNORMtoSNORM(g_normal_texture.Sample(g_linear_wrap_sampler, input.tex2));
 	// Normalize the view-space normal.
 	const float3 n0     = normalize(input.n_view);
 	// Perturb the view-space normal.
@@ -76,7 +76,7 @@ OMInputDeferred PS(PSInputPositionNormalTexture input) {
 #ifdef DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
 	output.diffuse.xyz  = g_Kd;
 #else  // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
-	output.diffuse.xyz  = g_Kd * g_diffuse_texture.Sample(g_variable_sampler0, input.tex).xyz;
+	output.diffuse.xyz  = g_Kd * g_diffuse_texture.Sample(g_linear_wrap_sampler, input.tex).xyz;
 #endif // DISSABLE_DIFFUSE_REFLECTIVITY_TEXTURE
 
 	// Pack the 2nd BRDF dependent normalized material coefficient.
@@ -86,7 +86,7 @@ OMInputDeferred PS(PSInputPositionNormalTexture input) {
 #ifdef DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
 	output.specular.xyz = g_Ks;
 #else  // DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
-	output.specular.xyz = g_Ks * g_specular_texture.Sample(g_variable_sampler0, input.tex).xyz;
+	output.specular.xyz = g_Ks * g_specular_texture.Sample(g_linear_wrap_sampler, input.tex).xyz;
 #endif // DISSABLE_SPECULAR_REFLECTIVITY_TEXTURE
 	
 	// Pack the 1st BRDF dependent normalized material coefficient.

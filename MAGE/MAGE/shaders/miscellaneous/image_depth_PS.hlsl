@@ -4,10 +4,10 @@
 #include "global.hlsli"
 
 //-----------------------------------------------------------------------------
-// Textures
+// SRVs
 //-----------------------------------------------------------------------------
-Texture2D g_image_texture : register(REG_T(SLOT_SRV_IMAGE));
-Texture2D g_depth_texture : register(REG_T(SLOT_SRV_DEPTH));
+TEXTURE_2D(g_image_texture, float4, SLOT_SRV_IMAGE);
+TEXTURE_2D(g_depth_texture, float,  SLOT_SRV_DEPTH);
 
 //-----------------------------------------------------------------------------
 // Pixel Shader
@@ -15,6 +15,6 @@ Texture2D g_depth_texture : register(REG_T(SLOT_SRV_DEPTH));
 OMInputColorDepth PS(PSInputNDCPosition input) {
 	OMInputColorDepth output;
 	output.color = g_image_texture[input.p.xy];
-	output.depth = g_depth_texture[input.p.xy].x;
+	output.depth = g_depth_texture[input.p.xy];
 	return output;
 }

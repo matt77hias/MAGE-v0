@@ -72,11 +72,10 @@ float Min(float4 v) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) 
- to a signed normalized value ([-1,1] range).
+ Converts the given unsigned normalized value ([0,1] range) to a signed 
+ normalized value ([-1,1] range).
 
- @pre			The given value is an unsigned normalized value 
-				([0,1] range).
+ @pre			The given value is an unsigned normalized value ([0,1] range).
  @param[in]		v
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
@@ -86,11 +85,10 @@ float UNORMtoSNORM(float v) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) 
- to a signed normalized value ([-1,1] range).
+ Converts the given unsigned normalized value ([0,1] range) to a signed 
+ normalized value ([-1,1] range).
 
- @pre			The given value is an unsigned normalized value 
-				([0,1] range).
+ @pre			The given value is an unsigned normalized value ([0,1] range).
  @param[in]		v
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
@@ -100,11 +98,10 @@ float2 UNORMtoSNORM(float2 v) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) 
- to a signed normalized value ([-1,1] range).
+ Converts the given unsigned normalized value ([0,1] range) to a signed 
+ normalized value ([-1,1] range).
 
- @pre			The given value is an unsigned normalized value 
-				([0,1] range).
+ @pre			The given value is an unsigned normalized value ([0,1] range).
  @param[in]		v
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
@@ -114,11 +111,10 @@ float3 UNORMtoSNORM(float3 v) {
 }
 
 /**
- Converts the given unsigned normalized value ([0,1] range) 
- to a signed normalized value ([-1,1] range).
+ Converts the given unsigned normalized value ([0,1] range) to a signed 
+ normalized value ([-1,1] range).
 
- @pre			The given value is an unsigned normalized value 
-				([0,1] range).
+ @pre			The given value is an unsigned normalized value ([0,1] range).
  @param[in]		x
 				The unsigned normalized value ([0,1] range).
  @return		The signed normalized value ([-1,1] range).
@@ -128,11 +124,10 @@ float4 UNORMtoSNORM(float4 v) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) 
- to an unsigned normalized value ([0,1] range).
+ Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ normalized value ([0,1] range).
 
- @pre			The given value is a signed normalized value 
-				([-1,1] range).
+ @pre			The given value is a signed normalized value ([-1,1] range).
  @param[in]		x
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
@@ -142,11 +137,10 @@ float SNORMtoUNORM(float v) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) 
- to an unsigned normalized value ([0,1] range).
+ Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ normalized value ([0,1] range).
 
- @pre			The given value is a signed normalized value 
-				([-1,1] range).
+ @pre			The given value is a signed normalized value ([-1,1] range).
  @param[in]		v
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
@@ -156,11 +150,10 @@ float2 SNORMtoUNORM(float2 v) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) 
- to an unsigned normalized value ([0,1] range).
+ Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ normalized value ([0,1] range).
 
- @pre			The given value is a signed normalized value 
-				([-1,1] range).
+ @pre			The given value is a signed normalized value ([-1,1] range).
  @param[in]		v
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
@@ -170,11 +163,10 @@ float3 SNORMtoUNORM(float3 v) {
 }
 
 /**
- Converts the given signed normalized value ([-1,1] range) 
- to an unsigned normalized value ([0,1] range).
+ Converts the given signed normalized value ([-1,1] range) to an unsigned 
+ normalized value ([0,1] range).
 
- @pre			The given value is a signed normalized value 
-				([-1,1] range).
+ @pre			The given value is a signed normalized value ([-1,1] range).
  @param[in]		v
 				The signed normalized value ([-1,1] range).
  @return		The unsigned normalized value ([0,1] range).
@@ -190,8 +182,8 @@ float4 SNORMtoUNORM(float4 v) {
  @param[in]		n
 				The normal in the [0,1] range to convert.
  @return		The converted normal in the [-1,1] range.
- @note			If the given normal was normalized before packing,
-				the converted normal will be normalized after unpacking.
+ @note			If the given normal was normalized before packing, the converted 
+				normal will be normalized after unpacking.
  */
 float3 UnpackNormal(float3 n) {
 	return UNORMtoSNORM(n);
@@ -210,13 +202,13 @@ float3 PackNormal(float3 n) {
 }
 
 /**
- Converts the given (linear) view z-coordinate to 
- the (non-linear) NDC z-coordinate.
+ Converts the given (linear) view z-coordinate to the (non-linear) NDC 
+ z-coordinate.
 
  @param[in]		p_view_z
 				The (linear) view z-coordinate.
- @param[in]		The projection values 
-				[view_projection22, view_projection32].
+ @param[in]		projection_values
+				The projection values [view_projection22, view_projection32].
  @return		The (non-linear) NDC z-coordinate.
  */
 float ViewZtoNDCZ(float p_view_z, float2 projection_values) {
@@ -224,13 +216,13 @@ float ViewZtoNDCZ(float p_view_z, float2 projection_values) {
 }
 
 /**
- Converts the given (non-linear) NDC z-coordinate to 
- the (linear) view z-coordinate.
+ Converts the given (non-linear) NDC z-coordinate to the (linear) view 
+ z-coordinate.
 
  @param[in]		p_ndc_z
 				The (non-linear) NDC z-coordinate.
- @param[in]		The projection values 
-				[view_projection32, -view_projection22].
+ @param[in]		projection_values
+				The projection values [view_projection32, -view_projection22].
  @return		The (linear) view z-coordinate.
  */
 float NDCZtoViewZ(float p_ndc_z, float2 projection_values) {
@@ -242,8 +234,8 @@ float NDCZtoViewZ(float p_ndc_z, float2 projection_values) {
 
  @param[in]		p_ndc
 				The NDC coordinates.
- @param[in]		The projection values 
-				[1/view_projection00, 1/view_projection11, 
+ @param[in]		projection_values
+				The projection values [1/view_projection00, 1/view_projection11, 
 				view_projection32, -view_projection22].
  @return		The view coordinates.
  */
@@ -266,19 +258,76 @@ float2 NDCtoUV(float2 p_ndc_xy) {
 }
 
 /**
- Converts the given normalized dispatch thread id 
- to NDC coordinates.
+ Converts the given normalized dispatch thread id to NDC coordinates.
 
- @pre			@a normalized_id is normalized 
-				(i.e. in the [0,1] range).
+ @pre			@a normalized_id is normalized (i.e. in the [0,1] range).
  @param[in]		normalized_id
 				The normalized dispatch thread id.
  @return		The NDC coordinates.
  */
-float2 DispatchThreadIDtoNDC(float2 normalized_id) {
+float2 NormalizedDispatchThreadIDtoNDC(float2 normalized_id) {
 	// x: [0,1] -> [-1,1]
 	// y: [0,1] -> [1,-1]
 	return float2(2.0f, -2.0f) * normalized_id + float2(-1.0f, 1.0f);
+}
+
+/**
+ Performs gamma correction on the given RGB spectrum.
+
+ @pre			All components of @a rgb must be non-negative.
+ @param[in]		rgb
+				The RGB spectrum.
+ @param[in]		inv_gamma
+				The inverse of the gamma exponent.
+ @return		The gamma-corrected RGB spectrum corresponding to the given RGB 
+				spectrum.
+ */
+float3 GammaCorrect(float3 rgb, float inv_gamma) {
+	return pow(rgb, inv_gamma);
+}
+
+/**
+ Performs gamma recovery on the given RGB spectrum.
+
+ @pre			All components of @a rgb must be non-negative.
+ @param[in]		rgb
+				The gamma-corrected RGB spectrum.
+ @param[in]		gamma
+				The gamma exponent.
+ @return		The gamma-recovered RGB spectrum corresponding to the given 
+				gamma-corrected RGB spectrum.
+ */
+float3 GammaRecover(float3 rgb, float gamma) {
+	return pow(rgb, gamma);
+}
+
+/**
+ Flattens the given index.
+
+ @param[in]		index
+				The 2D index.
+ @param[in]		count
+				The number of y elements per x element.
+ @return		The flattened 1D index corresponding to the given 2D index
+				using x->y ordering.
+ */
+uint FlattenIndex(uint2 index, uint count) {
+	return index.x * count + index.y;
+}
+
+/**
+ Flattens the given index.
+
+ @param[in]		index
+				The 3D index.
+ @param[in]		count
+				The number of y elements per x element.
+				The number of z elements per y element.
+ @return		The flattened 1D index corresponding to the given 3D index
+				using x->y->z ordering.
+ */
+uint FlattenIndex(uint3 index, uint2 count) {
+	return FlattenIndex(index.xy, count.x) * count.y + index.z;
 }
 
 #endif //MAGE_HEADER_MATH

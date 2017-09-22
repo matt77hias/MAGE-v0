@@ -4,7 +4,6 @@
 #pragma region
 
 #include "scene\scene_renderer.hpp"
-#include "rendering\renderer.hpp"
 #include "rendering\rendering_state_cache.hpp"
 #include "resource\resource_factory.hpp"
 #include "math\view_frustum.hpp"
@@ -230,12 +229,7 @@ namespace mage {
 			world_to_projection, world_to_view, view_to_world);
 		
 		// Bind the blend state.
-		if (Renderer::Get()->HasMSAA()) {
-			RenderingStateCache::Get()->BindAlphaToCoverageBlendState(m_device_context);
-		}
-		else {
-			RenderingStateCache::Get()->BindAlphaBlendState(m_device_context);
-		}
+		RenderingStateCache::Get()->BindTransparentBlendState(m_device_context);
 		
 		// Process the transparent models.
 		ProcessModels(scene->GetTransparentEmissiveModels(), 

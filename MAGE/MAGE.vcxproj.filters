@@ -1035,6 +1035,9 @@
     <ClInclude Include="MAGE\src\shader\cso\sky\sky_PS.hpp">
       <Filter>Header Files\shader\cso\sky</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\game_buffer.hpp">
+      <Filter>Header Files\buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1715,6 +1718,9 @@
     </None>
     <None Include="MAGE\src\rendering\rendering_state_cache.tpp">
       <Filter>Header Files\rendering</Filter>
+    </None>
+    <None Include="MAGE\shaders\deferred_input.hlsli">
+      <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>
 </Project>

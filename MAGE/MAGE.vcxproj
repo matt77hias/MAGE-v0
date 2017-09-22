@@ -24,6 +24,7 @@
     <ClInclude Include="MAGE\src\binary\binary_writer.hpp" />
     <ClInclude Include="MAGE\src\buffer\constant_buffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\deferred_buffer.hpp" />
+    <ClInclude Include="MAGE\src\buffer\game_buffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\gbuffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\image_buffer.hpp" />
     <ClInclude Include="MAGE\src\buffer\light_buffer.hpp" />
@@ -420,6 +421,7 @@
       </EntryPointName>
       <FileType>Document</FileType>
     </None>
+    <None Include="MAGE\shaders\deferred_input.hlsli" />
     <None Include="MAGE\shaders\global.hlsli" />
     <None Include="MAGE\shaders\hlsl.hpp" />
     <None Include="MAGE\shaders\deferred.hlsli">

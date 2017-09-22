@@ -168,6 +168,17 @@ namespace mage {
 			"PCF sampling state creation failed: %08X.", result_pcf);
 	}
 
+	void RenderingStateCache::BindTransparentBlendState(
+		ID3D11DeviceContext2 *device_context) const noexcept {
+
+		if (Renderer::Get()->HasMSAA()) {
+			BindAlphaToCoverageBlendState(device_context);
+		}
+		else {
+			BindAlphaBlendState(device_context);
+		}
+	}
+
 	void RenderingStateCache::BindPersistentSamplers(
 		ID3D11DeviceContext2 *device_context) const noexcept {
 		

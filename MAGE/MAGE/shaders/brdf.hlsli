@@ -6,8 +6,8 @@
 //-----------------------------------------------------------------------------
 
 /**
- Calculates the dot product of two given unit vectors 
- and clamps negative values to 0.
+ Calculates the dot product of two given unit vectors and clamps negative 
+ values to 0.
 
  @pre			@a x is normalized.
  @pre			@a y is normalized.
@@ -15,16 +15,16 @@
 				The first unit vector.
  @param[in]		y
 				The second unit vector.
- @return		The dot product of the given unit vectors
-				clamped between 0 and 1 (i.e. clamped cosine).
+ @return		The dot product of the given unit vectors clamped between 0 
+				and 1 (i.e. clamped cosine).
  */
 float sat_dot(float3 x, float3 y) {
 	return saturate(dot(x, y));
 }
 
 /**
- Calculates the reflected direction of the given light direction
- about the given normal.
+ Calculates the reflected direction of the given light direction about the 
+ given normal.
 
  @pre			@a n is normalized.
  @pre			@a l is normalized.
@@ -32,8 +32,8 @@ float sat_dot(float3 x, float3 y) {
 				The surface normal.
  @param[in]		l
 				The light (hit-to-light) direction.
- @return		The normalized reflected vector of the given 
-				light direction about the given normal direction.
+ @return		The normalized reflected vector of the given light direction 
+				about the given normal direction.
 */
 float3 ReflectedDirection(float3 n, float3 l) {
 	return reflect(-l, n);
@@ -48,8 +48,8 @@ float3 ReflectedDirection(float3 n, float3 l) {
 				The light (hit-to-light) direction.
  @param[in]		v
 				The view (hit-to-eye) direction.
- @return		The normalized half direction between the given 
-				light and view direction.
+ @return		The normalized half direction between the given light and view 
+				direction.
 */
 float3 HalfDirection(float3 l, float3 v) {
 	// l+v / ||l+v||
@@ -58,7 +58,7 @@ float3 HalfDirection(float3 l, float3 v) {
 
 /**
  Calculates the Lambertian BRDFxCos intensity
- (independent of the diffuse reflectivity).
+(independent of the diffuse reflectivity).
 
  @pre			@a n is normalized.
  @pre			@a l is normalized.

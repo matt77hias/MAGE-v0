@@ -173,6 +173,5 @@ namespace mage {
 		const float x = XMVectorGetZ(projection_matrix.r[2]);
 		const float y = XMVectorGetZ(projection_matrix.r[3]);
 		return XMVectorSet(x, y, 0.0f, 0.0f);
-
 	}
 }

@@ -6,7 +6,7 @@
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-cbuffer PerFrame : register(REG_B(SLOT_CBUFFER_PER_FRAME)) {
+CBUFFER(PerFrame, SLOT_CBUFFER_PER_FRAME) {
 	// CAMERA
 	// The projection values of the view-to-projection transformation matrix.
 	// g_projection_values.x = 1 / view_to_projection00
@@ -19,9 +19,9 @@ cbuffer PerFrame : register(REG_B(SLOT_CBUFFER_PER_FRAME)) {
 }
 
 //-----------------------------------------------------------------------------
-// Textures
+// SRVs
 //-----------------------------------------------------------------------------
-TextureCube g_sky : register(REG_B(SLOT_SRV_TEXTURE));
+TEXTURE_CUBE(g_sky, float4, SLOT_SRV_TEXTURE);
 
 //-----------------------------------------------------------------------------
 // Pixel Shader

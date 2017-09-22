@@ -11,6 +11,15 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Engine Defines
+//-----------------------------------------------------------------------------
+#pragma region
+
+#define MAGE_DEFAULT_DISPLAY_GAMMA  2.2f
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -43,14 +52,19 @@ namespace mage {
 						The V-sync mode.
 		 @param[in]		nb_MSAA_samples
 						The number of MSAA samples.
+		 @param[in]		gamma
+						The gamma value.
 		 */
 		explicit DisplayConfiguration(
-			ComPtr< IDXGIAdapter2 > adapter, ComPtr< IDXGIOutput2 > output,
+			ComPtr< IDXGIAdapter2 > adapter, 
+			ComPtr< IDXGIOutput2 > output,
 			const DXGI_MODE_DESC1 &display_mode, 
-			bool windowed, bool vsync, UINT nb_MSAA_samples = 1)
+			bool windowed, bool vsync, 
+			UINT nb_MSAA_samples = 1,
+			float gamma = MAGE_DEFAULT_DISPLAY_GAMMA)
 			: m_adapter(adapter), m_output(output),
-			m_display_mode(display_mode), m_windowed(windowed), 
-			m_vsync(vsync), m_MSAA_sample_desc{} {
+			m_display_mode(display_mode), m_MSAA_sample_desc{}, 
+			m_windowed(windowed), m_vsync(vsync), m_gamma(gamma) {
 
 			SetMSAASampleDesc(nb_MSAA_samples);
 		}
@@ -316,6 +330,28 @@ namespace mage {
 			m_vsync = vsync;
 		}
 
+		/**
+		 Returns the gamma value used for gamma correction 
+		 of this display configuration.
+
+		 @return		The gamma value used for gamma correction 
+						of this display configuration.
+		 */
+		float GetGamma() const noexcept {
+			return m_gamma;
+		}
+
+		/**
+		 Sets the gamma value used for gamma correction 
+		 of this display configuration to the given value.
+
+		 @param[in]		gamma
+						The gamma value.
+		 */
+		void SetGamma(float gamma) noexcept {
+			m_gamma = gamma;
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -353,5 +389,10 @@ namespace mage {
 		 for this display configuration.
 		 */
 		bool m_vsync;
+
+		/**
+		 The gamma value used for gamma correction of this display configuration.
+		 */
+		float m_gamma;
 	};
 }

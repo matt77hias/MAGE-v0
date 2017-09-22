@@ -4,9 +4,9 @@
 #include "global.hlsli"
 
 //-----------------------------------------------------------------------------
-// Textures
+// SRVs
 //-----------------------------------------------------------------------------
-Texture2D g_image_texture : register(REG_T(SLOT_SRV_IMAGE));
+TEXTURE_2D(g_image_texture, float4, SLOT_SRV_IMAGE);
 
 //-----------------------------------------------------------------------------
 // Pixel Shader

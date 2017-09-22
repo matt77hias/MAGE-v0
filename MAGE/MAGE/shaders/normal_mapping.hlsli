@@ -2,11 +2,6 @@
 #define MAGE_HEADER_NORMAL_MAPPING
 
 //-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#include "math.hlsli"
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 
@@ -23,8 +18,8 @@
  */
 float3x3 CalculateTBN(float3 p, float3 n, float2 tex) {
 	// Calculates the edge differences.
-	const float3 dp_dj = ddx(p);
-	const float3 dp_di = ddy(p);
+	const float3 dp_dj   = ddx(p);
+	const float3 dp_di   = ddy(p);
 	const float2 dtex_dj = ddx(tex);
 	const float2 dtex_di = ddy(tex);
 
@@ -57,8 +52,7 @@ float3x3 CalculateTBN(float3 p, float3 n, float2 tex) {
  @param[in]		c
 				The tangent-space coefficients.
  */
-float3 PerturbNormal(
-	float3 p, float3 n, float2 tex, float3 c) {
+float3 PerturbNormal(float3 p, float3 n, float2 tex, float3 c) {
 
 	const float3x3 TBN = CalculateTBN(p, n, tex);
 

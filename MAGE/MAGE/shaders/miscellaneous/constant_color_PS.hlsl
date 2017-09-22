@@ -6,7 +6,7 @@
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-cbuffer Color : register(REG_B(SLOT_CBUFFER_COLOR)) {
+CBUFFER(Color, SLOT_CBUFFER_COLOR) {
 	float4 g_color : packoffset(c0);
 };
 

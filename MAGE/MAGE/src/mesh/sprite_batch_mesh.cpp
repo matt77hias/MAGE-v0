@@ -74,12 +74,16 @@ namespace mage {
 
 	HRESULT SpriteBatchMesh::MapVertexBuffer(ID3D11DeviceContext2 *device_context,
 		D3D11_MAP map_type, D3D11_MAPPED_SUBRESOURCE *mapped_buffer) {
+		
 		Assert(mapped_buffer);
 
-		return device_context->Map(m_vertex_buffer.Get(), 0, map_type, 0, mapped_buffer);
+		return Pipeline::Map(device_context, 
+			m_vertex_buffer.Get(), 0u, map_type, 0u, mapped_buffer);
 	}
 
 	void SpriteBatchMesh::UnmapVertexBuffer(ID3D11DeviceContext2 *device_context) {
-		device_context->Unmap(m_vertex_buffer.Get(), 0);
+		
+		Pipeline::Unmap(device_context, 
+			m_vertex_buffer.Get(), 0u);
 	}
 }

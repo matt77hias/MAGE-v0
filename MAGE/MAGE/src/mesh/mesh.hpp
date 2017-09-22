@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "memory\types.hpp"
 #include "rendering\pipeline.hpp"
-#include "core\engine_statistics.hpp"
 
 #pragma endregion
 
@@ -133,9 +133,12 @@ namespace mage {
 		void BindMesh(ID3D11DeviceContext2 *device_context, 
 			D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
 
-			IA::BindVertexBuffer(device_context, 0, m_vertex_buffer.Get(), static_cast< UINT >(m_vertex_size));
-			IA::BindIndexBuffer(device_context, m_index_buffer.Get(), m_index_format);
-			IA::BindPrimitiveTopology(device_context, topology);
+			IA::BindVertexBuffer(device_context, 
+				0, m_vertex_buffer.Get(), static_cast< UINT >(m_vertex_size));
+			IA::BindIndexBuffer(device_context, 
+				m_index_buffer.Get(), m_index_format);
+			IA::BindPrimitiveTopology(device_context, 
+				topology);
 		}
 
 		/**
@@ -146,10 +149,10 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void Draw(ID3D11DeviceContext2 *device_context) const noexcept {
-			device_context->DrawIndexed(
-				static_cast< UINT >(m_nb_indices), 0, 0);
 			
-			EngineStatistics::Get()->IncrementNumberOfDrawCalls();
+			Pipeline::DrawIndexed(device_context,
+				static_cast< UINT >(m_nb_indices), 
+				0u);
 		}
 		
 		/**
@@ -166,10 +169,9 @@ namespace mage {
 		void Draw(ID3D11DeviceContext2 *device_context,
 			size_t start_index, size_t nb_indices) const noexcept {
 
-			device_context->DrawIndexed(
-				static_cast< UINT >(nb_indices), static_cast< UINT >(start_index), 0);
-			
-			EngineStatistics::Get()->IncrementNumberOfDrawCalls();
+			Pipeline::DrawIndexed(device_context,
+				static_cast< UINT >(nb_indices), 
+				static_cast< UINT >(start_index));
 		}
 
 	protected:

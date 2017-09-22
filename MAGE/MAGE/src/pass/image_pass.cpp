@@ -6,7 +6,6 @@
 #include "scene\scene_renderer.hpp"
 #include "rendering\rendering_state_cache.hpp"
 #include "resource\resource_factory.hpp"
-#include "core\engine_statistics.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -56,11 +55,12 @@ namespace mage {
 	}
 
 	void ImagePass::Render() const noexcept {
+		
 		// Bind the primitive topology.
 		IA::BindPrimitiveTopology(m_device_context, 
 			D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		
 		// Draw the fullscreen triangle.
-		m_device_context->Draw(3u, 0u);
-		EngineStatistics::Get()->IncrementNumberOfDrawCalls();
+		Pipeline::Draw(m_device_context, 3u, 0u);
 	}
 }

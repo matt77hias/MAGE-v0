@@ -44,7 +44,7 @@ namespace mage {
 		Assert(m_buffer);
 
 		D3D11_MAPPED_SUBRESOURCE mapped_buffer;
-		const HRESULT result = device_context->Map(
+		const HRESULT result = Pipeline::Map(device_context,
 			m_buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped_buffer);
 		Assert(SUCCEEDED(result));
 

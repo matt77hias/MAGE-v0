@@ -1749,6 +1749,95 @@ namespace mage {
 		// Class Member Methods
 		//---------------------------------------------------------------------
 
+		static void DrawAuto(ID3D11DeviceContext2 *device_context) noexcept {
+			device_context->DrawAuto();
+			OnDraw();
+		}
+
+		static void Draw(ID3D11DeviceContext2 *device_context,
+			UINT nb_vertices, UINT vertex_start) noexcept {
+
+			device_context->Draw(nb_vertices, vertex_start);
+			OnDraw();
+		}
+
+		static void DrawInstanced(ID3D11DeviceContext2 *device_context,
+			UINT nb_indices_per_instance, UINT nb_instances,
+			UINT vertex_start, UINT instance_start = 0u) noexcept {
+
+			device_context->DrawInstanced(nb_indices_per_instance,
+				nb_instances, vertex_start, instance_start);
+			OnDraw();
+		}
+
+		static void DrawIndexed(ID3D11DeviceContext2 *device_context,
+			UINT nb_indices, UINT index_start, UINT index_offset = 0u) noexcept {
+
+			device_context->DrawIndexed(nb_indices, index_start, index_offset);
+			OnDraw();
+		}
+
+		static void DrawIndexedInstanced(ID3D11DeviceContext2 *device_context,
+			UINT nb_indices_per_instance, UINT nb_instances, UINT index_start, 
+			UINT index_offset = 0u, UINT instance_start = 0u) noexcept {
+
+			device_context->DrawIndexedInstanced(nb_indices_per_instance,
+				nb_instances, index_start, index_offset, instance_start);
+			OnDraw();
+		}
+
+		static void Dispatch(ID3D11DeviceContext2 *device_context,
+			UINT nb_thread_groups_x, UINT nb_thread_groups_y, 
+			UINT nb_thread_groups_z) noexcept {
+
+			device_context->Dispatch(
+				nb_thread_groups_x, nb_thread_groups_y, nb_thread_groups_z);
+		}
+
+		static void DrawInstancedIndirect(ID3D11DeviceContext2 *device_context,
+			ID3D11Buffer *buffer, UINT byte_offset) noexcept {
+
+			device_context->DrawInstancedIndirect(buffer, byte_offset);
+			OnDraw();
+		}
+
+		static void DrawIndexedInstancedIndirect(ID3D11DeviceContext2 *device_context,
+			ID3D11Buffer *buffer, UINT byte_offset) noexcept {
+
+			device_context->DrawIndexedInstancedIndirect(buffer, byte_offset);
+			OnDraw();
+		}
+
+		static void DispatchIndirect(ID3D11DeviceContext2 *device_context,
+			ID3D11Buffer *buffer, UINT byte_offset) noexcept {
+
+			device_context->DispatchIndirect(buffer, byte_offset);
+		}
+
+		static HRESULT Map(ID3D11DeviceContext2 *device_context,
+			ID3D11Resource *resource, UINT subresource,
+			D3D11_MAP map_type, UINT map_flags,
+			D3D11_MAPPED_SUBRESOURCE *mapped_resource) noexcept {
+
+			return device_context->Map(resource, subresource, 
+				map_type, map_flags, mapped_resource);
+		}
+
+		static void Unmap(ID3D11DeviceContext2 *device_context,
+			ID3D11Resource *resource, UINT subresource) noexcept {
+
+			device_context->Unmap(resource, subresource);
+		}
+
+		static void UpdateSubresource(ID3D11DeviceContext2 *device_context,
+			ID3D11Resource *dst_resource, UINT dst_subresource,
+			const void *src_data, UINT src_row_pitch, UINT src_depth_pitch,
+			const D3D11_BOX *dst_box = nullptr) noexcept {
+
+			device_context->UpdateSubresource(dst_resource, dst_subresource,
+				dst_box, src_data, src_row_pitch, src_depth_pitch);
+		}
+
 		/**
 		 Binds a constant buffer to all shader stages.
 		 
@@ -1932,6 +2021,8 @@ namespace mage {
 		Pipeline &operator=(Pipeline &&pipeline) = delete;
 
 	private:
+
+		static void OnDraw() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors

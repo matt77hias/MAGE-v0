@@ -3,6 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "core\engine_statistics.hpp"
 #include "rendering\renderer.hpp"
 #include "logging\error.hpp"
 
@@ -23,5 +24,9 @@ namespace mage {
 		Assert(Renderer::Get());
 
 		return Renderer::Get()->GetDeviceContext();
+	}
+
+	void Pipeline::OnDraw() noexcept {
+		EngineStatistics::Get()->IncrementNumberOfDrawCalls();
 	}
 }

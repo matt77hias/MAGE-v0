@@ -197,27 +197,7 @@ namespace mage {
 		};
 
 		// Bind the samplers.
-		VS::BindSamplers(device_context,
-			SLOT_SAMPLER_PERSISTENT_START,
-			SLOT_SAMPLER_PERSISTENT_COUNT,
-			samplers);
-		DS::BindSamplers(device_context,
-			SLOT_SAMPLER_PERSISTENT_START,
-			SLOT_SAMPLER_PERSISTENT_COUNT,
-			samplers);
-		HS::BindSamplers(device_context,
-			SLOT_SAMPLER_PERSISTENT_START,
-			SLOT_SAMPLER_PERSISTENT_COUNT,
-			samplers);
-		GS::BindSamplers(device_context,
-			SLOT_SAMPLER_PERSISTENT_START,
-			SLOT_SAMPLER_PERSISTENT_COUNT,
-			samplers);
-		PS::BindSamplers(device_context,
-			SLOT_SAMPLER_PERSISTENT_START, 
-			SLOT_SAMPLER_PERSISTENT_COUNT,
-			samplers);
-		CS::BindSamplers(device_context,
+		Pipeline::BindSamplers(device_context,
 			SLOT_SAMPLER_PERSISTENT_START,
 			SLOT_SAMPLER_PERSISTENT_COUNT,
 			samplers);

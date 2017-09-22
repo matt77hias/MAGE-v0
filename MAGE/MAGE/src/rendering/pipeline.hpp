@@ -1735,4 +1735,211 @@ namespace mage {
 		CS(CS &&cs) = delete;
 		~CS() = delete;
 	};
+
+	//-------------------------------------------------------------------------
+	// Pipeline
+	//-------------------------------------------------------------------------
+
+	/**
+	 The (rendering and compute) pipeline.
+	 */
+	struct Pipeline final {
+
+		//---------------------------------------------------------------------
+		// Class Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Binds a constant buffer to all shader stages.
+		 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array to set 
+						the constant buffer to (ranges from 0 to 
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+		 @param[in]		buffer
+						A pointer to the constant buffer.
+		 */
+		static void BindConstantBuffer(ID3D11DeviceContext2 *device_context,
+			UINT slot, ID3D11Buffer *buffer) noexcept {
+				
+			VS::BindConstantBuffer(device_context, slot, buffer);
+			HS::BindConstantBuffer(device_context, slot, buffer);
+			DS::BindConstantBuffer(device_context, slot, buffer);
+			GS::BindConstantBuffer(device_context, slot, buffer);
+			PS::BindConstantBuffer(device_context, slot, buffer);
+			CS::BindConstantBuffer(device_context, slot, buffer);
+		}
+		
+		/**
+		 Binds an array of constant buffers to all shader stages.
+		 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
+		 @pre			@a nb_buffers < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT
+						- @a slot.
+		 @pre			@a buffers points to an array containing at least 
+						@a nb_buffers pointers to a constant buffer.	
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array to begin 
+						setting constant buffers to (ranges from 0 to 
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+		 @param[in]		nb_buffers
+						The number of constant buffers in the array (ranges from 
+						0 to @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT  
+						- @a slot).
+		 @param[in]		buffers
+						A pointer to an array of constant buffers.
+		 */
+		static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,
+			UINT slot, UINT nb_buffers, ID3D11Buffer * const *buffers) noexcept {
+				
+			VS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
+			HS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
+			DS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
+			GS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
+			PS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
+			CS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
+		}
+		
+		/**
+		 Binds a shader resource view to all shader stages.
+		 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array to set 
+						the shader resource view to (ranges from 0 to 
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+		 @param[in]		srv
+						A pointer to the shader resource view.
+		 */
+		static void BindSRV(ID3D11DeviceContext2 *device_context,
+			UINT slot, ID3D11ShaderResourceView *srv) noexcept {
+				
+			VS::BindSRV(device_context, slot, srv);
+			HS::BindSRV(device_context, slot, srv);
+			DS::BindSRV(device_context, slot, srv);
+			GS::BindSRV(device_context, slot, srv);
+			PS::BindSRV(device_context, slot, srv);
+			CS::BindSRV(device_context, slot, srv);
+		}
+
+		/**
+		 Binds an array of shader resource views to all shaders stage.
+		 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
+		 @pre			@a nb_srvs < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT
+						- @a slot.
+		 @pre			@a srvs points to an array containing at least 
+						@a nb_srvs pointers to a shader resource view.				
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array to begin 
+						setting shader resource views to (ranges from 0 to 
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+		 @param[in]		nb_srvs
+						The number of shader resource views in the array. Up 
+						to a maximum of 128 slots are available for shader 
+						resource views (ranges from 0 to 
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - @a slot).
+		 @param[in]		srvs
+						A pointer to an array of shader resource views.
+		 */
+		static void BindSRVs(ID3D11DeviceContext2 *device_context, 
+			UINT slot, UINT nb_srvs, ID3D11ShaderResourceView * const *srvs) noexcept {
+				
+			VS::BindSRVs(device_context, slot, nb_srvs, srvs);
+			HS::BindSRVs(device_context, slot, nb_srvs, srvs);
+			DS::BindSRVs(device_context, slot, nb_srvs, srvs);
+			GS::BindSRVs(device_context, slot, nb_srvs, srvs);
+			PS::BindSRVs(device_context, slot, nb_srvs, srvs);
+			CS::BindSRVs(device_context, slot, nb_srvs, srvs);
+		}
+
+		/**
+		 Binds a sampler to all shader stages.
+		 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array to set 
+						the sampler to (ranges from 0 to 
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+		 @param[in]		sampler
+						A pointer to the sampler.
+		 */
+		static void BindSampler(ID3D11DeviceContext2 *device_context, 
+			UINT slot, ID3D11SamplerState *sampler) noexcept {
+				
+			VS::BindSampler(device_context, slot, sampler);
+			HS::BindSampler(device_context, slot, sampler);
+			DS::BindSampler(device_context, slot, sampler);
+			GS::BindSampler(device_context, slot, sampler);
+			PS::BindSampler(device_context, slot, sampler);
+			CS::BindSampler(device_context, slot, sampler);
+		}
+		
+		/**
+		 Binds an array of samplers to all shader stages.
+		 
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@a slot < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT.
+		 @pre			@a nb_samplers < @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT 
+						- @a slot.
+		 @pre			@a samplers points to an array containing at least 
+						@a nb_samplers pointers to a sampler.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array to begin 
+						setting samplers to (ranges from 0 to 
+						@c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).
+		 @param[in]		nb_samplers
+						The number of samplers in the array. Each pipeline stage 
+						has a total of 16 sampler slots available (ranges from 
+						0 to @c D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - @a slot).
+		 @param[in]		samplers
+						A pointer to an array of samplers.
+		 */
+		static void BindSamplers(ID3D11DeviceContext2 *device_context, 
+			UINT slot, UINT nb_samplers, ID3D11SamplerState * const *samplers) noexcept {
+				
+			VS::BindSamplers(device_context, slot, nb_samplers, samplers);
+			HS::BindSamplers(device_context, slot, nb_samplers, samplers);
+			DS::BindSamplers(device_context, slot, nb_samplers, samplers);
+			GS::BindSamplers(device_context, slot, nb_samplers, samplers);
+			PS::BindSamplers(device_context, slot, nb_samplers, samplers);
+			CS::BindSamplers(device_context, slot, nb_samplers, samplers);
+		}
+
+		//---------------------------------------------------------------------
+		// Assignment Operators
+		//---------------------------------------------------------------------
+
+		Pipeline &operator=(const Pipeline &pipeline) = delete;
+		Pipeline &operator=(Pipeline &&pipeline) = delete;
+
+	private:
+
+		//---------------------------------------------------------------------
+		// Constructors and Destructors
+		//---------------------------------------------------------------------
+
+		Pipeline() = delete;
+		Pipeline(const Pipeline &pipeline) = delete;
+		Pipeline(Pipeline &&pipeline) = delete;
+		~Pipeline() = delete;
+	};
 }

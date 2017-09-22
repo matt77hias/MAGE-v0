@@ -66,17 +66,7 @@ namespace mage {
 		// Update the game buffer.
 		m_game_buffer.UpdateData(m_device_context, game_buffer);
 		// Bind the game buffer.
-		VS::BindConstantBuffer(m_device_context, 
-			SLOT_CBUFFER_GAME, m_game_buffer.Get());
-		HS::BindConstantBuffer(m_device_context,
-			SLOT_CBUFFER_GAME, m_game_buffer.Get());
-		DS::BindConstantBuffer(m_device_context,
-			SLOT_CBUFFER_GAME, m_game_buffer.Get());
-		GS::BindConstantBuffer(m_device_context,
-			SLOT_CBUFFER_GAME, m_game_buffer.Get());
-		PS::BindConstantBuffer(m_device_context,
-			SLOT_CBUFFER_GAME, m_game_buffer.Get());
-		CS::BindConstantBuffer(m_device_context,
+		Pipeline::BindConstantBuffer(m_device_context, 
 			SLOT_CBUFFER_GAME, m_game_buffer.Get());
 	}
 

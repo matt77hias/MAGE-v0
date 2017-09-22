@@ -1,7 +1,7 @@
 #---------------------------------#
 #      General Configuration      #
 #---------------------------------#
-version: 0.70.{build}
+version: 0.71.{build}
 
 branches:
   only:

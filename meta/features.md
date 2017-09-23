@@ -39,6 +39,7 @@
   * Non-hierarchical
 * Lighting
   * Single pass for all lights which require and do not require shadow mapping
+  * Linear fog
 * Normal Mapping
   * Tangent-space
   * ~~Object-space~~ (*not supported any more*)
@@ -57,6 +58,7 @@
   * Depth and slope biasing
   * PCF filtering
   * Omni lights and spotlights
+* Sky Domes
 * Sprites
 * Transparency
   * Alpha-to-Coverage (for both forward and deferred shading)

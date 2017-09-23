@@ -54,8 +54,8 @@ namespace mage {
 		m_deferred_buffer.UpdateData(m_device_context, 
 			buffer);
 		// Bind the deferred buffer.
-		Pipeline::CS::BindConstantBuffer(m_device_context,
-			SLOT_CBUFFER_PER_FRAME, m_deferred_buffer.Get());
+		m_deferred_buffer.Bind< Pipeline::CS >(
+			m_device_context, SLOT_CBUFFER_PER_FRAME);
 	}
 
 	void DeferredShadingPass::BindFixedState(BRDFType brdf) {

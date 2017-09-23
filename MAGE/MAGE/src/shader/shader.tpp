@@ -40,7 +40,7 @@ namespace mage {
 	Shader< ShaderT, PipelineStageT >::~Shader() = default;
 
 	template<>
-	void Shader< ID3D11HullShader, Pipeline::HS >
+	inline void Shader< ID3D11HullShader, Pipeline::HS >
 		::SetupShader(ID3D11Device2 *device, 
 			const CompiledShader *compiled_shader) {
 		
@@ -56,7 +56,7 @@ namespace mage {
 	}
 
 	template<>
-	void Shader< ID3D11DomainShader, Pipeline::DS >
+	inline void Shader< ID3D11DomainShader, Pipeline::DS >
 		::SetupShader(ID3D11Device2 *device, 
 			const CompiledShader *compiled_shader) {
 
@@ -72,7 +72,7 @@ namespace mage {
 	}
 
 	template<>
-	void Shader< ID3D11GeometryShader, Pipeline::GS >
+	inline void Shader< ID3D11GeometryShader, Pipeline::GS >
 		::SetupShader(ID3D11Device2 *device, 
 			const CompiledShader *compiled_shader) {
 
@@ -88,7 +88,7 @@ namespace mage {
 	}
 
 	template<>
-	void Shader< ID3D11PixelShader, Pipeline::PS >
+	inline void Shader< ID3D11PixelShader, Pipeline::PS >
 		::SetupShader(ID3D11Device2 *device, 
 			const CompiledShader *compiled_shader) {
 
@@ -104,7 +104,7 @@ namespace mage {
 	}
 
 	template<>
-	void Shader< ID3D11ComputeShader, Pipeline::CS >
+	inline void Shader< ID3D11ComputeShader, Pipeline::CS >
 		::SetupShader(ID3D11Device2 *device, 
 			const CompiledShader *compiled_shader) {
 

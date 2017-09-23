@@ -43,8 +43,8 @@ namespace mage {
 		m_projection_buffer.UpdateData(m_device_context, 
 			XMMatrixTranspose(view_to_projection));
 		// Bind the projection buffer.
-		Pipeline::VS::BindConstantBuffer(m_device_context,
-			SLOT_CBUFFER_PER_FRAME, m_projection_buffer.Get());
+		m_projection_buffer.Bind< Pipeline::VS >(
+			m_device_context, SLOT_CBUFFER_PER_FRAME);
 	}
 
 	void XM_CALLCONV ConstantShadingPass::BindModelData(
@@ -66,10 +66,10 @@ namespace mage {
 		m_model_buffer.UpdateData(m_device_context, 
 			buffer);
 		// Bind the model buffer.
-		Pipeline::VS::BindConstantBuffer(m_device_context, 
-			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
-		Pipeline::PS::BindConstantBuffer(m_device_context, 
-			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
+		m_model_buffer.Bind< Pipeline::VS >(
+			m_device_context, SLOT_CBUFFER_PER_DRAW);
+		m_model_buffer.Bind< Pipeline::PS >(
+			m_device_context, SLOT_CBUFFER_PER_DRAW);
 	}
 
 	void ConstantShadingPass::BindFixedState() {

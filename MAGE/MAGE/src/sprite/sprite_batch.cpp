@@ -181,11 +181,11 @@ namespace mage {
 		}
 
 		// Updates the transform (for a complete batch).
-		m_transform_buffer.UpdateData(m_device_context, XMMatrixTranspose(m_transform));
-
+		m_transform_buffer.UpdateData(m_device_context, 
+			XMMatrixTranspose(m_transform));
 		// Bind the transform buffer.
-		Pipeline::VS::BindConstantBuffer(m_device_context,
-			SLOT_CBUFFER_PER_FRAME, m_transform_buffer.Get());
+		m_transform_buffer.Bind< Pipeline::VS >(
+			m_device_context, SLOT_CBUFFER_PER_FRAME);
 		// Binds the mesh.
 		m_mesh->BindMesh(m_device_context);
 	}

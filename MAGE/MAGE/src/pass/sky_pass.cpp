@@ -44,8 +44,8 @@ namespace mage {
 		// Update the transform buffer.
 		m_transform_buffer.UpdateData(m_device_context, buffer);
 		// Bind the transform buffer.
-		Pipeline::PS::BindConstantBuffer(m_device_context,
-			SLOT_CBUFFER_PER_FRAME, m_transform_buffer.Get());
+		m_transform_buffer.Bind< Pipeline::PS >(
+			m_device_context, SLOT_CBUFFER_PER_FRAME);
 	}
 
 	void SkyPass::BindFixedState() const noexcept {

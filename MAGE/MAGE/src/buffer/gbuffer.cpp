@@ -104,7 +104,8 @@ namespace mage {
 		const HRESULT result_texture = device->CreateTexture2D(
 			&texture_desc, nullptr, 
 			texture.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_texture, "Texture 2D creation failed: %08X.", result_texture);
+		ThrowIfFailed(result_texture, 
+			"Texture 2D creation failed: %08X.", result_texture);
 
 		// Create the DSV descriptor.
 		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
@@ -115,7 +116,8 @@ namespace mage {
 		const HRESULT result_dsv = device->CreateDepthStencilView(
 			texture.Get(), &dsv_desc,
 			m_dsv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_dsv, "DSV creation failed: %08X.", result_dsv);
+		ThrowIfFailed(result_dsv, 
+			"DSV creation failed: %08X.", result_dsv);
 
 		// Create the SRV descriptor.
 		D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
@@ -127,7 +129,8 @@ namespace mage {
 		const HRESULT result_srv = device->CreateShaderResourceView(
 			texture.Get(), &srv_desc,
 			m_srvs[static_cast< UINT >(GBufferIndex::Depth)].ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_srv, "SRV creation failed: %08X.", result_srv);
+		ThrowIfFailed(result_srv, 
+			"SRV creation failed: %08X.", result_srv);
 	}
 	
 	void GBuffer::SetupDiffuseBuffer(ID3D11Device2 *device,
@@ -173,18 +176,21 @@ namespace mage {
 		const HRESULT result_texture = device->CreateTexture2D(
 			&texture_desc, nullptr, 
 			texture.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_texture, "Texture 2D creation failed: %08X.", result_texture);
+		ThrowIfFailed(result_texture, 
+			"Texture 2D creation failed: %08X.", result_texture);
 
 		// Create the RTV.
 		const HRESULT result_rtv = device->CreateRenderTargetView(
 			texture.Get(), nullptr,
 			m_rtvs[index].ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_rtv, "RTV creation failed: %08X.", result_rtv);
+		ThrowIfFailed(result_rtv, 
+			"RTV creation failed: %08X.", result_rtv);
 
 		// Create the SRV.
 		const HRESULT result_srv = device->CreateShaderResourceView(
 			texture.Get(), nullptr,
 			m_srvs[index].ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_srv, "SRV creation failed: %08X.", result_srv);
+		ThrowIfFailed(result_srv, 
+			"SRV creation failed: %08X.", result_srv);
 	}
 }

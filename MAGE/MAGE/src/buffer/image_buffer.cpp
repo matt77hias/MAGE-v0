@@ -73,18 +73,21 @@ namespace mage {
 		const HRESULT result_texture = device->CreateTexture2D(
 			&texture_desc, nullptr, 
 			texture.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_texture, "Texture 2D creation failed: %08X.", result_texture);
+		ThrowIfFailed(result_texture, 
+			"Texture 2D creation failed: %08X.", result_texture);
 
 		// Create the UAV.
 		const HRESULT result_uav = device->CreateUnorderedAccessView(
 			texture.Get(), nullptr,
 			m_uav.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_uav, "UAV creation failed: %08X.", result_uav);
+		ThrowIfFailed(result_uav, 
+			"UAV creation failed: %08X.", result_uav);
 
 		// Create the SRV.
 		const HRESULT result_srv = device->CreateShaderResourceView(
 			texture.Get(), nullptr,
 			m_srv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_srv, "SRV creation failed: %08X.", result_srv);
+		ThrowIfFailed(result_srv, 
+			"SRV creation failed: %08X.", result_srv);
 	}
 }

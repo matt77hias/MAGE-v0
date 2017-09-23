@@ -41,7 +41,7 @@ namespace mage {
 		// Bind the vertex shader.
 		m_opaque_vs->BindShader(m_device_context);
 		// Bind no pixel shader.
-		PS::BindShader(m_device_context, nullptr);
+		Pipeline::PS::BindShader(m_device_context, nullptr);
 	}
 
 	void DepthPass::BindTransparentModelShaders() const noexcept {
@@ -58,7 +58,7 @@ namespace mage {
 		m_projection_buffer.UpdateData(m_device_context, 
 			XMMatrixTranspose(view_to_projection));
 		// Bind the projection buffer.
-		VS::BindConstantBuffer(m_device_context,
+		Pipeline::VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_FRAME, m_projection_buffer.Get());
 	}
 
@@ -69,7 +69,7 @@ namespace mage {
 		m_opaque_model_buffer.UpdateData(m_device_context,
 			XMMatrixTranspose(object_to_view));
 		// Bind the model buffer.
-		VS::BindConstantBuffer(m_device_context,
+		Pipeline::VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_DRAW, m_opaque_model_buffer.Get());
 	}
 
@@ -86,7 +86,7 @@ namespace mage {
 		m_transparent_model_buffer.UpdateData(m_device_context,
 			transform);
 		// Bind the model buffer.
-		VS::BindConstantBuffer(m_device_context,
+		Pipeline::VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_DRAW, m_transparent_model_buffer.Get());
 
 		XMVECTOR dissolve = { material->GetDissolve(), 0.0f, 0.0f, 0.0f };
@@ -95,11 +95,11 @@ namespace mage {
 		m_dissolve_buffer.UpdateData(m_device_context,
 			dissolve);
 		// Bind the dissolve buffer.
-		PS::BindConstantBuffer(m_device_context,
+		Pipeline::PS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_DRAW, m_dissolve_buffer.Get());
 
 		// Bind the diffuse SRV.
-		PS::BindSRV(m_device_context,
+		Pipeline::PS::BindSRV(m_device_context,
 			SLOT_SRV_DIFFUSE, material->GetDiffuseReflectivitySRV());
 	}
 

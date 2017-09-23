@@ -76,10 +76,10 @@ namespace mage {
 		ID3D11ShaderResourceView * const srvs[3] = {};
 
 		// Unbind the shadow map SRVs.
-		PS::BindSRVs(m_device_context,
+		Pipeline::PS::BindSRVs(m_device_context,
 			SLOT_SRV_SHADOW_MAPS_START,
 			_countof(srvs), srvs);
-		CS::BindSRVs(m_device_context,
+		Pipeline::CS::BindSRVs(m_device_context,
 			SLOT_SRV_SHADOW_MAPS_START,
 			_countof(srvs), srvs);
 	}
@@ -98,21 +98,21 @@ namespace mage {
 		};
 
 		// Bind no RTV and DSV.
-		OM::BindRTVAndDSV(m_device_context, nullptr, nullptr);
+		Pipeline::OM::BindRTVAndDSV(m_device_context, nullptr, nullptr);
 
 		// Bind constant buffer.
-		PS::BindConstantBuffer(m_device_context,
+		Pipeline::PS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_LIGHTING,
 			m_light_buffer.Get());
-		CS::BindConstantBuffer(m_device_context,
+		Pipeline::CS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_LIGHTING,
 			m_light_buffer.Get());
 		
 		// Bind the SRVs.
-		PS::BindSRVs(m_device_context,
+		Pipeline::PS::BindSRVs(m_device_context,
 			SLOT_SRV_LIGHTS_START,
 			_countof(srvs), srvs);
-		CS::BindSRVs(m_device_context,
+		Pipeline::CS::BindSRVs(m_device_context,
 			SLOT_SRV_LIGHTS_START,
 			_countof(srvs), srvs);
 	}

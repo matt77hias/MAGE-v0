@@ -184,7 +184,7 @@ namespace mage {
 		m_transform_buffer.UpdateData(m_device_context, XMMatrixTranspose(m_transform));
 
 		// Bind the transform buffer.
-		VS::BindConstantBuffer(m_device_context,
+		Pipeline::VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_FRAME, m_transform_buffer.Get());
 		// Binds the mesh.
 		m_mesh->BindMesh(m_device_context);
@@ -275,7 +275,7 @@ namespace mage {
 		const SpriteInfo * const *sprites, size_t nb_sprites) {
 
 		// Binds the texture.
-		PS::BindSRV(m_device_context, 
+		Pipeline::PS::BindSRV(m_device_context, 
 			SLOT_SRV_SPRITE, texture);
 
 		const XMVECTOR texture_size = GetTexture2DSize(texture);

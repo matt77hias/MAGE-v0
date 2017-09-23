@@ -133,11 +133,11 @@ namespace mage {
 		void BindMesh(ID3D11DeviceContext2 *device_context, 
 			D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
 
-			IA::BindVertexBuffer(device_context, 
+			Pipeline::IA::BindVertexBuffer(device_context, 
 				0, m_vertex_buffer.Get(), static_cast< UINT >(m_vertex_size));
-			IA::BindIndexBuffer(device_context, 
+			Pipeline::IA::BindIndexBuffer(device_context, 
 				m_index_buffer.Get(), m_index_format);
-			IA::BindPrimitiveTopology(device_context, 
+			Pipeline::IA::BindPrimitiveTopology(device_context, 
 				topology);
 		}
 

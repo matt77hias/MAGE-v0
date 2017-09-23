@@ -33,27 +33,27 @@ namespace mage {
 		// Collect the SRVs.
 		ID3D11ShaderResourceView * const srvs[GetNumberOfSRVs()] = {};
 		// Bind no SRVs.
-		PS::BindSRVs(device_context,
+		Pipeline::PS::BindSRVs(device_context,
 			SLOT_SRV_GBUFFER_START, GetNumberOfSRVs(), srvs);
-		CS::BindSRVs(device_context,
+		Pipeline::CS::BindSRVs(device_context,
 			SLOT_SRV_GBUFFER_START, GetNumberOfSRVs(), srvs);
 		
 		// Collect and clear the RTVs.
 		ID3D11RenderTargetView *rtvs[GetNumberOfRTVs()];
 		for (UINT i = 0; i < GetNumberOfRTVs(); ++i) {
 			rtvs[i] = m_rtvs[i].Get();
-			OM::ClearRTV(device_context, rtvs[i], color);
+			Pipeline::OM::ClearRTV(device_context, rtvs[i], color);
 		}
 		// Clear the DSV.
-		OM::ClearDSV(device_context, m_dsv.Get());
+		Pipeline::OM::ClearDSV(device_context, m_dsv.Get());
 		// Bind the RTVs and DSV.
-		OM::BindRTVsAndDSV(device_context, GetNumberOfRTVs(), rtvs, m_dsv.Get());
+		Pipeline::OM::BindRTVsAndDSV(device_context, GetNumberOfRTVs(), rtvs, m_dsv.Get());
 	}
 
 	void GBuffer::BindUnpacking(ID3D11DeviceContext2 *device_context) noexcept {
 		
 		// Bind no RTVs and no DSV.
-		OM::BindRTVAndDSV(device_context, nullptr, nullptr);
+		Pipeline::OM::BindRTVAndDSV(device_context, nullptr, nullptr);
 
 		// Collect the SRVs.
 		ID3D11ShaderResourceView *srvs[GetNumberOfSRVs()];
@@ -61,9 +61,9 @@ namespace mage {
 			srvs[i] = m_srvs[i].Get();
 		}
 		// Bind the SRVs.
-		PS::BindSRVs(device_context,
+		Pipeline::PS::BindSRVs(device_context,
 			SLOT_SRV_GBUFFER_START, GetNumberOfSRVs(), srvs);
-		CS::BindSRVs(device_context, 
+		Pipeline::CS::BindSRVs(device_context, 
 			SLOT_SRV_GBUFFER_START, GetNumberOfSRVs(), srvs);
 	}
 

@@ -193,7 +193,7 @@ namespace mage {
 		const Renderer * const renderer = Renderer::Get();
 
 		// Bind no RTV and the depth buffer DSV.
-		OM::BindRTVAndDSV(m_device_context, nullptr, 
+		Pipeline::OM::BindRTVAndDSV(m_device_context, nullptr, 
 			renderer->GetDepthBufferDSV());
 		
 		// Perform a depth pass.

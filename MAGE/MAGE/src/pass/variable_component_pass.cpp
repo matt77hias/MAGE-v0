@@ -43,7 +43,7 @@ namespace mage {
 		m_projection_buffer.UpdateData(m_device_context, 
 			XMMatrixTranspose(view_to_projection));
 		// Bind the projection buffer.
-		VS::BindConstantBuffer(m_device_context,
+		Pipeline::VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_FRAME, m_projection_buffer.Get());
 	}
 
@@ -67,11 +67,11 @@ namespace mage {
 			m_color_buffer.UpdateData(m_device_context, 
 				RGBASpectrum(material->GetDiffuseReflectivity(), material->GetDissolve()));
 			// Bind the color buffer.
-			PS::BindConstantBuffer(m_device_context,
+			Pipeline::PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 
 			// Bind the diffuse SRV.
-			PS::BindSRV(m_device_context,
+			Pipeline::PS::BindSRV(m_device_context,
 				SLOT_SRV_TEXTURE, material->GetDiffuseReflectivitySRV());
 
 			break;
@@ -85,11 +85,11 @@ namespace mage {
 			m_color_buffer.UpdateData(m_device_context, 
 				RGBASpectrum(material->GetDiffuseReflectivity(), material->GetDissolve()));
 			// Bind the color buffer.
-			PS::BindConstantBuffer(m_device_context,
+			Pipeline::PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 
 			// Bind the diffuse SRV.
-			PS::BindSRV(m_device_context,
+			Pipeline::PS::BindSRV(m_device_context,
 				SLOT_SRV_TEXTURE, m_white->Get());
 
 			break;
@@ -103,11 +103,11 @@ namespace mage {
 			m_color_buffer.UpdateData(m_device_context, 
 				RGBASpectrum(1.0f));
 			// Bind the color buffer.
-			PS::BindConstantBuffer(m_device_context,
+			Pipeline::PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 
 			// Bind the diffuse SRV.
-			PS::BindSRV(m_device_context,
+			Pipeline::PS::BindSRV(m_device_context,
 				SLOT_SRV_TEXTURE, material->GetDiffuseReflectivitySRV());
 
 			break;
@@ -121,11 +121,11 @@ namespace mage {
 			m_color_buffer.UpdateData(m_device_context, 
 				RGBASpectrum(material->GetSpecularReflectivity()));
 			// Bind the color buffer.
-			PS::BindConstantBuffer(m_device_context,
+			Pipeline::PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 
 			// Bind the diffuse SRV.
-			PS::BindSRV(m_device_context,
+			Pipeline::PS::BindSRV(m_device_context,
 				SLOT_SRV_TEXTURE, material->GetSpecularReflectivitySRV());
 
 			break;
@@ -139,11 +139,11 @@ namespace mage {
 			m_color_buffer.UpdateData(m_device_context, 
 				RGBASpectrum(material->GetSpecularReflectivity()));
 			// Bind the color buffer.
-			PS::BindConstantBuffer(m_device_context,
+			Pipeline::PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 
 			// Bind the diffuse SRV.
-			PS::BindSRV(m_device_context,
+			Pipeline::PS::BindSRV(m_device_context,
 				SLOT_SRV_TEXTURE, m_white->Get());
 
 			break;
@@ -157,11 +157,11 @@ namespace mage {
 			m_color_buffer.UpdateData(m_device_context, 
 				RGBASpectrum(1.0f));
 			// Bind the color buffer.
-			PS::BindConstantBuffer(m_device_context,
+			Pipeline::PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 
 			// Bind the diffuse SRV.
-			PS::BindSRV(m_device_context,
+			Pipeline::PS::BindSRV(m_device_context,
 				SLOT_SRV_TEXTURE, material->GetSpecularReflectivitySRV());
 
 			break;
@@ -175,11 +175,11 @@ namespace mage {
 			m_color_buffer.UpdateData(m_device_context, 
 				RGBASpectrum(1.0f));
 			// Bind the color buffer.
-			PS::BindConstantBuffer(m_device_context,
+			Pipeline::PS::BindConstantBuffer(m_device_context,
 				SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 
 			// Bind the diffuse SRV.
-			PS::BindSRV(m_device_context,
+			Pipeline::PS::BindSRV(m_device_context,
 				SLOT_SRV_TEXTURE, material->GetNormalSRV());
 
 			break;
@@ -189,7 +189,7 @@ namespace mage {
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, buffer);
 		// Bind the model buffer.
-		VS::BindConstantBuffer(m_device_context,
+		Pipeline::VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
 	}
 

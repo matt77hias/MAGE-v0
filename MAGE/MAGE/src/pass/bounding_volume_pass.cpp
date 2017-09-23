@@ -40,7 +40,7 @@ namespace mage {
 		// Update the color buffer.
 		m_color_buffer.UpdateData(m_device_context, color);
 		// Bind the color buffer.
-		PS::BindConstantBuffer(m_device_context,
+		Pipeline::PS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_COLOR, m_color_buffer.Get());
 	}
 
@@ -65,7 +65,7 @@ namespace mage {
 		m_model_buffer.UpdateData(m_device_context, 
 			XMMatrixTranspose(box_to_projection));
 		// Bind the model buffer.
-		VS::BindConstantBuffer(m_device_context,
+		Pipeline::VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
 	}
 

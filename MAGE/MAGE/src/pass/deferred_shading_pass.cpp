@@ -54,7 +54,7 @@ namespace mage {
 		m_deferred_buffer.UpdateData(m_device_context, 
 			buffer);
 		// Bind the deferred buffer.
-		CS::BindConstantBuffer(m_device_context,
+		Pipeline::CS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_FRAME, m_deferred_buffer.Get());
 	}
 

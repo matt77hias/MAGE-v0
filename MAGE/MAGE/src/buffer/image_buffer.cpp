@@ -34,21 +34,21 @@ namespace mage {
 
 	void ImageBuffer::BindPacking(ID3D11DeviceContext2 *device_context) noexcept {
 		// Bind no SRV.
-		PS::BindSRV(device_context,
+		Pipeline::PS::BindSRV(device_context,
 			SLOT_SRV_IMAGE, nullptr);
 		
 		// Bind the UAV.
-		CS::BindUAV(device_context,
+		Pipeline::CS::BindUAV(device_context,
 			SLOT_UAV_IMAGE, m_uav.Get());
 	}
 
 	void ImageBuffer::BindUnpacking(ID3D11DeviceContext2 *device_context) noexcept {
 		// Bind no UAV.
-		CS::BindUAV(device_context,
+		Pipeline::CS::BindUAV(device_context,
 			SLOT_UAV_IMAGE, nullptr);
 		
 		// Bind the SRV.
-		PS::BindSRV(device_context,
+		Pipeline::PS::BindSRV(device_context,
 			SLOT_SRV_IMAGE, m_srv.Get());
 	}
 

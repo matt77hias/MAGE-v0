@@ -57,7 +57,7 @@ namespace mage {
 	void ImagePass::Render() const noexcept {
 		
 		// Bind the primitive topology.
-		IA::BindPrimitiveTopology(m_device_context, 
+		Pipeline::IA::BindPrimitiveTopology(m_device_context, 
 			D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		
 		// Draw the fullscreen triangle.

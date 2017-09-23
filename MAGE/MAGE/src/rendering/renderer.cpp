@@ -233,7 +233,7 @@ namespace mage {
 	}
 
 	void Renderer::BindRTVAndDSV() const noexcept {
-		OM::BindRTVAndDSV(m_device_context.Get(), 
+		Pipeline::OM::BindRTVAndDSV(m_device_context.Get(), 
 			m_back_buffer_rtv.Get(), m_depth_buffer_dsv.Get());
 	}
 
@@ -244,10 +244,10 @@ namespace mage {
 			= { 0.0f, 0.117647058f, 0.149019608f, 1.0f };
 
 		// Clear the back buffer.
-		OM::ClearRTV(m_device_context.Get(), m_back_buffer_rtv.Get(), background_color);
+		Pipeline::OM::ClearRTV(m_device_context.Get(), m_back_buffer_rtv.Get(), background_color);
 		// Clear the depth buffer to 1.0 (i.e. max depth).
 		// Clear the stencil buffer to 0.
-		OM::ClearDSV(m_device_context.Get(), m_depth_buffer_dsv.Get());
+		Pipeline::OM::ClearDSV(m_device_context.Get(), m_depth_buffer_dsv.Get());
 
 		m_in_begin_end_pair = true;
 	}

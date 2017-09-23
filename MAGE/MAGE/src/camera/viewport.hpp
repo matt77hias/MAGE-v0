@@ -55,7 +55,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		void BindViewport(ID3D11DeviceContext2 *device_context) const noexcept {
-			RS::BindViewport(device_context, &m_viewport);
+			Pipeline::RS::BindViewport(device_context, &m_viewport);
 		}
 
 		/**

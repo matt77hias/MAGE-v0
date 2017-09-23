@@ -52,7 +52,7 @@ namespace mage {
 			BindPS(PSIndex::TSNMShadingNormal);
 
 			// Bind the normal SRV.
-			PS::BindSRV(m_device_context,
+			Pipeline::PS::BindSRV(m_device_context,
 				SLOT_SRV_NORMAL, material->GetNormalSRV());
 		}
 		else {
@@ -69,7 +69,7 @@ namespace mage {
 		m_projection_buffer.UpdateData(m_device_context, 
 			XMMatrixTranspose(view_to_projection));
 		// Bind the projection buffer.
-		VS::BindConstantBuffer(m_device_context,
+		Pipeline::VS::BindConstantBuffer(m_device_context,
 			SLOT_CBUFFER_PER_FRAME, m_projection_buffer.Get());
 	}
 
@@ -85,7 +85,7 @@ namespace mage {
 		m_model_buffer.UpdateData(m_device_context, 
 			buffer);
 		// Bind the model buffer.
-		VS::BindConstantBuffer(m_device_context, 
+		Pipeline::VS::BindConstantBuffer(m_device_context, 
 			SLOT_CBUFFER_PER_DRAW, m_model_buffer.Get());
 	}
 

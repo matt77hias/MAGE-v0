@@ -20,7 +20,7 @@ namespace mage {
 		
 		UINT nb_of_viewports = 1;
 		D3D11_VIEWPORT viewport;
-		RS::GetBoundViewports(device_context, &nb_of_viewports, &viewport);
+		Pipeline::RS::GetBoundViewports(device_context, &nb_of_viewports, &viewport);
 		if (nb_of_viewports != 1) {
 			throw FormattedException("No viewport is set.");
 		}
@@ -34,7 +34,7 @@ namespace mage {
 		Assert(viewport);
 		
 		UINT nb_of_viewports = 1;
-		RS::GetBoundViewports(device_context, &nb_of_viewports, viewport);
+		Pipeline::RS::GetBoundViewports(device_context, &nb_of_viewports, viewport);
 		if (nb_of_viewports != 1) {
 			throw FormattedException("No viewport is set.");
 		}

@@ -140,8 +140,8 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindShader(ID3D11DeviceContext2 *device_context) const noexcept {
-			IA::BindInputLayout(device_context, m_vertex_layout.Get());
-			VS::BindShader(device_context, m_vertex_shader.Get());
+			Pipeline::IA::BindInputLayout(device_context, m_vertex_layout.Get());
+			Pipeline::VS::BindShader(device_context, m_vertex_shader.Get());
 		}
 
 	private:
@@ -342,27 +342,27 @@ namespace mage {
 	/**
 	 A struct of hull shaders.
 	 */
-	using HullShader = Shader< ID3D11HullShader, HS >;
+	using HullShader = Shader< ID3D11HullShader, Pipeline::HS >;
 
 	/**
 	 A struct of domain shaders.
 	 */
-	using DomainShader = Shader< ID3D11DomainShader, DS >;
+	using DomainShader = Shader< ID3D11DomainShader, Pipeline::DS >;
 
 	/**
 	 A struct of geometry shaders.
 	 */
-	using GeometryShader = Shader< ID3D11GeometryShader, GS >;
+	using GeometryShader = Shader< ID3D11GeometryShader, Pipeline::GS >;
 
 	/**
 	 A struct of pixel shaders.
 	 */
-	using PixelShader = Shader< ID3D11PixelShader, PS >;
+	using PixelShader = Shader< ID3D11PixelShader, Pipeline::PS >;
 
 	/**
 	 A struct of compute shaders.
 	 */
-	using ComputeShader = Shader< ID3D11ComputeShader, CS >;
+	using ComputeShader = Shader< ID3D11ComputeShader, Pipeline::CS >;
 }
 
 //-----------------------------------------------------------------------------

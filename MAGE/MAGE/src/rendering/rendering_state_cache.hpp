@@ -118,7 +118,7 @@ namespace mage {
 		void BindOpaqueBlendState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
-			OM::BindBlendState(device_context,
+			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::Opaque));
 		}
 
@@ -132,7 +132,7 @@ namespace mage {
 		void BindAlphaBlendState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
-			OM::BindBlendState(device_context,
+			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::Alpha));
 		}
 
@@ -146,7 +146,7 @@ namespace mage {
 		void BindAdditiveBlendState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
-			OM::BindBlendState(device_context,
+			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::Additive));
 		}
 
@@ -160,7 +160,7 @@ namespace mage {
 		void BindNonPremultipliedBlendState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
-			OM::BindBlendState(device_context,
+			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::NonPremultiplied));
 		}
 
@@ -174,7 +174,7 @@ namespace mage {
 		void BindAlphaToCoverageBlendState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
-			OM::BindBlendState(device_context,
+			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::AlphaToCoverage));
 		}
 
@@ -205,7 +205,7 @@ namespace mage {
 		void BindDepthNoneDepthStencilState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
-			OM::BindDepthStencilState(device_context,
+			Pipeline::OM::BindDepthStencilState(device_context,
 				GetDepthStencilState(DepthStencilStateIndex::DepthNone));
 		}
 
@@ -220,7 +220,7 @@ namespace mage {
 		void BindDepthReadWriteDepthStencilState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
-			OM::BindDepthStencilState(device_context,
+			Pipeline::OM::BindDepthStencilState(device_context,
 				GetDepthStencilState(DepthStencilStateIndex::DepthReadWrite));
 		}
 
@@ -235,7 +235,7 @@ namespace mage {
 		void BindDepthReadDepthStencilState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
-			OM::BindDepthStencilState(device_context,
+			Pipeline::OM::BindDepthStencilState(device_context,
 				GetDepthStencilState(DepthStencilStateIndex::DepthRead));
 		}
 
@@ -254,7 +254,7 @@ namespace mage {
 		void BindCullNoneRasterizerState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
-			RS::BindState(device_context,
+			Pipeline::RS::BindState(device_context,
 				GetRasterizerState(RasterizerStateIndex::NoCulling));
 		}
 
@@ -269,7 +269,7 @@ namespace mage {
 		void BindCullClockwiseRasterizerState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 			
-			RS::BindState(device_context,
+			Pipeline::RS::BindState(device_context,
 				GetRasterizerState(RasterizerStateIndex::ClockwiseCulling));
 		}
 
@@ -284,7 +284,7 @@ namespace mage {
 		void BindCullCounterClockwiseRasterizerState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
-			RS::BindState(device_context,
+			Pipeline::RS::BindState(device_context,
 				GetRasterizerState(RasterizerStateIndex::CounterClockwiseCulling));
 		}
 
@@ -299,7 +299,7 @@ namespace mage {
 		void BindWireframeRasterizerState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
-			RS::BindState(device_context,
+			Pipeline::RS::BindState(device_context,
 				GetRasterizerState(RasterizerStateIndex::Wireframe));
 		}
 

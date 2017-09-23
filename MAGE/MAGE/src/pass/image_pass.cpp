@@ -23,7 +23,7 @@ namespace mage {
 
 	ImagePass::ImagePass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_vs(CreateFullscreenTriangleVS()), 
+		m_vs(CreateNearFullscreenTriangleVS()), 
 		m_image_ps(CreateImagePS()),
 		m_image_depth_ps(CreateImageDepthPS()) {}
 

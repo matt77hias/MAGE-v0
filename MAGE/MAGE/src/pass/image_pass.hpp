@@ -111,7 +111,7 @@ namespace mage {
 		void BindFixedState(bool transfer_depth = true);
 
 		/**
-		 Render.
+		 Renders.
 		 */
 		void Render() const noexcept;
 		

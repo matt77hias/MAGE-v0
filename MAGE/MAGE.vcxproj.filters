@@ -972,9 +972,6 @@
     <ClInclude Include="MAGE\src\pass\depth_pass.hpp">
       <Filter>Header Files\pass</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\primitives\fullscreen_triangle_VS.hpp">
-      <Filter>Header Files\shader\cso\primitives</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\deferred\blinn_phong_CS.hpp">
       <Filter>Header Files\shader\cso\deferred</Filter>
     </ClInclude>
@@ -1037,6 +1034,18 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\buffer\game_buffer.hpp">
       <Filter>Header Files\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\sky_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\sky_buffer.hpp">
+      <Filter>Header Files\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\primitives\far_fullscreen_triangle_VS.hpp">
+      <Filter>Header Files\shader\cso\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\primitives\near_fullscreen_triangle_VS.hpp">
+      <Filter>Header Files\shader\cso\primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1400,6 +1409,9 @@
     <ClCompile Include="MAGE\src\buffer\image_buffer.cpp">
       <Filter>Source Files\buffer</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\pass\sky_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\sprite\sprite_PS.hlsl">
@@ -1525,9 +1537,6 @@
     <FxCompile Include="MAGE\shaders\depth\depth_VS.hlsl">
       <Filter>Shader Files\depth</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\primitives\fullscreen_triangle_VS.hlsl">
-      <Filter>Shader Files\primitives</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\emissive_CS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
@@ -1569,6 +1578,12 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\sky\sky_PS.hlsl">
       <Filter>Shader Files\sky</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\primitives\far_fullscreen_triangle_VS.hlsl">
+      <Filter>Shader Files\primitives</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\primitives\near_fullscreen_triangle_VS.hlsl">
+      <Filter>Shader Files\primitives</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

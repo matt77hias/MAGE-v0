@@ -38,8 +38,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Fog
 		//---------------------------------------------------------------------
-		auto scene_fog = GetSceneFog();
-		scene_fog->SetDistanceFalloff(0.0f, 17.0f);
+		auto fog = GetSceneFog();
+		fog->SetDistanceFalloff(0.0f, 17.0f);
+
+		//---------------------------------------------------------------------
+		// Sky
+		//---------------------------------------------------------------------
+		auto sky_texture =
+			ResourceManager::Get()->GetOrCreateTexture(L"assets/sprites/sky/sunset.dds");
+		auto sky = GetSky();
+		sky->SetTexture(sky_texture);
 
 		//---------------------------------------------------------------------
 		// Camera
@@ -101,12 +109,9 @@ namespace mage {
 		//camera->AddChildNode(spot_light);
 
 		//---------------------------------------------------------------------
-		// Texture
-		//---------------------------------------------------------------------
-		auto texture_logo = CreateMAGETexture();
-		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
+		auto texture_logo = CreateMAGETexture();
 		auto logo = Create< SpriteImageNode >("logo", texture_logo);
 		logo->GetSpriteTransform()->SetScale(0.25f, 0.25f);
 		logo->GetSpriteTransform()->SetNormalizedTranslation(0.90f, 0.88f);
@@ -116,9 +121,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		auto font =
 			ResourceManager::Get()->GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont");
-		//---------------------------------------------------------------------
-		// Text
-		//---------------------------------------------------------------------
 		auto text = Create< NormalSpriteTextNode >("stats", font);
 
 		//---------------------------------------------------------------------

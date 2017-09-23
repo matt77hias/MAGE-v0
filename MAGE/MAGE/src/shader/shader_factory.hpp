@@ -641,15 +641,26 @@ namespace mage {
 #pragma region
 
 	/**
-	 Creates a fullscreen triangle vertex shader.
+	 Creates a far fullscreen triangle vertex shader.
 
 	 @pre			The resource manager associated with the
 					current engine must be loaded.
-	 @return		A pointer to the fullscreen triangle vertex shader.
+	 @return		A pointer to the far fullscreen triangle vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateFullscreenTriangleVS();
+	SharedPtr< const VertexShader > CreateFarFullscreenTriangleVS();
+
+	/**
+	 Creates a near fullscreen triangle vertex shader.
+
+	 @pre			The resource manager associated with the
+					current engine must be loaded.
+	 @return		A pointer to the near fullscreen triangle vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateNearFullscreenTriangleVS();
 
 #pragma endregion
 }

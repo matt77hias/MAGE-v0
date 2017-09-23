@@ -85,7 +85,7 @@ namespace mage {
 		DeferredBuffer &operator=(DeferredBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
-		// Assignment Operators: Transforms
+		// Member Variables: Transforms
 		//---------------------------------------------------------------------
 
 		/**
@@ -95,7 +95,7 @@ namespace mage {
 		XMVECTOR m_projection_values;
 
 		//---------------------------------------------------------------------
-		// Assignment Operators: Material
+		// Member Variables: Material
 		//---------------------------------------------------------------------
 
 		/**

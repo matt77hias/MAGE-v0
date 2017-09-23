@@ -256,12 +256,11 @@ namespace mage {
 	void Renderer::BeginFrame() noexcept {
 		Assert(!m_in_begin_end_pair);
 
-		static const XMVECTORF32 background_color 
-			= { 0.0f, 0.117647058f, 0.149019608f, 1.0f };
+		static const FLOAT color[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 		// Clear the back buffer.
 		Pipeline::OM::ClearRTV(m_device_context.Get(), 
-			m_back_buffer_rtv.Get(), background_color);
+			m_back_buffer_rtv.Get(), color);
 		// Clear the depth buffer to 1.0 (i.e. max depth).
 		// Clear the stencil buffer to 0.
 		Pipeline::OM::ClearDSV(m_device_context.Get(), 

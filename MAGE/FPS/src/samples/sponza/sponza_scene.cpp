@@ -38,8 +38,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Fog
 		//---------------------------------------------------------------------
-		auto scene_fog = GetSceneFog();
-		scene_fog->SetDistanceFalloff(0.0f, 17.0f);
+		auto fog = GetSceneFog();
+		fog->SetDistanceFalloff(0.0f, 17.0f);
+
+		//---------------------------------------------------------------------
+		// Sky
+		//---------------------------------------------------------------------
+		auto sky_texture = 
+			ResourceManager::Get()->GetOrCreateTexture(L"assets/sprites/sky/snow.dds");
+		auto sky = GetSky();
+		sky->SetTexture(sky_texture);
 
 		//---------------------------------------------------------------------
 		// Camera
@@ -53,8 +61,6 @@ namespace mage {
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		auto model_desc_sponza = 
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
-		auto model_desc_sphere =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sphere/sphere.mdl", mesh_desc);
 		auto model_desc_tree = 
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree1a_lod1.mdl", mesh_desc);
 		
@@ -63,9 +69,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		auto model_sponza = CreateModel(*model_desc_sponza);
 		model_sponza->GetTransform()->SetScale(10.0f);
-		auto model_sphere = CreateModel(*model_desc_sphere);
-		model_sphere->GetTransform()->SetTranslationY(2.0f);
-		model_sphere->GetTransform()->SetScale(0.25f);
 		auto model_tree = CreateModel(*model_desc_tree);
 		model_tree->GetTransform()->AddTranslationY(0.5f);
 		
@@ -98,25 +101,18 @@ namespace mage {
 		//camera->AddChildNode(spot_light);
 
 		//---------------------------------------------------------------------
-		// Texture
-		//---------------------------------------------------------------------
-		auto texture_logo = CreateMAGETexture();
-		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
+		auto texture_logo = CreateMAGETexture();
 		auto logo = Create< SpriteImageNode >("logo", texture_logo);
 		logo->GetSpriteTransform()->SetScale(0.25f, 0.25f);
 		logo->GetSpriteTransform()->SetNormalizedTranslation(0.90f, 0.88f);
 
 		//---------------------------------------------------------------------
-		// Font
+		// Text
 		//---------------------------------------------------------------------
 		auto font = 
 			ResourceManager::Get()->GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont");
-
-		//---------------------------------------------------------------------
-		// Text
-		//---------------------------------------------------------------------
 		auto text = Create< NormalSpriteTextNode >("stats", font);
 
 		//---------------------------------------------------------------------

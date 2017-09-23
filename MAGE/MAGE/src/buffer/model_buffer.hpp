@@ -89,7 +89,7 @@ namespace mage {
 			ModelNormalTransformBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
-		// Assignment Operators: Transforms
+		// Member Variables: Transforms
 		//---------------------------------------------------------------------
 
 		// HLSL expects column-major packed matrices by default.
@@ -185,7 +185,7 @@ namespace mage {
 			ModelTextureTransformBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
-		// Assignment Operators: Transforms
+		// Member Variables: Transforms
 		//---------------------------------------------------------------------
 
 		// HLSL expects column-major packed matrices by default.
@@ -281,7 +281,7 @@ namespace mage {
 			ModelNormalTextureTransformBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
-		// Assignment Operators: Transforms
+		// Member Variables: Transforms
 		//---------------------------------------------------------------------
 
 		// HLSL expects column-major packed matrices by default.
@@ -379,7 +379,7 @@ namespace mage {
 		ForwardModelBuffer &operator=(ForwardModelBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
-		// Assignment Operators: Transforms
+		// Member Variables: Transforms
 		//---------------------------------------------------------------------
 
 		/**
@@ -388,7 +388,7 @@ namespace mage {
 		ModelNormalTextureTransformBuffer m_transform;
 
 		//---------------------------------------------------------------------
-		// Assignment Operators: Material
+		// Member Variables: Material
 		//---------------------------------------------------------------------
 
 		/**
@@ -485,7 +485,7 @@ namespace mage {
 		DeferredModelBuffer &operator=(DeferredModelBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
-		// Assignment Operators: Transforms
+		// Member Variables: Transforms
 		//---------------------------------------------------------------------
 
 		/**
@@ -494,7 +494,7 @@ namespace mage {
 		ModelNormalTextureTransformBuffer m_transform;
 
 		//---------------------------------------------------------------------
-		// Assignment Operators: Material
+		// Member Variables: Material
 		//---------------------------------------------------------------------
 
 		/**

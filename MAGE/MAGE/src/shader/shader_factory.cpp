@@ -68,7 +68,8 @@
 #include "shader\cso\miscellaneous\bounding_volume_PS.hpp"
 
 // Primitives
-#include "shader\cso\primitives\fullscreen_triangle_VS.hpp"
+#include "shader\cso\primitives\far_fullscreen_triangle_VS.hpp"
+#include "shader\cso\primitives\near_fullscreen_triangle_VS.hpp"
 
 #pragma endregion
 
@@ -466,9 +467,18 @@ namespace mage {
 	//-------------------------------------------------------------------------
 #pragma region
 
-	SharedPtr< const VertexShader > CreateFullscreenTriangleVS() {
-		const BufferCompiledShader cs(g_fullscreen_triangle_vs, sizeof(g_fullscreen_triangle_vs));
-		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_FULLSCREEN_TRIANGLE, &cs,
+	SharedPtr< const VertexShader > CreateFarFullscreenTriangleVS() {
+		const BufferCompiledShader cs(
+			g_far_fullscreen_triangle_vs, sizeof(g_far_fullscreen_triangle_vs));
+		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_FAR_FULLSCREEN_TRIANGLE, &cs,
+										nullptr,
+										0);
+	}
+
+	SharedPtr< const VertexShader > CreateNearFullscreenTriangleVS() {
+		const BufferCompiledShader cs(
+			g_near_fullscreen_triangle_vs, sizeof(g_near_fullscreen_triangle_vs));
+		return ResourceManager::Get()->GetOrCreateVS(MAGE_GUID_VS_NEAR_FULLSCREEN_TRIANGLE, &cs,
 										nullptr,
 										0);
 	}

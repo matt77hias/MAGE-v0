@@ -114,7 +114,7 @@ namespace mage {
 		void BindFixedState(BRDFType brdf);
 
 		/**
-		 Renders the scene.
+		 Renders the scene (only the opaque models).
 
 		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
@@ -130,7 +130,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV Render(
+		void XM_CALLCONV RenderOpaque(
 			const PassBuffer *scene,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,
@@ -138,7 +138,7 @@ namespace mage {
 			CXMMATRIX view_to_projection);
 
 		/**
-		 Renders the remaining scene after a deferred shading pass.
+		 Renders the scene (only the opaque emissive models).
 
 		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
@@ -152,10 +152,33 @@ namespace mage {
 		 @param[in]		view_to_projection
 						The view-to-projection transformation matrix.
 		 @throws		FormattedException
-						Failed to render remaining scene 
-						after a deferred shading pass.
+						Failed to render the scene.
 		 */
-		void XM_CALLCONV RenderPostDeferred(
+		void XM_CALLCONV RenderOpaqueEmissive(
+			const PassBuffer *scene,
+			FXMMATRIX world_to_projection,
+			CXMMATRIX world_to_view,
+			CXMMATRIX view_to_world,
+			CXMMATRIX view_to_projection);
+
+		/**
+		 Renders the scene (only the transparent models).
+
+		 @pre			@a scene is not equal to @c nullptr.
+		 @param[in]		scene
+						A pointer to the scene.
+		 @param[in]		world_to_projection
+						The world-to-projection transformation matrix.
+		 @param[in]		world_to_view
+						The world-to-view transformation matrix.
+		 @param[in]		view_to_world
+						The view-to-world transformation matrix.
+		 @param[in]		view_to_projection
+						The view-to-projection transformation matrix.
+		 @throws		FormattedException
+						Failed to render the scene.
+		 */
+		void XM_CALLCONV RenderTransparent(
 			const PassBuffer *scene,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,

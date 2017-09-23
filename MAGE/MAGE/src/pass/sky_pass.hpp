@@ -6,6 +6,8 @@
 #pragma region
 
 #include "pass\pass_buffer.hpp"
+#include "buffer\constant_buffer.hpp"
+#include "buffer\sky_buffer.hpp"
 #include "shader\shader.hpp"
 
 #pragma endregion
@@ -101,31 +103,43 @@ namespace mage {
 
 		/**
 		 Binds the fixed state of this sky pass.
+		 */
+		void BindFixedState() const noexcept;
+
+		/**
+		 Renders the given scene.
+
+		 @pre			@a scene is not equal to @c nullptr.
+		 @param[in]		view_to_world
+						The view-to-world transformation matrix.
+		 @param[in]		view_to_projection
+						The view-to-projection transformation matrix.
+		 @throws		FormattedException
+						Failed to render the scene.
+		 */
+		void XM_CALLCONV Render(const PassBuffer *scene,
+			FXMMATRIX view_to_world,
+			CXMMATRIX view_to_projection);
+		
+	private:
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Binds the transform data of this sky pass.
 
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
 		 @param[in]		view_to_projection
 						The view-to-projection transformation matrix.
 		 @throws		FormattedException
-						Failed to bind the fixed state of this sky pass.
+						Failed to bind the transform data of this sky.
 		 */
-		void XM_CALLCONV BindFixedState(
-			const PassBuffer *scene,
+		void XM_CALLCONV BindTransformData(
 			FXMMATRIX view_to_world,
 			CXMMATRIX view_to_projection);
-
-		/**
-		 Render.
-		 */
-		void Render() const noexcept;
-		
-	private:
-
-		//---------------------------------------------------------------------
-		// Bind Variables
-		//---------------------------------------------------------------------
-
-
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -139,11 +153,16 @@ namespace mage {
 		/**
 		 A pointer to the vertex shader of this sky pass.
 		 */
-		const SharedPtr< const VertexShader > m_vs;
+		const SharedPtr< const VertexShader > m_sky_vs;
 
 		/**
 		 A pointer to the pixel shader of this sky pass.
 		 */
 		const SharedPtr< const PixelShader > m_sky_ps;
+
+		/**
+		 The transform buffer of this sky pass.
+		 */
+		ConstantBuffer< SkyBuffer > m_transform_buffer;
 	};
 }

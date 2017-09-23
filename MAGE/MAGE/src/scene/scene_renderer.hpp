@@ -12,7 +12,7 @@
 #include "pass\variable_shading_pass.hpp"
 #include "pass\sprite_pass.hpp"
 #include "pass\image_pass.hpp"
-//#include "pass\sky_pass.hpp"
+#include "pass\sky_pass.hpp"
 
 #include "pass\constant_shading_pass.hpp"
 #include "pass\constant_component_pass.hpp"
@@ -247,6 +247,23 @@ namespace mage {
 		}
 
 		/**
+		 Returns the sky pass of this scene renderer.
+
+		 @pre			The renderer associated with the
+						current engine must be loaded.
+		 @pre			The resource manager associated with the
+						current engine must be loaded.
+		 @return		A pointer to the sky pass 
+						of this scene renderer.
+		 */
+		SkyPass *GetSkyPass() {
+			if (!m_sky_pass) {
+				m_sky_pass = MakeUnique< SkyPass >();
+			}
+			return m_sky_pass.get();
+		}
+
+		/**
 		 Returns the constant shading pass of this scene renderer.
 
 		 @pre			The renderer associated with the
@@ -456,6 +473,11 @@ namespace mage {
 		 A pointer to the image pass of this scene renderer.
 		 */
 		UniquePtr< ImagePass > m_image_pass;
+
+		/**
+		 A pointer to the sky pass of this scene renderer.
+		 */
+		UniquePtr< SkyPass > m_sky_pass;
 		
 		/**
 		 A pointer to the constant shading pass of this scene renderer.

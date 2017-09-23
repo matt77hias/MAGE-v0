@@ -66,6 +66,7 @@
 #define MAGE_GUID_PS_BOUNDING_VOLUME               L"mage_bounding_volume_ps"
 
 // Primitives
-#define MAGE_GUID_VS_FULLSCREEN_TRIANGLE           L"mage_fullscreen_triangle_vs"
+#define MAGE_GUID_VS_FAR_FULLSCREEN_TRIANGLE       L"mage_far_fullscreen_triangle_vs"
+#define MAGE_GUID_VS_NEAR_FULLSCREEN_TRIANGLE      L"mage_near_fullscreen_triangle_vs"
 
 #pragma endregion

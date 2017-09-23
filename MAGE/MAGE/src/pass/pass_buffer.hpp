@@ -237,6 +237,15 @@ namespace mage {
 		}
 
 		/**
+		 Returns the sky of this pass buffer.
+
+		 @return		A pointer to the sky of this pass buffer. 
+		 */
+		const Sky *GetSky() const noexcept {
+			return m_sky;
+		}
+
+		/**
 		 Returns the minimum of the material coefficient at the given index.
 
 		 @pre			@a index < {@link mage::PassBuffer::s_nb_material_coefficients}.

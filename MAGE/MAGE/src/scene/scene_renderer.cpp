@@ -37,6 +37,7 @@ namespace mage {
 		m_variable_shading_pass(),
 		m_sprite_pass(), 
 		m_image_pass(),
+		m_sky_pass(),
 		m_constant_shading_pass(),
 		m_constant_component_pass(), 
 		m_variable_component_pass(),
@@ -251,11 +252,24 @@ namespace mage {
 		viewport.BindViewport(m_device_context);
 		// Bind the back and depth buffer.
 		Renderer::Get()->BindRTVAndDSV();
-		
-		// Perform a forward pass.
+
+		// Perform a forward pass: opaque models.
 		VariableShadingPass * const forward_pass = GetVariableShadingPass();
 		forward_pass->BindFixedState(brdf);
-		forward_pass->Render(
+		forward_pass->RenderOpaque(
+			m_pass_buffer.get(), world_to_projection,
+			world_to_view, view_to_world, view_to_projection);
+
+		// Perform a sky pass.
+		SkyPass * const sky_pass = GetSkyPass();
+		sky_pass->BindFixedState();
+		sky_pass->Render(
+			m_pass_buffer.get(),
+			view_to_world, view_to_projection);
+
+		// Perform a forward pass: transparent models.
+		forward_pass->BindFixedState(brdf);
+		forward_pass->RenderTransparent(
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world, view_to_projection);
 	}
@@ -307,10 +321,23 @@ namespace mage {
 		image_pass->BindFixedState();
 		image_pass->Render();
 
-		// Perform a forward pass.
+		// Perform a forward pass: opaque emissive models.
 		VariableShadingPass * const forward_pass = GetVariableShadingPass();
 		forward_pass->BindFixedState(brdf);
-		forward_pass->RenderPostDeferred(
+		forward_pass->RenderOpaqueEmissive(
+			m_pass_buffer.get(), world_to_projection,
+			world_to_view, view_to_world, view_to_projection);
+
+		// Perform a sky pass.
+		SkyPass * const sky_pass = GetSkyPass();
+		sky_pass->BindFixedState();
+		sky_pass->Render(
+			m_pass_buffer.get(),
+			view_to_world, view_to_projection);
+
+		// Perform a forward pass: transparent models.
+		forward_pass->BindFixedState(brdf);
+		forward_pass->RenderTransparent(
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world, view_to_projection);
 	}

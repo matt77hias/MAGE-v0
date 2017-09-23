@@ -36,8 +36,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Fog
 		//---------------------------------------------------------------------
-		auto scene_fog = GetSceneFog();
-		scene_fog->SetDistanceFalloff(FLT_MAX, FLT_MAX);
+		auto fog = GetSceneFog();
+		fog->SetDistanceFalloff(FLT_MAX, FLT_MAX);
 
 		//---------------------------------------------------------------------
 		// Camera
@@ -91,24 +91,18 @@ namespace mage {
 		omni_light->GetLight()->SetDistanceFalloff(0.0f, 50.0f);
 
 		//---------------------------------------------------------------------
-		// Texture
-		//---------------------------------------------------------------------
-		auto texture_logo = CreateMAGETexture();
-		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
+		auto texture_logo = CreateMAGETexture();
 		auto logo = Create< SpriteImageNode >("logo", texture_logo);
 		logo->GetSpriteTransform()->SetScale(0.25f, 0.25f);
 		logo->GetSpriteTransform()->SetNormalizedTranslation(0.90f, 0.88f);
 
 		//---------------------------------------------------------------------
-		// Font
+		// Text
 		//---------------------------------------------------------------------
 		auto font =
 			ResourceManager::Get()->GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont");
-		//---------------------------------------------------------------------
-		// Text
-		//---------------------------------------------------------------------
 		auto stats = Create< NormalSpriteTextNode >("stats", font);
 		auto brdf  = Create< NormalSpriteTextNode >("brdf", font);
 

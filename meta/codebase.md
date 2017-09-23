@@ -1,6 +1,5 @@
-## Codebase
+## Assets
 
-*Assets*:
 * Crytek Sponza:
   * Marko Dabrovic (original version),
   * Frank Meinl (modified version, [data](http://www.crytek.com/cryengine/cryengine3/downloads)),
@@ -23,6 +22,8 @@
   
 * [Logo](http://www.deviantart.com/art/Black-Mage-356147620) [[License](https://creativecommons.org/licenses/by-nc-nd/3.0/)]
 
+## Codebase
+
 *Non-substantially* based on:
 * [directx-sdk-samples](https://github.com/walbourn/directx-sdk-samples) [[License](https://github.com/walbourn/directx-sdk-samples/blob/master/LICENSE)]
 * [directxtk-samples](https://github.com/walbourn/directxtk-samples) [[License](https://github.com/walbourn/directxtk-samples/blob/master/LICENSE)]
@@ -31,6 +32,7 @@
 * [RasterTek: DirectX 11 Tutorials](http://www.rastertek.com/tutdx11.html)
 * [RasterTek: DirectX 11 Tutorials - Series 2](http://www.rastertek.com/tutdx11s2.html)
 * [VYGE](https://github.com/matt77hias/VYGE)
+* [WickedEngine](https://github.com/turanszkij/WickedEngine)
 
 *Substantially* based on:
 * [DirectXTK](https://github.com/Microsoft/DirectXTK) [[License](https://github.com/Microsoft/DirectXTK/blob/master/LICENSE)]

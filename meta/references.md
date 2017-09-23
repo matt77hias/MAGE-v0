@@ -62,7 +62,7 @@ ZINK J., PETTINEO M., HOXLEY J.: *Practical Rendering and Computation with Direc
 * [RasterTek: DirectX 11 Tutorials](http://www.rastertek.com/tutdx11.html)
 * [RasterTek: DirectX 11 Tutorials - Series 2](http://www.rastertek.com/tutdx11s2.html)
 * [VYGE](https://github.com/matt77hias/VYGE)
-* [WickedEngine](https://github.com/turanszkij/WickedEngine)
+* [WickedEngine](https://github.com/turanszkij/WickedEngine) [[License](https://github.com/turanszkij/WickedEngine/blob/master/LICENSE.txt)]
 
 *Substantially* based on:
 * [DirectXTK](https://github.com/Microsoft/DirectXTK) [[License](https://github.com/Microsoft/DirectXTK/blob/master/LICENSE)]

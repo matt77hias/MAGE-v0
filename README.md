@@ -74,12 +74,12 @@
    * F1: terminate
 
 ## Index
-* [Codebase](meta/codebase.md)
 * [Code Guidelines](meta/code-guidelines.md)
 * [Documentation](https://matt77hias.github.io/MAGE-Doc/MAGE-Doc/html/index.html)
 * [Features](meta/features.md)
 * [File Formats](meta/file-formats.md)
 * [Iterations](meta/iterations.md)
+* [References](meta/references.md)
 * [Standard Scripts](meta/standard-scripts.md)
 
 <p align="center">Copyright © 2016-2017 Matthias Moulin. All Rights Reserved.</p>

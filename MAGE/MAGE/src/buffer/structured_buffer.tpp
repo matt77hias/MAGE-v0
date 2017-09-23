@@ -84,4 +84,12 @@ namespace mage {
 
 		device_context->Unmap(m_buffer.Get(), 0);
 	}
+
+	template< typename DataT >
+	template< typename PipelineStageT >
+	inline void StructuredBuffer< DataT >::Bind(
+		ID3D11DeviceContext2 *device_context, UINT slot) const noexcept {
+
+		PipelineStageT::BindSRV(device_context, slot, Get());
+	}
 }

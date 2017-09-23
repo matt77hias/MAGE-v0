@@ -40,7 +40,7 @@ namespace mage {
 	Shader< ShaderT, PipelineStageT >::~Shader() = default;
 
 	template<>
-	inline void Shader< ID3D11HullShader, Pipeline::HS >
+	void Shader< ID3D11HullShader, Pipeline::HS >
 		::SetupShader(ID3D11Device2 *device, 
 			const CompiledShader *compiled_shader) {
 		
@@ -51,11 +51,12 @@ namespace mage {
 		const HRESULT result_shader = device->CreateHullShader(
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			nullptr, m_shader.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_shader, "Hull shader creation failed: %08X.", result_shader);
+		ThrowIfFailed(result_shader, 
+			"Hull shader creation failed: %08X.", result_shader);
 	}
 
 	template<>
-	inline void Shader< ID3D11DomainShader, Pipeline::DS >
+	void Shader< ID3D11DomainShader, Pipeline::DS >
 		::SetupShader(ID3D11Device2 *device, 
 			const CompiledShader *compiled_shader) {
 
@@ -66,11 +67,12 @@ namespace mage {
 		const HRESULT result_shader = device->CreateDomainShader(
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			nullptr, m_shader.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_shader, "Domain shader creation failed: %08X.", result_shader);
+		ThrowIfFailed(result_shader, 
+			"Domain shader creation failed: %08X.", result_shader);
 	}
 
 	template<>
-	inline void Shader< ID3D11GeometryShader, Pipeline::GS >
+	void Shader< ID3D11GeometryShader, Pipeline::GS >
 		::SetupShader(ID3D11Device2 *device, 
 			const CompiledShader *compiled_shader) {
 
@@ -81,11 +83,12 @@ namespace mage {
 		const HRESULT result_shader = device->CreateGeometryShader(
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			nullptr, m_shader.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_shader, "Geometry shader creation failed: %08X.", result_shader);
+		ThrowIfFailed(result_shader, 
+			"Geometry shader creation failed: %08X.", result_shader);
 	}
 
 	template<>
-	inline void Shader< ID3D11PixelShader, Pipeline::PS >
+	void Shader< ID3D11PixelShader, Pipeline::PS >
 		::SetupShader(ID3D11Device2 *device, 
 			const CompiledShader *compiled_shader) {
 
@@ -96,19 +99,24 @@ namespace mage {
 		const HRESULT result_shader = device->CreatePixelShader(
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			nullptr, m_shader.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_shader, "Pixel shader creation failed: %08X.", result_shader);
+		ThrowIfFailed(result_shader, 
+			"Pixel shader creation failed: %08X.", result_shader);
 	}
 
 	template<>
-	inline void Shader< ID3D11ComputeShader, Pipeline::CS >
+	void Shader< ID3D11ComputeShader, Pipeline::CS >
 		::SetupShader(ID3D11Device2 *device, 
 			const CompiledShader *compiled_shader) {
+
+		Assert(device);
+		Assert(compiled_shader);
 
 		// Create the compute shader.
 		const HRESULT result_shader = device->CreateComputeShader(
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			nullptr, m_shader.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_shader, "Compute shader creation failed: %08X.", result_shader);
+		ThrowIfFailed(result_shader, 
+			"Compute shader creation failed: %08X.", result_shader);
 	}
 
 	template< typename ShaderT, typename PipelineStageT >

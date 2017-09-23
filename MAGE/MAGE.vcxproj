@@ -2342,6 +2342,7 @@
     <None Include="MAGE\src\script\switch_scene_script.tpp" />
     <None Include="MAGE\src\shader\shader.tpp" />
     <None Include="MAGE\src\sprite\sprite_node.tpp" />
+    <None Include="MAGE\src\texture\texture.tpp" />
     <None Include="MAGE\src\text\sprite_text.tpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

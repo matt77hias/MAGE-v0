@@ -1737,5 +1737,8 @@
     <None Include="MAGE\shaders\deferred_input.hlsli">
       <Filter>Shader Files</Filter>
     </None>
+    <None Include="MAGE\src\texture\texture.tpp">
+      <Filter>Header Files\texture</Filter>
+    </None>
   </ItemGroup>
 </Project>

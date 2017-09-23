@@ -164,6 +164,24 @@ namespace mage {
 			return m_buffer_srv.Get();
 		}
 
+		/**
+		 Binds this structured buffer.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
+		 @tparam		PipelineStageT
+						The pipeline stage type.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		slot
+						The index into the device's zero-based array to set 
+						the shader resource view to (ranges from 0 to 
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
+		 */
+		template< typename PipelineStageT >
+		void Bind(ID3D11DeviceContext2 *device_context, 
+			UINT slot) const noexcept;
+
 	private:
 
 		//---------------------------------------------------------------------

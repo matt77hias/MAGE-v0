@@ -52,4 +52,12 @@ namespace mage {
 
 		device_context->Unmap(m_buffer.Get(), 0);
 	}
+
+	template< typename DataT >
+	template< typename PipelineStageT >
+	inline void ConstantBuffer< DataT >::Bind(
+		ID3D11DeviceContext2 *device_context, UINT slot) const noexcept {
+
+		PipelineStageT::BindConstantBuffer(device_context, slot, Get());
+	}
 }

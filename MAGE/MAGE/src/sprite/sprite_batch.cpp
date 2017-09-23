@@ -29,7 +29,7 @@
 namespace mage {
 
 	SpriteBatch::SpriteBatch()
-		: SpriteBatch(GetDevice(), GetImmediateDeviceContext()) {}
+		: SpriteBatch(Pipeline::GetDevice(), Pipeline::GetImmediateDeviceContext()) {}
 
 	SpriteBatch::SpriteBatch(
 		ID3D11Device2 *device, ID3D11DeviceContext2 *device_context)

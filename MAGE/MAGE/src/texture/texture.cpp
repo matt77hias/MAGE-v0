@@ -17,7 +17,7 @@
 namespace mage {
 
 	Texture::Texture(const wstring &fname)
-		: Texture(fname, GetDevice()) {}
+		: Texture(fname, Pipeline::GetDevice()) {}
 
 	Texture::Texture(const wstring &fname, ID3D11Device2 *device)
 		: Resource< const Texture >(fname), m_texture_srv() {
@@ -30,7 +30,7 @@ namespace mage {
 	Texture::Texture(const wstring &guid,
 		const D3D11_TEXTURE2D_DESC *desc,
 		const D3D11_SUBRESOURCE_DATA *initial_data)
-		: Texture(guid, GetDevice(), desc, initial_data) {}
+		: Texture(guid, Pipeline::GetDevice(), desc, initial_data) {}
 
 	Texture::Texture(const wstring &guid, ID3D11Device2 *device,
 		const D3D11_TEXTURE2D_DESC *desc, const D3D11_SUBRESOURCE_DATA *initial_data)

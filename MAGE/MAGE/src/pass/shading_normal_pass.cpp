@@ -26,7 +26,7 @@ namespace mage {
 	}
 
 	ShadingNormalPass::ShadingNormalPass()
-		: m_device_context(GetImmediateDeviceContext()), 
+		: m_device_context(Pipeline::GetImmediateDeviceContext()), 
 		m_render_mode(RenderMode::None), 
 		m_vs(CreateShadingNormalVS()), 
 		m_ps{ CreateShadingNormalPS(), CreateShadingNormalTSNMPS() }, 

@@ -26,7 +26,7 @@ namespace mage {
 	}
 
 	ConstantShadingPass::ConstantShadingPass()
-		: m_device_context(GetImmediateDeviceContext()),
+		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateTransformVS()),
 		m_ps(CreateLambertianPS()),
 		m_projection_buffer(), m_model_buffer(),

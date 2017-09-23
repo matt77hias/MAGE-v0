@@ -19,7 +19,7 @@
 namespace mage {
 
 	GBuffer::GBuffer()
-		: GBuffer(GetDevice()) {}
+		: GBuffer(Pipeline::GetDevice()) {}
 
 	GBuffer::GBuffer(ID3D11Device2 *device)
 		: m_dsv(), m_rtvs{}, m_srvs{} {

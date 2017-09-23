@@ -26,7 +26,7 @@ namespace mage {
 	}
 
 	DepthPass::DepthPass()
-		: m_device_context(GetImmediateDeviceContext()),
+		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_opaque_vs(CreateDepthVS()),
 		m_transparent_vs(CreateDepthTransparentVS()),
 		m_transparent_ps(CreateDepthTransparentPS()),

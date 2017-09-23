@@ -25,7 +25,7 @@ namespace mage {
 	}
 
 	SpritePass::SpritePass()
-		: m_device_context(GetImmediateDeviceContext()),
+		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateSpriteVS()), m_ps(CreateSpritePS()),
 		m_sprite_batch(MakeUnique< SpriteBatch >()) {}
 

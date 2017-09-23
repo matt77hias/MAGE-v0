@@ -26,7 +26,7 @@ namespace mage {
 	}
 
 	VariableShadingPass::VariableShadingPass()
-		: m_device_context(GetImmediateDeviceContext()),
+		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateTransformVS()),
 		m_ps{ CreateEmissivePS(), CreatePS(BRDFType::Unknown), CreateTSNMPS(BRDFType::Unknown) },
 		m_bound_ps(PSIndex::Count), m_brdf(BRDFType::Unknown),

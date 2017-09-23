@@ -25,7 +25,7 @@ namespace mage {
 	}
 
 	DeferredShadingPass::DeferredShadingPass()
-		: m_device_context(GetImmediateDeviceContext()),
+		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_cs(CreateDeferredCS(BRDFType::Unknown)),
 		m_brdf(BRDFType::Unknown), m_deferred_buffer() {}
 

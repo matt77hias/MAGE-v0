@@ -8,7 +8,7 @@ namespace mage {
 	template < typename VertexT >
 	ModelDescriptor::ModelDescriptor(const wstring &fname, 
 		const MeshDescriptor< VertexT > &desc, bool export_as_MDL)
-		: ModelDescriptor(fname, GetDevice(), 
+		: ModelDescriptor(fname, Pipeline::GetDevice(), 
 			desc, export_as_MDL) {}
 
 	template < typename VertexT >

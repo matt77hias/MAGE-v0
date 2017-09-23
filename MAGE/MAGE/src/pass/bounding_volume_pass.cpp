@@ -26,7 +26,7 @@ namespace mage {
 	}
 
 	BoundingVolumePass::BoundingVolumePass()
-		: m_device_context(GetImmediateDeviceContext()),
+		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateBoundingVolumeVS()), 
 		m_ps(CreateBoundingVolumePS()),
 		m_color_buffer(), m_model_buffer(),

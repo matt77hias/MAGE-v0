@@ -19,7 +19,7 @@
 namespace mage {
 
 	ImageBuffer::ImageBuffer()
-		: ImageBuffer(GetDevice()) {}
+		: ImageBuffer(Pipeline::GetDevice()) {}
 	
 	ImageBuffer::ImageBuffer(ID3D11Device2 *device)
 		: m_uav(), m_srv() {

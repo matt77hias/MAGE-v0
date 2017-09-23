@@ -22,7 +22,7 @@ namespace mage {
 	template< typename ShaderT, typename PipelineStageT >
 	Shader< ShaderT, PipelineStageT >::Shader(const wstring &guid,
 		const CompiledShader *compiled_shader)
-		: Shader(guid, GetDevice(), compiled_shader) {}
+		: Shader(guid, Pipeline::GetDevice(), compiled_shader) {}
 
 	template< typename ShaderT, typename PipelineStageT >
 	Shader< ShaderT, PipelineStageT >::Shader(const wstring &guid,

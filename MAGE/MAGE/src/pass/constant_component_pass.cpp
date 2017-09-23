@@ -26,7 +26,7 @@ namespace mage {
 	}
 
 	ConstantComponentPass::ConstantComponentPass()
-		: m_device_context(GetImmediateDeviceContext()), 
+		: m_device_context(Pipeline::GetImmediateDeviceContext()), 
 		m_vs(CreateMinimalTransformVS()),
 		m_ps{ CreateConstantColorTexturePS(), CreateDistancePS() },
 		m_color_buffer(), m_projection_buffer(), m_model_buffer(),

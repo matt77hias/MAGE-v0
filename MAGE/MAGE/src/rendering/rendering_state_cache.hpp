@@ -37,7 +37,7 @@ namespace mage {
 						Failed to setup the rendering states 
 						of this rendering state cache.
 		 */
-		static RenderingStateCache *Get() noexcept;
+		static const RenderingStateCache *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors

@@ -14,43 +14,50 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	/**
-	 The supported feature levels.
-	 */
-	constexpr D3D_FEATURE_LEVEL g_feature_levels[] = {
-		D3D_FEATURE_LEVEL_11_1,
-		D3D_FEATURE_LEVEL_11_0
-	};
-
-	/**
-	 Returns the device.
-
-	 @pre			The renderer associated with the 
-					current engine must be loaded.
-	 @return		A pointer to the device.
-	 */
-	ID3D11Device2 *GetDevice() noexcept;
-
-	/**
-	 Returns the immediate device context.
-
-	 @pre			The renderer associated with the 
-					current engine must be loaded.
-	 @return		A pointer to the immediate device context.
-	 */
-	ID3D11DeviceContext2 *GetImmediateDeviceContext() noexcept;
-
 	//-------------------------------------------------------------------------
 	// Pipeline
 	//-------------------------------------------------------------------------
+
+	// The (rendering and compute) pipeline and all of its stages are wrapped 
+	// as class member methods instead of using (inner)namespaces. This allows
+	// the passing of the pipeline or one of its stages as template arguments.
 
 	/**
 	 The (rendering and compute) pipeline.
 	 */
 	struct Pipeline final {
 
+	public:
+
 		//---------------------------------------------------------------------
-		// Class Member Methods
+		// Class Member Methods: Device and DeviceContext
+		//---------------------------------------------------------------------
+
+		/**
+		 The supported feature levels.
+		 */
+		static const D3D_FEATURE_LEVEL s_feature_levels[2];
+
+		/**
+		 Returns the device.
+
+		 @pre			The renderer associated with the 
+						current engine must be loaded.
+		 @return		A pointer to the device.
+		 */
+		static ID3D11Device2 *GetDevice() noexcept;
+
+		/**
+		 Returns the immediate device context.
+
+		 @pre			The renderer associated with the 
+						current engine must be loaded.
+		 @return		A pointer to the immediate device context.
+		 */
+		static ID3D11DeviceContext2 *GetImmediateDeviceContext() noexcept;
+
+		//---------------------------------------------------------------------
+		// Class Member Methods: Drawing and Dispatching
 		//---------------------------------------------------------------------
 
 		static void DrawAuto(ID3D11DeviceContext2 *device_context) noexcept {
@@ -98,22 +105,25 @@ namespace mage {
 				nb_thread_groups_x, nb_thread_groups_y, nb_thread_groups_z);
 		}
 
-		static void DrawInstancedIndirect(ID3D11DeviceContext2 *device_context,
-			ID3D11Buffer *buffer, UINT byte_offset) noexcept {
+		static void DrawInstancedIndirect(
+			ID3D11DeviceContext2 *device_context, ID3D11Buffer *buffer, 
+			UINT byte_offset) noexcept {
 
 			device_context->DrawInstancedIndirect(buffer, byte_offset);
 			OnDraw();
 		}
 
-		static void DrawIndexedInstancedIndirect(ID3D11DeviceContext2 *device_context,
-			ID3D11Buffer *buffer, UINT byte_offset) noexcept {
+		static void DrawIndexedInstancedIndirect(
+			ID3D11DeviceContext2 *device_context, ID3D11Buffer *buffer, 
+			UINT byte_offset) noexcept {
 
 			device_context->DrawIndexedInstancedIndirect(buffer, byte_offset);
 			OnDraw();
 		}
 
-		static void DispatchIndirect(ID3D11DeviceContext2 *device_context,
-			ID3D11Buffer *buffer, UINT byte_offset) noexcept {
+		static void DispatchIndirect(
+			ID3D11DeviceContext2 *device_context, ID3D11Buffer *buffer, 
+			UINT byte_offset) noexcept {
 
 			device_context->DispatchIndirect(buffer, byte_offset);
 		}
@@ -132,7 +142,7 @@ namespace mage {
 
 			device_context->Unmap(resource, subresource);
 		}
-
+		
 		static void UpdateSubresource(ID3D11DeviceContext2 *device_context,
 			ID3D11Resource *dst_resource, UINT dst_subresource,
 			const void *src_data, UINT src_row_pitch, UINT src_depth_pitch,
@@ -141,6 +151,10 @@ namespace mage {
 			device_context->UpdateSubresource(dst_resource, dst_subresource,
 				dst_box, src_data, src_row_pitch, src_depth_pitch);
 		}
+
+		//---------------------------------------------------------------------
+		// Class Member Methods: Shaders
+		//---------------------------------------------------------------------
 
 		/**
 		 Binds a constant buffer to all shader stages.
@@ -159,12 +173,12 @@ namespace mage {
 		static void BindConstantBuffer(ID3D11DeviceContext2 *device_context,
 			UINT slot, ID3D11Buffer *buffer) noexcept {
 				
-			Pipeline::VS::BindConstantBuffer(device_context, slot, buffer);
-			Pipeline::Pipeline::HS::BindConstantBuffer(device_context, slot, buffer);
-			Pipeline::DS::BindConstantBuffer(device_context, slot, buffer);
-			Pipeline::GS::BindConstantBuffer(device_context, slot, buffer);
-			Pipeline::PS::BindConstantBuffer(device_context, slot, buffer);
-			Pipeline::CS::BindConstantBuffer(device_context, slot, buffer);
+			VS::BindConstantBuffer(device_context, slot, buffer);
+			HS::BindConstantBuffer(device_context, slot, buffer);
+			DS::BindConstantBuffer(device_context, slot, buffer);
+			GS::BindConstantBuffer(device_context, slot, buffer);
+			PS::BindConstantBuffer(device_context, slot, buffer);
+			CS::BindConstantBuffer(device_context, slot, buffer);
 		}
 		
 		/**
@@ -193,12 +207,12 @@ namespace mage {
 			UINT slot, UINT nb_buffers, 
 			ID3D11Buffer * const *buffers) noexcept {
 				
-			Pipeline::VS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
-			Pipeline::Pipeline::HS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
-			Pipeline::DS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
-			Pipeline::GS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
-			Pipeline::PS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
-			Pipeline::CS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
+			VS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
+			HS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
+			DS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
+			GS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
+			PS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
+			CS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
 		}
 		
 		/**
@@ -218,12 +232,12 @@ namespace mage {
 		static void BindSRV(ID3D11DeviceContext2 *device_context,
 			UINT slot, ID3D11ShaderResourceView *srv) noexcept {
 				
-			Pipeline::VS::BindSRV(device_context, slot, srv);
-			Pipeline::Pipeline::HS::BindSRV(device_context, slot, srv);
-			Pipeline::DS::BindSRV(device_context, slot, srv);
-			Pipeline::GS::BindSRV(device_context, slot, srv);
-			Pipeline::PS::BindSRV(device_context, slot, srv);
-			Pipeline::CS::BindSRV(device_context, slot, srv);
+			VS::BindSRV(device_context, slot, srv);
+			HS::BindSRV(device_context, slot, srv);
+			DS::BindSRV(device_context, slot, srv);
+			GS::BindSRV(device_context, slot, srv);
+			PS::BindSRV(device_context, slot, srv);
+			CS::BindSRV(device_context, slot, srv);
 		}
 
 		/**
@@ -253,12 +267,12 @@ namespace mage {
 			UINT slot, UINT nb_srvs, 
 			ID3D11ShaderResourceView * const *srvs) noexcept {
 				
-			Pipeline::VS::BindSRVs(device_context, slot, nb_srvs, srvs);
-			Pipeline::Pipeline::HS::BindSRVs(device_context, slot, nb_srvs, srvs);
-			Pipeline::DS::BindSRVs(device_context, slot, nb_srvs, srvs);
-			Pipeline::GS::BindSRVs(device_context, slot, nb_srvs, srvs);
-			Pipeline::PS::BindSRVs(device_context, slot, nb_srvs, srvs);
-			Pipeline::CS::BindSRVs(device_context, slot, nb_srvs, srvs);
+			VS::BindSRVs(device_context, slot, nb_srvs, srvs);
+			HS::BindSRVs(device_context, slot, nb_srvs, srvs);
+			DS::BindSRVs(device_context, slot, nb_srvs, srvs);
+			GS::BindSRVs(device_context, slot, nb_srvs, srvs);
+			PS::BindSRVs(device_context, slot, nb_srvs, srvs);
+			CS::BindSRVs(device_context, slot, nb_srvs, srvs);
 		}
 
 		/**
@@ -278,12 +292,12 @@ namespace mage {
 		static void BindSampler(ID3D11DeviceContext2 *device_context, 
 			UINT slot, ID3D11SamplerState *sampler) noexcept {
 				
-			Pipeline::VS::BindSampler(device_context, slot, sampler);
-			Pipeline::Pipeline::HS::BindSampler(device_context, slot, sampler);
-			Pipeline::DS::BindSampler(device_context, slot, sampler);
-			Pipeline::GS::BindSampler(device_context, slot, sampler);
-			Pipeline::PS::BindSampler(device_context, slot, sampler);
-			Pipeline::CS::BindSampler(device_context, slot, sampler);
+			VS::BindSampler(device_context, slot, sampler);
+			HS::BindSampler(device_context, slot, sampler);
+			DS::BindSampler(device_context, slot, sampler);
+			GS::BindSampler(device_context, slot, sampler);
+			PS::BindSampler(device_context, slot, sampler);
+			CS::BindSampler(device_context, slot, sampler);
 		}
 		
 		/**
@@ -312,12 +326,12 @@ namespace mage {
 			UINT slot, UINT nb_samplers, 
 			ID3D11SamplerState * const *samplers) noexcept {
 				
-			Pipeline::VS::BindSamplers(device_context, slot, nb_samplers, samplers);
-			Pipeline::Pipeline::HS::BindSamplers(device_context, slot, nb_samplers, samplers);
-			Pipeline::DS::BindSamplers(device_context, slot, nb_samplers, samplers);
-			Pipeline::GS::BindSamplers(device_context, slot, nb_samplers, samplers);
-			Pipeline::PS::BindSamplers(device_context, slot, nb_samplers, samplers);
-			Pipeline::CS::BindSamplers(device_context, slot, nb_samplers, samplers);
+			VS::BindSamplers(device_context, slot, nb_samplers, samplers);
+			HS::BindSamplers(device_context, slot, nb_samplers, samplers);
+			DS::BindSamplers(device_context, slot, nb_samplers, samplers);
+			GS::BindSamplers(device_context, slot, nb_samplers, samplers);
+			PS::BindSamplers(device_context, slot, nb_samplers, samplers);
+			CS::BindSamplers(device_context, slot, nb_samplers, samplers);
 		}
 		
 		//---------------------------------------------------------------------
@@ -328,6 +342,8 @@ namespace mage {
 		 The input assembler stage.
 		 */
 		struct IA final {
+
+		public:
 
 			//-----------------------------------------------------------------
 			// Class Member Methods
@@ -437,7 +453,8 @@ namespace mage {
 				ID3D11ClassInstance * const *class_instances, 
 				UINT nb_class_instances) noexcept {
 				
-				device_context->VSSetShader(shader, class_instances, nb_class_instances);
+				device_context->VSSetShader(shader, 
+					class_instances, nb_class_instances);
 			}
 			
 			/**
@@ -658,7 +675,8 @@ namespace mage {
 				ID3D11ClassInstance * const *class_instances, 
 				UINT nb_class_instances) noexcept {
 				
-				device_context->DSSetShader(shader, class_instances, nb_class_instances);
+				device_context->DSSetShader(shader, 
+					class_instances, nb_class_instances);
 			}
 			
 			/**
@@ -840,6 +858,8 @@ namespace mage {
 		 */
 		struct TS final {
 
+		public:
+
 			//-----------------------------------------------------------------
 			// Class Member Methods
 			//-----------------------------------------------------------------
@@ -911,7 +931,8 @@ namespace mage {
 				ID3D11ClassInstance * const *class_instances, 
 				UINT nb_class_instances) noexcept {
 				
-				device_context->HSSetShader(shader, class_instances, nb_class_instances);
+				device_context->HSSetShader(shader, 
+					class_instances, nb_class_instances);
 			}
 			
 			/**
@@ -1132,7 +1153,8 @@ namespace mage {
 				ID3D11ClassInstance * const *class_instances, 
 				UINT nb_class_instances) noexcept {
 				
-				device_context->GSSetShader(shader, class_instances, nb_class_instances);
+				device_context->GSSetShader(shader, 
+					class_instances, nb_class_instances);
 			}
 			
 			/**
@@ -1314,6 +1336,8 @@ namespace mage {
 		 */
 		struct SO final {
 
+		public:
+
 			//-----------------------------------------------------------------
 			// Class Member Methods
 			//-----------------------------------------------------------------
@@ -1345,6 +1369,8 @@ namespace mage {
 		 The rasterizer stage.
 		 */
 		struct RS final {
+
+		public:
 
 			//-----------------------------------------------------------------
 			// Class Member Methods
@@ -1453,7 +1479,8 @@ namespace mage {
 				ID3D11ClassInstance * const *class_instances, 
 				UINT nb_class_instances) noexcept {
 				
-				device_context->PSSetShader(shader, class_instances, nb_class_instances);
+				device_context->PSSetShader(shader, 
+					class_instances, nb_class_instances);
 			}
 			
 			/**
@@ -1634,6 +1661,8 @@ namespace mage {
 		 The output merger stage.
 		 */
 		struct OM final {
+
+		public:
 
 			//-----------------------------------------------------------------
 			// Class Member Methods
@@ -1837,7 +1866,8 @@ namespace mage {
 				ID3D11ClassInstance * const *class_instances, 
 				UINT nb_class_instances) noexcept {
 				
-				device_context->CSSetShader(shader, class_instances, nb_class_instances);
+				device_context->CSSetShader(shader, 
+					class_instances, nb_class_instances);
 			}
 			
 			/**
@@ -1959,7 +1989,8 @@ namespace mage {
 							@c D3D11_BUFFER_UAV_FLAG_APPEND or @c D3D11_BUFFER_UAV_FLAG_COUNTER.
 			 */
 			static void BindUAV(ID3D11DeviceContext2 *device_context, 
-				UINT slot, ID3D11UnorderedAccessView *uav, UINT initial_count = 0u) noexcept {
+				UINT slot, ID3D11UnorderedAccessView *uav, 
+				UINT initial_count = 0u) noexcept {
 					
 				ID3D11UnorderedAccessView * const uavs[1] = { uav };
 				BindUAVs(device_context, slot, 1u, uavs, &initial_count);
@@ -1992,7 +2023,8 @@ namespace mage {
 							@c D3D11_BUFFER_UAV_FLAG_APPEND or @c D3D11_BUFFER_UAV_FLAG_COUNTER.
 			 */
 			static void BindUAVs(ID3D11DeviceContext2 *device_context, 
-				UINT slot, UINT nb_uavs, ID3D11UnorderedAccessView * const *uavs, 
+				UINT slot, UINT nb_uavs, 
+				ID3D11UnorderedAccessView * const *uavs, 
 				const UINT *initial_counts = nullptr) noexcept {
 					
 				device_context->CSSetUnorderedAccessViews(slot, nb_uavs, uavs, initial_counts);

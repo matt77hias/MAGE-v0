@@ -20,7 +20,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	RenderingStateCache *RenderingStateCache::Get() noexcept {
+	const RenderingStateCache *RenderingStateCache::Get() noexcept {
 		Assert(Renderer::Get());
 
 		return Renderer::Get()->GetRenderingStateCache();

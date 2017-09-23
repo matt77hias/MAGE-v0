@@ -184,7 +184,7 @@ namespace mage {
 
 		 @return		A pointer to the rendering state cache of this renderer.
 		 */
-		RenderingStateCache *GetRenderingStateCache() const noexcept {
+		const RenderingStateCache *GetRenderingStateCache() const noexcept {
 			return m_rendering_state_cache.get();
 		}
 

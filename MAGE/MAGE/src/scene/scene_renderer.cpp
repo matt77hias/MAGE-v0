@@ -24,7 +24,7 @@ namespace mage {
 	}
 
 	SceneRenderer::SceneRenderer()
-		: m_device_context(GetImmediateDeviceContext()),
+		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_maximum_viewport(),
 		m_pass_buffer(MakeUnique< PassBuffer >()),
 		m_gbuffer(MakeUnique< GBuffer >()),

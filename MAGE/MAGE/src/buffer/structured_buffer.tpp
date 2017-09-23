@@ -19,7 +19,7 @@ namespace mage {
 	template< typename DataT >
 	StructuredBuffer< DataT >::StructuredBuffer(
 		size_t nb_initial_data_elements)
-		: StructuredBuffer(GetDevice(), nb_initial_data_elements) {}
+		: StructuredBuffer(Pipeline::GetDevice(), nb_initial_data_elements) {}
 
 	template< typename DataT >
 	StructuredBuffer< DataT >::StructuredBuffer(ID3D11Device2 *device,
@@ -57,7 +57,7 @@ namespace mage {
 	inline void StructuredBuffer< DataT >::UpdateData(
 		ID3D11DeviceContext2 *device_context, const vector< DataT > &data) {
 
-		UpdateData(GetDevice(), device_context, data);
+		UpdateData(Pipeline::GetDevice(), device_context, data);
 	}
 
 	template< typename DataT >

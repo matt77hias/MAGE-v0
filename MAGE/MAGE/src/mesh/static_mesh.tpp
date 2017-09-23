@@ -21,7 +21,7 @@ namespace mage {
 		const VertexT *vertices, size_t nb_vertices,
 		const IndexT *indices, size_t nb_indices, 
 		DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
-		: StaticMesh(GetDevice(),
+		: StaticMesh(Pipeline::GetDevice(),
 			vertices, nb_vertices,
 			indices, nb_indices, 
 			index_format, primitive_topology) {}
@@ -43,7 +43,7 @@ namespace mage {
 		const vector< VertexT > &vertices, 
 		const vector< IndexT > &indices, 
 		DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
-		: StaticMesh(GetDevice(),
+		: StaticMesh(Pipeline::GetDevice(),
 			vertices, indices, 
 			index_format, primitive_topology) {}
 

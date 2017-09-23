@@ -18,7 +18,7 @@ namespace mage {
 
 	template< typename DataT >
 	ConstantBuffer< DataT >::ConstantBuffer()
-		: ConstantBuffer(GetDevice()) {}
+		: ConstantBuffer(Pipeline::GetDevice()) {}
 
 	template< typename DataT >
 	ConstantBuffer< DataT >::ConstantBuffer(ID3D11Device2 *device)

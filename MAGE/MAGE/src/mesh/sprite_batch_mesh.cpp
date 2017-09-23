@@ -18,7 +18,7 @@
 namespace mage {
 
 	SpriteBatchMesh::SpriteBatchMesh()
-		: SpriteBatchMesh(GetDevice()) {}
+		: SpriteBatchMesh(Pipeline::GetDevice()) {}
 
 	SpriteBatchMesh::SpriteBatchMesh(ID3D11Device2 *device)
 	 : Mesh(sizeof(VertexPositionColorTexture), 

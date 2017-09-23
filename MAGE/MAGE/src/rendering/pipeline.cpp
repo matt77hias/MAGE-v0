@@ -14,13 +14,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	ID3D11Device2 *GetDevice() noexcept {
+	const D3D_FEATURE_LEVEL Pipeline::s_feature_levels[2] = {
+		D3D_FEATURE_LEVEL_11_1,
+		D3D_FEATURE_LEVEL_11_0
+	};
+
+	ID3D11Device2 *Pipeline::GetDevice() noexcept {
 		Assert(Renderer::Get());
 
 		return Renderer::Get()->GetDevice();
 	}
 
-	ID3D11DeviceContext2 *GetImmediateDeviceContext() noexcept {
+	ID3D11DeviceContext2 *Pipeline::GetImmediateDeviceContext() noexcept {
 		Assert(Renderer::Get());
 
 		return Renderer::Get()->GetDeviceContext();

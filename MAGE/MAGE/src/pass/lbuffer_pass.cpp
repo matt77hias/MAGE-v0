@@ -19,7 +19,7 @@
 namespace mage {
 
 	LBufferPass::LBufferPass()
-		: m_device_context(GetImmediateDeviceContext()),
+		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_light_buffer(),
 		m_directional_lights(3),
 		m_omni_lights(32),

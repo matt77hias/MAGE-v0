@@ -21,7 +21,7 @@ namespace mage {
 	ShadowMapBuffer::ShadowMapBuffer(
 		size_t nb_shadow_maps, UINT width, UINT height,
 		DepthFormat format) 
-		: ShadowMapBuffer(GetDevice(), 
+		: ShadowMapBuffer(Pipeline::GetDevice(), 
 			nb_shadow_maps, width, height, format) {}
 
 	ShadowMapBuffer::ShadowMapBuffer(ID3D11Device2 *device,
@@ -135,7 +135,7 @@ namespace mage {
 	ShadowCubeMapBuffer::ShadowCubeMapBuffer(
 		size_t nb_shadow_cube_maps, UINT width, UINT height,
 		DepthFormat format)
-		: ShadowCubeMapBuffer(GetDevice(),
+		: ShadowCubeMapBuffer(Pipeline::GetDevice(),
 			nb_shadow_cube_maps, width, height, format) {}
 
 	ShadowCubeMapBuffer::ShadowCubeMapBuffer(ID3D11Device2 *device,

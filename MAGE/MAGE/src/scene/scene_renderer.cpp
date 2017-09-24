@@ -67,8 +67,8 @@ namespace mage {
 		// Update the game buffer.
 		m_game_buffer.UpdateData(m_device_context, game_buffer);
 		// Bind the game buffer.
-		Pipeline::BindConstantBuffer(m_device_context, 
-			SLOT_CBUFFER_GAME, m_game_buffer.Get());
+		m_game_buffer.Bind< Pipeline >(
+			m_device_context, SLOT_CBUFFER_GAME);
 	}
 
 	void SceneRenderer::Render(const Scene *scene) {

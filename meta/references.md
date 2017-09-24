@@ -3,7 +3,7 @@
 ## How to cite
 
 ```bibtex
-@misc{resources16,
+@misc{mage17,
    author = {Matthias Moulin},
    title  = {MAGE - Matthias Advanced Game Engine},
    year   = {2017},

@@ -26,6 +26,10 @@
 
 AKENINE-MÖLLER T., HAINES E., HOFFMAN N.: *Real-Time Rendering*, 3th Edition, A K Peters/CRC Press, 2008.
 
+BOURKE P.: [*MTL material format (Lightwave, OBJ)*](http://paulbourke.net/dataformats/mtl/), 1995.
+
+BOURKE P.: [*Object Files (.obj)*](http://paulbourke.net/dataformats/obj/).
+
 DUTRÉ P., BEKAERT P, BALA K.: *Advanced Global Illumination*, 2th Edition, A K Peters/CRC Press, 2006.
 
 GAMMA E., HELM R., JOHNSON R., VLISSIDES J. M.: Design Patterns: *Elements of Reusable Object-oriented Software*, 1st Edition, Addison-Wesley Longman Publishing Co., 1995.
@@ -42,11 +46,27 @@ MEYERS S.: *Effective C++*, 3th Edition, Addison-Wesley Professional, 2005.
 
 MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.
 
+MICROSOFT CORP.: [*Direct3D 11 Graphics*](https://msdn.microsoft.com/en-us/library/windows/desktop/ff476080(v=vs.85).aspx).
+
+MICROSOFT CORP.: [*DirectXMath*](https://msdn.microsoft.com/en-us/library/windows/desktop/hh437833(v=vs.85).aspx).
+
+MICROSOFT CORP.: [*DirectXTK*](https://github.com/Microsoft/DirectXTK/wiki).
+
+MONTES R., UREÑA C.: *An Overview of BRDF Models*, Technical Report, 2012.
+
+NGAN A., DURAND F., MATUSIK W.: *Experimental Analysis of BRDF Models*, *Proceedings of the Sixteenth Eurographics Conference on Rendering Techniques*, 2005.
+
 PHARR M., HUMPHREYS: *Physically Based Rendering: From Theory to Implementation*, 2nd Edition, Morgan Kaufmann, 2010.
 
 PHARR M., JAKOB W., HUMPHREYS: *Physically Based Rendering: From Theory to Implementation*, 3th Edition, Morgan Kaufmann, 2016.
 
+RASTERTEK: [*DirectX 11 Tutorials*](http://www.rastertek.com/tutdx11.html).
+
+RASTERTEK: [*DirectX 11 Tutorials - Series 2*](http://www.rastertek.com/tutdx11s2.html).
+
 SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Press, 2009.
+
+UPCHURCH P., DESBRUN M.: *Tightening the Precision of Perspective Rendering*, *J. Graphics Tools* 12, 2012.
 
 YOUNG V.: *Programming a Multiplayer FPS in DirectX, 1st Edition*, Game Development Series, Charles River Media, 2005.
 

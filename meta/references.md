@@ -32,6 +32,12 @@ BOURKE P.: [*MTL material format (Lightwave, OBJ)*](http://paulbourke.net/datafo
 
 BOURKE P.: [*Object Files (.obj)*](http://paulbourke.net/dataformats/obj/).
 
+CAFLISCH R.E.: *Monte Carlo and quasi-Monte Carlo methods*, Acta Numerica, Cambridge University Press, 1998.
+
+DUFF T., BURGESS J., CHRISTENSEN P., HERY C., KENSLER A., LIANI M., VILLEMIN R.: *Building an Orthonormal Basis, Revisited*, *Journal of Computer Graphics Techniques* 6, 1, 2017.
+
+DUTRÉ P.: [*Global Illumination Compendium*](https://people.cs.kuleuven.be/~philip.dutre/GI/TotalCompendium.pdf), 2003.
+
 DUTRÉ P., BEKAERT P, BALA K.: *Advanced Global Illumination*, 2th Edition, A K Peters/CRC Press, 2006.
 
 ENGEL W.: *Shader X5: Advanced Rendering Techniques*, 1st Edition, Charles River Media, 2007.
@@ -40,9 +46,13 @@ FEINSTEIN D.: *HLSL Development Cookbook*, 1st Edition, Packt Publishing, 2013.
 
 FIEDLER G.: [*Fix Your Timestep!: How to step your physics simulation forward*](https://gafferongames.com/post/fix_your_timestep/), 2004.
 
+FRISVAD, J. R.: *Building an Orthonormal Basis from a 3D Unit Vector Without Normalization*, *Journal of Graphics Tools* 16, 3, 2012.
+
 GAMMA E., HELM R., JOHNSON R., VLISSIDES J. M.: Design Patterns: *Elements of Reusable Object-oriented Software*, 1st Edition, Addison-Wesley Longman Publishing Co., 1995.
 
 GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.
+
+HUGHES, J. F., MÖLLER, T.: *Building an Orthonormal Basis from a Unit Vector*, *Journal of Graphics Tools* 4, 4, 1999.
 
 LENGYEL E.: *Foundations of Game Engine Development, Volume 1: Mathematics*, 1st Edition, Terathon Software LLC, 2016.
 

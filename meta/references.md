@@ -34,11 +34,15 @@ BOURKE P.: [*Object Files (.obj)*](http://paulbourke.net/dataformats/obj/).
 
 DUTRÉ P., BEKAERT P, BALA K.: *Advanced Global Illumination*, 2th Edition, A K Peters/CRC Press, 2006.
 
+ENGEL W.: *Shader X5: Advanced Rendering Techniques*, 1st Edition, Charles River Media, 2007.
+
+FEINSTEIN D.: *HLSL Development Cookbook*, 1st Edition, Packt Publishing, 2013.
+
+FIEDLER G.: [*Fix Your Timestep!: How to step your physics simulation forward*](https://gafferongames.com/post/fix_your_timestep/), 2004.
+
 GAMMA E., HELM R., JOHNSON R., VLISSIDES J. M.: Design Patterns: *Elements of Reusable Object-oriented Software*, 1st Edition, Addison-Wesley Longman Publishing Co., 1995.
 
 GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.
-
-FEINSTEIN D.: *HLSL Development Cookbook*, 1st Edition, Packt Publishing, 2013.
 
 LENGYEL E.: *Foundations of Game Engine Development, Volume 1: Mathematics*, 1st Edition, Terathon Software LLC, 2016.
 
@@ -58,6 +62,8 @@ MONTES R., UREÑA C.: *An Overview of BRDF Models*, Technical Report, 2012.
 
 NGAN A., DURAND F., MATUSIK W.: *Experimental Analysis of BRDF Models*, *Proceedings of the Sixteenth Eurographics Conference on Rendering Techniques*, 2005.
 
+NYSTROM R.: *Game Programming Patterns*, 1st Edition, Genever Benning, 2014.
+
 PHARR M., HUMPHREYS: *Physically Based Rendering: From Theory to Implementation*, 2nd Edition, Morgan Kaufmann, 2010.
 
 PHARR M., JAKOB W., HUMPHREYS: *Physically Based Rendering: From Theory to Implementation*, 3th Edition, Morgan Kaufmann, 2016.
@@ -66,9 +72,13 @@ RASTERTEK: [*DirectX 11 Tutorials*](http://www.rastertek.com/tutdx11.html).
 
 RASTERTEK: [*DirectX 11 Tutorials - Series 2*](http://www.rastertek.com/tutdx11s2.html).
 
+SCHÜLER C.: [*Followup: Normal Mapping Without Precomputed Tangents*](http://www.thetenthplanet.de/archives/1180), 2013.
+
 SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Press, 2009.
 
 UPCHURCH P., DESBRUN M.: *Tightening the Precision of Perspective Rendering*, *J. Graphics Tools* 12, 2012.
+
+WITTERS K.: [*deWiTTERS Game Loop*](http://www.koonsolo.com/news/dewitters-gameloop/), 2009.
 
 YOUNG V.: *Programming a Multiplayer FPS in DirectX, 1st Edition*, Game Development Series, Charles River Media, 2005.
 

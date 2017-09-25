@@ -164,16 +164,16 @@ namespace mage {
 	TokenResult StringToF32(const char *str, float &result) noexcept;
 
 	/**
-	 Converts the given string to a @c double.
+	 Converts the given string to a @c f64.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c double represented by the string @a str.
+					A reference to the @c f64 represented by the string @a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to a @c double succeeded or not.
+					of the given string @a str to a @c f64 succeeded or not.
 	 */
-	TokenResult StringToF64(const char *str, double &result) noexcept;
+	TokenResult StringToF64(const char *str, f64 &result) noexcept;
 
 #pragma endregion
 
@@ -343,7 +343,7 @@ namespace mage {
 	TokenResult StringToF32(const char *begin, const char *end, float &result) noexcept;
 	
 	/**
-	 Converts the given string to a @c double.
+	 Converts the given string to a @c f64.
 
 	 @pre			@a end is not equal to @c nullptr 
 					if @a begin is not equal to @c nullptr.
@@ -352,11 +352,11 @@ namespace mage {
 	 @param[in]		end
 					A pointer to the end (exclusive) of the string to convert.
 	 @param[out]	result
-					A reference to the @c double represented by the string @a str.
+					A reference to the @c f64 represented by the string @a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to a @c double succeeded or not.
+					of the given string @a str to a @c f64 succeeded or not.
 	 */
-	TokenResult StringToF64(const char *begin, const char *end, double &result) noexcept;
+	TokenResult StringToF64(const char *begin, const char *end, f64 &result) noexcept;
 
 #pragma endregion
 
@@ -474,16 +474,16 @@ namespace mage {
 	TokenResult StringPrefixToF32(const char *str, float &result) noexcept;
 
 	/**
-	 Converts the prefix of the given string @a str to a @c double.
+	 Converts the prefix of the given string @a str to a @c f64.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c double represented by the prefix of the given string @a str.
+					A reference to the @c f64 represented by the prefix of the given string @a str.
 	 @return		A token result indicating whether the conversion of the prefix 
-					of the given string @a str to a @c double succeeded or not.
+					of the given string @a str to a @c f64 succeeded or not.
 	 */
-	TokenResult StringPrefixToF64(const char *str, double &result) noexcept;
+	TokenResult StringPrefixToF64(const char *str, f64 &result) noexcept;
 
 #pragma endregion
 
@@ -768,7 +768,7 @@ namespace mage {
 	TokenResult ReadFloat(char *str, char **context, float &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
-	 Reads and converts the next token in the given string to a @c double.
+	 Reads and converts the next token in the given string to a @c f64.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -780,13 +780,13 @@ namespace mage {
 	 @param[in,out] context
 					A pointer to the current position int he given string @a str.
 	 @param[out]	result
-					A reference to the @c double represented by the next token in the given string @a str.
+					A reference to the @c f64 represented by the next token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing the delimiting characters.
 	 @return		A token result indicating whether the conversion
-					of the next token in the given string to a @c double succeeded or not.
+					of the next token in the given string to a @c f64 succeeded or not.
 	 */
-	TokenResult ReadDouble(char *str, char **context, double &result, const char *delimiters = mage_default_delimiters) noexcept;
+	TokenResult ReadDouble(char *str, char **context, f64 &result, const char *delimiters = mage_default_delimiters) noexcept;
 	
 	/**
 	 Reads and converts the next token in the given string to a @c XMFLOAT2.
@@ -1042,7 +1042,7 @@ namespace mage {
 	TokenResult HasF32(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
-	 Checks whether the next token in the given string represents a @c double.
+	 Checks whether the next token in the given string represents a @c f64.
 
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -1051,7 +1051,7 @@ namespace mage {
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing the delimiting characters.
 	 @return		A token result indicating whether the conversion
-					of the next token in the given string to a @c double succeeds or not.
+					of the next token in the given string to a @c f64 succeeds or not.
 	 */
 	TokenResult HasF64(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 

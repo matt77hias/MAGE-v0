@@ -26,8 +26,8 @@ namespace mage {
 
 		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
-		const UINT width  = static_cast< UINT >(renderer->GetWidth());
-		const UINT height = static_cast< UINT >(renderer->GetHeight());
+		const u32 width  = renderer->GetWidth();
+		const u32 height = renderer->GetHeight();
 
 		SetupBuffer(device, width, height);
 	}
@@ -53,7 +53,7 @@ namespace mage {
 	}
 
 	void ImageBuffer::SetupBuffer(ID3D11Device2 *device, 
-		UINT width, UINT height) {
+		u32 width, u32 height) {
 
 		Assert(device);
 

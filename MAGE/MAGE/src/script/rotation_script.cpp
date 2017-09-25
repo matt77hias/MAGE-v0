@@ -23,7 +23,7 @@ namespace mage {
 
 	RotationScript::~RotationScript() = default;
 
-	void RotationScript::Update(double delta_time) {
+	void RotationScript::Update(f64 delta_time) {
 
 		switch (m_axis) {
 		

@@ -4,7 +4,6 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "memory\memory.hpp"
 
 #pragma endregion
 
@@ -24,7 +23,7 @@ namespace mage {
 
 	void BehaviorScript::FixedUpdate() {}
 
-	void BehaviorScript::Update(double delta_time) {
+	void BehaviorScript::Update(f64 delta_time) {
 		UNUSED(delta_time);
 	}
 

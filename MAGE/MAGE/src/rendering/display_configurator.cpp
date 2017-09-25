@@ -49,7 +49,7 @@ namespace mage {
 		return display_configurator->DisplayDialogProc(hwndDlg, uMsg, wParam, lParam);
 	}
 
-	const UINT DisplayConfigurator::s_nb_MSAA_samples[] = { 1, 2, 4, 8, 16 };
+	const u32 DisplayConfigurator::s_nb_MSAA_samples[] = { 1, 2, 4, 8, 16 };
 
 	DisplayConfigurator::DisplayConfigurator(
 		DXGI_FORMAT pixel_format)
@@ -115,7 +115,7 @@ namespace mage {
 		ComPtr< IDXGIAdapter1 > adapter1;
 		ComPtr< IDXGIOutput > output;
 		SIZE_T max_vram = 0;
-		for (UINT i = 0; factory->EnumAdapters1(i, adapter1.GetAddressOf()) != DXGI_ERROR_NOT_FOUND; ++i) {
+		for (u32 i = 0u; factory->EnumAdapters1(i, adapter1.GetAddressOf()) != DXGI_ERROR_NOT_FOUND; ++i) {
 
 			// Get the IDXGIAdapter2.
 			ComPtr< IDXGIAdapter2 > adapter2;
@@ -153,8 +153,8 @@ namespace mage {
 		m_display_modes = list< DXGI_MODE_DESC1 >();
 
 		// Get the DXGI_MODE_DESCs. 
-		const UINT flags = DXGI_ENUM_MODES_INTERLACED;
-		UINT nb_display_modes;
+		const u32 flags = DXGI_ENUM_MODES_INTERLACED;
+		u32 nb_display_modes;
 		// Get the number of display modes that match the requested format and other input options.
 		const HRESULT result1 = m_output->GetDisplayModeList1(m_pixel_format, flags, &nb_display_modes, nullptr);
 		ThrowIfFailed(result1, "Failed to get the number of display modes: %08X.", result1);
@@ -164,7 +164,7 @@ namespace mage {
 		ThrowIfFailed(result2, "Failed to get the display modes: %08X.", result2);
 
 		// Enumerate the DXGI_MODE_DESCs.
-		for (UINT mode = 0; mode < nb_display_modes; ++mode) {
+		for (u32 mode = 0u; mode < nb_display_modes; ++mode) {
 			
 			// Reject small display modes.
 			if (RejectDisplayMode(dxgi_mode_descs.get()[mode])) {
@@ -339,7 +339,7 @@ namespace mage {
 				// Store all the settings to the display configuration.
 				m_display_configuration = MakeUnique< DisplayConfiguration >(
 					m_adapter, m_output, *selected_diplay_mode, windowed, vsync, 
-					static_cast< UINT >(selected_msaa));
+					static_cast< u32 >(selected_msaa));
 
 				// Get the selected index from each combo box.
 				const int resolution_index	 = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_RESOLUTION));

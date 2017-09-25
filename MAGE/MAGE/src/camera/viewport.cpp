@@ -16,8 +16,8 @@ namespace mage {
 
 	const D3D11_VIEWPORT Viewport::GetMaxViewport() noexcept {
 		D3D11_VIEWPORT viewport = {};
-		viewport.Width    = static_cast< FLOAT >(Renderer::Get()->GetWidth());
-		viewport.Height   = static_cast< FLOAT >(Renderer::Get()->GetHeight());
+		viewport.Width    = static_cast< f32 >(Renderer::Get()->GetWidth());
+		viewport.Height   = static_cast< f32 >(Renderer::Get()->GetHeight());
 		viewport.MaxDepth = 1.0f;
 		return viewport;
 	}

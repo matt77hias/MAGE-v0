@@ -325,7 +325,7 @@ namespace mage {
 		 If the fixed delta time is equal to zero, fixed delta time updates 
 		 will be treated as non-fixed delta time updates by this engine.
 		 */
-		double m_fixed_delta_time;
+		f64 m_fixed_delta_time;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Statistics

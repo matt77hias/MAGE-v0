@@ -47,13 +47,13 @@ namespace mage {
 
 		explicit ShadowMapBuffer(
 			size_t nb_shadow_maps = 1, 
-			UINT width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			UINT height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			u32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			u32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
 			DepthFormat format = DepthFormat::D16);
 		explicit ShadowMapBuffer(ID3D11Device2 *device,
 			size_t nb_shadow_maps = 1, 
-			UINT width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			UINT height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			u32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			u32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
 			DepthFormat format = DepthFormat::D16);
 		ShadowMapBuffer(const ShadowMapBuffer &buffer) = delete;
 		ShadowMapBuffer(ShadowMapBuffer &&buffer) = default;
@@ -115,8 +115,8 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		UINT m_width;
-		UINT m_height;
+		u32 m_width;
+		u32 m_height;
 		DepthFormat m_format;
 		Viewport m_viewport;
 		
@@ -138,13 +138,13 @@ namespace mage {
 
 		explicit ShadowCubeMapBuffer(
 			size_t nb_shadow_cube_maps = 1, 
-			UINT width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			UINT height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			u32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			u32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
 			DepthFormat format = DepthFormat::D16);
 		explicit ShadowCubeMapBuffer(ID3D11Device2 *device,
 			size_t nb_shadow_cube_maps = 1,
-			UINT width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
-			UINT height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			u32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
+			u32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
 			DepthFormat format = DepthFormat::D16);
 		ShadowCubeMapBuffer(const ShadowCubeMapBuffer &buffer) = delete;
 		ShadowCubeMapBuffer(ShadowCubeMapBuffer &&buffer) = default;
@@ -210,8 +210,8 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		UINT m_width;
-		UINT m_height;
+		u32 m_width;
+		u32 m_height;
 		DepthFormat m_format;
 		
 		Viewport m_viewport;

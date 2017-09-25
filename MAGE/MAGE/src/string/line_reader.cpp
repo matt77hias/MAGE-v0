@@ -316,8 +316,8 @@ namespace mage {
 		}
 	}
 	
-	double LineReader::ReadF64() {
-		double result;
+	f64 LineReader::ReadF64() {
+		f64 result;
 		const TokenResult token_result = mage::ReadDouble(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
@@ -325,11 +325,11 @@ namespace mage {
 			return result;
 		}
 		case TokenResult::None: {
-			throw FormattedException("%ls: line %u: no double value found.", 
+			throw FormattedException("%ls: line %u: no f64 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		default: {
-			throw FormattedException("%ls: line %u: invalid double value found.", 
+			throw FormattedException("%ls: line %u: invalid f64 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		}

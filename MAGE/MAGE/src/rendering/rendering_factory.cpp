@@ -217,9 +217,9 @@ namespace mage {
 		D3D11_RASTERIZER_DESC desc = {};
 		desc.CullMode             = cull_mode;
 		desc.FillMode             = D3D11_FILL_SOLID;
-		desc.DepthBias            = static_cast< INT >(depth_bias);
-		desc.SlopeScaledDepthBias = static_cast< FLOAT >(slope_scaled_depth_bias);
-		desc.DepthBiasClamp       = static_cast< FLOAT >(depth_bias_clamp);
+		desc.DepthBias            = depth_bias;
+		desc.SlopeScaledDepthBias = slope_scaled_depth_bias;
+		desc.DepthBiasClamp       = depth_bias_clamp;
 		desc.DepthClipEnable      = true;
 		desc.MultisampleEnable    = true;
 

@@ -1683,7 +1683,7 @@ namespace mage {
 			}
 			
 			static void BindBlendState(ID3D11DeviceContext2 *device_context,
-				ID3D11BlendState *state, const FLOAT blend_factor[4], 
+				ID3D11BlendState *state, const f32 blend_factor[4], 
 				u32 sample_mask = 0xffffffff) noexcept {
 				
 				device_context->OMSetBlendState(state, blend_factor, sample_mask);
@@ -1773,21 +1773,28 @@ namespace mage {
 			}
 
 			static void ClearRTV(ID3D11DeviceContext2 *device_context,
-				ID3D11RenderTargetView *rtv, const FLOAT rgba[4]) noexcept {
+				ID3D11RenderTargetView *rtv) noexcept {
+				
+				static const f32 rgba[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+				device_context->ClearRenderTargetView(rtv, rgba);
+			}
+
+			static void ClearRTV(ID3D11DeviceContext2 *device_context,
+				ID3D11RenderTargetView *rtv, const f32 rgba[4]) noexcept {
 
 				device_context->ClearRenderTargetView(rtv, rgba);
 			}
 			
 			static void ClearDSV(ID3D11DeviceContext2 *device_context,
 				ID3D11DepthStencilView *dsv, 
-				FLOAT depth = 1.0f, u8 stencil = 0u) noexcept {
+				f32 depth = 1.0f, u8 stencil = 0u) noexcept {
 
 				device_context->ClearDepthStencilView(
 				dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, depth, stencil);
 			}
 			
 			static void ClearDepthOfDSV(ID3D11DeviceContext2 *device_context,
-				ID3D11DepthStencilView *dsv, FLOAT depth = 1.0f) noexcept {
+				ID3D11DepthStencilView *dsv, f32 depth = 1.0f) noexcept {
 
 				device_context->ClearDepthStencilView(
 				dsv, D3D11_CLEAR_DEPTH, depth, 0u);

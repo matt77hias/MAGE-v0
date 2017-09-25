@@ -250,13 +250,13 @@ namespace mage {
 		float ReadF32();
 
 		/**
-		 Reads a @c double.
+		 Reads a @c f64.
 
-		 @return		The @c double read.
+		 @return		The @c f64 read.
 		 @throws		FormattedException
-						Failed to read a @c double.
+						Failed to read a @c f64.
 		 */
-		double ReadF64();
+		f64 ReadF64();
 
 	private:
 

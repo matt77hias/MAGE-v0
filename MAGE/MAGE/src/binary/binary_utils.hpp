@@ -174,18 +174,18 @@ namespace mage {
 	}
 	
 	/**
-	 Reads an double from the given big endian byte array.
+	 Reads an f64 from the given big endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
-	 @pre			The given byte array must contain at least @c sizeof(double) bytes.
+	 @pre			The given byte array must contain at least @c sizeof(f64) bytes.
 	 @param[in]		bytes
 					A pointer to a big endian byte array.
-	 @return		The @c double represented
+	 @return		The @c f64 represented
 					by the big endian byte array @a bytes.
 	 */
-	inline double BytesBigEndianToF64(const u8 *bytes) noexcept {
+	inline f64 BytesBigEndianToF64(const u8 *bytes) noexcept {
 		Assert(bytes);
-		return *BytesBigEndianToValue< double >(bytes);
+		return *BytesBigEndianToValue< f64 >(bytes);
 	}
 
 #pragma endregion
@@ -338,16 +338,16 @@ namespace mage {
 	}
 	
 	/**
-	 Reads an double from the given little endian byte array.
+	 Reads an f64 from the given little endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
-	 @pre			The given byte array must contain at least @c sizeof(double) bytes.
+	 @pre			The given byte array must contain at least @c sizeof(f64) bytes.
 	 @param[in]		bytes
 					A pointer to a little endian byte array.
-	 @return		The @c double represented
+	 @return		The @c f64 represented
 					by the little endian byte array @a bytes.
 	 */
-	inline double BytesLittleEndianToF64(const u8 *bytes) noexcept {
+	inline f64 BytesLittleEndianToF64(const u8 *bytes) noexcept {
 		Assert(bytes);
 		const u8 reversed_bytes[] = { bytes[7], bytes[6], bytes[5], bytes[4], bytes[3], bytes[2], bytes[1], bytes[0] };
 		return BytesBigEndianToF64(reversed_bytes);
@@ -517,19 +517,19 @@ namespace mage {
 	}
 	
 	/**
-	 Reads an double from the given byte array.
+	 Reads an f64 from the given byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
-	 @pre			The given byte array must contain at least @c sizeof(double) bytes.
+	 @pre			The given byte array must contain at least @c sizeof(f64) bytes.
 	 @param[in]		bytes
 					A pointer to a byte array.
 	 @param[in]		big_endian
 					Flag indicating whether the given byte array
 					should be interpreted as big endian or not (i.e. little endian).
-	 @return		The @c double represented
+	 @return		The @c f64 represented
 					by the byte array @a bytes.
 	 */
-	inline double BytesToF64(const u8 *bytes, bool big_endian) noexcept {
+	inline f64 BytesToF64(const u8 *bytes, bool big_endian) noexcept {
 		Assert(bytes);
 		return (big_endian) ? BytesBigEndianToF64(bytes) : BytesLittleEndianToF64(bytes);
 	}

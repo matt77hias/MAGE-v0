@@ -24,7 +24,7 @@ namespace mage {
 		// Class Member Variables
 		//---------------------------------------------------------------------
 
-		static const double s_resource_fetch_period;
+		static const f64 s_resource_fetch_period;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -46,7 +46,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update(double delta_time) override;
+		virtual void Update(f64 delta_time) override;
 
 	private:
 
@@ -54,11 +54,11 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		double m_accumulated_time;
+		f64 m_accumulated_time;
 		u32 m_accumulated_nb_frames;
 		u32 m_last_frames_per_second;
-		double m_last_milliseconds_per_frame;
-		double m_last_cpu_usage;
+		f64 m_last_milliseconds_per_frame;
+		f64 m_last_cpu_usage;
 		u32 m_last_ram_usage;
 		UniquePtr< CPUMonitor > m_monitor;
 		

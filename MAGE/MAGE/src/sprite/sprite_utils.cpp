@@ -18,7 +18,7 @@ namespace mage {
 		DXGI_MODE_ROTATION rotation_mode) {
 		Assert(device_context);
 		
-		UINT nb_of_viewports = 1;
+		u32 nb_of_viewports = 1;
 		D3D11_VIEWPORT viewport;
 		Pipeline::RS::GetBoundViewports(device_context, &nb_of_viewports, &viewport);
 		if (nb_of_viewports != 1) {
@@ -33,7 +33,7 @@ namespace mage {
 		Assert(device_context);
 		Assert(viewport);
 		
-		UINT nb_of_viewports = 1;
+		u32 nb_of_viewports = 1;
 		Pipeline::RS::GetBoundViewports(device_context, &nb_of_viewports, viewport);
 		if (nb_of_viewports != 1) {
 			throw FormattedException("No viewport is set.");

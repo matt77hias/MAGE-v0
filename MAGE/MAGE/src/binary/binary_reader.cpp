@@ -222,16 +222,16 @@ namespace mage {
 		return result;
 	}
 	
-	double BinaryReader::ReadF64() {
-		const u8 *new_pos = m_pos + sizeof(double);
+	f64 BinaryReader::ReadF64() {
+		const u8 *new_pos = m_pos + sizeof(f64);
 		if (new_pos < m_pos) {
-			throw FormattedException("%ls: overflow: no double value found.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow: no f64 value found.", GetFilename().c_str());
 		}
 		if (m_end < new_pos) {
-			throw FormattedException("%ls: end of file: no double value found.", GetFilename().c_str());
+			throw FormattedException("%ls: end of file: no f64 value found.", GetFilename().c_str());
 		}
 
-		const double result = BytesToF64(m_pos, m_big_endian);
+		const f64 result = BytesToF64(m_pos, m_big_endian);
 		m_pos = new_pos;
 		return result;
 	}

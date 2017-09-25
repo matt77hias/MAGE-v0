@@ -60,7 +60,7 @@ namespace mage {
 			ComPtr< IDXGIOutput2 > output,
 			const DXGI_MODE_DESC1 &display_mode, 
 			bool windowed, bool vsync, 
-			UINT nb_MSAA_samples = 1,
+			u32 nb_MSAA_samples = 1,
 			float gamma = MAGE_DEFAULT_DISPLAY_GAMMA)
 			: m_adapter(adapter), m_output(output),
 			m_display_mode(display_mode), m_MSAA_sample_desc{}, 
@@ -236,7 +236,7 @@ namespace mage {
 		 @param[in]		MSAA_quality_level
 						The MSAA quality level.
 		 */
-		void SetMSAASampleDesc(UINT nb_MSAA_samples, UINT MSAA_quality_level = 0) noexcept;
+		void SetMSAASampleDesc(u32 nb_MSAA_samples, u32 MSAA_quality_level = 0) noexcept;
 
 		/**
 		 Sets the MSAA sample descriptor of this display configuration

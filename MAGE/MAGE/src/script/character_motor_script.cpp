@@ -24,12 +24,12 @@ namespace mage {
 	
 	CharacterMotorScript::~CharacterMotorScript() = default;
 
-	void CharacterMotorScript::Update(double delta_time) {
+	void CharacterMotorScript::Update(f64 delta_time) {
 		const Keyboard * const keyboard = Keyboard::Get();
 		
-		const double movement_magnitude = delta_time * m_velocity;
-		const double movement_cos = cos(m_transform->GetRotationY()) * movement_magnitude;
-		const double movement_sin = sin(m_transform->GetRotationY()) * movement_magnitude;
+		const f64 movement_magnitude = delta_time * m_velocity;
+		const f64 movement_cos = cos(m_transform->GetRotationY()) * movement_magnitude;
+		const f64 movement_sin = sin(m_transform->GetRotationY()) * movement_magnitude;
 		
 		if (keyboard->GetKeyPress(DIK_UP, true) || keyboard->GetKeyPress(DIK_W, true)) {
 			m_transform->AddTranslationX(static_cast< float >(movement_sin));

@@ -28,26 +28,27 @@ namespace mage {
 	}
 
 	void GBuffer::BindPacking(ID3D11DeviceContext2 *device_context) noexcept {
-		static const FLOAT color[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-
 		// Collect the SRVs.
 		ID3D11ShaderResourceView * const srvs[GetNumberOfSRVs()] = {};
 		// Bind no SRVs.
 		Pipeline::PS::BindSRVs(device_context,
-			SLOT_SRV_GBUFFER_START, GetNumberOfSRVs(), srvs);
+			SLOT_SRV_GBUFFER_START, 
+			static_cast< u32 >(GetNumberOfSRVs()), srvs);
 		Pipeline::CS::BindSRVs(device_context,
-			SLOT_SRV_GBUFFER_START, GetNumberOfSRVs(), srvs);
+			SLOT_SRV_GBUFFER_START, 
+			static_cast< u32 >(GetNumberOfSRVs()), srvs);
 		
 		// Collect and clear the RTVs.
 		ID3D11RenderTargetView *rtvs[GetNumberOfRTVs()];
-		for (UINT i = 0; i < GetNumberOfRTVs(); ++i) {
+		for (size_t i = 0; i < GetNumberOfRTVs(); ++i) {
 			rtvs[i] = m_rtvs[i].Get();
-			Pipeline::OM::ClearRTV(device_context, rtvs[i], color);
+			Pipeline::OM::ClearRTV(device_context, rtvs[i]);
 		}
 		// Clear the DSV.
 		Pipeline::OM::ClearDSV(device_context, m_dsv.Get());
 		// Bind the RTVs and DSV.
-		Pipeline::OM::BindRTVsAndDSV(device_context, GetNumberOfRTVs(), rtvs, m_dsv.Get());
+		Pipeline::OM::BindRTVsAndDSV(device_context, 
+			static_cast< u32 >(GetNumberOfRTVs()), rtvs, m_dsv.Get());
 	}
 
 	void GBuffer::BindUnpacking(ID3D11DeviceContext2 *device_context) noexcept {
@@ -57,14 +58,16 @@ namespace mage {
 
 		// Collect the SRVs.
 		ID3D11ShaderResourceView *srvs[GetNumberOfSRVs()];
-		for (UINT i = 0; i < GetNumberOfSRVs(); ++i) {
+		for (size_t i = 0; i < GetNumberOfSRVs(); ++i) {
 			srvs[i] = m_srvs[i].Get();
 		}
 		// Bind the SRVs.
 		Pipeline::PS::BindSRVs(device_context,
-			SLOT_SRV_GBUFFER_START, GetNumberOfSRVs(), srvs);
+			SLOT_SRV_GBUFFER_START, 
+			static_cast< u32 >(GetNumberOfSRVs()), srvs);
 		Pipeline::CS::BindSRVs(device_context, 
-			SLOT_SRV_GBUFFER_START, GetNumberOfSRVs(), srvs);
+			SLOT_SRV_GBUFFER_START, 
+			static_cast< u32 >(GetNumberOfSRVs()), srvs);
 	}
 
 	void GBuffer::SetupBuffers(ID3D11Device2 *device) {
@@ -72,8 +75,8 @@ namespace mage {
 		
 		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
-		const UINT width  = static_cast< UINT >(renderer->GetWidth());
-		const UINT height = static_cast< UINT >(renderer->GetHeight());
+		const u32 width  = renderer->GetWidth();
+		const u32 height = renderer->GetHeight();
 
 		// Setup the depth buffer.
 		SetupDepthBuffer(device, width, height);
@@ -86,7 +89,7 @@ namespace mage {
 	}
 
 	void GBuffer::SetupDepthBuffer(ID3D11Device2 *device,
-		UINT width, UINT height) {
+		u32 width, u32 height) {
 
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
@@ -128,13 +131,13 @@ namespace mage {
 		// Create the SRV.
 		const HRESULT result_srv = device->CreateShaderResourceView(
 			texture.Get(), &srv_desc,
-			m_srvs[static_cast< UINT >(GBufferIndex::Depth)].ReleaseAndGetAddressOf());
+			m_srvs[static_cast< size_t >(GBufferIndex::Depth)].ReleaseAndGetAddressOf());
 		ThrowIfFailed(result_srv, 
 			"SRV creation failed: %08X.", result_srv);
 	}
 	
 	void GBuffer::SetupDiffuseBuffer(ID3D11Device2 *device,
-		UINT width, UINT height) {
+		u32 width, u32 height) {
 
 		// Setup the diffuse buffer;
 		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Diffuse),
@@ -142,7 +145,7 @@ namespace mage {
 	}
 
 	void GBuffer::SetupSpecularBuffer(ID3D11Device2 *device,
-		UINT width, UINT height) {
+		u32 width, u32 height) {
 
 		// Setup the specular buffer.
 		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Specular),
@@ -150,15 +153,15 @@ namespace mage {
 	}
 	
 	void GBuffer::SetupNormalBuffer(ID3D11Device2 *device,
-		UINT width, UINT height) {
+		u32 width, u32 height) {
 
 		// Setup the normal buffer.
 		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Normal),
 			width, height, DXGI_FORMAT_R11G11B10_FLOAT);
 	}
 
-	void GBuffer::SetupBuffer(ID3D11Device2 *device, UINT index,
-		UINT width, UINT height, DXGI_FORMAT format) {
+	void GBuffer::SetupBuffer(ID3D11Device2 *device, u32 index,
+		u32 width, u32 height, DXGI_FORMAT format) {
 
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};

@@ -95,13 +95,13 @@ namespace mage {
 		}
 
 		void SetTopLeft(u32 x, u32 y) noexcept {
-			m_viewport.TopLeftX = static_cast< FLOAT >(x);
-			m_viewport.TopLeftY = static_cast< FLOAT >(y);
+			m_viewport.TopLeftX = static_cast< f32 >(x);
+			m_viewport.TopLeftY = static_cast< f32 >(y);
 		}
 
 		void SetTopLeft(float x, float y) noexcept {
-			m_viewport.TopLeftX = static_cast< FLOAT >(x);
-			m_viewport.TopLeftY = static_cast< FLOAT >(y);
+			m_viewport.TopLeftX = x;
+			m_viewport.TopLeftY = y;
 		}
 
 		void SetNormalizedTopLeft(float x, float y) noexcept {
@@ -109,11 +109,11 @@ namespace mage {
 		}
 
 		void SetWidth(u32 width) noexcept {
-			m_viewport.Width = static_cast< FLOAT >(width);
+			m_viewport.Width = static_cast< f32 >(width);
 		}
 
 		void SetWidth(float width) noexcept {
-			m_viewport.Width = static_cast< FLOAT >(width);
+			m_viewport.Width = width;
 		}
 
 		void SetNormalizedWidth(float width) noexcept {
@@ -121,11 +121,11 @@ namespace mage {
 		}
 
 		void SetHeight(u32 height) noexcept {
-			m_viewport.Height = static_cast< FLOAT >(height);
+			m_viewport.Height = static_cast< f32 >(height);
 		}
 
 		void SetHeight(float height) noexcept {
-			m_viewport.Height = static_cast< FLOAT >(height);
+			m_viewport.Height = height;
 		}
 
 		void SetNormalizedHeight(float height) noexcept {
@@ -148,11 +148,11 @@ namespace mage {
 		}
 
 		void SetMinimumDepth(float min_depth) noexcept {
-			m_viewport.MinDepth = static_cast< FLOAT >(min_depth);
+			m_viewport.MinDepth = min_depth;
 		}
 
 		void SetMaximumDepth(float max_depth) noexcept {
-			m_viewport.MaxDepth = static_cast< FLOAT >(max_depth);
+			m_viewport.MaxDepth = max_depth;
 		}
 
 		void SetDepth(float min_depth, float max_depth) noexcept {

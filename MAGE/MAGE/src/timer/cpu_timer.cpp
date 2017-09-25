@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const double CPUTimer::s_time_period = 0.0000001;
+	const f64 CPUTimer::s_time_period = 0.0000001;
 
 	CPUTimer::CPUTimer() 
 		: m_handle(GetCurrentProcess()), m_nb_processor_cores(NumberOfSystemCores()),
@@ -52,59 +52,59 @@ namespace mage {
 		UpdateLastTimestamp();
 	}
 
-	double CPUTimer::GetCoreDeltaTime() const noexcept {
+	f64 CPUTimer::GetCoreDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< double >(
+		return s_time_period * static_cast< f64 >(
 			m_delta_time[GetKernelModeIndex()] 
 			+ m_delta_time[GetUserModeIndex()]);
 	}
 
-	double CPUTimer::GetKernelModeDeltaTime() const noexcept {
+	f64 CPUTimer::GetKernelModeDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< double >(
+		return s_time_period * static_cast< f64 >(
 			m_delta_time[GetKernelModeIndex()]);
 	}
 
-	double CPUTimer::GetUserModeDeltaTime() const noexcept {
+	f64 CPUTimer::GetUserModeDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< double >(
+		return s_time_period * static_cast< f64 >(
 			m_delta_time[GetUserModeIndex()]);
 	}
 
-	double CPUTimer::GetTotalCoreDeltaTime() const noexcept {
+	f64 CPUTimer::GetTotalCoreDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< double >(
+		return s_time_period * static_cast< f64 >(
 			m_total_delta_time[GetKernelModeIndex()] 
 			+ m_total_delta_time[GetUserModeIndex()]);
 	}
 
-	double CPUTimer::GetTotalKernelModeDeltaTime() const noexcept {
+	f64 CPUTimer::GetTotalKernelModeDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< double >(
+		return s_time_period * static_cast< f64 >(
 			m_total_delta_time[GetKernelModeIndex()]);
 	}
 
-	double CPUTimer::GetTotalUserModeDeltaTime() const noexcept {
+	f64 CPUTimer::GetTotalUserModeDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< double >(
+		return s_time_period * static_cast< f64 >(
 			m_total_delta_time[GetUserModeIndex()]);
 	}
 

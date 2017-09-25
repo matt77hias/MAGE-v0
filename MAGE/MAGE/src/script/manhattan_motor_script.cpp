@@ -24,10 +24,10 @@ namespace mage {
 	
 	ManhattanMotorScript::~ManhattanMotorScript() = default;
 
-	void ManhattanMotorScript::Update(double delta_time) {
+	void ManhattanMotorScript::Update(f64 delta_time) {
 		const Keyboard * const keyboard = Keyboard::Get();
 
-		const double movement_magnitude = delta_time * m_velocity;
+		const f64 movement_magnitude = delta_time * m_velocity;
 
 		if (keyboard->GetKeyPress(DIK_UP, true) || keyboard->GetKeyPress(DIK_W, true)) {
 			m_transform->AddTranslationZ(static_cast< float >(movement_magnitude));

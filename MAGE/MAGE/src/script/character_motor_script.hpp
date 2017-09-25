@@ -39,7 +39,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update(double delta_time) override;
+		virtual void Update(f64 delta_time) override;
 
 		float GetVelocity() const noexcept {
 			return m_velocity;

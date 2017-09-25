@@ -108,7 +108,7 @@ namespace mage {
 
 		 @return		The wall clock delta time (in seconds) of this timer.
 		 */
-		double GetDeltaTime() const noexcept;
+		f64 GetDeltaTime() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Total Delta Time
@@ -119,7 +119,7 @@ namespace mage {
 
 		 @return		The total wall clock delta time (in seconds) of this timer.
 		 */
-		double GetTotalDeltaTime() const noexcept;
+		f64 GetTotalDeltaTime() const noexcept;
 
 	private:
 
@@ -174,6 +174,6 @@ namespace mage {
 		/**
 		 The time period of this timer.
 		 */
-		double m_time_period;
+		f64 m_time_period;
 	};
 }

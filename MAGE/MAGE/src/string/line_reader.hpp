@@ -277,14 +277,14 @@ namespace mage {
 		float ReadF32();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c double.
+		 Reads and converts the next token of this line reader to a @c f64.
 
-		 @return		The @c double represented by the next token of this line reader.
+		 @return		The @c f64 represented by the next token of this line reader.
 		 @throws		FormattedException
 						There is no next token or the next token does not represent
-						a @c double.
+						a @c f64.
 		 */
-		double ReadF64();
+		f64 ReadF64();
 
 		/**
 		 Reads and converts the next token of this line reader to a @c XMFLOAT2.
@@ -421,9 +421,9 @@ namespace mage {
 		bool HasF32() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c double.
+		 Checks whether the next token of this line reader is a @c f64.
 
-		 @return		@c true if the next token of this line reader is a @c double.
+		 @return		@c true if the next token of this line reader is a @c f64.
 						@c false otherwise.
 		 */
 		bool HasF64() const;

@@ -122,7 +122,7 @@ namespace mage {
 		return (*inner_context == '\0') ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToF64(const char *str, double &result) noexcept {
+	TokenResult StringToF64(const char *str, f64 &result) noexcept {
 		if (!str) {
 			return TokenResult::None;
 		}
@@ -285,7 +285,7 @@ namespace mage {
 		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToF64(const char *begin, const char *end, double &result) noexcept {
+	TokenResult StringToF64(const char *begin, const char *end, f64 &result) noexcept {
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -394,7 +394,7 @@ namespace mage {
 		return (inner_context != str) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringPrefixToF64(const char *str, double &result) noexcept {
+	TokenResult StringPrefixToF64(const char *str, f64 &result) noexcept {
 		if (!str) {
 			return TokenResult::None;
 		}
@@ -546,7 +546,7 @@ namespace mage {
 		return StringToF32(token, result);
 	}
 	
-	TokenResult ReadDouble(char *str, char **context, double &result, const char *delimiters) noexcept {
+	TokenResult ReadDouble(char *str, char **context, f64 &result, const char *delimiters) noexcept {
 		Assert(str || context);
 		Assert(delimiters);
 		
@@ -813,7 +813,7 @@ namespace mage {
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
-		double result;
+		f64 result;
 		return StringToF64(start, end, result);
 	}
 

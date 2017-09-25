@@ -25,7 +25,7 @@ namespace mage {
 	SwitchSceneScript< SceneT >::~SwitchSceneScript() = default;
 
 	template< typename SceneT >
-	void SwitchSceneScript< SceneT >::Update(double delta_time) {
+	void SwitchSceneScript< SceneT >::Update(f64 delta_time) {
 		UNUSED(delta_time);
 
 		const Keyboard * const keyboard = Keyboard::Get();

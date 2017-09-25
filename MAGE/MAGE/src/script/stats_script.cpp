@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const double StatsScript::s_resource_fetch_period = 1.0;
+	const f64 StatsScript::s_resource_fetch_period = 1.0;
 
 	StatsScript::StatsScript(SpriteText *text)
 		: BehaviorScript(),
@@ -33,7 +33,7 @@ namespace mage {
 	
 	StatsScript::~StatsScript() = default;
 
-	void StatsScript::Update(double delta_time) {
+	void StatsScript::Update(f64 delta_time) {
 		m_accumulated_time += delta_time;
 		++m_accumulated_nb_frames;
 

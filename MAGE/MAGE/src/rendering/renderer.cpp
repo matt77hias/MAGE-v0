@@ -70,7 +70,7 @@ namespace mage {
 
 	void Renderer::SetupDevice() {
 		// Set the runtime layers to enable.
-		UINT create_device_flags = 0u;
+		u32 create_device_flags = 0u;
 #ifdef _DEBUG
 		create_device_flags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
@@ -142,8 +142,8 @@ namespace mage {
 
 		// Create a DXGI_SWAP_CHAIN_DESC1.
 		DXGI_SWAP_CHAIN_DESC1 swap_chain_desc = {};
-		swap_chain_desc.Width       = static_cast< UINT >(GetWidth());
-		swap_chain_desc.Height      = static_cast< UINT >(GetHeight());
+		swap_chain_desc.Width       = GetWidth();
+		swap_chain_desc.Height      = GetHeight();
 		swap_chain_desc.Format      = m_display_configuration->GetDisplayFormat();
 		swap_chain_desc.SampleDesc  = m_display_configuration->GetMSAASampleDesc();
 		swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
@@ -198,8 +198,8 @@ namespace mage {
 	void Renderer::CreateDepthBufferDSVandSRV() {
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
-		texture_desc.Width      = static_cast< UINT >(GetWidth());
-		texture_desc.Height     = static_cast< UINT >(GetHeight());
+		texture_desc.Width      = GetWidth();
+		texture_desc.Height     = GetHeight();
 		texture_desc.MipLevels  = 1u;
 		texture_desc.ArraySize  = 1u;
 		texture_desc.Format     = DXGI_FORMAT_R24G8_TYPELESS;
@@ -256,11 +256,9 @@ namespace mage {
 	void Renderer::BeginFrame() noexcept {
 		Assert(!m_in_begin_end_pair);
 
-		static const FLOAT color[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-
 		// Clear the back buffer.
 		Pipeline::OM::ClearRTV(m_device_context.Get(), 
-			m_back_buffer_rtv.Get(), color);
+			m_back_buffer_rtv.Get());
 		// Clear the depth buffer to 1.0 (i.e. max depth).
 		// Clear the stencil buffer to 0.
 		Pipeline::OM::ClearDSV(m_device_context.Get(), 
@@ -273,7 +271,7 @@ namespace mage {
 		Assert(m_in_begin_end_pair);
 
 		// Present the back buffer to the front buffer.
-		const UINT sync_interval = (m_display_configuration->IsVSynced()) ? 1u : 0u;
+		const u32 sync_interval = (m_display_configuration->IsVSynced()) ? 1u : 0u;
 		m_swap_chain->Present(sync_interval, 0u);
 
 		m_in_begin_end_pair = false;

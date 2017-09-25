@@ -1,6 +1,15 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include "memory\types.hpp"
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations
 //-----------------------------------------------------------------------------
 namespace mage {
@@ -64,7 +73,7 @@ namespace mage {
 		 @param[in]		delta_time
 						The elapsed time since the previous update.
 		 */
-		virtual void Update(double delta_time);
+		virtual void Update(f64 delta_time);
 
 		/**
 		 Checks whether this behavior script is active.

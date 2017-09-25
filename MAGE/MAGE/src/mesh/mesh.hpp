@@ -134,7 +134,7 @@ namespace mage {
 			D3D11_PRIMITIVE_TOPOLOGY topology) const noexcept {
 
 			Pipeline::IA::BindVertexBuffer(device_context, 
-				0, m_vertex_buffer.Get(), static_cast< UINT >(m_vertex_size));
+				0, m_vertex_buffer.Get(), static_cast< u32 >(m_vertex_size));
 			Pipeline::IA::BindIndexBuffer(device_context, 
 				m_index_buffer.Get(), m_index_format);
 			Pipeline::IA::BindPrimitiveTopology(device_context, 
@@ -151,7 +151,7 @@ namespace mage {
 		void Draw(ID3D11DeviceContext2 *device_context) const noexcept {
 			
 			Pipeline::DrawIndexed(device_context,
-				static_cast< UINT >(m_nb_indices), 
+				static_cast< u32 >(m_nb_indices), 
 				0u);
 		}
 		
@@ -170,8 +170,8 @@ namespace mage {
 			size_t start_index, size_t nb_indices) const noexcept {
 
 			Pipeline::DrawIndexed(device_context,
-				static_cast< UINT >(nb_indices), 
-				static_cast< UINT >(start_index));
+				static_cast< u32 >(nb_indices), 
+				static_cast< u32 >(start_index));
 		}
 
 	protected:

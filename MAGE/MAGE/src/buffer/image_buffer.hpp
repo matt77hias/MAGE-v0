@@ -33,7 +33,7 @@ namespace mage {
 
 	private:
 
-		void SetupBuffer(ID3D11Device2 *device, UINT width, UINT height);
+		void SetupBuffer(ID3D11Device2 *device, u32 width, u32 height);
 
 		ComPtr< ID3D11UnorderedAccessView > m_uav;
 		ComPtr< ID3D11ShaderResourceView >  m_srv;

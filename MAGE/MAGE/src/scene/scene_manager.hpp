@@ -110,7 +110,7 @@ namespace mage {
 		}
 
 		void FixedUpdate();
-		void Update(double delta_time);
+		void Update(f64 delta_time);
 
 		void Render() {
 			m_renderer->Render(GetScene());

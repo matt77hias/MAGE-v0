@@ -117,7 +117,7 @@ namespace mage {
 		m_renderer->SetInitialMode();
 
 		m_timer->Restart();
-		double fixed_time_budget = 0.0f;
+		f64 fixed_time_budget = 0.0f;
 
 		// Enter the message loop.
 		MSG msg;
@@ -156,7 +156,7 @@ namespace mage {
 			}
 
 			// Calculate the elapsed time.
-			const double delta_time = m_timer->GetDeltaTime();
+			const f64 delta_time = m_timer->GetDeltaTime();
 
 			// Perform the fixed delta time updates of the current scene.
 			if (m_fixed_delta_time) {

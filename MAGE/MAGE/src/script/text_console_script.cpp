@@ -30,7 +30,7 @@ namespace mage {
 
 	TextConsoleScript::~TextConsoleScript() = default;
 
-	void TextConsoleScript::Update(double delta_time) {
+	void TextConsoleScript::Update(f64 delta_time) {
 		UNUSED(delta_time);
 		const MutexLock lock(m_mutex);
 

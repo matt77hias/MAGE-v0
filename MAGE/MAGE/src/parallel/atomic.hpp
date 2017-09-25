@@ -211,7 +211,6 @@ namespace mage {
 
 		} while (AtomicCompareAndSwap(
 			(AtomicI32 *)addend, new_value.i, old_value.i) != old_value.i);
-		// Cast the pointer (not the referred value)
 		
 		return new_value.f;
 	}

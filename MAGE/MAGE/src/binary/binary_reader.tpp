@@ -23,10 +23,12 @@ namespace mage {
 	const ValueT *BigEndianBinaryReader::ReadValueArray(size_t count) {
 		const u8 *new_pos = m_pos + sizeof(ValueT) * count;
 		if (new_pos < m_pos) {
-			throw FormattedException("%ls: overflow: no %llu values found.", GetFilename().c_str(), count);
+			throw FormattedException("%ls: overflow: no %llu values found.", 
+				GetFilename().c_str(), count);
 		}
 		if (m_end < new_pos) {
-			throw FormattedException("%ls: end of file: no %llu values found.", GetFilename().c_str(), count);
+			throw FormattedException("%ls: end of file: no %llu values found.", 
+				GetFilename().c_str(), count);
 		}
 
 		const ValueT *result = BytesBigEndianToValue< ValueT >(m_pos);

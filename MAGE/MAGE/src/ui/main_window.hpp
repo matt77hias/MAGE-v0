@@ -54,7 +54,8 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to create the main window.
 		 */
-		explicit MainWindow(HINSTANCE hinstance, const wstring &title_text, u32 width, u32 height);
+		explicit MainWindow(HINSTANCE hinstance, const wstring &title_text, 
+			u32 width, u32 height);
 
 		/**
 		 Constructs a main window from the given main window.
@@ -86,8 +87,8 @@ namespace mage {
 
 		 @param[in]		main_window
 						A reference to the main window to copy.
-		 @return		A reference to the copy of the given main window
-						(i.e. this main window).
+		 @return		A reference to the copy of the given main window (i.e. 
+						this main window).
 		 */
 		MainWindow &operator=(const MainWindow &main_window) = delete;
 
@@ -96,8 +97,8 @@ namespace mage {
 
 		 @param[in]		main_window
 						A reference to the main window to move.
-		 @return		A reference to the moved main window
-						(i.e. this main window).
+		 @return		A reference to the moved main window (i.e. this main 
+						window).
 		 */
 		MainWindow &operator=(MainWindow &&main_window) = delete;
 
@@ -162,23 +163,25 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The engine-defined function that processes messages sent to the engine window.
-		 The WindowProc type defines a pointer to this callback function.
+		 The engine-defined function that processes messages sent to the engine 
+		 window. The WindowProc type defines a pointer to this callback 
+		 function.
 
 		 @param[in]		hWnd
 						A handle to the window.
 		 @param[in]		msg
 						The message.
 		 @param[in]		wParam
-						Additional message information.
-						The contents of this parameter depend on the value of @a msg.
+						Additional message information. The contents of this 
+						parameter depend on the value of @a msg.
 		 @param[in]		lParam
-						Additional message information.
-						The contents of this parameter depend on the value of @a msg.
-		 @return		The return value is the result of the message processing
-						and depends on the message sent.
+						Additional message information. The contents of this 
+						parameter depend on the value of @a msg.
+		 @return		The return value is the result of the message 
+						processing and depends on the message sent.
 		 */
-		static LRESULT CALLBACK MainWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
+		static LRESULT CALLBACK MainWindowProc(
+			HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods

@@ -86,6 +86,7 @@ namespace mage {
 
 		const char *msg_pos = error_buffer;
 		while (true) {
+			
 			while (*msg_pos != '\0' && isspace(*msg_pos)) {
 				++msg_pos;
 			}
@@ -119,7 +120,8 @@ namespace mage {
 
 	void Debug(const char *format, ...) {
 #ifdef _DEBUG
-		if (!LoggingConfiguration::Get()->IsVerbose() || LoggingConfiguration::Get()->IsQuiet()) {
+		if (!LoggingConfiguration::Get()->IsVerbose() 
+			|| LoggingConfiguration::Get()->IsQuiet()) {
 			// Do not process info in non-verbose mode.
 			// Do not process info in quiet mode.
 			return;
@@ -139,7 +141,8 @@ namespace mage {
 	}
 
 	void Info(const char *format, ...) {
-		if (!LoggingConfiguration::Get()->IsVerbose() || LoggingConfiguration::Get()->IsQuiet()) {
+		if (!LoggingConfiguration::Get()->IsVerbose() 
+			|| LoggingConfiguration::Get()->IsQuiet()) {
 			// Do not process info in non-verbose mode.
 			// Do not process info in quiet mode.
 			return;

@@ -42,8 +42,9 @@ namespace mage {
 	 @param[in]		desc
 					The description of the item to add.
 	 */
-	void ComboBoxAdd(HWND dialog, int id, const void *data, const wchar_t *desc) noexcept;
-
+	void ComboBoxAdd(HWND dialog, int id, const void *data, 
+		const wchar_t *desc) noexcept;
+	
 	/**
 	 Adds an item associated with the given value and described with the given
 	 descriptor to a combo box.
@@ -59,13 +60,15 @@ namespace mage {
 	 @param[in]		desc
 					The description of the item to add.
 	 */
-	inline void ComboBoxAddValue(HWND dialog, int id, size_t value, const wchar_t *desc) noexcept {
+	inline void ComboBoxAddValue(HWND dialog, int id, size_t value, 
+		const wchar_t *desc) noexcept {
+		
 		ComboBoxAdd(dialog, id, (const void *)value, desc);
 	}
-
+	
 	/**
-	 Adds an item associated with the given pointer and described with the given
-	 descriptor to a combo box.
+	 Adds an item associated with the given pointer and described with the 
+	 given descriptor to a combo box.
 
 	 @pre			@a dialog is not equal to @c nullptr.
 	 @pre			@a desc is not equal to @c nullptr.
@@ -81,7 +84,9 @@ namespace mage {
 					The description of the item to add.
 	 */
 	template< typename T >
-	inline void ComboBoxAddPtr(HWND dialog, int id, const T *ptr, const wchar_t *desc) noexcept {
+	inline void ComboBoxAddPtr(HWND dialog, int id, const T *ptr, 
+		const wchar_t *desc) noexcept {
+
 		ComboBoxAdd(dialog, id, (const void *)ptr, desc);
 	}
 
@@ -114,7 +119,7 @@ namespace mage {
 					A pointer to the data of the item.
 	 */
 	void ComboBoxSelect(HWND dialog, int id, const void *data) noexcept;
-
+	
 	/**
 	 Selects the item associated with the given value in a combo box.
 
@@ -129,7 +134,7 @@ namespace mage {
 	inline void ComboBoxSelectValue(HWND dialog, int id, size_t value) noexcept {
 		ComboBoxSelect(dialog, id, (const void *)value);
 	}
-
+	
 	/**
 	 Selects the item associated with the given pointer in a combo box.
 
@@ -151,7 +156,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 	// ComboBoxSelected
 	//-------------------------------------------------------------------------
-
+	
 	/**
 	 Returns the data associated with the selected item in a combo box.
 
@@ -161,7 +166,8 @@ namespace mage {
 	 @param[in]		id
 					The identifier of the control to be retrieved.
 	 @return		@c nullptr if the combo box has no items.
-	 @return		A pointer to the data associated with the selected item in the combo box.
+	 @return		A pointer to the data associated with the selected item in 
+					the combo box.
 	 */
 	const void *ComboBoxSelected(HWND dialog, int id) noexcept;
 
@@ -248,8 +254,8 @@ namespace mage {
 					The identifier of the control to be retrieved.
 	 @param[in]		desc
 					The string description to check.
-	 @return		@c true if the given description is contained in the combo box.
-					@c false otherwise.
+	 @return		@c true if the given description is contained in the combo 
+					box. @c false otherwise.
 	 */
 	bool ComboBoxContains(HWND dialog, int id, const wchar_t *desc) noexcept;
 }

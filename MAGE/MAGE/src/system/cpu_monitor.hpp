@@ -30,7 +30,7 @@ namespace mage {
 		 Constructs a CPU monitor.
 		 */
 		CPUMonitor()
-			: m_timer(MakeUnique< Timer >()),
+			: m_timer(MakeUnique< Timer >()), 
 			m_cpu_timer(MakeUnique< CPUTimer >()) {}
 
 		/**
@@ -65,8 +65,8 @@ namespace mage {
 
 		 @param[in]		cpu_monitor
 						A reference to the CPU monitor to copy.
-		 @return		A reference to the copy of the given CPU monitor
-						(i.e. this CPU monitor).
+		 @return		A reference to the copy of the given CPU monitor (i.e. 
+						this CPU monitor).
 		 */
 		CPUMonitor &operator=(const CPUMonitor &cpu_monitor) {
 			m_timer     = MakeUnique< Timer >(*cpu_monitor.m_timer);
@@ -79,8 +79,8 @@ namespace mage {
 
 		 @param[in]		cpu_monitor
 						A reference to the CPU monitor to move.
-		 @return		A reference to the moved CPU monitor
-						(i.e. this CPU monitor).
+		 @return		A reference to the moved CPU monitor (i.e. this CPU 
+						monitor).
 		 */
 		CPUMonitor &operator=(CPUMonitor &&cpu_monitor) = default;
 
@@ -134,7 +134,8 @@ namespace mage {
 		/**
 		 Returns the total CPU delta percentage of this CPU monitor's process.
 
-		 @return		The total CPU delta percentage of this CPU monitor's process.
+		 @return		The total CPU delta percentage of this CPU monitor's 
+						process.
 		 */
 		f64 GetTotalCPUDeltaPercentage() const noexcept {
 			const f64 time     = m_timer->GetTotalDeltaTime();

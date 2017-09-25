@@ -17,26 +17,33 @@ namespace mage {
 	size_t NumberOfPhysicalCores() noexcept {
 
 		DWORD length = 0;
-		const BOOL result_first = GetLogicalProcessorInformationEx(RelationProcessorCore, nullptr, &length);
+		const BOOL result_first = GetLogicalProcessorInformationEx(
+									RelationProcessorCore, nullptr, &length);
 		
 		Assert(result_first == FALSE);
 		Assert(GetLastError() == ERROR_INSUFFICIENT_BUFFER);
 
 		UniquePtr< u8[] > buffer(MakeUnique< u8[] >(length));
 		const PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX info = 
-			reinterpret_cast< PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(buffer.get());
+			reinterpret_cast< PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(
+				buffer.get());
 
-		const BOOL result_second = GetLogicalProcessorInformationEx(RelationProcessorCore, info, &length);
+		const BOOL result_second = GetLogicalProcessorInformationEx(
+									RelationProcessorCore, info, &length);
 
 		Assert(result_second == TRUE);
 
 		size_t nb_physical_cores = 0;
 		size_t offset = 0;
 		do {
+			
 			const PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX current_info =
-				reinterpret_cast< PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(buffer.get() + offset);
+				reinterpret_cast< PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(
+					buffer.get() + offset);
+			
 			offset += current_info->Size;
 			++nb_physical_cores;
+
 		} while (offset < length);
 		
 		return nb_physical_cores;
@@ -47,7 +54,8 @@ namespace mage {
 		SYSTEM_INFO system_info = {};
 		// Retrieve information about the current system.
 		GetSystemInfo(&system_info);
-		// dwNumberOfProcessors:	The number of logical processors in the current group.
+		// dwNumberOfProcessors:	The number of logical processors in the 
+		//                          current group.
 		return static_cast< size_t >(system_info.dwNumberOfProcessors);
 	}
 }

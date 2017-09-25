@@ -44,7 +44,8 @@ namespace mage {
 	/**
 	 Notifies a warning message.
 
-	 A warning message is associated with anything that can potentially cause application oddities.
+	 A warning message is associated with anything that can potentially cause 
+	 application oddities.
 
 	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format
@@ -55,8 +56,8 @@ namespace mage {
 	/**
 	 Notifies an error message.
 
-	 An error message is associated with any error which is fatal to the operation,
-	 but not the service or application.
+	 An error message is associated with any error which is fatal to the 
+	 operation, but not the service or application.
 
 	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format
@@ -67,8 +68,8 @@ namespace mage {
 	/**
 	 Notifies a fatal message.
 
-	 A fatal message is associated with any error that is forcing a shutdown 
-	 of the service or application to prevent data loss (or further data loss).
+	 A fatal message is associated with any error that is forcing a shutdown of 
+	 the service or application to prevent data loss (or further data loss).
 
 	 @pre			@a format is not equal to @c nullptr.
 	 @param[in]		format

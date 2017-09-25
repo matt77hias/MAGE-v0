@@ -60,8 +60,8 @@ namespace mage {
 		
 		 @param[in]		timer
 						A reference to the timer to copy.
-		 @return		A reference to the copy of the given timer
-						(i.e. this timer).
+		 @return		A reference to the copy of the given timer (i.e. this 
+						timer).
 		 */
 		Timer &operator=(const Timer &timer) = default;
 
@@ -70,8 +70,7 @@ namespace mage {
 
 		 @param[in]		timer
 						A reference to the timer to move.
-		 @return		A reference to the moved timer
-						(i.e. this timer).
+		 @return		A reference to the moved timer (i.e. this timer).
 		 */
 		Timer &operator=(Timer &&timer) = default;
 
@@ -117,7 +116,8 @@ namespace mage {
 		/**
 		 Returns the total wall clock delta time (in seconds) of this timer.
 
-		 @return		The total wall clock delta time (in seconds) of this timer.
+		 @return		The total wall clock delta time (in seconds) of this 
+						timer.
 		 */
 		f64 GetTotalDeltaTime() const noexcept;
 
@@ -133,12 +133,14 @@ namespace mage {
 		void UpdateLastTimestamp() const noexcept;
 
 		/**
-		 Resets the delta time, total delta time and last timestamp of this timer.
+		 Resets the delta time, total delta time and last timestamp of this 
+		 timer.
 		 */
 		void ResetDeltaTime() const noexcept;
 
 		/**
-		 Updates the delta time, total delta time and last timestamp of this timer.
+		 Updates the delta time, total delta time and last timestamp of this 
+		 timer.
 		 */
 		void UpdateDeltaTime() const noexcept;
 

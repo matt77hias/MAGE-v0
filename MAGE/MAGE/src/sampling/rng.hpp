@@ -48,9 +48,9 @@ namespace mage {
 		// Assignment Operators
 		//-------------------------------------------------------------------------
 
-		RNG &operator=(const RNG &v) = delete;
+		RNG &operator=(const RNG &rng) = delete;
 		
-		RNG &operator=(RNG &&v) = delete;
+		RNG &operator=(RNG &&rng) = delete;
 
 		//-------------------------------------------------------------------------
 		// Member Methods
@@ -60,12 +60,12 @@ namespace mage {
 			m_generator.seed(seed);
 		}
 
-		float UniformFloat() noexcept {
+		f32 UniformF32() noexcept {
 			return m_distribution(m_generator);
 		}
 
-		float UniformFloat(float start, float end) noexcept {
-			return start + UniformFloat() * (end - start);
+		f32 UniformFloat(f32 start, f32 end) noexcept {
+			return start + UniformF32() * (end - start);
 		}
 
 	private:
@@ -76,6 +76,6 @@ namespace mage {
 
 		std::default_random_engine m_generator;
 
-		std::uniform_real_distribution< float > m_distribution;
+		std::uniform_real_distribution< f32 > m_distribution;
 	};
 }

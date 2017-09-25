@@ -13,12 +13,15 @@
 namespace mage {
 
 	Timer::Timer()
-		: m_last_timestamp{}, m_delta_time(0), m_total_delta_time(0), m_running(false) {
+		: m_last_timestamp{}, 
+		m_delta_time(0), m_total_delta_time(0), 
+		m_running(false) {
 		
 		// Retrieve the frequency of the performance counter. 
 		// The frequency of the performance counter is fixed at system boot 
 		// and is consistent across all processors.
 		QueryPerformanceFrequency(&m_time_frequency);
+		
 		// Calculate the period of the performance counter.
 		m_time_period = 1.0 / (static_cast< f64 >(m_time_frequency.QuadPart));
 	}
@@ -91,7 +94,8 @@ namespace mage {
 		QueryPerformanceCounter(&current_timestamp);
 
 		// Updates the delta time of this timer.
-		m_delta_time        = current_timestamp.QuadPart - m_last_timestamp.QuadPart;
+		m_delta_time        = current_timestamp.QuadPart 
+							 - m_last_timestamp.QuadPart;
 		// Updates the total delta time of this timer.
 		m_total_delta_time += m_delta_time;
 		// Updates the last timestamp of this timer.

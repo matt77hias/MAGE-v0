@@ -50,20 +50,24 @@ namespace mage {
 			: m_quiet(quiet), m_verbose(verbose) {}
 
 		/**
-		 Constructs a logging configuration from the given logging configuration.
+		 Constructs a logging configuration from the given logging 
+		 configuration.
 		 
 		 @param[in]		logging_configuration
 						A reference to the logging configuration to copy.
 		 */
-		LoggingConfiguration(const LoggingConfiguration &logging_configuration) = default;
+		LoggingConfiguration(
+			const LoggingConfiguration &logging_configuration) = default;
 
 		/**
-		 Constructs a logging configuration by moving the given logging configuration.
+		 Constructs a logging configuration by moving the given logging 
+		 configuration.
 
 		 @param[in]		logging_configuration
 						A reference to the logging configuration to move.
 		 */
-		LoggingConfiguration(LoggingConfiguration &&logging_configuration) = default;
+		LoggingConfiguration(
+			LoggingConfiguration &&logging_configuration) = default;
 
 		/**
 		 Destructs this logging configuration.
@@ -79,20 +83,22 @@ namespace mage {
 
 		 @param[in]		logging_configuration
 						A reference to the logging configuration to copy.
-		 @return		A reference to the copy of the given logging configuration
-						(i.e. this logging configuration).
+		 @return		A reference to the copy of the given logging 
+						configuration (i.e. this logging configuration).
 		 */
-		LoggingConfiguration &operator=(const LoggingConfiguration &logging_configuration) = default;
+		LoggingConfiguration &operator=(
+			const LoggingConfiguration &logging_configuration) = default;
 
 		/**
 		 Moves the given logging configuration to this logging configuration.
 
 		 @param[in]		logging_configuration
 						A reference to the logging configuration to move.
-		 @return		A reference to the moved logging configuration
-						(i.e. this logging configuration).
+		 @return		A reference to the moved logging configuration (i.e. 
+						this logging configuration).
 		 */
-		LoggingConfiguration &operator=(LoggingConfiguration &&logging_configuration) = default;
+		LoggingConfiguration &operator=(
+			LoggingConfiguration &&logging_configuration) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -101,8 +107,8 @@ namespace mage {
 		/**
 		 Checks whether the logging of the engine processing is quiet.
 
-		 @return		@c true if the logging of the engine processing is quiet.
-						@c false otherwise.
+		 @return		@c true if the logging of the engine processing is 
+						quiet. @c false otherwise.
 		 */
 		bool IsQuiet() const noexcept {
 			return m_quiet;
@@ -111,8 +117,8 @@ namespace mage {
 		/**
 		 Checks wheter the logging of the engine processing is verbose.
 
-		 @return		@c true if the logging of the engine processing is verbose.
-						@c false otherwise.
+		 @return		@c true if the logging of the engine processing is 
+						verbose. @c false otherwise.
 		 */
 		bool IsVerbose() const noexcept {
 			return m_verbose;
@@ -154,8 +160,8 @@ namespace mage {
 	u16 ConsoleWidth();
 
 	/**
-	 Allocates a console to this engine for basic io and
-	 redirects stdin, stdout and stderr to the allocated console.
+	 Allocates a console to this engine for basic io and redirects @c stdin, 
+	 @c stdout and @c stderr to the allocated console.
 
 	 @throws		FormattedException
 					Failed to initialize the console.

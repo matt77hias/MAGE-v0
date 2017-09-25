@@ -37,10 +37,11 @@ namespace mage {
 						The character representing a work unit 
 						that is already done.
 		 @param[in]		bar_length
-						The length of the progress bar.
-						If 0 the default length will be chosen.
+						The length of the progress bar. If @a bar_length is 
+						equal to 0 the default length will be chosen.
 		 */
-		explicit ProgressReporter(const string &title, u32 nb_work, char plus_char = '+', u32 bar_length = 0);
+		explicit ProgressReporter(const string &title, u32 nb_work, 
+			char plus_char = '+', u32 bar_length = 0);
 
 		/**
 		 Constructs a progress reporter from the given progress reporter.
@@ -75,17 +76,19 @@ namespace mage {
 		 @return		A reference to the copy of the given progress reporter
 						(i.e. this progress reporter).
 		 */
-		ProgressReporter &operator=(const ProgressReporter &progress_reporter) = delete;
+		ProgressReporter &operator=(
+			const ProgressReporter &progress_reporter) = delete;
 
 		/**
 		 Copies the given progress reporter to this progress reporter.
 
 		 @param[in]		progress_reporter
 						A reference to the progress reporter to move.
-		 @return		A reference to moved progress reporter
-						(i.e. this progress reporter).
+		 @return		A reference to moved progress reporter (i.e. this 
+						progress reporter).
 		 */
-		ProgressReporter &operator=(ProgressReporter &&progress_reporter) = delete;
+		ProgressReporter &operator=(
+			ProgressReporter &&progress_reporter) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -116,8 +119,8 @@ namespace mage {
 		 @param[in]		title
 						A reference to the title.
 		 @param[in]		bar_length
-						The length of the progress bar.
-						If 0 the default length will be chosen.
+						The length of the progress bar. If @a bar_length is 
+						equal to 0 the default length will be chosen.
 		 */
 		void Initialize(const string &title, u32 bar_length = 0);
 

@@ -20,15 +20,18 @@ namespace mage {
 	 @pre			@a fname is not equal to @c nullptr.
 	 @pre			@a size is not equal to @c nullptr.
 	 @param[in]		fname
-					A pointer to a null-terminated wide string representing the filename.
+					A pointer to a null-terminated wide string representing the 
+					filename.
 	 @param[out]	data
-					A reference to a pointer to a buffer for storing the read bytes.
+					A reference to a pointer to a buffer for storing the read 
+					bytes.
 	 @param[out]	size
 					A pointer to the size of the read bytes.
 	 @throws		FormattedException
 					Failed to read from the given file.
 	 */
-	void ReadBinaryFile(const wchar_t *fname, UniquePtr< u8[] > &data, size_t *size);
+	void ReadBinaryFile(const wchar_t *fname, 
+		UniquePtr< u8[] > &data, size_t *size);
 
 	//-------------------------------------------------------------------------
 	// BinaryReader
@@ -59,8 +62,8 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a binary reader to copy.
-		 @return		A reference to the copy of the given binary reader
-						(i.e. this binary reader).
+		 @return		A reference to the copy of the given binary reader (i.e. 
+						this binary reader).
 		 */
 		BinaryReader &operator=(const BinaryReader &reader) = delete;
 
@@ -69,8 +72,8 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a binary reader to move.
-		 @return		A reference to the moved binary reader
-						(i.e. this binary reader).
+		 @return		A reference to the moved binary reader (i.e. this 
+						binary reader).
 		 */
 		BinaryReader &operator=(BinaryReader &&reader) = delete;
 
@@ -84,13 +87,13 @@ namespace mage {
 		 @param[in]		fname
 						A reference to the file name.
 		 @param[in]		big_endian
-						Flag indicating whether the given byte array
-						should be interpreted as big endian or not (i.e. little endian).
+						Flag indicating whether the given byte array should be 
+						interpreted as big endian or not (i.e. little endian).
 		 @throws		FormattedException
 						Failed to read from the given file.
 		 */
 		void ReadFromFile(const wstring &fname, bool big_endian);
-
+		
 		/**
 		 Reads the input string.
 
@@ -100,8 +103,8 @@ namespace mage {
 		 @param[in]		size
 						The size of the input string.
 		 @param[in]		big_endian
-						Flag indicating whether the given byte array
-						should be interpreted as big endian or not (i.e. little endian).
+						Flag indicating whether the given byte array should be 
+						interpreted as big endian or not (i.e. little endian).
 		 @throws		FormattedException
 						Failed to read from the given input string.
 		 */
@@ -110,7 +113,8 @@ namespace mage {
 		/**
 		 Returns the current filename of this binary reader.
 
-		 @return		A reference to the current filename of this binary reader.
+		 @return		A reference to the current filename of this binary 
+						reader.
 		 */
 		const wstring &GetFilename() const noexcept {
 			return m_fname;
@@ -150,8 +154,8 @@ namespace mage {
 		/**
 		 Checks if there are characters left to read by this binary reader.
 
-		 @return		@c true if there are characters left to read by this binary reader.
-						@c false otherwise.
+		 @return		@c true if there are characters left to read by this 
+						binary reader. @c false otherwise.
 		 */
 		bool HasCharsLeft() const noexcept {
 			return m_pos < m_end;
@@ -169,85 +173,85 @@ namespace mage {
 		const char *ReadChars(size_t size);
 
 		/**
-		 Reads a @c i8.
+		 Reads an @c i8.
 
 		 @return		The @c i8 read.
 		 @throws		FormattedException
-						Failed to read a @c i8.
+						Failed to read an @c i8.
 		 */
 		i8 ReadI8();
 
 		/**
-		 Reads a @c u8.
+		 Reads an @c u8.
 
 		 @return		The @c u8 read.
 		 @throws		FormattedException
-						Failed to read a @c u8.
+						Failed to read an @c u8.
 		 */
 		u8 ReadU8();
 
 		/**
-		 Reads a @c i16.
+		 Reads an @c i16.
 
 		 @return		The @c i16 read.
 		 @throws		FormattedException
-						Failed to read a @c i16.
+						Failed to read an @c i16.
 		 */
 		i16 ReadI16();
 
 		/**
-		 Reads a @c u16.
+		 Reads an @c u16.
 
 		 @return		The @c u16 read.
 		 @throws		FormattedException
-						Failed to read a @c u16.
+						Failed to read an @c u16.
 		 */
 		u16 ReadU16();
 
 		/**
-		 Reads a @c i32.
+		 Reads an @c i32.
 
 		 @return		The @c i32 read.
 		 @throws		FormattedException
-						Failed to read a @c i32.
+						Failed to read an @c i32.
 		 */
 		i32 ReadI32();
 
 		/**
-		 Reads a @c u32.
+		 Reads an @c u32.
 
 		 @return		The @c u32 read.
 		 @throws		FormattedException
-						Failed to read a @c u32.
+						Failed to read an @c u32.
 		 */
 		u32 ReadU32();
 
 		/**
-		 Reads a @c i64.
+		 Reads an @c i64.
 
 		 @return		The @c i64 read.
 		 @throws		FormattedException
-						Failed to read a @c i64.
+						Failed to read an @c i64.
 		 */
 		i64 ReadI64();
 
 		/**
-		 Reads a @c u64.
+		 Reads an @c u64.
 
 		 @return		The @c u64 read.
 		 @throws		FormattedException
-						Failed to read a @c u64.
+						Failed to read an @c u64.
 		 */
 		u64 ReadU64();
 
 		/**
-		 Reads a @c float.
+		 Reads a @c f32.
 
-		 @return		The @c float read.
+		 @return		The @c f32 read.
 		 @throws		FormattedException
-						Failed to read a @c float.
+						Failed to read a @c f32.
 		 */
-		float ReadF32();
+		f32 ReadF32();
 
 		/**
 		 Reads a @c f64.
@@ -328,24 +332,28 @@ namespace mage {
 		//---------------------------------------------------------------------	
 
 		/**
-		 Copies the given big endian binary reader to this big endian binary reader.
+		 Copies the given big endian binary reader to this big endian binary 
+		 reader.
 
 		 @param[in]		reader
 						A reference to a big endian binary reader to copy.
-		 @return		A reference to the copy of the given big endian binary reader
-						(i.e. this big endian binary reader).
+		 @return		A reference to the copy of the given big endian binary 
+						reader (i.e. this big endian binary reader).
 		 */
-		BigEndianBinaryReader &operator=(const BigEndianBinaryReader &reader) = delete;
+		BigEndianBinaryReader &operator=(
+			const BigEndianBinaryReader &reader) = delete;
 		
 		/**
-		 Moves the given big endian binary reader to this big endian binary reader.
+		 Moves the given big endian binary reader to this big endian binary 
+		 reader.
 
 		 @param[in]		reader
 						A reference to a big endian binary reader to move.
 		 @return		A reference to the moved big endian binary reader
 						(i.e. this big endian binary reader).
 		 */
-		BigEndianBinaryReader &operator=(BigEndianBinaryReader &&reader) = delete;
+		BigEndianBinaryReader &operator=(
+			BigEndianBinaryReader &&reader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -377,7 +385,8 @@ namespace mage {
 		/**
 		 Returns the current filename of this big endian binary reader.
 
-		 @return		A reference to the current filename of this big endian binary reader.
+		 @return		A reference to the current filename of this big endian 
+						binary reader.
 		 */
 		const wstring &GetFilename() const noexcept {
 			return m_fname;
@@ -395,7 +404,8 @@ namespace mage {
 		BigEndianBinaryReader();
 		
 		/**
-		 Constructs a big endian binary reader from the given big endian binary reader.
+		 Constructs a big endian binary reader from the given big endian binary 
+		 reader.
 
 		 @param[in]		reader
 						A reference to the big endian binary reader to copy.
@@ -403,7 +413,8 @@ namespace mage {
 		BigEndianBinaryReader(const BigEndianBinaryReader &reader) = delete;
 
 		/**
-		 Constructs a big endian binary reader by moving the given big endian binary reader.
+		 Constructs a big endian binary reader by moving the given big endian 
+		 binary reader.
 
 		 @param[in]		reader
 						A reference to the big endian binary reader to move.
@@ -417,8 +428,8 @@ namespace mage {
 		/**
 		 Checks if there are characters left to read by this binary reader.
 
-		 @return		@c true if there are characters left to read by this binary reader.
-						@c false otherwise.
+		 @return		@c true if there are characters left to read by this 
+						binary reader. @c false otherwise.
 		 */
 		bool HasCharsLeft() const noexcept {
 			return m_pos < m_end;

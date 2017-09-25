@@ -20,8 +20,8 @@ namespace mage {
 
 	 @param[in]		fname
 					A reference to the filename of the file.
-	 @return		@c true if a file with the given filename exists.
-					@c false otherwise.
+	 @return		@c true if a file with the given filename exists. @c false 
+					otherwise.
 	 */
 	bool FileExists(const wstring &fname) noexcept;
 
@@ -65,8 +65,10 @@ namespace mage {
 	inline const string GetFileExtension(const string &fname) {
 		const size_t begin_pos = fname.find_last_of(".");
 		if (begin_pos == string::npos) {
-			throw FormattedException("The filename does not have a file extension.");
+			throw FormattedException(
+				"The filename does not have a file extension.");
 		}
+		
 		return fname.substr(begin_pos + 1);
 	}
 
@@ -82,8 +84,10 @@ namespace mage {
 	inline const wstring GetFileExtension(const wstring &fname) {
 		const size_t begin_pos = fname.find_last_of(L".");
 		if (begin_pos == string::npos) {
-			throw FormattedException("The filename does not have a file extension.");
+			throw FormattedException(
+				"The filename does not have a file extension.");
 		}
+
 		return fname.substr(begin_pos + 1);
 	}
 
@@ -99,8 +103,10 @@ namespace mage {
 	inline const string GetFileName(const string &fname) {
 		const size_t begin_pos = fname.find_last_of("/");
 		if (begin_pos == string::npos) {
-			throw FormattedException("The filename does not have a file path.");
+			throw FormattedException(
+				"The filename does not have a file path.");
 		}
+
 		return fname.substr(begin_pos + 1);
 	}
 
@@ -116,8 +122,10 @@ namespace mage {
 	inline const wstring GetFileName(const wstring &fname) {
 		const size_t begin_pos = fname.find_last_of(L"/");
 		if (begin_pos == string::npos) {
-			throw FormattedException("The filename does not have a file path.");
+			throw FormattedException(
+				"The filename does not have a file path.");
 		}
+		
 		return fname.substr(begin_pos + 1);
 	}
 
@@ -133,8 +141,10 @@ namespace mage {
 	inline const string GetPathName(const string &fname) {
 		const size_t end_pos = fname.find_last_of("/");
 		if (end_pos == string::npos) {
-			throw FormattedException("The filename does not have a file path.");
+			throw FormattedException(
+				"The filename does not have a file path.");
 		}
+		
 		return fname.substr(0, end_pos + 1);
 	}
 
@@ -150,8 +160,10 @@ namespace mage {
 	inline const wstring GetPathName(const wstring &fname) {
 		const size_t end_pos = fname.find_last_of(L"/");
 		if (end_pos == string::npos) {
-			throw FormattedException("The filename does not have a file path.");
+			throw FormattedException(
+				"The filename does not have a file path.");
 		}
+		
 		return fname.substr(0, end_pos + 1);
 	}
 
@@ -167,8 +179,10 @@ namespace mage {
 	inline const string GetFilenameWithoutFileExtension(const string &fname) {
 		const size_t end_pos = fname.find_last_of(".");
 		if (end_pos == string::npos) {
-			throw FormattedException("The filename does not have a file extension.");
+			throw FormattedException(
+				"The filename does not have a file extension.");
 		}
+
 		return fname.substr(0, end_pos);
 	}
 
@@ -184,8 +198,10 @@ namespace mage {
 	inline const wstring GetFilenameWithoutFileExtension(const wstring &fname) {
 		const size_t end_pos = fname.find_last_of(L".");
 		if (end_pos == string::npos) {
-			throw FormattedException("The filename does not have a file extension.");
+			throw FormattedException(
+				"The filename does not have a file extension.");
 		}
+
 		return fname.substr(0, end_pos);
 	}
 }

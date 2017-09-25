@@ -35,24 +35,27 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given big endian binary writer to this big endian binary writer.
+		 Copies the given big endian binary writer to this big endian binary 
+		 writer.
 
 		 @param[in]		writer
 						A reference to a big endian binary writer to copy.
-		 @return		A reference to the copy of the given big endian binary writer
-						(i.e. this big endian binary writer).
+		 @return		A reference to the copy of the given big endian binary 
+						writer (i.e. this big endian binary writer).
 		 */
-		BigEndianBinaryWriter &operator=(const BigEndianBinaryWriter &writer) = delete;
+		BigEndianBinaryWriter &operator=(
+			const BigEndianBinaryWriter &writer) = delete;
 
 		/**
 		 Moves the given big endian binary writer to this big endian binary writer.
 
 		 @param[in]		writer
 						A reference to a big endian binary writer to move.
-		 @return		A reference to the moved big endian binary writer
-						(i.e. this big endian binary writer).
+		 @return		A reference to the moved big endian binary writer (i.e. 
+						this big endian binary writer).
 		 */
-		BigEndianBinaryWriter &operator=(BigEndianBinaryWriter &&writer) = delete;
+		BigEndianBinaryWriter &operator=(
+			BigEndianBinaryWriter &&writer) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -89,7 +92,8 @@ namespace mage {
 		BigEndianBinaryWriter();
 		
 		/**
-		 Constructs a big endian binary writer from the given big endian binary writer.
+		 Constructs a big endian binary writer from the given big endian binary 
+		 writer.
 
 		 @param[in]		writer
 						A reference to the big endian binary writer to copy.
@@ -97,7 +101,8 @@ namespace mage {
 		BigEndianBinaryWriter(const BigEndianBinaryWriter &writer) = delete;
 		
 		/**
-		 Constructs a big endian binary writer by moving the given big endian binary writer.
+		 Constructs a big endian binary writer by moving the given big endian 
+		 binary writer.
 
 		 @param[in]		writer
 						A reference to the big endian binary writer to move.
@@ -125,15 +130,14 @@ namespace mage {
 		 Writes the given data.
 
 		 @pre			@a data is not equal to @c nullptr.
-		 @pre			The array pointed to by @a data
-						contains at least @a count elements.
+		 @pre			The array pointed to by @a data contains at least 
+						@a count elements.
 		 @tparam		DataT
 						The data type.
 		 @param[in]		data
 						A pointer to the data.
 		 @param[in]		count
-						The number of data elements of
-						@c size(DataT) to write.
+						The number of data elements of @c size(DataT) to write.
 		 @throws		FormattedException
 						Failed to write the given data.
 		 */
@@ -155,7 +159,8 @@ namespace mage {
 
 		 @pre			@a str is not equal to @c nullptr.
 		 @param[in]		str
-						A pointer to the first null-terminated byte string to write.
+						A pointer to the first null-terminated byte string to 
+						write.
 		 @throws		FormattedException
 						Failed to write the given string.
 		 */

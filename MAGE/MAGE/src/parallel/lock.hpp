@@ -14,12 +14,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	//-------------------------------------------------------------------------
+	// Mutex
+	//-------------------------------------------------------------------------
+
 	/**
 	 A struct of mutexes.
 	 */
 	struct Mutex final {
-
-	friend struct MutexLock;
 
 	public:
 
@@ -62,8 +64,8 @@ namespace mage {
 
 		 @param[in]		mutex
 						A reference to the mutex to copy.
-		 @return		A reference to the copy of the given mutex 
-						(i.e. this mutex).
+		 @return		A reference to the copy of the given mutex (i.e. this 
+						mutex).
 		 */
 		Mutex &operator=(const Mutex &mutex) = delete;
 
@@ -72,12 +74,17 @@ namespace mage {
 
 		 @param[in]		mutex
 						A reference to the mutex to move.
-		 @return		A reference to the moved mutex
-						(i.e. this mutex).
+		 @return		A reference to the moved mutex (i.e. this mutex).
 		 */
 		Mutex &operator=(Mutex &&mutex) = delete;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Friends
+		//---------------------------------------------------------------------
+
+		friend struct MutexLock;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -88,6 +95,10 @@ namespace mage {
 		 */
 		CRITICAL_SECTION m_critical_section;
 	};
+
+	//-------------------------------------------------------------------------
+	// MutexLock
+	//-------------------------------------------------------------------------
 
 	/**
 	 A struct of mutex locks.
@@ -136,8 +147,8 @@ namespace mage {
 
 		 @param[in]		mutex_lock
 						A reference to the mutex lock to copy.
-		 @return		A reference to the copy of the given mutex lock 
-						(i.e. this mutex lock)
+		 @return		A reference to the copy of the given mutex lock (i.e. 
+						this mutex lock)
 		 */
 		MutexLock &operator=(const MutexLock &mutex_lock) = delete;
 
@@ -146,8 +157,8 @@ namespace mage {
 
 		 @param[in]		mutex_lock
 						A reference to the mutex lock to move.
-		 @return		A reference to the moved mutex lock
-						(i.e. this mutex lock)
+		 @return		A reference to the moved mutex lock (i.e. this mutex 
+						lock)
 		 */
 		MutexLock &operator=(MutexLock &&mutex_lock) = delete;
 
@@ -163,12 +174,14 @@ namespace mage {
 		Mutex &m_mutex;
 	};
 
+	//-------------------------------------------------------------------------
+	// ReadWriteMutex
+	//-------------------------------------------------------------------------
+
 	/**
 	 A struct of read write mutexes.
 	 */
 	struct ReadWriteMutex final {
-
-	friend struct ReadWriteMutexLock;
 
 	public:
 
@@ -221,12 +234,18 @@ namespace mage {
 
 		 @param[in]		mutex
 						A reference to a read write mutex to move.
-		 @return		A reference to the moved read write mutex
-						(i.e. this read write mutex).
+		 @return		A reference to the moved read write mutex (i.e. this 
+						read write mutex).
 		 */
 		ReadWriteMutex &operator=(ReadWriteMutex &&mutex) = delete;
 
 	private:
+
+		//---------------------------------------------------------------------
+		// Friends
+		//---------------------------------------------------------------------
+
+		friend struct ReadWriteMutexLock;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -269,8 +288,8 @@ namespace mage {
 		/**
 		 The active group of this read write mutex.
 
-		 HIWORD is the flag indicating a writer is active.
-		 LOWORD is the number of active readers.
+		 @c HIWORD is the flag indicating a writer is active.
+		 @c LOWORD is the number of active readers.
 		 */
 		DWORD m_active_writer_readers;
 
@@ -289,6 +308,10 @@ namespace mage {
 		 */
 		CRITICAL_SECTION m_critical_section;
 	};
+
+	//-------------------------------------------------------------------------
+	// ReadWriteMutexLock
+	//-------------------------------------------------------------------------
 
 	/**
 	 A struct of read write mutex locks.
@@ -311,7 +334,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a read write mutex lock for the given read write mutex and lock type.
+		 Constructs a read write mutex lock for the given read write mutex and 
+		 lock type.
 
 		 @param[in]		mutex
 						A reference to a read write mutex.
@@ -321,7 +345,8 @@ namespace mage {
 		explicit ReadWriteMutexLock(ReadWriteMutex &mutex, LockType lock_type);
 
 		/**
-		 Constructs a read write mutex lock from the given read write mutex lock.
+		 Constructs a read write mutex lock from the given read write mutex 
+		 lock.
 
 		 @param[in]		mutex_lock
 						A reference to the read write mutex lock to copy.
@@ -329,7 +354,8 @@ namespace mage {
 		ReadWriteMutexLock(const ReadWriteMutexLock &mutex_lock) = delete;
 
 		/**
-		 Constructs a read write mutex lock by moving the given read write mutex lock.
+		 Constructs a read write mutex lock by moving the given read write 
+		 mutex lock.
 
 		 @param[in]		mutex_lock
 						A reference to the read write mutex lock to move.
@@ -350,20 +376,22 @@ namespace mage {
 
 		 @param[in]		mutex_lock
 						A reference to the read write mutex lock to copy.
-		 @return		A reference to the copy of the given read write mutex lock
-						(i.e. this read write mutex lock).
+		 @return		A reference to the copy of the given read write mutex 
+						lock (i.e. this read write mutex lock).
 		 */
-		ReadWriteMutexLock &operator=(const ReadWriteMutexLock &mutex_lock) = delete;
+		ReadWriteMutexLock &operator=(
+			const ReadWriteMutexLock &mutex_lock) = delete;
 
 		/**
 		 Moves the given read write mutex lock to this read write mutex lock.
 
 		 @param[in]		mutex_lock
 						A reference to the read write mutex lock to move.
-		 @return		A reference to the moved read write mutex lock
-						(i.e. this read write mutex lock).
+		 @return		A reference to the moved read write mutex lock (i.e. 
+						this read write mutex lock).
 		 */
-		ReadWriteMutexLock &operator=(ReadWriteMutexLock &&mutex_lock) = delete;
+		ReadWriteMutexLock &operator=(
+			ReadWriteMutexLock &&mutex_lock) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -395,6 +423,10 @@ namespace mage {
 		 */
 		ReadWriteMutex &m_mutex;
 	};
+
+	//-------------------------------------------------------------------------
+	// Semaphore
+	//-------------------------------------------------------------------------
 
 	/**
 	 A struct of semaphores.
@@ -442,8 +474,8 @@ namespace mage {
 
 		 @param[in]		semaphore
 						A reference to the semaphore to copy.
-		 @return		A reference to the copy of the given semaphore
-						(i.e. this semaphore)
+		 @return		A reference to the copy of the given semaphore (i.e. 
+						this semaphore)
 		 */
 		Semaphore &operator=(const Semaphore &semaphore) = delete;
 
@@ -452,8 +484,7 @@ namespace mage {
 
 		 @param[in]		semaphore
 						A reference to the semaphore to move.
-		 @return		A reference to the moved semaphore
-						(i.e. this semaphore)
+		 @return		A reference to the moved semaphore (i.e. this semaphore)
 		 */
 		Semaphore &operator=(Semaphore &&semaphore) = delete;
 
@@ -464,8 +495,9 @@ namespace mage {
 		/**
 		 Increments the value of this semaphore variable by the given value.
 		 
-		 If the initial value of the semaphore is negative, the waiting queue is not
-		 empty and thus one blocked process can be transferred to the ready queue.
+		 If the initial value of the semaphore is negative, the waiting queue 
+		 is not empty and thus one blocked process can be transferred to the 
+		 ready queue.
 
 		 @param[in]		count
 						The increment value.
@@ -483,8 +515,8 @@ namespace mage {
 		/**
 		 Checks whether waiting for this semaphore would be necessary.
 
-		 @return		@c true if waiting for this semaphore would be necessary.
-						@c false otherwise.
+		 @return		@c true if waiting for this semaphore would be 
+						necessary. @c false otherwise.
 		 */
 		bool TryWait() noexcept;
 
@@ -499,6 +531,10 @@ namespace mage {
 		 */
 		HANDLE m_handle;
 	};
+
+	//-------------------------------------------------------------------------
+	// ConditionVariable
+	//-------------------------------------------------------------------------
 
 	/**
 	 A struct of condition variables.
@@ -522,15 +558,18 @@ namespace mage {
 		 @param[in]		condition_variable
 						A reference to the condition variable to copy.
 		 */
-		ConditionVariable(const ConditionVariable &condition_variable) = delete;
+		ConditionVariable(
+			const ConditionVariable &condition_variable) = delete;
 
 		/**
-		 Constructs a condition variable by moving the given condition variable.
+		 Constructs a condition variable by moving the given condition 
+		 variable.
 
 		 @param[in]		condition_variable
 						A reference to the condition variable to move.
 		 */
-		ConditionVariable(ConditionVariable &&condition_variable) = default;
+		ConditionVariable(
+			ConditionVariable &&condition_variable) = default;
 
 		/**
 		 Destructs this condition variable.
@@ -546,20 +585,22 @@ namespace mage {
 
 		 @param[in]		condition_variable
 						A reference to the condition variable to copy.
-		 @return		A reference to the copy of the given condition variable
-						(i.e. this condition variable)
+		 @return		A reference to the copy of the given condition 
+						variable (i.e. this condition variable)
 		 */
-		ConditionVariable &operator=(const ConditionVariable &condition_variable) = delete;
+		ConditionVariable &operator=(
+			const ConditionVariable &condition_variable) = delete;
 
 		/**
 		 Moves the given condition variable to this condition variable.
 
 		 @param[in]		condition_variable
 						A reference to the condition variable to move.
-		 @return		A reference to the moved condition variable
-						(i.e. this condition variable)
+		 @return		A reference to the moved condition variable (i.e. this 
+						condition variable)
 		 */
-		ConditionVariable &operator=(ConditionVariable &&condition_variable) = delete;
+		ConditionVariable &operator=(
+			ConditionVariable &&condition_variable) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -609,7 +650,8 @@ namespace mage {
 		CRITICAL_SECTION m_condition_mutex;
 
 		/**
-		 An enumeration of the different types of events of this condition variable.
+		 An enumeration of the different types of events of this condition 
+		 variable.
 		 */
 		enum Event { 
 			SIGNAL    = 0, 

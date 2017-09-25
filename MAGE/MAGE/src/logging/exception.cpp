@@ -44,15 +44,19 @@ namespace mage {
 		Error(m_text);
 	}
 
-	FormattedException::FormattedException(const FormattedException &formatted_exception) = default;
+	FormattedException::FormattedException(
+		const FormattedException &formatted_exception) = default;
 
-	FormattedException::FormattedException(FormattedException &&formatted_exception) = default;
+	FormattedException::FormattedException(
+		FormattedException &&formatted_exception) = default;
 
 	FormattedException::~FormattedException() = default;
 
-	FormattedException &FormattedException::operator=(const FormattedException &formatted_exception) = default;
+	FormattedException &FormattedException::operator=(
+		const FormattedException &formatted_exception) = default;
 
-	FormattedException &FormattedException::operator=(FormattedException &&formatted_exception) = default;
+	FormattedException &FormattedException::operator=(
+		FormattedException &&formatted_exception) = default;
 
 	void ThrowIfFailed(HRESULT result) {
 		if (FAILED(result)) {

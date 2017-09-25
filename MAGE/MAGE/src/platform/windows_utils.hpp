@@ -17,9 +17,9 @@ namespace mage {
 	/**
 	 Returns the caller of @c CreateWindow or @c CreateWindowEx.
 
-	 @pre			The @c lpParam formal parameter of @c CreateWindow or @c CreateWindowEx
-					should be initialized to @c this and @c this should point to an instance
-					of type @a CallerT.	
+	 @pre			The @c lpParam formal parameter of @c CreateWindow or 
+					@c CreateWindowEx should be initialized to @c this and 
+					@c this should point to an instance of type @a CallerT.	
 	 @tparam		CallerT
 					The caller type.
 	 @param[in]		hwndDlg
@@ -30,16 +30,19 @@ namespace mage {
 					Additional message-specific information.
 	 @param[in]		lParam
 					Additional message-specific information.
-	 @return		A pointer to the caller of @c CreateWindow or @c CreateWindowEx.
+	 @return		A pointer to the caller of @c CreateWindow or 
+					@c CreateWindowEx.
 	 */
 	template< typename CallerT >
-	CallerT *GetWindowCaller(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	CallerT *GetWindowCaller(
+		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 	/**
 	 Returns the caller of @c DialogBoxParam.
 
-	 @pre			The @c lParam formal parameter of @c DialogBoxParam should be initialized 
-					to @c this and @c this should point to an instance of type @a CallerT.
+	 @pre			The @c lParam formal parameter of @c DialogBoxParam should 
+					be initialized to @c this and @c this should point to an 
+					instance of type @a CallerT.
 	 @tparam		CallerT
 					The caller type.
 	 @param[in]		hwndDlg
@@ -53,7 +56,8 @@ namespace mage {
 	 @return		A pointer to the caller of @c DialogBoxParam.
 	 */
 	template< typename CallerT >
-	CallerT *GetDialogCaller(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	CallerT *GetDialogCaller(
+		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 }
 
 //-----------------------------------------------------------------------------

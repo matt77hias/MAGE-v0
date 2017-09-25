@@ -60,8 +60,8 @@ namespace mage {
 
 		 @param[in]		timer
 						A reference to the CPU timer to copy.
-		 @return		A reference to the copy of the given CPU timer
-						(i.e. this CPU timer).
+		 @return		A reference to the copy of the given CPU timer (i.e. 
+						this CPU timer).
 		 */
 		CPUTimer &operator=(const CPUTimer &timer) = default;
 
@@ -70,8 +70,8 @@ namespace mage {
 
 		 @param[in]		timer
 						A reference to the CPU timer to move.
-		 @return		A reference to the moved CPU timer
-						(i.e. this CPU timer).
+		 @return		A reference to the moved CPU timer (i.e. this CPU 
+						timer).
 		 */
 		CPUTimer &operator=(CPUTimer &&timer) = default;
 
@@ -104,62 +104,61 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the core delta time (in seconds) 
-		 per processing core of this CPU timer's process.
+		 Returns the core delta time (in seconds) per processing core of this 
+		 CPU timer's process.
 
-		 @return		The core delta time (in seconds) 
-						per processing core of this CPU timer's process.
+		 @return		The core delta time (in seconds) per processing core 
+						of this CPU timer's process.
 		 */
 		f64 GetCoreDeltaTimePerCore() const noexcept {
 			return GetCoreDeltaTime() / m_nb_processor_cores;
 		}
 
 		/**
-		 Returns the core delta time (in seconds) 
-		 of this CPU timer's process.
+		 Returns the core delta time (in seconds) of this CPU timer's process.
 
-		 @return		The core delta time (in seconds) 
-						of this CPU timer's process.
+		 @return		The core delta time (in seconds) of this CPU timer's 
+						process.
 		 */
 		f64 GetCoreDeltaTime() const noexcept;
 
 		/**
-		 Returns the kernel mode delta time (in seconds) 
-		 per processing core of this CPU timer's process.
+		 Returns the kernel mode delta time (in seconds) per processing core 
+		 of this CPU timer's process.
 
-		 @return		The kernel mode delta time (in seconds) 
-						per processing core of this CPU timer's process.
+		 @return		The kernel mode delta time (in seconds) per processing 
+						core of this CPU timer's process.
 		 */
 		f64 GetKernelModeDeltaTimePerCore() const noexcept {
 			return GetKernelModeDeltaTime() / m_nb_processor_cores;
 		}
 
 		/**
-		 Returns the kernel mode delta time (in seconds) 
-		 of this CPU timer's process.
+		 Returns the kernel mode delta time (in seconds) of this CPU timer's 
+		 process.
 
-		 @return		The kernel mode delta time (in seconds) 
-						of this CPU timer's process.
+		 @return		The kernel mode delta time (in seconds) of this CPU 
+						timer's process.
 		 */
 		f64 GetKernelModeDeltaTime() const noexcept;
 
 		/**
-		 Returns the user mode delta time (in seconds) 
-		 per processing core of this CPU timer's process.
+		 Returns the user mode delta time (in seconds) per processing core 
+		 of this CPU timer's process.
 
-		 @return		The user mode delta time (in seconds) 
-						per processing core of this CPU timer's process.
+		 @return		The user mode delta time (in seconds) per processing 
+						core of this CPU timer's process.
 		 */
 		f64 GetUserModeDeltaTimePerCore() const noexcept {
 			return GetUserModeDeltaTime() / m_nb_processor_cores;
 		}
 
 		/**
-		 Returns the user mode delta time (in seconds) 
-		 of this CPU timer's process.
+		 Returns the user mode delta time (in seconds) of this CPU timer's 
+		 process.
 
-		 @return		The user mode delta time (in seconds) 
-						of this CPU timer's process.
+		 @return		The user mode delta time (in seconds) of this CPU 
+						timer's process.
 		 */
 		f64 GetUserModeDeltaTime() const noexcept;
 
@@ -168,62 +167,62 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the total core delta time (in seconds)
-		 per processing core of this CPU timer's process.
+		 Returns the total core delta time (in seconds) per processing core of 
+		 this CPU timer's process.
 
-		 @return		The total core delta time (in seconds)
-						per processing core of this CPU timer's process.
+		 @return		The total core delta time (in seconds) per processing 
+						core of this CPU timer's process.
 		 */
 		f64 GetTotalCoreDeltaTimePerCore() const noexcept {
 			return GetTotalCoreDeltaTime() / m_nb_processor_cores;
 		}
 
 		/**
-		 Returns the total core delta time (in seconds)
-		 of this CPU timer's process.
+		 Returns the total core delta time (in seconds) of this CPU timer's 
+		 process.
 
-		 @return		The total core delta time (in seconds)
-						of this CPU timer's process.
+		 @return		The total core delta time (in seconds) of this CPU 
+						timer's process.
 		 */
 		f64 GetTotalCoreDeltaTime() const noexcept;
 
 		/**
-		 Returns the total kernel mode delta time (in seconds)
-		 per processing core of this CPU timer's process.
+		 Returns the total kernel mode delta time (in seconds) per processing 
+		 core of this CPU timer's process.
 
-		 @return		The total kernel mode delta time (in seconds)
-						per processing core of this CPU timer's process.
+		 @return		The total kernel mode delta time (in seconds) per 
+						processing core of this CPU timer's process.
 		 */
 		f64 GetTotalKernelModeDeltaTimePerCore() const noexcept {
 			return GetTotalKernelModeDeltaTime() / m_nb_processor_cores;
 		}
 
 		/**
-		 Returns the total kernel mode delta time (in seconds)
-		 of this CPU timer's process.
+		 Returns the total kernel mode delta time (in seconds) of this CPU 
+		 timer's process.
 
-		 @return		The total kernel mode delta time (in seconds)
-						of this CPU timer's process.
+		 @return		The total kernel mode delta time (in seconds) of this CPU 
+						timer's process.
 		 */
 		f64 GetTotalKernelModeDeltaTime() const noexcept;
 
 		/**
-		 Returns the total user mode delta time (in seconds)
-		 per processing core of this CPU timer's process.
+		 Returns the total user mode delta time (in seconds) per processing 
+		 core of this CPU timer's process.
 
-		 @return		The total user mode delta time (in seconds)
-						per processing core of this CPU timer's process.
+		 @return		The total user mode delta time (in seconds) per 
+						processing core of this CPU timer's process.
 		 */
 		f64 GetTotalUserModeDeltaTimePerCore() const noexcept {
 			return GetTotalUserModeDeltaTime() / m_nb_processor_cores;
 		}
 
 		/**
-		 Returns the total user mode delta time (in seconds)
-		 of this CPU timer's process.
+		 Returns the total user mode delta time (in seconds) of this CPU 
+		 timer's process.
 
-		 @return		The total user mode delta time (in seconds)
-						of this CPU timer's process.
+		 @return		The total user mode delta time (in seconds) of this CPU 
+						timer's process.
 		 */
 		f64 GetTotalUserModeDeltaTime() const noexcept;
 

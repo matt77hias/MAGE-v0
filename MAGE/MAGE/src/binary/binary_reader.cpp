@@ -12,32 +12,41 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void ReadBinaryFile(const wchar_t *fname, UniquePtr< u8[] > &data, size_t *size) {
+	void ReadBinaryFile(const wchar_t *fname, 
+		UniquePtr< u8[] > &data, size_t *size) {
+
 		Assert(fname);
 		Assert(size);
 		
-		UniqueHandle file_handle(SafeHandle(CreateFile2(fname, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr)));
+		UniqueHandle file_handle(SafeHandle(CreateFile2(
+			fname, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr)));
 		FILE_STANDARD_INFO file_info;
-		if (!GetFileInformationByHandleEx(file_handle.get(), FileStandardInfo, &file_info, sizeof(file_info))) {
-			throw FormattedException("%ls: could not retrieve file information.", fname);
+		if (!GetFileInformationByHandleEx(
+			file_handle.get(), FileStandardInfo, &file_info, sizeof(file_info))) {
+			throw FormattedException("%ls: could not retrieve file information.", 
+				fname);
 		}
 		if (file_info.EndOfFile.HighPart > 0) {
-			throw FormattedException("%ls: file too big for 32-bit allocation.", fname);
+			throw FormattedException("%ls: file too big for 32-bit allocation.", 
+				fname);
 		}
 		
 		const DWORD nb_bytes = file_info.EndOfFile.LowPart;
 		*size = nb_bytes;
 		data = MakeUnique< u8[] >(nb_bytes);
 		if (!data) {
-			throw FormattedException("%ls: file too big for allocation.", fname);
+			throw FormattedException("%ls: file too big for allocation.", 
+				fname);
 		}
 
 		DWORD nb_bytes_read = 0;
 		if (!ReadFile(file_handle.get(), data.get(), nb_bytes, &nb_bytes_read, nullptr)) {
-			throw FormattedException("%ls: could not load file data.", fname);
+			throw FormattedException("%ls: could not load file data.", 
+				fname);
 		}
 		if (nb_bytes_read < nb_bytes) {
-			throw FormattedException("%ls: could not load all file data.", fname);
+			throw FormattedException("%ls: could not load all file data.", 
+				fname);
 		}
 	}
 
@@ -76,7 +85,8 @@ namespace mage {
 		m_end = input + size;
 
 		if (m_end < m_pos) {
-			throw FormattedException("%ls: overflow.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow.", 
+				GetFilename().c_str());
 		}
 		
 		Read();
@@ -85,10 +95,12 @@ namespace mage {
 	const char *BinaryReader::ReadChars(size_t size) {
 		const u8 *new_pos = m_pos + size;
 		if (new_pos < m_pos) {
-			throw FormattedException("%ls: overflow: no chars value found.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow: no chars value found.", 
+				GetFilename().c_str());
 		}
 		if (m_end < new_pos) {
-			throw FormattedException("%ls: end of file: no chars value found.", GetFilename().c_str());
+			throw FormattedException("%ls: end of file: no chars value found.", 
+				GetFilename().c_str());
 		}
 
 		const char *result = reinterpret_cast< const char * >(m_pos);
@@ -99,10 +111,12 @@ namespace mage {
 	i8 BinaryReader::ReadI8() {
 		const u8 *new_pos = m_pos + sizeof(i8);
 		if (new_pos < m_pos) {
-			throw FormattedException("%ls: overflow: no i8 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow: no i8 value found.", 
+				GetFilename().c_str());
 		}
 		if (m_end < new_pos) {
-			throw FormattedException("%ls: end of file: no i8 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: end of file: no i8 value found.", 
+				GetFilename().c_str());
 		}
 
 		const i8 result = BytesToI8(m_pos);
@@ -113,10 +127,12 @@ namespace mage {
 	u8 BinaryReader::ReadU8() {
 		const u8 *new_pos = m_pos + sizeof(u8);
 		if (new_pos < m_pos) {
-			throw FormattedException("%ls: overflow: no u8 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow: no u8 value found.", 
+				GetFilename().c_str());
 		}
 		if (m_end < new_pos) {
-			throw FormattedException("%ls: end of file: no u8 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: end of file: no u8 value found.", 
+				GetFilename().c_str());
 		}
 
 		const u8 result = BytesToU8(m_pos);
@@ -127,10 +143,12 @@ namespace mage {
 	i16 BinaryReader::ReadI16() {
 		const u8 *new_pos = m_pos + sizeof(i16);
 		if (new_pos < m_pos) {
-			throw FormattedException("%ls: overflow: no i16 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow: no i16 value found.", 
+				GetFilename().c_str());
 		}
 		if (m_end < new_pos) {
-			throw FormattedException("%ls: end of file: no i16 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: end of file: no i16 value found.", 
+				GetFilename().c_str());
 		}
 
 		const i16 result = BytesToI16(m_pos, m_big_endian);
@@ -141,10 +159,12 @@ namespace mage {
 	u16 BinaryReader::ReadU16() {
 		const u8 *new_pos = m_pos + sizeof(u16);
 		if (new_pos < m_pos) {
-			throw FormattedException("%ls: overflow: no u16 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow: no u16 value found.", 
+				GetFilename().c_str());
 		}
 		if (m_end < new_pos) {
-			throw FormattedException("%ls: end of file: no u16 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: end of file: no u16 value found.", 
+				GetFilename().c_str());
 		}
 
 		const u16 result = BytesToU16(m_pos, m_big_endian);
@@ -155,10 +175,12 @@ namespace mage {
 	i32 BinaryReader::ReadI32() {
 		const u8 *new_pos = m_pos + sizeof(i32);
 		if (new_pos < m_pos) {
-			throw FormattedException("%ls: overflow: no i32 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow: no i32 value found.", 
+				GetFilename().c_str());
 		}
 		if (m_end < new_pos) {
-			throw FormattedException("%ls: end of file: no i32 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: end of file: no i32 value found.", 
+				GetFilename().c_str());
 		}
 
 		const i32 result = BytesToI32(m_pos, m_big_endian);
@@ -169,10 +191,12 @@ namespace mage {
 	u32 BinaryReader::ReadU32() {
 		const u8 *new_pos = m_pos + sizeof(u32);
 		if (new_pos < m_pos) {
-			throw FormattedException("%ls: overflow: no u32 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow: no u32 value found.", 
+				GetFilename().c_str());
 		}
 		if (m_end < new_pos) {
-			throw FormattedException("%ls: end of file: no u32 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: end of file: no u32 value found.", 
+				GetFilename().c_str());
 		}
 
 		const u32 result = BytesToU32(m_pos, m_big_endian);
@@ -183,10 +207,12 @@ namespace mage {
 	i64 BinaryReader::ReadI64() {
 		const u8 *new_pos = m_pos + sizeof(i64);
 		if (new_pos < m_pos) {
-			throw FormattedException("%ls: overflow: no i64 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow: no i64 value found.", 
+				GetFilename().c_str());
 		}
 		if (m_end < new_pos) {
-			throw FormattedException("%ls: end of file: no i64 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: end of file: no i64 value found.", 
+				GetFilename().c_str());
 		}
 
 		const i64 result = BytesToI64(m_pos, m_big_endian);
@@ -197,10 +223,12 @@ namespace mage {
 	u64 BinaryReader::ReadU64() {
 		const u8 *new_pos = m_pos + sizeof(u64);
 		if (new_pos < m_pos) {
-			throw FormattedException("%ls: overflow: no u64 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow: no u64 value found.", 
+				GetFilename().c_str());
 		}
 		if (m_end < new_pos) {
-			throw FormattedException("%ls: end of file: no u64 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: end of file: no u64 value found.", 
+				GetFilename().c_str());
 		}
 
 		const u64 result = BytesToU64(m_pos, m_big_endian);
@@ -208,16 +236,18 @@ namespace mage {
 		return result;
 	}
 	
-	float BinaryReader::ReadF32() {
-		const u8 *new_pos = m_pos + sizeof(float);
+	f32 BinaryReader::ReadF32() {
+		const u8 *new_pos = m_pos + sizeof(f32);
 		if (new_pos < m_pos) {
-			throw FormattedException("%ls: overflow: no float value found.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow: no f32 value found.", 
+				GetFilename().c_str());
 		}
 		if (m_end < new_pos) {
-			throw FormattedException("%ls: end of file: no float value found.", GetFilename().c_str());
+			throw FormattedException("%ls: end of file: no f32 value found.", 
+				GetFilename().c_str());
 		}
 
-		const float result = BytesToF32(m_pos, m_big_endian);
+		const f32 result = BytesToF32(m_pos, m_big_endian);
 		m_pos = new_pos;
 		return result;
 	}
@@ -225,10 +255,12 @@ namespace mage {
 	f64 BinaryReader::ReadF64() {
 		const u8 *new_pos = m_pos + sizeof(f64);
 		if (new_pos < m_pos) {
-			throw FormattedException("%ls: overflow: no f64 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow: no f64 value found.", 
+				GetFilename().c_str());
 		}
 		if (m_end < new_pos) {
-			throw FormattedException("%ls: end of file: no f64 value found.", GetFilename().c_str());
+			throw FormattedException("%ls: end of file: no f64 value found.", 
+				GetFilename().c_str());
 		}
 
 		const f64 result = BytesToF64(m_pos, m_big_endian);
@@ -243,7 +275,8 @@ namespace mage {
 	BigEndianBinaryReader::BigEndianBinaryReader()
 		: m_fname(), m_pos(nullptr), m_end(nullptr), m_data() {}
 
-	BigEndianBinaryReader::BigEndianBinaryReader(BigEndianBinaryReader &&reader) = default;
+	BigEndianBinaryReader::BigEndianBinaryReader(
+		BigEndianBinaryReader &&reader) = default;
 
 	BigEndianBinaryReader::~BigEndianBinaryReader() = default;
 
@@ -268,7 +301,8 @@ namespace mage {
 		m_end = input + size;
 
 		if (m_end < m_pos) {
-			throw FormattedException("%ls: overflow.", GetFilename().c_str());
+			throw FormattedException("%ls: overflow.", 
+				GetFilename().c_str());
 		}
 
 		Read();

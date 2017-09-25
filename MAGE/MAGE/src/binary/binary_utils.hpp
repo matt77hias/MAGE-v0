@@ -168,7 +168,7 @@ namespace mage {
 	 @return		The @c float represented
 					by the big endian byte array @a bytes.
 	 */
-	inline float BytesBigEndianToFloat(const u8 *bytes) noexcept {
+	inline float BytesBigEndianToF32(const u8 *bytes) noexcept {
 		Assert(bytes);
 		return *BytesBigEndianToValue< float >(bytes);
 	}
@@ -183,7 +183,7 @@ namespace mage {
 	 @return		The @c double represented
 					by the big endian byte array @a bytes.
 	 */
-	inline double BytesBigEndianToDouble(const u8 *bytes) noexcept {
+	inline double BytesBigEndianToF64(const u8 *bytes) noexcept {
 		Assert(bytes);
 		return *BytesBigEndianToValue< double >(bytes);
 	}
@@ -331,10 +331,10 @@ namespace mage {
 	 @return		The @c float represented
 					by the little endian byte array @a bytes.
 	 */
-	inline float BytesLittleEndianToFloat(const u8 *bytes) noexcept {
+	inline float BytesLittleEndianToF32(const u8 *bytes) noexcept {
 		Assert(bytes);
 		const u8 reversed_bytes[] = { bytes[3], bytes[2], bytes[1], bytes[0] };
-		return BytesBigEndianToFloat(reversed_bytes);
+		return BytesBigEndianToF32(reversed_bytes);
 	}
 	
 	/**
@@ -347,10 +347,10 @@ namespace mage {
 	 @return		The @c double represented
 					by the little endian byte array @a bytes.
 	 */
-	inline double BytesLittleEndianToDouble(const u8 *bytes) noexcept {
+	inline double BytesLittleEndianToF64(const u8 *bytes) noexcept {
 		Assert(bytes);
 		const u8 reversed_bytes[] = { bytes[7], bytes[6], bytes[5], bytes[4], bytes[3], bytes[2], bytes[1], bytes[0] };
-		return BytesBigEndianToDouble(reversed_bytes);
+		return BytesBigEndianToF64(reversed_bytes);
 	}
 
 #pragma endregion
@@ -511,9 +511,9 @@ namespace mage {
 	 @return		The @c float represented
 					by the byte array @a bytes.
 	 */
-	inline float BytesToFloat(const u8 *bytes, bool big_endian) noexcept {
+	inline float BytesToF32(const u8 *bytes, bool big_endian) noexcept {
 		Assert(bytes);
-		return (big_endian) ? BytesBigEndianToFloat(bytes) : BytesLittleEndianToFloat(bytes);
+		return (big_endian) ? BytesBigEndianToF32(bytes) : BytesLittleEndianToF32(bytes);
 	}
 	
 	/**
@@ -529,9 +529,9 @@ namespace mage {
 	 @return		The @c double represented
 					by the byte array @a bytes.
 	 */
-	inline double BytesToDouble(const u8 *bytes, bool big_endian) noexcept {
+	inline double BytesToF64(const u8 *bytes, bool big_endian) noexcept {
 		Assert(bytes);
-		return (big_endian) ? BytesBigEndianToDouble(bytes) : BytesLittleEndianToDouble(bytes);
+		return (big_endian) ? BytesBigEndianToF64(bytes) : BytesLittleEndianToF64(bytes);
 	}
 
 #pragma endregion

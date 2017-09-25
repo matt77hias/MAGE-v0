@@ -208,7 +208,7 @@ namespace mage {
 		return result;
 	}
 	
-	float BinaryReader::ReadFloat() {
+	float BinaryReader::ReadF32() {
 		const u8 *new_pos = m_pos + sizeof(float);
 		if (new_pos < m_pos) {
 			throw FormattedException("%ls: overflow: no float value found.", GetFilename().c_str());
@@ -217,12 +217,12 @@ namespace mage {
 			throw FormattedException("%ls: end of file: no float value found.", GetFilename().c_str());
 		}
 
-		const float result = BytesToFloat(m_pos, m_big_endian);
+		const float result = BytesToF32(m_pos, m_big_endian);
 		m_pos = new_pos;
 		return result;
 	}
 	
-	double BinaryReader::ReadDouble() {
+	double BinaryReader::ReadF64() {
 		const u8 *new_pos = m_pos + sizeof(double);
 		if (new_pos < m_pos) {
 			throw FormattedException("%ls: overflow: no double value found.", GetFilename().c_str());
@@ -231,7 +231,7 @@ namespace mage {
 			throw FormattedException("%ls: end of file: no double value found.", GetFilename().c_str());
 		}
 
-		const double result = BytesToDouble(m_pos, m_big_endian);
+		const double result = BytesToF64(m_pos, m_big_endian);
 		m_pos = new_pos;
 		return result;
 	}

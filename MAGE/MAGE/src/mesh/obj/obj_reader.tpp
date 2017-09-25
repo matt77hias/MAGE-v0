@@ -219,9 +219,9 @@ namespace mage {
 	inline const UV OBJReader< VertexT >::ReadOBJVertexTextureCoordinates() {
 		const UV result = static_cast< UV >(ReadFloat2());
 		
-		if (HasFloat()) {
+		if (HasF32()) {
 			// Silently ignore 3D vertex texture coordinates.
-			ReadFloat();
+			ReadF32();
 		}
 
 		return result;

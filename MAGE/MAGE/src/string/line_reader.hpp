@@ -274,7 +274,7 @@ namespace mage {
 						There is no next token or the next token does not represent
 						a @c float.
 		 */
-		float ReadFloat();
+		float ReadF32();
 
 		/**
 		 Reads and converts the next token of this line reader to a @c double.
@@ -284,7 +284,7 @@ namespace mage {
 						There is no next token or the next token does not represent
 						a @c double.
 		 */
-		double ReadDouble();
+		double ReadF64();
 
 		/**
 		 Reads and converts the next token of this line reader to a @c XMFLOAT2.
@@ -418,7 +418,7 @@ namespace mage {
 		 @return		@c true if the next token of this line reader is a @c float.
 						@c false otherwise.
 		 */
-		bool HasFloat() const;
+		bool HasF32() const;
 
 		/**
 		 Checks whether the next token of this line reader is a @c double.
@@ -426,7 +426,7 @@ namespace mage {
 		 @return		@c true if the next token of this line reader is a @c double.
 						@c false otherwise.
 		 */
-		bool HasDouble() const;
+		bool HasF64() const;
 
 		//---------------------------------------------------------------------
 		// Member Variables

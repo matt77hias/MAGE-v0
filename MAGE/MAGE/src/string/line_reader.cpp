@@ -299,7 +299,7 @@ namespace mage {
 		}
 	}
 	
-	float LineReader::ReadFloat() {
+	float LineReader::ReadF32() {
 		float result;
 		const TokenResult token_result = mage::ReadFloat(nullptr, &m_context, result, GetDelimiters().c_str());
 
@@ -316,7 +316,7 @@ namespace mage {
 		}
 	}
 	
-	double LineReader::ReadDouble() {
+	double LineReader::ReadF64() {
 		double result;
 		const TokenResult token_result = mage::ReadDouble(nullptr, &m_context, result, GetDelimiters().c_str());
 
@@ -440,11 +440,11 @@ namespace mage {
 		return mage::HasU64(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
-	bool LineReader::HasFloat() const {
-		return mage::HasFloat(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
+	bool LineReader::HasF32() const {
+		return mage::HasF32(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
-	bool LineReader::HasDouble() const {
-		return mage::HasDouble(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
+	bool LineReader::HasF64() const {
+		return mage::HasF64(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 }

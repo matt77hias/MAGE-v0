@@ -161,7 +161,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c float succeeded or not.
 	 */
-	TokenResult StringToFloat(const char *str, float &result) noexcept;
+	TokenResult StringToF32(const char *str, float &result) noexcept;
 
 	/**
 	 Converts the given string to a @c double.
@@ -173,7 +173,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c double succeeded or not.
 	 */
-	TokenResult StringToDouble(const char *str, double &result) noexcept;
+	TokenResult StringToF64(const char *str, double &result) noexcept;
 
 #pragma endregion
 
@@ -340,7 +340,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c float succeeded or not.
 	 */
-	TokenResult StringToFloat(const char *begin, const char *end, float &result) noexcept;
+	TokenResult StringToF32(const char *begin, const char *end, float &result) noexcept;
 	
 	/**
 	 Converts the given string to a @c double.
@@ -356,7 +356,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the given string @a str to a @c double succeeded or not.
 	 */
-	TokenResult StringToDouble(const char *begin, const char *end, double &result) noexcept;
+	TokenResult StringToF64(const char *begin, const char *end, double &result) noexcept;
 
 #pragma endregion
 
@@ -471,7 +471,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the prefix 
 					of the given string @a str to a @c float succeeded or not.
 	 */
-	TokenResult StringPrefixToFloat(const char *str, float &result) noexcept;
+	TokenResult StringPrefixToF32(const char *str, float &result) noexcept;
 
 	/**
 	 Converts the prefix of the given string @a str to a @c double.
@@ -483,7 +483,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion of the prefix 
 					of the given string @a str to a @c double succeeded or not.
 	 */
-	TokenResult StringPrefixToDouble(const char *str, double &result) noexcept;
+	TokenResult StringPrefixToF64(const char *str, double &result) noexcept;
 
 #pragma endregion
 
@@ -1039,7 +1039,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c float succeeds or not.
 	 */
-	TokenResult HasFloat(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
+	TokenResult HasF32(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 	/**
 	 Checks whether the next token in the given string represents a @c double.
@@ -1053,7 +1053,7 @@ namespace mage {
 	 @return		A token result indicating whether the conversion
 					of the next token in the given string to a @c double succeeds or not.
 	 */
-	TokenResult HasDouble(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
+	TokenResult HasF64(const char *str, const char *delimiters = mage_default_delimiters) noexcept;
 
 #pragma endregion
 

@@ -115,20 +115,20 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLSpecularExponent() {
-		m_material_buffer.back().SetSpecularExponent(ReadFloat());
+		m_material_buffer.back().SetSpecularExponent(ReadF32());
 	}
 
 	void MTLReader::ReadMTLDissolve() {
-		if (!HasFloat()) {
+		if (!HasF32()) {
 			const char *token = ReadChars();
 			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
 		}
 
-		m_material_buffer.back().SetDissolve(ReadFloat());
+		m_material_buffer.back().SetDissolve(ReadF32());
 	}
 
 	void MTLReader::ReadMTLOpticalDensity() {
-		m_material_buffer.back().SetIndexOfRefraction(ReadFloat());
+		m_material_buffer.back().SetIndexOfRefraction(ReadF32());
 	}
 
 	void MTLReader::ReadMTLAmbientReflectivityTexture() {
@@ -172,17 +172,17 @@ namespace mage {
 	}
 
 	const RGBSpectrum MTLReader::ReadMTLSpectrum() {
-		if (!HasFloat()) {
+		if (!HasF32()) {
 			const char *str = ReadChars();
 
 			// XYZ spectrum
 			if (str_equals(str, MAGE_MTL_TOKEN_XYZ)) {
-				const float x = ReadFloat();
+				const float x = ReadF32();
 				float y = x;
 				float z = x;
-				if (HasFloat()) {
-					y = ReadFloat();
-					z = ReadFloat();
+				if (HasF32()) {
+					y = ReadF32();
+					z = ReadF32();
 				}
 				return static_cast< RGBSpectrum >(XYZSpectrum(x, y, z));
 			}
@@ -198,12 +198,12 @@ namespace mage {
 		}
 
 		// RGB spectrum
-		const float x = ReadFloat();
+		const float x = ReadF32();
 		float y = x;
 		float z = x;
-		if (HasFloat()) {
-			y = ReadFloat();
-			z = ReadFloat();
+		if (HasF32()) {
+			y = ReadF32();
+			z = ReadF32();
 		}
 		return RGBSpectrum(x, y, z);
 	}

@@ -247,7 +247,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a @c float.
 		 */
-		float ReadFloat();
+		float ReadF32();
 
 		/**
 		 Reads a @c double.
@@ -256,7 +256,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a @c double.
 		 */
-		double ReadDouble();
+		double ReadF64();
 
 	private:
 

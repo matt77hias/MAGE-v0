@@ -1,5 +1,17 @@
 # References
 
+## How to cite
+
+```bibtex
+@misc{mage17,
+   author = {Matthias Moulin},
+   title  = {MAGE - Matthias Advanced Game Engine},
+   year   = {2017},
+   url    = {https://github.com/matt77hias/MAGE},
+   note   = {https://github.com/matt77hias/MAGE}
+}
+```
+
 ## Assets
 
 * Crytek Sponza:
@@ -57,6 +69,8 @@ HUGHES, J. F., MÖLLER, T.: *Building an Orthonormal Basis from a Unit Vector*, 
 LENGYEL E.: *Foundations of Game Engine Development, Volume 1: Mathematics*, 1st Edition, Terathon Software LLC, 2016.
 
 LUNA F.: *Introduction to 3D Game Programming with DirectX 11*, 1st Edition, Mercury Learning & Information, 2012.
+
+MCGUIRE M.: [*The Graphics Codex*](http://www.graphicscodex.com), 2016.
 
 MEYERS S.: *Effective C++*, 3th Edition, Addison-Wesley Professional, 2005.
 

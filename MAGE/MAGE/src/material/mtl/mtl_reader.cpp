@@ -218,6 +218,6 @@ namespace mage {
 
 	void MTLReader::ReadMTLIlluminationModel() {
 		// Silently ignore illumination model declarations.
-		ReadUInt32();
+		ReadU32();
 	}
 }

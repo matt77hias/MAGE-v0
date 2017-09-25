@@ -54,7 +54,7 @@ namespace mage {
 		explicit VertexShader(const wstring &guid,
 			const CompiledShader *compiled_shader,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
-			uint32_t nb_input_elements);
+			size_t nb_input_elements);
 
 		/**
 		 Constructs a vertex shader.
@@ -81,7 +81,7 @@ namespace mage {
 		explicit VertexShader(const wstring &guid, ID3D11Device2 *device, 
 			const CompiledShader *compiled_shader, 
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
-			uint32_t nb_input_elements);
+			size_t nb_input_elements);
 		
 		/**
 		 Constructs a vertex shader from the given vertex shader.
@@ -173,7 +173,7 @@ namespace mage {
 		void SetupShader(ID3D11Device2 *device,
 			const CompiledShader *compiled_shader,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
-			uint32_t nb_input_elements);
+			size_t nb_input_elements);
 			
 		//---------------------------------------------------------------------
 		// Member Variables

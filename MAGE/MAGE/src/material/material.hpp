@@ -31,36 +31,36 @@ namespace mage {
 		 The index of the material specular exponent 
 		 in the material parameters.
 		 */
-		static const uint8_t s_material_Ns_index = 0;
+		static const u8 s_material_Ns_index = 0;
 
 		/**
 		 The index of the material Ward alpha value
 		 in the material parameters.
 		 */
-		static const uint8_t s_material_Ward_alpha_index = 0;
+		static const u8 s_material_Ward_alpha_index = 0;
 
 		/**
 		 The index of the material roughness
 		 in the material parameters.
 		 */
-		static const uint8_t s_material_roughness_index = 0;
+		static const u8 s_material_roughness_index = 0;
 
 		/**
 		 The index of the material reflection coefficient
 		 in the material parameters.
 		 */
-		static const uint8_t s_material_reflection_coefficient_index = 1;
+		static const u8 s_material_reflection_coefficient_index = 1;
 
 		/**
 		 The index of the material index of refraction
 		 in the material parameters.
 		 */
-		static const uint8_t s_material_index_of_refraction_index = 2;
+		static const u8 s_material_index_of_refraction_index = 2;
 
 		/**
 		 The number of material parameters.
 		 */
-		static const uint8_t s_nb_material_parameters = 3;
+		static const u8 s_nb_material_parameters = 3;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -548,7 +548,7 @@ namespace mage {
 						The index.
 		 @return		The material parameter of this material at the given index.
 		 */
-		float GetMaterialParameter(uint8_t index) const noexcept {
+		float GetMaterialParameter(u8 index) const noexcept {
 			Assert(index < s_nb_material_parameters);
 			return m_material_parameters[index];
 		}
@@ -562,7 +562,7 @@ namespace mage {
 		 @param[in]		value
 						The value.
 		 */
-		void SetMaterialParameter(uint8_t index, float value) noexcept {
+		void SetMaterialParameter(u8 index, float value) noexcept {
 			Assert(index < s_nb_material_parameters);
 			m_material_parameters[index] = value;
 		}

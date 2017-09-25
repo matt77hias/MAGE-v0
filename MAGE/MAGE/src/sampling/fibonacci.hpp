@@ -26,7 +26,7 @@ namespace mage {
 		// Boundary points
 		// alpha == 0.0f -> jagged boundary.
 		// alpha == 2.0f -> smooth boundary.
-		const uint32_t np_boundary = static_cast< uint32_t >(alpha * sqrt(static_cast< float >(nb_samples))) + 1;
+		const u32 np_boundary = static_cast< u32 >(alpha * sqrt(static_cast< float >(nb_samples))) + 1;
 		
 		size_t j = 0;
 		for (size_t i = j; i <= nb_samples - np_boundary; ++i, ++j, ++samples) {

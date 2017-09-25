@@ -94,7 +94,7 @@ namespace mage {
 			m_viewport = std::move(viewport);
 		}
 
-		void SetTopLeft(uint32_t x, uint32_t y) noexcept {
+		void SetTopLeft(u32 x, u32 y) noexcept {
 			m_viewport.TopLeftX = static_cast< FLOAT >(x);
 			m_viewport.TopLeftY = static_cast< FLOAT >(y);
 		}
@@ -108,7 +108,7 @@ namespace mage {
 			SetTopLeft(NormalizeWidth(x), NormalizeHeight(y));
 		}
 
-		void SetWidth(uint32_t width) noexcept {
+		void SetWidth(u32 width) noexcept {
 			m_viewport.Width = static_cast< FLOAT >(width);
 		}
 
@@ -120,7 +120,7 @@ namespace mage {
 			SetWidth(NormalizeWidth(width));
 		}
 
-		void SetHeight(uint32_t height) noexcept {
+		void SetHeight(u32 height) noexcept {
 			m_viewport.Height = static_cast< FLOAT >(height);
 		}
 
@@ -132,7 +132,7 @@ namespace mage {
 			SetHeight(NormalizeHeight(height));
 		}
 
-		void SetWidthAndHeight(uint32_t width, uint32_t height) noexcept {
+		void SetWidthAndHeight(u32 width, u32 height) noexcept {
 			SetWidth(width);
 			SetHeight(height);
 		}

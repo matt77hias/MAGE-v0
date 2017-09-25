@@ -129,7 +129,7 @@ namespace mage {
 						@c false otherwise.
 		 */
 		inline bool operator()(const Glyph &lhs, wchar_t rhs) noexcept {
-			return lhs.m_character < static_cast< uint32_t >(rhs);
+			return lhs.m_character < static_cast< u32 >(rhs);
 		}
 
 		/**
@@ -145,7 +145,7 @@ namespace mage {
 						@c false otherwise.
 		 */
 		inline bool operator()(wchar_t lhs, const Glyph &rhs) noexcept {
-			return static_cast< uint32_t >(lhs) < rhs.m_character;
+			return static_cast< u32 >(lhs) < rhs.m_character;
 		}
 	};
 
@@ -246,7 +246,7 @@ namespace mage {
 					XMVECTOR offset = XMVectorMultiplyAdd(top_left, flip, base_offset);
 
 					if (effects != SpriteEffect::None) {
-						const XMVECTOR rect = XMLoadInt4(reinterpret_cast<const uint32_t *>(&(glyph->m_sub_rectangle)));
+						const XMVECTOR rect = XMLoadInt4(reinterpret_cast<const u32 *>(&(glyph->m_sub_rectangle)));
 						XMVECTOR glyph_rect = XMConvertVectorIntToFloat(rect, 0);
 						glyph_rect = XMVectorSwizzle< 2, 3, 0, 1 >(glyph_rect) - glyph_rect;
 						const XMVECTOR &mirror = axis_is_mirrored_table[index];
@@ -329,7 +329,7 @@ namespace mage {
 						XMVECTOR offset = XMVectorMultiplyAdd(top_left, flip, base_offset);
 
 						if (effects != SpriteEffect::None) {
-							const XMVECTOR rect = XMLoadInt4(reinterpret_cast<const uint32_t *>(&(glyph->m_sub_rectangle)));
+							const XMVECTOR rect = XMLoadInt4(reinterpret_cast<const u32 *>(&(glyph->m_sub_rectangle)));
 							XMVECTOR glyph_rect = XMConvertVectorIntToFloat(rect, 0);
 							glyph_rect = XMVectorSwizzle< 2, 3, 0, 1 >(glyph_rect) - glyph_rect;
 							const XMVECTOR &mirror = axis_is_mirrored_table[index];

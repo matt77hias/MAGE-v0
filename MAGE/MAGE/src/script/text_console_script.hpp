@@ -25,7 +25,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit TextConsoleScript(SpriteText *text,
-			uint32_t nb_rows, uint32_t nb_columns);
+			u32 nb_rows, u32 nb_columns);
 		TextConsoleScript(const TextConsoleScript &script) = delete;
 		TextConsoleScript(TextConsoleScript &&script);
 		virtual ~TextConsoleScript();
@@ -57,7 +57,7 @@ namespace mage {
 		void ProcessString(const wchar_t *str);
 		void IncrementRow();
 
-		void SetCharacter(wchar_t character, uint32_t row, uint32_t column);
+		void SetCharacter(wchar_t character, u32 row, u32 column);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -65,10 +65,10 @@ namespace mage {
 
 		SpriteText * const m_text;
 
-		const uint32_t m_nb_rows;
-		const uint32_t m_nb_columns;
-		uint32_t m_current_column;
-		uint32_t m_current_row;
+		const u32 m_nb_rows;
+		const u32 m_nb_columns;
+		u32 m_current_column;
+		u32 m_current_row;
 
 		UniquePtr< wchar_t[] > m_buffer;
 		vector< wchar_t > m_temp_buffer;

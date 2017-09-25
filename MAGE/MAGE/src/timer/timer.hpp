@@ -154,12 +154,12 @@ namespace mage {
 		/**
 		 The delta time of this timer.
 		 */
-		mutable uint64_t m_delta_time;
+		mutable u64 m_delta_time;
 
 		/**
 		 The total delta time of this timer.
 		 */
-		mutable uint64_t m_total_delta_time;
+		mutable u64 m_total_delta_time;
 
 		/**
 		 Flag indicating whether this timer is running.

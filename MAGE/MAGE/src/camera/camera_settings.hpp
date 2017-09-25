@@ -33,7 +33,7 @@ namespace mage {
 		CameraSettings()
 			: m_render_mode(RenderMode::Forward), 
 			m_brdf(BRDFType::Unknown),
-			m_render_layer_mask(static_cast< uint32_t >(RenderLayer::None)) {}
+			m_render_layer_mask(static_cast< u32 >(RenderLayer::None)) {}
 		
 		/**
 		 Constructs a camera settings from the given camera settings.
@@ -115,28 +115,28 @@ namespace mage {
 		}
 
 		bool HasRenderLayers() const noexcept {
-			return m_render_layer_mask != static_cast< uint32_t >(RenderLayer::None);
+			return m_render_layer_mask != static_cast< u32 >(RenderLayer::None);
 		}
 
 		bool HasRenderLayer(RenderLayer render_layer) const noexcept {
 			return static_cast< bool >(
-				m_render_layer_mask & static_cast< uint32_t >(render_layer));
+				m_render_layer_mask & static_cast< u32 >(render_layer));
 		}
 
 		void AddRenderLayer(RenderLayer render_layer) noexcept {
-			m_render_layer_mask |= static_cast< uint32_t >(render_layer);
+			m_render_layer_mask |= static_cast< u32 >(render_layer);
 		}
 
 		void RemoveRenderLayer(RenderLayer render_layer) noexcept {
-			m_render_layer_mask &= ~(static_cast< uint32_t >(render_layer));
+			m_render_layer_mask &= ~(static_cast< u32 >(render_layer));
 		}
 
 		void ToggleRenderLayer(RenderLayer render_layer) noexcept {
-			m_render_layer_mask ^= static_cast< uint32_t >(render_layer);
+			m_render_layer_mask ^= static_cast< u32 >(render_layer);
 		}
 
 		void ResetRenderLayers() noexcept {
-			m_render_layer_mask = static_cast< uint32_t >(RenderLayer::None);
+			m_render_layer_mask = static_cast< u32 >(RenderLayer::None);
 		}
 
 	private:
@@ -158,6 +158,6 @@ namespace mage {
 		/**
 		 The render layer mask of this camera settings.
 		 */
-		uint32_t m_render_layer_mask;
+		u32 m_render_layer_mask;
 	};
 }

@@ -41,12 +41,12 @@ namespace mage {
 	/**
 	 Atomic 32-bit integer type.
 	 */
-	using AtomicInt32 = volatile LONG;
+	using AtomicI32 = volatile LONG;
 #ifdef MAGE_HAS_64_BIT_ATOMICS
 	/**
 	 Atomic 64-bit integer type.
 	 */
-	using AtomicInt64 = volatile LONGLONG;
+	using AtomicI64 = volatile LONGLONG;
 #endif
 
 	//-------------------------------------------------------------------------
@@ -89,11 +89,11 @@ namespace mage {
 					The second operand.
 	 @return		The function returns the result of the operation.
 	 */
-	__forceinline int32_t AtomicAdd(AtomicInt32 *addend, int32_t value) noexcept {
+	__forceinline i32 AtomicAdd(AtomicI32 *addend, i32 value) noexcept {
 #if (MAGE_POINTER_SIZE == 8)
 		return InterlockedAdd(addend, value);
 #else
-		int32_t result;
+		i32 result;
 		_ReadWriteBarrier();
 		__asm {
 			__asm mov edx, addend
@@ -120,7 +120,7 @@ namespace mage {
 					The value to compare to @a destination.
 	 @return		The function returns the initial value of @a destination.
 	 */
-	__forceinline int32_t AtomicCompareAndSwap(AtomicInt32 *destination, int32_t exchange, int32_t comparand) noexcept {
+	__forceinline i32 AtomicCompareAndSwap(AtomicI32 *destination, i32 exchange, i32 comparand) noexcept {
 		return InterlockedCompareExchange(destination, exchange, comparand);
 	}
 
@@ -140,7 +140,7 @@ namespace mage {
 					The second operand.
 	 @return		The function returns the result of the operation.
 	 */
-	__forceinline int64_t AtomicAdd(AtomicInt64 *addend, int64_t value) noexcept {
+	__forceinline i64 AtomicAdd(AtomicI64 *addend, i64 value) noexcept {
 		return InterlockedAdd64(addend, value);
 	}
 
@@ -158,7 +158,7 @@ namespace mage {
 					The value to compare to @a destination.
 	 @return		The function returns the initial value of @a destination.
 	 */
-	__forceinline int64_t AtomicCompareAndSwap(AtomicInt64 *destination, int64_t exchange, int64_t comparand) noexcept {
+	__forceinline i64 AtomicCompareAndSwap(AtomicI64 *destination, i64 exchange, i64 comparand) noexcept {
 		return InterlockedCompareExchange64(destination, exchange, comparand);
 	}
 #endif
@@ -179,7 +179,7 @@ namespace mage {
 	 @return		The function returns the result of the operation.
 	 */
 	__forceinline float AtomicAdd(volatile float *addend, float value) noexcept {
-		union bits { float f; int32_t i; };
+		union bits { float f; i32 i; };
 		bits old_value, new_value;
 
 		do {
@@ -188,7 +188,7 @@ namespace mage {
 #endif
 			old_value.f = *addend;
 			new_value.f = old_value.f + value;
-		} while (AtomicCompareAndSwap((AtomicInt32 *)addend, new_value.i, old_value.i) != old_value.i);
+		} while (AtomicCompareAndSwap((AtomicI32 *)addend, new_value.i, old_value.i) != old_value.i);
 		// Cast the pointer (not the referred value)
 		
 		return new_value.f;

@@ -52,9 +52,9 @@ namespace mage {
 			"s_max_sprites_per_batch too large for 16-bit indices.");
 
 		// Create indices.
-		vector< uint16_t > indices;
+		vector< u16 > indices;
 		indices.reserve(MaxIndicesPerBatch());
-		for (uint16_t i = 0; i < MaxVerticesPerBatch(); i += s_vertices_per_sprite) {
+		for (u16 i = 0; i < MaxVerticesPerBatch(); i += s_vertices_per_sprite) {
 			// First triangle
 			indices.push_back(i);
 			indices.push_back(i + 1);
@@ -65,7 +65,7 @@ namespace mage {
 			indices.push_back(i + 2);
 		}
 
-		const HRESULT result_index_buffer = CreateStaticIndexBuffer< uint16_t >(
+		const HRESULT result_index_buffer = CreateStaticIndexBuffer< u16 >(
 			device, m_index_buffer.ReleaseAndGetAddressOf(), indices.data(), indices.size());
 		ThrowIfFailed(result_index_buffer, "Index buffer creation failed: %08X.", result_index_buffer);
 

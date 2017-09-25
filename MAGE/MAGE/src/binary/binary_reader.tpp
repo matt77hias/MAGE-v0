@@ -21,7 +21,7 @@ namespace mage {
 
 	template< typename ValueT >
 	const ValueT *BigEndianBinaryReader::ReadValueArray(size_t count) {
-		const uint8_t *new_pos = m_pos + sizeof(ValueT) * count;
+		const u8 *new_pos = m_pos + sizeof(ValueT) * count;
 		if (new_pos < m_pos) {
 			throw FormattedException("%ls: overflow: no %llu values found.", GetFilename().c_str(), count);
 		}

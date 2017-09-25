@@ -40,14 +40,14 @@ namespace mage {
 
 	void GBufferPass::UpdateMaterialCoefficientData(const PassBuffer *scene) noexcept {
 
-		for (uint8_t i = 0; i < _countof(m_material_coefficient_min); ++i) {
+		for (u8 i = 0; i < _countof(m_material_coefficient_min); ++i) {
 			m_material_coefficient_min[i]   = scene->GetMaterialCoefficientMinimum(i);
 			m_material_coefficient_range[i] = scene->GetMaterialCoefficientRange(i);
 		}
 	}
 	
 	float GBufferPass::NormalizeMaterialCoefficient(
-		uint8_t index, const Material *material) const noexcept {
+		u8 index, const Material *material) const noexcept {
 
 		Assert(index < _countof(m_material_coefficient_min));
 

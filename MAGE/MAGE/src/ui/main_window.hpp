@@ -54,7 +54,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to create the main window.
 		 */
-		explicit MainWindow(HINSTANCE hinstance, const wstring &title_text, uint32_t width, uint32_t height);
+		explicit MainWindow(HINSTANCE hinstance, const wstring &title_text, u32 width, u32 height);
 
 		/**
 		 Constructs a main window from the given main window.
@@ -198,7 +198,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to create the main window.
 		 */
-		void InitializeWindow(const wstring &title_text, uint32_t width, uint32_t height);
+		void InitializeWindow(const wstring &title_text, u32 width, u32 height);
 
 		/**
 		 Initializes the engine window of this main window.

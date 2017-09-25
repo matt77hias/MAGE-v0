@@ -117,42 +117,42 @@ namespace mage {
 		/**
 		 The number of directional lights of this light buffer.
 		 */
-		uint32_t m_nb_directional_lights;
+		u32 m_nb_directional_lights;
 
 		/**
 		 The number of omni lights of this light buffer.
 		 */
-		uint32_t m_nb_omni_lights;
+		u32 m_nb_omni_lights;
 
 		/**
 		 The number of spotlights of this light buffer.
 		 */
-		uint32_t m_nb_spot_lights;
+		u32 m_nb_spot_lights;
 
 		/**
 		 The padding of this light buffer. 
 		 */
-		uint32_t m_padding0;
+		u32 m_padding0;
 
 		/**
 		 The number of directional lights with shadow mapping of this light buffer.
 		 */
-		uint32_t m_nb_sm_directional_lights;
+		u32 m_nb_sm_directional_lights;
 
 		/**
 		 The number of omni lights with shadow mapping of this light buffer.
 		 */
-		uint32_t m_nb_sm_omni_lights;
+		u32 m_nb_sm_omni_lights;
 
 		/**
 		 The number of spotlights with shadow mapping of this light buffer.
 		 */
-		uint32_t m_nb_sm_spot_lights;
+		u32 m_nb_sm_spot_lights;
 
 		/**
 		 The padding of this light buffer. 
 		 */
-		uint32_t m_padding1;
+		u32 m_padding1;
 	};
 
 	static_assert(sizeof(LightBuffer) == 64, "CPU/GPU struct mismatch");
@@ -237,7 +237,7 @@ namespace mage {
 		/**
 		 The padding of this directional light buffer.
 		 */
-		uint32_t m_padding0;
+		u32 m_padding0;
 
 		/**
 		 The (normalized) negated direction of the directional light 
@@ -248,7 +248,7 @@ namespace mage {
 		/**
 		 The padding of this directional light buffer.
 		 */
-		uint32_t m_padding1;
+		u32 m_padding1;
 	};
 
 	static_assert(sizeof(DirectionalLightBuffer) == 32, "CPU/GPU struct mismatch");
@@ -435,7 +435,7 @@ namespace mage {
 		/**
 		 The padding of this spotlight buffer.
 		 */
-		uint32_t m_padding0;
+		u32 m_padding0;
 
 		/**
 		 The intensity of the spotlight of this spotlight buffer.
@@ -445,7 +445,7 @@ namespace mage {
 		/**
 		 The padding of this spotlight buffer.
 		 */
-		uint32_t m_padding1;
+		u32 m_padding1;
 
 		/**
 		 The (normalized) negated direction of the spotlight 
@@ -704,7 +704,7 @@ namespace mage {
 		/**
 		 The padding of this omni light buffer with shadow mapping. 
 		 */
-		uint32_t m_padding0[2];
+		u32 m_padding0[2];
 	};
 
 	static_assert(sizeof(OmniLightWithShadowMappingBuffer) == 112, "CPU/GPU struct mismatch");

@@ -35,7 +35,7 @@ namespace mage {
 		}
 
 		// Read glyphs.
-		const uint32_t glyph_count = ReadValue< uint32_t >();
+		const u32 glyph_count = ReadValue< u32 >();
 		const Glyph *glyph_data    = ReadValueArray< Glyph >(glyph_count);
 		m_output.m_glyphs.assign(glyph_data, glyph_data + glyph_count);
 
@@ -43,7 +43,7 @@ namespace mage {
 		m_output.m_line_spacing = ReadValue< float >();
 		
 		// Read default character.
-		m_output.m_default_character = static_cast< wchar_t >(ReadValue< uint32_t >());
+		m_output.m_default_character = static_cast< wchar_t >(ReadValue< u32 >());
 
 		// Read texture.
 		ReadTexture();
@@ -52,7 +52,7 @@ namespace mage {
 	bool SpriteFontReader::IsHeaderValid() {
 		const char *magic = MAGE_FONT_MAGIC;
 		while (*magic != L'\0') {
-			if (ReadValue< uint8_t >() != *magic) {
+			if (ReadValue< u8 >() != *magic) {
 				return false;
 			}
 			++magic;
@@ -62,12 +62,12 @@ namespace mage {
 
 	void SpriteFontReader::ReadTexture() {
 		// Read texture data.
-		const uint32_t texture_width     = ReadValue< uint32_t >();
-		const uint32_t texture_height    = ReadValue< uint32_t >();
+		const u32 texture_width     = ReadValue< u32 >();
+		const u32 texture_height    = ReadValue< u32 >();
 		const DXGI_FORMAT texture_format = m_desc.ForceSRGB() ? ConvertToSRGB(ReadValue< DXGI_FORMAT >()) : ReadValue< DXGI_FORMAT >();
-		const uint32_t texture_stride    = ReadValue< uint32_t >();
-		const uint32_t texture_rows      = ReadValue< uint32_t >();
-		const uint8_t *texture_data      = ReadValueArray< uint8_t >(texture_stride * texture_rows);
+		const u32 texture_stride    = ReadValue< u32 >();
+		const u32 texture_rows      = ReadValue< u32 >();
+		const u8 *texture_data      = ReadValueArray< u8 >(texture_stride * texture_rows);
 
 		// Create the texture descriptor.
 		CD3D11_TEXTURE2D_DESC texture_desc(texture_format, texture_width, texture_height, 

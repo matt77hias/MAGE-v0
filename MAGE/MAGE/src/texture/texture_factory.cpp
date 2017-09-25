@@ -43,11 +43,11 @@ namespace mage {
 	SharedPtr< const Texture > CreateBlackTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
-		static const uint32_t color = 0xFF000000;
+		static const u32 color = 0xFF000000;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(uint32_t);
+		texture_data.SysMemPitch = sizeof(u32);
 		
 		return ResourceManager::Get()->GetOrCreateTexture(MAGE_GUID_TEXTURE_BLACK, &texture_desc, &texture_data);
 	}
@@ -55,11 +55,11 @@ namespace mage {
 	SharedPtr< const Texture > CreateWhiteTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
-		static const uint32_t color = 0xFFFFFFFF;
+		static const u32 color = 0xFFFFFFFF;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(uint32_t);
+		texture_data.SysMemPitch = sizeof(u32);
 
 		return ResourceManager::Get()->GetOrCreateTexture(MAGE_GUID_TEXTURE_WHITE, &texture_desc, &texture_data);
 	}
@@ -67,11 +67,11 @@ namespace mage {
 	SharedPtr< const Texture > CreateRedTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
-		static const uint32_t color = 0xFF000000;
+		static const u32 color = 0xFF000000;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(uint32_t);
+		texture_data.SysMemPitch = sizeof(u32);
 
 		return ResourceManager::Get()->GetOrCreateTexture(MAGE_GUID_TEXTURE_RED, &texture_desc, &texture_data);
 	}
@@ -79,11 +79,11 @@ namespace mage {
 	SharedPtr< const Texture > CreateGreenTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
-		static const uint32_t color = 0xFF00FF00;
+		static const u32 color = 0xFF00FF00;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(uint32_t);
+		texture_data.SysMemPitch = sizeof(u32);
 
 		return ResourceManager::Get()->GetOrCreateTexture(MAGE_GUID_TEXTURE_GREEN, &texture_desc, &texture_data);
 	}
@@ -91,11 +91,11 @@ namespace mage {
 	SharedPtr< const Texture > CreateBlueTexture() {
 		const D3D11_TEXTURE2D_DESC texture_desc = CreateSingleColorTexture2DDesc();
 
-		static const uint32_t color = 0xFF0000FF;
+		static const u32 color = 0xFF0000FF;
 
 		D3D11_SUBRESOURCE_DATA texture_data = {};
 		texture_data.pSysMem     = &color;
-		texture_data.SysMemPitch = sizeof(uint32_t);
+		texture_data.SysMemPitch = sizeof(u32);
 
 		return ResourceManager::Get()->GetOrCreateTexture(MAGE_GUID_TEXTURE_BLUE, &texture_desc, &texture_data);
 	}

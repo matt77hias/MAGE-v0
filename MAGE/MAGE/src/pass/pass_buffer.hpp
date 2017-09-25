@@ -28,7 +28,7 @@ namespace mage {
 		/**
 		 The number of material coefficients contained in pass buffers.
 		 */
-		static const uint8_t s_nb_material_coefficients = 2;
+		static const u8 s_nb_material_coefficients = 2;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -253,7 +253,7 @@ namespace mage {
 						The index.
 		 @return		The minimum of the material coefficient at the given index.
 		 */
-		float GetMaterialCoefficientMinimum(uint8_t index) const noexcept;
+		float GetMaterialCoefficientMinimum(u8 index) const noexcept;
 		
 		/**
 		 Returns the maximum of the material coefficient at the given index.
@@ -263,7 +263,7 @@ namespace mage {
 						The index.
 		 @return		The maximum of the material coefficient at the given index.
 		 */
-		float GetMaterialCoefficientMaximum(uint8_t index) const noexcept;
+		float GetMaterialCoefficientMaximum(u8 index) const noexcept;
 
 		/**
 		 Returns the range of the material coefficient at the given index.
@@ -273,7 +273,7 @@ namespace mage {
 						The index.
 		 @return		The range of the material coefficient at the given index.
 		 */
-		float GetMaterialCoefficientRange(uint8_t index) const noexcept;
+		float GetMaterialCoefficientRange(u8 index) const noexcept;
 		
 	private:
 

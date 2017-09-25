@@ -75,23 +75,23 @@ namespace mage {
 
 	void VSReader::ReadVSInt() {
 		const string name = ReadString();
-		const int value = ReadInt32();
+		const int value = ReadI32();
 		m_variable_buffer.emplace_back(VariableType::Int, name, value);
 	}
 
 	void VSReader::ReadVSInt2() {
 		const string name = ReadString();
-		const int x = ReadInt32();
-		const int y = ReadInt32();
+		const int x = ReadI32();
+		const int y = ReadI32();
 		const XMINT2 value(x, y);
 		m_variable_buffer.emplace_back(VariableType::Int2, name, value);
 	}
 
 	void VSReader::ReadVSInt3() {
 		const string name = ReadString();
-		const int x = ReadInt32();
-		const int y = ReadInt32();
-		const int z = ReadInt32();
+		const int x = ReadI32();
+		const int y = ReadI32();
+		const int z = ReadI32();
 		const XMINT3 value(x, y, z);
 		m_variable_buffer.emplace_back(VariableType::Int3, name, value);
 	}

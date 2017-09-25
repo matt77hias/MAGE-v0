@@ -26,7 +26,7 @@ namespace mage {
 			VertexPosition(Point3( 0.5,  0.5,  0.5))
 		};
 
-		static const uint16_t indices[24] = {
+		static const u16 indices[24] = {
 			0, 1,
 			0, 2,
 			0, 4,

@@ -21,15 +21,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	uint64_t GetVirtualMemoryUsage() noexcept {
+	u64 GetVirtualMemoryUsage() noexcept {
 		PROCESS_MEMORY_COUNTERS memory_stats = {};
 		const BOOL result = GetProcessMemoryInfo(GetCurrentProcess(), &memory_stats, sizeof(memory_stats));
-		return (result == 0) ? 0 : static_cast< uint64_t >(memory_stats.PagefileUsage);
+		return (result == 0) ? 0 : static_cast< u64 >(memory_stats.PagefileUsage);
 	}
 
-	uint64_t GetPhysicalMemoryUsage() noexcept {
+	u64 GetPhysicalMemoryUsage() noexcept {
 		PROCESS_MEMORY_COUNTERS memory_stats = {};
 		const BOOL result = GetProcessMemoryInfo(GetCurrentProcess(), &memory_stats, sizeof(memory_stats));
-		return (result == 0) ? 0 : static_cast< uint64_t >(memory_stats.WorkingSetSize);
+		return (result == 0) ? 0 : static_cast< u64 >(memory_stats.WorkingSetSize);
 	}
 }

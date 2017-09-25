@@ -17,15 +17,15 @@ namespace mage {
 
 	template < typename VertexT >
 	void ImportMSHMeshFromFile(const wstring &fname,
-		vector< VertexT > &vertices, vector < uint32_t > &indices) {
-		MSHReader< VertexT, uint32_t > reader(vertices, indices);
+		vector< VertexT > &vertices, vector < u32 > &indices) {
+		MSHReader< VertexT, u32 > reader(vertices, indices);
 		reader.ReadFromFile(fname);
 	}
 
 	template < typename VertexT >
 	void ExportMSHMeshToFile(const wstring &fname,
-		const vector< VertexT > &vertices, const vector< uint32_t > &indices) {
-		MSHWriter< VertexT, uint32_t > writer(vertices, indices);
+		const vector< VertexT > &vertices, const vector< u32 > &indices) {
+		MSHWriter< VertexT, u32 > writer(vertices, indices);
 		writer.WriteToFile(fname);
 	}
 }

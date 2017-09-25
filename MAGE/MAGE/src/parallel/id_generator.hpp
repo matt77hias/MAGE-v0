@@ -31,7 +31,7 @@ namespace mage {
 		 @param[in]		first_id
 						The first id of this id_generator
 		 */
-		explicit IdGenerator(int32_t first_id = 0)
+		explicit IdGenerator(i32 first_id = 0)
 			: m_current_id(first_id) {}
 
 		/**
@@ -88,7 +88,7 @@ namespace mage {
 
 		 @return		The next id of this id generator.
 		 */
-		int32_t GetNextId() noexcept {
+		i32 GetNextId() noexcept {
 			return AtomicAdd(&m_current_id, 1);
 		}
 
@@ -101,6 +101,6 @@ namespace mage {
 		/**
 		 The current id of this id generator.
 		 */
-		AtomicInt32 m_current_id;
+		AtomicI32 m_current_id;
 	};
 }

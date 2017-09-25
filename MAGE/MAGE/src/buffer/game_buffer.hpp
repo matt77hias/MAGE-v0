@@ -124,7 +124,7 @@ namespace mage {
 		/**
 		 The padding of this game buffer.
 		 */
-		uint32_t m_padding[2];
+		u32 m_padding[2];
 	};
 
 	static_assert(sizeof(GameBuffer) == 32, "CPU/GPU struct mismatch");

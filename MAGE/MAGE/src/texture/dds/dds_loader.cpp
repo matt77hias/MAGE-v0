@@ -36,27 +36,27 @@
 //--------------------------------------------------------------------------------------
 #ifndef MAKEFOURCC
 #define MAKEFOURCC(ch0, ch1, ch2, ch3) \
-				((uint32_t)(uint8_t)(ch0) | \
-				((uint32_t)(uint8_t)(ch1) << 8) | \
-				((uint32_t)(uint8_t)(ch2) << 16) | \
-				((uint32_t)(uint8_t)(ch3) << 24 ))
+				((u32)(u8)(ch0) | \
+				((u32)(u8)(ch1) << 8) | \
+				((u32)(u8)(ch2) << 16) | \
+				((u32)(u8)(ch3) << 24 ))
 #endif
 
 #pragma pack(push,1)
 
 namespace mage {
 
-	const uint32_t DDS_MAGIC = 0x20534444; // "DDS "
+	const u32 DDS_MAGIC = 0x20534444; // "DDS "
 
 	struct DDS_PIXELFORMAT {
-		uint32_t    size;
-		uint32_t    flags;
-		uint32_t    fourCC;
-		uint32_t    RGBBitCount;
-		uint32_t    RBitMask;
-		uint32_t    GBitMask;
-		uint32_t    BBitMask;
-		uint32_t    ABitMask;
+		u32    size;
+		u32    flags;
+		u32    fourCC;
+		u32    RGBBitCount;
+		u32    RBitMask;
+		u32    GBitMask;
+		u32    BBitMask;
+		u32    ABitMask;
 	};
 
 #define DDS_FOURCC      0x00000004  // DDPF_FOURCC
@@ -87,28 +87,28 @@ namespace mage {
 	};
 
 	struct DDS_HEADER {
-		uint32_t        size;
-		uint32_t        flags;
-		uint32_t        height;
-		uint32_t        width;
-		uint32_t        pitch_or_linear_size;
-		uint32_t        depth; // only if DDS_HEADER_FLAGS_VOLUME is set in flags
-		uint32_t        mip_map_count;
-		uint32_t        reserved1[11];
+		u32        size;
+		u32        flags;
+		u32        height;
+		u32        width;
+		u32        pitch_or_linear_size;
+		u32        depth; // only if DDS_HEADER_FLAGS_VOLUME is set in flags
+		u32        mip_map_count;
+		u32        reserved1[11];
 		DDS_PIXELFORMAT ddspf;
-		uint32_t        caps;
-		uint32_t        caps2;
-		uint32_t        caps3;
-		uint32_t        caps4;
-		uint32_t        reserved2;
+		u32        caps;
+		u32        caps2;
+		u32        caps3;
+		u32        caps4;
+		u32        reserved2;
 	};
 
 	struct DDS_HEADER_DXT10 {
 		DXGI_FORMAT     dxgi_format;
-		uint32_t        resource_dimension;
-		uint32_t        misc_flag; // see D3D11_RESOURCE_MISC_FLAG
-		uint32_t        array_size;
-		uint32_t        misc_flags2;
+		u32        resource_dimension;
+		u32        misc_flag; // see D3D11_RESOURCE_MISC_FLAG
+		u32        array_size;
+		u32        misc_flags2;
 	};
 
 #pragma pack(pop)
@@ -123,7 +123,7 @@ namespace mage {
 #endif
 	}
 
-static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *file_name, UniquePtr< uint8_t[] > &dds_data, DDS_HEADER **header, uint8_t **bit_data, size_t *bit_size) {
+static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *file_name, UniquePtr< u8[] > &dds_data, DDS_HEADER **header, u8 **bit_data, size_t *bit_size) {
 	if (!header || !bit_data || !bit_size) {
 		return E_POINTER;
 	}
@@ -151,12 +151,12 @@ static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *file_name, UniquePt
 	}
 
 	// Need at least enough data to fill the header and magic number to be a valid DDS
-	if (file_size.LowPart < (sizeof(DDS_HEADER) + sizeof(uint32_t))) {
+	if (file_size.LowPart < (sizeof(DDS_HEADER) + sizeof(u32))) {
 		return E_FAIL;
 	}
 
 	// create enough space for the file data
-	dds_data = MakeUnique< uint8_t[] >(file_size.LowPart);
+	dds_data = MakeUnique< u8[] >(file_size.LowPart);
 	if (!dds_data) {
 		return E_OUTOFMEMORY;
 	}
@@ -172,12 +172,12 @@ static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *file_name, UniquePt
 	}
 
 	// DDS files always start with the same magic number ("DDS ")
-	uint32_t dw_magic_number = *(const uint32_t*)(dds_data.get());
+	u32 dw_magic_number = *(const u32*)(dds_data.get());
 	if (dw_magic_number != DDS_MAGIC) {
 		return E_FAIL;
 	}
 
-	auto hdr = reinterpret_cast<DDS_HEADER*>(dds_data.get() + sizeof(uint32_t));
+	auto hdr = reinterpret_cast<DDS_HEADER*>(dds_data.get() + sizeof(u32));
 
 	// Verify header to validate DDS file
 	if (hdr->size != sizeof(DDS_HEADER) || hdr->ddspf.size != sizeof(DDS_PIXELFORMAT)) {
@@ -188,7 +188,7 @@ static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *file_name, UniquePt
 	bool bDXT10Header = false;
 	if ((hdr->ddspf.flags & DDS_FOURCC) && (MAKEFOURCC('D', 'X', '1', '0') == hdr->ddspf.fourCC)) {
 		// Must be long enough for both headers and magic value
-		if (file_size.LowPart < (sizeof(DDS_HEADER) + sizeof(uint32_t) + sizeof(DDS_HEADER_DXT10))) {
+		if (file_size.LowPart < (sizeof(DDS_HEADER) + sizeof(u32) + sizeof(DDS_HEADER_DXT10))) {
 			return E_FAIL;
 		}
 
@@ -197,7 +197,7 @@ static HRESULT LoadTextureDataFromFile(_In_z_ const wchar_t *file_name, UniquePt
 
 	// setup the pointers in the process request
 	*header = hdr;
-	ptrdiff_t offset = sizeof(uint32_t) + sizeof(DDS_HEADER) + (bDXT10Header ? sizeof(DDS_HEADER_DXT10) : 0);
+	ptrdiff_t offset = sizeof(u32) + sizeof(DDS_HEADER) + (bDXT10Header ? sizeof(DDS_HEADER_DXT10) : 0);
 	*bit_data = dds_data.get() + offset;
 	*bit_size = file_size.LowPart - offset;
 
@@ -500,7 +500,7 @@ static HRESULT FillInitData(_In_ size_t width,
 	_In_ DXGI_FORMAT format,
 	_In_ size_t maxsize,
 	_In_ size_t bit_size,
-	_In_reads_bytes_(bit_size) const uint8_t *bit_data,
+	_In_reads_bytes_(bit_size) const u8 *bit_data,
 	_Out_ size_t &twidth,
 	_Out_ size_t &theight,
 	_Out_ size_t &tdepth,
@@ -518,8 +518,8 @@ static HRESULT FillInitData(_In_ size_t width,
 
 	size_t nb_bytes = 0;
 	size_t row_bytes = 0;
-	const uint8_t* src_bits = bit_data;
-	const uint8_t* end_bits = bit_data + bit_size;
+	const u8* src_bits = bit_data;
+	const u8* end_bits = bit_data + bit_size;
 
 	size_t index = 0;
 	for (size_t j = 0; j < array_size; ++j) {
@@ -573,7 +573,7 @@ static HRESULT FillInitData(_In_ size_t width,
 }
 
 static HRESULT CreateD3DResources(_In_ ID3D11Device2 *device,
-	_In_ uint32_t res_dim,
+	_In_ u32 res_dim,
 	_In_ size_t width,
 	_In_ size_t height,
 	_In_ size_t depth,
@@ -581,9 +581,9 @@ static HRESULT CreateD3DResources(_In_ ID3D11Device2 *device,
 	_In_ size_t array_size,
 	_In_ DXGI_FORMAT format,
 	_In_ D3D11_USAGE usage,
-	_In_ uint32_t bindFlags,
-	_In_ uint32_t cpu_access_flags,
-	_In_ uint32_t misc_flags,
+	_In_ u32 bindFlags,
+	_In_ u32 cpu_access_flags,
+	_In_ u32 misc_flags,
 	_In_ bool forceSRGB,
 	_In_ bool is_cube_map,
 	_In_reads_opt_(mip_count*array_size) D3D11_SUBRESOURCE_DATA *init_data,
@@ -766,13 +766,13 @@ static HRESULT CreateD3DResources(_In_ ID3D11Device2 *device,
 static HRESULT GetOrCreateTextureFromDDS(_In_ ID3D11Device2 *device,
 	_In_opt_ ID3D11DeviceContext *device_context,
 	_In_ const DDS_HEADER *header,
-	_In_reads_bytes_(bit_size) const uint8_t *bit_data,
+	_In_reads_bytes_(bit_size) const u8 *bit_data,
 	_In_ size_t bit_size,
 	_In_ size_t maxsize,
 	_In_ D3D11_USAGE usage,
-	_In_ uint32_t bindFlags,
-	_In_ uint32_t cpu_access_flags,
-	_In_ uint32_t misc_flags,
+	_In_ u32 bindFlags,
+	_In_ u32 cpu_access_flags,
+	_In_ u32 misc_flags,
 	_In_ bool forceSRGB,
 	_Outptr_opt_ ID3D11Resource **texture,
 	_Outptr_opt_ ID3D11ShaderResourceView **texture_view) {
@@ -783,7 +783,7 @@ static HRESULT GetOrCreateTextureFromDDS(_In_ ID3D11Device2 *device,
 	size_t height = header->height;
 	size_t depth = header->depth;
 
-	uint32_t res_dim = D3D11_RESOURCE_DIMENSION_UNKNOWN;
+	u32 res_dim = D3D11_RESOURCE_DIMENSION_UNKNOWN;
 	size_t array_size = 1;
 	DXGI_FORMAT format = DXGI_FORMAT_UNKNOWN;
 	bool is_cube_map = false;
@@ -971,8 +971,8 @@ static HRESULT GetOrCreateTextureFromDDS(_In_ ID3D11Device2 *device,
 					return E_UNEXPECTED;
 				}
 
-				const uint8_t* src_bits = bit_data;
-				const uint8_t* end_bits = bit_data + bit_size;
+				const u8* src_bits = bit_data;
+				const u8* end_bits = bit_data + bit_size;
 				for (UINT item = 0; item < array_size; ++item) {
 					if ((src_bits + nb_bytes) > end_bits) {
 						(*texture_view)->Release();
@@ -1085,7 +1085,7 @@ static DDS_ALPHA_MODE GetAlphaMode(_In_ const DDS_HEADER *header) {
 
 _Use_decl_annotations_
 HRESULT CreateDDSTextureFromMemory(ID3D11Device2 *device,
-	const uint8_t *dds_data,
+	const u8 *dds_data,
 	size_t dds_dataSize,
 	ID3D11Resource **texture,
 	ID3D11ShaderResourceView **texture_view,
@@ -1099,7 +1099,7 @@ HRESULT CreateDDSTextureFromMemory(ID3D11Device2 *device,
 _Use_decl_annotations_
 HRESULT CreateDDSTextureFromMemory(ID3D11Device2 *device,
 	ID3D11DeviceContext *device_context,
-	const uint8_t *dds_data,
+	const u8 *dds_data,
 	size_t dds_dataSize,
 	ID3D11Resource **texture,
 	ID3D11ShaderResourceView **texture_view,
@@ -1112,13 +1112,13 @@ HRESULT CreateDDSTextureFromMemory(ID3D11Device2 *device,
 
 _Use_decl_annotations_
 HRESULT CreateDDSTextureFromMemoryEx(ID3D11Device2 *device,
-	const uint8_t *dds_data,
+	const u8 *dds_data,
 	size_t dds_dataSize,
 	size_t maxsize,
 	D3D11_USAGE usage,
-	uint32_t bindFlags,
-	uint32_t cpu_access_flags,
-	uint32_t misc_flags,
+	u32 bindFlags,
+	u32 cpu_access_flags,
+	u32 misc_flags,
 	bool forceSRGB,
 	ID3D11Resource **texture,
 	ID3D11ShaderResourceView **texture_view,
@@ -1131,13 +1131,13 @@ HRESULT CreateDDSTextureFromMemoryEx(ID3D11Device2 *device,
 _Use_decl_annotations_
 HRESULT CreateDDSTextureFromMemoryEx(ID3D11Device2 *device,
 	ID3D11DeviceContext *device_context,
-	const uint8_t *dds_data,
+	const u8 *dds_data,
 	size_t dds_dataSize,
 	size_t maxsize,
 	D3D11_USAGE usage,
-	uint32_t bindFlags,
-	uint32_t cpu_access_flags,
-	uint32_t misc_flags,
+	u32 bindFlags,
+	u32 cpu_access_flags,
+	u32 misc_flags,
 	bool forceSRGB,
 	ID3D11Resource **texture,
 	ID3D11ShaderResourceView **texture_view,
@@ -1158,16 +1158,16 @@ HRESULT CreateDDSTextureFromMemoryEx(ID3D11Device2 *device,
 	}
 
 	// Validate DDS file in memory
-	if (dds_dataSize < (sizeof(uint32_t) + sizeof(DDS_HEADER))) {
+	if (dds_dataSize < (sizeof(u32) + sizeof(DDS_HEADER))) {
 		return E_FAIL;
 	}
 
-	uint32_t dw_magic_number = *(const uint32_t*)(dds_data);
+	u32 dw_magic_number = *(const u32*)(dds_data);
 	if (dw_magic_number != DDS_MAGIC) {
 		return E_FAIL;
 	}
 
-	auto header = reinterpret_cast<const DDS_HEADER*>(dds_data + sizeof(uint32_t));
+	auto header = reinterpret_cast<const DDS_HEADER*>(dds_data + sizeof(u32));
 
 	// Verify header to validate DDS file
 	if (header->size != sizeof(DDS_HEADER) || header->ddspf.size != sizeof(DDS_PIXELFORMAT)) {
@@ -1178,14 +1178,14 @@ HRESULT CreateDDSTextureFromMemoryEx(ID3D11Device2 *device,
 	bool bDXT10Header = false;
 	if ((header->ddspf.flags & DDS_FOURCC) && (MAKEFOURCC('D', 'X', '1', '0') == header->ddspf.fourCC)) {
 		// Must be long enough for both headers and magic value
-		if (dds_dataSize < (sizeof(DDS_HEADER) + sizeof(uint32_t) + sizeof(DDS_HEADER_DXT10))) {
+		if (dds_dataSize < (sizeof(DDS_HEADER) + sizeof(u32) + sizeof(DDS_HEADER_DXT10))) {
 			return E_FAIL;
 		}
 
 		bDXT10Header = true;
 	}
 
-	ptrdiff_t offset = sizeof(uint32_t) + sizeof(DDS_HEADER) + (bDXT10Header ? sizeof(DDS_HEADER_DXT10) : 0);
+	ptrdiff_t offset = sizeof(u32) + sizeof(DDS_HEADER) + (bDXT10Header ? sizeof(DDS_HEADER_DXT10) : 0);
 
 	HRESULT hr = GetOrCreateTextureFromDDS(device, device_context, header,
 										dds_data + offset, dds_dataSize - offset, maxsize,
@@ -1238,9 +1238,9 @@ HRESULT CreateDDSTextureFromFileEx(ID3D11Device2 *device,
 	const wchar_t *file_name,
 	size_t maxsize,
 	D3D11_USAGE usage,
-	uint32_t bindFlags,
-	uint32_t cpu_access_flags,
-	uint32_t misc_flags,
+	u32 bindFlags,
+	u32 cpu_access_flags,
+	u32 misc_flags,
 	bool forceSRGB,
 	ID3D11Resource **texture,
 	ID3D11ShaderResourceView **texture_view,
@@ -1256,9 +1256,9 @@ HRESULT CreateDDSTextureFromFileEx(ID3D11Device2 *device,
 	const wchar_t *file_name,
 	size_t maxsize,
 	D3D11_USAGE usage,
-	uint32_t bindFlags,
-	uint32_t cpu_access_flags,
-	uint32_t misc_flags,
+	u32 bindFlags,
+	u32 cpu_access_flags,
+	u32 misc_flags,
 	bool forceSRGB,
 	ID3D11Resource **texture,
 	ID3D11ShaderResourceView **texture_view,
@@ -1279,10 +1279,10 @@ HRESULT CreateDDSTextureFromFileEx(ID3D11Device2 *device,
 	}
 
 	DDS_HEADER* header = nullptr;
-	uint8_t* bit_data = nullptr;
+	u8* bit_data = nullptr;
 	size_t bit_size = 0;
 
-	UniquePtr< uint8_t[] > dds_data;
+	UniquePtr< u8[] > dds_data;
 	HRESULT hr = LoadTextureDataFromFile(file_name, dds_data, &header, &bit_data, &bit_size);
 	if (FAILED(hr)) {
 		return hr;

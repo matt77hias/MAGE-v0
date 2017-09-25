@@ -33,129 +33,129 @@ namespace mage {
 					by the big endian byte array @a bytes.
 	 */
 	template < typename DataT >
-	inline const DataT *BytesBigEndianToValue(const uint8_t *bytes) noexcept {
+	inline const DataT *BytesBigEndianToValue(const u8 *bytes) noexcept {
 		Assert(bytes);
 		return reinterpret_cast< const DataT * >(bytes);
 	}
 	
 	/**
-	 Reads an int8_t from the given big endian byte array.
+	 Reads an i8 from the given big endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 1 byte.
 	 @param[in]		bytes
 					A pointer to a big endian byte array.
-	 @return		The @c int8_t represented 
+	 @return		The @c i8 represented 
 					by the big endian byte array @a bytes.
 	 */
-	inline int8_t BytesBigEndianToInt8(const uint8_t *bytes) noexcept {
+	inline i8 BytesBigEndianToI8(const u8 *bytes) noexcept {
 		Assert(bytes);
-		return *BytesBigEndianToValue< int8_t >(bytes);
+		return *BytesBigEndianToValue< i8 >(bytes);
 	}
 	
 	/**
-	 Reads an uint8_t from the given big endian byte array.
+	 Reads an u8 from the given big endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 1 byte.
 	 @param[in]		bytes
 					A pointer to a big endian byte array.
-	 @return		The @c uint8_t represented
+	 @return		The @c u8 represented
 					by the big endian byte array @a bytes.
 	 */
-	inline uint8_t BytesBigEndianToUInt8(const uint8_t *bytes) noexcept {
+	inline u8 BytesBigEndianToU8(const u8 *bytes) noexcept {
 		Assert(bytes);
 		return bytes[0];
 	}
 	
 	/**
-	 Reads an int16_t from the given big endian byte array.
+	 Reads an i16 from the given big endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 2 bytes.
 	 @param[in]		bytes
 					A pointer to a big endian byte array.
-	 @return		The @c int16_t represented
+	 @return		The @c i16 represented
 					by the big endian byte array @a bytes.
 	 */
-	inline int16_t BytesBigEndianToInt16(const uint8_t *bytes) noexcept {
+	inline i16 BytesBigEndianToI16(const u8 *bytes) noexcept {
 		Assert(bytes);
-		return *BytesBigEndianToValue< int16_t >(bytes);
+		return *BytesBigEndianToValue< i16 >(bytes);
 	}
 	
 	/**
-	 Reads an uint16_t from the given big endian byte array.
+	 Reads an u16 from the given big endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 2 bytes.
 	 @param[in]		bytes
 					A pointer to a big endian byte array.
-	 @return		The @c uint16_t represented
+	 @return		The @c u16 represented
 					by the big endian byte array @a bytes.
 	 */
-	inline uint16_t BytesBigEndianToUInt16(const uint8_t *bytes) noexcept {
+	inline u16 BytesBigEndianToU16(const u8 *bytes) noexcept {
 		Assert(bytes);
-		return *BytesBigEndianToValue< uint16_t >(bytes);
+		return *BytesBigEndianToValue< u16 >(bytes);
 	}
 	
 	/**
-	 Reads an int32_t from the given big endian byte array.
+	 Reads an i32 from the given big endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 4 bytes.
 	 @param[in]		bytes
 					A pointer to a big endian byte array.
-	 @return		The @c int32_t represented
+	 @return		The @c i32 represented
 					by the big endian byte array @a bytes.
 	 */
-	inline int32_t BytesBigEndianToInt32(const uint8_t *bytes) noexcept {
+	inline i32 BytesBigEndianToI32(const u8 *bytes) noexcept {
 		Assert(bytes);
-		return *BytesBigEndianToValue< int32_t >(bytes);
+		return *BytesBigEndianToValue< i32 >(bytes);
 	}
 	
 	/**
-	 Reads an uint32_t from the given big endian byte array.
+	 Reads an u32 from the given big endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 4 bytes.
 	 @param[in]		bytes
 					A pointer to a big endian byte array.
-	 @return		The @c uint32_t represented
+	 @return		The @c u32 represented
 					by the big endian byte array @a bytes.
 	 */
-	inline uint32_t BytesBigEndianToUInt32(const uint8_t *bytes) noexcept {
+	inline u32 BytesBigEndianToU32(const u8 *bytes) noexcept {
 		Assert(bytes);
-		return *BytesBigEndianToValue< uint32_t >(bytes);
+		return *BytesBigEndianToValue< u32 >(bytes);
 	}
 	
 	/**
-	 Reads an int64_t from the given big endian byte array.
+	 Reads an i64 from the given big endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 8 bytes.
 	 @param[in]		bytes
 					A pointer to a big endian byte array.
-	 @return		The @c int64_t represented
+	 @return		The @c i64 represented
 					by the big endian byte array @a bytes.
 	 */
-	inline int64_t BytesBigEndianToInt64(const uint8_t *bytes) noexcept {
+	inline i64 BytesBigEndianToI64(const u8 *bytes) noexcept {
 		Assert(bytes);
-		return *BytesBigEndianToValue< int64_t >(bytes);
+		return *BytesBigEndianToValue< i64 >(bytes);
 	}
 	
 	/**
-	 Reads an uint64_t from the given big endian byte array.
+	 Reads an u64 from the given big endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 8 bytes.
 	 @param[in]		bytes
 					A pointer to a big endian byte array.
-	 @return		The @c uint64_t represented
+	 @return		The @c u64 represented
 					by the big endian byte array @a bytes.
 	 */
-	inline uint64_t BytesBigEndianToUInt64(const uint8_t *bytes) noexcept {
+	inline u64 BytesBigEndianToU64(const u8 *bytes) noexcept {
 		Assert(bytes);
-		return *BytesBigEndianToValue< uint64_t >(bytes);
+		return *BytesBigEndianToValue< u64 >(bytes);
 	}
 	
 	/**
@@ -168,7 +168,7 @@ namespace mage {
 	 @return		The @c float represented
 					by the big endian byte array @a bytes.
 	 */
-	inline float BytesBigEndianToFloat(const uint8_t *bytes) noexcept {
+	inline float BytesBigEndianToFloat(const u8 *bytes) noexcept {
 		Assert(bytes);
 		return *BytesBigEndianToValue< float >(bytes);
 	}
@@ -183,7 +183,7 @@ namespace mage {
 	 @return		The @c double represented
 					by the big endian byte array @a bytes.
 	 */
-	inline double BytesBigEndianToDouble(const uint8_t *bytes) noexcept {
+	inline double BytesBigEndianToDouble(const u8 *bytes) noexcept {
 		Assert(bytes);
 		return *BytesBigEndianToValue< double >(bytes);
 	}
@@ -196,129 +196,129 @@ namespace mage {
 #pragma region
 
 	/**
-	 Reads an int8_t from the given little endian byte array.
+	 Reads an i8 from the given little endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 1 byte.
 	 @param[in]		bytes
 					A pointer to a little endian byte array.
-	 @return		The @c int8_t represented
+	 @return		The @c i8 represented
 					by the little endian byte array @a bytes.
 	 */
-	inline int8_t BytesLittleEndianToInt8(const uint8_t *bytes) noexcept {
+	inline i8 BytesLittleEndianToI8(const u8 *bytes) noexcept {
 		Assert(bytes);
-		return *BytesBigEndianToValue< int8_t >(bytes);
+		return *BytesBigEndianToValue< i8 >(bytes);
 	}
 	
 	/**
-	 Reads an uint8_t from the given little endian byte array.
+	 Reads an u8 from the given little endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 1 byte.
 	 @param[in]		bytes
 					A pointer to a little endian byte array.
-	 @return		The @c uint8_t represented
+	 @return		The @c u8 represented
 					by the little endian byte array @a bytes.
 	 */
-	inline uint8_t BytesLittleEndianToUInt8(const uint8_t *bytes) noexcept {
+	inline u8 BytesLittleEndianToU8(const u8 *bytes) noexcept {
 		Assert(bytes);
 		return bytes[0];
 	}
 	
 	/**
-	 Reads an int16_t from the given little endian byte array.
+	 Reads an i16 from the given little endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 2 bytes.
 	 @param[in]		bytes
 					A pointer to a little endian byte array.
-	 @return		The @c int16_t represented
+	 @return		The @c i16 represented
 					by the little endian byte array @a bytes.
 	 */
-	inline int16_t BytesLittleEndianToInt16(const uint8_t *bytes) noexcept {
+	inline i16 BytesLittleEndianToI16(const u8 *bytes) noexcept {
 		Assert(bytes);
-		const uint8_t reversed_bytes[] = { bytes[1], bytes[0] };
-		return BytesBigEndianToInt16(reversed_bytes);
+		const u8 reversed_bytes[] = { bytes[1], bytes[0] };
+		return BytesBigEndianToI16(reversed_bytes);
 	}
 	
 	/**
-	 Reads an uint16_t from the given little endian byte array.
+	 Reads an u16 from the given little endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 2 bytes.
 	 @param[in]		bytes
 					A pointer to a little endian byte array.
-	 @return		The @c uint16_t represented
+	 @return		The @c u16 represented
 					by the little endian byte array @a bytes.
 	 */
-	inline uint16_t BytesLittleEndianToUInt16(const uint8_t *bytes) noexcept {
+	inline u16 BytesLittleEndianToU16(const u8 *bytes) noexcept {
 		Assert(bytes);
-		const uint8_t reversed_bytes[] = { bytes[1], bytes[0] };
-		return BytesBigEndianToUInt16(reversed_bytes);
+		const u8 reversed_bytes[] = { bytes[1], bytes[0] };
+		return BytesBigEndianToU16(reversed_bytes);
 	}
 	
 	/**
-	 Reads an int32_t from the given little endian byte array.
+	 Reads an i32 from the given little endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 4 bytes.
 	 @param[in]		bytes
 					A pointer to a little endian byte array.
-	 @return		The @c int32_t represented
+	 @return		The @c i32 represented
 					by the little endian byte array @a bytes.
 	 */
-	inline int32_t BytesLittleEndianToInt32(const uint8_t *bytes) noexcept {
+	inline i32 BytesLittleEndianToI32(const u8 *bytes) noexcept {
 		Assert(bytes);
-		const uint8_t reversed_bytes[] = { bytes[3], bytes[2], bytes[1], bytes[0] };
-		return BytesBigEndianToInt32(reversed_bytes);
+		const u8 reversed_bytes[] = { bytes[3], bytes[2], bytes[1], bytes[0] };
+		return BytesBigEndianToI32(reversed_bytes);
 	}
 	
 	/**
-	 Reads an uint32_t from the given little endian byte array.
+	 Reads an u32 from the given little endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 4 bytes.
 	 @param[in]		bytes
 					A pointer to a little endian byte array.
-	 @return		The @c uint32_t represented
+	 @return		The @c u32 represented
 					by the little endian byte array @a bytes.
 	 */
-	inline uint32_t BytesLittleEndianToUInt32(const uint8_t *bytes) noexcept {
+	inline u32 BytesLittleEndianToU32(const u8 *bytes) noexcept {
 		Assert(bytes);
-		const uint8_t reversed_bytes[] = { bytes[3], bytes[2], bytes[1], bytes[0] };
-		return BytesBigEndianToUInt32(reversed_bytes);
+		const u8 reversed_bytes[] = { bytes[3], bytes[2], bytes[1], bytes[0] };
+		return BytesBigEndianToU32(reversed_bytes);
 	}
 	
 	/**
-	 Reads an int64_t from the given little endian byte array.
+	 Reads an i64 from the given little endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 8 bytes.
 	 @param[in]		bytes
 					A pointer to a little endian byte array.
-	 @return		The @c int64_t represented
+	 @return		The @c i64 represented
 					by the little endian byte array @a bytes.
 	 */
-	inline int64_t BytesLittleEndianToInt64(const uint8_t *bytes) noexcept {
+	inline i64 BytesLittleEndianToI64(const u8 *bytes) noexcept {
 		Assert(bytes);
-		const uint8_t reversed_bytes[] = { bytes[7], bytes[6], bytes[5], bytes[4], bytes[3], bytes[2], bytes[1], bytes[0] };
-		return BytesBigEndianToInt64(reversed_bytes);
+		const u8 reversed_bytes[] = { bytes[7], bytes[6], bytes[5], bytes[4], bytes[3], bytes[2], bytes[1], bytes[0] };
+		return BytesBigEndianToI64(reversed_bytes);
 	}
 	
 	/**
-	 Reads an uint64_t from the given little endian byte array.
+	 Reads an u64 from the given little endian byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 8 bytes.
 	 @param[in]		bytes
 					A pointer to a little endian byte array.
-	 @return		The @c uint64_t represented
+	 @return		The @c u64 represented
 					by the little endian byte array @a bytes.
 	 */
-	inline uint64_t BytesLittleEndianToUInt64(const uint8_t *bytes) noexcept {
+	inline u64 BytesLittleEndianToU64(const u8 *bytes) noexcept {
 		Assert(bytes);
-		const uint8_t reversed_bytes[] = { bytes[7], bytes[6], bytes[5], bytes[4], bytes[3], bytes[2], bytes[1], bytes[0] };
-		return BytesBigEndianToUInt64(reversed_bytes);
+		const u8 reversed_bytes[] = { bytes[7], bytes[6], bytes[5], bytes[4], bytes[3], bytes[2], bytes[1], bytes[0] };
+		return BytesBigEndianToU64(reversed_bytes);
 	}
 	
 	/**
@@ -331,9 +331,9 @@ namespace mage {
 	 @return		The @c float represented
 					by the little endian byte array @a bytes.
 	 */
-	inline float BytesLittleEndianToFloat(const uint8_t *bytes) noexcept {
+	inline float BytesLittleEndianToFloat(const u8 *bytes) noexcept {
 		Assert(bytes);
-		const uint8_t reversed_bytes[] = { bytes[3], bytes[2], bytes[1], bytes[0] };
+		const u8 reversed_bytes[] = { bytes[3], bytes[2], bytes[1], bytes[0] };
 		return BytesBigEndianToFloat(reversed_bytes);
 	}
 	
@@ -347,9 +347,9 @@ namespace mage {
 	 @return		The @c double represented
 					by the little endian byte array @a bytes.
 	 */
-	inline double BytesLittleEndianToDouble(const uint8_t *bytes) noexcept {
+	inline double BytesLittleEndianToDouble(const u8 *bytes) noexcept {
 		Assert(bytes);
-		const uint8_t reversed_bytes[] = { bytes[7], bytes[6], bytes[5], bytes[4], bytes[3], bytes[2], bytes[1], bytes[0] };
+		const u8 reversed_bytes[] = { bytes[7], bytes[6], bytes[5], bytes[4], bytes[3], bytes[2], bytes[1], bytes[0] };
 		return BytesBigEndianToDouble(reversed_bytes);
 	}
 
@@ -361,37 +361,37 @@ namespace mage {
 #pragma region
 
 	/**
-	 Reads an int8_t from the given byte array.
+	 Reads an i8 from the given byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 1 byte.
 	 @param[in]		bytes
 					A pointer to a byte array.
-	 @return		The @c int8_t represented
+	 @return		The @c i8 represented
 					by the byte array @a bytes.
 	 */
-	inline int8_t BytesToInt8(const uint8_t *bytes) noexcept {
+	inline i8 BytesToI8(const u8 *bytes) noexcept {
 		Assert(bytes);
-		return *BytesBigEndianToValue< int8_t >(bytes);
+		return *BytesBigEndianToValue< i8 >(bytes);
 	}
 	
 	/**
-	 Reads an uint8_t from the given byte array.
+	 Reads an u8 from the given byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 1 byte.
 	 @param[in]		bytes
 					A pointer to a byte array.
-	 @return		The @c uint8_t represented
+	 @return		The @c u8 represented
 					by the byte array @a bytes.
 	 */
-	inline uint8_t BytesToUInt8(const uint8_t *bytes) noexcept {
+	inline u8 BytesToU8(const u8 *bytes) noexcept {
 		Assert(bytes);
 		return bytes[0];
 	}
 	
 	/**
-	 Reads an int16_t from the given byte array.
+	 Reads an i16 from the given byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 2 bytes.
@@ -400,16 +400,16 @@ namespace mage {
 	 @param[in]		big_endian
 					Flag indicating whether the given byte array
 					should be interpreted as big endian or not (i.e. little endian).
-	 @return		The @c int16_t represented
+	 @return		The @c i16 represented
 					by the byte array @a bytes.
 	*/
-	inline int16_t BytesToInt16(const uint8_t *bytes, bool big_endian) noexcept {
+	inline i16 BytesToI16(const u8 *bytes, bool big_endian) noexcept {
 		Assert(bytes);
-		return (big_endian) ? BytesBigEndianToInt16(bytes) : BytesLittleEndianToInt16(bytes);
+		return (big_endian) ? BytesBigEndianToI16(bytes) : BytesLittleEndianToI16(bytes);
 	}
 	
 	/**
-	 Reads an uint16_t from the given byte array.
+	 Reads an u16 from the given byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 2 bytes.
@@ -418,16 +418,16 @@ namespace mage {
 	 @param[in]		big_endian
 					Flag indicating whether the given byte array
 					should be interpreted as big endian or not (i.e. little endian).
-	 @return		The @c uint16_t represented
+	 @return		The @c u16 represented
 					by the byte array @a bytes.
 	 */
-	inline uint16_t BytesToUInt16(const uint8_t *bytes, bool big_endian) noexcept {
+	inline u16 BytesToU16(const u8 *bytes, bool big_endian) noexcept {
 		Assert(bytes);
-		return (big_endian) ? BytesBigEndianToUInt16(bytes) : BytesLittleEndianToUInt16(bytes);
+		return (big_endian) ? BytesBigEndianToU16(bytes) : BytesLittleEndianToU16(bytes);
 	}
 	
 	/**
-	 Reads an int32_t from the given byte array.
+	 Reads an i32 from the given byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 4 bytes.
@@ -436,16 +436,16 @@ namespace mage {
 	 @param[in]		big_endian
 					Flag indicating whether the given byte array
 					should be interpreted as big endian or not (i.e. little endian).
-	 @return		The @c int32_t represented
+	 @return		The @c i32 represented
 					by the byte array @a bytes.
 	 */
-	inline int32_t BytesToInt32(const uint8_t *bytes, bool big_endian) noexcept {
+	inline i32 BytesToI32(const u8 *bytes, bool big_endian) noexcept {
 		Assert(bytes);
-		return (big_endian) ? BytesBigEndianToInt32(bytes) : BytesLittleEndianToInt32(bytes);
+		return (big_endian) ? BytesBigEndianToI32(bytes) : BytesLittleEndianToI32(bytes);
 	}
 	
 	/**
-	 Reads an uint32_t from the given byte array.
+	 Reads an u32 from the given byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 4 bytes.
@@ -454,16 +454,16 @@ namespace mage {
 	 @param[in]		big_endian
 					Flag indicating whether the given byte array
 					should be interpreted as big endian or not (i.e. little endian).
-	 @return		The @c uint32_t represented
+	 @return		The @c u32 represented
 					by the byte array @a bytes.
 	 */
-	inline uint32_t BytesToUInt32(const uint8_t *bytes, bool big_endian) noexcept {
+	inline u32 BytesToU32(const u8 *bytes, bool big_endian) noexcept {
 		Assert(bytes);
-		return (big_endian) ? BytesBigEndianToUInt32(bytes) : BytesLittleEndianToUInt32(bytes);
+		return (big_endian) ? BytesBigEndianToU32(bytes) : BytesLittleEndianToU32(bytes);
 	}
 	
 	/**
-	 Reads an int64_t from the given byte array.
+	 Reads an i64 from the given byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 8 bytes.
@@ -472,16 +472,16 @@ namespace mage {
 	 @param[in]		big_endian
 					Flag indicating whether the given byte array
 					should be interpreted as big endian or not (i.e. little endian).
-	 @return		The @c int64_t represented
+	 @return		The @c i64 represented
 					by the byte array @a bytes.
 	 */
-	inline int64_t BytesToInt64(const uint8_t *bytes, bool big_endian) noexcept {
+	inline i64 BytesToI64(const u8 *bytes, bool big_endian) noexcept {
 		Assert(bytes);
-		return (big_endian) ? BytesBigEndianToInt64(bytes) : BytesLittleEndianToInt64(bytes);
+		return (big_endian) ? BytesBigEndianToI64(bytes) : BytesLittleEndianToI64(bytes);
 	}
 	
 	/**
-	 Reads an uint64_t from the given byte array.
+	 Reads an u64 from the given byte array.
 
 	 @pre			@a bytes is not equal to @c nullptr.
 	 @pre			The given byte array must contain at least 8 bytes.
@@ -490,12 +490,12 @@ namespace mage {
 	 @param[in]		big_endian
 					Flag indicating whether the given byte array
 					should be interpreted as big endian or not (i.e. little endian).
-	 @return		The @c uint64_t represented
+	 @return		The @c u64 represented
 					by the byte array @a bytes.
 	 */
-	inline uint64_t BytesToUInt64(const uint8_t *bytes, bool big_endian) noexcept {
+	inline u64 BytesToU64(const u8 *bytes, bool big_endian) noexcept {
 		Assert(bytes);
-		return (big_endian) ? BytesBigEndianToUInt64(bytes) : BytesLittleEndianToUInt64(bytes);
+		return (big_endian) ? BytesBigEndianToU64(bytes) : BytesLittleEndianToU64(bytes);
 	}
 	
 	/**
@@ -511,7 +511,7 @@ namespace mage {
 	 @return		The @c float represented
 					by the byte array @a bytes.
 	 */
-	inline float BytesToFloat(const uint8_t *bytes, bool big_endian) noexcept {
+	inline float BytesToFloat(const u8 *bytes, bool big_endian) noexcept {
 		Assert(bytes);
 		return (big_endian) ? BytesBigEndianToFloat(bytes) : BytesLittleEndianToFloat(bytes);
 	}
@@ -529,7 +529,7 @@ namespace mage {
 	 @return		The @c double represented
 					by the byte array @a bytes.
 	 */
-	inline double BytesToDouble(const uint8_t *bytes, bool big_endian) noexcept {
+	inline double BytesToDouble(const u8 *bytes, bool big_endian) noexcept {
 		Assert(bytes);
 		return (big_endian) ? BytesBigEndianToDouble(bytes) : BytesLittleEndianToDouble(bytes);
 	}

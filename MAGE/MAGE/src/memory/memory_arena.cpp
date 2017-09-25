@@ -83,7 +83,7 @@ namespace mage {
 			if (!GetCurrentBlockPtr()) {
 				// Allocate new block.
 				const size_t alloc_size = std::max(size, GetMaximumBlockSize());
-				uint8_t * const alloc_ptr = AllocAligned< uint8_t >(alloc_size);
+				u8 * const alloc_ptr = AllocAligned< u8 >(alloc_size);
 
 				if (!alloc_ptr) {
 					// The allocation failed.

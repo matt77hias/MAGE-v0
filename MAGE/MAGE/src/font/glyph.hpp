@@ -104,7 +104,7 @@ namespace mage {
 						@c false otherwise.
 		 */
 		bool operator<(wchar_t rhs) const noexcept {
-			return m_character < static_cast< uint32_t >(rhs);
+			return m_character < static_cast< u32 >(rhs);
 		}
 
 		//---------------------------------------------------------------------
@@ -114,7 +114,7 @@ namespace mage {
 		/**
 		 The character of this glyph.
 		 */
-		uint32_t m_character;
+		u32 m_character;
 
 		/**
 		 The subrectangle of this glyph.

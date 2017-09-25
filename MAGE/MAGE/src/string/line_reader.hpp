@@ -139,7 +139,7 @@ namespace mage {
 
 		 @return		The current line number of this line reader.
 		 */
-		uint32_t GetCurrentLineNumber() const noexcept {
+		u32 GetCurrentLineNumber() const noexcept {
 			return m_line_number;
 		}
 		
@@ -187,84 +187,84 @@ namespace mage {
 		bool ReadBool();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c int8_t.
+		 Reads and converts the next token of this line reader to a @c i8.
 
-		 @return		The @c int8_t represented by the next token of this line reader.
+		 @return		The @c i8 represented by the next token of this line reader.
 		 @throws		FormattedException
 						There is no next token or the next token does not represent
-						a @c int8_t.
+						a @c i8.
 		 */
-		int8_t ReadInt8();
+		i8 ReadI8();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c uint8_t.
+		 Reads and converts the next token of this line reader to a @c u8.
 
-		 @return		The @c uint8_t represented by the next token of this line reader.
+		 @return		The @c u8 represented by the next token of this line reader.
 		 @throws		FormattedException
 						There is no next token or the next token does not represent
-						a @c uint8_t.
+						a @c u8.
 		 */
-		uint8_t ReadUInt8();
+		u8 ReadU8();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c int16_t.
+		 Reads and converts the next token of this line reader to a @c i16.
 
-		 @return		The @c int16_t represented by the next token of this line reader.
+		 @return		The @c i16 represented by the next token of this line reader.
 		 @throws		FormattedException
 						There is no next token or the next token does not represent
-						a @c int16_t.
+						a @c i16.
 		 */
-		int16_t ReadInt16();
+		i16 ReadI16();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c uint16_t.
+		 Reads and converts the next token of this line reader to a @c u16.
 
-		 @return		The @c uint16_t represented by the next token of this line reader.
+		 @return		The @c u16 represented by the next token of this line reader.
 		 @throws		FormattedException
 						There is no next token or the next token does not represent
-						a @c uint16_t.
+						a @c u16.
 		 */
-		uint16_t ReadUInt16();
+		u16 ReadU16();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c int32_t.
+		 Reads and converts the next token of this line reader to a @c i32.
 
-		 @return		The @c int32_t represented by the next token of this line reader.
+		 @return		The @c i32 represented by the next token of this line reader.
 		 @throws		FormattedException
 						There is no next token or the next token does not represent
-						a @c int32_t.
+						a @c i32.
 		 */
-		int32_t ReadInt32();
+		i32 ReadI32();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c uint32_t.
+		 Reads and converts the next token of this line reader to a @c u32.
 
-		 @return		The @c uint32_t represented by the next token of this line reader.
+		 @return		The @c u32 represented by the next token of this line reader.
 		 @throws		FormattedException
 						There is no next token or the next token does not represent
-						a @c uint32_t.
+						a @c u32.
 		 */
-		uint32_t ReadUInt32();
+		u32 ReadU32();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c int64_t.
+		 Reads and converts the next token of this line reader to a @c i64.
 
-		 @return		The @c int64_t represented by the next token of this line reader.
+		 @return		The @c i64 represented by the next token of this line reader.
 		 @throws		FormattedException
 						There is no next token or the next token does not represent
-						a @c int64_t.
+						a @c i64.
 		 */
-		int64_t ReadInt64();
+		i64 ReadI64();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c uint64_t.
+		 Reads and converts the next token of this line reader to a @c u64.
 
-		 @return		The @c uint64_t represented by the next token of this line reader.
+		 @return		The @c u64 represented by the next token of this line reader.
 		 @throws		FormattedException
 						There is no next token or the next token does not represent
-						a @c uint64_t.
+						a @c u64.
 		 */
-		uint64_t ReadUInt64();
+		u64 ReadU64();
 
 		/**
 		 Reads and converts the next token of this line reader to a @c float.
@@ -349,68 +349,68 @@ namespace mage {
 		bool HasBool() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c int8_t.
+		 Checks whether the next token of this line reader is a @c i8.
 
-		 @return		@c true if the next token of this line reader is a @c int8_t.
+		 @return		@c true if the next token of this line reader is a @c i8.
 						@c false otherwise.
 		 */
-		bool HasInt8() const;
+		bool HasI8() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c uint8_t.
+		 Checks whether the next token of this line reader is a @c u8.
  
-		 @return		@c true if the next token of this line reader is a @c uint8_t.
+		 @return		@c true if the next token of this line reader is a @c u8.
 						@c false otherwise.
 		 */
-		bool HasUInt8() const;
+		bool HasU8() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c int16_t.
+		 Checks whether the next token of this line reader is a @c i16.
 
-		 @return		@c true if the next token of this line reader is a @c int16_t.
+		 @return		@c true if the next token of this line reader is a @c i16.
 						@c false otherwise.
 		 */
-		bool HasInt16() const;
+		bool HasI16() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c uint16_t.
+		 Checks whether the next token of this line reader is a @c u16.
 
-		 @return		@c true if the next token of this line reader is a @c uint16_t.
+		 @return		@c true if the next token of this line reader is a @c u16.
 						@c false otherwise.
 		 */
-		bool HasUInt16() const;
+		bool HasU16() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c int32_t.
+		 Checks whether the next token of this line reader is a @c i32.
 
-		 @return		@c true if the next token of this line reader is a @c int32_t.
+		 @return		@c true if the next token of this line reader is a @c i32.
 						@c false otherwise.
 		*/
-		bool HasInt32() const;
+		bool HasI32() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c uint32_t.
+		 Checks whether the next token of this line reader is a @c u32.
 
-		 @return		@c true if the next token of this line reader is a @c uint32_t.
+		 @return		@c true if the next token of this line reader is a @c u32.
 						@c false otherwise.
 		 */
-		bool HasUInt32() const;
+		bool HasU32() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c int64_t.
+		 Checks whether the next token of this line reader is a @c i64.
 
-		 @return		@c true if the next token of this line reader is a @c int64_t.
+		 @return		@c true if the next token of this line reader is a @c i64.
 						@c false otherwise.
 		 */
-		bool HasInt64() const;
+		bool HasI64() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c uint64_t.
+		 Checks whether the next token of this line reader is a @c u64.
 
-		 @return		@c true if the next token of this line reader is a @c uint64_t.
+		 @return		@c true if the next token of this line reader is a @c u64.
 						@c false otherwise.
 		 */
-		bool HasUInt64() const;
+		bool HasU64() const;
 
 		/**
 		 Checks whether the next token of this line reader is a @c float.
@@ -492,6 +492,6 @@ namespace mage {
 		/**
 		 The current line number of this line reader.
 		 */
-		uint32_t m_line_number;
+		u32 m_line_number;
 	};
 }

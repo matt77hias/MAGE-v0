@@ -162,7 +162,7 @@ namespace mage {
 						A pointer to the material.
 		 */
 		float NormalizeMaterialCoefficient(
-			uint8_t index, const Material *material) const noexcept;
+			u8 index, const Material *material) const noexcept;
 
 		/**
 		 An enumeration of the different pixel shader indices 

@@ -470,7 +470,7 @@ namespace mage {
 		 @param[in]		count
 						The increment value.
 		 */
-		void Signal(uint32_t count = 1) noexcept;
+		void Signal(u32 count = 1) noexcept;
 		
 		/**
 		 Decrements the value of this semaphore variable by one.
@@ -594,7 +594,7 @@ namespace mage {
 		/** 
 		 The number of waiters of this condition variable.
 		 */
-		uint32_t m_nb_waiters;
+		u32 m_nb_waiters;
 
 		/**
 		 The critical section object for the mutex guarding @c m_nb_waiters

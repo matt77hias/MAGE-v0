@@ -149,9 +149,9 @@ namespace mage {
 		}
 	}
 	
-	int8_t LineReader::ReadInt8() {
-		int8_t result;
-		const TokenResult token_result = mage::ReadInt8(nullptr, &m_context, result, GetDelimiters().c_str());
+	i8 LineReader::ReadI8() {
+		i8 result;
+		const TokenResult token_result = mage::ReadI8(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case TokenResult::Valid: {
@@ -168,9 +168,9 @@ namespace mage {
 		}
 	}
 	
-	uint8_t LineReader::ReadUInt8() {
-		uint8_t result;
-		const TokenResult token_result = mage::ReadUInt8(nullptr, &m_context, result, GetDelimiters().c_str());
+	u8 LineReader::ReadU8() {
+		u8 result;
+		const TokenResult token_result = mage::ReadU8(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case TokenResult::Valid: {
@@ -187,9 +187,9 @@ namespace mage {
 		}
 	}
 	
-	int16_t LineReader::ReadInt16() {
-		int16_t result;
-		const TokenResult token_result = mage::ReadInt16(nullptr, &m_context, result, GetDelimiters().c_str());
+	i16 LineReader::ReadI16() {
+		i16 result;
+		const TokenResult token_result = mage::ReadI16(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case TokenResult::Valid: {
@@ -206,9 +206,9 @@ namespace mage {
 		}
 	}
 	
-	uint16_t LineReader::ReadUInt16() {
-		uint16_t result;
-		const TokenResult token_result = mage::ReadUInt16(nullptr, &m_context, result, GetDelimiters().c_str());
+	u16 LineReader::ReadU16() {
+		u16 result;
+		const TokenResult token_result = mage::ReadU16(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case TokenResult::Valid: {
@@ -225,9 +225,9 @@ namespace mage {
 		}
 	}
 	
-	int32_t LineReader::ReadInt32() {
-		int32_t result;
-		const TokenResult token_result = mage::ReadInt32(nullptr, &m_context, result, GetDelimiters().c_str());
+	i32 LineReader::ReadI32() {
+		i32 result;
+		const TokenResult token_result = mage::ReadI32(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case TokenResult::Valid: {
@@ -244,9 +244,9 @@ namespace mage {
 		}
 	}
 	
-	uint32_t LineReader::ReadUInt32() {
-		uint32_t result;
-		const TokenResult token_result = mage::ReadUInt32(nullptr, &m_context, result, GetDelimiters().c_str());
+	u32 LineReader::ReadU32() {
+		u32 result;
+		const TokenResult token_result = mage::ReadU32(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case TokenResult::Valid: {
@@ -263,9 +263,9 @@ namespace mage {
 		}
 	}
 	
-	int64_t LineReader::ReadInt64() {
-		int64_t result;
-		const TokenResult token_result = mage::ReadInt64(nullptr, &m_context, result, GetDelimiters().c_str());
+	i64 LineReader::ReadI64() {
+		i64 result;
+		const TokenResult token_result = mage::ReadI64(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case TokenResult::Valid: {
@@ -280,9 +280,9 @@ namespace mage {
 		}
 	}
 	
-	uint64_t LineReader::ReadUInt64() {
-		uint64_t result;
-		const TokenResult token_result = mage::ReadUInt64(nullptr, &m_context, result, GetDelimiters().c_str());
+	u64 LineReader::ReadU64() {
+		u64 result;
+		const TokenResult token_result = mage::ReadU64(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case TokenResult::Valid: {
@@ -408,36 +408,36 @@ namespace mage {
 		return mage::HasBool(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
-	bool LineReader::HasInt8() const {
-		return mage::HasInt8(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
+	bool LineReader::HasI8() const {
+		return mage::HasI8(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
-	bool LineReader::HasUInt8() const {
-		return mage::HasUInt8(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
+	bool LineReader::HasU8() const {
+		return mage::HasU8(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
-	bool LineReader::HasInt16() const {
-		return mage::HasInt16(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
+	bool LineReader::HasI16() const {
+		return mage::HasI16(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
-	bool LineReader::HasUInt16() const {
-		return mage::HasUInt16(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
+	bool LineReader::HasU16() const {
+		return mage::HasU16(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
-	bool LineReader::HasInt32() const {
-		return mage::HasInt32(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
+	bool LineReader::HasI32() const {
+		return mage::HasI32(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
-	bool LineReader::HasUInt32() const {
-		return mage::HasUInt32(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
+	bool LineReader::HasU32() const {
+		return mage::HasU32(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
-	bool LineReader::HasInt64() const {
-		return mage::HasInt64(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
+	bool LineReader::HasI64() const {
+		return mage::HasI64(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
-	bool LineReader::HasUInt64() const {
-		return mage::HasUInt64(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
+	bool LineReader::HasU64() const {
+		return mage::HasU64(m_context, GetDelimiters().c_str()) == TokenResult::Valid;
 	}
 	
 	bool LineReader::HasFloat() const {

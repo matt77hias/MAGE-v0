@@ -157,7 +157,7 @@ namespace mage {
 		/**
 		 The current press stamp (incremented every frame) of this keyboard.
 		 */
-		uint64_t m_press_stamp;
+		u64 m_press_stamp;
 
 		/**
 		 The state of the key buttons of this keyboard.
@@ -169,6 +169,6 @@ namespace mage {
 		 
 		 Stamps the keys pressed in the last frame of this keyboard.
 		 */
-		mutable uint64_t m_key_press_stamp[256];
+		mutable u64 m_key_press_stamp[256];
 	};
 }

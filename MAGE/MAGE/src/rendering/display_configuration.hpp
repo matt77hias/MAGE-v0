@@ -143,8 +143,8 @@ namespace mage {
 
 		 @return		The display width in pixels of this display configuration.
 		 */
-		uint32_t GetDisplayWidth() const noexcept {
-			return static_cast< uint32_t >(m_display_mode.Width);
+		u32 GetDisplayWidth() const noexcept {
+			return static_cast< u32 >(m_display_mode.Width);
 		}
 
 		/**
@@ -152,8 +152,8 @@ namespace mage {
 
 		 @return		The display height in pixels of this display configuration.
 		 */
-		uint32_t GetDisplayHeight() const noexcept {
-			return static_cast< uint32_t >(m_display_mode.Height);
+		u32 GetDisplayHeight() const noexcept {
+			return static_cast< u32 >(m_display_mode.Height);
 		}
 		
 		/**
@@ -161,10 +161,10 @@ namespace mage {
 
 		 @return		The rounded display refresh rate of this display configuration.
 		 */
-		uint32_t GetDisplayRoundedRefreshRate() const noexcept {
+		u32 GetDisplayRoundedRefreshRate() const noexcept {
 			const float n = static_cast< float >(m_display_mode.RefreshRate.Numerator);
 			const float d = static_cast< float >(m_display_mode.RefreshRate.Denominator);
-			return static_cast< uint32_t >(round(n / d));
+			return static_cast< u32 >(round(n / d));
 		}
 
 		/**

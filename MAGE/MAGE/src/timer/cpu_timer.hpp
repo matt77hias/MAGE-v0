@@ -299,17 +299,17 @@ namespace mage {
 		/**
 		 The modes' last timestamps of this CPU timer's process.
 		 */
-		mutable uint64_t m_last_timestamp[static_cast< size_t >(ModeIndex::Count)];
+		mutable u64 m_last_timestamp[static_cast< size_t >(ModeIndex::Count)];
 		
 		/**
 		 The modes' delta times (in seconds) of this CPU timer's process.
 		 */
-		mutable uint64_t m_delta_time[static_cast< size_t >(ModeIndex::Count)];
+		mutable u64 m_delta_time[static_cast< size_t >(ModeIndex::Count)];
 
 		/**
 		 The modes' total delta times (in seconds) of this CPU timer's process.
 		 */
-		mutable uint64_t m_total_delta_time[static_cast< size_t >(ModeIndex::Count)];
+		mutable u64 m_total_delta_time[static_cast< size_t >(ModeIndex::Count)];
 
 		/**
 		 Flag indicating whether this CPU timer is running.

@@ -22,7 +22,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ProgressReporter::ProgressReporter(const string &title, uint32_t nb_work, char plus_char, uint32_t bar_length)
+	ProgressReporter::ProgressReporter(const string &title, u32 nb_work, char plus_char, u32 bar_length)
 		: m_nb_work_total(nb_work), m_nb_work_done(0), m_nb_plusses_printed(0), m_plus_char(plus_char),
 		m_fout(stdout), m_buffer(), m_current_pos(nullptr), m_timer(MakeUnique< Timer >()), m_mutex() {
 		
@@ -33,13 +33,13 @@ namespace mage {
 
 	ProgressReporter::~ProgressReporter() = default;
 
-	void ProgressReporter::Initialize(const string &title, uint32_t bar_length) {
+	void ProgressReporter::Initialize(const string &title, u32 bar_length) {
 
 		if (bar_length == 0) {
 			bar_length = ConsoleWidth() - 28;
 		}
 
-		m_nb_plusses_total = std::max(2u, bar_length - static_cast< uint32_t >(title.size()));
+		m_nb_plusses_total = std::max(2u, bar_length - static_cast< u32 >(title.size()));
 		
 		// Initialize progress string
 		const size_t buffer_length = title.size() + m_nb_plusses_total + 64;
@@ -80,7 +80,7 @@ namespace mage {
 		m_timer->Start();
 	}
 
-	void ProgressReporter::Update(uint32_t nb_work) {
+	void ProgressReporter::Update(u32 nb_work) {
 		if (nb_work == 0 || LoggingConfiguration::Get()->IsQuiet()) {
 			// Do not output the progression in quiet mode.
 			return;
@@ -90,7 +90,7 @@ namespace mage {
 		
 		m_nb_work_done += nb_work;
 		const float percent_done = static_cast< float >(m_nb_work_done) / m_nb_work_total;
-		const uint32_t plusses_needed = std::min(static_cast< uint32_t >(round(percent_done * m_nb_plusses_total)), 
+		const u32 plusses_needed = std::min(static_cast< u32 >(round(percent_done * m_nb_plusses_total)), 
 												m_nb_plusses_total);
 		while (m_nb_plusses_printed < plusses_needed) {
 			*m_current_pos = m_plus_char;

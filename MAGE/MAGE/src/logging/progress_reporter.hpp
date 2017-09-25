@@ -40,7 +40,7 @@ namespace mage {
 						The length of the progress bar.
 						If 0 the default length will be chosen.
 		 */
-		explicit ProgressReporter(const string &title, uint32_t nb_work, char plus_char = '+', uint32_t bar_length = 0);
+		explicit ProgressReporter(const string &title, u32 nb_work, char plus_char = '+', u32 bar_length = 0);
 
 		/**
 		 Constructs a progress reporter from the given progress reporter.
@@ -97,7 +97,7 @@ namespace mage {
 		 @param[in]		nb_work
 						The number of work units that are done.
 		 */
-		void Update(uint32_t nb_work = 1);
+		void Update(u32 nb_work = 1);
 		
 		/**
 		 Finishes this progress reporter.
@@ -119,7 +119,7 @@ namespace mage {
 						The length of the progress bar.
 						If 0 the default length will be chosen.
 		 */
-		void Initialize(const string &title, uint32_t bar_length = 0);
+		void Initialize(const string &title, u32 bar_length = 0);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -128,24 +128,24 @@ namespace mage {
 		/**
 		 The total number of work units that need to be done.
 		 */
-		const uint32_t m_nb_work_total;
+		const u32 m_nb_work_total;
 
 		/**
 		 The number of work units that are already done
 		 */
-		uint32_t m_nb_work_done;
+		u32 m_nb_work_done;
 
 		/**
 		 The total number of plusses that need to be outputted
 		 by this progress reporter.
 		 */
-		uint32_t m_nb_plusses_total;
+		u32 m_nb_plusses_total;
 
 		/**
 		 The total number of plusses that are already outputted
 		 by this progress reporter.
 		 */
-		uint32_t m_nb_plusses_printed;
+		u32 m_nb_plusses_printed;
 
 		/**
 		 The character representing a work unit that is already done

@@ -35,7 +35,7 @@ namespace mage {
 
 	template < typename VertexT >
 	inline void ModelOutput< VertexT >::StartModelPart(const string &child, const string &parent) {
-		const uint32_t start = static_cast< uint32_t >(m_index_buffer.size());
+		const u32 start = static_cast< u32 >(m_index_buffer.size());
 		m_model_parts.emplace_back(child, parent, start);
 	}
 
@@ -52,8 +52,8 @@ namespace mage {
 		Assert(!m_model_parts.empty());
 
 		ModelPart &current = m_model_parts.back();
-		const uint32_t start = current.m_start_index;
-		const uint32_t end = static_cast< uint32_t >(m_index_buffer.size());
+		const u32 start = current.m_start_index;
+		const u32 end = static_cast< u32 >(m_index_buffer.size());
 		current.m_nb_indices = end - start;
 
 		if (create_bounding_volumes) {

@@ -76,8 +76,8 @@ namespace mage {
 		model_part.m_child       = ReadString();
 		model_part.m_parent      = ReadString();
 		model_part.m_material    = ReadString();
-		model_part.m_start_index = ReadUInt32();
-		model_part.m_nb_indices  = ReadUInt32();
+		model_part.m_start_index = ReadU32();
+		model_part.m_nb_indices  = ReadU32();
 
 		m_model_output.AddModelPart(std::move(model_part));
 	}

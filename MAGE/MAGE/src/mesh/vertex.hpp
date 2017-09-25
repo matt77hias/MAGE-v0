@@ -157,7 +157,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t s_nb_input_elements = 1;
+		static const size_t s_nb_input_elements = 1;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -302,7 +302,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t s_nb_input_elements = 2;
+		static const size_t s_nb_input_elements = 2;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -447,7 +447,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t s_nb_input_elements = 2;
+		static const size_t s_nb_input_elements = 2;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -592,7 +592,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t s_nb_input_elements = 2;
+		static const size_t s_nb_input_elements = 2;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -744,7 +744,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t s_nb_input_elements = 3;
+		static const size_t s_nb_input_elements = 3;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -896,7 +896,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t s_nb_input_elements = 3;
+		static const size_t s_nb_input_elements = 3;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -1048,7 +1048,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const uint32_t s_nb_input_elements = 3;
+		static const size_t s_nb_input_elements = 3;
 
 		/**
 		 The input element descriptor of a vertex.

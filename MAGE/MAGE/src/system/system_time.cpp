@@ -14,18 +14,18 @@
 namespace mage {
 
 	/**
-	 Converts the given file time to a @c uint64_t (in 100 ns).
+	 Converts the given file time to a @c u64 (in 100 ns).
 
 	 @param[in]		ftime
 					A reference to the file time.
-	 @return		A @c uint64_t (in 100 ns) representing 
+	 @return		A @c u64 (in 100 ns) representing 
 					the given file time @a ftime.
 	 */
-	inline uint64_t ConvertTimestamp(const FILETIME &ftime) noexcept {
-		return static_cast< uint64_t >(ftime.dwLowDateTime) | static_cast< uint64_t >(ftime.dwHighDateTime) << 32;
+	inline u64 ConvertTimestamp(const FILETIME &ftime) noexcept {
+		return static_cast< u64 >(ftime.dwLowDateTime) | static_cast< u64 >(ftime.dwHighDateTime) << 32;
 	}
 
-	uint64_t GetCurrentSystemTimestamp() noexcept {
+	u64 GetCurrentSystemTimestamp() noexcept {
 		FILETIME ftime;
 		// Retrieves the current system date and time.
 		// The information is in Coordinated Universal Time (UTC) format.
@@ -35,7 +35,7 @@ namespace mage {
 	}
 
 	void GetCurrentCoreTimestamp(HANDLE handle_process,
-		uint64_t *kernel_mode_timestamp, uint64_t *user_mode_timestamp) noexcept {
+		u64 *kernel_mode_timestamp, u64 *user_mode_timestamp) noexcept {
 		Assert(kernel_mode_timestamp);
 		Assert(user_mode_timestamp);
 

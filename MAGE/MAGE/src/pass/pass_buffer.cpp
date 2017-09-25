@@ -169,7 +169,7 @@ namespace mage {
 	}
 
 	void PassBuffer::ResetMaterialCoefficients() noexcept {
-		for (uint8_t i = 0; i < s_nb_material_coefficients; ++i) {
+		for (u8 i = 0; i < s_nb_material_coefficients; ++i) {
 			m_material_coefficient_min[i] = FLT_MAX;
 			m_material_coefficient_max[i] = FLT_MIN;
 		}
@@ -177,7 +177,7 @@ namespace mage {
 
 	void PassBuffer::UpdateMaterialCoefficients(const Material *material) noexcept {
 		// Update min/max material coefficients for deferred shading.
-		for (uint8_t i = 0; i < s_nb_material_coefficients; ++i) {
+		for (u8 i = 0; i < s_nb_material_coefficients; ++i) {
 			const float p = material->GetMaterialParameter(i);
 			m_material_coefficient_min[i] = std::min(p, m_material_coefficient_min[i]);
 			m_material_coefficient_max[i] = std::max(p, m_material_coefficient_max[i]);
@@ -185,7 +185,7 @@ namespace mage {
 	}
 
 	void PassBuffer::FinishMaterialCoefficients() noexcept {
-		for (uint8_t i = 0; i < s_nb_material_coefficients; ++i) {
+		for (u8 i = 0; i < s_nb_material_coefficients; ++i) {
 			if (m_material_coefficient_min[i] == m_material_coefficient_max[i]) {
 				if (0.0f == m_material_coefficient_max[i]) {
 					// min := 0 and max := 1 and mat := 0
@@ -203,19 +203,19 @@ namespace mage {
 		}
 	}
 
-	float PassBuffer::GetMaterialCoefficientMinimum(uint8_t index) const noexcept {
+	float PassBuffer::GetMaterialCoefficientMinimum(u8 index) const noexcept {
 		Assert(index < s_nb_material_coefficients);
 		
 		return m_material_coefficient_min[index];
 	}
 
-	float PassBuffer::GetMaterialCoefficientMaximum(uint8_t index) const noexcept {
+	float PassBuffer::GetMaterialCoefficientMaximum(u8 index) const noexcept {
 		Assert(index < s_nb_material_coefficients);
 		
 		return m_material_coefficient_max[index];
 	}
 
-	float PassBuffer::GetMaterialCoefficientRange(uint8_t index) const noexcept {
+	float PassBuffer::GetMaterialCoefficientRange(u8 index) const noexcept {
 		Assert(index < s_nb_material_coefficients);
 
 		return GetMaterialCoefficientMaximum(index) 

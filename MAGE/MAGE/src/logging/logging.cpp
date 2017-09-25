@@ -17,7 +17,7 @@ namespace mage {
 
 	LoggingConfiguration LoggingConfiguration::s_logging_configuration;
 
-	uint16_t ConsoleWidth() {
+	u16 ConsoleWidth() {
 		// Retrieve a handle to the standard output device.
 		const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 		if (handle == INVALID_HANDLE_VALUE || handle == nullptr) {
@@ -28,7 +28,7 @@ namespace mage {
 		GetConsoleScreenBufferInfo(handle, &buffer_info);
 		// dwSize:	a COORD structure that contains the size of the console
 		//			screen buffer in character columns and rows.
-		return static_cast< uint16_t >(buffer_info.dwSize.X);
+		return static_cast< u16 >(buffer_info.dwSize.X);
 	}
 
 	/**

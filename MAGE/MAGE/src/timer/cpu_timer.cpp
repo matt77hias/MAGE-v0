@@ -128,7 +128,7 @@ namespace mage {
 
 	void CPUTimer::UpdateDeltaTime() const noexcept {
 		// Get the current timestamp of this timer's process.
-		uint64_t current_timestamp[2];
+		u64 current_timestamp[2];
 		GetCurrentCoreTimestamp(m_handle,
 			&current_timestamp[GetKernelModeIndex()],
 			&current_timestamp[GetUserModeIndex()]);

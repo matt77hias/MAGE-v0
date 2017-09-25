@@ -14,7 +14,7 @@
 namespace mage {
 
 	TextConsoleScript::TextConsoleScript(SpriteText *text,
-		uint32_t nb_rows, uint32_t nb_columns)
+		u32 nb_rows, u32 nb_columns)
 		: BehaviorScript(),
 		m_nb_rows(nb_rows), m_nb_columns(nb_columns + 1),
 		m_current_column(0), m_current_row(0),
@@ -92,7 +92,7 @@ namespace mage {
 		}
 	}
 
-	void TextConsoleScript::SetCharacter(wchar_t character, uint32_t row, uint32_t column) {
+	void TextConsoleScript::SetCharacter(wchar_t character, u32 row, u32 column) {
 		const size_t index = row * m_nb_columns + column;
 		m_buffer[index] = character;
 	}

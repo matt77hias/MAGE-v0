@@ -31,7 +31,7 @@ namespace mage {
 		// Constructors and Destructors
 		//-------------------------------------------------------------------------
 
-		explicit RNG(uint32_t seed = 606418532u)
+		explicit RNG(u32 seed = 606418532u)
 			: m_generator(),
 			m_distribution(std::uniform_real_distribution< float >(0.0f, 1.0f)) {
 
@@ -56,7 +56,7 @@ namespace mage {
 		// Member Methods
 		//-------------------------------------------------------------------------
 
-		void Seed(uint32_t seed) noexcept {
+		void Seed(u32 seed) noexcept {
 			m_generator.seed(seed);
 		}
 

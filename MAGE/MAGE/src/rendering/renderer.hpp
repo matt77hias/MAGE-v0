@@ -193,7 +193,7 @@ namespace mage {
 
 		 @return		The width in pixels of the display of this renderer.
 		 */
-		uint32_t GetWidth() const noexcept {
+		u32 GetWidth() const noexcept {
 			return m_display_configuration->GetDisplayWidth();
 		}
 
@@ -202,7 +202,7 @@ namespace mage {
 
 		 @return		The height in pixels of the display of this renderer.
 		 */
-		uint32_t GetHeight() const noexcept {
+		u32 GetHeight() const noexcept {
 			return m_display_configuration->GetDisplayHeight();
 		}
 

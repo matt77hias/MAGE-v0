@@ -73,7 +73,8 @@ namespace mage {
 		 @param[in]		resource_pool
 						A reference to the resource pool to copy.
 		 */
-		ResourcePool(const ResourcePool< KeyT, ResourceT > &resource_pool) = delete;
+		ResourcePool(
+			const ResourcePool< KeyT, ResourceT > &resource_pool) = delete;
 
 		/**
 		 Constructs a resource pool by moving the given resource pool.
@@ -97,7 +98,7 @@ namespace mage {
 
 		 @param[in]		resource_pool
 						A reference to the resource pool to copy.
-		 @return		A reference to the copy of the given resource pool
+		 @return		A reference to the copy of the given resource pool 
 						(i.e. this resource pool).
 		 */
 		ResourcePool< KeyT, ResourceT > &operator=(
@@ -108,8 +109,8 @@ namespace mage {
 
 		 @param[in]		resource_pool
 						A reference to the resource pool to move.
-		 @return		A reference to the moved resource pool
-						(i.e. this resource pool).
+		 @return		A reference to the moved resource pool (i.e. this 
+						resource pool).
 		 */
 		ResourcePool< KeyT, ResourceT > &operator=(
 			ResourcePool< KeyT, ResourceT > &&resource_pool) = delete;
@@ -129,71 +130,77 @@ namespace mage {
 
 		 @param[in]		key
 						A reference to the key of the resource.
-		 @return		@c true, if a resource is contained in
-						this resource pool corresponding to the given key.
-						@c false, otherwise.
+		 @return		@c true, if a resource is contained in this resource 
+						pool corresponding to the given key. @c false, 
+						otherwise.
 		 */
 		bool HasResource(const KeyT &key) noexcept;
 
 		/**
-		 Returns the resource corresponding to the given key from this resource pool.
+		 Returns the resource corresponding to the given key from this 
+		 resource pool.
 
 		 @param[in]		key
 						A reference to the key of the resource.
-		 @return		@c nullptr, if no resource is contained in 
-						this resource pool corresponding to the given key.
-		 @return		A pointer to the resource corresponding to
-						the given key from this resource pool.
+		 @return		@c nullptr, if no resource is contained in this 
+						resource pool corresponding to the given key.
+		 @return		A pointer to the resource corresponding to the given key 
+						from this resource pool.
 		 */
 		SharedPtr< ResourceT > GetResource(const KeyT &key) noexcept;
-
+		
 		/**
-		 Returns the resource corresponding to the given key from this resource pool.
+		 Returns the resource corresponding to the given key from this resource 
+		 pool.
 		 
-		 If no resource is contained in this resource pool corresponding to the given key,
-		 a new resource is created from the given arguments, added to this resource pool
-		 and returned.
+		 If no resource is contained in this resource pool corresponding to the 
+		 given key, a new resource is created from the given arguments, added 
+		 to this resource pool and returned.
 
 		 @tparam		ConstructorArgsT
-						The argument types for creating a new resource 
-						of type @c ResourceT.
+						The argument types for creating a new resource of type 
+						@c ResourceT.
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
 						The arguments for creating a new resource
 						of type @c ResourceT.
-		 @return		A pointer to the resource corresponding to 
-						the given key from this resource pool.
+		 @return		A pointer to the resource corresponding to the given 
+						key from this resource pool.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetOrCreateResource(const KeyT &key, ConstructorArgsT&&... args);
+		SharedPtr< ResourceT > GetOrCreateResource(
+			const KeyT &key, ConstructorArgsT&&... args);
 		
 		/**
-		 Returns the resource corresponding to the given key from this resource pool.
+		 Returns the resource corresponding to the given key from this resource 
+		 pool.
 
-		 If no resource is contained in this resource pool corresponding to the given key,
-		 a new resource is created from the given arguments, added to this resource pool
-		 and returned.
+		 If no resource is contained in this resource pool corresponding to the 
+		 given key, a new resource is created from the given arguments, added 
+		 to this resource pool and returned.
 
 		 @pre			@c DerivedResourceT is a derived class of @c ResourceT.
 		 @tparam		DerivedResourceT
 						The derived resource type.
 		 @tparam		ConstructorArgsT
-						The argument types for creating a new resource
-						of type @c DerivedResourceT.
+						The argument types for creating a new resource of type 
+						@c DerivedResourceT.
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
-						The arguments for creating a new resource
-						of type @c DerivedResourceT.
-		 @return		A pointer to the resource corresponding to
-						the given key from this resource pool.
+						The arguments for creating a new resource of type 
+						@c DerivedResourceT.
+		 @return		A pointer to the resource corresponding to the given 
+						key from this resource pool.
 		 */
 		template< typename DerivedResourceT, typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetOrCreateDerivedResource(const KeyT &key, ConstructorArgsT&&... args);
+		SharedPtr< ResourceT > GetOrCreateDerivedResource(
+			const KeyT &key, ConstructorArgsT&&... args);
 		
 		/**
-		 Removes the resource corresponding to the given key from this resource pool.
+		 Removes the resource corresponding to the given key from this resource 
+		 pool.
 
 		 @param[in]		key
 						A reference to the key of the resource to remove.
@@ -241,16 +248,16 @@ namespace mage {
 			 Constructs a resource.
 
 			 @tparam		ConstructorArgsT
-							The argument types for creating a new resource
-							of type @c DerivedResourceT.
+							The argument types for creating a new resource of 
+							type @c DerivedResourceT.
 			 @param[in]		resource_pool
 							A reference to the resource pool.
 			 @param[in]		resource_key
-							A reference to the key of the resource 
-							in the given resource pool.
+							A reference to the key of the resource in the 
+							given resource pool.
 			 @param[in]		args
-							The arguments for creating a new resource
-							of type @c DerivedResourceT.
+							The arguments for creating a new resource of type 
+							@c DerivedResourceT.
 			 */
 			template< typename... ConstructorArgsT >
 			Resource(ResourcePool< KeyT, ResourceT > &resource_pool,
@@ -286,8 +293,8 @@ namespace mage {
 
 			 @param[in]		resource
 							A reference to the resource to copy.
-			 @return		A reference to the copy of the given resource
-							(i.e. this resource).
+			 @return		A reference to the copy of the given resource (i.e. 
+							this resource).
 			 */
 			Resource< DerivedResourceT > &operator=(
 				const Resource< DerivedResourceT > &resource) = delete;
@@ -297,8 +304,8 @@ namespace mage {
 
 			 @param[in]		resource
 							A reference to the resource to move.
-			 @return		A reference to the moved resource
-							(i.e. this resource).
+			 @return		A reference to the moved resource (i.e. this 
+							resource).
 			 */
 			Resource< DerivedResourceT > &operator=(
 				Resource< DerivedResourceT > &&resource) = delete;
@@ -349,20 +356,24 @@ namespace mage {
 		PersistentResourcePool() = default;
 
 		/**
-		 Constructs a persistent resource pool from the given persistent resource pool.
+		 Constructs a persistent resource pool from the given persistent 
+		 resource pool.
 
 		 @param[in]		resource_pool
 						A reference to the persistent resource pool to copy.
 		 */
-		PersistentResourcePool(const PersistentResourcePool< KeyT, ResourceT > &resource_pool) = delete;
+		PersistentResourcePool(
+			const PersistentResourcePool< KeyT, ResourceT > &resource_pool) = delete;
 
 		/**
-		 Constructs a persistent resource pool by moving the given persistent resource pool.
+		 Constructs a persistent resource pool by moving the given persistent 
+		 resource pool.
 
 		 @param[in]		resource_pool
 						A reference to the persistent resource pool to move.
 		 */
-		PersistentResourcePool(PersistentResourcePool< KeyT, ResourceT > &&resource_pool);
+		PersistentResourcePool(
+			PersistentResourcePool< KeyT, ResourceT > &&resource_pool);
 
 		/**
 		 Destructs this persistent resource pool.
@@ -374,23 +385,25 @@ namespace mage {
 		//---------------------------------------------------------------------	
 
 		/**
-		 Copies the given persistent resource pool to this persistent resource pool.
+		 Copies the given persistent resource pool to this persistent resource 
+		 pool.
 
 		 @param[in]		resource_pool
 						A reference to the persistent resource pool to copy.
-		 @return		A reference to the copy of the given persistent resource pool
-						(i.e. this persistent resource pool).
+		 @return		A reference to the copy of the given persistent resource 
+						pool (i.e. this persistent resource pool).
 		 */
 		PersistentResourcePool< KeyT, ResourceT > &operator=(
 			const PersistentResourcePool< KeyT, ResourceT > &resource_pool) = delete;
 
 		/**
-		 Moves the given persistent resource pool to this persistent resource pool.
+		 Moves the given persistent resource pool to this persistent resource 
+		 pool.
 
 		 @param[in]		resource_pool
 						A reference to the persistent resource pool to move.
-		 @return		A reference to the moved persistent resource pool
-						(i.e. this persistent resource pool).
+		 @return		A reference to the moved persistent resource pool (i.e. 
+						this persistent resource pool).
 		 */
 		PersistentResourcePool< KeyT, ResourceT > &operator=(
 			PersistentResourcePool< KeyT, ResourceT > &&resource_pool) = delete;
@@ -400,81 +413,89 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the number of resources contained in this persistent resource pool.
+		 Returns the number of resources contained in this persistent resource 
+		 pool.
 		 */
 		size_t GetNumberOfResources() const;
 
 		/**
-		 Checks whether this persistent resource pool contains a resource corresponding 
-		 to the given key from this persistent resource pool.
+		 Checks whether this persistent resource pool contains a resource 
+		 corresponding to the given key from this persistent resource pool.
 
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @return		@c true, if a resource is contained in
-						this persistent resource pool corresponding to the given key.
-						@c false, otherwise.
+						this persistent resource pool corresponding to the 
+						given key. @c false, otherwise.
 		 */
 		bool HasResource(const KeyT &key) noexcept;
-
+		
 		/**
-		 Returns the resource corresponding to the given key from this persistent resource pool.
+		 Returns the resource corresponding to the given key from this 
+		 persistent resource pool.
 
 		 @param[in]		key
 						A reference to the key of the resource.
-		 @return		@c nullptr, if no resource is contained in 
-						this persistent resource pool corresponding to the given key.
+		 @return		@c nullptr, if no resource is contained in this 
+						persistent resource pool corresponding to the given 
+						key.
 		 @return		A pointer to the resource corresponding to
 						the given key from this persistent resource pool.
 		 */
 		SharedPtr< ResourceT > GetResource(const KeyT &key) noexcept;
 
 		/**
-		 Returns the resource corresponding to the given key from this persistent resource pool.
+		 Returns the resource corresponding to the given key from this 
+		 persistent resource pool.
 		 
-		 If no resource is contained in this persistent resource pool corresponding to the given key,
-		 a new resource is created from the given arguments, added to this persistent resource pool
-		 and returned.
+		 If no resource is contained in this persistent resource pool 
+		 corresponding to the given key, a new resource is created from the 
+		 given arguments, added to this persistent resource pool and returned.
 
 		 @tparam		ConstructorArgsT
-						The argument types for creating a new resource 
-						of type @c ResourceT.
+						The argument types for creating a new resource of type 
+						@c ResourceT.
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
-						The arguments for creating a new resource
-						of type @c ResourceT.
-		 @return		A pointer to the resource corresponding to 
-						the given key from this persistent resource pool.
+						The arguments for creating a new resource of type 
+						@c ResourceT.
+		 @return		A pointer to the resource corresponding to the given 
+						key from this persistent resource pool.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetOrCreateResource(const KeyT &key, ConstructorArgsT&&... args);
+		SharedPtr< ResourceT > GetOrCreateResource(
+			const KeyT &key, ConstructorArgsT&&... args);
 		
 		/**
-		 Returns the resource corresponding to the given key from this persistent resource pool.
+		 Returns the resource corresponding to the given key from this 
+		 persistent resource pool.
 
-		 If no resource is contained in this persistent resource pool corresponding to the given key,
-		 a new resource is created from the given arguments, added to this persistent resource pool
-		 and returned.
+		 If no resource is contained in this persistent resource pool 
+		 corresponding to the given key, a new resource is created from the 
+		 given arguments, added to this persistent resource pool and returned.
 
 		 @pre			@c DerivedResourceT is a derived class of @c ResourceT.
 		 @tparam		DerivedResourceT
 						The derived resource type.
 		 @tparam		ConstructorArgsT
-						The argument types for creating a new resource
-						of type @c DerivedResourceT.
+						The argument types for creating a new resource of type 
+						@c DerivedResourceT.
 		 @param[in]		key
 						A reference to the key of the resource.
 		 @param[in]		args
-						The arguments for creating a new resource
-						of type @c DerivedResourceT.
-		 @return		A pointer to the resource corresponding to
-						the given key from this persistent resource pool.
+						The arguments for creating a new resource of type 
+						@c DerivedResourceT.
+		 @return		A pointer to the resource corresponding to the given 
+						key from this persistent resource pool.
 		 */
 		template< typename DerivedResourceT, typename... ConstructorArgsT >
-		SharedPtr< ResourceT > GetOrCreateDerivedResource(const KeyT &key, ConstructorArgsT&&... args);
+		SharedPtr< ResourceT > GetOrCreateDerivedResource(
+			const KeyT &key, ConstructorArgsT&&... args);
 		
 		/**
-		 Removes the resource corresponding to the given key from this persistent resource pool.
+		 Removes the resource corresponding to the given key from this 
+		 persistent resource pool.
 
 		 @param[in]		key
 						A reference to the key of the resource to remove.
@@ -498,7 +519,8 @@ namespace mage {
 		PersistentResourceMap< KeyT, ResourceT > m_resource_map;
 
 		/**
-		 The mutex for accessing the persistent resource map of this persistent resource pool.
+		 The mutex for accessing the persistent resource map of this persistent 
+		 resource pool.
 		 */
 		Mutex m_resource_map_mutex;
 	};

@@ -29,10 +29,10 @@ namespace mage {
 		/**
 		 Returns the mouse associated with the current engine.
 
-		 @pre			The input manager associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the mouse associated
-						with the current engine.
+		 @pre			The input manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the mouse associated with the current 
+						engine.
 		 */
 		static const Mouse *Get() noexcept;
 
@@ -84,8 +84,8 @@ namespace mage {
 
 		 @param[in]		mouse
 						A reference to the mouse to copy.
-		 @return		A reference to the copy of the given mouse
-						(i.e. this mouse).
+		 @return		A reference to the copy of the given mouse (i.e. this 
+						mouse).
 		 */
 		Mouse &operator=(const Mouse &mouse) = delete;
 
@@ -94,8 +94,7 @@ namespace mage {
 
 		 @param[in]		mouse
 						A reference to the mouse to move.
-		 @return		A reference to the moved mouse
-						(i.e. this mouse).
+		 @return		A reference to the moved mouse (i.e. this mouse).
 		 */
 		Mouse &operator=(Mouse &&mouse) = delete;
 
@@ -114,12 +113,14 @@ namespace mage {
 		 @param[in]		mouse_button
 						The mouse button.
 		 @param[in]		ignore_press_stamp
-						Flag indicating whether press stamps should be ignored.
-						Consistent presses will return false when using the press stamp.
-		 @return		@c true if the given mouse button is pressed.
-						@c false otherwise.
+						Flag indicating whether press stamps should be 
+						ignored. Consistent presses will return false when 
+						using the press stamp.
+		 @return		@c true if the given mouse button is pressed. @c false 
+						otherwise.
 		 */
-		bool GetMouseButtonPress(char mouse_button, bool ignore_press_stamp = false) const;
+		bool GetMouseButtonPress(char mouse_button, 
+			bool ignore_press_stamp = false) const;
 
 		/**
 		 Returns the horizontal position of this mouse.
@@ -207,8 +208,8 @@ namespace mage {
 		/**
 		 The state of the mouse buttons of this mouse.
 
-		 Describes the state of a mouse device that has up to four buttons,
-		 or another device that is being accessed as if it were a mouse device.
+		 Describes the state of a mouse device that has up to four buttons, or 
+		 another device that is being accessed as if it were a mouse device.
 		 */
 		DIMOUSESTATE m_mouse_state;
 

@@ -38,8 +38,8 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the sprite font descriptor.
 		*/
-		explicit SpriteFontReader(ID3D11Device2 *device, SpriteFontOutput &output, 
-			const SpriteFontDescriptor &desc);
+		explicit SpriteFontReader(ID3D11Device2 *device, 
+			SpriteFontOutput &output, const SpriteFontDescriptor &desc);
 		
 		/**
 		 Constructs a SPRITEFONT reader from the given SPRITEFONT reader.
@@ -81,8 +81,8 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a SPRITEFONT reader to move.
-		 @return		A reference to the moved SPRITEFONT reader
-						(i.e. this SPRITEFONT reader).
+		 @return		A reference to the moved SPRITEFONT reader (i.e. this 
+						SPRITEFONT reader).
 		 */
 		SpriteFontReader &operator=(SpriteFontReader &&reader) = delete;
 
@@ -103,8 +103,8 @@ namespace mage {
 		/**
 		 Checks whether the header of the file is valid.
 
-		 @return		@c true if the header of the file is valid.
-						@c false otherwise.
+		 @return		@c true if the header of the file is valid. @c false 
+						otherwise.
 		 @throws		FormattedException
 						Failed to read to the given file.
 		 */

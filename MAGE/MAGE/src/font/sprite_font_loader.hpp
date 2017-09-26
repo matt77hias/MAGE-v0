@@ -31,5 +31,6 @@ namespace mage {
 					Failed to import the sprite font from file.
 	 */
 	void ImportSpriteFontFromFile(const wstring &fname, ID3D11Device2 *device, 
-		SpriteFontOutput &output, const SpriteFontDescriptor &desc = SpriteFontDescriptor());
+		SpriteFontOutput &output, 
+		const SpriteFontDescriptor &desc = SpriteFontDescriptor());
 }

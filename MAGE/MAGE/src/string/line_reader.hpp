@@ -39,8 +39,8 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a line reader to copy.
-		 @return		A reference to the copy of the given line reader
-						(i.e. this line reader).
+		 @return		A reference to the copy of the given line reader (i.e. 
+						this line reader).
 		 */
 		LineReader &operator=(const LineReader &reader) = delete;
 
@@ -49,8 +49,8 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a line reader to move.
-		 @return		A reference to the moved line reader
-						(i.e. this line reader).
+		 @return		A reference to the moved line reader (i.e. this line 
+						reader).
 		 */
 		LineReader &operator=(LineReader &&reader) = delete;
 
@@ -69,7 +69,8 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read from the given file.
 		 */
-		void ReadFromFile(const wstring &fname, const string &delimiters = mage_default_delimiters);
+		void ReadFromFile(const wstring &fname, 
+			const string &delimiters = g_default_delimiters);
 		
 		/**
 		 Reads the input string.
@@ -83,12 +84,14 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read from the given input string.
 		 */
-		void ReadFromMemory(const char *input, const string &delimiters = mage_default_delimiters);
+		void ReadFromMemory(const char *input, 
+			const string &delimiters = g_default_delimiters);
 
 		/**
 		 Returns the current filename of this line reader.
 
-		 @return		A reference to the current filename of this line reader.
+		 @return		A reference to the current filename of this line 
+						reader.
 		 */
 		const wstring &GetFilename() const noexcept {
 			return m_fname;
@@ -97,7 +100,8 @@ namespace mage {
 		/**
 		 Returns the current delimiters of this line reader.
 
-		 @return		A reference to the current delimiters of this line reader.
+		 @return		A reference to the current delimiters of this line 
+						reader.
 		 */
 		const string &GetDelimiters() const noexcept {
 			return m_delimiters;
@@ -151,7 +155,8 @@ namespace mage {
 		/**
 		 Reads and converts the next token of this line reader to a string.
 
-		 @return		The string represented by the next token of this line reader.
+		 @return		The string represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
 						There is no next token.
 		 */
@@ -160,271 +165,288 @@ namespace mage {
 		/**
 		 Reads and converts the next token of this line reader to a string.
 
-		 @return		The string represented by the next token of this line reader.
+		 @return		The string represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
 						There is no next token.
 		 */
 		const string ReadString();
-
+		
 		/**
-		 Reads and converts the next token of this line reader to a quoted string.
+		 Reads and converts the next token of this line reader to a quoted 
+		 string.
 
-		 @return		The quoted string represented by the next token of this line reader.
+		 @return		The quoted string represented by the next token of this 
+						line reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a quoted string.
+						There is no next token or the next token does not 
+						represent a quoted string.
 		 */
 		const string ReadQuotedString();
-
+		
 		/**
 		 Reads and converts the next token of this line reader to a @c bool.
 
-		 @return		The @c bool represented by the next token of this line reader.
+		 @return		The @c bool represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c bool.
+						There is no next token or the next token does not 
+						represent a @c bool.
 		 */
 		bool ReadBool();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c i8.
+		 Reads and converts the next token of this line reader to an @c i8.
 
-		 @return		The @c i8 represented by the next token of this line reader.
+		 @return		The @c i8 represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c i8.
+						There is no next token or the next token does not 
+						represent an @c i8.
 		 */
 		i8 ReadI8();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c u8.
+		 Reads and converts the next token of this line reader to an @c u8.
 
-		 @return		The @c u8 represented by the next token of this line reader.
+		 @return		The @c u8 represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c u8.
+						There is no next token or the next token does not 
+						represent an @c u8.
 		 */
 		u8 ReadU8();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c i16.
+		 Reads and converts the next token of this line reader to an @c i16.
 
-		 @return		The @c i16 represented by the next token of this line reader.
+		 @return		The @c i16 represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c i16.
+						There is no next token or the next token does not 
+						represent an @c i16.
 		 */
 		i16 ReadI16();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c u16.
+		 Reads and converts the next token of this line reader to an @c u16.
 
-		 @return		The @c u16 represented by the next token of this line reader.
+		 @return		The @c u16 represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c u16.
+						There is no next token or the next token does not 
+						represent an @c u16.
 		 */
 		u16 ReadU16();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c i32.
+		 Reads and converts the next token of this line reader to an @c i32.
 
-		 @return		The @c i32 represented by the next token of this line reader.
+		 @return		The @c i32 represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c i32.
+						There is no next token or the next token does not 
+						represent an @c i32.
 		 */
 		i32 ReadI32();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c u32.
+		 Reads and converts the next token of this line reader to an @c u32.
 
-		 @return		The @c u32 represented by the next token of this line reader.
+		 @return		The @c u32 represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c u32.
+						There is no next token or the next token does not 
+						represent an @c u32.
 		 */
 		u32 ReadU32();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c i64.
+		 Reads and converts the next token of this line reader to an @c i64.
 
-		 @return		The @c i64 represented by the next token of this line reader.
+		 @return		The @c i64 represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c i64.
+						There is no next token or the next token does not 
+						represent an @c i64.
 		 */
 		i64 ReadI64();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c u64.
+		 Reads and converts the next token of this line reader to an @c u64.
 
-		 @return		The @c u64 represented by the next token of this line reader.
+		 @return		The @c u64 represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c u64.
+						There is no next token or the next token does not 
+						represent an @c u64.
 		 */
 		u64 ReadU64();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c float.
+		 Reads and converts the next token of this line reader to an @c f32.
 
-		 @return		The @c float represented by the next token of this line reader.
+		 @return		The @c f32 represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c float.
+						There is no next token or the next token does not 
+						represent an @c f32.
 		 */
-		float ReadF32();
+		f32 ReadF32();
 
 		/**
-		 Reads and converts the next token of this line reader to a @c f64.
+		 Reads and converts the next token of this line reader to an @c f64.
 
-		 @return		The @c f64 represented by the next token of this line reader.
+		 @return		The @c f64 represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c f64.
+						There is no next token or the next token does not 
+						represent an @c f64.
 		 */
 		f64 ReadF64();
 
 		/**
 		 Reads and converts the next token of this line reader to a @c XMFLOAT2.
 
-		 @return		The @c XMFLOAT2 represented by the next token of this line reader.
+		 @return		The @c XMFLOAT2 represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c XMFLOAT2.
+						There is no next token or the next token does not 
+						represent a @c XMFLOAT2.
 		 */
 		const XMFLOAT2 ReadFloat2();
 
 		/**
 		 Reads and converts the next token of this line reader to a @c XMFLOAT3.
 
-		 @return		The @c XMFLOAT3 represented by the next token of this line reader.
+		 @return		The @c XMFLOAT3 represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c XMFLOAT3.
+						There is no next token or the next token does not 
+						represent a @c XMFLOAT3.
 		 */
 		const XMFLOAT3 ReadFloat3();
 
 		/**
 		 Reads and converts the next token of this line reader to a @c XMFLOAT4.
 
-		 @return		The @c XMFLOAT4 represented by the next token of this line reader.
+		 @return		The @c XMFLOAT4 represented by the next token of this line 
+						reader.
 		 @throws		FormattedException
-						There is no next token or the next token does not represent
-						a @c XMFLOAT4.
+						There is no next token or the next token does not 
+						represent a @c XMFLOAT4.
 		*/
 		const XMFLOAT4 ReadFloat4();
-
+		
 		/**
 		 Checks whether this line reader has a next token.
 
-		 @return		@c true if this line reader has a next token.
-						@c false otherwise.
+		 @return		@c true if this line reader has a next token. @c false
+						otherwise.
 		 */
 		bool HasChars() const;
-
+		
 		/**
 		 Checks whether the next token of this line reader is a string.
 
-		 @return		@c true if the next token of this line reader is a string.
-						@c false otherwise.
+		 @return		@c true if the next token of this line reader is a 
+						string. @c false otherwise.
 		 */
 		bool HasString() const;
-
+		
 		/**
 		 Checks whether the next token of this line reader is a quoted string.
 
-		 @return		@c true if the next token of this line reader is a quoted string.
-						@c false otherwise.
+		 @return		@c true if the next token of this line reader is a 
+						quoted string. @c false otherwise.
 		 */
 		bool HasQuotedString() const;
 
 		/**
 		 Checks whether the next token of this line reader is a @c bool.
 
-		 @return		@c true if the next token of this line reader is a @c bool.
-						@c false otherwise.
+		 @return		@c true if the next token of this line reader is a 
+						@c bool. @c false otherwise.
 		 */
 		bool HasBool() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c i8.
+		 Checks whether the next token of this line reader is an @c i8.
 
-		 @return		@c true if the next token of this line reader is a @c i8.
-						@c false otherwise.
+		 @return		@c true if the next token of this line reader is an 
+						@c i8. @c false otherwise.
 		 */
 		bool HasI8() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c u8.
+		 Checks whether the next token of this line reader is an @c u8.
  
-		 @return		@c true if the next token of this line reader is a @c u8.
-						@c false otherwise.
+		 @return		@c true if the next token of this line reader is an 
+						@c u8. @c false otherwise.
 		 */
 		bool HasU8() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c i16.
+		 Checks whether the next token of this line reader is an @c i16.
 
-		 @return		@c true if the next token of this line reader is a @c i16.
-						@c false otherwise.
+		 @return		@c true if the next token of this line reader is an 
+						@c i16. @c false otherwise.
 		 */
 		bool HasI16() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c u16.
+		 Checks whether the next token of this line reader is an @c u16.
 
-		 @return		@c true if the next token of this line reader is a @c u16.
-						@c false otherwise.
+		 @return		@c true if the next token of this line reader is an 
+						@c u16. @c false otherwise.
 		 */
 		bool HasU16() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c i32.
+		 Checks whether the next token of this line reader is an @c i32.
 
-		 @return		@c true if the next token of this line reader is a @c i32.
-						@c false otherwise.
+		 @return		@c true if the next token of this line reader is an 
+						@c i32. @c false otherwise.
 		*/
 		bool HasI32() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c u32.
+		 Checks whether the next token of this line reader is an @c u32.
 
-		 @return		@c true if the next token of this line reader is a @c u32.
-						@c false otherwise.
+		 @return		@c true if the next token of this line reader is an 
+						@c u32. @c false otherwise.
 		 */
 		bool HasU32() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c i64.
+		 Checks whether the next token of this line reader is an @c i64.
 
-		 @return		@c true if the next token of this line reader is a @c i64.
-						@c false otherwise.
+		 @return		@c true if the next token of this line reader is an
+						@c i64. @c false otherwise.
 		 */
 		bool HasI64() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c u64.
+		 Checks whether the next token of this line reader is an @c u64.
 
-		 @return		@c true if the next token of this line reader is a @c u64.
-						@c false otherwise.
+		 @return		@c true if the next token of this line reader is an 
+						@c u64. @c false otherwise.
 		 */
 		bool HasU64() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c float.
+		 Checks whether the next token of this line reader is an @c f32.
 
-		 @return		@c true if the next token of this line reader is a @c float.
-						@c false otherwise.
+		 @return		@c true if the next token of this line reader is an 
+						@c f32. @c false otherwise.
 		 */
 		bool HasF32() const;
 
 		/**
-		 Checks whether the next token of this line reader is a @c f64.
+		 Checks whether the next token of this line reader is an @c f64.
 
-		 @return		@c true if the next token of this line reader is a @c f64.
-						@c false otherwise.
+		 @return		@c true if the next token of this line reader is an 
+						@c f64. @c false otherwise.
 		 */
 		bool HasF64() const;
 

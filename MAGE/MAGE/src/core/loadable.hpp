@@ -28,8 +28,7 @@ namespace mage {
 		/**
 		 Checks whether this loadable is loaded.
 
-		 @return		@c true if this loadable is loaded.
-						@c false otherwise.
+		 @return		@c true if this loadable is loaded. @c false otherwise.
 		 */
 		bool IsLoaded() const noexcept {
 			return m_loaded;
@@ -74,8 +73,8 @@ namespace mage {
 
 		 @param[in]		loadable
 						A reference to the loadable to copy.
-		 @return		A reference to the copy of the given loadable
-						(i.e. this loadable).
+		 @return		A reference to the copy of the given loadable (i.e. 
+						this loadable).
 		 */
 		Loadable &operator=(const Loadable &loadable);
 
@@ -84,8 +83,7 @@ namespace mage {
 
 		 @param[in]		loadable
 						A reference to the loadable to move.
-		 @return		A reference to the moved loadable
-						(i.e. this loadable).
+		 @return		A reference to the moved loadable (i.e. this loadable).
 		 */
 		Loadable &operator=(Loadable &&loadable);
 

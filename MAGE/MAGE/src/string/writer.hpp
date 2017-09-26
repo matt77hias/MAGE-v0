@@ -39,8 +39,8 @@ namespace mage {
 
 		 @param[in]		writer
 						A reference to a writer to copy.
-		 @return		A reference to the copy of the given writer
-						(i.e. this writer).
+		 @return		A reference to the copy of the given writer (i.e. this 
+						writer).
 		 */
 		Writer &operator=(const Writer &writer) = delete;
 
@@ -49,8 +49,7 @@ namespace mage {
 
 		 @param[in]		writer
 						A reference to a writer to move.
-		 @return		A reference to the moved writer
-						(i.e. this writer).
+		 @return		A reference to the moved writer (i.e. this writer).
 		 */
 		Writer &operator=(Writer &&writer) = delete;
 
@@ -123,7 +122,8 @@ namespace mage {
 
 		 @pre			@a str is not equal to @c nullptr.
 		 @param[in]		str
-						A pointer to the first null-terminated byte string to write.
+						A pointer to the first null-terminated byte string to 
+						write.
 		 @throws		FormattedException
 						Failed to write the given string.
 		 */
@@ -146,7 +146,8 @@ namespace mage {
 
 		 @pre			@a str is not equal to @c nullptr.
 		 @param[in]		str
-						A pointer to the first null-terminated byte string to write.
+						A pointer to the first null-terminated byte string to 
+						write.
 		 @throws		FormattedException
 						Failed to write the given string.
 		 */

@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
 #include "material\spectrum.hpp"
 #include "math\bounding_volume.hpp"
 
@@ -41,8 +40,8 @@ namespace mage {
 
 		 @param[in]		light
 						A reference to the light to copy.
-		 @return		A reference to the copy of the given light
-						(i.e. this light).
+		 @return		A reference to the copy of the given light (i.e. this 
+						light).
 		 */
 		Light &operator=(const Light &light);
 
@@ -51,8 +50,7 @@ namespace mage {
 
 		 @param[in]		light
 						A reference to the light to move.
-		 @return		A reference to the moved light
-						(i.e. this light).
+		 @return		A reference to the moved light (i.e. this light).
 		 */
 		Light &operator=(Light &&light);
 

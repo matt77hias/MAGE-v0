@@ -13,19 +13,23 @@
 namespace mage {
 
 	OrthographicCamera::OrthographicCamera(
-		float width, float height, float near_z, float far_z)
+		f32 width, f32 height, f32 near_z, f32 far_z)
 		: Camera(near_z, far_z),
 		m_width(width), m_height(height) {}
 
-	OrthographicCamera::OrthographicCamera(const OrthographicCamera &camera) = default;
+	OrthographicCamera::OrthographicCamera(
+		const OrthographicCamera &camera) = default;
 
-	OrthographicCamera::OrthographicCamera(OrthographicCamera &&camera) = default;
+	OrthographicCamera::OrthographicCamera(
+		OrthographicCamera &&camera) = default;
 
 	OrthographicCamera::~OrthographicCamera() = default;
 
-	OrthographicCamera &OrthographicCamera::operator=(const OrthographicCamera &camera) = default;
+	OrthographicCamera &OrthographicCamera::operator=(
+		const OrthographicCamera &camera) = default;
 
-	OrthographicCamera &OrthographicCamera::operator=(OrthographicCamera &&camera) = default;
+	OrthographicCamera &OrthographicCamera::operator=(
+		OrthographicCamera &&camera) = default;
 
 	UniquePtr< Camera > OrthographicCamera::CloneImplementation() const {
 		return MakeUnique< OrthographicCamera >(*this);

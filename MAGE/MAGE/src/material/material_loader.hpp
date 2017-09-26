@@ -25,5 +25,6 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to import the materials from file.
 	 */
-	void ImportMaterialFromFile(const wstring &fname, vector< Material > &materials);
+	void ImportMaterialFromFile(const wstring &fname, 
+		vector< Material > &materials);
 }

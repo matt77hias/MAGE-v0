@@ -31,7 +31,8 @@ namespace mage {
 		 @param[in]		intensity
 						The RGB intensity.
 		 */
-		explicit AmbientLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
+		explicit AmbientLight(
+			const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
 
 		/**
 		 Constructs an ambient light from the given ambient light.
@@ -63,7 +64,7 @@ namespace mage {
 
 		 @param[in]		light
 						A reference to the ambient light to copy.
-		 @return		A reference to the copy of the given ambient light
+		 @return		A reference to the copy of the given ambient light 
 						(i.e. this ambient light).
 		 */
 		AmbientLight &operator=(const AmbientLight &light);
@@ -73,8 +74,8 @@ namespace mage {
 
 		 @param[in]		light
 						A reference to the ambient light to move.
-		 @return		A reference to the moved ambient light
-						(i.e. this ambient light).
+		 @return		A reference to the moved ambient light (i.e. this 
+						ambient light).
 		 */
 		AmbientLight &operator=(AmbientLight &&light);
 

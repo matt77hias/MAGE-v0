@@ -66,8 +66,8 @@ namespace mage {
 
 		 @param[in]		light
 						A reference to the omni light to copy.
-		 @return		A reference to the copy of the given omni light
-						(i.e. this omni light).
+		 @return		A reference to the copy of the given omni light (i.e. 
+						this omni light).
 		 */
 		OmniLight &operator=(const OmniLight &light);
 
@@ -76,8 +76,8 @@ namespace mage {
 
 		 @param[in]		light
 						A reference to the omni light to move.
-		 @return		A reference to the moved omni light
-						(i.e. this omni light).
+		 @return		A reference to the moved omni light (i.e. this omni 
+						light).
 		 */
 		OmniLight &operator=(OmniLight &&light);
 
@@ -95,31 +95,35 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the distance at which intensity falloff starts of this omni light.
+		 Returns the distance at which intensity falloff starts of this omni 
+		 light.
 
-		 @return		The distance at which intensity falloff starts of this omni light.
+		 @return		The distance at which intensity falloff starts of this 
+						omni light.
 		 */
-		float GetStartDistanceFalloff() const noexcept {
+		f32 GetStartDistanceFalloff() const noexcept {
 			return m_distance_falloff_start;
 		}
 
 		/**
-		 Sets the distance at which intensity falloff starts of this omni light
-		 to the given value.
+		 Sets the distance at which intensity falloff starts of this omni 
+		 light to the given value.
 
 		 @param[in]		distance_falloff_start
 						The distance at which intensity falloff starts.
 		 */
-		void SetStartDistanceFalloff(float distance_falloff_start) noexcept {
+		void SetStartDistanceFalloff(f32 distance_falloff_start) noexcept {
 			m_distance_falloff_start = distance_falloff_start;
 		}
 
 		/**
-		 Returns the distance at which intensity falloff ends of this omni light.
+		 Returns the distance at which intensity falloff ends of this omni 
+		 light.
 
-		 @return		The distance at which intensity falloff ends of this omni light.
+		 @return		The distance at which intensity falloff ends of this 
+						omni light.
 		 */
-		float GetEndDistanceFalloff() const noexcept {
+		f32 GetEndDistanceFalloff() const noexcept {
 			return m_distance_falloff_end;
 		}
 
@@ -131,17 +135,17 @@ namespace mage {
 		 @param[in]		distance_falloff_end
 						The distance at which intensity falloff ends.
 		 */
-		void SetEndDistanceFalloff(float distance_falloff_end) noexcept {
+		void SetEndDistanceFalloff(f32 distance_falloff_end) noexcept {
 			Assert(distance_falloff_end);
 			m_distance_falloff_end = distance_falloff_end;
 			
 			// Update the bounding volumes.
 			UpdateBoundingVolumes();
 		}
-
+		
 		/**
-		 Sets the distance at which intensity falloff starts and ends of this omni light
-		 to the given values.
+		 Sets the distance at which intensity falloff starts and ends of this 
+		 omni light to the given values.
 
 		 @pre			@a distance_falloff_end > 0.
 		 @param[in]		distance_falloff_start
@@ -149,40 +153,50 @@ namespace mage {
 		 @param[in]		distance_falloff_end
 						The distance at which intensity falloff ends.
 		 */
-		void SetDistanceFalloff(float distance_falloff_start, float distance_falloff_end) noexcept {
+		void SetDistanceFalloff(
+			f32 distance_falloff_start, f32 distance_falloff_end) noexcept {
+			
 			SetStartDistanceFalloff(distance_falloff_start);
 			SetEndDistanceFalloff(distance_falloff_end);
 		}
-
+		
 		/**
-		 Returns the distance range where intensity falloff occurs of this omni light.
+		 Returns the distance range where intensity falloff occurs of this omni 
+		 light.
 
-		 @return		The distance range where intensity falloff occurs of this omni light.
-						@a GetEndDistanceFalloff() - @a GetStartDistanceFalloff()
+		 @return		The distance range where intensity falloff occurs of 
+						this omni light.
+						@a GetEndDistanceFalloff() - 
+						@a GetStartDistanceFalloff()
 		 */
-		float GetRangeDistanceFalloff() const noexcept {
+		f32 GetRangeDistanceFalloff() const noexcept {
 			return m_distance_falloff_end - m_distance_falloff_start;
 		}
-
+		
 		/**
-		 Sets the distance at which intensity falloff starts and the distance range 
-		 where intensity falloff occurs of this omni light to the given values.
+		 Sets the distance at which intensity falloff starts and the distance 
+		 range where intensity falloff occurs of this omni light to the given 
+		 values.
 
-		 @pre			@a distance_falloff_start + @a distance_falloff_range > 0.
+		 @pre			@a distance_falloff_start + @a distance_falloff_range > 
+						0.
 		 @param[in]		distance_falloff_start
 						The distance at which intensity falloff starts.
 		 @param[in]		distance_falloff_range
 						The distance range where intensity falloff occurs.
 		 */
-		void SetRangeDistanceFalloff(float distance_falloff_start, float distance_falloff_range) noexcept {
-			SetDistanceFalloff(distance_falloff_start, distance_falloff_start + distance_falloff_range);
+		void SetRangeDistanceFalloff(
+			f32 distance_falloff_start, f32 distance_falloff_range) noexcept {
+			
+			SetDistanceFalloff(distance_falloff_start, 
+				distance_falloff_start + distance_falloff_range);
 		}
 
 		/**
 		 Checks whether shadows should be used for this omni light.
 
-		 @return		@c true if shadows should be used for this
-						omni light. @c false otherwise.
+		 @return		@c true if shadows should be used for this omni light. 
+						@c false otherwise.
 		 */
 		bool UseShadows() const noexcept {
 			return m_shadows;
@@ -208,23 +222,23 @@ namespace mage {
 		void ToggleShadows() noexcept {
 			SetShadows(!m_shadows);
 		}
-
+		
 		/**
 		 Sets shadows for this omni light to the given value.
 
-		 @param[in]		@c true if shadows should be used for
-						this omni light. @c false otherwise.
+		 @param[in]		@c true if shadows should be used for this omni light. 
+						@c false otherwise.
 		 */
 		void SetShadows(bool shadows) noexcept {
 			m_shadows = shadows;
 		}
 
 		/**
-		 Returns the view-to-projection matrix 
-		 of the (forward) light camera of this omni light.
+		 Returns the view-to-projection matrix of the (forward) light camera 
+		 of this omni light.
 
-		 @return		The view-to-projection matrix 
-						of the (forward) light camera of this omni light.
+		 @return		The view-to-projection matrix of the (forward) light 
+						camera of this omni light.
 		 */
 		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
 			return XMMatrixPerspectiveFovLH(
@@ -272,16 +286,16 @@ namespace mage {
 		/**
 		 The start of the distance falloff of this omni light.
 		 */
-		float m_distance_falloff_start;
+		f32 m_distance_falloff_start;
 
 		/**
 		 The end of the distance falloff of this omni light.
 		 */
-		float m_distance_falloff_end;
+		f32 m_distance_falloff_end;
 
 		/**
-		 A flag indicating whether shadows should be calculated
-		 or not for this omni light.
+		 A flag indicating whether shadows should be calculated or not for 
+		 this omni light.
 		 */
 		bool m_shadows;
 	};

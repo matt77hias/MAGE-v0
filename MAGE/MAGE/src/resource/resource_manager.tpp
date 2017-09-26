@@ -14,7 +14,8 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_model_descriptor_resource_pool->template
-			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(
+				guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -22,7 +23,8 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_vs_resource_pool->template
-			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(
+				guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -30,7 +32,8 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_hs_resource_pool->template
-			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(
+				guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -38,7 +41,8 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_ds_resource_pool->template
-			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(
+				guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -46,7 +50,8 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_gs_resource_pool->template
-			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(
+				guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -54,7 +59,8 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_ps_resource_pool->template
-			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(
+				guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -62,7 +68,8 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_cs_resource_pool->template
-			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(
+				guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -70,7 +77,8 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_sprite_font_resource_pool->template
-			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(
+				guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -78,7 +86,8 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_texture_resource_pool->template
-			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(
+				guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 
 	template< typename... ConstructorArgsT >
@@ -86,6 +95,7 @@ namespace mage {
 		const wstring &guid, ConstructorArgsT&&... args) {
 		
 		return m_variable_script_resource_pool->template
-			GetOrCreateResource< const wstring &, ConstructorArgsT... >(guid, guid, std::forward< ConstructorArgsT >(args)...);
+			GetOrCreateResource< const wstring &, ConstructorArgsT... >(
+				guid, guid, std::forward< ConstructorArgsT >(args)...);
 	}
 }

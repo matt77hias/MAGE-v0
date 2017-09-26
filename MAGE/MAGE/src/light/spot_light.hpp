@@ -66,8 +66,8 @@ namespace mage {
 
 		 @param[in]		light
 						A reference to the spotlight to copy.
-		 @return		A reference to the copy of the given spotlight
-						(i.e. this spotlight).
+		 @return		A reference to the copy of the given spotlight (i.e. 
+						this spotlight).
 		 */
 		SpotLight &operator=(const SpotLight &light);
 
@@ -76,8 +76,8 @@ namespace mage {
 
 		 @param[in]		light
 						A reference to the spotlight to move.
-		 @return		A reference to the moved spotlight
-						(i.e. this spotlight).
+		 @return		A reference to the moved spotlight (i.e. this 
+						spotlight).
 		 */
 		SpotLight &operator=(SpotLight &&light);
 
@@ -95,11 +95,13 @@ namespace mage {
 		}
 
 		/**
-		 Returns the distance at which intensity falloff starts of this spotlight.
+		 Returns the distance at which intensity falloff starts of this 
+		 spotlight.
 
-		 @return		The distance at which intensity falloff starts of this spotlight.
+		 @return		The distance at which intensity falloff starts of 
+						this spotlight.
 		 */
-		float GetStartDistanceFalloff() const noexcept {
+		f32 GetStartDistanceFalloff() const noexcept {
 			return m_distance_falloff_start;
 		}
 		
@@ -110,16 +112,18 @@ namespace mage {
 		 @param[in]		distance_falloff_start
 						The distance at which intensity falloff starts.
 		 */
-		void SetStartDistanceFalloff(float distance_falloff_start) noexcept {
+		void SetStartDistanceFalloff(f32 distance_falloff_start) noexcept {
 			m_distance_falloff_start = distance_falloff_start;
 		}
 		
 		/**
-		 Returns the distance at which intensity falloff ends of this spotlight.
+		 Returns the distance at which intensity falloff ends of this 
+		 spotlight.
 
-		 @return		The distance at which intensity falloff ends of this spotlight.
+		 @return		The distance at which intensity falloff ends of this 
+						spotlight.
 		 */
-		float GetEndDistanceFalloff() const noexcept {
+		f32 GetEndDistanceFalloff() const noexcept {
 			return m_distance_falloff_end;
 		}
 		
@@ -131,7 +135,7 @@ namespace mage {
 		 @param[in]		distance_falloff_end
 						The distance at which intensity falloff ends.
 		 */
-		void SetEndDistanceFalloff(float distance_falloff_end) noexcept {
+		void SetEndDistanceFalloff(f32 distance_falloff_end) noexcept {
 			Assert(distance_falloff_end);
 			m_distance_falloff_end = distance_falloff_end;
 
@@ -140,8 +144,8 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the distance at which intensity falloff starts and ends of this spotlight
-		 to the given values.
+		 Sets the distance at which intensity falloff starts and ends of this 
+		 spotlight to the given values.
 
 		 @pre			@a distance_falloff_end > 0.
 		 @param[in]		distance_falloff_start
@@ -149,33 +153,43 @@ namespace mage {
 		 @param[in]		distance_falloff_end
 						The distance at which intensity falloff ends.
 		 */
-		void SetDistanceFalloff(float distance_falloff_start, float distance_falloff_end) noexcept {
+		void SetDistanceFalloff(
+			f32 distance_falloff_start, f32 distance_falloff_end) noexcept {
+			
 			SetStartDistanceFalloff(distance_falloff_start);
 			SetEndDistanceFalloff(distance_falloff_end);
 		}
-
+		
 		/**
-		 Returns the distance range where intensity falloff occurs of this spotlight.
+		 Returns the distance range where intensity falloff occurs of this 
+		 spotlight.
 
-		 @return		The distance range where intensity falloff occurs of this spotlight.
-						@a GetEndDistanceFalloff() - @a GetStartDistanceFalloff()
+		 @return		The distance range where intensity falloff occurs of 
+						this spotlight.
+						@a GetEndDistanceFalloff() - 
+						@a GetStartDistanceFalloff()
 		 */
-		float GetRangeDistanceFalloff() const noexcept {
+		f32 GetRangeDistanceFalloff() const noexcept {
 			return m_distance_falloff_end - m_distance_falloff_start;
 		}
-
+		
 		/**
-		 Sets the distance at which intensity falloff starts and the distance range
-		 where intensity falloff occurs of this spotlight to the given values.
+		 Sets the distance at which intensity falloff starts and the distance 
+		 range where intensity falloff occurs of this spotlight to the given 
+		 values.
 
-		 @pre			@a distance_falloff_start + @a distance_falloff_range > 0.
+		 @pre			@a distance_falloff_start + @a distance_falloff_range > 
+							0.
 		 @param[in]		distance_falloff_start
 						The distance at which intensity falloff starts.
 		 @param[in]		distance_falloff_range
 						The distance range where intensity falloff occurs.
 		 */
-		void SetRangeDistanceFalloff(float distance_falloff_start, float distance_falloff_range) noexcept {
-			SetDistanceFalloff(distance_falloff_start, distance_falloff_start + distance_falloff_range);
+		void SetRangeDistanceFalloff(
+			f32 distance_falloff_start, f32 distance_falloff_range) noexcept {
+			
+			SetDistanceFalloff(distance_falloff_start, 
+				distance_falloff_start + distance_falloff_range);
 		}
 
 		/**
@@ -183,18 +197,18 @@ namespace mage {
 
 		 @return		The cosine of the penumbra angle of this spotlight.
 		 */
-		float GetStartAngularCutoff() const noexcept {
+		f32 GetStartAngularCutoff() const noexcept {
 			return m_cos_penumbra;
 		}
 		
 		/**
-		 Sets the cosine of the penumbra angle of this spotlight
-		 to the given value.
+		 Sets the cosine of the penumbra angle of this spotlight to the given 
+		 value.
 
 		 @param[in]		cos_penumbra
 						The cosine of the penumbra angle.
 		 */
-		void SetStartAngularCutoff(float cos_penumbra) noexcept {
+		void SetStartAngularCutoff(f32 cos_penumbra) noexcept {
 			m_cos_penumbra = cos_penumbra;
 		}
 		
@@ -203,19 +217,19 @@ namespace mage {
 
 		 @return		The cosine of the umbra angle of this spotlight.
 		 */
-		float GetEndAngularCutoff() const noexcept {
+		f32 GetEndAngularCutoff() const noexcept {
 			return m_cos_umbra;
 		}
 		
 		/**
-		 Sets the cosine of the umbra angle of this spotlight
-		 to the given value.
+		 Sets the cosine of the umbra angle of this spotlight to the given 
+		 value.
 
 		 @pre			@a cos_umbra > 0.
 		 @param[in]		cos_umbra
 						The cosine of the umbra angle.
 		 */
-		void SetEndAngularCutoff(float cos_umbra) noexcept {
+		void SetEndAngularCutoff(f32 cos_umbra) noexcept {
 			Assert(cos_umbra);
 			m_cos_umbra = cos_umbra;
 
@@ -224,8 +238,8 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the cosine of the penumbra and umbra angles of this spotlight
-		 to the given values.
+		 Sets the cosine of the penumbra and umbra angles of this spotlight to 
+		 the given values.
 
 		 @pre			@a cos_umbra > 0.
 		 @param[in]		cos_penumbra
@@ -233,18 +247,20 @@ namespace mage {
 		 @param[in]		cos_umbra
 						The cosine of the umbra angle.
 		 */
-		void SetAngularCutoff(float cos_penumbra, float cos_umbra) noexcept {
+		void SetAngularCutoff(f32 cos_penumbra, f32 cos_umbra) noexcept {
 			SetStartAngularCutoff(cos_penumbra);
 			SetEndAngularCutoff(cos_umbra);
 		}
-
+		
 		/**
-		 Returns the cosine range where intensity falloff occurs of this spotlight.
+		 Returns the cosine range where intensity falloff occurs of this 
+		 spotlight.
 
-		 @return		The cosine range where intensity falloff occurs of this spotlight.
-						@a GetStartAngularCutoff() - @a GetEndAngularCutoff()
+		 @return		The cosine range where intensity falloff occurs of this 
+						spotlight. @a GetStartAngularCutoff() - 
+						@a GetEndAngularCutoff()
 		 */
-		float GetRangeAngularCutoff() const noexcept {
+		f32 GetRangeAngularCutoff() const noexcept {
 			return m_cos_penumbra - m_cos_umbra;
 		}
 
@@ -253,18 +269,18 @@ namespace mage {
 
 		 @return		The penumbra angle (in radians) of this spotlight.
 		 */
-		float GetPenumbraAngle() const noexcept {
+		f32 GetPenumbraAngle() const noexcept {
 			return acos(m_cos_penumbra);
 		}
-
+		
 		/**
-		 Sets the penumbra angle (in radians) of this spotlight
-		 to the given value (in radians).
+		 Sets the penumbra angle (in radians) of this spotlight to the given 
+		 value (in radians).
 
 		 @param[in]		penumbra
 						The penumbra angle (in radians).
 		 */
-		void SetPenumbraAngle(float penumbra) noexcept {
+		void SetPenumbraAngle(f32 penumbra) noexcept {
 			SetStartAngularCutoff(cos(penumbra));
 		}
 
@@ -273,25 +289,25 @@ namespace mage {
 
 		 @return		The umbra angle (in radians) of this spotlight.
 		 */
-		float GetUmbraAngle() const noexcept {
+		f32 GetUmbraAngle() const noexcept {
 			return acos(m_cos_umbra);
 		}
-
+		
 		/**
-		 Sets the umbra angle (in radians) of this spotlight
-		 to the given value.
+		 Sets the umbra angle (in radians) of this spotlight to the given 
+		 value.
 
 		 @pre			cos(@a umbra) > 0.
 		 @param[in]		umbra
 						The umbra angle (in radians).
 		 */
-		void SetUmbraAngle(float umbra) noexcept {
+		void SetUmbraAngle(f32 umbra) noexcept {
 			SetEndAngularCutoff(cos(umbra));
 		}
-
+		
 		/**
-		 Sets the penumbra and umbra angles (in radians) of this spotlight
-		 to the given values.
+		 Sets the penumbra and umbra angles (in radians) of this spotlight to 
+		 the given values.
 
 		 @pre			cos(@a umbra) > 0.
 		 @param[in]		penumbra
@@ -299,36 +315,35 @@ namespace mage {
 		 @param[in]		umbra
 						The umbra angle (in radians).
 		 */
-		void SetPenumbraAndUmbraAngles(float penumbra, float umbra) noexcept {
+		void SetPenumbraAndUmbraAngles(f32 penumbra, f32 umbra) noexcept {
 			SetPenumbraAngle(penumbra);
 			SetUmbraAngle(umbra);
 		}
-
+		
 		/**
 		 Returns the exponent property of this spotlight.
 
 		 @return		The exponent property of this spotlight.
 		 */
-		float GetExponentProperty() const noexcept {
+		f32 GetExponentProperty() const noexcept {
 			return m_exponent_property;
 		}
 		
 		/**
-		 Sets the exponent property of this spotlight
-		 to the given value.
+		 Sets the exponent property of this spotlight to the given value.
 
 		 @param[in]		exponent_property
 						The exponent property.
 		 */
-		void SetExponentProperty(float exponent_property) noexcept {
+		void SetExponentProperty(f32 exponent_property) noexcept {
 			m_exponent_property = exponent_property;
 		}
-
+		
 		/**
 		 Checks whether shadows should be used for this spotlight.
 
-		 @return		@c true if shadows should be used for this
-						spotlight. @c false otherwise.
+		 @return		@c true if shadows should be used for this spotlight. 
+						@c false otherwise.
 		 */
 		bool UseShadows() const noexcept {
 			return m_shadows;
@@ -354,23 +369,23 @@ namespace mage {
 		void ToggleShadows() noexcept {
 			SetShadows(!m_shadows);
 		}
-
+		
 		/**
 		 Sets shadows for this spotlight to the given value.
 
-		 @param[in]		@c true if shadows should be used for
-						this spotlight. @c false otherwise.
+		 @param[in]		@c true if shadows should be used for this spotlight. 
+						@c false otherwise.
 		 */
 		void SetShadows(bool shadows) noexcept {
 			m_shadows = shadows;
 		}
-
+		
 		/**
-		 Returns the view-to-projection matrix 
-		 of the light camera of this spot light.
+		 Returns the view-to-projection matrix of the light camera of this spot 
+		 light.
 
-		 @return		The view-to-projection matrix 
-						of the light camera of this spot light.
+		 @return		The view-to-projection matrix of the light camera of 
+						this spot light.
 		 */
 		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
 			return XMMatrixPerspectiveFovLH(
@@ -418,31 +433,31 @@ namespace mage {
 		/**
 		 The exponent property of this spotlight.
 		 */
-		float m_exponent_property;
+		f32 m_exponent_property;
 
 		/**
 		 The start of the distance falloff of this spotlight.
 		 */
-		float m_distance_falloff_start;
+		f32 m_distance_falloff_start;
 
 		/**
 		 The end of the distance falloff of this spotlight.
 		 */
-		float m_distance_falloff_end;
+		f32 m_distance_falloff_end;
 
 		/**
 		 The cosine of the penumbra angle of this spotlight.
 		 */
-		float m_cos_penumbra;
+		f32 m_cos_penumbra;
 
 		/**
 		 The cosine of the umbra angle of this spotlight.
 		 */
-		float m_cos_umbra;
+		f32 m_cos_umbra;
 
 		/**
-		 A flag indicating whether shadows should be calculated
-		 or not for this spotlight.
+		 A flag indicating whether shadows should be calculated or not for 
+		 this spotlight.
 		 */
 		bool m_shadows;
 	};

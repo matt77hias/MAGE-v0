@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
 #include "texture\texture_utils.hpp"
 #include "rendering\rendering_utils.hpp"
 #include "logging\error.hpp"
@@ -17,6 +16,7 @@
 namespace mage {
 
 	const XMVECTOR GetTexture2DSize(ID3D11ShaderResourceView *texture_srv) {
+		
 		Assert(texture_srv);
 
 		ComPtr< ID3D11Resource > resource;
@@ -24,12 +24,15 @@ namespace mage {
 
 		ComPtr< ID3D11Texture2D > texture;
 		const HRESULT result_texture = resource.As(&texture);
-		ThrowIfFailed(result_texture, "Conversion of ID3D11Resource to Texture2D failed: %08X.", result_texture);
+		ThrowIfFailed(result_texture, 
+			"Conversion of ID3D11Resource to Texture2D failed: %08X.", 
+			result_texture);
 
 		return GetTexture2DSize(texture.Get());
 	}
 
 	const XMVECTOR GetTexture2DSize(ID3D11Texture2D *texture) noexcept {
+		
 		Assert(texture);
 		
 		// Query the texture size.
@@ -43,6 +46,7 @@ namespace mage {
 	}
 
 	bool HasAlpha(ID3D11ShaderResourceView *texture_srv) noexcept {
+		
 		Assert(texture_srv);
 
 		ComPtr< ID3D11Resource > resource;
@@ -53,23 +57,29 @@ namespace mage {
 		switch (dimension) {
 		
 		case D3D11_RESOURCE_DIMENSION_TEXTURE1D: {
+			
 			ComPtr< ID3D11Texture1D > texture;
 			const HRESULT result_texture = resource.As(&texture);
 			Assert(SUCCEEDED(result_texture));
+			
 			return HasAlpha(texture.Get());
 		}
 
 		case D3D11_RESOURCE_DIMENSION_TEXTURE2D: {
+			
 			ComPtr< ID3D11Texture2D > texture;
 			const HRESULT result_texture = resource.As(&texture);
 			Assert(SUCCEEDED(result_texture));
+			
 			return HasAlpha(texture.Get());
 		}
 
 		case D3D11_RESOURCE_DIMENSION_TEXTURE3D: {
+			
 			ComPtr< ID3D11Texture3D > texture;
 			const HRESULT result_texture = resource.As(&texture);
 			Assert(SUCCEEDED(result_texture));
+			
 			return HasAlpha(texture.Get());
 		}
 
@@ -79,6 +89,7 @@ namespace mage {
 	}
 
 	bool HasAlpha(ID3D11Texture1D *texture) noexcept {
+		
 		Assert(texture);
 
 		// Query the texture size.
@@ -89,6 +100,7 @@ namespace mage {
 	}
 
 	bool HasAlpha(ID3D11Texture2D *texture) noexcept {
+		
 		Assert(texture);
 
 		// Query the texture size.
@@ -99,6 +111,7 @@ namespace mage {
 	}
 
 	bool HasAlpha(ID3D11Texture3D *texture) noexcept {
+		
 		Assert(texture);
 
 		// Query the texture size.

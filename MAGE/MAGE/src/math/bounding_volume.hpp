@@ -489,6 +489,26 @@ namespace mage {
 	 @return		The strict overlap AABB of @a aabb1 and @a aabb2.
 	 */
 	const AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2) noexcept;
+	
+	/**
+	 Returns the minimum AABB (i.e. variant for union operations).
+
+	 @return		The minimum AABB.
+	 */
+	inline const AABB MinimumAABB() noexcept {
+		return AABB();
+	}
+
+	/**
+	 Returns the maximum AABB (i.e. invariant for union operations).
+
+	 @return		The maximum AABB.
+	 */
+	inline const AABB MaximumAABB() noexcept {
+		return AABB(
+			Point3(-INFINITY, -INFINITY, -INFINITY),
+			Point3( INFINITY,  INFINITY,  INFINITY));
+	}
 
 	//-------------------------------------------------------------------------
 	// Bounding Sphere
@@ -741,5 +761,14 @@ namespace mage {
 	template< typename VertexT >
 	inline const BS Union(const BS &bs, const VertexT &vertex) noexcept {
 		return Union(bs, vertex.p);
+	}
+
+	/**
+	 Returns the maximum BS (i.e. invariant for union operations).
+
+	 @return		The maximum BS.
+	 */
+	inline const BS MaximumBS() noexcept {
+		return BS(Point3(), INFINITY);
 	}
 }

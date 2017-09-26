@@ -76,8 +76,8 @@ namespace mage {
 
 		 @param[in]		setup
 						A reference to the engine setup to copy from.
-		 @return		A reference to the copy of the given engine setup
-						(i.e. this engine setup).
+		 @return		A reference to the copy of the given engine setup (i.e. 
+						this engine setup).
 		 */
 		EngineSetup &operator=(const EngineSetup &setup) = delete;
 
@@ -86,8 +86,8 @@ namespace mage {
 
 		 @param[in]		setup
 						A reference to the engine setup to copy from.
-		 @return		A reference to the moved engine setup
-						(i.e. this engine setup).
+		 @return		A reference to the moved engine setup (i.e. this engine 
+						setup).
 		 */
 		EngineSetup &operator=(EngineSetup &&setup) = delete;
 

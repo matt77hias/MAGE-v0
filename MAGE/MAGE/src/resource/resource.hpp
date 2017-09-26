@@ -71,8 +71,8 @@ namespace mage {
 
 		 @param[in]		resource
 						A reference to the resource to copy.
-		 @return		A reference to the copy of the given resource
-						(i.e. this resource).
+		 @return		A reference to the copy of the given resource (i.e. 
+						this resource).
 		 */
 		Resource &operator=(const Resource &resource) = delete;
 
@@ -81,8 +81,7 @@ namespace mage {
 
 		 @param[in]		resource
 						A reference to the resource to move.
-		 @return		A reference to the moved resource
-						(i.e. this resource).
+		 @return		A reference to the moved resource (i.e. this resource).
 		 */
 		Resource &operator=(Resource &&resource) = delete;
 
@@ -93,8 +92,8 @@ namespace mage {
 		/**
 		 Returns the globally unique identifier of this resource.
 
-		 @return		A refernce to the globally unique identifier 
-						of this resource.
+		 @return		A refernce to the globally unique identifier of this 
+						resource.
 		 */
 		const wstring &GetGuid() const noexcept {
 			return m_guid;

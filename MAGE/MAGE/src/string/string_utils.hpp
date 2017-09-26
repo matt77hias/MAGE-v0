@@ -24,8 +24,7 @@ namespace mage {
 					A pointer to the first null-terminated byte string.
 	 @param[in]		str2
 					A pointer to the second null-terminated byte string.
-	 @return		@c true if @a str1 is equal to @a str2.
-					@c false otherwise.
+	 @return		@c true if @a str1 is equal to @a str2. @c false otherwise.
 	 */
 	inline bool str_equals(const char *str1, const char *str2) noexcept {
 		Assert(str1);
@@ -42,8 +41,7 @@ namespace mage {
 					A pointer to the first null-terminated wide string.
 	 @param[in]		str2
 					A pointer to the second null-terminated wide string.
-	 @return		@c true if @a str1 is equal to @a str2.
-					@c false otherwise.
+	 @return		@c true if @a str1 is equal to @a str2. @c false otherwise.
 	 */
 	inline bool str_equals(const wchar_t *str1, const wchar_t *str2) noexcept {
 		Assert(str1);
@@ -59,10 +57,10 @@ namespace mage {
 	 @param[in]		str1
 					A pointer to the null-terminated byte string to be scanned.
 	 @param[in]		str2
-					A pointer to the null-terminated byte string 
-					containing the sequence of characters to match.
-	 @return		@c true if @a str1 contains a substring @a str2.
-					@c false otherwise.
+					A pointer to the null-terminated byte string containing 
+					the sequence of characters to match.
+	 @return		@c true if @a str1 contains a substring @a str2. @c false 
+					otherwise.
 	 */
 	inline bool str_contains(const char *str1, const char *str2) noexcept {
 		Assert(str1);
@@ -78,10 +76,10 @@ namespace mage {
 	 @param[in]		str1
 					A pointer to the null-terminated wide string to be scanned.
 	 @param[in]		str2
-					A pointer to the null-terminated wide string 
-					containing the sequence of characters to match.
-	 @return		@c true if @a str1 contains a substring @a str2.
-					@c false otherwise.
+					A pointer to the null-terminated wide string containing 
+					the sequence of characters to match.
+	 @return		@c true if @a str1 contains a substring @a str2. @c false 
+					otherwise.
 	 */
 	inline bool str_contains(const wchar_t *str1, const wchar_t *str2) noexcept {
 		Assert(str1);
@@ -97,8 +95,7 @@ namespace mage {
 					A pointer to the null-terminated byte string to be scanned.
 	 @param[in]		c
 					The byte character to match.
-	 @return		@c true if @a str contains a @a c.
-					@c false otherwise.
+	 @return		@c true if @a str contains a @a c. @c false otherwise.
 	 */
 	inline bool str_contains(const char *str, char c) noexcept {
 		Assert(str);
@@ -113,8 +110,7 @@ namespace mage {
 					A pointer to the null-terminated wide string to be scanned.
 	 @param[in]		c
 					The wide character to match.
-	 @return		@c true if @a str contains a @a c.
-					@c false otherwise.
+	 @return		@c true if @a str contains a @a c. @c false otherwise.
 	 */
 	inline bool str_contains(const wchar_t *str, wchar_t c) noexcept {
 		Assert(str);
@@ -182,14 +178,16 @@ namespace mage {
 	wchar_t *str_escape_first(wchar_t *str, wchar_t c) noexcept;
 
 	/**
-	 Reads characters from the given input string and stores them as a C string into @a str 
-	 until (num-1) characters have been read or either a newline or the end-of-file is reached, 
-	 whichever happens first.
+	 Reads characters from the given input string and stores them as a C string 
+	 into @a str until (@a num-1) characters have been read or either a newline 
+	 or the end-of-file is reached, whichever happens first.
 
-	 A newline character makes @c sgets stop reading, but it is considered a valid character 
-	 by the function and included in the string copied to @a str.
+	 A newline character makes @c sgets stop reading, but it is considered a 
+	 valid character by the function and included in the string copied to 
+	 @a str.
 
-	 A terminating null character is automatically appended after the characters copied to @a str.
+	 A terminating null character is automatically appended after the 
+	 characters copied to @a str.
 	 
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a input is not equal to @c nullptr.
@@ -205,14 +203,16 @@ namespace mage {
 	char *str_gets(char *str, int num, const char **input) noexcept;
 
 	/**
-	 Reads characters from the given input string and stores them as a C string into @a str
-	 until (num-1) characters have been read or either a newline or the end-of-file is reached,
-	 whichever happens first.
+	 Reads characters from the given input string and stores them as a C string 
+	 into @a str until (@a num-1) characters have been read or either a newline 
+	 or the end-of-file is reached, whichever happens first.
 
-	 A newline character makes @c sgets stop reading, but it is considered a valid character
-	 by the function and included in the string copied to @a str.
+	 A newline character makes @c sgets stop reading, but it is considered a 
+	 valid character by the function and included in the string copied to 
+	 @a str.
 
-	 A terminating null character is automatically appended after the characters copied to @a str.
+	 A terminating null character is automatically appended after the 
+	 characters copied to @a str.
 
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a input is not equal to @c nullptr.

@@ -29,11 +29,11 @@ namespace mage {
 		/**
 		 Constructs a texture.
 
-		 @pre			The device associated with the current engine 
-						must be loaded.
+		 @pre			The device associated with the current engine must be 
+						loaded.
 		 @param[in]		fname
-						A reference to the filename
-						(the globally unique identifier).
+						A reference to the filename (the globally unique 
+						identifier).
 		 @throws		FormattedException
 						Failed to initialize the texture.
 		 */
@@ -43,11 +43,11 @@ namespace mage {
 		 Constructs a texture.
 
 		 @pre			@a device is not equal to @c nullptr.
-		 @pre			The renderer associated with the current engine
-						must be loaded.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
 		 @param[in]		fname
-						A reference to the filename
-						(the globally unique identifier).
+						A reference to the filename (the globally unique 
+						identifier).
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
@@ -58,8 +58,8 @@ namespace mage {
 		/**
 		 Constructs a 2D texture.
 
-		 @pre			The device associated with the current engine 
-						must be loaded.
+		 @pre			The device associated with the current engine must be 
+						loaded.
 		 @pre			@a desc is not equal to @c nullptr.
 		 @pre			@a initial_data is not equal to @c nullptr.
 		 @param[in]		guid
@@ -126,8 +126,8 @@ namespace mage {
 
 		 @param[in]		texture
 						A reference to the texture to copy.
-		 @return		A reference to the copy of the given texture
-						(i.e. this texture).
+		 @return		A reference to the copy of the given texture (i.e. this 
+						texture).
 		 */
 		Texture &operator=(const Texture &texture) = delete;
 
@@ -136,8 +136,7 @@ namespace mage {
 
 		 @param[in]		texture
 						A reference to the texture to move.
-		 @return		A reference to the moved texture
-						(i.e. this texture).
+		 @return		A reference to the moved texture (i.e. this texture).
 		 */
 		Texture &operator=(Texture &&texture) = delete;
 
@@ -148,8 +147,7 @@ namespace mage {
 		/**
 		 Returns a pointer to the shader resource view of this texture.
 
-		 @return		A pointer to the shader resource view
-						of this texture.
+		 @return		A pointer to the shader resource view of this texture.
 		 */
 		ID3D11ShaderResourceView *Get() const noexcept {
 			return m_texture_srv.Get();

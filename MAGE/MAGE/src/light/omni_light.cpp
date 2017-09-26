@@ -14,7 +14,8 @@ namespace mage {
 
 	OmniLight::OmniLight(const RGBSpectrum &intensity)
 		: Light(intensity),
-		m_distance_falloff_start(0.0f), m_distance_falloff_end(1.0f), 
+		m_distance_falloff_start(0.0f), 
+		m_distance_falloff_end(1.0f), 
 		m_shadows(false) {
 
 		// Update the bounding volumes.
@@ -38,8 +39,14 @@ namespace mage {
 	void OmniLight::UpdateBoundingVolumes() noexcept {
 
 		AABB aabb(
-			Point3(-m_distance_falloff_end, -m_distance_falloff_end, -m_distance_falloff_end),
-			Point3( m_distance_falloff_end,  m_distance_falloff_end,  m_distance_falloff_end));
+			Point3(
+				-m_distance_falloff_end, 
+				-m_distance_falloff_end, 
+				-m_distance_falloff_end),
+			Point3(
+				m_distance_falloff_end, 
+				m_distance_falloff_end, 
+				m_distance_falloff_end));
 
 		BS bs(Point3(), m_distance_falloff_end);
 

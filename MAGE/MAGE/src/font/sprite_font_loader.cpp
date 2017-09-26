@@ -18,6 +18,7 @@ namespace mage {
 
 	void ImportSpriteFontFromFile(const wstring &fname, ID3D11Device2 *device, 
 		SpriteFontOutput &output, const SpriteFontDescriptor &desc) {
+		
 		Assert(device);
 
 		const wstring extension = GetFileExtension(fname);
@@ -26,7 +27,8 @@ namespace mage {
 			ImportFontFromFile(fname, device, output, desc);
 		}
 		else {
-			throw FormattedException("Unknown sprite font file extension: %ls", fname.c_str());
+			throw FormattedException(
+				"Unknown sprite font file extension: %ls", fname.c_str());
 		}
 	}
 }

@@ -22,13 +22,13 @@ namespace mage {
 		return viewport;
 	}
 
-	float Viewport::NormalizeWidth(float x) noexcept {
-		const float width = static_cast< float >(Renderer::Get()->GetWidth());
+	f32 Viewport::NormalizeWidth(f32 x) noexcept {
+		const f32 width = static_cast< f32 >(Renderer::Get()->GetWidth());
 		return Clamp(x * width, 0.0f, width);
 	}
 
-	float Viewport::NormalizeHeight(float x) noexcept {
-		const float height = static_cast< float >(Renderer::Get()->GetHeight());
+	f32 Viewport::NormalizeHeight(f32 x) noexcept {
+		const f32 height = static_cast< f32 >(Renderer::Get()->GetHeight());
 		return Clamp(x * height, 0.0f, height);
 	}
 }

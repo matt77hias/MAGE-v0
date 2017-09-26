@@ -14,17 +14,13 @@ namespace mage {
 
 	Light::Light(const RGBSpectrum &intensity)
 		: m_intensity(intensity),
-		m_aabb(
-			Point3(-INFINITY, -INFINITY, -INFINITY), 
-			Point3( INFINITY,  INFINITY,  INFINITY)), 
-		m_bs(Point3(), INFINITY) {}
+		m_aabb(MaximumAABB()),
+		m_bs(MaximumBS()) {}
 
 	Light::Light(RGBSpectrum &&intensity)
 		: m_intensity(std::move(intensity)),
-		m_aabb(
-			Point3(-INFINITY, -INFINITY, -INFINITY), 
-			Point3( INFINITY,  INFINITY,  INFINITY)), 
-		m_bs(Point3(), INFINITY) {}
+		m_aabb(MaximumAABB()),
+		m_bs(MaximumBS()) {}
 
 	Light::Light(const Light &light) = default;
 	

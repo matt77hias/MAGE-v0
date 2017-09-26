@@ -25,5 +25,6 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to import the mesh from file.
 	 */
-	void ImportMTLMaterialFromFile(const wstring &fname, vector< Material > &materials);
+	void ImportMTLMaterialFromFile(const wstring &fname, 
+		vector< Material > &materials);
 }

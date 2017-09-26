@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
 #include "math\math.hpp"
 
 #pragma endregion
@@ -50,8 +49,8 @@ namespace mage {
 
 		 @param[in]		camera
 						A reference to the camera to copy.
-		 @return		A reference to the copy of the given camera
-						(i.e. this camera).
+		 @return		A reference to the copy of the given camera (i.e. this 
+						camera).
 		 */
 		Camera &operator=(const Camera &camera);
 
@@ -60,8 +59,7 @@ namespace mage {
 
 		 @param[in]		camera
 						A reference to the camera to move.
-		 @return		A reference to the moved camera
-						(i.e. this camera).
+		 @return		A reference to the moved camera (i.e. this camera).
 		 */
 		Camera &operator=(Camera &&camera);
 
@@ -79,52 +77,57 @@ namespace mage {
 		}
 
 		/**
-		 Returns the position of the near z-plane of this camera in camera space.
+		 Returns the position of the near z-plane of this camera in camera 
+		 space.
 
 		 @return		The position of the near z-plane of this camera.
 		 */
-		float GetNearZ() const noexcept {
+		f32 GetNearZ() const noexcept {
 			return m_near_z;
 		}
 		
 		/**
-		 Sets the position of the near z-plane of this camera to the given value.
+		 Sets the position of the near z-plane of this camera to the given 
+		 value.
 
 		 @param[in]		near_z
 						The position of the near z-plane in camera space.
 		 */
-		void SetNearZ(float near_z) noexcept {
+		void SetNearZ(f32 near_z) noexcept {
 			m_near_z = near_z;
 		}
 		
 		/**
-		 Returns the position of the far z-plane of this camera in camera space.
+		 Returns the position of the far z-plane of this camera in camera 
+		 space.
 
 		 @return		The position of the far z-plane of this camera.
 		 */
-		float GetFarZ() const noexcept {
+		f32 GetFarZ() const noexcept {
 			return m_far_z;
 		}
 		
 		/**
-		 Sets the position of the far z-plane of this camera to the given value.
+		 Sets the position of the far z-plane of this camera to the given 
+		 value.
 
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
-		void SetFarZ(float far_z) noexcept {
+		void SetFarZ(f32 far_z) noexcept {
 			m_far_z = far_z;
 		}
 		
 		/**
-		 Sets the position of the near and far z-plane of this camera to the given values.
+		 Sets the position of the near and far z-plane of this camera to the 
+		 given values.
 
 		 @param[in]		near_z
 						The position of the near z-plane in camera space.
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
-		void SetNearAndFarZ(float near_z, float far_z) noexcept {
+		void SetNearAndFarZ(f32 near_z, f32 far_z) noexcept {
 			SetNearZ(near_z);
 			SetFarZ(far_z);
 		}
@@ -151,8 +154,8 @@ namespace mage {
 						The position of the far z-plane in camera space.
 		 */
 		explicit Camera(
-			float near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-			float far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
+			f32 near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
+			f32 far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
 
 		/**
 		 Constructs a camera from the given camera.
@@ -190,11 +193,11 @@ namespace mage {
 		/**
 		 The position of the near z-plane of this camera in camera space. 
 		 */
-		float m_near_z;
+		f32 m_near_z;
 
 		/**
 		 The position of the far z-plane of this camera in camera space.
 		 */
-		float m_far_z;
+		f32 m_far_z;
 	};
 }

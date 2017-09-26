@@ -24,7 +24,8 @@ namespace mage {
 
 	void MTLReader::ReadLine(char *line) {
 		m_context = nullptr;
-		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);
+		const char *token = 
+			strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || token[0] == MAGE_MTL_COMMENT_CHAR) {
 			return;
@@ -85,7 +86,8 @@ namespace mage {
 			ReadMTLIlluminationModel();
 		}
 		else {
-			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+			Warning("%ls: line %u: unsupported keyword token: %s.", 
+				GetFilename().c_str(), GetCurrentLineNumber(), token);
 			return;
 		}
 
@@ -102,7 +104,9 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLAmbientReflectivity() {
-		Warning("%ls: line %u: ambient reflectivities are not supported, use diffuse reflectivities instead.", GetFilename().c_str(), GetCurrentLineNumber());
+		Warning("%ls: line %u: ambient reflectivities are not supported, "
+			"use diffuse reflectivities instead.",
+			GetFilename().c_str(), GetCurrentLineNumber());
 		ReadMTLSpectrum();
 	}
 
@@ -121,7 +125,8 @@ namespace mage {
 	void MTLReader::ReadMTLDissolve() {
 		if (!HasF32()) {
 			const char *token = ReadChars();
-			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+			Warning("%ls: line %u: unsupported keyword token: %s.", 
+				GetFilename().c_str(), GetCurrentLineNumber(), token);
 		}
 
 		m_material_buffer.back().SetDissolve(ReadF32());
@@ -132,7 +137,9 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLAmbientReflectivityTexture() {
-		Warning("%ls: line %u: ambient reflectivity textures are not supported, use diffuse reflectivity textures instead.", GetFilename().c_str(), GetCurrentLineNumber());
+		Warning("%ls: line %u: ambient reflectivity textures are not supported, "
+			"use diffuse reflectivity textures instead.", 
+			GetFilename().c_str(), GetCurrentLineNumber());
 		ReadMTLTexture();
 	}
 
@@ -145,12 +152,16 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLSpecularExponentTexture() {
-		Warning("%ls: line %u: specular exponent textures are not supported, use the alpha channel of specular reflectivity textures instead.", GetFilename().c_str(), GetCurrentLineNumber());
+		Warning("%ls: line %u: specular exponent textures are not supported, "
+			"use the alpha channel of specular reflectivity textures instead.", 
+			GetFilename().c_str(), GetCurrentLineNumber());
 		ReadMTLTexture();
 	}
 
 	void MTLReader::ReadMTLDissolveTexture() {
-		Warning("%ls: line %u: dissolve textures are not supported, use the alpha channel of diffuse reflectivity textures instead.", GetFilename().c_str(), GetCurrentLineNumber());
+		Warning("%ls: line %u: dissolve textures are not supported, "
+			"use the alpha channel of diffuse reflectivity textures instead.", 
+			GetFilename().c_str(), GetCurrentLineNumber());
 		ReadMTLTexture();
 	}
 
@@ -167,51 +178,60 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLBumpTexture() {
-		Warning("%ls: line %u: bump textures are not supported, use normal textures instead.", GetFilename().c_str(), GetCurrentLineNumber());
+		Warning("%ls: line %u: bump textures are not supported, "
+			"use normal textures instead.", 
+			GetFilename().c_str(), GetCurrentLineNumber());
 		ReadMTLTexture();
 	}
-
+	
 	const RGBSpectrum MTLReader::ReadMTLSpectrum() {
+		
 		if (!HasF32()) {
 			const char *str = ReadChars();
 
 			// XYZ spectrum
 			if (str_equals(str, MAGE_MTL_TOKEN_XYZ)) {
-				const float x = ReadF32();
-				float y = x;
-				float z = x;
+				
+				const f32 x = ReadF32();
+				f32 y = x;
+				f32 z = x;
 				if (HasF32()) {
 					y = ReadF32();
 					z = ReadF32();
 				}
+				
 				return static_cast< RGBSpectrum >(XYZSpectrum(x, y, z));
 			}
 			
 			// Custom spectrum
 			if (str_equals(str, MAGE_MTL_TOKEN_SPECTRAL)) {
-				Warning("%ls: line %u: unsupported custom spectrum.", GetFilename().c_str(), GetCurrentLineNumber());
+				Warning("%ls: line %u: unsupported custom spectrum.", 
+					GetFilename().c_str(), GetCurrentLineNumber());
 				return RGBSpectrum();
 			}
 
-			Warning("%ls: line %u: unsupported spectrum: %s.", GetFilename().c_str(), GetCurrentLineNumber(), str);
+			// Unknown spectrum
+			Warning("%ls: line %u: unsupported spectrum: %s.", 
+				GetFilename().c_str(), GetCurrentLineNumber(), str);
 			return RGBSpectrum();
 		}
 
 		// RGB spectrum
-		const float x = ReadF32();
-		float y = x;
-		float z = x;
+		const f32 x = ReadF32();
+		f32 y = x;
+		f32 z = x;
 		if (HasF32()) {
 			y = ReadF32();
 			z = ReadF32();
 		}
+		
 		return RGBSpectrum(x, y, z);
 	}
 
 	SharedPtr< const Texture > MTLReader::ReadMTLTexture() {
 		// "-options args" are not supported and are not allowed.
-		const wstring texture_path = mage::GetPathName(GetFilename());
-		const wstring texture_name = str_convert(ReadString());
+		const wstring texture_path  = mage::GetPathName(GetFilename());
+		const wstring texture_name  = str_convert(ReadString());
 		const wstring texture_fname = mage::GetFilename(texture_path, texture_name);
 		return ResourceManager::Get()->GetOrCreateTexture(texture_fname);
 	}

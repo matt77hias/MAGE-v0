@@ -27,7 +27,8 @@ namespace mage {
 		FILE *file;
 		const errno_t result_fopen_s = _wfopen_s(&file, GetFilename().c_str(), L"w");
 		if (result_fopen_s) {
-			throw FormattedException("%ls: could not open file.", GetFilename().c_str());
+			throw FormattedException(
+				"%ls: could not open file.", GetFilename().c_str());
 		}
 		m_file_stream.reset(file);
 
@@ -37,7 +38,8 @@ namespace mage {
 	void Writer::WriteCharacter(char c) {
 		const int result = fputc(c, m_file_stream.get());
 		if (result == EOF) {
-			throw FormattedException("%ls: could not write to file.", GetFilename().c_str());
+			throw FormattedException(
+				"%ls: could not write to file.", GetFilename().c_str());
 		}
 	}
 	
@@ -46,7 +48,8 @@ namespace mage {
 		
 		const int result = fputs(str, m_file_stream.get());
 		if (result == EOF) {
-			throw FormattedException("%ls: could not write to file.", GetFilename().c_str());
+			throw FormattedException(
+				"%ls: could not write to file.", GetFilename().c_str());
 		}
 	}
 	

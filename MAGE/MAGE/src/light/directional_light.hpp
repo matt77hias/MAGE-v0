@@ -31,7 +31,8 @@ namespace mage {
 		 @param[in]		intensity
 						The RGB intensity.
 		 */
-		explicit DirectionalLight(const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
+		explicit DirectionalLight(
+			const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
 		
 		/**
 		 Constructs a directional light from the given directional light.
@@ -73,8 +74,8 @@ namespace mage {
 
 		 @param[in]		light
 						A reference to the directional light to move.
-		 @return		A reference to the moved directional light
-						(i.e. this directional light).
+		 @return		A reference to the moved directional light (i.e. this 
+						directional light).
 		 */
 		DirectionalLight &operator=(DirectionalLight &&light);
 
@@ -125,8 +126,8 @@ namespace mage {
 		/**
 		 Sets shadows for this directional light to the given value.
 
-		 @param[in]		@c true if shadows should be used for
-						this directional light. @c false otherwise.
+		 @param[in]		@c true if shadows should be used for this directional 
+						light. @c false otherwise.
 		 */
 		void SetShadows(bool shadows) noexcept {
 			m_shadows = shadows;
@@ -150,8 +151,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A flag indicating whether shadows should be calculated
-		 or not not for this directional light.
+		 A flag indicating whether shadows should be calculated or not not for 
+		 this directional light.
 		 */
 		bool m_shadows;
 	};

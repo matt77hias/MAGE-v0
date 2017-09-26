@@ -29,8 +29,10 @@ namespace mage {
 		/**
 		 Returns the input manager associated with the current engine.
 
-		 @return		A pointer to the input manager associated
-						with the current engine.
+		@pre			The input manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the input manager associated with the 
+						current engine.
 		 */
 		static const InputManager *Get() noexcept;
 
@@ -81,7 +83,7 @@ namespace mage {
 
 		 @param[in]		input_manager
 						A reference to the input manager to copy.
-		 @return		A reference to the copy of the given input manager
+		 @return		A reference to the copy of the given input manager 
 						(i.e. this input manager).
 		 */
 		InputManager &operator=(const InputManager &input_manager) = delete;
@@ -91,8 +93,8 @@ namespace mage {
 
 		 @param[in]		input_manager
 						A reference to the input manager to move.
-		 @return		A reference to the moved input manager
-						(i.e. this input manager).
+		 @return		A reference to the moved input manager (i.e. this 
+						input manager).
 		 */
 		InputManager &operator=(InputManager &&input_manager) = delete;
 
@@ -160,7 +162,7 @@ namespace mage {
 		/**
 		 A pointer to the DirectInput object of this input manager.
 
-		 The methods of the IDirectInput8 interface are used to enumerate,
+		 The methods of the IDirectInput8 interface are used to enumerate, 
 		 create, and retrieve the status of Microsoft DirectInput device.
 		 */
 		ComPtr< IDirectInput8 > m_di;

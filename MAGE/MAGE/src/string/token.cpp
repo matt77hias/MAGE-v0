@@ -29,7 +29,8 @@ namespace mage {
 		}
 		
 		result = false;
-		return (str_equals(str, "false")) ? TokenResult::Valid : TokenResult::Invalid;
+		return (str_equals(str, "false")) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToI8(const char *str, i8 &result) noexcept {
@@ -39,7 +40,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< i8 >(strtol(str, &inner_context, 10));
-		return (*inner_context == '\0') ? TokenResult::Valid : TokenResult::Invalid;
+		return (*inner_context == '\0') ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToU8(const char *str, u8 &result) noexcept {
@@ -49,7 +51,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< u8 >(strtoul(str, &inner_context, 10));
-		return (*inner_context == '\0') ? TokenResult::Valid : TokenResult::Invalid;
+		return (*inner_context == '\0') ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToI16(const char *str, i16 &result) noexcept {
@@ -59,7 +62,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< i16 >(strtol(str, &inner_context, 10));
-		return (*inner_context == '\0') ? TokenResult::Valid : TokenResult::Invalid;
+		return (*inner_context == '\0') ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToU16(const char *str, u16 &result) noexcept {
@@ -69,7 +73,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< u16 >(strtoul(str, &inner_context, 10));
-		return (*inner_context == '\0') ? TokenResult::Valid : TokenResult::Invalid;
+		return (*inner_context == '\0') ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 
 	TokenResult StringToI32(const char *str, i32 &result) noexcept {
@@ -79,7 +84,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< i32 >(strtol(str, &inner_context, 10));
-		return (*inner_context == '\0') ? TokenResult::Valid : TokenResult::Invalid;
+		return (*inner_context == '\0') ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToU32(const char *str, u32 &result) noexcept {
@@ -89,7 +95,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< u32 >(strtoul(str, &inner_context, 10));
-		return (*inner_context == '\0') ? TokenResult::Valid : TokenResult::Invalid;
+		return (*inner_context == '\0') ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToI64(const char *str, i64 &result) noexcept {
@@ -99,7 +106,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< i64 >(strtoll(str, &inner_context, 10));
-		return (*inner_context == '\0') ? TokenResult::Valid : TokenResult::Invalid;
+		return (*inner_context == '\0') ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToU64(const char *str, u64 &result) noexcept {
@@ -109,17 +117,19 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< u64 >(strtoull(str, &inner_context, 10));
-		return (*inner_context == '\0') ? TokenResult::Valid : TokenResult::Invalid;
+		return (*inner_context == '\0') ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToF32(const char *str, float &result) noexcept {
+	TokenResult StringToF32(const char *str, f32 &result) noexcept {
 		if (!str) {
 			return TokenResult::None;
 		}
 
 		char *inner_context = nullptr;
 		result = strtof(str, &inner_context);
-		return (*inner_context == '\0') ? TokenResult::Valid : TokenResult::Invalid;
+		return (*inner_context == '\0') ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToF64(const char *str, f64 &result) noexcept {
@@ -129,7 +139,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = strtod(str, &inner_context);
-		return (*inner_context == '\0') ? TokenResult::Valid : TokenResult::Invalid;
+		return (*inner_context == '\0') ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 #pragma endregion
@@ -139,7 +150,9 @@ namespace mage {
 	//-------------------------------------------------------------------------
 #pragma region
 
-	TokenResult StringToBool(const char *begin, const char *end, bool &result) noexcept {
+	TokenResult StringToBool(
+		const char *begin, const char *end, bool &result) noexcept {
+		
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -177,7 +190,9 @@ namespace mage {
 		return TokenResult::Invalid;
 	}
 	
-	TokenResult StringToI8(const char *begin, const char *end, i8 &result) noexcept {
+	TokenResult StringToI8(
+		const char *begin, const char *end, i8 &result) noexcept {
+		
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -189,7 +204,9 @@ namespace mage {
 		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToU8(const char *begin, const char *end, u8 &result) noexcept {
+	TokenResult StringToU8(
+		const char *begin, const char *end, u8 &result) noexcept {
+		
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -201,7 +218,9 @@ namespace mage {
 		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToI16(const char *begin, const char *end, i16 &result) noexcept {
+	TokenResult StringToI16(
+		const char *begin, const char *end, i16 &result) noexcept {
+		
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -213,7 +232,9 @@ namespace mage {
 		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToU16(const char *begin, const char *end, u16 &result) noexcept {
+	TokenResult StringToU16(
+		const char *begin, const char *end, u16 &result) noexcept {
+		
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -225,7 +246,9 @@ namespace mage {
 		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToI32(const char *begin, const char *end, i32 &result) noexcept {
+	TokenResult StringToI32(
+		const char *begin, const char *end, i32 &result) noexcept {
+		
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -237,7 +260,9 @@ namespace mage {
 		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToU32(const char *begin, const char *end, u32 &result) noexcept {
+	TokenResult StringToU32(
+		const char *begin, const char *end, u32 &result) noexcept {
+		
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -249,7 +274,9 @@ namespace mage {
 		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToI64(const char *begin, const char *end, i64 &result) noexcept {
+	TokenResult StringToI64(
+		const char *begin, const char *end, i64 &result) noexcept {
+		
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -261,7 +288,9 @@ namespace mage {
 		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToU64(const char *begin, const char *end, u64 &result) noexcept {
+	TokenResult StringToU64(
+		const char *begin, const char *end, u64 &result) noexcept {
+		
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -273,7 +302,9 @@ namespace mage {
 		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToF32(const char *begin, const char *end, float &result) noexcept {
+	TokenResult StringToF32(
+		const char *begin, const char *end, f32 &result) noexcept {
+		
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -285,7 +316,9 @@ namespace mage {
 		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringToF64(const char *begin, const char *end, f64 &result) noexcept {
+	TokenResult StringToF64(
+		const char *begin, const char *end, f64 &result) noexcept {
+		
 		if (!begin) {
 			return TokenResult::None;
 		}
@@ -311,7 +344,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< i8 >(strtol(str, &inner_context, 10));
-		return (inner_context != str) ? TokenResult::Valid : TokenResult::Invalid;
+		return (inner_context != str) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringPrefixToU8(const char *str, u8 &result) noexcept {
@@ -321,7 +355,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< u8 >(strtoul(str, &inner_context, 10));
-		return (inner_context != str) ? TokenResult::Valid : TokenResult::Invalid;
+		return (inner_context != str) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringPrefixToI16(const char *str, i16 &result) noexcept {
@@ -331,7 +366,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< i16 >(strtol(str, &inner_context, 10));
-		return (inner_context != str) ? TokenResult::Valid : TokenResult::Invalid;
+		return (inner_context != str) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringPrefixToU16(const char *str, u16 &result) noexcept {
@@ -341,7 +377,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< u16 >(strtoul(str, &inner_context, 10));
-		return (inner_context != str) ? TokenResult::Valid : TokenResult::Invalid;
+		return (inner_context != str) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringPrefixToI32(const char *str, i32 &result) noexcept {
@@ -351,7 +388,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< i32 >(strtol(str, &inner_context, 10));
-		return (inner_context != str) ? TokenResult::Valid : TokenResult::Invalid;
+		return (inner_context != str) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringPrefixToU32(const char *str, u32 &result) noexcept {
@@ -361,7 +399,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< u32>(strtoul(str, &inner_context, 10));
-		return (inner_context != str) ? TokenResult::Valid : TokenResult::Invalid;
+		return (inner_context != str) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringPrefixToI64(const char *str, i64 &result) noexcept {
@@ -371,7 +410,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< i64 >(strtoll(str, &inner_context, 10));
-		return (inner_context != str) ? TokenResult::Valid : TokenResult::Invalid;
+		return (inner_context != str) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringPrefixToU64(const char *str, u64 &result) noexcept {
@@ -381,17 +421,19 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< u64 >(strtoull(str, &inner_context, 10));
-		return (inner_context != str) ? TokenResult::Valid : TokenResult::Invalid;
+		return (inner_context != str) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
-	TokenResult StringPrefixToF32(const char *str, float &result) noexcept {
+	TokenResult StringPrefixToF32(const char *str, f32 &result) noexcept {
 		if (!str) {
 			return TokenResult::None;
 		}
 
 		char *inner_context = nullptr;
 		result = strtof(str, &inner_context);
-		return (inner_context != str) ? TokenResult::Valid : TokenResult::Invalid;
+		return (inner_context != str) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringPrefixToF64(const char *str, f64 &result) noexcept {
@@ -401,7 +443,8 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = strtod(str, &inner_context);
-		return (inner_context != str) ? TokenResult::Valid : TokenResult::Invalid;
+		return (inner_context != str) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 
 #pragma endregion
@@ -411,7 +454,10 @@ namespace mage {
 	//-------------------------------------------------------------------------
 #pragma region
 
-	TokenResult ReadChars(char *str, char **context, char **result, const char *delimiters) noexcept {
+	TokenResult ReadChars(char *str, char **context, 
+		char **result, const char *delimiters) noexcept {
+		
+		
 		Assert(str || context);
 		Assert(result);
 		Assert(delimiters);
@@ -424,7 +470,9 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 	
-	TokenResult ReadString(char *str, char **context, string &result, const char *delimiters) {
+	TokenResult ReadString(char *str, char **context, 
+		string &result, const char *delimiters) {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
@@ -438,11 +486,14 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 	
-	TokenResult ReadQuotedString(char *str, char **context, string &result, const char *delimiters) {
+	TokenResult ReadQuotedString(char *str, char **context, 
+		string &result, const char *delimiters) {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
-		char *start = (str) ? SkipDelimiters(str, delimiters) : SkipDelimiters(*context, delimiters);
+		char *start = (str) ? 
+			SkipDelimiters(str, delimiters) : SkipDelimiters(*context, delimiters);
 		if (!start) {
 			return TokenResult::None;
 		}
@@ -466,7 +517,9 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 	
-	TokenResult ReadBool(char *str, char **context, bool &result, const char *delimiters) noexcept {
+	TokenResult ReadBool(char *str, char **context, 
+		bool &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
@@ -474,7 +527,9 @@ namespace mage {
 		return StringToBool(token, result);
 	}
 	
-	TokenResult ReadI8(char *str, char **context, i8 &result, const char *delimiters) noexcept {
+	TokenResult ReadI8(char *str, char **context, 
+		i8 &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
@@ -482,7 +537,9 @@ namespace mage {
 		return StringToI8(token, result);
 	}
 	
-	TokenResult ReadU8(char *str, char **context, u8 &result, const char *delimiters) noexcept {
+	TokenResult ReadU8(char *str, char **context, 
+		u8 &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
@@ -490,7 +547,9 @@ namespace mage {
 		return StringToU8(token, result);
 	}
 	
-	TokenResult ReadI16(char *str, char **context, i16 &result, const char *delimiters) noexcept {
+	TokenResult ReadI16(char *str, char **context, 
+		i16 &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
@@ -498,7 +557,9 @@ namespace mage {
 		return StringToI16(token, result);
 	}
 	
-	TokenResult ReadU16(char *str, char **context, u16 &result, const char *delimiters) noexcept {
+	TokenResult ReadU16(char *str, char **context, 
+		u16 &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
@@ -506,7 +567,9 @@ namespace mage {
 		return StringToU16(token, result);
 	}
 	
-	TokenResult ReadI32(char *str, char **context, i32 &result, const char *delimiters) noexcept {
+	TokenResult ReadI32(char *str, char **context, 
+		i32 &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
@@ -514,7 +577,9 @@ namespace mage {
 		return StringToI32(token, result);
 	}
 	
-	TokenResult ReadU32(char *str, char **context, u32 &result, const char *delimiters) noexcept {
+	TokenResult ReadU32(char *str, char **context, 
+		u32 &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
@@ -522,7 +587,9 @@ namespace mage {
 		return StringToU32(token, result);
 	}
 	
-	TokenResult ReadI64(char *str, char **context, i64 &result, const char *delimiters) noexcept {
+	TokenResult ReadI64(char *str, char **context, 
+		i64 &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
@@ -530,7 +597,9 @@ namespace mage {
 		return StringToI64(token, result);
 	}
 	
-	TokenResult ReadU64(char *str, char **context, u64 &result, const char *delimiters) noexcept {
+	TokenResult ReadU64(char *str, char **context, 
+		u64 &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
@@ -538,7 +607,9 @@ namespace mage {
 		return StringToU64(token, result);
 	}
 	
-	TokenResult ReadFloat(char *str, char **context, float &result, const char *delimiters) noexcept {
+	TokenResult ReadFloat(char *str, char **context, 
+		f32 &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
@@ -546,7 +617,9 @@ namespace mage {
 		return StringToF32(token, result);
 	}
 	
-	TokenResult ReadDouble(char *str, char **context, f64 &result, const char *delimiters) noexcept {
+	TokenResult ReadDouble(char *str, char **context, 
+		f64 &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
@@ -554,16 +627,20 @@ namespace mage {
 		return StringToF64(token, result);
 	}
 	
-	TokenResult ReadFloat2(char *str, char **context, XMFLOAT2 &result, const char *delimiters) noexcept {
+	TokenResult ReadFloat2(char *str, char **context, 
+		XMFLOAT2 &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
-		const TokenResult token_result_x = ReadFloat(str, context, result.x, delimiters);
+		const TokenResult token_result_x 
+			= ReadFloat(str, context, result.x, delimiters);
 		if (token_result_x != TokenResult::Valid) {
 			return token_result_x;
 		}
 
-		const TokenResult token_result_y = ReadFloat(str, context, result.y, delimiters);
+		const TokenResult token_result_y 
+			= ReadFloat(str, context, result.y, delimiters);
 		if (token_result_y != TokenResult::Valid) {
 			return token_result_y;
 		}
@@ -571,21 +648,26 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 	
-	TokenResult ReadFloat3(char *str, char **context, XMFLOAT3 &result, const char *delimiters) noexcept {
+	TokenResult ReadFloat3(char *str, char **context, 
+		XMFLOAT3 &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
-		const TokenResult token_result_x = ReadFloat(str, context, result.x, delimiters);
+		const TokenResult token_result_x 
+			= ReadFloat(str, context, result.x, delimiters);
 		if (token_result_x != TokenResult::Valid) {
 			return token_result_x;
 		}
 
-		const TokenResult token_result_y = ReadFloat(str, context, result.y, delimiters);
+		const TokenResult token_result_y 
+			= ReadFloat(str, context, result.y, delimiters);
 		if (token_result_y != TokenResult::Valid) {
 			return token_result_y;
 		}
 
-		const TokenResult token_result_z = ReadFloat(str, context, result.z, delimiters);
+		const TokenResult token_result_z
+			= ReadFloat(str, context, result.z, delimiters);
 		if (token_result_z != TokenResult::Valid) {
 			return token_result_z;
 		}
@@ -593,26 +675,32 @@ namespace mage {
 		return TokenResult::Valid;
 	}
 	
-	TokenResult ReadFloat4(char *str, char **context, XMFLOAT4 &result, const char *delimiters) noexcept {
+	TokenResult ReadFloat4(char *str, char **context, 
+		XMFLOAT4 &result, const char *delimiters) noexcept {
+		
 		Assert(str || context);
 		Assert(delimiters);
 		
-		const TokenResult token_result_x = ReadFloat(str, context, result.x, delimiters);
+		const TokenResult token_result_x 
+			= ReadFloat(str, context, result.x, delimiters);
 		if (token_result_x != TokenResult::Valid) {
 			return token_result_x;
 		}
 
-		const TokenResult token_result_y = ReadFloat(str, context, result.y, delimiters);
+		const TokenResult token_result_y 
+			= ReadFloat(str, context, result.y, delimiters);
 		if (token_result_y != TokenResult::Valid) {
 			return token_result_y;
 		}
 
-		const TokenResult token_result_z = ReadFloat(str, context, result.z, delimiters);
+		const TokenResult token_result_z 
+			= ReadFloat(str, context, result.z, delimiters);
 		if (token_result_z != TokenResult::Valid) {
 			return token_result_z;
 		}
 
-		const TokenResult token_result_w = ReadFloat(str, context, result.w, delimiters);
+		const TokenResult token_result_w 
+			= ReadFloat(str, context, result.w, delimiters);
 		if (token_result_w != TokenResult::Valid) {
 			return token_result_w;
 		}
@@ -660,7 +748,8 @@ namespace mage {
 			return TokenResult::Invalid;
 		}
 		
-		return str_contains(delimiters, *(last_quote + 1)) ? TokenResult::Valid : TokenResult::Invalid;
+		return str_contains(delimiters, *(last_quote + 1)) ? 
+			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult HasBool(const char *str, const char *delimiters) noexcept {
@@ -799,7 +888,7 @@ namespace mage {
 		}
 		const char *end = GotoDelimiters(start, delimiters);
 
-		float result;
+		f32 result;
 		return StringToF32(start, end, result);
 	}
 	

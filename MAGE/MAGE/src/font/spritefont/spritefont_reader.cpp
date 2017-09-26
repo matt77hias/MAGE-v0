@@ -31,19 +31,21 @@ namespace mage {
 	void SpriteFontReader::Read() {
 	
 		if (!IsHeaderValid()) {
-			throw FormattedException("%ls: invalid sprite font header.", GetFilename().c_str());
+			throw FormattedException(
+				"%ls: invalid sprite font header.", GetFilename().c_str());
 		}
 
 		// Read glyphs.
-		const u32 glyph_count = ReadValue< u32 >();
-		const Glyph *glyph_data    = ReadValueArray< Glyph >(glyph_count);
+		const u32 glyph_count   = ReadValue< u32 >();
+		const Glyph *glyph_data = ReadValueArray< Glyph >(glyph_count);
 		m_output.m_glyphs.assign(glyph_data, glyph_data + glyph_count);
 
 		// Read font properties.
-		m_output.m_line_spacing = ReadValue< float >();
+		m_output.m_line_spacing = ReadValue< f32 >();
 		
 		// Read default character.
-		m_output.m_default_character = static_cast< wchar_t >(ReadValue< u32 >());
+		m_output.m_default_character 
+			= static_cast< wchar_t >(ReadValue< u32 >());
 
 		// Read texture.
 		ReadTexture();
@@ -51,12 +53,14 @@ namespace mage {
 
 	bool SpriteFontReader::IsHeaderValid() {
 		const char *magic = MAGE_FONT_MAGIC;
+		
 		while (*magic != L'\0') {
 			if (ReadValue< u8 >() != *magic) {
 				return false;
 			}
 			++magic;
 		}
+		
 		return true;
 	}
 
@@ -64,13 +68,16 @@ namespace mage {
 		// Read texture data.
 		const u32 texture_width     = ReadValue< u32 >();
 		const u32 texture_height    = ReadValue< u32 >();
-		const DXGI_FORMAT texture_format = m_desc.ForceSRGB() ? ConvertToSRGB(ReadValue< DXGI_FORMAT >()) : ReadValue< DXGI_FORMAT >();
+		const DXGI_FORMAT texture_format = m_desc.ForceSRGB() ? 
+			ConvertToSRGB(ReadValue< DXGI_FORMAT >()) : ReadValue< DXGI_FORMAT >();
 		const u32 texture_stride    = ReadValue< u32 >();
 		const u32 texture_rows      = ReadValue< u32 >();
-		const u8 *texture_data      = ReadValueArray< u8 >(texture_stride * texture_rows);
+		const u8 *texture_data      = ReadValueArray< u8 >(
+											texture_stride * texture_rows);
 
 		// Create the texture descriptor.
-		CD3D11_TEXTURE2D_DESC texture_desc(texture_format, texture_width, texture_height, 
+		CD3D11_TEXTURE2D_DESC texture_desc(
+			texture_format, texture_width, texture_height, 
 			1, 1, D3D11_BIND_SHADER_RESOURCE, D3D11_USAGE_IMMUTABLE);
 		
 		// Create the texture data.
@@ -80,15 +87,21 @@ namespace mage {
 		
 		// Create the texture resource.
 		ComPtr< ID3D11Texture2D > texture;
-		const HRESULT result_texture = m_device->CreateTexture2D(&texture_desc, &init_data, texture.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_texture, "%ls: Texture creation failed: %08X.", GetFilename().c_str(), result_texture);
+		const HRESULT result_texture = m_device->CreateTexture2D(
+			&texture_desc, &init_data, texture.ReleaseAndGetAddressOf());
+		ThrowIfFailed(result_texture, "%ls: Texture creation failed: %08X.", 
+			GetFilename().c_str(), result_texture);
 
-		// Create the shader resource view descriptor.
-		CD3D11_SHADER_RESOURCE_VIEW_DESC shader_resource_view_desc(D3D11_SRV_DIMENSION_TEXTURE2D, texture_format);
+		// Create the SRV descriptor.
+		CD3D11_SHADER_RESOURCE_VIEW_DESC shader_resource_view_desc(
+			D3D11_SRV_DIMENSION_TEXTURE2D, texture_format);
 		
-		// Create the shader resource view.
-		const HRESULT result_texture_srv = m_device->CreateShaderResourceView(texture.Get(), 
-			&shader_resource_view_desc, m_output.m_texture_srv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_texture_srv, "%ls: SRV creation failed: %08X.", GetFilename().c_str(), result_texture_srv);
+		// Create the SRV.
+		const HRESULT result_texture_srv = 
+			m_device->CreateShaderResourceView(texture.Get(), 
+				&shader_resource_view_desc, 
+				m_output.m_texture_srv.ReleaseAndGetAddressOf());
+		ThrowIfFailed(result_texture_srv, "%ls: SRV creation failed: %08X.", 
+			GetFilename().c_str(), result_texture_srv);
 	}
 }

@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
 #include "math\math.hpp"
 #include "material\color.hpp"
 #include "logging\error.hpp"
@@ -47,8 +46,10 @@ namespace mage {
 		 @param[in]		color
 						The color.
 		 */
-		explicit ColorString(const wstring &str, FXMVECTOR color = Colors::White)
+		explicit ColorString(const wstring &str, 
+			FXMVECTOR color = Colors::White)
 			: m_str(str), m_color() {
+			
 			SetColor(color);
 		}
 
@@ -71,8 +72,10 @@ namespace mage {
 		 @param[in]		color
 						The color.
 		 */
-		explicit ColorString(wstring &&str, FXMVECTOR color = Colors::White)
+		explicit ColorString(wstring &&str, 
+			FXMVECTOR color = Colors::White)
 			: m_str(std::move(str)), m_color() {
+			
 			SetColor(color);
 		}
 
@@ -97,8 +100,10 @@ namespace mage {
 		 @param[in]		color
 						The color.
 		 */
-		explicit ColorString(const wchar_t *str, FXMVECTOR color = Colors::White)
+		explicit ColorString(const wchar_t *str, 
+			FXMVECTOR color = Colors::White)
 			: m_str(str), m_color() {
+			
 			SetColor(color);
 		}
 
@@ -132,8 +137,8 @@ namespace mage {
 
 		 @param[in]		color_string
 						A reference to the color string to copy.
-		 @return		A reference to the copy of the given color string
-						(i.e. this color string).
+		 @return		A reference to the copy of the given color string (i.e. 
+						this color string).
 		 */
 		ColorString &operator=(const ColorString &color_string) = default;
 
@@ -142,8 +147,8 @@ namespace mage {
 
 		 @param[in]		color_string
 						A reference to the color string to move.
-		 @return		A reference to the moved color string
-						(i.e. this color string).
+		 @return		A reference to the moved color string (i.e. this color 
+						string).
 		 */
 		ColorString &operator=(ColorString &&color_string) = default;
 

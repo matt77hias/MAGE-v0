@@ -46,8 +46,8 @@ namespace mage {
 
 		 @param[in]		camera_node
 						A reference to the camera node to copy.
-		 @return		A reference to the copy of the given camera node
-						(i.e. this camera node).
+		 @return		A reference to the copy of the given camera node (i.e. 
+						this camera node).
 		 */
 		CameraNode &operator=(const CameraNode &camera_node) = delete;
 		
@@ -56,8 +56,8 @@ namespace mage {
 
 		 @param[in]		camera_node
 						A reference to the camera node to move.
-		 @return		A reference to the moved camera node
-						(i.e. this camera node).
+		 @return		A reference to the moved camera node (i.e. this camera 
+						node).
 		 */
 		CameraNode &operator=(CameraNode &&camera_node) = delete;
 
@@ -221,10 +221,12 @@ namespace mage {
 		 @param[in]		name
 						A reference to the name.
 		 @param[in]		args
-						A reference to the constructor arguments for the camera.
+						A reference to the constructor arguments for the 
+						camera.
 		 */
 		template< typename... ConstructorArgsT >
-		explicit DerivedCameraNode(const string &name, ConstructorArgsT&&... args);
+		explicit DerivedCameraNode(
+			const string &name, ConstructorArgsT&&... args);
 		
 		/**
 		 Constructs a derived camera node.
@@ -235,7 +237,8 @@ namespace mage {
 		 @param[in]		camera
 						A reference to the camera to move.
 		 */
-		explicit DerivedCameraNode(const string &name, UniquePtr< CameraT > &&camera);
+		explicit DerivedCameraNode(
+			const string &name, UniquePtr< CameraT > &&camera);
 		
 		/**
 		 Constructs a derived camera node from the given derived camera node.
@@ -246,7 +249,8 @@ namespace mage {
 		DerivedCameraNode(const DerivedCameraNode &camera_node);
 		
 		/**
-		 Constructs a derived camera node by moving the given derived camera node.
+		 Constructs a derived camera node by moving the given derived camera 
+		 node.
 
 		 @param[in]		camera_node
 						A reference to the derived camera node to move.
@@ -267,8 +271,8 @@ namespace mage {
 
 		 @param[in]		camera_node
 						A reference to the derived camera node to copy.
-		 @return		A reference to the copy of the given derived camera node
-						(i.e. this derived camera node).
+		 @return		A reference to the copy of the given derived camera 
+						node (i.e. this derived camera node).
 		 */
 		DerivedCameraNode &operator=(const DerivedCameraNode &camera_node) = delete;
 		
@@ -277,8 +281,8 @@ namespace mage {
 
 		 @param[in]		camera_node
 						A reference to the derived camera node to move.
-		 @return		A reference to the moved derived camera node
-						(i.e. this derived camera node).
+		 @return		A reference to the moved derived camera node (i.e. this 
+						derived camera node).
 		 */
 		DerivedCameraNode &operator=(DerivedCameraNode &&camera_node) = delete;
 

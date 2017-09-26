@@ -60,8 +60,8 @@ namespace mage {
 
 		 @param[in]		glyph
 						A reference to the glyph to copy.
-		 @return		A reference to copy of the given glyph
-						(i.e. this glyph).
+		 @return		A reference to copy of the given glyph (i.e. this 
+						glyph).
 		 */
 		Glyph &operator=(const Glyph &glyph) = default;
 
@@ -70,8 +70,7 @@ namespace mage {
 
 		 @param[in]		glyph
 						A reference to the glyph to move.
-		 @return		A reference to the moved glyph
-						(i.e. this glyph).
+		 @return		A reference to the moved glyph (i.e. this glyph).
 		 */
 		Glyph &operator=(Glyph &&glyph) = default;
 
@@ -80,28 +79,26 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Checks whether this glyph's character is smaller 
-		 than the given glyph's character.
+		 Checks whether this glyph's character is smaller than the given 
+		 glyph's character.
 
 		 @param[in]		rhs
 						A reference to the glyph to compare against.
-		 @return		@c true if the this glyph's character is smaller 
-						than the given glyph's character.
-						@c false otherwise.
+		 @return		@c true if the this glyph's character is smaller than 
+						the given glyph's character. @c false otherwise.
 		 */
 		bool operator<(const Glyph &rhs) const noexcept {
 			return m_character < rhs.m_character;
 		}
 
 		/**
-		 Checks whether this glyph's character is smaller 
-		 than the given character.
+		 Checks whether this glyph's character is smaller than the given 
+		 character.
 
 		 @param[in]		rhs
 						The character to compare against.
-		 @return		@c true if the this glyph's character is smaller 
-						than the given character.
-						@c false otherwise.
+		 @return		@c true if the this glyph's character is smaller than 
+						the given character. @c false otherwise.
 		 */
 		bool operator<(wchar_t rhs) const noexcept {
 			return m_character < static_cast< u32 >(rhs);
@@ -127,23 +124,23 @@ namespace mage {
 				/**
 				 The offset of this glyph from the left.
 				 */
-				float m_offset_x;
+				f32 m_offset_x;
 
 				/**
 				 The offset of this glyph from the top.
 				 */
-				float m_offset_y;
+				f32 m_offset_y;
 			};
 
 			/**
 			 The offsets of this glyph.
 			 */
-			float m_offsets[2];
+			f32 m_offsets[2];
 		};
 
 		/**
 		 The offset of this glyph to the right.
 		 */
-		float m_advance_x;
+		f32 m_advance_x;
 	};
 }

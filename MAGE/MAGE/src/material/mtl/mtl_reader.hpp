@@ -31,7 +31,8 @@ namespace mage {
 		 A construct a MTL reader.
 		 
 		 @param[in]		material_buffer
-						A reference to a vector for storing the read materials from file.
+						A reference to a vector for storing the read materials 
+						from file.
 		 */
 		explicit MTLReader(vector< Material > &material_buffer);
 
@@ -65,8 +66,8 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a MTL reader to copy.
-		 @return		A reference to the copy of the given MTL reader
-						(i.e. this MTL reader).
+		 @return		A reference to the copy of the given MTL reader (i.e. 
+						this MTL reader).
 		 */
 		MTLReader &operator=(const MTLReader &reader) = delete;
 
@@ -75,8 +76,8 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a MTL reader to move.
-		 @return		A reference to the moved MTL reader
-						(i.e. this MTL reader).
+		 @return		A reference to the moved MTL reader (i.e. this MTL 
+						reader).
 		 */
 		MTLReader &operator=(MTLReader &&reader) = delete;
 
@@ -112,14 +113,14 @@ namespace mage {
 						Failed to read a Transmission Filter definition.
 		 */
 		void ReadMTLTransmissionFilter();
-
+		
 		/**
 		 Reads an Ambient Reflectivity definition.
 
 		 @throws		FormattedException
 						Failed to read an Ambient Reflectivity definition.
-		 @note			Ambient reflectivities are not supported, use 
-						diffuse reflectivities instead.
+		 @note			Ambient reflectivities are not supported, use diffuse 
+						reflectivities instead.
 		 */
 		void ReadMTLAmbientReflectivity();
 
@@ -177,7 +178,8 @@ namespace mage {
 		 Reads a Diffuse Reflectivity Texture definition.
 
 		 @throws		FormattedException
-						Failed to read a Diffuse Reflectivity Texture definition.
+						Failed to read a Diffuse Reflectivity Texture 
+						definition.
 		 */
 		void ReadMTLDiffuseReflectivityTexture();
 
@@ -185,7 +187,8 @@ namespace mage {
 		 Reads a Specular Reflectivity Texture definition.
 
 		 @throws		FormattedException
-						Failed to read a Specular Reflectivity Texture definition.
+						Failed to read a Specular Reflectivity Texture 
+						definition.
 		 */
 		void ReadMTLSpecularReflectivityTexture();
 
@@ -198,14 +201,14 @@ namespace mage {
 						alpha channel of specular reflectivity textures instead.
 		 */
 		void ReadMTLSpecularExponentTexture();
-
+		
 		/**
 		 Reads a Dissolve Texture definition.
 
 		 @throws		FormattedException
 						Failed to read a Dissolve Texture definition.
-		 @note			Dissolve textures are not supported, use the alpha channel 
-						of diffuse reflectivity textures instead.
+		 @note			Dissolve textures are not supported, use the alpha 
+						channel of diffuse reflectivity textures instead.
 		 */
 		void ReadMTLDissolveTexture();
 
@@ -277,7 +280,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to a vector containing the read materials of this MTL reader.
+		 A reference to a vector containing the read materials of this MTL 
+		 reader.
 		 */
 		vector< Material > &m_material_buffer;
 	};

@@ -15,7 +15,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void ImportMaterialFromFile(const wstring &fname, vector< Material > &materials) {
+	void ImportMaterialFromFile(const wstring &fname, 
+		vector< Material > &materials) {
 		
 		const wstring extension = GetFileExtension(fname);
 
@@ -24,7 +25,8 @@ namespace mage {
 			return;
 		}
 		else {
-			throw FormattedException("Unknown material file extension: %ls", fname.c_str());
+			throw FormattedException(
+				"Unknown material file extension: %ls", fname.c_str());
 		}
 	}
 }

@@ -24,9 +24,12 @@ namespace mage {
 	Engine *Engine::s_engine = nullptr;
 
 	Engine::Engine(const EngineSetup &setup)
-		: Loadable(), m_main_window(), m_deactive(false),
+		: Loadable(), 
+		m_main_window(), m_deactive(false),
 		m_renderer(), m_mode_switch(false),
-		m_input_manager(), m_resource_manager(), m_scene_manager(),
+		m_input_manager(), 
+		m_resource_manager(), 
+		m_scene_manager(),
 		m_timer(MakeUnique< Timer >()), m_fixed_delta_time(0.0f),
 		m_engine_stats(MakeUnique< EngineStatistics >()) {
 
@@ -57,23 +60,31 @@ namespace mage {
 		PrintConsoleHeader();
 
 		// Enumerate the devices.
-		UniquePtr< DisplayConfigurator > display_configurator(MakeUnique< DisplayConfigurator >());
+		UniquePtr< DisplayConfigurator > display_configurator(
+			MakeUnique< DisplayConfigurator >());
 		const HRESULT result_configure = display_configurator->Configure();
 		if (FAILED(result_configure)) {
 			Error("Display configuration failed: %ld", result_configure);
 			return;
 		}
 
-		const DisplayConfiguration *display_configuration = display_configurator->GetDisplayConfiguration();
+		const DisplayConfiguration *display_configuration 
+			= display_configurator->GetDisplayConfiguration();
 		
 		// Initialize the window System.
 		const u32 width  = display_configuration->GetDisplayWidth();
 		const u32 height = display_configuration->GetDisplayHeight();
-		m_main_window         = MakeUnique< MainWindow >(setup.GetApplicationHinstance(), setup.GetApplicationName(), width, height);
+		m_main_window         = MakeUnique< MainWindow >(
+									setup.GetApplicationHinstance(), 
+									setup.GetApplicationName(), 
+									width, height);
 		// Initialize the rendering system.
-		m_renderer            = MakeUnique< Renderer >(m_main_window->GetHandle(), display_configuration);
+		m_renderer            = MakeUnique< Renderer >(
+									m_main_window->GetHandle(), 
+									display_configuration);
 		// Initialize the input system.
-		m_input_manager       = MakeUnique< InputManager >(m_main_window->GetHandle());
+		m_input_manager       = MakeUnique< InputManager >(
+									m_main_window->GetHandle());
 		// Initialize the resource system.
 		m_resource_manager    = MakeUnique< ResourceManager >();
 		// Initialize the scene system.
@@ -100,8 +111,9 @@ namespace mage {
 	void Engine::OnSceneChange() noexcept {
 		m_timer->Restart();
 	}
-
+	
 	int Engine::Run(UniquePtr< Scene > &&scene, int nCmdShow) {
+		
 		if (!IsLoaded()) {
 			Error("Game loop can not start because the engine is not loaded.");
 			return 0;
@@ -124,9 +136,9 @@ namespace mage {
 		SecureZeroMemory(&msg, sizeof(msg));
 		while (msg.message != WM_QUIT) {
 			
-			// Retrieves messages for any window that belongs to the current thread
-			// without performing range filtering. Furthermore messages are removed
-			// after processing.
+			// Retrieves messages for any window that belongs to the current 
+			// thread without performing range filtering. Furthermore messages 
+			// are removed after processing.
 			if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
 				// Translates virtual-key messages into character messages.
 				TranslateMessage(&msg);

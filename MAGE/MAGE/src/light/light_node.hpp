@@ -44,8 +44,8 @@ namespace mage {
 
 		 @param[in]		light_node
 						A reference to the light node to copy.
-		 @return		A reference to the copy of the given light node
-						(i.e. this light node).
+		 @return		A reference to the copy of the given light node (i.e. 
+						this light node).
 		 */
 		LightNode &operator=(const LightNode &light_node) = delete;
 
@@ -54,8 +54,8 @@ namespace mage {
 
 		 @param[in]		light_node
 						A reference to the light node to move.
-		 @return		A reference to the moved light node
-						(i.e. this light node).
+		 @return		A reference to the moved light node (i.e. this light 
+						node).
 		 */
 		LightNode &operator=(LightNode &&light_node) = delete;
 
@@ -176,7 +176,8 @@ namespace mage {
 						A reference to the constructor arguments for the light.
 		 */
 		template< typename... ConstructorArgsT >
-		explicit DerivedLightNode(const string &name, ConstructorArgsT&&... args);
+		explicit DerivedLightNode(
+			const string &name, ConstructorArgsT&&... args);
 
 		/**
 		 Constructs a derived light node.
@@ -187,7 +188,8 @@ namespace mage {
 		 @param[in]		light
 						A reference to the light to move.
 		 */
-		explicit DerivedLightNode(const string &name, UniquePtr< LightT > &&light);
+		explicit DerivedLightNode(
+			const string &name, UniquePtr< LightT > &&light);
 
 		/**
 		 Constructs a derived light node from the given derived light node.
@@ -219,8 +221,8 @@ namespace mage {
 
 		 @param[in]		light_node
 						A reference to the derived light node to copy.
-		 @return		A reference to the copy of the given derived light node
-						(i.e. this derived light node).
+		 @return		A reference to the copy of the given derived light 
+						node (i.e. this derived light node).
 		 */
 		DerivedLightNode &operator=(const DerivedLightNode &light_node) = delete;
 
@@ -229,8 +231,8 @@ namespace mage {
 
 		 @param[in]		light_node
 						A reference to the derived light node to move.
-		 @return		A reference to the moved derived light node
-						(i.e. this derived light node).
+		 @return		A reference to the moved derived light node (i.e. this 
+						derived light node).
 		 */
 		DerivedLightNode &operator=(DerivedLightNode &&light_node) = delete;
 

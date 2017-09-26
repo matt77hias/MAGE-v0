@@ -32,11 +32,11 @@ namespace mage {
 		/**
 		 Constructs a sprite font.
 
-		 @pre			The renderer associated with the current engine 
-						must be loaded.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
 		 @param[in]		fname
-						A reference to the filename
-						(the globally unique identifier).
+						A reference to the filename (the globally unique 
+						identifier).
 		 @param[in]		desc
 						A reference to the sprite font descriptor.
 		 @throws		FormattedException
@@ -52,8 +52,8 @@ namespace mage {
 		 @pre			The renderer associated with the current engine
 						must be loaded.
 		 @param[in]		fname
-						A reference to the filename
-						(the globally unique identifier).
+						A reference to the filename (the globally unique 
+						identifier).
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		desc
@@ -94,8 +94,8 @@ namespace mage {
 
 		 @param[in]		font
 						A reference to the sprite font to copy.
-		 @return		A reference to the copy of the given sprite font
-						(i.e. this sprite font).
+		 @return		A reference to the copy of the given sprite font (i.e. 
+						this sprite font).
 		 */
 		SpriteFont &operator=(const SpriteFont &font) = delete;
 
@@ -104,8 +104,8 @@ namespace mage {
 
 		 @param[in]		font
 						A reference to the sprite font to move.
-		 @return		A reference to the moved sprite font
-						(i.e. this sprite font).
+		 @return		A reference to the moved sprite font (i.e. this sprite 
+						font).
 		 */
 		SpriteFont &operator=(SpriteFont &&font) = delete;
 
@@ -114,12 +114,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Draws the given string with this sprite font using the given sprite batch.
+		 Draws the given string with this sprite font using the given sprite 
+		 batch.
 
 		 @pre			@a str string is not equal to @c nullptr.
 		 @param[in]		sprite_batch
-						A reference to the sprite batch used for rendering
-						the given string with this sprite font.
+						A reference to the sprite batch used for rendering the 
+						given string with this sprite font.
 		 @param[in]		str
 						A pointer to the first null-terminated byte string.
 		 @param[in]		transform
@@ -136,7 +137,8 @@ namespace mage {
 			SpriteEffect effects = SpriteEffect::None) const;
 
 		/**
-		 Draws the given text with this sprite font using the given sprite batch.
+		 Draws the given text with this sprite font using the given sprite 
+		 batch.
 
 		 @param[in]		sprite_batch
 						A reference to the sprite batch used for rendering
@@ -152,7 +154,7 @@ namespace mage {
 			const vector< ColorString > &text,
 			const SpriteTransform &transform,
 			SpriteEffect effects = SpriteEffect::None) const;
-
+		
 		/**
 		 Returns the size of the given string with this sprite font in pixels.
 
@@ -162,8 +164,8 @@ namespace mage {
 		 @return		A @a XMVECTOR containing the pixel width as first
 						coordinate and pixel height as second coordinate.
 		 @note			The string size is computed from the origin to the 
-						rightmost pixel rendered by any character glyph. 
-						This has the effect of ignoring 'trailing spaces'.
+						rightmost pixel rendered by any character glyph. This 
+						has the effect of ignoring 'trailing spaces'.
 		 */
 		const XMVECTOR MeasureString(const wchar_t *str) const;
 
@@ -175,8 +177,8 @@ namespace mage {
 		 @return		A @a XMVECTOR containing the pixel width as first
 						coordinate and pixel height as second coordinate.
 		 @note			The text size is computed from the origin to the
-						rightmost pixel rendered by any character glyph.
-						This has the effect of ignoring 'trailing spaces'.
+						rightmost pixel rendered by any character glyph. This 
+						has the effect of ignoring 'trailing spaces'.
 		 */
 		const XMVECTOR MeasureString(const vector< ColorString > &text) const;
 		
@@ -188,9 +190,11 @@ namespace mage {
 						A pointer to the first null-terminated byte string.
 		 @param[in]		position
 						The top-left position of the string.
-		 @return		A @c RECT bounding the given string with this sprite font.
+		 @return		A @c RECT bounding the given string with this sprite 
+						font.
 		 */
-		const RECT MeasureDrawBounds(const wchar_t *str, const XMFLOAT2 &position) const;
+		const RECT MeasureDrawBounds(
+			const wchar_t *str, const XMFLOAT2 &position) const;
 
 		/**
 		 Returns a rectangle bounding the given text with this sprite font.
@@ -199,16 +203,18 @@ namespace mage {
 						A reference to a vector containing color strings.
 		 @param[in]		position
 						The top-left position of the text.
-		 @return		A @c RECT bounding the given text with this sprite font.
+		 @return		A @c RECT bounding the given text with this sprite 
+						font.
 		 */
-		const RECT MeasureDrawBounds(const vector< ColorString > &text, const XMFLOAT2 &position) const;
+		const RECT MeasureDrawBounds(
+			const vector< ColorString > &text, const XMFLOAT2 &position) const;
 		
 		/**
 		 Returns the line spacing of this sprite font.
 
 		 @return		The line spacing of this sprite font.
 		 */
-		float GetLineSpacing() const noexcept {
+		f32 GetLineSpacing() const noexcept {
 			return m_line_spacing;
 		}
 
@@ -218,7 +224,7 @@ namespace mage {
 		 @param[in]		spacing
 						The line spacing.
 		 */
-		void SetLineSpacing(float spacing) noexcept {
+		void SetLineSpacing(f32 spacing) noexcept {
 			m_line_spacing = spacing;
 		}
 		
@@ -230,60 +236,64 @@ namespace mage {
 		 @return		The default character of this sprite font.
 		 */
 		wchar_t GetDefaultCharacter() const noexcept {
-			return m_default_glyph ? static_cast< wchar_t >(m_default_glyph->m_character) : L'0';
+			return m_default_glyph ? 
+				static_cast< wchar_t >(m_default_glyph->m_character) : L'0';
 		}
 		
 		/**
 		 Sets the default character of this sprite font to the given character.
 
-		 If @a character is equal to @c 0, the default glyph of this sprite font
-		 is set to @c nullptr.
+		 If @a character is equal to @c 0, the default glyph of this sprite 
+		 font is set to @c nullptr.
 
 		 @param[in]		character
 						The character.
 		 @throws		FormattedException
-						If the given character does not match any glyphs of
-						this sprite font and if this sprite font has not a default
-						character.
+						If the given character does not match any glyphs of 
+						this sprite font and if this sprite font has not a 
+						default character.
 		 */
 		void SetDefaultCharacter(wchar_t character) {
 			m_default_glyph = (character) ? GetGlyph(character) : nullptr;
 		}
 		
 		/**
-		 Checks whether this sprite font contains a glyp matching the given character.
+		 Checks whether this sprite font contains a glyp matching the given 
+		 character.
 
 		 @param[in]		character
 						The character.
-		 @return		@c true if this sprite font contains a glyph corresponding
-						to the given character.
-						@c false otherwise.
+		 @return		@c true if this sprite font contains a glyph 
+						corresponding to the given character. @c false 
+						otherwise.
 		 */
 		bool ContainsCharacter(wchar_t character) const;
-
+		
 		/**
-		 Returns the glyph of this sprite font corresponding to the given character.
+		 Returns the glyph of this sprite font corresponding to the given 
+		 character.
 
 		 @param[in]		character
 						The character.
-		 @return		A pointer to the default glyph of this sprite font
-						if the given character does not match any glyphs of
-						this sprite font and if this sprite font has a default
+		 @return		A pointer to the default glyph of this sprite font if 
+						the given character does not match any glyphs of this 
+						sprite font and if this sprite font has a default
 						character.
 		 @return		A pointer to the glyph of this sprite font corresponding 
 						to the given character.
 		 @throws		FormattedException
-						If the given character does not match any glyphs of
-						this sprite font and if this sprite font has not a default
-						character.
+						If the given character does not match any glyphs of 
+						this sprite font and if this sprite font has not a 
+						default character.
 		 */
 		const Glyph *GetGlyph(wchar_t character) const;
-
+		
 		/**
-		 Returns a pointer to the shader resource view of the texture of this sprite font.
+		 Returns a pointer to the shader resource view of the texture of this 
+		 sprite font.
 
-		 @return		A pointer to the shader resource view
-						of the texture of this sprite font.
+		 @return		A pointer to the shader resource view of the texture 
+						of this sprite font.
 		 */
 		ID3D11ShaderResourceView *Get() const noexcept {
 			return m_texture_srv.Get();
@@ -292,8 +302,8 @@ namespace mage {
 		/**
 		 Checks whether this sprite font contains an alpha component.
 
-		 @return		@c true if and only if this sprite font contains
-						an alpha component.
+		 @return		@c true if and only if this sprite font contains an 
+						alpha component.
 		 */
 		bool HasAlpha() const noexcept;
 
@@ -309,8 +319,8 @@ namespace mage {
 		 @param[in]		output
 						A reference to the sprite font output.
 		 @throws		FormattedException
-						The sprite font glyphs of the given sprite font
-						output are not sorted.
+						The sprite font glyphs of the given sprite font output 
+						are not sorted.
 		 */
 		void InitializeSpriteFont(const SpriteFontOutput &output);
 
@@ -336,6 +346,6 @@ namespace mage {
 		/**
 		 The (extra) line spacing of this sprite font.
 		 */
-		float m_line_spacing;
+		f32 m_line_spacing;
 	};
 }

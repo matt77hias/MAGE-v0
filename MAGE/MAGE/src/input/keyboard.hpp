@@ -29,10 +29,10 @@ namespace mage {
 		/**
 		 Returns the keyboard associated with the current engine.
 
-		 @pre			The input manager associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the keyboard associated
-						with the current engine.
+		 @pre			The input manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the keyboard associated with the current 
+						engine.
 		 */
 		static const Keyboard *Get() noexcept;
 
@@ -84,8 +84,8 @@ namespace mage {
 
 		 @param[in]		keyboard
 						A reference to the keyboard to copy.
-		 @return		A reference to the copy of the given keyboard
-						(i.e. this keyboard).
+		 @return		A reference to the copy of the given keyboard (i.e. 
+						this keyboard).
 		 */
 		Keyboard &operator=(const Keyboard &keyboard) = delete;
 
@@ -94,8 +94,7 @@ namespace mage {
 
 		 @param[in]		keyboard
 						A reference to the keyboard to move.
-		 @return		A reference to the moved keyboard
-						(i.e. this keyboard).
+		 @return		A reference to the moved keyboard (i.e. this keyboard).
 		 */
 		Keyboard &operator=(Keyboard &&keyboard) = delete;
 
@@ -114,12 +113,14 @@ namespace mage {
 		 @param[in]		key
 						The key.
 		 @param[in]		ignore_press_stamp
-						Flag indicating whether press stamps should be ignored.
-						Consistent presses will return false when using the press stamp.
+						Flag indicating whether press stamps should be 
+						ignored. Consistent presses will return false when 
+						using the press stamp.
 		 @return		@c true if the given key of this keyboard is pressed.
 						@c false otherwise.
 		 */
-		bool GetKeyPress(unsigned char key, bool ignore_press_stamp = false) const;
+		bool GetKeyPress(unsigned char key, 
+			bool ignore_press_stamp = false) const;
 
 	private:
 

@@ -72,8 +72,8 @@ namespace mage {
 
 		 @param[in]		output
 						A reference to the sprite font output to move.
-		 @return		A reference to the moved sprite font output
-						(i.e. this sprite font output).
+		 @return		A reference to the moved sprite font output (i.e. this 
+						sprite font output).
 		 */
 		SpriteFontOutput &operator=(SpriteFontOutput &&output) = delete;
 	
@@ -82,27 +82,26 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the texture of the sprite font 
-		 of this sprite font output.
+		 A pointer to the texture of the sprite font of this sprite font 
+		 output.
 		 */
 		ComPtr< ID3D11ShaderResourceView > m_texture_srv;
 
 		/**
-		 A vector containing the glyphs of the sprite font
-		 of this sprite font output.
+		 A vector containing the glyphs of the sprite font of this sprite font 
+		 output.
 		 */
 		vector < Glyph > m_glyphs;
 
 		/**
-		 The default character of the sprite font
-		 of this sprite font output.
+		 The default character of the sprite font of this sprite font output.
 		 */
 		wchar_t m_default_character;
 
 		/**
-		 The (extra) line spacing of the sprite font
-		 of this sprite font output.
+		 The (extra) line spacing of the sprite font of this sprite font 
+		 output.
 		 */
-		float m_line_spacing;
+		f32 m_line_spacing;
 	};
 }

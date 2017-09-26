@@ -16,6 +16,7 @@ namespace mage {
 	CameraNode::CameraNode(const string &name, UniquePtr< Camera > &&camera)
 		: SceneNode(name), m_camera(std::move(camera)), 
 		m_settings(MakeUnique< CameraSettings >()), m_viewport() {
+		
 		Assert(m_camera);
 	}
 	

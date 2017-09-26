@@ -25,11 +25,13 @@ namespace mage {
 		const wstring extension = GetFileExtension(fname);
 
 		if (extension == L"dds" || extension == L"DDS") {
-			const HRESULT result = CreateDDSTextureFromFile(device, fname.c_str(), nullptr, texture_srv);
+			const HRESULT result = CreateDDSTextureFromFile(
+				device, fname.c_str(), nullptr, texture_srv);
 			ThrowIfFailed(result, "Texture importing failed: %08X.", result);
 		}
 		else {
-			throw FormattedException("Unknown texture file extension: %ls", fname.c_str());
+			throw FormattedException(
+				"Unknown texture file extension: %ls", fname.c_str());
 		}
 	}
 }

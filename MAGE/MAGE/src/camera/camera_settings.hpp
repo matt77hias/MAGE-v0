@@ -65,20 +65,22 @@ namespace mage {
 
 		 @param[in]		scene_settings
 						A reference to the camera settings to copy.
-		 @return		A reference to the copy of the given camera settings
+		 @return		A reference to the copy of the given camera settings 
 						(i.e. this camera settings).
 		 */
-		CameraSettings &operator=(const CameraSettings &scene_settings) = default;
+		CameraSettings &operator=(
+			const CameraSettings &scene_settings) = default;
 
 		/**
 		 Moves the given camera settings to this camera settings.
 
 		 @param[in]		scene_settings
 						A reference to the camera settings to move.
-		 @return		A reference to the moved camera settings
-						(i.e. this camera settings).
+		 @return		A reference to the moved camera settings (i.e. this 
+						camera settings).
 		 */
-		CameraSettings &operator=(CameraSettings &&scene_settings) = default;
+		CameraSettings &operator=(
+			CameraSettings &&scene_settings) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -115,7 +117,8 @@ namespace mage {
 		}
 
 		bool HasRenderLayers() const noexcept {
-			return m_render_layer_mask != static_cast< u32 >(RenderLayer::None);
+			return m_render_layer_mask 
+				!= static_cast< u32 >(RenderLayer::None);
 		}
 
 		bool HasRenderLayer(RenderLayer render_layer) const noexcept {

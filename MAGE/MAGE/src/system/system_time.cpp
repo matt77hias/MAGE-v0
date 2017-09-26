@@ -14,7 +14,7 @@
 namespace mage {
 
 	/**
-	 Converts the given file time to a @c u64 (in 100 ns).
+	 Converts the given file time to an @c u64 (in 100 ns).
 
 	 @param[in]		ftime
 					A reference to the file time.

@@ -23,8 +23,10 @@ namespace mage {
 
 	SpotLight::SpotLight(const RGBSpectrum &intensity)
 		: Light(intensity),
-		m_distance_falloff_start(0.0f), m_distance_falloff_end(1.0f),
-		m_cos_penumbra(1.0f), m_cos_umbra(0.707106781f),
+		m_distance_falloff_start(0.0f), 
+		m_distance_falloff_end(1.0f),
+		m_cos_penumbra(1.0f), 
+		m_cos_umbra(0.707106781f),
 		m_exponent_property(1.0f), 
 		m_shadows(false) {
 
@@ -47,11 +49,11 @@ namespace mage {
 	}
 
 	void SpotLight::UpdateBoundingVolumes() noexcept {
-		const float a         = 1.0f / (m_cos_umbra * m_cos_umbra);
-		const float tan_umbra = sqrt(a - 1.0f);
-		const float rxy       = m_distance_falloff_end * tan_umbra;
-		const float rz        = m_distance_falloff_end * 0.5f;
-		const float r         = m_distance_falloff_end * sqrt(a - 0.75f);
+		const f32 a         = 1.0f / (m_cos_umbra * m_cos_umbra);
+		const f32 tan_umbra = sqrt(a - 1.0f);
+		const f32 rxy       = m_distance_falloff_end * tan_umbra;
+		const f32 rz        = m_distance_falloff_end * 0.5f;
+		const f32 r         = m_distance_falloff_end * sqrt(a - 0.75f);
 
 		AABB aabb(Point3(-rxy, -rxy, 0.0f),
 				  Point3( rxy,  rxy, m_distance_falloff_end));

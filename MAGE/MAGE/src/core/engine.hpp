@@ -90,8 +90,8 @@ namespace mage {
 
 		 @param[in]		engine
 						A reference to the engine to copy.
-		 @return		A reference to the copy of the given engine
-						(i.e. this engine).
+		 @return		A reference to the copy of the given engine (i.e. this 
+						engine).
 		 */
 		Engine &operator=(const Engine &engine) = delete;
 
@@ -100,10 +100,13 @@ namespace mage {
 
 		 @param[in]		engine
 						A reference to the engine to move.
-		 @return		A reference to the moved engine
-						(i.e. this engine).
+		 @return		A reference to the moved engine (i.e. this engine).
 		 */
 		Engine &operator=(Engine &&engine) = delete;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Run
+		//---------------------------------------------------------------------
 
 		/**
 		 Runs this engine.
@@ -112,10 +115,11 @@ namespace mage {
 						A reference to the start scene.
 		 @param[in]		nCmdShow
 						Controls how the engine window is to be shown.
-		 @return		If the function succeeds, terminating when it receives a 
-						@c WM_QUIT message, it returns the exit value contained 
-						in that message's @c wParam parameter. If the function 
-						terminates before entering the message loop, it returns 0.
+		 @return		If the function succeeds, terminating when it receives 
+						a @c WM_QUIT message, it returns the exit value 
+						contained in that message's @c wParam parameter. If the 
+						function terminates before entering the message loop, 
+						it returns 0.
 		 */
 		int Run(UniquePtr< Scene > &&scene, int nCmdShow = SW_NORMAL);
 
@@ -139,8 +143,8 @@ namespace mage {
 		 Call this method when the engine becomes active or deactive.
 
 		 @param[in]		deactive
-						@c true if this engine becomes deactive.
-						@c false otherwise.
+						@c true if this engine becomes deactive. @c false 
+						otherwise.
 		 */
 		void OnActiveChange(bool deactive) noexcept;
 
@@ -161,8 +165,8 @@ namespace mage {
 		/**
 		 Notifies this engine of a change in display mode.
 		 
-		 Call this method when the engine needs to switch
-		 its current (windowed|fullscreen) display mode.
+		 Call this method when the engine needs to switch its current 
+		 (windowed|fullscreen) display mode.
 		 */
 		void OnModeSwitch() noexcept {
 			m_mode_switch = true;
@@ -249,8 +253,8 @@ namespace mage {
 		 @param[in]		setup
 						A reference to an engine setup.
 		 @throws		FormattedException
-						Failed to initialize at least one of
-						the different systems of this engine.
+						Failed to initialize at least one of the different 
+						systems of this engine.
 		 */
 		void InitializeSystems(const EngineSetup &setup);
 
@@ -278,8 +282,8 @@ namespace mage {
 		UniquePtr< Renderer > m_renderer;
 
 		/**
-		 Flag indicating whether the application should switch between
-		 full screen and windowed mode.
+		 Flag indicating whether the application should switch between full 
+		 screen and windowed mode.
 		 */
 		bool m_mode_switch;
 

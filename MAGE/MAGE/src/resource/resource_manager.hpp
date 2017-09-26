@@ -32,8 +32,9 @@ namespace mage {
 		/**
 		 Returns the resource manager associated with the current engine.
 
-		 @return		A pointer to the resource manager associated
-						with the current engine.
+		 @pre			The current engine must exist.
+		 @return		A pointer to the resource manager associated with the 
+						current engine.
 		 */
 		static ResourceManager *Get() noexcept;
 
@@ -79,17 +80,19 @@ namespace mage {
 		 @return		A reference to the copy of the given resource manager
 						(i.e. this resource manager).
 		 */
-		ResourceManager &operator=(const ResourceManager &resource_factory) = delete;
+		ResourceManager &operator=(
+			const ResourceManager &resource_factory) = delete;
 		
 		/**
 		 Moves the given resource manager to this resource manager.
 
 		 @param[in]		resource_factory
 						A reference to the resource manager to move.
-		 @return		A reference to the moved resource manager
-						(i.e. this resource manager).
+		 @return		A reference to the moved resource manager (i.e. this 
+						resource manager).
 		 */
-		ResourceManager &operator=(ResourceManager &&resource_factory) = delete;
+		ResourceManager &operator=(
+			ResourceManager &&resource_factory) = delete;
 		
 		//---------------------------------------------------------------------
 		// Member Methods: HasModelDescriptor
@@ -102,10 +105,9 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the 
 						model descriptor.
-		 @return		@c true if this resource managers contains
-						a model descriptor corresponding to the given 
-						globally unique identifier.
-						@c false otherwise.
+		 @return		@c true if this resource managers contains a model 
+						descriptor corresponding to the given globally unique 
+						identifier. @c false otherwise.
 		 */
 		bool HasModelDescriptor(const wstring &guid) noexcept;
 		
@@ -116,10 +118,9 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
 						vertex shader.
-		 @return		@c true if this resource managers contains
-						a vertex shader corresponding to the given 
-						globally unique identifier.
-						@c false otherwise.
+		 @return		@c true if this resource managers contains a vertex 
+						shader corresponding to the given globally unique 
+						identifier. @c false otherwise.
 		 */
 		bool HasVS(const wstring &guid) noexcept;
 
@@ -130,10 +131,9 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
 						hull shader.
-		 @return		@c true if this resource managers contains
-						a hull shader corresponding to the given 
-						globally unique identifier.
-						@c false otherwise.
+		 @return		@c true if this resource managers contains a hull 
+						shader corresponding to the given globally unique 
+						identifier. @c false otherwise.
 		 */
 		bool HasHS(const wstring &guid) noexcept;
 
@@ -144,10 +144,9 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
 						domain shader.
-		 @return		@c true if this resource managers contains
-						a domain shader corresponding to the given 
-						globally unique identifier.
-						@c false otherwise.
+		 @return		@c true if this resource managers contains a domain 
+						shader corresponding to the given globally unique 
+						identifier. @c false otherwise.
 		 */
 		bool HasDS(const wstring &guid) noexcept;
 
@@ -158,10 +157,9 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
 						geometry shader.
-		 @return		@c true if this resource managers contains
-						a geometry shader corresponding to the given 
-						globally unique identifier.
-						@c false otherwise.
+		 @return		@c true if this resource managers contains a geometry 
+						shader corresponding to the given globally unique 
+						identifier. @c false otherwise.
 		 */
 		bool HasGS(const wstring &guid) noexcept;
 
@@ -172,10 +170,9 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
 						pixel shader.
-		 @return		@c true if this resource managers contains
-						a pixel shader corresponding to the given 
-						globally unique identifier.
-						@c false otherwise.
+		 @return		@c true if this resource managers contains a pixel 
+						shader corresponding to the given globally unique 
+						identifier. @c false otherwise.
 		 */
 		bool HasPS(const wstring &guid) noexcept;
 
@@ -186,10 +183,9 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
 						compute shader.
-		 @return		@c true if this resource managers contains
-						a compute shader corresponding to the given 
-						globally unique identifier.
-						@c false otherwise.
+		 @return		@c true if this resource managers contains a compute 
+						shader corresponding to the given globally unique 
+						identifier. @c false otherwise.
 		 */
 		bool HasCS(const wstring &guid) noexcept;
 		
@@ -200,10 +196,9 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
 						sprite font.
-		 @return		@c true if this resource managers contains
-						a sprite font corresponding to the given 
-						globally unique identifier.
-						@c false otherwise.
+		 @return		@c true if this resource managers contains a sprite 
+						font corresponding to the given globally unique 
+						identifier. @c false otherwise.
 		 */
 		bool HasSpriteFont(const wstring &guid) noexcept;
 		
@@ -214,10 +209,9 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
 						texture.
-		 @return		@c true if this resource managers contains
-						a texture corresponding to the given 
-						globally unique identifier.
-						@c false otherwise.
+		 @return		@c true if this resource managers contains a 
+						texture corresponding to the given globally unique 
+						identifier. @c false otherwise.
 		 */
 		bool HasTexture(const wstring &guid) noexcept;
 		
@@ -228,10 +222,9 @@ namespace mage {
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
 						variable script.
-		 @return		@c true if this resource managers contains
-						a variable script corresponding to the given 
-						globally unique identifier.
-						@c false otherwise.
+		 @return		@c true if this resource managers contains a variable 
+						script corresponding to the given globally unique 
+						identifier. @c false otherwise.
 		 */
 		bool HasVariableScript(const wstring &guid) noexcept;
 		
@@ -254,8 +247,8 @@ namespace mage {
 		SharedPtr< const ModelDescriptor > GetModelDescriptor(const wstring &guid) noexcept;
 		
 		/**
-		 Returns the vertex shader corresponding to the given globally 
-		 unique identifier of this resource manager.
+		 Returns the vertex shader corresponding to the given globally unique 
+		 identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
@@ -268,8 +261,8 @@ namespace mage {
 		SharedPtr< const VertexShader > GetVS(const wstring &guid) noexcept;
 
 		/**
-		 Returns the hull shader corresponding to the given globally 
-		 unique identifier of this resource manager.
+		 Returns the hull shader corresponding to the given globally unique 
+		 identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
@@ -282,8 +275,8 @@ namespace mage {
 		SharedPtr< const HullShader > GetHS(const wstring &guid) noexcept;
 
 		/**
-		 Returns the domain shader corresponding to the given globally 
-		 unique identifier of this resource manager.
+		 Returns the domain shader corresponding to the given globally unique 
+		 identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
@@ -296,8 +289,8 @@ namespace mage {
 		SharedPtr< const DomainShader > GetDS(const wstring &guid) noexcept;
 
 		/**
-		 Returns the geometry shader corresponding to the given globally 
-		 unique identifier of this resource manager.
+		 Returns the geometry shader corresponding to the given globally unique 
+		 identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
@@ -310,8 +303,8 @@ namespace mage {
 		SharedPtr< const GeometryShader > GetGS(const wstring &guid) noexcept;
 
 		/**
-		 Returns the pixel shader corresponding to the given globally 
-		 unique identifier of this resource manager.
+		 Returns the pixel shader corresponding to the given globally unique 
+		 identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
@@ -324,8 +317,8 @@ namespace mage {
 		SharedPtr< const PixelShader > GetPS(const wstring &guid) noexcept;
 
 		/**
-		 Returns the compute shader corresponding to the given globally 
-		 unique identifier of this resource manager.
+		 Returns the compute shader corresponding to the given globally unique 
+		 identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
@@ -338,8 +331,8 @@ namespace mage {
 		SharedPtr< const ComputeShader > GetCS(const wstring &guid) noexcept;
 		
 		/**
-		 Returns the sprite font corresponding to the given globally 
-		 unique identifier of this resource manager.
+		 Returns the sprite font corresponding to the given globally unique 
+		 identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
@@ -352,8 +345,8 @@ namespace mage {
 		SharedPtr< SpriteFont > GetSpriteFont(const wstring &guid) noexcept;
 		
 		/**
-		 Returns the texture corresponding to the given globally 
-		 unique identifier of this resource manager.
+		 Returns the texture corresponding to the given globally unique 
+		 identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
@@ -366,8 +359,8 @@ namespace mage {
 		SharedPtr< const Texture > GetTexture(const wstring &guid) noexcept;
 		
 		/**
-		 Returns the variable script corresponding to the given globally 
-		 unique identifier of this resource manager.
+		 Returns the variable script corresponding to the given globally unique 
+		 identifier of this resource manager.
 
 		 @param[in]		guid
 						A reference to the globally unique identifier of the
@@ -592,52 +585,62 @@ namespace mage {
 		/**
 		 A pointer to the model descriptor resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, const ModelDescriptor > > m_model_descriptor_resource_pool;
+		UniquePtr< ResourcePool< wstring, const ModelDescriptor > > 
+			m_model_descriptor_resource_pool;
 
 		/**
 		 A pointer to the vertex shader resource pool of this resource manager.
 		 */
-		UniquePtr< PersistentResourcePool< wstring, const VertexShader > > m_vs_resource_pool;
+		UniquePtr< PersistentResourcePool< wstring, const VertexShader > > 
+			m_vs_resource_pool;
 
 		/**
 		 A pointer to the hull shader resource pool of this resource manager.
 		 */
-		UniquePtr< PersistentResourcePool< wstring, const HullShader > > m_hs_resource_pool;
+		UniquePtr< PersistentResourcePool< wstring, const HullShader > > 
+			m_hs_resource_pool;
 
 		/**
 		 A pointer to the domain shader resource pool of this resource manager.
 		 */
-		UniquePtr< PersistentResourcePool< wstring, const DomainShader > > m_ds_resource_pool;
+		UniquePtr< PersistentResourcePool< wstring, const DomainShader > > 
+			m_ds_resource_pool;
 
 		/**
 		 A pointer to the geometry shader resource pool of this resource manager.
 		 */
-		UniquePtr< PersistentResourcePool< wstring, const GeometryShader > > m_gs_resource_pool;
+		UniquePtr< PersistentResourcePool< wstring, const GeometryShader > > 
+			m_gs_resource_pool;
 
 		/**
 		 A pointer to the pixel shader resource pool of this resource manager.
 		 */
-		UniquePtr< PersistentResourcePool< wstring, const PixelShader > > m_ps_resource_pool;
+		UniquePtr< PersistentResourcePool< wstring, const PixelShader > > 
+			m_ps_resource_pool;
 
 		/**
 		 A pointer to the compute shader resource pool of this resource manager.
 		 */
-		UniquePtr< PersistentResourcePool< wstring, const ComputeShader > > m_cs_resource_pool;
+		UniquePtr< PersistentResourcePool< wstring, const ComputeShader > > 
+			m_cs_resource_pool;
 
 		/**
 		 A pointer to the sprite font resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, SpriteFont > > m_sprite_font_resource_pool;
+		UniquePtr< ResourcePool< wstring, SpriteFont > > 
+			m_sprite_font_resource_pool;
 
 		/**
 		 A pointer to the texture resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, const Texture > > m_texture_resource_pool;
+		UniquePtr< ResourcePool< wstring, const Texture > > 
+			m_texture_resource_pool;
 
 		/**
 		 A pointer to the variable script resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, VariableScript > > m_variable_script_resource_pool;
+		UniquePtr< ResourcePool< wstring, VariableScript > > 
+			m_variable_script_resource_pool;
 	};
 }
 

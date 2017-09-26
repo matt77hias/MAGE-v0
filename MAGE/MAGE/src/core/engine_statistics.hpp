@@ -28,10 +28,10 @@ namespace mage {
 		/**
 		 Returns the engine statistics associated with the current engine.
 
-		 @pre			The engine statistics associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the engine statistics associated
-						with the current engine.
+		 @pre			The engine statistics associated with the current 
+						engine must be loaded.
+		 @return		A pointer to the engine statistics associated with the 
+						current engine.
 		 */
 		static EngineStatistics *Get() noexcept;
 
@@ -75,20 +75,22 @@ namespace mage {
 
 		 @param[in]		engine_statistics
 						A reference to the engine statistics to copy.
-		 @return		A reference to the copy of the given engine statistics
+		 @return		A reference to the copy of the given engine statistics 
 						(i.e. this engine statistics).
 		 */
-		EngineStatistics &operator=(const EngineStatistics &engine_statistics) = default;
+		EngineStatistics &operator=(
+			const EngineStatistics &engine_statistics) = default;
 
 		/**
 		 Moves the given engine statistics to this engine statistics.
 
 		 @param[in]		engine_statistics
 						A reference to the engine statistics to move.
-		 @return		A reference to the moved engine statistics
-						(i.e. this engine statistics).
+		 @return		A reference to the moved engine statistics (i.e. this 
+						engine statistics).
 		 */
-		EngineStatistics &operator=(EngineStatistics &&engine_statistics) = default;
+		EngineStatistics &operator=(
+			EngineStatistics &&engine_statistics) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods

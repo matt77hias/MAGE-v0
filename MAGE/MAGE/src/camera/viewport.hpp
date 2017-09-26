@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
 #include "rendering\pipeline.hpp"
 
 #pragma endregion
@@ -25,9 +24,9 @@ namespace mage {
 
 		static const D3D11_VIEWPORT GetMaxViewport() noexcept;
 
-		static float NormalizeWidth(float x) noexcept;
+		static f32 NormalizeWidth(f32 x) noexcept;
 
-		static float NormalizeHeight(float x) noexcept;
+		static f32 NormalizeHeight(f32 x) noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -35,12 +34,17 @@ namespace mage {
 
 		Viewport()
 			: Viewport(GetMaxViewport()) {}
+		
 		explicit Viewport(const D3D11_VIEWPORT &viewport)
 			: m_viewport(viewport) {}
+		
 		explicit Viewport(D3D11_VIEWPORT &&viewport)
 			: m_viewport(std::move(viewport)) {}
+		
 		Viewport(const Viewport &viewport) = default;
+		
 		Viewport(Viewport &&viewport) = default;
+		
 		~Viewport() = default;
 
 		//---------------------------------------------------------------------
@@ -48,6 +52,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		Viewport &operator=(const Viewport &viewport) = default;
+		
 		Viewport &operator=(Viewport &&viewport) = default;
 
 		//---------------------------------------------------------------------
@@ -99,12 +104,12 @@ namespace mage {
 			m_viewport.TopLeftY = static_cast< f32 >(y);
 		}
 
-		void SetTopLeft(float x, float y) noexcept {
+		void SetTopLeft(f32 x, f32 y) noexcept {
 			m_viewport.TopLeftX = x;
 			m_viewport.TopLeftY = y;
 		}
 
-		void SetNormalizedTopLeft(float x, float y) noexcept {
+		void SetNormalizedTopLeft(f32 x, f32 y) noexcept {
 			SetTopLeft(NormalizeWidth(x), NormalizeHeight(y));
 		}
 
@@ -112,11 +117,11 @@ namespace mage {
 			m_viewport.Width = static_cast< f32 >(width);
 		}
 
-		void SetWidth(float width) noexcept {
+		void SetWidth(f32 width) noexcept {
 			m_viewport.Width = width;
 		}
 
-		void SetNormalizedWidth(float width) noexcept {
+		void SetNormalizedWidth(f32 width) noexcept {
 			SetWidth(NormalizeWidth(width));
 		}
 
@@ -124,11 +129,11 @@ namespace mage {
 			m_viewport.Height = static_cast< f32 >(height);
 		}
 
-		void SetHeight(float height) noexcept {
+		void SetHeight(f32 height) noexcept {
 			m_viewport.Height = height;
 		}
 
-		void SetNormalizedHeight(float height) noexcept {
+		void SetNormalizedHeight(f32 height) noexcept {
 			SetHeight(NormalizeHeight(height));
 		}
 
@@ -137,25 +142,25 @@ namespace mage {
 			SetHeight(height);
 		}
 
-		void SetWidthAndHeight(float width, float height) noexcept {
+		void SetWidthAndHeight(f32 width, f32 height) noexcept {
 			SetWidth(width);
 			SetHeight(height);
 		}
 
-		void SetNormalizedWidthAndHeight(float width, float height) noexcept {
+		void SetNormalizedWidthAndHeight(f32 width, f32 height) noexcept {
 			SetWidth(NormalizeWidth(width));
 			SetHeight(NormalizeHeight(height));
 		}
 
-		void SetMinimumDepth(float min_depth) noexcept {
+		void SetMinimumDepth(f32 min_depth) noexcept {
 			m_viewport.MinDepth = min_depth;
 		}
 
-		void SetMaximumDepth(float max_depth) noexcept {
+		void SetMaximumDepth(f32 max_depth) noexcept {
 			m_viewport.MaxDepth = max_depth;
 		}
 
-		void SetDepth(float min_depth, float max_depth) noexcept {
+		void SetDepth(f32 min_depth, f32 max_depth) noexcept {
 			SetMinimumDepth(min_depth);
 			SetMaximumDepth(max_depth);
 		}

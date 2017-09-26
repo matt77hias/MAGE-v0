@@ -29,7 +29,8 @@ namespace mage {
 		SetupIndexBuffer(device);
 	}
 
-	SpriteBatchMesh::SpriteBatchMesh(SpriteBatchMesh &&sprite_batch_mesh) = default;
+	SpriteBatchMesh::SpriteBatchMesh(
+		SpriteBatchMesh &&sprite_batch_mesh) = default;
 
 	SpriteBatchMesh::~SpriteBatchMesh() = default;
 
@@ -37,9 +38,12 @@ namespace mage {
 		
 		Assert(device);
 		
-		const HRESULT result_vertex_buffer = CreateDynamicVertexBuffer< VertexPositionColorTexture >(
-			device, m_vertex_buffer.ReleaseAndGetAddressOf(), nullptr, MaxVerticesPerBatch());
-		ThrowIfFailed(result_vertex_buffer, "Vertex buffer creation failed: %08X.", result_vertex_buffer);
+		const HRESULT result_vertex_buffer 
+			= CreateDynamicVertexBuffer< VertexPositionColorTexture >(
+				device, m_vertex_buffer.ReleaseAndGetAddressOf(), 
+				nullptr, MaxVerticesPerBatch());
+		ThrowIfFailed(result_vertex_buffer, 
+			"Vertex buffer creation failed: %08X.", result_vertex_buffer);
 	
 		SetNumberOfVertices(MaxVerticesPerBatch());
 	}
@@ -66,8 +70,10 @@ namespace mage {
 		}
 
 		const HRESULT result_index_buffer = CreateStaticIndexBuffer< u16 >(
-			device, m_index_buffer.ReleaseAndGetAddressOf(), indices.data(), indices.size());
-		ThrowIfFailed(result_index_buffer, "Index buffer creation failed: %08X.", result_index_buffer);
+			device, m_index_buffer.ReleaseAndGetAddressOf(), 
+			indices.data(), indices.size());
+		ThrowIfFailed(result_index_buffer, 
+			"Index buffer creation failed: %08X.", result_index_buffer);
 
 		SetNumberOfIndices(indices.size());
 	}
@@ -77,13 +83,12 @@ namespace mage {
 		
 		Assert(mapped_buffer);
 
-		return Pipeline::Map(device_context, 
-			m_vertex_buffer.Get(), 0u, map_type, 0u, mapped_buffer);
+		return Pipeline::Map(device_context, m_vertex_buffer.Get(), 0u, 
+							 map_type, 0u, mapped_buffer);
 	}
 
 	void SpriteBatchMesh::UnmapVertexBuffer(ID3D11DeviceContext2 *device_context) {
 		
-		Pipeline::Unmap(device_context, 
-			m_vertex_buffer.Get(), 0u);
+		Pipeline::Unmap(device_context, m_vertex_buffer.Get(), 0u);
 	}
 }

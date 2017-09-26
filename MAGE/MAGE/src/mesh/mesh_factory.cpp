@@ -43,7 +43,7 @@ namespace mage {
 
 		return MakeUnique< const StaticMesh >(
 								vertices, _countof(vertices), 
-								indices, _countof(indices),
+								indices,  _countof(indices),
 								DXGI_FORMAT_R16_UINT,
 								D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 	}

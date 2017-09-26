@@ -73,7 +73,8 @@ namespace mage {
 		 @param[in]		display_configurator
 						A reference to a display configurator to copy.
 		 */
-		DisplayConfigurator(const DisplayConfigurator &display_configurator) = delete;
+		DisplayConfigurator(
+			const DisplayConfigurator &display_configurator) = delete;
 
 		/**
 		 Constructs a display configurator by moving the given display configurator.
@@ -81,7 +82,8 @@ namespace mage {
 		 @param[in]		display_configurator
 						A reference to a display configurator to move.
 		 */
-		DisplayConfigurator(DisplayConfigurator &&display_configurator);
+		DisplayConfigurator(
+			DisplayConfigurator &&display_configurator);
 
 		/**
 		 Destructs this display configurator.
@@ -97,28 +99,30 @@ namespace mage {
 
 		 @param[in]		display_configurator
 						A reference to a display configurator to copy.
-		 @return		A reference to the copy of the given display configurator
-						(i.e. this display configurator).
+		 @return		A reference to the copy of the given display 
+						configurator (i.e. this display configurator).
 		 */
-		DisplayConfigurator &operator=(const DisplayConfigurator &display_configurator) = delete;
+		DisplayConfigurator &operator=(
+			const DisplayConfigurator &display_configurator) = delete;
 
 		/**
 		 Moves the given display configurator to this display configurator.
 
 		 @param[in]		display_configurator
 						A reference to a display configurator to move.
-		 @return		A reference to the moved display configurator
-						(i.e. this display configurator).
+		 @return		A reference to the moved display configurator (i.e. 
+						this display configurator).
 		 */
-		DisplayConfigurator &operator=(DisplayConfigurator &&display_configurator) = delete;
+		DisplayConfigurator &operator=(
+			DisplayConfigurator &&display_configurator) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Configurs the display by enumerating the available display modes 
-		 and options associated with the adapter output of the physical adapter 
+		 Configurs the display by enumerating the available display modes and 
+		 options associated with the adapter output of the physical adapter 
 		 with the most dedicated video memory.
 
 		 @return		A success/error value.
@@ -142,8 +146,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Engine-defined callback function used with the CreateDialog
-		 for display configuration.
+		 Engine-defined callback function used with the CreateDialog for 
+		 display configuration.
 
 		 @param[in]		hwndDlg
 						A handle to the dialog box.
@@ -153,10 +157,10 @@ namespace mage {
 						Additional message-specific information.
 		 @param[in]		lParam
 						Additional message-specific information.
-		 @return		@c true if @a uMsg is processed.
-						@c false otherwise.
+		 @return		@c true if @a uMsg is processed. @c false otherwise.
 		 */
-		static INT_PTR CALLBACK DisplayDialogProcDelegate(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+		static INT_PTR CALLBACK DisplayDialogProcDelegate(
+			HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -166,8 +170,8 @@ namespace mage {
 		 Initializes the adapter and the output this display configurator.
 
 		 @throws		FormattedException
-						Failed to initialize the adapter and the output 
-						of this display configurator.
+						Failed to initialize the adapter and the output of this 
+						display configurator.
 		 */
 		void InitializeAdapterAndOutput();
 
@@ -175,14 +179,14 @@ namespace mage {
 		 Initializes the display modes of this display configurator.
 
 		 @throws		FormattedException
-						Failed to initialize the display modes
-						of this display configurator.
+						Failed to initialize the display modes of this display 
+						configurator.
 		 */
 		void InitializeDisplayModes();
 
 		/**
-		 Engine-defined callback function used with the CreateDialog
-		 for display configuration.
+		 Engine-defined callback function used with the CreateDialog for 
+		 display configuration.
 
 		 @param[in]		hwndDlg
 						A handle to the dialog box.
@@ -192,10 +196,10 @@ namespace mage {
 						Additional message-specific information.
 		 @param[in]		lParam
 						Additional message-specific information.
-		 @return		@c true if @a uMsg is processed.
-						@c false otherwise.
+		 @return		@c true if @a uMsg is processed. @c false otherwise.
 		 */
-		INT_PTR DisplayDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+		INT_PTR DisplayDialogProc(
+			HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -218,17 +222,20 @@ namespace mage {
 		UniquePtr< VariableScript > m_display_configuration_script;
 
 		/**
-		 A pointer to the adapter (e.g. video card) of this display configurator.
+		 A pointer to the adapter (e.g. video card) of this display 
+		 configurator.
 		 */
 		ComPtr< IDXGIAdapter2 > m_adapter;
 
 		/**
-		 A pointer to the output (e.g. screen monitor) of this display configurator.
+		 A pointer to the output (e.g. screen monitor) of this display 
+		 configurator.
 		 */
 		ComPtr< IDXGIOutput2 > m_output;
 
 		/**
-		 The linked list of enumerated display modes of this display configurator.
+		 The linked list of enumerated display modes of this display 
+		 configurator.
 		 */
 		list< DXGI_MODE_DESC1 > m_display_modes;
 	};

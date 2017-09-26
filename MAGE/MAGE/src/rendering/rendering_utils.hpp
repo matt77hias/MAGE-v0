@@ -171,8 +171,8 @@ namespace mage {
 
 	 @param[in]		format
 					The DXGI format.
-	 @return		The matching SRGB converted DXGI format
-					of the given DXGI format.
+	 @return		The matching SRGB converted DXGI format of the given DXGI 
+					format.
 	 */
 	inline constexpr DXGI_FORMAT ConvertToSRGB(DXGI_FORMAT format) noexcept {
 		switch (format) {
@@ -202,8 +202,8 @@ namespace mage {
 
 	 @param[in]		format
 					The DXGI format.
-	 @return		@c true if and only if the given DXGI format contains
-					an alpha component.
+	 @return		@c true if and only if the given DXGI format contains an 
+					alpha component.
 	*/
 	inline constexpr bool HasAlpha(DXGI_FORMAT format) noexcept {
 		switch (format) {

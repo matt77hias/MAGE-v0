@@ -44,20 +44,22 @@ namespace mage {
 		 
 		 @param[in]		compiled_shader
 						A reference to the compiled shader to copy.
-		 @return		A reference to the copy of the given compiled shader
+		 @return		A reference to the copy of the given compiled shader 
 						(i.e. this compiled shader).
 		 */
-		CompiledShader &operator=(const CompiledShader &compiled_shader) = delete;
+		CompiledShader &operator=(
+			const CompiledShader &compiled_shader) = delete;
 
 		/**
 		 Moves the given compiled shader to this compiled shader.
 		 
 		 @param[in]		compiled_shader
 						A reference to the compiled shader to copy.
-		 @return		A reference to the moved compiled shader
-						(i.e. this compiled shader).
+		 @return		A reference to the moved compiled shader (i.e. this 
+						compiled shader).
 		 */
-		CompiledShader &operator=(CompiledShader &&compiled_shader) = delete;
+		CompiledShader &operator=(
+			CompiledShader &&compiled_shader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -66,17 +68,17 @@ namespace mage {
 		/**
 		 Returns the shader bytecode of this compiled shader.
 		 
-		 @return		A pointer to the shader bytecode 
-						of this compiled shader.
+		 @return		A pointer to the shader bytecode of this compiled 
+						shader.
 		 */
 		virtual const BYTE *GetBytecode() const noexcept = 0;
 
 		/**
-		 Returns the size of the shader bytecode (in bytes) 
-		 of this compiled shader.
+		 Returns the size of the shader bytecode (in bytes) of this compiled 
+		 shader.
 		 
-		 @return		The size of the shader bytecode (in bytes)
-						of this compiled shader.
+		 @return		The size of the shader bytecode (in bytes) of this 
+						compiled shader.
 		 */
 		virtual SIZE_T GetBytecodeSize() const noexcept = 0;
 		
@@ -127,17 +129,19 @@ namespace mage {
 		 Constructs a buffer compiled shader.
 		 
 		 @pre			@a bytecode is not equal to @c nullptr.
-		 @pre			The size of the data pointed to by @a bytecode
-						is equal to @a bytecode_size (bytes).
+		 @pre			The size of the data pointed to by @a bytecode is equal 
+						to @a bytecode_size (bytes).
 		 @param[in]		bytecode
 						A pointer to the shader bytecode.
 		 @param[in]		bytecode_size
 						The size of the given shader bytecode.
 		 */
-		explicit BufferCompiledShader(const BYTE *bytecode, SIZE_T bytecode_size);
+		explicit BufferCompiledShader(
+			const BYTE *bytecode, SIZE_T bytecode_size);
 
 		/**
-		 Constructs a buffer compiled shader from the given buffer compiled shader.
+		 Constructs a buffer compiled shader from the given buffer compiled 
+		 shader.
 		 
 		 @param[in]		compiled_shader
 						A reference to the buffer compiled shader to copy.
@@ -145,7 +149,8 @@ namespace mage {
 		BufferCompiledShader(const BufferCompiledShader &compiled_shader);
 
 		/**
-		 Constructs a buffer compiled shader by moving the given buffer compiled shader.
+		 Constructs a buffer compiled shader by moving the given buffer 
+		 compiled shader.
 		 
 		 @param[in]		compiled_shader
 						A reference to the buffer compiled shader to move.
@@ -162,24 +167,27 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given buffer compiled shader to this buffer compiled shader.
+		 Copies the given buffer compiled shader to this buffer compiled 
+		 shader.
 		 
 		 @param[in]		compiled_shader
 						A reference to the buffer compiled shader to copy.
-		 @return		A reference to the copy of the given buffer compiled shader
-						(i.e. this buffer compiled shader).
+		 @return		A reference to the copy of the given buffer compiled 
+						shader (i.e. this buffer compiled shader).
 		 */
-		BufferCompiledShader &operator=(const BufferCompiledShader &compiled_shader) = delete;
+		BufferCompiledShader &operator=(
+			const BufferCompiledShader &compiled_shader) = delete;
 
 		/**
 		 Moves the given buffer compiled shader to this buffer compiled shader.
 		 
 		 @param[in]		compiled_shader
 						A reference to the buffer compiled shader to copy.
-		 @return		A reference to the moved buffer compiled shader
-						(i.e. this buffer compiled shader).
+		 @return		A reference to the moved buffer compiled shader (i.e. 
+						this buffer compiled shader).
 		 */
-		BufferCompiledShader &operator=(BufferCompiledShader &&compiled_shader) = delete;
+		BufferCompiledShader &operator=(
+			BufferCompiledShader &&compiled_shader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -188,19 +196,19 @@ namespace mage {
 		/**
 		 Returns the shader bytecode of this buffer compiled shader.
 		 
-		 @return		A pointer to the shader bytecode 
-						of this buffer compiled shader.
+		 @return		A pointer to the shader bytecode of this buffer 
+						compiled shader.
 		 */
 		virtual const BYTE *GetBytecode() const noexcept override {
 			return m_bytecode;
 		}
 
 		/**
-		 Returns the size of the shader bytecode (in bytes) 
-		 of this buffer compiled shader.
+		 Returns the size of the shader bytecode (in bytes) of this buffer 
+		 compiled shader.
 		 
-		 @return		The size of the shader bytecode (in bytes)
-						of this buffer compiled shader.
+		 @return		The size of the shader bytecode (in bytes) of this 
+						buffer compiled shader.
 		 */
 		virtual SIZE_T GetBytecodeSize() const noexcept override {
 			return m_bytecode_size;
@@ -244,11 +252,10 @@ namespace mage {
 		 @param[in]		fname
 						A reference to the filename.
 		 @throws		FormattedException
-						Failed to load the compiled
-						shader from the given file.
+						Failed to load the compiled shader from the given file.
 		 */
 		explicit BlobCompiledShader(const wstring &fname);
-
+		
 		/**
 		 Constructs a blob compiled shader from the given blob compiled shader.
 		 
@@ -258,7 +265,8 @@ namespace mage {
 		BlobCompiledShader(const BlobCompiledShader &compiled_shader);
 
 		/**
-		 Constructs a blob compiled shader by moving the given blob compiled shader.
+		 Constructs a blob compiled shader by moving the given blob compiled 
+		 shader.
 		 
 		 @param[in]		compiled_shader
 						A reference to the blob compiled shader to move.
@@ -279,20 +287,22 @@ namespace mage {
 		 
 		 @param[in]		compiled_shader
 						A reference to the blob compiled shader to copy.
-		 @return		A reference to the copy of the given blob compiled shader
-						(i.e. this blob compiled shader).
+		 @return		A reference to the copy of the given blob compiled 
+						shader (i.e. this blob compiled shader).
 		 */
-		BlobCompiledShader &operator=(const BlobCompiledShader &compiled_shader) = delete;
+		BlobCompiledShader &operator=(
+			const BlobCompiledShader &compiled_shader) = delete;
 
 		/**
 		 Moves the given blob compiled shader to this blob compiled shader.
 		 
 		 @param[in]		compiled_shader
 						A reference to the blob compiled shader to copy.
-		 @return		A reference to the moved blob compiled shader
-						(i.e. this blob compiled shader).
+		 @return		A reference to the moved blob compiled shader (i.e. 
+						this blob compiled shader).
 		 */
-		BlobCompiledShader &operator=(BlobCompiledShader &&compiled_shader) = delete;
+		BlobCompiledShader &operator=(
+			BlobCompiledShader &&compiled_shader) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -301,19 +311,19 @@ namespace mage {
 		/**
 		 Returns the shader bytecode of this blob compiled shader.
 		 
-		 @return		A pointer to the shader bytecode 
-						of this blob compiled shader.
+		 @return		A pointer to the shader bytecode of this blob compiled 
+						shader.
 		 */
 		virtual const BYTE *GetBytecode() const noexcept override {
 			return static_cast< BYTE * >(m_shader_blob->GetBufferPointer());
 		}
 
 		/**
-		 Returns the size of the shader bytecode (in bytes) 
-		 of this blob compiled shader.
+		 Returns the size of the shader bytecode (in bytes) of this blob 
+		 compiled shader.
 		 
-		 @return		The size of the shader bytecode (in bytes)
-						of this blob compiled shader.
+		 @return		The size of the shader bytecode (in bytes) of this blob 
+						compiled shader.
 		 */
 		virtual SIZE_T GetBytecodeSize() const noexcept override {
 			return m_shader_blob->GetBufferSize();

@@ -31,10 +31,12 @@ namespace mage {
 	template < typename VertexT >
 	void MDLReader< VertexT >::Preprocess() {
 		if (!m_model_output.m_vertex_buffer.empty()) {
-			throw FormattedException("%ls: vertex buffer must be empty.", GetFilename().c_str());
+			throw FormattedException(
+				"%ls: vertex buffer must be empty.", GetFilename().c_str());
 		}
 		if (!m_model_output.m_index_buffer.empty()) {
-			throw FormattedException("%ls: index buffer must be empty.", GetFilename().c_str());
+			throw FormattedException(
+				"%ls: index buffer must be empty.", GetFilename().c_str());
 		}
 
 		ImportMesh();
@@ -43,14 +45,17 @@ namespace mage {
 	template < typename VertexT >
 	void MDLReader< VertexT >::ImportMesh() {
 		const wstring &fname = GetFilename();
-		const wstring msh_fname = mage::GetFilenameWithoutFileExtension(fname) + L".msh";
-		ImportMSHMeshFromFile(msh_fname, m_model_output.m_vertex_buffer, m_model_output.m_index_buffer);
+		const wstring msh_fname 
+			= mage::GetFilenameWithoutFileExtension(fname) + L".msh";
+		ImportMSHMeshFromFile(msh_fname, 
+			m_model_output.m_vertex_buffer, m_model_output.m_index_buffer);
 	}
 
 	template < typename VertexT >
 	void MDLReader< VertexT >::ReadLine(char *line) {
 		m_context = nullptr;
-		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);
+		const char *token 
+			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || token[0] == MAGE_MDL_COMMENT_CHAR) {
 			return;
@@ -63,7 +68,8 @@ namespace mage {
 			ReadMDLMaterialLibrary();
 		}
 		else {
-			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+			Warning("%ls: line %u: unsupported keyword token: %s.", 
+				GetFilename().c_str(), GetCurrentLineNumber(), token);
 			return;
 		}
 
@@ -84,8 +90,8 @@ namespace mage {
 
 	template < typename VertexT >
 	void MDLReader< VertexT >::ReadMDLMaterialLibrary() {
-		const wstring mtl_path = mage::GetPathName(GetFilename());
-		const wstring mtl_name = str_convert(ReadString());
+		const wstring mtl_path  = mage::GetPathName(GetFilename());
+		const wstring mtl_name  = str_convert(ReadString());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
 		ImportMaterialFromFile(mtl_fname, m_model_output.m_material_buffer);

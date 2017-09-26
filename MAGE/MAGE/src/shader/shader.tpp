@@ -38,7 +38,7 @@ namespace mage {
 
 	template< typename ShaderT, typename PipelineStageT >
 	Shader< ShaderT, PipelineStageT >::~Shader() = default;
-
+	
 	template<>
 	inline void Shader< ID3D11HullShader, Pipeline::HS >
 		::SetupShader(ID3D11Device2 *device, 

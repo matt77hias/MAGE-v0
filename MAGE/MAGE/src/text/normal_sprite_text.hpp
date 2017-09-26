@@ -70,17 +70,19 @@ namespace mage {
 		 @return		A reference to the copy of the given normal sprite text
 						(i.e. this normal sprite text).
 		 */
-		NormalSpriteText &operator=(const NormalSpriteText &sprite_text) = delete;
+		NormalSpriteText &operator=(
+			const NormalSpriteText &sprite_text) = delete;
 
 		/**
 		 Moves the given normal sprite text to this normal sprite text.
 
 		 @param[in]		sprite_text
 						A reference to the normal sprite text to move.
-		 @return		A reference to the moved normal sprite text
-						(i.e. this normal sprite text).
+		 @return		A reference to the moved normal sprite text (i.e. this 
+						normal sprite text).
 		 */
-		NormalSpriteText &operator=(NormalSpriteText &&sprite_text) = delete;
+		NormalSpriteText &operator=(
+			NormalSpriteText &&sprite_text) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -99,8 +101,8 @@ namespace mage {
 		 Draws this normal sprite text.
 
 		 @param[in]		sprite_batch
-						A reference to the sprite batch used for rendering
-						this normal sprite text.
+						A reference to the sprite batch used for rendering this 
+						normal sprite text.
 		 */
 		virtual void Draw(SpriteBatch &sprite_batch) const override;
 

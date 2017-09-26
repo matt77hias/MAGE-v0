@@ -45,8 +45,11 @@ namespace mage {
 		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 		DisplayConfigurator * const display_configurator
-			= GetDialogCaller< DisplayConfigurator >(hwndDlg, uMsg, wParam, lParam);
-		return display_configurator->DisplayDialogProc(hwndDlg, uMsg, wParam, lParam);
+			= GetDialogCaller< DisplayConfigurator >(
+				hwndDlg, uMsg, wParam, lParam);
+		
+		return display_configurator->DisplayDialogProc(
+				hwndDlg, uMsg, wParam, lParam);
 	}
 
 	const u32 DisplayConfigurator::s_nb_MSAA_samples[] = { 1, 2, 4, 8, 16 };
@@ -60,8 +63,10 @@ namespace mage {
 		m_display_modes() {
 
 		// Load the settings script.
-		const bool file_exists = FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
-		m_display_configuration_script = MakeUnique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists);
+		const bool file_exists 
+			= FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
+		m_display_configuration_script = MakeUnique< VariableScript >(
+			MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists);
 
 		// Initialize the adapter and output.
 		InitializeAdapterAndOutput();
@@ -74,20 +79,25 @@ namespace mage {
 		ComPtr< IDXGIAdapter2 > adapter, ComPtr< IDXGIOutput2 > output,
 		DXGI_FORMAT pixel_format)
 		: m_pixel_format(pixel_format),
+		
 		m_display_configuration(), 
 		m_display_configuration_script(),
 		m_adapter(adapter), m_output(output), 
 		m_display_modes() {
 
 		// Load the settings script.
-		const bool file_exists = FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
-		m_display_configuration_script = MakeUnique< VariableScript >(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists);
+		const bool file_exists 
+			= FileExists(MAGE_DEFAULT_DISPLAY_SETTINGS_FILE);
+		m_display_configuration_script 
+			= MakeUnique< VariableScript >(
+				MAGE_DEFAULT_DISPLAY_SETTINGS_FILE, file_exists);
 
 		// Initialize the display modes.
 		InitializeDisplayModes();
 	}
 
-	DisplayConfigurator::DisplayConfigurator(DisplayConfigurator &&device_enumeration) = default;
+	DisplayConfigurator::DisplayConfigurator(
+		DisplayConfigurator &&device_enumeration) = default;
 
 	DisplayConfigurator::~DisplayConfigurator() = default;
 
@@ -147,7 +157,7 @@ namespace mage {
 			max_vram  = vram;
 		}
 	}
-
+	
 	void DisplayConfigurator::InitializeDisplayModes() {
 		// Create the display modes linked list.
 		m_display_modes = list< DXGI_MODE_DESC1 >();
@@ -155,13 +165,22 @@ namespace mage {
 		// Get the DXGI_MODE_DESCs. 
 		const u32 flags = DXGI_ENUM_MODES_INTERLACED;
 		u32 nb_display_modes;
-		// Get the number of display modes that match the requested format and other input options.
-		const HRESULT result1 = m_output->GetDisplayModeList1(m_pixel_format, flags, &nb_display_modes, nullptr);
-		ThrowIfFailed(result1, "Failed to get the number of display modes: %08X.", result1);
-		UniquePtr< DXGI_MODE_DESC1[] >dxgi_mode_descs(MakeUnique< DXGI_MODE_DESC1[] >(nb_display_modes));
-		// Get the display modes that match the requested format and other input options.
-		const HRESULT result2 = m_output->GetDisplayModeList1(m_pixel_format, flags, &nb_display_modes, dxgi_mode_descs.get());
-		ThrowIfFailed(result2, "Failed to get the display modes: %08X.", result2);
+		// Get the number of display modes that match the requested format 
+		// and other input options.
+		const HRESULT result1 
+			= m_output->GetDisplayModeList1(
+				m_pixel_format, flags, &nb_display_modes, nullptr);
+		ThrowIfFailed(result1, 
+			"Failed to get the number of display modes: %08X.", result1);
+		UniquePtr< DXGI_MODE_DESC1[] >dxgi_mode_descs(
+			MakeUnique< DXGI_MODE_DESC1[] >(nb_display_modes));
+		// Get the display modes that match the requested format and other 
+		// input options.
+		const HRESULT result2 
+			= m_output->GetDisplayModeList1(
+				m_pixel_format, flags, &nb_display_modes, dxgi_mode_descs.get());
+		ThrowIfFailed(result2, 
+			"Failed to get the display modes: %08X.", result2);
 
 		// Enumerate the DXGI_MODE_DESCs.
 		for (u32 mode = 0u; mode < nb_display_modes; ++mode) {
@@ -178,38 +197,46 @@ namespace mage {
 
 	HRESULT DisplayConfigurator::Configure() const {
 		// Creates a modal dialog box from a dialog box template resource.
-		// 1. A handle to the module which contains the dialog box template. If this parameter is nullptr, then the current executable is used.
+		// 1. A handle to the module which contains the dialog box template. 
+		//    If this parameter is nullptr, then the current executable is 
+		//    used.
 		// 2. The dialog box template.
 		// 3. A handle to the window that owns the dialog box.
 		// 4. A pointer to the dialog box procedure.
-		// 5. The value to pass to the dialog box in the lParam parameter of the WM_INITDIALOG message.
-		const INT_PTR result_dialog = DialogBoxParam(nullptr, MAKEINTRESOURCE(IDD_DISPLAY_SETTINGS),
+		// 5. The value to pass to the dialog box in the lParam parameter 
+		//    of the WM_INITDIALOG message.
+		const INT_PTR result_dialog 
+			= DialogBoxParam(nullptr, MAKEINTRESOURCE(IDD_DISPLAY_SETTINGS),
 			nullptr, DisplayDialogProcDelegate, reinterpret_cast< LPARAM >(this));
+		
 		return (result_dialog == IDOK) ? S_OK : E_FAIL;
 	}
-
+	
 	/**
-	 Converts the resolution of the given display format descriptor to a @c size_t.
+	 Converts the resolution of the given display format descriptor to a 
+	 @c size_t.
 
 	 @param[in]		desc
 					A reference to the display format descriptor.
-	 @return		A @c size_t value corresponding to the resolution 
-					of the given display format descriptor.
+	 @return		A @c size_t value corresponding to the resolution of 
+					the given display format descriptor.
 	 */
 	inline size_t ConvertResolution(const DXGI_MODE_DESC1 &desc) noexcept {
 		return static_cast< size_t >(MAKELONG(desc.Width, desc.Height));
 	}
 
 	/**
-	 Converts the refresh rate of the given display format descriptor to a @c size_t.
+	 Converts the refresh rate of the given display format descriptor to a 
+	 @c size_t.
 
 	 @param[in]		desc
 					A reference to the display format descriptor.
-	 @return		A @c size_t value corresponding to the refresh rate
-					of the given display format descriptor.
+	 @return		A @c size_t value corresponding to the refresh rate of 
+					the given display format descriptor.
 	 */
 	inline size_t ConvertRefreshRate(const DXGI_MODE_DESC1 &desc) noexcept {
-		return static_cast< size_t >(round(desc.RefreshRate.Numerator / static_cast< float >(desc.RefreshRate.Denominator)));
+		return static_cast< size_t >(round(desc.RefreshRate.Numerator 
+			/ static_cast< f32 >(desc.RefreshRate.Denominator)));
 	}
 
 	INT_PTR DisplayConfigurator::DisplayDialogProc(

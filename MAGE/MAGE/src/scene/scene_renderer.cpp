@@ -57,8 +57,8 @@ namespace mage {
 		const Renderer * const renderer = Renderer::Get();
 		
 		GameBuffer game_buffer;
-		game_buffer.m_width             = static_cast< float >(renderer->GetWidth());
-		game_buffer.m_height            = static_cast< float >(renderer->GetHeight());
+		game_buffer.m_width             = static_cast< f32 >(renderer->GetWidth());
+		game_buffer.m_height            = static_cast< f32 >(renderer->GetHeight());
 		game_buffer.m_inv_width_minus1  = 1.0f / (renderer->GetWidth() - 1.0f);
 		game_buffer.m_inv_height_minus1 = 1.0f / (renderer->GetHeight() - 1.0f);
 		game_buffer.m_gamma             = renderer->GetGamma();
@@ -104,12 +104,14 @@ namespace mage {
 			case RenderMode::Forward: {
 				ExecuteForwardPipeline(viewport, world_to_projection,
 					world_to_view, view_to_world, view_to_projection, brdf);
+				
 				break;
 			}
 
 			case RenderMode::Deferred: {
 				ExecuteDeferredPipeline(viewport, world_to_projection,
 					world_to_view, view_to_world, view_to_projection, brdf);
+				
 				break;
 			}
 
@@ -121,6 +123,7 @@ namespace mage {
 			case RenderMode::Solid: {
 				ExecuteSolidForwardPipeline(viewport, world_to_projection,
 					world_to_view, view_to_world, view_to_projection);
+				
 				break;
 			}
 
@@ -136,6 +139,7 @@ namespace mage {
 				pass->Render(
 					m_pass_buffer.get(), world_to_projection, 
 					world_to_view, view_to_world, view_to_projection);
+				
 				break;
 			}
 
@@ -146,6 +150,7 @@ namespace mage {
 				pass->Render(
 					m_pass_buffer.get(), world_to_projection, 
 					world_to_view, view_to_world, view_to_projection);
+				
 				break;
 			}
 
@@ -156,6 +161,7 @@ namespace mage {
 				pass->Render(
 					m_pass_buffer.get(), world_to_projection, 
 					world_to_view, view_to_projection);
+				
 				break;
 			}
 

@@ -274,7 +274,8 @@ namespace mage {
 		 @return		A reference to the copy of the given derived camera 
 						node (i.e. this derived camera node).
 		 */
-		DerivedCameraNode &operator=(const DerivedCameraNode &camera_node) = delete;
+		DerivedCameraNode &operator=(
+			const DerivedCameraNode &camera_node) = delete;
 		
 		/**
 		 Moves the given derived camera node to this derived camera node.
@@ -284,7 +285,8 @@ namespace mage {
 		 @return		A reference to the moved derived camera node (i.e. this 
 						derived camera node).
 		 */
-		DerivedCameraNode &operator=(DerivedCameraNode &&camera_node) = delete;
+		DerivedCameraNode &operator=(
+			DerivedCameraNode &&camera_node) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

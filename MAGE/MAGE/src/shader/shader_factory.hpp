@@ -24,8 +24,8 @@ namespace mage {
 	/**
 	 Creates a depth vertex shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the depth vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -35,8 +35,8 @@ namespace mage {
 	/**
 	 Creates a depth transparent vertex shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the depth transparent vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -46,8 +46,8 @@ namespace mage {
 	/**
 	 Creates a depth transparent pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the depth transparent pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -64,8 +64,8 @@ namespace mage {
 	/**
 	 Creates a transform vertex shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the transform vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -75,8 +75,8 @@ namespace mage {
 	/**
 	 Creates an emissive pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the emissive pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -86,8 +86,8 @@ namespace mage {
 	/**
 	 Creates a Lambertian pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Lambertian pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -97,8 +97,8 @@ namespace mage {
 	/**
 	 Creates a Phong pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Phong pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -108,8 +108,8 @@ namespace mage {
 	/**
 	 Creates a Modified Phong pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Modified Phong pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -119,8 +119,8 @@ namespace mage {
 	/**
 	 Creates a Blinn-Phong pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Blinn-Phong pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -130,8 +130,8 @@ namespace mage {
 	/**
 	 Creates a Modified Blinn-Phong pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Modified Blinn-Phong pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -141,8 +141,8 @@ namespace mage {
 	/**
 	 Creates a Ward pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Ward pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -152,8 +152,8 @@ namespace mage {
 	/**
 	 Creates a Ward-Duer pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Ward-Duer pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -163,8 +163,8 @@ namespace mage {
 	/**
 	 Creates a Cook-Torrance pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Cook-Torrance pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -174,8 +174,8 @@ namespace mage {
 	/**
 	 Creates a pixel shader matching the given BRDF.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @param[in]		brdf
 					The BRDF type.
 	 @return		A pointer to the pixel shader matching
@@ -188,8 +188,8 @@ namespace mage {
 	/**
 	 Creates a Lambertian tsnm pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Lambertian tsnm pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -199,8 +199,8 @@ namespace mage {
 	/**
 	 Creates a Phong tsnm pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Phong tsnm pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -210,8 +210,8 @@ namespace mage {
 	/**
 	 Creates a Modified Phong tsnm pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Modified Phong tsnm pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -221,8 +221,8 @@ namespace mage {
 	/**
 	 Creates a Blinn-Phong tsnm pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Blinn-Phong tsnm pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -232,8 +232,8 @@ namespace mage {
 	/**
 	 Creates a Modified Blinn-Phong tsnm pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Modified Blinn-Phong tsnm pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -243,8 +243,8 @@ namespace mage {
 	/**
 	 Creates a Ward tsnm pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Ward tsnm pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -254,8 +254,8 @@ namespace mage {
 	/**
 	 Creates a Ward-Duer tsnm pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Ward-Duer tsnm pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -265,8 +265,8 @@ namespace mage {
 	/**
 	 Creates a Cook-Torrance tsnm pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Cook-Torrance tsnm pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -276,8 +276,8 @@ namespace mage {
 	/**
 	 Creates a tsnm pixel shader matching the given BRDF.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @param[in]		brdf
 					The BRDF type.
 	 @return		A pointer to the tsnm pixel shader matching
@@ -297,8 +297,8 @@ namespace mage {
 	/**
 	 Creates a GBuffer pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the GBuffer pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -308,8 +308,8 @@ namespace mage {
 	/**
 	 Creates a GBuffer tsnm pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the GBuffer tsnm pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -326,8 +326,8 @@ namespace mage {
 	/**
 	 Creates a deferred emissive compute shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the deferred emissive compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
@@ -337,8 +337,8 @@ namespace mage {
 	/**
 	 Creates a deferred Lambertian compute shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the deferred Lambertian compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
@@ -348,8 +348,8 @@ namespace mage {
 	/**
 	 Creates a deferred Phong compute shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the deferred Phong compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
@@ -359,8 +359,8 @@ namespace mage {
 	/**
 	 Creates a deferred Modified Phong compute shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the deferred Modified Phong compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
@@ -370,8 +370,8 @@ namespace mage {
 	/**
 	 Creates a deferred Blinn-Phong compute shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the deferred Blinn-Phong compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
@@ -381,8 +381,8 @@ namespace mage {
 	/**
 	 Creates a deferred Modified Blinn-Phong compute shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the deferred Modified Blinn-Phong compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
@@ -392,8 +392,8 @@ namespace mage {
 	/**
 	 Creates a deferred Ward compute shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the deferred Ward compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
@@ -403,8 +403,8 @@ namespace mage {
 	/**
 	 Creates a deferred Ward-Duer compute shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the deferred Ward-Duer compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
@@ -414,8 +414,8 @@ namespace mage {
 	/**
 	 Creates a deferred Cook-Torrance compute shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the deferred Cook-Torrance compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
@@ -425,8 +425,8 @@ namespace mage {
 	/**
 	 Creates a deferred compute shader matching the given BRDF.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @param[in]		brdf
 					The BRDF type.
 	 @return		A pointer to the deferred compute shader matching
@@ -446,8 +446,8 @@ namespace mage {
 	/**
 	 Creates a sprite vertex shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the sprite vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -457,8 +457,8 @@ namespace mage {
 	/**
 	 Creates a sprite pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the sprite pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -475,8 +475,8 @@ namespace mage {
 	/**
 	 Creates a minimal transform vertex shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the minimal transform vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -486,8 +486,8 @@ namespace mage {
 	/**
 	 Creates a constant color pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the constant color pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -497,8 +497,8 @@ namespace mage {
 	/**
 	 Creates a constant color texture pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the constant color texture pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -508,8 +508,8 @@ namespace mage {
 	/**
 	 Creates a distance pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the distance pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -526,8 +526,8 @@ namespace mage {
 	/**
 	 Creates a shading normal vertex shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the shading normal vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -537,8 +537,8 @@ namespace mage {
 	/**
 	 Creates a shading normal pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the shading normal pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -548,8 +548,8 @@ namespace mage {
 	/**
 	 Creates a tsnm shading normal pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the tsnm shading normal 
 					pixel shader.
 	 @throws		FormattedException
@@ -567,8 +567,8 @@ namespace mage {
 	/**
 	 Creates a bounding volume vertex shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the bounding volume vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -578,8 +578,8 @@ namespace mage {
 	/**
 	 Creates a bounding volume pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the bounding volume pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -596,8 +596,8 @@ namespace mage {
 	/**
 	 Creates an image pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the image pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -607,8 +607,8 @@ namespace mage {
 	/**
 	 Creates a image depth pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the image depth pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -625,8 +625,8 @@ namespace mage {
 	/**
 	 Creates a sky pixel shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the sky pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -643,8 +643,8 @@ namespace mage {
 	/**
 	 Creates a far fullscreen triangle vertex shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the far fullscreen triangle vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -654,8 +654,8 @@ namespace mage {
 	/**
 	 Creates a near fullscreen triangle vertex shader.
 
-	 @pre			The resource manager associated with the
-					current engine must be loaded.
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the near fullscreen triangle vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.

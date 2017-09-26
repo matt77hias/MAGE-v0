@@ -40,25 +40,31 @@ namespace mage {
 	template < typename VertexT >
 	void MDLWriter< VertexT >::ExportMesh() {
 		const wstring &fname = GetFilename();
-		const wstring msh_fname = mage::GetFilenameWithoutFileExtension(fname) + L".msh";
-		ExportMSHMeshToFile(msh_fname, m_model_output.m_vertex_buffer, m_model_output.m_index_buffer);
+		const wstring msh_fname 
+			= mage::GetFilenameWithoutFileExtension(fname) + L".msh";
+		ExportMSHMeshToFile(msh_fname, 
+			m_model_output.m_vertex_buffer, m_model_output.m_index_buffer);
 	}
 
 	template < typename VertexT >
 	void MDLWriter< VertexT >::WriteMaterials() {
 		const wstring &fname = GetFilename();
 		
-		const wstring mtl_fname = mage::GetFilenameWithoutFileExtension(fname) + L".mtl";
+		const wstring mtl_fname 
+			= mage::GetFilenameWithoutFileExtension(fname) + L".mtl";
 		if (!FileExists(mtl_fname)) {
 			return;
 		}
 
-		const wstring file_name = mage::GetFileName(fname);
-		const wstring file_name_we = mage::GetFilenameWithoutFileExtension(file_name);
+		const wstring file_name 
+			= mage::GetFileName(fname);
+		const wstring file_name_we 
+			= mage::GetFilenameWithoutFileExtension(file_name);
 
 		char output[MAX_PATH];
+		const size_t output_count = static_cast< size_t >(_countof(output));
 
-		sprintf_s(output, static_cast< unsigned int >(_countof(output)), "%s %s.mtl",
+		sprintf_s(output, output_count, "%s %s.mtl",
 			MAGE_MDL_TOKEN_MATERIAL_LIBRARY, str_convert(file_name_we.c_str()));
 
 		WriteStringLine(output);
@@ -68,10 +74,11 @@ namespace mage {
 	void MDLWriter< VertexT >::WriteModelParts() {
 		
 		char output[MAX_PATH];
+		const size_t output_count = static_cast< size_t >(_countof(output));
 		
 		for (const auto &model_part : m_model_output.m_model_parts) {
 
-			sprintf_s(output, static_cast< unsigned int >(_countof(output)), "%s %s %s %s %u %u",
+			sprintf_s(output, output_count, "%s %s %s %s %u %u",
 				MAGE_MDL_TOKEN_SUBMODEL, model_part.m_child.c_str(), 
 				model_part.m_parent.c_str(), model_part.m_material.c_str(),
 				model_part.m_start_index, model_part.m_nb_indices);

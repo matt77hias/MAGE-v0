@@ -38,7 +38,8 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit SpriteImage(SharedPtr< const Texture > texture,
-			const Color &color, SpriteEffect effects = SpriteEffect::None);
+			const Color &color, 
+			SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a sprite image.
@@ -53,8 +54,10 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit SpriteImage(SharedPtr< const Texture > texture, const RECT &texture_region,
-			const Color &color, SpriteEffect effects = SpriteEffect::None);
+		explicit SpriteImage(SharedPtr< const Texture > texture, 
+			const RECT &texture_region,
+			const Color &color, 
+			SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a sprite image.
@@ -68,7 +71,8 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit SpriteImage(SharedPtr< const Texture > texture,
-			CXMVECTOR color = Colors::White, SpriteEffect effects = SpriteEffect::None);
+			CXMVECTOR color = Colors::White, 
+			SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a sprite image.
@@ -83,8 +87,10 @@ namespace mage {
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
-		explicit SpriteImage(SharedPtr< const Texture > texture, const RECT &texture_region,
-			CXMVECTOR color = Colors::White, SpriteEffect effects = SpriteEffect::None);
+		explicit SpriteImage(SharedPtr< const Texture > texture, 
+			const RECT &texture_region,
+			CXMVECTOR color = Colors::White, 
+			SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a sprite image from the given sprite image.
@@ -116,8 +122,8 @@ namespace mage {
 
 		 @param[in]		sprite_image
 						A reference to the sprite image to copy.
-		 @return		A reference to the copy of the given sprite image
-						(i.e. this sprite image).
+		 @return		A reference to the copy of the given sprite image (i.e. 
+						this sprite image).
 		 */
 		SpriteImage &operator=(const SpriteImage &sprite_image) = delete;
 
@@ -126,8 +132,8 @@ namespace mage {
 
 		 @param[in]		sprite_image
 						A reference to the sprite image to move.
-		 @return		A reference to the moved sprite image
-						(i.e. this sprite image).
+		 @return		A reference to the moved sprite image (i.e. this sprite 
+						image).
 		 */
 		SpriteImage &operator=(SpriteImage &&sprite_image) = delete;
 
@@ -143,19 +149,19 @@ namespace mage {
 		UniquePtr< SpriteImage > Clone() const {
 			return static_pointer_cast< SpriteImage >(CloneImplementation());
 		}
-
+		
 		/**
 		 Draws this sprite image.
 
 		 @param[in]		sprite_batch
-						A reference to the sprite batch used for rendering
-						this sprite image.
+						A reference to the sprite batch used for rendering this 
+						sprite image.
 		 */
 		void Draw(SpriteBatch &sprite_batch) const;
 
 		/**
-		 Sets the texture region of this sprite image 
-		 to the given texture region.
+		 Sets the texture region of this sprite image to the given texture 
+		 region.
 
 		 @param[in]		texture_region
 						A reference to the texture region.

@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
 #include "rendering\pipeline.hpp"
 
 #pragma endregion
@@ -16,8 +15,8 @@
 namespace mage {
 
 	/**
-	 A class of constant buffers 
-	 (for binding buffers to the rendering pipeline).
+	 A class of constant buffers (for binding buffers to the rendering 
+	 pipeline).
 
 	 @tparam		DataT
 					The data type.
@@ -34,8 +33,8 @@ namespace mage {
 		/**
 		 Constructs a constant buffer.
 
-		 @pre			The device associated with the current engine 
-						must be loaded.
+		 @pre			The device associated with the current engine must be 
+						loaded.
 		 @throws		FormattedException
 						Failed to setup this constant buffer.
 		 */
@@ -92,8 +91,8 @@ namespace mage {
 
 		 @param[in]		buffer
 						A reference to the constant buffer to move.
-		 @return		A reference to the copy of the given constant buffer
-						(i.e. this constant buffer).
+		 @return		A reference to the moved constant buffer (i.e. this 
+						constant buffer).
 		 */
 		ConstantBuffer &operator=(ConstantBuffer &&buffer) = delete;
 
@@ -129,15 +128,17 @@ namespace mage {
 		 Binds this constant buffer.
 
 		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a slot < @c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
+		 @pre			@a slot < 
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array to set 
-						the constant buffer to (ranges from 0 to 
-						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT - 1).
+						The index into the device's zero-based array to set the 
+						constant buffer to (ranges from 0 to 
+						@c D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT 
+						- 1).
 		 */
 		template< typename PipelineStageT >
 		void Bind(ID3D11DeviceContext2 *device_context, 

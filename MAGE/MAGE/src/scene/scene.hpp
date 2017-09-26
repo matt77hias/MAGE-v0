@@ -95,7 +95,8 @@ namespace mage {
 		}
 
 		template< typename SceneNodeT, typename... ConstructorArgsT >
-		SharedPtr< SceneNodeT > Create(const string &name, ConstructorArgsT&&... args);
+		SharedPtr< SceneNodeT > Create(
+			const string &name, ConstructorArgsT&&... args);
 		SharedPtr< ModelNode > CreateModel(const ModelDescriptor &desc);
 		
 		//-------------------------------------------------------------------------
@@ -165,14 +166,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Loads this scene.
-		 Allows this scene to preform any pre-processing construction.
+		 Loads this scene. Allows this scene to preform any pre-processing 
+		 construction.
 		 */
 		virtual void Load() {}
 
 		/**
-		 Closes this scene.
-		 Allows this scene to preform any post-processing destruction.
+		 Closes this scene. Allows this scene to preform any post-processing 
+		 destruction.
 		 */
 		virtual void Close() {}
 

@@ -167,7 +167,7 @@ namespace mage {
 		 @return		The distance range where intensity falloff occurs of 
 						this spotlight.
 						@a GetEndDistanceFalloff() - 
-						@a GetStartDistanceFalloff()
+						@a GetStartDistanceFalloff().
 		 */
 		f32 GetRangeDistanceFalloff() const noexcept {
 			return m_distance_falloff_end - m_distance_falloff_start;
@@ -258,7 +258,7 @@ namespace mage {
 
 		 @return		The cosine range where intensity falloff occurs of this 
 						spotlight. @a GetStartAngularCutoff() - 
-						@a GetEndAngularCutoff()
+						@a GetEndAngularCutoff().
 		 */
 		f32 GetRangeAngularCutoff() const noexcept {
 			return m_cos_penumbra - m_cos_umbra;

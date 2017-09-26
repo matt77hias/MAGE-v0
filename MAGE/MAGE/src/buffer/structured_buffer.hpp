@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
 #include "rendering\pipeline.hpp"
 #include "collection\collection.hpp"
 
@@ -17,8 +16,8 @@
 namespace mage {
 
 	/**
-	 A class of structured buffers 
-	 (for binding arrays of buffers to the rendering pipeline).
+	 A class of structured buffers (for binding arrays of buffers to the 
+	 rendering pipeline).
 
 	 @tparam		DataT
 					The data type.
@@ -35,16 +34,16 @@ namespace mage {
 		/**
 		 Constructs a structured buffer.
 
-		 @pre			The device associated with the current engine 
-						must be loaded.
+		 @pre			The device associated with the current engine must be 
+						loaded.
 		 @param[in]		nb_initial_data_elements
-						The initial number of slots for storing data 
-						elements to provide.
+						The initial number of slots for storing data elements 
+						to provide.
 		 @throws		FormattedException
 						Failed to setup this structured buffer.
 		 */
 		explicit StructuredBuffer(size_t nb_initial_data_elements);
-
+		
 		/**
 		 Constructs a structured buffer.
 
@@ -52,8 +51,8 @@ namespace mage {
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		nb_initial_data_elements
-						The initial number of slots for storing 
-						data elements to provide.
+						The initial number of slots for storing data elements 
+						to provide.
 		 @throws		FormattedException
 						Failed to setup this structured buffer.
 		 */
@@ -100,8 +99,8 @@ namespace mage {
 
 		 @param[in]		buffer
 						A reference to the structured buffer to move.
-		 @return		A reference to the copy of the given structured buffer
-						(i.e. this structured buffer).
+		 @return		A reference to the moved structured buffer (i.e. this 
+						structured buffer).
 		 */
 		StructuredBuffer &operator=(StructuredBuffer &&buffer) = delete;
 
@@ -110,8 +109,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the size of this structured buffer
-		 (i.e. the used number of data elements).
+		 Returns the size of this structured buffer (i.e. the used number of 
+		 data elements).
 
 		 @return		The size of this structured buffer.
 		 */
@@ -122,9 +121,8 @@ namespace mage {
 		/**
 		 Updates the data of this structured buffer with the given data.
 
-		 @pre			The device associated with the current engine
-						must be loaded in case this structured buffer
-						needs to grow.
+		 @pre			The device associated with the current engine must be 
+						loaded in case this structured buffer needs to grow.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
@@ -168,7 +166,8 @@ namespace mage {
 		 Binds this structured buffer.
 
 		 @pre			@a device_context is not equal to @c nullptr.
-		 @pre			@a slot < @c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
+		 @pre			@a slot < 
+						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT.
 		 @tparam		PipelineStageT
 						The pipeline stage type.
 		 @param[in]		device_context
@@ -189,13 +188,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 		
 		/**
-		 Sets up the resource buffer and shader resource view of this structured buffer.
+		 Sets up the resource buffer and shader resource view of this 
+		 structured buffer.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		nb_data_elements
-						The number of slots for storing data elements to provide.
+						The number of slots for storing data elements to 
+						provide.
 		 @throws		FormattedException
 						Failed to setup this structured buffer.
 		 */
@@ -217,14 +218,14 @@ namespace mage {
 		ComPtr< ID3D11ShaderResourceView > m_buffer_srv;
 
 		/**
-		 The number of slots available for storing data elements
-		 in the current buffer resource of this structured buffer.
+		 The number of slots available for storing data elements in the current 
+		 buffer resource of this structured buffer.
 		 */
 		size_t m_nb_data_elements;
 
 		/**
-		 The number of used slots
-		 in the current buffer resource of this structured buffer.
+		 The number of used slots in the current buffer resource of this 
+		 structured buffer.
 		 */
 		size_t m_nb_used_data_elements;
 	};

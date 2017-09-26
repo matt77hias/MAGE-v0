@@ -224,7 +224,8 @@ namespace mage {
 		 @return		A reference to the copy of the given derived light 
 						node (i.e. this derived light node).
 		 */
-		DerivedLightNode &operator=(const DerivedLightNode &light_node) = delete;
+		DerivedLightNode &operator=(
+			const DerivedLightNode &light_node) = delete;
 
 		/**
 		 Moves the given derived light node to this derived light node.
@@ -234,7 +235,8 @@ namespace mage {
 		 @return		A reference to the moved derived light node (i.e. this 
 						derived light node).
 		 */
-		DerivedLightNode &operator=(DerivedLightNode &&light_node) = delete;
+		DerivedLightNode &operator=(
+			DerivedLightNode &&light_node) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

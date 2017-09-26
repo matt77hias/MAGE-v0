@@ -19,21 +19,27 @@ namespace mage {
 		m_model_parts.clear();
 	}
 
-	const Material *ModelDescriptor::GetMaterial(const string &name) const noexcept {
+	const Material *ModelDescriptor::GetMaterial(
+		const string &name) const noexcept {
+		
 		for (const auto &material : m_materials) {
 			if (material.GetName() == name) {
 				return &material;
 			}
 		}
+		
 		return nullptr;
 	}
 
-	const ModelPart *ModelDescriptor::GetModelPart(const string &name) const noexcept {
+	const ModelPart *ModelDescriptor::GetModelPart(
+		const string &name) const noexcept {
+		
 		for (const auto &model_part : m_model_parts) {
 			if (model_part.m_child == name) {
 				return &(model_part);
 			}
 		}
+		
 		return nullptr;
 	}
 }

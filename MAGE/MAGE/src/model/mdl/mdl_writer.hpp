@@ -34,7 +34,8 @@ namespace mage {
 		 Constructs a MDL writer.
 
 		 @param[in]		model_output
-						A reference to the model output containing the model data.
+						A reference to the model output containing the model 
+						data.
 		 */
 		explicit MDLWriter(const ModelOutput< VertexT > &model_output);
 
@@ -68,20 +69,22 @@ namespace mage {
 
 		 @param[in]		writer
 						A reference to a MDL writer to copy.
-		 @return		A reference to the copy of the given MDL writer
-						(i.e. this MDL writer).
+		 @return		A reference to the copy of the given MDL writer (i.e. 
+						this MDL writer).
 		 */
-		MDLWriter< VertexT > &operator=(const MDLWriter< VertexT > &writer) = delete;
+		MDLWriter< VertexT > &operator=(
+			const MDLWriter< VertexT > &writer) = delete;
 
 		/**
 		 Moves the given MDL writer to this MDL writer.
 
 		 @param[in]		writer
 						A reference to a MDL writer to move.
-		 @return		A reference to the moved MDL writer
-						(i.e. this MDL writer).
+		 @return		A reference to the moved MDL writer (i.e. this MDL 
+						writer).
 		 */
-		MDLWriter< VertexT > &operator=(MDLWriter< VertexT > &&writer) = delete;
+		MDLWriter< VertexT > &operator=(
+			MDLWriter< VertexT > &&writer) = delete;
 
 	private:
 
@@ -129,7 +132,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to the model output containing the model data of this MDL writer.
+		 A reference to the model output containing the model data of this MDL 
+		 writer.
 		 */
 		const ModelOutput< VertexT > &m_model_output;
 	};

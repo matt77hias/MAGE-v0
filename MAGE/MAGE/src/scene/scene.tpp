@@ -6,9 +6,11 @@
 namespace mage {
 
 	template< typename SceneNodeT, typename... ConstructorArgsT >
-	SharedPtr< SceneNodeT > Scene::Create(const string &name, ConstructorArgsT&&... args) {
-		SharedPtr< SceneNodeT > node
-			= MakeShared< SceneNodeT >(name, std::forward< ConstructorArgsT >(args)...);
+	SharedPtr< SceneNodeT > Scene::Create(
+		const string &name, ConstructorArgsT&&... args) {
+		
+		SharedPtr< SceneNodeT > node = MakeShared< SceneNodeT >(
+			name, std::forward< ConstructorArgsT >(args)...);
 
 		// Add this node to this scene.
 		AddSceneNode(node);
@@ -17,7 +19,9 @@ namespace mage {
 	}
 
 	template< typename ActionT >
-	inline void Scene::ForEachScript(ActionT action, bool include_passive) const {
+	inline void Scene::ForEachScript(
+		ActionT action, bool include_passive) const {
+		
 		vector< SharedPtr< BehaviorScript > > scripts;
 		scripts.reserve(m_scripts.size());
 
@@ -38,7 +42,9 @@ namespace mage {
 	}
 
 	template< typename ActionT >
-	inline void Scene::ForEachCamera(ActionT action, bool include_passive) const {
+	inline void Scene::ForEachCamera(
+		ActionT action, bool include_passive) const {
+		
 		vector< SharedPtr< CameraNode > > cameras;
 		cameras.reserve(m_cameras.size());
 		
@@ -59,7 +65,9 @@ namespace mage {
 	}
 
 	template< typename ActionT >
-	inline void Scene::ForEachModel(ActionT action, bool include_passive) const {
+	inline void Scene::ForEachModel(
+		ActionT action, bool include_passive) const {
+		
 		vector< SharedPtr< ModelNode > > models;
 		models.reserve(m_models.size());
 		
@@ -80,7 +88,8 @@ namespace mage {
 	}
 
 	template< typename ActionT >
-	inline void Scene::ForEachAmbientLight(ActionT action, bool include_passive) const {
+	inline void Scene::ForEachAmbientLight(
+		ActionT action, bool include_passive) const {
 		
 		if (!m_ambient_light || m_ambient_light->IsTerminated()) {
 			return;
@@ -92,7 +101,9 @@ namespace mage {
 	}
 
 	template< typename ActionT >
-	inline void Scene::ForEachDirectionalLight(ActionT action, bool include_passive) const {
+	inline void Scene::ForEachDirectionalLight(
+		ActionT action, bool include_passive) const {
+		
 		vector< SharedPtr< DirectionalLightNode > > lights;
 		lights.reserve(m_directional_lights.size());
 		
@@ -113,7 +124,9 @@ namespace mage {
 	}
 
 	template< typename ActionT >
-	inline void Scene::ForEachOmniLight(ActionT action, bool include_passive) const {
+	inline void Scene::ForEachOmniLight(
+		ActionT action, bool include_passive) const {
+		
 		vector< SharedPtr< OmniLightNode > > lights;
 		lights.reserve(m_omni_lights.size());
 		
@@ -134,7 +147,9 @@ namespace mage {
 	}
 
 	template< typename ActionT >
-	inline void Scene::ForEachSpotLight(ActionT action, bool include_passive) const {
+	inline void Scene::ForEachSpotLight(
+		ActionT action, bool include_passive) const {
+		
 		vector< SharedPtr< SpotLightNode > > lights;
 		lights.reserve(m_spot_lights.size());
 		
@@ -155,7 +170,9 @@ namespace mage {
 	}
 
 	template< typename ActionT >
-	inline void Scene::ForEachLight(ActionT action, bool include_passive) const {
+	inline void Scene::ForEachLight(
+		ActionT action, bool include_passive) const {
+		
 		ForEachAmbientLight(    action, include_passive);
 		ForEachDirectionalLight(action, include_passive);
 		ForEachOmniLight(       action, include_passive);
@@ -163,7 +180,9 @@ namespace mage {
 	}
 
 	template< typename ActionT >
-	inline void Scene::ForEachSprite(ActionT action, bool include_passive) const {
+	inline void Scene::ForEachSprite(
+		ActionT action, bool include_passive) const {
+		
 		vector< SharedPtr< SpriteNode > > sprites;
 		sprites.reserve(m_sprites.size());
 		

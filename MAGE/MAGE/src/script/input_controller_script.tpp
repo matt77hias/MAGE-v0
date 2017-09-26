@@ -14,7 +14,8 @@ namespace mage {
 
 	template< typename OrientationScriptT, typename MovementScriptT >
 	InputControllerScript< OrientationScriptT, MovementScriptT >
-		::InputControllerScript(InputControllerScript< OrientationScriptT, MovementScriptT > &&script) = default;
+		::InputControllerScript(
+			InputControllerScript< OrientationScriptT, MovementScriptT > &&script) = default;
 
 	template< typename OrientationScriptT, typename MovementScriptT >
 	InputControllerScript< OrientationScriptT, MovementScriptT >

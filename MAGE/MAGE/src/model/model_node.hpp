@@ -81,8 +81,8 @@ namespace mage {
 
 		 @param[in]		model_node
 						A reference to the model node to copy.
-		 @return		A reference to the copy of the given model node
-						(i.e. this model node).
+		 @return		A reference to the copy of the given model node (i.e. 
+						this model node).
 		 */
 		ModelNode &operator=(const ModelNode &model_node) = delete;
 
@@ -91,8 +91,8 @@ namespace mage {
 
 		 @param[in]		model_node
 						A reference to the model node to move.
-		 @return		A reference to the moved model node
-						(i.e. this model node).
+		 @return		A reference to the moved model node (i.e. this model 
+						node).
 		 */
 		ModelNode &operator=(ModelNode &&model_node) = delete;
 

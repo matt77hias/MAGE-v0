@@ -13,8 +13,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	TextConsoleScript::TextConsoleScript(SpriteText *text,
-		u32 nb_rows, u32 nb_columns)
+	TextConsoleScript::TextConsoleScript(
+		SpriteText *text, u32 nb_rows, u32 nb_columns)
 		: BehaviorScript(),
 		m_nb_rows(nb_rows), m_nb_columns(nb_columns + 1),
 		m_current_column(0), m_current_row(0),
@@ -39,7 +39,8 @@ namespace mage {
 	}
 
 	void TextConsoleScript::Clear() {
-		memset(m_buffer.get(), 0, sizeof(wchar_t) * (m_nb_columns * m_nb_rows + 1));
+		memset(m_buffer.get(), 0, 
+			sizeof(wchar_t) * (m_nb_columns * m_nb_rows + 1));
 		m_current_row    = 0;
 		m_current_column = 0;
 	}
@@ -62,7 +63,8 @@ namespace mage {
 		// Retrieve the additional arguments after format
 		va_start(args, format);
 
-		const size_t nb_characters = static_cast< size_t >(_vscwprintf(format, args) + 1);
+		const size_t nb_characters 
+			= static_cast< size_t >(_vscwprintf(format, args) + 1);
 		if (m_temp_buffer.size() < nb_characters) {
 			m_temp_buffer.resize(nb_characters);
 		}
@@ -77,7 +79,8 @@ namespace mage {
 	}
 
 	void TextConsoleScript::ProcessString(const wchar_t *str) {
-		for (const wchar_t *character = str; *character != L'\0'; ++character, ++m_current_column) {
+		for (const wchar_t *character = str; 
+			*character != L'\0'; ++character, ++m_current_column) {
 			
 			if (*character == L'\n') {
 				IncrementRow();

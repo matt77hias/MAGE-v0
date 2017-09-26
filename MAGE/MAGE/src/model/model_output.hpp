@@ -92,8 +92,8 @@ namespace mage {
 
 		 @param[in]		model_part
 						A reference to the model part to copy.
-		 @return		A reference to the copy of the given model part
-						(i.e. this model part).
+		 @return		A reference to the copy of the given model part (i.e. 
+						this model part).
 		 */
 		ModelPart &operator=(const ModelPart &model_part) = default;
 
@@ -102,8 +102,8 @@ namespace mage {
 
 		 @param[in]		model_part
 						A reference to the model part to move.
-		 @return		A reference to the moved model part
-						(i.e. this model part).
+		 @return		A reference to the moved model part (i.e. this model 
+						part).
 		 */
 		ModelPart &operator=(ModelPart &&model_part) = default;
 
@@ -127,14 +127,14 @@ namespace mage {
 		string m_material;
 
 		/**
-		 The start index of this model part 
-		 in the mesh of the corresponding model.
+		 The start index of this model part in the mesh of the corresponding 
+		 model.
 		 */
 		u32 m_start_index;
 
 		/**
-		 The number of indices of this model part 
-		 in the mesh of the corresponding model.
+		 The number of indices of this model part in the mesh of the 
+		 corresponding model.
 		 */
 		u32 m_nb_indices;
 
@@ -199,10 +199,11 @@ namespace mage {
 
 		 @param[in]		output
 						A reference to the model output to copy.
-		 @return		A reference to the copy of the given model output
-						(i.e. this model output).
+		 @return		A reference to the copy of the given model output (i.e.
+						this model output).
 		 */
-		ModelOutput< VertexT > &operator=(const ModelOutput< VertexT > &output) = delete;
+		ModelOutput< VertexT > &operator=(
+			const ModelOutput< VertexT > &output) = delete;
 
 		/**
 		 Moves the given model output to this model output.
@@ -212,7 +213,8 @@ namespace mage {
 		 @return		A reference to the moved model output
 						(i.e. this model output).
 		 */
-		ModelOutput< VertexT > &operator=(ModelOutput< VertexT > &&output) = delete;
+		ModelOutput< VertexT > &operator=(
+			ModelOutput< VertexT > &&output) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -224,13 +226,15 @@ namespace mage {
 		 @param[in]		model_part
 						A reference to the model part to add.
 		 @param[in]		create_bounding_volumes
-						A flag indicating whether bounding volumes must be created
-						for the given model part.
+						A flag indicating whether bounding volumes must be 
+						created for the given model part.
 		 */
-		void AddModelPart(ModelPart &&model_part, bool create_bounding_volumes = true);
+		void AddModelPart(ModelPart &&model_part, 
+			bool create_bounding_volumes = true);
 
 		/**
-		 Checks whether this model output contains a model part with the given name.
+		 Checks whether this model output contains a model part with the given 
+		 name.
 
 		 @param[in]		name
 						The name of the model part.
@@ -245,11 +249,12 @@ namespace mage {
 		 @param[in]		parent
 						A reference to the name of the parent model part.
 		 */
-		void StartModelPart(const string &child, const string &parent = MAGE_MDL_PART_DEFAULT_PARENT);
+		void StartModelPart(const string &child, 
+			const string &parent = MAGE_MDL_PART_DEFAULT_PARENT);
 		
 		/**
-		 Sets the name of the material of the last model part
-		 to the given material name.
+		 Sets the name of the material of the last model part to the given 
+		 material name.
 
 		 @pre			This model output contains at least one model part.
 		 @param[in]		material
@@ -262,8 +267,8 @@ namespace mage {
 
 		 @pre			This model output contains at least one model part.
 		 @param[in]		create_bounding_volumes
-						A flag indicating whether bounding volumes must be created
-						for the given model part.
+						A flag indicating whether bounding volumes must be 
+						created for the given model part.
 		 */
 		void EndModelPart(bool create_bounding_volumes = true) noexcept;
 

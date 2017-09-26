@@ -20,7 +20,8 @@ namespace mage {
 		m_MSAA_sample_desc.Quality = MSAA_quality_level;
 	}
 
-	void DisplayConfiguration::UpdateMSAASampleDesc(ID3D11Device2 *device) noexcept {
+	void DisplayConfiguration::UpdateMSAASampleDesc(
+		ID3D11Device2 *device) noexcept {
 		
 		Assert(device);
 		const DXGI_FORMAT format = GetDisplayFormat();

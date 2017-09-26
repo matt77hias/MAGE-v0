@@ -79,8 +79,8 @@ namespace mage {
 
 		 @param[in]		buffer
 						A reference to the deferred buffer to move.
-		 @return		A reference to the moved deferred buffer
-						(i.e. this deferred buffer).
+		 @return		A reference to the moved deferred buffer (i.e. this 
+						deferred buffer).
 		 */
 		DeferredBuffer &operator=(DeferredBuffer &&buffer) = default;
 
@@ -99,28 +99,28 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The 1st BRDF dependent material coefficient start
-		 of this deferred buffer.
+		 The 1st BRDF dependent material coefficient start of this deferred 
+		 buffer.
 		 */
-		float m_mat1_start;
+		f32 m_mat1_start;
 
 		/**
-		 The 1st BRDF dependent material coefficient range
-		 of this deferred buffer.
+		 The 1st BRDF dependent material coefficient range of this deferred 
+		 buffer.
 		 */
-		float m_mat1_range;
+		f32 m_mat1_range;
 
 		/**
-		 The 2nd BRDF dependent material coefficient start
-		 of this deferred buffer.
+		 The 2nd BRDF dependent material coefficient start of this deferred 
+		 buffer.
 		 */
-		float m_mat2_start;
+		f32 m_mat2_start;
 
 		/**
-		 The 2nd BRDF dependent material coefficient range
-		 of this deferred buffer.
+		 The 2nd BRDF dependent material coefficient range of this deferred 
+		 buffer.
 		 */
-		float m_mat2_range;
+		f32 m_mat2_range;
 	};
 
 	static_assert(sizeof(DeferredBuffer) == 32, "CPU/GPU struct mismatch");

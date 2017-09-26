@@ -93,32 +93,32 @@ namespace mage {
 		/**
 		 The width of this game buffer.
 		 */
-		float m_width;
+		f32 m_width;
 
 		/**
 		 The height of this game buffer.
 		 */
-		float m_height;
+		f32 m_height;
 
 		/**
 		 The inverse width minus one of this game buffer.
 		 */
-		float m_inv_width_minus1;
+		f32 m_inv_width_minus1;
 
 		/**
 		 The inverse height minus one of this game buffer.
 		 */
-		float m_inv_height_minus1;
+		f32 m_inv_height_minus1;
 
 		/**
 		 The gamma exponent of this game buffer.
 		 */
-		float m_gamma;
+		f32 m_gamma;
 
 		/**
 		 The inverse gamma exponent of this game buffer.
 		 */
-		float m_inv_gamma;
+		f32 m_inv_gamma;
 
 		/**
 		 The padding of this game buffer.

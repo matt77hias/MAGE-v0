@@ -31,14 +31,15 @@ namespace mage {
 	}
 
 	template< typename DataT >
-	void StructuredBuffer< DataT >::SetupStructuredBuffer(ID3D11Device2 *device, 
-		size_t nb_data_elements) {
+	void StructuredBuffer< DataT >::SetupStructuredBuffer(
+		ID3D11Device2 *device, size_t nb_data_elements) {
 		
 		Assert(device);
 
 		const HRESULT result_buffer = CreateDynamicStructuredBuffer< DataT >(
 			device, m_buffer.ReleaseAndGetAddressOf(), nullptr, nb_data_elements);
-		ThrowIfFailed(result_buffer, "Structured buffer creation failed: %08X.", result_buffer);
+		ThrowIfFailed(result_buffer, 
+			"Structured buffer creation failed: %08X.", result_buffer);
 
 		m_nb_data_elements = nb_data_elements;
 
@@ -49,8 +50,10 @@ namespace mage {
 		resource_view_desc.Buffer.NumElements  = static_cast< u32 >(m_nb_data_elements);
 
 		const HRESULT result_buffer_srv = device->CreateShaderResourceView(
-			m_buffer.Get(), &resource_view_desc, m_buffer_srv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_buffer_srv, "SRV creation failed: %08X.", result_buffer_srv);
+			m_buffer.Get(), &resource_view_desc, 
+			m_buffer_srv.ReleaseAndGetAddressOf());
+		ThrowIfFailed(result_buffer_srv, 
+			"SRV creation failed: %08X.", result_buffer_srv);
 	}
 
 	template< typename DataT >
@@ -80,7 +83,8 @@ namespace mage {
 			m_buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped_buffer);
 		Assert(SUCCEEDED(result));
 
-		memcpy(mapped_buffer.pData, data.data(), m_nb_used_data_elements * sizeof(DataT));
+		memcpy(mapped_buffer.pData, data.data(), 
+			m_nb_used_data_elements * sizeof(DataT));
 
 		device_context->Unmap(m_buffer.Get(), 0);
 	}

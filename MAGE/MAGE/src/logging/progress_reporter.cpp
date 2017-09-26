@@ -94,7 +94,7 @@ namespace mage {
 		const MutexLock lock(m_mutex);
 		
 		m_nb_work_done += nb_work;
-		const float percent_done = static_cast< float >(m_nb_work_done) / m_nb_work_total;
+		const f32 percent_done = static_cast< f32 >(m_nb_work_done) / m_nb_work_total;
 		const u32 plusses_needed = 
 			std::min(static_cast< u32 >(round(percent_done * m_nb_plusses_total)), 
 					 m_nb_plusses_total);
@@ -108,13 +108,13 @@ namespace mage {
 		// Write the buffer to the output file stream.
 		fputs(m_buffer.get(), m_fout);
 		// Update elapsed time and estimated time to completion
-		const float seconds = static_cast< float >(m_timer->GetTotalDeltaTime());
+		const f32 seconds = static_cast< f32 >(m_timer->GetTotalDeltaTime());
 		if (percent_done == 1.0f) {
 			// Writes the string format to the output file stream.
 			fprintf(m_fout, " (%.1fs)       ", seconds);
 		}
 		else {
-			const float estimation_remaining = seconds / percent_done - seconds;
+			const f32 estimation_remaining = seconds / percent_done - seconds;
 			// Writes the string format to the output file stream.
 			fprintf(m_fout, " (%.1fs|%.1fs)  ", 
 				seconds, std::max(0.0f, estimation_remaining));
@@ -145,7 +145,7 @@ namespace mage {
 		// Write the buffer to the output file stream.
 		fputs(m_buffer.get(), m_fout);
 		// Update elapsed time
-		const float seconds = static_cast< float >(m_timer->GetTotalDeltaTime());
+		const f32 seconds = static_cast< f32 >(m_timer->GetTotalDeltaTime());
 		// Writes the string format to the output file stream.
 		fprintf(m_fout, " (%.1fs)       \n", seconds);
 	

@@ -52,8 +52,7 @@ namespace mage {
 			SLOT_SRV_IMAGE, m_srv.Get());
 	}
 
-	void ImageBuffer::SetupBuffer(ID3D11Device2 *device, 
-		u32 width, u32 height) {
+	void ImageBuffer::SetupBuffer(ID3D11Device2 *device, u32 width, u32 height) {
 
 		Assert(device);
 

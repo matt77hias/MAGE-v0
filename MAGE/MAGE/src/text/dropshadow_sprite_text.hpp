@@ -37,7 +37,8 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit DropshadowSpriteText(SharedPtr< SpriteFont > font,
-			const Color &shadow_color, SpriteEffect effects = SpriteEffect::None);
+			const Color &shadow_color, 
+			SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a dropshadow sprite text.
@@ -51,10 +52,12 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit DropshadowSpriteText(SharedPtr< SpriteFont > font,
-			FXMVECTOR shadow_color = Colors::Black, SpriteEffect effects = SpriteEffect::None);
+			FXMVECTOR shadow_color = Colors::Black, 
+			SpriteEffect effects = SpriteEffect::None);
 		
 		/**
-		 Constructs a dropshadow sprite text from the given dropshadow sprite text.
+		 Constructs a dropshadow sprite text from the given dropshadow sprite 
+		 text.
 
 		 @param[in]		sprite_text
 						A reference to the dropshadow sprite text to copy.
@@ -62,7 +65,8 @@ namespace mage {
 		DropshadowSpriteText(const DropshadowSpriteText &sprite_text);
 		
 		/**
-		 Constructs a dropshadow sprite text by moving the given dropshadow sprite text.
+		 Constructs a dropshadow sprite text by moving the given dropshadow 
+		 sprite text.
 
 		 @param[in]		sprite_text
 						A reference to the dropshadow sprite text to move.
@@ -79,24 +83,27 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-	 	 Copies the given dropshadow sprite text to this dropshadow sprite text.
+	 	 Copies the given dropshadow sprite text to this dropshadow sprite 
+		 text.
 
 		 @param[in]		sprite_text
 						A reference to the dropshadow sprite text to copy.
-		 @return		A reference to the copy of the given dropshadow sprite text
-						(i.e. this dropshadow sprite text).
+		 @return		A reference to the copy of the given dropshadow sprite 
+						text (i.e. this dropshadow sprite text).
 		 */
-		DropshadowSpriteText &operator=(const DropshadowSpriteText &sprite_text) = delete;
+		DropshadowSpriteText &operator=(
+			const DropshadowSpriteText &sprite_text) = delete;
 
 		/**
 		 Moves the given dropshadow sprite text to this dropshadow sprite text.
 
 		 @param[in]		sprite_text
 						A reference to the dropshadow sprite text to move.
-		 @return		A reference to the moved dropshadow sprite text
-						(i.e. this dropshadow sprite text).
+		 @return		A reference to the moved dropshadow sprite text (i.e. 
+						this dropshadow sprite text).
 		 */
-		DropshadowSpriteText &operator=(DropshadowSpriteText &&sprite_text) = delete;
+		DropshadowSpriteText &operator=(
+			DropshadowSpriteText &&sprite_text) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -115,11 +122,11 @@ namespace mage {
 		 Draws this dropshadow sprite text.
 
 		 @param[in]		sprite_batch
-						A reference to the sprite batch used for rendering
-						this dropshadow sprite text.
+						A reference to the sprite batch used for rendering this 
+						dropshadow sprite text.
 		 */
 		virtual void Draw(SpriteBatch &sprite_batch) const override;
-	
+
 		/**
 		 Returns the shadow color of this dropshadow sprite text.
 
@@ -130,7 +137,8 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the shadow color of this dropshadow sprite text to the given color.
+		 Sets the shadow color of this dropshadow sprite text to the given 
+		 color.
 
 		 @param[in]		color
 						A reference to the shadow color.
@@ -140,7 +148,8 @@ namespace mage {
 		}
 
 		/**
-		 Sets the shadow color of this dropshadow sprite text to the given color.
+		 Sets the shadow color of this dropshadow sprite text to the given 
+		 color.
 
 		 @param[in]		color
 						A reference to the shadow color.
@@ -150,7 +159,8 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the shadow color of this dropshadow sprite text to the given color.
+		 Sets the shadow color of this dropshadow sprite text to the given 
+		 color.
 
 		 @param[in]		color
 						The shadow color.
@@ -173,9 +183,11 @@ namespace mage {
 		virtual UniquePtr< Sprite > CloneImplementation() const override;
 
 		/**
-		 Returns the shadow color of this dropshadow sprite text as @c XMVECTOR.
+		 Returns the shadow color of this dropshadow sprite text as 
+		 @c XMVECTOR.
 
-		 @return		The shadow color of this dropshadow sprite text as @c XMVECTOR.
+		 @return		The shadow color of this dropshadow sprite text as 
+						@c XMVECTOR.
 		 */
 		const XMVECTOR GetShadowColorVector() const noexcept {
 			return XMLoadFloat4(&m_shadow_color);

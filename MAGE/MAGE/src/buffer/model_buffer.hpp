@@ -20,8 +20,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 A struct of transform buffers used by pixel shaders
-	 for transforming vertex positions/directions and normals.
+	 A struct of transform buffers used by pixel shaders for transforming 
+	 vertex positions/directions and normals.
 	 */
 	_declspec(align(16)) struct ModelNormalTransformBuffer final 
 		: public AlignedData< ModelNormalTransformBuffer > {
@@ -82,8 +82,8 @@ namespace mage {
 
 		 @param[in]		buffer
 						A reference to the transform buffer to move.
-		 @return		A reference to the moved transform buffer
-						(i.e. this transform buffer).
+		 @return		A reference to the moved transform buffer (i.e. this 
+						transform buffer).
 		 */
 		ModelNormalTransformBuffer &operator=(
 			ModelNormalTransformBuffer &&buffer) = default;
@@ -96,28 +96,30 @@ namespace mage {
 		// DirectXMath expects row-major packed matrices.
 
 		/**
-		 The (camera dependent, object dependent) (column-major packed, row-major matrix) 
-		 object-to-view matrix of this model buffer for use in HLSL.
+		 The (camera dependent, object dependent) (column-major packed, 
+		 row-major matrix) object-to-view matrix of this model buffer for use 
+		 in HLSL.
 		 */
 		XMMATRIX m_object_to_view;
 		
 		/**
-		 The (camera dependent, object dependent) (column-major packed, row-major matrix) 
-		 object-to-view inverse tranpose matrix (normal-to-view matrix) 
-		 of this model buffer for use in HLSL.
+		 The (camera dependent, object dependent) (column-major packed, 
+		 row-major matrix) object-to-view inverse tranpose matrix 
+		 (normal-to-view matrix) of this model buffer for use in HLSL.
 		 */
 		XMMATRIX m_normal_to_view;
 	};
 
-	static_assert(sizeof(ModelNormalTransformBuffer) == 128, "CPU/GPU struct mismatch");
+	static_assert(sizeof(ModelNormalTransformBuffer) == 128, 
+		"CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// ModelTextureTransformBuffer
 	//-------------------------------------------------------------------------
 
 	/**
-	 A struct of transform buffers used by pixel shaders
-	 for transforming vertex positions/directions and texture coordinates.
+	 A struct of transform buffers used by pixel shaders for transforming 
+	 vertex positions/directions and texture coordinates.
 	 */
 	_declspec(align(16)) struct ModelTextureTransformBuffer final 
 		: public AlignedData< ModelTextureTransformBuffer > {
@@ -178,8 +180,8 @@ namespace mage {
 
 		 @param[in]		buffer
 						A reference to the transform buffer to move.
-		 @return		A reference to the moved transform buffer
-						(i.e. this transform buffer).
+		 @return		A reference to the moved transform buffer (i.e. this 
+						transform buffer).
 		 */
 		ModelTextureTransformBuffer &operator=(
 			ModelTextureTransformBuffer &&buffer) = default;
@@ -192,27 +194,29 @@ namespace mage {
 		// DirectXMath expects row-major packed matrices.
 
 		/**
-		 The (camera dependent, object dependent) (column-major packed, row-major matrix) 
-		 object-to-view matrix of this model buffer for use in HLSL.
+		 The (camera dependent, object dependent) (column-major packed, 
+		 row-major matrix) object-to-view matrix of this model buffer for use 
+		 in HLSL.
 		 */
 		XMMATRIX m_object_to_view;
 
 		/**
-		 The (object dependent) (column-major packed, row-major matrix) 
-		 texture transform matrix of this model buffer for use in HLSL.
+		 The (object dependent) (column-major packed, row-major matrix) texture 
+		 transform matrix of this model buffer for use in HLSL.
 		 */
 		XMMATRIX m_texture_transform;
 	};
 
-	static_assert(sizeof(ModelTextureTransformBuffer) == 128, "CPU/GPU struct mismatch");
+	static_assert(sizeof(ModelTextureTransformBuffer) == 128, 
+		"CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// ModelNormalTextureTransformBuffer
 	//-------------------------------------------------------------------------
 
 	/**
-	 A struct of transform buffers used by pixel shaders
-	 for transforming vertex positions/directions, normals and texture coordinates.
+	 A struct of transform buffers used by pixel shaders for transforming 
+	 vertex positions/directions, normals and texture coordinates.
 	 */
 	_declspec(align(16)) struct ModelNormalTextureTransformBuffer final 
 		: public AlignedData< ModelNormalTextureTransformBuffer > {
@@ -274,8 +278,8 @@ namespace mage {
 
 		 @param[in]		buffer
 						A reference to the transform buffer to move.
-		 @return		A reference to the moved transform buffer
-						(i.e. this transform buffer).
+		 @return		A reference to the moved transform buffer (i.e. this 
+						transform buffer).
 		 */
 		ModelNormalTextureTransformBuffer &operator=(
 			ModelNormalTextureTransformBuffer &&buffer) = default;
@@ -288,15 +292,16 @@ namespace mage {
 		// DirectXMath expects row-major packed matrices.
 
 		/**
-		 The (camera dependent, object dependent) (column-major packed, row-major matrix) 
-		 object-to-view matrix of this model buffer for use in HLSL.
+		 The (camera dependent, object dependent) (column-major packed, 
+		 row-major matrix) object-to-view matrix of this model buffer for use 
+		 in HLSL.
 		 */
 		XMMATRIX m_object_to_view;
 		
 		/**
-		 The (camera dependent, object dependent) (column-major packed, row-major matrix) 
-		 object-to-view inverse tranpose matrix (normal-to-view matrix) 
-		 of this model buffer for use in HLSL.
+		 The (camera dependent, object dependent) (column-major packed, 
+		 row-major matrix) object-to-view inverse tranpose matrix 
+		 (normal-to-view matrix) of this model buffer for use in HLSL.
 		 */
 		XMMATRIX m_normal_to_view;
 
@@ -307,7 +312,8 @@ namespace mage {
 		XMMATRIX m_texture_transform;
 	};
 
-	static_assert(sizeof(ModelNormalTextureTransformBuffer) == 192, "CPU/GPU struct mismatch");
+	static_assert(sizeof(ModelNormalTextureTransformBuffer) == 192, 
+		"CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// ForwardModelBuffer
@@ -342,7 +348,8 @@ namespace mage {
 		ForwardModelBuffer(const ForwardModelBuffer &buffer) = default;
 		
 		/**
-		 Constructs a forward model buffer by moving the given forward model buffer.
+		 Constructs a forward model buffer by moving the given forward model 
+		 buffer.
 
 		 @param[in]		buffer
 						A reference to the forward model buffer to move.
@@ -363,20 +370,22 @@ namespace mage {
 
 		 @param[in]		buffer
 						A reference to the forward model buffer to copy.
-		 @return		A reference to the copy of the given forward model buffer
-						(i.e. this forward model buffer).
+		 @return		A reference to the copy of the given forward model 
+						buffer (i.e. this forward model buffer).
 		 */
-		ForwardModelBuffer &operator=(const ForwardModelBuffer &buffer) = default;
+		ForwardModelBuffer &operator=(
+			const ForwardModelBuffer &buffer) = default;
 
 		/**
 		 Moves the given forward model buffer to this forward model buffer.
 
 		 @param[in]		buffer
 						A reference to the forward model buffer to move.
-		 @return		A reference to the moved forward model buffer
-						(i.e. this forward model buffer).
+		 @return		A reference to the moved forward model buffer (i.e. 
+						this forward model buffer).
 		 */
-		ForwardModelBuffer &operator=(ForwardModelBuffer &&buffer) = default;
+		ForwardModelBuffer &operator=(
+			ForwardModelBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Transforms
@@ -399,7 +408,7 @@ namespace mage {
 		/**
 		 The dissolve factor (i.e. opacity) of this forward model buffer.
 		 */
-		float m_dissolve;
+		f32 m_dissolve;
 
 		/**
 		 The specular reflectivity of this forward model buffer.
@@ -407,13 +416,13 @@ namespace mage {
 		RGBSpectrum m_Ks;
 
 		/**
-		 The BRDF dependent material coefficients
-		 of this forward model buffer.
+		 The BRDF dependent material coefficients of this forward model buffer.
 		 */
-		float m_material_coefficients[2];
+		f32 m_material_coefficients[2];
 	};
 
-	static_assert(sizeof(ForwardModelBuffer) == 240, "CPU/GPU struct mismatch");
+	static_assert(sizeof(ForwardModelBuffer) == 240, 
+		"CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// DeferredModelBuffer
@@ -440,7 +449,8 @@ namespace mage {
 			m_Ks{}, m_mat1_norm(0.0f) {}
 
 		/**
-		 Constructs a deferred model buffer from the given deferred model buffer.
+		 Constructs a deferred model buffer from the given deferred model 
+		 buffer.
 
 		 @param[in]		buffer
 						A reference to the deferred model buffer to copy.
@@ -448,7 +458,8 @@ namespace mage {
 		DeferredModelBuffer(const DeferredModelBuffer &buffer) = default;
 		
 		/**
-		 Constructs a deferred model buffer by moving the given deferred model buffer.
+		 Constructs a deferred model buffer by moving the given deferred 
+		 model buffer.
 
 		 @param[in]		buffer
 						A reference to the deferred model buffer to move.
@@ -469,20 +480,22 @@ namespace mage {
 
 		 @param[in]		buffer
 						A reference to the deferred model buffer to copy.
-		 @return		A reference to the copy of the given deferred model buffer
-						(i.e. this deferred model buffer).
+		 @return		A reference to the copy of the given deferred model 
+						buffer (i.e. this deferred model buffer).
 		 */
-		DeferredModelBuffer &operator=(const DeferredModelBuffer &buffer) = default;
+		DeferredModelBuffer &operator=(
+			const DeferredModelBuffer &buffer) = default;
 
 		/**
 		 Moves the given deferred model buffer to this deferred model buffer.
 
 		 @param[in]		buffer
 						A reference to the deferred model buffer to move.
-		 @return		A reference to the moved deferred model buffer
-						(i.e. this deferred model buffer).
+		 @return		A reference to the moved deferred model buffer (i.e. 
+						this deferred model buffer).
 		 */
-		DeferredModelBuffer &operator=(DeferredModelBuffer &&buffer) = default;
+		DeferredModelBuffer &operator=(
+			DeferredModelBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Transforms
@@ -506,7 +519,7 @@ namespace mage {
 		The 2nd BRDF dependent normalized material coefficient
 		of this deferred model buffer.
 		 */
-		float m_mat2_norm;
+		f32 m_mat2_norm;
 
 		/**
 		 The specular reflectivity of this deferred model buffer.
@@ -514,11 +527,12 @@ namespace mage {
 		RGBSpectrum m_Ks;
 
 		/**
-		 The 1st BRDF dependent normalized material coefficient
-		 of this deferred model buffer.
+		 The 1st BRDF dependent normalized material coefficient of this 
+		 deferred model buffer.
 		 */
-		float m_mat1_norm;
+		f32 m_mat1_norm;
 	};
 
-	static_assert(sizeof(DeferredModelBuffer) == 224, "CPU/GPU struct mismatch");
+	static_assert(sizeof(DeferredModelBuffer) == 224, 
+		"CPU/GPU struct mismatch");
 }

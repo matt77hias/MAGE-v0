@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
 #include "rendering\pipeline.hpp"
 
 #pragma endregion
@@ -61,7 +60,9 @@ namespace mage {
 			u32 width, u32 height, DXGI_FORMAT format);
 
 		ComPtr< ID3D11DepthStencilView >   m_dsv;
-		ComPtr< ID3D11RenderTargetView >   m_rtvs[static_cast< size_t >(GBufferIndex::Count) - 1u];
-		ComPtr< ID3D11ShaderResourceView > m_srvs[static_cast< size_t >(GBufferIndex::Count)];
+		ComPtr< ID3D11RenderTargetView >   m_rtvs[
+			static_cast< size_t >(GBufferIndex::Count) - 1u];
+		ComPtr< ID3D11ShaderResourceView > m_srvs[
+			static_cast< size_t >(GBufferIndex::Count)];
 	};
 }

@@ -33,7 +33,8 @@ namespace mage {
 		SetupRenderingStates(device);
 	}
 
-	RenderingStateCache::RenderingStateCache(RenderingStateCache &&rendering_state_cache) = default;
+	RenderingStateCache::RenderingStateCache(
+		RenderingStateCache &&rendering_state_cache) = default;
 
 	RenderingStateCache::~RenderingStateCache() = default;
 
@@ -54,118 +55,140 @@ namespace mage {
 		const HRESULT result_opaque             = CreateOpaqueBlendState(
 			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Opaque));
 		ThrowIfFailed(result_opaque, 
-			"Opaque blend state creation failed: %08X.", result_opaque);
+			"Opaque blend state creation failed: %08X.", 
+			result_opaque);
 		
 		const HRESULT result_alpha              = CreateAlphaBlendState(
 			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Alpha));
 		ThrowIfFailed(result_alpha, 
-			"Alpha blend state creation failed: %08X.", result_alpha);
+			"Alpha blend state creation failed: %08X.", 
+			result_alpha);
 		
 		const HRESULT result_additive           = CreateAdditiveBlendState(
 			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Additive));
 		ThrowIfFailed(result_additive, 
-			"Additive blend state creation failed: %08X.", result_additive);
+			"Additive blend state creation failed: %08X.", 
+			result_additive);
 		
 		const HRESULT result_non_premultiplied  = CreateNonPremultipliedBlendState(
 			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::NonPremultiplied));
 		ThrowIfFailed(result_non_premultiplied, 
-			"Non-premultiplied blend state creation failed: %08X.", result_non_premultiplied);
+			"Non-premultiplied blend state creation failed: %08X.", 
+			result_non_premultiplied);
 		
 		const HRESULT result_alpha_to_coverage  = CreateAlphaToCoverageBlendState(
 			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::AlphaToCoverage));
 		ThrowIfFailed(result_alpha_to_coverage, 
-			"Alpha-to-Coverage blend state creation failed: %08X.", result_alpha_to_coverage);
+			"Alpha-to-Coverage blend state creation failed: %08X.", 
+			result_alpha_to_coverage);
 	}
 
 	void RenderingStateCache::SetupDepthStencilStates(ID3D11Device2 *device) {
 		const HRESULT result_depth_none         = CreateDepthNoneDepthStencilState(
 			device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::DepthNone));
 		ThrowIfFailed(result_depth_none, 
-			"No-read-no-write depth stencil state creation failed: %08X.", result_depth_none);
+			"No-read-no-write depth stencil state creation failed: %08X.", 
+			result_depth_none);
 		
 		const HRESULT result_depth_read_write   = CreateDepthReadWriteDepthStencilState(
 			device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::DepthReadWrite));
 		ThrowIfFailed(result_depth_read_write, 
-			"Read-write depth stencil state creation failed: %08X.", result_depth_read_write);
+			"Read-write depth stencil state creation failed: %08X.", 
+			result_depth_read_write);
 		
 		const HRESULT result_depth_read         = CreateDepthReadDepthStencilState(
 			device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::DepthRead));
 		ThrowIfFailed(result_depth_read, 
-			"Read depth stencil state creation failed: %08X.", result_depth_read);
+			"Read depth stencil state creation failed: %08X.", 
+			result_depth_read);
 	}
 
 	void RenderingStateCache::SetupRasterizerStates(ID3D11Device2 *device) {
 		const HRESULT result_no_culling         = CreateCullNoneRasterizerState(
 			device, ReleaseAndGetAddressOfRasterizerState(RasterizerStateIndex::NoCulling));
 		ThrowIfFailed(result_no_culling, 
-			"No-culling rasterizer state creation failed: %08X.", result_no_culling);
+			"No-culling rasterizer state creation failed: %08X.", 
+			result_no_culling);
 		
 		const HRESULT result_clockwise_culling  = CreateCullClockwiseRasterizerState(
 			device, ReleaseAndGetAddressOfRasterizerState(RasterizerStateIndex::ClockwiseCulling));
 		ThrowIfFailed(result_clockwise_culling, 
-			"Clockwise-culling rasterizer state creation failed: %08X.", result_clockwise_culling);
+			"Clockwise-culling rasterizer state creation failed: %08X.", 
+			result_clockwise_culling);
 		
 		const HRESULT result_counter_clockwise_culling = CreateCullCounterClockwiseRasterizerState(
 			device, ReleaseAndGetAddressOfRasterizerState(RasterizerStateIndex::CounterClockwiseCulling));
 		ThrowIfFailed(result_counter_clockwise_culling, 
-			"Counter-clockwise-culling rasterizer state creation failed: %08X.", result_counter_clockwise_culling);
+			"Counter-clockwise-culling rasterizer state creation failed: %08X.", 
+			result_counter_clockwise_culling);
 		
 		const HRESULT result_wireframe          = CreateWireframeRasterizerState(
 			device, ReleaseAndGetAddressOfRasterizerState(RasterizerStateIndex::Wireframe));
 		ThrowIfFailed(result_wireframe, 
-			"Wireframe rasterizer state creation failed: %08X.", result_wireframe);
+			"Wireframe rasterizer state creation failed: %08X.", 
+			result_wireframe);
 	}
 
 	void RenderingStateCache::SetupSamplerStates(ID3D11Device2 *device) {
 		const HRESULT result_point_wrap         = CreatePointWrapSamplerState(
 			device, ReleaseAndGetAddressOfSamplerState(SamplerStateIndex::PointWrap));
 		ThrowIfFailed(result_point_wrap, 
-			"Point sampling state with wrapping creation failed: %08X.", result_point_wrap);
+			"Point sampling state with wrapping creation failed: %08X.", 
+			result_point_wrap);
 		
 		const HRESULT result_point_clamp        = CreatePointClampSamplerState(
 			device, ReleaseAndGetAddressOfSamplerState(SamplerStateIndex::PointClamp));
 		ThrowIfFailed(result_point_clamp, 
-			"Point sampling state with clamping creation failed: %08X.", result_point_clamp);
+			"Point sampling state with clamping creation failed: %08X.", 
+			result_point_clamp);
 		
 		const HRESULT result_point_mirror       = CreatePointMirrorSamplerState(
 			device, ReleaseAndGetAddressOfSamplerState(SamplerStateIndex::PointMirror));
 		ThrowIfFailed(result_point_mirror, 
-			"Point sampling state with mirroring creation failed: %08X.", result_point_mirror);
+			"Point sampling state with mirroring creation failed: %08X.", 
+			result_point_mirror);
 		
 		const HRESULT result_linear_wrap        = CreateLinearWrapSamplerState(
 			device, ReleaseAndGetAddressOfSamplerState(SamplerStateIndex::LinearWrap));
 		ThrowIfFailed(result_linear_wrap, 
-			"Linear sampling state with wrapping creation failed: %08X.", result_linear_wrap);
+			"Linear sampling state with wrapping creation failed: %08X.", 
+			result_linear_wrap);
 		
 		const HRESULT result_linear_clamp       = CreateLinearClampSamplerState(
 			device, ReleaseAndGetAddressOfSamplerState(SamplerStateIndex::LinearClamp));
 		ThrowIfFailed(result_linear_clamp, 
-			"Linear sampling state with clamping creation failed: %08X.", result_linear_clamp);
+			"Linear sampling state with clamping creation failed: %08X.", 
+			result_linear_clamp);
 		
 		const HRESULT result_linear_mirror      = CreateLinearMirrorSamplerState(
 			device, ReleaseAndGetAddressOfSamplerState(SamplerStateIndex::LinearMirror));
 		ThrowIfFailed(result_linear_mirror, 
-			"Linear sampling state with mirroring creation failed: %08X.", result_linear_mirror);
+			"Linear sampling state with mirroring creation failed: %08X.", 
+			result_linear_mirror);
 		
 		const HRESULT result_anisotropic_wrap   = CreateAnisotropicWrapSamplerState(
 			device, ReleaseAndGetAddressOfSamplerState(SamplerStateIndex::AnisotropicWrap));
 		ThrowIfFailed(result_anisotropic_wrap, 
-			"Anisotropic sampling state with wrapping creation failed: %08X.", result_anisotropic_wrap);
+			"Anisotropic sampling state with wrapping creation failed: %08X.", 
+			result_anisotropic_wrap);
 		
 		const HRESULT result_anisotropic_clamp  = CreateAnisotropicClampSamplerState(
 			device, ReleaseAndGetAddressOfSamplerState(SamplerStateIndex::AnisotropicClamp));
 		ThrowIfFailed(result_anisotropic_clamp, 
-			"Anisotropic sampling state with clamping creation failed: %08X.", result_anisotropic_clamp);
+			"Anisotropic sampling state with clamping creation failed: %08X.", 
+			result_anisotropic_clamp);
 		
 		const HRESULT result_anisotropic_mirror = CreateAnisotropicMirrorSamplerState(
 			device, ReleaseAndGetAddressOfSamplerState(SamplerStateIndex::AnisotropicMirror));
 		ThrowIfFailed(result_anisotropic_mirror, 
-			"Anisotropic sampling state with mirroring creation failed: %08X.", result_anisotropic_mirror);
+			"Anisotropic sampling state with mirroring creation failed: %08X.", 
+			result_anisotropic_mirror);
 		
 		const HRESULT result_pcf                = CreatePCFSamplerState(
 			device, ReleaseAndGetAddressOfSamplerState(SamplerStateIndex::PCF));
 		ThrowIfFailed(result_pcf, 
-			"PCF sampling state creation failed: %08X.", result_pcf);
+			"PCF sampling state creation failed: %08X.", 
+			result_pcf);
 	}
 
 	void RenderingStateCache::BindTransparentBlendState(

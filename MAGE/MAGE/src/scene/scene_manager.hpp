@@ -28,6 +28,7 @@ namespace mage {
 		/**
 		 Returns the scene manager associated with the current engine.
 
+		 @pre			The current engine must exist.
 		 @return		A pointer to the scene manager associated
 						with the current engine.
 		 */
@@ -72,7 +73,7 @@ namespace mage {
 
 		 @param[in]		scene_behavior
 						A reference to the scene manager to copy.
-		 @return		A reference to the copy of the given scene manager
+		 @return		A reference to the copy of the given scene manager 
 						(i.e. this scene manager).
 		 */
 		SceneManager &operator=(const SceneManager &scene_behavior) = delete;
@@ -82,8 +83,8 @@ namespace mage {
 
 		 @param[in]		scene_behavior
 						A reference to the scene manager to move.
-		 @return		A reference to the moved scene manager
-						(i.e. this scene manager).
+		 @return		A reference to the moved scene manager (i.e. this scene 
+						manager).
 		 */
 		SceneManager &operator=(SceneManager &&scene_behavior) = delete;
 

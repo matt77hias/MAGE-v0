@@ -34,8 +34,8 @@ namespace mage {
 		 Constructs a MDL reader.
 
 		 @param[in]		model_output
-						A reference to the model output for storing the model data
-						from file.
+						A reference to the model output for storing the model 
+						data from file.
 		 */
 		explicit MDLReader(ModelOutput< VertexT > &model_output);
 		
@@ -69,20 +69,22 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a MDL reader to copy.
-		 @return		A reference to the copy of the given MDL reader
-						(i.e. this MDL reader).
+		 @return		A reference to the copy of the given MDL reader (i.e. 
+						this MDL reader).
 		 */
-		MDLReader< VertexT > &operator=(const MDLReader< VertexT > &reader) = delete;
+		MDLReader< VertexT > &operator=(
+			const MDLReader< VertexT > &reader) = delete;
 
 		/**
 		 Moves the given MDL reader to this MDL reader.
 
 		 @param[in]		reader
 						A reference to a MDL reader to move.
-		 @return		A reference to the moved MDL reader
-						(i.e. this MDL reader).
+		 @return		A reference to the moved MDL reader (i.e. this MDL 
+						reader).
 		 */
-		MDLReader< VertexT > &operator=(MDLReader< VertexT > &&reader) = delete;
+		MDLReader< VertexT > &operator=(
+			MDLReader< VertexT > &&reader) = delete;
 
 	private:
 
@@ -110,8 +112,8 @@ namespace mage {
 		virtual void ReadLine(char *line) override;
 
 		/**
-		 Reads the Mesh definition 
-		 and imports the mesh corresponding to the model.
+		 Reads the Mesh definition and imports the mesh corresponding to the 
+		 model.
 
 		 @throws		FormattedException
 						Failed to read the Mesh definition.
@@ -129,8 +131,8 @@ namespace mage {
 		void ReadMDLSubModel();
 
 		/**
-		 Reads a Material Library definition
-		 and imports the materials corresponding to the model.
+		 Reads a Material Library definition and imports the materials 
+		 corresponding to the model.
 
 		 @throws		FormattedException
 						Failed to read a Material Library definition.
@@ -144,7 +146,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to the model output containing the model data of this MDL reader.
+		 A reference to the model output containing the model data of this MDL 
+		 reader.
 		 */
 		ModelOutput< VertexT > &m_model_output;
 	};

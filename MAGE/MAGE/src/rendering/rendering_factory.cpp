@@ -43,7 +43,8 @@ namespace mage {
 		Assert(device);
 		Assert(blend_state);
 		
-		return CreateBlendState(device, blend_state, D3D11_BLEND_ONE, D3D11_BLEND_ZERO);
+		return CreateBlendState(
+			device, blend_state, D3D11_BLEND_ONE, D3D11_BLEND_ZERO);
 	}
 	
 	HRESULT CreateAlphaBlendState(ID3D11Device2 *device, 
@@ -52,7 +53,8 @@ namespace mage {
 		Assert(device);
 		Assert(blend_state);
 		
-		return CreateBlendState(device, blend_state, D3D11_BLEND_ONE, D3D11_BLEND_INV_SRC_ALPHA);
+		return CreateBlendState(
+			device, blend_state, D3D11_BLEND_ONE, D3D11_BLEND_INV_SRC_ALPHA);
 	}
 	
 	HRESULT CreateAdditiveBlendState(ID3D11Device2 *device, 
@@ -61,7 +63,8 @@ namespace mage {
 		Assert(device);
 		Assert(blend_state);
 		
-		return CreateBlendState(device, blend_state, D3D11_BLEND_SRC_ALPHA, D3D11_BLEND_ONE);
+		return CreateBlendState(
+			device, blend_state, D3D11_BLEND_SRC_ALPHA, D3D11_BLEND_ONE);
 	}
 	
 	HRESULT CreateNonPremultipliedBlendState(ID3D11Device2 *device, 
@@ -70,7 +73,8 @@ namespace mage {
 		Assert(device);
 		Assert(blend_state);
 		
-		return CreateBlendState(device, blend_state, D3D11_BLEND_SRC_ALPHA, D3D11_BLEND_INV_SRC_ALPHA);
+		return CreateBlendState(
+			device, blend_state, D3D11_BLEND_SRC_ALPHA, D3D11_BLEND_INV_SRC_ALPHA);
 	}
 
 	HRESULT CreateAlphaToCoverageBlendState(ID3D11Device2 *device, 
@@ -120,7 +124,8 @@ namespace mage {
 		Assert(device);
 		Assert(depth_stencil_state);
 		
-		return CreateDepthStencilState(device, depth_stencil_state, false, false);
+		return CreateDepthStencilState(
+			device, depth_stencil_state, false, false);
 	}
 	
 	HRESULT CreateDepthReadWriteDepthStencilState(ID3D11Device2 *device,
@@ -129,7 +134,8 @@ namespace mage {
 		Assert(device);
 		Assert(depth_stencil_state);
 		
-		return CreateDepthStencilState(device, depth_stencil_state, true, true);
+		return CreateDepthStencilState(
+			device, depth_stencil_state, true, true);
 	}
 	
 	HRESULT CreateDepthReadDepthStencilState(ID3D11Device2 *device, 
@@ -138,7 +144,8 @@ namespace mage {
 		Assert(device);
 		Assert(depth_stencil_state);
 		
-		return CreateDepthStencilState(device, depth_stencil_state, true, false);
+		return CreateDepthStencilState(
+			device, depth_stencil_state, true, false);
 	}
 
 	//-------------------------------------------------------------------------
@@ -172,8 +179,8 @@ namespace mage {
 		Assert(device);
 		Assert(rasterizer_state);
 		
-		return CreateRasterizerState(device, rasterizer_state, 
-			D3D11_CULL_NONE, D3D11_FILL_SOLID);
+		return CreateRasterizerState(
+			device, rasterizer_state, D3D11_CULL_NONE, D3D11_FILL_SOLID);
 	}
 	
 	HRESULT CreateCullClockwiseRasterizerState(ID3D11Device2 *device, 
@@ -182,8 +189,8 @@ namespace mage {
 		Assert(device);
 		Assert(rasterizer_state);
 		
-		return CreateRasterizerState(device, rasterizer_state, 
-			D3D11_CULL_FRONT, D3D11_FILL_SOLID);
+		return CreateRasterizerState(
+			device, rasterizer_state, D3D11_CULL_FRONT, D3D11_FILL_SOLID);
 	}
 	
 	HRESULT CreateCullCounterClockwiseRasterizerState(ID3D11Device2 *device, 
@@ -192,8 +199,8 @@ namespace mage {
 		Assert(device);
 		Assert(rasterizer_state);
 		
-		return CreateRasterizerState(device, rasterizer_state, 
-			D3D11_CULL_BACK, D3D11_FILL_SOLID);
+		return CreateRasterizerState(
+			device, rasterizer_state, D3D11_CULL_BACK, D3D11_FILL_SOLID);
 	}
 	
 	HRESULT CreateWireframeRasterizerState(ID3D11Device2 *device, 
@@ -202,14 +209,14 @@ namespace mage {
 		Assert(device);
 		Assert(rasterizer_state);
 		
-		return CreateRasterizerState(device, rasterizer_state, 
-			D3D11_CULL_NONE, D3D11_FILL_WIREFRAME);
+		return CreateRasterizerState(
+			device, rasterizer_state, D3D11_CULL_NONE, D3D11_FILL_WIREFRAME);
 	}
 
 	HRESULT CreateShadowMapRasterizerState(ID3D11Device2 *device,
 		ID3D11RasterizerState **rasterizer_state,
-		i32 depth_bias, float slope_scaled_depth_bias, 
-		float depth_bias_clamp, D3D11_CULL_MODE cull_mode) noexcept {
+		i32 depth_bias, f32 slope_scaled_depth_bias, 
+		f32 depth_bias_clamp, D3D11_CULL_MODE cull_mode) noexcept {
 		
 		Assert(device);
 		Assert(rasterizer_state);
@@ -241,7 +248,8 @@ namespace mage {
 		desc.AddressU       = address_mode;
 		desc.AddressV       = address_mode;
 		desc.AddressW       = address_mode;
-		desc.MaxAnisotropy  = (device->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) ? D3D11_MAX_MAXANISOTROPY : 2;
+		desc.MaxAnisotropy  = (device->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) 
+								? D3D11_MAX_MAXANISOTROPY : 2;
 		desc.MaxLOD         = D3D11_FLOAT32_MAX;
 		desc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 
@@ -349,7 +357,8 @@ namespace mage {
 		desc.AddressU       = D3D11_TEXTURE_ADDRESS_BORDER;
 		desc.AddressV       = D3D11_TEXTURE_ADDRESS_BORDER;
 		desc.AddressW       = D3D11_TEXTURE_ADDRESS_BORDER;
-		desc.MaxAnisotropy  = (device->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) ? D3D11_MAX_MAXANISOTROPY : 2;
+		desc.MaxAnisotropy  = (device->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) 
+								? D3D11_MAX_MAXANISOTROPY : 2;
 		desc.MaxLOD         = D3D11_FLOAT32_MAX;
 		desc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
 

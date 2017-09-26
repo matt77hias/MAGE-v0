@@ -47,10 +47,10 @@ namespace mage {
 		/**
 		 Returns the scene renderer associated with the current engine.
 
-		 @pre			The scene manager associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the scene renderer associated
-						with the current engine.
+		 @pre			The scene manager associated with the  current engine 
+						must be loaded.
+		 @return		A pointer to the scene renderer associated with the 
+						current engine.
 		 */
 		static SceneRenderer *Get() noexcept;
 
@@ -93,7 +93,7 @@ namespace mage {
 
 		 @param[in]		scene_renderer
 						A reference to the scene renderer to copy.
-		 @return		A reference to the copy of the given scene renderer
+		 @return		A reference to the copy of the given scene renderer 
 						(i.e. this scene renderer).
 		 */
 		SceneRenderer &operator=(const SceneRenderer &scene_renderer) = delete;
@@ -103,8 +103,8 @@ namespace mage {
 
 		 @param[in]		scene_renderer
 						A reference to the scene renderer to move.
-		 @return		A reference to the moved scene renderer
-						(i.e. this scene renderer).
+		 @return		A reference to the moved scene renderer (i.e. this 
+						scene renderer).
 		 */
 		SceneRenderer &operator=(SceneRenderer &&scene_renderer) = delete;
 
@@ -130,12 +130,11 @@ namespace mage {
 		/**
 		 Returns the depth pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the depth pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the depth pass of this scene renderer.
 		 */
 		DepthPass *GetDepthPass() {
 			if (!m_depth_pass) {
@@ -147,12 +146,11 @@ namespace mage {
 		/**
 		 Returns the GBuffer pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the GBuffer pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the GBuffer pass of this scene renderer.
 		 */
 		GBufferPass *GetGBufferPass() {
 			if (!m_gbuffer_pass) {
@@ -164,12 +162,11 @@ namespace mage {
 		/**
 		 Returns the LBuffer pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the LBuffer pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the LBuffer pass of this scene renderer.
 		 */
 		LBufferPass *GetLBufferPass() {
 			if (!m_lbuffer_pass) {
@@ -177,16 +174,16 @@ namespace mage {
 			}
 			return m_lbuffer_pass.get();
 		}
-
+		
 		/**
 		 Returns the deferred shading pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the deferred shading pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the deferred shading pass of this scene 
+						renderer.
 		 */
 		DeferredShadingPass *GetDeferredShadingPass() {
 			if (!m_deferred_shading_pass) {
@@ -198,12 +195,12 @@ namespace mage {
 		/**
 		 Returns the variable shading pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the variable shading pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the variable shading pass of this scene 
+						renderer.
 		 */
 		VariableShadingPass *GetVariableShadingPass() {
 			if (!m_variable_shading_pass) {
@@ -211,16 +208,15 @@ namespace mage {
 			}
 			return m_variable_shading_pass.get();
 		}
-
+		
 		/**
 		 Returns the sprite pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the sprite pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the sprite pass of this scene renderer.
 		 */
 		SpritePass *GetSpritePass() {
 			if (!m_sprite_pass) {
@@ -232,12 +228,11 @@ namespace mage {
 		/**
 		 Returns the image pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the image pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the image pass of this scene renderer.
 		 */
 		ImagePass *GetImagePass() {
 			if (!m_image_pass) {
@@ -249,12 +244,11 @@ namespace mage {
 		/**
 		 Returns the sky pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the sky pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the sky pass of this scene renderer.
 		 */
 		SkyPass *GetSkyPass() {
 			if (!m_sky_pass) {
@@ -266,12 +260,12 @@ namespace mage {
 		/**
 		 Returns the constant shading pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the constant shading pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the constant shading pass of this scene 
+						renderer.
 		 */
 		ConstantShadingPass *GetConstantShadingPass() {
 			if (!m_constant_shading_pass) {
@@ -283,12 +277,12 @@ namespace mage {
 		/**
 		 Returns the constant component pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the constant component pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the constant component pass of this scene 
+						renderer.
 		 */
 		ConstantComponentPass *GetConstantComponentPass() {
 			if (!m_constant_component_pass) {
@@ -300,12 +294,12 @@ namespace mage {
 		/**
 		 Returns the variable component pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the variable component pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the variable component pass of this scene 
+						renderer.
 		 */
 		VariableComponentPass *GetVariableComponentPass() {
 			if (!m_variable_component_pass) {
@@ -317,12 +311,12 @@ namespace mage {
 		/**
 		 Returns the shading normal pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the shading normal pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the shading normal pass of this scene 
+						renderer.
 		 */
 		ShadingNormalPass *GetShadingNormalPass() {
 			if (!m_shading_normal_pass) {
@@ -334,12 +328,11 @@ namespace mage {
 		/**
 		 Returns the wireframe pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the wireframe pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the wireframe pass of this scene renderer.
 		 */
 		WireframePass *GetWireframePass() {
 			if (!m_wireframe_pass) {
@@ -351,12 +344,12 @@ namespace mage {
 		/**
 		 Returns the bounding volume pass of this scene renderer.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
-		 @return		A pointer to the bounding volume pass 
-						of this scene renderer.
+		 @pre			The renderer associated with the current engine must 
+						be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the bounding volume pass of this scene 
+						renderer.
 		 */
 		BoundingVolumePass *GetBoundingVolumePass() {
 			if (!m_bounding_volume_pass) {

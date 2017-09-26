@@ -6,7 +6,6 @@
 #pragma region
 
 #include "memory\allocation.hpp"
-#include "memory\types.hpp"
 #include "material\spectrum.hpp"
 
 #pragma endregion
@@ -73,18 +72,18 @@ namespace mage {
 
 		 @param[in]		buffer
 						A reference to the light buffer to copy.
-		 @return		A reference to the copy of the given light buffer
-						(i.e. this light buffer).
+		 @return		A reference to the copy of the given light buffer (i.e. 
+						this light buffer).
 		 */
 		LightBuffer &operator=(const LightBuffer &buffer) = default;
-
+		
 		/**
 		 Moves the given light buffer to this light buffer.
 
 		 @param[in]		buffer
 						A reference to the light buffer to move.
-		 @return		A reference to the moved light buffer
-						(i.e. this light buffer).
+		 @return		A reference to the moved light buffer (i.e. this light 
+						buffer).
 		 */
 		LightBuffer &operator=(LightBuffer &&buffer) = default;
 
@@ -98,10 +97,10 @@ namespace mage {
 		RGBSpectrum m_Ia;
 
 		/**
-		 The distance at which intensity falloff starts due to fog
-		 of this light buffer.
+		 The distance at which intensity falloff starts due to fog of this 
+		 light buffer.
 		 */
-		float m_fog_distance_falloff_start;
+		f32 m_fog_distance_falloff_start;
 	
 		/**
 		 The color of the fog of this light buffer.
@@ -109,10 +108,10 @@ namespace mage {
 		RGBSpectrum m_fog_color;
 		
 		/**
-		 The distance inverse range where intensity falloff occurs 
-		 due to fog of this light buffer.
+		 The distance inverse range where intensity falloff occurs due to fog 
+		 of this light buffer.
 		 */
-		float m_fog_distance_falloff_inv_range;
+		f32 m_fog_distance_falloff_inv_range;
 
 		/**
 		 The number of directional lights of this light buffer.
@@ -135,7 +134,8 @@ namespace mage {
 		u32 m_padding0;
 
 		/**
-		 The number of directional lights with shadow mapping of this light buffer.
+		 The number of directional lights with shadow mapping of this light 
+		 buffer.
 		 */
 		u32 m_nb_sm_directional_lights;
 
@@ -155,7 +155,8 @@ namespace mage {
 		u32 m_padding1;
 	};
 
-	static_assert(sizeof(LightBuffer) == 64, "CPU/GPU struct mismatch");
+	static_assert(sizeof(LightBuffer) == 64, 
+		"CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// DirectionalLightBuffer
@@ -181,7 +182,8 @@ namespace mage {
 			m_neg_d(), m_padding1(0) {}
 		
 		/**
-		 Constructs an directional light buffer from the given directional light buffer.
+		 Constructs an directional light buffer from the given directional 
+		 light buffer.
 
 		 @param[in]		buffer
 						A reference to the directional light buffer to copy.
@@ -189,7 +191,8 @@ namespace mage {
 		DirectionalLightBuffer(const DirectionalLightBuffer &buffer) = default;
 
 		/**
-		 Constructs an directional light buffer by moving the given directional light buffer.
+		 Constructs an directional light buffer by moving the given directional 
+		 light buffer.
 
 		 @param[in]		buffer
 						A reference to the directional light buffer to move.
@@ -206,31 +209,36 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given directional light buffer to this directional light buffer.
+		 Copies the given directional light buffer to this directional light 
+		 buffer.
 
 		 @param[in]		buffer
 						A reference to the directional light buffer to copy.
-		 @return		A reference to the copy of the given directional light buffer
-						(i.e. this directional light buffer).
+		 @return		A reference to the copy of the given directional light 
+						buffer (i.e. this directional light buffer).
 		 */
-		DirectionalLightBuffer &operator=(const DirectionalLightBuffer &buffer) = default;
+		DirectionalLightBuffer &operator=(
+			const DirectionalLightBuffer &buffer) = default;
 
 		/**
-		 Moves the given directional light buffer to this directional light buffer.
+		 Moves the given directional light buffer to this directional light 
+		 buffer.
 
 		 @param[in]		buffer
 						A reference to the directional light buffer to move.
-		 @return		A reference to the moved directional light buffer
-						(i.e. this directional light buffer).
+		 @return		A reference to the moved directional light buffer (i.e. 
+						this directional light buffer).
 		 */
-		DirectionalLightBuffer &operator=(DirectionalLightBuffer &&buffer) = default;
+		DirectionalLightBuffer &operator=(
+			DirectionalLightBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 The intensity of the directional light of this directional light buffer.
+		 The intensity of the directional light of this directional light 
+		 buffer.
 		 */
 		RGBSpectrum m_I;
 
@@ -240,8 +248,8 @@ namespace mage {
 		u32 m_padding0;
 
 		/**
-		 The (normalized) negated direction of the directional light 
-		 in camera-space coordinates of this directional light buffer.
+		 The (normalized) negated direction of the directional light in 
+		 camera-space coordinates of this directional light buffer.
 		 */
 		Direction3 m_neg_d;
 
@@ -251,7 +259,8 @@ namespace mage {
 		u32 m_padding1;
 	};
 
-	static_assert(sizeof(DirectionalLightBuffer) == 32, "CPU/GPU struct mismatch");
+	static_assert(sizeof(DirectionalLightBuffer) == 32, 
+		"CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// OmniLightBuffer
@@ -316,8 +325,8 @@ namespace mage {
 
 		 @param[in]		buffer
 						A reference to the omni light buffer to move.
-		 @return		A reference to the moved omni light buffer
-						(i.e. this omni light buffer).
+		 @return		A reference to the moved omni light buffer (i.e. this 
+						omni light buffer).
 		 */
 		OmniLightBuffer &operator=(OmniLightBuffer &&buffer) = default;
 
@@ -326,16 +335,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the omni light in camera-space coordinates 
-		 of this omni light buffer.
+		 The position of the omni light in camera-space coordinates of this 
+		 omni light buffer.
 		 */
 		Point3 m_p;
 
 		/**
-		 The distance at which intensity falloff ends 
-		 of the omni light of this omni light buffer.
+		 The distance at which intensity falloff ends of the omni light of this 
+		 omni light buffer.
 		 */
-		float m_distance_falloff_end;
+		f32 m_distance_falloff_end;
 
 		/**
 		 The intensity of the omni light of this omni light buffer.
@@ -343,13 +352,14 @@ namespace mage {
 		RGBSpectrum m_I;
 
 		/**
-		 The distance inverse range where intensity falloff occurs 
-		 of the omni light of this omni light buffer.
+		 The distance inverse range where intensity falloff occurs of the omni 
+		 light of this omni light buffer.
 		 */
-		float m_distance_falloff_inv_range;
+		f32 m_distance_falloff_inv_range;
 	};
 
-	static_assert(sizeof(OmniLightBuffer) == 32, "CPU/GPU struct mismatch");
+	static_assert(sizeof(OmniLightBuffer) == 32, 
+		"CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// SpotLightBuffer
@@ -417,8 +427,8 @@ namespace mage {
 
 		 @param[in]		buffer
 						A reference to the spotlight buffer to move.
-		 @return		A reference to the moved spotlight buffer
-						(i.e. this spotlight buffer).
+		 @return		A reference to the moved spotlight buffer (i.e. this 
+						spotlight buffer).
 		 */
 		SpotLightBuffer &operator=(SpotLightBuffer &&buffer) = default;
 
@@ -427,8 +437,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the spotlight in camera-space coordinates
-		 of this spotlight buffer.
+		 The position of the spotlight in camera-space coordinates of this 
+		 spotlight buffer.
 		 */
 		Point3 m_p;
 
@@ -448,42 +458,43 @@ namespace mage {
 		u32 m_padding1;
 
 		/**
-		 The (normalized) negated direction of the spotlight 
-		 in camera-space coordinates of this spotlight buffer.
+		 The (normalized) negated direction of the spotlight in camera-space 
+		 coordinates of this spotlight buffer.
 		 */
 		Direction3 m_neg_d;
 
 		/**
 		 The exponent property of the spotlight of this spotlight buffer.
 		 */
-		float m_exponent_property;
+		f32 m_exponent_property;
 		
 		/**
-		 The distance at which intensity falloff ends of the spotlight
-		 of this spotlight buffer.
+		 The distance at which intensity falloff ends of the spotlight of this 
+		 spotlight buffer.
 		 */
-		float m_distance_falloff_end;
+		f32 m_distance_falloff_end;
 
 		/**
-		 The distance inverse range where intensity falloff occurs 
-		 of the spotlight of this spotlight buffer.
+		 The distance inverse range where intensity falloff occurs of the 
+		 spotlight of this spotlight buffer.
 		 */
-		float m_distance_falloff_inv_range;
+		f32 m_distance_falloff_inv_range;
 		
 		/**
-		 The cosine of the umbra angle of the spotlight
-		 of this spotlight buffer.
+		 The cosine of the umbra angle of the spotlight of this spotlight 
+		 buffer.
 		 */
-		float m_cos_umbra;
+		f32 m_cos_umbra;
 
 		/**
-		 The cosine inverse range where intensity falloff occurs 
-		 of the spotlight of this spotlight buffer.
+		 The cosine inverse range where intensity falloff occurs of the 
+		 spotlight of this spotlight buffer.
 		 */
-		float m_cos_inv_range;
+		f32 m_cos_inv_range;
 	};
 
-	static_assert(sizeof(SpotLightBuffer) == 64, "CPU/GPU struct mismatch");
+	static_assert(sizeof(SpotLightBuffer) == 64, 
+		"CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// DirectionalLightWithShadowMappingBuffer
@@ -508,12 +519,12 @@ namespace mage {
 			: m_light(), m_cview_to_lprojection() {}
 		
 		/**
-		 Constructs an directional light with shadow mapping buffer from 
-		 the given directional light with shadow mapping buffer.
+		 Constructs an directional light with shadow mapping buffer from the 
+		 given directional light with shadow mapping buffer.
 
 		 @param[in]		buffer
-						A reference to the directional light 
-						with shadow mapping buffer to copy.
+						A reference to the directional light with shadow 
+						mapping buffer to copy.
 		 */
 		DirectionalLightWithShadowMappingBuffer(
 			const DirectionalLightWithShadowMappingBuffer &buffer) = default;
@@ -523,8 +534,8 @@ namespace mage {
 		 the given directional light with shadow mapping buffer.
 
 		 @param[in]		buffer
-						A reference to the directional light 
-						with shadow mapping buffer to move.
+						A reference to the directional light with shadow 
+						mapping buffer to move.
 		 */
 		DirectionalLightWithShadowMappingBuffer(
 			DirectionalLightWithShadowMappingBuffer &&buffer) = default;
@@ -539,29 +550,29 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given directional light with shadow mapping buffer 
-		 to this directional light with shadow mapping buffer.
+		 Copies the given directional light with shadow mapping buffer to this 
+		 directional light with shadow mapping buffer.
 
 		 @param[in]		buffer
-						A reference to the directional light 
-						with shadow mapping buffer to copy.
-		 @return		A reference to the copy of the given 
-						directional light with shadow mapping buffer
-						(i.e. this directional light with shadow mapping buffer).
+						A reference to the directional light with shadow 
+						mapping buffer to copy.
+		 @return		A reference to the copy of the given directional light 
+						with shadow mapping buffer (i.e. this directional light 
+						with shadow mapping buffer).
 		 */
 		DirectionalLightWithShadowMappingBuffer &operator=(
 			const DirectionalLightWithShadowMappingBuffer &buffer) = default;
 
 		/**
-		 Moves the given directional light with shadow mapping buffer 
-		 to this directional light with shadow mapping buffer.
+		 Moves the given directional light with shadow mapping buffer to this 
+		 directional light with shadow mapping buffer.
 
 		 @param[in]		buffer
-						A reference to the directional light 
-						with shadow mapping buffer to move.
-		 @return		A reference to the moved directional light 
-						with shadow mapping buffer
-						(i.e. this directional light with shadow mapping buffer).
+						A reference to the directional light with shadow 
+						mapping buffer to move.
+		 @return		A reference to the moved directional light with shadow 
+						mapping buffer (i.e. this directional light with shadow 
+						mapping buffer).
 		 */
 		DirectionalLightWithShadowMappingBuffer &operator=(
 			DirectionalLightWithShadowMappingBuffer &&buffer) = default;
@@ -571,7 +582,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The directional light buffer of this directional light buffer with shadow mapping.
+		 The directional light buffer of this directional light buffer with 
+		 shadow mapping.
 		 */
 		DirectionalLightBuffer m_light;
 
@@ -583,13 +595,15 @@ namespace mage {
 		// DirectXMath expects row-major packed matrices.
 
 		/**
-		 The (column-major packed, row-major matrix) camera-view-to-light-projection 
-		 matrix of this directional light buffer with shadow mapping for use in HLSL.
+		 The (column-major packed, row-major matrix) 
+		 camera-view-to-light-projection matrix of this directional light 
+		 buffer with shadow mapping for use in HLSL.
 		 */
 		XMMATRIX m_cview_to_lprojection;
 	};
 
-	static_assert(sizeof(DirectionalLightWithShadowMappingBuffer) == 96, "CPU/GPU struct mismatch");
+	static_assert(sizeof(DirectionalLightWithShadowMappingBuffer) == 96, 
+		"CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// OmniLightWithShadowMappingBuffer
@@ -615,23 +629,23 @@ namespace mage {
 			m_projection_values(), m_padding0() {}
 		
 		/**
-		 Constructs an omni light with shadow mapping buffer from 
-		 the given omni light with shadow mapping buffer.
+		 Constructs an omni light with shadow mapping buffer from the given 
+		 omni light with shadow mapping buffer.
 
 		 @param[in]		buffer
-						A reference to the omni light 
-						with shadow mapping buffer to copy.
+						A reference to the omni light with shadow mapping 
+						buffer to copy.
 		 */
 		OmniLightWithShadowMappingBuffer(
 			const OmniLightWithShadowMappingBuffer &buffer) = default;
 
 		/**
-		 Constructs an omni light with shadow mapping buffer by moving 
-		 the given omni light with shadow mapping buffer.
+		 Constructs an omni light with shadow mapping buffer by moving the given 
+		 omni light with shadow mapping buffer.
 
 		 @param[in]		buffer
-						A reference to the omni light 
-						with shadow mapping buffer to move.
+						A reference to the omni light with shadow mapping 
+						buffer to move.
 		 */
 		OmniLightWithShadowMappingBuffer(
 			OmniLightWithShadowMappingBuffer &&buffer) = default;
@@ -646,29 +660,29 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given omni light with shadow mapping buffer 
-		 to this omni light with shadow mapping buffer.
+		 Copies the given omni light with shadow mapping buffer to this omni 
+		 light with shadow mapping buffer.
 
 		 @param[in]		buffer
 						A reference to the omni light 
 						with shadow mapping buffer to copy.
-		 @return		A reference to the copy of the given 
-						omni light with shadow mapping buffer
-						(i.e. this omni light with shadow mapping buffer).
+		 @return		A reference to the copy of the given omni light with 
+						shadow mapping buffer (i.e. this omni light with shadow 
+						mapping buffer).
 		 */
 		OmniLightWithShadowMappingBuffer &operator=(
 			const OmniLightWithShadowMappingBuffer &buffer) = default;
 
 		/**
-		 Moves the given omni light with shadow mapping buffer 
-		 to this omni light with shadow mapping buffer.
+		 Moves the given omni light with shadow mapping buffer to this omni 
+		 light with shadow mapping buffer.
 
 		 @param[in]		buffer
 						A reference to the omni light 
 						with shadow mapping buffer to move.
-		 @return		A reference to the moved omni light 
-						with shadow mapping buffer
-						(i.e. this omni light with shadow mapping buffer).
+		 @return		A reference to the moved omni light with shadow 
+						mapping buffer (i.e. this omni light with shadow 
+						mapping buffer).
 		 */
 		OmniLightWithShadowMappingBuffer &operator=(
 			OmniLightWithShadowMappingBuffer &&buffer) = default;
@@ -707,7 +721,8 @@ namespace mage {
 		u32 m_padding0[2];
 	};
 
-	static_assert(sizeof(OmniLightWithShadowMappingBuffer) == 112, "CPU/GPU struct mismatch");
+	static_assert(sizeof(OmniLightWithShadowMappingBuffer) == 112, 
+		"CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
 	// SpotLightWithShadowMappingBuffer
@@ -736,8 +751,8 @@ namespace mage {
 		 the given spotlight with shadow mapping buffer.
 
 		 @param[in]		buffer
-						A reference to the spotlight 
-						with shadow mapping buffer to copy.
+						A reference to the spotlight with shadow mapping buffer 
+						to copy.
 		 */
 		SpotLightWithShadowMappingBuffer(
 			const SpotLightWithShadowMappingBuffer &buffer) = default;
@@ -747,8 +762,8 @@ namespace mage {
 		 the given spotlight with shadow mapping buffer.
 
 		 @param[in]		buffer
-						A reference to the spotlight 
-						with shadow mapping buffer to move.
+						A reference to the spotlight with shadow mapping buffer 
+						to move.
 		 */
 		SpotLightWithShadowMappingBuffer(
 			SpotLightWithShadowMappingBuffer &&buffer) = default;
@@ -769,9 +784,9 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the spotlight 
 						with shadow mapping buffer to copy.
-		 @return		A reference to the copy of the given 
-						spotlight with shadow mapping buffer
-						(i.e. this spotlight with shadow mapping buffer).
+		 @return		A reference to the copy of the given spotlight with 
+						shadow mapping buffer (i.e. this spotlight with shadow 
+						mapping buffer).
 		 */
 		SpotLightWithShadowMappingBuffer &operator=(
 			const SpotLightWithShadowMappingBuffer &buffer) = default;
@@ -783,9 +798,9 @@ namespace mage {
 		 @param[in]		buffer
 						A reference to the spotlight 
 						with shadow mapping buffer to move.
-		 @return		A reference to the moved spotlight 
-						with shadow mapping buffer
-						(i.e. this spotlight with shadow mapping buffer).
+		 @return		A reference to the moved spotlight with shadow mapping 
+						buffer (i.e. this spotlight with shadow mapping 
+						buffer).
 		 */
 		SpotLightWithShadowMappingBuffer &operator=(
 			SpotLightWithShadowMappingBuffer &&buffer) = default;
@@ -807,11 +822,13 @@ namespace mage {
 		// DirectXMath expects row-major packed matrices.
 
 		/**
-		 The (column-major packed, row-major matrix) camera-view-to-light-projection 
-		 matrix of this spotlight buffer with shadow mapping for use in HLSL.
+		 The (column-major packed, row-major matrix) 
+		 camera-view-to-light-projection matrix of this spotlight buffer with 
+		 shadow mapping for use in HLSL.
 		 */
 		XMMATRIX m_cview_to_lprojection;
 	};
 
-	static_assert(sizeof(SpotLightWithShadowMappingBuffer) == 128, "CPU/GPU struct mismatch");
+	static_assert(sizeof(SpotLightWithShadowMappingBuffer) == 128, 
+		"CPU/GPU struct mismatch");
 }

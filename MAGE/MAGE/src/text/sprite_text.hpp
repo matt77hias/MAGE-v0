@@ -40,8 +40,8 @@ namespace mage {
 
 		 @param[in]		sprite_text
 						A reference to the sprite text to copy.
-		 @return		A reference to the copy of the given sprite text
-						(i.e. this sprite text).
+		 @return		A reference to the copy of the given sprite text (i.e. 
+						this sprite text).
 		 */
 		SpriteText &operator=(const SpriteText &sprite_text) = delete;
 
@@ -50,8 +50,8 @@ namespace mage {
 
 		 @param[in]		sprite_text
 						A reference to the sprite text to move.
-		 @return		A reference to the moved sprite text
-						(i.e. this sprite text).
+		 @return		A reference to the moved sprite text (i.e. this sprite 
+						text).
 		 */
 		SpriteText &operator=(SpriteText &&sprite_text) = delete;
 
@@ -72,8 +72,8 @@ namespace mage {
 		 Draws this sprite text.
 
 		 @param[in]		sprite_batch
-						A reference to the sprite batch used for rendering
-						this sprite text.
+						A reference to the sprite batch used for rendering this 
+						sprite text.
 		 */
 		virtual void Draw(SpriteBatch &sprite_batch) const = 0;
 
@@ -120,12 +120,12 @@ namespace mage {
 		const wstring &GetText() const noexcept {
 			return m_text;
 		}
-
+		
 		/**
 		 Returns the text of this sprite text with colors.
 
-		 @return		A reference to a vector containing the
-						color strings of this sprite text.
+		 @return		A reference to a vector containing the color strings 
+						of this sprite text.
 		 */
 		const vector< ColorString > &GetTextWithColors() const noexcept {
 			return m_strings;
@@ -227,14 +227,14 @@ namespace mage {
 		const SpriteFont *GetRawFont() const noexcept {
 			return m_font.get();
 		}
-
+		
 		/**
 		 Traverses all color strings of this sprite text.
 
 		 @tparam		ActionT
-						An action to perform on all color strings
-						of this sprite text. The action must accept 
-						@c ColorString* values.
+						An action to perform on all color strings of this 
+						sprite text. The action must accept @c ColorString* 
+						values.
 		 */
 		template< typename ActionT >
 		inline void ForEachColorString(ActionT action);
@@ -243,9 +243,9 @@ namespace mage {
 		 Traverses all color strings of this sprite text.
 
 		 @tparam		ActionT
-						An action to perform on color strings
-						of this sprite text. The action must accept
-						@c const @c ColorString* values.
+						An action to perform on all color strings of this 
+						sprite text. The action must accept @c const 
+						@c ColorString* values.
 		 */
 		template< typename ActionT >
 		inline void ForEachColorString(ActionT action) const;

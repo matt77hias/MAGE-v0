@@ -16,9 +16,11 @@ namespace mage {
 		SpriteEffect effects)
 		: SpriteText(font, effects) {}
 
-	NormalSpriteText::NormalSpriteText(const NormalSpriteText &sprite_text) = default;
+	NormalSpriteText::NormalSpriteText(
+		const NormalSpriteText &sprite_text) = default;
 
-	NormalSpriteText::NormalSpriteText(NormalSpriteText &&sprite_text) = default;
+	NormalSpriteText::NormalSpriteText(
+		NormalSpriteText &&sprite_text) = default;
 
 	NormalSpriteText::~NormalSpriteText() = default;
 
@@ -27,6 +29,7 @@ namespace mage {
 	}
 
 	void NormalSpriteText::Draw(SpriteBatch &sprite_batch) const {
-		GetRawFont()->DrawString(sprite_batch, GetTextWithColors(), *GetTransform(), GetSpriteEffects());
+		GetRawFont()->DrawString(sprite_batch, 
+			GetTextWithColors(), *GetTransform(), GetSpriteEffects());
 	}
 }

@@ -44,8 +44,8 @@ namespace mage {
 
 		 @param[in]		sprite_node
 						A reference to the sprite node to copy.
-		 @return		A reference to the copy of the given sprite node
-						(i.e. this sprite node).
+		 @return		A reference to the copy of the given sprite node (i.e. 
+						this sprite node).
 		 */
 		SpriteNode &operator=(const SpriteNode &sprite_node) = delete;
 
@@ -54,8 +54,8 @@ namespace mage {
 
 		 @param[in]		sprite_node
 						A reference to the sprite node to move.
-		 @return		A reference to the moved sprite node
-						(i.e. this sprite node).
+		 @return		A reference to the moved sprite node (i.e. this sprite 
+						node).
 		 */
 		SpriteNode &operator=(SpriteNode &&sprite_node) = delete;
 
@@ -191,10 +191,12 @@ namespace mage {
 		 @param[in]		name
 						A reference to the name.
 		 @param[in]		args
-						A reference to the constructor arguments for the Sprite.
+						A reference to the constructor arguments for the 
+						sprite.
 		 */
 		template< typename... ConstructorArgsT >
-		explicit DerivedSpriteNode(const string &name, ConstructorArgsT&&... args);
+		explicit DerivedSpriteNode(
+			const string &name, ConstructorArgsT&&... args);
 
 		/**
 		 Constructs a derived sprite node.
@@ -205,7 +207,8 @@ namespace mage {
 		 @param[in]		sprite
 						A reference to the Sprite to move.
 		 */
-		explicit DerivedSpriteNode(const string &name, UniquePtr< SpriteT > &&sprite);
+		explicit DerivedSpriteNode(
+			const string &name, UniquePtr< SpriteT > &&sprite);
 
 		/**
 		 Constructs a derived sprite node from the given derived sprite node.
@@ -216,7 +219,8 @@ namespace mage {
 		DerivedSpriteNode(const DerivedSpriteNode &sprite_node);
 
 		/**
-		 Constructs a derived sprite node by moving the given derived sprite node.
+		 Constructs a derived sprite node by moving the given derived sprite 
+		 node.
 
 		 @param[in]		sprite_node
 						A reference to the derived sprite node to move.
@@ -237,8 +241,8 @@ namespace mage {
 
 		 @param[in]		sprite_node
 						A reference to the derived sprite node to copy.
-		 @return		A reference to the copy of the given derived sprite node
-						(i.e. this derived sprite node).
+		 @return		A reference to the copy of the given derived sprite 
+						node (i.e. this derived sprite node).
 		 */
 		DerivedSpriteNode &operator=(const DerivedSpriteNode &sprite_node) = delete;
 
@@ -247,8 +251,8 @@ namespace mage {
 
 		 @param[in]		sprite_node
 						A reference to the derived sprite node to move.
-		 @return		A reference to the moved derived sprite node
-						(i.e. this derived sprite node).
+		 @return		A reference to the moved derived sprite node (i.e. this 
+						derived sprite node).
 		 */
 		DerivedSpriteNode &operator=(DerivedSpriteNode &&sprite_node) = delete;
 

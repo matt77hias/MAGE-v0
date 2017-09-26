@@ -37,7 +37,8 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit OutlineSpriteText(SharedPtr< SpriteFont > font,
-			const Color &border_color, SpriteEffect effects = SpriteEffect::None);
+			const Color &border_color, 
+			SpriteEffect effects = SpriteEffect::None);
 		
 		/**
 		 Constructs a outline sprite text.
@@ -51,7 +52,8 @@ namespace mage {
 						The sprite effects to apply.
 		 */
 		explicit OutlineSpriteText(SharedPtr< SpriteFont > font,
-			FXMVECTOR border_color = Colors::Black, SpriteEffect effects = SpriteEffect::None);
+			FXMVECTOR border_color = Colors::Black, 
+			SpriteEffect effects = SpriteEffect::None);
 
 		/**
 		 Constructs a outline sprite text from the given outline sprite text.
@@ -62,7 +64,8 @@ namespace mage {
 		OutlineSpriteText(const OutlineSpriteText &sprite_text);
 
 		/**
-		 Constructs a outline sprite text by moving the given outline sprite text.
+		 Constructs a outline sprite text by moving the given outline sprite 
+		 text.
 
 		 @param[in]		sprite_text
 						A reference to the outline sprite text to move.
@@ -83,20 +86,22 @@ namespace mage {
 
 		 @param[in]		sprite_text
 						A reference to the outline sprite text to copy.
-		 @return		A reference to the copy of the given outline sprite text
-						(i.e. this outline sprite text).
+		 @return		A reference to the copy of the given outline sprite 
+						text (i.e. this outline sprite text).
 		 */
-		OutlineSpriteText &operator=(const OutlineSpriteText &sprite_text) = delete;
+		OutlineSpriteText &operator=(
+			const OutlineSpriteText &sprite_text) = delete;
 
 		/**
 		 Moves the given outline sprite text to this outline sprite text.
 
 		 @param[in]		sprite_text
 						A reference to the outline sprite text to move.
-		 @return		A reference to the moved outline sprite text
-						(i.e. this outline sprite text).
+		 @return		A reference to the moved outline sprite text (i.e. 
+						this outline sprite text).
 		 */
-		OutlineSpriteText &operator=(OutlineSpriteText &&sprite_text) = delete;
+		OutlineSpriteText &operator=(
+			OutlineSpriteText &&sprite_text) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -115,8 +120,8 @@ namespace mage {
 		 Draws this outline sprite text.
 
 		 @param[in]		sprite_batch
-						A reference to the sprite batch used for rendering
-						this outline sprite text.
+						A reference to the sprite batch used for rendering this 
+						outline sprite text.
 		 */
 		virtual void Draw(SpriteBatch &sprite_batch) const override;
 	
@@ -173,9 +178,11 @@ namespace mage {
 		virtual UniquePtr< Sprite > CloneImplementation() const override;
 
 		/**
-		 Returns the border color of this outline sprite text as @c XMVECTOR.
+		 Returns the border color of this outline sprite text as 
+		 @c XMVECTOR.
 
-		 @return		The border color of this outline sprite text as @c XMVECTOR.
+		 @return		The border color of this outline sprite text as 
+						@c XMVECTOR.
 		 */
 		const XMVECTOR GetBorderColorVector() const noexcept {
 			return XMLoadFloat4(&m_border_color);

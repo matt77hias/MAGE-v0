@@ -35,7 +35,7 @@ namespace mage {
 	VertexShader::VertexShader(VertexShader &&vertex_shader) = default;
 
 	VertexShader::~VertexShader() = default;
-
+	
 	void VertexShader::SetupShader(
 		ID3D11Device2 *device, const CompiledShader *compiled_shader,
 		const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
@@ -48,12 +48,13 @@ namespace mage {
 		const HRESULT result_vertex_shader = device->CreateVertexShader(
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			nullptr, m_vertex_shader.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_vertex_shader, "Vertex shader creation failed: %08X.", result_vertex_shader);
+		ThrowIfFailed(result_vertex_shader, 
+			"Vertex shader creation failed: %08X.", result_vertex_shader);
 
 		if (!input_element_desc) {
-			// If the vertex shader has no input signature 
-			// (i.e. the mesh is generated on the fly on the GPU),
-			// no vertex input layout needs to be generated.
+			// If the vertex shader has no input signature (i.e. the mesh is 
+			// generated on the fly on the GPU), no vertex input layout needs 
+			// to be generated.
 			return;
 		}
 
@@ -62,6 +63,7 @@ namespace mage {
 			input_element_desc, static_cast< u32 >(nb_input_elements),
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			m_vertex_layout.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_vertex_input_layout, "Vertex input layout creation failed: %08X.", result_vertex_input_layout);
+		ThrowIfFailed(result_vertex_input_layout, 
+			"Vertex input layout creation failed: %08X.", result_vertex_input_layout);
 	}
 }

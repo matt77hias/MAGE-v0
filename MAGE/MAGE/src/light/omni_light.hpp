@@ -167,7 +167,7 @@ namespace mage {
 		 @return		The distance range where intensity falloff occurs of 
 						this omni light.
 						@a GetEndDistanceFalloff() - 
-						@a GetStartDistanceFalloff()
+						@a GetStartDistanceFalloff().
 		 */
 		f32 GetRangeDistanceFalloff() const noexcept {
 			return m_distance_falloff_end - m_distance_falloff_start;

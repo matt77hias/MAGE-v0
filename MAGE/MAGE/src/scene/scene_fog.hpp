@@ -77,8 +77,8 @@ namespace mage {
 
 		 @param[in]		scene_fog
 						A reference to the scene fog to copy.
-		 @return		A reference to the copy of the given scene fog
-						(i.e. this scene fog).
+		 @return		A reference to the copy of the given scene fog (i.e. 
+						this scene fog).
 		 */
 		SceneFog &operator=(const SceneFog &scene_fog) = default;
 
@@ -87,8 +87,8 @@ namespace mage {
 
 		 @param[in]		scene_fog
 						A reference to the scene fog to move.
-		 @return		A reference to the moved scene fog
-						(i.e. this scene fog).
+		 @return		A reference to the moved scene fog (i.e. this scene 
+						fog).
 		 */
 		SceneFog &operator=(SceneFog &&scene_fog) = default;
 
@@ -126,11 +126,13 @@ namespace mage {
 		}
 
 		/**
-		 Returns the distance at which intensity falloff starts of this scene fog.
+		 Returns the distance at which intensity falloff starts of this scene 
+		 fog.
 
-		 @return		The distance at which intensity falloff starts of this scene fog.
+		 @return		The distance at which intensity falloff starts of this 
+						scene fog.
 		 */
-		float GetStartDistanceFalloff() const noexcept {
+		f32 GetStartDistanceFalloff() const noexcept {
 			return m_distance_falloff_start;
 		}
 
@@ -141,16 +143,17 @@ namespace mage {
 		 @param[in]		distance_falloff_start
 						The distance at which intensity falloff starts.
 		 */
-		void SetStartDistanceFalloff(float distance_falloff_start) noexcept {
+		void SetStartDistanceFalloff(f32 distance_falloff_start) noexcept {
 			m_distance_falloff_start = distance_falloff_start;
 		}
-
+		
 		/**
 		 Returns the distance at which intensity falloff ends of this scene fog
 
-		 @return		The distance at which intensity falloff ends of this scene fog.
+		 @return		The distance at which intensity falloff ends of this 
+						scene fog.
 		 */
-		float GetEndDistanceFalloff() const noexcept {
+		f32 GetEndDistanceFalloff() const noexcept {
 			return m_distance_falloff_end;
 		}
 
@@ -161,45 +164,53 @@ namespace mage {
 		 @param[in]		distance_falloff_end
 						The distance at which intensity falloff ends.
 		 */
-		void SetEndDistanceFalloff(float distance_falloff_end) noexcept {
+		void SetEndDistanceFalloff(f32 distance_falloff_end) noexcept {
 			m_distance_falloff_end = distance_falloff_end;
 		}
-
+		
 		/**
-		 Sets the distance at which intensity falloff starts and ends of this scene fog
-		 to the given values.
+		 Sets the distance at which intensity falloff starts and ends of this 
+		 scene fog to the given values.
 
 		 @param[in]		distance_falloff_start
 						The distance at which intensity falloff starts.
 		 @param[in]		distance_falloff_end
 						The distance at which intensity falloff ends.
 		 */
-		void SetDistanceFalloff(float distance_falloff_start, float distance_falloff_end) noexcept {
+		void SetDistanceFalloff(
+			f32 distance_falloff_start, f32 distance_falloff_end) noexcept {
+			
 			SetStartDistanceFalloff(distance_falloff_start);
 			SetEndDistanceFalloff(distance_falloff_end);
 		}
 
 		/**
-		 Returns the distance range where intensity falloff occurs of this scene fog.
+		 Returns the distance range where intensity falloff occurs of this 
+		 scene fog.
 
-		 @return		The distance range where intensity falloff occurs of this scene fog.
-						@a GetEndDistanceFalloff() - @a GetStartDistanceFalloff()
+		 @return		The distance range where intensity falloff occurs of 
+						this scene fog. @a GetEndDistanceFalloff() - 
+						@a GetStartDistanceFalloff().
 		 */
-		float GetRangeDistanceFalloff() const noexcept {
+		f32 GetRangeDistanceFalloff() const noexcept {
 			return m_distance_falloff_end - m_distance_falloff_start;
 		}
-
+		
 		/**
-		 Sets the distance at which intensity falloff starts and the distance range
-		 where intensity falloff occurs of this scene fog to the given values.
+		 Sets the distance at which intensity falloff starts and the distance 
+		 range where intensity falloff occurs of this scene fog to the given 
+		 values.
 
 		 @param[in]		distance_falloff_start
 						The distance at which intensity falloff starts.
 		 @param[in]		distance_falloff_range
 						The distance range where intensity falloff occurs.
 		 */
-		void SetRangeDistanceFalloff(float distance_falloff_start, float distance_falloff_range) noexcept {
-			SetDistanceFalloff(distance_falloff_start, distance_falloff_start + distance_falloff_range);
+		void SetRangeDistanceFalloff(
+			f32 distance_falloff_start, f32 distance_falloff_range) noexcept {
+
+			SetDistanceFalloff(distance_falloff_start, 
+				distance_falloff_start + distance_falloff_range);
 		}
 
 	private:
@@ -216,11 +227,11 @@ namespace mage {
 		/**
 		 The start of the distance falloff of this scene fog.
 		 */
-		float m_distance_falloff_start;
+		f32 m_distance_falloff_start;
 
 		/**
 		 The end of the distance falloff of this scene fog.
 		 */
-		float m_distance_falloff_end;
+		f32 m_distance_falloff_end;
 	};
 }

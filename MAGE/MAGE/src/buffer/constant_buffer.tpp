@@ -33,7 +33,8 @@ namespace mage {
 
 		const HRESULT result_buffer = CreateDynamicConstantBuffer< DataT >(
 			device, m_buffer.ReleaseAndGetAddressOf(), nullptr);
-		ThrowIfFailed(result_buffer, "Constant buffer creation failed: %08X.", result_buffer);
+		ThrowIfFailed(result_buffer, 
+			"Constant buffer creation failed: %08X.", result_buffer);
 	}
 
 	template< typename DataT >

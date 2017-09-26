@@ -17,7 +17,8 @@
 namespace mage {
 
 	template < typename VertexT >
-	void ImportModelFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, 
+	void ImportModelFromFile(const wstring &fname, 
+		ModelOutput< VertexT > &model_output, 
 		const MeshDescriptor< VertexT > &mesh_desc) {
 
 		const wstring extension = GetFileExtension(fname);
@@ -29,12 +30,14 @@ namespace mage {
 			ImportOBJMeshFromFile(fname, model_output, mesh_desc);
 		}
 		else {
-			throw FormattedException("Unknown model file extension: %ls", fname.c_str());
+			throw FormattedException(
+				"Unknown model file extension: %ls", fname.c_str());
 		}
 	}
 
 	template < typename VertexT >
-	void ExportModelToFile(const wstring &fname, const ModelOutput< VertexT > &model_output) {
+	void ExportModelToFile(const wstring &fname, 
+		const ModelOutput< VertexT > &model_output) {
 
 		const wstring extension = GetFileExtension(fname);
 
@@ -42,7 +45,8 @@ namespace mage {
 			ExportMDLModelToFile(fname, model_output);
 		}
 		else {
-			throw FormattedException("Unknown model file extension: %ls", fname.c_str());
+			throw FormattedException(
+				"Unknown model file extension: %ls", fname.c_str());
 		}
 	}
 }

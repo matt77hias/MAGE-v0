@@ -67,8 +67,8 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the mesh descriptor.
 		 @param[in]		export_as_MDL
-						@c true if the model descriptor needs to be
-						exported as MDL file. @c false otherwise.
+						@c true if the model descriptor needs to be exported as 
+						MDL file. @c false otherwise.
 		 @throws		FormattedException
 						Failed to initialize the model descriptor.
 		 */
@@ -136,8 +136,8 @@ namespace mage {
 
 		 @param[in]		name
 						A reference to the name of the material.
-		 @return		@c nullptr if this model descriptor contains 
-						no material matching the given name @a name.
+		 @return		@c nullptr if this model descriptor contains no 
+						material matching the given name @a name.
 		 @return		A pointer to the material of this model 
 						descriptor matching the given name @a name.
 		 */
@@ -147,9 +147,9 @@ namespace mage {
 		 Traverses all materials of this model descriptor.
 
 		 @tparam		ActionT
-						An action to perform on all materials
-						of this model descriptor. The action 
-						must accept @c const @c Material* values.
+						An action to perform on all materials of this model 
+						descriptor. The action must accept @c const 
+						@c Material* values.
 		*/
 		template< typename ActionT >
 		void ForEachMaterial(ActionT action) const;
@@ -159,10 +159,10 @@ namespace mage {
 
 		 @param[in]		name
 						A reference to the name of the model part.
-		 @return		@c nullptr if this model descriptor contains
-						no model part matching the given name @a name.
-		 @return		A pointer to the model part of this model 
-						descriptor matching the given name @a name.
+		 @return		@c nullptr if this model descriptor contains no model 
+						part matching the given name @a name.
+		 @return		A pointer to the model part of this model descriptor 
+						matching the given name @a name.
 		 */
 		const ModelPart *GetModelPart(const string &name) const noexcept;
 		
@@ -170,9 +170,9 @@ namespace mage {
 		 Traverses all model parts of this model descriptor.
 
 		 @tparam		ActionT
-						An action to perform on all model parts
-						of this model descriptor. The action
-						must accept @c const @c ModelPart* values.
+						An action to perform on all model parts of this model
+						descriptor. The action must accept @c const 
+						@c ModelPart* values.
 		 */
 		template< typename ActionT >
 		void ForEachModelPart(ActionT action) const;
@@ -189,12 +189,14 @@ namespace mage {
 		SharedPtr< const Mesh > m_mesh;
 
 		/**
-		 A vector containing all the materials of the model of this model descriptor.
+		 A vector containing all the materials of the model of this model 
+		 descriptor.
 		 */
 		vector< Material > m_materials;
 
 		/**
-		 A vector containing all the model parts of the model of this model descriptor.
+		 A vector containing all the model parts of the model of this model 
+		 descriptor.
 		 */
 		vector< ModelPart > m_model_parts;
 	};

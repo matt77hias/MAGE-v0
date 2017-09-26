@@ -19,14 +19,12 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	ShadowMapBuffer::ShadowMapBuffer(
-		size_t nb_shadow_maps, u32 width, u32 height,
-		DepthFormat format) 
+		size_t nb_shadow_maps, u32 width, u32 height, DepthFormat format) 
 		: ShadowMapBuffer(Pipeline::GetDevice(), 
 			nb_shadow_maps, width, height, format) {}
 
 	ShadowMapBuffer::ShadowMapBuffer(ID3D11Device2 *device,
-		size_t nb_shadow_maps, u32 width, u32 height,
-		DepthFormat format)
+		size_t nb_shadow_maps, u32 width, u32 height, DepthFormat format)
 		: m_width(width), m_height(height), m_format(format), 
 		m_viewport(), m_dsvs(), m_srv() {
 
@@ -38,10 +36,12 @@ namespace mage {
 		size_t nb_shadow_maps) {
 
 		switch (m_format) {
+		
 		case DepthFormat::D16: {
 			Setup16BitShadowMapArray(device, nb_shadow_maps);
 			break;
 		}
+		
 		default: {
 			Setup24BitShadowMapArray(device, nb_shadow_maps);
 		}
@@ -133,14 +133,12 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	ShadowCubeMapBuffer::ShadowCubeMapBuffer(
-		size_t nb_shadow_cube_maps, u32 width, u32 height,
-		DepthFormat format)
+		size_t nb_shadow_cube_maps, u32 width, u32 height, DepthFormat format)
 		: ShadowCubeMapBuffer(Pipeline::GetDevice(),
 			nb_shadow_cube_maps, width, height, format) {}
 
 	ShadowCubeMapBuffer::ShadowCubeMapBuffer(ID3D11Device2 *device,
-		size_t nb_shadow_cube_maps, u32 width, u32 height,
-		DepthFormat format)
+		size_t nb_shadow_cube_maps, u32 width, u32 height, DepthFormat format)
 		: m_width(width), m_height(height), m_format(format),
 		m_viewport(), m_dsvs(), m_srv() {
 
@@ -152,10 +150,12 @@ namespace mage {
 		size_t nb_shadow_cube_maps) {
 
 		switch (m_format) {
+		
 		case DepthFormat::D16: {
 			Setup16BitShadowCubeMapArray(device, nb_shadow_cube_maps);
 			break;
 		}
+		
 		default: {
 			Setup24BitShadowCubeMapArray(device, nb_shadow_cube_maps);
 		}

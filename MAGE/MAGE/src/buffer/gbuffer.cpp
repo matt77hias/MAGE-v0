@@ -88,7 +88,7 @@ namespace mage {
 		SetupNormalBuffer(device, width, height);
 	}
 
-	void GBuffer::SetupDepthBuffer(ID3D11Device2 *device,
+	void GBuffer::SetupDepthBuffer(ID3D11Device2 *device, 
 		u32 width, u32 height) {
 
 		// Create the texture descriptor.

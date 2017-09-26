@@ -84,8 +84,8 @@ namespace mage {
 
 		 @param[in]		model
 						A reference to the model to copy.
-		 @return		A reference to the copy of the given model
-						(i.e. this model).
+		 @return		A reference to the copy of the given model (i.e. this 
+						model).
 		 */
 		Model &operator=(const Model &model) = delete;
 
@@ -94,8 +94,7 @@ namespace mage {
 
 		 @param[in]		model
 						A reference to the model to move.
-		 @return		A reference to the moved model
-						(i.e. this model).
+		 @return		A reference to the moved model (i.e. this model).
 		 */
 		Model &operator=(Model &&model) = delete;
 
@@ -146,7 +145,8 @@ namespace mage {
 		/**
 		 Returns the number of indices of this model in the mesh of this model.
 
-		 @return		The number of indices of this model in the mesh of this model.
+		 @return		The number of indices of this model in the mesh of this 
+						model.
 		 */
 		size_t GetNumberOfIndices() const noexcept {
 			return m_nb_indices;
@@ -196,8 +196,8 @@ namespace mage {
 		/**
 		 Checks whether this model occludes light.
 
-		 @return		@c true if this model occludes light.
-						@c false otherwise.
+		 @return		@c true if this model occludes light. @c false 
+						otherwise.
 		 */
 		bool OccludesLight() const noexcept {
 			return m_light_occlusion;
@@ -228,8 +228,8 @@ namespace mage {
 		 Sets the occlusion of light by this model to the given value.
 
 		 @param[in]		light_occlusion
-						@c true if this model needs to occlude light.
-						@c false otherwise.
+						@c true if this model needs to occlude light. @c false 
+						otherwise.
 		 */
 		void SetLightOcclusion(bool light_occlusion) noexcept {
 			m_light_occlusion = light_occlusion;

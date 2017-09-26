@@ -16,13 +16,13 @@
 namespace mage {
 
 	/**
-	 Converts the given @c RECT (left, top, right, bottom) 
-	 to a @c XMVECTOR (left, top, right, bottom).
+	 Converts the given @c RECT (left, top, right, bottom) to a @c XMVECTOR 
+	 (left, top, right, bottom).
 
 	 @param[in]		rect
 					A reference to the rectangle.
-	 @return		A @c XMVECTOR  (left, top, right, bottom) representing 
-					the given @c RECT (left, top, right, bottom).
+	 @return		A @c XMVECTOR  (left, top, right, bottom) representing the 
+					given @c RECT (left, top, right, bottom).
 	 */
 	inline const XMVECTOR XMVectorLeftTopRightBottom(const RECT &rect) noexcept {
 		const XMVECTOR v = XMLoadInt4(reinterpret_cast<const u32 *>(&rect));
@@ -30,13 +30,13 @@ namespace mage {
 	}
 
 	/**
-	 Converts the given @c RECT (left, top, right, bottom)
-	 to a @c XMVECTOR (left, top, width, height).
+	 Converts the given @c RECT (left, top, right, bottom) to a @c XMVECTOR 
+	 (left, top, width, height).
 
 	 @param[in]		rect
 					A reference to the rectangle.
-	 @return		A @c XMVECTOR  (left, top, width, height) representing
-					the given @c RECT (left, top, right, bottom).
+	 @return		A @c XMVECTOR  (left, top, width, height) representing the 
+					given @c RECT (left, top, right, bottom).
 	 */
 	inline const XMVECTOR XMVectorLeftTopWidthHeight(const RECT &rect) noexcept {
 		const XMVECTOR v = XMVectorLeftTopRightBottom(rect);
@@ -45,7 +45,8 @@ namespace mage {
 	}
 
 	/**
-	 Returns the viewport transform for the given device context and rotation mode.
+	 Returns the viewport transform for the given device context and rotation 
+	 mode.
 
 	 @pre			@a device_context is not equal to @c nullptr.
 	 @param[in]		device_context
@@ -57,12 +58,12 @@ namespace mage {
 	 @throws		FormattedException
 					A viewport needs to be set.
 	 */
-	const XMMATRIX GetViewportTransform(
-		ID3D11DeviceContext2 *device_context, 
+	const XMMATRIX GetViewportTransform(ID3D11DeviceContext2 *device_context, 
 		DXGI_MODE_ROTATION rotation_mode);
 
 	/**
-	 Returns the viewport transform for the given device context and rotation mode.
+	 Returns the viewport transform for the given device context and rotation 
+	 mode.
 
 	 @pre			@a device_context is not equal to @c nullptr.
 	 @pre			@a viewport is not equal to @c nullptr.
@@ -77,8 +78,7 @@ namespace mage {
 	 @throws		FormattedException
 					A viewport needs to be set.
 	 */
-	const XMMATRIX GetViewportTransform(
-		ID3D11DeviceContext2 *device_context, 
+	const XMMATRIX GetViewportTransform(ID3D11DeviceContext2 *device_context, 
 		DXGI_MODE_ROTATION rotation_mode, D3D11_VIEWPORT *viewport);
 	
 	/**
@@ -91,7 +91,6 @@ namespace mage {
 	 @return		The viewport transform for
 					the given viewport and rotation mode.
 	 */
-	const XMMATRIX GetViewportTransform(
-		const D3D11_VIEWPORT &viewport, 
+	const XMMATRIX GetViewportTransform(const D3D11_VIEWPORT &viewport, 
 		DXGI_MODE_ROTATION rotation_mode) noexcept;
 }

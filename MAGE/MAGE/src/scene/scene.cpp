@@ -64,7 +64,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	bool Scene::HasScript(SharedPtr< const BehaviorScript > script) const {
-		return std::find(m_scripts.begin(), m_scripts.end(), script) != m_scripts.end();
+		return std::find(m_scripts.begin(), m_scripts.end(), script) 
+			!= m_scripts.end();
 	}
 	
 	void Scene::AddScript(SharedPtr< BehaviorScript > script) {
@@ -104,18 +105,21 @@ namespace mage {
 		// Create model nodes.
 		desc.ForEachModelPart([&](const ModelPart *model_part) {
 
-			if (model_part->m_child == MAGE_MDL_PART_DEFAULT_CHILD && model_part->m_nb_indices == 0) {
+			if (model_part->m_child == MAGE_MDL_PART_DEFAULT_CHILD 
+				&& model_part->m_nb_indices == 0) {
 				return;
 			}
 
 			// Create a submodel node.
-			const SharedPtr< ModelNode > submodel_node = MakeShared< ModelNode >(
-															model_part->m_child, desc.GetMesh(),
-															model_part->m_start_index, model_part->m_nb_indices,
-															model_part->m_aabb, model_part->m_bs);
+			const SharedPtr< ModelNode > submodel_node 
+				= MakeShared< ModelNode >(model_part->m_child, desc.GetMesh(),
+										  model_part->m_start_index, 
+										  model_part->m_nb_indices,
+										  model_part->m_aabb, model_part->m_bs);
 			// Create a material.
-			const Material material = (model_part->m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ?
-										default_material : *desc.GetMaterial(model_part->m_material);
+			const Material material 
+				= (model_part->m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ? 
+					default_material : *desc.GetMaterial(model_part->m_material);
 			submodel_node->GetModel()->SetMaterial(material);
 
 			// Add this submodel node to this scene.
@@ -127,9 +131,8 @@ namespace mage {
 			}
 
 			// Add this submodel node to the mapping.
-			mapping.insert(std::make_pair(
-							model_part->m_child, 
-							ModelPair(submodel_node, model_part->m_parent)));
+			mapping.emplace(model_part->m_child, 
+							ModelPair(submodel_node, model_part->m_parent));
 		});
 
 		Assert(nb_root_childs != 0);

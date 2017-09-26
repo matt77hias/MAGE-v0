@@ -30,7 +30,8 @@ namespace mage {
 					Failed to import the model from file.
 	 */
 	template < typename VertexT >
-	void ImportModelFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, 
+	void ImportModelFromFile(const wstring &fname, 
+		ModelOutput< VertexT > &model_output, 
 		const MeshDescriptor< VertexT > &mesh_desc = MeshDescriptor< VertexT >());
 
 	/**
@@ -46,7 +47,8 @@ namespace mage {
 					Failed to export the model to file.
 	 */
 	template < typename VertexT >
-	void ExportModelToFile(const wstring &fname, const ModelOutput< VertexT > &model_output);
+	void ExportModelToFile(const wstring &fname, 
+		const ModelOutput< VertexT > &model_output);
 }
 
 //-----------------------------------------------------------------------------

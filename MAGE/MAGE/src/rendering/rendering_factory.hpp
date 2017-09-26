@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
 #include "rendering\pipeline.hpp"
 
 #pragma endregion
@@ -27,8 +26,8 @@ namespace mage {
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
 	 @pre			@a vertices is not equal to @c nullptr.
-	 @pre			@a vertices points to an array containing
-					at least @a nb_vertices elements.
+	 @pre			@a vertices points to an array containing at least 
+					@a nb_vertices elements.
 	 @param[in]		device
 					A pointer to the device.
 	 @param[out]	buffer
@@ -51,9 +50,9 @@ namespace mage {
 					The vertex type.
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
-	 @pre			If @a vertices is not equal to @c nullptr,
-					then @a vertices points to an array containing
-					at least @a nb_vertices elements.
+	 @pre			If @a vertices is not equal to @c nullptr, then @a vertices 
+					points to an array containing at least @a nb_vertices 
+					elements.
 	 @param[in]		device
 					A pointer to the device.
 	 @param[out]	buffer
@@ -77,8 +76,8 @@ namespace mage {
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
 	 @pre			@a indices is not equal to @c nullptr.
-	 @pre			@a indices points to an array containing
-					at least @a nb_indices elements.
+	 @pre			@a indices points to an array containing at least 
+					@a nb_indices elements.
 	 @param[in]		device
 					A pointer to the device.
 	 @param[out]	buffer
@@ -116,7 +115,7 @@ namespace mage {
 	HRESULT CreateStaticConstantBuffer(ID3D11Device2 *device, 
 		ID3D11Buffer **buffer, 
 		const DataT *data, size_t count = 1) noexcept;
-
+	
 	/**
 	 Creates a dynamic constant buffer.
 
@@ -124,9 +123,8 @@ namespace mage {
 					The data type.
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
-	 @pre			If @a data is not equal to @c nullptr,
-					then @a data points to an array containing
-					at least @a count elements.
+	 @pre			If @a data is not equal to @c nullptr, then @a data points 
+					to an array containing at least @a count elements.
 	 @param[in]		device
 					A pointer to the device.
 	 @param[out]	buffer
@@ -164,7 +162,7 @@ namespace mage {
 	HRESULT CreateStaticStructuredBuffer(ID3D11Device2 *device,
 		ID3D11Buffer **buffer, 
 		const DataT *data, size_t count = 1) noexcept;
-
+	
 	/**
 	 Creates a dynamic structured buffer.
 
@@ -172,9 +170,8 @@ namespace mage {
 					The data type.
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a buffer is not equal to @c nullptr.
-	 @pre			If @a data is not equal to @c nullptr,
-					then @a data points to an array containing
-					at least @a count elements.
+	 @pre			If @a data is not equal to @c nullptr, then @a data points 
+					to an array containing at least @a count elements.
 	 @param[in]		device
 					A pointer to the device.
 	 @param[out]	buffer
@@ -309,9 +306,11 @@ namespace mage {
 	 @param[out]	depth_stencil_state
 					A pointer to a pointer to the depth stencil state.
 	 @param[in]		enable
-					Flag indicating whether the depth testing should be enabled.
+					Flag indicating whether the depth testing should be 
+					enabled.
 	 @param[in]		write_enable
-					Flag indicating whether writing to the depth-stencil buffer should be enabled.
+					Flag indicating whether writing to the depth-stencil 
+					buffer should be enabled.
 	 @return		A success/error value.
 	 */
 	HRESULT CreateDepthStencilState(ID3D11Device2 *device, 
@@ -460,8 +459,8 @@ namespace mage {
 	 */
 	HRESULT CreateShadowMapRasterizerState(ID3D11Device2 *device,
 		ID3D11RasterizerState **rasterizer_state,
-		i32 depth_bias, float slope_scaled_depth_bias,
-		float depth_bias_clamp = 0.0f,
+		i32 depth_bias, f32 slope_scaled_depth_bias,
+		f32 depth_bias_clamp = 0.0f,
 		D3D11_CULL_MODE cull_mode = D3D11_CULL_BACK) noexcept;
 
 	//-------------------------------------------------------------------------
@@ -480,8 +479,8 @@ namespace mage {
 	 @param[in]		filter
 					The filtering options during texture sampling.
 	 @param[in]		address_mode
-					The resolving of texture coordinates that are outside 
-					of the boundaries of a texture.
+					The resolving of texture coordinates that are outside of 
+					the boundaries of a texture.
 	 @return		A success/error value.
 	 */
 	HRESULT CreateSamplerState(ID3D11Device2 *device, 

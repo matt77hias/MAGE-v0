@@ -59,22 +59,22 @@ namespace mage {
 			m_axes = axes;
 		}
 
-		float GetSensitivityX() const noexcept {
+		f32 GetSensitivityX() const noexcept {
 			return m_sensitivity.x;
 		}
-		float GetSensitivityY() const noexcept {
+		f32 GetSensitivityY() const noexcept {
 			return m_sensitivity.y;
 		}
 		const XMFLOAT2 &GetSensitivity() const noexcept {
 			return m_sensitivity;
 		}
-		void SetSensitivityX(float x) noexcept {
+		void SetSensitivityX(f32 x) noexcept {
 			m_sensitivity.x = x;
 		}
-		void SetSensitivityY(float y) noexcept {
+		void SetSensitivityY(f32 y) noexcept {
 			m_sensitivity.y = y;
 		}
-		void SetSensitivity(float x, float y) {
+		void SetSensitivity(f32 x, f32 y) {
 			m_sensitivity.x = x;
 			m_sensitivity.y = y;
 		}
@@ -88,22 +88,22 @@ namespace mage {
 			XMStoreFloat2(&m_sensitivity, sensitivity);
 		}
 
-		float GetMinimumRotationX() const noexcept {
+		f32 GetMinimumRotationX() const noexcept {
 			return m_minimum_rotation.x;
 		}
-		float GetMinimumRotationY() const noexcept {
+		f32 GetMinimumRotationY() const noexcept {
 			return m_minimum_rotation.y;
 		}
 		const XMFLOAT2 &GetMinimumRotation() const noexcept {
 			return m_minimum_rotation;
 		}
-		void SetMinimumRotationX(float x) noexcept {
+		void SetMinimumRotationX(f32 x) noexcept {
 			m_minimum_rotation.x = x;
 		}
-		void SetMinimumRotationY(float y) noexcept {
+		void SetMinimumRotationY(f32 y) noexcept {
 			m_minimum_rotation.y = y;
 		}
-		void SetMinimumRotation(float x, float y) noexcept {
+		void SetMinimumRotation(f32 x, f32 y) noexcept {
 			m_minimum_rotation.x = x;
 			m_minimum_rotation.y = y;
 		}
@@ -117,22 +117,22 @@ namespace mage {
 			XMStoreFloat2(&m_minimum_rotation, minimum_rotation);
 		}
 
-		float GetMaximumRotationX() const noexcept {
+		f32 GetMaximumRotationX() const noexcept {
 			return m_maximum_rotation.x;
 		}
-		float GetMaximumRotationY() const noexcept {
+		f32 GetMaximumRotationY() const noexcept {
 			return m_maximum_rotation.y;
 		}
 		const XMFLOAT2 &GetMaximumRotation() const noexcept {
 			return m_maximum_rotation;
 		}
-		void SetMaximumRotationX(float x) noexcept {
+		void SetMaximumRotationX(f32 x) noexcept {
 			m_maximum_rotation.x = x;
 		}
-		void SetMaximumRotationY(float y) noexcept {
+		void SetMaximumRotationY(f32 y) noexcept {
 			m_maximum_rotation.y = y;
 		}
-		void SetMaximumRotation(float x, float y) noexcept {
+		void SetMaximumRotation(f32 x, f32 y) noexcept {
 			m_maximum_rotation.x = x;
 			m_maximum_rotation.y = y;
 		}

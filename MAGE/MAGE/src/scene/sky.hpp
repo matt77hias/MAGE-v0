@@ -60,8 +60,8 @@ namespace mage {
 
 		 @param[in]		sky
 						A reference to the sky to copy.
-		 @return		A reference to the copy of the given sky
-						(i.e. this sky).
+		 @return		A reference to the copy of the given sky (i.e. this 
+						sky).
 		 */
 		Sky &operator=(const Sky &sky) = delete;
 
@@ -70,8 +70,7 @@ namespace mage {
 
 		 @param[in]		sky
 						A reference to the sky to move.
-		 @return		A reference to the moved sky
-						(i.e. this sky).
+		 @return		A reference to the moved sky (i.e. this sky).
 		 */
 		Sky &operator=(Sky &&sky) = delete;
 
@@ -92,7 +91,8 @@ namespace mage {
 		 Returns the shader resource view of the texture of this sky.
 
 		 @return		@c nullptr, if this sky has no texture.
-		 @return		A pointer to the shader resource view of the texture of this sky.
+		 @return		A pointer to the shader resource view of the texture of 
+						this sky.
 		 */
 		ID3D11ShaderResourceView *GetSRV() const noexcept {
 			return m_texture ? m_texture->Get() : nullptr;

@@ -49,15 +49,16 @@ namespace mage {
 		SetupSwapChain();
 
 		// Setup the rendering state cache.
-		m_rendering_state_cache = MakeUnique< RenderingStateCache >(m_device.Get());
+		m_rendering_state_cache 
+			= MakeUnique< RenderingStateCache >(m_device.Get());
 		// Bind the persistent samplers of the rendering state cache.
 		m_rendering_state_cache->BindPersistentSamplers(m_device_context.Get());
 	}
 
 	void Renderer::UninitializeRenderer() noexcept {
-		// Switch to windowed mode since Direct3D is incapable 
-		// to clear its state properly when in fullscreen mode
-		// due to certain threading issues that occur behind the scenes.
+		// Switch to windowed mode since Direct3D is incapable to clear its 
+		// state properly when in fullscreen mode due to certain threading 
+		// issues that occur behind the scenes.
 		if (m_swap_chain) {
 			m_swap_chain->SetFullscreenState(FALSE, nullptr);
 		}
@@ -133,8 +134,9 @@ namespace mage {
 			__uuidof(IDXGIFactory3), (void **)dxgi_factory3.GetAddressOf());
 		ThrowIfFailed(result_dxgi_factory3, 
 			"IDXGIFactory3 creation failed: %08X.", result_dxgi_factory3);
-
-		// DXGI_MWA_NO_WINDOW_CHANGES: Prevent DXGI from monitoring an applications message queue; this makes DXGI unable to respond to mode changes.
+	
+		// DXGI_MWA_NO_WINDOW_CHANGES: Prevent DXGI from monitoring an applications message queue; 
+		//                             this makes DXGI unable to respond to mode changes.
 		// DXGI_MWA_NO_ALT_ENTER:      Prevent DXGI from responding to an alt-enter sequence.
 		// DXGI_MWA_NO_PRINT_SCREEN:   Prevent DXGI from responding to a print-screen key.
 		dxgi_factory3->MakeWindowAssociation(m_hwindow, 
@@ -271,7 +273,8 @@ namespace mage {
 		Assert(m_in_begin_end_pair);
 
 		// Present the back buffer to the front buffer.
-		const u32 sync_interval = (m_display_configuration->IsVSynced()) ? 1u : 0u;
+		const u32 sync_interval = (m_display_configuration->IsVSynced()) 
+								? 1u : 0u;
 		m_swap_chain->Present(sync_interval, 0u);
 
 		m_in_begin_end_pair = false;

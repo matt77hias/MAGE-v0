@@ -36,9 +36,9 @@ namespace mage {
 		 @pre			The rendering device associated with the 
 						current engine must be loaded.
 		 @pre			@a compiled_shader is not equal to @c nullptr.
-		 @pre			The array pointed to by @a input_element_desc
-						contains @a nb_input_elements elements, if
-						@a input_element_desc is not equal to @c nullptr.
+		 @pre			The array pointed to by @a input_element_desc contains 
+						@a nb_input_elements elements, if @a input_element_desc 
+						is not equal to @c nullptr.
 		 @param[in]		guid
 						A reference to the globally unique identifier.
 		 @param[in]		compiled_shader
@@ -55,15 +55,15 @@ namespace mage {
 			const CompiledShader *compiled_shader,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
 			size_t nb_input_elements);
-
+		
 		/**
 		 Constructs a vertex shader.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a compiled_shader is not equal to @c nullptr.
-		 @pre			The array pointed to by @a input_element_desc
-						contains @a nb_input_elements elements, if
-						@a input_element_desc is not equal to @c nullptr.
+		 @pre			The array pointed to by @a input_element_desc contains 
+						@a nb_input_elements elements, if @a input_element_desc 
+						is not equal to @c nullptr.
 		 @param[in]		guid
 						A reference to the globally unique identifier.
 		 @param[in]		device
@@ -113,7 +113,7 @@ namespace mage {
 
 		 @param[in]		vertex_shader
 						A reference to the vertex shader to copy.
-		 @return		A reference to the copy of the given vertex shader
+		 @return		A reference to the copy of the given vertex shader 
 						(i.e. this vertex shader).
 		 */
 		VertexShader &operator=(const VertexShader &vertex_shader) = delete;
@@ -123,8 +123,8 @@ namespace mage {
 
 		 @param[in]		vertex_shader
 						A reference to the vertex shader to copy.
-		 @return		A reference to the moved vertex shader
-						(i.e. this vertex shader).
+		 @return		A reference to the moved vertex shader (i.e. this 
+						vertex shader).
 		 */
 		VertexShader &operator=(VertexShader &&vertex_shader) = delete;
 
@@ -156,8 +156,8 @@ namespace mage {
 		 @pre			@a device is not equal to @c nullptr.
 		 @pre			@a compiled_shader is not equal to @c nullptr.
 		 @pre			@a input_element_desc is not equal to @c nullptr.
-		 @pre			The array pointed to by @a input_element_desc
-						contains @a nb_input_elements elements.
+		 @pre			The array pointed to by @a input_element_desc contains 
+						@a nb_input_elements elements.
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		compiled_shader
@@ -274,8 +274,8 @@ namespace mage {
 
 		 @param[in]		shader
 						A reference to the shader to copy.
-		 @return		A reference to the copy of the given shader
-						(i.e. this shader).
+		 @return		A reference to the copy of the given shader (i.e. this 
+						shader).
 		 */
 		Shader< ShaderT, PipelineStageT > &operator=(
 			const Shader< ShaderT, PipelineStageT > &shader) = delete;
@@ -285,8 +285,7 @@ namespace mage {
 
 		 @param[in]		shader
 						A reference to the shader to move.
-		 @return		A reference to the moved shader
-						(i.e. this shader).
+		 @return		A reference to the moved shader (i.e. this shader).
 		 */
 		Shader< ShaderT, PipelineStageT > &operator=(
 			Shader< ShaderT, PipelineStageT > &&shader) = delete;

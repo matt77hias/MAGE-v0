@@ -68,8 +68,8 @@ namespace mage {
 
 		 @param[in]		buffer
 						A reference to the game buffer to copy.
-		 @return		A reference to the copy of the given game buffer
-						(i.e. this game buffer).
+		 @return		A reference to the copy of the given game buffer (i.e. 
+						this game buffer).
 		 */
 		SkyBuffer &operator=(const SkyBuffer &buffer) = default;
 
@@ -78,8 +78,8 @@ namespace mage {
 
 		 @param[in]		buffer
 						A reference to the game buffer to move.
-		 @return		A reference to the moved game buffer
-						(i.e. this game buffer).
+		 @return		A reference to the moved game buffer (i.e. this game 
+						buffer).
 		 */
 		SkyBuffer &operator=(SkyBuffer &&buffer) = default;
 

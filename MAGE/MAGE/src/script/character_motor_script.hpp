@@ -32,8 +32,10 @@ namespace mage {
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
-		CharacterMotorScript &operator=(const CharacterMotorScript &script) = delete;
-		CharacterMotorScript &operator=(CharacterMotorScript &&script) = delete;
+		CharacterMotorScript &operator=(
+			const CharacterMotorScript &script) = delete;
+		CharacterMotorScript &operator=(
+			CharacterMotorScript &&script) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -41,10 +43,10 @@ namespace mage {
 
 		virtual void Update(f64 delta_time) override;
 
-		float GetVelocity() const noexcept {
+		f32 GetVelocity() const noexcept {
 			return m_velocity;
 		}
-		void SetVelocity(float velocity) noexcept {
+		void SetVelocity(f32 velocity) noexcept {
 			m_velocity = velocity;
 		}
 
@@ -55,6 +57,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		TransformNode * const m_transform;
-		float m_velocity;
+		f32 m_velocity;
 	};
 }

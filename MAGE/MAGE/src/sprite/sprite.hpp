@@ -39,8 +39,8 @@ namespace mage {
 
 		 @param[in]		sprite
 						A reference to the sprite text to copy.
-		 @return		A reference to the copy of the given sprite
-						(i.e. this sprite).
+		 @return		A reference to the copy of the given sprite (i.e. this 
+						sprite).
 		 */
 		Sprite &operator=(const Sprite &sprite) = delete;
 
@@ -49,8 +49,7 @@ namespace mage {
 
 		 @param[in]		sprite
 						A reference to the sprite to move.
-		 @return		A reference to the moved sprite
-						(i.e. this sprite).
+		 @return		A reference to the moved sprite (i.e. this sprite).
 		 */
 		Sprite &operator=(Sprite &&sprite) = delete;
 
@@ -71,7 +70,7 @@ namespace mage {
 		 Draws this sprite.
 
 		 @param[in]		sprite_batch
-						A reference to the sprite batch used for rendering
+						A reference to the sprite batch used for rendering 
 						this sprite.
 		 */
 		virtual void Draw(SpriteBatch &sprite_batch) const = 0;
@@ -93,23 +92,23 @@ namespace mage {
 		const SpriteTransform *GetTransform() const noexcept {
 			return m_transform.get();
 		}
-
+		
 		/**
-		 Checks whether this sprite is opaque 
-		 (i.e. contains alpha channel equal to 1.0).
+		 Checks whether this sprite is opaque (i.e. contains alpha channel 
+		 equal to 1.0).
 
-		 @return		@c true if and only if this sprite is opaque.
-						@c false otherwise.
+		 @return		@c true if and only if this sprite is opaque. @c false 
+						otherwise.
 		 */
 		bool IsOpaque() const noexcept {
 			return !IsTransparant();
 		}
-
+		
 		/**
-		 Checks whether this sprite is transparent
-		 (i.e. contains alpha channel not equal to 1.0).
+		 Checks whether this sprite is transparent (i.e. contains alpha channel 
+		 not equal to 1.0).
 
-		 @return		@c true if and only if this sprite is transparent.
+		 @return		@c true if and only if this sprite is transparent. 
 						@c false otherwise.
 		 */
 		bool IsTransparant() const noexcept {
@@ -173,8 +172,8 @@ namespace mage {
 		 Sets the transparency of this sprite to the given value.
 
 		 @param[in]		transparent
-						@c true if this sprite is transparent.
-						@c false otherwise.
+						@c true if this sprite is transparent. @c false 
+						otherwise.
 		 */
 		void SetTransparency(bool transparent) noexcept {
 			m_transparent = transparent;
@@ -203,9 +202,9 @@ namespace mage {
 		UniquePtr< SpriteTransform > m_transform;
 
 		/**
-		 Flag indicating whether this sprite is transparent.
-		 This flag is @c true if this sprite could contain 
-		 transparent parts. @c false otherwise.
+		 Flag indicating whether this sprite is transparent. This flag is 
+		 @c true if this sprite could contain transparent parts. @c false 
+		 otherwise.
 		 */
 		bool m_transparent;
 

@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
 #include "rendering\pipeline.hpp"
 
 #pragma endregion
@@ -15,7 +14,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_DEFAULT_DISPLAY_GAMMA  2.2f
+#define MAGE_DEFAULT_DISPLAY_GAMMA 2.2f
 
 #pragma endregion
 
@@ -38,8 +37,8 @@ namespace mage {
 		/**
 		 Constructs a display configuration.
 
-		 @pre			@a display_mode must be compatible with
-						@a adapter and @a output.
+		 @pre			@a display_mode must be compatible with @a adapter 
+						and @a output.
 		 @param[in]		adapter
 						A pointer to the adapter.
 		 @param[in]		output
@@ -61,29 +60,33 @@ namespace mage {
 			const DXGI_MODE_DESC1 &display_mode, 
 			bool windowed, bool vsync, 
 			u32 nb_MSAA_samples = 1,
-			float gamma = MAGE_DEFAULT_DISPLAY_GAMMA)
+			f32 gamma = MAGE_DEFAULT_DISPLAY_GAMMA)
 			: m_adapter(adapter), m_output(output),
 			m_display_mode(display_mode), m_MSAA_sample_desc{}, 
 			m_windowed(windowed), m_vsync(vsync), m_gamma(gamma) {
 
 			SetMSAASampleDesc(nb_MSAA_samples);
 		}
-
+		
 		/**
-		 Constructs a display configuration from the given display configuration.
+		 Constructs a display configuration from the given display 
+		 configuration.
 
 		 @param[in]		display_configuration
 						A reference to a display configuration to copy.
 		 */
-		DisplayConfiguration(const DisplayConfiguration &display_configuration) = default;
+		DisplayConfiguration(
+			const DisplayConfiguration &display_configuration) = default;
 
 		/**
-		 Constructs a display configuration by moving the given display configuration.
+		 Constructs a display configuration by moving the given display 
+		 configuration.
 
 		 @param[in]		display_configuration
 						A reference to a display configuration to move.
 		 */
-		DisplayConfiguration(DisplayConfiguration &&display_configuration) = default;
+		DisplayConfiguration(
+			DisplayConfiguration &&display_configuration) = default;
 
 		/**
 		 Destructs this display configuration.
@@ -99,20 +102,22 @@ namespace mage {
 
 		 @param[in]		display_configuration
 						A reference to a display configuration to copy.
-		 @return		A reference to the copy of the given display configuration
-						(i.e. this display configuration).
+		 @return		A reference to the copy of the given display 
+						configuration (i.e. this display configuration).
 		 */
-		DisplayConfiguration &operator=(const DisplayConfiguration &display_configuration) = default;
+		DisplayConfiguration &operator=(
+			const DisplayConfiguration &display_configuration) = default;
 
 		/**
 		 Moves the given display configuration to this display configuration.
 
 		 @param[in]		display_configuration
 						A reference to a display configuration to move.
-		 @return		A reference to the moved display configuration
-						(i.e. this display configuration).
+		 @return		A reference to the moved display configuration (i.e. 
+						this display configuration).
 		 */
-		DisplayConfiguration &operator=(DisplayConfiguration &&display_configuration) = default;
+		DisplayConfiguration &operator=(
+			DisplayConfiguration &&display_configuration) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -121,8 +126,7 @@ namespace mage {
 		/**
 		 Returns the adapter of this display configuration.
 
-		 @return		A pointer to the adapter
-						of this display configuration.
+		 @return		A pointer to the adapter of this display configuration.
 		 */
 		IDXGIAdapter2 *GetAdapter() const noexcept {
 			return m_adapter.Get();
@@ -131,8 +135,7 @@ namespace mage {
 		/**
 		 Returns the output of this display configuration.
 
-		 @return		A pointer to the output
-						of this display configuration.
+		 @return		A pointer to the output of this display configuration.
 		 */
 		IDXGIOutput2 *GetOutput() const noexcept {
 			return m_output.Get();
@@ -141,32 +144,36 @@ namespace mage {
 		/**
 		 Returns the display width in pixels of this display configuration.
 
-		 @return		The display width in pixels of this display configuration.
+		 @return		The display width in pixels of this display 
+						configuration.
 		 */
 		u32 GetDisplayWidth() const noexcept {
 			return static_cast< u32 >(m_display_mode.Width);
 		}
-
+		
 		/**
 		 Returns the display height in pixels of this display configuration.
 
-		 @return		The display height in pixels of this display configuration.
+		 @return		The display height in pixels of this display 
+						configuration.
 		 */
 		u32 GetDisplayHeight() const noexcept {
 			return static_cast< u32 >(m_display_mode.Height);
 		}
 		
 		/**
-		 Returns the rounded display refresh rate of this display configuration.
+		 Returns the rounded display refresh rate of this display 
+		 configuration.
 
-		 @return		The rounded display refresh rate of this display configuration.
+		 @return		The rounded display refresh rate of this display 
+						configuration.
 		 */
 		u32 GetDisplayRoundedRefreshRate() const noexcept {
-			const float n = static_cast< float >(m_display_mode.RefreshRate.Numerator);
-			const float d = static_cast< float >(m_display_mode.RefreshRate.Denominator);
+			const f32 n = static_cast< f32 >(m_display_mode.RefreshRate.Numerator);
+			const f32 d = static_cast< f32 >(m_display_mode.RefreshRate.Denominator);
 			return static_cast< u32 >(round(n / d));
 		}
-
+		
 		/**
 		 Returns the display refresh rate of this display configuration.
 
@@ -184,7 +191,7 @@ namespace mage {
 		DXGI_FORMAT GetDisplayFormat() const noexcept {
 			return m_display_mode.Format;
 		}
-
+		
 		/**
 		 Returns the display mode of this display configuration.
 
@@ -193,13 +200,13 @@ namespace mage {
 		const DXGI_MODE_DESC1 &GetDisplayMode() const noexcept {
 			return m_display_mode;
 		}
-
+		
 		/**
 		 Sets the display mode of this display configuration to the given
 		 display mode.
 
-		 @pre			@a display_mode must be compatible with
-						the adapter and output of this display configuration.
+		 @pre			@a display_mode must be compatible with the adapter and 
+						output of this display configuration.
 		 @param[in]		display_mode
 						A reference to the display mode.
 		 */
@@ -210,8 +217,8 @@ namespace mage {
 		/**
 		 Checks whether MSAA should be used for this display configuration.
 
-		 @return		@c true if MSAA should be used for this display configuration.
-						@c false otherwise.
+		 @return		@c true if MSAA should be used for this display 
+						configuration. @c false otherwise.
 		 */
 		bool UseMSAA() const noexcept {
 			return m_MSAA_sample_desc.Count != 1;
@@ -220,35 +227,38 @@ namespace mage {
 		/**
 		 Gets the MSAA sample descriptor of this display configuration.
 
-		 @return		A reference to the MSAA sample descriptor 
-						of this display configuration.
+		 @return		A reference to the MSAA sample descriptor of this 
+						display configuration.
 		 */
 		const DXGI_SAMPLE_DESC &GetMSAASampleDesc() const noexcept {
 			return m_MSAA_sample_desc;
 		}
 
 		/**
-		 Sets the MSAA sample descriptor of this display configuration
-		 to the given number of MSAA samples and quality level.
+		 Sets the MSAA sample descriptor of this display configuration to the 
+		 given number of MSAA samples and quality level.
 
 		 @param[in]		nb_MSAA_samples
 						The number of MSAA samples.
 		 @param[in]		MSAA_quality_level
 						The MSAA quality level.
 		 */
-		void SetMSAASampleDesc(u32 nb_MSAA_samples, u32 MSAA_quality_level = 0) noexcept;
-
+		void SetMSAASampleDesc(
+			u32 nb_MSAA_samples, u32 MSAA_quality_level = 0) noexcept;
+		
 		/**
-		 Sets the MSAA sample descriptor of this display configuration
-		 to the given MSAA sample descriptor.
+		 Sets the MSAA sample descriptor of this display configuration to the 
+		 given MSAA sample descriptor.
 
 		 @param[in]		MSAA_sample_desc
 						A reference to the MSAA sample descriptor
 		 */
-		void SetMSAASampleDesc(const DXGI_SAMPLE_DESC &MSAA_sample_desc) noexcept {
+		void SetMSAASampleDesc(
+			const DXGI_SAMPLE_DESC &MSAA_sample_desc) noexcept {
+			
 			SetMSAASampleDesc(MSAA_sample_desc.Count, MSAA_sample_desc.Quality);
 		}
-
+		
 		/**
 		 Updates the MSAA sample descriptor according to the given device.
 
@@ -257,98 +267,93 @@ namespace mage {
 						A pointer to the device.
 		 */
 		void UpdateMSAASampleDesc(ID3D11Device2 *device) noexcept;
-
+		
 		/**
-		 Checks whether the application should run in windowed mode
-		 for this display configuration.
+		 Checks whether the application should run in windowed mode for this 
+		 display configuration.
 
 		 @return		@c true if the application should run in windowed mode
-						for this display configuration.
-						@c false otherwise.
+						for this display configuration. @c false otherwise.
 		 */
 		bool IsWindowed() const noexcept {
 			return m_windowed;
 		}
-
+		
 		/**
-		 Sets the windowed/fullscreen mode of this display configuration 
-		 to the given windowed/fullscreen mode.
+		 Sets the windowed/fullscreen mode of this display configuration to the 
+		 given windowed/fullscreen mode.
 
 		 @param[in]		windowed
-						@c true if windowed mode.
-						@c false otherwise.
+						@c true if windowed mode. @c false otherwise.
 		 */
 		void SetWindowed(bool windowed = true) noexcept {
 			m_windowed = windowed;
 		}
-
+		
 		/**
-		 Checks whether the application should run in full screen mode
-		 for this display configuration.
+		 Checks whether the application should run in full screen mode for this 
+		 display configuration.
 
-		 @return		@c true if the application should run in full screen mode
-						for this display configuration.
-						@c false otherwise.
+		 @return		@c true if the application should run in full screen 
+						mode for this display configuration. @c false 
+						otherwise.
 		 */
 		bool IsFullScreen() const noexcept {
 			return !m_windowed;
 		}
 
 		/**
-		 Sets the windowed/fullscreen mode of this display configuration
-		 to the given windowed/fullscreen mode.
+		 Sets the windowed/fullscreen mode of this display configuration to the 
+		 given windowed/fullscreen mode.
 
 		 @param[in]		fullscreen
-						@c true if fullscreen mode.
-						@c false otherwise.
+						@c true if fullscreen mode. @c false otherwise.
 		 */
 		void SetFullScreen(bool fullscreen = true) noexcept {
 			SetWindowed(!fullscreen);
 		}
 
 		/**
-		 Checks whether V-sync should be enabled
-		 for this display configuration.
+		 Checks whether V-sync should be enabled for this display 
+		 configuration.
 
-		 @return		@c true if v-sync should be enabled
-						for this display configuration.
-						@c false otherwise.
+		 @return		@c true if v-sync should be enabled for this display 
+						configuration. @c false otherwise.
 		 */
 		bool IsVSynced() const noexcept {
 			return m_vsync;
 		}
 
 		/**
-		 Sets the V-sync mode of this display configuration
-		 to the given V-sync mode.
+		 Sets the V-sync mode of this display configuration to the given V-sync 
+		 mode.
 
 		 @param[in]		vsync
-						@c true if V-sync mode.
-						@c false otherwise.
+						@c true if V-sync mode. @c false otherwise.
 		 */
 		void SetVSync(bool vsync = true) noexcept {
 			m_vsync = vsync;
 		}
-
+		
 		/**
-		 Returns the gamma value used for gamma correction 
-		 of this display configuration.
+		 Returns the gamma value used for gamma correction of this display 
+		 configuration.
 
-		 @return		The gamma value used for gamma correction 
-						of this display configuration.
+		 @return		The gamma value used for gamma correction of this 
+						display configuration.
 		 */
-		float GetGamma() const noexcept {
+		f32 GetGamma() const noexcept {
 			return m_gamma;
 		}
-
+		
 		/**
-		 Sets the gamma value used for gamma correction 
-		 of this display configuration to the given value.
+		 Sets the gamma value used for gamma correction of this display 
+		 configuration to the given value.
 
 		 @param[in]		gamma
 						The gamma value.
 		 */
-		void SetGamma(float gamma) noexcept {
+		void SetGamma(f32 gamma) noexcept {
 			m_gamma = gamma;
 		}
 
@@ -359,12 +364,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the adapter (e.g. video card) of this display configuration.
+		 A pointer to the adapter (e.g. video card) of this display 
+		 configuration.
 		 */
 		ComPtr< IDXGIAdapter2 > m_adapter;
 
 		/**
-		A pointer to the output (e.g. screen monitor) of this display configuration.
+		A pointer to the output (e.g. screen monitor) of this display 
+		configuration.
 		*/
 		ComPtr< IDXGIOutput2 > m_output;
 
@@ -377,7 +384,7 @@ namespace mage {
 		 The number of MSAA samples of this display configuration.
 		 */
 		DXGI_SAMPLE_DESC m_MSAA_sample_desc;
-
+		
 		/**
 		 Flag indicating whether the application should run in windowed mode
 		 for this display configuration.
@@ -385,14 +392,15 @@ namespace mage {
 		bool m_windowed;
 
 		/**
-		 Flag indicating whether V-sync should be enabled
-		 for this display configuration.
+		 Flag indicating whether V-sync should be enabled for this display 
+		 configuration.
 		 */
 		bool m_vsync;
 
 		/**
-		 The gamma value used for gamma correction of this display configuration.
+		 The gamma value used for gamma correction of this display 
+		 configuration.
 		 */
-		float m_gamma;
+		f32 m_gamma;
 	};
 }

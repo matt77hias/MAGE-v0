@@ -41,20 +41,37 @@ namespace mage {
 		switch (m_axes) {
 
 		case RotationAxes::MouseXAndY: {
-			const f64 rotation_x = m_direction.x * mouse->GetDeltaY() * delta_time * m_sensitivity.x;
-			const f64 rotation_y = m_direction.y * mouse->GetDeltaX() * delta_time * m_sensitivity.y;
-			m_transform->AddAndClampRotationX(static_cast< float >(rotation_x), m_minimum_rotation.x, m_maximum_rotation.x);
-			m_transform->AddAndClampRotationY(static_cast< float >(rotation_y), m_minimum_rotation.y, m_maximum_rotation.y);
+			
+			const f64 rotation_x 
+				= m_direction.x * mouse->GetDeltaY() * delta_time * m_sensitivity.x;
+			const f64 rotation_y 
+				= m_direction.y * mouse->GetDeltaX() * delta_time * m_sensitivity.y;
+			m_transform->AddAndClampRotationX(static_cast< f32 >(rotation_x), 
+												m_minimum_rotation.x, 
+												m_maximum_rotation.x);
+			m_transform->AddAndClampRotationY(static_cast< f32 >(rotation_y), 
+												m_minimum_rotation.y, 
+												m_maximum_rotation.y);
 			break;
 		}
+		
 		case RotationAxes::MouseX: {
-			const f64 rotation_y = m_direction.y * mouse->GetDeltaX() * delta_time * m_sensitivity.y;
-			m_transform->AddAndClampRotationY(static_cast< float >(rotation_y), m_minimum_rotation.y, m_maximum_rotation.y);
+			
+			const f64 rotation_y 
+				= m_direction.y * mouse->GetDeltaX() * delta_time * m_sensitivity.y;
+			m_transform->AddAndClampRotationY(static_cast< f32 >(rotation_y), 
+												m_minimum_rotation.y, 
+												m_maximum_rotation.y);
 			break;
 		}
+		
 		case RotationAxes::MouseY: {
-			const f64 rotation_x = m_direction.x * mouse->GetDeltaY() * delta_time * m_sensitivity.x;
-			m_transform->AddAndClampRotationX(static_cast< float >(rotation_x), m_minimum_rotation.x, m_maximum_rotation.x);
+			
+			const f64 rotation_x 
+				= m_direction.x * mouse->GetDeltaY() * delta_time * m_sensitivity.x;
+			m_transform->AddAndClampRotationX(static_cast< f32 >(rotation_x), 
+												m_minimum_rotation.x, 
+												m_maximum_rotation.x);
 			break;
 		}
 		}

@@ -63,8 +63,8 @@ namespace mage {
 
 		 @param[in]		scene_node
 						A reference to the scene node to copy.
-		 @return		A reference to the copy of the given scene node
-						(i.e. this scene node).
+		 @return		A reference to the copy of the given scene node (i.e. 
+						this scene node).
 		 */
 		SceneNode &operator=(const SceneNode &scene_node) = delete;
 
@@ -73,8 +73,8 @@ namespace mage {
 
 		 @param[in]		scene_node
 						A reference to the scene node to move.
-		 @return		A reference to the moved scene node
-						(i.e. this scene node).
+		 @return		A reference to the moved scene node (i.e. this scene 
+						node).
 		 */
 		SceneNode &operator=(SceneNode &&scene_node) = delete;
 

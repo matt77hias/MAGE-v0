@@ -34,11 +34,11 @@ namespace mage {
 						A reference to the filename
 						(the globally unique identifier).
 		 @param[in]		import
-						Flag indicating whether the variables of the variable script
-						need to be imported.
+						Flag indicating whether the variables of the variable 
+						script need to be imported.
 		 @throws		FormattedException
-						Failed to import the variable script from file
-						(only possible if @a import is equal to @c true).
+						Failed to import the variable script from file (only 
+						possible if @a import is equal to @c true).
 		 */
 		explicit VariableScript(const wstring &fname, bool import = true);
 
@@ -82,8 +82,8 @@ namespace mage {
 
 		 @param[in]		variable_script
 						A reference to the variable script to move.
-		 @return		A reference to the moved variable script
-						(i.e. this variable script).
+		 @return		A reference to the moved variable script (i.e. this 
+						variable script).
 		 */
 		VariableScript &operator=(VariableScript &&variable_script) = delete;
 
@@ -92,8 +92,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Imports this variable script from the file with the given filename.
-		 If the filename is not specified the associated filename of this variable script is used.
+		 Imports this variable script from the file with the given filename. 
+		 If the filename is not specified the associated filename of this 
+		 variable script is used.
 
 		 @param[in]		fname
 						A reference to the filename.
@@ -104,7 +105,8 @@ namespace mage {
 
 		/**
 		 Exports this variable script to the file with the given filename.
-		 If the filename is not specified the associated filename of this variable script is used.
+		 If the filename is not specified the associated filename of this 
+		 variable script is used.
 
 		 @param[in]		fname
 						A reference to the filename.
@@ -116,8 +118,8 @@ namespace mage {
 		/**
 		 Checks whether this variable script is empty.
 
-		 @return		@c true if this variable script is empty.
-						@c false otherwise.
+		 @return		@c true if this variable script is empty. @c false 
+						otherwise.
 		 */
 		bool IsEmpty() const noexcept {
 			return m_variables.empty();
@@ -149,7 +151,8 @@ namespace mage {
 						A reference to the value of the variable.
 		 */
 		template < typename T >
-		void AddVariable(VariableType type, const string &name, const T &value);
+		void AddVariable(
+			VariableType type, const string &name, const T &value);
 
 		/**
 		 Removes the given variable from this variable script.
@@ -171,8 +174,8 @@ namespace mage {
 						The (storage) type of the value.
 		 @param[in]		name
 						The name of the variable.
-		 @return		@c nullptr if no variable with the name @a name
-						exists in this variable script.
+		 @return		@c nullptr if no variable with the name @a name exists 
+						in this variable script.
 		 @return		A pointer to the value of the variable.
 		*/
 		template < typename T >
@@ -187,7 +190,7 @@ namespace mage {
 						The name of the variable.
 		 @param[in]		value
 						A reference to the value of the variable.
-		 @note			Nothing happens if no variable with the name @a name
+		 @note			Nothing happens if no variable with the name @a name 
 						exists in this variable script.
 		 */
 		template < typename T >
@@ -202,8 +205,8 @@ namespace mage {
 		/**
 		 A map containing the variables in this variable script
 		 
-		 The keys match the variables' name and 
-		 the values match the variables.
+		 The keys match the variables' name and  the values match the 
+		 variables.
 		 */
 		map< string, Variable > m_variables;
 	};

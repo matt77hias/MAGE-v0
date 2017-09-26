@@ -66,8 +66,8 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a VS reader to copy.
-		 @return		A reference to the copy of the given VS reader
-						(i.e. this VS reader).
+		 @return		A reference to the copy of the given VS reader (i.e. 
+						this VS reader).
 		 */
 		VSReader &operator=(const VSReader &reader) = delete;
 
@@ -76,8 +76,8 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a VS reader to move.
-		 @return		A reference to the moved VS reader
-						(i.e. this VS reader).
+		 @return		A reference to the moved VS reader (i.e. this VS 
+						reader).
 		 */
 		VSReader &operator=(VSReader &&reader) = delete;
 
@@ -183,7 +183,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to a vector containing the read variables of this VS reader.
+		 A reference to a vector containing the read variables of this VS 
+		 reader.
 		 */
 		vector< Variable > &m_variable_buffer;
 	};

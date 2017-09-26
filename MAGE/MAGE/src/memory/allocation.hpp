@@ -32,8 +32,8 @@ namespace mage {
 	 @param[in]		alignment
 					The alignment.
 	 @return		@c nullptr if the allocation failed.
-	 @return		A pointer to the memory block that was allocated.
-	 				The pointer is a multiple of the given alignment.
+	 @return		A pointer to the memory block that was allocated. The 
+					pointer is a multiple of the given alignment.
 	 */
 	inline void *AllocAligned(size_t size, size_t alignment = 16) noexcept {
 		return _aligned_malloc(size, alignment);
@@ -45,10 +45,11 @@ namespace mage {
 	 @tparam		DataT
 					The type of objects to allocate in memory.
 	 @param[in]		count
-					The number of objects of type @c DataT to allocate in memory.
+					The number of objects of type @c DataT to allocate in 
+					memory.
 	 @return		@c nullptr if the allocation failed.
-	 @return		A pointer to the memory block that was allocated.
-	 				The pointer is a multiple of the alignment of 16 bytes.
+	 @return		A pointer to the memory block that was allocated. The 
+					pointer is a multiple of the alignment of 16 bytes.
 	 */
 	template < typename DataT >
 	inline DataT *AllocAligned(size_t count) noexcept {
@@ -56,7 +57,8 @@ namespace mage {
 	}
 
 	/**
-	 Frees a block of memory that was allocated with {@link mage::AllocAligned(size_t)} or {@link mage::AllocAligned<T>(size_t)}.
+	 Frees a block of memory that was allocated with 
+	 {@link mage::AllocAligned(size_t)} or {@link mage::AllocAligned<T>(size_t)}.
 	
 	 @param[in]		ptr
 					A pointer to the memory block that was allocated.
@@ -84,9 +86,9 @@ namespace mage {
 		//---------------------------------------------------------------------	
 
 		/**
-		 Allocates @a size bytes of storage, suitably aligned to represent 
-		 any object of that size, and returns a non-null pointer to 
-		 the first byte of this block.
+		 Allocates @a size bytes of storage, suitably aligned to represent any 
+		 object of that size, and returns a non-null pointer to the first byte 
+		 of this block.
 
 		 @param[in]		size
 						The requested size in bytes to allocate in memory.
@@ -99,7 +101,8 @@ namespace mage {
 			const size_t alignment = __alignof(DataT);
 			
 			// __declspec(align) on DataT is required
-			static_assert(alignment > 8, "AlignedData is only useful for types with > 8 byte alignment.");
+			static_assert(alignment > 8, 
+				"AlignedData is only useful for types with > 8 byte alignment.");
 			
 			void * const ptr = AllocAligned(size, alignment);
 			if (!ptr) {
@@ -122,9 +125,9 @@ namespace mage {
 		}
 
 		/**
-		 Allocates @a size bytes of storage, suitably aligned to represent
-		 any object of that size, and returns a non-null pointer to
-		 the first byte of this block.
+		 Allocates @a size bytes of storage, suitably aligned to represent any 
+		 object of that size, and returns a non-null pointer to the first byte 
+		 of this block.
 
 		 @param[in]		size
 						The requested size in bytes to allocate in memory.

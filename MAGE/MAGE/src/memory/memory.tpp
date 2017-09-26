@@ -30,7 +30,8 @@ namespace mage {
 	}
 
 	template< typename T >
-	inline typename std::enable_if< std::is_array< T >::value && std::extent< T >::value == 0,
+	inline typename std::enable_if< std::is_array< T >::value 
+		&& std::extent< T >::value == 0,
 		UniquePtr< T > >::type MakeUnique(size_t count) {
 		return std::make_unique< T >(count);
 	}

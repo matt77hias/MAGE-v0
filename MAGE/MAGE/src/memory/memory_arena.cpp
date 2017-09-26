@@ -23,7 +23,8 @@ namespace mage {
 
 	MemoryArena::MemoryArena(size_t maximum_block_size)
 		: m_maximum_block_size(maximum_block_size), 
-		m_current_block(MemoryBlock(0, nullptr)), m_current_block_pos(0),
+		m_current_block(MemoryBlock(0, nullptr)), 
+		m_current_block_pos(0),
 		m_used_blocks(), m_available_blocks() {}
 
 	MemoryArena::MemoryArena(MemoryArena &&arena) = default;
@@ -56,7 +57,7 @@ namespace mage {
 
 	void MemoryArena::Reset() {
 		m_current_block_pos = 0;
-		m_current_block = MemoryBlock(0, nullptr);
+		m_current_block     = MemoryBlock(0, nullptr);
 		m_available_blocks.splice(m_available_blocks.begin(), m_used_blocks);
 	}
 
@@ -72,7 +73,9 @@ namespace mage {
 			}
 
 			// Fetch new block from available blocks.
-			for (auto it = m_available_blocks.begin(); it != m_available_blocks.end(); ++it) {
+			for (auto it = m_available_blocks.begin(); 
+				it != m_available_blocks.end(); ++it) {
+				
 				if (it->first >= size) {
 					m_current_block = *it;
 					m_available_blocks.erase(it);
@@ -82,7 +85,8 @@ namespace mage {
 
 			if (!GetCurrentBlockPtr()) {
 				// Allocate new block.
-				const size_t alloc_size = std::max(size, GetMaximumBlockSize());
+				const size_t alloc_size = 
+					std::max(size, GetMaximumBlockSize());
 				u8 * const alloc_ptr = AllocAligned< u8 >(alloc_size);
 
 				if (!alloc_ptr) {
@@ -96,8 +100,11 @@ namespace mage {
 			m_current_block_pos = 0;
 		}
 
-		void * const ptr = (void *)(m_current_block.second + m_current_block_pos);
+		void * const ptr = 
+			(void *)(m_current_block.second + m_current_block_pos);
+		
 		m_current_block_pos += size;
+		
 		return ptr;
 	}
 }

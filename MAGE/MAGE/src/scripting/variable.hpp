@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
 #include "math\math.hpp"
 
 #pragma endregion
@@ -104,8 +103,8 @@ namespace mage {
 
 		 @param[in]		variable
 						A reference to the variable to copy.
-		 @return		A reference to the copy of the given variable
-						(i.e. this variable).
+		 @return		A reference to the copy of the given variable (i.e. 
+						this variable).
 		 */
 		Variable &operator=(const Variable &variable) = default;
 
@@ -114,8 +113,7 @@ namespace mage {
 
 		 @param[in]		variable
 						A reference to the variable to copy.
-		 @return		A reference to the moved variable
-						(i.e. this variable).
+		 @return		A reference to the moved variable (i.e. this variable).
 		 */
 		Variable &operator=(Variable &&variable) = default;
 		
@@ -172,9 +170,10 @@ namespace mage {
 		/**
 		 The type of this value.
 
-		 @note			It is not possible to use typeid(T).name() since this assumes
-						a bijection between the scripting types and the storage types,
-						which is not the case. Thus the type needs to be stored explicitly.
+		 @note			It is not possible to use typeid(T).name() since this 
+						assumes a bijection between the scripting types and the 
+						storage types, which is not the case. Thus the type 
+						needs to be stored explicitly.
 		 */
 		const VariableType m_type;
 
@@ -186,9 +185,9 @@ namespace mage {
 		/**
 		 A struct of immutable abstract values.
 
-		 @note			This is an example of the Type Erasure pattern for templates.
-						We need to keep the original type to ensure the right destructor
-						can be called.
+		 @note			This is an example of the Type Erasure pattern for 
+						templates. We need to keep the original type to ensure the 
+						right destructor can be called.
 		 */
 		struct AbstractValue {
 
@@ -212,7 +211,7 @@ namespace mage {
 
 			 @param[in]		abstract_value
 							A reference to the abstract value to copy.
-			 @return		A reference to the copy of the given abstract value
+			 @return		A reference to the copy of the given abstract value 
 							(i.e. this abstract value).
 			 */
 			AbstractValue &operator=(const AbstractValue &abstract_value) = delete;
@@ -222,8 +221,8 @@ namespace mage {
 
 			 @param[in]		abstract_value
 							A reference to the abstract value to move.
-			 @return		A reference to the moved abstract value
-							(i.e. this abstract value).
+			 @return		A reference to the moved abstract value (i.e. this 
+							abstract value).
 			 */
 			AbstractValue &operator=(AbstractValue &&abstract_value) = delete;
 
@@ -327,8 +326,8 @@ namespace mage {
 
 			 @param[in]		value
 							A reference to the value to copy.
-			 @return		A reference to the copy of the given value
-							(i.e. this value).
+			 @return		A reference to the copy of the given value (i.e. this 
+							value).
 			 */
 			Value &operator=(const Value &value) = delete;
 
@@ -337,8 +336,7 @@ namespace mage {
 
 			 @param[in]		value
 							A reference to the value to move.
-			 @return		A reference to the moved value
-							(i.e. this value).
+			 @return		A reference to the moved value (i.e. this value).
 			 */
 			Value &operator=(Value &&value) = delete;
 

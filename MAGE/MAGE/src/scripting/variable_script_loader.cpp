@@ -15,7 +15,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void ImportVariableScriptFromFile(const wstring &fname, vector< Variable > &variable_buffer) {
+	void ImportVariableScriptFromFile(const wstring &fname, 
+		vector< Variable > &variable_buffer) {
 		
 		const wstring extension = GetFileExtension(fname);
 
@@ -23,11 +24,13 @@ namespace mage {
 			ImportVSFromFile(fname, variable_buffer);
 		}
 		else {
-			throw FormattedException("Unknown variable script file extension: %ls", fname.c_str());
+			throw FormattedException(
+				"Unknown variable script file extension: %ls", fname.c_str());
 		}
 	}
 
-	void ExportVariableScriptToFile(const wstring &fname, const vector< Variable > &variable_buffer) {
+	void ExportVariableScriptToFile(const wstring &fname, 
+		const vector< Variable > &variable_buffer) {
 		
 		const wstring extension = GetFileExtension(fname);
 
@@ -35,7 +38,8 @@ namespace mage {
 			ExportVSToFile(fname, variable_buffer);
 		}
 		else {
-			throw FormattedException("Unknown variable script file extension: %ls", fname.c_str());
+			throw FormattedException(
+				"Unknown variable script file extension: %ls", fname.c_str());
 		}
 	}
 }

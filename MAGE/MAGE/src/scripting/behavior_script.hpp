@@ -39,7 +39,7 @@ namespace mage {
 
 		 @param[in]		script
 						A reference to the behavior script to copy.
-		 @return		A reference to the copy of the given behavior script
+		 @return		A reference to the copy of the given behavior script 
 						(i.e. this behavior script).
 		 */
 		BehaviorScript &operator=(const BehaviorScript &script) = delete;
@@ -49,8 +49,8 @@ namespace mage {
 
 		 @param[in]		script
 						A reference to the behavior script to move.
-		 @return		A reference to the moved behavior script
-						(i.e. this behavior script).
+		 @return		A reference to the moved behavior script (i.e. this 
+						behavior script).
 		 */
 		BehaviorScript &operator=(BehaviorScript &&script) = delete;
 
@@ -61,13 +61,14 @@ namespace mage {
 		/**
 		 Updates this behavior script.
 		 
-		 This method can be called zero, one or multiple times per frame
-		 depending on the fixed delta time used by the engine.
+		 This method can be called zero, one or multiple times per frame depending 
+		 on the fixed delta time used by the engine.
 		 */
 		virtual void FixedUpdate();
 
 		/**
 		 Updates this behavior script.
+		 
 		 This method is called once per frame.
 
 		 @param[in]		delta_time
@@ -78,8 +79,8 @@ namespace mage {
 		/**
 		 Checks whether this behavior script is active.
 
-		 @return		@c true if this behavior script is active.
-						@c false otherwise (i.e. passive).
+		 @return		@c true if this behavior script is active. @c false 
+						otherwise (i.e. passive).
 		 */
 		bool IsActive() const noexcept {
 			return m_active;
@@ -88,8 +89,8 @@ namespace mage {
 		/**
 		 Checks whether this behavior script is passive.
 
-		 @return		@c true if this behavior script is passive.
-						@c false otherwise (i.e. active).
+		 @return		@c true if this behavior script is passive. @c false 
+						otherwise (i.e. active).
 		 */
 		bool IsPassive() const noexcept {
 			return !m_active;
@@ -120,8 +121,8 @@ namespace mage {
 		/**
 		 Checks whether this behavior script is terminated or not.
 
-		 @return		@c true if this behavior script is terminated.
-						@c false otherwise.
+		 @return		@c true if this behavior script is terminated. @c false 
+						otherwise.
 		 */
 		bool IsTerminated() const noexcept {
 			return m_terminated;
@@ -175,7 +176,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A flag indicating whether this behavior script is active or not (i.e. passive).
+		 A flag indicating whether this behavior script is active or not (i.e. 
+		 passive).
 		 */
 		bool m_active;
 

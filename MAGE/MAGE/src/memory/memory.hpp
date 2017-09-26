@@ -80,6 +80,7 @@ namespace mage {
 
 	/**
 	 Constructs an object of type T. 
+
 	 No custom allocator is used for constructing the object of type T.
 
 	 @tparam		T
@@ -93,6 +94,7 @@ namespace mage {
 
 	/**
 	 Constructs an object of type T.
+
 	 The custom allocator is used for constructing the object of type T.
 
 	 @tparam		T
@@ -112,7 +114,7 @@ namespace mage {
 #pragma region
 
 	/**
-	 A class of smart pointers for referencing but not managing
+	 A class of smart pointers for referencing but not managing 
 	 shared-ownership memory resources.
 
 	 @tparam		T
@@ -129,7 +131,8 @@ namespace mage {
 #pragma region
 
 	/**
-	 A class of smart pointers for managing exclusive-ownership memory resources.
+	 A class of smart pointers for managing exclusive-ownership memory 
+	 resources.
 
 	 @tparam		T
 					The memory resource type.
@@ -138,8 +141,8 @@ namespace mage {
 	using UniquePtr = std::unique_ptr< T, DeleterT >;
 
 	/**
-	 Constructs a non-array type T. This overload only participates 
-	 in overload resolution if T is not an array type.
+	 Constructs a non-array type T. This overload only participates in overload 
+	 resolution if T is not an array type.
 
 	 @tparam		T
 					The type.
@@ -180,8 +183,8 @@ namespace mage {
 		UniquePtr< T > >::type MakeUnique(size_t count) = delete;
 	
 	/**
-	 Creates a unique pointer whose stored pointer is obtained
-	 by statically casting the stored pointer of the given unique pointer.
+	 Creates a unique pointer whose stored pointer is obtained by statically 
+	 casting the stored pointer of the given unique pointer.
 
 	 @tparam		T
 					The conversion to-type.
@@ -195,8 +198,8 @@ namespace mage {
 	inline UniquePtr< T > static_pointer_cast(UniquePtr< U > &&ptr) noexcept;
 
 	/**
-	 Creates a unique pointer whose stored pointer is obtained
-	 by dynamically casting the stored pointer of the given unique pointer.
+	 Creates a unique pointer whose stored pointer is obtained by dynamically 
+	 casting the stored pointer of the given unique pointer.
 
 	 @tparam		T
 					The conversion to-type.
@@ -210,8 +213,8 @@ namespace mage {
 	inline UniquePtr< T > dynamic_pointer_cast(UniquePtr< U > &&ptr) noexcept;
 
 	/**
-	 Creates a unique pointer whose stored pointer is obtained
-	 by const casting the stored pointer of the given unique pointer.
+	 Creates a unique pointer whose stored pointer is obtained by const 
+	 casting the stored pointer of the given unique pointer.
 
 	 @tparam		T
 					The conversion to-type.
@@ -225,8 +228,8 @@ namespace mage {
 	inline UniquePtr< T > const_pointer_cast(UniquePtr< U > &&ptr) noexcept;
 
 	/**
-	 Creates a unique pointer whose stored pointer is obtained
-	 by reinterpret casting the stored pointer of the given unique pointer.
+	 Creates a unique pointer whose stored pointer is obtained by reinterpret 
+	 casting the stored pointer of the given unique pointer.
 
 	 @tparam		T
 					The conversion to-type.
@@ -275,7 +278,8 @@ namespace mage {
 	};
 
 	/**
-	 A class of smart pointers for managing exclusive-ownership handle resources.
+	 A class of smart pointers for managing exclusive-ownership handle 
+	 resources.
 	 */
 	using UniqueHandle = UniquePtr< void, HandleCloser >;
 

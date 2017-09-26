@@ -33,7 +33,7 @@ namespace mage {
 		vector< Variable > variable_buffer;
 		ImportVariableScriptFromFile(filename, variable_buffer);
 		for (const auto &variable : variable_buffer) {
-			m_variables.insert(pair< string, Variable >(variable.GetName(), variable));
+			m_variables.emplace(variable.GetName(), variable);
 		}
 	}
 

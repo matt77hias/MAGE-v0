@@ -47,8 +47,9 @@ namespace mage {
 namespace mage {
 
 	/**
-	 Removes from the given container all the elements that compare equal to the given predicate. 
-	 This reduces the container size by the number of elements removed.
+	 Removes from the given container all the elements that compare equal to 
+	 the given predicate. This reduces the container size by the number of 
+	 elements removed.
 
 	 @tparam		ContainerT
 					The type of container.

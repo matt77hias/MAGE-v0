@@ -25,7 +25,8 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to import the variable script from file.
 	 */
-	void ImportVariableScriptFromFile(const wstring &fname, vector< Variable > &variable_buffer);
+	void ImportVariableScriptFromFile(const wstring &fname, 
+		vector< Variable > &variable_buffer);
 
 	/**
 	 Exports the given variables to the given file.
@@ -37,5 +38,6 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to export the variable script to file.
 	 */
-	void ExportVariableScriptToFile(const wstring &fname, const vector< Variable > &variable_buffer);
+	void ExportVariableScriptToFile(const wstring &fname, 
+		const vector< Variable > &variable_buffer);
 }

@@ -64,8 +64,8 @@ namespace mage {
 
 		 @param[in]		arena
 						A reference to the memory arena to copy.
-		 @return		A reference to the copy of the given memory arena
-						(i.e. this memory arena).
+		 @return		A reference to the copy of the given memory arena (i.e. 
+						this memory arena).
 		 */
 		MemoryArena &operator=(const MemoryArena &arena) = delete;
 
@@ -74,8 +74,8 @@ namespace mage {
 
 		 @param[in]		arena
 						A reference to the memory arena to move.
-		 @return		A reference to the moved memory arena
-						(i.e. this memory arena).
+		 @return		A reference to the moved memory arena (i.e. this memory 
+						arena).
 		 */
 		MemoryArena &operator=(MemoryArena &&arena) = delete;
 
@@ -93,9 +93,11 @@ namespace mage {
 		}
 
 		/**
-		 Returns the block size (in bytes) of the current block of this memory arena.
+		 Returns the block size (in bytes) of the current block of this memory 
+		 arena.
 
-		 @return		The block size (in bytes) of the current block of this memory arena.
+		 @return		The block size (in bytes) of the current block of this 
+						memory arena.
 		 */
 		size_t GetCurrentBlockSize() const noexcept {
 			return m_current_block.first;
@@ -104,7 +106,8 @@ namespace mage {
 		/**
 		 Returns the block size (in bytes) of all blocks of this memory arena.
 
-		 @return		The block size (in bytes) of all blocks of this memory arena.
+		 @return		The block size (in bytes) of all blocks of this memory
+						arena.
 		 */
 		size_t GetTotalBlockSize() const noexcept;
 
@@ -138,13 +141,15 @@ namespace mage {
 		 @tparam		DataT
 						The type of objects to allocate in memory.
 		 @param[in]		count
-						The number of objects of type @c DataT to allocate in memory.
+						The number of objects of type @c DataT to allocate in 
+						memory.
 		 @param[in]		initialization
-						Flag indicating whether the objects need to be initialized
-						(i.e. the constructor needs to be called).
+						Flag indicating whether the objects need to be 
+						initialized (i.e. the constructor needs to be called).
 		 @return		@c nullptr if the allocation failed.
 		 @return		A pointer to the memory block that was allocated.
-		 @note			The objects will be constructed with their default empty constructor.
+		 @note			The objects will be constructed with their default 
+						empty constructor.
 		 */
 		template< typename DataT >
 		DataT *Alloc(size_t count = 1, bool initialization = true);

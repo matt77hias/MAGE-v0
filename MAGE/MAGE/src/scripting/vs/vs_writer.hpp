@@ -31,8 +31,8 @@ namespace mage {
 		 Constructs a writer.
 
 		 @param[in]		variable_buffer
-						A reference to a vector containing the variables to write
-						to file.
+						A reference to a vector containing the variables to 
+						write to file.
 		 */
 		explicit VSWriter(const vector< Variable > &variable_buffer);
 		
@@ -66,8 +66,8 @@ namespace mage {
 
 		 @param[in]		writer
 						A reference to a VS writer to copy.
-		 @return		A reference to the copy of the given VS writer
-						(i.e. this VS writer).
+		 @return		A reference to the copy of the given VS writer (i.e. 
+						this VS writer).
 		 */
 		VSWriter &operator=(const VSWriter &writer) = delete;
 
@@ -76,8 +76,8 @@ namespace mage {
 
 		 @param[in]		writer
 						A reference to a VS writer to move.
-		 @return		A reference to the moved VS writer
-						(i.e. this VS writer).
+		 @return		A reference to the moved VS writer (i.e. this VS 
+						writer).
 		 */
 		VSWriter &operator=(VSWriter &&writer) = delete;
 
@@ -100,7 +100,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to a vector containing the variables to write by this VS writer.
+		 A reference to a vector containing the variables to write by this VS 
+		 writer.
 		 */
 		const vector< Variable > &m_variable_buffer;
 	};

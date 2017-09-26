@@ -28,13 +28,13 @@ namespace mage {
 		/**
 		 Returns the renderer state cache associated with the current engine.
 
-		 @pre			The renderer associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the renderer state cache associated
-						with the current engine.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @return		A pointer to the renderer state cache associated with 
+						the current engine.
 		 @throws		FormattedException
-						Failed to setup the rendering states 
-						of this rendering state cache.
+						Failed to setup the rendering states of this rendering 
+						state cache.
 		 */
 		static const RenderingStateCache *Get() noexcept;
 
@@ -49,13 +49,14 @@ namespace mage {
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
-						Failed to setup the rendering states 
-						of this rendering state cache.
+						Failed to setup the rendering states of this rendering 
+						state cache.
 		 */
 		explicit RenderingStateCache(ID3D11Device2 *device);
 
 		/**
-		 Constructs a rendering state cache from the given rendering state cache.
+		 Constructs a rendering state cache from the given rendering state 
+		 cache.
 
 		 @param[in]		rendering_state_cache
 						A reference to the rendering state cache to copy.
@@ -64,7 +65,8 @@ namespace mage {
 			const RenderingStateCache &rendering_state_cache) = delete;
 
 		/**
-		 Constructs a rendering state cache by moving the given rendering state cache.
+		 Constructs a rendering state cache by moving the given rendering 
+		 state cache.
 
 		 @param[in]		rendering_state_cache
 						A reference to the rendering state cache to move.
@@ -86,8 +88,8 @@ namespace mage {
 
 		 @param[in]		rendering_state_cache
 						A reference to the rendering state cache to copy.
-		 @return		A reference to the copy of the given rendering state cache
-						(i.e. this rendering state cache).
+		 @return		A reference to the copy of the given rendering state 
+						cache (i.e. this rendering state cache).
 		 */
 		RenderingStateCache &operator=(
 			const RenderingStateCache &rendering_state_cache) = delete;
@@ -148,7 +150,7 @@ namespace mage {
 			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::Additive));
 		}
-
+		
 		/**
 		 Binds the non-premultiplied blend state of this rendering state cache.
 
@@ -176,7 +178,7 @@ namespace mage {
 			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::AlphaToCoverage));
 		}
-
+		
 		/**
 		 Binds the alpha blend state of this rendering state cache if MSAA is
 		 disabled. Otherwise, binds the alpha-to-coverage blend state of this 
@@ -192,10 +194,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods: Depth Stencil States
 		//---------------------------------------------------------------------
-
+		
 		/**
-		 Binds the no-depth stencil state
-		 of this rendering state cache.
+		 Binds the no-depth stencil state of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -209,8 +210,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the default depth stencil state
-		 of this rendering state cache.
+		 Binds the default depth stencil state of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -224,8 +224,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the read depth stencil state
-		 of this rendering state cache.
+		 Binds the read depth stencil state of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -243,8 +242,7 @@ namespace mage {
 		//-------------------------------------------------------------------------
 
 		/**
-		 Binds the no-culling rasterizer state
-		 of this rendering state cache.
+		 Binds the no-culling rasterizer state of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -258,8 +256,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the clockwise-culling rasterizer state
-		 of this rendering state cache.
+		 Binds the clockwise-culling rasterizer state of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -273,8 +270,8 @@ namespace mage {
 		}
 
 		/**
-		 Binds the counter-clockwise-culling rasterizer state
-		 of this rendering state cache.
+		 Binds the counter-clockwise-culling rasterizer state of this rendering 
+		 state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -288,8 +285,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the wireframe rasterizer state
-		 of this rendering state cache.
+		 Binds the wireframe rasterizer state of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -317,8 +313,7 @@ namespace mage {
 			ID3D11DeviceContext2 *device_context) const noexcept;
 
 		/**
-		 Binds the point sampler state with wrapping 
-		 of this rendering state cache.
+		 Binds the point sampler state with wrapping of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -328,18 +323,16 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array 
-						to set the sampler to (ranges from 
-						@c SLOT_SAMPLER_VARIABLE_START to 
-						@c SLOT_SAMPLER_VARIABLE_END).
+						The index into the device's zero-based array to set the 
+						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
+						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
 		void BindPointWrapSamplerState(
 			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
 		
 		/**
-		 Binds the point sampler state with clamping 
-		 of this rendering state cache.
+		 Binds the point sampler state with clamping of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -349,18 +342,17 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array 
-						to set the sampler to (ranges from 
-						@c SLOT_SAMPLER_VARIABLE_START to 
-						@c SLOT_SAMPLER_VARIABLE_END).
+						The index into the device's zero-based array to set the 
+						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
+						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
 		void BindPointClampSamplerState(
 			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
 		
 		/**
-		 Binds the point sampler state with mirroring 
-		 of this rendering state cache.
+		 Binds the point sampler state with mirroring of this rendering state 
+		 cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -370,18 +362,17 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array 
-						to set the sampler to (ranges from 
-						@c SLOT_SAMPLER_VARIABLE_START to 
-						@c SLOT_SAMPLER_VARIABLE_END).
+						The index into the device's zero-based array to set the 
+						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
+						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
 		void BindPointMirrorSamplerState(
 			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
 		
 		/**
-		 Binds the linear sampler state with wrapping 
-		 of this rendering state cache.
+		 Binds the linear sampler state with wrapping of this rendering state 
+		 cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -391,18 +382,17 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array 
-						to set the sampler to (ranges from 
-						@c SLOT_SAMPLER_VARIABLE_START to 
-						@c SLOT_SAMPLER_VARIABLE_END).
+						The index into the device's zero-based array to set the 
+						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
+						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
 		void BindLinearWrapSamplerState(
 			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
 		
 		/**
-		 Binds the linear sampler state with clamping 
-		 of this rendering state cache.
+		 Binds the linear sampler state with clamping of this rendering state 
+		 cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -412,18 +402,17 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array 
-						to set the sampler to (ranges from 
-						@c SLOT_SAMPLER_VARIABLE_START to 
-						@c SLOT_SAMPLER_VARIABLE_END).
+						The index into the device's zero-based array to set the 
+						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
+						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
 		void BindLinearClampSamplerState(
 			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
 		
 		/**
-		 Binds the linear sampler state with mirroring 
-		 of this rendering state cache.
+		 Binds the linear sampler state with mirroring of this rendering state 
+		 cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -433,18 +422,17 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array 
-						to set the sampler to (ranges from 
-						@c SLOT_SAMPLER_VARIABLE_START to 
-						@c SLOT_SAMPLER_VARIABLE_END).
+						The index into the device's zero-based array to set the 
+						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
+						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
 		void BindLinearMirrorSamplerState(
 			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
 
 		/**
-		 Binds the anisotropic sampler state with wrapping 
-		 of this rendering state cache.
+		 Binds the anisotropic sampler state with wrapping of this rendering 
+		 state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -454,18 +442,17 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array 
-						to set the sampler to (ranges from 
-						@c SLOT_SAMPLER_VARIABLE_START to 
-						@c SLOT_SAMPLER_VARIABLE_END).
+						The index into the device's zero-based array to set the 
+						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
+						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
 		void BindAnisotropicWrapSamplerState(
 			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
 		
 		/**
-		 Binds the anisotropic sampler state with clamping 
-		 of this rendering state cache.
+		 Binds the anisotropic sampler state with clamping of this rendering 
+		 state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -475,18 +462,17 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array 
-						to set the sampler to (ranges from 
-						@c SLOT_SAMPLER_VARIABLE_START to 
-						@c SLOT_SAMPLER_VARIABLE_END).
+						The index into the device's zero-based array to set the 
+						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
+						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
 		void BindAnisotropicClampSamplerState(
 			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
 		
 		/**
-		 Binds the anisotropic sampler state with mirroring 
-		 of this rendering state cache.
+		 Binds the anisotropic sampler state with mirroring of this rendering 
+		 state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -496,10 +482,9 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array 
-						to set the sampler to (ranges from 
-						@c SLOT_SAMPLER_VARIABLE_START to 
-						@c SLOT_SAMPLER_VARIABLE_END).
+						The index into the device's zero-based array to set the 
+						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
+						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
 		void BindAnisotropicMirrorSamplerState(
@@ -516,10 +501,9 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		slot
-						The index into the device's zero-based array 
-						to set the sampler to (ranges from 
-						@c SLOT_SAMPLER_VARIABLE_START to 
-						@c SLOT_SAMPLER_VARIABLE_END).
+						The index into the device's zero-based array to set the 
+						sampler to (ranges from @c SLOT_SAMPLER_VARIABLE_START 
+						to @c SLOT_SAMPLER_VARIABLE_END).
 		 */
 		template< typename PipelineStageT >
 		void BindPCFSamplerState(
@@ -539,8 +523,8 @@ namespace mage {
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
-						Failed to setup the rendering states 
-						of this rendering state cache.
+						Failed to setup the rendering states of this rendering 
+						state cache.
 		 */
 		void SetupRenderingStates(ID3D11Device2 *device);
 
@@ -551,11 +535,11 @@ namespace mage {
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
-						Failed to setup the blend states 
-						of this rendering state cache.
+						Failed to setup the blend states of this rendering 
+						state cache.
 		 */
 		void SetupBlendStates(ID3D11Device2 *device);
-
+		
 		/**
 		 Setup the depth stencil states of this rendering state cache.
 
@@ -563,11 +547,11 @@ namespace mage {
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
-						Failed to setup the depth stencil states 
-						of this rendering state cache.
+						Failed to setup the depth stencil states of this 
+						rendering state cache.
 		 */
 		void SetupDepthStencilStates(ID3D11Device2 *device);
-
+		
 		/**
 		 Setup the rasterizer states of this rendering state cache.
 
@@ -575,11 +559,11 @@ namespace mage {
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
-						Failed to setup the rasterizer states 
-						of this rendering state cache.
+						Failed to setup the rasterizer states of this rendering 
+						state cache.
 		 */
 		void SetupRasterizerStates(ID3D11Device2 *device);
-
+		
 		/**
 		 Setup the samplers states of this rendering state cache.
 
@@ -587,14 +571,14 @@ namespace mage {
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
-						Failed to setup the samplers states 
-						of this rendering state cache.
+						Failed to setup the samplers states of this rendering 
+						state cache.
 		 */
 		void SetupSamplerStates(ID3D11Device2 *device);
-
+		
 		/**
-		 An enumeration of the different blend state indices 
-		 for rendering state caches.
+		 An enumeration of the different blend state indices for rendering 
+		 state caches.
 
 		 This contains:
 		 @c Opaque,
@@ -612,10 +596,10 @@ namespace mage {
 			Count             = 5
 
 		};
-
+		
 		/**
-		 An enumeration of the different depth stencil state indices 
-		 for rendering state caches.
+		 An enumeration of the different depth stencil state indices for 
+		 rendering state caches.
 
 		 This contains:
 		 @c DepthNone,
@@ -628,10 +612,10 @@ namespace mage {
 			DepthRead         = 2,
 			Count             = 3
 		};
-
+		
 		/**
-		 An enumeration of the different rasterizer state indices 
-		 for rendering state caches.
+		 An enumeration of the different rasterizer state indices for rendering 
+		 state caches.
 
 		 This contains:
 		 @c NoCulling,
@@ -646,10 +630,10 @@ namespace mage {
 			Wireframe         = 3,
 			Count             = 4
 		};
-
+		
 		/**
-		 An enumeration of the different sampler state indices 
-		 for rendering state caches.
+		 An enumeration of the different sampler state indices for rendering 
+		 state caches.
 
 		 This contains:
 		 @c PointWrap,
@@ -676,15 +660,15 @@ namespace mage {
 			PCF               = 9,
 			Count             = 10
 		};
-
+		
 		/**
-		 Returns the blend state
-		 of this rendering state cache associated to the given index.
+		 Returns the blend state of this rendering state cache associated to 
+		 the given index.
 
 		 @param[in]		index
 						The blend state index.
-		 @return		A pointer to the blend state of this rendering 
-						state cache associated to the given index.
+		 @return		A pointer to the blend state of this rendering state 
+						cache associated to the given index.
 		 */
 		ID3D11BlendState *GetBlendState(
 			BlendStateIndex index) const noexcept {
@@ -693,24 +677,23 @@ namespace mage {
 		}
 
 		/**
-		 Returns and releases the address of the blend state
-		 of this rendering state cache associated to the given index.
+		 Returns and releases the address of the blend state of this 
+		 rendering state cache associated to the given index.
 
 		 @param[in]		index
 						The blend state index.
-		 @return		A pointer to a pointer to the blend state
-						of this rendering state cache associated to 
-						the given index.
+		 @return		A pointer to a pointer to the blend state of this 
+						rendering state cache associated to the given index.
 		 */
 		ID3D11BlendState **ReleaseAndGetAddressOfBlendState(
 			BlendStateIndex index) noexcept {
 
 			return m_blend_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
-
+		
 		/**
-		 Returns the depth stencil state
-		 of this rendering state cache associated to the given index.
+		 Returns the depth stencil state of this rendering state cache 
+		 associated to the given index.
 
 		 @param[in]		index
 						The depth stencil state index.
@@ -722,26 +705,25 @@ namespace mage {
 
 			return m_depth_stencil_states[static_cast< size_t >(index)].Get();
 		}
-
+		
 		/**
-		 Returns and releases the address of the depth stencil state
-		 of this rendering state cache associated to the given index.
+		 Returns and releases the address of the depth stencil state of this 
+		 rendering state cache associated to the given index.
 
 		 @param[in]		index
 						The depth stencil state index.
-		 @return		A pointer to a pointer to the depth stencil state 
-						of this rendering state cache associated to 
-						the given index.
+		 @return		A pointer to a pointer to the depth stencil state of 
+						this rendering state cache associated to the given index.
 		 */
 		ID3D11DepthStencilState **ReleaseAndGetAddressOfDepthStencilState(
 			DepthStencilStateIndex index) noexcept {
 
 			return m_depth_stencil_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
-
+		
 		/**
-		 Returns the rasterizer state
-		 of this rendering state cache associated to the given index.
+		 Returns the rasterizer state of this rendering state cache associated 
+		 to the given index.
 
 		 @param[in]		index
 						The rasterizer state index.
@@ -753,47 +735,45 @@ namespace mage {
 
 			return m_rasterizer_states[static_cast< size_t >(index)].Get();
 		}
-
+		
 		/**
-		 Returns and releases the address of the rasterizer state
-		 of this rendering state cache associated to the given index.
+		 Returns and releases the address of the rasterizer state of this 
+		 rendering state cache associated to the given index.
 
 		 @param[in]		index
 						The rasterizer state index.
-		 @return		A pointer to a pointer to the rasterizer state
-						of this rendering state cache associated to 
-						the given index.
+		 @return		A pointer to a pointer to the rasterizer state of this 
+						rendering state cache associated to the given index.
 		 */
 		ID3D11RasterizerState **ReleaseAndGetAddressOfRasterizerState(
 			RasterizerStateIndex index) noexcept {
 
 			return m_rasterizer_states[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
-
+		
 		/**
-		 Returns the sampler state
-		 of this rendering state cache associated to the given index.
+		 Returns the sampler state of this rendering state cache associated to 
+		 the given index.
 
 		 @param[in]		index
 						The sampler state index.
-		 @return		A pointer to the sampler state of this rendering 
-						state cache associated to the given index.
+		 @return		A pointer to the sampler state of this rendering state 
+						cache associated to the given index.
 		 */
 		ID3D11SamplerState *GetSamplerState(
 			SamplerStateIndex index) const noexcept {
 
 			return m_sampler_states[static_cast< size_t >(index)].Get();
 		}
-
+		
 		/**
-		 Returns and releases the address of the sampler state
-		 of this rendering state cache associated to the given index.
+		 Returns and releases the address of the sampler state of this 
+		 rendering state cache associated to the given index.
 
 		 @param[in]		index
 						The sampler state index.
-		 @return		A pointer to a pointer to the sampler state
-						of this rendering state cache associated to 
-						the given index.
+		 @return		A pointer to a pointer to the sampler state of this 
+						rendering state cache associated to the given index.
 		 */
 		ID3D11SamplerState **ReleaseAndGetAddressOfSamplerState(
 			SamplerStateIndex index) noexcept {
@@ -806,29 +786,29 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 An array containing pointers to the blend states 
-		 of this rendering state cache.
+		 An array containing pointers to the blend states of this rendering 
+		 state cache.
 		 */
 		ComPtr< ID3D11BlendState > m_blend_states[
 			static_cast< size_t >(BlendStateIndex::Count)];
 
 		/**
-		 An array containing pointers to the depth stencil states 
-		 of this rendering state cache.
+		 An array containing pointers to the depth stencil states of this 
+		 rendering state cache.
 		 */
 		ComPtr< ID3D11DepthStencilState > m_depth_stencil_states[
 			static_cast< size_t >(DepthStencilStateIndex::Count)];
 
 		/**
-		 An array containing pointers to the rasterizer states 
-		 of this rendering state cache.
+		 An array containing pointers to the rasterizer states of this 
+		 rendering state cache.
 		 */
 		ComPtr< ID3D11RasterizerState > m_rasterizer_states[
 			static_cast< size_t >(RasterizerStateIndex::Count)];
-
+		
 		/**
-		 An array containing pointers to the sampler states 
-		 of this rendering state cache.
+		 An array containing pointers to the sampler states of this rendering 
+		 state cache.
 		 */
 		ComPtr< ID3D11SamplerState > m_sampler_states[
 			static_cast< size_t >(SamplerStateIndex::Count)];

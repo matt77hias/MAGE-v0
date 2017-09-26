@@ -112,25 +112,30 @@ namespace mage {
 	inline bool RejectDisplayMode(const DXGI_MODE_DESC1 &display_mode_desc) noexcept {
 		return display_mode_desc.Height < 480;
 	}
-
+	
 	void DisplayConfigurator::InitializeAdapterAndOutput() {
 		// Get the IDXGIFactory3.
 		ComPtr< IDXGIFactory3 > factory;
-		const HRESULT result_factory = CreateDXGIFactory1(__uuidof(IDXGIFactory3), (void**)factory.GetAddressOf());
-		ThrowIfFailed(result_factory, "IDXGIFactory3 creation failed: %08X.", result_factory);
+		const HRESULT result_factory = CreateDXGIFactory1(
+			__uuidof(IDXGIFactory3), (void**)factory.GetAddressOf());
+		ThrowIfFailed(result_factory, 
+			"IDXGIFactory3 creation failed: %08X.", result_factory);
 
 		// Get the IDXGIAdapter1 and its primary IDXGIOutput.
-		// The IDXGIAdapter represents a display subsystem (including one or more GPUs, DACs and video memory).
-		// The IDXGIOutput represents an adapter output (such as a monitor).
+		// The IDXGIAdapter represents a display subsystem (including one or more 
+		// GPUs, DACs and video memory).
 		ComPtr< IDXGIAdapter1 > adapter1;
+		// The IDXGIOutput represents an adapter output (such as a monitor).
 		ComPtr< IDXGIOutput > output;
 		SIZE_T max_vram = 0;
-		for (u32 i = 0u; factory->EnumAdapters1(i, adapter1.GetAddressOf()) != DXGI_ERROR_NOT_FOUND; ++i) {
+		for (u32 i = 0u; factory->EnumAdapters1(i, adapter1.GetAddressOf()) 
+			!= DXGI_ERROR_NOT_FOUND; ++i) {
 
 			// Get the IDXGIAdapter2.
 			ComPtr< IDXGIAdapter2 > adapter2;
 			const HRESULT result_adapter2 = adapter1.As(&adapter2);
-			ThrowIfFailed(result_adapter2, "IDXGIAdapter2 creation failed: %08X.", result_adapter2);
+			ThrowIfFailed(result_adapter2, 
+				"IDXGIAdapter2 creation failed: %08X.", result_adapter2);
 
 			// Get the primary IDXGIOutput.
 			const HRESULT result_output = adapter2->EnumOutputs(0, output.GetAddressOf());
@@ -140,12 +145,14 @@ namespace mage {
 			// Get the IDXGIOutput2.
 			ComPtr< IDXGIOutput2 > output2;
 			const HRESULT result_output2 = output.As(&output2);
-			ThrowIfFailed(result_output2, "IDXGIOutput2 creation failed: %08X.", result_output2);
+			ThrowIfFailed(result_output2, 
+				"IDXGIOutput2 creation failed: %08X.", result_output2);
 
 			// Get the DXGI_ADAPTER_DESC2.
 			DXGI_ADAPTER_DESC2 desc;
 			const HRESULT result_adapter_desc = adapter2->GetDesc2(&desc);
-			ThrowIfFailed(result_adapter_desc, "DXGI_ADAPTER_DESC2 retrieval failed: %08X.", result_adapter_desc);
+			ThrowIfFailed(result_adapter_desc, 
+				"DXGI_ADAPTER_DESC2 retrieval failed: %08X.", result_adapter_desc);
 
 			const SIZE_T vram = desc.DedicatedVideoMemory;
 			if (vram <= max_vram) {
@@ -247,10 +254,12 @@ namespace mage {
 		// color depth (format) affects resolution affects refresh rate.
 
 		switch (uMsg) {
+		
 		case WM_INITDIALOG: {
-			// Sent to the dialog box procedure immediately before a dialog box is displayed.
-			// Dialog box procedures typically use this message to initialize controls and 
-			// carry out any other initialization tasks that affect the appearance of the dialog box.
+			// Sent to the dialog box procedure immediately before a dialog box is 
+			// displayed. Dialog box procedures typically use this message to 
+			// initialize controls and carry out any other initialization tasks 
+			// that affect the appearance of the dialog box.
 
 			// Display the adapter details.
 			DXGI_ADAPTER_DESC2 desc;
@@ -258,15 +267,21 @@ namespace mage {
 			Edit_SetText(GetDlgItem(hwndDlg, IDC_DISPLAY_ADAPTER), desc.Description);
 
 			if (m_display_configuration_script->IsEmpty()) {
-				m_display_configuration_script->AddVariable(VariableType::Bool, "windowed",   true);
-				m_display_configuration_script->AddVariable(VariableType::Bool, "vsync",      false);
-				m_display_configuration_script->AddVariable(VariableType::Int,  "resolution", 0);
-				m_display_configuration_script->AddVariable(VariableType::Int, "msaa", 0);
-				m_display_configuration_script->AddVariable(VariableType::Int,  "refresh",	  0);
+				m_display_configuration_script->AddVariable(
+					VariableType::Bool, "windowed",   true);
+				m_display_configuration_script->AddVariable(
+					VariableType::Bool, "vsync",      false);
+				m_display_configuration_script->AddVariable(
+					VariableType::Int,  "resolution", 0);
+				m_display_configuration_script->AddVariable(
+					VariableType::Int, "msaa", 0);
+				m_display_configuration_script->AddVariable(
+					VariableType::Int,  "refresh",	  0);
 			}
-
+			
 			// Load the windowed state.
-			const bool windowed = *m_display_configuration_script->GetValueOfVariable< bool >("windowed");
+			const bool windowed 
+				= *m_display_configuration_script->GetValueOfVariable< bool >("windowed");
 			// Change the check state of a button control.
 			// 1. A handle to the dialog box that contains the button.
 			// 2. The identifier of the button to modify.
@@ -275,24 +290,29 @@ namespace mage {
 			CheckDlgButton(hwndDlg, IDC_FULLSCREEN, !windowed);
 
 			// Load the vsync state.
-			const bool vsync = *m_display_configuration_script->GetValueOfVariable< bool >("vsync");
+			const bool vsync 
+				= *m_display_configuration_script->GetValueOfVariable< bool >("vsync");
 			// Change the check state of a button control.
 			// 1. A handle to the dialog box that contains the button.
 			// 2. The identifier of the button to modify.
 			// 3. The check state of the button.
 			CheckDlgButton(hwndDlg, IDC_VSYNC, vsync);
-
+			
 			// Fill in the display formats combo box.
+			
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_MSAA));
 			for (size_t i = 0; i < _countof(s_nb_MSAA_samples); ++i) {
 				swprintf_s(buffer, _countof(buffer), L"x%u", s_nb_MSAA_samples[i]);
-				ComboBoxAddValue(hwndDlg, IDC_MSAA, static_cast< size_t >(s_nb_MSAA_samples[i]), buffer);
+				ComboBoxAddValue(hwndDlg, IDC_MSAA, 
+					static_cast< size_t >(s_nb_MSAA_samples[i]), buffer);
 			}
-			const int msaa_index = *m_display_configuration_script->GetValueOfVariable< int >("msaa");
+			const int msaa_index 
+				= *m_display_configuration_script->GetValueOfVariable< int >("msaa");
 			ComboBoxSelect(hwndDlg, IDC_MSAA, msaa_index);
-
+			
 			// Fill in the resolutions combo box associated with the current format.
+			
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_RESOLUTION));
 			for (const auto &mode : m_display_modes) {
@@ -303,11 +323,14 @@ namespace mage {
 					ComboBoxAddValue(hwndDlg, IDC_RESOLUTION, resolution, buffer);
 				}
 			}
-			const int resolution_index = *m_display_configuration_script->GetValueOfVariable< int >("resolution");
+			const int resolution_index 
+				= *m_display_configuration_script->GetValueOfVariable< int >("resolution");
 			ComboBoxSelect(hwndDlg, IDC_RESOLUTION, resolution_index);
 
 			const size_t selected_resolution = ComboBoxSelectedValue(hwndDlg, IDC_RESOLUTION);
+			
 			// Fill in the refresh rates combo box associated with the current resolution.
+			
 			// Remove all items from the list box and edit control of a combo box.
 			ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
 			for (const auto &mode : m_display_modes) {
@@ -315,27 +338,38 @@ namespace mage {
 				if (selected_resolution == resolution) {
 					
 					const size_t refresh_rate = ConvertRefreshRate(mode);
-					swprintf_s(buffer, _countof(buffer), L"%u Hz", static_cast< unsigned int >(refresh_rate));
-					
+					swprintf_s(buffer, _countof(buffer), L"%u Hz", 
+						static_cast< unsigned int >(refresh_rate));
+		
 					if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
 						ComboBoxAddValue(hwndDlg, IDC_REFRESH_RATE, refresh_rate, buffer);
 					}
 				}
 			}
-			const int refresh_rate_index = *m_display_configuration_script->GetValueOfVariable< int >("refresh");
+			const int refresh_rate_index 
+				= *m_display_configuration_script->GetValueOfVariable< int >("refresh");
 			ComboBoxSelect(hwndDlg, IDC_REFRESH_RATE, refresh_rate_index);
 
 			return TRUE;
 		}
+		
 		case WM_COMMAND: {
-			// Sent when the user selects a command item from a menu, when a control sends a notification message to its parent window.
+			// Sent when the user selects a command item from a menu, when a 
+			// control sends a notification message to its parent window.
+			
 			switch (LOWORD(wParam)) {
+			
 			case IDOK: {
+				
 				// Store the details of the selected display mode.
-				const size_t selected_resolution            = ComboBoxSelectedValue(hwndDlg, IDC_RESOLUTION);
-				const size_t selected_msaa                  = ComboBoxSelectedValue(hwndDlg, IDC_MSAA);
-				const size_t selected_refresh_rate          = ComboBoxSelectedValue(hwndDlg, IDC_REFRESH_RATE);
-				const DXGI_MODE_DESC1 *selected_diplay_mode = nullptr;
+				const size_t selected_resolution 
+					= ComboBoxSelectedValue(hwndDlg, IDC_RESOLUTION);
+				const size_t selected_msaa 
+					= ComboBoxSelectedValue(hwndDlg, IDC_MSAA);
+				const size_t selected_refresh_rate 
+					= ComboBoxSelectedValue(hwndDlg, IDC_REFRESH_RATE);
+				const DXGI_MODE_DESC1 *selected_diplay_mode 
+					= nullptr;
 				for (const auto &display_mode : m_display_modes) {
 					
 					const size_t resolution = ConvertResolution(display_mode);
@@ -360,8 +394,10 @@ namespace mage {
 					return TRUE;
 				}
 				
-				const bool windowed = IsDlgButtonChecked(hwndDlg, IDC_WINDOWED) ? true : false;
-				const bool vsync	= IsDlgButtonChecked(hwndDlg, IDC_VSYNC)    ? true : false;
+				const bool windowed = IsDlgButtonChecked(hwndDlg, IDC_WINDOWED) 
+									? true : false;
+				const bool vsync	= IsDlgButtonChecked(hwndDlg, IDC_VSYNC)    
+									? true : false;
 
 				// Store all the settings to the display configuration.
 				m_display_configuration = MakeUnique< DisplayConfiguration >(
@@ -369,16 +405,24 @@ namespace mage {
 					static_cast< u32 >(selected_msaa));
 
 				// Get the selected index from each combo box.
-				const int resolution_index	 = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_RESOLUTION));
-				const int msaa_index         = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_MSAA));
-				const int refresh_rate_index = ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
+				const int resolution_index
+					= ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_RESOLUTION));
+				const int msaa_index 
+					= ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_MSAA));
+				const int refresh_rate_index 
+					= ComboBox_GetCurSel(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
 				
 				// Store all the settings to the display configuration script.
-				m_display_configuration_script->SetValueOfVariable("windowed",	 windowed);
-				m_display_configuration_script->SetValueOfVariable("vsync",		 vsync);
-				m_display_configuration_script->SetValueOfVariable("resolution", resolution_index);
-				m_display_configuration_script->SetValueOfVariable("msaa",       msaa_index);
-				m_display_configuration_script->SetValueOfVariable("refresh",	 refresh_rate_index);
+				m_display_configuration_script->SetValueOfVariable(
+												"windowed",	windowed);
+				m_display_configuration_script->SetValueOfVariable(
+												"vsync", vsync);
+				m_display_configuration_script->SetValueOfVariable(
+												"resolution", resolution_index);
+				m_display_configuration_script->SetValueOfVariable(
+												"msaa", msaa_index);
+				m_display_configuration_script->SetValueOfVariable(
+												"refresh", refresh_rate_index);
 				// Save all the settings in the display configuration script.
 				m_display_configuration_script->ExportScript();
 
@@ -387,32 +431,45 @@ namespace mage {
 
 				return TRUE;
 			}
+			
 			case IDCANCEL: {
 				// Close the hwndDlg.
 				EndDialog(hwndDlg, IDCANCEL);
 
 				return TRUE;
 			}
+			
 			case IDC_RESOLUTION: {
+				
 				if (CBN_SELCHANGE == HIWORD(wParam)) {
-					const size_t selected_resolution   = ComboBoxSelectedValue(hwndDlg, IDC_RESOLUTION);
-					const size_t selected_refresh_rate = ComboBoxSelectedValue(hwndDlg, IDC_REFRESH_RATE);
+					
+					const size_t selected_resolution 
+						= ComboBoxSelectedValue(hwndDlg, IDC_RESOLUTION);
+					const size_t selected_refresh_rate 
+						= ComboBoxSelectedValue(hwndDlg, IDC_REFRESH_RATE);
 
 					// Update the refresh rate combo box.
-					// Remove all items from the list box and edit control of a combo box.
+
+					// Remove all items from the list box and edit control of a 
+					// combo box.
 					ComboBox_ResetContent(GetDlgItem(hwndDlg, IDC_REFRESH_RATE));
 					for (const auto &mode : m_display_modes) {
+						
 						const size_t resolution = ConvertResolution(mode);
+						
 						if (selected_resolution == resolution) {
 							
 							const size_t refresh_rate = ConvertRefreshRate(mode);
-							swprintf_s(buffer, _countof(buffer), L"%u Hz", static_cast< unsigned int >(refresh_rate));
+							swprintf_s(buffer, _countof(buffer), L"%u Hz",
+								static_cast< unsigned int >(refresh_rate));
 							
 							if (!ComboBoxContains(hwndDlg, IDC_REFRESH_RATE, buffer)) {
-								ComboBoxAddValue(hwndDlg, IDC_REFRESH_RATE, refresh_rate, buffer);
+								ComboBoxAddValue(
+									hwndDlg, IDC_REFRESH_RATE, refresh_rate, buffer);
 								
 								if (selected_refresh_rate == refresh_rate) {
-									ComboBoxSelectValue(hwndDlg, IDC_REFRESH_RATE, selected_refresh_rate);
+									ComboBoxSelectValue(
+										hwndDlg, IDC_REFRESH_RATE, selected_refresh_rate);
 								}
 							}
 						}
@@ -428,6 +485,7 @@ namespace mage {
 			}
 		}
 		}
+		
 		return FALSE;
 	}
 }

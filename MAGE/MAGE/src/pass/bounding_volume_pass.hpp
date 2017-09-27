@@ -17,8 +17,8 @@
 namespace mage {
 
 	/**
-	 A class of bounding volume passes for rendering 
-	 model and finite light volumes.
+	 A class of bounding volume passes for rendering model and finite light 
+	 volumes.
 	 */
 	class BoundingVolumePass final {
 
@@ -31,10 +31,10 @@ namespace mage {
 		/**
 		 Returns the bounding volume pass associated with the current engine.
 
-		 @pre			The scene renderer associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the bounding volume pass associated
-						with the current engine.
+		 @pre			The scene renderer associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the bounding volume pass associated with 
+						the current engine.
 		 */
 		static BoundingVolumePass *Get();
 
@@ -45,10 +45,10 @@ namespace mage {
 		/**
 		 Constructs a bounding volume pass.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
 		BoundingVolumePass();
 
@@ -61,7 +61,8 @@ namespace mage {
 		BoundingVolumePass(const BoundingVolumePass &render_pass) = delete;
 
 		/**
-		 Constructs a bounding volume pass by moving the given bounding volume pass.
+		 Constructs a bounding volume pass by moving the given bounding volume 
+		 pass.
 
 		 @param[in]		render_pass
 						A reference to the bounding volume pass to move.
@@ -82,20 +83,22 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the bounding volume pass to copy.
-		 @return		A reference to the copy of the given bounding volume pass
-						(i.e. this bounding volume pass).
+		 @return		A reference to the copy of the given bounding volume 
+						pass (i.e. this bounding volume pass).
 		 */
-		BoundingVolumePass &operator=(const BoundingVolumePass &render_pass) = delete;
+		BoundingVolumePass &operator=(
+			const BoundingVolumePass &render_pass) = delete;
 
 		/**
 		 Moves the given bounding volume pass to this bounding volume pass.
 
 		 @param[in]		render_pass
 						A reference to the bounding volume pass to move.
-		 @return		A reference to the moved bounding volume pass
-						(i.e. this bounding volume pass).
+		 @return		A reference to the moved bounding volume pass (i.e. 
+						this bounding volume pass).
 		 */
-		BoundingVolumePass &operator=(BoundingVolumePass &&render_pass) = delete;
+		BoundingVolumePass &operator=(
+			BoundingVolumePass &&render_pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -105,7 +108,8 @@ namespace mage {
 		 Binds the fixed state of this bounding volume pass.
 
 		 @throws		FormattedException
-						Failed to bind the fixed state of this bounding volume pass.
+						Failed to bind the fixed state of this bounding volume 
+						pass.
 		 */
 		void BindFixedState();
 
@@ -136,8 +140,8 @@ namespace mage {
 		 @param[in]		color
 						A reference to the color.
 		 @throws		FormattedException
-						Failed to bind the light color data
-						of this bounding volume pass.
+						Failed to bind the light color data of this bounding 
+						volume pass.
 		 */
 		void BindColorData(const RGBASpectrum &color);
 
@@ -145,8 +149,8 @@ namespace mage {
 		 Binds the light color data of this bounding volume pass.
 
 		 @throws		FormattedException
-						Failed to bind the light color data
-						of this bounding volume pass.
+						Failed to bind the light color data of this bounding 
+						volume pass.
 		 */
 		void BindLightColorData();
 
@@ -154,8 +158,8 @@ namespace mage {
 		 Binds the model color data of this bounding volume pass.
 		 
 		 @throws		FormattedException
-						Failed to bind the model color data
-						of this bounding volume pass.
+						Failed to bind the model color data of this bounding 
+						volume pass.
 		 */
 		void BindModelColorData();
 
@@ -166,8 +170,8 @@ namespace mage {
 						The box-to-projection transformation matrix used for
 						transforming box vertices.
 		 @throws		FormattedException
-						Failed to bind the model data
-						of this bounding volume pass.
+						Failed to bind the model data of this bounding volume 
+						pass.
 		 */
 		void XM_CALLCONV BindModelData(FXMMATRIX box_to_projection);
 		
@@ -178,9 +182,9 @@ namespace mage {
 						A reference to a vector containing the light pointers
 						to process.
 		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
-						This transformation matrix will be used for 
-						culling and transforming box vertices.
+						The world-to-projection transformation matrix. This 
+						transformation matrix will be used for culling and 
+						transforming box vertices.
 		 @throws		FormattedException
 						Failed to process the lights.
 		 */
@@ -195,9 +199,9 @@ namespace mage {
 						A reference to a vector containing the light pointers
 						to process.
 		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
-						This transformation matrix will be used for 
-						culling and transforming box vertices.
+						The world-to-projection transformation matrix. This 
+						transformation matrix will be used for culling and 
+						transforming box vertices.
 		 @throws		FormattedException
 						Failed to process the lights.
 		 */
@@ -212,9 +216,9 @@ namespace mage {
 						A reference to a vector containing the model pointers
 						to process.
 		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
-						This transformation matrix will be used for 
-						culling and transforming box vertices.
+						The world-to-projection transformation matrix. This 
+						transformation matrix will be used for culling and 
+						transforming box vertices.
 		 @throws		FormattedException
 						Failed to process the models.
 		 */

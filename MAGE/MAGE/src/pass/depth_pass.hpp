@@ -31,10 +31,10 @@ namespace mage {
 		/**
 		 Returns the depth pass associated with the current engine.
 
-		 @pre			The scene renderer associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the depth pass associated
-						with the current engine.
+		 @pre			The scene renderer associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the depth pass associated with the current 
+						engine.
 		 */
 		static DepthPass *Get();
 
@@ -45,10 +45,10 @@ namespace mage {
 		/**
 		 Constructs a depth pass.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
 		DepthPass();
 
@@ -82,8 +82,8 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the depth pass to copy.
-		 @return		A reference to the copy of the given depth pass
-						(i.e. this depth pass).
+		 @return		A reference to the copy of the given depth pass (i.e. 
+						this depth pass).
 		 */
 		DepthPass &operator=(const DepthPass &render_pass) = delete;
 
@@ -92,8 +92,8 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the depth pass to move.
-		 @return		A reference to the moved depth pass
-						(i.e. this depth pass).
+		 @return		A reference to the moved depth pass (i.e. this depth 
+						pass).
 		 */
 		DepthPass &operator=(DepthPass &&render_pass) = delete;
 
@@ -174,8 +174,7 @@ namespace mage {
 						The view-to-projection transformation matrix used for
 						transforming vertices.
 		 @throws		FormattedException
-						Failed to bind the projection data 
-						of this depth pass.
+						Failed to bind the projection data of this depth pass.
 		 */
 		void XM_CALLCONV BindProjectionData(FXMMATRIX view_to_projection);
 
@@ -186,8 +185,7 @@ namespace mage {
 						The object-to-view transformation matrix used for
 						transforming vertices.
 		 @throws		FormattedException
-						Failed to bind the model data 
-						of this depth pass.
+						Failed to bind the model data of this depth pass.
 		 */
 		void XM_CALLCONV BindOpaqueModelData(FXMMATRIX object_to_view);
 
@@ -199,13 +197,12 @@ namespace mage {
 						The object-to-view transformation matrix used for
 						transforming vertices.
 		 @param[in]		texture_transform
-						The texture transformation matrix used for
-						transforming texture coordinates.
+						The texture transformation matrix used for transforming 
+						texture coordinates.
 		 @param[in]		material
 						A pointer to the material.
 		 @throws		FormattedException
-						Failed to bind the model data 
-						of this depth pass.
+						Failed to bind the model data of this depth pass.
 		 */
 		void XM_CALLCONV BindTransparentModelData(
 			FXMMATRIX object_to_view,
@@ -219,14 +216,13 @@ namespace mage {
 						A reference to a vector containing the model pointers
 						to process.
 		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
-						This transformation matrix will be used for 
-						culling.
+						The world-to-projection transformation matrix. This 
+						transformation matrix will be used for culling.
 		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-						This transformation matrix will be chained with
-						the object-to-view transformation matrix for
-						transforming vertices.
+						The world-to-view transformation matrix. This 
+						transformation matrix will be chained with the 
+						object-to-view transformation matrix for transforming 
+						vertices.
 		 @throws		FormattedException
 						Failed to process the models.
 		 */
@@ -246,10 +242,10 @@ namespace mage {
 						This transformation matrix will be used for 
 						culling.
 		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-						This transformation matrix will be chained with
-						the object-to-view transformation matrix for
-						transforming vertices.
+						The world-to-view transformation matrix. This 
+						transformation matrix will be chained with the 
+						object-to-view transformation matrix for transforming 
+						vertices.
 		 @throws		FormattedException
 						Failed to process the models.
 		 */
@@ -269,10 +265,10 @@ namespace mage {
 						This transformation matrix will be used for 
 						culling.
 		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-						This transformation matrix will be chained with
-						the object-to-view transformation matrix for
-						transforming vertices.
+						The world-to-view transformation matrix. This 
+						transformation matrix will be chained with the 
+						object-to-view transformation matrix for transforming 
+						vertices.
 		 @throws		FormattedException
 						Failed to process the models.
 		 */

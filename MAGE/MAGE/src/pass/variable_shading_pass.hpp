@@ -18,8 +18,8 @@
 namespace mage {
 
 	/**
-	 A class of variable shading passes for rendering
-	 models using a variable (material dependent) shading.
+	 A class of variable shading passes for rendering models using a variable 
+	 (material dependent) shading.
 	 */
 	class VariableShadingPass final {
 
@@ -32,10 +32,10 @@ namespace mage {
 		/**
 		 Returns the variable shading pass associated with the current engine.
 
-		 @pre			The scene renderer associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the variable shading pass associated
-						with the current engine.
+		 @pre			The scene renderer associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the variable shading pass associated with 
+						the current engine.
 		 */
 		static VariableShadingPass *Get();
 
@@ -46,15 +46,16 @@ namespace mage {
 		/**
 		 Constructs a variable shading pass.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
 		VariableShadingPass();
 
 		/**
-		 Constructs a variable shading pass from the given variable shading pass.
+		 Constructs a variable shading pass from the given variable shading 
+		 pass.
 
 		 @param[in]		render_pass
 						A reference to the variable shading pass to copy.
@@ -62,7 +63,8 @@ namespace mage {
 		VariableShadingPass(const VariableShadingPass &render_pass) = delete;
 
 		/**
-		 Constructs a variable shading pass by moving the given variable shading pass.
+		 Constructs a variable shading pass by moving the given variable 
+		 shading pass.
 
 		 @param[in]		render_pass
 						A reference to the variable shading pass to move.
@@ -83,20 +85,22 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the variable shading pass to copy.
-		 @return		A reference to the copy of the given variable shading pass
-						(i.e. this variable shading pass).
+		 @return		A reference to the copy of the given variable shading 
+						pass (i.e. this variable shading pass).
 		 */
-		VariableShadingPass &operator=(const VariableShadingPass &render_pass) = delete;
+		VariableShadingPass &operator=(
+			const VariableShadingPass &render_pass) = delete;
 
 		/**
 		 Moves the given variable shading pass to this variable shading pass.
 
 		 @param[in]		render_pass
 						A reference to the variable shading pass to move.
-		 @return		A reference to the moved variable shading pass
-						(i.e. this variable shading pass).
+		 @return		A reference to the moved variable shading pass (i.e. 
+						this variable shading pass).
 		 */
-		VariableShadingPass &operator=(VariableShadingPass &&render_pass) = delete;
+		VariableShadingPass &operator=(
+			VariableShadingPass &&render_pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -108,8 +112,8 @@ namespace mage {
 		 @param[in]		brdf
 						The BRDF.
 		 @throws		FormattedException
-						Failed to bind the fixed state 
-						of this variable shading pass.
+						Failed to bind the fixed state of this variable shading 
+						pass.
 		 */
 		void BindFixedState(BRDFType brdf);
 
@@ -192,8 +196,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 An enumeration of the different pixel shader indices 
-		 for variable shading passes.
+		 An enumeration of the different pixel shader indices for variable 
+		 shading passes.
 
 		 This contains:
 		 @c Emissive,
@@ -208,22 +212,22 @@ namespace mage {
 		};
 
 		/**
-		 Updates the pixel shaders of this variable shading pass
-		 for the given BRDF.
+		 Updates the pixel shaders of this variable shading pass for the given 
+		 BRDF.
 
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The resource manager associated with the current 
+						engine must be loaded.
 		 @param[in]		brdf
 						The BRDF.
 		 @throws		FormattedException
-						Failed to update the pixel shaders
-						of this variable shading pass.
+						Failed to update the pixel shaders of this variable 
+						shading pass.
 		 */
 		void UpdatePSs(BRDFType brdf);
 		
 		/**
-		 Binds the pixel shader of this variable shading pass
-		 associated with the given pixel shader index.
+		 Binds the pixel shader of this variable shading pass associated with 
+		 the given pixel shader index.
 
 		 @param[in]		index
 						The pixel shader index.
@@ -231,8 +235,8 @@ namespace mage {
 		void BindPS(PSIndex index) noexcept;
 		
 		/**
-		 Binds the pixel shader of this variable shading pass 
-		 associated with the given material.
+		 Binds the pixel shader of this variable shading pass associated with 
+		 the given material.
 
 		 @pre			@a material is not equal to @c nullptr.
 		 @param[in]		material
@@ -247,8 +251,8 @@ namespace mage {
 						The view-to-projection transformation matrix used for
 						transforming vertices.
 		 @throws		FormattedException
-						Failed to bind the projection data 
-						of this variable shading pass.
+						Failed to bind the projection data of this variable 
+						shading pass.
 		 */
 		void XM_CALLCONV BindProjectionData(
 			FXMMATRIX view_to_projection);
@@ -261,16 +265,16 @@ namespace mage {
 						The object-to-view transformation matrix used for
 						transforming vertices.
 		 @param[in]		view_to_object
-						The view-to-object transformation matrix used for
+						The view-to-object transformation matrix used for 
 						transforming normals.
 		 @param[in]		texture_transform
-						The texture transformation matrix used for
-						transforming texture coordinates.
+						The texture transformation matrix used for transforming 
+						texture coordinates.
 		 @param[in]		material
 						A pointer to the material.
 		 @throws		FormattedException
-						Failed to bind the model data 
-						of this variable shading pass.
+						Failed to bind the model data of this variable shading 
+						pass.
 		 */
 		void XM_CALLCONV BindModelData(
 			FXMMATRIX object_to_view, 
@@ -282,22 +286,21 @@ namespace mage {
 		 Process the given models.
 
 		 @param[in]		models
-						A reference to a vector containing the model pointers
+						A reference to a vector containing the model pointers 
 						to process.
 		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
-						This transformation matrix will be used for 
-						culling.
+						The world-to-projection transformation matrix. This 
+						transformation matrix will be used for culling.
 		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-						This transformation matrix will be chained with
-						the object-to-view transformation matrix for
-						transforming vertices.
+						The world-to-view transformation matrix. This 
+						transformation matrix will be chained with the 
+						object-to-view transformation matrix for transforming 
+						vertices.
 		 @param[in]		view_to_world
-						The view-to-world transformation matrix.
-						This transformation matrix will be chained with
-						the world-to-object transformation matrix for
-						transforming normals.
+						The view-to-world transformation matrix. This 
+						transformation matrix will be chained with the 
+						world-to-object transformation matrix for transforming 
+						normals.
 		 @throws		FormattedException
 						Failed to process the models.
 		 */
@@ -322,14 +325,14 @@ namespace mage {
 		const SharedPtr< const VertexShader > m_vs;
 
 		/**
-		 An array containing pointers to the pixel shaders
-		 of this variable shading pass.
+		 An array containing pointers to the pixel shaders of this variable 
+		 shading pass.
 		 */
 		SharedPtr< const PixelShader > m_ps[static_cast< size_t >(PSIndex::Count)];
 		
 		/**
-		 The pixel shader index of the bound pixel shader
-		 of this variable shading pass.
+		 The pixel shader index of the bound pixel shader of this variable 
+		 shading pass.
 		 */
 		PSIndex m_bound_ps;
 		

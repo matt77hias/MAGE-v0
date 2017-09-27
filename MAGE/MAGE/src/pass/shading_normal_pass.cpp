@@ -33,7 +33,8 @@ namespace mage {
 		m_bound_ps(PSIndex::Count),
 		m_projection_buffer(), m_model_buffer() {}
 
-	ShadingNormalPass::ShadingNormalPass(ShadingNormalPass &&render_pass) = default;
+	ShadingNormalPass::ShadingNormalPass(
+		ShadingNormalPass &&render_pass) = default;
 
 	ShadingNormalPass::~ShadingNormalPass() = default;
 

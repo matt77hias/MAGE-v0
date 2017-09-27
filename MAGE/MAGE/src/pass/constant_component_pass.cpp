@@ -32,7 +32,8 @@ namespace mage {
 		m_color_buffer(), m_projection_buffer(), m_model_buffer(),
 		m_uv(CreateReferenceTexture()) {}
 
-	ConstantComponentPass::ConstantComponentPass(ConstantComponentPass &&render_pass) = default;
+	ConstantComponentPass::ConstantComponentPass(
+		ConstantComponentPass &&render_pass) = default;
 
 	ConstantComponentPass::~ConstantComponentPass() = default;
 

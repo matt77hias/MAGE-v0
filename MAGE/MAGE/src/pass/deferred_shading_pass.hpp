@@ -18,8 +18,8 @@
 namespace mage {
 
 	/**
-	 A class of deferred shading passes for unpacking GBuffers
-	 and performing light calculations using the compute pipeline.
+	 A class of deferred shading passes for unpacking GBuffers and performing 
+	 light calculations using the compute pipeline.
 	 */
 	class DeferredShadingPass final {
 
@@ -32,10 +32,10 @@ namespace mage {
 		/**
 		 Returns the deferred shading pass associated with the current engine.
 
-		 @pre			The scene renderer associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the deferred shading pass associated
-						with the current engine.
+		 @pre			The scene renderer associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the deferred shading pass associated with 
+						the current engine.
 		 */
 		static DeferredShadingPass *Get();
 
@@ -46,15 +46,16 @@ namespace mage {
 		/**
 		 Constructs a deferred shading pass.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
 		DeferredShadingPass();
 
 		/**
-		 Constructs a deferred shading pass from the given deferred shading pass.
+		 Constructs a deferred shading pass from the given deferred shading 
+		 pass.
 
 		 @param[in]		render_pass
 						A reference to the deferred shading pass to copy.
@@ -62,7 +63,8 @@ namespace mage {
 		DeferredShadingPass(const DeferredShadingPass &render_pass) = delete;
 
 		/**
-		 Constructs a deferred shading pass by moving the given deferred shading pass.
+		 Constructs a deferred shading pass by moving the given deferred 
+		 shading pass.
 
 		 @param[in]		render_pass
 						A reference to the deferred shading pass to move.
@@ -83,20 +85,22 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the deferred shading pass to copy.
-		 @return		A reference to the copy of the given deferred shading pass
-						(i.e. this deferred shading pass).
+		 @return		A reference to the copy of the given deferred shading 
+						pass (i.e. this deferred shading pass).
 		 */
-		DeferredShadingPass &operator=(const DeferredShadingPass &render_pass) = delete;
+		DeferredShadingPass &operator=(
+			const DeferredShadingPass &render_pass) = delete;
 
 		/**
 		 Moves the given deferred shading pass to this deferred shading pass.
 
 		 @param[in]		render_pass
 						A reference to the deferred shading pass to move.
-		 @return		A reference to the moved deferred shading pass
-						(i.e. this deferred shading pass).
+		 @return		A reference to the moved deferred shading pass (i.e. 
+						this deferred shading pass).
 		 */
-		DeferredShadingPass &operator=(DeferredShadingPass &&render_pass) = delete;
+		DeferredShadingPass &operator=(
+			DeferredShadingPass &&render_pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -108,8 +112,8 @@ namespace mage {
 		 @param[in]		brdf
 						The BRDF.
 		 @throws		FormattedException
-						Failed to bind the fixed state 
-						of this deferred shading pass.
+						Failed to bind the fixed state of this deferred 
+						shading pass.
 		 */
 		void BindFixedState(BRDFType brdf);
 
@@ -135,16 +139,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Updates the compute shader of this deferred shading pass
-		 for the given BRDF.
+		 Updates the compute shader of this deferred shading pass for the given 
+		 BRDF.
 
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 @param[in]		brdf
 						The BRDF.
 		 @throws		FormattedException
-						Failed to update the compute shader
-						of this deferred shading pass.
+						Failed to update the compute shader of this deferred 
+						shading pass.
 		 */
 		void UpdateCS(BRDFType brdf);
 		
@@ -158,8 +162,8 @@ namespace mage {
 		 @param[in]		scene
 						A pointer to the scene.
 		 @throws		FormattedException
-						Failed to bind the projection data 
-						of this deferred shading pass.
+						Failed to bind the projection data of this deferred 
+						shading pass.
 		 */
 		void XM_CALLCONV BindUnpackData(
 			FXMMATRIX view_to_projection,

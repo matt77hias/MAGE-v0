@@ -18,8 +18,8 @@
 namespace mage {
 
 	/**
-	 A class of shading normal passes for rendering
-	 world-space shading normals of models.
+	 A class of shading normal passes for rendering world-space shading normals 
+	 of models.
 	 */
 	class ShadingNormalPass final {
 
@@ -32,10 +32,10 @@ namespace mage {
 		/**
 		 Returns the shading normal pass associated with the current engine.
 
-		 @pre			The scene renderer associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the shading normal pass associated
-						with the current engine.
+		 @pre			The scene renderer associated with the  current engine 
+						must be loaded.
+		 @return		A pointer to the shading normal pass associated with 
+						the current engine.
 		 */
 		static ShadingNormalPass *Get();
 
@@ -46,10 +46,10 @@ namespace mage {
 		/**
 		 Constructs a shading normal pass.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
 		ShadingNormalPass();
 
@@ -62,7 +62,8 @@ namespace mage {
 		ShadingNormalPass(const ShadingNormalPass &render_pass) = delete;
 
 		/**
-		 Constructs a shading normal pass by moving the given shading normal pass.
+		 Constructs a shading normal pass by moving the given shading normal 
+		 pass.
 
 		 @param[in]		render_pass
 						A reference to the shading normal pass to move.
@@ -83,20 +84,22 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the shading normal pass to copy.
-		 @return		A reference to the copy of the given shading normal pass
-						(i.e. this shading normal pass).
+		 @return		A reference to the copy of the given shading normal 
+						pass (i.e. this shading normal pass).
 		 */
-		ShadingNormalPass &operator=(const ShadingNormalPass &render_pass) = delete;
+		ShadingNormalPass &operator=(
+			const ShadingNormalPass &render_pass) = delete;
 
 		/**
 		 Moves the given shading normal pass to this shading normal pass.
 
 		 @param[in]		render_pass
 						A reference to the shading normal pass to move.
-		 @return		A reference to the moved shading normal pass
-						(i.e. this shading normal pass).
+		 @return		A reference to the moved shading normal pass (i.e. 
+						this shading normal pass).
 		 */
-		ShadingNormalPass &operator=(ShadingNormalPass &&render_pass) = delete;
+		ShadingNormalPass &operator=(
+			ShadingNormalPass &&render_pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -108,8 +111,8 @@ namespace mage {
 		 @param[in]		render_mode
 						The render mode.
 		 @throws		FormattedException
-						Failed to bind the fixed state 
-						of this shading normal pass.
+						Failed to bind the fixed state of this shading normal 
+						pass.
 		 */
 		void BindFixedState(RenderMode render_mode);
 
@@ -141,8 +144,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 An enumeration of the different pixel shader indices 
-		 for shading normal passes.
+		 An enumeration of the different pixel shader indices for shading 
+		 normal passes.
 
 		 This contains:
 		 @c ShadingNormal and
@@ -155,8 +158,8 @@ namespace mage {
 		};
 
 		/**
-		 Binds the pixel shader of this shading normal pass
-		 associated with the given pixel shader index.
+		 Binds the pixel shader of this shading normal pass associated with the 
+		 given pixel shader index.
 
 		 @param[in]		index
 						The pixel shader index.
@@ -164,9 +167,9 @@ namespace mage {
 		void BindPS(PSIndex index) noexcept;
 		
 		/**
-		 Binds the pixel shader of this shading normal pass 
-		 associated with the given material and the current 
-		 render mode of this shading normal pass.
+		 Binds the pixel shader of this shading normal pass associated with the 
+		 given material and the current render mode of this shading normal 
+		 pass.
 
 		 @pre			@a material is not equal to @c nullptr.
 		 @param[in]		material
@@ -178,11 +181,11 @@ namespace mage {
 		 Binds the projection data of this shading normal pass.
 
 		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix used for
+						The view-to-projection transformation matrix used for 
 						transforming vertices.
 		 @throws		FormattedException
-						Failed to bind the projection data 
-						of this shading normal pass.
+						Failed to bind the projection data of this shading 
+						normal pass.
 		 */
 		void XM_CALLCONV BindProjectionData(FXMMATRIX view_to_projection);
 
@@ -190,14 +193,14 @@ namespace mage {
 		 Binds the model data of this shading normal pass.
 
 		 @param[in]		object_to_view
-						The object-to-view transformation matrix used for
+						The object-to-view transformation matrix used for 
 						transforming vertices.
 		 @param[in]		world_to_object
 						The world-to-object transformation matrix used for
 						transforming normals.
 		 @throws		FormattedException
-						Failed to bind the model data 
-						of this shading normal pass.
+						Failed to bind the model data of this shading normal 
+						pass.
 		 */
 		void XM_CALLCONV BindModelData(
 			FXMMATRIX object_to_view, 
@@ -210,14 +213,13 @@ namespace mage {
 						A reference to a vector containing the model pointers
 						to process.
 		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
-						This transformation matrix will be used for 
-						culling.
+						The world-to-projection transformation matrix. This 
+						transformation matrix will be used for culling.
 		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-						This transformation matrix will be chained with
-						the object-to-view transformation matrix for
-						transforming vertices.
+						The world-to-view transformation matrix. This 
+						transformation matrix will be chained with the 
+						object-to-view transformation matrix for transforming 
+						vertices.
 		 @throws		FormattedException
 						Failed to process the models.
 		 */
@@ -246,14 +248,14 @@ namespace mage {
 		const SharedPtr< const VertexShader > m_vs;
 		
 		/**
-		 An array containing pointers to the pixel shaders
-		 of this shading normal pass.
+		 An array containing pointers to the pixel shaders of this shading 
+		 normal pass.
 		 */
 		const SharedPtr< const PixelShader > m_ps[static_cast< size_t >(PSIndex::Count)];
 		
 		/**
-		 The pixel shader index of the bound pixel shader
-		 of this shading normal pass.
+		 The pixel shader index of the bound pixel shader of this shading 
+		 normal pass.
 		 */
 		PSIndex m_bound_ps;
 

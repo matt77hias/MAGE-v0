@@ -32,7 +32,8 @@ namespace mage {
 		m_color_buffer(), m_projection_buffer(), m_model_buffer(),
 		m_white(CreateWhiteTexture()) {}
 
-	VariableComponentPass::VariableComponentPass(VariableComponentPass &&render_pass) = default;
+	VariableComponentPass::VariableComponentPass(
+		VariableComponentPass &&render_pass) = default;
 
 	VariableComponentPass::~VariableComponentPass() = default;
 

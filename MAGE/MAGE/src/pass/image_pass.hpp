@@ -15,8 +15,8 @@
 namespace mage {
 
 	/**
-	 A class of image passes for rendering images to screen 
-	 (while optionally transferring depth values as well).
+	 A class of image passes for rendering images to screen (while optionally 
+	 transferring depth values as well).
 	 */
 	class ImagePass final {
 
@@ -29,10 +29,10 @@ namespace mage {
 		/**
 		 Returns the image pass associated with the current engine.
 
-		 @pre			The scene renderer associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the image pass associated
-						with the current engine.
+		 @pre			The scene renderer associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the image pass associated with the current 
+						engine.
 		 */
 		static ImagePass *Get();
 
@@ -41,25 +41,25 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a Image pass.
+		 Constructs an image pass.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
 		ImagePass();
 
 		/**
-		 Constructs a Image pass from the given Image pass.
+		 Constructs an image pass from the given image pass.
 
 		 @param[in]		render_pass
-						A reference to the Image pass to copy.
+						A reference to the image pass to copy.
 		 */
 		ImagePass(const ImagePass &render_pass) = delete;
 
 		/**
-		 Constructs a Image pass by moving the given Image pass.
+		 Constructs an image pass by moving the given image pass.
 
 		 @param[in]		render_pass
 						A reference to the Image pass to move.
@@ -67,7 +67,7 @@ namespace mage {
 		ImagePass(ImagePass &&render_pass);
 
 		/**
-		 Destructs this Image pass.
+		 Destructs this image pass.
 		 */
 		~ImagePass();
 
@@ -76,22 +76,22 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given Image pass to this Image pass.
+		 Copies the given image pass to this image pass.
 
 		 @param[in]		render_pass
-						A reference to the Image pass to copy.
-		 @return		A reference to the copy of the given Image pass
-						(i.e. this Image pass).
+						A reference to the image pass to copy.
+		 @return		A reference to the copy of the given image pass (i.e. 
+						this image pass).
 		 */
 		ImagePass &operator=(const ImagePass &render_pass) = delete;
 
 		/**
-		 Moves the given Image pass to this Image pass.
+		 Moves the given image pass to this image pass.
 
 		 @param[in]		render_pass
-						A reference to the Image pass to move.
-		 @return		A reference to the moved Image pass
-						(i.e. this Image pass).
+						A reference to the image pass to move.
+		 @return		A reference to the moved image pass (i.e. this image 
+						pass).
 		 */
 		ImagePass &operator=(ImagePass &&render_pass) = delete;
 

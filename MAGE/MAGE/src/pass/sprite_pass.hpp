@@ -30,10 +30,10 @@ namespace mage {
 		/**
 		 Returns the sprite pass associated with the current engine.
 
-		 @pre			The scene renderer associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the sprite pass associated
-						with the current engine.
+		 @pre			The scene renderer associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the sprite pass associated with the 
+						current engine.
 		 */
 		static SpritePass *Get();
 
@@ -44,10 +44,10 @@ namespace mage {
 		/**
 		 Constructs a sprite pass.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
 		SpritePass();
 
@@ -81,8 +81,8 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the sprite pass to copy.
-		 @return		A reference to the copy of the given sprite pass
-						(i.e. this sprite pass).
+		 @return		A reference to the copy of the given sprite pass (i.e. 
+						this sprite pass).
 		 */
 		SpritePass &operator=(const SpritePass &render_pass) = delete;
 
@@ -91,8 +91,8 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the sprite pass to move.
-		 @return		A reference to the moved sprite pass
-						(i.e. this sprite pass).
+		 @return		A reference to the moved sprite pass (i.e. this sprite 
+						pass).
 		 */
 		SpritePass &operator=(SpritePass &&render_pass) = delete;
 

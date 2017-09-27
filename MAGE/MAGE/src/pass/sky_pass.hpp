@@ -31,10 +31,10 @@ namespace mage {
 		/**
 		 Returns the sky pass associated with the current engine.
 
-		 @pre			The scene renderer associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the sky pass associated
-						with the current engine.
+		 @pre			The scene renderer associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the sky pass associated with the current 
+						engine.
 		 */
 		static SkyPass *Get();
 
@@ -43,33 +43,33 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a Image pass.
+		 Constructs a sky pass.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
 		SkyPass();
 
 		/**
-		 Constructs a Image pass from the given Image pass.
+		 Constructs a sky pass from the given sky pass.
 
 		 @param[in]		render_pass
-						A reference to the Image pass to copy.
+						A reference to the sky pass to copy.
 		 */
 		SkyPass(const SkyPass &render_pass) = delete;
 
 		/**
-		 Constructs a Image pass by moving the given Image pass.
+		 Constructs a sky pass by moving the given sky pass.
 
 		 @param[in]		render_pass
-						A reference to the Image pass to move.
+						A reference to the sky pass to move.
 		 */
 		SkyPass(SkyPass &&render_pass);
 
 		/**
-		 Destructs this Image pass.
+		 Destructs this sky pass.
 		 */
 		~SkyPass();
 
@@ -78,22 +78,21 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given Image pass to this Image pass.
+		 Copies the given sky pass to this sky pass.
 
 		 @param[in]		render_pass
-						A reference to the Image pass to copy.
-		 @return		A reference to the copy of the given Image pass
-						(i.e. this Image pass).
+						A reference to the sky pass to copy.
+		 @return		A reference to the copy of the given sky pass (i.e. 
+						this sky pass).
 		 */
 		SkyPass &operator=(const SkyPass &render_pass) = delete;
 
 		/**
-		 Moves the given Image pass to this Image pass.
+		 Moves the given sky pass to this sky pass.
 
 		 @param[in]		render_pass
-						A reference to the Image pass to move.
-		 @return		A reference to the moved Image pass
-						(i.e. this Image pass).
+						A reference to the sky pass to move.
+		 @return		A reference to the moved sky pass (i.e. this sky pass).
 		 */
 		SkyPass &operator=(SkyPass &&render_pass) = delete;
 

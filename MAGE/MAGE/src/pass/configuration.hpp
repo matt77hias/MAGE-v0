@@ -34,14 +34,23 @@ namespace mage {
 		Deferred,					 // Deferred shading.
 		Solid,                       // Solid shading.
 		DepthAndSolid,               // Depth pass + Solid shading.               
-		DiffuseColor,                // The diffuse color (reflectivity and reflectivity texture) (without lighting).
-		DiffuseReflectivity,         // The diffuse reflectivity (without lighting).
-		DiffuseReflectivityTexture,  // The diffuse reflectivity texture (without lighting).
-		SpecularColor,               // The specular color (reflectivity and reflectivity texture) (without lighting).
-		SpecularReflectivity,        // The specular reflectivity (without lighting).
-		SpecularReflectivityTexture, // The specular reflectivity texture (without lighting).
+		DiffuseColor,                // The diffuse color (reflectivity and 
+		                             // reflectivity texture) (without 
+									 // lighting).
+		DiffuseReflectivity,         // The diffuse reflectivity (without 
+		                             // lighting).
+		DiffuseReflectivityTexture,  // The diffuse reflectivity texture 
+		                             // (without lighting).
+		SpecularColor,               // The specular color (reflectivity and 
+		                             // reflectivity texture) (without 
+									 // lighting).
+		SpecularReflectivity,        // The specular reflectivity (without 
+		                             // lighting).
+		SpecularReflectivityTexture, // The specular reflectivity texture 
+		                             // (without lighting).
 		NormalTexture,               // The normal texture (without lighting).
-		UVTexture,                   // The UV parametrization texture (without lighting). 
+		UVTexture,                   // The UV parametrization texture 
+		                             // (without lighting). 
 		Distance,                    // The distance towards the eye.
 		ShadingNormal,               // The shading normal.
 		TSNMShadingNormal            // The TSNM shading normal.

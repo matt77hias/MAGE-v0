@@ -69,8 +69,8 @@ namespace mage {
 
 		 @param[in]		pass_buffer
 						A reference to the pass buffer to copy.
-		 @return		A reference to the copy of the given pass buffer
-						(i.e. this pass buffer).
+		 @return		A reference to the copy of the given pass buffer (i.e. 
+						this pass buffer).
 		 */
 		PassBuffer &operator=(const PassBuffer &pass_buffer) = delete;
 
@@ -79,8 +79,8 @@ namespace mage {
 
 		 @param[in]		pass_buffer
 						A reference to the pass buffer to move.
-		 @return		A reference to the moved pass buffer
-						(i.e. this pass buffer).
+		 @return		A reference to the moved pass buffer (i.e. this pass 
+						buffer).
 		 */
 		PassBuffer &operator=(PassBuffer &&pass_buffer) = delete;
 
@@ -130,8 +130,8 @@ namespace mage {
 		/**
 		 Returns the transparent emissive models of this pass buffer.
 
-		 @return		A reference to a vector containing the transparent emissive 
-						model nodes of this pass buffer. 
+		 @return		A reference to a vector containing the transparent 
+						emissive model nodes of this pass buffer. 
 		 */
 		const vector< const ModelNode * > &GetTransparentEmissiveModels() const noexcept {
 			return m_transparent_emissive_models;
@@ -158,7 +158,8 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the directional lights with shadow mapping of this pass buffer.
+		 Returns the directional lights with shadow mapping of this pass 
+		 buffer.
 
 		 @return		A reference to a vector containing the directional 
 						light with shadow mapping nodes of this pass buffer. 
@@ -170,8 +171,8 @@ namespace mage {
 		/**
 		 Returns the omni lights of this pass buffer.
 
-		 @return		A reference to a vector containing the omni 
-						light nodes of this pass buffer. 
+		 @return		A reference to a vector containing the omni light nodes 
+						of this pass buffer. 
 		 */
 		const vector< const OmniLightNode * > &GetOmniLights() const noexcept {
 			return m_omni_lights;
@@ -180,8 +181,8 @@ namespace mage {
 		/**
 		 Returns the omni lights with shadow mapping of this pass buffer.
 
-		 @return		A reference to a vector containing the omni 
-						light with shadow mapping nodes of this pass buffer. 
+		 @return		A reference to a vector containing the omni light with 
+						shadow mapping nodes of this pass buffer. 
 		 */
 		const vector< const OmniLightNode * > &GetOmniLightsWithShadowMapping() const noexcept {
 			return m_sm_omni_lights;
@@ -190,8 +191,8 @@ namespace mage {
 		/**
 		 Returns the spotlights of this pass buffer.
 
-		 @return		A reference to a vector containing the spotlight 
-						nodes of this pass buffer. 
+		 @return		A reference to a vector containing the spotlight nodes 
+						of this pass buffer. 
 		 */
 		const vector< const SpotLightNode * > &GetSpotLights() const noexcept {
 			return m_spot_lights;
@@ -200,8 +201,8 @@ namespace mage {
 		/**
 		 Returns the spotlights with shadow mapping of this pass buffer.
 
-		 @return		A reference to a vector containing the spotlight 
-						with shadow mapping nodes of this pass buffer. 
+		 @return		A reference to a vector containing the spotlight with 
+						shadow mapping nodes of this pass buffer. 
 		 */
 		const vector< const SpotLightNode * > &GetSpotLightsWithShadowMapping() const noexcept {
 			return m_sm_spot_lights;
@@ -210,8 +211,8 @@ namespace mage {
 		/**
 		 Returns the sprites of this pass buffer.
 
-		 @return		A reference to a vector containing the sprite nodes
-						of this pass buffer. 
+		 @return		A reference to a vector containing the sprite nodes of 
+						this pass buffer. 
 		 */
 		const vector< const SpriteNode * > &GetSprites() const noexcept {
 			return m_sprites;
@@ -220,8 +221,8 @@ namespace mage {
 		/**
 		 Returns the ambient light of this pass buffer.
 
-		 @return		A reference to the RGB spectrum of the ambient light
-						of this pass buffer. 
+		 @return		A reference to the RGB spectrum of the ambient light of 
+						this pass buffer. 
 		 */
 		const RGBSpectrum &GetAmbientLight() const noexcept {
 			return m_ambient_light;
@@ -248,30 +249,36 @@ namespace mage {
 		/**
 		 Returns the minimum of the material coefficient at the given index.
 
-		 @pre			@a index < {@link mage::PassBuffer::s_nb_material_coefficients}.
+		 @pre			@a index < 
+						{@link mage::PassBuffer::s_nb_material_coefficients}.
 		 @param[in]		index
 						The index.
-		 @return		The minimum of the material coefficient at the given index.
+		 @return		The minimum of the material coefficient at the given 
+						index.
 		 */
 		float GetMaterialCoefficientMinimum(u8 index) const noexcept;
 		
 		/**
 		 Returns the maximum of the material coefficient at the given index.
 
-		 @pre			@a index < {@link mage::PassBuffer::s_nb_material_coefficients}.
+		 @pre			@a index < 
+						{@link mage::PassBuffer::s_nb_material_coefficients}.
 		 @param[in]		index
 						The index.
-		 @return		The maximum of the material coefficient at the given index.
+		 @return		The maximum of the material coefficient at the given 
+						index.
 		 */
 		float GetMaterialCoefficientMaximum(u8 index) const noexcept;
 
 		/**
 		 Returns the range of the material coefficient at the given index.
 
-		 @pre			@a index < {@link mage::PassBuffer::s_nb_material_coefficients}.
+		 @pre			@a index < 
+						{@link mage::PassBuffer::s_nb_material_coefficients}.
 		 @param[in]		index
 						The index.
-		 @return		The range of the material coefficient at the given index.
+		 @return		The range of the material coefficient at the given 
+						index.
 		 */
 		float GetMaterialCoefficientRange(u8 index) const noexcept;
 		
@@ -332,8 +339,8 @@ namespace mage {
 		void UpdateMaterialCoefficients(const Material *material) noexcept;
 
 		/**
-		 Finishes the material coefficients of this pass buffer.
-		 This handles material coefficient ranges which are equal to zero.
+		 Finishes the material coefficients of this pass buffer. This handles 
+		 material coefficient ranges which are equal to zero.
 		 */
 		void FinishMaterialCoefficients() noexcept;
 
@@ -342,80 +349,77 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A vector containing pointers to the camera nodes 
-		 of this pass buffer.
+		 A vector containing pointers to the camera nodes of this pass buffer.
 		 */
 		vector< const CameraNode * > m_cameras;
 
 		/**
-		 A vector containing pointers to the opaque emissive model nodes 
-		 of this pass buffer.
+		 A vector containing pointers to the opaque emissive model nodes of 
+		 this pass buffer.
 		 */
 		vector< const ModelNode * >	m_opaque_emissive_models;
 
 		/**
-		 A vector containing pointers to the opaque BRDF model nodes 
-		 of this pass buffer.
+		 A vector containing pointers to the opaque BRDF model nodes of this 
+		 pass buffer.
 		 */
 		vector< const ModelNode * >	m_opaque_brdf_models;
 
 		/**
-		 A vector containing pointers to the transparent emissive model nodes 
+		 A vector containing pointers to the transparent emissive model nodes
 		 of this pass buffer.
 		 */
 		vector< const ModelNode * >	m_transparent_emissive_models;
 
 		/**
-		 A vector containing pointers to the transparent BRDF model nodes 
-		 of this pass buffer.
+		 A vector containing pointers to the transparent BRDF model nodes of 
+		 this pass buffer.
 		 */
 		vector< const ModelNode * >	m_transparent_brdf_models;
 
 		/**
-		 A vector containing pointers to the directional nodes 
-		 of this pass buffer.
+		 A vector containing pointers to the directional nodes of this pass 
+		 buffer.
 		 */
 		vector< const DirectionalLightNode * > m_directional_lights;
 
 		/**
-		 A vector containing pointers to the directional with shadow mapping nodes 
-		 of this pass buffer.
+		 A vector containing pointers to the directional with shadow mapping 
+		 nodes of this pass buffer.
 		 */
 		vector< const DirectionalLightNode * > m_sm_directional_lights;
 
 		/**
-		 A vector containing pointers to the omni light nodes 
-		 of this pass buffer.
+		 A vector containing pointers to the omni light nodes of this pass 
+		 buffer.
 		 */
 		vector< const OmniLightNode * >	m_omni_lights;
 
 		/**
-		 A vector containing pointers to the omni light with shadow mapping nodes 
-		 of this pass buffer.
+		 A vector containing pointers to the omni light with shadow mapping 
+		 nodes of this pass buffer.
 		 */
 		vector< const OmniLightNode * >	m_sm_omni_lights;
 
 		/**
-		 A vector containing pointers to the spotlight nodes 
-		 of this pass buffer.
+		 A vector containing pointers to the spotlight nodes of this pass 
+		 buffer.
 		 */
 		vector< const SpotLightNode * >	m_spot_lights;
 
 		/**
-		 A vector containing pointers to the spotlight with shadow mapping nodes 
-		 of this pass buffer.
+		 A vector containing pointers to the spotlight with shadow mapping 
+		 nodes of this pass buffer.
 		 */
 		vector< const SpotLightNode * >	m_sm_spot_lights;
 
 		/**
-		 A vector containing pointers to the sprite nodes 
-		 of this pass buffer.
+		 A vector containing pointers to the sprite nodes of this pass buffer.
 		 */
 		vector< const SpriteNode * > m_sprites;
 
 		/**
-		 The RGB spectrum of the ambient light 
-		 of this pass buffer.
+		 The RGB spectrum of the ambient light of this pass buffer.
 		 */
 		RGBSpectrum	m_ambient_light;
 

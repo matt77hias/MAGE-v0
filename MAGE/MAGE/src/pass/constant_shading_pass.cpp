@@ -32,7 +32,8 @@ namespace mage {
 		m_projection_buffer(), m_model_buffer(),
 		m_white(CreateWhiteTexture()) {}
 
-	ConstantShadingPass::ConstantShadingPass(ConstantShadingPass &&render_pass) = default;
+	ConstantShadingPass::ConstantShadingPass(
+		ConstantShadingPass &&render_pass) = default;
 
 	ConstantShadingPass::~ConstantShadingPass() = default;
 

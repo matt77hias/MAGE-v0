@@ -333,7 +333,8 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the rotation component of this transform node to the given rotation component.
+		 Sets the rotation component of this transform node to the given 
+		 rotation component.
 
 		 @param[in]		x
 						The x-value of the rotation component.
@@ -348,7 +349,8 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the rotation component of this transform node to the given rotation component.
+		 Sets the rotation component of this transform node to the given 
+		 rotation component.
 
 		 @param[in]		rotation
 						A reference to the rotation component.
@@ -359,7 +361,8 @@ namespace mage {
 		}
 
 		/**
-		 Sets the rotation component of this transform node to the given rotation component.
+		 Sets the rotation component of this transform node to the given 
+		 rotation component.
 
 		 @param[in]		rotation
 						A reference to the rotation component.
@@ -370,7 +373,8 @@ namespace mage {
 		}
 
 		/**
-		 Sets the rotation component of this transform node to the given rotation component.
+		 Sets the rotation component of this transform node to the given 
+		 rotation component.
 
 		 @param[in]		rotation
 						The rotation component.
@@ -381,20 +385,24 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the rotation component to a rotation of the given angle around the given normal.
+		 Sets the rotation component to a rotation of the given angle around 
+		 the given normal.
 
 		 @param[in]		normal
 						The normal.
 		 @param[in]		angle
 						The angle.
 		 */
-		void XM_CALLCONV SetRotationAroundDirection(FXMVECTOR normal, f32 angle) noexcept {
+		void XM_CALLCONV SetRotationAroundDirection(
+			FXMVECTOR normal, f32 angle) noexcept {
+			
 			m_transform->SetRotationAroundDirection(normal, angle);
 			SetDirty();
 		}
 		
 		/**
-		 Adds the given x-value to the rotation component of this transform node.
+		 Adds the given x-value to the rotation component of this transform 
+		 node.
 
 		 @param[in]		x
 						The x-value of the rotation component to add.
@@ -405,7 +413,8 @@ namespace mage {
 		}
 		
 		/**
-		 Adds the given y-value to the rotation component of this transform node.
+		 Adds the given y-value to the rotation component of this transform 
+		 node.
 
 		 @param[in]		y
 						The y-value of the rotation component to add.
@@ -416,7 +425,8 @@ namespace mage {
 		}
 		
 		/**
-		 Adds the given z-value to the rotation component of this transform node.
+		 Adds the given z-value to the rotation component of this transform 
+		 node.
 
 		 @param[in]		z
 						The z-value of the rotation component to add.
@@ -427,7 +437,8 @@ namespace mage {
 		}
 		
 		/**
-		 Adds the given rotation component to the rotation component of this transform node.
+		 Adds the given rotation component to the rotation component of this 
+		 transform node.
 
 		 @param[in]		x
 						The x-value of the rotation component to add.
@@ -442,7 +453,8 @@ namespace mage {
 		}
 		
 		/**
-		 Adds the given rotation component to the rotation component of this transform node.
+		 Adds the given rotation component to the rotation component of this 
+		 transform node.
 
 		 @param[in]		rotation
 						A reference to the rotation component to add.
@@ -453,7 +465,8 @@ namespace mage {
 		}
 		
 		/**
-		 Adds the given rotation component to the rotation component of this transform node.
+		 Adds the given rotation component to the rotation component of this 
+		 transform node.
 
 		 @param[in]		rotation
 						The rotation component to add.
@@ -464,9 +477,9 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given x-value to the rotation component of this transform
-		 and clamps the resulting rotation component of this transform 
-		 between the given values.
+		 Adds the given x-value to the rotation component of this transform and 
+		 clamps the resulting rotation component of this transform between the 
+		 given values.
 
 		 @pre			@a min_angle lies in [-pi, pi].
 		 @pre			@a max_angle lies in [-pi, pi].
@@ -478,15 +491,17 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotationX(f32 x, f32 min_angle, f32 max_angle) noexcept {
+		void AddAndClampRotationX(
+			f32 x, f32 min_angle, f32 max_angle) noexcept {
+			
 			m_transform->AddAndClampRotationX(x, min_angle, max_angle);
 			SetDirty();
 		}
 
 		/**
-		 Adds the given y-value to the rotation component of this transform
-		 and clamps the resulting rotation component of this transform 
-		 between the given values.
+		 Adds the given y-value to the rotation component of this transform and 
+		 clamps the resulting rotation component of this transform between the 
+		 given values.
 
 		 @pre			@a min_angle lies in [-pi, pi].
 		 @pre			@a max_angle lies in [-pi, pi].
@@ -498,15 +513,17 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotationY(f32 y, f32 min_angle, f32 max_angle) noexcept {
+		void AddAndClampRotationY(
+			f32 y, f32 min_angle, f32 max_angle) noexcept {
+			
 			m_transform->AddAndClampRotationY(y, min_angle, max_angle);
 			SetDirty();
 		}
 
 		/**
-		 Adds the given z-value to the rotation component of this transform
-		 and clamps the resulting rotation component of this transform 
-		 between the given values.
+		 Adds the given z-value to the rotation component of this transform and 
+		 clamps the resulting rotation component of this transform between the 
+		 given values.
 
 		 @pre			@a min_angle lies in [-pi, pi].
 		 @pre			@a max_angle lies in [-pi, pi].
@@ -518,15 +535,17 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotationZ(f32 z, f32 min_angle, f32 max_angle) noexcept {
+		void AddAndClampRotationZ(
+			f32 z, f32 min_angle, f32 max_angle) noexcept {
+			
 			m_transform->AddAndClampRotationZ(z, min_angle, max_angle);
 			SetDirty();
 		}
 
 		/**
-		 Adds the given rotation component to the rotation component of 
-		 this transform and clamps the resulting rotation component of 
-		 this transform between the given values.
+		 Adds the given rotation component to the rotation component of this 
+		 transform and clamps the resulting rotation component of this 
+		 transform between the given values.
 
 		 @pre			@a min_angle lies in [-pi, pi].
 		 @pre			@a max_angle lies in [-pi, pi].
@@ -542,17 +561,17 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotation(f32 x, f32 y, f32 z, 
-			f32 min_angle, f32 max_angle) noexcept {
+		void AddAndClampRotation(
+			f32 x, f32 y, f32 z, f32 min_angle, f32 max_angle) noexcept {
 
 			m_transform->AddAndClampRotation(x, y, z, min_angle, max_angle);
 			SetDirty();
 		}
 
 		/**
-		 Adds the given rotation component to the rotation component of 
-		 this transform and clamps the resulting rotation component of 
-		 this transform between the given values.
+		 Adds the given rotation component to the rotation component of this 
+		 transform and clamps the resulting rotation component of this 
+		 transform between the given values.
 
 		 @pre			@a min_angle lies in [-pi, pi].
 		 @pre			@a max_angle lies in [-pi, pi].
@@ -564,17 +583,17 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void AddAndClampRotation(const XMFLOAT3 &rotation, 
-			f32 min_angle, f32 max_angle) noexcept {
+		void AddAndClampRotation(
+			const XMFLOAT3 &rotation, f32 min_angle, f32 max_angle) noexcept {
 
 			m_transform->AddAndClampRotation(rotation, min_angle, max_angle);
 			SetDirty();
 		}
 
 		/**
-		 Adds the given rotation component to the rotation component of 
-		 this transform and clamps the resulting rotation component of 
-		 this transform between the given values.
+		 Adds the given rotation component to the rotation component of this 
+		 transform and clamps the resulting rotation component of this 
+		 transform between the given values.
 
 		 @pre			@a min_angle lies in [-pi, pi].
 		 @pre			@a max_angle lies in [-pi, pi].
@@ -586,8 +605,8 @@ namespace mage {
 		 @param[in]		max_angle
 						The maximum angle (in radians).
 		 */
-		void XM_CALLCONV AddAndClampRotation(FXMVECTOR rotation, 
-			f32 min_angle, f32 max_angle) noexcept {
+		void XM_CALLCONV AddAndClampRotation(
+			FXMVECTOR rotation, f32 min_angle, f32 max_angle) noexcept {
 
 			m_transform->AddAndClampRotation(rotation, min_angle, max_angle);
 			SetDirty();
@@ -596,7 +615,8 @@ namespace mage {
 		/**
 		 Returns the x-value of the rotation component of this transform node.
 
-		 @return		The x-value of the rotation component of this transform node.
+		 @return		The x-value of the rotation component of this transform 
+						node.
 		 */
 		f32 GetRotationX() const noexcept {
 			return m_transform->GetRotationX();
@@ -605,7 +625,8 @@ namespace mage {
 		/**
 		 Returns the y-value of the rotation component of this transform node.
 
-		 @return		The y-value of the rotation component of this transform node.
+		 @return		The y-value of the rotation component of this transform 
+						node.
 		 */
 		f32 GetRotationY() const noexcept {
 			return m_transform->GetRotationY();
@@ -614,7 +635,8 @@ namespace mage {
 		/**
 		 Returns the z-value of the rotation component of this transform node.
 
-		 @return		The z-value of the rotation component of this transform node.
+		 @return		The z-value of the rotation component of this transform 
+						node.
 		 */
 		f32 GetRotationZ() const noexcept {
 			return m_transform->GetRotationZ();
@@ -632,7 +654,8 @@ namespace mage {
 		/**
 		 Returns the object-to-parent rotation matrix of this transform node.
 
-		 @return		The object-to-parent rotation matrix of this transform node.
+		 @return		The object-to-parent rotation matrix of this transform 
+						node.
 		 */
 		const XMMATRIX GetObjectToParentRotationMatrix() const noexcept {
 			return m_transform->GetObjectToParentRotationMatrix();
@@ -641,7 +664,8 @@ namespace mage {
 		/**
 		 Returns the parent-to-object rotation matrix of this transform node.
 
-		 @return		The parent-to-object rotation matrix of this transform node.
+		 @return		The parent-to-object rotation matrix of this transform 
+						node.
 		 */
 		const XMMATRIX GetParentToObjectRotationMatrix() const noexcept {
 			return m_transform->GetParentToObjectRotationMatrix();
@@ -652,7 +676,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Sets the x-value of the scale component of this transform node to the given value.
+		 Sets the x-value of the scale component of this transform node to the 
+		 given value.
 
 		 @param[in]		x
 						The x-value of the scale component.
@@ -663,7 +688,8 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the y-value of the scale component of this transform node to the given value.
+		 Sets the y-value of the scale component of this transform node to the 
+		 given value.
 
 		 @param[in]		y
 						The y-value of the scale component.
@@ -674,7 +700,8 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the z-value of the scale component of this transform node to the given value.
+		 Sets the z-value of the scale component of this transform node to the 
+		 given value.
 
 		 @param[in]		z
 						The z-value of the scale component.
@@ -685,7 +712,8 @@ namespace mage {
 		}
 
 		/**
-		 Sets the scale component of this transform node to the given scale component.
+		 Sets the scale component of this transform node to the given scale 
+		 component.
 
 		 @param[in]		s
 						The scale component.
@@ -696,7 +724,8 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the scale component of this transform node to the given scale component.
+		 Sets the scale component of this transform node to the given scale 
+		 component.
 
 		 @param[in]		x
 						The x-value of the scale component.
@@ -711,7 +740,8 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the scale component of this transform node to the given scale component.
+		 Sets the scale component of this transform node to the given scale 
+		 component.
 
 		 @param[in]		scale
 						A reference to the scale component.
@@ -722,7 +752,8 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the scale component of this transform node to the given scale component.
+		 Sets the scale component of this transform node to the given scale 
+		 component.
 
 		 @param[in]		scale
 						A reference to the scale component.
@@ -733,7 +764,8 @@ namespace mage {
 		}
 
 		/**
-		 Sets the scale component of this transform node to the given scale component.
+		 Sets the scale component of this transform node to the given scale 
+		 component.
 
 		 @param[in]		scale
 						The scale component.
@@ -777,7 +809,8 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given scale component to the scale component of this transform node.
+		 Adds the given scale component to the scale component of this transform 
+		 node.
 
 		 @param[in]		s
 						The scale component to add.
@@ -788,7 +821,8 @@ namespace mage {
 		}
 		
 		/**
-		 Adds the given scale component to the scale component of this transform node.
+		 Adds the given scale component to the scale component of this transform 
+		 node.
 
 		 @param[in]		x
 						The x-value of the scale component to add.
@@ -803,7 +837,8 @@ namespace mage {
 		}
 		
 		/**
-		 Adds the given scale component to the scale component of this transform node.
+		 Adds the given scale component to the scale component of this transform 
+		 node.
 
 		 @param[in]		scale
 						A reference to the scale component to add.
@@ -814,7 +849,8 @@ namespace mage {
 		}
 
 		/**
-		 Adds the given scale component to the scale component of this transform node.
+		 Adds the given scale component to the scale component of this transform 
+		 node.
 
 		 @param[in]		scale
 						The scale component to add.
@@ -827,7 +863,8 @@ namespace mage {
 		/**
 		 Returns the x-value of the scale component of this transform node.
 
-		 @return		The x-value of the scale component of this transform node.
+		 @return		The x-value of the scale component of this transform 
+						node.
 		 */
 		f32 GetScaleX() const noexcept {
 			return m_transform->GetScaleX();
@@ -836,7 +873,8 @@ namespace mage {
 		/**
 		 Returns the y-value of the scale component of this transform node.
 
-		 @return		The y-value of the scale component of this transform node.
+		 @return		The y-value of the scale component of this transform 
+						node.
 		 */
 		f32 GetScaleY() const noexcept {
 			return m_transform->GetScaleY();
@@ -845,7 +883,8 @@ namespace mage {
 		/**
 		 Returns the z-value of the scale component of this transform node.
 
-		 @return		The z-value of the scale component of this transform node.
+		 @return		The z-value of the scale component of this transform 
+						node.
 		 */
 		f32 GetScaleZ() const noexcept {
 			return m_transform->GetScaleZ();
@@ -863,7 +902,8 @@ namespace mage {
 		/**
 		 Returns the object-to-parent scale matrix of this transform node.
 
-		 @return		The scale object-to-parent matrix of this transform node.
+		 @return		The scale object-to-parent matrix of this transform 
+						node.
 		 */
 		const XMMATRIX GetObjectToParentScaleMatrix() const noexcept {
 			return m_transform->GetObjectToParentScaleMatrix();
@@ -872,7 +912,8 @@ namespace mage {
 		/**
 		 Returns the parent-to-object scale matrix of this transform node.
 
-		 @return		The parent-to-object scale matrix of this transform node.
+		 @return		The parent-to-object scale matrix of this transform 
+						node.
 		 */
 		const XMMATRIX GetParentToObjectScaleMatrix() const noexcept {
 			return m_transform->GetParentToObjectScaleMatrix();
@@ -883,54 +924,66 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the position of the local origin of this transform node expressed in object space coordinates.
+		 Returns the position of the local origin of this transform node 
+		 expressed in object space coordinates.
 
-		 @return		The position of the local origin of this transform node expressed in object space coordinates.
+		 @return		The position of the local origin of this transform node 
+						expressed in object space coordinates.
 		 */
 		const XMVECTOR GetObjectOrigin() const noexcept {
 			return m_transform->GetObjectOrigin();
 		}
 
 		/**
-		 Returns the direction of the local x-axis of this transform node expressed in object space coordinates.
+		 Returns the direction of the local x-axis of this transform node 
+		 expressed in object space coordinates.
 
-		 @return		The direction of the local x-axis of this transform node expressed in object space coordinates.
+		 @return		The direction of the local x-axis of this transform 
+						node expressed in object space coordinates.
 		 */
 		const XMVECTOR GetObjectAxisX() const noexcept {
 			return m_transform->GetObjectAxisX();
 		}
 		
 		/**
-		 Returns the direction of the local y-axis of this transform node expressed in object space coordinates.
+		 Returns the direction of the local y-axis of this transform node 
+		 expressed in object space coordinates.
 
-		 @return		The direction of the local y-axis of this transform node expressed in object space coordinates.
+		 @return		The direction of the local y-axis of this transform 
+						node expressed in object space coordinates.
 		 */
 		const XMVECTOR GetObjectAxisY() const noexcept {
 			return m_transform->GetObjectAxisY();
 		}
 		
 		/**
-		 Returns the direction of the local z-axis of this transform node expressed in object space coordinates.
+		 Returns the direction of the local z-axis of this transform node 
+		 expressed in object space coordinates.
 
-		 @return		The direction of the local z-axis of this transform node expressed in object space coordinates.
+		 @return		The direction of the local z-axis of this transform 
+						node expressed in object space coordinates.
 		 */
 		const XMVECTOR GetObjectAxisZ() const noexcept {
 			return m_transform->GetObjectAxisZ();
 		}
 		
 		/**
-		 Returns the local Cartesian axes system of this transform node in object space coordinates.
+		 Returns the local Cartesian axes system of this transform node in 
+		 object space coordinates.
 
-		 @return		The local Cartesian axes system of this transform node expressed in object space coordinates.
+		 @return		The local Cartesian axes system of this transform 
+						node expressed in object space coordinates.
 		 */
 		const CartesianAxesSystem GetObjectAxes() const noexcept {
 			return m_transform->GetObjectAxes();
 		}
 		
 		/**
-		 Returns the local Cartesian coordinate system of this transform node in object space coordinates.
+		 Returns the local Cartesian coordinate system of this transform node 
+		 in object space coordinates.
 
-		 @return		The local Cartesian coordinate system of this transform node expressed in object space coordinates.
+		 @return		The local Cartesian coordinate system of this transform 
+						node expressed in object space coordinates.
 		 */
 		const CartesianCoordinateSystem GetObjectCoordinateSystem() const noexcept {
 			return m_transform->GetObjectCoordinateSystem();
@@ -941,54 +994,66 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the position of the local origin of this transform node expressed in parent space coordinates.
+		 Returns the position of the local origin of this transform node 
+		 expressed in parent space coordinates.
 
-		 @return		The position of the local origin of this transform node expressed in parent space coordinates.
+		 @return		The position of the local origin of this transform node 
+						expressed in parent space coordinates.
 		 */
 		const XMVECTOR GetParentOrigin() const noexcept {
 			return m_transform->GetParentOrigin();
 		}
 
 		/**
-		 Returns the direction of the local x-axis of this transform node expressed in parent space coordinates.
+		 Returns the direction of the local x-axis of this transform node 
+		 expressed in parent space coordinates.
 
-		 @return		The direction of the local x-axis of this transform node expressed in parent space coordinates.
+		 @return		The direction of the local x-axis of this transform 
+						node expressed in parent space coordinates.
 		 */
 		const XMVECTOR GetParentAxisX() const noexcept {
 			return m_transform->GetParentAxisX();
 		}
 		
 		/**
-		 Returns the direction of the local y-axis of this transform node expressed in parent space coordinates.
+		 Returns the direction of the local y-axis of this transform node 
+		 expressed in parent space coordinates.
 
-		 @return		The direction of the local y-axis of this transform node expressed in parent space coordinates.
+		 @return		The direction of the local y-axis of this transform 
+						node expressed in parent space coordinates.
 		 */
 		const XMVECTOR GetParentAxisY() const noexcept {
 			return m_transform->GetParentAxisY();
 		}
 		
 		/**
-		 Returns the direction of the local z-axis of this transform node expressed in parent space coordinates.
+		 Returns the direction of the local z-axis of this transform node 
+		 expressed in parent space coordinates.
 
-		 @return		The direction of the local z-axis of this transform node expressed in parent space coordinates.
+		 @return		The direction of the local z-axis of this transform 
+						node expressed in parent space coordinates.
 		 */
 		const XMVECTOR GetParentAxisZ() const noexcept {
 			return m_transform->GetParentAxisZ();
 		}
 		
 		/**
-		 Returns the local Cartesian axes system of this transform node expressed in parent space coordinates.
+		 Returns the local Cartesian axes system of this transform node 
+		 expressed in parent space coordinates.
 
-		 @return		The local Cartesian axes system of this transform node expressed in parent space coordinates.
+		 @return		The local Cartesian axes system of this transform 
+						node expressed in parent space coordinates.
 		 */
 		const CartesianAxesSystem GetParentAxes() const noexcept {
 			return m_transform->GetParentAxes();
 		}
 		
 		/**
-		 Returns the local Cartesian coordinate system of this transform node in parent space coordinates.
+		 Returns the local Cartesian coordinate system of this transform node 
+		 in parent space coordinates.
 
-		 @return		The local Cartesian coordinate system of this transform node expressed in parent space coordinates.
+		 @return		The local Cartesian coordinate system of this transform 
+						node expressed in parent space coordinates.
 		 */
 		const CartesianCoordinateSystem GetParentCoordinateSystem() const noexcept {
 			return m_transform->GetParentCoordinateSystem();
@@ -999,54 +1064,69 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the position of the local origin of this transform node expressed in world space coordinates.
+		 Returns the position of the local origin of this transform node 
+		 expressed in world space coordinates.
 
-		 @return		The position of the local origin of this transform node expressed in world space coordinates.
+		 @return		The position of the local origin of this transform 
+						node expressed in world space coordinates.
 		 */
 		const XMVECTOR GetWorldOrigin() const noexcept {
 			return TransformObjectToWorld(GetObjectOrigin());
 		}
 
 		/**
-		 Returns the direction of the local x-axis of this transform node expressed in world space coordinates.
+		 Returns the direction of the local x-axis of this transform node 
+		 expressed in world space coordinates.
 
-		 @return		The direction of the local x-axis of this transform node expressed in world space coordinates.
+		 @return		The direction of the local x-axis of this transform 
+						node expressed in world space coordinates.
 		 */
 		const XMVECTOR GetWorldAxisX() const noexcept {
 			return TransformObjectToWorld(GetObjectAxisX());
 		}
 
 		/**
-		 Returns the direction of the local y-axis of this transform node expressed in world space coordinates.
+		 Returns the direction of the local y-axis of this transform node 
+		 expressed in world space coordinates.
 
-		 @return		The direction of the local y-axis of this transform node expressed in world space coordinates.
+		 @return		The direction of the local y-axis of this transform 
+						node expressed in world space coordinates.
 		 */
 		const XMVECTOR GetWorldAxisY() const noexcept {
 			return TransformObjectToWorld(GetObjectAxisY());
 		}
 
 		/**
-		 Returns the direction of the local z-axis of this transform node expressed in world space coordinates.
+		 Returns the direction of the local z-axis of this transform node 
+		 expressed in world space coordinates.
 
-		 @return		The direction of the local z-axis of this transform node expressed in world space coordinates.
+		 @return		The direction of the local z-axis of this transform 
+						node expressed in world space coordinates.
 		 */
 		const XMVECTOR GetWorldAxisZ() const noexcept {
 			return TransformObjectToWorld(GetObjectAxisZ());
 		}
 
 		/**
-		 Returns the local Cartesian axes system of this transform node expressed in world space coordinates.
+		 Returns the local Cartesian axes system of this transform node 
+		 expressed in world space coordinates.
 
-		 @return		The local Cartesian axes system of this transform node expressed in world space coordinates.
+		 @return		The local Cartesian axes system of this transform node 
+						expressed in world space coordinates.
 		 */
 		const CartesianAxesSystem GetWorldAxes() const noexcept {
-			return CartesianAxesSystem(GetWorldAxisX(), GetWorldAxisY(), GetWorldAxisZ());
+			return CartesianAxesSystem(
+				GetWorldAxisX(), 
+				GetWorldAxisY(), 
+				GetWorldAxisZ());
 		}
 
 		/**
-		 Returns the local Cartesian coordinate system of this transform node in world space coordinates.
+		 Returns the local Cartesian coordinate system of this transform node 
+		 in world space coordinates.
 
-		 @return		The local Cartesian coordinate system of this transform node expressed in world space coordinates.
+		 @return		The local Cartesian coordinate system of this transform 
+						node expressed in world space coordinates.
 		 */
 		const CartesianCoordinateSystem GetWorldCoordinateSystem() const noexcept {
 			return CartesianCoordinateSystem(GetWorldOrigin(), GetWorldAxes());
@@ -1057,36 +1137,44 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the local eye position of this transform node expressed in object space coordinates.
+		 Returns the local eye position of this transform node expressed in 
+		 object space coordinates.
 
-		 @return		The local eye position of this transform node expressed in object space coordinates.
+		 @return		The local eye position of this transform node expressed 
+						in object space coordinates.
 		 */
 		const XMVECTOR GetObjectEye() const noexcept {
 			return GetObjectOrigin();
 		}
 
 		/**
-		 Returns the local left direction of this transform node expressed in object space coordinates.
+		 Returns the local left direction of this transform node expressed in 
+		 object space coordinates.
 
-		 @return		The local left direction of this transform node expressed in object space coordinates.
+		 @return		The local left direction of this transform node 
+						expressed in object space coordinates.
 		 */
 		const XMVECTOR GetObjectLeft() const noexcept {
 			return GetObjectAxisX();
 		}
 		
 		/**
-		 Returns the local up direction of this transform node expressed in object space coordinates.
+		 Returns the local up direction of this transform node expressed in 
+		 object space coordinates.
 
-		 @return		The local up direction of this transform node expressed in object space coordinates.
+		 @return		The local up direction of this transform node 
+						expressed in object space coordinates.
 		 */
 		const XMVECTOR GetObjectUp() const noexcept {
 			return GetObjectAxisY();
 		}
 		
 		/**
-		 Returns the local forward direction of this transform node expressed in object space coordinates.
+		 Returns the local forward direction of this transform node expressed in 
+		 object space coordinates.
 
-		 @return		The local forward direction of this transform node expressed in object space coordinates.
+		 @return		The local forward direction of this transform node 
+						expressed in object space coordinates.
 		 */
 		const XMVECTOR GetObjectForward() const noexcept {
 			return GetObjectAxisZ();
@@ -1097,36 +1185,44 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the local eye position of this transform node expressed in world space coordinates.
+		 Returns the local eye position of this transform node expressed in 
+		 world space coordinates.
 
-		 @return		The local eye position of this transform node expressed in world space coordinates.
+		 @return		The local eye position of this transform node expressed 
+						in world space coordinates.
 		 */
 		const XMVECTOR GetWorldEye() const noexcept {
 			return GetWorldOrigin();
 		}
 
 		/**
-		 Returns the local left direction of this transform node expressed in world space coordinates.
+		 Returns the local left direction of this transform node expressed in 
+		 world space coordinates.
 
-		 @return		The local left direction of this transform node expressed in world space coordinates.
+		 @return		The local left direction of this transform node 
+						expressed in world space coordinates.
 		 */
 		const XMVECTOR GetWorldLeft() const noexcept {
 			return GetWorldAxisX();
 		}
 		
 		/**
-		 Returns the local up direction of this transform node expressed in world space coordinates.
+		 Returns the local up direction of this transform node expressed in 
+		 world space coordinates.
 
-		 @return		The local up direction of this transform node expressed in world space coordinates.
+		 @return		The local up direction of this transform node expressed 
+						in world space coordinates.
 		 */
 		const XMVECTOR GetWorldUp() const noexcept {
 			return GetWorldAxisY();
 		}
 		
 		/**
-		 Returns the local forward direction of this transform node expressed in world space coordinates.
+		 Returns the local forward direction of this transform node expressed 
+		 in world space coordinates.
 
-		 @return		The local forward direction of this transform node expressed in world space coordinates.
+		 @return		The local forward direction of this transform node 
+						expressed in world space coordinates.
 		 */
 		const XMVECTOR GetWorldForward() const noexcept {
 			return GetWorldAxisZ();
@@ -1178,7 +1274,8 @@ namespace mage {
 		 Returns the view-to-world matrix of this transform node.
 
 		 @return		The view-to-world matrix of this transform node.
-		 @note			Transforms for cameras should not contain scaling components.
+		 @note			Transforms for cameras should not contain scaling 
+						components.
 		 */
 		const XMMATRIX GetViewToWorldMatrix() const noexcept {
 			return GetObjectToWorldMatrix();
@@ -1188,141 +1285,190 @@ namespace mage {
 		 Returns the world-to-view matrix of this transform node.
 
 		 @return		The world-to-view matrix of this transform node.
-		 @note			Transforms for cameras should not contain scaling components.
+		 @note			Transforms for cameras should not contain scaling 
+						components.
 		 */
 		const XMMATRIX GetWorldToViewMatrix() const noexcept {
 			return GetWorldToObjectMatrix();
 		}
 
 		/**
-		 Transforms the given vector expressed in object space coordinates to parent space coordinates.
+		 Transforms the given vector expressed in object space coordinates 
+		 to parent space coordinates.
 
 		 @param[in]		vector
 						The vector expressed in object space coordinates.
-		 @return		The transformed vector expressed in parent space coordinates.
+		 @return		The transformed vector expressed in parent space 
+						coordinates.
 		 */
-		const XMVECTOR XM_CALLCONV TransformObjectToParent(FXMVECTOR vector) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformObjectToParent(
+			FXMVECTOR vector) const noexcept {
+			
 			return m_transform->TransformObjectToParent(vector);
 		}
 
 		/**
-		 Transforms the given point expressed in object space coordinates to parent space coordinates.
+		 Transforms the given point expressed in object space coordinates 
+		 to parent space coordinates.
 
 		 @param[in]		point
 						The point expressed in object space coordinates.
-		 @return		The transformed point expressed in parent space coordinates.
+		 @return		The transformed point expressed in parent space 
+						coordinates.
 		 */
-		const XMVECTOR XM_CALLCONV TransformObjectToParentPoint(FXMVECTOR point) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformObjectToParentPoint(
+			FXMVECTOR point) const noexcept {
+			
 			return m_transform->TransformObjectToParentPoint(point);
 		}
 
 		/**
-		 Transforms the given direction expressed in object space coordinates to parent space coordinates.
+		 Transforms the given direction expressed in object space coordinates 
+		 to parent space coordinates.
 
 		 @param[in]		direction
 						The direction expressed in object space coordinates.
-		 @return		The transformed direction expressed in parent space coordinates.
+		 @return		The transformed direction expressed in parent space 
+						coordinates.
 		 */
-		const XMVECTOR XM_CALLCONV TransformObjectToParentDirection(FXMVECTOR direction) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformObjectToParentDirection(
+			FXMVECTOR direction) const noexcept {
+			
 			return m_transform->TransformObjectToParentDirection(direction);
 		}
 
 		/**
-		 Transforms the given vector expressed in parent space coordinates to object space coordinates.
+		 Transforms the given vector expressed in parent space coordinates 
+		 to object space coordinates.
 
 		 @param[in]		vector
 						The vector expressed in parent space coordinates.
-		 @return		The transformed vector expressed in object space coordinates.
+		 @return		The transformed vector expressed in object space 
+						coordinates.
 		 */
-		const XMVECTOR XM_CALLCONV TransformParentToObject(FXMVECTOR vector) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformParentToObject(
+			FXMVECTOR vector) const noexcept {
+			
 			return m_transform->TransformParentToObject(vector);
 		}
 
 		/**
-		 Transforms the given point expressed in parent space coordinates to object space coordinates.
+		 Transforms the given point expressed in parent space coordinates 
+		 to object space coordinates.
 
 		 @param[in]		point
 						The point expressed in parent space coordinates.
-		 @return		The transformed point expressed in object space coordinates.
+		 @return		The transformed point expressed in object space 
+						coordinates.
 		 */
-		const XMVECTOR XM_CALLCONV TransformParentToObjectPoint(FXMVECTOR point) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformParentToObjectPoint(
+			FXMVECTOR point) const noexcept {
+			
 			return m_transform->TransformParentToObjectPoint(point);
 		}
 
 		/**
-		 Transforms the given direction expressed in parent space coordinates to object space coordinates.
+		 Transforms the given direction expressed in parent space coordinates 
+		 to object space coordinates.
 
 		 @param[in]		direction
 						The direction expressed in parent space coordinates.
-		 @return		The transformed direction expressed in object space coordinates.
+		 @return		The transformed direction expressed in object space 
+						coordinates.
 		 */
-		const XMVECTOR XM_CALLCONV TransformParentToObjectDirection(FXMVECTOR direction) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformParentToObjectDirection(
+			FXMVECTOR direction) const noexcept {
+			
 			return m_transform->TransformParentToObjectDirection(direction);
 		}
 
 		/**
-		 Transforms the given vector expressed in object space coordinates to world space coordinates.
+		 Transforms the given vector expressed in object space coordinates 
+		 to world space coordinates.
 
 		 @param[in]		vector
 						The vector expressed in object space coordinates.
-		 @return		The transformed vector expressed in world space coordinates.
+		 @return		The transformed vector expressed in world space 
+						coordinates.
 		 */
-		const XMVECTOR XM_CALLCONV TransformObjectToWorld(FXMVECTOR vector) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformObjectToWorld(
+			FXMVECTOR vector) const noexcept {
+			
 			return XMVector4Transform(vector, GetObjectToWorldMatrix());
 		}
 
 		/**
-		 Transforms the given point expressed in object space coordinates to world space coordinates.
+		 Transforms the given point expressed in object space coordinates 
+		 to world space coordinates.
 
 		 @param[in]		point
 						The point expressed in object space coordinates.
-		 @return		The transformed point expressed in world space coordinates.
+		 @return		The transformed point expressed in world space 
+						coordinates.
 		 */
-		const XMVECTOR XM_CALLCONV TransformObjectToWorldPoint(FXMVECTOR point) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformObjectToWorldPoint(
+			FXMVECTOR point) const noexcept {
+			
 			return XMVector3TransformCoord(point, GetObjectToWorldMatrix());
 		}
 
 		/**
-		 Transforms the given direction expressed in object space coordinates to world space coordinates.
+		 Transforms the given direction expressed in object space coordinates 
+		 to world space coordinates.
 
 		 @param[in]		direction
 						The direction expressed in object space coordinates.
-		 @return		The transformed direction expressed in world space coordinates.
+		 @return		The transformed direction expressed in world space 
+						coordinates.
 		 */
-		const XMVECTOR XM_CALLCONV TransformObjectToWorldDirection(FXMVECTOR direction) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformObjectToWorldDirection(
+			FXMVECTOR direction) const noexcept {
+			
 			return XMVector3TransformNormal(direction, GetObjectToWorldMatrix());
 		}
 
 		/**
-		 Transforms the given vector expressed in world space coordinates to object space coordinates.
+		 Transforms the given vector expressed in world space coordinates 
+		 to object space coordinates.
 
 		 @param[in]		vector
 						The vector expressed in world space coordinates.
-		 @return		The transformed vector expressed in object space coordinates.
+		 @return		The transformed vector expressed in object space 
+						coordinates.
 		 */
-		const XMVECTOR XM_CALLCONV TransformWorldToObject(FXMVECTOR vector) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformWorldToObject(
+			FXMVECTOR vector) const noexcept {
+			
 			return XMVector4Transform(vector, GetWorldToObjectMatrix());
 		}
 
 		/**
-		 Transforms the given point expressed in world space coordinates to object space coordinates.
+		 Transforms the given point expressed in world space coordinates 
+		 to object space coordinates.
 
 		 @param[in]		point
 						The point expressed in world space coordinates.
-		 @return		The transformed point expressed in object space coordinates.
+		 @return		The transformed point expressed in object space 
+						coordinates.
 		 */
-		const XMVECTOR XM_CALLCONV TransformWorldToObjectPoint(FXMVECTOR point) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformWorldToObjectPoint(
+			FXMVECTOR point) const noexcept {
+			
 			return XMVector3TransformCoord(point, GetWorldToObjectMatrix());
 		}
 
 		/**
-		 Transforms the direction vector expressed in world space coordinates to object space coordinates.
+		 Transforms the direction vector expressed in world space coordinates 
+		 to object space coordinates.
 
 		 @param[in]		direction
 						The direction expressed in world space coordinates.
-		 @return		The transformed direction expressed in object space coordinates.
+		 @return		The transformed direction expressed in object space 
+						coordinates.
 		 */
-		const XMVECTOR XM_CALLCONV TransformWorldToObjectDirection(FXMVECTOR direction) const noexcept {
+		const XMVECTOR XM_CALLCONV TransformWorldToObjectDirection(
+			FXMVECTOR direction) const noexcept {
+			
 			return XMVector3TransformNormal(direction, GetWorldToObjectMatrix());
 		}
 
@@ -1333,9 +1479,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		// Nodes are semantically very similar to TransformNodes. They only add
-		// an extra indirection to the functionality provided by TransformNodes.
-		// Instead of calling the methods of TransformNodes directly, one has to
-		// first obtain a pointer to the TransformNode. 
+		// an extra indirection to the functionality provided by 
+		// TransformNodes. Instead of calling the methods of TransformNodes 
+		// directly, one has to first obtain a pointer to the TransformNode. 
 		friend class Node;
 
 		//---------------------------------------------------------------------
@@ -1429,9 +1575,8 @@ namespace mage {
 
 		 @param[in]		node
 						A pointer to the node.
-		 @return		@c true if this transform node contains the
-						given node as a child node.
-						@c false otherwise.
+		 @return		@c true if this transform node contains the given node 
+						as a child node. @c false otherwise.
 		 */
 		bool HasChildNode(SharedPtr< const Node > node) const;
 		
@@ -1444,9 +1589,8 @@ namespace mage {
 		 Traverses all child transform nodes of this transform node.
 
 		 @tparam		ActionT
-						An action to perform on all child 
-						transform nodes of this transform node. 
-						The action must accept (@c const) 
+						An action to perform on all child transform nodes of 
+						this transform node. The action must accept (@c const) 
 						@c TransformNode* values.
 		 */
 		template< typename ActionT >
@@ -1457,10 +1601,9 @@ namespace mage {
 		 of this transform node.
 
 		 @tparam		ActionT
-						An action to perform on all descendant 
-						transform nodes of this transform node. 
-						The action must accept (@c const) 
-						@c TransformNode* values.
+						An action to perform on all descendant transform nodes 
+						of this transform node. The action must accept 
+						(@c const) @c TransformNode* values.
 		 */
 		template< typename ActionT >
 		void ForEachDescendantTransformNode(ActionT action) const;
@@ -1469,9 +1612,8 @@ namespace mage {
 		 Traverses all child nodes of this transform node.
 
 		 @tparam		ActionT
-						An action to perform on all child 
-						nodes of this transform node. 
-						The action must accept (@c const) 
+						An action to perform on all child nodes of this 
+						transform node. The action must accept (@c const) 
 						@c Node* values.
 		 */
 		template< typename ActionT >
@@ -1482,9 +1624,8 @@ namespace mage {
 		 of this transform node.
 
 		 @tparam		ActionT
-						An action to perform on all descendant 
-						nodes of this transform node. 
-						The action must accept (@c const) 
+						An action to perform on all descendant nodes of this 
+						transform node. The action must accept (@c const) 
 						@c Node* values.
 		 */
 		template< typename ActionT >
@@ -1582,8 +1723,8 @@ namespace mage {
 
 		 @param[in]		node
 						A reference to the node to copy.
-		 @return		A reference to the copy of the given node
-						(i.e. this node).
+		 @return		A reference to the copy of the given node (i.e. this 
+						node).
 		 */
 		Node &operator=(const Node &node) = delete;
 
@@ -1592,8 +1733,7 @@ namespace mage {
 
 		 @param[in]		node
 						A reference to the node to move.
-		 @return		A reference to the moved node
-						(i.e. this node).
+		 @return		A reference to the moved node (i.e. this node).
 		 */
 		Node &operator=(Node &&node) = delete;
 
@@ -1631,8 +1771,8 @@ namespace mage {
 		/**
 		 Checks whether this node is active.
 
-		 @return		@c true if this node is active.
-						@c false otherwise (i.e. passive).
+		 @return		@c true if this node is active. @c false otherwise 
+						(i.e. passive).
 		 */
 		bool IsActive() const noexcept {
 			return m_active;
@@ -1641,8 +1781,8 @@ namespace mage {
 		/**
 		 Checks whether this node is passive.
 
-		 @return		@c true if this node is passive.
-						@c false otherwise (i.e. active).
+		 @return		@c true if this node is passive. @c false otherwise 
+						(i.e. active).
 		 */
 		bool IsPassive() const noexcept {
 			return !m_active;
@@ -1673,8 +1813,7 @@ namespace mage {
 		/**
 		 Checks whether this node is terminated or not.
 
-		 @return		@c true if this node is terminated.
-						@c false otherwise.
+		 @return		@c true if this node is terminated. @c false otherwise.
 		 */
 		bool IsTerminated() const noexcept {
 			return m_terminated;
@@ -1692,8 +1831,8 @@ namespace mage {
 		/**
 		 Checks whether this node has a parent node.
 
-		 @return		@c true if this node has a parent node.
-						@c false otherwise.
+		 @return		@c true if this node has a parent node. @c false 
+						otherwise.
 		 */
 		bool HasParentNode() const noexcept {
 			return m_transform->HasParentNode();
@@ -1719,14 +1858,12 @@ namespace mage {
 		}
 		
 		/**
-		 Checks whether this node contains the given node
-		 as a child node.
+		 Checks whether this node contains the given node as a child node.
 
 		 @param[in]		node
 						A pointer to the node.
-		 @return		@c true if this node contains the
-						given node as a child node.
-						@c false otherwise.
+		 @return		@c true if this node contains the given node as a child 
+						node. @c false otherwise.
 		 */
 		bool HasChildNode(SharedPtr< const Node > node) const {
 			return m_transform->HasChildNode(node);
@@ -1759,9 +1896,8 @@ namespace mage {
 		 Traverses all child nodes of this node.
 
 		 @tparam		ActionT
-						An action to perform on all child
-						nodes of this node. The action must 
-						accept (@c const) @c Node* values.
+						An action to perform on all child nodes of this node. 
+						The action must accept (@c const) @c Node* values.
 		*/
 		template< typename ActionT >
 		void ForEachChildNode(ActionT action) const {
@@ -1769,13 +1905,13 @@ namespace mage {
 		}
 		
 		/**
-		 Traverses all descendant (childs included) nodes
-		 of this transform node.
+		 Traverses all descendant (childs included) nodes of this transform 
+		 node.
 
 		 @tparam		ActionT
-						An action to perform on all descendant
-						nodes of this node. The action must 
-						accept (@c const) @c Node* values.
+						An action to perform on all descendant nodes of this 
+						node. The action must accept (@c const) @c Node* 
+						values.
 		 */
 		template< typename ActionT >
 		void ForEachDescendantNode(ActionT action) const {
@@ -1827,7 +1963,8 @@ namespace mage {
 	inline void TransformNode::UpdateObjectToWorldMatrix() const noexcept {
 		if (m_dirty_object_to_world) {
 			if (HasParentNode()) {
-				m_object_to_world = GetObjectToParentMatrix() * m_parent->GetTransform()->GetObjectToWorldMatrix();
+				m_object_to_world = GetObjectToParentMatrix() 
+					              * m_parent->GetTransform()->GetObjectToWorldMatrix();
 			}
 			else {
 				m_object_to_world = GetObjectToParentMatrix();
@@ -1840,7 +1977,8 @@ namespace mage {
 	inline void TransformNode::UpdateWorldToObjectMatrix() const noexcept {
 		if (m_dirty_world_to_object) {
 			if (HasParentNode()) {
-				m_world_to_object = m_parent->GetTransform()->GetWorldToObjectMatrix() * GetParentToObjectMatrix();
+				m_world_to_object = m_parent->GetTransform()->GetWorldToObjectMatrix() 
+					              * GetParentToObjectMatrix();
 			}
 			else {
 				m_world_to_object = GetParentToObjectMatrix();

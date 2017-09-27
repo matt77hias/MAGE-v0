@@ -32,7 +32,8 @@ namespace mage {
 		m_color_buffer(), m_model_buffer(),
 		m_box(CreateLineCube()) {}
 
-	BoundingVolumePass::BoundingVolumePass(BoundingVolumePass &&render_pass) = default;
+	BoundingVolumePass::BoundingVolumePass(
+		BoundingVolumePass &&render_pass) = default;
 
 	BoundingVolumePass::~BoundingVolumePass() = default;
 

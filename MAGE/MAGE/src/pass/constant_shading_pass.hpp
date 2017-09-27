@@ -18,8 +18,8 @@
 namespace mage {
 
 	/**
-	 A class of constant shading passes for rendering
-	 models using a constant (material independent) shading.
+	 A class of constant shading passes for rendering models using a constant 
+	 (material independent) shading.
 	 */
 	class ConstantShadingPass final {
 
@@ -32,10 +32,10 @@ namespace mage {
 		/**
 		 Returns the constant shading pass associated with the current engine.
 
-		 @pre			The scene renderer associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the constant shading pass associated
-						with the current engine.
+		 @pre			The scene renderer associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the constant shading pass associated with 
+						the current engine.
 		 */
 		static ConstantShadingPass *Get();
 
@@ -46,15 +46,16 @@ namespace mage {
 		/**
 		 Constructs a constant shading pass.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
 		ConstantShadingPass();
 
 		/**
-		 Constructs a constant shading pass from the given constant shading pass.
+		 Constructs a constant shading pass from the given constant shading 
+		 pass.
 
 		 @param[in]		render_pass
 						A reference to the constant shading pass to copy.
@@ -62,7 +63,8 @@ namespace mage {
 		ConstantShadingPass(const ConstantShadingPass &render_pass) = delete;
 
 		/**
-		 Constructs a constant shading pass by moving the given constant shading pass.
+		 Constructs a constant shading pass by moving the given constant 
+		 shading pass.
 
 		 @param[in]		render_pass
 						A reference to the constant shading pass to move.
@@ -83,20 +85,22 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the constant shading pass to copy.
-		 @return		A reference to the copy of the given constant shading pass
-						(i.e. this constant shading pass).
+		 @return		A reference to the copy of the given constant shading 
+						pass (i.e. this constant shading pass).
 		 */
-		ConstantShadingPass &operator=(const ConstantShadingPass &render_pass) = delete;
+		ConstantShadingPass &operator=(
+			const ConstantShadingPass &render_pass) = delete;
 
 		/**
 		 Moves the given constant shading pass to this constant shading pass.
 
 		 @param[in]		render_pass
 						A reference to the constant shading pass to move.
-		 @return		A reference to the moved constant shading pass
-						(i.e. this constant shading pass).
+		 @return		A reference to the moved constant shading pass (i.e. 
+						this constant shading pass).
 		 */
-		ConstantShadingPass &operator=(ConstantShadingPass &&render_pass) = delete;
+		ConstantShadingPass &operator=(
+			ConstantShadingPass &&render_pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -106,8 +110,8 @@ namespace mage {
 		 Binds the fixed state of this constant shading pass.
 
 		 @throws		FormattedException
-						Failed to bind the fixed state 
-						of this constant shading pass.
+						Failed to bind the fixed state of this constant shading 
+						pass.
 		 */
 		void BindFixedState();
 
@@ -148,8 +152,8 @@ namespace mage {
 						The view-to-projection transformation matrix used for
 						transforming vertices.
 		 @throws		FormattedException
-						Failed to bind the projection data 
-						of this constant shading pass.
+						Failed to bind the projection data of this constant 
+						shading pass.
 		 */
 		void XM_CALLCONV BindProjectionData(
 			FXMMATRIX view_to_projection);
@@ -182,19 +186,18 @@ namespace mage {
 						A reference to a vector containing the model pointers
 						to process.
 		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
-						This transformation matrix will be used for 
-						culling.
+						The world-to-projection transformation matrix. This 
+						transformation matrix will be used for culling.
 		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-						This transformation matrix will be chained with
-						the object-to-view transformation matrix for
-						transforming vertices.
+						The world-to-view transformation matrix. This 
+						transformation matrix will be chained with the 
+						object-to-view transformation matrix for transforming 
+						vertices.
 		 @param[in]		view_to_world
-						The view-to-world transformation matrix.
-						This transformation matrix will be chained with
-						the world-to-object transformation matrix for
-						transforming normals.
+						The view-to-world transformation matrix. This 
+						transformation matrix will be chained with the 
+						world-to-object transformation matrix for transforming 
+						normals.
 		 @throws		FormattedException
 						Failed to process the models.
 		 */

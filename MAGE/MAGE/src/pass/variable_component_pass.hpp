@@ -18,8 +18,8 @@
 namespace mage {
 
 	/**
-	 A class of variable component passes for rendering 
-	 a variable (material dependent) component of models.
+	 A class of variable component passes for rendering a variable (material 
+	 dependent) component of models.
 	 */
 	class VariableComponentPass final {
 
@@ -30,10 +30,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the variable component pass associated with the current engine.
+		 Returns the variable component pass associated with the current 
+		 engine.
 
-		 @pre			The scene renderer associated with the 
-						current engine must be loaded.
+		 @pre			The scene renderer associated with the current engine 
+						must be loaded.
 		 @return		A pointer to the variable component pass associated
 						with the current engine.
 		 */
@@ -46,28 +47,32 @@ namespace mage {
 		/**
 		 Constructs a variable component pass.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
 		VariableComponentPass();
 
 		/**
-		 Constructs a variable component pass from the given variable component pass.
+		 Constructs a variable component pass from the given variable component 
+		 pass.
 
 		 @param[in]		render_pass
 						A reference to the variable component pass to copy.
 		 */
-		VariableComponentPass(const VariableComponentPass &render_pass) = delete;
+		VariableComponentPass(
+			const VariableComponentPass &render_pass) = delete;
 
 		/**
-		 Constructs a variable component pass by moving the given variable component pass.
+		 Constructs a variable component pass by moving the given variable 
+		 component pass.
 
 		 @param[in]		render_pass
 						A reference to the variable component pass to move.
 		 */
-		VariableComponentPass(VariableComponentPass &&render_pass);
+		VariableComponentPass(
+			VariableComponentPass &&render_pass);
 
 		/**
 		 Destructs this variable component pass.
@@ -79,24 +84,28 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given variable component pass to this variable component pass.
+		 Copies the given variable component pass to this variable component 
+		 pass.
 
 		 @param[in]		render_pass
 						A reference to the variable component pass to copy.
-		 @return		A reference to the copy of the given variable component pass
-						(i.e. this variable component pass).
+		 @return		A reference to the copy of the given variable component 
+						pass (i.e. this variable component pass).
 		 */
-		VariableComponentPass &operator=(const VariableComponentPass &render_pass) = delete;
+		VariableComponentPass &operator=(
+			const VariableComponentPass &render_pass) = delete;
 
 		/**
-		 Moves the given variable component pass to this variable component pass.
+		 Moves the given variable component pass to this variable component 
+		 pass.
 
 		 @param[in]		render_pass
 						A reference to the variable component pass to move.
-		 @return		A reference to the moved variable component pass
-						(i.e. this variable component pass).
+		 @return		A reference to the moved variable component pass (i.e. 
+						this variable component pass).
 		 */
-		VariableComponentPass &operator=(VariableComponentPass &&render_pass) = delete;
+		VariableComponentPass &operator=(
+			VariableComponentPass &&render_pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -108,8 +117,8 @@ namespace mage {
 		 @param[in]		render_mode
 						The render mode.
 		 @throws		FormattedException
-						Failed to bind the fixed state 
-						of this variable component pass.
+						Failed to bind the fixed state of this variable 
+						component pass.
 		 */
 		void BindFixedState(RenderMode render_mode);
 
@@ -167,13 +176,13 @@ namespace mage {
 						The view-to-object transformation matrix used for
 						transforming normals.
 		 @param[in]		texture_transform
-						The texture transformation matrix used for
-						transforming texture coordinates.
+						The texture transformation matrix used for transforming 
+						texture coordinates.
 		 @param[in]		material
 						A pointer to the material.
 		 @throws		FormattedException
-						Failed to bind the model data 
-						of this variable component pass.
+						Failed to bind the model data of this variable 
+						component pass.
 		 */
 		void XM_CALLCONV BindModelData(
 			FXMMATRIX object_to_view,
@@ -185,22 +194,21 @@ namespace mage {
 		 Process the given models.
 
 		 @param[in]		models
-						A reference to a vector containing the model pointers
+						A reference to a vector containing the model pointers 
 						to process.
 		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
-						This transformation matrix will be used for 
-						culling.
+						The world-to-projection transformation matrix. This 
+						transformation matrix will be used for culling.
 		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-						This transformation matrix will be chained with
-						the object-to-view transformation matrix for
-						transforming vertices.
+						The world-to-view transformation matrix. This 
+						transformation matrix will be chained with the 
+						object-to-view transformation matrix for transforming 
+						vertices.
 		 @param[in]		view_to_world
-						The view-to-world transformation matrix.
-						This transformation matrix will be chained with
-						the world-to-object transformation matrix for
-						transforming normals.
+						The view-to-world transformation matrix. This 
+						transformation matrix will be chained with the 
+						world-to-object transformation matrix for transforming 
+						normals.
 		 @throws		FormattedException
 						Failed to process the models.
 		 */

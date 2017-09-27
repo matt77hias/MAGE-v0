@@ -31,10 +31,10 @@ namespace mage {
 		/**
 		 Returns the GBuffer pass associated with the current engine.
 
-		 @pre			The scene renderer associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the GBuffer pass associated
-						with the current engine.
+		 @pre			The scene renderer associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the GBuffer pass associated with the 
+						current engine.
 		 */
 		static GBufferPass *Get();
 
@@ -45,10 +45,10 @@ namespace mage {
 		/**
 		 Constructs a GBuffer pass.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
 		GBufferPass();
 
@@ -82,8 +82,8 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the GBuffer pass to copy.
-		 @return		A reference to the copy of the given GBuffer pass
-						(i.e. this GBuffer pass).
+		 @return		A reference to the copy of the given GBuffer pass (i.e. 
+						this GBuffer pass).
 		 */
 		GBufferPass &operator=(const GBufferPass &render_pass) = delete;
 
@@ -92,8 +92,8 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the GBuffer pass to move.
-		 @return		A reference to the moved GBuffer pass
-						(i.e. this GBuffer pass).
+		 @return		A reference to the moved GBuffer pass (i.e. this 
+						GBuffer pass).
 		 */
 		GBufferPass &operator=(GBufferPass &&render_pass) = delete;
 
@@ -105,8 +105,7 @@ namespace mage {
 		 Binds the fixed state of this GBuffer pass.
 
 		 @throws		FormattedException
-						Failed to bind the fixed state 
-						of this GBuffer pass.
+						Failed to bind the fixed state of this GBuffer pass.
 		 */
 		void BindFixedState();
 
@@ -141,8 +140,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Updates the material coefficient data of this GBuffer pass
-		 from the given scene.
+		 Updates the material coefficient data of this GBuffer pass from the 
+		 given scene.
 
 		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
@@ -151,10 +150,11 @@ namespace mage {
 		void UpdateMaterialCoefficientData(const PassBuffer *scene) noexcept;
 		
 		/**
-		 Normalizes the material coefficient of the given material
-		 at the given material coefficient index.
+		 Normalizes the material coefficient of the given material at the given 
+		 material coefficient index.
 
-		 @pre			@a index < {@link mage::PassBuffer::s_nb_material_coefficients}.
+		 @pre			@a index < 
+						{@link mage::PassBuffer::s_nb_material_coefficients}.
 		 @pre			@a material is not equal to @c nullptr.
 		 @param[in]		index
 						The material coefficient index.
@@ -165,8 +165,8 @@ namespace mage {
 			u8 index, const Material *material) const noexcept;
 
 		/**
-		 An enumeration of the different pixel shader indices 
-		 for GBuffer passes.
+		 An enumeration of the different pixel shader indices for GBuffer 
+		 passes.
 
 		 This contains:
 		 @c Default and
@@ -179,8 +179,8 @@ namespace mage {
 		};
 
 		/**
-		 Binds the pixel shader of this GBuffer pass
-		 associated with the given pixel shader index.
+		 Binds the pixel shader of this GBuffer pass associated with the given 
+		 pixel shader index.
 
 		 @param[in]		index
 						The pixel shader index.
@@ -188,8 +188,8 @@ namespace mage {
 		void BindPS(PSIndex index) noexcept;
 		
 		/**
-		 Binds the pixel shader of this GBuffer pass 
-		 associated with the given material.
+		 Binds the pixel shader of this GBuffer pass associated with the given 
+		 material.
 
 		 @pre			@a material is not equal to @c nullptr.
 		 @param[in]		material
@@ -204,8 +204,8 @@ namespace mage {
 						The view-to-projection transformation matrix used for
 						transforming vertices.
 		 @throws		FormattedException
-						Failed to bind the projection data 
-						of this GBuffer pass.
+						Failed to bind the projection data of this GBuffer 
+						pass.
 		 */
 		void XM_CALLCONV BindProjectionData(FXMMATRIX view_to_projection);
 		
@@ -214,7 +214,7 @@ namespace mage {
 
 		 @pre			@a material is not equal to @c nullptr.
 		 @param[in]		object_to_view
-						The object-to-view transformation matrix used for
+						The object-to-view transformation matrix used for 
 						transforming vertices.
 		 @param[in]		view_to_object
 						The view-to-object transformation matrix used for
@@ -241,19 +241,18 @@ namespace mage {
 						A reference to a vector containing the model pointers
 						to process.
 		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
-						This transformation matrix will be used for 
-						culling.
+						The world-to-projection transformation matrix. This 
+						transformation matrix will be used for culling.
 		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-						This transformation matrix will be chained with
-						the object-to-view transformation matrix for
-						transforming vertices.
+						The world-to-view transformation matrix. This 
+						transformation matrix will be chained with the 
+						object-to-view transformation matrix for transforming 
+						vertices.
 		 @param[in]		view_to_world
-						The view-to-world transformation matrix.
-						This transformation matrix will be chained with
-						the world-to-object transformation matrix for
-						transforming normals.
+						The view-to-world transformation matrix. This 
+						transformation matrix will be chained with the 
+						world-to-object transformation matrix for transforming 
+						normals.
 		 @throws		FormattedException
 						Failed to process the models.
 		 */
@@ -278,14 +277,13 @@ namespace mage {
 		const SharedPtr< const VertexShader > m_vs;
 		
 		/**
-		 An array containing pointers to the pixel shaders
-		 of this GBuffer pass.
+		 An array containing pointers to the pixel shaders of this GBuffer 
+		 pass.
 		 */
 		const SharedPtr< const PixelShader > m_ps[static_cast< size_t >(PSIndex::Count)];
 		
 		/**
-		 The pixel shader index of the bound pixel shader
-		 of this GBuffer pass.
+		 The pixel shader index of the bound pixel shader of this GBuffer pass.
 		 */
 		PSIndex m_bound_ps;
 

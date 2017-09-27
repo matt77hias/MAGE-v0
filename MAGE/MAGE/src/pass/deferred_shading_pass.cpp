@@ -29,7 +29,8 @@ namespace mage {
 		m_cs(CreateDeferredCS(BRDFType::Unknown)),
 		m_brdf(BRDFType::Unknown), m_deferred_buffer() {}
 
-	DeferredShadingPass::DeferredShadingPass(DeferredShadingPass &&render_pass) = default;
+	DeferredShadingPass::DeferredShadingPass(
+		DeferredShadingPass &&render_pass) = default;
 
 	DeferredShadingPass::~DeferredShadingPass() = default;
 

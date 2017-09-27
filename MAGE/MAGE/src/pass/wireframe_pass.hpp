@@ -31,10 +31,10 @@ namespace mage {
 		/**
 		 Returns the wireframe pass associated with the current engine.
 
-		 @pre			The scene renderer associated with the 
-						current engine must be loaded.
-		 @return		A pointer to the wireframe pass associated
-						with the current engine.
+		 @pre			The scene renderer associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the wireframe pass associated with the 
+						current engine.
 		 */
 		static WireframePass *Get();
 
@@ -45,10 +45,10 @@ namespace mage {
 		/**
 		 Constructs a wireframe pass.
 
-		 @pre			The renderer associated with the
-						current engine must be loaded.
-		 @pre			The resource manager associated with the
-						current engine must be loaded.
+		 @pre			The renderer associated with the current engine must be 
+						loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
 		WireframePass();
 		
@@ -82,7 +82,7 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the wireframe pass to copy.
-		 @return		A reference to the copy of the given wireframe pass
+		 @return		A reference to the copy of the given wireframe pass 
 						(i.e. this wireframe pass).
 		 */
 		WireframePass &operator=(const WireframePass &render_pass) = delete;
@@ -92,8 +92,8 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the wireframe pass to move.
-		 @return		A reference to the moved wireframe pass
-						(i.e. this wireframe pass).
+		 @return		A reference to the moved wireframe pass (i.e. this 
+						wireframe pass).
 		 */
 		WireframePass &operator=(WireframePass &&render_pass) = delete;
 
@@ -140,8 +140,7 @@ namespace mage {
 		 Binds the color data of this wireframe pass.
 
 		 @throws		FormattedException
-						Failed to bind the color data 
-						of this wireframe pass.
+						Failed to bind the color data of this wireframe pass.
 		 */
 		void BindColorData();
 
@@ -152,8 +151,8 @@ namespace mage {
 						The view-to-projection transformation matrix used for
 						transforming vertices.
 		 @throws		FormattedException
-						Failed to bind the projection data 
-						of this wireframe pass.
+						Failed to bind the projection data of this wireframe 
+						pass.
 		 */
 		void XM_CALLCONV BindProjectionData(FXMMATRIX view_to_projection);
 
@@ -176,13 +175,12 @@ namespace mage {
 						A reference to a vector containing the model pointers
 						to process.
 		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
-						This transformation matrix will be used for 
-						culling.
+						The world-to-projection transformation matrix. This 
+						transformation matrix will be used for culling.
 		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-						This transformation matrix will be chained with
-						the object-to-view transformation matrix for
+						The world-to-view transformation matrix.This 
+						transformation matrix will be chained with the 
+						object-to-view transformation matrix for 
 						transforming vertices.
 		 @throws		FormattedException
 						Failed to process the models.

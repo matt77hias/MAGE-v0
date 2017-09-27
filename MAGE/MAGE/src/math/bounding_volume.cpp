@@ -27,6 +27,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	const AABB Union(const AABB &aabb, const Point3 &point) noexcept {
+		
 		const XMVECTOR p_min1 = XMLoadFloat3(&aabb.m_p_min);
 		const XMVECTOR p_max1 = XMLoadFloat3(&aabb.m_p_max);
 		const XMVECTOR p2     = XMLoadFloat3(&point);
@@ -39,6 +40,7 @@ namespace mage {
 	}
 
 	const AABB Union(const AABB &aabb1, const AABB &aabb2) noexcept {
+		
 		const XMVECTOR p_min1 = XMLoadFloat3(&aabb1.m_p_min);
 		const XMVECTOR p_max1 = XMLoadFloat3(&aabb1.m_p_max);
 		const XMVECTOR p_min2 = XMLoadFloat3(&aabb2.m_p_min);
@@ -52,6 +54,7 @@ namespace mage {
 	}
 
 	const AABB Overlap(const AABB &aabb1, const AABB &aabb2) noexcept {
+		
 		if (!aabb1.Overlaps(aabb2)) {
 			return AABB();
 		}
@@ -69,6 +72,7 @@ namespace mage {
 	}
 
 	const AABB OverlapStrict(const AABB &aabb1, const AABB &aabb2) noexcept {
+		
 		if (!aabb1.OverlapsStrict(aabb2)) {
 			return AABB();
 		}
@@ -91,9 +95,10 @@ namespace mage {
 
 	AABB::AABB(const BS &bs)
 		: m_p_min(Point3(bs.m_p.x - bs.m_r, bs.m_p.y - bs.m_r, bs.m_p.z - bs.m_r)),
-		m_p_max(Point3(bs.m_p.x + bs.m_r, bs.m_p.y + bs.m_r, bs.m_p.z + bs.m_r)) {}
+		  m_p_max(Point3(bs.m_p.x + bs.m_r, bs.m_p.y + bs.m_r, bs.m_p.z + bs.m_r)) {}
 
 	const Point3 AABB::Centroid() const noexcept {
+		
 		const XMVECTOR p_min = XMLoadFloat3(&m_p_min);
 		const XMVECTOR p_max = XMLoadFloat3(&m_p_max);
 		const XMVECTOR centroid = 0.5f * (p_min + p_max);
@@ -103,6 +108,7 @@ namespace mage {
 	}
 
 	const Direction3 AABB::Radius() const noexcept {
+		
 		const XMVECTOR p_min = XMLoadFloat3(&m_p_min);
 		const XMVECTOR p_max = XMLoadFloat3(&m_p_max);
 		const XMVECTOR radius = 0.5f * (p_max - p_min);
@@ -112,6 +118,7 @@ namespace mage {
 	}
 
 	const Direction3 AABB::Diagonal() const noexcept {
+		
 		const XMVECTOR p_min = XMLoadFloat3(&m_p_min);
 		const XMVECTOR p_max = XMLoadFloat3(&m_p_max);
 		const XMVECTOR diagonal = p_max - p_min;
@@ -125,6 +132,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	bool AABB::Encloses(const Point3 &point) const noexcept {
+		
 		if (point.x > m_p_max.x) {
 			return false;
 		}
@@ -148,6 +156,7 @@ namespace mage {
 	}
 
 	bool AABB::EnclosesStrict(const Point3 &point) const noexcept {
+		
 		if (point.x >= m_p_max.x) {
 			return false;
 		}
@@ -171,18 +180,21 @@ namespace mage {
 	}
 
 	bool AABB::Encloses(FXMVECTOR point) const noexcept {
+		
 		Point3 p;
 		XMStoreFloat3(&p, point);
 		return Encloses(p);
 	}
 
 	bool AABB::EnclosesStrict(FXMVECTOR point) const noexcept {
+		
 		Point3 p;
 		XMStoreFloat3(&p, point);
 		return EnclosesStrict(p);
 	}
 
 	bool AABB::Encloses(const AABB &aabb) const noexcept {
+		
 		if (!Encloses(aabb.m_p_min)) {
 			return false;
 		}
@@ -194,6 +206,7 @@ namespace mage {
 	}
 
 	bool AABB::EnclosesStrict(const AABB &aabb) const noexcept {
+		
 		if (!EnclosesStrict(aabb.m_p_min)) {
 			return false;
 		}
@@ -205,6 +218,7 @@ namespace mage {
 	}
 
 	bool AABB::Encloses(const BS &bs) const noexcept {
+		
 		if (m_p_max.x - bs.m_p.x < bs.m_r) {
 			return false;
 		}
@@ -228,6 +242,7 @@ namespace mage {
 	}
 
 	bool AABB::EnclosesStrict(const BS &bs) const noexcept {
+		
 		if (m_p_max.x - bs.m_p.x <= bs.m_r) {
 			return false;
 		}
@@ -255,6 +270,7 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	bool AABB::Overlaps(const AABB &aabb) const noexcept {
+		
 		// Test for no coverage.
 		if (aabb.m_p_min.x > m_p_max.x) {
 			return false;
@@ -279,6 +295,7 @@ namespace mage {
 	}
 
 	bool AABB::OverlapsStrict(const AABB &aabb) const noexcept {
+		
 		// Test for no coverage.
 		if (aabb.m_p_min.x >= m_p_max.x) {
 			return false;
@@ -303,6 +320,7 @@ namespace mage {
 	}
 
 	bool AABB::Overlaps(const BS &bs) const noexcept {
+		
 		// Test for no coverage.
 		if (m_p_max.x - bs.m_p.x < -bs.m_r) {
 			return false;
@@ -327,6 +345,7 @@ namespace mage {
 	}
 
 	bool AABB::OverlapsStrict(const BS &bs) const noexcept {
+		
 		// Test for no coverage.
 		if (m_p_max.x - bs.m_p.x <= -bs.m_r) {
 			return false;
@@ -354,8 +373,9 @@ namespace mage {
 	// Axis-Aligned Bounding Box: Overlapping = Intersecting = Partial Coverage
 	//-------------------------------------------------------------------------
 
-	bool AABB::Intersects(const Point3 &point, float epsilon) const noexcept {
-		float distance[6];
+	bool AABB::Intersects(const Point3 &point, f32 epsilon) const noexcept {
+		
+		f32 distance[6];
 
 		// Test for no coverage.
 
@@ -393,13 +413,15 @@ namespace mage {
 		return intersection;
 	}
 
-	bool AABB::Intersects(FXMVECTOR point, float epsilon) const noexcept {
+	bool AABB::Intersects(FXMVECTOR point, f32 epsilon) const noexcept {
+	
 		Point3 p;
 		XMStoreFloat3(&p, point);
 		return Intersects(p, epsilon);
 	}
 
 	bool AABB::Intersects(const AABB &aabb) const noexcept {
+		
 		// Test for no coverage.
 		if (aabb.m_p_min.x >= m_p_max.x) {
 			return false;
@@ -430,7 +452,8 @@ namespace mage {
 	}
 
 	bool AABB::Intersects(const BS &bs) const noexcept {
-		float distance[6];
+		
+		f32 distance[6];
 		
 		// Test for no coverage.
 
@@ -472,8 +495,9 @@ namespace mage {
 	// Axis-Aligned Bounding Box: Overlapping = Intersecting = Partial Coverage
 	//-------------------------------------------------------------------------
 
-	Coverage AABB::Classify(const Point3 &point, float epsilon) const noexcept {
-		float distance[6];
+	Coverage AABB::Classify(const Point3 &point, f32 epsilon) const noexcept {
+		
+		f32 distance[6];
 
 		// Test for no coverage.
 
@@ -511,13 +535,15 @@ namespace mage {
 		return intersection ? Coverage::PartialCoverage : Coverage::FullCoverage;
 	}
 
-	Coverage AABB::Classify(FXMVECTOR point, float epsilon) const noexcept {
+	Coverage AABB::Classify(FXMVECTOR point, f32 epsilon) const noexcept {
+		
 		Point3 p;
 		XMStoreFloat3(&p, point);
 		return Classify(p, epsilon);
 	}
 
 	Coverage AABB::Classify(const AABB &aabb) const noexcept {
+		
 		// Test for no coverage.
 		if (aabb.m_p_min.x >= m_p_max.x) {
 			return Coverage::NoCoverage;
@@ -551,7 +577,8 @@ namespace mage {
 	}
 
 	Coverage AABB::Classify(const BS &bs) const noexcept {
-		float distance[6];
+		
+		f32 distance[6];
 
 		// Test for no coverage.
 
@@ -610,7 +637,8 @@ namespace mage {
 		const XMVECTOR centroid = 0.5f * (p_min + p_max);
 		const XMVECTOR radius   = 0.5f * (p_max - p_min);
 		XMStoreFloat3(&m_p, centroid);
-		m_r = std::max(XMVectorGetX(radius), std::max(XMVectorGetY(radius), XMVectorGetZ(radius)));
+		m_r = std::max(XMVectorGetX(radius), 
+			std::max(XMVectorGetY(radius), XMVectorGetZ(radius)));
 	}
 
 	//-------------------------------------------------------------------------
@@ -626,18 +654,21 @@ namespace mage {
 	}
 
 	bool BS::Encloses(FXMVECTOR point) const noexcept {
+		
 		const XMVECTOR p = XMLoadFloat3(&m_p);
 		const XMVECTOR length = XMVector3Length(point - p);
 		return XMVectorGetX(length) <= m_r;
 	}
 
 	bool BS::EnclosesStrict(FXMVECTOR point) const noexcept {
+		
 		const XMVECTOR p = XMLoadFloat3(&m_p);
 		const XMVECTOR length = XMVector3Length(point - p);
 		return XMVectorGetX(length) < m_r;
 	}
 		
 	bool BS::Encloses(const AABB &aabb) const noexcept {
+		
 		if (!Encloses(Point3(aabb.m_p_min.x, aabb.m_p_min.y, aabb.m_p_min.z))) {
 			return false;
 		}
@@ -667,6 +698,7 @@ namespace mage {
 	}
 
 	bool BS::EnclosesStrict(const AABB &aabb) const noexcept {
+		
 		if (!EnclosesStrict(Point3(aabb.m_p_min.x, aabb.m_p_min.y, aabb.m_p_min.z))) {
 			return false;
 		}
@@ -696,6 +728,7 @@ namespace mage {
 	}
 
 	bool BS::Encloses(const BS &bs) const noexcept {
+		
 		if (!Encloses(Point3(bs.m_p.x - bs.m_r, bs.m_p.y, bs.m_p.z))) {
 			return false;
 		}
@@ -719,6 +752,7 @@ namespace mage {
 	}
 
 	bool BS::EnclosesStrict(const BS &bs) const noexcept {
+		
 		if (!EnclosesStrict(Point3(bs.m_p.x - bs.m_r, bs.m_p.y, bs.m_p.z))) {
 			return false;
 		}

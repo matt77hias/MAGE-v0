@@ -27,18 +27,20 @@ namespace mage {
 					The minimum value.
 	 @param[in]		high
 					The maximum value.
-	 @return		The clamped value between the given
-					minimum and maximum value.
+	 @return		The clamped value between the given minimum and maximum 
+					value.
 	 */
 	template< typename ValueT >
-	inline ValueT Clamp(ValueT value, ValueT low = 0, ValueT high = 1) noexcept {
+	inline ValueT Clamp(
+		ValueT value, ValueT low = 0, ValueT high = 1) noexcept {
+		
 		Assert(low <= high);
 		
 		return (value < high) ? ((value > low) ? value : low) : high;
 	}
 
 	/**
-	 Clamps the given angle (in degrees) to (-180, 180].
+	 Clamps the given angle (in degrees) to [-180, 180].
 
 	 @param[in]		angle
 					The angle (in degrees).
@@ -72,8 +74,8 @@ namespace mage {
 	}
 
 	/**
-	 Clamps the given angle (in degrees) between the given
-	 minimum and maximum angle (in degrees).
+	 Clamps the given angle (in degrees) between the given minimum and maximum
+	 angle (in degrees).
 
 	 @pre			@a min_angle lies in [-180, 180].
 	 @pre			@a max_angle lies in [-180, 180].
@@ -84,10 +86,12 @@ namespace mage {
 					The minimum angle (in degrees).
 	 @param[in]		max_angle
 					The maximum angle (in degrees).
-	 @return		The clamped angle between the given
-					minimum and maximum angle (in degrees).
+	 @return		The clamped angle between the given minimum and maximum 
+					angle (in degrees).
 	 */
-	inline float ClampAngleDegrees(float angle, float min_angle, float max_angle) noexcept {
+	inline float ClampAngleDegrees(
+		float angle, float min_angle, float max_angle) noexcept {
+		
 		Assert(min_angle <= max_angle);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
@@ -96,8 +100,8 @@ namespace mage {
 	}
 
 	/**
-	 Clamps the given angle (in radians) between the given
-	 minimum and maximum angle (in radians).
+	 Clamps the given angle (in radians) between the given minimum and maximum
+	 angle (in radians).
 
 	 @pre			@a min_angle lies in [-pi, pi].
 	 @pre			@a max_angle lies in [-pi, pi].
@@ -108,24 +112,26 @@ namespace mage {
 					The minimum angle (in radians).
 	 @param[in]		max_angle
 					The maximum angle (in radians).
-	 @return		The clamped angle between the given
-					minimum and maximum angle (in radians).
+	 @return		The clamped angle between the given minimum and maximum 
+					angle (in radians).
 	 */
-	inline float ClampAngleRadians(float angle, float min_angle, float max_angle) noexcept {
+	inline float ClampAngleRadians(
+		float angle, float min_angle, float max_angle) noexcept {
+		
 		Assert(min_angle <= max_angle);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
 		
 		return Clamp(ClampAngleRadians(angle), min_angle, max_angle);
 	}
-
+	
 	/**
-	 Returns the projection values from the given projection matrix
-	 to construct the view position coordinates from the NDC position coordinates.
+	 Returns the projection values from the given projection matrix to construct 
+	 the view position coordinates from the NDC position coordinates.
 
-	 @return		The projection values from the given projection matrix
-					to construct the view position coordinates from the NDC 
-					position coordinates.
+	 @return		The projection values from the given projection matrix to 
+					construct the view position coordinates from the NDC position 
+					coordinates.
 	 */
 	inline const XMVECTOR XM_CALLCONV GetViewPositionConstructionValues(
 		FXMMATRIX projection_matrix) noexcept {
@@ -148,14 +154,14 @@ namespace mage {
 		const float w = -XMVectorGetZ(projection_matrix.r[2]);
 		return XMVectorSet(x, y, z, w);
 	}
-
+	
 	/**
-	 Returns the projection values from the given projection matrix
-	 to construct the NDC position z-coordinate from the view position z-coordinate.
+	 Returns the projection values from the given projection matrix to construct 
+	 the NDC position z-coordinate from the view position z-coordinate.
 
-	 @return		The projection values from the given projection matrix
-					to construct the NDC position z-coordinate from the view 
-					position z-coordinate.
+	 @return		The projection values from the given projection matrix to 
+					construct the NDC position z-coordinate from the view position 
+					z-coordinate.
 	 */
 	inline const XMVECTOR XM_CALLCONV GetNDCZConstructionValues(
 		FXMMATRIX projection_matrix) noexcept {

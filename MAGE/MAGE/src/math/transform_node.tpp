@@ -6,7 +6,9 @@
 namespace mage {
 
 	template< typename ActionT >
-	inline void TransformNode::ForEachChildTransformNode(ActionT action) const {
+	inline void TransformNode::ForEachChildTransformNode(
+		ActionT action) const {
+		
 		for (const auto &child : m_childs) {
 			// Visit child transform node.
 			TransformNode * const transform_node = child->GetTransform();
@@ -15,7 +17,9 @@ namespace mage {
 	}
 	
 	template< typename ActionT >
-	inline void TransformNode::ForEachDescendantTransformNode(ActionT action) const {
+	inline void TransformNode::ForEachDescendantTransformNode(
+		ActionT action) const {
+		
 		for (const auto &child : m_childs) {
 			// Visit child transform node.
 			TransformNode * const transform_node = child->GetTransform();
@@ -27,6 +31,7 @@ namespace mage {
 
 	template< typename ActionT >
 	inline void TransformNode::ForEachChildNode(ActionT action) const {
+		
 		for (const auto &child : m_childs) {
 			// Visit child node.
 			action(child.get());
@@ -35,6 +40,7 @@ namespace mage {
 
 	template< typename ActionT >
 	inline void TransformNode::ForEachDescendantNode(ActionT action) const {
+		
 		for (const auto &child : m_childs) {
 			// Visit child node.
 			action(child.get());

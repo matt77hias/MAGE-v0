@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
 #include "rendering\pipeline.hpp"
 
 #pragma endregion
@@ -40,8 +39,8 @@ namespace mage {
 
 		 @param[in]		mesh
 						A reference to the mesh to copy.
-		 @return		A reference to the copy of the given mesh
-						(i.e. this mesh).
+		 @return		A reference to the copy of the given mesh (i.e. this 
+						mesh).
 		 */
 		Mesh &operator=(const Mesh &mesh) = delete;
 
@@ -50,8 +49,7 @@ namespace mage {
 
 		 @param[in]		mesh
 						A reference to the mesh to move.
-		 @return		A reference to the moved mesh
-						(i.e. this mesh).
+		 @return		A reference to the moved mesh (i.e. this mesh).
 		 */
 		Mesh &operator=(Mesh &&mesh) = delete;
 
@@ -103,12 +101,12 @@ namespace mage {
 		D3D11_PRIMITIVE_TOPOLOGY GetPrimitiveTopology() const noexcept {
 			return m_primitive_topology;
 		}
-
+		
 		/**
 		 Binds this mesh.
 
-		 The vertex buffer, index buffer and primitive topology 
-		 of this mesh will be bound to the input-assembler stage.
+		 The vertex buffer, index buffer and primitive topology of this mesh 
+		 will be bound to the input-assembler stage.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -117,12 +115,12 @@ namespace mage {
 		void BindMesh(ID3D11DeviceContext2 *device_context) const noexcept {
 			BindMesh(device_context, m_primitive_topology);
 		}
-
+		
 		/**
 		 Binds this mesh with given primitive topology.
 
-		 The vertex buffer, index buffer and given primitive topology 
-		 of this mesh will be bound to the input-assembler stage.
+		 The vertex buffer, index buffer and given primitive topology of this 
+		 mesh will be bound to the input-assembler stage.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -140,7 +138,7 @@ namespace mage {
 			Pipeline::IA::BindPrimitiveTopology(device_context, 
 				topology);
 		}
-
+		
 		/**
 		 Draws this complete mesh.
 

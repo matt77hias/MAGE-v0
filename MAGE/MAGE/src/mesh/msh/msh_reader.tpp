@@ -30,7 +30,8 @@ namespace mage {
 	void MSHReader< VertexT, IndexT >::Read() {
 
 		if (!IsHeaderValid()) {
-			throw FormattedException("%ls: invalid mesh header.", GetFilename().c_str());
+			throw FormattedException(
+				"%ls: invalid mesh header.", GetFilename().c_str());
 		}
 
 		const u32 nb_vertices = ReadValue< u32 >();
@@ -46,12 +47,14 @@ namespace mage {
 	template< typename VertexT, typename IndexT >
 	bool MSHReader< VertexT, IndexT >::IsHeaderValid() {
 		const char *magic = MAGE_MSH_MAGIC;
+		
 		while (*magic != L'\0') {
 			if (ReadValue< u8 >() != *magic) {
 				return false;
 			}
 			++magic;
 		}
+		
 		return true;
 	}
 }

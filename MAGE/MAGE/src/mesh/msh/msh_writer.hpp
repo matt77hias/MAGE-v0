@@ -41,7 +41,8 @@ namespace mage {
 		 @param[in]		indices
 						A reference to a vector containing the indices.
 		 */
-		explicit MSHWriter(const vector< VertexT > &vertices, const vector< IndexT > &indices);
+		explicit MSHWriter(
+			const vector< VertexT > &vertices, const vector< IndexT > &indices);
 		
 		/**
 		 Constructs a MSH writer from the given MSH writer.
@@ -73,8 +74,8 @@ namespace mage {
 
 		 @param[in]		writer
 						A reference to a MSH writer to copy.
-		 @return		A reference to the copy of the given MSH writer
-						(i.e. this MSH writer).
+		 @return		A reference to the copy of the given MSH writer (i.e. 
+						this MSH writer).
 		 */
 		MSHWriter< VertexT, IndexT > &operator=(
 			const MSHWriter< VertexT, IndexT > &writer) = delete;
@@ -84,8 +85,8 @@ namespace mage {
 
 		 @param[in]		writer
 						A reference to a MSH writer to move.
-		 @return		A reference to the moved MSH writer
-						(i.e. this MSH writer).
+		 @return		A reference to the moved MSH writer (i.e. this MSH 
+						writer).
 		 */
 		MSHWriter< VertexT, IndexT > &operator=(
 			MSHWriter< VertexT, IndexT > &&writer) = delete;
@@ -109,12 +110,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to a vector containing the vertices to write by this VS writer.
+		 A reference to a vector containing the vertices to write by this VS 
+		 writer.
 		 */
 		const vector< VertexT > &m_vertices;
 		
 		/**
-		 A reference to a vector containing the indices to write by this VS writer.
+		 A reference to a vector containing the indices to write by this VS 
+		 writer.
 		 */
 		const vector< IndexT > &m_indices;
 	};

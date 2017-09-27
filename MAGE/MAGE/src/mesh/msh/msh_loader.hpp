@@ -25,7 +25,8 @@ namespace mage {
 	 @param[in]		fname
 					A reference to the MSH filename.
 	 @param[out]	vertices
-					A reference to a vector containing the vertices of the mesh.
+					A reference to a vector containing the vertices of the 
+					mesh.
 	 @param[out]	indices
 					A reference to a vector containing the indices of the mesh.
 	 @throws		FormattedException
@@ -45,7 +46,8 @@ namespace mage {
 	 @param[in]		fname
 					A reference to the MSH filename.
 	 @param[in]		vertices
-					A reference to a vector containing the vertices of the mesh.
+					A reference to a vector containing the vertices of the 
+					mesh.
 	 @param[in]		indices
 					A reference to a vector containing the indices of the mesh.
 	 @throws		FormattedException

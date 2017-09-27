@@ -36,10 +36,12 @@ namespace mage {
 	template < typename VertexT >
 	void OBJReader< VertexT >::Preprocess() {
 		if (!m_model_output.m_vertex_buffer.empty()) {
-			throw FormattedException("%ls: vertex buffer must be empty.", GetFilename().c_str());
+			throw FormattedException(
+				"%ls: vertex buffer must be empty.", GetFilename().c_str());
 		}
 		if (!m_model_output.m_index_buffer.empty()) {
-			throw FormattedException("%ls: index buffer must be empty.", GetFilename().c_str());
+			throw FormattedException(
+				"%ls: index buffer must be empty.", GetFilename().c_str());
 		}
 
 		// Begin current group.
@@ -55,7 +57,8 @@ namespace mage {
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadLine(char *line) {
 		m_context = nullptr;
-		const char *token = strtok_s(line, GetDelimiters().c_str(), &m_context);
+		const char *token 
+			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
 		if (!token || token[0] == MAGE_OBJ_COMMENT_CHAR) {
 			return;
@@ -89,7 +92,9 @@ namespace mage {
 			ReadOBJSmoothingGroup();
 		}
 		else {
-			Warning("%ls: line %u: unsupported keyword token: %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+			Warning(
+				"%ls: line %u: unsupported keyword token: %s.", 
+				GetFilename().c_str(), GetCurrentLineNumber(), token);
 			return;
 		}
 
@@ -98,8 +103,8 @@ namespace mage {
 
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJMaterialLibrary() {
-		const wstring mtl_path = mage::GetPathName(GetFilename());
-		const wstring mtl_name = str_convert(ReadString());
+		const wstring mtl_path  = mage::GetPathName(GetFilename());
+		const wstring mtl_name  = str_convert(ReadString());
 		const wstring mtl_fname = mage::GetFilename(mtl_path, mtl_name);
 
 		ImportMaterialFromFile(mtl_fname, m_model_output.m_material_buffer);
@@ -116,12 +121,17 @@ namespace mage {
 		const string child = ReadString();
 		if (child == MAGE_MDL_PART_DEFAULT_CHILD) {
 			if (!m_model_output.m_index_buffer.empty()) {
-				throw FormattedException("%ls: line %u: default child name can only be explicitly defined before all face definitions.", GetFilename().c_str(), GetCurrentLineNumber());
+				throw FormattedException(
+					"%ls: line %u: default child name can only be explicitly "
+					"defined before all face definitions.", 
+					GetFilename().c_str(), GetCurrentLineNumber());
 			}
 			return;
 		}
 		if (m_model_output.HasModelPart(child)) {
-			throw FormattedException("%ls: line %u: child name redefinition: %s.", GetFilename().c_str(), GetCurrentLineNumber(), child.c_str());
+			throw FormattedException(
+				"%ls: line %u: child name redefinition: %s.", 
+				GetFilename().c_str(), GetCurrentLineNumber(), child.c_str());
 		}
 		
 		const string parent = HasString() ? ReadString() : MAGE_MDL_PART_DEFAULT_PARENT;
@@ -173,6 +183,7 @@ namespace mage {
 
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJFace() {
+		
 		vector< u32 > indices;
 		while (indices.size() < 3 || HasString()) {
 			const XMUINT3 vertex_indices = ReadOBJVertexIndices();
@@ -182,7 +193,8 @@ namespace mage {
 				indices.push_back(it->second);
 			}
 			else {
-				const u32 index = static_cast< u32 >(m_model_output.m_vertex_buffer.size());
+				const u32 index 
+					= static_cast< u32 >(m_model_output.m_vertex_buffer.size());
 				indices.push_back(index);
 				m_model_output.m_vertex_buffer.push_back(ConstructVertex(vertex_indices));
 				m_mapping[vertex_indices] = index;
@@ -239,41 +251,57 @@ namespace mage {
 			// v1//vn1
 			const char *index_end = strchr(token, '/');
 			if (StringToU32(token, index_end, vertex_index) == TokenResult::Invalid) {
-				throw FormattedException("%ls: line %u: invalid vertex index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+				throw FormattedException(
+					"%ls: line %u: invalid vertex index value found in %s.", 
+					GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 			if (StringToU32(index_end + 2, normal_index) == TokenResult::Invalid) {
-				throw FormattedException("%ls: line %u: invalid normal index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+				throw FormattedException(
+					"%ls: line %u: invalid normal index value found in %s.", 
+					GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 		}
 		else if (str_contains(token, '/')) {
 			// v1/vt1 or v1/vt1/vn1
 			const char *index_end = strchr(token, '/');
 			if (StringToU32(token, index_end, vertex_index) == TokenResult::Invalid) {
-				throw FormattedException("%ls: line %u: invalid vertex index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+				throw FormattedException(
+					"%ls: line %u: invalid vertex index value found in %s.", 
+					GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 			
 			if (str_contains(index_end + 1, '/')) {
 				const char *texture_end = strchr(index_end + 1, '/');
 				if (StringToU32(index_end + 1, texture_end, texture_index) == TokenResult::Invalid) {
-					throw FormattedException("%ls: line %u: invalid texture index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+					throw FormattedException(
+						"%ls: line %u: invalid texture index value found in %s.", 
+						GetFilename().c_str(), GetCurrentLineNumber(), token);
 				}
 				if (StringToU32(texture_end + 1, normal_index) == TokenResult::Invalid) {
-					throw FormattedException("%ls: line %u: invalid normal index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+					throw FormattedException(
+						"%ls: line %u: invalid normal index value found in %s.", 
+						GetFilename().c_str(), GetCurrentLineNumber(), token);
 				}
 			}
 			else if (StringToU32(index_end + 1, texture_index) == TokenResult::Invalid) {
-				throw FormattedException("%ls: line %u: invalid texture index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+				throw FormattedException(
+					"%ls: line %u: invalid texture index value found in %s.", 
+					GetFilename().c_str(), GetCurrentLineNumber(), token);
 			}
 		}
 		else if (StringToU32(token, vertex_index) == TokenResult::Invalid) {
-			throw FormattedException("%ls: line %u: invalid vertex index value found in %s.", GetFilename().c_str(), GetCurrentLineNumber(), token);
+			throw FormattedException(
+				"%ls: line %u: invalid vertex index value found in %s.", 
+				GetFilename().c_str(), GetCurrentLineNumber(), token);
 		}
 
 		return XMUINT3(vertex_index, texture_index, normal_index);
 	}
 
 	template < typename VertexT >
-	const VertexT OBJReader< VertexT >::ConstructVertex(const XMUINT3 &vertex_indices) {
+	const VertexT OBJReader< VertexT >::ConstructVertex(
+		const XMUINT3 &vertex_indices) {
+		
 		VertexT vertex;
 
 		if constexpr(VertexT::HasPosition()) {

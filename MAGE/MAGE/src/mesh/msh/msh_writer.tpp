@@ -16,7 +16,8 @@ namespace mage {
 
 	template< typename VertexT, typename IndexT >
 	MSHWriter< VertexT, IndexT >::MSHWriter(
-		const vector< VertexT > &vertices, const vector< IndexT > &indices)
+		const vector< VertexT > &vertices, 
+		const vector< IndexT > &indices)
 		: BigEndianBinaryWriter(), m_vertices(vertices), m_indices(indices) {}
 
 	template< typename VertexT, typename IndexT >

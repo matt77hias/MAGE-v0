@@ -24,11 +24,12 @@ namespace mage {
 		 Constructs a mesh descriptor.
 
 		 @param[in]		invert_handedness
-						A flag indicating whether the mesh coordinate system handness 
-						should be inverted.
+						A flag indicating whether the mesh coordinate system 
+						handness should be inverted.
 		 @param[in]		clockwise_order
 						A flag indicating whether the face vertices should be 
-						defined in clockwise order or not (i.e. counterclockwise order).
+						defined in clockwise order or not (i.e. 
+						counterclockwise order).
 		 */
 		explicit MeshDescriptor(
 			bool invert_handedness = false, 
@@ -66,7 +67,7 @@ namespace mage {
 
 		 @param[in]		desc
 						A reference to the mesh descriptor to copy.
-		 @return		A reference to the copy of the given mesh descriptor
+		 @return		A reference to the copy of the given mesh descriptor 
 						(i.e. this mesh descriptor).
 		 */
 		MeshDescriptor &operator=(const MeshDescriptor< VertexT > &desc) = default;
@@ -76,8 +77,8 @@ namespace mage {
 
 		 @param[in]		desc
 						A reference to the mesh descriptor to move.
-		 @return		A reference to the moved mesh descriptor
-						(i.e. this mesh descriptor).
+		 @return		A reference to the moved mesh descriptor (i.e. this 
+						mesh descriptor).
 		 */
 		MeshDescriptor &operator=(MeshDescriptor< VertexT > &&desc) = default;
 
@@ -89,8 +90,8 @@ namespace mage {
 		 Checks whether the mesh coordinate system handness should be inverted
 		 or not according to this mesh descriptor.
  
-		 @return		@c true if the mesh coordinate system handness should be inverted.
-						@c false otherwise.
+		 @return		@c true if the mesh coordinate system handness should 
+						be inverted. @c false otherwise.
 		 */
 		bool InvertHandness() const noexcept {
 			return m_invert_handedness;
@@ -98,10 +99,11 @@ namespace mage {
 
 		/**
 		 Checks whether the face vertices should be defined in clockwise order
-		 or not (i.e. counterclockwise order) according to this mesh descriptor.
+		 or not (i.e. counterclockwise order) according to this mesh 
+		 descriptor.
 
-		 @return		@c true if the face vertices should be defined in clockwise order.
-						@c false otherwise.
+		 @return		@c true if the face vertices should be defined in 
+						clockwise order. @c false otherwise.
 		 */
 		bool ClockwiseOrder() const noexcept {
 			return m_clockwise_order;
@@ -114,14 +116,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A flag indicating whether the mesh coordinate system handness should be inverted
-		 or not for this mesh descriptor.
+		 A flag indicating whether the mesh coordinate system handness should 
+		 be inverted or not for this mesh descriptor.
 		 */
 		bool m_invert_handedness;
 
 		/**
-		 A flag indicating whether the face vertices should be defined in clockwise order
-		 or not (i.e. counterclockwise order) for this mesh descriptor.
+		 A flag indicating whether the face vertices should be defined in 
+		 clockwise order or not (i.e. counterclockwise order) for this mesh 
+		 descriptor.
 		 */
 		bool m_clockwise_order;
 	};

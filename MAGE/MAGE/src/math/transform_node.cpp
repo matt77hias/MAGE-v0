@@ -20,12 +20,14 @@ namespace mage {
 	TransformNode::TransformNode()
 		: m_transform(new Transform()),
 		m_parent(nullptr), m_childs() {
+		
 		SetDirty();
 	}
 
 	TransformNode::TransformNode(const TransformNode &transform_node)
 		: m_transform(new Transform(*transform_node.m_transform)),
 		m_parent(nullptr), m_childs() {
+		
 		SetDirty();
 	}
 
@@ -33,6 +35,7 @@ namespace mage {
 		: m_transform(std::move(transform_node.m_transform)),
 		m_parent(std::move(transform_node.m_parent)),
 		m_childs(std::move(transform_node.m_childs)) {
+		
 		SetDirty();
 	}
 
@@ -41,7 +44,8 @@ namespace mage {
 	}
 
 	bool TransformNode::HasChildNode(SharedPtr< const Node > node) const {
-		return std::find(m_childs.begin(), m_childs.end(), node) != m_childs.end();
+		return std::find(m_childs.begin(), m_childs.end(), node) 
+			!= m_childs.end();
 	}
 
 	void TransformNode::RemoveAllChildNodes() noexcept {
@@ -141,7 +145,8 @@ namespace mage {
 		node->m_transform->m_parent = nullptr;
 		node->m_transform->SetDirty();
 
-		const auto it = std::find(m_transform->m_childs.begin(), m_transform->m_childs.end(), node);
+		const auto it = std::find(
+			m_transform->m_childs.begin(), m_transform->m_childs.end(), node);
 		if (it != m_transform->m_childs.end()) {
 			m_transform->m_childs.erase(it);
 		}

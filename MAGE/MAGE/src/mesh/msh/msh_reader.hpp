@@ -42,7 +42,8 @@ namespace mage {
 						A reference to a vector for storing the read indices
 						from file.
 		 */
-		explicit MSHReader(vector< VertexT > &vertices, vector< IndexT > &indices);
+		explicit MSHReader(
+			vector< VertexT > &vertices, vector< IndexT > &indices);
 
 		/**
 		 Constructs a MSH reader from the given MSH reader.
@@ -74,8 +75,8 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a MSH reader to copy.
-		 @return		A reference to the copy of the given MSH reader
-						(i.e. this MSH reader).
+		 @return		A reference to the copy of the given MSH reader (i.e. 
+						this MSH reader).
 		 */
 		MSHReader< VertexT, IndexT > &operator=(
 			const MSHReader< VertexT, IndexT > &reader) = delete;
@@ -85,8 +86,8 @@ namespace mage {
 
 		 @param[in]		reader
 						A reference to a MSH reader to move.
-		 @return		A reference to the moved MSH reader
-						(i.e. this MSH reader).
+		 @return		A reference to the moved MSH reader (i.e. this MSH 
+						reader).
 		 */
 		MSHReader< VertexT, IndexT > &operator=(
 			MSHReader< VertexT, IndexT > &&reader) = delete;
@@ -108,8 +109,8 @@ namespace mage {
 		/**
 		 Checks whether the header of the file is valid.
 
-		 @return		@c true if the header of the file is valid.
-						@c false otherwise.
+		 @return		@c true if the header of the file is valid. @c false 
+						otherwise.
 		 */
 		bool IsHeaderValid();
 
@@ -118,12 +119,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to a vector containing the read vertices of this MSH reader.
+		 A reference to a vector containing the read vertices of this MSH 
+		 reader.
 		 */
 		vector< VertexT > &m_vertices;
 
 		/**
-		 A reference to a vector containing the read indices of this MSH reader.
+		 A reference to a vector containing the read indices of this MSH 
+		 reader.
 		 */
 		vector< IndexT > &m_indices;
 	};

@@ -31,7 +31,8 @@ namespace mage {
 		const VertexT *vertices, size_t nb_vertices, 
 		const IndexT *indices, size_t nb_indices, 
 		DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology)
-		: Mesh(sizeof(VertexT), index_format, primitive_topology), m_aabb(), m_bs() {
+		: Mesh(sizeof(VertexT), index_format, primitive_topology), 
+		m_aabb(), m_bs() {
 
 		SetupBoundingVolumes(vertices, nb_vertices);
 		SetupVertexBuffer(device, vertices, nb_vertices);
@@ -83,7 +84,8 @@ namespace mage {
 
 		const HRESULT result_vertex_buffer = CreateStaticVertexBuffer< VertexT >(
 			device, m_vertex_buffer.ReleaseAndGetAddressOf(), vertices, nb_vertices);
-		ThrowIfFailed(result_vertex_buffer, "Vertex buffer creation failed: %08X.", result_vertex_buffer);
+		ThrowIfFailed(result_vertex_buffer, 
+			"Vertex buffer creation failed: %08X.", result_vertex_buffer);
 
 		SetNumberOfVertices(nb_vertices);
 	}
@@ -97,7 +99,8 @@ namespace mage {
 
 		const HRESULT result_index_buffer = CreateStaticIndexBuffer< IndexT >(
 			device, m_index_buffer.ReleaseAndGetAddressOf(), indices, nb_indices);
-		ThrowIfFailed(result_index_buffer, "Index buffer creation failed: %08X.", result_index_buffer);
+		ThrowIfFailed(result_index_buffer, 
+			"Index buffer creation failed: %08X.", result_index_buffer);
 
 		SetNumberOfIndices(nb_indices);
 	}

@@ -30,7 +30,8 @@ namespace mage {
 					Failed to import the mesh from file.
 	 */
 	template < typename VertexT >
-	void ImportOBJMeshFromFile(const wstring &fname, ModelOutput< VertexT > &model_output, 
+	void ImportOBJMeshFromFile(const wstring &fname, 
+		ModelOutput< VertexT > &model_output, 
 		const MeshDescriptor< VertexT > &mesh_desc = MeshDescriptor< VertexT >());
 }
 

@@ -55,8 +55,8 @@ namespace mage {
 		 Constructs an (identity) AABB.
 		 */
 		AABB() 
-			: m_p_min(Point3(INFINITY, INFINITY, INFINITY)), 
-			m_p_max(Point3(-INFINITY, -INFINITY, -INFINITY)) {}
+			: m_p_min(Point3( INFINITY,  INFINITY,  INFINITY)), 
+			  m_p_max(Point3(-INFINITY, -INFINITY, -INFINITY)) {}
 
 		/**
 		 Constructs an AABB of the given point.
@@ -117,8 +117,8 @@ namespace mage {
 
 		 @param[in]		aabb
 						A reference to the AABB to copy.
-		 @return		A reference to the copy of the given AABB
-						(i.e. this AABB).
+		 @return		A reference to the copy of the given AABB (i.e. this 
+						AABB).
 		 */
 		AABB &operator=(const AABB &aabb) = default;
 
@@ -127,8 +127,7 @@ namespace mage {
 
 		 @param[in]		aabb
 						A reference to the AABB to move.
-		 @return		A reference to the moved AABB
-						(i.e. this AABB).
+		 @return		A reference to the moved AABB (i.e. this AABB).
 		 */
 		AABB &operator=(AABB &&aabb) = default;
 
@@ -168,8 +167,8 @@ namespace mage {
 						A reference to the point.
 		 @return		@c true if this AABB completely encloses @a point.
 						@c false otherwise.
-		 @note			This is a full coverage test of a point 
-						with regard to an AABB.
+		 @note			This is a full coverage test of a point with regard to 
+						an AABB.
 		 */
 		bool Encloses(const Point3 &point) const noexcept;
 
@@ -178,10 +177,10 @@ namespace mage {
 
 		 @param[in]		point
 						A reference to the point.
-		 @return		@c true if this AABB completely, strictly encloses @a point.
-						@c false otherwise.
-		 @note			This is a full coverage test of a point 
-						with regard to an AABB.
+		 @return		@c true if this AABB completely, strictly encloses 
+						@a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						an AABB.
 		 */
 		bool EnclosesStrict(const Point3 &point) const noexcept;
 
@@ -192,8 +191,8 @@ namespace mage {
 						A reference to the point.
 		 @return		@c true if this AABB completely encloses @a point.
 						@c false otherwise.
-		 @note			This is a full coverage test of a point
-						with regard to an AABB.
+		 @note			This is a full coverage test of a point with regard to 
+						an AABB.
 		 */
 		bool Encloses(FXMVECTOR point) const noexcept;
 
@@ -202,10 +201,10 @@ namespace mage {
 
 		 @param[in]		point
 						A reference to the point.
-		 @return		@c true if this AABB completely, strictly encloses @a point.
-						@c false otherwise.
-		 @note			This is a full coverage test of a point
-						with regard to an AABB.
+		 @return		@c true if this AABB completely, strictly encloses 
+						@a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						an AABB.
 		 */
 		bool EnclosesStrict(FXMVECTOR point) const noexcept;
 
@@ -216,8 +215,8 @@ namespace mage {
 						A reference to the AABB.
 		 @return		@c true if this AABB completely encloses @a aabb.
 						@c false otherwise.
-		 @note			This is a full coverage test of an AABB 
-						with regard to an AABB.
+		 @note			This is a full coverage test of an AABB with regard to 
+						an AABB.
 		 */
 		bool Encloses(const AABB &aabb) const noexcept;
 
@@ -226,10 +225,10 @@ namespace mage {
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @return		@c true if this AABB completely, strictly encloses @a aabb.
-						@c false otherwise.
-		 @note			This is a full coverage test of an AABB
-						with regard to an AABB.
+		 @return		@c true if this AABB completely, strictly encloses 
+						@a aabb. @c false otherwise.
+		 @note			This is a full coverage test of an AABB with regard to 
+						an AABB.
 		 */
 		bool EnclosesStrict(const AABB &aabb) const noexcept;
 
@@ -240,8 +239,8 @@ namespace mage {
 						A reference to the BS.
 		 @return		@c true if this AABB completely encloses @a bs.
 						@c false otherwise.
-		 @note			This is a full coverage test of a BS 
-						with regard to an AABB.
+		 @note			This is a full coverage test of a BS with regard to an 
+						AABB.
 		 */
 		bool Encloses(const BS &bs) const noexcept;
 
@@ -250,10 +249,10 @@ namespace mage {
 
 		 @param[in]		bs
 						A reference to the BS.
-		 @return		@c true if this AABB completely, strictly encloses @a bs.
-						@c false otherwise.
-		 @note			This is a full coverage test of a BS 
-						with regard to an AABB.
+		 @return		@c true if this AABB completely, strictly encloses 
+						@a bs. @c false otherwise.
+		 @note			This is a full coverage test of a BS with regard to an 
+						AABB.
 		 */
 		bool EnclosesStrict(const BS &bs) const noexcept;
 
@@ -292,8 +291,8 @@ namespace mage {
 						A reference to the BS.
 		 @return		@c true if this AABB overlaps @a bs.
 						@c false otherwise.
-		 @note			This is a (partial or full) coverage test of a BS 
-						with regard to an AABB.
+		 @note			This is a (partial or full) coverage test of a BS with 
+						regard to an AABB.
 		 */
 		bool Overlaps(const BS &bs) const noexcept;
 
@@ -304,8 +303,8 @@ namespace mage {
 						A reference to the BS.
 		 @return		@c true if this AABB strictly overlaps @a bs.
 						@c false otherwise.
-		 @note			This is a (partial or full) coverage test of a BS 
-						with regard to an AABB.
+		 @note			This is a (partial or full) coverage test of a BS with 
+						regard to an AABB.
 		 */
 		bool OverlapsStrict(const BS &bs) const noexcept;
 
@@ -319,13 +318,14 @@ namespace mage {
 		 @param[in]		point
 						A reference to the point.
 		 @param[in]		epsilon
-						The epsilon value for float comparisons.
-		 @return		@c true if this AABB intersects @a point.
-						@c false otherwise.
-		 @note			This is a partial coverage test of a point
-						with regard to an AABB.
+						The epsilon value for f32 comparisons.
+		 @return		@c true if this AABB intersects @a point. @c false 
+						otherwise.
+		 @note			This is a partial coverage test of a point with regard 
+						to an AABB.
 		 */
-		bool Intersects(const Point3 &point, float epsilon = 0.0f) const noexcept;
+		bool Intersects(const Point3 &point, 
+			f32 epsilon = 0.0f) const noexcept;
 
 		/**
 		 Checks whether this AABB intersects the given point.
@@ -333,23 +333,24 @@ namespace mage {
 		 @param[in]		point
 						The point.
 		 @param[in]		epsilon
-						The epsilon value for float comparisons.
-		 @return		@c true if this AABB intersects @a point.
-						@c false otherwise.
-		 @note			This is a partial coverage test of a point
-						with regard to an AABB.
+						The epsilon value for f32 comparisons.
+		 @return		@c true if this AABB intersects @a point. @c false
+						otherwise.
+		 @note			This is a partial coverage test of a point with regard 
+						to an AABB.
 		 */
-		bool Intersects(FXMVECTOR point, float epsilon = 0.0f) const noexcept;
+		bool Intersects(FXMVECTOR point, 
+			f32 epsilon = 0.0f) const noexcept;
 
 		/**
 		 Checks whether this AABB intersects the given AABB.
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @return		@c true if this AABB intersects @a aabb.
-						@c false otherwise.
-		 @note			This is a partial coverage test of an AABB
-						with regard to an AABB.
+		 @return		@c true if this AABB intersects @a aabb. @c false 
+						otherwise.
+		 @note			This is a partial coverage test of an AABB with regard 
+						to an AABB.
 		 */
 		bool Intersects(const AABB &aabb) const noexcept;
 
@@ -358,10 +359,10 @@ namespace mage {
 
 		 @param[in]		bs
 						A reference to the BS.
-		 @return		@c true if this AABB intersects @a bs.
-						@c false otherwise.
-		 @note			This is a partial coverage test of a BS
-						with regard to an AABB.
+		 @return		@c true if this AABB intersects @a bs. @c false 
+						otherwise.
+		 @note			This is a partial coverage test of a BS with regard to 
+						an AABB.
 		 */
 		bool Intersects(const BS &bs) const noexcept;
 
@@ -375,10 +376,11 @@ namespace mage {
 		 @param[in]		point
 						A reference to the point.
 		 @param[in]		epsilon
-						The epsilon value for float comparisons.
+						The epsilon value for f32 comparisons.
 		 @return		The coverage of @a point with regard to this AABB.
 		 */
-		Coverage Classify(const Point3 &point, float epsilon = 0.0f) const noexcept;
+		Coverage Classify(const Point3 &point, 
+			f32 epsilon = 0.0f) const noexcept;
 
 		/**
 		 Classifies the coverage of the given point with regard to this AABB.
@@ -386,10 +388,11 @@ namespace mage {
 		 @param[in]		point
 						The point.
 		 @param[in]		epsilon
-						The epsilon value for float comparisons.
+						The epsilon value for f32 comparisons.
 		 @return		The coverage of @a point with regard to this AABB.
 		 */
-		Coverage Classify(FXMVECTOR point, float epsilon = 0.0f) const noexcept;
+		Coverage Classify(FXMVECTOR point, 
+			f32 epsilon = 0.0f) const noexcept;
 
 		/**
 		 Classifies the coverage of the given AABB with regard to this AABB.
@@ -548,7 +551,7 @@ namespace mage {
 		 @param[in]		r
 						The radius.
 		 */
-		explicit BS(const Point3 &p, float r)
+		explicit BS(const Point3 &p, f32 r)
 			: m_p(p), m_r(r) {}
 
 		/**
@@ -589,8 +592,7 @@ namespace mage {
 
 		 @param[in]		bs
 						A reference to the BS to copy from.
-		 @return		A reference to the copy of the given BS
-						(i.e. this BS).
+		 @return		A reference to the copy of the given BS (i.e. this BS).
 		 */
 		BS &operator=(const BS &bs) = default;
 
@@ -599,8 +601,7 @@ namespace mage {
 
 		 @param[in]		bs
 						A reference to the BS to copy from.
-		 @return		A reference to the copy of the given BS
-						(i.e. this BS).
+		 @return		A reference to the copy of the given BS (i.e. this BS).
 		 */
 		BS &operator=(BS &&bs) = default;
 
@@ -617,19 +618,19 @@ namespace mage {
 			return m_p;
 		}
 
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
 		// Member Methods: Enclosing = Full Coverage
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
 
 		/**
 		 Checks whether this BS completely encloses the given point.
 
 		 @param[in]		point
 						A reference to the point.
-		 @return		@c true if this BS completely encloses @a point.
-						@c false otherwise.
-		 @note			This is a full coverage test of a point 
-						with regard to a BS.
+		 @return		@c true if this BS completely encloses 
+						@a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						a BS.
 		 */
 		bool Encloses(const Point3 &point) const noexcept;
 
@@ -638,10 +639,10 @@ namespace mage {
 
 		 @param[in]		point
 						A reference to the point.
-		 @return		@c true if this BS completely, strictly encloses @a point.
-						@c false otherwise.
-		 @note			This is a full coverage test of a point 
-						with regard to a BS.
+		 @return		@c true if this BS completely, strictly encloses 
+						@a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						a BS.
 		 */
 		bool EnclosesStrict(const Point3 &point) const noexcept;
 
@@ -650,10 +651,10 @@ namespace mage {
 
 		 @param[in]		point
 						The point.
-		 @return		@c true if this BS completely encloses @a point.
-						@c false otherwise.
-		 @note			This is a full coverage test of a point
-						with regard to a BS.
+		 @return		@c true if this BS completely encloses
+						@a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						a BS.
 		 */
 		bool Encloses(FXMVECTOR point) const noexcept;
 
@@ -662,10 +663,10 @@ namespace mage {
 
 		 @param[in]		point
 						The point.
-		 @return		@c true if this BS completely, strictly encloses @a point.
-						@c false otherwise.
-		 @note			This is a full coverage test of a point
-						with regard to a BS.
+		 @return		@c true if this BS completely, strictly encloses 
+						@a point. @c false otherwise.
+		 @note			This is a full coverage test of a point with regard to 
+						a BS.
 		 */
 		bool EnclosesStrict(FXMVECTOR point) const noexcept;
 
@@ -674,10 +675,10 @@ namespace mage {
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @return		@c true if this BS completely encloses @a aabb.
+		 @return		@c true if this BS completely encloses @a aabb. 
 						@c false otherwise.
-		 @note			This is a full coverage test of an AABB 
-						with regard to a BS.
+		 @note			This is a full coverage test of an AABB with regard to 
+						a BS.
 		 */
 		bool Encloses(const AABB &aabb) const noexcept;
 
@@ -686,10 +687,10 @@ namespace mage {
 
 		 @param[in]		aabb
 						A reference to the AABB.
-		 @return		@c true if this BS completely, strictly encloses @a aabb.
-						@c false otherwise.
-		 @note			This is a full coverage test of an AABB 
-						with regard to a BS.
+		 @return		@c true if this BS completely, strictly encloses 
+						@a aabb. @c false otherwise.
+		 @note			This is a full coverage test of an AABB with regard to 
+						a BS.
 		 */
 		bool EnclosesStrict(const AABB &aabb) const noexcept;
 
@@ -700,8 +701,8 @@ namespace mage {
 						A reference to the BS.
 		 @return		@c true if this BS completely encloses @a bs.
 						@c false otherwise.
-		 @note			This is a full coverage test of a BS 
-						with regard to a BS.
+		 @note			This is a full coverage test of a BS with regard to a 
+						BS.
 		 */
 		bool Encloses(const BS &bs) const noexcept;
 
@@ -712,8 +713,8 @@ namespace mage {
 						A reference to the BS.
 		 @return		@c true if this BS completely, strictly encloses @a bs.
 						@c false otherwise.
-		 @note			This is a full coverage test of a BS 
-						with regard to a BS.
+		 @note			This is a full coverage test of a BS with regard to a 
+						BS.
 		 */
 		bool EnclosesStrict(const BS &bs) const noexcept;
 
@@ -729,7 +730,7 @@ namespace mage {
 		/**
 		 The radius of this BS.
 		 */
-		float m_r;
+		f32 m_r;
 	};
 
 	//-------------------------------------------------------------------------

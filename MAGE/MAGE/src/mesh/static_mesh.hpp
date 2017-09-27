@@ -32,9 +32,11 @@ namespace mage {
 
 		 @pre			The device associated with the current engine 
 						must be loaded.
-		 @pre			@a vertices points to an array of at least @a nb_vertices vertices.
+		 @pre			@a vertices points to an array of at least 
+						@a nb_vertices vertices.
 		 @pre			@a nb_vertices must be greater than zero.
-		 @pre			@a indices points to an array of at least @a nb_indices indices.
+		 @pre			@a indices points to an array of at least @a nb_indices 
+						indices.
 		 @pre			@a nb_indices must be greater than zero.
 		 @tparam		VertexT
 						The vertex type.
@@ -61,16 +63,19 @@ namespace mage {
 		explicit StaticMesh(
 			const VertexT *vertices, size_t nb_vertices,
 			const IndexT *indices, size_t nb_indices, 
-			DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
+			DXGI_FORMAT index_format, 
+			D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
 			= D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
+		
 		/**
 		 Constructs a static mesh.
 
 		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a vertices points to an array of at least @a nb_vertices vertices.
+		 @pre			@a vertices points to an array of at least 
+						@a nb_vertices vertices.
 		 @pre			@a nb_vertices must be greater than zero.
-		 @pre			@a indices points to an array of at least @a nb_indices indices.
+		 @pre			@a indices points to an array of at least @a nb_indices
+						indices.
 		 @pre			@a nb_indices must be greater than zero.
 		 @tparam		VertexT
 						The vertex type.
@@ -99,7 +104,8 @@ namespace mage {
 		explicit StaticMesh(ID3D11Device2 *device, 
 			const VertexT *vertices, size_t nb_vertices, 
 			const IndexT *indices, size_t nb_indices, 
-			DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
+			DXGI_FORMAT index_format, 
+			D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
 			= D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		/**
@@ -129,7 +135,8 @@ namespace mage {
 		template < typename VertexT, typename IndexT >
 		explicit StaticMesh(
 			const vector< VertexT > &vertices, const vector< IndexT > &indices, 
-			DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
+			DXGI_FORMAT index_format, 
+			D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
 			= D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		/**
@@ -160,7 +167,8 @@ namespace mage {
 		template < typename VertexT, typename IndexT >
 		explicit StaticMesh(ID3D11Device2 *device,
 			const vector< VertexT > &vertices, const vector< IndexT > &indices, 
-			DXGI_FORMAT index_format, D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
+			DXGI_FORMAT index_format, 
+			D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
 			= D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		/**
@@ -193,8 +201,8 @@ namespace mage {
 
 		 @param[in]		static_mesh
 						A reference to the static mesh to copy.
-		 @return		A reference to the copy of the given static mesh
-						(i.e. this static mesh).
+		 @return		A reference to the copy of the given static mesh (i.e. 
+						this static mesh).
 		 */
 		StaticMesh &operator=(const StaticMesh &static_mesh) = delete;
 
@@ -203,8 +211,8 @@ namespace mage {
 
 		 @param[in]		static_mesh
 						A reference to the static mesh to move.
-		 @return		A reference to the moved static mesh
-						(i.e. this static mesh).
+		 @return		A reference to the moved static mesh (i.e. this static 
+						mesh).
 		 */
 		StaticMesh &operator=(StaticMesh &&static_mesh) = delete;
 
@@ -239,7 +247,8 @@ namespace mage {
 		/**
 		 Sets up the bounding volumes of this static mesh.
 
-		 @pre			@a vertices points to an array of at least @a nb_vertices vertices.
+		 @pre			@a vertices points to an array of at least 
+						@a nb_vertices vertices.
 		 @pre			@a nb_vertices must be greater than zero.
 		 @tparam		VertexT
 						The vertex type.
@@ -256,7 +265,8 @@ namespace mage {
 		 Sets up the vertex buffer of this static mesh.
 
 		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a vertices points to an array of at least @a nb_vertices vertices.
+		 @pre			@a vertices points to an array of at least 
+						@a nb_vertices vertices.
 		 @pre			@a nb_vertices must be greater than zero.
 		 @tparam		VertexT
 						The vertex type.
@@ -277,7 +287,8 @@ namespace mage {
 		 Sets up the index buffer of this static mesh.
 
 		 @pre			@a device is not equal to @c nullptr.
-		 @pre			@a indices points to an array of at least @a nb_indices indices.
+		 @pre			@a indices points to an array of at least @a nb_indices 
+						indices.
 		 @pre			@a nb_indices must be greater than zero.
 		 @tparam		IndexT
 						The index type.

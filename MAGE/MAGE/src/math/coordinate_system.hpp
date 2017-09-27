@@ -16,8 +16,8 @@
 namespace mage {
 
 	/**
-	 Calculates an orthonormal basis from a given unit vector
-	 with the method of Hughes and Möller.
+	 Calculates an orthonormal basis from a given unit vector with the method 
+	 of Hughes and Möller.
 
 	 @pre			The given vector is normalized.
 	 @param[in]		n
@@ -27,7 +27,9 @@ namespace mage {
 	 @param[out]	b2
 					The third basis vector of the orthonormal basis.
 	 */
-	inline void OrthonormalBasis_HughesMoller(FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
+	inline void OrthonormalBasis_HughesMoller(
+		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
+		
 		const XMVECTOR u = (fabs(XMVectorGetX(n)) > fabs(XMVectorGetZ(n)))
 			? XMVectorSet(-XMVectorGetY(n), XMVectorGetX(n), 0.0f, 0.0f)
 			: XMVectorSet(0.0f, -XMVectorGetZ(n), XMVectorGetY(n), 0.0f);
@@ -36,8 +38,8 @@ namespace mage {
 	}
 
 	/**
-	 Calculates an orthonormal basis from a given unit vector
-	 with the method of Frisvad.
+	 Calculates an orthonormal basis from a given unit vector with the method 
+	 of Frisvad.
 
 	 @pre			The given vector is normalized.
 	 @param[in]		n
@@ -47,7 +49,9 @@ namespace mage {
 	 @param[out]	b2
 					The third basis vector of the orthonormal basis.
 	 */
-	inline void OrthonormalBasis_Frisvad(FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
+	inline void OrthonormalBasis_Frisvad(
+		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
+		
 		XMFLOAT3 nf;
 		XMStoreFloat3(&nf, n);
 
@@ -57,15 +61,15 @@ namespace mage {
 			return;
 		}
 
-		const float a = 1.0f / (1.0f + nf.z);
-		const float b = -nf.x * nf.y * a;
+		const f32 a = 1.0f / (1.0f + nf.z);
+		const f32 b = -nf.x * nf.y * a;
 		b1 = XMVectorSet(1.0f - nf.x * nf.x * a, b, -nf.x, 0.0f);
 		b2 = XMVectorSet(b, 1.0f - nf.y * nf.y * a, -nf.y, 0.0f);
 	}
 
 	/**
-	 Calculates an orthonormal basis from a given unit vector
-	 with the method of Duff, Burgess, Christensen, Hery, Kensler, Liani and Villemin.
+	 Calculates an orthonormal basis from a given unit vector with the method 
+	 of Duff, Burgess, Christensen, Hery, Kensler, Liani and Villemin.
 
 	 @pre			The given vector is normalized.
 	 @param[in]		n
@@ -75,13 +79,15 @@ namespace mage {
 	 @param[out]	b2
 					The third basis vector of the orthonormal basis.
 	 */
-	inline void OrthonormalBasis_Duff(FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
+	inline void OrthonormalBasis_Duff(
+		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
+		
 		XMFLOAT3 nf;
 		XMStoreFloat3(&nf, n);
 
-		const float sign = copysignf(1.0f, nf.z);
-		const float a = -1.0f / (sign + nf.z);
-		const float b = nf.x * nf.y * a;
+		const f32 sign = copysignf(1.0f, nf.z);
+		const f32 a = -1.0f / (sign + nf.z);
+		const f32 b = nf.x * nf.y * a;
 		b1 = XMVectorSet(1.0f + sign * nf.x * nf.x * a, sign * b, -sign * nf.x, 0.0f);
 		b2 = XMVectorSet(b, sign + nf.y * nf.y * a, -nf.y, 0.0f);
 	}
@@ -97,7 +103,9 @@ namespace mage {
 	 @param[out]	b2
 					The third basis vector of the orthonormal basis.
 	 */
-	inline void OrthonormalBasis(FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
+	inline void OrthonormalBasis(
+		FXMVECTOR n, XMVECTOR &b1, XMVECTOR &b2) noexcept {
+		
 		OrthonormalBasis_Duff(n, b1, b2);
 	}
 
@@ -108,7 +116,8 @@ namespace mage {
 	/**
 	 A struct of Cartesian axes systems.
 	 */
-	__declspec(align(16)) struct CartesianAxesSystem final : public AlignedData< CartesianAxesSystem > {
+	__declspec(align(16)) struct CartesianAxesSystem final 
+		: public AlignedData< CartesianAxesSystem > {
 
 	public:
 
@@ -121,8 +130,8 @@ namespace mage {
 		 */
 		CartesianAxesSystem()
 			: m_x(XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f)), 
-			m_y(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f)), 
-			m_z(XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f)) {}
+			  m_y(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f)), 
+			  m_z(XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f)) {}
 		
 		/**
 		 Constructs a Cartesian axes system from the given axes.
@@ -133,6 +142,7 @@ namespace mage {
 		 */
 		explicit CartesianAxesSystem(FXMVECTOR x) 
 			: m_x(x) {
+			
 			OrthonormalBasis(m_x, m_y, m_z);
 		}
 
@@ -163,7 +173,8 @@ namespace mage {
 			: m_x(x), m_y(y), m_z(z) {}
 
 		/**
-		 Constructs a Cartesian axes system from the given Cartesian axes system.
+		 Constructs a Cartesian axes system from the given Cartesian axes 
+		 system.
 
 		 @param[in]		axes
 						A reference to the Cartesian axes system to copy.
@@ -171,7 +182,8 @@ namespace mage {
 		CartesianAxesSystem(const CartesianAxesSystem &axes) = default;
 
 		/**
-		 Constructs a Cartesian axes system by moving the given Cartesian axes system.
+		 Constructs a Cartesian axes system by moving the given Cartesian axes 
+		 system.
 
 		 @param[in]		axes
 						A reference to the Cartesian axes system to move.
@@ -192,20 +204,22 @@ namespace mage {
 
 		 @param[in]		axes
 						A reference to the Cartesian axes system to copy.
-		 @return		A reference to the copy of the given Cartesian axes system
-						(i.e. this Cartesian axes system).
+		 @return		A reference to the copy of the given Cartesian axes 
+						system (i.e. this Cartesian axes system).
 		 */
-		CartesianAxesSystem &operator=(const CartesianAxesSystem &axes) = default;
+		CartesianAxesSystem &operator=(
+			const CartesianAxesSystem &axes) = default;
 
 		/**
 		 Moves the given Cartesian axes system to this Cartesian axes system.
 
 		 @param[in]		axes
 						A reference to the Cartesian axes system to move.
-		 @return		A reference to the moved Cartesian axes system
-						(i.e. this Cartesian axes system).
+		 @return		A reference to the moved Cartesian axes system (i.e. 
+						this Cartesian axes system).
 		 */
-		CartesianAxesSystem &operator=(CartesianAxesSystem &&axes) = default;
+		CartesianAxesSystem &operator=(
+			CartesianAxesSystem &&axes) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -267,7 +281,8 @@ namespace mage {
 	/**
 	 A struct of Cartesian coordinate systems.
 	 */
-	_declspec(align(16)) struct CartesianCoordinateSystem final : public AlignedData< CartesianCoordinateSystem > {
+	_declspec(align(16)) struct CartesianCoordinateSystem final 
+		: public AlignedData< CartesianCoordinateSystem > {
 
 	public:
 
@@ -276,7 +291,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a Cartesian coordinate system from the given Cartesian axes system.
+		 Constructs a Cartesian coordinate system from the given Cartesian axes 
+		 system.
 
 		 @param[in]		axes
 						A reference to the Cartesian axes system.
@@ -285,31 +301,37 @@ namespace mage {
 			: m_o(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)), m_axes(axes) {}
 
 		/**
-		 Constructs a Cartesian coordinate system from the given origin and Cartesian axes system.
+		 Constructs a Cartesian coordinate system from the given origin and 
+		 Cartesian axes system.
 
 		 @param[in]		o
 						The origin.
 		 @param[in]		axes
 						A reference to the Cartesian axes system.
 		 */
-		explicit CartesianCoordinateSystem(FXMVECTOR o, const CartesianAxesSystem &axes)
+		explicit CartesianCoordinateSystem(
+			FXMVECTOR o, const CartesianAxesSystem &axes)
 			: m_o(o), m_axes(axes) {}
 
 		/**
-		 Constructs a Cartesian coordinate system from the given Cartesian coordinate system.
+		 Constructs a Cartesian coordinate system from the given Cartesian 
+		 coordinate system.
 
 		 @param[in]		coordinate_system
 						A reference to the Cartesian coordinate system.
 		 */
-		CartesianCoordinateSystem(const CartesianCoordinateSystem &coordinate_system) = default;
+		CartesianCoordinateSystem(
+			const CartesianCoordinateSystem &coordinate_system) = default;
 
 		/**
-		 Constructs a Cartesian coordinate system by moving the given Cartesian coordinate system.
+		 Constructs a Cartesian coordinate system by moving the given Cartesian 
+		 coordinate system.
 
 		 @param[in]		coordinate_system
 						A reference to the Cartesian coordinate system.
 		 */
-		CartesianCoordinateSystem(CartesianCoordinateSystem &&coordinate_system) = default;
+		CartesianCoordinateSystem(
+			CartesianCoordinateSystem &&coordinate_system) = default;
 
 		/**
 		 Destructs this Cartesian coordinate system.
@@ -321,24 +343,29 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given Cartesian coordinate system to this Cartesian coordinate system.
+		 Copies the given Cartesian coordinate system to this Cartesian 
+		 coordinate system.
 
 		 @param[in]		coordinate_system
 						A reference to the Cartesian coordinate system to copy.
-		 @return		A reference to the copy of the given Cartesian coordinate system
-						(i.e. this Cartesian coordinate system).
+		 @return		A reference to the copy of the given Cartesian 
+						coordinate system (i.e. this Cartesian coordinate 
+						system).
 		 */
-		CartesianCoordinateSystem &operator=(const CartesianCoordinateSystem &coordinate_system) = default;
+		CartesianCoordinateSystem &operator=(
+			const CartesianCoordinateSystem &coordinate_system) = default;
 
 		/**
-		 Moves the given Cartesian coordinate system to this Cartesian coordinate system.
+		 Moves the given Cartesian coordinate system to this Cartesian 
+		 coordinate system.
 
 		 @param[in]		coordinate_system
 						A reference to the Cartesian coordinate system to move.
-		 @return		A reference to the moved Cartesian coordinate system
+		 @return		A reference to the moved Cartesian coordinate system 
 						(i.e. this Cartesian coordinate system).
 		 */
-		CartesianCoordinateSystem &operator=(CartesianCoordinateSystem &&coordinate_system) = default;
+		CartesianCoordinateSystem &operator=(
+			CartesianCoordinateSystem &&coordinate_system) = default;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -383,7 +410,8 @@ namespace mage {
 		/**
 		 Returns the axes of this Cartesian coordinate system.
 
-		 @return		The Cartesian axes system of this Cartesian coordinate system.
+		 @return		The Cartesian axes system of this Cartesian coordinate 
+						system.
 		 */
 		const CartesianAxesSystem GetAxes() const noexcept {
 			return m_axes;

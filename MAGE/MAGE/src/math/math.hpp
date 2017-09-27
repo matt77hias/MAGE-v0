@@ -60,24 +60,26 @@ namespace mage {
 		 @param[in]		v
 						The v texture coordinate.			
 		 */
-		UV(float u, float v) noexcept
+		UV(f32 u, f32 v) noexcept
 			: XMFLOAT2(u, v) {}
 		
 		/**
-		 Constructs a set of UV texture coordinates from
-		 the given set of UV texture coordinates.
+		 Constructs a set of UV texture coordinates from the given set of UV 
+		 texture coordinates.
 
 		 @param[in]		uv
-						A reference to the set of UV texture coordinates to copy.
+						A reference to the set of UV texture coordinates to 
+						copy.
 		 */
 		UV(const UV &uv) = default;
 		
 		/**
-		 Constructs a set of UV texture coordinates by moving
-		 the given set of UV texture coordinates.
+		 Constructs a set of UV texture coordinates by moving the given set of 
+		 UV texture coordinates.
 
 		 @param[in]		uv
-						A reference to the set of UV texture coordinates to move.
+						A reference to the set of UV texture coordinates to 
+						move.
 		 */
 		UV(UV &&uv) noexcept = default;
 		
@@ -109,29 +111,32 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given set of UV texture coordinates to
-		 this set of texture coordinates.
+		 Copies the given set of UV texture coordinates to this set of texture 
+		 coordinates.
 
 		 @param[in]		uv
-						A reference to the set of UV texture coordinates to copy.
-		 @return		A reference to the copy of the given set of UV texture coordinates
-						(i.e. this set of UV texture coordinates).
+						A reference to the set of UV texture coordinates to 
+						copy.
+		 @return		A reference to the copy of the given set of UV texture 
+						coordinates (i.e. this set of UV texture coordinates).
 		 */
 		UV &operator=(const UV &uv) = default;
 		
 		/**
-		 Moves the given set of UV texture coordinates to
-		 this set of texture coordinates.
+		 Moves the given set of UV texture coordinates to this set of texture 
+		 coordinates.
 
 		 @param[in]		uv
-						A reference to the set of UV texture coordinates to move.
+						A reference to the set of UV texture coordinates to 
+						move.
 		 @return		A reference to the moved set of UV texture coordinates
 						(i.e. this set of UV texture coordinates).
 		 */
 		UV &operator=(UV &&uv) = default;
 	};
 
-	static_assert(sizeof(UV) == sizeof(XMFLOAT2), "UV/XMFLOAT2 mismatch");
+	static_assert(sizeof(UV) == sizeof(XMFLOAT2), 
+		"UV/XMFLOAT2 mismatch");
 
 	/**
 	 Outputs the given vector to the given output stream.
@@ -186,7 +191,7 @@ namespace mage {
 		 @param[in]		z
 						The z-coordinate.
 		 */
-		Point3(float x, float y, float z) noexcept
+		Point3(f32 x, f32 y, f32 z) noexcept
 			: XMFLOAT3(x, y, z) {}
 		
 		/**
@@ -195,7 +200,7 @@ namespace mage {
 		 @param[in]		point
 						A reference to the point to copy.
 		 */
-		Point3(const Point3 &point) = default;
+		Point3(const Point3 &point) noexcept = default;
 		
 		/**
 		 Constructs a point by moving the given point.
@@ -237,8 +242,8 @@ namespace mage {
 
 		 @param[in]		point
 						A reference to the point to copy.
-		 @return		A reference to the copy of the given point
-						(i.e. this point).
+		 @return		A reference to the copy of the given point (i.e. this 
+						point).
 		 */
 		Point3 &operator=(const Point3 &point) = default;
 		
@@ -247,13 +252,13 @@ namespace mage {
 
 		 @param[in]		point
 						A reference to the point to move.
-		 @return		A reference to the moved point
-						(i.e. this point).
+		 @return		A reference to the moved point (i.e. this point).
 		 */
 		Point3 &operator=(Point3 &&point) = default;
 	};
 
-	static_assert(sizeof(Point3) == sizeof(XMFLOAT3), "Point3/XMFLOAT3 mismatch");
+	static_assert(sizeof(Point3) == sizeof(XMFLOAT3), 
+		"Point3/XMFLOAT3 mismatch");
 
 	//-------------------------------------------------------------------------
 	// XMFLOAT3: Direction3
@@ -286,7 +291,7 @@ namespace mage {
 		 @param[in]		z
 						The z-coordinate.
 		 */
-		Direction3(float x, float y, float z) noexcept
+		Direction3(f32 x, f32 y, f32 z) noexcept
 			: XMFLOAT3(x, y, z) {}
 		
 		/**
@@ -295,7 +300,7 @@ namespace mage {
 		 @param[in]		direction
 						A reference to the direction to copy.
 		 */
-		Direction3(const Direction3 &direction) = default;
+		Direction3(const Direction3 &direction) noexcept = default;
 		
 		/**
 		 Constructs a direction by moving the given direction.
@@ -353,8 +358,8 @@ namespace mage {
 
 		 @param[in]		direction
 						A reference to the direction to copy.
-		 @return		A reference to the copy of the given direction
-						(i.e. this direction).
+		 @return		A reference to the copy of the given direction (i.e. 
+						this direction).
 		 */
 		Direction3 &operator=(const Direction3 &direction) = default;
 		
@@ -363,13 +368,13 @@ namespace mage {
 
 		 @param[in]		direction
 						A reference to the direction to move.
-		 @return		A reference to the moved direction
-						(i.e. this direction).
+		 @return		A reference to the moved direction (i.e. this direction).
 		 */
 		Direction3 &operator=(Direction3 &&direction) = default;
 	};
 
-	static_assert(sizeof(Direction3) == sizeof(XMFLOAT3), "Direction3/XMFLOAT3 mismatch");
+	static_assert(sizeof(Direction3) == sizeof(XMFLOAT3), 
+		"Direction3/XMFLOAT3 mismatch");
 
 	//-------------------------------------------------------------------------
 	// XMFLOAT3: Normal3
@@ -378,8 +383,9 @@ namespace mage {
 	/**
 	 A struct of normals in 3D space.
 
-	 @note			@c Normal3 does not guarantee or force normalized directions.
-					This should be guaranteed and enforced by the user.
+	 @note			@c Normal3 does not guarantee or force normalized 
+					directions. This should be guaranteed and enforced by the 
+					user.
 	 */
 	struct Normal3 final : public XMFLOAT3 {
 
@@ -405,7 +411,7 @@ namespace mage {
 		 @param[in]		z
 						The z-coordinate.
 		 */
-		Normal3(float x, float y, float z) noexcept
+		Normal3(f32 x, f32 y, f32 z) noexcept
 			: XMFLOAT3(x, y, z) {}
 		
 		/**
@@ -414,7 +420,7 @@ namespace mage {
 		 @param[in]		normal
 						A reference to the normal to copy.
 		 */
-		Normal3(const Normal3 &normal) = default;
+		Normal3(const Normal3 &normal) noexcept = default;
 		
 		/**
 		 Constructs a normal by moving the given normal.
@@ -474,8 +480,8 @@ namespace mage {
 
 		 @param[in]		normal
 						A reference to the normal to copy.
-		 @return		A reference to the copy of the given normal
-						(i.e. this normal).
+		 @return		A reference to the copy of the given normal (i.e. this 
+						normal).
 		 */
 		Normal3 &operator=(const Normal3 &normal) = default;
 		
@@ -484,13 +490,13 @@ namespace mage {
 
 		 @param[in]		normal
 						A reference to the normal to move.
-		 @return		A reference to the moved normal
-						(i.e. this normal).
+		 @return		A reference to the moved normal (i.e. this normal).
 		 */
 		Normal3 &operator=(Normal3 &&normal) = default;
 	};
 
-	static_assert(sizeof(Normal3) == sizeof(XMFLOAT3), "Normal3/XMFLOAT3 mismatch");
+	static_assert(sizeof(Normal3) == sizeof(XMFLOAT3), 
+		"Normal3/XMFLOAT3 mismatch");
 
 	inline Direction3::Direction3(const Normal3 &normal) noexcept
 		: XMFLOAT3(normal) {}
@@ -545,7 +551,7 @@ namespace mage {
 		 @param[in]		w
 						The fourth component.
 		 */
-		Color(float x, float y, float z, float w) noexcept
+		Color(f32 x, f32 y, f32 z, f32 w) noexcept
 			: XMFLOAT4(x, y, z, w) {}
 		
 		/**
@@ -554,7 +560,7 @@ namespace mage {
 		 @param[in]		color
 						A reference to the color to copy.
 		 */
-		Color(const Color &color) = default;
+		Color(const Color &color) noexcept = default;
 		
 		/**
 		 Constructs a color by moving the given color.
@@ -612,7 +618,8 @@ namespace mage {
 		Color &operator=(Color &&color) = default;
 	};
 
-	static_assert(sizeof(Color) == sizeof(XMFLOAT4), "Color/XMFLOAT4 mismatch");
+	static_assert(sizeof(Color) == sizeof(XMFLOAT4), 
+		"Color/XMFLOAT4 mismatch");
 
 	/**
 	 Outputs the given vector to the given output stream.

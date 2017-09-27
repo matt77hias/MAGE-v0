@@ -41,8 +41,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a position.
 
-		 @return		@c true if vertices have a position.
-						@c false otherwise.
+		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
 		static constexpr bool HasPosition() noexcept {
 			return true;
@@ -51,8 +50,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a normal.
 
-		 @return		@c true if vertices have a normal.
-						@c false otherwise.
+		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
 		static constexpr bool HasNormal() noexcept {
 			return false;
@@ -61,8 +59,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a texture.
 
-		 @return		@c true if vertices have a texture.
-						@c false otherwise.
+		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
 		static constexpr bool HasTexture() noexcept {
 			return false;
@@ -71,8 +68,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a color.
 
-		 @return		@c true if vertices have a color.
-						@c false otherwise.
+		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
 		static constexpr bool HasColor() noexcept {
 			return false;
@@ -126,8 +122,8 @@ namespace mage {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex 
-						(i.e. this vertex).
+		 @return		A reference to the copy of the given vertex  (i.e. this 
+						vertex).
 		 */
 		VertexPosition &operator=(const VertexPosition &vertex) = default;
 
@@ -136,8 +132,7 @@ namespace mage {
 
 		 @param[in]		vertex
 						A reference to the vertex to move.
-		 @return		A reference to the moved vertex 
-						(i.e. this vertex).
+		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
 		VertexPosition &operator=(VertexPosition &&vertex) = default;
 
@@ -179,8 +174,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a position.
 
-		 @return		@c true if vertices have a position.
-						@c false otherwise.
+		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
 		static constexpr bool HasPosition() noexcept {
 			return true;
@@ -189,8 +183,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a normal.
 
-		 @return		@c true if vertices have a normal.
-						@c false otherwise.
+		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
 		static constexpr bool HasNormal() noexcept {
 			return true;
@@ -199,8 +192,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a texture.
 
-		 @return		@c true if vertices have a texture.
-						@c false otherwise.
+		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
 		static constexpr bool HasTexture() noexcept {
 			return false;
@@ -209,8 +201,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a color.
 
-		 @return		@c true if vertices have a color.
-						@c false otherwise.
+		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
 		static constexpr bool HasColor() noexcept {
 			return false;
@@ -266,20 +257,21 @@ namespace mage {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex 
-						(i.e. this vertex).
+		 @return		A reference to the copy of the given vertex (i.e. this 
+						vertex).
 		 */
-		VertexPositionNormal &operator=(const VertexPositionNormal &vertex) = default;
+		VertexPositionNormal &operator=(
+			const VertexPositionNormal &vertex) = default;
 
 		/**
 		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
 						A reference to the vertex to move.
-		 @return		A reference to the moved vertex 
-						(i.e. this vertex).
+		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionNormal &operator=(VertexPositionNormal &&vertex) = default;
+		VertexPositionNormal &operator=(
+			VertexPositionNormal &&vertex) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -324,8 +316,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a position.
 
-		 @return		@c true if vertices have a position.
-						@c false otherwise.
+		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
 		static constexpr bool HasPosition() noexcept {
 			return true;
@@ -334,8 +325,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a normal.
 
-		 @return		@c true if vertices have a normal.
-						@c false otherwise.
+		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
 		static constexpr bool HasNormal() noexcept {
 			return false;
@@ -344,8 +334,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a texture.
 
-		 @return		@c true if vertices have a texture.
-						@c false otherwise.
+		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
 		static constexpr bool HasTexture() noexcept {
 			return false;
@@ -354,8 +343,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a color.
 
-		 @return		@c true if vertices have a color.
-						@c false otherwise.
+		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
 		static constexpr bool HasColor() noexcept {
 			return true;
@@ -411,20 +399,21 @@ namespace mage {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex
-						(i.e. this vertex).
+		 @return		A reference to the copy of the given vertex (i.e. this 
+						vertex).
 		 */
-		VertexPositionColor &operator=(const VertexPositionColor &vertex) = default;
+		VertexPositionColor &operator=(
+			const VertexPositionColor &vertex) = default;
 
 		/**
 		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
 						A reference to the vertex to move.
-		 @return		A reference to the moved vertex
-						(i.e. this vertex).
+		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionColor &operator=(VertexPositionColor &&vertex) = default;
+		VertexPositionColor &operator=(
+			VertexPositionColor &&vertex) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -469,8 +458,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a position.
 
-		 @return		@c true if vertices have a position.
-						@c false otherwise.
+		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
 		static constexpr bool HasPosition() noexcept {
 			return true;
@@ -479,8 +467,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a normal.
 
-		 @return		@c true if vertices have a normal.
-						@c false otherwise.
+		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
 		static constexpr bool HasNormal() noexcept {
 			return false;
@@ -489,8 +476,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a texture.
 
-		 @return		@c true if vertices have a texture.
-						@c false otherwise.
+		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
 		static constexpr bool HasTexture() noexcept {
 			return true;
@@ -499,8 +485,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a color.
 
-		 @return		@c true if vertices have a color.
-						@c false otherwise.
+		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
 		static constexpr bool HasColor() noexcept {
 			return false;
@@ -556,20 +541,21 @@ namespace mage {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex 
-						(i.e. this vertex).
+		 @return		A reference to the copy of the given vertex (i.e. this 
+						vertex).
 		 */
-		VertexPositionTexture &operator=(const VertexPositionTexture &vertex) = default;
+		VertexPositionTexture &operator=(
+			const VertexPositionTexture &vertex) = default;
 
 		/**
 		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
 						A reference to the vertex to move.
-		 @return		A reference to the moved vertex 
-						(i.e. this vertex).
+		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionTexture &operator=(VertexPositionTexture &&vertex) = default;
+		VertexPositionTexture &operator=(
+			VertexPositionTexture &&vertex) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -601,7 +587,8 @@ namespace mage {
 	};
 
 	/**
-	 A struct of vertices containing position and normal coordinates and a color.
+	 A struct of vertices containing position and normal coordinates and a 
+	 color.
 	 */
 	struct VertexPositionNormalColor final {
 
@@ -614,8 +601,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a position.
 
-		 @return		@c true if vertices have a position.
-						@c false otherwise.
+		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
 		static constexpr bool HasPosition() noexcept {
 			return true;
@@ -624,8 +610,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a normal.
 
-		 @return		@c true if vertices have a normal.
-						@c false otherwise.
+		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
 		static constexpr bool HasNormal() noexcept {
 			return true;
@@ -634,8 +619,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a texture.
 
-		 @return		@c true if vertices have a texture.
-						@c false otherwise.
+		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
 		static constexpr bool HasTexture() noexcept {
 			return false;
@@ -644,8 +628,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a color.
 
-		 @return		@c true if vertices have a color.
-						@c false otherwise.
+		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
 		static constexpr bool HasColor() noexcept {
 			return true;
@@ -670,7 +653,8 @@ namespace mage {
 		 @param[in]		c
 						A reference to the color of the vertex.
 		 */
-		explicit VertexPositionNormalColor(const Point3 &p, const Normal3 &n, const Color &c)
+		explicit VertexPositionNormalColor(
+			const Point3 &p, const Normal3 &n, const Color &c)
 			: p(p), n(n), c(c) {}
 
 		/**
@@ -679,7 +663,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		 */
-		VertexPositionNormalColor(const VertexPositionNormalColor &vertex) = default;
+		VertexPositionNormalColor(
+			const VertexPositionNormalColor &vertex) = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -687,7 +672,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPositionNormalColor(VertexPositionNormalColor &&vertex) = default;
+		VertexPositionNormalColor(
+			VertexPositionNormalColor &&vertex) = default;
 
 		/**
 		 Destructs this vertex.
@@ -703,20 +689,21 @@ namespace mage {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex 
-						(i.e. this vertex).
+		 @return		A reference to the copy of the given vertex (i.e. this 
+						vertex).
 		 */
-		VertexPositionNormalColor &operator=(const VertexPositionNormalColor &vertex) = default;
+		VertexPositionNormalColor &operator=(
+			const VertexPositionNormalColor &vertex) = default;
 
 		/**
 		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
 						A reference to the vertex to move.
-		 @return		A reference to the moved vertex 
-						(i.e. this vertex).
+		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionNormalColor &operator=(VertexPositionNormalColor &&vertex) = default;
+		VertexPositionNormalColor &operator=(
+			VertexPositionNormalColor &&vertex) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -766,8 +753,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a position.
 
-		 @return		@c true if vertices have a position.
-						@c false otherwise.
+		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
 		static constexpr bool HasPosition() noexcept {
 			return true;
@@ -776,8 +762,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a normal.
 
-		 @return		@c true if vertices have a normal.
-						@c false otherwise.
+		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
 		static constexpr bool HasNormal() noexcept {
 			return true;
@@ -786,8 +771,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a texture.
 
-		 @return		@c true if vertices have a texture.
-						@c false otherwise.
+		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
 		static constexpr bool HasTexture() noexcept {
 			return true;
@@ -796,8 +780,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a color.
 
-		 @return		@c true if vertices have a color.
-						@c false otherwise.
+		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
 		static constexpr bool HasColor() noexcept {
 			return false;
@@ -822,7 +805,8 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		explicit VertexPositionNormalTexture(const Point3 &p, const Normal3 &n, const UV &tex)
+		explicit VertexPositionNormalTexture(
+			const Point3 &p, const Normal3 &n, const UV &tex)
 			: p(p), n(n), tex(tex) {}
 
 		/**
@@ -831,7 +815,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		 */
-		VertexPositionNormalTexture(const VertexPositionNormalTexture &vertex) = default;
+		VertexPositionNormalTexture(
+			const VertexPositionNormalTexture &vertex) = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -839,7 +824,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPositionNormalTexture(VertexPositionNormalTexture &&vertex) = default;
+		VertexPositionNormalTexture(
+			VertexPositionNormalTexture &&vertex) = default;
 
 		/**
 		 Destructs this vertex.
@@ -855,20 +841,21 @@ namespace mage {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex 
-						(i.e. this vertex).
+		 @return		A reference to the copy of the given vertex (i.e. this 
+						vertex).
 		 */
-		VertexPositionNormalTexture &operator=(const VertexPositionNormalTexture &vertex) = default;
+		VertexPositionNormalTexture &operator=(
+			const VertexPositionNormalTexture &vertex) = default;
 
 		/**
 		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
 						A reference to the vertex to move.
-		 @return		A reference to the moved vertex 
-						(i.e. this vertex).
+		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionNormalTexture &operator=(VertexPositionNormalTexture &&vertex) = default;
+		VertexPositionNormalTexture &operator=(
+			VertexPositionNormalTexture &&vertex) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -905,7 +892,8 @@ namespace mage {
 	};
 
 	/**
-	 A struct of vertices containing position and texture coordinates and a color.
+	 A struct of vertices containing position and texture coordinates and a 
+	 color.
 	 */
 	struct VertexPositionColorTexture final {
 
@@ -918,8 +906,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a position.
 
-		 @return		@c true if vertices have a position.
-						@c false otherwise.
+		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
 		static constexpr bool HasPosition() noexcept {
 			return true;
@@ -928,8 +915,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a normal.
 
-		 @return		@c true if vertices have a normal.
-						@c false otherwise.
+		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
 		static constexpr bool HasNormal() noexcept {
 			return false;
@@ -938,8 +924,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a texture.
 
-		 @return		@c true if vertices have a texture.
-						@c false otherwise.
+		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
 		static constexpr bool HasTexture() noexcept {
 			return true;
@@ -948,8 +933,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a color.
 
-		 @return		@c true if vertices have a color.
-						@c false otherwise.
+		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
 		static constexpr bool HasColor() noexcept {
 			return true;
@@ -974,7 +958,8 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		explicit VertexPositionColorTexture(const Point3 &p, const Color &c, const UV &tex)
+		explicit VertexPositionColorTexture(
+			const Point3 &p, const Color &c, const UV &tex)
 			: p(p), c(c), tex(tex) {}
 
 		/**
@@ -983,7 +968,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		 */
-		VertexPositionColorTexture(const VertexPositionColorTexture &vertex) = default;
+		VertexPositionColorTexture(
+			const VertexPositionColorTexture &vertex) = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -991,7 +977,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPositionColorTexture(VertexPositionColorTexture &&vertex) = default;
+		VertexPositionColorTexture(
+			VertexPositionColorTexture &&vertex) = default;
 
 		/**
 		 Destructs this vertex.
@@ -1007,20 +994,21 @@ namespace mage {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex 
-						(i.e. this vertex).
+		 @return		A reference to the copy of the given vertex (i.e. this 
+						vertex).
 		 */
-		VertexPositionColorTexture &operator=(const VertexPositionColorTexture &vertex) = default;
+		VertexPositionColorTexture &operator=(
+			const VertexPositionColorTexture &vertex) = default;
 
 		/**
 		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
 						A reference to the vertex to move.
-		 @return		A reference to the moved vertex 
-						(i.e. this vertex).
+		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionColorTexture &operator=(VertexPositionColorTexture &&vertex) = default;
+		VertexPositionColorTexture &operator=(
+			VertexPositionColorTexture &&vertex) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -1057,7 +1045,8 @@ namespace mage {
 	};
 
 	/**
-	 A struct of vertices containing position, normal and texture coordinates and a color.
+	 A struct of vertices containing position, normal and texture coordinates 
+	 and a color.
 	 */
 	struct VertexPositionNormalColorTexture final {
 
@@ -1070,8 +1059,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a position.
 
-		 @return		@c true if vertices have a position.
-						@c false otherwise.
+		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
 		static constexpr bool HasPosition() noexcept {
 			return true;
@@ -1080,8 +1068,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a normal.
 
-		 @return		@c true if vertices have a normal.
-						@c false otherwise.
+		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
 		static constexpr bool HasNormal() noexcept {
 			return true;
@@ -1090,8 +1077,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a texture.
 
-		 @return		@c true if vertices have a texture.
-						@c false otherwise.
+		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
 		static constexpr bool HasTexture() noexcept {
 			return true;
@@ -1100,8 +1086,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a color.
 
-		 @return		@c true if vertices have a color.
-						@c false otherwise.
+		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
 		static constexpr bool HasColor() noexcept {
 			return true;
@@ -1128,7 +1113,8 @@ namespace mage {
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
-		explicit VertexPositionNormalColorTexture(const Point3 &p, const Normal3 &n, const Color &c, const UV &tex)
+		explicit VertexPositionNormalColorTexture(
+			const Point3 &p, const Normal3 &n, const Color &c, const UV &tex)
 			: p(p), n(n), c(c), tex(tex) {}
 
 		/**
@@ -1137,7 +1123,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		 */
-		VertexPositionNormalColorTexture(const VertexPositionNormalColorTexture &vertex) = default;
+		VertexPositionNormalColorTexture(
+			const VertexPositionNormalColorTexture &vertex) = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -1145,7 +1132,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPositionNormalColorTexture(VertexPositionNormalColorTexture &&vertex) = default;
+		VertexPositionNormalColorTexture(
+			VertexPositionNormalColorTexture &&vertex) = default;
 
 		/**
 		 Destructs this vertex.
@@ -1161,20 +1149,21 @@ namespace mage {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex 
-						(i.e. this vertex).
+		 @return		A reference to the copy of the given vertex (i.e. this 
+						vertex).
 		 */
-		VertexPositionNormalColorTexture &operator=(const VertexPositionNormalColorTexture &vertex) = default;
+		VertexPositionNormalColorTexture &operator=(
+			const VertexPositionNormalColorTexture &vertex) = default;
 
 		/**
 		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
 						A reference to the vertex to move.
-		 @return		A reference to the moved vertex 
-						(i.e. this vertex).
+		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionNormalColorTexture &operator=(VertexPositionNormalColorTexture &&vertex) = default;
+		VertexPositionNormalColorTexture &operator=(
+			VertexPositionNormalColorTexture &&vertex) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -1216,7 +1205,8 @@ namespace mage {
 	};
 
 	/**
-	 A struct of vertices containing position coordinates and two sets of texture coordinates.
+	 A struct of vertices containing position coordinates and two sets of 
+	 texture coordinates.
 	 */
 	struct VertexPositionTextureTexture final {
 
@@ -1229,8 +1219,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a position.
 
-		 @return		@c true if vertices have a position.
-						@c false otherwise.
+		 @return		@c true if vertices have a position. @c false otherwise.
 		 */
 		static constexpr bool HasPosition() noexcept {
 			return true;
@@ -1239,8 +1228,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a normal.
 
-		 @return		@c true if vertices have a normal.
-						@c false otherwise.
+		 @return		@c true if vertices have a normal. @c false otherwise.
 		 */
 		static constexpr bool HasNormal() noexcept {
 			return true;
@@ -1249,8 +1237,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a texture.
 
-		 @return		@c true if vertices have a texture.
-						@c false otherwise.
+		 @return		@c true if vertices have a texture. @c false otherwise.
 		 */
 		static constexpr bool HasTexture() noexcept {
 			return true;
@@ -1259,8 +1246,7 @@ namespace mage {
 		/**
 		 Checks whether vertices have a color.
 
-		 @return		@c true if vertices have a color.
-						@c false otherwise.
+		 @return		@c true if vertices have a color. @c false otherwise.
 		 */
 		static constexpr bool HasColor() noexcept {
 			return false;
@@ -1281,11 +1267,14 @@ namespace mage {
 		 @param[in]		p
 						A reference to the position of the vertex.
 		 @param[in]		tex
-						A reference to the first texture coordinates of the vertex.
+						A reference to the first texture coordinates of the 
+						vertex.
 		 @param[in]		tex2
-						A reference to the second texture coordinates of the vertex.
+						A reference to the second texture coordinates of the 
+						vertex.
 		 */
-		explicit VertexPositionTextureTexture(const Point3 &p, const UV &tex, const UV &tex2)
+		explicit VertexPositionTextureTexture(
+			const Point3 &p, const UV &tex, const UV &tex2)
 			: p(p), tex(tex), tex2(tex2) {}
 
 		/**
@@ -1294,7 +1283,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to copy.
 		 */
-		VertexPositionTextureTexture(const VertexPositionTextureTexture &vertex) = default;
+		VertexPositionTextureTexture(
+			const VertexPositionTextureTexture &vertex) = default;
 
 		/**
 		 Constructs a vertex by moving the given vertex.
@@ -1302,7 +1292,8 @@ namespace mage {
 		 @param[in]		vertex
 						A reference to the vertex to move.
 		 */
-		VertexPositionTextureTexture(VertexPositionTextureTexture &&vertex) = default;
+		VertexPositionTextureTexture(
+			VertexPositionTextureTexture &&vertex) = default;
 		
 		/**
 		 Destructs this vertex.
@@ -1318,20 +1309,21 @@ namespace mage {
 
 		 @param[in]		vertex
 						A reference to the vertex to copy.
-		 @return		A reference to the copy of the given vertex 
-						(i.e. this vertex).
+		 @return		A reference to the copy of the given vertex (i.e. this 
+						vertex).
 		 */
-		VertexPositionTextureTexture &operator=(const VertexPositionTextureTexture &vertex) = default;
+		VertexPositionTextureTexture &operator=(
+			const VertexPositionTextureTexture &vertex) = default;
 
 		/**
 		 Moves the given vertex to this vertex.
 
 		 @param[in]		vertex
 						A reference to the vertex to move.
-		 @return		A reference to the moved vertex 
-						(i.e. this vertex).
+		 @return		A reference to the moved vertex (i.e. this vertex).
 		 */
-		VertexPositionTextureTexture &operator=(VertexPositionTextureTexture &&vertex) = default;
+		VertexPositionTextureTexture &operator=(
+			VertexPositionTextureTexture &&vertex) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables

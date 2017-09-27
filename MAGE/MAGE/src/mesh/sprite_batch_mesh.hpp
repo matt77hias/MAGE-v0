@@ -26,16 +26,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The minimum number of sprites to draw per batch
-		 for sprite batch meshes.
+		 The minimum number of sprites to draw per batch for sprite batch 
+		 meshes.
 		 */
 		static const size_t s_min_sprites_per_batch = 128;
 
 		/**
-		 The maximum number of sprites to draw per batch
-		 (i.e. the maximum number of sprites that can be 
-		 represented by a single sprite batch mesh)
-		 for sprite batch meshes.
+		 The maximum number of sprites to draw per batch (i.e. the maximum 
+		 number of sprites that can be represented by a single sprite batch 
+		 mesh) for sprite batch meshes.
 		 */
 		static const size_t s_max_sprites_per_batch = 2048;
 		
@@ -54,36 +53,44 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the minimum number of vertices to draw per batch for sprite batch meshes.
+		 Returns the minimum number of vertices to draw per batch for sprite 
+		 batch meshes.
 
-		 @return		The minimum number of vertices to draw per batch for sprite batch meshes.
+		 @return		The minimum number of vertices to draw per batch for 
+						sprite batch meshes.
 		 */
 		static constexpr size_t MinVerticesPerBatch() noexcept {
 			return s_vertices_per_sprite * s_min_sprites_per_batch;
 		}
 
 		/**
-		 Returns the maximum number of vertices to draw per batch for sprite batch meshes.
+		 Returns the maximum number of vertices to draw per batch for sprite 
+		 batch meshes.
 
-		 @return		The maximum number of vertices to draw per batch for sprite batch meshes.
+		 @return		The maximum number of vertices to draw per batch for 
+						sprite batch meshes.
 		 */
 		static constexpr size_t MaxVerticesPerBatch() noexcept {
 			return s_vertices_per_sprite * s_max_sprites_per_batch;
 		}
 
 		/**
-		 Returns the minimum number of indices to draw per batch for sprite batch meshes.
+		 Returns the minimum number of indices to draw per batch for sprite 
+		 batch meshes.
 
-		 @return		The minimum number of indices to draw per batch for sprite batch meshes.
+		 @return		The minimum number of indices to draw per batch for 
+						sprite batch meshes.
 		 */
 		static constexpr size_t MinIndicesPerBatch() noexcept {
 			return s_indices_per_sprite * s_min_sprites_per_batch;
 		}
 
 		/**
-		 Returns the maximum number of indices to draw per batch for sprite batch meshes.
+		 Returns the maximum number of indices to draw per batch for sprite 
+		 batch meshes.
 
-		 @return		The maximum number of indices to draw per batch for sprite batch meshes.
+		 @return		The maximum number of indices to draw per batch for 
+						sprite batch meshes.
 		 */
 		static constexpr size_t MaxIndicesPerBatch() noexcept {
 			return s_indices_per_sprite * s_max_sprites_per_batch;
@@ -96,12 +103,14 @@ namespace mage {
 		/**
 		 Constructs a sprite batch mesh.
 
-		 @pre			The device associated with the current engine 
-						must be loaded.
+		 @pre			The device associated with the current engine must be 
+						loaded.
 		 @throws		FormattedException
-						Failed to setup the vertex buffer of the sprite batch mesh.
+						Failed to setup the vertex buffer of the sprite batch 
+						mesh.
 		 @throws		FormattedException
-						Failed to setup the index buffer of the sprite batch mesh.
+						Failed to setup the index buffer of the sprite batch 
+						mesh.
 		 */
 		SpriteBatchMesh();
 
@@ -112,9 +121,11 @@ namespace mage {
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
-						Failed to setup the vertex buffer of the sprite batch mesh.
+						Failed to setup the vertex buffer of the sprite batch 
+						mesh.
 		 @throws		FormattedException
-						Failed to setup the index buffer of the sprite batch mesh.
+						Failed to setup the index buffer of the sprite batch 
+						mesh.
 		 */
 		explicit SpriteBatchMesh(ID3D11Device2 *device);
 
@@ -148,20 +159,22 @@ namespace mage {
 
 		 @param[in]		sprite_batch_mesh
 						A reference to the sprite batch mesh to copy.
-		 @return		A reference to the copy of the given sprite batch mesh
+		 @return		A reference to the copy of the given sprite batch mesh 
 						(i.e. this sprite batch mesh).
 		 */
-		SpriteBatchMesh &operator=(const SpriteBatchMesh &sprite_batch_mesh) = delete;
+		SpriteBatchMesh &operator=(
+			const SpriteBatchMesh &sprite_batch_mesh) = delete;
 
 		/**
 		 Moves the given sprite batch mesh to this sprite batch mesh.
 
 		 @param[in]		sprite_batch_mesh
 						A reference to the sprite batch mesh to move.
-		 @return		A reference to the moved sprite batch mesh
-						(i.e. this sprite batch mesh).
+		 @return		A reference to the moved sprite batch mesh (i.e. this 
+						sprite batch mesh).
 		 */
-		SpriteBatchMesh &operator=(SpriteBatchMesh &&sprite_batch_mesh) = delete;
+		SpriteBatchMesh &operator=(
+			SpriteBatchMesh &&sprite_batch_mesh) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -175,10 +188,12 @@ namespace mage {
 		 @param[in]		device_context
 						A pointer to the device context.
 		 @param[in]		map_type
-						The map type specifying the CPU's read and write permissions
-						for the vertex buffer of this this sprite batch mesh.
+						The map type specifying the CPU's read and write 
+						permissions for the vertex buffer of this this sprite 
+						batch mesh.
 		 @param[out]	mapped_buffer
-						A pointer to the map the vertex buffer of this this sprite batch mesh to.
+						A pointer to the map the vertex buffer of this this 
+						sprite batch mesh to.
 		 @return		A success/error value.
 		 */
 		HRESULT MapVertexBuffer(ID3D11DeviceContext2 *device_context,

@@ -33,7 +33,7 @@ namespace mage {
 
 		explicit RNG(u32 seed = 606418532u)
 			: m_generator(),
-			m_distribution(std::uniform_real_distribution< float >(0.0f, 1.0f)) {
+			m_distribution(std::uniform_real_distribution< f32 >(0.0f, 1.0f)) {
 
 			Seed(seed);
 		}

@@ -256,7 +256,7 @@ namespace mage {
 		 @return		The minimum of the material coefficient at the given 
 						index.
 		 */
-		float GetMaterialCoefficientMinimum(u8 index) const noexcept;
+		f32 GetMaterialCoefficientMinimum(u8 index) const noexcept;
 		
 		/**
 		 Returns the maximum of the material coefficient at the given index.
@@ -268,7 +268,7 @@ namespace mage {
 		 @return		The maximum of the material coefficient at the given 
 						index.
 		 */
-		float GetMaterialCoefficientMaximum(u8 index) const noexcept;
+		f32 GetMaterialCoefficientMaximum(u8 index) const noexcept;
 
 		/**
 		 Returns the range of the material coefficient at the given index.
@@ -280,7 +280,7 @@ namespace mage {
 		 @return		The range of the material coefficient at the given 
 						index.
 		 */
-		float GetMaterialCoefficientRange(u8 index) const noexcept;
+		f32 GetMaterialCoefficientRange(u8 index) const noexcept;
 		
 	private:
 
@@ -436,11 +436,11 @@ namespace mage {
 		/**
 		 The minima of the material coefficients of this pass buffer.
 		 */
-		float m_material_coefficient_min[s_nb_material_coefficients];
+		f32 m_material_coefficient_min[s_nb_material_coefficients];
 
 		/**
 		 The maxima of the material coefficients of this pass buffer.
 		 */
-		float m_material_coefficient_max[s_nb_material_coefficients];
+		f32 m_material_coefficient_max[s_nb_material_coefficients];
 	};
 }

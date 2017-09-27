@@ -161,7 +161,7 @@ namespace mage {
 		 @param[in]		material
 						A pointer to the material.
 		 */
-		float NormalizeMaterialCoefficient(
+		f32 NormalizeMaterialCoefficient(
 			u8 index, const Material *material) const noexcept;
 
 		/**
@@ -300,11 +300,11 @@ namespace mage {
 		/**
 		 The current minima of the material coefficients of this GBuffer pass.
 		 */
-		float m_material_coefficient_min[PassBuffer::s_nb_material_coefficients];
+		f32 m_material_coefficient_min[PassBuffer::s_nb_material_coefficients];
 
 		/**
 		 The current ranges of the material coefficients of this GBuffer pass.
 		 */
-		float m_material_coefficient_range[PassBuffer::s_nb_material_coefficients];
+		f32 m_material_coefficient_range[PassBuffer::s_nb_material_coefficients];
 	};
 }

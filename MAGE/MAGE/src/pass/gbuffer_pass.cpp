@@ -46,7 +46,7 @@ namespace mage {
 		}
 	}
 	
-	float GBufferPass::NormalizeMaterialCoefficient(
+	f32 GBufferPass::NormalizeMaterialCoefficient(
 		u8 index, const Material *material) const noexcept {
 
 		Assert(index < _countof(m_material_coefficient_min));

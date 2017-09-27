@@ -281,7 +281,7 @@ namespace mage {
 		 @return		The gamma value of this renderer used for gamma 
 						correction.
 		 */
-		float GetGamma() const noexcept {
+		f32 GetGamma() const noexcept {
 			return m_display_configuration->GetGamma();
 		}
 

@@ -178,7 +178,7 @@ namespace mage {
 	void PassBuffer::UpdateMaterialCoefficients(const Material *material) noexcept {
 		// Update min/max material coefficients for deferred shading.
 		for (u8 i = 0; i < s_nb_material_coefficients; ++i) {
-			const float p = material->GetMaterialParameter(i);
+			const f32 p = material->GetMaterialParameter(i);
 			m_material_coefficient_min[i] = std::min(p, m_material_coefficient_min[i]);
 			m_material_coefficient_max[i] = std::max(p, m_material_coefficient_max[i]);
 		}
@@ -203,19 +203,19 @@ namespace mage {
 		}
 	}
 
-	float PassBuffer::GetMaterialCoefficientMinimum(u8 index) const noexcept {
+	f32 PassBuffer::GetMaterialCoefficientMinimum(u8 index) const noexcept {
 		Assert(index < s_nb_material_coefficients);
 		
 		return m_material_coefficient_min[index];
 	}
 
-	float PassBuffer::GetMaterialCoefficientMaximum(u8 index) const noexcept {
+	f32 PassBuffer::GetMaterialCoefficientMaximum(u8 index) const noexcept {
 		Assert(index < s_nb_material_coefficients);
 		
 		return m_material_coefficient_max[index];
 	}
 
-	float PassBuffer::GetMaterialCoefficientRange(u8 index) const noexcept {
+	f32 PassBuffer::GetMaterialCoefficientRange(u8 index) const noexcept {
 		Assert(index < s_nb_material_coefficients);
 
 		return GetMaterialCoefficientMaximum(index) 

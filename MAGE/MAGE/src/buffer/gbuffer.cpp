@@ -33,10 +33,10 @@ namespace mage {
 		// Bind no SRVs.
 		Pipeline::PS::BindSRVs(device_context,
 			SLOT_SRV_GBUFFER_START, 
-			static_cast< u32 >(GetNumberOfSRVs()), srvs);
+			static_cast< U32 >(GetNumberOfSRVs()), srvs);
 		Pipeline::CS::BindSRVs(device_context,
 			SLOT_SRV_GBUFFER_START, 
-			static_cast< u32 >(GetNumberOfSRVs()), srvs);
+			static_cast< U32 >(GetNumberOfSRVs()), srvs);
 		
 		// Collect and clear the RTVs.
 		ID3D11RenderTargetView *rtvs[GetNumberOfRTVs()];
@@ -48,7 +48,7 @@ namespace mage {
 		Pipeline::OM::ClearDSV(device_context, m_dsv.Get());
 		// Bind the RTVs and DSV.
 		Pipeline::OM::BindRTVsAndDSV(device_context, 
-			static_cast< u32 >(GetNumberOfRTVs()), rtvs, m_dsv.Get());
+			static_cast< U32 >(GetNumberOfRTVs()), rtvs, m_dsv.Get());
 	}
 
 	void GBuffer::BindUnpacking(ID3D11DeviceContext2 *device_context) noexcept {
@@ -64,10 +64,10 @@ namespace mage {
 		// Bind the SRVs.
 		Pipeline::PS::BindSRVs(device_context,
 			SLOT_SRV_GBUFFER_START, 
-			static_cast< u32 >(GetNumberOfSRVs()), srvs);
+			static_cast< U32 >(GetNumberOfSRVs()), srvs);
 		Pipeline::CS::BindSRVs(device_context, 
 			SLOT_SRV_GBUFFER_START, 
-			static_cast< u32 >(GetNumberOfSRVs()), srvs);
+			static_cast< U32 >(GetNumberOfSRVs()), srvs);
 	}
 
 	void GBuffer::SetupBuffers(ID3D11Device2 *device) {
@@ -75,8 +75,8 @@ namespace mage {
 		
 		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
-		const u32 width  = renderer->GetWidth();
-		const u32 height = renderer->GetHeight();
+		const U32 width  = renderer->GetWidth();
+		const U32 height = renderer->GetHeight();
 
 		// Setup the depth buffer.
 		SetupDepthBuffer(device, width, height);
@@ -89,7 +89,7 @@ namespace mage {
 	}
 
 	void GBuffer::SetupDepthBuffer(ID3D11Device2 *device, 
-		u32 width, u32 height) {
+		U32 width, U32 height) {
 
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
@@ -137,7 +137,7 @@ namespace mage {
 	}
 	
 	void GBuffer::SetupDiffuseBuffer(ID3D11Device2 *device,
-		u32 width, u32 height) {
+		U32 width, U32 height) {
 
 		// Setup the diffuse buffer;
 		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Diffuse),
@@ -145,7 +145,7 @@ namespace mage {
 	}
 
 	void GBuffer::SetupSpecularBuffer(ID3D11Device2 *device,
-		u32 width, u32 height) {
+		U32 width, U32 height) {
 
 		// Setup the specular buffer.
 		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Specular),
@@ -153,15 +153,15 @@ namespace mage {
 	}
 	
 	void GBuffer::SetupNormalBuffer(ID3D11Device2 *device,
-		u32 width, u32 height) {
+		U32 width, U32 height) {
 
 		// Setup the normal buffer.
 		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Normal),
 			width, height, DXGI_FORMAT_R11G11B10_FLOAT);
 	}
 
-	void GBuffer::SetupBuffer(ID3D11Device2 *device, u32 index,
-		u32 width, u32 height, DXGI_FORMAT format) {
+	void GBuffer::SetupBuffer(ID3D11Device2 *device, U32 index,
+		U32 width, U32 height, DXGI_FORMAT format) {
 
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};

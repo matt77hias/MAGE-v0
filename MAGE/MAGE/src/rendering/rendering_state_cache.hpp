@@ -329,7 +329,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindPointWrapSamplerState(
-			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
+			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the point sampler state with clamping of this rendering state cache.
@@ -348,7 +348,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindPointClampSamplerState(
-			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
+			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the point sampler state with mirroring of this rendering state 
@@ -368,7 +368,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindPointMirrorSamplerState(
-			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
+			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the linear sampler state with wrapping of this rendering state 
@@ -388,7 +388,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindLinearWrapSamplerState(
-			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
+			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the linear sampler state with clamping of this rendering state 
@@ -408,7 +408,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindLinearClampSamplerState(
-			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
+			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the linear sampler state with mirroring of this rendering state 
@@ -428,7 +428,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindLinearMirrorSamplerState(
-			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
+			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
 
 		/**
 		 Binds the anisotropic sampler state with wrapping of this rendering 
@@ -448,7 +448,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindAnisotropicWrapSamplerState(
-			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
+			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the anisotropic sampler state with clamping of this rendering 
@@ -468,7 +468,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindAnisotropicClampSamplerState(
-			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
+			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the anisotropic sampler state with mirroring of this rendering 
@@ -488,7 +488,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindAnisotropicMirrorSamplerState(
-			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
+			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
 
 		/**
 		 Binds the PCF sampler state of this rendering state cache.
@@ -507,7 +507,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindPCFSamplerState(
-			ID3D11DeviceContext2 *device_context, u32 slot) const noexcept;
+			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
 		
 	private:
 

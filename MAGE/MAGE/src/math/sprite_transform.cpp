@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------f32
+//-----------------------------------------------------------------------------F32
 // Engine Includes
 //-----------------------------------------------------------------------------
 #pragma region
@@ -14,18 +14,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	f32 ConvertNormalizedToAbsoluteScreenX(f32 x) {
+	F32 ConvertNormalizedToAbsoluteScreenX(F32 x) {
 		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
 
-		return x * static_cast< f32 >(renderer->GetWidth());
+		return x * static_cast< F32 >(renderer->GetWidth());
 	}
 
-	f32 ConvertNormalizedToAbsoluteScreenY(f32 y) {
+	F32 ConvertNormalizedToAbsoluteScreenY(F32 y) {
 		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
 
-		return y * static_cast< f32 >(renderer->GetHeight());
+		return y * static_cast< F32 >(renderer->GetHeight());
 	}
 
 	const XMVECTOR XM_CALLCONV ConvertNormalizedToAbsoluteScreen(
@@ -35,25 +35,25 @@ namespace mage {
 		Assert(renderer);
 
 		const XMVECTOR multiplier = XMVectorSet(
-			static_cast< f32 >(renderer->GetWidth()),
-			static_cast< f32 >(renderer->GetHeight()),
+			static_cast< F32 >(renderer->GetWidth()),
+			static_cast< F32 >(renderer->GetHeight()),
 			0.0f,
 			0.0f);
 		return multiplier * position;
 	}
 
-	f32 ConvertAbsoluteToNormalizedScreenX(f32 x) {
+	F32 ConvertAbsoluteToNormalizedScreenX(F32 x) {
 		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
 
-		return x / static_cast< f32 >(renderer->GetWidth());
+		return x / static_cast< F32 >(renderer->GetWidth());
 	}
 
-	f32 ConvertAbsoluteToNormalizedScreenY(f32 y) {
+	F32 ConvertAbsoluteToNormalizedScreenY(F32 y) {
 		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
 
-		return y / static_cast< f32 >(renderer->GetHeight());
+		return y / static_cast< F32 >(renderer->GetHeight());
 	}
 
 	const XMVECTOR XM_CALLCONV ConvertAbsoluteToNormalizedScreen(
@@ -63,8 +63,8 @@ namespace mage {
 		Assert(renderer);
 
 		const XMVECTOR multiplier = XMVectorSet(
-			1.0f / static_cast< f32 >(renderer->GetWidth()),
-			1.0f / static_cast< f32 >(renderer->GetHeight()),
+			1.0f / static_cast< F32 >(renderer->GetWidth()),
+			1.0f / static_cast< F32 >(renderer->GetHeight()),
 			0.0f,
 			0.0f);
 		return multiplier * position;

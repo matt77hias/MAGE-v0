@@ -125,9 +125,9 @@ namespace mage {
 
 		 @return		The CPU delta percentage of this CPU monitor's process.
 		 */
-		f64 GetCPUDeltaPercentage() const noexcept {
-			const f64 time     = m_timer->GetDeltaTime();
-			const f64 cpu_time = m_cpu_timer->GetCoreDeltaTimePerCore();
+		F64 GetCPUDeltaPercentage() const noexcept {
+			const F64 time     = m_timer->GetDeltaTime();
+			const F64 cpu_time = m_cpu_timer->GetCoreDeltaTimePerCore();
 			return 100.0 * (cpu_time / time);
 		}
 
@@ -137,9 +137,9 @@ namespace mage {
 		 @return		The total CPU delta percentage of this CPU monitor's 
 						process.
 		 */
-		f64 GetTotalCPUDeltaPercentage() const noexcept {
-			const f64 time     = m_timer->GetTotalDeltaTime();
-			const f64 cpu_time = m_cpu_timer->GetTotalCoreDeltaTimePerCore();
+		F64 GetTotalCPUDeltaPercentage() const noexcept {
+			const F64 time     = m_timer->GetTotalDeltaTime();
+			const F64 cpu_time = m_cpu_timer->GetTotalCoreDeltaTimePerCore();
 			return 100.0 * (cpu_time / time);
 		}
 

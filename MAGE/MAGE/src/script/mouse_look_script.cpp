@@ -35,21 +35,21 @@ namespace mage {
 	
 	MouseLookScript::~MouseLookScript() = default;
 
-	void MouseLookScript::Update(f64 delta_time) {
+	void MouseLookScript::Update(F64 delta_time) {
 		const Mouse * const mouse = Mouse::Get();
 
 		switch (m_axes) {
 
 		case RotationAxes::MouseXAndY: {
 			
-			const f64 rotation_x 
+			const F64 rotation_x 
 				= m_direction.x * mouse->GetDeltaY() * delta_time * m_sensitivity.x;
-			const f64 rotation_y 
+			const F64 rotation_y 
 				= m_direction.y * mouse->GetDeltaX() * delta_time * m_sensitivity.y;
-			m_transform->AddAndClampRotationX(static_cast< f32 >(rotation_x), 
+			m_transform->AddAndClampRotationX(static_cast< F32 >(rotation_x), 
 												m_minimum_rotation.x, 
 												m_maximum_rotation.x);
-			m_transform->AddAndClampRotationY(static_cast< f32 >(rotation_y), 
+			m_transform->AddAndClampRotationY(static_cast< F32 >(rotation_y), 
 												m_minimum_rotation.y, 
 												m_maximum_rotation.y);
 			break;
@@ -57,9 +57,9 @@ namespace mage {
 		
 		case RotationAxes::MouseX: {
 			
-			const f64 rotation_y 
+			const F64 rotation_y 
 				= m_direction.y * mouse->GetDeltaX() * delta_time * m_sensitivity.y;
-			m_transform->AddAndClampRotationY(static_cast< f32 >(rotation_y), 
+			m_transform->AddAndClampRotationY(static_cast< F32 >(rotation_y), 
 												m_minimum_rotation.y, 
 												m_maximum_rotation.y);
 			break;
@@ -67,9 +67,9 @@ namespace mage {
 		
 		case RotationAxes::MouseY: {
 			
-			const f64 rotation_x 
+			const F64 rotation_x 
 				= m_direction.x * mouse->GetDeltaY() * delta_time * m_sensitivity.x;
-			m_transform->AddAndClampRotationX(static_cast< f32 >(rotation_x), 
+			m_transform->AddAndClampRotationX(static_cast< F32 >(rotation_x), 
 												m_minimum_rotation.x, 
 												m_maximum_rotation.x);
 			break;

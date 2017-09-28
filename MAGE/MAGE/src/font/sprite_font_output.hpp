@@ -102,6 +102,6 @@ namespace mage {
 		 The (extra) line spacing of the sprite font of this sprite font 
 		 output.
 		 */
-		f32 m_line_spacing;
+		F32 m_line_spacing;
 	};
 }

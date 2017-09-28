@@ -40,7 +40,7 @@ namespace mage {
 		 */
 		explicit TextureTransform(
 			const XMFLOAT2 &translation = { 0.0f, 0.0f }, 
-			f32 rotation = 0.0f, 
+			F32 rotation = 0.0f, 
 			const XMFLOAT2 &rotation_origin = { 0.0f, 0.0f }, 
 			const XMFLOAT2 &scale = { 1.0f, 1.0f })
 			: m_translation(translation), 
@@ -67,7 +67,7 @@ namespace mage {
 		 */
 		explicit TextureTransform(
 			FXMVECTOR translation, 
-			f32 rotation, 
+			F32 rotation, 
 			FXMVECTOR rotation_origin, 
 			FXMVECTOR scale)
 			: m_translation(), 
@@ -138,7 +138,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the translation component.
 		 */
-		void SetTranslationX(f32 x) noexcept {
+		void SetTranslationX(F32 x) noexcept {
 			m_translation.x = x;
 			SetDirty();
 		}
@@ -150,7 +150,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component.
 		 */
-		void SetTranslationY(f32 y) noexcept {
+		void SetTranslationY(F32 y) noexcept {
 			m_translation.y = y;
 			SetDirty();
 		}
@@ -164,7 +164,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component.
 		 */
-		void SetTranslation(f32 x, f32 y) noexcept {
+		void SetTranslation(F32 x, F32 y) noexcept {
 			m_translation.x = x;
 			m_translation.y = y;
 			SetDirty();
@@ -201,7 +201,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the translation component to add.
 		 */
-		void AddTranslationX(f32 x) noexcept {
+		void AddTranslationX(F32 x) noexcept {
 			m_translation.x += x;
 			SetDirty();
 		}
@@ -213,7 +213,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component to add.
 		 */
-		void AddTranslationY(f32 y) noexcept {
+		void AddTranslationY(F32 y) noexcept {
 			m_translation.y += y;
 			SetDirty();
 		}
@@ -227,7 +227,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component to add.
 		 */
-		void AddTranslation(f32 x, f32 y) noexcept {
+		void AddTranslation(F32 x, F32 y) noexcept {
 			m_translation.x += x;
 			m_translation.y += y;
 			SetDirty();
@@ -262,7 +262,7 @@ namespace mage {
 		 @return		The x-value of the translation component of this 
 						texture transform.
 		 */
-		f32 GetTranslationX() const noexcept {
+		F32 GetTranslationX() const noexcept {
 			return m_translation.x;
 		}
 
@@ -273,7 +273,7 @@ namespace mage {
 		 @return		The y-value of the translation component of this 
 						texture transform.
 		 */
-		f32 GetTranslationY() const noexcept {
+		F32 GetTranslationY() const noexcept {
 			return m_translation.y;
 		}
 
@@ -297,7 +297,7 @@ namespace mage {
 		 @param[in]		rotation
 						The rotation component.
 		 */
-		void SetRotation(f32 rotation) noexcept {
+		void SetRotation(F32 rotation) noexcept {
 			m_rotation = rotation;
 			SetDirty();
 		}
@@ -309,7 +309,7 @@ namespace mage {
 		 @param[in]		rotation
 						The rotation component to add.
 		 */
-		void AddRotation(f32 rotation) noexcept {
+		void AddRotation(F32 rotation) noexcept {
 			m_rotation += rotation;
 			SetDirty();
 		}
@@ -330,7 +330,7 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotation(
-			f32 rotation, f32 min_angle, f32 max_angle) noexcept {
+			F32 rotation, F32 min_angle, F32 max_angle) noexcept {
 			
 			m_rotation = ClampAngleRadians(m_rotation + rotation, min_angle, max_angle);
 			SetDirty();
@@ -341,7 +341,7 @@ namespace mage {
 
 		 @return		The rotation component of this texture transform.
 		 */
-		f32 GetRotation() const noexcept {
+		F32 GetRotation() const noexcept {
 			return m_rotation;
 		}
 
@@ -356,7 +356,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the rotation origin.
 		 */
-		void SetRotationOriginX(f32 x) noexcept {
+		void SetRotationOriginX(F32 x) noexcept {
 			m_rotation_origin.x = x;
 			SetDirty();
 		}
@@ -368,7 +368,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation origin.
 		 */
-		void SetRotationOriginY(f32 y) noexcept {
+		void SetRotationOriginY(F32 y) noexcept {
 			m_rotation_origin.y = y;
 			SetDirty();
 		}
@@ -382,7 +382,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation origin.
 		 */
-		void SetRotationOrigin(f32 x, f32 y) noexcept {
+		void SetRotationOrigin(F32 x, F32 y) noexcept {
 			m_rotation_origin.x = x;
 			m_rotation_origin.y = y;
 			SetDirty();
@@ -431,7 +431,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the rotation origin to add.
 		 */
-		void AddRotationOriginX(f32 x) noexcept {
+		void AddRotationOriginX(F32 x) noexcept {
 			m_rotation_origin.x += x;
 			SetDirty();
 		}
@@ -443,7 +443,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation origin to add.
 		 */
-		void AddRotationOriginY(f32 y) noexcept {
+		void AddRotationOriginY(F32 y) noexcept {
 			m_rotation_origin.y += y;
 			SetDirty();
 		}
@@ -457,7 +457,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation origin to add.
 		 */
-		void AddRotationOrigin(f32 x, f32 y) noexcept {
+		void AddRotationOrigin(F32 x, F32 y) noexcept {
 			m_rotation_origin.x += x;
 			m_rotation_origin.y += y;
 			SetDirty();
@@ -493,7 +493,7 @@ namespace mage {
 		 @return		The x-value of the rotation origin of this texture 
 						transform.
 		 */
-		f32 GetRotationOriginX() const noexcept {
+		F32 GetRotationOriginX() const noexcept {
 			return m_rotation_origin.x;
 		}
 
@@ -503,7 +503,7 @@ namespace mage {
 		 @return		The y-value of the rotation origin of this texture 
 						transform.
 		 */
-		f32 GetRotationOriginY() const noexcept {
+		F32 GetRotationOriginY() const noexcept {
 			return m_rotation_origin.y;
 		}
 
@@ -527,7 +527,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the scale component.
 		 */
-		void SetScaleX(f32 x) noexcept {
+		void SetScaleX(F32 x) noexcept {
 			m_scale.x = x;
 			SetDirty();
 		}
@@ -539,7 +539,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component.
 		 */
-		void SetScaleY(f32 y) noexcept {
+		void SetScaleY(F32 y) noexcept {
 			m_scale.y = y;
 			SetDirty();
 		}
@@ -551,7 +551,7 @@ namespace mage {
 		 @param[in]		s
 						The scale component.
 		 */
-		void SetScale(f32 s) noexcept {
+		void SetScale(F32 s) noexcept {
 			SetScale(s, s);
 		}
 
@@ -564,7 +564,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component.
 		 */
-		void SetScale(f32 x, f32 y) noexcept {
+		void SetScale(F32 x, F32 y) noexcept {
 			m_scale.x = x;
 			m_scale.y = y;
 			SetDirty();
@@ -601,7 +601,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the scale component to add.
 		 */
-		void AddScaleX(f32 x) noexcept {
+		void AddScaleX(F32 x) noexcept {
 			m_scale.x += x;
 			SetDirty();
 		}
@@ -613,7 +613,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component to add.
 		 */
-		void AddScaleY(f32 y) noexcept {
+		void AddScaleY(F32 y) noexcept {
 			m_scale.y += y;
 			SetDirty();
 		}
@@ -625,7 +625,7 @@ namespace mage {
 		 @param[in]		s
 						The scale component to add.
 		 */
-		void AddScale(f32 s) noexcept {
+		void AddScale(F32 s) noexcept {
 			AddScale(s, s);
 		}
 
@@ -638,7 +638,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component to add.
 		 */
-		void AddScale(f32 x, f32 y) noexcept {
+		void AddScale(F32 x, F32 y) noexcept {
 			m_scale.x += x;
 			m_scale.y += y;
 			SetDirty();
@@ -673,7 +673,7 @@ namespace mage {
 		 @return		The x-value of the scale component of this texture 
 						transform.
 		 */
-		f32 GetScaleX() const noexcept {
+		F32 GetScaleX() const noexcept {
 			return m_scale.x;
 		}
 
@@ -683,7 +683,7 @@ namespace mage {
 		 @return		The y-value of the scale component of this texture 
 						transform.
 		 */
-		f32 GetScaleY() const noexcept {
+		F32 GetScaleY() const noexcept {
 			return m_scale.y;
 		}
 
@@ -731,15 +731,15 @@ namespace mage {
 		void UpdateObjectToParentMatrix() const noexcept {
 			if (m_dirty_transform) {
 				
-				const f32 s = sin(m_rotation);
-				const f32 c = cos(m_rotation);
-				const f32 sSx = s * m_scale.x;
-				const f32 sSy = s * m_scale.y;
-				const f32 cSx = c * m_scale.x;
-				const f32 cSy = c * m_scale.y;
+				const F32 s = sin(m_rotation);
+				const F32 c = cos(m_rotation);
+				const F32 sSx = s * m_scale.x;
+				const F32 sSy = s * m_scale.y;
+				const F32 cSx = c * m_scale.x;
+				const F32 cSy = c * m_scale.y;
 
-				const f32 tx = (1.0f - cSx) * m_rotation_origin.x + sSy * m_rotation_origin.y + m_translation.x;
-				const f32 ty = (1.0f - cSy) * m_rotation_origin.y - sSx * m_rotation_origin.x + m_translation.y;
+				const F32 tx = (1.0f - cSx) * m_rotation_origin.x + sSy * m_rotation_origin.y + m_translation.x;
+				const F32 ty = (1.0f - cSy) * m_rotation_origin.y - sSx * m_rotation_origin.x + m_translation.y;
 
 				m_transform = XMMATRIX {
 					 cSx,  sSx, 0.0f, 0.0f,
@@ -763,7 +763,7 @@ namespace mage {
 		/**
 		 The rotation component (in radians) of this texture transform.
 		 */
-		f32 m_rotation;
+		F32 m_rotation;
 
 		/**
 		 A flag indicating whether the (object-to-parent) transform matrix of 

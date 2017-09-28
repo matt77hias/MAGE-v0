@@ -363,7 +363,7 @@ namespace mage {
 		const XMVECTOR destination           = XMLoadFloat4A(&sprite->m_destination);
 		const XMVECTOR color                 = XMLoadFloat4A(&sprite->m_color);
 		const XMVECTOR origin_rotation_depth = XMLoadFloat4A(&sprite->m_origin_rotation_depth);
-		const f32 rotation                 = sprite->m_origin_rotation_depth.z;
+		const F32 rotation                 = sprite->m_origin_rotation_depth.z;
 		const int flags                      = sprite->m_flags;
 		XMVECTOR source_size                 = XMVectorSwizzle< 2, 3, 2, 3 >(source);
 		XMVECTOR destination_size            = XMVectorSwizzle< 2, 3, 2, 3 >(destination);
@@ -391,7 +391,7 @@ namespace mage {
 		XMVECTOR rotation_matrix1;
 		XMVECTOR rotation_matrix2;
 		if (rotation != 0) {
-			f32 sin, cos;
+			F32 sin, cos;
 			XMScalarSinCos(&sin, &cos, rotation);
 			const XMVECTOR sin_v = XMLoadFloat(&sin);
 			const XMVECTOR cos_v = XMLoadFloat(&cos);

@@ -71,7 +71,7 @@ namespace mage {
 
 	void Renderer::SetupDevice() {
 		// Set the runtime layers to enable.
-		u32 create_device_flags = 0u;
+		U32 create_device_flags = 0u;
 #ifdef _DEBUG
 		create_device_flags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
@@ -273,7 +273,7 @@ namespace mage {
 		Assert(m_in_begin_end_pair);
 
 		// Present the back buffer to the front buffer.
-		const u32 sync_interval = (m_display_configuration->IsVSynced()) 
+		const U32 sync_interval = (m_display_configuration->IsVSynced()) 
 								? 1u : 0u;
 		m_swap_chain->Present(sync_interval, 0u);
 

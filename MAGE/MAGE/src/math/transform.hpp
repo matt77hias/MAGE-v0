@@ -147,7 +147,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the translation component.
 		 */
-		void SetTranslationX(f32 x) noexcept {
+		void SetTranslationX(F32 x) noexcept {
 			m_translation.x = x;
 			SetDirty();
 		}
@@ -159,7 +159,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component.
 		 */
-		void SetTranslationY(f32 y) noexcept {
+		void SetTranslationY(F32 y) noexcept {
 			m_translation.y = y;
 			SetDirty();
 		}
@@ -171,7 +171,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the translation component.
 		 */
-		void SetTranslationZ(f32 z) noexcept {
+		void SetTranslationZ(F32 z) noexcept {
 			m_translation.z = z;
 			SetDirty();
 		}
@@ -187,7 +187,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the translation component.
 		 */
-		void SetTranslation(f32 x, f32 y, f32 z) noexcept {
+		void SetTranslation(F32 x, F32 y, F32 z) noexcept {
 			m_translation.x = x;
 			m_translation.y = y;
 			m_translation.z = z;
@@ -236,7 +236,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the translation component to add.
 		 */
-		void AddTranslationX(f32 x) noexcept {
+		void AddTranslationX(F32 x) noexcept {
 			m_translation.x += x;
 			SetDirty();
 		}
@@ -247,7 +247,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component to add.
 		 */
-		void AddTranslationY(f32 y) noexcept {
+		void AddTranslationY(F32 y) noexcept {
 			m_translation.y += y;
 			SetDirty();
 		}
@@ -258,7 +258,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the translation component to add.
 		 */
-		void AddTranslationZ(f32 z) noexcept {
+		void AddTranslationZ(F32 z) noexcept {
 			m_translation.z += z;
 			SetDirty();
 		}
@@ -274,7 +274,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the translation component to add.
 		 */
-		void AddTranslation(f32 x, f32 y, f32 z) noexcept {
+		void AddTranslation(F32 x, F32 y, F32 z) noexcept {
 			m_translation.x += x;
 			m_translation.y += y;
 			m_translation.z += z;
@@ -312,7 +312,7 @@ namespace mage {
 		 @return		The x-value of the translation component of this 
 						transform.
 		 */
-		f32 GetTranslationX() const noexcept {
+		F32 GetTranslationX() const noexcept {
 			return m_translation.x;
 		}
 		
@@ -322,7 +322,7 @@ namespace mage {
 		 @return		The y-value of the translation component of this 
 						transform.
 		 */
-		f32 GetTranslationY() const noexcept {
+		F32 GetTranslationY() const noexcept {
 			return m_translation.y;
 		}
 		
@@ -332,7 +332,7 @@ namespace mage {
 		 @return		The z-value of the translation component of this 
 						transform.
 		 */
-		f32 GetTranslationZ() const noexcept {
+		F32 GetTranslationZ() const noexcept {
 			return m_translation.z;
 		}
 		
@@ -376,7 +376,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the rotation component.
 		 */
-		void SetRotationX(f32 x) noexcept {
+		void SetRotationX(F32 x) noexcept {
 			m_rotation.x = x;
 			SetDirty();
 		}
@@ -388,7 +388,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation component.
 		 */
-		void SetRotationY(f32 y) noexcept {
+		void SetRotationY(F32 y) noexcept {
 			m_rotation.y = y;
 			SetDirty();
 		}
@@ -400,7 +400,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the rotation component.
 		 */
-		void SetRotationZ(f32 z) noexcept {
+		void SetRotationZ(F32 z) noexcept {
 			m_rotation.z = z;
 			SetDirty();
 		}
@@ -416,7 +416,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the rotation component.
 		 */
-		void SetRotation(f32 x, f32 y, f32 z) noexcept {
+		void SetRotation(F32 x, F32 y, F32 z) noexcept {
 			m_rotation.x = x;
 			m_rotation.y = y;
 			m_rotation.z = z;
@@ -457,7 +457,7 @@ namespace mage {
 						The angle.
 		 */
 		void XM_CALLCONV SetRotationAroundDirection(
-			FXMVECTOR normal, f32 angle) noexcept {
+			FXMVECTOR normal, F32 angle) noexcept {
 			const XMMATRIX rotation_m = XMMatrixRotationNormal(normal, angle);
 			
 			XMFLOAT4X4 rotation;
@@ -465,10 +465,10 @@ namespace mage {
 
 			// cosf function instead of sinf in case the angles are not in [-1,1]
 			m_rotation.y = -asinf(rotation._32);
-			const f32 cp = cosf(m_rotation.y);
-			const f32 cr = rotation._22 / cp;
+			const F32 cp = cosf(m_rotation.y);
+			const F32 cr = rotation._22 / cp;
 			m_rotation.z = acosf(cr);
-			const f32 cy = rotation._33 / cp;
+			const F32 cy = rotation._33 / cp;
 			m_rotation.x = acosf(cy);
 
 			SetDirty();
@@ -480,7 +480,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the rotation component to add.
 		 */
-		void AddRotationX(f32 x) noexcept {
+		void AddRotationX(F32 x) noexcept {
 			m_rotation.x += x;
 			SetDirty();
 		}
@@ -491,7 +491,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation component to add.
 		 */
-		void AddRotationY(f32 y) noexcept {
+		void AddRotationY(F32 y) noexcept {
 			m_rotation.y += y;
 			SetDirty();
 		}
@@ -502,7 +502,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the rotation component to add.
 		 */
-		void AddRotationZ(f32 z) noexcept {
+		void AddRotationZ(F32 z) noexcept {
 			m_rotation.z += z;
 			SetDirty();
 		}
@@ -518,7 +518,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the rotation component to add.
 		 */
-		void AddRotation(f32 x, f32 y, f32 z) noexcept {
+		void AddRotation(F32 x, F32 y, F32 z) noexcept {
 			m_rotation.x += x;
 			m_rotation.y += y;
 			m_rotation.z += z;
@@ -566,7 +566,7 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotationX(
-			f32 x, f32 min_angle, f32 max_angle) noexcept {
+			F32 x, F32 min_angle, F32 max_angle) noexcept {
 			
 			m_rotation.x = ClampAngleRadians(m_rotation.x + x, min_angle, max_angle);
 			SetDirty();
@@ -588,7 +588,7 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotationY(
-			f32 y, f32 min_angle, f32 max_angle) noexcept {
+			F32 y, F32 min_angle, F32 max_angle) noexcept {
 			
 			m_rotation.y = ClampAngleRadians(m_rotation.y + y, min_angle, max_angle);
 			SetDirty();
@@ -610,7 +610,7 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotationZ(
-			f32 z, f32 min_angle, f32 max_angle) noexcept {
+			F32 z, F32 min_angle, F32 max_angle) noexcept {
 			
 			m_rotation.z = ClampAngleRadians(m_rotation.z + z, min_angle, max_angle);
 			SetDirty();
@@ -636,7 +636,7 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotation(
-			f32 x, f32 y, f32 z, f32 min_angle, f32 max_angle) noexcept {
+			F32 x, F32 y, F32 z, F32 min_angle, F32 max_angle) noexcept {
 
 			m_rotation.x = ClampAngleRadians(m_rotation.x + x, min_angle, max_angle);
 			m_rotation.y = ClampAngleRadians(m_rotation.y + y, min_angle, max_angle);
@@ -660,7 +660,7 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotation(
-			const XMFLOAT3 &rotation, f32 min_angle, f32 max_angle) noexcept {
+			const XMFLOAT3 &rotation, F32 min_angle, F32 max_angle) noexcept {
 
 			AddAndClampRotation(rotation.x, rotation.y, rotation.z, min_angle, max_angle);
 		}
@@ -681,7 +681,7 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void XM_CALLCONV AddAndClampRotation(
-			FXMVECTOR rotation, f32 min_angle, f32 max_angle) noexcept {
+			FXMVECTOR rotation, F32 min_angle, F32 max_angle) noexcept {
 
 			AddAndClampRotation(
 				XMVectorGetX(rotation), 
@@ -696,7 +696,7 @@ namespace mage {
 		 @return		The x-value of the rotation component of this 
 						transform.
 		 */
-		f32 GetRotationX() const noexcept {
+		F32 GetRotationX() const noexcept {
 			return m_rotation.x;
 		}
 		
@@ -706,7 +706,7 @@ namespace mage {
 		 @return		The y-value of the rotation component of this 
 						transform.
 		 */
-		f32 GetRotationY() const noexcept {
+		F32 GetRotationY() const noexcept {
 			return m_rotation.y;
 		}
 		
@@ -716,7 +716,7 @@ namespace mage {
 		 @return		The z-value of the rotation component of this 
 						transform.
 		 */
-		f32 GetRotationZ() const noexcept {
+		F32 GetRotationZ() const noexcept {
 			return m_rotation.z;
 		}
 		
@@ -762,7 +762,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the scale component.
 		 */
-		void SetScaleX(f32 x) noexcept {
+		void SetScaleX(F32 x) noexcept {
 			m_scale.x = x;
 			SetDirty();
 		}
@@ -774,7 +774,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component.
 		 */
-		void SetScaleY(f32 y) noexcept {
+		void SetScaleY(F32 y) noexcept {
 			m_scale.y = y;
 			SetDirty();
 		}
@@ -786,7 +786,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the scale component.
 		 */
-		void SetScaleZ(f32 z) noexcept {
+		void SetScaleZ(F32 z) noexcept {
 			m_scale.z = z;
 			SetDirty();
 		}
@@ -798,7 +798,7 @@ namespace mage {
 		 @param[in]		s
 						The scale component.
 		 */
-		void SetScale(f32 s) noexcept {
+		void SetScale(F32 s) noexcept {
 			SetScale(s, s, s);
 		}
 		
@@ -813,7 +813,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the scale component.
 		 */
-		void SetScale(f32 x, f32 y, f32 z) noexcept {
+		void SetScale(F32 x, F32 y, F32 z) noexcept {
 			m_scale.x = x;
 			m_scale.y = y;
 			m_scale.z = z;
@@ -862,7 +862,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the scale component to add.
 		 */
-		void AddScaleX(f32 x) noexcept {
+		void AddScaleX(F32 x) noexcept {
 			m_scale.x += x;
 			SetDirty();
 		}
@@ -873,7 +873,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component to add.
 		 */
-		void AddScaleY(f32 y) noexcept {
+		void AddScaleY(F32 y) noexcept {
 			m_scale.y += y;
 			SetDirty();
 		}
@@ -884,7 +884,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the scale component to add.
 		 */
-		void AddScaleZ(f32 z) noexcept {
+		void AddScaleZ(F32 z) noexcept {
 			m_scale.z += z;
 			SetDirty();
 		}
@@ -896,7 +896,7 @@ namespace mage {
 		 @param[in]		s
 						The scale component to add.
 		 */
-		void AddScale(f32 s) noexcept {
+		void AddScale(F32 s) noexcept {
 			AddScale(s, s, s);
 		}
 		
@@ -911,7 +911,7 @@ namespace mage {
 		 @param[in]		z
 						The z-value of the scale component to add.
 		 */
-		void AddScale(f32 x, f32 y, f32 z) noexcept {
+		void AddScale(F32 x, F32 y, F32 z) noexcept {
 			m_scale.x += x;
 			m_scale.y += y;
 			m_scale.z += z;
@@ -945,7 +945,7 @@ namespace mage {
 
 		 @return		The x-value of the scale component of this transform.
 		 */
-		f32 GetScaleX() const noexcept {
+		F32 GetScaleX() const noexcept {
 			return m_scale.x;
 		}
 		
@@ -954,7 +954,7 @@ namespace mage {
 
 		 @return		The y-value of the scale component of this transform.
 		 */
-		f32 GetScaleY() const noexcept {
+		F32 GetScaleY() const noexcept {
 			return m_scale.y;
 		}
 		
@@ -963,7 +963,7 @@ namespace mage {
 
 		 @return		The z-value of the scale component of this transform.
 		 */
-		f32 GetScaleZ() const noexcept {
+		F32 GetScaleZ() const noexcept {
 			return m_scale.z;
 		}
 		

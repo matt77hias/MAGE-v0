@@ -46,7 +46,7 @@ namespace mage {
 					The angle (in degrees).
 	 @return		The clamped angle (in degrees).
 	 */
-	inline f32 ClampAngleDegrees(f32 angle) noexcept {
+	inline F32 ClampAngleDegrees(F32 angle) noexcept {
 		while (angle < -180.0f) {
 			angle += 360.0f;
 		}
@@ -63,7 +63,7 @@ namespace mage {
 					The angle (in radians).
 	 @return		The clamped angle (in radians).
 	 */
-	inline f32 ClampAngleRadians(f32 angle) noexcept {
+	inline F32 ClampAngleRadians(F32 angle) noexcept {
 		while (angle < -XM_PI) {
 			angle += XM_2PI;
 		}
@@ -89,8 +89,8 @@ namespace mage {
 	 @return		The clamped angle between the given minimum and maximum 
 					angle (in degrees).
 	 */
-	inline f32 ClampAngleDegrees(
-		f32 angle, f32 min_angle, f32 max_angle) noexcept {
+	inline F32 ClampAngleDegrees(
+		F32 angle, F32 min_angle, F32 max_angle) noexcept {
 		
 		Assert(min_angle <= max_angle);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
@@ -115,8 +115,8 @@ namespace mage {
 	 @return		The clamped angle between the given minimum and maximum 
 					angle (in radians).
 	 */
-	inline f32 ClampAngleRadians(
-		f32 angle, f32 min_angle, f32 max_angle) noexcept {
+	inline F32 ClampAngleRadians(
+		F32 angle, F32 min_angle, F32 max_angle) noexcept {
 		
 		Assert(min_angle <= max_angle);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
@@ -148,10 +148,10 @@ namespace mage {
 		// 2) p_ndc.x = p_view.x/p_view.z 1/X <=> p_view.x = X * p_ndc.x * p_view.z
 		// 3) p_ndc.y = p_view.y/p_view.z 1/Y <=> p_view.y = Y * p_ndc.y * p_view.z
 
-		const f32 x = 1.0f / XMVectorGetX(projection_matrix.r[0]);
-		const f32 y = 1.0f / XMVectorGetY(projection_matrix.r[1]);
-		const f32 z =  XMVectorGetZ(projection_matrix.r[3]);
-		const f32 w = -XMVectorGetZ(projection_matrix.r[2]);
+		const F32 x = 1.0f / XMVectorGetX(projection_matrix.r[0]);
+		const F32 y = 1.0f / XMVectorGetY(projection_matrix.r[1]);
+		const F32 z =  XMVectorGetZ(projection_matrix.r[3]);
+		const F32 w = -XMVectorGetZ(projection_matrix.r[2]);
 		
 		return XMVectorSet(x, y, z, w);
 	}
@@ -177,8 +177,8 @@ namespace mage {
 		// Construction of p_ndc.z from p_view and projection values
 		// p_ndc.z = X + Y/p_view.z
 
-		const f32 x = XMVectorGetZ(projection_matrix.r[2]);
-		const f32 y = XMVectorGetZ(projection_matrix.r[3]);
+		const F32 x = XMVectorGetZ(projection_matrix.r[2]);
+		const F32 y = XMVectorGetZ(projection_matrix.r[3]);
 		
 		return XMVectorSet(x, y, 0.0f, 0.0f);
 	}

@@ -26,8 +26,8 @@ namespace mage {
 
 		const Renderer * const renderer = Renderer::Get();
 		Assert(renderer);
-		const u32 width  = renderer->GetWidth();
-		const u32 height = renderer->GetHeight();
+		const U32 width  = renderer->GetWidth();
+		const U32 height = renderer->GetHeight();
 
 		SetupBuffer(device, width, height);
 	}
@@ -52,7 +52,7 @@ namespace mage {
 			SLOT_SRV_IMAGE, m_srv.Get());
 	}
 
-	void ImageBuffer::SetupBuffer(ID3D11Device2 *device, u32 width, u32 height) {
+	void ImageBuffer::SetupBuffer(ID3D11Device2 *device, U32 width, U32 height) {
 
 		Assert(device);
 

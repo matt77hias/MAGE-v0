@@ -101,7 +101,7 @@ namespace mage {
 		 @return		The distance at which intensity falloff starts of this 
 						omni light.
 		 */
-		f32 GetStartDistanceFalloff() const noexcept {
+		F32 GetStartDistanceFalloff() const noexcept {
 			return m_distance_falloff_start;
 		}
 
@@ -112,7 +112,7 @@ namespace mage {
 		 @param[in]		distance_falloff_start
 						The distance at which intensity falloff starts.
 		 */
-		void SetStartDistanceFalloff(f32 distance_falloff_start) noexcept {
+		void SetStartDistanceFalloff(F32 distance_falloff_start) noexcept {
 			m_distance_falloff_start = distance_falloff_start;
 		}
 
@@ -123,7 +123,7 @@ namespace mage {
 		 @return		The distance at which intensity falloff ends of this 
 						omni light.
 		 */
-		f32 GetEndDistanceFalloff() const noexcept {
+		F32 GetEndDistanceFalloff() const noexcept {
 			return m_distance_falloff_end;
 		}
 
@@ -135,7 +135,7 @@ namespace mage {
 		 @param[in]		distance_falloff_end
 						The distance at which intensity falloff ends.
 		 */
-		void SetEndDistanceFalloff(f32 distance_falloff_end) noexcept {
+		void SetEndDistanceFalloff(F32 distance_falloff_end) noexcept {
 			Assert(distance_falloff_end);
 			m_distance_falloff_end = distance_falloff_end;
 			
@@ -154,7 +154,7 @@ namespace mage {
 						The distance at which intensity falloff ends.
 		 */
 		void SetDistanceFalloff(
-			f32 distance_falloff_start, f32 distance_falloff_end) noexcept {
+			F32 distance_falloff_start, F32 distance_falloff_end) noexcept {
 			
 			SetStartDistanceFalloff(distance_falloff_start);
 			SetEndDistanceFalloff(distance_falloff_end);
@@ -169,7 +169,7 @@ namespace mage {
 						@a GetEndDistanceFalloff() - 
 						@a GetStartDistanceFalloff().
 		 */
-		f32 GetRangeDistanceFalloff() const noexcept {
+		F32 GetRangeDistanceFalloff() const noexcept {
 			return m_distance_falloff_end - m_distance_falloff_start;
 		}
 		
@@ -186,7 +186,7 @@ namespace mage {
 						The distance range where intensity falloff occurs.
 		 */
 		void SetRangeDistanceFalloff(
-			f32 distance_falloff_start, f32 distance_falloff_range) noexcept {
+			F32 distance_falloff_start, F32 distance_falloff_range) noexcept {
 			
 			SetDistanceFalloff(distance_falloff_start, 
 				distance_falloff_start + distance_falloff_range);
@@ -287,12 +287,12 @@ namespace mage {
 		/**
 		 The start of the distance falloff of this omni light.
 		 */
-		f32 m_distance_falloff_start;
+		F32 m_distance_falloff_start;
 
 		/**
 		 The end of the distance falloff of this omni light.
 		 */
-		f32 m_distance_falloff_end;
+		F32 m_distance_falloff_end;
 
 		/**
 		 A flag indicating whether shadows should be calculated or not for 

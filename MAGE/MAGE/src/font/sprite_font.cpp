@@ -28,7 +28,7 @@ namespace mage {
 	/**
 	 A struct of glyph "less than" comparators.
 	 */
-	static struct GlyphLessThan final {
+	struct GlyphLessThan final {
 
 	public:
 
@@ -126,7 +126,7 @@ namespace mage {
 						the given character. @c false otherwise.
 		 */
 		bool operator()(const Glyph &lhs, wchar_t rhs) noexcept {
-			return lhs.m_character < static_cast< u32 >(rhs);
+			return lhs.m_character < static_cast< U32 >(rhs);
 		}
 
 		/**
@@ -141,7 +141,7 @@ namespace mage {
 						given glyph's character. @c false otherwise.
 		 */
 		bool operator()(wchar_t lhs, const Glyph &rhs) noexcept {
-			return static_cast< u32 >(lhs) < rhs.m_character;
+			return static_cast< U32 >(lhs) < rhs.m_character;
 		}
 	};
 
@@ -212,8 +212,8 @@ namespace mage {
 			base_offset -= MeasureString(str) * axis_is_mirrored_table[index];
 		}
 
-		f32 x = 0;
-		f32 y = 0;
+		F32 x = 0;
+		F32 y = 0;
 		SpriteTransform sprite_transform(transform);
 
 		for (const wchar_t *s = str; *s != L'\0'; ++s) {
@@ -239,11 +239,11 @@ namespace mage {
 					x = 0;
 				}
 
-				const f32 width  = static_cast< f32 >(
+				const F32 width  = static_cast< F32 >(
 					glyph->m_sub_rectangle.right  - glyph->m_sub_rectangle.left);
-				const f32 height = static_cast< f32 >(
+				const F32 height = static_cast< F32 >(
 					glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
-				const f32 advance = width + glyph->m_advance_x;
+				const F32 advance = width + glyph->m_advance_x;
 
 				if (!iswspace(character) || width > 1 || height > 1) {
 					const XMVECTOR top_left 
@@ -255,7 +255,7 @@ namespace mage {
 
 					if (effects != SpriteEffect::None) {
 						const XMVECTOR rect 
-							= XMLoadInt4(reinterpret_cast<const u32 *>(&(glyph->m_sub_rectangle)));
+							= XMLoadInt4(reinterpret_cast<const U32 *>(&(glyph->m_sub_rectangle)));
 						XMVECTOR glyph_rect 
 							= XMConvertVectorIntToFloat(rect, 0);
 						glyph_rect = XMVectorSwizzle< 2, 3, 0, 1 >(glyph_rect) - glyph_rect;
@@ -308,8 +308,8 @@ namespace mage {
 			base_offset -= MeasureString(text) * axis_is_mirrored_table[index];
 		}
 
-		f32 x = 0;
-		f32 y = 0;
+		F32 x = 0;
+		F32 y = 0;
 		SpriteTransform sprite_transform(transform);
 
 		for (const auto &str : text) {
@@ -336,11 +336,11 @@ namespace mage {
 						x = 0;
 					}
 
-					const f32 width   = static_cast< f32 >(
+					const F32 width   = static_cast< F32 >(
 						glyph->m_sub_rectangle.right - glyph->m_sub_rectangle.left);
-					const f32 height  = static_cast< f32 >(
+					const F32 height  = static_cast< F32 >(
 						glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
-					const f32 advance = width + glyph->m_advance_x;
+					const F32 advance = width + glyph->m_advance_x;
 
 					if (!iswspace(character) || width > 1 || height > 1) {
 						const XMVECTOR top_left 
@@ -352,7 +352,7 @@ namespace mage {
 
 						if (effects != SpriteEffect::None) {
 							const XMVECTOR rect 
-								= XMLoadInt4(reinterpret_cast<const u32 *>(&(glyph->m_sub_rectangle)));
+								= XMLoadInt4(reinterpret_cast<const U32 *>(&(glyph->m_sub_rectangle)));
 							XMVECTOR glyph_rect 
 								= XMConvertVectorIntToFloat(rect, 0);
 							glyph_rect 
@@ -383,8 +383,8 @@ namespace mage {
 		Assert(str);
 
 		XMVECTOR result = XMVectorZero();
-		f32 x = 0;
-		f32 y = 0;
+		F32 x = 0;
+		F32 y = 0;
 
 		for (const wchar_t *s = str; *s != L'\0'; ++s) {
 			const wchar_t character = *s;
@@ -409,11 +409,11 @@ namespace mage {
 					x = 0;
 				}
 
-				const f32 width  = static_cast< f32 >(
+				const F32 width  = static_cast< F32 >(
 					glyph->m_sub_rectangle.right  - glyph->m_sub_rectangle.left);
-				const f32 height = static_cast< f32 >(
+				const F32 height = static_cast< F32 >(
 					glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
-				const f32 advance = width + glyph->m_advance_x;
+				const F32 advance = width + glyph->m_advance_x;
 
 				if (!iswspace(character) || width > 1 || height > 1) {
 					result = XMVectorMax(result, 
@@ -437,8 +437,8 @@ namespace mage {
 		const vector< ColorString > &text) const {
 		
 		XMVECTOR result = XMVectorZero();
-		f32 x = 0;
-		f32 y = 0;
+		F32 x = 0;
+		F32 y = 0;
 
 		for (const auto &str : text) {
 			for (const wchar_t *s = str.c_str(); *s != L'\0'; ++s) {
@@ -464,11 +464,11 @@ namespace mage {
 						x = 0;
 					}
 
-					const f32 width   = static_cast< f32 >(
+					const F32 width   = static_cast< F32 >(
 						glyph->m_sub_rectangle.right - glyph->m_sub_rectangle.left);
-					const f32 height  = static_cast< f32 >(
+					const F32 height  = static_cast< F32 >(
 						glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
-					const f32 advance = width + glyph->m_advance_x;
+					const F32 advance = width + glyph->m_advance_x;
 
 					if (!iswspace(character) || width > 1 || height > 1) {
 						result = XMVectorMax(result, 
@@ -495,8 +495,8 @@ namespace mage {
 		Assert(str);
 
 		RECT result = { LONG_MAX, LONG_MAX, 0, 0 };
-		f32 x = 0;
-		f32 y = 0;
+		F32 x = 0;
+		F32 y = 0;
 
 		for (const wchar_t *s = str; *s != L'\0'; ++s) {
 			const wchar_t character = *s;
@@ -521,18 +521,18 @@ namespace mage {
 					x = 0;
 				}
 
-				const f32 width  = static_cast< f32 >(
+				const F32 width  = static_cast< F32 >(
 					glyph->m_sub_rectangle.right  - glyph->m_sub_rectangle.left);
-				const f32 height = static_cast< f32 >(
+				const F32 height = static_cast< F32 >(
 					glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
-				const f32 advance = width + glyph->m_advance_x;
+				const F32 advance = width + glyph->m_advance_x;
 
 				if (!iswspace(character) || width > 1 || height > 1) {
 
-					const f32 min_x = position.x + x;
-					const f32 min_y = position.y + y + glyph->m_offset_y;
-					const f32 max_x = min_x + width + std::max(0.0f, glyph->m_advance_x);
-					const f32 max_y = min_y + height;
+					const F32 min_x = position.x + x;
+					const F32 min_y = position.y + y + glyph->m_offset_y;
+					const F32 max_x = min_x + width + std::max(0.0f, glyph->m_advance_x);
+					const F32 max_y = min_y + height;
 
 					result.left   = std::min(result.left,   static_cast< LONG >(min_x));
 					result.top    = std::min(result.top,    static_cast< LONG >(min_y));
@@ -558,8 +558,8 @@ namespace mage {
 		const vector< ColorString > &text, const XMFLOAT2 &position) const {
 		
 		RECT result = { LONG_MAX, LONG_MAX, 0, 0 };
-		f32 x = 0;
-		f32 y = 0;
+		F32 x = 0;
+		F32 y = 0;
 
 		for (const auto &str : text) {
 			for (const wchar_t *s = str.c_str(); *s != L'\0'; ++s) {
@@ -585,18 +585,18 @@ namespace mage {
 						x = 0;
 					}
 
-					const f32 width   = static_cast< f32 >(
+					const F32 width   = static_cast< F32 >(
 						glyph->m_sub_rectangle.right  - glyph->m_sub_rectangle.left);
-					const f32 height  = static_cast< f32 >(
+					const F32 height  = static_cast< F32 >(
 						glyph->m_sub_rectangle.bottom - glyph->m_sub_rectangle.top);
-					const f32 advance = width + glyph->m_advance_x;
+					const F32 advance = width + glyph->m_advance_x;
 
 					if (!iswspace(character) || width > 1 || height > 1) {
 
-						const f32 min_x = position.x + x;
-						const f32 min_y = position.y + y + glyph->m_offset_y;
-						const f32 max_x = min_x + width + std::max(0.0f, glyph->m_advance_x);
-						const f32 max_y = min_y + height;
+						const F32 min_x = position.x + x;
+						const F32 min_y = position.y + y + glyph->m_offset_y;
+						const F32 max_x = min_x + width + std::max(0.0f, glyph->m_advance_x);
+						const F32 max_y = min_y + height;
 
 						result.left   = std::min(result.left,   static_cast< LONG >(min_x));
 						result.top    = std::min(result.top,    static_cast< LONG >(min_y));

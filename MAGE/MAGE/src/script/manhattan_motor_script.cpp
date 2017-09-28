@@ -25,11 +25,11 @@ namespace mage {
 	
 	ManhattanMotorScript::~ManhattanMotorScript() = default;
 
-	void ManhattanMotorScript::Update(f64 delta_time) {
+	void ManhattanMotorScript::Update(F64 delta_time) {
 		const Keyboard * const keyboard = Keyboard::Get();
 
-		const f32 movement_magnitude 
-			= static_cast< f32 >(delta_time * m_velocity);
+		const F32 movement_magnitude 
+			= static_cast< F32 >(delta_time * m_velocity);
 
 		if (keyboard->GetKeyPress(DIK_UP, true) 
 			|| keyboard->GetKeyPress(DIK_W, true)) {

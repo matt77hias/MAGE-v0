@@ -47,7 +47,7 @@ namespace mage {
 		resource_view_desc.Format              = DXGI_FORMAT_UNKNOWN;
 		resource_view_desc.ViewDimension       = D3D11_SRV_DIMENSION_BUFFER;
 		resource_view_desc.Buffer.FirstElement = 0;
-		resource_view_desc.Buffer.NumElements  = static_cast< u32 >(m_nb_data_elements);
+		resource_view_desc.Buffer.NumElements  = static_cast< U32 >(m_nb_data_elements);
 
 		const HRESULT result_buffer_srv = device->CreateShaderResourceView(
 			m_buffer.Get(), &resource_view_desc, 
@@ -92,7 +92,7 @@ namespace mage {
 	template< typename DataT >
 	template< typename PipelineStageT >
 	inline void StructuredBuffer< DataT >::Bind(
-		ID3D11DeviceContext2 *device_context, u32 slot) const noexcept {
+		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSRV(device_context, slot, Get());
 	}

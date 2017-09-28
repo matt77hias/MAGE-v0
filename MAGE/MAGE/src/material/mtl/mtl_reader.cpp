@@ -192,9 +192,9 @@ namespace mage {
 			// XYZ spectrum
 			if (str_equals(str, MAGE_MTL_TOKEN_XYZ)) {
 				
-				const f32 x = ReadF32();
-				f32 y = x;
-				f32 z = x;
+				const F32 x = ReadF32();
+				F32 y = x;
+				F32 z = x;
 				if (HasF32()) {
 					y = ReadF32();
 					z = ReadF32();
@@ -217,9 +217,9 @@ namespace mage {
 		}
 
 		// RGB spectrum
-		const f32 x = ReadF32();
-		f32 y = x;
-		f32 z = x;
+		const F32 x = ReadF32();
+		F32 y = x;
+		F32 z = x;
 		if (HasF32()) {
 			y = ReadF32();
 			z = ReadF32();

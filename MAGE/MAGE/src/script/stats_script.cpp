@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const f64 StatsScript::s_resource_fetch_period = 1.0;
+	const F64 StatsScript::s_resource_fetch_period = 1.0;
 
 	StatsScript::StatsScript(SpriteText *text)
 		: BehaviorScript(),
@@ -33,14 +33,14 @@ namespace mage {
 	
 	StatsScript::~StatsScript() = default;
 
-	void StatsScript::Update(f64 delta_time) {
+	void StatsScript::Update(F64 delta_time) {
 		m_accumulated_time += delta_time;
 		++m_accumulated_nb_frames;
 
 		if (m_accumulated_time > s_resource_fetch_period) {
 			// FPS + SPF
 			m_last_frames_per_second 
-				= static_cast< u32 >(m_accumulated_nb_frames / m_accumulated_time);
+				= static_cast< U32 >(m_accumulated_nb_frames / m_accumulated_time);
 			m_last_milliseconds_per_frame 
 				= 1000.0 * m_accumulated_time / m_accumulated_nb_frames;
 			m_accumulated_time = 0.0;
@@ -52,7 +52,7 @@ namespace mage {
 			
 			// MEM
 			m_last_ram_usage 
-				= static_cast< u32 >(GetVirtualMemoryUsage() >> 20);
+				= static_cast< U32 >(GetVirtualMemoryUsage() >> 20);
 		}
 
 		const XMVECTOR color = (m_last_frames_per_second > 120) ? 

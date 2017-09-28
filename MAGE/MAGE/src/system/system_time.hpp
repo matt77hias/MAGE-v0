@@ -19,7 +19,7 @@ namespace mage {
 
 	 @return		The current system timestamp (in 100 ns).
 	 */
-	u64 GetCurrentSystemTimestamp() noexcept;
+	U64 GetCurrentSystemTimestamp() noexcept;
 
 	/**
 	 Returns the current core timestamp (in 100 ns).
@@ -44,7 +44,7 @@ namespace mage {
 					information, call @c GetLastError.
 	 */
 	void GetCurrentCoreTimestamp(HANDLE handle_process,
-		u64 *kernel_mode_timestamp, u64 *user_mode_timestamp) noexcept;
+		U64 *kernel_mode_timestamp, U64 *user_mode_timestamp) noexcept;
 
 	/**
 	 Returns the current core timestamp (in 100 ns).
@@ -62,7 +62,7 @@ namespace mage {
 					error information, call @c GetLastError.
 	 */
 	inline void GetCurrentCoreTimestamp(
-		u64 *kernel_mode_timestamp, u64 *user_mode_timestamp) noexcept {
+		U64 *kernel_mode_timestamp, U64 *user_mode_timestamp) noexcept {
 		
 		GetCurrentCoreTimestamp(
 			GetCurrentProcess(), kernel_mode_timestamp, user_mode_timestamp);

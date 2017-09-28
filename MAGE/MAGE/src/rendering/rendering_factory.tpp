@@ -29,7 +29,7 @@ namespace mage {
 		
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth      = static_cast< u32 >(nb_vertices * sizeof(VertexT));
+		buffer_desc.ByteWidth      = static_cast< U32 >(nb_vertices * sizeof(VertexT));
 		buffer_desc.Usage          = D3D11_USAGE_IMMUTABLE;
 		buffer_desc.BindFlags      = D3D11_BIND_VERTEX_BUFFER;
 		buffer_desc.CPUAccessFlags = 0;
@@ -52,7 +52,7 @@ namespace mage {
 		
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth      = static_cast< u32 >(nb_vertices * sizeof(VertexT));
+		buffer_desc.ByteWidth      = static_cast< U32 >(nb_vertices * sizeof(VertexT));
 		buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;
 		buffer_desc.BindFlags      = D3D11_BIND_VERTEX_BUFFER;
 		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
@@ -81,7 +81,7 @@ namespace mage {
 		
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth      = static_cast< u32 >(nb_indices * sizeof(IndexT));
+		buffer_desc.ByteWidth      = static_cast< U32 >(nb_indices * sizeof(IndexT));
 		buffer_desc.Usage          = D3D11_USAGE_IMMUTABLE;
 		buffer_desc.BindFlags      = D3D11_BIND_INDEX_BUFFER;
 		buffer_desc.CPUAccessFlags = 0;
@@ -105,7 +105,7 @@ namespace mage {
 		
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth      = static_cast< u32 >(count * sizeof(DataT));
+		buffer_desc.ByteWidth      = static_cast< U32 >(count * sizeof(DataT));
 		buffer_desc.Usage          = D3D11_USAGE_IMMUTABLE;
 		buffer_desc.BindFlags      = D3D11_BIND_CONSTANT_BUFFER;
 		buffer_desc.CPUAccessFlags = 0;
@@ -128,7 +128,7 @@ namespace mage {
 		
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth      = static_cast< u32 >(count * sizeof(DataT));
+		buffer_desc.ByteWidth      = static_cast< U32 >(count * sizeof(DataT));
 		buffer_desc.Usage          = D3D11_USAGE_DYNAMIC;
 		buffer_desc.BindFlags      = D3D11_BIND_CONSTANT_BUFFER;
 		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
@@ -157,12 +157,12 @@ namespace mage {
 		
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth           = static_cast< u32 >(count * sizeof(DataT));
+		buffer_desc.ByteWidth           = static_cast< U32 >(count * sizeof(DataT));
 		buffer_desc.Usage               = D3D11_USAGE_IMMUTABLE;
 		buffer_desc.BindFlags           = D3D11_BIND_SHADER_RESOURCE;
 		buffer_desc.CPUAccessFlags      = 0;
 		buffer_desc.MiscFlags           = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
-		buffer_desc.StructureByteStride = static_cast< u32 >(sizeof(DataT));
+		buffer_desc.StructureByteStride = static_cast< U32 >(sizeof(DataT));
 
 		// Specify data for initializing a subresource.
 		D3D11_SUBRESOURCE_DATA init_data = {};
@@ -182,12 +182,12 @@ namespace mage {
 		
 		// Describe the buffer resource.
 		D3D11_BUFFER_DESC buffer_desc = {};
-		buffer_desc.ByteWidth           = static_cast< u32 >(count * sizeof(DataT));
+		buffer_desc.ByteWidth           = static_cast< U32 >(count * sizeof(DataT));
 		buffer_desc.Usage               = D3D11_USAGE_DYNAMIC;
 		buffer_desc.BindFlags           = D3D11_BIND_SHADER_RESOURCE;
 		buffer_desc.CPUAccessFlags      = D3D11_CPU_ACCESS_WRITE;
 		buffer_desc.MiscFlags           = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
-		buffer_desc.StructureByteStride = static_cast< u32 >(sizeof(DataT));
+		buffer_desc.StructureByteStride = static_cast< U32 >(sizeof(DataT));
 
 		if (!data) {
 			// Create the structured buffer.

@@ -41,12 +41,12 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update(f64 delta_time) override;
+		virtual void Update(F64 delta_time) override;
 
-		f32 GetVelocity() const noexcept {
+		F32 GetVelocity() const noexcept {
 			return m_velocity;
 		}
-		void SetVelocity(f32 velocity) noexcept {
+		void SetVelocity(F32 velocity) noexcept {
 			m_velocity = velocity;
 		}
 
@@ -57,6 +57,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		TransformNode * const m_transform;
-		f32 m_velocity;
+		F32 m_velocity;
 	};
 }

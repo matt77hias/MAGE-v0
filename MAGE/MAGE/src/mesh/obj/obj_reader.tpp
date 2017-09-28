@@ -184,7 +184,7 @@ namespace mage {
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJFace() {
 		
-		vector< u32 > indices;
+		vector< U32 > indices;
 		while (indices.size() < 3 || HasString()) {
 			const XMUINT3 vertex_indices = ReadOBJVertexIndices();
 
@@ -193,8 +193,8 @@ namespace mage {
 				indices.push_back(it->second);
 			}
 			else {
-				const u32 index 
-					= static_cast< u32 >(m_model_output.m_vertex_buffer.size());
+				const U32 index 
+					= static_cast< U32 >(m_model_output.m_vertex_buffer.size());
 				indices.push_back(index);
 				m_model_output.m_vertex_buffer.push_back(ConstructVertex(vertex_indices));
 				m_mapping[vertex_indices] = index;
@@ -243,9 +243,9 @@ namespace mage {
 	const XMUINT3 OBJReader< VertexT >::ReadOBJVertexIndices() {
 		const char *token = ReadChars();
 
-		u32 vertex_index = 0;
-		u32 texture_index = 0;
-		u32 normal_index = 0;
+		U32 vertex_index = 0;
+		U32 texture_index = 0;
+		U32 normal_index = 0;
 
 		if (str_contains(token, "//")) {
 			// v1//vn1

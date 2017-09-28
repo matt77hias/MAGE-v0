@@ -163,7 +163,7 @@ namespace mage {
 		/**
 		 A type definition for a memory block.
 		 */
-		using MemoryBlock = pair< size_t, u8 * >;
+		using MemoryBlock = pair< size_t, U8 * >;
 
 		//---------------------------------------------------------------------
 		// Member Variables

@@ -127,8 +127,8 @@ namespace mage {
 
 		 @return		The horizontal position of this mouse.
 		 */
-		i32 GetPositionX() const noexcept {
-			return static_cast< i32 >(m_mouse_position.x);
+		S32 GetPositionX() const noexcept {
+			return static_cast< S32 >(m_mouse_position.x);
 		}
 
 		/**
@@ -136,8 +136,8 @@ namespace mage {
 
 		 @return		The vertical position of this mouse.
 		 */
-		i32 GetPositionY() const noexcept {
-			return static_cast< i32 >(m_mouse_position.y);
+		S32 GetPositionY() const noexcept {
+			return static_cast< S32 >(m_mouse_position.y);
 		}
 
 		/**
@@ -145,8 +145,8 @@ namespace mage {
 
 		 @return		The change in this mouse's horizontal coordinate.
 		 */
-		i32 GetDeltaX() const noexcept {
-			return static_cast< i32 >(m_mouse_state.lX);
+		S32 GetDeltaX() const noexcept {
+			return static_cast< S32 >(m_mouse_state.lX);
 		}
 
 		/**
@@ -154,8 +154,8 @@ namespace mage {
 
 		 @return		The change in this mouse's vertical coordinate.
 		 */
-		i32 GetDeltaY() const noexcept {
-			return static_cast< i32 >(m_mouse_state.lY);
+		S32 GetDeltaY() const noexcept {
+			return static_cast< S32 >(m_mouse_state.lY);
 		}
 
 		/**
@@ -163,8 +163,8 @@ namespace mage {
 
 		 @return		The change in this mouse's scroll wheel.
 		 */
-		i32 GetDeltaWheel() const noexcept {
-			return static_cast< i32 >(m_mouse_state.lZ);
+		S32 GetDeltaWheel() const noexcept {
+			return static_cast< S32 >(m_mouse_state.lZ);
 		}
 
 	private:
@@ -203,7 +203,7 @@ namespace mage {
 		/**
 		 The current press stamp (incremented every frame) of this mouse.
 		 */
-		u64 m_press_stamp;
+		U64 m_press_stamp;
 
 		/**
 		 The state of the mouse buttons of this mouse.
@@ -218,7 +218,7 @@ namespace mage {
 
 		 Stamps the mouse buttons pressed in the last frame of this mouse.
 		 */
-		mutable u64 m_mouse_button_press_stamp[3];
+		mutable U64 m_mouse_button_press_stamp[3];
 
 		/**
 		 The position of the mouse cursor on the screen of this mouse.

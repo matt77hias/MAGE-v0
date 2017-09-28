@@ -101,7 +101,7 @@ namespace mage {
 						the given character. @c false otherwise.
 		 */
 		bool operator<(wchar_t rhs) const noexcept {
-			return m_character < static_cast< u32 >(rhs);
+			return m_character < static_cast< U32 >(rhs);
 		}
 
 		//---------------------------------------------------------------------
@@ -111,7 +111,7 @@ namespace mage {
 		/**
 		 The character of this glyph.
 		 */
-		u32 m_character;
+		U32 m_character;
 
 		/**
 		 The subrectangle of this glyph.
@@ -124,23 +124,23 @@ namespace mage {
 				/**
 				 The offset of this glyph from the left.
 				 */
-				f32 m_offset_x;
+				F32 m_offset_x;
 
 				/**
 				 The offset of this glyph from the top.
 				 */
-				f32 m_offset_y;
+				F32 m_offset_y;
 			};
 
 			/**
 			 The offsets of this glyph.
 			 */
-			f32 m_offsets[2];
+			F32 m_offsets[2];
 		};
 
 		/**
 		 The offset of this glyph to the right.
 		 */
-		f32 m_advance_x;
+		F32 m_advance_x;
 	};
 }

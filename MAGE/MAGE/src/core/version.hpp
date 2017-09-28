@@ -38,7 +38,7 @@ namespace mage {
 
 	 @return		The version major number.
 	 */
-	inline constexpr u32 GetVersionMajor() noexcept {
+	inline constexpr U32 GetVersionMajor() noexcept {
 		return MAGE_VERSION_MAJOR;
 	}
 
@@ -47,7 +47,7 @@ namespace mage {
 
 	 @return		The version minor number.
 	 */
-	inline constexpr u32 GetVersionMinor() noexcept {
+	inline constexpr U32 GetVersionMinor() noexcept {
 		return MAGE_VERSION_MINOR;
 	}
 
@@ -56,7 +56,7 @@ namespace mage {
 
 	 @return		The version patch number.
 	 */
-	inline constexpr u32 GetVersionPatch() noexcept {
+	inline constexpr U32 GetVersionPatch() noexcept {
 		return MAGE_VERSION_PATCH;
 	}
 

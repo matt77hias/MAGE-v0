@@ -246,7 +246,7 @@ namespace mage {
 		}
 	}
 
-	void BRDFScript::Update(f64 time) {
+	void BRDFScript::Update(F64 time) {
 		UNUSED(time);
 		
 		const Keyboard * const keyboard = Keyboard::Get();

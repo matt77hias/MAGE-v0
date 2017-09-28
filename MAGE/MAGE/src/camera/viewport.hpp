@@ -24,9 +24,9 @@ namespace mage {
 
 		static const D3D11_VIEWPORT GetMaxViewport() noexcept;
 
-		static f32 NormalizeWidth(f32 x) noexcept;
+		static F32 NormalizeWidth(F32 x) noexcept;
 
-		static f32 NormalizeHeight(f32 x) noexcept;
+		static F32 NormalizeHeight(F32 x) noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -99,68 +99,68 @@ namespace mage {
 			m_viewport = std::move(viewport);
 		}
 
-		void SetTopLeft(u32 x, u32 y) noexcept {
-			m_viewport.TopLeftX = static_cast< f32 >(x);
-			m_viewport.TopLeftY = static_cast< f32 >(y);
+		void SetTopLeft(U32 x, U32 y) noexcept {
+			m_viewport.TopLeftX = static_cast< F32 >(x);
+			m_viewport.TopLeftY = static_cast< F32 >(y);
 		}
 
-		void SetTopLeft(f32 x, f32 y) noexcept {
+		void SetTopLeft(F32 x, F32 y) noexcept {
 			m_viewport.TopLeftX = x;
 			m_viewport.TopLeftY = y;
 		}
 
-		void SetNormalizedTopLeft(f32 x, f32 y) noexcept {
+		void SetNormalizedTopLeft(F32 x, F32 y) noexcept {
 			SetTopLeft(NormalizeWidth(x), NormalizeHeight(y));
 		}
 
-		void SetWidth(u32 width) noexcept {
-			m_viewport.Width = static_cast< f32 >(width);
+		void SetWidth(U32 width) noexcept {
+			m_viewport.Width = static_cast< F32 >(width);
 		}
 
-		void SetWidth(f32 width) noexcept {
+		void SetWidth(F32 width) noexcept {
 			m_viewport.Width = width;
 		}
 
-		void SetNormalizedWidth(f32 width) noexcept {
+		void SetNormalizedWidth(F32 width) noexcept {
 			SetWidth(NormalizeWidth(width));
 		}
 
-		void SetHeight(u32 height) noexcept {
-			m_viewport.Height = static_cast< f32 >(height);
+		void SetHeight(U32 height) noexcept {
+			m_viewport.Height = static_cast< F32 >(height);
 		}
 
-		void SetHeight(f32 height) noexcept {
+		void SetHeight(F32 height) noexcept {
 			m_viewport.Height = height;
 		}
 
-		void SetNormalizedHeight(f32 height) noexcept {
+		void SetNormalizedHeight(F32 height) noexcept {
 			SetHeight(NormalizeHeight(height));
 		}
 
-		void SetWidthAndHeight(u32 width, u32 height) noexcept {
+		void SetWidthAndHeight(U32 width, U32 height) noexcept {
 			SetWidth(width);
 			SetHeight(height);
 		}
 
-		void SetWidthAndHeight(f32 width, f32 height) noexcept {
+		void SetWidthAndHeight(F32 width, F32 height) noexcept {
 			SetWidth(width);
 			SetHeight(height);
 		}
 
-		void SetNormalizedWidthAndHeight(f32 width, f32 height) noexcept {
+		void SetNormalizedWidthAndHeight(F32 width, F32 height) noexcept {
 			SetWidth(NormalizeWidth(width));
 			SetHeight(NormalizeHeight(height));
 		}
 
-		void SetMinimumDepth(f32 min_depth) noexcept {
+		void SetMinimumDepth(F32 min_depth) noexcept {
 			m_viewport.MinDepth = min_depth;
 		}
 
-		void SetMaximumDepth(f32 max_depth) noexcept {
+		void SetMaximumDepth(F32 max_depth) noexcept {
 			m_viewport.MaxDepth = max_depth;
 		}
 
-		void SetDepth(f32 min_depth, f32 max_depth) noexcept {
+		void SetDepth(F32 min_depth, F32 max_depth) noexcept {
 			SetMinimumDepth(min_depth);
 			SetMaximumDepth(max_depth);
 		}

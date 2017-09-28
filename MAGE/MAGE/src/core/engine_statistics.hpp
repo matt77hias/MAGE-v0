@@ -108,7 +108,7 @@ namespace mage {
 
 		 @return		The number of draw calls of this engine statistics.
 		 */
-		u32 GetNumberOfDrawCalls() noexcept {
+		U32 GetNumberOfDrawCalls() noexcept {
 			return m_nb_draw_calls;
 		}
 
@@ -118,7 +118,7 @@ namespace mage {
 		 @param[in]		units
 						The number of units to add.
 		 */
-		void IncrementNumberOfDrawCalls(u32 units = 1) noexcept {
+		void IncrementNumberOfDrawCalls(U32 units = 1) noexcept {
 			m_nb_draw_calls += units;
 		}
 
@@ -131,6 +131,6 @@ namespace mage {
 		/**
 		 The number of draw calls of this engine statistics.
 		 */
-		u32 m_nb_draw_calls;
+		U32 m_nb_draw_calls;
 	};
 }

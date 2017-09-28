@@ -59,7 +59,7 @@ namespace mage {
 		});
 	}
 
-	void SceneManager::Update(f64 delta_time) {
+	void SceneManager::Update(F64 delta_time) {
 		m_scene->ForEachScript([this, delta_time](BehaviorScript *script) {
 
 			if (!m_has_requested_scene) {

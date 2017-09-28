@@ -19,7 +19,7 @@ namespace mage {
 		
 		Assert(device_context);
 		
-		u32 nb_of_viewports = 1;
+		U32 nb_of_viewports = 1;
 		D3D11_VIEWPORT viewport;
 		Pipeline::RS::GetBoundViewports(
 			device_context, &nb_of_viewports, &viewport);
@@ -36,7 +36,7 @@ namespace mage {
 		Assert(device_context);
 		Assert(viewport);
 		
-		u32 nb_of_viewports = 1;
+		U32 nb_of_viewports = 1;
 		Pipeline::RS::GetBoundViewports(
 			device_context, &nb_of_viewports, viewport);
 		if (nb_of_viewports != 1) {
@@ -49,9 +49,9 @@ namespace mage {
 	const XMMATRIX GetViewportTransform(const D3D11_VIEWPORT &viewport, 
 		DXGI_MODE_ROTATION rotation_mode) noexcept {
 		
-		const f32 scale_x = (viewport.Width  > 0.0f) ? 
+		const F32 scale_x = (viewport.Width  > 0.0f) ? 
 							2.0f / viewport.Width  : 0.0f;
-		const f32 scale_y = (viewport.Height > 0.0f) ? 
+		const F32 scale_y = (viewport.Height > 0.0f) ? 
 							2.0f / viewport.Height : 0.0f;
 		
 		switch (rotation_mode) {

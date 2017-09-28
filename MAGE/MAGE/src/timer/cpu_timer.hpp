@@ -110,7 +110,7 @@ namespace mage {
 		 @return		The core delta time (in seconds) per processing core 
 						of this CPU timer's process.
 		 */
-		f64 GetCoreDeltaTimePerCore() const noexcept {
+		F64 GetCoreDeltaTimePerCore() const noexcept {
 			return GetCoreDeltaTime() / m_nb_processor_cores;
 		}
 
@@ -120,7 +120,7 @@ namespace mage {
 		 @return		The core delta time (in seconds) of this CPU timer's 
 						process.
 		 */
-		f64 GetCoreDeltaTime() const noexcept;
+		F64 GetCoreDeltaTime() const noexcept;
 
 		/**
 		 Returns the kernel mode delta time (in seconds) per processing core 
@@ -129,7 +129,7 @@ namespace mage {
 		 @return		The kernel mode delta time (in seconds) per processing 
 						core of this CPU timer's process.
 		 */
-		f64 GetKernelModeDeltaTimePerCore() const noexcept {
+		F64 GetKernelModeDeltaTimePerCore() const noexcept {
 			return GetKernelModeDeltaTime() / m_nb_processor_cores;
 		}
 
@@ -140,7 +140,7 @@ namespace mage {
 		 @return		The kernel mode delta time (in seconds) of this CPU 
 						timer's process.
 		 */
-		f64 GetKernelModeDeltaTime() const noexcept;
+		F64 GetKernelModeDeltaTime() const noexcept;
 
 		/**
 		 Returns the user mode delta time (in seconds) per processing core 
@@ -149,7 +149,7 @@ namespace mage {
 		 @return		The user mode delta time (in seconds) per processing 
 						core of this CPU timer's process.
 		 */
-		f64 GetUserModeDeltaTimePerCore() const noexcept {
+		F64 GetUserModeDeltaTimePerCore() const noexcept {
 			return GetUserModeDeltaTime() / m_nb_processor_cores;
 		}
 
@@ -160,7 +160,7 @@ namespace mage {
 		 @return		The user mode delta time (in seconds) of this CPU 
 						timer's process.
 		 */
-		f64 GetUserModeDeltaTime() const noexcept;
+		F64 GetUserModeDeltaTime() const noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Total Delta Time
@@ -173,7 +173,7 @@ namespace mage {
 		 @return		The total core delta time (in seconds) per processing 
 						core of this CPU timer's process.
 		 */
-		f64 GetTotalCoreDeltaTimePerCore() const noexcept {
+		F64 GetTotalCoreDeltaTimePerCore() const noexcept {
 			return GetTotalCoreDeltaTime() / m_nb_processor_cores;
 		}
 
@@ -184,7 +184,7 @@ namespace mage {
 		 @return		The total core delta time (in seconds) of this CPU 
 						timer's process.
 		 */
-		f64 GetTotalCoreDeltaTime() const noexcept;
+		F64 GetTotalCoreDeltaTime() const noexcept;
 
 		/**
 		 Returns the total kernel mode delta time (in seconds) per processing 
@@ -193,7 +193,7 @@ namespace mage {
 		 @return		The total kernel mode delta time (in seconds) per 
 						processing core of this CPU timer's process.
 		 */
-		f64 GetTotalKernelModeDeltaTimePerCore() const noexcept {
+		F64 GetTotalKernelModeDeltaTimePerCore() const noexcept {
 			return GetTotalKernelModeDeltaTime() / m_nb_processor_cores;
 		}
 
@@ -204,7 +204,7 @@ namespace mage {
 		 @return		The total kernel mode delta time (in seconds) of this CPU 
 						timer's process.
 		 */
-		f64 GetTotalKernelModeDeltaTime() const noexcept;
+		F64 GetTotalKernelModeDeltaTime() const noexcept;
 
 		/**
 		 Returns the total user mode delta time (in seconds) per processing 
@@ -213,7 +213,7 @@ namespace mage {
 		 @return		The total user mode delta time (in seconds) per 
 						processing core of this CPU timer's process.
 		 */
-		f64 GetTotalUserModeDeltaTimePerCore() const noexcept {
+		F64 GetTotalUserModeDeltaTimePerCore() const noexcept {
 			return GetTotalUserModeDeltaTime() / m_nb_processor_cores;
 		}
 
@@ -224,7 +224,7 @@ namespace mage {
 		 @return		The total user mode delta time (in seconds) of this CPU 
 						timer's process.
 		 */
-		f64 GetTotalUserModeDeltaTime() const noexcept;
+		F64 GetTotalUserModeDeltaTime() const noexcept;
 
 	private:
 
@@ -298,17 +298,17 @@ namespace mage {
 		/**
 		 The modes' last timestamps of this CPU timer's process.
 		 */
-		mutable u64 m_last_timestamp[static_cast< size_t >(ModeIndex::Count)];
+		mutable U64 m_last_timestamp[static_cast< size_t >(ModeIndex::Count)];
 		
 		/**
 		 The modes' delta times (in seconds) of this CPU timer's process.
 		 */
-		mutable u64 m_delta_time[static_cast< size_t >(ModeIndex::Count)];
+		mutable U64 m_delta_time[static_cast< size_t >(ModeIndex::Count)];
 
 		/**
 		 The modes' total delta times (in seconds) of this CPU timer's process.
 		 */
-		mutable u64 m_total_delta_time[static_cast< size_t >(ModeIndex::Count)];
+		mutable U64 m_total_delta_time[static_cast< size_t >(ModeIndex::Count)];
 
 		/**
 		 Flag indicating whether this CPU timer is running.
@@ -322,6 +322,6 @@ namespace mage {
 		/**
 		 The time period of CPU timers.
 		 */
-		static const f64 s_time_period;
+		static const F64 s_time_period;
 	};
 }

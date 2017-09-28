@@ -61,8 +61,8 @@ namespace mage {
 			return;
 		}
 
-		const f32 a = 1.0f / (1.0f + nf.z);
-		const f32 b = -nf.x * nf.y * a;
+		const F32 a = 1.0f / (1.0f + nf.z);
+		const F32 b = -nf.x * nf.y * a;
 		b1 = XMVectorSet(1.0f - nf.x * nf.x * a, b, -nf.x, 0.0f);
 		b2 = XMVectorSet(b, 1.0f - nf.y * nf.y * a, -nf.y, 0.0f);
 	}
@@ -85,9 +85,9 @@ namespace mage {
 		XMFLOAT3 nf;
 		XMStoreFloat3(&nf, n);
 
-		const f32 sign = copysignf(1.0f, nf.z);
-		const f32 a = -1.0f / (sign + nf.z);
-		const f32 b = nf.x * nf.y * a;
+		const F32 sign = copysignf(1.0f, nf.z);
+		const F32 a = -1.0f / (sign + nf.z);
+		const F32 b = nf.x * nf.y * a;
 		b1 = XMVectorSet(1.0f + sign * nf.x * nf.x * a, sign * b, -sign * nf.x, 0.0f);
 		b2 = XMVectorSet(b, sign + nf.y * nf.y * a, -nf.y, 0.0f);
 	}

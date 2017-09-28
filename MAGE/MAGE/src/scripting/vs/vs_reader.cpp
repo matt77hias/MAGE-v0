@@ -78,15 +78,15 @@ namespace mage {
 
 	void VSReader::ReadVSInt() {
 		const string name = ReadString();
-		const i32 value   = ReadI32();
+		const S32 value   = ReadS32();
 		
 		m_variable_buffer.emplace_back(VariableType::Int, name, value);
 	}
 
 	void VSReader::ReadVSInt2() {
 		const string name = ReadString();
-		const i32 x       = ReadI32();
-		const i32 y       = ReadI32();
+		const S32 x       = ReadS32();
+		const S32 y       = ReadS32();
 		const XMINT2 value(x, y);
 		
 		m_variable_buffer.emplace_back(VariableType::Int2, name, value);
@@ -94,9 +94,9 @@ namespace mage {
 
 	void VSReader::ReadVSInt3() {
 		const string name = ReadString();
-		const i32 x       = ReadI32();
-		const i32 y       = ReadI32();
-		const i32 z  = ReadI32();
+		const S32 x       = ReadS32();
+		const S32 y       = ReadS32();
+		const S32 z  = ReadS32();
 		const XMINT3 value(x, y, z);
 		
 		m_variable_buffer.emplace_back(VariableType::Int3, name, value);
@@ -104,15 +104,15 @@ namespace mage {
 
 	void VSReader::ReadVSFloat() {
 		const string name = ReadString();
-		const f32 value = ReadF32();
+		const F32 value = ReadF32();
 	
 		m_variable_buffer.emplace_back(VariableType::Float, name, value);
 	}
 
 	void VSReader::ReadVSFloat2() {
 		const string name = ReadString();
-		const f32 x = ReadF32();
-		const f32 y = ReadF32();
+		const F32 x = ReadF32();
+		const F32 y = ReadF32();
 		const XMFLOAT2 value(x, y);
 		
 		m_variable_buffer.emplace_back(VariableType::Float2, name, value);
@@ -120,9 +120,9 @@ namespace mage {
 	
 	void VSReader::ReadVSFloat3() {
 		const string name = ReadString();
-		const f32 x = ReadF32();
-		const f32 y = ReadF32();
-		const f32 z = ReadF32();
+		const F32 x = ReadF32();
+		const F32 y = ReadF32();
+		const F32 z = ReadF32();
 		const XMFLOAT3 value(x, y, z);
 		
 		m_variable_buffer.emplace_back(VariableType::Float3, name, value);
@@ -130,10 +130,10 @@ namespace mage {
 
 	void VSReader::ReadVSFloat4() {
 		const string name = ReadString();
-		const f32 x = ReadF32();
-		const f32 y = ReadF32();
-		const f32 z = ReadF32();
-		const f32 w = ReadF32();
+		const F32 x = ReadF32();
+		const F32 y = ReadF32();
+		const F32 z = ReadF32();
+		const F32 w = ReadF32();
 		const XMFLOAT4 value(x, y, z, w);
 		
 		m_variable_buffer.emplace_back(VariableType::Float4, name, value);
@@ -141,10 +141,10 @@ namespace mage {
 
 	void VSReader::ReadVSColor() {
 		const string name = ReadString();
-		const f32 x = ReadF32();
-		const f32 y = ReadF32();
-		const f32 z = ReadF32();
-		const f32 w = ReadF32();
+		const F32 x = ReadF32();
+		const F32 y = ReadF32();
+		const F32 z = ReadF32();
+		const F32 w = ReadF32();
 		const XMFLOAT4 value(x, y, z, w);
 		
 		m_variable_buffer.emplace_back(VariableType::Color, name, value);

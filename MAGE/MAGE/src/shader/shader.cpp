@@ -60,7 +60,7 @@ namespace mage {
 
 		// Create the vertex input layout.
 		const HRESULT result_vertex_input_layout = device->CreateInputLayout(
-			input_element_desc, static_cast< u32 >(nb_input_elements),
+			input_element_desc, static_cast< U32 >(nb_input_elements),
 			compiled_shader->GetBytecode(), compiled_shader->GetBytecodeSize(),
 			m_vertex_layout.ReleaseAndGetAddressOf());
 		ThrowIfFailed(result_vertex_input_layout, 

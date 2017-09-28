@@ -57,7 +57,7 @@ namespace mage {
 	template< typename DataT >
 	template< typename PipelineStageT >
 	inline void ConstantBuffer< DataT >::Bind(
-		ID3D11DeviceContext2 *device_context, u32 slot) const noexcept {
+		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindConstantBuffer(device_context, slot, Get());
 	}

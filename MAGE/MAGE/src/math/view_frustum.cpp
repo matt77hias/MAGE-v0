@@ -281,18 +281,18 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	bool ViewFrustum::Intersects(const Point3 &point, 
-		f32 epsilon) const noexcept {
+		F32 epsilon) const noexcept {
 		
 		return Intersects(XMLoadFloat3(&point), epsilon);
 	}
 
 	bool ViewFrustum::Intersects(FXMVECTOR point, 
-		f32 epsilon) const noexcept {
+		F32 epsilon) const noexcept {
 		
 		bool intersection = false;
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], point);
-			const f32 distance = XMVectorGetX(result);
+			const F32 distance = XMVectorGetX(result);
 
 			// Test for no coverage.
 			if (distance < -epsilon) {
@@ -315,14 +315,14 @@ namespace mage {
 
 			// Test for no coverage.
 			const XMVECTOR result_max = XMPlaneDotCoord(m_planes[i], pmax);
-			const f32 distance_max = XMVectorGetX(result_max);
+			const F32 distance_max = XMVectorGetX(result_max);
 			if (distance_max < 0.0f) {
 				return false;
 			}
 
 			// Test for partial coverage.
 			const XMVECTOR result_min = XMPlaneDotCoord(m_planes[i], pmin);
-			const f32 distance_min = XMVectorGetX(result_min);
+			const F32 distance_min = XMVectorGetX(result_min);
 			intersection |= (distance_min <= 0.0f);
 		}
 
@@ -335,7 +335,7 @@ namespace mage {
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR p = XMLoadFloat3(&bs.m_p);
 			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], p);
-			const f32 distance = XMVectorGetX(result);
+			const F32 distance = XMVectorGetX(result);
 
 			// Test for no coverage.
 			if (distance < -bs.m_r) {
@@ -354,18 +354,18 @@ namespace mage {
 	//---------------------------------------------------------------------
 
 	Coverage ViewFrustum::Classify(const Point3 &point, 
-		f32 epsilon) const noexcept {
+		F32 epsilon) const noexcept {
 		
 		return Classify(XMLoadFloat3(&point), epsilon);
 	}
 
 	Coverage ViewFrustum::Classify(FXMVECTOR point, 
-		f32 epsilon) const noexcept {
+		F32 epsilon) const noexcept {
 		
 		bool intersection = false;
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], point);
-			const f32 distance = XMVectorGetX(result);
+			const F32 distance = XMVectorGetX(result);
 
 			// Test for no coverage.
 			if (distance < -epsilon) {
@@ -388,14 +388,14 @@ namespace mage {
 
 			// Test for no coverage.
 			const XMVECTOR result_max = XMPlaneDotCoord(m_planes[i], pmax);
-			const f32 distance_max = XMVectorGetX(result_max);
+			const F32 distance_max = XMVectorGetX(result_max);
 			if (distance_max < 0.0f) {
 				return Coverage::NoCoverage;
 			}
 
 			// Test for partial coverage.
 			const XMVECTOR result_min = XMPlaneDotCoord(m_planes[i], pmin);
-			const f32 distance_min = XMVectorGetX(result_min);
+			const F32 distance_min = XMVectorGetX(result_min);
 			intersection |= (distance_min <= 0.0f);
 		}
 
@@ -408,7 +408,7 @@ namespace mage {
 		for (size_t i = 0; i < 6; ++i) {
 			const XMVECTOR p = XMLoadFloat3(&bs.m_p);
 			const XMVECTOR result = XMPlaneDotCoord(m_planes[i], p);
-			const f32 distance = XMVectorGetX(result);
+			const F32 distance = XMVectorGetX(result);
 
 			// Test for no coverage.
 			if (distance < -bs.m_r) {

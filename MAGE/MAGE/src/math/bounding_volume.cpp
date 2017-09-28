@@ -373,9 +373,9 @@ namespace mage {
 	// Axis-Aligned Bounding Box: Overlapping = Intersecting = Partial Coverage
 	//-------------------------------------------------------------------------
 
-	bool AABB::Intersects(const Point3 &point, f32 epsilon) const noexcept {
+	bool AABB::Intersects(const Point3 &point, F32 epsilon) const noexcept {
 		
-		f32 distance[6];
+		F32 distance[6];
 
 		// Test for no coverage.
 
@@ -413,7 +413,7 @@ namespace mage {
 		return intersection;
 	}
 
-	bool AABB::Intersects(FXMVECTOR point, f32 epsilon) const noexcept {
+	bool AABB::Intersects(FXMVECTOR point, F32 epsilon) const noexcept {
 	
 		Point3 p;
 		XMStoreFloat3(&p, point);
@@ -453,7 +453,7 @@ namespace mage {
 
 	bool AABB::Intersects(const BS &bs) const noexcept {
 		
-		f32 distance[6];
+		F32 distance[6];
 		
 		// Test for no coverage.
 
@@ -495,9 +495,9 @@ namespace mage {
 	// Axis-Aligned Bounding Box: Overlapping = Intersecting = Partial Coverage
 	//-------------------------------------------------------------------------
 
-	Coverage AABB::Classify(const Point3 &point, f32 epsilon) const noexcept {
+	Coverage AABB::Classify(const Point3 &point, F32 epsilon) const noexcept {
 		
-		f32 distance[6];
+		F32 distance[6];
 
 		// Test for no coverage.
 
@@ -535,7 +535,7 @@ namespace mage {
 		return intersection ? Coverage::PartialCoverage : Coverage::FullCoverage;
 	}
 
-	Coverage AABB::Classify(FXMVECTOR point, f32 epsilon) const noexcept {
+	Coverage AABB::Classify(FXMVECTOR point, F32 epsilon) const noexcept {
 		
 		Point3 p;
 		XMStoreFloat3(&p, point);
@@ -578,7 +578,7 @@ namespace mage {
 
 	Coverage AABB::Classify(const BS &bs) const noexcept {
 		
-		f32 distance[6];
+		F32 distance[6];
 
 		// Test for no coverage.
 

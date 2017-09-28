@@ -408,7 +408,7 @@ namespace mage {
 		/**
 		 The dissolve factor (i.e. opacity) of this forward model buffer.
 		 */
-		f32 m_dissolve;
+		F32 m_dissolve;
 
 		/**
 		 The specular reflectivity of this forward model buffer.
@@ -418,7 +418,7 @@ namespace mage {
 		/**
 		 The BRDF dependent material coefficients of this forward model buffer.
 		 */
-		f32 m_material_coefficients[2];
+		F32 m_material_coefficients[2];
 	};
 
 	static_assert(sizeof(ForwardModelBuffer) == 240, 
@@ -519,7 +519,7 @@ namespace mage {
 		The 2nd BRDF dependent normalized material coefficient
 		of this deferred model buffer.
 		 */
-		f32 m_mat2_norm;
+		F32 m_mat2_norm;
 
 		/**
 		 The specular reflectivity of this deferred model buffer.
@@ -530,7 +530,7 @@ namespace mage {
 		 The 1st BRDF dependent normalized material coefficient of this 
 		 deferred model buffer.
 		 */
-		f32 m_mat1_norm;
+		F32 m_mat1_norm;
 	};
 
 	static_assert(sizeof(DeferredModelBuffer) == 224, 

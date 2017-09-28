@@ -179,7 +179,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void Bind(ID3D11DeviceContext2 *device_context, 
-			u32 slot) const noexcept;
+			U32 slot) const noexcept;
 
 	private:
 

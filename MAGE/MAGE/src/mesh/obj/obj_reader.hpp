@@ -311,7 +311,7 @@ namespace mage {
 		 and the index of a vertex in the vertex buffer (@c m_model_output) of 
 		 this OBJ reader.
 		 */
-		map< XMUINT3, u32, OBJComparatorXMUINT3 > m_mapping;
+		map< XMUINT3, U32, OBJComparatorXMUINT3 > m_mapping;
 		
 		/**
 		 A reference to a model output containing the read data of this OBJ 

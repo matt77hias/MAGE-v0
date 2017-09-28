@@ -31,7 +31,7 @@ namespace mage {
 					Failed to read from the given file.
 	 */
 	void ReadBinaryFile(const wchar_t *fname, 
-		UniquePtr< u8[] > &data, size_t *size);
+		UniquePtr< U8[] > &data, size_t *size);
 
 	//-------------------------------------------------------------------------
 	// BinaryReader
@@ -108,7 +108,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read from the given input string.
 		 */
-		void ReadFromMemory(const u8 *input, size_t size, bool big_endian);
+		void ReadFromMemory(const U8 *input, size_t size, bool big_endian);
 
 		/**
 		 Returns the current filename of this binary reader.
@@ -173,94 +173,94 @@ namespace mage {
 		const char *ReadChars(size_t size);
 
 		/**
-		 Reads an @c i8.
+		 Reads a @c S8.
 
-		 @return		The @c i8 read.
+		 @return		The @c S8 read.
 		 @throws		FormattedException
-						Failed to read an @c i8.
+						Failed to read a @c S8.
 		 */
-		i8 ReadI8();
+		S8 ReadS8();
 
 		/**
-		 Reads an @c u8.
+		 Reads an @c U8.
 
-		 @return		The @c u8 read.
+		 @return		The @c U8 read.
 		 @throws		FormattedException
-						Failed to read an @c u8.
+						Failed to read an @c U8.
 		 */
-		u8 ReadU8();
+		U8 ReadU8();
 
 		/**
-		 Reads an @c i16.
+		 Reads a @c S16.
 
-		 @return		The @c i16 read.
+		 @return		The @c S16 read.
 		 @throws		FormattedException
-						Failed to read an @c i16.
+						Failed to read a @c S16.
 		 */
-		i16 ReadI16();
+		S16 ReadS16();
 
 		/**
-		 Reads an @c u16.
+		 Reads an @c U16.
 
-		 @return		The @c u16 read.
+		 @return		The @c U16 read.
 		 @throws		FormattedException
-						Failed to read an @c u16.
+						Failed to read an @c U16.
 		 */
-		u16 ReadU16();
+		U16 ReadU16();
 
 		/**
-		 Reads an @c i32.
+		 Reads a @c S32.
 
-		 @return		The @c i32 read.
+		 @return		The @c S32 read.
 		 @throws		FormattedException
-						Failed to read an @c i32.
+						Failed to read a @c S32.
 		 */
-		i32 ReadI32();
+		S32 ReadS32();
 
 		/**
-		 Reads an @c u32.
+		 Reads an @c U32.
 
-		 @return		The @c u32 read.
+		 @return		The @c U32 read.
 		 @throws		FormattedException
-						Failed to read an @c u32.
+						Failed to read an @c U32.
 		 */
-		u32 ReadU32();
+		U32 ReadU32();
 
 		/**
-		 Reads an @c i64.
+		 Reads a @c S64.
 
-		 @return		The @c i64 read.
+		 @return		The @c S64 read.
 		 @throws		FormattedException
-						Failed to read an @c i64.
+						Failed to read a @c S64.
 		 */
-		i64 ReadI64();
+		S64 ReadS64();
 
 		/**
-		 Reads an @c u64.
+		 Reads an @c U64.
 
-		 @return		The @c u64 read.
+		 @return		The @c U64 read.
 		 @throws		FormattedException
-						Failed to read an @c u64.
+						Failed to read an @c U64.
 		 */
-		u64 ReadU64();
+		U64 ReadU64();
 
 		/**
-		 Reads a @c f32.
+		 Reads a @c F32.
 
-		 @return		The @c f32 read.
+		 @return		The @c F32 read.
 		 @throws		FormattedException
-						Failed to read a @c f32.
+						Failed to read a @c F32.
 		 */
-		f32 ReadF32();
+		F32 ReadF32();
 
 		/**
-		 Reads a @c f64.
+		 Reads a @c F64.
 
-		 @return		The @c f64 read.
+		 @return		The @c F64 read.
 		 @throws		FormattedException
-						Failed to read a @c f64.
+						Failed to read a @c F64.
 		 */
-		f64 ReadF64();
+		F64 ReadF64();
 
 	private:
 
@@ -294,17 +294,17 @@ namespace mage {
 		/**
 		 A pointer to the current position of this binary reader.
 		 */
-		const u8 *m_pos;
+		const U8 *m_pos;
 
 		/**
 		 A pointer to the end position of this binary reader.
 		 */
-		const u8 *m_end;
+		const U8 *m_end;
 
 		/**
 		 A pointer to the data to read of this binary reader.
 		 */
-		UniquePtr< u8[] > m_data;
+		UniquePtr< U8[] > m_data;
 	};
 
 	//-------------------------------------------------------------------------
@@ -380,7 +380,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read from the given input string.
 		 */
-		void ReadFromMemory(const u8 *input, size_t size);
+		void ReadFromMemory(const U8 *input, size_t size);
 
 		/**
 		 Returns the current filename of this big endian binary reader.
@@ -487,17 +487,17 @@ namespace mage {
 		/**
 		 A pointer to the current position of this binary reader.
 		 */
-		const u8 *m_pos;
+		const U8 *m_pos;
 
 		/**
 		 A pointer to the end position of this binary reader.
 		 */
-		const u8 *m_end;
+		const U8 *m_end;
 
 		/**
 		 A pointer to the data to read of this binary reader.
 		 */
-		UniquePtr< u8[] > m_data;
+		UniquePtr< U8[] > m_data;
 	};
 }
 

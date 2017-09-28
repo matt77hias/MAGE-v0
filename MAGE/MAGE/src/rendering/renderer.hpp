@@ -193,7 +193,7 @@ namespace mage {
 
 		 @return		The width in pixels of the display of this renderer.
 		 */
-		u32 GetWidth() const noexcept {
+		U32 GetWidth() const noexcept {
 			return m_display_configuration->GetDisplayWidth();
 		}
 
@@ -202,7 +202,7 @@ namespace mage {
 
 		 @return		The height in pixels of the display of this renderer.
 		 */
-		u32 GetHeight() const noexcept {
+		U32 GetHeight() const noexcept {
 			return m_display_configuration->GetDisplayHeight();
 		}
 		
@@ -281,7 +281,7 @@ namespace mage {
 		 @return		The gamma value of this renderer used for gamma 
 						correction.
 		 */
-		f32 GetGamma() const noexcept {
+		F32 GetGamma() const noexcept {
 			return m_display_configuration->GetGamma();
 		}
 

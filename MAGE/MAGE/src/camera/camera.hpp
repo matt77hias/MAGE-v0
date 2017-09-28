@@ -83,7 +83,7 @@ namespace mage {
 
 		 @return		The position of the near z-plane of this camera.
 		 */
-		f32 GetNearZ() const noexcept {
+		F32 GetNearZ() const noexcept {
 			return m_near_z;
 		}
 		
@@ -94,7 +94,7 @@ namespace mage {
 		 @param[in]		near_z
 						The position of the near z-plane in camera space.
 		 */
-		void SetNearZ(f32 near_z) noexcept {
+		void SetNearZ(F32 near_z) noexcept {
 			m_near_z = near_z;
 		}
 		
@@ -104,7 +104,7 @@ namespace mage {
 
 		 @return		The position of the far z-plane of this camera.
 		 */
-		f32 GetFarZ() const noexcept {
+		F32 GetFarZ() const noexcept {
 			return m_far_z;
 		}
 		
@@ -115,7 +115,7 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
-		void SetFarZ(f32 far_z) noexcept {
+		void SetFarZ(F32 far_z) noexcept {
 			m_far_z = far_z;
 		}
 		
@@ -128,7 +128,7 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
-		void SetNearAndFarZ(f32 near_z, f32 far_z) noexcept {
+		void SetNearAndFarZ(F32 near_z, F32 far_z) noexcept {
 			SetNearZ(near_z);
 			SetFarZ(far_z);
 		}
@@ -155,8 +155,8 @@ namespace mage {
 						The position of the far z-plane in camera space.
 		 */
 		explicit Camera(
-			f32 near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
-			f32 far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
+			F32 near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
+			F32 far_z  = MAGE_DEFAULT_CAMERA_FAR_Z);
 
 		/**
 		 Constructs a camera from the given camera.
@@ -194,11 +194,11 @@ namespace mage {
 		/**
 		 The position of the near z-plane of this camera in camera space. 
 		 */
-		f32 m_near_z;
+		F32 m_near_z;
 
 		/**
 		 The position of the far z-plane of this camera in camera space.
 		 */
-		f32 m_far_z;
+		F32 m_far_z;
 	};
 }

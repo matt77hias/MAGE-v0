@@ -49,11 +49,11 @@ namespace mage {
 	}
 
 	void SpotLight::UpdateBoundingVolumes() noexcept {
-		const f32 a         = 1.0f / (m_cos_umbra * m_cos_umbra);
-		const f32 tan_umbra = sqrt(a - 1.0f);
-		const f32 rxy       = m_distance_falloff_end * tan_umbra;
-		const f32 rz        = m_distance_falloff_end * 0.5f;
-		const f32 r         = m_distance_falloff_end * sqrt(a - 0.75f);
+		const F32 a         = 1.0f / (m_cos_umbra * m_cos_umbra);
+		const F32 tan_umbra = sqrt(a - 1.0f);
+		const F32 rxy       = m_distance_falloff_end * tan_umbra;
+		const F32 rz        = m_distance_falloff_end * 0.5f;
+		const F32 r         = m_distance_falloff_end * sqrt(a - 0.75f);
 
 		AABB aabb(Point3(-rxy, -rxy, 0.0f),
 				  Point3( rxy,  rxy, m_distance_falloff_end));

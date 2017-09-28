@@ -287,14 +287,14 @@ namespace mage {
 		 @param[in]		point
 						A reference to the point.
 		 @param[in]		epsilon
-						The epsilon value for f32 comparisons.
+						The epsilon value for F32 comparisons.
 		 @return		@c true if this view frustum intersects @a point.
 						@c false otherwise.
 		 @note			This is a partial coverage test of a point with regard 
 						to a view frustum.
 		 */
 		bool Intersects(const Point3 &point, 
-			f32 epsilon = 0.0f) const noexcept;
+			F32 epsilon = 0.0f) const noexcept;
 
 		/**
 		 Checks whether this view frustum intersects the given point.
@@ -302,14 +302,14 @@ namespace mage {
 		 @param[in]		point
 						The point.
 		 @param[in]		epsilon
-						The epsilon value for f32 comparisons.
+						The epsilon value for F32 comparisons.
 		 @return		@c true if this view frustum intersects @a point.
 						@c false otherwise.
 		 @note			This is a partial coverage test of a point with regard 
 						to a view frustum.
 		 */
 		bool Intersects(FXMVECTOR point, 
-			f32 epsilon = 0.0f) const noexcept;
+			F32 epsilon = 0.0f) const noexcept;
 
 		/**
 		 Checks whether this view frustum intersects the given AABB.
@@ -346,12 +346,12 @@ namespace mage {
 		 @param[in]		point
 						A reference to the point.
 		 @param[in]		epsilon
-						The epsilon value for f32 comparisons.
+						The epsilon value for F32 comparisons.
 		 @return		The coverage of @a point with regard to this view 
 						frustum.
 		 */
 		Coverage Classify(const Point3 &point, 
-			f32 epsilon = 0.0f) const noexcept;
+			F32 epsilon = 0.0f) const noexcept;
 
 		/**
 		 Classifies the coverage of the given point with regard to this view 
@@ -360,12 +360,12 @@ namespace mage {
 		 @param[in]		point
 						The point.
 		 @param[in]		epsilon
-						The epsilon value for f32 comparisons.
+						The epsilon value for F32 comparisons.
 		 @return		The coverage of @a point with regard to this view 
 						frustum.
 		 */
 		Coverage Classify(FXMVECTOR point, 
-			f32 epsilon = 0.0f) const noexcept;
+			F32 epsilon = 0.0f) const noexcept;
 
 		/**
 		 Classifies the coverage of the given AABB with regard to this view 

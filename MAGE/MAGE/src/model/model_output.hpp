@@ -56,7 +56,7 @@ namespace mage {
 		explicit ModelPart(
 			const string &child  = MAGE_MDL_PART_DEFAULT_CHILD, 
 			const string &parent = MAGE_MDL_PART_DEFAULT_PARENT,
-			u32 start_index = 0, u32 nb_indices = 0, 
+			U32 start_index = 0, U32 nb_indices = 0, 
 			const string &material = MAGE_MDL_PART_DEFAULT_MATERIAL)
 			: m_child(child), m_parent(parent), m_material(material),
 			m_start_index(start_index), m_nb_indices(nb_indices),
@@ -130,13 +130,13 @@ namespace mage {
 		 The start index of this model part in the mesh of the corresponding 
 		 model.
 		 */
-		u32 m_start_index;
+		U32 m_start_index;
 
 		/**
 		 The number of indices of this model part in the mesh of the 
 		 corresponding model.
 		 */
-		u32 m_nb_indices;
+		U32 m_nb_indices;
 
 		/**
 		 The AABB of this model part.
@@ -284,7 +284,7 @@ namespace mage {
 		/**
 		 A vector containing the indices of this model output.
 		 */
-		vector< u32 > m_index_buffer;
+		vector< U32 > m_index_buffer;
 
 		/**
 		 A vector containing the materials of this model output.

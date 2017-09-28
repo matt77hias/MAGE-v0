@@ -60,7 +60,7 @@ namespace mage {
 		 @param[in]		v
 						The v texture coordinate.			
 		 */
-		UV(f32 u, f32 v) noexcept
+		UV(F32 u, F32 v) noexcept
 			: XMFLOAT2(u, v) {}
 		
 		/**
@@ -191,7 +191,7 @@ namespace mage {
 		 @param[in]		z
 						The z-coordinate.
 		 */
-		Point3(f32 x, f32 y, f32 z) noexcept
+		Point3(F32 x, F32 y, F32 z) noexcept
 			: XMFLOAT3(x, y, z) {}
 		
 		/**
@@ -291,7 +291,7 @@ namespace mage {
 		 @param[in]		z
 						The z-coordinate.
 		 */
-		Direction3(f32 x, f32 y, f32 z) noexcept
+		Direction3(F32 x, F32 y, F32 z) noexcept
 			: XMFLOAT3(x, y, z) {}
 		
 		/**
@@ -411,7 +411,7 @@ namespace mage {
 		 @param[in]		z
 						The z-coordinate.
 		 */
-		Normal3(f32 x, f32 y, f32 z) noexcept
+		Normal3(F32 x, F32 y, F32 z) noexcept
 			: XMFLOAT3(x, y, z) {}
 		
 		/**
@@ -551,7 +551,7 @@ namespace mage {
 		 @param[in]		w
 						The fourth component.
 		 */
-		Color(f32 x, f32 y, f32 z, f32 w) noexcept
+		Color(F32 x, F32 y, F32 z, F32 w) noexcept
 			: XMFLOAT4(x, y, z, w) {}
 		
 		/**

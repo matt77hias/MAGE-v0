@@ -78,10 +78,10 @@ namespace mage {
 
 		// Dispatch.
 		const Renderer * const renderer = Renderer::Get();
-		const u32 nb_groups_x = static_cast< u32 >(ceil(renderer->GetWidth()
-									/ static_cast< f32 >(GROUP_SIZE_DEFAULT)));
-		const u32 nb_groups_y = static_cast< u32 >(ceil(renderer->GetHeight()
-									/ static_cast< f32 >(GROUP_SIZE_DEFAULT)));
+		const U32 nb_groups_x = static_cast< U32 >(ceil(renderer->GetWidth()
+									/ static_cast< F32 >(GROUP_SIZE_DEFAULT)));
+		const U32 nb_groups_y = static_cast< U32 >(ceil(renderer->GetHeight()
+									/ static_cast< F32 >(GROUP_SIZE_DEFAULT)));
 		m_device_context->Dispatch(nb_groups_x, nb_groups_y, 1u);
 	}
 }

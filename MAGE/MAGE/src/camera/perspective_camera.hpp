@@ -38,7 +38,7 @@ namespace mage {
 	 @return		The horizontal field-of-view corresponding to the given 
 					aspect ratio and vertical field-of-view.
 	 */
-	inline f32 FOVXFromFOVY(f32 aspect_ratio, f32 fov_y) noexcept {
+	inline F32 FOVXFromFOVY(F32 aspect_ratio, F32 fov_y) noexcept {
 		return 2.0f * atanf(aspect_ratio * tanf(0.5f * fov_y));
 	}
 
@@ -53,7 +53,7 @@ namespace mage {
 	 @return		The vertical field-of-view corresponding to the given 
 					aspect ratio and horizontal field-of-view.
 	 */
-	inline f32 FOVYFromFOVX(f32 aspect_ratio, f32 fov_x) noexcept {
+	inline F32 FOVYFromFOVX(F32 aspect_ratio, F32 fov_x) noexcept {
 		return 2.0f * atanf(tanf(0.5f * fov_x) / aspect_ratio);
 	}
 
@@ -67,7 +67,7 @@ namespace mage {
 	 @return		The aspect ratio corresponding to the given width and 
 					height.
 	 */
-	inline f32 AspectRatioFromWidthAndHeight(f32 width, f32 height) noexcept {
+	inline F32 AspectRatioFromWidthAndHeight(F32 width, F32 height) noexcept {
 		return width / height;
 	}
 
@@ -82,7 +82,7 @@ namespace mage {
 	 @return		The aspect ratio corresponding to the given horizontal and 
 					vertical field-of-views.
 	 */
-	inline f32 AspectRatioFromFOVs(f32 fov_x, f32 fov_y) noexcept {
+	inline F32 AspectRatioFromFOVs(F32 fov_x, F32 fov_y) noexcept {
 		return tanf(0.5f * fov_x) / tanf(0.5f * fov_y);
 	}
 
@@ -112,7 +112,7 @@ namespace mage {
 						The vertical field-of-view.
 		 */
 		explicit PerspectiveCamera(
-			f32 fov_y = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y);
+			F32 fov_y = MAGE_DEFAULT_CAMERA_PERSPECTIVE_FOV_Y);
 
 		/**
 		 Constructs a perspective camera.
@@ -129,7 +129,7 @@ namespace mage {
 						The position of the far z-plane in camera space.
 		 */
 		explicit PerspectiveCamera(
-			f32 fov_y, f32 near_z, f32 far_z);
+			F32 fov_y, F32 near_z, F32 far_z);
 
 		/**
 		 Constructs a perspective camera.
@@ -143,8 +143,8 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
-		explicit PerspectiveCamera(f32 aspect_ratio,
-			f32 fov_y, f32 near_z, f32 far_z);
+		explicit PerspectiveCamera(F32 aspect_ratio,
+			F32 fov_y, F32 near_z, F32 far_z);
 
 		/**
 		 Constructs a perspective camera.
@@ -160,8 +160,8 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
-		explicit PerspectiveCamera(f32 width, f32 height,
-			f32 fov_y, f32 near_z, f32 far_z);
+		explicit PerspectiveCamera(F32 width, F32 height,
+			F32 fov_y, F32 near_z, F32 far_z);
 
 		/**
 		 Constructs a perspective camera from the given perspective camera.
@@ -227,7 +227,7 @@ namespace mage {
 		 @return		The horizontal field-of-view of this perspective 
 						camera.
 		 */
-		f32 GetFOVX() const noexcept {
+		F32 GetFOVX() const noexcept {
 			return FOVXFromFOVY(m_aspect_ratio, m_fov_y);
 		}
 
@@ -237,7 +237,7 @@ namespace mage {
 		 @return		The vertical field-of-view of this perspective 
 						camera.
 		 */
-		f32 GetFOVY() const noexcept {
+		F32 GetFOVY() const noexcept {
 			return m_fov_y;
 		}
 
@@ -248,7 +248,7 @@ namespace mage {
 		 @param[in]		fov_y
 						The vertical field-of-view.
 		 */
-		void SetFOVY(f32 fov_y) noexcept {
+		void SetFOVY(F32 fov_y) noexcept {
 			m_fov_y = fov_y;
 		}
 
@@ -257,7 +257,7 @@ namespace mage {
 
 		 @return		The aspect ratio of this perspective camera.
 		 */
-		f32 GetAspectRatio() const noexcept {
+		F32 GetAspectRatio() const noexcept {
 			return m_aspect_ratio;
 		}
 
@@ -268,7 +268,7 @@ namespace mage {
 		 @param[in]		aspect_ratio
 						The aspect ratio.
 		 */
-		void SetAspectRatio(f32 aspect_ratio) noexcept {
+		void SetAspectRatio(F32 aspect_ratio) noexcept {
 			m_aspect_ratio = aspect_ratio;
 		}
 
@@ -280,7 +280,7 @@ namespace mage {
 		 @param[in]		height
 						The height.
 		 */
-		void SetAspectRatio(f32 width, f32 height) noexcept {
+		void SetAspectRatio(F32 width, F32 height) noexcept {
 			SetAspectRatio(AspectRatioFromWidthAndHeight(width, height));
 		}
 		
@@ -296,8 +296,8 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
-		void SetViewToProjectionMatrix(f32 aspect_ratio,
-			f32 fov_y, f32 near_z, f32 far_z) noexcept {
+		void SetViewToProjectionMatrix(F32 aspect_ratio,
+			F32 fov_y, F32 near_z, F32 far_z) noexcept {
 
 			SetAspectRatio(aspect_ratio);
 			SetFOVY(fov_y);
@@ -318,8 +318,8 @@ namespace mage {
 		 @param[in]		far_z
 						The position of the far z-plane in camera space.
 		 */
-		void SetViewToProjectionMatrix(f32 width, f32 height, 
-			f32 fov_y, f32 near_z, f32 far_z) noexcept {
+		void SetViewToProjectionMatrix(F32 width, F32 height, 
+			F32 fov_y, F32 near_z, F32 far_z) noexcept {
 			
 			SetAspectRatio(width, height);
 			SetFOVY(fov_y);
@@ -357,11 +357,11 @@ namespace mage {
 		/**
 		 The aspect ratio of this perspective camera.
 		 */
-		f32 m_aspect_ratio;
+		F32 m_aspect_ratio;
 
 		/**
 		 The vertical field-of-view of this perspective camera.
 		 */
-		f32 m_fov_y;
+		F32 m_fov_y;
 	};
 }

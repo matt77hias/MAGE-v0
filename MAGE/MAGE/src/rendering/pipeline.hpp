@@ -67,15 +67,15 @@ namespace mage {
 		}
 
 		static void Draw(ID3D11DeviceContext2 *device_context,
-			u32 nb_vertices, u32 vertex_start) noexcept {
+			U32 nb_vertices, U32 vertex_start) noexcept {
 
 			device_context->Draw(nb_vertices, vertex_start);
 			OnDraw();
 		}
 
 		static void DrawInstanced(ID3D11DeviceContext2 *device_context,
-			u32 nb_indices_per_instance, u32 nb_instances,
-			u32 vertex_start, u32 instance_start = 0u) noexcept {
+			U32 nb_indices_per_instance, U32 nb_instances,
+			U32 vertex_start, U32 instance_start = 0u) noexcept {
 
 			device_context->DrawInstanced(nb_indices_per_instance,
 				nb_instances, vertex_start, instance_start);
@@ -83,15 +83,15 @@ namespace mage {
 		}
 
 		static void DrawIndexed(ID3D11DeviceContext2 *device_context,
-			u32 nb_indices, u32 index_start, u32 index_offset = 0u) noexcept {
+			U32 nb_indices, U32 index_start, U32 index_offset = 0u) noexcept {
 
 			device_context->DrawIndexed(nb_indices, index_start, index_offset);
 			OnDraw();
 		}
 
 		static void DrawIndexedInstanced(ID3D11DeviceContext2 *device_context,
-			u32 nb_indices_per_instance, u32 nb_instances, u32 index_start, 
-			u32 index_offset = 0u, u32 instance_start = 0u) noexcept {
+			U32 nb_indices_per_instance, U32 nb_instances, U32 index_start, 
+			U32 index_offset = 0u, U32 instance_start = 0u) noexcept {
 
 			device_context->DrawIndexedInstanced(nb_indices_per_instance,
 				nb_instances, index_start, index_offset, instance_start);
@@ -99,8 +99,8 @@ namespace mage {
 		}
 
 		static void Dispatch(ID3D11DeviceContext2 *device_context,
-			u32 nb_thread_groups_x, u32 nb_thread_groups_y, 
-			u32 nb_thread_groups_z) noexcept {
+			U32 nb_thread_groups_x, U32 nb_thread_groups_y, 
+			U32 nb_thread_groups_z) noexcept {
 
 			device_context->Dispatch(
 				nb_thread_groups_x, nb_thread_groups_y, nb_thread_groups_z);
@@ -108,7 +108,7 @@ namespace mage {
 
 		static void DrawInstancedIndirect(
 			ID3D11DeviceContext2 *device_context, ID3D11Buffer *buffer, 
-			u32 byte_offset) noexcept {
+			U32 byte_offset) noexcept {
 
 			device_context->DrawInstancedIndirect(buffer, byte_offset);
 			OnDraw();
@@ -116,7 +116,7 @@ namespace mage {
 
 		static void DrawIndexedInstancedIndirect(
 			ID3D11DeviceContext2 *device_context, ID3D11Buffer *buffer, 
-			u32 byte_offset) noexcept {
+			U32 byte_offset) noexcept {
 
 			device_context->DrawIndexedInstancedIndirect(buffer, byte_offset);
 			OnDraw();
@@ -124,14 +124,14 @@ namespace mage {
 
 		static void DispatchIndirect(
 			ID3D11DeviceContext2 *device_context, ID3D11Buffer *buffer, 
-			u32 byte_offset) noexcept {
+			U32 byte_offset) noexcept {
 
 			device_context->DispatchIndirect(buffer, byte_offset);
 		}
 
 		static HRESULT Map(ID3D11DeviceContext2 *device_context,
-			ID3D11Resource *resource, u32 subresource,
-			D3D11_MAP map_type, u32 map_flags,
+			ID3D11Resource *resource, U32 subresource,
+			D3D11_MAP map_type, U32 map_flags,
 			D3D11_MAPPED_SUBRESOURCE *mapped_resource) noexcept {
 
 			return device_context->Map(resource, subresource, 
@@ -139,14 +139,14 @@ namespace mage {
 		}
 
 		static void Unmap(ID3D11DeviceContext2 *device_context,
-			ID3D11Resource *resource, u32 subresource) noexcept {
+			ID3D11Resource *resource, U32 subresource) noexcept {
 
 			device_context->Unmap(resource, subresource);
 		}
 		
 		static void UpdateSubresource(ID3D11DeviceContext2 *device_context,
-			ID3D11Resource *dst_resource, u32 dst_subresource,
-			const void *src_data, u32 src_row_pitch, u32 src_depth_pitch,
+			ID3D11Resource *dst_resource, U32 dst_subresource,
+			const void *src_data, U32 src_row_pitch, U32 src_depth_pitch,
 			const D3D11_BOX *dst_box = nullptr) noexcept {
 
 			device_context->UpdateSubresource(dst_resource, dst_subresource,
@@ -172,7 +172,7 @@ namespace mage {
 						A pointer to the constant buffer.
 		 */
 		static void BindConstantBuffer(ID3D11DeviceContext2 *device_context,
-			u32 slot, ID3D11Buffer *buffer) noexcept {
+			U32 slot, ID3D11Buffer *buffer) noexcept {
 				
 			VS::BindConstantBuffer(device_context, slot, buffer);
 			HS::BindConstantBuffer(device_context, slot, buffer);
@@ -205,7 +205,7 @@ namespace mage {
 						A pointer to an array of constant buffers.
 		 */
 		static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,
-			u32 slot, u32 nb_buffers, 
+			U32 slot, U32 nb_buffers, 
 			ID3D11Buffer * const *buffers) noexcept {
 				
 			VS::BindConstantBuffers(device_context, slot, nb_buffers, buffers);
@@ -231,7 +231,7 @@ namespace mage {
 						A pointer to the shader resource view.
 		 */
 		static void BindSRV(ID3D11DeviceContext2 *device_context,
-			u32 slot, ID3D11ShaderResourceView *srv) noexcept {
+			U32 slot, ID3D11ShaderResourceView *srv) noexcept {
 				
 			VS::BindSRV(device_context, slot, srv);
 			HS::BindSRV(device_context, slot, srv);
@@ -265,7 +265,7 @@ namespace mage {
 						A pointer to an array of shader resource views.
 		 */
 		static void BindSRVs(ID3D11DeviceContext2 *device_context, 
-			u32 slot, u32 nb_srvs, 
+			U32 slot, U32 nb_srvs, 
 			ID3D11ShaderResourceView * const *srvs) noexcept {
 				
 			VS::BindSRVs(device_context, slot, nb_srvs, srvs);
@@ -291,7 +291,7 @@ namespace mage {
 						A pointer to the sampler.
 		 */
 		static void BindSampler(ID3D11DeviceContext2 *device_context, 
-			u32 slot, ID3D11SamplerState *sampler) noexcept {
+			U32 slot, ID3D11SamplerState *sampler) noexcept {
 				
 			VS::BindSampler(device_context, slot, sampler);
 			HS::BindSampler(device_context, slot, sampler);
@@ -324,7 +324,7 @@ namespace mage {
 						A pointer to an array of samplers.
 		 */
 		static void BindSamplers(ID3D11DeviceContext2 *device_context, 
-			u32 slot, u32 nb_samplers, 
+			U32 slot, U32 nb_samplers, 
 			ID3D11SamplerState * const *samplers) noexcept {
 				
 			VS::BindSamplers(device_context, slot, nb_samplers, samplers);
@@ -352,14 +352,14 @@ namespace mage {
 
 			static void BindIndexBuffer(ID3D11DeviceContext2 *device_context,
 				ID3D11Buffer *buffer, DXGI_FORMAT format, 
-				u32 offset = 0u) noexcept {
+				U32 offset = 0u) noexcept {
 
 				device_context->IASetIndexBuffer(buffer, format, offset);
 			}
 
 			static void BindVertexBuffer(ID3D11DeviceContext2 *device_context,
-				u32 slot, ID3D11Buffer *buffer, u32 stride, 
-				u32 offset = 0u) noexcept {
+				U32 slot, ID3D11Buffer *buffer, U32 stride, 
+				U32 offset = 0u) noexcept {
 
 				ID3D11Buffer * const buffers[1] = { buffer };
 
@@ -368,8 +368,8 @@ namespace mage {
 			}
 			
 			static void BindVertexBuffers(ID3D11DeviceContext2 *device_context,
-				u32 slot, u32 nb_buffers, ID3D11Buffer * const *buffers,
-				const u32 *strides, const u32 *offsets) noexcept {
+				U32 slot, U32 nb_buffers, ID3D11Buffer * const *buffers,
+				const U32 *strides, const U32 *offsets) noexcept {
 
 				device_context->IASetVertexBuffers(
 					slot, nb_buffers, buffers, strides, offsets);
@@ -452,7 +452,7 @@ namespace mage {
 			static void BindShader(ID3D11DeviceContext2 *device_context,
 				ID3D11VertexShader *shader, 
 				ID3D11ClassInstance * const *class_instances, 
-				u32 nb_class_instances) noexcept {
+				U32 nb_class_instances) noexcept {
 				
 				device_context->VSSetShader(shader, 
 					class_instances, nb_class_instances);
@@ -473,7 +473,7 @@ namespace mage {
 							A pointer to the constant buffer.
 			 */
 			static void BindConstantBuffer(ID3D11DeviceContext2 *device_context,
-				u32 slot, ID3D11Buffer *buffer) noexcept {
+				U32 slot, ID3D11Buffer *buffer) noexcept {
 					
 				ID3D11Buffer * const buffers[1] = { buffer };
 				BindConstantBuffers(device_context, slot, 1u, buffers);
@@ -502,7 +502,7 @@ namespace mage {
 							A pointer to an array of constant buffers.
 			 */
 			static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,
-				u32 slot, u32 nb_buffers, 
+				U32 slot, U32 nb_buffers, 
 				ID3D11Buffer * const *buffers) noexcept {
 					
 				device_context->VSSetConstantBuffers(slot, nb_buffers, buffers);
@@ -523,7 +523,7 @@ namespace mage {
 							A pointer to the shader resource view.
 			 */
 			static void BindSRV(ID3D11DeviceContext2 *device_context,
-				u32 slot, ID3D11ShaderResourceView *srv) noexcept {
+				U32 slot, ID3D11ShaderResourceView *srv) noexcept {
 					
 				ID3D11ShaderResourceView * const srvs[1] = { srv };
 				BindSRVs(device_context, slot, 1u, srvs);
@@ -553,7 +553,7 @@ namespace mage {
 							A pointer to an array of shader resource views.
 			 */
 			static void BindSRVs(ID3D11DeviceContext2 *device_context, 
-				u32 slot, u32 nb_srvs, 
+				U32 slot, U32 nb_srvs, 
 				ID3D11ShaderResourceView * const *srvs) noexcept {
 					
 				device_context->VSSetShaderResources(slot, nb_srvs, srvs);
@@ -574,7 +574,7 @@ namespace mage {
 							A pointer to the sampler.
 			 */
 			static void BindSampler(ID3D11DeviceContext2 *device_context, 
-				u32 slot, ID3D11SamplerState *sampler) noexcept {
+				U32 slot, ID3D11SamplerState *sampler) noexcept {
 					
 				ID3D11SamplerState * const samplers[1] = { sampler };
 				BindSamplers(device_context, slot, 1u, samplers);
@@ -603,7 +603,7 @@ namespace mage {
 							A pointer to an array of samplers.
 			 */
 			static void BindSamplers(ID3D11DeviceContext2 *device_context, 
-				u32 slot, u32 nb_samplers, 
+				U32 slot, U32 nb_samplers, 
 				ID3D11SamplerState * const *samplers) noexcept {
 					
 				device_context->VSSetSamplers(slot, nb_samplers, samplers);
@@ -674,7 +674,7 @@ namespace mage {
 			static void BindShader(ID3D11DeviceContext2 *device_context,
 				ID3D11DomainShader *shader, 
 				ID3D11ClassInstance * const *class_instances, 
-				u32 nb_class_instances) noexcept {
+				U32 nb_class_instances) noexcept {
 				
 				device_context->DSSetShader(shader, 
 					class_instances, nb_class_instances);
@@ -695,7 +695,7 @@ namespace mage {
 							A pointer to the constant buffer.
 			 */
 			static void BindConstantBuffer(ID3D11DeviceContext2 *device_context,
-				u32 slot, ID3D11Buffer *buffer) noexcept {
+				U32 slot, ID3D11Buffer *buffer) noexcept {
 					
 				ID3D11Buffer * const buffers[1] = { buffer };
 				BindConstantBuffers(device_context, slot, 1u, buffers);
@@ -724,7 +724,7 @@ namespace mage {
 							A pointer to an array of constant buffers.
 			 */
 			static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,
-				u32 slot, u32 nb_buffers, 
+				U32 slot, U32 nb_buffers, 
 				ID3D11Buffer * const *buffers) noexcept {
 					
 				device_context->DSSetConstantBuffers(slot, nb_buffers, buffers);
@@ -745,7 +745,7 @@ namespace mage {
 							A pointer to the shader resource view.
 			 */
 			static void BindSRV(ID3D11DeviceContext2 *device_context,
-				u32 slot, ID3D11ShaderResourceView *srv) noexcept {
+				U32 slot, ID3D11ShaderResourceView *srv) noexcept {
 					
 				ID3D11ShaderResourceView * const srvs[1] = { srv };
 				BindSRVs(device_context, slot, 1u, srvs);
@@ -775,7 +775,7 @@ namespace mage {
 							A pointer to an array of shader resource views.
 			 */
 			static void BindSRVs(ID3D11DeviceContext2 *device_context, 
-				u32 slot, u32 nb_srvs, 
+				U32 slot, U32 nb_srvs, 
 				ID3D11ShaderResourceView * const *srvs) noexcept {
 					
 				device_context->DSSetShaderResources(slot, nb_srvs, srvs);
@@ -796,7 +796,7 @@ namespace mage {
 							A pointer to the sampler.
 			 */
 			static void BindSampler(ID3D11DeviceContext2 *device_context, 
-				u32 slot, ID3D11SamplerState *sampler) noexcept {
+				U32 slot, ID3D11SamplerState *sampler) noexcept {
 					
 				ID3D11SamplerState * const samplers[1] = { sampler };
 				BindSamplers(device_context, slot, 1u, samplers);
@@ -825,7 +825,7 @@ namespace mage {
 							A pointer to an array of samplers.
 			 */
 			static void BindSamplers(ID3D11DeviceContext2 *device_context, 
-				u32 slot, u32 nb_samplers, 
+				U32 slot, U32 nb_samplers, 
 				ID3D11SamplerState * const *samplers) noexcept {
 					
 				device_context->DSSetSamplers(slot, nb_samplers, samplers);
@@ -930,7 +930,7 @@ namespace mage {
 			static void BindShader(ID3D11DeviceContext2 *device_context,
 				ID3D11HullShader *shader, 
 				ID3D11ClassInstance * const *class_instances, 
-				u32 nb_class_instances) noexcept {
+				U32 nb_class_instances) noexcept {
 				
 				device_context->HSSetShader(shader, 
 					class_instances, nb_class_instances);
@@ -951,7 +951,7 @@ namespace mage {
 							A pointer to the constant buffer.
 			 */
 			static void BindConstantBuffer(ID3D11DeviceContext2 *device_context,
-				u32 slot, ID3D11Buffer *buffer) noexcept {
+				U32 slot, ID3D11Buffer *buffer) noexcept {
 					
 				ID3D11Buffer * const buffers[1] = { buffer };
 				BindConstantBuffers(device_context, slot, 1u, buffers);
@@ -980,7 +980,7 @@ namespace mage {
 							A pointer to an array of constant buffers.
 			 */
 			static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,
-				u32 slot, u32 nb_buffers, 
+				U32 slot, U32 nb_buffers, 
 				ID3D11Buffer * const *buffers) noexcept {
 					
 				device_context->HSSetConstantBuffers(slot, nb_buffers, buffers);
@@ -1001,7 +1001,7 @@ namespace mage {
 							A pointer to the shader resource view.
 			 */
 			static void BindSRV(ID3D11DeviceContext2 *device_context,
-				u32 slot, ID3D11ShaderResourceView *srv) noexcept {
+				U32 slot, ID3D11ShaderResourceView *srv) noexcept {
 					
 				ID3D11ShaderResourceView * const srvs[1] = { srv };
 				BindSRVs(device_context, slot, 1u, srvs);
@@ -1031,7 +1031,7 @@ namespace mage {
 							A pointer to an array of shader resource views.
 			 */
 			static void BindSRVs(ID3D11DeviceContext2 *device_context, 
-				u32 slot, u32 nb_srvs, 
+				U32 slot, U32 nb_srvs, 
 				ID3D11ShaderResourceView * const *srvs) noexcept {
 					
 				device_context->HSSetShaderResources(slot, nb_srvs, srvs);
@@ -1052,7 +1052,7 @@ namespace mage {
 							A pointer to the sampler.
 			 */
 			static void BindSampler(ID3D11DeviceContext2 *device_context, 
-				u32 slot, ID3D11SamplerState *sampler) noexcept {
+				U32 slot, ID3D11SamplerState *sampler) noexcept {
 					
 				ID3D11SamplerState * const samplers[1] = { sampler };
 				BindSamplers(device_context, slot, 1u, samplers);
@@ -1081,7 +1081,7 @@ namespace mage {
 							A pointer to an array of samplers.
 			 */
 			static void BindSamplers(ID3D11DeviceContext2 *device_context, 
-				u32 slot, u32 nb_samplers, 
+				U32 slot, U32 nb_samplers, 
 				ID3D11SamplerState * const *samplers) noexcept {
 					
 				device_context->HSSetSamplers(slot, nb_samplers, samplers);
@@ -1152,7 +1152,7 @@ namespace mage {
 			static void BindShader(ID3D11DeviceContext2 *device_context,
 				ID3D11GeometryShader *shader, 
 				ID3D11ClassInstance * const *class_instances, 
-				u32 nb_class_instances) noexcept {
+				U32 nb_class_instances) noexcept {
 				
 				device_context->GSSetShader(shader, 
 					class_instances, nb_class_instances);
@@ -1173,7 +1173,7 @@ namespace mage {
 							A pointer to the constant buffer.
 			 */
 			static void BindConstantBuffer(ID3D11DeviceContext2 *device_context,
-				u32 slot, ID3D11Buffer *buffer) noexcept {
+				U32 slot, ID3D11Buffer *buffer) noexcept {
 					
 				ID3D11Buffer * const buffers[1] = { buffer };
 				BindConstantBuffers(device_context, slot, 1u, buffers);
@@ -1202,7 +1202,7 @@ namespace mage {
 							A pointer to an array of constant buffers.
 			 */
 			static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,
-				u32 slot, u32 nb_buffers, 
+				U32 slot, U32 nb_buffers, 
 				ID3D11Buffer * const *buffers) noexcept {
 					
 				device_context->GSSetConstantBuffers(slot, nb_buffers, buffers);
@@ -1223,7 +1223,7 @@ namespace mage {
 							A pointer to the shader resource view.
 			 */
 			static void BindSRV(ID3D11DeviceContext2 *device_context,
-				u32 slot, ID3D11ShaderResourceView *srv) noexcept {
+				U32 slot, ID3D11ShaderResourceView *srv) noexcept {
 					
 				ID3D11ShaderResourceView * const srvs[1] = { srv };
 				BindSRVs(device_context, slot, 1u, srvs);
@@ -1253,7 +1253,7 @@ namespace mage {
 							A pointer to an array of shader resource views.
 			 */
 			static void BindSRVs(ID3D11DeviceContext2 *device_context, 
-				u32 slot, u32 nb_srvs, 
+				U32 slot, U32 nb_srvs, 
 				ID3D11ShaderResourceView * const *srvs) noexcept {
 					
 				device_context->GSSetShaderResources(slot, nb_srvs, srvs);
@@ -1274,7 +1274,7 @@ namespace mage {
 							A pointer to the sampler.
 			 */
 			static void BindSampler(ID3D11DeviceContext2 *device_context, 
-				u32 slot, ID3D11SamplerState *sampler) noexcept {
+				U32 slot, ID3D11SamplerState *sampler) noexcept {
 					
 				ID3D11SamplerState * const samplers[1] = { sampler };
 				BindSamplers(device_context, slot, 1u, samplers);
@@ -1303,7 +1303,7 @@ namespace mage {
 							A pointer to an array of samplers.
 			 */
 			static void BindSamplers(ID3D11DeviceContext2 *device_context, 
-				u32 slot, u32 nb_samplers, 
+				U32 slot, U32 nb_samplers, 
 				ID3D11SamplerState * const *samplers) noexcept {
 					
 				device_context->GSSetSamplers(slot, nb_samplers, samplers);
@@ -1384,7 +1384,7 @@ namespace mage {
 			}
 			
 			static void BindScissorRectangles(ID3D11DeviceContext2 *device_context,
-				u32 nb_rectangles, const D3D11_RECT *rectangles) noexcept {
+				U32 nb_rectangles, const D3D11_RECT *rectangles) noexcept {
 
 				device_context->RSSetScissorRects(nb_rectangles, rectangles);
 			}
@@ -1396,7 +1396,7 @@ namespace mage {
 			}
 			
 			static void GetBoundViewports(ID3D11DeviceContext2 *device_context,
-				u32 *nb_viewports, D3D11_VIEWPORT *viewports) noexcept {
+				U32 *nb_viewports, D3D11_VIEWPORT *viewports) noexcept {
 
 				device_context->RSGetViewports(nb_viewports, viewports);
 			}
@@ -1408,7 +1408,7 @@ namespace mage {
 			}
 			
 			static void BindViewports(ID3D11DeviceContext2 *device_context,
-				u32 nb_viewports, const D3D11_VIEWPORT *viewports) noexcept {
+				U32 nb_viewports, const D3D11_VIEWPORT *viewports) noexcept {
 
 				device_context->RSSetViewports(nb_viewports, viewports);
 			}
@@ -1478,7 +1478,7 @@ namespace mage {
 			static void BindShader(ID3D11DeviceContext2 *device_context,
 				ID3D11PixelShader *shader, 
 				ID3D11ClassInstance * const *class_instances, 
-				u32 nb_class_instances) noexcept {
+				U32 nb_class_instances) noexcept {
 				
 				device_context->PSSetShader(shader, 
 					class_instances, nb_class_instances);
@@ -1499,7 +1499,7 @@ namespace mage {
 							A pointer to the constant buffer.
 			 */
 			static void BindConstantBuffer(ID3D11DeviceContext2 *device_context,
-				u32 slot, ID3D11Buffer *buffer) noexcept {
+				U32 slot, ID3D11Buffer *buffer) noexcept {
 					
 				ID3D11Buffer * const buffers[1] = { buffer };
 				BindConstantBuffers(device_context, slot, 1u, buffers);
@@ -1528,7 +1528,7 @@ namespace mage {
 							A pointer to an array of constant buffers.
 			 */
 			static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,
-				u32 slot, u32 nb_buffers, 
+				U32 slot, U32 nb_buffers, 
 				ID3D11Buffer * const *buffers) noexcept {
 					
 				device_context->PSSetConstantBuffers(slot, nb_buffers, buffers);
@@ -1549,7 +1549,7 @@ namespace mage {
 							A pointer to the shader resource view.
 			 */
 			static void BindSRV(ID3D11DeviceContext2 *device_context,
-				u32 slot, ID3D11ShaderResourceView *srv) noexcept {
+				U32 slot, ID3D11ShaderResourceView *srv) noexcept {
 					
 				ID3D11ShaderResourceView * const srvs[1] = { srv };
 				BindSRVs(device_context, slot, 1u, srvs);
@@ -1579,7 +1579,7 @@ namespace mage {
 							A pointer to an array of shader resource views.
 			 */
 			static void BindSRVs(ID3D11DeviceContext2 *device_context, 
-				u32 slot, u32 nb_srvs, 
+				U32 slot, U32 nb_srvs, 
 				ID3D11ShaderResourceView * const *srvs) noexcept {
 					
 				device_context->PSSetShaderResources(slot, nb_srvs, srvs);
@@ -1600,7 +1600,7 @@ namespace mage {
 							A pointer to the sampler.
 			 */
 			static void BindSampler(ID3D11DeviceContext2 *device_context, 
-				u32 slot, ID3D11SamplerState *sampler) noexcept {
+				U32 slot, ID3D11SamplerState *sampler) noexcept {
 					
 				ID3D11SamplerState * const samplers[1] = { sampler };
 				BindSamplers(device_context, slot, 1u, samplers);
@@ -1629,7 +1629,7 @@ namespace mage {
 							A pointer to an array of samplers.
 			 */
 			static void BindSamplers(ID3D11DeviceContext2 *device_context, 
-				u32 slot, u32 nb_samplers, 
+				U32 slot, U32 nb_samplers, 
 				ID3D11SamplerState * const *samplers) noexcept {
 					
 				device_context->PSSetSamplers(slot, nb_samplers, samplers);
@@ -1670,21 +1670,21 @@ namespace mage {
 			//-----------------------------------------------------------------
 
 			static void BindDepthStencilState(ID3D11DeviceContext2 *device_context,
-				ID3D11DepthStencilState *state, u32 stencil_ref = 0u) noexcept {
+				ID3D11DepthStencilState *state, U32 stencil_ref = 0u) noexcept {
 				
 				device_context->OMSetDepthStencilState(state, stencil_ref);
 			}
 
 			static void BindBlendState(ID3D11DeviceContext2 *device_context,
 				ID3D11BlendState *state, 
-				u32 sample_mask = 0xffffffff) noexcept {
+				U32 sample_mask = 0xffffffff) noexcept {
 				
 				BindBlendState(device_context, state, nullptr, sample_mask);
 			}
 			
 			static void BindBlendState(ID3D11DeviceContext2 *device_context,
-				ID3D11BlendState *state, const f32 blend_factor[4], 
-				u32 sample_mask = 0xffffffff) noexcept {
+				ID3D11BlendState *state, const F32 blend_factor[4], 
+				U32 sample_mask = 0xffffffff) noexcept {
 				
 				device_context->OMSetBlendState(state, blend_factor, sample_mask);
 			}
@@ -1702,7 +1702,7 @@ namespace mage {
 			}
 			
 			static void BindRTVsAndDSV(ID3D11DeviceContext2 *device_context,
-				u32 nb_views, ID3D11RenderTargetView * const *rtvs, 
+				U32 nb_views, ID3D11RenderTargetView * const *rtvs, 
 				ID3D11DepthStencilView *dsv) noexcept {
 				
 				device_context->OMSetRenderTargets(nb_views, rtvs, dsv);
@@ -1710,15 +1710,15 @@ namespace mage {
 			
 			static void BindRTVAndDSVAndUAV(ID3D11DeviceContext2 *device_context,
 				ID3D11RenderTargetView *rtv, ID3D11DepthStencilView *dsv,
-				u32 uav_slot, ID3D11UnorderedAccessView *uav,
-				u32 initial_count = 0u) noexcept {
+				U32 uav_slot, ID3D11UnorderedAccessView *uav,
+				U32 initial_count = 0u) noexcept {
 				
 				if (rtv) {
 					ID3D11RenderTargetView * const rtvs[1] = { rtv };
 
 					if (uav) {
 						ID3D11UnorderedAccessView * const uavs[1] = { uav };
-						const u32 initial_counts[1] = { initial_count };
+						const U32 initial_counts[1] = { initial_count };
 
 						BindRTVsAndDSVAndUAVs(device_context,
 							1u, rtvs, dsv, uav_slot, 1u, uavs, initial_counts);
@@ -1732,7 +1732,7 @@ namespace mage {
 
 					if (uav) {
 						ID3D11UnorderedAccessView * const uavs[1] = { uav };
-						const u32 initial_counts[1] = { initial_count };
+						const U32 initial_counts[1] = { initial_count };
 
 						BindRTVsAndDSVAndUAVs(device_context,
 							0u, nullptr, dsv, uav_slot, 1u, uavs, initial_counts);
@@ -1745,13 +1745,13 @@ namespace mage {
 			}
 			
 			static void BindRTVsAndDSVAndUAV(ID3D11DeviceContext2 *device_context,
-				u32 nb_views, ID3D11RenderTargetView * const *rtvs, 
-				ID3D11DepthStencilView *dsv, u32 uav_slot, 
-				ID3D11UnorderedAccessView *uav, u32 initial_count = 0u) noexcept {
+				U32 nb_views, ID3D11RenderTargetView * const *rtvs, 
+				ID3D11DepthStencilView *dsv, U32 uav_slot, 
+				ID3D11UnorderedAccessView *uav, U32 initial_count = 0u) noexcept {
 				
 				if (uav) {
 					ID3D11UnorderedAccessView * const uavs[1] = { uav };
-					const u32 initial_counts[1] = { initial_count };
+					const U32 initial_counts[1] = { initial_count };
 
 					BindRTVsAndDSVAndUAVs(device_context,
 						nb_views, rtvs, dsv, uav_slot, 1u, uavs, initial_counts);
@@ -1763,10 +1763,10 @@ namespace mage {
 			}
 			
 			static void BindRTVsAndDSVAndUAVs(ID3D11DeviceContext2 *device_context,
-				u32 nb_views, ID3D11RenderTargetView * const *rtvs, 
-				ID3D11DepthStencilView *dsv, u32 uav_slot, u32 nb_uavs, 
+				U32 nb_views, ID3D11RenderTargetView * const *rtvs, 
+				ID3D11DepthStencilView *dsv, U32 uav_slot, U32 nb_uavs, 
 				ID3D11UnorderedAccessView * const *uavs,
-				const u32 *initial_counts = nullptr) noexcept {
+				const U32 *initial_counts = nullptr) noexcept {
 				
 				device_context->OMSetRenderTargetsAndUnorderedAccessViews(
 					nb_views, rtvs, dsv, uav_slot, nb_uavs, uavs, initial_counts);
@@ -1775,33 +1775,33 @@ namespace mage {
 			static void ClearRTV(ID3D11DeviceContext2 *device_context,
 				ID3D11RenderTargetView *rtv) noexcept {
 				
-				static const f32 rgba[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+				static const F32 rgba[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 				device_context->ClearRenderTargetView(rtv, rgba);
 			}
 
 			static void ClearRTV(ID3D11DeviceContext2 *device_context,
-				ID3D11RenderTargetView *rtv, const f32 rgba[4]) noexcept {
+				ID3D11RenderTargetView *rtv, const F32 rgba[4]) noexcept {
 
 				device_context->ClearRenderTargetView(rtv, rgba);
 			}
 			
 			static void ClearDSV(ID3D11DeviceContext2 *device_context,
 				ID3D11DepthStencilView *dsv, 
-				f32 depth = 1.0f, u8 stencil = 0u) noexcept {
+				F32 depth = 1.0f, U8 stencil = 0u) noexcept {
 
 				device_context->ClearDepthStencilView(
 				dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, depth, stencil);
 			}
 			
 			static void ClearDepthOfDSV(ID3D11DeviceContext2 *device_context,
-				ID3D11DepthStencilView *dsv, f32 depth = 1.0f) noexcept {
+				ID3D11DepthStencilView *dsv, F32 depth = 1.0f) noexcept {
 
 				device_context->ClearDepthStencilView(
 				dsv, D3D11_CLEAR_DEPTH, depth, 0u);
 			}
 			
 			static void ClearStencilOfDSV(ID3D11DeviceContext2 *device_context, 
-				ID3D11DepthStencilView *dsv, u8 stencil = 0u) noexcept {
+				ID3D11DepthStencilView *dsv, U8 stencil = 0u) noexcept {
 
 				device_context->ClearDepthStencilView(
 				dsv, D3D11_CLEAR_STENCIL, 1.0f, stencil);
@@ -1872,7 +1872,7 @@ namespace mage {
 			static void BindShader(ID3D11DeviceContext2 *device_context,
 				ID3D11ComputeShader *shader, 
 				ID3D11ClassInstance * const *class_instances, 
-				u32 nb_class_instances) noexcept {
+				U32 nb_class_instances) noexcept {
 				
 				device_context->CSSetShader(shader, 
 					class_instances, nb_class_instances);
@@ -1893,7 +1893,7 @@ namespace mage {
 							A pointer to the constant buffer.
 			 */
 			static void BindConstantBuffer(ID3D11DeviceContext2 *device_context,
-				u32 slot, ID3D11Buffer *buffer) noexcept {
+				U32 slot, ID3D11Buffer *buffer) noexcept {
 					
 				ID3D11Buffer * const buffers[1] = { buffer };
 				BindConstantBuffers(device_context, slot, 1u, buffers);
@@ -1922,7 +1922,7 @@ namespace mage {
 							A pointer to an array of constant buffers.
 			 */
 			static void BindConstantBuffers(ID3D11DeviceContext2 *device_context,
-				u32 slot, u32 nb_buffers, ID3D11Buffer * const *buffers) noexcept {
+				U32 slot, U32 nb_buffers, ID3D11Buffer * const *buffers) noexcept {
 					
 				device_context->CSSetConstantBuffers(slot, nb_buffers, buffers);
 			}
@@ -1942,7 +1942,7 @@ namespace mage {
 							A pointer to the shader resource view.
 			 */
 			static void BindSRV(ID3D11DeviceContext2 *device_context,
-				u32 slot, ID3D11ShaderResourceView *srv) noexcept {
+				U32 slot, ID3D11ShaderResourceView *srv) noexcept {
 					
 				ID3D11ShaderResourceView * const srvs[1] = { srv };
 				BindSRVs(device_context, slot, 1u, srvs);
@@ -1972,7 +1972,7 @@ namespace mage {
 							A pointer to an array of shader resource views.
 			 */
 			static void BindSRVs(ID3D11DeviceContext2 *device_context, 
-				u32 slot, u32 nb_srvs, 
+				U32 slot, U32 nb_srvs, 
 				ID3D11ShaderResourceView * const *srvs) noexcept {
 					
 				device_context->CSSetShaderResources(slot, nb_srvs, srvs);
@@ -1997,8 +1997,8 @@ namespace mage {
 							@c D3D11_BUFFER_UAV_FLAG_APPEND or @c D3D11_BUFFER_UAV_FLAG_COUNTER.
 			 */
 			static void BindUAV(ID3D11DeviceContext2 *device_context, 
-				u32 slot, ID3D11UnorderedAccessView *uav, 
-				u32 initial_count = 0u) noexcept {
+				U32 slot, ID3D11UnorderedAccessView *uav, 
+				U32 initial_count = 0u) noexcept {
 					
 				ID3D11UnorderedAccessView * const uavs[1] = { uav };
 				BindUAVs(device_context, slot, 1u, uavs, &initial_count);
@@ -2031,9 +2031,9 @@ namespace mage {
 							@c D3D11_BUFFER_UAV_FLAG_APPEND or @c D3D11_BUFFER_UAV_FLAG_COUNTER.
 			 */
 			static void BindUAVs(ID3D11DeviceContext2 *device_context, 
-				u32 slot, u32 nb_uavs, 
+				U32 slot, U32 nb_uavs, 
 				ID3D11UnorderedAccessView * const *uavs, 
-				const u32 *initial_counts = nullptr) noexcept {
+				const U32 *initial_counts = nullptr) noexcept {
 					
 				device_context->CSSetUnorderedAccessViews(slot, nb_uavs, uavs, initial_counts);
 			}
@@ -2053,7 +2053,7 @@ namespace mage {
 							A pointer to the sampler.
 			 */
 			static void BindSampler(ID3D11DeviceContext2 *device_context, 
-				u32 slot, ID3D11SamplerState *sampler) noexcept {
+				U32 slot, ID3D11SamplerState *sampler) noexcept {
 					
 				ID3D11SamplerState * const samplers[1] = { sampler };
 				BindSamplers(device_context, slot, 1u, samplers);
@@ -2082,7 +2082,7 @@ namespace mage {
 							A pointer to an array of samplers.
 			 */
 			static void BindSamplers(ID3D11DeviceContext2 *device_context, 
-				u32 slot, u32 nb_samplers, 
+				U32 slot, U32 nb_samplers, 
 				ID3D11SamplerState * const *samplers) noexcept {
 					
 				device_context->CSSetSamplers(slot, nb_samplers, samplers);

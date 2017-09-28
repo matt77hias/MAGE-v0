@@ -38,7 +38,7 @@ namespace mage {
 	
 	RenderModeScript::~RenderModeScript() = default;
 
-	void RenderModeScript::Update(f64 delta_time) {
+	void RenderModeScript::Update(F64 delta_time) {
 		UNUSED(delta_time);
 		
 		const Keyboard * const keyboard = Keyboard::Get();

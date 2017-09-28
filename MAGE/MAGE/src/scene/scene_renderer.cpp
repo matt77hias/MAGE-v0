@@ -57,8 +57,8 @@ namespace mage {
 		const Renderer * const renderer = Renderer::Get();
 		
 		GameBuffer game_buffer;
-		game_buffer.m_width             = static_cast< f32 >(renderer->GetWidth());
-		game_buffer.m_height            = static_cast< f32 >(renderer->GetHeight());
+		game_buffer.m_width             = static_cast< F32 >(renderer->GetWidth());
+		game_buffer.m_height            = static_cast< F32 >(renderer->GetHeight());
 		game_buffer.m_inv_width_minus1  = 1.0f / (renderer->GetWidth() - 1.0f);
 		game_buffer.m_inv_height_minus1 = 1.0f / (renderer->GetHeight() - 1.0f);
 		game_buffer.m_gamma             = renderer->GetGamma();

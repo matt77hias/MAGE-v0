@@ -157,7 +157,7 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to retrieve a handle to the standard output device.
 	 */
-	u16 ConsoleWidth();
+	U16 ConsoleWidth();
 
 	/**
 	 Allocates a console to this engine for basic io and redirects @c stdin, 

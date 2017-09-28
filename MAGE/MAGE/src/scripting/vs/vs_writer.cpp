@@ -50,7 +50,7 @@ namespace mage {
 			
 			case VariableType::Int: {
 				
-				const i32 *value = static_cast< const i32 * >(raw_value);
+				const S32 *value = static_cast< const S32 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %d", 
 					MAGE_VS_TOKEN_INT, name, *value);
 				
@@ -77,7 +77,7 @@ namespace mage {
 			
 			case VariableType::Float: {
 				
-				const f32 *value = static_cast< const f32 * >(raw_value);
+				const F32 *value = static_cast< const F32 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f", 
 					MAGE_VS_TOKEN_FLOAT, name, *value);
 				

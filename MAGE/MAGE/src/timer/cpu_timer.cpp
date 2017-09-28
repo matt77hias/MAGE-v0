@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const f64 CPUTimer::s_time_period = 0.0000001;
+	const F64 CPUTimer::s_time_period = 0.0000001;
 
 	CPUTimer::CPUTimer() 
 		: m_handle(GetCurrentProcess()), 
@@ -54,59 +54,59 @@ namespace mage {
 		UpdateLastTimestamp();
 	}
 
-	f64 CPUTimer::GetCoreDeltaTime() const noexcept {
+	F64 CPUTimer::GetCoreDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< f64 >(
+		return s_time_period * static_cast< F64 >(
 			m_delta_time[GetKernelModeIndex()] 
 			+ m_delta_time[GetUserModeIndex()]);
 	}
 
-	f64 CPUTimer::GetKernelModeDeltaTime() const noexcept {
+	F64 CPUTimer::GetKernelModeDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< f64 >(
+		return s_time_period * static_cast< F64 >(
 			m_delta_time[GetKernelModeIndex()]);
 	}
 
-	f64 CPUTimer::GetUserModeDeltaTime() const noexcept {
+	F64 CPUTimer::GetUserModeDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< f64 >(
+		return s_time_period * static_cast< F64 >(
 			m_delta_time[GetUserModeIndex()]);
 	}
 
-	f64 CPUTimer::GetTotalCoreDeltaTime() const noexcept {
+	F64 CPUTimer::GetTotalCoreDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< f64 >(
+		return s_time_period * static_cast< F64 >(
 			m_total_delta_time[GetKernelModeIndex()] 
 			+ m_total_delta_time[GetUserModeIndex()]);
 	}
 
-	f64 CPUTimer::GetTotalKernelModeDeltaTime() const noexcept {
+	F64 CPUTimer::GetTotalKernelModeDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< f64 >(
+		return s_time_period * static_cast< F64 >(
 			m_total_delta_time[GetKernelModeIndex()]);
 	}
 
-	f64 CPUTimer::GetTotalUserModeDeltaTime() const noexcept {
+	F64 CPUTimer::GetTotalUserModeDeltaTime() const noexcept {
 		if (m_running) {
 			UpdateDeltaTime();
 		}
 
-		return s_time_period * static_cast< f64 >(
+		return s_time_period * static_cast< F64 >(
 			m_total_delta_time[GetUserModeIndex()]);
 	}
 
@@ -138,7 +138,7 @@ namespace mage {
 		const size_t user_mode_index   = GetUserModeIndex();
 
 		// Get the current timestamp of this timer's process.
-		u64 current_timestamp[2];
+		U64 current_timestamp[2];
 		GetCurrentCoreTimestamp(m_handle,
 			&current_timestamp[kernel_mode_index],
 			&current_timestamp[user_mode_index]);

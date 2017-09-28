@@ -318,14 +318,14 @@ namespace mage {
 		 @param[in]		point
 						A reference to the point.
 		 @param[in]		epsilon
-						The epsilon value for f32 comparisons.
+						The epsilon value for F32 comparisons.
 		 @return		@c true if this AABB intersects @a point. @c false 
 						otherwise.
 		 @note			This is a partial coverage test of a point with regard 
 						to an AABB.
 		 */
 		bool Intersects(const Point3 &point, 
-			f32 epsilon = 0.0f) const noexcept;
+			F32 epsilon = 0.0f) const noexcept;
 
 		/**
 		 Checks whether this AABB intersects the given point.
@@ -333,14 +333,14 @@ namespace mage {
 		 @param[in]		point
 						The point.
 		 @param[in]		epsilon
-						The epsilon value for f32 comparisons.
+						The epsilon value for F32 comparisons.
 		 @return		@c true if this AABB intersects @a point. @c false
 						otherwise.
 		 @note			This is a partial coverage test of a point with regard 
 						to an AABB.
 		 */
 		bool Intersects(FXMVECTOR point, 
-			f32 epsilon = 0.0f) const noexcept;
+			F32 epsilon = 0.0f) const noexcept;
 
 		/**
 		 Checks whether this AABB intersects the given AABB.
@@ -376,11 +376,11 @@ namespace mage {
 		 @param[in]		point
 						A reference to the point.
 		 @param[in]		epsilon
-						The epsilon value for f32 comparisons.
+						The epsilon value for F32 comparisons.
 		 @return		The coverage of @a point with regard to this AABB.
 		 */
 		Coverage Classify(const Point3 &point, 
-			f32 epsilon = 0.0f) const noexcept;
+			F32 epsilon = 0.0f) const noexcept;
 
 		/**
 		 Classifies the coverage of the given point with regard to this AABB.
@@ -388,11 +388,11 @@ namespace mage {
 		 @param[in]		point
 						The point.
 		 @param[in]		epsilon
-						The epsilon value for f32 comparisons.
+						The epsilon value for F32 comparisons.
 		 @return		The coverage of @a point with regard to this AABB.
 		 */
 		Coverage Classify(FXMVECTOR point, 
-			f32 epsilon = 0.0f) const noexcept;
+			F32 epsilon = 0.0f) const noexcept;
 
 		/**
 		 Classifies the coverage of the given AABB with regard to this AABB.
@@ -551,7 +551,7 @@ namespace mage {
 		 @param[in]		r
 						The radius.
 		 */
-		explicit BS(const Point3 &p, f32 r)
+		explicit BS(const Point3 &p, F32 r)
 			: m_p(p), m_r(r) {}
 
 		/**
@@ -730,7 +730,7 @@ namespace mage {
 		/**
 		 The radius of this BS.
 		 */
-		f32 m_r;
+		F32 m_r;
 	};
 
 	//-------------------------------------------------------------------------

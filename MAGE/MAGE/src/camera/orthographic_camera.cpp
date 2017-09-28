@@ -13,7 +13,7 @@
 namespace mage {
 
 	OrthographicCamera::OrthographicCamera(
-		f32 width, f32 height, f32 near_z, f32 far_z)
+		F32 width, F32 height, F32 near_z, F32 far_z)
 		: Camera(near_z, far_z),
 		m_width(width), m_height(height) {}
 

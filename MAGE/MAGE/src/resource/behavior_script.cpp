@@ -23,7 +23,7 @@ namespace mage {
 
 	void BehaviorScript::FixedUpdate() {}
 
-	void BehaviorScript::Update(f64 delta_time) {
+	void BehaviorScript::Update(F64 delta_time) {
 		UNUSED(delta_time);
 	}
 

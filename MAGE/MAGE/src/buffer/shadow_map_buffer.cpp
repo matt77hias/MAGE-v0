@@ -19,12 +19,12 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	ShadowMapBuffer::ShadowMapBuffer(
-		size_t nb_shadow_maps, u32 width, u32 height, DepthFormat format) 
+		size_t nb_shadow_maps, U32 width, U32 height, DepthFormat format) 
 		: ShadowMapBuffer(Pipeline::GetDevice(), 
 			nb_shadow_maps, width, height, format) {}
 
 	ShadowMapBuffer::ShadowMapBuffer(ID3D11Device2 *device,
-		size_t nb_shadow_maps, u32 width, u32 height, DepthFormat format)
+		size_t nb_shadow_maps, U32 width, U32 height, DepthFormat format)
 		: m_width(width), m_height(height), m_format(format), 
 		m_viewport(), m_dsvs(), m_srv() {
 
@@ -82,7 +82,7 @@ namespace mage {
 		texture_desc.Width            = m_width;
 		texture_desc.Height           = m_height;;
 		texture_desc.MipLevels        = 1u;
-		texture_desc.ArraySize        = static_cast< u32 >(nb_shadow_maps);
+		texture_desc.ArraySize        = static_cast< U32 >(nb_shadow_maps);
 		texture_desc.Format           = texture_format;
 		texture_desc.SampleDesc.Count = 1u;
 		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
@@ -105,7 +105,7 @@ namespace mage {
 		dsv_desc.Texture2DArray.ArraySize = 1u;
 
 		// Create the DSVs for each texture element.
-		for (u32 i = 0u; i < texture_desc.ArraySize; ++i) {
+		for (U32 i = 0u; i < texture_desc.ArraySize; ++i) {
 			dsv_desc.Texture2DArray.FirstArraySlice = i;
 
 			const HRESULT result_dsv = device->CreateDepthStencilView(
@@ -133,12 +133,12 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	ShadowCubeMapBuffer::ShadowCubeMapBuffer(
-		size_t nb_shadow_cube_maps, u32 width, u32 height, DepthFormat format)
+		size_t nb_shadow_cube_maps, U32 width, U32 height, DepthFormat format)
 		: ShadowCubeMapBuffer(Pipeline::GetDevice(),
 			nb_shadow_cube_maps, width, height, format) {}
 
 	ShadowCubeMapBuffer::ShadowCubeMapBuffer(ID3D11Device2 *device,
-		size_t nb_shadow_cube_maps, u32 width, u32 height, DepthFormat format)
+		size_t nb_shadow_cube_maps, U32 width, U32 height, DepthFormat format)
 		: m_width(width), m_height(height), m_format(format),
 		m_viewport(), m_dsvs(), m_srv() {
 
@@ -196,7 +196,7 @@ namespace mage {
 		texture_desc.Width            = m_width;
 		texture_desc.Height           = m_height;;
 		texture_desc.MipLevels        = 1u;
-		texture_desc.ArraySize        = 6u * static_cast< u32 >(nb_shadow_cube_maps);
+		texture_desc.ArraySize        = 6u * static_cast< U32 >(nb_shadow_cube_maps);
 		texture_desc.Format           = texture_format;
 		texture_desc.SampleDesc.Count = 1u;
 		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
@@ -220,7 +220,7 @@ namespace mage {
 		dsv_desc.Texture2DArray.ArraySize = 1u;
 
 		// Create the DSVs for each texture element.
-		for (u32 i = 0u; i < texture_desc.ArraySize; ++i) {
+		for (U32 i = 0u; i < texture_desc.ArraySize; ++i) {
 			dsv_desc.Texture2DArray.FirstArraySlice = i;
 
 			const HRESULT result_dsv = device->CreateDepthStencilView(
@@ -234,7 +234,7 @@ namespace mage {
 		srv_desc.Format        = srv_format;
 		srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBEARRAY;
 		srv_desc.TextureCubeArray.MipLevels = 1u;
-		srv_desc.TextureCubeArray.NumCubes  = static_cast< u32 >(nb_shadow_cube_maps);
+		srv_desc.TextureCubeArray.NumCubes  = static_cast< U32 >(nb_shadow_cube_maps);
 
 		// Create the SRV for all texture elements.
 		const HRESULT result_srv = device->CreateShaderResourceView(

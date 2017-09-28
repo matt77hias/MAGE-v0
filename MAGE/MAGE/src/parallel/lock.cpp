@@ -350,7 +350,7 @@ namespace mage {
 		CloseHandle(m_handle);
 	}
 
-	void Semaphore::Signal(u32 count) noexcept {
+	void Semaphore::Signal(U32 count) noexcept {
 		// Increases the count of the specified semaphore object.
 		// 1. A handle to the semaphore object.
 		// 2. The amount by which the semaphore object's current count is to be 

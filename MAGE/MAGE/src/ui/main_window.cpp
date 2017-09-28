@@ -115,7 +115,7 @@ namespace mage {
 	}
 
 	MainWindow::MainWindow(
-		HINSTANCE hinstance, const wstring &title_text, u32 width, u32 height)
+		HINSTANCE hinstance, const wstring &title_text, U32 width, U32 height)
 		: m_hinstance(hinstance), m_hwindow(nullptr) {
 
 		Assert(m_hinstance);
@@ -151,7 +151,7 @@ namespace mage {
 	}
 
 	void MainWindow::InitializeWindow(
-		const wstring &title_text, u32 width, u32 height) {
+		const wstring &title_text, U32 width, U32 height) {
 		
 		const RECT rectangle = { 
 			0, 

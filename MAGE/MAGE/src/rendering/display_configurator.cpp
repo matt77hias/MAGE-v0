@@ -52,7 +52,7 @@ namespace mage {
 				hwndDlg, uMsg, wParam, lParam);
 	}
 
-	const u32 DisplayConfigurator::s_nb_MSAA_samples[] = { 1, 2, 4, 8, 16 };
+	const U32 DisplayConfigurator::s_nb_MSAA_samples[] = { 1, 2, 4, 8, 16 };
 
 	DisplayConfigurator::DisplayConfigurator(
 		DXGI_FORMAT pixel_format)
@@ -128,7 +128,7 @@ namespace mage {
 		// The IDXGIOutput represents an adapter output (such as a monitor).
 		ComPtr< IDXGIOutput > output;
 		SIZE_T max_vram = 0;
-		for (u32 i = 0u; factory->EnumAdapters1(i, adapter1.GetAddressOf()) 
+		for (U32 i = 0u; factory->EnumAdapters1(i, adapter1.GetAddressOf()) 
 			!= DXGI_ERROR_NOT_FOUND; ++i) {
 
 			// Get the IDXGIAdapter2.
@@ -170,8 +170,8 @@ namespace mage {
 		m_display_modes = list< DXGI_MODE_DESC1 >();
 
 		// Get the DXGI_MODE_DESCs. 
-		const u32 flags = DXGI_ENUM_MODES_INTERLACED;
-		u32 nb_display_modes;
+		const U32 flags = DXGI_ENUM_MODES_INTERLACED;
+		U32 nb_display_modes;
 		// Get the number of display modes that match the requested format 
 		// and other input options.
 		const HRESULT result1 
@@ -190,7 +190,7 @@ namespace mage {
 			"Failed to get the display modes: %08X.", result2);
 
 		// Enumerate the DXGI_MODE_DESCs.
-		for (u32 mode = 0u; mode < nb_display_modes; ++mode) {
+		for (U32 mode = 0u; mode < nb_display_modes; ++mode) {
 			
 			// Reject small display modes.
 			if (RejectDisplayMode(dxgi_mode_descs.get()[mode])) {
@@ -243,7 +243,7 @@ namespace mage {
 	 */
 	inline size_t ConvertRefreshRate(const DXGI_MODE_DESC1 &desc) noexcept {
 		return static_cast< size_t >(round(desc.RefreshRate.Numerator 
-			/ static_cast< f32 >(desc.RefreshRate.Denominator)));
+			/ static_cast< F32 >(desc.RefreshRate.Denominator)));
 	}
 
 	INT_PTR DisplayConfigurator::DisplayDialogProc(
@@ -402,7 +402,7 @@ namespace mage {
 				// Store all the settings to the display configuration.
 				m_display_configuration = MakeUnique< DisplayConfiguration >(
 					m_adapter, m_output, *selected_diplay_mode, windowed, vsync, 
-					static_cast< u32 >(selected_msaa));
+					static_cast< U32 >(selected_msaa));
 
 				// Get the selected index from each combo box.
 				const int resolution_index

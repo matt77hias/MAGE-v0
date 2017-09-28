@@ -214,7 +214,7 @@ namespace mage {
 
 		 @return		The line spacing of this sprite font.
 		 */
-		f32 GetLineSpacing() const noexcept {
+		F32 GetLineSpacing() const noexcept {
 			return m_line_spacing;
 		}
 
@@ -224,7 +224,7 @@ namespace mage {
 		 @param[in]		spacing
 						The line spacing.
 		 */
-		void SetLineSpacing(f32 spacing) noexcept {
+		void SetLineSpacing(F32 spacing) noexcept {
 			m_line_spacing = spacing;
 		}
 		
@@ -346,6 +346,6 @@ namespace mage {
 		/**
 		 The (extra) line spacing of this sprite font.
 		 */
-		f32 m_line_spacing;
+		F32 m_line_spacing;
 	};
 }

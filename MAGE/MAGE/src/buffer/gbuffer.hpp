@@ -49,15 +49,15 @@ namespace mage {
 
 		void SetupBuffers(ID3D11Device2 *device);
 		void SetupDepthBuffer(ID3D11Device2 *device,
-			u32 width, u32 height);
+			U32 width, U32 height);
 		void SetupDiffuseBuffer(ID3D11Device2 *device,
-			u32 width, u32 height);
+			U32 width, U32 height);
 		void SetupSpecularBuffer(ID3D11Device2 *device,
-			u32 width, u32 height);
+			U32 width, U32 height);
 		void SetupNormalBuffer(ID3D11Device2 *device,
-			u32 width, u32 height);
-		void SetupBuffer(ID3D11Device2 *device, u32 index,
-			u32 width, u32 height, DXGI_FORMAT format);
+			U32 width, U32 height);
+		void SetupBuffer(ID3D11Device2 *device, U32 index,
+			U32 width, U32 height, DXGI_FORMAT format);
 
 		ComPtr< ID3D11DepthStencilView >   m_dsv;
 		ComPtr< ID3D11RenderTargetView >   m_rtvs[

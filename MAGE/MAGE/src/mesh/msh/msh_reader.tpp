@@ -34,8 +34,8 @@ namespace mage {
 				"%ls: invalid mesh header.", GetFilename().c_str());
 		}
 
-		const u32 nb_vertices = ReadValue< u32 >();
-		const u32 nb_indices  = ReadValue< u32 >();
+		const U32 nb_vertices = ReadValue< U32 >();
+		const U32 nb_indices  = ReadValue< U32 >();
 		
 		const VertexT *vertices = ReadValueArray< VertexT >(nb_vertices);
 		m_vertices.assign(vertices, vertices + nb_vertices);
@@ -49,7 +49,7 @@ namespace mage {
 		const char *magic = MAGE_MSH_MAGIC;
 		
 		while (*magic != L'\0') {
-			if (ReadValue< u8 >() != *magic) {
+			if (ReadValue< U8 >() != *magic) {
 				return false;
 			}
 			++magic;

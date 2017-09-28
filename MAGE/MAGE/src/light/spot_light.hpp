@@ -101,7 +101,7 @@ namespace mage {
 		 @return		The distance at which intensity falloff starts of 
 						this spotlight.
 		 */
-		f32 GetStartDistanceFalloff() const noexcept {
+		F32 GetStartDistanceFalloff() const noexcept {
 			return m_distance_falloff_start;
 		}
 		
@@ -112,7 +112,7 @@ namespace mage {
 		 @param[in]		distance_falloff_start
 						The distance at which intensity falloff starts.
 		 */
-		void SetStartDistanceFalloff(f32 distance_falloff_start) noexcept {
+		void SetStartDistanceFalloff(F32 distance_falloff_start) noexcept {
 			m_distance_falloff_start = distance_falloff_start;
 		}
 		
@@ -123,7 +123,7 @@ namespace mage {
 		 @return		The distance at which intensity falloff ends of this 
 						spotlight.
 		 */
-		f32 GetEndDistanceFalloff() const noexcept {
+		F32 GetEndDistanceFalloff() const noexcept {
 			return m_distance_falloff_end;
 		}
 		
@@ -135,7 +135,7 @@ namespace mage {
 		 @param[in]		distance_falloff_end
 						The distance at which intensity falloff ends.
 		 */
-		void SetEndDistanceFalloff(f32 distance_falloff_end) noexcept {
+		void SetEndDistanceFalloff(F32 distance_falloff_end) noexcept {
 			Assert(distance_falloff_end);
 			m_distance_falloff_end = distance_falloff_end;
 
@@ -154,7 +154,7 @@ namespace mage {
 						The distance at which intensity falloff ends.
 		 */
 		void SetDistanceFalloff(
-			f32 distance_falloff_start, f32 distance_falloff_end) noexcept {
+			F32 distance_falloff_start, F32 distance_falloff_end) noexcept {
 			
 			SetStartDistanceFalloff(distance_falloff_start);
 			SetEndDistanceFalloff(distance_falloff_end);
@@ -169,7 +169,7 @@ namespace mage {
 						@a GetEndDistanceFalloff() - 
 						@a GetStartDistanceFalloff().
 		 */
-		f32 GetRangeDistanceFalloff() const noexcept {
+		F32 GetRangeDistanceFalloff() const noexcept {
 			return m_distance_falloff_end - m_distance_falloff_start;
 		}
 		
@@ -186,7 +186,7 @@ namespace mage {
 						The distance range where intensity falloff occurs.
 		 */
 		void SetRangeDistanceFalloff(
-			f32 distance_falloff_start, f32 distance_falloff_range) noexcept {
+			F32 distance_falloff_start, F32 distance_falloff_range) noexcept {
 			
 			SetDistanceFalloff(distance_falloff_start, 
 				distance_falloff_start + distance_falloff_range);
@@ -197,7 +197,7 @@ namespace mage {
 
 		 @return		The cosine of the penumbra angle of this spotlight.
 		 */
-		f32 GetStartAngularCutoff() const noexcept {
+		F32 GetStartAngularCutoff() const noexcept {
 			return m_cos_penumbra;
 		}
 		
@@ -208,7 +208,7 @@ namespace mage {
 		 @param[in]		cos_penumbra
 						The cosine of the penumbra angle.
 		 */
-		void SetStartAngularCutoff(f32 cos_penumbra) noexcept {
+		void SetStartAngularCutoff(F32 cos_penumbra) noexcept {
 			m_cos_penumbra = cos_penumbra;
 		}
 		
@@ -217,7 +217,7 @@ namespace mage {
 
 		 @return		The cosine of the umbra angle of this spotlight.
 		 */
-		f32 GetEndAngularCutoff() const noexcept {
+		F32 GetEndAngularCutoff() const noexcept {
 			return m_cos_umbra;
 		}
 		
@@ -229,7 +229,7 @@ namespace mage {
 		 @param[in]		cos_umbra
 						The cosine of the umbra angle.
 		 */
-		void SetEndAngularCutoff(f32 cos_umbra) noexcept {
+		void SetEndAngularCutoff(F32 cos_umbra) noexcept {
 			Assert(cos_umbra);
 			m_cos_umbra = cos_umbra;
 
@@ -247,7 +247,7 @@ namespace mage {
 		 @param[in]		cos_umbra
 						The cosine of the umbra angle.
 		 */
-		void SetAngularCutoff(f32 cos_penumbra, f32 cos_umbra) noexcept {
+		void SetAngularCutoff(F32 cos_penumbra, F32 cos_umbra) noexcept {
 			SetStartAngularCutoff(cos_penumbra);
 			SetEndAngularCutoff(cos_umbra);
 		}
@@ -260,7 +260,7 @@ namespace mage {
 						spotlight. @a GetStartAngularCutoff() - 
 						@a GetEndAngularCutoff().
 		 */
-		f32 GetRangeAngularCutoff() const noexcept {
+		F32 GetRangeAngularCutoff() const noexcept {
 			return m_cos_penumbra - m_cos_umbra;
 		}
 
@@ -269,7 +269,7 @@ namespace mage {
 
 		 @return		The penumbra angle (in radians) of this spotlight.
 		 */
-		f32 GetPenumbraAngle() const noexcept {
+		F32 GetPenumbraAngle() const noexcept {
 			return acos(m_cos_penumbra);
 		}
 		
@@ -280,7 +280,7 @@ namespace mage {
 		 @param[in]		penumbra
 						The penumbra angle (in radians).
 		 */
-		void SetPenumbraAngle(f32 penumbra) noexcept {
+		void SetPenumbraAngle(F32 penumbra) noexcept {
 			SetStartAngularCutoff(cos(penumbra));
 		}
 
@@ -289,7 +289,7 @@ namespace mage {
 
 		 @return		The umbra angle (in radians) of this spotlight.
 		 */
-		f32 GetUmbraAngle() const noexcept {
+		F32 GetUmbraAngle() const noexcept {
 			return acos(m_cos_umbra);
 		}
 		
@@ -301,7 +301,7 @@ namespace mage {
 		 @param[in]		umbra
 						The umbra angle (in radians).
 		 */
-		void SetUmbraAngle(f32 umbra) noexcept {
+		void SetUmbraAngle(F32 umbra) noexcept {
 			SetEndAngularCutoff(cos(umbra));
 		}
 		
@@ -315,7 +315,7 @@ namespace mage {
 		 @param[in]		umbra
 						The umbra angle (in radians).
 		 */
-		void SetPenumbraAndUmbraAngles(f32 penumbra, f32 umbra) noexcept {
+		void SetPenumbraAndUmbraAngles(F32 penumbra, F32 umbra) noexcept {
 			SetPenumbraAngle(penumbra);
 			SetUmbraAngle(umbra);
 		}
@@ -325,7 +325,7 @@ namespace mage {
 
 		 @return		The exponent property of this spotlight.
 		 */
-		f32 GetExponentProperty() const noexcept {
+		F32 GetExponentProperty() const noexcept {
 			return m_exponent_property;
 		}
 		
@@ -335,7 +335,7 @@ namespace mage {
 		 @param[in]		exponent_property
 						The exponent property.
 		 */
-		void SetExponentProperty(f32 exponent_property) noexcept {
+		void SetExponentProperty(F32 exponent_property) noexcept {
 			m_exponent_property = exponent_property;
 		}
 		
@@ -434,27 +434,27 @@ namespace mage {
 		/**
 		 The exponent property of this spotlight.
 		 */
-		f32 m_exponent_property;
+		F32 m_exponent_property;
 
 		/**
 		 The start of the distance falloff of this spotlight.
 		 */
-		f32 m_distance_falloff_start;
+		F32 m_distance_falloff_start;
 
 		/**
 		 The end of the distance falloff of this spotlight.
 		 */
-		f32 m_distance_falloff_end;
+		F32 m_distance_falloff_end;
 
 		/**
 		 The cosine of the penumbra angle of this spotlight.
 		 */
-		f32 m_cos_penumbra;
+		F32 m_cos_penumbra;
 
 		/**
 		 The cosine of the umbra angle of this spotlight.
 		 */
-		f32 m_cos_umbra;
+		F32 m_cos_umbra;
 
 		/**
 		 A flag indicating whether shadows should be calculated or not for 

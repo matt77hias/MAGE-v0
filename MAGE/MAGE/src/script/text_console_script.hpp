@@ -25,7 +25,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		explicit TextConsoleScript(SpriteText *text,
-			u32 nb_rows, u32 nb_columns);
+			U32 nb_rows, U32 nb_columns);
 		TextConsoleScript(const TextConsoleScript &script) = delete;
 		TextConsoleScript(TextConsoleScript &&script);
 		virtual ~TextConsoleScript();
@@ -41,7 +41,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update(f64 delta_time) override;
+		virtual void Update(F64 delta_time) override;
 		
 		void Clear();
 		void Write(const wchar_t *str);
@@ -57,7 +57,7 @@ namespace mage {
 		void ProcessString(const wchar_t *str);
 		void IncrementRow();
 
-		void SetCharacter(wchar_t character, u32 row, u32 column);
+		void SetCharacter(wchar_t character, U32 row, U32 column);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -65,10 +65,10 @@ namespace mage {
 
 		SpriteText * const m_text;
 
-		const u32 m_nb_rows;
-		const u32 m_nb_columns;
-		u32 m_current_column;
-		u32 m_current_row;
+		const U32 m_nb_rows;
+		const U32 m_nb_columns;
+		U32 m_current_column;
+		U32 m_current_row;
 
 		UniquePtr< wchar_t[] > m_buffer;
 		vector< wchar_t > m_temp_buffer;

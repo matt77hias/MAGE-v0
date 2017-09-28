@@ -59,8 +59,8 @@ namespace mage {
 			ComPtr< IDXGIOutput2 > output,
 			const DXGI_MODE_DESC1 &display_mode, 
 			bool windowed, bool vsync, 
-			u32 nb_MSAA_samples = 1,
-			f32 gamma = MAGE_DEFAULT_DISPLAY_GAMMA)
+			U32 nb_MSAA_samples = 1,
+			F32 gamma = MAGE_DEFAULT_DISPLAY_GAMMA)
 			: m_adapter(adapter), m_output(output),
 			m_display_mode(display_mode), m_MSAA_sample_desc{}, 
 			m_windowed(windowed), m_vsync(vsync), m_gamma(gamma) {
@@ -147,8 +147,8 @@ namespace mage {
 		 @return		The display width in pixels of this display 
 						configuration.
 		 */
-		u32 GetDisplayWidth() const noexcept {
-			return static_cast< u32 >(m_display_mode.Width);
+		U32 GetDisplayWidth() const noexcept {
+			return static_cast< U32 >(m_display_mode.Width);
 		}
 		
 		/**
@@ -157,8 +157,8 @@ namespace mage {
 		 @return		The display height in pixels of this display 
 						configuration.
 		 */
-		u32 GetDisplayHeight() const noexcept {
-			return static_cast< u32 >(m_display_mode.Height);
+		U32 GetDisplayHeight() const noexcept {
+			return static_cast< U32 >(m_display_mode.Height);
 		}
 		
 		/**
@@ -168,10 +168,10 @@ namespace mage {
 		 @return		The rounded display refresh rate of this display 
 						configuration.
 		 */
-		u32 GetDisplayRoundedRefreshRate() const noexcept {
-			const f32 n = static_cast< f32 >(m_display_mode.RefreshRate.Numerator);
-			const f32 d = static_cast< f32 >(m_display_mode.RefreshRate.Denominator);
-			return static_cast< u32 >(round(n / d));
+		U32 GetDisplayRoundedRefreshRate() const noexcept {
+			const F32 n = static_cast< F32 >(m_display_mode.RefreshRate.Numerator);
+			const F32 d = static_cast< F32 >(m_display_mode.RefreshRate.Denominator);
+			return static_cast< U32 >(round(n / d));
 		}
 		
 		/**
@@ -244,7 +244,7 @@ namespace mage {
 						The MSAA quality level.
 		 */
 		void SetMSAASampleDesc(
-			u32 nb_MSAA_samples, u32 MSAA_quality_level = 0) noexcept;
+			U32 nb_MSAA_samples, U32 MSAA_quality_level = 0) noexcept;
 		
 		/**
 		 Sets the MSAA sample descriptor of this display configuration to the 
@@ -342,7 +342,7 @@ namespace mage {
 		 @return		The gamma value used for gamma correction of this 
 						display configuration.
 		 */
-		f32 GetGamma() const noexcept {
+		F32 GetGamma() const noexcept {
 			return m_gamma;
 		}
 		
@@ -353,7 +353,7 @@ namespace mage {
 		 @param[in]		gamma
 						The gamma value.
 		 */
-		void SetGamma(f32 gamma) noexcept {
+		void SetGamma(F32 gamma) noexcept {
 			m_gamma = gamma;
 		}
 
@@ -401,6 +401,6 @@ namespace mage {
 		 The gamma value used for gamma correction of this display 
 		 configuration.
 		 */
-		f32 m_gamma;
+		F32 m_gamma;
 	};
 }

@@ -23,7 +23,7 @@
 namespace mage {
 
 	ProgressReporter::ProgressReporter(
-		const string &title, u32 nb_work, char plus_char, u32 bar_length)
+		const string &title, U32 nb_work, char plus_char, U32 bar_length)
 		: m_nb_work_total(nb_work), m_nb_work_done(0), 
 		m_nb_plusses_printed(0), m_plus_char(plus_char),
 		m_fout(stdout), m_buffer(), m_current_pos(nullptr), 
@@ -37,14 +37,14 @@ namespace mage {
 
 	ProgressReporter::~ProgressReporter() = default;
 
-	void ProgressReporter::Initialize(const string &title, u32 bar_length) {
+	void ProgressReporter::Initialize(const string &title, U32 bar_length) {
 
 		if (bar_length == 0) {
 			bar_length = ConsoleWidth() - 28;
 		}
 
 		m_nb_plusses_total = 
-			std::max(2u, bar_length - static_cast< u32 >(title.size()));
+			std::max(2u, bar_length - static_cast< U32 >(title.size()));
 		
 		// Initialize progress string
 		const size_t buffer_length = title.size() + m_nb_plusses_total + 64;
@@ -84,7 +84,7 @@ namespace mage {
 		m_timer->Start();
 	}
 
-	void ProgressReporter::Update(u32 nb_work) {
+	void ProgressReporter::Update(U32 nb_work) {
 		
 		if (nb_work == 0 || LoggingConfiguration::Get()->IsQuiet()) {
 			// Do not output the progression in quiet mode.
@@ -94,9 +94,9 @@ namespace mage {
 		const MutexLock lock(m_mutex);
 		
 		m_nb_work_done += nb_work;
-		const f32 percent_done = static_cast< f32 >(m_nb_work_done) / m_nb_work_total;
-		const u32 plusses_needed = 
-			std::min(static_cast< u32 >(round(percent_done * m_nb_plusses_total)), 
+		const F32 percent_done = static_cast< F32 >(m_nb_work_done) / m_nb_work_total;
+		const U32 plusses_needed = 
+			std::min(static_cast< U32 >(round(percent_done * m_nb_plusses_total)), 
 					 m_nb_plusses_total);
 		
 		while (m_nb_plusses_printed < plusses_needed) {
@@ -108,13 +108,13 @@ namespace mage {
 		// Write the buffer to the output file stream.
 		fputs(m_buffer.get(), m_fout);
 		// Update elapsed time and estimated time to completion
-		const f32 seconds = static_cast< f32 >(m_timer->GetTotalDeltaTime());
+		const F32 seconds = static_cast< F32 >(m_timer->GetTotalDeltaTime());
 		if (percent_done == 1.0f) {
 			// Writes the string format to the output file stream.
 			fprintf(m_fout, " (%.1fs)       ", seconds);
 		}
 		else {
-			const f32 estimation_remaining = seconds / percent_done - seconds;
+			const F32 estimation_remaining = seconds / percent_done - seconds;
 			// Writes the string format to the output file stream.
 			fprintf(m_fout, " (%.1fs|%.1fs)  ", 
 				seconds, std::max(0.0f, estimation_remaining));
@@ -145,7 +145,7 @@ namespace mage {
 		// Write the buffer to the output file stream.
 		fputs(m_buffer.get(), m_fout);
 		// Update elapsed time
-		const f32 seconds = static_cast< f32 >(m_timer->GetTotalDeltaTime());
+		const F32 seconds = static_cast< F32 >(m_timer->GetTotalDeltaTime());
 		// Writes the string format to the output file stream.
 		fprintf(m_fout, " (%.1fs)       \n", seconds);
 	

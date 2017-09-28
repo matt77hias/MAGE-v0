@@ -14,7 +14,7 @@
 namespace mage {
 
 	TextConsoleScript::TextConsoleScript(
-		SpriteText *text, u32 nb_rows, u32 nb_columns)
+		SpriteText *text, U32 nb_rows, U32 nb_columns)
 		: BehaviorScript(),
 		m_nb_rows(nb_rows), m_nb_columns(nb_columns + 1),
 		m_current_column(0), m_current_row(0),
@@ -30,7 +30,7 @@ namespace mage {
 
 	TextConsoleScript::~TextConsoleScript() = default;
 
-	void TextConsoleScript::Update(f64 delta_time) {
+	void TextConsoleScript::Update(F64 delta_time) {
 		UNUSED(delta_time);
 		const MutexLock lock(m_mutex);
 
@@ -95,7 +95,7 @@ namespace mage {
 		}
 	}
 
-	void TextConsoleScript::SetCharacter(wchar_t character, u32 row, u32 column) {
+	void TextConsoleScript::SetCharacter(wchar_t character, U32 row, U32 column) {
 		const size_t index = row * m_nb_columns + column;
 		m_buffer[index] = character;
 	}

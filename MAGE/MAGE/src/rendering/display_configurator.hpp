@@ -38,7 +38,7 @@ namespace mage {
 		/**
 		 The allowed number of samples for MSAA of display configurators. 
 		 */
-		static const u32 s_nb_MSAA_samples[5];
+		static const U32 s_nb_MSAA_samples[5];
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors

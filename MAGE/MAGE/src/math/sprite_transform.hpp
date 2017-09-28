@@ -27,7 +27,7 @@ namespace mage {
 	 @param[in]		x
 					The normalized screen x-value.
 	 */
-	f32 ConvertNormalizedToAbsoluteScreenX(f32 x);
+	F32 ConvertNormalizedToAbsoluteScreenX(F32 x);
 
 	/**
 	 Converts the given normalized screen y-value to absolute screen y-value.
@@ -37,7 +37,7 @@ namespace mage {
 	 @param[in]		y
 					The normalized screen y-value.
 	 */
-	f32 ConvertNormalizedToAbsoluteScreenY(f32 y);
+	F32 ConvertNormalizedToAbsoluteScreenY(F32 y);
 	
 	/**
 	 Converts the given normalized screen values to absolute screen values.
@@ -49,7 +49,7 @@ namespace mage {
 	 @param[in]		y
 					The normalized screen y-value.
 	 */
-	inline const XMFLOAT2 ConvertNormalizedToAbsoluteScreen(f32 x, f32 y) {
+	inline const XMFLOAT2 ConvertNormalizedToAbsoluteScreen(F32 x, F32 y) {
 		return XMFLOAT2(
 			ConvertNormalizedToAbsoluteScreenX(x), 
 			ConvertNormalizedToAbsoluteScreenY(y));
@@ -88,7 +88,7 @@ namespace mage {
 	 @param[in]		x
 					The absolute screen x-value.
 	 */
-	f32 ConvertAbsoluteToNormalizedScreenX(f32 x);
+	F32 ConvertAbsoluteToNormalizedScreenX(F32 x);
 
 	/**
 	 Converts the given absolute screen y-value to normalized screen y-value.
@@ -98,7 +98,7 @@ namespace mage {
 	 @param[in]		y
 					The absolute screen y-value.
 	 */
-	f32 ConvertAbsoluteToNormalizedScreenY(f32 y);
+	F32 ConvertAbsoluteToNormalizedScreenY(F32 y);
 	
 	/**
 	 Converts the given absolute screen values to normalized screen values.
@@ -110,7 +110,7 @@ namespace mage {
 	 @param[in]		y
 					The absolute screen y-value.
 	 */
-	inline const XMFLOAT2 ConvertAbsoluteToNormalizedScreen(f32 x, f32 y) {
+	inline const XMFLOAT2 ConvertAbsoluteToNormalizedScreen(F32 x, F32 y) {
 		return XMFLOAT2(
 			ConvertAbsoluteToNormalizedScreenX(x), 
 			ConvertAbsoluteToNormalizedScreenY(y));
@@ -172,8 +172,8 @@ namespace mage {
 		 */
 		explicit SpriteTransform(
 			const XMFLOAT2 &translation = { 0.0f, 0.0f }, 
-			f32 depth    = 0.0f,
-			f32 rotation = 0.0f, 
+			F32 depth    = 0.0f,
+			F32 rotation = 0.0f, 
 			const XMFLOAT2 &rotation_origin = { 0.0f, 0.0f }, 
 			const XMFLOAT2 &scale = { 1.0f, 1.0f })
 			: m_translation(translation), 
@@ -202,8 +202,8 @@ namespace mage {
 		 */
 		explicit SpriteTransform(
 			FXMVECTOR translation, 
-			f32 depth,
-			f32 rotation, 
+			F32 depth,
+			F32 rotation, 
 			FXMVECTOR rotation_origin, 
 			FXMVECTOR scale)
 			: m_translation(), 
@@ -273,7 +273,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the translation component.
 		 */
-		void SetTranslationX(f32 x) noexcept {
+		void SetTranslationX(F32 x) noexcept {
 			m_translation.x = x;
 			SetDirty();
 		}
@@ -285,7 +285,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component.
 		 */
-		void SetTranslationY(f32 y) noexcept {
+		void SetTranslationY(F32 y) noexcept {
 			m_translation.y = y;
 			SetDirty();
 		}
@@ -299,7 +299,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component.
 		 */
-		void SetTranslation(f32 x, f32 y) noexcept {
+		void SetTranslation(F32 x, F32 y) noexcept {
 			m_translation.x = x;
 			m_translation.y = y;
 			SetDirty();
@@ -336,7 +336,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the translation component to add.
 		 */
-		void AddTranslationX(f32 x) noexcept {
+		void AddTranslationX(F32 x) noexcept {
 			m_translation.x += x;
 			SetDirty();
 		}
@@ -348,7 +348,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component to add.
 		 */
-		void AddTranslationY(f32 y) noexcept {
+		void AddTranslationY(F32 y) noexcept {
 			m_translation.y += y;
 			SetDirty();
 		}
@@ -362,7 +362,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the translation component to add.
 		 */
-		void AddTranslation(f32 x, f32 y) noexcept {
+		void AddTranslation(F32 x, F32 y) noexcept {
 			m_translation.x += x;
 			m_translation.y += y;
 			SetDirty();
@@ -397,7 +397,7 @@ namespace mage {
 		 @return		The x-value of the translation component of this 
 						sprite transform.
 		 */
-		f32 GetTranslationX() const noexcept {
+		F32 GetTranslationX() const noexcept {
 			return m_translation.x;
 		}
 
@@ -408,7 +408,7 @@ namespace mage {
 		 @return		The y-value of the translation component of this 
 						sprite transform.
 		 */
-		f32 GetTranslationY() const noexcept {
+		F32 GetTranslationY() const noexcept {
 			return m_translation.y;
 		}
 
@@ -434,7 +434,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the normalized translation component.
 		 */
-		void SetNormalizedTranslationX(f32 x) {
+		void SetNormalizedTranslationX(F32 x) {
 			SetTranslationX(ConvertNormalizedToAbsoluteScreenX(x));
 		}
 
@@ -447,7 +447,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the normalized translation component.
 		 */
-		void SetNormalizedTranslationY(f32 y) {
+		void SetNormalizedTranslationY(F32 y) {
 			SetTranslationY(ConvertNormalizedToAbsoluteScreenY(y));
 		}
 
@@ -462,7 +462,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the normalized translation component.
 		 */
-		void SetNormalizedTranslation(f32 x, f32 y) {
+		void SetNormalizedTranslation(F32 x, F32 y) {
 			SetTranslation(ConvertNormalizedToAbsoluteScreen(x, y));
 		}
 
@@ -502,7 +502,7 @@ namespace mage {
 						The x-value of the normalized translation component to 
 						add.
 		 */
-		void AddNormalizedTranslationX(f32 x) {
+		void AddNormalizedTranslationX(F32 x) {
 			AddTranslationX(ConvertNormalizedToAbsoluteScreenX(x));
 		}
 
@@ -516,7 +516,7 @@ namespace mage {
 						The y-value of the normalized translation component to 
 						add.
 		 */
-		void AddNormalizedTranslationY(f32 y) {
+		void AddNormalizedTranslationY(F32 y) {
 			AddTranslationY(ConvertNormalizedToAbsoluteScreenY(y));
 		}
 
@@ -533,7 +533,7 @@ namespace mage {
 						The y-value of the normalized translation component to 
 						add.
 		 */
-		void AddNormalizedTranslation(f32 x, f32 y) {
+		void AddNormalizedTranslation(F32 x, F32 y) {
 			AddTranslation(ConvertNormalizedToAbsoluteScreen(x, y));
 		}
 
@@ -573,7 +573,7 @@ namespace mage {
 		 @return		The x-value of the normalized translation component of 
 						this sprite transform.
 		 */
-		f32 GetNormalizedTranslationX() const {
+		F32 GetNormalizedTranslationX() const {
 			return ConvertAbsoluteToNormalizedScreenX(GetTranslationX());
 		}
 
@@ -586,7 +586,7 @@ namespace mage {
 		 @return		The y-value of the normalized translation component of 
 						this sprite transform.
 		 */
-		f32 GetNormalizedTranslationY() const {
+		F32 GetNormalizedTranslationY() const {
 			return ConvertAbsoluteToNormalizedScreenY(GetTranslationY());
 		}
 
@@ -613,7 +613,7 @@ namespace mage {
 		 @param[in]		depth
 						The depth component.
 		 */
-		void SetDepth(f32 depth) noexcept {
+		void SetDepth(F32 depth) noexcept {
 			m_depth = depth;
 			SetDirty();
 		}
@@ -625,7 +625,7 @@ namespace mage {
 		 @param[in]		depth
 						The depth component to add.
 		 */
-		void AddDepth(f32 depth) noexcept {
+		void AddDepth(F32 depth) noexcept {
 			m_depth += depth;
 			SetDirty();
 		}
@@ -635,7 +635,7 @@ namespace mage {
 
 		 @return		The depth component of this sprite transform.
 		 */
-		f32 GetDepth() const noexcept {
+		F32 GetDepth() const noexcept {
 			return m_depth;
 		}
 
@@ -650,7 +650,7 @@ namespace mage {
 		 @param[in]		rotation
 						The rotation component.
 		 */
-		void SetRotation(f32 rotation) noexcept {
+		void SetRotation(F32 rotation) noexcept {
 			m_rotation = rotation;
 			SetDirty();
 		}
@@ -662,7 +662,7 @@ namespace mage {
 		 @param[in]		rotation
 						The rotation component to add.
 		 */
-		void AddRotation(f32 rotation) noexcept {
+		void AddRotation(F32 rotation) noexcept {
 			m_rotation += rotation;
 			SetDirty();
 		}
@@ -683,7 +683,7 @@ namespace mage {
 						The maximum angle (in radians).
 		 */
 		void AddAndClampRotation(
-			f32 rotation, f32 min_angle, f32 max_angle) noexcept {
+			F32 rotation, F32 min_angle, F32 max_angle) noexcept {
 			
 			m_rotation = ClampAngleRadians(m_rotation + rotation, min_angle, max_angle);
 			SetDirty();
@@ -694,7 +694,7 @@ namespace mage {
 
 		 @return		The rotation component of this sprite transform.
 		 */
-		f32 GetRotation() const noexcept {
+		F32 GetRotation() const noexcept {
 			return m_rotation;
 		}
 
@@ -709,7 +709,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the rotation origin.
 		 */
-		void SetRotationOriginX(f32 x) noexcept {
+		void SetRotationOriginX(F32 x) noexcept {
 			m_rotation_origin.x = x;
 			SetDirty();
 		}
@@ -721,7 +721,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation origin.
 		 */
-		void SetRotationOriginY(f32 y) noexcept {
+		void SetRotationOriginY(F32 y) noexcept {
 			m_rotation_origin.y = y;
 			SetDirty();
 		}
@@ -735,7 +735,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation origin.
 		 */
-		void SetRotationOrigin(f32 x, f32 y) noexcept {
+		void SetRotationOrigin(F32 x, F32 y) noexcept {
 			m_rotation_origin.x = x;
 			m_rotation_origin.y = y;
 			SetDirty();
@@ -784,7 +784,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the rotation origin to add.
 		 */
-		void AddRotationOriginX(f32 x) noexcept {
+		void AddRotationOriginX(F32 x) noexcept {
 			m_rotation_origin.x += x;
 			SetDirty();
 		}
@@ -796,7 +796,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation origin to add.
 		 */
-		void AddRotationOriginY(f32 y) noexcept {
+		void AddRotationOriginY(F32 y) noexcept {
 			m_rotation_origin.y += y;
 			SetDirty();
 		}
@@ -810,7 +810,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the rotation origin to add.
 		 */
-		void AddRotationOrigin(f32 x, f32 y) noexcept {
+		void AddRotationOrigin(F32 x, F32 y) noexcept {
 			m_rotation_origin.x += x;
 			m_rotation_origin.y += y;
 			SetDirty();
@@ -846,7 +846,7 @@ namespace mage {
 		 @return		The x-value of the rotation origin of this sprite 
 						transform.
 		 */
-		f32 GetRotationOriginX() const noexcept {
+		F32 GetRotationOriginX() const noexcept {
 			return m_rotation_origin.x;
 		}
 
@@ -856,7 +856,7 @@ namespace mage {
 		 @return		The y-value of the rotation origin of this sprite 
 						transform.
 		 */
-		f32 GetRotationOriginY() const noexcept {
+		F32 GetRotationOriginY() const noexcept {
 			return m_rotation_origin.y;
 		}
 
@@ -882,7 +882,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the normalized rotation origin.
 		 */
-		void SetNormalizedRotationOriginX(f32 x) {
+		void SetNormalizedRotationOriginX(F32 x) {
 			SetRotationOriginX(ConvertNormalizedToAbsoluteScreenX(x));
 		}
 
@@ -895,7 +895,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the normalized rotation origin.
 		 */
-		void SetNormalizedRotationOriginY(f32 y) {
+		void SetNormalizedRotationOriginY(F32 y) {
 			SetRotationOriginY(ConvertNormalizedToAbsoluteScreenY(y));
 		}
 
@@ -910,7 +910,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the normalized rotation origin.
 		 */
-		void SetNormalizedRotationOrigin(f32 x, f32 y) {
+		void SetNormalizedRotationOrigin(F32 x, F32 y) {
 			SetRotationOrigin(ConvertNormalizedToAbsoluteScreen(x, y));
 		}
 
@@ -949,7 +949,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the normalized rotation origin to add.
 		 */
-		void AddNormalizedRotationOriginX(f32 x) {
+		void AddNormalizedRotationOriginX(F32 x) {
 			AddRotationOriginX(ConvertAbsoluteToNormalizedScreenX(x));
 		}
 
@@ -962,7 +962,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the normalized rotation origin to add.
 		 */
-		void AddNormalizedRotationOriginY(f32 y) {
+		void AddNormalizedRotationOriginY(F32 y) {
 			AddRotationOriginY(ConvertAbsoluteToNormalizedScreenY(y));
 		}
 
@@ -977,7 +977,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the normalized rotation origin to add.
 		 */
-		void AddNormalizedRotationOrigin(f32 x, f32 y) {
+		void AddNormalizedRotationOrigin(F32 x, F32 y) {
 			AddRotationOrigin(ConvertAbsoluteToNormalizedScreen(x, y));
 		}
 
@@ -1016,7 +1016,7 @@ namespace mage {
 		 @return		The x-value of the normalized rotation origin of this 
 						sprite transform.
 		 */
-		f32 GetNormalizedRotationOriginX() const {
+		F32 GetNormalizedRotationOriginX() const {
 			return ConvertAbsoluteToNormalizedScreenX(GetRotationOriginX());
 		}
 
@@ -1029,7 +1029,7 @@ namespace mage {
 		 @return		The y-value of the normalized rotation origin of this 
 						sprite transform.
 		 */
-		f32 GetNormalizedRotationOriginY() const {
+		F32 GetNormalizedRotationOriginY() const {
 			return ConvertAbsoluteToNormalizedScreenY(GetRotationOriginY());
 		}
 
@@ -1056,7 +1056,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the scale component.
 		 */
-		void SetScaleX(f32 x) noexcept {
+		void SetScaleX(F32 x) noexcept {
 			m_scale.x = x;
 			SetDirty();
 		}
@@ -1068,7 +1068,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component.
 		 */
-		void SetScaleY(f32 y) noexcept {
+		void SetScaleY(F32 y) noexcept {
 			m_scale.y = y;
 			SetDirty();
 		}
@@ -1080,7 +1080,7 @@ namespace mage {
 		 @param[in]		s
 						The scale component.
 		 */
-		void SetScale(f32 s) noexcept {
+		void SetScale(F32 s) noexcept {
 			SetScale(s, s);
 		}
 
@@ -1093,7 +1093,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component.
 		 */
-		void SetScale(f32 x, f32 y) noexcept {
+		void SetScale(F32 x, F32 y) noexcept {
 			m_scale.x = x;
 			m_scale.y = y;
 			SetDirty();
@@ -1130,7 +1130,7 @@ namespace mage {
 		 @param[in]		x
 						The x-value of the scale component to add.
 		 */
-		void AddScaleX(f32 x) noexcept {
+		void AddScaleX(F32 x) noexcept {
 			m_scale.x += x;
 			SetDirty();
 		}
@@ -1142,7 +1142,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component to add.
 		 */
-		void AddScaleY(f32 y) noexcept {
+		void AddScaleY(F32 y) noexcept {
 			m_scale.y += y;
 			SetDirty();
 		}
@@ -1154,7 +1154,7 @@ namespace mage {
 		 @param[in]		s
 						The scale component to add.
 		 */
-		void AddScale(f32 s) noexcept {
+		void AddScale(F32 s) noexcept {
 			AddScale(s, s);
 		}
 
@@ -1167,7 +1167,7 @@ namespace mage {
 		 @param[in]		y
 						The y-value of the scale component to add.
 		 */
-		void AddScale(f32 x, f32 y) noexcept {
+		void AddScale(F32 x, F32 y) noexcept {
 			m_scale.x += x;
 			m_scale.y += y;
 			SetDirty();
@@ -1201,7 +1201,7 @@ namespace mage {
 		 @return		The x-value of the scale component of this sprite 
 						transform.
 		 */
-		f32 GetScaleX() const noexcept {
+		F32 GetScaleX() const noexcept {
 			return m_scale.x;
 		}
 
@@ -1211,7 +1211,7 @@ namespace mage {
 		 @return		The y-value of the scale component of this sprite 
 						transform.
 		 */
-		f32 GetScaleY() const noexcept {
+		F32 GetScaleY() const noexcept {
 			return m_scale.y;
 		}
 
@@ -1258,15 +1258,15 @@ namespace mage {
 		void UpdateObjectToParentMatrix() const noexcept {
 			if (m_dirty_transform) {
 				
-				const f32 s = sin(m_rotation);
-				const f32 c = cos(m_rotation);
-				const f32 sSx = s * m_scale.x;
-				const f32 sSy = s * m_scale.y;
-				const f32 cSx = c * m_scale.x;
-				const f32 cSy = c * m_scale.y;
+				const F32 s = sin(m_rotation);
+				const F32 c = cos(m_rotation);
+				const F32 sSx = s * m_scale.x;
+				const F32 sSy = s * m_scale.y;
+				const F32 cSx = c * m_scale.x;
+				const F32 cSy = c * m_scale.y;
 
-				const f32 tx = (1.0f - cSx) * m_rotation_origin.x + sSy * m_rotation_origin.y + m_translation.x;
-				const f32 ty = (1.0f - cSy) * m_rotation_origin.y - sSx * m_rotation_origin.x + m_translation.y;
+				const F32 tx = (1.0f - cSx) * m_rotation_origin.x + sSy * m_rotation_origin.y + m_translation.x;
+				const F32 ty = (1.0f - cSy) * m_rotation_origin.y - sSx * m_rotation_origin.x + m_translation.y;
 
 				m_transform = XMMATRIX {
 					 cSx,  sSx, 0.0f, 0.0f,
@@ -1290,12 +1290,12 @@ namespace mage {
 		/**
 		 The depth component of this sprite transform.
 		 */
-		f32 m_depth;
+		F32 m_depth;
 
 		/**
 		 The rotation component (in radians) of this sprite transform.
 		 */
-		f32 m_rotation;
+		F32 m_rotation;
 
 		/**
 		 The rotation origin of this sprite transform.

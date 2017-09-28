@@ -14,7 +14,7 @@
 namespace mage {
 
 	void DisplayConfiguration::SetMSAASampleDesc(
-		u32 nb_MSAA_samples, u32 MSAA_quality_level) noexcept {
+		U32 nb_MSAA_samples, U32 MSAA_quality_level) noexcept {
 
 		m_MSAA_sample_desc.Count   = Clamp(nb_MSAA_samples, 1u, 32u);
 		m_MSAA_sample_desc.Quality = MSAA_quality_level;

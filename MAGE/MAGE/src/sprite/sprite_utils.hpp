@@ -25,7 +25,7 @@ namespace mage {
 					given @c RECT (left, top, right, bottom).
 	 */
 	inline const XMVECTOR XMVectorLeftTopRightBottom(const RECT &rect) noexcept {
-		const XMVECTOR v = XMLoadInt4(reinterpret_cast<const u32 *>(&rect));
+		const XMVECTOR v = XMLoadInt4(reinterpret_cast<const U32 *>(&rect));
 		return XMConvertVectorIntToFloat(v, 0);
 	}
 

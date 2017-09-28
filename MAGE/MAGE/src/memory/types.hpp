@@ -22,14 +22,14 @@ namespace mage {
 	/**
 	 A 32-bit floating point value.
 	 */
-	using f32 = float;
+	using F32 = float;
 	
 	/**
 	 A 64-bit floating point value.
 	 */
-	using f64 = double;
+	using F64 = double;
 
-	static_assert(std::is_same< f32, FLOAT >::value, 
+	static_assert(std::is_same< F32, FLOAT >::value, 
 		"MAGE/Windows primitive type mismatch");
 
 	//-------------------------------------------------------------------------
@@ -39,36 +39,36 @@ namespace mage {
 	/**
 	 A signed 8-bit integer value.
 	 */
-	using i8 = signed __int8;
+	using S8 = signed __int8;
 
 	/**
 	 A signed 16-bit integer value.
 	 */
-	using i16 = signed __int16;
+	using S16 = signed __int16;
 	
 	/**
 	 A signed 32-bit integer value.
 	 */
-	using i32 = signed __int32;
+	using S32 = signed __int32;
 	
 	/**
 	 A signed 64-bit integer value.
 	 */
-	using i64 = signed __int64;
+	using S64 = signed __int64;
 
-	static_assert(std::is_same< i32, INT >::value,
+	static_assert(std::is_same< S32, INT >::value,
 		"MAGE/Windows primitive type mismatch");
 
-	static_assert(std::is_same< i8, INT8 >::value,
+	static_assert(std::is_same< S8, INT8 >::value,
 		"MAGE/Windows primitive type mismatch");
 
-	static_assert(std::is_same< i16, INT16 >::value,
+	static_assert(std::is_same< S16, INT16 >::value,
 		"MAGE/Windows primitive type mismatch");
 
-	static_assert(std::is_same< i32, INT32 >::value,
+	static_assert(std::is_same< S32, INT32 >::value,
 		"MAGE/Windows primitive type mismatch");
 
-	static_assert(std::is_same< i64, INT64 >::value,
+	static_assert(std::is_same< S64, INT64 >::value,
 		"MAGE/Windows primitive type mismatch");
 
 	//-------------------------------------------------------------------------
@@ -78,35 +78,35 @@ namespace mage {
 	/**
 	 An unsigned 8-bit integer value.
 	 */
-	using u8 = unsigned __int8;
+	using U8 = unsigned __int8;
 
 	/**
 	 An unsigned 16-bit integer value.
 	 */
-	using u16 = unsigned __int16;
+	using U16 = unsigned __int16;
 	
 	/**
 	 An unsigned 32-bit integer value.
 	 */
-	using u32 = unsigned __int32;
+	using U32 = unsigned __int32;
 	
 	/**
 	 An unsigned 64-bit integer value.
 	 */
-	using u64 = unsigned __int64;
+	using U64 = unsigned __int64;
 
-	static_assert(std::is_same< u32, UINT >::value,
+	static_assert(std::is_same< U32, UINT >::value,
 		"MAGE/Windows primitive type mismatch");
 
-	static_assert(std::is_same< u8, UINT8 >::value,
+	static_assert(std::is_same< U8, UINT8 >::value,
 		"MAGE/Windows primitive type mismatch");
 
-	static_assert(std::is_same< u16, UINT16 >::value,
+	static_assert(std::is_same< U16, UINT16 >::value,
 		"MAGE/Windows primitive type mismatch");
 
-	static_assert(std::is_same< u32, UINT32 >::value,
+	static_assert(std::is_same< U32, UINT32 >::value,
 		"MAGE/Windows primitive type mismatch");
 
-	static_assert(std::is_same< u64, UINT64 >::value,
+	static_assert(std::is_same< U64, UINT64 >::value,
 		"MAGE/Windows primitive type mismatch");
 }

@@ -58,134 +58,134 @@ namespace mage {
 	TokenResult StringToBool(const char *str, bool &result) noexcept;
 
 	/**
-	 Converts the given string to an @c i8.
+	 Converts the given string to a @c S8.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c i8 represented by the string 
+					A reference to the @c S8 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c i8 succeeded or not.
+					of the given string @a str to a @c S8 succeeded or not.
 	 */
-	TokenResult StringToI8(const char *str, i8 &result) noexcept;
+	TokenResult StringToS8(const char *str, S8 &result) noexcept;
 
 	/**
-	 Converts the given string to an @c u8.
+	 Converts the given string to an @c U8.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c u8 represented by the string 
+					A reference to the @c U8 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c u8 succeeded or not.
+					of the given string @a str to an @c U8 succeeded or not.
 	 */
-	TokenResult StringToU8(const char *str, u8 &result) noexcept;
+	TokenResult StringToU8(const char *str, U8 &result) noexcept;
 
 	/**
-	 Converts the given string to an @c i16.
+	 Converts the given string to a @c S16.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c i16 represented by the string 
+					A reference to the @c S16 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c i16 succeeded or not.
+					of the given string @a str to a @c S16 succeeded or not.
 	 */
-	TokenResult StringToI16(const char *str, i16 &result) noexcept;
+	TokenResult StringToS16(const char *str, S16 &result) noexcept;
 
 	/**
-	 Converts the given string to an @c u16.
+	 Converts the given string to an @c U16.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c u16 represented by the string 
+					A reference to the @c U16 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c u16 succeeded or not.
+					of the given string @a str to an @c U16 succeeded or not.
 	 */
-	TokenResult StringToU16(const char *str, u16 &result) noexcept;
+	TokenResult StringToU16(const char *str, U16 &result) noexcept;
 
 	/**
-	 Converts the given string to an @c i32.
+	 Converts the given string to a @c S32.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c i32 represented by the string 
+					A reference to the @c S32 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c i32 succeeded or not.
+					of the given string @a str to a @c S32 succeeded or not.
 	 */
-	TokenResult StringToI32(const char *str, i32 &result) noexcept;
+	TokenResult StringToS32(const char *str, S32 &result) noexcept;
 
 	/**
-	 Converts the given string to an @c u32.
+	 Converts the given string to an @c U32.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c u32 represented by the string 
+					A reference to the @c U32 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c u32 succeeded or not.
+					of the given string @a str to an @c U32 succeeded or not.
 	 */
-	TokenResult StringToU32(const char *str, u32 &result) noexcept;
+	TokenResult StringToU32(const char *str, U32 &result) noexcept;
 
 	/**
-	 Converts the given string to an @c i64.
+	 Converts the given string to a @c S64.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c i64 represented by the string 
+					A reference to the @c S64 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c i64 succeeded or not.
+					of the given string @a str to a @c S64 succeeded or not.
 	 */
-	TokenResult StringToI64(const char *str, i64 &result) noexcept;
+	TokenResult StringToS64(const char *str, S64 &result) noexcept;
 
 	/**
-	 Converts the given string to an @c u64.
+	 Converts the given string to an @c U64.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c u64 represented by the string 
+					A reference to the @c U64 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c u64 succeeded or not.
+					of the given string @a str to an @c U64 succeeded or not.
 	 */
-	TokenResult StringToU64(const char *str, u64 &result) noexcept;
+	TokenResult StringToU64(const char *str, U64 &result) noexcept;
 
 	/**
-	 Converts the given string to a @c f32.
+	 Converts the given string to a @c F32.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c f32 represented by the string 
+					A reference to the @c F32 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to a @c f32 succeeded or not.
+					of the given string @a str to a @c F32 succeeded or not.
 	 */
-	TokenResult StringToF32(const char *str, f32 &result) noexcept;
+	TokenResult StringToF32(const char *str, F32 &result) noexcept;
 
 	/**
-	 Converts the given string to a @c f64.
+	 Converts the given string to a @c F64.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c f64 represented by the string 
+					A reference to the @c F64 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to a @c f64 succeeded or not.
+					of the given string @a str to a @c F64 succeeded or not.
 	 */
-	TokenResult StringToF64(const char *str, f64 &result) noexcept;
+	TokenResult StringToF64(const char *str, F64 &result) noexcept;
 
 #pragma endregion
 
@@ -214,7 +214,7 @@ namespace mage {
 		const char *begin, const char *end, bool &result) noexcept;
 	
 	/**
-	 Converts the given string to an @c i8.
+	 Converts the given string to a @c S8.
 
 	 @pre			@a end is not equal to @c nullptr if @a begin is not equal 
 					to @c nullptr.
@@ -224,16 +224,16 @@ namespace mage {
 	 @param[in]		end
 					A pointer to the end (exclusive) of the string to convert.
 	 @param[out]	result
-					A reference to the @c i8 represented by the string 
+					A reference to the @c S8 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c i8 succeeded or not.
+					of the given string @a str to a @c S8 succeeded or not.
 	 */
-	TokenResult StringToI8(
-		const char *begin, const char *end, i8 &result) noexcept;
+	TokenResult StringToS8(
+		const char *begin, const char *end, S8 &result) noexcept;
 	
 	/**
-	 Converts the given string to an @c u8.
+	 Converts the given string to an @c U8.
 
 	 @pre			@a end is not equal to @c nullptr if @a begin is not equal 
 					to @c nullptr.
@@ -243,16 +243,16 @@ namespace mage {
 	 @param[in]		end
 					A pointer to the end (exclusive) of the string to convert.
 	 @param[out]	result
-					A reference to the @c u8 represented by the string 
+					A reference to the @c U8 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c u8 succeeded or not.
+					of the given string @a str to an @c U8 succeeded or not.
 	 */
 	TokenResult StringToU8(
-		const char *begin, const char *end, u8 &result) noexcept;
+		const char *begin, const char *end, U8 &result) noexcept;
 	
 	/**
-	 Converts the given string to an @c i16.
+	 Converts the given string to a @c S16.
 
 	 @pre			@a end is not equal to @c nullptr if @a begin is not equal 
 					to @c nullptr.
@@ -262,16 +262,16 @@ namespace mage {
 	 @param[in]		end
 					A pointer to the end (exclusive) of the string to convert.
 	 @param[out]	result
-					A reference to the @c i16 represented by the string 
+					A reference to the @c S16 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c i16 succeeded or not.
+					of the given string @a str to a @c S16 succeeded or not.
 	 */
-	TokenResult StringToI16(
-		const char *begin, const char *end, i16 &result) noexcept;
+	TokenResult StringToS16(
+		const char *begin, const char *end, S16 &result) noexcept;
 	
 	/**
-	 Converts the given string to an @c u16.
+	 Converts the given string to an @c U16.
 
 	 @pre			@a end is not equal to @c nullptr if @a begin is not equal 
 					to @c nullptr.
@@ -281,16 +281,16 @@ namespace mage {
 	 @param[in]		end
 					A pointer to the end (exclusive) of the string to convert.
 	 @param[out]	result
-					A reference to the @c u16 represented by the string 
+					A reference to the @c U16 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c u16 succeeded or not.
+					of the given string @a str to an @c U16 succeeded or not.
 	 */
 	TokenResult StringToU16(
-		const char *begin, const char *end, u16 &result) noexcept;
+		const char *begin, const char *end, U16 &result) noexcept;
 	
 	/**
-	 Converts the given string to an @c i32.
+	 Converts the given string to a @c S32.
 
 	 @pre			@a end is not equal to @c nullptr if @a begin is not equal 
 					to @c nullptr.
@@ -300,16 +300,16 @@ namespace mage {
 	 @param[in]		end
 					A pointer to the end (exclusive) of the string to convert.
 	 @param[out]	result
-					A reference to the @c i32 represented by the string 
+					A reference to the @c S32 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c i32 succeeded or not.
+					of the given string @a str to a @c S32 succeeded or not.
 	 */
-	TokenResult StringToI32(
-		const char *begin, const char *end, i32 &result) noexcept;
+	TokenResult StringToS32(
+		const char *begin, const char *end, S32 &result) noexcept;
 	
 	/**
-	 Converts the given string to an @c u32.
+	 Converts the given string to an @c U32.
 
 	 @pre			@a end is not equal to @c nullptr if @a begin is not equal 
 					to @c nullptr.
@@ -319,16 +319,16 @@ namespace mage {
 	 @param[in]		end
 					A pointer to the end (exclusive) of the string to convert.
 	 @param[out]	result
-					A reference to the @c u32 represented by the string 
+					A reference to the @c U32 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c u32 succeeded or not.
+					of the given string @a str to an @c U32 succeeded or not.
 	 */
 	TokenResult StringToU32(
-		const char *begin, const char *end, u32 &result) noexcept;
+		const char *begin, const char *end, U32 &result) noexcept;
 	
 	/**
-	 Converts the given string to an @c i64.
+	 Converts the given string to a @c S64.
 
 	 @pre			@a end is not equal to @c nullptr if @a begin is not equal 
 					to @c nullptr.
@@ -338,16 +338,16 @@ namespace mage {
 	 @param[in]		end
 					A pointer to the end (exclusive) of the string to convert.
 	 @param[out]	result
-					A reference to the @c i64 represented by the string 
+					A reference to the @c S64 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c i64 succeeded or not.
+					of the given string @a str to a @c S64 succeeded or not.
 	 */
-	TokenResult StringToI64(
-		const char *begin, const char *end, i64 &result) noexcept;
+	TokenResult StringToS64(
+		const char *begin, const char *end, S64 &result) noexcept;
 	
 	/**
-	 Converts the given string to an @c u64.
+	 Converts the given string to an @c U64.
 
 	 @pre			@a end is not equal to @c nullptr if @a begin is not equal 
 					to @c nullptr.
@@ -357,16 +357,16 @@ namespace mage {
 	 @param[in]		end
 					A pointer to the end (exclusive) of the string to convert.
 	 @param[out]	result
-					A reference to the @c u64 represented by the string 
+					A reference to the @c U64 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to an @c u64 succeeded or not.
+					of the given string @a str to an @c U64 succeeded or not.
 	 */
 	TokenResult StringToU64(
-		const char *begin, const char *end, u64 &result) noexcept;
+		const char *begin, const char *end, U64 &result) noexcept;
 	
 	/**
-	 Converts the given string to a @c f32.
+	 Converts the given string to a @c F32.
 
 	 @pre			@a end is not equal to @c nullptr if @a begin is not equal 
 					to @c nullptr.
@@ -376,16 +376,16 @@ namespace mage {
 	 @param[in]		end
 					A pointer to the end (exclusive) of the string to convert.
 	 @param[out]	result
-					A reference to the @c f32 represented by the string 
+					A reference to the @c F32 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to a @c f32 succeeded or not.
+					of the given string @a str to a @c F32 succeeded or not.
 	 */
 	TokenResult StringToF32(
-		const char *begin, const char *end, f32 &result) noexcept;
+		const char *begin, const char *end, F32 &result) noexcept;
 	
 	/**
-	 Converts the given string to a @c f64.
+	 Converts the given string to a @c F64.
 
 	 @pre			@a end is not equal to @c nullptr if @a begin is not equal 
 					to @c nullptr.
@@ -395,13 +395,13 @@ namespace mage {
 	 @param[in]		end
 					A pointer to the end (exclusive) of the string to convert.
 	 @param[out]	result
-					A reference to the @c f64 represented by the string 
+					A reference to the @c F64 represented by the string 
 					@a str.
 	 @return		A token result indicating whether the conversion
-					of the given string @a str to a @c f64 succeeded or not.
+					of the given string @a str to a @c F64 succeeded or not.
 	 */
 	TokenResult StringToF64(
-		const char *begin, const char *end, f64 &result) noexcept;
+		const char *begin, const char *end, F64 &result) noexcept;
 
 #pragma endregion
 
@@ -411,144 +411,144 @@ namespace mage {
 #pragma region
 
 	/**
-	 Converts the prefix of the given string @a str to an @c i8.
+	 Converts the prefix of the given string @a str to a @c S8.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c i8 represented by the prefix of the 
+					A reference to the @c S8 represented by the prefix of the 
 					given string @a str.
 	 @return		A token result indicating whether the conversion of the 
-					prefix of the given string @a str to an @c i8 succeeded or 
+					prefix of the given string @a str to a @c S8 succeeded or 
 					not.
 	 */
-	TokenResult StringPrefixToI8(const char *str, i8 &result) noexcept;
+	TokenResult StringPrefixToS8(const char *str, S8 &result) noexcept;
 
 	/**
-	 Converts the prefix of the given string @a str to an @c u8.
+	 Converts the prefix of the given string @a str to an @c U8.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c u8 represented by the prefix of the 
+					A reference to the @c U8 represented by the prefix of the 
 					given string @a str.
 	 @return		A token result indicating whether the conversion of the 
-					prefix of the given string @a str to an @c u8 succeeded or 
+					prefix of the given string @a str to an @c U8 succeeded or 
 					not.
 	 */
-	TokenResult StringPrefixToU8(const char *str, u8 &result) noexcept;
+	TokenResult StringPrefixToU8(const char *str, U8 &result) noexcept;
 
 	/**
-	 Converts the prefix of the given string @a str to an @c i16.
+	 Converts the prefix of the given string @a str to a @c S16.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c i16 represented by the prefix of the 
+					A reference to the @c S16 represented by the prefix of the 
 					given string @a str.
 	 @return		A token result indicating whether the conversion of the 
-					prefix of the given string @a str to an @c i16 succeeded or 
+					prefix of the given string @a str to a @c S16 succeeded or 
 					not.
 	 */
-	TokenResult StringPrefixToI16(const char *str, i16 &result) noexcept;
+	TokenResult StringPrefixToS16(const char *str, S16 &result) noexcept;
 
 	/**
-	 Converts the prefix of the given string @a str to an @c u16.
+	 Converts the prefix of the given string @a str to an @c U16.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c u16 represented by the prefix of the 
+					A reference to the @c U16 represented by the prefix of the 
 					given string @a str.
 	 @return		A token result indicating whether the conversion of the 
-					prefix of the given string @a str to an @c u16 succeeded or 
+					prefix of the given string @a str to an @c U16 succeeded or 
 					not.
 	 */
-	TokenResult StringPrefixToU16(const char *str, u16 &result) noexcept;
+	TokenResult StringPrefixToU16(const char *str, U16 &result) noexcept;
 
 	/**
-	 Converts the prefix of the given string @a str to an @c i32.
+	 Converts the prefix of the given string @a str to a @c S32.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c i32 represented by the prefix of the 
+					A reference to the @c S32 represented by the prefix of the 
 					given string @a str.
 	 @return		A token result indicating whether the conversion of the 
-					prefix of the given string @a str to an @c i32 succeeded or 
+					prefix of the given string @a str to a @c S32 succeeded or 
 					not.
 	 */
-	TokenResult StringPrefixToI32(const char *str, i32 &result) noexcept;
+	TokenResult StringPrefixToS32(const char *str, S32 &result) noexcept;
 
 	/**
-	 Converts the prefix of the given string @a str to an @c u32.
+	 Converts the prefix of the given string @a str to an @c U32.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c u32 represented by the prefix of the 
+					A reference to the @c U32 represented by the prefix of the 
 					given string @a str.
 	 @return		A token result indicating whether the conversion of the 
-					prefix of the given string @a str to an @c u32 succeeded or 
+					prefix of the given string @a str to an @c U32 succeeded or 
 					not.
 	 */
-	TokenResult StringPrefixToU32(const char *str, u32 &result) noexcept;
+	TokenResult StringPrefixToU32(const char *str, U32 &result) noexcept;
 
 	/**
-	 Converts the prefix of the given string @a str to an @c i64.
+	 Converts the prefix of the given string @a str to a @c S64.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c i64 represented by the prefix of the 
+					A reference to the @c S64 represented by the prefix of the 
 					given string @a str.
 	 @return		A token result indicating whether the conversion of the 
-					prefix of the given string @a str to an @c i64 succeeded or 
+					prefix of the given string @a str to a @c S64 succeeded or 
 					not.
 	 */
-	TokenResult StringPrefixToI64(const char *str, i64 &result) noexcept;
+	TokenResult StringPrefixToS64(const char *str, S64 &result) noexcept;
 
 	/**
-	 Converts the prefix of the given string @a str to an @c u64.
+	 Converts the prefix of the given string @a str to an @c U64.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c u64 represented by the prefix of the 
+					A reference to the @c U64 represented by the prefix of the 
 					given string @a str.
 	 @return		A token result indicating whether the conversion of the 
-					prefix of the given string @a str to an @c u64 succeeded or 
+					prefix of the given string @a str to an @c U64 succeeded or 
 					not.
 	 */
-	TokenResult StringPrefixToU64(const char *str, u64 &result) noexcept;
+	TokenResult StringPrefixToU64(const char *str, U64 &result) noexcept;
 
 	/**
-	 Converts the prefix of the given string @a str to a @c f32.
+	 Converts the prefix of the given string @a str to a @c F32.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c f32 represented by the prefix of the 
+					A reference to the @c F32 represented by the prefix of the 
 					given string @a str.
 	 @return		A token result indicating whether the conversion of the 
-					prefix of the given string @a str to a @c f32 succeeded or 
+					prefix of the given string @a str to a @c F32 succeeded or 
 					not.
 	 */
-	TokenResult StringPrefixToF32(const char *str, f32 &result) noexcept;
+	TokenResult StringPrefixToF32(const char *str, F32 &result) noexcept;
 
 	/**
-	 Converts the prefix of the given string @a str to a @c f64.
+	 Converts the prefix of the given string @a str to a @c F64.
 
 	 @param[in]		str
 					A pointer to the null-terminated byte string to convert.
 	 @param[out]	result
-					A reference to the @c f64 represented by the prefix of the 
+					A reference to the @c F64 represented by the prefix of the 
 					given string @a str.
 	 @return		A token result indicating whether the conversion of the 
-					prefix of the given string @a str to a @c f64 succeeded or 
+					prefix of the given string @a str to a @c F64 succeeded or 
 					not.
 	 */
-	TokenResult StringPrefixToF64(const char *str, f64 &result) noexcept;
+	TokenResult StringPrefixToF64(const char *str, F64 &result) noexcept;
 
 #pragma endregion
 
@@ -665,7 +665,7 @@ namespace mage {
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
-	 Reads and converts the next token in the given string to an @c i8.
+	 Reads and converts the next token in the given string to a @c S8.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -678,19 +678,19 @@ namespace mage {
 					A pointer to the current position int he given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c i8 represented by the next 
+					A reference to the @c S8 represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing 
 					the delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to an @c i8 succeeded or not.
+					next token in the given string to a @c S8 succeeded or not.
 	 */
-	TokenResult ReadI8(char *str, char **context, i8 &result, 
+	TokenResult ReadS8(char *str, char **context, S8 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
-	 Reads and converts the next token in the given string to an @c u8.
+	 Reads and converts the next token in the given string to an @c U8.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -703,19 +703,19 @@ namespace mage {
 					A pointer to the current position int he given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c u8 represented by the next 
+					A reference to the @c U8 represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing 
 					the delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to an @c u8 succeeded or not.
+					next token in the given string to an @c U8 succeeded or not.
 	 */
-	TokenResult ReadU8(char *str, char **context, u8 &result, 
+	TokenResult ReadU8(char *str, char **context, U8 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
-	 Reads and converts the next token in the given string to an @c i16.
+	 Reads and converts the next token in the given string to a @c S16.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -728,19 +728,19 @@ namespace mage {
 					A pointer to the current position int he given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c i16 represented by the next 
+					A reference to the @c S16 represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing 
 					the delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to an @c i16 succeeded or not.
+					next token in the given string to a @c S16 succeeded or not.
 	 */
-	TokenResult ReadI16(char *str, char **context, i16 &result, 
+	TokenResult ReadS16(char *str, char **context, S16 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
-	 Reads and converts the next token in the given string to an @c u16.
+	 Reads and converts the next token in the given string to an @c U16.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -753,19 +753,19 @@ namespace mage {
 					A pointer to the current position int he given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c u16 represented by the next 
+					A reference to the @c U16 represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing 
 					the delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to an @c u16 succeeded or not.
+					next token in the given string to an @c U16 succeeded or not.
 	 */
-	TokenResult ReadU16(char *str, char **context, u16 &result, 
+	TokenResult ReadU16(char *str, char **context, U16 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
-	 Reads and converts the next token in the given string to an @c i32.
+	 Reads and converts the next token in the given string to a @c S32.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -778,19 +778,19 @@ namespace mage {
 					A pointer to the current position int he given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c i32 represented by the next 
+					A reference to the @c S32 represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing 
 					the delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to an @c i32 succeeded or not.
+					next token in the given string to a @c S32 succeeded or not.
 	 */
-	TokenResult ReadI32(char *str, char **context, i32 &result, 
+	TokenResult ReadS32(char *str, char **context, S32 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
-	 Reads and converts the next token in the given string to an @c u32.
+	 Reads and converts the next token in the given string to an @c U32.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -803,19 +803,19 @@ namespace mage {
 					A pointer to the current position int he given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c u32 represented by the next 
+					A reference to the @c U32 represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing 
 					the delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to an @c u32 succeeded or not.
+					next token in the given string to an @c U32 succeeded or not.
 	 */
-	TokenResult ReadU32(char *str, char **context, u32 &result, 
+	TokenResult ReadU32(char *str, char **context, U32 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
-	 Reads and converts the next token in the given string to an @c i64.
+	 Reads and converts the next token in the given string to a @c S64.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -828,19 +828,19 @@ namespace mage {
 					A pointer to the current position int he given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c i64 represented by the next 
+					A reference to the @c S64 represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing 
 					the delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to an @c i64 succeeded or not.
+					next token in the given string to a @c S64 succeeded or not.
 	 */
-	TokenResult ReadI64(char *str, char **context, i64 &result, 
+	TokenResult ReadS64(char *str, char **context, S64 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
-	 Reads and converts the next token in the given string to an @c u64.
+	 Reads and converts the next token in the given string to an @c U64.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -853,19 +853,19 @@ namespace mage {
 					A pointer to the current position int he given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c u64 represented by the next 
+					A reference to the @c U64 represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing 
 					the delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to an @c u64 succeeded or not.
+					next token in the given string to an @c U64 succeeded or not.
 	 */
-	TokenResult ReadU64(char *str, char **context, u64 &result, 
+	TokenResult ReadU64(char *str, char **context, U64 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
-	 Reads and converts the next token in the given string to a @c f32.
+	 Reads and converts the next token in the given string to a @c F32.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -878,19 +878,19 @@ namespace mage {
 					A pointer to the current position int he given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c f32 represented by the next 
+					A reference to the @c F32 represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing 
 					the delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to a @c f32 succeeded or not.
+					next token in the given string to a @c F32 succeeded or not.
 	 */
-	TokenResult ReadFloat(char *str, char **context, f32 &result, 
+	TokenResult ReadFloat(char *str, char **context, F32 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
-	 Reads and converts the next token in the given string to a @c f64.
+	 Reads and converts the next token in the given string to a @c F64.
 
 	 @pre			@a str or @a context is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -903,15 +903,15 @@ namespace mage {
 					A pointer to the current position int he given string 
 					@a str.
 	 @param[out]	result
-					A reference to the @c f64 represented by the next 
+					A reference to the @c F64 represented by the next 
 					token in the given string @a str.
 	 @param[in]		delimiters
 					A pointer to the null-terminated byte string containing 
 					the delimiting characters.
 	 @return		A token result indicating whether the conversion of the 
-					next token in the given string to a @c f64 succeeded or not.
+					next token in the given string to a @c F64 succeeded or not.
 	 */
-	TokenResult ReadDouble(char *str, char **context, f64 &result, 
+	TokenResult ReadDouble(char *str, char **context, F64 &result, 
 		const char *delimiters = g_default_delimiters) noexcept;
 	
 	/**
@@ -1011,7 +1011,7 @@ namespace mage {
 					A pointer to the null-terminated byte string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion
-					of the next token in the given string to an @c u32 succeeds 
+					of the next token in the given string to an @c U32 succeeds 
 					or not.
 	 */
 	TokenResult HasChars(const char *str, 
@@ -1071,7 +1071,7 @@ namespace mage {
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
-	 Checks whether the next token in the given string represents an @c u8.
+	 Checks whether the next token in the given string represents an @c U8.
 
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -1081,14 +1081,14 @@ namespace mage {
 					A pointer to the null-terminated byte string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion
-					of the next token in the given string to an @c i8 succeeds 
+					of the next token in the given string to a @c S8 succeeds 
 					or not.
 	 */
-	TokenResult HasI8(const char *str, 
+	TokenResult HasS8(const char *str, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
-	 Checks whether the next token in the given string represents an @c u8.
+	 Checks whether the next token in the given string represents an @c U8.
 
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -1098,14 +1098,14 @@ namespace mage {
 					A pointer to the null-terminated byte string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion
-					of the next token in the given string to an @c u8 succeeds 
+					of the next token in the given string to an @c U8 succeeds 
 					or not.
 	 */
 	TokenResult HasU8(const char *str, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
-	 Checks whether the next token in the given string represents an @c i16.
+	 Checks whether the next token in the given string represents a @c S16.
 
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -1115,14 +1115,14 @@ namespace mage {
 					A pointer to the null-terminated byte string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion
-					of the next token in the given string to an @c i16 succeeds 
+					of the next token in the given string to a @c S16 succeeds 
 					or not.
 	 */
-	TokenResult HasI16(const char *str, 
+	TokenResult HasS16(const char *str, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
-	 Checks whether the next token in the given string represents an @c u16.
+	 Checks whether the next token in the given string represents an @c U16.
 
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -1132,14 +1132,14 @@ namespace mage {
 					A pointer to the null-terminated byte string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion
-					of the next token in the given string to an @c u16 succeeds 
+					of the next token in the given string to an @c U16 succeeds 
 					or not.
 	 */
 	TokenResult HasU16(const char *str, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
-	 Checks whether the next token in the given string represents an @c i32.
+	 Checks whether the next token in the given string represents a @c S32.
 
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -1149,14 +1149,14 @@ namespace mage {
 					A pointer to the null-terminated byte string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion
-					of the next token in the given string to an @c i32 succeeds 
+					of the next token in the given string to a @c S32 succeeds 
 					or not.
 	 */
-	TokenResult HasI32(const char *str, 
+	TokenResult HasS32(const char *str, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
-	 Checks whether the next token in the given string represents an @c u32 .
+	 Checks whether the next token in the given string represents an @c U32 .
 
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -1166,14 +1166,14 @@ namespace mage {
 					A pointer to the null-terminated byte string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion
-					of the next token in the given string to an @c u32 succeeds 
+					of the next token in the given string to an @c U32 succeeds 
 					or not.
 	 */
 	TokenResult HasU32(const char *str, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
-	 Checks whether the next token in the given string represents an @c i64.
+	 Checks whether the next token in the given string represents a @c S64.
 
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -1183,14 +1183,14 @@ namespace mage {
 					A pointer to the null-terminated byte string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion
-					of the next token in the given string to an @c i64 succeeds 
+					of the next token in the given string to a @c S64 succeeds 
 					or not.
 	 */
-	TokenResult HasI64(const char *str, 
+	TokenResult HasS64(const char *str, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
-	 Checks whether the next token in the given string represents an @c u64.
+	 Checks whether the next token in the given string represents an @c U64.
 
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -1200,14 +1200,14 @@ namespace mage {
 					A pointer to the null-terminated byte string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion
-					of the next token in the given string to an @c u64 succeeds 
+					of the next token in the given string to an @c U64 succeeds 
 					or not.
 	 */
 	TokenResult HasU64(const char *str, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
-	 Checks whether the next token in the given string represents a @c f32.
+	 Checks whether the next token in the given string represents a @c F32.
 
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -1217,14 +1217,14 @@ namespace mage {
 					A pointer to the null-terminated byte string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion
-					of the next token in the given string to a @c f32 succeeds 
+					of the next token in the given string to a @c F32 succeeds 
 					or not.
 	 */
 	TokenResult HasF32(const char *str, 
 		const char *delimiters = g_default_delimiters) noexcept;
 
 	/**
-	 Checks whether the next token in the given string represents a @c f64.
+	 Checks whether the next token in the given string represents a @c F64.
 
 	 @pre			@a str is not equal to @c nullptr.
 	 @pre			@a delimiters is not equal to @c nullptr.
@@ -1234,7 +1234,7 @@ namespace mage {
 					A pointer to the null-terminated byte string containing the 
 					delimiting characters.
 	 @return		A token result indicating whether the conversion
-					of the next token in the given string to a @c f64 succeeds 
+					of the next token in the given string to a @c F64 succeeds 
 					or not.
 	 */
 	TokenResult HasF64(const char *str, 

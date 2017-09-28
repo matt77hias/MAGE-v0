@@ -282,7 +282,7 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
 	const float p_ndc_z  = ViewZtoNDCZ(p_view_z, projection_values);
 	const float4 loc     = float4(p_view, index);
 
-	return shadow_maps.SampleCmpLevelZero(pcf_sampler, loc, 1.1);
+	return shadow_maps.SampleCmpLevelZero(pcf_sampler, loc, p_ndc_z);
 }
 
 /**

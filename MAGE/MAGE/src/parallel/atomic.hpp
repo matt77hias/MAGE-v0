@@ -42,13 +42,13 @@ namespace mage {
 	/**
 	 Atomic 32-bit integer value.
 	 */
-	using AtomicI32 = volatile LONG;
+	using AtomicS32 = volatile LONG;
 
 #ifdef MAGE_HAS_64_BIT_ATOMICS
 	/**
 	 Atomic 64-bit integer value.
 	 */
-	using AtomicI64 = volatile LONGLONG;
+	using AtomicS64 = volatile LONGLONG;
 #endif
 
 	//-------------------------------------------------------------------------
@@ -95,12 +95,12 @@ namespace mage {
 					The second operand.
 	 @return		The function returns the result of the operation.
 	 */
-	__forceinline i32 AtomicAdd(AtomicI32 *addend, i32 value) noexcept {
+	__forceinline S32 AtomicAdd(AtomicS32 *addend, S32 value) noexcept {
 
 #if (MAGE_POINTER_SIZE == 8)
 		return InterlockedAdd(addend, value);
 #else
-		i32 result;
+		S32 result;
 		_ReadWriteBarrier();
 		__asm {
 			__asm mov edx, addend
@@ -128,8 +128,8 @@ namespace mage {
 					The value to compare to @a destination.
 	 @return		The function returns the initial value of @a destination.
 	 */
-	__forceinline i32 AtomicCompareAndSwap(
-		AtomicI32 *destination, i32 exchange, i32 comparand) noexcept {
+	__forceinline S32 AtomicCompareAndSwap(
+		AtomicS32 *destination, S32 exchange, S32 comparand) noexcept {
 		
 		return InterlockedCompareExchange(destination, exchange, comparand);
 	}
@@ -150,7 +150,7 @@ namespace mage {
 					The second operand.
 	 @return		The function returns the result of the operation.
 	 */
-	__forceinline i64 AtomicAdd(AtomicI64 *addend, i64 value) noexcept {
+	__forceinline S64 AtomicAdd(AtomicS64 *addend, S64 value) noexcept {
 		return InterlockedAdd64(addend, value);
 	}
 
@@ -169,8 +169,8 @@ namespace mage {
 					The value to compare to @a destination.
 	 @return		The function returns the initial value of @a destination.
 	 */
-	__forceinline i64 AtomicCompareAndSwap(
-		AtomicI64 *destination, i64 exchange, i64 comparand) noexcept {
+	__forceinline S64 AtomicCompareAndSwap(
+		AtomicS64 *destination, S64 exchange, S64 comparand) noexcept {
 		
 		return InterlockedCompareExchange64(destination, exchange, comparand);
 	}
@@ -191,11 +191,11 @@ namespace mage {
 					The second operand.
 	 @return		The function returns the result of the operation.
 	 */
-	__forceinline f32 AtomicAdd(volatile f32 *addend, f32 value) noexcept {
+	__forceinline F32 AtomicAdd(volatile F32 *addend, F32 value) noexcept {
 		
 		union bits { 
-			f32 f; 
-			i32 i; 
+			F32 f; 
+			S32 i; 
 		};
 		
 		bits old_value;
@@ -210,7 +210,7 @@ namespace mage {
 			new_value.f = old_value.f + value;
 
 		} while (AtomicCompareAndSwap(
-			(AtomicI32 *)addend, new_value.i, old_value.i) != old_value.i);
+			(AtomicS32 *)addend, new_value.i, old_value.i) != old_value.i);
 		
 		return new_value.f;
 	}

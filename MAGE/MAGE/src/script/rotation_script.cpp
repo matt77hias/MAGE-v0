@@ -23,27 +23,27 @@ namespace mage {
 
 	RotationScript::~RotationScript() = default;
 
-	void RotationScript::Update(f64 delta_time) {
+	void RotationScript::Update(F64 delta_time) {
 
 		switch (m_axis) {
 		
 		case RotationAxis::X: {
 			
-			m_transform->AddRotationX(static_cast< f32 >(delta_time));
+			m_transform->AddRotationX(static_cast< F32 >(delta_time));
 			
 			break;
 		}
 		
 		case RotationAxis::Y: {
 		
-			m_transform->AddRotationY(static_cast< f32 >(delta_time));
+			m_transform->AddRotationY(static_cast< F32 >(delta_time));
 			
 			break; 
 		}
 		
 		case RotationAxis::Z: {
 			
-			m_transform->AddRotationZ(static_cast< f32 >(delta_time));
+			m_transform->AddRotationZ(static_cast< F32 >(delta_time));
 			
 			break;
 		}

@@ -59,7 +59,7 @@ namespace mage {
 		void SetShader() noexcept;
 		void PrintText();
 
-		virtual void Update(f64 time) override;
+		virtual void Update(F64 time) override;
 
 		CameraSettings * const m_settings;
 		SpriteText * const m_text;

@@ -93,37 +93,37 @@ namespace mage {
 		/**
 		 The width of this game buffer.
 		 */
-		f32 m_width;
+		F32 m_width;
 
 		/**
 		 The height of this game buffer.
 		 */
-		f32 m_height;
+		F32 m_height;
 
 		/**
 		 The inverse width minus one of this game buffer.
 		 */
-		f32 m_inv_width_minus1;
+		F32 m_inv_width_minus1;
 
 		/**
 		 The inverse height minus one of this game buffer.
 		 */
-		f32 m_inv_height_minus1;
+		F32 m_inv_height_minus1;
 
 		/**
 		 The gamma exponent of this game buffer.
 		 */
-		f32 m_gamma;
+		F32 m_gamma;
 
 		/**
 		 The inverse gamma exponent of this game buffer.
 		 */
-		f32 m_inv_gamma;
+		F32 m_inv_gamma;
 
 		/**
 		 The padding of this game buffer.
 		 */
-		u32 m_padding[2];
+		U32 m_padding[2];
 	};
 
 	static_assert(sizeof(GameBuffer) == 32, "CPU/GPU struct mismatch");

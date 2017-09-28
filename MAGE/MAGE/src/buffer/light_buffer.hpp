@@ -100,7 +100,7 @@ namespace mage {
 		 The distance at which intensity falloff starts due to fog of this 
 		 light buffer.
 		 */
-		f32 m_fog_distance_falloff_start;
+		F32 m_fog_distance_falloff_start;
 	
 		/**
 		 The color of the fog of this light buffer.
@@ -111,48 +111,48 @@ namespace mage {
 		 The distance inverse range where intensity falloff occurs due to fog 
 		 of this light buffer.
 		 */
-		f32 m_fog_distance_falloff_inv_range;
+		F32 m_fog_distance_falloff_inv_range;
 
 		/**
 		 The number of directional lights of this light buffer.
 		 */
-		u32 m_nb_directional_lights;
+		U32 m_nb_directional_lights;
 
 		/**
 		 The number of omni lights of this light buffer.
 		 */
-		u32 m_nb_omni_lights;
+		U32 m_nb_omni_lights;
 
 		/**
 		 The number of spotlights of this light buffer.
 		 */
-		u32 m_nb_spot_lights;
+		U32 m_nb_spot_lights;
 
 		/**
 		 The padding of this light buffer. 
 		 */
-		u32 m_padding0;
+		U32 m_padding0;
 
 		/**
 		 The number of directional lights with shadow mapping of this light 
 		 buffer.
 		 */
-		u32 m_nb_sm_directional_lights;
+		U32 m_nb_sm_directional_lights;
 
 		/**
 		 The number of omni lights with shadow mapping of this light buffer.
 		 */
-		u32 m_nb_sm_omni_lights;
+		U32 m_nb_sm_omni_lights;
 
 		/**
 		 The number of spotlights with shadow mapping of this light buffer.
 		 */
-		u32 m_nb_sm_spot_lights;
+		U32 m_nb_sm_spot_lights;
 
 		/**
 		 The padding of this light buffer. 
 		 */
-		u32 m_padding1;
+		U32 m_padding1;
 	};
 
 	static_assert(sizeof(LightBuffer) == 64, 
@@ -245,7 +245,7 @@ namespace mage {
 		/**
 		 The padding of this directional light buffer.
 		 */
-		u32 m_padding0;
+		U32 m_padding0;
 
 		/**
 		 The (normalized) negated direction of the directional light in 
@@ -256,7 +256,7 @@ namespace mage {
 		/**
 		 The padding of this directional light buffer.
 		 */
-		u32 m_padding1;
+		U32 m_padding1;
 	};
 
 	static_assert(sizeof(DirectionalLightBuffer) == 32, 
@@ -344,7 +344,7 @@ namespace mage {
 		 The distance at which intensity falloff ends of the omni light of this 
 		 omni light buffer.
 		 */
-		f32 m_distance_falloff_end;
+		F32 m_distance_falloff_end;
 
 		/**
 		 The intensity of the omni light of this omni light buffer.
@@ -355,7 +355,7 @@ namespace mage {
 		 The distance inverse range where intensity falloff occurs of the omni 
 		 light of this omni light buffer.
 		 */
-		f32 m_distance_falloff_inv_range;
+		F32 m_distance_falloff_inv_range;
 	};
 
 	static_assert(sizeof(OmniLightBuffer) == 32, 
@@ -445,7 +445,7 @@ namespace mage {
 		/**
 		 The padding of this spotlight buffer.
 		 */
-		u32 m_padding0;
+		U32 m_padding0;
 
 		/**
 		 The intensity of the spotlight of this spotlight buffer.
@@ -455,7 +455,7 @@ namespace mage {
 		/**
 		 The padding of this spotlight buffer.
 		 */
-		u32 m_padding1;
+		U32 m_padding1;
 
 		/**
 		 The (normalized) negated direction of the spotlight in camera-space 
@@ -466,31 +466,31 @@ namespace mage {
 		/**
 		 The exponent property of the spotlight of this spotlight buffer.
 		 */
-		f32 m_exponent_property;
+		F32 m_exponent_property;
 		
 		/**
 		 The distance at which intensity falloff ends of the spotlight of this 
 		 spotlight buffer.
 		 */
-		f32 m_distance_falloff_end;
+		F32 m_distance_falloff_end;
 
 		/**
 		 The distance inverse range where intensity falloff occurs of the 
 		 spotlight of this spotlight buffer.
 		 */
-		f32 m_distance_falloff_inv_range;
+		F32 m_distance_falloff_inv_range;
 		
 		/**
 		 The cosine of the umbra angle of the spotlight of this spotlight 
 		 buffer.
 		 */
-		f32 m_cos_umbra;
+		F32 m_cos_umbra;
 
 		/**
 		 The cosine inverse range where intensity falloff occurs of the 
 		 spotlight of this spotlight buffer.
 		 */
-		f32 m_cos_inv_range;
+		F32 m_cos_inv_range;
 	};
 
 	static_assert(sizeof(SpotLightBuffer) == 64, 
@@ -718,7 +718,7 @@ namespace mage {
 		/**
 		 The padding of this omni light buffer with shadow mapping. 
 		 */
-		u32 m_padding0[2];
+		U32 m_padding0[2];
 	};
 
 	static_assert(sizeof(OmniLightWithShadowMappingBuffer) == 112, 

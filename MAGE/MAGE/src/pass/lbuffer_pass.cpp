@@ -126,12 +126,12 @@ namespace mage {
 		buffer.m_fog_distance_falloff_start     = scene->GetFog()->GetStartDistanceFalloff();
 		buffer.m_fog_distance_falloff_inv_range = 1.0f / scene->GetFog()->GetRangeDistanceFalloff();
 
-		buffer.m_nb_directional_lights          = static_cast< u32 >(m_directional_lights.size());
-		buffer.m_nb_omni_lights                 = static_cast< u32 >(m_omni_lights.size());
-		buffer.m_nb_spot_lights                 = static_cast< u32 >(m_spot_lights.size());
-		buffer.m_nb_sm_directional_lights       = static_cast< u32 >(m_sm_directional_lights.size());
-		buffer.m_nb_sm_omni_lights              = static_cast< u32 >(m_sm_omni_lights.size());
-		buffer.m_nb_sm_spot_lights              = static_cast< u32 >(m_sm_spot_lights.size());
+		buffer.m_nb_directional_lights          = static_cast< U32 >(m_directional_lights.size());
+		buffer.m_nb_omni_lights                 = static_cast< U32 >(m_omni_lights.size());
+		buffer.m_nb_spot_lights                 = static_cast< U32 >(m_spot_lights.size());
+		buffer.m_nb_sm_directional_lights       = static_cast< U32 >(m_sm_directional_lights.size());
+		buffer.m_nb_sm_omni_lights              = static_cast< U32 >(m_sm_omni_lights.size());
+		buffer.m_nb_sm_spot_lights              = static_cast< U32 >(m_sm_spot_lights.size());
 		
 		// Update the light buffer.
 		m_light_buffer.UpdateData(m_device_context, buffer);

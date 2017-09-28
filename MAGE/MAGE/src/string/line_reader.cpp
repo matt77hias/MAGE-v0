@@ -159,10 +159,10 @@ namespace mage {
 		}
 	}
 	
-	i8 LineReader::ReadI8() {
-		i8 result;
+	S8 LineReader::ReadS8() {
+		S8 result;
 		const TokenResult token_result 
-			= mage::ReadI8(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::ReadS8(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case TokenResult::Valid: {
@@ -181,8 +181,8 @@ namespace mage {
 		}
 	}
 	
-	u8 LineReader::ReadU8() {
-		u8 result;
+	U8 LineReader::ReadU8() {
+		U8 result;
 		const TokenResult token_result 
 			= mage::ReadU8(nullptr, &m_context, result, GetDelimiters().c_str());
 
@@ -203,10 +203,10 @@ namespace mage {
 		}
 	}
 	
-	i16 LineReader::ReadI16() {
-		i16 result;
+	S16 LineReader::ReadS16() {
+		S16 result;
 		const TokenResult token_result 
-			= mage::ReadI16(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::ReadS16(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case TokenResult::Valid: {
@@ -225,8 +225,8 @@ namespace mage {
 		}
 	}
 	
-	u16 LineReader::ReadU16() {
-		u16 result;
+	U16 LineReader::ReadU16() {
+		U16 result;
 		const TokenResult token_result 
 			= mage::ReadU16(nullptr, &m_context, result, GetDelimiters().c_str());
 
@@ -247,10 +247,10 @@ namespace mage {
 		}
 	}
 	
-	i32 LineReader::ReadI32() {
-		i32 result;
+	S32 LineReader::ReadS32() {
+		S32 result;
 		const TokenResult token_result 
-			= mage::ReadI32(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::ReadS32(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case TokenResult::Valid: {
@@ -269,8 +269,8 @@ namespace mage {
 		}
 	}
 	
-	u32 LineReader::ReadU32() {
-		u32 result;
+	U32 LineReader::ReadU32() {
+		U32 result;
 		const TokenResult token_result 
 			= mage::ReadU32(nullptr, &m_context, result, GetDelimiters().c_str());
 
@@ -291,10 +291,10 @@ namespace mage {
 		}
 	}
 	
-	i64 LineReader::ReadI64() {
-		i64 result;
+	S64 LineReader::ReadS64() {
+		S64 result;
 		const TokenResult token_result 
-			= mage::ReadI64(nullptr, &m_context, result, GetDelimiters().c_str());
+			= mage::ReadS64(nullptr, &m_context, result, GetDelimiters().c_str());
 
 		switch (token_result) {
 		case TokenResult::Valid: {
@@ -313,8 +313,8 @@ namespace mage {
 		}
 	}
 	
-	u64 LineReader::ReadU64() {
-		u64 result;
+	U64 LineReader::ReadU64() {
+		U64 result;
 		const TokenResult token_result 
 			= mage::ReadU64(nullptr, &m_context, result, GetDelimiters().c_str());
 
@@ -335,8 +335,8 @@ namespace mage {
 		}
 	}
 	
-	f32 LineReader::ReadF32() {
-		f32 result;
+	F32 LineReader::ReadF32() {
+		F32 result;
 		const TokenResult token_result 
 			= mage::ReadFloat(nullptr, &m_context, result, GetDelimiters().c_str());
 
@@ -346,17 +346,17 @@ namespace mage {
 		}
 		case TokenResult::None: {
 			throw FormattedException(
-				"%ls: line %u: no f32 value found.", GetFilename().c_str(), GetCurrentLineNumber());
+				"%ls: line %u: no F32 value found.", GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		default: {
 			throw FormattedException(
-				"%ls: line %u: invalid f32 value found.", GetFilename().c_str(), GetCurrentLineNumber());
+				"%ls: line %u: invalid F32 value found.", GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		}
 	}
 	
-	f64 LineReader::ReadF64() {
-		f64 result;
+	F64 LineReader::ReadF64() {
+		F64 result;
 		const TokenResult token_result 
 			= mage::ReadDouble(nullptr, &m_context, result, GetDelimiters().c_str());
 
@@ -366,12 +366,12 @@ namespace mage {
 		}
 		case TokenResult::None: {
 			throw FormattedException(
-				"%ls: line %u: no f64 value found.", 
+				"%ls: line %u: no F64 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		default: {
 			throw FormattedException(
-				"%ls: line %u: invalid f64 value found.", 
+				"%ls: line %u: invalid F64 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		}
@@ -388,12 +388,12 @@ namespace mage {
 		}
 		case TokenResult::None: {
 			throw FormattedException(
-				"%ls: line %u: no f322 value found.", 
+				"%ls: line %u: no F322 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		default: {
 			throw FormattedException(
-				"%ls: line %u: invalid f322 value found.", 
+				"%ls: line %u: invalid F322 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		}
@@ -410,12 +410,12 @@ namespace mage {
 		}
 		case TokenResult::None: {
 			throw FormattedException(
-				"%ls: line %u: no f323 value found.", 
+				"%ls: line %u: no F323 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		default: {
 			throw FormattedException(
-				"%ls: line %u: invalid f323 value found.", 
+				"%ls: line %u: invalid F323 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		}
@@ -432,12 +432,12 @@ namespace mage {
 		}
 		case TokenResult::None: {
 			throw FormattedException(
-				"%ls: line %u: no f324 value found.", 
+				"%ls: line %u: no F324 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		default: {
 			throw FormattedException(
-				"%ls: line %u: invalid f324 value found.", 
+				"%ls: line %u: invalid F324 value found.", 
 				GetFilename().c_str(), GetCurrentLineNumber());
 		}
 		}
@@ -463,8 +463,8 @@ namespace mage {
 			== TokenResult::Valid;
 	}
 	
-	bool LineReader::HasI8() const {
-		return mage::HasI8(m_context, GetDelimiters().c_str()) 
+	bool LineReader::HasS8() const {
+		return mage::HasS8(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
@@ -473,8 +473,8 @@ namespace mage {
 			== TokenResult::Valid;
 	}
 	
-	bool LineReader::HasI16() const {
-		return mage::HasI16(m_context, GetDelimiters().c_str()) 
+	bool LineReader::HasS16() const {
+		return mage::HasS16(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
@@ -483,8 +483,8 @@ namespace mage {
 			== TokenResult::Valid;
 	}
 	
-	bool LineReader::HasI32() const {
-		return mage::HasI32(m_context, GetDelimiters().c_str()) 
+	bool LineReader::HasS32() const {
+		return mage::HasS32(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	
@@ -493,8 +493,8 @@ namespace mage {
 			== TokenResult::Valid;
 	}
 	
-	bool LineReader::HasI64() const {
-		return mage::HasI64(m_context, GetDelimiters().c_str()) 
+	bool LineReader::HasS64() const {
+		return mage::HasS64(m_context, GetDelimiters().c_str()) 
 			== TokenResult::Valid;
 	}
 	

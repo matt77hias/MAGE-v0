@@ -41,7 +41,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update(f64 delta_time) override;
+		virtual void Update(F64 delta_time) override;
 	};
 }
 

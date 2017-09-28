@@ -38,7 +38,7 @@ namespace mage {
 		 @param[in]		rgb
 						The red, green and blue component.
 		 */
-		explicit RGBSpectrum(f32 rgb = 0.0f) noexcept
+		explicit RGBSpectrum(F32 rgb = 0.0f) noexcept
 			: RGBSpectrum(rgb, rgb, rgb) {}
 		
 		/**
@@ -51,7 +51,7 @@ namespace mage {
 		 @param[in]		b
 						The blue component.
 		 */
-		explicit RGBSpectrum(f32 r, f32 g, f32 b) noexcept
+		explicit RGBSpectrum(F32 r, F32 g, F32 b) noexcept
 			: XMFLOAT3(r, g, b) {}
 
 		/**
@@ -150,7 +150,7 @@ namespace mage {
 		 @param[in]		xyz
 						The x, y and z component.
 		 */
-		explicit XYZSpectrum(f32 xyz = 0.0f) noexcept
+		explicit XYZSpectrum(F32 xyz = 0.0f) noexcept
 			: XYZSpectrum(xyz, xyz, xyz) {}
 		
 		/**
@@ -163,7 +163,7 @@ namespace mage {
 		 @param[in]		z
 						The z component.
 		 */
-		explicit XYZSpectrum(f32 x, f32 y, f32 z) noexcept
+		explicit XYZSpectrum(F32 x, F32 y, F32 z) noexcept
 			: XMFLOAT3(x, y, z) {}
 
 		/**
@@ -265,7 +265,7 @@ namespace mage {
 		 @param[in]		rgba
 						The red, green and blue and alpha component.
 		 */
-		explicit RGBASpectrum(f32 rgba = 0.0f) noexcept
+		explicit RGBASpectrum(F32 rgba = 0.0f) noexcept
 			: RGBASpectrum(rgba, rgba, rgba, rgba) {}
 		
 		/**
@@ -280,7 +280,7 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		explicit RGBASpectrum(f32 r, f32 g, f32 b, f32 a = 1.0f) noexcept
+		explicit RGBASpectrum(F32 r, F32 g, F32 b, F32 a = 1.0f) noexcept
 			: XMFLOAT4(r, g, b, a) {}
 
 		/**
@@ -307,7 +307,7 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		explicit RGBASpectrum(const RGBSpectrum &rgb, f32 a = 1.0f) noexcept
+		explicit RGBASpectrum(const RGBSpectrum &rgb, F32 a = 1.0f) noexcept
 			: RGBASpectrum(rgb.x, rgb.y, rgb.z, a) {}
 
 		/**
@@ -318,7 +318,7 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		explicit RGBASpectrum(const XYZSpectrum &xyz, f32 a = 1.0f) noexcept 
+		explicit RGBASpectrum(const XYZSpectrum &xyz, F32 a = 1.0f) noexcept 
 			: RGBASpectrum(RGBSpectrum(xyz), a) {}
 
 		/**
@@ -337,7 +337,7 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		explicit RGBASpectrum(const XMFLOAT3 &v, f32 a = 1.0f) noexcept
+		explicit RGBASpectrum(const XMFLOAT3 &v, F32 a = 1.0f) noexcept
 			: RGBASpectrum(v.x, v.y, v.z, a) {}
 
 		/**
@@ -412,7 +412,7 @@ namespace mage {
 		 @param[in]		xyza
 						The x, y and z and alpha component.
 		 */
-		explicit XYZASpectrum(f32 xyza = 0.0f) noexcept
+		explicit XYZASpectrum(F32 xyza = 0.0f) noexcept
 			: XYZASpectrum(xyza, xyza, xyza, xyza) {}
 		
 		/**
@@ -427,7 +427,7 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		explicit XYZASpectrum(f32 x, f32 y, f32 z, f32 a = 1.0f) noexcept
+		explicit XYZASpectrum(F32 x, F32 y, F32 z, F32 a = 1.0f) noexcept
 			: XMFLOAT4(x, y, z, a) {}
 
 		/**
@@ -454,7 +454,7 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		explicit XYZASpectrum(const XYZSpectrum &xyz, f32 a = 1.0f) noexcept
+		explicit XYZASpectrum(const XYZSpectrum &xyz, F32 a = 1.0f) noexcept
 			: XYZASpectrum(xyz.x, xyz.y, xyz.z, a) {}
 
 		/**
@@ -465,7 +465,7 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		explicit XYZASpectrum(const RGBSpectrum &rgb, f32 a = 1.0f) noexcept 
+		explicit XYZASpectrum(const RGBSpectrum &rgb, F32 a = 1.0f) noexcept 
 			: XYZASpectrum(XYZSpectrum(rgb), a) {}
 
 		/**
@@ -484,7 +484,7 @@ namespace mage {
 		 @param[in]		a
 						The alpha component.
 		 */
-		explicit XYZASpectrum(const XMFLOAT3 &v, f32 a = 1.0f) noexcept
+		explicit XYZASpectrum(const XMFLOAT3 &v, F32 a = 1.0f) noexcept
 			: XYZASpectrum(v.x, v.y, v.z, a) {}
 
 		/**

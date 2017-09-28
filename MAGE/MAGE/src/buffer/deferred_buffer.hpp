@@ -102,25 +102,25 @@ namespace mage {
 		 The 1st BRDF dependent material coefficient start of this deferred 
 		 buffer.
 		 */
-		f32 m_mat1_start;
+		F32 m_mat1_start;
 
 		/**
 		 The 1st BRDF dependent material coefficient range of this deferred 
 		 buffer.
 		 */
-		f32 m_mat1_range;
+		F32 m_mat1_range;
 
 		/**
 		 The 2nd BRDF dependent material coefficient start of this deferred 
 		 buffer.
 		 */
-		f32 m_mat2_start;
+		F32 m_mat2_start;
 
 		/**
 		 The 2nd BRDF dependent material coefficient range of this deferred 
 		 buffer.
 		 */
-		f32 m_mat2_range;
+		F32 m_mat2_range;
 	};
 
 	static_assert(sizeof(DeferredBuffer) == 32, "CPU/GPU struct mismatch");

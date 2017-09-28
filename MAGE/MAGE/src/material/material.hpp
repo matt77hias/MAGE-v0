@@ -31,36 +31,36 @@ namespace mage {
 		 The index of the material specular exponent 
 		 in the material parameters.
 		 */
-		static const u8 s_material_Ns_index = 0;
+		static const U8 s_material_Ns_index = 0;
 
 		/**
 		 The index of the material Ward alpha value
 		 in the material parameters.
 		 */
-		static const u8 s_material_Ward_alpha_index = 0;
+		static const U8 s_material_Ward_alpha_index = 0;
 
 		/**
 		 The index of the material roughness
 		 in the material parameters.
 		 */
-		static const u8 s_material_roughness_index = 0;
+		static const U8 s_material_roughness_index = 0;
 
 		/**
 		 The index of the material reflection coefficient
 		 in the material parameters.
 		 */
-		static const u8 s_material_reflection_coefficient_index = 1;
+		static const U8 s_material_reflection_coefficient_index = 1;
 
 		/**
 		 The index of the material index of refraction
 		 in the material parameters.
 		 */
-		static const u8 s_material_index_of_refraction_index = 2;
+		static const U8 s_material_index_of_refraction_index = 2;
 
 		/**
 		 The number of material parameters.
 		 */
-		static const u8 s_nb_material_parameters = 3;
+		static const U8 s_nb_material_parameters = 3;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
@@ -428,7 +428,7 @@ namespace mage {
 
 		 @return		The dissolve of this material.
 		 */
-		f32 GetDissolve() const noexcept {
+		F32 GetDissolve() const noexcept {
 			return m_dissolve;
 		}
 		
@@ -438,7 +438,7 @@ namespace mage {
 		 @param[in]		dissolve
 						A reference to the dissolve.
 		 */
-		void SetDissolve(f32 dissolve) noexcept {
+		void SetDissolve(F32 dissolve) noexcept {
 			m_dissolve = dissolve;
 			UpdateTransparency();
 		}
@@ -549,7 +549,7 @@ namespace mage {
 
 		 @return		The specular exponent of this material.
 		*/
-		f32 GetSpecularExponent() const noexcept {
+		F32 GetSpecularExponent() const noexcept {
 			return GetMaterialParameter(s_material_Ns_index);
 		}
 		
@@ -560,7 +560,7 @@ namespace mage {
 		 @param[in]		specular_exponent
 						A reference to the specular exponent.
 		*/
-		void SetSpecularExponent(f32 specular_exponent) noexcept {
+		void SetSpecularExponent(F32 specular_exponent) noexcept {
 			SetMaterialParameter(s_material_Ns_index, specular_exponent);
 		}
 
@@ -569,7 +569,7 @@ namespace mage {
 
 		 @return		The index of refraction of this material.
 		 */
-		f32 GetIndexOfRefraction() const noexcept {
+		F32 GetIndexOfRefraction() const noexcept {
 			return GetMaterialParameter(s_material_index_of_refraction_index);
 		}
 		
@@ -580,7 +580,7 @@ namespace mage {
 		 @param[in]		index_of_refraction
 						A reference to the index of refraction.
 		 */
-		void SetIndexOfRefraction(f32 index_of_refraction) noexcept {
+		void SetIndexOfRefraction(F32 index_of_refraction) noexcept {
 			SetMaterialParameter(
 				s_material_index_of_refraction_index, index_of_refraction);
 		}
@@ -595,7 +595,7 @@ namespace mage {
 		 @return		The material parameter of this material at the given 
 						index.
 		 */
-		f32 GetMaterialParameter(u8 index) const noexcept {
+		F32 GetMaterialParameter(U8 index) const noexcept {
 			Assert(index < s_nb_material_parameters);
 			return m_material_parameters[index];
 		}
@@ -611,7 +611,7 @@ namespace mage {
 		 @param[in]		value
 						The value.
 		 */
-		void SetMaterialParameter(u8 index, f32 value) noexcept {
+		void SetMaterialParameter(U8 index, F32 value) noexcept {
 			Assert(index < s_nb_material_parameters);
 			m_material_parameters[index] = value;
 		}
@@ -691,7 +691,7 @@ namespace mage {
 		 Unlike a real transparent material, the dissolve does not depend upon 
 		 material thickness nor does it have any spectral character.
 		 */
-		f32 m_dissolve;
+		F32 m_dissolve;
 
 		/**
 		 A pointer to the normal texture of this material.
@@ -711,6 +711,6 @@ namespace mage {
 		/**
 		 The material parameters of this material.
 		 */
-		f32 m_material_parameters[s_nb_material_parameters];
+		F32 m_material_parameters[s_nb_material_parameters];
 	};
 }

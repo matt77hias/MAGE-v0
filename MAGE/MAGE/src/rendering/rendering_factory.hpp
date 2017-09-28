@@ -459,8 +459,8 @@ namespace mage {
 	 */
 	HRESULT CreateShadowMapRasterizerState(ID3D11Device2 *device,
 		ID3D11RasterizerState **rasterizer_state,
-		i32 depth_bias, f32 slope_scaled_depth_bias,
-		f32 depth_bias_clamp = 0.0f,
+		S32 depth_bias, F32 slope_scaled_depth_bias,
+		F32 depth_bias_clamp = 0.0f,
 		D3D11_CULL_MODE cull_mode = D3D11_CULL_BACK) noexcept;
 
 	//-------------------------------------------------------------------------

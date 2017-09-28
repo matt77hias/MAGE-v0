@@ -373,7 +373,8 @@ namespace mage {
 		/**
 		 Sets shadows for this spotlight to the given value.
 
-		 @param[in]		@c true if shadows should be used for this spotlight. 
+		 @param[in]		shadows	
+						@c true if shadows should be used for this spotlight. 
 						@c false otherwise.
 		 */
 		void SetShadows(bool shadows) noexcept {
@@ -391,7 +392,7 @@ namespace mage {
 			return XMMatrixPerspectiveFovLH(
 				1.0f, 
 				2.0f * GetUmbraAngle(),
-				MAGE_DEFAULT_CAMERA_NEAR_Z, 
+				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z,
 				GetEndDistanceFalloff());
 		}
 
@@ -404,7 +405,7 @@ namespace mage {
 			return PerspectiveCamera(
 				1.0f,
 				2.0f * GetUmbraAngle(),
-				MAGE_DEFAULT_CAMERA_NEAR_Z,
+				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z,
 				GetEndDistanceFalloff());
 		}
 

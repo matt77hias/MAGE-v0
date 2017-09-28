@@ -126,7 +126,8 @@ namespace mage {
 		/**
 		 Sets shadows for this directional light to the given value.
 
-		 @param[in]		@c true if shadows should be used for this directional 
+		 @param[in]		shadows
+						@c true if shadows should be used for this directional 
 						light. @c false otherwise.
 		 */
 		void SetShadows(bool shadows) noexcept {

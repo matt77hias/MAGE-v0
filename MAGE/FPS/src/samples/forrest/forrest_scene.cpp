@@ -88,9 +88,9 @@ namespace mage {
 		model_plane2->GetTransform()->SetScale(5.0f);
 		model_plane2->GetTransform()->SetRotationZ(XM_PIDIV4);
 
-		auto model_plane3 = CreateModel(*model_desc_plane);
-		model_plane3->GetTransform()->SetScale(5.0f);
-		model_plane3->GetTransform()->SetTranslationY(0.5f);
+		//auto model_plane3 = CreateModel(*model_desc_plane);
+		//model_plane3->GetTransform()->SetScale(5.0f);
+		//model_plane3->GetTransform()->SetTranslationY(0.5f);
 
 		auto model_tree1 = CreateModel(*model_desc_tree1);
 		model_tree1->GetTransform()->SetScale(2.0f);
@@ -98,15 +98,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		auto omni_light = Create< OmniLightNode >("light");
-		omni_light->GetTransform()->SetTranslationY(3.0f);
-		omni_light->GetLight()->SetDistanceFalloff(3.0f, 4.0f);
-		omni_light->GetLight()->EnableShadows();
+		//auto omni_light = Create< OmniLightNode >("light");
+		//omni_light->GetTransform()->SetTranslationY(3.0f);
+		//omni_light->GetLight()->SetDistanceFalloff(3.0f, 4.0f);
+		//omni_light->GetLight()->EnableShadows();
 
-		//auto spot_light = Create< SpotLightNode >("light");
-		//spot_light->GetLight()->SetDistanceFalloff(0.0f, 5.0f);
-		//spot_light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
-		//camera->AddChildNode(spot_light);
+		auto spot_light = Create< SpotLightNode >("light");
+		spot_light->GetTransform()->SetTranslationY(3.0f);
+		spot_light->GetTransform()->SetRotationX(XM_PIDIV2);
+		spot_light->GetLight()->SetDistanceFalloff(3.0f, 4.0f);
+		spot_light->GetLight()->SetAngularCutoff(1.0f, sqrt(2.0f)/2.0f);
+		spot_light->GetLight()->EnableShadows();
 
 		//---------------------------------------------------------------------
 		// Image

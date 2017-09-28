@@ -78,7 +78,6 @@ namespace mage {
 			m_viewport.BindViewport(device_context);
 		}
 		void ClearDSVs(ID3D11DeviceContext2 *device_context) const noexcept {
-
 			for (const auto &dsv : m_dsvs) {
 				Pipeline::OM::ClearDSV(device_context, dsv.Get());
 			}
@@ -172,7 +171,6 @@ namespace mage {
 			m_viewport.BindViewport(device_context);
 		}
 		void ClearDSVs(ID3D11DeviceContext2 *device_context) const noexcept {
-
 			for (const auto &dsv : m_dsvs) {
 				Pipeline::OM::ClearDSV(device_context, dsv.Get());
 			}

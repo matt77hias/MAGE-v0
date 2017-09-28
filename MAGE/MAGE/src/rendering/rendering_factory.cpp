@@ -167,7 +167,7 @@ namespace mage {
 
 		//TODO: remove
 		desc.DepthBias = 100;
-		desc.SlopeScaledDepthBias = 1.0f;
+		//desc.SlopeScaledDepthBias = 1.0f;
 		desc.DepthBiasClamp       = 0.0f;
 
 		return device->CreateRasterizerState(&desc, rasterizer_state);

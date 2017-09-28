@@ -109,6 +109,8 @@ namespace mage {
 		 Renders the given scene.
 
 		 @pre			@a scene is not equal to @c nullptr.
+		 @param[in]		scene
+						A pointer to the scene.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
 		 @param[in]		view_to_projection

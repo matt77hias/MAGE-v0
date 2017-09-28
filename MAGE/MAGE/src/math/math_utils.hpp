@@ -152,6 +152,7 @@ namespace mage {
 		const f32 y = 1.0f / XMVectorGetY(projection_matrix.r[1]);
 		const f32 z =  XMVectorGetZ(projection_matrix.r[3]);
 		const f32 w = -XMVectorGetZ(projection_matrix.r[2]);
+		
 		return XMVectorSet(x, y, z, w);
 	}
 	
@@ -178,6 +179,7 @@ namespace mage {
 
 		const f32 x = XMVectorGetZ(projection_matrix.r[2]);
 		const f32 y = XMVectorGetZ(projection_matrix.r[3]);
+		
 		return XMVectorSet(x, y, 0.0f, 0.0f);
 	}
 }

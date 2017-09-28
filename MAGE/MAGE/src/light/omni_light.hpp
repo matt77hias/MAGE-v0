@@ -226,7 +226,8 @@ namespace mage {
 		/**
 		 Sets shadows for this omni light to the given value.
 
-		 @param[in]		@c true if shadows should be used for this omni light. 
+		 @param[in]		shadows	
+						@c true if shadows should be used for this omni light. 
 						@c false otherwise.
 		 */
 		void SetShadows(bool shadows) noexcept {
@@ -244,7 +245,7 @@ namespace mage {
 			return XMMatrixPerspectiveFovLH(
 				1.0f, 
 				XM_PIDIV2,
-				MAGE_DEFAULT_CAMERA_NEAR_Z, 
+				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z,
 				GetEndDistanceFalloff());
 		}
 
@@ -257,7 +258,7 @@ namespace mage {
 			return PerspectiveCamera(
 				1.0f,
 				XM_PIDIV2,
-				MAGE_DEFAULT_CAMERA_NEAR_Z,
+				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z,
 				GetEndDistanceFalloff());
 		}
 

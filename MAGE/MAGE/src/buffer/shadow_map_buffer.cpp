@@ -93,7 +93,8 @@ namespace mage {
 		const HRESULT result_texture = device->CreateTexture2D(
 			&texture_desc, nullptr,
 			texture.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_texture, "Texture 2D creation failed: %08X.", result_texture);
+		ThrowIfFailed(result_texture, 
+			"Texture 2D creation failed: %08X.", result_texture);
 
 		// Resize the DSV vector.
 		m_dsvs.resize(texture_desc.ArraySize);
@@ -111,7 +112,8 @@ namespace mage {
 			const HRESULT result_dsv = device->CreateDepthStencilView(
 				texture.Get(), &dsv_desc,
 				m_dsvs[i].ReleaseAndGetAddressOf());
-			ThrowIfFailed(result_dsv, "DSV creation failed: %08X.", result_dsv);
+			ThrowIfFailed(result_dsv, 
+				"DSV creation failed: %08X.", result_dsv);
 		}
 
 		// Create the SRV descriptor.
@@ -125,7 +127,8 @@ namespace mage {
 		const HRESULT result_srv = device->CreateShaderResourceView(
 			texture.Get(), &srv_desc,
 			m_srv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_srv, "SRV creation failed: %08X.", result_srv);
+		ThrowIfFailed(result_srv, 
+			"SRV creation failed: %08X.", result_srv);
 	}
 	
 	//-------------------------------------------------------------------------
@@ -208,7 +211,8 @@ namespace mage {
 		const HRESULT result_texture = device->CreateTexture2D(
 			&texture_desc, nullptr,
 			texture.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_texture, "Texture 2D creation failed: %08X.", result_texture);
+		ThrowIfFailed(result_texture, 
+			"Texture 2D creation failed: %08X.", result_texture);
 
 		// Resize the DSV vector.
 		m_dsvs.resize(texture_desc.ArraySize);
@@ -226,7 +230,8 @@ namespace mage {
 			const HRESULT result_dsv = device->CreateDepthStencilView(
 				texture.Get(), &dsv_desc,
 				m_dsvs[i].ReleaseAndGetAddressOf());
-			ThrowIfFailed(result_dsv, "DSV creation failed: %08X.", result_dsv);
+			ThrowIfFailed(result_dsv, 
+				"DSV creation failed: %08X.", result_dsv);
 		}
 
 		// Create the SRV descriptor.
@@ -240,6 +245,7 @@ namespace mage {
 		const HRESULT result_srv = device->CreateShaderResourceView(
 			texture.Get(), &srv_desc,
 			m_srv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_srv, "SRV creation failed: %08X.", result_srv);
+		ThrowIfFailed(result_srv, 
+			"SRV creation failed: %08X.", result_srv);
 	}
 }

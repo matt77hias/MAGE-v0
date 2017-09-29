@@ -6,6 +6,36 @@
 //-----------------------------------------------------------------------------
 
 /**
+ The constant value pi.
+ */
+static const float g_pi       = 3.141592654f;
+
+/**
+ The constant value 2 times pi.
+ */
+static const float g_2pi      = 6.283185307f;
+
+/**
+ The constant value 1 over pi.
+ */
+static const float g_inv_pi   = 0.318309886f;
+
+/**
+ The constant value 1 over 2 times pi.
+ */
+static const float g_inv_2pi  = 0.159154943f;
+
+/**
+ The constant value pi over 2.
+ */
+static const float g_pi_inv_2 = 1.570796327f;
+
+/**
+ The constant value pi over 4.
+ */
+static const float g_pi_inv_4 = 0.785398163f;
+
+/**
  Returns the maximum component value of the given value.
 
  @param[in]		v

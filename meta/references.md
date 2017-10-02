@@ -46,6 +46,8 @@ BOURKE P.: [*Object Files (.obj)*](http://paulbourke.net/dataformats/obj/).
 
 CAFLISCH R.E.: *Monte Carlo and quasi-Monte Carlo methods*, Acta Numerica, Cambridge University Press, 1998.
 
+DE VRIES J.: [Learn OpenGL](https://learnopengl.com/), 2014.
+
 DUFF T., BURGESS J., CHRISTENSEN P., HERY C., KENSLER A., LIANI M., VILLEMIN R.: *Building an Orthonormal Basis, Revisited*, *Journal of Computer Graphics Techniques* 6, 1, 2017.
 
 DUTRÉ P.: [*Global Illumination Compendium*](https://people.cs.kuleuven.be/~philip.dutre/GI/TotalCompendium.pdf), 2003.

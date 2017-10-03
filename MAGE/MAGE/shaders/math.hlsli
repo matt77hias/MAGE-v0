@@ -2,7 +2,7 @@
 #define MAGE_HEADER_MATH
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations and Definitions: Constants
 //-----------------------------------------------------------------------------
 
 /**
@@ -11,29 +11,174 @@
 static const float g_pi       = 3.141592654f;
 
 /**
- The constant value 2 times pi.
+ The constant value 2 pi.
  */
-static const float g_2pi      = 6.283185307f;
+static const float g_2pi = 6.283185307f;
 
 /**
- The constant value 1 over pi.
+ The constant value 1/pi.
  */
-static const float g_inv_pi   = 0.318309886f;
+static const float g_inv_pi = 0.318309886f;
 
 /**
- The constant value 1 over 2 times pi.
+ The constant value 1/(2 pi).
  */
-static const float g_inv_2pi  = 0.159154943f;
+static const float g_inv_2pi = 0.159154943f;
 
 /**
- The constant value pi over 2.
+ The constant value pi/2.
  */
 static const float g_pi_inv_2 = 1.570796327f;
 
 /**
- The constant value pi over 4.
+ The constant value pi/4.
  */
 static const float g_pi_inv_4 = 0.785398163f;
+
+/**
+ The constant value sqrt(2/pi).
+ */
+static const float g_sqrt_2_inv_pi = 0.7978845608f;
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: sqr
+//-----------------------------------------------------------------------------
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+float sqr(float v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+float2 sqr(float2 v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+float3 sqr(float3 v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+float4 sqr(float4 v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+uint sqr(uint v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+uint2 sqr(uint2 v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+uint3 sqr(uint3 v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+uint4 sqr(uint4 v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+int sqr(int v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+int2 sqr(int2 v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+int3 sqr(int3 v) {
+	return v * v;
+}
+
+/**
+ Calculates the square of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The square of the given value.
+ */
+int4 sqr(int4 v) {
+	return v * v;
+}
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Max
+//-----------------------------------------------------------------------------
 
 /**
  Returns the maximum component value of the given value.
@@ -68,6 +213,10 @@ float Max(float4 v) {
 	return max(max(v.x, v.y), max(v.z, v.w));
 }
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Min
+//-----------------------------------------------------------------------------
+
 /**
  Returns the minimum component value of the given value.
 
@@ -100,6 +249,10 @@ float Min(float3 v) {
 float Min(float4 v) {
 	return min(min(v.x, v.y), min(v.z, v.w));
 }
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: UNORMtoSNORM
+//-----------------------------------------------------------------------------
 
 /**
  Converts the given unsigned normalized value ([0,1] range) to a signed 
@@ -153,6 +306,10 @@ float4 UNORMtoSNORM(float4 v) {
 	return 2.0f * v - 1.0f;
 }
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: SNORMtoUNORM
+//-----------------------------------------------------------------------------
+
 /**
  Converts the given signed normalized value ([-1,1] range) to an unsigned 
  normalized value ([0,1] range).
@@ -205,6 +362,10 @@ float4 SNORMtoUNORM(float4 v) {
 	return 0.5f * v + 0.5f;
 }
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Normal Utilities
+//-----------------------------------------------------------------------------
+
 /**
  Converts the given normal from the [0,1] range to the [-1,1] range.
 
@@ -230,6 +391,10 @@ float3 UnpackNormal(float3 n) {
 float3 PackNormal(float3 n) {
 	return SNORMtoUNORM(n);
 }
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Transform Utilities
+//-----------------------------------------------------------------------------
 
 /**
  Converts the given (linear) view z-coordinate to the (non-linear) NDC 
@@ -301,6 +466,10 @@ float2 NormalizedDispatchThreadIDtoNDC(float2 normalized_id) {
 	return float2(2.0f, -2.0f) * normalized_id + float2(-1.0f, 1.0f);
 }
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Gamma Utilities
+//-----------------------------------------------------------------------------
+
 /**
  Performs gamma correction on the given RGB spectrum.
 
@@ -331,6 +500,10 @@ float3 GammaRecover(float3 rgb, float gamma) {
 	return pow(rgb, gamma);
 }
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Indexing Utilities
+//-----------------------------------------------------------------------------
+
 /**
  Flattens the given index.
 
@@ -358,6 +531,32 @@ uint FlattenIndex(uint2 index, uint count) {
  */
 uint FlattenIndex(uint3 index, uint2 count) {
 	return FlattenIndex(index.xy, count.x) * count.y + index.z;
+}
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Trigonometric Utilities
+//-----------------------------------------------------------------------------
+
+/**
+ Calculates the squared tangent from the given squared cosine.
+
+ @param[in]		sqr_cos
+				The squared cosine.
+ @return		The squared tangent corresponding to the given squared cosine.
+ */
+float SqrCosToSqrTan(float sqr_cos) {
+	return (1.0f - sqr_cos) / sqr_cos;
+}
+
+/**
+ Calculates the squared tangent from the given squared sine.
+
+ @param[in]		sqr_sin
+				The squared sine.
+ @return		The squared tangent corresponding to the given squared sine.
+ */
+float SqrSinToSqrTan(float sqr_sin) {
+	return sqr_sin / (1.0f - sqr_sin);
 }
 
 #endif //MAGE_HEADER_MATH

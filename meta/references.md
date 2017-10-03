@@ -78,6 +78,8 @@ GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.
 
 HUGHES, J. F., MÖLLER, T.: *Building an Orthonormal Basis from a Unit Vector*, *Journal of Graphics Tools* 4, 4, 1999.
 
+KARIS B.: *Real Shading in Unreal Engine 4*, *SIGGRAPH 2013 Course: Physically Based Shading in Theory and Practice*, 2013.
+
 KARIS B.: [*Specular BRDF Reference*](http://graphicrants.blogspot.be/2013/08/specular-brdf-reference.html), 2013. 
 
 KAJIYA J. T.: *The Rendering Equation*, *Proceedings of the 13th Annual Conference on Computer Graphics and Interactive Techniques*, 1986.

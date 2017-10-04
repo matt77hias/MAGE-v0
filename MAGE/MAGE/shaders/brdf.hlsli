@@ -58,7 +58,7 @@ float3 HalfDirection(float3 l, float3 v) {
 
 /**
  Calculates the Lambertian BRDFxCos intensity
-(independent of the diffuse reflectivity).
+ (independent of the diffuse reflectivity).
 
  @pre			@a n is normalized.
  @pre			@a l is normalized.
@@ -310,6 +310,15 @@ float CookTorranceBRDFxCos(float3 n, float3 l, float3 v, float m, float R0) {
 
 	return G * D * F / n_dot_v;
 }
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Constants
+//-----------------------------------------------------------------------------
+
+/**
+ The reflectance at normal incidence for dielectric (i.e. non-metal) materials.
+ */
+static const float g_dielectric_F0 = 0.03f;
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Normal Distribution Function
@@ -878,6 +887,24 @@ float F_None(float v_dot_h, float F0) {
 }
 
 /**
+ Calculates the None Fresnel component.
+
+ @param[in]		v_dot_h
+				The clamped cosine of the difference angle. The difference 
+				angle is the angle between the view (hit-to-eye) direction and 
+				half direction and is the angle between the light 
+				(hit-to-light) direction and half direction.
+ @param[in]		F0
+				The reflectance at normal incidence.
+ @return		The None Fresnel component.
+ */
+float3 F_None(float v_dot_h, float3 F0) {
+	// F := F0
+
+	return F0;
+}
+
+/**
  Calculates the Schlick Fresnel component.
 
  @param[in]		v_dot_h
@@ -890,6 +917,28 @@ float F_None(float v_dot_h, float F0) {
  @return		The Schlick Fresnel component.
  */
 float F_Schlick(float v_dot_h, float F0) {
+	// F := F0 + (1 - F0) (1 - v_dot_h)^5
+
+	const float m = (1.0f - v_dot_h);
+	const float m2 = sqr(m);
+	const float m5 = sqr(m2) * m;
+	
+	return lerp(F0, 1.0f, m5);
+}
+
+/**
+ Calculates the Schlick Fresnel component.
+
+ @param[in]		v_dot_h
+				The clamped cosine of the difference angle. The difference 
+				angle is the angle between the view (hit-to-eye) direction and 
+				half direction and is the angle between the light 
+				(hit-to-light) direction and half direction.
+ @param[in]		F0
+				The reflectance at normal incidence.
+ @return		The Schlick Fresnel component.
+ */
+float3 F_Schlick(float v_dot_h, float3 F0) {
 	// F := F0 + (1 - F0) (1 - v_dot_h)^5
 
 	const float m = (1.0f - v_dot_h);
@@ -935,9 +984,49 @@ float F_CookTorrance(float v_dot_h, float F0) {
 	return 0.5f * sqr(g2 / g1) * (1.0f + sqr((g1 * (v_dot_h - 1.0f)) / (g2 * (v_dot_h + 1.0f))));
 }
 
+/**
+ Calculates the Cook-Torrance Fresnel component.
+
+ @param[in]		v_dot_h
+				The clamped cosine of the difference angle. The difference 
+				angle is the angle between the view (hit-to-eye) direction and 
+				half direction and is the angle between the light 
+				(hit-to-light) direction and half direction.
+ @param[in]		F0
+				The reflectance at normal incidence.
+ @return		The Cook-Torrance Fresnel component.
+ */
+float3 F_CookTorrance(float v_dot_h, float3 F0) {
+	// c   := v_dot_h
+	//
+	//        1 + sqrt(F0)
+	// eta := ------------
+	//        1 - sqrt(F0)
+	//
+	// g   := sqrt(eta^2 + c^2 - 1)
+    //
+	//        1 [g - c]^2 [    [(g + c) (c - 1)]^2]
+	// F   := - [-----]   [1 + [---------------]  ]
+	//        2 [g + c]   [    [(g - c) (c + 1)]  ]
+
+	const float3 sqrt_F0  = sqrt(F0);
+	const float3 eta      = (1.0f + sqrt_F0) / (1.0f - sqrt_F0);
+	const float3 eta2     = sqr(eta);
+	const float3 v_dot_h2 = sqr(v_dot_h);
+	const float3 g        = sqrt(eta2 + v_dot_h2 - 1.0f);
+	const float3 g1       = g + v_dot_h;
+	const float3 g2       = g - v_dot_h;
+
+	return 0.5f * sqr(g2 / g1) * (1.0f + sqr((g1 * (v_dot_h - 1.0f)) / (g2 * (v_dot_h + 1.0f))));
+}
+
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Cook-Torrance BRDFs
+// Engine Declarations and Definitions: BRDFs
 //-----------------------------------------------------------------------------
+
+float F_D90(float v_dot_h, float roughness) {
+	return 0.5f + 2.0f * roughness * sqr(v_dot_h);
+}
 
 #ifndef BRDF_F_COMPONENT
 #define BRDF_F_COMPONENT F_Schlick
@@ -963,6 +1052,8 @@ float F_CookTorrance(float v_dot_h, float F0) {
 				The light (hit-to-light) direction.
  @param[in]		v
 				The view (hit-to-eye) direction.
+ @param[in]		c_base
+				The base color of the material.
  @param[in]		roughness
 				The roughness of the material.
  @param[in]		metallic
@@ -970,7 +1061,7 @@ float F_CookTorrance(float v_dot_h, float F0) {
  @return		The Cook-Torrance BRDFxCos specular intensity.
  */
 float3 CookTorranceBRDFxCos_new(float3 n, float3 l, float3 v, 
-	float3 base_color, float roughness, float metallic) {
+	float3 c_base, float roughness, float metallic) {
 	
 	const float  alpha   = sqr(roughness);
 	const float  n_dot_l = sat_dot(n, l);
@@ -979,12 +1070,19 @@ float3 CookTorranceBRDFxCos_new(float3 n, float3 l, float3 v,
 	const float  n_dot_h = sat_dot(n, h);
 	const float  v_dot_h = sat_dot(v, h);
 	
-	const float F = BRDF_F_COMPONENT(v_dot_h, 0.3f);
-	const float D = BRDF_D_COMPONENT(n_dot_h, alpha);
-	const float G = BRDF_G_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
 	
-	const float3 Fd = g_inv_pi * base_color * sat_dot(n, l);
-	const float3 Fs = 0.25f * G * D * F / n_dot_v;
+	
+	
+	const float Fd90     = F_D90(v_dot_h, roughness);
+	const float F_diff   = (1.0f - metallic) * Fd90; // lerp(1, Fd90, Fresnel(n_dot_l)) * lerp(1, Fd90, Fresnel(n_dot_v))
+
+	const float3 c_spec  = lerp(g_dielectric_F0, c_base, metallic);
+	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, c_spec);
+	const float  D       = BRDF_D_COMPONENT(n_dot_h, alpha);
+	const float  G       = BRDF_G_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
+
+	const float3 Fd      = F_diff * c_base * g_inv_pi * sat_dot(n, l);
+	const float3 Fs      = F_spec * 0.25f * D * G / n_dot_v;
 
 	return Fd + Fs;
 }

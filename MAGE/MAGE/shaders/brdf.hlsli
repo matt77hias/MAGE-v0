@@ -703,6 +703,40 @@ float G_Neumann(float n_dot_v, float n_dot_l,
 }
 
 /**
+ Calculates the Ashikhmin-Premoze Geometric Schadowing component.
+
+ @param[in]		n_dot_v
+				The clamped cosine of the view angle. The view angle is the 
+				angle between the surface normal and the view (hit-to-eye) 
+				direction.
+ @param[in]		n_dot_l
+				The clamped cosine of the light angle. The light angle is the 
+				angle between the surface normal and the light (hit-to-light) 
+				direction.
+ @param[in]		n_dot_h
+				The clamped cosine of the half angle. The half angle is the 
+				angle between the surface normal and the half direction between 
+				the view (hit-to-eye) and light (hit-to-light) direction.
+ @param[in]		v_dot_h
+				The clamped cosine of the difference angle. The difference 
+				angle is the angle between the view (hit-to-eye) direction and 
+				half direction and is the angle between the light 
+				(hit-to-light) direction and half direction.
+ @param[in]		alpha
+				The alpha value which is equal to the square of the surface
+				roughness.
+ @return		The Ashikhmin-Premoze Geometric Schadowing component.
+ */
+float G_AshikhminPremoze(float n_dot_v, float n_dot_l,
+	float n_dot_h, float v_dot_h, float alpha) {
+	//                n_dot_v n_dot_l
+	// G := -----------------------------------
+	//      n_dot_v + n_dot_l - n_dot_v n_dot_l
+
+	return (n_dot_v * n_dot_l) / (n_dot_v + n_dot_l - n_dot_v * n_dot_l);
+}
+
+/**
  Calculates the Kelemann Geometric Schadowing component.
 
  @param[in]		n_dot_v
@@ -1081,6 +1115,40 @@ float V_Neumann(float n_dot_v, float n_dot_l,
 	//      max(n_dot_v, n_dot_l)
 
 	return 1.0f / max(n_dot_v, n_dot_l);
+}
+
+/**
+ Calculates the Ashikhmin-Premoze Visibility component.
+
+ @param[in]		n_dot_v
+				The clamped cosine of the view angle. The view angle is the 
+				angle between the surface normal and the view (hit-to-eye) 
+				direction.
+ @param[in]		n_dot_l
+				The clamped cosine of the light angle. The light angle is the 
+				angle between the surface normal and the light (hit-to-light) 
+				direction.
+ @param[in]		n_dot_h
+				The clamped cosine of the half angle. The half angle is the 
+				angle between the surface normal and the half direction between 
+				the view (hit-to-eye) and light (hit-to-light) direction.
+ @param[in]		v_dot_h
+				The clamped cosine of the difference angle. The difference 
+				angle is the angle between the view (hit-to-eye) direction and 
+				half direction and is the angle between the light 
+				(hit-to-light) direction and half direction.
+ @param[in]		alpha
+				The alpha value which is equal to the square of the surface
+				roughness.
+ @return		The Ashikhmin-Premoze Visibility component.
+ */
+float V_AshikhminPremoze(float n_dot_v, float n_dot_l,
+	float n_dot_h, float v_dot_h, float alpha) {
+	//                      1
+	// V := -----------------------------------
+	//      n_dot_v + n_dot_l - n_dot_v n_dot_l
+
+	return 1.0f / (n_dot_v + n_dot_l - n_dot_v * n_dot_l);
 }
 
 /**

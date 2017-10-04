@@ -328,6 +328,10 @@ float CookTorranceBRDFxCos(float3 n, float3 l, float3 v, float m, float R0) {
  @return		The Beckmann Normal Distribution Function component.
  */
 float D_Beckmann(float n_dot_h, float alpha) {
+	//               1            [  n_dot_h^2 - 1  ]             1             [tan(theta_h)]^2
+	// D:= -------------------- e^[-----------------] = -------------------- e^-[------------]
+	//     pi alpha^2 n_dot_h^4   [n_dot_h^2 alpha^2]   pi alpha^2 n_dot_h^4    [   alpha    ]
+
 	const float inv_alpha2   = 1.0f / sqr(alpha);
 	const float n_dot_h2     = sqr(n_dot_h);
 	const float inv_n_dot_h4 = 1.0f / sqr(n_dot_h2);
@@ -349,6 +353,10 @@ float D_Beckmann(float n_dot_h, float alpha) {
  @return		The Ward-Duer Normal Distribution Function component.
  */
 float D_WardDuer(float n_dot_h, float alpha) {
+	//         1        [  n_dot_h^2 - 1  ]        1        [tan(theta_h)]^2
+	// D:= ---------- e^[-----------------] = ---------- e^-[------------]
+	//     pi alpha^2   [n_dot_h^2 alpha^2]   pi alpha^2    [   alpha    ]
+	
 	const float inv_alpha2   = 1.0f / sqr(alpha);
 	const float n_dot_h2     = sqr(n_dot_h);
 	const float t2           = SqrCosToSqrTan(n_dot_h2);
@@ -369,6 +377,10 @@ float D_WardDuer(float n_dot_h, float alpha) {
  @return		The Blinn-Phong Normal Distribution Function component.
  */
 float D_BlinnPhong(float n_dot_h, float alpha) {
+	//         1              [   2       ]   Ns + 2
+	// D:= ---------- n_dot_h^[------- - 2] = ------ n_dot_h^Ns
+	//     pi alpha^2         [alpha^2    ]    pi 2
+
 	const float inv_alpha2 = 1.0f / sqr(alpha);
 	const float Ns         = 2.0f * inv_alpha2 - 2.0f;
 
@@ -388,6 +400,10 @@ float D_BlinnPhong(float n_dot_h, float alpha) {
  @return		The Trowbridge-Reitz Normal Distribution Function component.
  */
 float D_TrowbridgeReitz(float n_dot_h, float alpha) {
+	//                  alpha^2                                      c
+	// D:= ---------------------------------- = ---------------------------------------------
+	//     pi (n_dot_h^2 (alpha^2 - 1) + 1)^2   (alpha^2 * cos(theta_h)^2 + sin(theta_h)^2)^2
+
 	const float alpha2   = sqr(alpha);
 	const float n_dot_h2 = sqr(n_dot_h);
 	const float temp1    = n_dot_h2 * (alpha2 - 1.0f) + 1.0f;
@@ -440,6 +456,10 @@ float D_GTR2(float n_dot_h, float alpha) {
  @return		The Berry Normal Distribution Function component.
  */
 float D_Berry(float n_dot_h, float alpha) {
+	//                      alpha^2 - 1                                          c
+	// D:= --------------------------------------------- = -------------------------------------------
+	//     log(alpha^2) pi (n_dot_h^2 (alpha^2 - 1) + 1)   (alpha^2 * cos(theta_h)^2 + sin(theta_h)^2)
+
 	const float alpha2   = sqr(alpha);
 	const float n_dot_h2 = sqr(n_dot_h);
 	const float temp1    = n_dot_h2 * (alpha2 - 1.0f) + 1.0f;
@@ -483,6 +503,10 @@ float D_GTR1(float n_dot_h, float alpha) {
  @return		The GGX partial Geometric Schadowing component.
  */
 float G1_GGX(float n_dot_vl, float alpha) {
+	//                          2 n_dot_vl                                              2
+	// G1 := --------------------------------------------------- = --------------------------------------------
+	//       n_dot_vl + sqrt(alpha^2 + (1 - alpha^2) n_dot_vl^2)   1 + sqrt((alpha/n_dot_vl)^2 + (1 - alpha^2))
+
 	const float alpha2    = sqr(alpha);
 	const float n_dot_vl2 = sqr(n_dot_vl);
 
@@ -504,6 +528,10 @@ float G1_GGX(float n_dot_vl, float alpha) {
  @return		The Schlick-GGX partial Geometric Schadowing component.
  */
 float G1_SchlickGGX(float n_dot_vl, float alpha) {
+	//             n_dot_vl                      n_dot_vl
+	// G1 := --------------------- = --------------------------------
+	//       n_dot_vl (1 - k) + k    n_dot_vl (1 - alpha/2) + alpha/2
+
 	const float k = 0.5f * alpha;
 
 	return n_dot_vl / (n_dot_vl * (1.0f - k) + k);
@@ -524,6 +552,14 @@ float G1_SchlickGGX(float n_dot_vl, float alpha) {
  @return		The Beckmann partial Geometric Schadowing component.
  */
 float G1_Beckmann(float n_dot_vl, float alpha) {
+	//                n_dot_vl
+	// c  := --------------------------
+	//       alpha sqrt(1 - n_dot_vl^2)
+	//
+	//         3.535 c + 2.181 c^2
+	// G1 := ----------------------- (if c < 1.6) | 1 (otherwise)
+	//       1 + 2.276 c + 2.577 c^2
+
 	const float n_dot_vl2 = sqr(n_dot_vl);
 	const float c         = n_dot_vl2 / (alpha * sqrt(1.0f - n_dot_vl2));
 	const float c2        = sqr(c);
@@ -546,6 +582,10 @@ float G1_Beckmann(float n_dot_vl, float alpha) {
  @return		The Schlick-Beckmann partial Geometric Schadowing component.
  */
 float G1_SchlickBeckmann(float n_dot_vl, float alpha) {
+	//             n_dot_vl                               n_dot_vl
+	// G1 := --------------------- = --------------------------------------------------
+	//       n_dot_vl (1 - k) + k    n_dot_vl (1 - alpha sqrt(2/pi)) + alpha sqrt(2/pi)
+	
 	const float k = alpha * g_sqrt_2_inv_pi;
 
 	return n_dot_vl / (n_dot_vl * (1.0f - k) + k);
@@ -582,6 +622,7 @@ float G1_SchlickBeckmann(float n_dot_vl, float alpha) {
  */
 float G_Implicit(float n_dot_v, float n_dot_l,
 	float n_dot_h, float v_dot_h, float alpha) {
+	// G := n_dot_v n_dot_l
 	
 	return n_dot_v * n_dot_l;
 }
@@ -613,7 +654,10 @@ float G_Implicit(float n_dot_v, float n_dot_l,
  */
 float G_Neumann(float n_dot_v, float n_dot_l,
 	float n_dot_h, float v_dot_h, float alpha) {
-	
+	//         n_dot_v n_dot_l
+	// G := ---------------------
+	//      max(n_dot_v, n_dot_l)
+
 	return (n_dot_v * n_dot_l) / max(n_dot_v, n_dot_l);
 }
 
@@ -644,7 +688,10 @@ float G_Neumann(float n_dot_v, float n_dot_l,
  */
 float G_Kelemann(float n_dot_v, float n_dot_l,
 	float n_dot_h, float v_dot_h, float alpha) {
-	
+	//      n_dot_v n_dot_l
+	// G := ---------------
+	//          v_dot_h
+
 	return (n_dot_v * n_dot_l) / v_dot_h;
 }
 
@@ -675,7 +722,10 @@ float G_Kelemann(float n_dot_v, float n_dot_l,
  */
 float G_CookTorrance(float n_dot_v, float n_dot_l,
 	float n_dot_h, float v_dot_h, float alpha) {
-	
+	//         [   2 n_dot_h n_dot_v  2 n_dot_h n_dot_l]
+	// G := min[1, -----------------, -----------------]
+	//         [        v_dot_h           v_dot_h      ]
+
 	const float temp1 = n_dot_h / v_dot_h;
 	
 	return min(1.0f, 2.0f * min(temp1 * n_dot_v, temp1 * n_dot_l));
@@ -822,6 +872,8 @@ float G_Smith_SchlickBeckmann(float n_dot_v, float n_dot_l,
  @return		The None Fresnel component.
  */
 float F_None(float v_dot_h, float F0) {
+	// F := F0
+
 	return F0;
 }
 
@@ -838,6 +890,8 @@ float F_None(float v_dot_h, float F0) {
  @return		The Schlick Fresnel component.
  */
 float F_Schlick(float v_dot_h, float F0) {
+	// F := F0 + (1 - F0) (1 - v_dot_h)^5
+
 	const float m = (1.0f - v_dot_h);
 	const float m2 = sqr(m);
 	const float m5 = sqr(m2) * m;
@@ -858,6 +912,18 @@ float F_Schlick(float v_dot_h, float F0) {
  @return		The Cook-Torrance Fresnel component.
  */
 float F_CookTorrance(float v_dot_h, float F0) {
+	// c   := v_dot_h
+	//
+	//        1 + sqrt(F0)
+	// eta := ------------
+	//        1 - sqrt(F0)
+	//
+	// g   := sqrt(eta^2 + c^2 - 1)
+    //
+	//        1 [g - c]^2 [    [(g + c) (c - 1)]^2]
+	// F   := - [-----]   [1 + [---------------]  ]
+	//        2 [g + c]   [    [(g - c) (c + 1)]  ]
+
 	const float sqrt_F0  = sqrt(F0);
 	const float eta      = (1.0f + sqrt_F0) / (1.0f - sqrt_F0);
 	const float eta2     = sqr(eta);

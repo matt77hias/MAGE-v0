@@ -44,7 +44,7 @@
   * dinput8.lib
   * dxguid.lib
   * (d3dcompiler.lib)
-* **Compiler**: MSVC++ 14.0
+* **Compiler**: MSVC++ 15.0
 * **IDE**: Visual Studio 2017
 
 ## Use

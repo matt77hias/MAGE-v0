@@ -335,8 +335,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the omni light in view space coordinates of this 
-		 omni light buffer.
+		 The position of the omni light in view space coordinates of this omni 
+		 light buffer.
 		 */
 		Point3 m_p;
 
@@ -747,8 +747,8 @@ namespace mage {
 			: m_light(), m_cview_to_lprojection() {}
 		
 		/**
-		 Constructs a spotlight with shadow mapping buffer from 
-		 the given spotlight with shadow mapping buffer.
+		 Constructs a spotlight with shadow mapping buffer from the given 
+		 spotlight with shadow mapping buffer.
 
 		 @param[in]		buffer
 						A reference to the spotlight with shadow mapping buffer 
@@ -758,8 +758,8 @@ namespace mage {
 			const SpotLightWithShadowMappingBuffer &buffer) = default;
 
 		/**
-		 Constructs a spotlight with shadow mapping buffer by moving 
-		 the given spotlight with shadow mapping buffer.
+		 Constructs a spotlight with shadow mapping buffer by moving the given 
+		 spotlight with shadow mapping buffer.
 
 		 @param[in]		buffer
 						A reference to the spotlight with shadow mapping buffer 
@@ -778,8 +778,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given spotlight with shadow mapping buffer 
-		 to this spotlight with shadow mapping buffer.
+		 Copies the given spotlight with shadow mapping buffer to this 
+		 spotlight with shadow mapping buffer.
 
 		 @param[in]		buffer
 						A reference to the spotlight 

@@ -249,7 +249,7 @@ namespace mage {
 
 		/**
 		 The (normalized) negated direction of the directional light in 
-		 camera-space coordinates of this directional light buffer.
+		 view space coordinates of this directional light buffer.
 		 */
 		Direction3 m_neg_d;
 
@@ -335,7 +335,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the omni light in camera-space coordinates of this 
+		 The position of the omni light in view space coordinates of this 
 		 omni light buffer.
 		 */
 		Point3 m_p;
@@ -437,7 +437,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the spotlight in camera-space coordinates of this 
+		 The position of the spotlight in view space coordinates of this 
 		 spotlight buffer.
 		 */
 		Point3 m_p;
@@ -458,7 +458,7 @@ namespace mage {
 		U32 m_padding1;
 
 		/**
-		 The (normalized) negated direction of the spotlight in camera-space 
+		 The (normalized) negated direction of the spotlight in view space 
 		 coordinates of this spotlight buffer.
 		 */
 		Direction3 m_neg_d;

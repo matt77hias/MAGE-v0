@@ -92,7 +92,7 @@ namespace mage {
 		 value.
 
 		 @param[in]		near_z
-						The position of the near z-plane in camera space.
+						The position of the near z-plane in view space.
 		 */
 		void SetNearZ(F32 near_z) noexcept {
 			m_near_z = near_z;
@@ -113,7 +113,7 @@ namespace mage {
 		 value.
 
 		 @param[in]		far_z
-						The position of the far z-plane in camera space.
+						The position of the far z-plane in view space.
 		 */
 		void SetFarZ(F32 far_z) noexcept {
 			m_far_z = far_z;
@@ -124,9 +124,9 @@ namespace mage {
 		 given values.
 
 		 @param[in]		near_z
-						The position of the near z-plane in camera space.
+						The position of the near z-plane in view space.
 		 @param[in]		far_z
-						The position of the far z-plane in camera space.
+						The position of the far z-plane in view space.
 		 */
 		void SetNearAndFarZ(F32 near_z, F32 far_z) noexcept {
 			SetNearZ(near_z);
@@ -150,9 +150,9 @@ namespace mage {
 		 Constructs a camera.
 
 		 @param[in]		near_z
-						The position of the near z-plane in camera space.
+						The position of the near z-plane in view space.
 		 @param[in]		far_z
-						The position of the far z-plane in camera space.
+						The position of the far z-plane in view space.
 		 */
 		explicit Camera(
 			F32 near_z = MAGE_DEFAULT_CAMERA_NEAR_Z,
@@ -192,12 +192,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the near z-plane of this camera in camera space. 
+		 The position of the near z-plane of this camera in view space. 
 		 */
 		F32 m_near_z;
 
 		/**
-		 The position of the far z-plane of this camera in camera space.
+		 The position of the far z-plane of this camera in view space.
 		 */
 		F32 m_far_z;
 	};

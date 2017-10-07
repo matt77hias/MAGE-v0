@@ -17,7 +17,7 @@ struct DirectionalLight {
 	// The intensity of this spotlight .
 	float3 I;
 	uint padding0;
-	// The (normalized) negated direction of this spotlight in camera-space 
+	// The (normalized) negated direction of this spotlight in view space 
 	// coordinates.
 	float3 neg_d;
 	uint padding1;
@@ -27,7 +27,7 @@ struct DirectionalLight {
  A struct of omni lights.
  */
 struct OmniLight {
-	// The position of this omni light in camera-space coordinates.
+	// The position of this omni light in view space coordinates.
 	float3 p;
 	//  The distance at which intensity falloff ends of this omni light.
 	float distance_falloff_end;
@@ -44,13 +44,13 @@ struct OmniLight {
  A struct of spotlights.
  */
 struct SpotLight {
-	// The position of this spotlight in camera-space coordinates.
+	// The position of this spotlight in view space coordinates.
 	float3 p;
 	uint padding0;
 	// The intensity of this spotlight.
 	float3 I;
 	uint padding1;
-	// The (normalized) negated direction of this spotlight in camera-space 
+	// The (normalized) negated direction of this spotlight in view space 
 	// coordinates.
 	float3 neg_d;
 	// The exponent property of this spotlight.

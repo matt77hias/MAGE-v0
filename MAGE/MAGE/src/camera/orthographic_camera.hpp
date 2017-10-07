@@ -45,9 +45,9 @@ namespace mage {
 						The height of the camera projection plane in camera 
 						space.
 		 @param[in]		near_z
-						The position of the near z-plane in camera space.
+						The position of the near z-plane in view space.
 		 @param[in]		far_z
-						The position of the far z-plane in camera space.
+						The position of the far z-plane in view space.
 		 */
 		explicit OrthographicCamera(
 			F32 width  = MAGE_DEFAULT_CAMERA_ORTHOGRAPHIC_WIDTH,
@@ -117,10 +117,10 @@ namespace mage {
 
 		/**
 		 Returns the width of the camera projection plane of this orthographic 
-		 camera in camera space.
+		 camera in view space.
 
 		 @return		The width of the camera projection plane of this 
-						orthographic camera in camera space.
+						orthographic camera in view space.
 		 */
 		F32 GetWidth() const noexcept {
 			return m_width;
@@ -140,10 +140,10 @@ namespace mage {
 
 		/**
 		 Returns the height of the camera projection plane of this orthographic 
-		 camera in camera space.
+		 camera in view space.
 
 		 @return		The height of the camera projection plane of this 
-						orthographic camera in camera space.
+						orthographic camera in view space.
 		 */
 		F32 GetHeight() const noexcept {
 			return m_height;
@@ -187,9 +187,9 @@ namespace mage {
 						The height of the camera projection plane in camera 
 						space.
 		 @param[in]		near_z
-						The position of the near z-plane in camera space.
+						The position of the near z-plane in view space.
 		 @param[in]		far_z
-						The position of the far z-plane in camera space.
+						The position of the far z-plane in view space.
 		*/
 		void SetViewToProjectionMatrix(
 			F32 width,  F32 height,
@@ -229,13 +229,13 @@ namespace mage {
 
 		/**
 		 The width of the camera projection plane of this orthographic camera 
-		 in camera space.
+		 in view space.
 		 */
 		F32 m_width;
 
 		/**
 		 The height of the camera projection plane of this orthographic camera 
-		 in camera space.
+		 in view space.
 		 */
 		F32 m_height;
 	};

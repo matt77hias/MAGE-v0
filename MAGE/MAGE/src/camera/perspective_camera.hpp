@@ -124,9 +124,9 @@ namespace mage {
 		 @param[in]		fov_y
 						The vertical field-of-view.
 		 @param[in]		near_z
-						The position of the near z-plane in camera space.
+						The position of the near z-plane in view space.
 		 @param[in]		far_z
-						The position of the far z-plane in camera space.
+						The position of the far z-plane in view space.
 		 */
 		explicit PerspectiveCamera(
 			F32 fov_y, F32 near_z, F32 far_z);
@@ -139,9 +139,9 @@ namespace mage {
 		 @param[in]		fov_y
 						The vertical field-of-view.
 		 @param[in]		near_z
-						The position of the near z-plane in camera space.
+						The position of the near z-plane in view space.
 		 @param[in]		far_z
-						The position of the far z-plane in camera space.
+						The position of the far z-plane in view space.
 		 */
 		explicit PerspectiveCamera(F32 aspect_ratio,
 			F32 fov_y, F32 near_z, F32 far_z);
@@ -156,9 +156,9 @@ namespace mage {
 		 @param[in]		fov_y
 						The vertical field-of-view.
 		 @param[in]		near_z
-						The position of the near z-plane in camera space.
+						The position of the near z-plane in view space.
 		 @param[in]		far_z
-						The position of the far z-plane in camera space.
+						The position of the far z-plane in view space.
 		 */
 		explicit PerspectiveCamera(F32 width, F32 height,
 			F32 fov_y, F32 near_z, F32 far_z);
@@ -292,9 +292,9 @@ namespace mage {
 		 @param[in]		fov_y
 						The vertical field-of-view.
 		 @param[in]		near_z
-						The position of the near z-plane in camera space.
+						The position of the near z-plane in view space.
 		 @param[in]		far_z
-						The position of the far z-plane in camera space.
+						The position of the far z-plane in view space.
 		 */
 		void SetViewToProjectionMatrix(F32 aspect_ratio,
 			F32 fov_y, F32 near_z, F32 far_z) noexcept {
@@ -314,9 +314,9 @@ namespace mage {
 		 @param[in]		fov_y
 						The vertical field-of-view.
 		 @param[in]		near_z
-						The position of the near z-plane in camera space.
+						The position of the near z-plane in view space.
 		 @param[in]		far_z
-						The position of the far z-plane in camera space.
+						The position of the far z-plane in view space.
 		 */
 		void SetViewToProjectionMatrix(F32 width, F32 height, 
 			F32 fov_y, F32 near_z, F32 far_z) noexcept {

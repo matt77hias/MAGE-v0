@@ -80,7 +80,7 @@ namespace mage {
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
 		texture_desc.Width            = m_width;
-		texture_desc.Height           = m_height;;
+		texture_desc.Height           = m_height;
 		texture_desc.MipLevels        = 1u;
 		texture_desc.ArraySize        = static_cast< U32 >(nb_shadow_maps);
 		texture_desc.Format           = texture_format;
@@ -197,7 +197,7 @@ namespace mage {
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
 		texture_desc.Width            = m_width;
-		texture_desc.Height           = m_height;;
+		texture_desc.Height           = m_height;
 		texture_desc.MipLevels        = 1u;
 		texture_desc.ArraySize        = 6u * static_cast< U32 >(nb_shadow_cube_maps);
 		texture_desc.Format           = texture_format;

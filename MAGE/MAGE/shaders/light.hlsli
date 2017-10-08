@@ -278,9 +278,13 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
 	TextureCubeArray< float > shadow_maps, uint index,
 	float3 p_view, float2 projection_values) {
 
-	const float p_view_z = Max(abs(p_view));
-	const float p_ndc_z  = ViewZtoNDCZ(p_view_z, projection_values);
-	const float4 loc     = float4(p_view, index);
+	const float  p_view_z = Max(abs(p_view));
+	const float  p_ndc_z  = ViewZtoNDCZ(p_view_z, projection_values);
+	const float4 loc      = float4(p_view, index);
+
+	if (p_view_z != -p_view.y) {
+		return 0.0f;
+	}
 
 	return shadow_maps.SampleCmpLevelZero(pcf_sampler, loc, p_ndc_z);
 }

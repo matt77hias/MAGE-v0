@@ -21,7 +21,7 @@ namespace mage {
 					The DXGI format.
 	 @return		The number of bits per pixel of the given DXGI format.
 	 */
-	inline constexpr size_t BitsPerPixel(DXGI_FORMAT format) noexcept {
+	constexpr size_t BitsPerPixel(DXGI_FORMAT format) noexcept {
 		switch (format) {
 
 		case DXGI_FORMAT_R32G32B32A32_TYPELESS:
@@ -174,7 +174,7 @@ namespace mage {
 	 @return		The matching SRGB converted DXGI format of the given DXGI 
 					format.
 	 */
-	inline constexpr DXGI_FORMAT ConvertToSRGB(DXGI_FORMAT format) noexcept {
+	constexpr DXGI_FORMAT ConvertToSRGB(DXGI_FORMAT format) noexcept {
 		switch (format) {
 
 		case DXGI_FORMAT_R8G8B8A8_UNORM:
@@ -205,7 +205,7 @@ namespace mage {
 	 @return		@c true if and only if the given DXGI format contains an 
 					alpha component.
 	*/
-	inline constexpr bool HasAlpha(DXGI_FORMAT format) noexcept {
+	constexpr bool HasAlpha(DXGI_FORMAT format) noexcept {
 		switch (format) {
 
 		case DXGI_FORMAT_R32G32B32A32_TYPELESS:

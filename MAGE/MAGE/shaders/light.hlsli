@@ -280,11 +280,12 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
 
 	const float  p_view_z = Max(abs(p_view));
 	const float  p_ndc_z  = ViewZtoNDCZ(p_view_z, projection_values);
-	const float4 loc      = float4(p_view, index);
-
-	if (p_view_z != -p_view.y) {
+	
+	if (p_view_z != -p_view.y || length(p_view) > 3.0f) {
 		return 0.0f;
 	}
+
+	const float4 loc = float4(p_view, index);
 
 	return shadow_maps.SampleCmpLevelZero(pcf_sampler, loc, p_ndc_z);
 }

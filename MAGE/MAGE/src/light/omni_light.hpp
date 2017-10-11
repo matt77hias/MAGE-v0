@@ -82,7 +82,7 @@ namespace mage {
 		OmniLight &operator=(OmniLight &&light);
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Methods: Lighting
 		//---------------------------------------------------------------------
 
 		/**
@@ -192,6 +192,10 @@ namespace mage {
 				distance_falloff_start + distance_falloff_range);
 		}
 
+		//---------------------------------------------------------------------
+		// Member Methods: Shadowing
+		//---------------------------------------------------------------------
+
 		/**
 		 Checks whether shadows should be used for this omni light.
 
@@ -235,6 +239,26 @@ namespace mage {
 		}
 
 		/**
+		 Returns the (horizontal and vertical) field-of-view of this omni 
+		 light.
+
+		 @return		The (horizontal and vertical) field-of-view of this 
+						omni light.
+		 */
+		F32 GetFOV() const noexcept {
+			return XM_PIDIV2;
+		}
+
+		/**
+		 Returns the aspect ratio of this omni light.
+
+		 @return		The aspect ratio of this omni light.
+		 */
+		F32 GetAspectRatio() const noexcept {
+			return 1.0f;
+		}
+
+		/**
 		 Returns the view-to-projection matrix of the (forward) light camera 
 		 of this omni light.
 
@@ -243,8 +267,8 @@ namespace mage {
 		 */
 		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
 			return XMMatrixPerspectiveFovLH(
-				1.0f, 
-				XM_PIDIV2,
+				GetFOV(),
+				GetAspectRatio(),
 				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z,
 				GetEndDistanceFalloff());
 		}
@@ -256,8 +280,8 @@ namespace mage {
 		 */
 		const PerspectiveCamera GetLightCamera() const noexcept {
 			return PerspectiveCamera(
-				1.0f,
-				XM_PIDIV2,
+				GetAspectRatio(),
+				GetFOV(),
 				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z,
 				GetEndDistanceFalloff());
 		}

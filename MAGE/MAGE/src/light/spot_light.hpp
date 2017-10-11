@@ -82,7 +82,7 @@ namespace mage {
 		SpotLight &operator=(SpotLight &&light);
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Methods: Lighting
 		//---------------------------------------------------------------------
 
 		/**
@@ -339,6 +339,10 @@ namespace mage {
 			m_exponent_property = exponent_property;
 		}
 		
+		//---------------------------------------------------------------------
+		// Member Methods: Shadowing
+		//---------------------------------------------------------------------
+
 		/**
 		 Checks whether shadows should be used for this spotlight.
 
@@ -382,6 +386,25 @@ namespace mage {
 		}
 		
 		/**
+		 Returns the (horizontal and vertical) field-of-view of this spotlight.
+
+		 @return		The (horizontal and vertical) field-of-view of this 
+						spotlight.
+		 */
+		F32 GetFOV() const noexcept {
+			return 2.0f * GetUmbraAngle();
+		}
+
+		/**
+		 Returns the aspect ratio of this spotlight.
+
+		 @return		The aspect ratio of this spotlight.
+		 */
+		F32 GetAspectRatio() const noexcept {
+			return 1.0f;
+		}
+
+		/**
 		 Returns the view-to-projection matrix of the light camera of this spot 
 		 light.
 
@@ -390,8 +413,8 @@ namespace mage {
 		 */
 		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
 			return XMMatrixPerspectiveFovLH(
-				1.0f, 
-				2.0f * GetUmbraAngle(),
+				GetFOV(),
+				GetAspectRatio(),
 				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z,
 				GetEndDistanceFalloff());
 		}
@@ -403,8 +426,8 @@ namespace mage {
 		 */
 		const PerspectiveCamera GetLightCamera() const noexcept {
 			return PerspectiveCamera(
-				1.0f,
-				2.0f * GetUmbraAngle(),
+				GetAspectRatio(),
+				GetFOV(),
 				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z,
 				GetEndDistanceFalloff());
 		}
@@ -432,11 +455,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The exponent property of this spotlight.
-		 */
-		F32 m_exponent_property;
-
-		/**
 		 The start of the distance falloff of this spotlight.
 		 */
 		F32 m_distance_falloff_start;
@@ -455,6 +473,11 @@ namespace mage {
 		 The cosine of the umbra angle of this spotlight.
 		 */
 		F32 m_cos_umbra;
+
+		/**
+		 The exponent property of this spotlight.
+		 */
+		F32 m_exponent_property;
 
 		/**
 		 A flag indicating whether shadows should be calculated or not for 

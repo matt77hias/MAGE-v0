@@ -344,7 +344,7 @@ void Contribution(OmniLightWithShadowMapping light,
 
 	l = l0;
 	const float3 p_view = mul(float4(p, 1.0f), light.cview_to_lview).xyz;
-	I = ShadowFactor(pcf_sampler, shadow_maps, index, p_view, light.projection_values);
+	I = I0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_view, light.projection_values);
 }
 
 /**
@@ -376,7 +376,7 @@ void Contribution(SpotLightWithShadowMapping light,
 
 	l = l0;
 	const float4 p_proj = mul(float4(p, 1.0f), light.cview_to_lprojection);
-	I = ShadowFactor(pcf_sampler, shadow_maps, index, p_proj);
+	I = I0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_proj);
 }
 
 #endif //MAGE_HEADER_LIGHT

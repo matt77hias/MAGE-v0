@@ -166,8 +166,8 @@ namespace mage {
 		desc.MultisampleEnable = true;
 
 		//TODO: remove
-		desc.DepthBias = 100;
-		//desc.SlopeScaledDepthBias = 1.0f;
+		desc.DepthBias            = 100;
+		desc.SlopeScaledDepthBias = 1.0f;
 		desc.DepthBiasClamp       = 0.0f;
 
 		return device->CreateRasterizerState(&desc, rasterizer_state);

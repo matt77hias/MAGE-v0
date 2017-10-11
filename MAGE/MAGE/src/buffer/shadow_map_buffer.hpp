@@ -15,7 +15,12 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_DEFAULT_SHADOW_MAP_RESOLUTION 512
+#define MAGE_DEFAULT_SHADOW_MAP_RESOLUTION   512
+
+//TODO: make configurable
+#define MAGE_DEFAULT_DEPTH_BIAS              100
+#define MAGE_DEFAULT_SLOPE_SCALED_DEPTH_BIAS 1.0f
+#define MAGE_DEFAULT_DEPTH_BIAS_CLAMP        0.0f
 
 #pragma endregion
 
@@ -77,6 +82,10 @@ namespace mage {
 		void BindViewport(ID3D11DeviceContext2 *device_context) const noexcept {
 			m_viewport.BindViewport(device_context);
 		}
+		void BindRasterizerState(ID3D11DeviceContext2 *device_context) const noexcept {
+			Pipeline::RS::BindState(device_context, m_rasterizer_state.Get());
+		}
+		
 		void ClearDSVs(ID3D11DeviceContext2 *device_context) const noexcept {
 			for (const auto &dsv : m_dsvs) {
 				Pipeline::OM::ClearDSV(device_context, dsv.Get());
@@ -100,6 +109,9 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
+		void SetupViewport();
+		void SetupRasterizerState(ID3D11Device2 *device);
+
 		void SetupShadowMapBuffer(ID3D11Device2 *device,
 			size_t nb_shadow_maps);
 		void Setup16BitShadowMapArray(ID3D11Device2 *device,
@@ -117,7 +129,9 @@ namespace mage {
 		U32 m_width;
 		U32 m_height;
 		DepthFormat m_format;
+		
 		Viewport m_viewport;
+		ComPtr< ID3D11RasterizerState > m_rasterizer_state;
 		
 		vector< ComPtr< ID3D11DepthStencilView > > m_dsvs;
 		ComPtr< ID3D11ShaderResourceView > m_srv;
@@ -170,6 +184,10 @@ namespace mage {
 		void BindViewport(ID3D11DeviceContext2 *device_context) const noexcept {
 			m_viewport.BindViewport(device_context);
 		}
+		void BindRasterizerState(ID3D11DeviceContext2 *device_context) const noexcept {
+			Pipeline::RS::BindState(device_context, m_rasterizer_state.Get());
+		}
+		
 		void ClearDSVs(ID3D11DeviceContext2 *device_context) const noexcept {
 			for (const auto &dsv : m_dsvs) {
 				Pipeline::OM::ClearDSV(device_context, dsv.Get());
@@ -180,7 +198,6 @@ namespace mage {
 
 			Pipeline::OM::BindRTVAndDSV(device_context, nullptr, m_dsvs[dsv_index].Get());
 		}
-
 		ID3D11DepthStencilView *GetDSV(size_t dsv_index) const noexcept {
 			return m_dsvs[dsv_index].Get();
 		}
@@ -193,6 +210,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		void SetupViewport();
+		void SetupRasterizerState(ID3D11Device2 *device);
 
 		void SetupShadowCubeMapBuffer(ID3D11Device2 *device,
 			size_t nb_shadow_cube_maps);
@@ -213,6 +233,8 @@ namespace mage {
 		DepthFormat m_format;
 		
 		Viewport m_viewport;
+		ComPtr< ID3D11RasterizerState > m_rasterizer_state;
+		
 		vector< ComPtr< ID3D11DepthStencilView > > m_dsvs;
 		ComPtr< ID3D11ShaderResourceView > m_srv;
 	};

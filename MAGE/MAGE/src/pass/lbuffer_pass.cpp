@@ -435,6 +435,7 @@ namespace mage {
 	void LBufferPass::RenderShadowMaps(
 		const PassBuffer *scene, 
 		FXMMATRIX world_to_cview) {
+		
 		DepthPass * const pass = DepthPass::Get();
 		pass->BindFixedState();
 
@@ -452,6 +453,8 @@ namespace mage {
 
 		// Bind the viewport.
 		m_directional_sms->BindViewport(m_device_context);
+		// Bind the rasterizer state.
+		m_directional_sms->BindRasterizerState(m_device_context);
 
 		for (size_t i = 0; i < m_directional_light_cameras.size(); ++i) {
 			const LightCameraInfo &camera = m_directional_light_cameras[i];
@@ -475,6 +478,8 @@ namespace mage {
 
 		// Bind the viewport.
 		m_omni_sms->BindViewport(m_device_context);
+		// Bind the rasterizer state.
+		m_omni_sms->BindRasterizerState(m_device_context);
 
 		for (size_t i = 0; i < m_omni_light_cameras.size(); ++i) {
 			const LightCameraInfo &camera = m_omni_light_cameras[i];
@@ -498,6 +503,8 @@ namespace mage {
 
 		// Bind the viewport.
 		m_spot_sms->BindViewport(m_device_context);
+		// Bind the rasterizer state.
+		m_spot_sms->BindRasterizerState(m_device_context);
 
 		for (size_t i = 0; i < m_spot_light_cameras.size(); ++i) {
 			const LightCameraInfo &camera = m_spot_light_cameras[i];

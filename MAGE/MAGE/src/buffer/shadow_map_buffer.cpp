@@ -4,7 +4,7 @@
 #pragma region
 
 #include "buffer\shadow_map_buffer.hpp"
-#include "logging\error.hpp"
+#include "rendering\rendering_factory.hpp"
 #include "logging\exception.hpp"
 
 #pragma endregion
@@ -26,10 +26,28 @@ namespace mage {
 	ShadowMapBuffer::ShadowMapBuffer(ID3D11Device2 *device,
 		size_t nb_shadow_maps, U32 width, U32 height, DepthFormat format)
 		: m_width(width), m_height(height), m_format(format), 
-		m_viewport(), m_dsvs(), m_srv() {
+		m_viewport(), m_rasterizer_state(), m_dsvs(), m_srv() {
 
-		m_viewport.SetWidthAndHeight(m_width, m_height);
+		// Setup the viewport.
+		SetupViewport();
+		// Setup the rasterizer state.
+		SetupRasterizerState(device);
+		// Setup the resource, DSVs and SRV.
 		SetupShadowMapBuffer(device, nb_shadow_maps);
+	}
+
+	void ShadowMapBuffer::SetupViewport() {
+		m_viewport.SetWidthAndHeight(m_width, m_height);
+	}
+
+	void ShadowMapBuffer::SetupRasterizerState(ID3D11Device2 *device) {
+		const HRESULT result = CreateCullCounterClockwiseRasterizerState(
+			device, m_rasterizer_state.ReleaseAndGetAddressOf(),
+			MAGE_DEFAULT_DEPTH_BIAS, 
+			MAGE_DEFAULT_SLOPE_SCALED_DEPTH_BIAS,
+			MAGE_DEFAULT_DEPTH_BIAS_CLAMP);
+		ThrowIfFailed(
+			result, "Rasterizer state creation failed: %08X.", result);
 	}
 
 	void ShadowMapBuffer::SetupShadowMapBuffer(ID3D11Device2 *device,
@@ -143,10 +161,28 @@ namespace mage {
 	ShadowCubeMapBuffer::ShadowCubeMapBuffer(ID3D11Device2 *device,
 		size_t nb_shadow_cube_maps, U32 width, U32 height, DepthFormat format)
 		: m_width(width), m_height(height), m_format(format),
-		m_viewport(), m_dsvs(), m_srv() {
+		m_viewport(), m_rasterizer_state(), m_dsvs(), m_srv() {
 
-		m_viewport.SetWidthAndHeight(m_width, m_height);
+		// Setup the viewport.
+		SetupViewport();
+		// Setup the rasterizer state.
+		SetupRasterizerState(device);
+		// Setup the resource, DSVs and SRV.
 		SetupShadowCubeMapBuffer(device, nb_shadow_cube_maps);
+	}
+
+	void ShadowCubeMapBuffer::SetupViewport() {
+		m_viewport.SetWidthAndHeight(m_width, m_height);
+	}
+
+	void ShadowCubeMapBuffer::SetupRasterizerState(ID3D11Device2 *device) {
+		const HRESULT result = CreateCullCounterClockwiseRasterizerState(
+			device, m_rasterizer_state.ReleaseAndGetAddressOf(),
+			MAGE_DEFAULT_DEPTH_BIAS,
+			MAGE_DEFAULT_SLOPE_SCALED_DEPTH_BIAS,
+			MAGE_DEFAULT_DEPTH_BIAS_CLAMP);
+		ThrowIfFailed(
+			result, "Rasterizer state creation failed: %08X.", result);
 	}
 
 	void ShadowCubeMapBuffer::SetupShadowCubeMapBuffer(ID3D11Device2 *device,

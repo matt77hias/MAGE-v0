@@ -152,7 +152,9 @@ float AngularFalloff(float cos_theta, float cos_umbra, float cos_inv_range, floa
 				The distance between the lit point and the center of the light.
  */
 float3 MaxContribution(OmniLight light, float r) {
-	const float df = DistanceFalloff(r, light.distance_falloff_end, light.distance_falloff_inv_range);
+	const float df = DistanceFalloff(r, 
+		                             light.distance_falloff_end, 
+		                             light.distance_falloff_inv_range);
 	return df * light.I;
 }
 
@@ -169,8 +171,13 @@ float3 MaxContribution(OmniLight light, float r) {
  */
 float3 MaxContribution(SpotLight light, float r, float3 l) {
 	const float cos_theta = dot(light.neg_d, l);
-	const float df = DistanceFalloff(r, light.distance_falloff_end, light.distance_falloff_inv_range);
-	const float af = AngularFalloff(cos_theta, light.cos_umbra, light.cos_inv_range, light.exponent_property);
+	const float df = DistanceFalloff(r, 
+		                             light.distance_falloff_end, 
+		                             light.distance_falloff_inv_range);
+	const float af = AngularFalloff(cos_theta, 
+		                            light.cos_umbra, 
+		                            light.cos_inv_range, 
+		                            light.exponent_property);
 	return af * df * light.I;
 }
 
@@ -377,6 +384,22 @@ void Contribution(SpotLightWithShadowMapping light,
 	l = l0;
 	const float4 p_proj = mul(float4(p, 1.0f), light.cview_to_lprojection);
 	I = I0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_proj);
+}
+
+/**
+ Calculates the (linear) fog factor.
+
+ @param[in]		r_eye
+				The distance between the lit point and the eye.
+ @param[in]		r_start
+				The distance at which intensity falloff starts due to fog.
+ @param[in]		r_inv_range
+				The distance inverse range where intensity falloff occurs due 
+				to fog.
+ @return		The (linear) fog factor.
+ */
+float FogFactor(float r_eye, float r_start, float r_inv_range) {
+	return saturate((r_eye - r_start) * r_inv_range);
 }
 
 #endif //MAGE_HEADER_LIGHT

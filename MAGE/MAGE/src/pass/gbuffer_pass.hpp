@@ -140,31 +140,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Updates the material coefficient data of this GBuffer pass from the 
-		 given scene.
-
-		 @pre			@a scene is not equal to @c nullptr.
-		 @param[in]		scene
-						A pointer to the scene.
-		 */
-		void UpdateMaterialCoefficientData(const PassBuffer *scene) noexcept;
-		
-		/**
-		 Normalizes the material coefficient of the given material at the given 
-		 material coefficient index.
-
-		 @pre			@a index < 
-						{@link mage::PassBuffer::s_nb_material_coefficients}.
-		 @pre			@a material is not equal to @c nullptr.
-		 @param[in]		index
-						The material coefficient index.
-		 @param[in]		material
-						A pointer to the material.
-		 */
-		F32 NormalizeMaterialCoefficient(
-			U8 index, const Material *material) const noexcept;
-
-		/**
 		 An enumeration of the different pixel shader indices for GBuffer 
 		 passes.
 
@@ -295,16 +270,6 @@ namespace mage {
 		/**
 		 The model buffer of this GBuffer pass.
 		 */
-		ConstantBuffer< DeferredModelBuffer > m_model_buffer;
-		
-		/**
-		 The current minima of the material coefficients of this GBuffer pass.
-		 */
-		F32 m_material_coefficient_min[PassBuffer::s_nb_material_coefficients];
-
-		/**
-		 The current ranges of the material coefficients of this GBuffer pass.
-		 */
-		F32 m_material_coefficient_range[PassBuffer::s_nb_material_coefficients];
+		ConstantBuffer< ModelBuffer > m_model_buffer;
 	};
 }

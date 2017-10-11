@@ -30,11 +30,9 @@ namespace mage {
 		m_omni_lights(), m_sm_omni_lights(),
 		m_spot_lights(), m_sm_spot_lights(),
 		m_sprites(),
-		m_ambient_light(), 
-		m_fog(nullptr), m_sky(nullptr),
-		m_material_coefficient_min{},
-		m_material_coefficient_max{} {}
-		
+		m_ambient_light(),
+		m_fog(nullptr), m_sky(nullptr) {}
+
 	void PassBuffer::Update(const Scene *scene) {
 
 		Assert(scene);
@@ -65,9 +63,6 @@ namespace mage {
 	}
 
 	void PassBuffer::UpdateModels(const Scene *scene) {
-		// Reset the material coefficients.
-		ResetMaterialCoefficients();
-
 		// Clear active models.
 		m_opaque_emissive_models.clear();
 		m_opaque_brdf_models.clear();
@@ -84,32 +79,25 @@ namespace mage {
 
 			const Material * const material = model->GetMaterial();
 			const bool is_transparant = material->IsTransparant();
-			const bool is_emissive    = !material->InteractsWithLight();
+			const bool is_emissive = !material->InteractsWithLight();
 
 			if (is_transparant) {
-				
 				if (is_emissive) {
 					m_transparent_emissive_models.push_back(node);
-					return;
 				}
-				
-				m_transparent_brdf_models.push_back(node);
-				return;
+				else {
+					m_transparent_brdf_models.push_back(node);
+				}
 			}
-			
-			if (is_emissive) {
-				m_opaque_emissive_models.push_back(node);
-				return;
+			else {
+				if (is_emissive) {
+					m_opaque_emissive_models.push_back(node);
+				}
+				else {
+					m_opaque_brdf_models.push_back(node);
+				}
 			}
-			
-			m_opaque_brdf_models.push_back(node);
-
-			// Update the material coefficients.
-			UpdateMaterialCoefficients(material);
 		});
-	
-		// Finish the material coefficients.
-		FinishMaterialCoefficients();
 	}
 
 	void PassBuffer::UpdateLights(const Scene *scene) {
@@ -121,7 +109,7 @@ namespace mage {
 		m_sm_omni_lights.clear();
 		m_sm_spot_lights.clear();
 		m_ambient_light = RGBSpectrum();
-		
+
 		// Collect active directional lights.
 		scene->ForEachDirectionalLight([this](const DirectionalLightNode *node) {
 			if (node->GetLight()->UseShadows()) {
@@ -161,64 +149,10 @@ namespace mage {
 	void PassBuffer::UpdateSprites(const Scene *scene) {
 		// Clear active sprites.
 		m_sprites.clear();
-		
+
 		// Collect active sprites.
 		scene->ForEachSprite([this](const SpriteNode *node) {
 			m_sprites.push_back(node);
 		});
-	}
-
-	void PassBuffer::ResetMaterialCoefficients() noexcept {
-		for (U8 i = 0; i < s_nb_material_coefficients; ++i) {
-			m_material_coefficient_min[i] = FLT_MAX;
-			m_material_coefficient_max[i] = FLT_MIN;
-		}
-	}
-
-	void PassBuffer::UpdateMaterialCoefficients(const Material *material) noexcept {
-		// Update min/max material coefficients for deferred shading.
-		for (U8 i = 0; i < s_nb_material_coefficients; ++i) {
-			const F32 p = material->GetMaterialParameter(i);
-			m_material_coefficient_min[i] = std::min(p, m_material_coefficient_min[i]);
-			m_material_coefficient_max[i] = std::max(p, m_material_coefficient_max[i]);
-		}
-	}
-
-	void PassBuffer::FinishMaterialCoefficients() noexcept {
-		for (U8 i = 0; i < s_nb_material_coefficients; ++i) {
-			if (m_material_coefficient_min[i] == m_material_coefficient_max[i]) {
-				if (0.0f == m_material_coefficient_max[i]) {
-					// min := 0 and max := 1 and mat := 0
-					// Normalization: nmat = (mat - min) / (max - min) = 0
-					// Recover:        mat = min + nmat * (max - min)  = mat
-					m_material_coefficient_max[i] = 1.0f;
-				}
-				else {
-					// min := 0 and 0 < max := mat
-					// Normalization: nmat = (mat - min) / (max - min) = 1
-					// Recover:        mat = min + nmat * (max - min)  = mat
-					m_material_coefficient_min[i] = 0.0f;
-				}
-			}
-		}
-	}
-
-	F32 PassBuffer::GetMaterialCoefficientMinimum(U8 index) const noexcept {
-		Assert(index < s_nb_material_coefficients);
-		
-		return m_material_coefficient_min[index];
-	}
-
-	F32 PassBuffer::GetMaterialCoefficientMaximum(U8 index) const noexcept {
-		Assert(index < s_nb_material_coefficients);
-		
-		return m_material_coefficient_max[index];
-	}
-
-	F32 PassBuffer::GetMaterialCoefficientRange(U8 index) const noexcept {
-		Assert(index < s_nb_material_coefficients);
-
-		return GetMaterialCoefficientMaximum(index) 
-			- GetMaterialCoefficientMinimum(index);
 	}
 }

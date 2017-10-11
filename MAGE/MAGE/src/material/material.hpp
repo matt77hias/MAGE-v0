@@ -24,45 +24,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------
-
-		/**
-		 The index of the material specular exponent 
-		 in the material parameters.
-		 */
-		static const U8 s_material_Ns_index = 0;
-
-		/**
-		 The index of the material Ward alpha value
-		 in the material parameters.
-		 */
-		static const U8 s_material_Ward_alpha_index = 0;
-
-		/**
-		 The index of the material roughness
-		 in the material parameters.
-		 */
-		static const U8 s_material_roughness_index = 0;
-
-		/**
-		 The index of the material reflection coefficient
-		 in the material parameters.
-		 */
-		static const U8 s_material_reflection_coefficient_index = 1;
-
-		/**
-		 The index of the material index of refraction
-		 in the material parameters.
-		 */
-		static const U8 s_material_index_of_refraction_index = 2;
-
-		/**
-		 The number of material parameters.
-		 */
-		static const U8 s_nb_material_parameters = 3;
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -121,7 +82,7 @@ namespace mage {
 		Material &operator=(Material &&material) = default;
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Methods: Name
 		//---------------------------------------------------------------------
 
 		/**
@@ -153,6 +114,10 @@ namespace mage {
 			m_name = std::move(name);
 		}
 		
+		//---------------------------------------------------------------------
+		// Member Methods: Light Interaction
+		//---------------------------------------------------------------------
+
 		/**
 		 Checks whether this material interacts with light and light sources.
 
@@ -188,6 +153,10 @@ namespace mage {
 			m_light_interaction = light_interaction;
 		}
 		
+		//---------------------------------------------------------------------
+		// Member Methods: Opacity/Transparency
+		//---------------------------------------------------------------------
+
 		/**
 		 Checks whether this material is opaque (i.e. contains alpha channel 
 		 equal to 1.0).
@@ -210,238 +179,305 @@ namespace mage {
 			return m_transparent;
 		}
 		
-		/**
-		 Returns the transmission filter of this material.
+		//---------------------------------------------------------------------
+		// Member Methods: Base Color and Base Color Texture
+		//---------------------------------------------------------------------
 
-		 @return		A reference to the transmission filter of this 
-						material.
+		/**
+		 Returns the red channel of the base color of this material.
+
+		 @return		The red channel of the base color of this material.
 		 */
-		RGBSpectrum &GetTransmissionFilter() noexcept {
-			return m_transmission_filter;
+		F32 GetBaseColorR() const noexcept {
+			return m_base_color.x;
 		}
 		
 		/**
-		 Returns the transmission filter of this material.
+		 Returns the green channel of the base color of this material.
 
-		 @return		A reference to the transmission filter of this 
-						material.
+		 @return		The green channel of the base color of this material.
 		 */
-		const RGBSpectrum &GetTransmissionFilter() const noexcept {
-			return m_transmission_filter;
+		F32 GetBaseColorG() const noexcept {
+			return m_base_color.y;
 		}
 		
 		/**
-		 Sets the transmission filter of this material to the given 
-		 transmission filter.
+		 Returns the blue channel of the base color of this material.
 
-		 @param[in]		transmission_filter
-						A reference to the transmission filter.
+		 @return		The blue channel of the base color of this material.
 		 */
-		void SetTransmissionFilter(
-			const RGBSpectrum &transmission_filter) noexcept {
-
-			m_transmission_filter = transmission_filter;
+		F32 GetBaseColorB() const noexcept {
+			return m_base_color.z;
 		}
 		
 		/**
-		 Sets the transmission filter of this material to the given 
-		 transmission filter.
+		 Returns the alpha channel of the base color of this material.
 
-		 @param[in]		transmission_filter
-						A reference to the transmission filter.
+		 @return		The alpha channel of the base color of this material.
 		 */
-		void SetTransmissionFilter(
-			RGBSpectrum &&transmission_filter) noexcept {
-
-			m_transmission_filter = std::move(transmission_filter);
+		F32 GetBaseColorA() const noexcept {
+			return m_base_color.w;
 		}
 		
 		/**
-		 Returns the diffuse reflectivity of this material.
+		 Returns the RGB channels of the base color of this material.
 
-		 @return		A reference to the diffuse reflectivity of this 
-						material.
+		 @return		The RGB channels of the base color of this material.
 		 */
-		RGBSpectrum &GetDiffuseReflectivity() noexcept {
-			return m_diffuse_reflectivity;
+		const RGBSpectrum GetBaseColorRGB() const noexcept {
+			return RGBSpectrum(m_base_color.x, m_base_color.y, m_base_color.z);
 		}
 		
 		/**
-		 Returns the diffuse reflectivity of this material.
+		 Returns the RGBA channels of the base color of this material.
 
-		 @return		A reference to the diffuse reflectivity of this 
-						material.
+		 @return		The RGBA channels of the base color of this material.
 		 */
-		const RGBSpectrum &GetDiffuseReflectivity() const noexcept {
-			return m_diffuse_reflectivity;
+		const RGBASpectrum GetBaseColorRGBA() const noexcept {
+			return m_base_color;
+		}
+
+		/**
+		 Sets the red channel of the base color of this material to the given 
+		 value.
+
+		 @param[in]		red
+						The red channel of the base color.
+		 */
+		void SetBaseColorR(F32 red) noexcept {
+			m_base_color.x = red;
 		}
 		
 		/**
-		 Sets the diffuse reflectivity of this material to the given diffuse 
-		 reflectivity.
+		 Sets the green channel of the base color of this material to the given 
+		 value.
 
-		 @param[in]		diffuse_reflectivity
-						A reference to the diffuse reflectivity.
+		 @param[in]		green
+						The green channel of the base color.
 		 */
-		void SetDiffuseReflectivity(
-			const RGBSpectrum &diffuse_reflectivity) noexcept {
-
-			m_diffuse_reflectivity = diffuse_reflectivity;
+		void SetBaseColorG(F32 green) noexcept {
+			m_base_color.y = green;
 		}
 		
 		/**
-		 Sets the diffuse reflectivity of this material to the given diffuse 
-		 reflectivity.
+		 Sets the blue channel of the base color of this material to the given 
+		 value.
 
-		 @param[in]		diffuse_reflectivity
-						A reference to the diffuse reflectivity.
+		 @param[in]		blue
+						The blue channel of the base color.
 		 */
-		void SetDiffuseReflectivity(
-			RGBSpectrum &&diffuse_reflectivity) noexcept {
-
-			m_diffuse_reflectivity = std::move(diffuse_reflectivity);
+		void SetBaseColorB(F32 blue) noexcept {
+			m_base_color.z = blue;
 		}
 		
 		/**
-		 Returns the diffuse reflectivity texture of this material.
+		 Sets the alpha channel of the base color of this material to the given 
+		 value.
 
-		 @return		A pointer to the diffuse reflectivity texture of this 
-						material.
+		 @param[in]		alpha
+						The alpha channel of the base color.
 		 */
-		SharedPtr< const Texture > GetDiffuseReflectivityTexture() const noexcept {
-			return m_diffuse_reflectivity_texture;
-		}
-		
-		/**
-		 Returns the shader resource view of the diffuse reflectivity texture 
-		 of this material.
-
-		 @return		@c nullptr, if this material has no diffuse 
-						reflectivity texture.
-		 @return		A pointer to the shader resource view of the diffuse 
-						reflectivity texture of this material.
-		 */
-		ID3D11ShaderResourceView *GetDiffuseReflectivitySRV() const noexcept {
-			return m_diffuse_reflectivity_texture ? 
-				m_diffuse_reflectivity_texture->Get() : nullptr;
-		}
-		
-		/**
-		 Sets the diffuse reflectivity texture of this material to the given 
-		 diffuse reflectivity texture.
-
-		 @param[in]		diffuse_reflectivity_texture
-						A reference to the diffuse reflectivity texture.
-		 */
-		void SetDiffuseReflectivityTexture(
-			const SharedPtr< const Texture > &diffuse_reflectivity_texture) {
-			
-			m_diffuse_reflectivity_texture = diffuse_reflectivity_texture;
+		void SetBaseColorA(F32 alpha) noexcept {
+			m_base_color.w = alpha;
 			UpdateTransparency();
 		}
 		
 		/**
-		 Returns the specular reflectivity of this material.
+		 Sets the RGB channels of the base color of this material to the given 
+		 values.
 
-		 @return		A reference to the specular reflectivity of this 
-						material.
+		 @param[in]		red
+						The red channel of the base color.
+		 @param[in]		green
+						The green channel of the base color.
+		 @param[in]		blue
+						The blue channel of the base color.
 		 */
-		RGBSpectrum &GetSpecularReflectivity() noexcept {
-			return m_specular_reflectivity;
+		void SetBaseColorRGB(F32 red, F32 green, F32 blue) noexcept {
+			SetBaseColorR(red);
+			SetBaseColorG(green);
+			SetBaseColorB(blue);
 		}
 		
 		/**
-		 Returns the specular reflectivity of this material.
+		 Sets the RGB channels of the base color of this material to the given 
+		 value.
 
-		 @return		A reference to the specular reflectivity of this 
-						material.
+		 @param[in]		rgb
+						A reference to the RGB channels of the base color.
 		 */
-		const RGBSpectrum &GetSpecularReflectivity() const noexcept {
-			return m_specular_reflectivity;
+		void SetBaseColorRGB(const RGBSpectrum &rgb) noexcept {
+			SetBaseColorRGB(rgb.x, rgb.y, rgb.z);
 		}
 		
 		/**
-		 Sets the specular reflectivity of this material to the given specular 
-		 reflectivity.
+		 Sets the RGB channels of the base color of this material to the given 
+		 values.
 
-		 @param[in]		specular_reflectivity
-						A reference to the specular reflectivity.
+		 @param[in]		red
+						The red channel of the base color.
+		 @param[in]		green
+						The green channel of the base color.
+		 @param[in]		blue
+						The blue channel of the base color.
+		 @param[in]		alpha
+						The alpha channel of the base color.
 		 */
-		void SetSpecularReflectivity(
-			const RGBSpectrum &specular_reflectivity) noexcept {
-
-			m_specular_reflectivity = specular_reflectivity;
+		void SetBaseColorRGBA(F32 red, F32 green, F32 blue, F32 alpha) noexcept {
+			SetBaseColorR(red);
+			SetBaseColorG(green);
+			SetBaseColorB(blue);
+			SetBaseColorA(alpha);
 		}
 		
 		/**
-		 Sets the specular reflectivity of this material to the given specular 
-		 reflectivity.
+		 Sets the RGBA channels of the base color of this material to the given 
+		 value.
 
-		 @param[in]		specular_reflectivity
-						A reference to the specular reflectivity.
+		 @param[in]		rgba
+						A reference to the RGBA channels of the base color.
 		 */
-		void SetSpecularReflectivity(
-			RGBSpectrum &&specular_reflectivity) noexcept {
-
-			m_specular_reflectivity = std::move(specular_reflectivity);
-		}
-		
-		/**
-		 Returns the specular reflectivity texture of this material.
-
-		 @return		A pointer to the specular reflectivity texture of this 
-						material.
-		 */
-		SharedPtr< const Texture > GetSpecularReflectivityTexture() const noexcept {
-			return m_specular_reflectivity_texture;
-		}
-		
-		/**
-		 Returns the shader resource view of the specular reflectivity texture 
-		 of this material.
-
-		 @return		@c nullptr, if this material has no specular 
-						reflectivity texture.
-		 @return		A pointer to the shader resource view of the specular 
-						reflectivity texture of this material.
-		 */
-		ID3D11ShaderResourceView *GetSpecularReflectivitySRV() const noexcept {
-			return m_specular_reflectivity_texture ? 
-				m_specular_reflectivity_texture->Get() : nullptr;
-		}
-		
-		/**
-		 Sets the specular reflectivity texture of this material to the given 
-		 specular reflectivity texture.
-
-		 @param[in]		specular_reflectivity_texture
-						A reference to the specular reflectivity texture.
-		 */
-		void SetSpecularReflectivityTexture(
-			const SharedPtr< const Texture > &specular_reflectivity_texture) {
-			
-			m_specular_reflectivity_texture = specular_reflectivity_texture;
-		}
-		
-		/**
-		 Returns the dissolve of this material.
-
-		 @return		The dissolve of this material.
-		 */
-		F32 GetDissolve() const noexcept {
-			return m_dissolve;
-		}
-		
-		/**
-		 Sets the dissolve of this material to the given dissolve.
-
-		 @param[in]		dissolve
-						A reference to the dissolve.
-		 */
-		void SetDissolve(F32 dissolve) noexcept {
-			m_dissolve = dissolve;
+		void SetBaseColorRGBA(const RGBASpectrum &rgba) noexcept {
+			m_base_color = rgba;
 			UpdateTransparency();
 		}
+
+		/**
+		 Sets the RGBA channels of the base color of this material to the given 
+		 value.
+
+		 @param[in]		rgba
+						A reference to the RGBA channels of the base color.
+		 */
+		void SetBaseColorRGBA(RGBASpectrum &&rgba) noexcept {
+			m_base_color = std::move(rgba);
+			UpdateTransparency();
+		}
+
+		/**
+		 Returns the base color texture of this material.
+
+		 @return		A pointer to the base color texture of this material.
+		 */
+		SharedPtr< const Texture > GetBaseColorTexture() const noexcept {
+			return m_base_color_texture;
+		}
+		
+		/**
+		 Returns the shader resource view of the base color texture of this 
+		 material.
+
+		 @return		@c nullptr, if this material has no base color 
+						texture.
+		 @return		A pointer to the shader resource view of the base color 
+						texture of this material.
+		 */
+		ID3D11ShaderResourceView *GetBaseColorSRV() const noexcept {
+			return m_base_color_texture ? m_base_color_texture->Get() : nullptr;
+		}
+		
+		/**
+		 Sets the base color texture of this material to the given base color
+		 texture.
+
+		 @param[in]		base_color_texture
+						A reference to the base color texture.
+		 */
+		void SetBaseColorTexture(
+			const SharedPtr< const Texture > &base_color_texture) {
+			
+			m_base_color_texture = base_color_texture;
+			UpdateTransparency();
+		}
+		
+		//---------------------------------------------------------------------
+		// Member Variables: Material Parameters
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the roughness of this material.
+
+		 @return		The roughness of this material.			
+		 */
+		F32 GetRoughness() const noexcept {
+			return m_roughness;
+		}
+
+		/**
+		 Sets the roughness of this material to the given value.
+
+		 @param[in]		roughness
+						The roughness.
+		 */
+		void SetRoughness(F32 roughness) noexcept {
+			m_roughness = roughness;
+		}
+
+		/**
+		 Returns the metalness of this material.
+
+		 @return		The metalness of this material.			
+		 */
+		F32 GetMetalness() const noexcept {
+			return m_metalness;
+		}
+
+		/**
+		 Sets the metalness of this material to the given value.
+
+		 @param[in]		metalness
+						The metalness.
+		 */
+		void SetMetalness(F32 metalness) noexcept {
+			m_metalness = metalness;
+		}
+
+		/**
+		 Returns the material RGBA channels of this material.
+
+		 @return		The material RGBA channels of this material.
+		 */
+		const RGBASpectrum GetMaterialRGBA() const noexcept {
+			return RGBASpectrum(GetRoughness(), GetMetalness(), 0.0f, 0.0f);
+		}
+
+		/**
+		 Returns the material texture of this material.
+
+		 @return		A pointer to the material texture of this material.
+		 */
+		SharedPtr< const Texture > GetMaterialTexture() const noexcept {
+			return m_material_texture;
+		}
+		
+		/**
+		 Returns the shader resource view of the material texture of this 
+		 material.
+
+		 @return		@c nullptr, if this material has no material texture.
+		 @return		A pointer to the shader resource view of the material 
+						texture of this material.
+		 */
+		ID3D11ShaderResourceView *GetMaterialSRV() const noexcept {
+			return m_material_texture ? m_material_texture->Get() : nullptr;
+		}
+
+		/**
+		 Sets the material texture of this material to the given material 
+		 texture.
+
+		 @param[in]		material_texture
+						A reference to the material texture.
+		 */
+		void SetMaterialTexture(
+			const SharedPtr< const Texture > &material_texture) {
+			
+			m_material_texture = material_texture;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Normal Texture
+		//---------------------------------------------------------------------
 		
 		/**
 		 Returns the normal texture of this material.
@@ -476,163 +512,23 @@ namespace mage {
 			m_normal_texture = normal_texture;
 		}
 		
-		/**
-		 Returns the displacement texture of this material.
-
-		 @return		A pointer to the displacement texture of this material.
-		 */
-		SharedPtr< const Texture > GetDisplacementTexture() const noexcept {
-			return m_displacement_texture;
-		}
-
-		/**
-		 Returns the shader resource view of the displacement texture of this 
-		 material.
-
-		 @return		@c nullptr, if this material has no displacement 
-						texture.
-		 @return		A pointer to the shader resource view of the 
-						displacement texture of this material.
-		 */
-		ID3D11ShaderResourceView *GetDisplacementSRV() const noexcept {
-			return m_displacement_texture ? 
-				m_displacement_texture->Get() : nullptr;
-		}
-
-		/**
-		 Sets the displacement texture of this material to the given 
-		 displacement texture.
-
-		 @param[in]		displacement_texture
-						A reference to the displacement texture.
-		 */
-		void SetDisplacementTexture(
-			const SharedPtr< const Texture > &displacement_texture) {
-			
-			m_displacement_texture = displacement_texture;
-		}
-
-		/**
-		 Returns the decal texture of this material.
-
-		 @return		A pointer to the decal texture of this material.
-		 */
-		SharedPtr< const Texture > GetDecalTexture() const noexcept {
-			return m_decal_texture;
-		}
-		
-		/**
-		 Returns the decal resource view of the decal texture of this material.
-
-		 @return		@c nullptr, if this material has no decal texture.
-		 @return		A pointer to the shader resource view of the decal 
-						texture of this material.
-		 */
-		ID3D11ShaderResourceView *GetDecalSRV() const noexcept {
-			return m_decal_texture ? m_decal_texture->Get() : nullptr;
-		}
-		
-		/**
-		 Sets the decal texture of this material to the given decal texture.
-
-		 @param[in]		decal_texture
-						A reference to the decal texture.
-		 */
-		void SetDecalTexture(
-			const SharedPtr< const Texture > &decal_texture) {
-			
-			m_decal_texture = decal_texture;
-		}
-		
-		/**
-		 Returns the specular exponent of this material.
-
-		 @return		The specular exponent of this material.
-		*/
-		F32 GetSpecularExponent() const noexcept {
-			return GetMaterialParameter(s_material_Ns_index);
-		}
-		
-		/**
-		 Sets the specular exponent of this material to the given specular 
-		 exponent.
-
-		 @param[in]		specular_exponent
-						A reference to the specular exponent.
-		*/
-		void SetSpecularExponent(F32 specular_exponent) noexcept {
-			SetMaterialParameter(s_material_Ns_index, specular_exponent);
-		}
-
-		/**
-		 Returns the index of refraction of this material.
-
-		 @return		The index of refraction of this material.
-		 */
-		F32 GetIndexOfRefraction() const noexcept {
-			return GetMaterialParameter(s_material_index_of_refraction_index);
-		}
-		
-		/**
-		 Sets the index of refraction of this material to the given index of 
-		 refraction.
-
-		 @param[in]		index_of_refraction
-						A reference to the index of refraction.
-		 */
-		void SetIndexOfRefraction(F32 index_of_refraction) noexcept {
-			SetMaterialParameter(
-				s_material_index_of_refraction_index, index_of_refraction);
-		}
-		
-		/**
-		 Returns the material parameter of this material at the given index.
-
-		 @pre			@a index < 
-						{@link mage::Material::s_nb_material_parameters}.
-		 @param[in]		index
-						The index.
-		 @return		The material parameter of this material at the given 
-						index.
-		 */
-		F32 GetMaterialParameter(U8 index) const noexcept {
-			Assert(index < s_nb_material_parameters);
-			return m_material_parameters[index];
-		}
-		
-		/**
-		 Sets the material parameter of this material at the given index to 
-		 the given value.
-
-		 @pre			@a index < 
-						{@link mage::Material::s_nb_material_parameters}.
-		 @param[in]		index
-						The index.
-		 @param[in]		value
-						The value.
-		 */
-		void SetMaterialParameter(U8 index, F32 value) noexcept {
-			Assert(index < s_nb_material_parameters);
-			m_material_parameters[index] = value;
-		}
-
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Methods: Opacity/Transparency
 		//---------------------------------------------------------------------
 
 		/**
 		 Updates the transparency flag of this material.
 		 */
 		void UpdateTransparency() noexcept {
-			m_transparent = (m_dissolve != 1.0f) 
-				|| (m_diffuse_reflectivity_texture 
-					&& m_diffuse_reflectivity_texture->HasAlpha());
+			m_transparent = (GetBaseColorA() != 1.0f) 
+				         || (m_base_color_texture 
+							 && m_base_color_texture->HasAlpha());
 		}
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Name
 		//---------------------------------------------------------------------
 
 		/**
@@ -640,11 +536,19 @@ namespace mage {
 		 */
 		string m_name;
 
+		//---------------------------------------------------------------------
+		// Member Variables: Light Interaction
+		//---------------------------------------------------------------------
+
 		/**
 		 Flag indicating whether this material interacts with light and light 
 		 sources.
 		 */
 		bool m_light_interaction;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Opacity/Transparency
+		//---------------------------------------------------------------------
 
 		/**
 		 Flag indicating whether this material is transparent. This flag is 
@@ -653,64 +557,49 @@ namespace mage {
 		 */
 		bool m_transparent;
 
-		/**
-		 The transmission filter of this material.
-		 
-		 Any light passing through the material is filtered by the 
-		 transmission filter, which only allows the specific colors to pass 
-		 through.
-		 */
-		RGBSpectrum m_transmission_filter;
+		//---------------------------------------------------------------------
+		// Member Variables: Base Color and Base Color Texture
+		//---------------------------------------------------------------------
 
 		/**
-		 The diffuse reflectivity of this material.
+		 The base color of this material.
 		 */
-		RGBSpectrum m_diffuse_reflectivity;
+		RGBASpectrum m_base_color;
 
 		/**
-		 A pointer to the diffuse reflectivity texture of this material.
+		 A pointer to the base color texture of this material.
 		 */
-		SharedPtr< const Texture > m_diffuse_reflectivity_texture;
+		SharedPtr< const Texture > m_base_color_texture;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Material Parameters
+		//---------------------------------------------------------------------
 
 		/**
-		 The specular reflectivity of this material.
+		 The roughness of this material.
 		 */
-		RGBSpectrum m_specular_reflectivity;
+		F32 m_roughness;
 
 		/**
-		 A pointer to the specular reflectivity texture of this material.
+		 The metalness of this material.
 		 */
-		SharedPtr< const Texture > m_specular_reflectivity_texture;
-		
-		/**
-		 The amount this material dissolves into the background.
+		F32 m_metalness;
 
-		 A factor of 1.0 is fully opaque.
-		 A factor of 0.0 is fully dissolved (completely transparent).
-		 
-		 Unlike a real transparent material, the dissolve does not depend upon 
-		 material thickness nor does it have any spectral character.
+		/**
+		 A pointer to the material texture of this material.
+
+		 The red channel contains the roughness of this material.
+		 The blue channel contains the metalness of this material.
 		 */
-		F32 m_dissolve;
+		SharedPtr< const Texture > m_material_texture;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Normal Texture
+		//---------------------------------------------------------------------
 
 		/**
 		 A pointer to the normal texture of this material.
 		 */
 		SharedPtr< const Texture > m_normal_texture;
-
-		/**
-		 A pointer to the displacement texture of this material.
-		 */
-		SharedPtr< const Texture > m_displacement_texture;
-
-		/**
-		 A pointer to the decal texture of this material.
-		 */
-		SharedPtr< const Texture > m_decal_texture;
-
-		/**
-		 The material parameters of this material.
-		 */
-		F32 m_material_parameters[s_nb_material_parameters];
 	};
 }

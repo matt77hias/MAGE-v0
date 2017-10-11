@@ -22,15 +22,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------
-
-		/**
-		 The number of material coefficients contained in pass buffers.
-		 */
-		static const U8 s_nb_material_coefficients = 2;
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -246,42 +237,6 @@ namespace mage {
 			return m_sky;
 		}
 
-		/**
-		 Returns the minimum of the material coefficient at the given index.
-
-		 @pre			@a index < 
-						{@link mage::PassBuffer::s_nb_material_coefficients}.
-		 @param[in]		index
-						The index.
-		 @return		The minimum of the material coefficient at the given 
-						index.
-		 */
-		F32 GetMaterialCoefficientMinimum(U8 index) const noexcept;
-		
-		/**
-		 Returns the maximum of the material coefficient at the given index.
-
-		 @pre			@a index < 
-						{@link mage::PassBuffer::s_nb_material_coefficients}.
-		 @param[in]		index
-						The index.
-		 @return		The maximum of the material coefficient at the given 
-						index.
-		 */
-		F32 GetMaterialCoefficientMaximum(U8 index) const noexcept;
-
-		/**
-		 Returns the range of the material coefficient at the given index.
-
-		 @pre			@a index < 
-						{@link mage::PassBuffer::s_nb_material_coefficients}.
-		 @param[in]		index
-						The index.
-		 @return		The range of the material coefficient at the given 
-						index.
-		 */
-		F32 GetMaterialCoefficientRange(U8 index) const noexcept;
-		
 	private:
 
 		//---------------------------------------------------------------------
@@ -323,26 +278,6 @@ namespace mage {
 						A pointer to the scene.
 		 */
 		void UpdateSprites(const Scene *scene);
-
-		/**
-		 Resets the material coefficients of this pass buffer.
-		 */
-		void ResetMaterialCoefficients() noexcept;
-
-		/**
-		 Updates the material coefficients of this pass buffer.
-
-		 @pre			@a material is not equal to @c nullptr.
-		 @param[in]		material
-						A pointer to the material.
-		 */
-		void UpdateMaterialCoefficients(const Material *material) noexcept;
-
-		/**
-		 Finishes the material coefficients of this pass buffer. This handles 
-		 material coefficient ranges which are equal to zero.
-		 */
-		void FinishMaterialCoefficients() noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -432,15 +367,5 @@ namespace mage {
 		 A pointer to the sky of this pass buffer.
 		 */
 		const Sky *m_sky;
-
-		/**
-		 The minima of the material coefficients of this pass buffer.
-		 */
-		F32 m_material_coefficient_min[s_nb_material_coefficients];
-
-		/**
-		 The maxima of the material coefficients of this pass buffer.
-		 */
-		F32 m_material_coefficient_max[s_nb_material_coefficients];
 	};
 }

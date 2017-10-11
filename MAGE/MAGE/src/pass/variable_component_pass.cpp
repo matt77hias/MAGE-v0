@@ -60,31 +60,31 @@ namespace mage {
 
 		switch (m_render_mode) {
 
-		case RenderMode::DiffuseColor: {
+		case RenderMode::BaseColor: {
 
 			buffer.m_texture_transform = texture_transform;
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				RGBASpectrum(material->GetDiffuseReflectivity(), material->GetDissolve()));
+				RGBASpectrum(material->GetBaseColorRGBA()));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
 
 			// Bind the diffuse SRV.
 			Pipeline::PS::BindSRV(m_device_context,
-				SLOT_SRV_TEXTURE, material->GetDiffuseReflectivitySRV());
+				SLOT_SRV_TEXTURE, material->GetBaseColorSRV());
 
 			break;
 		}
 		
-		case RenderMode::DiffuseReflectivity: {
+		case RenderMode::BaseColorCoefficient: {
 
 			buffer.m_texture_transform = texture_transform;
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				RGBASpectrum(material->GetDiffuseReflectivity(), material->GetDissolve()));
+				RGBASpectrum(material->GetBaseColorRGBA()));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
@@ -96,7 +96,7 @@ namespace mage {
 			break;
 		}
 
-		case RenderMode::DiffuseReflectivityTexture: {
+		case RenderMode::BaseColorTexture: {
 
 			buffer.m_texture_transform = texture_transform;
 
@@ -109,36 +109,36 @@ namespace mage {
 
 			// Bind the diffuse SRV.
 			Pipeline::PS::BindSRV(m_device_context,
-				SLOT_SRV_TEXTURE, material->GetDiffuseReflectivitySRV());
+				SLOT_SRV_TEXTURE, material->GetBaseColorSRV());
 
 			break;
 		}
 
-		case RenderMode::SpecularColor: {
+		case RenderMode::Material: {
 
 			buffer.m_texture_transform = texture_transform;
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				RGBASpectrum(material->GetSpecularReflectivity()));
+				RGBASpectrum(material->GetMaterialRGBA()));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
 
 			// Bind the diffuse SRV.
 			Pipeline::PS::BindSRV(m_device_context,
-				SLOT_SRV_TEXTURE, material->GetSpecularReflectivitySRV());
+				SLOT_SRV_TEXTURE, material->GetMaterialSRV());
 
 			break;
 		}
 
-		case RenderMode::SpecularReflectivity: {
+		case RenderMode::MaterialCoefficient: {
 
 			buffer.m_texture_transform = texture_transform;
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				RGBASpectrum(material->GetSpecularReflectivity()));
+				RGBASpectrum(material->GetMaterialRGBA()));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
@@ -150,7 +150,7 @@ namespace mage {
 			break;
 		}
 
-		case RenderMode::SpecularReflectivityTexture: {
+		case RenderMode::MaterialTexture: {
 
 			buffer.m_texture_transform = texture_transform;
 
@@ -163,7 +163,7 @@ namespace mage {
 
 			// Bind the diffuse SRV.
 			Pipeline::PS::BindSRV(m_device_context,
-				SLOT_SRV_TEXTURE, material->GetSpecularReflectivitySRV());
+				SLOT_SRV_TEXTURE, material->GetMaterialSRV());
 
 			break;
 		}

@@ -20,12 +20,12 @@ namespace mage {
 		m_render_modes.push_back(RenderMode::Forward);
 		m_render_modes.push_back(RenderMode::Deferred);
 		m_render_modes.push_back(RenderMode::Solid);
-		m_render_modes.push_back(RenderMode::DiffuseColor);
-		m_render_modes.push_back(RenderMode::DiffuseReflectivity);
-		m_render_modes.push_back(RenderMode::DiffuseReflectivityTexture);
-		m_render_modes.push_back(RenderMode::SpecularColor);
-		m_render_modes.push_back(RenderMode::SpecularReflectivity);
-		m_render_modes.push_back(RenderMode::SpecularReflectivityTexture);
+		m_render_modes.push_back(RenderMode::BaseColor);
+		m_render_modes.push_back(RenderMode::BaseColorCoefficient);
+		m_render_modes.push_back(RenderMode::BaseColorTexture);
+		m_render_modes.push_back(RenderMode::Material);
+		m_render_modes.push_back(RenderMode::MaterialCoefficient);
+		m_render_modes.push_back(RenderMode::MaterialTexture);
 		m_render_modes.push_back(RenderMode::NormalTexture);
 		m_render_modes.push_back(RenderMode::UVTexture);
 		m_render_modes.push_back(RenderMode::Distance);

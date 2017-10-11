@@ -83,17 +83,15 @@ namespace mage {
 		CXMMATRIX texture_transform,
 		const Material *material) {
 
-		ForwardModelBuffer buffer;
+		ModelBuffer buffer;
 		// Transforms
 		buffer.m_transform.m_object_to_view    = XMMatrixTranspose(object_to_view);
 		buffer.m_transform.m_normal_to_view    = view_to_object;
 		buffer.m_transform.m_texture_transform = XMMatrixTranspose(texture_transform);
 		// Material
-		buffer.m_Kd                       = material->GetDiffuseReflectivity();
-		buffer.m_dissolve                 = material->GetDissolve();
-		buffer.m_Ks                       = material->GetSpecularReflectivity();
-		buffer.m_material_coefficients[0] = material->GetMaterialParameter(0u);
-		buffer.m_material_coefficients[1] = material->GetMaterialParameter(1u);
+		buffer.m_base_color = material->GetBaseColorRGBA();
+		buffer.m_roughness  = material->GetRoughness();
+		buffer.m_metalness  = material->GetMetalness();
 		
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, 
@@ -104,14 +102,14 @@ namespace mage {
 		m_model_buffer.Bind< Pipeline::PS >(
 			m_device_context, SLOT_CBUFFER_PER_DRAW);
 
-		// Bind the diffuse SRV.
-		Pipeline::PS::BindSRV(m_device_context, 
-			SLOT_SRV_DIFFUSE, material->GetDiffuseReflectivitySRV());
-		// Bind the specular SRV.
-		Pipeline::PS::BindSRV(m_device_context, 
-			SLOT_SRV_SPECULAR, material->GetSpecularReflectivitySRV());
+		// Bind the base color SRV.
+		Pipeline::PS::BindSRV(m_device_context,
+			SLOT_SRV_BASE_COLOR, material->GetBaseColorSRV());
+		// Bind the material SRV.
+		Pipeline::PS::BindSRV(m_device_context,
+			SLOT_SRV_MATERIAL, material->GetMaterialSRV());
 		// Bind the normal SRV.
-		Pipeline::PS::BindSRV(m_device_context, 
+		Pipeline::PS::BindSRV(m_device_context,
 			SLOT_SRV_NORMAL, material->GetNormalSRV());
 	}
 

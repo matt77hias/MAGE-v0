@@ -107,126 +107,44 @@ namespace mage {
 		void ReadMTLMaterialName();
 
 		/**
-		 Reads a Transmission Filter definition.
+		 Reads a Base Color definition.
 
 		 @throws		FormattedException
-						Failed to read a Transmission Filter definition.
+						Failed to read a Base Color definition.
 		 */
-		void ReadMTLTransmissionFilter();
-		
-		/**
-		 Reads an Ambient Reflectivity definition.
-
-		 @throws		FormattedException
-						Failed to read an Ambient Reflectivity definition.
-		 @note			Ambient reflectivities are not supported, use diffuse 
-						reflectivities instead.
-		 */
-		void ReadMTLAmbientReflectivity();
+		void ReadMTLBaseColor();
 
 		/**
-		 Reads a Diffuse Reflectivity definition.
+		 Reads a Roughness definition.
 
 		 @throws		FormattedException
-						Failed to read a Diffuse Reflectivity definition.
+						Failed to read a Roughness definition.
 		 */
-		void ReadMTLDiffuseReflectivity();
+		void ReadMTLRoughness();
 
 		/**
-		 Reads a Specular Reflectivity definition.
+		 Reads a Metalness definition.
 
 		 @throws		FormattedException
-						Failed to read a Specular Reflectivity definition.
+						Failed to read a Metalness definition.
 		 */
-		void ReadMTLSpecularReflectivity();
+		void ReadMTLMetalness();
 
 		/**
-		 Reads a Specular Exponent definition.
+		 Reads a Base Color Texture definition.
 
 		 @throws		FormattedException
-						Failed to read a Specular Exponent definition.
+						Failed to read a Base Color Texture definition.
 		 */
-		void ReadMTLSpecularExponent();
+		void ReadMTLBaseColorTexture();
 
 		/**
-		 Reads a Dissolve definition.
+		 Reads a Material Texture definition.
 
 		 @throws		FormattedException
-						Failed to read a Dissolve definition.
+						Failed to read a Material Texture definition.
 		 */
-		void ReadMTLDissolve();
-
-		/**
-		 Reads an Optical Density definition.
-
-		 @throws		FormattedException
-						Failed to read an Optical Density definition.
-		 */
-		void ReadMTLOpticalDensity();
-
-		/**
-		 Reads an Ambient Reflectivity Texture definition.
-
-		 @throws		FormattedException
-						Failed to read Ambient Reflectivity Texture definition.
-		 @note			Ambient reflectivity textures are not supported, use 
-						diffuse reflectivity textures instead.
-		 */
-		void ReadMTLAmbientReflectivityTexture();
-
-		/**
-		 Reads a Diffuse Reflectivity Texture definition.
-
-		 @throws		FormattedException
-						Failed to read a Diffuse Reflectivity Texture 
-						definition.
-		 */
-		void ReadMTLDiffuseReflectivityTexture();
-
-		/**
-		 Reads a Specular Reflectivity Texture definition.
-
-		 @throws		FormattedException
-						Failed to read a Specular Reflectivity Texture 
-						definition.
-		 */
-		void ReadMTLSpecularReflectivityTexture();
-
-		/**
-		 Reads a Specular Exponent Texture definition.
-
-		 @throws		FormattedException
-						Failed to read a Specular Exponent Texture definition.
-		 @note			Specular exponent textures are not supported, use the 
-						alpha channel of specular reflectivity textures instead.
-		 */
-		void ReadMTLSpecularExponentTexture();
-		
-		/**
-		 Reads a Dissolve Texture definition.
-
-		 @throws		FormattedException
-						Failed to read a Dissolve Texture definition.
-		 @note			Dissolve textures are not supported, use the alpha 
-						channel of diffuse reflectivity textures instead.
-		 */
-		void ReadMTLDissolveTexture();
-
-		/**
-		 Reads a Decal Texture definition.
-
-		 @throws		FormattedException
-						Failed to read a Decal Texture definition.
-		 */
-		void ReadMTLDecalTexture();
-
-		/**
-		 Reads a Displacement Texture definition.
-
-		 @throws		FormattedException
-						Failed to read a Displacement Texture definition.
-		 */
-		void ReadMTLDisplacementTexture();
+		void ReadMTLMaterialTexture();
 
 		/**
 		 Reads a Normal Texture definition.
@@ -237,33 +155,24 @@ namespace mage {
 		void ReadMTLNormalTexture();
 
 		/**
-		 Reads a Bump Texture definition.
-
-		 @throws		FormattedException
-						Failed to read a Bump Texture definition.
-		 @note			Bump textures are not supported, use normal textures instead.
-		 */
-		void ReadMTLBumpTexture();
-
-		/**
-		 Reads an Illumination Model definition.
-
-		 @note			An illumination model is, if present,
-						silently ignored.
-		 @throws		FormattedException
-						Failed to read an Illumination Model definition.
-		 */
-		void ReadMTLIlluminationModel();
-
-		/**
 		 Reads an RGB spectrum.
 
-		 @return		The @c RGBSpectrum represented by the next token
-						of this MTL reader.
+		 @return		The @c RGBSpectrum represented by the next token of this 
+						MTL reader.
 		 @throws		FormattedException
 						Failed to read a @c RGBSpectrum.
 		 */
-		const RGBSpectrum ReadMTLSpectrum();
+		const RGBSpectrum ReadMTLRGBSpectrum();
+
+		/**
+		 Reads an RGBA spectrum.
+
+		 @return		The @c RGBASpectrum represented by the next token of 
+						this MTL reader.
+		 @throws		FormattedException
+						Failed to read a @c RGBASpectrum.
+		 */
+		const RGBASpectrum ReadMTLRGBASpectrum();
 
 		/**
 		 Reads a texture.

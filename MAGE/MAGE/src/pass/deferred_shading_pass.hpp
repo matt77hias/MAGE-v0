@@ -7,7 +7,6 @@
 
 #include "pass\pass_buffer.hpp"
 #include "buffer\constant_buffer.hpp"
-#include "buffer\deferred_buffer.hpp"
 #include "shader\shader.hpp"
 
 #pragma endregion
@@ -118,18 +117,14 @@ namespace mage {
 		void BindFixedState(BRDFType brdf);
 
 		/**
-		 Renders the scene.
+		 Render.
 
-		 @pre			@a scene is not equal to @c nullptr.
-		 @param[in]		scene
-						A pointer to the scene.
 		 @param[in]		view_to_projection
 						The view-to-projection transformation matrix.
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(
-			const PassBuffer *scene,
 			FXMMATRIX view_to_projection);
 		
 	private:
@@ -155,19 +150,15 @@ namespace mage {
 		/**
 		 Binds the GBuffer unpacking data of this deferred shading pass.
 
-		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		view_to_projection
 						The view-to-projection transformation matrix used for
 						transforming vertices.
-		 @param[in]		scene
-						A pointer to the scene.
 		 @throws		FormattedException
 						Failed to bind the projection data of this deferred 
 						shading pass.
 		 */
 		void XM_CALLCONV BindUnpackData(
-			FXMMATRIX view_to_projection,
-			const PassBuffer *scene);
+			FXMMATRIX view_to_projection);
 	
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -189,8 +180,8 @@ namespace mage {
 		BRDFType m_brdf;
 
 		/**
-		 The deferred buffer of this deferred shading pass.
+		 The transform buffer of this deferred shading pass.
 		 */
-		ConstantBuffer< DeferredBuffer > m_deferred_buffer;
+		ConstantBuffer< XMVECTOR > m_transform_buffer;
 	};
 }

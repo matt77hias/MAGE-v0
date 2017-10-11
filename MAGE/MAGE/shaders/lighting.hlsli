@@ -97,29 +97,21 @@ TEXTURE_2D_ARRAY(
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 
-#ifdef TWO_BRDF_COEFFICIENTS
-#define BRDF_COEFFICIENTS mat1, mat2
-#else  // TWO_BRDF_COEFFICIENTS
-#define BRDF_COEFFICIENTS mat1
-#endif // TWO_BRDF_COEFFICIENTS
-
 // Calculates the BRDF shading.
-float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float mat2) {
-	float3 I = Kd;
+float3 BRDFShading(float3 p, float3 n, 
+	float3 base_color, float roughness, float metalness) {
+
 	const float r_eye = length(p);
 
-#ifndef DISSABLE_BRDFxCOS
+#ifndef BRDFxCOS
+	float3 L = base_color;
+#else // DISSABLE_BRDFxCOS
+	float3 L = float3(0.0f, 0.0f, 0.0f);
 
-#ifdef DISSABLE_AMBIENT_LIGHT
-	float3 Id = float3(0.0f, 0.0f, 0.0f);
-#else  // DISSABLE_AMBIENT_LIGHT
+#ifndef DISSABLE_AMBIENT_LIGHT
 	// Ambient light contribution
-	float3 Id = g_Ia;
+	L += g_Ia;
 #endif // DISSABLE_AMBIENT_LIGHT
-
-#ifdef SPECULAR_BRDFxCOS
-	float3 Is = float3(0.0f, 0.0f, 0.0f);
-#endif // SPECULAR_BRDFxCOS
 
 	const float3 v = -p / r_eye;
 
@@ -131,13 +123,7 @@ float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float m
 		float3 l, I_light;
 		Contribution(light, l, I_light);
 
-		const float fd = LambertianBRDFxCos(n, l);
-		Id += fd * I_light;
-
-#ifdef SPECULAR_BRDFxCOS
-		const float fs = SPECULAR_BRDFxCOS(n, l, v, BRDF_COEFFICIENTS);
-		Is += fs * I_light;
-#endif // SPECULAR_BRDFxCOS
+		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
 #endif // DISSABLE_DIRECTIONAL_LIGHTS
 
@@ -149,13 +135,7 @@ float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float m
 		float3 l, I_light;
 		Contribution(light, p, l, I_light);
 
-		const float fd = LambertianBRDFxCos(n, l);
-		Id += fd * I_light;
-
-#ifdef SPECULAR_BRDFxCOS
-		const float fs = SPECULAR_BRDFxCOS(n, l, v, BRDF_COEFFICIENTS);
-		Is += fs * I_light;
-#endif // SPECULAR_BRDFxCOS
+		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
 #endif // DISSABLE_OMNI_LIGHTS
 
@@ -167,13 +147,7 @@ float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float m
 		float3 l, I_light;
 		Contribution(light, p, l, I_light);
 
-		const float fd = LambertianBRDFxCos(n, l);
-		Id += fd * I_light;
-
-#ifdef SPECULAR_BRDFxCOS
-		const float fs = SPECULAR_BRDFxCOS(n, l, v, BRDF_COEFFICIENTS);
-		Is += fs * I_light; // SPECULAR_BRDFxCOS
-#endif
+		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
 #endif // DISSABLE_SPOT_LIGHTS
 
@@ -187,13 +161,7 @@ float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float m
 		float3 l, I_light;
 		Contribution(light, g_pcf_sampler, g_directional_sms, i3, p, l, I_light);
 
-		const float fd = LambertianBRDFxCos(n, l);
-		Id += fd * I_light;
-
-#ifdef SPECULAR_BRDFxCOS
-		const float fs = SPECULAR_BRDFxCOS(n, l, v, BRDF_COEFFICIENTS);
-		Is += fs * I_light;
-#endif // SPECULAR_BRDFxCOS
+		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
 #endif // DISSABLE_SHADOW_MAP_DIRECTIONAL_LIGHTS
 
@@ -205,13 +173,7 @@ float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float m
 		float3 l, I_light;
 		Contribution(light, g_pcf_sampler, g_omni_sms, i4, p, l, I_light);
 		
-		const float fd = LambertianBRDFxCos(n, l);
-		Id += fd * I_light;
-
-#ifdef SPECULAR_BRDFxCOS
-		const float fs = SPECULAR_BRDFxCOS(n, l, v, BRDF_COEFFICIENTS);
-		Is += fs * I_light;
-#endif // SPECULAR_BRDFxCOS
+		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
 #endif // DISSABLE_SHADOW_MAP_OMNI_LIGHTS
 
@@ -223,31 +185,22 @@ float3 BRDFShading(float3 p, float3 n, float3 Kd, float3 Ks, float mat1, float m
 		float3 l, I_light;
 		Contribution(light, g_pcf_sampler, g_spot_sms, i5, p, l, I_light);
 
-		const float fd = LambertianBRDFxCos(n, l);
-		Id += fd * I_light;
-
-#ifdef SPECULAR_BRDFxCOS
-		const float fs = SPECULAR_BRDFxCOS(n, l, v, BRDF_COEFFICIENTS);
-		Is += fs * I_light; // SPECULAR_BRDFxCOS
-#endif
+		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
 #endif // DISSABLE_SHADOW_MAP_SPOT_LIGHTS
 
 #endif // DISSABLE_SHADOW_MAPPING
 
-	I *= Id;
-#ifdef SPECULAR_BRDFxCOS
-	I += Ks * Is;
-#endif // SPECULAR_BRDFxCOS
-
 #endif // DISSABLE_BRDFxCOS
 
 #ifndef DISSABLE_FOG
-	const float fog_factor = saturate((r_eye - g_fog_distance_falloff_start) * g_fog_distance_falloff_inv_range);
-	I = lerp(I, g_fog_color, fog_factor);
+	const float fog_factor = FogFactor(r_eye, 
+		                               g_fog_distance_falloff_start, 
+		                               g_fog_distance_falloff_inv_range);
+	L = lerp(L, g_fog_color, fog_factor);
 #endif // DISSABLE_FOG
 	
-	return I;
+	return L;
 }
 
 #endif //MAGE_HEADER_LIGHTING

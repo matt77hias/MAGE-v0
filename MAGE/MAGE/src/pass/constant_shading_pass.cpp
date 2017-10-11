@@ -53,15 +53,13 @@ namespace mage {
 		CXMMATRIX view_to_object,
 		CXMMATRIX texture_transform) {
 
-		ForwardModelBuffer buffer;
+		ModelBuffer buffer;
 		// Transforms
 		buffer.m_transform.m_object_to_view    = XMMatrixTranspose(object_to_view);
 		buffer.m_transform.m_normal_to_view    = view_to_object;
 		buffer.m_transform.m_texture_transform = XMMatrixTranspose(texture_transform);
 		// Material
-		buffer.m_Kd                       = RGBSpectrum(1.0f);
-		buffer.m_dissolve                 = 1.0f;
-		buffer.m_material_coefficients[0] = 1.0f;
+		buffer.m_base_color                    = RGBASpectrum(1.0f);
 		
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, 
@@ -80,7 +78,7 @@ namespace mage {
 		m_ps->BindShader(m_device_context);
 		// Bind the diffuse SRV.
 		Pipeline::PS::BindSRV(m_device_context,
-			SLOT_SRV_DIFFUSE, m_white->Get());
+			SLOT_SRV_BASE_COLOR, m_white->Get());
 		// Bind the rasterization state.
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// Bind the depth-stencil state.

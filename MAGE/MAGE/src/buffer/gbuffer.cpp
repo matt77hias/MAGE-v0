@@ -80,10 +80,10 @@ namespace mage {
 
 		// Setup the depth buffer.
 		SetupDepthBuffer(device, width, height);
-		// Setup the diffuse buffer;
-		SetupDiffuseBuffer(device, width, height);
-		// Setup the specular buffer.
-		SetupSpecularBuffer(device, width, height);
+		// Setup the base color buffer;
+		SetupBaseColorBuffer(device, width, height);
+		// Setup the material buffer.
+		SetupMaterialBuffer(device, width, height);
 		// Setup the normal buffer.
 		SetupNormalBuffer(device, width, height);
 	}
@@ -136,19 +136,19 @@ namespace mage {
 			"SRV creation failed: %08X.", result_srv);
 	}
 	
-	void GBuffer::SetupDiffuseBuffer(ID3D11Device2 *device,
+	void GBuffer::SetupBaseColorBuffer(ID3D11Device2 *device,
 		U32 width, U32 height) {
 
 		// Setup the diffuse buffer;
-		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Diffuse),
+		SetupBuffer(device, static_cast< size_t >(GBufferIndex::BaseColor),
 			width, height, DXGI_FORMAT_R8G8B8A8_UNORM);
 	}
 
-	void GBuffer::SetupSpecularBuffer(ID3D11Device2 *device,
+	void GBuffer::SetupMaterialBuffer(ID3D11Device2 *device,
 		U32 width, U32 height) {
 
 		// Setup the specular buffer.
-		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Specular),
+		SetupBuffer(device, static_cast< size_t >(GBufferIndex::Material),
 			width, height, DXGI_FORMAT_R8G8B8A8_UNORM);
 	}
 	

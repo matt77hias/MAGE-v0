@@ -349,6 +349,6 @@ namespace mage {
 		/**
 		 The model buffer of this variable shading pass.
 		 */
-		ConstantBuffer< ForwardModelBuffer > m_model_buffer;
+		ConstantBuffer< ModelBuffer > m_model_buffer;
 	};
 }

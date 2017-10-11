@@ -33,11 +33,11 @@ namespace mage {
 	private:
 
 		enum struct GBufferIndex {
-			Diffuse  = 0,
-			Specular = 1,
-			Normal   = 2,
-			Depth    = 3,
-			Count    = 4
+			BaseColor = 0,
+			Material  = 1,
+			Normal    = 2,
+			Depth     = 3,
+			Count     = 4
 		};
 
 		static constexpr size_t GetNumberOfRTVs() noexcept {
@@ -50,9 +50,9 @@ namespace mage {
 		void SetupBuffers(ID3D11Device2 *device);
 		void SetupDepthBuffer(ID3D11Device2 *device,
 			U32 width, U32 height);
-		void SetupDiffuseBuffer(ID3D11Device2 *device,
+		void SetupBaseColorBuffer(ID3D11Device2 *device,
 			U32 width, U32 height);
-		void SetupSpecularBuffer(ID3D11Device2 *device,
+		void SetupMaterialBuffer(ID3D11Device2 *device,
 			U32 width, U32 height);
 		void SetupNormalBuffer(ID3D11Device2 *device,
 			U32 width, U32 height);

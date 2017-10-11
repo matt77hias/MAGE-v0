@@ -19,32 +19,14 @@
 // Deferred
 #include "shader\cso\deferred\emissive_CS.hpp"
 #include "shader\cso\deferred\lambertian_CS.hpp"
-#include "shader\cso\deferred\phong_CS.hpp"
-#include "shader\cso\deferred\modified_phong_CS.hpp"
-#include "shader\cso\deferred\blinn_phong_CS.hpp"
-#include "shader\cso\deferred\modified_blinn_phong_CS.hpp"
-#include "shader\cso\deferred\ward_CS.hpp"
-#include "shader\cso\deferred\ward_duer_CS.hpp"
 #include "shader\cso\deferred\cook_torrance_CS.hpp"
 
 // Forward
 #include "shader\cso\forward\transform_VS.hpp"
 #include "shader\cso\forward\emissive_PS.hpp"
 #include "shader\cso\forward\lambertian_PS.hpp"
-#include "shader\cso\forward\phong_PS.hpp"
-#include "shader\cso\forward\modified_phong_PS.hpp"
-#include "shader\cso\forward\blinn_phong_PS.hpp"
-#include "shader\cso\forward\modified_blinn_phong_PS.hpp"
-#include "shader\cso\forward\ward_PS.hpp"
-#include "shader\cso\forward\ward_duer_PS.hpp"
 #include "shader\cso\forward\cook_torrance_PS.hpp"
 #include "shader\cso\forward\tsnm_lambertian_PS.hpp"
-#include "shader\cso\forward\tsnm_phong_PS.hpp"
-#include "shader\cso\forward\tsnm_modified_phong_PS.hpp"
-#include "shader\cso\forward\tsnm_blinn_phong_PS.hpp"
-#include "shader\cso\forward\tsnm_modified_blinn_phong_PS.hpp"
-#include "shader\cso\forward\tsnm_ward_PS.hpp"
-#include "shader\cso\forward\tsnm_ward_duer_PS.hpp"
 #include "shader\cso\forward\tsnm_cook_torrance_PS.hpp"
 
 // Sprite
@@ -148,54 +130,6 @@ namespace mage {
 				MAGE_GUID_PS_LAMBERTIAN, &cs);
 	}
 
-	SharedPtr< const PixelShader > CreatePhongPS() {
-		const BufferCompiledShader cs(
-				g_phong_ps, sizeof(g_phong_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_PHONG, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateModifiedPhongPS() {
-		const BufferCompiledShader cs(
-				g_modified_phong_ps, sizeof(g_modified_phong_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_MODIFIED_PHONG, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateBlinnPhongPS() {
-		const BufferCompiledShader cs(
-				g_blinn_phong_ps, sizeof(g_blinn_phong_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_BLINN_PHONG, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateModifiedBlinnPhongPS() {
-		const BufferCompiledShader cs(
-				g_modified_blinn_phong_ps, sizeof(g_modified_blinn_phong_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_MODIFIED_BLINN_PHONG, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateWardPS() {
-		const BufferCompiledShader cs(
-				g_ward_ps, sizeof(g_ward_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_WARD, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateWardDuerPS() {
-		const BufferCompiledShader cs(
-				g_ward_duer_ps, sizeof(g_ward_duer_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_WARD_DUER, &cs);
-	}
-
 	SharedPtr< const PixelShader > CreateCookTorrancePS() {
 		const BufferCompiledShader cs(
 				g_cook_torrance_ps, sizeof(g_cook_torrance_ps));
@@ -209,20 +143,10 @@ namespace mage {
 
 		case BRDFType::Lambertian:
 			return CreateLambertianPS();
-		case BRDFType::Phong:
-			return CreatePhongPS();
-		case BRDFType::ModifiedPhong:
-			return CreateModifiedPhongPS();
-		case BRDFType::BlinnPhong:
-			return CreateBlinnPhongPS();
-		case BRDFType::Ward:
-			return CreateWardPS();
-		case BRDFType::WardDuer:
-			return CreateWardDuerPS();
 		case BRDFType::CookTorrance:
 			return CreateCookTorrancePS();
 		default:
-			return CreateModifiedBlinnPhongPS();
+			return CreateCookTorrancePS();
 		}
 	}
 
@@ -232,54 +156,6 @@ namespace mage {
 		
 		return ResourceManager::Get()->GetOrCreatePS(
 				MAGE_GUID_PS_TSNM_LAMBERTIAN, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreatePhongTSNMPS() {
-		const BufferCompiledShader cs(
-				g_tsnm_phong_ps, sizeof(g_tsnm_phong_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_TSNM_PHONG, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateModifiedPhongTSNMPS() {
-		const BufferCompiledShader cs(
-				g_tsnm_modified_phong_ps, sizeof(g_tsnm_modified_phong_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_TSNM_MODIFIED_PHONG, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateBlinnPhongTSNMPS() {
-		const BufferCompiledShader cs(
-				g_tsnm_blinn_phong_ps, sizeof(g_tsnm_blinn_phong_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_TSNM_BLINN_PHONG, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateModifiedBlinnPhongTSNMPS() {
-		const BufferCompiledShader cs(
-				g_tsnm_modified_blinn_phong_ps, sizeof(g_tsnm_modified_blinn_phong_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_TSNM_MODIFIED_BLINN_PHONG, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateWardTSNMPS() {
-		const BufferCompiledShader cs(
-				g_tsnm_ward_ps, sizeof(g_tsnm_ward_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_TSNM_WARD, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateWardDuerTSNMPS() {
-		const BufferCompiledShader cs(
-				g_tsnm_ward_duer_ps, sizeof(g_tsnm_ward_duer_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_TSNM_WARD_DUER, &cs);
 	}
 
 	SharedPtr< const PixelShader > CreateCookTorranceTSNMPS() {
@@ -295,20 +171,10 @@ namespace mage {
 
 		case BRDFType::Lambertian:
 			return CreateLambertianTSNMPS();
-		case BRDFType::Phong:
-			return CreatePhongTSNMPS();
-		case BRDFType::ModifiedPhong:
-			return CreateModifiedPhongTSNMPS();
-		case BRDFType::BlinnPhong:
-			return CreateBlinnPhongTSNMPS();
-		case BRDFType::Ward:
-			return CreateWardTSNMPS();
-		case BRDFType::WardDuer:
-			return CreateWardDuerTSNMPS();
 		case BRDFType::CookTorrance:
 			return CreateCookTorranceTSNMPS();
 		default:
-			return CreateModifiedBlinnPhongTSNMPS();
+			return CreateCookTorranceTSNMPS();
 		}
 	}
 
@@ -358,54 +224,6 @@ namespace mage {
 				MAGE_GUID_CS_DEFERRED_LAMBERTIAN, &cs);
 	}
 
-	SharedPtr< const ComputeShader > CreateDeferredPhongCS() {
-		const BufferCompiledShader cs(
-				g_deferred_phong_cs, sizeof(g_deferred_phong_cs));
-		
-		return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_GUID_CS_DEFERRED_PHONG, &cs);
-	}
-
-	SharedPtr< const ComputeShader > CreateDeferredModifiedPhongCS() {
-		const BufferCompiledShader cs(
-				g_deferred_modified_phong_cs, sizeof(g_deferred_modified_phong_cs));
-		
-		return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_GUID_CS_DEFERRED_MODIFIED_PHONG, &cs);
-	}
-
-	SharedPtr< const ComputeShader > CreateDeferredBlinnPhongCS() {
-		const BufferCompiledShader cs(
-				g_deferred_blinn_phong_cs, sizeof(g_deferred_blinn_phong_cs));
-		
-		return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_GUID_CS_DEFERRED_BLINN_PHONG, &cs);
-	}
-
-	SharedPtr< const ComputeShader > CreateDeferredModifiedBlinnPhongCS() {
-		const BufferCompiledShader cs(
-				g_deferred_modified_blinn_phong_cs, sizeof(g_deferred_modified_blinn_phong_cs));
-		
-		return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_GUID_CS_DEFERRED_MODIFIED_BLINN_PHONG, &cs);
-	}
-
-	SharedPtr< const ComputeShader > CreateDeferredWardCS() {
-		const BufferCompiledShader cs(
-				g_deferred_ward_cs, sizeof(g_deferred_ward_cs));
-		
-		return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_GUID_CS_DEFERRED_WARD, &cs);
-	}
-
-	SharedPtr< const ComputeShader > CreateDeferredWardDuerCS() {
-		const BufferCompiledShader cs(
-				g_deferred_ward_duer_cs, sizeof(g_deferred_ward_duer_cs));
-		
-		return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_GUID_CS_DEFERRED_WARD_DUER, &cs);
-	}
-
 	SharedPtr< const ComputeShader > CreateDeferredCookTorranceCS() {
 		const BufferCompiledShader cs(
 				g_deferred_cook_torrance_cs, sizeof(g_deferred_cook_torrance_cs));
@@ -419,20 +237,10 @@ namespace mage {
 
 		case BRDFType::Lambertian:
 			return CreateDeferredLambertianCS();
-		case BRDFType::Phong:
-			return CreateDeferredPhongCS();
-		case BRDFType::ModifiedPhong:
-			return CreateDeferredModifiedPhongCS();
-		case BRDFType::BlinnPhong:
-			return CreateDeferredBlinnPhongCS();
-		case BRDFType::Ward:
-			return CreateDeferredWardCS();
-		case BRDFType::WardDuer:
-			return CreateDeferredWardDuerCS();
 		case BRDFType::CookTorrance:
 			return CreateDeferredCookTorranceCS();
 		default:
-			return CreateDeferredModifiedBlinnPhongCS();
+			return CreateDeferredCookTorranceCS();
 		}
 	}
 

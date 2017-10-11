@@ -1,4 +1,3 @@
 #define TSNM
-#define TWO_BRDF_COEFFICIENTS
-#define SPECULAR_BRDFxCOS CookTorranceBRDFxCos
+#define BRDFxCOS CookTorranceBRDFxCos
 #include "forward.hlsli"

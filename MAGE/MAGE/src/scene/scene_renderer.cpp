@@ -127,12 +127,12 @@ namespace mage {
 				break;
 			}
 
-			case RenderMode::DiffuseColor:
-			case RenderMode::DiffuseReflectivity:
-			case RenderMode::DiffuseReflectivityTexture:
-			case RenderMode::SpecularColor:
-			case RenderMode::SpecularReflectivity:
-			case RenderMode::SpecularReflectivityTexture:
+			case RenderMode::BaseColor:
+			case RenderMode::BaseColorCoefficient:
+			case RenderMode::BaseColorTexture:
+			case RenderMode::Material:
+			case RenderMode::MaterialCoefficient:
+			case RenderMode::MaterialTexture:
 			case RenderMode::NormalTexture: {
 				VariableComponentPass * const pass = GetVariableComponentPass();
 				pass->BindFixedState(render_mode);
@@ -315,7 +315,7 @@ namespace mage {
 		DeferredShadingPass *deferred_pass = GetDeferredShadingPass();
 		deferred_pass->BindFixedState(brdf);
 		deferred_pass->Render(
-			m_pass_buffer.get(), view_to_projection);
+			view_to_projection);
 
 		// Bind the ImageBuffer for unpacking.
 		m_image_buffer->BindUnpacking(m_device_context);

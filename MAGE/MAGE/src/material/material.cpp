@@ -18,18 +18,10 @@ namespace mage {
 	Material::Material(const string &name)
 		: m_name(name), 
 		m_light_interaction(true), 
-		m_transparent(), 
-		m_transmission_filter(RGBSpectrum(1.0f)),
-		m_diffuse_reflectivity(RGBSpectrum(1.0f)),  
-		m_diffuse_reflectivity_texture(CreateWhiteTexture()),
-		m_specular_reflectivity(RGBSpectrum(1.0f)), 
-		m_specular_reflectivity_texture(CreateBlackTexture()),
-		m_dissolve(1.0f), 
-		m_normal_texture(), 
-		m_displacement_texture(), 
-		m_decal_texture(), 
-		m_material_parameters{ 1.0f, 1.0f, 1.0f } {
-
-		UpdateTransparency();
-	}
+		m_transparent(false), 
+		m_base_color(RGBASpectrum(1.0f)),
+		m_base_color_texture(CreateWhiteTexture()),
+		m_roughness(1.0f), m_metalness(0.0f),
+		m_material_texture(CreateWhiteTexture()),
+		m_normal_texture() {}
 }

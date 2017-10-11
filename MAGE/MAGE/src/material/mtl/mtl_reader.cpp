@@ -34,56 +34,23 @@ namespace mage {
 		if (str_equals(token, MAGE_MTL_TOKEN_MATERIAL_DECLARATION)) {
 			ReadMTLMaterialName();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_TRANSMISSION_FILTER)) {
-			ReadMTLTransmissionFilter();
+		else if (str_equals(token, MAGE_MTL_TOKEN_BASE_COLOR)) {
+			ReadMTLBaseColor();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_AMBIENT_REFLECTIVITY)) {
-			ReadMTLAmbientReflectivity();
+		else if (str_equals(token, MAGE_MTL_TOKEN_ROUGHNESS)) {
+			ReadMTLRoughness();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_DIFFUSE_REFLECTIVITY)) {
-			ReadMTLDiffuseReflectivity();
+		else if (str_equals(token, MAGE_MTL_TOKEN_METALNESS)) {
+			ReadMTLMetalness();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_SPECULAR_REFLECTIVITY)) {
-			ReadMTLSpecularReflectivity();
+		else if (str_equals(token, MAGE_MTL_TOKEN_BASE_COLOR_TEXTURE)) {
+			ReadMTLBaseColorTexture();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_SPECULAR_EXPONENT)) {
-			ReadMTLSpecularExponent();
+		else if (str_equals(token, MAGE_MTL_TOKEN_MATERIAL_TEXTURE)) {
+			ReadMTLMaterialTexture();
 		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_DISSOLVE)) {
-			ReadMTLDissolve();
-		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_OPTICAL_DENSITY)) {
-			ReadMTLOpticalDensity();
-		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_AMBIENT_REFLECTIVITY_MAP)) {
-			ReadMTLAmbientReflectivityTexture();
-		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_DIFFUSE_REFLECTIVITY_MAP)) {
-			ReadMTLDiffuseReflectivityTexture();
-		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_SPECULAR_REFLECTIVITY_MAP)) {
-			ReadMTLSpecularReflectivityTexture();
-		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_SPECULAR_EXPONENT_MAP)) {
-			ReadMTLSpecularExponentTexture();
-		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_DISSOLVE_MAP)) {
-			ReadMTLDissolveTexture();
-		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_DECAL_MAP)) {
-			ReadMTLDecalTexture();
-		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_DISPLACEMENT_MAP)) {
-			ReadMTLDisplacementTexture();
-		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_NORMAL_MAP)) {
+		else if (str_equals(token, MAGE_MTL_TOKEN_NORMAL_TEXTURE)) {
 			ReadMTLNormalTexture();
-		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_BUMP_MAP)) {
-			ReadMTLBumpTexture();
-		}
-		else if (str_equals(token, MAGE_MTL_TOKEN_ILLUMINATION_MDL)) {
-			ReadMTLIlluminationModel();
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", 
@@ -99,133 +66,60 @@ namespace mage {
 		m_material_buffer.emplace_back(material_name);
 	}
 
-	void MTLReader::ReadMTLTransmissionFilter() {
-		m_material_buffer.back().SetTransmissionFilter(ReadMTLSpectrum());
+	void MTLReader::ReadMTLBaseColor() {
+		m_material_buffer.back().SetBaseColorRGBA(ReadMTLRGBASpectrum());
 	}
 
-	void MTLReader::ReadMTLAmbientReflectivity() {
-		Warning("%ls: line %u: ambient reflectivities are not supported, "
-			"use diffuse reflectivities instead.",
-			GetFilename().c_str(), GetCurrentLineNumber());
-		ReadMTLSpectrum();
+	void MTLReader::ReadMTLRoughness() {
+		const F32 roughness = ReadF32();
+		m_material_buffer.back().SetRoughness(roughness);
 	}
 
-	void MTLReader::ReadMTLDiffuseReflectivity() {
-		m_material_buffer.back().SetDiffuseReflectivity(ReadMTLSpectrum());
+	void MTLReader::ReadMTLMetalness() {
+		const F32 metalness = ReadF32();
+		m_material_buffer.back().SetMetalness(metalness);
 	}
 
-	void MTLReader::ReadMTLSpecularReflectivity() {
-		m_material_buffer.back().SetSpecularReflectivity(ReadMTLSpectrum());
+	void MTLReader::ReadMTLBaseColorTexture() {
+		m_material_buffer.back().SetBaseColorTexture(ReadMTLTexture());
 	}
 
-	void MTLReader::ReadMTLSpecularExponent() {
-		m_material_buffer.back().SetSpecularExponent(ReadF32());
-	}
-
-	void MTLReader::ReadMTLDissolve() {
-		if (!HasF32()) {
-			const char *token = ReadChars();
-			Warning("%ls: line %u: unsupported keyword token: %s.", 
-				GetFilename().c_str(), GetCurrentLineNumber(), token);
-		}
-
-		m_material_buffer.back().SetDissolve(ReadF32());
-	}
-
-	void MTLReader::ReadMTLOpticalDensity() {
-		m_material_buffer.back().SetIndexOfRefraction(ReadF32());
-	}
-
-	void MTLReader::ReadMTLAmbientReflectivityTexture() {
-		Warning("%ls: line %u: ambient reflectivity textures are not supported, "
-			"use diffuse reflectivity textures instead.", 
-			GetFilename().c_str(), GetCurrentLineNumber());
-		ReadMTLTexture();
-	}
-
-	void MTLReader::ReadMTLDiffuseReflectivityTexture() {
-		m_material_buffer.back().SetDiffuseReflectivityTexture(ReadMTLTexture());
-	}
-
-	void MTLReader::ReadMTLSpecularReflectivityTexture() {
-		m_material_buffer.back().SetSpecularReflectivityTexture(ReadMTLTexture());
-	}
-
-	void MTLReader::ReadMTLSpecularExponentTexture() {
-		Warning("%ls: line %u: specular exponent textures are not supported, "
-			"use the alpha channel of specular reflectivity textures instead.", 
-			GetFilename().c_str(), GetCurrentLineNumber());
-		ReadMTLTexture();
-	}
-
-	void MTLReader::ReadMTLDissolveTexture() {
-		Warning("%ls: line %u: dissolve textures are not supported, "
-			"use the alpha channel of diffuse reflectivity textures instead.", 
-			GetFilename().c_str(), GetCurrentLineNumber());
-		ReadMTLTexture();
-	}
-
-	void MTLReader::ReadMTLDecalTexture() {
-		m_material_buffer.back().SetDecalTexture(ReadMTLTexture());
-	}
-
-	void MTLReader::ReadMTLDisplacementTexture() {
-		m_material_buffer.back().SetDisplacementTexture(ReadMTLTexture());
+	void MTLReader::ReadMTLMaterialTexture() {
+		m_material_buffer.back().SetMaterialTexture(ReadMTLTexture());
 	}
 
 	void MTLReader::ReadMTLNormalTexture() {
 		m_material_buffer.back().SetNormalTexture(ReadMTLTexture());
 	}
 
-	void MTLReader::ReadMTLBumpTexture() {
-		Warning("%ls: line %u: bump textures are not supported, "
-			"use normal textures instead.", 
-			GetFilename().c_str(), GetCurrentLineNumber());
-		ReadMTLTexture();
-	}
-	
-	const RGBSpectrum MTLReader::ReadMTLSpectrum() {
-		
-		if (!HasF32()) {
-			const char *str = ReadChars();
+	const RGBSpectrum MTLReader::ReadMTLRGBSpectrum() {
 
-			// XYZ spectrum
-			if (str_equals(str, MAGE_MTL_TOKEN_XYZ)) {
-				
-				const F32 x = ReadF32();
-				F32 y = x;
-				F32 z = x;
-				if (HasF32()) {
-					y = ReadF32();
-					z = ReadF32();
-				}
-				
-				return static_cast< RGBSpectrum >(XYZSpectrum(x, y, z));
-			}
-			
-			// Custom spectrum
-			if (str_equals(str, MAGE_MTL_TOKEN_SPECTRAL)) {
-				Warning("%ls: line %u: unsupported custom spectrum.", 
-					GetFilename().c_str(), GetCurrentLineNumber());
-				return RGBSpectrum();
-			}
+		const F32 red = ReadF32();
 
-			// Unknown spectrum
-			Warning("%ls: line %u: unsupported spectrum: %s.", 
-				GetFilename().c_str(), GetCurrentLineNumber(), str);
-			return RGBSpectrum();
-		}
-
-		// RGB spectrum
-		const F32 x = ReadF32();
-		F32 y = x;
-		F32 z = x;
+		F32 green = red;
+		F32 blue = red;
 		if (HasF32()) {
-			y = ReadF32();
-			z = ReadF32();
+			green = ReadF32();
+			blue = ReadF32();
 		}
+
+		return RGBSpectrum(red, green, blue);
+	}
+
+	const RGBASpectrum MTLReader::ReadMTLRGBASpectrum() {
 		
-		return RGBSpectrum(x, y, z);
+		const F32 red = ReadF32();
+
+		F32 green = red;
+		F32 blue  = red;
+		if (HasF32()) {
+			green = ReadF32();
+			blue  = ReadF32();
+		}
+
+		const F32 alpha = HasF32() ? ReadF32() : 1.0f;
+		
+		return RGBASpectrum(red, green, blue, alpha);
 	}
 
 	SharedPtr< const Texture > MTLReader::ReadMTLTexture() {
@@ -234,10 +128,5 @@ namespace mage {
 		const wstring texture_name  = str_convert(ReadString());
 		const wstring texture_fname = mage::GetFilename(texture_path, texture_name);
 		return ResourceManager::Get()->GetOrCreateTexture(texture_fname);
-	}
-
-	void MTLReader::ReadMTLIlluminationModel() {
-		// Silently ignore illumination model declarations.
-		ReadU32();
 	}
 }

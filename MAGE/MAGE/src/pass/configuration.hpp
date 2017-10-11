@@ -15,12 +15,12 @@ namespace mage {
 	 @c Deferred,
 	 @c Solid, 
 	 @c DepthAndSolid,
-	 @c DiffuseColor,
-	 @c DiffuseReflectivity,
-	 @c DiffuseReflectivityTexture,
-	 @c SpecularColor,
-	 @c SpecularReflectivity,
-	 @c SpecularReflectivityTexture,
+	 @c BaseColor,
+	 @c BaseColorCoefficient,
+	 @c BaseColorTexture,
+	 @c Material,
+	 @c MaterialCoefficient,
+	 @c MaterialTexture,
 	 @c NormalTexture,
 	 @c UVTexture,
 	 @c Distance,
@@ -28,29 +28,24 @@ namespace mage {
 	 @c TSNMShadingNormal.
 	 */
 	enum struct RenderMode {
+		// Rendering
 		None = 0,                    // No shading.
 		Forward,                     // Forward shading.
-		DepthAndForward,             // Depth pass + Forward shading
+		DepthAndForward,             // Depth pass + Forward shading.
 		Deferred,					 // Deferred shading.
 		Solid,                       // Solid shading.
 		DepthAndSolid,               // Depth pass + Solid shading.               
-		DiffuseColor,                // The diffuse color (reflectivity and 
-		                             // reflectivity texture) (without 
-									 // lighting).
-		DiffuseReflectivity,         // The diffuse reflectivity (without 
-		                             // lighting).
-		DiffuseReflectivityTexture,  // The diffuse reflectivity texture 
-		                             // (without lighting).
-		SpecularColor,               // The specular color (reflectivity and 
-		                             // reflectivity texture) (without 
-									 // lighting).
-		SpecularReflectivity,        // The specular reflectivity (without 
-		                             // lighting).
-		SpecularReflectivityTexture, // The specular reflectivity texture 
-		                             // (without lighting).
-		NormalTexture,               // The normal texture (without lighting).
-		UVTexture,                   // The UV parametrization texture 
-		                             // (without lighting). 
+		
+		// Material
+		BaseColor,					 // Base Color (coefficient + texture).
+		BaseColorCoefficient,        // Base Color coefficient.
+		BaseColorTexture,            // Base Color texture.
+		Material,                    // Material (coefficient + texture).
+		MaterialCoefficient,         // Material coefficient.
+		MaterialTexture,             // Material texture.
+		NormalTexture,               // Normal texture.
+		
+		UVTexture,                   // UV parametrization texture.
 		Distance,                    // The distance towards the eye.
 		ShadingNormal,               // The shading normal.
 		TSNMShadingNormal            // The TSNM shading normal.

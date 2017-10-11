@@ -708,25 +708,7 @@
     <ClInclude Include="MAGE\src\shader\cso\forward\lambertian_PS.hpp">
       <Filter>Header Files\shader\cso\forward</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\forward\modified_blinn_phong_PS.hpp">
-      <Filter>Header Files\shader\cso\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\forward\modified_phong_PS.hpp">
-      <Filter>Header Files\shader\cso\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\forward\phong_PS.hpp">
-      <Filter>Header Files\shader\cso\forward</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\forward\transform_VS.hpp">
-      <Filter>Header Files\shader\cso\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\forward\ward_duer_PS.hpp">
-      <Filter>Header Files\shader\cso\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\forward\ward_PS.hpp">
-      <Filter>Header Files\shader\cso\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\forward\blinn_phong_PS.hpp">
       <Filter>Header Files\shader\cso\forward</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\forward\cook_torrance_PS.hpp">
@@ -736,24 +718,6 @@
       <Filter>Header Files\shader\cso\forward</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_lambertian_PS.hpp">
-      <Filter>Header Files\shader\cso\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_modified_blinn_phong_PS.hpp">
-      <Filter>Header Files\shader\cso\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_modified_phong_PS.hpp">
-      <Filter>Header Files\shader\cso\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_phong_PS.hpp">
-      <Filter>Header Files\shader\cso\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_ward_duer_PS.hpp">
-      <Filter>Header Files\shader\cso\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_ward_PS.hpp">
-      <Filter>Header Files\shader\cso\forward</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_blinn_phong_PS.hpp">
       <Filter>Header Files\shader\cso\forward</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_cook_torrance_PS.hpp">
@@ -927,24 +891,6 @@
     <ClInclude Include="MAGE\src\shader\cso\deferred\lambertian_PS.hpp">
       <Filter>Header Files\shader\cso\deferred</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\modified_blinn_phong_PS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\modified_phong_PS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\phong_PS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\ward_duer_PS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\ward_PS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\blinn_phong_PS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\deferred\cook_torrance_PS.hpp">
       <Filter>Header Files\shader\cso\deferred</Filter>
     </ClInclude>
@@ -953,9 +899,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\pass\gbuffer_pass.hpp">
       <Filter>Header Files\pass</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\buffer\deferred_buffer.hpp">
-      <Filter>Header Files\buffer</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\pass\deferred_shading_pass.hpp">
       <Filter>Header Files\pass</Filter>
@@ -972,9 +915,6 @@
     <ClInclude Include="MAGE\src\pass\depth_pass.hpp">
       <Filter>Header Files\pass</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\blinn_phong_CS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\deferred\cook_torrance_CS.hpp">
       <Filter>Header Files\shader\cso\deferred</Filter>
     </ClInclude>
@@ -982,21 +922,6 @@
       <Filter>Header Files\shader\cso\deferred</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\deferred\lambertian_CS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\modified_blinn_phong_CS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\modified_phong_CS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\phong_CS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\ward_CS.hpp">
-      <Filter>Header Files\shader\cso\deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\deferred\ward_duer_CS.hpp">
       <Filter>Header Files\shader\cso\deferred</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\memory\types.hpp">
@@ -1447,9 +1372,6 @@
     <FxCompile Include="MAGE\shaders\miscellaneous\bounding_volume_VS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\forward\blinn_phong_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\forward\cook_torrance_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
@@ -1459,25 +1381,7 @@
     <FxCompile Include="MAGE\shaders\forward\lambertian_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\forward\modified_blinn_phong_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\forward\modified_phong_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\forward\phong_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\forward\transform_VS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\forward\ward_duer_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\forward\ward_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\forward\tsnm_blinn_phong_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\forward\tsnm_cook_torrance_PS.hlsl">
@@ -1486,33 +1390,6 @@
     <FxCompile Include="MAGE\shaders\forward\tsnm_lambertian_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\forward\tsnm_modified_blinn_phong_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\forward\tsnm_modified_phong_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\forward\tsnm_phong_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\forward\tsnm_ward_duer_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\forward\tsnm_ward_PS.hlsl">
-      <Filter>Shader Files\forward</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\phong_PS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\ward_duer_PS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\ward_PS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\blinn_phong_PS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\cook_torrance_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
@@ -1520,12 +1397,6 @@
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\lambertian_PS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\modified_blinn_phong_PS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\modified_phong_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\gbuffer\gbuffer_tsnm_PS.hlsl">
@@ -1541,24 +1412,6 @@
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\lambertian_CS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\modified_blinn_phong_CS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\modified_phong_CS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\phong_CS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\ward_CS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\ward_duer_CS.hlsl">
-      <Filter>Shader Files\deferred</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\blinn_phong_CS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\cook_torrance_CS.hlsl">
@@ -1739,6 +1592,9 @@
     </None>
     <None Include="MAGE\src\texture\texture.tpp">
       <Filter>Header Files\texture</Filter>
+    </None>
+    <None Include="MAGE\shaders\gbuffer_input.hlsli">
+      <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>
 </Project>

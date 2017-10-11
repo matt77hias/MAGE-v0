@@ -182,11 +182,11 @@
 // Engine Includes: GBuffer SRVs
 //-----------------------------------------------------------------------------
 
-#define SLOT_SRV_DIFFUSE                        10
-#define SLOT_SRV_SPECULAR                       11
+#define SLOT_SRV_BASE_COLOR                     10
+#define SLOT_SRV_MATERIAL                       11
 #define SLOT_SRV_NORMAL                         12
 #define SLOT_SRV_DEPTH                          13
-#define SLOT_SRV_GBUFFER_START                  SLOT_SRV_DIFFUSE
+#define SLOT_SRV_GBUFFER_START                  SLOT_SRV_BASE_COLOR
 #define SLOT_SRV_GBUFFER_END                    SLOT_SRV_DEPTH
 #define SLOT_SRV_GBUFFER_COUNT                  (SLOT_SRV_GBUFFER_END + 1 \
 													- SLOT_SRV_GBUFFER_START)
@@ -195,9 +195,9 @@
 // Engine Includes: General SRVs
 //-----------------------------------------------------------------------------
 
-#define SLOT_SRV_IMAGE                          SLOT_SRV_DIFFUSE
-#define SLOT_SRV_SPRITE                         SLOT_SRV_DIFFUSE
-#define SLOT_SRV_TEXTURE                        SLOT_SRV_DIFFUSE
+#define SLOT_SRV_IMAGE                          SLOT_SRV_BASE_COLOR
+#define SLOT_SRV_SPRITE                         SLOT_SRV_BASE_COLOR
+#define SLOT_SRV_TEXTURE                        SLOT_SRV_BASE_COLOR
 
 //-----------------------------------------------------------------------------
 // Engine Includes: General UAVs

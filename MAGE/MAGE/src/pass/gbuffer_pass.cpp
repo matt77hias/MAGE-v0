@@ -30,31 +30,11 @@ namespace mage {
 		m_vs(CreateTransformVS()),
 		m_ps{ CreateGBufferPS(), CreateGBufferTSNMPS() },
 		m_bound_ps(PSIndex::Count),
-		m_projection_buffer(), m_model_buffer(),
-		m_material_coefficient_min{}, 
-		m_material_coefficient_range{} {}
+		m_projection_buffer(), m_model_buffer() {}
 
 	GBufferPass::GBufferPass(GBufferPass &&render_pass) = default;
 
 	GBufferPass::~GBufferPass() = default;
-
-	void GBufferPass::UpdateMaterialCoefficientData(const PassBuffer *scene) noexcept {
-
-		for (U8 i = 0; i < _countof(m_material_coefficient_min); ++i) {
-			m_material_coefficient_min[i]   = scene->GetMaterialCoefficientMinimum(i);
-			m_material_coefficient_range[i] = scene->GetMaterialCoefficientRange(i);
-		}
-	}
-	
-	F32 GBufferPass::NormalizeMaterialCoefficient(
-		U8 index, const Material *material) const noexcept {
-
-		Assert(index < _countof(m_material_coefficient_min));
-
-		return (material->GetMaterialParameter(index) 
-				- m_material_coefficient_min[index])
-				/ m_material_coefficient_range[index];
-	}
 
 	void GBufferPass::BindPS(PSIndex index) noexcept {
 		if (m_bound_ps != index) {
@@ -89,16 +69,15 @@ namespace mage {
 		CXMMATRIX texture_transform,
 		const Material *material) {
 
-		DeferredModelBuffer buffer;
+		ModelBuffer buffer;
 		// Transforms
 		buffer.m_transform.m_object_to_view    = XMMatrixTranspose(object_to_view);
 		buffer.m_transform.m_normal_to_view    = view_to_object;
 		buffer.m_transform.m_texture_transform = XMMatrixTranspose(texture_transform);
 		// Material
-		buffer.m_Kd        = material->GetDiffuseReflectivity();
-		buffer.m_Ks        = material->GetSpecularReflectivity();
-		buffer.m_mat1_norm = NormalizeMaterialCoefficient(0u, material);
-		buffer.m_mat2_norm = NormalizeMaterialCoefficient(1u, material);
+		buffer.m_base_color = material->GetBaseColorRGBA();
+		buffer.m_roughness  = material->GetRoughness();
+		buffer.m_metalness  = material->GetMetalness();
 		
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, buffer);
@@ -108,12 +87,12 @@ namespace mage {
 		m_model_buffer.Bind< Pipeline::PS >(
 			m_device_context, SLOT_CBUFFER_PER_DRAW);
 
-		// Bind the diffuse SRV.
+		// Bind the base color SRV.
 		Pipeline::PS::BindSRV(m_device_context, 
-			SLOT_SRV_DIFFUSE, material->GetDiffuseReflectivitySRV());
-		// Bind the specular SRV.
+			SLOT_SRV_BASE_COLOR, material->GetBaseColorSRV());
+		// Bind the material SRV.
 		Pipeline::PS::BindSRV(m_device_context, 
-			SLOT_SRV_SPECULAR, material->GetSpecularReflectivitySRV());
+			SLOT_SRV_MATERIAL, material->GetMaterialSRV());
 		// Bind the normal SRV.
 		Pipeline::PS::BindSRV(m_device_context, 
 			SLOT_SRV_NORMAL, material->GetNormalSRV());
@@ -141,9 +120,6 @@ namespace mage {
 		CXMMATRIX view_to_projection) {
 
 		Assert(scene);
-
-		// Update the material coefficient data.
-		UpdateMaterialCoefficientData(scene);
 
 		// Bind the projection data.
 		BindProjectionData(view_to_projection);

@@ -27,7 +27,7 @@ namespace mage {
 	DeferredShadingPass::DeferredShadingPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_cs(CreateDeferredCS(BRDFType::Unknown)),
-		m_brdf(BRDFType::Unknown), m_deferred_buffer() {}
+		m_brdf(BRDFType::Unknown), m_transform_buffer() {}
 
 	DeferredShadingPass::DeferredShadingPass(
 		DeferredShadingPass &&render_pass) = default;
@@ -42,20 +42,13 @@ namespace mage {
 	}
 
 	void XM_CALLCONV DeferredShadingPass::BindUnpackData(
-		FXMMATRIX view_to_projection, const PassBuffer *scene) {
+		FXMMATRIX view_to_projection) {
 
-		DeferredBuffer buffer;
-		buffer.m_projection_values    = GetViewPositionConstructionValues(view_to_projection);
-		buffer.m_mat1_start           = scene->GetMaterialCoefficientMinimum(0);
-		buffer.m_mat1_range           = scene->GetMaterialCoefficientRange(0);
-		buffer.m_mat2_start           = scene->GetMaterialCoefficientMinimum(1);
-		buffer.m_mat2_range           = scene->GetMaterialCoefficientRange(1);
-
-		// Update the deferred buffer.
-		m_deferred_buffer.UpdateData(m_device_context, 
-			buffer);
+		// Update the transform buffer.
+		m_transform_buffer.UpdateData(m_device_context, 
+			GetViewPositionConstructionValues(view_to_projection));
 		// Bind the deferred buffer.
-		m_deferred_buffer.Bind< Pipeline::CS >(
+		m_transform_buffer.Bind< Pipeline::CS >(
 			m_device_context, SLOT_CBUFFER_PER_FRAME);
 	}
 
@@ -68,13 +61,10 @@ namespace mage {
 	}
 
 	void XM_CALLCONV DeferredShadingPass::Render(
-		const PassBuffer *scene,
 		FXMMATRIX view_to_projection) {
 
-		Assert(scene);
-
 		// Bind the unpack data.
-		BindUnpackData(view_to_projection, scene);
+		BindUnpackData(view_to_projection);
 
 		// Dispatch.
 		const Renderer * const renderer = Renderer::Get();

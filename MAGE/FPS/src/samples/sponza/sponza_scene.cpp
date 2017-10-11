@@ -72,8 +72,6 @@ namespace mage {
 		auto model_tree = CreateModel(*model_desc_tree);
 		model_tree->GetTransform()->AddTranslationY(0.5f);
 		
-		//model_sphere->GetModel()->GetMaterial()->SetDiffuseReflectivityTexture(CreateReferenceTexture());
-
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------

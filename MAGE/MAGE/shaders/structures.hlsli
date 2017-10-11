@@ -145,12 +145,12 @@ struct PSInputPositionNormalTexture {
 
 /**
  An ouput merger input struct of fragments having
- a normal, diffuse and specular component.
+ a base color, material and normal component.
  */
 struct OMInputDeferred {
-	float4 diffuse  : SV_Target0;
-	float4 specular : SV_Target1;
-	float4 normal   : SV_Target2;
+	float4 base_color : SV_Target0;
+	float4 material   : SV_Target1;
+	float4 normal     : SV_Target2;
 };
 
 /**

@@ -20,8 +20,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 A struct of transform buffers used by pixel shaders for transforming 
-	 vertex positions/directions and normals.
+	 A struct of transform buffers used by shaders for transforming vertex 
+	 positions/directions and normals.
 	 */
 	_declspec(align(16)) struct ModelNormalTransformBuffer final 
 		: public AlignedData< ModelNormalTransformBuffer > {
@@ -118,8 +118,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 A struct of transform buffers used by pixel shaders for transforming 
-	 vertex positions/directions and texture coordinates.
+	 A struct of transform buffers used by shaders for transforming vertex 
+	 positions/directions and texture coordinates.
 	 */
 	_declspec(align(16)) struct ModelTextureTransformBuffer final 
 		: public AlignedData< ModelTextureTransformBuffer > {
@@ -215,8 +215,8 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 A struct of transform buffers used by pixel shaders for transforming 
-	 vertex positions/directions, normals and texture coordinates.
+	 A struct of transform buffers used by shaders for transforming vertex 
+	 positions/directions, normals and texture coordinates.
 	 */
 	_declspec(align(16)) struct ModelNormalTextureTransformBuffer final 
 		: public AlignedData< ModelNormalTextureTransformBuffer > {
@@ -316,14 +316,14 @@ namespace mage {
 		"CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
-	// ForwardModelBuffer
+	// ModelBuffer
 	//-------------------------------------------------------------------------
 
 	/**
-	 A struct of forward model buffers used by pixel shaders.
+	 A struct of model buffers.
 	 */
-	_declspec(align(16)) struct ForwardModelBuffer final 
-		: public AlignedData< ForwardModelBuffer > {
+	_declspec(align(16)) struct ModelBuffer final 
+		: public AlignedData< ModelBuffer > {
 
 	public:
 
@@ -332,67 +332,67 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a forward model buffer.
+		 Constructs a model buffer.
 		 */
-		ForwardModelBuffer()
+		ModelBuffer()
 			: m_transform(),
-			m_Kd{}, m_dissolve(0.0f),
-			m_Ks{}, m_material_coefficients{} {}
+			m_base_color{}, 
+			m_roughness(0.0f),
+			m_metalness(0.0f),
+			m_padding{} {}
 
 		/**
-		 Constructs a forward model buffer from the given forward model buffer.
+		 Constructs a model buffer from the given model buffer.
 
 		 @param[in]		buffer
-						A reference to the forward model buffer to copy.
+						A reference to the model buffer to copy.
 		 */
-		ForwardModelBuffer(const ForwardModelBuffer &buffer) = default;
+		ModelBuffer(const ModelBuffer &buffer) = default;
 		
 		/**
-		 Constructs a forward model buffer by moving the given forward model 
+		 Constructs a model buffer by moving the given model 
 		 buffer.
 
 		 @param[in]		buffer
-						A reference to the forward model buffer to move.
+						A reference to the model buffer to move.
 		 */
-		ForwardModelBuffer(ForwardModelBuffer &&buffer) = default;
+		ModelBuffer(ModelBuffer &&buffer) = default;
 
 		/**
-		 Destructs this forward model buffer.
+		 Destructs this model buffer.
 		 */
-		~ForwardModelBuffer() = default;
+		~ModelBuffer() = default;
 		
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 		
 		/**
-		 Copies the given forward model buffer to this forward model buffer.
+		 Copies the given model buffer to this model buffer.
 
 		 @param[in]		buffer
-						A reference to the forward model buffer to copy.
-		 @return		A reference to the copy of the given forward model 
-						buffer (i.e. this forward model buffer).
+						A reference to the model buffer to copy.
+		 @return		A reference to the copy of the given model buffer (i.e. 
+						this model buffer).
 		 */
-		ForwardModelBuffer &operator=(
-			const ForwardModelBuffer &buffer) = default;
+		ModelBuffer &operator=(const ModelBuffer &buffer) = default;
 
 		/**
-		 Moves the given forward model buffer to this forward model buffer.
+		 Moves the given model buffer to this model buffer.
 
 		 @param[in]		buffer
-						A reference to the forward model buffer to move.
-		 @return		A reference to the moved forward model buffer (i.e. 
-						this forward model buffer).
+						A reference to the model buffer to move.
+		 @return		A reference to the moved model buffer (i.e. this model 
+						buffer).
 		 */
-		ForwardModelBuffer &operator=(
-			ForwardModelBuffer &&buffer) = default;
+		ModelBuffer &operator=(ModelBuffer &&buffer) = default;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Transforms
 		//---------------------------------------------------------------------
 
 		/**
-		 The transformation matrices of this forward model buffer.
+		 The transformation matrices of this model buffer.
 		 */
 		ModelNormalTextureTransformBuffer m_transform;
 
@@ -401,138 +401,26 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The diffuse reflectivity of this forward model buffer.
+		 The base color of the material of this model buffer.
 		 */
-		RGBSpectrum m_Kd;
+		RGBASpectrum m_base_color;
 
 		/**
-		 The dissolve factor (i.e. opacity) of this forward model buffer.
+		 The roughness of the material of this model buffer.
 		 */
-		F32 m_dissolve;
+		F32 m_roughness;
 
 		/**
-		 The specular reflectivity of this forward model buffer.
+		 The metalness of the material of this model buffer.
 		 */
-		RGBSpectrum m_Ks;
+		F32 m_metalness;
 
 		/**
-		 The BRDF dependent material coefficients of this forward model buffer.
+		 The padding of this game buffer.
 		 */
-		F32 m_material_coefficients[2];
+		U32 m_padding[2];
 	};
 
-	static_assert(sizeof(ForwardModelBuffer) == 240, 
-		"CPU/GPU struct mismatch");
-
-	//-------------------------------------------------------------------------
-	// DeferredModelBuffer
-	//-------------------------------------------------------------------------
-
-	/**
-	 A struct of deferred model buffers used by pixel shaders.
-	 */
-	_declspec(align(16)) struct DeferredModelBuffer final 
-		: public AlignedData< DeferredModelBuffer > {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a deferred model buffer.
-		 */
-		DeferredModelBuffer()
-			: m_transform(),
-			m_Kd{}, m_mat2_norm(0.0f),
-			m_Ks{}, m_mat1_norm(0.0f) {}
-
-		/**
-		 Constructs a deferred model buffer from the given deferred model 
-		 buffer.
-
-		 @param[in]		buffer
-						A reference to the deferred model buffer to copy.
-		 */
-		DeferredModelBuffer(const DeferredModelBuffer &buffer) = default;
-		
-		/**
-		 Constructs a deferred model buffer by moving the given deferred 
-		 model buffer.
-
-		 @param[in]		buffer
-						A reference to the deferred model buffer to move.
-		 */
-		DeferredModelBuffer(DeferredModelBuffer &&buffer) = default;
-
-		/**
-		 Destructs this deferred model buffer.
-		 */
-		~DeferredModelBuffer() = default;
-		
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-		
-		/**
-		 Copies the given deferred model buffer to this deferred model buffer.
-
-		 @param[in]		buffer
-						A reference to the deferred model buffer to copy.
-		 @return		A reference to the copy of the given deferred model 
-						buffer (i.e. this deferred model buffer).
-		 */
-		DeferredModelBuffer &operator=(
-			const DeferredModelBuffer &buffer) = default;
-
-		/**
-		 Moves the given deferred model buffer to this deferred model buffer.
-
-		 @param[in]		buffer
-						A reference to the deferred model buffer to move.
-		 @return		A reference to the moved deferred model buffer (i.e. 
-						this deferred model buffer).
-		 */
-		DeferredModelBuffer &operator=(
-			DeferredModelBuffer &&buffer) = default;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Transforms
-		//---------------------------------------------------------------------
-
-		/**
-		 The transformation matrices of this deferred model buffer.
-		 */
-		ModelNormalTextureTransformBuffer m_transform;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Material
-		//---------------------------------------------------------------------
-
-		/**
-		 The diffuse reflectivity of this deferred model buffer.
-		 */
-		RGBSpectrum m_Kd;
-
-		/**
-		The 2nd BRDF dependent normalized material coefficient
-		of this deferred model buffer.
-		 */
-		F32 m_mat2_norm;
-
-		/**
-		 The specular reflectivity of this deferred model buffer.
-		 */
-		RGBSpectrum m_Ks;
-
-		/**
-		 The 1st BRDF dependent normalized material coefficient of this 
-		 deferred model buffer.
-		 */
-		F32 m_mat1_norm;
-	};
-
-	static_assert(sizeof(DeferredModelBuffer) == 224, 
+	static_assert(sizeof(ModelBuffer) == 224, 
 		"CPU/GPU struct mismatch");
 }

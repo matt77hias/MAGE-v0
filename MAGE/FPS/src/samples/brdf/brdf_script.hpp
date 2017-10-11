@@ -36,20 +36,8 @@ namespace mage {
 		enum struct ShaderType {
 			Emissive = 0,
 			Lambertian,
-			Phong,
-			ModifiedPhong,
-			BlinnPhong,
-			ModifiedBlinnPhong,
-			Ward,
-			WardDuer,
 			CookTorrance,
 			TSNMLambertian,
-			TSNMPhong,
-			TSNMModifiedPhong,
-			TSNMBlinnPhong,
-			TSNMModifiedBlinnPhong,
-			TSNMWard,
-			TSNMWardDuer,
 			TSNMCookTorrance
 		};
 

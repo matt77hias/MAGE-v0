@@ -89,18 +89,16 @@ namespace mage {
 		m_transparent_model_buffer.Bind< Pipeline::VS >(
 			m_device_context, SLOT_CBUFFER_PER_DRAW);
 
-		XMVECTOR dissolve = { material->GetDissolve(), 0.0f, 0.0f, 0.0f };
-
 		// Update the dissolve buffer.
 		m_dissolve_buffer.UpdateData(m_device_context,
-			dissolve);
+			XMVectorSet(material->GetBaseColorA(), 0.0f, 0.0f, 0.0f));
 		// Bind the dissolve buffer.
 		m_dissolve_buffer.Bind< Pipeline::PS >(
 			m_device_context, SLOT_CBUFFER_PER_DRAW);
 
 		// Bind the diffuse SRV.
 		Pipeline::PS::BindSRV(m_device_context,
-			SLOT_SRV_DIFFUSE, material->GetDiffuseReflectivitySRV());
+			SLOT_SRV_BASE_COLOR, material->GetBaseColorSRV());
 	}
 
 	void DepthPass::BindFixedState() {
@@ -241,7 +239,7 @@ namespace mage {
 
 			// Skip non-occluder models and "too" transparent models.
 			if (!model->OccludesLight() 
-				|| material->GetDissolve() < TRANSPARENCY_THRESHOLD) {
+				|| material->GetBaseColorA() < TRANSPARENCY_THRESHOLD) {
 				continue;
 			}
 

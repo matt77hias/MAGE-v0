@@ -23,13 +23,18 @@
   * `\n` (EOL: end of line character)
   * `\r`(CR: carriage return character)
 * Syntax: see [MTL format](http://paulbourke.net/dataformats/mtl/)
-  * [new material] `newmtl` `<ANSI string without delimiters and EOFs>`
-  * [base color] `base_color` `<float>`|`<float>``<float>``<float>`|`<float>``<float>``<float>``<float>`
-  * [base color texture] `texture_base_color` `<ANSI string without delimiters and EOFs>`
-  * [roughness] `roughness` `<float>`
-  * [metalness] `metalness` `<float>`
-  * [material texture] `material_base_color` `<ANSI string without delimiters and EOFs>`
-  * [normal texture] `normal_base_color` `<ANSI string without delimiters and EOFs>`
+
+| Definitions        | Syntax                                                          | Arguments                    |
+|--------------------|-----------------------------------------------------------------|------------------------------|
+| new material       | `newmtl <ANSI string without delimiters and EOFs>`              | material name                |
+| base color         | `base_color <float>`                                            | R=G=B channel (A=1)    [0,1] |
+| base color         | `base_color <float> <float> <float>`                            | R, G, B channels (A=1) [0,1] |
+| base color         | `base_color <float> <float> <float> <float>`                    | R, G, B, A channels    [0,1] |
+| base color texture | `texture_base_color <ANSI string without delimiters and EOFs>`  | relative file name           |
+| roughness          | `roughness <float>`                                             | roughness value        [0,1] |
+| metalness          | `metalness <float>`                                             | metalness value        [0,1] |
+| material texture   | `material_base_color <ANSI string without delimiters and EOFs>` | relative file name           |
+| normal texture     | `normal_base_color <ANSI string without delimiters and EOFs>`   | relative file name           |
 
 ## Meshes
 
@@ -39,11 +44,14 @@
 * Use: storing one vertex buffer and its associated index buffer. `VertexT` and `IndexT` are not included in the file.
 * Magic: `MAGEmesh`
 * Syntax:
-  * `MAGEmesh <nb-vertices> <nb-indices> <vertices> <indices>`
-     * `<nb-vertices>` = `<uint32_t>`
-     * `<nb-indices>` = `<uint32_t>`
-     * `<vertices>` = `<VertexT> ... <VertexT>` (`<nb-vertices>` *times*)
-     * `<indices>` = `<IndexT> ... <IndexT>` (`<nb-indices>` *times*)
+
+| Definitions        | Syntax                                                          | Arguments                    |
+|--------------------|-----------------------------------------------------------------|------------------------------|
+|                    | `MAGEmesh <nb-vertices> <nb-indices> <vertices> <indices>`      |                              |
+| `<nb-vertices>`    | `<uint32_t>`                                                    | number of vertices           |
+| `<nb-indices>`     | `<uint32_t>`                                                    | number of indices            |
+| `<vertices>`       | `<VertexT>...<VertexT>` (`<nb-vertices>` *times*)               | vertex array                 |
+| `<indices>`        | `<IndexT>...<IndexT>` (`<nb-indices>` *times*)                  | index array                  |
      
 ### .obj
 * File mode: ANSI

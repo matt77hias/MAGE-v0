@@ -32,7 +32,7 @@ namespace mage {
 		 @param[in]		maximum_block_size
 						The maximum block size in bytes.
 		 @param[in]		alignment
-						The alignment.
+						The alignment in bytes.
 		 */
 		explicit MemoryArena(size_t maximum_block_size = 32768, 
 			size_t alignment = 16);
@@ -87,21 +87,21 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the maximum block size of this memory arena.
-
-		 @return		The maximum block size of this memory arena.
-		 */
-		size_t GetMaximumBlockSize() const noexcept {
-			return m_maximum_block_size;
-		}
-
-		/**
 		 Returns the alignment of this memory arena.
 
-		 @return		The alignment of this memory arena.
+		 @return		The alignment in bytes of this memory arena.
 		 */
 		size_t GetAlignment() const noexcept {
 			return m_alignment;
+		}
+
+		/**
+		 Returns the maximum block size of this memory arena.
+
+		 @return		The maximum block size in bytes of this memory arena.
+		 */
+		size_t GetMaximumBlockSize() const noexcept {
+			return m_maximum_block_size;
 		}
 
 		/**
@@ -182,14 +182,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The maximum block size of this memory arena.
-		 */
-		const size_t m_maximum_block_size;
-
-		/**
-		 The alignment of this memory arena.
+		 The alignment in bytes of this memory arena.
 		 */
 		const size_t m_alignment;
+
+		/**
+		 The maximum block size in bytes of this memory arena.
+		 */
+		const size_t m_maximum_block_size;
 
 		/**
 		 The current block of this memory arena.

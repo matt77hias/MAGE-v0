@@ -91,6 +91,7 @@
     <ClInclude Include="MAGE\src\memory\allocation.hpp" />
     <ClInclude Include="MAGE\src\memory\memory.hpp" />
     <ClInclude Include="MAGE\src\memory\memory_arena.hpp" />
+    <ClInclude Include="MAGE\src\memory\memory_stack.hpp" />
     <ClInclude Include="MAGE\src\memory\types.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh_factory.hpp" />
@@ -293,6 +294,7 @@
     <ClCompile Include="MAGE\src\math\transform_node.cpp" />
     <ClCompile Include="MAGE\src\math\view_frustum.cpp" />
     <ClCompile Include="MAGE\src\memory\memory_arena.cpp" />
+    <ClCompile Include="MAGE\src\memory\memory_stack.cpp" />
     <ClCompile Include="MAGE\src\mesh\mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\mesh_factory.cpp" />
     <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp" />
@@ -1574,6 +1576,7 @@
     <None Include="MAGE\src\math\transform_node.tpp" />
     <None Include="MAGE\src\memory\memory.tpp" />
     <None Include="MAGE\src\memory\memory_arena.tpp" />
+    <None Include="MAGE\src\memory\memory_stack.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_loader.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_reader.tpp" />
     <None Include="MAGE\src\mesh\msh\msh_writer.tpp" />

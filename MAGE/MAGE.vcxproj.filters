@@ -972,6 +972,9 @@
     <ClInclude Include="MAGE\src\shader\cso\primitives\near_fullscreen_triangle_VS.hpp">
       <Filter>Header Files\shader\cso\primitives</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\memory\memory_stack.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1337,6 +1340,9 @@
     <ClCompile Include="MAGE\src\pass\sky_pass.cpp">
       <Filter>Source Files\pass</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\memory\memory_stack.cpp">
+      <Filter>Source Files\memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\sprite\sprite_PS.hlsl">
@@ -1598,6 +1604,9 @@
     </None>
     <None Include="MAGE\shaders\tone_mapping.hlsli">
       <Filter>Shader Files</Filter>
+    </None>
+    <None Include="MAGE\src\memory\memory_stack.tpp">
+      <Filter>Header Files\memory</Filter>
     </None>
   </ItemGroup>
 </Project>

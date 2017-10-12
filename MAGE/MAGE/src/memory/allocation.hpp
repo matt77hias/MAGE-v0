@@ -30,7 +30,7 @@ namespace mage {
 	 @param[in]		size
 					The requested size in bytes to allocate in memory.
 	 @param[in]		alignment
-					The alignment.
+					The alignment in bytes.
 	 @return		@c nullptr if the allocation failed.
 	 @return		A pointer to the memory block that was allocated. The 
 					pointer is a multiple of the given alignment.
@@ -48,7 +48,7 @@ namespace mage {
 					The number of objects of type @c DataT to allocate in 
 					memory.
 	 @param[in]		alignment
-					The alignment.
+					The alignment in bytes.
 	 @return		@c nullptr if the allocation failed.
 	 @return		A pointer to the memory block that was allocated. The 
 					pointer is a multiple of the given alignment.
@@ -163,7 +163,7 @@ namespace mage {
 	 @tparam		DataT
 					The data type.
 	 @tparam		AlignmentS
-					The alignment size.
+					The alignment size in bytes.
 	 */
 	template< typename DataT, size_t AlignmentS = __alignof(DataT) >
 	struct AlignedAllocator final {

@@ -23,7 +23,7 @@
 namespace mage {
 
 	MemoryArena::MemoryArena(size_t maximum_block_size, size_t alignment)
-		: m_maximum_block_size(maximum_block_size), m_alignment(alignment),
+		: m_alignment(alignment), m_maximum_block_size(maximum_block_size),
 		m_current_block(MemoryBlock(0, nullptr)), m_current_block_pos(0),
 		m_used_blocks(), m_available_blocks() {}
 

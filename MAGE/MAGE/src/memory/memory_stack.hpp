@@ -21,7 +21,7 @@ namespace mage {
 	/**
 	 A class of single-ended memory stacks.
 	 */
-	class MemoryStack final {
+	class SingleEndedMemoryStack final {
 
 	public:
 
@@ -30,7 +30,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a memory stack with given size.
+		 Constructs a single-ended memory stack with given size.
 
 		 @param[in]		size
 						The size in bytes.
@@ -39,98 +39,109 @@ namespace mage {
 		 @throws		std::bad_alloc
 						Failed to allocate the memory.
 		 */
-		explicit MemoryStack(size_t size, size_t alignment = 16);
+		explicit SingleEndedMemoryStack(size_t size, size_t alignment = 16);
 
 		/**
-		 Constructs a memory stack from the given memory stack.
+		 Constructs a single-ended memory stack from the given single-ended 
+		 memory stack.
 
 		 @param[in]		stack
-						A reference to the memory stack to copy.
+						A reference to the single-ended memory stack to copy.
 		 */
-		MemoryStack(const MemoryStack &stack) = delete;
+		SingleEndedMemoryStack(const SingleEndedMemoryStack &stack) = delete;
 
 		/**
-		 Constructs a memory stack by moving the given memory stack.
+		 Constructs a single-ended memory stack by moving the given 
+		 single-ended memory stack.
 
 		 @param[in]		stack
-						A reference to the memory stack to move.
+						A reference to the single-ended memory stack to move.
 		 */
-		MemoryStack(MemoryStack &&stack);
+		SingleEndedMemoryStack(SingleEndedMemoryStack &&stack);
 		
 		/**
-		 Destructs this memory stack.
+		 Destructs this single-ended memory stack.
 		 */
-		~MemoryStack();
+		~SingleEndedMemoryStack();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
 		/**
-		 Copies the given memory stack to this memory stack.
+		 Copies the given single-ended memory stack to this single-ended memory 
+		 stack.
 
 		 @param[in]		stack
-						A reference to the memory stack to copy.
-		 @return		A reference to the copy of the given memory stack (i.e. 
-						this memory stack).
+						A reference to the single-ended memory stack to copy.
+		 @return		A reference to the copy of the given single-ended memory 
+						stack (i.e. this single-ended memory stack).
 		 */
-		MemoryStack &operator=(const MemoryStack &stack) = delete;
+		SingleEndedMemoryStack &operator=(
+			const SingleEndedMemoryStack &stack) = delete;
 
 		/**
-		 Moves the given memory stack to this memory stack.
+		 Moves the given single-ended memory stack to this single-ended memory 
+		 stack.
 
 		 @param[in]		stack
-						A reference to the memory stack to move.
-		 @return		A reference to the moved memory stack (i.e. this memory 
-						stack).
+						A reference to the single-ended memory stack to move.
+		 @return		A reference to the moved single-ended memory stack 
+						(i.e. this single-ended memory stack).
 		 */
-		MemoryStack &operator=(MemoryStack &&stack) = delete;
+		SingleEndedMemoryStack &operator=(
+			SingleEndedMemoryStack &&stack) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the alignment of this memory stack.
+		 Returns the alignment of this single-ended memory stack.
 
-		 @return		The alignment in bytes of this memory stack.
+		 @return		The alignment in bytes of this single-ended memory 
+						stack.
 		 */
 		size_t GetAlignment() const noexcept {
 			return m_alignment;
 		}
 
 		/**
-		 Returns the size (used + available) of this memory stack.
+		 Returns the size (used + available) of this single-ended memory stack.
 
-		 @return		The size (used + available) in bytes of this memory 
-						stack.
+		 @return		The size (used + available) in bytes of this 
+						single-ended memory stack.
 		 */
 		size_t GetSize() const noexcept {
 			return m_size;
 		}
 
 		/**
-		 Returns the used size of this memory stack.
+		 Returns the used size of this single-ended memory stack.
 
-		 @return		The used size in bytes of this memory stack.
+		 @return		The used size in bytes of this single-ended memory 
+						stack.
 		 */
 		size_t GetUsedSize() const noexcept {
 			return m_current - m_begin;
 		}
 
 		/**
-		 Returns the available size of this memory stack.
+		 Returns the available size of this single-ended memory stack.
 
-		 @return		The available size in bytes of this memory stack.
+		 @return		The available size in bytes of this single-ended memory 
+						stack.
 		 */
 		size_t GetAvailableSize() const noexcept {
 			return GetSize() - GetUsedSize();
 		}
 
 		/**
-		 Returns a pointer to the current position of this memory stack.
+		 Returns a pointer to the current position of this single-ended memory 
+		 stack.
 
-		 @return		A pointer to the current position of this memory stack.
+		 @return		A pointer to the current position of this single-ended 
+						memory stack.
 		 */
 		uintptr_t GetCurrentPtr() const noexcept {
 			return m_current;
@@ -139,24 +150,25 @@ namespace mage {
 		/**
 		 Resets this memory stack.
 
-		 The pointer to the current position of this memory stack will be reset
-		 to the begin position of this memory stack.
+		 The pointer to the current position of this single-ended memory stack 
+		 will be reset to the begin position of this single-ended memory stack.
 		 */
 		void Reset() noexcept;
 
 		/**
-		 Rolls this memory stack back to the given position.
+		 Rolls this single-ended memory stack back to the given position.
 
-		 @pre			The given @a ptr must be in the range of this memory
-						stack.
+		 @pre			The given @a ptr must be in the range of this 
+						single-ended memory stack.
 		 @param[in]		ptr
-						The pointer to the requested position of this memory 
-						stack.
+						The pointer to the requested position of this 
+						single-ended memory stack.
 		 */
 		void RollBack(uintptr_t ptr) noexcept;
 
 		/**
-		 Allocates a block of memory of the given size.
+		 Allocates a block of memory of the given size on this single-ended 
+		 memory stack.
 
 		 @param[in]		size
 						The requested size in bytes to allocate in memory.
@@ -166,7 +178,7 @@ namespace mage {
 		void *Alloc(size_t size) noexcept;
 
 		/**
-		 Allocates a block of memory.
+		 Allocates a block of memory on this single-ended memory stack.
 
 		 @tparam		DataT
 						The type of objects to allocate in memory.
@@ -192,22 +204,22 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The size in bytes of this memory stack.
+		 The size in bytes of this single-ended memory stack.
 		 */
 		const size_t m_size;
 
 		/**
-		 The alignment in bytes of this memory stack.
+		 The alignment in bytes of this single-ended memory stack.
 		 */
 		const size_t m_alignment;
 
 		/**
-		 A pointer to the begin of this memory stack.
+		 A pointer to the begin of this single-ended memory stack.
 		 */
 		uintptr_t m_begin;
 
 		/**
-		 A pointer to the current position of this memory stack.
+		 A pointer to the current position of this single-ended memory stack.
 		 */
 		uintptr_t m_current;
 	};
@@ -215,7 +227,7 @@ namespace mage {
 	/**
 	 A class of single-ended memory stacks.
 	 */
-	using SingleEndedMemoryStack = MemoryStack;
+	using MemoryStack = SingleEndedMemoryStack;
 
 	//-------------------------------------------------------------------------
 	// DoubleEndedMemoryStack

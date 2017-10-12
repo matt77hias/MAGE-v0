@@ -6,7 +6,7 @@
 namespace mage {
 
 	template< typename DataT >
-	DataT *MemoryStack::AllocData(
+	DataT *SingleEndedMemoryStack::AllocData(
 		size_t count, bool initialization) noexcept {
 		
 		// Allocation

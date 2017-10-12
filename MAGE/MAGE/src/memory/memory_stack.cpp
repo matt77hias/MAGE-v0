@@ -18,7 +18,8 @@ namespace mage {
 	// MemoryStack
 	//-------------------------------------------------------------------------
 
-	MemoryStack::MemoryStack(size_t size, size_t alignment)
+	SingleEndedMemoryStack::SingleEndedMemoryStack(
+		size_t size, size_t alignment)
 		: m_alignment(alignment), m_size(size), 
 		m_begin(), m_current() {
 
@@ -31,23 +32,24 @@ namespace mage {
 		Reset();
 	}
 
-	MemoryStack::MemoryStack(MemoryStack &&stack) = default;
+	SingleEndedMemoryStack::SingleEndedMemoryStack(
+		SingleEndedMemoryStack &&stack) = default;
 
-	MemoryStack::~MemoryStack() {
+	SingleEndedMemoryStack::~SingleEndedMemoryStack() {
 		FreeAligned(reinterpret_cast< void * >(m_begin));
 	}
 
-	void MemoryStack::Reset() noexcept {
+	void SingleEndedMemoryStack::Reset() noexcept {
 		m_current = m_begin;
 	}
 
-	void MemoryStack::RollBack(uintptr_t ptr) noexcept {
+	void SingleEndedMemoryStack::RollBack(uintptr_t ptr) noexcept {
 		Assert(m_begin <= ptr && ptr <= m_current);
 		
 		m_current = ptr;
 	}
 
-	void *MemoryStack::Alloc(size_t size) noexcept {
+	void *SingleEndedMemoryStack::Alloc(size_t size) noexcept {
 		if (GetAvailableSize() < size) {
 			// The allocation failed.
 			return nullptr;

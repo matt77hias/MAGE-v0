@@ -138,7 +138,7 @@ namespace mage {
 		void Reset();
 
 		/**
-		 Allocates a block of memory of the given size.
+		 Allocates a block of memory of the given size on this memory arena.
 
 		 @param[in]		size
 						The requested size in bytes to allocate in memory.
@@ -148,7 +148,7 @@ namespace mage {
 		void *Alloc(size_t size);
 
 		/**
-		 Allocates a block of memory.
+		 Allocates a block of memory on this memory arena.
 
 		 @tparam		DataT
 						The type of objects to allocate in memory.

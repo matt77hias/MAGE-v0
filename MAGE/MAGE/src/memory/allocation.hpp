@@ -210,7 +210,7 @@ namespace mage {
 		using difference_type = ptrdiff_t;
 
 		/**
-		 A struct of equivalent aligned allocator for other elements with the 
+		 A struct of equivalent aligned allocators for other elements with the 
 		 same alignment.
 
 		 @tparam		DataU

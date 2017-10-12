@@ -56,6 +56,8 @@ COOK R. L., TORRANCE K. E.: *A Reflectance Model for Computer Graphics*, *ACM Tr
 
 DE VRIES J.: [Learn OpenGL](https://learnopengl.com/), 2014.
 
+DRAGO F., MYSZKOWSKI K., ANNEN T., CHIBA N.: *Adaptive Logarithmic Mapping For Displaying High Contrast Scenes*, *Computer Graphics Forum* 22, 3, 2003.
+
 DUFF T., BURGESS J., CHRISTENSEN P., HERY C., KENSLER A., LIANI M., VILLEMIN R.: *Building an Orthonormal Basis, Revisited*, *Journal of Computer Graphics Techniques* 6, 1, 2017.
 
 DÜR A.: *An Improved Normalization for the Ward Reflectance Model*, *Journal of Computer Tools 11, 1, 2006.
@@ -112,6 +114,8 @@ NGAN A., DURAND F., MATUSIK W.: *Experimental Analysis of BRDF Models*, *Proceed
 
 NYSTROM R.: *Game Programming Patterns*, 1st Edition, Genever Benning, 2014.
 
+PETTINEO M.: [*A Closer Look At Tone Mapping*](https://mynameismjp.wordpress.com/2010/04/30/a-closer-look-at-tone-mapping/), 2010.
+
 PHARR M., HUMPHREYS: *Physically Based Rendering: From Theory to Implementation*, 2nd Edition, Morgan Kaufmann, 2010.
 
 PHARR M., JAKOB W., HUMPHREYS: *Physically Based Rendering: From Theory to Implementation*, 3th Edition, Morgan Kaufmann, 2016.
@@ -121,6 +125,8 @@ PHONG B. T.: *Illumination for Computer Generated Pictures*, *Communications of 
 RASTERTEK: [*DirectX 11 Tutorials*](http://www.rastertek.com/tutdx11.html).
 
 RASTERTEK: [*DirectX 11 Tutorials - Series 2*](http://www.rastertek.com/tutdx11s2.html).
+
+REINHARD E., STARK M., SHIRLEY P., FERWERDA J.: *Photographic Tone Reproduction for Digital Images*, *ACM Trans. Graph.* 21, 3, 2002.
 
 SCHLICK C.: *An Inexpensive BRDF Model for Physically-based Rendering*, *Computer Graphics Forum* 13, 3, 1994.
 

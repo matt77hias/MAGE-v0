@@ -23,10 +23,19 @@
   * `\n` (EOL: end of line character)
   * `\r`(CR: carriage return character)
 * Syntax: see [MTL format](http://paulbourke.net/dataformats/mtl/)
-  * only a subset is supported
-  * `map_decal` instead of `decal`
-  * `map_disp` instead of `disp`
-  * `map_bump` instead of `bump`
+
+| Definitions        | Syntax                                      | Arguments                    |
+|--------------------|---------------------------------------------|------------------------------|
+| new material       | `newmtl <string>`                           | material name                |
+| base color         | `base_color <F32>`                          | R=G=B channel (A=1)    [0,1] |
+| base color         | `base_color <F32> <F32> <F32>`              | R, G, B channels (A=1) [0,1] |
+| base color         | `base_color <F32> <F32> <F32> <F32>`        | R, G, B, A channels    [0,1] |
+| base color texture | `texture_base_color <string>`               | relative file name           |
+| roughness          | `roughness <F32>`                           | roughness value        [0,1] |
+| metalness          | `metalness <F32>`                           | metalness value        [0,1] |
+| material texture   | `material_base_color <string>`              | relative file name           |
+| normal texture     | `normal_base_color <string>`                | relative file name           |
+| `<string>`         | `<ANSI string without delimiters and EOFs>` |                              |
 
 ## Meshes
 
@@ -36,11 +45,14 @@
 * Use: storing one vertex buffer and its associated index buffer. `VertexT` and `IndexT` are not included in the file.
 * Magic: `MAGEmesh`
 * Syntax:
-  * `MAGEmesh <nb-vertices> <nb-indices> <vertices> <indices>`
-     * `<nb-vertices>` = `<uint32_t>`
-     * `<nb-indices>` = `<uint32_t>`
-     * `<vertices>` = `<VertexT> ... <VertexT>` (`<nb-vertices>` *times*)
-     * `<indices>` = `<IndexT> ... <IndexT>` (`<nb-indices>` *times*)
+
+| Definitions        | Syntax                                                     |
+|--------------------|------------------------------------------------------------|
+|                    | `MAGEmesh <nb-vertices> <nb-indices> <vertices> <indices>` |
+| `<nb-vertices>`    | `<U32>`                                                    |
+| `<nb-indices>`     | `<U32>`                                                    |
+| `<vertices>`       | `<VertexT>...<VertexT>` (`<nb-vertices>` *times*)          |
+| `<indices>`        | `<IndexT>...<IndexT>` (`<nb-indices>` *times*)             |
      
 ### .obj
 * File mode: ANSI
@@ -72,8 +84,6 @@
   * `\n` (EOL: end of line character)
   * `\r`(CR: carriage return character)
 * Syntax:
-  * [comment line] `# <comment> \n`
-  * [empty line] `\n`
   * [material library] `mtllib <delimiter> <ANSI string without delimiters and EOFs>.mtl` *`<delimiter>`* `\n`
   * [model part] `s <delimiter> <child-name> <delimiter> <parent-name> <delimiter> <material-name> <delimiter> <start-index> <delimiter> <nb-indices>`*`<delimiter>`* `\n`
      * `<child-name>` = `<ANSI string without delimiters and EOFs>`
@@ -82,6 +92,17 @@
      * `<start-index>` = `<uint32_t>`
      * `<nb-indices>` = `<uint32_t>`
      
+| Definitions       | Syntax                                                                    |
+|-------------------|---------------------------------------------------------------------------|
+| material library  | `mtllib <string>.mtl`                                                     |
+| model part        | `s <child-name> <parent-name> <material-name> <start-index> <nb-indices>` |
+| `<child-name>`    | `<string>`                                                                |
+| `<parent-name>`   | `<string>`                                                                |
+| `<material-name>` | `<string>`                                                                |
+| `<start-index>`   | `<U32>`                                                                   |
+| `<nb-indices>`    | `<U32>`                                                                   |
+| `<string>`        | `<ANSI string without delimiters and EOFs>`                               |
+ 
 ## Textures
      
 ### .dds
@@ -105,19 +126,19 @@
   * `\n` (EOL: end of line character)
   * `\r`(CR: carriage return character)
 * Syntax:
-  * [comment line] `# <comment> \n`
-  * [empty line] `\n`
-  * [property] `<property-type> <delimiter> <property-name> <delimiter> <property-value>` *`<delimiter>`* `\n`
-    * `<property-type>` = `bool|int|int2|int3|float|float2|float3|float4|color|string`
-    * `<property-name>` = `<ANSI string without delimiters and EOFs>`
-    * `<property-value>` =
-        * `true|false` (`bool`)
-        * `<int32_t>` (`int`)
-        * `<int32_t> <delimiter> <int32_t>` (`int2`)
-        * `<int32_t> <delimiter> <int32_t> <delimiter> <int32_t>` (`int3`)
-        * `<float>` (`float`)
-        * `<float> <delimiter> <float>` (`float2`)
-        * `<float> <delimiter> <float> <delimiter> <float>` (`float3`)
-        * `<float> <delimiter> <float> <delimiter> <float> <delimiter> <float>` (`float4`)
-        * `<float> <delimiter> <float> <delimiter> <float> <delimiter> <float>` (`color`)
-        * `"<ANSI string without EOFs>"` (`string`) (`"` characters in the string must be escaped like `\"`)
+
+| Definitions       | Syntax                                                             |
+|-------------------|--------------------------------------------------------------------|
+| property          | `bool <property-name> true`                                        |
+| property          | `bool <property-name> false`                                       |
+| property          | `int <property-name> <S32>`                                        |  
+| property          | `int2 <property-name> <S32> <S32>`                                 |
+| property          | `int3 <property-name> <S32> <S32> <S32>`                           |
+| property          | `float <property-name> <F32>`                                      |
+| property          | `float2 <property-name> <F32> <F32>`                               |
+| property          | `float3 <property-name> <F32> <F32> <F32>`                         |
+| property          | `float4 <property-name> <F32> <F32> <F32> <F32>`                   |
+| property          | `color <property-name> <F32> <F32> <F32> <F32>`                    |
+| property          | `string <property-name> <string>`                                  |
+| `<property-name>` | `<string>`                                                         |
+| `<string>`        | `<ANSI string without delimiters and EOFs>`                        |

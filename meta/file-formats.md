@@ -23,10 +23,13 @@
   * `\n` (EOL: end of line character)
   * `\r`(CR: carriage return character)
 * Syntax: see [MTL format](http://paulbourke.net/dataformats/mtl/)
-  * only a subset is supported
-  * `map_decal` instead of `decal`
-  * `map_disp` instead of `disp`
-  * `map_bump` instead of `bump`
+  * [new material] `newmtl` `<ANSI string without delimiters and EOFs>`
+  * [base color] `base_color` `<float>`|`<float>``<float>``<float>`|`<float>``<float>``<float>``<float>`
+  * [base color texture] `texture_base_color` `<ANSI string without delimiters and EOFs>`
+  * [roughness] `roughness` `<float>`
+  * [metalness] `metalness` `<float>`
+  * [material texture] `material_base_color` `<ANSI string without delimiters and EOFs>`
+  * [normal texture] `normal_base_color` `<ANSI string without delimiters and EOFs>`
 
 ## Meshes
 

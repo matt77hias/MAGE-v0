@@ -27,12 +27,12 @@
 | Definitions        | Syntax                                                          | Arguments                    |
 |--------------------|-----------------------------------------------------------------|------------------------------|
 | new material       | `newmtl <ANSI string without delimiters and EOFs>`              | material name                |
-| base color         | `base_color <float>`                                            | R=G=B channel (A=1)    [0,1] |
-| base color         | `base_color <float> <float> <float>`                            | R, G, B channels (A=1) [0,1] |
-| base color         | `base_color <float> <float> <float> <float>`                    | R, G, B, A channels    [0,1] |
+| base color         | `base_color <F32>`                                              | R=G=B channel (A=1)    [0,1] |
+| base color         | `base_color <F32> <F32> <F32>`                                  | R, G, B channels (A=1) [0,1] |
+| base color         | `base_color <F32> <F32> <F32> <F32>`                            | R, G, B, A channels    [0,1] |
 | base color texture | `texture_base_color <ANSI string without delimiters and EOFs>`  | relative file name           |
-| roughness          | `roughness <float>`                                             | roughness value        [0,1] |
-| metalness          | `metalness <float>`                                             | metalness value        [0,1] |
+| roughness          | `roughness <F32>`                                               | roughness value        [0,1] |
+| metalness          | `metalness <F32>`                                               | metalness value        [0,1] |
 | material texture   | `material_base_color <ANSI string without delimiters and EOFs>` | relative file name           |
 | normal texture     | `normal_base_color <ANSI string without delimiters and EOFs>`   | relative file name           |
 
@@ -116,10 +116,31 @@
   * `\n` (EOL: end of line character)
   * `\r`(CR: carriage return character)
 * Syntax:
-  * [comment line] `# <comment> \n`
-  * [empty line] `\n`
-  * [property] `<property-type> <delimiter> <property-name> <delimiter> <property-value>` *`<delimiter>`* `\n`
-    * `<property-type>` = `bool|int|int2|int3|float|float2|float3|float4|color|string`
+
+| Definitions        | Syntax                                                          | Arguments                    |
+|--------------------|-----------------------------------------------------------------|------------------------------|
+| property           | `<property-type> <property-name> <property-value>`              | 
+| `<property-type>`  | `bool`
+| `<property-type>`  | `int`
+| `<property-type>`  | `int2`
+| `<property-type>`  | `int3`
+| `<property-type>`  | `float`
+| `<property-type>`  | `float2`
+| `<property-type>`  | `float3`
+| `<property-type>`  | `float4`
+| `<property-type>`  | `color`
+| `<property-type>`  | `string`
+| `<property-name>`  | `<ANSI string without delimiters and EOFs>`
+| `<property-value>` | `true`
+| `<property-value>` | `false`
+| `<property-value>` | `<int32_t>`
+| `<property-value>` | `<int32_t> <int32_t>`
+| `<property-value>` | `<int32_t> <int32_t> <int32_t>`
+| `<property-value>` | `<float>`
+
+
+
+
     * `<property-name>` = `<ANSI string without delimiters and EOFs>`
     * `<property-value>` =
         * `true|false` (`bool`)

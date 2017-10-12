@@ -18,6 +18,9 @@ namespace mage {
 	// MemoryStack
 	//-------------------------------------------------------------------------
 
+	/**
+	 A class of single-ended memory stacks.
+	 */
 	class MemoryStack final {
 
 	public:
@@ -209,10 +212,18 @@ namespace mage {
 		uintptr_t m_current;
 	};
 
+	/**
+	 A class of single-ended memory stacks.
+	 */
+	using SingleEndedMemoryStack = MemoryStack;
+
 	//-------------------------------------------------------------------------
 	// DoubleEndedMemoryStack
 	//-------------------------------------------------------------------------
 
+	/**
+	 A class of double-ended memory stacks.
+	 */
 	class DoubleEndedMemoryStack final {
 
 	public:

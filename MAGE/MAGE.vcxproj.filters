@@ -1596,5 +1596,8 @@
     <None Include="MAGE\shaders\gbuffer_input.hlsli">
       <Filter>Shader Files</Filter>
     </None>
+    <None Include="MAGE\shaders\tone_mapping.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,21 +1,12 @@
 #pragma once
 
 //-----------------------------------------------------------------------------
-// Engine Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include "memory\allocation.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
 	template< typename DataT >
-	DataT *MemoryArena::Alloc(size_t count, bool initialization) {
+	DataT *MemoryArena::AllocData(size_t count, bool initialization) {
 		// Allocation
 		DataT * const ptr = static_cast< DataT * >(Alloc(count * sizeof(DataT)));
 

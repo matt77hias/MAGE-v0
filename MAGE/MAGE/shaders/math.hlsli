@@ -41,6 +41,92 @@ static const float g_pi_inv_4 = 0.785398163f;
 static const float g_sqrt_2_inv_pi = 0.7978845608f;
 
 //-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: HasNaNs
+//-----------------------------------------------------------------------------
+
+/**
+ Checks if the given vector contains NANs or QNANs.
+
+ @param[in]		v
+				The vector.
+ @return		@c true if the given vector contains at least one NAN or QNAN.
+				@c false otherwise.
+ */
+bool HasNaNs(float2 v) {
+	const bool2 result = isnan(v);
+	return result.x && result.y;
+}
+
+/**
+ Checks if the given vector contains NANs or QNANs.
+
+ @param[in]		v
+				The vector.
+ @return		@c true if the given vector contains at least one NAN or QNAN.
+				@c false otherwise.
+ */
+bool HasNaNs(float3 v) {
+	const bool3 result = isnan(v);
+	return result.x && result.y && result.z;
+}
+
+/**
+ Checks if the given vector contains NANs or QNANs.
+
+ @param[in]		v
+				The vector.
+ @return		@c true if the given vector contains at least one NAN or QNAN.
+				@c false otherwise.
+ */
+bool HasNaNs(float4 v) {
+	const bool4 result = isnan(v);
+	return result.x && result.y && result.z && result.w;
+}
+
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: HasInfs
+//-----------------------------------------------------------------------------
+
+/**
+ Checks if the given vector contains infinite components.
+
+ @param[in]		v
+				The vector.
+ @return		@c true if the given vector contains at least one infinite 
+				component. @c false otherwise.
+ */
+bool HasInfs(float2 v) {
+	const bool2 result = isinf(v);
+	return result.x && result.y;
+}
+
+/**
+ Checks if the given vector contains infinite components.
+
+ @param[in]		v
+				The vector.
+ @return		@c true if the given vector contains at least one infinite 
+				component. @c false otherwise.
+ */
+bool HasInfs(float3 v) {
+	const bool3 result = isinf(v);
+	return result.x && result.y && result.z;
+}
+
+/**
+ Checks if the given vector contains infinite components.
+
+ @param[in]		v
+				The vector.
+ @return		@c true if the given vector contains at least one infinite 
+				component. @c false otherwise.
+ */
+bool HasInfs(float4 v) {
+	const bool4 result = isinf(v);
+	return result.x && result.y && result.z && result.w;
+}
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: sqr
 //-----------------------------------------------------------------------------
 
@@ -213,6 +299,72 @@ float Max(float4 v) {
 	return max(max(v.x, v.y), max(v.z, v.w));
 }
 
+/**
+ Returns the maximum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The maximum component value of the given value.
+ */
+int Max(int2 v) {
+	return max(v.x, v.y);
+}
+
+/**
+ Returns the maximum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The maximum component value of the given value.
+ */
+int Max(int3 v) {
+	return max(v.x, max(v.y, v.z));
+}
+
+/**
+ Returns the maximum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The maximum component value of the given value.
+ */
+int Max(int4 v) {
+	return max(max(v.x, v.y), max(v.z, v.w));
+}
+
+/**
+ Returns the maximum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The maximum component value of the given value.
+ */
+uint Max(uint2 v) {
+	return max(v.x, v.y);
+}
+
+/**
+ Returns the maximum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The maximum component value of the given value.
+ */
+uint Max(uint3 v) {
+	return max(v.x, max(v.y, v.z));
+}
+
+/**
+ Returns the maximum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The maximum component value of the given value.
+ */
+uint Max(uint4 v) {
+	return max(max(v.x, v.y), max(v.z, v.w));
+}
+
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Min
 //-----------------------------------------------------------------------------
@@ -247,6 +399,72 @@ float Min(float3 v) {
  @return		The minimum component value of the given value.
  */
 float Min(float4 v) {
+	return min(min(v.x, v.y), min(v.z, v.w));
+}
+
+/**
+ Returns the minimum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The minimum component value of the given value.
+ */
+int Min(int2 v) {
+	return min(v.x, v.y);
+}
+
+/**
+ Returns the minimum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The minimum component value of the given value.
+ */
+int Min(int3 v) {
+	return min(v.x, min(v.y, v.z));
+}
+
+/**
+ Returns the minimum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The minimum component value of the given value.
+ */
+int Min(int4 v) {
+	return min(min(v.x, v.y), min(v.z, v.w));
+}
+
+/**
+ Returns the minimum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The minimum component value of the given value.
+ */
+uint Min(uint2 v) {
+	return min(v.x, v.y);
+}
+
+/**
+ Returns the minimum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The minimum component value of the given value.
+ */
+uint Min(uint3 v) {
+	return min(v.x, min(v.y, v.z));
+}
+
+/**
+ Returns the minimum component value of the given value.
+
+ @param[in]		v
+				The value.
+ @return		The minimum component value of the given value.
+ */
+uint Min(uint4 v) {
 	return min(min(v.x, v.y), min(v.z, v.w));
 }
 
@@ -482,7 +700,7 @@ float2 NormalizedDispatchThreadIDtoNDC(float2 normalized_id) {
 				spectrum.
  */
 float3 GammaCorrect(float3 rgb, float inv_gamma) {
-	return pow(rgb, inv_gamma);
+	return pow(abs(rgb), inv_gamma);
 }
 
 /**
@@ -497,7 +715,7 @@ float3 GammaCorrect(float3 rgb, float inv_gamma) {
 				gamma-corrected RGB spectrum.
  */
 float3 GammaRecover(float3 rgb, float gamma) {
-	return pow(rgb, gamma);
+	return pow(abs(rgb), gamma);
 }
 
 //-----------------------------------------------------------------------------

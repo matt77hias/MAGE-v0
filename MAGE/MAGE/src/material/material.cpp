@@ -21,7 +21,7 @@ namespace mage {
 		m_transparent(false), 
 		m_base_color(RGBASpectrum(1.0f)),
 		m_base_color_texture(CreateWhiteTexture()),
-		m_roughness(1.0f), m_metalness(0.0f),
+		m_roughness(0.5f), m_metalness(0.0f),
 		m_material_texture(CreateWhiteTexture()),
 		m_normal_texture() {}
 }

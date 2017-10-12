@@ -6,6 +6,8 @@
 #include "transform.hlsli"
 #include "lighting.hlsli"
 
+#include "tone_mapping.hlsli"
+
 //-----------------------------------------------------------------------------
 // Pixel Shader
 //-----------------------------------------------------------------------------
@@ -46,6 +48,9 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 	// Calculate the pixel radiance.
 	const float3 L = BRDFShading(input.p_view, n_view, 
 		                         base_color.xyz, roughness, metalness);
+
+	//const float3 color = GammaCorrect(saturate(ToneMap_Reinhard(L)));
+
 
 	return float4(L, base_color.w);
 }

@@ -92,7 +92,7 @@ float2 DispatchThreadIDtoNDC(uint2 id) {
 				RGB spectrum.
  */
 float3 GammaCorrect(float3 rgb) {
-	return pow(rgb, g_inv_gamma);
+	return GammaCorrect(rgb, g_inv_gamma);
 }
 
 /**
@@ -105,7 +105,7 @@ float3 GammaCorrect(float3 rgb) {
 				gamma-corrected RGB spectrum.
  */
 float3 GammaRecover(float3 rgb) {
-	return pow(rgb, g_gamma);
+	return GammaRecover(rgb, g_gamma);
 }
 
 #endif // MAGE_HEADER_GLOBAL

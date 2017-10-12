@@ -1325,9 +1325,11 @@ float3 CookTorranceBRDFxCos(float3 n, float3 l, float3 v,
 	const float3 h       = HalfDirection(l, v);
 	const float  n_dot_h = sat_dot(n, h);
 	const float  v_dot_h = sat_dot(v, h);
-	
-	const float Fd90     = F_D90(v_dot_h, roughness);
-	const float F_diff   = (1.0f - metalness) * Fd90; // lerp(1, Fd90, Fresnel(n_dot_l)) * lerp(1, Fd90, Fresnel(n_dot_v))
+
+	const float  Fd90    = F_D90(v_dot_h, roughness);
+	const float  FL      = BRDF_F_COMPONENT(n_dot_l, Fd90);
+	const float  FV      = BRDF_F_COMPONENT(n_dot_v, Fd90);
+	const float  F_diff  = (1.0f - metalness) * (1.0f - FL) * (1.0f - FV);
 
 	const float3 c_spec  = lerp(g_dielectric_F0, base_color, metalness);
 	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, c_spec);

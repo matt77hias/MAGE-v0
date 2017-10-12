@@ -56,7 +56,7 @@ namespace mage {
 		// Update the compute shader.
 		UpdateCS(brdf);
 
-		// Bind the compute shader.
+		// CS: Bind the compute shader.
 		m_cs->BindShader(m_device_context);
 	}
 

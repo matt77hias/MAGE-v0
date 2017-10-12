@@ -49,15 +49,21 @@ namespace mage {
 	}
 
 	void SkyPass::BindFixedState() const noexcept {
-		// Bind the vertex shader.
+		// VS: Bind the vertex shader.
 		m_sky_vs->BindShader(m_device_context);
-		// Bind the pixel shader.
-		m_sky_ps->BindShader(m_device_context);
-		// Bind the rasterization state.
+		// HS: Bind the hull shader.
+		Pipeline::HS::BindShader(m_device_context, nullptr);
+		// DS: Bind the domain shader.
+		Pipeline::DS::BindShader(m_device_context, nullptr);
+		// GS: Bind the geometry shader.
+		Pipeline::GS::BindShader(m_device_context, nullptr);
+		// RS: Bind the rasterization state.
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
-		// Bind the depth stencil state.
+		// PS: Bind the pixel shader.
+		m_sky_ps->BindShader(m_device_context);
+		// OM: Bind the depth stencil state.
 		RenderingStateCache::Get()->BindDepthReadWriteDepthStencilState(m_device_context);
-		// Bind the blend state.
+		// OM: Bind the blend state.
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 	}
 

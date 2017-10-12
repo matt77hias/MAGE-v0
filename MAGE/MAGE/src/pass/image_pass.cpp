@@ -32,26 +32,31 @@ namespace mage {
 	ImagePass::~ImagePass() = default;
 
 	void ImagePass::BindFixedState(bool transfer_depth) {
-		// Bind the vertex shader.
+		// VS: Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
+		// HS: Bind the hull shader.
+		Pipeline::HS::BindShader(m_device_context, nullptr);
+		// DS: Bind the domain shader.
+		Pipeline::DS::BindShader(m_device_context, nullptr);
+		// GS: Bind the geometry shader.
+		Pipeline::GS::BindShader(m_device_context, nullptr);
+		// RS: Bind the rasterization state.
+		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		// OM: Bind the blend state.
+		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 
 		if (transfer_depth) {
-			// Bind the pixel shader.
+			// PS: Bind the pixel shader.
 			m_image_depth_ps->BindShader(m_device_context);
-			// Bind the depth-stencil state.
+			// OM: Bind the depth-stencil state.
 			RenderingStateCache::Get()->BindDepthReadWriteDepthStencilState(m_device_context);
 		}
 		else {
-			// Bind the pixel shader.
+			// PS: Bind the pixel shader.
 			m_image_ps->BindShader(m_device_context);
-			// Bind the depth-stencil state.
+			// OM: Bind the depth-stencil state.
 			RenderingStateCache::Get()->BindDepthNoneDepthStencilState(m_device_context);
 		}
-
-		// Bind the rasterization state.
-		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
-		// Bind the blend state.
-		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
 	void ImagePass::Render() const noexcept {

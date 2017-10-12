@@ -72,18 +72,24 @@ namespace mage {
 	}
 
 	void ConstantShadingPass::BindFixedState() {
-		// Bind the vertex shader.
+		// VS: Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
-		// Bind the pixel shader.
+		// HS: Bind the hull shader.
+		Pipeline::HS::BindShader(m_device_context, nullptr);
+		// DS: Bind the domain shader.
+		Pipeline::DS::BindShader(m_device_context, nullptr);
+		// GS: Bind the geometry shader.
+		Pipeline::GS::BindShader(m_device_context, nullptr);
+		// RS: Bind the rasterization state.
+		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
-		// Bind the diffuse SRV.
+		// PS: Bind the diffuse SRV.
 		Pipeline::PS::BindSRV(m_device_context,
 			SLOT_SRV_BASE_COLOR, m_white->Get());
-		// Bind the rasterization state.
-		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
-		// Bind the depth-stencil state.
+		// OM: Bind the depth-stencil state.
 		RenderingStateCache::Get()->BindDepthReadWriteDepthStencilState(m_device_context);
-		// Bind the blend state.
+		// OM: Bind the blend state.
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 	}
 

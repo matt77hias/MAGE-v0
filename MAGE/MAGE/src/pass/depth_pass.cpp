@@ -102,9 +102,15 @@ namespace mage {
 	}
 
 	void DepthPass::BindFixedState() {
-		// Bind the rasterization state.
+		// HS: Bind the hull shader.
+		Pipeline::HS::BindShader(m_device_context, nullptr);
+		// DS: Bind the domain shader.
+		Pipeline::DS::BindShader(m_device_context, nullptr);
+		// GS: Bind the geometry shader.
+		Pipeline::GS::BindShader(m_device_context, nullptr);
+		// RS: Bind the rasterization state.
 		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
-		// Bind the depth-stencil state.
+		// OM: Bind the depth-stencil state.
 		RenderingStateCache::Get()->BindDepthReadWriteDepthStencilState(m_device_context);
 	}
 

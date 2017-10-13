@@ -18,10 +18,20 @@ Prefer the defined types (`memory\types.hpp`) and `size_t` over non-typedefed bu
 Always use `const` (member method, method return argument, method input arguments, local variables) if applicable.
 Always use `const` for return by value of non-built-in types to avoid assignment (and its side effects).
 
+### Constructor and destructor definitions
+Put all constructors and destructors of base and child classes in the `.cpp` file.
+
 ### Explicit constructors
-Prefer making **all** (non-default, non-copy, non-move) constructors `explicit` (independent of the number of arguments).
+Make **all** (non-default, non-copy, non-move) constructors `explicit` (independent of the number of arguments).
 
 Prefer inheritance with explicit constructors over typedefs to force explicit type conversion between aliases.
+
+### File extensions
+* Use `.hpp` for C++ header files.
+* Use `.tpp` for C++ header files containing template definitions.
+* Use `.cpp` for C++ source files.
+* Use `.hlsl` for HLSL shader files.
+* Use `.hlsli` for HLSL non-shader files.
 
 ### Implicitly defined member methods
 Do not use implicitly defined (i.e. compiler generated) member methods. Always declare and define (with `= default`/`= delete` if possible) the following member methods:

@@ -1,9 +1,13 @@
 # Code Guidelines
 
 ## General
-* Erich Gamma, Richard Helm, Ralph Johnson & John M. Vlissides: Design Patterns *Elements of Reusable Object-Oriented Software*
-* Scott Meyers: Effective C++ (3th edition)
-* Scott Meyers: Effective Modern C++
+GAMMA E., HELM R., JOHNSON R., VLISSIDES J. M.: Design Patterns: *Elements of Reusable Object-oriented Software*, 1st Edition, Addison-Wesley Longman Publishing Co., 1995.
+
+GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.
+
+MEYERS S.: *Effective C++, 3th Edition*, Addison-Wesley Professional, 2005.
+
+MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.
 
 ## Specific
 

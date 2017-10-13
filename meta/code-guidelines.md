@@ -11,6 +11,9 @@ MEYERS S.: *Effective Modern C++*, 1st Edition, O'Reilly Media, 2004.
 
 ## Specific
 
+### Built-in types
+Prefer the defined types (`memory\types.hpp`) and `size_t` over non-typedefed built-in types.
+
 ### const
 Always use `const` (member method, method return argument, method input arguments, local variables) if applicable.
 Always use `const` for return by value of non-built-in types to avoid assignment (and its side effects).
@@ -34,6 +37,11 @@ Note that Move Constructors make sense in nearly all situations. So prefer `= de
 ### Member initializer lists
 Enumerate all member variables in the initializer list of constructors in order.
 
+### Prefixes
+* Use the prefix `g_` for global variables (C++ and HLSL).
+* Use the prefix `m_` for member variables (C++ only).
+* Use the prefix `s_` for class member variables.
+
 ### `new`, `new[]`, `delete`, `delete[]`
 * Do not use `new`, `new[]`, `delete`, `delete[]`.
 * Use `MakeUnique` for assigning to `UniquePtr`.
@@ -46,6 +54,3 @@ Enumerate all member variables in the initializer list of constructors in order.
 
 ### `static_cast`
 Always use `static_cast` for type conversion between built-in types.
-
-### Types
-Prefer the defined types (`memory\types.hpp`) and `size_t` over non-typedefed built-in types.

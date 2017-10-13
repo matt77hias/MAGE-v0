@@ -50,7 +50,7 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 };
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions
+// Engine Declarations and Definitions: Transform Utilities
 //-----------------------------------------------------------------------------
 
 /**
@@ -82,30 +82,63 @@ float2 DispatchThreadIDtoNDC(uint2 id) {
 	return NormalizedDispatchThreadIDtoNDC(NormalizeDispatchThreadID(id));
 }
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Gamma Utilities
+//-----------------------------------------------------------------------------
+
 /**
  Performs gamma correction on the given RGB spectrum.
 
  @pre			All components of @a rgb must be non-negative.
  @param[in]		rgb
 				The RGB spectrum.
- @return		The gamma-corrected RGB spectrum corresponding to the given 
-				RGB spectrum.
+ @return		The gamma-corrected RGB spectrum corresponding to the given RGB 
+				spectrum.
  */
 float3 GammaCorrect(float3 rgb) {
 	return GammaCorrect(rgb, g_inv_gamma);
 }
 
 /**
- Performs gamma recovery on the given RGB spectrum.
+ Performs gamma correction on the given RGBA spectrum.
+
+ @pre			All components of @a rgba must be non-negative.
+ @param[in]		rgba
+				The RGBA spectrum.
+ @return		The gamma-corrected RGBA spectrum corresponding to the given 
+				RGBA spectrum.
+ @note			The alpha channel of the given RGBA spectrum is preserved.
+ */
+float4 GammaCorrect(float4 rgba) {
+	return GammaCorrect(rgba, g_inv_gamma);
+}
+
+/**
+ Performs inverse gamma correction on the given RGB spectrum.
 
  @pre			All components of @a rgb must be non-negative.
  @param[in]		rgb
 				The gamma-corrected RGB spectrum.
- @return		The gamma-recovered RGB spectrum corresponding to the given 
-				gamma-corrected RGB spectrum.
+ @return		The RGB spectrum corresponding to the given gamma-corrected RGB 
+				spectrum.
  */
-float3 GammaRecover(float3 rgb) {
-	return GammaRecover(rgb, g_gamma);
+float3 InverseGammaCorrect(float3 rgb) {
+	return InverseGammaCorrect(rgb, g_gamma);
+}
+
+/**
+ Performs inverse gamma correction on the given RGBA spectrum.
+
+ @pre			All components of @a rgba must be non-negative.
+ @param[in]		rgba
+				The gamma-corrected RGBA spectrum.
+ @return		The RGBA spectrum corresponding to the given gamma-corrected 
+				RGBA spectrum.
+ @note			The alpha channel of the given gamma-corrected RGBA spectrum 
+				is preserved.
+ */
+float4 InverseGammaCorrect(float4 rgba) {
+	return InverseGammaCorrect(rgba, g_gamma);
 }
 
 #endif // MAGE_HEADER_GLOBAL

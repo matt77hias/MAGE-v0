@@ -29,8 +29,9 @@ OMInputDeferred PS(PSInputPositionNormalTexture input) {
 #ifdef DISSABLE_BASE_COLOR_TEXTURE
 	output.base_color.xyz  = g_base_color.xyz;
 #else  // DISSABLE_BASE_COLOR_TEXTURE
-	output.base_color.xyz  = g_base_color.xyz
-		* g_base_color_texture.Sample(g_linear_wrap_sampler, input.tex).xyz;
+	const float3 gc_base_color
+		= g_base_color_texture.Sample(g_linear_wrap_sampler, input.tex).xyz;
+	output.base_color.xyz  = g_base_color.xyz * InverseGammaCorrect(gc_base_color);
 #endif // DISSABLE_BASE_COLOR_TEXTURE
 
 	// Pack the material parameters of the material.

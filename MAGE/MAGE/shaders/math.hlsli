@@ -704,18 +704,51 @@ float3 GammaCorrect(float3 rgb, float inv_gamma) {
 }
 
 /**
- Performs gamma recovery on the given RGB spectrum.
+ Performs gamma correction on the given RGBA spectrum.
+
+ @pre			All components of @a rgba must be non-negative.
+ @param[in]		rgba
+				The RGBA spectrum.
+ @param[in]		inv_gamma
+				The inverse of the gamma exponent.
+ @return		The gamma-corrected RGBA spectrum corresponding to the given 
+				RGBA spectrum.
+ @note			The alpha channel of the given RGBA spectrum is preserved.
+ */
+float4 GammaCorrect(float4 rgba, float inv_gamma) {
+	return float4(GammaCorrect(rgba.xyz, inv_gamma), rgba.w);
+}
+
+/**
+ Performs inverse gamma correction on the given RGB spectrum.
 
  @pre			All components of @a rgb must be non-negative.
  @param[in]		rgb
 				The gamma-corrected RGB spectrum.
  @param[in]		gamma
 				The gamma exponent.
- @return		The gamma-recovered RGB spectrum corresponding to the given 
-				gamma-corrected RGB spectrum.
+ @return		The RGB spectrum corresponding to the given gamma-corrected RGB 
+				spectrum.
  */
-float3 GammaRecover(float3 rgb, float gamma) {
+float3 InverseGammaCorrect(float3 rgb, float gamma) {
 	return pow(abs(rgb), gamma);
+}
+
+/**
+ Performs inverse gamma correction on the given RGBA spectrum.
+
+ @pre			All components of @a rgba must be non-negative.
+ @param[in]		rgba
+				The gamma-corrected RGBA spectrum.
+ @param[in]		gamma
+				The gamma exponent.
+ @return		The RGBA spectrum corresponding to the given gamma-corrected 
+				RGBA spectrum.
+ @note			The alpha channel of the given gamma-corrected RGBA spectrum 
+				is preserved.
+ */
+float4 InverseGammaCorrect(float4 rgba, float gamma) {
+	return float4(InverseGammaCorrect(rgba.xyz, gamma), rgba.w);
 }
 
 //-----------------------------------------------------------------------------

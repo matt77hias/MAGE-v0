@@ -17,35 +17,23 @@ namespace mage {
 	// Blend states
 	//-------------------------------------------------------------------------
 
-	HRESULT CreateBlendState(
-		ID3D11Device2 *device, ID3D11BlendState **blend_state, 
-		D3D11_BLEND src_blend, D3D11_BLEND dest_blend) noexcept {
-		
-		Assert(device);
-		Assert(blend_state);
-		
-		D3D11_BLEND_DESC desc = {};
-		desc.RenderTarget[0].BlendEnable           = (src_blend != D3D11_BLEND_ONE) || (dest_blend != D3D11_BLEND_ZERO);
-		desc.RenderTarget[0].SrcBlend              = src_blend;
-		desc.RenderTarget[0].SrcBlendAlpha         = src_blend;
-		desc.RenderTarget[0].DestBlend             = dest_blend;
-		desc.RenderTarget[0].DestBlendAlpha        = dest_blend;
-		desc.RenderTarget[0].BlendOp               = D3D11_BLEND_OP_ADD;
-		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
-		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-
-		return device->CreateBlendState(&desc, blend_state);
-	}
-	
 	HRESULT CreateOpaqueBlendState(
 		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept {
 		
 		Assert(device);
 		Assert(blend_state);
-		
-		return CreateBlendState(
-			device, blend_state, 
-			D3D11_BLEND_ONE, D3D11_BLEND_ZERO);
+
+		D3D11_BLEND_DESC desc = {};
+		desc.RenderTarget[0].BlendEnable           = FALSE;
+		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].DestBlend             = D3D11_BLEND_ZERO;
+		desc.RenderTarget[0].BlendOp               = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_ZERO;
+		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		return device->CreateBlendState(&desc, blend_state);
 	}
 	
 	HRESULT CreateAlphaBlendState(
@@ -53,10 +41,18 @@ namespace mage {
 	
 		Assert(device);
 		Assert(blend_state);
-		
-		return CreateBlendState(
-			device, blend_state, 
-			D3D11_BLEND_ONE, D3D11_BLEND_INV_SRC_ALPHA);
+
+		D3D11_BLEND_DESC desc = {};
+		desc.RenderTarget[0].BlendEnable           = TRUE;
+		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_SRC_ALPHA;
+		desc.RenderTarget[0].DestBlend             = D3D11_BLEND_INV_SRC_ALPHA;
+		desc.RenderTarget[0].BlendOp               = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_INV_DEST_ALPHA;
+		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		return device->CreateBlendState(&desc, blend_state);
 	}
 	
 	HRESULT CreateAdditiveBlendState(
@@ -64,21 +60,56 @@ namespace mage {
 		
 		Assert(device);
 		Assert(blend_state);
-		
-		return CreateBlendState(
-			device, blend_state, 
-			D3D11_BLEND_SRC_ALPHA, D3D11_BLEND_ONE);
+
+		D3D11_BLEND_DESC desc = {};
+		desc.RenderTarget[0].BlendEnable           = TRUE;
+		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].DestBlend             = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].BlendOp               = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_INV_DEST_ALPHA;
+		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		return device->CreateBlendState(&desc, blend_state);
 	}
 	
-	HRESULT CreateNonPremultipliedBlendState(
+	HRESULT CreateMultiplicativeBlendState(
 		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept {
 		
 		Assert(device);
 		Assert(blend_state);
-		
-		return CreateBlendState(
-			device, blend_state, 
-			D3D11_BLEND_SRC_ALPHA, D3D11_BLEND_INV_SRC_ALPHA);
+
+		D3D11_BLEND_DESC desc = {};
+		desc.RenderTarget[0].BlendEnable           = TRUE;
+		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_ZERO;
+		desc.RenderTarget[0].DestBlend             = D3D11_BLEND_SRC_COLOR;
+		desc.RenderTarget[0].BlendOp               = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_INV_DEST_ALPHA;
+		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		return device->CreateBlendState(&desc, blend_state);
+	}
+
+	HRESULT CreateBiMultiplicativeBlendState(
+		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept {
+
+		Assert(device);
+		Assert(blend_state);
+
+		D3D11_BLEND_DESC desc = {};
+		desc.RenderTarget[0].BlendEnable           = TRUE;
+		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_DEST_COLOR;
+		desc.RenderTarget[0].DestBlend             = D3D11_BLEND_SRC_COLOR;
+		desc.RenderTarget[0].BlendOp               = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_INV_DEST_ALPHA;
+		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		return device->CreateBlendState(&desc, blend_state);
 	}
 
 	HRESULT CreateAlphaToCoverageBlendState(
@@ -89,7 +120,6 @@ namespace mage {
 		
 		D3D11_BLEND_DESC desc = {};
 		desc.AlphaToCoverageEnable                 = TRUE;
-		desc.RenderTarget[0].BlendEnable           = FALSE;
 		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
 		return device->CreateBlendState(&desc, blend_state);
@@ -99,60 +129,89 @@ namespace mage {
 	// Depth stencil states
 	//-------------------------------------------------------------------------
 
-	HRESULT CreateDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state, 
-		bool enable, bool write_enable) noexcept {
-		
-		Assert(device);
-		Assert(depth_stencil_state);
-		
-		D3D11_DEPTH_STENCIL_DESC desc = {};
-		desc.DepthEnable                  = enable;
-		desc.DepthWriteMask               = write_enable ? D3D11_DEPTH_WRITE_MASK_ALL : D3D11_DEPTH_WRITE_MASK_ZERO;
-		desc.DepthFunc                    = D3D11_COMPARISON_LESS_EQUAL;
-		desc.StencilEnable                = false;
-		desc.StencilReadMask              = D3D11_DEFAULT_STENCIL_READ_MASK;
-		desc.StencilWriteMask             = D3D11_DEFAULT_STENCIL_WRITE_MASK;
-		desc.FrontFace.StencilFunc        = D3D11_COMPARISON_ALWAYS;
-		desc.FrontFace.StencilPassOp      = D3D11_STENCIL_OP_KEEP;
-		desc.FrontFace.StencilFailOp      = D3D11_STENCIL_OP_KEEP;
-		desc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
-		desc.BackFace                     = desc.FrontFace;
-
-		return device->CreateDepthStencilState(&desc, depth_stencil_state);
-	}
-	
 	HRESULT CreateDepthNoneDepthStencilState(
 		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept {
 		
 		Assert(device);
 		Assert(depth_stencil_state);
+
+		D3D11_DEPTH_STENCIL_DESC desc = {};
+		desc.DepthEnable   = FALSE;
+		desc.StencilEnable = FALSE;
 		
-		return CreateDepthStencilState(
-			device, depth_stencil_state, 
-			false, false);
+		return device->CreateDepthStencilState(&desc, depth_stencil_state);
 	}
 	
 	HRESULT CreateDepthReadWriteDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept {
+		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state,
+		D3D11_COMPARISON_FUNC depth_comparison_function) noexcept {
 		
 		Assert(device);
 		Assert(depth_stencil_state);
-		
-		return CreateDepthStencilState(
-			device, depth_stencil_state, 
-			true, true);
+
+		D3D11_DEPTH_STENCIL_DESC desc = {};
+		desc.DepthEnable    = TRUE;
+		desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		desc.DepthFunc      = depth_comparison_function;
+		desc.StencilEnable  = FALSE;
+
+		return device->CreateDepthStencilState(&desc, depth_stencil_state);
 	}
 	
 	HRESULT CreateDepthReadDepthStencilState(
+		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state,
+		D3D11_COMPARISON_FUNC depth_comparison_function) noexcept {
+		
+		Assert(device);
+		Assert(depth_stencil_state);
+
+		D3D11_DEPTH_STENCIL_DESC desc = {};
+		desc.DepthEnable    = TRUE;
+		desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+		desc.DepthFunc      = depth_comparison_function;
+		desc.StencilEnable  = FALSE;
+
+		return device->CreateDepthStencilState(&desc, depth_stencil_state);
+	}
+
+	HRESULT CreateLessEqualDepthReadWriteDepthStencilState(
 		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept {
 		
 		Assert(device);
 		Assert(depth_stencil_state);
+
+		return CreateDepthReadWriteDepthStencilState(
+			device, depth_stencil_state, D3D11_COMPARISON_LESS_EQUAL);
+	}
+	
+	HRESULT CreateLessEqualDepthReadDepthStencilState(
+		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept {
 		
-		return CreateDepthStencilState(
-			device, depth_stencil_state, 
-			true, false);
+		Assert(device);
+		Assert(depth_stencil_state);
+
+		return CreateDepthReadDepthStencilState(
+			device, depth_stencil_state, D3D11_COMPARISON_LESS_EQUAL);
+	}
+
+	HRESULT CreateLessDepthReadWriteDepthStencilState(
+		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept {
+		
+		Assert(device);
+		Assert(depth_stencil_state);
+
+		return CreateDepthReadWriteDepthStencilState(
+			device, depth_stencil_state, D3D11_COMPARISON_LESS);
+	}
+	
+	HRESULT CreateLessDepthReadDepthStencilState(
+		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept {
+		
+		Assert(device);
+		Assert(depth_stencil_state);
+
+		return CreateDepthReadDepthStencilState(
+			device, depth_stencil_state, D3D11_COMPARISON_LESS);
 	}
 
 	//-------------------------------------------------------------------------

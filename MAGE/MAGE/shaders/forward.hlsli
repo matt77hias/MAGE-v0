@@ -30,8 +30,9 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 #ifdef DISSABLE_BASE_COLOR_TEXTURE
 	const float4 base_color = g_base_color;
 #else  // DISSABLE_BASE_COLOR_TEXTURE
-	const float4 base_color = g_base_color
-		* g_base_color_texture.Sample(g_linear_wrap_sampler, input.tex);
+	const float4 gc_base_color
+		= g_base_color_texture.Sample(g_linear_wrap_sampler, input.tex);
+	const float4 base_color = g_base_color * InverseGammaCorrect(gc_base_color);
 #endif // DISSABLE_BASE_COLOR_TEXTURE
 
 	// Obtain the material parameters of the material.
@@ -50,7 +51,7 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 		                         base_color.xyz, roughness, metalness);
 
 	//const float3 color = GammaCorrect(saturate(ToneMap_Reinhard(L)));
+	const float3 color = GammaCorrect(saturate(L));
 
-
-	return float4(L, base_color.w);
+	return float4(color, base_color.w);
 }

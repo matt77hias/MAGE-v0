@@ -52,31 +52,37 @@ namespace mage {
 	}
 
 	void RenderingStateCache::SetupBlendStates(ID3D11Device2 *device) {
-		const HRESULT result_opaque             = CreateOpaqueBlendState(
+		const HRESULT result_opaque            = CreateOpaqueBlendState(
 			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Opaque));
 		ThrowIfFailed(result_opaque, 
 			"Opaque blend state creation failed: %08X.", 
 			result_opaque);
 		
-		const HRESULT result_alpha              = CreateAlphaBlendState(
+		const HRESULT result_alpha             = CreateAlphaBlendState(
 			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Alpha));
 		ThrowIfFailed(result_alpha, 
 			"Alpha blend state creation failed: %08X.", 
 			result_alpha);
 		
-		const HRESULT result_additive           = CreateAdditiveBlendState(
+		const HRESULT result_additive          = CreateAdditiveBlendState(
 			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Additive));
 		ThrowIfFailed(result_additive, 
 			"Additive blend state creation failed: %08X.", 
 			result_additive);
 		
-		const HRESULT result_non_premultiplied  = CreateNonPremultipliedBlendState(
-			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::NonPremultiplied));
-		ThrowIfFailed(result_non_premultiplied, 
-			"Non-premultiplied blend state creation failed: %08X.", 
-			result_non_premultiplied);
+		const HRESULT result_multiplicative    = CreateMultiplicativeBlendState(
+			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Multiplicative));
+		ThrowIfFailed(result_multiplicative,
+			"Multiplicative blend state creation failed: %08X.", 
+			result_multiplicative);
+
+		const HRESULT result_bi_multiplicative = CreateBiMultiplicativeBlendState(
+			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::BiMultiplicative));
+		ThrowIfFailed(result_bi_multiplicative,
+			"Bi-multiplicative blend state creation failed: %08X.",
+			result_bi_multiplicative);
 		
-		const HRESULT result_alpha_to_coverage  = CreateAlphaToCoverageBlendState(
+		const HRESULT result_alpha_to_coverage = CreateAlphaToCoverageBlendState(
 			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::AlphaToCoverage));
 		ThrowIfFailed(result_alpha_to_coverage, 
 			"Alpha-to-Coverage blend state creation failed: %08X.", 
@@ -90,17 +96,29 @@ namespace mage {
 			"No-read-no-write depth stencil state creation failed: %08X.", 
 			result_depth_none);
 		
-		const HRESULT result_depth_read_write   = CreateDepthReadWriteDepthStencilState(
-			device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::DepthReadWrite));
-		ThrowIfFailed(result_depth_read_write, 
-			"Read-write depth stencil state creation failed: %08X.", 
-			result_depth_read_write);
+		const HRESULT result_depth_read_write1  = CreateLessEqualDepthReadWriteDepthStencilState(
+			device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::LessEqualDepthReadWrite));
+		ThrowIfFailed(result_depth_read_write1, 
+			"Less-equal, read-write depth stencil state creation failed: %08X.", 
+			result_depth_read_write1);
 		
-		const HRESULT result_depth_read         = CreateDepthReadDepthStencilState(
-			device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::DepthRead));
-		ThrowIfFailed(result_depth_read, 
-			"Read depth stencil state creation failed: %08X.", 
-			result_depth_read);
+		const HRESULT result_depth_read1        = CreateLessEqualDepthReadDepthStencilState(
+			device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::LessEqualDepthRead));
+		ThrowIfFailed(result_depth_read1, 
+			"Less-equal, read depth stencil state creation failed: %08X.", 
+			result_depth_read1);
+
+		const HRESULT result_depth_read_write2  = CreateLessDepthReadWriteDepthStencilState(
+			device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::LessDepthReadWrite));
+		ThrowIfFailed(result_depth_read_write2,
+			"Less, read-write depth stencil state creation failed: %08X.",
+			result_depth_read_write2);
+
+		const HRESULT result_depth_read2        = CreateLessDepthReadDepthStencilState(
+			device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::LessDepthRead));
+		ThrowIfFailed(result_depth_read2,
+			"Less, read depth stencil state creation failed: %08X.",
+			result_depth_read2);
 	}
 
 	void RenderingStateCache::SetupRasterizerStates(ID3D11Device2 *device) {

@@ -192,29 +192,11 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 Creates a blend state.
-
-	 @pre			@a device is not equal to @c nullptr.
-	 @pre			@a blend_state is not equal to @c nullptr.
-	 @param[in]		device
-					A pointer to the device.
-	 @param[out]	blend_state
-					A pointer to a pointer to the blend state.
-	 @param[in]		src_blend
-					The source blend mode.
-	 @param[in]		dest_blend
-					The destination blend mode.
-	 @return		A success/error value.
-	 */
-	HRESULT CreateBlendState(
-		ID3D11Device2 *device, ID3D11BlendState **blend_state, 
-		D3D11_BLEND src_blend, D3D11_BLEND dest_blend) noexcept;
-	
-	/**
 	 Creates an opaque blend state (i.e. no blending).
 
 	 The blend formula is defined as:
-	 (source × 1) + (destination × 0) = source.
+	 (source.rgb × 1) + (destination.rgb × 0) = source.rgb
+	 (source.a   × 1) + (destination.a   × 0) = source.a.
 
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a blend_state is not equal to @c nullptr.
@@ -231,7 +213,8 @@ namespace mage {
 	 Creates an alpha blend state.
 
 	 The blend formula is defined as:
-	 (source × 1) + (destination × (1 - source.alpha)).
+	 (source.rgb × source.alpha)      + (destination.rgb × (1-source.alpha))
+	 (source.a   × (1-destination.a)) + (destination.a   × 1).
 
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a blend_state is not equal to @c nullptr.
@@ -248,7 +231,8 @@ namespace mage {
 	 Creates an additive blend state.
 
 	 The blend formula is defined as:
-	 (source × source.alpha) + (destination × 1).
+	 (source.rgb × 1)                 + (destination.rgb × 1)
+	 (source.a   × (1-destination.a)) + (destination.a   × 1).
 
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a blend_state is not equal to @c nullptr.
@@ -262,10 +246,11 @@ namespace mage {
 		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept;
 	
 	/**
-	 Creates a non-premultiplied blend state.
+	 Creates a multiplicative blend state.
 
 	 The blend formula is defined as:
-	 (source × source.alpha) + (destination × (1 - source.alpha)).
+	 (source.rgb × 0)                 + (destination.rgb × source.rgb)
+	 (source.a   × (1-destination.a)) + (destination.a   × 1).
 
 	 @pre			@a device is not equal to @c nullptr.
 	 @pre			@a blend_state is not equal to @c nullptr.
@@ -275,7 +260,25 @@ namespace mage {
 					A pointer to a pointer to the blend state.
 	 @return		A success/error value.
 	 */
-	HRESULT CreateNonPremultipliedBlendState(
+	HRESULT CreateMultiplicativeBlendState(
+		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept;
+
+	/**
+	 Creates a bi-multiplicative blend state.
+
+	 The blend formula is defined as:
+	 (source.rgb × destination.rgb)   + (destination.rgb × source.rgb)
+	 (source.a   × (1-destination.a)) + (destination.a   × 1).
+
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a blend_state is not equal to @c nullptr.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	blend_state
+					A pointer to a pointer to the blend state.
+	 @return		A success/error value.
+	 */
+	HRESULT CreateBiMultiplicativeBlendState(
 		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept;
 
 	/**
@@ -296,27 +299,6 @@ namespace mage {
 	// Depth stencil states
 	//-------------------------------------------------------------------------
 
-	/**
-	 Creates a depth depth stencil state.
-
-	 @pre			@a device is not equal to @c nullptr.
-	 @pre			@a depth_stencil_state is not equal to @c nullptr.
-	 @param[in]		device
-					A pointer to the device.
-	 @param[out]	depth_stencil_state
-					A pointer to a pointer to the depth stencil state.
-	 @param[in]		enable
-					Flag indicating whether the depth testing should be 
-					enabled.
-	 @param[in]		write_enable
-					Flag indicating whether writing to the depth-stencil 
-					buffer should be enabled.
-	 @return		A success/error value.
-	 */
-	HRESULT CreateDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state, 
-		bool enable, bool write_enable) noexcept;
-	
 	/**
 	 Creates a no-read-no-write depth stencil state.
 
@@ -340,9 +322,43 @@ namespace mage {
 					A pointer to the device.
 	 @param[out]	depth_stencil_state
 					A pointer to a pointer to the depth stencil state.
+	 @param[in]		depth_comparison_function
+					The depth comparison function.
 	 @return		A success/error value.
 	 */
 	HRESULT CreateDepthReadWriteDepthStencilState(
+		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state,
+		D3D11_COMPARISON_FUNC depth_comparison_function) noexcept;
+	
+	/**
+	 Creates a read-only depth stencil state.
+
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a depth_stencil_state is not equal to @c nullptr.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	depth_stencil_state
+					A pointer to a pointer to the depth stencil state.
+	 @param[in]		depth_comparison_function
+					The depth comparison function.
+	 @return		A success/error value.
+	 */
+	HRESULT CreateDepthReadDepthStencilState(
+		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state,
+		D3D11_COMPARISON_FUNC depth_comparison_function) noexcept;
+
+	/**
+	 Creates a read-write depth stencil state.
+
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a depth_stencil_state is not equal to @c nullptr.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	depth_stencil_state
+					A pointer to a pointer to the depth stencil state.
+	 @return		A success/error value.
+	 */
+	HRESULT CreateLessEqualDepthReadWriteDepthStencilState(
 		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept;
 	
 	/**
@@ -356,7 +372,35 @@ namespace mage {
 					A pointer to a pointer to the depth stencil state.
 	 @return		A success/error value.
 	 */
-	HRESULT CreateDepthReadDepthStencilState(
+	HRESULT CreateLessEqualDepthReadDepthStencilState(
+		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept;
+
+	/**
+	 Creates a read-write depth stencil state.
+
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a depth_stencil_state is not equal to @c nullptr.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	depth_stencil_state
+					A pointer to a pointer to the depth stencil state.
+	 @return		A success/error value.
+	 */
+	HRESULT CreateLessDepthReadWriteDepthStencilState(
+		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept;
+	
+	/**
+	 Creates a read-only depth stencil state.
+
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a depth_stencil_state is not equal to @c nullptr.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	depth_stencil_state
+					A pointer to a pointer to the depth stencil state.
+	 @return		A success/error value.
+	 */
+	HRESULT CreateLessDepthReadDepthStencilState(
 		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept;
 
 	//-------------------------------------------------------------------------

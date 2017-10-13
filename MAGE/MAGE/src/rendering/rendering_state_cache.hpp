@@ -152,17 +152,31 @@ namespace mage {
 		}
 		
 		/**
-		 Binds the non-premultiplied blend state of this rendering state cache.
+		 Binds the multiplicative blend state of this rendering state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindNonPremultipliedBlendState(
+		void BindMultiplicativeBlendState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context,
-				GetBlendState(BlendStateIndex::NonPremultiplied));
+				GetBlendState(BlendStateIndex::Multiplicative));
+		}
+
+		/**
+		 Binds the bi-multiplicative blend state of this rendering state cache.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void BindBiMultiplicativeBlendState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			Pipeline::OM::BindBlendState(device_context,
+				GetBlendState(BlendStateIndex::BiMultiplicative));
 		}
 
 		/**
@@ -210,31 +224,63 @@ namespace mage {
 		}
 
 		/**
-		 Binds the default depth stencil state of this rendering state cache.
+		 Binds the less-equal, read-write depth stencil state of this rendering
+		 state cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindDepthReadWriteDepthStencilState(
+		void BindLessEqualDepthReadWriteDepthStencilState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::DepthReadWrite));
+				GetDepthStencilState(DepthStencilStateIndex::LessEqualDepthReadWrite));
 		}
 
 		/**
-		 Binds the read depth stencil state of this rendering state cache.
+		 Binds the less-equal, read depth stencil state of this rendering state 
+		 cache.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindDepthReadDepthStencilState(
+		void BindLessEqualDepthReadDepthStencilState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::DepthRead));
+				GetDepthStencilState(DepthStencilStateIndex::LessEqualDepthRead));
+		}
+
+		/**
+		 Binds the less, read-write depth stencil state of this rendering
+		 state cache.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void BindLessDepthReadWriteDepthStencilState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			Pipeline::OM::BindDepthStencilState(device_context,
+				GetDepthStencilState(DepthStencilStateIndex::LessDepthReadWrite));
+		}
+
+		/**
+		 Binds the less, read depth stencil state of this rendering state 
+		 cache.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void BindLessDepthReadDepthStencilState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			Pipeline::OM::BindDepthStencilState(device_context,
+				GetDepthStencilState(DepthStencilStateIndex::LessDepthRead));
 		}
 
 		//-------------------------------------------------------------------------
@@ -584,17 +630,18 @@ namespace mage {
 		 @c Opaque,
 		 @c Alpha,
 		 @c Additive,
-		 @c NonPremultiplied and
+		 @c Multiplicative,
+		 @c BiMultiplicative and
 		 @c AlphaToCoverage.
 		 */
 		enum struct BlendStateIndex {
-			Opaque            = 0,
-			Alpha             = 1,
-			Additive          = 2,
-			NonPremultiplied  = 3,
-			AlphaToCoverage   = 4,
-			Count             = 5
-
+			Opaque           = 0,
+			Alpha            = 1,
+			Additive         = 2,
+			Multiplicative   = 3,
+			BiMultiplicative = 4,
+			AlphaToCoverage  = 5,
+			Count            = 6
 		};
 		
 		/**
@@ -603,14 +650,18 @@ namespace mage {
 
 		 This contains:
 		 @c DepthNone,
-		 @c DepthReadWrite and
-		 @c DepthRead.
+		 @c LessEqualDepthReadWrite,
+		 @c LessEqualDepthRead,
+		 @c LessDepthReadWrite and
+		 @c LessDepthRead.
 		 */
 		enum struct DepthStencilStateIndex {
-			DepthNone         = 0,
-			DepthReadWrite    = 1,
-			DepthRead         = 2,
-			Count             = 3
+			DepthNone               = 0,
+			LessEqualDepthReadWrite = 1,
+			LessEqualDepthRead      = 2,
+			LessDepthReadWrite      = 3,
+			LessDepthRead           = 4,
+			Count                   = 5
 		};
 		
 		/**
@@ -624,11 +675,11 @@ namespace mage {
 		 @c Wireframe.
 		 */
 		enum struct RasterizerStateIndex {
-			NoCulling         = 0,
-			ClockwiseCulling  = 1,
+			NoCulling               = 0,
+			ClockwiseCulling        = 1,
 			CounterClockwiseCulling = 2,
-			Wireframe         = 3,
-			Count             = 4
+			Wireframe               = 3,
+			Count                   = 4
 		};
 		
 		/**

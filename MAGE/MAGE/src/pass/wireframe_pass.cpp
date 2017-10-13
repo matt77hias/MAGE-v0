@@ -86,7 +86,7 @@ namespace mage {
 		// PS: Bind the color data.
 		BindColorData();
 		// OM: Bind the depth-stencil state.
-		RenderingStateCache::Get()->BindDepthReadWriteDepthStencilState(m_device_context);
+		RenderingStateCache::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
 		// OM: Bind the blend state.
 		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
 	}

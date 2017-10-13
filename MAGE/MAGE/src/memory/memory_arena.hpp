@@ -35,8 +35,7 @@ namespace mage {
 		 @param[in]		alignment
 						The alignment in bytes.
 		 */
-		explicit MemoryArena(size_t maximum_block_size = 32768, 
-			size_t alignment = 16);
+		explicit MemoryArena(size_t maximum_block_size, size_t alignment);
 
 		/**
 		 Constructs a memory arena from the given memory arena.

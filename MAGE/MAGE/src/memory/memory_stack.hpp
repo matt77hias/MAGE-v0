@@ -40,7 +40,7 @@ namespace mage {
 		 @throws		std::bad_alloc
 						Failed to allocate the memory.
 		 */
-		explicit SingleEndedMemoryStack(size_t size, size_t alignment = 16);
+		explicit SingleEndedMemoryStack(size_t size, size_t alignment);
 
 		/**
 		 Constructs a single-ended memory stack from the given single-ended 
@@ -654,7 +654,7 @@ namespace mage {
 		 @throws		std::bad_alloc
 						Failed to allocate the memory.
 		 */
-		explicit DoubleEndedMemoryStack(size_t size, size_t alignment = 16);
+		explicit DoubleEndedMemoryStack(size_t size, size_t alignment);
 
 		/**
 		 Constructs a double-ended memory stack from the given double-ended 

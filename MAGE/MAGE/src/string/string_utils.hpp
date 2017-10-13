@@ -99,7 +99,7 @@ namespace mage {
 	 */
 	inline bool str_contains(const char *str, char c) noexcept {
 		Assert(str);
-		return strchr(str, (int)c) ? true : false;
+		return strchr(str, static_cast< int >(c)) ? true : false;
 	}
 
 	/**
@@ -200,7 +200,7 @@ namespace mage {
 					A pointer to a pointer to the input string.
 	 @note			The @c sgets function is the byte string variant of @c fgets.
 	 */
-	char *str_gets(char *str, int num, const char **input) noexcept;
+	char *str_gets(char *str, size_t num, const char **input) noexcept;
 
 	/**
 	 Reads characters from the given input string and stores them as a C string 
@@ -225,7 +225,7 @@ namespace mage {
 					A pointer to a pointer to the input string.
 	 @note			The @c sgets function is the wide string variant of @c fgets.
 	 */
-	wchar_t *str_gets(wchar_t *str, int num, const wchar_t **input) noexcept;
+	wchar_t *str_gets(wchar_t *str, size_t num, const wchar_t **input) noexcept;
 
 	/**
 	 Converts the given byte string to a wide string.

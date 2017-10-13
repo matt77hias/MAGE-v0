@@ -80,7 +80,7 @@ namespace mage {
 		
 		SpriteInfo *sprite = &m_sprite_queue[m_sprite_queue_size];
 
-		unsigned int flags = static_cast< unsigned int >(effects);
+		U32 flags = static_cast< U32 >(effects);
 		// destination: Tx Ty Sx Sy
 		const XMVECTOR destination = XMVectorSet(
 										transform.GetTranslation().x,
@@ -363,8 +363,8 @@ namespace mage {
 		const XMVECTOR destination           = XMLoadFloat4A(&sprite->m_destination);
 		const XMVECTOR color                 = XMLoadFloat4A(&sprite->m_color);
 		const XMVECTOR origin_rotation_depth = XMLoadFloat4A(&sprite->m_origin_rotation_depth);
-		const F32 rotation                 = sprite->m_origin_rotation_depth.z;
-		const int flags                      = sprite->m_flags;
+		const F32 rotation                   = sprite->m_origin_rotation_depth.z;
+		const U32 flags                      = sprite->m_flags;
 		XMVECTOR source_size                 = XMVectorSwizzle< 2, 3, 2, 3 >(source);
 		XMVECTOR destination_size            = XMVectorSwizzle< 2, 3, 2, 3 >(destination);
 		
@@ -419,11 +419,11 @@ namespace mage {
 		//    texcoord = cornerOffsets[i ^ SpriteEffect]
 
 		static_assert(
-			static_cast< unsigned int >(SpriteEffect::FlipHorizontally) == 1u && 
-			static_cast< unsigned int >(SpriteEffect::FlipVertically)   == 2u,
+			static_cast< U32 >(SpriteEffect::FlipHorizontally) == 1u && 
+			static_cast< U32 >(SpriteEffect::FlipVertically)   == 2u,
 			"The mirroring implementation must be updated to match");
 
-		const int mirror_bits = flags & 3;
+		const U32 mirror_bits = flags & 3;
 
 		// Generate the four output vertices.
 		for (size_t i = 0; i < SpriteBatchMesh::s_vertices_per_sprite; ++i) {

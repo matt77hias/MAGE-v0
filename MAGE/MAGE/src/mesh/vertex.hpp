@@ -15,10 +15,10 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#define MAGE_VERTEX_SEMANTIC_NAME_POSITION	"POSITION"
-#define MAGE_VERTEX_SEMANTIC_NAME_NORMAL	"NORMAL"
-#define MAGE_VERTEX_SEMANTIC_NAME_COLOR		"COLOR"
-#define MAGE_VERTEX_SEMANTIC_NAME_TEXTURE	"TEXCOORD"
+#define MAGE_VERTEX_SEMANTIC_NAME_POSITION "POSITION"
+#define MAGE_VERTEX_SEMANTIC_NAME_NORMAL   "NORMAL"
+#define MAGE_VERTEX_SEMANTIC_NAME_COLOR    "COLOR"
+#define MAGE_VERTEX_SEMANTIC_NAME_TEXTURE  "TEXCOORD"
 
 #pragma endregion
 
@@ -1196,7 +1196,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const int s_nb_input_elements = 4;
+		static const size_t s_nb_input_elements = 4;
 
 		/**
 		 The input element descriptor of a vertex.
@@ -1351,7 +1351,7 @@ namespace mage {
 		/**
 		 The number of elements in the input element descriptor of a vertex.
 		 */
-		static const int s_nb_input_elements = 3;
+		static const size_t s_nb_input_elements = 3;
 
 		/**
 		 The input element descriptor of a vertex.

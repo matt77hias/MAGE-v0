@@ -122,14 +122,14 @@ namespace mage {
 		}
 	}
 
-	char *str_gets(char *str, int num, const char **input) noexcept {
+	char *str_gets(char *str, size_t num, const char **input) noexcept {
 		Assert(str);
 		Assert(input);
 		
 		const char *next = *input;
-		int num_read = 0;
-		while (num_read + 1 < num && *next) {
-			// '\n' terminates the line but is included
+		size_t num_read = 0u;
+		while (num_read + 1u < num && *next) {
+			// '\n' terminates the line but is included.
 			const bool is_new_line = (*next == '\n');
 
 			*str++ = *next++;
@@ -140,7 +140,7 @@ namespace mage {
 			}
 		}
 
-		if (num_read == 0) {
+		if (num_read == 0u) {
 			// "eof"
 			return nullptr;
 		}
@@ -150,14 +150,14 @@ namespace mage {
 		return str;
 	}
 
-	wchar_t *str_gets(wchar_t *str, int num, const wchar_t **input) noexcept {
+	wchar_t *str_gets(wchar_t *str, size_t num, const wchar_t **input) noexcept {
 		Assert(str);
 		Assert(input);
 		
 		const wchar_t *next = *input;
-		int num_read = 0;
-		while (num_read + 1 < num && *next) {
-			// '\n' terminates the line but is included
+		size_t num_read = 0u;
+		while (num_read + 1u < num && *next) {
+			// '\n' terminates the line but is included.
 			const bool is_new_line = (*next == L'\n');
 
 			*str++ = *next++;
@@ -168,7 +168,7 @@ namespace mage {
 			}
 		}
 
-		if (num_read == 0) {
+		if (num_read == 0u) {
 			// "eof"
 			return nullptr;
 		}

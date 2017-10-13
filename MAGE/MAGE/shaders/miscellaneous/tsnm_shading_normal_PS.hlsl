@@ -14,7 +14,8 @@ TEXTURE_2D(g_normal_texture, float3, SLOT_SRV_NORMAL);
 //-----------------------------------------------------------------------------
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 	// Obtain the tangent-space normal coefficients in the [-1,1] range.
-	const float3 c      = UNORMtoSNORM(g_normal_texture.Sample(g_linear_wrap_sampler, input.tex2));
+	const float3 c      = UnpackNormal(
+		g_normal_texture.Sample(g_linear_wrap_sampler, input.tex2));
 	// Normalize the view-space normal.
 	const float3 n0     = normalize(input.n_view);
 	// Perturb the view-space normal.

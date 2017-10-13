@@ -245,7 +245,7 @@ namespace mage {
 
 			// Skip non-occluder models and "too" transparent models.
 			if (!model->OccludesLight() 
-				|| material->GetBaseColorA() < TRANSPARENCY_THRESHOLD) {
+				|| material->GetBaseColorA() < TRANSPARENCY_SHADOW_THRESHOLD) {
 				continue;
 			}
 

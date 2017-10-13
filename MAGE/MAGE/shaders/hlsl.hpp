@@ -5,7 +5,8 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 
-#define TRANSPARENCY_THRESHOLD  0.75f
+#define TRANSPARENCY_SHADOW_THRESHOLD 0.75f
+#define TRANSPARENCY_SKIP_THRESHOLD   0.00392157f // 1/255
 
 //-----------------------------------------------------------------------------
 // Engine Includes: Thread Configurations

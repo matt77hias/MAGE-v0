@@ -34,5 +34,8 @@ float4 PS(PSInputNDCPosition input) : SV_Target{
 	// Obtain the world space coordinates.
 	const float3 p_world  = mul(p_view, (float3x3)g_view_to_world);
 	// Sample the cube map.
-	return g_sky.Sample(g_linear_wrap_sampler, p_world);
+	const float3 gc_color = g_sky.Sample(g_linear_wrap_sampler, p_world).xyz;
+	const float3 color    = InverseGammaCorrect(gc_color);
+
+	return float4(color, 1.0f);
 }

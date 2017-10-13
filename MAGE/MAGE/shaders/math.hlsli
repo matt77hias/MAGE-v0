@@ -8,7 +8,7 @@
 /**
  The constant value pi.
  */
-static const float g_pi       = 3.141592654f;
+static const float g_pi = 3.141592654f;
 
 /**
  The constant value 2 pi.

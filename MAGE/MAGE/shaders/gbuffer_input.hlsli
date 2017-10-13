@@ -2,6 +2,7 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
+#include "normal_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
@@ -37,3 +38,68 @@ CBUFFER(PerDraw, SLOT_CBUFFER_PER_DRAW) {
 TEXTURE_2D(g_base_color_texture, float4, SLOT_SRV_BASE_COLOR);
 TEXTURE_2D(g_material_texture,   float4, SLOT_SRV_MATERIAL);
 TEXTURE_2D(g_normal_texture,     float3, SLOT_SRV_NORMAL);
+
+//-----------------------------------------------------------------------------
+// Definitions and Declarations
+//-----------------------------------------------------------------------------
+
+/**
+ Return the base color of the material.
+
+ @param[in]		tex
+				The texture coordinates.
+ @return		The base color of the material.
+ */
+float4 GetMaterialBaseColor(float2 tex) {
+	// Obtain the base color of the material.
+#ifdef DISSABLE_BASE_COLOR_TEXTURE
+	return g_base_color;
+#else  // DISSABLE_BASE_COLOR_TEXTURE
+	const float4 gc_base_color
+		= g_base_color_texture.Sample(g_linear_wrap_sampler, tex);
+	return g_base_color * InverseGammaCorrect(gc_base_color);
+#endif // DISSABLE_BASE_COLOR_TEXTURE
+}
+
+/**
+ Return the parameters of the material.
+
+ @param[in]		tex
+				The texture coordinates.
+ @return		The parameters [roughness, metalness] of the material.
+ */
+float2 GetMaterialParameters(float2 tex) {
+	// Obtain the material parameters of the material.
+#ifdef DISSABLE_MATERIAL_TEXTURE
+	return float2(g_roughness, g_metalness);
+#else  // DISSABLE_MATERIAL_TEXTURE
+	const float2 material   = 
+		g_material_texture.Sample(g_linear_wrap_sampler, tex).xy;
+	return float2(g_roughness, g_metalness) * material;
+#endif // DISSABLE_MATERIAL_TEXTURE
+}
+
+/**
+ Return the view-space normal at the given hit point.
+
+ @param[in]		p
+				The view-space hit position.
+ @param[in]		n
+				The (unperturbed) view-space surface normal.
+ @param[in]		tex
+				The texture coordinates.
+ @return		The view-space normal at the given hit point.
+ */
+float3 GetNormal(float3 p, float3 n, float2 tex) {
+	// Obtain the view-space normal.
+#ifdef TSNM
+	// Obtain the tangent-space normal coefficients in the [-1,1] range. 
+	const float3 c = UnpackNormal(
+		g_normal_texture.Sample(g_linear_wrap_sampler, tex));
+	// Perturb the view-space normal.
+	return PerturbNormal(p, normalize(n), tex, c);
+#else  // TSNM
+	// Normalize the view-space normal.
+	return normalize(n);
+#endif // TSNM
+}

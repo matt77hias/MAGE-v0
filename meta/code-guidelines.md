@@ -30,12 +30,15 @@ Note that Move Constructors make sense in nearly all situations. So prefer `= de
 ### Member initializer lists
 Enumerate all member variables in the initializer list of constructors in order.
 
-### new
-Use `new` for assigning to `SharedPtr` in case the data requires custom allocaters (i.e. inherits `AlignedData`).
+### `new`, `new[]`, `delete`, `delete[]`
+* Do not use `new`, `new[]`, `delete`, `delete[]`.
+* Use `MakeUnique` for assigning to `UniquePtr`.
+* Use `MakeShared` for assigning to `SharedPtr` in case the data does not require custom allocaters.
+* Use `MakeAllocatedShared` for assigning to `SharedPtr` in case the data requires custom allocaters (i.e. inherits `AlignedData`).
 
 ### Smart pointers
-Use `SharedPtr`, `UniquePtr` and `ComPtr` (`memory\memory.hpp`) to express ownership.
-Use `WeakPtr` (for `SharedPtr`), raw pointer (for `UniquePtr` and `ComPtr`) to express usage without ownership.
+* Use `SharedPtr`, `UniquePtr` and `ComPtr` (`memory\memory.hpp`) to express ownership.
+* Use `WeakPtr` (for `SharedPtr`), raw pointer (for `UniquePtr` and `ComPtr`) to express usage without ownership.
 
 ### `static_cast`
 Always use `static_cast` for type conversion between built-in types.

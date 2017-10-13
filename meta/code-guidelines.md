@@ -40,5 +40,5 @@ Use `WeakPtr` (for `SharedPtr`), raw pointer (for `UniquePtr` and `ComPtr`) to e
 ### `static_cast`
 Always use `static_cast` for type conversion between built-in types.
 
-### `<stdint.h>`
-Prefer `(u)intX_t` and `size_t` over non-typedefed built-in types.
+### Types
+Prefer the defined types (`memory\types.hpp`) and `size_t` over non-typedefed built-in types.

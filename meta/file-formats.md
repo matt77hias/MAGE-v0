@@ -84,13 +84,6 @@
   * `\n` (EOL: end of line character)
   * `\r`(CR: carriage return character)
 * Syntax:
-  * [material library] `mtllib <delimiter> <ANSI string without delimiters and EOFs>.mtl` *`<delimiter>`* `\n`
-  * [model part] `s <delimiter> <child-name> <delimiter> <parent-name> <delimiter> <material-name> <delimiter> <start-index> <delimiter> <nb-indices>`*`<delimiter>`* `\n`
-     * `<child-name>` = `<ANSI string without delimiters and EOFs>`
-     * `<parent-name>` = `<ANSI string without delimiters and EOFs>`
-     * `<material-name>` = `<ANSI string without delimiters and EOFs>`
-     * `<start-index>` = `<uint32_t>`
-     * `<nb-indices>` = `<uint32_t>`
      
 | Definitions       | Syntax                                                                    |
 |-------------------|---------------------------------------------------------------------------|

@@ -158,6 +158,7 @@ ZINK J., PETTINEO M., HOXLEY J.: *Practical Rendering and Computation with Direc
 
 *Non-substantially* based on:
 * [directx-sdk-samples](https://github.com/walbourn/directx-sdk-samples) [[License](https://github.com/walbourn/directx-sdk-samples/blob/master/LICENSE)]
+* [DirectXTex](https://github.com/Microsoft/DirectXTex) [[License](https://github.com/Microsoft/DirectXTex/blob/master/LICENSE)]
 * [directxtk-samples](https://github.com/walbourn/directxtk-samples) [[License](https://github.com/walbourn/directxtk-samples/blob/master/LICENSE)]
 * [pbrt-v2](https://github.com/mmp/pbrt-v2): low level, non-pbrt functionality [[License](https://github.com/mmp/pbrt-v2/blob/master/src/LICENSE.txt)]
 * [pbrt-v3](https://github.com/mmp/pbrt-v3): low level, non-pbrt functionality [[License](https://github.com/mmp/pbrt-v3/blob/master/LICENSE.txt)]

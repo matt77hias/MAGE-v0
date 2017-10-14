@@ -114,10 +114,6 @@ namespace mage {
 
 		void SetupShadowMapBuffer(ID3D11Device2 *device,
 			size_t nb_shadow_maps);
-		void Setup16BitShadowMapArray(ID3D11Device2 *device,
-			size_t nb_shadow_maps);
-		void Setup24BitShadowMapArray(ID3D11Device2 *device,
-			size_t nb_shadow_maps);
 		void SetupShadowMapArray(ID3D11Device2 *device,
 			size_t nb_shadow_maps, DXGI_FORMAT texture_format,
 			DXGI_FORMAT dsv_format, DXGI_FORMAT srv_format);
@@ -215,10 +211,6 @@ namespace mage {
 		void SetupRasterizerState(ID3D11Device2 *device);
 
 		void SetupShadowCubeMapBuffer(ID3D11Device2 *device,
-			size_t nb_shadow_cube_maps);
-		void Setup16BitShadowCubeMapArray(ID3D11Device2 *device,
-			size_t nb_shadow_cube_maps);
-		void Setup24BitShadowCubeMapArray(ID3D11Device2 *device,
 			size_t nb_shadow_cube_maps);
 		void SetupShadowCubeMapArray(ID3D11Device2 *device,
 			size_t nb_shadow_cube_maps, DXGI_FORMAT texture_format,

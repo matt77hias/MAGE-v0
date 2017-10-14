@@ -56,32 +56,21 @@ namespace mage {
 		switch (m_format) {
 		
 		case DepthFormat::D16: {
-			Setup16BitShadowMapArray(device, nb_shadow_maps);
+			SetupShadowMapArray(device, nb_shadow_maps, 
+				                DXGI_FORMAT_R16_TYPELESS, 
+				                DXGI_FORMAT_D16_UNORM, 
+				                DXGI_FORMAT_R16_UNORM);
 			break;
 		}
 		
 		default: {
-			Setup24BitShadowMapArray(device, nb_shadow_maps);
+			SetupShadowMapArray(device, nb_shadow_maps, 
+				                DXGI_FORMAT_R24G8_TYPELESS, 
+				                DXGI_FORMAT_D24_UNORM_S8_UINT, 
+				                DXGI_FORMAT_R24_UNORM_X8_TYPELESS);
+			break;
 		}
 		}
-	}
-
-	void ShadowMapBuffer::Setup16BitShadowMapArray(ID3D11Device2 *device,
-		size_t nb_shadow_maps) {
-
-		SetupShadowMapArray(device, nb_shadow_maps,
-									DXGI_FORMAT_R16_TYPELESS, 
-									DXGI_FORMAT_D16_UNORM, 
-									DXGI_FORMAT_R16_UNORM);
-	}
-	
-	void ShadowMapBuffer::Setup24BitShadowMapArray(ID3D11Device2 *device,
-		size_t nb_shadow_maps) {
-
-		SetupShadowMapArray(device, nb_shadow_maps,
-									DXGI_FORMAT_R24G8_TYPELESS, 
-									DXGI_FORMAT_D24_UNORM_S8_UINT, 
-									DXGI_FORMAT_R24_UNORM_X8_TYPELESS);
 	}
 
 	void ShadowMapBuffer::SetupShadowMapArray(ID3D11Device2 *device,
@@ -191,32 +180,21 @@ namespace mage {
 		switch (m_format) {
 		
 		case DepthFormat::D16: {
-			Setup16BitShadowCubeMapArray(device, nb_shadow_cube_maps);
+			SetupShadowCubeMapArray(device, nb_shadow_cube_maps, 
+				                    DXGI_FORMAT_R16_TYPELESS, 
+				                    DXGI_FORMAT_D16_UNORM, 
+				                    DXGI_FORMAT_R16_UNORM);
 			break;
 		}
 		
 		default: {
-			Setup24BitShadowCubeMapArray(device, nb_shadow_cube_maps);
+			SetupShadowCubeMapArray(device, nb_shadow_cube_maps, 
+				                    DXGI_FORMAT_R24G8_TYPELESS,
+				                    DXGI_FORMAT_D24_UNORM_S8_UINT,
+				                    DXGI_FORMAT_R24_UNORM_X8_TYPELESS);
+			break;
 		}
 		}
-	}
-
-	void ShadowCubeMapBuffer::Setup16BitShadowCubeMapArray(ID3D11Device2 *device,
-		size_t nb_shadow_cube_maps) {
-
-		SetupShadowCubeMapArray(device, nb_shadow_cube_maps,
-								DXGI_FORMAT_R16_TYPELESS, 
-								DXGI_FORMAT_D16_UNORM, 
-								DXGI_FORMAT_R16_UNORM);
-	}
-	
-	void ShadowCubeMapBuffer::Setup24BitShadowCubeMapArray(ID3D11Device2 *device,
-		size_t nb_shadow_cube_maps) {
-
-		SetupShadowCubeMapArray(device, nb_shadow_cube_maps,
-								DXGI_FORMAT_R24G8_TYPELESS, 
-								DXGI_FORMAT_D24_UNORM_S8_UINT, 
-								DXGI_FORMAT_R24_UNORM_X8_TYPELESS);
 	}
 
 	void ShadowCubeMapBuffer::SetupShadowCubeMapArray(ID3D11Device2 *device,

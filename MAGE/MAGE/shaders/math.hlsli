@@ -689,66 +689,61 @@ float2 NormalizedDispatchThreadIDtoNDC(float2 normalized_id) {
 //-----------------------------------------------------------------------------
 
 /**
- Performs gamma correction on the given RGB spectrum.
+ Converts the given spectrum from linear space to gamma space.
 
  @pre			All components of @a rgb must be non-negative.
  @param[in]		rgb
-				The RGB spectrum.
+				The RGB spectrum in linear space.
  @param[in]		inv_gamma
 				The inverse of the gamma exponent.
- @return		The gamma-corrected RGB spectrum corresponding to the given RGB 
-				spectrum.
+ @return		The RGB spectrum in gamma space.
  */
-float3 GammaCorrect(float3 rgb, float inv_gamma) {
+float3 LinearToGamma(float3 rgb, float inv_gamma) {
 	return pow(abs(rgb), inv_gamma);
 }
 
 /**
- Performs gamma correction on the given RGBA spectrum.
+ Converts the given spectrum from linear space to gamma space.
 
  @pre			All components of @a rgba must be non-negative.
  @param[in]		rgba
-				The RGBA spectrum.
+				The RGBA spectrum in linear space.
  @param[in]		inv_gamma
 				The inverse of the gamma exponent.
- @return		The gamma-corrected RGBA spectrum corresponding to the given 
-				RGBA spectrum.
+ @return		The RGBA spectrum in gamma space.
  @note			The alpha channel of the given RGBA spectrum is preserved.
  */
-float4 GammaCorrect(float4 rgba, float inv_gamma) {
-	return float4(GammaCorrect(rgba.xyz, inv_gamma), rgba.w);
+float4 LinearToGamma(float4 rgba, float inv_gamma) {
+	return float4(LinearToGamma(rgba.xyz, inv_gamma), rgba.w);
 }
 
 /**
- Performs inverse gamma correction on the given RGB spectrum.
+ Converts the given spectrum from gamma space to linear space.
 
  @pre			All components of @a rgb must be non-negative.
- @param[in]		rgb
-				The gamma-corrected RGB spectrum.
- @param[in]		gamma
+ @param[in]		rgba
+				The RGB spectrum in gamma space.
+ @param[in]		inv_gamma
 				The gamma exponent.
- @return		The RGB spectrum corresponding to the given gamma-corrected RGB 
-				spectrum.
+ @return		The RGB spectrum in linear space.
  */
-float3 InverseGammaCorrect(float3 rgb, float gamma) {
+float3 GammaToLinear(float3 rgb, float gamma) {
 	return pow(abs(rgb), gamma);
 }
 
 /**
- Performs inverse gamma correction on the given RGBA spectrum.
+ Converts the given spectrum from gamma space to linear space.
 
  @pre			All components of @a rgba must be non-negative.
  @param[in]		rgba
-				The gamma-corrected RGBA spectrum.
- @param[in]		gamma
+				The RGBA spectrum in linear space.
+ @param[in]		inv_gamma
 				The gamma exponent.
- @return		The RGBA spectrum corresponding to the given gamma-corrected 
-				RGBA spectrum.
- @note			The alpha channel of the given gamma-corrected RGBA spectrum 
-				is preserved.
+ @return		The RGBA spectrum in gamma space.
+ @note			The alpha channel of the given RGBA spectrum is preserved.
  */
-float4 InverseGammaCorrect(float4 rgba, float gamma) {
-	return float4(InverseGammaCorrect(rgba.xyz, gamma), rgba.w);
+float4 GammaToLinear(float4 rgba, float gamma) {
+	return float4(GammaToLinear(rgba.xyz, gamma), rgba.w);
 }
 
 //-----------------------------------------------------------------------------

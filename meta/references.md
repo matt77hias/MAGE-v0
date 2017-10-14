@@ -169,3 +169,7 @@ ZINK J., PETTINEO M., HOXLEY J.: *Practical Rendering and Computation with Direc
 
 *Substantially* based on:
 * [DirectXTK](https://github.com/Microsoft/DirectXTK) [[License](https://github.com/Microsoft/DirectXTK/blob/master/LICENSE)]
+
+## Thanks
+* [GameDev.net](https://www.gamedev.net/) community
+* [Computer Graphics StackExchange](https://computergraphics.stackexchange.com/) community

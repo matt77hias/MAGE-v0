@@ -145,12 +145,6 @@
     <Filter Include="Source Files\texture">
       <UniqueIdentifier>{b664c90b-5549-4bbd-b8e2-59575770e9bd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\texture\dds">
-      <UniqueIdentifier>{c0063edd-65ba-420c-9d04-420b9e04986b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\texture\dds">
-      <UniqueIdentifier>{5ffca290-9577-45c0-92d1-59a6ed07db40}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\resource">
       <UniqueIdentifier>{0b3d584a-6f9a-4b10-ad87-8cd5f1354171}</UniqueIdentifier>
     </Filter>
@@ -282,6 +276,12 @@
     </Filter>
     <Filter Include="Header Files\shader\cso\sky">
       <UniqueIdentifier>{c392ad62-32d7-4b33-9e0a-839f45907051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\directxtex">
+      <UniqueIdentifier>{4e6a60ca-5603-481d-bef2-ac593bd7e8a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\directxtex">
+      <UniqueIdentifier>{6a3e2aca-14dd-4720-a4df-136a9b5694cc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -494,9 +494,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\texture\texture.hpp">
       <Filter>Header Files\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\texture\dds\dds_loader.hpp">
-      <Filter>Header Files\texture\dds</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\texture\texture_loader.hpp">
       <Filter>Header Files\texture</Filter>
@@ -975,6 +972,15 @@
     <ClInclude Include="MAGE\src\material\color.hpp">
       <Filter>Header Files\material</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\directxtex\dds_texture_loader.hpp">
+      <Filter>Header Files\directxtex</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\directxtex\screen_grab.hpp">
+      <Filter>Header Files\directxtex</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\directxtex\wic_texture_loader.hpp">
+      <Filter>Header Files\directxtex</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1078,9 +1084,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\texture\texture.cpp">
       <Filter>Source Files\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\texture\dds\dds_loader.cpp">
-      <Filter>Source Files\texture\dds</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\model\model_descriptor.cpp">
       <Filter>Source Files\model</Filter>
@@ -1342,6 +1345,15 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\memory\memory_stack.cpp">
       <Filter>Source Files\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\directxtex\dds_texture_loader.cpp">
+      <Filter>Source Files\directxtex</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\directxtex\screen_grab.cpp">
+      <Filter>Source Files\directxtex</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\directxtex\wic_texture_loader.cpp">
+      <Filter>Source Files\directxtex</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

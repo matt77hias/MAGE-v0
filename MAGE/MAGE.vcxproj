@@ -46,6 +46,9 @@
     <ClInclude Include="MAGE\src\core\loadable.hpp" />
     <ClInclude Include="MAGE\src\core\targetver.hpp" />
     <ClInclude Include="MAGE\src\core\version.hpp" />
+    <ClInclude Include="MAGE\src\directxtex\dds_texture_loader.hpp" />
+    <ClInclude Include="MAGE\src\directxtex\screen_grab.hpp" />
+    <ClInclude Include="MAGE\src\directxtex\wic_texture_loader.hpp" />
     <ClInclude Include="MAGE\src\file\file_utils.hpp" />
     <ClInclude Include="MAGE\src\font\color_string.hpp" />
     <ClInclude Include="MAGE\src\font\glyph.hpp" />
@@ -234,7 +237,6 @@
     <ClInclude Include="MAGE\src\system\cpu_monitor.hpp" />
     <ClInclude Include="MAGE\src\system\system_time.hpp" />
     <ClInclude Include="MAGE\src\system\system_usage.hpp" />
-    <ClInclude Include="MAGE\src\texture\dds\dds_loader.hpp" />
     <ClInclude Include="MAGE\src\texture\guids.hpp" />
     <ClInclude Include="MAGE\src\texture\texture.hpp" />
     <ClInclude Include="MAGE\src\texture\texture_factory.hpp" />
@@ -266,6 +268,9 @@
     <ClCompile Include="MAGE\src\core\engine_statistics.cpp" />
     <ClCompile Include="MAGE\src\core\loadable.cpp" />
     <ClCompile Include="MAGE\src\core\version.cpp" />
+    <ClCompile Include="MAGE\src\directxtex\dds_texture_loader.cpp" />
+    <ClCompile Include="MAGE\src\directxtex\screen_grab.cpp" />
+    <ClCompile Include="MAGE\src\directxtex\wic_texture_loader.cpp" />
     <ClCompile Include="MAGE\src\file\file_utils.cpp" />
     <ClCompile Include="MAGE\src\font\spritefont\spritefont_loader.cpp" />
     <ClCompile Include="MAGE\src\font\spritefont\spritefont_reader.cpp" />
@@ -360,7 +365,6 @@
     <ClCompile Include="MAGE\src\string\writer.cpp" />
     <ClCompile Include="MAGE\src\system\system_time.cpp" />
     <ClCompile Include="MAGE\src\system\system_usage.cpp" />
-    <ClCompile Include="MAGE\src\texture\dds\dds_loader.cpp" />
     <ClCompile Include="MAGE\src\texture\texture.cpp" />
     <ClCompile Include="MAGE\src\texture\texture_factory.cpp" />
     <ClCompile Include="MAGE\src\texture\texture_loader.cpp" />

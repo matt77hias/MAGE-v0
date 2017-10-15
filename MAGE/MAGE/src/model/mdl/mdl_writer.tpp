@@ -64,8 +64,10 @@ namespace mage {
 		char output[MAX_PATH];
 		const size_t output_count = static_cast< size_t >(_countof(output));
 
+		const string temp = str_convert(file_name_we);
+
 		sprintf_s(output, output_count, "%s %s.mtl",
-			MAGE_MDL_TOKEN_MATERIAL_LIBRARY, str_convert(file_name_we.c_str()));
+			MAGE_MDL_TOKEN_MATERIAL_LIBRARY, str_convert(file_name_we).c_str());
 
 		WriteStringLine(output);
 	}

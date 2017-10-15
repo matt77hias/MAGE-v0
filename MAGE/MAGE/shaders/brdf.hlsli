@@ -1280,10 +1280,6 @@ float3 LambertianBRDFxCos(float3 n, float3 l, float3 v,
 	return base_color * g_inv_pi * n_dot_l;
 }
 
-float F_D90(float v_dot_h, float roughness) {
-	return 0.5f + 2.0f * roughness * sqr(v_dot_h);
-}
-
 #ifndef BRDF_F_COMPONENT
 #define BRDF_F_COMPONENT F_Schlick
 #endif
@@ -1326,13 +1322,59 @@ float3 CookTorranceBRDFxCos(float3 n, float3 l, float3 v,
 	const float  n_dot_h = sat_dot(n, h);
 	const float  v_dot_h = sat_dot(v, h);
 
+	const float3 F0      = lerp(g_dielectric_F0, base_color, metalness);
+	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F0);
+	const float3 F_diff  = (1.0f - F_spec) * (1.0f - metalness);
+	const float  D       = BRDF_D_COMPONENT(n_dot_h, alpha);
+	const float  V       = BRDF_V_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
+
+	const float3 Fd      = F_diff * base_color * g_inv_pi;
+	const float3 Fs      = F_spec * 0.25f * D * V;
+
+	return (Fd + Fs) * n_dot_l;
+}
+
+float F_D90(float v_dot_h, float roughness) {
+	return 0.5f + 2.0f * roughness * sqr(v_dot_h);
+}
+
+/**
+ Calculates the Disney BRDFxCos.
+
+ @pre			@a n is normalized.
+ @pre			@a l is normalized.
+ @pre			@a v is normalized.
+ @param[in]		n
+				The surface normal.
+ @param[in]		l
+				The light (hit-to-light) direction.
+ @param[in]		v
+				The view (hit-to-eye) direction.
+ @param[in]		base_color
+				The base color of the material.
+ @param[in]		roughness
+				The roughness of the material.
+ @param[in]		metalness
+				The metalness of the material.
+ @return		The Cook-Torrance BRDFxCos.
+ */
+float3 DisneyBRDFxCos(float3 n, float3 l, float3 v, 
+	float3 base_color, float roughness, float metalness) {
+	
+	const float  alpha   = sqr(roughness);
+	const float  n_dot_l = sat_dot(n, l);
+	const float  n_dot_v = sat_dot(n, v);
+	const float3 h       = HalfDirection(l, v);
+	const float  n_dot_h = sat_dot(n, h);
+	const float  v_dot_h = sat_dot(v, h);
+
 	const float  Fd90    = F_D90(v_dot_h, roughness);
 	const float  FL      = 1.0f + Fd90 - BRDF_F_COMPONENT(n_dot_l, Fd90);
 	const float  FV      = 1.0f + Fd90 - BRDF_F_COMPONENT(n_dot_v, Fd90);
 	const float  F_diff  = (1.0f - metalness) * FL * FV;
 
-	const float3 c_spec  = lerp(g_dielectric_F0, base_color, metalness);
-	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, c_spec);
+	const float3 F0      = lerp(g_dielectric_F0, base_color, metalness);
+	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F0);
 	const float  D       = BRDF_D_COMPONENT(n_dot_h, alpha);
 	const float  V       = BRDF_V_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
 

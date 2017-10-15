@@ -5,7 +5,7 @@
 
 #include "font\spritefont\spritefont_reader.hpp"
 #include "font\spritefont\spritefont_tokens.hpp"
-#include "rendering\rendering_utils.hpp"
+#include "texture\texture_utils.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
 

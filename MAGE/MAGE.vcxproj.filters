@@ -684,9 +684,6 @@
     <ClInclude Include="MAGE\src\texture\texture_factory.hpp">
       <Filter>Header Files\texture</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\rendering_utils.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp">
       <Filter>Header Files\resource</Filter>
     </ClInclude>

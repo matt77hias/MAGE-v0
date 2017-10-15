@@ -145,7 +145,6 @@
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_factory.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_state_manager.hpp" />
-    <ClInclude Include="MAGE\src\rendering\rendering_utils.hpp" />
     <ClInclude Include="MAGE\src\resource\resource.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_factory.hpp" />
     <ClInclude Include="MAGE\src\resource\resource_manager.hpp" />

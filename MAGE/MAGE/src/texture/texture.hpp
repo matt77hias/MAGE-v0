@@ -171,14 +171,6 @@ namespace mage {
 		void Bind(ID3D11DeviceContext2 *device_context, 
 			U32 slot) const noexcept;
 
-		/**
-		 Checks whether this texture contains an alpha component.
-
-		 @return		@c true if and only if this texture contains
-						an alpha component.
-		 */
-		bool HasAlpha() const noexcept;
-
 	private:
 
 		//---------------------------------------------------------------------

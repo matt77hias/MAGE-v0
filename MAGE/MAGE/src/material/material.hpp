@@ -143,6 +143,13 @@ namespace mage {
 		}
 		
 		/**
+		 Toggles the light interaction of this material.
+		 */
+		void ToggleLightInteraction() noexcept {
+			SetLightInteraction(!InteractsWithLight());
+		}
+
+		/**
 		 Sets the light interaction of this material to the given value.
 
 		 @param[in]		light_interaction
@@ -177,6 +184,24 @@ namespace mage {
 		 */
 		bool IsTransparant() const noexcept {
 			return m_transparent;
+		}
+		
+		/**
+		 Makes this material opaque.
+		 */
+		void SetOpaque() noexcept {
+			SetTranparent(false);
+		}
+
+		/**
+		 Makes this material transparent.
+
+		 @param[in]		transparent
+						@c true if and only if this material is transparent.
+						@c false otherwise.
+		 */
+		void SetTranparent(bool transparent = true) noexcept {
+			m_transparent = transparent;
 		}
 		
 		//---------------------------------------------------------------------
@@ -279,7 +304,6 @@ namespace mage {
 		 */
 		void SetBaseColorA(F32 alpha) noexcept {
 			m_base_color.w = alpha;
-			UpdateTransparency();
 		}
 		
 		/**
@@ -339,7 +363,6 @@ namespace mage {
 		 */
 		void SetBaseColorRGBA(const RGBASpectrum &rgba) noexcept {
 			m_base_color = rgba;
-			UpdateTransparency();
 		}
 
 		/**
@@ -351,7 +374,6 @@ namespace mage {
 		 */
 		void SetBaseColorRGBA(RGBASpectrum &&rgba) noexcept {
 			m_base_color = std::move(rgba);
-			UpdateTransparency();
 		}
 
 		/**
@@ -387,7 +409,6 @@ namespace mage {
 			const SharedPtr< const Texture > &base_color_texture) {
 			
 			m_base_color_texture = base_color_texture;
-			UpdateTransparency();
 		}
 		
 		//---------------------------------------------------------------------
@@ -513,19 +534,6 @@ namespace mage {
 		}
 		
 	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods: Opacity/Transparency
-		//---------------------------------------------------------------------
-
-		/**
-		 Updates the transparency flag of this material.
-		 */
-		void UpdateTransparency() noexcept {
-			m_transparent = (GetBaseColorA() != 1.0f) 
-				         || (m_base_color_texture 
-							 && m_base_color_texture->HasAlpha());
-		}
 
 		//---------------------------------------------------------------------
 		// Member Variables: Name

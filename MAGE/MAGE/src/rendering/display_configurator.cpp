@@ -5,7 +5,6 @@
 
 #include "rendering\display_configurator.hpp"
 #include "rendering\display_settings.hpp"
-#include "rendering\rendering_utils.hpp"
 #include "platform\windows_utils.hpp"
 #include "ui\combo_box.hpp"
 #include "file\file_utils.hpp"

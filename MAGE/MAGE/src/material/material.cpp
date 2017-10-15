@@ -17,7 +17,7 @@ namespace mage {
 
 	Material::Material(const string &name)
 		: m_name(name), 
-		m_light_interaction(false), 
+		m_light_interaction(true), 
 		m_transparent(false), 
 		m_base_color(RGBASpectrum(1.0f)),
 		m_base_color_texture(CreateWhiteTexture()),

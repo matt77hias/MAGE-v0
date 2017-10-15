@@ -90,6 +90,7 @@ namespace mage {
 		auto spot_light = Create< SpotLightNode >("light");
 		spot_light->GetLight()->SetDistanceFalloff(0.0f, 5.0f);
 		spot_light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
+		spot_light->GetLight()->SetIntensity(RGBSpectrum(6.0f));
 		camera->AddChildNode(spot_light);
 
 		//---------------------------------------------------------------------

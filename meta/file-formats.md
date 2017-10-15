@@ -24,18 +24,21 @@
   * `\r`(CR: carriage return character)
 * Syntax: see [MTL format](http://paulbourke.net/dataformats/mtl/)
 
-| Definitions        | Syntax                                      | Arguments                    |
-|--------------------|---------------------------------------------|------------------------------|
-| new material       | `newmtl <string>`                           | material name                |
-| base color         | `base_color <F32>`                          | R=G=B channel (A=1)    [0,1] |
-| base color         | `base_color <F32> <F32> <F32>`              | R, G, B channels (A=1) [0,1] |
-| base color         | `base_color <F32> <F32> <F32> <F32>`        | R, G, B, A channels    [0,1] |
-| base color texture | `texture_base_color <string>`               | relative file name           |
-| roughness          | `roughness <F32>`                           | roughness value        [0,1] |
-| metalness          | `metalness <F32>`                           | metalness value        [0,1] |
-| material texture   | `material_base_color <string>`              | relative file name           |
-| normal texture     | `normal_base_color <string>`                | relative file name           |
-| `<string>`         | `<ANSI string without delimiters and EOFs>` |                              |
+| Definitions        | Syntax                                      | Arguments                          |
+|--------------------|---------------------------------------------|------------------------------------|
+| base color         | `base_color <F32>`                          | R=G=B channel (A=1)          [0,1] |
+| base color         | `base_color <F32> <F32> <F32>`              | R, G, B channels (A=1)       [0,1] |
+| base color         | `base_color <F32> <F32> <F32> <F32>`        | R, G, B, A channels          [0,1] |
+| base color texture | `texture_base_color <string>`               | relative file name                 |
+| emissive             | `emissive`                                | no light interaction               |
+| metalness          | `metalness <F32>`                           | metalness value              [0,1] |
+| material texture   | `material_base_color <string>`              | relative file name                 |
+| new material       | `newmtl <string>`                           | material name                      |
+| normal texture     | `normal_base_color <string>`                | relative file name                 |
+| opaque             | `opaque`                                    | opaque base color      (= default) |
+| roughness          | `roughness <F32>`                           | roughness value              [0,1] |
+| transparent        | `transparent`                               | transparent base color (= default) |
+| `<string>`         | `<ANSI string without delimiters and EOFs>` |                                    |
 
 ## Meshes
 

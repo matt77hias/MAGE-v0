@@ -107,8 +107,6 @@ namespace mage {
 	}
 
 	void RenderingManager::SetupSwapChain() {
-		m_display_configuration->UpdateMSAASampleDesc(GetDevice());
-
 		// Create the swap chain.
 		CreateSwapChain();
 		// Create the RTV/SRV and DSV/SRV.
@@ -149,7 +147,7 @@ namespace mage {
 		swap_chain_desc.Width       = GetWidth();
 		swap_chain_desc.Height      = GetHeight();
 		swap_chain_desc.Format      = m_display_configuration->GetDisplayFormat();
-		swap_chain_desc.SampleDesc  = m_display_configuration->GetMSAASampleDesc();
+		swap_chain_desc.SampleDesc.Count = 1u;
 		swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
 		swap_chain_desc.BufferCount = 1u;
 		swap_chain_desc.Flags       = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
@@ -207,7 +205,7 @@ namespace mage {
 		texture_desc.MipLevels  = 1u;
 		texture_desc.ArraySize  = 1u;
 		texture_desc.Format     = DXGI_FORMAT_R24G8_TYPELESS;
-		texture_desc.SampleDesc = m_display_configuration->GetMSAASampleDesc();
+		texture_desc.SampleDesc.Count = 1u;
 		texture_desc.Usage      = D3D11_USAGE_DEFAULT;
 		texture_desc.BindFlags  = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
 		
@@ -222,9 +220,7 @@ namespace mage {
 		// Create the DSV descriptor.
 		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
 		dsv_desc.Format        = DXGI_FORMAT_D24_UNORM_S8_UINT;
-		dsv_desc.ViewDimension = m_display_configuration->UseMSAA() ?
-									D3D11_DSV_DIMENSION_TEXTURE2DMS :
-									D3D11_DSV_DIMENSION_TEXTURE2D;
+		dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 
 		// Create the DSV.
 		const HRESULT result_dsv = m_device->CreateDepthStencilView(
@@ -236,13 +232,8 @@ namespace mage {
 		// Create the SRV descriptor.
 		D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
 		srv_desc.Format        = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
-		if (m_display_configuration->UseMSAA()) {
-			srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
-		}
-		else {
-			srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-			srv_desc.Texture2D.MipLevels = 1u;
-		}
+		srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		srv_desc.Texture2D.MipLevels = 1u;
 
 		// Create the SRV.
 		const HRESULT result_srv = m_device->CreateShaderResourceView(

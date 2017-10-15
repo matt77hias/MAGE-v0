@@ -15,13 +15,24 @@
 * Mouse (LMB, MMB and RMB are supported)
 
 ### [File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
-* .DDS (texture)
-* .MDL (model)
-* .MSH (mesh)
-* .MTL (material)
-* .OBJ (model/mesh)
-* .SPRITEFONT (font)
-* .VS (variable script)
+* Fonts
+  * .SPRITEFONT (Sprite Font) **[MAGE Dedicated Format]**
+* Models, Meshes and Materials
+  * .MDL  (Model) **[MAGE Dedicated Format]**
+  * .MSH  (Mesh)  **[MAGE Dedicated Format]**
+  * .MTL  (Material) **[MAGE Customized Format]**
+  * .OBJ  (Wavefront OBJ) **[MAGE Customized Format]**
+* Texture
+  * .BMP  (Windows Bitmap Format)
+  * .DDS  (DirectDraw Surface) **[preferred]**
+  * .GIF  (Graphics Interchange Format 89a)
+  * .HDP  (HD Photo/Windows Media Photo)
+  * .ICO  (Icon Format)
+  * .JPEG (Joint Photographic Experts Group)
+  * .PNG  (Portable Network Graphics)
+  * .TIFF (Tagged Image File Format)
+* Properties
+  * .VS   (Variable Script) **[MAGE Dedicated Format]**
 
 ### Rendering
 * AA

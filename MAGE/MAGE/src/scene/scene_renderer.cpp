@@ -4,7 +4,7 @@
 #pragma region
 
 #include "scene\scene_manager.hpp"
-#include "rendering\renderer.hpp"
+#include "rendering\rendering_manager.hpp"
 #include "logging\error.hpp"
 
 // Include HLSL bindings.
@@ -20,7 +20,7 @@ namespace mage {
 	SceneRenderer *SceneRenderer::Get() noexcept {
 		Assert(SceneManager::Get());
 		
-		return SceneManager::Get()->GetRenderer();
+		return SceneManager::Get()->GetRenderingManager();
 	}
 
 	SceneRenderer::SceneRenderer()
@@ -54,15 +54,16 @@ namespace mage {
 	SceneRenderer::~SceneRenderer() = default;
 
 	void SceneRenderer::BindPersistentState() {
-		const Renderer * const renderer = Renderer::Get();
+		const RenderingManager * const rendering_manager 
+			= RenderingManager::Get();
 		
 		GameBuffer game_buffer;
-		game_buffer.m_width             = static_cast< F32 >(renderer->GetWidth());
-		game_buffer.m_height            = static_cast< F32 >(renderer->GetHeight());
-		game_buffer.m_inv_width_minus1  = 1.0f / (renderer->GetWidth() - 1.0f);
-		game_buffer.m_inv_height_minus1 = 1.0f / (renderer->GetHeight() - 1.0f);
-		game_buffer.m_gamma             = renderer->GetGamma();
-		game_buffer.m_inv_gamma         = 1.0f / renderer->GetGamma();
+		game_buffer.m_width             = static_cast< F32 >(rendering_manager->GetWidth());
+		game_buffer.m_height            = static_cast< F32 >(rendering_manager->GetHeight());
+		game_buffer.m_inv_width_minus1  = 1.0f / (rendering_manager->GetWidth() - 1.0f);
+		game_buffer.m_inv_height_minus1 = 1.0f / (rendering_manager->GetHeight() - 1.0f);
+		game_buffer.m_gamma             = rendering_manager->GetGamma();
+		game_buffer.m_inv_gamma         = 1.0f / rendering_manager->GetGamma();
 
 		// Update the game buffer.
 		m_game_buffer.UpdateData(m_device_context, game_buffer);
@@ -197,11 +198,12 @@ namespace mage {
 		CXMMATRIX world_to_view,
 		CXMMATRIX view_to_projection) {
 
-		const Renderer * const renderer = Renderer::Get();
+		const RenderingManager * const rendering_manager 
+			= RenderingManager::Get();
 
 		// Bind no RTV and the depth buffer DSV.
 		Pipeline::OM::BindRTVAndDSV(m_device_context, nullptr, 
-			renderer->GetDepthBufferDSV());
+			rendering_manager->GetDepthBufferDSV());
 		
 		// Perform a depth pass.
 		DepthPass * const depth_pass = GetDepthPass();
@@ -211,7 +213,7 @@ namespace mage {
 			world_to_view, view_to_projection);
 		
 		// Bind the back and depth buffer.
-		renderer->BindRTVAndDSV();
+		rendering_manager->BindRTVAndDSV();
 	}
 
 	void SceneRenderer::ExecuteSolidForwardPipeline(
@@ -230,7 +232,7 @@ namespace mage {
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
 		// Bind the back and depth buffer.
-		Renderer::Get()->BindRTVAndDSV();
+		RenderingManager::Get()->BindRTVAndDSV();
 		
 		// Perform a forward pass.
 		ConstantShadingPass * const forward_pass = GetConstantShadingPass();
@@ -257,7 +259,7 @@ namespace mage {
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
 		// Bind the back and depth buffer.
-		Renderer::Get()->BindRTVAndDSV();
+		RenderingManager::Get()->BindRTVAndDSV();
 
 		// Perform a forward pass: opaque models.
 		VariableShadingPass * const forward_pass = GetVariableShadingPass();
@@ -320,7 +322,7 @@ namespace mage {
 		// Bind the ImageBuffer for unpacking.
 		m_image_buffer->BindUnpacking(m_device_context);
 		// Bind the back and depth buffer.
-		Renderer::Get()->BindRTVAndDSV();
+		RenderingManager::Get()->BindRTVAndDSV();
 		
 		// Perform an image pass.
 		ImagePass * const image_pass = GetImagePass();

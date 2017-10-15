@@ -8,7 +8,7 @@
 #include "core\targetver.hpp"
 
 #include "ui\main_window.hpp"
-#include "rendering\renderer.hpp"
+#include "rendering\rendering_manager.hpp"
 #include "input\input_manager.hpp"
 #include "resource\resource_manager.hpp"
 #include "resource\resource_factory.hpp"
@@ -153,13 +153,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the renderer of this engine.
+		 Returns the rendering manager of this engine.
 
 		 @return		@c nullptr if this engine is not properly setup.
-		 @return		A pointer to the renderer of this engine.
+		 @return		A pointer to the rendering manager of this engine.
 		 */
-		const Renderer *GetRenderer() const noexcept {
-			return m_renderer.get();
+		const RenderingManager *GetRenderingManager() const noexcept {
+			return m_rendering_manager.get();
 		}
 
 		/**
@@ -277,9 +277,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the renderer of this engine.
+		 A pointer to the rendering manager of this engine.
 		 */
-		UniquePtr< Renderer > m_renderer;
+		UniquePtr< RenderingManager > m_rendering_manager;
 
 		/**
 		 Flag indicating whether the application should switch between full 

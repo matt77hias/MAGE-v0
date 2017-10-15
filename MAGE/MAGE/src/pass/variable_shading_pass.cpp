@@ -188,7 +188,7 @@ namespace mage {
 		BindProjectionData(view_to_projection);
 
 		// Bind the blend state.
-		RenderingStateCache::Get()->BindTransparentBlendState(m_device_context);
+		RenderingStateCache::Get()->BindAlphaBlendState(m_device_context);
 
 		// Process the transparent models.
 		ProcessModels(scene->GetTransparentEmissiveModels(), 

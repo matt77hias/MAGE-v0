@@ -26,7 +26,7 @@ namespace mage {
 	Engine::Engine(const EngineSetup &setup)
 		: Loadable(), 
 		m_main_window(), m_deactive(false),
-		m_renderer(), m_mode_switch(false),
+		m_rendering_manager(), m_mode_switch(false),
 		m_input_manager(), 
 		m_resource_manager(), 
 		m_scene_manager(),
@@ -79,7 +79,7 @@ namespace mage {
 									setup.GetApplicationName(), 
 									width, height);
 		// Initialize the rendering system.
-		m_renderer            = MakeUnique< Renderer >(
+		m_rendering_manager    = MakeUnique< RenderingManager >(
 									m_main_window->GetHandle(), 
 									display_configuration);
 		// Initialize the input system.
@@ -126,7 +126,7 @@ namespace mage {
 
 		m_main_window->Show(nCmdShow);
 		// Handle startup in fullscreen mode.
-		m_renderer->SetInitialMode();
+		m_rendering_manager->SetInitialMode();
 
 		m_timer->Restart();
 		F64 fixed_time_budget = 0.0f;
@@ -160,9 +160,9 @@ namespace mage {
 			}
 
 			// Handle switch between full screen and windowed mode.
-			const bool lost_mode = m_renderer->LostMode();
+			const bool lost_mode = m_rendering_manager->LostMode();
 			if (m_mode_switch || lost_mode) {
-				m_renderer->SwitchMode(!lost_mode);
+				m_rendering_manager->SwitchMode(!lost_mode);
 				m_mode_switch = false;
 				continue;
 			}
@@ -191,9 +191,9 @@ namespace mage {
 				
 			// Render the current scene.
 			m_engine_stats->PrepareRendering();
-			m_renderer->BeginFrame();
+			m_rendering_manager->BeginFrame();
 			m_scene_manager->Render();
-			m_renderer->EndFrame();
+			m_rendering_manager->EndFrame();
 		}
 
 		return static_cast< int >(msg.wParam);

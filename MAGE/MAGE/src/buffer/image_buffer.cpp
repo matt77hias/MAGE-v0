@@ -4,7 +4,7 @@
 #pragma region
 
 #include "buffer\image_buffer.hpp"
-#include "rendering\renderer.hpp"
+#include "rendering\rendering_manager.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
 
@@ -24,10 +24,11 @@ namespace mage {
 	ImageBuffer::ImageBuffer(ID3D11Device2 *device)
 		: m_uav(), m_srv() {
 
-		const Renderer * const renderer = Renderer::Get();
-		Assert(renderer);
-		const U32 width  = renderer->GetWidth();
-		const U32 height = renderer->GetHeight();
+		const RenderingManager * const rendering_manager 
+			= RenderingManager::Get();
+		Assert(rendering_manager);
+		const U32 width  = rendering_manager->GetWidth();
+		const U32 height = rendering_manager->GetHeight();
 
 		SetupBuffer(device, width, height);
 	}

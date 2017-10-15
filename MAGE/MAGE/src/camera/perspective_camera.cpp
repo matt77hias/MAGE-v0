@@ -4,7 +4,7 @@
 #pragma region
 
 #include "camera\perspective_camera.hpp"
-#include "rendering\renderer.hpp"
+#include "rendering\rendering_manager.hpp"
 
 #pragma endregion
 
@@ -22,8 +22,8 @@ namespace mage {
 	PerspectiveCamera::PerspectiveCamera(
 		F32 fov_y, F32 near_z, F32 far_z)
 		: PerspectiveCamera(
-			static_cast< F32 >(Renderer::Get()->GetWidth()),
-			static_cast< F32 >(Renderer::Get()->GetHeight()),
+			static_cast< F32 >(RenderingManager::Get()->GetWidth()),
+			static_cast< F32 >(RenderingManager::Get()->GetHeight()),
 			fov_y, near_z, far_z) {}
 
 	PerspectiveCamera::PerspectiveCamera(F32 aspect_ratio,

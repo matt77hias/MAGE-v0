@@ -4,7 +4,7 @@
 #pragma region
 
 #include "buffer\gbuffer.hpp"
-#include "rendering\renderer.hpp"
+#include "rendering\rendering_manager.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
 
@@ -73,10 +73,11 @@ namespace mage {
 	void GBuffer::SetupBuffers(ID3D11Device2 *device) {
 		Assert(device);
 		
-		const Renderer * const renderer = Renderer::Get();
-		Assert(renderer);
-		const U32 width  = renderer->GetWidth();
-		const U32 height = renderer->GetHeight();
+		const RenderingManager * const rendering_manager 
+			= RenderingManager::Get();
+		Assert(rendering_manager);
+		const U32 width  = rendering_manager->GetWidth();
+		const U32 height = rendering_manager->GetHeight();
 
 		// Setup the depth buffer.
 		SetupDepthBuffer(device, width, height);

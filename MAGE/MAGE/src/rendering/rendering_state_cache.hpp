@@ -26,12 +26,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the renderer state cache associated with the current engine.
+		 Returns the rendering manager state cache associated with the current 
+		 engine.
 
-		 @pre			The renderer associated with the current engine must be 
-						loaded.
-		 @return		A pointer to the renderer state cache associated with 
-						the current engine.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @return		A pointer to the rendering manager state cache 
+						associated with the current engine.
 		 @throws		FormattedException
 						Failed to setup the rendering states of this rendering 
 						state cache.
@@ -193,18 +194,6 @@ namespace mage {
 				GetBlendState(BlendStateIndex::AlphaToCoverage));
 		}
 		
-		/**
-		 Binds the alpha blend state of this rendering state cache if MSAA is
-		 disabled. Otherwise, binds the alpha-to-coverage blend state of this 
-		 rendering state cache.
-
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 */
-		void BindTransparentBlendState(
-			ID3D11DeviceContext2 *device_context) const noexcept;
-
 		//---------------------------------------------------------------------
 		// Member Methods: Depth Stencil States
 		//---------------------------------------------------------------------

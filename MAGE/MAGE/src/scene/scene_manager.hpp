@@ -106,7 +106,7 @@ namespace mage {
 
 		void SetScene(UniquePtr< Scene > &&scene);
 
-		SceneRenderer *GetRenderer() const {
+		SceneRenderer *GetRenderingManager() const {
 			return m_renderer.get();
 		}
 

@@ -4,7 +4,7 @@
 #pragma region
 
 #include "math\sprite_transform.hpp"
-#include "rendering\renderer.hpp"
+#include "rendering\rendering_manager.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -15,56 +15,62 @@
 namespace mage {
 
 	F32 ConvertNormalizedToAbsoluteScreenX(F32 x) {
-		const Renderer * const renderer = Renderer::Get();
-		Assert(renderer);
+		const RenderingManager * const rendering_manager 
+			= RenderingManager::Get();
+		Assert(rendering_manager);
 
-		return x * static_cast< F32 >(renderer->GetWidth());
+		return x * static_cast< F32 >(rendering_manager->GetWidth());
 	}
 
 	F32 ConvertNormalizedToAbsoluteScreenY(F32 y) {
-		const Renderer * const renderer = Renderer::Get();
-		Assert(renderer);
+		const RenderingManager * const rendering_manager 
+			= RenderingManager::Get();
+		Assert(rendering_manager);
 
-		return y * static_cast< F32 >(renderer->GetHeight());
+		return y * static_cast< F32 >(rendering_manager->GetHeight());
 	}
 
 	const XMVECTOR XM_CALLCONV ConvertNormalizedToAbsoluteScreen(
 		FXMVECTOR position) {
 		
-		const Renderer * const renderer = Renderer::Get();
-		Assert(renderer);
+		const RenderingManager * const rendering_manager 
+			= RenderingManager::Get();
+		Assert(rendering_manager);
 
 		const XMVECTOR multiplier = XMVectorSet(
-			static_cast< F32 >(renderer->GetWidth()),
-			static_cast< F32 >(renderer->GetHeight()),
+			static_cast< F32 >(rendering_manager->GetWidth()),
+			static_cast< F32 >(rendering_manager->GetHeight()),
 			0.0f,
 			0.0f);
 		return multiplier * position;
 	}
 
 	F32 ConvertAbsoluteToNormalizedScreenX(F32 x) {
-		const Renderer * const renderer = Renderer::Get();
-		Assert(renderer);
+		const RenderingManager * const rendering_manager 
+			= RenderingManager::Get();
+		Assert(rendering_manager);
 
-		return x / static_cast< F32 >(renderer->GetWidth());
+		return x / static_cast< F32 >(rendering_manager->GetWidth());
 	}
 
 	F32 ConvertAbsoluteToNormalizedScreenY(F32 y) {
-		const Renderer * const renderer = Renderer::Get();
-		Assert(renderer);
+		const RenderingManager * const rendering_manager 
+			= RenderingManager::Get();
+		Assert(rendering_manager);
 
-		return y / static_cast< F32 >(renderer->GetHeight());
+		return y / static_cast< F32 >(rendering_manager->GetHeight());
 	}
 
 	const XMVECTOR XM_CALLCONV ConvertAbsoluteToNormalizedScreen(
 		FXMVECTOR position) {
 		
-		const Renderer * const renderer = Renderer::Get();
-		Assert(renderer);
+		const RenderingManager * const rendering_manager 
+			= RenderingManager::Get();
+		Assert(rendering_manager);
 
 		const XMVECTOR multiplier = XMVectorSet(
-			1.0f / static_cast< F32 >(renderer->GetWidth()),
-			1.0f / static_cast< F32 >(renderer->GetHeight()),
+			1.0f / static_cast< F32 >(rendering_manager->GetWidth()),
+			1.0f / static_cast< F32 >(rendering_manager->GetHeight()),
 			0.0f,
 			0.0f);
 		return multiplier * position;

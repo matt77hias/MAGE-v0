@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\renderer.hpp"
+#include "rendering\rendering_manager.hpp"
 #include "rendering\rendering_factory.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
@@ -21,9 +21,9 @@
 namespace mage {
 
 	const RenderingStateCache *RenderingStateCache::Get() noexcept {
-		Assert(Renderer::Get());
+		Assert(RenderingManager::Get());
 
-		return Renderer::Get()->GetRenderingStateCache();
+		return RenderingManager::Get()->GetRenderingStateCache();
 	}
 
 	RenderingStateCache::RenderingStateCache(ID3D11Device2 *device)
@@ -207,17 +207,6 @@ namespace mage {
 		ThrowIfFailed(result_pcf, 
 			"PCF sampling state creation failed: %08X.", 
 			result_pcf);
-	}
-
-	void RenderingStateCache::BindTransparentBlendState(
-		ID3D11DeviceContext2 *device_context) const noexcept {
-
-		if (Renderer::Get()->HasMSAA()) {
-			BindAlphaToCoverageBlendState(device_context);
-		}
-		else {
-			BindAlphaBlendState(device_context);
-		}
 	}
 
 	void RenderingStateCache::BindPersistentSamplers(

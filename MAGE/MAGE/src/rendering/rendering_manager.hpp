@@ -16,9 +16,9 @@
 namespace mage {
 
 	/**
-	 A class of renderers.
+	 A class of rendering managers.
 	 */
-	class Renderer final {
+	class RenderingManager final {
 
 	public:
 
@@ -27,20 +27,20 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the renderer associated with the current engine.
+		 Returns the rendering manager associated with the current engine.
 
 		 @pre			The current engine must exist.
-		 @return		A pointer to the renderer associated with the current 
-						engine.
+		 @return		A pointer to the rendering manager associated with the 
+						current engine.
 		 */
-		static const Renderer *Get() noexcept;
+		static const RenderingManager *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a renderer.
+		 Constructs a rendering manager.
 
 		 @pre			@a display_configuration is not equal to @c nullptr.
 		 @param[in]		hwindow
@@ -48,97 +48,103 @@ namespace mage {
 		 @param[in]		display_configuration
 						A pointer to the display configuration.
 		 */
-		explicit Renderer(HWND hwindow, 
+		explicit RenderingManager(HWND hwindow, 
 			const DisplayConfiguration *display_configuration);
 
 		/**
-		 Constructs a renderer from the given renderer.
+		 Constructs a rendering manager from the given rendering manager.
 
-		 @param[in]		renderer
-						A reference to a renderer to copy.
+		 @param[in]		rendering_manager
+						A reference to a rendering manager to copy.
 		 */
-		Renderer(const Renderer &renderer) = delete;
+		RenderingManager(const RenderingManager &rendering_manager) = delete;
 
 		/**
-		 Constructs a renderer by moving the given renderer.
+		 Constructs a rendering manager by moving the given rendering manager.
 
-		 @param[in]		renderer
-						A reference to a renderer to move.
+		 @param[in]		rendering_manager
+						A reference to a rendering manager to move.
 		 */
-		Renderer(Renderer &&renderer);
+		RenderingManager(RenderingManager &&rendering_manager);
 
 		/**
-		 Destructs this renderer.
+		 Destructs this rendering manager.
 		 */
-		~Renderer();
+		~RenderingManager();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given renderer to this renderer.
+		 Copies the given rendering manager to this rendering manager.
 
-		 @param[in]		renderer
-						A reference to a renderer to copy.
-		 @return		A reference to the copy of the given renderer (i.e. 
-						this renderer).
+		 @param[in]		rendering_manager
+						A reference to a rendering manager to copy.
+		 @return		A reference to the copy of the given rendering manager 
+						(i.e. this rendering manager).
 		 */
-		Renderer &operator=(const Renderer &renderer) = delete;
+		RenderingManager &operator=(
+			const RenderingManager &rendering_manager) = delete;
 
 		/**
-		 Moves the given renderer to this renderer.
+		 Moves the given rendering manager to this rendering manager.
 
-		 @param[in]		renderer
-						A reference to a renderer to move.
-		 @return		A reference to the moved renderer (i.e. this renderer).
+		 @param[in]		rendering_manager
+						A reference to a rendering manager to move.
+		 @return		A reference to the moved rendering manager (i.e. this 
+						rendering manager).
 		 */
-		Renderer &operator=(Renderer &&renderer) = delete;
+		RenderingManager &operator=(
+			RenderingManager &&rendering_manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the adapter of this renderer.
+		 Returns the adapter of this rendering manager.
 
-		 @return		A pointer to the adapter of this renderer.
+		 @return		A pointer to the adapter of this rendering manager.
 		 */
 		IDXGIAdapter2 *GetAdapter() const noexcept {
 			return m_display_configuration->GetAdapter();
 		}
 
 		/**
-		 Returns the output of this renderer.
+		 Returns the output of this rendering manager.
 
-		 @return		A pointer to the device context of this renderer.
+		 @return		A pointer to the device context of this rendering 
+						manager.
 		 */
 		IDXGIOutput2 *GetOutput() const noexcept {
 			return m_display_configuration->GetOutput();
 		}
 
 		/**
-		 Returns the device of this renderer.
+		 Returns the device of this rendering manager.
 
-		 @return		A pointer to the device of this renderer.
+		 @return		A pointer to the device of this rendering manager.
 		 */
 		ID3D11Device2 *GetDevice() const noexcept {
 			return m_device.Get();
 		}
 
 		/**
-		 Returns the device context of this renderer.
+		 Returns the device context of this rendering manager.
 
-		 @return		A pointer to the device context of this renderer.
+		 @return		A pointer to the device context of this rendering 
+						manager.
 		 */
 		ID3D11DeviceContext2 *GetDeviceContext() const noexcept {
 			return m_device_context.Get();
 		}
 		
 		/**
-		 Returns the back buffer RTV of this renderer.
+		 Returns the back buffer RTV of this rendering manager.
 
-		 @return		A pointer to the back buffer RTV of this renderer.
+		 @return		A pointer to the back buffer RTV of this rendering 
+						manager.
 		 @note			The back buffer RTV and SRV cannot both be bound at the 
 						same time.
 		 */
@@ -147,9 +153,10 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the back buffer SRV of this renderer.
+		 Returns the back buffer SRV of this rendering manager.
 
-		 @return		A pointer to the back buffer SRV of this renderer.
+		 @return		A pointer to the back buffer SRV of this rendering 
+						manager.
 		 @note			The back buffer RTV and SRV cannot both be bound at the 
 						same time.
 		 */
@@ -158,79 +165,74 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the depth buffer DSV of this renderer.
+		 Returns the depth buffer DSV of this rendering manager.
 
-		 @return		A pointer to the depth buffer DSV of this renderer.
-		 @note			The depth buffer DSV and SRV cannot both be bound at the 
-						same time.
+		 @return		A pointer to the depth buffer DSV of this rendering 
+						manager.
+		 @note			The depth buffer DSV and SRV cannot both be bound at 
+						the same time.
 		 */
 		ID3D11DepthStencilView *GetDepthBufferDSV() const noexcept {
 			return m_depth_buffer_dsv.Get();
 		}
 		
 		/**
-		 Returns the depth buffer SRV of this renderer.
+		 Returns the depth buffer SRV of this rendering manager.
 
-		 @return		A pointer to the depth buffer SRV of this renderer.
-		 @note			The depth buffer DSV and SRV cannot both be bound at the 
-						same time.
+		 @return		A pointer to the depth buffer SRV of this rendering 
+						manager.
+		 @note			The depth buffer DSV and SRV cannot both be bound at 
+						the same time.
 		 */
 		ID3D11ShaderResourceView *GetDepthBufferSRV() const noexcept {
 			return m_depth_buffer_srv.Get();
 		}
 
 		/**
-		 Returns the rendering state cache of this renderer.
+		 Returns the rendering state cache of this rendering manager.
 
-		 @return		A pointer to the rendering state cache of this renderer.
+		 @return		A pointer to the rendering state cache of this 
+						rendering manager.
 		 */
 		const RenderingStateCache *GetRenderingStateCache() const noexcept {
 			return m_rendering_state_cache.get();
 		}
 
 		/**
-		 Returns the width in pixels of the display of this renderer.
+		 Returns the width in pixels of the display of this rendering manager.
 
-		 @return		The width in pixels of the display of this renderer.
+		 @return		The width in pixels of the display of this rendering 
+						manager.
 		 */
 		U32 GetWidth() const noexcept {
 			return m_display_configuration->GetDisplayWidth();
 		}
 
 		/**
-		 Returns the height in pixels of the display of this renderer.
+		 Returns the height in pixels of the display of this rendering manager.
 
-		 @return		The height in pixels of the display of this renderer.
+		 @return		The height in pixels of the display of this rendering 
+						manager.
 		 */
 		U32 GetHeight() const noexcept {
 			return m_display_configuration->GetDisplayHeight();
 		}
 		
 		/**
-		 Checks whether MSAA is used by this renderer.
+		 Checks whether this rendering manager renders in windowed mode.
 
-		 @return		@c true if MSAA is used by this renderer. @c false 
-						otherwise.
-		 */
-		bool HasMSAA() const noexcept {
-			return m_display_configuration->UseMSAA();
-		}
-		
-		/**
-		 Checks whether this renderer renders in windowed mode.
-
-		 @return		@c true if this renderer renders in windowed mode.
-						@c false otherwise.
+		 @return		@c true if this rendering manager renders in 
+						windowed mode. @c false otherwise.
 		*/
 		bool IsWindowed() const {
 			return !IsFullScreen();
 		}
 		
 		/**
-		 Checks whether this renderer renders in full screen mode.
+		 Checks whether this rendering manager renders in full screen mode.
 
-		 @return		@c true if this renderer renders in full screen mode.
-						@c false otherwise.
+		 @return		@c true if this rendering manager renders in full 
+						screen mode. @c false otherwise.
 		 */
 		bool IsFullScreen() const {
 			BOOL current = false;
@@ -239,19 +241,19 @@ namespace mage {
 		}
 		
 		/**
-		 Checks whether this renderer lost its mode, i.e. the current mode of 
-		 this renderer differs from the current mode of its swap chain (due to 
-		 for example ALT + TAB).
+		 Checks whether this rendering manager lost its mode, i.e. the current 
+		 mode of this rendering manager differs from the current mode of its 
+		 swap chain (due to for example ALT + TAB).
 
-		 @return		@c true if this renderer lost its mode. @c false 
-						otherwise.
+		 @return		@c true if this rendering manager lost its mode. 
+						@c false otherwise.
 		 */
 		bool LostMode() const {
 			return m_fullscreen == IsWindowed();
 		}
 
 		/**
-		 Sets the initial mode of this renderer.
+		 Sets the initial mode of this rendering manager.
 		 
 		 Call this method before starting the game loop.
 		 */
@@ -263,8 +265,8 @@ namespace mage {
 		
 		/**
 		 Recreates the swap chain buffers and switches the mode of this 
-		 renderer. Windowed mode is switched to full screen mode and vice 
-		 versa.
+		 rendering manager. Windowed mode is switched to full screen mode and 
+		 vice versa.
 
 		 @param[in]		toggle
 						If @c true only the swap chain buffers will be 
@@ -276,10 +278,11 @@ namespace mage {
 		void SwitchMode(bool toggle);
 
 		/**
-		 Returns the gamma value of this renderer used for gamma correction.
+		 Returns the gamma value of this rendering manager used for gamma 
+		 correction.
 
-		 @return		The gamma value of this renderer used for gamma 
-						correction.
+		 @return		The gamma value of this rendering manager used for 
+						gamma correction.
 		 */
 		F32 GetGamma() const noexcept {
 			return m_display_configuration->GetGamma();
@@ -290,21 +293,21 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Binds the RTV and DSV of this renderer.
+		 Binds the RTV and DSV of this rendering manager.
 		 */
 		void BindRTVAndDSV() const noexcept;
 
 		/**
 		 Begins the rendering of the current frame.
 
-		 @pre			This renderer is not inside a begin/end pair.
+		 @pre			This rendering manager is not inside a begin/end pair.
 		 */
 		void BeginFrame() noexcept;
 
 		/**
 		 Ends the rendering of the current frame.
 
-		 @pre			This renderer is inside a begin/end pair.
+		 @pre			This rendering manager is inside a begin/end pair.
 		 */
 		void EndFrame() noexcept;
 
@@ -315,82 +318,85 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Initializes this renderer.
+		 Initializes this rendering manager.
 
 		 @throws		FormattedException
-						Failed to initialize this renderer.
+						Failed to initialize this rendering manager.
 		 */
-		void InitializeRenderer();
+		void InitializeRenderingManager();
 
 		/**
-		 Uninitializes this renderer.
+		 Uninitializes this rendering manager.
 		 */
-		void UninitializeRenderer() noexcept;
+		void UninitializeRenderingManager() noexcept;
 
 		/**
-		 Sets up the D3D11 device and context of this renderer.
+		 Sets up the D3D11 device and context of this rendering manager.
 
 		 @throws		FormattedException
 						Failed to set up the device and device context of this 
-						renderer.
+						rendering manager.
 		 */
 		void SetupDevice();
 		
 		/**
-		 Sets up the swap chain of this renderer with its render target view
-		 and depth stencil view.
+		 Sets up the swap chain of this rendering manager with its render 
+		 target view and depth stencil view.
 
 		 @throws		FormattedException
-						Failed to set up the swap chain of this renderer.
+						Failed to set up the swap chain of this rendering 
+						manager.
 		 */
 		void SetupSwapChain();
 		
 		/**
-		 Resets the swap chain of this renderer with its render target view
-		 and depth stencil view.
+		 Resets the swap chain of this rendering manager with its render target
+		 view and depth stencil view.
 
 		 @throws		FormattedException
-						Failed to set up the swap chain of this renderer.
+						Failed to set up the swap chain of this rendering 
+						manager.
 		 */
 		void ResetSwapChain();
 
 		/**
-		 Creates the swap chain of this renderer.
+		 Creates the swap chain of this rendering manager.
 
 		 @throws		FormattedException
-						Failed to create the swap chain of this renderer.
+						Failed to create the swap chain of this rendering 
+						manager.
 		 */
 		void CreateSwapChain();
 		
 		/**
 		 Creates the render target view, shader resource view of the back 
-		 buffer of this renderer.
+		 buffer of this rendering manager.
 
 		 @throws		FormattedException
 						Failed to obtain the back buffer resource of this 
-						renderer.
+						rendering manager.
 		 @throws		FormattedException
 						Failed to create the render target view of the back 
-						buffer of this renderer.
+						buffer of this rendering manager.
 		 @throws		FormattedException
 						Failed to create the shader resource view of the back 
-						buffer of this renderer.
+						buffer of this rendering manager.
 		 */
 		void CreateBackBufferRTVandSRV();
 		
 		/**
 		 Creates the depth stencil view and shader resource view of the depth 
-		 buffer of this renderer.
+		 buffer of this rendering manager.
 
 		 @throws		FormattedException
 						Failed to create the depth buffer resource of this 
-						renderer.
+						rendering manager.
 		 @throws		FormattedException
 						Failed to create the depth stencil view of the depth 
-						buffer of this renderer.
+						buffer of this rendering manager.
 		 @throws		FormattedException
 						Failed to create the shader resource view of the depth 
-						buffer of this renderer.
+						buffer of this rendering manager.
 		 */
 		void CreateDepthBufferDSVandSRV();
 
@@ -399,72 +405,73 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The handle of the parent window of this renderer.
+		 The handle of the parent window of this rendering manager.
 		 */
 		const HWND m_hwindow;
 
 		/**
-		 A flag indicating whether this renderer uses a full screen mode
-		 or not (i.e. a windowed mode).
+		 A flag indicating whether this rendering manager uses a full screen 
+		 mode or not (i.e. a windowed mode).
 		 */
 		bool m_fullscreen;
 
 		/**
-		 A flag indicating whether this renderer is inside a begin/end pair.
+		 A flag indicating whether this rendering manager is inside a begin/end 
+		 pair.
 		 */
 		bool m_in_begin_end_pair;
 
 		/**
-		 A pointer to the display configuration of this renderer.
+		 A pointer to the display configuration of this rendering manager.
 		 */
 		UniquePtr< DisplayConfiguration > m_display_configuration;
 
 		/**
-		 A pointer to the feature level of this renderer.
+		 A pointer to the feature level of this rendering manager.
 		 */
 		D3D_FEATURE_LEVEL m_feature_level;
 
 		/**
-		 A pointer to the device of this renderer.
+		 A pointer to the device of this rendering manager.
 		 */
 		ComPtr< ID3D11Device2 >	m_device;
 
 		/**
-		 A pointer to the device context of this renderer.
+		 A pointer to the device context of this rendering manager.
 		 */
 		ComPtr< ID3D11DeviceContext2 > m_device_context;
 
 		/**
-		 A pointer to the swap chain of this renderer.
+		 A pointer to the swap chain of this rendering manager.
 		 */
 		ComPtr< IDXGISwapChain2 > m_swap_chain;
 		
 		/**
 		 A pointer to the render target view of the back buffer of this 
-		 renderer.
+		 rendering manager.
 		 */
 		ComPtr< ID3D11RenderTargetView > m_back_buffer_rtv;
 
 		/**
 		 A pointer to the shader resource view of the back buffer of this 
-		 renderer.
+		 rendering manager.
 		 */
 		ComPtr< ID3D11ShaderResourceView > m_back_buffer_srv;
 
 		/**
 		 A pointer to the depth stencil view of the depth buffer of this 
-		 renderer.
+		 rendering manager.
 		 */
 		ComPtr< ID3D11DepthStencilView > m_depth_buffer_dsv;
 
 		/**
 		 A pointer to the shader resource view of the depth buffer of this 
-		 renderer.
+		 rendering manager.
 		 */
 		ComPtr< ID3D11ShaderResourceView > m_depth_buffer_srv;
 
 		/**
-		 A pointer to the rendering state cache of this renderer.
+		 A pointer to the rendering state cache of this rendering manager.
 		 */
 		UniquePtr< RenderingStateCache > m_rendering_state_cache;
 	};

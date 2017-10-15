@@ -4,7 +4,7 @@
 #pragma region
 
 #include "scene\scene_renderer.hpp"
-#include "rendering\renderer.hpp"
+#include "rendering\rendering_manager.hpp"
 #include "resource\resource_factory.hpp"
 #include "logging\error.hpp"
 
@@ -67,11 +67,14 @@ namespace mage {
 		BindUnpackData(view_to_projection);
 
 		// Dispatch.
-		const Renderer * const renderer = Renderer::Get();
-		const U32 nb_groups_x = static_cast< U32 >(ceil(renderer->GetWidth()
-									/ static_cast< F32 >(GROUP_SIZE_DEFAULT)));
-		const U32 nb_groups_y = static_cast< U32 >(ceil(renderer->GetHeight()
-									/ static_cast< F32 >(GROUP_SIZE_DEFAULT)));
+		const RenderingManager * const rendering_manager 
+			= RenderingManager::Get();
+		const U32 nb_groups_x 
+			= static_cast< U32 >(ceil(rendering_manager->GetWidth()
+				                      / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
+		const U32 nb_groups_y 
+			= static_cast< U32 >(ceil(rendering_manager->GetHeight()
+				                      / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
 		m_device_context->Dispatch(nb_groups_x, nb_groups_y, 1u);
 	}
 }

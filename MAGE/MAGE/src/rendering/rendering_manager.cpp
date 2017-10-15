@@ -14,13 +14,13 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const Renderer *Renderer::Get() noexcept {
+	const RenderingManager *RenderingManager::Get() noexcept {
 		Assert(Engine::Get());
 
-		return Engine::Get()->GetRenderer();
+		return Engine::Get()->GetRenderingManager();
 	}
 
-	Renderer::Renderer(HWND hwindow, 
+	RenderingManager::RenderingManager(HWND hwindow, 
 		const DisplayConfiguration *display_configuration) :
 		m_hwindow(hwindow), m_fullscreen(false),
 		m_in_begin_end_pair(false), 
@@ -33,16 +33,17 @@ namespace mage {
 		Assert(m_hwindow);
 		Assert(m_display_configuration);
 
-		InitializeRenderer();
+		InitializeRenderingManager();
 	}
 
-	Renderer::Renderer(Renderer &&renderer) = default;
+	RenderingManager::RenderingManager(
+		RenderingManager &&rendering_manager) = default;
 
-	Renderer::~Renderer() {
-		UninitializeRenderer();
+	RenderingManager::~RenderingManager() {
+		UninitializeRenderingManager();
 	}
 
-	void Renderer::InitializeRenderer() {
+	void RenderingManager::InitializeRenderingManager() {
 		// Setup the device and device context.
 		SetupDevice();
 		// Setup the swap chain.
@@ -55,7 +56,7 @@ namespace mage {
 		m_rendering_state_cache->BindPersistentSamplers(m_device_context.Get());
 	}
 
-	void Renderer::UninitializeRenderer() noexcept {
+	void RenderingManager::UninitializeRenderingManager() noexcept {
 		// Switch to windowed mode since Direct3D is incapable to clear its 
 		// state properly when in fullscreen mode due to certain threading 
 		// issues that occur behind the scenes.
@@ -69,7 +70,7 @@ namespace mage {
 		}
 	}
 
-	void Renderer::SetupDevice() {
+	void RenderingManager::SetupDevice() {
 		// Set the runtime layers to enable.
 		U32 create_device_flags = 0u;
 #ifdef _DEBUG
@@ -104,7 +105,7 @@ namespace mage {
 			"ID3D11DeviceContext2 creation failed: %08X.", result_device_context2);
 	}
 
-	void Renderer::SetupSwapChain() {
+	void RenderingManager::SetupSwapChain() {
 		m_display_configuration->UpdateMSAASampleDesc(GetDevice());
 
 		// Create the swap chain.
@@ -116,7 +117,7 @@ namespace mage {
 		BindRTVAndDSV();
 	}
 
-	void Renderer::ResetSwapChain() {
+	void RenderingManager::ResetSwapChain() {
 		// Recreate the swap chain buffers.
 		m_swap_chain->ResizeBuffers(0u, 0u, 0u, 
 			DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
@@ -127,7 +128,7 @@ namespace mage {
 		BindRTVAndDSV();
 	}
 
-	void Renderer::CreateSwapChain() {
+	void RenderingManager::CreateSwapChain() {
 		// Get the IDXGIFactory3.
 		ComPtr< IDXGIFactory3 > dxgi_factory3;
 		const HRESULT result_dxgi_factory3 = GetAdapter()->GetParent(
@@ -174,7 +175,7 @@ namespace mage {
 		m_swap_chain->SetFullscreenState(FALSE, nullptr);
 	}
 
-	void Renderer::CreateBackBufferRTVandSRV() {
+	void RenderingManager::CreateBackBufferRTVandSRV() {
 		// Access the only back buffer of the swap-chain.
 		ComPtr< ID3D11Texture2D > back_buffer;
 		const HRESULT result_back_buffer = m_swap_chain->GetBuffer(
@@ -197,7 +198,7 @@ namespace mage {
 			"SRV creation failed: %08X.", result_srv);
 	}
 
-	void Renderer::CreateDepthBufferDSVandSRV() {
+	void RenderingManager::CreateDepthBufferDSVandSRV() {
 		// Create the texture descriptor.
 		D3D11_TEXTURE2D_DESC texture_desc = {};
 		texture_desc.Width      = GetWidth();
@@ -250,12 +251,12 @@ namespace mage {
 			"SRV creation failed: %08X.", result_srv);
 	}
 
-	void Renderer::BindRTVAndDSV() const noexcept {
+	void RenderingManager::BindRTVAndDSV() const noexcept {
 		Pipeline::OM::BindRTVAndDSV(m_device_context.Get(), 
 			m_back_buffer_rtv.Get(), m_depth_buffer_dsv.Get());
 	}
 
-	void Renderer::BeginFrame() noexcept {
+	void RenderingManager::BeginFrame() noexcept {
 		Assert(!m_in_begin_end_pair);
 
 		// Clear the back buffer.
@@ -269,7 +270,7 @@ namespace mage {
 		m_in_begin_end_pair = true;
 	}
 
-	void Renderer::EndFrame() noexcept {
+	void RenderingManager::EndFrame() noexcept {
 		Assert(m_in_begin_end_pair);
 
 		// Present the back buffer to the front buffer.
@@ -280,7 +281,7 @@ namespace mage {
 		m_in_begin_end_pair = false;
 	}
 
-	void Renderer::SwitchMode(bool toggle) {
+	void RenderingManager::SwitchMode(bool toggle) {
 		// Release the swap chain buffers.
 		m_back_buffer_rtv.Reset();
 		m_back_buffer_srv.Reset();

@@ -318,9 +318,6 @@
     <ClInclude Include="MAGE\src\input\mouse.hpp">
       <Filter>Header Files\input</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\rendering\renderer.hpp">
-      <Filter>Header Files\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\rendering\rendering.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
@@ -987,6 +984,9 @@
     <ClInclude Include="MAGE\src\texture\wic\wic_loader.hpp">
       <Filter>Header Files\texture\wic</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\rendering_manager.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1000,9 +1000,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\input\mouse.cpp">
       <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\renderer.cpp">
-      <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp">
       <Filter>Source Files\scripting</Filter>
@@ -1360,6 +1357,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\texture\dds\screen_grab.cpp">
       <Filter>Source Files\texture\dds</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\rendering_manager.cpp">
+      <Filter>Source Files\rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

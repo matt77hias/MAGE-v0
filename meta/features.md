@@ -36,16 +36,41 @@
 
 ### Rendering
 * AA
-  * MSAA
+  * ~~MSAA~~~ (*not supported any more (HDR pipeline)*)
 * BRDFs (single BRDF/camera)
-  * Lambertian
-  * Phong
-  * Modified-Phong
-  * Blinn-Phong
-  * Modified Blinn-Phong
-  * Ward
-  * Ward-Duer
-  * Cook-Torrance (F: Schlick, D: Beckmann, G: Cook-Torrance)
+  * old material pipeline:
+    * Lambertian
+    * Phong
+    * Modified-Phong
+    * Blinn-Phong
+    * Modified Blinn-Phong
+    * Ward
+    * Ward-Duer
+    * Cook-Torrance (F: Schlick, D: Beckmann, G: Cook-Torrance)
+  * new material pipeline:
+   * Lambertian
+   * Cook-Torrance, Disney:
+     * D component: 
+        * Beckmann, 
+        * Ward-Duer, 
+        * Blinn-Phong, 
+        * Trowbridge-Reitz/GGX/GTR2
+        * Berry/GTR1
+     * G|V component: 
+        * Implicit
+        * Ward
+        * Neumann
+        * Ashikhmin-Premoze
+        * Kelemann
+        * Cook Torrance
+        * Smith GGX
+        * Smith Schlick-GGX
+        * Smith Beckmann
+        * Smith Schlick-Beckmann
+     * F component: 
+        * None
+        * Schlick
+        * Cook-Torrance
 * Culling
   * Non-hierarchical
 * Lighting
@@ -72,7 +97,7 @@
 * Sky Domes
 * Sprites
 * Transparency
-  * Alpha-to-Coverage (for both forward and deferred shading)
+  * ~~Alpha-to-Coverage~~ (*not supported any more (HDR pipeline)*)
   * Single layer Alpha Blending
 
 ### Resource Management

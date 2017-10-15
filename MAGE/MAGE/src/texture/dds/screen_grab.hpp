@@ -21,20 +21,19 @@
 
 #pragma once
 
-#include <d3d11_1.h>
+#include "rendering\rendering.hpp"
 
 #include <ocidl.h>
 #include <stdint.h>
 #include <functional>
 
+namespace DirectX {
 
-namespace DirectX
-{
-    HRESULT SaveDDSTextureToFile( _In_ ID3D11DeviceContext* pContext,
+    HRESULT SaveDDSTextureToFile( _In_ ID3D11DeviceContext2* pContext,
                                   _In_ ID3D11Resource* pSource,
                                   _In_z_ const wchar_t* fileName );
 
-    HRESULT SaveWICTextureToFile( _In_ ID3D11DeviceContext* pContext,
+    HRESULT SaveWICTextureToFile( _In_ ID3D11DeviceContext2* pContext,
                                   _In_ ID3D11Resource* pSource,
                                   _In_ REFGUID guidContainerFormat, 
                                   _In_z_ const wchar_t* fileName,

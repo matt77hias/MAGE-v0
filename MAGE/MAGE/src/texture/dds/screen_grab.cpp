@@ -25,7 +25,7 @@
 
 // For 2D array textures and cubemaps, it captures only the first image in the array
 
-#include "directxtex\screen_grab.hpp"
+#include "texture\dds\screen_grab.hpp"
 
 #include <dxgiformat.h>
 #include <assert.h>
@@ -600,7 +600,7 @@ namespace
 
     //--------------------------------------------------------------------------------------
     HRESULT CaptureTexture(
-        _In_ ID3D11DeviceContext* pContext,
+        _In_ ID3D11DeviceContext2* pContext,
         _In_ ID3D11Resource* pSource,
         D3D11_TEXTURE2D_DESC& desc,
         ComPtr<ID3D11Texture2D>& pStaging )
@@ -749,7 +749,7 @@ namespace
 
 
 //--------------------------------------------------------------------------------------
-HRESULT DirectX::SaveDDSTextureToFile( _In_ ID3D11DeviceContext* pContext,
+HRESULT DirectX::SaveDDSTextureToFile( _In_ ID3D11DeviceContext2* pContext,
                                        _In_ ID3D11Resource* pSource,
                                        _In_z_ const wchar_t* fileName )
 {
@@ -909,7 +909,7 @@ HRESULT DirectX::SaveDDSTextureToFile( _In_ ID3D11DeviceContext* pContext,
 }
 
 //--------------------------------------------------------------------------------------
-HRESULT DirectX::SaveWICTextureToFile( _In_ ID3D11DeviceContext* pContext,
+HRESULT DirectX::SaveWICTextureToFile( _In_ ID3D11DeviceContext2* pContext,
                                        _In_ ID3D11Resource* pSource,
                                        _In_ REFGUID guidContainerFormat, 
                                        _In_z_ const wchar_t* fileName,

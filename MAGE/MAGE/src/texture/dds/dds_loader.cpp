@@ -18,7 +18,7 @@
 // http://go.microsoft.com/fwlink/?LinkId=248929
 //--------------------------------------------------------------------------------------
 
-#include "directxtex\dds_texture_loader.hpp"
+#include "texture\dds\dds_loader.hpp"
 
 #include <assert.h>
 #include <algorithm>
@@ -916,7 +916,7 @@ namespace
 
     //--------------------------------------------------------------------------------------
     HRESULT CreateD3DResources(
-        _In_ ID3D11Device* d3dDevice,
+        _In_ ID3D11Device2* d3dDevice,
         _In_ uint32_t resDim,
         _In_ size_t width,
         _In_ size_t height,
@@ -1151,8 +1151,8 @@ namespace
 
     //--------------------------------------------------------------------------------------
     HRESULT CreateTextureFromDDS(
-        _In_ ID3D11Device* d3dDevice,
-        _In_opt_ ID3D11DeviceContext* d3dContext,
+        _In_ ID3D11Device2* d3dDevice,
+        _In_opt_ ID3D11DeviceContext2* d3dContext,
         _In_ const DDS_HEADER* header,
         _In_reads_bytes_(bitSize) const uint8_t* bitData,
         _In_ size_t bitSize,
@@ -1532,7 +1532,7 @@ namespace
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT DirectX::CreateDDSTextureFromMemory(ID3D11Device* d3dDevice,
+HRESULT DirectX::CreateDDSTextureFromMemory(ID3D11Device2* d3dDevice,
     const uint8_t* ddsData,
     size_t ddsDataSize,
     ID3D11Resource** texture,
@@ -1546,8 +1546,8 @@ HRESULT DirectX::CreateDDSTextureFromMemory(ID3D11Device* d3dDevice,
 }
 
 _Use_decl_annotations_
-HRESULT DirectX::CreateDDSTextureFromMemory(ID3D11Device* d3dDevice,
-    ID3D11DeviceContext* d3dContext,
+HRESULT DirectX::CreateDDSTextureFromMemory(ID3D11Device2* d3dDevice,
+    ID3D11DeviceContext2* d3dContext,
     const uint8_t* ddsData,
     size_t ddsDataSize,
     ID3D11Resource** texture,
@@ -1561,7 +1561,7 @@ HRESULT DirectX::CreateDDSTextureFromMemory(ID3D11Device* d3dDevice,
 }
 
 _Use_decl_annotations_
-HRESULT DirectX::CreateDDSTextureFromMemoryEx(ID3D11Device* d3dDevice,
+HRESULT DirectX::CreateDDSTextureFromMemoryEx(ID3D11Device2* d3dDevice,
     const uint8_t* ddsData,
     size_t ddsDataSize,
     size_t maxsize,
@@ -1580,8 +1580,8 @@ HRESULT DirectX::CreateDDSTextureFromMemoryEx(ID3D11Device* d3dDevice,
 }
 
 _Use_decl_annotations_
-HRESULT DirectX::CreateDDSTextureFromMemoryEx(ID3D11Device* d3dDevice,
-    ID3D11DeviceContext* d3dContext,
+HRESULT DirectX::CreateDDSTextureFromMemoryEx(ID3D11Device2* d3dDevice,
+    ID3D11DeviceContext2* d3dContext,
     const uint8_t* ddsData,
     size_t ddsDataSize,
     size_t maxsize,
@@ -1676,7 +1676,7 @@ HRESULT DirectX::CreateDDSTextureFromMemoryEx(ID3D11Device* d3dDevice,
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT DirectX::CreateDDSTextureFromFile(ID3D11Device* d3dDevice,
+HRESULT DirectX::CreateDDSTextureFromFile(ID3D11Device2* d3dDevice,
     const wchar_t* fileName,
     ID3D11Resource** texture,
     ID3D11ShaderResourceView** textureView,
@@ -1689,8 +1689,8 @@ HRESULT DirectX::CreateDDSTextureFromFile(ID3D11Device* d3dDevice,
 }
 
 _Use_decl_annotations_
-HRESULT DirectX::CreateDDSTextureFromFile(ID3D11Device* d3dDevice,
-    ID3D11DeviceContext* d3dContext,
+HRESULT DirectX::CreateDDSTextureFromFile(ID3D11Device2* d3dDevice,
+    ID3D11DeviceContext2* d3dContext,
     const wchar_t* fileName,
     ID3D11Resource** texture,
     ID3D11ShaderResourceView** textureView,
@@ -1703,7 +1703,7 @@ HRESULT DirectX::CreateDDSTextureFromFile(ID3D11Device* d3dDevice,
 }
 
 _Use_decl_annotations_
-HRESULT DirectX::CreateDDSTextureFromFileEx(ID3D11Device* d3dDevice,
+HRESULT DirectX::CreateDDSTextureFromFileEx(ID3D11Device2* d3dDevice,
     const wchar_t* fileName,
     size_t maxsize,
     D3D11_USAGE usage,
@@ -1721,8 +1721,8 @@ HRESULT DirectX::CreateDDSTextureFromFileEx(ID3D11Device* d3dDevice,
 }
 
 _Use_decl_annotations_
-HRESULT DirectX::CreateDDSTextureFromFileEx(ID3D11Device* d3dDevice,
-    ID3D11DeviceContext* d3dContext,
+HRESULT DirectX::CreateDDSTextureFromFileEx(ID3D11Device2* d3dDevice,
+    ID3D11DeviceContext2* d3dContext,
     const wchar_t* fileName,
     size_t maxsize,
     D3D11_USAGE usage,

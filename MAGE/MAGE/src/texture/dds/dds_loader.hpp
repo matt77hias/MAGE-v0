@@ -20,14 +20,12 @@
 
 #pragma once
 
-#include <d3d11_1.h>
+#include "rendering\rendering.hpp"
 #include <stdint.h>
 
-
-namespace DirectX
-{
-    enum DDS_ALPHA_MODE
-    {
+namespace DirectX {
+    
+	enum DDS_ALPHA_MODE {
         DDS_ALPHA_MODE_UNKNOWN       = 0,
         DDS_ALPHA_MODE_STRAIGHT      = 1,
         DDS_ALPHA_MODE_PREMULTIPLIED = 2,
@@ -37,7 +35,7 @@ namespace DirectX
 
     // Standard version
     HRESULT CreateDDSTextureFromMemory(
-        _In_ ID3D11Device* d3dDevice,
+        _In_ ID3D11Device2* d3dDevice,
         _In_reads_bytes_(ddsDataSize) const uint8_t* ddsData,
         _In_ size_t ddsDataSize,
         _Outptr_opt_ ID3D11Resource** texture,
@@ -46,7 +44,7 @@ namespace DirectX
         _Out_opt_ DDS_ALPHA_MODE* alphaMode = nullptr);
 
     HRESULT CreateDDSTextureFromFile(
-        _In_ ID3D11Device* d3dDevice,
+        _In_ ID3D11Device2* d3dDevice,
         _In_z_ const wchar_t* szFileName,
         _Outptr_opt_ ID3D11Resource** texture,
         _Outptr_opt_ ID3D11ShaderResourceView** textureView,
@@ -55,8 +53,8 @@ namespace DirectX
 
     // Standard version with optional auto-gen mipmap support
     HRESULT CreateDDSTextureFromMemory(
-        _In_ ID3D11Device* d3dDevice,
-        _In_opt_ ID3D11DeviceContext* d3dContext,
+        _In_ ID3D11Device2* d3dDevice,
+        _In_opt_ ID3D11DeviceContext2* d3dContext,
         _In_reads_bytes_(ddsDataSize) const uint8_t* ddsData,
         _In_ size_t ddsDataSize,
         _Outptr_opt_ ID3D11Resource** texture,
@@ -65,8 +63,8 @@ namespace DirectX
         _Out_opt_ DDS_ALPHA_MODE* alphaMode = nullptr);
 
     HRESULT CreateDDSTextureFromFile(
-        _In_ ID3D11Device* d3dDevice,
-        _In_opt_ ID3D11DeviceContext* d3dContext,
+        _In_ ID3D11Device2* d3dDevice,
+        _In_opt_ ID3D11DeviceContext2* d3dContext,
         _In_z_ const wchar_t* szFileName,
         _Outptr_opt_ ID3D11Resource** texture,
         _Outptr_opt_ ID3D11ShaderResourceView** textureView,
@@ -75,7 +73,7 @@ namespace DirectX
 
     // Extended version
     HRESULT CreateDDSTextureFromMemoryEx(
-        _In_ ID3D11Device* d3dDevice,
+        _In_ ID3D11Device2* d3dDevice,
         _In_reads_bytes_(ddsDataSize) const uint8_t* ddsData,
         _In_ size_t ddsDataSize,
         _In_ size_t maxsize,
@@ -89,7 +87,7 @@ namespace DirectX
         _Out_opt_ DDS_ALPHA_MODE* alphaMode = nullptr);
 
     HRESULT CreateDDSTextureFromFileEx(
-        _In_ ID3D11Device* d3dDevice,
+        _In_ ID3D11Device2* d3dDevice,
         _In_z_ const wchar_t* szFileName,
         _In_ size_t maxsize,
         _In_ D3D11_USAGE usage,
@@ -103,8 +101,8 @@ namespace DirectX
 
     // Extended version with optional auto-gen mipmap support
     HRESULT CreateDDSTextureFromMemoryEx(
-        _In_ ID3D11Device* d3dDevice,
-        _In_opt_ ID3D11DeviceContext* d3dContext,
+        _In_ ID3D11Device2* d3dDevice,
+        _In_opt_ ID3D11DeviceContext2* d3dContext,
         _In_reads_bytes_(ddsDataSize) const uint8_t* ddsData,
         _In_ size_t ddsDataSize,
         _In_ size_t maxsize,
@@ -118,8 +116,8 @@ namespace DirectX
         _Out_opt_ DDS_ALPHA_MODE* alphaMode = nullptr);
 
     HRESULT CreateDDSTextureFromFileEx(
-        _In_ ID3D11Device* d3dDevice,
-        _In_opt_ ID3D11DeviceContext* d3dContext,
+        _In_ ID3D11Device2* d3dDevice,
+        _In_opt_ ID3D11DeviceContext2* d3dContext,
         _In_z_ const wchar_t* szFileName,
         _In_ size_t maxsize,
         _In_ D3D11_USAGE usage,

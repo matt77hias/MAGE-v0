@@ -239,7 +239,7 @@ namespace mage {
 				/**
 				 Copies the given allocator to this allocator.
 
-				 @param[in]		allocator
+				 @param[in]		r
 								A reference to the allocator to copy.
 				 @return		A reference to the copy of the given aligned 
 								allocator (i.e. this allocator).
@@ -249,7 +249,7 @@ namespace mage {
 				/**
 				 Moves the given allocator to this allocator.
 
-				 @param[in]		allocator
+				 @param[in]		r
 								A reference to the allocator to move.
 				 @return		A reference to the moved allocator (i.e. 
 								this allocator).
@@ -266,7 +266,7 @@ namespace mage {
 				/**
 				 Constructs an allocator from the given allocator.
 
-				 @param[in]		allocator
+				 @param[in]		r
 								A reference to the allocator to copy.
 				 */
 				rebind(const rebind< DataU > &r) = delete;
@@ -275,7 +275,7 @@ namespace mage {
 				 Constructs an allocator by moving the given aligned 
 				 allocator.
 
-				 @param[in]		allocator
+				 @param[in]		r
 								A reference to the allocator to move.
 				 */
 				rebind(rebind< DataU > &&r) = delete;
@@ -421,7 +421,7 @@ namespace mage {
 							or
 							{@link mage::MemoryArena::Allocator<DataT>::allocate<DataU>(size_t, const DataU*)} 
 							and not yet freed with 
-							{@link mage::MemoryArena::Allocator<DataT>::deallocate(DataT*,size_t)}. 
+							{@link mage::MemoryArena::Allocator<DataT>::deallocate(DataT*, size_t)}. 
 							When not equal to @c nullptr, this value 
 							may be used as a hint to improve performance by 
 							allocating the new block near the one specified. 

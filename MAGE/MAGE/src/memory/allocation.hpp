@@ -61,7 +61,7 @@ namespace mage {
 	/**
 	 Frees a block of memory that was allocated with 
 	 {@link mage::AllocAligned(size_t, size_t)} or 
-	 {@link mage::AllocAlignedData<T>(size_t, size_t)}.
+	 {@link mage::AllocAlignedData<DataT>(size_t, size_t)}.
 	
 	 @param[in]		ptr
 					A pointer to the memory block that was allocated.
@@ -231,7 +231,7 @@ namespace mage {
 			/**
 			 Copies the given aligned allocator to this aligned allocator.
 
-			 @param[in]		allocator
+			 @param[in]		r
 							A reference to the aligned allocator to copy.
 			 @return		A reference to the copy of the given aligned 
 							allocator (i.e. this aligned allocator).
@@ -241,7 +241,7 @@ namespace mage {
 			/**
 			 Moves the given aligned allocator to this aligned allocator.
 
-			 @param[in]		allocator
+			 @param[in]		r
 							A reference to the aligned allocator to move.
 			 @return		A reference to the moved aligned allocator (i.e. 
 							this aligned allocator).
@@ -258,7 +258,7 @@ namespace mage {
 			/**
 			 Constructs an aligned allocator from the given aligned allocator.
 
-			 @param[in]		allocator
+			 @param[in]		r
 							A reference to the aligned allocator to copy.
 			 */
 			rebind(const rebind< DataU > &r) = delete;
@@ -267,7 +267,7 @@ namespace mage {
 			 Constructs an aligned allocator by moving the given aligned 
 			 allocator.
 
-			 @param[in]		allocator
+			 @param[in]		r
 							A reference to the aligned allocator to move.
 			 */
 			rebind(rebind< DataU > &&r) = delete;
@@ -416,11 +416,11 @@ namespace mage {
 		 @param[in]		hint
 						Either @c nullptr or a value previously obtained by 
 						another call to 
-						{@link mage::AlignedAllocator<DataT,AlignmentS>::allocate(size_t)}
+						{@link mage::AlignedAllocator<DataT,size_t>::allocate(size_t)}
 						or
-						{@link mage::AlignedAllocator<DataT,AlignmentS>::allocate<DataU>(size_t, const DataU*)} 
+						{@link mage::AlignedAllocator<DataT,size_t>::allocate<DataU>(size_t, const DataU*)} 
 						and not yet freed with 
-						{@link mage::AlignedAllocator<DataT,AlignmentS>::deallocate(DataT*,size_t)}. 
+						{@link mage::AlignedAllocator<DataT,size_t>::deallocate(DataT*, size_t)}. 
 						When not equal to @c nullptr, this value 
 						may be used as a hint to improve performance by 
 						allocating the new block near the one specified. 
@@ -439,9 +439,9 @@ namespace mage {
 
 		/**
 		 Releases a block of storage previously allocated with 
-		 {@link mage::AlignedAllocator<DataT,AlignmentS>::allocate(size_t)}
+		 {@link mage::AlignedAllocator<DataT,size_t>::allocate(size_t)}
 		 or 
-		 {@link mage::AlignedAllocator<DataT,AlignmentS>::allocate<DataU>(size_t, const DataU*)}
+		 {@link mage::AlignedAllocator<DataT,size_t>::allocate<DataU>(size_t, const DataU*)}
 		 and not yet released. 
 		 
 		 @param[in]		data

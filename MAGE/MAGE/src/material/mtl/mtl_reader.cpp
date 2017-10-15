@@ -52,6 +52,15 @@ namespace mage {
 		else if (str_equals(token, MAGE_MTL_TOKEN_NORMAL_TEXTURE)) {
 			ReadMTLNormalTexture();
 		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_TRANSPARENT)) {
+			m_material_buffer.back().SetTransparent();
+		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_OPAQUE)) {
+			m_material_buffer.back().SetOpaque();
+		}
+		else if (str_equals(token, MAGE_MTL_TOKEN_EMISSIVE)) {
+			m_material_buffer.back().DissableLightInteraction();
+		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", 
 				GetFilename().c_str(), GetCurrentLineNumber(), token);

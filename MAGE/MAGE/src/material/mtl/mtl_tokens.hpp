@@ -20,4 +20,9 @@
 #define MAGE_MTL_TOKEN_MATERIAL_TEXTURE     "texture_material"
 #define MAGE_MTL_TOKEN_NORMAL_TEXTURE       "texture_normal"
 
+// Flags
+#define MAGE_MTL_TOKEN_TRANSPARENT          "transparent"
+#define MAGE_MTL_TOKEN_OPAQUE               "opaque"
+#define MAGE_MTL_TOKEN_EMISSIVE             "emissive"
+
 #pragma endregion

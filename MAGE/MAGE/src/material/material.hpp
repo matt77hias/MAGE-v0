@@ -190,7 +190,7 @@ namespace mage {
 		 Makes this material opaque.
 		 */
 		void SetOpaque() noexcept {
-			SetTranparent(false);
+			SetTransparent(false);
 		}
 
 		/**
@@ -200,7 +200,7 @@ namespace mage {
 						@c true if and only if this material is transparent.
 						@c false otherwise.
 		 */
-		void SetTranparent(bool transparent = true) noexcept {
+		void SetTransparent(bool transparent = true) noexcept {
 			m_transparent = transparent;
 		}
 		

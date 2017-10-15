@@ -24,11 +24,12 @@ namespace mage {
 		const DisplayConfiguration *display_configuration) :
 		m_hwindow(hwindow), m_fullscreen(false),
 		m_in_begin_end_pair(false), 
-		m_display_configuration(MakeUnique< DisplayConfiguration >(*display_configuration)),
+		m_display_configuration(
+			MakeUnique< DisplayConfiguration >(*display_configuration)),
 		m_device(), m_device_context(), m_swap_chain(), 
 		m_back_buffer_rtv(), m_back_buffer_srv(),
 		m_depth_buffer_dsv(), m_depth_buffer_srv(),
-		m_rendering_state_cache() {
+		m_rendering_state_manager() {
 
 		Assert(m_hwindow);
 		Assert(m_display_configuration);
@@ -49,11 +50,11 @@ namespace mage {
 		// Setup the swap chain.
 		SetupSwapChain();
 
-		// Setup the rendering state cache.
-		m_rendering_state_cache 
-			= MakeUnique< RenderingStateCache >(m_device.Get());
-		// Bind the persistent samplers of the rendering state cache.
-		m_rendering_state_cache->BindPersistentSamplers(m_device_context.Get());
+		// Setup the rendering state manager.
+		m_rendering_state_manager 
+			= MakeUnique< RenderingStateManager >(m_device.Get());
+		// Bind the persistent samplers of the rendering state manager.
+		m_rendering_state_manager->BindPersistentSamplers(m_device_context.Get());
 	}
 
 	void RenderingManager::UninitializeRenderingManager() noexcept {

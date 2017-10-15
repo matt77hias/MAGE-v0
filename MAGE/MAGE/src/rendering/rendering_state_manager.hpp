@@ -15,9 +15,9 @@
 namespace mage {
 
 	/**
-	 A struct of rendering state caches.
+	 A struct of rendering state managers.
 	 */
-	struct RenderingStateCache final {
+	struct RenderingStateManager final {
 
 	public:
 
@@ -26,92 +26,94 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the rendering manager state cache associated with the current 
-		 engine.
+		 Returns the rendering manager state manager associated with the 
+		 current engine.
 
 		 @pre			The rendering manager associated with the current 
 						engine must be loaded.
-		 @return		A pointer to the rendering manager state cache 
+		 @return		A pointer to the rendering manager state manager 
 						associated with the current engine.
 		 @throws		FormattedException
 						Failed to setup the rendering states of this rendering 
-						state cache.
+						state manager.
 		 */
-		static const RenderingStateCache *Get() noexcept;
+		static const RenderingStateManager *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a rendering state cache.
+		 Constructs a rendering state manager.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
 						Failed to setup the rendering states of this rendering 
-						state cache.
+						state manager.
 		 */
-		explicit RenderingStateCache(ID3D11Device2 *device);
+		explicit RenderingStateManager(ID3D11Device2 *device);
 
 		/**
-		 Constructs a rendering state cache from the given rendering state 
-		 cache.
+		 Constructs a rendering state manager from the given rendering state 
+		 manager.
 
-		 @param[in]		rendering_state_cache
-						A reference to the rendering state cache to copy.
+		 @param[in]		rendering_state_manager
+						A reference to the rendering state manager to copy.
 		 */
-		RenderingStateCache(
-			const RenderingStateCache &rendering_state_cache) = delete;
+		RenderingStateManager(
+			const RenderingStateManager &rendering_state_manager) = delete;
 
 		/**
-		 Constructs a rendering state cache by moving the given rendering 
-		 state cache.
+		 Constructs a rendering state manager by moving the given rendering 
+		 state manager.
 
-		 @param[in]		rendering_state_cache
-						A reference to the rendering state cache to move.
+		 @param[in]		rendering_state_manager
+						A reference to the rendering state manager to move.
 		 */
-		RenderingStateCache(
-			RenderingStateCache &&rendering_state_cache);
+		RenderingStateManager(
+			RenderingStateManager &&rendering_state_manager);
 
 		/**
-		 Destructs this rendering state cache.
+		 Destructs this rendering state manager.
 		 */
-		~RenderingStateCache();
+		~RenderingStateManager();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
 		/**
-		 Copies the given rendering state cache to this rendering state cache.
+		 Copies the given rendering state manager to this rendering state 
+		 manager.
 
-		 @param[in]		rendering_state_cache
-						A reference to the rendering state cache to copy.
+		 @param[in]		rendering_state_manager
+						A reference to the rendering state manager to copy.
 		 @return		A reference to the copy of the given rendering state 
-						cache (i.e. this rendering state cache).
+						manager (i.e. this rendering state manager).
 		 */
-		RenderingStateCache &operator=(
-			const RenderingStateCache &rendering_state_cache) = delete;
+		RenderingStateManager &operator=(
+			const RenderingStateManager &rendering_state_manager) = delete;
 
 		/**
-		 Moves the given rendering state cache to this rendering state cache.
+		 Moves the given rendering state manager to this rendering state 
+		 manager.
 
-		 @param[in]		rendering_state_cache
-						A reference to the rendering state cache to move.
-		 @return		A reference to the moved rendering state cache
-						(i.e. this rendering state cache).
+		 @param[in]		rendering_state_manager
+						A reference to the rendering state manager to move.
+		 @return		A reference to the moved rendering state manager
+						(i.e. this rendering state manager).
 		 */
-		RenderingStateCache &operator=(
-			RenderingStateCache &&rendering_state_cache) = delete;
+		RenderingStateManager &operator=(
+			RenderingStateManager &&rendering_state_manager) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods: Blend States
 		//---------------------------------------------------------------------
 
 		/**
-		 Binds the opaque blend state of this rendering state cache.
+		 Binds the opaque blend state of this rendering state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -125,7 +127,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the alpha blend state of this rendering state cache.
+		 Binds the alpha blend state of this rendering state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -139,7 +141,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the additive blend state of this rendering state cache.
+		 Binds the additive blend state of this rendering state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -153,7 +155,7 @@ namespace mage {
 		}
 		
 		/**
-		 Binds the multiplicative blend state of this rendering state cache.
+		 Binds the multiplicative blend state of this rendering state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -167,7 +169,8 @@ namespace mage {
 		}
 
 		/**
-		 Binds the bi-multiplicative blend state of this rendering state cache.
+		 Binds the bi-multiplicative blend state of this rendering state 
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -180,26 +183,12 @@ namespace mage {
 				GetBlendState(BlendStateIndex::BiMultiplicative));
 		}
 
-		/**
-		 Binds the alpha-to-coverage blend state of this rendering state cache.
-
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 */
-		void BindAlphaToCoverageBlendState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
-
-			Pipeline::OM::BindBlendState(device_context,
-				GetBlendState(BlendStateIndex::AlphaToCoverage));
-		}
-		
 		//---------------------------------------------------------------------
 		// Member Methods: Depth Stencil States
 		//---------------------------------------------------------------------
 		
 		/**
-		 Binds the no-depth stencil state of this rendering state cache.
+		 Binds the no-depth stencil state of this rendering state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -214,7 +203,7 @@ namespace mage {
 
 		/**
 		 Binds the less-equal, read-write depth stencil state of this rendering
-		 state cache.
+		 state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -229,7 +218,7 @@ namespace mage {
 
 		/**
 		 Binds the less-equal, read depth stencil state of this rendering state 
-		 cache.
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -243,8 +232,8 @@ namespace mage {
 		}
 
 		/**
-		 Binds the less, read-write depth stencil state of this rendering
-		 state cache.
+		 Binds the less, read-write depth stencil state of this rendering state 
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -259,7 +248,7 @@ namespace mage {
 
 		/**
 		 Binds the less, read depth stencil state of this rendering state 
-		 cache.
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -272,12 +261,12 @@ namespace mage {
 				GetDepthStencilState(DepthStencilStateIndex::LessDepthRead));
 		}
 
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
 		// Member Methods: Rasterizer States
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
 
 		/**
-		 Binds the no-culling rasterizer state of this rendering state cache.
+		 Binds the no-culling rasterizer state of this rendering state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -291,7 +280,8 @@ namespace mage {
 		}
 
 		/**
-		 Binds the clockwise-culling rasterizer state of this rendering state cache.
+		 Binds the clockwise-culling rasterizer state of this rendering state 
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -306,7 +296,7 @@ namespace mage {
 
 		/**
 		 Binds the counter-clockwise-culling rasterizer state of this rendering 
-		 state cache.
+		 state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -320,7 +310,7 @@ namespace mage {
 		}
 
 		/**
-		 Binds the wireframe rasterizer state of this rendering state cache.
+		 Binds the wireframe rasterizer state of this rendering state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -333,12 +323,12 @@ namespace mage {
 				GetRasterizerState(RasterizerStateIndex::Wireframe));
 		}
 
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
 		// Member Methods: Sampler States
-		//-------------------------------------------------------------------------
+		//---------------------------------------------------------------------
 
 		/**
-		 Binds the persistent samplers of this rendering state cache.
+		 Binds the persistent samplers of this rendering state manager.
 		 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
@@ -348,7 +338,8 @@ namespace mage {
 			ID3D11DeviceContext2 *device_context) const noexcept;
 
 		/**
-		 Binds the point sampler state with wrapping of this rendering state cache.
+		 Binds the point sampler state with wrapping of this rendering state 
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -367,7 +358,8 @@ namespace mage {
 			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
 		
 		/**
-		 Binds the point sampler state with clamping of this rendering state cache.
+		 Binds the point sampler state with clamping of this rendering state 
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -387,7 +379,7 @@ namespace mage {
 		
 		/**
 		 Binds the point sampler state with mirroring of this rendering state 
-		 cache.
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -407,7 +399,7 @@ namespace mage {
 		
 		/**
 		 Binds the linear sampler state with wrapping of this rendering state 
-		 cache.
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -427,7 +419,7 @@ namespace mage {
 		
 		/**
 		 Binds the linear sampler state with clamping of this rendering state 
-		 cache.
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -447,7 +439,7 @@ namespace mage {
 		
 		/**
 		 Binds the linear sampler state with mirroring of this rendering state 
-		 cache.
+		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -467,7 +459,7 @@ namespace mage {
 
 		/**
 		 Binds the anisotropic sampler state with wrapping of this rendering 
-		 state cache.
+		 state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -487,7 +479,7 @@ namespace mage {
 		
 		/**
 		 Binds the anisotropic sampler state with clamping of this rendering 
-		 state cache.
+		 state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -507,7 +499,7 @@ namespace mage {
 		
 		/**
 		 Binds the anisotropic sampler state with mirroring of this rendering 
-		 state cache.
+		 state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -526,7 +518,7 @@ namespace mage {
 			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
 
 		/**
-		 Binds the PCF sampler state of this rendering state cache.
+		 Binds the PCF sampler state of this rendering state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			@c SLOT_SAMPLER_VARIABLE_START <= @a slot.
@@ -552,76 +544,75 @@ namespace mage {
 
 		/**
 		 Setup the rendering states (blend, depth stencil, rasterizer, sampler)
-		 of this rendering state cache.
+		 of this rendering state manager.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
 						Failed to setup the rendering states of this rendering 
-						state cache.
+						state manager.
 		 */
 		void SetupRenderingStates(ID3D11Device2 *device);
 
 		/**
-		 Setup the blend states of this rendering state cache.
+		 Setup the blend states of this rendering state manager.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
 						Failed to setup the blend states of this rendering 
-						state cache.
+						state manager.
 		 */
 		void SetupBlendStates(ID3D11Device2 *device);
 		
 		/**
-		 Setup the depth stencil states of this rendering state cache.
+		 Setup the depth stencil states of this rendering state manager.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
 						Failed to setup the depth stencil states of this 
-						rendering state cache.
+						rendering state manager.
 		 */
 		void SetupDepthStencilStates(ID3D11Device2 *device);
 		
 		/**
-		 Setup the rasterizer states of this rendering state cache.
+		 Setup the rasterizer states of this rendering state manager.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
 						Failed to setup the rasterizer states of this rendering 
-						state cache.
+						state manager.
 		 */
 		void SetupRasterizerStates(ID3D11Device2 *device);
 		
 		/**
-		 Setup the samplers states of this rendering state cache.
+		 Setup the samplers states of this rendering state manager.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
 						Failed to setup the samplers states of this rendering 
-						state cache.
+						state manager.
 		 */
 		void SetupSamplerStates(ID3D11Device2 *device);
 		
 		/**
 		 An enumeration of the different blend state indices for rendering 
-		 state caches.
+		 state managers.
 
 		 This contains:
 		 @c Opaque,
 		 @c Alpha,
 		 @c Additive,
-		 @c Multiplicative,
-		 @c BiMultiplicative and
-		 @c AlphaToCoverage.
+		 @c Multiplicative and
+		 @c BiMultiplicative.
 		 */
 		enum struct BlendStateIndex {
 			Opaque           = 0,
@@ -629,13 +620,12 @@ namespace mage {
 			Additive         = 2,
 			Multiplicative   = 3,
 			BiMultiplicative = 4,
-			AlphaToCoverage  = 5,
-			Count            = 6
+			Count            = 5
 		};
 		
 		/**
 		 An enumeration of the different depth stencil state indices for 
-		 rendering state caches.
+		 rendering state managers.
 
 		 This contains:
 		 @c DepthNone,
@@ -655,7 +645,7 @@ namespace mage {
 		
 		/**
 		 An enumeration of the different rasterizer state indices for rendering 
-		 state caches.
+		 state managers.
 
 		 This contains:
 		 @c NoCulling,
@@ -673,7 +663,7 @@ namespace mage {
 		
 		/**
 		 An enumeration of the different sampler state indices for rendering 
-		 state caches.
+		 state managers.
 
 		 This contains:
 		 @c PointWrap,
@@ -702,13 +692,13 @@ namespace mage {
 		};
 		
 		/**
-		 Returns the blend state of this rendering state cache associated to 
+		 Returns the blend state of this rendering state manager associated to 
 		 the given index.
 
 		 @param[in]		index
 						The blend state index.
 		 @return		A pointer to the blend state of this rendering state 
-						cache associated to the given index.
+						manager associated to the given index.
 		 */
 		ID3D11BlendState *GetBlendState(
 			BlendStateIndex index) const noexcept {
@@ -718,12 +708,12 @@ namespace mage {
 
 		/**
 		 Returns and releases the address of the blend state of this 
-		 rendering state cache associated to the given index.
+		 rendering state manager associated to the given index.
 
 		 @param[in]		index
 						The blend state index.
 		 @return		A pointer to a pointer to the blend state of this 
-						rendering state cache associated to the given index.
+						rendering state manager associated to the given index.
 		 */
 		ID3D11BlendState **ReleaseAndGetAddressOfBlendState(
 			BlendStateIndex index) noexcept {
@@ -732,13 +722,13 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the depth stencil state of this rendering state cache 
+		 Returns the depth stencil state of this rendering state manager 
 		 associated to the given index.
 
 		 @param[in]		index
 						The depth stencil state index.
 		 @return		A pointer to the depth stencil state of this rendering 
-						state cache associated to the given index.
+						state manager associated to the given index.
 		 */
 		ID3D11DepthStencilState *GetDepthStencilState(
 			DepthStencilStateIndex index) const noexcept {
@@ -748,12 +738,12 @@ namespace mage {
 		
 		/**
 		 Returns and releases the address of the depth stencil state of this 
-		 rendering state cache associated to the given index.
+		 rendering state manager associated to the given index.
 
 		 @param[in]		index
 						The depth stencil state index.
 		 @return		A pointer to a pointer to the depth stencil state of 
-						this rendering state cache associated to the given index.
+						this rendering state manager associated to the given index.
 		 */
 		ID3D11DepthStencilState **ReleaseAndGetAddressOfDepthStencilState(
 			DepthStencilStateIndex index) noexcept {
@@ -762,13 +752,13 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the rasterizer state of this rendering state cache associated 
+		 Returns the rasterizer state of this rendering state manager associated 
 		 to the given index.
 
 		 @param[in]		index
 						The rasterizer state index.
 		 @return		A pointer to the rasterizer state of this rendering 
-						state cache associated to the given index.
+						state manager associated to the given index.
 		 */
 		ID3D11RasterizerState *GetRasterizerState(
 			RasterizerStateIndex index) const noexcept {
@@ -778,12 +768,12 @@ namespace mage {
 		
 		/**
 		 Returns and releases the address of the rasterizer state of this 
-		 rendering state cache associated to the given index.
+		 rendering state manager associated to the given index.
 
 		 @param[in]		index
 						The rasterizer state index.
 		 @return		A pointer to a pointer to the rasterizer state of this 
-						rendering state cache associated to the given index.
+						rendering state manager associated to the given index.
 		 */
 		ID3D11RasterizerState **ReleaseAndGetAddressOfRasterizerState(
 			RasterizerStateIndex index) noexcept {
@@ -792,13 +782,13 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the sampler state of this rendering state cache associated to 
+		 Returns the sampler state of this rendering state manager associated to 
 		 the given index.
 
 		 @param[in]		index
 						The sampler state index.
 		 @return		A pointer to the sampler state of this rendering state 
-						cache associated to the given index.
+						manager associated to the given index.
 		 */
 		ID3D11SamplerState *GetSamplerState(
 			SamplerStateIndex index) const noexcept {
@@ -808,12 +798,12 @@ namespace mage {
 		
 		/**
 		 Returns and releases the address of the sampler state of this 
-		 rendering state cache associated to the given index.
+		 rendering state manager associated to the given index.
 
 		 @param[in]		index
 						The sampler state index.
 		 @return		A pointer to a pointer to the sampler state of this 
-						rendering state cache associated to the given index.
+						rendering state manager associated to the given index.
 		 */
 		ID3D11SamplerState **ReleaseAndGetAddressOfSamplerState(
 			SamplerStateIndex index) noexcept {
@@ -827,28 +817,28 @@ namespace mage {
 
 		/**
 		 An array containing pointers to the blend states of this rendering 
-		 state cache.
+		 state manager.
 		 */
 		ComPtr< ID3D11BlendState > m_blend_states[
 			static_cast< size_t >(BlendStateIndex::Count)];
 
 		/**
 		 An array containing pointers to the depth stencil states of this 
-		 rendering state cache.
+		 rendering state manager.
 		 */
 		ComPtr< ID3D11DepthStencilState > m_depth_stencil_states[
 			static_cast< size_t >(DepthStencilStateIndex::Count)];
 
 		/**
 		 An array containing pointers to the rasterizer states of this 
-		 rendering state cache.
+		 rendering state manager.
 		 */
 		ComPtr< ID3D11RasterizerState > m_rasterizer_states[
 			static_cast< size_t >(RasterizerStateIndex::Count)];
 		
 		/**
 		 An array containing pointers to the sampler states of this rendering 
-		 state cache.
+		 state manager.
 		 */
 		ComPtr< ID3D11SamplerState > m_sampler_states[
 			static_cast< size_t >(SamplerStateIndex::Count)];
@@ -860,6 +850,6 @@ namespace mage {
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_state_cache.tpp"
+#include "rendering\rendering_state_manager.tpp"
 
 #pragma endregion

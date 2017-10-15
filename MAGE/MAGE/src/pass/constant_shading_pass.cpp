@@ -4,7 +4,7 @@
 #pragma region
 
 #include "scene\scene_renderer.hpp"
-#include "rendering\rendering_state_cache.hpp"
+#include "rendering\rendering_state_manager.hpp"
 #include "resource\resource_factory.hpp"
 #include "math\view_frustum.hpp"
 #include "logging\error.hpp"
@@ -81,16 +81,16 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// PS: Bind the pixel shader.
 		m_ps->BindShader(m_device_context);
 		// PS: Bind the diffuse SRV.
 		Pipeline::PS::BindSRV(m_device_context,
 			SLOT_SRV_BASE_COLOR, m_white->Get());
 		// OM: Bind the depth-stencil state.
-		RenderingStateCache::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
 		// OM: Bind the blend state.
-		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
 	void XM_CALLCONV ConstantShadingPass::Render(

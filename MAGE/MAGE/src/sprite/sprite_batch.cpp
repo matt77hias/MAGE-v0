@@ -6,7 +6,7 @@
 #include "sprite\sprite_batch.hpp"
 #include "sprite\sprite_utils.hpp"
 #include "texture\texture_utils.hpp"
-#include "rendering\rendering_state_cache.hpp"
+#include "rendering\rendering_state_manager.hpp"
 #include "logging\error.hpp"
 
 // Include HLSL bindings.

@@ -4,7 +4,7 @@
 #pragma region
 
 #include "scene\scene_renderer.hpp"
-#include "rendering\rendering_state_cache.hpp"
+#include "rendering\rendering_state_manager.hpp"
 #include "resource\resource_factory.hpp"
 #include "logging\error.hpp"
 
@@ -41,21 +41,21 @@ namespace mage {
 		// GS: Bind the geometry shader.
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
-		RenderingStateCache::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// OM: Bind the blend state.
-		RenderingStateCache::Get()->BindOpaqueBlendState(m_device_context);
+		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 
 		if (transfer_depth) {
 			// PS: Bind the pixel shader.
 			m_image_depth_ps->BindShader(m_device_context);
 			// OM: Bind the depth-stencil state.
-			RenderingStateCache::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+			RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
 		}
 		else {
 			// PS: Bind the pixel shader.
 			m_image_ps->BindShader(m_device_context);
 			// OM: Bind the depth-stencil state.
-			RenderingStateCache::Get()->BindDepthNoneDepthStencilState(m_device_context);
+			RenderingStateManager::Get()->BindDepthNoneDepthStencilState(m_device_context);
 		}
 	}
 

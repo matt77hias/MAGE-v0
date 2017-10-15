@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "rendering\rendering_state_cache.hpp"
+#include "rendering\rendering_state_manager.hpp"
 #include "rendering\display_configuration.hpp"
 
 #pragma endregion
@@ -189,13 +189,13 @@ namespace mage {
 		}
 
 		/**
-		 Returns the rendering state cache of this rendering manager.
+		 Returns the rendering state manager of this rendering manager.
 
-		 @return		A pointer to the rendering state cache of this 
+		 @return		A pointer to the rendering state manager of this 
 						rendering manager.
 		 */
-		const RenderingStateCache *GetRenderingStateCache() const noexcept {
-			return m_rendering_state_cache.get();
+		const RenderingStateManager *GetRenderingStateManager() const noexcept {
+			return m_rendering_state_manager.get();
 		}
 
 		/**
@@ -471,8 +471,8 @@ namespace mage {
 		ComPtr< ID3D11ShaderResourceView > m_depth_buffer_srv;
 
 		/**
-		 A pointer to the rendering state cache of this rendering manager.
+		 A pointer to the rendering state manager of this rendering manager.
 		 */
-		UniquePtr< RenderingStateCache > m_rendering_state_cache;
+		UniquePtr< RenderingStateManager > m_rendering_state_manager;
 	};
 }

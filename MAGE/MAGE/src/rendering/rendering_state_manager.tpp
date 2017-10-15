@@ -6,7 +6,7 @@
 namespace mage {
 
 	template< typename PipelineStageT >
-	inline void RenderingStateCache::BindPointWrapSamplerState(
+	inline void RenderingStateManager::BindPointWrapSamplerState(
 		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSampler(device_context, slot,
@@ -14,7 +14,7 @@ namespace mage {
 	}
 
 	template< typename PipelineStageT >
-	inline void RenderingStateCache::BindPointClampSamplerState(
+	inline void RenderingStateManager::BindPointClampSamplerState(
 		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSampler(device_context, slot,
@@ -22,7 +22,7 @@ namespace mage {
 	}
 
 	template< typename PipelineStageT >
-	inline void RenderingStateCache::BindPointMirrorSamplerState(
+	inline void RenderingStateManager::BindPointMirrorSamplerState(
 		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSampler(device_context, slot,
@@ -30,7 +30,7 @@ namespace mage {
 	}
 
 	template< typename PipelineStageT >
-	inline void RenderingStateCache::BindLinearWrapSamplerState(
+	inline void RenderingStateManager::BindLinearWrapSamplerState(
 		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSampler(device_context, slot,
@@ -38,7 +38,7 @@ namespace mage {
 	}
 
 	template< typename PipelineStageT >
-	inline void RenderingStateCache::BindLinearClampSamplerState(
+	inline void RenderingStateManager::BindLinearClampSamplerState(
 		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSampler(device_context, slot,
@@ -46,7 +46,7 @@ namespace mage {
 	}
 
 	template< typename PipelineStageT >
-	inline void RenderingStateCache::BindLinearMirrorSamplerState(
+	inline void RenderingStateManager::BindLinearMirrorSamplerState(
 		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSampler(device_context, slot,
@@ -54,7 +54,7 @@ namespace mage {
 	}
 
 	template< typename PipelineStageT >
-	inline void RenderingStateCache::BindAnisotropicWrapSamplerState(
+	inline void RenderingStateManager::BindAnisotropicWrapSamplerState(
 		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSampler(device_context, slot,
@@ -62,7 +62,7 @@ namespace mage {
 	}
 
 	template< typename PipelineStageT >
-	inline void RenderingStateCache::BindAnisotropicClampSamplerState(
+	inline void RenderingStateManager::BindAnisotropicClampSamplerState(
 		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSampler(device_context, slot,
@@ -70,7 +70,7 @@ namespace mage {
 	}
 
 	template< typename PipelineStageT >
-	inline void RenderingStateCache::BindAnisotropicMirrorSamplerState(
+	inline void RenderingStateManager::BindAnisotropicMirrorSamplerState(
 		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSampler(device_context, slot,
@@ -78,7 +78,7 @@ namespace mage {
 	}
 
 	template< typename PipelineStageT >
-	inline void RenderingStateCache::BindPCFSamplerState(
+	inline void RenderingStateManager::BindPCFSamplerState(
 		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSampler(device_context, slot,

@@ -4,7 +4,7 @@
 #pragma region
 
 #include "scene\scene_renderer.hpp"
-#include "rendering\rendering_state_cache.hpp"
+#include "rendering\rendering_state_manager.hpp"
 #include "math\view_frustum.hpp"
 #include "logging\error.hpp"
 

@@ -20,25 +20,25 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const RenderingStateCache *RenderingStateCache::Get() noexcept {
+	const RenderingStateManager *RenderingStateManager::Get() noexcept {
 		Assert(RenderingManager::Get());
 
-		return RenderingManager::Get()->GetRenderingStateCache();
+		return RenderingManager::Get()->GetRenderingStateManager();
 	}
 
-	RenderingStateCache::RenderingStateCache(ID3D11Device2 *device)
+	RenderingStateManager::RenderingStateManager(ID3D11Device2 *device)
 		: m_blend_states{}, m_depth_stencil_states{}, 
 		m_rasterizer_states{}, m_sampler_states{} {
 
 		SetupRenderingStates(device);
 	}
 
-	RenderingStateCache::RenderingStateCache(
-		RenderingStateCache &&rendering_state_cache) = default;
+	RenderingStateManager::RenderingStateManager(
+		RenderingStateManager &&rendering_state_manager) = default;
 
-	RenderingStateCache::~RenderingStateCache() = default;
+	RenderingStateManager::~RenderingStateManager() = default;
 
-	void RenderingStateCache::SetupRenderingStates(ID3D11Device2 *device) {
+	void RenderingStateManager::SetupRenderingStates(ID3D11Device2 *device) {
 		Assert(device);
 
 		// Setup the blend states.
@@ -51,7 +51,7 @@ namespace mage {
 		SetupSamplerStates(device);
 	}
 
-	void RenderingStateCache::SetupBlendStates(ID3D11Device2 *device) {
+	void RenderingStateManager::SetupBlendStates(ID3D11Device2 *device) {
 		const HRESULT result_opaque            = CreateOpaqueBlendState(
 			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Opaque));
 		ThrowIfFailed(result_opaque, 
@@ -81,15 +81,9 @@ namespace mage {
 		ThrowIfFailed(result_bi_multiplicative,
 			"Bi-multiplicative blend state creation failed: %08X.",
 			result_bi_multiplicative);
-		
-		const HRESULT result_alpha_to_coverage = CreateAlphaToCoverageBlendState(
-			device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::AlphaToCoverage));
-		ThrowIfFailed(result_alpha_to_coverage, 
-			"Alpha-to-Coverage blend state creation failed: %08X.", 
-			result_alpha_to_coverage);
 	}
 
-	void RenderingStateCache::SetupDepthStencilStates(ID3D11Device2 *device) {
+	void RenderingStateManager::SetupDepthStencilStates(ID3D11Device2 *device) {
 		const HRESULT result_depth_none         = CreateDepthNoneDepthStencilState(
 			device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::DepthNone));
 		ThrowIfFailed(result_depth_none, 
@@ -121,7 +115,7 @@ namespace mage {
 			result_depth_read2);
 	}
 
-	void RenderingStateCache::SetupRasterizerStates(ID3D11Device2 *device) {
+	void RenderingStateManager::SetupRasterizerStates(ID3D11Device2 *device) {
 		const HRESULT result_no_culling         = CreateCullNoneRasterizerState(
 			device, ReleaseAndGetAddressOfRasterizerState(RasterizerStateIndex::NoCulling));
 		ThrowIfFailed(result_no_culling, 
@@ -147,7 +141,7 @@ namespace mage {
 			result_wireframe);
 	}
 
-	void RenderingStateCache::SetupSamplerStates(ID3D11Device2 *device) {
+	void RenderingStateManager::SetupSamplerStates(ID3D11Device2 *device) {
 		const HRESULT result_point_wrap         = CreatePointWrapSamplerState(
 			device, ReleaseAndGetAddressOfSamplerState(SamplerStateIndex::PointWrap));
 		ThrowIfFailed(result_point_wrap, 
@@ -209,7 +203,7 @@ namespace mage {
 			result_pcf);
 	}
 
-	void RenderingStateCache::BindPersistentSamplers(
+	void RenderingStateManager::BindPersistentSamplers(
 		ID3D11DeviceContext2 *device_context) const noexcept {
 		
 		// Collect the samplers.

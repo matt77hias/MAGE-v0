@@ -38,6 +38,8 @@
 
 ## Bibliography
 
+A.M.P.A.S.: [*Academy Color Encoding System Developer Resources*](https://github.com/ampas/aces-dev), 2011.
+
 AKENINE-MÖLLER T., HAINES E., HOFFMAN N.: *Real-Time Rendering*, 3th Edition, A K Peters/CRC Press, 2008.
 
 BECKMANN P., SPIZZICHINO A.: *The scattering of electromagnetic waves from rough surfaces*, *Proceedings of the IEEE* 52, 11, 1964.

@@ -39,7 +39,7 @@ namespace mage {
 		// Fog
 		//---------------------------------------------------------------------
 		auto fog = GetSceneFog();
-		fog->SetDistanceFalloff(0.0f, 17.0f);
+		fog->SetDistanceFalloff(0.0f, 150.0f);
 
 		//---------------------------------------------------------------------
 		// Sky
@@ -78,7 +78,7 @@ namespace mage {
 		auto omni_light = Create< OmniLightNode >("light");
 		omni_light->GetTransform()->SetTranslationY(2.0f);
 		omni_light->GetLight()->SetDistanceFalloff(0.0f, 3.0f);
-		omni_light->GetLight()->SetIntensity(RGBSpectrum(6.0f));
+		omni_light->GetLight()->SetIntensity(RGBSpectrum(4.0f));
 		omni_light->GetLight()->EnableShadows();
 
 		//auto spot_light = Create< SpotLightNode >("light");

@@ -78,6 +78,8 @@ GAMMA E., HELM R., JOHNSON R., VLISSIDES J. M.: Design Patterns: *Elements of Re
 
 GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.
 
+HABLE J.: [*Filmic Tonemapping Operators*](http://filmicworlds.com/blog/filmic-tonemapping-operators/), 2010.
+
 HABLE J.: [*Linear-Space Lighting (i.e. Gamma)*](http://filmicworlds.com/blog/linear-space-lighting-i-e-gamma/), 2010.
 
 HUGHES, J. F., MÖLLER, T.: *Building an Orthonormal Basis from a Unit Vector*, *Journal of Graphics Tools* 4, 4, 1999.
@@ -109,6 +111,8 @@ MICROSOFT CORP.: [*DirectXMath*](https://msdn.microsoft.com/en-us/library/window
 MICROSOFT CORP.: [*DirectXTK*](https://github.com/Microsoft/DirectXTK/wiki).
 
 MONTES R., UREÑA C.: *An Overview of BRDF Models*, Technical Report, 2012.
+
+NARKOWICZ K.: [*ACES Filmic Tone Mapping Curve*](https://knarkowicz.wordpress.com/2016/01/06/aces-filmic-tone-mapping-curve/)
 
 NEUMANN L., NEUMANN A., SZIRMAY-KALOS L.: *Compact Metallic Reflectance Models*, *Computer Graphics Forum* 18, 3, 1999.
 
@@ -149,6 +153,8 @@ WALTER B., MARSCHNER S., LI H., TORRANCE K.: *Microfacet Models for Refraction T
 WARD G. J.: *Measuring and Modeling Anisotropic Reflection*, *SIGGRAPH Comput. Graph.* 26, 2, 1992.
 
 WITTERS K.: [*deWiTTERS Game Loop*](http://www.koonsolo.com/news/dewitters-gameloop/), 2009.
+
+WRONSKI B.: [*Image dynamic range*](https://bartwronski.com/2016/09/01/dynamic-range-and-evs/comment-page-1/), 2016.
 
 YOUNG V.: *Programming a Multiplayer FPS in DirectX, 1st Edition*, Game Development Series, Charles River Media, 2005.
 

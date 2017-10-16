@@ -22,5 +22,5 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 	const float3 n_view = PerturbNormal(input.p_view, n0, input.tex2, c);
 	
 	// Converts the [-1,1] range to the [0,1] range.
-	return float4(SNORMtoUNORM(n_view), 1.0f);
+	return GammaToLinear(float4(SNORMtoUNORM(n_view), 1.0f));
 }

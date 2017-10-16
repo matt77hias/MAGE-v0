@@ -876,9 +876,6 @@
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\bounding_volume_VS.hpp">
       <Filter>Header Files\shader\cso\miscellaneous</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\buffer\gbuffer.hpp">
-      <Filter>Header Files\buffer</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\deferred\lambertian_PS.hpp">
       <Filter>Header Files\shader\cso\deferred</Filter>
     </ClInclude>
@@ -918,17 +915,8 @@
     <ClInclude Include="MAGE\src\memory\types.hpp">
       <Filter>Header Files\memory</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\pass\image_pass.hpp">
-      <Filter>Header Files\pass</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\image_PS.hpp">
-      <Filter>Header Files\shader\cso\miscellaneous</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\buffer\shadow_map_buffer.hpp">
       <Filter>Header Files\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\image_depth_PS.hpp">
-      <Filter>Header Files\shader\cso\miscellaneous</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\pass\lbuffer_pass.hpp">
       <Filter>Header Files\pass</Filter>
@@ -938,9 +926,6 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\depth\depth_transparent_VS.hpp">
       <Filter>Header Files\shader\cso\depth</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\buffer\image_buffer.hpp">
-      <Filter>Header Files\buffer</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\scene\sky.hpp">
       <Filter>Header Files\scene</Filter>
@@ -983,6 +968,15 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\rendering\rendering_state_manager.hpp">
       <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\rendering_output_manager.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\miscellaneous\back_buffer_PS.hpp">
+      <Filter>Header Files\shader\cso\miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\back_buffer_pass.hpp">
+      <Filter>Header Files\pass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1313,9 +1307,6 @@
     <ClCompile Include="MAGE\src\pass\sprite_pass.cpp">
       <Filter>Source Files\pass</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\buffer\gbuffer.cpp">
-      <Filter>Source Files\buffer</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\pass\gbuffer_pass.cpp">
       <Filter>Source Files\pass</Filter>
     </ClCompile>
@@ -1325,17 +1316,11 @@
     <ClCompile Include="MAGE\src\pass\depth_pass.cpp">
       <Filter>Source Files\pass</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\pass\image_pass.cpp">
-      <Filter>Source Files\pass</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\buffer\shadow_map_buffer.cpp">
       <Filter>Source Files\buffer</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\pass\lbuffer_pass.cpp">
       <Filter>Source Files\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\buffer\image_buffer.cpp">
-      <Filter>Source Files\buffer</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\pass\sky_pass.cpp">
       <Filter>Source Files\pass</Filter>
@@ -1357,6 +1342,12 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering_state_manager.cpp">
       <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\rendering_output_manager.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\back_buffer_pass.cpp">
+      <Filter>Source Files\pass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1438,12 +1429,6 @@
     <FxCompile Include="MAGE\shaders\deferred\cook_torrance_CS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\miscellaneous\image_PS.hlsl">
-      <Filter>Shader Files\miscellaneous</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\miscellaneous\image_depth_PS.hlsl">
-      <Filter>Shader Files\miscellaneous</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\depth\depth_transparent_PS.hlsl">
       <Filter>Shader Files\depth</Filter>
     </FxCompile>
@@ -1458,6 +1443,9 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\primitives\near_fullscreen_triangle_VS.hlsl">
       <Filter>Shader Files\primitives</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\miscellaneous\back_buffer_PS.hlsl">
+      <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

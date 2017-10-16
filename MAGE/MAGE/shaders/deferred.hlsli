@@ -12,7 +12,7 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 	const float2 location = input.p.xy;
 
 	// Obtain the base color of the material.
-	const float3 base_color = GetGBufferMaterialBaseColor(location);
+	const float3 base_color = GammaToLinear(GetGBufferMaterialBaseColor(location));
 	// Obtain the parameters of the material.
 	const float2 material   = GetGBufferMaterialParameters(location);
 	// Obtain the view-space normal.
@@ -24,5 +24,5 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 	const float3 L = BRDFShading(p_view, n_view, 
 		                         base_color, material.x, material.y);
 
-	return float4(L, 1.0f);
+	return (material.x) ? float4(L, 1.0f) : float4(0.0f, 0.0f, 0.0f, 1.0f);
 }

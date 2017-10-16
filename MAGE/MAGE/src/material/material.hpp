@@ -417,7 +417,7 @@ namespace mage {
 
 		/**
 		 Returns the roughness of this material.
-
+		
 		 @return		The roughness of this material.			
 		 */
 		F32 GetRoughness() const noexcept {

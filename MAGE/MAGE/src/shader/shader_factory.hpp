@@ -391,31 +391,20 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: ImagePass
+	// Factory Methods: BackBufferPass
 	//-------------------------------------------------------------------------
 #pragma region
 
 	/**
-	 Creates an image pixel shader.
+	 Creates a back buffer pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the image pixel shader.
+	 @return		A pointer to the back buffer pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateImagePS();
-
-	/**
-	 Creates a image depth pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the image depth pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateImageDepthPS();
+	SharedPtr< const PixelShader > CreateBackBufferPS();
 
 #pragma endregion
 

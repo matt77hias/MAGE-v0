@@ -19,5 +19,5 @@ TEXTURE_2D(g_texture, float4, SLOT_SRV_TEXTURE);
 // Pixel Shader
 //-----------------------------------------------------------------------------
 float4 PS(PSInputPositionNormalTexture input) : SV_Target{
-	return g_color * g_texture.Sample(g_linear_wrap_sampler, input.tex);
+	return GammaToLinear(g_color * g_texture.Sample(g_linear_wrap_sampler, input.tex));
 }

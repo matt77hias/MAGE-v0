@@ -14,5 +14,5 @@ CBUFFER(Color, SLOT_CBUFFER_COLOR) {
 // Pixel Shader
 //-----------------------------------------------------------------------------
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
-	return g_color;
+	return GammaToLinear(g_color);
 }

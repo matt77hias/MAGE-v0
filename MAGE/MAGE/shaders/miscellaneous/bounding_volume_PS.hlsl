@@ -14,5 +14,5 @@ CBUFFER(Color, SLOT_CBUFFER_COLOR) {
 // Pixel Shader
 //-----------------------------------------------------------------------------
 float4 PS(float4 p : SV_Position) : SV_Target {
-	return g_color;
+	return GammaToLinear(g_color);
 }

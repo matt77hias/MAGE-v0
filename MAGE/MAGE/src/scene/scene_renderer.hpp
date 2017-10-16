@@ -6,13 +6,13 @@
 #pragma region
 
 #include "pass\depth_pass.hpp"
-#include "pass\gbuffer_pass.hpp"
 #include "pass\lbuffer_pass.hpp"
+#include "pass\gbuffer_pass.hpp"
 #include "pass\deferred_shading_pass.hpp"
 #include "pass\variable_shading_pass.hpp"
-#include "pass\sprite_pass.hpp"
-#include "pass\image_pass.hpp"
 #include "pass\sky_pass.hpp"
+#include "pass\back_buffer_pass.hpp"
+#include "pass\sprite_pass.hpp"
 
 #include "pass\constant_shading_pass.hpp"
 #include "pass\constant_component_pass.hpp"
@@ -20,9 +20,6 @@
 #include "pass\shading_normal_pass.hpp"
 #include "pass\wireframe_pass.hpp"
 #include "pass\bounding_volume_pass.hpp"
-
-#include "buffer\gbuffer.hpp"
-#include "buffer\image_buffer.hpp"
 
 #include "buffer\game_buffer.hpp"
 
@@ -226,19 +223,19 @@ namespace mage {
 		}
 
 		/**
-		 Returns the image pass of this scene renderer.
+		 Returns the back buffer pass of this scene renderer.
 
 		 @pre			The renderer associated with the current engine must 
 						be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the image pass of this scene renderer.
+		 @return		A pointer to the back buffer pass of this scene renderer.
 		 */
-		ImagePass *GetImagePass() {
-			if (!m_image_pass) {
-				m_image_pass = MakeUnique< ImagePass >();
+		BackBufferPass *GetBackBufferPass() {
+			if (!m_back_buffer_pass) {
+				m_back_buffer_pass = MakeUnique< BackBufferPass >();
 			}
-			return m_image_pass.get();
+			return m_back_buffer_pass.get();
 		}
 
 		/**
@@ -366,11 +363,6 @@ namespace mage {
 
 		void BindPersistentState();
 
-		void ExecuteDepthPass(
-			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view, 
-			CXMMATRIX view_to_projection);
-
 		void ExecuteSolidForwardPipeline(
 			const Viewport &viewport,
 			FXMMATRIX world_to_projection,
@@ -414,16 +406,6 @@ namespace mage {
 		UniquePtr< PassBuffer > m_pass_buffer;
 		
 		/**
-		 A pointer to the Gbuffer of this scene renderer.
-		 */
-		UniquePtr< GBuffer > m_gbuffer;
-
-		/**
-		 A pointer to the image buffer of this scene renderer.
-		 */
-		UniquePtr< ImageBuffer > m_image_buffer;
-
-		/**
 		 A pointer to the image buffer of this scene renderer.
 		 */
 		ConstantBuffer< GameBuffer > m_game_buffer;
@@ -463,9 +445,9 @@ namespace mage {
 		UniquePtr< SpritePass > m_sprite_pass;
 
 		/**
-		 A pointer to the image pass of this scene renderer.
+		 A pointer to the back buffer pass of this scene renderer.
 		 */
-		UniquePtr< ImagePass > m_image_pass;
+		UniquePtr< BackBufferPass > m_back_buffer_pass;
 
 		/**
 		 A pointer to the sky pass of this scene renderer.

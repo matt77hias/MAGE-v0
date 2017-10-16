@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "rendering\rendering_output_manager.hpp"
 #include "rendering\rendering_state_manager.hpp"
 #include "rendering\display_configuration.hpp"
 
@@ -153,39 +154,13 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the back buffer SRV of this rendering manager.
+		 Returns the rendering output manager of this rendering manager.
 
-		 @return		A pointer to the back buffer SRV of this rendering 
-						manager.
-		 @note			The back buffer RTV and SRV cannot both be bound at the 
-						same time.
+		 @return		A pointer to the rendering output manager of this 
+						rendering manager.
 		 */
-		ID3D11ShaderResourceView *GetBackBufferSRV() const noexcept {
-			return m_back_buffer_srv.Get();
-		}
-		
-		/**
-		 Returns the depth buffer DSV of this rendering manager.
-
-		 @return		A pointer to the depth buffer DSV of this rendering 
-						manager.
-		 @note			The depth buffer DSV and SRV cannot both be bound at 
-						the same time.
-		 */
-		ID3D11DepthStencilView *GetDepthBufferDSV() const noexcept {
-			return m_depth_buffer_dsv.Get();
-		}
-		
-		/**
-		 Returns the depth buffer SRV of this rendering manager.
-
-		 @return		A pointer to the depth buffer SRV of this rendering 
-						manager.
-		 @note			The depth buffer DSV and SRV cannot both be bound at 
-						the same time.
-		 */
-		ID3D11ShaderResourceView *GetDepthBufferSRV() const noexcept {
-			return m_depth_buffer_srv.Get();
+		const RenderingOutputManager *GetRenderingOutputManager() const noexcept {
+			return m_rendering_output_manager.get();
 		}
 
 		/**
@@ -293,11 +268,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Binds the RTV and DSV of this rendering manager.
-		 */
-		void BindRTVAndDSV() const noexcept;
-
-		/**
 		 Begins the rendering of the current frame.
 
 		 @pre			This rendering manager is not inside a begin/end pair.
@@ -369,8 +339,8 @@ namespace mage {
 		void CreateSwapChain();
 		
 		/**
-		 Creates the render target view, shader resource view of the back 
-		 buffer of this rendering manager.
+		 Creates the render target view of the back buffer of this rendering 
+		 manager.
 
 		 @throws		FormattedException
 						Failed to obtain the back buffer resource of this 
@@ -378,27 +348,8 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to create the render target view of the back 
 						buffer of this rendering manager.
-		 @throws		FormattedException
-						Failed to create the shader resource view of the back 
-						buffer of this rendering manager.
 		 */
-		void CreateBackBufferRTVandSRV();
-		
-		/**
-		 Creates the depth stencil view and shader resource view of the depth 
-		 buffer of this rendering manager.
-
-		 @throws		FormattedException
-						Failed to create the depth buffer resource of this 
-						rendering manager.
-		 @throws		FormattedException
-						Failed to create the depth stencil view of the depth 
-						buffer of this rendering manager.
-		 @throws		FormattedException
-						Failed to create the shader resource view of the depth 
-						buffer of this rendering manager.
-		 */
-		void CreateDepthBufferDSVandSRV();
+		void CreateBackBufferRTV();
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -453,22 +404,9 @@ namespace mage {
 		ComPtr< ID3D11RenderTargetView > m_back_buffer_rtv;
 
 		/**
-		 A pointer to the shader resource view of the back buffer of this 
-		 rendering manager.
+		 A pointer to the rendering output manager of this rendering manager.
 		 */
-		ComPtr< ID3D11ShaderResourceView > m_back_buffer_srv;
-
-		/**
-		 A pointer to the depth stencil view of the depth buffer of this 
-		 rendering manager.
-		 */
-		ComPtr< ID3D11DepthStencilView > m_depth_buffer_dsv;
-
-		/**
-		 A pointer to the shader resource view of the depth buffer of this 
-		 rendering manager.
-		 */
-		ComPtr< ID3D11ShaderResourceView > m_depth_buffer_srv;
+		UniquePtr< RenderingOutputManager > m_rendering_output_manager;
 
 		/**
 		 A pointer to the rendering state manager of this rendering manager.

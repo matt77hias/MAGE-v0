@@ -38,8 +38,7 @@
 
 // Miscellaneous
 #include "shader\cso\miscellaneous\minimal_transform_VS.hpp"
-#include "shader\cso\miscellaneous\image_PS.hpp"
-#include "shader\cso\miscellaneous\image_depth_PS.hpp"
+#include "shader\cso\miscellaneous\back_buffer_PS.hpp"
 #include "shader\cso\miscellaneous\distance_PS.hpp"
 #include "shader\cso\miscellaneous\constant_color_PS.hpp"
 #include "shader\cso\miscellaneous\constant_color_texture_PS.hpp"
@@ -375,20 +374,12 @@ namespace mage {
 	//-------------------------------------------------------------------------
 #pragma region
 
-	SharedPtr< const PixelShader > CreateImagePS() {
+	SharedPtr< const PixelShader > CreateBackBufferPS() {
 		const BufferCompiledShader cs(
-				g_image_ps, sizeof(g_image_ps));
+				g_back_buffer_ps, sizeof(g_back_buffer_ps));
 		
 		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_IMAGE, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateImageDepthPS() {
-		const BufferCompiledShader cs(
-				g_image_depth_ps, sizeof(g_image_depth_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_IMAGE_DEPTH, &cs);
+				MAGE_GUID_PS_BACK_BUFFER, &cs);
 	}
 
 #pragma endregion

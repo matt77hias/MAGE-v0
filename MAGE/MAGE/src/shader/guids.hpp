@@ -36,8 +36,7 @@
 
 // Miscellaneous
 #define MAGE_GUID_VS_MINIMAL_TRANSFORM             L"mage_minimal_transform_vs"
-#define MAGE_GUID_PS_IMAGE                         L"mage_image_ps"
-#define MAGE_GUID_PS_IMAGE_DEPTH                   L"mage_image_depth_ps"
+#define MAGE_GUID_PS_BACK_BUFFER                   L"mage_back_buffer_ps"
 #define MAGE_GUID_PS_CONSTANT_COLOR                L"mage_constant_color_ps"
 #define MAGE_GUID_PS_CONSTANT_COLOR_TEXTURE        L"mage_constant_color_texture_ps"
 #define MAGE_GUID_PS_DISTANCE                      L"mage_distance_ps"

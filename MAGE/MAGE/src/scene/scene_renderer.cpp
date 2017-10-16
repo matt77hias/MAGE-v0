@@ -27,8 +27,6 @@ namespace mage {
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_maximum_viewport(),
 		m_pass_buffer(MakeUnique< PassBuffer >()),
-		m_gbuffer(MakeUnique< GBuffer >()),
-		m_image_buffer(MakeUnique< ImageBuffer >()),
 		m_game_buffer(),
 		m_depth_pass(), 
 		m_gbuffer_pass(),
@@ -36,7 +34,7 @@ namespace mage {
 		m_deferred_shading_pass(), 
 		m_variable_shading_pass(),
 		m_sprite_pass(), 
-		m_image_pass(),
+		m_back_buffer_pass(),
 		m_sky_pass(),
 		m_constant_shading_pass(),
 		m_constant_component_pass(), 
@@ -73,12 +71,16 @@ namespace mage {
 	}
 
 	void SceneRenderer::Render(const Scene *scene) {
-		
+
+		const RenderingOutputManager * const output_manager
+			= RenderingOutputManager::Get();
+
 		// Update the pass buffer.
 		m_pass_buffer->Update(scene);
-		
+
 		for (const auto node : m_pass_buffer->GetCameras()) {
-			
+			output_manager->BindBegin(m_device_context);
+
 			// Obtain node components.
 			const TransformNode  * const transform = node->GetTransform();
 			const Camera         * const camera    = node->GetCamera();
@@ -97,11 +99,6 @@ namespace mage {
 			// RenderMode
 			switch (render_mode) {
 
-			case RenderMode::DepthAndForward: {
-				ExecuteDepthPass(world_to_projection, 
-					world_to_view, view_to_projection);
-				// Fall through RenderMode::Forward.
-			}
 			case RenderMode::Forward: {
 				ExecuteForwardPipeline(viewport, world_to_projection,
 					world_to_view, view_to_world, view_to_projection, brdf);
@@ -116,11 +113,6 @@ namespace mage {
 				break;
 			}
 
-			case RenderMode::DepthAndSolid: {
-				ExecuteDepthPass(world_to_projection,
-					world_to_view, view_to_projection);
-				// Fall through RenderMode::Forward.
-			}
 			case RenderMode::Solid: {
 				ExecuteSolidForwardPipeline(viewport, world_to_projection,
 					world_to_view, view_to_world, view_to_projection);
@@ -135,6 +127,8 @@ namespace mage {
 			case RenderMode::MaterialCoefficient:
 			case RenderMode::MaterialTexture:
 			case RenderMode::NormalTexture: {
+				output_manager->BindForward(m_device_context);
+
 				VariableComponentPass * const pass = GetVariableComponentPass();
 				pass->BindFixedState(render_mode);
 				pass->Render(
@@ -146,6 +140,8 @@ namespace mage {
 
 			case RenderMode::UVTexture:
 			case RenderMode::Distance: {
+				output_manager->BindForward(m_device_context);
+
 				ConstantComponentPass * const pass = GetConstantComponentPass();
 				pass->BindFixedState(render_mode);
 				pass->Render(
@@ -157,6 +153,8 @@ namespace mage {
 
 			case RenderMode::ShadingNormal:
 			case RenderMode::TSNMShadingNormal: {
+				output_manager->BindForward(m_device_context);
+
 				ShadingNormalPass * const pass = GetShadingNormalPass();
 				pass->BindFixedState(render_mode);
 				pass->Render(
@@ -182,38 +180,22 @@ namespace mage {
 				pass->Render(
 					m_pass_buffer.get(), world_to_projection);
 			}
+		
+			output_manager->BindEnd(m_device_context);
 		}
 
 		// Bind the maximum viewport.
 		m_maximum_viewport.BindViewport(m_device_context);
 		
+		// Perform a back buffer pass.
+		BackBufferPass * const back_buffer_pass = GetBackBufferPass();
+		back_buffer_pass->BindFixedState();
+		back_buffer_pass->Render();
+
 		// Perform a sprite pass.
-		SpritePass * const pass = GetSpritePass();
-		pass->BindFixedState();
-		pass->Render(m_pass_buffer.get());
-	}
-
-	void SceneRenderer::ExecuteDepthPass(
-		FXMMATRIX world_to_projection,
-		CXMMATRIX world_to_view,
-		CXMMATRIX view_to_projection) {
-
-		const RenderingManager * const rendering_manager 
-			= RenderingManager::Get();
-
-		// Bind no RTV and the depth buffer DSV.
-		Pipeline::OM::BindRTVAndDSV(m_device_context, nullptr, 
-			rendering_manager->GetDepthBufferDSV());
-		
-		// Perform a depth pass.
-		DepthPass * const depth_pass = GetDepthPass();
-		depth_pass->BindFixedState();
-		depth_pass->Render(
-			m_pass_buffer.get(), world_to_projection,
-			world_to_view, view_to_projection);
-		
-		// Bind the back and depth buffer.
-		rendering_manager->BindRTVAndDSV();
+		SpritePass * const sprite_pass = GetSpritePass();
+		sprite_pass->BindFixedState();
+		sprite_pass->Render(m_pass_buffer.get());
 	}
 
 	void SceneRenderer::ExecuteSolidForwardPipeline(
@@ -223,16 +205,18 @@ namespace mage {
 		CXMMATRIX view_to_world,
 		CXMMATRIX view_to_projection) {
 		
+		const RenderingOutputManager * const output_manager
+			= RenderingOutputManager::Get();
+
 		// Perform a LBuffer pass.
 		LBufferPass * const lbuffer_pass = GetLBufferPass();
 		lbuffer_pass->Render(
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world);
-
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
-		// Bind the back and depth buffer.
-		RenderingManager::Get()->BindRTVAndDSV();
+		
+		output_manager->BindForward(m_device_context);
 		
 		// Perform a forward pass.
 		ConstantShadingPass * const forward_pass = GetConstantShadingPass();
@@ -249,17 +233,19 @@ namespace mage {
 		CXMMATRIX view_to_world,
 		CXMMATRIX view_to_projection,
 		BRDFType brdf) {
+
+		const RenderingOutputManager * const output_manager
+			= RenderingOutputManager::Get();
 		
 		// Perform a LBuffer pass.
 		LBufferPass * const lbuffer_pass = GetLBufferPass();
 		lbuffer_pass->Render(
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world);
-
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
-		// Bind the back and depth buffer.
-		RenderingManager::Get()->BindRTVAndDSV();
+		
+		output_manager->BindForward(m_device_context);
 
 		// Perform a forward pass: opaque models.
 		VariableShadingPass * const forward_pass = GetVariableShadingPass();
@@ -290,9 +276,19 @@ namespace mage {
 		CXMMATRIX view_to_projection,
 		BRDFType brdf) {
 
-		// Bind the GBuffer for packing.
-		m_gbuffer->BindPacking(m_device_context);
-		
+		const RenderingOutputManager * const output_manager
+			= RenderingOutputManager::Get();
+
+		// Perform a LBuffer pass.
+		LBufferPass * const lbuffer_pass = GetLBufferPass();
+		lbuffer_pass->Render(
+			m_pass_buffer.get(), world_to_projection,
+			world_to_view, view_to_world);
+		// Restore the viewport.
+		viewport.BindViewport(m_device_context);
+
+		output_manager->BindGBuffer(m_device_context);
+
 		// Perform a GBuffer pass.
 		GBufferPass * const gbuffer_pass = GetGBufferPass();
 		gbuffer_pass->BindFixedState();
@@ -300,34 +296,14 @@ namespace mage {
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world, view_to_projection);
 
-		// Perform a LBuffer pass.
-		LBufferPass * const lbuffer_pass = GetLBufferPass();
-		lbuffer_pass->Render(
-			m_pass_buffer.get(), world_to_projection,
-			world_to_view, view_to_world);
-
-		// Restore the viewport.
-		viewport.BindViewport(m_device_context);
-		// Bind the GBuffer for unpacking.
-		m_gbuffer->BindUnpacking(m_device_context);
-		// Bind the ImageBuffer for packing.
-		m_image_buffer->BindPacking(m_device_context);
+		output_manager->BindDeferred(m_device_context);
 
 		// Perform a deferred pass.
 		DeferredShadingPass *deferred_pass = GetDeferredShadingPass();
 		deferred_pass->BindFixedState(brdf);
-		deferred_pass->Render(
-			view_to_projection);
+		deferred_pass->Render(view_to_projection);
 
-		// Bind the ImageBuffer for unpacking.
-		m_image_buffer->BindUnpacking(m_device_context);
-		// Bind the back and depth buffer.
-		RenderingManager::Get()->BindRTVAndDSV();
-		
-		// Perform an image pass.
-		ImagePass * const image_pass = GetImagePass();
-		image_pass->BindFixedState();
-		image_pass->Render();
+		output_manager->BindForward(m_device_context);
 
 		// Perform a forward pass: opaque emissive models.
 		VariableShadingPass * const forward_pass = GetVariableShadingPass();

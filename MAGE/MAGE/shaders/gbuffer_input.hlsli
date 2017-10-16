@@ -53,11 +53,11 @@ TEXTURE_2D(g_normal_texture,     float3, SLOT_SRV_NORMAL);
 float4 GetMaterialBaseColor(float2 tex) {
 	// Obtain the base color of the material.
 #ifdef DISSABLE_BASE_COLOR_TEXTURE
-	return GammaToLinear(g_base_color);
+	return g_base_color;
 #else  // DISSABLE_BASE_COLOR_TEXTURE
 	const float4 gc_base_color
 		= g_base_color_texture.Sample(g_linear_wrap_sampler, tex);
-	return GammaToLinear(g_base_color * gc_base_color);
+	return g_base_color * gc_base_color;
 #endif // DISSABLE_BASE_COLOR_TEXTURE
 }
 

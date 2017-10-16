@@ -15,10 +15,10 @@
 namespace mage {
 
 	/**
-	 A class of image passes for rendering images to screen (while optionally 
-	 transferring depth values as well).
+	 A class of back buffer passes for tone mapping and gamma correcting HDR 
+	 images.
 	 */
-	class ImagePass final {
+	class BackBufferPass final {
 
 	public:
 
@@ -27,88 +27,86 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the image pass associated with the current engine.
+		 Returns the back buffer pass associated with the current engine.
 
 		 @pre			The scene renderer associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the image pass associated with the current 
-						engine.
+		 @return		A pointer to the back buffer pass associated with the 
+						current engine.
 		 */
-		static ImagePass *Get();
+		static BackBufferPass *Get();
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs an image pass.
+		 Constructs an back buffer pass.
 
 		 @pre			The renderer associated with the current engine must be 
 						loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
 		 */
-		ImagePass();
+		BackBufferPass();
 
 		/**
-		 Constructs an image pass from the given image pass.
+		 Constructs an back buffer pass from the given back buffer pass.
 
 		 @param[in]		render_pass
-						A reference to the image pass to copy.
+						A reference to the back buffer pass to copy.
 		 */
-		ImagePass(const ImagePass &render_pass) = delete;
+		BackBufferPass(const BackBufferPass &render_pass) = delete;
 
 		/**
-		 Constructs an image pass by moving the given image pass.
+		 Constructs an back buffer pass by moving the given back buffer pass.
 
 		 @param[in]		render_pass
 						A reference to the Image pass to move.
 		 */
-		ImagePass(ImagePass &&render_pass);
+		BackBufferPass(BackBufferPass &&render_pass);
 
 		/**
-		 Destructs this image pass.
+		 Destructs this back buffer pass.
 		 */
-		~ImagePass();
+		~BackBufferPass();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given image pass to this image pass.
+		 Copies the given back buffer pass to this back buffer pass.
 
 		 @param[in]		render_pass
-						A reference to the image pass to copy.
-		 @return		A reference to the copy of the given image pass (i.e. 
-						this image pass).
+						A reference to the back buffer pass to copy.
+		 @return		A reference to the copy of the given back buffer pass 
+						(i.e. this back buffer pass).
 		 */
-		ImagePass &operator=(const ImagePass &render_pass) = delete;
+		BackBufferPass &operator=(const BackBufferPass &render_pass) = delete;
 
 		/**
-		 Moves the given image pass to this image pass.
+		 Moves the given back buffer pass to this back buffer pass.
 
 		 @param[in]		render_pass
-						A reference to the image pass to move.
-		 @return		A reference to the moved image pass (i.e. this image 
-						pass).
+						A reference to the back buffer pass to move.
+		 @return		A reference to the moved back buffer pass (i.e. this 
+						back buffer pass).
 		 */
-		ImagePass &operator=(ImagePass &&render_pass) = delete;
+		BackBufferPass &operator=(BackBufferPass &&render_pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Binds the fixed state of this image pass.
+		 Binds the fixed state of this back buffer pass.
 
-		 @param[in]		transfer_depth
-						@c true if the depth values need to be transferred
-						as well. @c false otherwise.
 		 @throws		FormattedException
-						Failed to bind the fixed state of this image pass.
+						Failed to bind the fixed state of this back buffer 
+						pass.
 		 */
-		void BindFixedState(bool transfer_depth = true);
+		void BindFixedState();
 
 		/**
 		 Renders.
@@ -122,23 +120,18 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this image pass.
+		 A pointer to the device context of this back buffer pass.
 		 */
 		ID3D11DeviceContext2 * const m_device_context;
 
 		/**
-		 A pointer to the vertex shader of this image pass.
+		 A pointer to the vertex shader of this back buffer pass.
 		 */
 		const SharedPtr< const VertexShader > m_vs;
 
 		/**
-		 A pointer to the pixel shader of this image pass.
+		 A pointer to the pixel shader of this back buffer pass.
 		 */
-		const SharedPtr< const PixelShader > m_image_ps;
-
-		/**
-		 A pointer to the pixel shader of this image pass.
-		 */
-		const SharedPtr< const PixelShader > m_image_depth_ps;
+		const SharedPtr< const PixelShader > m_ps;
 	};
 }

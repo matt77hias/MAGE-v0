@@ -26,10 +26,8 @@ namespace mage {
 		m_in_begin_end_pair(false), 
 		m_display_configuration(
 			MakeUnique< DisplayConfiguration >(*display_configuration)),
-		m_device(), m_device_context(), m_swap_chain(), 
-		m_back_buffer_rtv(), m_back_buffer_srv(),
-		m_depth_buffer_dsv(), m_depth_buffer_srv(),
-		m_rendering_state_manager() {
+		m_device(), m_device_context(), m_swap_chain(), m_back_buffer_rtv(),
+		m_rendering_output_manager(), m_rendering_state_manager() {
 
 		Assert(m_hwindow);
 		Assert(m_display_configuration);
@@ -50,9 +48,15 @@ namespace mage {
 		// Setup the swap chain.
 		SetupSwapChain();
 
+		// Setup the rendering output manager.
+		m_rendering_output_manager
+			= MakeUnique< RenderingOutputManager >(
+				m_device.Get(), GetWidth(), GetHeight());
+
 		// Setup the rendering state manager.
-		m_rendering_state_manager 
-			= MakeUnique< RenderingStateManager >(m_device.Get());
+		m_rendering_state_manager
+			= MakeUnique< RenderingStateManager >(
+				m_device.Get());
 		// Bind the persistent samplers of the rendering state manager.
 		m_rendering_state_manager->BindPersistentSamplers(m_device_context.Get());
 	}
@@ -91,8 +95,7 @@ namespace mage {
 			D3D11_SDK_VERSION,
 			device.GetAddressOf(),
 			&m_feature_level,
-			device_context.GetAddressOf()
-		);
+			device_context.GetAddressOf());
 		ThrowIfFailed(result_device, 
 			"ID3D11Device creation failed: %08X.", result_device);
 
@@ -109,22 +112,16 @@ namespace mage {
 	void RenderingManager::SetupSwapChain() {
 		// Create the swap chain.
 		CreateSwapChain();
-		// Create the RTV/SRV and DSV/SRV.
-		CreateBackBufferRTVandSRV();
-		CreateDepthBufferDSVandSRV();
-		// Bind the RTV and DSV.
-		BindRTVAndDSV();
+		// Create the back buffer RTV.
+		CreateBackBufferRTV();
 	}
 
 	void RenderingManager::ResetSwapChain() {
 		// Recreate the swap chain buffers.
 		m_swap_chain->ResizeBuffers(0u, 0u, 0u, 
 			DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
-		// Create the RTV/SRV and DSV/SRV.
-		CreateBackBufferRTVandSRV();
-		CreateDepthBufferDSVandSRV();
-		// Bind the RTV and DSV.
-		BindRTVAndDSV();
+		// Create the back buffer RTV.
+		CreateBackBufferRTV();
 	}
 
 	void RenderingManager::CreateSwapChain() {
@@ -148,7 +145,7 @@ namespace mage {
 		swap_chain_desc.Height      = GetHeight();
 		swap_chain_desc.Format      = m_display_configuration->GetDisplayFormat();
 		swap_chain_desc.SampleDesc.Count = 1u;
-		swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
+		swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swap_chain_desc.BufferCount = 1u;
 		swap_chain_desc.Flags       = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
@@ -174,7 +171,7 @@ namespace mage {
 		m_swap_chain->SetFullscreenState(FALSE, nullptr);
 	}
 
-	void RenderingManager::CreateBackBufferRTVandSRV() {
+	void RenderingManager::CreateBackBufferRTV() {
 		// Access the only back buffer of the swap-chain.
 		ComPtr< ID3D11Texture2D > back_buffer;
 		const HRESULT result_back_buffer = m_swap_chain->GetBuffer(
@@ -188,64 +185,6 @@ namespace mage {
 			m_back_buffer_rtv.ReleaseAndGetAddressOf());
 		ThrowIfFailed(result_rtv, 
 			"RTV creation failed: %08X.", result_rtv);
-
-		// Create the SRV.
-		const HRESULT result_srv = m_device->CreateShaderResourceView(
-			back_buffer.Get(), nullptr,
-			m_back_buffer_srv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_srv, 
-			"SRV creation failed: %08X.", result_srv);
-	}
-
-	void RenderingManager::CreateDepthBufferDSVandSRV() {
-		// Create the texture descriptor.
-		D3D11_TEXTURE2D_DESC texture_desc = {};
-		texture_desc.Width      = GetWidth();
-		texture_desc.Height     = GetHeight();
-		texture_desc.MipLevels  = 1u;
-		texture_desc.ArraySize  = 1u;
-		texture_desc.Format     = DXGI_FORMAT_R24G8_TYPELESS;
-		texture_desc.SampleDesc.Count = 1u;
-		texture_desc.Usage      = D3D11_USAGE_DEFAULT;
-		texture_desc.BindFlags  = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
-		
-		// Create the texture.
-		ComPtr< ID3D11Texture2D > texture;
-		const HRESULT result_texture = m_device->CreateTexture2D(
-			&texture_desc, nullptr,
-			texture.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_texture, 
-			"Texture 2D creation failed: %08X.", result_texture);
-
-		// Create the DSV descriptor.
-		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
-		dsv_desc.Format        = DXGI_FORMAT_D24_UNORM_S8_UINT;
-		dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-
-		// Create the DSV.
-		const HRESULT result_dsv = m_device->CreateDepthStencilView(
-			texture.Get(), &dsv_desc,
-			m_depth_buffer_dsv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_dsv, 
-			"DSV creation failed: %08X.", result_dsv);
-
-		// Create the SRV descriptor.
-		D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
-		srv_desc.Format        = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
-		srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-		srv_desc.Texture2D.MipLevels = 1u;
-
-		// Create the SRV.
-		const HRESULT result_srv = m_device->CreateShaderResourceView(
-			texture.Get(), &srv_desc,
-			m_depth_buffer_srv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_srv, 
-			"SRV creation failed: %08X.", result_srv);
-	}
-
-	void RenderingManager::BindRTVAndDSV() const noexcept {
-		Pipeline::OM::BindRTVAndDSV(m_device_context.Get(), 
-			m_back_buffer_rtv.Get(), m_depth_buffer_dsv.Get());
 	}
 
 	void RenderingManager::BeginFrame() noexcept {
@@ -254,10 +193,6 @@ namespace mage {
 		// Clear the back buffer.
 		Pipeline::OM::ClearRTV(m_device_context.Get(), 
 			m_back_buffer_rtv.Get());
-		// Clear the depth buffer to 1.0 (i.e. max depth).
-		// Clear the stencil buffer to 0.
-		Pipeline::OM::ClearDSV(m_device_context.Get(), 
-			m_depth_buffer_dsv.Get());
 
 		m_in_begin_end_pair = true;
 	}
@@ -276,9 +211,6 @@ namespace mage {
 	void RenderingManager::SwitchMode(bool toggle) {
 		// Release the swap chain buffers.
 		m_back_buffer_rtv.Reset();
-		m_back_buffer_srv.Reset();
-		m_depth_buffer_dsv.Reset();
-		m_depth_buffer_srv.Reset();
 
 		BOOL current = false;
 		if (toggle) {

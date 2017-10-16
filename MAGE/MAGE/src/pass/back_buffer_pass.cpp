@@ -15,23 +15,22 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ImagePass *ImagePass::Get() {
+	BackBufferPass *BackBufferPass::Get() {
 		Assert(SceneRenderer::Get());
 
-		return SceneRenderer::Get()->GetImagePass();
+		return SceneRenderer::Get()->GetBackBufferPass();
 	}
 
-	ImagePass::ImagePass()
+	BackBufferPass::BackBufferPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateNearFullscreenTriangleVS()), 
-		m_image_ps(CreateImagePS()),
-		m_image_depth_ps(CreateImageDepthPS()) {}
+		m_ps(CreateBackBufferPS()) {}
 
-	ImagePass::ImagePass(ImagePass &&render_pass) = default;
+	BackBufferPass::BackBufferPass(BackBufferPass &&render_pass) = default;
 
-	ImagePass::~ImagePass() = default;
+	BackBufferPass::~BackBufferPass() = default;
 
-	void ImagePass::BindFixedState(bool transfer_depth) {
+	void BackBufferPass::BindFixedState() {
 		// VS: Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		// HS: Bind the hull shader.
@@ -42,24 +41,15 @@ namespace mage {
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
 		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		// PS: Bind the pixel shader.
+		m_ps->BindShader(m_device_context);
+		// OM: Bind the depth-stencil state.
+		RenderingStateManager::Get()->BindDepthNoneDepthStencilState(m_device_context);
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
-
-		if (transfer_depth) {
-			// PS: Bind the pixel shader.
-			m_image_depth_ps->BindShader(m_device_context);
-			// OM: Bind the depth-stencil state.
-			RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
-		}
-		else {
-			// PS: Bind the pixel shader.
-			m_image_ps->BindShader(m_device_context);
-			// OM: Bind the depth-stencil state.
-			RenderingStateManager::Get()->BindDepthNoneDepthStencilState(m_device_context);
-		}
 	}
 
-	void ImagePass::Render() const noexcept {
+	void BackBufferPass::Render() const noexcept {
 		
 		// Bind the primitive topology.
 		Pipeline::IA::BindPrimitiveTopology(m_device_context, 

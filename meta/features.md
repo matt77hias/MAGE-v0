@@ -73,29 +73,35 @@
         * Cook-Torrance
 * Culling
   * Non-hierarchical
+* Gamma Correction
+  * All light calculations are performed in linear space.
 * Lighting
-  * Single pass for all lights which require and do not require shadow mapping
-  * Linear fog
+  * Single pass for all lights (incl. shadow mapping)
+  * Linear fog (avoids popping artifacts)
+  * HDR
 * Normal Mapping
-  * Tangent-space
+  * Tangent-space (without relying on precomputed tangents and bitangents)
   * ~~Object-space~~ (*not supported any more*)
-  * No precomputed tangent and bitangent vectors
 * Optional occluding behavior for models
 * Optional light interaction for materials
 * Render Layers (multiple render layers/camera)
   * Bounding volumes
   * Wireframe
 * Render Modes (single render mode/camera)
-  * Forward (with optional early Depth pass)
+  * Forward
   * Deferred
   * Various material and component visualizations
 * Shadow Mapping
   * Support for both opaque and transparent models
-  * Depth and slope biasing
+  * Depth and slope scaled biasing
   * PCF filtering
   * Omni lights and spotlights
 * Sky Domes
 * Sprites
+* Tone Mapping
+  * ACES
+  * Reinhard
+  * Uncharted
 * Transparency
   * ~~Alpha-to-Coverage~~ (*not supported any more (HDR pipeline)*)
   * Single layer Alpha Blending
@@ -119,7 +125,8 @@
   * Omni
   * Spot
 * Model
-* Sptite
+* Sky
+* Sprite
   * Image
   * Text
   

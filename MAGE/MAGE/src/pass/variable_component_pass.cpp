@@ -235,8 +235,12 @@ namespace mage {
 		ProcessModels(scene->GetOpaqueBRDFModels(), 
 			world_to_projection, world_to_view, view_to_world);
 		
-		// Bind the blend state.
-		RenderingStateManager::Get()->BindAlphaBlendState(m_device_context);
+		if (   RenderMode::BaseColor            == m_render_mode
+			|| RenderMode::BaseColorTexture     == m_render_mode
+			|| RenderMode::BaseColorCoefficient == m_render_mode) {
+			// Bind the blend state.
+			RenderingStateManager::Get()->BindAlphaBlendState(m_device_context);
+		}
 		
 		// Process the transparent models.
 		ProcessModels(scene->GetTransparentEmissiveModels(), 

@@ -2,6 +2,15 @@
 #define MAGE_HEADER_BRDF
 
 //-----------------------------------------------------------------------------
+// Engine Declarations and Definitions: Constants
+//-----------------------------------------------------------------------------
+
+/**
+ The reflectance at normal incidence for dielectric (i.e. non-metal) materials.
+ */
+static const float g_dielectric_F0 = 0.04f;
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Utilities
 //-----------------------------------------------------------------------------
 
@@ -55,15 +64,6 @@ float3 HalfDirection(float3 l, float3 v) {
 	// l+v / ||l+v||
 	return normalize(l + v);
 }
-
-//-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Constants
-//-----------------------------------------------------------------------------
-
-/**
- The reflectance at normal incidence for dielectric (i.e. non-metal) materials.
- */
-static const float g_dielectric_F0 = 0.03f;
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Normal Distribution Function

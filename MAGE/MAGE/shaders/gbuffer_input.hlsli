@@ -37,7 +37,7 @@ CBUFFER(PerDraw, SLOT_CBUFFER_PER_DRAW) {
 //-----------------------------------------------------------------------------
 TEXTURE_2D(g_base_color_texture, float4, SLOT_SRV_BASE_COLOR);
 TEXTURE_2D(g_material_texture,   float4, SLOT_SRV_MATERIAL);
-TEXTURE_2D(g_normal_texture,     float3, SLOT_SRV_NORMAL);
+TEXTURE_2D(g_normal_texture,     float2, SLOT_SRV_NORMAL);
 
 //-----------------------------------------------------------------------------
 // Definitions and Declarations
@@ -73,8 +73,8 @@ float2 GetMaterialParameters(float2 tex) {
 #ifdef DISSABLE_MATERIAL_TEXTURE
 	return float2(g_roughness, g_metalness);
 #else  // DISSABLE_MATERIAL_TEXTURE
-	const float2 material   = 
-		g_material_texture.Sample(g_linear_wrap_sampler, tex).xy;
+	const float2 material 
+		= g_material_texture.Sample(g_linear_wrap_sampler, tex).xy;
 	return float2(g_roughness, g_metalness) * material;
 #endif // DISSABLE_MATERIAL_TEXTURE
 }
@@ -94,8 +94,8 @@ float3 GetNormal(float3 p, float3 n, float2 tex) {
 	// Obtain the view-space normal.
 #ifdef TSNM
 	// Obtain the tangent-space normal coefficients in the [-1,1] range. 
-	const float3 c = UnpackNormal(
-		g_normal_texture.Sample(g_linear_wrap_sampler, tex));
+	const float3 c 
+		= UnpackNormal(g_normal_texture.Sample(g_linear_wrap_sampler, tex));
 	// Perturb the view-space normal.
 	return PerturbNormal(p, normalize(n), tex, c);
 #else  // TSNM

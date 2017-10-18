@@ -587,11 +587,28 @@ float4 SNORMtoUNORM(float4 v) {
 /**
  Converts the given normal from the [0,1] range to the [-1,1] range.
 
+ The z component will be positive and will be calculated from the x and y 
+ components.
+
  @pre			The given normal is in the [0,1] range.
  @param[in]		n
 				The normal in the [0,1] range to convert.
  @return		The converted normal in the [-1,1] range.
- @note			If the given normal was normalized before packing, the converted 
+ */
+float3 UnpackNormal(float2 n) {
+	const float2 c_xy = UNORMtoSNORM(n);
+	const float  c_z  = sqrt(1.0f - dot(c_xy, c_xy));
+	return float3(c_xy, c_z);
+}
+
+/**
+ Converts the given normal from the [0,1] range to the [-1,1] range.
+
+ @pre			The given normal is in the [0,1] range.
+ @param[in]		n
+				The normal in the [0,1] range to convert.
+ @return		The converted normal in the [-1,1] range.
+ @post			If the given normal was normalized before packing, the converted 
 				normal will be normalized after unpacking.
  */
 float3 UnpackNormal(float3 n) {

@@ -83,7 +83,7 @@ float3 GetGBufferNormal(float2 location) {
  */
 float3 GetGBufferPosition(float2 location, float2 p_ndc_xy) {
 	// Load the depth from the GBuffer depth texture.
-	const float depth  = g_depth_texture[location];
+	const float  depth = g_depth_texture[location];
 	// Obtain the NDC space coodinates.
 	const float3 p_ndc = float3(p_ndc_xy, depth);
 	// Obtain the view space coodinates.

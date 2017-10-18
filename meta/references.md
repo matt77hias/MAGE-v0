@@ -156,6 +156,8 @@ WALTER B., MARSCHNER S., LI H., TORRANCE K.: *Microfacet Models for Refraction T
 
 WARD G. J.: *Measuring and Modeling Anisotropic Reflection*, *SIGGRAPH Comput. Graph.* 26, 2, 1992.
 
+WILSON J.: [*PBR Texture Conversion*](https://www.marmoset.co/posts/pbr-texture-conversion/), 2015.
+
 WITTERS K.: [*deWiTTERS Game Loop*](http://www.koonsolo.com/news/dewitters-gameloop/), 2009.
 
 WRONSKI B.: [*Image dynamic range*](https://bartwronski.com/2016/09/01/dynamic-range-and-evs/comment-page-1/), 2016.

@@ -56,6 +56,8 @@ CAFLISCH R.E.: *Monte Carlo and quasi-Monte Carlo methods*, Acta Numerica, Cambr
 
 COOK R. L., TORRANCE K. E.: *A Reflectance Model for Computer Graphics*, *ACM Trans. Graph.* 1, 1, 1982.
 
+CRYENGINE: [Tangent Space Normal Mapping](http://docs.cryengine.com/display/SDKDOC4/Tangent+Space+Normal+Mapping), 2013.
+
 DE VRIES J.: [Learn OpenGL](https://learnopengl.com/), 2014.
 
 DRAGO F., MYSZKOWSKI K., ANNEN T., CHIBA N.: *Adaptive Logarithmic Mapping For Displaying High Contrast Scenes*, *Computer Graphics Forum* 22, 3, 2003.

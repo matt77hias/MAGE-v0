@@ -18,7 +18,9 @@
   * Marko Dabrovic (original version),
   * Frank Meinl (modified version, [data](http://www.crytek.com/cryengine/cryengine3/downloads)),
   * Morgan McGuire (updated version, [data](http://graphics.cs.williams.edu/data/meshes.xml)),
-  * Matthias Moulin (updated version).
+  * Matthias Moulin (updated version),
+  * Alexandre Pestana(http://www.alexandre-pestana.com/pbr-textures-sponza/) (updated version for metalness workflow, [data](http://www.alexandre-pestana.com/pbr-textures-sponza/)),
+  * Matthias Moulin (updated version). 
   
 * Skull:
   * Frank D. Luna (original version),
@@ -32,9 +34,7 @@
   * Martin Newell (original version),
   * Kenzie Lamar (updated version),
   * Morgan McGuire ([data](http://graphics.cs.williams.edu/data/meshes.xml)),
-  * Matthias Moulin (updated version for specular workflow),
-  * [Alexandre Pestana](http://www.alexandre-pestana.com/pbr-textures-sponza/) (updated version for metalness workflow),
-  * Matthias Moulin (updated version for metalness workflow). 
+  * Matthias Moulin (updated version).
   
 * [Logo](http://www.deviantart.com/art/Black-Mage-356147620) [[License](https://creativecommons.org/licenses/by-nc-nd/3.0/)]
 

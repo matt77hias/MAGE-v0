@@ -24,5 +24,5 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 	const float3 L = BRDFShading(p_view, n_view, 
 		                         base_color, material.x, material.y);
 
-	return (material.x) ? float4(L, 1.0f) : float4(0.0f, 0.0f, 0.0f, 1.0f);
+	return float4(L, 1.0f);
 }

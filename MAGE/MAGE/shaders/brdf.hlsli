@@ -1315,7 +1315,7 @@ float3 LambertianBRDFxCos(float3 n, float3 l, float3 v,
 float3 CookTorranceBRDFxCos(float3 n, float3 l, float3 v, 
 	float3 base_color, float roughness, float metalness) {
 	
-	const float  alpha   = sqr(roughness);
+	const float  alpha   = max(0.1f, sqr(roughness));
 	const float  n_dot_l = sat_dot(n, l);
 	const float  n_dot_v = sat_dot(n, v);
 	const float3 h       = HalfDirection(l, v);
@@ -1361,7 +1361,7 @@ float F_D90(float v_dot_h, float roughness) {
 float3 DisneyBRDFxCos(float3 n, float3 l, float3 v, 
 	float3 base_color, float roughness, float metalness) {
 	
-	const float  alpha   = sqr(roughness);
+	const float  alpha   = min(0.1f, sqr(roughness));
 	const float  n_dot_l = sat_dot(n, l);
 	const float  n_dot_v = sat_dot(n, v);
 	const float3 h       = HalfDirection(l, v);

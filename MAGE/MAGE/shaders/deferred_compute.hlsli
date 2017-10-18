@@ -37,6 +37,5 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 		                         base_color, material.x, material.y);
 
 	// Store the pixel color.
-	g_output[location] = (material.x) ? 
-		float4(L, 1.0f) : float4(0.0f, 0.0f, 0.0f, 1.0f);
+	g_output[location] = float4(L, 1.0f);
 }

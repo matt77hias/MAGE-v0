@@ -32,7 +32,9 @@
   * Martin Newell (original version),
   * Kenzie Lamar (updated version),
   * Morgan McGuire ([data](http://graphics.cs.williams.edu/data/meshes.xml)),
-  * Matthias Moulin (updated version).
+  * Matthias Moulin (updated version for specular workflow),
+  * [Alexandre Pestana](http://www.alexandre-pestana.com/pbr-textures-sponza/) (updated version for metalness workflow),
+  * Matthias Moulin (updated version for metalness workflow). 
   
 * [Logo](http://www.deviantart.com/art/Black-Mage-356147620) [[License](https://creativecommons.org/licenses/by-nc-nd/3.0/)]
 

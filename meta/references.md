@@ -18,7 +18,9 @@
   * Marko Dabrovic (original version),
   * Frank Meinl (modified version, [data](http://www.crytek.com/cryengine/cryengine3/downloads)),
   * Morgan McGuire (updated version, [data](http://graphics.cs.williams.edu/data/meshes.xml)),
-  * Matthias Moulin (updated version).
+  * Matthias Moulin (updated version),
+  * Alexandre Pestana(http://www.alexandre-pestana.com/pbr-textures-sponza/) (updated version for metalness workflow, [data](http://www.alexandre-pestana.com/pbr-textures-sponza/)),
+  * Matthias Moulin (updated version). 
   
 * Skull:
   * Frank D. Luna (original version),
@@ -155,6 +157,8 @@ UPCHURCH P., DESBRUN M.: *Tightening the Precision of Perspective Rendering*, *J
 WALTER B., MARSCHNER S., LI H., TORRANCE K.: *Microfacet Models for Refraction Through Rough Surfaces*, *Proceedings of the 18th Eurographics Conference on Rendering Techniques*, 2007.
 
 WARD G. J.: *Measuring and Modeling Anisotropic Reflection*, *SIGGRAPH Comput. Graph.* 26, 2, 1992.
+
+WILSON J.: [*PBR Texture Conversion*](https://www.marmoset.co/posts/pbr-texture-conversion/), 2015.
 
 WITTERS K.: [*deWiTTERS Game Loop*](http://www.koonsolo.com/news/dewitters-gameloop/), 2009.
 

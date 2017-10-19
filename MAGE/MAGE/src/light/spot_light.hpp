@@ -412,11 +412,12 @@ namespace mage {
 						this spot light.
 		 */
 		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
+			// Reversed-Z used for the depth buffer.
 			return XMMatrixPerspectiveFovLH(
 				GetFOV(),
 				GetAspectRatio(),
-				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z,
-				GetEndDistanceFalloff());
+				GetEndDistanceFalloff(),
+				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z);
 		}
 
 		/**

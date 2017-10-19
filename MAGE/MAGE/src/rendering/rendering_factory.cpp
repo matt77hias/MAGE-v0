@@ -174,46 +174,6 @@ namespace mage {
 		return device->CreateDepthStencilState(&desc, depth_stencil_state);
 	}
 
-	HRESULT CreateLessEqualDepthReadWriteDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept {
-		
-		Assert(device);
-		Assert(depth_stencil_state);
-
-		return CreateDepthReadWriteDepthStencilState(
-			device, depth_stencil_state, D3D11_COMPARISON_LESS_EQUAL);
-	}
-	
-	HRESULT CreateLessEqualDepthReadDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept {
-		
-		Assert(device);
-		Assert(depth_stencil_state);
-
-		return CreateDepthReadDepthStencilState(
-			device, depth_stencil_state, D3D11_COMPARISON_LESS_EQUAL);
-	}
-
-	HRESULT CreateLessDepthReadWriteDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept {
-		
-		Assert(device);
-		Assert(depth_stencil_state);
-
-		return CreateDepthReadWriteDepthStencilState(
-			device, depth_stencil_state, D3D11_COMPARISON_LESS);
-	}
-	
-	HRESULT CreateLessDepthReadDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept {
-		
-		Assert(device);
-		Assert(depth_stencil_state);
-
-		return CreateDepthReadDepthStencilState(
-			device, depth_stencil_state, D3D11_COMPARISON_LESS);
-	}
-
 	//-------------------------------------------------------------------------
 	// Rasterizer states
 	//-------------------------------------------------------------------------

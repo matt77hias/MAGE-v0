@@ -199,63 +199,63 @@ namespace mage {
 		}
 
 		/**
-		 Binds the less-equal, read-write depth stencil state of this rendering
+		 Binds the greater-equal, read-write depth stencil state of this rendering
 		 state manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindLessEqualDepthReadWriteDepthStencilState(
+		void BindGreaterEqualDepthReadWriteDepthStencilState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::LessEqualDepthReadWrite));
+				GetDepthStencilState(DepthStencilStateIndex::GreaterEqualDepthReadWrite));
 		}
 
 		/**
-		 Binds the less-equal, read depth stencil state of this rendering state 
+		 Binds the greater-equal, read depth stencil state of this rendering state 
 		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindLessEqualDepthReadDepthStencilState(
+		void BindGreaterEqualDepthReadDepthStencilState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::LessEqualDepthRead));
+				GetDepthStencilState(DepthStencilStateIndex::GreaterEqualDepthRead));
 		}
 
 		/**
-		 Binds the less, read-write depth stencil state of this rendering state 
+		 Binds the greater, read-write depth stencil state of this rendering state 
 		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindLessDepthReadWriteDepthStencilState(
+		void BindGreaterDepthReadWriteDepthStencilState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::LessDepthReadWrite));
+				GetDepthStencilState(DepthStencilStateIndex::GreaterDepthReadWrite));
 		}
 
 		/**
-		 Binds the less, read depth stencil state of this rendering state 
+		 Binds the greater, read depth stencil state of this rendering state 
 		 manager.
 
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void BindLessDepthReadDepthStencilState(
+		void BindGreaterDepthReadDepthStencilState(
 			ID3D11DeviceContext2 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
-				GetDepthStencilState(DepthStencilStateIndex::LessDepthRead));
+				GetDepthStencilState(DepthStencilStateIndex::GreaterDepthRead));
 		}
 
 		//---------------------------------------------------------------------
@@ -626,18 +626,18 @@ namespace mage {
 
 		 This contains:
 		 @c DepthNone,
-		 @c LessEqualDepthReadWrite,
-		 @c LessEqualDepthRead,
-		 @c LessDepthReadWrite and
-		 @c LessDepthRead.
+		 @c GreaterEqualDepthReadWrite,
+		 @c GreaterEqualDepthRead,
+		 @c GreaterDepthReadWrite and
+		 @c GreaterDepthRead.
 		 */
 		enum struct DepthStencilStateIndex {
-			DepthNone               = 0,
-			LessEqualDepthReadWrite = 1,
-			LessEqualDepthRead      = 2,
-			LessDepthReadWrite      = 3,
-			LessDepthRead           = 4,
-			Count                   = 5
+			DepthNone                  = 0,
+			GreaterEqualDepthReadWrite = 1,
+			GreaterEqualDepthRead      = 2,
+			GreaterDepthReadWrite      = 3,
+			GreaterDepthRead           = 4,
+			Count                      = 5
 		};
 		
 		/**

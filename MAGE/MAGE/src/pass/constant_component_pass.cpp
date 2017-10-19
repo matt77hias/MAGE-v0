@@ -112,7 +112,7 @@ namespace mage {
 		// PS: Bind the pixel shader.
 		BindPS(render_mode);
 		// OM: Bind the depth-stencil state.
-		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}

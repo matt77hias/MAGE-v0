@@ -333,8 +333,9 @@ namespace mage {
 						camera.
 		 */
 		virtual const XMMATRIX GetViewToProjectionMatrix() const noexcept override {
+			// Reversed-Z used for the depth buffer.
 			return XMMatrixPerspectiveFovLH(
-				GetFOVY(), GetAspectRatio(), GetNearZ(), GetFarZ());
+				GetFOVY(), GetAspectRatio(), GetFarZ(), GetNearZ());
 		}
 
 		/**

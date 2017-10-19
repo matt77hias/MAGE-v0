@@ -347,62 +347,6 @@ namespace mage {
 		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state,
 		D3D11_COMPARISON_FUNC depth_comparison_function) noexcept;
 
-	/**
-	 Creates a read-write depth stencil state.
-
-	 @pre			@a device is not equal to @c nullptr.
-	 @pre			@a depth_stencil_state is not equal to @c nullptr.
-	 @param[in]		device
-					A pointer to the device.
-	 @param[out]	depth_stencil_state
-					A pointer to a pointer to the depth stencil state.
-	 @return		A success/error value.
-	 */
-	HRESULT CreateLessEqualDepthReadWriteDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept;
-	
-	/**
-	 Creates a read-only depth stencil state.
-
-	 @pre			@a device is not equal to @c nullptr.
-	 @pre			@a depth_stencil_state is not equal to @c nullptr.
-	 @param[in]		device
-					A pointer to the device.
-	 @param[out]	depth_stencil_state
-					A pointer to a pointer to the depth stencil state.
-	 @return		A success/error value.
-	 */
-	HRESULT CreateLessEqualDepthReadDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept;
-
-	/**
-	 Creates a read-write depth stencil state.
-
-	 @pre			@a device is not equal to @c nullptr.
-	 @pre			@a depth_stencil_state is not equal to @c nullptr.
-	 @param[in]		device
-					A pointer to the device.
-	 @param[out]	depth_stencil_state
-					A pointer to a pointer to the depth stencil state.
-	 @return		A success/error value.
-	 */
-	HRESULT CreateLessDepthReadWriteDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept;
-	
-	/**
-	 Creates a read-only depth stencil state.
-
-	 @pre			@a device is not equal to @c nullptr.
-	 @pre			@a depth_stencil_state is not equal to @c nullptr.
-	 @param[in]		device
-					A pointer to the device.
-	 @param[out]	depth_stencil_state
-					A pointer to a pointer to the depth stencil state.
-	 @return		A success/error value.
-	 */
-	HRESULT CreateLessDepthReadDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept;
-
 	//-------------------------------------------------------------------------
 	// Rasterizer states
 	//-------------------------------------------------------------------------

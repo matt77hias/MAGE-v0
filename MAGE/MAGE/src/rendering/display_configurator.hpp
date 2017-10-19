@@ -51,7 +51,7 @@ namespace mage {
 						The pixel format.
 		 */
 		explicit DisplayConfigurator(
-			DXGI_FORMAT pixel_format = DXGI_FORMAT_R8G8B8A8_UNORM);
+			DXGI_FORMAT pixel_format = DXGI_FORMAT_R10G10B10A2_UNORM);
 
 		/**
 		 Constructs a display configurator.
@@ -65,7 +65,7 @@ namespace mage {
 		 */
 		explicit DisplayConfigurator(
 			ComPtr< IDXGIAdapter2 > adapter, ComPtr< IDXGIOutput2 > output,
-			DXGI_FORMAT pixel_format = DXGI_FORMAT_R8G8B8A8_UNORM);
+			DXGI_FORMAT pixel_format = DXGI_FORMAT_R10G10B10A2_UNORM);
 
 		/**
 		 Constructs a display configurator from the given display configurator.
@@ -234,9 +234,9 @@ namespace mage {
 		ComPtr< IDXGIOutput2 > m_output;
 
 		/**
-		 The linked list of enumerated display modes of this display 
+		 The enumerated display modes of this display 
 		 configurator.
 		 */
-		list< DXGI_MODE_DESC1 > m_display_modes;
+		vector< DXGI_MODE_DESC1 > m_display_modes;
 	};
 }

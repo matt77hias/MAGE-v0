@@ -165,8 +165,7 @@ namespace mage {
 	}
 	
 	void DisplayConfigurator::InitializeDisplayModes() {
-		// Create the display modes linked list.
-		m_display_modes = list< DXGI_MODE_DESC1 >();
+		m_display_modes = vector< DXGI_MODE_DESC1 >();
 
 		// Get the DXGI_MODE_DESCs. 
 		const U32 flags = DXGI_ENUM_MODES_INTERLACED;

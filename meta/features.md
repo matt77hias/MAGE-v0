@@ -91,6 +91,9 @@
   * Forward
   * Deferred
   * Various material and component visualizations
+* Reversed Z-depth
+  * 32bit float for depth buffer
+  * 16bit unorm|32bit float for shadow (cube) maps
 * Shadow Mapping
   * Support for both opaque and transparent models
   * Depth and slope scaled biasing

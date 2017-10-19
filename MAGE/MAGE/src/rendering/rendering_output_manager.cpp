@@ -134,7 +134,7 @@ namespace mage {
 		texture_desc.Height           = height;
 		texture_desc.MipLevels        = 1u;
 		texture_desc.ArraySize        = 1u;
-		texture_desc.Format           = DXGI_FORMAT_R24G8_TYPELESS;
+		texture_desc.Format           = DXGI_FORMAT_R32_TYPELESS;
 		texture_desc.SampleDesc.Count = 1u;
 		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
 		texture_desc.BindFlags        = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_DEPTH_STENCIL;
@@ -149,7 +149,7 @@ namespace mage {
 
 		// Create the SRV descriptor.
 		D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
-		srv_desc.Format               = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
+		srv_desc.Format               = DXGI_FORMAT_R32_FLOAT;
 		srv_desc.ViewDimension        = D3D11_SRV_DIMENSION_TEXTURE2D;
 		srv_desc.Texture2D.MipLevels  = 1u;
 		
@@ -162,7 +162,7 @@ namespace mage {
 
 		// Create the DSV descriptor.
 		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
-		dsv_desc.Format               = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		dsv_desc.Format               = DXGI_FORMAT_D32_FLOAT;
 		dsv_desc.ViewDimension        = D3D11_DSV_DIMENSION_TEXTURE2D;
 
 		// Create the DSV.
@@ -191,7 +191,7 @@ namespace mage {
 			GetRTV(RTVIndex::GBuffer_Normal));
 
 		// Clear the DSV.
-		Pipeline::OM::ClearDSV(device_context, m_dsv.Get());
+		Pipeline::OM::ClearDepthOfDSV(device_context, m_dsv.Get());
 
 		// Bind no HDR SRV.
 		Pipeline::PS::BindSRV(device_context, 

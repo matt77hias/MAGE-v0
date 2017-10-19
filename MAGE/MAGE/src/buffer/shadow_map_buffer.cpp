@@ -65,9 +65,9 @@ namespace mage {
 		
 		default: {
 			SetupShadowMapArray(device, nb_shadow_maps, 
-				                DXGI_FORMAT_R24G8_TYPELESS, 
-				                DXGI_FORMAT_D24_UNORM_S8_UINT, 
-				                DXGI_FORMAT_R24_UNORM_X8_TYPELESS);
+				                DXGI_FORMAT_R32_TYPELESS, 
+				                DXGI_FORMAT_D32_FLOAT, 
+				                DXGI_FORMAT_R32_FLOAT);
 			break;
 		}
 		}
@@ -180,7 +180,7 @@ namespace mage {
 		switch (m_format) {
 		
 		case DepthFormat::D16: {
-			SetupShadowCubeMapArray(device, nb_shadow_cube_maps, 
+			SetupShadowCubeMapArray(device, nb_shadow_cube_maps,
 				                    DXGI_FORMAT_R16_TYPELESS, 
 				                    DXGI_FORMAT_D16_UNORM, 
 				                    DXGI_FORMAT_R16_UNORM);
@@ -188,10 +188,10 @@ namespace mage {
 		}
 		
 		default: {
-			SetupShadowCubeMapArray(device, nb_shadow_cube_maps, 
-				                    DXGI_FORMAT_R24G8_TYPELESS,
-				                    DXGI_FORMAT_D24_UNORM_S8_UINT,
-				                    DXGI_FORMAT_R24_UNORM_X8_TYPELESS);
+			SetupShadowCubeMapArray(device, nb_shadow_cube_maps,
+				                    DXGI_FORMAT_R32_TYPELESS, 
+				                    DXGI_FORMAT_D32_FLOAT, 
+				                    DXGI_FORMAT_R32_FLOAT);
 			break;
 		}
 		}

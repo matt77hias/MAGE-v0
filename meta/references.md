@@ -44,6 +44,8 @@ A.M.P.A.S.: [*Academy Color Encoding System Developer Resources*](https://github
 
 AKENINE-MÖLLER T., HAINES E., HOFFMAN N.: *Real-Time Rendering*, 3th Edition, A K Peters/CRC Press, 2008.
 
+BAKER S.: [*Learning to Love your Z-buffer*](https://www.sjbaker.org/steve/omniv/love_your_z_buffer.html), s.d.
+
 BECKMANN P., SPIZZICHINO A.: *The scattering of electromagnetic waves from rough surfaces*, *Proceedings of the IEEE* 52, 11, 1964.
 
 BLINN J. F.: *Models of Light Reflection for Computer Synthesized Pictures*, *SIGGRAPH Comput. Graph.* 11, 2, 1977.
@@ -98,6 +100,8 @@ KAJIYA J. T.: *The Rendering Equation*, *Proceedings of the 13th Annual Conferen
 
 KELEMEN C., SZIRMAY-KALOS L.: *A Microfacet Based Coupled Specular-Matte BRDF Model with Importance Sampling*, *Eurographics Short Presentations*, 2001.
 
+KEMEN B.: [*Maximizing Depth Buffer Range and Precision*](http://outerra.blogspot.be/2012/11/maximizing-depth-buffer-range-and.html), 2012.
+
 LAPIDOUS E., JIA G.: *Optimal depth buffer for low-cost graphics hardware*, *Proceedings of the ACM SIGGRAPH/EUROGRAPHICS Workshop on Graphics Hardware*, 1999.
 
 LENGYEL E.: *Foundations of Game Engine Development, Volume 1: Mathematics*, 1st Edition, Terathon Software LLC, 2016.
@@ -130,7 +134,11 @@ NYSTROM R.: *Game Programming Patterns*, 1st Edition, Genever Benning, 2014.
 
 PERSSON E.: [*A couple of notes about Z*](http://www.humus.name/index.php?ID=255), 2009.
 
+PERSSON E.: *Creating Vast Game Worlds*, *ACM SIGGRAPH 2012 Talks*, 2012.
+
 PETTINEO M.: [*A Closer Look At Tone Mapping*](https://mynameismjp.wordpress.com/2010/04/30/a-closer-look-at-tone-mapping/), 2010.
+
+PETTINEO M.: [*Attack of the Depth Buffer*](https://mynameismjp.wordpress.com/2010/03/22/attack-of-the-depth-buffer/), 2010.
 
 PHARR M., HUMPHREYS: *Physically Based Rendering: From Theory to Implementation*, 2nd Edition, Morgan Kaufmann, 2010.
 

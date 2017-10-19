@@ -35,11 +35,11 @@ namespace mage {
 
 	void XM_CALLCONV SkyPass::BindTransformData(
 		FXMMATRIX view_to_world,
-		CXMMATRIX view_to_projection) {
+		CXMMATRIX projection_to_view) {
 
 		SkyBuffer buffer;
-		buffer.m_projection_values = GetViewPositionConstructionValues(view_to_projection);
-		buffer.m_view_to_world     = XMMatrixTranspose(view_to_world);
+		buffer.m_projection_to_view = XMMatrixTranspose(projection_to_view);
+		buffer.m_view_to_world      = XMMatrixTranspose(view_to_world);
 
 		// Update the transform buffer.
 		m_transform_buffer.UpdateData(m_device_context, buffer);
@@ -70,12 +70,12 @@ namespace mage {
 	void SkyPass::Render(
 		const PassBuffer *scene,
 		FXMMATRIX view_to_world,
-		CXMMATRIX view_to_projection) {
+		CXMMATRIX projection_to_view) {
 		
 		Assert(scene);
 
 		// Bind the transform data.
-		BindTransformData(view_to_world, view_to_projection);
+		BindTransformData(view_to_world, projection_to_view);
 		// Bind the sky SRV.
 		Pipeline::PS::BindSRV(m_device_context, 
 			SLOT_SRV_TEXTURE,

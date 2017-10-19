@@ -113,14 +113,14 @@ namespace mage {
 						A pointer to the scene.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix.
+		 @param[in]		projection_to_view
+						The projection-to-view transformation matrix.
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(const PassBuffer *scene,
 			FXMMATRIX view_to_world,
-			CXMMATRIX view_to_projection);
+			CXMMATRIX projection_to_view);
 		
 	private:
 
@@ -133,14 +133,14 @@ namespace mage {
 
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix.
+		 @param[in]		projection_to_view
+						The projection-to-view transformation matrix.
 		 @throws		FormattedException
 						Failed to bind the transform data of this sky.
 		 */
 		void XM_CALLCONV BindTransformData(
 			FXMMATRIX view_to_world,
-			CXMMATRIX view_to_projection);
+			CXMMATRIX projection_to_view);
 
 		//---------------------------------------------------------------------
 		// Member Variables

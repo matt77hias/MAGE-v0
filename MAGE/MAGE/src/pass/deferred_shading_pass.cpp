@@ -42,11 +42,11 @@ namespace mage {
 	}
 
 	void XM_CALLCONV DeferredShadingPass::BindUnpackData(
-		FXMMATRIX view_to_projection) {
+		FXMMATRIX projection_to_view) {
 
 		// Update the transform buffer.
 		m_transform_buffer.UpdateData(m_device_context, 
-			GetViewPositionConstructionValues(view_to_projection));
+			XMMatrixTranspose(projection_to_view));
 		// Bind the deferred buffer.
 		m_transform_buffer.Bind< Pipeline::CS >(
 			m_device_context, SLOT_CBUFFER_PER_FRAME);
@@ -61,10 +61,10 @@ namespace mage {
 	}
 
 	void XM_CALLCONV DeferredShadingPass::Render(
-		FXMMATRIX view_to_projection) {
+		FXMMATRIX projection_to_view) {
 
 		// Bind the unpack data.
-		BindUnpackData(view_to_projection);
+		BindUnpackData(projection_to_view);
 
 		// Dispatch.
 		const RenderingManager * const rendering_manager 

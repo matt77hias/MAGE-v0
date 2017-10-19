@@ -337,6 +337,28 @@ namespace mage {
 				GetFOVY(), GetAspectRatio(), GetNearZ(), GetFarZ());
 		}
 
+		/**
+		 Returns the projection-to-view matrix of this perspective camera.
+
+		 @return		The projection-to-view matrix of this perspective 
+						camera.
+		 */
+		virtual const XMMATRIX GetProjectionToViewMatrix() const noexcept override {
+			const XMMATRIX view_to_projection = GetViewToProjectionMatrix();
+
+			const F32 m00 = 1.0f / XMVectorGetX(view_to_projection.r[0]);
+			const F32 m11 = 1.0f / XMVectorGetY(view_to_projection.r[1]);
+			const F32 m23 = 1.0f / XMVectorGetZ(view_to_projection.r[3]);
+			const F32 m33 = -XMVectorGetZ(view_to_projection.r[2]) * m23;
+
+			return XMMATRIX {
+				 m00, 0.0f, 0.0f, 0.0f,
+				0.0f,  m11, 0.0f, 0.0f,
+				0.0f, 0.0f, 0.0f,  m23,
+				0.0f, 0.0f, 1.0f,  m33
+			};
+		}
+
 	private:
 
 		//---------------------------------------------------------------------

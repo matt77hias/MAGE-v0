@@ -87,6 +87,7 @@ namespace mage {
 			const XMMATRIX world_to_view           = transform->GetWorldToViewMatrix();
 			const XMMATRIX view_to_world           = transform->GetViewToWorldMatrix();
 			const XMMATRIX view_to_projection      = camera->GetViewToProjectionMatrix();
+			const XMMATRIX projection_to_view      = camera->GetProjectionToViewMatrix();
 			const XMMATRIX world_to_projection     = world_to_view * view_to_projection;
 			const CameraSettings * const settings  = node->GetSettings();
 			const RenderMode render_mode           = settings->GetRenderMode();
@@ -101,14 +102,16 @@ namespace mage {
 
 			case RenderMode::Forward: {
 				ExecuteForwardPipeline(viewport, world_to_projection,
-					world_to_view, view_to_world, view_to_projection, brdf);
+					world_to_view, view_to_world, 
+					view_to_projection, projection_to_view, brdf);
 				
 				break;
 			}
 
 			case RenderMode::Deferred: {
 				ExecuteDeferredPipeline(viewport, world_to_projection,
-					world_to_view, view_to_world, view_to_projection, brdf);
+					world_to_view, view_to_world, 
+					view_to_projection, projection_to_view, brdf);
 				
 				break;
 			}
@@ -232,6 +235,7 @@ namespace mage {
 		CXMMATRIX world_to_view,
 		CXMMATRIX view_to_world,
 		CXMMATRIX view_to_projection,
+		CXMMATRIX projection_to_view,
 		BRDFType brdf) {
 
 		const RenderingOutputManager * const output_manager
@@ -259,7 +263,7 @@ namespace mage {
 		sky_pass->BindFixedState();
 		sky_pass->Render(
 			m_pass_buffer.get(),
-			view_to_world, view_to_projection);
+			view_to_world, projection_to_view);
 
 		// Perform a forward pass: transparent models.
 		forward_pass->BindFixedState(brdf);
@@ -274,6 +278,7 @@ namespace mage {
 		CXMMATRIX world_to_view,
 		CXMMATRIX view_to_world,
 		CXMMATRIX view_to_projection,
+		CXMMATRIX projection_to_view,
 		BRDFType brdf) {
 
 		const RenderingOutputManager * const output_manager
@@ -301,7 +306,7 @@ namespace mage {
 		// Perform a deferred pass.
 		DeferredShadingPass *deferred_pass = GetDeferredShadingPass();
 		deferred_pass->BindFixedState(brdf);
-		deferred_pass->Render(view_to_projection);
+		deferred_pass->Render(projection_to_view);
 
 		output_manager->BindForward(m_device_context);
 
@@ -317,7 +322,7 @@ namespace mage {
 		sky_pass->BindFixedState();
 		sky_pass->Render(
 			m_pass_buffer.get(),
-			view_to_world, view_to_projection);
+			view_to_world, projection_to_view);
 
 		// Perform a forward pass: transparent models.
 		forward_pass->BindFixedState(brdf);

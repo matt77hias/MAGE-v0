@@ -35,7 +35,7 @@ namespace mage {
 		 Constructs a game buffer.
 		 */
 		SkyBuffer()
-			: m_projection_values{}, 
+			: m_projection_to_view{},
 			m_view_to_world{} {}
 
 		/**
@@ -91,10 +91,10 @@ namespace mage {
 		// DirectXMath expects row-major packed matrices.
 
 		/**
-		 The projection values of the view-to-projection transformation matrix
-		 of this deferred buffer.
+		 The (camera dependent) (column-major packed, row-major matrix) 
+		 projection-to-view matrix of this sky buffer for use in HLSL.
 		 */
-		XMVECTOR m_projection_values;
+		XMMATRIX m_projection_to_view;
 
 		/**
 		 The (camera dependent) (column-major packed, row-major matrix) 
@@ -103,5 +103,5 @@ namespace mage {
 		XMMATRIX m_view_to_world;
 	};
 
-	static_assert(sizeof(SkyBuffer) == 80, "CPU/GPU struct mismatch");
+	static_assert(sizeof(SkyBuffer) == 128, "CPU/GPU struct mismatch");
 }

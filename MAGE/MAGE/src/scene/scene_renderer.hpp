@@ -376,6 +376,7 @@ namespace mage {
 			CXMMATRIX world_to_view,
 			CXMMATRIX view_to_world,
 			CXMMATRIX view_to_projection,
+			CXMMATRIX projection_to_view,
 			BRDFType brdf);
 
 		void ExecuteDeferredPipeline(
@@ -384,6 +385,7 @@ namespace mage {
 			CXMMATRIX world_to_view,
 			CXMMATRIX view_to_world,
 			CXMMATRIX view_to_projection,
+			CXMMATRIX projection_to_view,
 			BRDFType brdf);
 
 		//---------------------------------------------------------------------

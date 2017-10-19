@@ -646,35 +646,6 @@ float ViewZtoNDCZ(float p_view_z, float2 projection_values) {
 }
 
 /**
- Converts the given (non-linear) NDC z-coordinate to the (linear) view 
- z-coordinate.
-
- @param[in]		p_ndc_z
-				The (non-linear) NDC z-coordinate.
- @param[in]		projection_values
-				The projection values [view_projection32, -view_projection22].
- @return		The (linear) view z-coordinate.
- */
-float NDCZtoViewZ(float p_ndc_z, float2 projection_values) {
-	return projection_values.x / (p_ndc_z + projection_values.y);
-}
-
-/**
- Converts the given NDC coordinates to view coordinates.
-
- @param[in]		p_ndc
-				The NDC coordinates.
- @param[in]		projection_values
-				The projection values [1/view_projection00, 1/view_projection11, 
-				view_projection32, -view_projection22].
- @return		The view coordinates.
- */
-float3 NDCtoView(float3 p_ndc, float4 projection_values) {
-	const float p_view_z = NDCZtoViewZ(p_ndc.z, projection_values.zw);
-	return float3(p_ndc.xy * projection_values.xy, 1.0f) * p_view_z;
-}
-
-/**
  Converts the given NDC coordinates to UV coordinates.
 
  @param[in]		p_ndc_xy

@@ -8,12 +8,8 @@
 //-----------------------------------------------------------------------------
 CBUFFER(PerFrame, SLOT_CBUFFER_PER_FRAME) {
 	// CAMERA
-	// The projection values of the view-to-projection transformation matrix.
-	// g_projection_values.x = 1 / view_to_projection00
-	// g_projection_values.y = 1 / view_to_projection11
-	// g_projection_values.z =  view_to_projection32
-	// g_projection_values.w = -view_to_projection22
-	float4 g_projection_values : packoffset(c0);
+	// The projection-to-view transformation matrix.
+	float4x4 g_projection_to_view : packoffset(c0);
 };
 
 //-----------------------------------------------------------------------------
@@ -83,9 +79,11 @@ float3 GetGBufferNormal(float2 location) {
  */
 float3 GetGBufferPosition(float2 location, float2 p_ndc_xy) {
 	// Load the depth from the GBuffer depth texture.
-	const float  depth = g_depth_texture[location];
-	// Obtain the NDC space coodinates.
-	const float3 p_ndc = float3(p_ndc_xy, depth);
+	const float  depth  = g_depth_texture[location];
+	// Obtain the projection space coodinates.
+	const float4 p_proj = float4(p_ndc_xy, depth, 1.0f);
 	// Obtain the view space coodinates.
-	return NDCtoView(p_ndc, g_projection_values);
+	const float4 p_view = mul(p_proj, g_projection_to_view);
+	const float  inv_p_view_w = 1.0f / p_view.w;
+	return p_view.xyz * inv_p_view_w;
 }

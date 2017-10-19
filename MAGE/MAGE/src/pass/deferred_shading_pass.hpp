@@ -119,13 +119,13 @@ namespace mage {
 		/**
 		 Render.
 
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix.
+		 @param[in]		projection_to_view
+						The projection-to-view transformation matrix.
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(
-			FXMMATRIX view_to_projection);
+			FXMMATRIX projection_to_view);
 		
 	private:
 
@@ -150,15 +150,14 @@ namespace mage {
 		/**
 		 Binds the GBuffer unpacking data of this deferred shading pass.
 
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix used for
-						transforming vertices.
+		 @param[in]		projection_to_view
+						The projection-to-view transformation matrix.
 		 @throws		FormattedException
 						Failed to bind the projection data of this deferred 
 						shading pass.
 		 */
 		void XM_CALLCONV BindUnpackData(
-			FXMMATRIX view_to_projection);
+			FXMMATRIX projection_to_view);
 	
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -182,6 +181,6 @@ namespace mage {
 		/**
 		 The transform buffer of this deferred shading pass.
 		 */
-		ConstantBuffer< XMVECTOR > m_transform_buffer;
+		ConstantBuffer< XMMATRIX > m_transform_buffer;
 	};
 }

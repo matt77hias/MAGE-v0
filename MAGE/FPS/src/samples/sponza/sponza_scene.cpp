@@ -75,23 +75,23 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Lights
 		//---------------------------------------------------------------------
-		//auto omni_light = Create< OmniLightNode >("light");
-		//omni_light->GetTransform()->SetTranslationY(2.0f);
-		//omni_light->GetLight()->SetDistanceFalloff(0.0f, 3.0f);
-		//omni_light->GetLight()->SetIntensity(RGBSpectrum(4.0f));
-		//omni_light->GetLight()->EnableShadows();
+		auto omni_light = Create< OmniLightNode >("light");
+		omni_light->GetTransform()->SetTranslationY(2.0f);
+		omni_light->GetLight()->SetDistanceFalloff(0.0f, 3.0f);
+		omni_light->GetLight()->SetIntensity(RGBSpectrum(4.0f));
+		omni_light->GetLight()->EnableShadows();
 
-		auto spot_light = Create< SpotLightNode >("light");
-		spot_light->GetTransform()->SetTranslationY(2.0f);
-		spot_light->GetTransform()->SetRotationX(XM_PIDIV2);
-		spot_light->GetLight()->SetDistanceFalloff(0.0f, 3.0f);
-		spot_light->GetLight()->SetAngularCutoff(1.0f, sqrt(2.0f) / 2.0f);
-		spot_light->GetLight()->EnableShadows();
+		//auto spot_light = Create< SpotLightNode >("light");
+		//spot_light->GetTransform()->SetTranslationY(2.0f);
+		//spot_light->GetTransform()->SetRotationX(XM_PIDIV2);
+		//spot_light->GetLight()->SetDistanceFalloff(0.0f, 3.0f);
+		//spot_light->GetLight()->SetAngularCutoff(1.0f, sqrt(2.0f) / 2.0f);
+		//spot_light->GetLight()->EnableShadows();
 
-		//auto light = Create< SpotLightNode >("light");
-		//light->GetLight()->SetDistanceFalloff(0.0f, 5.0f);
-		//light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
-		//camera->AddChildNode(light);
+		auto light = Create< SpotLightNode >("light");
+		light->GetLight()->SetDistanceFalloff(0.0f, 5.0f);
+		light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
+		camera->AddChildNode(light);
 
 		//---------------------------------------------------------------------
 		// Image

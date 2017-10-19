@@ -189,9 +189,9 @@ namespace mage {
 		D3D11_RASTERIZER_DESC desc = {};
 		desc.CullMode             = cull_mode;
 		desc.FillMode             = fill_mode;
-		desc.DepthBias            = depth_bias;
-		desc.SlopeScaledDepthBias = slope_scaled_depth_bias;
-		desc.DepthBiasClamp       = depth_bias_clamp;
+		desc.DepthBias            = -depth_bias;
+		desc.SlopeScaledDepthBias = -slope_scaled_depth_bias;
+		desc.DepthBiasClamp       = -depth_bias_clamp;
 		desc.DepthClipEnable      = true;
 		desc.MultisampleEnable    = true;
 
@@ -378,7 +378,8 @@ namespace mage {
 		desc.MaxAnisotropy  = (device->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) 
 								? D3D11_MAX_MAXANISOTROPY : 2;
 		desc.MaxLOD         = D3D11_FLOAT32_MAX;
-		desc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
+		// Reversed-Z used for the depth buffer.
+		desc.ComparisonFunc = D3D11_COMPARISON_GREATER_EQUAL;
 
 		return device->CreateSamplerState(&desc, sampler_state);
 	}

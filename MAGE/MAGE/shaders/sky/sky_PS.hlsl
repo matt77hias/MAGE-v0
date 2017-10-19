@@ -24,7 +24,7 @@ TEXTURE_CUBE(g_sky, float4, SLOT_SRV_TEXTURE);
 //-----------------------------------------------------------------------------
 float4 PS(PSInputNDCPosition input) : SV_Target {
 	// Obtain the projection space coodinates.
-	const float4 p_proj = float4(input.p_ndc, 1.0f, 1.0f);
+	const float4 p_proj = float4(input.p_ndc, Z_FAR, 1.0f);
 	// Obtain the view space coodinates.
 	const float4 view   = mul(p_proj, g_projection_to_view);
 	const float  inv_view_w = 1.0f / view.w;

@@ -2,6 +2,11 @@
 #define MAGE_HEADER_PRIMITIVES
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#include "hlsl.hpp"
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 
@@ -20,7 +25,7 @@ float4 NearFullScreenTriangleNDC(uint vertex_id) {
 	// v2 = ( 3,-1, 0)
 	const float x = (vertex_id / 2) * 4.0f - 1.0f;
 	const float y = (vertex_id % 2) * 4.0f - 1.0f;
-	return float4(x, y, 0.0f, 1.0f);
+	return float4(x, y, Z_NEAR, 1.0f);
 }
 
 /**
@@ -38,7 +43,7 @@ float4 FarFullScreenTriangleNDC(uint vertex_id) {
 	// v2 = ( 3,-1, 0)
 	const float x = (vertex_id / 2) * 4.0f - 1.0f;
 	const float y = (vertex_id % 2) * 4.0f - 1.0f;
-	return float4(x, y, 1.0f, 1.0f);
+	return float4(x, y, Z_FAR, 1.0f);
 }
 
 /**

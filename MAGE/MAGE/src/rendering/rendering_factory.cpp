@@ -189,9 +189,12 @@ namespace mage {
 		D3D11_RASTERIZER_DESC desc = {};
 		desc.CullMode             = cull_mode;
 		desc.FillMode             = fill_mode;
+		
+		// Reversed-Z used for the depth buffer.
 		desc.DepthBias            = -depth_bias;
 		desc.SlopeScaledDepthBias = -slope_scaled_depth_bias;
 		desc.DepthBiasClamp       = -depth_bias_clamp;
+		
 		desc.DepthClipEnable      = true;
 		desc.MultisampleEnable    = true;
 

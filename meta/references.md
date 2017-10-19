@@ -98,6 +98,8 @@ KAJIYA J. T.: *The Rendering Equation*, *Proceedings of the 13th Annual Conferen
 
 KELEMEN C., SZIRMAY-KALOS L.: *A Microfacet Based Coupled Specular-Matte BRDF Model with Importance Sampling*, *Eurographics Short Presentations*, 2001.
 
+LAPIDOUS E., JIA G.: *Optimal depth buffer for low-cost graphics hardware*, *Proceedings of the ACM SIGGRAPH/EUROGRAPHICS Workshop on Graphics Hardware*, 1999.
+
 LENGYEL E.: *Foundations of Game Engine Development, Volume 1: Mathematics*, 1st Edition, Terathon Software LLC, 2016.
 
 LEWIS R. R.: *Making Shaders More Physically Plausible*, *4th Eurographics Workshop on Rendering*, 1993.
@@ -126,6 +128,8 @@ NGAN A., DURAND F., MATUSIK W.: *Experimental Analysis of BRDF Models*, *Proceed
 
 NYSTROM R.: *Game Programming Patterns*, 1st Edition, Genever Benning, 2014.
 
+PERSSON E.: [*A couple of notes about Z*](http://www.humus.name/index.php?ID=255), 2009.
+
 PETTINEO M.: [*A Closer Look At Tone Mapping*](https://mynameismjp.wordpress.com/2010/04/30/a-closer-look-at-tone-mapping/), 2010.
 
 PHARR M., HUMPHREYS: *Physically Based Rendering: From Theory to Implementation*, 2nd Edition, Morgan Kaufmann, 2010.
@@ -137,6 +141,8 @@ PHONG B. T.: *Illumination for Computer Generated Pictures*, *Communications of 
 RASTERTEK: [*DirectX 11 Tutorials*](http://www.rastertek.com/tutdx11.html).
 
 RASTERTEK: [*DirectX 11 Tutorials - Series 2*](http://www.rastertek.com/tutdx11s2.html).
+
+REED N.: [*Depth Precision Visualized*](https://developer.nvidia.com/content/depth-precision-visualized), 2015
 
 REINALTER S.: [*Gamma-correct rendering*](https://blog.molecular-matters.com/2011/11/21/gamma-correct-rendering/), 2011.
 

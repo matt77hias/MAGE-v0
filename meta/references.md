@@ -205,5 +205,17 @@ Uses:
 * Matthias Moulin
 
 ## Thanks
+* [Adam Miles](https://github.com/AdamJMiles)
+* [Brooke Hodgman](https://github.com/hodgman)
+* [Chuck Walbourn](https://github.com/walbourn)
+* [Eric Richards](https://github.com/ericrrichards)
+* [Maarten Tegelaers](https://github.com/BeardedPlatypus)
+* Matías N. Goldberg
+* [Matt Pettineo](https://github.com/TheRealMJP)
+* [Naiwen Xie](https://github.com/sienaiwun)
+* [Nathan Reed](https://github.com/Reedbeta)
+* [Nicolas Silvagni](https://github.com/galop1n)
+* Scott Meyers
+* [Turánszki János](https://github.com/turanszkij)
 * [GameDev.net](https://www.gamedev.net/) community
 * [Computer Graphics StackExchange](https://computergraphics.stackexchange.com/) community

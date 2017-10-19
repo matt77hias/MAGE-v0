@@ -222,7 +222,7 @@ namespace mage {
 			const F32 m00 = 1.0f / XMVectorGetX(view_to_projection.r[0]);
 			const F32 m11 = 1.0f / XMVectorGetY(view_to_projection.r[1]);
 			const F32 m22 = 1.0f / XMVectorGetZ(view_to_projection.r[2]);
-			const F32 m32 = -XMVectorGetZ(view_to_projection.r[2]) * m22;
+			const F32 m32 = -XMVectorGetZ(view_to_projection.r[3]) * m22;
 			
 			return XMMATRIX {
 				 m00, 0.0f, 0.0f, 0.0f,

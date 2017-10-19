@@ -1,6 +1,7 @@
 <img align="left" src="res/MAGE.png" width="120px"/>
 
 [![Build status][s1]][av] [![License][s2]][do] [![License][s3]][li] [![Join the chat at https://gitter.im/WickedEngine/Lobby][s4]][gi]
+<a href="https://twitter.com/intent/follow?screen_name=matt77hias"><img src="https://img.shields.io/twitter/follow/matt77hias.svg?style=social" alt="follow on Twitter"></a>
 
 [s1]: https://ci.appveyor.com/api/projects/status/ike880pg85pupdj6?svg=true
 [s2]: https://img.shields.io/badge/docs-doxygen-blue.svg

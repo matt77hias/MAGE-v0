@@ -96,7 +96,7 @@ namespace mage {
 		ID3D11DeviceContext2 *device_context,
 		ID3D11Resource *texture) {
 
-		Assert(device);
+		Assert(device_context);
 		Assert(texture);
 
 		const wstring extension = GetFileExtension(fname);

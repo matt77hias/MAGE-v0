@@ -4,6 +4,7 @@
 * Sky Domes (WIP)
 * Shadow Mapping (WIP)
   * Directional lights
+* FXAA, TAA, SSAA, MSAA (not for the back buffer this time)
 * SSAO, HBAO
 * Voxel Cone Tracing
 * Tiled and Clustered Shading

@@ -38,17 +38,17 @@ namespace mage {
 		Assert(m_hwindow);
 		Assert(m_display_configuration);
 
-		InitializeRenderingManager();
+		InitializeSystems();
 	}
 
 	RenderingManager::RenderingManager(
 		RenderingManager &&rendering_manager) = default;
 
 	RenderingManager::~RenderingManager() {
-		UninitializeRenderingManager();
+		UninitializeSystems();
 	}
 
-	void RenderingManager::InitializeRenderingManager() {
+	void RenderingManager::InitializeSystems() {
 		// Setup the device and device context.
 		SetupDevice();
 		// Setup the swap chain.
@@ -66,7 +66,7 @@ namespace mage {
 			         m_device.Get(), m_device_context.Get(), viewport);
 	}
 
-	void RenderingManager::UninitializeRenderingManager() noexcept {
+	void RenderingManager::UninitializeSystems() noexcept {
 		// Switch to windowed mode since Direct3D is incapable to clear its 
 		// state properly when in fullscreen mode due to certain threading 
 		// issues that occur behind the scenes.

@@ -324,17 +324,18 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Initializes this rendering manager.
+		 Initializes the different systems of this rendering manager.
 
 		 @throws		FormattedException
-						Failed to initialize this rendering manager.
+						Failed to initialize at least one of the different 
+						systems of this rendering manager.
 		 */
-		void InitializeRenderingManager();
+		void InitializeSystems();
 
 		/**
-		 Uninitializes this rendering manager.
+		 Uninitializes the different systems of this rendering manager.
 		 */
-		void UninitializeRenderingManager() noexcept;
+		void UninitializeSystems() noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Methods: D3D11 Device and Device Context

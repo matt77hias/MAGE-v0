@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	struct Viewport final {
+	class Viewport final {
 
 	public:
 
@@ -23,6 +23,20 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		static const D3D11_VIEWPORT GetMaxViewport() noexcept;
+
+		static const D3D11_VIEWPORT GetMaxViewport(U32 width, U32 height) noexcept {
+			return GetMaxViewport(
+				static_cast< F32 >(width), 
+				static_cast< F32 >(height));
+		}
+
+		static const D3D11_VIEWPORT GetMaxViewport(F32 width, F32 height) noexcept {
+			D3D11_VIEWPORT viewport = {};
+			viewport.Width    = width;
+			viewport.Height   = height;
+			viewport.MaxDepth = 1.0f;
+			return viewport;
+		}
 
 		static F32 NormalizeWidth(F32 x) noexcept;
 
@@ -34,6 +48,12 @@ namespace mage {
 
 		Viewport()
 			: Viewport(GetMaxViewport()) {}
+
+		explicit Viewport(U32 width, U32 height)
+			: Viewport(GetMaxViewport(width, height)) {}
+
+		explicit Viewport(F32 width, F32 height)
+			: Viewport(GetMaxViewport(width, height)) {}
 		
 		explicit Viewport(const D3D11_VIEWPORT &viewport)
 			: m_viewport(viewport) {}

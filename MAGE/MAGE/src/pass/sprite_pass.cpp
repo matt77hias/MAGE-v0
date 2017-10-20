@@ -3,8 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene_renderer.hpp"
-#include "rendering\rendering_state_manager.hpp"
+#include "rendering\rendering_manager.hpp"
 #include "resource\resource_factory.hpp"
 #include "logging\error.hpp"
 
@@ -19,9 +18,9 @@
 namespace mage {
 
 	SpritePass *SpritePass::Get() {
-		Assert(SceneRenderer::Get());
+		Assert(Renderer::Get());
 
-		return SceneRenderer::Get()->GetSpritePass();
+		return Renderer::Get()->GetSpritePass();
 	}
 
 	SpritePass::SpritePass()

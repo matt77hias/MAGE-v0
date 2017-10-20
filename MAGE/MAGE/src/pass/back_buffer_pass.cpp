@@ -3,8 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene_renderer.hpp"
-#include "rendering\rendering_state_manager.hpp"
+#include "rendering\rendering_manager.hpp"
 #include "resource\resource_factory.hpp"
 #include "logging\error.hpp"
 
@@ -16,9 +15,9 @@
 namespace mage {
 
 	BackBufferPass *BackBufferPass::Get() {
-		Assert(SceneRenderer::Get());
+		Assert(Renderer::Get());
 
-		return SceneRenderer::Get()->GetBackBufferPass();
+		return Renderer::Get()->GetBackBufferPass();
 	}
 
 	BackBufferPass::BackBufferPass()

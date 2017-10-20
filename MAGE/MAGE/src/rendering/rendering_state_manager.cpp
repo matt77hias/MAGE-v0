@@ -255,8 +255,7 @@ namespace mage {
 		}
 	}
 
-	void RenderingStateManager::BindPersistentSamplers(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+	void RenderingStateManager::BindPersistentState() const noexcept {
 		
 		// Collect the samplers.
 		ID3D11SamplerState * const samplers[SLOT_SAMPLER_PERSISTENT_COUNT] = {
@@ -273,7 +272,8 @@ namespace mage {
 		};
 
 		// Bind the samplers.
-		Pipeline::BindSamplers(device_context,
+		Pipeline::BindSamplers(
+			Pipeline::GetImmediateDeviceContext(),
 			SLOT_SAMPLER_PERSISTENT_START,
 			SLOT_SAMPLER_PERSISTENT_COUNT,
 			samplers);

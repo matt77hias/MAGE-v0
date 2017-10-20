@@ -139,6 +139,7 @@
     <ClInclude Include="MAGE\src\rendering\display_configuration.hpp" />
     <ClInclude Include="MAGE\src\rendering\display_settings.hpp" />
     <ClInclude Include="MAGE\src\rendering\pipeline.hpp" />
+    <ClInclude Include="MAGE\src\rendering\renderer.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_output_manager.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering_manager.hpp" />
     <ClInclude Include="MAGE\src\rendering\rendering.hpp" />
@@ -157,7 +158,6 @@
     <ClInclude Include="MAGE\src\scene\scene_fog.hpp" />
     <ClInclude Include="MAGE\src\scene\scene_manager.hpp" />
     <ClInclude Include="MAGE\src\scene\scene_node.hpp" />
-    <ClInclude Include="MAGE\src\scene\scene_renderer.hpp" />
     <ClInclude Include="MAGE\src\scene\sky.hpp" />
     <ClInclude Include="MAGE\src\scripting\behavior_script.hpp" />
     <ClInclude Include="MAGE\src\scripting\variable.hpp" />
@@ -319,6 +319,7 @@
     <ClCompile Include="MAGE\src\pass\wireframe_pass.cpp" />
     <ClCompile Include="MAGE\src\rendering\display_configuration.cpp" />
     <ClCompile Include="MAGE\src\rendering\display_configurator.cpp" />
+    <ClCompile Include="MAGE\src\rendering\renderer.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_manager.cpp" />
     <ClCompile Include="MAGE\src\rendering\pipeline.cpp" />
     <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp" />
@@ -329,7 +330,6 @@
     <ClCompile Include="MAGE\src\scene\scene.cpp" />
     <ClCompile Include="MAGE\src\scene\scene_manager.cpp" />
     <ClCompile Include="MAGE\src\scene\scene_node.cpp" />
-    <ClCompile Include="MAGE\src\scene\scene_renderer.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script.cpp" />
     <ClCompile Include="MAGE\src\scripting\variable_script_loader.cpp" />
     <ClCompile Include="MAGE\src\scripting\vs\vs_loader.cpp" />

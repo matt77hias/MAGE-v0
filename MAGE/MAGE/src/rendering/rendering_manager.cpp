@@ -22,12 +22,18 @@ namespace mage {
 
 	RenderingManager::RenderingManager(HWND hwindow, 
 		const DisplayConfiguration *display_configuration) :
-		m_hwindow(hwindow), m_fullscreen(false),
+		m_hwindow(hwindow), 
+		m_fullscreen(false),
 		m_in_begin_end_pair(false), 
 		m_display_configuration(
 			MakeUnique< DisplayConfiguration >(*display_configuration)),
-		m_device(), m_device_context(), m_swap_chain(), m_back_buffer_rtv(),
-		m_rendering_output_manager(), m_rendering_state_manager() {
+		m_device(), 
+		m_device_context(), 
+		m_swap_chain(), 
+		m_back_buffer_rtv(),
+		m_renderer(), 
+		m_rendering_output_manager(), 
+		m_rendering_state_manager() {
 
 		Assert(m_hwindow);
 		Assert(m_display_configuration);
@@ -49,16 +55,15 @@ namespace mage {
 		SetupSwapChain();
 
 		// Setup the rendering output manager.
-		m_rendering_output_manager
-			= MakeUnique< RenderingOutputManager >(
-				m_device.Get(), GetWidth(), GetHeight());
-
+		m_rendering_output_manager = MakeUnique< RenderingOutputManager >(
+			                         m_device.Get(), GetWidth(), GetHeight());
 		// Setup the rendering state manager.
-		m_rendering_state_manager
-			= MakeUnique< RenderingStateManager >(
-				m_device.Get());
-		// Bind the persistent samplers of the rendering state manager.
-		m_rendering_state_manager->BindPersistentSamplers(m_device_context.Get());
+		m_rendering_state_manager = MakeUnique< RenderingStateManager >(
+			                        m_device.Get());
+		// Setup the renderer.
+		const Viewport viewport(GetWidth(), GetHeight());
+		m_renderer = MakeUnique< Renderer >(
+			         m_device.Get(), m_device_context.Get(), viewport);
 	}
 
 	void RenderingManager::UninitializeRenderingManager() noexcept {
@@ -74,6 +79,10 @@ namespace mage {
 			m_device_context->ClearState();
 		}
 	}
+
+	//-------------------------------------------------------------------------
+	// RenderingManager: D3D11 Device and Device Context
+	//-------------------------------------------------------------------------
 
 	void RenderingManager::SetupDevice() {
 		// Set the runtime layers to enable.
@@ -108,6 +117,10 @@ namespace mage {
 		ThrowIfFailed(result_device_context2, 
 			"ID3D11DeviceContext2 creation failed: %08X.", result_device_context2);
 	}
+
+	//-------------------------------------------------------------------------
+	// RenderingManager: Swap Chain
+	//-------------------------------------------------------------------------
 
 	void RenderingManager::SetupSwapChain() {
 		// Create the swap chain.
@@ -191,6 +204,15 @@ namespace mage {
 		}
 	}
 
+	//-------------------------------------------------------------------------
+	// RenderingManager: Rendering
+	//-------------------------------------------------------------------------
+
+	void RenderingManager::BindPersistentState() {
+		m_rendering_state_manager->BindPersistentState();
+		m_renderer->BindPersistentState();
+	}
+
 	void RenderingManager::BeginFrame() noexcept {
 		Assert(!m_in_begin_end_pair);
 
@@ -211,6 +233,10 @@ namespace mage {
 
 		m_in_begin_end_pair = false;
 	}
+
+	//-------------------------------------------------------------------------
+	// RenderingManager: Display Configuration
+	//-------------------------------------------------------------------------
 
 	void RenderingManager::SwitchMode(bool toggle) {
 		// Release the swap chain buffers.

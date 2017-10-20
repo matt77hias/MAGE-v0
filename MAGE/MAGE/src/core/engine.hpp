@@ -7,13 +7,14 @@
 
 #include "core\targetver.hpp"
 
-#include "ui\main_window.hpp"
-#include "rendering\rendering_manager.hpp"
 #include "input\input_manager.hpp"
+#include "rendering\rendering_manager.hpp"
 #include "resource\resource_manager.hpp"
-#include "resource\resource_factory.hpp"
 #include "scene\scene_manager.hpp"
 #include "timer\timer.hpp"
+#include "ui\main_window.hpp"
+
+#include "resource\resource_factory.hpp"
 
 #include "core\loadable.hpp"
 #include "core\engine_setup.hpp"
@@ -257,6 +258,11 @@ namespace mage {
 						systems of this engine.
 		 */
 		void InitializeSystems(const EngineSetup &setup);
+
+		/**
+		 Uninitializes the different systems of this engine.
+		 */
+		void UninitializeSystems() noexcept;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Window System

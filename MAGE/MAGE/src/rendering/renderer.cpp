@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene_manager.hpp"
 #include "rendering\rendering_manager.hpp"
 #include "logging\error.hpp"
 
@@ -17,17 +16,19 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SceneRenderer *SceneRenderer::Get() noexcept {
-		Assert(SceneManager::Get());
+	Renderer *Renderer::Get() noexcept {
+		Assert(RenderingManager::Get());
 		
-		return SceneManager::Get()->GetRenderingManager();
+		return RenderingManager::Get()->GetRenderer();
 	}
 
-	SceneRenderer::SceneRenderer()
-		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_maximum_viewport(),
+	Renderer::Renderer(ID3D11Device2 *device,
+		ID3D11DeviceContext2 *device_context, 
+		const Viewport &viewport)
+		: m_device_context(device_context),
+		m_maximum_viewport(viewport),
 		m_pass_buffer(MakeUnique< PassBuffer >()),
-		m_game_buffer(),
+		m_game_buffer(device),
 		m_depth_pass(), 
 		m_gbuffer_pass(),
 		m_lbuffer_pass(),
@@ -41,24 +42,20 @@ namespace mage {
 		m_variable_component_pass(),
 		m_shading_normal_pass(), 
 		m_wireframe_pass(), 
-		m_bounding_volume_pass() {
-
-		// Bind the persistent state.
-		BindPersistentState();
-	}
+		m_bounding_volume_pass() {}
 	
-	SceneRenderer::SceneRenderer(SceneRenderer &&scene_renderer) = default;
+	Renderer::Renderer(Renderer &&scene_renderer) = default;
 	
-	SceneRenderer::~SceneRenderer() = default;
+	Renderer::~Renderer() = default;
 
-	void SceneRenderer::BindPersistentState() {
+	void Renderer::BindPersistentState() {
 		const RenderingManager * const rendering_manager 
 			= RenderingManager::Get();
 		
 		GameBuffer game_buffer;
 		game_buffer.m_width             = static_cast< F32 >(rendering_manager->GetWidth());
 		game_buffer.m_height            = static_cast< F32 >(rendering_manager->GetHeight());
-		game_buffer.m_inv_width_minus1  = 1.0f / (rendering_manager->GetWidth() - 1.0f);
+		game_buffer.m_inv_width_minus1  = 1.0f / (rendering_manager->GetWidth()  - 1.0f);
 		game_buffer.m_inv_height_minus1 = 1.0f / (rendering_manager->GetHeight() - 1.0f);
 		game_buffer.m_gamma             = rendering_manager->GetGamma();
 		game_buffer.m_inv_gamma         = 1.0f / rendering_manager->GetGamma();
@@ -70,7 +67,7 @@ namespace mage {
 			m_device_context, SLOT_CBUFFER_GAME);
 	}
 
-	void SceneRenderer::Render(const Scene *scene) {
+	void Renderer::Render(const Scene *scene) {
 
 		const RenderingOutputManager * const output_manager
 			= RenderingOutputManager::Get();
@@ -201,7 +198,7 @@ namespace mage {
 		sprite_pass->Render(m_pass_buffer.get());
 	}
 
-	void SceneRenderer::ExecuteSolidForwardPipeline(
+	void Renderer::ExecuteSolidForwardPipeline(
 		const Viewport &viewport,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
@@ -229,7 +226,7 @@ namespace mage {
 			world_to_view, view_to_world, view_to_projection);
 	}
 
-	void SceneRenderer::ExecuteForwardPipeline(
+	void Renderer::ExecuteForwardPipeline(
 		const Viewport &viewport,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
@@ -272,7 +269,7 @@ namespace mage {
 			world_to_view, view_to_world, view_to_projection);
 	}
 
-	void SceneRenderer::ExecuteDeferredPipeline(
+	void Renderer::ExecuteDeferredPipeline(
 		const Viewport &viewport,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,

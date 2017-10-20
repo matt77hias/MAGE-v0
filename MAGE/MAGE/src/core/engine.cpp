@@ -37,18 +37,14 @@ namespace mage {
 
 		// Initialize the systems of this engine.
 		InitializeSystems(setup);
-
-		if (!IsLoaded()) {
-			return;
-		}
 	}
 
 	Engine::Engine(Engine &&engine) = default;
 
 	Engine::~Engine() {
 
-		// Uninitialize the COM.
-		CoUninitialize();
+		// Uninitialize the systems of this engine.
+		UninitializeSystems();
 
 		s_engine = nullptr;
 	}
@@ -71,7 +67,9 @@ namespace mage {
 		const DisplayConfiguration *display_configuration 
 			= display_configurator->GetDisplayConfiguration();
 		
-		// Initialize the window System.
+		// Initialize the resource system.
+		m_resource_manager    = MakeUnique< ResourceManager >();
+		// Initialize the window system.
 		const U32 width  = display_configuration->GetDisplayWidth();
 		const U32 height = display_configuration->GetDisplayHeight();
 		m_main_window         = MakeUnique< MainWindow >(
@@ -79,14 +77,13 @@ namespace mage {
 									setup.GetApplicationName(), 
 									width, height);
 		// Initialize the rendering system.
-		m_rendering_manager    = MakeUnique< RenderingManager >(
+		m_rendering_manager   = MakeUnique< RenderingManager >(
 									m_main_window->GetHandle(), 
 									display_configuration);
+		m_rendering_manager->BindPersistentState();
 		// Initialize the input system.
 		m_input_manager       = MakeUnique< InputManager >(
 									m_main_window->GetHandle());
-		// Initialize the resource system.
-		m_resource_manager    = MakeUnique< ResourceManager >();
 		// Initialize the scene system.
 		m_scene_manager       = MakeUnique< SceneManager >();
 
@@ -95,6 +92,24 @@ namespace mage {
 		CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 
 		SetLoaded();
+	}
+
+	void Engine::UninitializeSystems() noexcept {
+		SetLoaded(false);
+		
+		// Uninitialize the COM.
+		CoUninitialize();
+
+		// Uninitialize the scene system.
+		m_scene_manager.reset();
+		// Uninitialize the input system.
+		m_input_manager.reset();
+		// Uninitialize the rendering system.
+		m_rendering_manager.reset();
+		// Uninitialize the window system.
+		m_main_window.reset();
+		// Uninitialize the resource system.
+		m_resource_manager.reset();
 	}
 
 	void Engine::OnActiveChange(bool deactive) noexcept {

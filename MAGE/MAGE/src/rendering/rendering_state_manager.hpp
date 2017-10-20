@@ -106,6 +106,19 @@ namespace mage {
 			RenderingStateManager &&rendering_state_manager) = delete;
 
 		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Bind the persistent state of this rendering state manager.
+
+		 @throws		FormattedException
+						Failed to bind the persistent state of this rendering 
+						state manager.
+		 */
+		void BindPersistentState() const noexcept;
+
+		//---------------------------------------------------------------------
 		// Member Methods: Blend States
 		//---------------------------------------------------------------------
 
@@ -323,16 +336,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods: Sampler States
 		//---------------------------------------------------------------------
-
-		/**
-		 Binds the persistent samplers of this rendering state manager.
-		 
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 */
-		void BindPersistentSamplers(
-			ID3D11DeviceContext2 *device_context) const noexcept;
 
 		/**
 		 Binds the point sampler state with wrapping of this rendering state 

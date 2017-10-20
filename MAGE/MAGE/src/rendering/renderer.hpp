@@ -31,9 +31,9 @@
 namespace mage {
 
 	/**
-	 A class of scene renderers.
+	 A class of renderers.
 	 */
-	class SceneRenderer final {
+	class Renderer final {
 
 	public:
 
@@ -42,72 +42,90 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the scene renderer associated with the current engine.
+		 Returns the renderer associated with the current engine.
 
-		 @pre			The scene manager associated with the  current engine 
-						must be loaded.
-		 @return		A pointer to the scene renderer associated with the 
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @return		A pointer to the renderer associated with the 
 						current engine.
 		 */
-		static SceneRenderer *Get() noexcept;
+		static Renderer *Get() noexcept;
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a scene renderer.
+		 Constructs a renderer.
+
+		 @pre			@a device is not equal to @c nullptr.
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device
+						A pointer to the device.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 @param[in]		viewport
+						A reference to the viewport.
 		 */
-		SceneRenderer();
+		explicit Renderer(ID3D11Device2 *device, 
+			ID3D11DeviceContext2 *device_context, 
+			const Viewport &viewport);
 
 		/**
-		 Constructs a scene renderer from the given scene renderer.
+		 Constructs a renderer from the given renderer.
 
-		 @param[in]		scene_renderer
-						A reference to the scene renderer to copy.
+		 @param[in]		renderer
+						A reference to the renderer to copy.
 		 */
-		SceneRenderer(const SceneRenderer &scene_renderer) = delete;
+		Renderer(const Renderer &renderer) = delete;
 
 		/**
-		 Constructs a scene renderer by moving the given scene renderer.
+		 Constructs a renderer by moving the given renderer.
 
-		 @param[in]		scene_renderer
-						A reference to the scene renderer to move.
+		 @param[in]		renderer
+						A reference to the renderer to move.
 		 */
-		SceneRenderer(SceneRenderer &&scene_renderer);
+		Renderer(Renderer &&renderer);
 
 		/**
-		 Destructs this scene renderer.
+		 Destructs this renderer.
 		 */
-		~SceneRenderer();
+		~Renderer();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given scene renderer to this scene renderer.
+		 Copies the given renderer to this renderer.
 
-		 @param[in]		scene_renderer
-						A reference to the scene renderer to copy.
-		 @return		A reference to the copy of the given scene renderer 
-						(i.e. this scene renderer).
+		 @param[in]		renderer
+						A reference to the renderer to copy.
+		 @return		A reference to the copy of the given renderer (i.e. 
+						this renderer).
 		 */
-		SceneRenderer &operator=(const SceneRenderer &scene_renderer) = delete;
+		Renderer &operator=(const Renderer &renderer) = delete;
 
 		/**
-		 Moves the given scene renderer to this scene renderer.
+		 Moves the given renderer to this renderer.
 
-		 @param[in]		scene_renderer
-						A reference to the scene renderer to move.
-		 @return		A reference to the moved scene renderer (i.e. this 
-						scene renderer).
+		 @param[in]		renderer
+						A reference to the renderer to move.
+		 @return		A reference to the moved renderer (i.e. this renderer).
 		 */
-		SceneRenderer &operator=(SceneRenderer &&scene_renderer) = delete;
+		Renderer &operator=(Renderer &&renderer) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
+
+		/**
+		 Bind the persistent state of this renderer.
+
+		 @throws		FormattedException
+						Failed to bind the persistent state of this renderer.
+		 */
+		void BindPersistentState();
 
 		/**
 		 Renders the given scene.
@@ -125,13 +143,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the depth pass of this scene renderer.
+		 Returns the depth pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the depth pass of this scene renderer.
+		 @return		A pointer to the depth pass of this renderer.
 		 */
 		DepthPass *GetDepthPass() {
 			if (!m_depth_pass) {
@@ -141,13 +159,13 @@ namespace mage {
 		}
 
 		/**
-		 Returns the GBuffer pass of this scene renderer.
+		 Returns the GBuffer pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the GBuffer pass of this scene renderer.
+		 @return		A pointer to the GBuffer pass of this renderer.
 		 */
 		GBufferPass *GetGBufferPass() {
 			if (!m_gbuffer_pass) {
@@ -157,13 +175,13 @@ namespace mage {
 		}
 
 		/**
-		 Returns the LBuffer pass of this scene renderer.
+		 Returns the LBuffer pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the LBuffer pass of this scene renderer.
+		 @return		A pointer to the LBuffer pass of this renderer.
 		 */
 		LBufferPass *GetLBufferPass() {
 			if (!m_lbuffer_pass) {
@@ -173,10 +191,10 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the deferred shading pass of this scene renderer.
+		 Returns the deferred shading pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
 		 @return		A pointer to the deferred shading pass of this scene 
@@ -190,10 +208,10 @@ namespace mage {
 		}
 
 		/**
-		 Returns the variable shading pass of this scene renderer.
+		 Returns the variable shading pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
 		 @return		A pointer to the variable shading pass of this scene 
@@ -207,13 +225,13 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the sprite pass of this scene renderer.
+		 Returns the sprite pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the sprite pass of this scene renderer.
+		 @return		A pointer to the sprite pass of this renderer.
 		 */
 		SpritePass *GetSpritePass() {
 			if (!m_sprite_pass) {
@@ -223,13 +241,13 @@ namespace mage {
 		}
 
 		/**
-		 Returns the back buffer pass of this scene renderer.
+		 Returns the back buffer pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the back buffer pass of this scene renderer.
+		 @return		A pointer to the back buffer pass of this renderer.
 		 */
 		BackBufferPass *GetBackBufferPass() {
 			if (!m_back_buffer_pass) {
@@ -239,13 +257,13 @@ namespace mage {
 		}
 
 		/**
-		 Returns the sky pass of this scene renderer.
+		 Returns the sky pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the sky pass of this scene renderer.
+		 @return		A pointer to the sky pass of this renderer.
 		 */
 		SkyPass *GetSkyPass() {
 			if (!m_sky_pass) {
@@ -255,10 +273,10 @@ namespace mage {
 		}
 
 		/**
-		 Returns the constant shading pass of this scene renderer.
+		 Returns the constant shading pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
 		 @return		A pointer to the constant shading pass of this scene 
@@ -272,10 +290,10 @@ namespace mage {
 		}
 
 		/**
-		 Returns the constant component pass of this scene renderer.
+		 Returns the constant component pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
 		 @return		A pointer to the constant component pass of this scene 
@@ -289,10 +307,10 @@ namespace mage {
 		}
 
 		/**
-		 Returns the variable component pass of this scene renderer.
+		 Returns the variable component pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
 		 @return		A pointer to the variable component pass of this scene 
@@ -306,10 +324,10 @@ namespace mage {
 		}
 
 		/**
-		 Returns the shading normal pass of this scene renderer.
+		 Returns the shading normal pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
 		 @return		A pointer to the shading normal pass of this scene 
@@ -323,13 +341,13 @@ namespace mage {
 		}
 
 		/**
-		 Returns the wireframe pass of this scene renderer.
+		 Returns the wireframe pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the wireframe pass of this scene renderer.
+		 @return		A pointer to the wireframe pass of this renderer.
 		 */
 		WireframePass *GetWireframePass() {
 			if (!m_wireframe_pass) {
@@ -339,10 +357,10 @@ namespace mage {
 		}
 
 		/**
-		 Returns the bounding volume pass of this scene renderer.
+		 Returns the bounding volume pass of this renderer.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
 		 @return		A pointer to the bounding volume pass of this scene 
@@ -360,8 +378,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
-
-		void BindPersistentState();
 
 		void ExecuteSolidForwardPipeline(
 			const Viewport &viewport,
@@ -393,22 +409,22 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this scene renderer.
+		 A pointer to the device context of this renderer.
 		 */
 		ID3D11DeviceContext2 * const m_device_context;
 
 		/**
-		 The maximum viewport of this scene renderer.
+		 The maximum viewport of this renderer.
 		 */
 		Viewport m_maximum_viewport;
 
 		/**
-		 A pointer to the pass buffer of this scene renderer.
+		 A pointer to the pass buffer of this renderer.
 		 */
 		UniquePtr< PassBuffer > m_pass_buffer;
 		
 		/**
-		 A pointer to the image buffer of this scene renderer.
+		 A pointer to the image buffer of this renderer.
 		 */
 		ConstantBuffer< GameBuffer > m_game_buffer;
 		
@@ -417,72 +433,72 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the depth pass of this scene renderer.
+		 A pointer to the depth pass of this renderer.
 		 */
 		UniquePtr< DepthPass > m_depth_pass;
 
 		/**
-		 A pointer to the GBuffer pass of this scene renderer.
+		 A pointer to the GBuffer pass of this renderer.
 		 */
 		UniquePtr< GBufferPass >  m_gbuffer_pass;
 
 		/**
-		 A pointer to the LBuffer pass of this scene renderer.
+		 A pointer to the LBuffer pass of this renderer.
 		 */
 		UniquePtr< LBufferPass >  m_lbuffer_pass;
 
 		/**
-		 A pointer to the deferred shading pass of this scene renderer.
+		 A pointer to the deferred shading pass of this renderer.
 		 */
 		UniquePtr< DeferredShadingPass > m_deferred_shading_pass;
 
 		/**
-		 A pointer to the variable shading pass of this scene renderer.
+		 A pointer to the variable shading pass of this renderer.
 		 */
 		UniquePtr< VariableShadingPass > m_variable_shading_pass;
 
 		/**
-		 A pointer to the sprite pass of this scene renderer.
+		 A pointer to the sprite pass of this renderer.
 		 */
 		UniquePtr< SpritePass > m_sprite_pass;
 
 		/**
-		 A pointer to the back buffer pass of this scene renderer.
+		 A pointer to the back buffer pass of this renderer.
 		 */
 		UniquePtr< BackBufferPass > m_back_buffer_pass;
 
 		/**
-		 A pointer to the sky pass of this scene renderer.
+		 A pointer to the sky pass of this renderer.
 		 */
 		UniquePtr< SkyPass > m_sky_pass;
 		
 		/**
-		 A pointer to the constant shading pass of this scene renderer.
+		 A pointer to the constant shading pass of this renderer.
 		 */
 		UniquePtr< ConstantShadingPass > m_constant_shading_pass;
 
 		/**
-		 A pointer to the constant component pass of this scene renderer.
+		 A pointer to the constant component pass of this renderer.
 		 */
 		UniquePtr< ConstantComponentPass > m_constant_component_pass;
 
 		/**
-		 A pointer to the variable component pass of this scene renderer.
+		 A pointer to the variable component pass of this renderer.
 		 */
 		UniquePtr< VariableComponentPass > m_variable_component_pass;
 
 		/**
-		 A pointer to the shading normal pass of this scene renderer.
+		 A pointer to the shading normal pass of this renderer.
 		 */
 		UniquePtr< ShadingNormalPass > m_shading_normal_pass;
 		
 		/**
-		 A pointer to the wireframe pass of this scene renderer.
+		 A pointer to the wireframe pass of this renderer.
 		 */
 		UniquePtr< WireframePass > m_wireframe_pass;
 
 		/**
-		 A pointer to the bounding volume pass of this scene renderer.
+		 A pointer to the bounding volume pass of this renderer.
 		 */
 		UniquePtr< BoundingVolumePass > m_bounding_volume_pass;
 	};

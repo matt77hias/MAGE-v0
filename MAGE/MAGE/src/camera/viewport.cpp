@@ -15,11 +15,12 @@
 namespace mage {
 
 	const D3D11_VIEWPORT Viewport::GetMaxViewport() noexcept {
-		D3D11_VIEWPORT viewport = {};
-		viewport.Width    = static_cast< F32 >(RenderingManager::Get()->GetWidth());
-		viewport.Height   = static_cast< F32 >(RenderingManager::Get()->GetHeight());
-		viewport.MaxDepth = 1.0f;
-		return viewport;
+		const RenderingManager * const rendering_manager
+			= RenderingManager::Get();
+		
+		return GetMaxViewport(
+			rendering_manager->GetWidth(),
+			rendering_manager->GetHeight());
 	}
 
 	F32 Viewport::NormalizeWidth(F32 x) noexcept {

@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "rendering\renderer.hpp"
 #include "rendering\rendering_output_manager.hpp"
 #include "rendering\rendering_state_manager.hpp"
 #include "rendering\display_configuration.hpp"
@@ -100,7 +101,7 @@ namespace mage {
 			RenderingManager &&rendering_manager) = delete;
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Methods: DXGI Adapter and Output
 		//---------------------------------------------------------------------
 
 		/**
@@ -122,6 +123,10 @@ namespace mage {
 			return m_display_configuration->GetOutput();
 		}
 
+		//---------------------------------------------------------------------
+		// Member Methods: D3D11 Device and Device Context
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the device of this rendering manager.
 
@@ -141,6 +146,10 @@ namespace mage {
 			return m_device_context.Get();
 		}
 		
+		//---------------------------------------------------------------------
+		// Member Methods: Swap Chain
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the back buffer RTV of this rendering manager.
 
@@ -153,6 +162,20 @@ namespace mage {
 			return m_back_buffer_rtv.Get();
 		}
 		
+		//---------------------------------------------------------------------
+		// Member Methods: Rendering
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the rendering output manager of this rendering manager.
+
+		 @return		A pointer to the rendering output manager of this 
+						rendering manager.
+		 */
+		Renderer *GetRenderer() const noexcept {
+			return m_renderer.get();
+		}
+
 		/**
 		 Returns the rendering output manager of this rendering manager.
 
@@ -172,6 +195,10 @@ namespace mage {
 		const RenderingStateManager *GetRenderingStateManager() const noexcept {
 			return m_rendering_state_manager.get();
 		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Display Configuration
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the width in pixels of the display of this rendering manager.
@@ -268,6 +295,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Bind the persistent state of this rendering manager.
+
+		 @throws		FormattedException
+						Failed to bind the persistent state of this rendering 
+						manager.
+		 */
+		void BindPersistentState();
+
+		/**
 		 Begins the rendering of the current frame.
 
 		 @pre			This rendering manager is not inside a begin/end pair.
@@ -300,6 +336,10 @@ namespace mage {
 		 */
 		void UninitializeRenderingManager() noexcept;
 
+		//---------------------------------------------------------------------
+		// Member Methods: D3D11 Device and Device Context
+		//---------------------------------------------------------------------
+
 		/**
 		 Sets up the D3D11 device and context of this rendering manager.
 
@@ -308,6 +348,10 @@ namespace mage {
 						rendering manager.
 		 */
 		void SetupDevice();
+
+		//---------------------------------------------------------------------
+		// Member Methods: Swap Chain
+		//---------------------------------------------------------------------
 		
 		/**
 		 Sets up the swap chain of this rendering manager with its render 
@@ -352,7 +396,7 @@ namespace mage {
 		void CreateBackBufferRTV();
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Display Configuration
 		//---------------------------------------------------------------------
 
 		/**
@@ -377,6 +421,10 @@ namespace mage {
 		 */
 		UniquePtr< DisplayConfiguration > m_display_configuration;
 
+		//---------------------------------------------------------------------
+		// Member Variables: D3D11 Device and Device Context
+		//---------------------------------------------------------------------
+
 		/**
 		 A pointer to the feature level of this rendering manager.
 		 */
@@ -392,6 +440,10 @@ namespace mage {
 		 */
 		ComPtr< ID3D11DeviceContext2 > m_device_context;
 
+		//---------------------------------------------------------------------
+		// Member Variables: Swap Chain
+		//---------------------------------------------------------------------
+
 		/**
 		 A pointer to the swap chain of this rendering manager.
 		 */
@@ -402,6 +454,15 @@ namespace mage {
 		 rendering manager.
 		 */
 		ComPtr< ID3D11RenderTargetView > m_back_buffer_rtv;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Rendering
+		//---------------------------------------------------------------------
+
+		/**
+		 A pointer to the renderer of this rendering manager.
+		 */
+		UniquePtr< Renderer > m_renderer;
 
 		/**
 		 A pointer to the rendering output manager of this rendering manager.

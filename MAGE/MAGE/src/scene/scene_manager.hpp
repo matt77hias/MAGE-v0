@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene_renderer.hpp"
+#include "scene\scene.hpp"
 
 #pragma endregion
 
@@ -106,16 +106,9 @@ namespace mage {
 
 		void SetScene(UniquePtr< Scene > &&scene);
 
-		SceneRenderer *GetRenderingManager() const {
-			return m_renderer.get();
-		}
-
 		void FixedUpdate();
 		void Update(F64 delta_time);
-
-		void Render() {
-			m_renderer->Render(GetScene());
-		}
+		void Render() const;
 
 	private:
 
@@ -138,15 +131,5 @@ namespace mage {
 		 A pointer to the requested scene of this scene manager.
 		 */
 		UniquePtr< Scene > m_requested_scene;
-
-		/**
-		 A flag indicating whether this scene manager has a requested scene.
-		 */
-		bool m_has_requested_scene;
-		
-		/**
-		 A pointer to the scene renderer of this scene manager.
-		 */
-		UniquePtr< SceneRenderer > m_renderer;
 	};
 }

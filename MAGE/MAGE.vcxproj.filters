@@ -756,9 +756,6 @@
     <ClInclude Include="MAGE\src\scene\scene_manager.hpp">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\scene\scene_renderer.hpp">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\shader_factory.hpp">
       <Filter>Header Files\shader</Filter>
     </ClInclude>
@@ -977,6 +974,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\pass\back_buffer_pass.hpp">
       <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\renderer.hpp">
+      <Filter>Header Files\rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1259,9 +1259,6 @@
     <ClCompile Include="MAGE\src\scene\scene_manager.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\scene\scene_renderer.cpp">
-      <Filter>Source Files\scene</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\shader\shader_factory.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
@@ -1348,6 +1345,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\pass\back_buffer_pass.cpp">
       <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\renderer.cpp">
+      <Filter>Source Files\rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

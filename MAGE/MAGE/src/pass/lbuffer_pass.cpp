@@ -3,8 +3,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene_renderer.hpp"
-#include "rendering\rendering_state_manager.hpp"
+#include "rendering\rendering_manager.hpp"
 #include "math\view_frustum.hpp"
 #include "logging\error.hpp"
 

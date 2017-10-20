@@ -48,6 +48,17 @@ namespace mage {
 		}
 	}
 
+	/**
+	 Returns the WIC container format associated with the given image file 
+	 extension.
+
+	 @param[in]		extension
+					A reference to the file extension.
+	 @return		@c GUID_NULL if no WIC container format is associated with 
+					the given file extension.
+	 @return		The WIC container format associated with the given image 
+					file extension.
+	 */
 	inline const GUID GetGUIDContainerFormat(const wstring &extension) noexcept {
 		if (extension == L"png" || extension == L"PNG") {
 			return GUID_ContainerFormatGif;
@@ -108,6 +119,4 @@ namespace mage {
 			ThrowIfFailed(result, "Texture exporting failed: %08X.", result);
 		}
 	}
-
-
 }

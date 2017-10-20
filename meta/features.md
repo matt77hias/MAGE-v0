@@ -23,7 +23,7 @@
   * .MTL  (Material) **[MAGE Customized Format]**
   * .OBJ  (Wavefront OBJ) **[MAGE Customized Format]**
 * Texture
-  * .BMP  (Windows Bitmap Format)
+  * .BMP, .DIB  (Windows Bitmap Format)
   * .DDS  (DirectDraw Surface) **[preferred]**
   * .GIF  (Graphics Interchange Format 89a)
   * .HDP, .WDP, .JXR  (HD Photo, Windows Media Photo, JPEG-XR)

@@ -172,19 +172,23 @@ namespace mage {
 	}
 
 	void RenderingManager::CreateBackBufferRTV() {
-		// Access the only back buffer of the swap-chain.
 		ComPtr< ID3D11Texture2D > back_buffer;
-		const HRESULT result_back_buffer = m_swap_chain->GetBuffer(
-			0u, __uuidof(ID3D11Texture2D), (void **)back_buffer.GetAddressOf());
-		ThrowIfFailed(result_back_buffer, 
-			"Back buffer texture creation failed: %08X.", result_back_buffer);
+
+		{
+			// Access the only back buffer of the swap-chain.
+			const HRESULT result = m_swap_chain->GetBuffer(
+				0u, __uuidof(ID3D11Texture2D), (void **)back_buffer.GetAddressOf());
+			ThrowIfFailed(result, 
+				"Back buffer texture creation failed: %08X.", result);
+		}
 		
-		// Create the RTV.
-		const HRESULT result_rtv = m_device->CreateRenderTargetView(
-			back_buffer.Get(), nullptr,
-			m_back_buffer_rtv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_rtv, 
-			"RTV creation failed: %08X.", result_rtv);
+		{
+			// Create the RTV.
+			const HRESULT result = m_device->CreateRenderTargetView(
+				back_buffer.Get(), nullptr,
+				m_back_buffer_rtv.ReleaseAndGetAddressOf());
+			ThrowIfFailed(result, "RTV creation failed: %08X.", result);
+		}
 	}
 
 	void RenderingManager::BeginFrame() noexcept {

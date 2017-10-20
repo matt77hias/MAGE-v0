@@ -94,34 +94,35 @@ namespace mage {
 		if (uav) {
 			texture_desc.BindFlags   |= D3D11_BIND_UNORDERED_ACCESS;
 		}
-		
-		// Create the texture.
-		ComPtr< ID3D11Texture2D > texture;
-		const HRESULT result_texture = device->CreateTexture2D(
-			&texture_desc, nullptr, texture.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_texture, 
-			"Texture 2D creation failed: %08X.", result_texture);
 
-		// Create the SRV.
-		const HRESULT result_srv = device->CreateShaderResourceView(
-			texture.Get(), nullptr, srv);
-		ThrowIfFailed(result_srv,
-			"SRV creation failed: %08X.", result_srv);
+		ComPtr< ID3D11Texture2D > texture;
+
+		{
+			// Create the texture.
+			const HRESULT result = device->CreateTexture2D(
+				&texture_desc, nullptr, texture.ReleaseAndGetAddressOf());
+			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
+		}
+
+		{
+			// Create the SRV.
+			const HRESULT result = device->CreateShaderResourceView(
+				texture.Get(), nullptr, srv);
+			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
+		}
 
 		if (rtv) {
 			// Create the RTV.
-			const HRESULT result_rtv = device->CreateRenderTargetView(
+			const HRESULT result = device->CreateRenderTargetView(
 				texture.Get(), nullptr, rtv);
-			ThrowIfFailed(result_rtv,
-				"RTV creation failed: %08X.", result_rtv);
+			ThrowIfFailed(result, "RTV creation failed: %08X.", result);
 		}
 
 		if (uav) {
 			// Create the UAV.
-			const HRESULT result_uav = device->CreateUnorderedAccessView(
+			const HRESULT result = device->CreateUnorderedAccessView(
 				texture.Get(), nullptr, uav);
-			ThrowIfFailed(result_uav,
-				"UAV creation failed: %08X.", result_uav);
+			ThrowIfFailed(result, "UAV creation failed: %08X.", result);
 		}
 	}
 
@@ -139,38 +140,42 @@ namespace mage {
 		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
 		texture_desc.BindFlags        = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_DEPTH_STENCIL;
 
-		// Create the texture.
 		ComPtr< ID3D11Texture2D > texture;
-		const HRESULT result_texture = device->CreateTexture2D(
+
+		{
+		// Create the texture.
+		const HRESULT result = device->CreateTexture2D(
 			&texture_desc, nullptr, 
 			texture.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_texture, 
-			"Texture 2D creation failed: %08X.", result_texture);
+		ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
+		}
 
-		// Create the SRV descriptor.
-		D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
-		srv_desc.Format               = DXGI_FORMAT_R32_FLOAT;
-		srv_desc.ViewDimension        = D3D11_SRV_DIMENSION_TEXTURE2D;
-		srv_desc.Texture2D.MipLevels  = 1u;
+		{
+			// Create the SRV descriptor.
+			D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
+			srv_desc.Format               = DXGI_FORMAT_R32_FLOAT;
+			srv_desc.ViewDimension        = D3D11_SRV_DIMENSION_TEXTURE2D;
+			srv_desc.Texture2D.MipLevels  = 1u;
 		
-		// Create the SRV.
-		const HRESULT result_srv = device->CreateShaderResourceView(
-			texture.Get(), &srv_desc,
-			m_srvs[static_cast< size_t >(SRVIndex::GBuffer_Depth)].ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_srv, 
-			"SRV creation failed: %08X.", result_srv);
+			// Create the SRV.
+			const HRESULT result = device->CreateShaderResourceView(
+				texture.Get(), &srv_desc,
+				m_srvs[static_cast< size_t >(SRVIndex::GBuffer_Depth)].ReleaseAndGetAddressOf());
+			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
+		}
 
-		// Create the DSV descriptor.
-		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
-		dsv_desc.Format               = DXGI_FORMAT_D32_FLOAT;
-		dsv_desc.ViewDimension        = D3D11_DSV_DIMENSION_TEXTURE2D;
+		{
+			// Create the DSV descriptor.
+			D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
+			dsv_desc.Format               = DXGI_FORMAT_D32_FLOAT;
+			dsv_desc.ViewDimension        = D3D11_DSV_DIMENSION_TEXTURE2D;
 
-		// Create the DSV.
-		const HRESULT result_dsv = device->CreateDepthStencilView(
-			texture.Get(), &dsv_desc,
-			m_dsv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_dsv, 
-			"DSV creation failed: %08X.", result_dsv);
+			// Create the DSV.
+			const HRESULT result = device->CreateDepthStencilView(
+				texture.Get(), &dsv_desc,
+				m_dsv.ReleaseAndGetAddressOf());
+			ThrowIfFailed(result, "DSV creation failed: %08X.", result);
+		}
 	}
 
 	void RenderingOutputManager::BindBegin(

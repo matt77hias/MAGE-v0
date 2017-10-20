@@ -95,47 +95,48 @@ namespace mage {
 		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
 		texture_desc.BindFlags        = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
 		
-		// Create the texture.
 		ComPtr< ID3D11Texture2D > texture;
-		const HRESULT result_texture = device->CreateTexture2D(
-			&texture_desc, nullptr,
-			texture.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_texture, 
-			"Texture 2D creation failed: %08X.", result_texture);
 
-		// Resize the DSV vector.
-		m_dsvs.resize(texture_desc.ArraySize);
-
-		// Create the DSV descriptor.
-		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
-		dsv_desc.Format        = dsv_format;
-		dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DARRAY;
-		dsv_desc.Texture2DArray.ArraySize = 1u;
-
-		// Create the DSVs for each texture element.
-		for (U32 i = 0u; i < texture_desc.ArraySize; ++i) {
-			dsv_desc.Texture2DArray.FirstArraySlice = i;
-
-			const HRESULT result_dsv = device->CreateDepthStencilView(
-				texture.Get(), &dsv_desc,
-				m_dsvs[i].ReleaseAndGetAddressOf());
-			ThrowIfFailed(result_dsv, 
-				"DSV creation failed: %08X.", result_dsv);
+		{
+			// Create the texture.
+			const HRESULT result = device->CreateTexture2D(
+				&texture_desc, nullptr, texture.ReleaseAndGetAddressOf());
+			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
 		}
 
-		// Create the SRV descriptor.
-		D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
-		srv_desc.Format        = srv_format;
-		srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DARRAY;
-		srv_desc.Texture2DArray.MipLevels = 1u;
-		srv_desc.Texture2DArray.ArraySize = texture_desc.ArraySize;
+		{
+			// Resize the DSV vector.
+			m_dsvs.resize(texture_desc.ArraySize);
 
-		// Create the SRV for all texture elements.
-		const HRESULT result_srv = device->CreateShaderResourceView(
-			texture.Get(), &srv_desc,
-			m_srv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_srv, 
-			"SRV creation failed: %08X.", result_srv);
+			// Create the DSV descriptor.
+			D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
+			dsv_desc.Format        = dsv_format;
+			dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DARRAY;
+			dsv_desc.Texture2DArray.ArraySize = 1u;
+
+			// Create the DSVs for each texture element.
+			for (U32 i = 0u; i < texture_desc.ArraySize; ++i) {
+				dsv_desc.Texture2DArray.FirstArraySlice = i;
+
+				const HRESULT result = device->CreateDepthStencilView(
+					texture.Get(), &dsv_desc, m_dsvs[i].ReleaseAndGetAddressOf());
+				ThrowIfFailed(result, "DSV creation failed: %08X.", result);
+			}
+		}
+
+		{
+			// Create the SRV descriptor.
+			D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
+			srv_desc.Format        = srv_format;
+			srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DARRAY;
+			srv_desc.Texture2DArray.MipLevels = 1u;
+			srv_desc.Texture2DArray.ArraySize = texture_desc.ArraySize;
+
+			// Create the SRV for all texture elements.
+			const HRESULT result = device->CreateShaderResourceView(
+				texture.Get(), &srv_desc, m_srv.ReleaseAndGetAddressOf());
+			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
+		}
 	}
 	
 	//-------------------------------------------------------------------------
@@ -220,46 +221,47 @@ namespace mage {
 		texture_desc.BindFlags        = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
 		texture_desc.MiscFlags        = D3D11_RESOURCE_MISC_TEXTURECUBE;
 
-		// Create the texture.
 		ComPtr< ID3D11Texture2D > texture;
-		const HRESULT result_texture = device->CreateTexture2D(
-			&texture_desc, nullptr,
-			texture.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_texture, 
-			"Texture 2D creation failed: %08X.", result_texture);
-
-		// Resize the DSV vector.
-		m_dsvs.resize(texture_desc.ArraySize);
-
-		// Create the DSV descriptor.
-		D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
-		dsv_desc.Format        = dsv_format;
-		dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DARRAY;
-		dsv_desc.Texture2DArray.ArraySize = 1u;
-
-		// Create the DSVs for each texture element.
-		for (U32 i = 0u; i < texture_desc.ArraySize; ++i) {
-			dsv_desc.Texture2DArray.FirstArraySlice = i;
-
-			const HRESULT result_dsv = device->CreateDepthStencilView(
-				texture.Get(), &dsv_desc,
-				m_dsvs[i].ReleaseAndGetAddressOf());
-			ThrowIfFailed(result_dsv, 
-				"DSV creation failed: %08X.", result_dsv);
+		
+		{
+			// Create the texture.
+			const HRESULT result = device->CreateTexture2D(
+				&texture_desc, nullptr, texture.ReleaseAndGetAddressOf());
+			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
 		}
 
-		// Create the SRV descriptor.
-		D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
-		srv_desc.Format        = srv_format;
-		srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBEARRAY;
-		srv_desc.TextureCubeArray.MipLevels = 1u;
-		srv_desc.TextureCubeArray.NumCubes  = static_cast< U32 >(nb_shadow_cube_maps);
+		{
+			// Resize the DSV vector.
+			m_dsvs.resize(texture_desc.ArraySize);
 
-		// Create the SRV for all texture elements.
-		const HRESULT result_srv = device->CreateShaderResourceView(
-			texture.Get(), &srv_desc,
-			m_srv.ReleaseAndGetAddressOf());
-		ThrowIfFailed(result_srv, 
-			"SRV creation failed: %08X.", result_srv);
+			// Create the DSV descriptor.
+			D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
+			dsv_desc.Format        = dsv_format;
+			dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DARRAY;
+			dsv_desc.Texture2DArray.ArraySize = 1u;
+
+			// Create the DSVs for each texture element.
+			for (U32 i = 0u; i < texture_desc.ArraySize; ++i) {
+				dsv_desc.Texture2DArray.FirstArraySlice = i;
+
+				const HRESULT result = device->CreateDepthStencilView(
+					texture.Get(), &dsv_desc, m_dsvs[i].ReleaseAndGetAddressOf());
+				ThrowIfFailed(result, "DSV creation failed: %08X.", result);
+			}
+		}
+
+		{
+			// Create the SRV descriptor.
+			D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
+			srv_desc.Format        = srv_format;
+			srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBEARRAY;
+			srv_desc.TextureCubeArray.MipLevels = 1u;
+			srv_desc.TextureCubeArray.NumCubes  = static_cast< U32 >(nb_shadow_cube_maps);
+
+			// Create the SRV for all texture elements.
+			const HRESULT result = device->CreateShaderResourceView(
+				texture.Get(), &srv_desc, m_srv.ReleaseAndGetAddressOf());
+			ThrowIfFailed(result, "SRV creation failed: %08X.", result);
+		}
 	}
 }

@@ -28,7 +28,7 @@
   * .GIF  (Graphics Interchange Format 89a)
   * .HDP, .WDP, .JXR  (HD Photo, Windows Media Photo, JPEG-XR)
   * .ICO  (Icon Format)
-  * .JPG, .JPEG (Joint Photographic Experts Group)
+  * .JPG, .JPEG, .JPE (Joint Photographic Experts Group)
   * .PNG  (Portable Network Graphics)
   * .TIF, .TIFF (Tagged Image File Format)
 * Properties

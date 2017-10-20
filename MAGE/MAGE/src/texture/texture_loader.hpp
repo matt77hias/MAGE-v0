@@ -18,7 +18,7 @@ namespace mage {
 	 Imports the texture from the given file.
 
 	 @pre			@a device is not equal to @c nullptr.
-	 @pre			@a texture_resource_view is not equal to @c nullptr.
+	 @pre			@a texture_srv is not equal to @c nullptr.
 	 @param[in]		fname
 					A reference to the filename.
 	 @param[in]		device
@@ -28,6 +28,25 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to import the texture from file.
 	 */
-	void ImportTextureFromFile(const wstring &fname, ID3D11Device2 *device, 
+	void ImportTextureFromFile(const wstring &fname, 
+		ID3D11Device2 *device, 
 		ID3D11ShaderResourceView **texture_srv);
+
+	/**
+	 Exports the texture to the given file.
+
+	 @pre			@a device_context is not equal to @c nullptr.
+	 @pre			@a texture is not equal to @c nullptr.
+	 @param[in]		fname
+					A reference to the filename.
+	 @param[in]		device_context
+					A pointer to the device context.
+	 @param[out]	texture_srv
+					A pointer to the texture.
+	 @throws		FormattedException
+					Failed to export the texture to file.
+	 */
+	void ExportTextureToFile(const wstring &fname, 
+		ID3D11DeviceContext2 *device_context, 
+		ID3D11Resource *texture);
 }

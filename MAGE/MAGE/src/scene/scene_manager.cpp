@@ -20,22 +20,21 @@ namespace mage {
 	}
 
 	SceneManager::SceneManager()
-		: m_scene(nullptr), 
-		m_requested_scene(nullptr) {}
+		: m_scene(), m_requested_scene(), 
+		m_has_requested_scene(false) {}
 
 	SceneManager::SceneManager(SceneManager &&scene_behavior) = default;
 
 	SceneManager::~SceneManager() = default;
 
 	void SceneManager::ApplyRequestedScene() {
-		Assert(m_requested_scene);
-		
 		if (m_scene) {
 			m_scene->Uninitialize();
 		}
 
-		m_scene           = std::move(m_requested_scene);
-		m_requested_scene = nullptr;
+		m_scene               = std::move(m_requested_scene);
+		m_requested_scene     = nullptr;
+		m_has_requested_scene = false;
 
 		if (m_scene) {
 			m_scene->Initialize();
@@ -45,7 +44,8 @@ namespace mage {
 	}
 
 	void SceneManager::SetScene(UniquePtr< Scene > &&scene) {
-		m_requested_scene = std::move(scene);
+		m_requested_scene     = std::move(scene);
+		m_has_requested_scene = true;
 
 		if (!m_scene) {
 			ApplyRequestedScene();
@@ -61,13 +61,13 @@ namespace mage {
 	void SceneManager::Update(F64 delta_time) {
 		m_scene->ForEachScript([this, delta_time](BehaviorScript *script) {
 
-			if (!m_requested_scene) {
+			if (!m_has_requested_scene) {
 				script->Update(delta_time);
 			}
 
 		});
 
-		if (m_requested_scene) {
+		if (m_has_requested_scene) {
 			ApplyRequestedScene();
 		}
 	}

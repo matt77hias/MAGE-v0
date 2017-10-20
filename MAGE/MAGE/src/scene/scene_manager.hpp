@@ -131,5 +131,13 @@ namespace mage {
 		 A pointer to the requested scene of this scene manager.
 		 */
 		UniquePtr< Scene > m_requested_scene;
+
+		/**
+		 A flag indicating whether this scene manager has a requested scene.
+		 
+		 A separate flag is needed, because the requested scene maybe 
+		 @c nullptr.
+		 */
+		bool m_has_requested_scene;
 	};
 }

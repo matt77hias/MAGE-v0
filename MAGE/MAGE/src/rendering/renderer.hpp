@@ -120,7 +120,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Bind the persistent state of this renderer.
+		 Binds the persistent state of this renderer.
 
 		 @throws		FormattedException
 						Failed to bind the persistent state of this renderer.

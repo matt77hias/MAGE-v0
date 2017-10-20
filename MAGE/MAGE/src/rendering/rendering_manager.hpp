@@ -324,16 +324,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Initializes the different systems of this rendering manager.
+		 Initializes the different rendering systems of this rendering manager.
 
 		 @throws		FormattedException
 						Failed to initialize at least one of the different 
-						systems of this rendering manager.
+						rendering systems of this rendering manager.
 		 */
 		void InitializeSystems();
 
 		/**
-		 Uninitializes the different systems of this rendering manager.
+		 Uninitializes the different rendering systems of this rendering 
+		 manager.
 		 */
 		void UninitializeSystems() noexcept;
 

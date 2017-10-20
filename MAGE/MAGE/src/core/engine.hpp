@@ -125,6 +125,20 @@ namespace mage {
 		int Run(UniquePtr< Scene > &&scene, int nCmdShow = SW_NORMAL);
 
 		//---------------------------------------------------------------------
+		// Member Methods: Resource System
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the resource manager of this engine.
+
+		 @return		@c nullptr if this engine is not properly setup.
+		 @return		A pointer to the resource manager of this engine.
+		 */
+		ResourceManager *GetResourceManager() const noexcept {
+			return m_resource_manager.get();
+		}
+
+		//---------------------------------------------------------------------
 		// Member Methods: Window System
 		//---------------------------------------------------------------------
 
@@ -185,20 +199,6 @@ namespace mage {
 		 */
 		const InputManager *GetInputManager() const noexcept {
 			return m_input_manager.get();
-		}
-
-		//---------------------------------------------------------------------
-		// Member Methods: Resource System
-		//---------------------------------------------------------------------
-
-		/**
-		 Returns the resource manager of this engine.
-
-		 @return		@c nullptr if this engine is not properly setup.
-		 @return		A pointer to the resource manager of this engine.
-		 */
-		ResourceManager *GetResourceManager() const noexcept {
-			return m_resource_manager.get();
 		}
 
 		//---------------------------------------------------------------------
@@ -265,6 +265,15 @@ namespace mage {
 		void UninitializeSystems() noexcept;
 
 		//---------------------------------------------------------------------
+		// Member Variables: Resource System
+		//---------------------------------------------------------------------
+
+		/**
+		 A pointer to the resource manager of this engine.
+		 */
+		UniquePtr< ResourceManager > m_resource_manager;
+
+		//---------------------------------------------------------------------
 		// Member Variables: Window System
 		//---------------------------------------------------------------------
 
@@ -301,15 +310,6 @@ namespace mage {
 		 A pointer to the input manager of this engine.
 		 */
 		UniquePtr< InputManager > m_input_manager;
-
-		//---------------------------------------------------------------------
-		// Member Variables: Resource System
-		//---------------------------------------------------------------------
-
-		/**
-		 A pointer to the resource manager of this engine.
-		 */
-		UniquePtr< ResourceManager > m_resource_manager;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Scene System

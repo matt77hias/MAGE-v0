@@ -25,10 +25,10 @@ namespace mage {
 
 	Engine::Engine(const EngineSetup &setup)
 		: Loadable(), 
+		m_resource_manager(),
 		m_main_window(), m_deactive(false),
 		m_rendering_manager(), m_mode_switch(false),
 		m_input_manager(), 
-		m_resource_manager(), 
 		m_scene_manager(),
 		m_timer(MakeUnique< Timer >()), m_fixed_delta_time(0.0f),
 		m_engine_stats(MakeUnique< EngineStatistics >()) {

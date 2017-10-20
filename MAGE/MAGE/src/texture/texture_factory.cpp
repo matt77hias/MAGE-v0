@@ -34,12 +34,12 @@ namespace mage {
 
 	SharedPtr< const Texture > CreateMAGETexture() {
 		return ResourceManager::Get()->GetOrCreateTexture(
-			L"assets/sprites/mage.dds");
+			L"assets/textures/mage.dds");
 	}
 
 	SharedPtr< const Texture > CreateReferenceTexture() {
 		return ResourceManager::Get()->GetOrCreateTexture(
-			L"assets/sprites/reference.dds");
+			L"assets/textures/reference.dds");
 	}
 
 	SharedPtr< const Texture > CreateBlackTexture() {

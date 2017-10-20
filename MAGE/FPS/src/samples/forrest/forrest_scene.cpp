@@ -45,7 +45,7 @@ namespace mage {
 		// Sky
 		//---------------------------------------------------------------------
 		auto sky_texture =
-			ResourceManager::Get()->GetOrCreateTexture(L"assets/sprites/sky/sunset.dds");
+			ResourceManager::Get()->GetOrCreateTexture(L"assets/textures/sky/sunset.dds");
 		auto sky = GetSky();
 		sky->SetTexture(sky_texture);
 

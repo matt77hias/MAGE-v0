@@ -44,7 +44,7 @@ namespace mage {
 		const SharedPtr< const Texture > white 
 			= CreateWhiteTexture();
 		const SharedPtr< const Texture > tsnm 
-			= ResourceManager::Get()->GetOrCreateTexture(L"assets/sprites/tsnm/rock 4.dds");
+			= ResourceManager::Get()->GetOrCreateTexture(L"assets/textures/tsnm/rock 4.dds");
 
 		Material mat_emissive;
 		mat_emissive.DissableLightInteraction();

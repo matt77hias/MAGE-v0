@@ -48,18 +48,7 @@ namespace mage {
 	ResourceManager::ResourceManager(
 		ResourceManager &&resource_factory) = default;
 
-	ResourceManager::~ResourceManager() {
-		m_model_descriptor_resource_pool->RemoveAllResources();
-		m_vs_resource_pool->RemoveAllResources();
-		m_hs_resource_pool->RemoveAllResources();
-		m_ds_resource_pool->RemoveAllResources();
-		m_gs_resource_pool->RemoveAllResources();
-		m_ps_resource_pool->RemoveAllResources();
-		m_cs_resource_pool->RemoveAllResources();
-		m_sprite_font_resource_pool->RemoveAllResources();
-		m_texture_resource_pool->RemoveAllResources();
-		m_variable_script_resource_pool->RemoveAllResources();
-	}
+	ResourceManager::~ResourceManager() = default;
 
 	//---------------------------------------------------------------------
 	// ResourceManager: HasResource

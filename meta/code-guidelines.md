@@ -66,4 +66,4 @@ Enumerate all member variables in the initializer list of constructors in order.
 Always use `static_cast` for type conversion between built-in types.
 
 ### `ZeroMemory`
-Do not use `ZeroMemory`, use `= {}` instead. (Though, `SecureZeroMemory` may be used.
+Do not use `ZeroMemory`, use `= {}` instead. (Though, `SecureZeroMemory` may be used).

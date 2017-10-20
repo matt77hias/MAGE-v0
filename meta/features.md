@@ -26,11 +26,11 @@
   * .BMP  (Windows Bitmap Format)
   * .DDS  (DirectDraw Surface) **[preferred]**
   * .GIF  (Graphics Interchange Format 89a)
-  * .HDP  (HD Photo/Windows Media Photo)
+  * .HDP, .WDP, .JXR  (HD Photo, Windows Media Photo, JPEG-XR)
   * .ICO  (Icon Format)
-  * .JPEG (Joint Photographic Experts Group)
+  * .JPG, .JPEG (Joint Photographic Experts Group)
   * .PNG  (Portable Network Graphics)
-  * .TIFF (Tagged Image File Format)
+  * .TIF, .TIFF (Tagged Image File Format)
 * Properties
   * .VS   (Variable Script) **[MAGE Dedicated Format]**
 

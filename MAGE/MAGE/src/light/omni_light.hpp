@@ -267,11 +267,16 @@ namespace mage {
 		 */
 		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
 			// Reversed-Z used for the depth buffer.
-			return XMMatrixPerspectiveFovLH(
-				GetFOV(),
-				GetAspectRatio(),
-				GetEndDistanceFalloff(),
-				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z);
+			const F32 m22 = MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z 
+				/ (MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z - GetEndDistanceFalloff());
+			const F32 m32 = -GetEndDistanceFalloff() * m22;
+			
+			return XMMATRIX{
+				1.0f, 0.0f, 0.0f, 0.0f,
+				0.0f, 1.0f, 0.0f, 0.0f,
+				0.0f, 0.0f,  m22, 1.0f,
+				0.0f, 0.0f,  m32, 0.0f
+			};
 		}
 
 		/**

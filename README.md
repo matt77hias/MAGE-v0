@@ -71,6 +71,7 @@
 ## Index
 * [Code Guidelines](meta/code-guidelines.md)
 * [Documentation](https://matt77hias.github.io/MAGE-Doc/MAGE-Doc/html/index.html)
+* [FAQ](meta/faq.md)
 * [Features](meta/features.md)
 * [File Formats](meta/file-formats.md)
 * [Iterations](meta/iterations.md)

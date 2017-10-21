@@ -42,12 +42,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the renderer associated with the current engine.
+		 Returns the renderer of the rendering manager associated with the 
+		 current engine.
 
 		 @pre			The rendering manager associated with the current 
 						engine must be loaded.
-		 @return		A pointer to the renderer associated with the 
-						current engine.
+		 @return		A pointer to the renderer of the rendering manager 
+						associated with the current engine.
 		 */
 		static Renderer *Get() noexcept;
 

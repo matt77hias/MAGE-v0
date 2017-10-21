@@ -33,8 +33,8 @@ namespace mage {
 		/**
 		 Constructs a constant buffer.
 
-		 @pre			The device associated with the current engine must be 
-						loaded.
+		 @pre			The device associated of the rendering manager 
+						associated with the current engine must be loaded.
 		 @throws		FormattedException
 						Failed to setup this constant buffer.
 		 */

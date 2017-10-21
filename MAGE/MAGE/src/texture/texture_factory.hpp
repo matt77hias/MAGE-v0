@@ -20,6 +20,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException
 					Failed to create the texture.
@@ -29,7 +31,9 @@ namespace mage {
 	/**
 	 Creates a reference texture.
 
-	 @pre			The resource manager associated with the current engine
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException
@@ -42,6 +46,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException
 					Failed to create the texture.
@@ -52,6 +58,8 @@ namespace mage {
 	 Creates a white texture.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException
@@ -64,6 +72,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException
 					Failed to create the texture.
@@ -75,6 +85,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException
 					Failed to create the texture.
@@ -85,6 +97,8 @@ namespace mage {
 	 Creates a blue texture.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the texture.
 	 @throws		FormattedException

@@ -978,6 +978,9 @@
     <ClInclude Include="MAGE\src\rendering\renderer.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\rendering\swap_chain.hpp">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1347,6 +1350,9 @@
       <Filter>Source Files\pass</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\renderer.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\swap_chain.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
   </ItemGroup>

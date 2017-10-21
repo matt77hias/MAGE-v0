@@ -34,8 +34,8 @@ namespace mage {
 		/**
 		 Constructs a structured buffer.
 
-		 @pre			The device associated with the current engine must be 
-						loaded.
+		 @pre			The device associated of the rendering manager 
+						associated with the current engine must be loaded.
 		 @param[in]		nb_initial_data_elements
 						The initial number of slots for storing data elements 
 						to provide.
@@ -121,8 +121,8 @@ namespace mage {
 		/**
 		 Updates the data of this structured buffer with the given data.
 
-		 @pre			The device associated with the current engine must be 
-						loaded in case this structured buffer needs to grow.
+		 @pre			The device associated of the rendering manager 
+						associated with the current engine must be loaded.
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @param[in]		device_context
 						A pointer to the device context.

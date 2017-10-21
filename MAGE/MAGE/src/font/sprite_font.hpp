@@ -32,8 +32,8 @@ namespace mage {
 		/**
 		 Constructs a sprite font.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The device associated of the rendering manager 
+						associated with the current engine must be loaded.
 		 @param[in]		fname
 						A reference to the filename (the globally unique 
 						identifier).

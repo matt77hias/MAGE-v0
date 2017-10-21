@@ -27,12 +27,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the mouse associated with the current engine.
+		 Returns the mouse of the input manager associated with the current 
+		 engine.
 
 		 @pre			The input manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the mouse associated with the current 
-						engine.
+		 @return		A pointer to the mouse of the input manager associated 
+						with the current engine.
 		 */
 		static const Mouse *Get() noexcept;
 

@@ -29,8 +29,8 @@ namespace mage {
 		 Returns the scene manager associated with the current engine.
 
 		 @pre			The current engine must exist.
-		 @return		A pointer to the scene manager associated
-						with the current engine.
+		 @return		A pointer to the scene manager associated with the 
+						current engine.
 		 */
 		static SceneManager *Get() noexcept;
 

@@ -265,7 +265,7 @@ namespace mage {
 
 		// Bind the HDR RTV and DSV.
 		Pipeline::OM::BindRTVAndDSV(device_context,
-			RenderingManager::Get()->GetBackBufferRTV(), nullptr);
+			SwapChain::Get()->GetRTV(), nullptr);
 
 		// Bind HDR SRV.
 		Pipeline::PS::BindSRV(device_context,

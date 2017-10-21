@@ -15,7 +15,7 @@
 namespace mage {
 
 	/**
-	 A struct of rendering state managers.
+	 A class of rendering state managers.
 	 */
 	class RenderingStateManager final {
 
@@ -26,13 +26,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the rendering state manager associated with the current 
-		 rendering manager.
+		 Returns the rendering state manager of the rendering manager 
+		 associated with the current engine.
 
 		 @pre			The rendering manager associated with the current 
 						engine must be loaded.
-		 @return		A pointer to the rendering state manager associated 
-						with the current rendering manager.
+		 @return		A pointer to the rendering state manager of the 
+						rendering manager associated with the current engine.
 		 */
 		static const RenderingStateManager *Get() noexcept;
 

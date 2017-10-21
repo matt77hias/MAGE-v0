@@ -29,8 +29,8 @@ namespace mage {
 		/**
 		 Constructs a texture.
 
-		 @pre			The device associated with the current engine must be 
-						loaded.
+		 @pre			The device associated of the rendering manager 
+						associated with the current engine must be loaded.
 		 @param[in]		fname
 						A reference to the filename (the globally unique 
 						identifier).
@@ -58,8 +58,8 @@ namespace mage {
 		/**
 		 Constructs a 2D texture.
 
-		 @pre			The device associated with the current engine must be 
-						loaded.
+		 @pre			The device associated of the rendering manager 
+						associated with the current engine must be loaded.
 		 @pre			@a desc is not equal to @c nullptr.
 		 @pre			@a initial_data is not equal to @c nullptr.
 		 @param[in]		guid

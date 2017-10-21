@@ -33,8 +33,8 @@ namespace mage {
 		/**
 		 Constructs a vertex shader.
 
-		 @pre			The rendering device associated with the 
-						current engine must be loaded.
+		 @pre			The device associated of the rendering manager 
+						associated with the current engine must be loaded.
 		 @pre			@a compiled_shader is not equal to @c nullptr.
 		 @pre			The array pointed to by @a input_element_desc contains 
 						@a nb_input_elements elements, if @a input_element_desc 
@@ -214,8 +214,8 @@ namespace mage {
 		/**
 		 Constructs a shader.
 
-		 @pre			The rendering device associated with the 
-						current engine must be loaded.
+		 @pre			The device associated of the rendering manager 
+						associated with the current engine must be loaded.
 		 @pre			@a compiled_shader is not equal to @c nullptr.
 		 @param[in]		guid
 						A reference to the globally unique identifier.

@@ -27,12 +27,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the keyboard associated with the current engine.
+		 Returns the keyboard of the input manager associated with the current 
+		 engine.
 
 		 @pre			The input manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the keyboard associated with the current 
-						engine.
+		 @return		A pointer to the keyboard of the input manager 
+						associated with the current engine.
 		 */
 		static const Keyboard *Get() noexcept;
 

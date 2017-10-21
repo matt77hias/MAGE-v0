@@ -129,20 +129,27 @@ namespace mage {
 	
 	int Engine::Run(UniquePtr< Scene > &&scene, int nCmdShow) {
 		
+		// Check if this engine is loaded.
 		if (!IsLoaded()) {
 			Error("Game loop can not start because the engine is not loaded.");
 			return 0;
 		}
 		
+		// Pass the given scene to the scene manager.
 		m_scene_manager->SetScene(std::move(scene));
+		// Check if the scene manager is finished.
 		if (m_scene_manager->IsFinished()) {
 			return 0;
 		}
 
+		// Show the main window.
 		m_main_window->Show(nCmdShow);
+		
 		// Handle startup in fullscreen mode.
-		m_rendering_manager->SetInitialMode();
+		SwapChain * const swap_chain = m_rendering_manager->GetSwapChain();
+		swap_chain->SetInitialMode();
 
+		// Restart the timer.
 		m_timer->Restart();
 		F64 fixed_time_budget = 0.0f;
 
@@ -162,6 +169,7 @@ namespace mage {
 				continue;
 			}
 
+			// Check if the main window is deactive.
 			if (m_deactive) {
 				continue;
 			}
@@ -175,9 +183,9 @@ namespace mage {
 			}
 
 			// Handle switch between full screen and windowed mode.
-			const bool lost_mode = m_rendering_manager->LostMode();
+			const bool lost_mode = swap_chain->LostMode();
 			if (m_mode_switch || lost_mode) {
-				m_rendering_manager->SwitchMode(!lost_mode);
+				swap_chain->SwitchMode(!lost_mode);
 				m_mode_switch = false;
 				continue;
 			}

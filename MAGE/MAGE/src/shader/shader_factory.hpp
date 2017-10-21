@@ -26,6 +26,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the depth vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -37,6 +39,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the depth transparent vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -47,6 +51,8 @@ namespace mage {
 	 Creates a depth transparent pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the depth transparent pixel shader.
 	 @throws		FormattedException
@@ -66,6 +72,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the transform vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -76,6 +84,8 @@ namespace mage {
 	 Creates an emissive pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the emissive pixel shader.
 	 @throws		FormattedException
@@ -88,6 +98,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Lambertian pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -99,6 +111,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Cook-Torrance pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -109,6 +123,8 @@ namespace mage {
 	 Creates a pixel shader matching the given BRDF.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @param[in]		brdf
 					The BRDF type.
@@ -124,6 +140,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Lambertian tsnm pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -135,6 +153,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the Cook-Torrance tsnm pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -145,6 +165,8 @@ namespace mage {
 	 Creates a tsnm pixel shader matching the given BRDF.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @param[in]		brdf
 					The BRDF type.
@@ -167,6 +189,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the GBuffer pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -177,6 +201,8 @@ namespace mage {
 	 Creates a GBuffer tsnm pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the GBuffer tsnm pixel shader.
 	 @throws		FormattedException
@@ -196,6 +222,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the deferred emissive compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
@@ -206,6 +234,8 @@ namespace mage {
 	 Creates a deferred Lambertian compute shader.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the deferred Lambertian compute shader.
 	 @throws		FormattedException
@@ -218,6 +248,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the deferred Cook-Torrance compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
@@ -228,6 +260,8 @@ namespace mage {
 	 Creates a deferred compute shader matching the given BRDF.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @param[in]		brdf
 					The BRDF type.
@@ -250,6 +284,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the sprite vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -260,6 +296,8 @@ namespace mage {
 	 Creates a sprite pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the sprite pixel shader.
 	 @throws		FormattedException
@@ -279,6 +317,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the minimal transform vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -289,6 +329,8 @@ namespace mage {
 	 Creates a constant color pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the constant color pixel shader.
 	 @throws		FormattedException
@@ -301,6 +343,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the constant color texture pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -311,6 +355,8 @@ namespace mage {
 	 Creates a distance pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the distance pixel shader.
 	 @throws		FormattedException
@@ -330,6 +376,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the shading normal vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -341,6 +389,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the shading normal pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -351,6 +401,8 @@ namespace mage {
 	 Creates a tsnm shading normal pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the tsnm shading normal 
 					pixel shader.
@@ -371,6 +423,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the bounding volume vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -381,6 +435,8 @@ namespace mage {
 	 Creates a bounding volume pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the bounding volume pixel shader.
 	 @throws		FormattedException
@@ -400,6 +456,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the back buffer pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
@@ -417,6 +475,8 @@ namespace mage {
 	 Creates a sky pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the sky pixel shader.
 	 @throws		FormattedException
@@ -436,6 +496,8 @@ namespace mage {
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
 	 @return		A pointer to the far fullscreen triangle vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
@@ -446,6 +508,8 @@ namespace mage {
 	 Creates a near fullscreen triangle vertex shader.
 
 	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
 	 @return		A pointer to the near fullscreen triangle vertex shader.
 	 @throws		FormattedException

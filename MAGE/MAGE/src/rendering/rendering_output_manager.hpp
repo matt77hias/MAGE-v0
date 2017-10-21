@@ -14,6 +14,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
+	/**
+	 A class of rendering output managers.
+	 */
 	class RenderingOutputManager final {
 
 	public:
@@ -23,13 +26,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the rendering output manager associated with the current 
-		 rendering manager.
+		 Returns the rendering output manager of the rendering manager 
+		 associated with the current engine.
 
 		 @pre			The rendering manager associated with the current 
 						engine must be loaded.
-		 @return		A pointer to the rendering output manager associated 
-						with the current rendering manager.
+		 @return		A pointer to the rendering output manager of the 
+						rendering manager associated with the current engine.
 		 */
 		static const RenderingOutputManager *Get() noexcept;
 

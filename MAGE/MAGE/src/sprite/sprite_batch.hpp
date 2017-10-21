@@ -171,10 +171,10 @@ namespace mage {
 		/**
 		 Constructs a sprite batch.
 
-		 @pre			The device associated with the current engine must be 
-						loaded.
-		 @pre			The device context associated with the current engine 
-						must be loaded.
+		 @pre			The device associated of the rendering manager 
+						associated with the current engine must be loaded.
+		 @pre			The device context associated of the rendering manager 
+						associated with the current engine must be loaded.
 		 @pre			The renderer associated with the current engine must be 
 						loaded.
 		 */

@@ -20,16 +20,10 @@
 <p align="center"><img src="res/Example.png"></p>
 
 <p align="center">
-<img src="res/RenderModes/Solid+AABB+Wireframe.png" width="214">
-<img src="res/RenderModes/DiffuseTexture.png" width="214">
-<img src="res/RenderModes/ReferenceTexture.png" width="214">
-<img src="res/RenderModes/TSNMShadingNormal.png" width="214">
-</p>
-<p align="center">
-<img src="res/Material/Lambertian.png" width="214">
-<img src="res/Material/TSNM+Lambertian.png" width="214">
-<img src="res/Material/WardDuer.png" width="214">
-<img src="res/Material/TSNM+WardDuer.png" width="214">
+<img src="res/Example 2.png" width="214">
+<img src="res/Example 3.png" width="214">
+<img src="res/Example 4.png" width="214">
+<img src="res/Example 5.png" width="214">
 </p>
 
 **License**: Currently, MAGE is licensed under a [No License](https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt), since we do not allow diverging from the base version yet in this early stage of development.  

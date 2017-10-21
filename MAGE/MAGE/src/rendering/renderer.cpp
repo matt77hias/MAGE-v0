@@ -75,6 +75,8 @@ namespace mage {
 		// Update the pass buffer.
 		m_pass_buffer->Update(scene);
 
+		output_manager->Clear(m_device_context);
+
 		for (const auto node : m_pass_buffer->GetCameras()) {
 			output_manager->BindBegin(m_device_context);
 

@@ -178,6 +178,18 @@ namespace mage {
 		}
 	}
 
+	void RenderingOutputManager::Clear(
+		ID3D11DeviceContext2 *device_context) const noexcept {
+
+		// Bind no HDR SRV.
+		Pipeline::PS::BindSRV(device_context,
+			SLOT_SRV_IMAGE, nullptr);
+
+		// Clear the HDR RTV.
+		Pipeline::OM::ClearRTV(device_context,
+			GetRTV(RTVIndex::HDR0));
+	}
+
 	void RenderingOutputManager::BindBegin(
 		ID3D11DeviceContext2 *device_context) const noexcept {
 
@@ -201,10 +213,6 @@ namespace mage {
 		// Bind no HDR SRV.
 		Pipeline::PS::BindSRV(device_context, 
 			SLOT_SRV_IMAGE, nullptr);
-
-		// Clear the HDR RTV.
-		Pipeline::OM::ClearRTV(device_context,
-			GetRTV(RTVIndex::HDR0));
 	}
 
 	void RenderingOutputManager::BindGBuffer(

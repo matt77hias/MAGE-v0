@@ -1,2 +1,2 @@
 #define BRDFxCOS CookTorranceBRDFxCos
-#include "deferred_compute.hlsli"
+#include "deferred.hlsli"

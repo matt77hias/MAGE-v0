@@ -587,13 +587,6 @@
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
     </FxCompile>
-    <None Include="MAGE\shaders\deferred_compute.hlsli">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </None>
     <FxCompile Include="MAGE\shaders\depth\depth_VS.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>

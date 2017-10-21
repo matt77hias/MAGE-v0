@@ -1590,9 +1590,6 @@
     <None Include="MAGE\shaders\forward.hlsli">
       <Filter>Shader Files</Filter>
     </None>
-    <None Include="MAGE\shaders\deferred_compute.hlsli">
-      <Filter>Shader Files</Filter>
-    </None>
     <None Include="MAGE\shaders\deferred.hlsli">
       <Filter>Shader Files</Filter>
     </None>

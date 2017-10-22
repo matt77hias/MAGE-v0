@@ -62,7 +62,7 @@ namespace mage {
 		auto model_desc_sponza = 
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
 		auto model_desc_tree = 
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree1a_lod1.mdl", mesh_desc);
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);
 		
 		//---------------------------------------------------------------------
 		// Models

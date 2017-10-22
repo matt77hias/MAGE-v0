@@ -7,6 +7,9 @@
 #include "resource\resource_manager.hpp"
 #include "mesh\vertex.hpp"
 
+// Transform
+#include "shader\cso\forward\transform_VS.hpp"
+
 // Depth
 #include "shader\cso\depth\depth_VS.hpp"
 #include "shader\cso\depth\depth_transparent_VS.hpp"
@@ -21,13 +24,18 @@
 #include "shader\cso\deferred\lambertian_CS.hpp"
 #include "shader\cso\deferred\cook_torrance_CS.hpp"
 
-// Forward
-#include "shader\cso\forward\transform_VS.hpp"
+// Forward: Opaque
 #include "shader\cso\forward\emissive_PS.hpp"
 #include "shader\cso\forward\lambertian_PS.hpp"
 #include "shader\cso\forward\cook_torrance_PS.hpp"
 #include "shader\cso\forward\tsnm_lambertian_PS.hpp"
 #include "shader\cso\forward\tsnm_cook_torrance_PS.hpp"
+// Forward: Transparent
+#include "shader\cso\forward\transparent_emissive_PS.hpp"
+#include "shader\cso\forward\transparent_lambertian_PS.hpp"
+#include "shader\cso\forward\transparent_cook_torrance_PS.hpp"
+#include "shader\cso\forward\transparent_tsnm_lambertian_PS.hpp"
+#include "shader\cso\forward\transparent_tsnm_cook_torrance_PS.hpp"
 
 // Sprite
 #include "shader\cso\sky\sky_PS.hpp"
@@ -113,67 +121,113 @@ namespace mage {
 				VertexPositionNormalTexture::s_nb_input_elements);
 	}
 
-	SharedPtr< const PixelShader > CreateEmissivePS() {
-		const BufferCompiledShader cs(
+	SharedPtr< const PixelShader > CreateEmissivePS(
+		bool transparency) {
+		
+		if (transparency) {
+			const BufferCompiledShader cs(
+				g_transparent_emissive_ps, sizeof(g_transparent_emissive_ps));
+
+			return ResourceManager::Get()->GetOrCreatePS(
+				MAGE_GUID_PS_TRANSPARENT_EMISSIVE, &cs);
+		}
+		else {
+			const BufferCompiledShader cs(
 				g_emissive_ps, sizeof(g_emissive_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
+
+			return ResourceManager::Get()->GetOrCreatePS(
 				MAGE_GUID_PS_EMISSIVE, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateLambertianPS() {
-		const BufferCompiledShader cs(
-				g_lambertian_ps, sizeof(g_lambertian_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_LAMBERTIAN, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateCookTorrancePS() {
-		const BufferCompiledShader cs(
-				g_cook_torrance_ps, sizeof(g_cook_torrance_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_COOK_TORRANCE, &cs);
-	}
-	
-	SharedPtr< const PixelShader > CreatePS(BRDFType brdf) {
-		switch (brdf) {
-
-		case BRDFType::Lambertian:
-			return CreateLambertianPS();
-		case BRDFType::CookTorrance:
-			return CreateCookTorrancePS();
-		default:
-			return CreateCookTorrancePS();
 		}
 	}
 
-	SharedPtr< const PixelShader > CreateLambertianTSNMPS() {
-		const BufferCompiledShader cs(
-				g_tsnm_lambertian_ps, sizeof(g_tsnm_lambertian_ps));
+	SharedPtr< const PixelShader > CreateLambertianPS(
+		bool tsnm, bool transparency) {
+
+		if (tsnm) {
+			if (transparency) {
+				const BufferCompiledShader cs(
+					g_transparent_tsnm_lambertian_ps, sizeof(g_transparent_tsnm_lambertian_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TRANSPARENT_TSNM_LAMBERTIAN, &cs);
+			}
+			else {
+				const BufferCompiledShader cs(
+					g_tsnm_lambertian_ps, sizeof(g_tsnm_lambertian_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TSNM_LAMBERTIAN, &cs);
+			}
+		}
+		else {
+			if (transparency) {
+				const BufferCompiledShader cs(
+					g_transparent_lambertian_ps, sizeof(g_transparent_lambertian_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TRANSPARENT_LAMBERTIAN, &cs);
+			}
+			else {
+				const BufferCompiledShader cs(
+					g_lambertian_ps, sizeof(g_lambertian_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_LAMBERTIAN, &cs);
+			}
+		}
+
+
 		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_TSNM_LAMBERTIAN, &cs);
 	}
 
-	SharedPtr< const PixelShader > CreateCookTorranceTSNMPS() {
-		const BufferCompiledShader cs(
-				g_tsnm_cook_torrance_ps, sizeof(g_tsnm_cook_torrance_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_TSNM_COOK_TORRANCE, &cs);
-	}
+	SharedPtr< const PixelShader > CreateCookTorrancePS(
+		bool tsnm, bool transparency) {
 
-	SharedPtr< const PixelShader > CreateTSNMPS(BRDFType brdf) {
+		if (tsnm) {
+			if (transparency) {
+				const BufferCompiledShader cs(
+					g_transparent_tsnm_cook_torrance_ps, sizeof(g_transparent_tsnm_cook_torrance_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TRANSPARENT_TSNM_COOK_TORRANCE, &cs);
+			}
+			else {
+				const BufferCompiledShader cs(
+					g_tsnm_cook_torrance_ps, sizeof(g_tsnm_cook_torrance_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TSNM_COOK_TORRANCE, &cs);
+			}
+		}
+		else {
+			if (transparency) {
+				const BufferCompiledShader cs(
+					g_transparent_cook_torrance_ps, sizeof(g_transparent_cook_torrance_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TRANSPARENT_COOK_TORRANCE, &cs);
+			}
+			else {
+				const BufferCompiledShader cs(
+					g_cook_torrance_ps, sizeof(g_cook_torrance_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_COOK_TORRANCE, &cs);
+			}
+		}
+	}
+	
+	SharedPtr< const PixelShader > CreatePS(
+		BRDFType brdf, bool tsnm, bool transparency) {
+		
 		switch (brdf) {
 
 		case BRDFType::Lambertian:
-			return CreateLambertianTSNMPS();
+			return CreateLambertianPS(transparency);
 		case BRDFType::CookTorrance:
-			return CreateCookTorranceTSNMPS();
+			return CreateCookTorrancePS(tsnm, transparency);
 		default:
-			return CreateCookTorranceTSNMPS();
+			return CreateCookTorrancePS(tsnm, transparency);
 		}
 	}
 
@@ -184,20 +238,21 @@ namespace mage {
 	//-------------------------------------------------------------------------
 #pragma region
 
-	SharedPtr< const PixelShader > CreateGBufferPS() {
-		const BufferCompiledShader cs(
-				g_gbuffer_ps, sizeof(g_gbuffer_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_GBUFFER, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateGBufferTSNMPS() {
-		const BufferCompiledShader cs(
+	SharedPtr< const PixelShader > CreateGBufferPS(bool tsnm) {
+		if (tsnm) {
+			const BufferCompiledShader cs(
 				g_gbuffer_tsnm_ps, sizeof(g_gbuffer_tsnm_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
+
+			return ResourceManager::Get()->GetOrCreatePS(
 				MAGE_GUID_PS_GBUFFER_TSNM, &cs);
+		}
+		else {
+			const BufferCompiledShader cs(
+				g_gbuffer_ps, sizeof(g_gbuffer_ps));
+
+			return ResourceManager::Get()->GetOrCreatePS(
+				MAGE_GUID_PS_GBUFFER, &cs);
+		}
 	}
 
 #pragma endregion
@@ -326,20 +381,21 @@ namespace mage {
 				VertexPositionNormalTexture::s_nb_input_elements);
 	}
 
-	SharedPtr< const PixelShader > CreateShadingNormalPS() noexcept {
-		const BufferCompiledShader cs(
-				g_shading_normal_ps, sizeof(g_shading_normal_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
-				MAGE_GUID_PS_SHADING_NORMAL, &cs);
-	}
-
-	SharedPtr< const PixelShader > CreateShadingNormalTSNMPS() noexcept {
-		const BufferCompiledShader cs(
+	SharedPtr< const PixelShader > CreateShadingNormalPS(bool tsnm) noexcept {
+		if (tsnm) {
+			const BufferCompiledShader cs(
 				g_tsnm_shading_normal_ps, sizeof(g_tsnm_shading_normal_ps));
-		
-		return ResourceManager::Get()->GetOrCreatePS(
+
+			return ResourceManager::Get()->GetOrCreatePS(
 				MAGE_GUID_PS_TSNM_SHADING_NORMAL, &cs);
+		}
+		else {
+			const BufferCompiledShader cs(
+				g_shading_normal_ps, sizeof(g_shading_normal_ps));
+
+			return ResourceManager::Get()->GetOrCreatePS(
+				MAGE_GUID_PS_SHADING_NORMAL, &cs);
+		}
 	}
 
 #pragma endregion

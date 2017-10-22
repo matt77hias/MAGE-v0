@@ -87,11 +87,15 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		transparency
+					@c true if transparency should be supported. @c false 
+					otherwise.
 	 @return		A pointer to the emissive pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateEmissivePS();
+	SharedPtr< const PixelShader > CreateEmissivePS(
+		bool transparency = false);
 
 	/**
 	 Creates a Lambertian pixel shader.
@@ -100,11 +104,18 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be 
+					supported. @c false otherwise.
+	 @param[in]		transparency
+					@c true if transparency should be supported. @c false 
+					otherwise.
 	 @return		A pointer to the Lambertian pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateLambertianPS();
+	SharedPtr< const PixelShader > CreateLambertianPS(
+		bool tsnm = false, bool transparency = false);
 
 	/**
 	 Creates a Cook-Torrance pixel shader.
@@ -113,11 +124,18 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be 
+					supported. @c false otherwise.
+	 @param[in]		transparency
+					@c true if transparency should be supported. @c false 
+					otherwise.
 	 @return		A pointer to the Cook-Torrance pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateCookTorrancePS();
+	SharedPtr< const PixelShader > CreateCookTorrancePS(
+		bool tsnm = false, bool transparency = false);
 
 	/**
 	 Creates a pixel shader matching the given BRDF.
@@ -128,54 +146,19 @@ namespace mage {
 					must be loaded.
 	 @param[in]		brdf
 					The BRDF type.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be 
+					supported. @c false otherwise.
+	 @param[in]		transparency
+					@c true if transparency should be supported. @c false 
+					otherwise.
 	 @return		A pointer to the pixel shader matching
 					the given BRDF.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreatePS(BRDFType brdf);
-
-	/**
-	 Creates a Lambertian tsnm pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the Lambertian tsnm pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateLambertianTSNMPS();
-
-	/**
-	 Creates a Cook-Torrance tsnm pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the Cook-Torrance tsnm pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateCookTorranceTSNMPS();
-
-	/**
-	 Creates a tsnm pixel shader matching the given BRDF.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @param[in]		brdf
-					The BRDF type.
-	 @return		A pointer to the tsnm pixel shader matching
-					the given BRDF.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateTSNMPS(BRDFType brdf);
+	SharedPtr< const PixelShader > CreatePS(BRDFType brdf, 
+		bool tsnm = false, bool transparency = false);
 
 #pragma endregion
 
@@ -191,24 +174,14 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be 
+					supported. @c false otherwise.
 	 @return		A pointer to the GBuffer pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateGBufferPS();
-
-	/**
-	 Creates a GBuffer tsnm pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the GBuffer tsnm pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateGBufferTSNMPS();
+	SharedPtr< const PixelShader > CreateGBufferPS(bool tsnm = false);
 
 #pragma endregion
 
@@ -391,25 +364,15 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be 
+					supported. @c false otherwise.
 	 @return		A pointer to the shading normal pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateShadingNormalPS() noexcept;
-
-	/**
-	 Creates a tsnm shading normal pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the tsnm shading normal 
-					pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateShadingNormalTSNMPS() noexcept;
+	SharedPtr< const PixelShader > CreateShadingNormalPS(
+		bool tsnm = false) noexcept;
 
 #pragma endregion
 

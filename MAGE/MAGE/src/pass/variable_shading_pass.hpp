@@ -205,10 +205,13 @@ namespace mage {
 		 @c BRDF_TSNM.
 		 */
 		enum struct PSIndex {
-			Emissive  = 0,
-			BRDF      = 1,
-			BRDF_TSNM = 2,
-			Count     = 3
+			Emissive              = 0,
+			BRDF                  = 1,
+			BRDF_TSNM             = 2,
+			Transparent_Emissive  = 3,
+			Transparent_BRDF      = 4,
+			Transparent_BRDF_TSNM = 5,
+			Count                 = 6
 		};
 
 		/**
@@ -241,8 +244,11 @@ namespace mage {
 		 @pre			@a material is not equal to @c nullptr.
 		 @param[in]		material
 						A pointer to the material.
+		 @param[in]		transparency
+						@c true if transparency should be enabled. @c false 
+						otherwise.
 		 */
-		void BindPS(const Material *material) noexcept;
+		void BindPS(const Material *material, bool transparency) noexcept;
 		
 		/**
 		 Binds the projection data of this variable shading pass.
@@ -301,6 +307,9 @@ namespace mage {
 						transformation matrix will be chained with the 
 						world-to-object transformation matrix for transforming 
 						normals.
+		 @param[in]		transparency
+						@c true if transparency should be enabled. @c false 
+						otherwise.
 		 @throws		FormattedException
 						Failed to process the models.
 		 */
@@ -308,7 +317,8 @@ namespace mage {
 			const vector< const ModelNode * > &models,
 			FXMMATRIX world_to_projection, 
 			CXMMATRIX world_to_view, 
-			CXMMATRIX view_to_world);
+			CXMMATRIX view_to_world,
+			bool transparency = false);
 
 		//---------------------------------------------------------------------
 		// Member Variables

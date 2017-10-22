@@ -211,6 +211,8 @@ namespace mage {
 		m_ps->BindShader(m_device_context);
 		// OM: Bind the depth-stencil state.
 		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		// OM: Bind the blend state.
+		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
 	void XM_CALLCONV VariableComponentPass::Render(
@@ -225,24 +227,12 @@ namespace mage {
 		// Bind the projection data.
 		BindProjectionData(view_to_projection);
 		
-		// Bind the blend state.
-		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
-
-		// Process the opaque models.
+		// Process the models.
 		ProcessModels(scene->GetOpaqueEmissiveModels(), 
 			world_to_projection, world_to_view, view_to_world);
-		ProcessModels(scene->GetOpaqueBRDFModels(), 
+		ProcessModels(scene->GetTransparentEmissiveModels(),
 			world_to_projection, world_to_view, view_to_world);
-		
-		if (   RenderMode::BaseColor            == m_render_mode
-			|| RenderMode::BaseColorTexture     == m_render_mode
-			|| RenderMode::BaseColorCoefficient == m_render_mode) {
-			// Bind the blend state.
-			RenderingStateManager::Get()->BindAlphaBlendState(m_device_context);
-		}
-		
-		// Process the transparent models.
-		ProcessModels(scene->GetTransparentEmissiveModels(), 
+		ProcessModels(scene->GetOpaqueBRDFModels(), 
 			world_to_projection, world_to_view, view_to_world);
 		ProcessModels(scene->GetTransparentBRDFModels(), 
 			world_to_projection, world_to_view, view_to_world);

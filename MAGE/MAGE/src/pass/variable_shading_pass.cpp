@@ -27,7 +27,14 @@ namespace mage {
 	VariableShadingPass::VariableShadingPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateTransformVS()),
-		m_ps{ CreateEmissivePS(), CreatePS(BRDFType::Unknown), CreateTSNMPS(BRDFType::Unknown) },
+		m_ps{ 
+			CreateEmissivePS(false), 
+			CreatePS(BRDFType::Unknown, false, false), 
+			CreatePS(BRDFType::Unknown, true, false), 
+			CreateEmissivePS(true),
+			CreatePS(BRDFType::Unknown, false, true),
+			CreatePS(BRDFType::Unknown, true, true), 
+		},
 		m_bound_ps(PSIndex::Count), m_brdf(BRDFType::Unknown),
 		m_projection_buffer(), m_model_buffer() {}
 
@@ -38,8 +45,14 @@ namespace mage {
 	void VariableShadingPass::UpdatePSs(BRDFType brdf) {
 		if (m_brdf != brdf) {
 			m_brdf = brdf;
-			m_ps[static_cast< size_t >(PSIndex::BRDF)]      = CreatePS(brdf);
-			m_ps[static_cast< size_t >(PSIndex::BRDF_TSNM)] = CreateTSNMPS(brdf);
+			m_ps[static_cast< size_t >(PSIndex::BRDF)] 
+				= CreatePS(brdf, false, false);
+			m_ps[static_cast< size_t >(PSIndex::BRDF_TSNM)] 
+				= CreatePS(brdf, true, false);
+			m_ps[static_cast< size_t >(PSIndex::Transparent_BRDF)] 
+				= CreatePS(brdf, false, true);
+			m_ps[static_cast< size_t >(PSIndex::Transparent_BRDF_TSNM)] 
+				= CreatePS(brdf, true, true);
 		}
 	}
 
@@ -50,18 +63,34 @@ namespace mage {
 		}
 	}
 
-	void VariableShadingPass::BindPS(const Material *material) noexcept {
+	void VariableShadingPass::BindPS(
+		const Material *material, bool transparency) noexcept {
 		
-		if (!material->InteractsWithLight()) {
-			BindPS(PSIndex::Emissive);
-			return;
-		}
+		if (transparency) {
+			if (!material->InteractsWithLight()) {
+				BindPS(PSIndex::Transparent_Emissive);
+				return;
+			}
 
-		if (material->GetNormalSRV()) {
-			BindPS(PSIndex::BRDF_TSNM);
+			if (material->GetNormalSRV()) {
+				BindPS(PSIndex::Transparent_BRDF_TSNM);
+			}
+			else {
+				BindPS(PSIndex::Transparent_BRDF);
+			}
 		}
 		else {
-			BindPS(PSIndex::BRDF);
+			if (!material->InteractsWithLight()) {
+				BindPS(PSIndex::Emissive);
+				return;
+			}
+
+			if (material->GetNormalSRV()) {
+				BindPS(PSIndex::BRDF_TSNM);
+			}
+			else {
+				BindPS(PSIndex::BRDF);
+			}
 		}
 	}
 
@@ -128,8 +157,6 @@ namespace mage {
 		Pipeline::GS::BindShader(m_device_context, nullptr);
 		// RS: Bind the rasterization state.
 		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
-		// OM: Bind the depth-stencil state.
-		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
 	}
 
 	void XM_CALLCONV VariableShadingPass::Render(
@@ -144,7 +171,9 @@ namespace mage {
 		// Bind the projection data.
 		BindProjectionData(view_to_projection);
 
-		// Bind the blend state.
+		// OM: Bind the depth-stencil state.
+		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 		
 		// Process the models.
@@ -170,7 +199,9 @@ namespace mage {
 		// Bind the projection data.
 		BindProjectionData(view_to_projection);
 
-		// Bind the blend state.
+		// OM: Bind the depth-stencil state.
+		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 		
 		// Process the emissive models.
@@ -192,21 +223,24 @@ namespace mage {
 		// Bind the projection data.
 		BindProjectionData(view_to_projection);
 
-		// Bind the blend state.
+		// OM: Bind the depth-stencil state.
+		RenderingStateManager::Get()->BindGreaterDepthReadWriteDepthStencilState(m_device_context);
+		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindAlphaBlendState(m_device_context);
 
 		// Process the transparent models.
 		ProcessModels(scene->GetTransparentEmissiveModels(), 
-			world_to_projection, world_to_view, view_to_world);
+			world_to_projection, world_to_view, view_to_world, true);
 		ProcessModels(scene->GetTransparentBRDFModels(),
-			world_to_projection, world_to_view, view_to_world);
+			world_to_projection, world_to_view, view_to_world, true);
 	}
 
 	void XM_CALLCONV VariableShadingPass::ProcessModels(
 		const vector< const ModelNode * > &models,
 		FXMMATRIX world_to_projection, 
 		CXMMATRIX world_to_view, 
-		CXMMATRIX view_to_world) {
+		CXMMATRIX view_to_world,
+		bool transparency) {
 
 		for (const auto node : models) {
 			
@@ -231,7 +265,7 @@ namespace mage {
 			// Bind the model data.
 			BindModelData(object_to_view, view_to_object, texture_transform, material);
 			// Bind the pixel shader.
-			BindPS(material);
+			BindPS(material, transparency);
 			// Bind the model mesh.
 			model->BindMesh(m_device_context);
 			// Draw the model.

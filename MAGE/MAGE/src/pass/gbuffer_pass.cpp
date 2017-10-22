@@ -27,7 +27,7 @@ namespace mage {
 	GBufferPass::GBufferPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateTransformVS()),
-		m_ps{ CreateGBufferPS(), CreateGBufferTSNMPS() },
+		m_ps{ CreateGBufferPS(false), CreateGBufferPS(true) },
 		m_bound_ps(PSIndex::Count),
 		m_projection_buffer(), m_model_buffer() {}
 

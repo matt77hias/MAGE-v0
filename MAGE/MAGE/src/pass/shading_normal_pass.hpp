@@ -152,9 +152,9 @@ namespace mage {
 		 @c TSNMShadingNormal.
 		 */
 		enum struct PSIndex {
-			ShadingNormal     = 0,
-			TSNMShadingNormal = 1,
-			Count             = 2
+			Default = 0,
+			TSNM    = 1,
+			Count   = 2
 		};
 
 		/**

@@ -1453,6 +1453,21 @@
     <FxCompile Include="MAGE\shaders\miscellaneous\back_buffer_PS.hlsl">
       <Filter>Shader Files\miscellaneous</Filter>
     </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\transparent_lambertian_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\transparent_tsnm_cook_torrance_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\transparent_tsnm_lambertian_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\transparent_cook_torrance_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\transparent_emissive_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\memory\memory_arena.tpp">

@@ -28,7 +28,7 @@ namespace mage {
 		: m_device_context(Pipeline::GetImmediateDeviceContext()), 
 		m_render_mode(RenderMode::None), 
 		m_vs(CreateShadingNormalVS()), 
-		m_ps{ CreateShadingNormalPS(), CreateShadingNormalTSNMPS() }, 
+		m_ps{ CreateShadingNormalPS(false), CreateShadingNormalPS(true) },
 		m_bound_ps(PSIndex::Count),
 		m_projection_buffer(), m_model_buffer() {}
 
@@ -49,7 +49,7 @@ namespace mage {
 			&& material->GetNormalSRV()) {
 
 			// Bind the pixel shader.
-			BindPS(PSIndex::TSNMShadingNormal);
+			BindPS(PSIndex::TSNM);
 
 			// Bind the normal SRV.
 			Pipeline::PS::BindSRV(m_device_context,
@@ -58,7 +58,7 @@ namespace mage {
 		else {
 
 			// Bind the pixel shader.
-			BindPS(PSIndex::ShadingNormal);
+			BindPS(PSIndex::Default);
 		}
 	}
 

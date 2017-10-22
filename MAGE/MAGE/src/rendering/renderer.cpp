@@ -166,6 +166,11 @@ namespace mage {
 				break;
 			}
 
+			case RenderMode::None: {
+				output_manager->BindForward(m_device_context);
+				break;
+			}
+
 			}
 
 			// RenderLayer

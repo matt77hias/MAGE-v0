@@ -40,6 +40,11 @@ static const float g_pi_inv_4 = 0.785398163f;
  */
 static const float g_sqrt_2_inv_pi = 0.7978845608f;
 
+/**
+ The (approximate, average) sRGB gamma exponent.
+ */
+static const float g_sRGB_gamma = 2.2f;
+
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: HasNaNs
 //-----------------------------------------------------------------------------
@@ -732,6 +737,31 @@ float3 GammaToLinear(float3 rgb, float gamma) {
  */
 float4 GammaToLinear(float4 rgba, float gamma) {
 	return float4(GammaToLinear(rgba.xyz, gamma), rgba.w);
+}
+
+/**
+ Converts the given spectrum from gamma space to linear space.
+
+ @pre			All components of @a rgb must be non-negative.
+ @param[in]		rgba
+				The RGB spectrum in gamma space.
+ @return		The RGB spectrum in linear space.
+ */
+float3 GammaToLinear(float3 rgb) {
+	return GammaToLinear(rgb, g_sRGB_gamma);
+}
+
+/**
+ Converts the given spectrum from gamma space to linear space.
+
+ @pre			All components of @a rgba must be non-negative.
+ @param[in]		rgba
+				The RGBA spectrum in linear space.
+ @return		The RGBA spectrum in gamma space.
+ @note			The alpha channel of the given RGBA spectrum is preserved.
+ */
+float4 GammaToLinear(float4 rgba) {
+	return GammaToLinear(rgba, g_sRGB_gamma);
 }
 
 //-----------------------------------------------------------------------------

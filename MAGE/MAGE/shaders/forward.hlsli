@@ -10,9 +10,13 @@
 //-----------------------------------------------------------------------------
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 	// Obtain the base color of the material.
-	const float4 base_color = GammaToLinear(GetMaterialBaseColor(input.tex));
+	const float4 base_color = GetMaterialBaseColor(input.tex);
 
+//#ifdef ENABLE_TRANSPARENCY
 	clip(base_color.w - TRANSPARENCY_SKIP_THRESHOLD);
+//#else
+//	clip(base_color.w - TRANSPARENCY_THRESHOLD);
+//#endif
 
 	// Obtain the material parameters [roughness, metalness] of the material.
 	const float2 material   = GetMaterialParameters(input.tex);

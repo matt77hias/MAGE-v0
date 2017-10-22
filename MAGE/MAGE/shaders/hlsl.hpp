@@ -6,7 +6,8 @@
 //-----------------------------------------------------------------------------
 
 #define TRANSPARENCY_SHADOW_THRESHOLD 0.75f
-#define TRANSPARENCY_SKIP_THRESHOLD   0.00392157f // 1/255
+#define TRANSPARENCY_SKIP_THRESHOLD   0.00392157f // ~  1/255
+#define TRANSPARENCY_THRESHOLD        0.95686275f // ~244/255
 
 #define Z_FAR  0.0f
 #define Z_NEAR 1.0f

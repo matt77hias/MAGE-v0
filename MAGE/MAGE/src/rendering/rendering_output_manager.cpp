@@ -42,7 +42,7 @@ namespace mage {
 
 		// Setup the GBuffer buffers.
 		SetupBuffer(device, width, height, 
-			DXGI_FORMAT_R8G8B8A8_UNORM,
+			DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
 			ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_BaseColor),
 			ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_BaseColor),
 			nullptr);

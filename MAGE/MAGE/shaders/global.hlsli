@@ -111,29 +111,4 @@ float4 LinearToGamma(float4 rgba) {
 	return LinearToGamma(rgba, g_inv_gamma);
 }
 
-/**
- Converts the given spectrum from gamma space to linear space.
-
- @pre			All components of @a rgb must be non-negative.
- @param[in]		rgba
-				The RGB spectrum in gamma space.
- @return		The RGB spectrum in linear space.
- */
-float3 GammaToLinear(float3 rgb) {
-	return GammaToLinear(rgb, g_gamma);
-}
-
-/**
- Converts the given spectrum from gamma space to linear space.
-
- @pre			All components of @a rgba must be non-negative.
- @param[in]		rgba
-				The RGBA spectrum in linear space.
- @return		The RGBA spectrum in gamma space.
- @note			The alpha channel of the given RGBA spectrum is preserved.
- */
-float4 GammaToLinear(float4 rgba) {
-	return GammaToLinear(rgba, g_gamma);
-}
-
 #endif // MAGE_HEADER_GLOBAL

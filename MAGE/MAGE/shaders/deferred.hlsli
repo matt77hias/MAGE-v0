@@ -12,7 +12,7 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 	const float2 location = input.p.xy;
 
 	// Obtain the base color of the material.
-	const float3 base_color = GammaToLinear(GetGBufferMaterialBaseColor(location));
+	const float3 base_color = GetGBufferMaterialBaseColor(location);
 	// Obtain the parameters of the material.
 	const float2 material   = GetGBufferMaterialParameters(location);
 	// Obtain the view-space normal.
@@ -41,7 +41,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	const float2 location = thread_id.xy;
 
 	// Obtain the base color of the material.
-	const float3 base_color = GammaToLinear(GetGBufferMaterialBaseColor(location));
+	const float3 base_color = GetGBufferMaterialBaseColor(location);
 	// Obtain the parameters of the material.
 	const float2 material   = GetGBufferMaterialParameters(location);
 	// Obtain the view-space normal.

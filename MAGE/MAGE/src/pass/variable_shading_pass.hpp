@@ -118,7 +118,7 @@ namespace mage {
 		void BindFixedState(BRDFType brdf);
 
 		/**
-		 Renders the scene (only the opaque models).
+		 Renders the scene.
 
 		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
@@ -134,7 +134,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV RenderOpaque(
+		void XM_CALLCONV Render(
 			const PassBuffer *scene,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,
@@ -142,7 +142,7 @@ namespace mage {
 			CXMMATRIX view_to_projection);
 
 		/**
-		 Renders the scene (only the opaque emissive models).
+		 Renders the scene (only the emissive models).
 
 		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
@@ -158,7 +158,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV RenderOpaqueEmissive(
+		void XM_CALLCONV RenderEmissive(
 			const PassBuffer *scene,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,

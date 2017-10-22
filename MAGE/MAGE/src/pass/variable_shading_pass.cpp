@@ -132,7 +132,7 @@ namespace mage {
 		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
 	}
 
-	void XM_CALLCONV VariableShadingPass::RenderOpaque(
+	void XM_CALLCONV VariableShadingPass::Render(
 		const PassBuffer *scene,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
@@ -147,14 +147,18 @@ namespace mage {
 		// Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 		
-		// Process the opaque models.
+		// Process the models.
 		ProcessModels(scene->GetOpaqueEmissiveModels(), 
+			world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetTransparentEmissiveModels(),
 			world_to_projection, world_to_view, view_to_world);
 		ProcessModels(scene->GetOpaqueBRDFModels(), 
 			world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetTransparentBRDFModels(),
+			world_to_projection, world_to_view, view_to_world);
 	}
 
-	void XM_CALLCONV VariableShadingPass::RenderOpaqueEmissive(
+	void XM_CALLCONV VariableShadingPass::RenderEmissive(
 		const PassBuffer *scene,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
@@ -169,8 +173,10 @@ namespace mage {
 		// Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 		
-		// Process the opaque models.
-		ProcessModels(scene->GetOpaqueEmissiveModels(), 
+		// Process the emissive models.
+		ProcessModels(scene->GetOpaqueEmissiveModels(),
+			world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetTransparentEmissiveModels(),
 			world_to_projection, world_to_view, view_to_world);
 	}
 

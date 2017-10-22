@@ -250,10 +250,10 @@ namespace mage {
 		
 		output_manager->BindForward(m_device_context);
 
-		// Perform a forward pass: opaque models.
+		// Perform a forward pass.
 		VariableShadingPass * const forward_pass = GetVariableShadingPass();
 		forward_pass->BindFixedState(brdf);
-		forward_pass->RenderOpaque(
+		forward_pass->Render(
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world, view_to_projection);
 
@@ -309,10 +309,10 @@ namespace mage {
 
 		output_manager->BindForward(m_device_context);
 
-		// Perform a forward pass: opaque emissive models.
+		// Perform a forward pass: emissive models.
 		VariableShadingPass * const forward_pass = GetVariableShadingPass();
 		forward_pass->BindFixedState(brdf);
-		forward_pass->RenderOpaqueEmissive(
+		forward_pass->RenderEmissive(
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world, view_to_projection);
 

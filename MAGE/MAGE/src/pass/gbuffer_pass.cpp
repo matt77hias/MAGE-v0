@@ -132,6 +132,8 @@ namespace mage {
 		// Process the models.
 		ProcessModels(scene->GetOpaqueBRDFModels(), 
 			world_to_projection, world_to_view, view_to_world);
+		ProcessModels(scene->GetTransparentBRDFModels(),
+			world_to_projection, world_to_view, view_to_world);
 	}
 
 	void XM_CALLCONV GBufferPass::ProcessModels(

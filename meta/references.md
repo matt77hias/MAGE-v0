@@ -102,6 +102,8 @@ KELEMEN C., SZIRMAY-KALOS L.: *A Microfacet Based Coupled Specular-Matte BRDF Mo
 
 KEMEN B.: [*Maximizing Depth Buffer Range and Precision*](http://outerra.blogspot.be/2012/11/maximizing-depth-buffer-range-and.html), 2012.
 
+LAGARDE S., DE ROUSIERS C.: *Moving Frostbite to Physically Based Rendering 3.0*, *SIGGRAPH 2014 Course: Physically Based Shading in Theory and Practice*, 2014.
+
 LAPIDOUS E., JIA G.: *Optimal depth buffer for low-cost graphics hardware*, *Proceedings of the ACM SIGGRAPH/EUROGRAPHICS Workshop on Graphics Hardware*, 1999.
 
 LENGYEL E.: *Foundations of Game Engine Development, Volume 1: Mathematics*, 1st Edition, Terathon Software LLC, 2016.
@@ -215,6 +217,7 @@ Uses:
 * [Naiwen Xie](https://github.com/sienaiwun)
 * [Nathan Reed](https://github.com/Reedbeta)
 * [Nicolas Silvagni](https://github.com/galop1n)
+* [Roald Frederickx](https://github.com/RoaldFre)
 * Scott Meyers
 * [Turánszki János](https://github.com/turanszkij)
 * [GameDev.net](https://www.gamedev.net/) community

@@ -89,6 +89,7 @@ namespace mage {
 		auto omni_light = Create< OmniLightNode >("light");
 		omni_light->GetTransform()->SetTranslation(0.0f, 20.0f, -15.0f);
 		omni_light->GetLight()->SetDistanceFalloff(0.0f, 50.0f);
+		omni_light->GetLight()->SetIntensity(RGBSpectrum(50.0f));
 
 		//---------------------------------------------------------------------
 		// Image

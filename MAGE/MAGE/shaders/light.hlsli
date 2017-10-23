@@ -120,7 +120,9 @@ struct SpotLightWithShadowMapping {
 				the light.
  */
 float DistanceFalloff(float r, float r_end, float r_inv_range) {
-	return saturate((r_end - r) * r_inv_range);
+	return max(1.0f / (r * r) - r_inv_range * r_inv_range, 0.0f);
+
+	//return saturate((r_end - r) * r_inv_range);
 }
 
 /**

@@ -142,7 +142,7 @@ namespace mage {
 
 		// Collect active ambient light.
 		scene->ForEachAmbientLight([this](const AmbientLightNode *node) {
-			m_ambient_light = node->GetLight()->GetIntensity();
+			m_ambient_light = node->GetLight()->GetRadianceSpectrum();
 		});
 	}
 

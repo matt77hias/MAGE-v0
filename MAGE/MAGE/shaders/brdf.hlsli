@@ -1317,7 +1317,7 @@ float3 CookTorranceBRDFxCos(float3 n, float3 l, float3 v,
 	
 	const float  alpha   = max(0.1f, sqr(roughness));
 	const float  n_dot_l = sat_dot(n, l);
-	const float  n_dot_v = sat_dot(n, v);
+	const float  n_dot_v = sat_dot(n, v) + 0.00001f;
 	const float3 h       = HalfDirection(l, v);
 	const float  n_dot_h = sat_dot(n, h);
 	const float  v_dot_h = sat_dot(v, h);
@@ -1363,7 +1363,7 @@ float3 DisneyBRDFxCos(float3 n, float3 l, float3 v,
 	
 	const float  alpha   = min(0.1f, sqr(roughness));
 	const float  n_dot_l = sat_dot(n, l);
-	const float  n_dot_v = sat_dot(n, v);
+	const float  n_dot_v = sat_dot(n, v) + 0.00001f;
 	const float3 h       = HalfDirection(l, v);
 	const float  n_dot_h = sat_dot(n, h);
 	const float  v_dot_h = sat_dot(v, h);

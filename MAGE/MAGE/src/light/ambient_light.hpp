@@ -27,12 +27,8 @@ namespace mage {
 
 		/**
 		 Constructs an ambient light.
-
-		 @param[in]		intensity
-						The RGB intensity.
 		 */
-		explicit AmbientLight(
-			const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
+		AmbientLight();
 
 		/**
 		 Constructs an ambient light from the given ambient light.
@@ -92,6 +88,41 @@ namespace mage {
 			return static_pointer_cast< AmbientLight >(CloneImplementation());
 		}
 
+		//---------------------------------------------------------------------
+		// Member Methods: Lighting
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the radiance of this ambient light.
+
+		 @return		The radiance of this ambient light.
+		 */
+		F32 GetRadiance() const noexcept {
+			return m_radiance;
+		}
+
+		/**
+		 Sets the radiance of this ambient light to the given radiance.
+		 
+		 @param[in]		radiance
+						The radiance.
+		 */
+		void SetRadiance(F32 radiance) noexcept {
+			m_radiance = radiance;
+		}
+
+		/**
+		 Returns the radiance spectrum of this ambient light.
+
+		 @return		The radiance spectrum of this ambient light.
+		 */
+		const RGBSpectrum GetRadianceSpectrum() const noexcept {
+			const RGBSpectrum color = GetColor();
+			return RGBSpectrum(m_radiance * color.x, 
+				               m_radiance * color.y, 
+				               m_radiance * color.z);
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -104,5 +135,14 @@ namespace mage {
 		 @return		A pointer to the clone of this ambient light.
 		 */
 		virtual UniquePtr< Light > CloneImplementation() const override;
+
+		//---------------------------------------------------------------------
+		// Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The radiance of this ambient light.
+		 */
+		F32 m_radiance;
 	};
 }

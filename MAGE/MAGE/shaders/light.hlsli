@@ -14,11 +14,11 @@
  A struct of directional lights.
  */
 struct DirectionalLight {
-	// The intensity of this spotlight .
-	float3 I;
+	// The radiance of this directional light.
+	float3 L;
 	uint padding0;
-	// The (normalized) negated direction of this spotlight in view space 
-	// coordinates.
+	// The (normalized) negated direction of this directional light in camera 
+	// view space.
 	float3 neg_d;
 	uint padding1;
 };
@@ -27,48 +27,32 @@ struct DirectionalLight {
  A struct of omni lights.
  */
 struct OmniLight {
-	// The position of this omni light in view space coordinates.
+	// The position of this omni light in camera view space.
 	float3 p;
-	//  The distance at which intensity falloff ends of this omni light.
-	float distance_falloff_end;
-	// The intensity of this omni light.
+	// The inverse squared range of this omni light.
+	float inv_sqr_range;
+	// The radiant intensity of this omni light.
 	float3 I;
-	// The distance inverse range where intensity falloff occurs of this 
-	// omni light.
-	// distance_falloff_range     = distance_falloff_end - distance_falloff_start
-	// distance_falloff_inv_range = 1 / distance_falloff_range
-	float distance_falloff_inv_range;
+	uint padding0;
 };
 
 /**
  A struct of spotlights.
  */
 struct SpotLight {
-	// The position of this spotlight in view space coordinates.
+	// The position of this spotlight in camera view space.
 	float3 p;
-	uint padding0;
-	// The intensity of this spotlight.
+	// The inverse squared range of this spotlight.
+	float inv_sqr_range;
+	// The radiant intensity of this spotlight.
 	float3 I;
-	uint padding1;
-	// The (normalized) negated direction of this spotlight in view space 
-	// coordinates.
-	float3 neg_d;
-	// The exponent property of this spotlight.
-	float exponent_property;
-	// The distance at which intensity falloff ends of this spotlight.
-	float distance_falloff_end;
-	// The distance inverse range where intensity falloff occurs of this 
-	// spotlight.
-	// distance_falloff_range     = distance_falloff_end - distance_falloff_start
-	// distance_falloff_inv_range = 1 / distance_falloff_range
-	float distance_falloff_inv_range;
-	// The cosine of the umbra angle at which intensity falloff ends of this 
-	// spotlight.
+	// The cosine of the umbra angle of this spotlight.
 	float cos_umbra;
-	// The cosine inverse range where intensity falloff occurs of this 
-	// spotlight.
-	// cos_range     = cos_penumbra - cos_umbra
-	// cos_inv_range = 1 / cos_range
+	// The (normalized) negated direction of this spotlight in camera view 
+	// space.
+	float3 neg_d;
+	// The cosine inverse range of this spotlight.
+	// cos_inv_range = 1 / (cos_penumbra - cos_umbra)
 	float cos_inv_range;
 };
 
@@ -109,20 +93,42 @@ struct SpotLightWithShadowMapping {
 };
 
 /**
+ Calculates the distance intensity fallof smoothing factor of a light.
+
+ @param[in]		sqr_distance
+				The squared distance between the lit point and the center of 
+				the light.
+ @param[in]		inv_sqr_range
+				The inverse squared range of the light.
+ @return		The distance intensity fallof smoothing factor.
+ */
+float DistanceFalloffSmoothingFactor(float sqr_distance, float inv_sqr_range) {
+	//         [    distance^2]^2
+	// saturate[1 - ----------]
+	//         [      range^2 ]
+
+	return sqr(saturate(1.0f - sqr_distance * inv_sqr_range));
+}
+
+/**
  Calculates the distance intensity fallof of a light.
 
- @param[in]		r
+ @param[in]		distance
 				The distance between the lit point and the center of the light.
- @param[in]		r_end
-				The distance at which intensity falloff ends of the light.
- @param[in]		r_inv_range
-				The distance inverse range where intensity falloff occurs of 
-				the light.
+ @param[in]		inv_sqr_range
+				The inverse squared range of the light.
+ @return		The distance intensity fallof.
  */
-float DistanceFalloff(float r, float r_end, float r_inv_range) {
-	return max(1.0f / (r * r) - r_inv_range * r_inv_range, 0.0f);
+float DistanceFalloff(float distance, float inv_sqr_range) {
+	//                 1
+	// df := -----------------------
+	//       max(distance^2, 0.01^2)
 
-	//return saturate((r_end - r) * r_inv_range);
+	const float sqr_distance = sqr(distance);
+	const float attenuation  = 1.0f / max(sqr_distance, 0.0001f);
+	const float smoothing    = DistanceFalloffSmoothingFactor(sqr_distance, inv_sqr_range);
+	
+	return attenuation * smoothing;
 }
 
 /**
@@ -130,19 +136,14 @@ float DistanceFalloff(float r, float r_end, float r_inv_range) {
 
  @param[in]		cos_theta
 				The cosine of the angle between the direction from the center 
-				of the light to the lit point
-				to the light direction.
+				of the light to the lit point, and the light direction.
  @param[in]		cos_umbra
-				The cosine of the umbra angle at which intensity falloff ends 
-				of the light.
+				The cosine of the umbra angle of the light.
  @param[in]		cos_inv_range
-				The cosine inverse range where intensity falloff occurs of the 
-				light.
- @param[in]		s_exp
-				The exponent property of the light.
+				The cosine inverse range of the light.
  */
-float AngularFalloff(float cos_theta, float cos_umbra, float cos_inv_range, float s_exp) {
-	return pow(saturate((cos_theta - cos_umbra) * cos_inv_range), s_exp);
+float AngularFalloff(float cos_theta, float cos_umbra, float cos_inv_range) {
+	return sqr(saturate((cos_theta - cos_umbra) * cos_inv_range));
 }
 
 /**
@@ -150,13 +151,12 @@ float AngularFalloff(float cos_theta, float cos_umbra, float cos_inv_range, floa
 
  @param[in]		light
 				The omni light.
- @param[in]		r
+ @param[in]		distance
 				The distance between the lit point and the center of the light.
+ @return		The maximal intensity contribution of the given omni light.
  */
-float3 MaxContribution(OmniLight light, float r) {
-	const float df = DistanceFalloff(r, 
-		                             light.distance_falloff_end, 
-		                             light.distance_falloff_inv_range);
+float3 MaxContribution(OmniLight light, float distance) {
+	const float df = DistanceFalloff(distance, light.inv_sqr_range);
 	return df * light.I;
 }
 
@@ -166,42 +166,38 @@ float3 MaxContribution(OmniLight light, float r) {
  @pre			@a l is normalized.
  @param[in]		light
 				The spotlight.
- @param[in]		r
+ @param[in]		distance
 				The distance between the lit point and the center of the light.
  @param[in]		l
 				The light (hit-to-light) direction.
+ @return		The maximal intensity contribution of the given spotlight.
  */
-float3 MaxContribution(SpotLight light, float r, float3 l) {
+float3 MaxContribution(SpotLight light, float distance, float3 l) {
 	const float cos_theta = dot(light.neg_d, l);
-	const float df = DistanceFalloff(r, 
-		                             light.distance_falloff_end, 
-		                             light.distance_falloff_inv_range);
-	const float af = AngularFalloff(cos_theta, 
-		                            light.cos_umbra, 
-		                            light.cos_inv_range, 
-		                            light.exponent_property);
+	const float df = DistanceFalloff(distance, light.inv_sqr_range);
+	const float af = AngularFalloff(cos_theta, light.cos_umbra, light.cos_inv_range);
 	return af * df * light.I;
 }
 
 /**
- Calculates the contribution of the given directional light.
+ Calculates the radiance contribution of the given directional light.
 
  @param[in]		light
 				The directional light.
  @param[out]	l
 				The light (hit-to-light) direction.
- @param[out]	I
-				The light intensity contribution.
+ @param[out]	L
+				The radiance contribution of the given directional light.
  */
 void Contribution(DirectionalLight light, 
-	out float3 l, out float3 I) {
+	out float3 l, out float3 L) {
 
 	l = light.neg_d;
-	I = light.I;
+	L = light.L;
 }
 
 /**
- Calculates the contribution of the given omni light.
+ Calculates the intensity contribution of the given omni light.
 
  @param[in]		light
 				The omni light.
@@ -210,7 +206,7 @@ void Contribution(DirectionalLight light,
  @param[out]	l
 				The light (hit-to-light) direction.
  @param[out]	I
-				The light intensity contribution.
+				The intensity contribution of the given omni light.
  */
 void Contribution(OmniLight light, 
 	float3 p, out float3 l, out float3 I) {
@@ -223,7 +219,7 @@ void Contribution(OmniLight light,
 }
 
 /**
- Calculates the contribution of the given spotlight.
+ Calculates the intensity contribution of the given spotlight.
 
  @param[in]		light
 				The spotlight.
@@ -232,7 +228,7 @@ void Contribution(OmniLight light,
  @param[out]	l
 				The light (hit-to-light) direction.
  @param[out]	I
-				The light intensity contribution.
+				The intensity contribution of the given spotlight.
  */
 void Contribution(SpotLight light, 
 	float3 p, out float3 l, out float3 I) {
@@ -295,7 +291,7 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
 }
 
 /**
- Calculates the contribution of the given directional light with shadow mapping.
+ Calculates the radiance contribution of the given directional light.
 
  @pre			@a shadow_maps must contain a shadow map at index @a index.
  @param[in]		light
@@ -308,24 +304,24 @@ float ShadowFactor(SamplerComparisonState pcf_sampler,
 				The light index into the array of shadow maps.
  @param[out]	l
 				The light (hit-to-light) direction.
- @param[out]	I
-				The light intensity contribution.
+ @param[out]	L
+				The radiance contribution.
  */
 void Contribution(DirectionalLightWithShadowMapping light,
 	SamplerComparisonState pcf_sampler, 
 	Texture2DArray< float > shadow_maps, uint index,
-	float3 p, out float3 l, out float3 I) {
+	float3 p, out float3 l, out float3 L) {
 
-	float3 l0, I0;
-	Contribution(light.light, l0, I0);
+	float3 l0, L0;
+	Contribution(light.light, l0, L0);
 
 	l = l0;
 	const float4 p_proj = mul(float4(p, 1.0f), light.cview_to_lprojection);
-	I = I0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_proj);
+	L = L0 * ShadowFactor(pcf_sampler, shadow_maps, index, p_proj);
 }
 
 /**
- Calculates the contribution of the given omni light with shadow mapping.
+ Calculates the intensity contribution of the given omni light.
 
  @pre			@a shadow_maps must contain a shadow cube map at index @a index.
  @param[in]		light
@@ -341,7 +337,7 @@ void Contribution(DirectionalLightWithShadowMapping light,
  @param[out]	l
 				The light (hit-to-light) direction.
  @param[out]	I
-				The light intensity contribution.
+				The intensity contribution.
  */
 void Contribution(OmniLightWithShadowMapping light,
 	SamplerComparisonState pcf_sampler, 
@@ -357,7 +353,7 @@ void Contribution(OmniLightWithShadowMapping light,
 }
 
 /**
- Calculates the contribution of the given spotlight with shadow mapping.
+ Calculates the intensity contribution of the given spotlight.
 
  @pre			@a shadow_maps must contain a shadow map at index @a index.
  @param[in]		light
@@ -373,7 +369,7 @@ void Contribution(OmniLightWithShadowMapping light,
  @param[out]	l
 				The light (hit-to-light) direction.
  @param[out]	I
-				The light intensity contribution.
+				The intensity contribution.
  */
 void Contribution(SpotLightWithShadowMapping light,
 	SamplerComparisonState pcf_sampler,
@@ -396,7 +392,7 @@ void Contribution(SpotLightWithShadowMapping light,
  @param[in]		r_start
 				The distance at which intensity falloff starts due to fog.
  @param[in]		r_inv_range
-				The distance inverse range where intensity falloff occurs due 
+				The inverse distance range where intensity falloff occurs due 
 				to fog.
  @return		The (linear) fog factor.
  */

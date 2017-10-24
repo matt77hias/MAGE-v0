@@ -12,29 +12,28 @@
 // Constant Buffers
 //-----------------------------------------------------------------------------
 CBUFFER(LightBuffer, SLOT_CBUFFER_LIGHTING) {
-	// The intensity of the ambient light in the scene. 
-	float3 g_Ia                            : packoffset(c0);
-	
-	// The distance at which intensity falloff starts due to fog.
-	float g_fog_distance_falloff_start     : packoffset(c0.w);
+	// The radiance of the ambient light in the scene. 
+	float3 g_La                     : packoffset(c0);
+	// The start distance of the fog.
+	float g_fog_start               : packoffset(c0.w);
 	// The color of the fog.
-	float3 g_fog_color                     : packoffset(c1);
-	// The distance inverse range where intensity falloff occurs due to fog.
-	float g_fog_distance_falloff_inv_range : packoffset(c1.w);
+	float3 g_fog_color              : packoffset(c1);
+	// The inverse distance range of the fog.
+	float g_fog_inv_range           : packoffset(c1.w);
 
 	// The number of directional lights in the scene.
-	uint g_nb_directional_lights           : packoffset(c2.x);
+	uint g_nb_directional_lights    : packoffset(c2.x);
 	// The number of omni lights in the scene.
-	uint g_nb_omni_lights                  : packoffset(c2.y);
+	uint g_nb_omni_lights           : packoffset(c2.y);
 	// The number of spotlights in the scene.
-	uint g_nb_spot_lights                  : packoffset(c2.z);
+	uint g_nb_spot_lights           : packoffset(c2.z);
 
 	// The number of directional lights with shadow mapping in the scene.
-	uint g_nb_sm_directional_lights        : packoffset(c3.x);
+	uint g_nb_sm_directional_lights : packoffset(c3.x);
 	// The number of omni lights with shadow mapping in the scene.
-	uint g_nb_sm_omni_lights               : packoffset(c3.y);
+	uint g_nb_sm_omni_lights        : packoffset(c3.y);
 	// The number of spotlights with shadow mapping in the scene.
-	uint g_nb_sm_spot_lights               : packoffset(c3.z);
+	uint g_nb_sm_spot_lights        : packoffset(c3.z);
 }
 
 //-----------------------------------------------------------------------------
@@ -110,7 +109,7 @@ float3 BRDFShading(float3 p, float3 n,
 
 #ifndef DISSABLE_AMBIENT_LIGHT
 	// Ambient light contribution
-	L += g_Ia;
+	L += g_La;
 #endif // DISSABLE_AMBIENT_LIGHT
 
 	const float3 v = -p / r_eye;
@@ -120,10 +119,10 @@ float3 BRDFShading(float3 p, float3 n,
 	for (uint i0 = 0; i0 < g_nb_directional_lights; ++i0) {
 		const DirectionalLight light = g_directional_lights[i0];
 		
-		float3 l, I_light;
-		Contribution(light, l, I_light);
+		float3 l, L_light;
+		Contribution(light, l, L_light);
 
-		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
+		L += L_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
 #endif // DISSABLE_DIRECTIONAL_LIGHTS
 
@@ -158,10 +157,10 @@ float3 BRDFShading(float3 p, float3 n,
 	for (uint i3 = 0; i3 < g_nb_sm_directional_lights; ++i3) {
 		const DirectionalLightWithShadowMapping light = g_sm_directional_lights[i3];
 		
-		float3 l, I_light;
-		Contribution(light, g_pcf_sampler, g_directional_sms, i3, p, l, I_light);
+		float3 l, L_light;
+		Contribution(light, g_pcf_sampler, g_directional_sms, i3, p, l, L_light);
 
-		L += I_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
+		L += L_light * BRDFxCOS(n, l, v, base_color, roughness, metalness);
 	}
 #endif // DISSABLE_SHADOW_MAP_DIRECTIONAL_LIGHTS
 
@@ -194,9 +193,7 @@ float3 BRDFShading(float3 p, float3 n,
 #endif // DISSABLE_BRDFxCOS
 
 #ifndef DISSABLE_FOG
-	const float fog_factor = FogFactor(r_eye, 
-		                               g_fog_distance_falloff_start, 
-		                               g_fog_distance_falloff_inv_range);
+	const float fog_factor = FogFactor(r_eye, g_fog_start, g_fog_inv_range);
 	L = lerp(L, g_fog_color, fog_factor);
 #endif // DISSABLE_FOG
 	

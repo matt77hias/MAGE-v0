@@ -12,13 +12,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Light::Light(const RGBSpectrum &intensity)
-		: m_intensity(intensity),
-		m_aabb(MaximumAABB()),
-		m_bs(MaximumBS()) {}
-
-	Light::Light(RGBSpectrum &&intensity)
-		: m_intensity(std::move(intensity)),
+	Light::Light()
+		: m_color(RGBSpectrum(1.0f)),
 		m_aabb(MaximumAABB()),
 		m_bs(MaximumBS()) {}
 

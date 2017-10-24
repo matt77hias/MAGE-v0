@@ -28,11 +28,10 @@ namespace mage {
 		/**
 		 Constructs a directional light.
 
-		 @param[in]		intensity
-						The RGB intensity.
+		 @param[in]		color
+						The color.
 		 */
-		explicit DirectionalLight(
-			const RGBSpectrum &intensity = RGBSpectrum(1.0f, 1.0f, 1.0f));
+		DirectionalLight();
 		
 		/**
 		 Constructs a directional light from the given directional light.
@@ -92,6 +91,45 @@ namespace mage {
 			return static_pointer_cast< DirectionalLight >(CloneImplementation());
 		}
 
+		//---------------------------------------------------------------------
+		// Member Methods: Lighting
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the radiance of this directional light.
+
+		 @return		The radiance of this directional light.
+		 */
+		F32 GetRadiance() const noexcept {
+			return m_radiance;
+		}
+
+		/**
+		 Sets the radiance of this directional light to the given radiance.
+		 
+		 @param[in]		radiance
+						The radiance.
+		 */
+		void SetRadiance(F32 radiance) noexcept {
+			m_radiance = radiance;
+		}
+
+		/**
+		 Returns the radiance spectrum of this directional light.
+
+		 @return		The radiance spectrum of this directional light.
+		 */
+		const RGBSpectrum GetRadianceSpectrum() const noexcept {
+			const RGBSpectrum color = GetColor();
+			return RGBSpectrum(m_radiance * color.x, 
+				               m_radiance * color.y, 
+				               m_radiance * color.z);
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Shadowing
+		//---------------------------------------------------------------------
+
 		/**
 		 Checks whether shadows should be used for this directional light.
 
@@ -150,6 +188,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
+
+		/**
+		 The radiance of this directional light.
+		 */
+		F32 m_radiance;
 
 		/**
 		 A flag indicating whether shadows should be calculated or not not for 

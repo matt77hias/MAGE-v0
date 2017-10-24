@@ -12,8 +12,10 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	DirectionalLight::DirectionalLight(const RGBSpectrum &intensity)
-		: Light(intensity), m_shadows(false) {}
+	DirectionalLight::DirectionalLight()
+		: Light(), 
+		m_radiance(1.0f),
+		m_shadows(false) {}
 
 	DirectionalLight::DirectionalLight(
 		const DirectionalLight &light) = default;

@@ -8,26 +8,16 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
-// System Includes
-//-----------------------------------------------------------------------------
-#pragma region
-
-#include <algorithm>
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpotLight::SpotLight(const RGBSpectrum &intensity)
-		: Light(intensity),
-		m_distance_falloff_start(0.0f), 
-		m_distance_falloff_end(1.0f),
+	SpotLight::SpotLight()
+		: Light(),
+		m_intensity(1.0f),
+		m_range(1.0f),
 		m_cos_penumbra(1.0f), 
 		m_cos_umbra(0.707106781f),
-		m_exponent_property(1.0f), 
 		m_shadows(false) {
 
 		// Update the bounding volumes.
@@ -51,12 +41,12 @@ namespace mage {
 	void SpotLight::UpdateBoundingVolumes() noexcept {
 		const F32 a         = 1.0f / (m_cos_umbra * m_cos_umbra);
 		const F32 tan_umbra = sqrt(a - 1.0f);
-		const F32 rxy       = m_distance_falloff_end * tan_umbra;
-		const F32 rz        = m_distance_falloff_end * 0.5f;
-		const F32 r         = m_distance_falloff_end * sqrt(a - 0.75f);
+		const F32 rxy       = m_range * tan_umbra;
+		const F32 rz        = m_range * 0.5f;
+		const F32 r         = sqrt(rxy * rxy + rz * rz);
 
 		AABB aabb(Point3(-rxy, -rxy, 0.0f),
-				  Point3( rxy,  rxy, m_distance_falloff_end));
+				  Point3( rxy,  rxy, m_range));
 
 		BS bs(Point3(0.0f, 0.0f, rz), r);
 

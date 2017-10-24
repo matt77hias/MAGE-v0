@@ -68,32 +68,32 @@ namespace mage {
 		}
 
 		/**
-		 Returns the intensity of this light.
+		 Returns the color of this light.
 
-		 @return		The intensity of this light.
+		 @return		The color of this light.
 		 */
-		const RGBSpectrum GetIntensity() const noexcept {
-			return m_intensity;
+		const RGBSpectrum GetColor() const noexcept {
+			return m_color;
 		}
 
 		/**
-		 Sets the intensity of this light to the given intensity.
+		 Sets the color of this light to the given color.
 
 		 @param[in]		intensity
 						A reference to the intensity.
 		 */
-		void SetIntensity(const RGBSpectrum &intensity) noexcept {
-			m_intensity = intensity;
+		void SetColor(const RGBSpectrum &color) noexcept {
+			m_color = color;
 		}
 
 		/**
-		 Sets the intensity of this light to the given intensity.
+		 Sets the color of this light to the given color.
 
 		 @param[in]		intensity
 						A reference to the intensity.
 		 */
-		void SetIntensity(RGBSpectrum &&intensity) noexcept {
-			m_intensity = std::move(intensity);
+		void SetColor(RGBSpectrum &&color) noexcept {
+			m_color = std::move(color);
 		}
 
 		/**
@@ -122,19 +122,8 @@ namespace mage {
 
 		/**
 		 Constructs a light.
-
-		 @param[in]		intensity
-						A reference to the RGB intensity.
 		 */
-		explicit Light(const RGBSpectrum &intensity);
-
-		/**
-		 Constructs a light.
-
-		 @param[in]		intensity
-						A reference to the RGB intensity.
-		 */
-		explicit Light(RGBSpectrum &&intensity);
+		Light();
 
 		/**
 		 Constructs a light from the given light.
@@ -196,9 +185,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The intensity of this light.
+		 The color of this light.
 		 */
-		RGBSpectrum m_intensity;
+		RGBSpectrum m_color;
 
 		/**
 		 The AABB of this light.

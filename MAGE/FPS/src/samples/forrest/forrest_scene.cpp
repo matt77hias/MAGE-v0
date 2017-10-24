@@ -123,20 +123,20 @@ namespace mage {
 		auto spot_light = Create< SpotLightNode >("light");
 		spot_light->GetTransform()->SetTranslationY(15.0f);
 		spot_light->GetTransform()->SetRotationX(XM_PIDIV2);
-		spot_light->GetLight()->SetDistanceFalloff(0.0f, 20.0f);
+		spot_light->GetLight()->SetRange(20.0f);
 		spot_light->GetLight()->SetAngularCutoff(1.0f, sqrt(2.0f)/2.0f);
-		spot_light->GetLight()->SetIntensity(RGBSpectrum(40.0f));
+		spot_light->GetLight()->SetIntensity(40.0f);
 		spot_light->GetLight()->EnableShadows();
 
 		auto light = Create< SpotLightNode >("light");
-		light->GetLight()->SetDistanceFalloff(0.0f, 5.0f);
+		light->GetLight()->SetRange(5.0f);
 		light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
 		camera->AddChildNode(light);
 
 		auto directional_light = Create< DirectionalLightNode >("light");
 		directional_light->GetTransform()->SetTranslation(20.0f, 20.0f, 0.0f);
 		directional_light->GetTransform()->SetRotationZ(XM_PIDIV4);
-		directional_light->GetLight()->SetIntensity(RGBSpectrum(4.0f));
+		directional_light->GetLight()->SetRadiance(4.0f);
 
 		//---------------------------------------------------------------------
 		// Image

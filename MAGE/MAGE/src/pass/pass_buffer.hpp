@@ -212,7 +212,7 @@ namespace mage {
 		/**
 		 Returns the ambient light of this pass buffer.
 
-		 @return		A reference to the RGB spectrum of the ambient light of 
+		 @return		A reference to the radiance spectrum of the ambient light of 
 						this pass buffer. 
 		 */
 		const RGBSpectrum &GetAmbientLight() const noexcept {
@@ -354,7 +354,7 @@ namespace mage {
 		vector< const SpriteNode * > m_sprites;
 
 		/**
-		 The RGB spectrum of the ambient light of this pass buffer.
+		 The radiance spectrum of the ambient light of this pass buffer.
 		 */
 		RGBSpectrum	m_ambient_light;
 

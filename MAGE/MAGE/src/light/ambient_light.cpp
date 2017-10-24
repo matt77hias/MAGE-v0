@@ -12,8 +12,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	AmbientLight::AmbientLight(const RGBSpectrum &intensity)
-		: Light(intensity) {}
+	AmbientLight::AmbientLight() 
+		: Light(), m_radiance(1.0f) {}
 
 	AmbientLight::AmbientLight(const AmbientLight &light) = default;
 	

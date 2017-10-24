@@ -35,8 +35,8 @@ namespace mage {
 		 Constructs a light buffer.
 		 */
 		LightBuffer()
-			: m_Ia(), m_fog_distance_falloff_start(FLT_MAX),
-			m_fog_color(), m_fog_distance_falloff_inv_range(0.0f),
+			: m_La(), m_fog_start(FLT_MAX),
+			m_fog_color(), m_fog_inv_range(0.0f),
 			m_nb_directional_lights(0), m_nb_omni_lights(0), 
 			m_nb_spot_lights(0), m_padding0(0),
 			m_nb_sm_directional_lights(0), m_nb_sm_omni_lights(0), 
@@ -92,15 +92,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The ambient light intensity of this light buffer.
+		 The ambient radiance of this light buffer.
 		 */
-		RGBSpectrum m_Ia;
+		RGBSpectrum m_La;
 
 		/**
-		 The distance at which intensity falloff starts due to fog of this 
-		 light buffer.
+		 The start distance of the fog of this light buffer.
 		 */
-		F32 m_fog_distance_falloff_start;
+		F32 m_fog_start;
 	
 		/**
 		 The color of the fog of this light buffer.
@@ -108,10 +107,9 @@ namespace mage {
 		RGBSpectrum m_fog_color;
 		
 		/**
-		 The distance inverse range where intensity falloff occurs due to fog 
-		 of this light buffer.
+		 The inverse distance range of the fog of this light buffer.
 		 */
-		F32 m_fog_distance_falloff_inv_range;
+		F32 m_fog_inv_range;
 
 		/**
 		 The number of directional lights of this light buffer.
@@ -178,7 +176,7 @@ namespace mage {
 		 Constructs an directional light buffer.
 		 */
 		DirectionalLightBuffer()
-			: m_I(), m_padding0(0),
+			: m_L(), m_padding0(0),
 			m_neg_d(), m_padding1(0) {}
 		
 		/**
@@ -237,10 +235,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The intensity of the directional light of this directional light 
+		 The radiance of the directional light of this directional light 
 		 buffer.
 		 */
-		RGBSpectrum m_I;
+		RGBSpectrum m_L;
 
 		/**
 		 The padding of this directional light buffer.
@@ -248,8 +246,8 @@ namespace mage {
 		U32 m_padding0;
 
 		/**
-		 The (normalized) negated direction of the directional light in 
-		 view space coordinates of this directional light buffer.
+		 The (normalized) negated direction of the directional light in camera 
+		 view space of this directional light buffer.
 		 */
 		Direction3 m_neg_d;
 
@@ -282,8 +280,8 @@ namespace mage {
 		 Constructs an omni light buffer.
 		 */
 		OmniLightBuffer()
-			: m_p(), m_distance_falloff_end(0.0f),
-			m_I(), m_distance_falloff_inv_range(0.0f) {}
+			: m_p(), m_inv_sqr_range(0.0f),
+			m_I(), m_padding0(0) {}
 		
 		/**
 		 Constructs an omni light buffer from the given omni light buffer.
@@ -335,27 +333,25 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the omni light in view space coordinates of this omni 
-		 light buffer.
+		 The position of the omni light in camera view space of this omni light 
+		 buffer.
 		 */
 		Point3 m_p;
 
 		/**
-		 The distance at which intensity falloff ends of the omni light of this 
-		 omni light buffer.
+		 The inverse squared range of the omni light of this omni light buffer.
 		 */
-		F32 m_distance_falloff_end;
+		F32 m_inv_sqr_range;
 
 		/**
-		 The intensity of the omni light of this omni light buffer.
+		 The radiant intensity of the omni light of this omni light buffer.
 		 */
 		RGBSpectrum m_I;
 
 		/**
-		 The distance inverse range where intensity falloff occurs of the omni 
-		 light of this omni light buffer.
+		 The padding of this omni light buffer.
 		 */
-		F32 m_distance_falloff_inv_range;
+		U32 m_padding0;
 	};
 
 	static_assert(sizeof(OmniLightBuffer) == 32, 
@@ -381,11 +377,9 @@ namespace mage {
 		 Constructs a spotlight buffer.
 		 */
 		SpotLightBuffer()
-			: m_p(), m_padding0(0),
-			m_I(), m_padding1(0),
-			m_neg_d(), m_exponent_property(0.0f),
-			m_distance_falloff_end(0.0f), m_distance_falloff_inv_range(0.0f),
-			m_cos_umbra(0.0f), m_cos_inv_range(0.0f) {}
+			: m_p(), m_inv_sqr_range(0.0f),
+			m_I(), m_cos_umbra(0.0f),
+			m_neg_d(), m_cos_inv_range(0.0f) {}
 		
 		/**
 		 Constructs a spotlight buffer from the given spotlight buffer.
@@ -437,63 +431,40 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The position of the spotlight in view space coordinates of this 
-		 spotlight buffer.
+		 The position of the spotlight in camera view space of this spotlight 
+		 buffer.
 		 */
 		Point3 m_p;
 
 		/**
-		 The padding of this spotlight buffer.
+		 The inverse squared range of the spotlight of this spotlight buffer.
 		 */
-		U32 m_padding0;
+		F32 m_inv_sqr_range;
 
 		/**
-		 The intensity of the spotlight of this spotlight buffer.
+		 The radiant intensity of the spotlight of this spotlight buffer.
 		 */
 		RGBSpectrum m_I;
 
 		/**
-		 The padding of this spotlight buffer.
-		 */
-		U32 m_padding1;
-
-		/**
-		 The (normalized) negated direction of the spotlight in view space 
-		 coordinates of this spotlight buffer.
-		 */
-		Direction3 m_neg_d;
-
-		/**
-		 The exponent property of the spotlight of this spotlight buffer.
-		 */
-		F32 m_exponent_property;
-		
-		/**
-		 The distance at which intensity falloff ends of the spotlight of this 
-		 spotlight buffer.
-		 */
-		F32 m_distance_falloff_end;
-
-		/**
-		 The distance inverse range where intensity falloff occurs of the 
-		 spotlight of this spotlight buffer.
-		 */
-		F32 m_distance_falloff_inv_range;
-		
-		/**
-		 The cosine of the umbra angle of the spotlight of this spotlight 
+		 The cosine of the umbra angle of the spotlight of this spotlight
 		 buffer.
 		 */
 		F32 m_cos_umbra;
 
 		/**
-		 The cosine inverse range where intensity falloff occurs of the 
-		 spotlight of this spotlight buffer.
+		 The (normalized) negated direction of the spotlight in camera view 
+		 space of this spotlight buffer.
+		 */
+		Direction3 m_neg_d;
+
+		/**
+		 The cosine inverse range of the spotlight of this spotlight buffer.
 		 */
 		F32 m_cos_inv_range;
 	};
 
-	static_assert(sizeof(SpotLightBuffer) == 64, 
+	static_assert(sizeof(SpotLightBuffer) == 48, 
 		"CPU/GPU struct mismatch");
 
 	//-------------------------------------------------------------------------
@@ -829,6 +800,6 @@ namespace mage {
 		XMMATRIX m_cview_to_lprojection;
 	};
 
-	static_assert(sizeof(SpotLightWithShadowMappingBuffer) == 128, 
+	static_assert(sizeof(SpotLightWithShadowMappingBuffer) == 112, 
 		"CPU/GPU struct mismatch");
 }

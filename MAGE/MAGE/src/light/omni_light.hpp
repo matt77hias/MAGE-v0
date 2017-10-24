@@ -29,12 +29,8 @@ namespace mage {
 
 		/**
 		 Constructs an omni light.
-
-		 @param[in]		intensity
-						The RGB intensity.
 		 */
-		explicit OmniLight(const RGBSpectrum &intensity 
-			= RGBSpectrum(1.0f, 1.0f, 1.0f));
+		OmniLight();
 		
 		/**
 		 Constructs an omni light from the given omni light.
@@ -82,7 +78,7 @@ namespace mage {
 		OmniLight &operator=(OmniLight &&light);
 
 		//---------------------------------------------------------------------
-		// Member Methods: Lighting
+		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
@@ -94,102 +90,97 @@ namespace mage {
 			return static_pointer_cast< OmniLight >(CloneImplementation());
 		}
 		
-		/**
-		 Returns the distance at which intensity falloff starts of this omni 
-		 light.
+		//---------------------------------------------------------------------
+		// Member Methods: Lighting
+		//---------------------------------------------------------------------
 
-		 @return		The distance at which intensity falloff starts of this 
-						omni light.
+		/**
+		 Returns the power of this omni light.
+
+		 @return		The power of this omni light.
 		 */
-		F32 GetStartDistanceFalloff() const noexcept {
-			return m_distance_falloff_start;
+		F32 GetPower() const noexcept {
+			return GetIntensity() * 0.25f * XM_1DIVPI;
 		}
 
 		/**
-		 Sets the distance at which intensity falloff starts of this omni 
-		 light to the given value.
-
-		 @param[in]		distance_falloff_start
-						The distance at which intensity falloff starts.
+		 Sets the power of this omni light to the given radiance.
+		 
+		 @param[in]		power
+						The power.
 		 */
-		void SetStartDistanceFalloff(F32 distance_falloff_start) noexcept {
-			m_distance_falloff_start = distance_falloff_start;
+		void SetPower(F32 power) noexcept {
+			SetIntensity(power * 4.0f * XM_PI);
 		}
 
 		/**
-		 Returns the distance at which intensity falloff ends of this omni 
-		 light.
+		 Returns the power spectrum of this omni light.
 
-		 @return		The distance at which intensity falloff ends of this 
-						omni light.
+		 @return		The power spectrum of this omni light.
 		 */
-		F32 GetEndDistanceFalloff() const noexcept {
-			return m_distance_falloff_end;
+		const RGBSpectrum GetPowerSpectrum() const noexcept {
+			const RGBSpectrum color = GetColor();
+			const F32         power = GetPower();
+			return RGBSpectrum(power * color.x,
+				               power * color.y,
+				               power * color.z);
 		}
 
 		/**
-		 Sets the distance at which intensity falloff ends of this omni light
-		 to the given value.
+		 Returns the radiant intensity of this omni light.
 
-		 @pre			@a distance_falloff_end > 0.
-		 @param[in]		distance_falloff_end
-						The distance at which intensity falloff ends.
+		 @return		The radiant intensity of this omni light.
 		 */
-		void SetEndDistanceFalloff(F32 distance_falloff_end) noexcept {
-			Assert(distance_falloff_end);
-			m_distance_falloff_end = distance_falloff_end;
-			
-			// Update the bounding volumes.
-			UpdateBoundingVolumes();
+		F32 GetIntensity() const noexcept {
+			return m_intensity;
 		}
-		
-		/**
-		 Sets the distance at which intensity falloff starts and ends of this 
-		 omni light to the given values.
 
-		 @pre			@a distance_falloff_end > 0.
-		 @param[in]		distance_falloff_start
-						The distance at which intensity falloff starts.
-		 @param[in]		distance_falloff_end
-						The distance at which intensity falloff ends.
+		/**
+		 Sets the radiant intensity of this omni light to the given radial 
+		 intensity.
+		 
+		 @param[in]		intensity
+						The radiant intensity.
 		 */
-		void SetDistanceFalloff(
-			F32 distance_falloff_start, F32 distance_falloff_end) noexcept {
-			
-			SetStartDistanceFalloff(distance_falloff_start);
-			SetEndDistanceFalloff(distance_falloff_end);
+		void SetIntensity(F32 intensity) noexcept {
+			m_intensity = intensity;
 		}
-		
-		/**
-		 Returns the distance range where intensity falloff occurs of this omni 
-		 light.
 
-		 @return		The distance range where intensity falloff occurs of 
-						this omni light.
-						@a GetEndDistanceFalloff() - 
-						@a GetStartDistanceFalloff().
+		/**
+		 Returns the radiant intensity spectrum of this omni light.
+
+		 @return		The radiant intensity spectrum of this omni light.
 		 */
-		F32 GetRangeDistanceFalloff() const noexcept {
-			return m_distance_falloff_end - m_distance_falloff_start;
+		const RGBSpectrum GetIntensitySpectrum() const noexcept {
+			const RGBSpectrum color = GetColor();
+			return RGBSpectrum(m_intensity * color.x,
+				               m_intensity * color.y,
+				               m_intensity * color.z);
 		}
-		
-		/**
-		 Sets the distance at which intensity falloff starts and the distance 
-		 range where intensity falloff occurs of this omni light to the given 
-		 values.
 
-		 @pre			@a distance_falloff_start + @a distance_falloff_range > 
-						0.
-		 @param[in]		distance_falloff_start
-						The distance at which intensity falloff starts.
-		 @param[in]		distance_falloff_range
-						The distance range where intensity falloff occurs.
+		//---------------------------------------------------------------------
+		// Member Methods: Attenuation
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the range of this omni light.
+
+		 @return		The range of this omni light.
 		 */
-		void SetRangeDistanceFalloff(
-			F32 distance_falloff_start, F32 distance_falloff_range) noexcept {
-			
-			SetDistanceFalloff(distance_falloff_start, 
-				distance_falloff_start + distance_falloff_range);
+		F32 GetRange() const noexcept {
+			return m_range;
+		}
+
+		/**
+		 Sets the range of this omni light to the given value.
+
+		 @pre			@a range must be greater than 0.
+		 @param[in]		range
+						The range.
+		 */
+		void SetRange(F32 range) noexcept {
+			Assert(range > 0.0f);
+			m_range = range;
 		}
 
 		//---------------------------------------------------------------------
@@ -268,8 +259,8 @@ namespace mage {
 		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
 			// Reversed-Z used for the depth buffer.
 			const F32 m22 = MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z 
-				/ (MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z - GetEndDistanceFalloff());
-			const F32 m32 = -GetEndDistanceFalloff() * m22;
+				/ (MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z - GetRange());
+			const F32 m32 = -GetRange() * m22;
 			
 			return XMMATRIX{
 				1.0f, 0.0f, 0.0f, 0.0f,
@@ -289,7 +280,7 @@ namespace mage {
 				GetAspectRatio(),
 				GetFOV(),
 				MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z,
-				GetEndDistanceFalloff());
+				GetRange());
 		}
 
 	private:
@@ -315,14 +306,14 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The start of the distance falloff of this omni light.
+		 The radiant intensity of this omni light.
 		 */
-		F32 m_distance_falloff_start;
+		F32 m_intensity;
 
 		/**
-		 The end of the distance falloff of this omni light.
+		 The range of this omni light.
 		 */
-		F32 m_distance_falloff_end;
+		F32 m_range;
 
 		/**
 		 A flag indicating whether shadows should be calculated or not for 

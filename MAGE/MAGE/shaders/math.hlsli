@@ -716,7 +716,7 @@ float4 LinearToGamma(float4 rgba, float inv_gamma) {
  @pre			All components of @a rgb must be non-negative.
  @param[in]		rgba
 				The RGB spectrum in gamma space.
- @param[in]		inv_gamma
+ @param[in]		gamma
 				The gamma exponent.
  @return		The RGB spectrum in linear space.
  */
@@ -729,10 +729,10 @@ float3 GammaToLinear(float3 rgb, float gamma) {
 
  @pre			All components of @a rgba must be non-negative.
  @param[in]		rgba
-				The RGBA spectrum in linear space.
- @param[in]		inv_gamma
+				The RGBA spectrum in gamma space.
+ @param[in]		gamma
 				The gamma exponent.
- @return		The RGBA spectrum in gamma space.
+ @return		The RGBA spectrum in linear space.
  @note			The alpha channel of the given RGBA spectrum is preserved.
  */
 float4 GammaToLinear(float4 rgba, float gamma) {
@@ -756,8 +756,8 @@ float3 GammaToLinear(float3 rgb) {
 
  @pre			All components of @a rgba must be non-negative.
  @param[in]		rgba
-				The RGBA spectrum in linear space.
- @return		The RGBA spectrum in gamma space.
+				The RGBA spectrum in gamma space.
+ @return		The RGBA spectrum in linear space.
  @note			The alpha channel of the given RGBA spectrum is preserved.
  */
 float4 GammaToLinear(float4 rgba) {

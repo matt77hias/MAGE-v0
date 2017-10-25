@@ -103,6 +103,8 @@ struct SpotLightWithShadowMapping {
  @return		The distance intensity fallof smoothing factor.
  */
 float DistanceFalloffSmoothingFactor(float sqr_distance, float inv_sqr_range) {
+	// Frostbite's smoothing:
+	//
 	//         [    distance^2]^2
 	// saturate[1 - ----------]
 	//         [      range^2 ]
@@ -143,6 +145,7 @@ float DistanceFalloff(float distance, float inv_sqr_range) {
 				The cosine inverse range of the light.
  */
 float AngularFalloff(float cos_theta, float cos_umbra, float cos_inv_range) {
+	// Frostbite's smoothing: sqr
 	return sqr(saturate((cos_theta - cos_umbra) * cos_inv_range));
 }
 

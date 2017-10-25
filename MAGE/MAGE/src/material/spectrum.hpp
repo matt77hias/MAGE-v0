@@ -129,6 +129,47 @@ namespace mage {
 	static_assert(sizeof(RGBSpectrum) == sizeof(XMFLOAT3), 
 		"RGBSpectrum/XMFLOAT3 mismatch");
 
+	/**
+	 Converts the given RGB spectrum from linear space to gamma space.
+
+	 @param[in]		rgb
+					A reference to the RGB spectrum in linear space.
+	 @param[in]		gamma
+					The gamma exponent.
+	 @return		The RGB spectrum in gamma space.
+	 */
+	inline const RGBSpectrum LinearToGamma(
+		const RGBSpectrum &rgb, float gamma = 2.2f) noexcept {
+
+		const float inv_gamma = 1.0f / gamma;
+		const XMVECTOR rgb_v  = XMLoadFloat3(&rgb);
+		const XMVECTOR exp_v  = XMVectorSet(inv_gamma, inv_gamma, inv_gamma, 1.0f);
+		
+		RGBSpectrum result;
+		XMStoreFloat3(&result, XMVectorPow(rgb_v, exp_v));
+		return result;
+	}
+
+	/**
+	 Converts the given RGB spectrum from gamma space to linear space.
+
+	 @param[in]		rgba
+					A reference to the RGB spectrum in gamma space.
+	 @param[in]		gamma
+					The gamma exponent.
+	 @return		The RGB spectrum in linear space.
+	 */
+	inline const RGBSpectrum GammaToLinear(
+		const RGBSpectrum &rgb, float gamma = 2.2f) noexcept {
+
+		const XMVECTOR rgb_v = XMLoadFloat3(&rgb);
+		const XMVECTOR exp_v = XMVectorSet(gamma, gamma, gamma, 1.0f);
+		
+		RGBSpectrum result;
+		XMStoreFloat3(&result, XMVectorPow(rgb_v, exp_v));
+		return result;
+	}
+
 	//-------------------------------------------------------------------------
 	// XYZSpectrum
 	//-------------------------------------------------------------------------
@@ -391,6 +432,84 @@ namespace mage {
 	static_assert(sizeof(RGBASpectrum) == sizeof(XMFLOAT4), 
 		"RGBASpectrum/XMFLOAT4 mismatch");
 	
+	/**
+	 Converts the given RGBA spectrum from linear space to gamma space.
+
+	 @param[in]		rgba
+					A reference to the RGBA spectrum in linear space.
+	 @param[in]		gamma
+					The gamma exponent.
+	 @return		The RGBA spectrum in gamma space.
+	 @note			The alpha channel of the given RGBA spectrum is preserved.
+	 */
+	inline const RGBASpectrum LinearToGamma(
+		const RGBASpectrum &rgba, float gamma = 2.2f) noexcept {
+
+		const float inv_gamma = 1.0f / gamma;
+		const XMVECTOR rgba_v = XMLoadFloat4(&rgba);
+		const XMVECTOR exp_v  = XMVectorSet(inv_gamma, inv_gamma, inv_gamma, 1.0f);
+		
+		RGBASpectrum result;
+		XMStoreFloat4(&result, XMVectorPow(rgba_v, exp_v));
+		return result;
+	}
+
+	/**
+	 Converts the given RGBA spectrum from linear space to gamma space.
+
+	 @param[in]		rgba
+					The RGBA spectrum in linear space.
+	 @param[in]		gamma
+					The gamma exponent.
+	 @return		The RGBA spectrum in gamma space.
+	 @note			The alpha channel of the given RGBA spectrum is preserved.
+	 */
+	inline const XMVECTOR XM_CALLCONV LinearToGamma(
+		FXMVECTOR rgba, float gamma = 2.2f) noexcept {
+
+		const float inv_gamma = 1.0f / gamma;
+		const XMVECTOR exp_v  = XMVectorSet(inv_gamma, inv_gamma, inv_gamma, 1.0f);
+		return XMVectorPow(rgba, exp_v);
+	}
+
+	/**
+	 Converts the given RGBA spectrum from gamma space to linear space.
+
+	 @param[in]		rgba
+					A reference to the RGBA spectrum in gamma space.
+	 @param[in]		gamma
+					The gamma exponent.
+	 @return		The RGBA spectrum in linear space.
+	 @note			The alpha channel of the given RGBA spectrum is preserved.
+	 */
+	inline const RGBASpectrum GammaToLinear(
+		const RGBASpectrum &rgba, float gamma = 2.2f) noexcept {
+
+		const XMVECTOR rgba_v = XMLoadFloat4(&rgba);
+		const XMVECTOR exp_v  = XMVectorSet(gamma, gamma, gamma, 1.0f);
+		
+		RGBASpectrum result;
+		XMStoreFloat4(&result, XMVectorPow(rgba_v, exp_v));
+		return result;
+	}
+
+	/**
+	 Converts the given RGBA spectrum from gamma space to linear space.
+
+	 @param[in]		rgba
+					The RGBA spectrum in gamma space.
+	 @param[in]		gamma
+					The gamma exponent.
+	 @return		The RGBA spectrum in linear space.
+	 @note			The alpha channel of the given RGBA spectrum is preserved.
+	 */
+	inline const XMVECTOR XM_CALLCONV GammaToLinear(
+		FXMVECTOR rgba, float gamma = 2.2f) noexcept {
+
+		const XMVECTOR exp_v  = XMVectorSet(gamma, gamma, gamma, 1.0f);
+		return XMVectorPow(rgba, exp_v);
+	}
+
 	//-------------------------------------------------------------------------
 	// XYZASpectrum
 	//-------------------------------------------------------------------------

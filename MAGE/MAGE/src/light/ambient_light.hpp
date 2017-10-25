@@ -95,7 +95,8 @@ namespace mage {
 		/**
 		 Returns the radiance of this ambient light.
 
-		 @return		The radiance of this ambient light.
+		 @return		The radiance in watts per square meter per steradians 
+						of this ambient light.
 		 */
 		F32 GetRadiance() const noexcept {
 			return m_radiance;
@@ -104,10 +105,12 @@ namespace mage {
 		/**
 		 Sets the radiance of this ambient light to the given radiance.
 		 
+		 @pre			@a radiance must be non-negative.
 		 @param[in]		radiance
-						The radiance.
+						The radiance in watts per square meter per steradians.
 		 */
 		void SetRadiance(F32 radiance) noexcept {
+			Assert(0.0f <= radiance);
 			m_radiance = radiance;
 		}
 
@@ -117,10 +120,12 @@ namespace mage {
 		 @return		The radiance spectrum of this ambient light.
 		 */
 		const RGBSpectrum GetRadianceSpectrum() const noexcept {
-			const RGBSpectrum color = GetColor();
-			return RGBSpectrum(m_radiance * color.x, 
-				               m_radiance * color.y, 
-				               m_radiance * color.z);
+			const RGBSpectrum color = GetBaseColorRGB();
+			const XMVECTOR L_v      = m_radiance 
+				                    * GammaToLinear(XMLoadFloat3(&color));
+			RGBSpectrum L;
+			XMStoreFloat3(&L, L_v);
+			return L;
 		}
 
 	private:
@@ -141,7 +146,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The radiance of this ambient light.
+		 The radiance in watts per square meter per steradians of this ambient 
+		 light.
 		 */
 		F32 m_radiance;
 	};

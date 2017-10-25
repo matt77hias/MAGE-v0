@@ -209,113 +209,135 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the red channel of the base color of this material.
+		 Returns the red (sRGB) channel of the (sRGB) base color of this 
+		 material.
 
-		 @return		The red channel of the base color of this material.
+		 @return		The red (sRGB) channel of the (sRGB) base color of this 
+						material.
 		 */
 		F32 GetBaseColorR() const noexcept {
 			return m_base_color.x;
 		}
 		
 		/**
-		 Returns the green channel of the base color of this material.
+		 Returns the green (sRGB) channel of the (sRGB) base color of this 
+		 material.
 
-		 @return		The green channel of the base color of this material.
+		 @return		The green (sRGB) channel of the (sRGB) base color of 
+						this material.
 		 */
 		F32 GetBaseColorG() const noexcept {
 			return m_base_color.y;
 		}
 		
 		/**
-		 Returns the blue channel of the base color of this material.
+		 Returns the blue (sRGB) channel of the (sRGB) base color of this 
+		 material.
 
-		 @return		The blue channel of the base color of this material.
+		 @return		The blue (sRGB) channel of the (sRGB) base color of 
+						this material.
 		 */
 		F32 GetBaseColorB() const noexcept {
 			return m_base_color.z;
 		}
 		
 		/**
-		 Returns the alpha channel of the base color of this material.
+		 Returns the alpha channel of the (sRGB) base color of this material.
 
-		 @return		The alpha channel of the base color of this material.
+		 @return		The alpha channel of the (sRGB) base color of this 
+						material.
 		 */
 		F32 GetBaseColorA() const noexcept {
 			return m_base_color.w;
 		}
 		
 		/**
-		 Returns the RGB channels of the base color of this material.
+		 Returns the RGB (sRGB) channels of the (sRGB) base color of this 
+		 material.
 
-		 @return		The RGB channels of the base color of this material.
+		 @return		The RGB (sRGB) channels of the (sRGB) base color of 
+						this material.
 		 */
 		const RGBSpectrum GetBaseColorRGB() const noexcept {
 			return RGBSpectrum(m_base_color.x, m_base_color.y, m_base_color.z);
 		}
 		
 		/**
-		 Returns the RGBA channels of the base color of this material.
+		 Returns the RGBA (sRGB) channels of the (sRGB) base color of this 
+		 material.
 
-		 @return		The RGBA channels of the base color of this material.
+		 @return		The RGBA (sRGB) channels of the (sRGB) base color of 
+						this material.
 		 */
 		const RGBASpectrum GetBaseColorRGBA() const noexcept {
 			return m_base_color;
 		}
 
 		/**
-		 Sets the red channel of the base color of this material to the given 
-		 value.
+		 Sets the red (sRGB) channel of the (sRGB) base color of this material 
+		 to the given  value.
 
+		 @pre			@a red is an element of [0,1].
 		 @param[in]		red
-						The red channel of the base color.
+						The red (sRGB) channel of the (sRGB) base color.
 		 */
 		void SetBaseColorR(F32 red) noexcept {
+			Assert(0.0f <= red && red <= 1.0f);
 			m_base_color.x = red;
 		}
 		
 		/**
-		 Sets the green channel of the base color of this material to the given 
-		 value.
+		 Sets the green (sRGB) channel of the (sRGB) base color of this 
+		 material to the given value.
 
+		 @pre			@a green is an element of [0,1].
 		 @param[in]		green
-						The green channel of the base color.
+						The green (sRGB) channel of the (sRGB) base color.
 		 */
 		void SetBaseColorG(F32 green) noexcept {
+			Assert(0.0f <= green && green <= 1.0f);
 			m_base_color.y = green;
 		}
 		
 		/**
-		 Sets the blue channel of the base color of this material to the given 
-		 value.
+		 Sets the blue (sRGB) channel of the (sRGB) base color of this material 
+		 to the given value.
 
+		 @pre			@a blue is an element of [0,1].
 		 @param[in]		blue
-						The blue channel of the base color.
+						The blue (sRGB) channel of the (sRGB) base color.
 		 */
 		void SetBaseColorB(F32 blue) noexcept {
+			Assert(0.0f <= blue && blue <= 1.0f);
 			m_base_color.z = blue;
 		}
 		
 		/**
-		 Sets the alpha channel of the base color of this material to the given 
-		 value.
+		 Sets the alpha channel of the (sRGB) base color of this material to 
+		 the given value.
 
+		 @pre			@a alpha is an element of [0,1].
 		 @param[in]		alpha
-						The alpha channel of the base color.
+						The alpha channel of the (sRGB) base color.
 		 */
 		void SetBaseColorA(F32 alpha) noexcept {
+			Assert(0.0f <= alpha && alpha <= 1.0f);
 			m_base_color.w = alpha;
 		}
 		
 		/**
-		 Sets the RGB channels of the base color of this material to the given 
-		 values.
+		 Sets the red (sRGB), green (sRGB) and blue (sRGB) channel of the 
+		 (sRGB) base color of this material to the given values.
 
+		 @pre			@a red is an element of [0,1].
+		 @pre			@a green is an element of [0,1].
+		 @pre			@a blue is an element of [0,1].
 		 @param[in]		red
-						The red channel of the base color.
+						The red (sRGB) channel of the (sRGB) base color.
 		 @param[in]		green
-						The green channel of the base color.
+						The green (sRGB) channel of the (sRGB) base color.
 		 @param[in]		blue
-						The blue channel of the base color.
+						The blue (sRGB) channel of the (sRGB) base color.
 		 */
 		void SetBaseColorRGB(F32 red, F32 green, F32 blue) noexcept {
 			SetBaseColorR(red);
@@ -324,28 +346,34 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the RGB channels of the base color of this material to the given 
-		 value.
+		 Sets the red (sRGB), green (sRGB) and blue (sRGB) channel of the 
+		 (sRGB) base color of this material to the given value.
 
+		 @pre			@a rgb is an element of [0,1]^3.
 		 @param[in]		rgb
-						A reference to the RGB channels of the base color.
+						A reference to red (sRGB), green (sRGB) and blue (sRGB) 
+						channel of the (sRGB) base color.
 		 */
 		void SetBaseColorRGB(const RGBSpectrum &rgb) noexcept {
 			SetBaseColorRGB(rgb.x, rgb.y, rgb.z);
 		}
 		
 		/**
-		 Sets the RGB channels of the base color of this material to the given 
-		 values.
+		 Sets the red (sRGB), green (sRGB), blue (sRGB) and alpha channel of 
+		 the (sRGB) base color of this material to the given values.
 
+		 @pre			@a red is an element of [0,1].
+		 @pre			@a green is an element of [0,1].
+		 @pre			@a blue is an element of [0,1].
+		 @pre			@a alpha is an element of [0,1].
 		 @param[in]		red
-						The red channel of the base color.
+						The red (sRGB) channel of the (sRGB) base color.
 		 @param[in]		green
-						The green channel of the base color.
+						The green (sRGB) channel of the (sRGB) base color.
 		 @param[in]		blue
-						The blue channel of the base color.
+						The blue (sRGB) channel of the (sRGB) base color.
 		 @param[in]		alpha
-						The alpha channel of the base color.
+						The alpha channel of the (sRGB) base color.
 		 */
 		void SetBaseColorRGBA(F32 red, F32 green, F32 blue, F32 alpha) noexcept {
 			SetBaseColorR(red);
@@ -355,55 +383,68 @@ namespace mage {
 		}
 		
 		/**
-		 Sets the RGBA channels of the base color of this material to the given 
-		 value.
+		 Sets the red (sRGB), green (sRGB), blue (sRGB) and alpha channel of 
+		 the (sRGB) base color of this material to the given value.
 
+		 @pre			@a rgba is an element of [0,1]^4.
 		 @param[in]		rgba
-						A reference to the RGBA channels of the base color.
+						A reference to red (sRGB), green (sRGB), blue (sRGB) 
+						and alpha channel of the (sRGB) base color.
 		 */
 		void SetBaseColorRGBA(const RGBASpectrum &rgba) noexcept {
+			Assert(0.0f <= rgba.x && rgba.x <= 1.0f);
+			Assert(0.0f <= rgba.y && rgba.y <= 1.0f);
+			Assert(0.0f <= rgba.z && rgba.z <= 1.0f);
+			Assert(0.0f <= rgba.w && rgba.w <= 1.0f);
 			m_base_color = rgba;
 		}
 
 		/**
-		 Sets the RGBA channels of the base color of this material to the given 
-		 value.
+		 Sets the red (sRGB), green (sRGB), blue (sRGB) and alpha channel of 
+		 the (sRGB) base color of this material to the given value.
 
+		 @pre			@a rgba is an element of [0,1]^4.
 		 @param[in]		rgba
-						A reference to the RGBA channels of the base color.
+						A reference to red (sRGB), green (sRGB), blue (sRGB) 
+						and alpha channel of the (sRGB) base color.
 		 */
 		void SetBaseColorRGBA(RGBASpectrum &&rgba) noexcept {
+			Assert(0.0f <= rgba.x && rgba.x <= 1.0f);
+			Assert(0.0f <= rgba.y && rgba.y <= 1.0f);
+			Assert(0.0f <= rgba.z && rgba.z <= 1.0f);
+			Assert(0.0f <= rgba.w && rgba.w <= 1.0f);
 			m_base_color = std::move(rgba);
 		}
 
 		/**
-		 Returns the base color texture of this material.
+		 Returns the (sRGB) base color texture of this material.
 
-		 @return		A pointer to the base color texture of this material.
+		 @return		A pointer to the (sRGB) base color texture of this 
+						material.
 		 */
 		SharedPtr< const Texture > GetBaseColorTexture() const noexcept {
 			return m_base_color_texture;
 		}
 		
 		/**
-		 Returns the shader resource view of the base color texture of this 
-		 material.
+		 Returns the shader resource view of the (sRGB) base color texture of 
+		 this material.
 
-		 @return		@c nullptr, if this material has no base color 
+		 @return		@c nullptr, if this material has no (sRGB) base color 
 						texture.
-		 @return		A pointer to the shader resource view of the base color 
-						texture of this material.
+		 @return		A pointer to the shader resource view of the (sRGB) 
+						base color texture of this material.
 		 */
 		ID3D11ShaderResourceView *GetBaseColorSRV() const noexcept {
 			return m_base_color_texture ? m_base_color_texture->Get() : nullptr;
 		}
 		
 		/**
-		 Sets the base color texture of this material to the given base color
-		 texture.
+		 Sets the (sRGB) base color texture of this material to the given base 
+		 color texture.
 
 		 @param[in]		base_color_texture
-						A reference to the base color texture.
+						A reference to the (sRGB) base color texture.
 		 */
 		void SetBaseColorTexture(
 			const SharedPtr< const Texture > &base_color_texture) {
@@ -427,10 +468,12 @@ namespace mage {
 		/**
 		 Sets the roughness of this material to the given value.
 
+		 @pre			@a roughness is an element of [0,1].
 		 @param[in]		roughness
 						The roughness.
 		 */
 		void SetRoughness(F32 roughness) noexcept {
+			Assert(0.0f <= roughness && roughness <= 1.0f);
 			m_roughness = roughness;
 		}
 
@@ -446,10 +489,12 @@ namespace mage {
 		/**
 		 Sets the metalness of this material to the given value.
 
+		 @pre			@a metalness is an element of [0,1].
 		 @param[in]		metalness
 						The metalness.
 		 */
 		void SetMetalness(F32 metalness) noexcept {
+			Assert(0.0f <= metalness && metalness <= 1.0f);
 			m_metalness = metalness;
 		}
 
@@ -570,12 +615,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The base color of this material.
+		 The (sRGB) base color of this material.
 		 */
 		RGBASpectrum m_base_color;
 
 		/**
-		 A pointer to the base color texture of this material.
+		 A pointer to the (sRGB) base color texture of this material.
 		 */
 		SharedPtr< const Texture > m_base_color_texture;
 

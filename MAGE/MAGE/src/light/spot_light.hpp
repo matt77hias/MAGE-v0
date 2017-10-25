@@ -109,7 +109,7 @@ namespace mage {
 		/**
 		 Returns the power of this spotlight.
 
-		 @return		The power of this spotlight.
+		 @return		The power in watts of this spotlight.
 		 */
 		F32 GetPower() const noexcept {
 			return GetIntensity() * XM_1DIVPI;
@@ -119,7 +119,7 @@ namespace mage {
 		 Sets the power of this omni light to the given radiance.
 		 
 		 @param[in]		power
-						The power.
+						The power in watts.
 		 */
 		void SetPower(F32 power) noexcept {
 			SetIntensity(power * XM_PI);
@@ -131,17 +131,19 @@ namespace mage {
 		 @return		The power spectrum of this spotlight.
 		 */
 		const RGBSpectrum GetPowerSpectrum() const noexcept {
-			const RGBSpectrum color = GetColor();
-			const F32         power = GetPower();
-			return RGBSpectrum(power * color.x,
-				               power * color.y,
-				               power * color.z);
+			const RGBSpectrum color = GetBaseColorRGB();
+			const XMVECTOR P_v      = GetPower()
+				                    * GammaToLinear(XMLoadFloat3(&color));
+			RGBSpectrum P;
+			XMStoreFloat3(&P, P_v);
+			return P;
 		}
 
 		/**
 		 Returns the radiant intensity of this spotlight.
 
-		 @return		The radiant intensity of this spotlight.
+		 @return		The radiant intensity in watts per steradians of this 
+						spotlight.
 		 */
 		F32 GetIntensity() const noexcept {
 			return m_intensity;
@@ -152,7 +154,7 @@ namespace mage {
 		 intensity.
 		 
 		 @param[in]		intensity
-						The radiant intensity.
+						The radiant intensity in watts per steradians.
 		 */
 		void SetIntensity(F32 intensity) noexcept {
 			m_intensity = intensity;
@@ -164,10 +166,12 @@ namespace mage {
 		 @return		The radiant intensity spectrum of this spotlight.
 		 */
 		const RGBSpectrum GetIntensitySpectrum() const noexcept {
-			const RGBSpectrum color = GetColor();
-			return RGBSpectrum(m_intensity * color.x,
-				               m_intensity * color.y,
-				               m_intensity * color.z);
+			const RGBSpectrum color = GetBaseColorRGB();
+			const XMVECTOR I_v      = GetIntensity()
+				                    * GammaToLinear(XMLoadFloat3(&color));
+			RGBSpectrum I;
+			XMStoreFloat3(&I, I_v);
+			return I;
 		}
 
 		//---------------------------------------------------------------------
@@ -440,7 +444,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The radiant intensity of this spotlight.
+		 The radiant intensity in watts per steradians of this spotlight.
 		 */
 		F32 m_intensity;
 

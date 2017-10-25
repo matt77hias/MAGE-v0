@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+// sRGB colors
 #include <directxcolors.h>
 
 #pragma endregion

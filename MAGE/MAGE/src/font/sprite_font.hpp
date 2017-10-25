@@ -126,7 +126,7 @@ namespace mage {
 		 @param[in]		transform
 						A reference to the sprite transform.
 		 @param[in]		color
-						The sprite color.
+						The (sRGB) sprite color.
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */

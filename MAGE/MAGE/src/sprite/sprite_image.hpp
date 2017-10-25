@@ -33,7 +33,7 @@ namespace mage {
 		 @param[in]		texture
 						A pointer to the texture.
 		 @param[in]		color
-						The color.
+						The (sRGB) color.
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
@@ -50,7 +50,7 @@ namespace mage {
 		 @param[in]		texture_region
 						A reference to the texture region.
 		 @param[in]		color
-						The color.
+						The (sRGB) color.
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
@@ -66,7 +66,7 @@ namespace mage {
 		 @param[in]		texture
 						A pointer to the texture.
 		 @param[in]		color
-						The color.
+						The (sRGB) color.
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
@@ -83,7 +83,7 @@ namespace mage {
 		 @param[in]		texture_region
 						A reference to the texture region.
 		 @param[in]		color
-						The color.
+						The (sRGB) color.
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
@@ -187,39 +187,39 @@ namespace mage {
 		void SetTexture(SharedPtr< const Texture > texture);
 
 		/**
-		 Returns the color of this sprite image.
+		 Returns the (sRGB) color of this sprite image.
 
-		 @return		The color of this sprite image.
+		 @return		The (sRGB) color of this sprite image.
 		 */
 		const Color GetColor() const noexcept {
 			return m_color;
 		}
 
 		/**
-		 Sets the color of this sprite image to the given color.
+		 Sets the (sRGB) color of this sprite image to the given (sRGB) color.
 
 		 @param[in]		color
-						A reference to the color.
+						A reference to the (sRGB) color.
 		 */
 		void SetColor(const Color &color) noexcept {
 			m_color = color;
 		}
 
 		/**
-		 Sets the color of this sprite image to the given color.
+		 Sets the (sRGB) color of this sprite image to the given (sRGB) color.
 
 		 @param[in]		color
-						A reference to the color.
+						A reference to the (sRGB) color.
 		 */
 		void SetColor(Color &&color) noexcept {
 			m_color = std::move(color);
 		}
 
 		/**
-		 Sets the color of this sprite image to the given color.
+		 Sets the (sRGB) color of this sprite image to the given (sRGB) color.
 
 		 @param[in]		color
-						A reference to the color.
+						A reference to the (sRGB) color.
 		 */
 		void XM_CALLCONV SetColor(FXMVECTOR color) noexcept {
 			XMStoreFloat4(&m_color, color);
@@ -252,7 +252,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The color of this sprite image.
+		 The (sRGB) color of this sprite image.
 		 */
 		Color m_color;
 

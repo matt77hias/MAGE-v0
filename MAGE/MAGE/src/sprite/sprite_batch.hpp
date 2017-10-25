@@ -130,7 +130,7 @@ namespace mage {
 		XMFLOAT4A m_destination;
 
 		/**
-		 The color of the sprite associated with this sprite info.
+		 The (sRGB) color of the sprite associated with this sprite info.
 		 */
 		XMFLOAT4A m_color;
 
@@ -266,7 +266,7 @@ namespace mage {
 						A pointer to the shader resource view of the texture to 
 						draw.
 		 @param[in]		color
-						The color (multiplier).
+						The (sRGB) color (multiplier).
 		 @param[in]		effects
 						The sprite effects to apply.
 		 @param[in]		transform

@@ -32,7 +32,7 @@ namespace mage {
 		 @param[in]		font
 						A pointer to the sprite font.
 		 @param[in]		shadow_color
-						A reference to the shadow color. 
+						A reference to the (sRGB) shadow color. 
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
@@ -47,7 +47,7 @@ namespace mage {
 		 @param[in]		font
 						A pointer to the sprite font.
 		 @param[in]		shadow_color
-						The shadow color. 
+						The (sRGB) shadow color. 
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
@@ -128,42 +128,42 @@ namespace mage {
 		virtual void Draw(SpriteBatch &sprite_batch) const override;
 
 		/**
-		 Returns the shadow color of this dropshadow sprite text.
+		 Returns the (sRGB) shadow color of this dropshadow sprite text.
 
-		 @return		The shadow color of this dropshadow sprite text.
+		 @return		The (sRGB) shadow color of this dropshadow sprite text.
 		 */
 		const Color GetShadowColor() const noexcept {
 			return m_shadow_color;
 		}
 		
 		/**
-		 Sets the shadow color of this dropshadow sprite text to the given 
-		 color.
+		 Sets the (sRGB) shadow color of this dropshadow sprite text to the 
+		 given (sRGB) color.
 
 		 @param[in]		color
-						A reference to the shadow color.
+						A reference to the (sRGB) shadow color.
 		 */
 		void SetShadowColor(const Color &color) noexcept {
 			m_shadow_color = color;
 		}
 
 		/**
-		 Sets the shadow color of this dropshadow sprite text to the given 
-		 color.
+		 Sets the (sRGB) shadow color of this dropshadow sprite text to the 
+		 given (sRGB) color.
 
 		 @param[in]		color
-						A reference to the shadow color.
+						A reference to the (sRGB) shadow color.
 		 */
 		void SetShadowColor(Color &&color) noexcept {
 			m_shadow_color = std::move(color);
 		}
 		
 		/**
-		 Sets the shadow color of this dropshadow sprite text to the given 
-		 color.
+		 Sets the (sRGB) shadow color of this dropshadow sprite text to the 
+		 given (sRGB) color.
 
 		 @param[in]		color
-						The shadow color.
+						The (sRGB) shadow color.
 		 */
 		void XM_CALLCONV SetShadowColor(FXMVECTOR color) noexcept {
 			XMStoreFloat4(&m_shadow_color, color);
@@ -198,7 +198,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The shadow color of this dropshadow sprite text.
+		 The (sRGB) shadow color of this dropshadow sprite text.
 		 */
 		Color m_shadow_color;
 	};

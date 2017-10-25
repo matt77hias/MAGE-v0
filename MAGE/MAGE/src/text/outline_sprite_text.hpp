@@ -32,7 +32,7 @@ namespace mage {
 		 @param[in]		font
 						A pointer to the sprite font.
 		 @param[in]		border_color
-						A reference to the border color.
+						A reference to the (sRGB) border color.
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
@@ -47,7 +47,7 @@ namespace mage {
 		 @param[in]		font
 						A pointer to the sprite font.
 		 @param[in]		border_color
-						The border color.
+						The (sRGB) border color.
 		 @param[in]		effects
 						The sprite effects to apply.
 		 */
@@ -126,39 +126,42 @@ namespace mage {
 		virtual void Draw(SpriteBatch &sprite_batch) const override;
 	
 		/**
-		 Returns the border color of this outline sprite text.
+		 Returns the (sRGB) border color of this outline sprite text.
 
-		 @return		The border color of this outline sprite text.
+		 @return		The (sRGB) border color of this outline sprite text.
 		 */
 		const Color GetBorderColor() const noexcept {
 			return m_border_color;
 		}
 		
 		/**
-		 Sets the border color of this outline sprite text to the given color.
+		 Sets the (sRGB) border color of this outline sprite text to the given 
+		 (sRGB) color.
 
 		 @param[in]		color
-						A reference to the border color.
+						A reference to the (sRGB) border color.
 		 */
 		void SetBorderColor(const Color &color) noexcept {
 			m_border_color = color;
 		}
 
 		/**
-		 Sets the border color of this outline sprite text to the given color.
+		 Sets the (sRGB) border color of this outline sprite text to the given 
+		 (sRGB) color.
 
 		 @param[in]		color
-						A reference to the border color.
+						A reference to the (sRGB) border color.
 		 */
 		void SetBorderColor(Color &&color) noexcept {
 			m_border_color = std::move(color);
 		}
 		
 		/**
-		 Sets the border color of this outline sprite text to the given color.
+		 Sets the (sRGB) border color of this outline sprite text to the given 
+		 (sRGB) color.
 
 		 @param[in]		color
-						The border color.
+						The (sRGB) border color.
 		 */
 		void XM_CALLCONV SetBorderColor(FXMVECTOR color) noexcept {
 			XMStoreFloat4(&m_border_color, color);
@@ -193,7 +196,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The border color of this outline sprite text.
+		 The (sRGB) border color of this outline sprite text.
 		 */
 		Color m_border_color;
 	};

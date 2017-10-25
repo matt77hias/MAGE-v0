@@ -49,7 +49,7 @@
     * Cook-Torrance (F: Schlick, D: Beckmann, G: Cook-Torrance)
   * new material pipeline:
    * Lambertian
-   * Cook-Torrance, Disney:
+   * Cook-Torrance, Frostbite:
      * D component: 
         * Beckmann, 
         * Ward-Duer, 
@@ -63,6 +63,7 @@
         * Ashikhmin-Premoze
         * Kelemann
         * Cook Torrance
+        * (Correlated) GGX
         * Smith GGX
         * Smith Schlick-GGX
         * Smith Beckmann
@@ -74,10 +75,15 @@
 * Culling
   * Non-hierarchical
 * Gamma Correction
+  * All separate colors and textures with color data are expressed in sRGB.
   * All light calculations are performed in linear space.
+  * sRGB colors are converted from gamma to linear space by the CPU.
+  * sRGB textures are converted from gamma to linear space by the GPU hardware support (ensures correct filtering and blending).
+  * Optional custom gamma correction before presenting
 * Lighting
   * Single pass for all lights (incl. shadow mapping)
-  * Linear fog (avoids popping artifacts)
+  * Frostbite's angular and distance falloff functions
+  * Exponential fog with custom density (avoids popping artifacts)
   * HDR
 * Normal Mapping
   * Tangent-space (without relying on precomputed tangents and bitangents)

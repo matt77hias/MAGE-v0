@@ -184,6 +184,9 @@ namespace mage {
 		void SetRange(F32 range) noexcept {
 			Assert(range > 0.0f);
 			m_range = range;
+
+			// Update the bounding volumes.
+			UpdateBoundingVolumes();
 		}
 
 		//---------------------------------------------------------------------

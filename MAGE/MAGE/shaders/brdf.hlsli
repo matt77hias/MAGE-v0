@@ -550,6 +550,52 @@ float G_CookTorrance(float n_dot_v, float n_dot_l,
 }
 
 /**
+ Calculates the (correlated) GGX Geometric Schadowing component.
+
+ @param[in]		n_dot_v
+				The clamped cosine of the view angle. The view angle is the 
+				angle between the surface normal and the view (hit-to-eye) 
+				direction.
+ @param[in]		n_dot_l
+				The clamped cosine of the light angle. The light angle is the 
+				angle between the surface normal and the light (hit-to-light) 
+				direction.
+ @param[in]		n_dot_h
+				The clamped cosine of the half angle. The half angle is the 
+				angle between the surface normal and the half direction between 
+				the view (hit-to-eye) and light (hit-to-light) direction.
+ @param[in]		v_dot_h
+				The clamped cosine of the difference angle. The difference 
+				angle is the angle between the view (hit-to-eye) direction and 
+				half direction and is the angle between the light 
+				(hit-to-light) direction and half direction.
+ @param[in]		alpha
+				The alpha value which is equal to the square of the surface
+				roughness.
+ @return		The (correlated) GGX Geometric Schadowing component.
+ */
+float G_GGX(float n_dot_v, float n_dot_l,
+	float n_dot_h, float v_dot_h, float alpha) {
+	//                                           2 (n_dot_l) (n_dot_v)
+	// G := -------------------------------------------------------------------------------------------------
+	//      n_dot_v sqrt(alpha^2 + (1 - alpha^2) n_dot_l^2) + n_dot_l sqrt(alpha^2 + (1 - alpha^2) n_dot_v^2)
+	//
+	//                1
+	//    = -----------------------
+	//      1 + Lambda_v + lambda_l
+	//
+	//            sqrt(alpha^2 + (1 - alpha^2) (n_dot_v)^2)   1
+	// Lambda_v = ----------------------------------------- - -
+	//                           2 n_dot_v                    2
+
+	const float alpha2   = sqr(alpha);
+	const float lambda_v = sqrt(alpha2 + (1.0f - alpha2) * sqr(n_dot_v));
+	const float lambda_l = sqrt(alpha2 + (1.0f - alpha2) * sqr(n_dot_l));
+
+	return (2.0f * n_dot_l * n_dot_v) / (n_dot_v * lambda_l + n_dot_l * lambda_v);
+}
+
+/**
  Calculates the Smith GGX Geometric Schadowing component.
 
  @param[in]		n_dot_v
@@ -968,6 +1014,44 @@ float V_CookTorrance(float n_dot_v, float n_dot_l,
 }
 
 /**
+ Calculates the (correlated) GGX Visibility component.
+
+ @param[in]		n_dot_v
+				The clamped cosine of the view angle. The view angle is the 
+				angle between the surface normal and the view (hit-to-eye) 
+				direction.
+ @param[in]		n_dot_l
+				The clamped cosine of the light angle. The light angle is the 
+				angle between the surface normal and the light (hit-to-light) 
+				direction.
+ @param[in]		n_dot_h
+				The clamped cosine of the half angle. The half angle is the 
+				angle between the surface normal and the half direction between 
+				the view (hit-to-eye) and light (hit-to-light) direction.
+ @param[in]		v_dot_h
+				The clamped cosine of the difference angle. The difference 
+				angle is the angle between the view (hit-to-eye) direction and 
+				half direction and is the angle between the light 
+				(hit-to-light) direction and half direction.
+ @param[in]		alpha
+				The alpha value which is equal to the square of the surface
+				roughness.
+ @return		The (correlated) GGX Visibility component.
+ */
+float V_GGX(float n_dot_v, float n_dot_l,
+	float n_dot_h, float v_dot_h, float alpha) {
+	//                                                      2
+	// V := -------------------------------------------------------------------------------------------------
+	//      n_dot_v sqrt(alpha^2 + (1 - alpha^2) n_dot_l^2) + n_dot_l sqrt(alpha^2 + (1 - alpha^2) n_dot_v^2)
+
+	const float alpha2   = sqr(alpha);
+	const float lambda_v = sqrt(alpha2 + (1.0f - alpha2) * sqr(n_dot_v));
+	const float lambda_l = sqrt(alpha2 + (1.0f - alpha2) * sqr(n_dot_l));
+
+	return 2.0f / (n_dot_v * lambda_l + n_dot_l * lambda_v);
+}
+
+/**
  Calculates the Smith GGX Visibility component.
 
  @param[in]		n_dot_v
@@ -1142,16 +1226,60 @@ float3 F_None(float v_dot_h, float3 F0) {
 				(hit-to-light) direction and half direction.
  @param[in]		F0
 				The reflectance at normal incidence.
+ @param[in]		F90
+				The reflectance at tangent incidence.
  @return		The Schlick Fresnel component.
  */
-float F_Schlick(float v_dot_h, float F0) {
-	// F := F0 + (1 - F0) (1 - v_dot_h)^5
+float F_Schlick(float v_dot_h, float F0, float F90) {
+	// F := F0 + (F90 - F0) (1 - v_dot_h)^5
 
 	const float m = (1.0f - v_dot_h);
 	const float m2 = sqr(m);
 	const float m5 = sqr(m2) * m;
 	
-	return lerp(F0, 1.0f, m5);
+	return lerp(F0, F90, m5);
+}
+
+/**
+ Calculates the Schlick Fresnel component.
+
+ @param[in]		v_dot_h
+				The clamped cosine of the difference angle. The difference 
+				angle is the angle between the view (hit-to-eye) direction and 
+				half direction and is the angle between the light 
+				(hit-to-light) direction and half direction.
+ @param[in]		F0
+				The reflectance at normal incidence.
+ @param[in]		F90
+				The reflectance at tangent incidence.
+ @return		The Schlick Fresnel component.
+ */
+float3 F_Schlick(float v_dot_h, float3 F0, float F90) {
+	// F := F0 + (F90 - F0) (1 - v_dot_h)^5
+
+	const float m = (1.0f - v_dot_h);
+	const float m2 = sqr(m);
+	const float m5 = sqr(m2) * m;
+	
+	return lerp(F0, F90, m5);
+}
+
+/**
+ Calculates the Schlick Fresnel component.
+
+ @param[in]		v_dot_h
+				The clamped cosine of the difference angle. The difference 
+				angle is the angle between the view (hit-to-eye) direction and 
+				half direction and is the angle between the light 
+				(hit-to-light) direction and half direction.
+ @param[in]		F0
+				The reflectance at normal incidence.
+ @return		The Schlick Fresnel component.
+ */
+float F_Schlick(float v_dot_h, float F0) {
+	// F := F0 + (1 - F0) (1 - v_dot_h)^5
+
+	return F_Schlick(v_dot_h, F0, 1.0f);
 }
 
 /**
@@ -1169,11 +1297,7 @@ float F_Schlick(float v_dot_h, float F0) {
 float3 F_Schlick(float v_dot_h, float3 F0) {
 	// F := F0 + (1 - F0) (1 - v_dot_h)^5
 
-	const float m = (1.0f - v_dot_h);
-	const float m2 = sqr(m);
-	const float m5 = sqr(m2) * m;
-	
-	return lerp(F0, 1.0f, m5);
+	return F_Schlick(v_dot_h, F0, 1.0f);
 }
 
 /**
@@ -1285,12 +1409,68 @@ float3 LambertianBRDFxCos(float3 n, float3 l, float3 v,
 #endif
 
 #ifndef BRDF_D_COMPONENT
-#define BRDF_D_COMPONENT D_TrowbridgeReitz
+#define BRDF_D_COMPONENT D_GGX
 #endif
 
 #ifndef BRDF_V_COMPONENT
-#define BRDF_V_COMPONENT V_Smith_SchlickGGX
+#define BRDF_V_COMPONENT V_GGX
 #endif
+
+float FrostbiteDiffuseBRDF(float n_dot_v, float n_dot_l,
+	float v_dot_h, float roughness) {
+
+	const float energy_factor = lerp(1.0f, 1.0f / 1.51f, roughness);
+
+	const float F0  = 1.0f;
+	const float F90 = (0.5f + sqr(v_dot_h)) * roughness;
+	const float FV  = F_Schlick(n_dot_v, F0, F90);
+	const float FL  = F_Schlick(n_dot_l, F0, F90);
+
+	return energy_factor * FV * FL;
+}
+
+/**
+ Calculates the Frostbite BRDFxCos.
+
+ @pre			@a n is normalized.
+ @pre			@a l is normalized.
+ @pre			@a v is normalized.
+ @param[in]		n
+				The surface normal.
+ @param[in]		l
+				The light (hit-to-light) direction.
+ @param[in]		v
+				The view (hit-to-eye) direction.
+ @param[in]		base_color
+				The base color of the material.
+ @param[in]		roughness
+				The roughness of the material.
+ @param[in]		metalness
+				The metalness of the material.
+ @return		The Cook-Torrance BRDFxCos.
+ */
+float3 FrostbiteBRDFxCos(float3 n, float3 l, float3 v, 
+	float3 base_color, float roughness, float metalness) {
+	
+	const float  alpha   = max(0.1f, sqr(roughness));
+	const float  n_dot_l = sat_dot(n, l);
+	const float  n_dot_v = sat_dot(n, v) + 0.00001f;
+	const float3 h       = HalfDirection(l, v);
+	const float  n_dot_h = sat_dot(n, h);
+	const float  v_dot_h = sat_dot(v, h);
+
+	const float3 F_spec0 = lerp(g_dielectric_F0, base_color, metalness);
+	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F_spec0);
+	const float  F_diff  = FrostbiteDiffuseBRDF(n_dot_v, n_dot_l, v_dot_h, roughness) 
+		                 * (1.0f - metalness);
+	const float  D       = BRDF_D_COMPONENT(n_dot_h, alpha);
+	const float  V       = BRDF_V_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
+
+	const float3 Fd      = F_diff * base_color * g_inv_pi;
+	const float3 Fs      = F_spec * 0.25f * D * V;
+
+	return (Fd + Fs) * n_dot_l;
+}
 
 /**
  Calculates the Cook-Torrance BRDFxCos.
@@ -1315,6 +1495,8 @@ float3 LambertianBRDFxCos(float3 n, float3 l, float3 v,
 float3 CookTorranceBRDFxCos(float3 n, float3 l, float3 v, 
 	float3 base_color, float roughness, float metalness) {
 	
+	return FrostbiteBRDFxCos(n, l, v, base_color, roughness, metalness);
+
 	const float  alpha   = max(0.1f, sqr(roughness));
 	const float  n_dot_l = sat_dot(n, l);
 	const float  n_dot_v = sat_dot(n, v) + 0.00001f;
@@ -1322,59 +1504,9 @@ float3 CookTorranceBRDFxCos(float3 n, float3 l, float3 v,
 	const float  n_dot_h = sat_dot(n, h);
 	const float  v_dot_h = sat_dot(v, h);
 
-	const float3 F0      = lerp(g_dielectric_F0, base_color, metalness);
-	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F0);
+	const float3 F_spec0 = lerp(g_dielectric_F0, base_color, metalness);
+	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F_spec0);
 	const float3 F_diff  = (1.0f - F_spec) * (1.0f - metalness);
-	const float  D       = BRDF_D_COMPONENT(n_dot_h, alpha);
-	const float  V       = BRDF_V_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
-
-	const float3 Fd      = F_diff * base_color * g_inv_pi;
-	const float3 Fs      = F_spec * 0.25f * D * V;
-
-	return (Fd + Fs) * n_dot_l;
-}
-
-float F_D90(float v_dot_h, float roughness) {
-	return 0.5f + 2.0f * roughness * sqr(v_dot_h);
-}
-
-/**
- Calculates the Disney BRDFxCos.
-
- @pre			@a n is normalized.
- @pre			@a l is normalized.
- @pre			@a v is normalized.
- @param[in]		n
-				The surface normal.
- @param[in]		l
-				The light (hit-to-light) direction.
- @param[in]		v
-				The view (hit-to-eye) direction.
- @param[in]		base_color
-				The base color of the material.
- @param[in]		roughness
-				The roughness of the material.
- @param[in]		metalness
-				The metalness of the material.
- @return		The Cook-Torrance BRDFxCos.
- */
-float3 DisneyBRDFxCos(float3 n, float3 l, float3 v, 
-	float3 base_color, float roughness, float metalness) {
-	
-	const float  alpha   = min(0.1f, sqr(roughness));
-	const float  n_dot_l = sat_dot(n, l);
-	const float  n_dot_v = sat_dot(n, v) + 0.00001f;
-	const float3 h       = HalfDirection(l, v);
-	const float  n_dot_h = sat_dot(n, h);
-	const float  v_dot_h = sat_dot(v, h);
-
-	const float  Fd90    = F_D90(v_dot_h, roughness);
-	const float  FL      = 1.0f + Fd90 - BRDF_F_COMPONENT(n_dot_l, Fd90);
-	const float  FV      = 1.0f + Fd90 - BRDF_F_COMPONENT(n_dot_v, Fd90);
-	const float  F_diff  = (1.0f - metalness) * FL * FV;
-
-	const float3 F0      = lerp(g_dielectric_F0, base_color, metalness);
-	const float3 F_spec  = BRDF_F_COMPONENT(v_dot_h, F0);
 	const float  D       = BRDF_D_COMPONENT(n_dot_h, alpha);
 	const float  V       = BRDF_V_COMPONENT(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha);
 

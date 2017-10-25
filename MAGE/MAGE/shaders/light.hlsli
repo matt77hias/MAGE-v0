@@ -149,6 +149,14 @@ float AngularFalloff(float cos_theta, float cos_umbra, float cos_inv_range) {
 	return sqr(saturate((cos_theta - cos_umbra) * cos_inv_range));
 }
 
+#ifndef LIGHT_DISTANCE_FALLOFF_COMPONENT
+#define LIGHT_DISTANCE_FALLOFF_COMPONENT DistanceFalloff
+#endif
+
+#ifndef LIGHT_ANGULAR_FALLOFF_COMPONENT
+#define LIGHT_ANGULAR_FALLOFF_COMPONENT AngularFalloff
+#endif
+
 /**
  Calculates the maximal intensity contribution of the given omni light.
 
@@ -159,7 +167,8 @@ float AngularFalloff(float cos_theta, float cos_umbra, float cos_inv_range) {
  @return		The maximal intensity contribution of the given omni light.
  */
 float3 MaxContribution(OmniLight light, float distance) {
-	const float df = DistanceFalloff(distance, light.inv_sqr_range);
+	const float df = LIGHT_DISTANCE_FALLOFF_COMPONENT(
+						distance, light.inv_sqr_range);
 	return df * light.I;
 }
 
@@ -177,8 +186,10 @@ float3 MaxContribution(OmniLight light, float distance) {
  */
 float3 MaxContribution(SpotLight light, float distance, float3 l) {
 	const float cos_theta = dot(light.neg_d, l);
-	const float df = DistanceFalloff(distance, light.inv_sqr_range);
-	const float af = AngularFalloff(cos_theta, light.cos_umbra, light.cos_inv_range);
+	const float df = LIGHT_DISTANCE_FALLOFF_COMPONENT(
+						distance, light.inv_sqr_range);
+	const float af = LIGHT_ANGULAR_FALLOFF_COMPONENT(
+						cos_theta, light.cos_umbra, light.cos_inv_range);
 	return af * df * light.I;
 }
 

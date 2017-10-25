@@ -89,10 +89,10 @@ namespace mage {
 		//spot_light->GetLight()->SetAngularCutoff(1.0f, sqrt(2.0f) / 2.0f);
 		//spot_light->GetLight()->EnableShadows();
 
-		auto light = Create< SpotLightNode >("light");
-		light->GetLight()->SetRange(5.0f);
-		light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
-		camera->AddChildNode(light);
+		//auto light = Create< SpotLightNode >("light");
+		//light->GetLight()->SetRange(5.0f);
+		//light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
+		//camera->AddChildNode(light);
 
 		//---------------------------------------------------------------------
 		// Image

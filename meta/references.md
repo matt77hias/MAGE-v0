@@ -90,6 +90,8 @@ HABLE J.: [*Filmic Tonemapping Operators*](http://filmicworlds.com/blog/filmic-t
 
 HABLE J.: [*Linear-Space Lighting (i.e. Gamma)*](http://filmicworlds.com/blog/linear-space-lighting-i-e-gamma/), 2010.
 
+HAMMON E. J.: [*PBR Diffuse Lighting for GGX+Smith Microsurfaces*](https://twvideo01.ubm-us.net/o1/vault/gdc2017/Presentations/Hammon_Earl_PBR_Diffuse_Lighting.pdf), GDC 2017.
+
 HUGHES, J. F., MÖLLER, T.: *Building an Orthonormal Basis from a Unit Vector*, *Journal of Graphics Tools* 4, 4, 1999.
 
 KARIS B.: *Real Shading in Unreal Engine 4*, *SIGGRAPH 2013 Course: Physically Based Shading in Theory and Practice*, 2013.

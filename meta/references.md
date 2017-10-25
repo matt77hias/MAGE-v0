@@ -19,7 +19,7 @@
   * Frank Meinl (modified version, [data](http://www.crytek.com/cryengine/cryengine3/downloads)),
   * Morgan McGuire (updated version, [data](http://graphics.cs.williams.edu/data/meshes.xml)),
   * Matthias Moulin (updated version),
-  * Alexandre Pestana(http://www.alexandre-pestana.com/pbr-textures-sponza/) (updated version for metalness workflow, [data](http://www.alexandre-pestana.com/pbr-textures-sponza/)),
+  * Alexandre Pestana (updated version for metalness workflow, [data](http://www.alexandre-pestana.com/pbr-textures-sponza/)),
   * Matthias Moulin (updated version). 
   
 * Skull:

@@ -22,20 +22,35 @@
 // Deferred
 #include "shader\cso\deferred\emissive_CS.hpp"
 #include "shader\cso\deferred\lambertian_CS.hpp"
+#include "shader\cso\deferred\blinn_phong_CS.hpp"
 #include "shader\cso\deferred\cook_torrance_CS.hpp"
+#include "shader\cso\deferred\frostbite_CS.hpp"
+#include "shader\cso\deferred\ward_duer_CS.hpp"
 
 // Forward: Opaque
 #include "shader\cso\forward\emissive_PS.hpp"
 #include "shader\cso\forward\lambertian_PS.hpp"
+#include "shader\cso\forward\blinn_phong_PS.hpp"
 #include "shader\cso\forward\cook_torrance_PS.hpp"
+#include "shader\cso\forward\frostbite_PS.hpp"
+#include "shader\cso\forward\ward_duer_PS.hpp"
 #include "shader\cso\forward\tsnm_lambertian_PS.hpp"
+#include "shader\cso\forward\tsnm_blinn_phong_PS.hpp"
 #include "shader\cso\forward\tsnm_cook_torrance_PS.hpp"
+#include "shader\cso\forward\tsnm_frostbite_PS.hpp"
+#include "shader\cso\forward\tsnm_ward_duer_PS.hpp"
 // Forward: Transparent
 #include "shader\cso\forward\transparent_emissive_PS.hpp"
 #include "shader\cso\forward\transparent_lambertian_PS.hpp"
+#include "shader\cso\forward\transparent_blinn_phong_PS.hpp"
 #include "shader\cso\forward\transparent_cook_torrance_PS.hpp"
+#include "shader\cso\forward\transparent_frostbite_PS.hpp"
+#include "shader\cso\forward\transparent_ward_duer_PS.hpp"
 #include "shader\cso\forward\transparent_tsnm_lambertian_PS.hpp"
+#include "shader\cso\forward\transparent_tsnm_blinn_phong_PS.hpp"
 #include "shader\cso\forward\transparent_tsnm_cook_torrance_PS.hpp"
+#include "shader\cso\forward\transparent_tsnm_frostbite_PS.hpp"
+#include "shader\cso\forward\transparent_tsnm_ward_duer_PS.hpp"
 
 // Sprite
 #include "shader\cso\sky\sky_PS.hpp"
@@ -180,6 +195,43 @@ namespace mage {
 		
 	}
 
+	SharedPtr< const PixelShader > CreateBlinnPhongPS(
+		bool tsnm, bool transparency) {
+
+		if (tsnm) {
+			if (transparency) {
+				const BufferCompiledShader cs(
+					g_transparent_tsnm_blinn_phong_ps, sizeof(g_transparent_tsnm_blinn_phong_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TRANSPARENT_TSNM_BLINN_PHONG, &cs);
+			}
+			else {
+				const BufferCompiledShader cs(
+					g_tsnm_blinn_phong_ps, sizeof(g_tsnm_blinn_phong_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TSNM_BLINN_PHONG, &cs);
+			}
+		}
+		else {
+			if (transparency) {
+				const BufferCompiledShader cs(
+					g_transparent_blinn_phong_ps, sizeof(g_transparent_blinn_phong_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TRANSPARENT_BLINN_PHONG, &cs);
+			}
+			else {
+				const BufferCompiledShader cs(
+					g_blinn_phong_ps, sizeof(g_blinn_phong_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_BLINN_PHONG, &cs);
+			}
+		}
+	}
+	
 	SharedPtr< const PixelShader > CreateCookTorrancePS(
 		bool tsnm, bool transparency) {
 
@@ -216,7 +268,81 @@ namespace mage {
 			}
 		}
 	}
-	
+
+	SharedPtr< const PixelShader > CreateFrostbitePS(
+		bool tsnm, bool transparency) {
+
+		if (tsnm) {
+			if (transparency) {
+				const BufferCompiledShader cs(
+					g_transparent_tsnm_frostbite_ps, sizeof(g_transparent_tsnm_frostbite_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TRANSPARENT_TSNM_FROSTBITE, &cs);
+			}
+			else {
+				const BufferCompiledShader cs(
+					g_tsnm_frostbite_ps, sizeof(g_tsnm_frostbite_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TSNM_FROSTBITE, &cs);
+			}
+		}
+		else {
+			if (transparency) {
+				const BufferCompiledShader cs(
+					g_transparent_frostbite_ps, sizeof(g_transparent_frostbite_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TRANSPARENT_FROSTBITE, &cs);
+			}
+			else {
+				const BufferCompiledShader cs(
+					g_frostbite_ps, sizeof(g_frostbite_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_FROSTBITE, &cs);
+			}
+		}
+	}
+
+	SharedPtr< const PixelShader > CreateWardDuerPS(
+		bool tsnm, bool transparency) {
+
+		if (tsnm) {
+			if (transparency) {
+				const BufferCompiledShader cs(
+					g_transparent_tsnm_ward_duer_ps, sizeof(g_transparent_tsnm_ward_duer_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TRANSPARENT_TSNM_WARD_DUER, &cs);
+			}
+			else {
+				const BufferCompiledShader cs(
+					g_tsnm_ward_duer_ps, sizeof(g_tsnm_ward_duer_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TSNM_WARD_DUER, &cs);
+			}
+		}
+		else {
+			if (transparency) {
+				const BufferCompiledShader cs(
+					g_transparent_ward_duer_ps, sizeof(g_transparent_ward_duer_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_TRANSPARENT_WARD_DUER, &cs);
+			}
+			else {
+				const BufferCompiledShader cs(
+					g_ward_duer_ps, sizeof(g_ward_duer_ps));
+
+				return ResourceManager::Get()->GetOrCreatePS(
+					MAGE_GUID_PS_WARD_DUER, &cs);
+			}
+		}
+	}
+
 	SharedPtr< const PixelShader > CreatePS(
 		BRDFType brdf, bool tsnm, bool transparency) {
 		
@@ -224,10 +350,14 @@ namespace mage {
 
 		case BRDFType::Lambertian:
 			return CreateLambertianPS(transparency);
+		case BRDFType::BlinnPhong:
+			return CreateBlinnPhongPS(tsnm, transparency);
 		case BRDFType::CookTorrance:
 			return CreateCookTorrancePS(tsnm, transparency);
+		case BRDFType::WardDuer:
+			return CreateWardDuerPS(tsnm, transparency);
 		default:
-			return CreateCookTorrancePS(tsnm, transparency);
+			return CreateFrostbitePS(tsnm, transparency);
 		}
 	}
 
@@ -278,6 +408,14 @@ namespace mage {
 				MAGE_GUID_CS_DEFERRED_LAMBERTIAN, &cs);
 	}
 
+	SharedPtr< const ComputeShader > CreateDeferredBlinnPhongCS() {
+		const BufferCompiledShader cs(
+				g_deferred_blinn_phong_cs, sizeof(g_deferred_blinn_phong_cs));
+		
+		return ResourceManager::Get()->GetOrCreateCS(
+				MAGE_GUID_CS_DEFERRED_BLINN_PHONG, &cs);
+	}
+
 	SharedPtr< const ComputeShader > CreateDeferredCookTorranceCS() {
 		const BufferCompiledShader cs(
 				g_deferred_cook_torrance_cs, sizeof(g_deferred_cook_torrance_cs));
@@ -286,15 +424,35 @@ namespace mage {
 				MAGE_GUID_CS_DEFERRED_COOK_TORRANCE, &cs);
 	}
 
+	SharedPtr< const ComputeShader > CreateDeferredFrostbiteCS() {
+		const BufferCompiledShader cs(
+				g_deferred_frostbite_cs, sizeof(g_deferred_frostbite_cs));
+		
+		return ResourceManager::Get()->GetOrCreateCS(
+				MAGE_GUID_CS_DEFERRED_FROSTBITE, &cs);
+	}
+
+	SharedPtr< const ComputeShader > CreateDeferredWardDuerCS() {
+		const BufferCompiledShader cs(
+				g_deferred_ward_duer_cs, sizeof(g_deferred_ward_duer_cs));
+		
+		return ResourceManager::Get()->GetOrCreateCS(
+				MAGE_GUID_CS_DEFERRED_WARD_DUER, &cs);
+	}
+
 	SharedPtr< const ComputeShader > CreateDeferredCS(BRDFType brdf) {
 		switch (brdf) {
 
 		case BRDFType::Lambertian:
 			return CreateDeferredLambertianCS();
+		case BRDFType::BlinnPhong:
+			return CreateDeferredBlinnPhongCS();
 		case BRDFType::CookTorrance:
 			return CreateDeferredCookTorranceCS();
+		case BRDFType::WardDuer:
+			return CreateDeferredWardDuerCS();
 		default:
-			return CreateDeferredCookTorranceCS();
+			return CreateDeferredFrostbiteCS();
 		}
 	}
 

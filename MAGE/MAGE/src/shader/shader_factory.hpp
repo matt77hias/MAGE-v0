@@ -118,6 +118,26 @@ namespace mage {
 		bool tsnm = false, bool transparency = false);
 
 	/**
+	 Creates a Blinn-Phong pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be 
+					supported. @c false otherwise.
+	 @param[in]		transparency
+					@c true if transparency should be supported. @c false 
+					otherwise.
+	 @return		A pointer to the Blinn-Phong pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateBlinnPhongPS(
+		bool tsnm = false, bool transparency = false);
+
+	/**
 	 Creates a Cook-Torrance pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
@@ -135,6 +155,46 @@ namespace mage {
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateCookTorrancePS(
+		bool tsnm = false, bool transparency = false);
+
+	/**
+	 Creates a Frostbite pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be 
+					supported. @c false otherwise.
+	 @param[in]		transparency
+					@c true if transparency should be supported. @c false 
+					otherwise.
+	 @return		A pointer to the Frostbite pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateFrostbitePS(
+		bool tsnm = false, bool transparency = false);
+
+	/**
+	 Creates a Ward-Duer pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be 
+					supported. @c false otherwise.
+	 @param[in]		transparency
+					@c true if transparency should be supported. @c false 
+					otherwise.
+	 @return		A pointer to the Ward-Duer pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateWardDuerPS(
 		bool tsnm = false, bool transparency = false);
 
 	/**
@@ -217,6 +277,19 @@ namespace mage {
 	SharedPtr< const ComputeShader > CreateDeferredLambertianCS();
 
 	/**
+	 Creates a deferred Blinn-Phong compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the deferred Blinn-Phong compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateDeferredBlinnPhongCS();
+
+	/**
 	 Creates a deferred Cook-Torrance compute shader.
 
 	 @pre			The resource manager associated with the current engine 
@@ -228,6 +301,32 @@ namespace mage {
 					Failed to create the compute shader.
 	 */
 	SharedPtr< const ComputeShader > CreateDeferredCookTorranceCS();
+
+	/**
+	 Creates a deferred Frostbite compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the deferred Frostbite compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateDeferredFrostbiteCS();
+
+	/**
+	 Creates a deferred Ward-Duer compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the deferred Ward-Duer compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateDeferredWardDuerCS();
 
 	/**
 	 Creates a deferred compute shader matching the given BRDF.

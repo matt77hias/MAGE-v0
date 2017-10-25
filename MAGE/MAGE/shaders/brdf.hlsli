@@ -723,9 +723,9 @@ float G_Smith_SchlickBeckmann(float n_dot_v, float n_dot_l,
 // Engine Declarations and Definitions: Partial Visibility
 //-----------------------------------------------------------------------------
 
-//         G1
-// V1 := -------
-//      n_dot_vl
+//          G1
+// V1 := --------
+//       n_dot_vl
 
 /**
  Calculates the GGX partial Visibility component.
@@ -1495,8 +1495,6 @@ float3 FrostbiteBRDFxCos(float3 n, float3 l, float3 v,
 float3 CookTorranceBRDFxCos(float3 n, float3 l, float3 v, 
 	float3 base_color, float roughness, float metalness) {
 	
-	return FrostbiteBRDFxCos(n, l, v, base_color, roughness, metalness);
-
 	const float  alpha   = max(0.1f, sqr(roughness));
 	const float  n_dot_l = sat_dot(n, l);
 	const float  n_dot_v = sat_dot(n, v) + 0.00001f;

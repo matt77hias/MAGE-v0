@@ -11,12 +11,18 @@ namespace mage {
 
 	 This contains:
 	 @c Unknown,
-	 @c Lambertian, and
-	 @c CookTorrance.
+	 @c Lambertian,
+	 @c BlinnPhong,
+	 @c CookTorrance,
+	 @c Frostbite, and
+	 @c WardDuer.
 	 */
 	enum struct BRDFType {
 		Unknown = 0,
 		Lambertian,
-		CookTorrance
+		BlinnPhong,
+		CookTorrance,
+		Frostbite,
+		WardDuer
 	};
 }

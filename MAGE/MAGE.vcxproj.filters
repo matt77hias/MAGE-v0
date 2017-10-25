@@ -981,6 +981,60 @@
     <ClInclude Include="MAGE\src\rendering\swap_chain.hpp">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\frostbite_CS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\frostbite_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\ward_duer_CS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\ward_duer_PS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\deferred\blinn_phong_CS.hpp">
+      <Filter>Header Files\shader\cso\deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\forward\frostbite_PS.hpp">
+      <Filter>Header Files\shader\cso\forward</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\forward\transparent_blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso\forward</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\forward\transparent_frostbite_PS.hpp">
+      <Filter>Header Files\shader\cso\forward</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\forward\transparent_tsnm_blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso\forward</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\forward\transparent_tsnm_frostbite_PS.hpp">
+      <Filter>Header Files\shader\cso\forward</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\forward\transparent_tsnm_ward_duer_PS.hpp">
+      <Filter>Header Files\shader\cso\forward</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\forward\transparent_ward_duer_PS.hpp">
+      <Filter>Header Files\shader\cso\forward</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso\forward</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_frostbite_PS.hpp">
+      <Filter>Header Files\shader\cso\forward</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\forward\tsnm_ward_duer_PS.hpp">
+      <Filter>Header Files\shader\cso\forward</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\forward\ward_duer_PS.hpp">
+      <Filter>Header Files\shader\cso\forward</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\forward\blinn_phong_PS.hpp">
+      <Filter>Header Files\shader\cso\forward</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1467,6 +1521,60 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\forward\transparent_emissive_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\frostbite_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\transparent_blinn_phong_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\transparent_frostbite_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\transparent_tsnm_blinn_phong_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\transparent_tsnm_frostbite_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\transparent_tsnm_ward_duer_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\transparent_ward_duer_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\tsnm_blinn_phong_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\tsnm_frostbite_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\tsnm_ward_duer_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\ward_duer_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\forward\blinn_phong_PS.hlsl">
+      <Filter>Shader Files\forward</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\blinn_phong_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\blinn_phong_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\frostbite_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\frostbite_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\ward_duer_CS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\deferred\ward_duer_PS.hlsl">
+      <Filter>Shader Files\deferred</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

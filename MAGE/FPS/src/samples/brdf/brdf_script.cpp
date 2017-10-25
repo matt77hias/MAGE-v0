@@ -15,21 +15,22 @@ namespace mage {
 
 	BRDFScript::BRDFScript(CameraSettings *settings,
 		SpriteText *text, const vector< ModelNode * > &models)
-		: m_settings(settings), m_text(text), m_models(models),
-		m_shaders(), m_model_index(0), m_shader_index(0) {
+		: m_settings(settings), m_text(text), 
+		m_models(models), m_model_index(0),
+		m_modes(), m_mode_index(0) {
 
 		Assert(m_settings);
 		Assert(m_text);
 
 		InitModels();
-		InitShaders();
+		InitModes();
 	}
 
 	BRDFScript::BRDFScript(BRDFScript &&script) = default;
 
 	BRDFScript::~BRDFScript() {
 		m_models.clear();
-		m_shaders.clear();
+		m_modes.clear();
 	}
 
 	void BRDFScript::InitModels() noexcept {
@@ -40,7 +41,7 @@ namespace mage {
 		m_models[0]->Activate();
 	}
 
-	void BRDFScript::InitShaders() {
+	void BRDFScript::InitModes() {
 		const SharedPtr< const Texture > white 
 			= CreateWhiteTexture();
 		const SharedPtr< const Texture > tsnm 
@@ -57,66 +58,32 @@ namespace mage {
 		Material mat_tsnm = mat;
 		mat_tsnm.SetNormalTexture(tsnm);
 
-		m_shaders.reserve(17);
-		m_shaders.emplace_back(std::make_pair(ShaderType::Emissive,         mat_emissive));
-		m_shaders.emplace_back(std::make_pair(ShaderType::Lambertian,       mat));
-		m_shaders.emplace_back(std::make_pair(ShaderType::CookTorrance,     mat));
-		m_shaders.emplace_back(std::make_pair(ShaderType::TSNMLambertian,   mat_tsnm));
-		m_shaders.emplace_back(std::make_pair(ShaderType::TSNMCookTorrance, mat_tsnm));
-
-		SetShader();
-		SetMaterial();
+		m_modes.reserve(11);
+		m_modes.emplace_back(L"\n\n\n\n\nEmissive", mat_emissive, BRDFType::Unknown);
+		m_modes.emplace_back(L"\n\n\n\n\nLambertian", mat, BRDFType::Lambertian);
+		m_modes.emplace_back(L"\n\n\n\n\nFrostbite", mat, BRDFType::Frostbite);
+		m_modes.emplace_back(L"\n\n\n\n\nCook-Torrance", mat, BRDFType::CookTorrance);
+		m_modes.emplace_back(L"\n\n\n\n\nBlinn-Phong", mat, BRDFType::BlinnPhong);
+		m_modes.emplace_back(L"\n\n\n\n\nWard-Duer", mat, BRDFType::WardDuer);
+		m_modes.emplace_back(L"\n\n\n\n\nTSNM + Lambertian", mat_tsnm, BRDFType::Lambertian);
+		m_modes.emplace_back(L"\n\n\n\n\nTSNM + Frostbite", mat_tsnm, BRDFType::Frostbite);
+		m_modes.emplace_back(L"\n\n\n\n\nTSNM + Cook-Torrance", mat_tsnm, BRDFType::CookTorrance);
+		m_modes.emplace_back(L"\n\n\n\n\nTSNM + Blinn-Phong", mat_tsnm, BRDFType::BlinnPhong);
+		m_modes.emplace_back(L"\n\n\n\n\nTSNM + Ward-Duer", mat_tsnm, BRDFType::WardDuer);
+		
+		SetMode();
 	}
 
-	void BRDFScript::SetMaterial() noexcept {
-		const Material &material = m_shaders[m_shader_index].second;
+	void BRDFScript::SetMode() noexcept {
+		const Mode &mode = m_modes[m_mode_index];
+		
+		// Set the material.
 		for (const auto &node : m_models) {
-			node->GetModel()->SetMaterial(material);
+			node->GetModel()->SetMaterial(mode.m_material);
 		}
-	}
-
-	void BRDFScript::SetShader() noexcept {
-		switch (m_shaders[m_shader_index].first) {
-
-		case ShaderType::Lambertian:
-		case ShaderType::TSNMLambertian: {
-			m_settings->SetBRDF(BRDFType::Lambertian);
-			break;
-		}
-
-		case ShaderType::CookTorrance:
-		case ShaderType::TSNMCookTorrance: {
-			m_settings->SetBRDF(BRDFType::CookTorrance);
-			break;
-		}
-
-		}
-	}
-
-	void BRDFScript::PrintText() {
-		switch (m_shaders[m_shader_index].first) {
-
-		case ShaderType::Emissive: {
-			m_text->SetText(L"\n\n\n\n\nEmissive");
-			break;
-		}
-		case ShaderType::Lambertian: {
-			m_text->SetText(L"\n\n\n\n\nLambertian");
-			break;
-		}
-		case ShaderType::CookTorrance: {
-			m_text->SetText(L"\n\n\n\n\nCook-Torrance");
-			break;
-		}
-		case ShaderType::TSNMLambertian: {
-			m_text->SetText(L"\n\n\n\n\nTSNM + Lambertian");
-			break;
-		}
-		case ShaderType::TSNMCookTorrance: {
-			m_text->SetText(L"\n\n\n\n\nTSNM + Cook-Torrance");
-			break;
-		}
-		}
+		
+		// Set the BRDF.
+		m_settings->SetBRDF(mode.m_brdf);
 	}
 
 	void BRDFScript::Update(F64 time) {
@@ -138,16 +105,15 @@ namespace mage {
 
 		// Switch shader.
 		if (keyboard->GetKeyPress(DIK_RIGHT, false)) {
-			m_shader_index = (m_shader_index + 1) % m_shaders.size();
-			SetShader();
-			SetMaterial();
+			m_mode_index = (m_mode_index + 1) % m_modes.size();
+			SetMode();
 		}
 		else if (keyboard->GetKeyPress(DIK_LEFT, false)) {
-			m_shader_index = std::min(m_shader_index - 1, m_shaders.size() - 1);
-			SetShader();
-			SetMaterial();
+			m_mode_index = std::min(m_mode_index - 1, m_modes.size() - 1);
+			SetMode();
 		}
 
-		PrintText();
+		const Mode &mode = m_modes[m_mode_index];
+		m_text->SetText(mode.m_name.c_str());
 	}
 }

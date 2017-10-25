@@ -33,19 +33,31 @@ namespace mage {
 
 	private:
 
-		enum struct ShaderType {
-			Emissive = 0,
-			Lambertian,
-			CookTorrance,
-			TSNMLambertian,
-			TSNMCookTorrance
+		struct Mode final {
+
+		public:
+
+			explicit Mode(const wstring &name, 
+				const Material &material, BRDFType brdf)
+				: m_name(name), m_material(material), m_brdf(brdf) {}
+			explicit Mode(wstring &&name, 
+				const Material &material, BRDFType brdf)
+				: m_name(std::move(name)), m_material(material), m_brdf(brdf) {}
+			Mode(const Mode &mode) = default;
+			Mode(Mode &&mode) = default;
+			~Mode() = default;
+
+			Mode &operator=(const Mode &mode) = default;
+			Mode &operator=(Mode &&mode) = default;
+
+			wstring m_name;
+			Material m_material;
+			BRDFType m_brdf;
 		};
 
 		void InitModels() noexcept;
-		void InitShaders();
-		void SetMaterial() noexcept;
-		void SetShader() noexcept;
-		void PrintText();
+		void InitModes();
+		void SetMode() noexcept;
 
 		virtual void Update(F64 time) override;
 
@@ -53,8 +65,8 @@ namespace mage {
 		SpriteText * const m_text;
 		
 		vector< ModelNode * > m_models;
-		vector< pair< ShaderType, Material > > m_shaders;
 		size_t m_model_index;
-		size_t m_shader_index;
+		vector< Mode > m_modes;
+		size_t m_mode_index;
 	};
 }

@@ -34,6 +34,7 @@ namespace mage {
 	WireframePass::~WireframePass() = default;
 
 	void WireframePass::BindColorData() {
+		// The color in linear space.
 		static const RGBASpectrum color(0.0f, 0.0f, 1.0f, 1.0f);
 
 		// Update the color buffer.

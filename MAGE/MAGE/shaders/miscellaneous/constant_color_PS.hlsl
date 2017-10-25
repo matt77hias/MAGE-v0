@@ -7,6 +7,7 @@
 // Constant Buffers
 //-----------------------------------------------------------------------------
 CBUFFER(Color, SLOT_CBUFFER_COLOR) {
+	// The color in linear space.
 	float4 g_color : packoffset(c0);
 };
 
@@ -14,5 +15,5 @@ CBUFFER(Color, SLOT_CBUFFER_COLOR) {
 // Pixel Shader
 //-----------------------------------------------------------------------------
 float4 PS(PSInputPositionNormalTexture input) : SV_Target {
-	return GammaToLinear(g_color);
+	return g_color;
 }

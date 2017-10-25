@@ -24,7 +24,7 @@ CBUFFER(PerDraw, SLOT_CBUFFER_PER_DRAW) {
 	float4x4 g_texture_transform       : packoffset(c8);
 
 	// MATERIAL
-	// The base color of the material.
+	// The base color of the material in linear space.
 	float4 g_base_color                : packoffset(c12);
 	// The roughness of the material.
 	float  g_roughness                 : packoffset(c13.x);
@@ -53,10 +53,9 @@ TEXTURE_2D(g_normal_texture,     float2, SLOT_SRV_NORMAL);
 float4 GetMaterialBaseColor(float2 tex) {
 	// Obtain the base color of the material.
 #ifdef DISSABLE_BASE_COLOR_TEXTURE
-	return GammaToLinear(g_base_color);
+	return g_base_color;
 #else  // DISSABLE_BASE_COLOR_TEXTURE
-	return GammaToLinear(g_base_color) 
-		   * g_base_color_texture.Sample(g_linear_wrap_sampler, tex);
+	return g_base_color * g_base_color_texture.Sample(g_linear_wrap_sampler, tex);
 #endif // DISSABLE_BASE_COLOR_TEXTURE
 }
 

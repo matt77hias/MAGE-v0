@@ -92,7 +92,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The ambient radiance of this light buffer.
+		 The ambient radiance in watts per square meter per steradians of this 
+		 light buffer.
 		 */
 		RGBSpectrum m_La;
 
@@ -235,8 +236,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The radiance of the directional light of this directional light 
-		 buffer.
+		 The radiance in watts per square meter per steradians of the 
+		 directional light of this directional light buffer.
 		 */
 		RGBSpectrum m_L;
 
@@ -344,7 +345,8 @@ namespace mage {
 		F32 m_inv_sqr_range;
 
 		/**
-		 The radiant intensity of the omni light of this omni light buffer.
+		 The radiant intensity in watts per steradians of the omni light of 
+		 this omni light buffer.
 		 */
 		RGBSpectrum m_I;
 
@@ -442,7 +444,8 @@ namespace mage {
 		F32 m_inv_sqr_range;
 
 		/**
-		 The radiant intensity of the spotlight of this spotlight buffer.
+		 The radiant intensity in watts per steradians of the spotlight of this 
+		 spotlight buffer.
 		 */
 		RGBSpectrum m_I;
 

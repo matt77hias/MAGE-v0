@@ -46,6 +46,7 @@ namespace mage {
 	}
 
 	void BoundingVolumePass::BindLightColorData() {
+		// The color in linear space.
 		static const RGBASpectrum color(1.0f, 0.0f, 0.0f, 1.0f);
 
 		// Bind the color data.
@@ -53,6 +54,7 @@ namespace mage {
 	}
 
 	void BoundingVolumePass::BindModelColorData() {
+		// The color in linear space.
 		static const RGBASpectrum color(0.0f, 1.0f, 0.0f, 1.0f);
 
 		// Bind the color data.

@@ -39,8 +39,7 @@ namespace mage {
 		// Fog
 		//---------------------------------------------------------------------
 		auto fog = GetSceneFog();
-		fog->SetDistanceFalloff(FLT_MAX, FLT_MAX);
-		//fog->SetDistanceFalloff(0.0f, 150.0f);
+		fog->SetDensity(0.001f);
 
 		//---------------------------------------------------------------------
 		// Sky
@@ -79,8 +78,8 @@ namespace mage {
 		auto model_desc_tree8 =
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree4b_lod0.mdl", mesh_desc);
 
-		auto model_desc_windmill =
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/windmill/windmill.obj", mesh_desc);
+		//auto model_desc_windmill =
+		//	ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/windmill/windmill.obj", mesh_desc);
 
 		//---------------------------------------------------------------------
 		// Models
@@ -113,9 +112,9 @@ namespace mage {
 		model_tree8->GetTransform()->SetScale(5.0f);
 		model_tree8->GetTransform()->SetTranslation(-10.0f, 0.0f, 10.0f);
 
-		auto model_windmill = CreateModel(*model_desc_windmill);
-		model_windmill->GetTransform()->SetScale(10.0f);
-		model_windmill->GetTransform()->SetTranslation(0.0f, 0.0f, 0.0f);
+		//auto model_windmill = CreateModel(*model_desc_windmill);
+		//model_windmill->GetTransform()->SetScale(10.0f);
+		//model_windmill->GetTransform()->SetTranslation(0.0f, 0.0f, 0.0f);
 
 		//---------------------------------------------------------------------
 		// Lights

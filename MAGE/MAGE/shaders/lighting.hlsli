@@ -14,12 +14,11 @@
 CBUFFER(LightBuffer, SLOT_CBUFFER_LIGHTING) {
 	// The radiance of the ambient light in the scene. 
 	float3 g_La                     : packoffset(c0);
-	// The start distance of the fog.
-	float g_fog_start               : packoffset(c0.w);
-	// The color of the fog.
+	uint g_padding0                 : packoffset(c0.w);
+	// The color of the fog in linear space.
 	float3 g_fog_color              : packoffset(c1);
-	// The inverse distance range of the fog.
-	float g_fog_inv_range           : packoffset(c1.w);
+	// The density of the fog.
+	float g_fog_density             : packoffset(c1.w);
 
 	// The number of directional lights in the scene.
 	uint g_nb_directional_lights    : packoffset(c2.x);
@@ -193,8 +192,8 @@ float3 BRDFShading(float3 p, float3 n,
 #endif // DISSABLE_BRDFxCOS
 
 #ifndef DISSABLE_FOG
-	const float fog_factor = FogFactor(r_eye, g_fog_start, g_fog_inv_range);
-	L = lerp(L, g_fog_color, fog_factor);
+	const float fog_factor = FOG_FACTOR_COMPONENT(r_eye, g_fog_density);
+	L = lerp(g_fog_color, L, fog_factor);
 #endif // DISSABLE_FOG
 	
 	return L;

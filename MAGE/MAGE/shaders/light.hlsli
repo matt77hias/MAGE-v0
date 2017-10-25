@@ -399,19 +399,20 @@ void Contribution(SpotLightWithShadowMapping light,
 }
 
 /**
- Calculates the (linear) fog factor.
+ Calculates the exponential fog factor.
 
- @param[in]		r_eye
+ @param[in]		distance
 				The distance between the lit point and the eye.
- @param[in]		r_start
-				The distance at which intensity falloff starts due to fog.
- @param[in]		r_inv_range
-				The inverse distance range where intensity falloff occurs due 
-				to fog.
- @return		The (linear) fog factor.
+ @param[in]		density
+				The density of the fog.
+ @return		The exponential fog factor.
  */
-float FogFactor(float r_eye, float r_start, float r_inv_range) {
-	return saturate((r_eye - r_start) * r_inv_range);
+float FogFactor_Exponential(float distance, float density) {
+	return exp(-distance * density);
 }
+
+#ifndef FOG_FACTOR_COMPONENT
+#define FOG_FACTOR_COMPONENT FogFactor_Exponential
+#endif
 
 #endif //MAGE_HEADER_LIGHT

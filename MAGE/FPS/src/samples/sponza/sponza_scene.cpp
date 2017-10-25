@@ -39,8 +39,7 @@ namespace mage {
 		// Fog
 		//---------------------------------------------------------------------
 		auto fog = GetSceneFog();
-		fog->SetDistanceFalloff(FLT_MAX, FLT_MAX);
-		//fog->SetDistanceFalloff(0.0f, 150.0f);
+		fog->SetDensity(0.001f);
 
 		//---------------------------------------------------------------------
 		// Sky
@@ -89,10 +88,10 @@ namespace mage {
 		//spot_light->GetLight()->SetAngularCutoff(1.0f, sqrt(2.0f) / 2.0f);
 		//spot_light->GetLight()->EnableShadows();
 
-		//auto light = Create< SpotLightNode >("light");
-		//light->GetLight()->SetRange(5.0f);
-		//light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
-		//camera->AddChildNode(light);
+		auto light = Create< SpotLightNode >("light");
+		light->GetLight()->SetRange(5.0f);
+		light->GetLight()->SetAngularCutoff(1.0f, 0.5f);
+		camera->AddChildNode(light);
 
 		//---------------------------------------------------------------------
 		// Image

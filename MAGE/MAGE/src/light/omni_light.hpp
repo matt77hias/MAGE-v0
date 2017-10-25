@@ -7,7 +7,6 @@
 
 #include "light\light.hpp"
 #include "camera\perspective_camera.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 

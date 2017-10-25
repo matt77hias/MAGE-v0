@@ -7,7 +7,6 @@
 
 #include "light\light.hpp"
 #include "camera\perspective_camera.hpp"
-#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -112,6 +111,7 @@ namespace mage {
 		 @return		The power in watts of this spotlight.
 		 */
 		F32 GetPower() const noexcept {
+			// [Frostbite]
 			return GetIntensity() * XM_1DIVPI;
 		}
 
@@ -122,6 +122,7 @@ namespace mage {
 						The power in watts.
 		 */
 		void SetPower(F32 power) noexcept {
+			// [Frostbite]
 			SetIntensity(power * XM_PI);
 		}
 

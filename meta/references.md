@@ -19,7 +19,7 @@
   * Frank Meinl (modified version, [data](http://www.crytek.com/cryengine/cryengine3/downloads)),
   * Morgan McGuire (updated version, [data](http://graphics.cs.williams.edu/data/meshes.xml)),
   * Matthias Moulin (updated version),
-  * Alexandre Pestana(http://www.alexandre-pestana.com/pbr-textures-sponza/) (updated version for metalness workflow, [data](http://www.alexandre-pestana.com/pbr-textures-sponza/)),
+  * Alexandre Pestana (updated version for metalness workflow, [data](http://www.alexandre-pestana.com/pbr-textures-sponza/)),
   * Matthias Moulin (updated version). 
   
 * Skull:
@@ -89,6 +89,10 @@ GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.
 HABLE J.: [*Filmic Tonemapping Operators*](http://filmicworlds.com/blog/filmic-tonemapping-operators/), 2010.
 
 HABLE J.: [*Linear-Space Lighting (i.e. Gamma)*](http://filmicworlds.com/blog/linear-space-lighting-i-e-gamma/), 2010.
+
+HAMMON E. J.: [*PBR Diffuse Lighting for GGX+Smith Microsurfaces*](https://twvideo01.ubm-us.net/o1/vault/gdc2017/Presentations/Hammon_Earl_PBR_Diffuse_Lighting.pdf), GDC 2017.
+
+HEITZ E.: *Understanding the Masking-Shadowing Function in Microfacet-Based BRDFs*, *Journal of Computer Graphics Techniques* 3, 2, 2014.
 
 HUGHES, J. F., MÖLLER, T.: *Building an Orthonormal Basis from a Unit Vector*, *Journal of Graphics Tools* 4, 4, 1999.
 

@@ -34,13 +34,8 @@ namespace mage {
 		const XMVECTOR high = 1.055f * XMVectorPow(linear, XMVectorReplicate(exp))
 			                - XMVectorReplicate(0.055f);
 		const XMVECTOR comp = XMVectorLessOrEqual(linear, XMVectorReplicate(0.0031308f));
-
-		return XMVectorSet(
-			XMVectorGetX(comp) ? XMVectorGetX(low) : XMVectorGetX(high),
-			XMVectorGetY(comp) ? XMVectorGetY(low) : XMVectorGetY(high),
-			XMVectorGetZ(comp) ? XMVectorGetZ(low) : XMVectorGetZ(high),
-			XMVectorGetW(linear)
-		);
+		
+		return XMVectorSetW(XMVectorSelect(comp, high, low), XMVectorGetW(linear));
 	}
 
 	/**
@@ -63,12 +58,7 @@ namespace mage {
 		                      );
 		const XMVECTOR comp = XMVectorLessOrEqual(srgb, XMVectorReplicate(0.04045f));
 
-		return XMVectorSet(
-			XMVectorGetX(comp) ? XMVectorGetX(low) : XMVectorGetX(high),
-			XMVectorGetY(comp) ? XMVectorGetY(low) : XMVectorGetY(high),
-			XMVectorGetZ(comp) ? XMVectorGetZ(low) : XMVectorGetZ(high),
-			XMVectorGetW(srgb)
-		);
+		return XMVectorSetW(XMVectorSelect(comp, high, low), XMVectorGetW(srgb));
 	}
 
 	//-------------------------------------------------------------------------

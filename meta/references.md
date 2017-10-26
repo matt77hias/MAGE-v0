@@ -60,6 +60,8 @@ CAFLISCH R.E.: *Monte Carlo and quasi-Monte Carlo methods*, Acta Numerica, Cambr
 
 COOK R. L., TORRANCE K. E.: *A Reflectance Model for Computer Graphics*, *ACM Trans. Graph.* 1, 1, 1982.
 
+COZZI P., RICCIO P.: *OpenGL Insights*, 1st Edition, A K Peters/CRC Press, 2012.
+
 CRYENGINE: [Tangent Space Normal Mapping](http://docs.cryengine.com/display/SDKDOC4/Tangent+Space+Normal+Mapping), 2013.
 
 DE VRIES J.: [Learn OpenGL](https://learnopengl.com/), 2014.
@@ -75,6 +77,8 @@ DUTRÉ P.: [*Global Illumination Compendium*](https://people.cs.kuleuven.be/~phi
 DUTRÉ P., BEKAERT P, BALA K.: *Advanced Global Illumination*, 2th Edition, A K Peters/CRC Press, 2006.
 
 ENGEL W.: *Shader X5: Advanced Rendering Techniques*, 1st Edition, Charles River Media, 2007.
+
+ERKENBRACH L.: [*Voxel Cone Traced Global Illumination*](http://leifnode.com/2015/05/voxel-cone-traced-global-illumination/)
 
 FEINSTEIN D.: *HLSL Development Cookbook*, 1st Edition, Packt Publishing, 2013.
 
@@ -158,6 +162,8 @@ RASTERTEK: [*DirectX 11 Tutorials - Series 2*](http://www.rastertek.com/tutdx11s
 
 REED N.: [*Depth Precision Visualized*](https://developer.nvidia.com/content/depth-precision-visualized), 2015
 
+REED N.: [*Radiometry Versus Photometry*](http://reedbeta.com/blog/radiometry-versus-photometry/), 2014.
+
 REINALTER S.: [*Gamma-correct rendering*](https://blog.molecular-matters.com/2011/11/21/gamma-correct-rendering/), 2011.
 
 REINHARD E., STARK M., SHIRLEY P., FERWERDA J.: *Photographic Tone Reproduction for Digital Images*, *ACM Trans. Graph.* 21, 3, 2002.
@@ -170,7 +176,11 @@ SCHÜLER C.: [*Followup: Normal Mapping Without Precomputed Tangents*](http://ww
 
 SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Press, 2009.
 
+TAKESHIGE M.: [*The Basics of GPU Voxelization*](https://developer.nvidia.com/content/basics-gpu-voxelization), 2015.
+
 TORRANCE K., SPARROW E.: *Theory for Off-specular Reflection from Roughened Surfaces*, *Journal of the Optical Society of America* 65, 5, 1975.
+
+TURÁNSKI J.: [*Voxel-based Global Illumination*](https://turanszkij.wordpress.com/2017/08/30/voxel-based-global-illumination/), 2017.
 
 UPCHURCH P., DESBRUN M.: *Tightening the Precision of Perspective Rendering*, *J. Graphics Tools* 12, 2012.
 
@@ -183,6 +193,8 @@ WILSON J.: [*PBR Texture Conversion*](https://www.marmoset.co/posts/pbr-texture-
 WITTERS K.: [*deWiTTERS Game Loop*](http://www.koonsolo.com/news/dewitters-gameloop/), 2009.
 
 WRONSKI B.: [*Image dynamic range*](https://bartwronski.com/2016/09/01/dynamic-range-and-evs/comment-page-1/), 2016.
+
+YEUNG S.: [*Implementing Voxel Cone Tracing*](http://simonstechblog.blogspot.be/2013/01/implementing-voxel-cone-tracing.html), 2013.
 
 YOUNG V.: *Programming a Multiplayer FPS in DirectX, 1st Edition*, Game Development Series, Charles River Media, 2005.
 

@@ -35,7 +35,7 @@ namespace mage {
 			                - XMVectorReplicate(0.055f);
 		const XMVECTOR comp = XMVectorLessOrEqual(linear, XMVectorReplicate(0.0031308f));
 		
-		return XMVectorSetW(XMVectorSelect(comp, high, low), XMVectorGetW(linear));
+		return XMVectorSetW(XMVectorSelect(high, low, comp), XMVectorGetW(linear));
 	}
 
 	/**
@@ -54,11 +54,10 @@ namespace mage {
 		const XMVECTOR low  = srgb * mlow;
 		const XMVECTOR high = XMVectorPow(
 			                      mhigh * (srgb + XMVectorReplicate(0.055f)),
-			                      XMVectorReplicate(2.4f)
-		                      );
+			                      XMVectorReplicate(2.4f));
 		const XMVECTOR comp = XMVectorLessOrEqual(srgb, XMVectorReplicate(0.04045f));
 
-		return XMVectorSetW(XMVectorSelect(comp, high, low), XMVectorGetW(srgb));
+		return XMVectorSetW(XMVectorSelect(high, low, comp), XMVectorGetW(srgb));
 	}
 
 	//-------------------------------------------------------------------------

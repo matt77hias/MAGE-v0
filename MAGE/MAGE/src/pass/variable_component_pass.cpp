@@ -65,7 +65,7 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				GammaToLinear(material->GetBaseColorRGBA()));
+				SRGBToLinear(material->GetBaseColorRGBA()));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
@@ -83,7 +83,7 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				GammaToLinear(material->GetBaseColorRGBA()));
+				SRGBToLinear(material->GetBaseColorRGBA()));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);

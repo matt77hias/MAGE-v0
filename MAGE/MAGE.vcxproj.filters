@@ -1737,5 +1737,8 @@
     <None Include="MAGE\src\rendering\rendering_state_manager.tpp">
       <Filter>Header Files\rendering</Filter>
     </None>
+    <None Include="MAGE\shaders\color.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

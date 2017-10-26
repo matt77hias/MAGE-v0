@@ -15,6 +15,63 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
+	// sRGB <-> Linear
+	//-------------------------------------------------------------------------
+
+	/**
+	 Converts the given spectrum from linear to sRGB space.
+
+	 @param[in]		linear
+					The spectrum in linear space.
+	 @return		The spectrum in sRGB space.
+	 @note			The alpha channel of the given spectrum is preserved.
+	 */
+	inline const XMVECTOR XM_CALLCONV LinearToSRGB(FXMVECTOR linear) noexcept {
+		// Frostbite's conversion
+		static const float exp = 1.0f / 2.4f;
+		
+		const XMVECTOR low  = linear * 12.92f;
+		const XMVECTOR high = 1.055f * XMVectorPow(linear, XMVectorReplicate(exp))
+			                - XMVectorReplicate(0.055f);
+		const XMVECTOR comp = XMVectorLessOrEqual(linear, XMVectorReplicate(0.0031308f));
+
+		return XMVectorSet(
+			XMVectorGetX(comp) ? XMVectorGetX(low) : XMVectorGetX(high),
+			XMVectorGetY(comp) ? XMVectorGetY(low) : XMVectorGetY(high),
+			XMVectorGetZ(comp) ? XMVectorGetZ(low) : XMVectorGetZ(high),
+			XMVectorGetW(linear)
+		);
+	}
+
+	/**
+	 Converts the given spectrum from sRGB to linear space.
+
+	 @param[in]		srgb
+					The spectrum in sRGB space.
+	 @return		The spectrum in linear space.
+	 @note			The alpha channel of the given spectrum is preserved.
+	 */
+	inline const XMVECTOR XM_CALLCONV SRGBToLinear(FXMVECTOR srgb) noexcept {
+		// Frostbite's conversion
+		static const float mlow  = 1.0f / 12.92f;
+		static const float mhigh = 1.0f / 1.055f;
+
+		const XMVECTOR low  = srgb * mlow;
+		const XMVECTOR high = XMVectorPow(
+			                      mhigh * (srgb + XMVectorReplicate(0.055f)),
+			                      XMVectorReplicate(2.4f)
+		                      );
+		const XMVECTOR comp = XMVectorLessOrEqual(srgb, XMVectorReplicate(0.04045f));
+
+		return XMVectorSet(
+			XMVectorGetX(comp) ? XMVectorGetX(low) : XMVectorGetX(high),
+			XMVectorGetY(comp) ? XMVectorGetY(low) : XMVectorGetY(high),
+			XMVectorGetZ(comp) ? XMVectorGetZ(low) : XMVectorGetZ(high),
+			XMVectorGetW(srgb)
+		);
+	}
+
+	//-------------------------------------------------------------------------
 	// RGBSpectrum
 	//-------------------------------------------------------------------------
 
@@ -130,43 +187,30 @@ namespace mage {
 		"RGBSpectrum/XMFLOAT3 mismatch");
 
 	/**
-	 Converts the given RGB spectrum from linear space to gamma space.
+	 Converts the given spectrum from linear to sRGB space.
 
-	 @param[in]		rgb
-					A reference to the RGB spectrum in linear space.
-	 @param[in]		gamma
-					The gamma exponent.
-	 @return		The RGB spectrum in gamma space.
+	 @param[in]		linear
+					The spectrum in linear space.
+	 @return		The spectrum in sRGB space.
+	 @note			The alpha channel of the given spectrum is preserved.
 	 */
-	inline const RGBSpectrum LinearToGamma(
-		const RGBSpectrum &rgb, float gamma = 2.2f) noexcept {
-
-		const float inv_gamma = 1.0f / gamma;
-		const XMVECTOR rgb_v  = XMLoadFloat3(&rgb);
-		const XMVECTOR exp_v  = XMVectorSet(inv_gamma, inv_gamma, inv_gamma, 1.0f);
-		
+	inline const RGBSpectrum LinearToSRGB(const RGBSpectrum &linear) noexcept {
 		RGBSpectrum result;
-		XMStoreFloat3(&result, XMVectorPow(rgb_v, exp_v));
+		XMStoreFloat3(&result, LinearToSRGB(XMLoadFloat3(&linear)));
 		return result;
 	}
 
 	/**
-	 Converts the given RGB spectrum from gamma space to linear space.
+	 Converts the given spectrum from sRGB to linear space.
 
-	 @param[in]		rgba
-					A reference to the RGB spectrum in gamma space.
-	 @param[in]		gamma
-					The gamma exponent.
-	 @return		The RGB spectrum in linear space.
+	 @param[in]		srgb
+					The spectrum in sRGB space.
+	 @return		The spectrum in linear space.
+	 @note			The alpha channel of the given spectrum is preserved.
 	 */
-	inline const RGBSpectrum GammaToLinear(
-		const RGBSpectrum &rgb, float gamma = 2.2f) noexcept {
-
-		const XMVECTOR rgb_v = XMLoadFloat3(&rgb);
-		const XMVECTOR exp_v = XMVectorSet(gamma, gamma, gamma, 1.0f);
-		
+	inline const RGBSpectrum SRGBToLinear(const RGBSpectrum &srgb) noexcept {
 		RGBSpectrum result;
-		XMStoreFloat3(&result, XMVectorPow(rgb_v, exp_v));
+		XMStoreFloat3(&result, SRGBToLinear(XMLoadFloat3(&srgb)));
 		return result;
 	}
 
@@ -433,81 +477,31 @@ namespace mage {
 		"RGBASpectrum/XMFLOAT4 mismatch");
 	
 	/**
-	 Converts the given RGBA spectrum from linear space to gamma space.
+	 Converts the given spectrum from linear to sRGB space.
 
-	 @param[in]		rgba
-					A reference to the RGBA spectrum in linear space.
-	 @param[in]		gamma
-					The gamma exponent.
-	 @return		The RGBA spectrum in gamma space.
-	 @note			The alpha channel of the given RGBA spectrum is preserved.
+	 @param[in]		linear
+					The spectrum in linear space.
+	 @return		The spectrum in sRGB space.
+	 @note			The alpha channel of the given spectrum is preserved.
 	 */
-	inline const RGBASpectrum LinearToGamma(
-		const RGBASpectrum &rgba, float gamma = 2.2f) noexcept {
-
-		const float inv_gamma = 1.0f / gamma;
-		const XMVECTOR rgba_v = XMLoadFloat4(&rgba);
-		const XMVECTOR exp_v  = XMVectorSet(inv_gamma, inv_gamma, inv_gamma, 1.0f);
-		
+	inline const RGBASpectrum LinearToSRGB(const RGBASpectrum &linear) noexcept {
 		RGBASpectrum result;
-		XMStoreFloat4(&result, XMVectorPow(rgba_v, exp_v));
+		XMStoreFloat4(&result, LinearToSRGB(XMLoadFloat4(&linear)));
 		return result;
 	}
 
 	/**
-	 Converts the given RGBA spectrum from linear space to gamma space.
+	 Converts the given spectrum from sRGB to linear space.
 
-	 @param[in]		rgba
-					The RGBA spectrum in linear space.
-	 @param[in]		gamma
-					The gamma exponent.
-	 @return		The RGBA spectrum in gamma space.
-	 @note			The alpha channel of the given RGBA spectrum is preserved.
+	 @param[in]		srgb
+					The spectrum in sRGB space.
+	 @return		The spectrum in linear space.
+	 @note			The alpha channel of the given spectrum is preserved.
 	 */
-	inline const XMVECTOR XM_CALLCONV LinearToGamma(
-		FXMVECTOR rgba, float gamma = 2.2f) noexcept {
-
-		const float inv_gamma = 1.0f / gamma;
-		const XMVECTOR exp_v  = XMVectorSet(inv_gamma, inv_gamma, inv_gamma, 1.0f);
-		return XMVectorPow(rgba, exp_v);
-	}
-
-	/**
-	 Converts the given RGBA spectrum from gamma space to linear space.
-
-	 @param[in]		rgba
-					A reference to the RGBA spectrum in gamma space.
-	 @param[in]		gamma
-					The gamma exponent.
-	 @return		The RGBA spectrum in linear space.
-	 @note			The alpha channel of the given RGBA spectrum is preserved.
-	 */
-	inline const RGBASpectrum GammaToLinear(
-		const RGBASpectrum &rgba, float gamma = 2.2f) noexcept {
-
-		const XMVECTOR rgba_v = XMLoadFloat4(&rgba);
-		const XMVECTOR exp_v  = XMVectorSet(gamma, gamma, gamma, 1.0f);
-		
+	inline const RGBASpectrum SRGBToLinear(const RGBASpectrum &srgb) noexcept {
 		RGBASpectrum result;
-		XMStoreFloat4(&result, XMVectorPow(rgba_v, exp_v));
+		XMStoreFloat4(&result, SRGBToLinear(XMLoadFloat4(&srgb)));
 		return result;
-	}
-
-	/**
-	 Converts the given RGBA spectrum from gamma space to linear space.
-
-	 @param[in]		rgba
-					The RGBA spectrum in gamma space.
-	 @param[in]		gamma
-					The gamma exponent.
-	 @return		The RGBA spectrum in linear space.
-	 @note			The alpha channel of the given RGBA spectrum is preserved.
-	 */
-	inline const XMVECTOR XM_CALLCONV GammaToLinear(
-		FXMVECTOR rgba, float gamma = 2.2f) noexcept {
-
-		const XMVECTOR exp_v  = XMVectorSet(gamma, gamma, gamma, 1.0f);
-		return XMVectorPow(rgba, exp_v);
 	}
 
 	//-------------------------------------------------------------------------

@@ -82,33 +82,4 @@ float2 DispatchThreadIDtoNDC(uint2 id) {
 	return NormalizedDispatchThreadIDtoNDC(NormalizeDispatchThreadID(id));
 }
 
-//-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: Gamma Utilities
-//-----------------------------------------------------------------------------
-
-/**
- Converts the given spectrum from linear space to gamma space.
-
- @pre			All components of @a rgb must be non-negative.
- @param[in]		rgb
-				The RGB spectrum in linear space.
- @return		The RGB spectrum in gamma space.
- */
-float3 LinearToGamma(float3 rgb) {
-	return LinearToGamma(rgb, g_inv_gamma);
-}
-
-/**
- Converts the given spectrum from linear space to gamma space.
-
- @pre			All components of @a rgba must be non-negative.
- @param[in]		rgba
-				The RGBA spectrum in linear space.
- @return		The RGBA spectrum in gamma space.
- @note			The alpha channel of the given RGBA spectrum is preserved.
- */
-float4 LinearToGamma(float4 rgba) {
-	return LinearToGamma(rgba, g_inv_gamma);
-}
-
 #endif // MAGE_HEADER_GLOBAL

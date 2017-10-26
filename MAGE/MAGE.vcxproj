@@ -422,6 +422,7 @@
       </EntryPointName>
       <FileType>Document</FileType>
     </None>
+    <None Include="MAGE\shaders\color.hlsli" />
     <None Include="MAGE\shaders\deferred_input.hlsli" />
     <None Include="MAGE\shaders\gbuffer_input.hlsli" />
     <None Include="MAGE\shaders\global.hlsli" />

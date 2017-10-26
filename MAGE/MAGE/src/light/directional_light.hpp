@@ -125,7 +125,7 @@ namespace mage {
 		const RGBSpectrum GetRadianceSpectrum() const noexcept {
 			const RGBSpectrum color = GetBaseColorRGB();
 			const XMVECTOR L_v      = m_radiance 
-				                    * GammaToLinear(XMLoadFloat3(&color));
+				                    * SRGBToLinear(XMLoadFloat3(&color));
 			RGBSpectrum L;
 			XMStoreFloat3(&L, L_v);
 			return L;

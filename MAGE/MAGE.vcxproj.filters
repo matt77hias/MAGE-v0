@@ -289,6 +289,9 @@
     <Filter Include="Header Files\texture\wic">
       <UniqueIdentifier>{83f52382-48a4-403e-9efc-e6570a3f27b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader Files\voxelization">
+      <UniqueIdentifier>{fd11d0ba-1f01-4edb-9fc4-3cc539169d45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -1575,6 +1578,12 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\ward_duer_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\voxelization\voxelization_GS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\voxelization\voxelization_PS.hlsl">
+      <Filter>Shader Files\voxelization</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

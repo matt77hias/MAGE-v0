@@ -25,7 +25,7 @@ namespace mage {
 
 	SkyPass::SkyPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_sky_vs(CreateFarFullscreenTriangleVS()), 
+		m_sky_vs(CreateSkyVS()), 
 		m_sky_ps(CreateSkyPS()){}
 
 	SkyPass::SkyPass(SkyPass &&render_pass) = default;
@@ -33,21 +33,20 @@ namespace mage {
 	SkyPass::~SkyPass() = default;
 
 	void XM_CALLCONV SkyPass::BindTransformData(
-		FXMMATRIX view_to_world,
-		CXMMATRIX projection_to_view) {
-
-		SkyBuffer buffer;
-		buffer.m_projection_to_view = XMMatrixTranspose(projection_to_view);
-		buffer.m_view_to_world      = XMMatrixTranspose(view_to_world);
+		FXMMATRIX world_to_projection) {
 
 		// Update the transform buffer.
-		m_transform_buffer.UpdateData(m_device_context, buffer);
+		m_transform_buffer.UpdateData(m_device_context, 
+			XMMatrixTranspose(world_to_projection));
 		// Bind the transform buffer.
-		m_transform_buffer.Bind< Pipeline::PS >(
+		m_transform_buffer.Bind< Pipeline::VS >(
 			m_device_context, SLOT_CBUFFER_PER_FRAME);
 	}
 
 	void SkyPass::BindFixedState() const noexcept {
+		// IA: Bind the primitive topology.
+		Pipeline::IA::BindPrimitiveTopology(m_device_context,
+			D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		// VS: Bind the vertex shader.
 		m_sky_vs->BindShader(m_device_context);
 		// HS: Bind the hull shader.
@@ -68,22 +67,18 @@ namespace mage {
 
 	void SkyPass::Render(
 		const PassBuffer *scene,
-		FXMMATRIX view_to_world,
-		CXMMATRIX projection_to_view) {
+		FXMMATRIX world_to_projection) {
 		
 		Assert(scene);
 
 		// Bind the transform data.
-		BindTransformData(view_to_world, projection_to_view);
+		BindTransformData(world_to_projection);
 		// Bind the sky SRV.
 		Pipeline::PS::BindSRV(m_device_context, 
 			SLOT_SRV_TEXTURE,
 			scene->GetSky()->GetSRV());
 		
-		// Bind the primitive topology.
-		Pipeline::IA::BindPrimitiveTopology(m_device_context,
-			D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		// Draw the fullscreen triangle.
-		Pipeline::Draw(m_device_context, 3u, 0u);
+		// Draw the icosphere.
+		Pipeline::Draw(m_device_context, 240u, 0u);
 	}
 }

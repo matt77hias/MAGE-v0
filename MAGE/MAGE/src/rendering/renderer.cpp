@@ -267,7 +267,7 @@ namespace mage {
 		sky_pass->BindFixedState();
 		sky_pass->Render(
 			m_pass_buffer.get(),
-			view_to_world, projection_to_view);
+			world_to_projection);
 
 		// Perform a forward pass: transparent models.
 		forward_pass->BindFixedState(brdf);
@@ -326,7 +326,7 @@ namespace mage {
 		sky_pass->BindFixedState();
 		sky_pass->Render(
 			m_pass_buffer.get(),
-			view_to_world, projection_to_view);
+			world_to_projection);
 
 		// Perform a forward pass: transparent models.
 		forward_pass->BindFixedState(brdf);

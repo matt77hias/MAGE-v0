@@ -1606,6 +1606,12 @@
     <FxCompile Include="MAGE\shaders\primitive\line_cube_VS.hlsl">
       <Filter>Shader Files\primitive</Filter>
     </FxCompile>
+    <FxCompile Include="MAGE\shaders\sky\sky_VS.hlsl">
+      <Filter>Shader Files\sky</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\sky\sky_fullscreen_triangle.hlsl">
+      <Filter>Shader Files\sky</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\memory\memory_arena.tpp">
@@ -1771,6 +1777,9 @@
       <Filter>Shader Files\primitive</Filter>
     </None>
     <None Include="MAGE\shaders\primitive\fullscreen_triangle.hlsli">
+      <Filter>Shader Files\primitive</Filter>
+    </None>
+    <None Include="MAGE\shaders\primitive\icosphere.hlsli">
       <Filter>Shader Files\primitive</Filter>
     </None>
   </ItemGroup>

@@ -27,7 +27,7 @@
 // e11: [v6, v7]
 
 /**
- The vertices of a line cube.
+ The vertices of a line cube centered at [0,0,0] with a size of [1,1,1].
  */
 static const float3 g_line_cube[24] = {
 	float3(-0.5, -0.5, -0.5),

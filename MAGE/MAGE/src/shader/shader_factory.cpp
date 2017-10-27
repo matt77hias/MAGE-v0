@@ -68,6 +68,7 @@
 #include "shader\cso\primitive\near_fullscreen_triangle_VS.hpp"
 
 // Sky
+#include "shader\cso\sky\sky_VS.hpp"
 #include "shader\cso\sky\sky_PS.hpp"
 
 // Sprite
@@ -380,9 +381,7 @@ namespace mage {
 
 	SharedPtr< const VertexShader > CreateLineCubeVS() {
 		return ResourceManager::Get()->GetOrCreateVS(
-			MAGE_SHADER_ARGS(g_line_cube_VS),
-			VertexPosition::s_input_element_desc,
-			VertexPosition::s_nb_input_elements);
+			MAGE_SHADER_ARGS(g_line_cube_VS), nullptr, 0u);
 	}
 
 	SharedPtr< const PixelShader > CreateLineCubePS() {
@@ -392,12 +391,12 @@ namespace mage {
 
 	SharedPtr< const VertexShader > CreateFarFullscreenTriangleVS() {
 		return ResourceManager::Get()->GetOrCreateVS(
-			MAGE_SHADER_ARGS(g_far_fullscreen_triangle_VS), nullptr, 0);
+			MAGE_SHADER_ARGS(g_far_fullscreen_triangle_VS), nullptr, 0u);
 	}
 
 	SharedPtr< const VertexShader > CreateNearFullscreenTriangleVS() {
 		return ResourceManager::Get()->GetOrCreateVS(
-			MAGE_SHADER_ARGS(g_near_fullscreen_triangle_VS), nullptr, 0);
+			MAGE_SHADER_ARGS(g_near_fullscreen_triangle_VS), nullptr, 0u);
 	}
 
 #pragma endregion
@@ -406,6 +405,11 @@ namespace mage {
 	// Factory Methods: Sky
 	//-------------------------------------------------------------------------
 #pragma region
+
+	SharedPtr< const VertexShader > CreateSkyVS() {
+		return ResourceManager::Get()->GetOrCreateVS(
+			MAGE_SHADER_ARGS(g_sky_VS), nullptr, 0u);
+	}
 
 	SharedPtr< const PixelShader > CreateSkyPS() {
 		return ResourceManager::Get()->GetOrCreatePS(

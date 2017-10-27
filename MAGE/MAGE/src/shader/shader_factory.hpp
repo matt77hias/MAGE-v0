@@ -486,6 +486,19 @@ namespace mage {
 #pragma region
 
 	/**
+	 Creates a sky vertex shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the sky vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateSkyVS();
+
+	/**
 	 Creates a sky pixel shader.
 
 	 @pre			The resource manager associated with the current engine 

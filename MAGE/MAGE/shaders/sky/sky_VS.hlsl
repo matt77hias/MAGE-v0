@@ -2,23 +2,28 @@
 // Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
-#include "primitive\line_cube.hlsli"
+#include "primitive\icosphere.hlsli"
 
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-CBUFFER(PerDraw, SLOT_CBUFFER_PER_DRAW) {
-	// The object-to-projection transformation matrix.
-	float4x4 g_object_to_projection : packoffset(c0);
+CBUFFER(PerDraw, SLOT_CBUFFER_PER_FRAME) {
+	// The world-to-projection transformation matrix.
+	float4x4 g_world_to_projection : packoffset(c0);
 }
 
 //-----------------------------------------------------------------------------
 // Vertex Shader
 //-----------------------------------------------------------------------------
 
-// Number of vertices: 24
-// Topology: D3D11_PRIMITIVE_TOPOLOGY_LINELIST
+// Number of vertices: 240
+// Topology: D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
 
-float4 VS(uint vertex_id : SV_VertexID) : SV_Position {
-	return mul(float4(g_line_cube[vertex_id], 1.0f), g_object_to_projection);
+PSInputWorldPosition VS(uint vertex_id : SV_VertexID) {
+	PSInputWorldPosition output;
+	
+	output.p_world = 100.0f * g_icosphere[vertex_id];
+	output.p       = mul(float4(output.p_world, 1.0f), g_world_to_projection);
+
+	return output;
 }

@@ -1,5 +1,5 @@
-#ifndef MAGE_HEADER_PRIMITIVES
-#define MAGE_HEADER_PRIMITIVES
+#ifndef MAGE_HEADER_FULLSCREEN_TRIANGLE
+#define MAGE_HEADER_FULLSCREEN_TRIANGLE
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -64,4 +64,4 @@ float2 FullScreenTriangleUV(uint vertex_id) {
 	return float2(u, v);
 }
 
-#endif // MAGE_HEADER_PRIMITIVES
+#endif // MAGE_HEADER_FULLSCREEN_TRIANGLE

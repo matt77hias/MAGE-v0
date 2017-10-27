@@ -28,8 +28,7 @@ namespace mage {
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateBoundingVolumeVS()), 
 		m_ps(CreateBoundingVolumePS()),
-		m_color_buffer(), m_model_buffer(),
-		m_box(CreateLineCube()) {}
+		m_color_buffer(), m_model_buffer() {}
 
 	BoundingVolumePass::BoundingVolumePass(
 		BoundingVolumePass &&render_pass) = default;
@@ -73,8 +72,9 @@ namespace mage {
 	}
 
 	void BoundingVolumePass::BindFixedState() {
-		// IA: Bind the mesh.
-		m_box->BindMesh(m_device_context);
+		// IA: Bind the primitive topology.
+		Pipeline::IA::BindPrimitiveTopology(m_device_context,
+			D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 		// VS: Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		// HS: Bind the hull shader.
@@ -154,8 +154,8 @@ namespace mage {
 
 			// Bind the model data.
 			BindModelData(box_to_projection);
-			// Draw the model.
-			m_box->Draw(m_device_context);
+			// Draw the lines cube.
+			Pipeline::Draw(m_device_context, 24u, 0u);
 		}
 	}
 
@@ -186,8 +186,8 @@ namespace mage {
 
 			// Bind the model data.
 			BindModelData(box_to_projection);
-			// Draw the model.
-			m_box->Draw(m_device_context);
+			// Draw the lines cube.
+			Pipeline::Draw(m_device_context, 24u, 0u);
 		}
 	}
 
@@ -218,8 +218,8 @@ namespace mage {
 
 			// Bind the model data.
 			BindModelData(box_to_projection);
-			// Draw the model.
-			m_box->Draw(m_device_context);
+			// Draw the lines cube.
+			Pipeline::Draw(m_device_context, 24u, 0u);
 		}
 	}
 }

@@ -702,9 +702,6 @@
     <ClInclude Include="MAGE\src\resource\resource_factory.hpp">
       <Filter>Header Files\resource</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\mesh\mesh_factory.hpp">
-      <Filter>Header Files\mesh</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\texture\texture_utils.hpp">
       <Filter>Header Files\texture</Filter>
     </ClInclude>
@@ -1325,9 +1322,6 @@
     <ClCompile Include="MAGE\src\core\engine_statistics.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\mesh\mesh_factory.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\rendering\display_configurator.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
@@ -1773,7 +1767,10 @@
     <None Include="MAGE\shaders\transform\transform.hlsli">
       <Filter>Shader Files\transform</Filter>
     </None>
-    <None Include="MAGE\shaders\primitive\primitive.hlsli">
+    <None Include="MAGE\shaders\primitive\line_cube.hlsli">
+      <Filter>Shader Files\primitive</Filter>
+    </None>
+    <None Include="MAGE\shaders\primitive\fullscreen_triangle.hlsli">
       <Filter>Shader Files\primitive</Filter>
     </None>
   </ItemGroup>

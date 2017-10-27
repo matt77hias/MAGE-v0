@@ -254,10 +254,5 @@ namespace mage {
 		 The model buffer of this bounding volume pass.
 		 */
 		ConstantBuffer< XMMATRIX > m_model_buffer;
-
-		/**
-		 A pointer to the (normalized) bounding box mesh. 
-		 */
-		UniquePtr< const StaticMesh > m_box;
 	};
 }

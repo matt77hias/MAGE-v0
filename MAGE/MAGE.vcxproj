@@ -92,7 +92,6 @@
     <ClInclude Include="MAGE\src\memory\memory_stack.hpp" />
     <ClInclude Include="MAGE\src\memory\types.hpp" />
     <ClInclude Include="MAGE\src\mesh\mesh.hpp" />
-    <ClInclude Include="MAGE\src\mesh\mesh_factory.hpp" />
     <ClInclude Include="MAGE\src\mesh\msh\msh_loader.hpp" />
     <ClInclude Include="MAGE\src\mesh\msh\msh_reader.hpp" />
     <ClInclude Include="MAGE\src\mesh\msh\msh_tokens.hpp" />
@@ -318,7 +317,6 @@
     <ClCompile Include="MAGE\src\memory\memory_arena.cpp" />
     <ClCompile Include="MAGE\src\memory\memory_stack.cpp" />
     <ClCompile Include="MAGE\src\mesh\mesh.cpp" />
-    <ClCompile Include="MAGE\src\mesh\mesh_factory.cpp" />
     <ClCompile Include="MAGE\src\mesh\sprite_batch_mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\static_mesh.cpp" />
     <ClCompile Include="MAGE\src\mesh\vertex.cpp" />
@@ -1844,7 +1842,8 @@
       </EntryPointName>
       <FileType>Document</FileType>
     </None>
-    <None Include="MAGE\shaders\primitive\primitive.hlsli" />
+    <None Include="MAGE\shaders\primitive\line_cube.hlsli" />
+    <None Include="MAGE\shaders\primitive\fullscreen_triangle.hlsli" />
     <None Include="MAGE\shaders\tone_mapping.hlsli" />
     <FxCompile Include="MAGE\shaders\forward\forward_emissive_PS.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>

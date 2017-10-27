@@ -30,6 +30,9 @@ namespace mage {
 	BackBufferPass::~BackBufferPass() = default;
 
 	void BackBufferPass::BindFixedState() {
+		// IA: Bind the primitive topology.
+		Pipeline::IA::BindPrimitiveTopology(m_device_context,
+			D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		// VS: Bind the vertex shader.
 		m_vs->BindShader(m_device_context);
 		// HS: Bind the hull shader.
@@ -49,11 +52,6 @@ namespace mage {
 	}
 
 	void BackBufferPass::Render() const noexcept {
-		
-		// Bind the primitive topology.
-		Pipeline::IA::BindPrimitiveTopology(m_device_context, 
-			D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		
 		// Draw the fullscreen triangle.
 		Pipeline::Draw(m_device_context, 3u, 0u);
 	}

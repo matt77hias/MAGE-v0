@@ -110,39 +110,33 @@ namespace mage {
 #pragma region
 
 	SharedPtr< const ComputeShader > CreateDeferredBlinnPhongCS() {
-		return nullptr;
-		//return ResourceManager::Get()->GetOrCreateCS(
-		//	MAGE_SHADER_GUID(g_deferred_blinn_phong_CS));
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_deferred_blinn_phong_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateDeferredCookTorranceCS() {
-		return nullptr;
-		//return ResourceManager::Get()->GetOrCreateCS(
-		//	MAGE_SHADER_GUID(g_deferred_cook_torrance_CS));
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_deferred_cook_torrance_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateDeferredEmissiveCS() {
-		return nullptr;
-		//return ResourceManager::Get()->GetOrCreateCS(
-		//	MAGE_SHADER_GUID(g_deferred_emissive_CS));
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_deferred_emissive_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateDeferredFrostbiteCS() {
-		return nullptr;
-		//return ResourceManager::Get()->GetOrCreateCS(
-		//	MAGE_SHADER_GUID(g_deferred_frostbite_CS));
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_deferred_frostbite_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateDeferredLambertianCS() {
-		return nullptr;
-		//return ResourceManager::Get()->GetOrCreateCS(
-		//	MAGE_SHADER_GUID(g_deferred_lambertian_CS));
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_deferred_lambertian_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateDeferredWardDuerCS() {
-		return nullptr;
-		//return ResourceManager::Get()->GetOrCreateCS(
-		//	MAGE_SHADER_GUID(g_deferred_ward_duer_CS));
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_deferred_ward_duer_CS));
 	}
 
 	SharedPtr< const ComputeShader > CreateDeferredCS(BRDFType brdf) {
@@ -456,6 +450,18 @@ namespace mage {
 			MAGE_SHADER_ARGS(g_transform_VS),
 			VertexPositionNormalTexture::s_input_element_desc,
 			VertexPositionNormalTexture::s_nb_input_elements);
+	}
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Voxelization
+	//-------------------------------------------------------------------------
+#pragma region
+
+	SharedPtr< const GeometryShader > CreateVoxelizationGS() {
+		return ResourceManager::Get()->GetOrCreateGS(
+			MAGE_SHADER_ARGS(g_voxelization_GS));
 	}
 
 #pragma endregion

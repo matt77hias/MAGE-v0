@@ -2160,6 +2160,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\shaders\transform\transform.hlsli" />
+    <None Include="MAGE\shaders\voxelization\voxel.hlsli" />
     <None Include="MAGE\src\binary\binary_reader.tpp" />
     <None Include="MAGE\src\binary\binary_writer.tpp" />
     <None Include="MAGE\src\buffer\constant_buffer.tpp" />

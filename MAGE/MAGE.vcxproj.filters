@@ -1788,5 +1788,8 @@
     <None Include="MAGE\shaders\primitive\icosphere.hlsli">
       <Filter>Shader Files\primitive</Filter>
     </None>
+    <None Include="MAGE\shaders\voxelization\voxel.hlsli">
+      <Filter>Shader Files\voxelization</Filter>
+    </None>
   </ItemGroup>
 </Project>

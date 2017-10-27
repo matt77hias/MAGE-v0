@@ -224,8 +224,8 @@
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\shading_normal_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\shading_normal_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\miscellaneous\tsnm_shading_normal_PS.hpp" />
-    <ClInclude Include="MAGE\src\shader\cso\primitive\bounding_volume_PS.hpp" />
-    <ClInclude Include="MAGE\src\shader\cso\primitive\bounding_volume_VS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\primitive\line_cube_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\primitive\line_cube_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\primitive\far_fullscreen_triangle_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\primitive\near_fullscreen_triangle_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\sky\sky_PS.hpp" />
@@ -399,7 +399,7 @@
     <ClCompile Include="MAGE\src\ui\main_window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="MAGE\shaders\primitive\bounding_volume_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\primitive\line_cube_PS.hlsl">
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_%(Filename)</VariableName>
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\primitive\%(Filename).hpp</HeaderFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -425,7 +425,7 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\primitive\bounding_volume_VS.hlsl">
+    <FxCompile Include="MAGE\shaders\primitive\line_cube_VS.hlsl">
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_%(Filename)</VariableName>
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\primitive\%(Filename).hpp</HeaderFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

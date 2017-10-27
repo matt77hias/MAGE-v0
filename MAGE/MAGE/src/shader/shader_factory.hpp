@@ -427,30 +427,30 @@ namespace mage {
 #pragma region
 
 	/**
-	 Creates a bounding volume vertex shader.
+	 Creates a line cube vertex shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the bounding volume vertex shader.
+	 @return		A pointer to the line cube vertex shader.
 	 @throws		FormattedException
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateBoundingVolumeVS();
+	SharedPtr< const VertexShader > CreateLineCubeVS();
 
 	/**
-	 Creates a bounding volume pixel shader.
+	 Creates a line cube pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the bounding volume pixel shader.
+	 @return		A pointer to the line cube pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateBoundingVolumePS();
+	SharedPtr< const PixelShader > CreateLineCubePS();
 
 	/**
 	 Creates a far fullscreen triangle vertex shader.

@@ -62,8 +62,8 @@
 #include "shader\cso\miscellaneous\tsnm_shading_normal_PS.hpp"
 
 // Primitive
-#include "shader\cso\primitive\bounding_volume_VS.hpp"
-#include "shader\cso\primitive\bounding_volume_PS.hpp"
+#include "shader\cso\primitive\line_cube_VS.hpp"
+#include "shader\cso\primitive\line_cube_PS.hpp"
 #include "shader\cso\primitive\far_fullscreen_triangle_VS.hpp"
 #include "shader\cso\primitive\near_fullscreen_triangle_VS.hpp"
 
@@ -378,16 +378,16 @@ namespace mage {
 	//-------------------------------------------------------------------------
 #pragma region
 
-	SharedPtr< const VertexShader > CreateBoundingVolumeVS() {
+	SharedPtr< const VertexShader > CreateLineCubeVS() {
 		return ResourceManager::Get()->GetOrCreateVS(
-			MAGE_SHADER_ARGS(g_bounding_volume_VS),
+			MAGE_SHADER_ARGS(g_line_cube_VS),
 			VertexPosition::s_input_element_desc,
 			VertexPosition::s_nb_input_elements);
 	}
 
-	SharedPtr< const PixelShader > CreateBoundingVolumePS() {
+	SharedPtr< const PixelShader > CreateLineCubePS() {
 		return ResourceManager::Get()->GetOrCreatePS(
-			MAGE_SHADER_ARGS(g_bounding_volume_PS));
+			MAGE_SHADER_ARGS(g_line_cube_PS));
 	}
 
 	SharedPtr< const VertexShader > CreateFarFullscreenTriangleVS() {

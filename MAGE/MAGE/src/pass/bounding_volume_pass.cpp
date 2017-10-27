@@ -26,8 +26,8 @@ namespace mage {
 
 	BoundingVolumePass::BoundingVolumePass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_vs(CreateBoundingVolumeVS()), 
-		m_ps(CreateBoundingVolumePS()),
+		m_vs(CreateLineCubeVS()), 
+		m_ps(CreateLineCubePS()),
 		m_color_buffer(), m_model_buffer() {}
 
 	BoundingVolumePass::BoundingVolumePass(
@@ -154,7 +154,7 @@ namespace mage {
 
 			// Bind the model data.
 			BindModelData(box_to_projection);
-			// Draw the lines cube.
+			// Draw the line cube.
 			Pipeline::Draw(m_device_context, 24u, 0u);
 		}
 	}
@@ -186,7 +186,7 @@ namespace mage {
 
 			// Bind the model data.
 			BindModelData(box_to_projection);
-			// Draw the lines cube.
+			// Draw the line cube.
 			Pipeline::Draw(m_device_context, 24u, 0u);
 		}
 	}
@@ -218,7 +218,7 @@ namespace mage {
 
 			// Bind the model data.
 			BindModelData(box_to_projection);
-			// Draw the lines cube.
+			// Draw the line cube.
 			Pipeline::Draw(m_device_context, 24u, 0u);
 		}
 	}

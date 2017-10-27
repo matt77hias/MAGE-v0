@@ -1050,16 +1050,16 @@
     <ClInclude Include="MAGE\src\shader\cso\voxelization\voxelization_PS.hpp">
       <Filter>Header Files\shader\cso\voxelization</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\primitive\bounding_volume_PS.hpp">
-      <Filter>Header Files\shader\cso\primitive</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\shader\cso\primitive\bounding_volume_VS.hpp">
-      <Filter>Header Files\shader\cso\primitive</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\primitive\far_fullscreen_triangle_VS.hpp">
       <Filter>Header Files\shader\cso\primitive</Filter>
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\primitive\near_fullscreen_triangle_VS.hpp">
+      <Filter>Header Files\shader\cso\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\primitive\line_cube_PS.hpp">
+      <Filter>Header Files\shader\cso\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\primitive\line_cube_VS.hpp">
       <Filter>Header Files\shader\cso\primitive</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1594,16 +1594,16 @@
     <FxCompile Include="MAGE\shaders\forward\forward_ward_duer_PS.hlsl">
       <Filter>Shader Files\forward</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\primitive\bounding_volume_PS.hlsl">
-      <Filter>Shader Files\primitive</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\primitive\bounding_volume_VS.hlsl">
-      <Filter>Shader Files\primitive</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\primitive\far_fullscreen_triangle_VS.hlsl">
       <Filter>Shader Files\primitive</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\primitive\near_fullscreen_triangle_VS.hlsl">
+      <Filter>Shader Files\primitive</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\primitive\line_cube_PS.hlsl">
+      <Filter>Shader Files\primitive</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\primitive\line_cube_VS.hlsl">
       <Filter>Shader Files\primitive</Filter>
     </FxCompile>
   </ItemGroup>

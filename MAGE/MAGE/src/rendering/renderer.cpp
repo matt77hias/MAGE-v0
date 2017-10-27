@@ -102,7 +102,7 @@ namespace mage {
 			case RenderMode::Forward: {
 				ExecuteForwardPipeline(viewport, world_to_projection,
 					world_to_view, view_to_world, 
-					view_to_projection, projection_to_view, brdf);
+					view_to_projection, brdf);
 				
 				break;
 			}
@@ -239,7 +239,6 @@ namespace mage {
 		CXMMATRIX world_to_view,
 		CXMMATRIX view_to_world,
 		CXMMATRIX view_to_projection,
-		CXMMATRIX projection_to_view,
 		BRDFType brdf) {
 
 		const RenderingOutputManager * const output_manager

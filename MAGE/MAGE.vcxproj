@@ -228,7 +228,9 @@
     <ClInclude Include="MAGE\src\shader\cso\primitive\line_cube_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\primitive\far_fullscreen_triangle_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\primitive\near_fullscreen_triangle_VS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\sky\sky_fullscreen_triangle.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\sky\sky_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\sky\sky_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\sprite\sprite_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\sprite\sprite_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\transform\minimal_transform_VS.hpp" />

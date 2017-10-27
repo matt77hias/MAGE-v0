@@ -1062,6 +1062,12 @@
     <ClInclude Include="MAGE\src\shader\cso\primitive\line_cube_VS.hpp">
       <Filter>Header Files\shader\cso\primitive</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\sky\sky_fullscreen_triangle.hpp">
+      <Filter>Header Files\shader\cso\sky</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\shader\cso\sky\sky_VS.hpp">
+      <Filter>Header Files\shader\cso\sky</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">

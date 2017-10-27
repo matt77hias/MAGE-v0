@@ -93,9 +93,9 @@ namespace mage {
 		}
 
 		const auto new_resource = MakeAllocatedShared< Resource< DerivedResourceT > >
-								(*this, key, std::forward< ConstructorArgsT >(args)...);
+			                      (*this, key, std::forward< ConstructorArgsT >(args)...);
 		
-		m_resource_map.insert(std::make_pair(key, new_resource));
+		m_resource_map.emplace(key, new_resource);
 		
 		return new_resource;
 	}
@@ -205,9 +205,10 @@ namespace mage {
 			return it->second;
 		}
 
-		const auto new_resource = MakeAllocatedShared< DerivedResourceT >(std::forward< ConstructorArgsT >(args)...);
+		const auto new_resource = MakeAllocatedShared< DerivedResourceT >
+			                      (std::forward< ConstructorArgsT >(args)...);
 
-		m_resource_map.insert(std::make_pair(key, new_resource));
+		m_resource_map.emplace(key, new_resource);
 
 		return new_resource;
 	}

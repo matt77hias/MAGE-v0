@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "shader\guids.hpp"
 #include "shader\shader.hpp"
 #include "material\brdf.hpp"
 
@@ -17,7 +16,108 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// Factory Methods:DepthPass
+	// Factory Methods: Deferred
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Creates a deferred Blinn-Phong compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the deferred Blinn-Phong compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateDeferredBlinnPhongCS();
+
+	/**
+	 Creates a deferred Cook-Torrance compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the deferred Cook-Torrance compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateDeferredCookTorranceCS();
+
+	/**
+	 Creates a deferred emissive compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the deferred emissive compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateDeferredEmissiveCS();
+
+	/**
+	 Creates a deferred Frostbite compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the deferred Frostbite compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateDeferredFrostbiteCS();
+
+	/**
+	 Creates a deferred Ward-Duer compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the deferred Ward-Duer compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateDeferredWardDuerCS();
+
+	/**
+	 Creates a deferred Lambertian compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the deferred Lambertian compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateDeferredLambertianCS();
+
+	/**
+	 Creates a deferred compute shader matching the given BRDF.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @param[in]		brdf
+					The BRDF type.
+	 @return		A pointer to the deferred compute shader matching the given 
+					BRDF.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateDeferredCS(BRDFType brdf);
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Depth
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -63,25 +163,52 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: ConstantShadingPass and VariableShadingPass
+	// Factory Methods: Forward
 	//-------------------------------------------------------------------------
 #pragma region
 
 	/**
-	 Creates a transform vertex shader.
+	 Creates a forward Blinn-Phong pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the transform vertex shader.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be 
+					supported. @c false otherwise.
+	 @param[in]		transparency
+					@c true if transparency should be supported. @c false 
+					otherwise.
+	 @return		A pointer to the forward Blinn-Phong pixel shader.
 	 @throws		FormattedException
-					Failed to create the vertex shader.
+					Failed to create the pixel shader.
 	 */
-	SharedPtr< const VertexShader > CreateTransformVS();
+	SharedPtr< const PixelShader > CreateForwardBlinnPhongPS(
+		bool tsnm = false, bool transparency = false);
 
 	/**
-	 Creates an emissive pixel shader.
+	 Creates a forward Cook-Torrance pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be 
+					supported. @c false otherwise.
+	 @param[in]		transparency
+					@c true if transparency should be supported. @c false 
+					otherwise.
+	 @return		A pointer to the forward Cook-Torrance pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateForwardCookTorrancePS(
+		bool tsnm = false, bool transparency = false);
+
+	/**
+	 Creates an forward emissive pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
@@ -90,15 +217,15 @@ namespace mage {
 	 @param[in]		transparency
 					@c true if transparency should be supported. @c false 
 					otherwise.
-	 @return		A pointer to the emissive pixel shader.
+	 @return		A pointer to the forward emissive pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateEmissivePS(
+	SharedPtr< const PixelShader > CreateForwardEmissivePS(
 		bool transparency = false);
 
 	/**
-	 Creates a Lambertian pixel shader.
+	 Creates a forward Frostbite pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
@@ -110,15 +237,15 @@ namespace mage {
 	 @param[in]		transparency
 					@c true if transparency should be supported. @c false 
 					otherwise.
-	 @return		A pointer to the Lambertian pixel shader.
+	 @return		A pointer to the forward Frostbite pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateLambertianPS(
+	SharedPtr< const PixelShader > CreateForwardFrostbitePS(
 		bool tsnm = false, bool transparency = false);
 
 	/**
-	 Creates a Blinn-Phong pixel shader.
+	 Creates a forward Lambertian pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
@@ -130,15 +257,15 @@ namespace mage {
 	 @param[in]		transparency
 					@c true if transparency should be supported. @c false 
 					otherwise.
-	 @return		A pointer to the Blinn-Phong pixel shader.
+	 @return		A pointer to the forward Lambertian pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateBlinnPhongPS(
+	SharedPtr< const PixelShader > CreateForwardLambertianPS(
 		bool tsnm = false, bool transparency = false);
 
 	/**
-	 Creates a Cook-Torrance pixel shader.
+	 Creates a forward Ward-Duer pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
@@ -150,55 +277,15 @@ namespace mage {
 	 @param[in]		transparency
 					@c true if transparency should be supported. @c false 
 					otherwise.
-	 @return		A pointer to the Cook-Torrance pixel shader.
+	 @return		A pointer to the forward Ward-Duer pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateCookTorrancePS(
+	SharedPtr< const PixelShader > CreateForwardWardDuerPS(
 		bool tsnm = false, bool transparency = false);
 
 	/**
-	 Creates a Frostbite pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be 
-					supported. @c false otherwise.
-	 @param[in]		transparency
-					@c true if transparency should be supported. @c false 
-					otherwise.
-	 @return		A pointer to the Frostbite pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateFrostbitePS(
-		bool tsnm = false, bool transparency = false);
-
-	/**
-	 Creates a Ward-Duer pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be 
-					supported. @c false otherwise.
-	 @param[in]		transparency
-					@c true if transparency should be supported. @c false 
-					otherwise.
-	 @return		A pointer to the Ward-Duer pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateWardDuerPS(
-		bool tsnm = false, bool transparency = false);
-
-	/**
-	 Creates a pixel shader matching the given BRDF.
+	 Creates a forward pixel shader matching the given BRDF.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
@@ -212,18 +299,18 @@ namespace mage {
 	 @param[in]		transparency
 					@c true if transparency should be supported. @c false 
 					otherwise.
-	 @return		A pointer to the pixel shader matching
-					the given BRDF.
+	 @return		A pointer to the forward pixel shader matching the given 
+					BRDF.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreatePS(BRDFType brdf, 
+	SharedPtr< const PixelShader > CreateForwardPS(BRDFType brdf,
 		bool tsnm = false, bool transparency = false);
 
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: GBufferPass
+	// Factory Methods: GBuffer
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -246,108 +333,175 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: DeferredShadingPass
+	// Factory Methods: Miscellaneous
 	//-------------------------------------------------------------------------
 #pragma region
 
 	/**
-	 Creates a deferred emissive compute shader.
+	 Creates a back buffer pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the deferred emissive compute shader.
+	 @return		A pointer to the back buffer pixel shader.
 	 @throws		FormattedException
-					Failed to create the compute shader.
+					Failed to create the pixel shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDeferredEmissiveCS();
+	SharedPtr< const PixelShader > CreateBackBufferPS();
 
 	/**
-	 Creates a deferred Lambertian compute shader.
+	 Creates a constant color pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the deferred Lambertian compute shader.
+	 @return		A pointer to the constant color pixel shader.
 	 @throws		FormattedException
-					Failed to create the compute shader.
+					Failed to create the pixel shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDeferredLambertianCS();
+	SharedPtr< const PixelShader > CreateConstantColorPS();
 
 	/**
-	 Creates a deferred Blinn-Phong compute shader.
+	 Creates a constant color texture pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the deferred Blinn-Phong compute shader.
+	 @return		A pointer to the constant color texture pixel shader.
 	 @throws		FormattedException
-					Failed to create the compute shader.
+					Failed to create the pixel shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDeferredBlinnPhongCS();
+	SharedPtr< const PixelShader > CreateConstantColorTexturePS();
 
 	/**
-	 Creates a deferred Cook-Torrance compute shader.
+	 Creates a distance pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the deferred Cook-Torrance compute shader.
+	 @return		A pointer to the distance pixel shader.
 	 @throws		FormattedException
-					Failed to create the compute shader.
+					Failed to create the pixel shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDeferredCookTorranceCS();
+	SharedPtr< const PixelShader > CreateDistancePS();
 
 	/**
-	 Creates a deferred Frostbite compute shader.
+	 Creates a shading normal vertex shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the deferred Frostbite compute shader.
+	 @return		A pointer to the shading normal vertex shader.
 	 @throws		FormattedException
-					Failed to create the compute shader.
+					Failed to create the vertex shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDeferredFrostbiteCS();
+	SharedPtr< const VertexShader > CreateShadingNormalVS();
 
 	/**
-	 Creates a deferred Ward-Duer compute shader.
+	 Creates a shading normal pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the deferred Ward-Duer compute shader.
+	 @param[in]		tsnm
+					@c true if tangent space normal mapping should be 
+					supported. @c false otherwise.
+	 @return		A pointer to the shading normal pixel shader.
 	 @throws		FormattedException
-					Failed to create the compute shader.
+					Failed to create the pixel shader.
 	 */
-	SharedPtr< const ComputeShader > CreateDeferredWardDuerCS();
-
-	/**
-	 Creates a deferred compute shader matching the given BRDF.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @param[in]		brdf
-					The BRDF type.
-	 @return		A pointer to the deferred compute shader matching
-					the given BRDF.
-	 @throws		FormattedException
-					Failed to create the compute shader.
-	 */
-	SharedPtr< const ComputeShader > CreateDeferredCS(BRDFType brdf);
+	SharedPtr< const PixelShader > CreateShadingNormalPS(
+		bool tsnm = false);
 
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: SpritePass
+	// Factory Methods: Primitive
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Creates a bounding volume vertex shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the bounding volume vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateBoundingVolumeVS();
+
+	/**
+	 Creates a bounding volume pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the bounding volume pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateBoundingVolumePS();
+
+	/**
+	 Creates a far fullscreen triangle vertex shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the far fullscreen triangle vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateFarFullscreenTriangleVS();
+
+	/**
+	 Creates a near fullscreen triangle vertex shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the near fullscreen triangle vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateNearFullscreenTriangleVS();
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Sky
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Creates a sky pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the sky pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateSkyPS();
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Sprite
 	//-------------------------------------------------------------------------
 #pragma region
 
@@ -380,9 +534,22 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Factory Methods: ConstantComponentPass and VariableComponentPass
+	// Factory Methods: Transform
 	//-------------------------------------------------------------------------
 #pragma region
+
+	/**
+	 Creates a transform vertex shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the transform vertex shader.
+	 @throws		FormattedException
+					Failed to create the vertex shader.
+	 */
+	SharedPtr< const VertexShader > CreateTransformVS();
 
 	/**
 	 Creates a minimal transform vertex shader.
@@ -395,189 +562,7 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to create the vertex shader.
 	 */
-	SharedPtr< const VertexShader > CreateMinimalTransformVS() noexcept;
-
-	/**
-	 Creates a constant color pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the constant color pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateConstantColorPS() noexcept;
-
-	/**
-	 Creates a constant color texture pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the constant color texture pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateConstantColorTexturePS() noexcept;
-
-	/**
-	 Creates a distance pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the distance pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateDistancePS() noexcept;
-
-#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Factory Methods: ShadingNormalPass
-	//-------------------------------------------------------------------------
-#pragma region
-
-	/**
-	 Creates a shading normal vertex shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the shading normal vertex shader.
-	 @throws		FormattedException
-					Failed to create the vertex shader.
-	 */
-	SharedPtr< const VertexShader > CreateShadingNormalVS() noexcept;
-
-	/**
-	 Creates a shading normal pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @param[in]		tsnm
-					@c true if tangent space normal mapping should be 
-					supported. @c false otherwise.
-	 @return		A pointer to the shading normal pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateShadingNormalPS(
-		bool tsnm = false) noexcept;
-
-#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Factory Methods: BoundingVolumePass
-	//-------------------------------------------------------------------------
-#pragma region
-
-	/**
-	 Creates a bounding volume vertex shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the bounding volume vertex shader.
-	 @throws		FormattedException
-					Failed to create the vertex shader.
-	 */
-	SharedPtr< const VertexShader > CreateBoundingVolumeVS() noexcept;
-
-	/**
-	 Creates a bounding volume pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the bounding volume pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateBoundingVolumePS() noexcept;
-
-#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Factory Methods: BackBufferPass
-	//-------------------------------------------------------------------------
-#pragma region
-
-	/**
-	 Creates a back buffer pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the back buffer pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateBackBufferPS();
-
-#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Factory Methods: SkyPass
-	//-------------------------------------------------------------------------
-#pragma region
-
-	/**
-	 Creates a sky pixel shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the sky pixel shader.
-	 @throws		FormattedException
-					Failed to create the pixel shader.
-	 */
-	SharedPtr< const PixelShader > CreateSkyPS();
-
-#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Factory Methods: Primitives
-	//-------------------------------------------------------------------------
-#pragma region
-
-	/**
-	 Creates a far fullscreen triangle vertex shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the far fullscreen triangle vertex shader.
-	 @throws		FormattedException
-					Failed to create the vertex shader.
-	 */
-	SharedPtr< const VertexShader > CreateFarFullscreenTriangleVS();
-
-	/**
-	 Creates a near fullscreen triangle vertex shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the near fullscreen triangle vertex shader.
-	 @throws		FormattedException
-					Failed to create the vertex shader.
-	 */
-	SharedPtr< const VertexShader > CreateNearFullscreenTriangleVS();
+	SharedPtr< const VertexShader > CreateMinimalTransformVS();
 
 #pragma endregion
 }

@@ -28,12 +28,12 @@ namespace mage {
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateTransformVS()),
 		m_ps{ 
-			CreateEmissivePS(false), 
-			CreatePS(BRDFType::Unknown, false, false), 
-			CreatePS(BRDFType::Unknown, true, false), 
-			CreateEmissivePS(true),
-			CreatePS(BRDFType::Unknown, false, true),
-			CreatePS(BRDFType::Unknown, true, true), 
+			CreateForwardEmissivePS(false), 
+			CreateForwardPS(BRDFType::Unknown, false, false), 
+			CreateForwardPS(BRDFType::Unknown, true, false),
+			CreateForwardEmissivePS(true),
+			CreateForwardPS(BRDFType::Unknown, false, true),
+			CreateForwardPS(BRDFType::Unknown, true, true),
 		},
 		m_bound_ps(PSIndex::Count), m_brdf(BRDFType::Unknown),
 		m_projection_buffer(), m_model_buffer() {}
@@ -46,13 +46,13 @@ namespace mage {
 		if (m_brdf != brdf) {
 			m_brdf = brdf;
 			m_ps[static_cast< size_t >(PSIndex::BRDF)] 
-				= CreatePS(brdf, false, false);
+				= CreateForwardPS(brdf, false, false);
 			m_ps[static_cast< size_t >(PSIndex::BRDF_TSNM)] 
-				= CreatePS(brdf, true, false);
+				= CreateForwardPS(brdf, true, false);
 			m_ps[static_cast< size_t >(PSIndex::Transparent_BRDF)] 
-				= CreatePS(brdf, false, true);
+				= CreateForwardPS(brdf, false, true);
 			m_ps[static_cast< size_t >(PSIndex::Transparent_BRDF_TSNM)] 
-				= CreatePS(brdf, true, true);
+				= CreateForwardPS(brdf, true, true);
 		}
 	}
 

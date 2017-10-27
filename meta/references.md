@@ -2,6 +2,8 @@
 
 ## How to cite
 
+### BibTeX
+
 ```bibtex
 @misc{mage17,
    author = {Matthias Moulin},

@@ -33,6 +33,13 @@ CBUFFER(PerDraw, SLOT_CBUFFER_PER_FRAME) {
 PSInputWorldPosition VS(uint vertex_id : SV_VertexID) {
 	PSInputWorldPosition output;
 	
+	// The position of the icosphere in world space is used for sampling the 
+	// sky dome cube map. The position of the icosphere in world space is 
+	// reinterpreted as a direction in world space, which after transformating
+	// to view space becomes a direction in view space, which can again be
+	// reinterpreted as a position of another icosphere in view space. This way
+	// the icosphere will always fully cover the camera view.
+
 	output.p_world = g_icosphere[vertex_id];
 	
 	const float3 p_view  = mul(output.p_world, (float3x3)g_world_to_view);

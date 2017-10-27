@@ -1,6 +1,10 @@
 #ifndef MAGE_HEADER_LINE_CUBE
 #define MAGE_HEADER_LINE_CUBE
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
+
 // Number of vertices: 24
 // Topology: D3D11_PRIMITIVE_TOPOLOGY_LINELIST
 //

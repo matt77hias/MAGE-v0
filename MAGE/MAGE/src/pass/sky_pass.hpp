@@ -111,13 +111,16 @@ namespace mage {
 		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
 						A pointer to the scene.
-		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
+		 @param[in]		world_to_view
+						The world-to-view transformation matrix.
+		 @param[in]		view_to_projection
+						The view-to-projection transformation matrix.
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(const PassBuffer *scene,
-			FXMMATRIX world_to_projection);
+			FXMMATRIX world_to_view, 
+			CXMMATRIX view_to_projection);
 		
 	private:
 
@@ -128,13 +131,16 @@ namespace mage {
 		/**
 		 Binds the transform data of this sky pass.
 
-		 @param[in]		world_to_projection
-						The world-to-projection transformation matrix.
+		 @param[in]		world_to_view
+						The world-to-view transformation matrix.
+		 @param[in]		view_to_projection
+						The view-to-projection transformation matrix.
 		 @throws		FormattedException
 						Failed to bind the transform data of this sky.
 		 */
 		void XM_CALLCONV BindTransformData(
-			FXMMATRIX world_to_projection);
+			FXMMATRIX world_to_view,
+			CXMMATRIX view_to_projection);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -158,6 +164,6 @@ namespace mage {
 		/**
 		 The transform buffer of this sky pass.
 		 */
-		ConstantBuffer< XMMATRIX > m_transform_buffer;
+		ConstantBuffer< SkyBuffer > m_transform_buffer;
 	};
 }

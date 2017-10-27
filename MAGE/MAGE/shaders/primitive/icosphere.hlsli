@@ -1,6 +1,10 @@
 #ifndef MAGE_HEADER_ICOSPHERE
 #define MAGE_HEADER_ICOSPHERE
 
+//-----------------------------------------------------------------------------
+// Engine Declarations and Definitions
+//-----------------------------------------------------------------------------
+
 // Number of vertices: 240
 // Topology: D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
 

@@ -35,8 +35,8 @@ namespace mage {
 		 Constructs a game buffer.
 		 */
 		SkyBuffer()
-			: m_projection_to_view{},
-			m_view_to_world{} {}
+			: m_world_to_view{},
+			m_view_to_projection{} {}
 
 		/**
 		 Constructs a game buffer from the given game buffer.
@@ -92,15 +92,15 @@ namespace mage {
 
 		/**
 		 The (camera dependent) (column-major packed, row-major matrix) 
-		 projection-to-view matrix of this sky buffer for use in HLSL.
+		 world-to-view matrix of this sky buffer for use in HLSL.
 		 */
-		XMMATRIX m_projection_to_view;
+		XMMATRIX m_world_to_view;
 
 		/**
 		 The (camera dependent) (column-major packed, row-major matrix) 
-		 view-to-world matrix of this sky buffer for use in HLSL.
+		 view-to-projection matrix of this sky buffer for use in HLSL.
 		 */
-		XMMATRIX m_view_to_world;
+		XMMATRIX m_view_to_projection;
 	};
 
 	static_assert(sizeof(SkyBuffer) == 128, "CPU/GPU struct mismatch");

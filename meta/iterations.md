@@ -1,14 +1,13 @@
 # Iterations
 
 ## Current iteration' TODOs
-* Sky Domes (WIP)
 * Shadow Mapping (WIP)
   * Directional lights
   * Cascaded, Variance
+* Voxel Cone Tracing (WIP)
 * FXAA, TAA, SSAA, MSAA (not for the back buffer this time)
 * SSAO, HBAO
 * SSR
-* Voxel Cone Tracing
 * Tiled and Clustered Shading
 * Billboarding (Ry camera-dependent)
 * Particles (Rx+Ry+Rz camera-dependent)

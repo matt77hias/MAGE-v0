@@ -151,11 +151,11 @@ float AngularFalloff(float cos_theta, float cos_umbra, float cos_inv_range) {
 
 #ifndef LIGHT_DISTANCE_FALLOFF_COMPONENT
 #define LIGHT_DISTANCE_FALLOFF_COMPONENT DistanceFalloff
-#endif
+#endif // LIGHT_DISTANCE_FALLOFF_COMPONENT
 
 #ifndef LIGHT_ANGULAR_FALLOFF_COMPONENT
 #define LIGHT_ANGULAR_FALLOFF_COMPONENT AngularFalloff
-#endif
+#endif // LIGHT_ANGULAR_FALLOFF_COMPONENT
 
 /**
  Calculates the maximal intensity contribution of the given omni light.
@@ -413,6 +413,6 @@ float FogFactor_Exponential(float distance, float density) {
 
 #ifndef FOG_FACTOR_COMPONENT
 #define FOG_FACTOR_COMPONENT FogFactor_Exponential
-#endif
+#endif // FOG_FACTOR_COMPONENT
 
 #endif //MAGE_HEADER_LIGHT

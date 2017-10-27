@@ -14,13 +14,15 @@
 
 ## Assets
 
+### Models
+
 * Crytek Sponza:
   * Marko Dabrovic (original version),
   * Frank Meinl (modified version, [data](http://www.crytek.com/cryengine/cryengine3/downloads)),
   * Morgan McGuire (updated version, [data](http://graphics.cs.williams.edu/data/meshes.xml)),
   * Matthias Moulin (updated version),
   * Alexandre Pestana (updated version for metalness workflow, [data](http://www.alexandre-pestana.com/pbr-textures-sponza/)),
-  * Matthias Moulin (updated version). 
+  * Matthias Moulin (updated version).
   
 * Skull:
   * Frank D. Luna (original version),
@@ -35,6 +37,11 @@
   * Kenzie Lamar (updated version),
   * Morgan McGuire ([data](http://graphics.cs.williams.edu/data/meshes.xml)),
   * Matthias Moulin (updated version).
+  
+### Textures
+  
+* Sky:
+  * Turánszki János
   
 * [Logo](http://www.deviantart.com/art/Black-Mage-356147620) [[License](https://creativecommons.org/licenses/by-nc-nd/3.0/)]
 
@@ -134,6 +141,12 @@ MICROSOFT CORP.: [*DirectXTK*](https://github.com/Microsoft/DirectXTK/wiki).
 
 MONTES R., UREÑA C.: *An Overview of BRDF Models*, Technical Report, 2012.
 
+MOULIN M.: [*Creating a view frustum in local/world/camera space using SIMD*](https://matt77hias.github.io/blog/culling/2017/08/24/creating-a-view-frustum.html), 2017.
+
+MOULIN M.: [*NDC To Projection To View Space*](https://matt77hias.github.io/blog/transformations/2017/10/19/ndc-to-projection-to-view-space.html), 2017.
+
+MOULIN M.: [*Reducing Shader Binding Dependencies*](https://matt77hias.github.io/blog/hlsl/2017/09/07/reducing-shader-binding-dependencies.html), 2017.
+
 NARKOWICZ K.: [*ACES Filmic Tone Mapping Curve*](https://knarkowicz.wordpress.com/2016/01/06/aces-filmic-tone-mapping-curve/)
 
 NEUMANN L., NEUMANN A., SZIRMAY-KALOS L.: *Compact Metallic Reflectance Models*, *Computer Graphics Forum* 18, 3, 1999.
@@ -179,6 +192,8 @@ SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Pre
 TAKESHIGE M.: [*The Basics of GPU Voxelization*](https://developer.nvidia.com/content/basics-gpu-voxelization), 2015.
 
 TORRANCE K., SPARROW E.: *Theory for Off-specular Reflection from Roughened Surfaces*, *Journal of the Optical Society of America* 65, 5, 1975.
+
+TURÁNSKI J.: [*Abuse the immediate constant buffer*](https://turanszkij.wordpress.com/2016/11/13/abuse-the-immediate-constant-buffer/), 2017.
 
 TURÁNSKI J.: [*Voxel-based Global Illumination*](https://turanszkij.wordpress.com/2017/08/30/voxel-based-global-illumination/), 2017.
 

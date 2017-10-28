@@ -38,9 +38,9 @@ void GS(triangle PSInputPositionNormalTexture input[3],
 	
 		[flatten]
 		if (dir == 0) {
-			output[i].p.xyz = output[i].p.yzx;
+			output[i].p.xy = output[i].p.yz;
 		} else if (dir == 1) {
-			output[i].p.xyz = output[i].p.zxy;
+			output[i].p.xy = output[i].p.zx;
 		}
 
 		// [m] * [voxels/m] * [1/voxels]

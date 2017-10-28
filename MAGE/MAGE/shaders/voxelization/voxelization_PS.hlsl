@@ -24,12 +24,16 @@ RW_STRUCTURED_BUFFER(output, Voxel, SLOT_UAV_IMAGE);
 //-----------------------------------------------------------------------------
 void PS(PSInputPositionNormalTexture input) {
 	
-	// [m] * [voxels/m]
-	const int3 index = floor((input.p_view - g_voxel_grid_center) 
-		                     * g_voxel_grid_inv_size);
-	
+	// [m] * [voxels/m] * [1/voxels]
+	const int3 relative = (input.p_view - g_voxel_grid_center) 
+		                  * g_voxel_grid_inv_size * g_voxel_grid_inv_resolution;
+	// [-1,1]^3 -> [0,1]x[1,0]x[0,1]
+	const float3 uvw    = relative * float3(0.5f, -0.5f, 0.5f) + 0.5f;
+	// [0,R)x(R,0]x[0,R)
+	const uint3 index   = floor(uvw * g_voxel_grid_resolution);
+
 	[branch]
-	if (any(index < 0 || index > (int3)g_voxel_grid_resolution)) {
+	if (any(index < 0 || index > g_voxel_grid_resolution)) {
 		return;
 	}
 
@@ -48,7 +52,7 @@ void PS(PSInputPositionNormalTexture input) {
 	const float3 L = BRDFShading(input.p_view, n_view, 
 		                         base_color.xyz, material.x, material.y);
 
-	const uint flat_index = FlattenIndex((uint3)index, g_voxel_grid_resolution);
+	const uint flat_index = FlattenIndex(index, g_voxel_grid_resolution);
 
 	//TODO: encoding
 	const uint color_mask  = 0;

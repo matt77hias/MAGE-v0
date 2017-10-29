@@ -38,7 +38,7 @@ RW_TEXTURE_2D(g_output,          float4, SLOT_UAV_IMAGE);
  @return		The base color of the material from the GBuffer corresponding 
 				to the given location.
  */
-float3 GetGBufferMaterialBaseColor(float2 location) {
+float3 GetGBufferMaterialBaseColor(uint2 location) {
 	// Load the base color from the GBuffer base color texture.
 	return g_base_color_texture[location].xyz;
 }
@@ -52,7 +52,7 @@ float3 GetGBufferMaterialBaseColor(float2 location) {
  @return		The parameters of the material [roughness, metalness] from the 
 				GBuffer corresponding to the given location.
  */
-float2 GetGBufferMaterialParameters(float2 location) {
+float2 GetGBufferMaterialParameters(uint2 location) {
 	// Load the material data the GBuffer material texture.
 	return g_material_texture[location].xy;
 }
@@ -66,7 +66,7 @@ float2 GetGBufferMaterialParameters(float2 location) {
  @return		The view-space normal from the GBuffer corresponding to the 
 				given location.
  */
-float3 GetGBufferNormal(float2 location) {
+float3 GetGBufferNormal(uint2 location) {
 	// Load and unpack the view-space normal from the GBuffer normal texture.
 	return UnpackNormal(g_normal_texture[location]);
 }
@@ -82,7 +82,7 @@ float3 GetGBufferNormal(float2 location) {
  @return		The view-space position from the GBuffer corresponding to the 
 				given location.
  */
-float3 GetGBufferPosition(float2 location, float2 p_ndc_xy) {
+float3 GetGBufferPosition(uint2 location, float2 p_ndc_xy) {
 	// Load the depth from the GBuffer depth texture.
 	const float  depth  = g_depth_texture[location];
 	// Obtain the projection space coodinates.

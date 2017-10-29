@@ -301,6 +301,9 @@
     <Filter Include="Header Files\shader\cso\primitive">
       <UniqueIdentifier>{2b89fe09-a8fb-457a-8a4d-f2935b9be598}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader Files\aa">
+      <UniqueIdentifier>{84542ce8-cf80-4691-b777-94859e5e1cc5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -1617,6 +1620,9 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\sky\sky_fullscreen_triangle.hlsl">
       <Filter>Shader Files\sky</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\msaa_depth_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

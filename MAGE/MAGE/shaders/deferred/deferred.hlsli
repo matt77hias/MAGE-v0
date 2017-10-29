@@ -9,7 +9,7 @@
 //-----------------------------------------------------------------------------
 float4 PS(PSInputNDCPosition input) : SV_Target {
 
-	const float2 location = input.p.xy;
+	const uint2 location = input.p.xy;
 
 	// Obtain the base color of the material.
 	const float3 base_color = GetGBufferMaterialBaseColor(location);
@@ -38,9 +38,9 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const float2 location = (float2)thread_id.xy;
+	const uint2 location = (float2)thread_id.xy;
 
-	float2 dim;
+	uint2 dim;
 	g_output.GetDimensions(dim.x, dim.y);
 	if (any(location >= dim)) {
 		return;

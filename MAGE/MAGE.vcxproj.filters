@@ -1791,5 +1791,8 @@
     <None Include="MAGE\shaders\voxelization\voxel.hlsli">
       <Filter>Shader Files\voxelization</Filter>
     </None>
+    <None Include="MAGE\shaders\hlsl_syntax.hlsli">
+      <Filter>Shader Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

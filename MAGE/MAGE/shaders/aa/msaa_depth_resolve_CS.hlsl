@@ -36,6 +36,8 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	// Resolve the (multi-sampled) depth.
 	float depth = 0.0f;
 	for (uint i = 0; i < nb_samples; ++i) {
+		// Non-inverted Z-buffer: 
+		// output.p = min(depth, g_input.sample[i][location]);
 		depth = max(depth, g_input.sample[i][location]);
 	}
 

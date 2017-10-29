@@ -255,19 +255,26 @@ namespace mage {
 	void RenderingOutputManager::BindForward(
 		ID3D11DeviceContext2 *device_context) const noexcept {
 
-		// Bind no Depth SRV.
-		Pipeline::CS::BindSRV(device_context,
-			SLOT_SRV_DEPTH, nullptr);
+		// Collect the GBuffer SRVs.
+		ID3D11ShaderResourceView * const srvs[SLOT_SRV_GBUFFER_COUNT] = {};
+		// Bind no GBuffer SRVs.
+		Pipeline::CS::BindSRVs(device_context,
+			SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
 
 		// Bind no HDR UAV.
 		Pipeline::CS::BindUAV(device_context,
 			SLOT_UAV_IMAGE, nullptr);
 		
-		// Bind the HDR RTV and DSV.
-		Pipeline::OM::BindRTVAndDSV(device_context,
-			GetRTV(RTVIndex::HDR0), m_dsv.Get());
+		// Collect the RTVs.
+		ID3D11RenderTargetView * const rtvs[2] = {
+			GetRTV(RTVIndex::HDR0),
+			GetRTV(RTVIndex::GBuffer_Normal)
+		};
+		// Bind the RTVs and DSV.
+		Pipeline::OM::BindRTVsAndDSV(device_context,
+			_countof(rtvs), rtvs, m_dsv.Get());
 	}
-	
+
 	void RenderingOutputManager::BindEnd(
 		ID3D11DeviceContext2 *device_context) const noexcept {
 

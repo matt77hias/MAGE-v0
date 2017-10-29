@@ -24,7 +24,8 @@ namespace mage {
 		Assert(blend_state);
 
 		D3D11_BLEND_DESC desc = {};
-		desc.RenderTarget[0].BlendEnable = FALSE;
+		desc.RenderTarget[0].BlendEnable           = FALSE;
+		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		
 		return device->CreateBlendState(&desc, blend_state);
 	}
@@ -289,8 +290,8 @@ namespace mage {
 		desc.AddressW       = address_mode;
 		desc.MaxAnisotropy  = (device->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) 
 								? D3D11_MAX_MAXANISOTROPY : 2;
-		desc.MaxLOD         = D3D11_FLOAT32_MAX;
 		desc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+		desc.MaxLOD         = D3D11_FLOAT32_MAX;
 
 		return device->CreateSamplerState(&desc, sampler_state);
 	}
@@ -398,9 +399,11 @@ namespace mage {
 		desc.AddressW       = D3D11_TEXTURE_ADDRESS_BORDER;
 		desc.MaxAnisotropy  = (device->GetFeatureLevel() > D3D_FEATURE_LEVEL_9_1) 
 								? D3D11_MAX_MAXANISOTROPY : 2;
-		desc.MaxLOD         = D3D11_FLOAT32_MAX;
+		
 		// Reversed-Z used for the depth buffer.
 		desc.ComparisonFunc = D3D11_COMPARISON_GREATER_EQUAL;
+		
+		desc.MaxLOD         = D3D11_FLOAT32_MAX;
 
 		return device->CreateSamplerState(&desc, sampler_state);
 	}

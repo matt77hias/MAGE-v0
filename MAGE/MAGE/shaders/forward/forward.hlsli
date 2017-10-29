@@ -8,7 +8,7 @@
 //-----------------------------------------------------------------------------
 // Pixel Shader
 //-----------------------------------------------------------------------------
-float4 PS(PSInputPositionNormalTexture input) : SV_Target {
+OMInputForward PS(PSInputPositionNormalTexture input) {
 	// Obtain the base color of the material.
 	const float4 base_color = GetMaterialBaseColor(input.tex);
 
@@ -27,5 +27,14 @@ float4 PS(PSInputPositionNormalTexture input) : SV_Target {
 	const float3 L = BRDFShading(input.p_view, n_view, 
 		                         base_color.xyz, material.x, material.y);
 
-	return float4(L, base_color.w);
+	OMInputForward output;
+	// Store the color.
+	output.color      = float4(L, base_color.w);
+	// Pack and store the view-space normal.
+#pragma warning(push)
+#pragma warning(disable : 3578)
+	output.normal.xyz = PackNormal(n_view);
+#pragma warning(pop)
+								
+	return output;
 }

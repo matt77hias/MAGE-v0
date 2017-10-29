@@ -194,7 +194,7 @@ namespace mage {
 	/**
 	 Creates an opaque blend state (i.e. no blending).
 
-	 The blend formula is defined as:
+	 The blend formula (i.e. no blending) is defined as:
 	 (source.rgb × 1) + (destination.rgb × 0) = source.rgb
 	 (source.a   × 1) + (destination.a   × 0) = source.a.
 
@@ -279,6 +279,27 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateBiMultiplicativeBlendState(
+		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept;
+
+	/**
+	 Creates an transparency blend state.
+
+	 The blend formula for the first RTV is defined as:
+	 (source.rgb × 1)                 + (destination.rgb × 1)
+	 (source.a   × (1-destination.a)) + (destination.a   × 1).
+	 The blend formula (i.e. no blending) for the remaining RTVs is defined as:
+	 (source.rgb × 1) + (destination.rgb × 0) = source.rgb
+	 (source.a   × 1) + (destination.a   × 0) = source.a.
+
+	 @pre			@a device is not equal to @c nullptr.
+	 @pre			@a blend_state is not equal to @c nullptr.
+	 @param[in]		device
+					A pointer to the device.
+	 @param[out]	blend_state
+					A pointer to a pointer to the blend state.
+	 @return		A success/error value.
+	 */
+	HRESULT CreateTransparencyBlendState(
 		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept;
 
 	/**

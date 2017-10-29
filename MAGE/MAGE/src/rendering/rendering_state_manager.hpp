@@ -193,6 +193,34 @@ namespace mage {
 				GetBlendState(BlendStateIndex::BiMultiplicative));
 		}
 
+		/**
+		 Binds the transparency blend state of this rendering state manager.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void BindTransparencyBlendState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			Pipeline::OM::BindBlendState(device_context,
+				GetBlendState(BlendStateIndex::Transparency));
+		}
+
+		/**
+		 Binds the alpha-to-coverage blend state of this rendering state manager.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void BindAlphaToCoverageBlendState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			Pipeline::OM::BindBlendState(device_context,
+				GetBlendState(BlendStateIndex::AlphaToCoverage));
+		}
+
 		//---------------------------------------------------------------------
 		// Member Methods: Depth Stencil States
 		//---------------------------------------------------------------------
@@ -611,8 +639,10 @@ namespace mage {
 		 @c Opaque,
 		 @c Alpha,
 		 @c Additive,
-		 @c Multiplicative and
-		 @c BiMultiplicative.
+		 @c Multiplicative,
+		 @c BiMultiplicative,
+		 @c Transparency and
+		 @c AlphaToCoverage.
 		 */
 		enum struct BlendStateIndex {
 			Opaque           = 0,
@@ -620,7 +650,9 @@ namespace mage {
 			Additive         = 2,
 			Multiplicative   = 3,
 			BiMultiplicative = 4,
-			Count            = 5
+			Transparency     = 5,
+			AlphaToCoverage  = 6,
+			Count            = 7
 		};
 		
 		/**

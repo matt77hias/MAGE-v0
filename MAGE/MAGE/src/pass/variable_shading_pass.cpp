@@ -226,7 +226,7 @@ namespace mage {
 		// OM: Bind the depth-stencil state.
 		RenderingStateManager::Get()->BindGreaterDepthReadWriteDepthStencilState(m_device_context);
 		// OM: Bind the blend state.
-		RenderingStateManager::Get()->BindAlphaBlendState(m_device_context);
+		RenderingStateManager::Get()->BindTransparencyBlendState(m_device_context);
 
 		// Process the transparent models.
 		ProcessModels(scene->GetTransparentEmissiveModels(), 

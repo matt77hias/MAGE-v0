@@ -129,7 +129,7 @@ namespace mage {
 			case RenderMode::MaterialCoefficient:
 			case RenderMode::MaterialTexture:
 			case RenderMode::NormalTexture: {
-				output_manager->BindForward(m_device_context);
+				output_manager->BindBeginForward(m_device_context);
 
 				VariableComponentPass * const pass = GetVariableComponentPass();
 				pass->BindFixedState(render_mode);
@@ -142,7 +142,7 @@ namespace mage {
 
 			case RenderMode::UVTexture:
 			case RenderMode::Distance: {
-				output_manager->BindForward(m_device_context);
+				output_manager->BindBeginForward(m_device_context);
 
 				ConstantComponentPass * const pass = GetConstantComponentPass();
 				pass->BindFixedState(render_mode);
@@ -155,7 +155,7 @@ namespace mage {
 
 			case RenderMode::ShadingNormal:
 			case RenderMode::TSNMShadingNormal: {
-				output_manager->BindForward(m_device_context);
+				output_manager->BindBeginForward(m_device_context);
 
 				ShadingNormalPass * const pass = GetShadingNormalPass();
 				pass->BindFixedState(render_mode);
@@ -167,7 +167,7 @@ namespace mage {
 			}
 
 			case RenderMode::None: {
-				output_manager->BindForward(m_device_context);
+				output_manager->BindBeginForward(m_device_context);
 				break;
 			}
 
@@ -223,7 +223,7 @@ namespace mage {
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
 		
-		output_manager->BindForward(m_device_context);
+		output_manager->BindBeginForward(m_device_context);
 		
 		// Perform a forward pass.
 		ConstantShadingPass * const forward_pass = GetConstantShadingPass();
@@ -252,7 +252,7 @@ namespace mage {
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
 		
-		output_manager->BindForward(m_device_context);
+		output_manager->BindBeginForward(m_device_context);
 
 		// Perform a forward pass.
 		VariableShadingPass * const forward_pass = GetVariableShadingPass();
@@ -295,7 +295,7 @@ namespace mage {
 		// Restore the viewport.
 		viewport.BindViewport(m_device_context);
 
-		output_manager->BindGBuffer(m_device_context);
+		output_manager->BindBeginGBuffer(m_device_context);
 
 		// Perform a GBuffer pass.
 		GBufferPass * const gbuffer_pass = GetGBufferPass();
@@ -304,14 +304,16 @@ namespace mage {
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world, view_to_projection);
 
-		output_manager->BindDeferred(m_device_context);
+		output_manager->BindEndGBuffer(m_device_context);
+		output_manager->BindBeginDeferred(m_device_context);
 
 		// Perform a deferred pass.
 		DeferredShadingPass *deferred_pass = GetDeferredShadingPass();
 		deferred_pass->BindFixedState(brdf);
 		deferred_pass->Render(projection_to_view);
 
-		output_manager->BindForward(m_device_context);
+		output_manager->BindEndDeferred(m_device_context);
+		output_manager->BindBeginForward(m_device_context);
 
 		// Perform a forward pass: emissive models.
 		VariableShadingPass * const forward_pass = GetVariableShadingPass();

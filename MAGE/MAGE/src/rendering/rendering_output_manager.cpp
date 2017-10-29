@@ -215,26 +215,31 @@ namespace mage {
 			SLOT_SRV_IMAGE, nullptr);
 	}
 
-	void RenderingOutputManager::BindGBuffer(
+	void RenderingOutputManager::BindBeginGBuffer(
 		ID3D11DeviceContext2 *device_context) const noexcept {
-
+		
 		// Collect the GBuffer RTVs.
 		ID3D11RenderTargetView * const rtvs[SLOT_SRV_GBUFFER_COUNT - 1u] = {
 			GetRTV(RTVIndex::GBuffer_BaseColor),
 			GetRTV(RTVIndex::GBuffer_Material),
 			GetRTV(RTVIndex::GBuffer_Normal)
 		};
+
 		// Bind the GBuffer RTVs and DSV.
-		Pipeline::OM::BindRTVsAndDSV(device_context, 
+		Pipeline::OM::BindRTVsAndDSV(device_context,
 			_countof(rtvs), rtvs, m_dsv.Get());
 	}
 	
-	void RenderingOutputManager::BindDeferred(
+	void RenderingOutputManager::BindEndGBuffer(
 		ID3D11DeviceContext2 *device_context) const noexcept {
-		
+
 		// Bind no RTV and no DSV.
 		Pipeline::OM::BindRTVAndDSV(device_context,
 			nullptr, nullptr);
+	}
+	
+	void RenderingOutputManager::BindBeginDeferred(
+		ID3D11DeviceContext2 *device_context) const noexcept {
 
 		// Collect the GBuffer SRVs. 
 		ID3D11ShaderResourceView * const srvs[SLOT_SRV_GBUFFER_COUNT] = {
@@ -243,6 +248,7 @@ namespace mage {
 			GetSRV(SRVIndex::GBuffer_Normal),
 			GetSRV(SRVIndex::GBuffer_Depth)
 		};
+		
 		// Bind the GBuffer SRVs.
 		Pipeline::CS::BindSRVs(device_context,
 			SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
@@ -251,12 +257,13 @@ namespace mage {
 		Pipeline::CS::BindUAV(device_context,
 			SLOT_UAV_IMAGE, GetUAV(UAVIndex::HDR0));
 	}
-
-	void RenderingOutputManager::BindForward(
+	
+	void RenderingOutputManager::BindEndDeferred(
 		ID3D11DeviceContext2 *device_context) const noexcept {
 
 		// Collect the GBuffer SRVs.
 		ID3D11ShaderResourceView * const srvs[SLOT_SRV_GBUFFER_COUNT] = {};
+		
 		// Bind no GBuffer SRVs.
 		Pipeline::CS::BindSRVs(device_context,
 			SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
@@ -264,12 +271,17 @@ namespace mage {
 		// Bind no HDR UAV.
 		Pipeline::CS::BindUAV(device_context,
 			SLOT_UAV_IMAGE, nullptr);
-		
+	}
+	
+	void RenderingOutputManager::BindBeginForward(
+		ID3D11DeviceContext2 *device_context) const noexcept {
+
 		// Collect the RTVs.
 		ID3D11RenderTargetView * const rtvs[2] = {
 			GetRTV(RTVIndex::HDR0),
 			GetRTV(RTVIndex::GBuffer_Normal)
 		};
+
 		// Bind the RTVs and DSV.
 		Pipeline::OM::BindRTVsAndDSV(device_context,
 			_countof(rtvs), rtvs, m_dsv.Get());

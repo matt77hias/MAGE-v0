@@ -24,15 +24,8 @@ namespace mage {
 		Assert(blend_state);
 
 		D3D11_BLEND_DESC desc = {};
-		desc.RenderTarget[0].BlendEnable           = FALSE;
-		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_ONE;
-		desc.RenderTarget[0].DestBlend             = D3D11_BLEND_ZERO;
-		desc.RenderTarget[0].BlendOp               = D3D11_BLEND_OP_ADD;
-		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_ONE;
-		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_ZERO;
-		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
-		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-
+		desc.RenderTarget[0].BlendEnable = FALSE;
+		
 		return device->CreateBlendState(&desc, blend_state);
 	}
 	
@@ -109,6 +102,31 @@ namespace mage {
 		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
 		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
+		return device->CreateBlendState(&desc, blend_state);
+	}
+
+	HRESULT CreateTransparencyBlendState(
+		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept {
+	
+		Assert(device);
+		Assert(blend_state);
+
+		D3D11_BLEND_DESC desc = {};
+		desc.IndependentBlendEnable                = TRUE;
+		// Blending of the color.
+		desc.RenderTarget[0].BlendEnable           = TRUE;
+		desc.RenderTarget[0].SrcBlend              = D3D11_BLEND_SRC_ALPHA;
+		desc.RenderTarget[0].DestBlend             = D3D11_BLEND_INV_SRC_ALPHA;
+		desc.RenderTarget[0].BlendOp               = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].SrcBlendAlpha         = D3D11_BLEND_INV_DEST_ALPHA;
+		desc.RenderTarget[0].DestBlendAlpha        = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].BlendOpAlpha          = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		// Blending of the normal and the remaining.
+		for (size_t i = 1; i < 8; ++i) {
+			desc.RenderTarget[i].BlendEnable       = FALSE;
+		}
+	
 		return device->CreateBlendState(&desc, blend_state);
 	}
 

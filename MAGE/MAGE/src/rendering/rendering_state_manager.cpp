@@ -91,6 +91,22 @@ namespace mage {
 				"Bi-multiplicative blend state creation failed: %08X.",
 				result);
 		}
+
+		{
+			const HRESULT result = CreateTransparencyBlendState(
+				device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::Transparency));
+			ThrowIfFailed(result,
+				"Transparency blend state creation failed: %08X.",
+				result);
+		}
+
+		{
+			const HRESULT result = CreateAlphaToCoverageBlendState(
+				device, ReleaseAndGetAddressOfBlendState(BlendStateIndex::AlphaToCoverage));
+			ThrowIfFailed(result,
+				"Alpha-to-coverage blend state creation failed: %08X.",
+				result);
+		}
 	}
 
 	void RenderingStateManager::SetupDepthStencilStates(ID3D11Device2 *device) {

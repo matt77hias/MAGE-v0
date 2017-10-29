@@ -116,9 +116,11 @@ namespace mage {
 
 		void Clear(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindBegin(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindGBuffer(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindDeferred(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindForward(ID3D11DeviceContext2 *device_context) const noexcept;
+		void BindBeginGBuffer(ID3D11DeviceContext2 *device_context) const noexcept;
+		void BindEndGBuffer(ID3D11DeviceContext2 *device_context) const noexcept;
+		void BindBeginDeferred(ID3D11DeviceContext2 *device_context) const noexcept;
+		void BindEndDeferred(ID3D11DeviceContext2 *device_context) const noexcept;
+		void BindBeginForward(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindEnd(ID3D11DeviceContext2 *device_context) const noexcept;
 
 	private:

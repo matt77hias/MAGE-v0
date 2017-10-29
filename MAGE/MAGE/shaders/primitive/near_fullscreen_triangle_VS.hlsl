@@ -14,6 +14,6 @@
 PSInputNDCPosition VS(uint vertex_id : SV_VertexID) {
 	PSInputNDCPosition output;
 	output.p     = NearFullScreenTriangleNDC(vertex_id);
-	output.p_ndc = output.p.xy;
+	output.p_ndc = output.p.xyz;
 	return output;
 }

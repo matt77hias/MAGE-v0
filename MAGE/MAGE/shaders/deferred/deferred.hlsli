@@ -18,7 +18,7 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 	// Obtain the view-space normal.
 	const float3 n_view     = GetGBufferNormal(location);
 	// Obtain the view-space hit position.
-	const float3 p_view     = GetGBufferPosition(location, input.p_ndc);
+	const float3 p_view     = GetGBufferPosition(location, input.p_ndc.xy);
 
 	// Calculate the pixel radiance.
 	const float3 L = BRDFShading(p_view, n_view, 

@@ -39,7 +39,10 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	const float2 location = (float2)thread_id.xy;
-	if (any(location >= g_resolution)) {
+
+	float2 dim;
+	g_output.GetDimensions(dim.x, dim.y);
+	if (any(location >= dim)) {
 		return;
 	}
 

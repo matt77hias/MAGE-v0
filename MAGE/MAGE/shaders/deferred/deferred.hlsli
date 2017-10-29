@@ -38,7 +38,10 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const float2 location = thread_id.xy;
+	const float2 location = (float2)thread_id.xy;
+	if (any(location >= g_resolution)) {
+		return;
+	}
 
 	// Obtain the base color of the material.
 	const float3 base_color = GetGBufferMaterialBaseColor(location);

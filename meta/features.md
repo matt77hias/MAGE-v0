@@ -38,58 +38,34 @@
 * AA
   * ~~MSAA~~~ (*not supported any more (HDR pipeline)*)
 * BRDFs (single BRDF/camera)
-  * old material pipeline:
-    * Lambertian
-    * Phong
-    * Modified-Phong
-    * Blinn-Phong
-    * Modified Blinn-Phong
-    * Ward
-    * Ward-Duer
-    * Cook-Torrance (F: Schlick, D: Beckmann, G: Cook-Torrance)
-  * new material pipeline:
-   * Lambertian
-   * Cook-Torrance, Frostbite:
-     * D component: 
-        * Beckmann, 
-        * Ward-Duer, 
-        * Blinn-Phong, 
-        * Trowbridge-Reitz/GGX/GTR2
-        * Berry/GTR1
-     * G|V component: 
-        * Implicit
-        * Ward
-        * Neumann
-        * Ashikhmin-Premoze
-        * Kelemann
-        * Cook Torrance
-        * (Correlated) GGX
-        * Smith GGX
-        * Smith Schlick-GGX
-        * Smith Beckmann
-        * Smith Schlick-Beckmann
-     * F component: 
-        * None
-        * Schlick
-        * Cook-Torrance
+  * Lambertian
+  * Cook-Torrance, Frostbite:
+     * D component: Beckmann, Ward-Duer, Blinn-Phong, Trowbridge-Reitz/GGX/GTR2, Berry/GTR1
+     * G|V component: Implicit, Ward, Neumann, Ashikhmin-Premoze, Kelemann, Cook Torrance, (Correlated) GGX, Smith GGX, Smith Schlick-GGX, Smith Beckmann, Smith Schlick-Beckmann
+     * F component: None, Schlick, Cook-Torrance
+* Color spaces
+  * All separate colors and textures with color data are expressed in sRGB space.
+  * All light calculations are performed in linear space.
+  * sRGB colors are converted from gamma to linear space by the CPU (*Frostbite*).
+  * sRGB textures are converted from gamma to linear space by the GPU hardware support (ensures correct filtering and blending).
+  * Optional custom gamma correction before presenting (.e. brightness adjustment)
 * Culling
   * Non-hierarchical
-* Gamma Correction
-  * All separate colors and textures with color data are expressed in sRGB.
-  * All light calculations are performed in linear space.
-  * sRGB colors are converted from gamma to linear space by the CPU.
-  * sRGB textures are converted from gamma to linear space by the GPU hardware support (ensures correct filtering and blending).
-  * Optional custom gamma correction before presenting
+* Depth buffer
+  * Standard Z-depth
+  * Reversed Z-depth
+  * 32bit float for depth buffer
+  * 16bit unorm|32bit float for shadow (cube) maps
 * Lighting
+  * Optional light interaction for materials
   * Single pass for all lights (incl. shadow mapping)
-  * Frostbite's angular and distance falloff functions
+  * Physically-based and smooth angular attenuation (*Frostbite*)
+  * Physically-based and smooth distance attenuation (*Frostbite*)
   * Exponential fog with custom density (avoids popping artifacts)
   * HDR
 * Normal Mapping
   * Tangent-space (without relying on precomputed tangents and bitangents)
   * ~~Object-space~~ (*not supported any more*)
-* Optional occluding behavior for models
-* Optional light interaction for materials
 * Render Layers (multiple render layers/camera)
   * Bounding volumes
   * Wireframe
@@ -97,15 +73,14 @@
   * Forward
   * Deferred
   * Various material and component visualizations
-* Reversed Z-depth
-  * 32bit float for depth buffer
-  * 16bit unorm|32bit float for shadow (cube) maps
 * Shadow Mapping
+  * Optional occluding behavior for models
   * Support for both opaque and transparent models
   * Depth and slope scaled biasing
   * PCF filtering
   * Omni lights and spotlights
 * Sky Domes
+  * Non-uniform stretching in looking direction
 * Sprites
 * Tone Mapping
   * ACES

@@ -78,6 +78,8 @@ HAMMON E. J.: [*PBR Diffuse Lighting for GGX+Smith Microsurfaces*](https://twvid
 
 HEITZ E.: *Understanding the Masking-Shadowing Function in Microfacet-Based BRDFs*, *Journal of Computer Graphics Techniques* 3, 2, 2014.
 
+HILL S.: [*Specular Showdown in the Wild West*](http://blog.selfshadow.com/2011/07/22/specular-showdown/), 2011.
+
 HUGHES, J. F., MÖLLER, T.: *Building an Orthonormal Basis from a Unit Vector*, *Journal of Graphics Tools* 4, 4, 1999.
 
 KARIS B.: *Real Shading in Unreal Engine 4*, *SIGGRAPH 2013 Course: Physically Based Shading in Theory and Practice*, 2013.
@@ -166,7 +168,9 @@ TAKESHIGE M.: [*The Basics of GPU Voxelization*](https://developer.nvidia.com/co
 
 TORRANCE K., SPARROW E.: *Theory for Off-specular Reflection from Roughened Surfaces*, *Journal of the Optical Society of America* 65, 5, 1975.
 
-TURÁNSKI J.: [*Abuse the immediate constant buffer*](https://turanszkij.wordpress.com/2016/11/13/abuse-the-immediate-constant-buffer/), 2017.
+TURÁNSKI J.: [*Abuse the immediate constant buffer*](https://turanszkij.wordpress.com/2016/11/13/abuse-the-immediate-constant-buffer/), 2016.
+
+TURÁNSKI J.: [*How to Resolve an MSAA DepthBuffer*](https://turanszkij.wordpress.com/2016/11/13/how-to-resolve-an-msaa-depthbuffer/), 2016.
 
 TURÁNSKI J.: [*Voxel-based Global Illumination*](https://turanszkij.wordpress.com/2017/08/30/voxel-based-global-illumination/), 2017.
 

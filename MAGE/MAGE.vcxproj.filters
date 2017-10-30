@@ -1800,5 +1800,8 @@
     <None Include="MAGE\shaders\hlsl_syntax.hlsli">
       <Filter>Shader Files</Filter>
     </None>
+    <None Include="MAGE\shaders\aa\fxaa.hlsli">
+      <Filter>Shader Files\aa</Filter>
+    </None>
   </ItemGroup>
 </Project>

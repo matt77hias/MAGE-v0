@@ -46,6 +46,8 @@ namespace mage {
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
 		auto model_desc_teapot
 			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/teapot/teapot.mdl",     mesh_desc);
+		auto model_desc_skull
+			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/skull/skull.mdl",       mesh_desc);
 		auto model_desc_cone
 			= ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/cone/cone.mdl",         mesh_desc);
 		auto model_desc_cube
@@ -62,6 +64,7 @@ namespace mage {
 		// Models
 		//---------------------------------------------------------------------
 		auto model_teapot   = CreateModel(*model_desc_teapot);
+		auto model_skull    = CreateModel(*model_desc_skull);
 		auto model_cone     = CreateModel(*model_desc_cone);
 		auto model_cube     = CreateModel(*model_desc_cube);
 		auto model_cylinder = CreateModel(*model_desc_cylinder);
@@ -70,6 +73,8 @@ namespace mage {
 		auto model_torus    = CreateModel(*model_desc_torus);
 
 		model_teapot->GetTransform()->SetScale(30.0f);
+		model_skull->GetTransform()->SetScale(20.0f);
+		model_skull->GetTransform()->SetRotationY(XM_PI);
 		model_cone->GetTransform()->SetScale(10.0f);
 		model_cube->GetTransform()->SetScale(10.0f);
 		model_cylinder->GetTransform()->SetScale(10.0f);
@@ -109,6 +114,7 @@ namespace mage {
 
 		vector< ModelNode * > models;
 		models.push_back(model_teapot.get());
+		models.push_back(model_skull.get());
 		models.push_back(model_cone.get());
 		models.push_back(model_cube.get());
 		models.push_back(model_cylinder.get());

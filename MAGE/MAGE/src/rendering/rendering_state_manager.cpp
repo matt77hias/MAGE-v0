@@ -118,6 +118,46 @@ namespace mage {
 				result);
 		}
 
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+
+		{
+			const HRESULT result = CreateDepthReadWriteDepthStencilState(
+				device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::LessEqualDepthReadWrite),
+				D3D11_COMPARISON_LESS_EQUAL);
+			ThrowIfFailed(result,
+				"Less-equal, read-write depth stencil state creation failed: %08X.",
+				result);
+		}
+
+		{
+			const HRESULT result = CreateDepthReadDepthStencilState(
+				device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::LessEqualDepthRead),
+				D3D11_COMPARISON_LESS_EQUAL);
+			ThrowIfFailed(result,
+				"Less-equal, read depth stencil state creation failed: %08X.",
+				result);
+		}
+
+		{
+			const HRESULT result = CreateDepthReadWriteDepthStencilState(
+				device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::LessDepthReadWrite),
+				D3D11_COMPARISON_LESS);
+			ThrowIfFailed(result,
+				"Less, read-write depth stencil state creation failed: %08X.",
+				result);
+		}
+
+		{
+			const HRESULT result = CreateDepthReadDepthStencilState(
+				device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::LessDepthRead),
+				D3D11_COMPARISON_LESS);
+			ThrowIfFailed(result,
+				"Less, read depth stencil state creation failed: %08X.",
+				result);
+		}
+
+#else  // DISSABLE_INVERTED_Z_BUFFER
+
 		{
 			const HRESULT result = CreateDepthReadWriteDepthStencilState(
 				device, ReleaseAndGetAddressOfDepthStencilState(DepthStencilStateIndex::GreaterEqualDepthReadWrite),
@@ -153,6 +193,8 @@ namespace mage {
 				"Greater, read depth stencil state creation failed: %08X.",
 				result);
 		}
+
+#endif // DISSABLE_INVERTED_Z_BUFFER
 	}
 
 	void RenderingStateManager::SetupRasterizerStates(ID3D11Device2 *device) {

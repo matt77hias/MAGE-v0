@@ -206,9 +206,13 @@ namespace mage {
 						camera.
 		 */
 		virtual const XMMATRIX GetViewToProjectionMatrix() const noexcept override {
-			// Reversed-Z used for the depth buffer.
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+			return XMMatrixOrthographicLH(
+				GetWidth(), GetHeight(), GetNearZ(), GetFarZ());
+#else  // DISSABLE_INVERTED_Z_BUFFER
 			return XMMatrixOrthographicLH(
 				GetWidth(), GetHeight(), GetFarZ(), GetNearZ());
+#endif // DISSABLE_INVERTED_Z_BUFFER
 		}
 
 		/**

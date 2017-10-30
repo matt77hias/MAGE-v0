@@ -110,7 +110,11 @@ namespace mage {
 		// RS: Bind the rasterization state.
 		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// OM: Bind the depth-stencil state.
-		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindLessDepthReadWriteDepthStencilState(m_device_context);
+#else  // DISSABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindGreaterDepthReadWriteDepthStencilState(m_device_context);
+#endif // DISSABLE_INVERTED_Z_BUFFER
 	}
 
 	void XM_CALLCONV DepthPass::Render(

@@ -87,7 +87,11 @@ namespace mage {
 		Pipeline::PS::BindSRV(m_device_context,
 			SLOT_SRV_BASE_COLOR, m_white->Get());
 		// OM: Bind the depth-stencil state.
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+#else  // DISSABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+#endif // DISSABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}

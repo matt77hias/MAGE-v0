@@ -263,10 +263,15 @@ namespace mage {
 						camera of this omni light.
 		 */
 		const XMMATRIX GetViewToProjectionMatrix() const noexcept {
-			// Reversed-Z used for the depth buffer.
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+			const F32 m22 = GetRange()
+				/ (GetRange() - MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z);
+			const F32 m32 = -MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z * m22;
+#else  // DISSABLE_INVERTED_Z_BUFFER
 			const F32 m22 = MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z 
 				/ (MAGE_DEFAULT_LIGHT_CAMERA_NEAR_Z - GetRange());
 			const F32 m32 = -GetRange() * m22;
+#endif // DISSABLE_INVERTED_Z_BUFFER
 			
 			return XMMATRIX{
 				1.0f, 0.0f, 0.0f, 0.0f,

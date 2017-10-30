@@ -1785,26 +1785,47 @@ namespace mage {
 				device_context->ClearRenderTargetView(rtv, rgba);
 			}
 			
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+			
 			static void ClearDSV(ID3D11DeviceContext2 *device_context,
 				ID3D11DepthStencilView *dsv, 
-				F32 depth = 0.0f, U8 stencil = 0u) noexcept {
+				F32 depth = 1.0f, U8 stencil = 0u) noexcept {
 
 				device_context->ClearDepthStencilView(
 				dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, depth, stencil);
 			}
 			
 			static void ClearDepthOfDSV(ID3D11DeviceContext2 *device_context,
-				ID3D11DepthStencilView *dsv, F32 depth = 0.0f) noexcept {
+				ID3D11DepthStencilView *dsv, F32 depth = 1.0f) noexcept {
 
 				device_context->ClearDepthStencilView(
 				dsv, D3D11_CLEAR_DEPTH, depth, 0u);
 			}
+
+#else  // DISSABLE_INVERTED_Z_BUFFER
+			
+			static void ClearDSV(ID3D11DeviceContext2 *device_context,
+				ID3D11DepthStencilView *dsv,
+				F32 depth = 0.0f, U8 stencil = 0u) noexcept {
+
+				device_context->ClearDepthStencilView(
+					dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, depth, stencil);
+			}
+
+			static void ClearDepthOfDSV(ID3D11DeviceContext2 *device_context,
+				ID3D11DepthStencilView *dsv, F32 depth = 0.0f) noexcept {
+
+				device_context->ClearDepthStencilView(
+					dsv, D3D11_CLEAR_DEPTH, depth, 0u);
+			}
+
+#endif // DISSABLE_INVERTED_Z_BUFFER
 			
 			static void ClearStencilOfDSV(ID3D11DeviceContext2 *device_context, 
 				ID3D11DepthStencilView *dsv, U8 stencil = 0u) noexcept {
 
 				device_context->ClearDepthStencilView(
-				dsv, D3D11_CLEAR_STENCIL, 1.0f, stencil);
+				dsv, D3D11_CLEAR_STENCIL, 0.0f, stencil);
 			}
 
 			//-----------------------------------------------------------------

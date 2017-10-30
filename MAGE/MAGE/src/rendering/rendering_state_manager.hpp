@@ -239,6 +239,70 @@ namespace mage {
 				GetDepthStencilState(DepthStencilStateIndex::DepthNone));
 		}
 
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+
+		/**
+		 Binds the less-equal, read-write depth stencil state of this rendering
+		 state manager.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void BindLessEqualDepthReadWriteDepthStencilState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			Pipeline::OM::BindDepthStencilState(device_context,
+				GetDepthStencilState(DepthStencilStateIndex::LessEqualDepthReadWrite));
+		}
+
+		/**
+		 Binds the less-equal, read depth stencil state of this rendering state 
+		 manager.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void BindLessEqualDepthReadDepthStencilState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			Pipeline::OM::BindDepthStencilState(device_context,
+				GetDepthStencilState(DepthStencilStateIndex::LessEqualDepthRead));
+		}
+
+		/**
+		 Binds the less, read-write depth stencil state of this rendering state 
+		 manager.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void BindLessDepthReadWriteDepthStencilState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			Pipeline::OM::BindDepthStencilState(device_context,
+				GetDepthStencilState(DepthStencilStateIndex::LessDepthReadWrite));
+		}
+
+		/**
+		 Binds the less, read depth stencil state of this rendering state 
+		 manager.
+
+		 @pre			@a device_context is not equal to @c nullptr.
+		 @param[in]		device_context
+						A pointer to the device context.
+		 */
+		void BindLessDepthReadDepthStencilState(
+			ID3D11DeviceContext2 *device_context) const noexcept {
+
+			Pipeline::OM::BindDepthStencilState(device_context,
+				GetDepthStencilState(DepthStencilStateIndex::LessDepthRead));
+		}
+
+#else  // DISSABLE_INVERTED_Z_BUFFER
+
 		/**
 		 Binds the greater-equal, read-write depth stencil state of this rendering
 		 state manager.
@@ -298,6 +362,8 @@ namespace mage {
 			Pipeline::OM::BindDepthStencilState(device_context,
 				GetDepthStencilState(DepthStencilStateIndex::GreaterDepthRead));
 		}
+
+#endif // DISSABLE_INVERTED_Z_BUFFER
 
 		//---------------------------------------------------------------------
 		// Member Methods: Rasterizer States
@@ -668,10 +734,17 @@ namespace mage {
 		 */
 		enum struct DepthStencilStateIndex {
 			DepthNone                  = 0,
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+			LessEqualDepthReadWrite    = 1,
+			LessEqualDepthRead         = 2,
+			LessDepthReadWrite         = 3,
+			LessDepthRead              = 4,
+#else  // DISSABLE_INVERTED_Z_BUFFER
 			GreaterEqualDepthReadWrite = 1,
 			GreaterEqualDepthRead      = 2,
 			GreaterDepthReadWrite      = 3,
 			GreaterDepthRead           = 4,
+#endif // DISSABLE_INVERTED_Z_BUFFER
 			Count                      = 5
 		};
 		

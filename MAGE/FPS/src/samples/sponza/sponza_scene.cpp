@@ -84,7 +84,8 @@ namespace mage {
 		//auto spot_light = Create< SpotLightNode >("light");
 		//spot_light->GetTransform()->SetTranslationY(2.0f);
 		//spot_light->GetTransform()->SetRotationX(XM_PIDIV2);
-		//spot_light->GetLight()->SetRange(3.0f);
+		//spot_light->GetLight()->SetRange(5.0f);
+		//spot_light->GetLight()->SetIntensity(4.0f);
 		//spot_light->GetLight()->SetAngularCutoff(1.0f, sqrt(2.0f) / 2.0f);
 		//spot_light->GetLight()->EnableShadows();
 

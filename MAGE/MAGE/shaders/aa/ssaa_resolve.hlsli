@@ -46,7 +46,11 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	// Resolve the (super-sampled) radiance, normal and depth.
 	float4 ldr_sum    = 0.0f;
 	float3 normal_sum = 0.0f;
-	float  depth      = Z_FAR;
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+	float depth       = 1.0f;
+#else  // DISSABLE_INVERTED_Z_BUFFER
+	float depth       = 0.0f;
+#endif // DISSABLE_INVERTED_Z_BUFFER
 	for (uint i = 0; i < nb_samples.x; ++i) {
 		for (uint j = 0; j < nb_samples.y; ++j) {
 
@@ -57,9 +61,11 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 			normal_sum += g_input_normal_texture[location];
 
-			// Non-inverted Z-buffer: 
-			// output.p = min(depth, g_input_depth_texture[input_location]);
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+			depth = min(depth, g_input_depth_texture[input_location]);
+#else  // DISSABLE_INVERTED_Z_BUFFER
 			depth = max(depth, g_input_depth_texture[location]);
+#endif // DISSABLE_INVERTED_Z_BUFFER
 		}
 	}
 

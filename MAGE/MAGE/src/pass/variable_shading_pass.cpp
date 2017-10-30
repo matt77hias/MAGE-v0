@@ -172,7 +172,11 @@ namespace mage {
 		BindProjectionData(view_to_projection);
 
 		// OM: Bind the depth-stencil state.
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+#else  // DISSABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+#endif // DISSABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 		
@@ -200,7 +204,11 @@ namespace mage {
 		BindProjectionData(view_to_projection);
 
 		// OM: Bind the depth-stencil state.
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindLessEqualDepthReadWriteDepthStencilState(m_device_context);
+#else  // DISSABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindGreaterEqualDepthReadWriteDepthStencilState(m_device_context);
+#endif // DISSABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 		
@@ -224,7 +232,11 @@ namespace mage {
 		BindProjectionData(view_to_projection);
 
 		// OM: Bind the depth-stencil state.
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+		RenderingStateManager::Get()->BindLessDepthReadWriteDepthStencilState(m_device_context);
+#else  // DISSABLE_INVERTED_Z_BUFFER
 		RenderingStateManager::Get()->BindGreaterDepthReadWriteDepthStencilState(m_device_context);
+#endif // DISSABLE_INVERTED_Z_BUFFER
 		// OM: Bind the blend state.
 		RenderingStateManager::Get()->BindTransparencyBlendState(m_device_context);
 

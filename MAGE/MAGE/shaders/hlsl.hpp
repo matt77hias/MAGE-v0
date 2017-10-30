@@ -9,8 +9,13 @@
 #define TRANSPARENCY_SKIP_THRESHOLD   0.00392157f // ~  1/255
 #define TRANSPARENCY_THRESHOLD        0.95686275f // ~244/255
 
-#define Z_FAR  0.0f
-#define Z_NEAR 1.0f
+#ifdef DISSABLE_INVERTED_Z_BUFFER
+	#define Z_NEAR 0.0f
+	#define Z_FAR  1.0f
+#else  // DISSABLE_INVERTED_Z_BUFFER
+	#define Z_FAR  0.0f
+	#define Z_NEAR 1.0f
+#endif // DISSABLE_INVERTED_Z_BUFFER
 
 //-----------------------------------------------------------------------------
 // Engine Includes: Thread Configurations

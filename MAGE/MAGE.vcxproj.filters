@@ -1627,6 +1627,9 @@
     <FxCompile Include="MAGE\shaders\aa\msaa_resolve_CS.hlsl">
       <Filter>Shader Files\aa</Filter>
     </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\fxaa_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\memory\memory_arena.tpp">

@@ -1806,13 +1806,16 @@
     <None Include="MAGE\shaders\hlsl_syntax.hlsli">
       <Filter>Shader Files</Filter>
     </None>
-    <None Include="MAGE\shaders\aa\fxaa.hlsli">
-      <Filter>Shader Files\aa</Filter>
-    </None>
     <None Include="MAGE\shaders\aa\ssaa_resolve.hlsli">
       <Filter>Shader Files\aa</Filter>
     </None>
     <None Include="MAGE\shaders\aa\msaa_resolve.hlsli">
+      <Filter>Shader Files\aa</Filter>
+    </None>
+    <None Include="MAGE\shaders\aa\fxaa3_11.hlsli">
+      <Filter>Shader Files\aa</Filter>
+    </None>
+    <None Include="MAGE\shaders\aa\fxaa.hlsli">
       <Filter>Shader Files\aa</Filter>
     </None>
   </ItemGroup>

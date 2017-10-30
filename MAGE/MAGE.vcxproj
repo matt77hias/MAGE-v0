@@ -740,6 +740,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <None Include="MAGE\shaders\aa\fxaa.hlsli" />
+    <None Include="MAGE\shaders\aa\fxaa3_11.hlsli" />
     <None Include="MAGE\shaders\aa\msaa_resolve.hlsli" />
     <None Include="MAGE\shaders\aa\ssaa_resolve.hlsli" />
     <None Include="MAGE\shaders\brdf.hlsli">

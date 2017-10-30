@@ -20,6 +20,18 @@ float3 ToneMap_Reinhard(float3 hdr) {
 	return hdr / (1.0f + hdr);
 }
 
+float4 ToneMap_Reinhard(float4 hdr) {
+	return float4(ToneMap_Reinhard(hdr.xyz), hdr.w);
+}
+
+float3 InverseToneMap_Reinhard(float3 ldr) {
+	return ldr / (1.0f - ldr);
+}
+
+float4 InverseToneMap_Reinhard(float4 ldr) {
+	return float4(InverseToneMap_Reinhard(ldr.xyz), ldr.w);
+}
+
 float3 ToneMap_ACESFilmic(float3 hdr) {
 	static const float a = 2.51f;
 	static const float b = 0.03f;
@@ -43,31 +55,12 @@ float3 ToneMap_Uncharted(float3 hdr) {
 		  / (hdr * (a * hdr + b) + d * f)) - e / f;
 }
 
-#ifndef TONE_MAP
-#define TONE_MAP ToneMap_Uncharted
-#endif
+#ifndef TONE_MAP_COMPONENT
+#define TONE_MAP_COMPONENT ToneMap_Reinhard
+#endif // TONE_MAP_COMPONENT
 
-/**
- Tone map the given HDR radiance value using Reinhard's tone mapping.
-
- @param[in]		hdr
-				The HDR radiance value.
- @return		The tone mapped LDR radiance value.
- */
-float3 HDRtoLDR(float3 hdr) {
-	return hdr / (1.0f + hdr);
-}
-
-/**
- Tone map the given HDR radiance value using Reinhard's tone mapping.
-
- @param[in]		hdr
-				The HDR radiance value.
- @return		The tone mapped LDR radiance value.
- @note			The alpha channel of the given RGBA spectrum is preserved.
- */
-float4 HDRtoLDR(float4 hdr) {
-	return float4(HDRtoLDR(hdr.xyz), hdr.w);
-}
+#ifndef INVERSE_TONE_MAP_COMPONENT
+#define INVERSE_TONE_MAP_COMPONENT InverseToneMap_Reinhard
+#endif // INVERSE_TONE_MAP_COMPONENT
 
 #endif //MAGE_HEADER_TONE_MAPPIN

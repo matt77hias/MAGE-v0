@@ -1,3 +1,6 @@
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
 #define ENABLE_TRANSPARENCY
 #define TSNM
 #define BRDFxCOS LambertianBRDFxCos

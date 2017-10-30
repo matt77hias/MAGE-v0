@@ -1,3 +1,6 @@
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
 #define ENABLE_TRANSPARENCY
 #define BRDFxCOS CookTorranceBRDFxCos
 #define BRDF_F_COMPONENT F_None

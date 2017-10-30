@@ -1,6 +1,4 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define ENABLE_TRANSPARENCY
-#define BRDFxCOS FrostbiteBRDFxCos
-#include "forward\forward.hlsli"
+#include "aa\ssaa_resolve.hlsli"

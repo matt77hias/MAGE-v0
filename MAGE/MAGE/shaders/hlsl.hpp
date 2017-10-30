@@ -119,5 +119,7 @@
 //-----------------------------------------------------------------------------
 
 #define SLOT_UAV_IMAGE                          0
+#define SLOT_UAV_NORMAL                         1
+#define SLOT_UAV_DEPTH                          2
 
 #endif // MAGE_HEADER_HLSL

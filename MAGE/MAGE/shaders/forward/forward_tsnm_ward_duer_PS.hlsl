@@ -1,3 +1,6 @@
+//-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
 #define TSNM
 #define BRDFxCOS CookTorranceBRDFxCos
 #define BRDF_F_COMPONENT F_None

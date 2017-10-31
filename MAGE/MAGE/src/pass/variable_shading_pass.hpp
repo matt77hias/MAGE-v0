@@ -129,8 +129,6 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix.
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
@@ -138,8 +136,7 @@ namespace mage {
 			const PassBuffer *scene,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world,
-			CXMMATRIX view_to_projection);
+			CXMMATRIX view_to_world);
 
 		/**
 		 Renders the scene (only the emissive models).
@@ -153,8 +150,6 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix.
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
@@ -162,8 +157,7 @@ namespace mage {
 			const PassBuffer *scene,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world,
-			CXMMATRIX view_to_projection);
+			CXMMATRIX view_to_world);
 
 		/**
 		 Renders the scene (only the transparent models).
@@ -177,8 +171,6 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix.
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
@@ -186,8 +178,7 @@ namespace mage {
 			const PassBuffer *scene,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world,
-			CXMMATRIX view_to_projection);
+			CXMMATRIX view_to_world);
 
 	private:
 
@@ -249,19 +240,6 @@ namespace mage {
 						otherwise.
 		 */
 		void BindPS(const Material *material, bool transparency) noexcept;
-		
-		/**
-		 Binds the projection data of this variable shading pass.
-
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix used for
-						transforming vertices.
-		 @throws		FormattedException
-						Failed to bind the projection data of this variable 
-						shading pass.
-		 */
-		void XM_CALLCONV BindProjectionData(
-			FXMMATRIX view_to_projection);
 		
 		/**
 		 Binds the model data of this variable shading pass.
@@ -350,11 +328,6 @@ namespace mage {
 		 The current BRDF of this variable shading pass.
 		 */
 		BRDFType m_brdf;
-
-		/**
-		 The projection buffer of this variable shading pass.
-		 */
-		ConstantBuffer< XMMATRIX > m_projection_buffer;
 
 		/**
 		 The model buffer of this variable shading pass.

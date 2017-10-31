@@ -119,16 +119,13 @@ namespace mage {
 						The world-to-projection transformation matrix.
 		 @param[in]		world_to_view
 						The world-to-view transformation matrix.
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix.
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(
 			const PassBuffer *scene,
 			FXMMATRIX world_to_projection,
-			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_projection);
+			CXMMATRIX world_to_view);
 
 	private:
 
@@ -143,18 +140,6 @@ namespace mage {
 						Failed to bind the color data of this wireframe pass.
 		 */
 		void BindColorData();
-
-		/**
-		 Binds the projection data of this wireframe pass.
-
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix used for
-						transforming vertices.
-		 @throws		FormattedException
-						Failed to bind the projection data of this wireframe 
-						pass.
-		 */
-		void XM_CALLCONV BindProjectionData(FXMMATRIX view_to_projection);
 
 		/**
 		 Binds the model data of this wireframe pass.
@@ -213,11 +198,6 @@ namespace mage {
 		 The color buffer of this wireframe pass.
 		 */
 		ConstantBuffer< RGBASpectrum > m_color_buffer;
-
-		/**
-		 The projection buffer of this wireframe pass.
-		 */
-		ConstantBuffer< XMMATRIX > m_projection_buffer;
 
 		/**
 		 The model buffer of this wireframe pass.

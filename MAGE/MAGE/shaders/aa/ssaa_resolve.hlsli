@@ -1,4 +1,12 @@
 //-----------------------------------------------------------------------------
+// Engine Configuration
+//-----------------------------------------------------------------------------
+// Defines			                      | Default
+//-----------------------------------------------------------------------------
+// TONE_MAP_COMPONENT                     | ToneMap_Reinhard
+// INVERSE_TONE_MAP_COMPONENT             | InverseToneMap_Reinhard
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
@@ -29,18 +37,15 @@ RW_TEXTURE_2D(g_output_depth_texture,  float,  SLOT_UAV_DEPTH);
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const uint2 output_location = thread_id.xy;
-
-	uint2 output_dim;
-	g_output_image_texture.GetDimensions(output_dim.x, output_dim.y);
-	if (any(output_location >= output_dim)) {
+	const uint2 output_location = g_viewport_top_left + thread_id.xy;
+	if (any(output_location >= g_display_resolution)) {
 		return;
 	}
 
-	uint2 input_dim;
-	g_input_image_texture.GetDimensions(input_dim.x, input_dim.y);
+	uint2 output_dim;
+	g_output_image_texture.GetDimensions(output_dim.x, output_dim.y);
 
-	const uint2 nb_samples     = input_dim / output_dim;
+	const uint2 nb_samples     = g_viewport_resolution / output_dim;
 	const uint2 input_location = output_location * nb_samples;
 
 	// Resolve the (super-sampled) radiance, normal and depth.

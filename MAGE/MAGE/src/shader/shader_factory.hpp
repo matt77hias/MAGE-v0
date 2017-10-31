@@ -16,6 +16,39 @@
 namespace mage {
 
 	//-------------------------------------------------------------------------
+	// Factory Methods: AA
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Creates a MSAA resolve compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the MSAA resolve compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateMSAAResolveCS();
+
+	/**
+	 Creates a SSAA resolve compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the SSAA resolve compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateSSAAResolveCS();
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// Factory Methods: Deferred
 	//-------------------------------------------------------------------------
 #pragma region

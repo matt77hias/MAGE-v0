@@ -6,6 +6,7 @@
 #pragma region
 
 #include "rendering\pipeline.hpp"
+#include "math\math.hpp"
 
 #pragma endregion
 
@@ -119,6 +120,18 @@ namespace mage {
 			m_viewport = std::move(viewport);
 		}
 
+		F32 GetTopLeftX() const noexcept {
+			return m_viewport.TopLeftX;
+		}
+
+		F32 GetTopLeftY() const noexcept {
+			return m_viewport.TopLeftY;
+		}
+
+		const XMFLOAT2 GetTopLeft() const noexcept {
+			return XMFLOAT2(m_viewport.TopLeftX, m_viewport.TopLeftY);
+		}
+
 		void SetTopLeft(U32 x, U32 y) noexcept {
 			m_viewport.TopLeftX = static_cast< F32 >(x);
 			m_viewport.TopLeftY = static_cast< F32 >(y);
@@ -133,6 +146,10 @@ namespace mage {
 			SetTopLeft(NormalizeWidth(x), NormalizeHeight(y));
 		}
 
+		F32 GetWidth() const noexcept {
+			return m_viewport.Width;
+		}
+
 		void SetWidth(U32 width) noexcept {
 			m_viewport.Width = static_cast< F32 >(width);
 		}
@@ -143,6 +160,10 @@ namespace mage {
 
 		void SetNormalizedWidth(F32 width) noexcept {
 			SetWidth(NormalizeWidth(width));
+		}
+
+		F32 GetHeight() const noexcept {
+			return m_viewport.Height;
 		}
 
 		void SetHeight(U32 height) noexcept {
@@ -172,8 +193,16 @@ namespace mage {
 			SetHeight(NormalizeHeight(height));
 		}
 
+		F32 GetMinimumDepth() const noexcept {
+			return m_viewport.MinDepth;
+		}
+
 		void SetMinimumDepth(F32 min_depth) noexcept {
 			m_viewport.MinDepth = min_depth;
+		}
+
+		F32 GetMaximumDepth() const noexcept {
+			return m_viewport.MaxDepth;
 		}
 
 		void SetMaximumDepth(F32 max_depth) noexcept {

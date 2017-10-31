@@ -6,7 +6,7 @@
 //-----------------------------------------------------------------------------
 // Constant Buffers
 //-----------------------------------------------------------------------------
-CBUFFER(PerDraw, SLOT_CBUFFER_PER_DRAW) {
+CBUFFER(Model, SLOT_CBUFFER_MODEL) {
 	// MATERIAL
 	// The alpha channel of the base color of the material.
 	float g_base_color_a : packoffset(c0);

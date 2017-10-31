@@ -35,8 +35,9 @@ namespace mage {
 			CreateForwardPS(BRDFType::Unknown, false, true),
 			CreateForwardPS(BRDFType::Unknown, true, true),
 		},
-		m_bound_ps(PSIndex::Count), m_brdf(BRDFType::Unknown),
-		m_projection_buffer(), m_model_buffer() {}
+		m_bound_ps(PSIndex::Count), 
+		m_brdf(BRDFType::Unknown),
+		m_model_buffer() {}
 
 	VariableShadingPass::VariableShadingPass(VariableShadingPass &&render_pass) = default;
 
@@ -94,17 +95,6 @@ namespace mage {
 		}
 	}
 
-	void XM_CALLCONV VariableShadingPass::BindProjectionData(
-		FXMMATRIX view_to_projection) {
-
-		// Update the projection buffer.
-		m_projection_buffer.UpdateData(m_device_context, 
-			XMMatrixTranspose(view_to_projection));
-		// Bind the projection buffer.
-		m_projection_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_PER_FRAME);
-	}
-
 	void XM_CALLCONV VariableShadingPass::BindModelData(
 		FXMMATRIX object_to_view, 
 		CXMMATRIX view_to_object,
@@ -126,9 +116,9 @@ namespace mage {
 			buffer);
 		// Bind the model buffer.
 		m_model_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_PER_DRAW);
+			m_device_context, SLOT_CBUFFER_MODEL);
 		m_model_buffer.Bind< Pipeline::PS >(
-			m_device_context, SLOT_CBUFFER_PER_DRAW);
+			m_device_context, SLOT_CBUFFER_MODEL);
 
 		// Bind the base color SRV.
 		Pipeline::PS::BindSRV(m_device_context,
@@ -163,13 +153,9 @@ namespace mage {
 		const PassBuffer *scene,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
-		CXMMATRIX view_to_world,
-		CXMMATRIX view_to_projection) {
+		CXMMATRIX view_to_world) {
 
 		Assert(scene);
-
-		// Bind the projection data.
-		BindProjectionData(view_to_projection);
 
 		// OM: Bind the depth-stencil state.
 #ifdef DISSABLE_INVERTED_Z_BUFFER
@@ -195,13 +181,9 @@ namespace mage {
 		const PassBuffer *scene,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
-		CXMMATRIX view_to_world,
-		CXMMATRIX view_to_projection) {
+		CXMMATRIX view_to_world) {
 
 		Assert(scene);
-
-		// Bind the projection data.
-		BindProjectionData(view_to_projection);
 
 		// OM: Bind the depth-stencil state.
 #ifdef DISSABLE_INVERTED_Z_BUFFER
@@ -223,13 +205,9 @@ namespace mage {
 		const PassBuffer *scene,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
-		CXMMATRIX view_to_world,
-		CXMMATRIX view_to_projection) {
+		CXMMATRIX view_to_world) {
 
 		Assert(scene);
-
-		// Bind the projection data.
-		BindProjectionData(view_to_projection);
 
 		// OM: Bind the depth-stencil state.
 #ifdef DISSABLE_INVERTED_Z_BUFFER

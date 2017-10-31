@@ -2,6 +2,30 @@
 #define MAGE_HEADER_LIGHTING
 
 //-----------------------------------------------------------------------------
+// Engine Configuration
+//-----------------------------------------------------------------------------
+// Defines			                      | Default
+//-----------------------------------------------------------------------------
+// DISSABLE_DIFFUSE_BRDF                  | not defined
+// DISSABLE_SPECULAR_BRDF                 | not defined
+// BRDF_F_COMPONENT                       | F_Schlick
+// BRDF_D_COMPONENT                       | D_GGX
+// BRDF_G_COMPONENT                       | G_GXX
+// LIGHT_DISTANCE_ATTENUATION_COMPONENT   | DistanceAttenuation
+// LIGHT_ANGULAR_ATTENUATION_COMPONENT    | AngularAttenuation
+// FOG_FACTOR_COMPONENT                   | FogFactor_Exponential
+// BRDFxCOS                               | not defined
+// DISSABLE_AMBIENT_LIGHT                 | not defined
+// DISSABLE_DIRECTIONAL_LIGHTS            | not defined
+// DISSABLE_OMNI_LIGHTS                   | not defined
+// DISSABLE_SPOT_LIGHTS                   | not defined
+// DISSABLE_SHADOW_MAPPING                | not defined
+// DISSABLE_SHADOW_MAP_DIRECTIONAL_LIGHTS | not defined
+// DISSABLE_SHADOW_MAP_OMNI_LIGHTS        | not defined
+// DISSABLE_SHADOW_MAP_SPOT_LIGHTS        | not defined
+// DISSABLE_FOG                           | not defined
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
@@ -38,7 +62,7 @@ CBUFFER(LightBuffer, SLOT_CBUFFER_LIGHTING) {
 //-----------------------------------------------------------------------------
 // SRVs
 //-----------------------------------------------------------------------------
-#ifndef DISSABLE_BRDFxCOS
+#ifdef BRDFxCOS
 
 #ifndef DISSABLE_DIRECTIONAL_LIGHTS
 STRUCTURED_BUFFER(
@@ -89,7 +113,7 @@ TEXTURE_2D_ARRAY(
 
 #endif // DISSABLE_SHADOW_MAPPING
 
-#endif // DISSABLE_BRDFxCOS
+#endif // BRDFxCOS
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
@@ -103,7 +127,7 @@ float3 BRDFShading(float3 p, float3 n,
 
 #ifndef BRDFxCOS
 	float3 L = base_color;
-#else // DISSABLE_BRDFxCOS
+#else // BRDFxCOS
 	float3 L = float3(0.0f, 0.0f, 0.0f);
 
 #ifndef DISSABLE_AMBIENT_LIGHT
@@ -189,7 +213,7 @@ float3 BRDFShading(float3 p, float3 n,
 
 #endif // DISSABLE_SHADOW_MAPPING
 
-#endif // DISSABLE_BRDFxCOS
+#endif // BRDFxCOS
 
 #ifndef DISSABLE_FOG
 	const float fog_factor = FOG_FACTOR_COMPONENT(r_eye, g_fog_density);

@@ -28,24 +28,13 @@ namespace mage {
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateTransformVS()),
 		m_ps(CreateForwardLambertianPS()),
-		m_projection_buffer(), m_model_buffer(),
+		m_model_buffer(),
 		m_white(CreateWhiteTexture()) {}
 
 	ConstantShadingPass::ConstantShadingPass(
 		ConstantShadingPass &&render_pass) = default;
 
 	ConstantShadingPass::~ConstantShadingPass() = default;
-
-	void XM_CALLCONV ConstantShadingPass::BindProjectionData(
-		FXMMATRIX view_to_projection) {
-		
-		// Update the projection buffer.
-		m_projection_buffer.UpdateData(m_device_context, 
-			XMMatrixTranspose(view_to_projection));
-		// Bind the projection buffer.
-		m_projection_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_PER_FRAME);
-	}
 
 	void XM_CALLCONV ConstantShadingPass::BindModelData(
 		FXMMATRIX object_to_view, 
@@ -65,9 +54,9 @@ namespace mage {
 			buffer);
 		// Bind the model buffer.
 		m_model_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_PER_DRAW);
+			m_device_context, SLOT_CBUFFER_MODEL);
 		m_model_buffer.Bind< Pipeline::PS >(
-			m_device_context, SLOT_CBUFFER_PER_DRAW);
+			m_device_context, SLOT_CBUFFER_MODEL);
 	}
 
 	void ConstantShadingPass::BindFixedState() {
@@ -100,14 +89,10 @@ namespace mage {
 		const PassBuffer *scene,
 		FXMMATRIX world_to_projection,
 		CXMMATRIX world_to_view,
-		CXMMATRIX view_to_world,
-		CXMMATRIX view_to_projection) {
+		CXMMATRIX view_to_world) {
 
 		Assert(scene);
 
-		// Bind the projection data.
-		BindProjectionData(view_to_projection);
-		
 		// Process the models.
 		ProcessModels(scene->GetOpaqueEmissiveModels(), 
 			world_to_projection, world_to_view, view_to_world);

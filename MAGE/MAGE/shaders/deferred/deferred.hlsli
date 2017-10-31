@@ -1,4 +1,28 @@
 //-----------------------------------------------------------------------------
+// Engine Configuration
+//-----------------------------------------------------------------------------
+// Defines			                      | Default
+//-----------------------------------------------------------------------------
+// DISSABLE_DIFFUSE_BRDF                  | not defined
+// DISSABLE_SPECULAR_BRDF                 | not defined
+// BRDF_F_COMPONENT                       | F_Schlick
+// BRDF_D_COMPONENT                       | D_GGX
+// BRDF_G_COMPONENT                       | G_GXX
+// LIGHT_DISTANCE_ATTENUATION_COMPONENT   | DistanceAttenuation
+// LIGHT_ANGULAR_ATTENUATION_COMPONENT    | AngularAttenuation
+// FOG_FACTOR_COMPONENT                   | FogFactor_Exponential
+// BRDFxCOS                               | not defined
+// DISSABLE_AMBIENT_LIGHT                 | not defined
+// DISSABLE_DIRECTIONAL_LIGHTS            | not defined
+// DISSABLE_OMNI_LIGHTS                   | not defined
+// DISSABLE_SPOT_LIGHTS                   | not defined
+// DISSABLE_SHADOW_MAPPING                | not defined
+// DISSABLE_SHADOW_MAP_DIRECTIONAL_LIGHTS | not defined
+// DISSABLE_SHADOW_MAP_OMNI_LIGHTS        | not defined
+// DISSABLE_SHADOW_MAP_SPOT_LIGHTS        | not defined
+// DISSABLE_FOG                           | not defined
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "deferred\deferred_input.hlsli"
@@ -38,11 +62,8 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const uint2 location = (float2)thread_id.xy;
-
-	uint2 dim;
-	g_output.GetDimensions(dim.x, dim.y);
-	if (any(location >= dim)) {
+	const uint2 location = g_viewport_top_left + thread_id.xy;
+	if (any(location >= g_display_resolution)) {
 		return;
 	}
 
@@ -53,7 +74,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	// Obtain the view-space normal.
 	const float3 n_view     = GetGBufferNormal(location);
 	// Obtain the view-space hit position.
-	const float2 p_ndc_xy   = DispatchThreadIDtoNDC(location);
+	const float2 p_ndc_xy   = DispatchThreadIDtoNDC(thread_id.xy);
 	const float3 p_view     = GetGBufferPosition(location, p_ndc_xy);
 
 	// Calculate the pixel radiance.

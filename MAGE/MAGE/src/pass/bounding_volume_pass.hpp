@@ -121,12 +121,15 @@ namespace mage {
 						A pointer to the scene.
 		 @param[in]		world_to_projection
 						The world-to-projection transformation matrix.
+		 @param[in]		world_to_view
+						The world-to-view transformation matrix.
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
 		void XM_CALLCONV Render(
 			const PassBuffer *scene,
-			FXMMATRIX world_to_projection);
+			FXMMATRIX world_to_projection,
+			CXMMATRIX world_to_view);
 
 	private:
 
@@ -166,14 +169,14 @@ namespace mage {
 		/**
 		 Binds the model data of this bounding volume pass.
 
-		 @param[in]		box_to_projection
-						The box-to-projection transformation matrix used for
+		 @param[in]		box_to_view
+						The box-to-view transformation matrix used for
 						transforming box vertices.
 		 @throws		FormattedException
 						Failed to bind the model data of this bounding volume 
 						pass.
 		 */
-		void XM_CALLCONV BindModelData(FXMMATRIX box_to_projection);
+		void XM_CALLCONV BindModelData(FXMMATRIX box_to_view);
 		
 		/**
 		 Process the given omni lights.
@@ -185,12 +188,18 @@ namespace mage {
 						The world-to-projection transformation matrix. This 
 						transformation matrix will be used for culling and 
 						transforming box vertices.
+		 @param[in]		world_to_view
+						The world-to-view transformation matrix. This 
+						transformation matrix will be chained with the 
+						object-to-view transformation matrix for transforming 
+						vertices.
 		 @throws		FormattedException
 						Failed to process the lights.
 		 */
 		void XM_CALLCONV ProcessLights(
 			const vector< const OmniLightNode * > &lights,
-			FXMMATRIX world_to_projection);
+			FXMMATRIX world_to_projection,
+			CXMMATRIX world_to_view);
 		
 		/**
 		 Process the given spotlights.
@@ -202,12 +211,18 @@ namespace mage {
 						The world-to-projection transformation matrix. This 
 						transformation matrix will be used for culling and 
 						transforming box vertices.
+		 @param[in]		world_to_view
+						The world-to-view transformation matrix. This 
+						transformation matrix will be chained with the 
+						object-to-view transformation matrix for transforming 
+						vertices.
 		 @throws		FormattedException
 						Failed to process the lights.
 		 */
 		void XM_CALLCONV ProcessLights(
 			const vector< const SpotLightNode * > &lights,
-			FXMMATRIX world_to_projection);
+			FXMMATRIX world_to_projection,
+			CXMMATRIX world_to_view);
 		
 		/**
 		 Process the given models.
@@ -219,12 +234,18 @@ namespace mage {
 						The world-to-projection transformation matrix. This 
 						transformation matrix will be used for culling and 
 						transforming box vertices.
+		 @param[in]		world_to_view
+						The world-to-view transformation matrix. This 
+						transformation matrix will be chained with the 
+						object-to-view transformation matrix for transforming 
+						vertices.
 		 @throws		FormattedException
 						Failed to process the models.
 		 */
 		void XM_CALLCONV ProcessModels(
 			const vector< const ModelNode * > &models,
-			FXMMATRIX world_to_projection);
+			FXMMATRIX world_to_projection,
+			CXMMATRIX world_to_view);
 
 		//---------------------------------------------------------------------
 		// Member Variables

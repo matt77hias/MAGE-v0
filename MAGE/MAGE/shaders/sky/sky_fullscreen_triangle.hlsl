@@ -4,17 +4,6 @@
 #include "global.hlsli"
 
 //-----------------------------------------------------------------------------
-// Constant Buffers
-//-----------------------------------------------------------------------------
-CBUFFER(PerFrame, SLOT_CBUFFER_PER_FRAME) {
-	// CAMERA
-	// The projection-to-view transformation matrix.
-	float4x4 g_projection_to_view : packoffset(c0);
-	// The view-to-world transformation matrix.
-	float4x4 g_view_to_world      : packoffset(c4);
-}
-
-//-----------------------------------------------------------------------------
 // SRVs
 //-----------------------------------------------------------------------------
 TEXTURE_CUBE(g_sky, float3, SLOT_SRV_TEXTURE);

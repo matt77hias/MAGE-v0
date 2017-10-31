@@ -35,7 +35,7 @@ namespace mage {
 		 Constructs a game buffer.
 		 */
 		GameBuffer()
-			: m_width(0.0f), m_height(0.0f), 
+			: m_width(0), m_height(0), 
 			m_inv_width_minus1(0.0f), 
 			m_inv_height_minus1(0.0f),
 			m_gamma(0.0f), m_inv_gamma(0.0f), 
@@ -93,12 +93,12 @@ namespace mage {
 		/**
 		 The width of this game buffer.
 		 */
-		F32 m_width;
+		U32 m_width;
 
 		/**
 		 The height of this game buffer.
 		 */
-		F32 m_height;
+		U32 m_height;
 
 		/**
 		 The inverse width minus one of this game buffer.

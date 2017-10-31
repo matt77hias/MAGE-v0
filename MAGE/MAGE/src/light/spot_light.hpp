@@ -264,11 +264,11 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the cosine range where intensity falloff occurs of this 
+		 Returns the cosine range where intensity attenuation occurs of this 
 		 spotlight.
 
-		 @return		The cosine range where intensity falloff occurs of this 
-						spotlight. @a GetStartAngularCutoff() - 
+		 @return		The cosine range where intensity attenuation occurs of 
+						this spotlight. @a GetStartAngularCutoff() - 
 						@a GetEndAngularCutoff().
 		 */
 		F32 GetRangeAngularCutoff() const noexcept {

@@ -7,6 +7,10 @@
 #include "resource\resource_manager.hpp"
 #include "mesh\vertex.hpp"
 
+// AA
+#include "shader\cso\aa\msaa_resolve_CS.hpp"
+#include "shader\cso\aa\ssaa_resolve_CS.hpp"
+
 // Deferred
 #include "shader\cso\deferred\deferred_blinn_phong_CS.hpp"
 #include "shader\cso\deferred\deferred_cook_torrance_CS.hpp"
@@ -104,6 +108,23 @@ namespace mage {
 	// Note: All factory methods could be made lazy. This will not result in 
 	//       performance gains since BufferCompiledShaders are not expensive to 
 	//       create. 
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: AA
+	//-------------------------------------------------------------------------
+#pragma region
+
+	SharedPtr< const ComputeShader > CreateMSAAResolveCS() {
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_msaa_resolve_CS));
+	}
+
+	SharedPtr< const ComputeShader > CreateSSAAResolveCS() {
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_ssaa_resolve_CS));
+	}
+
+#pragma endregion
 
 	//-------------------------------------------------------------------------
 	// Factory Methods: Deferred

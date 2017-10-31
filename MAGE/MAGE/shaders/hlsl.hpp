@@ -2,6 +2,13 @@
 #define MAGE_HEADER_HLSL
 
 //-----------------------------------------------------------------------------
+// Engine Configuration
+//-----------------------------------------------------------------------------
+// Defines			                      | Default
+//-----------------------------------------------------------------------------
+// DISSABLE_INVERTED_Z_BUFFER             | not defined
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 
@@ -58,10 +65,11 @@
 //-----------------------------------------------------------------------------
 
 #define SLOT_CBUFFER_GAME                       0
-#define SLOT_CBUFFER_COLOR                      1
-#define SLOT_CBUFFER_LIGHTING                   1
-#define SLOT_CBUFFER_PER_FRAME                  2
-#define SLOT_CBUFFER_PER_DRAW                   3
+#define SLOT_CBUFFER_PRIMARY_CAMERA             1
+#define SLOT_CBUFFER_COLOR                      2
+#define SLOT_CBUFFER_LIGHTING                   2
+#define SLOT_CBUFFER_MODEL                      3
+#define SLOT_CBUFFER_SECONDARY_CAMERA           4
 
 //-----------------------------------------------------------------------------
 // Engine Includes: Light and Shadow Map SRVs

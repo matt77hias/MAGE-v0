@@ -1,8 +1,31 @@
 //-----------------------------------------------------------------------------
+// Engine Configuration
+//-----------------------------------------------------------------------------
+// Defines			                      | Default
+//-----------------------------------------------------------------------------
+// DISSABLE_DIFFUSE_BRDF                  | not defined
+// DISSABLE_SPECULAR_BRDF                 | not defined
+// BRDF_F_COMPONENT                       | F_Schlick
+// BRDF_D_COMPONENT                       | D_GGX
+// BRDF_G_COMPONENT                       | G_GXX
+// LIGHT_DISTANCE_ATTENUATION_COMPONENT   | DistanceAttenuation
+// LIGHT_ANGULAR_ATTENUATION_COMPONENT    | AngularAttenuation
+// FOG_FACTOR_COMPONENT                   | FogFactor_Exponential
+// BRDFxCOS                               | not defined
+// DISSABLE_AMBIENT_LIGHT                 | not defined
+// DISSABLE_DIRECTIONAL_LIGHTS            | not defined
+// DISSABLE_OMNI_LIGHTS                   | not defined
+// DISSABLE_SPOT_LIGHTS                   | not defined
+// DISSABLE_SHADOW_MAPPING                | not defined
+// DISSABLE_SHADOW_MAP_DIRECTIONAL_LIGHTS | not defined
+// DISSABLE_SHADOW_MAP_OMNI_LIGHTS        | not defined
+// DISSABLE_SHADOW_MAP_SPOT_LIGHTS        | not defined
+// DISSABLE_FOG                           | not defined
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "forward\forward_input.hlsli"
-#include "transform\transform.hlsli"
 #include "lighting.hlsli"
 
 //-----------------------------------------------------------------------------

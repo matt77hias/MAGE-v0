@@ -127,8 +127,6 @@ namespace mage {
 						The world-to-view transformation matrix.
 		 @param[in]		view_to_world
 						The view-to-world transformation matrix.
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix.
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
@@ -136,8 +134,7 @@ namespace mage {
 			const PassBuffer *scene,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world,
-			CXMMATRIX view_to_projection);
+			CXMMATRIX view_to_world);
 
 	private:
 
@@ -145,19 +142,6 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		/**
-		 Binds the projection data of this constant shading pass.
-
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix used for
-						transforming vertices.
-		 @throws		FormattedException
-						Failed to bind the projection data of this constant 
-						shading pass.
-		 */
-		void XM_CALLCONV BindProjectionData(
-			FXMMATRIX view_to_projection);
-		
 		/**
 		 Binds the model data of this constant shading pass.
 
@@ -226,11 +210,6 @@ namespace mage {
 		 */
 		const SharedPtr< const PixelShader > m_ps;
 
-		/**
-		 The projection buffer of this constant shading pass.
-		 */
-		ConstantBuffer< XMMATRIX > m_projection_buffer;
-		
 		/**
 		 The model buffer of this constant shading pass.
 		 */

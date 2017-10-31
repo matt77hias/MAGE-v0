@@ -2,6 +2,17 @@
 #define MAGE_HEADER_BRDF
 
 //-----------------------------------------------------------------------------
+// Engine Configuration
+//-----------------------------------------------------------------------------
+// Defines			                      | Default
+//-----------------------------------------------------------------------------
+// DISSABLE_DIFFUSE_BRDF                  | not defined
+// DISSABLE_SPECULAR_BRDF                 | not defined
+// BRDF_F_COMPONENT                       | F_Schlick
+// BRDF_D_COMPONENT                       | D_GGX
+// BRDF_G_COMPONENT                       | G_GXX
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Constants
 //-----------------------------------------------------------------------------
 

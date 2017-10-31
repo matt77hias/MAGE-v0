@@ -41,92 +41,6 @@ static const float g_pi_inv_4 = 0.785398163f;
 static const float g_sqrt_2_inv_pi = 0.7978845608f;
 
 //-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: HasNaNs
-//-----------------------------------------------------------------------------
-
-/**
- Checks if the given vector contains NANs or QNANs.
-
- @param[in]		v
-				The vector.
- @return		@c true if the given vector contains at least one NAN or QNAN.
-				@c false otherwise.
- */
-bool HasNaNs(float2 v) {
-	const bool2 result = isnan(v);
-	return result.x && result.y;
-}
-
-/**
- Checks if the given vector contains NANs or QNANs.
-
- @param[in]		v
-				The vector.
- @return		@c true if the given vector contains at least one NAN or QNAN.
-				@c false otherwise.
- */
-bool HasNaNs(float3 v) {
-	const bool3 result = isnan(v);
-	return result.x && result.y && result.z;
-}
-
-/**
- Checks if the given vector contains NANs or QNANs.
-
- @param[in]		v
-				The vector.
- @return		@c true if the given vector contains at least one NAN or QNAN.
-				@c false otherwise.
- */
-bool HasNaNs(float4 v) {
-	const bool4 result = isnan(v);
-	return result.x && result.y && result.z && result.w;
-}
-
-//-----------------------------------------------------------------------------
-// Engine Declarations and Definitions: HasInfs
-//-----------------------------------------------------------------------------
-
-/**
- Checks if the given vector contains infinite components.
-
- @param[in]		v
-				The vector.
- @return		@c true if the given vector contains at least one infinite 
-				component. @c false otherwise.
- */
-bool HasInfs(float2 v) {
-	const bool2 result = isinf(v);
-	return result.x && result.y;
-}
-
-/**
- Checks if the given vector contains infinite components.
-
- @param[in]		v
-				The vector.
- @return		@c true if the given vector contains at least one infinite 
-				component. @c false otherwise.
- */
-bool HasInfs(float3 v) {
-	const bool3 result = isinf(v);
-	return result.x && result.y && result.z;
-}
-
-/**
- Checks if the given vector contains infinite components.
-
- @param[in]		v
-				The vector.
- @return		@c true if the given vector contains at least one infinite 
-				component. @c false otherwise.
- */
-bool HasInfs(float4 v) {
-	const bool4 result = isinf(v);
-	return result.x && result.y && result.z && result.w;
-}
-
-//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: sqr
 //-----------------------------------------------------------------------------
 
@@ -656,6 +570,25 @@ float2 NDCtoUV(float2 p_ndc_xy) {
 	// x: [-1,1] -> [0,1]
 	// y: [-1,1] -> [1,0]
 	return float2(0.5f, -0.5f) * p_ndc_xy + 0.5f;
+}
+
+/**
+ Normalizes the given dispatch thread id.
+
+ @pre			@a id is non-normalized 
+				(i.e. in the [0,resolution.x-1] x [0,resolution.y-1] range).
+ @param[in]		id
+				The non-normalized dispatch thread id.
+ @param[in]		inv_resolution_minus1
+				The inverse of the resolution minus 1 
+				[1/(resolution.x-1), 1/(resolution.y-1)].
+ @return		The normalized dispatch thread id corresponding to the given 
+				non-normalized dispatch thread id.
+ */
+float2 NormalizeDispatchThreadID(uint2 id, float2 inv_resolution_minus1) {
+	// x: [0,resolution.x-1] -> [0,1]
+	// y: [0,resolution.y-1] -> [0,1]
+	return id * inv_resolution_minus1;
 }
 
 /**

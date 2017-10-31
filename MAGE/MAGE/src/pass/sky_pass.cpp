@@ -32,22 +32,6 @@ namespace mage {
 
 	SkyPass::~SkyPass() = default;
 
-	void XM_CALLCONV SkyPass::BindTransformData(
-		FXMMATRIX world_to_view,
-		CXMMATRIX view_to_projection) {
-
-		SkyBuffer buffer;
-		buffer.m_world_to_view      = XMMatrixTranspose(world_to_view);
-		buffer.m_view_to_projection = XMMatrixTranspose(view_to_projection);
-		
-		// Update the transform buffer.
-		m_transform_buffer.UpdateData(m_device_context, 
-			buffer);
-		// Bind the transform buffer.
-		m_transform_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_PER_FRAME);
-	}
-
 	void SkyPass::BindFixedState() const noexcept {
 		// IA: Bind the primitive topology.
 		Pipeline::IA::BindPrimitiveTopology(m_device_context,
@@ -74,16 +58,10 @@ namespace mage {
 		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
-	void SkyPass::Render(
-		const PassBuffer *scene,
-		FXMMATRIX world_to_view,
-		CXMMATRIX view_to_projection) {
+	void SkyPass::Render(const PassBuffer *scene) {
 		
 		Assert(scene);
 
-		// Bind the transform data.
-		BindTransformData(world_to_view, view_to_projection);
-		// Bind the sky SRV.
 		Pipeline::PS::BindSRV(m_device_context, 
 			SLOT_SRV_TEXTURE,
 			scene->GetSky()->GetSRV());

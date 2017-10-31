@@ -2,6 +2,15 @@
 #define MAGE_HEADER_LIGHT
 
 //-----------------------------------------------------------------------------
+// Engine Configuration
+//-----------------------------------------------------------------------------
+// Defines			                      | Default
+//-----------------------------------------------------------------------------
+// LIGHT_DISTANCE_ATTENUATION_COMPONENT   | DistanceAttenuation
+// LIGHT_ANGULAR_ATTENUATION_COMPONENT    | AngularAttenuation
+// FOG_FACTOR_COMPONENT                   | FogFactor_Exponential
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "math.hlsli"
@@ -93,16 +102,16 @@ struct SpotLightWithShadowMapping {
 };
 
 /**
- Calculates the distance intensity fallof smoothing factor of a light.
+ Calculates the distance intensity attenuation smoothing factor of a light.
 
  @param[in]		sqr_distance
 				The squared distance between the lit point and the center of 
 				the light.
  @param[in]		inv_sqr_range
 				The inverse squared range of the light.
- @return		The distance intensity fallof smoothing factor.
+ @return		The distance intensity attenuation smoothing factor.
  */
-float DistanceFalloffSmoothingFactor(float sqr_distance, float inv_sqr_range) {
+float DistanceAttenuationSmoothingFactor(float sqr_distance, float inv_sqr_range) {
 	// Frostbite's smoothing:
 	//
 	//         [    distance^2]^2
@@ -113,28 +122,28 @@ float DistanceFalloffSmoothingFactor(float sqr_distance, float inv_sqr_range) {
 }
 
 /**
- Calculates the distance intensity fallof of a light.
+ Calculates the distance intensity attenuation of a light.
 
  @param[in]		distance
 				The distance between the lit point and the center of the light.
  @param[in]		inv_sqr_range
 				The inverse squared range of the light.
- @return		The distance intensity fallof.
+ @return		The distance intensity attenuation.
  */
-float DistanceFalloff(float distance, float inv_sqr_range) {
+float DistanceAttenuation(float distance, float inv_sqr_range) {
 	//                 1
 	// df := -----------------------
 	//       max(distance^2, 0.01^2)
 
 	const float sqr_distance = sqr(distance);
 	const float attenuation  = 1.0f / max(sqr_distance, 0.0001f);
-	const float smoothing    = DistanceFalloffSmoothingFactor(sqr_distance, inv_sqr_range);
+	const float smoothing    = DistanceAttenuationSmoothingFactor(sqr_distance, inv_sqr_range);
 	
 	return attenuation * smoothing;
 }
 
 /**
- Calculates the angular intensity fallof of a light.
+ Calculates the angular intensity attenuation of a light.
 
  @param[in]		cos_theta
 				The cosine of the angle between the direction from the center 
@@ -143,19 +152,20 @@ float DistanceFalloff(float distance, float inv_sqr_range) {
 				The cosine of the umbra angle of the light.
  @param[in]		cos_inv_range
 				The cosine inverse range of the light.
+ @return		The angular intensity attenuation.
  */
-float AngularFalloff(float cos_theta, float cos_umbra, float cos_inv_range) {
+float AngularAttenuation(float cos_theta, float cos_umbra, float cos_inv_range) {
 	// Frostbite's smoothing: sqr
 	return sqr(saturate((cos_theta - cos_umbra) * cos_inv_range));
 }
 
-#ifndef LIGHT_DISTANCE_FALLOFF_COMPONENT
-#define LIGHT_DISTANCE_FALLOFF_COMPONENT DistanceFalloff
-#endif // LIGHT_DISTANCE_FALLOFF_COMPONENT
+#ifndef LIGHT_DISTANCE_ATTENUATION_COMPONENT
+#define LIGHT_DISTANCE_ATTENUATION_COMPONENT DistanceAttenuation
+#endif // LIGHT_DISTANCE_ATTENUATION_COMPONENT
 
-#ifndef LIGHT_ANGULAR_FALLOFF_COMPONENT
-#define LIGHT_ANGULAR_FALLOFF_COMPONENT AngularFalloff
-#endif // LIGHT_ANGULAR_FALLOFF_COMPONENT
+#ifndef LIGHT_ANGULAR_ATTENUATION_COMPONENT
+#define LIGHT_ANGULAR_ATTENUATION_COMPONENT AngularAttenuation
+#endif // LIGHT_ANGULAR_ATTENUATION_COMPONENT
 
 /**
  Calculates the maximal intensity contribution of the given omni light.
@@ -167,9 +177,9 @@ float AngularFalloff(float cos_theta, float cos_umbra, float cos_inv_range) {
  @return		The maximal intensity contribution of the given omni light.
  */
 float3 MaxContribution(OmniLight light, float distance) {
-	const float df = LIGHT_DISTANCE_FALLOFF_COMPONENT(
+	const float da = LIGHT_DISTANCE_ATTENUATION_COMPONENT(
 						distance, light.inv_sqr_range);
-	return df * light.I;
+	return da * light.I;
 }
 
 /**
@@ -186,11 +196,11 @@ float3 MaxContribution(OmniLight light, float distance) {
  */
 float3 MaxContribution(SpotLight light, float distance, float3 l) {
 	const float cos_theta = dot(light.neg_d, l);
-	const float df = LIGHT_DISTANCE_FALLOFF_COMPONENT(
+	const float da = LIGHT_DISTANCE_ATTENUATION_COMPONENT(
 						distance, light.inv_sqr_range);
-	const float af = LIGHT_ANGULAR_FALLOFF_COMPONENT(
+	const float aa = LIGHT_ANGULAR_ATTENUATION_COMPONENT(
 						cos_theta, light.cos_umbra, light.cos_inv_range);
-	return af * df * light.I;
+	return aa * da * light.I;
 }
 
 /**

@@ -58,7 +58,7 @@ namespace mage {
 			XMMatrixTranspose(view_to_projection));
 		// Bind the projection buffer.
 		m_projection_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_PER_FRAME);
+			m_device_context, SLOT_CBUFFER_SECONDARY_CAMERA);
 	}
 
 	void XM_CALLCONV DepthPass::BindOpaqueModelData(
@@ -69,7 +69,7 @@ namespace mage {
 			XMMatrixTranspose(object_to_view));
 		// Bind the model buffer.
 		m_opaque_model_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_PER_DRAW);
+			m_device_context, SLOT_CBUFFER_MODEL);
 	}
 
 	void XM_CALLCONV DepthPass::BindTransparentModelData(
@@ -86,14 +86,14 @@ namespace mage {
 			transform);
 		// Bind the model buffer.
 		m_transparent_model_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_PER_DRAW);
+			m_device_context, SLOT_CBUFFER_MODEL);
 
 		// Update the dissolve buffer.
 		m_dissolve_buffer.UpdateData(m_device_context,
 			XMVectorSet(material->GetBaseColorA(), 0.0f, 0.0f, 0.0f));
 		// Bind the dissolve buffer.
 		m_dissolve_buffer.Bind< Pipeline::PS >(
-			m_device_context, SLOT_CBUFFER_PER_DRAW);
+			m_device_context, SLOT_CBUFFER_MODEL);
 
 		// Bind the diffuse SRV.
 		Pipeline::PS::BindSRV(m_device_context,

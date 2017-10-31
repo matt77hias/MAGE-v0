@@ -11,10 +11,8 @@ namespace mage {
 	 This contains:
 	 @c None,
 	 @c Forward, 
-	 @c DepthAndForward,
 	 @c Deferred,
 	 @c Solid, 
-	 @c DepthAndSolid,
 	 @c BaseColor,
 	 @c BaseColorCoefficient,
 	 @c BaseColorTexture,
@@ -31,10 +29,8 @@ namespace mage {
 		// Rendering
 		None = 0,                    // No shading.
 		Forward,                     // Forward shading.
-		DepthAndForward,             // Depth pass + Forward shading.
 		Deferred,					 // Deferred shading.
-		Solid,                       // Solid shading.
-		DepthAndSolid,               // Depth pass + Solid shading.               
+		Solid,                       // Solid shading.             
 		
 		// Material
 		BaseColor,					 // Base Color (coefficient + texture).

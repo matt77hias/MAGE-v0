@@ -14,16 +14,6 @@
 static const float g_sky_dome_z_scale = 1.5f;
 
 //-----------------------------------------------------------------------------
-// Constant Buffers
-//-----------------------------------------------------------------------------
-CBUFFER(PerDraw, SLOT_CBUFFER_PER_FRAME) {
-	// The world-to-projection transformation matrix.
-	float4x4 g_world_to_view      : packoffset(c0);
-	// The view-to-projection transformation matrix.
-	float4x4 g_view_to_projection : packoffset(c4);
-}
-
-//-----------------------------------------------------------------------------
 // Vertex Shader
 //-----------------------------------------------------------------------------
 

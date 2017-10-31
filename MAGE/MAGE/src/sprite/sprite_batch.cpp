@@ -192,7 +192,7 @@ namespace mage {
 			XMMatrixTranspose(m_transform));
 		// Bind the transform buffer.
 		m_transform_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_PER_FRAME);
+			m_device_context, SLOT_CBUFFER_SECONDARY_CAMERA);
 		// Binds the mesh.
 		m_mesh->BindMesh(m_device_context);
 	}

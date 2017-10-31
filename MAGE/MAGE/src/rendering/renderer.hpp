@@ -22,6 +22,7 @@
 #include "pass\bounding_volume_pass.hpp"
 
 #include "buffer\game_buffer.hpp"
+#include "buffer\camera_buffer.hpp"
 
 #pragma endregion
 
@@ -127,6 +128,29 @@ namespace mage {
 						Failed to bind the persistent state of this renderer.
 		 */
 		void BindPersistentState();
+
+		/**
+		 Binds the camera buffer of this renderer.
+
+		 @param[in]		viewport
+						A reference to the viewport.
+		 @param[in]		view_to_projection
+						The view-to-projection transformation matrix.
+		 @param[in]		projection_to_view
+						The projection-to-view transformation matrix.
+		 @param[in]		world_to_view
+						The world-to-view transformation matrix.
+		 @param[in]		view_to_world
+						The view-to-world transformation matrix.
+		 @throws		FormattedException
+						Failed to bind the persistent state of this renderer.
+		 */
+		void BindCameraBuffer(
+			const Viewport &viewport,
+			FXMMATRIX view_to_projection, 
+			CXMMATRIX projection_to_view,
+			CXMMATRIX world_to_view,
+			CXMMATRIX view_to_world);
 
 		/**
 		 Renders the given scene.
@@ -384,15 +408,13 @@ namespace mage {
 			const Viewport &viewport,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,
-			CXMMATRIX view_to_world,
-			CXMMATRIX view_to_projection);
+			CXMMATRIX view_to_world);
 
 		void ExecuteForwardPipeline(
 			const Viewport &viewport,
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,
 			CXMMATRIX view_to_world,
-			CXMMATRIX view_to_projection,
 			BRDFType brdf);
 
 		void ExecuteDeferredPipeline(
@@ -400,8 +422,6 @@ namespace mage {
 			FXMMATRIX world_to_projection,
 			CXMMATRIX world_to_view,
 			CXMMATRIX view_to_world,
-			CXMMATRIX view_to_projection,
-			CXMMATRIX projection_to_view,
 			BRDFType brdf);
 
 		//---------------------------------------------------------------------
@@ -424,9 +444,14 @@ namespace mage {
 		UniquePtr< PassBuffer > m_pass_buffer;
 		
 		/**
-		 A pointer to the image buffer of this renderer.
+		 A pointer to the game buffer of this renderer.
 		 */
 		ConstantBuffer< GameBuffer > m_game_buffer;
+
+		/**
+		 A pointer to the camera buffer of this renderer.
+		 */
+		ConstantBuffer< CameraBuffer > m_camera_buffer;
 		
 		//---------------------------------------------------------------------
 		// Member Variables: Render Passes

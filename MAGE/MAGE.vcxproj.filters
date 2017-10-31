@@ -858,9 +858,6 @@
     <ClInclude Include="MAGE\src\pass\sky_pass.hpp">
       <Filter>Header Files\pass</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\buffer\sky_buffer.hpp">
-      <Filter>Header Files\buffer</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\memory\memory_stack.hpp">
       <Filter>Header Files\memory</Filter>
     </ClInclude>
@@ -1070,6 +1067,9 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\shader\cso\sky\sky_VS.hpp">
       <Filter>Header Files\shader\cso\sky</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\buffer\camera_buffer.hpp">
+      <Filter>Header Files\buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1474,9 +1474,6 @@
     <FxCompile Include="MAGE\shaders\gbuffer\gbuffer_PS.hlsl">
       <Filter>Shader Files\gbuffer</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\depth\depth_VS.hlsl">
-      <Filter>Shader Files\depth</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\depth\depth_transparent_PS.hlsl">
       <Filter>Shader Files\depth</Filter>
     </FxCompile>
@@ -1629,6 +1626,9 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\aa\fxaa_CS.hlsl">
       <Filter>Shader Files\aa</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\depth\depth_VS.hlsl">
+      <Filter>Shader Files\depth</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

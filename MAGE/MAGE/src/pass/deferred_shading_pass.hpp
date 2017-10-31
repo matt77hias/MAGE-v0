@@ -6,7 +6,6 @@
 #pragma region
 
 #include "pass\pass_buffer.hpp"
-#include "buffer\constant_buffer.hpp"
 #include "shader\shader.hpp"
 
 #pragma endregion
@@ -119,13 +118,12 @@ namespace mage {
 		/**
 		 Render.
 
-		 @param[in]		projection_to_view
-						The projection-to-view transformation matrix.
+		 @param[in]		viewport
+						A reference to the viewport.
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV Render(
-			FXMMATRIX projection_to_view);
+		void Render(const Viewport &viewport);
 		
 	private:
 
@@ -147,18 +145,6 @@ namespace mage {
 		 */
 		void UpdateCS(BRDFType brdf);
 		
-		/**
-		 Binds the GBuffer unpacking data of this deferred shading pass.
-
-		 @param[in]		projection_to_view
-						The projection-to-view transformation matrix.
-		 @throws		FormattedException
-						Failed to bind the projection data of this deferred 
-						shading pass.
-		 */
-		void XM_CALLCONV BindUnpackData(
-			FXMMATRIX projection_to_view);
-	
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
@@ -177,10 +163,5 @@ namespace mage {
 		 The current BRDF of this deferred shading pass.
 		 */
 		BRDFType m_brdf;
-
-		/**
-		 The transform buffer of this deferred shading pass.
-		 */
-		ConstantBuffer< XMMATRIX > m_transform_buffer;
 	};
 }

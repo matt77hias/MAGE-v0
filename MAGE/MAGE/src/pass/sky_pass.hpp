@@ -6,8 +6,6 @@
 #pragma region
 
 #include "pass\pass_buffer.hpp"
-#include "buffer\constant_buffer.hpp"
-#include "buffer\sky_buffer.hpp"
 #include "shader\shader.hpp"
 
 #pragma endregion
@@ -111,36 +109,12 @@ namespace mage {
 		 @pre			@a scene is not equal to @c nullptr.
 		 @param[in]		scene
 						A pointer to the scene.
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix.
 		 @throws		FormattedException
 						Failed to render the scene.
 		 */
-		void XM_CALLCONV Render(const PassBuffer *scene,
-			FXMMATRIX world_to_view, 
-			CXMMATRIX view_to_projection);
+		void Render(const PassBuffer *scene);
 		
 	private:
-
-		//---------------------------------------------------------------------
-		// Member Methods
-		//---------------------------------------------------------------------
-
-		/**
-		 Binds the transform data of this sky pass.
-
-		 @param[in]		world_to_view
-						The world-to-view transformation matrix.
-		 @param[in]		view_to_projection
-						The view-to-projection transformation matrix.
-		 @throws		FormattedException
-						Failed to bind the transform data of this sky.
-		 */
-		void XM_CALLCONV BindTransformData(
-			FXMMATRIX world_to_view,
-			CXMMATRIX view_to_projection);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -160,10 +134,5 @@ namespace mage {
 		 A pointer to the pixel shader of this sky pass.
 		 */
 		const SharedPtr< const PixelShader > m_sky_ps;
-
-		/**
-		 The transform buffer of this sky pass.
-		 */
-		ConstantBuffer< SkyBuffer > m_transform_buffer;
 	};
 }

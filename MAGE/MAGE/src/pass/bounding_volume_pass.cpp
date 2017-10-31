@@ -28,7 +28,8 @@ namespace mage {
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_vs(CreateLineCubeVS()), 
 		m_ps(CreateLineCubePS()),
-		m_color_buffer(), m_model_buffer() {}
+		m_color_buffer(), 
+		m_model_buffer() {}
 
 	BoundingVolumePass::BoundingVolumePass(
 		BoundingVolumePass &&render_pass) = default;
@@ -61,14 +62,14 @@ namespace mage {
 	}
 
 	void XM_CALLCONV BoundingVolumePass::BindModelData(
-		FXMMATRIX box_to_projection) {
+		FXMMATRIX box_to_view) {
 
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, 
-			XMMatrixTranspose(box_to_projection));
+			XMMatrixTranspose(box_to_view));
 		// Bind the model buffer.
 		m_model_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_PER_DRAW);
+			m_device_context, SLOT_CBUFFER_MODEL);
 	}
 
 	void BoundingVolumePass::BindFixedState() {
@@ -99,7 +100,8 @@ namespace mage {
 
 	void XM_CALLCONV BoundingVolumePass::Render(
 		const PassBuffer *scene, 
-		FXMMATRIX world_to_projection) {
+		FXMMATRIX world_to_projection,
+		CXMMATRIX world_to_view) {
 		
 		Assert(scene);
 
@@ -108,31 +110,32 @@ namespace mage {
 		
 		// Process the lights.
 		ProcessLights(scene->GetOmniLights(), 
-			world_to_projection);
+			world_to_projection, world_to_view);
 		ProcessLights(scene->GetOmniLightsWithShadowMapping(), 
-			world_to_projection);
+			world_to_projection, world_to_view);
 		ProcessLights(scene->GetSpotLights(), 
-			world_to_projection);
+			world_to_projection, world_to_view);
 		ProcessLights(scene->GetSpotLightsWithShadowMapping(), 
-			world_to_projection);
+			world_to_projection, world_to_view);
 
 		// Bind the model color data.
 		BindModelColorData();
 
 		// Process the models.
 		ProcessModels(scene->GetOpaqueEmissiveModels(),
-			world_to_projection);
+			world_to_projection, world_to_view);
 		ProcessModels(scene->GetOpaqueBRDFModels(),
-			world_to_projection);
+			world_to_projection, world_to_view);
 		ProcessModels(scene->GetTransparentEmissiveModels(),
-			world_to_projection);
+			world_to_projection, world_to_view);
 		ProcessModels(scene->GetTransparentBRDFModels(),
-			world_to_projection);
+			world_to_projection, world_to_view);
 	}
 
 	void XM_CALLCONV BoundingVolumePass::ProcessLights(
 		const vector< const OmniLightNode * > &lights,
-		FXMMATRIX world_to_projection) {
+		FXMMATRIX world_to_projection,
+		CXMMATRIX world_to_view) {
 
 		for (const auto node : lights) {
 
@@ -154,10 +157,11 @@ namespace mage {
 			box_transform.SetScale(aabb.Diagonal());
 			box_transform.SetTranslation(aabb.Centroid());
 
-			const XMMATRIX box_to_projection      = box_transform.GetObjectToParentMatrix() * object_to_projection;
+			const XMMATRIX object_to_view         = object_to_world * world_to_view;
+			const XMMATRIX box_to_view            = box_transform.GetObjectToParentMatrix() * object_to_view;
 
 			// Bind the model data.
-			BindModelData(box_to_projection);
+			BindModelData(box_to_view);
 			// Draw the line cube.
 			Pipeline::Draw(m_device_context, 24u, 0u);
 		}
@@ -165,7 +169,8 @@ namespace mage {
 
 	void XM_CALLCONV BoundingVolumePass::ProcessLights(
 		const vector< const SpotLightNode * > &lights,
-		FXMMATRIX world_to_projection) {
+		FXMMATRIX world_to_projection,
+		CXMMATRIX world_to_view) {
 
 		for (const auto node : lights) {
 
@@ -186,10 +191,11 @@ namespace mage {
 			box_transform.SetScale(aabb.Diagonal());
 			box_transform.SetTranslation(aabb.Centroid());
 
-			const XMMATRIX box_to_projection     = box_transform.GetObjectToParentMatrix() * object_to_projection;
+			const XMMATRIX object_to_view         = object_to_world * world_to_view;
+			const XMMATRIX box_to_view            = box_transform.GetObjectToParentMatrix() * object_to_view;
 
 			// Bind the model data.
-			BindModelData(box_to_projection);
+			BindModelData(box_to_view);
 			// Draw the line cube.
 			Pipeline::Draw(m_device_context, 24u, 0u);
 		}
@@ -197,7 +203,8 @@ namespace mage {
 
 	void XM_CALLCONV BoundingVolumePass::ProcessModels(
 		const vector< const ModelNode * > &models,
-		FXMMATRIX world_to_projection) {
+		FXMMATRIX world_to_projection,
+		CXMMATRIX world_to_view) {
 
 		for (const auto node : models) {
 
@@ -218,10 +225,11 @@ namespace mage {
 			box_transform.SetScale(aabb.Diagonal());
 			box_transform.SetTranslation(aabb.Centroid());
 
-			const XMMATRIX box_to_projection      = box_transform.GetObjectToParentMatrix() * object_to_projection;
+			const XMMATRIX object_to_view         = object_to_world * world_to_view;
+			const XMMATRIX box_to_view            = box_transform.GetObjectToParentMatrix() * object_to_view;
 
 			// Bind the model data.
-			BindModelData(box_to_projection);
+			BindModelData(box_to_view);
 			// Draw the line cube.
 			Pipeline::Draw(m_device_context, 24u, 0u);
 		}

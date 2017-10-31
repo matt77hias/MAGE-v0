@@ -30,7 +30,7 @@ namespace mage {
 		m_vs(CreateShadingNormalVS()), 
 		m_ps{ CreateShadingNormalPS(false), CreateShadingNormalPS(true) },
 		m_bound_ps(PSIndex::Count),
-		m_projection_buffer(), m_model_buffer() {}
+		m_model_buffer() {}
 
 	ShadingNormalPass::ShadingNormalPass(
 		ShadingNormalPass &&render_pass) = default;
@@ -62,17 +62,6 @@ namespace mage {
 		}
 	}
 
-	void XM_CALLCONV ShadingNormalPass::BindProjectionData(
-		FXMMATRIX view_to_projection) {
-
-		// Update the projection buffer.
-		m_projection_buffer.UpdateData(m_device_context, 
-			XMMatrixTranspose(view_to_projection));
-		// Bind the projection buffer.
-		m_projection_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_PER_FRAME);
-	}
-
 	void XM_CALLCONV ShadingNormalPass::BindModelData(
 		FXMMATRIX object_to_view, 
 		CXMMATRIX world_to_object) {
@@ -86,7 +75,7 @@ namespace mage {
 			buffer);
 		// Bind the model buffer.
 		m_model_buffer.Bind< Pipeline::VS >(
-			m_device_context, SLOT_CBUFFER_PER_DRAW);
+			m_device_context, SLOT_CBUFFER_MODEL);
 	}
 
 	void ShadingNormalPass::BindFixedState(RenderMode render_mode) {
@@ -118,14 +107,10 @@ namespace mage {
 	void XM_CALLCONV ShadingNormalPass::Render(
 		const PassBuffer *scene, 
 		FXMMATRIX world_to_projection,
-		CXMMATRIX world_to_view,
-		CXMMATRIX view_to_projection) {
+		CXMMATRIX world_to_view) {
 		
 		Assert(scene);
 
-		// Bind the projection data.
-		BindProjectionData(view_to_projection);
-		
 		// Process the models (which interact with light).
 		ProcessModels(scene->GetOpaqueBRDFModels(), 
 			world_to_projection, world_to_view);

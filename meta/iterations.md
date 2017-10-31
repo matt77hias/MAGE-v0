@@ -1,11 +1,11 @@
 # Iterations
 
 ## Current iteration' TODOs
-* Shadow Mapping (WIP)
+* Voxel Cone Tracing (WIP)
+* FXAA, TAA, SSAA, MSAA (not for the back buffer this time) (WIP)
+* Shadow Mapping
   * Directional lights
   * Cascaded, Variance
-* Voxel Cone Tracing (WIP)
-* FXAA, TAA, SSAA, MSAA (not for the back buffer this time)
 * SSAO, HBAO
 * SSR
 * Tiled and Clustered Shading

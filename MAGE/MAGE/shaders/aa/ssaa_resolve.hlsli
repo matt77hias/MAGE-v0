@@ -3,6 +3,8 @@
 //-----------------------------------------------------------------------------
 // Defines			                      | Default
 //-----------------------------------------------------------------------------
+// SSAA_X                                 | not defined
+// SSAA_Y                                 | not defined
 // TONE_MAP_COMPONENT                     | ToneMap_Reinhard
 // INVERSE_TONE_MAP_COMPONENT             | InverseToneMap_Reinhard
 

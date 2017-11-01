@@ -3,6 +3,10 @@
 //-----------------------------------------------------------------------------
 // Defines			                      | Default
 //-----------------------------------------------------------------------------
+// DISSABLE_BASE_COLOR_TEXTURE            | not defined
+// DISSABLE_MATERIAL_TEXTURE              | not defined
+// TSNM                                   | not defined
+// ENABLE_TRANSPARENCY                    | not defined
 // DISSABLE_DIFFUSE_BRDF                  | not defined
 // DISSABLE_SPECULAR_BRDF                 | not defined
 // BRDF_F_COMPONENT                       | F_Schlick

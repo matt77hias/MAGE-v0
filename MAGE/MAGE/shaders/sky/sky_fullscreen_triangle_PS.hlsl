@@ -1,4 +1,11 @@
 //-----------------------------------------------------------------------------
+// Engine Configuration
+//-----------------------------------------------------------------------------
+// Defines			                      | Default
+//-----------------------------------------------------------------------------
+// MSAA_AS_SSAA                           | not defined
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
@@ -11,7 +18,12 @@ TEXTURE_CUBE(g_sky, float3, SLOT_SRV_TEXTURE);
 //-----------------------------------------------------------------------------
 // Pixel Shader
 //-----------------------------------------------------------------------------
-float4 PS(PSInputNDCPosition input) : SV_Target {
+#ifdef MSAA_AS_SSAA
+	float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
+#else  // MSAA_AS_SSAA
+	float4 PS(PSInputNDCPosition input) : SV_Target {
+#endif // MSAA_AS_SSAA
+
 	// Obtain the projection space coodinates.
 	const float4 p_proj = float4(input.p_ndc, 1.0f);
 	// Obtain the view space coodinates.

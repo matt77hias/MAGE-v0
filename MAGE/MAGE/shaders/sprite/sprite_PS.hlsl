@@ -1,4 +1,11 @@
 //-----------------------------------------------------------------------------
+// Engine Configuration
+//-----------------------------------------------------------------------------
+// Defines			                      | Default
+//-----------------------------------------------------------------------------
+// MSAA_AS_SSAA                           | not defined
+
+//-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
@@ -11,6 +18,11 @@ TEXTURE_2D(g_sprite, float4, SLOT_SRV_SPRITE);
 //-----------------------------------------------------------------------------
 // Pixel Shader
 //-----------------------------------------------------------------------------
+#ifdef MSAA_AS_SSAA
+float4 PS(PSInputColorTexture input, uint index : SV_SampleIndex) : SV_Target {
+#else  // MSAA_AS_SSAA
 float4 PS(PSInputColorTexture input) : SV_Target {
+#endif // MSAA_AS_SSAA
+
 	return input.color * g_sprite.Sample(g_linear_wrap_sampler, input.tex);
 }

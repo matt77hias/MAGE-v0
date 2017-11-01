@@ -25,6 +25,7 @@
 // DISSABLE_SHADOW_MAP_OMNI_LIGHTS        | not defined
 // DISSABLE_SHADOW_MAP_SPOT_LIGHTS        | not defined
 // DISSABLE_FOG                           | not defined
+// MSAA_AS_SSAA                           | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -35,7 +36,12 @@
 //-----------------------------------------------------------------------------
 // Pixel Shader
 //-----------------------------------------------------------------------------
+#ifdef MSAA_AS_SSAA
+OMInputForward PS(PSInputPositionNormalTexture input, uint index : SV_SampleIndex) {
+#else  // MSAA_AS_SSAA
 OMInputForward PS(PSInputPositionNormalTexture input) {
+#endif // MSAA_AS_SSAA
+
 	// Obtain the base color of the material.
 	const float4 base_color = GetMaterialBaseColor(input.tex);
 

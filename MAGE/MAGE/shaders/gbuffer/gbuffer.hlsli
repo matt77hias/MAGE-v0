@@ -6,6 +6,7 @@
 // DISSABLE_BASE_COLOR_TEXTURE            | not defined
 // DISSABLE_MATERIAL_TEXTURE              | not defined
 // TSNM                                   | not defined
+// MSAA_AS_SSAA                           | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -15,7 +16,12 @@
 //-----------------------------------------------------------------------------
 // Pixel Shader
 //-----------------------------------------------------------------------------
+#ifdef MSAA_AS_SSAA
+OMInputDeferred PS(PSInputPositionNormalTexture input, uint index : SV_SampleIndex) {
+#else  // MSAA_AS_SSAA
 OMInputDeferred PS(PSInputPositionNormalTexture input) {
+#endif // MSAA_AS_SSAA
+
 	// Obtain the base color of the material.
 	const float4 base_color = GetMaterialBaseColor(input.tex);
 

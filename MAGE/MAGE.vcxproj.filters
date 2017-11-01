@@ -1615,9 +1615,6 @@
     <FxCompile Include="MAGE\shaders\sky\sky_VS.hlsl">
       <Filter>Shader Files\sky</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\sky\sky_fullscreen_triangle.hlsl">
-      <Filter>Shader Files\sky</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\aa\ssaa_resolve_CS.hlsl">
       <Filter>Shader Files\aa</Filter>
     </FxCompile>
@@ -1659,6 +1656,9 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\aa\msaa_4x_resolve_CS.hlsl">
       <Filter>Shader Files\aa</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\sky\sky_fullscreen_triangle_PS.hlsl">
+      <Filter>Shader Files\sky</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

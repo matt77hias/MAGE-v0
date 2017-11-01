@@ -2651,6 +2651,7 @@
     <FxCompile>
       <AdditionalIncludeDirectories>$(ProjectName)\shaders\;</AdditionalIncludeDirectories>
       <ShaderModel>5.0</ShaderModel>
+      <ObjectFileOutput />
     </FxCompile>
     <BuildLog>
       <Path>$(IntDir)$(MSBuildProjectName).log</Path>
@@ -2683,6 +2684,7 @@
     <FxCompile>
       <AdditionalIncludeDirectories>$(ProjectName)\shaders\;</AdditionalIncludeDirectories>
       <ShaderModel>5.0</ShaderModel>
+      <ObjectFileOutput />
     </FxCompile>
     <BuildLog>
       <Path>$(IntDir)$(MSBuildProjectName).log</Path>
@@ -2722,6 +2724,7 @@
     <FxCompile>
       <AdditionalIncludeDirectories>$(ProjectName)\shaders\;</AdditionalIncludeDirectories>
       <ShaderModel>5.0</ShaderModel>
+      <ObjectFileOutput />
     </FxCompile>
     <BuildLog>
       <Path>$(IntDir)$(MSBuildProjectName).log</Path>
@@ -2760,6 +2763,7 @@
     <FxCompile>
       <AdditionalIncludeDirectories>$(ProjectName)\shaders\;</AdditionalIncludeDirectories>
       <ShaderModel>5.0</ShaderModel>
+      <ObjectFileOutput />
     </FxCompile>
     <BuildLog>
       <Path>$(IntDir)$(MSBuildProjectName).log</Path>

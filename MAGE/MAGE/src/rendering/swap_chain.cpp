@@ -4,6 +4,8 @@
 #pragma region
 
 #include "rendering\rendering_manager.hpp"
+#include "texture\texture_loader.hpp"
+#include "system\system_time.hpp"
 #include "logging\error.hpp"
 #include "logging\exception.hpp"
 
@@ -157,6 +159,25 @@ namespace mage {
 		const U32 sync_interval 
 			= (m_display_configuration->IsVSynced()) ? 1u : 0u;
 		m_swap_chain->Present(sync_interval, 0u);
+	}
+
+	void SwapChain::TakeScreenShot() const {
+		ComPtr< ID3D11Texture2D > back_buffer;
+		{
+			// Access the only back buffer of the swap-chain.
+			const HRESULT result = m_swap_chain->GetBuffer(
+				0u, __uuidof(ID3D11Texture2D),
+				(void **)back_buffer.GetAddressOf());
+			ThrowIfFailed(result,
+				"Back buffer texture creation failed: %08X.", result);
+		}
+		
+		const wstring fname = L"screenshot-" 
+			                + GetCurrentLocalSystemDateAndTimeAsString() 
+			                + L".png";
+		
+		ExportTextureToFile(fname,
+			Pipeline::GetImmediateDeviceContext(), back_buffer.Get());
 	}
 
 	//-------------------------------------------------------------------------

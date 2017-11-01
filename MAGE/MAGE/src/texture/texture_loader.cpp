@@ -61,7 +61,7 @@ namespace mage {
 	 */
 	inline const GUID GetGUIDContainerFormat(const wstring &extension) noexcept {
 		if (extension == L"png" || extension == L"PNG") {
-			return GUID_ContainerFormatGif;
+			return GUID_ContainerFormatPng;
 		}
 		else if (extension == L"jpe"  || extension == L"JPE"
 			  || extension == L"jpeg" || extension == L"JPEG"

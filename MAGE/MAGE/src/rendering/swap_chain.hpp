@@ -205,6 +205,15 @@ namespace mage {
 		 */
 		void Present() const noexcept;
 
+		/**
+		 Takes a screenshot of the current back buffer of this swap chain.
+
+		 @throws		FormattedException
+						Failed to take a screenshot of the current back buffer 
+						of this swap chain. 
+		 */
+		void TakeScreenShot() const;
+
 	private:
 
 		//---------------------------------------------------------------------

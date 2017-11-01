@@ -36,6 +36,112 @@ namespace mage {
 		return ConvertTimestamp(ftime);
 	}
 
+	const wstring GetCurrentLocalSystemDateAsString() noexcept {
+		
+		FILETIME ftime;
+		// Retrieves the current system date and time.
+		// The information is in Coordinated Universal Time (UTC) format.
+		GetSystemTimeAsFileTime(&ftime);
+
+		FILETIME local_ftime;
+		{
+			const BOOL result = FileTimeToLocalFileTime(&ftime, &local_ftime);
+			if (!result) {
+				return wstring();
+			}
+		}
+
+		SYSTEMTIME local_stime;
+		{
+			const BOOL result = FileTimeToSystemTime(&local_ftime, &local_stime);
+			if (!result) {
+				return wstring();
+			}
+		}
+
+		wchar_t str_date[255];
+
+		const int result = GetDateFormat(LOCALE_USER_DEFAULT, 0,
+			&local_stime, L"yyyy-MM-dd", str_date, _countof(str_date));
+		return (result) ? wstring(str_date) : wstring();
+	}
+
+	const wstring GetCurrentLocalSystemTimeAsString() noexcept {
+		
+		FILETIME ftime;
+		// Retrieves the current system date and time.
+		// The information is in Coordinated Universal Time (UTC) format.
+		GetSystemTimeAsFileTime(&ftime);
+
+		FILETIME local_ftime;
+		{
+			const BOOL result = FileTimeToLocalFileTime(&ftime, &local_ftime);
+			if (!result) {
+				return wstring();
+			}
+		}
+
+		SYSTEMTIME local_stime;
+		{
+			const BOOL result = FileTimeToSystemTime(&local_ftime, &local_stime);
+			if (!result) {
+				return wstring();
+			}
+		}
+
+		wchar_t str_time[255];
+
+		const int result = GetTimeFormat(LOCALE_USER_DEFAULT, 0, 
+			&local_stime, L"HH-mm-ss", str_time, _countof(str_time));
+		return (result) ? wstring(str_time) : wstring();
+	}
+
+	const wstring GetCurrentLocalSystemDateAndTimeAsString() noexcept {
+		
+		FILETIME ftime;
+		// Retrieves the current system date and time.
+		// The information is in Coordinated Universal Time (UTC) format.
+		GetSystemTimeAsFileTime(&ftime);
+
+		FILETIME local_ftime;
+		{
+			const BOOL result = FileTimeToLocalFileTime(&ftime, &local_ftime);
+			if (!result) {
+				return wstring();
+			}
+		}
+
+		SYSTEMTIME local_stime;
+		{
+			const BOOL result = FileTimeToSystemTime(&local_ftime, &local_stime);
+			if (!result) {
+				return wstring();
+			}
+		}
+
+		wchar_t str_date[255];
+		wchar_t str_time[255];
+
+		{
+			const int result 
+				= GetDateFormat(LOCALE_USER_DEFAULT, 0, 
+					&local_stime, L"yyyy-MM-dd", str_date, _countof(str_date));
+			if (!result) {
+				return wstring();
+			}
+		}
+		{
+			const int result 
+				= GetTimeFormat(LOCALE_USER_DEFAULT, 0, 
+					&local_stime, L"HH-mm-ss", str_time, _countof(str_time));
+			if (!result) {
+				return wstring();
+			}
+		}
+
+		return wstring(str_date) + L'-' + wstring(str_time);
+	}
+
 	void GetCurrentCoreTimestamp(HANDLE handle_process,
 		U64 *kernel_mode_timestamp, U64 *user_mode_timestamp) noexcept {
 		

@@ -60,6 +60,21 @@ namespace mage {
 			break;
 		}
 		
+		case WM_KEYUP: {
+			// Sent to the window with the keyboard focus when a nonsystem key 
+			// is released.
+
+			// Check whether the user wants to take a screenshot.
+			if (wParam == VK_SNAPSHOT) {
+				SwapChain::Get()->TakeScreenShot();
+			}
+
+			// Calls the default window procedure to provide default processing 
+			// for any window messages that an application does not process.
+			// This function ensures that every message is processed.
+			return DefWindowProc(hWnd, msg, wParam, lParam);
+		}
+
 		case WM_MENUCHAR: {
 			// Sent when a menu is active and the user presses a key 
 			// that does not correspond to any mnemonic or accelerator key. 
@@ -85,6 +100,24 @@ namespace mage {
 			break;
 		}
 		
+		case WM_SYSKEYUP: {
+			// Sent to the window with the keyboard focus when the user 
+			// releases a key that was pressed while the ALT key was held down. 
+			// It also occurs when no window currently has the keyboard focus; 
+			// in this case, the WM_SYSKEYUP message is sent to the active 
+			// window.
+
+			// Check whether the user wants to take a screenshot.
+			if (wParam == VK_SNAPSHOT) {
+				SwapChain::Get()->TakeScreenShot();
+			}
+
+			// Calls the default window procedure to provide default processing 
+			// for any window messages that an application does not process.
+			// This function ensures that every message is processed.
+			return DefWindowProc(hWnd, msg, wParam, lParam);
+		}
+
 		case WM_SYSKEYDOWN: {
 			// Sent to the window with the keyboard focus when the user presses 
 			// the F10 key (which activates the menu bar) or holds down the ALT 

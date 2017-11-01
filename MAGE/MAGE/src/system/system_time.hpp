@@ -22,6 +22,27 @@ namespace mage {
 	U64 GetCurrentSystemTimestamp() noexcept;
 
 	/**
+	 Returns the current local system date as a string.
+
+	 @return		The current local system date as a string.
+	 */
+	const wstring GetCurrentLocalSystemDateAsString() noexcept;
+
+	/**
+	 Returns the current local system time as a string.
+
+	 @return		The current local system time as a string.
+	 */
+	const wstring GetCurrentLocalSystemTimeAsString() noexcept;
+
+	/**
+	 Returns the current local system date and time as a string.
+
+	 @return		The current local system date and time as a string.
+	 */
+	const wstring GetCurrentLocalSystemDateAndTimeAsString() noexcept;
+
+	/**
 	 Returns the current core timestamp (in 100 ns).
 
 	 @pre			@a handle_process is not equal to @c nullptr.

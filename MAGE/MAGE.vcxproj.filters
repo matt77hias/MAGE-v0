@@ -1630,6 +1630,36 @@
     <FxCompile Include="MAGE\shaders\depth\depth_VS.hlsl">
       <Filter>Shader Files\depth</Filter>
     </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\msaa_8x_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\msaa_16x_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\msaa_32x_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\ssaa_2x_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\ssaa_4x_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\ssaa_8x_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\ssaa_16x_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\ssaa_32x_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\msaa_2x_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\msaa_4x_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\memory\memory_arena.tpp">

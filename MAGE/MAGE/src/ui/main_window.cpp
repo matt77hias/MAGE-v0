@@ -64,15 +64,20 @@ namespace mage {
 			// Sent to the window with the keyboard focus when a nonsystem key 
 			// is released.
 
-			// Check whether the user wants to take a screenshot.
-			if (wParam == VK_SNAPSHOT) {
+			switch(wParam) {
+
+			case VK_SNAPSHOT: {
 				SwapChain::Get()->TakeScreenShot();
 			}
 
-			// Calls the default window procedure to provide default processing 
-			// for any window messages that an application does not process.
-			// This function ensures that every message is processed.
-			return DefWindowProc(hWnd, msg, wParam, lParam);
+			default: {
+				// Calls the default window procedure to provide default processing 
+				// for any window messages that an application does not process.
+				// This function ensures that every message is processed.
+				return DefWindowProc(hWnd, msg, wParam, lParam);
+			}
+
+			}
 		}
 
 		case WM_MENUCHAR: {
@@ -107,15 +112,20 @@ namespace mage {
 			// in this case, the WM_SYSKEYUP message is sent to the active 
 			// window.
 
-			// Check whether the user wants to take a screenshot.
-			if (wParam == VK_SNAPSHOT) {
+			switch (wParam) {
+
+			case VK_SNAPSHOT: {
 				SwapChain::Get()->TakeScreenShot();
 			}
 
-			// Calls the default window procedure to provide default processing 
-			// for any window messages that an application does not process.
-			// This function ensures that every message is processed.
-			return DefWindowProc(hWnd, msg, wParam, lParam);
+			default: {
+				// Calls the default window procedure to provide default processing 
+				// for any window messages that an application does not process.
+				// This function ensures that every message is processed.
+				return DefWindowProc(hWnd, msg, wParam, lParam);
+			}
+
+			}
 		}
 
 		case WM_SYSKEYDOWN: {
@@ -123,17 +133,21 @@ namespace mage {
 			// the F10 key (which activates the menu bar) or holds down the ALT 
 			// key and then presses another key.
 
-			// Check whether the user wants to switch between windowed and full 
-			// screen mode.
-			if (wParam == VK_RETURN) {
+			switch (wParam) {
+
+			case VK_RETURN: {
 				Engine::Get()->OnModeSwitch();
 				break;
 			}
 
-			// Calls the default window procedure to provide default processing 
-			// for any window messages that an application does not process.
-			// This function ensures that every message is processed.
-			return DefWindowProc(hWnd, msg, wParam, lParam);
+			default: {
+				// Calls the default window procedure to provide default processing 
+				// for any window messages that an application does not process.
+				// This function ensures that every message is processed.
+				return DefWindowProc(hWnd, msg, wParam, lParam);
+			}
+
+			}
 		}
 
 		default: {

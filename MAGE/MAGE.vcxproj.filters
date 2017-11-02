@@ -1642,18 +1642,6 @@
     <FxCompile Include="MAGE\shaders\aa\ssaa_2x_resolve_CS.hlsl">
       <Filter>Shader Files\aa</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\aa\ssaa_4x_resolve_CS.hlsl">
-      <Filter>Shader Files\aa</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\aa\ssaa_8x_resolve_CS.hlsl">
-      <Filter>Shader Files\aa</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\aa\ssaa_16x_resolve_CS.hlsl">
-      <Filter>Shader Files\aa</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\aa\ssaa_32x_resolve_CS.hlsl">
-      <Filter>Shader Files\aa</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\aa\msaa_2x_resolve_CS.hlsl">
       <Filter>Shader Files\aa</Filter>
     </FxCompile>
@@ -1668,6 +1656,12 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\tone_mapping\tone_mapper_CS.hlsl">
       <Filter>Shader Files\tone_mapping</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\ssaa_3x_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\ssaa_4x_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

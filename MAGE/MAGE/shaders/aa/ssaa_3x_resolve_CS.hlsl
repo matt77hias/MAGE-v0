@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define SSAA_X 4
-#define SSAA_Y 2
+#define SSAA_X 3
+#define SSAA_Y SSAA_X
 #include "aa\ssaa_resolve.hlsli"

@@ -25,7 +25,8 @@ namespace mage {
 
 	RenderingOutputManager::RenderingOutputManager(
 		ID3D11Device2 *device, U32 width, U32 height)
-		: m_srvs{}, m_rtvs{}, m_uavs{}, m_dsv() {
+		: m_srvs{}, m_rtvs{}, m_uavs{}, m_dsv(), 
+		m_hdr0_to_hdr1(true) {
 
 		SetupBuffers(device, width, height);
 	}
@@ -213,6 +214,8 @@ namespace mage {
 		// Bind no HDR SRV.
 		Pipeline::PS::BindSRV(device_context, 
 			SLOT_SRV_IMAGE, nullptr);
+
+		m_hdr0_to_hdr1 = true;
 	}
 
 	void RenderingOutputManager::BindBeginGBuffer(
@@ -287,15 +290,61 @@ namespace mage {
 			_countof(rtvs), rtvs, m_dsv.Get());
 	}
 
+	void RenderingOutputManager::BindEndForward(
+		ID3D11DeviceContext2 *device_context) const noexcept {
+		
+		// Bind no RTV and no DSV.
+		Pipeline::OM::BindRTVAndDSV(device_context, 
+			nullptr, nullptr);
+	}
+
+	void RenderingOutputManager::BindPingPong(
+		ID3D11DeviceContext2 *device_context) const noexcept {
+
+		// Bind no HDR UAV.
+		Pipeline::CS::BindUAV(device_context,
+			SLOT_UAV_IMAGE, nullptr);
+		
+		if (m_hdr0_to_hdr1) {
+			// Bind HDR SRV.
+			Pipeline::CS::BindSRV(device_context,
+				SLOT_SRV_IMAGE, GetSRV(SRVIndex::HDR0));
+			// Bind HDR UAV.
+			Pipeline::CS::BindUAV(device_context,
+				SLOT_UAV_IMAGE, GetUAV(UAVIndex::HDR1));
+		}
+		else {
+			// Bind HDR SRV.
+			Pipeline::CS::BindSRV(device_context,
+				SLOT_SRV_IMAGE, GetSRV(SRVIndex::HDR1));
+			// Bind HDR UAV.
+			Pipeline::CS::BindUAV(device_context,
+				SLOT_UAV_IMAGE, GetUAV(UAVIndex::HDR0));
+		}
+
+		m_hdr0_to_hdr1 = !m_hdr0_to_hdr1;
+	}
+
 	void RenderingOutputManager::BindEnd(
 		ID3D11DeviceContext2 *device_context) const noexcept {
 
-		// Bind the HDR RTV and DSV.
+		// Bind the back buffer RTV and no DSV.
 		Pipeline::OM::BindRTVAndDSV(device_context,
 			SwapChain::Get()->GetRTV(), nullptr);
+		
+		// Bind no HDR UAV.
+		Pipeline::CS::BindUAV(device_context,
+			SLOT_UAV_IMAGE, nullptr);
 
-		// Bind HDR SRV.
-		Pipeline::PS::BindSRV(device_context,
-			SLOT_SRV_IMAGE, GetSRV(SRVIndex::HDR0));
+		if (m_hdr0_to_hdr1) {
+			// Bind HDR SRV.
+			Pipeline::PS::BindSRV(device_context,
+				SLOT_SRV_IMAGE, GetSRV(SRVIndex::HDR0));
+		}
+		else {
+			// Bind HDR SRV.
+			Pipeline::PS::BindSRV(device_context,
+				SLOT_SRV_IMAGE, GetSRV(SRVIndex::HDR1));
+		}
 	}
 }

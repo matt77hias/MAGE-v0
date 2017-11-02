@@ -229,6 +229,21 @@ namespace mage {
 					world_to_view);
 			}
 		
+			output_manager->BindEndForward(m_device_context);
+			output_manager->BindPingPong(m_device_context);
+
+			// Perform a tone mapper pass.
+			ToneMapperPass * const tone_mapper_pass = GetToneMapperPass();
+			tone_mapper_pass->BindFixedState();
+			tone_mapper_pass->Render(viewport);
+
+			output_manager->BindPingPong(m_device_context);
+
+			// Perform a FXAA pass.
+			FXAAPass * const fxaa_pass = GetFXAAPass();
+			fxaa_pass->BindFixedState();
+			fxaa_pass->Render(viewport);
+
 			output_manager->BindEnd(m_device_context);
 		}
 

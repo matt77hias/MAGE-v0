@@ -121,6 +121,8 @@ namespace mage {
 		void BindBeginDeferred(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindEndDeferred(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindBeginForward(ID3D11DeviceContext2 *device_context) const noexcept;
+		void BindEndForward(ID3D11DeviceContext2 *device_context) const noexcept;
+		void BindPingPong(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindEnd(ID3D11DeviceContext2 *device_context) const noexcept;
 
 	private:
@@ -200,5 +202,7 @@ namespace mage {
 			static_cast< size_t >(UAVIndex::Count)];
 
 		ComPtr< ID3D11DepthStencilView > m_dsv;
+
+		mutable bool m_hdr0_to_hdr1;
 	};
 }

@@ -304,6 +304,9 @@
     <Filter Include="Shader Files\aa">
       <UniqueIdentifier>{84542ce8-cf80-4691-b777-94859e5e1cc5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader Files\tone_mapping">
+      <UniqueIdentifier>{935792f5-1b63-47d4-96b6-af8d1878c17c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -1660,6 +1663,12 @@
     <FxCompile Include="MAGE\shaders\sky\sky_fullscreen_triangle_PS.hlsl">
       <Filter>Shader Files\sky</Filter>
     </FxCompile>
+    <FxCompile Include="MAGE\shaders\tone_mapping\inverse_tone_mapper_CS.hlsl">
+      <Filter>Shader Files\tone_mapping</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\tone_mapping\tone_mapper_CS.hlsl">
+      <Filter>Shader Files\tone_mapping</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MAGE\src\memory\memory_arena.tpp">
@@ -1791,9 +1800,6 @@
     <None Include="MAGE\src\texture\texture.tpp">
       <Filter>Header Files\texture</Filter>
     </None>
-    <None Include="MAGE\shaders\tone_mapping.hlsli">
-      <Filter>Shader Files</Filter>
-    </None>
     <None Include="MAGE\src\memory\memory_stack.tpp">
       <Filter>Header Files\memory</Filter>
     </None>
@@ -1847,6 +1853,15 @@
     </None>
     <None Include="MAGE\shaders\aa\fxaa.hlsli">
       <Filter>Shader Files\aa</Filter>
+    </None>
+    <None Include="MAGE\shaders\tone_mapping\tone_mapper.hlsli">
+      <Filter>Shader Files\tone_mapping</Filter>
+    </None>
+    <None Include="MAGE\shaders\tone_mapping\inverse_tone_mapper.hlsli">
+      <Filter>Shader Files\tone_mapping</Filter>
+    </None>
+    <None Include="MAGE\shaders\tone_mapping\tone_mapping.hlsli">
+      <Filter>Shader Files\tone_mapping</Filter>
     </None>
   </ItemGroup>
 </Project>

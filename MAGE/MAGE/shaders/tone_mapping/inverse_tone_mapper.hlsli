@@ -3,30 +3,41 @@
 //-----------------------------------------------------------------------------
 // Defines			                      | Default
 //-----------------------------------------------------------------------------
-// MSAA_AS_SSAA                           | not defined
+// INVERSE_TONE_MAP_COMPONENT             | InverseToneMap_Reinhard
 
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
 #include "tone_mapping\tone_mapping.hlsli"
-#include "color.hlsli"
 
 //-----------------------------------------------------------------------------
 // SRVs
 //-----------------------------------------------------------------------------
-TEXTURE_2D(g_image_texture, float4, SLOT_SRV_IMAGE);
+TEXTURE_2D(g_input_image_texture,     float4, SLOT_SRV_IMAGE);
 
 //-----------------------------------------------------------------------------
-// Pixel Shader
+// UAVs
 //-----------------------------------------------------------------------------
-#ifdef MSAA_AS_SSAA
-float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
-#else  // MSAA_AS_SSAA
-float4 PS(PSInputNDCPosition input) : SV_Target {
-#endif // MSAA_AS_SSAA
+RW_TEXTURE_2D(g_output_image_texture, float4, SLOT_UAV_IMAGE);
 
-	const float4 hdr = g_image_texture[input.p.xy];
-	const float4 ldr = saturate(TONE_MAP_COMPONENT(hdr));
-	return LinearToGamma(ldr, g_inv_gamma);
+//-----------------------------------------------------------------------------
+// Compute Shader
+//-----------------------------------------------------------------------------
+
+#ifndef GROUP_SIZE
+#define GROUP_SIZE GROUP_SIZE_DEFAULT
+#endif
+
+[numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
+void CS(uint3 thread_id : SV_DispatchThreadID) {
+
+	const uint2 location = g_viewport_top_left + thread_id.xy;
+	if (any(location >= g_display_resolution)) {
+		return;
+	}
+
+	// Store the resolved radiance.
+	g_output_image_texture[location] 
+		= INVERSE_TONE_MAP_COMPONENT(g_input_image_texture[location]);
 }

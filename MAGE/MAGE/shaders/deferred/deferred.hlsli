@@ -21,6 +21,7 @@
 // DISSABLE_SHADOW_MAP_OMNI_LIGHTS        | not defined
 // DISSABLE_SHADOW_MAP_SPOT_LIGHTS        | not defined
 // DISSABLE_FOG                           | not defined
+// MSAA_AS_SSAA                           | not defined (PS only)
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -31,6 +32,30 @@
 //-----------------------------------------------------------------------------
 // Pixel Shader
 //-----------------------------------------------------------------------------
+#ifdef MSAA_AS_SSAA
+
+float4 PS(PSInputNDCPosition input, uint index : SV_SampleIndex) : SV_Target {
+
+	const uint2 location = input.p.xy;
+
+	// Obtain the base color of the material.
+	const float3 base_color = GetGBufferMaterialBaseColor(location, index);
+	// Obtain the parameters of the material.
+	const float2 material   = GetGBufferMaterialParameters(location, index);
+	// Obtain the view-space normal.
+	const float3 n_view     = GetGBufferNormal(location, index);
+	// Obtain the view-space hit position.
+	const float3 p_view     = GetGBufferPosition(location, index, input.p_ndc.xy);
+
+	// Calculate the pixel radiance.
+	const float3 L = BRDFShading(p_view, n_view, 
+		                         base_color, material.x, material.y);
+
+	return float4(L, 1.0f);
+}
+
+#else  // MSAA_AS_SSAA
+
 float4 PS(PSInputNDCPosition input) : SV_Target {
 
 	const uint2 location = input.p.xy;
@@ -51,9 +76,16 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 	return float4(L, 1.0f);
 }
 
+#endif // MSAA_AS_SSAA
+
 //-----------------------------------------------------------------------------
 // Compute Shader
 //-----------------------------------------------------------------------------
+
+// MSAA_AS_SSAA is not possible for deferred shading in the compute shader 
+// without knowing the positioning of the subpixels inside the pixel.
+
+#ifndef MSAA_AS_SSAA
 
 #ifndef GROUP_SIZE
 #define GROUP_SIZE GROUP_SIZE_DEFAULT
@@ -84,3 +116,5 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	// Store the pixel color.
 	g_output[location] = float4(L, 1.0f);
 }
+
+#endif // MSAA_AS_SSAA

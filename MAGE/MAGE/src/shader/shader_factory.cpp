@@ -8,7 +8,16 @@
 #include "mesh\vertex.hpp"
 
 // AA
+#include "shader\cso\aa\fxaa_CS.hpp"
+#include "shader\cso\aa\msaa_2x_resolve_CS.hpp"
+#include "shader\cso\aa\msaa_4x_resolve_CS.hpp"
+#include "shader\cso\aa\msaa_8x_resolve_CS.hpp"
+#include "shader\cso\aa\msaa_16x_resolve_CS.hpp"
+#include "shader\cso\aa\msaa_32x_resolve_CS.hpp"
 #include "shader\cso\aa\msaa_resolve_CS.hpp"
+#include "shader\cso\aa\ssaa_2x_resolve_CS.hpp"
+#include "shader\cso\aa\ssaa_3x_resolve_CS.hpp"
+#include "shader\cso\aa\ssaa_4x_resolve_CS.hpp"
 #include "shader\cso\aa\ssaa_resolve_CS.hpp"
 
 // Deferred
@@ -79,6 +88,10 @@
 #include "shader\cso\sprite\sprite_VS.hpp"
 #include "shader\cso\sprite\sprite_PS.hpp"
 
+// Tone Mapping
+#include "shader\cso\tone_mapping\tone_mapper_CS.hpp"
+#include "shader\cso\tone_mapping\inverse_tone_mapper_CS.hpp"
+
 // Transform
 #include "shader\cso\transform\minimal_transform_VS.hpp"
 #include "shader\cso\transform\transform_VS.hpp"
@@ -114,14 +127,49 @@ namespace mage {
 	//-------------------------------------------------------------------------
 #pragma region
 
-	SharedPtr< const ComputeShader > CreateMSAAResolveCS() {
+	SharedPtr< const ComputeShader > CreateFXAACS() {
 		return ResourceManager::Get()->GetOrCreateCS(
-			MAGE_SHADER_ARGS(g_msaa_resolve_CS));
+				MAGE_SHADER_ARGS(g_fxaa_CS));
 	}
 
-	SharedPtr< const ComputeShader > CreateSSAAResolveCS() {
-		return ResourceManager::Get()->GetOrCreateCS(
-			MAGE_SHADER_ARGS(g_ssaa_resolve_CS));
+	SharedPtr< const ComputeShader > CreateMSAAResolveCS(U32 nb_samples) {
+		switch (nb_samples) {
+		case 2:
+			return ResourceManager::Get()->GetOrCreateCS(
+				MAGE_SHADER_ARGS(g_msaa_2x_resolve_CS));
+		case 4:
+			return ResourceManager::Get()->GetOrCreateCS(
+				MAGE_SHADER_ARGS(g_msaa_4x_resolve_CS));
+		case 8:
+			return ResourceManager::Get()->GetOrCreateCS(
+				MAGE_SHADER_ARGS(g_msaa_8x_resolve_CS));
+		case 16:
+			return ResourceManager::Get()->GetOrCreateCS(
+				MAGE_SHADER_ARGS(g_msaa_16x_resolve_CS));
+		case 32:
+			return ResourceManager::Get()->GetOrCreateCS(
+				MAGE_SHADER_ARGS(g_msaa_32x_resolve_CS));
+		default:
+			return ResourceManager::Get()->GetOrCreateCS(
+				MAGE_SHADER_ARGS(g_msaa_resolve_CS));
+		}
+	}
+
+	SharedPtr< const ComputeShader > CreateSSAAResolveCS(U32 nb_samples) {
+		switch (nb_samples) {
+		case 4:
+			return ResourceManager::Get()->GetOrCreateCS(
+				MAGE_SHADER_ARGS(g_ssaa_2x_resolve_CS));
+		case 9:
+			return ResourceManager::Get()->GetOrCreateCS(
+				MAGE_SHADER_ARGS(g_ssaa_3x_resolve_CS));
+		case 16:
+			return ResourceManager::Get()->GetOrCreateCS(
+				MAGE_SHADER_ARGS(g_ssaa_4x_resolve_CS));
+		default:
+			return ResourceManager::Get()->GetOrCreateCS(
+				MAGE_SHADER_ARGS(g_ssaa_resolve_CS));
+		}
 	}
 
 #pragma endregion
@@ -459,6 +507,23 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
+	// Factory Methods: Tone Mapping
+	//-------------------------------------------------------------------------
+#pragma region
+
+	SharedPtr< const ComputeShader > CreateToneMapperCS() {
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_tone_mapper_CS));
+	}
+
+	SharedPtr< const ComputeShader > CreateInverseToneMapperCS() {
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_inverse_tone_mapper_CS));
+	}
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// Factory Methods: Transform
 	//-------------------------------------------------------------------------
 #pragma region
@@ -487,6 +552,11 @@ namespace mage {
 	SharedPtr< const GeometryShader > CreateVoxelizationGS() {
 		return ResourceManager::Get()->GetOrCreateGS(
 			MAGE_SHADER_ARGS(g_voxelization_GS));
+	}
+
+	SharedPtr< const PixelShader > CreateVoxelizationPS() {
+		return ResourceManager::Get()->GetOrCreatePS(
+			MAGE_SHADER_ARGS(g_voxelization_PS));
 	}
 
 #pragma endregion

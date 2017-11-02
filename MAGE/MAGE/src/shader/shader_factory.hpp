@@ -21,17 +21,32 @@ namespace mage {
 #pragma region
 
 	/**
+	 Creates a FXAA compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the FXAA compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateFXAACS();
+
+	/**
 	 Creates a MSAA resolve compute shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		nb_samples
+					The number of MSAA samples (i.e. subpixels).
 	 @return		A pointer to the MSAA resolve compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateMSAAResolveCS();
+	SharedPtr< const ComputeShader > CreateMSAAResolveCS(U32 nb_samples);
 
 	/**
 	 Creates a SSAA resolve compute shader.
@@ -40,11 +55,13 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
+	 @param[in]		nb_samples
+					The number of SSAA samples (both dimensions).
 	 @return		A pointer to the SSAA resolve compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateSSAAResolveCS();
+	SharedPtr< const ComputeShader > CreateSSAAResolveCS(U32 nb_samples);
 
 #pragma endregion
 
@@ -580,6 +597,39 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
+	// Factory Methods: Tone Mapping
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Creates a tone mapper compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the tone mapper compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateToneMapperCS();
+
+	/**
+	 Creates an inverse tone mapper compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the inverse tone mapper compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateInverseToneMapperCS();
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// Factory Methods: Transform
 	//-------------------------------------------------------------------------
 #pragma region
@@ -609,6 +659,39 @@ namespace mage {
 					Failed to create the vertex shader.
 	 */
 	SharedPtr< const VertexShader > CreateMinimalTransformVS();
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Voxelization
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Creates a voxelization geometry shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the voxelization geometry shader.
+	 @throws		FormattedException
+					Failed to create the geometry shader.
+	 */
+	SharedPtr< const GeometryShader > CreateVoxelizationGS();
+
+	/**
+	 Creates a voxelization pixel shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the voxelization pixel shader.
+	 @throws		FormattedException
+					Failed to create the pixel shader.
+	 */
+	SharedPtr< const PixelShader > CreateVoxelizationPS();
 
 #pragma endregion
 }

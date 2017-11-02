@@ -214,9 +214,8 @@ namespace mage {
 				
 			// Render the current scene.
 			m_engine_stats->PrepareRendering();
-			m_rendering_manager->BeginFrame();
 			m_scene_manager->Render();
-			m_rendering_manager->EndFrame();
+			swap_chain->Present();
 		}
 
 		return static_cast< int >(msg.wParam);

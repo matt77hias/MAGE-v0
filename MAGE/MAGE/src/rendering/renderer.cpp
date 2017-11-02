@@ -30,20 +30,22 @@ namespace mage {
 		m_pass_buffer(MakeUnique< PassBuffer >()),
 		m_game_buffer(device),
 		m_camera_buffer(device),
+		m_back_buffer_pass(),
+		m_bounding_volume_pass(),
+		m_constant_component_pass(),
+		m_constant_shading_pass(),
+		m_deferred_shading_pass(),
 		m_depth_pass(), 
+		m_fxaa_pass(),
 		m_gbuffer_pass(),
 		m_lbuffer_pass(),
-		m_deferred_shading_pass(), 
-		m_variable_shading_pass(),
-		m_sprite_pass(), 
-		m_back_buffer_pass(),
+		m_shading_normal_pass(),
 		m_sky_pass(),
-		m_constant_shading_pass(),
-		m_constant_component_pass(), 
+		m_sprite_pass(),
+		m_tone_mapper_pass(),
 		m_variable_component_pass(),
-		m_shading_normal_pass(), 
-		m_wireframe_pass(), 
-		m_bounding_volume_pass() {}
+		m_variable_shading_pass(),
+		m_wireframe_pass() {}
 	
 	Renderer::Renderer(Renderer &&scene_renderer) = default;
 	

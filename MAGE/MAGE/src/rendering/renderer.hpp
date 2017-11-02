@@ -5,21 +5,22 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "pass\depth_pass.hpp"
-#include "pass\lbuffer_pass.hpp"
-#include "pass\gbuffer_pass.hpp"
-#include "pass\deferred_shading_pass.hpp"
-#include "pass\variable_shading_pass.hpp"
-#include "pass\sky_pass.hpp"
 #include "pass\back_buffer_pass.hpp"
-#include "pass\sprite_pass.hpp"
-
-#include "pass\constant_shading_pass.hpp"
-#include "pass\constant_component_pass.hpp"
-#include "pass\variable_component_pass.hpp"
-#include "pass\shading_normal_pass.hpp"
-#include "pass\wireframe_pass.hpp"
 #include "pass\bounding_volume_pass.hpp"
+#include "pass\constant_component_pass.hpp"
+#include "pass\constant_shading_pass.hpp"
+#include "pass\deferred_shading_pass.hpp"
+#include "pass\depth_pass.hpp"
+#include "pass\fxaa_pass.hpp"
+#include "pass\gbuffer_pass.hpp"
+#include "pass\lbuffer_pass.hpp"
+#include "pass\shading_normal_pass.hpp"
+#include "pass\sky_pass.hpp"
+#include "pass\sprite_pass.hpp"
+#include "pass\tone_mapper_pass.hpp"
+#include "pass\variable_component_pass.hpp"
+#include "pass\variable_shading_pass.hpp"
+#include "pass\wireframe_pass.hpp"
 
 #include "buffer\game_buffer.hpp"
 #include "buffer\camera_buffer.hpp"
@@ -168,6 +169,90 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Returns the back buffer pass of this renderer.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the back buffer pass of this renderer.
+		 */
+		BackBufferPass *GetBackBufferPass() {
+			if (!m_back_buffer_pass) {
+				m_back_buffer_pass = MakeUnique< BackBufferPass >();
+			}
+			return m_back_buffer_pass.get();
+		}
+
+		/**
+		 Returns the bounding volume pass of this renderer.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the bounding volume pass of this scene 
+						renderer.
+		 */
+		BoundingVolumePass *GetBoundingVolumePass() {
+			if (!m_bounding_volume_pass) {
+				m_bounding_volume_pass = MakeUnique< BoundingVolumePass >();
+			}
+			return m_bounding_volume_pass.get();
+		}
+
+		/**
+		 Returns the constant component pass of this renderer.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the constant component pass of this scene 
+						renderer.
+		 */
+		ConstantComponentPass *GetConstantComponentPass() {
+			if (!m_constant_component_pass) {
+				m_constant_component_pass = MakeUnique< ConstantComponentPass >();
+			}
+			return m_constant_component_pass.get();
+		}
+
+		/**
+		 Returns the constant shading pass of this renderer.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the constant shading pass of this scene 
+						renderer.
+		 */
+		ConstantShadingPass *GetConstantShadingPass() {
+			if (!m_constant_shading_pass) {
+				m_constant_shading_pass = MakeUnique< ConstantShadingPass >();
+			}
+			return m_constant_shading_pass.get();
+		}
+
+		/**
+		 Returns the deferred shading pass of this renderer.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the deferred shading pass of this scene 
+						renderer.
+		 */
+		DeferredShadingPass *GetDeferredShadingPass() {
+			if (!m_deferred_shading_pass) {
+				m_deferred_shading_pass = MakeUnique< DeferredShadingPass >();
+			}
+			return m_deferred_shading_pass.get();
+		}
+
+		/**
 		 Returns the depth pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
@@ -181,6 +266,22 @@ namespace mage {
 				m_depth_pass = MakeUnique< DepthPass >();
 			}
 			return m_depth_pass.get();
+		}
+
+		/**
+		 Returns the FXAA pass of this renderer.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the FXAA pass of this renderer.
+		 */
+		FXAAPass *GetFXAAPass() {
+			if (!m_fxaa_pass) {
+				m_fxaa_pass = MakeUnique< FXAAPass >();
+			}
+			return m_fxaa_pass.get();
 		}
 
 		/**
@@ -214,71 +315,22 @@ namespace mage {
 			}
 			return m_lbuffer_pass.get();
 		}
-		
+
 		/**
-		 Returns the deferred shading pass of this renderer.
+		 Returns the shading normal pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
 						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the deferred shading pass of this scene 
+		 @return		A pointer to the shading normal pass of this scene 
 						renderer.
 		 */
-		DeferredShadingPass *GetDeferredShadingPass() {
-			if (!m_deferred_shading_pass) {
-				m_deferred_shading_pass = MakeUnique< DeferredShadingPass >();
+		ShadingNormalPass *GetShadingNormalPass() {
+			if (!m_shading_normal_pass) {
+				m_shading_normal_pass = MakeUnique< ShadingNormalPass >();
 			}
-			return m_deferred_shading_pass.get();
-		}
-
-		/**
-		 Returns the variable shading pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the variable shading pass of this scene 
-						renderer.
-		 */
-		VariableShadingPass *GetVariableShadingPass() {
-			if (!m_variable_shading_pass) {
-				m_variable_shading_pass = MakeUnique< VariableShadingPass >();
-			}
-			return m_variable_shading_pass.get();
-		}
-		
-		/**
-		 Returns the sprite pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the sprite pass of this renderer.
-		 */
-		SpritePass *GetSpritePass() {
-			if (!m_sprite_pass) {
-				m_sprite_pass = MakeUnique< SpritePass >();
-			}
-			return m_sprite_pass.get();
-		}
-
-		/**
-		 Returns the back buffer pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the back buffer pass of this renderer.
-		 */
-		BackBufferPass *GetBackBufferPass() {
-			if (!m_back_buffer_pass) {
-				m_back_buffer_pass = MakeUnique< BackBufferPass >();
-			}
-			return m_back_buffer_pass.get();
+			return m_shading_normal_pass.get();
 		}
 
 		/**
@@ -298,37 +350,35 @@ namespace mage {
 		}
 
 		/**
-		 Returns the constant shading pass of this renderer.
+		 Returns the sprite pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
 						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the constant shading pass of this scene 
-						renderer.
+		 @return		A pointer to the sprite pass of this renderer.
 		 */
-		ConstantShadingPass *GetConstantShadingPass() {
-			if (!m_constant_shading_pass) {
-				m_constant_shading_pass = MakeUnique< ConstantShadingPass >();
+		SpritePass *GetSpritePass() {
+			if (!m_sprite_pass) {
+				m_sprite_pass = MakeUnique< SpritePass >();
 			}
-			return m_constant_shading_pass.get();
+			return m_sprite_pass.get();
 		}
 
 		/**
-		 Returns the constant component pass of this renderer.
+		 Returns the tone mapper pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
 						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the constant component pass of this scene 
-						renderer.
+		 @return		A pointer to the tone mapper pass of this renderer.
 		 */
-		ConstantComponentPass *GetConstantComponentPass() {
-			if (!m_constant_component_pass) {
-				m_constant_component_pass = MakeUnique< ConstantComponentPass >();
+		ToneMapperPass *GetToneMapperPass() {
+			if (!m_tone_mapper_pass) {
+				m_tone_mapper_pass = MakeUnique< ToneMapperPass >();
 			}
-			return m_constant_component_pass.get();
+			return m_tone_mapper_pass.get();
 		}
 
 		/**
@@ -349,20 +399,20 @@ namespace mage {
 		}
 
 		/**
-		 Returns the shading normal pass of this renderer.
+		 Returns the variable shading pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
 						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the shading normal pass of this scene 
+		 @return		A pointer to the variable shading pass of this scene 
 						renderer.
 		 */
-		ShadingNormalPass *GetShadingNormalPass() {
-			if (!m_shading_normal_pass) {
-				m_shading_normal_pass = MakeUnique< ShadingNormalPass >();
+		VariableShadingPass *GetVariableShadingPass() {
+			if (!m_variable_shading_pass) {
+				m_variable_shading_pass = MakeUnique< VariableShadingPass >();
 			}
-			return m_shading_normal_pass.get();
+			return m_variable_shading_pass.get();
 		}
 
 		/**
@@ -379,23 +429,6 @@ namespace mage {
 				m_wireframe_pass = MakeUnique< WireframePass >();
 			}
 			return m_wireframe_pass.get();
-		}
-
-		/**
-		 Returns the bounding volume pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the bounding volume pass of this scene 
-						renderer.
-		 */
-		BoundingVolumePass *GetBoundingVolumePass() {
-			if (!m_bounding_volume_pass) {
-				m_bounding_volume_pass = MakeUnique< BoundingVolumePass >();
-			}
-			return m_bounding_volume_pass.get();
 		}
 
 	private:
@@ -458,9 +491,39 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 A pointer to the back buffer pass of this renderer.
+		 */
+		UniquePtr< BackBufferPass > m_back_buffer_pass;
+
+		/**
+		 A pointer to the bounding volume pass of this renderer.
+		 */
+		UniquePtr< BoundingVolumePass > m_bounding_volume_pass;
+
+		/**
+		 A pointer to the constant component pass of this renderer.
+		 */
+		UniquePtr< ConstantComponentPass > m_constant_component_pass;
+		
+		/**
+		 A pointer to the constant shading pass of this renderer.
+		 */
+		UniquePtr< ConstantShadingPass > m_constant_shading_pass;
+
+		/**
+		 A pointer to the deferred shading pass of this renderer.
+		 */
+		UniquePtr< DeferredShadingPass > m_deferred_shading_pass;
+
+		/**
 		 A pointer to the depth pass of this renderer.
 		 */
 		UniquePtr< DepthPass > m_depth_pass;
+
+		/**
+		 A pointer to the FXAA pass of this renderer.
+		 */
+		UniquePtr< FXAAPass > m_fxaa_pass;
 
 		/**
 		 A pointer to the GBuffer pass of this renderer.
@@ -473,14 +536,14 @@ namespace mage {
 		UniquePtr< LBufferPass >  m_lbuffer_pass;
 
 		/**
-		 A pointer to the deferred shading pass of this renderer.
+		 A pointer to the shading normal pass of this renderer.
 		 */
-		UniquePtr< DeferredShadingPass > m_deferred_shading_pass;
+		UniquePtr< ShadingNormalPass > m_shading_normal_pass;
 
 		/**
-		 A pointer to the variable shading pass of this renderer.
+		 A pointer to the sky pass of this renderer.
 		 */
-		UniquePtr< VariableShadingPass > m_variable_shading_pass;
+		UniquePtr< SkyPass > m_sky_pass;
 
 		/**
 		 A pointer to the sprite pass of this renderer.
@@ -488,24 +551,9 @@ namespace mage {
 		UniquePtr< SpritePass > m_sprite_pass;
 
 		/**
-		 A pointer to the back buffer pass of this renderer.
+		 A pointer to the tone mapper pass of this renderer.
 		 */
-		UniquePtr< BackBufferPass > m_back_buffer_pass;
-
-		/**
-		 A pointer to the sky pass of this renderer.
-		 */
-		UniquePtr< SkyPass > m_sky_pass;
-		
-		/**
-		 A pointer to the constant shading pass of this renderer.
-		 */
-		UniquePtr< ConstantShadingPass > m_constant_shading_pass;
-
-		/**
-		 A pointer to the constant component pass of this renderer.
-		 */
-		UniquePtr< ConstantComponentPass > m_constant_component_pass;
+		UniquePtr< ToneMapperPass > m_tone_mapper_pass;
 
 		/**
 		 A pointer to the variable component pass of this renderer.
@@ -513,18 +561,13 @@ namespace mage {
 		UniquePtr< VariableComponentPass > m_variable_component_pass;
 
 		/**
-		 A pointer to the shading normal pass of this renderer.
+		 A pointer to the variable shading pass of this renderer.
 		 */
-		UniquePtr< ShadingNormalPass > m_shading_normal_pass;
-		
+		UniquePtr< VariableShadingPass > m_variable_shading_pass;
+
 		/**
 		 A pointer to the wireframe pass of this renderer.
 		 */
 		UniquePtr< WireframePass > m_wireframe_pass;
-
-		/**
-		 A pointer to the bounding volume pass of this renderer.
-		 */
-		UniquePtr< BoundingVolumePass > m_bounding_volume_pass;
 	};
 }

@@ -1074,6 +1074,12 @@
     <ClInclude Include="MAGE\src\buffer\camera_buffer.hpp">
       <Filter>Header Files\buffer</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\pass\fxaa_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\pass\tone_mapper_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1444,6 +1450,12 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\swap_chain.cpp">
       <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\fxaa_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\tone_mapper_pass.cpp">
+      <Filter>Source Files\pass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

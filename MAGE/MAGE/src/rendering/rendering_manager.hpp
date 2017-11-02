@@ -220,16 +220,6 @@ namespace mage {
 		 */
 		void BindPersistentState();
 
-		/**
-		 Begins the rendering of the current frame.
-		 */
-		void BeginFrame() const noexcept;
-
-		/**
-		 Ends the rendering of the current frame.
-		 */
-		void EndFrame() const noexcept;
-
 	private:
 
 		//---------------------------------------------------------------------

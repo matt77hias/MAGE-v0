@@ -130,12 +130,4 @@ namespace mage {
 		m_rendering_state_manager->BindPersistentState();
 		m_renderer->BindPersistentState();
 	}
-
-	void RenderingManager::BeginFrame() const noexcept {
-		m_swap_chain->ClearRTV(m_device_context.Get());
-	}
-
-	void RenderingManager::EndFrame() const noexcept {
-		m_swap_chain->Present();
-	}
 }

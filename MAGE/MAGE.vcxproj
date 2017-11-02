@@ -2725,6 +2725,7 @@
       <AdditionalIncludeDirectories>$(ProjectName)\shaders\;</AdditionalIncludeDirectories>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput />
+      <EnableDebuggingInformation>true</EnableDebuggingInformation>
     </FxCompile>
     <BuildLog>
       <Path>$(IntDir)$(MSBuildProjectName).log</Path>
@@ -2764,6 +2765,7 @@
       <AdditionalIncludeDirectories>$(ProjectName)\shaders\;</AdditionalIncludeDirectories>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput />
+      <EnableDebuggingInformation>true</EnableDebuggingInformation>
     </FxCompile>
     <BuildLog>
       <Path>$(IntDir)$(MSBuildProjectName).log</Path>

@@ -30,7 +30,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 #endif
 
 	// Create the engine setup.
-	EngineSetup setup(hinstance, L"Engine Control Test");
+	EngineSetup setup(hinstance, L"MAGE");
 	// Create the engine.
 	UniquePtr< Engine > engine = MakeUnique< Engine >(setup);
 	

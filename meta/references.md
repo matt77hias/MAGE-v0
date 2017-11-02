@@ -86,6 +86,8 @@ KARIS B.: *Real Shading in Unreal Engine 4*, *SIGGRAPH 2013 Course: Physically B
 
 KARIS B.: [*Specular BRDF Reference*](http://graphicrants.blogspot.be/2013/08/specular-brdf-reference.html), 2013. 
 
+KARIS B.: [*Tone Mapping*](http://graphicrants.blogspot.be/2013/12/tone-mapping.html), 2013.
+
 KAJIYA J. T.: *The Rendering Equation*, *Proceedings of the 13th Annual Conference on Computer Graphics and Interactive Techniques*, 1986.
 
 KELEMEN C., SZIRMAY-KALOS L.: *A Microfacet Based Coupled Specular-Matte BRDF Model with Importance Sampling*, *Eurographics Short Presentations*, 2001.
@@ -95,6 +97,8 @@ KEMEN B.: [*Maximizing Depth Buffer Range and Precision*](http://outerra.blogspo
 LAGARDE S., DE ROUSIERS C.: *Moving Frostbite to Physically Based Rendering 3.0*, *SIGGRAPH 2014 Course: Physically Based Shading in Theory and Practice*, 2014.
 
 LAPIDOUS E., JIA G.: *Optimal depth buffer for low-cost graphics hardware*, *Proceedings of the ACM SIGGRAPH/EUROGRAPHICS Workshop on Graphics Hardware*, 1999.
+
+LOTTES T.: [*Optimized Reversible Tonemapper for Resolve*](https://gpuopen.com/optimized-reversible-tonemapper-for-resolve/), 2016.
 
 LENGYEL E.: *Foundations of Game Engine Development, Volume 1: Mathematics*, 1st Edition, Terathon Software LLC, 2016.
 

@@ -185,7 +185,7 @@ namespace mage {
 			HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 
 		/**
-		 An enumeration of the different hot keys.
+		 An enumeration of the different hot keys registered by main windows.
 
 		 This contains:
 		 @c Unused,

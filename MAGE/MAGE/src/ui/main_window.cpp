@@ -60,13 +60,14 @@ namespace mage {
 			break;
 		}
 		
-		case WM_KEYUP: {
-			// Sent to the window with the keyboard focus when a nonsystem key 
-			// is released.
+		case WM_HOTKEY: {
+			// Posted when the user presses a hot key registered by the 
+			// RegisterHotKey function.
 
 			switch(wParam) {
 
-			case VK_SNAPSHOT: {
+			case static_cast< int >(HotKey::PrintScreen) :
+			case static_cast< int >(HotKey::AltPrintScreen): {
 				SwapChain::Get()->TakeScreenShot();
 			}
 
@@ -105,29 +106,6 @@ namespace mage {
 			break;
 		}
 		
-		case WM_SYSKEYUP: {
-			// Sent to the window with the keyboard focus when the user 
-			// releases a key that was pressed while the ALT key was held down. 
-			// It also occurs when no window currently has the keyboard focus; 
-			// in this case, the WM_SYSKEYUP message is sent to the active 
-			// window.
-
-			switch (wParam) {
-
-			case VK_SNAPSHOT: {
-				SwapChain::Get()->TakeScreenShot();
-			}
-
-			default: {
-				// Calls the default window procedure to provide default processing 
-				// for any window messages that an application does not process.
-				// This function ensures that every message is processed.
-				return DefWindowProc(hWnd, msg, wParam, lParam);
-			}
-
-			}
-		}
-
 		case WM_SYSKEYDOWN: {
 			// Sent to the window with the keyboard focus when the user presses 
 			// the F10 key (which activates the menu bar) or holds down the ALT 
@@ -286,6 +264,25 @@ namespace mage {
 
 		if (!m_hwindow) {
 			throw FormattedException("Main window creation failed.");
+		}
+
+		// Register a print screen hot key, because pressing down VK_SNAPSHOT 
+		// does not result in a WM_KEYDOWN (or WM_SYSKEYDOWN).
+		{
+			const BOOL result = RegisterHotKey(m_hwindow,
+				static_cast<int>(HotKey::AltPrintScreen), 
+				MOD_ALT | MOD_NOREPEAT, VK_SNAPSHOT);
+			if (!result) {
+				throw FormattedException("Registering hot key failed.");
+			}
+		}
+		{
+			const BOOL result = RegisterHotKey(m_hwindow,
+				static_cast<int>(HotKey::PrintScreen),
+				MOD_NOREPEAT, VK_SNAPSHOT);
+			if (!result) {
+				throw FormattedException("Registering hot key failed.");
+			}
 		}
 	}
 

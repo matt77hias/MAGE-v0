@@ -184,6 +184,20 @@ namespace mage {
 		static LRESULT CALLBACK MainWindowProc(
 			HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 
+		/**
+		 An enumeration of the different hot keys.
+
+		 This contains:
+		 @c Unused,
+		 @c PrintScreen, and
+		 @c AltPrintScreen.
+		 */
+		enum struct HotKey {
+			Unused         = 0,
+			PrintScreen    = 1,
+			AltPrintScreen = 2,
+		};
+
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------

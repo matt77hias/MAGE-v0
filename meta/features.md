@@ -36,6 +36,7 @@
 
 ### Rendering
 * AA
+  * FXAA
   * ~~MSAA~~~ (*not supported any more (HDR pipeline)*)
 * BRDFs (single BRDF/camera)
   * Lambertian

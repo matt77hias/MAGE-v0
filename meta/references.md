@@ -225,6 +225,7 @@ Uses:
 * [Brooke Hodgman](https://github.com/hodgman)
 * [Chuck Walbourn](https://github.com/walbourn)
 * [Eric Richards](https://github.com/ericrrichards)
+* [Krzysztof Narkowicz](https://github.com/knarkowicz)
 * [Maarten Tegelaers](https://github.com/BeardedPlatypus)
 * Matías N. Goldberg
 * [Matt Pettineo](https://github.com/TheRealMJP)

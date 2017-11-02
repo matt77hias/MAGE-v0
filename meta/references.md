@@ -82,6 +82,8 @@ HILL S.: [*Specular Showdown in the Wild West*](http://blog.selfshadow.com/2011/
 
 HUGHES, J. F., MÖLLER, T.: *Building an Orthonormal Basis from a Unit Vector*, *Journal of Graphics Tools* 4, 4, 1999.
 
+ISHEDEN D.: [*HDR inverse tone mapping MSAA resolve*](http://theagentd.blogspot.be/2013/01/hdr-inverse-tone-mapping-msaa-resolve.html), 2013.
+
 KARIS B.: *Real Shading in Unreal Engine 4*, *SIGGRAPH 2013 Course: Physically Based Shading in Theory and Practice*, 2013.
 
 KARIS B.: [*Specular BRDF Reference*](http://graphicrants.blogspot.be/2013/08/specular-brdf-reference.html), 2013. 

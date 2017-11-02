@@ -1,6 +1,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define MSAA_X 8
-#define MSAA_Y 4
+// [numthreads(32, 4, 4)] = 512
+#define MSAA 32
+#define GROUP_SIZE 4
 #include "aa\msaa_resolve.hlsli"

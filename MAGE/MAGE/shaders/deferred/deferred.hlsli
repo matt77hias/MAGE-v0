@@ -3,6 +3,7 @@
 //-----------------------------------------------------------------------------
 // Defines			                      | Default
 //-----------------------------------------------------------------------------
+// GROUP_SIZE                             | GROUP_SIZE_DEFAULT (CS only)
 // DISSABLE_DIFFUSE_BRDF                  | not defined
 // DISSABLE_SPECULAR_BRDF                 | not defined
 // BRDF_F_COMPONENT                       | F_Schlick

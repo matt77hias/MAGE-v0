@@ -1663,9 +1663,6 @@
     <FxCompile Include="MAGE\shaders\sky\sky_fullscreen_triangle_PS.hlsl">
       <Filter>Shader Files\sky</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\tone_mapping\inverse_tone_mapper_CS.hlsl">
-      <Filter>Shader Files\tone_mapping</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\tone_mapping\tone_mapper_CS.hlsl">
       <Filter>Shader Files\tone_mapping</Filter>
     </FxCompile>
@@ -1859,12 +1856,6 @@
     </None>
     <None Include="MAGE\shaders\aa\fxaa.hlsli">
       <Filter>Shader Files\aa</Filter>
-    </None>
-    <None Include="MAGE\shaders\tone_mapping\tone_mapper.hlsli">
-      <Filter>Shader Files\tone_mapping</Filter>
-    </None>
-    <None Include="MAGE\shaders\tone_mapping\inverse_tone_mapper.hlsli">
-      <Filter>Shader Files\tone_mapping</Filter>
     </None>
     <None Include="MAGE\shaders\tone_mapping\tone_mapping.hlsli">
       <Filter>Shader Files\tone_mapping</Filter>

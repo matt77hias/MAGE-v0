@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 // Defines			                      | Default
 //-----------------------------------------------------------------------------
-// INVERSE_TONE_MAP_COMPONENT             | InverseToneMap_Reinhard
+// GROUP_SIZE                             | GROUP_SIZE_DEFAULT
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -68,5 +68,5 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	);
 
 	// Store the resolved radiance.
-	g_output_image_texture[location] = INVERSE_TONE_MAP_COMPONENT(ldr);
+	g_output_image_texture[location] = InverseToneMap_Max3(ldr);
 }

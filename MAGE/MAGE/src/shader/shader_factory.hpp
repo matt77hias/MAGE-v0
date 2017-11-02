@@ -614,19 +614,6 @@ namespace mage {
 	 */
 	SharedPtr< const ComputeShader > CreateToneMapperCS();
 
-	/**
-	 Creates an inverse tone mapper compute shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the inverse tone mapper compute shader.
-	 @throws		FormattedException
-					Failed to create the compute shader.
-	 */
-	SharedPtr< const ComputeShader > CreateInverseToneMapperCS();
-
 #pragma endregion
 
 	//-------------------------------------------------------------------------

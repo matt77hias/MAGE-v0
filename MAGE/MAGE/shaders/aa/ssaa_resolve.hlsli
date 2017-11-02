@@ -3,10 +3,8 @@
 //-----------------------------------------------------------------------------
 // Defines			                      | Default
 //-----------------------------------------------------------------------------
-// SSAA_X                                 | not defined
-// SSAA_Y                                 | not defined
-// TONE_MAP_COMPONENT                     | ToneMap_Reinhard
-// INVERSE_TONE_MAP_COMPONENT             | InverseToneMap_Reinhard
+// SSAA                                   | not defined
+// GROUP_SIZE                             | GROUP_SIZE_DEFAULT
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -35,11 +33,7 @@ RW_TEXTURE_2D(g_output_depth_texture,  float,  SLOT_UAV_DEPTH);
 // Note: GameBuffer and PrimaryCameraBuffer should reflect the display and 
 //       camera viewport after resolving SSAA (i.e. output instead of input).
 
-#ifndef GROUP_SIZE
-#define GROUP_SIZE GROUP_SIZE_DEFAULT
-#endif
-
-#if defined(SSAA_X) && defined(SSAA_Y)
+#if defined(SSAA) && defined(GROUP_SIZE) && defined(GROUP_SIZE)
 
 struct Data {
 	float4 ldr;
@@ -47,38 +41,41 @@ struct Data {
 	float  depth;
 };
 
-groupshared Data data[GROUP_SIZE][GROUP_SIZE];
+groupshared Data data[SSAA * SSAA * GROUP_SIZE * GROUP_SIZE];
 
-[numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
-void CS(uint3 thread_id : SV_DispatchThreadID, 
-	uint3 group_thread_id : SV_GroupThreadID) {
+[numthreads((SSAA * SSAA), GROUP_SIZE, GROUP_SIZE)]
+void CS(uint3 thread_id : SV_DispatchThreadID,
+	uint3 group_thread_id : SV_GroupThreadID,
+	uint  group_index : SV_GroupIndex) {
+
+	static const float weight = 1.0f / (SSAA * SSAA);
+
+	const uint2 output_location = g_viewport_top_left + thread_id.yz;
+	const uint2 input_location  = output_location * SSAA 
+		+ uint2(group_thread_id.x % SSAA, group_thread_id.x / SSAA);
 	
-	const uint2 input_location  = g_viewport_top_left * uint2(SSAA_X, SSAA_Y)
-		                          + thread_id.xy;
-
 	// Accessing a texture out of bounds, results in zeros. All threads in a 
 	// SSAA tile have or do not have data available. Thus the averaging will
 	// always be correct.
 
 	// Collect and store the data in the group shared memory.
-	const float4 hdr = g_input_image_texture[input_location];
-	data[group_thread_id.x][group_thread_id.y].ldr 
-		= saturate(TONE_MAP_COMPONENT(hdr));
-	data[group_thread_id.x][group_thread_id.y].normal 
-		= g_input_normal_texture[input_location];
-	data[group_thread_id.x][group_thread_id.y].depth 
-		= g_input_depth_texture[input_location];
+	data[group_index].ldr    = ToneMap_Max3(
+		                       g_input_image_texture[input_location], 
+		                       weight);
+	data[group_index].normal = g_input_normal_texture[input_location];
+	data[group_index].depth  = g_input_depth_texture[input_location];
 
 	// Sync all group shared memory accesses.
 	GroupMemoryBarrierWithGroupSync();
 
 	// Early termination.
-	const uint2 sample_index = group_thread_id.xy % uint2(SSAA_X, SSAA_Y);
-	if (any(0 != sample_index)) {
+	if (0 != group_thread_id.x) {
 		return;
 	}
-	// No need to check the output location.
-
+	if (any(output_location >= g_display_resolution)) {
+		return;
+	}
+	
 	float4 ldr_sum    = 0.0f;
 	float3 normal_sum = 0.0f;
 #ifdef DISSABLE_INVERTED_Z_BUFFER
@@ -89,35 +86,30 @@ void CS(uint3 thread_id : SV_DispatchThreadID,
 	
 	// Resolve the (multi-sampled) radiance, normal and depth.
 	[unroll]
-	for (uint i = 0, x = group_thread_id.x; i < SSAA_X; ++i, ++x) {
-		[unroll]
-		for (uint j = 0, y = group_thread_id.y; j < SSAA_Y; ++j, ++y) {
-			ldr_sum    += data[x][y].ldr;
-			normal_sum += data[x][y].normal;
+	for (uint i = group_index; i < group_index + (SSAA * SSAA); ++i) {
+		ldr_sum    += data[i].ldr;
+		normal_sum += data[i].normal;
 
 #ifdef DISSABLE_INVERTED_Z_BUFFER
-			depth = min(depth, data[x][y].depth);
+		depth = min(depth, data[i].depth);
 #else  // DISSABLE_INVERTED_Z_BUFFER
-			depth = max(depth, data[x][y].depth);
+		depth = max(depth, data[i].depth);
 #endif // DISSABLE_INVERTED_Z_BUFFER
-		}
 	}
 
-	static const float inv_nb_samples = 1.0f / (SSAA_X * SSAA_Y);
-
-	const uint2 output_location = g_viewport_top_left 
-		                          + thread_id.xy / uint2(SSAA_X, SSAA_Y);
-
 	// Store the resolved radiance.
-	g_output_image_texture[output_location] 
-		= INVERSE_TONE_MAP_COMPONENT(ldr_sum * inv_nb_samples);
+	g_output_image_texture[output_location]  = InverseToneMap_Max3(ldr_sum);
 	// Store the resolved normal.
 	g_output_normal_texture[output_location] = normalize(normal_sum);
 	// Store the resolved depth.
 	g_output_depth_texture[output_location]  = depth;
 }
 
-#else  // SSAA_X && SSAA_Y
+#else  // SSAA && GROUP_SIZE && GROUP_SIZE
+
+#ifndef GROUP_SIZE
+#define GROUP_SIZE GROUP_SIZE_DEFAULT
+#endif
 
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
@@ -131,8 +123,9 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	g_input_image_texture.GetDimensions(input_dim.x, input_dim.y);
 
 	const uint2 nb_samples     = g_display_resolution / input_dim;
+	const float weight         = 1.0f / (nb_samples.x * nb_samples.y);
 	const uint2 input_location = output_location * nb_samples;
-
+	
 	float4 ldr_sum    = 0.0f;
 	float3 normal_sum = 0.0f;
 #ifdef DISSABLE_INVERTED_Z_BUFFER
@@ -147,28 +140,25 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 			const uint2 location = input_location + uint2(i,j);
 
-			const float4 hdr = g_input_image_texture[location];
-			ldr_sum += saturate(TONE_MAP_COMPONENT(hdr));
+			ldr_sum += ToneMap_Max3(g_input_image_texture[location],
+				                    weight);
 
 			normal_sum += g_input_normal_texture[location];
 
 #ifdef DISSABLE_INVERTED_Z_BUFFER
-			depth = min(depth, g_input_depth_texture[input_location]);
+			depth = min(depth, g_input_depth_texture[location]);
 #else  // DISSABLE_INVERTED_Z_BUFFER
 			depth = max(depth, g_input_depth_texture[location]);
 #endif // DISSABLE_INVERTED_Z_BUFFER
 		}
 	}
 
-	const float inv_nb_samples = 1.0f / (nb_samples.x * nb_samples.y);
-
 	// Store the resolved radiance.
-	g_output_image_texture[output_location] 
-		= INVERSE_TONE_MAP_COMPONENT(ldr_sum * inv_nb_samples);
+	g_output_image_texture[output_location]  = InverseToneMap_Max3(ldr_sum);
 	// Store the resolved normal.
 	g_output_normal_texture[output_location] = normalize(normal_sum);
 	// Store the resolved depth.
 	g_output_depth_texture[output_location]  = depth;
 }
 
-#endif
+#endif // SSAA && GROUP_SIZE && GROUP_SIZE

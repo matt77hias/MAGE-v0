@@ -90,7 +90,6 @@
 
 // Tone Mapping
 #include "shader\cso\tone_mapping\tone_mapper_CS.hpp"
-#include "shader\cso\tone_mapping\inverse_tone_mapper_CS.hpp"
 
 // Transform
 #include "shader\cso\transform\minimal_transform_VS.hpp"
@@ -514,11 +513,6 @@ namespace mage {
 	SharedPtr< const ComputeShader > CreateToneMapperCS() {
 		return ResourceManager::Get()->GetOrCreateCS(
 			MAGE_SHADER_ARGS(g_tone_mapper_CS));
-	}
-
-	SharedPtr< const ComputeShader > CreateInverseToneMapperCS() {
-		return ResourceManager::Get()->GetOrCreateCS(
-			MAGE_SHADER_ARGS(g_inverse_tone_mapper_CS));
 	}
 
 #pragma endregion

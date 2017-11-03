@@ -17,26 +17,27 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ToneMapperPass *ToneMapperPass::Get() {
+	AAPreprocessPass *AAPreprocessPass::Get() {
 		Assert(Renderer::Get());
 
-		return Renderer::Get()->GetToneMapperPass();
+		return Renderer::Get()->GetAAPreprocessPass();
 	}
 
-	ToneMapperPass::ToneMapperPass()
+	AAPreprocessPass::AAPreprocessPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
-		m_cs(CreateToneMapperCS()) {}
+		m_cs(CreateAAPreprocessCS()) {}
 
-	ToneMapperPass::ToneMapperPass(ToneMapperPass &&render_pass) = default;
+	AAPreprocessPass::AAPreprocessPass(
+		AAPreprocessPass &&render_pass) = default;
 
-	ToneMapperPass::~ToneMapperPass() = default;
+	AAPreprocessPass::~AAPreprocessPass() = default;
 
-	void ToneMapperPass::BindFixedState() const noexcept {
+	void AAPreprocessPass::BindFixedState() const noexcept {
 		// CS: Bind the compute shader.
 		m_cs->BindShader(m_device_context);
 	}
 
-	void ToneMapperPass::Render(const Viewport &viewport) {
+	void AAPreprocessPass::Render(const Viewport &viewport) {
 
 		// Dispatch.
 		const U32 nb_groups_x

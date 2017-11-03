@@ -2,7 +2,7 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
-#include "tone_mapping\tone_mapping.hlsli"
+#include "tone_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
 // SRVs
@@ -30,7 +30,10 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 		return;
 	}
 
+	const float3 hdr      = g_input_image_texture[location].xyz;
+	const float luminance = Luminance(hdr);
+
 	// Store the resolved radiance.
-	g_output_image_texture[location]
-		= ToneMap_Max3(g_input_image_texture[location]);
+	// The alpha channel contains the luminance (needed for FXAA).
+	g_output_image_texture[location] = float4(ToneMap_Max3(hdr), luminance);
 }

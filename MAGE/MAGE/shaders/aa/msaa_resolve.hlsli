@@ -10,7 +10,7 @@
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
-#include "tone_mapping\tone_mapping.hlsli"
+#include "tone_mapping.hlsli"
 
 //-----------------------------------------------------------------------------
 // SRVs

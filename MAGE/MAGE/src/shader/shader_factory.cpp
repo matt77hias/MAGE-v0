@@ -8,6 +8,7 @@
 #include "mesh\vertex.hpp"
 
 // AA
+#include "shader\cso\aa\aa_preprocess_CS.hpp"
 #include "shader\cso\aa\fxaa_CS.hpp"
 #include "shader\cso\aa\msaa_2x_resolve_CS.hpp"
 #include "shader\cso\aa\msaa_4x_resolve_CS.hpp"
@@ -88,9 +89,6 @@
 #include "shader\cso\sprite\sprite_VS.hpp"
 #include "shader\cso\sprite\sprite_PS.hpp"
 
-// Tone Mapping
-#include "shader\cso\tone_mapping\tone_mapper_CS.hpp"
-
 // Transform
 #include "shader\cso\transform\minimal_transform_VS.hpp"
 #include "shader\cso\transform\transform_VS.hpp"
@@ -125,6 +123,11 @@ namespace mage {
 	// Factory Methods: AA
 	//-------------------------------------------------------------------------
 #pragma region
+
+	SharedPtr< const ComputeShader > CreateAAPreprocessCS() {
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_aa_preprocess_CS));
+	}
 
 	SharedPtr< const ComputeShader > CreateFXAACS() {
 		return ResourceManager::Get()->GetOrCreateCS(
@@ -501,18 +504,6 @@ namespace mage {
 	SharedPtr< const PixelShader > CreateSpritePS() {
 		return ResourceManager::Get()->GetOrCreatePS(
 			MAGE_SHADER_ARGS(g_sprite_PS));
-	}
-
-#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Factory Methods: Tone Mapping
-	//-------------------------------------------------------------------------
-#pragma region
-
-	SharedPtr< const ComputeShader > CreateToneMapperCS() {
-		return ResourceManager::Get()->GetOrCreateCS(
-			MAGE_SHADER_ARGS(g_tone_mapper_CS));
 	}
 
 #pragma endregion

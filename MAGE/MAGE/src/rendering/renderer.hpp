@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
+#include "pass\aa_preprocess_pass.hpp"
 #include "pass\back_buffer_pass.hpp"
 #include "pass\bounding_volume_pass.hpp"
 #include "pass\constant_component_pass.hpp"
@@ -17,7 +18,6 @@
 #include "pass\shading_normal_pass.hpp"
 #include "pass\sky_pass.hpp"
 #include "pass\sprite_pass.hpp"
-#include "pass\tone_mapper_pass.hpp"
 #include "pass\variable_component_pass.hpp"
 #include "pass\variable_shading_pass.hpp"
 #include "pass\wireframe_pass.hpp"
@@ -167,6 +167,22 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Member Methods: Render Passes
 		//---------------------------------------------------------------------
+
+		/**
+		 Returns the AA preprocess pass of this renderer.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the AA preprocess pass of this renderer.
+		 */
+		AAPreprocessPass *GetAAPreprocessPass() {
+			if (!m_aa_preprocess_pass) {
+				m_aa_preprocess_pass = MakeUnique< AAPreprocessPass >();
+			}
+			return m_aa_preprocess_pass.get();
+		}
 
 		/**
 		 Returns the back buffer pass of this renderer.
@@ -366,22 +382,6 @@ namespace mage {
 		}
 
 		/**
-		 Returns the tone mapper pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the tone mapper pass of this renderer.
-		 */
-		ToneMapperPass *GetToneMapperPass() {
-			if (!m_tone_mapper_pass) {
-				m_tone_mapper_pass = MakeUnique< ToneMapperPass >();
-			}
-			return m_tone_mapper_pass.get();
-		}
-
-		/**
 		 Returns the variable component pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
@@ -491,6 +491,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 A pointer to the AA preprocess pass of this renderer.
+		 */
+		UniquePtr< AAPreprocessPass > m_aa_preprocess_pass;
+
+		/**
 		 A pointer to the back buffer pass of this renderer.
 		 */
 		UniquePtr< BackBufferPass > m_back_buffer_pass;
@@ -549,11 +554,6 @@ namespace mage {
 		 A pointer to the sprite pass of this renderer.
 		 */
 		UniquePtr< SpritePass > m_sprite_pass;
-
-		/**
-		 A pointer to the tone mapper pass of this renderer.
-		 */
-		UniquePtr< ToneMapperPass > m_tone_mapper_pass;
 
 		/**
 		 A pointer to the variable component pass of this renderer.

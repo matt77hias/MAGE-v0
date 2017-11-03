@@ -304,9 +304,6 @@
     <Filter Include="Shader Files\aa">
       <UniqueIdentifier>{84542ce8-cf80-4691-b777-94859e5e1cc5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader Files\tone_mapping">
-      <UniqueIdentifier>{935792f5-1b63-47d4-96b6-af8d1878c17c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -1077,7 +1074,7 @@
     <ClInclude Include="MAGE\src\pass\fxaa_pass.hpp">
       <Filter>Header Files\pass</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\pass\tone_mapper_pass.hpp">
+    <ClInclude Include="MAGE\src\pass\aa_preprocess_pass.hpp">
       <Filter>Header Files\pass</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1454,7 +1451,7 @@
     <ClCompile Include="MAGE\src\pass\fxaa_pass.cpp">
       <Filter>Source Files\pass</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\pass\tone_mapper_pass.cpp">
+    <ClCompile Include="MAGE\src\pass\aa_preprocess_pass.cpp">
       <Filter>Source Files\pass</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1663,13 +1660,13 @@
     <FxCompile Include="MAGE\shaders\sky\sky_fullscreen_triangle_PS.hlsl">
       <Filter>Shader Files\sky</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\tone_mapping\tone_mapper_CS.hlsl">
-      <Filter>Shader Files\tone_mapping</Filter>
-    </FxCompile>
     <FxCompile Include="MAGE\shaders\aa\ssaa_3x_resolve_CS.hlsl">
       <Filter>Shader Files\aa</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\aa\ssaa_4x_resolve_CS.hlsl">
+      <Filter>Shader Files\aa</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\aa\aa_preprocess_CS.hlsl">
       <Filter>Shader Files\aa</Filter>
     </FxCompile>
   </ItemGroup>
@@ -1857,8 +1854,8 @@
     <None Include="MAGE\shaders\aa\fxaa.hlsli">
       <Filter>Shader Files\aa</Filter>
     </None>
-    <None Include="MAGE\shaders\tone_mapping\tone_mapping.hlsli">
-      <Filter>Shader Files\tone_mapping</Filter>
+    <None Include="MAGE\shaders\tone_mapping.hlsli">
+      <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>
 </Project>

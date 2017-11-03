@@ -30,6 +30,7 @@ namespace mage {
 		m_pass_buffer(MakeUnique< PassBuffer >()),
 		m_game_buffer(device),
 		m_camera_buffer(device),
+		m_aa_preprocess_pass(),
 		m_back_buffer_pass(),
 		m_bounding_volume_pass(),
 		m_constant_component_pass(),
@@ -42,7 +43,6 @@ namespace mage {
 		m_shading_normal_pass(),
 		m_sky_pass(),
 		m_sprite_pass(),
-		m_tone_mapper_pass(),
 		m_variable_component_pass(),
 		m_variable_shading_pass(),
 		m_wireframe_pass() {}
@@ -233,9 +233,9 @@ namespace mage {
 			output_manager->BindPingPong(m_device_context);
 
 			// Perform a tone mapper pass.
-			ToneMapperPass * const tone_mapper_pass = GetToneMapperPass();
-			tone_mapper_pass->BindFixedState();
-			tone_mapper_pass->Render(viewport);
+			AAPreprocessPass * const aa_preprocess_pass = GetAAPreprocessPass();
+			aa_preprocess_pass->BindFixedState();
+			aa_preprocess_pass->Render(viewport);
 
 			output_manager->BindPingPong(m_device_context);
 

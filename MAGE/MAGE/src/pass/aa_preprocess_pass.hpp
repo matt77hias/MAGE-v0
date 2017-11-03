@@ -16,9 +16,9 @@
 namespace mage {
 
 	/**
-	 A class of tone mapper passes for performing AA.
+	 A class of AA preprocess passes for performing AA.
 	 */
-	class ToneMapperPass final {
+	class AAPreprocessPass final {
 
 	public:
 
@@ -27,82 +27,85 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the tone mapper pass associated with the current engine.
+		 Returns the AA preprocess pass associated with the current 
+		 engine.
 
 		 @pre			The scene renderer associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the tone mapper pass associated with the 
-						current engine.
+		 @return		A pointer to the AA preprocess pass associated 
+						with the current engine.
 		 */
-		static ToneMapperPass *Get();
+		static AAPreprocessPass *Get();
 
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a tone mapper pass.
+		 Constructs a AA preprocess pass.
 
 		 @pre			The renderer associated with the current engine must be 
 						loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
 		 */
-		ToneMapperPass();
+		AAPreprocessPass();
 
 		/**
-		 Constructs a tone mapper pass from the given tone mapper 
+		 Constructs a AA preprocess pass from the given AA preprocess pass 
 		 pass.
 
 		 @param[in]		render_pass
-						A reference to the tone mapper pass to copy.
+						A reference to the AA preprocess pass to copy.
 		 */
-		ToneMapperPass(const ToneMapperPass &render_pass) = delete;
+		AAPreprocessPass(const AAPreprocessPass &render_pass) = delete;
 
 		/**
-		 Constructs a tone mapper pass by moving the given ToneMapper 
-		 shading pass.
+		 Constructs a AA preprocess pass by moving the given AA preprocess 
+		 pass.
 
 		 @param[in]		render_pass
-						A reference to the tone mapper pass to move.
+						A reference to the AA preprocess pass to move.
 		 */
-		ToneMapperPass(ToneMapperPass &&render_pass);
+		AAPreprocessPass(AAPreprocessPass &&render_pass);
 
 		/**
-		 Destructs this tone mapper pass.
+		 Destructs this AA preprocess pass.
 		 */
-		~ToneMapperPass();
+		~AAPreprocessPass();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given tone mapper pass to this tone mapper pass.
+		 Copies the given AA preprocess pass to this AA preprocess pass.
 
 		 @param[in]		render_pass
-						A reference to the tone mapper pass to copy.
-		 @return		A reference to the copy of the given tone mapper pass 
-						(i.e. this tone mapper pass).
+						A reference to the AA preprocess pass to copy.
+		 @return		A reference to the copy of the given AA preprocess pass 
+						(i.e. this AA preprocess pass).
 		 */
-		ToneMapperPass &operator=(const ToneMapperPass &render_pass) = delete;
+		AAPreprocessPass &operator=(
+			const AAPreprocessPass &render_pass) = delete;
 
 		/**
-		 Moves the given tone mapper pass to this tone mapper pass.
+		 Moves the given AA preprocess pass to this AA preprocess pass.
 
 		 @param[in]		render_pass
-						A reference to the tone mapper pass to move.
-		 @return		A reference to the moved tone mapper pass (i.e. this 
-						tone mapper pass).
+						A reference to the AA preprocess pass to move.
+		 @return		A reference to the moved AA preprocess pass (i.e. this 
+						AA preprocess pass).
 		 */
-		ToneMapperPass &operator=(ToneMapperPass &&render_pass) = delete;
+		AAPreprocessPass &operator=(
+			AAPreprocessPass &&render_pass) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
 		/**
-		 Binds the fixed state of this tone mapper pass.
+		 Binds the fixed state of this AA preprocess pass.
 		 */
 		void BindFixedState() const noexcept;
 
@@ -123,12 +126,12 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the device context of this tone mapper pass.
+		 A pointer to the device context of this AA preprocess pass.
 		 */
 		ID3D11DeviceContext2 * const m_device_context;
 
 		/**
-		 A pointer to the compute shader of this tone mapper pass.
+		 A pointer to the compute shader of this AA preprocess pass.
 		 */
 		SharedPtr< const ComputeShader > m_cs;
 	};

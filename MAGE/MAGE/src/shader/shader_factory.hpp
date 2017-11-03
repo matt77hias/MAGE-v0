@@ -21,6 +21,19 @@ namespace mage {
 #pragma region
 
 	/**
+	 Creates a AA preprocess compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the AA preprocess compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateAAPreprocessCS();
+
+	/**
 	 Creates a FXAA compute shader.
 
 	 @pre			The resource manager associated with the current engine 
@@ -593,26 +606,6 @@ namespace mage {
 					Failed to create the pixel shader.
 	 */
 	SharedPtr< const PixelShader > CreateSpritePS();
-
-#pragma endregion
-
-	//-------------------------------------------------------------------------
-	// Factory Methods: Tone Mapping
-	//-------------------------------------------------------------------------
-#pragma region
-
-	/**
-	 Creates a tone mapper compute shader.
-
-	 @pre			The resource manager associated with the current engine 
-					must be loaded.
-	 @pre			The rendering manager associated with the current engine 
-					must be loaded.
-	 @return		A pointer to the tone mapper compute shader.
-	 @throws		FormattedException
-					Failed to create the compute shader.
-	 */
-	SharedPtr< const ComputeShader > CreateToneMapperCS();
 
 #pragma endregion
 

@@ -128,7 +128,7 @@
     <ClInclude Include="MAGE\src\pass\lbuffer_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\sky_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\sprite_pass.hpp" />
-    <ClInclude Include="MAGE\src\pass\tone_mapper_pass.hpp" />
+    <ClInclude Include="MAGE\src\pass\aa_preprocess_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\variable_shading_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\variable_component_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\pass_buffer.hpp" />
@@ -340,7 +340,7 @@
     <ClCompile Include="MAGE\src\pass\lbuffer_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\sky_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\sprite_pass.cpp" />
-    <ClCompile Include="MAGE\src\pass\tone_mapper_pass.cpp" />
+    <ClCompile Include="MAGE\src\pass\aa_preprocess_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\variable_shading_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\variable_component_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\pass_buffer.cpp" />
@@ -405,6 +405,20 @@
     <ClCompile Include="MAGE\src\ui\main_window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="MAGE\shaders\aa\aa_preprocess_CS.hlsl">
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\aa\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)\src\shader\cso\aa\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\shader\cso\aa\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\shader\cso\aa\%(Filename).hpp</HeaderFileOutput>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Compute</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
+    </FxCompile>
     <FxCompile Include="MAGE\shaders\aa\fxaa_CS.hlsl">
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_%(Filename)</VariableName>
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\aa\%(Filename).hpp</HeaderFileOutput>
@@ -873,20 +887,6 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\tone_mapping\tone_mapper_CS.hlsl">
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Compute</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CS</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
-      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\tone_mapping\%(Filename).hpp</HeaderFileOutput>
-      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)\src\shader\cso\tone_mapping\%(Filename).hpp</HeaderFileOutput>
-      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\shader\cso\tone_mapping\%(Filename).hpp</HeaderFileOutput>
-      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\shader\cso\tone_mapping\%(Filename).hpp</HeaderFileOutput>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\transform\minimal_transform_VS.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
@@ -2468,7 +2468,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MAGE\shaders\tone_mapping\tone_mapping.hlsli" />
+    <None Include="MAGE\shaders\tone_mapping.hlsli" />
     <None Include="MAGE\shaders\transform\transform.hlsli" />
     <None Include="MAGE\shaders\voxelization\voxel.hlsli" />
     <None Include="MAGE\src\binary\binary_reader.tpp" />

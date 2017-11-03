@@ -4,17 +4,17 @@
 // Defines			                      | Default
 //-----------------------------------------------------------------------------
 // GROUP_SIZE                             | GROUP_SIZE_DEFAULT
+// FXAA_GREEN_AS_LUMA                     | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
 #include "global.hlsli"
-#include "tone_mapping\tone_mapping.hlsli"
+#include "tone_mapping.hlsli"
 
 #define FXAA_PC               1
 #define FXAA_HLSL_5           1
 #define FXAA_QUALITY__PRESET 13
-#define FXAA_GREEN_AS_LUMA    1
 #include "aa\fxaa3_11.hlsli"
 
 //-----------------------------------------------------------------------------

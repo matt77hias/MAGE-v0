@@ -5,14 +5,13 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "pass\aa_preprocess_pass.hpp"
+#include "pass\aa_pass.hpp"
 #include "pass\back_buffer_pass.hpp"
 #include "pass\bounding_volume_pass.hpp"
 #include "pass\constant_component_pass.hpp"
 #include "pass\constant_shading_pass.hpp"
 #include "pass\deferred_shading_pass.hpp"
 #include "pass\depth_pass.hpp"
-#include "pass\fxaa_pass.hpp"
 #include "pass\gbuffer_pass.hpp"
 #include "pass\lbuffer_pass.hpp"
 #include "pass\shading_normal_pass.hpp"
@@ -169,19 +168,19 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the AA preprocess pass of this renderer.
+		 Returns the AA pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
 						engine must be loaded.
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
-		 @return		A pointer to the AA preprocess pass of this renderer.
+		 @return		A pointer to the AA pass of this renderer.
 		 */
-		AAPreprocessPass *GetAAPreprocessPass() {
-			if (!m_aa_preprocess_pass) {
-				m_aa_preprocess_pass = MakeUnique< AAPreprocessPass >();
+		AAPass *GetAAPass() {
+			if (!m_aa_pass) {
+				m_aa_pass = MakeUnique< AAPass >();
 			}
-			return m_aa_preprocess_pass.get();
+			return m_aa_pass.get();
 		}
 
 		/**
@@ -282,22 +281,6 @@ namespace mage {
 				m_depth_pass = MakeUnique< DepthPass >();
 			}
 			return m_depth_pass.get();
-		}
-
-		/**
-		 Returns the FXAA pass of this renderer.
-
-		 @pre			The rendering manager associated with the current 
-						engine must be loaded.
-		 @pre			The resource manager associated with the current engine 
-						must be loaded.
-		 @return		A pointer to the FXAA pass of this renderer.
-		 */
-		FXAAPass *GetFXAAPass() {
-			if (!m_fxaa_pass) {
-				m_fxaa_pass = MakeUnique< FXAAPass >();
-			}
-			return m_fxaa_pass.get();
 		}
 
 		/**
@@ -457,6 +440,9 @@ namespace mage {
 			CXMMATRIX view_to_world,
 			BRDFType brdf);
 
+		void ExecuteAAPipeline(
+			const Viewport &viewport);
+
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
@@ -491,9 +477,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the AA preprocess pass of this renderer.
+		 A pointer to the AA pass of this renderer.
 		 */
-		UniquePtr< AAPreprocessPass > m_aa_preprocess_pass;
+		UniquePtr< AAPass > m_aa_pass;
 
 		/**
 		 A pointer to the back buffer pass of this renderer.
@@ -524,11 +510,6 @@ namespace mage {
 		 A pointer to the depth pass of this renderer.
 		 */
 		UniquePtr< DepthPass > m_depth_pass;
-
-		/**
-		 A pointer to the FXAA pass of this renderer.
-		 */
-		UniquePtr< FXAAPass > m_fxaa_pass;
 
 		/**
 		 A pointer to the GBuffer pass of this renderer.

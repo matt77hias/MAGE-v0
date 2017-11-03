@@ -32,6 +32,16 @@
 #define MAGE_AMD_WAFEFRONT_SIZE 64
 #define GROUP_SIZE_DEFAULT      16
 
+#define GROUP_SIZE_MSAA_2X      16
+#define GROUP_SIZE_MSAA_4X      16
+#define GROUP_SIZE_MSAA_8X       8
+#define GROUP_SIZE_MSAA_16X      8
+#define GROUP_SIZE_MSAA_32X      4
+
+#define GROUP_SIZE_SSAA_2X      16
+#define GROUP_SIZE_SSAA_3X       8
+#define GROUP_SIZE_SSAA_4X       8
+
 //-----------------------------------------------------------------------------
 // Engine Includes: Samplers
 //-----------------------------------------------------------------------------

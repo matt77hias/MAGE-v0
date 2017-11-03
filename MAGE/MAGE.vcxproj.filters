@@ -1071,10 +1071,10 @@
     <ClInclude Include="MAGE\src\buffer\camera_buffer.hpp">
       <Filter>Header Files\buffer</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\pass\fxaa_pass.hpp">
-      <Filter>Header Files\pass</Filter>
+    <ClInclude Include="MAGE\src\rendering\aa_descriptor.hpp">
+      <Filter>Header Files\rendering</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\pass\aa_preprocess_pass.hpp">
+    <ClInclude Include="MAGE\src\pass\aa_pass.hpp">
       <Filter>Header Files\pass</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1340,9 +1340,6 @@
     <ClCompile Include="MAGE\src\rendering\display_configurator.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\display_configuration.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\math\transform_node.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
@@ -1448,10 +1445,7 @@
     <ClCompile Include="MAGE\src\rendering\swap_chain.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\pass\fxaa_pass.cpp">
-      <Filter>Source Files\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\pass\aa_preprocess_pass.cpp">
+    <ClCompile Include="MAGE\src\pass\aa_pass.cpp">
       <Filter>Source Files\pass</Filter>
     </ClCompile>
   </ItemGroup>

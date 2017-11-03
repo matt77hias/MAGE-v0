@@ -56,11 +56,13 @@ void GS(triangle PSInputPositionNormalTexture input[3],
 		output[i].tex2   = input[i].tex2;
 	}
 	
-	// Move vertices for conservative rasterization.
+	// For each projected triangle, a slightly larger bounding triangle ensures 
+	// that any projected triangle touching a pixel will necessarily touch the 
+	// center of this pixel and thus will get a fragment emitted by the rasterizer.
 	const float2 delta_10 = normalize(output[1].p.xy - output[0].p.xy);
 	const float2 delta_21 = normalize(output[2].p.xy - output[1].p.xy);
 	const float2 delta_02 = normalize(output[0].p.xy - output[2].p.xy);
-
+	// Move vertices for conservative rasterization.
 	output[0].p.xy += normalize(delta_02 - delta_10) * g_voxel_grid_inv_resolution;
 	output[1].p.xy += normalize(delta_10 - delta_21) * g_voxel_grid_inv_resolution;
 	output[2].p.xy += normalize(delta_21 - delta_02) * g_voxel_grid_inv_resolution;

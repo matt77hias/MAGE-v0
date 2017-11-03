@@ -32,15 +32,6 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Class Member Variables
-		//---------------------------------------------------------------------
-
-		/**
-		 The allowed number of samples for MSAA of display configurators. 
-		 */
-		static const U32 s_nb_MSAA_samples[5];
-
-		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 

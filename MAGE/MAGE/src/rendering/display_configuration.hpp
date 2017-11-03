@@ -6,15 +6,7 @@
 #pragma region
 
 #include "rendering\pipeline.hpp"
-
-#pragma endregion
-
-//-----------------------------------------------------------------------------
-// Engine Defines
-//-----------------------------------------------------------------------------
-#pragma region
-
-#define MAGE_DEFAULT_DISPLAY_GAMMA 2.2f
+#include "rendering\aa_descriptor.hpp"
 
 #pragma endregion
 
@@ -45,28 +37,18 @@ namespace mage {
 						A pointer to the output.
 		 @param[in]		display_mode
 						A reference to the display mode.
-		 @param[in]		windowed
-						The windowed/fullscreen mode.
-		 @param[in]		vsync
-						The V-sync mode.
-		 @param[in]		nb_MSAA_samples
-						The number of MSAA samples.
-		 @param[in]		gamma
-						The gamma value.
 		 */
 		explicit DisplayConfiguration(
-			ComPtr< IDXGIAdapter2 > adapter, 
+			ComPtr< IDXGIAdapter2 > adapter,
 			ComPtr< IDXGIOutput2 > output,
-			const DXGI_MODE_DESC1 &display_mode, 
-			bool windowed, bool vsync, 
-			U32 nb_MSAA_samples = 1,
-			F32 gamma = MAGE_DEFAULT_DISPLAY_GAMMA)
-			: m_adapter(adapter), m_output(output),
-			m_display_mode(display_mode), m_MSAA_sample_desc{}, 
-			m_windowed(windowed), m_vsync(vsync), m_gamma(gamma) {
-
-			SetMSAASampleDesc(nb_MSAA_samples);
-		}
+			const DXGI_MODE_DESC1 &display_mode)
+			: m_adapter(adapter),
+			m_output(output),
+			m_display_mode(display_mode),
+			m_aa_desc(AADescriptor::None),
+			m_windowed(true),
+			m_vsync(false),
+			m_gamma(2.2f) {}
 		
 		/**
 		 Constructs a display configuration from the given display 
@@ -215,58 +197,25 @@ namespace mage {
 		}
 
 		/**
-		 Checks whether MSAA should be used for this display configuration.
+		 Returns the Anti-Aliasing descriptor of this display configuration.
 
-		 @return		@c true if MSAA should be used for this display 
-						configuration. @c false otherwise.
+		 @return		The Anti-Aliasing descriptor of this display 
+						configuration.
 		 */
-		bool UseMSAA() const noexcept {
-			return m_MSAA_sample_desc.Count != 1;
-		}
-
-		/**
-		 Gets the MSAA sample descriptor of this display configuration.
-
-		 @return		A reference to the MSAA sample descriptor of this 
-						display configuration.
-		 */
-		const DXGI_SAMPLE_DESC &GetMSAASampleDesc() const noexcept {
-			return m_MSAA_sample_desc;
-		}
-
-		/**
-		 Sets the MSAA sample descriptor of this display configuration to the 
-		 given number of MSAA samples and quality level.
-
-		 @param[in]		nb_MSAA_samples
-						The number of MSAA samples.
-		 @param[in]		MSAA_quality_level
-						The MSAA quality level.
-		 */
-		void SetMSAASampleDesc(
-			U32 nb_MSAA_samples, U32 MSAA_quality_level = 0) noexcept;
-		
-		/**
-		 Sets the MSAA sample descriptor of this display configuration to the 
-		 given MSAA sample descriptor.
-
-		 @param[in]		MSAA_sample_desc
-						A reference to the MSAA sample descriptor
-		 */
-		void SetMSAASampleDesc(
-			const DXGI_SAMPLE_DESC &MSAA_sample_desc) noexcept {
-			
-			SetMSAASampleDesc(MSAA_sample_desc.Count, MSAA_sample_desc.Quality);
+		AADescriptor GetAADescriptor() const noexcept {
+			return m_aa_desc;
 		}
 		
 		/**
-		 Updates the MSAA sample descriptor according to the given device.
+		 Sets the Anti-Aliasing descriptor of this display configuration to the
+		 given Anti-Aliasing descriptor.
 
-		 @pre			@a device is not equal to @c nullptr.
-		 @param[in]		device
-						A pointer to the device.
+		 @param[in]		desc
+						A reference to the Anti-Aliasing descriptor.
 		 */
-		void UpdateMSAASampleDesc(ID3D11Device2 *device) noexcept;
+		void SetAADescriptor(AADescriptor desc) noexcept {
+			m_aa_desc = desc;
+		}
 		
 		/**
 		 Checks whether the application should run in windowed mode for this 
@@ -381,9 +330,9 @@ namespace mage {
 		DXGI_MODE_DESC1 m_display_mode;
 
 		/**
-		 The number of MSAA samples of this display configuration.
+		 The Anti-Aliasing sample descriptor of this display configuration.
 		 */
-		DXGI_SAMPLE_DESC m_MSAA_sample_desc;
+		AADescriptor m_aa_desc;
 		
 		/**
 		 Flag indicating whether the application should run in windowed mode

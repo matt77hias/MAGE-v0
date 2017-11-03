@@ -135,17 +135,6 @@ namespace mage {
 			return m_display_configuration->GetDisplayHeight();
 		}
 
-		/**
-		 Returns the gamma value of this rendering manager used for gamma 
-		 correction.
-		 
-		 @return		The gamma value of this rendering manager used for 
-						gamma correction.
-		 */
-		F32 GetGamma() const noexcept {
-			return m_display_configuration->GetGamma();
-		}
-
 		//---------------------------------------------------------------------
 		// Member Methods: Rendering
 		//---------------------------------------------------------------------

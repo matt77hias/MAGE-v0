@@ -30,14 +30,13 @@ namespace mage {
 		m_pass_buffer(MakeUnique< PassBuffer >()),
 		m_game_buffer(device),
 		m_camera_buffer(device),
-		m_aa_preprocess_pass(),
+		m_aa_pass(),
 		m_back_buffer_pass(),
 		m_bounding_volume_pass(),
 		m_constant_component_pass(),
 		m_constant_shading_pass(),
 		m_deferred_shading_pass(),
-		m_depth_pass(), 
-		m_fxaa_pass(),
+		m_depth_pass(),
 		m_gbuffer_pass(),
 		m_lbuffer_pass(),
 		m_shading_normal_pass(),
@@ -60,8 +59,8 @@ namespace mage {
 		game_buffer.m_height            = rendering_manager->GetHeight();
 		game_buffer.m_inv_width_minus1  = 1.0f / (rendering_manager->GetWidth()  - 1.0f);
 		game_buffer.m_inv_height_minus1 = 1.0f / (rendering_manager->GetHeight() - 1.0f);
-		game_buffer.m_gamma             = rendering_manager->GetGamma();
-		game_buffer.m_inv_gamma         = 1.0f / rendering_manager->GetGamma();
+		game_buffer.m_gamma             = rendering_manager->GetDisplayConfiguration()->GetGamma();
+		game_buffer.m_inv_gamma         = 1.0f / game_buffer.m_gamma;
 
 		// Update the game buffer.
 		m_game_buffer.UpdateData(m_device_context, game_buffer);
@@ -230,19 +229,8 @@ namespace mage {
 			}
 		
 			output_manager->BindEndForward(m_device_context);
-			output_manager->BindPingPong(m_device_context);
 
-			// Perform a tone mapper pass.
-			AAPreprocessPass * const aa_preprocess_pass = GetAAPreprocessPass();
-			aa_preprocess_pass->BindFixedState();
-			aa_preprocess_pass->Render(viewport);
-
-			output_manager->BindPingPong(m_device_context);
-
-			// Perform a FXAA pass.
-			FXAAPass * const fxaa_pass = GetFXAAPass();
-			fxaa_pass->BindFixedState();
-			fxaa_pass->Render(viewport);
+			ExecuteAAPipeline(viewport);
 
 			output_manager->BindEnd(m_device_context);
 		}
@@ -384,5 +372,23 @@ namespace mage {
 		forward_pass->RenderTransparent(
 			m_pass_buffer.get(), world_to_projection,
 			world_to_view, view_to_world);
+	}
+
+	void Renderer::ExecuteAAPipeline(
+		const Viewport &viewport) {
+		
+		const RenderingOutputManager * const output_manager
+			= RenderingOutputManager::Get();
+
+		output_manager->BindPingPong(m_device_context);
+
+		// Perform an AA pass.
+		AAPass * const aa_pass = GetAAPass();
+		aa_pass->DispatchAAPreprocess(viewport, AADescriptor::FXAA);
+
+		output_manager->BindPingPong(m_device_context);
+
+		// Perform a FXAA pass.
+		aa_pass->DispatchAA(viewport, AADescriptor::FXAA);
 	}
 }

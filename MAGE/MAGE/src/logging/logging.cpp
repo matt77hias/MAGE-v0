@@ -75,7 +75,7 @@ namespace mage {
 			// Reuse stdin to open the file "CONIN$".
 			const errno_t result 
 				= freopen_s(&stream_in, "CONIN$", "r", stdin);
-			ThrowIfFailed(0 != result, 
+			ThrowIfFailed(0 == result, 
 				"stdin redirection failed: %d.", result);
 		}
 
@@ -85,7 +85,7 @@ namespace mage {
 			// Reuse stdout to open the file "CONOUT$".
 			const errno_t result
 				= freopen_s(&stream_out, "CONOUT$", "w", stdout);
-			ThrowIfFailed(0 != result, 
+			ThrowIfFailed(0 == result, 
 				"stdout redirection failed: %d.", result);
 		}
 
@@ -95,7 +95,7 @@ namespace mage {
 			// Reuse stderr to open the file "CONIN$.
 			const errno_t result 
 				= freopen_s(&stream_err, "CONOUT$", "w", stderr);
-			ThrowIfFailed(0 != result, 
+			ThrowIfFailed(0 == result, 
 				"stderr redirection failed: %d.", result);
 		}
 	}

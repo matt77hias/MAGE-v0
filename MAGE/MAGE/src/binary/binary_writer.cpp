@@ -26,7 +26,7 @@ namespace mage {
 		FILE *file;
 		{
 			const errno_t result = _wfopen_s(&file, GetFilename().c_str(), L"wb");
-			ThrowIfFailed((0 != result),
+			ThrowIfFailed((0 == result),
 				"%ls: could not open file.", GetFilename().c_str());
 		}
 

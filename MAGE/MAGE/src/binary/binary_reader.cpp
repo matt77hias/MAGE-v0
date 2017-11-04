@@ -20,33 +20,33 @@ namespace mage {
 		
 		UniqueHandle file_handle(SafeHandle(CreateFile2(
 			fname, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr)));
+		
 		FILE_STANDARD_INFO file_info;
-		if (!GetFileInformationByHandleEx(
-			file_handle.get(), FileStandardInfo, &file_info, sizeof(file_info))) {
-			throw FormattedException("%ls: could not retrieve file information.", 
-				fname);
-		}
-		if (file_info.EndOfFile.HighPart > 0) {
-			throw FormattedException("%ls: file too big for 32-bit allocation.", 
-				fname);
+		{
+			const BOOL result = GetFileInformationByHandleEx(
+				file_handle.get(), FileStandardInfo, &file_info, sizeof(file_info));
+			ThrowIfFailed(result, 
+				"%ls: could not retrieve file information.", fname);
+			ThrowIfFailed((file_info.EndOfFile.HighPart <= 0),
+				"%ls: file too big for 32-bit allocation.", fname);
 		}
 		
+		// Allocate buffer.
 		const DWORD nb_bytes = file_info.EndOfFile.LowPart;
 		*size = nb_bytes;
 		data = MakeUnique< U8[] >(nb_bytes);
-		if (!data) {
-			throw FormattedException("%ls: file too big for allocation.", 
-				fname);
-		}
+		ThrowIfFailed((nullptr == data), 
+			"%ls: file too big for allocation.", fname);
 
-		DWORD nb_bytes_read = 0;
-		if (!ReadFile(file_handle.get(), data.get(), nb_bytes, &nb_bytes_read, nullptr)) {
-			throw FormattedException("%ls: could not load file data.", 
-				fname);
-		}
-		if (nb_bytes_read < nb_bytes) {
-			throw FormattedException("%ls: could not load all file data.", 
-				fname);
+		// Populate buffer.
+		{
+			DWORD nb_bytes_read = 0;
+			const BOOL result = ReadFile(
+				file_handle.get(), data.get(), nb_bytes, &nb_bytes_read, nullptr);
+			ThrowIfFailed(result, 
+				"%ls: could not load file data.", fname);
+			ThrowIfFailed((nb_bytes <= nb_bytes_read), 
+				"%ls: could not load all file data.", fname);
 		}
 	}
 

@@ -27,7 +27,7 @@ namespace mage {
 				file_handle.get(), FileStandardInfo, &file_info, sizeof(file_info));
 			ThrowIfFailed(result, 
 				"%ls: could not retrieve file information.", fname);
-			ThrowIfFailed((file_info.EndOfFile.HighPart <= 0),
+			ThrowIfFailed((0 == file_info.EndOfFile.HighPart),
 				"%ls: file too big for 32-bit allocation.", fname);
 		}
 		
@@ -35,7 +35,7 @@ namespace mage {
 		const DWORD nb_bytes = file_info.EndOfFile.LowPart;
 		*size = nb_bytes;
 		data = MakeUnique< U8[] >(nb_bytes);
-		ThrowIfFailed((nullptr == data), 
+		ThrowIfFailed((nullptr != data), 
 			"%ls: file too big for allocation.", fname);
 
 		// Populate buffer.

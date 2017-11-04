@@ -19,14 +19,12 @@ namespace mage {
 		
 		Assert(device_context);
 		
-		U32 nb_of_viewports = 1;
+		U32 nb_of_viewports = 1u;
 		D3D11_VIEWPORT viewport;
 		Pipeline::RS::GetBoundViewports(
 			device_context, &nb_of_viewports, &viewport);
-		if (nb_of_viewports != 1) {
-			throw FormattedException("No viewport is set.");
-		}
-		
+		ThrowIfFailed((1u == nb_of_viewports), "No viewport is set.");
+
 		return GetViewportTransform(viewport, rotation_mode);
 	}
 
@@ -36,12 +34,10 @@ namespace mage {
 		Assert(device_context);
 		Assert(viewport);
 		
-		U32 nb_of_viewports = 1;
+		U32 nb_of_viewports = 1u;
 		Pipeline::RS::GetBoundViewports(
 			device_context, &nb_of_viewports, viewport);
-		if (nb_of_viewports != 1) {
-			throw FormattedException("No viewport is set.");
-		}
+		ThrowIfFailed((1u == nb_of_viewports), "No viewport is set.");
 
 		return GetViewportTransform(*viewport, rotation_mode);
 	}

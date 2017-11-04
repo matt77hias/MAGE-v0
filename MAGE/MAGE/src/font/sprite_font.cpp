@@ -167,9 +167,9 @@ namespace mage {
 
 	void SpriteFont::InitializeSpriteFont(const SpriteFontOutput &output) {
 		m_glyphs = std::move(output.m_glyphs);
-		if (!std::is_sorted(m_glyphs.cbegin(), m_glyphs.cend(), GlyphLessThan())) {
-			throw FormattedException("Sprite font glyphs are not sorted.");
-		}
+		const bool sorted = std::is_sorted(
+			m_glyphs.cbegin(), m_glyphs.cend(), GlyphLessThan());
+		ThrowIfFailed(sorted, "Sprite font glyphs are not sorted.");
 
 		SetLineSpacing(output.m_line_spacing);
 		SetDefaultCharacter(output.m_default_character);
@@ -619,7 +619,8 @@ namespace mage {
 	}
 
 	bool SpriteFont::ContainsCharacter(wchar_t character) const {
-		return std::binary_search(m_glyphs.cbegin(), m_glyphs.cend(), character, GlyphLessThan());
+		return std::binary_search(
+			m_glyphs.cbegin(), m_glyphs.cend(), character, GlyphLessThan());
 	}
 	
 	const Glyph *SpriteFont::GetGlyph(wchar_t character) const {
@@ -629,9 +630,8 @@ namespace mage {
 			return &(*it);
 		}
 
-		if (!m_default_glyph) {
-			throw FormattedException("Character not found in sprite font.");
-		}
+		ThrowIfFailed((nullptr != m_default_glyph),
+			"Character not found in sprite font.");
 
 		return m_default_glyph;
 	}

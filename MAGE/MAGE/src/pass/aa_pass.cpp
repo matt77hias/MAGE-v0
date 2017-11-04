@@ -104,7 +104,8 @@ namespace mage {
 				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
 
 		// Dispatch.
-		m_device_context->Dispatch(nb_groups_x, nb_groups_y, 1u);
+		Pipeline::Dispatch(m_device_context, 
+			nb_groups_x, nb_groups_y, 1u);
 	}
 
 	void AAPass::DispatchAA(
@@ -187,6 +188,7 @@ namespace mage {
 		}
 
 		// Dispatch.
-		m_device_context->Dispatch(nb_groups_x, nb_groups_y, nb_groups_z);
+		Pipeline::Dispatch(m_device_context, 
+			nb_groups_x, nb_groups_y, nb_groups_z);
 	}
 }

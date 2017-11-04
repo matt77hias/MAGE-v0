@@ -51,12 +51,10 @@ namespace mage {
 	void DeferredShadingPass::Render(const Viewport &viewport) {
 
 		// Dispatch.
-		const U32 nb_groups_x 
-			= static_cast< U32 >(ceil(viewport.GetWidth()
-				                      / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
-		const U32 nb_groups_y 
-			= static_cast< U32 >(ceil(viewport.GetHeight()
-				                      / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
-		m_device_context->Dispatch(nb_groups_x, nb_groups_y, 1u);
+		const U32 nb_groups_x = static_cast< U32 >(ceil(viewport.GetWidth()
+				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
+		const U32 nb_groups_y = static_cast< U32 >(ceil(viewport.GetHeight()
+				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
+		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}
 }

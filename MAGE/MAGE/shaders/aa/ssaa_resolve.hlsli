@@ -121,8 +121,10 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	uint2 input_dim;
 	g_input_image_texture.GetDimensions(input_dim.x, input_dim.y);
+	uint2 output_dim;
+	g_output_image_texture.GetDimensions(output_dim.x, output_dim.y);
 
-	const uint2 nb_samples     = g_display_resolution / input_dim;
+	const uint2 nb_samples     = input_dim / output_dim;
 	const float weight         = 1.0f / (nb_samples.x * nb_samples.y);
 	const uint2 input_location = output_location * nb_samples;
 	

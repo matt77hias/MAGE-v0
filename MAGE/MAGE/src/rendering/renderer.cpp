@@ -24,9 +24,9 @@ namespace mage {
 
 	Renderer::Renderer(ID3D11Device2 *device,
 		ID3D11DeviceContext2 *device_context, 
-		const Viewport &viewport)
+		U32 width, U32 height)
 		: m_device_context(device_context),
-		m_maximum_viewport(viewport),
+		m_maximum_viewport(width, height),
 		m_pass_buffer(MakeUnique< PassBuffer >()),
 		m_game_buffer(device),
 		m_camera_buffer(device),
@@ -51,16 +51,15 @@ namespace mage {
 	Renderer::~Renderer() = default;
 
 	void Renderer::BindPersistentState() {
-		const RenderingManager * const rendering_manager 
-			= RenderingManager::Get();
+		const DisplayConfiguration * const config = DisplayConfiguration::Get();
 		
 		GameBuffer game_buffer;
-		game_buffer.m_width             = rendering_manager->GetWidth();
-		game_buffer.m_height            = rendering_manager->GetHeight();
-		game_buffer.m_inv_width_minus1  = 1.0f / (rendering_manager->GetWidth()  - 1.0f);
-		game_buffer.m_inv_height_minus1 = 1.0f / (rendering_manager->GetHeight() - 1.0f);
-		game_buffer.m_gamma             = rendering_manager->GetDisplayConfiguration()->GetGamma();
-		game_buffer.m_inv_gamma         = 1.0f / game_buffer.m_gamma;
+		game_buffer.m_width             = config->GetDisplayWidth();
+		game_buffer.m_height            = config->GetDisplayHeight();
+		game_buffer.m_inv_width_minus1  = 1.0f / (config->GetDisplayWidth()  - 1.0f);
+		game_buffer.m_inv_height_minus1 = 1.0f / (config->GetDisplayHeight() - 1.0f);
+		game_buffer.m_gamma             = config->GetGamma();
+		game_buffer.m_inv_gamma         = 1.0f / config->GetGamma();
 
 		// Update the game buffer.
 		m_game_buffer.UpdateData(m_device_context, game_buffer);

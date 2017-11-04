@@ -57,16 +57,20 @@ namespace mage {
 
 		// Setup the rendering output manager.
 		m_rendering_output_manager = MakeUnique< RenderingOutputManager >(
-			                         m_device.Get(), GetWidth(), GetHeight(),
+			                         m_device.Get(), 
+			                         m_display_configuration->GetDisplayWidth(),
+			                         m_display_configuration->GetDisplayHeight(),
 									 m_display_configuration->GetAADescriptor());
 		
 		// Setup the rendering state manager.
 		m_rendering_state_manager = MakeUnique< RenderingStateManager >(
 			                        m_device.Get());
 		// Setup the renderer.
-		const Viewport viewport(GetWidth(), GetHeight());
 		m_renderer = MakeUnique< Renderer >(
-			         m_device.Get(), m_device_context.Get(), viewport);
+			         m_device.Get(), 
+			         m_device_context.Get(), 
+			         m_display_configuration->GetDisplayWidth(),
+			         m_display_configuration->GetDisplayHeight());
 	}
 
 	void RenderingManager::UninitializeSystems() noexcept {

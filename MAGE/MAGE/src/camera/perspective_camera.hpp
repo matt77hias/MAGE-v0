@@ -106,8 +106,8 @@ namespace mage {
 
 		 The aspect ratio will be based on the current screen resolution.
 
-		 @pre			The renderer associated with the current engine must 
-						be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @param[in]		fov_y
 						The vertical field-of-view.
 		 */
@@ -119,8 +119,8 @@ namespace mage {
 
 		 The aspect ratio will be based on the current screen resolution.
 
-		 @pre			The renderer associated with the current engine 
-						must be loaded.
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
 		 @param[in]		fov_y
 						The vertical field-of-view.
 		 @param[in]		near_z

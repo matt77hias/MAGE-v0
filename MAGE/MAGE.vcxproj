@@ -345,6 +345,7 @@
     <ClCompile Include="MAGE\src\pass\pass_buffer.cpp" />
     <ClCompile Include="MAGE\src\pass\shading_normal_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\wireframe_pass.cpp" />
+    <ClCompile Include="MAGE\src\rendering\display_configuration.cpp" />
     <ClCompile Include="MAGE\src\rendering\display_configurator.cpp" />
     <ClCompile Include="MAGE\src\rendering\pipeline.cpp" />
     <ClCompile Include="MAGE\src\rendering\renderer.cpp" />

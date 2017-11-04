@@ -33,7 +33,7 @@ RW_TEXTURE_2D(g_output_depth_texture,  float,  SLOT_UAV_DEPTH);
 // Note: GameBuffer and PrimaryCameraBuffer should reflect the display and 
 //       camera viewport after resolving SSAA (i.e. output instead of input).
 
-#if defined(SSAA) && defined(GROUP_SIZE) && defined(GROUP_SIZE)
+#if defined(SSAA) && defined(GROUP_SIZE)
 
 struct Data {
 	float4 ldr;
@@ -105,7 +105,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID,
 	g_output_depth_texture[output_location]  = depth;
 }
 
-#else  // SSAA && GROUP_SIZE && GROUP_SIZE
+#else  // SSAA && GROUP_SIZE
 
 #ifndef GROUP_SIZE
 #define GROUP_SIZE GROUP_SIZE_DEFAULT
@@ -161,4 +161,4 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	g_output_depth_texture[output_location]  = depth;
 }
 
-#endif // SSAA && GROUP_SIZE && GROUP_SIZE
+#endif // SSAA && GROUP_SIZE

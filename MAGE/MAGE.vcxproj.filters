@@ -1448,6 +1448,9 @@
     <ClCompile Include="MAGE\src\rendering\renderer.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\display_configuration.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\sprite\sprite_PS.hlsl">

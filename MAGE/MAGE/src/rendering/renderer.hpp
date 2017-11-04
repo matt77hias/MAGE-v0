@@ -66,12 +66,14 @@ namespace mage {
 						A pointer to the device.
 		 @param[in]		device_context
 						A pointer to the device context.
-		 @param[in]		viewport
-						A reference to the viewport.
+		 @param[in]		width
+						The width in pixels of the back buffer.
+		 @param[in]		height
+						The height in pixels of the back buffer.
 		 */
 		explicit Renderer(ID3D11Device2 *device, 
 			ID3D11DeviceContext2 *device_context, 
-			const Viewport &viewport);
+			U32 width, U32 height);
 
 		/**
 		 Constructs a renderer from the given renderer.

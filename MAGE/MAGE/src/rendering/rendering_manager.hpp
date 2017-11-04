@@ -115,26 +115,6 @@ namespace mage {
 			return m_display_configuration.get();
 		}
 
-		/**
-		 Returns the width in pixels of the display of this rendering manager.
-
-		 @return		The width in pixels of the display of this rendering 
-						manager.
-		 */
-		U32 GetWidth() const noexcept {
-			return m_display_configuration->GetDisplayWidth();
-		}
-
-		/**
-		 Returns the height in pixels of the display of this rendering manager.
-
-		 @return		The height in pixels of the display of this rendering 
-						manager.
-		 */
-		U32 GetHeight() const noexcept {
-			return m_display_configuration->GetDisplayHeight();
-		}
-
 		//---------------------------------------------------------------------
 		// Member Methods: Rendering
 		//---------------------------------------------------------------------

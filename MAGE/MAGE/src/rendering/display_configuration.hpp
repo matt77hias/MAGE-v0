@@ -23,6 +23,21 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the display configuration of the rendering manager associated 
+		 with the current engine.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @return		A pointer to the display configuration of the rendering 
+						manager associated with the current engine.
+		 */
+		static const DisplayConfiguration *Get() noexcept;
+
+		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------
 
@@ -141,6 +156,28 @@ namespace mage {
 		 */
 		U32 GetDisplayHeight() const noexcept {
 			return static_cast< U32 >(m_display_mode.Height);
+		}
+		
+		/**
+		 Returns the rendering width in pixels of this display configuration.
+
+		 @return		The rendering width in pixels of this display 
+						configuration.
+		 */
+		U32 GetRenderingWidth() const noexcept {
+			const U32 multiplier = GetResolutionMultiplier(m_aa_desc);
+			return multiplier * GetDisplayWidth();
+		}
+		
+		/**
+		 Returns the rendering height in pixels of this display configuration.
+
+		 @return		The rendering height in pixels of this display 
+						configuration.
+		 */
+		U32 GetRenderingHeight() const noexcept {
+			const U32 multiplier = GetResolutionMultiplier(m_aa_desc);
+			return multiplier * GetDisplayHeight();
 		}
 		
 		/**

@@ -56,8 +56,8 @@ namespace mage {
 						Failed to setup the rendering outputs of this rendering 
 						output manager.
 		 */
-		explicit RenderingOutputManager(
-			ID3D11Device2 *device, U32 width, U32 height, AADescriptor desc);
+		explicit RenderingOutputManager(ID3D11Device2 *device, 
+			U32 width, U32 height, AADescriptor desc);
 
 		/**
 		 Constructs a rendering output manager from the given rendering output 

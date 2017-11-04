@@ -126,55 +126,62 @@ namespace mage {
 		switch (desc) {
 		
 		case AADescriptor::MSAA_2x: {
-			nb_groups_x = 2u;
+			nb_groups_x = 1u;
 			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
 				        / static_cast< F32 >(GROUP_SIZE_MSAA_2X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetWidth()
+			nb_groups_z = static_cast< U32 >(ceil(viewport.GetHeight()
 				        / static_cast< F32 >(GROUP_SIZE_MSAA_2X)));
+			break;
 		}
 		case AADescriptor::MSAA_4x: {
-			nb_groups_x = 4u;
+			nb_groups_x = 1u;
 			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
 				        / static_cast< F32 >(GROUP_SIZE_MSAA_4X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetWidth()
+			nb_groups_z = static_cast< U32 >(ceil(viewport.GetHeight()
 				        / static_cast< F32 >(GROUP_SIZE_MSAA_4X)));
+			break;
 		}
 		case AADescriptor::MSAA_8x: {
-			nb_groups_x = 8u;
+			nb_groups_x = 1u;
 			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
 				        / static_cast< F32 >(GROUP_SIZE_MSAA_8X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetWidth()
+			nb_groups_z = static_cast< U32 >(ceil(viewport.GetHeight()
 				        / static_cast< F32 >(GROUP_SIZE_MSAA_8X)));
+			break;
 		}
 
 		case AADescriptor::SSAA_2x: {
-			nb_groups_x = 2u;
+			nb_groups_x = 1u;
 			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
 				        / static_cast< F32 >(GROUP_SIZE_SSAA_2X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetWidth()
+			nb_groups_z = static_cast< U32 >(ceil(viewport.GetHeight()
 				        / static_cast< F32 >(GROUP_SIZE_SSAA_2X)));
+			break;
 		}
 		case AADescriptor::SSAA_3x: {
-			nb_groups_x = 3u;
+			nb_groups_x = 1u;
 			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
 				        / static_cast< F32 >(GROUP_SIZE_SSAA_3X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetWidth()
+			nb_groups_z = static_cast< U32 >(ceil(viewport.GetHeight()
 				        / static_cast< F32 >(GROUP_SIZE_SSAA_3X)));
+			break;
 		}
 		case AADescriptor::SSAA_4x: {
-			nb_groups_x = 4u;
+			nb_groups_x = 1u;
 			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
 				        / static_cast< F32 >(GROUP_SIZE_SSAA_4X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetWidth()
+			nb_groups_z = static_cast< U32 >(ceil(viewport.GetHeight()
 				        / static_cast< F32 >(GROUP_SIZE_SSAA_4X)));
+			break;
 		}
 
 		default: {
 			nb_groups_x = static_cast< U32 >(ceil(viewport.GetWidth()
 				        / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
-			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
+			nb_groups_y = static_cast< U32 >(ceil(viewport.GetHeight()
 				        / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
 			nb_groups_z = 1u;
+			break;
 		}
 
 		}

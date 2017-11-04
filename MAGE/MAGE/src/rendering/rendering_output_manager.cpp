@@ -44,8 +44,8 @@ namespace mage {
 		Assert(device);
 
 		U32 nb_samples = 1u;
-		U32 pre_width  = width;
-		U32 pre_height = height;
+		U32 rendering_width  = width;
+		U32 rendering_height = height;
 		
 		switch (desc) {
 
@@ -67,48 +67,48 @@ namespace mage {
 		
 		case AADescriptor::SSAA_2x: {
 			m_msaa_or_ssaa = true;
-			pre_width  *= 2u;
-			pre_height *= 2u;
+			rendering_width  *= 2u;
+			rendering_height *= 2u;
 			break;
 		}
 		case AADescriptor::SSAA_3x: {
 			m_msaa_or_ssaa = true;
-			pre_width  *= 3u;
-			pre_height *= 3u;
+			rendering_width  *= 3u;
+			rendering_height *= 3u;
 			break;
 		}
 		case AADescriptor::SSAA_4x: {
 			m_msaa_or_ssaa = true;
-			pre_width  *= 4u;
-			pre_height *= 4u;
+			rendering_width  *= 4u;
+			rendering_height *= 4u;
 			break;
 		}
 
 		}
 
 		// Setup the depth buffer.
-		SetupDepthBuffer(device, pre_width, pre_height,
+		SetupDepthBuffer(device, rendering_width, rendering_height,
 			nb_samples);
 
 		// Setup the GBuffer buffers.
-		SetupBuffer(device, pre_width, pre_height,
+		SetupBuffer(device, rendering_width, rendering_height,
 			nb_samples, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
 			ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_BaseColor),
 			ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_BaseColor),
 			nullptr);
-		SetupBuffer(device, pre_width, pre_height,
+		SetupBuffer(device, rendering_width, rendering_height,
 			nb_samples, DXGI_FORMAT_R8G8B8A8_UNORM,
 			ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Material),
 			ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Material),
 			nullptr);
-		SetupBuffer(device, pre_width, pre_height,
+		SetupBuffer(device, rendering_width, rendering_height,
 			nb_samples, DXGI_FORMAT_R11G11B10_FLOAT,
 			ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Normal),
 			ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Normal),
 			nullptr);
 
 		// Setup the HDR buffer.
-		SetupBuffer(device, pre_width, pre_height,
+		SetupBuffer(device, rendering_width, rendering_height,
 			nb_samples, DXGI_FORMAT_R16G16B16A16_FLOAT,
 			ReleaseAndGetAddressOfSRV(SRVIndex::HDR),
 			ReleaseAndGetAddressOfRTV(RTVIndex::HDR),
@@ -132,7 +132,7 @@ namespace mage {
 				ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_Depth),
 				nullptr,
 				ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_Depth));
-			SetupBuffer(device, pre_width, pre_height,
+			SetupBuffer(device, rendering_width, rendering_height,
 				1u, DXGI_FORMAT_R11G11B10_FLOAT,
 				ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_Normal),
 				nullptr,

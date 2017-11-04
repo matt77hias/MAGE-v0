@@ -24,7 +24,7 @@ namespace mage {
 				RelationProcessorCore, nullptr, &length);
 			ThrowIfFailed(result, 
 				"Retrieving processor information failed.");
-			ThrowIfFailed((ERROR_INSUFFICIENT_BUFFER == GetLastError()),
+			ThrowIfFailed((ERROR_INSUFFICIENT_BUFFER != GetLastError()),
 				"Retrieving processor information failed.");
 		}
 		

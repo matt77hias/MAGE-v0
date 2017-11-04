@@ -27,7 +27,7 @@ namespace mage {
 		const BOOL result = GetProcessMemoryInfo(
 			GetCurrentProcess(), &memory_stats, sizeof(memory_stats));
 		
-		return (result == FALSE) ? 
+		return (FALSE == result) ? 
 			0 : static_cast< U64 >(memory_stats.PagefileUsage);
 	}
 
@@ -37,7 +37,7 @@ namespace mage {
 		const BOOL result = GetProcessMemoryInfo(
 			GetCurrentProcess(), &memory_stats, sizeof(memory_stats));
 		
-		return (result == FALSE) ? 
+		return (FALSE == result) ? 
 			0 : static_cast< U64 >(memory_stats.WorkingSetSize);
 	}
 }

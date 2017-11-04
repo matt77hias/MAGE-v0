@@ -20,9 +20,9 @@ namespace mage {
 		
 		// Retrieve a handle to the standard output device.
 		const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-		ThrowIfFailed((nullptr == handle),
+		ThrowIfFailed(nullptr != handle,
 			"Obtained no handle to the standard output device.");
-		ThrowIfFailed((INVALID_HANDLE_VALUE == handle),
+		ThrowIfFailed((INVALID_HANDLE_VALUE != handle),
 			"Obtained invalid handle to the standard output device.");
 		
 		// Structure containing information about a console screen buffer.

@@ -38,7 +38,7 @@ namespace mage {
 
 	void Writer::WriteCharacter(char c) {
 		const int result = fputc(c, m_file_stream.get());
-		ThrowIfFailed((EOF == result), 
+		ThrowIfFailed((EOF != result), 
 			"%ls: could not write to file.", GetFilename().c_str());
 	}
 	
@@ -46,7 +46,7 @@ namespace mage {
 		Assert(str);
 		
 		const int result = fputs(str, m_file_stream.get());
-		ThrowIfFailed((EOF == result),
+		ThrowIfFailed((EOF != result),
 			"%ls: could not write to file.", GetFilename().c_str());
 	}
 	

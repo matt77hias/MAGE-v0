@@ -263,7 +263,7 @@ namespace mage {
 			adjusted_rectangle.right  - adjusted_rectangle.left, 
 			adjusted_rectangle.bottom - adjusted_rectangle.top, 
 			nullptr, nullptr, m_hinstance, nullptr);
-		ThrowIfFailed(!m_hwindow, "Main window creation failed.");
+		ThrowIfFailed(nullptr != m_hwindow, "Main window creation failed.");
 
 		// Register a print screen hot key, because pressing down VK_SNAPSHOT 
 		// does not result in a WM_KEYDOWN (or WM_SYSKEYDOWN).

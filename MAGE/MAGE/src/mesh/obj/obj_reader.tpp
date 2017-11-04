@@ -35,14 +35,10 @@ namespace mage {
 
 	template < typename VertexT >
 	void OBJReader< VertexT >::Preprocess() {
-		if (!m_model_output.m_vertex_buffer.empty()) {
-			throw FormattedException(
-				"%ls: vertex buffer must be empty.", GetFilename().c_str());
-		}
-		if (!m_model_output.m_index_buffer.empty()) {
-			throw FormattedException(
-				"%ls: index buffer must be empty.", GetFilename().c_str());
-		}
+		ThrowIfFailed(m_model_output.m_vertex_buffer.empty(),
+			"%ls: vertex buffer must be empty.", GetFilename().c_str());
+		ThrowIfFailed(m_model_output.m_index_buffer.empty(),
+			"%ls: index buffer must be empty.", GetFilename().c_str());
 
 		// Begin current group.
 		m_model_output.StartModelPart(MAGE_MDL_PART_DEFAULT_CHILD);

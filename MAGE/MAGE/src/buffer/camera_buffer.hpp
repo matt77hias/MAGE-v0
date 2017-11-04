@@ -43,8 +43,14 @@ namespace mage {
 			m_viewport_top_left_y(0),
 			m_viewport_width(0),
 			m_viewport_height(0),
+			m_ss_viewport_top_left_x(0),
+			m_ss_viewport_top_left_y(0),
+			m_ss_viewport_width(0),
+			m_ss_viewport_height(0),
 			m_viewport_inv_width_minus1(0.0f),
-			m_viewport_inv_height_minus1(0.0f){}
+			m_viewport_inv_height_minus1(0.0f),
+			m_ss_viewport_inv_width_minus1(0.0f),
+			m_ss_viewport_inv_height_minus1(0.0f) {}
 
 		/**
 		 Constructs a camera buffer from the given camera buffer.
@@ -145,6 +151,28 @@ namespace mage {
 		U32 m_viewport_height;
 
 		/**
+		 The x coordinate of the left hand side of the super-sampled viewport of this 
+		 camera buffer.
+		 */
+		U32 m_ss_viewport_top_left_x;
+
+		/**
+		 The y coordinate of the left hand side of the super-sampled viewport of this 
+		 camera buffer.
+		 */
+		U32 m_ss_viewport_top_left_y;
+
+		/**
+		 The width of the super-sampled viewport of this camera buffer. 
+		 */
+		U32 m_ss_viewport_width;
+
+		/**
+		 The height of the super-sampled viewport of this camera buffer. 
+		 */
+		U32 m_ss_viewport_height;
+
+		/**
 		 The inverse width of the viewport minus 1 of this camera buffer. 
 		 */
 		float m_viewport_inv_width_minus1;
@@ -153,7 +181,19 @@ namespace mage {
 		 The inverse height of the viewport minus 1 of this camera buffer. 
 		 */
 		float m_viewport_inv_height_minus1;
+
+		/**
+		 The inverse width of the super-sampled viewport minus 1 of this 
+		 camera buffer.
+		 */
+		float m_ss_viewport_inv_width_minus1;
+
+		/**
+		 The inverse height of the super-sampled viewport minus 1 of this 
+		 camera buffer.
+		 */
+		float m_ss_viewport_inv_height_minus1;
 	};
 
-	static_assert(sizeof(CameraBuffer) == 288, "CPU/GPU struct mismatch");
+	static_assert(sizeof(CameraBuffer) == 304, "CPU/GPU struct mismatch");
 }

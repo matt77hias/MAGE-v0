@@ -102,16 +102,20 @@ namespace mage {
 			: Viewport(viewport) {
 
 			const U32 multiplier = GetResolutionMultiplier(desc);
-			m_viewport.Width  *= multiplier;
-			m_viewport.Height *= multiplier;
+			m_viewport.TopLeftX *= multiplier;
+			m_viewport.TopLeftY *= multiplier;
+			m_viewport.Width    *= multiplier;
+			m_viewport.Height   *= multiplier;
 		}
 
 		explicit Viewport(Viewport &&viewport, AADescriptor desc)
 			: Viewport(std::move(viewport)) {
 
 			const U32 multiplier = GetResolutionMultiplier(desc);
-			m_viewport.Width  *= multiplier;
-			m_viewport.Height *= multiplier;
+			m_viewport.TopLeftX *= multiplier;
+			m_viewport.TopLeftY *= multiplier;
+			m_viewport.Width    *= multiplier;
+			m_viewport.Height   *= multiplier;
 		}
 		
 		~Viewport() = default;

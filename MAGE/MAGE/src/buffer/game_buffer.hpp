@@ -35,10 +35,12 @@ namespace mage {
 		 Constructs a game buffer.
 		 */
 		GameBuffer()
-			: m_width(0), m_height(0), 
-			m_inv_width_minus1(0.0f), 
-			m_inv_height_minus1(0.0f),
-			m_gamma(0.0f), m_inv_gamma(0.0f), 
+			: m_display_width(0), 
+			m_display_height(0),
+			m_inv_display_width_minus1(0.0f),
+			m_inv_display_height_minus1(0.0f),
+			m_gamma(0.0f), 
+			m_inv_gamma(0.0f), 
 			m_padding{} {}
 
 		/**
@@ -91,24 +93,24 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The width of this game buffer.
+		 The display width of this game buffer.
 		 */
-		U32 m_width;
+		U32 m_display_width;
 
 		/**
-		 The height of this game buffer.
+		 The display height of this game buffer.
 		 */
-		U32 m_height;
+		U32 m_display_height;
 
 		/**
-		 The inverse width minus one of this game buffer.
+		 The inverse display width minus one of this game buffer.
 		 */
-		F32 m_inv_width_minus1;
+		F32 m_inv_display_width_minus1;
 
 		/**
-		 The inverse height minus one of this game buffer.
+		 The inverse display height minus one of this game buffer.
 		 */
-		F32 m_inv_height_minus1;
+		F32 m_inv_display_height_minus1;
 
 		/**
 		 The gamma exponent of this game buffer.

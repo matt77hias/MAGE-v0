@@ -22,8 +22,8 @@ namespace mage {
 	PerspectiveCamera::PerspectiveCamera(
 		F32 fov_y, F32 near_z, F32 far_z)
 		: PerspectiveCamera(
-			static_cast< F32 >(DisplayConfiguration::Get()->GetRenderingWidth()),
-			static_cast< F32 >(DisplayConfiguration::Get()->GetRenderingHeight()),
+			static_cast< F32 >(DisplayConfiguration::Get()->GetSSWidth()),
+			static_cast< F32 >(DisplayConfiguration::Get()->GetSSHeight()),
 			fov_y, near_z, far_z) {}
 
 	PerspectiveCamera::PerspectiveCamera(F32 aspect_ratio,

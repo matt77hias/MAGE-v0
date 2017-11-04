@@ -30,9 +30,6 @@ RW_TEXTURE_2D(g_output_depth_texture,  float,  SLOT_UAV_DEPTH);
 // Compute Shader
 //-----------------------------------------------------------------------------
 
-// Note: GameBuffer and PrimaryCameraBuffer should reflect the display and 
-//       camera viewport after resolving SSAA (i.e. output instead of input).
-
 #if defined(SSAA) && defined(GROUP_SIZE)
 
 struct Data {

@@ -37,38 +37,49 @@ CBUFFER(Game, SLOT_CBUFFER_GAME) {
 	// The display resolution.
 	// g_display_resolution.x = the display width
 	// g_display_resolution.y = the display height
-	uint2  g_display_resolution               : packoffset(c0);
+	uint2  g_display_resolution                  : packoffset(c0);
 	// The inverse of the display resolution minus 1.
 	// g_display_inv_resolution_minus1.x = 1 / (g_display_resolution.x - 1)
 	// g_display_inv_resolution_minus1.y = 1 / (g_display_resolution.y - 1)
-	float2 g_display_inv_resolution_minus1    : packoffset(c0.z);
+	float2 g_display_inv_resolution_minus1       : packoffset(c0.z);
 	// The gamma exponent used for gamma recovery.
 	// C  = pow(C', g_gamma)
-	float g_gamma                             : packoffset(c1);
+	float g_gamma                                : packoffset(c1);
 	// The inverse of the gamma exponent used for gamma correction.
 	// C' = pow(C, g_inv_gamma) = pow(C, 1/g_gamma)
-	float g_inv_gamma                         : packoffset(c1.y);
+	float g_inv_gamma                            : packoffset(c1.y);
 };
 
 CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	// The camera-view-to-camera-projection transformation matrix.
-	float4x4 g_view_to_projection             : packoffset(c0);
+	float4x4 g_view_to_projection                : packoffset(c0);
 	// The camera-projection-to-camera-view transformation matrix.
-	float4x4 g_projection_to_view             : packoffset(c4);
+	float4x4 g_projection_to_view                : packoffset(c4);
 	// The world-to-camera-view transformation matrix.
-	float4x4 g_world_to_view                  : packoffset(c8);
+	float4x4 g_world_to_view                     : packoffset(c8);
 	// The camera-view-to-world transformation matrix.
-	float4x4 g_view_to_world                  : packoffset(c12);
+	float4x4 g_view_to_world                     : packoffset(c12);
+	
 	// The top left corner of the camera viewport.
-	uint2    g_viewport_top_left              : packoffset(c16);
-	// The viewport resolution of the camera viewport.
+	uint2    g_viewport_top_left                 : packoffset(c16);
+	// The resolution of the camera viewport.
 	// g_viewport_resolution.x = the viewport width
 	// g_viewport_resolution.y = the viewport height
-	uint2    g_viewport_resolution            : packoffset(c16.z);
-	// The inverse of the viewport resolution of the camera viewport minus 1.
+	uint2    g_viewport_resolution               : packoffset(c16.z);
+	// The top left corner of the super-sampled camera viewport.
+	uint2    g_ss_viewport_top_left              : packoffset(c17);
+	// The resolution of the super-sampled camera viewport.
+	// g_ss_viewport_resolution.x = the super-sampled viewport width
+	// g_ss_viewport_resolution.y = the super-sampled viewport height
+	uint2    g_ss_viewport_resolution            : packoffset(c17.z);
+	// The inverse of the resolution of the camera viewport minus 1.
 	// g_viewport_inv_resolution_minus1.x = 1 / (g_viewport_resolution.x - 1)
 	// g_viewport_inv_resolution_minus1.y = 1 / (g_viewport_resolution.y - 1)
-	float2   g_viewport_inv_resolution_minus1 : packoffset(c17);
+	float2   g_viewport_inv_resolution_minus1    : packoffset(c18);
+	// The inverse of the resolution of the super-sampled camera viewport minus 1.
+	// g_ss_viewport_inv_resolution_minus1.x = 1 / (g_ss_viewport_resolution.x - 1)
+	// g_ss_viewport_inv_resolution_minus1.y = 1 / (g_ss_viewport_resolution.y - 1)
+	float2   g_ss_viewport_inv_resolution_minus1 : packoffset(c18.z);
 }
 
 //-----------------------------------------------------------------------------
@@ -82,11 +93,26 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 				(i.e. in the [0,resolution.x-1] x [0,resolution.y-1] range).
  @param[in]		id
 				The non-normalized viewport dispatch thread id.
- @return		The viewport normalized dispatch thread id corresponding to the 
+ @return		The normalized viewport dispatch thread id corresponding to the 
 				given non-normalized viewport dispatch thread id.
  */
 float2 NormalizeDispatchThreadID(uint2 id) {
 	return NormalizeDispatchThreadID(id, g_viewport_inv_resolution_minus1);
+}
+
+/**
+ Normalizes the given super-sampled viewport dispatch thread id.
+
+ @pre			@a id is non-normalized 
+				(i.e. in the [0,resolution.x-1] x [0,resolution.y-1] range).
+ @param[in]		id
+				The non-normalized super-sampled viewport dispatch thread id.
+ @return		The normalized super-sampled viewport dispatch thread id 
+				corresponding to the given non-normalized super-sampled viewport 
+				dispatch thread id.
+ */
+float2 NormalizeSSDispatchThreadID(uint2 id) {
+	return NormalizeDispatchThreadID(id, g_ss_viewport_inv_resolution_minus1);
 }
 
 /**
@@ -100,6 +126,19 @@ float2 NormalizeDispatchThreadID(uint2 id) {
  */
 float2 DispatchThreadIDtoNDC(uint2 id) {
 	return NormalizedDispatchThreadIDtoNDC(NormalizeDispatchThreadID(id));
+}
+
+/**
+ Converts the given super-sampled viewport dispatch thread id to NDC coordinates.
+
+ @pre			@a id is non-normalized 
+				(i.e. in the [0,resolution.x-1] x [0,resolution.y-1] range).
+ @param[in]		id
+				The non-normalized super-sampled viewport dispatch thread id.
+ @return		The NDC coordinates.
+ */
+float2 SSDispatchThreadIDtoNDC(uint2 id) {
+	return NormalizedDispatchThreadIDtoNDC(NormalizeSSDispatchThreadID(id));
 }
 
 #endif // MAGE_HEADER_GLOBAL

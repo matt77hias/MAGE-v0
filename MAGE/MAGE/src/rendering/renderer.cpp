@@ -54,12 +54,12 @@ namespace mage {
 		const DisplayConfiguration * const config = DisplayConfiguration::Get();
 		
 		GameBuffer game_buffer;
-		game_buffer.m_width             = config->GetDisplayWidth();
-		game_buffer.m_height            = config->GetDisplayHeight();
-		game_buffer.m_inv_width_minus1  = 1.0f / (config->GetDisplayWidth()  - 1.0f);
-		game_buffer.m_inv_height_minus1 = 1.0f / (config->GetDisplayHeight() - 1.0f);
-		game_buffer.m_gamma             = config->GetGamma();
-		game_buffer.m_inv_gamma         = 1.0f / config->GetGamma();
+		game_buffer.m_display_width             = config->GetDisplayWidth();
+		game_buffer.m_display_height            = config->GetDisplayHeight();
+		game_buffer.m_inv_display_width_minus1  = 1.0f / (game_buffer.m_display_width  - 1.0f);
+		game_buffer.m_inv_display_height_minus1 = 1.0f / (game_buffer.m_display_height - 1.0f);
+		game_buffer.m_gamma                     = config->GetGamma();
+		game_buffer.m_inv_gamma                 = 1.0f / game_buffer.m_gamma;
 
 		// Update the game buffer.
 		m_game_buffer.UpdateData(m_device_context, game_buffer);
@@ -70,22 +70,31 @@ namespace mage {
 
 	void Renderer::BindCameraBuffer(
 		const Viewport &viewport,
+		const Viewport &ss_viewport,
 		FXMMATRIX view_to_projection,
 		CXMMATRIX projection_to_view,
 		CXMMATRIX world_to_view,
 		CXMMATRIX view_to_world) {
 
 		CameraBuffer camera_buffer;
-		camera_buffer.m_view_to_projection  = XMMatrixTranspose(view_to_projection);
-		camera_buffer.m_projection_to_view  = XMMatrixTranspose(projection_to_view);
-		camera_buffer.m_world_to_view       = XMMatrixTranspose(world_to_view);
-		camera_buffer.m_view_to_world       = XMMatrixTranspose(view_to_world);
-		camera_buffer.m_viewport_top_left_x = static_cast< U32 >(viewport.GetTopLeftX());
-		camera_buffer.m_viewport_top_left_y = static_cast< U32 >(viewport.GetTopLeftY());
-		camera_buffer.m_viewport_width      = static_cast< U32 >(viewport.GetWidth());
-		camera_buffer.m_viewport_height     = static_cast< U32 >(viewport.GetHeight());
-		camera_buffer.m_viewport_inv_width_minus1  = 1.0f / (viewport.GetWidth()  - 1.0f);
-		camera_buffer.m_viewport_inv_height_minus1 = 1.0f / (viewport.GetHeight() - 1.0f);
+		camera_buffer.m_view_to_projection            = XMMatrixTranspose(view_to_projection);
+		camera_buffer.m_projection_to_view            = XMMatrixTranspose(projection_to_view);
+		camera_buffer.m_world_to_view                 = XMMatrixTranspose(world_to_view);
+		camera_buffer.m_view_to_world                 = XMMatrixTranspose(view_to_world);
+		
+		camera_buffer.m_viewport_top_left_x           = static_cast< U32 >(viewport.GetTopLeftX());
+		camera_buffer.m_viewport_top_left_y           = static_cast< U32 >(viewport.GetTopLeftY());
+		camera_buffer.m_viewport_width                = static_cast< U32 >(viewport.GetWidth());
+		camera_buffer.m_viewport_height               = static_cast< U32 >(viewport.GetHeight());
+		camera_buffer.m_viewport_inv_width_minus1     = 1.0f / (viewport.GetWidth()  - 1.0f);
+		camera_buffer.m_viewport_inv_height_minus1    = 1.0f / (viewport.GetHeight() - 1.0f);
+
+		camera_buffer.m_ss_viewport_top_left_x        = static_cast< U32 >(ss_viewport.GetTopLeftX());
+		camera_buffer.m_ss_viewport_top_left_y        = static_cast< U32 >(ss_viewport.GetTopLeftY());
+		camera_buffer.m_ss_viewport_width             = static_cast< U32 >(ss_viewport.GetWidth());
+		camera_buffer.m_ss_viewport_height            = static_cast< U32 >(ss_viewport.GetHeight());
+		camera_buffer.m_ss_viewport_inv_width_minus1  = 1.0f / (ss_viewport.GetWidth()  - 1.0f);
+		camera_buffer.m_ss_viewport_inv_height_minus1 = 1.0f / (ss_viewport.GetHeight() - 1.0f);
 
 		// Update the camera buffer.
 		m_camera_buffer.UpdateData(m_device_context, camera_buffer);
@@ -121,32 +130,32 @@ namespace mage {
 			const CameraSettings * const settings  = node->GetSettings();
 			const RenderMode render_mode           = settings->GetRenderMode();
 			const BRDFType brdf                    = settings->GetBRDF();
-			const Viewport &post_viewport          = node->GetViewport();
-			const Viewport pre_viewport(post_viewport, desc);
+			const Viewport &viewport               = node->GetViewport();
+			const Viewport ss_viewport(viewport, desc);
 
 			// Bind the camera buffer.
-			BindCameraBuffer(post_viewport, view_to_projection,
+			BindCameraBuffer(viewport, ss_viewport, view_to_projection,
 				projection_to_view, world_to_view, view_to_world);
 			
 			// RenderMode
 			switch (render_mode) {
 
 			case RenderMode::Forward: {
-				ExecuteForwardPipeline(pre_viewport, world_to_projection,
+				ExecuteForwardPipeline(ss_viewport, world_to_projection,
 					world_to_view, view_to_world, brdf);
 				
 				break;
 			}
 
 			case RenderMode::Deferred: {
-				ExecuteDeferredPipeline(pre_viewport, world_to_projection,
+				ExecuteDeferredPipeline(ss_viewport, world_to_projection,
 					world_to_view, view_to_world, brdf);
 				
 				break;
 			}
 
 			case RenderMode::Solid: {
-				ExecuteSolidForwardPipeline(pre_viewport, world_to_projection,
+				ExecuteSolidForwardPipeline(ss_viewport, world_to_projection,
 					world_to_view, view_to_world);
 				
 				break;
@@ -160,7 +169,7 @@ namespace mage {
 			case RenderMode::MaterialTexture:
 			case RenderMode::NormalTexture: {
 				// Bind the viewport.
-				pre_viewport.BindViewport(m_device_context);
+				ss_viewport.BindViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 
@@ -176,7 +185,7 @@ namespace mage {
 			case RenderMode::UVTexture:
 			case RenderMode::Distance: {
 				// Bind the viewport.
-				pre_viewport.BindViewport(m_device_context);
+				ss_viewport.BindViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 
@@ -192,7 +201,7 @@ namespace mage {
 			case RenderMode::ShadingNormal:
 			case RenderMode::TSNMShadingNormal: {
 				// Bind the viewport.
-				pre_viewport.BindViewport(m_device_context);
+				ss_viewport.BindViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 
@@ -207,7 +216,7 @@ namespace mage {
 
 			case RenderMode::None: {
 				// Bind the viewport.
-				pre_viewport.BindViewport(m_device_context);
+				ss_viewport.BindViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 				break;
@@ -233,7 +242,7 @@ namespace mage {
 		
 			output_manager->BindEndForward(m_device_context);
 
-			ExecuteAAPipeline(pre_viewport);
+			ExecuteAAPipeline(ss_viewport);
 
 			output_manager->BindEnd(m_device_context);
 		}

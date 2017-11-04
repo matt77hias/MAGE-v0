@@ -107,7 +107,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	// Obtain the view-space normal.
 	const float3 n_view     = GetGBufferNormal(location);
 	// Obtain the view-space hit position.
-	const float2 p_ndc_xy   = DispatchThreadIDtoNDC(thread_id.xy);
+	const float2 p_ndc_xy   = SSDispatchThreadIDtoNDC(thread_id.xy);
 	const float3 p_view     = GetGBufferPosition(location, p_ndc_xy);
 
 	// Calculate the pixel radiance.

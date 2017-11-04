@@ -29,8 +29,10 @@ namespace mage {
 	template< typename VertexT, typename IndexT >
 	void MSHReader< VertexT, IndexT >::Read() {
 
-		if (!IsHeaderValid()) {
-			throw FormattedException(
+		// Read the header.
+		{
+			const bool result = IsHeaderValid();
+			ThrowIfFailed(result, 
 				"%ls: invalid mesh header.", GetFilename().c_str());
 		}
 

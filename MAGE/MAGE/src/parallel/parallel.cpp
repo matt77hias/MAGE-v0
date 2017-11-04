@@ -5,7 +5,7 @@
 
 #include "memory\types.hpp"
 #include "parallel\parallel.hpp"
-#include "logging\error.hpp"
+#include "logging\exception.hpp"
 
 #pragma endregion
 
@@ -17,21 +17,29 @@ namespace mage {
 	size_t NumberOfPhysicalCores() noexcept {
 
 		DWORD length = 0;
-		const BOOL result_first = GetLogicalProcessorInformationEx(
-									RelationProcessorCore, nullptr, &length);
 		
-		Assert(result_first == FALSE);
-		Assert(GetLastError() == ERROR_INSUFFICIENT_BUFFER);
-
+		// Obtain the buffer length.
+		{
+			const BOOL result = GetLogicalProcessorInformationEx(
+				RelationProcessorCore, nullptr, &length);
+			ThrowIfFailed(result, 
+				"Retrieving processor information failed.");
+			ThrowIfFailed((ERROR_INSUFFICIENT_BUFFER == GetLastError()),
+				"Retrieving processor information failed.");
+		}
+		
 		UniquePtr< U8[] > buffer(MakeUnique< U8[] >(length));
-		const PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX info = 
-			reinterpret_cast< PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(
-				buffer.get());
+		
+		// Populate the buffer.
+		{
+			const PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX info =
+				reinterpret_cast< PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX >(
+					buffer.get());
 
-		const BOOL result_second = GetLogicalProcessorInformationEx(
-									RelationProcessorCore, info, &length);
-
-		Assert(result_second == TRUE);
+			const BOOL result = GetLogicalProcessorInformationEx(
+				RelationProcessorCore, info, &length);
+			ThrowIfFailed(result, "Retrieving processor information failed.");
+		}
 
 		size_t nb_physical_cores = 0;
 		size_t offset = 0;

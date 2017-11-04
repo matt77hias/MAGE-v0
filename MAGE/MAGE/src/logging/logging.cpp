@@ -20,13 +20,19 @@ namespace mage {
 		
 		// Retrieve a handle to the standard output device.
 		const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-		if (handle == INVALID_HANDLE_VALUE || handle == nullptr) {
-			throw FormattedException("GetStdHandle() failed.");
-		}
+		ThrowIfFailed((nullptr == handle),
+			"Obtained no handle to the standard output device.");
+		ThrowIfFailed((INVALID_HANDLE_VALUE == handle),
+			"Obtained invalid handle to the standard output device.");
 		
 		// Structure containing information about a console screen buffer.
 		CONSOLE_SCREEN_BUFFER_INFO buffer_info = {};
-		GetConsoleScreenBufferInfo(handle, &buffer_info);
+		{
+			const BOOL result 
+				= GetConsoleScreenBufferInfo(handle, &buffer_info);
+			ThrowIfFailed(result,
+				"Retrieving console screen buffer info failed.");
+		}
 		
 		// dwSize:	a COORD structure that contains the size of the console
 		//			screen buffer in character columns and rows.
@@ -49,44 +55,48 @@ namespace mage {
 
 	void InitializeConsole() {
 		// Allocate a console for basic IO.
-		if (!AllocConsole()) {
-			throw FormattedException(
-				"Console allocation failed.");
+		{
+			const BOOL result = AllocConsole();
+			ThrowIfFailed(result, "Console allocation failed.");
 		}
 
-		// This allows proper memory cleanup from the application itself
-		// in case the console is closed by the user.
-		const BOOL result = 
-			SetConsoleCtrlHandler(ConsoleCloseHandler, TRUE);
-		Assert(result);
+		// Set console handler for handling the user closing the console.
+		{
+			// This allows proper memory cleanup from the application itself
+			// in case the console is closed by the user.
+			const BOOL result =
+				SetConsoleCtrlHandler(ConsoleCloseHandler, TRUE);
+			ThrowIfFailed(result, "Setting console handler failed.");
+		}
 
-		// Redirect stdin, stdout and stderr to the allocated console.
-		
-		// Reuse stdin to open the file "CONIN$".
+		// Redirect stdin to the allocated console.
 		FILE *stream_in;
-		const errno_t result_in = 
-			freopen_s(&stream_in, "CONIN$", "r", stdin);
-		if (result_in) {
-			throw FormattedException(
-				"stdin redirection failed: %d.", result_in);
-		}
-		
-		// Reuse stdout to open the file "CONOUT$".
-		FILE *stream_out;
-		const errno_t result_out = 
-			freopen_s(&stream_out, "CONOUT$", "w", stdout);
-		if (result_out) {
-			throw FormattedException(
-				"stdout redirection failed: %d.", result_out);
+		{
+			// Reuse stdin to open the file "CONIN$".
+			const errno_t result 
+				= freopen_s(&stream_in, "CONIN$", "r", stdin);
+			ThrowIfFailed(0 != result, 
+				"stdin redirection failed: %d.", result);
 		}
 
-		// Reuse stderr to open the file "CONIN$.
+		// Redirect stdout to the allocated console.
+		FILE *stream_out;
+		{
+			// Reuse stdout to open the file "CONOUT$".
+			const errno_t result
+				= freopen_s(&stream_out, "CONOUT$", "w", stdout);
+			ThrowIfFailed(0 != result, 
+				"stdout redirection failed: %d.", result);
+		}
+
+		// Redirect stderr to the allocated console.
 		FILE *stream_err;
-		const errno_t result_err = 
-			freopen_s(&stream_err, "CONOUT$", "w", stderr);
-		if (result_err) {
-			throw FormattedException(
-				"stderr redirection failed: %d.", result_err);
+		{
+			// Reuse stderr to open the file "CONIN$.
+			const errno_t result 
+				= freopen_s(&stream_err, "CONOUT$", "w", stderr);
+			ThrowIfFailed(0 != result, 
+				"stderr redirection failed: %d.", result);
 		}
 	}
 }

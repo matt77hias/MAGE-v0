@@ -25,11 +25,12 @@ namespace mage {
 		m_fname = fname;
 
 		FILE *file;
-		const errno_t result_fopen_s = _wfopen_s(&file, GetFilename().c_str(), L"w");
-		if (result_fopen_s) {
-			throw FormattedException(
+		{
+			const errno_t result = _wfopen_s(&file, GetFilename().c_str(), L"w");
+			ThrowIfFailed((0 != result),
 				"%ls: could not open file.", GetFilename().c_str());
 		}
+
 		m_file_stream.reset(file);
 
 		Write();
@@ -37,20 +38,16 @@ namespace mage {
 
 	void Writer::WriteCharacter(char c) {
 		const int result = fputc(c, m_file_stream.get());
-		if (result == EOF) {
-			throw FormattedException(
-				"%ls: could not write to file.", GetFilename().c_str());
-		}
+		ThrowIfFailed((EOF == result), 
+			"%ls: could not write to file.", GetFilename().c_str());
 	}
 	
 	void Writer::WriteString(const char *str) {
 		Assert(str);
 		
 		const int result = fputs(str, m_file_stream.get());
-		if (result == EOF) {
-			throw FormattedException(
-				"%ls: could not write to file.", GetFilename().c_str());
-		}
+		ThrowIfFailed((EOF == result),
+			"%ls: could not write to file.", GetFilename().c_str());
 	}
 	
 	void Writer::WriteStringLine(const char *str) {

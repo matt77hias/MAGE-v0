@@ -137,6 +137,49 @@ namespace mage {
 		char m_text[2048];
 	};
 
+	static_assert(!std::is_same< bool, BOOL >::value,
+		"MAGE/Windows primitive type mismatch");
+	static_assert(!std::is_same< BOOL, HRESULT >::value,
+		"MAGE/Windows primitive type mismatch");
+
+	/**
+	 Throws if the given results corresponds to a failure.
+
+	 @param[in]		result
+					The result value.
+	 */
+	void ThrowIfFailed(bool result);
+
+	/**
+	 Throws if the given results corresponds to a failure.
+
+	 @pre			@a format is not equal to @c nullptr.
+	 @param[in]		result
+					The result value.
+	 @param[in]		format
+					Pointer to the message format.
+	 */
+	void ThrowIfFailed(bool result, const char *format, ...);
+
+	/**
+	 Throws if the given results corresponds to a failure.
+
+	 @param[in]		result
+					The result value.
+	 */
+	void ThrowIfFailed(BOOL result);
+
+	/**
+	 Throws if the given results corresponds to a failure.
+
+	 @pre			@a format is not equal to @c nullptr.
+	 @param[in]		result
+					The result value.
+	 @param[in]		format
+					Pointer to the message format.
+	 */
+	void ThrowIfFailed(BOOL result, const char *format, ...);
+
 	/**
 	 Throws if the given results corresponds to a failure.
 

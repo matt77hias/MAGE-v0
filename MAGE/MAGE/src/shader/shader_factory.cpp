@@ -13,8 +13,6 @@
 #include "shader\cso\aa\msaa_2x_resolve_CS.hpp"
 #include "shader\cso\aa\msaa_4x_resolve_CS.hpp"
 #include "shader\cso\aa\msaa_8x_resolve_CS.hpp"
-#include "shader\cso\aa\msaa_16x_resolve_CS.hpp"
-#include "shader\cso\aa\msaa_32x_resolve_CS.hpp"
 #include "shader\cso\aa\msaa_resolve_CS.hpp"
 #include "shader\cso\aa\ssaa_2x_resolve_CS.hpp"
 #include "shader\cso\aa\ssaa_3x_resolve_CS.hpp"
@@ -145,12 +143,6 @@ namespace mage {
 		case 8:
 			return ResourceManager::Get()->GetOrCreateCS(
 				MAGE_SHADER_ARGS(g_msaa_8x_resolve_CS));
-		case 16:
-			return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_SHADER_ARGS(g_msaa_16x_resolve_CS));
-		case 32:
-			return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_SHADER_ARGS(g_msaa_32x_resolve_CS));
 		default:
 			return ResourceManager::Get()->GetOrCreateCS(
 				MAGE_SHADER_ARGS(g_msaa_resolve_CS));

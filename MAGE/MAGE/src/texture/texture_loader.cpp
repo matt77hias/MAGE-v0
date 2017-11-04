@@ -109,10 +109,8 @@ namespace mage {
 		else {
 
 			const GUID format = GetGUIDContainerFormat(extension);
-			if (GUID_NULL == format) {
-				throw FormattedException(
-					"Unknown image file extension: %ls", fname.c_str());
-			}
+			ThrowIfFailed((GUID_NULL != format), 
+				"Unknown image file extension: %ls", fname.c_str());
 
 			const HRESULT result = DirectX::SaveWICTextureToFile(
 				device_context, texture, format, fname.c_str());

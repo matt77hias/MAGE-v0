@@ -58,6 +58,50 @@ namespace mage {
 	FormattedException &FormattedException::operator=(
 		FormattedException &&formatted_exception) = default;
 
+	void ThrowIfFailed(bool result) {
+		if (!result) {
+			throw FormattedException();
+		}
+	}
+
+	void ThrowIfFailed(bool result, const char *format, ...) {
+		if (!result) {
+			va_list args;
+
+			// Retrieve the additional arguments after format.
+			va_start(args, format);
+
+			const FormattedException exception = FormattedException(format);
+
+			// End using variable argument list.
+			va_end(args);
+
+			throw exception;
+		}
+	}
+
+	void ThrowIfFailed(BOOL result) {
+		if (FALSE == result) {
+			throw FormattedException();
+		}
+	}
+
+	void ThrowIfFailed(BOOL result, const char *format, ...) {
+		if (FALSE == result) {
+			va_list args;
+
+			// Retrieve the additional arguments after format.
+			va_start(args, format);
+
+			const FormattedException exception = FormattedException(format);
+
+			// End using variable argument list.
+			va_end(args);
+
+			throw exception;
+		}
+	}
+
 	void ThrowIfFailed(HRESULT result) {
 		if (FAILED(result)) {
 			throw FormattedException();
@@ -70,9 +114,9 @@ namespace mage {
 
 			// Retrieve the additional arguments after format.
 			va_start(args, format);
-			
+
 			const FormattedException exception = FormattedException(format);
-			
+
 			// End using variable argument list.
 			va_end(args);
 

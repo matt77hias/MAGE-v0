@@ -50,12 +50,14 @@ namespace mage {
 						The width in pixels of the back buffer.
 		 @param[in]		height
 						The height in pixels of the back buffer.
+		 @param[in]		desc
+						The Anti-Aliasing descriptor.
 		 @throws		FormattedException
 						Failed to setup the rendering outputs of this rendering 
 						output manager.
 		 */
 		explicit RenderingOutputManager(
-			ID3D11Device2 *device, U32 width, U32 height);
+			ID3D11Device2 *device, U32 width, U32 height, AADescriptor desc);
 
 		/**
 		 Constructs a rendering output manager from the given rendering output 
@@ -122,6 +124,8 @@ namespace mage {
 		void BindEndDeferred(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindBeginForward(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindEndForward(ID3D11DeviceContext2 *device_context) const noexcept;
+		void BindBeginResolve(ID3D11DeviceContext2 *device_context) const noexcept;
+		void BindEndResolve(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindPingPong(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindEnd(ID3D11DeviceContext2 *device_context) const noexcept;
 
@@ -132,28 +136,35 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		enum struct SRVIndex {
-			GBuffer_BaseColor = 0,
-			GBuffer_Material  = 1,
-			GBuffer_Normal    = 2,
-			GBuffer_Depth     = 3,
-			HDR0              = 4,
-			HDR1              = 5,
-			Count             = 6
+			GBuffer_BaseColor     = 0,
+			GBuffer_Material      = 1,
+			GBuffer_Normal        = 2,
+			GBuffer_Depth         = 3,
+			HDR                   = 4,
+			PostProcessing_Normal = 5,
+			PostProcessing_Depth  = 6,
+			PostProcessing_HDR0   = 7,
+			PostProcessing_HDR1   = 8,
+			Count                 = 9
 		};
 
 		enum struct RTVIndex {
-			GBuffer_BaseColor = 0,
-			GBuffer_Material  = 1,
-			GBuffer_Normal    = 2,
-			HDR0              = 3,
-			HDR1              = 4,
-			Count             = 5
+			GBuffer_BaseColor   = 0,
+			GBuffer_Material    = 1,
+			GBuffer_Normal      = 2,
+			HDR                 = 3,
+			PostProcessing_HDR0 = 4,
+			PostProcessing_HDR1 = 5,
+			Count               = 6
 		};
 
 		enum struct UAVIndex {
-			HDR0  = 0,
-			HDR1  = 1,
-			Count = 2
+			HDR                   = 0,
+			PostProcessing_Normal = 1,
+			PostProcessing_Depth  = 2,
+			PostProcessing_HDR0   = 3,
+			PostProcessing_HDR1   = 4,
+			Count                 = 5
 		};
 
 		ID3D11ShaderResourceView *GetSRV(SRVIndex index) const noexcept {
@@ -180,13 +191,16 @@ namespace mage {
 			return m_uavs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
 
-		void SetupBuffers(ID3D11Device2 *device, U32 width, U32 height);
+		void SetupBuffers(ID3D11Device2 *device, 
+			U32 width, U32 height, AADescriptor desc);
 
-		void SetupBuffer(ID3D11Device2 *device, U32 width, U32 height, 
-			DXGI_FORMAT format, ID3D11ShaderResourceView **srv,
-			ID3D11RenderTargetView **rtv, ID3D11UnorderedAccessView **uav);
+		void SetupBuffer(ID3D11Device2 *device, 
+			U32 width, U32 height, U32 nb_samples, DXGI_FORMAT format,
+			ID3D11ShaderResourceView **srv, ID3D11RenderTargetView **rtv, 
+			ID3D11UnorderedAccessView **uav);
 
-		void SetupDepthBuffer(ID3D11Device2 *device, U32 width, U32 height);
+		void SetupDepthBuffer(ID3D11Device2 *device, 
+			U32 width, U32 height, U32 nb_samples);
 
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -204,5 +218,7 @@ namespace mage {
 		ComPtr< ID3D11DepthStencilView > m_dsv;
 
 		mutable bool m_hdr0_to_hdr1;
+
+		bool m_msaa_or_ssaa;
 	};
 }

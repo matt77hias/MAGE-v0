@@ -164,7 +164,7 @@ namespace mage {
 		const BOOL result = GetProcessTimes(handle_process, 
 			&ftime, &ftime, &kernel_mode_ftime, &user_mode_ftime);
 		
-		if (result != 0) {
+		if (TRUE == result) {
 			*kernel_mode_timestamp = ConvertTimestamp(kernel_mode_ftime);
 			*user_mode_timestamp   = ConvertTimestamp(user_mode_ftime);
 		}

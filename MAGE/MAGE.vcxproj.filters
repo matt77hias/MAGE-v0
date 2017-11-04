@@ -52,9 +52,6 @@
     <Filter Include="Header Files\rendering">
       <UniqueIdentifier>{3f617a84-2fd4-45a3-9bea-c3e24f4d948b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\rendering">
-      <UniqueIdentifier>{59b18b55-fb31-4414-83d5-f08141f8f36f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\input">
       <UniqueIdentifier>{69116e59-6b9a-45ff-a6eb-6e13ba704792}</UniqueIdentifier>
     </Filter>
@@ -303,6 +300,9 @@
     </Filter>
     <Filter Include="Shader Files\aa">
       <UniqueIdentifier>{84542ce8-cf80-4691-b777-94859e5e1cc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rendering">
+      <UniqueIdentifier>{a73b8f88-b360-4052-8e68-8fdbe8cdcaa6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1181,9 +1181,6 @@
     <ClCompile Include="MAGE\src\model\model_descriptor.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\sprite\sprite_batch.cpp">
       <Filter>Source Files\sprite</Filter>
     </ClCompile>
@@ -1337,9 +1334,6 @@
     <ClCompile Include="MAGE\src\core\engine_statistics.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\display_configurator.cpp">
-      <Filter>Source Files\rendering</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\math\transform_node.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
@@ -1366,9 +1360,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\script\render_mode_script.cpp">
       <Filter>Source Files\script</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\pipeline.cpp">
-      <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\script\rotation_script.cpp">
       <Filter>Source Files\script</Filter>
@@ -1427,26 +1418,35 @@
     <ClCompile Include="MAGE\src\texture\dds\screen_grab.cpp">
       <Filter>Source Files\texture\dds</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\rendering_manager.cpp">
+    <ClCompile Include="MAGE\src\pass\back_buffer_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\pass\aa_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\rendering_factory.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\rendering_state_manager.cpp">
+    <ClCompile Include="MAGE\src\rendering\rendering_manager.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\rendering_output_manager.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\pass\back_buffer_pass.cpp">
-      <Filter>Source Files\pass</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\rendering\renderer.cpp">
+    <ClCompile Include="MAGE\src\rendering\rendering_state_manager.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\rendering\swap_chain.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\pass\aa_pass.cpp">
-      <Filter>Source Files\pass</Filter>
+    <ClCompile Include="MAGE\src\rendering\display_configurator.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\pipeline.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\rendering\renderer.cpp">
+      <Filter>Source Files\rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1634,12 +1634,6 @@
       <Filter>Shader Files\depth</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\aa\msaa_8x_resolve_CS.hlsl">
-      <Filter>Shader Files\aa</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\aa\msaa_16x_resolve_CS.hlsl">
-      <Filter>Shader Files\aa</Filter>
-    </FxCompile>
-    <FxCompile Include="MAGE\shaders\aa\msaa_32x_resolve_CS.hlsl">
       <Filter>Shader Files\aa</Filter>
     </FxCompile>
     <FxCompile Include="MAGE\shaders\aa\ssaa_2x_resolve_CS.hlsl">

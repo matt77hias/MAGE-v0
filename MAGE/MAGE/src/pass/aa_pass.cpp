@@ -60,16 +60,6 @@ namespace mage {
 			m_cs            = CreateMSAAResolveCS(8u);
 			break;
 		}
-		case AADescriptor::MSAA_16x: {
-			m_preprocess_cs = nullptr;
-			m_cs            = CreateMSAAResolveCS(16u);
-			break;
-		}
-		case AADescriptor::MSAA_32x: {
-			m_preprocess_cs = nullptr;
-			m_cs            = CreateMSAAResolveCS(32u);
-			break;
-		}
 
 		case AADescriptor::SSAA_2x: {
 			m_preprocess_cs = nullptr;
@@ -155,20 +145,6 @@ namespace mage {
 				        / static_cast< F32 >(GROUP_SIZE_MSAA_8X)));
 			nb_groups_z = static_cast< U32 >(ceil(viewport.GetWidth()
 				        / static_cast< F32 >(GROUP_SIZE_MSAA_8X)));
-		}
-		case AADescriptor::MSAA_16x: {
-			nb_groups_x = 16u;
-			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
-				        / static_cast< F32 >(GROUP_SIZE_MSAA_16X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetWidth()
-				        / static_cast< F32 >(GROUP_SIZE_MSAA_16X)));
-		}
-		case AADescriptor::MSAA_32x: {
-			nb_groups_x = 32u;
-			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
-				        / static_cast< F32 >(GROUP_SIZE_MSAA_32X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetWidth()
-				        / static_cast< F32 >(GROUP_SIZE_MSAA_32X)));
 		}
 
 		case AADescriptor::SSAA_2x: {

@@ -35,9 +35,6 @@
 #define GROUP_SIZE_MSAA_2X      16
 #define GROUP_SIZE_MSAA_4X      16
 #define GROUP_SIZE_MSAA_8X       8
-#define GROUP_SIZE_MSAA_16X      8
-#define GROUP_SIZE_MSAA_32X      4
-
 #define GROUP_SIZE_SSAA_2X      16
 #define GROUP_SIZE_SSAA_3X       8
 #define GROUP_SIZE_SSAA_4X       8
@@ -144,5 +141,9 @@
 #define SLOT_UAV_IMAGE                          0
 #define SLOT_UAV_NORMAL                         1
 #define SLOT_UAV_DEPTH                          2
+#define SLOT_UAV_RESOLVE_START                  SLOT_UAV_IMAGE
+#define SLOT_UAV_RESOLVE_END                    SLOT_UAV_DEPTH
+#define SLOT_UAV_RESOLVE_COUNT                  (SLOT_UAV_RESOLVE_END + 1 \
+													- SLOT_UAV_RESOLVE_START)
 
 #endif // MAGE_HEADER_HLSL

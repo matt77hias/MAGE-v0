@@ -57,7 +57,8 @@ namespace mage {
 
 		// Setup the rendering output manager.
 		m_rendering_output_manager = MakeUnique< RenderingOutputManager >(
-			                         m_device.Get(), GetWidth(), GetHeight());
+			                         m_device.Get(), GetWidth(), GetHeight(),
+									 m_display_configuration->GetAADescriptor());
 		
 		// Setup the rendering state manager.
 		m_rendering_state_manager = MakeUnique< RenderingStateManager >(

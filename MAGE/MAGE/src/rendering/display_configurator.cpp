@@ -349,10 +349,6 @@ namespace mage {
 				ComboBoxAddValue(hwndDlg, IDC_AA, 
 					static_cast<size_t>(AADescriptor::MSAA_8x),  L"MSAA 8x");
 				ComboBoxAddValue(hwndDlg, IDC_AA, 
-					static_cast<size_t>(AADescriptor::MSAA_16x), L"MSAA 16x");
-				ComboBoxAddValue(hwndDlg, IDC_AA, 
-					static_cast<size_t>(AADescriptor::MSAA_32x), L"MSAA 32x");
-				ComboBoxAddValue(hwndDlg, IDC_AA, 
 					static_cast<size_t>(AADescriptor::SSAA_2x),  L"SSAA 2x");
 				ComboBoxAddValue(hwndDlg, IDC_AA, 
 					static_cast<size_t>(AADescriptor::SSAA_3x),  L"SSAA 3x");

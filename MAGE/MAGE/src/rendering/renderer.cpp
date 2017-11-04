@@ -379,16 +379,48 @@ namespace mage {
 		
 		const RenderingOutputManager * const output_manager
 			= RenderingOutputManager::Get();
+		const AADescriptor desc
+			= RenderingManager::Get()->
+			GetDisplayConfiguration()->GetAADescriptor();
 
-		output_manager->BindPingPong(m_device_context);
+		switch (desc) {
 
-		// Perform an AA pass.
-		AAPass * const aa_pass = GetAAPass();
-		aa_pass->DispatchAAPreprocess(viewport, AADescriptor::FXAA);
+		case AADescriptor::FXAA: {
 
-		output_manager->BindPingPong(m_device_context);
+			output_manager->BindBeginResolve(m_device_context);
 
-		// Perform a FXAA pass.
-		aa_pass->DispatchAA(viewport, AADescriptor::FXAA);
+			// Perform an AA pass.
+			AAPass * const aa_pass = GetAAPass();
+			aa_pass->DispatchAAPreprocess(viewport, AADescriptor::FXAA);
+
+			output_manager->BindEndResolve(m_device_context);
+			output_manager->BindPingPong(m_device_context);
+
+			// Perform a FXAA pass.
+			aa_pass->DispatchAA(viewport, AADescriptor::FXAA);
+
+			break;
+		}
+
+		case AADescriptor::MSAA_2x:
+		case AADescriptor::MSAA_4x:
+		case AADescriptor::MSAA_8x:
+		case AADescriptor::SSAA_2x:
+		case AADescriptor::SSAA_3x:
+		case AADescriptor::SSAA_4x: {
+			
+			//TODO: update resolution
+
+			output_manager->BindBeginResolve(m_device_context);
+
+			// Perform an AA pass.
+			AAPass * const aa_pass = GetAAPass();
+			aa_pass->DispatchAA(viewport, desc);
+
+			output_manager->BindEndResolve(m_device_context);
+			break;
+		}
+
+		}
 	}
 }

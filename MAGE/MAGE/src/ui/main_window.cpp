@@ -237,10 +237,12 @@ namespace mage {
 		// a string, it specifies the window class name.
 		wcex.lpszClassName = MAGE_MAIN_WINDOW_CLASS_NAME;
 
-		// Register a window class
-		if (!RegisterClassEx(&wcex)) {
-			throw FormattedException("Registering main window's class failed.");
+		// Register a window class.
+		{
+			const ATOM result = RegisterClassEx(&wcex);
+			ThrowIfFailed(0 != result, "Registering main window's class failed.");
 		}
+
 		//-----------------------------------------------------------------------------
 
 		// Calculate the required size of the window rectangle, based on the desired 
@@ -261,10 +263,7 @@ namespace mage {
 			adjusted_rectangle.right  - adjusted_rectangle.left, 
 			adjusted_rectangle.bottom - adjusted_rectangle.top, 
 			nullptr, nullptr, m_hinstance, nullptr);
-
-		if (!m_hwindow) {
-			throw FormattedException("Main window creation failed.");
-		}
+		ThrowIfFailed(!m_hwindow, "Main window creation failed.");
 
 		// Register a print screen hot key, because pressing down VK_SNAPSHOT 
 		// does not result in a WM_KEYDOWN (or WM_SYSKEYDOWN).
@@ -272,17 +271,13 @@ namespace mage {
 			const BOOL result = RegisterHotKey(m_hwindow,
 				static_cast<int>(HotKey::AltPrintScreen), 
 				MOD_ALT | MOD_NOREPEAT, VK_SNAPSHOT);
-			if (!result) {
-				throw FormattedException("Registering hot key failed.");
-			}
+			ThrowIfFailed(result, "Registering hot key failed.");
 		}
 		{
 			const BOOL result = RegisterHotKey(m_hwindow,
 				static_cast<int>(HotKey::PrintScreen),
 				MOD_NOREPEAT, VK_SNAPSHOT);
-			if (!result) {
-				throw FormattedException("Registering hot key failed.");
-			}
+			ThrowIfFailed(result, "Registering hot key failed.");
 		}
 	}
 

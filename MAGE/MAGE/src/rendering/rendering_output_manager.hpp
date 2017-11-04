@@ -136,23 +136,23 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		enum struct SRVIndex {
-			GBuffer_BaseColor     = 0,
-			GBuffer_Material      = 1,
-			GBuffer_Normal        = 2,
-			GBuffer_Depth         = 3,
-			HDR                   = 4,
-			PostProcessing_Normal = 5,
-			PostProcessing_Depth  = 6,
-			PostProcessing_HDR0   = 7,
-			PostProcessing_HDR1   = 8,
+			HDR                   = 0,
+			GBuffer_BaseColor     = 1,
+			GBuffer_Material      = 2,
+			GBuffer_Normal        = 3,
+			GBuffer_Depth         = 4,
+			PostProcessing_HDR0   = 5,
+			PostProcessing_HDR1   = 6,
+			PostProcessing_Normal = 7,
+			PostProcessing_Depth  = 8,
 			Count                 = 9
 		};
 
 		enum struct RTVIndex {
-			GBuffer_BaseColor   = 0,
-			GBuffer_Material    = 1,
-			GBuffer_Normal      = 2,
-			HDR                 = 3,
+			HDR                 = 0,
+			GBuffer_BaseColor   = 1,
+			GBuffer_Material    = 2,
+			GBuffer_Normal      = 3,
 			PostProcessing_HDR0 = 4,
 			PostProcessing_HDR1 = 5,
 			Count               = 6
@@ -160,10 +160,10 @@ namespace mage {
 
 		enum struct UAVIndex {
 			HDR                   = 0,
-			PostProcessing_Normal = 1,
-			PostProcessing_Depth  = 2,
-			PostProcessing_HDR0   = 3,
-			PostProcessing_HDR1   = 4,
+			PostProcessing_HDR0   = 1,
+			PostProcessing_HDR1   = 2,
+			PostProcessing_Normal = 3,
+			PostProcessing_Depth  = 4,
 			Count                 = 5
 		};
 

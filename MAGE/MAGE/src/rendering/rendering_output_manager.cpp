@@ -112,7 +112,7 @@ namespace mage {
 			nb_samples, DXGI_FORMAT_R16G16B16A16_FLOAT,
 			ReleaseAndGetAddressOfSRV(SRVIndex::HDR),
 			ReleaseAndGetAddressOfRTV(RTVIndex::HDR),
-			nullptr);
+			ReleaseAndGetAddressOfUAV(UAVIndex::HDR));
 
 		// Setup the HDR buffers.
 		SetupBuffer(device, width, height, 
@@ -168,10 +168,10 @@ namespace mage {
 			const HRESULT result = device->CheckMultisampleQualityLevels(
 				texture_desc.Format, texture_desc.SampleDesc.Count,
 				&texture_desc.SampleDesc.Quality);
-			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
-			if(texture_desc.SampleDesc.Quality) {
-				throw 10;
-			}
+			ThrowIfFailed(result,
+				"Multi-sampled texture 2D creation failed: %08X.", result);
+			ThrowIfFailed((0u != texture_desc.SampleDesc.Quality),
+				"Multi-sampled texture 2D creation failed.");
 			--texture_desc.SampleDesc.Quality;
 		}
 
@@ -224,14 +224,15 @@ namespace mage {
 		texture_desc.Usage            = D3D11_USAGE_DEFAULT;
 		texture_desc.BindFlags        = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_DEPTH_STENCIL;
 
-		const bool multi_sample = (1u != nb_samples);
-
 		// Sample quality
 		if (1u != nb_samples) {
 			const HRESULT result = device->CheckMultisampleQualityLevels(
 				texture_desc.Format, texture_desc.SampleDesc.Count,
 				&texture_desc.SampleDesc.Quality);
-			ThrowIfFailed(result, "Texture 2D creation failed: %08X.", result);
+			ThrowIfFailed(result, 
+				"Multi-sampled texture 2D creation failed: %08X.", result);
+			ThrowIfFailed((0u != texture_desc.SampleDesc.Quality), 
+				"Multi-sampled texture 2D creation failed.");
 			--texture_desc.SampleDesc.Quality;
 		}
 

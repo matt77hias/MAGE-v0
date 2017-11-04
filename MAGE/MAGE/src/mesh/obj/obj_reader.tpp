@@ -115,21 +115,21 @@ namespace mage {
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJGroup() {
 		const string child = ReadString();
+		
 		if (child == MAGE_MDL_PART_DEFAULT_CHILD) {
-			if (!m_model_output.m_index_buffer.empty()) {
-				throw FormattedException(
-					"%ls: line %u: default child name can only be explicitly "
-					"defined before all face definitions.", 
-					GetFilename().c_str(), GetCurrentLineNumber());
-			}
+			
+			ThrowIfFailed(m_model_output.m_index_buffer.empty(),
+				"%ls: line %u: default child name can only be explicitly "
+				"defined before all face definitions.",
+				GetFilename().c_str(), GetCurrentLineNumber());
+
 			return;
 		}
-		if (m_model_output.HasModelPart(child)) {
-			throw FormattedException(
-				"%ls: line %u: child name redefinition: %s.", 
-				GetFilename().c_str(), GetCurrentLineNumber(), child.c_str());
-		}
-		
+
+		ThrowIfFailed(!m_model_output.HasModelPart(child),
+			"%ls: line %u: child name redefinition: %s.",
+			GetFilename().c_str(), GetCurrentLineNumber(), child.c_str());
+
 		const string parent = HasString() ? ReadString() : MAGE_MDL_PART_DEFAULT_PARENT;
 		
 		m_model_output.EndModelPart();

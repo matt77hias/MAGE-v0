@@ -6,6 +6,7 @@
 #pragma region
 
 #include "rendering\pipeline.hpp"
+#include "rendering\aa_descriptor.hpp"
 #include "math\math.hpp"
 
 #pragma endregion
@@ -25,16 +26,41 @@ namespace mage {
 
 		static const D3D11_VIEWPORT GetMaxViewport() noexcept;
 
-		static const D3D11_VIEWPORT GetMaxViewport(U32 width, U32 height) noexcept {
+		static const D3D11_VIEWPORT GetMaxViewport(
+			U32 width, U32 height) noexcept {
+			
 			return GetMaxViewport(
 				static_cast< F32 >(width), 
 				static_cast< F32 >(height));
 		}
 
-		static const D3D11_VIEWPORT GetMaxViewport(F32 width, F32 height) noexcept {
+		static const D3D11_VIEWPORT GetMaxViewport(
+			F32 width, F32 height) noexcept {
+			
 			D3D11_VIEWPORT viewport = {};
 			viewport.Width    = width;
 			viewport.Height   = height;
+			viewport.MaxDepth = 1.0f;
+			return viewport;
+		}
+
+		static const D3D11_VIEWPORT GetMaxViewport(
+			U32 width, U32 height, AADescriptor desc) noexcept {
+			
+			return GetMaxViewport(
+				static_cast< F32 >(width),
+				static_cast< F32 >(height), 
+				desc);
+		}
+
+		static const D3D11_VIEWPORT GetMaxViewport(
+			F32 width, F32 height, AADescriptor desc) noexcept {
+			
+			const U32 multiplier = GetResolutionMultiplier(desc);
+
+			D3D11_VIEWPORT viewport = {};
+			viewport.Width    = multiplier * width;
+			viewport.Height   = multiplier * height;
 			viewport.MaxDepth = 1.0f;
 			return viewport;
 		}
@@ -56,6 +82,12 @@ namespace mage {
 		explicit Viewport(F32 width, F32 height)
 			: Viewport(GetMaxViewport(width, height)) {}
 		
+		explicit Viewport(U32 width, U32 height, AADescriptor desc)
+			: Viewport(GetMaxViewport(width, height, desc)) {}
+
+		explicit Viewport(F32 width, F32 height, AADescriptor desc)
+			: Viewport(GetMaxViewport(width, height, desc)) {}
+
 		explicit Viewport(const D3D11_VIEWPORT &viewport)
 			: m_viewport(viewport) {}
 		
@@ -65,6 +97,22 @@ namespace mage {
 		Viewport(const Viewport &viewport) = default;
 		
 		Viewport(Viewport &&viewport) = default;
+
+		explicit Viewport(const Viewport &viewport, AADescriptor desc)
+			: Viewport(viewport) {
+
+			const U32 multiplier = GetResolutionMultiplier(desc);
+			m_viewport.Width  *= multiplier;
+			m_viewport.Height *= multiplier;
+		}
+
+		explicit Viewport(Viewport &&viewport, AADescriptor desc)
+			: Viewport(std::move(viewport)) {
+
+			const U32 multiplier = GetResolutionMultiplier(desc);
+			m_viewport.Width  *= multiplier;
+			m_viewport.Height *= multiplier;
+		}
 		
 		~Viewport() = default;
 

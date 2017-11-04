@@ -99,6 +99,9 @@ namespace mage {
 
 		const RenderingOutputManager * const output_manager
 			= RenderingOutputManager::Get();
+		const AADescriptor desc
+			= RenderingManager::Get()->
+			GetDisplayConfiguration()->GetAADescriptor();
 
 		// Update the pass buffer.
 		m_pass_buffer->Update(scene);
@@ -119,31 +122,32 @@ namespace mage {
 			const CameraSettings * const settings  = node->GetSettings();
 			const RenderMode render_mode           = settings->GetRenderMode();
 			const BRDFType brdf                    = settings->GetBRDF();
-			const Viewport &viewport               = node->GetViewport();
+			const Viewport &post_viewport          = node->GetViewport();
+			const Viewport pre_viewport(post_viewport, desc);
 
 			// Bind the camera buffer.
-			BindCameraBuffer(viewport, view_to_projection, 
+			BindCameraBuffer(post_viewport, view_to_projection,
 				projection_to_view, world_to_view, view_to_world);
 			
 			// RenderMode
 			switch (render_mode) {
 
 			case RenderMode::Forward: {
-				ExecuteForwardPipeline(viewport, world_to_projection,
+				ExecuteForwardPipeline(pre_viewport, world_to_projection,
 					world_to_view, view_to_world, brdf);
 				
 				break;
 			}
 
 			case RenderMode::Deferred: {
-				ExecuteDeferredPipeline(viewport, world_to_projection,
+				ExecuteDeferredPipeline(pre_viewport, world_to_projection,
 					world_to_view, view_to_world, brdf);
 				
 				break;
 			}
 
 			case RenderMode::Solid: {
-				ExecuteSolidForwardPipeline(viewport, world_to_projection,
+				ExecuteSolidForwardPipeline(pre_viewport, world_to_projection,
 					world_to_view, view_to_world);
 				
 				break;
@@ -157,7 +161,7 @@ namespace mage {
 			case RenderMode::MaterialTexture:
 			case RenderMode::NormalTexture: {
 				// Bind the viewport.
-				viewport.BindViewport(m_device_context);
+				pre_viewport.BindViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 
@@ -173,7 +177,7 @@ namespace mage {
 			case RenderMode::UVTexture:
 			case RenderMode::Distance: {
 				// Bind the viewport.
-				viewport.BindViewport(m_device_context);
+				pre_viewport.BindViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 
@@ -189,7 +193,7 @@ namespace mage {
 			case RenderMode::ShadingNormal:
 			case RenderMode::TSNMShadingNormal: {
 				// Bind the viewport.
-				viewport.BindViewport(m_device_context);
+				pre_viewport.BindViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 
@@ -204,7 +208,7 @@ namespace mage {
 
 			case RenderMode::None: {
 				// Bind the viewport.
-				viewport.BindViewport(m_device_context);
+				pre_viewport.BindViewport(m_device_context);
 
 				output_manager->BindBeginForward(m_device_context);
 				break;
@@ -230,7 +234,7 @@ namespace mage {
 		
 			output_manager->BindEndForward(m_device_context);
 
-			ExecuteAAPipeline(viewport);
+			ExecuteAAPipeline(pre_viewport);
 
 			output_manager->BindEnd(m_device_context);
 		}
@@ -409,8 +413,6 @@ namespace mage {
 		case AADescriptor::SSAA_3x:
 		case AADescriptor::SSAA_4x: {
 			
-			//TODO: update resolution
-
 			output_manager->BindBeginResolve(m_device_context);
 
 			// Perform an AA pass.

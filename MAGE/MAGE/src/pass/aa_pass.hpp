@@ -7,7 +7,6 @@
 
 #include "pass\pass_buffer.hpp"
 #include "shader\shader.hpp"
-
 #include "rendering\aa_descriptor.hpp"
 
 #pragma endregion

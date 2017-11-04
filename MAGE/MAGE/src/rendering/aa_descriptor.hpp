@@ -13,7 +13,7 @@ namespace mage {
 		SSAA_4x,
 	};
 
-	constexpr AADescriptor RetrieveAADescriptor(size_t desc) {
+	constexpr AADescriptor RetrieveAADescriptor(size_t desc) noexcept {
 		switch (desc) {
 		
 		case static_cast< size_t >(AADescriptor::FXAA):
@@ -32,6 +32,21 @@ namespace mage {
 			return AADescriptor::SSAA_4x;
 		default:
 			return AADescriptor::None;
+		}
+	}
+
+	constexpr U32 GetResolutionMultiplier(AADescriptor desc) noexcept {
+		switch (desc) {
+
+		case AADescriptor::SSAA_2x:
+			return 2u;
+		case AADescriptor::SSAA_3x:
+			return 3u;
+		case AADescriptor::SSAA_4x:
+			return 4u;
+		default:
+			return 1u;
+
 		}
 	}
 }

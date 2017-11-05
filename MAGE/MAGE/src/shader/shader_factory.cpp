@@ -26,6 +26,12 @@
 #include "shader\cso\deferred\deferred_frostbite_CS.hpp"
 #include "shader\cso\deferred\deferred_lambertian_CS.hpp"
 #include "shader\cso\deferred\deferred_ward_duer_CS.hpp"
+#include "shader\cso\deferred\deferred_blinn_phong_PS.hpp"
+#include "shader\cso\deferred\deferred_cook_torrance_PS.hpp"
+#include "shader\cso\deferred\deferred_emissive_PS.hpp"
+#include "shader\cso\deferred\deferred_frostbite_PS.hpp"
+#include "shader\cso\deferred\deferred_lambertian_PS.hpp"
+#include "shader\cso\deferred\deferred_ward_duer_PS.hpp"
 
 // Depth
 #include "shader\cso\depth\depth_VS.hpp"
@@ -220,6 +226,52 @@ namespace mage {
 			return CreateDeferredWardDuerCS();
 		default:
 			return CreateDeferredFrostbiteCS();
+		}
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredBlinnPhongPS() {
+		return ResourceManager::Get()->GetOrCreatePS(
+			MAGE_SHADER_ARGS(g_deferred_blinn_phong_PS));
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredCookTorrancePS() {
+		return ResourceManager::Get()->GetOrCreatePS(
+			MAGE_SHADER_ARGS(g_deferred_cook_torrance_PS));
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredEmissivePS() {
+		return ResourceManager::Get()->GetOrCreatePS(
+			MAGE_SHADER_ARGS(g_deferred_emissive_PS));
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredFrostbitePS() {
+		return ResourceManager::Get()->GetOrCreatePS(
+			MAGE_SHADER_ARGS(g_deferred_frostbite_PS));
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredLambertianPS() {
+		return ResourceManager::Get()->GetOrCreatePS(
+			MAGE_SHADER_ARGS(g_deferred_lambertian_PS));
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredWardDuerPS() {
+		return ResourceManager::Get()->GetOrCreatePS(
+			MAGE_SHADER_ARGS(g_deferred_ward_duer_PS));
+	}
+
+	SharedPtr< const PixelShader > CreateDeferredPS(BRDFType brdf) {
+		switch (brdf) {
+
+		case BRDFType::BlinnPhong:
+			return CreateDeferredBlinnPhongPS();
+		case BRDFType::CookTorrance:
+			return CreateDeferredCookTorrancePS();
+		case BRDFType::Lambertian:
+			return CreateDeferredLambertianPS();
+		case BRDFType::WardDuer:
+			return CreateDeferredWardDuerPS();
+		default:
+			return CreateDeferredFrostbitePS();
 		}
 	}
 

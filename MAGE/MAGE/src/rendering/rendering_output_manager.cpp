@@ -47,6 +47,7 @@ namespace mage {
 		U32 nb_samples = 1u;
 		U32 ss_width   = width;
 		U32 ss_height  = height;
+		bool aa        = true;
 		
 		switch (desc) {
 
@@ -82,6 +83,11 @@ namespace mage {
 			m_ssaa     = true;
 			ss_width  *= 4u;
 			ss_height *= 4u;
+			break;
+		}
+
+		case AADescriptor::None: {
+			aa = false;
 			break;
 		}
 
@@ -124,12 +130,22 @@ namespace mage {
 				ReleaseAndGetAddressOfUAV(UAVIndex::HDR));
 		}
 		
-		// Setup the HDR buffers.
-		SetupBuffer(device, width, height, 
-			1u, DXGI_FORMAT_R16G16B16A16_FLOAT,
-			ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_HDR0),
-			ReleaseAndGetAddressOfRTV(RTVIndex::PostProcessing_HDR0),
-			ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_HDR0));
+		if (aa) {
+			SetupBuffer(device, width, height,
+				1u, DXGI_FORMAT_R16G16B16A16_FLOAT,
+				ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_HDR0),
+				ReleaseAndGetAddressOfRTV(RTVIndex::PostProcessing_HDR0),
+				ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_HDR0));
+		}
+		else {
+			m_srvs[static_cast< size_t >(SRVIndex::PostProcessing_HDR0)]
+				= m_srvs[static_cast< size_t >(SRVIndex::HDR)];
+			m_rtvs[static_cast< size_t >(RTVIndex::PostProcessing_HDR0)]
+				= m_rtvs[static_cast< size_t >(SRVIndex::HDR)];
+			m_uavs[static_cast< size_t >(UAVIndex::PostProcessing_HDR0)]
+				= m_uavs[static_cast< size_t >(SRVIndex::HDR)];
+		}
+
 		SetupBuffer(device, width, height, 
 			1u, DXGI_FORMAT_R16G16B16A16_FLOAT,
 			ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_HDR1),

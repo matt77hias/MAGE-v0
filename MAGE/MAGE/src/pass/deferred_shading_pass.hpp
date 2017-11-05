@@ -17,7 +17,7 @@ namespace mage {
 
 	/**
 	 A class of deferred shading passes for unpacking GBuffers and performing 
-	 light calculations using the compute pipeline.
+	 light calculations using the rendering or compute pipeline.
 	 */
 	class DeferredShadingPass final {
 
@@ -109,21 +109,27 @@ namespace mage {
 
 		 @param[in]		brdf
 						The BRDF.
+	     @param[in]		use_compute
+						If @c true, the compute pipeline is used.
+						Otherwise, the rendering pipeline is used.
 		 @throws		FormattedException
 						Failed to bind the fixed state of this deferred 
 						shading pass.
 		 */
-		void BindFixedState(BRDFType brdf);
+		void BindFixedState(BRDFType brdf, bool use_compute);
 
 		/**
-		 Render.
+		 Renders.
+		 */
+		void Render() const noexcept;
+
+		/**
+		 Dispatches.
 
 		 @param[in]		viewport
 						A reference to the viewport.
-		 @throws		FormattedException
-						Failed to render the scene.
 		 */
-		void Render(const Viewport &viewport);
+		void Dispatch(const Viewport &viewport) const noexcept;
 		
 	private:
 
@@ -132,8 +138,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Updates the compute shader of this deferred shading pass for the given 
-		 BRDF.
+		 Updates the compute and pixel shader of this deferred shading pass for 
+		 the given BRDF.
 
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
@@ -142,8 +148,11 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to update the compute shader of this deferred 
 						shading pass.
+		 @throws		FormattedException
+						Failed to update the pixel shader of this deferred 
+						shading pass.
 		 */
-		void UpdateCS(BRDFType brdf);
+		void UpdateShaders(BRDFType brdf);
 		
 		//---------------------------------------------------------------------
 		// Member Variables
@@ -158,6 +167,16 @@ namespace mage {
 		 A pointer to the compute shader of this deferred shading pass.
 		 */
 		SharedPtr< const ComputeShader > m_cs;
+
+		/**
+		 A pointer to the vertex shader of this deferred shading pass.
+		 */
+		SharedPtr< const VertexShader > m_vs;
+
+		/**
+		 A pointer to the pixel shader of this deferred shading pass.
+		 */
+		SharedPtr< const PixelShader > m_ps;
 		
 		/**
 		 The current BRDF of this deferred shading pass.

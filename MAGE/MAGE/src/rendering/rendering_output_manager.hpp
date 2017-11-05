@@ -219,6 +219,7 @@ namespace mage {
 
 		mutable bool m_hdr0_to_hdr1;
 
-		bool m_msaa_or_ssaa;
+		bool m_msaa;
+		bool m_ssaa;
 	};
 }

@@ -117,7 +117,7 @@ namespace mage {
 			DisplayConfiguration &&display_configuration) = default;
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Methods: Adapter
 		//---------------------------------------------------------------------
 
 		/**
@@ -129,6 +129,10 @@ namespace mage {
 			return m_adapter.Get();
 		}
 
+		//---------------------------------------------------------------------
+		// Member Methods: Output
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the output of this display configuration.
 
@@ -137,6 +141,10 @@ namespace mage {
 		IDXGIOutput2 *GetOutput() const noexcept {
 			return m_output.Get();
 		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Display Resolution
+		//---------------------------------------------------------------------
 
 		/**
 		 Returns the display width in pixels of this display configuration.
@@ -166,8 +174,7 @@ namespace mage {
 						display configuration.
 		 */
 		U32 GetSSDisplayWidth() const noexcept {
-			const U32 multiplier = GetResolutionMultiplier(m_aa_desc);
-			return multiplier * GetDisplayWidth();
+			return GetResolutionMultiplier(m_aa_desc) * GetDisplayWidth();
 		}
 		
 		/**
@@ -178,10 +185,13 @@ namespace mage {
 						configuration.
 		 */
 		U32 GetSSDisplayHeight() const noexcept {
-			const U32 multiplier = GetResolutionMultiplier(m_aa_desc);
-			return multiplier * GetDisplayHeight();
+			return GetResolutionMultiplier(m_aa_desc) * GetDisplayHeight();
 		}
 		
+		//---------------------------------------------------------------------
+		// Member Methods: Display Refresh Rate
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the rounded display refresh rate of this display 
 		 configuration.
@@ -204,6 +214,10 @@ namespace mage {
 			return m_display_mode.RefreshRate;
 		}
 		
+		//---------------------------------------------------------------------
+		// Member Methods: Display Format
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the display format of this display configuration.
 
@@ -213,6 +227,10 @@ namespace mage {
 			return m_display_mode.Format;
 		}
 		
+		//---------------------------------------------------------------------
+		// Member Methods: Display Mode
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the display mode of this display configuration.
 
@@ -233,6 +251,48 @@ namespace mage {
 		 */
 		void SetDisplayMode(const DXGI_MODE_DESC1 &display_mode) noexcept {
 			m_display_mode = display_mode;
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: Anti-Aliasing
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this display configuration uses MSAA.
+
+		 @return		@c true if this display configuration uses MSAA. 
+						@c false otherwise.
+		 */
+		bool UsesMSAA() const noexcept {
+			switch (m_aa_desc) {
+
+			case AADescriptor::MSAA_2x:
+			case AADescriptor::MSAA_4x:
+			case AADescriptor::MSAA_8x:
+				return true;
+			default:
+				return false;
+
+			}
+		}
+
+		 /**
+		 Checks whether this display configuration uses SSAA.
+
+		 @return		@c true if this display configuration uses SSAA. 
+						@c false otherwise.
+		 */
+		bool UsesSSAA() const noexcept {
+			switch (m_aa_desc) {
+
+			case AADescriptor::SSAA_2x:
+			case AADescriptor::SSAA_3x:
+			case AADescriptor::SSAA_4x:
+				return true;
+			default:
+				return false;
+
+			}
 		}
 
 		/**
@@ -256,6 +316,10 @@ namespace mage {
 			m_aa_desc = desc;
 		}
 		
+		//---------------------------------------------------------------------
+		// Member Methods: Windowed/Fullscreen Mode
+		//---------------------------------------------------------------------
+
 		/**
 		 Checks whether the application should run in windowed mode for this 
 		 display configuration.
@@ -301,6 +365,10 @@ namespace mage {
 			SetWindowed(!fullscreen);
 		}
 
+		//---------------------------------------------------------------------
+		// Member Methods: VSync
+		//---------------------------------------------------------------------
+
 		/**
 		 Checks whether V-sync should be enabled for this display 
 		 configuration.
@@ -323,6 +391,10 @@ namespace mage {
 			m_vsync = vsync;
 		}
 		
+		//---------------------------------------------------------------------
+		// Member Methods: Gamma
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the gamma value used for gamma correction of this display 
 		 configuration.
@@ -348,7 +420,7 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Adapter
 		//---------------------------------------------------------------------
 
 		/**
@@ -357,21 +429,37 @@ namespace mage {
 		 */
 		ComPtr< IDXGIAdapter2 > m_adapter;
 
+		//---------------------------------------------------------------------
+		// Member Variables: Output
+		//---------------------------------------------------------------------
+
 		/**
 		A pointer to the output (e.g. screen monitor) of this display 
 		configuration.
 		*/
 		ComPtr< IDXGIOutput2 > m_output;
 
+		//---------------------------------------------------------------------
+		// Member Variables: Display Mode
+		//---------------------------------------------------------------------
+
 		/**
 		 The display mode of this display configuration.
 		 */
 		DXGI_MODE_DESC1 m_display_mode;
 
+		//---------------------------------------------------------------------
+		// Member Variables: Anti-Aliasing
+		//---------------------------------------------------------------------
+
 		/**
 		 The Anti-Aliasing sample descriptor of this display configuration.
 		 */
 		AADescriptor m_aa_desc;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Windowed/Fullscreen Mode
+		//---------------------------------------------------------------------
 		
 		/**
 		 Flag indicating whether the application should run in windowed mode
@@ -379,11 +467,19 @@ namespace mage {
 		 */
 		bool m_windowed;
 
+		//---------------------------------------------------------------------
+		// Member Variables: VSync
+		//---------------------------------------------------------------------
+
 		/**
 		 Flag indicating whether V-sync should be enabled for this display 
 		 configuration.
 		 */
 		bool m_vsync;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Gamma
+		//---------------------------------------------------------------------
 
 		/**
 		 The gamma value used for gamma correction of this display 

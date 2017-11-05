@@ -363,8 +363,14 @@ namespace mage {
 
 		// Perform a deferred pass.
 		DeferredShadingPass *deferred_pass = GetDeferredShadingPass();
-		deferred_pass->BindFixedState(brdf);
-		deferred_pass->Render(viewport);
+		if (DisplayConfiguration::Get()->UsesMSAA()) {
+			deferred_pass->BindFixedState(brdf, false);
+			deferred_pass->Render();
+		}
+		else {
+			deferred_pass->BindFixedState(brdf, true);
+			deferred_pass->Dispatch(viewport);
+		}
 
 		output_manager->BindEndDeferred(m_device_context);
 		output_manager->BindBeginForward(m_device_context);

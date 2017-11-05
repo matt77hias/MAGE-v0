@@ -26,6 +26,8 @@ namespace mage {
 	DeferredShadingPass::DeferredShadingPass()
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_cs(CreateDeferredCS(BRDFType::Unknown)),
+		m_vs(CreateNearFullscreenTriangleVS()),
+		m_ps(CreateDeferredPS(BRDFType::Unknown)),
 		m_brdf(BRDFType::Unknown) {}
 
 	DeferredShadingPass::DeferredShadingPass(
@@ -33,23 +35,51 @@ namespace mage {
 
 	DeferredShadingPass::~DeferredShadingPass() = default;
 
-	void DeferredShadingPass::UpdateCS(BRDFType brdf) {
+	void DeferredShadingPass::UpdateShaders(BRDFType brdf) {
 		if (m_brdf != brdf) {
 			m_brdf = brdf;
 			m_cs   = CreateDeferredCS(brdf);
+			m_ps   = CreateDeferredPS(brdf);
 		}
 	}
 
-	void DeferredShadingPass::BindFixedState(BRDFType brdf) {
-		// Update the compute shader.
-		UpdateCS(brdf);
+	void DeferredShadingPass::BindFixedState(BRDFType brdf, bool use_compute) {
+		// Update the compute and pixel shader.
+		UpdateShaders(brdf);
+		
+		if (use_compute) {
+			// CS: Bind the compute shader.
+			m_cs->BindShader(m_device_context);
+			return;
+		}
 
-		// CS: Bind the compute shader.
-		m_cs->BindShader(m_device_context);
+		// IA: Bind the primitive topology.
+		Pipeline::IA::BindPrimitiveTopology(m_device_context,
+			D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		// VS: Bind the vertex shader.
+		m_vs->BindShader(m_device_context);
+		// HS: Bind the hull shader.
+		Pipeline::HS::BindShader(m_device_context, nullptr);
+		// DS: Bind the domain shader.
+		Pipeline::DS::BindShader(m_device_context, nullptr);
+		// GS: Bind the geometry shader.
+		Pipeline::GS::BindShader(m_device_context, nullptr);
+		// RS: Bind the rasterization state.
+		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
+		// PS: Bind the pixel shader.
+		m_ps->BindShader(m_device_context);
+		// OM: Bind the depth-stencil state.
+		RenderingStateManager::Get()->BindDepthNoneDepthStencilState(m_device_context);
+		// OM: Bind the blend state.
+		RenderingStateManager::Get()->BindOpaqueBlendState(m_device_context);
 	}
 
-	void DeferredShadingPass::Render(const Viewport &viewport) {
+	void DeferredShadingPass::Render() const noexcept {
+		// Draw the fullscreen triangle.
+		Pipeline::Draw(m_device_context, 3u, 0u);
+	}
 
+	void DeferredShadingPass::Dispatch(const Viewport &viewport) const noexcept {
 		// Dispatch.
 		const U32 nb_groups_x = static_cast< U32 >(ceil(viewport.GetWidth()
 				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));

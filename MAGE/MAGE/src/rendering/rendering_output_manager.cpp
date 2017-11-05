@@ -27,7 +27,8 @@ namespace mage {
 		ID3D11Device2 *device, U32 width, U32 height, 
 		AADescriptor desc)
 		: m_srvs{}, m_rtvs{}, m_uavs{}, m_dsv(), 
-		m_hdr0_to_hdr1(true), m_msaa_or_ssaa(false) {
+		m_hdr0_to_hdr1(true), 
+		m_msaa(false), m_ssaa(false) {
 
 		SetupBuffers(device, width, height, desc);
 	}
@@ -44,76 +45,85 @@ namespace mage {
 		Assert(device);
 
 		U32 nb_samples = 1u;
-		U32 rendering_width  = width;
-		U32 rendering_height = height;
+		U32 ss_width   = width;
+		U32 ss_height  = height;
 		
 		switch (desc) {
 
 		case AADescriptor::MSAA_2x: {
-			m_msaa_or_ssaa = true;
+			m_msaa     = true;
 			nb_samples = 2u;
 			break;
 		}
 		case AADescriptor::MSAA_4x: {
-			m_msaa_or_ssaa = true;
+			m_msaa     = true;
 			nb_samples = 4u;
 			break;
 		}
 		case AADescriptor::MSAA_8x: {
-			m_msaa_or_ssaa = true;
+			m_msaa     = true;
 			nb_samples = 8u;
 			break;
 		}
 		
 		case AADescriptor::SSAA_2x: {
-			m_msaa_or_ssaa = true;
-			rendering_width  *= 2u;
-			rendering_height *= 2u;
+			m_ssaa     = true;
+			ss_width  *= 2u;
+			ss_height *= 2u;
 			break;
 		}
 		case AADescriptor::SSAA_3x: {
-			m_msaa_or_ssaa = true;
-			rendering_width  *= 3u;
-			rendering_height *= 3u;
+			m_ssaa     = true;
+			ss_width  *= 3u;
+			ss_height *= 3u;
 			break;
 		}
 		case AADescriptor::SSAA_4x: {
-			m_msaa_or_ssaa = true;
-			rendering_width  *= 4u;
-			rendering_height *= 4u;
+			m_ssaa     = true;
+			ss_width  *= 4u;
+			ss_height *= 4u;
 			break;
 		}
 
 		}
 
 		// Setup the depth buffer.
-		SetupDepthBuffer(device, rendering_width, rendering_height,
+		SetupDepthBuffer(device, ss_width, ss_height,
 			nb_samples);
 
 		// Setup the GBuffer buffers.
-		SetupBuffer(device, rendering_width, rendering_height,
+		SetupBuffer(device, ss_width, ss_height,
 			nb_samples, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
 			ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_BaseColor),
 			ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_BaseColor),
 			nullptr);
-		SetupBuffer(device, rendering_width, rendering_height,
+		SetupBuffer(device, ss_width, ss_height,
 			nb_samples, DXGI_FORMAT_R8G8B8A8_UNORM,
 			ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Material),
 			ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Material),
 			nullptr);
-		SetupBuffer(device, rendering_width, rendering_height,
+		SetupBuffer(device, ss_width, ss_height,
 			nb_samples, DXGI_FORMAT_R11G11B10_FLOAT,
 			ReleaseAndGetAddressOfSRV(SRVIndex::GBuffer_Normal),
 			ReleaseAndGetAddressOfRTV(RTVIndex::GBuffer_Normal),
 			nullptr);
 
 		// Setup the HDR buffer.
-		SetupBuffer(device, rendering_width, rendering_height,
-			nb_samples, DXGI_FORMAT_R16G16B16A16_FLOAT,
-			ReleaseAndGetAddressOfSRV(SRVIndex::HDR),
-			ReleaseAndGetAddressOfRTV(RTVIndex::HDR),
-			ReleaseAndGetAddressOfUAV(UAVIndex::HDR));
-
+		if (m_msaa) {
+			SetupBuffer(device, ss_width, ss_height,
+				nb_samples, DXGI_FORMAT_R16G16B16A16_FLOAT,
+				ReleaseAndGetAddressOfSRV(SRVIndex::HDR),
+				ReleaseAndGetAddressOfRTV(RTVIndex::HDR),
+				nullptr);
+		}
+		else {
+			SetupBuffer(device, ss_width, ss_height,
+				1u, DXGI_FORMAT_R16G16B16A16_FLOAT,
+				ReleaseAndGetAddressOfSRV(SRVIndex::HDR),
+				ReleaseAndGetAddressOfRTV(RTVIndex::HDR),
+				ReleaseAndGetAddressOfUAV(UAVIndex::HDR));
+		}
+		
 		// Setup the HDR buffers.
 		SetupBuffer(device, width, height, 
 			1u, DXGI_FORMAT_R16G16B16A16_FLOAT,
@@ -126,13 +136,13 @@ namespace mage {
 			ReleaseAndGetAddressOfRTV(RTVIndex::PostProcessing_HDR1),
 			ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_HDR1));
 
-		if (m_msaa_or_ssaa) {
+		if (m_msaa || m_ssaa) {
 			SetupBuffer(device, width, height,
 				1u, DXGI_FORMAT_R32_FLOAT,
 				ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_Depth),
 				nullptr,
 				ReleaseAndGetAddressOfUAV(UAVIndex::PostProcessing_Depth));
-			SetupBuffer(device, rendering_width, rendering_height,
+			SetupBuffer(device, width, height,
 				1u, DXGI_FORMAT_R11G11B10_FLOAT,
 				ReleaseAndGetAddressOfSRV(SRVIndex::PostProcessing_Normal),
 				nullptr,
@@ -299,9 +309,11 @@ namespace mage {
 		ID3D11DeviceContext2 *device_context) const noexcept {
 
 		// Collect the GBuffer SRVs.
-		ID3D11ShaderResourceView * const srvs[SLOT_SRV_GBUFFER_COUNT - 1u] = {};
+		ID3D11ShaderResourceView * const srvs[SLOT_SRV_GBUFFER_COUNT] = {};
 		// Bind no GBuffer SRVs.
-		Pipeline::CS::BindSRVs(device_context,
+		Pipeline::PS::BindSRVs(device_context, 
+			SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
+		Pipeline::CS::BindSRVs(device_context, 
 			SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
 
 		// Clear the GBuffer RTVs.
@@ -355,13 +367,24 @@ namespace mage {
 			GetSRV(SRVIndex::GBuffer_Depth)
 		};
 		
-		// Bind the GBuffer SRVs.
-		Pipeline::CS::BindSRVs(device_context,
-			SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
+		if (m_msaa) {
+			// Bind the GBuffer SRVs.
+			Pipeline::PS::BindSRVs(device_context,
+				SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
 
-		// Bind the HDR UAV.
-		Pipeline::CS::BindUAV(device_context,
-			SLOT_UAV_IMAGE, GetUAV(UAVIndex::HDR));
+			// Bind the HDR RTV and no DSV.
+			Pipeline::OM::BindRTVAndDSV(device_context,
+				GetRTV(RTVIndex::HDR), nullptr);
+		}
+		else {
+			// Bind the GBuffer SRVs.
+			Pipeline::CS::BindSRVs(device_context,
+				SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
+
+			// Bind the HDR UAV.
+			Pipeline::CS::BindUAV(device_context,
+				SLOT_UAV_IMAGE, GetUAV(UAVIndex::HDR));
+		}
 	}
 	
 	void RenderingOutputManager::BindEndDeferred(
@@ -369,14 +392,25 @@ namespace mage {
 
 		// Collect the GBuffer SRVs.
 		ID3D11ShaderResourceView * const srvs[SLOT_SRV_GBUFFER_COUNT] = {};
-		
-		// Bind no GBuffer SRVs.
-		Pipeline::CS::BindSRVs(device_context,
-			SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
 
-		// Bind no HDR UAV.
-		Pipeline::CS::BindUAV(device_context,
-			SLOT_UAV_IMAGE, nullptr);
+		if (m_msaa) {
+			// Bind no GBuffer SRVs.
+			Pipeline::PS::BindSRVs(device_context,
+				SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
+
+			// Bind no RTV and no DSV.
+			Pipeline::OM::BindRTVAndDSV(device_context,
+				nullptr, nullptr);
+		}
+		else {
+			// Bind no GBuffer SRVs.
+			Pipeline::CS::BindSRVs(device_context,
+				SLOT_SRV_GBUFFER_START, _countof(srvs), srvs);
+
+			// Bind no HDR UAV.
+			Pipeline::CS::BindUAV(device_context,
+				SLOT_UAV_IMAGE, nullptr);
+		}
 	}
 	
 	void RenderingOutputManager::BindBeginForward(
@@ -429,11 +463,11 @@ namespace mage {
 
 		// Bind no SRVs.
 		Pipeline::CS::BindSRV(device_context,
-			SLOT_SRV_IMAGE, nullptr);
+			SLOT_SRV_IMAGE,  nullptr);
 		Pipeline::CS::BindSRV(device_context,
 			SLOT_SRV_NORMAL, nullptr);
 		Pipeline::CS::BindSRV(device_context,
-			SLOT_SRV_DEPTH, nullptr);
+			SLOT_SRV_DEPTH,  nullptr);
 
 		// Collect the SRVs.
 		ID3D11UnorderedAccessView * const uavs[SLOT_UAV_RESOLVE_COUNT] = {};

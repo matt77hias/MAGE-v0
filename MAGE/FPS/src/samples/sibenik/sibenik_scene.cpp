@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "samples\sponza\sponza_scene.hpp"
 #include "samples\sibenik\sibenik_scene.hpp"
+#include "samples\forrest\forrest_scene.hpp"
 
 #pragma endregion
 
@@ -26,14 +26,14 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SponzaScene::SponzaScene()
-		: Scene("sponza_scene") {}
+	SibenikScene::SibenikScene()
+		: Scene("sibenik_scene") {}
 
-	SponzaScene::SponzaScene(SponzaScene &&scene) = default;
+	SibenikScene::SibenikScene(SibenikScene &&scene) = default;
 
-	SponzaScene::~SponzaScene() = default;
+	SibenikScene::~SibenikScene() = default;
 
-	void SponzaScene::Load() {
+	void SibenikScene::Load() {
 		
 		//---------------------------------------------------------------------
 		// Fog
@@ -59,16 +59,16 @@ namespace mage {
 		// ModelDescriptors
 		//---------------------------------------------------------------------
 		MeshDescriptor< VertexPositionNormalTexture > mesh_desc(true, true);
-		auto model_desc_sponza = 
-			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sponza/sponza.mdl", mesh_desc);
+		auto model_desc_sibenik = 
+			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/sibenik/sibenik.mdl", mesh_desc);
 		auto model_desc_tree = 
 			ResourceManager::Get()->GetOrCreateModelDescriptor(L"assets/models/tree/tree1a_lod0.mdl", mesh_desc);
 		
 		//---------------------------------------------------------------------
 		// Models
 		//---------------------------------------------------------------------
-		auto model_sponza = CreateModel(*model_desc_sponza);
-		model_sponza->GetTransform()->SetScale(10.0f);
+		auto model_sibenik = CreateModel(*model_desc_sibenik);
+		model_sibenik->GetTransform()->SetScale(10.0f);
 		auto model_tree = CreateModel(*model_desc_tree);
 		model_tree->GetTransform()->AddTranslationY(0.5f);
 		
@@ -112,7 +112,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(MakeShared< SwitchSceneScript< SibenikScene > >());
+		AddScript(MakeShared< SwitchSceneScript< ForrestScene > >());
 		AddScript(MakeShared< RotationScript >(model_tree->GetTransform()));
 		AddScript(MakeShared< FPSInputControllerScript >(camera->GetTransform()));
 		AddScript(MakeShared< StatsScript >(text->GetSprite()));

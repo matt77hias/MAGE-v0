@@ -23,6 +23,7 @@
     <ClInclude Include="FPS\src\samples\brdf\brdf_scene.hpp" />
     <ClInclude Include="FPS\src\samples\brdf\brdf_script.hpp" />
     <ClInclude Include="FPS\src\samples\forrest\forrest_scene.hpp" />
+    <ClInclude Include="FPS\src\samples\sibenik\sibenik_scene.hpp" />
     <ClInclude Include="FPS\src\samples\sponza\sponza_scene.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -30,6 +31,7 @@
     <ClCompile Include="FPS\src\samples\brdf\brdf_scene.cpp" />
     <ClCompile Include="FPS\src\samples\brdf\brdf_script.cpp" />
     <ClCompile Include="FPS\src\samples\forrest\forrest_scene.cpp" />
+    <ClCompile Include="FPS\src\samples\sibenik\sibenik_scene.cpp" />
     <ClCompile Include="FPS\src\samples\sponza\sponza_scene.cpp" />
   </ItemGroup>
   <ItemGroup>

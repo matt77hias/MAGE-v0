@@ -43,6 +43,12 @@
     <Filter Include="Header Files\samples\forrest">
       <UniqueIdentifier>{b5cc439c-a0f1-4997-983c-814349016825}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\samples\sibenik">
+      <UniqueIdentifier>{cf6cfe4f-8fc6-4bee-9d09-032b50a70a42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\samples\sibenik">
+      <UniqueIdentifier>{f1d36c3d-4b76-4d27-b34e-39c8297a9ef9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPS\src\core\targetver.hpp">
@@ -60,6 +66,9 @@
     <ClInclude Include="FPS\src\samples\forrest\forrest_scene.hpp">
       <Filter>Header Files\samples\forrest</Filter>
     </ClInclude>
+    <ClInclude Include="FPS\src\samples\sibenik\sibenik_scene.hpp">
+      <Filter>Header Files\samples\sibenik</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FPS\src\core\FPS.cpp">
@@ -76,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="FPS\src\samples\forrest\forrest_scene.cpp">
       <Filter>Source Files\samples\forrest</Filter>
+    </ClCompile>
+    <ClCompile Include="FPS\src\samples\sibenik\sibenik_scene.cpp">
+      <Filter>Source Files\samples\sibenik</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

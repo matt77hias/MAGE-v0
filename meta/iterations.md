@@ -2,7 +2,7 @@
 
 ## Current iteration' TODOs
 * Voxel Cone Tracing (WIP)
-* TAA, SSAA, MSAA (not for the back buffer this time) (WIP)
+* TAA
 * Shadow Mapping
   * Directional lights
   * Cascaded, Variance

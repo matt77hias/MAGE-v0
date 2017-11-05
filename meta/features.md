@@ -2,7 +2,7 @@
 
 ### Display
 * Configurable display modes
-  * MSAA samples
+  * Anti-aliasing
   * Refresh rate
   * Resolution
   * Vsync
@@ -38,6 +38,7 @@
 * AA
   * FXAA
   * ~~MSAA~~~ (*not supported any more (HDR pipeline)*)
+  * SSAA
 * BRDFs (single BRDF/camera)
   * Lambertian
   * Cook-Torrance, Frostbite:

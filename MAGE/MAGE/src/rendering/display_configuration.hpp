@@ -149,10 +149,9 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the super-sampled height in pixels of this display 
-		 configuration.
+		 Returns the display height in pixels of this display configuration.
 
-		 @return		The super-sampled height in pixels of this display 
+		 @return		The display height in pixels of this display 
 						configuration.
 		 */
 		U32 GetDisplayHeight() const noexcept {
@@ -160,24 +159,25 @@ namespace mage {
 		}
 		
 		/**
-		 Returns the super-sampled width in pixels of this display 
+		 Returns the super-sampled display width in pixels of this display 
 		 configuration.
 
-		 @return		The super-sampled width in pixels of this display 
-						configuration.
+		 @return		The super-sampled display width in pixels of this 
+						display configuration.
 		 */
-		U32 GetSSWidth() const noexcept {
+		U32 GetSSDisplayWidth() const noexcept {
 			const U32 multiplier = GetResolutionMultiplier(m_aa_desc);
 			return multiplier * GetDisplayWidth();
 		}
 		
 		/**
-		 Returns the rendering height in pixels of this display configuration.
+		 Returns the super-sampled height in pixels of this display 
+		 configuration.
 
-		 @return		The rendering height in pixels of this display 
+		 @return		The super-sampled height in pixels of this display 
 						configuration.
 		 */
-		U32 GetSSHeight() const noexcept {
+		U32 GetSSDisplayHeight() const noexcept {
 			const U32 multiplier = GetResolutionMultiplier(m_aa_desc);
 			return multiplier * GetDisplayHeight();
 		}

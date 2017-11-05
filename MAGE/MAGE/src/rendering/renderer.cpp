@@ -54,12 +54,18 @@ namespace mage {
 		const DisplayConfiguration * const config = DisplayConfiguration::Get();
 		
 		GameBuffer game_buffer;
-		game_buffer.m_display_width             = config->GetDisplayWidth();
-		game_buffer.m_display_height            = config->GetDisplayHeight();
-		game_buffer.m_inv_display_width_minus1  = 1.0f / (game_buffer.m_display_width  - 1.0f);
-		game_buffer.m_inv_display_height_minus1 = 1.0f / (game_buffer.m_display_height - 1.0f);
-		game_buffer.m_gamma                     = config->GetGamma();
-		game_buffer.m_inv_gamma                 = 1.0f / game_buffer.m_gamma;
+		game_buffer.m_display_width                = config->GetDisplayWidth();
+		game_buffer.m_display_height               = config->GetDisplayHeight();
+		game_buffer.m_display_inv_width_minus1     = 1.0f / (game_buffer.m_display_width  - 1.0f);
+		game_buffer.m_display_inv_height_minus1    = 1.0f / (game_buffer.m_display_height - 1.0f);
+		
+		game_buffer.m_ss_display_width             = config->GetSSDisplayWidth();
+		game_buffer.m_ss_display_height            = config->GetSSDisplayHeight();
+		game_buffer.m_ss_display_inv_width_minus1  = 1.0f / (game_buffer.m_ss_display_width  - 1.0f);
+		game_buffer.m_ss_display_inv_height_minus1 = 1.0f / (game_buffer.m_ss_display_height - 1.0f);
+		
+		game_buffer.m_gamma                        = config->GetGamma();
+		game_buffer.m_inv_gamma                    = 1.0f / game_buffer.m_gamma;
 
 		// Update the game buffer.
 		m_game_buffer.UpdateData(m_device_context, game_buffer);
@@ -107,9 +113,6 @@ namespace mage {
 
 		const RenderingOutputManager * const output_manager
 			= RenderingOutputManager::Get();
-		const AADescriptor desc
-			= RenderingManager::Get()->
-			GetDisplayConfiguration()->GetAADescriptor();
 
 		// Update the pass buffer.
 		m_pass_buffer->Update(scene);
@@ -131,7 +134,7 @@ namespace mage {
 			const RenderMode render_mode           = settings->GetRenderMode();
 			const BRDFType brdf                    = settings->GetBRDF();
 			const Viewport &viewport               = node->GetViewport();
-			const Viewport ss_viewport(viewport, desc);
+			const Viewport ss_viewport             = node->GetSSViewport();
 
 			// Bind the camera buffer.
 			BindCameraBuffer(viewport, ss_viewport, view_to_projection,
@@ -392,8 +395,7 @@ namespace mage {
 		const RenderingOutputManager * const output_manager
 			= RenderingOutputManager::Get();
 		const AADescriptor desc
-			= RenderingManager::Get()->
-			GetDisplayConfiguration()->GetAADescriptor();
+			= DisplayConfiguration::Get()->GetAADescriptor();
 
 		switch (desc) {
 

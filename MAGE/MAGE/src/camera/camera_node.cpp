@@ -4,6 +4,7 @@
 #pragma region
 
 #include "camera\camera_node.hpp"
+#include "rendering\display_configuration.hpp"
 #include "logging\error.hpp"
 
 #pragma endregion
@@ -29,4 +30,10 @@ namespace mage {
 	CameraNode::CameraNode(CameraNode &&camera_node) = default;
 	
 	CameraNode::~CameraNode() = default;
+
+	const Viewport CameraNode::GetSSViewport() const noexcept {
+		const AADescriptor desc 
+			= DisplayConfiguration::Get()->GetAADescriptor();
+		return Viewport(m_viewport, desc);
+	}
 }

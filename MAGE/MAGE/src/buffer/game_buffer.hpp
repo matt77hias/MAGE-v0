@@ -37,8 +37,12 @@ namespace mage {
 		GameBuffer()
 			: m_display_width(0), 
 			m_display_height(0),
-			m_inv_display_width_minus1(0.0f),
-			m_inv_display_height_minus1(0.0f),
+			m_display_inv_width_minus1(0.0f),
+			m_display_inv_height_minus1(0.0f),
+			m_ss_display_width(0),
+			m_ss_display_height(0),
+			m_ss_display_inv_width_minus1(0.0f),
+			m_ss_display_inv_height_minus1(0.0f),
 			m_gamma(0.0f), 
 			m_inv_gamma(0.0f), 
 			m_padding{} {}
@@ -93,24 +97,46 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The display width of this game buffer.
+		 The width of the display of this game buffer.
 		 */
 		U32 m_display_width;
 
 		/**
-		 The display height of this game buffer.
+		 The height of the display of this game buffer.
 		 */
 		U32 m_display_height;
 
 		/**
-		 The inverse display width minus one of this game buffer.
+		 The inverse width of the display minus one of this game buffer.
 		 */
-		F32 m_inv_display_width_minus1;
+		F32 m_display_inv_width_minus1;
 
 		/**
-		 The inverse display height minus one of this game buffer.
+		 The inverse height of the display minus one of this game buffer.
 		 */
-		F32 m_inv_display_height_minus1;
+		F32 m_display_inv_height_minus1;
+
+		/**
+		 The width of the super-sampled display of this game buffer.
+		 */
+		U32 m_ss_display_width;
+
+		/**
+		 The height of the super-sampled display of this game buffer.
+		 */
+		U32 m_ss_display_height;
+
+		/**
+		 The inverse width of the super-sampled display minus one of this game 
+		 buffer.
+		 */
+		F32 m_ss_display_inv_width_minus1;
+
+		/**
+		 The inverse height of the super-sampled display minus one of this game 
+		 buffer.
+		 */
+		F32 m_ss_display_inv_height_minus1;
 
 		/**
 		 The gamma exponent of this game buffer.
@@ -128,5 +154,5 @@ namespace mage {
 		U32 m_padding[2];
 	};
 
-	static_assert(sizeof(GameBuffer) == 32, "CPU/GPU struct mismatch");
+	static_assert(sizeof(GameBuffer) == 48, "CPU/GPU struct mismatch");
 }

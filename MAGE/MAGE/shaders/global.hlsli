@@ -34,20 +34,29 @@ SAMPLER_COMPARISON_STATE(g_pcf_sampler,     SLOT_SAMPLER_PCF);
 //-----------------------------------------------------------------------------
 
 CBUFFER(Game, SLOT_CBUFFER_GAME) {
-	// The display resolution.
+	// The resolution of the display.
 	// g_display_resolution.x = the display width
 	// g_display_resolution.y = the display height
 	uint2  g_display_resolution                  : packoffset(c0);
-	// The inverse of the display resolution minus 1.
+	// The inverse of the resolution of the display minus 1.
 	// g_display_inv_resolution_minus1.x = 1 / (g_display_resolution.x - 1)
 	// g_display_inv_resolution_minus1.y = 1 / (g_display_resolution.y - 1)
 	float2 g_display_inv_resolution_minus1       : packoffset(c0.z);
+	// The resolution of the super-sampled display.
+	// g_ss_display_resolution.x = the super-sampled display width
+	// g_ss_display_resolution.y = the super-sampled display height
+	uint2  g_ss_display_resolution               : packoffset(c1);
+	// The inverse of the resolution of the super-sampled display minus 1.
+	// g_ss_display_inv_resolution_minus1.x = 1 / (g_ss_display_resolution.x - 1)
+	// g_ss_display_inv_resolution_minus1.y = 1 / (g_ss_display_resolution.y - 1)
+	float2 g_ss_display_inv_resolution_minus1    : packoffset(c1.z);
+
 	// The gamma exponent used for gamma recovery.
 	// C  = pow(C', g_gamma)
-	float g_gamma                                : packoffset(c1);
+	float g_gamma                                : packoffset(c2);
 	// The inverse of the gamma exponent used for gamma correction.
 	// C' = pow(C, g_inv_gamma) = pow(C, 1/g_gamma)
-	float g_inv_gamma                            : packoffset(c1.y);
+	float g_inv_gamma                            : packoffset(c2.y);
 };
 
 CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {

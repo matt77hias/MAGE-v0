@@ -95,8 +95,8 @@ float4 PS(PSInputNDCPosition input) : SV_Target {
 [numthreads(GROUP_SIZE, GROUP_SIZE, 1)]
 void CS(uint3 thread_id : SV_DispatchThreadID) {
 
-	const uint2 location = g_viewport_top_left + thread_id.xy;
-	if (any(location >= g_display_resolution)) {
+	const uint2 location = g_ss_viewport_top_left + thread_id.xy;
+	if (any(location >= g_ss_display_resolution)) {
 		return;
 	}
 

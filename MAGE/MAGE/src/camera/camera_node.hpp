@@ -128,6 +128,15 @@ namespace mage {
 			return m_viewport;
 		}
 
+		/**
+		 Returns the super-sampled viewport of this camera node.
+
+		 @pre			The rendering manager associated with the current
+						engine must be loaded.
+		 @return		The super-sampled viewport of this camera node.
+		 */
+		const Viewport GetSSViewport() const noexcept;
+
 	protected:
 
 		//---------------------------------------------------------------------

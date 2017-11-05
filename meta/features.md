@@ -51,7 +51,7 @@
   * All light calculations are performed in linear space.
   * sRGB colors are converted from gamma to linear space by the CPU (*Frostbite*).
   * sRGB textures are converted from gamma to linear space by the GPU hardware support (ensures correct filtering and blending).
-  * Optional custom gamma correction before presenting (.e. brightness adjustment)
+  * Optional custom gamma correction before presenting (i.e. brightness adjustment)
 * Culling
   * Non-hierarchical
 * Depth buffer
@@ -108,8 +108,8 @@
 * Light
   * Ambient
   * Directional
-  * Omni
-  * Spot
+  * Omni (with or without shadow cube mapping)
+  * Spot (with or without shadow mapping)
 * Model
 * Sky
 * Sprite

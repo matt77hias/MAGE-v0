@@ -89,7 +89,7 @@
   * AA resolving (SSAA, MSAA, FXAA): Max3
   * Back buffer: ACES, Reinhard, Uncharted
 * Transparency
-  * ~~Alpha-to-Coverage~~ (*not supported any more (HDR pipeline)*)
+  * ~~Alpha-to-Coverage~~ (*not supported any more*)
   * Single layer Alpha Blending
 
 ### Resource Management

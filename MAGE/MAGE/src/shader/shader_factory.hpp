@@ -178,85 +178,85 @@ namespace mage {
 	SharedPtr< const ComputeShader > CreateDeferredCS(BRDFType brdf);
 
 	/**
-	 Creates a deferred Blinn-Phong pixel shader.
+	 Creates a deferred MSAA Blinn-Phong pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the deferred Blinn-Phong pixel shader.
+	 @return		A pointer to the deferred MSAA Blinn-Phong pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredBlinnPhongPS();
+	SharedPtr< const PixelShader > CreateDeferredMSAABlinnPhongPS();
 
 	/**
-	 Creates a deferred Cook-Torrance pixel shader.
+	 Creates a deferred MSAA Cook-Torrance pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the deferred Cook-Torrance pixel shader.
+	 @return		A pointer to the deferred MSAA Cook-Torrance pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredCookTorrancePS();
+	SharedPtr< const PixelShader > CreateDeferredMSAACookTorrancePS();
 
 	/**
-	 Creates a deferred emissive pixel shader.
+	 Creates a deferred MSAA emissive pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the deferred emissive pixel shader.
+	 @return		A pointer to the deferred MSAA emissive pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredEmissivePS();
+	SharedPtr< const PixelShader > CreateDeferredMSAAEmissivePS();
 
 	/**
-	 Creates a deferred Frostbite pixel shader.
+	 Creates a deferred MSAA Frostbite pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the deferred Frostbite pixel shader.
+	 @return		A pointer to the deferred MSAA Frostbite pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredFrostbitePS();
+	SharedPtr< const PixelShader > CreateDeferredMSAAFrostbitePS();
 
 	/**
-	 Creates a deferred Ward-Duer pixel shader.
+	 Creates a deferred MSAA Ward-Duer pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the deferred Ward-Duer pixel shader.
+	 @return		A pointer to the deferred MSAA Ward-Duer pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredWardDuerPS();
+	SharedPtr< const PixelShader > CreateDeferredMSAAWardDuerPS();
 
 	/**
-	 Creates a deferred Lambertian pixel shader.
+	 Creates a deferred MSAA Lambertian pixel shader.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @return		A pointer to the deferred Lambertian pixel shader.
+	 @return		A pointer to the deferred MSAA Lambertian pixel shader.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredLambertianPS();
+	SharedPtr< const PixelShader > CreateDeferredMSAALambertianPS();
 
 	/**
-	 Creates a deferred pixel shader matching the given BRDF.
+	 Creates a deferred MSAA pixel shader matching the given BRDF.
 
 	 @pre			The resource manager associated with the current engine 
 					must be loaded.
@@ -264,12 +264,12 @@ namespace mage {
 					must be loaded.
 	 @param[in]		brdf
 					The BRDF type.
-	 @return		A pointer to the deferred pixel shader matching the given 
-					BRDF.
+	 @return		A pointer to the deferred MSAA pixel shader matching the 
+					given BRDF.
 	 @throws		FormattedException
 					Failed to create the pixel shader.
 	 */
-	SharedPtr< const PixelShader > CreateDeferredPS(BRDFType brdf);
+	SharedPtr< const PixelShader > CreateDeferredMSAAPS(BRDFType brdf);
 
 #pragma endregion
 

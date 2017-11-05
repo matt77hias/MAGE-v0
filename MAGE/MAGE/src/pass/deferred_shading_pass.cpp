@@ -27,7 +27,7 @@ namespace mage {
 		: m_device_context(Pipeline::GetImmediateDeviceContext()),
 		m_cs(CreateDeferredCS(BRDFType::Unknown)),
 		m_vs(CreateNearFullscreenTriangleVS()),
-		m_ps(CreateDeferredPS(BRDFType::Unknown)),
+		m_msaa_ps(CreateDeferredMSAAPS(BRDFType::Unknown)),
 		m_brdf(BRDFType::Unknown) {}
 
 	DeferredShadingPass::DeferredShadingPass(
@@ -37,9 +37,9 @@ namespace mage {
 
 	void DeferredShadingPass::UpdateShaders(BRDFType brdf) {
 		if (m_brdf != brdf) {
-			m_brdf = brdf;
-			m_cs   = CreateDeferredCS(brdf);
-			m_ps   = CreateDeferredPS(brdf);
+			m_brdf    = brdf;
+			m_cs      = CreateDeferredCS(brdf);
+			m_msaa_ps = CreateDeferredMSAAPS(brdf);
 		}
 	}
 
@@ -67,7 +67,7 @@ namespace mage {
 		// RS: Bind the rasterization state.
 		RenderingStateManager::Get()->BindCullCounterClockwiseRasterizerState(m_device_context);
 		// PS: Bind the pixel shader.
-		m_ps->BindShader(m_device_context);
+		m_msaa_ps->BindShader(m_device_context);
 		// OM: Bind the depth-stencil state.
 		RenderingStateManager::Get()->BindDepthNoneDepthStencilState(m_device_context);
 		// OM: Bind the blend state.

@@ -1,5 +1,6 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
-#define BRDFxCOS FrostbiteBRDFxCos
+#define MSAA
+#define BRDFxCOS CookTorranceBRDFxCos
 #include "deferred\deferred.hlsli"

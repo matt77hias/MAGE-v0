@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 // Defines			                      | Default
 //-----------------------------------------------------------------------------
-// MSAA_AS_SSAA                           | not defined
+// MSAA                                   | not defined
 
 //-----------------------------------------------------------------------------
 // Engine Includes
@@ -13,17 +13,17 @@
 //-----------------------------------------------------------------------------
 // SRVs
 //-----------------------------------------------------------------------------
-#ifdef MSAA_AS_SSAA
+#ifdef MSAA
 TEXTURE_2D_MS(g_base_color_texture, float4, SLOT_SRV_BASE_COLOR);
 TEXTURE_2D_MS(g_material_texture,   float4, SLOT_SRV_MATERIAL);
 TEXTURE_2D_MS(g_normal_texture,     float3, SLOT_SRV_NORMAL);
 TEXTURE_2D_MS(g_depth_texture,      float,  SLOT_SRV_DEPTH);
-#else  // MSAA_AS_SSAA
+#else  // MSAA
 TEXTURE_2D(g_base_color_texture,    float4, SLOT_SRV_BASE_COLOR);
 TEXTURE_2D(g_material_texture,      float4, SLOT_SRV_MATERIAL);
 TEXTURE_2D(g_normal_texture,        float3, SLOT_SRV_NORMAL);
 TEXTURE_2D(g_depth_texture,         float,  SLOT_SRV_DEPTH);
-#endif // MSAA_AS_SSAA
+#endif // MSAA
 
 //-----------------------------------------------------------------------------
 // UAVs
@@ -33,8 +33,7 @@ RW_TEXTURE_2D(g_output,             float4, SLOT_UAV_IMAGE);
 //-----------------------------------------------------------------------------
 // Definitions and Declarations
 //-----------------------------------------------------------------------------
-
-#ifdef MSAA_AS_SSAA
+#ifdef MSAA
 
 /**
  Returns the base color of the material from the GBuffer corresponding to the 
@@ -108,7 +107,7 @@ float3 GetGBufferPosition(uint2 location, uint index, float2 p_ndc_xy) {
 	return p_view.xyz * inv_p_view_w;
 }
 
-#else  // MSAA_AS_SSAA
+#else  // MSAA
 
 /**
  Returns the base color of the material from the GBuffer corresponding to the 
@@ -174,4 +173,4 @@ float3 GetGBufferPosition(uint2 location, float2 p_ndc_xy) {
 	return p_view.xyz * inv_p_view_w;
 }
 
-#endif // MSAA_AS_SSAA
+#endif // MSAA

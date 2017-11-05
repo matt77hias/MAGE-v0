@@ -176,7 +176,7 @@ namespace mage {
 		/**
 		 A pointer to the pixel shader of this deferred shading pass.
 		 */
-		SharedPtr< const PixelShader > m_ps;
+		SharedPtr< const PixelShader > m_msaa_ps;
 		
 		/**
 		 The current BRDF of this deferred shading pass.

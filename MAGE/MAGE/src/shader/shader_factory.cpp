@@ -26,12 +26,12 @@
 #include "shader\cso\deferred\deferred_frostbite_CS.hpp"
 #include "shader\cso\deferred\deferred_lambertian_CS.hpp"
 #include "shader\cso\deferred\deferred_ward_duer_CS.hpp"
-#include "shader\cso\deferred\deferred_blinn_phong_PS.hpp"
-#include "shader\cso\deferred\deferred_cook_torrance_PS.hpp"
-#include "shader\cso\deferred\deferred_emissive_PS.hpp"
-#include "shader\cso\deferred\deferred_frostbite_PS.hpp"
-#include "shader\cso\deferred\deferred_lambertian_PS.hpp"
-#include "shader\cso\deferred\deferred_ward_duer_PS.hpp"
+#include "shader\cso\deferred\deferred_msaa_blinn_phong_PS.hpp"
+#include "shader\cso\deferred\deferred_msaa_cook_torrance_PS.hpp"
+#include "shader\cso\deferred\deferred_msaa_emissive_PS.hpp"
+#include "shader\cso\deferred\deferred_msaa_frostbite_PS.hpp"
+#include "shader\cso\deferred\deferred_msaa_lambertian_PS.hpp"
+#include "shader\cso\deferred\deferred_msaa_ward_duer_PS.hpp"
 
 // Depth
 #include "shader\cso\depth\depth_VS.hpp"
@@ -229,49 +229,49 @@ namespace mage {
 		}
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredBlinnPhongPS() {
+	SharedPtr< const PixelShader > CreateDeferredMSAABlinnPhongPS() {
 		return ResourceManager::Get()->GetOrCreatePS(
-			MAGE_SHADER_ARGS(g_deferred_blinn_phong_PS));
+			MAGE_SHADER_ARGS(g_deferred_msaa_blinn_phong_PS));
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredCookTorrancePS() {
+	SharedPtr< const PixelShader > CreateDeferredMSAACookTorrancePS() {
 		return ResourceManager::Get()->GetOrCreatePS(
-			MAGE_SHADER_ARGS(g_deferred_cook_torrance_PS));
+			MAGE_SHADER_ARGS(g_deferred_msaa_cook_torrance_PS));
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredEmissivePS() {
+	SharedPtr< const PixelShader > CreateDeferredMSAAEmissivePS() {
 		return ResourceManager::Get()->GetOrCreatePS(
-			MAGE_SHADER_ARGS(g_deferred_emissive_PS));
+			MAGE_SHADER_ARGS(g_deferred_msaa_emissive_PS));
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredFrostbitePS() {
+	SharedPtr< const PixelShader > CreateDeferredMSAAFrostbitePS() {
 		return ResourceManager::Get()->GetOrCreatePS(
-			MAGE_SHADER_ARGS(g_deferred_frostbite_PS));
+			MAGE_SHADER_ARGS(g_deferred_msaa_frostbite_PS));
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredLambertianPS() {
+	SharedPtr< const PixelShader > CreateDeferredMSAALambertianPS() {
 		return ResourceManager::Get()->GetOrCreatePS(
-			MAGE_SHADER_ARGS(g_deferred_lambertian_PS));
+			MAGE_SHADER_ARGS(g_deferred_msaa_lambertian_PS));
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredWardDuerPS() {
+	SharedPtr< const PixelShader > CreateDeferredMSAAWardDuerPS() {
 		return ResourceManager::Get()->GetOrCreatePS(
-			MAGE_SHADER_ARGS(g_deferred_ward_duer_PS));
+			MAGE_SHADER_ARGS(g_deferred_msaa_ward_duer_PS));
 	}
 
-	SharedPtr< const PixelShader > CreateDeferredPS(BRDFType brdf) {
+	SharedPtr< const PixelShader > CreateDeferredMSAAPS(BRDFType brdf) {
 		switch (brdf) {
 
 		case BRDFType::BlinnPhong:
-			return CreateDeferredBlinnPhongPS();
+			return CreateDeferredMSAABlinnPhongPS();
 		case BRDFType::CookTorrance:
-			return CreateDeferredCookTorrancePS();
+			return CreateDeferredMSAACookTorrancePS();
 		case BRDFType::Lambertian:
-			return CreateDeferredLambertianPS();
+			return CreateDeferredMSAALambertianPS();
 		case BRDFType::WardDuer:
-			return CreateDeferredWardDuerPS();
+			return CreateDeferredMSAAWardDuerPS();
 		default:
-			return CreateDeferredFrostbitePS();
+			return CreateDeferredMSAAFrostbitePS();
 		}
 	}
 

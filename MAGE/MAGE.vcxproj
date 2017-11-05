@@ -181,17 +181,17 @@
     <ClInclude Include="MAGE\src\script\render_mode_script.hpp" />
     <ClInclude Include="MAGE\src\shader\compiled_shader.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_blinn_phong_CS.hpp" />
-    <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_blinn_phong_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_cook_torrance_CS.hpp" />
-    <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_cook_torrance_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_emissive_CS.hpp" />
-    <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_emissive_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_frostbite_CS.hpp" />
-    <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_frostbite_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_lambertian_CS.hpp" />
-    <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_lambertian_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_msaa_blinn_phong_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_msaa_cook_torrance_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_msaa_emissive_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_msaa_frostbite_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_msaa_lambertian_PS.hpp" />
+    <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_msaa_ward_duer_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_ward_duer_CS.hpp" />
-    <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_ward_duer_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\depth\depth_transparent_PS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\depth\depth_transparent_VS.hpp" />
     <ClInclude Include="MAGE\src\shader\cso\depth\depth_VS.hpp" />
@@ -1004,7 +1004,7 @@
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_%(Filename)</VariableName>
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_%(Filename)</VariableName>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\deferred_blinn_phong_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\deferred\deferred_msaa_blinn_phong_PS.hlsl">
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ObjectFileOutput>
@@ -1056,7 +1056,7 @@
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_%(Filename)</VariableName>
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_%(Filename)</VariableName>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\deferred_cook_torrance_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\deferred\deferred_msaa_cook_torrance_PS.hlsl">
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_%(Filename)</VariableName>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ObjectFileOutput>
@@ -1108,7 +1108,7 @@
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_%(Filename)</VariableName>
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_%(Filename)</VariableName>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\deferred_emissive_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\deferred\deferred_msaa_emissive_PS.hlsl">
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_%(Filename)</VariableName>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ObjectFileOutput>
@@ -1160,7 +1160,7 @@
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_%(Filename)</VariableName>
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_%(Filename)</VariableName>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\deferred_frostbite_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\deferred\deferred_msaa_frostbite_PS.hlsl">
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ObjectFileOutput>
@@ -1212,7 +1212,7 @@
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_%(Filename)</VariableName>
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_%(Filename)</VariableName>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\deferred_lambertian_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\deferred\deferred_msaa_lambertian_PS.hlsl">
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_%(Filename)</VariableName>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ObjectFileOutput>
@@ -1264,7 +1264,7 @@
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_%(Filename)</VariableName>
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_%(Filename)</VariableName>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\deferred\deferred_ward_duer_PS.hlsl">
+    <FxCompile Include="MAGE\shaders\deferred\deferred_msaa_ward_duer_PS.hlsl">
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\deferred\%(Filename).hpp</HeaderFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ObjectFileOutput>

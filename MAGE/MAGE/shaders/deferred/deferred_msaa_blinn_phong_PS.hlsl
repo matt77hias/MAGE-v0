@@ -1,6 +1,7 @@
 //-----------------------------------------------------------------------------
 // Engine Includes
 //-----------------------------------------------------------------------------
+#define MSAA
 #define BRDFxCOS CookTorranceBRDFxCos
 #define BRDF_F_COMPONENT F_None
 #define BRDF_D_COMPONENT D_BlinnPhong

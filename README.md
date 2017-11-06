@@ -26,6 +26,8 @@
 <img src="res/Example 5.png" width="214">
 </p>
 
+<p align="center"><img src="meta/Pipeline.png"></p>
+
 **License**: Currently, MAGE is licensed under a [No License](https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt), since we do not allow diverging from the base version yet in this early stage of development.  
 
 ## Development

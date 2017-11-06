@@ -227,7 +227,7 @@ Uses:
 * [Eric Richards](https://github.com/ericrrichards)
 * [Krzysztof Narkowicz](https://github.com/knarkowicz)
 * [Maarten Tegelaers](https://github.com/BeardedPlatypus)
-* Matías N. Goldberg
+* [Matías N. Goldberg](https://github.com/darksylinc)
 * [Matt Pettineo](https://github.com/TheRealMJP)
 * [Naiwen Xie](https://github.com/sienaiwun)
 * [Nathan Reed](https://github.com/Reedbeta)

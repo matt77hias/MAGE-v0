@@ -37,9 +37,6 @@ namespace mage {
 
 		/**
 		 Constructs a spotlight.
-
-		 @param[in]		intensity
-						The RGB intensity.
 		 */
 		SpotLight();
 		

@@ -27,9 +27,6 @@ namespace mage {
 
 		/**
 		 Constructs a directional light.
-
-		 @param[in]		color
-						The color.
 		 */
 		DirectionalLight();
 		

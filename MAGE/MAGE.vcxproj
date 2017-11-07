@@ -679,6 +679,20 @@
       </ObjectFileOutput>
       <FileType>Document</FileType>
     </FxCompile>
+    <FxCompile Include="MAGE\shaders\postprocessing\postprocessing_dof_CS.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Compute</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\postprocessing\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)\src\shader\cso\postprocessing\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)\src\shader\cso\postprocessing\%(Filename).hpp</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)\src\shader\cso\postprocessing\%(Filename).hpp</HeaderFileOutput>
+    </FxCompile>
     <FxCompile Include="MAGE\shaders\primitive\line_cube_PS.hlsl">
       <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">g_%(Filename)</VariableName>
       <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)\src\shader\cso\primitive\%(Filename).hpp</HeaderFileOutput>

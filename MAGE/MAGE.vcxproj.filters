@@ -304,6 +304,9 @@
     <Filter Include="Source Files\rendering">
       <UniqueIdentifier>{a73b8f88-b360-4052-8e68-8fdbe8cdcaa6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader Files\postprocessing">
+      <UniqueIdentifier>{43d82c26-c8de-475d-9a42-4b4e2f32c927}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAGE\src\collection\collection.hpp">
@@ -1659,6 +1662,9 @@
     </FxCompile>
     <FxCompile Include="MAGE\shaders\deferred\deferred_msaa_blinn_phong_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="MAGE\shaders\postprocessing\postprocessing_dof_CS.hlsl">
+      <Filter>Shader Files\postprocessing</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

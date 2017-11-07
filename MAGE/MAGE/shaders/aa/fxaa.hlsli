@@ -44,17 +44,17 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	}
 
 	const FxaaTex fxaa_tex = { 
-		g_linear_clamp_sampler, 
+		g_linear_mirror_sampler, 
 		g_input_image_texture 
 	};
 
 	const float4 ldr = FxaaPixelShader(
-		NormalizeDispatchThreadID(thread_id.xy), // FxaaFloat2 pos
+		LocationToUV(location),                  // FxaaFloat2 pos
 		0.0f,                                    // FxaaFloat4 fxaaConsolePosPos
 		fxaa_tex,                                // FxaaTex tex
 		fxaa_tex,                                // FxaaTex fxaaConsole360TexExpBiasNegOne
 		fxaa_tex,                                // FxaaTex fxaaConsole360TexExpBiasNegTwo
-		1.0f / g_viewport_resolution,            // FxaaFloat2 fxaaQualityRcpFrame
+		1.0f / g_display_resolution,             // FxaaFloat2 fxaaQualityRcpFrame
 		0.0f,                                    // FxaaFloat4 fxaaConsoleRcpFrameOpt
 		0.0f,                                    // FxaaFloat4 fxaaConsoleRcpFrameOpt2
 		0.0f,                                    // FxaaFloat4 fxaaConsole360RcpFrameOpt2

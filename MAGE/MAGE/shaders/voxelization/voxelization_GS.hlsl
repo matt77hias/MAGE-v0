@@ -33,7 +33,7 @@ void GS(triangle PSInputPositionNormalTexture input[3],
 	// Project the triangle in the dominant direction for rasterization (p),
 	// but not for lighting (p_view).
 	[unroll]
-	for (uint i = 0; i < 3; ++i) {
+	for (uint i = 0u; i < 3u; ++i) {
 		output[i].p.xyz = input[i].p_view.xyz - g_voxel_grid_center;
 	
 		[flatten]
@@ -69,7 +69,7 @@ void GS(triangle PSInputPositionNormalTexture input[3],
 
 	// Output a triangle strip of three vertices.
 	[unroll]
-	for (uint j = 0; j < 3; ++j) {
+	for (uint j = 0u; j < 3u; ++j) {
 		// Output a vertex.
 		output_stream.Append(output[j]);
 	}

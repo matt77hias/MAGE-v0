@@ -96,58 +96,61 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 //-----------------------------------------------------------------------------
 
 /**
- Normalizes the given viewport dispatch thread id.
+ Converts the given display location to UV coorcinates.
 
- @pre			@a id is non-normalized 
-				(i.e. in the [0,resolution.x-1] x [0,resolution.y-1] range).
- @param[in]		id
-				The non-normalized viewport dispatch thread id.
- @return		The normalized viewport dispatch thread id corresponding to the 
-				given non-normalized viewport dispatch thread id.
+ @pre			@a location is non-normalized 
+				(i.e. in the [0,g_display_resolution.x-1] by 
+				[0,g_display_resolution.y-1] range).
+ @param[in]		location
+				The display location.
+ @return		The UV coordinates.
  */
-float2 NormalizeDispatchThreadID(uint2 id) {
-	return NormalizeDispatchThreadID(id, g_viewport_inv_resolution_minus1);
+float2 LocationToUV(float2 location) {
+	return LocationToUV(location, g_display_inv_resolution_minus1);
 }
 
 /**
- Normalizes the given super-sampled viewport dispatch thread id.
+ Converts the given super-sampled display location to UV coorcinates.
 
- @pre			@a id is non-normalized 
-				(i.e. in the [0,resolution.x-1] x [0,resolution.y-1] range).
- @param[in]		id
-				The non-normalized super-sampled viewport dispatch thread id.
- @return		The normalized super-sampled viewport dispatch thread id 
-				corresponding to the given non-normalized super-sampled viewport 
-				dispatch thread id.
+ @pre			@a location is non-normalized 
+				(i.e. in the [0,g_ss_display_resolution.x-1] by 
+				[0,g_ss_display_resolution.y-1] range).
+ @param[in]		location
+				The super-sampled display location.
+ @return		The UV coordinates.
  */
-float2 NormalizeSSDispatchThreadID(uint2 id) {
-	return NormalizeDispatchThreadID(id, g_ss_viewport_inv_resolution_minus1);
+float2 SSLocationToUV(float2 location) {
+	return LocationToUV(location, g_ss_display_inv_resolution_minus1);
 }
 
 /**
  Converts the given viewport dispatch thread id to NDC coordinates.
 
  @pre			@a id is non-normalized 
-				(i.e. in the [0,resolution.x-1] x [0,resolution.y-1] range).
+				(i.e. in the [0,g_viewport_resolution.x-1] by 
+				[0,g_viewport_resolution.y-1] range).
  @param[in]		id
 				The non-normalized viewport dispatch thread id.
  @return		The NDC coordinates.
  */
-float2 DispatchThreadIDtoNDC(uint2 id) {
-	return NormalizedDispatchThreadIDtoNDC(NormalizeDispatchThreadID(id));
+float2 DispatchThreadIDtoNDC(float2 id) {
+	const float2 uv = LocationToUV(id, g_viewport_inv_resolution_minus1);
+	return UVtoNDC(uv);
 }
 
 /**
  Converts the given super-sampled viewport dispatch thread id to NDC coordinates.
 
  @pre			@a id is non-normalized 
-				(i.e. in the [0,resolution.x-1] x [0,resolution.y-1] range).
+				(i.e. in the [0,g_ss_viewport_resolution.x-1] by 
+				[0,g_ss_viewport_resolution.y-1] range).
  @param[in]		id
 				The non-normalized super-sampled viewport dispatch thread id.
  @return		The NDC coordinates.
  */
-float2 SSDispatchThreadIDtoNDC(uint2 id) {
-	return NormalizedDispatchThreadIDtoNDC(NormalizeSSDispatchThreadID(id));
+float2 SSDispatchThreadIDtoNDC(float2 id) {
+	const float2 uv = LocationToUV(id, g_ss_viewport_inv_resolution_minus1);
+	return UVtoNDC(uv);
 }
 
 #endif // MAGE_HEADER_GLOBAL

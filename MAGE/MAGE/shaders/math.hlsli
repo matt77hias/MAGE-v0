@@ -573,36 +573,34 @@ float2 NDCtoUV(float2 p_ndc_xy) {
 }
 
 /**
- Normalizes the given dispatch thread id.
+ Converts the given UV coordinates to NDC coordinates.
 
- @pre			@a id is non-normalized 
-				(i.e. in the [0,resolution.x-1] x [0,resolution.y-1] range).
- @param[in]		id
-				The non-normalized dispatch thread id.
- @param[in]		inv_resolution_minus1
-				The inverse of the resolution minus 1 
-				[1/(resolution.x-1), 1/(resolution.y-1)].
- @return		The normalized dispatch thread id corresponding to the given 
-				non-normalized dispatch thread id.
+ @param[in]		uv
+				The UV coordinates.
+ @return		The NDC x and y coordinate.
  */
-float2 NormalizeDispatchThreadID(uint2 id, float2 inv_resolution_minus1) {
-	// x: [0,resolution.x-1] -> [0,1]
-	// y: [0,resolution.y-1] -> [0,1]
-	return id * inv_resolution_minus1;
+float2 UVtoNDC(float2 uv) {
+	// x: [0,1] -> [-1,1]
+	// y: [0,1] -> [1,-1]
+	return float2(2.0f, -2.0f) * uv + float2(-1.0f, 1.0f);
 }
 
 /**
- Converts the given normalized dispatch thread id to NDC coordinates.
+ Converts the given location to UV coorcinates.
 
- @pre			@a normalized_id is normalized (i.e. in the [0,1] range).
- @param[in]		normalized_id
-				The normalized dispatch thread id.
- @return		The NDC coordinates.
+ @pre			@a location is non-normalized 
+				(i.e. in the [0,resolution.x-1] by [0,resolution.y-1] range).
+ @param[in]		location
+				The location.
+ @param[in]		inv_resolution_minus1
+				The inverse of the resolution minus 1 
+				[1/(resolution.x-1), 1/(resolution.y-1)].
+ @return		The UV coordinates.
  */
-float2 NormalizedDispatchThreadIDtoNDC(float2 normalized_id) {
-	// x: [0,1] -> [-1,1]
-	// y: [0,1] -> [1,-1]
-	return float2(2.0f, -2.0f) * normalized_id + float2(-1.0f, 1.0f);
+float2 LocationToUV(float2 location, float2 inv_resolution_minus1) {
+	// x: [0,resolution.x-1] -> [0,1]
+	// y: [0,resolution.y-1] -> [0,1]
+	return location * inv_resolution_minus1;
 }
 
 //-----------------------------------------------------------------------------

@@ -75,19 +75,12 @@ namespace mage {
 	inline void MinAndMaxPointAlongNormal(FXMVECTOR n, const AABB &aabb, 
 		XMVECTOR &pmin, XMVECTOR &pmax) noexcept {
 		
-		const XMVECTOR tests = XMVectorGreaterOrEqual(n, XMVectorZero());
+		const XMVECTOR control   = XMVectorGreaterOrEqual(n, XMVectorZero());
+		const XMVECTOR aabb_pmin = XMLoadFloat3(&aabb.m_p_min);
+		const XMVECTOR aabb_pmax = XMLoadFloat3(&aabb.m_p_max);
 		
-		pmin = XMVectorSet(
-					XMVectorGetX(tests) ? aabb.m_p_min.x : aabb.m_p_max.x,
-					XMVectorGetY(tests) ? aabb.m_p_min.y : aabb.m_p_max.y,
-					XMVectorGetZ(tests) ? aabb.m_p_min.z : aabb.m_p_max.z,
-					1.0f);
-
-		pmax = XMVectorSet(
-					XMVectorGetX(tests) ? aabb.m_p_max.x : aabb.m_p_min.x,
-					XMVectorGetY(tests) ? aabb.m_p_max.y : aabb.m_p_min.y,
-					XMVectorGetZ(tests) ? aabb.m_p_max.z : aabb.m_p_min.z,
-					1.0f);
+		pmin = XMVectorSetW(XMVectorSelect(aabb_pmax, aabb_pmin, control), 1.0f);
+		pmax = XMVectorSetW(XMVectorSelect(aabb_pmin, aabb_pmax, control), 1.0f);
 	}
 
 	/**
@@ -101,12 +94,11 @@ namespace mage {
 	 */
 	inline XMVECTOR MinPointAlongNormal(FXMVECTOR n, const AABB &aabb) noexcept {
 		
-		const XMVECTOR tests = XMVectorGreaterOrEqual(n, XMVectorZero());
-		return XMVectorSet(
-					XMVectorGetX(tests) ? aabb.m_p_min.x : aabb.m_p_max.x,
-					XMVectorGetY(tests) ? aabb.m_p_min.y : aabb.m_p_max.y,
-					XMVectorGetZ(tests) ? aabb.m_p_min.z : aabb.m_p_max.z,
-					1.0f);
+		const XMVECTOR control   = XMVectorGreaterOrEqual(n, XMVectorZero());
+		const XMVECTOR aabb_pmin = XMLoadFloat3(&aabb.m_p_min);
+		const XMVECTOR aabb_pmax = XMLoadFloat3(&aabb.m_p_max);
+
+		return XMVectorSetW(XMVectorSelect(aabb_pmax, aabb_pmin, control), 1.0f);
 	}
 
 	/**
@@ -120,12 +112,11 @@ namespace mage {
 	 */
 	inline XMVECTOR MaxPointAlongNormal(FXMVECTOR n, const AABB &aabb) noexcept {
 		
-		const XMVECTOR tests = XMVectorGreaterOrEqual(n, XMVectorZero());
-		return XMVectorSet(
-					XMVectorGetX(tests) ? aabb.m_p_max.x : aabb.m_p_min.x,
-					XMVectorGetY(tests) ? aabb.m_p_max.y : aabb.m_p_min.y,
-					XMVectorGetZ(tests) ? aabb.m_p_max.z : aabb.m_p_min.z,
-					1.0f);
+		const XMVECTOR control   = XMVectorGreaterOrEqual(n, XMVectorZero());
+		const XMVECTOR aabb_pmin = XMLoadFloat3(&aabb.m_p_min);
+		const XMVECTOR aabb_pmax = XMLoadFloat3(&aabb.m_p_max);
+
+		return XMVectorSetW(XMVectorSelect(aabb_pmin, aabb_pmax, control), 1.0f);
 	}
 
 	//-------------------------------------------------------------------------

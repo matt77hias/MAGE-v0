@@ -86,6 +86,8 @@ INTEL: [*Compute Shader HDR and Bloom*](https://software.intel.com/en-us/article
 
 ISHEDEN D.: [*HDR inverse tone mapping MSAA resolve*](http://theagentd.blogspot.be/2013/01/hdr-inverse-tone-mapping-msaa-resolve.html), 2013.
 
+JIMENEZ J.: Next Generation Post Processing in Call of Duty Advanced Warfare, *SIGGRAPH 2014 Course: Advances in Real-Time Rendering in Games*, 2014.
+
 KARIS B.: *Real Shading in Unreal Engine 4*, *SIGGRAPH 2013 Course: Physically Based Shading in Theory and Practice*, 2013.
 
 KARIS B.: [*Specular BRDF Reference*](http://graphicrants.blogspot.be/2013/08/specular-brdf-reference.html), 2013. 

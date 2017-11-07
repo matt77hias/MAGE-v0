@@ -123,6 +123,7 @@
     <ClInclude Include="MAGE\src\pass\deferred_shading_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\depth_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\aa_pass.hpp" />
+    <ClInclude Include="MAGE\src\pass\dof_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\gbuffer_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\back_buffer_pass.hpp" />
     <ClInclude Include="MAGE\src\pass\lbuffer_pass.hpp" />
@@ -335,6 +336,7 @@
     <ClCompile Include="MAGE\src\pass\deferred_shading_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\depth_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\aa_pass.cpp" />
+    <ClCompile Include="MAGE\src\pass\dof_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\gbuffer_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\back_buffer_pass.cpp" />
     <ClCompile Include="MAGE\src\pass\lbuffer_pass.cpp" />
@@ -679,7 +681,7 @@
       </ObjectFileOutput>
       <FileType>Document</FileType>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\postprocessing\postprocessing_dof_CS.hlsl">
+    <FxCompile Include="MAGE\shaders\postprocessing\postprocessing_depth_of_field_CS.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CS</EntryPointName>

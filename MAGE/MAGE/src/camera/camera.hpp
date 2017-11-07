@@ -77,11 +77,16 @@ namespace mage {
 			return static_pointer_cast< Camera >(CloneImplementation());
 		}
 
+		//---------------------------------------------------------------------
+		// Member Methods: Projection
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the position of the near z-plane of this camera in camera 
-		 space.
+		 view space.
 
-		 @return		The position of the near z-plane of this camera.
+		 @return		The position of the near z-plane of this camera in 
+						camera view space.
 		 */
 		F32 GetNearZ() const noexcept {
 			return m_near_z;
@@ -92,7 +97,7 @@ namespace mage {
 		 value.
 
 		 @param[in]		near_z
-						The position of the near z-plane in view space.
+						The position of the near z-plane in camera view space.
 		 */
 		void SetNearZ(F32 near_z) noexcept {
 			m_near_z = near_z;
@@ -100,9 +105,10 @@ namespace mage {
 		
 		/**
 		 Returns the position of the far z-plane of this camera in camera 
-		 space.
+		 view space.
 
-		 @return		The position of the far z-plane of this camera.
+		 @return		The position of the far z-plane of this camera in 
+						camera view space.
 		 */
 		F32 GetFarZ() const noexcept {
 			return m_far_z;
@@ -113,7 +119,7 @@ namespace mage {
 		 value.
 
 		 @param[in]		far_z
-						The position of the far z-plane in view space.
+						The position of the far z-plane in camera view space.
 		 */
 		void SetFarZ(F32 far_z) noexcept {
 			m_far_z = far_z;
@@ -146,6 +152,70 @@ namespace mage {
 		 @return		The projection-to-view matrix of this camera.
 		 */
 		virtual const XMMATRIX GetProjectionToViewMatrix() const noexcept = 0;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Depth-of-Field
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the lens radius of this camera in camera.
+
+		 @return		The lens radius of this camera.
+		 */
+		F32 GetLensRadius() const noexcept {
+			return m_lens_radius;
+		}
+		
+		/**
+		 Sets the lens radius of this camera to the given value.
+
+		 @param[in]		lens_radius
+						The lens radius.
+		 */
+		void SetLensRadius(F32 lens_radius) noexcept {
+			m_lens_radius = lens_radius;
+		}
+
+		/**
+		 Returns the focal length of this camera in camera.
+
+		 @return		The focal length of this camera.
+		 */
+		F32 GetFocalLength() const noexcept {
+			return m_focal_length;
+		}
+		
+		/**
+		 Sets the focal length of this camera to the given value.
+
+		 @param[in]		focal_length
+						The focal length.
+		 */
+		void SetFocalLength(F32 focal_length) noexcept {
+			m_focal_length = focal_length;
+		}
+
+		/**
+		 Returns the maximum radius of the circle of confusion of this camera in 
+		 camera.
+
+		 @return		The maximum radius of the circle of confusion of this 
+						camera.
+		 */
+		F32 GetMaximumCoCRadius() const noexcept {
+			return m_max_coc_radius;
+		}
+		
+		/**
+		 Sets the maximum radius of the circle of confusion of this camera to 
+		 the given value.
+
+		 @param[in]		max_coc_radius
+						The maximum radius of the circle of confusion.
+		 */
+		void SetMaximumCoCRadius(F32 max_coc_radius) noexcept {
+			m_max_coc_radius = max_coc_radius;
+		}
 
 	protected:
 
@@ -195,7 +265,7 @@ namespace mage {
 		virtual UniquePtr< Camera > CloneImplementation() const = 0;
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Projection
 		//---------------------------------------------------------------------
 
 		/**
@@ -207,5 +277,25 @@ namespace mage {
 		 The position of the far z-plane of this camera in view space.
 		 */
 		F32 m_far_z;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Depth-of-Field
+		//---------------------------------------------------------------------
+
+		/**
+		 The lens radius of this camera (for depth-of-field effects).
+		 */
+		F32 m_lens_radius;
+
+		/**
+		 The focal length of this camera (for depth-of-field effects).
+		 */
+		F32 m_focal_length;
+
+		/**
+		 The maximum radius of the circle-of-confusion of this camera (for 
+		 depth-of-field effects).
+		 */
+		F32 m_max_coc_radius;
 	};
 }

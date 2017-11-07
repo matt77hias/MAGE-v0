@@ -89,11 +89,32 @@ CBUFFER(PrimaryCamera, SLOT_CBUFFER_PRIMARY_CAMERA) {
 	// g_ss_viewport_inv_resolution_minus1.x = 1 / (g_ss_viewport_resolution.x - 1)
 	// g_ss_viewport_inv_resolution_minus1.y = 1 / (g_ss_viewport_resolution.y - 1)
 	float2   g_ss_viewport_inv_resolution_minus1 : packoffset(c18.z);
+	
+	// The lens radius of this camera.
+	float   g_lens_radius                        : packoffset(c19.x);
+	// The focal length of this camera.
+	float   g_focal_length                       : packoffset(c19.y);
+	// The maximum circle-of-confusion radius of this camera.
+	float   g_max_coc_radius                     : packoffset(c19.z);
 }
 
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions: Transform Utilities
 //-----------------------------------------------------------------------------
+
+/**
+ Converts the given (non-linear) depth to the (linear) view z-coordinate.
+
+ @param[in]		depth
+				The (non-linear) depth.
+ @return		The (linear) view z-coordinate.
+ */
+float DepthToViewZ(float depth) {
+	const float4 p_proj = float4(0.0f, 0.0f, depth, 1.0f);
+	// Obtain the view space coodinates.
+	const float2 p_view_zw = mul(p_proj, g_projection_to_view).zw;
+	return p_view_zw.x / p_view_zw.y;
+}
 
 /**
  Converts the given display location to UV coorcinates.

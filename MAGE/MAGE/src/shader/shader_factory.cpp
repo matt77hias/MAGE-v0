@@ -79,6 +79,9 @@
 #include "shader\cso\miscellaneous\shading_normal_PS.hpp"
 #include "shader\cso\miscellaneous\tsnm_shading_normal_PS.hpp"
 
+// Post-processing
+#include "shader\cso\postprocessing\postprocessing_depth_of_field_CS.hpp"
+
 // Primitive
 #include "shader\cso\primitive\line_cube_VS.hpp"
 #include "shader\cso\primitive\line_cube_PS.hpp"
@@ -489,6 +492,18 @@ namespace mage {
 			:
 			ResourceManager::Get()->GetOrCreatePS(
 				MAGE_SHADER_ARGS(g_shading_normal_PS));
+	}
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
+	// Factory Methods: Post Processing
+	//-------------------------------------------------------------------------
+#pragma region
+
+	SharedPtr< const ComputeShader > CreateDepthOfFieldCS() {
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_postprocessing_depth_of_field_CS));
 	}
 
 #pragma endregion

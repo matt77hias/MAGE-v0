@@ -579,6 +579,26 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
+	// Factory Methods: Post Processing
+	//-------------------------------------------------------------------------
+#pragma region
+
+	/**
+	 Creates a depth-of-field compute shader.
+
+	 @pre			The resource manager associated with the current engine 
+					must be loaded.
+	 @pre			The rendering manager associated with the current engine 
+					must be loaded.
+	 @return		A pointer to the depth-of-field compute shader.
+	 @throws		FormattedException
+					Failed to create the compute shader.
+	 */
+	SharedPtr< const ComputeShader > CreateDepthOfFieldCS();
+
+#pragma endregion
+
+	//-------------------------------------------------------------------------
 	// Factory Methods: Primitive
 	//-------------------------------------------------------------------------
 #pragma region

@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "pass\pass_buffer.hpp"
+#include "camera\viewport.hpp"
 #include "shader\shader.hpp"
 #include "rendering\aa_descriptor.hpp"
 
@@ -83,8 +83,8 @@ namespace mage {
 
 		 @param[in]		render_pass
 						A reference to the AA pass to copy.
-		 @return		A reference to the copy of the given AA pass (i.e. this 
-						AA pass).
+		 @return		A reference to the copy of the given AA pass (i.e. 
+						this AA pass).
 		 */
 		AAPass &operator=(const AAPass &render_pass) = delete;
 

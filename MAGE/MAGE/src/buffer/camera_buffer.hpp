@@ -50,7 +50,11 @@ namespace mage {
 			m_viewport_inv_width_minus1(0.0f),
 			m_viewport_inv_height_minus1(0.0f),
 			m_ss_viewport_inv_width_minus1(0.0f),
-			m_ss_viewport_inv_height_minus1(0.0f) {}
+			m_ss_viewport_inv_height_minus1(0.0f),
+			m_lens_radius(0.0f),
+			m_focal_length(0.0f),
+			m_max_coc_radius(0.0f),
+			m_padding0(0) {}
 
 		/**
 		 Constructs a camera buffer from the given camera buffer.
@@ -128,6 +132,10 @@ namespace mage {
 		 */
 		XMMATRIX m_view_to_world;
 
+		//---------------------------------------------------------------------
+		// Member Variables: Viewport
+		//---------------------------------------------------------------------
+
 		/**
 		 The x coordinate of the left hand side of the viewport of this camera 
 		 buffer.
@@ -175,25 +183,50 @@ namespace mage {
 		/**
 		 The inverse width of the viewport minus 1 of this camera buffer. 
 		 */
-		float m_viewport_inv_width_minus1;
+		F32 m_viewport_inv_width_minus1;
 
 		/**
 		 The inverse height of the viewport minus 1 of this camera buffer. 
 		 */
-		float m_viewport_inv_height_minus1;
+		F32 m_viewport_inv_height_minus1;
 
 		/**
 		 The inverse width of the super-sampled viewport minus 1 of this 
 		 camera buffer.
 		 */
-		float m_ss_viewport_inv_width_minus1;
+		F32 m_ss_viewport_inv_width_minus1;
 
 		/**
 		 The inverse height of the super-sampled viewport minus 1 of this 
 		 camera buffer.
 		 */
-		float m_ss_viewport_inv_height_minus1;
+		F32 m_ss_viewport_inv_height_minus1;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Lens
+		//---------------------------------------------------------------------
+
+		/**
+		 The lens radius of the camera of this camera buffer. 
+		 */
+		F32 m_lens_radius;
+
+		/**
+		 The focal length of the camera of this camera buffer.
+		 */
+		F32 m_focal_length;
+
+		/**
+		 The maximum radius of the circle-of-confusion of the camera of this 
+		 camera buffer.
+		 */
+		F32 m_max_coc_radius;
+
+		/**
+		 The padding of the camera of this camera buffer.
+		 */
+		U32 m_padding0;
 	};
 
-	static_assert(sizeof(CameraBuffer) == 304, "CPU/GPU struct mismatch");
+	static_assert(sizeof(CameraBuffer) == 320, "CPU/GPU struct mismatch");
 }

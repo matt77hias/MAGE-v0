@@ -12,6 +12,7 @@
 #include "pass\constant_shading_pass.hpp"
 #include "pass\deferred_shading_pass.hpp"
 #include "pass\depth_pass.hpp"
+#include "pass\dof_pass.hpp"
 #include "pass\gbuffer_pass.hpp"
 #include "pass\lbuffer_pass.hpp"
 #include "pass\shading_normal_pass.hpp"
@@ -263,6 +264,22 @@ namespace mage {
 		}
 
 		/**
+		 Returns the depth-of-field pass of this renderer.
+
+		 @pre			The rendering manager associated with the current 
+						engine must be loaded.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
+		 @return		A pointer to the depth-of-field pass of this renderer.
+		 */
+		DOFPass *GetDOFPass() {
+			if (!m_dof_pass) {
+				m_dof_pass = MakeUnique< DOFPass >();
+			}
+			return m_dof_pass.get();
+		}
+
+		/**
 		 Returns the GBuffer pass of this renderer.
 
 		 @pre			The rendering manager associated with the current 
@@ -418,6 +435,7 @@ namespace mage {
 						Failed to bind the persistent state of this renderer.
 		 */
 		void BindCameraBuffer(
+			const Camera *camera,
 			const Viewport &viewport,
 			const Viewport &ss_viewport,
 			FXMMATRIX view_to_projection, 
@@ -515,6 +533,11 @@ namespace mage {
 		 A pointer to the depth pass of this renderer.
 		 */
 		UniquePtr< DepthPass > m_depth_pass;
+
+		/**
+		 A pointer to the depth-of-field pass of this renderer.
+		 */
+		UniquePtr< DOFPass > m_dof_pass;
 
 		/**
 		 A pointer to the GBuffer pass of this renderer.

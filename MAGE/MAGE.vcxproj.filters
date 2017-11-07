@@ -1080,6 +1080,9 @@
     <ClInclude Include="MAGE\src\shader\cso\deferred\deferred_msaa_cook_torrance_PS.hpp">
       <Filter>Header Files\shader\cso\deferred</Filter>
     </ClInclude>
+    <ClInclude Include="MAGE\src\pass\dof_pass.hpp">
+      <Filter>Header Files\pass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAGE\src\core\engine.cpp">
@@ -1454,6 +1457,9 @@
     <ClCompile Include="MAGE\src\rendering\display_configuration.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
+    <ClCompile Include="MAGE\src\pass\dof_pass.cpp">
+      <Filter>Source Files\pass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MAGE\shaders\sprite\sprite_PS.hlsl">
@@ -1663,7 +1669,7 @@
     <FxCompile Include="MAGE\shaders\deferred\deferred_msaa_blinn_phong_PS.hlsl">
       <Filter>Shader Files\deferred</Filter>
     </FxCompile>
-    <FxCompile Include="MAGE\shaders\postprocessing\postprocessing_dof_CS.hlsl">
+    <FxCompile Include="MAGE\shaders\postprocessing\postprocessing_depth_of_field_CS.hlsl">
       <Filter>Shader Files\postprocessing</Filter>
     </FxCompile>
   </ItemGroup>

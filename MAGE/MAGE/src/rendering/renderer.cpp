@@ -37,6 +37,7 @@ namespace mage {
 		m_constant_shading_pass(),
 		m_deferred_shading_pass(),
 		m_depth_pass(),
+		m_dof_pass(),
 		m_gbuffer_pass(),
 		m_lbuffer_pass(),
 		m_shading_normal_pass(),
@@ -75,6 +76,7 @@ namespace mage {
 	}
 
 	void Renderer::BindCameraBuffer(
+		const Camera *camera,
 		const Viewport &viewport,
 		const Viewport &ss_viewport,
 		FXMMATRIX view_to_projection,
@@ -101,6 +103,10 @@ namespace mage {
 		camera_buffer.m_ss_viewport_height            = static_cast< U32 >(ss_viewport.GetHeight());
 		camera_buffer.m_ss_viewport_inv_width_minus1  = 1.0f / (ss_viewport.GetWidth()  - 1.0f);
 		camera_buffer.m_ss_viewport_inv_height_minus1 = 1.0f / (ss_viewport.GetHeight() - 1.0f);
+
+		camera_buffer.m_lens_radius                   = 7.0f; // camera->GetLensRadius();
+		camera_buffer.m_focal_length                  = 10.0f; // camera->GetFocalLength();
+		camera_buffer.m_max_coc_radius                = 3.0f; // camera->GetMaximumCoCRadius();
 
 		// Update the camera buffer.
 		m_camera_buffer.UpdateData(m_device_context, camera_buffer);
@@ -137,8 +143,9 @@ namespace mage {
 			const Viewport ss_viewport             = node->GetSSViewport();
 
 			// Bind the camera buffer.
-			BindCameraBuffer(viewport, ss_viewport, view_to_projection,
-				projection_to_view, world_to_view, view_to_world);
+			BindCameraBuffer(camera, viewport, ss_viewport, 
+				view_to_projection, projection_to_view, 
+				world_to_view, view_to_world);
 			
 			// RenderMode
 			switch (render_mode) {
@@ -246,6 +253,10 @@ namespace mage {
 			output_manager->BindEndForward(m_device_context);
 
 			ExecuteAAPipeline(ss_viewport);
+
+			output_manager->BindPingPong(m_device_context);
+
+			GetDOFPass()->Dispatch(viewport);
 
 			output_manager->BindEnd(m_device_context);
 		}

@@ -214,6 +214,7 @@ namespace mage {
 				
 			// Render the current scene.
 			m_engine_stats->PrepareRendering();
+			swap_chain->Clear();
 			m_scene_manager->Render();
 			swap_chain->Present();
 		}

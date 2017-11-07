@@ -104,9 +104,9 @@ namespace mage {
 		camera_buffer.m_ss_viewport_inv_width_minus1  = 1.0f / (ss_viewport.GetWidth()  - 1.0f);
 		camera_buffer.m_ss_viewport_inv_height_minus1 = 1.0f / (ss_viewport.GetHeight() - 1.0f);
 
-		camera_buffer.m_lens_radius                   = 7.0f; // camera->GetLensRadius();
-		camera_buffer.m_focal_length                  = 10.0f; // camera->GetFocalLength();
-		camera_buffer.m_max_coc_radius                = 3.0f; // camera->GetMaximumCoCRadius();
+		camera_buffer.m_lens_radius                   = camera->GetLensRadius();
+		camera_buffer.m_focal_length                  = camera->GetFocalLength();
+		camera_buffer.m_max_coc_radius                = camera->GetMaximumCoCRadius();
 
 		// Update the camera buffer.
 		m_camera_buffer.UpdateData(m_device_context, camera_buffer);
@@ -122,8 +122,6 @@ namespace mage {
 
 		// Update the pass buffer.
 		m_pass_buffer->Update(scene);
-
-		output_manager->Clear(m_device_context);
 
 		for (const auto node : m_pass_buffer->GetCameras()) {
 			output_manager->BindBegin(m_device_context);
@@ -254,21 +252,25 @@ namespace mage {
 
 			ExecuteAAPipeline(ss_viewport);
 
-			output_manager->BindPingPong(m_device_context);
-
-			GetDOFPass()->Dispatch(viewport);
-
+			if (camera->HasFiniteAperture()) {
+				output_manager->BindPingPong(m_device_context);
+				GetDOFPass()->Dispatch(viewport);
+			}
+			
 			output_manager->BindEnd(m_device_context);
+
+			// Bind the viewport.
+			viewport.BindViewport(m_device_context);
+
+			// Perform a back buffer pass.
+			BackBufferPass * const back_buffer_pass = GetBackBufferPass();
+			back_buffer_pass->BindFixedState();
+			back_buffer_pass->Render();
 		}
 
 		// Bind the maximum viewport.
 		m_maximum_viewport.BindViewport(m_device_context);
 		
-		// Perform a back buffer pass.
-		BackBufferPass * const back_buffer_pass = GetBackBufferPass();
-		back_buffer_pass->BindFixedState();
-		back_buffer_pass->Render();
-
 		// Perform a sprite pass.
 		SpritePass * const sprite_pass = GetSpritePass();
 		sprite_pass->BindFixedState();

@@ -149,9 +149,9 @@ namespace mage {
 		}
 	}
 
-	void SwapChain::ClearRTV(ID3D11DeviceContext2 *device_context) const noexcept {
+	void SwapChain::Clear() const noexcept {
 		// Clear the back buffer.
-		Pipeline::OM::ClearRTV(device_context, m_rtv.Get());
+		Pipeline::OM::ClearRTV(Pipeline::GetImmediateDeviceContext(), m_rtv.Get());
 	}
 
 	void SwapChain::Present() const noexcept {

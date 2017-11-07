@@ -182,15 +182,6 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Clears the render target view of the back buffer of this swap chain.
-		
-		 @pre			@a device_context is not equal to @c nullptr.
-		 @param[in]		device_context
-						A pointer to the device context.
-		 */
-		void ClearRTV(ID3D11DeviceContext2 *device_context) const noexcept;
-
-		/**
 		 Returns the render target view of the back buffer of this swap chain.
 
 		 @return		A pointer to the render target view of the back buffer 
@@ -199,6 +190,11 @@ namespace mage {
 		ID3D11RenderTargetView *GetRTV() const noexcept {
 			return m_rtv.Get();
 		}
+
+		/**
+		 Clears the render target view of the back buffer of this swap chain.
+		 */
+		void Clear() const noexcept;
 
 		/**
 		 Presents the back buffer of this swap chain.

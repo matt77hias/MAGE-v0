@@ -54,6 +54,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 		auto camera = Create< PerspectiveCameraNode >("camera");
 		camera->GetTransform()->SetTranslationY(2.0f);
+		camera->GetCamera()->SetLensRadius(7.0f);
+		camera->GetCamera()->SetFocalLength(10.0f);
+		camera->GetCamera()->SetMaximumCoCRadius(2.0f);
+		camera->GetViewport().SetNormalizedWidth(0.5f);
+
+		auto camera2 = Create< PerspectiveCameraNode >("camera");
+		camera2->GetTransform()->SetTranslationY(2.0f);
+		camera2->GetViewport().SetNormalizedTopLeft(0.5f, 0.0f);
+		camera2->GetViewport().SetNormalizedWidth(0.5f);
 
 		//---------------------------------------------------------------------
 		// ModelDescriptors
@@ -115,6 +124,9 @@ namespace mage {
 		AddScript(MakeShared< SwitchSceneScript< SibenikScene > >());
 		AddScript(MakeShared< RotationScript >(model_tree->GetTransform()));
 		AddScript(MakeShared< FPSInputControllerScript >(camera->GetTransform()));
+
+		AddScript(MakeShared< FPSInputControllerScript >(camera2->GetTransform()));
+
 		AddScript(MakeShared< StatsScript >(text->GetSprite()));
 		AddScript(MakeShared< RenderModeScript >(camera->GetSettings()));
 	}

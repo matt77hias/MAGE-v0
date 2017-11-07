@@ -158,6 +158,16 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
+		 Checks whether this camera has a finite aperture.
+
+		 @return		@c true if this camera has a finite aperture.
+						@c false otherwise.
+		 */
+		bool HasFiniteAperture() const noexcept {
+			return 0.0f != m_lens_radius;
+		}
+
+		/**
 		 Returns the lens radius of this camera in camera.
 
 		 @return		The lens radius of this camera.

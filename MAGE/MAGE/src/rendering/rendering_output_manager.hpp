@@ -116,7 +116,6 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void Clear(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindBegin(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindBeginGBuffer(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindEndGBuffer(ID3D11DeviceContext2 *device_context) const noexcept;

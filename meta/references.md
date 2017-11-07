@@ -235,7 +235,9 @@ Uses:
 * [Brooke Hodgman](https://github.com/hodgman)
 * [Chuck Walbourn](https://github.com/walbourn)
 * [Eric Richards](https://github.com/ericrrichards)
+* JoeJ
 * [Krzysztof Narkowicz](https://github.com/knarkowicz)
+* L. Spiro
 * [Maarten Tegelaers](https://github.com/BeardedPlatypus)
 * [Matías N. Goldberg](https://github.com/darksylinc)
 * [Matt Pettineo](https://github.com/TheRealMJP)
@@ -244,6 +246,7 @@ Uses:
 * [Nicolas Silvagni](https://github.com/galop1n)
 * [Roald Frederickx](https://github.com/RoaldFre)
 * Scott Meyers
+* Styves
 * [Turánszki János](https://github.com/turanszkij)
 * [GameDev.net](https://www.gamedev.net/) community
 * [Computer Graphics StackExchange](https://computergraphics.stackexchange.com/) community

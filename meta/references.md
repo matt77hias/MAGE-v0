@@ -148,6 +148,12 @@ PETTINEO M.: [*A Closer Look At Tone Mapping*](https://mynameismjp.wordpress.com
 
 PETTINEO M.: [*Attack of the Depth Buffer*](https://mynameismjp.wordpress.com/2010/03/22/attack-of-the-depth-buffer/), 2010.
 
+PETTINEO M.: [*Average Luminance Calculation Using a Compute Shader*](https://mynameismjp.wordpress.com/2011/08/10/average-luminance-compute-shader/), 2011.
+
+PETTINEO M.: [*Depth of Field Sample*](https://mynameismjp.wordpress.com/the-museum/samples-tutorials-tools/depth-of-field-sample/#comment-127104), 2009.
+
+PETTINEO M.: [*Deferred MSAA*](https://mynameismjp.wordpress.com/2010/08/16/deferred-msaa/), 2010.
+
 PHARR M., HUMPHREYS: *Physically Based Rendering: From Theory to Implementation*, 2nd Edition, Morgan Kaufmann, 2010.
 
 PHARR M., JAKOB W., HUMPHREYS: *Physically Based Rendering: From Theory to Implementation*, 3th Edition, Morgan Kaufmann, 2016.

@@ -220,7 +220,7 @@ Uses:
 * [DirectXTex](https://github.com/Microsoft/DirectXTex) [[License](https://github.com/Microsoft/DirectXTex/blob/master/LICENSE)]
 
 ## Contributors
-* Matthias Moulin
+* [Matthias Moulin](https://github.com/matt77hias)
 
 ## Thanks
 * [Adam Miles](https://github.com/AdamJMiles)

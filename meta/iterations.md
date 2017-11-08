@@ -4,7 +4,7 @@
 * Voxel Cone Tracing (WIP)
 * Post-processing: Bloom, God rays
 * Displacement Maps, Parallax Occlusion Maps
-* TAA
+* TXAA
 * Shadow Mapping
   * Directional lights
   * Cascaded, Variance

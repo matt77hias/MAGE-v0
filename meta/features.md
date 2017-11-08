@@ -69,6 +69,8 @@
 * Normal Mapping
   * Tangent-space (without relying on precomputed tangents and bitangents)
   * ~~Object-space~~ (*not supported any more*)
+* Post-processing
+  * Depth-of-field
 * Render Layers (multiple render layers/camera)
   * Bounding volumes
   * Wireframe

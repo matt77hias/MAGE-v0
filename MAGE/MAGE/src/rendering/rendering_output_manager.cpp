@@ -141,9 +141,9 @@ namespace mage {
 			m_srvs[static_cast< size_t >(SRVIndex::PostProcessing_HDR0)]
 				= m_srvs[static_cast< size_t >(SRVIndex::HDR)];
 			m_rtvs[static_cast< size_t >(RTVIndex::PostProcessing_HDR0)]
-				= m_rtvs[static_cast< size_t >(SRVIndex::HDR)];
+				= m_rtvs[static_cast< size_t >(RTVIndex::HDR)];
 			m_uavs[static_cast< size_t >(UAVIndex::PostProcessing_HDR0)]
-				= m_uavs[static_cast< size_t >(SRVIndex::HDR)];
+				= m_uavs[static_cast< size_t >(UAVIndex::HDR)];
 		}
 
 		SetupBuffer(device, width, height, 
@@ -168,13 +168,8 @@ namespace mage {
 		else {
 			m_srvs[static_cast< size_t >(SRVIndex::PostProcessing_Depth)]
 				= m_srvs[static_cast< size_t >(SRVIndex::GBuffer_Depth)];
-			m_uavs[static_cast< size_t >(UAVIndex::PostProcessing_Depth)]
-				= m_uavs[static_cast< size_t >(SRVIndex::GBuffer_Depth)];
-
 			m_srvs[static_cast< size_t >(SRVIndex::PostProcessing_Normal)]
 				= m_srvs[static_cast< size_t >(SRVIndex::GBuffer_Normal)];
-			m_uavs[static_cast< size_t >(UAVIndex::PostProcessing_Normal)]
-				= m_uavs[static_cast< size_t >(SRVIndex::GBuffer_Normal)];
 		}
 	}
 

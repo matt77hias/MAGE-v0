@@ -2,6 +2,8 @@
 
 ## Current iteration' TODOs
 * Voxel Cone Tracing (WIP)
+* Post-processing: Bloom, God rays
+* Displacement Maps, Parallax Occlusion Maps
 * TAA
 * Shadow Mapping
   * Directional lights
@@ -11,9 +13,8 @@
 * Tiled and Clustered Shading
 * Billboarding (Ry camera-dependent)
 * Particles (Rx+Ry+Rz camera-dependent)
-* Displacement Maps, Parallax Occlusion Maps
-* Bloom, God rays
 * Environment Mapping
+* SSS
 
 ## Further iterations
 * Collision Detection, Ray Casting, Picking

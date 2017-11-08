@@ -241,6 +241,7 @@ Uses:
 * [Maarten Tegelaers](https://github.com/BeardedPlatypus)
 * [Matías N. Goldberg](https://github.com/darksylinc)
 * [Matt Pettineo](https://github.com/TheRealMJP)
+* Maxest
 * [Naiwen Xie](https://github.com/sienaiwun)
 * [Nathan Reed](https://github.com/Reedbeta)
 * [Nicolas Silvagni](https://github.com/galop1n)

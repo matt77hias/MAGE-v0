@@ -125,6 +125,7 @@ namespace mage {
 		void BindEndForward(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindBeginResolve(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindEndResolve(ID3D11DeviceContext2 *device_context) const noexcept;
+		void BindBeginPostProcessing(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindPingPong(ID3D11DeviceContext2 *device_context) const noexcept;
 		void BindEnd(ID3D11DeviceContext2 *device_context) const noexcept;
 

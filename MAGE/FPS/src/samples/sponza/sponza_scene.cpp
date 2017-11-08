@@ -54,9 +54,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 		auto camera = Create< PerspectiveCameraNode >("camera");
 		camera->GetTransform()->SetTranslationY(2.0f);
-		camera->GetCamera()->SetLensRadius(7.0f);
-		camera->GetCamera()->SetFocalLength(10.0f);
-		camera->GetCamera()->SetMaximumCoCRadius(1.5f);
+		camera->GetCamera()->SetLensRadius(0.01f);
+		camera->GetCamera()->SetFocalLength(3.0f);
+		camera->GetCamera()->SetMaximumCoCRadius(2.0f);
 		camera->GetViewport().SetNormalizedWidth(0.5f);
 
 		auto camera2 = Create< PerspectiveCameraNode >("camera");

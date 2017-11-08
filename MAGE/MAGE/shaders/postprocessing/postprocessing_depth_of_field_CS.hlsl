@@ -34,7 +34,7 @@ static const float2 g_disk_offsets[12] = {
 };
 
 float GetBlurFactor(float p_view_z) {
-	return smoothstep(0.0f, g_lens_radius, abs(g_focal_length - p_view_z));
+	return smoothstep(0.0f, g_lens_radius, abs(p_view_z - g_focal_length));
 }
 
 #ifndef GROUP_SIZE
@@ -51,14 +51,14 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	const float p_view_z    = DepthToViewZ(g_depth_texture[location]);
 	const float blur_factor = GetBlurFactor(p_view_z);
-	if (blur_factor <= 0.0f) {
+	if (p_view_z <= g_focal_length) {
 		return;
 	}
 
 	const float coc_radius = blur_factor * g_max_coc_radius;
 
 	float4 hdr_sum = g_input_image_texture[location];
-	float4 contribution_sum = 1.0f;
+	float  contribution_sum = 1.0f;
 
 	[unroll]
 	for (uint i = 0u; i < 12u; ++i) {

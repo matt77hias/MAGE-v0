@@ -252,6 +252,8 @@ namespace mage {
 
 			ExecuteAAPipeline(ss_viewport);
 
+			output_manager->BindBeginPostProcessing(m_device_context);
+
 			if (camera->HasFiniteAperture()) {
 				output_manager->BindPingPong(m_device_context);
 				GetDOFPass()->Dispatch(viewport);

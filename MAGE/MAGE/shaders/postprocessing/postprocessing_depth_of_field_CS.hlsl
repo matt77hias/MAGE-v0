@@ -54,7 +54,8 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 	float4 hdr_sum          = g_input_image_texture[location];
 	float  contribution_sum = 1.0f;
 	
-	if (p_view_z <= g_focal_length) {
+	//if (p_view_z > g_focal_length) {
+	if (0.0f < blur_factor) {
 		const float coc_radius = blur_factor * g_max_coc_radius;
 
 		[unroll]

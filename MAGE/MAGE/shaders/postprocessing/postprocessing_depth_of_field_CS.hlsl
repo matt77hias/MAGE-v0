@@ -51,24 +51,22 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 
 	const float p_view_z    = DepthToViewZ(g_depth_texture[location]);
 	const float blur_factor = GetBlurFactor(p_view_z);
-	if (p_view_z <= g_focal_length) {
-		return;
-	}
-
-	const float coc_radius = blur_factor * g_max_coc_radius;
-
-	float4 hdr_sum = g_input_image_texture[location];
+	float4 hdr_sum          = g_input_image_texture[location];
 	float  contribution_sum = 1.0f;
+	
+	if (p_view_z <= g_focal_length) {
+		const float coc_radius = blur_factor * g_max_coc_radius;
 
-	[unroll]
-	for (uint i = 0u; i < 12u; ++i) {
-		const float2 location_i     = location + g_disk_offsets[i] * coc_radius;
-		const float  p_view_z_i     = DepthToViewZ(g_depth_texture[location_i]);
-		const float  blur_factor_i  = GetBlurFactor(p_view_z_i);
-		const float  contribution_i = (p_view_z_i > p_view_z) ? 1.0f : blur_factor_i;
+		[unroll]
+		for (uint i = 0u; i < 12u; ++i) {
+			const float2 location_i     = location + g_disk_offsets[i] * coc_radius;
+			const float  p_view_z_i     = DepthToViewZ(g_depth_texture[location_i]);
+			const float  blur_factor_i  = GetBlurFactor(p_view_z_i);
+			const float  contribution_i = (p_view_z_i > p_view_z) ? 1.0f : blur_factor_i;
 
-		hdr_sum          += contribution_i * g_input_image_texture[location_i];
-		contribution_sum += contribution_i;
+			hdr_sum          += contribution_i * g_input_image_texture[location_i];
+			contribution_sum += contribution_i;
+		}
 	}
 
 	const float inv_contribution_sum = 1.0f / contribution_sum;

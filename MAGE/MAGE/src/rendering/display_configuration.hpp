@@ -54,8 +54,8 @@ namespace mage {
 						A reference to the display mode.
 		 */
 		explicit DisplayConfiguration(
-			ComPtr< IDXGIAdapter2 > adapter,
-			ComPtr< IDXGIOutput2 > output,
+			ComPtr< IDXGIAdapter4 > adapter,
+			ComPtr< IDXGIOutput6 > output,
 			const DXGI_MODE_DESC1 &display_mode)
 			: m_adapter(adapter),
 			m_output(output),
@@ -125,7 +125,7 @@ namespace mage {
 
 		 @return		A pointer to the adapter of this display configuration.
 		 */
-		IDXGIAdapter2 *GetAdapter() const noexcept {
+		IDXGIAdapter4 *GetAdapter() const noexcept {
 			return m_adapter.Get();
 		}
 
@@ -138,7 +138,7 @@ namespace mage {
 
 		 @return		A pointer to the output of this display configuration.
 		 */
-		IDXGIOutput2 *GetOutput() const noexcept {
+		IDXGIOutput6 *GetOutput() const noexcept {
 			return m_output.Get();
 		}
 
@@ -427,7 +427,7 @@ namespace mage {
 		 A pointer to the adapter (e.g. video card) of this display 
 		 configuration.
 		 */
-		ComPtr< IDXGIAdapter2 > m_adapter;
+		ComPtr< IDXGIAdapter4 > m_adapter;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Output
@@ -437,7 +437,7 @@ namespace mage {
 		A pointer to the output (e.g. screen monitor) of this display 
 		configuration.
 		*/
-		ComPtr< IDXGIOutput2 > m_output;
+		ComPtr< IDXGIOutput6 > m_output;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Display Mode

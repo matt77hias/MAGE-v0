@@ -55,7 +55,7 @@ namespace mage {
 						The pixel format.
 		 */
 		explicit DisplayConfigurator(
-			ComPtr< IDXGIAdapter2 > adapter, ComPtr< IDXGIOutput2 > output,
+			ComPtr< IDXGIAdapter4 > adapter, ComPtr< IDXGIOutput6 > output,
 			DXGI_FORMAT pixel_format = DXGI_FORMAT_R10G10B10A2_UNORM);
 
 		/**
@@ -216,13 +216,13 @@ namespace mage {
 		 A pointer to the adapter (e.g. video card) of this display 
 		 configurator.
 		 */
-		ComPtr< IDXGIAdapter2 > m_adapter;
+		ComPtr< IDXGIAdapter4 > m_adapter;
 
 		/**
 		 A pointer to the output (e.g. screen monitor) of this display 
 		 configurator.
 		 */
-		ComPtr< IDXGIOutput2 > m_output;
+		ComPtr< IDXGIOutput6 > m_output;
 
 		/**
 		 The enumerated display modes of this display 

@@ -67,15 +67,15 @@ namespace mage {
 	}
 
 	void SwapChain::CreateSwapChain() {
-		ComPtr< IDXGIFactory3 > dxgi_factory3;
+		ComPtr< IDXGIFactory5 > dxgi_factory5;
 		{
-			// Get the IDXGIFactory3.
+			// Get the IDXGIFactory5.
 			const HRESULT result 
 				= m_display_configuration->GetAdapter()->GetParent(
-					__uuidof(IDXGIFactory3), 
-					(void **)dxgi_factory3.GetAddressOf());
+					__uuidof(IDXGIFactory5), 
+					(void **)dxgi_factory5.GetAddressOf());
 			ThrowIfFailed(result, 
-				"IDXGIFactory3 creation failed: %08X.", result);
+				"IDXGIFactory5 creation failed: %08X.", result);
 		}
 	
 		// DXGI_MWA_NO_WINDOW_CHANGES: 
@@ -87,7 +87,7 @@ namespace mage {
 		//
 		// DXGI_MWA_NO_PRINT_SCREEN: 
 		// Prevent DXGI from responding to a print-screen key.
-		dxgi_factory3->MakeWindowAssociation(
+		dxgi_factory5->MakeWindowAssociation(
 			m_hwindow, 
 			  DXGI_MWA_NO_WINDOW_CHANGES 
 			| DXGI_MWA_NO_ALT_ENTER 
@@ -111,7 +111,7 @@ namespace mage {
 		ComPtr< IDXGISwapChain1 > swap_chain1;
 		{
 			// Get the IDXGISwapChain1.
-			const HRESULT result = dxgi_factory3->CreateSwapChainForHwnd(
+			const HRESULT result = dxgi_factory5->CreateSwapChainForHwnd(
 				m_device, m_hwindow,
 				&swap_chain_desc, &swap_chain_fullscreen_desc, nullptr,
 				swap_chain1.ReleaseAndGetAddressOf());
@@ -119,10 +119,10 @@ namespace mage {
 				"IDXGISwapChain1 creation failed: %08X.", result);
 		}
 		{
-			// Get the IDXGISwapChain2.
+			// Get the IDXGISwapChain4.
 			const HRESULT result = swap_chain1.As(&m_swap_chain);
 			ThrowIfFailed(result,
-				"IDXGISwapChain2 creation failed: %08X.", result);
+				"IDXGISwapChain4 creation failed: %08X.", result);
 		}
 
 		// Set to windowed mode.

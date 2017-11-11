@@ -87,7 +87,7 @@ namespace mage {
 	}
 
 	DisplayConfigurator::DisplayConfigurator(
-		ComPtr< IDXGIAdapter2 > adapter, ComPtr< IDXGIOutput2 > output,
+		ComPtr< IDXGIAdapter4 > adapter, ComPtr< IDXGIOutput6 > output,
 		DXGI_FORMAT pixel_format)
 		: m_pixel_format(pixel_format),
 		m_display_configuration(), 
@@ -120,17 +120,17 @@ namespace mage {
 					@c false otherwise.
 	 */
 	inline bool RejectDisplayMode(const DXGI_MODE_DESC1 &display_mode_desc) noexcept {
-		return display_mode_desc.Height < 480;
+		return (display_mode_desc.Width < 512u) || (display_mode_desc.Height < 512u);
 	}
 	
 	void DisplayConfigurator::InitializeAdapterAndOutput() {
-		// Get the IDXGIFactory3.
-		ComPtr< IDXGIFactory3 > factory;
+		// Get the IDXGIFactory5.
+		ComPtr< IDXGIFactory5 > factory;
 		{
 			const HRESULT result = CreateDXGIFactory1(
-				__uuidof(IDXGIFactory3), (void**)factory.GetAddressOf());
+				__uuidof(IDXGIFactory5), (void**)factory.GetAddressOf());
 			ThrowIfFailed(result, 
-				"IDXGIFactory3 creation failed: %08X.", result);
+				"IDXGIFactory5 creation failed: %08X.", result);
 		}
 
 		// Get the IDXGIAdapter1 and its primary IDXGIOutput.
@@ -143,36 +143,36 @@ namespace mage {
 		for (U32 i = 0u; factory->EnumAdapters1(i, adapter1.GetAddressOf()) 
 			!= DXGI_ERROR_NOT_FOUND; ++i) {
 
-			// Get the IDXGIAdapter2.
-			ComPtr< IDXGIAdapter2 > adapter2;
+			// Get the IDXGIAdapter4.
+			ComPtr< IDXGIAdapter4 > adapter4;
 			{
-				const HRESULT result = adapter1.As(&adapter2);
+				const HRESULT result = adapter1.As(&adapter4);
 				ThrowIfFailed(result,
-					"IDXGIAdapter2 creation failed: %08X.", result);
+					"IDXGIAdapter4 creation failed: %08X.", result);
 			}
 
 			// Get the primary IDXGIOutput.
 			{
-				const HRESULT result = adapter2->EnumOutputs(0, output.GetAddressOf());
+				const HRESULT result = adapter4->EnumOutputs(0, output.GetAddressOf());
 				if (FAILED(result)) {
 					continue;
 				}
 			}
 
-			// Get the IDXGIOutput2.
-			ComPtr< IDXGIOutput2 > output2;
+			// Get the IDXGIOutput6.
+			ComPtr< IDXGIOutput6 > output6;
 			{
-				const HRESULT result = output.As(&output2);
+				const HRESULT result = output.As(&output6);
 				ThrowIfFailed(result,
-					"IDXGIOutput2 creation failed: %08X.", result);
+					"IDXGIOutput6 creation failed: %08X.", result);
 			}
 
-			// Get the DXGI_ADAPTER_DESC2.
-			DXGI_ADAPTER_DESC2 desc;
+			// Get the DXGI_ADAPTER_DESC3.
+			DXGI_ADAPTER_DESC3 desc;
 			{
-				const HRESULT result = adapter2->GetDesc2(&desc);
+				const HRESULT result = adapter4->GetDesc3(&desc);
 				ThrowIfFailed(result,
-					"DXGI_ADAPTER_DESC2 retrieval failed: %08X.", result);
+					"DXGI_ADAPTER_DESC3 retrieval failed: %08X.", result);
 			}
 
 			const SIZE_T vram = desc.DedicatedVideoMemory;
@@ -180,8 +180,8 @@ namespace mage {
 				continue;
 			}
 
-			m_adapter = adapter2;
-			m_output  = output2;
+			m_adapter = adapter4;
+			m_output  = output6;
 			max_vram  = vram;
 		}
 	}

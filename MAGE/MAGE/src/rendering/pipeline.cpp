@@ -19,13 +19,13 @@ namespace mage {
 		D3D_FEATURE_LEVEL_11_0
 	};
 
-	ID3D11Device2 *Pipeline::GetDevice() noexcept {
+	ID3D11Device5 *Pipeline::GetDevice() noexcept {
 		Assert(RenderingManager::Get());
 
 		return RenderingManager::Get()->GetDevice();
 	}
 
-	ID3D11DeviceContext2 *Pipeline::GetImmediateDeviceContext() noexcept {
+	ID3D11DeviceContext4 *Pipeline::GetImmediateDeviceContext() noexcept {
 		Assert(RenderingManager::Get());
 
 		return RenderingManager::Get()->GetDeviceContext();

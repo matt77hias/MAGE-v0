@@ -31,7 +31,7 @@
 **License**: Currently, MAGE is licensed under a [No License](https://raw.githubusercontent.com/matt77hias/MAGE/master/LICENSE.txt), since we do not allow diverging from the base version yet in this early stage of development.  
 
 ## Development
-* **Platform**: (minimum) Windows 8.1 32 Bit and 64 Bit (Windows API + Direct3D 11)
+* **Platform**: (minimum) Windows 10 32 Bit and 64 Bit (Windows API + Direct3D 11)
 * **Engine Programming Language**: ISO C++ Latest Draft Standard (> C++17)
 * **Shading Model**: Shader Model 5.0
 * **Scripting Language**: ISO C++ Latest Draft Standard (> C++17)

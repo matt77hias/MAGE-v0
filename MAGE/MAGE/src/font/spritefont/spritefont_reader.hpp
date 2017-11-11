@@ -38,7 +38,7 @@ namespace mage {
 		 @param[in]		desc
 						A reference to the sprite font descriptor.
 		*/
-		explicit SpriteFontReader(ID3D11Device2 *device, 
+		explicit SpriteFontReader(ID3D11Device5 *device, 
 			SpriteFontOutput &output, const SpriteFontDescriptor &desc);
 		
 		/**
@@ -127,7 +127,7 @@ namespace mage {
 		/**
 		 A pointer to the rendering device of this SPRITEFONT reader.
 		 */
-		ID3D11Device2 * const m_device;
+		ID3D11Device5 * const m_device;
 
 		/**
 		 A reference to the sprite font output of this SPRITEFONT reader.

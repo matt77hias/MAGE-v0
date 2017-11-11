@@ -58,7 +58,7 @@ namespace mage {
 	 @throws		FormattedException
 					A viewport needs to be set.
 	 */
-	const XMMATRIX GetViewportTransform(ID3D11DeviceContext2 *device_context, 
+	const XMMATRIX GetViewportTransform(ID3D11DeviceContext4 *device_context, 
 		DXGI_MODE_ROTATION rotation_mode);
 
 	/**
@@ -78,7 +78,7 @@ namespace mage {
 	 @throws		FormattedException
 					A viewport needs to be set.
 	 */
-	const XMMATRIX GetViewportTransform(ID3D11DeviceContext2 *device_context, 
+	const XMMATRIX GetViewportTransform(ID3D11DeviceContext4 *device_context, 
 		DXGI_MODE_ROTATION rotation_mode, D3D11_VIEWPORT *viewport);
 	
 	/**

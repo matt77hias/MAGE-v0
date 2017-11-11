@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	const XMMATRIX GetViewportTransform(ID3D11DeviceContext2 *device_context, 
+	const XMMATRIX GetViewportTransform(ID3D11DeviceContext4 *device_context, 
 		DXGI_MODE_ROTATION rotation_mode) {
 		
 		Assert(device_context);
@@ -28,7 +28,7 @@ namespace mage {
 		return GetViewportTransform(viewport, rotation_mode);
 	}
 
-	const XMMATRIX GetViewportTransform(ID3D11DeviceContext2 *device_context, 
+	const XMMATRIX GetViewportTransform(ID3D11DeviceContext4 *device_context, 
 		DXGI_MODE_ROTATION rotation_mode, D3D11_VIEWPORT *viewport) {
 		
 		Assert(device_context);

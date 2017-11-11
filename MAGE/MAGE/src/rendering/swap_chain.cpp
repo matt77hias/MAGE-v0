@@ -22,7 +22,7 @@ namespace mage {
 		return RenderingManager::Get()->GetSwapChain();
 	}
 
-	SwapChain::SwapChain(ID3D11Device2 *device, HWND hwindow,
+	SwapChain::SwapChain(ID3D11Device5 *device, HWND hwindow,
 		DisplayConfiguration *display_configuration)
 		: m_hwindow(hwindow), 
 		m_display_configuration(display_configuration),

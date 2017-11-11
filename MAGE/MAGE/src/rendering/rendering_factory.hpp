@@ -40,7 +40,7 @@ namespace mage {
 	 */
 	template < typename VertexT >
 	HRESULT CreateStaticVertexBuffer(
-		ID3D11Device2 *device, ID3D11Buffer **buffer, 
+		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const VertexT *vertices, size_t nb_vertices) noexcept;
 	
 	/**
@@ -65,7 +65,7 @@ namespace mage {
 	 */
 	template < typename VertexT >
 	HRESULT CreateDynamicVertexBuffer(
-		ID3D11Device2 *device, ID3D11Buffer **buffer, 
+		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const VertexT *vertices, size_t nb_vertices) noexcept;
 	
 	/**
@@ -90,7 +90,7 @@ namespace mage {
 	 */
 	template < typename IndexT >
 	HRESULT CreateStaticIndexBuffer(
-		ID3D11Device2 *device, ID3D11Buffer **buffer, 
+		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const IndexT *indices, size_t nb_indices) noexcept;
 	
 	/**
@@ -113,7 +113,7 @@ namespace mage {
 	 */
 	template < typename DataT >
 	HRESULT CreateStaticConstantBuffer(
-		ID3D11Device2 *device, ID3D11Buffer **buffer, 
+		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const DataT *data, size_t count = 1) noexcept;
 	
 	/**
@@ -137,7 +137,7 @@ namespace mage {
 	 */
 	template < typename DataT >
 	HRESULT CreateDynamicConstantBuffer(
-		ID3D11Device2 *device, ID3D11Buffer **buffer, 
+		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const DataT *data, size_t count = 1) noexcept;
 	
 	/**
@@ -160,7 +160,7 @@ namespace mage {
 	 */
 	template < typename DataT >
 	HRESULT CreateStaticStructuredBuffer(
-		ID3D11Device2 *device, ID3D11Buffer **buffer, 
+		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const DataT *data, size_t count = 1) noexcept;
 	
 	/**
@@ -184,7 +184,7 @@ namespace mage {
 	 */
 	template < typename DataT >
 	HRESULT CreateDynamicStructuredBuffer(
-		ID3D11Device2 *device, ID3D11Buffer **buffer, 
+		ID3D11Device5 *device, ID3D11Buffer **buffer, 
 		const DataT *data, size_t count = 1) noexcept;
 
 	//-------------------------------------------------------------------------
@@ -207,7 +207,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateOpaqueBlendState(
-		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept;
+		ID3D11Device5 *device, ID3D11BlendState **blend_state) noexcept;
 	
 	/**
 	 Creates an alpha blend state.
@@ -225,7 +225,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateAlphaBlendState(
-		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept;
+		ID3D11Device5 *device, ID3D11BlendState **blend_state) noexcept;
 	
 	/**
 	 Creates an additive blend state.
@@ -243,7 +243,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateAdditiveBlendState(
-		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept;
+		ID3D11Device5 *device, ID3D11BlendState **blend_state) noexcept;
 	
 	/**
 	 Creates a multiplicative blend state.
@@ -261,7 +261,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateMultiplicativeBlendState(
-		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept;
+		ID3D11Device5 *device, ID3D11BlendState **blend_state) noexcept;
 
 	/**
 	 Creates a bi-multiplicative blend state.
@@ -279,7 +279,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateBiMultiplicativeBlendState(
-		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept;
+		ID3D11Device5 *device, ID3D11BlendState **blend_state) noexcept;
 
 	/**
 	 Creates an transparency blend state.
@@ -300,7 +300,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateTransparencyBlendState(
-		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept;
+		ID3D11Device5 *device, ID3D11BlendState **blend_state) noexcept;
 
 	/**
 	 Creates a alpha-to-coverage blend state.
@@ -314,7 +314,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateAlphaToCoverageBlendState(
-		ID3D11Device2 *device, ID3D11BlendState **blend_state) noexcept;
+		ID3D11Device5 *device, ID3D11BlendState **blend_state) noexcept;
 
 	//-------------------------------------------------------------------------
 	// Depth stencil states
@@ -332,7 +332,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateDepthNoneDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept;
+		ID3D11Device5 *device, ID3D11DepthStencilState **depth_stencil_state) noexcept;
 	
 	/**
 	 Creates a read-write depth stencil state.
@@ -348,7 +348,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateDepthReadWriteDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state,
+		ID3D11Device5 *device, ID3D11DepthStencilState **depth_stencil_state,
 		D3D11_COMPARISON_FUNC depth_comparison_function) noexcept;
 	
 	/**
@@ -365,7 +365,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateDepthReadDepthStencilState(
-		ID3D11Device2 *device, ID3D11DepthStencilState **depth_stencil_state,
+		ID3D11Device5 *device, ID3D11DepthStencilState **depth_stencil_state,
 		D3D11_COMPARISON_FUNC depth_comparison_function) noexcept;
 
 	//-------------------------------------------------------------------------
@@ -394,7 +394,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateRasterizerState(
-		ID3D11Device2 *device, ID3D11RasterizerState **rasterizer_state, 
+		ID3D11Device5 *device, ID3D11RasterizerState **rasterizer_state, 
 		D3D11_CULL_MODE cull_mode, D3D11_FILL_MODE fill_mode,
 		S32 depth_bias = 0u, F32 slope_scaled_depth_bias = 0.0f, 
 		F32 depth_bias_clamp = 0.0f) noexcept;
@@ -417,7 +417,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateCullNoneRasterizerState(
-		ID3D11Device2 *device, ID3D11RasterizerState **rasterizer_state,
+		ID3D11Device5 *device, ID3D11RasterizerState **rasterizer_state,
 		S32 depth_bias = 0u, F32 slope_scaled_depth_bias = 0.0f,
 		F32 depth_bias_clamp = 0.0f) noexcept;
 	
@@ -439,7 +439,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateCullClockwiseRasterizerState(
-		ID3D11Device2 *device, ID3D11RasterizerState **rasterizer_state,
+		ID3D11Device5 *device, ID3D11RasterizerState **rasterizer_state,
 		S32 depth_bias = 0u, F32 slope_scaled_depth_bias = 0.0f,
 		F32 depth_bias_clamp = 0.0f) noexcept;
 	
@@ -461,7 +461,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateCullCounterClockwiseRasterizerState(
-		ID3D11Device2 *device, ID3D11RasterizerState **rasterizer_state,
+		ID3D11Device5 *device, ID3D11RasterizerState **rasterizer_state,
 		S32 depth_bias = 0u, F32 slope_scaled_depth_bias = 0.0f,
 		F32 depth_bias_clamp = 0.0f) noexcept;
 	
@@ -483,7 +483,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateWireframeRasterizerState(
-		ID3D11Device2 *device, ID3D11RasterizerState **rasterizer_state,
+		ID3D11Device5 *device, ID3D11RasterizerState **rasterizer_state,
 		S32 depth_bias = 0u, F32 slope_scaled_depth_bias = 0.0f,
 		F32 depth_bias_clamp = 0.0f) noexcept;
 
@@ -508,7 +508,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateSamplerState(
-		ID3D11Device2 *device, ID3D11SamplerState **sampler_state, 
+		ID3D11Device5 *device, ID3D11SamplerState **sampler_state, 
 		D3D11_FILTER filter, D3D11_TEXTURE_ADDRESS_MODE address_mode) noexcept;
 	
 	/**
@@ -523,7 +523,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreatePointWrapSamplerState(
-		ID3D11Device2 *device, ID3D11SamplerState **sampler_state) noexcept;
+		ID3D11Device5 *device, ID3D11SamplerState **sampler_state) noexcept;
 	
 	/**
 	Creates a point sampling state with clamping.
@@ -537,7 +537,7 @@ namespace mage {
 	@return			A success/error value.
 	*/
 	HRESULT CreatePointClampSamplerState(
-		ID3D11Device2 *device, ID3D11SamplerState **sampler_state) noexcept;
+		ID3D11Device5 *device, ID3D11SamplerState **sampler_state) noexcept;
 
 	/**
 	Creates a point sampling state with mirroring.
@@ -551,7 +551,7 @@ namespace mage {
 	@return			A success/error value.
 	*/
 	HRESULT CreatePointMirrorSamplerState(
-		ID3D11Device2 *device, ID3D11SamplerState **sampler_state) noexcept;
+		ID3D11Device5 *device, ID3D11SamplerState **sampler_state) noexcept;
 	
 	/**
 	 Creates a linear sampling state with wrapping.
@@ -565,7 +565,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateLinearWrapSamplerState(
-		ID3D11Device2 *device, ID3D11SamplerState **sampler_state) noexcept;
+		ID3D11Device5 *device, ID3D11SamplerState **sampler_state) noexcept;
 	
 	/**
 	 Creates a linear sampling state with clamping.
@@ -579,7 +579,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateLinearClampSamplerState(
-		ID3D11Device2 *device, ID3D11SamplerState **sampler_state) noexcept;
+		ID3D11Device5 *device, ID3D11SamplerState **sampler_state) noexcept;
 
 	/**
 	 Creates a linear sampling state with mirroring.
@@ -593,7 +593,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateLinearMirrorSamplerState(
-		ID3D11Device2 *device, ID3D11SamplerState **sampler_state) noexcept;
+		ID3D11Device5 *device, ID3D11SamplerState **sampler_state) noexcept;
 	
 	/**
 	 Creates an anisotropic sampling state with wrapping.
@@ -607,7 +607,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateAnisotropicWrapSamplerState(
-		ID3D11Device2 *device, ID3D11SamplerState **sampler_state) noexcept;
+		ID3D11Device5 *device, ID3D11SamplerState **sampler_state) noexcept;
 
 	/**
 	 Creates an anisotropic sampling state with clamping.
@@ -621,7 +621,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateAnisotropicClampSamplerState(
-		ID3D11Device2 *device, ID3D11SamplerState **sampler_state) noexcept;
+		ID3D11Device5 *device, ID3D11SamplerState **sampler_state) noexcept;
 
 	/**
 	 Creates an anisotropic sampling state with mirroring.
@@ -635,7 +635,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreateAnisotropicMirrorSamplerState(
-		ID3D11Device2 *device, ID3D11SamplerState **sampler_state) noexcept;
+		ID3D11Device5 *device, ID3D11SamplerState **sampler_state) noexcept;
 
 	/**
 	 Creates a PCF sampling state.
@@ -649,7 +649,7 @@ namespace mage {
 	 @return		A success/error value.
 	 */
 	HRESULT CreatePCFSamplerState(
-		ID3D11Device2 *device, ID3D11SamplerState **sampler_state) noexcept;
+		ID3D11Device5 *device, ID3D11SamplerState **sampler_state) noexcept;
 }
 
 //-----------------------------------------------------------------------------

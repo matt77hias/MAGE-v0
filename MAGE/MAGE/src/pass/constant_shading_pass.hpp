@@ -198,7 +198,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this constant shading pass.
 		 */
-		ID3D11DeviceContext2 * const m_device_context;
+		ID3D11DeviceContext4 * const m_device_context;
 
 		/**
 		 A pointer to the vertex shader of this constant shading pass.

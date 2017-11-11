@@ -56,7 +56,7 @@ namespace mage {
 						Failed to setup the rendering outputs of this rendering 
 						output manager.
 		 */
-		explicit RenderingOutputManager(ID3D11Device2 *device, 
+		explicit RenderingOutputManager(ID3D11Device5 *device, 
 			U32 width, U32 height, AADescriptor desc);
 
 		/**
@@ -116,18 +116,18 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void BindBegin(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindBeginGBuffer(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindEndGBuffer(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindBeginDeferred(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindEndDeferred(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindBeginForward(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindEndForward(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindBeginResolve(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindEndResolve(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindBeginPostProcessing(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindPingPong(ID3D11DeviceContext2 *device_context) const noexcept;
-		void BindEnd(ID3D11DeviceContext2 *device_context) const noexcept;
+		void BindBegin(ID3D11DeviceContext4 *device_context) const noexcept;
+		void BindBeginGBuffer(ID3D11DeviceContext4 *device_context) const noexcept;
+		void BindEndGBuffer(ID3D11DeviceContext4 *device_context) const noexcept;
+		void BindBeginDeferred(ID3D11DeviceContext4 *device_context) const noexcept;
+		void BindEndDeferred(ID3D11DeviceContext4 *device_context) const noexcept;
+		void BindBeginForward(ID3D11DeviceContext4 *device_context) const noexcept;
+		void BindEndForward(ID3D11DeviceContext4 *device_context) const noexcept;
+		void BindBeginResolve(ID3D11DeviceContext4 *device_context) const noexcept;
+		void BindEndResolve(ID3D11DeviceContext4 *device_context) const noexcept;
+		void BindBeginPostProcessing(ID3D11DeviceContext4 *device_context) const noexcept;
+		void BindPingPong(ID3D11DeviceContext4 *device_context) const noexcept;
+		void BindEnd(ID3D11DeviceContext4 *device_context) const noexcept;
 
 	private:
 
@@ -191,15 +191,15 @@ namespace mage {
 			return m_uavs[static_cast< size_t >(index)].ReleaseAndGetAddressOf();
 		}
 
-		void SetupBuffers(ID3D11Device2 *device, 
+		void SetupBuffers(ID3D11Device5 *device, 
 			U32 width, U32 height, AADescriptor desc);
 
-		void SetupBuffer(ID3D11Device2 *device, 
+		void SetupBuffer(ID3D11Device5 *device, 
 			U32 width, U32 height, U32 nb_samples, DXGI_FORMAT format,
 			ID3D11ShaderResourceView **srv, ID3D11RenderTargetView **rtv, 
 			ID3D11UnorderedAccessView **uav);
 
-		void SetupDepthBuffer(ID3D11Device2 *device, 
+		void SetupDepthBuffer(ID3D11Device5 *device, 
 			U32 width, U32 height, U32 nb_samples);
 
 		//---------------------------------------------------------------------

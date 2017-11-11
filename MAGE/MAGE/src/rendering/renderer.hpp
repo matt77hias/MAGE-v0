@@ -72,8 +72,8 @@ namespace mage {
 		 @param[in]		height
 						The height in pixels of the back buffer.
 		 */
-		explicit Renderer(ID3D11Device2 *device, 
-			ID3D11DeviceContext2 *device_context, 
+		explicit Renderer(ID3D11Device5 *device, 
+			ID3D11DeviceContext4 *device_context, 
 			U32 width, U32 height);
 
 		/**
@@ -473,7 +473,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this renderer.
 		 */
-		ID3D11DeviceContext2 * const m_device_context;
+		ID3D11DeviceContext4 * const m_device_context;
 
 		/**
 		 The maximum viewport of this renderer.

@@ -24,7 +24,7 @@ namespace mage {
 	}
 
 	RenderingOutputManager::RenderingOutputManager(
-		ID3D11Device2 *device, U32 width, U32 height, 
+		ID3D11Device5 *device, U32 width, U32 height, 
 		AADescriptor desc)
 		: m_srvs{}, m_rtvs{}, m_uavs{}, m_dsv(), 
 		m_hdr0_to_hdr1(true), 
@@ -39,7 +39,7 @@ namespace mage {
 	RenderingOutputManager::~RenderingOutputManager() = default;
 
 	void RenderingOutputManager::SetupBuffers(
-		ID3D11Device2 *device, 
+		ID3D11Device5 *device, 
 		U32 width, U32 height, AADescriptor desc) {
 
 		Assert(device);
@@ -174,7 +174,7 @@ namespace mage {
 	}
 
 	void RenderingOutputManager::SetupBuffer(
-		ID3D11Device2 *device, 
+		ID3D11Device5 *device, 
 		U32 width, U32 height, U32 nb_samples, DXGI_FORMAT format, 
 		ID3D11ShaderResourceView **srv, ID3D11RenderTargetView **rtv, 
 		ID3D11UnorderedAccessView **uav) {
@@ -243,7 +243,7 @@ namespace mage {
 	}
 
 	void RenderingOutputManager::SetupDepthBuffer(
-		ID3D11Device2 *device, 
+		ID3D11Device5 *device, 
 		U32 width, U32 height, U32 nb_samples) {
 
 		// Create the texture descriptor.
@@ -317,7 +317,7 @@ namespace mage {
 	}
 
 	void RenderingOutputManager::BindBegin(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		// Collect the GBuffer SRVs.
 		ID3D11ShaderResourceView * const srvs[SLOT_SRV_GBUFFER_COUNT] = {};
@@ -351,7 +351,7 @@ namespace mage {
 	}
 
 	void RenderingOutputManager::BindBeginGBuffer(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+		ID3D11DeviceContext4 *device_context) const noexcept {
 		
 		// Collect the GBuffer RTVs.
 		ID3D11RenderTargetView * const rtvs[SLOT_SRV_GBUFFER_COUNT - 1u] = {
@@ -366,7 +366,7 @@ namespace mage {
 	}
 	
 	void RenderingOutputManager::BindEndGBuffer(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		// Bind no RTV and no DSV.
 		Pipeline::OM::BindRTVAndDSV(device_context,
@@ -374,7 +374,7 @@ namespace mage {
 	}
 	
 	void RenderingOutputManager::BindBeginDeferred(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		// Collect the GBuffer SRVs. 
 		ID3D11ShaderResourceView * const srvs[SLOT_SRV_GBUFFER_COUNT] = {
@@ -405,7 +405,7 @@ namespace mage {
 	}
 	
 	void RenderingOutputManager::BindEndDeferred(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		// Collect the GBuffer SRVs.
 		ID3D11ShaderResourceView * const srvs[SLOT_SRV_GBUFFER_COUNT] = {};
@@ -431,7 +431,7 @@ namespace mage {
 	}
 	
 	void RenderingOutputManager::BindBeginForward(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		// Collect the RTVs.
 		ID3D11RenderTargetView * const rtvs[2] = {
@@ -445,7 +445,7 @@ namespace mage {
 	}
 
 	void RenderingOutputManager::BindEndForward(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+		ID3D11DeviceContext4 *device_context) const noexcept {
 		
 		// Bind no RTV and no DSV.
 		Pipeline::OM::BindRTVAndDSV(device_context, 
@@ -453,7 +453,7 @@ namespace mage {
 	}
 
 	void RenderingOutputManager::BindBeginResolve(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		// Bind the SRVs.
 		Pipeline::CS::BindSRV(device_context, 
@@ -476,7 +476,7 @@ namespace mage {
 	}
 
 	void RenderingOutputManager::BindEndResolve(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		// Bind no SRVs.
 		Pipeline::CS::BindSRV(device_context,
@@ -495,7 +495,7 @@ namespace mage {
 	}
 
 	void RenderingOutputManager::BindBeginPostProcessing(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		Pipeline::CS::BindSRV(device_context,
 			SLOT_SRV_NORMAL, GetSRV(SRVIndex::PostProcessing_Normal));
@@ -504,7 +504,7 @@ namespace mage {
 	}
 
 	void RenderingOutputManager::BindPingPong(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		// Bind no HDR UAV.
 		Pipeline::CS::BindUAV(device_context,
@@ -531,7 +531,7 @@ namespace mage {
 	}
 
 	void RenderingOutputManager::BindEnd(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		// Bind the back buffer RTV and no DSV.
 		Pipeline::OM::BindRTVAndDSV(device_context,

@@ -61,7 +61,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize the sprite font.
 		 */
-		explicit SpriteFont(const wstring &fname, ID3D11Device2 *device,
+		explicit SpriteFont(const wstring &fname, ID3D11Device5 *device,
 			const SpriteFontDescriptor &desc = SpriteFontDescriptor());
 
 		/**

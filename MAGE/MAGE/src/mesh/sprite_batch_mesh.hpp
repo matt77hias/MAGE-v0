@@ -127,7 +127,7 @@ namespace mage {
 						Failed to setup the index buffer of the sprite batch 
 						mesh.
 		 */
-		explicit SpriteBatchMesh(ID3D11Device2 *device);
+		explicit SpriteBatchMesh(ID3D11Device5 *device);
 
 		/**
 		 Constructs a sprite batch mesh from the given sprite batch mesh.
@@ -196,7 +196,7 @@ namespace mage {
 						sprite batch mesh to.
 		 @return		A success/error value.
 		 */
-		HRESULT MapVertexBuffer(ID3D11DeviceContext2 *device_context,
+		HRESULT MapVertexBuffer(ID3D11DeviceContext4 *device_context,
 			D3D11_MAP map_type, D3D11_MAPPED_SUBRESOURCE *mapped_buffer);
 		
 		/**
@@ -205,12 +205,12 @@ namespace mage {
 		 @pre			@a device_context is not equal to @c nullptr.
 		 @pre			The vertex buffer of this this sprite batch mesh
 						must be mapped with 
-						{@link mage::SpriteBatchMesh::MapVertexBuffer(ID3D11DeviceContext2 *, D3D11_MAP, D3D11_MAPPED_SUBRESOURCE *)} 
+						{@link mage::SpriteBatchMesh::MapVertexBuffer(ID3D11DeviceContext4 *, D3D11_MAP, D3D11_MAPPED_SUBRESOURCE *)} 
 						before it can be unmapped.
 		 @param[in]		device_context
 						A pointer to the device context.
 		 */
-		void UnmapVertexBuffer(ID3D11DeviceContext2 *device_context);
+		void UnmapVertexBuffer(ID3D11DeviceContext4 *device_context);
 
 	private:
 
@@ -225,7 +225,7 @@ namespace mage {
 		 @param[in]		device
 						A pointer to the device.
 		 */
-		void SetupVertexBuffer(ID3D11Device2 *device);
+		void SetupVertexBuffer(ID3D11Device5 *device);
 
 		/**
 		 Sets up the index buffer of this sprite batch mesh.
@@ -234,6 +234,6 @@ namespace mage {
 		 @param[in]		device
 						A pointer to the device.
 		 */
-		void SetupIndexBuffer(ID3D11Device2 *device);
+		void SetupIndexBuffer(ID3D11Device5 *device);
 	};
 }

@@ -26,7 +26,7 @@ namespace mage {
 
 	template< typename ShaderT, typename PipelineStageT >
 	Shader< ShaderT, PipelineStageT >::Shader(const wstring &guid,
-		ID3D11Device2 *device, const CompiledShader &compiled_shader)
+		ID3D11Device5 *device, const CompiledShader &compiled_shader)
 		: Resource< Shader >(guid), m_shader() {
 
 		SetupShader(device, compiled_shader);
@@ -41,7 +41,7 @@ namespace mage {
 	
 	template<>
 	inline void Shader< ID3D11HullShader, Pipeline::HS >
-		::SetupShader(ID3D11Device2 *device, 
+		::SetupShader(ID3D11Device5 *device, 
 			const CompiledShader &compiled_shader) {
 		
 		Assert(device);
@@ -56,7 +56,7 @@ namespace mage {
 
 	template<>
 	inline void Shader< ID3D11DomainShader, Pipeline::DS >
-		::SetupShader(ID3D11Device2 *device, 
+		::SetupShader(ID3D11Device5 *device, 
 			const CompiledShader &compiled_shader) {
 
 		Assert(device);
@@ -71,7 +71,7 @@ namespace mage {
 
 	template<>
 	inline void Shader< ID3D11GeometryShader, Pipeline::GS >
-		::SetupShader(ID3D11Device2 *device, 
+		::SetupShader(ID3D11Device5 *device, 
 			const CompiledShader &compiled_shader) {
 
 		Assert(device);
@@ -86,7 +86,7 @@ namespace mage {
 
 	template<>
 	inline void Shader< ID3D11PixelShader, Pipeline::PS >
-		::SetupShader(ID3D11Device2 *device, 
+		::SetupShader(ID3D11Device5 *device, 
 			const CompiledShader &compiled_shader) {
 
 		Assert(device);
@@ -101,7 +101,7 @@ namespace mage {
 
 	template<>
 	inline void Shader< ID3D11ComputeShader, Pipeline::CS >
-		::SetupShader(ID3D11Device2 *device, 
+		::SetupShader(ID3D11Device5 *device, 
 			const CompiledShader &compiled_shader) {
 
 		Assert(device);
@@ -116,7 +116,7 @@ namespace mage {
 
 	template< typename ShaderT, typename PipelineStageT >
 	inline void Shader< ShaderT, PipelineStageT >::BindShader(
-		ID3D11DeviceContext2 *device_context) const noexcept {
+		ID3D11DeviceContext4 *device_context) const noexcept {
 
 		PipelineStageT::BindShader(device_context, m_shader.Get());
 	}

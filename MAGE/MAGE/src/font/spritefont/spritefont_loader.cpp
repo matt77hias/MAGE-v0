@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	void ImportFontFromFile(const wstring &fname, ID3D11Device2 *device, 
+	void ImportFontFromFile(const wstring &fname, ID3D11Device5 *device, 
 		SpriteFontOutput &output, const SpriteFontDescriptor &desc) {
 		
 		Assert(device);

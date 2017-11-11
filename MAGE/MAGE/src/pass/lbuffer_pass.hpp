@@ -132,7 +132,7 @@ namespace mage {
 		// Member Variables
 		//---------------------------------------------------------------------
 
-		ID3D11DeviceContext2 * const m_device_context;
+		ID3D11DeviceContext4 * const m_device_context;
 
 		ComPtr< ID3D11SamplerState > m_pcf_sampler;
 

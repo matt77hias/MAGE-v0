@@ -30,7 +30,7 @@ namespace mage {
 	 @throws		FormattedException
 					Failed to import the sprite font from file.
 	 */
-	void ImportSpriteFontFromFile(const wstring &fname, ID3D11Device2 *device, 
+	void ImportSpriteFontFromFile(const wstring &fname, ID3D11Device5 *device, 
 		SpriteFontOutput &output, 
 		const SpriteFontDescriptor &desc = SpriteFontDescriptor());
 }

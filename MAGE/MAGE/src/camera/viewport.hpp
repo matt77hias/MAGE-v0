@@ -132,7 +132,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		void BindViewport(ID3D11DeviceContext2 *device_context) const noexcept {
+		void BindViewport(ID3D11DeviceContext4 *device_context) const noexcept {
 			Pipeline::RS::BindViewport(device_context, &m_viewport);
 		}
 

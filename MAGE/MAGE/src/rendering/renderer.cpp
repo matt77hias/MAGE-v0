@@ -22,8 +22,8 @@ namespace mage {
 		return RenderingManager::Get()->GetRenderer();
 	}
 
-	Renderer::Renderer(ID3D11Device2 *device,
-		ID3D11DeviceContext2 *device_context, 
+	Renderer::Renderer(ID3D11Device5 *device,
+		ID3D11DeviceContext4 *device_context, 
 		U32 width, U32 height)
 		: m_device_context(device_context),
 		m_maximum_viewport(width, height),

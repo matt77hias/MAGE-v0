@@ -13,7 +13,7 @@ namespace mage {
 
 	template < typename VertexT >
 	ModelDescriptor::ModelDescriptor(const wstring &fname, 
-		ID3D11Device2 *device,
+		ID3D11Device5 *device,
 		const MeshDescriptor< VertexT > &desc, bool export_as_MDL)
 		: Resource< ModelDescriptor >(fname), m_mesh(), 
 		m_materials(), m_model_parts() {

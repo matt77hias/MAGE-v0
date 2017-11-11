@@ -148,7 +148,7 @@ namespace mage {
 		const SpriteFontDescriptor &desc)
 		: SpriteFont(fname, Pipeline::GetDevice(), desc) {}
 
-	SpriteFont::SpriteFont(const wstring &fname, ID3D11Device2 *device, 
+	SpriteFont::SpriteFont(const wstring &fname, ID3D11Device5 *device, 
 		const SpriteFontDescriptor &desc)
 		: Resource< SpriteFont >(fname), m_texture_srv(), m_glyphs(),
 		m_default_glyph(nullptr), m_line_spacing(0.0f) {

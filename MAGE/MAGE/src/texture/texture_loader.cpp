@@ -28,7 +28,7 @@
 namespace mage {
 
 	void ImportTextureFromFile(const wstring &fname, 
-		ID3D11Device2 *device, 
+		ID3D11Device5 *device, 
 		ID3D11ShaderResourceView **texture_srv) {
 		
 		Assert(device);
@@ -93,7 +93,7 @@ namespace mage {
 	}
 
 	void ExportTextureToFile(const wstring &fname,
-		ID3D11DeviceContext2 *device_context,
+		ID3D11DeviceContext4 *device_context,
 		ID3D11Resource *texture) {
 
 		Assert(device_context);

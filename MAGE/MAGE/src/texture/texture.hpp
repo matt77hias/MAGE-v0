@@ -53,7 +53,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize the texture.
 		 */
-		explicit Texture(const wstring &fname, ID3D11Device2 *device);
+		explicit Texture(const wstring &fname, ID3D11Device5 *device);
 
 		/**
 		 Constructs a 2D texture.
@@ -92,7 +92,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize the texture.
 		 */
-		explicit Texture(const wstring &guid, ID3D11Device2 *device,
+		explicit Texture(const wstring &guid, ID3D11Device5 *device,
 			const D3D11_TEXTURE2D_DESC *desc,
 			const D3D11_SUBRESOURCE_DATA *initial_data);
 
@@ -168,7 +168,7 @@ namespace mage {
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void Bind(ID3D11DeviceContext2 *device_context, 
+		void Bind(ID3D11DeviceContext4 *device_context, 
 			U32 slot) const noexcept;
 
 	private:

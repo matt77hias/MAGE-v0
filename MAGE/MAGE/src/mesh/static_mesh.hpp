@@ -101,7 +101,7 @@ namespace mage {
 						Failed to setup the index buffer of the static mesh.
 		 */
 		template < typename VertexT, typename IndexT >
-		explicit StaticMesh(ID3D11Device2 *device, 
+		explicit StaticMesh(ID3D11Device5 *device, 
 			const VertexT *vertices, size_t nb_vertices, 
 			const IndexT *indices, size_t nb_indices, 
 			DXGI_FORMAT index_format, 
@@ -165,7 +165,7 @@ namespace mage {
 						Failed to setup the index buffer of the static mesh.
 		 */
 		template < typename VertexT, typename IndexT >
-		explicit StaticMesh(ID3D11Device2 *device,
+		explicit StaticMesh(ID3D11Device5 *device,
 			const vector< VertexT > &vertices, const vector< IndexT > &indices, 
 			DXGI_FORMAT index_format, 
 			D3D11_PRIMITIVE_TOPOLOGY primitive_topology 
@@ -280,7 +280,7 @@ namespace mage {
 						Failed to setup the vertex buffer of this static mesh.
 		 */
 		template < typename VertexT >
-		void SetupVertexBuffer(ID3D11Device2 *device,
+		void SetupVertexBuffer(ID3D11Device5 *device,
 			const VertexT *vertices, size_t nb_vertices);
 
 		/**
@@ -302,7 +302,7 @@ namespace mage {
 						Failed to setup the index buffer of this static mesh.
 		 */
 		template < typename IndexT >
-		void SetupIndexBuffer(ID3D11Device2 *device, 
+		void SetupIndexBuffer(ID3D11Device5 *device, 
 			const IndexT *indices, size_t nb_indices);
 
 		//---------------------------------------------------------------------

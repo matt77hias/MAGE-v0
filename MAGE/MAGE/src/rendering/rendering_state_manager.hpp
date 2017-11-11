@@ -50,7 +50,7 @@ namespace mage {
 						Failed to setup the rendering states of this rendering 
 						state manager.
 		 */
-		explicit RenderingStateManager(ID3D11Device2 *device);
+		explicit RenderingStateManager(ID3D11Device5 *device);
 
 		/**
 		 Constructs a rendering state manager from the given rendering state 
@@ -130,7 +130,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindOpaqueBlendState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::Opaque));
@@ -144,7 +144,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindAlphaBlendState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::Alpha));
@@ -158,7 +158,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindAdditiveBlendState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::Additive));
@@ -172,7 +172,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindMultiplicativeBlendState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::Multiplicative));
@@ -187,7 +187,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindBiMultiplicativeBlendState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::BiMultiplicative));
@@ -201,7 +201,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindTransparencyBlendState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::Transparency));
@@ -215,7 +215,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindAlphaToCoverageBlendState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindBlendState(device_context,
 				GetBlendState(BlendStateIndex::AlphaToCoverage));
@@ -233,7 +233,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindDepthNoneDepthStencilState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				GetDepthStencilState(DepthStencilStateIndex::DepthNone));
@@ -250,7 +250,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindLessEqualDepthReadWriteDepthStencilState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				GetDepthStencilState(DepthStencilStateIndex::LessEqualDepthReadWrite));
@@ -265,7 +265,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindLessEqualDepthReadDepthStencilState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				GetDepthStencilState(DepthStencilStateIndex::LessEqualDepthRead));
@@ -280,7 +280,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindLessDepthReadWriteDepthStencilState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				GetDepthStencilState(DepthStencilStateIndex::LessDepthReadWrite));
@@ -295,7 +295,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindLessDepthReadDepthStencilState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				GetDepthStencilState(DepthStencilStateIndex::LessDepthRead));
@@ -312,7 +312,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindGreaterEqualDepthReadWriteDepthStencilState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				GetDepthStencilState(DepthStencilStateIndex::GreaterEqualDepthReadWrite));
@@ -327,7 +327,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindGreaterEqualDepthReadDepthStencilState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				GetDepthStencilState(DepthStencilStateIndex::GreaterEqualDepthRead));
@@ -342,7 +342,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindGreaterDepthReadWriteDepthStencilState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				GetDepthStencilState(DepthStencilStateIndex::GreaterDepthReadWrite));
@@ -357,7 +357,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindGreaterDepthReadDepthStencilState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::OM::BindDepthStencilState(device_context,
 				GetDepthStencilState(DepthStencilStateIndex::GreaterDepthRead));
@@ -377,7 +377,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindCullNoneRasterizerState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::RS::BindState(device_context,
 				GetRasterizerState(RasterizerStateIndex::NoCulling));
@@ -392,7 +392,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindCullClockwiseRasterizerState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 			
 			Pipeline::RS::BindState(device_context,
 				GetRasterizerState(RasterizerStateIndex::ClockwiseCulling));
@@ -407,7 +407,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindCullCounterClockwiseRasterizerState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::RS::BindState(device_context,
 				GetRasterizerState(RasterizerStateIndex::CounterClockwiseCulling));
@@ -421,7 +421,7 @@ namespace mage {
 						A pointer to the device context.
 		 */
 		void BindWireframeRasterizerState(
-			ID3D11DeviceContext2 *device_context) const noexcept {
+			ID3D11DeviceContext4 *device_context) const noexcept {
 
 			Pipeline::RS::BindState(device_context,
 				GetRasterizerState(RasterizerStateIndex::Wireframe));
@@ -449,7 +449,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindPointWrapSamplerState(
-			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
+			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the point sampler state with clamping of this rendering state 
@@ -469,7 +469,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindPointClampSamplerState(
-			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
+			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the point sampler state with mirroring of this rendering state 
@@ -489,7 +489,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindPointMirrorSamplerState(
-			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
+			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the linear sampler state with wrapping of this rendering state 
@@ -509,7 +509,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindLinearWrapSamplerState(
-			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
+			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the linear sampler state with clamping of this rendering state 
@@ -529,7 +529,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindLinearClampSamplerState(
-			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
+			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the linear sampler state with mirroring of this rendering state 
@@ -549,7 +549,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindLinearMirrorSamplerState(
-			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
+			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
 
 		/**
 		 Binds the anisotropic sampler state with wrapping of this rendering 
@@ -569,7 +569,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindAnisotropicWrapSamplerState(
-			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
+			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the anisotropic sampler state with clamping of this rendering 
@@ -589,7 +589,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindAnisotropicClampSamplerState(
-			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
+			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
 		
 		/**
 		 Binds the anisotropic sampler state with mirroring of this rendering 
@@ -609,7 +609,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindAnisotropicMirrorSamplerState(
-			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
+			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
 
 		/**
 		 Binds the PCF sampler state of this rendering state manager.
@@ -628,7 +628,7 @@ namespace mage {
 		 */
 		template< typename PipelineStageT >
 		void BindPCFSamplerState(
-			ID3D11DeviceContext2 *device_context, U32 slot) const noexcept;
+			ID3D11DeviceContext4 *device_context, U32 slot) const noexcept;
 		
 	private:
 
@@ -647,7 +647,7 @@ namespace mage {
 						Failed to setup the rendering states of this rendering 
 						state manager.
 		 */
-		void SetupRenderingStates(ID3D11Device2 *device);
+		void SetupRenderingStates(ID3D11Device5 *device);
 
 		/**
 		 Setup the blend states of this rendering state manager.
@@ -659,7 +659,7 @@ namespace mage {
 						Failed to setup the blend states of this rendering 
 						state manager.
 		 */
-		void SetupBlendStates(ID3D11Device2 *device);
+		void SetupBlendStates(ID3D11Device5 *device);
 		
 		/**
 		 Setup the depth stencil states of this rendering state manager.
@@ -671,7 +671,7 @@ namespace mage {
 						Failed to setup the depth stencil states of this 
 						rendering state manager.
 		 */
-		void SetupDepthStencilStates(ID3D11Device2 *device);
+		void SetupDepthStencilStates(ID3D11Device5 *device);
 		
 		/**
 		 Setup the rasterizer states of this rendering state manager.
@@ -683,7 +683,7 @@ namespace mage {
 						Failed to setup the rasterizer states of this rendering 
 						state manager.
 		 */
-		void SetupRasterizerStates(ID3D11Device2 *device);
+		void SetupRasterizerStates(ID3D11Device5 *device);
 		
 		/**
 		 Setup the samplers states of this rendering state manager.
@@ -695,7 +695,7 @@ namespace mage {
 						Failed to setup the samplers states of this rendering 
 						state manager.
 		 */
-		void SetupSamplerStates(ID3D11Device2 *device);
+		void SetupSamplerStates(ID3D11Device5 *device);
 		
 		/**
 		 An enumeration of the different blend state indices for rendering 

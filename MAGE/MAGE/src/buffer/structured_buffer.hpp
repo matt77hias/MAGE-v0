@@ -56,7 +56,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to setup this structured buffer.
 		 */
-		explicit StructuredBuffer(ID3D11Device2 *device, 
+		explicit StructuredBuffer(ID3D11Device5 *device, 
 			size_t nb_initial_data_elements);
 		
 		/**
@@ -131,7 +131,7 @@ namespace mage {
 		  @throws		FormattedException
 						Failed to update the data.
 		 */
-		void UpdateData(ID3D11DeviceContext2 *device_context, 
+		void UpdateData(ID3D11DeviceContext4 *device_context, 
 			const vector< DataT > &data);
 
 		/**
@@ -148,8 +148,8 @@ namespace mage {
 	     @throws		FormattedException
 						Failed to update the data.
 		 */
-		void UpdateData(ID3D11Device2 *device, 
-			ID3D11DeviceContext2 *device_context,
+		void UpdateData(ID3D11Device5 *device, 
+			ID3D11DeviceContext4 *device_context,
 			const vector< DataT > &data);
 
 		/**
@@ -178,7 +178,7 @@ namespace mage {
 						@c D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).
 		 */
 		template< typename PipelineStageT >
-		void Bind(ID3D11DeviceContext2 *device_context, 
+		void Bind(ID3D11DeviceContext4 *device_context, 
 			U32 slot) const noexcept;
 
 	private:
@@ -200,7 +200,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to setup this structured buffer.
 		 */
-		void SetupStructuredBuffer(ID3D11Device2 *device, 
+		void SetupStructuredBuffer(ID3D11Device5 *device, 
 			size_t nb_data_elements);
 
 		//---------------------------------------------------------------------

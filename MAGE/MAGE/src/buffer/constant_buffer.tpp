@@ -21,14 +21,14 @@ namespace mage {
 		: ConstantBuffer(Pipeline::GetDevice()) {}
 
 	template< typename DataT >
-	ConstantBuffer< DataT >::ConstantBuffer(ID3D11Device2 *device)
+	ConstantBuffer< DataT >::ConstantBuffer(ID3D11Device5 *device)
 		: m_buffer() {
 
 		SetupConstantBuffer(device);
 	}
 
 	template< typename DataT >
-	void ConstantBuffer< DataT >::SetupConstantBuffer(ID3D11Device2 *device) {
+	void ConstantBuffer< DataT >::SetupConstantBuffer(ID3D11Device5 *device) {
 		Assert(device);
 
 		const HRESULT result_buffer = CreateDynamicConstantBuffer< DataT >(
@@ -39,7 +39,7 @@ namespace mage {
 
 	template< typename DataT >
 	void ConstantBuffer< DataT >::UpdateData(
-		ID3D11DeviceContext2 *device_context, const DataT &data) {
+		ID3D11DeviceContext4 *device_context, const DataT &data) {
 
 		Assert(device_context);
 		Assert(m_buffer);
@@ -57,7 +57,7 @@ namespace mage {
 	template< typename DataT >
 	template< typename PipelineStageT >
 	inline void ConstantBuffer< DataT >::Bind(
-		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
+		ID3D11DeviceContext4 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindConstantBuffer(device_context, slot, Get());
 	}

@@ -55,7 +55,7 @@ namespace mage {
 			U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
 			U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
 			DepthFormat format = DepthFormat::D16);
-		explicit ShadowMapBuffer(ID3D11Device2 *device,
+		explicit ShadowMapBuffer(ID3D11Device5 *device,
 			size_t nb_shadow_maps = 1, 
 			U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
 			U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
@@ -79,19 +79,19 @@ namespace mage {
 			return m_dsvs.size();
 		}
 
-		void BindViewport(ID3D11DeviceContext2 *device_context) const noexcept {
+		void BindViewport(ID3D11DeviceContext4 *device_context) const noexcept {
 			m_viewport.BindViewport(device_context);
 		}
-		void BindRasterizerState(ID3D11DeviceContext2 *device_context) const noexcept {
+		void BindRasterizerState(ID3D11DeviceContext4 *device_context) const noexcept {
 			Pipeline::RS::BindState(device_context, m_rasterizer_state.Get());
 		}
 		
-		void ClearDSVs(ID3D11DeviceContext2 *device_context) const noexcept {
+		void ClearDSVs(ID3D11DeviceContext4 *device_context) const noexcept {
 			for (const auto &dsv : m_dsvs) {
 				Pipeline::OM::ClearDepthOfDSV(device_context, dsv.Get());
 			}
 		}
-		void BindDSV(ID3D11DeviceContext2 *device_context, 
+		void BindDSV(ID3D11DeviceContext4 *device_context, 
 			size_t dsv_index) const noexcept {
 
 			Pipeline::OM::BindRTVAndDSV(device_context, nullptr, m_dsvs[dsv_index].Get());
@@ -110,11 +110,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		void SetupViewport();
-		void SetupRasterizerState(ID3D11Device2 *device);
+		void SetupRasterizerState(ID3D11Device5 *device);
 
-		void SetupShadowMapBuffer(ID3D11Device2 *device,
+		void SetupShadowMapBuffer(ID3D11Device5 *device,
 			size_t nb_shadow_maps);
-		void SetupShadowMapArray(ID3D11Device2 *device,
+		void SetupShadowMapArray(ID3D11Device5 *device,
 			size_t nb_shadow_maps, DXGI_FORMAT texture_format,
 			DXGI_FORMAT dsv_format, DXGI_FORMAT srv_format);
 
@@ -150,7 +150,7 @@ namespace mage {
 			U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
 			U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
 			DepthFormat format = DepthFormat::D16);
-		explicit ShadowCubeMapBuffer(ID3D11Device2 *device,
+		explicit ShadowCubeMapBuffer(ID3D11Device5 *device,
 			size_t nb_shadow_cube_maps = 1,
 			U32 width  = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
 			U32 height = MAGE_DEFAULT_SHADOW_MAP_RESOLUTION,
@@ -177,19 +177,19 @@ namespace mage {
 			return m_dsvs.size() / 6u;
 		}
 
-		void BindViewport(ID3D11DeviceContext2 *device_context) const noexcept {
+		void BindViewport(ID3D11DeviceContext4 *device_context) const noexcept {
 			m_viewport.BindViewport(device_context);
 		}
-		void BindRasterizerState(ID3D11DeviceContext2 *device_context) const noexcept {
+		void BindRasterizerState(ID3D11DeviceContext4 *device_context) const noexcept {
 			Pipeline::RS::BindState(device_context, m_rasterizer_state.Get());
 		}
 		
-		void ClearDSVs(ID3D11DeviceContext2 *device_context) const noexcept {
+		void ClearDSVs(ID3D11DeviceContext4 *device_context) const noexcept {
 			for (const auto &dsv : m_dsvs) {
 				Pipeline::OM::ClearDepthOfDSV(device_context, dsv.Get());
 			}
 		}
-		void BindDSV(ID3D11DeviceContext2 *device_context, 
+		void BindDSV(ID3D11DeviceContext4 *device_context, 
 			size_t dsv_index) const noexcept {
 
 			Pipeline::OM::BindRTVAndDSV(device_context, nullptr, m_dsvs[dsv_index].Get());
@@ -208,11 +208,11 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		void SetupViewport();
-		void SetupRasterizerState(ID3D11Device2 *device);
+		void SetupRasterizerState(ID3D11Device5 *device);
 
-		void SetupShadowCubeMapBuffer(ID3D11Device2 *device,
+		void SetupShadowCubeMapBuffer(ID3D11Device5 *device,
 			size_t nb_shadow_cube_maps);
-		void SetupShadowCubeMapArray(ID3D11Device2 *device,
+		void SetupShadowCubeMapArray(ID3D11Device5 *device,
 			size_t nb_shadow_cube_maps, DXGI_FORMAT texture_format,
 			DXGI_FORMAT dsv_format, DXGI_FORMAT srv_format);
 

@@ -53,7 +53,7 @@ namespace mage {
 		 @param[in]		display_configuration
 						A pointer to the display configuration.
 		 */
-		explicit SwapChain(ID3D11Device2 *device, HWND hwindow,
+		explicit SwapChain(ID3D11Device5 *device, HWND hwindow,
 			DisplayConfiguration *display_configuration);
 
 		/**
@@ -297,7 +297,7 @@ namespace mage {
 		// Member Variables: Swap Chain
 		//---------------------------------------------------------------------
 
-		ID3D11Device2 * const m_device;
+		ID3D11Device5 * const m_device;
 
 		/**
 		 A pointer to the swap chain.

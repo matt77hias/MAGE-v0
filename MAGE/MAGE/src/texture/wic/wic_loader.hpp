@@ -40,7 +40,7 @@ namespace DirectX {
 
     // Standard version
     HRESULT CreateWICTextureFromMemory(
-        _In_ ID3D11Device2* d3dDevice,
+        _In_ ID3D11Device5* d3dDevice,
         _In_reads_bytes_(wicDataSize) const uint8_t* wicData,
         _In_ size_t wicDataSize,
         _Outptr_opt_ ID3D11Resource** texture,
@@ -48,7 +48,7 @@ namespace DirectX {
         _In_ size_t maxsize = 0);
 
     HRESULT CreateWICTextureFromFile(
-        _In_ ID3D11Device2* d3dDevice,
+        _In_ ID3D11Device5* d3dDevice,
         _In_z_ const wchar_t* szFileName,
         _Outptr_opt_ ID3D11Resource** texture,
         _Outptr_opt_ ID3D11ShaderResourceView** textureView,
@@ -56,8 +56,8 @@ namespace DirectX {
 
     // Standard version with optional auto-gen mipmap support
     HRESULT CreateWICTextureFromMemory(
-        _In_ ID3D11Device2* d3dDevice,
-        _In_opt_ ID3D11DeviceContext2* d3dContext,
+        _In_ ID3D11Device5* d3dDevice,
+        _In_opt_ ID3D11DeviceContext4* d3dContext,
         _In_reads_bytes_(wicDataSize) const uint8_t* wicData,
         _In_ size_t wicDataSize,
         _Outptr_opt_ ID3D11Resource** texture,
@@ -65,8 +65,8 @@ namespace DirectX {
         _In_ size_t maxsize = 0);
 
     HRESULT CreateWICTextureFromFile(
-        _In_ ID3D11Device2* d3dDevice,
-        _In_opt_ ID3D11DeviceContext2* d3dContext,
+        _In_ ID3D11Device5* d3dDevice,
+        _In_opt_ ID3D11DeviceContext4* d3dContext,
         _In_z_ const wchar_t* szFileName,
         _Outptr_opt_ ID3D11Resource** texture,
         _Outptr_opt_ ID3D11ShaderResourceView** textureView,
@@ -74,7 +74,7 @@ namespace DirectX {
 
     // Extended version
     HRESULT CreateWICTextureFromMemoryEx(
-        _In_ ID3D11Device2* d3dDevice,
+        _In_ ID3D11Device5* d3dDevice,
         _In_reads_bytes_(wicDataSize) const uint8_t* wicData,
         _In_ size_t wicDataSize,
         _In_ size_t maxsize,
@@ -87,7 +87,7 @@ namespace DirectX {
         _Outptr_opt_ ID3D11ShaderResourceView** textureView);
 
     HRESULT CreateWICTextureFromFileEx(
-        _In_ ID3D11Device2* d3dDevice,
+        _In_ ID3D11Device5* d3dDevice,
         _In_z_ const wchar_t* szFileName,
         _In_ size_t maxsize,
         _In_ D3D11_USAGE usage,
@@ -100,8 +100,8 @@ namespace DirectX {
 
     // Extended version with optional auto-gen mipmap support
     HRESULT CreateWICTextureFromMemoryEx(
-        _In_ ID3D11Device2* d3dDevice,
-        _In_opt_ ID3D11DeviceContext2* d3dContext,
+        _In_ ID3D11Device5* d3dDevice,
+        _In_opt_ ID3D11DeviceContext4* d3dContext,
         _In_reads_bytes_(wicDataSize) const uint8_t* wicData,
         _In_ size_t wicDataSize,
         _In_ size_t maxsize,
@@ -114,8 +114,8 @@ namespace DirectX {
         _Outptr_opt_ ID3D11ShaderResourceView** textureView);
 
     HRESULT CreateWICTextureFromFileEx(
-        _In_ ID3D11Device2* d3dDevice,
-        _In_opt_ ID3D11DeviceContext2* d3dContext,
+        _In_ ID3D11Device5* d3dDevice,
+        _In_opt_ ID3D11DeviceContext4* d3dContext,
         _In_z_ const wchar_t* szFileName,
         _In_ size_t maxsize,
         _In_ D3D11_USAGE usage,

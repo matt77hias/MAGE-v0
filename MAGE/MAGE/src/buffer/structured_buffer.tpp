@@ -22,7 +22,7 @@ namespace mage {
 		: StructuredBuffer(Pipeline::GetDevice(), nb_initial_data_elements) {}
 
 	template< typename DataT >
-	StructuredBuffer< DataT >::StructuredBuffer(ID3D11Device2 *device,
+	StructuredBuffer< DataT >::StructuredBuffer(ID3D11Device5 *device,
 		size_t nb_initial_data_elements)
 		: m_buffer(), m_buffer_srv(),
 		m_nb_data_elements(0), m_nb_used_data_elements(0) {
@@ -32,7 +32,7 @@ namespace mage {
 
 	template< typename DataT >
 	void StructuredBuffer< DataT >::SetupStructuredBuffer(
-		ID3D11Device2 *device, size_t nb_data_elements) {
+		ID3D11Device5 *device, size_t nb_data_elements) {
 		
 		Assert(device);
 
@@ -58,14 +58,14 @@ namespace mage {
 
 	template< typename DataT >
 	inline void StructuredBuffer< DataT >::UpdateData(
-		ID3D11DeviceContext2 *device_context, const vector< DataT > &data) {
+		ID3D11DeviceContext4 *device_context, const vector< DataT > &data) {
 
 		UpdateData(Pipeline::GetDevice(), device_context, data);
 	}
 
 	template< typename DataT >
-	void StructuredBuffer< DataT >::UpdateData(ID3D11Device2 *device, 
-		ID3D11DeviceContext2 *device_context, const vector< DataT > &data) {
+	void StructuredBuffer< DataT >::UpdateData(ID3D11Device5 *device, 
+		ID3D11DeviceContext4 *device_context, const vector< DataT > &data) {
 		
 		Assert(device_context);
 		Assert(m_buffer);
@@ -92,7 +92,7 @@ namespace mage {
 	template< typename DataT >
 	template< typename PipelineStageT >
 	inline void StructuredBuffer< DataT >::Bind(
-		ID3D11DeviceContext2 *device_context, U32 slot) const noexcept {
+		ID3D11DeviceContext4 *device_context, U32 slot) const noexcept {
 
 		PipelineStageT::BindSRV(device_context, slot, Get());
 	}

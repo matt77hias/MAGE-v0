@@ -209,7 +209,7 @@ namespace mage {
 		/**
 		 A pointer to the device context of this variable component pass.
 		 */
-		ID3D11DeviceContext2 * const m_device_context;
+		ID3D11DeviceContext4 * const m_device_context;
 		
 		/**
 		 The current render mode of this variable component pass. 

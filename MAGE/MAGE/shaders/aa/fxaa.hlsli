@@ -47,6 +47,8 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 		g_input_image_texture 
 	};
 
+#pragma warning(push)
+#pragma warning(disable : 4000)
 	const float4 ldr = FxaaPixelShader(
 		LocationToUV(location),                  // FxaaFloat2 pos
 		0.0f,                                    // FxaaFloat4 fxaaConsolePosPos
@@ -65,6 +67,7 @@ void CS(uint3 thread_id : SV_DispatchThreadID) {
 		0.05f,                                   // FxaaFloat  fxaaConsoleEdgeThresholdMin                         
 		0.0f                                     // FxaaFloat4 fxaaConsole360ConstDir
 	);
+#pragma warning(pop)
 
 	// Store the resolved radiance.
 	g_output_image_texture[location] = InverseToneMap_Max3(ldr);

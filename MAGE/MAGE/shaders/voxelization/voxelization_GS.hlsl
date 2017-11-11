@@ -34,13 +34,17 @@ void GS(triangle PSInputPositionNormalTexture input[3],
 	// but not for lighting (p_view).
 	[unroll]
 	for (uint i = 0u; i < 3u; ++i) {
-		output[i].p.xyz = input[i].p_view.xyz - g_voxel_grid_center;
+		const float3 p_voxel = input[i].p_view - g_voxel_grid_center;
 	
 		[flatten]
-		if (dir == 0) {
-			output[i].p.xy = output[i].p.yz;
-		} else if (dir == 1) {
-			output[i].p.xy = output[i].p.zx;
+		if (0u == dir) {
+			output[i].p.xy = p_voxel.yz;
+		} 
+		else if (1u == dir) {
+			output[i].p.xy = p_voxel.zx;
+		}
+		else {
+			output[i].p.xy = p_voxel.xy;
 		}
 
 		// [m] * [voxels/m] * [1/voxels]

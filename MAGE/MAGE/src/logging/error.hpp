@@ -28,7 +28,7 @@ namespace mage {
 	 @param[in]		format
 					Pointer to the message format.
 	 */
-	void Debug(const char *format, ...);
+	void Debug([[maybe_unused]] const char *format, ...);
 
 	/**
 	 Notifies an info message.

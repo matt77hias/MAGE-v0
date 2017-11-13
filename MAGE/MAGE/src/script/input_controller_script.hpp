@@ -49,7 +49,7 @@ namespace mage {
 		// Member Methods
 		//---------------------------------------------------------------------
 
-		virtual void Update(F64 delta_time) override {
+		virtual void Update([[maybe_unused]] F64 delta_time) override {
 			m_orientation_script->Update(delta_time);
 			m_movement_script->Update(delta_time);
 		}

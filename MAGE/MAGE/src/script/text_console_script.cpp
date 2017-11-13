@@ -30,8 +30,7 @@ namespace mage {
 
 	TextConsoleScript::~TextConsoleScript() = default;
 
-	void TextConsoleScript::Update(F64 delta_time) {
-		UNUSED(delta_time);
+	void TextConsoleScript::Update([[maybe_unused]] F64 delta_time) {
 		const MutexLock lock(m_mutex);
 
 		SetCharacter(L'\n', m_current_row, m_current_column);

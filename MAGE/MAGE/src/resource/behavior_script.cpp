@@ -23,9 +23,7 @@ namespace mage {
 
 	void BehaviorScript::FixedUpdate() {}
 
-	void BehaviorScript::Update(F64 delta_time) {
-		UNUSED(delta_time);
-	}
+	void BehaviorScript::Update([[maybe_unused]] F64 delta_time) {}
 
 	void BehaviorScript::SetActive(bool active) noexcept {
 		if (active && m_terminated) {

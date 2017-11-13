@@ -25,7 +25,7 @@ namespace mage {
 	
 	ManhattanMotorScript::~ManhattanMotorScript() = default;
 
-	void ManhattanMotorScript::Update(F64 delta_time) {
+	void ManhattanMotorScript::Update([[maybe_unused]] F64 delta_time) {
 		const Keyboard * const keyboard = Keyboard::Get();
 
 		const F32 movement_magnitude 

@@ -24,9 +24,7 @@ namespace mage {
 	
 	LocationScript::~LocationScript() = default;
 
-	void LocationScript::Update(F64 delta_time) {
-		UNUSED(delta_time);
-
+	void LocationScript::Update([[maybe_unused]] F64 delta_time) {
 		const XMFLOAT3 translation = m_transform->GetTranslation();
 		const XMFLOAT3 rotation    = m_transform->GetRotation();
 

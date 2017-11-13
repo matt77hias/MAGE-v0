@@ -86,9 +86,7 @@ namespace mage {
 		m_settings->SetBRDF(mode.m_brdf);
 	}
 
-	void BRDFScript::Update(F64 time) {
-		UNUSED(time);
-		
+	void BRDFScript::Update([[maybe_unused]] F64 time) {
 		const Keyboard * const keyboard = Keyboard::Get();
 
 		// Switch model.

@@ -74,7 +74,7 @@ namespace mage {
 		 @param[in]		delta_time
 						The elapsed time since the previous update.
 		 */
-		virtual void Update(F64 delta_time);
+		virtual void Update([[maybe_unused]] F64 delta_time);
 
 		/**
 		 Checks whether this behavior script is active.

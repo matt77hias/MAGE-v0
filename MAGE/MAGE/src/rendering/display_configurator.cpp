@@ -272,9 +272,9 @@ namespace mage {
 			/ static_cast< F32 >(desc.RefreshRate.Denominator)));
 	}
 
-	INT_PTR DisplayConfigurator::DisplayDialogProc(
-		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-		UNUSED(lParam);
+	INT_PTR DisplayConfigurator::DisplayDialogProc(HWND hwndDlg, UINT uMsg, 
+		[[maybe_unused]] WPARAM wParam, [[maybe_unused]] LPARAM lParam) {
+
 		wchar_t buffer[16];
 
 		// color depth (format) affects resolution affects refresh rate.

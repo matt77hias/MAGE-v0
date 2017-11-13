@@ -38,9 +38,6 @@
 #define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p) = nullptr; } }
 #define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p) = nullptr; } }
 
-// Supresses C4100: unreferenced formal parameter
-#define UNUSED(param) (void)(param)
-
 #pragma endregion
 
 //-----------------------------------------------------------------------------

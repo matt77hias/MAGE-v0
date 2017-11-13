@@ -33,7 +33,7 @@ namespace mage {
 	
 	StatsScript::~StatsScript() = default;
 
-	void StatsScript::Update(F64 delta_time) {
+	void StatsScript::Update([[maybe_unused]] F64 delta_time) {
 		m_accumulated_time += delta_time;
 		++m_accumulated_nb_frames;
 

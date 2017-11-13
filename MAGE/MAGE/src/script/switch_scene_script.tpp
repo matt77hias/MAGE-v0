@@ -26,9 +26,7 @@ namespace mage {
 	SwitchSceneScript< SceneT >::~SwitchSceneScript() = default;
 
 	template< typename SceneT >
-	void SwitchSceneScript< SceneT >::Update(F64 delta_time) {
-		UNUSED(delta_time);
-
+	void SwitchSceneScript< SceneT >::Update([[maybe_unused]] F64 delta_time) {
 		const Keyboard * const keyboard = Keyboard::Get();
 
 		if (keyboard->GetKeyPress(DIK_C)) {

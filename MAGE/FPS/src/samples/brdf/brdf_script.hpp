@@ -59,7 +59,7 @@ namespace mage {
 		void InitModes();
 		void SetMode() noexcept;
 
-		virtual void Update(F64 time) override;
+		virtual void Update([[maybe_unused]] F64 time) override;
 
 		CameraSettings * const m_settings;
 		SpriteText * const m_text;

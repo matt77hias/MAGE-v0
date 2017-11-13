@@ -6,11 +6,9 @@
 namespace mage {
 
 	template< typename CallerT >
-	inline CallerT *GetWindowCaller(
-		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+	inline CallerT *GetWindowCaller(HWND hwndDlg, UINT uMsg, 
+		[[maybe_unused]] WPARAM wParam, [[maybe_unused]] LPARAM lParam) {
 		
-		UNUSED(wParam);
-
 		if (WM_NCCREATE != uMsg) {
 			// Retrieves information about the specified window.
 			// 1. A handle to the window and, indirectly, the class to which 
@@ -35,11 +33,9 @@ namespace mage {
 	}
 
 	template< typename CallerT >
-	inline CallerT *GetDialogCaller(
-		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+	inline CallerT *GetDialogCaller(HWND hwndDlg, UINT uMsg, 
+		[[maybe_unused]] WPARAM wParam, [[maybe_unused]] LPARAM lParam) {
 		
-		UNUSED(wParam);
-
 		if (WM_INITDIALOG != uMsg) {
 			// Retrieves information about the specified window.
 			// 1. A handle to the window and, indirectly, the class to which  

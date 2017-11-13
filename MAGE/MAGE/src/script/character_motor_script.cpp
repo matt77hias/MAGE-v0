@@ -25,7 +25,7 @@ namespace mage {
 	
 	CharacterMotorScript::~CharacterMotorScript() = default;
 
-	void CharacterMotorScript::Update(F64 delta_time) {
+	void CharacterMotorScript::Update([[maybe_unused]] F64 delta_time) {
 		const Keyboard * const keyboard = Keyboard::Get();
 		
 		const F64 movement_magnitude = delta_time * m_velocity;

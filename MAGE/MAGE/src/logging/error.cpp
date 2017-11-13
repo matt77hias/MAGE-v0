@@ -118,7 +118,7 @@ namespace mage {
 		}
 	}
 
-	void Debug(const char *format, ...) {
+	void Debug([[maybe_unused]] const char *format, ...) {
 #ifdef _DEBUG
 		if (!LoggingConfiguration::Get()->IsVerbose() 
 			|| LoggingConfiguration::Get()->IsQuiet()) {
@@ -137,7 +137,6 @@ namespace mage {
 		// End using variable argument list.
 		va_end(args);	
 #endif
-		UNUSED(format);
 	}
 
 	void Info(const char *format, ...) {

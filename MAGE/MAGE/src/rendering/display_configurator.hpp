@@ -189,8 +189,8 @@ namespace mage {
 						Additional message-specific information.
 		 @return		@c true if @a uMsg is processed. @c false otherwise.
 		 */
-		INT_PTR DisplayDialogProc(
-			HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+		INT_PTR DisplayDialogProc(HWND hwndDlg, UINT uMsg, 
+			[[maybe_unused]] WPARAM wParam, [[maybe_unused]] LPARAM lParam);
 
 		//---------------------------------------------------------------------
 		// Member Variables

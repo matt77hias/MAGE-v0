@@ -432,8 +432,9 @@ namespace mage {
 							Failed to allocate the memory block.
 			 */
 			template< typename DataU >
-			DataT *allocate(size_t count, const DataU *hint) const {
-				UNUSED(hint);
+			DataT *allocate(size_t count, 
+				[[maybe_unused]] const DataU *hint) const {
+				
 				return allocate(count);
 			}
 
@@ -452,10 +453,8 @@ namespace mage {
 							to allocate for this block of storage.
 			 @note			The elements in the array are not destroyed.
 			 */
-			void deallocate(DataT *data, size_t count) const {
-				UNUSED(data);
-				UNUSED(count);
-			}
+			void deallocate([[maybe_unused]] DataT *data, 
+				[[maybe_unused]] size_t count) const {}
 		
 			/**
 			 Constructs an element object of type @c DataU on the location 

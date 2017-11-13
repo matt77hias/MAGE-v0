@@ -11,33 +11,18 @@
 #pragma endregion
 
 //-----------------------------------------------------------------------------
+// Engine Includes
+//-----------------------------------------------------------------------------
+#pragma region
+
+#include <algorithm>
+
+#pragma endregion
+
+//-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
 namespace mage {
-
-	/**
-	 Clamps the given value between the given low and hight value.
-
-	 @pre			@a low is not greater than @a high.
-	 @tparam		ValueT
-					The type of value.
-	 @param[in]		value
-					The value.
-	 @param[in]		low
-					The minimum value.
-	 @param[in]		high
-					The maximum value.
-	 @return		The clamped value between the given minimum and maximum 
-					value.
-	 */
-	template< typename ValueT >
-	inline ValueT Clamp(
-		ValueT value, ValueT low = 0, ValueT high = 1) noexcept {
-		
-		Assert(low <= high);
-		
-		return (value < high) ? ((value > low) ? value : low) : high;
-	}
 
 	/**
 	 Clamps the given angle (in degrees) to [-180, 180].
@@ -47,13 +32,7 @@ namespace mage {
 	 @return		The clamped angle (in degrees).
 	 */
 	inline F32 ClampAngleDegrees(F32 angle) noexcept {
-		while (angle < -180.0f) {
-			angle += 360.0f;
-		}
-		while (angle > 180.0f) {
-			angle -= 360.0f;
-		}
-		return angle;
+		return std::remainder(angle, 360.0f);
 	}
 
 	/**
@@ -64,13 +43,7 @@ namespace mage {
 	 @return		The clamped angle (in radians).
 	 */
 	inline F32 ClampAngleRadians(F32 angle) noexcept {
-		while (angle < -XM_PI) {
-			angle += XM_2PI;
-		}
-		while (angle > XM_PI) {
-			angle -= XM_2PI;
-		}
-		return angle;
+		return std::remainder(angle, XM_2PI);
 	}
 
 	/**
@@ -93,10 +66,10 @@ namespace mage {
 		F32 angle, F32 min_angle, F32 max_angle) noexcept {
 		
 		Assert(min_angle <= max_angle);
-		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
-		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
+		Assert(-180.0f <= max_angle && max_angle <= 180.0f);
+		Assert(-180.0f <= max_angle && max_angle <= 180.0f);
 
-		return Clamp(ClampAngleDegrees(angle), min_angle, max_angle);
+		return std::clamp(ClampAngleDegrees(angle), min_angle, max_angle);
 	}
 
 	/**
@@ -122,7 +95,7 @@ namespace mage {
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
 		Assert(-XM_PI <= max_angle && max_angle <= XM_PI);
 		
-		return Clamp(ClampAngleRadians(angle), min_angle, max_angle);
+		return std::clamp(ClampAngleRadians(angle), min_angle, max_angle);
 	}
 	
 	/**

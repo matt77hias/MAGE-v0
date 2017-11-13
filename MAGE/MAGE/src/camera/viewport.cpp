@@ -24,12 +24,12 @@ namespace mage {
 	F32 Viewport::NormalizeWidth(F32 x) noexcept {
 		const F32 width = static_cast< F32 >(
 			DisplayConfiguration::Get()->GetDisplayWidth());
-		return Clamp(x * width, 0.0f, width);
+		return std::clamp(x * width, 0.0f, width);
 	}
 
 	F32 Viewport::NormalizeHeight(F32 x) noexcept {
 		const F32 height = static_cast< F32 >(
 			DisplayConfiguration::Get()->GetDisplayHeight());
-		return Clamp(x * height, 0.0f, height);
+		return std::clamp(x * height, 0.0f, height);
 	}
 }

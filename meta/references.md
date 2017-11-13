@@ -236,6 +236,7 @@ Uses:
 * [Brooke Hodgman](https://github.com/hodgman)
 * [Chuck Walbourn](https://github.com/walbourn)
 * [Eric Richards](https://github.com/ericrrichards)
+* Infinisearch
 * JoeJ
 * [Krzysztof Narkowicz](https://github.com/knarkowicz)
 * L. Spiro

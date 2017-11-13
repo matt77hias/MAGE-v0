@@ -226,6 +226,7 @@ ZINK J., PETTINEO M., HOXLEY J.: *Practical Rendering and Computation with Direc
 Uses:
 * [DirectXMath](https://github.com/Microsoft/DirectXMath) [[License](https://github.com/Microsoft/DirectXMath/blob/master/LICENSE)]
 * [DirectXTex](https://github.com/Microsoft/DirectXTex) [[License](https://github.com/Microsoft/DirectXTex/blob/master/LICENSE)]
+* FXAA 3.11 [[License](https://github.com/matt77hias/MAGE/blob/master/MAGE/MAGE/shaders/aa/fxaa3_11.hlsli)]
 
 ## Contributors
 * [Matthias Moulin](https://github.com/matt77hias)
@@ -235,6 +236,8 @@ Uses:
 * [Brooke Hodgman](https://github.com/hodgman)
 * [Chuck Walbourn](https://github.com/walbourn)
 * [Eric Richards](https://github.com/ericrrichards)
+* Infinisearch
+* [János Turánszki](https://github.com/turanszkij)
 * JoeJ
 * [Krzysztof Narkowicz](https://github.com/knarkowicz)
 * L. Spiro
@@ -248,6 +251,5 @@ Uses:
 * [Roald Frederickx](https://github.com/RoaldFre)
 * Scott Meyers
 * Styves
-* [Turánszki János](https://github.com/turanszkij)
 * [GameDev.net](https://www.gamedev.net/) community
 * [Computer Graphics StackExchange](https://computergraphics.stackexchange.com/) community

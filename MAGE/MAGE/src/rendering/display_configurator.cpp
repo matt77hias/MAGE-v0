@@ -53,7 +53,7 @@ extern "C" {
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	INT_PTR CALLBACK DisplayConfigurator::DisplayDialogProcDelegate(
+	[[nodiscard]] INT_PTR CALLBACK DisplayConfigurator::DisplayDialogProcDelegate(
 		HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 		DisplayConfigurator * const display_configurator
@@ -227,7 +227,7 @@ namespace mage {
 		}
 	}
 
-	HRESULT DisplayConfigurator::Configure() const {
+	[[nodiscard]] HRESULT DisplayConfigurator::Configure() const {
 		// Creates a modal dialog box from a dialog box template resource.
 		// 1. A handle to the module which contains the dialog box template. 
 		//    If this parameter is nullptr, then the current executable is 
@@ -272,7 +272,8 @@ namespace mage {
 			/ static_cast< F32 >(desc.RefreshRate.Denominator)));
 	}
 
-	INT_PTR DisplayConfigurator::DisplayDialogProc(HWND hwndDlg, UINT uMsg, 
+	[[nodiscard]] INT_PTR DisplayConfigurator::DisplayDialogProc(
+		HWND hwndDlg, UINT uMsg,
 		[[maybe_unused]] WPARAM wParam, [[maybe_unused]] LPARAM lParam) {
 
 		wchar_t buffer[16];

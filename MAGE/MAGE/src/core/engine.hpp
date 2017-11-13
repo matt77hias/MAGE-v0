@@ -122,7 +122,8 @@ namespace mage {
 						function terminates before entering the message loop, 
 						it returns 0.
 		 */
-		int Run(UniquePtr< Scene > &&scene, int nCmdShow = SW_NORMAL);
+		[[nodiscard]] int Run(UniquePtr< Scene > &&scene, 
+			int nCmdShow = SW_NORMAL);
 
 		//---------------------------------------------------------------------
 		// Member Methods: Resource System

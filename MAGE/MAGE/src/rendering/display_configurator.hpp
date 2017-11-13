@@ -118,7 +118,7 @@ namespace mage {
 
 		 @return		A success/error value.
 		 */
-		HRESULT Configure() const;
+		[[nodiscard]] HRESULT Configure() const;
 
 		/**
 		 Returns the display configuration of this display configurator.
@@ -150,7 +150,7 @@ namespace mage {
 						Additional message-specific information.
 		 @return		@c true if @a uMsg is processed. @c false otherwise.
 		 */
-		static INT_PTR CALLBACK DisplayDialogProcDelegate(
+		[[nodiscard]] static INT_PTR CALLBACK DisplayDialogProcDelegate(
 			HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 		//---------------------------------------------------------------------
@@ -189,7 +189,7 @@ namespace mage {
 						Additional message-specific information.
 		 @return		@c true if @a uMsg is processed. @c false otherwise.
 		 */
-		INT_PTR DisplayDialogProc(HWND hwndDlg, UINT uMsg, 
+		[[nodiscard]] INT_PTR DisplayDialogProc(HWND hwndDlg, UINT uMsg,
 			[[maybe_unused]] WPARAM wParam, [[maybe_unused]] LPARAM lParam);
 
 		//---------------------------------------------------------------------

@@ -49,7 +49,7 @@ namespace mage {
 	 @return		@c TRUE if the function handles the control signal. 
 					@c CTRL_CLOSE_EVENT. @c FALSE otherwise.
 	 */
-	inline BOOL WINAPI ConsoleCloseHandler(DWORD dwCtrlType) {
+	[[nodiscard]] inline BOOL WINAPI ConsoleCloseHandler(DWORD dwCtrlType) {
 		return (CTRL_CLOSE_EVENT == dwCtrlType) ? TRUE : FALSE;
 	}
 

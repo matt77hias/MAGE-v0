@@ -181,7 +181,7 @@ namespace mage {
 		 @return		The return value is the result of the message 
 						processing and depends on the message sent.
 		 */
-		static LRESULT CALLBACK MainWindowProc(
+		[[nodiscard]] static LRESULT CALLBACK MainWindowProc(
 			HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 
 		/**

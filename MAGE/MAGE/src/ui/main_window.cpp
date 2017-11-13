@@ -30,7 +30,7 @@ namespace mage {
 		return Engine::Get()->GetMainWindow();
 	}
 
-	LRESULT CALLBACK MainWindow::MainWindowProc(
+	[[nodiscard]] LRESULT CALLBACK MainWindow::MainWindowProc(
 		HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
 		
 		switch (msg) {

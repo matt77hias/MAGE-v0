@@ -28,33 +28,11 @@ namespace mage {
 		/**
 		 Constructs a outline sprite text.
 
-		 @pre			@c font.get() is not equal to @c nullptr.
-		 @param[in]		font
-						A pointer to the sprite font.
-		 @param[in]		border_color
-						A reference to the (sRGB) border color.
-		 @param[in]		effects
-						The sprite effects to apply.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
-		explicit OutlineSpriteText(SharedPtr< SpriteFont > font,
-			const Color &border_color, 
-			SpriteEffect effects = SpriteEffect::None);
+		OutlineSpriteText();
 		
-		/**
-		 Constructs a outline sprite text.
-
-		 @pre			@c font.get() is not equal to @c nullptr.
-		 @param[in]		font
-						A pointer to the sprite font.
-		 @param[in]		border_color
-						The (sRGB) border color.
-		 @param[in]		effects
-						The sprite effects to apply.
-		 */
-		explicit OutlineSpriteText(SharedPtr< SpriteFont > font,
-			FXMVECTOR border_color = Colors::Black, 
-			SpriteEffect effects = SpriteEffect::None);
-
 		/**
 		 Constructs a outline sprite text from the given outline sprite text.
 
@@ -125,46 +103,28 @@ namespace mage {
 		 */
 		virtual void Draw(SpriteBatch &sprite_batch) const override;
 	
-		/**
-		 Returns the (sRGB) border color of this outline sprite text.
+		//---------------------------------------------------------------------
+		// Member Methods: Shadow Color
+		//---------------------------------------------------------------------
 
-		 @return		The (sRGB) border color of this outline sprite text.
+		/**
+		 Returns the sRGB border color of this outline sprite text.
+
+		 @return		A reference to the sRGB border color of this outline 
+						sprite text.
 		 */
-		const Color GetBorderColor() const noexcept {
+		SRGBA &GetBorderColor() noexcept {
 			return m_border_color;
 		}
-		
-		/**
-		 Sets the (sRGB) border color of this outline sprite text to the given 
-		 (sRGB) color.
-
-		 @param[in]		color
-						A reference to the (sRGB) border color.
-		 */
-		void SetBorderColor(const Color &color) noexcept {
-			m_border_color = color;
-		}
 
 		/**
-		 Sets the (sRGB) border color of this outline sprite text to the given 
-		 (sRGB) color.
+		 Returns the sRGB border color of this outline sprite text.
 
-		 @param[in]		color
-						A reference to the (sRGB) border color.
+		 @return		A reference to the sRGB border color of this outline 
+						sprite text.
 		 */
-		void SetBorderColor(Color &&color) noexcept {
-			m_border_color = std::move(color);
-		}
-		
-		/**
-		 Sets the (sRGB) border color of this outline sprite text to the given 
-		 (sRGB) color.
-
-		 @param[in]		color
-						The (sRGB) border color.
-		 */
-		void XM_CALLCONV SetBorderColor(FXMVECTOR color) noexcept {
-			XMStoreFloat4(&m_border_color, color);
+		const SRGBA &GetBorderColor() const noexcept {
+			return m_border_color;
 		}
 
 	private:
@@ -180,24 +140,13 @@ namespace mage {
 		 */
 		virtual UniquePtr< Sprite > CloneImplementation() const override;
 
-		/**
-		 Returns the border color of this outline sprite text as 
-		 @c XMVECTOR.
-
-		 @return		The border color of this outline sprite text as 
-						@c XMVECTOR.
-		 */
-		const XMVECTOR GetBorderColorVector() const noexcept {
-			return XMLoadFloat4(&m_border_color);
-		};
-
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Border Color
 		//---------------------------------------------------------------------
 
 		/**
-		 The (sRGB) border color of this outline sprite text.
+		 The sRGB border color of this outline sprite text.
 		 */
-		Color m_border_color;
+		SRGBA m_border_color;
 	};
 }

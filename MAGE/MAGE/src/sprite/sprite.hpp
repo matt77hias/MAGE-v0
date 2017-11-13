@@ -75,6 +75,10 @@ namespace mage {
 		 */
 		virtual void Draw(SpriteBatch &sprite_batch) const = 0;
 
+		//---------------------------------------------------------------------
+		// Member Methods: Transform
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the transform of this sprite.
 
@@ -93,6 +97,10 @@ namespace mage {
 			return m_transform.get();
 		}
 		
+		//---------------------------------------------------------------------
+		// Member Methods: Effects
+		//---------------------------------------------------------------------
+
 		/**
 		 Returns the sprite effects of this sprite.
 
@@ -120,11 +128,8 @@ namespace mage {
 
 		/**
 		 Constructs a sprite.
-
-		 @param[in]		effects
-						The sprite effects to apply.
 		 */
-		explicit Sprite(SpriteEffect effects = SpriteEffect::None);
+		Sprite();
 
 		/**
 		 Constructs a sprite from the given sprite.
@@ -156,13 +161,17 @@ namespace mage {
 		virtual UniquePtr< Sprite > CloneImplementation() const = 0;
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Transform
 		//---------------------------------------------------------------------
 
 		/**
 		 A pointer to the sprite transform of this sprite.
 		 */
 		UniquePtr< SpriteTransform > m_transform;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Effects
+		//---------------------------------------------------------------------
 
 		/**
 		 The sprite effects of this sprite.

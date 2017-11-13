@@ -54,7 +54,7 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				SRGBToLinear(material->GetBaseColorRGBA()));
+				RGBA(material->GetBaseColor()));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
@@ -72,7 +72,7 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				SRGBToLinear(material->GetBaseColorRGBA()));
+				RGBA(material->GetBaseColor()));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
@@ -90,7 +90,7 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				RGBASpectrum(1.0f));
+				RGBA(1.0f));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
@@ -108,7 +108,7 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				RGBASpectrum(material->GetMaterialRGBA()));
+				material->GetMaterialRGBA());
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
@@ -126,7 +126,7 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				RGBASpectrum(material->GetMaterialRGBA()));
+				material->GetMaterialRGBA());
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
@@ -144,7 +144,7 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				RGBASpectrum(1.0f));
+				RGBA(1.0f));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);
@@ -162,7 +162,7 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				RGBASpectrum(1.0f));
+				RGBA(1.0f));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);

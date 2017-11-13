@@ -7,6 +7,7 @@
 
 #include "sprite\sprite.hpp"
 #include "font\sprite_font.hpp"
+#include "logging\error.hpp"
 
 #pragma endregion
 
@@ -77,24 +78,10 @@ namespace mage {
 		 */
 		virtual void Draw(SpriteBatch &sprite_batch) const = 0;
 
-		/**
-		 Returns the font of this sprite text.
+		//---------------------------------------------------------------------
+		// Member Methods: Text
+		//---------------------------------------------------------------------
 
-		 @return		A pointer to the font of this sprite text.
-		 */
-		SharedPtr< SpriteFont > GetFont() const noexcept {
-			return m_font;
-		}
-		
-		/**
-		 Sets the font of this sprite text to the given font.
-
-		 @pre			@c font.get() is not equal to @c nullptr.
-		 @param[in]		font
-						A pointer to the font of this sprite text.
-		 */
-		void SetFont(SharedPtr< SpriteFont > font);
-		
 		/**
 		 Clears the text of this sprite text.
 		 */
@@ -181,6 +168,32 @@ namespace mage {
 		 */
 		void AppendText(const ColorString &text);
 
+		//---------------------------------------------------------------------
+		// Member Methods: Font
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the font of this sprite text.
+
+		 @return		A pointer to the font of this sprite text.
+		 */
+		SharedPtr< const SpriteFont > GetFont() const noexcept {
+			return m_font;
+		}
+		
+		/**
+		 Sets the font of this sprite text to the given font.
+
+		 @pre			@c font.get() is not equal to @c nullptr.		
+		 @param[in]		font
+						A pointer to the font of this sprite text.
+		 */
+		void SetFont(SharedPtr< const SpriteFont > font) {
+			Assert(font);
+
+			m_font = font;
+		}
+
 	protected:
 
 		//---------------------------------------------------------------------
@@ -190,14 +203,10 @@ namespace mage {
 		/**
 		 Constructs a sprite text.
 
-		 @pre			@c font.get() is not equal to @c nullptr.
-		 @param[in]		font
-						A pointer to the sprite font.
-		 @param[in]		effects
-						The sprite effects to apply.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
-		explicit SpriteText(SharedPtr< SpriteFont > font,
-			SpriteEffect effects = SpriteEffect::None);
+		SpriteText();
 
 		/**
 		 Constructs a sprite text from the given sprite text.
@@ -216,18 +225,9 @@ namespace mage {
 		SpriteText(SpriteText &&sprite_text);
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Methods: Text
 		//---------------------------------------------------------------------
 
-		/**
-		 Returns the font of this sprite text.
-
-		 @return		A pointer to the font of this sprite text.
-		 */
-		const SpriteFont *GetRawFont() const noexcept {
-			return m_font.get();
-		}
-		
 		/**
 		 Traverses all color strings of this sprite text.
 
@@ -250,6 +250,19 @@ namespace mage {
 		template< typename ActionT >
 		inline void ForEachColorString(ActionT action) const;
 
+		//---------------------------------------------------------------------
+		// Member Methods: Font
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the font of this sprite text.
+
+		 @return		A pointer to the font of this sprite text.
+		 */
+		const SpriteFont *GetRawFont() const noexcept {
+			return m_font.get();
+		}
+
 	private:
 
 		//---------------------------------------------------------------------
@@ -264,7 +277,7 @@ namespace mage {
 		virtual UniquePtr< Sprite > CloneImplementation() const = 0;
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Text
 		//---------------------------------------------------------------------
 
 		/**
@@ -277,10 +290,14 @@ namespace mage {
 		 */
 		vector< ColorString > m_strings;
 
+		//---------------------------------------------------------------------
+		// Member Variables: Font
+		//---------------------------------------------------------------------
+
 		/**
 		 A pointer to the sprite font of this sprite text.
 		 */
-		SharedPtr< SpriteFont > m_font;
+		SharedPtr< const SpriteFont > m_font;
 	};
 }
 

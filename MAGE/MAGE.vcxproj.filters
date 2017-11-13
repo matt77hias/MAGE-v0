@@ -1136,9 +1136,6 @@
     <ClCompile Include="MAGE\src\math\bounding_volume.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\material\spectrum.cpp">
-      <Filter>Source Files\material</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\string\line_reader.cpp">
       <Filter>Source Files\string</Filter>
     </ClCompile>

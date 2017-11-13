@@ -99,7 +99,7 @@ namespace mage {
 		m_sm_directional_lights.clear();
 		m_sm_omni_lights.clear();
 		m_sm_spot_lights.clear();
-		m_ambient_light = RGBSpectrum();
+		m_ambient_light = RGB();
 
 		// Collect active directional lights.
 		scene->ForEachDirectionalLight([this](const DirectionalLightNode *node) {

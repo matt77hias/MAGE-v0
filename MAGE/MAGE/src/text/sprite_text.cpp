@@ -4,7 +4,7 @@
 #pragma region
 
 #include "text\sprite_text.hpp"
-#include "logging\error.hpp"
+#include "resource\resource_manager.hpp"
 
 #pragma endregion
 
@@ -13,12 +13,12 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpriteText::SpriteText(SharedPtr< SpriteFont > font,
-		SpriteEffect effects)
-		: Sprite(effects), m_text(L""), m_strings(), m_font(font) {
-
-		Assert(m_font);
-	}
+	SpriteText::SpriteText()
+		: Sprite(), 
+		m_text(), 
+		m_strings(), 
+		m_font(ResourceManager::Get()->
+			GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont")) {}
 
 	SpriteText::SpriteText(const SpriteText &sprite_text) = default;
 
@@ -26,12 +26,6 @@ namespace mage {
 
 	SpriteText::~SpriteText() {
 		m_strings.clear();
-	}
-
-	void SpriteText::SetFont(SharedPtr< SpriteFont > font) {
-		Assert(font);
-
-		m_font = font;
 	}
 
 	void SpriteText::SetText(const wstring &text) {

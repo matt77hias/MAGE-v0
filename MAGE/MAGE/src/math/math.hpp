@@ -19,11 +19,6 @@ namespace mage {
 	using namespace DirectX;
 }
 
-#include <iostream>
-namespace mage {
-	using std::ostream;
-}
-
 #pragma endregion
 
 //-----------------------------------------------------------------------------
@@ -32,7 +27,7 @@ namespace mage {
 namespace mage {
 
 	//-------------------------------------------------------------------------
-	// XMFLOAT2: UV
+	// UV
 	//-------------------------------------------------------------------------
 
 	/**
@@ -138,31 +133,13 @@ namespace mage {
 	static_assert(sizeof(UV) == sizeof(XMFLOAT2), 
 		"UV/XMFLOAT2 mismatch");
 
-	/**
-	 Outputs the given vector to the given output stream.
-
-	 @param[in]		os
-					A reference to the output stream.
-	 @param[in]		v
-					A reference to the vector.
-	 @return		A reference to the given output stream.
-	 */
-	inline ostream &operator<<(ostream& os, const XMFLOAT2 &v) {
-		os << '[' << v.x << ' ' << v.y << ']';
-		return os;
-	}
-
 	//-------------------------------------------------------------------------
-	// XMFLOAT3
+	// Point3
 	//-------------------------------------------------------------------------
 
 	// Forward declarations
 	struct Direction3;
 	struct Normal3;
-
-	//-------------------------------------------------------------------------
-	// XMFLOAT3: Point3
-	//-------------------------------------------------------------------------
 
 	/**
 	 A struct of points in 3D space.
@@ -261,7 +238,7 @@ namespace mage {
 		"Point3/XMFLOAT3 mismatch");
 
 	//-------------------------------------------------------------------------
-	// XMFLOAT3: Direction3
+	// Direction3
 	//-------------------------------------------------------------------------
 
 	/**
@@ -377,7 +354,7 @@ namespace mage {
 		"Direction3/XMFLOAT3 mismatch");
 
 	//-------------------------------------------------------------------------
-	// XMFLOAT3: Normal3
+	// Normal3
 	//-------------------------------------------------------------------------
 
 	/**
@@ -503,137 +480,6 @@ namespace mage {
 	
 	inline Direction3::Direction3(Normal3 &&normal) noexcept
 		: XMFLOAT3(std::move(normal)) {}
-
-	/**
-	 Outputs the given vector to the given output stream.
-
-	 @param[in]		os
-					A reference to the output stream.
-	 @param[in]		v
-					A reference to the vector.
-	 @return		A reference to the given output stream.
-	 */
-	inline ostream &operator<<(ostream& os, const XMFLOAT3 &v) {
-		os << '[' << v.x << ' ' << v.y << ' ' << v.z << ']';
-		return os;
-	}
-
-	//-------------------------------------------------------------------------
-	// XMFLOAT4: Color
-	//-------------------------------------------------------------------------
-
-	/**
-	 A struct of colors.
-	 */
-	struct Color final : public XMFLOAT4 {
-
-	public:
-
-		//---------------------------------------------------------------------
-		// Constructors and Destructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a color.
-		 */
-		Color() noexcept
-			: Color(0.0f, 0.0f, 0.0f, 0.0f) {}
-		
-		/**
-		 Constructs a color from the given components.
-
-		 @param[in]		x
-						The first component.
-		 @param[in]		y
-						The second component.
-		 @param[in]		z
-						The third component.
-		 @param[in]		w
-						The fourth component.
-		 */
-		Color(F32 x, F32 y, F32 z, F32 w) noexcept
-			: XMFLOAT4(x, y, z, w) {}
-		
-		/**
-		 Constructs a color from the given color.
-
-		 @param[in]		color
-						A reference to the color to copy.
-		 */
-		Color(const Color &color) noexcept = default;
-		
-		/**
-		 Constructs a color by moving the given color.
-
-		 @param[in]		color
-						A reference to the color to move.
-		 */
-		Color(Color &&color) noexcept = default;
-		
-		/**
-		 Constructs a color from the given vector.
-
-		 @param[in]		v
-						A reference to the vector to copy.
-		 */
-		explicit Color(const XMFLOAT4 &v) noexcept
-			: XMFLOAT4(v) {}
-		
-		/**
-		 Constructs a color by moving the given vector.
-
-		 @param[in]		v
-						A reference to the vector to move.
-		 */
-		explicit Color(XMFLOAT4 &&v) noexcept
-			: XMFLOAT4(std::move(v)) {}
-		
-		/**
-		 Destructs this color.
-		 */
-		~Color() = default;
-
-		//---------------------------------------------------------------------
-		// Assignment Operators
-		//---------------------------------------------------------------------
-
-		/**
-		 Copies the given color to this color.
-
-		 @param[in]		color
-						A reference to the color to copy.
-		 @return		A reference to the copy of the given color
-						(i.e. this color).
-		 */
-		Color &operator=(const Color &color) = default;
-		
-		/**
-		 Moves the given color to this color.
-
-		 @param[in]		color
-						A reference to the color to move.
-		 @return		A reference to the moved color
-						(i.e. this color).
-		 */
-		Color &operator=(Color &&color) = default;
-	};
-
-	static_assert(sizeof(Color) == sizeof(XMFLOAT4), 
-		"Color/XMFLOAT4 mismatch");
-
-	/**
-	 Outputs the given vector to the given output stream.
-
-	 @param[in]		os
-					A reference to the output stream.
-	 @param[in]		v
-					A reference to the vector.
-	 @return		A reference to the given output stream.
-	 */
-	inline ostream &operator<<(ostream& os, const XMFLOAT4 &v) {
-		os << '[' << v.x << ' ' << v.y << ' ' << v.z << ' ' << v.w << ']';
-		return os;
-	}
 
 	//-------------------------------------------------------------------------
 	// Utilities

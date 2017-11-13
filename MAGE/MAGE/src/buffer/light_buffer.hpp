@@ -95,7 +95,7 @@ namespace mage {
 		 The ambient radiance in watts per square meter per steradians of this 
 		 light buffer.
 		 */
-		RGBSpectrum m_La;
+		RGB m_La;
 
 		/**
 		 The padding of this light buffer.
@@ -103,9 +103,9 @@ namespace mage {
 		F32 m_padding0;
 	
 		/**
-		 The color of the fog of this light buffer in linear space.
+		 The linear color of the fog of this light buffer.
 		 */
-		RGBSpectrum m_fog_color;
+		RGB m_fog_color;
 		
 		/**
 		 The density of the fog of this light buffer.
@@ -239,7 +239,7 @@ namespace mage {
 		 The radiance in watts per square meter per steradians of the 
 		 directional light of this directional light buffer.
 		 */
-		RGBSpectrum m_L;
+		RGB m_L;
 
 		/**
 		 The padding of this directional light buffer.
@@ -348,7 +348,7 @@ namespace mage {
 		 The radiant intensity in watts per steradians of the omni light of 
 		 this omni light buffer.
 		 */
-		RGBSpectrum m_I;
+		RGB m_I;
 
 		/**
 		 The padding of this omni light buffer.
@@ -447,7 +447,7 @@ namespace mage {
 		 The radiant intensity in watts per steradians of the spotlight of this 
 		 spotlight buffer.
 		 */
-		RGBSpectrum m_I;
+		RGB m_I;
 
 		/**
 		 The cosine of the umbra angle of the spotlight of this spotlight

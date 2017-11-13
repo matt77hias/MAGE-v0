@@ -97,17 +97,15 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Image
 		//---------------------------------------------------------------------
-		auto texture_logo = CreateMAGETexture();
-		auto logo = Create< SpriteImageNode >("logo", texture_logo);
+		auto logo = Create< SpriteImageNode >("logo");
+		logo->GetSprite()->SetBaseColorTexture(CreateMAGETexture());
 		logo->GetSpriteTransform()->SetScale(0.25f, 0.25f);
 		logo->GetSpriteTransform()->SetNormalizedTranslation(0.90f, 0.88f);
 
 		//---------------------------------------------------------------------
 		// Text
 		//---------------------------------------------------------------------
-		auto font = 
-			ResourceManager::Get()->GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont");
-		auto text = Create< NormalSpriteTextNode >("stats", font);
+		auto text = Create< NormalSpriteTextNode >("stats");
 
 		//---------------------------------------------------------------------
 		// Scripts

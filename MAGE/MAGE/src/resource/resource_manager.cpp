@@ -39,7 +39,7 @@ namespace mage {
 		m_cs_resource_pool(
 			MakeUnique< PersistentResourcePool< wstring, const ComputeShader > >()),
 		m_sprite_font_resource_pool(
-			MakeUnique< ResourcePool< wstring, SpriteFont > >()),
+			MakeUnique< ResourcePool< wstring, const SpriteFont > >()),
 		m_texture_resource_pool(
 			MakeUnique< ResourcePool< wstring, const Texture > >()),
 		m_variable_script_resource_pool(
@@ -140,7 +140,7 @@ namespace mage {
 		return m_cs_resource_pool->GetResource(guid);
 	}
 	
-	SharedPtr< SpriteFont > ResourceManager::GetSpriteFont(
+	SharedPtr< const SpriteFont > ResourceManager::GetSpriteFont(
 		const wstring &guid) noexcept {
 		
 		return m_sprite_font_resource_pool->GetResource(guid);

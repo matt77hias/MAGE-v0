@@ -76,7 +76,7 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLBaseColor() {
-		m_material_buffer.back().SetBaseColorRGBA(ReadMTLRGBASpectrum());
+		m_material_buffer.back().GetBaseColor() = ReadMTLSRGBA();
 	}
 
 	void MTLReader::ReadMTLRoughness() {
@@ -101,7 +101,7 @@ namespace mage {
 		m_material_buffer.back().SetNormalTexture(ReadMTLTexture());
 	}
 
-	const RGBSpectrum MTLReader::ReadMTLRGBSpectrum() {
+	const SRGB MTLReader::ReadMTLSRGB() {
 
 		const F32 red = ReadF32();
 
@@ -112,10 +112,10 @@ namespace mage {
 			blue = ReadF32();
 		}
 
-		return RGBSpectrum(red, green, blue);
+		return SRGB(red, green, blue);
 	}
 
-	const RGBASpectrum MTLReader::ReadMTLRGBASpectrum() {
+	const SRGBA MTLReader::ReadMTLSRGBA() {
 		
 		const F32 red = ReadF32();
 
@@ -128,7 +128,7 @@ namespace mage {
 
 		const F32 alpha = HasF32() ? ReadF32() : 1.0f;
 		
-		return RGBASpectrum(red, green, blue, alpha);
+		return SRGBA(red, green, blue, alpha);
 	}
 
 	SharedPtr< const Texture > MTLReader::ReadMTLTexture() {

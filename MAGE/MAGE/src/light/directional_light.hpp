@@ -119,11 +119,11 @@ namespace mage {
 
 		 @return		The radiance spectrum of this directional light.
 		 */
-		const RGBSpectrum GetRadianceSpectrum() const noexcept {
-			const RGBSpectrum color = GetBaseColorRGB();
-			const XMVECTOR L_v      = m_radiance 
-				                    * SRGBToLinear(XMLoadFloat3(&color));
-			RGBSpectrum L;
+		const RGB GetRadianceSpectrum() const noexcept {
+			const SRGB color   = GetBaseColor();
+			const XMVECTOR L_v = m_radiance 
+				               * SRGBToLinear(XMLoadFloat3(&color));
+			RGB L;
 			XMStoreFloat3(&L, L_v);
 			return L;
 		}

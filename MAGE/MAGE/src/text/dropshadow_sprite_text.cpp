@@ -12,17 +12,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	DropshadowSpriteText::DropshadowSpriteText(SharedPtr< SpriteFont > font,
-		const Color &shadow_color, SpriteEffect effects)
-		: SpriteText(font, effects),
-		m_shadow_color(shadow_color) {}
-
-	DropshadowSpriteText::DropshadowSpriteText(SharedPtr< SpriteFont > font,
-		FXMVECTOR shadow_color, SpriteEffect effects)
-		: SpriteText(font, effects),
-		m_shadow_color() {
-		SetShadowColor(shadow_color);
-	}
+	DropshadowSpriteText::DropshadowSpriteText()
+		: SpriteText(),
+		m_shadow_color(SRGBA(1.0f)) {}
 
 	DropshadowSpriteText::DropshadowSpriteText(
 		const DropshadowSpriteText &sprite_text) = default;
@@ -39,7 +31,7 @@ namespace mage {
 	void DropshadowSpriteText::Draw(SpriteBatch &sprite_batch) const {
 		const wchar_t * const text  = c_str();
 		SpriteTransform transform(*GetTransform());
-		const XMVECTOR shadow_color = GetShadowColorVector();
+		const XMVECTOR shadow_color = XMLoadFloat4(&m_shadow_color);
 		const SpriteEffect effects  = GetSpriteEffects();
 		
 		// +1, +1

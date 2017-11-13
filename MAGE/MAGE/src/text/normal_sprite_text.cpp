@@ -12,9 +12,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	NormalSpriteText::NormalSpriteText(SharedPtr< SpriteFont > font,
-		SpriteEffect effects)
-		: SpriteText(font, effects) {}
+	NormalSpriteText::NormalSpriteText() = default;
 
 	NormalSpriteText::NormalSpriteText(
 		const NormalSpriteText &sprite_text) = default;

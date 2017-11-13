@@ -155,24 +155,24 @@ namespace mage {
 		void ReadMTLNormalTexture();
 
 		/**
-		 Reads an RGB spectrum.
+		 Reads an sRGB spectrum.
 
-		 @return		The @c RGBSpectrum represented by the next token of this 
+		 @return		The @c SRGB represented by the next token of this 
 						MTL reader.
 		 @throws		FormattedException
-						Failed to read a @c RGBSpectrum.
+						Failed to read a @c SRGB.
 		 */
-		const RGBSpectrum ReadMTLRGBSpectrum();
+		const SRGB ReadMTLSRGB();
 
 		/**
-		 Reads an RGBA spectrum.
+		 Reads an sRGBA spectrum.
 
-		 @return		The @c RGBASpectrum represented by the next token of 
+		 @return		The @c SRGBA represented by the next token of 
 						this MTL reader.
 		 @throws		FormattedException
-						Failed to read a @c RGBASpectrum.
+						Failed to read a @c SRGBA.
 		 */
-		const RGBASpectrum ReadMTLRGBASpectrum();
+		const SRGBA ReadMTLSRGBA();
 
 		/**
 		 Reads a texture.

@@ -13,46 +13,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SpriteImage::SpriteImage(SharedPtr< const Texture > texture,
-		const Color &color, SpriteEffect effects)
-		: Sprite(effects), m_color(color),
-		m_texture_region(nullptr), m_texture(texture) {
+	SpriteImage::SpriteImage()
+		: Sprite(), 
+		m_base_color(SRGBA(1.0f)),
+		m_base_color_texture(), 
+		m_base_color_texture_region(nullptr) {}
 	
-		Assert(m_texture);
-	}
-	
-	SpriteImage::SpriteImage(SharedPtr< const Texture > texture, 
-		const RECT &texture_region, const Color &color, SpriteEffect effects)
-		: Sprite(effects), m_color(color),
-		m_texture_region(MakeUnique< RECT >(texture_region)), 
-		m_texture(texture) {
-	
-		Assert(m_texture);
-	}
-	
-	SpriteImage::SpriteImage(SharedPtr< const Texture > texture,
-		CXMVECTOR color, SpriteEffect effects)
-		: Sprite(effects), m_color(),
-		m_texture_region(nullptr), m_texture(texture) {
-		
-		Assert(m_texture);
-		SetColor(color);
-	}
-	
-	SpriteImage::SpriteImage(SharedPtr< const Texture > texture, 
-		const RECT &texture_region, CXMVECTOR color, SpriteEffect effects)
-		: Sprite(effects), m_color(),
-		m_texture_region(MakeUnique< RECT >(texture_region)), 
-		m_texture(texture) {
-
-		Assert(m_texture);
-		SetColor(color);
-	}
-
 	SpriteImage::SpriteImage(const SpriteImage &sprite_image) 
-		: Sprite(sprite_image), m_color(sprite_image.m_color),
-		m_texture_region(MakeUnique< RECT >(*sprite_image.m_texture_region)), 
-		m_texture(sprite_image.m_texture) {}
+		: Sprite(sprite_image), 
+		m_base_color(sprite_image.m_base_color),
+		m_base_color_texture(sprite_image.m_base_color_texture),
+		m_base_color_texture_region(
+			MakeUnique< RECT >(*sprite_image.m_base_color_texture_region)) {}
 		
 	SpriteImage::SpriteImage(SpriteImage &&sprite_image) = default;
 
@@ -62,19 +34,10 @@ namespace mage {
 		return MakeUnique< SpriteImage >(*this);
 	}
 
-	void SpriteImage::SetTextureRegion(const RECT &texture_region) {
-		m_texture_region = MakeUnique< RECT >(texture_region);
-	}
-
-	void SpriteImage::SetTexture(SharedPtr< const Texture > texture) {
-		Assert(texture);
-
-		m_texture = texture;
-	}
-
 	void SpriteImage::Draw(SpriteBatch &sprite_batch) const {
 		sprite_batch.Draw(
-			m_texture->Get(), GetColorVector(), GetSpriteEffects(), 
-			*GetTransform(), m_texture_region.get());
+			GetBaseColorSRV(), XMLoadFloat4(&m_base_color), 
+			GetSpriteEffects(), *GetTransform(), 
+			GetBaseColorTextureRegion());
 	}
 }

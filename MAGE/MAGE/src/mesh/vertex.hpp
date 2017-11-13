@@ -7,6 +7,7 @@
 
 #include "rendering\pipeline.hpp"
 #include "math\math.hpp"
+#include "material\spectrum.hpp"
 
 #pragma endregion
 
@@ -364,9 +365,9 @@ namespace mage {
 		 @param[in]		p
 						A reference to the position of the vertex.
 		 @param[in]		c
-						A reference to the color of the vertex.
+						A reference to the sRGB color of the vertex.
 		 */
-		explicit VertexPositionColor(const Point3 &p, const Color &c)
+		explicit VertexPositionColor(const Point3 &p, const SRGBA &c)
 			: p(p), c(c) {}
 
 		/**
@@ -425,9 +426,9 @@ namespace mage {
 		Point3 p;
 
 		/**
-		 The color of this vertex.
+		 The sRGB color of this vertex.
 		 */
-		Color c;
+		SRGBA c;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -651,10 +652,10 @@ namespace mage {
 		 @param[in]		n
 						A reference to the normal of the vertex.
 		 @param[in]		c
-						A reference to the color of the vertex.
+						A reference to the sRGB color of the vertex.
 		 */
 		explicit VertexPositionNormalColor(
-			const Point3 &p, const Normal3 &n, const Color &c)
+			const Point3 &p, const Normal3 &n, const SRGBA &c)
 			: p(p), n(n), c(c) {}
 
 		/**
@@ -720,9 +721,9 @@ namespace mage {
 		Normal3 n;
 
 		/**
-		 The color of this vertex.
+		 The sRGB color of this vertex.
 		 */
-		Color c;
+		SRGBA c;
 
 		//---------------------------------------------------------------------
 		// Class Member Variables
@@ -954,12 +955,12 @@ namespace mage {
 		 @param[in]		p
 						A reference to the position of the vertex.
 		 @param[in]		c
-						A reference to the color of the vertex.
+						A reference to the sRGB color of the vertex.
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
 		explicit VertexPositionColorTexture(
-			const Point3 &p, const Color &c, const UV &tex)
+			const Point3 &p, const SRGBA &c, const UV &tex)
 			: p(p), c(c), tex(tex) {}
 
 		/**
@@ -1020,9 +1021,9 @@ namespace mage {
 		Point3 p;
 
 		/**
-		 The color of this vertex.
+		 The sRGB color of this vertex.
 		 */
-		Color c;
+		SRGBA c;
 
 		/**
 		 The texture coordinates of this vertex.
@@ -1109,12 +1110,12 @@ namespace mage {
 		 @param[in]		n
 						A reference to the normal of the vertex.
 		 @param[in]		c
-						A reference to the color of the vertex.
+						A reference to the sRGB color of the vertex.
 		 @param[in]		tex
 						A reference to the texture coordinates of the vertex.
 		 */
 		explicit VertexPositionNormalColorTexture(
-			const Point3 &p, const Normal3 &n, const Color &c, const UV &tex)
+			const Point3 &p, const Normal3 &n, const SRGBA &c, const UV &tex)
 			: p(p), n(n), c(c), tex(tex) {}
 
 		/**
@@ -1180,9 +1181,9 @@ namespace mage {
 		Normal3 n;
 
 		/**
-		 The color of this vertex.
+		 The sRGB color of this vertex.
 		 */
-		Color c;
+		SRGBA c;
 
 		/**
 		 The texture coordinates of this vertex.

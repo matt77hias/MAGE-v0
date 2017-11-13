@@ -55,8 +55,8 @@ namespace mage {
 				= static_cast< U32 >(GetVirtualMemoryUsage() >> 20);
 		}
 
-		const XMVECTOR color = (m_last_frames_per_second > 120) ? 
-								Colors::Green : Colors::Red;
+		const SRGBA color = (m_last_frames_per_second > 120) ? 
+								color::Green : color::Red;
 
 		m_text->SetText(L"FPS: ");
 		m_text->AppendText(ColorString(std::to_wstring(m_last_frames_per_second), color));

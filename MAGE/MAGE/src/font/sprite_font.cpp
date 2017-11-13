@@ -363,8 +363,9 @@ namespace mage {
 						}
 
 						sprite_transform.SetRotationOrigin(offset);
+						const SRGBA color = str.GetColor();
 						sprite_batch.Draw(
-							m_texture_srv.Get(), str.GetColorVector(), effects, 
+							m_texture_srv.Get(), XMLoadFloat4(&color), effects, 
 							sprite_transform, &glyph->m_sub_rectangle);
 					}
 

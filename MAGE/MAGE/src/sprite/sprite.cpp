@@ -12,9 +12,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Sprite::Sprite(SpriteEffect effects)
+	Sprite::Sprite()
 		: m_transform(MakeUnique< SpriteTransform >()), 
-		m_effects(effects) {}
+		m_effects(SpriteEffect::None) {}
 
 	Sprite::Sprite(const Sprite &sprite)
 		: m_transform(MakeUnique< SpriteTransform >(*sprite.m_transform)),

@@ -401,9 +401,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The base color of the material of this model buffer in linear space.
+		 The linear base color of the material of this model buffer.
 		 */
-		RGBASpectrum m_base_color;
+		RGBA m_base_color;
 
 		/**
 		 The roughness of the material of this model buffer.

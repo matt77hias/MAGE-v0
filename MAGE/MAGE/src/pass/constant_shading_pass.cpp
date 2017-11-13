@@ -47,7 +47,7 @@ namespace mage {
 		buffer.m_transform.m_normal_to_view    = view_to_object;
 		buffer.m_transform.m_texture_transform = XMMatrixTranspose(texture_transform);
 		// Material
-		buffer.m_base_color                    = RGBASpectrum(1.0f);
+		buffer.m_base_color                    = RGBA(1.0f);
 		
 		// Update the model buffer.
 		m_model_buffer.UpdateData(m_device_context, 

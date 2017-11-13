@@ -49,10 +49,10 @@ namespace mage {
 
 		Material mat_emissive;
 		mat_emissive.DissableLightInteraction();
-		mat_emissive.SetBaseColorRGB(1.0f, 0.0f, 0.0f);
+		mat_emissive.GetBaseColor() = SRGB(1.0f, 0.0f, 0.0f);
 
 		Material mat;
-		mat.SetBaseColorRGB(1.0f, 0.0f, 0.0f);
+		mat.GetBaseColor() = SRGB(1.0f, 0.0f, 0.0f);
 		mat.SetRoughness(0.25f);
 		mat.SetMetalness(1.0f);
 		Material mat_tsnm = mat;

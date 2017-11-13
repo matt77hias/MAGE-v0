@@ -28,32 +28,10 @@ namespace mage {
 		/**
 		 Constructs a dropshadow sprite text.
 
-		 @pre			@c font.get() is not equal to @c nullptr.
-		 @param[in]		font
-						A pointer to the sprite font.
-		 @param[in]		shadow_color
-						A reference to the (sRGB) shadow color. 
-		 @param[in]		effects
-						The sprite effects to apply.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
-		explicit DropshadowSpriteText(SharedPtr< SpriteFont > font,
-			const Color &shadow_color, 
-			SpriteEffect effects = SpriteEffect::None);
-		
-		/**
-		 Constructs a dropshadow sprite text.
-
-		 @pre			@c font.get() is not equal to @c nullptr.
-		 @param[in]		font
-						A pointer to the sprite font.
-		 @param[in]		shadow_color
-						The (sRGB) shadow color. 
-		 @param[in]		effects
-						The sprite effects to apply.
-		 */
-		explicit DropshadowSpriteText(SharedPtr< SpriteFont > font,
-			FXMVECTOR shadow_color = Colors::Black, 
-			SpriteEffect effects = SpriteEffect::None);
+		DropshadowSpriteText();
 		
 		/**
 		 Constructs a dropshadow sprite text from the given dropshadow sprite 
@@ -127,46 +105,28 @@ namespace mage {
 		 */
 		virtual void Draw(SpriteBatch &sprite_batch) const override;
 
-		/**
-		 Returns the (sRGB) shadow color of this dropshadow sprite text.
+		//---------------------------------------------------------------------
+		// Member Methods: Shadow Color
+		//---------------------------------------------------------------------
 
-		 @return		The (sRGB) shadow color of this dropshadow sprite text.
+		/**
+		 Returns the sRGB shadow color of this dropshadow sprite text.
+
+		 @return		A reference to the sRGB shadow color of this dropshadow 
+						sprite text.
 		 */
-		const Color GetShadowColor() const noexcept {
+		SRGBA &GetShadowColor() noexcept {
 			return m_shadow_color;
 		}
-		
-		/**
-		 Sets the (sRGB) shadow color of this dropshadow sprite text to the 
-		 given (sRGB) color.
-
-		 @param[in]		color
-						A reference to the (sRGB) shadow color.
-		 */
-		void SetShadowColor(const Color &color) noexcept {
-			m_shadow_color = color;
-		}
 
 		/**
-		 Sets the (sRGB) shadow color of this dropshadow sprite text to the 
-		 given (sRGB) color.
+		 Returns the sRGB shadow color of this dropshadow sprite text.
 
-		 @param[in]		color
-						A reference to the (sRGB) shadow color.
+		 @return		A reference to the sRGB shadow color of this dropshadow 
+						sprite text.
 		 */
-		void SetShadowColor(Color &&color) noexcept {
-			m_shadow_color = std::move(color);
-		}
-		
-		/**
-		 Sets the (sRGB) shadow color of this dropshadow sprite text to the 
-		 given (sRGB) color.
-
-		 @param[in]		color
-						The (sRGB) shadow color.
-		 */
-		void XM_CALLCONV SetShadowColor(FXMVECTOR color) noexcept {
-			XMStoreFloat4(&m_shadow_color, color);
+		const SRGBA &GetShadowColor() const noexcept {
+			return m_shadow_color;
 		}
 
 	private:
@@ -182,24 +142,13 @@ namespace mage {
 		 */
 		virtual UniquePtr< Sprite > CloneImplementation() const override;
 
-		/**
-		 Returns the shadow color of this dropshadow sprite text as 
-		 @c XMVECTOR.
-
-		 @return		The shadow color of this dropshadow sprite text as 
-						@c XMVECTOR.
-		 */
-		const XMVECTOR GetShadowColorVector() const noexcept {
-			return XMLoadFloat4(&m_shadow_color);
-		};
-
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Shadow Color
 		//---------------------------------------------------------------------
 
 		/**
-		 The (sRGB) shadow color of this dropshadow sprite text.
+		 The sRGB shadow color of this dropshadow sprite text.
 		 */
-		Color m_shadow_color;
+		SRGBA m_shadow_color;
 	};
 }

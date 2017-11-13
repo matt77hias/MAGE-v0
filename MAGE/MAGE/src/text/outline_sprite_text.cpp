@@ -12,17 +12,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	OutlineSpriteText::OutlineSpriteText(SharedPtr< SpriteFont > font,
-		const Color &border_color, SpriteEffect effects)
-		: SpriteText(font, effects),
-		m_border_color(border_color) {}
-
-	OutlineSpriteText::OutlineSpriteText(SharedPtr< SpriteFont > font,
-		FXMVECTOR border_color, SpriteEffect effects)
-		: SpriteText(font, effects),
-		m_border_color() {
-		SetBorderColor(border_color);
-	}
+	OutlineSpriteText::OutlineSpriteText()
+		: SpriteText(),
+		m_border_color(SRGBA(1.0f)) {}
 
 	OutlineSpriteText::OutlineSpriteText(
 		const OutlineSpriteText &sprite_text) = default;
@@ -39,7 +31,7 @@ namespace mage {
 	void OutlineSpriteText::Draw(SpriteBatch &sprite_batch) const {
 		const wchar_t * const text  = c_str();
 		SpriteTransform transform(*GetTransform());
-		const XMVECTOR border_color = GetBorderColorVector();
+		const XMVECTOR border_color = XMLoadFloat4(&m_border_color);
 		const SpriteEffect effects  = GetSpriteEffects();
 		
 		// +1, +1

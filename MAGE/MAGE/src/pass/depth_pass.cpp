@@ -90,7 +90,7 @@ namespace mage {
 
 		// Update the dissolve buffer.
 		m_dissolve_buffer.UpdateData(m_device_context,
-			XMVectorSet(material->GetBaseColorA(), 0.0f, 0.0f, 0.0f));
+			XMVectorSet(material->GetBaseColor().w, 0.0f, 0.0f, 0.0f));
 		// Bind the dissolve buffer.
 		m_dissolve_buffer.Bind< Pipeline::PS >(
 			m_device_context, SLOT_CBUFFER_MODEL);
@@ -248,7 +248,7 @@ namespace mage {
 
 			// Skip non-occluder models and "too" transparent models.
 			if (!model->OccludesLight() 
-				|| material->GetBaseColorA() < TRANSPARENCY_SHADOW_THRESHOLD) {
+				|| material->GetBaseColor().w < TRANSPARENCY_SHADOW_THRESHOLD) {
 				continue;
 			}
 

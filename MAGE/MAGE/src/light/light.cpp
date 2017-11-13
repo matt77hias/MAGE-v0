@@ -13,7 +13,7 @@
 namespace mage {
 
 	Light::Light()
-		: m_base_color(RGBSpectrum(1.0f)),
+		: m_base_color(SRGB(1.0f)),
 		m_aabb(MaximumAABB()),
 		m_bs(MaximumBS()) {}
 

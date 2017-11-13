@@ -107,7 +107,7 @@ namespace mage {
 		buffer.m_transform.m_normal_to_view    = view_to_object;
 		buffer.m_transform.m_texture_transform = XMMatrixTranspose(texture_transform);
 		// Material
-		buffer.m_base_color = SRGBToLinear(material->GetBaseColorRGBA());
+		buffer.m_base_color = RGBA(material->GetBaseColor());
 		buffer.m_roughness  = material->GetRoughness();
 		buffer.m_metalness  = material->GetMetalness();
 		

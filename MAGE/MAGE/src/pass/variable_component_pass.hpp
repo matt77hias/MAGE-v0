@@ -229,7 +229,7 @@ namespace mage {
 		/**
 		 The color buffer of this variable component pass.
 		 */
-		ConstantBuffer< RGBASpectrum > m_color_buffer;
+		ConstantBuffer< RGBA > m_color_buffer;
 
 		/**
 		 The model buffer of this variable component pass.

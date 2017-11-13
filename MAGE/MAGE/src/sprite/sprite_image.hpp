@@ -28,70 +28,9 @@ namespace mage {
 
 		/**
 		 Constructs a sprite image.
-
-		 @pre			@c texture.get() is not equal to @c nullptr.
-		 @param[in]		texture
-						A pointer to the texture.
-		 @param[in]		color
-						The (sRGB) color.
-		 @param[in]		effects
-						The sprite effects to apply.
 		 */
-		explicit SpriteImage(SharedPtr< const Texture > texture,
-			const Color &color, 
-			SpriteEffect effects = SpriteEffect::None);
-		
-		/**
-		 Constructs a sprite image.
+		SpriteImage();
 
-		 @pre			@c texture.get() is not equal to @c nullptr.
-		 @param[in]		texture
-						A pointer to the texture.
-		 @param[in]		texture_region
-						A reference to the texture region.
-		 @param[in]		color
-						The (sRGB) color.
-		 @param[in]		effects
-						The sprite effects to apply.
-		 */
-		explicit SpriteImage(SharedPtr< const Texture > texture, 
-			const RECT &texture_region,
-			const Color &color, 
-			SpriteEffect effects = SpriteEffect::None);
-		
-		/**
-		 Constructs a sprite image.
-
-		 @pre			@c texture.get() is not equal to @c nullptr.
-		 @param[in]		texture
-						A pointer to the texture.
-		 @param[in]		color
-						The (sRGB) color.
-		 @param[in]		effects
-						The sprite effects to apply.
-		 */
-		explicit SpriteImage(SharedPtr< const Texture > texture,
-			CXMVECTOR color = Colors::White, 
-			SpriteEffect effects = SpriteEffect::None);
-		
-		/**
-		 Constructs a sprite image.
-
-		 @pre			@c texture.get() is not equal to @c nullptr.
-		 @param[in]		texture
-						A pointer to the texture.
-		 @param[in]		texture_region
-						A reference to the texture region.
-		 @param[in]		color
-						The (sRGB) color.
-		 @param[in]		effects
-						The sprite effects to apply.
-		 */
-		explicit SpriteImage(SharedPtr< const Texture > texture, 
-			const RECT &texture_region,
-			CXMVECTOR color = Colors::White, 
-			SpriteEffect effects = SpriteEffect::None);
-		
 		/**
 		 Constructs a sprite image from the given sprite image.
 
@@ -159,70 +98,85 @@ namespace mage {
 		 */
 		void Draw(SpriteBatch &sprite_batch) const;
 
+		//---------------------------------------------------------------------
+		// Member Methods: Base Color and Base Color Texture
+		//---------------------------------------------------------------------
+
 		/**
-		 Sets the texture region of this sprite image to the given texture 
-		 region.
+		 Returns the sRGB base color of this sprite image.
+
+		 @return		A reference to the sRGB base color of this sprite 
+						image.
+		 */
+		SRGBA &GetBaseColor() noexcept {
+			return m_base_color;
+		}
+
+		/**
+		 Returns the sRGB base color of this sprite image.
+
+		 @return		A reference to the sRGB base color of this sprite 
+						image.
+		 */
+		const SRGBA &GetBaseColor() const noexcept {
+			return m_base_color;
+		}
+
+		/**
+		 Returns the sRGB base color texture of this sprite image.
+
+		 @return		A pointer to the sRGB base color texture of this sprite 
+						image.
+		 */
+		SharedPtr< const Texture > GetBaseColorTexture() const noexcept {
+			return m_base_color_texture;
+		}
+		
+		/**
+		 Returns the shader resource view of the sRGB base color texture of 
+		 this sprite image.
+
+		 @return		@c nullptr, if this sprite image has no sRGB base 
+						color texture.
+		 @return		A pointer to the shader resource view of the sRGB base 
+						color texture of this sprite image.
+		 */
+		ID3D11ShaderResourceView *GetBaseColorSRV() const noexcept {
+			return m_base_color_texture ? m_base_color_texture->Get() : nullptr;
+		}
+		
+		/**
+		 Sets the sRGB base color texture of this sprite image to the given 
+		 base color texture.
+
+		 @param[in]		base_color_texture
+						A reference to the sRGB base color texture.
+		 */
+		void SetBaseColorTexture(
+			const SharedPtr< const Texture > &base_color_texture) {
+			
+			m_base_color_texture = base_color_texture;
+		}
+
+		/**
+		 Returns the base color texture region of this sprite image.
+
+		 @return		A pointer to the base color texture region of this 
+						sprite image.
+		 */
+		const RECT *GetBaseColorTextureRegion() const noexcept {
+			return m_base_color_texture_region.get();
+		}
+
+		/**
+		 Sets the base color texture region of this sprite image to the given 
+		 texture region.
 
 		 @param[in]		texture_region
 						A reference to the texture region.
 		 */
-		void SetTextureRegion(const RECT &texture_region);
-
-		/**
-		 Returns the texture of this sprite image.
-
-		 @return		A pointer to the texture of this sprite image.
-		 */
-		SharedPtr< const Texture > GetTexture() const noexcept {
-			return m_texture;
-		}
-
-		/**
-		 Sets the texture of this sprite image to the given texture.
-
-		 @pre			@c texture.get() is not equal to @c nullptr
-		 @param[in]		texture
-						A pointer to the texture.
-		 */
-		void SetTexture(SharedPtr< const Texture > texture);
-
-		/**
-		 Returns the (sRGB) color of this sprite image.
-
-		 @return		The (sRGB) color of this sprite image.
-		 */
-		const Color GetColor() const noexcept {
-			return m_color;
-		}
-
-		/**
-		 Sets the (sRGB) color of this sprite image to the given (sRGB) color.
-
-		 @param[in]		color
-						A reference to the (sRGB) color.
-		 */
-		void SetColor(const Color &color) noexcept {
-			m_color = color;
-		}
-
-		/**
-		 Sets the (sRGB) color of this sprite image to the given (sRGB) color.
-
-		 @param[in]		color
-						A reference to the (sRGB) color.
-		 */
-		void SetColor(Color &&color) noexcept {
-			m_color = std::move(color);
-		}
-
-		/**
-		 Sets the (sRGB) color of this sprite image to the given (sRGB) color.
-
-		 @param[in]		color
-						A reference to the (sRGB) color.
-		 */
-		void XM_CALLCONV SetColor(FXMVECTOR color) noexcept {
-			XMStoreFloat4(&m_color, color);
+		void SetBaseColorTextureRegion(const RECT &texture_region) {
+			m_base_color_texture_region = MakeUnique< RECT >(texture_region);
 		}
 
 	private:
@@ -238,34 +192,25 @@ namespace mage {
 		 */
 		virtual UniquePtr< Sprite > CloneImplementation() const override;
 
-		/**
-		 Returns the color of this sprite image as @c XMVECTOR.
-
-		 @return		The color of this sprite image as @c XMVECTOR.
-		 */
-		const XMVECTOR GetColorVector() const noexcept {
-			return XMLoadFloat4(&m_color);
-		}
-
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 The (sRGB) color of this sprite image.
+		 The sRGB base color of this sprite image.
 		 */
-		Color m_color;
+		SRGBA m_base_color;
 
 		/**
-		 A pointer to the texture region of this sprite image.
+		 A pointer to the sRGB base color texture of this sprite image.
+		 */
+		SharedPtr< const Texture > m_base_color_texture;
+
+		/**
+		 A pointer to the base color texture region of this sprite image.
 
 		 If @c nullptr, the full texture region is considered.
 		 */
-		UniquePtr< RECT > m_texture_region;
-
-		/**
-		 A pointer tot the texture of this sprite image.
-		 */
-		SharedPtr< const Texture > m_texture;
+		UniquePtr< RECT > m_base_color_texture_region;
 	};
 }

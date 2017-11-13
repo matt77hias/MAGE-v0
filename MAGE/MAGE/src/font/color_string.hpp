@@ -33,9 +33,10 @@ namespace mage {
 		 @param[in]		str
 						A reference to the string.
 		 @param[in]		color
-						A reference to the (sRGB) color.
+						A reference to the sRGB color.
 		 */
-		explicit ColorString(const wstring &str, const Color &color)
+		explicit ColorString(const wstring &str, 
+			const SRGBA &color = color::White)
 			: m_str(str), m_color(color) {}
 		
 		/**
@@ -44,40 +45,11 @@ namespace mage {
 		 @param[in]		str
 						A reference to the string.
 		 @param[in]		color
-						The (sRGB) color.
-		 */
-		explicit ColorString(const wstring &str, 
-			FXMVECTOR color = Colors::White)
-			: m_str(str), m_color() {
-			
-			SetColor(color);
-		}
-
-		/**
-		 Constructs a color string fromt the given string and color.
-
-		 @param[in]		str
-						A reference to the string.
-		 @param[in]		color
-						A reference to the (sRGB) color.
-		 */
-		explicit ColorString(wstring &&str, const Color &color)
-			: m_str(std::move(str)), m_color(color) {}
-
-		/**
-		 Constructs a color string fromt the given string and color.
-
-		 @param[in]		str
-						A reference to the string.
-		 @param[in]		color
-						The (sRGB) color.
+						A reference to the sRGB color.
 		 */
 		explicit ColorString(wstring &&str, 
-			FXMVECTOR color = Colors::White)
-			: m_str(std::move(str)), m_color() {
-			
-			SetColor(color);
-		}
+			const SRGBA &color = color::White)
+			: m_str(std::move(str)), m_color(color) {}
 
 		/**
 		 Constructs a color string fromt the given string and color.
@@ -86,26 +58,11 @@ namespace mage {
 		 @param[in]		str
 						A pointer to the string.
 		 @param[in]		color
-						A reference to the (sRGB) color.
-		 */
-		explicit ColorString(const wchar_t *str, const Color &color)
-			: m_str(str), m_color(color) {}
-
-		/**
-		 Constructs a color string fromt the given str and color.
-
-		 @pre			@a str is not equal to @c nullptr.
-		 @param[in]		str
-						A pointer to the str.
-		 @param[in]		color
-						The (sRGB) color.
+						A reference to the sRGB color.
 		 */
 		explicit ColorString(const wchar_t *str, 
-			FXMVECTOR color = Colors::White)
-			: m_str(str), m_color() {
-			
-			SetColor(color);
-		}
+			const SRGBA &color = color::White)
+			: m_str(str), m_color(color) {}
 
 		/**
 		 Constructs a color string from the given color string.
@@ -207,51 +164,21 @@ namespace mage {
 		}
 
 		/**
-		 Returns the (sRGB) color of this color string.
+		 Returns the sRGB color of this color string.
 
-		 @return		The (sRGB) color of this color string.
+		 @return		A reference to sRGB color of this color string.
 		 */
-		const Color GetColor() const noexcept {
+		SRGBA &GetColor() noexcept {
 			return m_color;
 		}
 
 		/**
-		 Returns the (sRGB) color of this color string as @c XMVECTOR.
+		 Returns the sRGB color of this color string.
 
-		 @return		The (sRGB) color of this color string as @c XMVECTOR.
+		 @return		A reference to sRGB color of this color string.
 		 */
-		const XMVECTOR GetColorVector() const noexcept {
-			return XMLoadFloat4(&m_color);
-		}
-
-		/**
-		 Sets the (sRGB) color of this color string to the given (sRGB) color.
-
-		 @param[in]		color
-						A reference to the (sRGB) color.
-		 */
-		void SetColor(const Color &color) noexcept {
-			m_color = color;
-		}
-
-		/**
-		 Sets the (sRGB) color of this color string to the given (sRGB) color.
-
-		 @param[in]		color
-						A reference to the (sRGB) color.
-		 */
-		void SetColor(Color &&color) noexcept {
-			m_color = std::move(color);
-		}
-
-		/**
-		 Sets the (sRGB) color of this color string to the given (sRGB) color.
-
-		 @param[in]		color
-						The (sRGB) color.
-		 */
-		void XM_CALLCONV SetColor(FXMVECTOR color) noexcept {
-			XMStoreFloat4(&m_color, color);
+		const SRGBA &GetColor() const noexcept {
+			return m_color;
 		}
 
 	private:
@@ -266,8 +193,8 @@ namespace mage {
 		wstring m_str;
 
 		/**
-		 The (sRGB) color of this color string. 
+		 The sRGB color of this color string. 
 		 */
-		Color m_color;
+		SRGBA m_color;
 	};
 }

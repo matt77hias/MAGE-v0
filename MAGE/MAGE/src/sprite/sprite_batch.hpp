@@ -12,7 +12,6 @@
 #include "buffer\constant_buffer.hpp"
 #include "sprite\sprite_sort_mode.hpp"
 #include "sprite\sprite_effects.hpp"
-#include "material\color.hpp"
 
 #pragma endregion
 
@@ -266,7 +265,7 @@ namespace mage {
 						A pointer to the shader resource view of the texture to 
 						draw.
 		 @param[in]		color
-						The (sRGB) color (multiplier).
+						The sRGB color (multiplier).
 		 @param[in]		effects
 						The sprite effects to apply.
 		 @param[in]		transform

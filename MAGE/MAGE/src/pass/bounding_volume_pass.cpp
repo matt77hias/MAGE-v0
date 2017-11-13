@@ -36,7 +36,7 @@ namespace mage {
 
 	BoundingVolumePass::~BoundingVolumePass() = default;
 
-	void BoundingVolumePass::BindColorData(const RGBASpectrum &color) {
+	void BoundingVolumePass::BindColorData(const RGBA &color) {
 		
 		// Update the color buffer.
 		m_color_buffer.UpdateData(m_device_context, color);
@@ -47,7 +47,7 @@ namespace mage {
 
 	void BoundingVolumePass::BindLightColorData() {
 		// The color in linear space.
-		static const RGBASpectrum color(1.0f, 0.0f, 0.0f, 1.0f);
+		static const RGBA color(1.0f, 0.0f, 0.0f, 1.0f);
 
 		// Bind the color data.
 		BindColorData(color);
@@ -55,7 +55,7 @@ namespace mage {
 
 	void BoundingVolumePass::BindModelColorData() {
 		// The color in linear space.
-		static const RGBASpectrum color(0.0f, 1.0f, 0.0f, 1.0f);
+		static const RGBA color(0.0f, 1.0f, 0.0f, 1.0f);
 
 		// Bind the color data.
 		BindColorData(color);

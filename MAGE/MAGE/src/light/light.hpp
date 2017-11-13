@@ -73,137 +73,21 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Returns the red (sRGB) channel of the (sRGB) base color of this light.
+		 Returns the sRGB base color of this light.
 
-		 @return		The red (sRGB) channel of the (sRGB) base color of this 
-						light.
+		 @return		A reference to the sRGB base color of this light.
 		 */
-		F32 GetBaseColorR() const noexcept {
-			return m_base_color.x;
-		}
-		
-		/**
-		 Returns the green (sRGB) channel of the (sRGB) base color of this 
-		 light.
-
-		 @return		The green (sRGB) channel of the (sRGB) base color of 
-						this light.
-		 */
-		F32 GetBaseColorG() const noexcept {
-			return m_base_color.y;
-		}
-		
-		/**
-		 Returns the blue (sRGB) channel of the (sRGB) base color of this 
-		 light.
-
-		 @return		The blue (sRGB) channel of the (sRGB) base color of 
-						this light.
-		 */
-		F32 GetBaseColorB() const noexcept {
-			return m_base_color.z;
-		}
-		
-		/**
-		 Returns the RGB (sRGB) channels of the (sRGB) base color of this 
-		 light.
-
-		 @return		The RGB (sRGB) channels of the (sRGB) base color of 
-						this light.
-		 */
-		const RGBSpectrum GetBaseColorRGB() const noexcept {
+		SRGB &GetBaseColor() noexcept {
 			return m_base_color;
 		}
-		
-		/**
-		 Sets the red (sRGB) channel of the (sRGB) base color of this light 
-		 to the given  value.
-
-		 @pre			@a red is an element of [0,1].
-		 @param[in]		red
-						The red (sRGB) channel of the (sRGB) base color.
-		 */
-		void SetBaseColorR(F32 red) noexcept {
-			Assert(0.0f <= red && red <= 1.0f);
-			m_base_color.x = red;
-		}
-		
-		/**
-		 Sets the green (sRGB) channel of the (sRGB) base color of this light 
-		 to the given value.
-
-		 @pre			@a green is an element of [0,1].
-		 @param[in]		green
-						The green (sRGB) channel of the (sRGB) base color.
-		 */
-		void SetBaseColorG(F32 green) noexcept {
-			Assert(0.0f <= green && green <= 1.0f);
-			m_base_color.y = green;
-		}
-		
-		/**
-		 Sets the blue (sRGB) channel of the (sRGB) base color of this light 
-		 to the given value.
-
-		 @pre			@a blue is an element of [0,1].
-		 @param[in]		blue
-						The blue (sRGB) channel of the (sRGB) base color.
-		 */
-		void SetBaseColorB(F32 blue) noexcept {
-			Assert(0.0f <= blue && blue <= 1.0f);
-			m_base_color.z = blue;
-		}
-		
-		/**
-		 Sets the red (sRGB), green (sRGB) and blue (sRGB) channel of the 
-		 (sRGB) base color of this light to the given values.
-
-		 @pre			@a red is an element of [0,1].
-		 @pre			@a green is an element of [0,1].
-		 @pre			@a blue is an element of [0,1].
-		 @param[in]		red
-						The red (sRGB) channel of the (sRGB) base color.
-		 @param[in]		green
-						The green (sRGB) channel of the (sRGB) base color.
-		 @param[in]		blue
-						The blue (sRGB) channel of the (sRGB) base color.
-		 */
-		void SetBaseColorRGB(F32 red, F32 green, F32 blue) noexcept {
-			SetBaseColorR(red);
-			SetBaseColorG(green);
-			SetBaseColorB(blue);
-		}
-		
-		/**
-		 Sets the red (sRGB), green (sRGB) and blue (sRGB) channel of the 
-		 (sRGB) base color of this light to the given value.
-
-		 @pre			@a rgb is an element of [0,1]^3.
-		 @param[in]		rgb
-						A reference to red (sRGB), green (sRGB) and blue (sRGB) 
-						channel of the (sRGB) base color.
-		 */
-		void SetBaseColorRGB(const RGBSpectrum &rgb) noexcept {
-			Assert(0.0f <= rgb.x && rgb.x <= 1.0f);
-			Assert(0.0f <= rgb.y && rgb.y <= 1.0f);
-			Assert(0.0f <= rgb.z && rgb.z <= 1.0f);
-			m_base_color = rgb;
-		}
 
 		/**
-		 Sets the red (sRGB), green (sRGB) and blue (sRGB) channel of the 
-		 (sRGB) base color of this light to the given value.
+		 Returns the sRGB base color of this light.
 
-		 @pre			@a rgb is an element of [0,1]^3.
-		 @param[in]		rgb
-						A reference to red (sRGB), green (sRGB) and blue (sRGB) 
-						channel of the (sRGB) base color.
+		 @return		A reference to the sRGB base color of this light.
 		 */
-		void SetBaseColorRGB(RGBSpectrum &&rgb) noexcept {
-			Assert(0.0f <= rgb.x && rgb.x <= 1.0f);
-			Assert(0.0f <= rgb.y && rgb.y <= 1.0f);
-			Assert(0.0f <= rgb.z && rgb.z <= 1.0f);
-			m_base_color = std::move(rgb);
+		const SRGB &GetBaseColor() const noexcept {
+			return m_base_color;
 		}
 
 		//---------------------------------------------------------------------
@@ -303,9 +187,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 The (sRGB) base color of this light.
+		 The sRGB base color of this light.
 		 */
-		RGBSpectrum m_base_color;
+		SRGB m_base_color;
 
 		//---------------------------------------------------------------------
 		// Member Variables: Range

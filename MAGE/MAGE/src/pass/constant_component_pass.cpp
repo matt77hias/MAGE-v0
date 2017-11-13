@@ -46,7 +46,7 @@ namespace mage {
 
 			// Update the color buffer.
 			m_color_buffer.UpdateData(m_device_context, 
-				RGBASpectrum(1.0f));
+				RGBA(1.0f));
 			// Bind the color buffer.
 			m_color_buffer.Bind< Pipeline::PS >(
 				m_device_context, SLOT_CBUFFER_COLOR);

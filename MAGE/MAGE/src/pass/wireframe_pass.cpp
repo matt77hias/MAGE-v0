@@ -35,7 +35,7 @@ namespace mage {
 
 	void WireframePass::BindColorData() {
 		// The color in linear space.
-		static const RGBASpectrum color(0.0f, 0.0f, 1.0f, 1.0f);
+		static const RGBA color(0.0f, 0.0f, 1.0f, 1.0f);
 
 		// Update the color buffer.
 		m_color_buffer.UpdateData(m_device_context, color);

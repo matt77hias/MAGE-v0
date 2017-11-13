@@ -121,7 +121,7 @@ namespace mage {
 		LightBuffer buffer;
 		buffer.m_La                       = scene->GetAmbientLight();
 		
-		buffer.m_fog_color                = SRGBToLinear(scene->GetFog()->GetBaseColorRGB());
+		buffer.m_fog_color                = RGB(scene->GetFog()->GetBaseColor());
 		buffer.m_fog_density              = scene->GetFog()->GetDensity();
 
 		buffer.m_nb_directional_lights    = static_cast< U32 >(m_directional_lights.size());

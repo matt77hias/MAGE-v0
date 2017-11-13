@@ -146,7 +146,7 @@ namespace mage {
 						Failed to bind the light color data of this bounding 
 						volume pass.
 		 */
-		void BindColorData(const RGBASpectrum &color);
+		void BindColorData(const RGBA &color);
 
 		/**
 		 Binds the light color data of this bounding volume pass.
@@ -269,7 +269,7 @@ namespace mage {
 		/**
 		 The color buffer of this bounding volume pass.
 		 */
-		ConstantBuffer< RGBASpectrum > m_color_buffer;
+		ConstantBuffer< RGBA > m_color_buffer;
 
 		/**
 		 The model buffer of this bounding volume pass.

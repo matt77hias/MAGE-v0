@@ -73,7 +73,7 @@ namespace mage {
 	}
 
 	template< typename... ConstructorArgsT >
-	inline SharedPtr< SpriteFont > ResourceManager::GetOrCreateSpriteFont(
+	inline SharedPtr< const SpriteFont > ResourceManager::GetOrCreateSpriteFont(
 		const wstring &guid, ConstructorArgsT&&... args) {
 
 		return m_sprite_font_resource_pool->template

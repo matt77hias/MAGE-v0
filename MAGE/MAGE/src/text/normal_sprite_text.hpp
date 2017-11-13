@@ -28,14 +28,10 @@ namespace mage {
 		/**
 		 Constructs a normal sprite text.
 
-		 @pre			@c font.get() is not equal to @c nullptr.
-		 @param[in]		font
-						A pointer to the sprite font.
-		 @param[in]		effects
-						The sprite effects to apply.
+		 @pre			The resource manager associated with the current engine 
+						must be loaded.
 		 */
-		explicit NormalSpriteText(SharedPtr< SpriteFont > font,
-			SpriteEffect effects = SpriteEffect::None);
+		NormalSpriteText();
 
 		/**
 		 Constructs a normal sprite text from the given normal sprite text.

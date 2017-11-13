@@ -342,7 +342,7 @@ namespace mage {
 						unique identifier.
 		 @return		A pointer to the sprite font.
 		 */
-		SharedPtr< SpriteFont > GetSpriteFont(const wstring &guid) noexcept;
+		SharedPtr< const SpriteFont > GetSpriteFont(const wstring &guid) noexcept;
 		
 		/**
 		 Returns the texture corresponding to the given globally unique 
@@ -533,7 +533,7 @@ namespace mage {
 						Failed to create the sprite font.
 		 */
 		template< typename... ConstructorArgsT >
-		SharedPtr< SpriteFont > GetOrCreateSpriteFont(
+		SharedPtr< const SpriteFont > GetOrCreateSpriteFont(
 			const wstring &guid, ConstructorArgsT&&... args);
 		
 		/**
@@ -627,7 +627,7 @@ namespace mage {
 		/**
 		 A pointer to the sprite font resource pool of this resource manager.
 		 */
-		UniquePtr< ResourcePool< wstring, SpriteFont > > 
+		UniquePtr< ResourcePool< wstring, const SpriteFont > >
 			m_sprite_font_resource_pool;
 
 		/**

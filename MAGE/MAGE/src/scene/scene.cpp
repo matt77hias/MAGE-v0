@@ -77,8 +77,9 @@ namespace mage {
 	}
 	
 	void Scene::RemoveScript(SharedPtr< BehaviorScript > script) {
-		const auto it = std::find(m_scripts.begin(), m_scripts.end(), script);
-		if (it != m_scripts.end()) {
+		if (const auto it = std::find(m_scripts.begin(), m_scripts.end(), script); 
+			it != m_scripts.end()) {
+
 			m_scripts.erase(it);
 		}
 	}

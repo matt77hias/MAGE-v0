@@ -184,8 +184,9 @@ namespace mage {
 		while (indices.size() < 3 || HasString()) {
 			const XMUINT3 vertex_indices = ReadOBJVertexIndices();
 
-			const auto it = m_mapping.find(vertex_indices);
-			if (it != m_mapping.cend()) {
+			if (const auto it = m_mapping.find(vertex_indices); 
+				it != m_mapping.cend()) {
+
 				indices.push_back(it->second);
 			}
 			else {

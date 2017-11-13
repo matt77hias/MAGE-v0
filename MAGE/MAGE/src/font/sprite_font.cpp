@@ -624,9 +624,9 @@ namespace mage {
 	}
 	
 	const Glyph *SpriteFont::GetGlyph(wchar_t character) const {
-		const auto it = std::lower_bound(
-			m_glyphs.cbegin(), m_glyphs.cend(), character, GlyphLessThan());
-		if (it != m_glyphs.cend() && it->m_character == character) {
+		if (const auto it = std::lower_bound(
+			m_glyphs.cbegin(), m_glyphs.cend(), character, GlyphLessThan()); 
+			it != m_glyphs.cend() && it->m_character == character) {
 			return &(*it);
 		}
 

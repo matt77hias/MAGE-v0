@@ -145,9 +145,11 @@ namespace mage {
 		node->m_transform->m_parent = nullptr;
 		node->m_transform->SetDirty();
 
-		const auto it = std::find(
-			m_transform->m_childs.begin(), m_transform->m_childs.end(), node);
-		if (it != m_transform->m_childs.end()) {
+		if (const auto it = std::find(
+			m_transform->m_childs.begin(), 
+			m_transform->m_childs.end(), node); 
+			it != m_transform->m_childs.end()) {
+
 			m_transform->m_childs.erase(it);
 		}
 		else {

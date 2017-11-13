@@ -23,9 +23,9 @@ namespace mage {
 
 	template < typename T >
 	const T *VariableScript::GetValueOfVariable(const string &name) const {
-		
-		const auto it = m_variables.find(name);
-		if (it != m_variables.end()) {
+		if (const auto it = m_variables.find(name); 
+			it != m_variables.end()) {
+
 			return static_cast< const T * >(it->second.GetValue());
 		}
 
@@ -35,9 +35,9 @@ namespace mage {
 
 	template < typename T >
 	void VariableScript::SetValueOfVariable(const string &name, const T &value) {
-		
-		const auto it = m_variables.find(name);
-		if (it != m_variables.end()) {
+		if (const auto it = m_variables.find(name); 
+			it != m_variables.end()) {
+
 			it->second.SetValue(value);
 			return;
 		}

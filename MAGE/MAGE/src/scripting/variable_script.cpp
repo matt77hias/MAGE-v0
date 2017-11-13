@@ -49,8 +49,9 @@ namespace mage {
 	}
 
 	void VariableScript::RemoveVariable(const string &name) {
-		const auto it = m_variables.find(name);
-		if (it != m_variables.end()) {
+		if (const auto it = m_variables.find(name); 
+			it != m_variables.end()) {
+
 			m_variables.erase(it);
 		}
 	}

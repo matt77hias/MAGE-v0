@@ -31,8 +31,9 @@ namespace mage {
 		
 		MutexLock lock(m_resource_map_mutex);
 
-		const auto it = m_resource_map.find(key);
-		if (it != m_resource_map.end()) {
+		if (const auto it = m_resource_map.find(key); 
+			it != m_resource_map.end()) {
+
 			const auto resource = it->second.lock();
 			
 			if (resource) {
@@ -51,8 +52,9 @@ namespace mage {
 		
 		MutexLock lock(m_resource_map_mutex);
 
-		const auto it = m_resource_map.find(key);
-		if (it != m_resource_map.end()) {
+		if (const auto it = m_resource_map.find(key); 
+			it != m_resource_map.end()) {
+
 			const auto resource = it->second.lock();
 			
 			if (resource) {
@@ -81,8 +83,9 @@ namespace mage {
 		
 		MutexLock lock(m_resource_map_mutex);
 
-		const auto it = m_resource_map.find(key);
-		if (it != m_resource_map.end()) {
+		if (const auto it = m_resource_map.find(key); 
+			it != m_resource_map.end()) {
+
 			const auto resource = it->second.lock();
 			if (resource) {
 				return resource;
@@ -106,8 +109,9 @@ namespace mage {
 		
 		MutexLock lock(m_resource_map_mutex);
 
-		const auto it = m_resource_map.find(key);
-		if (it != m_resource_map.end() && it->second.expired()) {
+		if (const auto it = m_resource_map.find(key); 
+			it != m_resource_map.end() && it->second.expired()) {
+
 			m_resource_map.erase(it);
 		}
 	}
@@ -200,8 +204,9 @@ namespace mage {
 		
 		MutexLock lock(m_resource_map_mutex);
 
-		const auto it = m_resource_map.find(key);
-		if (it != m_resource_map.end()) {
+		if (const auto it = m_resource_map.find(key); 
+			it != m_resource_map.end()) {
+
 			return it->second;
 		}
 
@@ -219,8 +224,9 @@ namespace mage {
 		
 		MutexLock lock(m_resource_map_mutex);
 
-		const auto it = m_resource_map.find(key);
-		if (it != m_resource_map.end()) {
+		if (const auto it = m_resource_map.find(key); 
+			it != m_resource_map.end()) {
+
 			m_resource_map.erase(it);
 		}
 	}

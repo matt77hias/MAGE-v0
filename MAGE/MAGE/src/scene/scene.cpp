@@ -105,8 +105,8 @@ namespace mage {
 		// Create model nodes.
 		desc.ForEachModelPart([&](const ModelPart *model_part) {
 
-			if (model_part->m_child == MAGE_MDL_PART_DEFAULT_CHILD 
-				&& model_part->m_nb_indices == 0) {
+			if (MAGE_MDL_PART_DEFAULT_CHILD == model_part->m_child
+				&& 0 == model_part->m_nb_indices) {
 				return;
 			}
 
@@ -118,14 +118,14 @@ namespace mage {
 										  model_part->m_aabb, model_part->m_bs);
 			// Create a material.
 			const Material material 
-				= (model_part->m_material == MAGE_MDL_PART_DEFAULT_MATERIAL) ? 
+				= (MAGE_MDL_PART_DEFAULT_MATERIAL == model_part->m_material) ?
 					default_material : *desc.GetMaterial(model_part->m_material);
 			submodel_node->GetModel()->SetMaterial(material);
 
 			// Add this submodel node to this scene.
 			AddSceneNode(submodel_node);
 
-			if (model_part->m_parent == MAGE_MDL_PART_DEFAULT_PARENT) {
+			if (MAGE_MDL_PART_DEFAULT_PARENT == model_part->m_parent) {
 				root_model_node = submodel_node;
 				++nb_root_childs;
 			}
@@ -135,9 +135,9 @@ namespace mage {
 							ModelPair(submodel_node, model_part->m_parent));
 		});
 
-		Assert(nb_root_childs != 0);
+		Assert(0 != nb_root_childs);
 
-		const bool create_root_model_node = (nb_root_childs > 1);
+		const bool create_root_model_node = (1 < nb_root_childs);
 
 		// Create root model node.
 		if (create_root_model_node) {
@@ -150,9 +150,8 @@ namespace mage {
 
 		// Connect model nodes.
 		for (const auto &model_pair : mapping) {
-			const SharedPtr< ModelNode > &child = model_pair.second.first;
-			const string &parent                = model_pair.second.second;
-			if (parent == MAGE_MDL_PART_DEFAULT_PARENT) {
+			const auto &[child, parent] = model_pair.second;
+			if (MAGE_MDL_PART_DEFAULT_PARENT == parent) {
 				if (create_root_model_node) {
 					root_model_node->AddChildNode(child);
 				}

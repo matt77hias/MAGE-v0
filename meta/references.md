@@ -237,6 +237,7 @@ Uses:
 * [Chuck Walbourn](https://github.com/walbourn)
 * [Eric Richards](https://github.com/ericrrichards)
 * Infinisearch
+* [János Turánszki](https://github.com/turanszkij)
 * JoeJ
 * [Krzysztof Narkowicz](https://github.com/knarkowicz)
 * L. Spiro
@@ -250,6 +251,5 @@ Uses:
 * [Roald Frederickx](https://github.com/RoaldFre)
 * Scott Meyers
 * Styves
-* [Turánszki János](https://github.com/turanszkij)
 * [GameDev.net](https://www.gamedev.net/) community
 * [Computer Graphics StackExchange](https://computergraphics.stackexchange.com/) community

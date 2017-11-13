@@ -69,6 +69,7 @@ namespace mage {
 			case static_cast< int >(HotKey::PrintScreen) :
 			case static_cast< int >(HotKey::AltPrintScreen): {
 				SwapChain::Get()->TakeScreenShot();
+				[[fallthrough]];
 			}
 
 			default: {

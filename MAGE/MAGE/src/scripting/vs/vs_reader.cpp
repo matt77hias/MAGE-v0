@@ -26,7 +26,7 @@ namespace mage {
 		const char *token = 
 			strtok_s(line, GetDelimiters().c_str(), &m_context);
 
-		if (!token || token[0] == MAGE_VS_TOKEN_COMMENT) {
+		if (!token || MAGE_VS_TOKEN_COMMENT == token[0]) {
 			return;
 		}
 

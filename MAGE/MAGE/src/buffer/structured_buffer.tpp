@@ -71,7 +71,7 @@ namespace mage {
 		Assert(m_buffer);
 
 		m_nb_used_data_elements = data.size();
-		if (m_nb_used_data_elements == 0) {
+		if (0 == m_nb_used_data_elements) {
 			return;
 		}
 		if (m_nb_data_elements < m_nb_used_data_elements) {

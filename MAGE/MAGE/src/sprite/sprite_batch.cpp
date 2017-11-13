@@ -198,7 +198,7 @@ namespace mage {
 	}
 
 	void SpriteBatch::FlushBatch() {
-		if (m_sprite_queue_size == 0) {
+		if (0 == m_sprite_queue_size) {
 			return;
 		}
 		
@@ -390,7 +390,7 @@ namespace mage {
 		// Compute a 2x2 rotation matrix.
 		XMVECTOR rotation_matrix1;
 		XMVECTOR rotation_matrix2;
-		if (rotation != 0) {
+		if (0 != rotation) {
 			F32 sin, cos;
 			XMScalarSinCos(&sin, &cos, rotation);
 			const XMVECTOR sin_v = XMLoadFloat(&sin);

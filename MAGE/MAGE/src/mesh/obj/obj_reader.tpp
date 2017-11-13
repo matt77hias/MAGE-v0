@@ -56,7 +56,7 @@ namespace mage {
 		const char *token 
 			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
-		if (!token || token[0] == MAGE_OBJ_COMMENT_CHAR) {
+		if (!token || MAGE_OBJ_COMMENT_CHAR == token[0]) {
 			return;
 		}
 
@@ -116,7 +116,7 @@ namespace mage {
 	void OBJReader< VertexT >::ReadOBJGroup() {
 		const string child = ReadString();
 		
-		if (child == MAGE_MDL_PART_DEFAULT_CHILD) {
+		if (MAGE_MDL_PART_DEFAULT_CHILD == child) {
 			
 			ThrowIfFailed(m_model_output.m_index_buffer.empty(),
 				"%ls: line %u: default child name can only be explicitly "

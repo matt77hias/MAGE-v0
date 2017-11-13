@@ -53,7 +53,7 @@ namespace mage {
 		const char *token 
 			= strtok_s(line, GetDelimiters().c_str(), &m_context);
 
-		if (!token || token[0] == MAGE_MDL_COMMENT_CHAR) {
+		if (!token || MAGE_MDL_COMMENT_CHAR == token[0]) {
 			return;
 		}
 

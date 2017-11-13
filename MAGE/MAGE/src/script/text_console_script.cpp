@@ -81,7 +81,7 @@ namespace mage {
 		for (const wchar_t *character = str; 
 			*character != L'\0'; ++character, ++m_current_column) {
 			
-			if (*character == L'\n') {
+			if (L'\n' == *character) {
 				IncrementRow();
 				continue;
 			}

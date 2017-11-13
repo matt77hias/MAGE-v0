@@ -33,11 +33,11 @@ namespace mage {
 				// No match found.
 				return nullptr;
 			}
-			if (result == str) {
+			if (str == result) {
 				// Current match is not escaped (first character).
 				return result;
 			}
-			if (*(result - 1) != '\\') {
+			if ('\\' != *(result - 1)) {
 				// Current match is not escaped.
 				return result;
 			}
@@ -58,11 +58,11 @@ namespace mage {
 				// No match found.
 				return nullptr;
 			}
-			if (result == str) {
+			if (str == result) {
 				// Current match is not escaped (first character).
 				return result;
 			}
-			if (*(result - 1) != '\\') {
+			if ('\\' != *(result - 1)) {
 				// Current match is not escaped.
 				return result;
 			}
@@ -83,11 +83,11 @@ namespace mage {
 				// No match found.
 				return nullptr;
 			}
-			if (result == str) {
+			if (str == result) {
 				// Current match is not escaped (first character).
 				return result;
 			}
-			if (*(result - 1) != L'\\') {
+			if (L'\\' != *(result - 1)) {
 				// Current match is not escaped.
 				return result;
 			}
@@ -108,11 +108,11 @@ namespace mage {
 				// No match found.
 				return nullptr;
 			}
-			if (result == str) {
+			if (str == result) {
 				// Current match is not escaped (first character).
 				return result;
 			}
-			if (*(result - 1) != L'\\') {
+			if (L'\\' != *(result - 1)) {
 				// Current match is not escaped.
 				return result;
 			}
@@ -140,7 +140,7 @@ namespace mage {
 			}
 		}
 
-		if (num_read == 0u) {
+		if (0u == num_read) {
 			// "eof"
 			return nullptr;
 		}
@@ -168,7 +168,7 @@ namespace mage {
 			}
 		}
 
-		if (num_read == 0u) {
+		if (0u == num_read) {
 			// "eof"
 			return nullptr;
 		}

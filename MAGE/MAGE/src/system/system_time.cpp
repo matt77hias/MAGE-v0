@@ -44,19 +44,13 @@ namespace mage {
 		GetSystemTimeAsFileTime(&ftime);
 
 		FILETIME local_ftime;
-		{
-			const BOOL result = FileTimeToLocalFileTime(&ftime, &local_ftime);
-			if (!result) {
-				return wstring();
-			}
+		if (FALSE == FileTimeToLocalFileTime(&ftime, &local_ftime)) {
+			return wstring();
 		}
 
 		SYSTEMTIME local_stime;
-		{
-			const BOOL result = FileTimeToSystemTime(&local_ftime, &local_stime);
-			if (!result) {
-				return wstring();
-			}
+		if (FALSE == FileTimeToSystemTime(&local_ftime, &local_stime)) {
+			return wstring();
 		}
 
 		wchar_t str_date[255];
@@ -74,19 +68,13 @@ namespace mage {
 		GetSystemTimeAsFileTime(&ftime);
 
 		FILETIME local_ftime;
-		{
-			const BOOL result = FileTimeToLocalFileTime(&ftime, &local_ftime);
-			if (!result) {
-				return wstring();
-			}
+		if (FALSE == FileTimeToLocalFileTime(&ftime, &local_ftime)) {
+			return wstring();
 		}
 
 		SYSTEMTIME local_stime;
-		{
-			const BOOL result = FileTimeToSystemTime(&local_ftime, &local_stime);
-			if (!result) {
-				return wstring();
-			}
+		if (FALSE == FileTimeToSystemTime(&local_ftime, &local_stime)) {
+			return wstring();
 		}
 
 		wchar_t str_time[255];
@@ -104,39 +92,26 @@ namespace mage {
 		GetSystemTimeAsFileTime(&ftime);
 
 		FILETIME local_ftime;
-		{
-			const BOOL result = FileTimeToLocalFileTime(&ftime, &local_ftime);
-			if (!result) {
-				return wstring();
-			}
+		if (FALSE == FileTimeToLocalFileTime(&ftime, &local_ftime)) {
+			return wstring();
 		}
 
 		SYSTEMTIME local_stime;
-		{
-			const BOOL result = FileTimeToSystemTime(&local_ftime, &local_stime);
-			if (!result) {
-				return wstring();
-			}
+		if (FALSE == FileTimeToSystemTime(&local_ftime, &local_stime)) {
+			return wstring();
 		}
 
 		wchar_t str_date[255];
 		wchar_t str_time[255];
 
-		{
-			const int result 
-				= GetDateFormat(LOCALE_USER_DEFAULT, 0, 
-					&local_stime, L"yyyy-MM-dd", str_date, _countof(str_date));
-			if (!result) {
-				return wstring();
-			}
+		if (!GetDateFormat(LOCALE_USER_DEFAULT, 0, &local_stime, 
+			L"yyyy-MM-dd", str_date, _countof(str_date))) {
+			return wstring();
 		}
-		{
-			const int result 
-				= GetTimeFormat(LOCALE_USER_DEFAULT, 0, 
-					&local_stime, L"HH-mm-ss", str_time, _countof(str_time));
-			if (!result) {
-				return wstring();
-			}
+		
+		if (!GetTimeFormat(LOCALE_USER_DEFAULT, 0, &local_stime, 
+			L"HH-mm-ss", str_time, _countof(str_time))) {
+			return wstring();
 		}
 
 		return wstring(str_date) + L'-' + wstring(str_time);

@@ -40,7 +40,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S8 >(strtol(str, &inner_context, 10));
-		return (*inner_context == '\0') ? 
+		return ('\0' == *inner_context) ?
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -51,7 +51,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U8 >(strtoul(str, &inner_context, 10));
-		return (*inner_context == '\0') ? 
+		return ('\0' == *inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -62,7 +62,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S16 >(strtol(str, &inner_context, 10));
-		return (*inner_context == '\0') ? 
+		return ('\0' == *inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -73,7 +73,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U16 >(strtoul(str, &inner_context, 10));
-		return (*inner_context == '\0') ? 
+		return ('\0' == *inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 
@@ -84,7 +84,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S32 >(strtol(str, &inner_context, 10));
-		return (*inner_context == '\0') ? 
+		return ('\0' == *inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -95,7 +95,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U32 >(strtoul(str, &inner_context, 10));
-		return (*inner_context == '\0') ? 
+		return ('\0' == *inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -106,7 +106,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S64 >(strtoll(str, &inner_context, 10));
-		return (*inner_context == '\0') ? 
+		return ('\0' == *inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -117,7 +117,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U64 >(strtoull(str, &inner_context, 10));
-		return (*inner_context == '\0') ? 
+		return ('\0' == *inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -128,7 +128,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = strtof(str, &inner_context);
-		return (*inner_context == '\0') ? 
+		return ('\0' == *inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -139,7 +139,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = strtod(str, &inner_context);
-		return (*inner_context == '\0') ? 
+		return ('\0' == *inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -159,11 +159,12 @@ namespace mage {
 
 		Assert(end);
 
-		if (end - begin == 4) {
-			if ((*begin != 't') || 
-				(*(begin + 1) != 'r') || 
-				(*(begin + 2) != 'u') || 
-				(*(begin + 3) != 'e')) {
+		if (4 == end - begin) {
+			if (('t' != *begin) || 
+				('r' != *(begin + 1)) || 
+				('u' != *(begin + 2)) || 
+				('e' != *(begin + 3))) {
+				
 				result = false;
 				return TokenResult::Invalid;
 			}
@@ -172,12 +173,13 @@ namespace mage {
 			return TokenResult::Valid;
 		} 
 		
-		if (end - begin == 5) {
-			if ((*begin != 'f') ||
-				(*(begin + 1) != 'a') ||
-				(*(begin + 2) != 'l') ||
-				(*(begin + 3) != 's') ||
-				(*(begin + 4) != 'e')) {
+		if (5 == end - begin) {
+			if (('f' != *begin) ||
+				('a' != *(begin + 1)) ||
+				('l' != *(begin + 2)) ||
+				('s' != *(begin + 3)) ||
+				('e' != *(begin + 4))) {
+				
 				result = false;
 				return TokenResult::Invalid;
 			}
@@ -201,7 +203,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S8 >(strtol(begin, &inner_context, 10));
-		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToU8(
@@ -215,7 +217,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U8 >(strtoul(begin, &inner_context, 10));
-		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToS16(
@@ -229,7 +231,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S16 >(strtol(begin, &inner_context, 10));
-		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToU16(
@@ -243,7 +245,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U16 >(strtoul(begin, &inner_context, 10));
-		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToS32(
@@ -257,7 +259,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S32 >(strtol(begin, &inner_context, 10));
-		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToU32(
@@ -271,7 +273,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U32 >(strtoul(begin, &inner_context, 10));
-		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToS64(
@@ -285,7 +287,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S64 >(strtoll(begin, &inner_context, 10));
-		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToU64(
@@ -299,7 +301,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U64 >(strtoull(begin, &inner_context, 10));
-		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToF32(
@@ -313,7 +315,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = strtof(begin, &inner_context);
-		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 	
 	TokenResult StringToF64(
@@ -327,7 +329,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = strtod(begin, &inner_context);
-		return (inner_context == end) ? TokenResult::Valid : TokenResult::Invalid;
+		return (end == inner_context) ? TokenResult::Valid : TokenResult::Invalid;
 	}
 
 #pragma endregion
@@ -344,7 +346,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S8 >(strtol(str, &inner_context, 10));
-		return (inner_context != str) ? 
+		return (str != inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -355,7 +357,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U8 >(strtoul(str, &inner_context, 10));
-		return (inner_context != str) ? 
+		return (str != inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -366,7 +368,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S16 >(strtol(str, &inner_context, 10));
-		return (inner_context != str) ? 
+		return (str != inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -377,7 +379,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U16 >(strtoul(str, &inner_context, 10));
-		return (inner_context != str) ? 
+		return (str != inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -388,7 +390,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S32 >(strtol(str, &inner_context, 10));
-		return (inner_context != str) ? 
+		return (str != inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -399,7 +401,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U32>(strtoul(str, &inner_context, 10));
-		return (inner_context != str) ? 
+		return (str != inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -410,7 +412,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< S64 >(strtoll(str, &inner_context, 10));
-		return (inner_context != str) ? 
+		return (str != inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -421,7 +423,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = static_cast< U64 >(strtoull(str, &inner_context, 10));
-		return (inner_context != str) ? 
+		return (str != inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -432,7 +434,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = strtof(str, &inner_context);
-		return (inner_context != str) ? 
+		return (str != inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 	
@@ -443,7 +445,7 @@ namespace mage {
 
 		char *inner_context = nullptr;
 		result = strtod(str, &inner_context);
-		return (inner_context != str) ? 
+		return (str != inner_context) ? 
 			TokenResult::Valid : TokenResult::Invalid;
 	}
 

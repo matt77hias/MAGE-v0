@@ -108,8 +108,7 @@ namespace mage {
 
 	template < typename VertexT >
 	void OBJReader< VertexT >::ReadOBJMaterialUse() {
-		const string mtl_name = ReadString();
-		m_model_output.SetMaterial(mtl_name);
+		m_model_output.SetMaterial(ReadString());
 	}
 
 	template < typename VertexT >
@@ -133,7 +132,7 @@ namespace mage {
 		const string parent = HasString() ? ReadString() : MAGE_MDL_PART_DEFAULT_PARENT;
 		
 		m_model_output.EndModelPart();
-		m_model_output.StartModelPart(child, parent);
+		m_model_output.StartModelPart(std::move(child), std::move(parent));
 	}
 
 	template < typename VertexT >

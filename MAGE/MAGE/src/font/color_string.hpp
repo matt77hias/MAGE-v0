@@ -31,39 +31,13 @@ namespace mage {
 		 Constructs a color string fromt the given string and color.
 
 		 @param[in]		str
-						A reference to the string.
+						The string.
 		 @param[in]		color
 						A reference to the sRGB color.
 		 */
-		explicit ColorString(const wstring &str, 
-			const SRGBA &color = color::White)
-			: m_str(str), m_color(color) {}
-		
-		/**
-		 Constructs a color string fromt the given string and color.
-
-		 @param[in]		str
-						A reference to the string.
-		 @param[in]		color
-						A reference to the sRGB color.
-		 */
-		explicit ColorString(wstring &&str, 
-			const SRGBA &color = color::White)
+		explicit ColorString(wstring str, const SRGBA &color = color::White)
 			: m_str(std::move(str)), m_color(color) {}
-
-		/**
-		 Constructs a color string fromt the given string and color.
-
-		 @pre			@a str is not equal to @c nullptr.
-		 @param[in]		str
-						A pointer to the string.
-		 @param[in]		color
-						A reference to the sRGB color.
-		 */
-		explicit ColorString(const wchar_t *str, 
-			const SRGBA &color = color::White)
-			: m_str(str), m_color(color) {}
-
+		
 		/**
 		 Constructs a color string from the given color string.
 
@@ -135,32 +109,10 @@ namespace mage {
 		 Sets the string of this color string to the given string.
 
 		 @param[in]		str
-						A reference to the string.
+						The string.
 		 */
-		void SetString(const wstring &str) {
-			m_str = str;
-		}
-
-		/**
-		 Sets the string of this color string to the given string.
-
-		 @param[in]		str
-						A reference to the string.
-		 */
-		void SetString(wstring &&str) noexcept {
+		void SetString(wstring str) noexcept {
 			m_str = std::move(str);
-		}
-
-		/**
-		 Sets the string of this color string to the given string.
-
-		 @pre			@a str is not equal to @c nullptr. 
-		 @param[in]		str
-						A pointer to the string.
-		 */
-		void SetString(const wchar_t *str) {
-			Assert(str);
-			m_str = str;
 		}
 
 		/**

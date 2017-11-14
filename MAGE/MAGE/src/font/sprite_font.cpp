@@ -144,19 +144,22 @@ namespace mage {
 		}
 	};
 
-	SpriteFont::SpriteFont(const wstring &fname, 
+	SpriteFont::SpriteFont(wstring fname, 
 		const SpriteFontDescriptor &desc)
-		: SpriteFont(fname, Pipeline::GetDevice(), desc) {}
+		: SpriteFont(std::move(fname), Pipeline::GetDevice(), desc) {}
 
-	SpriteFont::SpriteFont(const wstring &fname, ID3D11Device5 *device, 
+	SpriteFont::SpriteFont(wstring fname, ID3D11Device5 *device, 
 		const SpriteFontDescriptor &desc)
-		: Resource< SpriteFont >(fname), m_texture_srv(), m_glyphs(),
-		m_default_glyph(nullptr), m_line_spacing(0.0f) {
+		: Resource< SpriteFont >(std::move(fname)), 
+		m_texture_srv(), 
+		m_glyphs(),
+		m_default_glyph(nullptr), 
+		m_line_spacing(0.0f) {
 
 		Assert(device);
 
 		SpriteFontOutput output;
-		ImportSpriteFontFromFile(fname, device, output, desc);
+		ImportSpriteFontFromFile(GetFilename(), device, output, desc);
 
 		InitializeSpriteFont(output);
 	}

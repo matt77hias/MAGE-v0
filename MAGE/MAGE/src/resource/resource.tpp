@@ -15,8 +15,8 @@
 namespace mage {
 
 	template< typename ResourceT >
-	Resource< ResourceT >::Resource(const wstring &guid)
-		: m_guid(guid) {}
+	Resource< ResourceT >::Resource(wstring guid)
+		: m_guid(std::move(guid)) {}
 
 	template< typename ResourceT >
 	Resource< ResourceT >::Resource(Resource< ResourceT > &&resource) = default;

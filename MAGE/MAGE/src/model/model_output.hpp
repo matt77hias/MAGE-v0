@@ -42,25 +42,29 @@ namespace mage {
 		 Constructs a model part.
 
 		 @param[in]		child
-						A reference to the name.
+						The name.
 		 @param[in]		parent
-						A reference to the name of the parent.
+						The name of the parent.
 		 @param[in]		start_index
 						The start index.
 		 @param[in]		nb_indices
 						The number of indices.
-						A reference to the name of the material.
 		 @param[in]		material
-						A reference to the material name.
+						The name of the material.
 		 */
 		explicit ModelPart(
-			const string &child  = MAGE_MDL_PART_DEFAULT_CHILD, 
-			const string &parent = MAGE_MDL_PART_DEFAULT_PARENT,
-			U32 start_index = 0, U32 nb_indices = 0, 
-			const string &material = MAGE_MDL_PART_DEFAULT_MATERIAL)
-			: m_child(child), m_parent(parent), m_material(material),
-			m_start_index(start_index), m_nb_indices(nb_indices),
-			m_aabb(), m_bs() {}
+			string child    = MAGE_MDL_PART_DEFAULT_CHILD, 
+			string parent   = MAGE_MDL_PART_DEFAULT_PARENT,
+			U32 start_index = 0, 
+			U32 nb_indices  = 0, 
+			string material = MAGE_MDL_PART_DEFAULT_MATERIAL)
+			: m_child(std::move(child)), 
+			m_parent(std::move(parent)), 
+			m_material(std::move(material)),
+			m_start_index(start_index), 
+			m_nb_indices(nb_indices),
+			m_aabb(), 
+			m_bs() {}
 		
 		/**
 		 Constructs a model part from the given model part.
@@ -114,12 +118,12 @@ namespace mage {
 		/**
 		 The name of this model part.
 		 */
-		string m_child;
+		const string m_child;
 
 		/**
 		 The name of the parent model part of this model part.
 		 */
-		string m_parent;
+		const string m_parent;
 
 		/**
 		 The name of the material of this model part.
@@ -245,12 +249,12 @@ namespace mage {
 		 Starts the creation of a new model part.
 
 		 @param[in]		child
-						A reference to the name.
+						The name.
 		 @param[in]		parent
-						A reference to the name of the parent model part.
+						The name of the parent model part.
 		 */
-		void StartModelPart(const string &child, 
-			const string &parent = MAGE_MDL_PART_DEFAULT_PARENT);
+		void StartModelPart(string child, 
+			string parent = MAGE_MDL_PART_DEFAULT_PARENT);
 		
 		/**
 		 Sets the name of the material of the last model part to the given 
@@ -258,9 +262,9 @@ namespace mage {
 
 		 @pre			This model output contains at least one model part.
 		 @param[in]		material
-						A reference to the name of the material.
+						The name of the material.
 		 */
-		void SetMaterial(const string &material);
+		void SetMaterial(string material);
 		
 		/**
 		 Ends the creation of the last model part.

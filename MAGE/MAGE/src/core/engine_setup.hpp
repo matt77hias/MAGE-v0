@@ -41,10 +41,10 @@ namespace mage {
 		 @param[in]		hinstance
 						The application instance handle of the application.
 		 @param[in]		name
-						A reference to the name of the application.
+						The name of the application.
 		 */
-		explicit EngineSetup(HINSTANCE hinstance,
-			const wstring &name = MAGE_DEFAULT_APPLICATION_NAME);
+		explicit EngineSetup(HINSTANCE hinstance, 
+			wstring name = MAGE_DEFAULT_APPLICATION_NAME);
 
 		/**
 		 Constructs an engine setup from the given engine setup.

@@ -66,8 +66,8 @@ namespace mage {
 						A reference to the value.
 		 */
 		template< typename T >
-		Variable(VariableType type, const string &name, const T &value) 
-			: m_type(type), m_name(name), 
+		Variable(VariableType type, string name, const T &value) 
+			: m_type(type), m_name(std::move(name)), 
 			m_value(MakeUnique< Value< T > >(value)) {}
 
 		/**

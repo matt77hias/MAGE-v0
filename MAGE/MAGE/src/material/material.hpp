@@ -17,9 +17,9 @@
 namespace mage {
 
 	/**
-	 A struct of materials.
+	 A class of materials.
 	 */
-	struct Material final {
+	class Material final {
 
 	public:
 
@@ -33,9 +33,9 @@ namespace mage {
 		 @pre			The resource manager associated with the current engine 
 						must be loaded.
 		 @param[in]		name
-						A reference to the name of the material.		
+						The name of the material.		
 		 */
-		explicit Material(const string &name = "material");
+		explicit Material(string name = "material");
 		
 		/**
 		 Constructs a material from the given material.
@@ -98,19 +98,9 @@ namespace mage {
 		 Sets the name of this material to the given name.
 
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 */
-		void SetName(const string &name) {
-			m_name = name;
-		}
-		
-		/**
-		 Sets the name of this material to the given name.
-
-		 @param[in]		name
-						A reference to the name.
-		 */
-		void SetName(string &&name) {
+		void SetName(string name) noexcept {
 			m_name = std::move(name);
 		}
 		

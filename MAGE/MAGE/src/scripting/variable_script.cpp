@@ -13,8 +13,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VariableScript::VariableScript(const wstring &fname, bool import)
-		: Resource< VariableScript >(fname) {
+	VariableScript::VariableScript(wstring fname, bool import)
+		: Resource< VariableScript >(std::move(fname)) {
 
 		if (import) {
 			ImportScript();

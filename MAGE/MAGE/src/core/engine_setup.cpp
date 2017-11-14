@@ -13,8 +13,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	EngineSetup::EngineSetup(HINSTANCE hinstance, const wstring &name)
-		: m_hinstance(hinstance), m_name(name) {
+	EngineSetup::EngineSetup(HINSTANCE hinstance, wstring name)
+		: m_hinstance(hinstance), m_name(std::move(name)) {
 
 		Assert(m_hinstance);
 	}

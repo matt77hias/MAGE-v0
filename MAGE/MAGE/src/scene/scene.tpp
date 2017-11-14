@@ -7,10 +7,10 @@ namespace mage {
 
 	template< typename SceneNodeT, typename... ConstructorArgsT >
 	SharedPtr< SceneNodeT > Scene::Create(
-		const string &name, ConstructorArgsT&&... args) {
+		string name, ConstructorArgsT&&... args) {
 		
 		SharedPtr< SceneNodeT > node = MakeShared< SceneNodeT >(
-			name, std::forward< ConstructorArgsT >(args)...);
+			std::move(name), std::forward< ConstructorArgsT >(args)...);
 
 		// Add this node to this scene.
 		AddSceneNode(node);

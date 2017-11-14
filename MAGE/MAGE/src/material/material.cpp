@@ -15,8 +15,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Material::Material(const string &name)
-		: m_name(name), 
+	Material::Material(string name)
+		: m_name(std::move(name)), 
 		m_light_interaction(true), 
 		m_transparent(false), 
 		m_base_color(SRGBA(1.0f)),

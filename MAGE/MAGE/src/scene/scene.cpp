@@ -12,11 +12,18 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	Scene::Scene(const string &name)
-		: m_name(name), 
-		m_scripts(), m_cameras(), m_models(), m_directional_lights(), 
-		m_omni_lights(), m_spot_lights(), m_sprites(),
-		m_ambient_light(), m_scene_fog(), m_sky() {}
+	Scene::Scene(string name)
+		: m_name(std::move(name)), 
+		m_scripts(), 
+		m_cameras(), 
+		m_models(), 
+		m_directional_lights(), 
+		m_omni_lights(), 
+		m_spot_lights(), 
+		m_sprites(),
+		m_ambient_light(), 
+		m_scene_fog(), 
+		m_sky() {}
 
 	Scene::~Scene() {
 		// Clears this scene.

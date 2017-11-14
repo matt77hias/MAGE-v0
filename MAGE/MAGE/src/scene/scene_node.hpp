@@ -29,9 +29,9 @@ namespace mage {
 		 Constructs a scene node.
 
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 */
-		explicit SceneNode(const string &name);
+		explicit SceneNode(string name);
 
 		/**
 		 Constructs a scene node from the given scene node.
@@ -104,31 +104,10 @@ namespace mage {
 		 Sets the name of this scene node to the given string.
 
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 */
-		void SetName(const string &name) {
-			m_name = name;
-		}
-
-		/**
-		 Sets the name of this scene node to the given string.
-
-		 @param[in]		name
-						A reference to the name.
-		 */
-		void SetName(string &&name) noexcept {
+		void SetName(string name) noexcept {
 			m_name = std::move(name);
-		}
-
-		/**
-		 Sets the name of this scene node to the given string.
-
-		 @pre			@a name is not equal to @c nullptr.
-		 @param[in]		name
-						A pointer to the name.
-		 */
-		void SetString(const char *name) {
-			m_name = name;
 		}
 
 	private:

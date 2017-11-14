@@ -12,8 +12,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	SceneNode::SceneNode(const string &name)
-		: m_name(name) {}
+	SceneNode::SceneNode(string name)
+		: m_name(std::move(name)) {}
 
 	SceneNode::SceneNode(const SceneNode &scene_node) = default;
 

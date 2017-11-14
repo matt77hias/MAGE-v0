@@ -33,23 +33,23 @@ namespace mage {
 		 @tparam		ConstructorArgsT
 						The constructor argument types of the model.
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 @param[in]		args
 						A reference to the constructor arguments for the model.
 		 */
 		template< typename... ConstructorArgsT >
-		explicit ModelNode(const string &name, ConstructorArgsT&&... args);
+		explicit ModelNode(string name, ConstructorArgsT&&... args);
 
 		/**
 		 Constructs a model node.
 
 		 @pre			@a model refers to a non @c nullptr.
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 @param[in]		model
 						A reference to the model to move.
 		 */
-		explicit ModelNode(const string &name, UniquePtr< Model > &&model);
+		explicit ModelNode(string name, UniquePtr< Model > &&model);
 
 		/**
 		 Constructs a model node from the given model node.

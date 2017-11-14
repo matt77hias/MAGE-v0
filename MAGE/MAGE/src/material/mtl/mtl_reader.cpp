@@ -71,8 +71,7 @@ namespace mage {
 	}
 
 	void MTLReader::ReadMTLMaterialName() {
-		const string material_name = ReadString();
-		m_material_buffer.emplace_back(material_name);
+		m_material_buffer.emplace_back(ReadString());
 	}
 
 	void MTLReader::ReadMTLBaseColor() {

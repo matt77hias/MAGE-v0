@@ -40,9 +40,8 @@ namespace mage {
 
 	template < typename VertexT >
 	void MDLReader< VertexT >::ImportMesh() {
-		const wstring &fname = GetFilename();
 		const wstring msh_fname 
-			= mage::GetFilenameWithoutFileExtension(fname) + L".msh";
+			= mage::GetFilenameWithoutFileExtension(GetFilename()) + L".msh";
 		ImportMSHMeshFromFile(msh_fname, 
 			m_model_output.m_vertex_buffer, m_model_output.m_index_buffer);
 	}
@@ -74,14 +73,16 @@ namespace mage {
 
 	template < typename VertexT >
 	void MDLReader< VertexT >::ReadMDLSubModel() {
-		ModelPart model_part;
-		model_part.m_child       = ReadString();
-		model_part.m_parent      = ReadString();
-		model_part.m_material    = ReadString();
-		model_part.m_start_index = ReadU32();
-		model_part.m_nb_indices  = ReadU32();
-
-		m_model_output.AddModelPart(std::move(model_part));
+		string child         = ReadString();
+		string parent        = ReadString();
+		string material      = ReadString();
+		const U32 start      = ReadU32();
+		const U32 nb_indices = ReadU32();
+		
+		m_model_output.AddModelPart(ModelPart(std::move(child), 
+			                                  std::move(parent),
+			                                  start, nb_indices, 
+			                                  std::move(material)));
 	}
 
 	template < typename VertexT >

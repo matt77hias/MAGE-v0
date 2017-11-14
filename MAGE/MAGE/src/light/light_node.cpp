@@ -13,8 +13,9 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	LightNode::LightNode(const string &name, UniquePtr< Light > &&light)
-		: SceneNode(name), m_light(std::move(light)) {
+	LightNode::LightNode(string name, UniquePtr< Light > &&light)
+		: SceneNode(std::move(name)), 
+		m_light(std::move(light)) {
 		
 		Assert(m_light);
 	}

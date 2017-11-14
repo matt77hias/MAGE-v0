@@ -51,13 +51,10 @@ namespace mage {
 		const string &GetName() const noexcept {
 			return m_name;
 		}
-		void SetName(const string &name) {
-			m_name = name;
-		}
-		void SetName(string &&name) noexcept {
+		void SetName(string name) noexcept {
 			m_name = std::move(name);
 		}
-
+		
 		//-------------------------------------------------------------------------
 		// Member Methods: Lifecycle
 		//-------------------------------------------------------------------------
@@ -95,8 +92,7 @@ namespace mage {
 		}
 
 		template< typename SceneNodeT, typename... ConstructorArgsT >
-		SharedPtr< SceneNodeT > Create(
-			const string &name, ConstructorArgsT&&... args);
+		SharedPtr< SceneNodeT > Create(string name, ConstructorArgsT&&... args);
 		SharedPtr< ModelNode > CreateModel(const ModelDescriptor &desc);
 		
 		//-------------------------------------------------------------------------
@@ -155,7 +151,7 @@ namespace mage {
 		// Constructors
 		//---------------------------------------------------------------------
 
-		explicit Scene(const string &name);
+		explicit Scene(string name);
 		Scene(const Scene &scene) = delete;
 		Scene(Scene &&scene) = default;
 

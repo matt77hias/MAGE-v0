@@ -148,11 +148,11 @@ namespace mage {
 
 		 @pre			@a camera refers to a non @c nullptr.
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 @param[in]		camera
 						A reference to the camera to move.
 		 */
-		explicit CameraNode(const string &name, UniquePtr< Camera > &&camera);
+		explicit CameraNode(string name, UniquePtr< Camera > &&camera);
 		
 		/**
 		 Constructs a camera node from the given camera node.
@@ -228,26 +228,24 @@ namespace mage {
 		 @tparam		ConstructorArgsT
 						The constructor argument types of the camera.
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 @param[in]		args
 						A reference to the constructor arguments for the 
 						camera.
 		 */
 		template< typename... ConstructorArgsT >
-		explicit DerivedCameraNode(
-			const string &name, ConstructorArgsT&&... args);
+		explicit DerivedCameraNode(string name, ConstructorArgsT&&... args);
 		
 		/**
 		 Constructs a derived camera node.
 
 		 @pre			@a camera refers to a non @c nullptr.
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 @param[in]		camera
 						A reference to the camera to move.
 		 */
-		explicit DerivedCameraNode(
-			const string &name, UniquePtr< CameraT > &&camera);
+		explicit DerivedCameraNode(string name, UniquePtr< CameraT > &&camera);
 		
 		/**
 		 Constructs a derived camera node from the given derived camera node.

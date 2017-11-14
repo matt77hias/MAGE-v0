@@ -31,8 +31,7 @@ namespace mage {
 		 Constructs a variable script.
 
 		 @param[in]		fname
-						A reference to the filename
-						(the globally unique identifier).
+						The filename (the globally unique identifier).
 		 @param[in]		import
 						Flag indicating whether the variables of the variable 
 						script need to be imported.
@@ -40,7 +39,7 @@ namespace mage {
 						Failed to import the variable script from file (only 
 						possible if @a import is equal to @c true).
 		 */
-		explicit VariableScript(const wstring &fname, bool import = true);
+		explicit VariableScript(wstring fname, bool import = true);
 
 		/**
 		 Constructs a variable script from the given variable script.

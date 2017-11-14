@@ -6,24 +6,23 @@
 namespace mage {
 
 	template < typename VertexT >
-	ModelDescriptor::ModelDescriptor(const wstring &fname, 
+	ModelDescriptor::ModelDescriptor(wstring fname, 
 		const MeshDescriptor< VertexT > &desc, bool export_as_MDL)
-		: ModelDescriptor(fname, Pipeline::GetDevice(), 
+		: ModelDescriptor(std::move(fname), Pipeline::GetDevice(), 
 			desc, export_as_MDL) {}
 
 	template < typename VertexT >
-	ModelDescriptor::ModelDescriptor(const wstring &fname, 
-		ID3D11Device5 *device,
+	ModelDescriptor::ModelDescriptor(wstring fname, ID3D11Device5 *device,
 		const MeshDescriptor< VertexT > &desc, bool export_as_MDL)
-		: Resource< ModelDescriptor >(fname), m_mesh(), 
+		: Resource< ModelDescriptor >(std::move(fname)), m_mesh(), 
 		m_materials(), m_model_parts() {
 
 		ModelOutput< VertexT > buffer;
-		ImportModelFromFile(fname, buffer, desc);
+		ImportModelFromFile(GetFilename(), buffer, desc);
 
 		if (export_as_MDL) {
 			const wstring mdl_fname 
-				= mage::GetFilenameWithoutFileExtension(fname) + L".mdl";
+				= mage::GetFilenameWithoutFileExtension(GetFilename()) + L".mdl";
 			ExportModelToFile(mdl_fname, buffer);
 		}
 

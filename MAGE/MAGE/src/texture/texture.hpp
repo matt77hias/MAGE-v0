@@ -18,7 +18,7 @@ namespace mage {
 	/**
 	 A class of textures.
 	 */
-	class Texture : public Resource< const Texture > {
+	class Texture : public Resource< Texture > {
 
 	public:
 
@@ -32,12 +32,11 @@ namespace mage {
 		 @pre			The device associated of the rendering manager 
 						associated with the current engine must be loaded.
 		 @param[in]		fname
-						A reference to the filename (the globally unique 
-						identifier).
+						The filename (the globally unique identifier).
 		 @throws		FormattedException
 						Failed to initialize the texture.
 		 */
-		explicit Texture(const wstring &fname);
+		explicit Texture(wstring fname);
 
 		/**
 		 Constructs a texture.
@@ -46,14 +45,13 @@ namespace mage {
 		 @pre			The renderer associated with the current engine must be 
 						loaded.
 		 @param[in]		fname
-						A reference to the filename (the globally unique 
-						identifier).
+						The filename (the globally unique identifier).
 		 @param[in]		device
 						A pointer to the device.
 		 @throws		FormattedException
 						Failed to initialize the texture.
 		 */
-		explicit Texture(const wstring &fname, ID3D11Device5 *device);
+		explicit Texture(wstring fname, ID3D11Device5 *device);
 
 		/**
 		 Constructs a 2D texture.
@@ -63,7 +61,7 @@ namespace mage {
 		 @pre			@a desc is not equal to @c nullptr.
 		 @pre			@a initial_data is not equal to @c nullptr.
 		 @param[in]		guid
-						A reference to the globally unique identifier.
+						The globally unique identifier.
 		 @param[in]		desc
 						A pointer to the texture descriptor.
 		 @param[in]		initial_data
@@ -71,7 +69,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize the texture.
 		 */
-		explicit Texture(const wstring &guid,
+		explicit Texture(wstring guid,
 			const D3D11_TEXTURE2D_DESC *desc,
 			const D3D11_SUBRESOURCE_DATA *initial_data);
 
@@ -82,7 +80,7 @@ namespace mage {
 		 @pre			@a desc is not equal to @c nullptr.
 		 @pre			@a initial_data is not equal to @c nullptr.
 		 @param[in]		guid
-						A reference to the globally unique identifier.
+						The globally unique identifier.
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		desc
@@ -92,7 +90,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize the texture.
 		 */
-		explicit Texture(const wstring &guid, ID3D11Device5 *device,
+		explicit Texture(wstring guid, ID3D11Device5 *device,
 			const D3D11_TEXTURE2D_DESC *desc,
 			const D3D11_SUBRESOURCE_DATA *initial_data);
 

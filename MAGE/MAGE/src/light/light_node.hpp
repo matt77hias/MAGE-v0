@@ -101,11 +101,11 @@ namespace mage {
 
 		 @pre			@a light refers to a non @c nullptr.
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 @param[in]		light
 						A reference to the light to move.
 		 */
-		explicit LightNode(const string &name, UniquePtr< Light > &&light);
+		explicit LightNode(string name, UniquePtr< Light > &&light);
 
 		/**
 		 Constructs a light node from the given light node.
@@ -171,25 +171,23 @@ namespace mage {
 		 @tparam		ConstructorArgsT
 						The constructor argument types of the light.
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 @param[in]		args
 						A reference to the constructor arguments for the light.
 		 */
 		template< typename... ConstructorArgsT >
-		explicit DerivedLightNode(
-			const string &name, ConstructorArgsT&&... args);
+		explicit DerivedLightNode(string name, ConstructorArgsT&&... args);
 
 		/**
 		 Constructs a derived light node.
 
 		 @pre			@a light refers to a non @c nullptr.
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 @param[in]		light
 						A reference to the light to move.
 		 */
-		explicit DerivedLightNode(
-			const string &name, UniquePtr< LightT > &&light);
+		explicit DerivedLightNode(string name, UniquePtr< LightT > &&light);
 
 		/**
 		 Constructs a derived light node from the given derived light node.

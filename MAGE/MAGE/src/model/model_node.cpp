@@ -13,8 +13,8 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	ModelNode::ModelNode(const string &name, UniquePtr< Model > &&model)
-		: SceneNode(name), 
+	ModelNode::ModelNode(string name, UniquePtr< Model > &&model)
+		: SceneNode(std::move(name)), 
 		m_model(std::move(model)),
 		m_texture_transform(MakeUnique< TextureTransform >()) {
 		

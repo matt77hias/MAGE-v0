@@ -8,14 +8,14 @@ namespace mage {
 	template< typename CameraT >
 	template< typename... ConstructorArgsT >
 	DerivedCameraNode< CameraT >::DerivedCameraNode(
-		const string &name, ConstructorArgsT&&... args)
-		: CameraNode(name, 
+		string name, ConstructorArgsT&&... args)
+		: CameraNode(std::move(name),
 			MakeUnique< CameraT >(std::forward< ConstructorArgsT >(args)...)) {}
 
 	template< typename CameraT >
 	DerivedCameraNode< CameraT >::DerivedCameraNode(
-		const string &name, UniquePtr< CameraT > &&camera)
-		: CameraNode(name, std::move(camera)) {}
+		string name, UniquePtr< CameraT > &&camera)
+		: CameraNode(std::move(name), std::move(camera)) {}
 
 	template< typename CameraT >
 	DerivedCameraNode< CameraT >::DerivedCameraNode(

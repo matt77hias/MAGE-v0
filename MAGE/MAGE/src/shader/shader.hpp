@@ -39,7 +39,7 @@ namespace mage {
 						@a nb_input_elements elements, if @a input_element_desc 
 						is not equal to @c nullptr.
 		 @param[in]		guid
-						A reference to the globally unique identifier.
+						The globally unique identifier.
 		 @param[in]		compiled_shader
 						A reference to the compiled vertex shader.
 		 @param[in]		input_element_desc
@@ -50,7 +50,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize this vertex shader.
 		 */
-		explicit VertexShader(const wstring &guid,
+		explicit VertexShader(wstring guid,
 			const CompiledShader &compiled_shader,
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
 			size_t nb_input_elements);
@@ -63,7 +63,7 @@ namespace mage {
 						@a nb_input_elements elements, if @a input_element_desc 
 						is not equal to @c nullptr.
 		 @param[in]		guid
-						A reference to the globally unique identifier.
+						The globally unique identifier.
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		compiled_shader
@@ -76,7 +76,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize this vertex shader.
 		*/
-		explicit VertexShader(const wstring &guid, ID3D11Device5 *device, 
+		explicit VertexShader(wstring guid, ID3D11Device5 *device, 
 			const CompiledShader &compiled_shader, 
 			const D3D11_INPUT_ELEMENT_DESC *input_element_desc, 
 			size_t nb_input_elements);
@@ -214,13 +214,13 @@ namespace mage {
 		 @pre			The device associated of the rendering manager 
 						associated with the current engine must be loaded.
 		 @param[in]		guid
-						A reference to the globally unique identifier.
+						The globally unique identifier.
 		 @param[in]		compiled_shader
 						A reference to the compiled shader.
 		 @throws		FormattedException
 						Failed to initialize this shader.
 		 */
-		explicit Shader(const wstring &guid, 
+		explicit Shader(wstring guid, 
 			const CompiledShader &compiled_shader);
 
 		/**
@@ -228,7 +228,7 @@ namespace mage {
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		guid
-						A reference to the globally unique identifier.
+						The globally unique identifier.
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		compiled_shader
@@ -236,7 +236,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to initialize this shader.
 		 */
-		explicit Shader(const wstring &guid, ID3D11Device5 *device,
+		explicit Shader(wstring guid, ID3D11Device5 *device,
 			const CompiledShader &compiled_shader);
 		
 		/**

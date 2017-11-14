@@ -36,8 +36,7 @@ namespace mage {
 		 @tparam		VertexT
 						The vertex type.
 		 @param[in]		fname
-						A reference to the filename
-						(the globally unique identifier).
+						The filename (the globally unique identifier).
 		 @param[in]		desc
 						A reference to the mesh descriptor.
 		 @param[in]		export_as_MDL
@@ -47,7 +46,7 @@ namespace mage {
 						Failed to initialize the model descriptor.
 		 */
 		template < typename VertexT >
-		explicit ModelDescriptor(const wstring &fname, 
+		explicit ModelDescriptor(wstring fname, 
 			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >(),
 			bool export_as_MDL = false);
 
@@ -60,8 +59,7 @@ namespace mage {
 		 @tparam		VertexT
 						The vertex type.
 		 @param[in]		fname
-						A reference to the filename
-						(the globally unique identifier).
+						The filename (the globally unique identifier).
 		 @param[in]		device
 						A pointer to the device.
 		 @param[in]		desc
@@ -73,7 +71,7 @@ namespace mage {
 						Failed to initialize the model descriptor.
 		 */
 		template < typename VertexT >
-		explicit ModelDescriptor(const wstring &fname, ID3D11Device5 *device,
+		explicit ModelDescriptor(wstring fname, ID3D11Device5 *device,
 			const MeshDescriptor< VertexT > &desc = MeshDescriptor< VertexT >(),
 			bool export_as_MDL = false);
 		

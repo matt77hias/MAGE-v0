@@ -119,11 +119,11 @@ namespace mage {
 
 		 @pre			@a sprite refers to a non @c nullptr.
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 @param[in]		sprite
 						A reference to the sprite to move.
 		 */
-		explicit SpriteNode(const string &name, UniquePtr< Sprite > &&sprite);
+		explicit SpriteNode(string name, UniquePtr< Sprite > &&sprite);
 
 		/**
 		 Constructs a sprite node from the given sprite node.
@@ -189,26 +189,24 @@ namespace mage {
 		 @tparam		ConstructorArgsT
 						The constructor argument types of the Sprite.
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 @param[in]		args
 						A reference to the constructor arguments for the 
 						sprite.
 		 */
 		template< typename... ConstructorArgsT >
-		explicit DerivedSpriteNode(
-			const string &name, ConstructorArgsT&&... args);
+		explicit DerivedSpriteNode(string name, ConstructorArgsT&&... args);
 
 		/**
 		 Constructs a derived sprite node.
 
 		 @pre			@a sprite refers to a non @c nullptr.
 		 @param[in]		name
-						A reference to the name.
+						The name.
 		 @param[in]		sprite
 						A reference to the Sprite to move.
 		 */
-		explicit DerivedSpriteNode(
-			const string &name, UniquePtr< SpriteT > &&sprite);
+		explicit DerivedSpriteNode(string name, UniquePtr< SpriteT > &&sprite);
 
 		/**
 		 Constructs a derived sprite node from the given derived sprite node.

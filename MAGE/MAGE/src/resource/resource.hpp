@@ -37,9 +37,9 @@ namespace mage {
 		 Constructs a resource.
 
 		 @param[in]		guid
-						A reference to the globally unique identifier.
+						The globally unique identifier.
 		 */
-		explicit Resource(const wstring &guid);
+		explicit Resource(wstring guid);
 
 		/**
 		 Constructs a resource from the given resource.

@@ -37,18 +37,18 @@ namespace mage {
 
 	template < typename VertexT >
 	inline void ModelOutput< VertexT >::StartModelPart(
-		const string &child, const string &parent) {
+		string child, string parent) {
 		
 		const U32 start = static_cast< U32 >(m_index_buffer.size());
-		m_model_parts.emplace_back(child, parent, start);
+		m_model_parts.emplace_back(std::move(child), std::move(parent), start);
 	}
 
 	template < typename VertexT >
-	inline void ModelOutput< VertexT >::SetMaterial(const string &material) {
+	inline void ModelOutput< VertexT >::SetMaterial(string material) {
 		Assert(!m_model_parts.empty());
 
 		ModelPart &current = m_model_parts.back();
-		current.m_material = material;
+		current.m_material = std::move(material);
 	}
 
 	template < typename VertexT >

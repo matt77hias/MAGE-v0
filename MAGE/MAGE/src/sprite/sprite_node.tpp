@@ -8,14 +8,14 @@ namespace mage {
 	template< typename SpriteT >
 	template< typename... ConstructorArgsT >
 	DerivedSpriteNode< SpriteT >::DerivedSpriteNode(
-		const string &name, ConstructorArgsT&&... args)
-		: SpriteNode(name, 
+		string name, ConstructorArgsT&&... args)
+		: SpriteNode(std::move(name),
 			MakeUnique< SpriteT >(std::forward< ConstructorArgsT >(args)...)) {}
 
 	template< typename SpriteT >
 	DerivedSpriteNode< SpriteT >::DerivedSpriteNode(
-		const string &name, UniquePtr< SpriteT > &&sprite)
-		: SpriteNode(name, std::move(sprite)) {}
+		string name, UniquePtr< SpriteT > &&sprite)
+		: SpriteNode(std::move(name), std::move(sprite)) {}
 
 	template< typename SpriteT >
 	DerivedSpriteNode< SpriteT >::DerivedSpriteNode(

@@ -70,6 +70,8 @@ GAMMA E., HELM R., JOHNSON R., VLISSIDES J. M.: Design Patterns: *Elements of Re
 
 GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.
 
+GRUEN H.: [*Constant Buffers without Constant Pain*](https://developer.nvidia.com/content/constant-buffers-without-constant-pain-0), 2015.
+
 HABLE J.: [*Filmic Tonemapping Operators*](http://filmicworlds.com/blog/filmic-tonemapping-operators/), 2010.
 
 HABLE J.: [*Linear-Space Lighting (i.e. Gamma)*](http://filmicworlds.com/blog/linear-space-lighting-i-e-gamma/), 2010.
@@ -179,6 +181,8 @@ SMITH B.: *Geometrical shadowing of a random rough surface*, *IEEE Trans. Ant. a
 SCHÜLER C.: [*Followup: Normal Mapping Without Precomputed Tangents*](http://www.thetenthplanet.de/archives/1180), 2013.
 
 SHIRLEY P.: *Fundamentals of Computer Graphics*, 3th Edition, A K Peters/CRC Press, 2009.
+
+SPIRO L.: [*Scene Graphs*](http://lspiroengine.com/?p=566), 2013.
 
 TAKESHIGE M.: [*The Basics of GPU Voxelization*](https://developer.nvidia.com/content/basics-gpu-voxelization), 2015.
 

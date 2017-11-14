@@ -21,6 +21,8 @@ namespace mage {
 	__declspec(align(16)) class TextureTransform final 
 		: public AlignedData< TextureTransform > {
 
+	public:
+
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------

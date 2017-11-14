@@ -151,6 +151,8 @@ namespace mage {
 	__declspec(align(16)) class SpriteTransform final 
 		: public AlignedData< SpriteTransform > {
 
+	public:
+
 		//---------------------------------------------------------------------
 		// Constructors and Destructors
 		//---------------------------------------------------------------------

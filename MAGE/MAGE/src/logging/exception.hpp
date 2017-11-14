@@ -29,7 +29,7 @@ namespace mage {
 	/**
 	 A class of formatted exceptions.
 	 */
-	class FormattedException : exception {
+	class FormattedException : public exception {
 
 	public:
 

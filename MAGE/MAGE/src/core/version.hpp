@@ -17,7 +17,7 @@
 // The version numbers (major/minor/patch) must be macros, allowing the use of 
 // these numbers in preprocessor directives (e.g. if).
 #define MAGE_VERSION_MAJOR 0
-#define MAGE_VERSION_MINOR 107
+#define MAGE_VERSION_MINOR 108
 #define MAGE_VERSION_PATCH 0
 
 #define MAGE_QUOTE(S) #S

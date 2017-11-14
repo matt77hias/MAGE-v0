@@ -90,6 +90,8 @@ ISHEDEN D.: [*HDR inverse tone mapping MSAA resolve*](http://theagentd.blogspot.
 
 JIMENEZ J.: Next Generation Post Processing in Call of Duty Advanced Warfare, *SIGGRAPH 2014 Course: Advances in Real-Time Rendering in Games*, 2014.
 
+JOSUTTIS N.: [*The Nightmare of Move Semantics for Trivial Classes*](https://www.youtube.com/watch?v=PNRju6_yn3o&t=722s), *CppCon 2017*, 2017.
+
 KARIS B.: *Real Shading in Unreal Engine 4*, *SIGGRAPH 2013 Course: Physically Based Shading in Theory and Practice*, 2013.
 
 KARIS B.: [*Specular BRDF Reference*](http://graphicrants.blogspot.be/2013/08/specular-brdf-reference.html), 2013. 

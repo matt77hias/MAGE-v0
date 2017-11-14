@@ -253,7 +253,6 @@ Uses:
 * [Nathan Reed](https://github.com/Reedbeta)
 * [Nicolas Silvagni](https://github.com/galop1n)
 * [Roald Frederickx](https://github.com/RoaldFre)
-* Scott Meyers
 * Styves
 * [GameDev.net](https://www.gamedev.net/) community
 * [Computer Graphics StackExchange](https://computergraphics.stackexchange.com/) community

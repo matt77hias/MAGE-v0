@@ -333,27 +333,27 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 A struct of hull shaders.
+	 A class of hull shaders.
 	 */
 	using HullShader = Shader< ID3D11HullShader, Pipeline::HS >;
 
 	/**
-	 A struct of domain shaders.
+	 A class of domain shaders.
 	 */
 	using DomainShader = Shader< ID3D11DomainShader, Pipeline::DS >;
 
 	/**
-	 A struct of geometry shaders.
+	 A class of geometry shaders.
 	 */
 	using GeometryShader = Shader< ID3D11GeometryShader, Pipeline::GS >;
 
 	/**
-	 A struct of pixel shaders.
+	 A class of pixel shaders.
 	 */
 	using PixelShader = Shader< ID3D11PixelShader, Pipeline::PS >;
 
 	/**
-	 A struct of compute shaders.
+	 A class of compute shaders.
 	 */
 	using ComputeShader = Shader< ID3D11ComputeShader, Pipeline::CS >;
 }

@@ -15,9 +15,9 @@
 namespace mage {
 
 	/**
-	 A struct of engine statistics.
+	 A class of engine statistics.
 	 */
-	struct EngineStatistics final {
+	class EngineStatistics final {
 
 	public:
 

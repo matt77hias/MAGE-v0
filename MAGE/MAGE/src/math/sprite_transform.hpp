@@ -146,9 +146,9 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 A struct of sprite transforms.
+	 A class of sprite transforms.
 	 */
-	__declspec(align(16)) struct SpriteTransform final 
+	__declspec(align(16)) class SpriteTransform final 
 		: public AlignedData< SpriteTransform > {
 
 		//---------------------------------------------------------------------

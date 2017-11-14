@@ -15,9 +15,9 @@
 namespace mage {
 
 	/**
-	 A struct of logging configurations of the engine processing.
+	 A class of logging configurations of the engine processing.
 	 */
-	struct LoggingConfiguration final {
+	class LoggingConfiguration final {
 
 	public:
 

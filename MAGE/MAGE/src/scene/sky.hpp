@@ -15,9 +15,9 @@
 namespace mage {
 
 	/**
-	 A struct of skies.
+	 A class of skies.
 	 */
-	struct Sky final {
+	class Sky final {
 
 	public:
 

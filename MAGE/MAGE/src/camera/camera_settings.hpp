@@ -17,9 +17,9 @@
 namespace mage {
 
 	/**
-	 A struct of camera settingss.
+	 A class of camera settingss.
 	 */
-	struct CameraSettings final {
+	class CameraSettings final {
 
 	public:
 

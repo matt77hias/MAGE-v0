@@ -29,7 +29,7 @@ namespace mage {
 	/**
 	 A class of formatted exceptions.
 	 */
-	struct FormattedException : exception {
+	class FormattedException : exception {
 
 	public:
 

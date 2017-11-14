@@ -16,9 +16,9 @@
 namespace mage {
 
 	/**
-	 A struct of texture transforms.
+	 A class of texture transforms.
 	 */
-	__declspec(align(16)) struct TextureTransform final 
+	__declspec(align(16)) class TextureTransform final 
 		: public AlignedData< TextureTransform > {
 
 		//---------------------------------------------------------------------

@@ -16,7 +16,7 @@
 namespace mage {
 
 	/**
-	 A struct of scene fog with respect to the camera position (eye) to avoid 
+	 A class of scene fog with respect to the camera position (eye) to avoid 
 	 popping artifacts while moving.
 	 */
 	class SceneFog final {

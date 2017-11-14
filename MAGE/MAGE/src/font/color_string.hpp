@@ -17,9 +17,9 @@
 namespace mage {
 
 	/**
-	 A struct of color strings representing a string and its color.
+	 A class of color strings representing a string and its color.
 	 */
-	struct ColorString final {
+	class ColorString final {
 
 	public:
 

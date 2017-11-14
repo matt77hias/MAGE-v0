@@ -20,9 +20,9 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	/**
-	 A struct of transform nodes.
+	 A class of transform nodes.
 	 */
-	__declspec(align(16)) struct TransformNode final 
+	__declspec(align(16)) class TransformNode final 
 		: public AlignedData< TransformNode > {
 
 	public:

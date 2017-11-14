@@ -28,7 +28,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A construct a MTL reader.
+		 Constructs a MTL reader.
 		 
 		 @param[in]		material_buffer
 						A reference to a vector for storing the read materials 

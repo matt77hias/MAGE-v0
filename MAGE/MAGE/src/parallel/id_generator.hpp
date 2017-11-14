@@ -15,9 +15,9 @@
 namespace mage {
 
 	/**
-	 A struct of id generators.
+	 A class of id generators.
 	 */
-	struct IdGenerator final {
+	class IdGenerator final {
 
 	public:
 

@@ -16,9 +16,9 @@
 namespace mage {
 
 	/**
-	 A struct of transforms.
+	 A class of transforms.
 	 */
-	__declspec(align(16)) struct Transform final 
+	__declspec(align(16)) class Transform final 
 		: public AlignedData< Transform > {
 
 	public:

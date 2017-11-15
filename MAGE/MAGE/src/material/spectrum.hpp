@@ -762,38 +762,38 @@ namespace mage {
 #pragma endregion
 
 	//-------------------------------------------------------------------------
-	// Conversions: Linear <-> sRGB
+	// Conversions: (linear) RGB <-> sRGB
 	//-------------------------------------------------------------------------
 
 	/**
-	 Converts the given spectrum from linear to sRGB space.
+	 Converts the given spectrum from (linear) RGB to sRGB space.
 
 	 @param[in]		linear
-					The spectrum in linear space.
+					The spectrum in (linear) RGB space.
 	 @return		The spectrum in sRGB space.
 	 @note			The alpha channel of the given spectrum is preserved.
 	 */
-	inline const XMVECTOR XM_CALLCONV LinearToSRGB(FXMVECTOR linear) noexcept {
+	inline const XMVECTOR XM_CALLCONV RGBtoSRGB(FXMVECTOR rgb) noexcept {
 		// Frostbite's conversion
 		static const float exp = 1.0f / 2.4f;
 		
-		const XMVECTOR low  = linear * 12.92f;
-		const XMVECTOR high = 1.055f * XMVectorPow(linear, XMVectorReplicate(exp))
+		const XMVECTOR low  = rgb * 12.92f;
+		const XMVECTOR high = 1.055f * XMVectorPow(rgb, XMVectorReplicate(exp))
 			                - XMVectorReplicate(0.055f);
-		const XMVECTOR comp = XMVectorLessOrEqual(linear, XMVectorReplicate(0.0031308f));
+		const XMVECTOR comp = XMVectorLessOrEqual(rgb, XMVectorReplicate(0.0031308f));
 		
-		return XMVectorSetW(XMVectorSelect(high, low, comp), XMVectorGetW(linear));
+		return XMVectorSetW(XMVectorSelect(high, low, comp), XMVectorGetW(rgb));
 	}
 
 	/**
-	 Converts the given spectrum from sRGB to linear space.
+	 Converts the given spectrum from sRGB to (linear) RGB space.
 
 	 @param[in]		srgb
 					The spectrum in sRGB space.
-	 @return		The spectrum in linear space.
+	 @return		The spectrum in (linear) RGB space.
 	 @note			The alpha channel of the given spectrum is preserved.
 	 */
-	inline const XMVECTOR XM_CALLCONV SRGBToLinear(FXMVECTOR srgb) noexcept {
+	inline const XMVECTOR XM_CALLCONV SRGBtoRGB(FXMVECTOR srgb) noexcept {
 		// Frostbite's conversion
 		static const float mlow  = 1.0f / 12.92f;
 		static const float mhigh = 1.0f / 1.055f;
@@ -807,55 +807,63 @@ namespace mage {
 		return XMVectorSetW(XMVectorSelect(high, low, comp), XMVectorGetW(srgb));
 	}
 
-	//-------------------------------------------------------------------------
-	// Conversions: RGB <-> sRGB
-	//-------------------------------------------------------------------------
-
 	inline RGB::RGB(const SRGB &srgb) noexcept {
-		XMStoreFloat3(this, SRGBToLinear(XMLoadFloat3(&srgb)));
+		XMStoreFloat3(this, SRGBtoRGB(XMLoadFloat3(&srgb)));
 	}
 
 	inline SRGB::SRGB(const RGB &rgb) noexcept {
-		XMStoreFloat3(this, LinearToSRGB(XMLoadFloat3(&rgb)));
+		XMStoreFloat3(this, RGBtoSRGB(XMLoadFloat3(&rgb)));
 	}
 
 	inline RGBA::RGBA(const SRGBA &srgba) noexcept {
-		XMStoreFloat4(this, SRGBToLinear(XMLoadFloat4(&srgba)));
+		XMStoreFloat4(this, SRGBtoRGB(XMLoadFloat4(&srgba)));
 	}
 
 	inline SRGBA::SRGBA(const RGBA &rgba) noexcept {
-		XMStoreFloat4(this, LinearToSRGB(XMLoadFloat4(&rgba)));
+		XMStoreFloat4(this, RGBtoSRGB(XMLoadFloat4(&rgba)));
 	}
 
 	//-------------------------------------------------------------------------
-	// Conversions: RGB <-> XYZ
+	// Conversions: (linear) RGB <-> XYZ
 	//-------------------------------------------------------------------------
 
+	inline const XMVECTOR XM_CALLCONV RGBtoXYZ(FXMVECTOR rgb) noexcept {
+		
+		const XMMATRIX transform = {
+			0.412453f, 0.212671f, 0.019334f, 0.0f,
+			0.357580f, 0.715160f, 0.119193f, 0.0f,
+			0.180423f, 0.072169f, 0.950227f, 0.0f,
+			0.0f,      0.0f,      0.0f,      1.0f
+		};
+
+		return XMVector4Transform(rgb, transform);
+	}
+
+	inline const XMVECTOR XM_CALLCONV XYZtoRGB(FXMVECTOR xyz) noexcept {
+
+		const XMMATRIX transform = {
+			 3.240479f, -0.969256f,  0.055648f, 0.0f,
+			-1.537150f,  1.875991f, -0.204043f, 0.0f, 
+			-0.498535f,  0.041556f,  1.057311f, 0.0f,
+			 0.0f,       0.0f,       0.0f,      1.0f
+		};
+
+		return XMVector4Transform(xyz, transform);
+	}
+
 	inline RGB::RGB(const XYZ &xyz) noexcept {
-		x =  3.240479f * xyz.x - 1.537150f * xyz.y - 0.498535f * xyz.z;
-		y = -0.969256f * xyz.x + 1.875991f * xyz.y + 0.041556f * xyz.z;
-		z =  0.055648f * xyz.x - 0.204043f * xyz.y + 1.057311f * xyz.z;
+		XMStoreFloat3(this, XYZtoRGB(XMLoadFloat3(&xyz)));
 	}
 
 	inline XYZ::XYZ(const RGB &rgb) noexcept {
-		x = 0.412453f * rgb.x + 0.357580f * rgb.y + 0.180423f * rgb.z;
-		y = 0.212671f * rgb.x + 0.715160f * rgb.y + 0.072169f * rgb.z;
-		z = 0.019334f * rgb.x + 0.119193f * rgb.y + 0.950227f * rgb.z;
+		XMStoreFloat3(this, RGBtoXYZ(XMLoadFloat3(&rgb)));
 	}
 
 	inline RGBA::RGBA(const XYZA &xyza) noexcept {
-
-		x =  3.240479f * xyza.x - 1.537150f * xyza.y - 0.498535f * xyza.z;
-		y = -0.969256f * xyza.x + 1.875991f * xyza.y + 0.041556f * xyza.z;
-		z =  0.055648f * xyza.x - 0.204043f * xyza.y + 1.057311f * xyza.z;
-		w = xyza.w;
+		XMStoreFloat4(this, XYZtoRGB(XMLoadFloat4(&xyza)));
 	}
 
 	inline XYZA::XYZA(const RGBA &rgba) noexcept {
-
-		x = 0.412453f * rgba.x + 0.357580f * rgba.y + 0.180423f * rgba.z;
-		y = 0.212671f * rgba.x + 0.715160f * rgba.y + 0.072169f * rgba.z;
-		z = 0.019334f * rgba.x + 0.119193f * rgba.y + 0.950227f * rgba.z;
-		w = rgba.w;
+		XMStoreFloat4(this, RGBtoXYZ(XMLoadFloat4(&rgba)));
 	}
 }

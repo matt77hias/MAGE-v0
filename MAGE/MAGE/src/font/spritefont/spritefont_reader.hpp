@@ -135,7 +135,7 @@ namespace mage {
 		SpriteFontOutput &m_output;
 
 		/**
-		 The sprite font descriptor of this SPRITEFONT reader.
+		 A reference to the sprite font descriptor of this SPRITEFONT reader.
 		 */
 		const SpriteFontDescriptor &m_desc;
 	};

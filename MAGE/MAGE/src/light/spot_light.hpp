@@ -131,7 +131,7 @@ namespace mage {
 		const RGB GetPowerSpectrum() const noexcept {
 			const SRGB color   = GetBaseColor();
 			const XMVECTOR P_v = GetPower()
-				               * SRGBToLinear(XMLoadFloat3(&color));
+				               * SRGBtoRGB(XMLoadFloat3(&color));
 			RGB P;
 			XMStoreFloat3(&P, P_v);
 			return P;
@@ -166,7 +166,7 @@ namespace mage {
 		const RGB GetIntensitySpectrum() const noexcept {
 			const SRGB color   = GetBaseColor();
 			const XMVECTOR I_v = GetIntensity()
-				               * SRGBToLinear(XMLoadFloat3(&color));
+				               * SRGBtoRGB(XMLoadFloat3(&color));
 			RGB I;
 			XMStoreFloat3(&I, I_v);
 			return I;

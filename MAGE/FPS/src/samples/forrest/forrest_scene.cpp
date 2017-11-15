@@ -153,10 +153,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(MakeShared< SwitchSceneScript< BRDFScene > >());
-		//AddScript(MakeShared< RotationScript >(model_tree1->GetTransform()));
-		AddScript(MakeShared< FPSInputControllerScript >(camera->GetTransform()));
-		AddScript(MakeShared< StatsScript >(text->GetSprite()));
-		AddScript(MakeShared< RenderModeScript >(camera->GetSettings()));
+		AddScript(MakeShared< script::SwitchSceneScript< BRDFScene > >());
+		//AddScript(MakeShared< script::RotationScript >(model_tree1->GetTransform()));
+		AddScript(MakeShared< script::FPSInputControllerScript >(camera->GetTransform()));
+		AddScript(MakeShared< script::StatsScript >(text->GetSprite()));
+		AddScript(MakeShared< script::RenderModeScript >(camera->GetSettings()));
 	}
 }

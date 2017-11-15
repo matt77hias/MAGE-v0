@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	class RenderModeScript final : public BehaviorScript {
 

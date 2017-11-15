@@ -11,7 +11,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	RenderModeScript::RenderModeScript(CameraSettings *settings)
 		: BehaviorScript(), m_settings(settings), 

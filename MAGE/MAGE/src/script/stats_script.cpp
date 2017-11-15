@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	const F64 StatsScript::s_resource_fetch_period = 1.0;
 

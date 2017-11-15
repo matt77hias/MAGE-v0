@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	template< typename SceneT >
 	class SwitchSceneScript final : public BehaviorScript {

@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 // Game Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	class BRDFScript final : public BehaviorScript {
 

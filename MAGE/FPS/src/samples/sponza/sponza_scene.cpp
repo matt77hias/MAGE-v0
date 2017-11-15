@@ -119,13 +119,13 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(MakeShared< SwitchSceneScript< SibenikScene > >());
-		AddScript(MakeShared< RotationScript >(model_tree->GetTransform()));
-		AddScript(MakeShared< FPSInputControllerScript >(camera->GetTransform()));
+		AddScript(MakeShared< script::SwitchSceneScript< SibenikScene > >());
+		AddScript(MakeShared< script::RotationScript >(model_tree->GetTransform()));
+		AddScript(MakeShared< script::FPSInputControllerScript >(camera->GetTransform()));
 
-		//AddScript(MakeShared< FPSInputControllerScript >(camera2->GetTransform()));
+		//AddScript(MakeShared< script::FPSInputControllerScript >(camera2->GetTransform()));
 
-		AddScript(MakeShared< StatsScript >(text->GetSprite()));
-		AddScript(MakeShared< RenderModeScript >(camera->GetSettings()));
+		AddScript(MakeShared< script::StatsScript >(text->GetSprite()));
+		AddScript(MakeShared< script::RenderModeScript >(camera->GetSettings()));
 	}
 }

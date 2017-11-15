@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	template< typename OrientationScriptT, typename MovementScriptT >
 	InputControllerScript< OrientationScriptT, MovementScriptT >

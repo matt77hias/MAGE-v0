@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	template< typename SceneT >
 	SwitchSceneScript< SceneT >::SwitchSceneScript() = default;

@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	class ManhattanMotorScript final : public BehaviorScript {
 

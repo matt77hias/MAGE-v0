@@ -11,7 +11,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	TextConsoleScript::TextConsoleScript(
 		SpriteText *text, U32 nb_rows, U32 nb_columns)

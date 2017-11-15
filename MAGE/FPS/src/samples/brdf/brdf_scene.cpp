@@ -107,8 +107,8 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(MakeShared< SwitchSceneScript< SponzaScene > >());
-		AddScript(MakeShared< StatsScript >(stats->GetSprite()));
+		AddScript(MakeShared< script::SwitchSceneScript< SponzaScene > >());
+		AddScript(MakeShared< script::StatsScript >(stats->GetSprite()));
 
 		vector< ModelNode * > models;
 		models.push_back(model_teapot.get());
@@ -119,7 +119,7 @@ namespace mage {
 		models.push_back(model_plane.get());
 		models.push_back(model_sphere.get());
 		models.push_back(model_torus.get());
-		AddScript(MakeShared< BRDFScript >(
+		AddScript(MakeShared< script::BRDFScript >(
 			camera->GetSettings(), brdf->GetSprite(), models));
 	}
 }

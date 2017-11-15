@@ -11,7 +11,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	LocationScript::LocationScript(TransformNode *transform, SpriteText *text)
 		: BehaviorScript(), m_transform(transform), m_text(text) {

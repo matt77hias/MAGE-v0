@@ -11,7 +11,7 @@
 //-----------------------------------------------------------------------------
 // Game Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	BRDFScript::BRDFScript(CameraSettings *settings,
 		SpriteText *text, const vector< ModelNode * > &models)

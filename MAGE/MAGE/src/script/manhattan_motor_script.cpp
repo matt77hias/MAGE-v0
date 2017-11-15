@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	ManhattanMotorScript::ManhattanMotorScript(TransformNode *transform)
 		: BehaviorScript(), m_transform(transform), m_velocity(2.0f) {

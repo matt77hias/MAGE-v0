@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------------
 // Engine Declarations and Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	class LocationScript final : public BehaviorScript {
 

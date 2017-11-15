@@ -110,10 +110,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(MakeShared< SwitchSceneScript< ForrestScene > >());
-		AddScript(MakeShared< RotationScript >(model_tree->GetTransform()));
-		AddScript(MakeShared< FPSInputControllerScript >(camera->GetTransform()));
-		AddScript(MakeShared< StatsScript >(text->GetSprite()));
-		AddScript(MakeShared< RenderModeScript >(camera->GetSettings()));
+		AddScript(MakeShared< script::SwitchSceneScript< ForrestScene > >());
+		AddScript(MakeShared< script::RotationScript >(model_tree->GetTransform()));
+		AddScript(MakeShared< script::FPSInputControllerScript >(camera->GetTransform()));
+		AddScript(MakeShared< script::StatsScript >(text->GetSprite()));
+		AddScript(MakeShared< script::RenderModeScript >(camera->GetSettings()));
 	}
 }

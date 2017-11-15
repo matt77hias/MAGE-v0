@@ -11,7 +11,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	RotationScript::RotationScript(TransformNode *transform, RotationAxis axis)
 		: BehaviorScript(), m_transform(transform), m_axis(axis) {

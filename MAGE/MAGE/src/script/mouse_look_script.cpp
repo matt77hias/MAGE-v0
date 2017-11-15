@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 // Engine Definitions
 //-----------------------------------------------------------------------------
-namespace mage {
+namespace mage::script {
 
 	MouseLookScript::MouseLookScript(TransformNode *transform,
 		RotationAxes axes, 

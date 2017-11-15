@@ -91,28 +91,44 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Imports this variable script from the file with the given filename. 
-		 If the filename is not specified the associated filename of this 
-		 variable script is used.
+		 Imports this variable script from the file of this variable script.
+
+		 @throws		FormattedException
+						Failed to import the variable script from file.
+		 */
+		void ImportScript() {
+			ImportScript(GetFilename());
+		}
+
+		/**
+		 Imports this variable script from the file with the given filename.
 
 		 @param[in]		fname
 						A reference to the filename.
 		 @throws		FormattedException
 						Failed to import the variable script from file.
 		 */
-		void ImportScript(const wstring &fname = L"");
+		void ImportScript(const wstring &fname);
+
+		/**
+		 Exports this variable script to the file of this variable script.
+
+		 @throws		FormattedException
+						Failed to export the variable script to file.
+		 */
+		void ExportScript() const {
+			ExportScript(GetFilename());
+		}
 
 		/**
 		 Exports this variable script to the file with the given filename.
-		 If the filename is not specified the associated filename of this 
-		 variable script is used.
 
 		 @param[in]		fname
 						A reference to the filename.
 		 @throws		FormattedException
 						Failed to export the variable script to file.
 		 */
-		void ExportScript(const wstring &fname = L"");
+		void ExportScript(const wstring &fname) const;
 
 		/**
 		 Checks whether this variable script is empty.
@@ -149,7 +165,7 @@ namespace mage {
 		 @param[in]		value
 						A reference to the value of the variable.
 		 */
-		template < typename T >
+		template< typename T >
 		void AddVariable(
 			VariableType type, const string &name, const T &value);
 
@@ -177,7 +193,7 @@ namespace mage {
 						in this variable script.
 		 @return		A pointer to the value of the variable.
 		*/
-		template < typename T >
+		template< typename T >
 		const T *GetValueOfVariable(const string &name) const;
 
 		/**
@@ -192,7 +208,7 @@ namespace mage {
 		 @note			Nothing happens if no variable with the name @a name 
 						exists in this variable script.
 		 */
-		template < typename T >
+		template< typename T >
 		void SetValueOfVariable(const string &name, const T &value);
 
 	private:

@@ -14,7 +14,8 @@
 namespace mage {
 
 	VariableScript::VariableScript(wstring fname, bool import)
-		: Resource< VariableScript >(std::move(fname)) {
+		: Resource< VariableScript >(std::move(fname)),
+		m_variables() {
 
 		if (import) {
 			ImportScript();
@@ -28,24 +29,20 @@ namespace mage {
 	}
 
 	void VariableScript::ImportScript(const wstring &fname) {
-		const wstring &filename = (fname != L"") ? fname : GetFilename();
-		
 		vector< Variable > variable_buffer;
-		ImportVariableScriptFromFile(filename, variable_buffer);
+		ImportVariableScriptFromFile(fname, variable_buffer);
 		for (const auto &variable : variable_buffer) {
 			m_variables.emplace(variable.GetName(), variable);
 		}
 	}
 
-	void VariableScript::ExportScript(const wstring &fname) {
-		const wstring &filename = (fname != L"") ? fname : GetFilename();
-		
+	void VariableScript::ExportScript(const wstring &fname) const {
 		vector< Variable > variable_buffer;
 		for (const auto &variable : m_variables) {
 			variable_buffer.push_back(variable.second);
 		}
 
-		ExportVariableScriptToFile(filename, variable_buffer);
+		ExportVariableScriptToFile(fname, variable_buffer);
 	}
 
 	void VariableScript::RemoveVariable(const string &name) {

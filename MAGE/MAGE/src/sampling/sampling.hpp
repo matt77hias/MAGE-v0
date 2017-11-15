@@ -23,7 +23,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	inline XMFLOAT2 UniformSampleOnUnitCircle(F32 u) noexcept {
+	inline const XMFLOAT2 UniformSampleOnUnitCircle(F32 u) noexcept {
 		const F32 phi = XM_2PI * u;
 		
 		return XMFLOAT2(
@@ -31,7 +31,7 @@ namespace mage {
 				sin(phi));
 	}
 
-	inline XMFLOAT2 UniformSampleOnUnitHalfcircle(F32 u) noexcept {
+	inline const XMFLOAT2 UniformSampleOnUnitHalfcircle(F32 u) noexcept {
 		const F32 phi = XM_PI * u;
 		
 		return XMFLOAT2(
@@ -39,7 +39,7 @@ namespace mage {
 				sin(phi));
 	}
 
-	inline XMFLOAT2 UniformSampleInUnitCircle(F32 u1, F32 u2) noexcept {
+	inline const XMFLOAT2 UniformSampleInUnitCircle(F32 u1, F32 u2) noexcept {
 		const F32 phi = XM_2PI * u1;
 		const F32 r   = sqrt(u2);
 		
@@ -48,7 +48,7 @@ namespace mage {
 				r * sin(phi));
 	}
 
-	inline XMFLOAT2 UniformSampleInUnitHalfcircle(F32 u1, F32 u2) noexcept {
+	inline const XMFLOAT2 UniformSampleInUnitHalfcircle(F32 u1, F32 u2) noexcept {
 		const F32 phi = XM_PI * u1;
 		const F32 r   = sqrt(u2);
 		
@@ -57,7 +57,7 @@ namespace mage {
 				r * sin(phi));
 	}
 
-	inline XMFLOAT3 UniformSampleOnUnitSphere(F32 u1, F32 u2) noexcept {
+	inline const XMFLOAT3 UniformSampleOnUnitSphere(F32 u1, F32 u2) noexcept {
 		const F32 cos_theta = 1.0f - 2.0f * u1;
 		const F32 sin_theta = sqrtf(std::max(0.0f, 1.0f - cos_theta * cos_theta));
 		const F32 phi       = XM_2PI * u2;
@@ -68,7 +68,7 @@ namespace mage {
 				sin(phi) * sin_theta);
 	}
 
-	inline XMFLOAT3 UniformSampleOnUnitHemisphere(F32 u1, F32 u2) noexcept {
+	inline const XMFLOAT3 UniformSampleOnUnitHemisphere(F32 u1, F32 u2) noexcept {
 		// u1 := cos_theta
 		const F32 sin_theta = sqrt(std::max(0.0f, 1.0f - u1 * u1));
 		const F32 phi = XM_2PI * u2;
@@ -79,7 +79,7 @@ namespace mage {
 				sin(phi) * sin_theta);
 	}
 
-	inline XMFLOAT3 UniformSampleInUnitSphere(F32 u1, F32 u2, F32 u3) noexcept {
+	inline const XMFLOAT3 UniformSampleInUnitSphere(F32 u1, F32 u2, F32 u3) noexcept {
 		const F32 cos_theta = 1.0f - 2.0f * u1;
 		const F32 sin_theta = sqrtf(std::max(0.0f, 1.0f - cos_theta * cos_theta));
 		const F32 phi = XM_2PI * u2;
@@ -91,7 +91,7 @@ namespace mage {
 				r * sin(phi) * sin_theta);
 	}
 
-	inline XMFLOAT3 UniformSampleInUnitHemisphere(F32 u1, F32 u2, F32 u3) noexcept {
+	inline const XMFLOAT3 UniformSampleInUnitHemisphere(F32 u1, F32 u2, F32 u3) noexcept {
 		// u1 := cos_theta
 		const F32 sin_theta = sqrt(std::max(0.0f, 1.0f - u1 * u1));
 		const F32 phi = XM_2PI * u2;
@@ -103,7 +103,7 @@ namespace mage {
 				r * sin(phi) * sin_theta);
 	}
 
-	inline XMFLOAT3 CosineWeightedSampleOnUnitHemisphere(F32 u1, F32 u2) noexcept {
+	inline const XMFLOAT3 CosineWeightedSampleOnUnitHemisphere(F32 u1, F32 u2) noexcept {
 		
 		const F32 cos_theta = sqrt(1.0f - u1);
 		const F32 sin_theta = sqrt(u1);

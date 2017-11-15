@@ -188,10 +188,10 @@ namespace mage {
 		 @param[in]		font
 						A pointer to the font of this sprite text.
 		 */
-		void SetFont(SharedPtr< const SpriteFont > font) {
+		void SetFont(SharedPtr< const SpriteFont > font) noexcept {
 			Assert(font);
 
-			m_font = font;
+			m_font = std::move(font);
 		}
 
 	protected:

@@ -21,14 +21,14 @@ namespace mage {
 
 	Writer::~Writer() = default;
 
-	void Writer::WriteToFile(const wstring &fname) {
-		m_fname = fname;
+	void Writer::WriteToFile(wstring fname) {
+		m_fname = std::move(fname);
 
 		FILE *file;
 		{
-			const errno_t result = _wfopen_s(&file, GetFilename().c_str(), L"w");
+			const errno_t result = _wfopen_s(&file, m_fname.c_str(), L"w");
 			ThrowIfFailed((0 == result),
-				"%ls: could not open file.", GetFilename().c_str());
+				"%ls: could not open file.", m_fname.c_str());
 		}
 
 		m_file_stream.reset(file);

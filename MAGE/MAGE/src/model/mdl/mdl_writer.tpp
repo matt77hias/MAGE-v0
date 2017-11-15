@@ -19,7 +19,8 @@ namespace mage {
 
 	template < typename VertexT >
 	MDLWriter< VertexT >::MDLWriter(const ModelOutput< VertexT > &model_output)
-		: Writer(), m_model_output(model_output) {}
+		: Writer(), 
+		m_model_output(model_output) {}
 
 	template < typename VertexT >
 	MDLWriter< VertexT >::MDLWriter(MDLWriter &&writer) = default;

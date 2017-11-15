@@ -23,9 +23,12 @@ namespace mage {
 		ModelOutput< VertexT > &model_output,
 		const MeshDescriptor< VertexT > &mesh_desc)
 		: LineReader(),
-		m_vertex_coordinates(), m_vertex_texture_coordinates(),
-		m_vertex_normal_coordinates(), m_mapping(),
-		m_model_output(model_output), m_mesh_desc(mesh_desc) {}
+		m_vertex_coordinates(), 
+		m_vertex_texture_coordinates(),
+		m_vertex_normal_coordinates(), 
+		m_mapping(),
+		m_model_output(model_output), 
+		m_mesh_desc(mesh_desc) {}
 
 	template < typename VertexT >
 	OBJReader< VertexT >::OBJReader(OBJReader &&reader) = default;

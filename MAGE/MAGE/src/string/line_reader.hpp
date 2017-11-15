@@ -62,15 +62,15 @@ namespace mage {
 		 Reads from the given file.
 
 		 @param[in]		fname
-						A reference to the file name.
+						The file name.
 		 @param[in]		delimiters
-						A reference to a string containing the token delimiters
-						(single characters).
+						The string containing the token delimiters (single 
+						characters).
 		 @throws		FormattedException
 						Failed to read from the given file.
 		 */
-		void ReadFromFile(const wstring &fname, 
-			const string &delimiters = g_default_delimiters);
+		void ReadFromFile(wstring fname, 
+			string delimiters = g_default_delimiters);
 		
 		/**
 		 Reads the input string.
@@ -79,13 +79,13 @@ namespace mage {
 		 @param[in]		input
 						A pointer to the input null-terminated byte string.
 		 @param[in]		delimiters
-						A reference to a string containing the token delimiters
-						(single characters).
+						The string containing the token delimiters (single 
+						characters).
 		 @throws		FormattedException
 						Failed to read from the given input string.
 		 */
 		void ReadFromMemory(const char *input, 
-			const string &delimiters = g_default_delimiters);
+			string delimiters = g_default_delimiters);
 
 		/**
 		 Returns the current filename of this line reader.

@@ -128,7 +128,7 @@ namespace mage {
 			const Material material 
 				= (MAGE_MDL_PART_DEFAULT_MATERIAL == model_part->m_material) ?
 					default_material : *desc.GetMaterial(model_part->m_material);
-			submodel_node->GetModel()->SetMaterial(material);
+			*(submodel_node->GetModel()->GetMaterial()) = std::move(material);
 
 			// Add this submodel node to this scene.
 			AddSceneNode(submodel_node);

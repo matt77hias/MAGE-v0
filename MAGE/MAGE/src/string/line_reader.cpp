@@ -23,16 +23,16 @@ namespace mage {
 
 	LineReader::~LineReader() = default;
 
-	void LineReader::ReadFromFile(const wstring &fname, const string &delimiters) {
-		m_fname = fname;
-		m_delimiters = delimiters;
+	void LineReader::ReadFromFile(wstring fname, string delimiters) {
+		m_fname      = std::move(fname);
+		m_delimiters = std::move(delimiters);
 		
 		// Open the file.
 		FILE *file;
 		{
-			const errno_t result = _wfopen_s(&file, GetFilename().c_str(), L"r");
+			const errno_t result = _wfopen_s(&file, m_fname.c_str(), L"r");
 			ThrowIfFailed((0 == result), 
-				"%ls: could not open file.", GetFilename().c_str());
+				"%ls: could not open file.", m_fname.c_str());
 		}
 
 		m_file_stream.reset(file);
@@ -52,11 +52,12 @@ namespace mage {
 		m_context = nullptr;
 	}
 
-	void LineReader::ReadFromMemory(const char *input, const string &delimiters) {
+	void LineReader::ReadFromMemory(const char *input, string delimiters) {
 		Assert(input);
 		
-		m_fname = L"input string";
-		m_delimiters = delimiters;
+		m_fname      = L"input string";
+		m_delimiters = std::move(delimiters);
+		
 		m_file_stream.reset(nullptr);
 
 		Preprocess();

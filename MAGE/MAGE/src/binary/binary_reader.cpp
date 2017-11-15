@@ -62,12 +62,12 @@ namespace mage {
 
 	BinaryReader::~BinaryReader() = default;
 
-	void BinaryReader::ReadFromFile(const wstring &fname, bool big_endian) {
-		m_fname = fname;
+	void BinaryReader::ReadFromFile(wstring fname, bool big_endian) {
+		m_fname = std::move(fname);
 		m_big_endian = big_endian;
 
 		size_t nb_bytes;
-		ReadBinaryFile(fname.c_str(), m_data, &nb_bytes);
+		ReadBinaryFile(m_fname.c_str(), m_data, &nb_bytes);
 		
 		m_pos = m_data.get();
 		m_end = m_data.get() + nb_bytes;
@@ -234,11 +234,11 @@ namespace mage {
 
 	BigEndianBinaryReader::~BigEndianBinaryReader() = default;
 
-	void BigEndianBinaryReader::ReadFromFile(const wstring &fname) {
-		m_fname = fname;
+	void BigEndianBinaryReader::ReadFromFile(wstring fname) {
+		m_fname = std::move(fname);
 
 		size_t nb_bytes;
-		ReadBinaryFile(fname.c_str(), m_data, &nb_bytes);
+		ReadBinaryFile(m_fname.c_str(), m_data, &nb_bytes);
 
 		m_pos = m_data.get();
 		m_end = m_data.get() + nb_bytes;

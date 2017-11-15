@@ -79,7 +79,7 @@ namespace mage {
 		
 		// Set the material.
 		for (const auto &node : m_models) {
-			node->GetModel()->SetMaterial(mode.m_material);
+			*(node->GetModel()->GetMaterial()) = mode.m_material;
 		}
 		
 		// Set the BRDF.

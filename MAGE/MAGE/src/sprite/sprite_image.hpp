@@ -150,12 +150,12 @@ namespace mage {
 		 base color texture.
 
 		 @param[in]		base_color_texture
-						A reference to the sRGB base color texture.
+						A pointer to the sRGB base color texture.
 		 */
 		void SetBaseColorTexture(
-			const SharedPtr< const Texture > &base_color_texture) {
+			SharedPtr< const Texture > base_color_texture) noexcept {
 			
-			m_base_color_texture = base_color_texture;
+			m_base_color_texture = std::move(base_color_texture);
 		}
 
 		/**
@@ -169,14 +169,23 @@ namespace mage {
 		}
 
 		/**
+		 Sets the base color texture region of this sprite image to the maximum 
+		 texture region.
+		 */
+		void SetMaximumBaseColorTextureRegion() noexcept {
+			m_base_color_texture_region.reset();
+		}
+
+		/**
 		 Sets the base color texture region of this sprite image to the given 
 		 texture region.
 
 		 @param[in]		texture_region
-						A reference to the texture region.
+						The texture region.
 		 */
-		void SetBaseColorTextureRegion(const RECT &texture_region) {
-			m_base_color_texture_region = MakeUnique< RECT >(texture_region);
+		void SetBaseColorTextureRegion(RECT texture_region) noexcept {
+			m_base_color_texture_region 
+				= MakeUnique< RECT >(std::move(texture_region));
 		}
 
 	private:

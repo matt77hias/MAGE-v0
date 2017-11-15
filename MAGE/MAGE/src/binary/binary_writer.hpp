@@ -65,11 +65,11 @@ namespace mage {
 		 Writes to the given file.
 
 		 @param[in]		fname
-						A reference to the file name.
+						The file name.
 		 @throws		FormattedException
 						Failed to write to the given file.
 		 */
-		void WriteToFile(const wstring &fname);
+		void WriteToFile(wstring fname);
 
 		/**
 		 Returns the current filename of this writer.

@@ -320,9 +320,9 @@ namespace mage {
 		ModelOutput< VertexT > &m_model_output;
 
 		/**
-		 The mesh descriptor for this OBJ reader.
+		 A reference to the mesh descriptor for this OBJ reader.
 		 */
-		const MeshDescriptor< VertexT > m_mesh_desc;
+		const MeshDescriptor< VertexT > &m_mesh_desc;
 	};
 }
 

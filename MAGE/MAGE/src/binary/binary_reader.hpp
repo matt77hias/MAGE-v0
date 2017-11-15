@@ -85,14 +85,14 @@ namespace mage {
 		 Reads from the given file.
 
 		 @param[in]		fname
-						A reference to the file name.
+						The file name.
 		 @param[in]		big_endian
 						Flag indicating whether the given byte array should be 
 						interpreted as big endian or not (i.e. little endian).
 		 @throws		FormattedException
 						Failed to read from the given file.
 		 */
-		void ReadFromFile(const wstring &fname, bool big_endian);
+		void ReadFromFile(wstring fname, bool big_endian);
 		
 		/**
 		 Reads the input string.
@@ -363,11 +363,11 @@ namespace mage {
 		 Reads from the given file.
 
 		 @param[in]		fname
-						A reference to the file name.
+						The file name.
 		 @throws		FormattedException
 						Failed to read from the given file.
 		 */
-		void ReadFromFile(const wstring &fname);
+		void ReadFromFile(wstring fname);
 
 		/**
 		 Reads the input string.

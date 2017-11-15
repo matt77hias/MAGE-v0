@@ -15,7 +15,8 @@
 namespace mage {
 
 	VSReader::VSReader(vector< Variable > &variable_buffer)
-		: LineReader(), m_variable_buffer(variable_buffer) {}
+		: LineReader(), 
+		m_variable_buffer(variable_buffer) {}
 
 	VSReader::VSReader(VSReader &&reader) = default;
 

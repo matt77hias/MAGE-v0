@@ -147,24 +147,11 @@ namespace mage {
 		 Updates the bounding volumes of this omni light.
 
 		 @param[in]		aabb
-						A reference to the AABB.
+						The AABB.
 		 @param[in]		bs
-						A reference to the BS.
+						The BS.
 		 */
-		void SetBoundingVolumes(const AABB &aabb, const BS &bs) noexcept {
-			m_aabb = aabb;
-			m_bs   = bs;
-		}
-
-		/**
-		 Updates the bounding volumes of this omni light.
-
-		 @param[in]		aabb
-						A reference to the AABB.
-		 @param[in]		bs
-						A reference to the BS.
-		 */
-		void SetBoundingVolumes(AABB &&aabb, BS &&bs) noexcept {
+		void SetBoundingVolumes(AABB aabb, BS bs) noexcept {
 			m_aabb = std::move(aabb);
 			m_bs   = std::move(bs);
 		}

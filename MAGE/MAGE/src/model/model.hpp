@@ -46,13 +46,13 @@ namespace mage {
 		 @param[in]		nb_indices
 						The number of indices in the mesh.
 		 @param[in]		aabb
-						A reference to the AABB.
+						The AABB.
 		 @param[in]		bs
-						A reference to the BS.
+						The BS.
 		 */
 		explicit Model(SharedPtr< const Mesh > mesh, 
 			size_t start_index, size_t nb_indices, 
-			const AABB &aabb, const BS &bs);
+			AABB aabb, BS bs);
 
 		/**
 		 Constructs a model from the given model.
@@ -255,26 +255,6 @@ namespace mage {
 		 */
 		const Material *GetMaterial() const noexcept {
 			return m_material.get();
-		}
-
-		/**
-		 Sets the material of this model to the given material.
-
-		 @param[in]		material
-						A reference to the material.
-		 */
-		void SetMaterial(const Material &material) noexcept {
-			m_material = MakeUnique< Material >(material);
-		}
-
-		/**
-		 Sets the material of this model to the given material.
-
-		 @param[in]		material
-						A reference to the material.
-		 */
-		void SetMaterial(Material &&material) noexcept {
-			m_material = MakeUnique< Material >(std::move(material));
 		}
 
 	private:

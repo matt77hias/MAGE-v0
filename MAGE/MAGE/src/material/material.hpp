@@ -244,12 +244,12 @@ namespace mage {
 		 color texture.
 
 		 @param[in]		base_color_texture
-						A reference to the sRGB base color texture.
+						A pointer to the sRGB base color texture.
 		 */
 		void SetBaseColorTexture(
-			const SharedPtr< const Texture > &base_color_texture) {
+			SharedPtr< const Texture > base_color_texture) noexcept {
 			
-			m_base_color_texture = base_color_texture;
+			m_base_color_texture = std::move(base_color_texture);
 		}
 		
 		//---------------------------------------------------------------------
@@ -333,12 +333,12 @@ namespace mage {
 		 texture.
 
 		 @param[in]		material_texture
-						A reference to the material texture.
+						A pointer to the material texture.
 		 */
 		void SetMaterialTexture(
-			const SharedPtr< const Texture > &material_texture) {
+			SharedPtr< const Texture > material_texture) noexcept {
 			
-			m_material_texture = material_texture;
+			m_material_texture = std::move(material_texture);
 		}
 
 		//---------------------------------------------------------------------

@@ -20,14 +20,14 @@ namespace mage {
 
 	BigEndianBinaryWriter::~BigEndianBinaryWriter() = default;
 
-	void BigEndianBinaryWriter::WriteToFile(const wstring &fname) {
-		m_fname = fname;
+	void BigEndianBinaryWriter::WriteToFile(wstring fname) {
+		m_fname = std::move(fname);
 
 		FILE *file;
 		{
-			const errno_t result = _wfopen_s(&file, GetFilename().c_str(), L"wb");
+			const errno_t result = _wfopen_s(&file, m_fname.c_str(), L"wb");
 			ThrowIfFailed((0 == result),
-				"%ls: could not open file.", GetFilename().c_str());
+				"%ls: could not open file.", m_fname.c_str());
 		}
 
 		m_file_stream.reset(file);

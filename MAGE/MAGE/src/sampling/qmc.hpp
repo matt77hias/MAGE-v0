@@ -42,14 +42,14 @@ namespace mage {
 		}
 	}
 
-	inline XMFLOAT2 Halton2D(size_t index) noexcept {
+	inline const XMFLOAT2 Halton2D(size_t index) noexcept {
 		const F32 x = RadicalInverse(index, 2.0f);
 		const F32 y = RadicalInverse(index, 3.0f);
 		
 		return XMFLOAT2(x, y);
 	}
 
-	inline XMFLOAT3 Halton3D(size_t index) noexcept {
+	inline const XMFLOAT3 Halton3D(size_t index) noexcept {
 		const F32 x = RadicalInverse(index, 2.0f);
 		const F32 y = RadicalInverse(index, 3.0f);
 		const F32 z = RadicalInverse(index, 5.0f);
@@ -57,7 +57,7 @@ namespace mage {
 		return XMFLOAT3(x, y, z);
 	}
 
-	inline XMFLOAT4 Halton4D(size_t index) noexcept {
+	inline const XMFLOAT4 Halton4D(size_t index) noexcept {
 		const F32 x = RadicalInverse(index, 2.0f);
 		const F32 y = RadicalInverse(index, 3.0f);
 		const F32 z = RadicalInverse(index, 5.0f);
@@ -81,7 +81,7 @@ namespace mage {
 		}
 	}
 
-	inline XMFLOAT2 Hammersley2D(size_t index, size_t nb_samples) noexcept {
+	inline const XMFLOAT2 Hammersley2D(size_t index, size_t nb_samples) noexcept {
 		Assert(index < nb_samples);
 
 		const F32 x = index / F32(nb_samples);
@@ -90,7 +90,7 @@ namespace mage {
 		return XMFLOAT2(x, y);
 	}
 
-	inline XMFLOAT3 Hammersley3D(size_t index, size_t nb_samples) noexcept {
+	inline const XMFLOAT3 Hammersley3D(size_t index, size_t nb_samples) noexcept {
 		Assert(index < nb_samples);
 
 		const F32 x = index / F32(nb_samples);
@@ -100,7 +100,7 @@ namespace mage {
 		return XMFLOAT3(x, y, z);
 	}
 
-	inline XMFLOAT4 Hammersley4D(size_t index, size_t nb_samples) noexcept {
+	inline const XMFLOAT4 Hammersley4D(size_t index, size_t nb_samples) noexcept {
 		Assert(index < nb_samples);
 
 		const F32 x = index / F32(nb_samples);
@@ -111,7 +111,7 @@ namespace mage {
 		return XMFLOAT4(x, y, z, w);
 	}
 
-	inline XMFLOAT2 Roth(size_t index, size_t nb_samples) noexcept {
+	inline const XMFLOAT2 Roth(size_t index, size_t nb_samples) noexcept {
 		return Hammersley2D(index, nb_samples);
 	}
 }

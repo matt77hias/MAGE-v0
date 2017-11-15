@@ -18,15 +18,17 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	TransformNode::TransformNode()
-		: m_transform(new Transform()),
-		m_parent(nullptr), m_childs() {
+		: m_transform(MakeUnique< Transform >()),
+		m_parent(nullptr), 
+		m_childs() {
 		
 		SetDirty();
 	}
 
 	TransformNode::TransformNode(const TransformNode &transform_node)
-		: m_transform(new Transform(*transform_node.m_transform)),
-		m_parent(nullptr), m_childs() {
+		: m_transform(MakeUnique< Transform >(*transform_node.m_transform)),
+		m_parent(nullptr), 
+		m_childs() {
 		
 		SetDirty();
 	}
@@ -35,7 +37,7 @@ namespace mage {
 		: m_transform(std::move(transform_node.m_transform)),
 		m_parent(std::move(transform_node.m_parent)),
 		m_childs(std::move(transform_node.m_childs)) {
-		
+
 		SetDirty();
 	}
 
@@ -63,12 +65,14 @@ namespace mage {
 	//-------------------------------------------------------------------------
 
 	Node::Node()
-		: m_transform(new TransformNode()),
-		m_active(true), m_terminated(false) {}
+		: m_transform(MakeUnique< TransformNode >()),
+		m_active(true), 
+		m_terminated(false) {}
 	
 	Node::Node(const Node &node)
-		: m_transform(new TransformNode(*node.m_transform)),
-		m_active(node.m_active), m_terminated(node.m_terminated) {
+		: m_transform(MakeUnique< TransformNode >(*node.m_transform)),
+		m_active(node.m_active), 
+		m_terminated(node.m_terminated) {
 
 		if (!m_terminated) {
 

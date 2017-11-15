@@ -28,8 +28,29 @@ namespace mage {
 	public:
 
 		//---------------------------------------------------------------------
-		// Destructors
+		// Constructors and Destructors
 		//---------------------------------------------------------------------
+
+		/**
+		 Constructs a transform node.
+		 */
+		TransformNode();
+
+		/**
+		 Constructs a transform node from the given transform node.
+
+		 @param[in]		node
+						A reference to the transform node to copy.
+		 */
+		TransformNode(const TransformNode &node);
+
+		/**
+		 Constructs a transform node by moving the given transform node.
+
+		 @param[in]		node
+						A reference to the transform node to move.
+		 */
+		TransformNode(TransformNode &&node) noexcept;
 
 		/**
 		 Destructs this transform node.
@@ -1485,31 +1506,6 @@ namespace mage {
 		friend class Node;
 
 		//---------------------------------------------------------------------
-		// Constructors
-		//---------------------------------------------------------------------
-
-		/**
-		 Constructs a transform node.
-		 */
-		explicit TransformNode();
-
-		/**
-		 Constructs a transform node from the given transform node.
-
-		 @param[in]		node
-						A reference to the transform node to copy.
-		 */
-		TransformNode(const TransformNode &node);
-
-		/**
-		 Constructs a transform node by moving the given transform node.
-
-		 @param[in]		node
-						A reference to the transform node to move.
-		 */
-		TransformNode(TransformNode &&node) noexcept;
-
-		//---------------------------------------------------------------------
 		// Member Methods
 		//---------------------------------------------------------------------
 
@@ -1638,7 +1634,7 @@ namespace mage {
 		/**
 		 The transform of this transform node.
 		 */
-		SharedPtr< Transform > m_transform;
+		UniquePtr< Transform > m_transform;
 
 		/**
 		 The parent transform node of this transform node.
@@ -1943,7 +1939,7 @@ namespace mage {
 		/**
 		 A pointer to the transform of this node.
 		 */
-		SharedPtr< TransformNode > m_transform;
+		UniquePtr< TransformNode > m_transform;
 
 		/**
 		 A flag indicating whether this node is active or not (i.e. passive).

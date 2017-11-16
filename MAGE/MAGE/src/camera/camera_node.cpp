@@ -15,7 +15,7 @@
 namespace mage {
 
 	CameraNode::CameraNode(string name, UniquePtr< Camera > &&camera)
-		: SceneNode(std::move(name)), 
+		: Node(std::move(name)), 
 		m_camera(std::move(camera)),
 		m_settings(MakeUnique< CameraSettings >()), 
 		m_viewport() {
@@ -24,7 +24,7 @@ namespace mage {
 	}
 	
 	CameraNode::CameraNode(const CameraNode &camera_node) 
-		: SceneNode(camera_node), 
+		: Node(camera_node), 
 		m_camera(camera_node.m_camera->Clone()),
 		m_settings(MakeUnique< CameraSettings >(*camera_node.m_settings)),
 		m_viewport(camera_node.m_viewport) {}

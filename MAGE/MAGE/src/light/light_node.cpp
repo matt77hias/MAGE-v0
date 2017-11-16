@@ -14,14 +14,14 @@
 namespace mage {
 
 	LightNode::LightNode(string name, UniquePtr< Light > &&light)
-		: SceneNode(std::move(name)), 
+		: Node(std::move(name)), 
 		m_light(std::move(light)) {
 		
 		Assert(m_light);
 	}
 
 	LightNode::LightNode(const LightNode &light_node)
-		: SceneNode(light_node), m_light(light_node.m_light->Clone()) {}
+		: Node(light_node), m_light(light_node.m_light->Clone()) {}
 
 	LightNode::LightNode(LightNode &&light_node) = default;
 

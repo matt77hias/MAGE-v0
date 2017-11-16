@@ -7,6 +7,7 @@
 
 #include "collection\collection.hpp"
 #include "math\transform.hpp"
+#include "parallel\id_generator.hpp"
 
 #pragma endregion
 
@@ -1686,8 +1687,11 @@ namespace mage {
 
 		/**
 		 Constructs a node.
+
+		 @param[in]		name
+						The name of the node.
 		 */
-		Node();
+		explicit Node(string name = "");
 
 		/**
 		 Constructs a node from the given node.
@@ -1746,23 +1750,39 @@ namespace mage {
 			return CloneImplementation();
 		}
 
-		/**
-		 Returns the transform of this node.
+		//---------------------------------------------------------------------
+		// Member Methods: Identification
+		//---------------------------------------------------------------------
 
-		 @return		A pointer to the transform of this node.
-		 */
-		TransformNode *GetTransform() noexcept {
-			return m_transform.get();
-		}
-		
 		/**
-		 Returns the transform of this node.
-
-		 @return		A pointer to the transform of this node.
+		 Returns the globally unique identifier of this node.
 		 */
-		const TransformNode *GetTransform() const noexcept {
-			return m_transform.get();
+		S32 GetGuid() const noexcept {
+			return m_guid;
 		}
+
+		/**
+		 Returns the name of this node.
+
+		 @return		A reference to the name of this node.
+		 */
+		const string &GetName() const noexcept {
+			return m_name;
+		}
+
+		/**
+		 Sets the name of this node to the given string.
+
+		 @param[in]		name
+						The name.
+		 */
+		void SetName(string name) noexcept {
+			m_name = std::move(name);
+		}
+
+		//---------------------------------------------------------------------
+		// Member Methods: State
+		//---------------------------------------------------------------------
 
 		/**
 		 Checks whether this node is active.
@@ -1819,6 +1839,28 @@ namespace mage {
 		 Terminates this node.
 		 */
 		void Terminate() noexcept;
+
+		//---------------------------------------------------------------------
+		// Member Methods: Transform
+		//---------------------------------------------------------------------
+
+		/**
+		 Returns the transform of this node.
+
+		 @return		A pointer to the transform of this node.
+		 */
+		TransformNode *GetTransform() noexcept {
+			return m_transform.get();
+		}
+		
+		/**
+		 Returns the transform of this node.
+
+		 @return		A pointer to the transform of this node.
+		 */
+		const TransformNode *GetTransform() const noexcept {
+			return m_transform.get();
+		}
 
 		//---------------------------------------------------------------------
 		// Member Methods: Graph
@@ -1917,13 +1959,26 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Class Member Variables
+		//---------------------------------------------------------------------
+
+		/**
+		 The globally unique identifier generator for nodes. 
+		 */
+		static IdGenerator s_guid_generator;
+
+		//---------------------------------------------------------------------
+		// Member Methods: State
 		//---------------------------------------------------------------------
 
 		/**
 		 Notifies this transform node of a change in activeness.
 		 */
 		virtual void OnActiveChange() noexcept;
+
+		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
 
 		/**
 		 Clones this node.
@@ -1933,13 +1988,22 @@ namespace mage {
 		virtual UniquePtr< Node > CloneImplementation() const;
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: Identification
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the transform of this node.
+		 The globally unique identifier of this scene node.
 		 */
-		UniquePtr< TransformNode > m_transform;
+		const S32 m_guid;
+
+		/**
+		 The name of this node.
+		 */
+		string m_name;
+
+		//---------------------------------------------------------------------
+		// Member Variables: State
+		//---------------------------------------------------------------------
 
 		/**
 		 A flag indicating whether this node is active or not (i.e. passive).
@@ -1950,6 +2014,15 @@ namespace mage {
 		 A flag indicating whether this node is terminated or not. 
 		 */
 		bool m_terminated;
+
+		//---------------------------------------------------------------------
+		// Member Variables: Transform
+		//---------------------------------------------------------------------
+
+		/**
+		 A pointer to the transform of this node.
+		 */
+		UniquePtr< TransformNode > m_transform;
 	};
 
 	//-------------------------------------------------------------------------

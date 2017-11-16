@@ -62,15 +62,21 @@ namespace mage {
 	// Node
 	//-------------------------------------------------------------------------
 
-	Node::Node()
-		: m_transform(MakeUnique< TransformNode >()),
+	IdGenerator Node::s_guid_generator;
+
+	Node::Node(string name)
+		: m_guid(s_guid_generator.GetNextId()),
+		m_name(std::move(name)),
 		m_active(true), 
-		m_terminated(false) {}
+		m_terminated(false),
+		m_transform(MakeUnique< TransformNode >()) {}
 	
 	Node::Node(const Node &node)
-		: m_transform(MakeUnique< TransformNode >(*node.m_transform)),
+		: m_guid(s_guid_generator.GetNextId()),
+		m_name(node.m_name),
 		m_active(node.m_active), 
-		m_terminated(node.m_terminated) {}
+		m_terminated(node.m_terminated),
+		m_transform(MakeUnique< TransformNode >(*node.m_transform)) {}
 
 	Node::Node(Node &&node) = default;
 

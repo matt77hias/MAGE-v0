@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene_node.hpp"
+#include "math\transform_node.hpp"
 #include "model\model.hpp"
 #include "math\texture_transform.hpp"
 
@@ -19,7 +19,7 @@ namespace mage {
 	/**
 	 A class of model nodes.
 	 */
-	class ModelNode : public SceneNode {
+	class ModelNode : public Node {
 
 	public:
 

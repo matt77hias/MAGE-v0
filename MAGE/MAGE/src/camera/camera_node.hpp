@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene_node.hpp"
+#include "math\transform_node.hpp"
 #include "camera\camera.hpp"
 #include "camera\camera_settings.hpp"
 #include "camera\viewport.hpp"
@@ -24,7 +24,7 @@ namespace mage {
 	/**
 	 A class of camera nodes.
 	 */
-	class CameraNode : public SceneNode {
+	class CameraNode : public Node {
 
 	public:
 

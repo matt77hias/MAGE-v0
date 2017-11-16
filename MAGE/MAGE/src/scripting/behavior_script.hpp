@@ -54,27 +54,9 @@ namespace mage {
 		 */
 		BehaviorScript &operator=(BehaviorScript &&script) = delete;
 
-		//-------------------------------------------------------------------------
-		// Member Methods: Lifecycle
-		//-------------------------------------------------------------------------
-
-		/**
-		 Updates this behavior script.
-		 
-		 This method can be called zero, one or multiple times per frame depending 
-		 on the fixed delta time used by the engine.
-		 */
-		virtual void FixedUpdate();
-
-		/**
-		 Updates this behavior script.
-		 
-		 This method is called once per frame.
-
-		 @param[in]		delta_time
-						The elapsed time since the previous update.
-		 */
-		virtual void Update([[maybe_unused]] F64 delta_time);
+		//---------------------------------------------------------------------
+		// Member Methods: State
+		//---------------------------------------------------------------------
 
 		/**
 		 Checks whether this behavior script is active.
@@ -133,6 +115,28 @@ namespace mage {
 		 */
 		void Terminate() noexcept;
 
+		//-------------------------------------------------------------------------
+		// Member Methods: Lifecycle
+		//-------------------------------------------------------------------------
+
+		/**
+		 Updates this behavior script.
+		 
+		 This method can be called zero, one or multiple times per frame depending 
+		 on the fixed delta time used by the engine.
+		 */
+		virtual void FixedUpdate();
+
+		/**
+		 Updates this behavior script.
+		 
+		 This method is called once per frame.
+
+		 @param[in]		delta_time
+						The elapsed time since the previous update.
+		 */
+		virtual void Update([[maybe_unused]] F64 delta_time);
+
 	protected:
 
 		//---------------------------------------------------------------------
@@ -163,7 +167,7 @@ namespace mage {
 	private:
 
 		//---------------------------------------------------------------------
-		// Member Methods
+		// Member Methods: State
 		//---------------------------------------------------------------------
 
 		/**
@@ -172,7 +176,7 @@ namespace mage {
 		virtual void OnActiveChange() noexcept;
 
 		//---------------------------------------------------------------------
-		// Member Variables
+		// Member Variables: State
 		//---------------------------------------------------------------------
 
 		/**

@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene_node.hpp"
+#include "math\transform_node.hpp"
 #include "light\light.hpp"
 
 #pragma endregion
@@ -22,7 +22,7 @@ namespace mage {
 	/**
 	 A class of light nodes.
 	 */
-	class LightNode : public SceneNode {
+	class LightNode : public Node {
 
 	public:
 

@@ -693,9 +693,6 @@
     <ClInclude Include="MAGE\src\model\model_node.hpp">
       <Filter>Header Files\model</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\scene\scene_node.hpp">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\font\color_string.hpp">
       <Filter>Header Files\font</Filter>
     </ClInclude>
@@ -1312,9 +1309,6 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\model\model_node.cpp">
       <Filter>Source Files\model</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\scene\scene_node.cpp">
-      <Filter>Source Files\scene</Filter>
     </ClCompile>
     <ClCompile Include="MAGE\src\texture\texture_loader.cpp">
       <Filter>Source Files\texture</Filter>

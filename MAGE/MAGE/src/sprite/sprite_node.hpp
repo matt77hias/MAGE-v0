@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "scene\scene_node.hpp"
+#include "math\transform_node.hpp"
 #include "sprite\sprite.hpp"
 
 #pragma endregion
@@ -22,7 +22,7 @@ namespace mage {
 	/**
 	 A class of sprite nodes.
 	 */
-	class SpriteNode : public SceneNode {
+	class SpriteNode : public Node {
 
 	public:
 

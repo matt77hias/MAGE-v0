@@ -41,17 +41,15 @@ namespace mage {
 		SetDirty();
 	}
 
-	TransformNode::~TransformNode() {
-		RemoveAllChildNodes();
-	}
+	TransformNode::~TransformNode() = default;
 
-	bool TransformNode::HasChildNode(SharedPtr< const Node > node) const {
+	bool TransformNode::HasChildNode(const Node *node) const {
 		return std::find(m_childs.begin(), m_childs.end(), node) 
 			!= m_childs.end();
 	}
 
 	void TransformNode::RemoveAllChildNodes() noexcept {
-		
+
 		ForEachChildTransformNode([](TransformNode *transform_node) {
 			transform_node->m_parent = nullptr;
 			transform_node->SetDirty();
@@ -72,15 +70,7 @@ namespace mage {
 	Node::Node(const Node &node)
 		: m_transform(MakeUnique< TransformNode >(*node.m_transform)),
 		m_active(node.m_active), 
-		m_terminated(node.m_terminated) {
-
-		if (!m_terminated) {
-
-			m_transform->ForEachChildNode([this](const Node *child_node) {
-				AddChildNode(child_node->Clone());
-			});
-		}
-	}
+		m_terminated(node.m_terminated) {}
 
 	Node::Node(Node &&node) = default;
 
@@ -91,11 +81,7 @@ namespace mage {
 	}
 
 	void Node::SetActive(bool active) noexcept {
-		if (active && m_terminated) {
-			return;
-		}
-
-		if (m_active == active) {
+		if (m_terminated || (m_active == active)) {
 			return;
 		}
 
@@ -125,8 +111,8 @@ namespace mage {
 		OnActiveChange();
 	}
 
-	void Node::AddChildNode(SharedPtr< Node > node) {
-		if (!node || node->m_transform->m_parent == this 
+	void Node::AddChildNode(Node *node) {
+		if (!node || this == node->m_transform->m_parent 
 			|| IsTerminated() || node->IsTerminated()) {
 			return;
 		}
@@ -138,11 +124,11 @@ namespace mage {
 		node->m_transform->m_parent = this;
 		node->m_transform->SetDirty();
 
-		m_transform->m_childs.push_back(std::move(node));
+		m_transform->m_childs.push_back(node);
 	}
 
-	void Node::RemoveChildNode(SharedPtr< Node > node) {
-		if (!node || node->m_transform->m_parent != this) {
+	void Node::RemoveChildNode(Node *node) {
+		if (!node || this != node->m_transform->m_parent) {
 			return;
 		}
 

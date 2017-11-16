@@ -1169,9 +1169,6 @@
     <ClCompile Include="MAGE\src\model\model.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\scene\scene.cpp">
-      <Filter>Source Files\scene</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\shader\shader.cpp">
       <Filter>Source Files\shader</Filter>
     </ClCompile>
@@ -1456,6 +1453,9 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\pass\dof_pass.cpp">
       <Filter>Source Files\pass</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\scene\scene.cpp">
+      <Filter>Source Files\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

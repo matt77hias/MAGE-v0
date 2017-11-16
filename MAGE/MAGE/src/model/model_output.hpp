@@ -112,6 +112,41 @@ namespace mage {
 		ModelPart &operator=(ModelPart &&model_part) = default;
 
 		//---------------------------------------------------------------------
+		// Member Methods
+		//---------------------------------------------------------------------
+
+		/**
+		 Checks whether this model part has the default child as its child.
+
+		 @return		@c true if this model part has the default child as its 
+						child. @c false otherwise.
+		 */
+		bool HasDefaultChild() const noexcept {
+			return MAGE_MDL_PART_DEFAULT_CHILD == m_child;
+		}
+
+		/**
+		 Checks whether this model part has the default parent as its parent.
+
+		 @return		@c true if this model part has the default parent as 
+						its parent. @c false otherwise.
+		 */
+		bool HasDefaultParent() const noexcept {
+			return MAGE_MDL_PART_DEFAULT_PARENT == m_parent;
+		}
+
+		/**
+		 Checks whether this model part has the default material as its 
+		 material.
+
+		 @return		@c true if this model part has the default material as 
+						its material. @c false otherwise.
+		 */
+		bool HasDefaultMaterial() const noexcept {
+			return MAGE_MDL_PART_DEFAULT_MATERIAL == m_material;
+		}
+
+		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 

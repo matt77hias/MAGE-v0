@@ -26,11 +26,7 @@ namespace mage {
 	void BehaviorScript::Update([[maybe_unused]] F64 delta_time) {}
 
 	void BehaviorScript::SetActive(bool active) noexcept {
-		if (active && m_terminated) {
-			return;
-		}
-
-		if (m_active == active) {
+		if (m_terminated || (m_active == active)) {
 			return;
 		}
 
@@ -47,7 +43,7 @@ namespace mage {
 		}
 
 		m_terminated = true;
-		m_active = false;
+		m_active     = false;
 
 		OnActiveChange();
 	}

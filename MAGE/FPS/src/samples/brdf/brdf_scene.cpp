@@ -32,7 +32,6 @@ namespace mage {
 	BRDFScene::~BRDFScene() = default;
 
 	void BRDFScene::Load() {
-
 		//---------------------------------------------------------------------
 		// Camera
 		//---------------------------------------------------------------------
@@ -107,19 +106,18 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(MakeShared< script::SwitchSceneScript< SponzaScene > >());
-		AddScript(MakeShared< script::StatsScript >(stats->GetSprite()));
+		Create< script::SwitchSceneScript< SponzaScene > >();
+		Create< script::StatsScript >(stats->GetSprite());
 
 		vector< ModelNode * > models;
-		models.push_back(model_teapot.get());
-		models.push_back(model_skull.get());
-		models.push_back(model_cone.get());
-		models.push_back(model_cube.get());
-		models.push_back(model_cylinder.get());
-		models.push_back(model_plane.get());
-		models.push_back(model_sphere.get());
-		models.push_back(model_torus.get());
-		AddScript(MakeShared< script::BRDFScript >(
-			camera->GetSettings(), brdf->GetSprite(), models));
+		models.push_back(model_teapot);
+		models.push_back(model_skull);
+		models.push_back(model_cone);
+		models.push_back(model_cube);
+		models.push_back(model_cylinder);
+		models.push_back(model_plane);
+		models.push_back(model_sphere);
+		models.push_back(model_torus);
+		Create< script::BRDFScript >(camera->GetSettings(), brdf->GetSprite(), models);
 	}
 }

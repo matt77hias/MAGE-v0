@@ -34,7 +34,6 @@ namespace mage {
 	SponzaScene::~SponzaScene() = default;
 
 	void SponzaScene::Load() {
-		
 		//---------------------------------------------------------------------
 		// Fog
 		//---------------------------------------------------------------------
@@ -119,13 +118,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(MakeShared< script::SwitchSceneScript< SibenikScene > >());
-		AddScript(MakeShared< script::RotationScript >(model_tree->GetTransform()));
-		AddScript(MakeShared< script::FPSInputControllerScript >(camera->GetTransform()));
-
-		//AddScript(MakeShared< script::FPSInputControllerScript >(camera2->GetTransform()));
-
-		AddScript(MakeShared< script::StatsScript >(text->GetSprite()));
-		AddScript(MakeShared< script::RenderModeScript >(camera->GetSettings()));
+		Create< script::SwitchSceneScript< SibenikScene > >();
+		Create< script::RotationScript >(model_tree->GetTransform());
+		Create< script::FPSInputControllerScript >(camera->GetTransform());
+		Create< script::StatsScript >(text->GetSprite());
+		Create< script::RenderModeScript >(camera->GetSettings());
 	}
 }

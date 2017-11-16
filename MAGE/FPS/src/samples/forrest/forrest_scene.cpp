@@ -34,7 +34,6 @@ namespace mage {
 	ForrestScene::~ForrestScene() = default;
 
 	void ForrestScene::Load() {
-
 		//---------------------------------------------------------------------
 		// Fog
 		//---------------------------------------------------------------------
@@ -153,10 +152,9 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(MakeShared< script::SwitchSceneScript< BRDFScene > >());
-		//AddScript(MakeShared< script::RotationScript >(model_tree1->GetTransform()));
-		AddScript(MakeShared< script::FPSInputControllerScript >(camera->GetTransform()));
-		AddScript(MakeShared< script::StatsScript >(text->GetSprite()));
-		AddScript(MakeShared< script::RenderModeScript >(camera->GetSettings()));
+		Create< script::SwitchSceneScript< BRDFScene > >();
+		Create< script::FPSInputControllerScript >(camera->GetTransform());
+		Create< script::StatsScript >(text->GetSprite());
+		Create< script::RenderModeScript >(camera->GetSettings());
 	}
 }

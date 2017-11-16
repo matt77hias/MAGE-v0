@@ -5,27 +5,97 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	template< typename SceneNodeT, typename... ConstructorArgsT >
-	SharedPtr< SceneNodeT > Scene::Create(
-		string name, ConstructorArgsT&&... args) {
+	//-------------------------------------------------------------------------
+	// Member Methods: Creating
+	//-------------------------------------------------------------------------
+
+	template< typename T, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_base_of< BehaviorScript, T >::value, T * >
+		Scene::Create(ConstructorArgsT&&... args) {
 		
-		SharedPtr< SceneNodeT > node = MakeShared< SceneNodeT >(
-			std::move(name), std::forward< ConstructorArgsT >(args)...);
-
-		// Add this node to this scene.
-		AddSceneNode(node);
-
-		return node;
+		UniquePtr< T > uptr
+			= MakeUnique< T >(std::forward< ConstructorArgsT >(args)...);
+		T * const ptr = uptr.get();
+		m_scripts.push_back(std::move(uptr));
+		return ptr;
 	}
+
+	template< typename T, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_base_of< CameraNode, T >::value, T * >
+		Scene::Create(ConstructorArgsT&&... args) {
+
+		UniquePtr< T > uptr
+			= MakeUnique< T >(std::forward< ConstructorArgsT >(args)...);
+		T * const ptr = uptr.get();
+		m_cameras.push_back(std::move(uptr));
+		return ptr;
+	}
+
+	template< typename T, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_base_of< AmbientLightNode, T >::value, T * >
+		Scene::Create(ConstructorArgsT&&... args) {
+
+		m_ambient_light
+			= MakeUnique< T >(std::forward< ConstructorArgsT >(args)...);
+		return m_ambient_light.get();
+	}
+
+	template< typename T, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_base_of< DirectionalLightNode, T >::value, T * >
+		Scene::Create(ConstructorArgsT&&... args) {
+
+		UniquePtr< T > uptr
+			= MakeUnique< T >(std::forward< ConstructorArgsT >(args)...);
+		T * const ptr = uptr.get();
+		m_directional_lights.push_back(std::move(uptr));
+		return ptr;
+	}
+
+	template< typename T, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_base_of< OmniLightNode, T >::value, T * >
+		Scene::Create(ConstructorArgsT&&... args) {
+
+		UniquePtr< T > uptr
+			= MakeUnique< T >(std::forward< ConstructorArgsT >(args)...);
+		T * const ptr = uptr.get();
+		m_omni_lights.push_back(std::move(uptr));
+		return ptr;
+	}
+
+	template< typename T, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_base_of< SpotLightNode, T >::value, T * >
+		Scene::Create(ConstructorArgsT&&... args) {
+
+		UniquePtr< T > uptr
+			= MakeUnique< T >(std::forward< ConstructorArgsT >(args)...);
+		T * const ptr = uptr.get();
+		m_spot_lights.push_back(std::move(uptr));
+		return ptr;
+	}
+
+	template< typename T, typename... ConstructorArgsT >
+	inline typename std::enable_if_t< std::is_base_of< SpriteNode, T >::value, T * >
+		Scene::Create(ConstructorArgsT&&... args) {
+
+		UniquePtr< T > uptr
+			= MakeUnique< T >(std::forward< ConstructorArgsT >(args)...);
+		T * const ptr = uptr.get();
+		m_sprites.push_back(std::move(uptr));
+		return ptr;
+	}
+
+	//-------------------------------------------------------------------------
+	// Member Methods: Iterating
+	//-------------------------------------------------------------------------
 
 	template< typename ActionT >
 	inline void Scene::ForEachScript(
 		ActionT action, bool include_passive) const {
-		
-		vector< SharedPtr< BehaviorScript > > scripts;
+
+		vector< UniquePtr< BehaviorScript > > scripts;
 		scripts.reserve(m_scripts.size());
 
-		for (const auto &script : m_scripts) {
+		for (auto &script : m_scripts) {
 
 			if (script->IsTerminated()) {
 				continue;
@@ -45,10 +115,10 @@ namespace mage {
 	inline void Scene::ForEachCamera(
 		ActionT action, bool include_passive) const {
 		
-		vector< SharedPtr< CameraNode > > cameras;
+		vector< UniquePtr< CameraNode > > cameras;
 		cameras.reserve(m_cameras.size());
 		
-		for (const auto &camera : m_cameras) {
+		for (auto &camera : m_cameras) {
 			
 			if (camera->IsTerminated()) {
 				continue;
@@ -62,16 +132,17 @@ namespace mage {
 		}
 
 		m_cameras = std::move(cameras);
+		
 	}
 
 	template< typename ActionT >
 	inline void Scene::ForEachModel(
 		ActionT action, bool include_passive) const {
 		
-		vector< SharedPtr< ModelNode > > models;
+		vector< UniquePtr< ModelNode > > models;
 		models.reserve(m_models.size());
 		
-		for (const auto &model : m_models) {
+		for (auto &model : m_models) {
 			
 			if (model->IsTerminated()) {
 				continue;
@@ -103,11 +174,11 @@ namespace mage {
 	template< typename ActionT >
 	inline void Scene::ForEachDirectionalLight(
 		ActionT action, bool include_passive) const {
-		
-		vector< SharedPtr< DirectionalLightNode > > lights;
+
+		vector< UniquePtr< DirectionalLightNode > > lights;
 		lights.reserve(m_directional_lights.size());
 		
-		for (const auto &light : m_directional_lights) {
+		for (auto &light : m_directional_lights) {
 			
 			if (light->IsTerminated()) {
 				continue;
@@ -127,10 +198,10 @@ namespace mage {
 	inline void Scene::ForEachOmniLight(
 		ActionT action, bool include_passive) const {
 		
-		vector< SharedPtr< OmniLightNode > > lights;
+		vector< UniquePtr< OmniLightNode > > lights;
 		lights.reserve(m_omni_lights.size());
 		
-		for (const auto &light : m_omni_lights) {
+		for (auto &light : m_omni_lights) {
 			
 			if (light->IsTerminated()) {
 				continue;
@@ -149,11 +220,11 @@ namespace mage {
 	template< typename ActionT >
 	inline void Scene::ForEachSpotLight(
 		ActionT action, bool include_passive) const {
-		
-		vector< SharedPtr< SpotLightNode > > lights;
+
+		vector< UniquePtr< SpotLightNode > > lights;
 		lights.reserve(m_spot_lights.size());
 		
-		for (const auto &light : m_spot_lights) {
+		for (auto &light : m_spot_lights) {
 			
 			if (light->IsTerminated()) {
 				continue;
@@ -182,11 +253,11 @@ namespace mage {
 	template< typename ActionT >
 	inline void Scene::ForEachSprite(
 		ActionT action, bool include_passive) const {
-		
-		vector< SharedPtr< SpriteNode > > sprites;
+
+		vector< UniquePtr< SpriteNode > > sprites;
 		sprites.reserve(m_sprites.size());
 		
-		for (const auto &sprite : m_sprites) {
+		for (auto &sprite : m_sprites) {
 			
 			if (sprite->IsTerminated()) {
 				continue;

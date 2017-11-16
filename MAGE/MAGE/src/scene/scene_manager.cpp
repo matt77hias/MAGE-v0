@@ -20,7 +20,8 @@ namespace mage {
 	}
 
 	SceneManager::SceneManager()
-		: m_scene(), m_requested_scene(), 
+		: m_scene(), 
+		m_requested_scene(), 
 		m_has_requested_scene(false) {}
 
 	SceneManager::SceneManager(SceneManager &&scene_behavior) = default;

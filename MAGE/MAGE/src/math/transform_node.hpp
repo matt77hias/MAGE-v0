@@ -1574,8 +1574,8 @@ namespace mage {
 		 @return		@c true if this transform node contains the given node 
 						as a child node. @c false otherwise.
 		 */
-		bool HasChildNode(SharedPtr< const Node > node) const;
-		
+		bool HasChildNode(const Node *node) const;
+
 		/**
 		 Removes all child nodes from this transform node.
 		 */
@@ -1644,7 +1644,7 @@ namespace mage {
 		/**
 		 The child transform nodes of this transform node.
 		 */
-		vector< SharedPtr< Node > > m_childs;
+		vector< Node * > m_childs;
 
 		/**
 		 The cached object-to-world matrix of this transform node.
@@ -1861,7 +1861,7 @@ namespace mage {
 		 @return		@c true if this node contains the given node as a child 
 						node. @c false otherwise.
 		 */
-		bool HasChildNode(SharedPtr< const Node > node) const {
+		bool HasChildNode(const Node *node) const {
 			return m_transform->HasChildNode(node);
 		}
 		
@@ -1871,7 +1871,7 @@ namespace mage {
 		 @param[in]		node
 						A pointer to the node to add.
 		 */
-		void AddChildNode(SharedPtr< Node > node);
+		void AddChildNode(Node *node);
 
 		/**
 		 Removes the given node from the child nodes of this node.
@@ -1879,7 +1879,7 @@ namespace mage {
 		 @param[in]		node
 						A pointer to the node to remove.
 		 */
-		void RemoveChildNode(SharedPtr< Node > node);
+		void RemoveChildNode(Node *node);
 
 		/**
 		 Removes all child nodes from this node.

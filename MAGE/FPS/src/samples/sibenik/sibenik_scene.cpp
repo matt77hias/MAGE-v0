@@ -34,7 +34,6 @@ namespace mage {
 	SibenikScene::~SibenikScene() = default;
 
 	void SibenikScene::Load() {
-		
 		//---------------------------------------------------------------------
 		// Fog
 		//---------------------------------------------------------------------
@@ -110,10 +109,10 @@ namespace mage {
 		//---------------------------------------------------------------------
 		// Scripts
 		//---------------------------------------------------------------------
-		AddScript(MakeShared< script::SwitchSceneScript< ForrestScene > >());
-		AddScript(MakeShared< script::RotationScript >(model_tree->GetTransform()));
-		AddScript(MakeShared< script::FPSInputControllerScript >(camera->GetTransform()));
-		AddScript(MakeShared< script::StatsScript >(text->GetSprite()));
-		AddScript(MakeShared< script::RenderModeScript >(camera->GetSettings()));
+		Create< script::SwitchSceneScript< ForrestScene > >();
+		Create< script::RotationScript >(model_tree->GetTransform());
+		Create< script::FPSInputControllerScript >(camera->GetTransform());
+		Create< script::StatsScript >(text->GetSprite());
+		Create< script::RenderModeScript >(camera->GetSettings());
 	}
 }

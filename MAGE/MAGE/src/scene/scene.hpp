@@ -70,7 +70,7 @@ namespace mage {
 		void Uninitialize();
 
 		//-------------------------------------------------------------------------
-		// Member Methods: World
+		// Member Methods
 		//-------------------------------------------------------------------------
 
 		/**
@@ -91,22 +91,43 @@ namespace mage {
 			return m_sky.get();
 		}
 
-		template< typename SceneNodeT, typename... ConstructorArgsT >
-		SharedPtr< SceneNodeT > Create(string name, ConstructorArgsT&&... args);
-		SharedPtr< ModelNode > CreateModel(const ModelDescriptor &desc);
+		template< typename T, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_base_of< BehaviorScript, T >::value, T * >
+			Create(ConstructorArgsT&&... args);
+
+		template< typename T, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_base_of< CameraNode, T >::value, T * >
+			Create(ConstructorArgsT&&... args);
+
+		template< typename T, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_base_of< AmbientLightNode, T >::value, T * >
+			Create(ConstructorArgsT&&... args);
+
+		template< typename T, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_base_of< DirectionalLightNode, T >::value, T * >
+			Create(ConstructorArgsT&&... args);
+
+		template< typename T, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_base_of< OmniLightNode, T >::value, T * >
+			Create(ConstructorArgsT&&... args);
+
+		template< typename T, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_base_of< SpotLightNode, T >::value, T * >
+			Create(ConstructorArgsT&&... args);
+
+		template< typename T, typename... ConstructorArgsT >
+		typename std::enable_if_t< std::is_base_of< SpriteNode, T >::value, T * >
+			Create(ConstructorArgsT&&... args);
+
+		ModelNode *CreateModel(const ModelDescriptor &desc);
 		
 		//-------------------------------------------------------------------------
-		// Member Methods: Scripts
+		// Member Methods
 		//-------------------------------------------------------------------------
 
 		size_t GetNumberOfScripts() const noexcept {
 			return m_scripts.size();
 		}
-		bool HasScript(SharedPtr< const BehaviorScript > script) const;
-		void AddScript(SharedPtr< BehaviorScript > script);
-		void RemoveScript(SharedPtr< BehaviorScript > script);
-		void RemoveAllScripts() noexcept;
-		
 		size_t GetNumberOfCameras() const noexcept {
 			return m_cameras.size();
 		}
@@ -175,33 +196,21 @@ namespace mage {
 
 		void Clear() noexcept;
 
-		//-------------------------------------------------------------------------
-		// Member Methods: World
-		//-------------------------------------------------------------------------
-
-		void AddSceneNode(SharedPtr< CameraNode > camera);
-		void AddSceneNode(SharedPtr< ModelNode > model);
-		void AddSceneNode(SharedPtr< AmbientLightNode > light);
-		void AddSceneNode(SharedPtr< DirectionalLightNode > light);
-		void AddSceneNode(SharedPtr< OmniLightNode > light);
-		void AddSceneNode(SharedPtr< SpotLightNode > light);
-		void AddSceneNode(SharedPtr< SpriteNode > sprite);
-
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		string m_name;
 		
-		mutable vector< SharedPtr< BehaviorScript > > m_scripts;
-		mutable vector< SharedPtr< CameraNode > > m_cameras;
-		mutable vector< SharedPtr< ModelNode > > m_models;
-		mutable vector< SharedPtr< DirectionalLightNode > > m_directional_lights;
-		mutable vector< SharedPtr< OmniLightNode > > m_omni_lights;
-		mutable vector< SharedPtr< SpotLightNode > > m_spot_lights;
-		mutable vector< SharedPtr < SpriteNode > > m_sprites;
+		mutable vector< UniquePtr< BehaviorScript > > m_scripts;
+		mutable vector< UniquePtr< CameraNode > > m_cameras;
+		mutable vector< UniquePtr< ModelNode > > m_models;
+		mutable vector< UniquePtr< DirectionalLightNode > > m_directional_lights;
+		mutable vector< UniquePtr< OmniLightNode > > m_omni_lights;
+		mutable vector< UniquePtr< SpotLightNode > > m_spot_lights;
+		mutable vector< UniquePtr< SpriteNode > > m_sprites;
 
-		SharedPtr< AmbientLightNode > m_ambient_light;
+		UniquePtr< AmbientLightNode > m_ambient_light;
 		UniquePtr< SceneFog > m_scene_fog;
 		UniquePtr< Sky > m_sky;
 	};

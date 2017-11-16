@@ -6,7 +6,7 @@
 #pragma region
 
 #include "resource\resource.hpp"
-#include "collection\collection.hpp"
+#include "utils\collection\collection.hpp"
 #include "scripting\variable.hpp"
 
 #pragma endregion

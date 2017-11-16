@@ -6,9 +6,9 @@
 #include "mesh\sprite_batch_mesh.hpp"
 #include "mesh\vertex.hpp"
 #include "rendering\rendering_factory.hpp"
-#include "collection\collection.hpp"
-#include "logging\error.hpp"
-#include "logging\exception.hpp"
+#include "utils\collection\collection.hpp"
+#include "utils\logging\error.hpp"
+#include "utils\exception\exception.hpp"
 
 #pragma endregion
 

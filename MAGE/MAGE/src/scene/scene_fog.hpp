@@ -6,7 +6,7 @@
 #pragma region
 
 #include "material\color.hpp"
-#include "logging\error.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 
@@ -31,7 +31,7 @@ namespace mage {
 		 Constructs a scene fog.
 		 */
 		SceneFog()
-			: m_base_color(color::Silver.x, color::Silver.y, color::Silver.z), 
+			: m_base_color(color::Silver), 
 			m_density(0.0) {}
 
 		/**

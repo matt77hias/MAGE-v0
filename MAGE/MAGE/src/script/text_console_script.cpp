@@ -4,7 +4,7 @@
 #pragma region
 
 #include "script\text_console_script.hpp"
-#include "logging\error.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 

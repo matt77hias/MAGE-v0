@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "model\model_loader.hpp"
+#include "loaders\model_loader.hpp"
 #include "mesh\static_mesh.hpp"
 
 #pragma endregion

@@ -7,7 +7,7 @@
 
 #include "math\bounding_volume.hpp"
 #include "material\material.hpp"
-#include "collection\collection.hpp"
+#include "utils\collection\collection.hpp"
 
 #pragma endregion
 

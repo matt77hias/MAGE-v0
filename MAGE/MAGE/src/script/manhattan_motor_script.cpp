@@ -5,7 +5,7 @@
 
 #include "script\manhattan_motor_script.hpp"
 #include "input\keyboard.hpp"
-#include "logging\error.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 

@@ -7,7 +7,7 @@
 
 #include "material\spectrum.hpp"
 #include "math\bounding_volume.hpp"
-#include "logging\error.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 

@@ -5,7 +5,7 @@
 
 #include "shader\shading.hpp"
 #include "shader\shader_utils.hpp"
-#include "logging\error.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 

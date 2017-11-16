@@ -6,7 +6,7 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "collection\collection.hpp"
+#include "utils\collection\collection.hpp"
 #include "camera\camera_settings.hpp"
 
 #pragma endregion

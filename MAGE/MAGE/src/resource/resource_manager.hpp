@@ -8,7 +8,7 @@
 #include "resource\resource_pool.hpp"
 #include "model\model_descriptor.hpp"
 #include "shader\shader.hpp"
-#include "font\sprite_font.hpp"
+#include "sprite\font\sprite_font.hpp"
 #include "scripting\variable_script.hpp"
 
 #pragma endregion

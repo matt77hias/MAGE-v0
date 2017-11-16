@@ -5,11 +5,11 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "collection\collection.hpp"
+#include "utils\collection\collection.hpp"
 #include "math\sprite_transform.hpp"
 #include "mesh\sprite_batch_mesh.hpp"
 #include "mesh\vertex.hpp"
-#include "buffer\constant_buffer.hpp"
+#include "rendering\buffer\constant_buffer.hpp"
 #include "sprite\sprite_sort_mode.hpp"
 #include "sprite\sprite_effects.hpp"
 

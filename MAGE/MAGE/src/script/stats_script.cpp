@@ -4,9 +4,9 @@
 #pragma region
 
 #include "script\stats_script.hpp"
-#include "system\system_usage.hpp"
+#include "utils\system\system_usage.hpp"
 #include "core\engine_statistics.hpp"
-#include "logging\error.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 

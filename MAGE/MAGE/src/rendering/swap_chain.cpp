@@ -4,10 +4,10 @@
 #pragma region
 
 #include "rendering\rendering_manager.hpp"
-#include "texture\texture_loader.hpp"
-#include "system\system_time.hpp"
-#include "logging\error.hpp"
-#include "logging\exception.hpp"
+#include "loaders\texture_loader.hpp"
+#include "utils\system\system_time.hpp"
+#include "utils\logging\error.hpp"
+#include "utils\exception\exception.hpp"
 
 #pragma endregion
 

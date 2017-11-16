@@ -5,8 +5,8 @@
 
 #include "core\engine.hpp"
 #include "ui\main_window_settings.hpp"
-#include "logging\error.hpp"
-#include "logging\exception.hpp"
+#include "utils\logging\error.hpp"
+#include "utils\exception\exception.hpp"
 
 #pragma endregion
 

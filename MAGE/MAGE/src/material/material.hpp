@@ -7,7 +7,7 @@
 
 #include "material\spectrum.hpp"
 #include "texture\texture.hpp"
-#include "logging\error.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 

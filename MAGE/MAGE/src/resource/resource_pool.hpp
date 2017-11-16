@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "collection\collection.hpp"
-#include "parallel\lock.hpp"
+#include "utils\collection\collection.hpp"
+#include "utils\parallel\lock.hpp"
 
 #pragma endregion
 

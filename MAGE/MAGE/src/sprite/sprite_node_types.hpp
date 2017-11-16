@@ -6,10 +6,10 @@
 #pragma region
 
 #include "sprite\sprite_node.hpp"
-#include "sprite\sprite_image.hpp"
-#include "text\normal_sprite_text.hpp"
-#include "text\dropshadow_sprite_text.hpp"
-#include "text\outline_sprite_text.hpp"
+#include "sprite\image\sprite_image.hpp"
+#include "sprite\text\normal_sprite_text.hpp"
+#include "sprite\text\dropshadow_sprite_text.hpp"
+#include "sprite\text\outline_sprite_text.hpp"
 
 #pragma endregion
 

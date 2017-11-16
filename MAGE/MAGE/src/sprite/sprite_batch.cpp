@@ -7,7 +7,7 @@
 #include "sprite\sprite_utils.hpp"
 #include "texture\texture_utils.hpp"
 #include "rendering\rendering_state_manager.hpp"
-#include "logging\error.hpp"
+#include "utils\logging\error.hpp"
 
 // Include HLSL bindings.
 #include "..\..\shaders\hlsl.hpp"

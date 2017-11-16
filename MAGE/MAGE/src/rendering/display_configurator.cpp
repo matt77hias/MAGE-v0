@@ -5,10 +5,10 @@
 
 #include "rendering\display_configurator.hpp"
 #include "rendering\display_settings.hpp"
-#include "platform\windows_utils.hpp"
+#include "utils\platform\windows_utils.hpp"
 #include "ui\combo_box.hpp"
-#include "file\file_utils.hpp"
-#include "logging\error.hpp"
+#include "utils\file\file_utils.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 

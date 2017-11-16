@@ -6,8 +6,8 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "system\cpu_monitor.hpp"
-#include "text\sprite_text.hpp"
+#include "utils\system\cpu_monitor.hpp"
+#include "sprite\text\sprite_text.hpp"
 
 #pragma endregion
 

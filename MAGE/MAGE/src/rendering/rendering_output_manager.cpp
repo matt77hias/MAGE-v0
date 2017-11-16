@@ -4,8 +4,8 @@
 #pragma region
 
 #include "rendering\rendering_manager.hpp"
-#include "logging\error.hpp"
-#include "logging\exception.hpp"
+#include "utils\logging\error.hpp"
+#include "utils\exception\exception.hpp"
 
 // Include HLSL bindings.
 #include "..\..\shaders\hlsl.hpp"

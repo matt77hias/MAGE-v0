@@ -5,25 +5,25 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "pass\aa_pass.hpp"
-#include "pass\back_buffer_pass.hpp"
-#include "pass\bounding_volume_pass.hpp"
-#include "pass\constant_component_pass.hpp"
-#include "pass\constant_shading_pass.hpp"
-#include "pass\deferred_shading_pass.hpp"
-#include "pass\depth_pass.hpp"
-#include "pass\dof_pass.hpp"
-#include "pass\gbuffer_pass.hpp"
-#include "pass\lbuffer_pass.hpp"
-#include "pass\shading_normal_pass.hpp"
-#include "pass\sky_pass.hpp"
-#include "pass\sprite_pass.hpp"
-#include "pass\variable_component_pass.hpp"
-#include "pass\variable_shading_pass.hpp"
-#include "pass\wireframe_pass.hpp"
+#include "rendering\pass\aa_pass.hpp"
+#include "rendering\pass\back_buffer_pass.hpp"
+#include "rendering\pass\bounding_volume_pass.hpp"
+#include "rendering\pass\constant_component_pass.hpp"
+#include "rendering\pass\constant_shading_pass.hpp"
+#include "rendering\pass\deferred_shading_pass.hpp"
+#include "rendering\pass\depth_pass.hpp"
+#include "rendering\pass\dof_pass.hpp"
+#include "rendering\pass\gbuffer_pass.hpp"
+#include "rendering\pass\lbuffer_pass.hpp"
+#include "rendering\pass\shading_normal_pass.hpp"
+#include "rendering\pass\sky_pass.hpp"
+#include "rendering\pass\sprite_pass.hpp"
+#include "rendering\pass\variable_component_pass.hpp"
+#include "rendering\pass\variable_shading_pass.hpp"
+#include "rendering\pass\wireframe_pass.hpp"
 
-#include "buffer\game_buffer.hpp"
-#include "buffer\camera_buffer.hpp"
+#include "rendering\buffer\game_buffer.hpp"
+#include "rendering\buffer\camera_buffer.hpp"
 
 #pragma endregion
 

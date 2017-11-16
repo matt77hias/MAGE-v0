@@ -6,7 +6,7 @@
 #pragma region
 
 #include "input\input.hpp"
-#include "memory\types.hpp"
+#include "utils\type\types.hpp"
 
 #pragma endregion
 

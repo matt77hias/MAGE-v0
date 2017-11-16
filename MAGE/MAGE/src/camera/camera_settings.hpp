@@ -5,9 +5,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "memory\types.hpp"
+#include "utils\type\types.hpp"
 #include "material\brdf.hpp"
-#include "pass\configuration.hpp"
+#include "rendering\pass\configuration.hpp"
 
 #pragma endregion
 

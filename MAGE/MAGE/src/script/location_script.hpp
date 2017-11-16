@@ -7,7 +7,7 @@
 
 #include "scripting\behavior_script.hpp"
 #include "math\transform_node.hpp"
-#include "text\sprite_text.hpp"
+#include "sprite\text\sprite_text.hpp"
 
 #pragma endregion
 

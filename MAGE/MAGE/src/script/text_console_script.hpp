@@ -6,8 +6,8 @@
 #pragma region
 
 #include "scripting\behavior_script.hpp"
-#include "text\sprite_text.hpp"
-#include "parallel\lock.hpp"
+#include "sprite\text\sprite_text.hpp"
+#include "utils\parallel\lock.hpp"
 
 #pragma endregion
 

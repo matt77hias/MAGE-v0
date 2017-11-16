@@ -4,7 +4,7 @@
 #pragma region
 
 #include "script\location_script.hpp"
-#include "logging\error.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 

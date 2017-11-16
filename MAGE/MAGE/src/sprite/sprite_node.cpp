@@ -4,7 +4,7 @@
 #pragma region
 
 #include "sprite\sprite_node.hpp"
-#include "logging\error.hpp"
+#include "utils\logging\error.hpp"
 
 #pragma endregion
 

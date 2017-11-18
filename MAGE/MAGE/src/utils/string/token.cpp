@@ -918,22 +918,22 @@ namespace mage {
 		Assert(str);
 		Assert(delimiters);
 
-		while (*str != '\0' && str_contains(delimiters, *str)) {
+		while ('\0' != *str && str_contains(delimiters, *str)) {
 			++str;
 		}
 		
-		return (*str != '\0') ? str : nullptr;
+		return ('\0' != *str) ? str : nullptr;
 	}
 	
 	const char *SkipDelimiters(const char *str, const char *delimiters) noexcept {
 		Assert(str);
 		Assert(delimiters);
 		
-		while (*str != '\0' && str_contains(delimiters, *str)) {
+		while ('\0' != *str && str_contains(delimiters, *str)) {
 			++str;
 		}
 		
-		return (*str != '\0') ? str : nullptr;
+		return ('\0' != *str) ? str : nullptr;
 	}
 	
 	char *GotoDelimiters(char *str, const char *delimiters) noexcept {

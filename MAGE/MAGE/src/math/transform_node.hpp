@@ -23,8 +23,7 @@ namespace mage {
 	/**
 	 A class of transform nodes.
 	 */
-	__declspec(align(16)) class TransformNode final 
-		: public AlignedData< TransformNode > {
+	class alignas(16) TransformNode final {
 
 	public:
 

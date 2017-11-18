@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\memory\allocation.hpp"
 #include "math\math_utils.hpp"
 
 #pragma endregion
@@ -18,8 +17,7 @@ namespace mage {
 	/**
 	 A class of texture transforms.
 	 */
-	__declspec(align(16)) class TextureTransform final 
-		: public AlignedData< TextureTransform > {
+	class alignas(16) TextureTransform final {
 
 	public:
 

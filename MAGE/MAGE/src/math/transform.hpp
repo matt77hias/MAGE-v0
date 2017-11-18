@@ -18,8 +18,7 @@ namespace mage {
 	/**
 	 A class of transforms.
 	 */
-	__declspec(align(16)) class Transform final 
-		: public AlignedData< Transform > {
+	class alignas(16) Transform final {
 
 	public:
 

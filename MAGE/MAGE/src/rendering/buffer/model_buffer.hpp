@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\memory\allocation.hpp"
 #include "material\spectrum.hpp"
 
 #pragma endregion
@@ -23,8 +22,7 @@ namespace mage {
 	 A struct of transform buffers used by shaders for transforming vertex 
 	 positions/directions and normals.
 	 */
-	struct alignas(16) ModelNormalTransformBuffer final 
-		: public AlignedData< ModelNormalTransformBuffer > {
+	struct alignas(16) ModelNormalTransformBuffer final {
 
 	public:
 
@@ -121,8 +119,7 @@ namespace mage {
 	 A struct of transform buffers used by shaders for transforming vertex 
 	 positions/directions and texture coordinates.
 	 */
-	struct alignas(16) ModelTextureTransformBuffer final 
-		: public AlignedData< ModelTextureTransformBuffer > {
+	struct alignas(16) ModelTextureTransformBuffer final {
 
 	public:
 
@@ -218,8 +215,7 @@ namespace mage {
 	 A struct of transform buffers used by shaders for transforming vertex 
 	 positions/directions, normals and texture coordinates.
 	 */
-	struct alignas(16) ModelNormalTextureTransformBuffer final 
-		: public AlignedData< ModelNormalTextureTransformBuffer > {
+	struct alignas(16) ModelNormalTextureTransformBuffer final {
 
 	public:
 
@@ -322,8 +318,7 @@ namespace mage {
 	/**
 	 A struct of model buffers.
 	 */
-	struct alignas(16) ModelBuffer final 
-		: public AlignedData< ModelBuffer > {
+	struct alignas(16) ModelBuffer final {
 
 	public:
 

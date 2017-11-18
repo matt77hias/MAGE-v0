@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\memory\allocation.hpp"
 #include "math\math.hpp"
 
 #pragma endregion
@@ -22,8 +21,7 @@ namespace mage {
 	/**
 	 A struct of camera buffers.
 	 */
-	struct alignas(16) CameraBuffer final 
-		: public AlignedData< CameraBuffer > {
+	struct alignas(16) CameraBuffer final {
 
 	public:
 

@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\memory\allocation.hpp"
 #include "math\bounding_volume.hpp"
 
 #pragma endregion
@@ -18,8 +17,7 @@ namespace mage {
 	/**
 	 A struct of view frustums.
 	 */
-	struct alignas(16) ViewFrustum final 
-		: public AlignedData< ViewFrustum > {
+	struct alignas(16) ViewFrustum final {
 
 	public:
 

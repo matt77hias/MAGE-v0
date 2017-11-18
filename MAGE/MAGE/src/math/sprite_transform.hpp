@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\memory\allocation.hpp"
 #include "math\math_utils.hpp"
 
 #pragma endregion
@@ -148,8 +147,7 @@ namespace mage {
 	/**
 	 A class of sprite transforms.
 	 */
-	__declspec(align(16)) class SpriteTransform final 
-		: public AlignedData< SpriteTransform > {
+	class alignas(16) SpriteTransform final {
 
 	public:
 

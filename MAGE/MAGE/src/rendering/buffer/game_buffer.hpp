@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "utils\memory\allocation.hpp"
 #include "math\math.hpp"
 
 #pragma endregion
@@ -22,8 +21,7 @@ namespace mage {
 	/**
 	 A struct of game buffers.
 	 */
-	struct alignas(16) GameBuffer final 
-		: public AlignedData< GameBuffer > {
+	struct alignas(16) GameBuffer final {
 
 	public:
 

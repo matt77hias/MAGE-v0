@@ -16,7 +16,7 @@
 
 ### [File Formats](https://github.com/matt77hias/MAGE/blob/master/meta/file-formats.md)
 * Fonts
-  * .SPRITEFONT (Sprite Font) **[MAGE Dedicated Format]**
+  * .FONT (Sprite Font) **[MAGE Dedicated Format]**
 * Models, Meshes and Materials
   * .MDL  (Model) **[MAGE Dedicated Format]**
   * .MSH  (Mesh)  **[MAGE Dedicated Format]**
@@ -32,7 +32,7 @@
   * .PNG  (Portable Network Graphics)
   * .TIF, .TIFF (Tagged Image File Format)
 * Properties
-  * .VS   (Variable Script) **[MAGE Dedicated Format]**
+  * .VAR   (Variable Script) **[MAGE Dedicated Format]**
 
 ### Rendering
 * AA

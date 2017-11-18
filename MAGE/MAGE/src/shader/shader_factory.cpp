@@ -10,13 +10,7 @@
 // AA
 #include "shader\cso\aa\aa_preprocess_CS.hpp"
 #include "shader\cso\aa\fxaa_CS.hpp"
-#include "shader\cso\aa\msaa_2x_resolve_CS.hpp"
-#include "shader\cso\aa\msaa_4x_resolve_CS.hpp"
-#include "shader\cso\aa\msaa_8x_resolve_CS.hpp"
 #include "shader\cso\aa\msaa_resolve_CS.hpp"
-#include "shader\cso\aa\ssaa_2x_resolve_CS.hpp"
-#include "shader\cso\aa\ssaa_3x_resolve_CS.hpp"
-#include "shader\cso\aa\ssaa_4x_resolve_CS.hpp"
 #include "shader\cso\aa\ssaa_resolve_CS.hpp"
 
 // Deferred
@@ -141,42 +135,14 @@ namespace mage {
 				MAGE_SHADER_ARGS(g_fxaa_CS));
 	}
 
-	SharedPtr< const ComputeShader > CreateMSAAResolveCS(U32 nb_samples) {
-		switch (nb_samples) {
-		
-		case 2:
-			return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_SHADER_ARGS(g_msaa_2x_resolve_CS));
-		case 4:
-			return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_SHADER_ARGS(g_msaa_4x_resolve_CS));
-		case 8:
-			return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_SHADER_ARGS(g_msaa_8x_resolve_CS));
-		default:
-			return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_SHADER_ARGS(g_msaa_resolve_CS));
-
-		}
+	SharedPtr< const ComputeShader > CreateMSAAResolveCS() {
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_msaa_resolve_CS));
 	}
 
-	SharedPtr< const ComputeShader > CreateSSAAResolveCS(U32 nb_samples) {
-		switch (nb_samples) {
-		
-		case 4u:
-			return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_SHADER_ARGS(g_ssaa_2x_resolve_CS));
-		case 9u:
-			return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_SHADER_ARGS(g_ssaa_3x_resolve_CS));
-		case 16u:
-			return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_SHADER_ARGS(g_ssaa_4x_resolve_CS));
-		default:
-			return ResourceManager::Get()->GetOrCreateCS(
-				MAGE_SHADER_ARGS(g_ssaa_resolve_CS));
-
-		}
+	SharedPtr< const ComputeShader > CreateSSAAResolveCS() {
+		return ResourceManager::Get()->GetOrCreateCS(
+			MAGE_SHADER_ARGS(g_ssaa_resolve_CS));
 	}
 
 #pragma endregion

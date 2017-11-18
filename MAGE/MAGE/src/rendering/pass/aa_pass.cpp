@@ -45,35 +45,19 @@ namespace mage {
 			break;
 		}
 
-		case AADescriptor::MSAA_2x: {
-			m_preprocess_cs = nullptr;
-			m_cs            = CreateMSAAResolveCS(2u);
-			break;
-		}
-		case AADescriptor::MSAA_4x: {
-			m_preprocess_cs = nullptr;
-			m_cs            = CreateMSAAResolveCS(4u);
-			break;
-		}
+		case AADescriptor::MSAA_2x:
+		case AADescriptor::MSAA_4x:
 		case AADescriptor::MSAA_8x: {
 			m_preprocess_cs = nullptr;
-			m_cs            = CreateMSAAResolveCS(8u);
+			m_cs            = CreateMSAAResolveCS();
 			break;
 		}
 
-		case AADescriptor::SSAA_2x: {
-			m_preprocess_cs = nullptr;
-			m_cs            = CreateSSAAResolveCS(4u);
-			break;
-		}
-		case AADescriptor::SSAA_3x: {
-			m_preprocess_cs = nullptr;
-			m_cs            = CreateSSAAResolveCS(9u);
-			break;
-		}
+		case AADescriptor::SSAA_2x:
+		case AADescriptor::SSAA_3x:
 		case AADescriptor::SSAA_4x: {
 			m_preprocess_cs = nullptr;
-			m_cs            = CreateSSAAResolveCS(16u);
+			m_cs            = CreateSSAAResolveCS();
 			break;
 		}
 		
@@ -98,14 +82,12 @@ namespace mage {
 		// CS: Bind the compute shader.
 		m_preprocess_cs->BindShader(m_device_context);
 
+		// Dispatch.
 		const U32 nb_groups_x = static_cast< U32 >(ceil(viewport.GetWidth()
-			                  / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
+				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
 		const U32 nb_groups_y = static_cast< U32 >(ceil(viewport.GetHeight()
 				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
-
-		// Dispatch.
-		Pipeline::Dispatch(m_device_context, 
-			nb_groups_x, nb_groups_y, 1u);
+		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}
 
 	void AAPass::DispatchAA(
@@ -120,75 +102,11 @@ namespace mage {
 		// CS: Bind the compute shader.
 		m_cs->BindShader(m_device_context);
 
-		U32 nb_groups_x;
-		U32 nb_groups_y;
-		U32 nb_groups_z;
-
-		switch (desc) {
-		
-		case AADescriptor::MSAA_2x: {
-			nb_groups_x = 1u;
-			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
-				        / static_cast< F32 >(GROUP_SIZE_MSAA_2X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetHeight()
-				        / static_cast< F32 >(GROUP_SIZE_MSAA_2X)));
-			break;
-		}
-		case AADescriptor::MSAA_4x: {
-			nb_groups_x = 1u;
-			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
-				        / static_cast< F32 >(GROUP_SIZE_MSAA_4X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetHeight()
-				        / static_cast< F32 >(GROUP_SIZE_MSAA_4X)));
-			break;
-		}
-		case AADescriptor::MSAA_8x: {
-			nb_groups_x = 1u;
-			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
-				        / static_cast< F32 >(GROUP_SIZE_MSAA_8X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetHeight()
-				        / static_cast< F32 >(GROUP_SIZE_MSAA_8X)));
-			break;
-		}
-
-		case AADescriptor::SSAA_2x: {
-			nb_groups_x = 1u;
-			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
-				        / static_cast< F32 >(GROUP_SIZE_SSAA_2X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetHeight()
-				        / static_cast< F32 >(GROUP_SIZE_SSAA_2X)));
-			break;
-		}
-		case AADescriptor::SSAA_3x: {
-			nb_groups_x = 1u;
-			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
-				        / static_cast< F32 >(GROUP_SIZE_SSAA_3X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetHeight()
-				        / static_cast< F32 >(GROUP_SIZE_SSAA_3X)));
-			break;
-		}
-		case AADescriptor::SSAA_4x: {
-			nb_groups_x = 1u;
-			nb_groups_y = static_cast< U32 >(ceil(viewport.GetWidth()
-				        / static_cast< F32 >(GROUP_SIZE_SSAA_4X)));
-			nb_groups_z = static_cast< U32 >(ceil(viewport.GetHeight()
-				        / static_cast< F32 >(GROUP_SIZE_SSAA_4X)));
-			break;
-		}
-
-		default: {
-			nb_groups_x = static_cast< U32 >(ceil(viewport.GetWidth()
-				        / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
-			nb_groups_y = static_cast< U32 >(ceil(viewport.GetHeight()
-				        / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
-			nb_groups_z = 1u;
-			break;
-		}
-
-		}
-
 		// Dispatch.
-		Pipeline::Dispatch(m_device_context, 
-			nb_groups_x, nb_groups_y, nb_groups_z);
+		const U32 nb_groups_x = static_cast< U32 >(ceil(viewport.GetWidth()
+				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
+		const U32 nb_groups_y = static_cast< U32 >(ceil(viewport.GetHeight()
+				              / static_cast< F32 >(GROUP_SIZE_DEFAULT)));
+		Pipeline::Dispatch(m_device_context, nb_groups_x, nb_groups_y, 1u);
 	}
 }

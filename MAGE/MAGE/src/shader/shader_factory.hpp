@@ -53,13 +53,11 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @param[in]		nb_samples
-					The number of MSAA samples (i.e. subpixels).
 	 @return		A pointer to the MSAA resolve compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateMSAAResolveCS(U32 nb_samples);
+	SharedPtr< const ComputeShader > CreateMSAAResolveCS();
 
 	/**
 	 Creates a SSAA resolve compute shader.
@@ -68,13 +66,11 @@ namespace mage {
 					must be loaded.
 	 @pre			The rendering manager associated with the current engine 
 					must be loaded.
-	 @param[in]		nb_samples
-					The number of SSAA samples (both dimensions).
 	 @return		A pointer to the SSAA resolve compute shader.
 	 @throws		FormattedException
 					Failed to create the compute shader.
 	 */
-	SharedPtr< const ComputeShader > CreateSSAAResolveCS(U32 nb_samples);
+	SharedPtr< const ComputeShader > CreateSSAAResolveCS();
 
 #pragma endregion
 

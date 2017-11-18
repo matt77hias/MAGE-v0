@@ -64,9 +64,15 @@ FEINSTEIN D.: *HLSL Development Cookbook*, 1st Edition, Packt Publishing, 2013.
 
 FIEDLER G.: [*Fix Your Timestep!: How to step your physics simulation forward*](https://gafferongames.com/post/fix_your_timestep/), 2004.
 
+FREE SOFTWARE FOUNDACTION INC.:[*Vague Linkage*](https://gcc.gnu.org/onlinedocs/gcc/Vague-Linkage.html), 2017.
+
+FREE SOFTWARE FOUNDACTION INC.:[*Where’s the Template?*](https://gcc.gnu.org/onlinedocs/gcc/Template-Instantiation.html), 2017.
+
 FRISVAD, J. R.: *Building an Orthonormal Basis from a 3D Unit Vector Without Normalization*, *Journal of Graphics Tools* 16, 3, 2012.
 
 GAMMA E., HELM R., JOHNSON R., VLISSIDES J. M.: Design Patterns: *Elements of Reusable Object-oriented Software*, 1st Edition, Addison-Wesley Longman Publishing Co., 1995.
+
+GOLDSBOROUGH P.: [*Internal and External Linkage in C++*](http://www.goldsborough.me/c/c++/linker/2016/03/30/19-34-25-internal_and_external_linkage_in_c++/), 2016.
 
 GREGORY J.: *Game Engine Architecture*, 2nd Edition, A K Peters/CRC Press, 2014.
 
@@ -239,6 +245,7 @@ Uses:
 
 ## Thanks
 * [Adam Miles](https://github.com/AdamJMiles)
+* AthosVG
 * [Brooke Hodgman](https://github.com/hodgman)
 * [Chuck Walbourn](https://github.com/walbourn)
 * [Eric Richards](https://github.com/ericrrichards)
@@ -256,5 +263,6 @@ Uses:
 * [Nicolas Silvagni](https://github.com/galop1n)
 * [Roald Frederickx](https://github.com/RoaldFre)
 * Styves
+* Zipster
 * [GameDev.net](https://www.gamedev.net/) community
 * [Computer Graphics StackExchange](https://computergraphics.stackexchange.com/) community

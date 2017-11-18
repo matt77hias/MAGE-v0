@@ -25,10 +25,7 @@ namespace mage {
 		m_scene_fog(), 
 		m_sky() {}
 
-	Scene::~Scene() {
-		// Clears this scene.
-		Clear();
-	}
+	Scene::~Scene() = default;
 	
 	//-------------------------------------------------------------------------
 	// Scene Member Methods: Lifecycle

@@ -24,9 +24,7 @@ namespace mage {
 
 	VariableScript::VariableScript(VariableScript &&variable_script) = default;
 
-	VariableScript::~VariableScript() {
-		RemoveAllVariables();
-	}
+	VariableScript::~VariableScript() = default;
 
 	void VariableScript::ImportScript(const wstring &fname) {
 		vector< Variable > variable_buffer;

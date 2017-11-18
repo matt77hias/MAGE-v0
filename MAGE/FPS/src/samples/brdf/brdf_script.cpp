@@ -28,10 +28,7 @@ namespace mage::script {
 
 	BRDFScript::BRDFScript(BRDFScript &&script) = default;
 
-	BRDFScript::~BRDFScript() {
-		m_models.clear();
-		m_modes.clear();
-	}
+	BRDFScript::~BRDFScript() = default;
 
 	void BRDFScript::InitModels() noexcept {
 		for (const auto &node : m_models) {

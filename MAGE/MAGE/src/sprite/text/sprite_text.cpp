@@ -24,9 +24,7 @@ namespace mage {
 
 	SpriteText::SpriteText(SpriteText &&sprite_text) = default;
 
-	SpriteText::~SpriteText() {
-		m_strings.clear();
-	}
+	SpriteText::~SpriteText() = default;
 
 	void SpriteText::SetText(const wstring &text) {
 		m_strings.clear();

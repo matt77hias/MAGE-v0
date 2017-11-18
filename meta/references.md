@@ -64,9 +64,9 @@ FEINSTEIN D.: *HLSL Development Cookbook*, 1st Edition, Packt Publishing, 2013.
 
 FIEDLER G.: [*Fix Your Timestep!: How to step your physics simulation forward*](https://gafferongames.com/post/fix_your_timestep/), 2004.
 
-FREE SOFTWARE FOUNDACTION INC.:[*Vague Linkage*](https://gcc.gnu.org/onlinedocs/gcc/Vague-Linkage.html), 2017.
+FREE SOFTWARE FOUNDACTION INC.: [*Vague Linkage*](https://gcc.gnu.org/onlinedocs/gcc/Vague-Linkage.html), 2017.
 
-FREE SOFTWARE FOUNDACTION INC.:[*Where’s the Template?*](https://gcc.gnu.org/onlinedocs/gcc/Template-Instantiation.html), 2017.
+FREE SOFTWARE FOUNDACTION INC.: [*Where’s the Template?*](https://gcc.gnu.org/onlinedocs/gcc/Template-Instantiation.html), 2017.
 
 FRISVAD, J. R.: *Building an Orthonormal Basis from a 3D Unit Vector Without Normalization*, *Journal of Graphics Tools* 16, 3, 2012.
 

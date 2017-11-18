@@ -153,7 +153,7 @@ namespace mage {
 			 @return		A reference to the copy of the given aligned 
 							allocator (i.e. this aligned allocator).
 			 */
-			rebind< DataU > &operator=(const rebind< DataU > &r) = delete;
+			rebind &operator=(const rebind &r) = delete;
 
 			/**
 			 Moves the given aligned allocator to this aligned allocator.
@@ -163,7 +163,7 @@ namespace mage {
 			 @return		A reference to the moved aligned allocator (i.e. 
 							this aligned allocator).
 			 */
-			rebind< DataU > &operator=(rebind< DataU > &&r) = delete;
+			rebind &operator=(rebind &&r) = delete;
 
 		private:
 
@@ -178,7 +178,7 @@ namespace mage {
 			 @param[in]		r
 							A reference to the aligned allocator to copy.
 			 */
-			rebind(const rebind< DataU > &r) = delete;
+			rebind(const rebind &r) = delete;
 
 			/**
 			 Constructs an aligned allocator by moving the given aligned 
@@ -187,7 +187,7 @@ namespace mage {
 			 @param[in]		r
 							A reference to the aligned allocator to move.
 			 */
-			rebind(rebind< DataU > &&r) = delete;
+			rebind(rebind &&r) = delete;
 
 			/**
 			 Destructs this aligned allocator.
@@ -210,8 +210,7 @@ namespace mage {
 		 @param[in]		allocator
 						A reference to the aligned allocator to copy.
 		 */
-		AlignedAllocator(
-			const AlignedAllocator< DataT, AlignmentS > &allocator) noexcept = default;
+		AlignedAllocator(const AlignedAllocator &allocator) noexcept = default;
 		
 		/**
 		 Constructs an aligned allocator by moving the given aligned allocator.
@@ -219,8 +218,7 @@ namespace mage {
 		 @param[in]		allocator
 						A reference to the aligned allocator to move.
 		 */
-		AlignedAllocator(
-			AlignedAllocator< DataT, AlignmentS > &&allocator) noexcept = default;
+		AlignedAllocator(AlignedAllocator &&allocator) noexcept = default;
 		
 		/**
 		 Constructs an aligned allocator from the given aligned allocator.
@@ -251,8 +249,8 @@ namespace mage {
 		 @return		A reference to the copy of the given aligned allocator 
 						(i.e. this aligned allocator).
 		 */
-		AlignedAllocator< DataT, AlignmentS > &operator=(
-			const AlignedAllocator< DataT, AlignmentS > &allocator) noexcept = delete;
+		AlignedAllocator &operator=(
+			const AlignedAllocator &allocator) noexcept = delete;
 
 		/**
 		 Moves the given aligned allocator to this aligned allocator.
@@ -262,8 +260,8 @@ namespace mage {
 		 @return		A reference to the moved aligned allocator (i.e. this 
 						aligned allocator).
 		 */
-		AlignedAllocator< DataT, AlignmentS > &operator=(
-			AlignedAllocator< DataT, AlignmentS > &&allocator) noexcept = delete;
+		AlignedAllocator &operator=(
+			AlignedAllocator &&allocator) noexcept = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods
@@ -421,9 +419,7 @@ namespace mage {
 						aligned allocator, and vice versa. This is always the
 						case for stateless allocators. @c false otherwise.
 		 */
-		bool operator==(
-			const AlignedAllocator< DataT, AlignmentS > &rhs) const noexcept {
-			
+		bool operator==(const AlignedAllocator &rhs) const noexcept {
 			return true;
 		}
 
@@ -438,9 +434,7 @@ namespace mage {
 						aligned allocator, and vice versa. This is never the
 						case for stateless allocators. @c false otherwise.
 		 */
-		bool operator!=(
-			const AlignedAllocator< DataT, AlignmentS > &rhs) const noexcept {
-			
+		bool operator!=(const AlignedAllocator &rhs) const noexcept {
 			return false;
 		}
 	};

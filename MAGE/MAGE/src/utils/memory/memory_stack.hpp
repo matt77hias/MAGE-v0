@@ -276,7 +276,7 @@ namespace mage {
 				 @return		A reference to the copy of the given aligned 
 								allocator (i.e. this allocator).
 				 */
-				rebind< DataU > &operator=(const rebind< DataU > &r) = delete;
+				rebind &operator=(const rebind &r) = delete;
 
 				/**
 				 Moves the given allocator to this allocator.
@@ -286,7 +286,7 @@ namespace mage {
 				 @return		A reference to the moved allocator (i.e. 
 								this allocator).
 				 */
-				rebind< DataU > &operator=(rebind< DataU > &&r) = delete;
+				rebind &operator=(rebind &&r) = delete;
 
 			private:
 
@@ -301,7 +301,7 @@ namespace mage {
 				 @param[in]		r
 								A reference to the allocator to copy.
 				 */
-				rebind(const rebind< DataU > &r) = delete;
+				rebind(const rebind &r) = delete;
 
 				/**
 				 Constructs an allocator by moving the given aligned 
@@ -310,7 +310,7 @@ namespace mage {
 				 @param[in]		r
 								A reference to the allocator to move.
 				 */
-				rebind(rebind< DataU > &&r) = delete;
+				rebind(rebind &&r) = delete;
 
 				/**
 				 Destructs this allocator.
@@ -328,7 +328,7 @@ namespace mage {
 			 @param[in]		allocator
 							A reference to the allocator to copy.
 			 */
-			Allocator(const Allocator< DataT > &allocator) noexcept = default;
+			Allocator(const Allocator &allocator) noexcept = default;
 		
 			/**
 			 Constructs an allocator by moving the given allocator.
@@ -336,7 +336,7 @@ namespace mage {
 			 @param[in]		allocator
 							A reference to the allocator to move.
 			 */
-			Allocator(Allocator< DataT > &&allocator) noexcept = default;
+			Allocator(Allocator &&allocator) noexcept = default;
 		
 			/**
 			 Constructs an allocator from the given allocator.
@@ -367,8 +367,7 @@ namespace mage {
 			 @return		A reference to the copy of the given allocator 
 							(i.e. this allocator).
 			 */
-			Allocator< DataT > &operator=(
-				const Allocator< DataT > &allocator) noexcept = delete;
+			Allocator &operator=(const Allocator &allocator) noexcept = delete;
 
 			/**
 			 Moves the given allocator to this allocator.
@@ -378,8 +377,7 @@ namespace mage {
 			 @return		A reference to the moved allocator (i.e. this 
 							allocator).
 			 */
-			Allocator< DataT > &operator=(
-				Allocator< DataT > &&allocator) noexcept = delete;
+			Allocator &operator=(Allocator &&allocator) noexcept = delete;
 
 			//-----------------------------------------------------------------
 			// Member Methods
@@ -533,7 +531,7 @@ namespace mage {
 							allocator can be deallocated from the given
 							allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator==(const Allocator< DataT > &rhs) const noexcept {
+			bool operator==(const Allocator &rhs) const noexcept {
 				return m_memory_stack = rhs.m_memory_stack;
 			}
 
@@ -546,7 +544,7 @@ namespace mage {
 							allocator cannot be deallocated from the given
 							allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator!=(const Allocator< DataT > &rhs) const noexcept {
+			bool operator!=(const Allocator &rhs) const noexcept {
 				return m_memory_stack != rhs.m_memory_stack;
 			}
 
@@ -965,7 +963,7 @@ namespace mage {
 				 @return		A reference to the copy of the given aligned 
 								low allocator (i.e. this low allocator).
 				 */
-				rebind< DataU > &operator=(const rebind< DataU > &r) = delete;
+				rebind &operator=(const rebind &r) = delete;
 
 				/**
 				 Moves the given low allocator to this low allocator.
@@ -975,7 +973,7 @@ namespace mage {
 				 @return		A reference to the moved low allocator (i.e. 
 								this low allocator).
 				 */
-				rebind< DataU > &operator=(rebind< DataU > &&r) = delete;
+				rebind &operator=(rebind &&r) = delete;
 
 			private:
 
@@ -990,7 +988,7 @@ namespace mage {
 				 @param[in]		r
 								A reference to the low allocator to copy.
 				 */
-				rebind(const rebind< DataU > &r) = delete;
+				rebind(const rebind &r) = delete;
 
 				/**
 				 Constructs an low allocator by moving the given aligned 
@@ -999,7 +997,7 @@ namespace mage {
 				 @param[in]		r
 								A reference to the low allocator to move.
 				 */
-				rebind(rebind< DataU > &&r) = delete;
+				rebind(rebind &&r) = delete;
 
 				/**
 				 Destructs this low allocator.
@@ -1017,8 +1015,7 @@ namespace mage {
 			 @param[in]		low_allocator
 							A reference to the low allocator to copy.
 			 */
-			LowAllocator(
-				const LowAllocator< DataT > &low_allocator) noexcept = default;
+			LowAllocator(const LowAllocator &low_allocator) noexcept = default;
 		
 			/**
 			 Constructs a low allocator by moving the given low allocator.
@@ -1026,8 +1023,7 @@ namespace mage {
 			 @param[in]		low_allocator
 							A reference to the low allocator to move.
 			 */
-			LowAllocator(
-				LowAllocator< DataT > &&low_allocator) noexcept = default;
+			LowAllocator(LowAllocator &&low_allocator) noexcept = default;
 		
 			/**
 			 Constructs a low allocator from the given low allocator.
@@ -1058,8 +1054,8 @@ namespace mage {
 			 @return		A reference to the copy of the given low allocator 
 							(i.e. this low allocator).
 			 */
-			LowAllocator< DataT > &operator=(
-				const LowAllocator< DataT > &low_allocator) noexcept = delete;
+			LowAllocator &operator=(
+				const LowAllocator &low_allocator) noexcept = delete;
 
 			/**
 			 Moves the given low allocator to this low allocator.
@@ -1069,8 +1065,8 @@ namespace mage {
 			 @return		A reference to the moved low allocator (i.e. this 
 							low allocator).
 			 */
-			LowAllocator< DataT > &operator=(
-				LowAllocator< DataT > &&low_allocator) noexcept = delete;
+			LowAllocator &operator=(
+				LowAllocator &&low_allocator) noexcept = delete;
 
 			//-----------------------------------------------------------------
 			// Member Methods
@@ -1225,7 +1221,7 @@ namespace mage {
 							low allocator can be deallocated from the given
 							low allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator==(const LowAllocator< DataT > &rhs) const noexcept {
+			bool operator==(const LowAllocator &rhs) const noexcept {
 				return m_memory_stack = rhs.m_memory_stack;
 			}
 
@@ -1239,7 +1235,7 @@ namespace mage {
 							low allocator cannot be deallocated from the given
 							low allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator!=(const LowAllocator< DataT > &rhs) const noexcept {
+			bool operator!=(const LowAllocator &rhs) const noexcept {
 				return m_memory_stack != rhs.m_memory_stack;
 			}
 
@@ -1352,7 +1348,7 @@ namespace mage {
 				 @return		A reference to the copy of the given aligned 
 								high allocator (i.e. this high allocator).
 				 */
-				rebind< DataU > &operator=(const rebind< DataU > &r) = delete;
+				rebind &operator=(const rebind &r) = delete;
 
 				/**
 				 Moves the given high allocator to this high allocator.
@@ -1362,7 +1358,7 @@ namespace mage {
 				 @return		A reference to the moved high allocator (i.e. 
 								this high allocator).
 				 */
-				rebind< DataU > &operator=(rebind< DataU > &&r) = delete;
+				rebind &operator=(rebind &&r) = delete;
 
 			private:
 
@@ -1377,7 +1373,7 @@ namespace mage {
 				 @param[in]		r
 								A reference to the high allocator to copy.
 				 */
-				rebind(const rebind< DataU > &r) = delete;
+				rebind(const rebind &r) = delete;
 
 				/**
 				 Constructs an high allocator by moving the given aligned 
@@ -1386,7 +1382,7 @@ namespace mage {
 				 @param[in]		r
 								A reference to the high allocator to move.
 				 */
-				rebind(rebind< DataU > &&r) = delete;
+				rebind(rebind &&r) = delete;
 
 				/**
 				 Destructs this high allocator.
@@ -1404,8 +1400,7 @@ namespace mage {
 			 @param[in]		high_allocator
 							A reference to the high allocator to copy.
 			 */
-			HighAllocator(
-				const HighAllocator< DataT > &high_allocator) noexcept = default;
+			HighAllocator(const HighAllocator &high_allocator) noexcept = default;
 		
 			/**
 			 Constructs a high allocator by moving the given high allocator.
@@ -1413,8 +1408,7 @@ namespace mage {
 			 @param[in]		high_allocator
 							A reference to the high allocator to move.
 			 */
-			HighAllocator(
-				HighAllocator< DataT > &&high_allocator) noexcept = default;
+			HighAllocator(HighAllocator &&high_allocator) noexcept = default;
 		
 			/**
 			 Constructs a high allocator from the given high allocator.
@@ -1445,8 +1439,8 @@ namespace mage {
 			 @return		A reference to the copy of the given high allocator 
 							(i.e. this high allocator).
 			 */
-			HighAllocator< DataT > &operator=(
-				const HighAllocator< DataT > &high_allocator) noexcept = delete;
+			HighAllocator &operator=(
+				const HighAllocator &high_allocator) noexcept = delete;
 
 			/**
 			 Moves the given high allocator to this high allocator.
@@ -1456,8 +1450,8 @@ namespace mage {
 			 @return		A reference to the moved high allocator (i.e. this 
 							high allocator).
 			 */
-			HighAllocator< DataT > &operator=(
-				HighAllocator< DataT > &&high_allocator) noexcept = delete;
+			HighAllocator &operator=(
+				HighAllocator &&high_allocator) noexcept = delete;
 
 			//-----------------------------------------------------------------
 			// Member Methods
@@ -1612,7 +1606,7 @@ namespace mage {
 							high allocator can be deallocated from the given
 							high allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator==(const HighAllocator< DataT > &rhs) const noexcept {
+			bool operator==(const HighAllocator &rhs) const noexcept {
 				return m_memory_stack = rhs.m_memory_stack;
 			}
 
@@ -1626,7 +1620,7 @@ namespace mage {
 							high allocator cannot be deallocated from the given
 							high allocator, and vice versa. @c false otherwise.
 			 */
-			bool operator!=(const HighAllocator< DataT > &rhs) const noexcept {
+			bool operator!=(const HighAllocator &rhs) const noexcept {
 				return m_memory_stack != rhs.m_memory_stack;
 			}
 

@@ -22,7 +22,7 @@ namespace mage {
 	/**
 	 A struct of light buffers used by shaders.
 	 */
-	__declspec(align(16)) struct LightBuffer final 
+	struct alignas(16) LightBuffer final 
 		: public AlignedData< LightBuffer > {
 
 	public:
@@ -170,7 +170,7 @@ namespace mage {
 	/**
 	 A struct of directional light buffers used by shaders.
 	 */
-	__declspec(align(16)) struct DirectionalLightBuffer final 
+	struct alignas(16) DirectionalLightBuffer final 
 		: public AlignedData< DirectionalLightBuffer > {
 
 	public:
@@ -276,7 +276,7 @@ namespace mage {
 	/**
 	 A struct of omni light buffers used by shaders.
 	 */
-	__declspec(align(16)) struct OmniLightBuffer final 
+	struct alignas(16) OmniLightBuffer final 
 		: public AlignedData< OmniLightBuffer > {
 
 	public:
@@ -376,7 +376,7 @@ namespace mage {
 	/**
 	 A struct of spotlight buffers used by shaders.
 	 */
-	__declspec(align(16)) struct SpotLightBuffer final 
+	struct alignas(16) SpotLightBuffer final 
 		: public AlignedData< SpotLightBuffer > {
 
 	public:
@@ -490,7 +490,7 @@ namespace mage {
 	/**
 	 A struct of directional light with shadow mapping buffers used by shaders.
 	 */
-	__declspec(align(16)) struct DirectionalLightWithShadowMappingBuffer final 
+	struct alignas(16) DirectionalLightWithShadowMappingBuffer final 
 		: public AlignedData< DirectionalLightWithShadowMappingBuffer > {
 
 	public:
@@ -600,7 +600,7 @@ namespace mage {
 	/**
 	 A struct of omni light with shadow mapping buffers used by shaders.
 	 */
-	__declspec(align(16)) struct OmniLightWithShadowMappingBuffer final 
+	struct alignas(16) OmniLightWithShadowMappingBuffer final 
 		: public AlignedData< OmniLightWithShadowMappingBuffer > {
 
 	public:
@@ -721,7 +721,7 @@ namespace mage {
 	/**
 	 A struct of spotlight with shadow mapping buffers used by shaders.
 	 */
-	__declspec(align(16)) struct SpotLightWithShadowMappingBuffer final 
+	struct alignas(16) SpotLightWithShadowMappingBuffer final 
 		: public AlignedData< SpotLightWithShadowMappingBuffer > {
 
 	public:

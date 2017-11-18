@@ -22,7 +22,7 @@ namespace mage {
 	/**
 	 A struct of game buffers.
 	 */
-	_declspec(align(16)) struct GameBuffer final 
+	struct alignas(16) GameBuffer final 
 		: public AlignedData< GameBuffer > {
 
 	public:

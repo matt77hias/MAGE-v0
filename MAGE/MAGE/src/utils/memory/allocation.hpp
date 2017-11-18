@@ -102,9 +102,8 @@ namespace mage {
 						Failed to allocate the memory block.
 		 */
 		static void *operator new(size_t size) {
-			const size_t alignment = __alignof(DataT);
+			const size_t alignment = alignof(DataT);
 			
-			// __declspec(align) on DataT is required
 			static_assert(alignment > 8, 
 				"AlignedData is only useful for types with > 8 byte alignment.");
 			

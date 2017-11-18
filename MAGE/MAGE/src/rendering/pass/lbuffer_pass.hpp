@@ -18,7 +18,7 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	__declspec(align(16)) struct LightCameraInfo final
+	struct alignas(16) LightCameraInfo final
 		: public AlignedData< LightCameraInfo > {
 		XMMATRIX cview_to_lprojection;
 	};

@@ -27,7 +27,7 @@ namespace mage {
 	/**
 	 A struct of sprite info for a single sprite.
 	 */
-	__declspec(align(16)) struct SpriteInfo final 
+	struct alignas(16) SpriteInfo final 
 		: public AlignedData< SpriteInfo > {
 
 	public:

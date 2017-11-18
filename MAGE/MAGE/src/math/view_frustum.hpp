@@ -18,7 +18,7 @@ namespace mage {
 	/**
 	 A struct of view frustums.
 	 */
-	__declspec(align(16)) struct ViewFrustum final 
+	struct alignas(16) ViewFrustum final 
 		: public AlignedData< ViewFrustum > {
 
 	public:

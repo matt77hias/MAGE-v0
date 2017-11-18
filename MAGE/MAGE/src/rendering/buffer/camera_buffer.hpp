@@ -22,7 +22,7 @@ namespace mage {
 	/**
 	 A struct of camera buffers.
 	 */
-	_declspec(align(16)) struct CameraBuffer final 
+	struct alignas(16) CameraBuffer final 
 		: public AlignedData< CameraBuffer > {
 
 	public:

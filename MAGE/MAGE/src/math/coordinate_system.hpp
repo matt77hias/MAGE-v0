@@ -116,7 +116,7 @@ namespace mage {
 	/**
 	 A struct of Cartesian axes systems.
 	 */
-	__declspec(align(16)) struct CartesianAxesSystem final 
+	struct alignas(16) CartesianAxesSystem final 
 		: public AlignedData< CartesianAxesSystem > {
 
 	public:
@@ -281,7 +281,7 @@ namespace mage {
 	/**
 	 A struct of Cartesian coordinate systems.
 	 */
-	_declspec(align(16)) struct CartesianCoordinateSystem final 
+	struct alignas(16) CartesianCoordinateSystem final 
 		: public AlignedData< CartesianCoordinateSystem > {
 
 	public:

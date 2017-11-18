@@ -23,7 +23,7 @@ namespace mage {
 	 A struct of transform buffers used by shaders for transforming vertex 
 	 positions/directions and normals.
 	 */
-	_declspec(align(16)) struct ModelNormalTransformBuffer final 
+	struct alignas(16) ModelNormalTransformBuffer final 
 		: public AlignedData< ModelNormalTransformBuffer > {
 
 	public:
@@ -121,7 +121,7 @@ namespace mage {
 	 A struct of transform buffers used by shaders for transforming vertex 
 	 positions/directions and texture coordinates.
 	 */
-	_declspec(align(16)) struct ModelTextureTransformBuffer final 
+	struct alignas(16) ModelTextureTransformBuffer final 
 		: public AlignedData< ModelTextureTransformBuffer > {
 
 	public:
@@ -218,7 +218,7 @@ namespace mage {
 	 A struct of transform buffers used by shaders for transforming vertex 
 	 positions/directions, normals and texture coordinates.
 	 */
-	_declspec(align(16)) struct ModelNormalTextureTransformBuffer final 
+	struct alignas(16) ModelNormalTextureTransformBuffer final 
 		: public AlignedData< ModelNormalTextureTransformBuffer > {
 
 	public:
@@ -322,7 +322,7 @@ namespace mage {
 	/**
 	 A struct of model buffers.
 	 */
-	_declspec(align(16)) struct ModelBuffer final 
+	struct alignas(16) ModelBuffer final 
 		: public AlignedData< ModelBuffer > {
 
 	public:

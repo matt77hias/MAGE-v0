@@ -2,9 +2,9 @@
 
 ## Fonts
 
-### .spritefont
+### .font
 * File mode: binary
-* File extension: `spritefont` or `SPRITEFONT`
+* File extension: `font` or `FONT`
 * Use: storing sprite fonts
 * Magic: `MAGEfont`
 * Syntax: see [SpriteFont format](https://github.com/matt77hias/MAGE-SpriteFont)
@@ -110,9 +110,9 @@
 
 ## Variable Scripts
 
-### .vs
+### .var
 * File mode: ANSI
-* File extension: `vs` or `VS`
+* File extension: `var` or `VAR`
 * Use: storing simple properties
 * (Line) comment characters:
   * `#`

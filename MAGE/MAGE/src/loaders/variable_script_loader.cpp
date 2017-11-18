@@ -4,7 +4,7 @@
 #pragma region
 
 #include "loaders\variable_script_loader.hpp"
-#include "loaders\vs\vs_loader.hpp"
+#include "loaders\var\var_loader.hpp"
 #include "utils\file\file_utils.hpp"
 #include "utils\exception\exception.hpp"
 
@@ -20,8 +20,8 @@ namespace mage {
 		
 		const wstring extension = GetFileExtension(fname);
 
-		if (extension == L"vs" || extension == L"VS") {
-			ImportVSFromFile(fname, variable_buffer);
+		if (extension == L"var" || extension == L"VAR") {
+			ImportVARFromFile(fname, variable_buffer);
 		}
 		else {
 			throw FormattedException(
@@ -34,8 +34,8 @@ namespace mage {
 		
 		const wstring extension = GetFileExtension(fname);
 
-		if (extension == L"vs" || extension == L"VS") {
-			ExportVSToFile(fname, variable_buffer);
+		if (extension == L"var" || extension == L"VAR") {
+			ExportVARToFile(fname, variable_buffer);
 		}
 		else {
 			throw FormattedException(

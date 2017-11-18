@@ -277,23 +277,11 @@
     <Filter Include="Header Files\loaders\wic">
       <UniqueIdentifier>{9f54fff1-38b1-4d72-bdd6-0eb32d400803}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\loaders\vs">
-      <UniqueIdentifier>{7c5d2a8a-5594-4643-85b9-a87670fe9a64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\loaders\spritefont">
-      <UniqueIdentifier>{fd08267c-a086-4ea5-b4a2-58eafab46748}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\loaders\obj">
       <UniqueIdentifier>{040ea3ca-4825-4c2a-9c89-687d5c0e2e65}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\loaders\wic">
       <UniqueIdentifier>{ef75dd03-9f0a-4339-9e6d-05e15efb8019}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\loaders\vs">
-      <UniqueIdentifier>{ed24c8fe-b3d6-42a3-9823-6e5fe5ddd614}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\loaders\spritefont">
-      <UniqueIdentifier>{17d01421-5d52-4321-b9bc-a11c2b1190bd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\loaders\mtl">
       <UniqueIdentifier>{fcf2b759-8ea6-468c-8fc8-568d575b78a3}</UniqueIdentifier>
@@ -333,6 +321,18 @@
     </Filter>
     <Filter Include="Header Files\sprite\text">
       <UniqueIdentifier>{a47654c4-dacc-492e-a2c0-83aa585d14c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\loaders\var">
+      <UniqueIdentifier>{a3fbf0b1-46dd-47cb-9876-f7aef535721a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\loaders\font">
+      <UniqueIdentifier>{3a5bc342-335c-4858-99d7-73a464d64ba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\loaders\var">
+      <UniqueIdentifier>{37a1bb02-0aed-48dd-bc2b-bc59331363bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\loaders\font">
+      <UniqueIdentifier>{44afcfd8-0d23-48d9-9fc7-e08846cbb1ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -945,27 +945,6 @@
     <ClInclude Include="MAGE\src\loaders\obj\obj_tokens.hpp">
       <Filter>Header Files\loaders\obj</Filter>
     </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\spritefont\spritefont_loader.hpp">
-      <Filter>Header Files\loaders\spritefont</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\spritefont\spritefont_reader.hpp">
-      <Filter>Header Files\loaders\spritefont</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\spritefont\spritefont_tokens.hpp">
-      <Filter>Header Files\loaders\spritefont</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\vs\vs_loader.hpp">
-      <Filter>Header Files\loaders\vs</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\vs\vs_reader.hpp">
-      <Filter>Header Files\loaders\vs</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\vs\vs_tokens.hpp">
-      <Filter>Header Files\loaders\vs</Filter>
-    </ClInclude>
-    <ClInclude Include="MAGE\src\loaders\vs\vs_writer.hpp">
-      <Filter>Header Files\loaders\vs</Filter>
-    </ClInclude>
     <ClInclude Include="MAGE\src\loaders\wic\wic_loader.hpp">
       <Filter>Header Files\loaders\wic</Filter>
     </ClInclude>
@@ -1103,6 +1082,27 @@
     </ClInclude>
     <ClInclude Include="MAGE\src\sprite\font\sprite_font.hpp">
       <Filter>Header Files\sprite\font</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\loaders\var\var_loader.hpp">
+      <Filter>Header Files\loaders\var</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\loaders\var\var_reader.hpp">
+      <Filter>Header Files\loaders\var</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\loaders\var\var_tokens.hpp">
+      <Filter>Header Files\loaders\var</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\loaders\var\var_writer.hpp">
+      <Filter>Header Files\loaders\var</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\loaders\font\font_loader.hpp">
+      <Filter>Header Files\loaders\font</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\loaders\font\font_reader.hpp">
+      <Filter>Header Files\loaders\font</Filter>
+    </ClInclude>
+    <ClInclude Include="MAGE\src\loaders\font\font_tokens.hpp">
+      <Filter>Header Files\loaders\font</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1373,21 +1373,6 @@
     <ClCompile Include="MAGE\src\loaders\mtl\mtl_reader.cpp">
       <Filter>Source Files\loaders\mtl</Filter>
     </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\spritefont\spritefont_loader.cpp">
-      <Filter>Source Files\loaders\spritefont</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\spritefont\spritefont_reader.cpp">
-      <Filter>Source Files\loaders\spritefont</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\vs\vs_loader.cpp">
-      <Filter>Source Files\loaders\vs</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\vs\vs_reader.cpp">
-      <Filter>Source Files\loaders\vs</Filter>
-    </ClCompile>
-    <ClCompile Include="MAGE\src\loaders\vs\vs_writer.cpp">
-      <Filter>Source Files\loaders\vs</Filter>
-    </ClCompile>
     <ClCompile Include="MAGE\src\loaders\wic\wic_loader.cpp">
       <Filter>Source Files\loaders\wic</Filter>
     </ClCompile>
@@ -1474,6 +1459,21 @@
     </ClCompile>
     <ClCompile Include="MAGE\src\sprite\font\sprite_font.cpp">
       <Filter>Source Files\sprite\font</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\loaders\var\var_writer.cpp">
+      <Filter>Source Files\loaders\var</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\loaders\var\var_loader.cpp">
+      <Filter>Source Files\loaders\var</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\loaders\var\var_reader.cpp">
+      <Filter>Source Files\loaders\var</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\loaders\font\font_loader.cpp">
+      <Filter>Source Files\loaders\font</Filter>
+    </ClCompile>
+    <ClCompile Include="MAGE\src\loaders\font\font_reader.cpp">
+      <Filter>Source Files\loaders\font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

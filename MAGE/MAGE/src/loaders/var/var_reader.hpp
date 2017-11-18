@@ -17,9 +17,9 @@
 namespace mage {
 
 	/**
-	 A class of VS file readers for reading variable scripts.
+	 A class of VAR file readers for reading variable scripts.
 	 */
-	class VSReader final : public LineReader {
+	class VARReader final : public LineReader {
 
 	public:
 
@@ -28,58 +28,58 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a VS reader.
+		 Constructs a VAR reader.
 
 		 @param[in]		variable_buffer
 						A reference to a vector for storing the read variables
 						from file.
 		 */
-		explicit VSReader(vector< Variable > &variable_buffer);
+		explicit VARReader(vector< Variable > &variable_buffer);
 		
 		/**
-		 Constructs a VS reader from the given VS reader.
+		 Constructs a VAR reader from the given VAR reader.
 
 		 @param[in]		reader
-						A reference to the VS reader to copy.
+						A reference to the VAR reader to copy.
 		 */
-		VSReader(const VSReader &reader) = delete;
+		VARReader(const VARReader &reader) = delete;
 		
 		/**
-		 Constructs a VS reader by moving the given VS reader.
+		 Constructs a VAR reader by moving the given VAR reader.
 
 		 @param[in]		reader
-						A reference to the VS reader to move.
+						A reference to the VAR reader to move.
 		 */
-		VSReader(VSReader &&reader);
+		VARReader(VARReader &&reader);
 
 		/**
-		 Destructs this VS reader.
+		 Destructs this VAR reader.
 		 */
-		virtual ~VSReader();
+		virtual ~VARReader();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
 		/**
-		 Copies the given VS reader to this VS reader.
+		 Copies the given VAR reader to this VAR reader.
 
 		 @param[in]		reader
-						A reference to a VS reader to copy.
-		 @return		A reference to the copy of the given VS reader (i.e. 
-						this VS reader).
+						A reference to a VAR reader to copy.
+		 @return		A reference to the copy of the given VAR reader (i.e. 
+						this VAR reader).
 		 */
-		VSReader &operator=(const VSReader &reader) = delete;
+		VARReader &operator=(const VARReader &reader) = delete;
 
 		/**
-		 Moves the given VS reader to this VS reader.
+		 Moves the given VAR reader to this VAR reader.
 
 		 @param[in]		reader
-						A reference to a VS reader to move.
-		 @return		A reference to the moved VS reader (i.e. this VS 
+						A reference to a VAR reader to move.
+		 @return		A reference to the moved VAR reader (i.e. this VAR 
 						reader).
 		 */
-		VSReader &operator=(VSReader &&reader) = delete;
+		VARReader &operator=(VARReader &&reader) = delete;
 
 	private:
 
@@ -104,7 +104,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a Bool variable definition.
 		 */
-		void ReadVSBool();
+		void ReadVARBool();
 
 		/**
 		 Reads an Int variable definition.
@@ -112,7 +112,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a Int variable definition.
 		 */
-		void ReadVSInt();
+		void ReadVARInt();
 
 		/**
 		 Reads an Int2 variable definition.
@@ -120,7 +120,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a Int2 variable definition.
 		 */
-		void ReadVSInt2();
+		void ReadVARInt2();
 
 		/**
 		 Reads an Int variable definition.
@@ -128,7 +128,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a Int3 variable definition.
 		 */
-		void ReadVSInt3();
+		void ReadVARInt3();
 
 		/**
 		 Reads a Float variable definition.
@@ -136,7 +136,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a Float variable definition.
 		 */
-		void ReadVSFloat();
+		void ReadVARFloat();
 
 		/**
 		 Reads a Float2 variable definition.
@@ -144,7 +144,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a Float2 variable definition.
 		 */
-		void ReadVSFloat2();
+		void ReadVARFloat2();
 
 		/**
 		 Reads a Float3 variable definition.
@@ -152,7 +152,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a Float3 variable definition.
 		 */
-		void ReadVSFloat3();
+		void ReadVARFloat3();
 
 		/**
 		 Reads a Float4 variable definition.
@@ -160,7 +160,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a Float4 variable definition.
 		 */
-		void ReadVSFloat4();
+		void ReadVARFloat4();
 
 		/**
 		 Reads a Color variable definition.
@@ -168,7 +168,7 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a Color variable definition.
 		 */
-		void ReadVSColor();
+		void ReadVARColor();
 
 		/**
 		 Reads a String variable definition.
@@ -176,14 +176,14 @@ namespace mage {
 		 @throws		FormattedException
 						Failed to read a String variable definition.
 		 */
-		void ReadVSString();
+		void ReadVARString();
 
 		//---------------------------------------------------------------------
 		// Member Variables
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to a vector containing the read variables of this VS 
+		 A reference to a vector containing the read variables of this VAR 
 		 reader.
 		 */
 		vector< Variable > &m_variable_buffer;

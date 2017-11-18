@@ -46,5 +46,5 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE, LPSTR, int nCmdShow) {
 	return 0;
 }
 
-//VariableScript s(L"assets/scripts/script_test.vs");
-//s.ExportScript(L"assets/scripts/output.vs");
+//VariableScript s(L"assets/scripts/script_test.var");
+//s.ExportScript(L"assets/scripts/output.var");

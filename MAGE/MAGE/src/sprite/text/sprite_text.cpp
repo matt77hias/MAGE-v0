@@ -18,7 +18,7 @@ namespace mage {
 		m_text(), 
 		m_strings(), 
 		m_font(ResourceManager::Get()->
-			GetOrCreateSpriteFont(L"assets/fonts/consolas.spritefont")) {}
+			GetOrCreateSpriteFont(L"assets/fonts/consolas.font")) {}
 
 	SpriteText::SpriteText(const SpriteText &sprite_text) = default;
 

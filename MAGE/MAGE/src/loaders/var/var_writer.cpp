@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "loaders\vs\vs_writer.hpp"
-#include "loaders\vs\vs_tokens.hpp"
+#include "loaders\var\var_writer.hpp"
+#include "loaders\var\var_tokens.hpp"
 #include "utils\logging\error.hpp"
 
 #pragma endregion
@@ -14,15 +14,15 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VSWriter::VSWriter(const vector< Variable > &variable_buffer)
+	VARWriter::VARWriter(const vector< Variable > &variable_buffer)
 		: Writer(), 
 		m_variable_buffer(variable_buffer) {}
 
-	VSWriter::VSWriter(VSWriter &&writer) = default;
+	VARWriter::VARWriter(VARWriter &&writer) = default;
 
-	VSWriter::~VSWriter() = default;
+	VARWriter::~VARWriter() = default;
 
-	void VSWriter::Write() {
+	void VARWriter::Write() {
 		
 		char output[MAX_PATH];
 		const size_t output_count = static_cast< size_t >(_countof(output));
@@ -39,11 +39,11 @@ namespace mage {
 				const bool *value = static_cast< const bool * >(raw_value);
 				if (*value) {
 					sprintf_s(output, output_count, "%s %s true", 
-						MAGE_VS_TOKEN_BOOL, name);
+						MAGE_VAR_TOKEN_BOOL, name);
 				}
 				else {
 					sprintf_s(output, output_count, "%s %s false", 
-						MAGE_VS_TOKEN_BOOL, name);
+						MAGE_VAR_TOKEN_BOOL, name);
 				}
 				
 				break;
@@ -53,7 +53,7 @@ namespace mage {
 				
 				const S32 *value = static_cast< const S32 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %d", 
-					MAGE_VS_TOKEN_INT, name, *value);
+					MAGE_VAR_TOKEN_INT, name, *value);
 				
 				break;
 			}
@@ -62,7 +62,7 @@ namespace mage {
 				
 				const XMINT2 *value = static_cast< const XMINT2 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %d %d", 
-					MAGE_VS_TOKEN_INT2, name, value->x, value->y);
+					MAGE_VAR_TOKEN_INT2, name, value->x, value->y);
 				
 				break;
 			}
@@ -71,7 +71,7 @@ namespace mage {
 				
 				const XMINT3 *value = static_cast< const XMINT3 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %d %d %d", 
-					MAGE_VS_TOKEN_INT3, name, value->x, value->y, value->z);
+					MAGE_VAR_TOKEN_INT3, name, value->x, value->y, value->z);
 				
 				break;
 			}
@@ -80,7 +80,7 @@ namespace mage {
 				
 				const F32 *value = static_cast< const F32 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f", 
-					MAGE_VS_TOKEN_FLOAT, name, *value);
+					MAGE_VAR_TOKEN_FLOAT, name, *value);
 				
 				break;
 			}
@@ -89,7 +89,7 @@ namespace mage {
 				
 				const XMFLOAT2 *value = static_cast< const XMFLOAT2 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f %f", 
-					MAGE_VS_TOKEN_FLOAT2, name, value->x, value->y);
+					MAGE_VAR_TOKEN_FLOAT2, name, value->x, value->y);
 				
 				break;
 			}
@@ -98,7 +98,7 @@ namespace mage {
 				
 				const XMFLOAT3 *value = static_cast< const XMFLOAT3 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f %f %f", 
-					MAGE_VS_TOKEN_FLOAT3, name, value->x, value->y, value->z);
+					MAGE_VAR_TOKEN_FLOAT3, name, value->x, value->y, value->z);
 				
 				break;
 			}
@@ -107,7 +107,7 @@ namespace mage {
 				
 				const XMFLOAT4 *value = static_cast< const XMFLOAT4 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f %f %f %f", 
-					MAGE_VS_TOKEN_FLOAT4, name, value->x, value->y, value->z, value->w);
+					MAGE_VAR_TOKEN_FLOAT4, name, value->x, value->y, value->z, value->w);
 				
 				break;
 			}
@@ -116,7 +116,7 @@ namespace mage {
 				
 				const XMFLOAT4 *value = static_cast< const XMFLOAT4 * >(raw_value);
 				sprintf_s(output, output_count, "%s %s %f %f %f %f", 
-					MAGE_VS_TOKEN_COLOR, name, value->x, value->y, value->z, value->w);
+					MAGE_VAR_TOKEN_COLOR, name, value->x, value->y, value->z, value->w);
 				
 				break;
 			}
@@ -125,7 +125,7 @@ namespace mage {
 				
 				const string *value = static_cast< const string * >(raw_value);
 				sprintf_s(output, output_count, "%s %s \"%s\"", 
-					MAGE_VS_TOKEN_STRING, name, value->c_str());
+					MAGE_VAR_TOKEN_STRING, name, value->c_str());
 				
 				break;
 			}

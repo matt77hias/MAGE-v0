@@ -17,7 +17,7 @@
 namespace mage {
 
 	/**
-	 A class of readers for reading SPRITEFONT files.
+	 A class of readers for reading FONT files.
 	 */
 	class SpriteFontReader final : public BigEndianBinaryReader {
 
@@ -28,7 +28,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Constructs a SPRITEFONT reader.
+		 Constructs a FONT reader.
 
 		 @pre			@a device is not equal to @c nullptr.
 		 @param[in]		device
@@ -42,23 +42,23 @@ namespace mage {
 			SpriteFontOutput &output, const SpriteFontDescriptor &desc);
 		
 		/**
-		 Constructs a SPRITEFONT reader from the given SPRITEFONT reader.
+		 Constructs a FONT reader from the given FONT reader.
 
 		 @param[in]		reader
-						A reference to the SPRITEFONT reader to copy.
+						A reference to the FONT reader to copy.
 		 */
 		SpriteFontReader(const SpriteFontReader &reader) = delete;
 
 		/**
-		 Constructs a SPRITEFONT reader by moving the given SPRITEFONT reader.
+		 Constructs a FONT reader by moving the given FONT reader.
 
 		 @param[in]		reader
-						A reference to the SPRITEFONT reader to move.
+						A reference to the FONT reader to move.
 		 */
 		SpriteFontReader(SpriteFontReader &&reader);
 
 		/**
-		 Destructs this SPRITEFONT reader.
+		 Destructs this FONT reader.
 		 */
 		virtual ~SpriteFontReader();
 
@@ -67,22 +67,22 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 Copies the given SPRITEFONT reader to this SPRITEFONT reader.
+		 Copies the given FONT reader to this FONT reader.
 
 		 @param[in]		reader
-						A reference to a SPRITEFONT reader to copy.
-		 @return		A reference to the copy of the given SPRITEFONT reader
-						(i.e. this SPRITEFONT reader).
+						A reference to a FONT reader to copy.
+		 @return		A reference to the copy of the given FONT reader
+						(i.e. this FONT reader).
 		 */
 		SpriteFontReader &operator=(const SpriteFontReader &reader) = delete;
 
 		/**
-		 Moves the given SPRITEFONT reader to this SPRITEFONT reader.
+		 Moves the given FONT reader to this FONT reader.
 
 		 @param[in]		reader
-						A reference to a SPRITEFONT reader to move.
-		 @return		A reference to the moved SPRITEFONT reader (i.e. this 
-						SPRITEFONT reader).
+						A reference to a FONT reader to move.
+		 @return		A reference to the moved FONT reader (i.e. this 
+						FONT reader).
 		 */
 		SpriteFontReader &operator=(SpriteFontReader &&reader) = delete;
 
@@ -125,17 +125,17 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A pointer to the rendering device of this SPRITEFONT reader.
+		 A pointer to the rendering device of this FONT reader.
 		 */
 		ID3D11Device5 * const m_device;
 
 		/**
-		 A reference to the sprite font output of this SPRITEFONT reader.
+		 A reference to the sprite font output of this FONT reader.
 		 */
 		SpriteFontOutput &m_output;
 
 		/**
-		 A reference to the sprite font descriptor of this SPRITEFONT reader.
+		 A reference to the sprite font descriptor of this FONT reader.
 		 */
 		const SpriteFontDescriptor &m_desc;
 	};

@@ -16,11 +16,11 @@
 namespace mage {
 
 	/**
-	 Imports the SPRITEFONT from the given file.
+	 Imports the FONT from the given file.
 
 	 @pre			@a device is not equal to @c nullptr.
 	 @param[in]		fname
-					A reference to the SPRITEFONT filename.
+					A reference to the FONT filename.
 	 @param[in]		device
 					A pointer to the device.
 	 @param[out]	output

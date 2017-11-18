@@ -3,9 +3,9 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "loaders\vs\vs_loader.hpp"
-#include "loaders\vs\vs_reader.hpp"
-#include "loaders\vs\vs_writer.hpp"
+#include "loaders\var\var_loader.hpp"
+#include "loaders\var\var_reader.hpp"
+#include "loaders\var\var_writer.hpp"
 
 #pragma endregion
 
@@ -14,17 +14,17 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 	
-	void ImportVSFromFile(const wstring &fname, 
+	void ImportVARFromFile(const wstring &fname, 
 		vector< Variable > &variable_buffer) {
 
-		VSReader reader(variable_buffer);
+		VARReader reader(variable_buffer);
 		reader.ReadFromFile(fname);
 	}
 
-	void ExportVSToFile(const wstring &fname, 
+	void ExportVARToFile(const wstring &fname, 
 		const vector< Variable > &variable_buffer) {
 
-		VSWriter writer(variable_buffer);
+		VARWriter writer(variable_buffer);
 		writer.WriteToFile(fname);
 	}
 }

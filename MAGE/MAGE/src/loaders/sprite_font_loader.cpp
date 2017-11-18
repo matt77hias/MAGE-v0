@@ -4,7 +4,7 @@
 #pragma region
 
 #include "loaders\sprite_font_loader.hpp"
-#include "loaders\spritefont\spritefont_loader.hpp"
+#include "loaders\font\font_loader.hpp"
 #include "utils\file\file_utils.hpp"
 #include "utils\logging\error.hpp"
 #include "utils\exception\exception.hpp"
@@ -23,7 +23,7 @@ namespace mage {
 
 		const wstring extension = GetFileExtension(fname);
 
-		if (extension == L"spritefont" || extension == L"SPRITEFONT") {
+		if (extension == L"font" || extension == L"FONT") {
 			ImportFontFromFile(fname, device, output, desc);
 		}
 		else {

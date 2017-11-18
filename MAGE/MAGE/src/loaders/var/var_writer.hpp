@@ -17,9 +17,9 @@
 namespace mage {
 
 	/**
-	 A class of VS file writers for writing variable scripts.
+	 A class of VAR file writers for writing variable scripts.
 	 */
-	class VSWriter final : public Writer {
+	class VARWriter final : public Writer {
 
 	public:
 
@@ -34,52 +34,52 @@ namespace mage {
 						A reference to a vector containing the variables to 
 						write to file.
 		 */
-		explicit VSWriter(const vector< Variable > &variable_buffer);
+		explicit VARWriter(const vector< Variable > &variable_buffer);
 		
 		/**
-		 Constructs a VS writer from the given VS writer.
+		 Constructs a VAR writer from the given VAR writer.
 
 		 @param[in]		writer
-						A reference to the VS writer to copy.
+						A reference to the VAR writer to copy.
 		 */
-		VSWriter(const VSWriter &writer) = delete;
+		VARWriter(const VARWriter &writer) = delete;
 
 		/**
-		 Constructs a VS writer by moving the given VS writer.
+		 Constructs a VAR writer by moving the given VAR writer.
 
 		 @param[in]		writer
-						A reference to the VS writer to move.
+						A reference to the VAR writer to move.
 		 */
-		VSWriter(VSWriter &&writer);
+		VARWriter(VARWriter &&writer);
 
 		/**
-		 Destructs this VS writer.
+		 Destructs this VAR writer.
 		 */
-		virtual ~VSWriter();
+		virtual ~VARWriter();
 
 		//---------------------------------------------------------------------
 		// Assignment Operators
 		//---------------------------------------------------------------------	
 
 		/**
-		 Copies the given VS writer to this VS writer.
+		 Copies the given VAR writer to this VAR writer.
 
 		 @param[in]		writer
-						A reference to a VS writer to copy.
-		 @return		A reference to the copy of the given VS writer (i.e. 
-						this VS writer).
+						A reference to a VAR writer to copy.
+		 @return		A reference to the copy of the given VAR writer (i.e. 
+						this VAR writer).
 		 */
-		VSWriter &operator=(const VSWriter &writer) = delete;
+		VARWriter &operator=(const VARWriter &writer) = delete;
 
 		/**
-		 Moves the given VS writer to this VS writer.
+		 Moves the given VAR writer to this VAR writer.
 
 		 @param[in]		writer
-						A reference to a VS writer to move.
-		 @return		A reference to the moved VS writer (i.e. this VS 
+						A reference to a VAR writer to move.
+		 @return		A reference to the moved VAR writer (i.e. this VAR 
 						writer).
 		 */
-		VSWriter &operator=(VSWriter &&writer) = delete;
+		VARWriter &operator=(VARWriter &&writer) = delete;
 
 	private:
 
@@ -100,7 +100,7 @@ namespace mage {
 		//---------------------------------------------------------------------
 
 		/**
-		 A reference to a vector containing the variables to write by this VS 
+		 A reference to a vector containing the variables to write by this VAR 
 		 writer.
 		 */
 		const vector< Variable > &m_variable_buffer;

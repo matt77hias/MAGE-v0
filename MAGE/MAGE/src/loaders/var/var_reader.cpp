@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------------
 #pragma region
 
-#include "loaders\vs\vs_reader.hpp"
-#include "loaders\vs\vs_tokens.hpp"
+#include "loaders\var\var_reader.hpp"
+#include "loaders\var\var_tokens.hpp"
 #include "utils\string\string_utils.hpp"
 
 #pragma endregion
@@ -14,52 +14,52 @@
 //-----------------------------------------------------------------------------
 namespace mage {
 
-	VSReader::VSReader(vector< Variable > &variable_buffer)
+	VARReader::VARReader(vector< Variable > &variable_buffer)
 		: LineReader(), 
 		m_variable_buffer(variable_buffer) {}
 
-	VSReader::VSReader(VSReader &&reader) = default;
+	VARReader::VARReader(VARReader &&reader) = default;
 
-	VSReader::~VSReader() = default;
+	VARReader::~VARReader() = default;
 
-	void VSReader::ReadLine(char *line) {
+	void VARReader::ReadLine(char *line) {
 		m_context = nullptr;
 		const char *token = 
 			strtok_s(line, GetDelimiters().c_str(), &m_context);
 
-		if (!token || MAGE_VS_TOKEN_COMMENT == token[0]) {
+		if (!token || MAGE_VAR_TOKEN_COMMENT == token[0]) {
 			return;
 		}
 
-		if (str_equals(token, MAGE_VS_TOKEN_BOOL)) {
-			ReadVSBool();
+		if (str_equals(token, MAGE_VAR_TOKEN_BOOL)) {
+			ReadVARBool();
 		}
-		else if (str_equals(token, MAGE_VS_TOKEN_INT)) {
-			ReadVSInt();
+		else if (str_equals(token, MAGE_VAR_TOKEN_INT)) {
+			ReadVARInt();
 		}
-		else if (str_equals(token, MAGE_VS_TOKEN_INT2)) {
-			ReadVSInt2();
+		else if (str_equals(token, MAGE_VAR_TOKEN_INT2)) {
+			ReadVARInt2();
 		}
-		else if (str_equals(token, MAGE_VS_TOKEN_INT3)) {
-			ReadVSInt3();
+		else if (str_equals(token, MAGE_VAR_TOKEN_INT3)) {
+			ReadVARInt3();
 		}
-		else if (str_equals(token, MAGE_VS_TOKEN_FLOAT)) {
-			ReadVSFloat();
+		else if (str_equals(token, MAGE_VAR_TOKEN_FLOAT)) {
+			ReadVARFloat();
 		}
-		else if (str_equals(token, MAGE_VS_TOKEN_FLOAT2)) {
-			ReadVSFloat2();
+		else if (str_equals(token, MAGE_VAR_TOKEN_FLOAT2)) {
+			ReadVARFloat2();
 		}
-		else if (str_equals(token, MAGE_VS_TOKEN_FLOAT3)) {
-			ReadVSFloat3();
+		else if (str_equals(token, MAGE_VAR_TOKEN_FLOAT3)) {
+			ReadVARFloat3();
 		}
-		else if (str_equals(token, MAGE_VS_TOKEN_FLOAT4)) {
-			ReadVSFloat4();
+		else if (str_equals(token, MAGE_VAR_TOKEN_FLOAT4)) {
+			ReadVARFloat4();
 		}
-		else if (str_equals(token, MAGE_VS_TOKEN_COLOR)) {
-			ReadVSColor();
+		else if (str_equals(token, MAGE_VAR_TOKEN_COLOR)) {
+			ReadVARColor();
 		}
-		else if (str_equals(token, MAGE_VS_TOKEN_STRING)) {
-			ReadVSString();
+		else if (str_equals(token, MAGE_VAR_TOKEN_STRING)) {
+			ReadVARString();
 		}
 		else {
 			Warning("%ls: line %u: unsupported keyword token: %s.", 
@@ -70,21 +70,21 @@ namespace mage {
 		ReadLineRemaining();
 	}
 
-	void VSReader::ReadVSBool() {
+	void VARReader::ReadVARBool() {
 		const string name = ReadString();
 		const bool value  = ReadBool();
 		
 		m_variable_buffer.emplace_back(VariableType::Bool, name, value);
 	}
 
-	void VSReader::ReadVSInt() {
+	void VARReader::ReadVARInt() {
 		const string name = ReadString();
 		const S32 value   = ReadS32();
 		
 		m_variable_buffer.emplace_back(VariableType::Int, name, value);
 	}
 
-	void VSReader::ReadVSInt2() {
+	void VARReader::ReadVARInt2() {
 		const string name = ReadString();
 		const S32 x       = ReadS32();
 		const S32 y       = ReadS32();
@@ -93,7 +93,7 @@ namespace mage {
 		m_variable_buffer.emplace_back(VariableType::Int2, name, value);
 	}
 
-	void VSReader::ReadVSInt3() {
+	void VARReader::ReadVARInt3() {
 		const string name = ReadString();
 		const S32 x       = ReadS32();
 		const S32 y       = ReadS32();
@@ -103,14 +103,14 @@ namespace mage {
 		m_variable_buffer.emplace_back(VariableType::Int3, name, value);
 	}
 
-	void VSReader::ReadVSFloat() {
+	void VARReader::ReadVARFloat() {
 		const string name = ReadString();
 		const F32 value = ReadF32();
 	
 		m_variable_buffer.emplace_back(VariableType::Float, name, value);
 	}
 
-	void VSReader::ReadVSFloat2() {
+	void VARReader::ReadVARFloat2() {
 		const string name = ReadString();
 		const F32 x = ReadF32();
 		const F32 y = ReadF32();
@@ -119,7 +119,7 @@ namespace mage {
 		m_variable_buffer.emplace_back(VariableType::Float2, name, value);
 	}
 	
-	void VSReader::ReadVSFloat3() {
+	void VARReader::ReadVARFloat3() {
 		const string name = ReadString();
 		const F32 x = ReadF32();
 		const F32 y = ReadF32();
@@ -129,7 +129,7 @@ namespace mage {
 		m_variable_buffer.emplace_back(VariableType::Float3, name, value);
 	}
 
-	void VSReader::ReadVSFloat4() {
+	void VARReader::ReadVARFloat4() {
 		const string name = ReadString();
 		const F32 x = ReadF32();
 		const F32 y = ReadF32();
@@ -140,7 +140,7 @@ namespace mage {
 		m_variable_buffer.emplace_back(VariableType::Float4, name, value);
 	}
 
-	void VSReader::ReadVSColor() {
+	void VARReader::ReadVARColor() {
 		const string name = ReadString();
 		const F32 x = ReadF32();
 		const F32 y = ReadF32();
@@ -151,7 +151,7 @@ namespace mage {
 		m_variable_buffer.emplace_back(VariableType::Color, name, value);
 	}
 
-	void VSReader::ReadVSString() {
+	void VARReader::ReadVARString() {
 		const string name  = ReadString();
 		const string value = ReadQuotedString();
 		

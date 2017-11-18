@@ -214,7 +214,7 @@ namespace mage {
 		 @param[in]		output
 						A reference to the model output to copy.
 		 */
-		ModelOutput(const ModelOutput< VertexT > &output) = delete;
+		ModelOutput(const ModelOutput &output) = delete;
 
 		/**
 		 Constructs a model output by moving the given model output.
@@ -222,7 +222,7 @@ namespace mage {
 		 @param[in]		output
 						A reference to the model output to move.
 		 */
-		ModelOutput(ModelOutput< VertexT > &&output) = default;
+		ModelOutput(ModelOutput &&output) = default;
 
 		/**
 		 Destructs this model output.
@@ -241,8 +241,7 @@ namespace mage {
 		 @return		A reference to the copy of the given model output (i.e.
 						this model output).
 		 */
-		ModelOutput< VertexT > &operator=(
-			const ModelOutput< VertexT > &output) = delete;
+		ModelOutput &operator=(const ModelOutput &output) = delete;
 
 		/**
 		 Moves the given model output to this model output.
@@ -252,8 +251,7 @@ namespace mage {
 		 @return		A reference to the moved model output
 						(i.e. this model output).
 		 */
-		ModelOutput< VertexT > &operator=(
-			ModelOutput< VertexT > &&output) = delete;
+		ModelOutput &operator=(ModelOutput &&output) = delete;
 
 		//---------------------------------------------------------------------
 		// Member Methods

@@ -45,7 +45,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the MDL reader to copy.
 		 */
-		MDLReader(const MDLReader< VertexT > &reader) = delete;
+		MDLReader(const MDLReader &reader) = delete;
 
 		/**
 		 Constructs a MDL reader by moving the given MDL reader.
@@ -53,7 +53,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the MDL reader to move.
 		 */
-		MDLReader(MDLReader< VertexT > &&reader);
+		MDLReader(MDLReader &&reader);
 
 		/**
 		 Destructs this MDL reader.
@@ -72,8 +72,7 @@ namespace mage {
 		 @return		A reference to the copy of the given MDL reader (i.e. 
 						this MDL reader).
 		 */
-		MDLReader< VertexT > &operator=(
-			const MDLReader< VertexT > &reader) = delete;
+		MDLReader &operator=(const MDLReader &reader) = delete;
 
 		/**
 		 Moves the given MDL reader to this MDL reader.
@@ -83,8 +82,7 @@ namespace mage {
 		 @return		A reference to the moved MDL reader (i.e. this MDL 
 						reader).
 		 */
-		MDLReader< VertexT > &operator=(
-			MDLReader< VertexT > &&reader) = delete;
+		MDLReader &operator=(MDLReader &&reader) = delete;
 
 	private:
 

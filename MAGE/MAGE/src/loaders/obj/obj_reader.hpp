@@ -49,7 +49,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the OBJ reader to copy.
 		 */
-		OBJReader(const OBJReader< VertexT > &reader) = delete;
+		OBJReader(const OBJReader &reader) = delete;
 
 		/**
 		 Constructs an OBJ reader by moving the given OBJ reader.
@@ -57,7 +57,7 @@ namespace mage {
 		 @param[in]		reader
 						A reference to the OBJ reader to move.
 		 */
-		OBJReader(OBJReader< VertexT > &&reader);
+		OBJReader(OBJReader &&reader);
 
 		/**
 		 Destructs this OBJ reader.
@@ -76,8 +76,7 @@ namespace mage {
 		 @return		A reference to the copy of the given OBJ reader (i.e. 
 						this OBJ reader).
 		 */
-		OBJReader< VertexT > &operator=(
-			const OBJReader< VertexT > &reader) = delete;
+		OBJReader &operator=(const OBJReader &reader) = delete;
 
 		/**
 		 Moves the given OBJ reader to this OBJ reader.
@@ -87,8 +86,7 @@ namespace mage {
 		 @return		A reference to the moved OBJ reader (i.e. this OBJ 
 						reader).
 		 */
-		OBJReader< VertexT > &operator=(
-			OBJReader< VertexT > &&reader) = delete;
+		OBJReader &operator=(OBJReader &&reader) = delete;
 
 	private:
 

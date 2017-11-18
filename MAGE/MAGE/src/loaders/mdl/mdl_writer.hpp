@@ -45,7 +45,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the MDL writer to copy.
 		 */
-		MDLWriter(const MDLWriter< VertexT > &writer) = delete;
+		MDLWriter(const MDLWriter &writer) = delete;
 
 		/**
 		 Constructs a MDL writer by moving the given MDL writer.
@@ -53,7 +53,7 @@ namespace mage {
 		 @param[in]		writer
 						A reference to the MDL writer to move.
 		 */
-		MDLWriter(MDLWriter< VertexT > &&writer);
+		MDLWriter(MDLWriter &&writer);
 
 		/**
 		 Destructs this MDL writer.
@@ -72,8 +72,7 @@ namespace mage {
 		 @return		A reference to the copy of the given MDL writer (i.e. 
 						this MDL writer).
 		 */
-		MDLWriter< VertexT > &operator=(
-			const MDLWriter< VertexT > &writer) = delete;
+		MDLWriter &operator=(const MDLWriter &writer) = delete;
 
 		/**
 		 Moves the given MDL writer to this MDL writer.
@@ -83,8 +82,7 @@ namespace mage {
 		 @return		A reference to the moved MDL writer (i.e. this MDL 
 						writer).
 		 */
-		MDLWriter< VertexT > &operator=(
-			MDLWriter< VertexT > &&writer) = delete;
+		MDLWriter &operator=(MDLWriter &&writer) = delete;
 
 	private:
 

@@ -34,6 +34,8 @@ BOURKE P.: [*MTL material format (Lightwave, OBJ)*](http://paulbourke.net/datafo
 
 BOURKE P.: [*Object Files (.obj)*](http://paulbourke.net/dataformats/obj/).
 
+BREDIKHIN E.: [*C++17*](https://www.viva64.com/en/b/0533/), 2017.
+
 BURLEY B.: *Physically Based Shading at Disney*, *SIGGRAPH 2012 Course: Practical Physically Based Shading in Film and Game Production*, 2012.
 
 CAFLISCH R.E.: *Monte Carlo and quasi-Monte Carlo methods*, Acta Numerica, Cambridge University Press, 1998.

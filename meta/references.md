@@ -241,6 +241,7 @@ Uses:
 * [DirectXMath](https://github.com/Microsoft/DirectXMath) [[License](https://github.com/Microsoft/DirectXMath/blob/master/LICENSE)]
 * [DirectXTex](https://github.com/Microsoft/DirectXTex) [[License](https://github.com/Microsoft/DirectXTex/blob/master/LICENSE)]
 * FXAA 3.11 [[License](https://github.com/matt77hias/MAGE/blob/master/MAGE/MAGE/shaders/aa/fxaa3_11.hlsli)]
+* [ImGui](https://github.com/ocornut/imgui) [[License](https://github.com/ocornut/imgui/blob/master/LICENSE.txt)]
 
 ## Contributors
 * [Matthias Moulin](https://github.com/matt77hias)
